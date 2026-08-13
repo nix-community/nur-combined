@@ -180,8 +180,13 @@ pub fn mod_can_complete(
     _player_state: i32,
     _contract_kind: &str,
     _contract_danger: i32,
+    _context: &str,
 ) -> i32 {
     0
+}
+
+pub fn contract_mark(_kind: &str) -> String {
+    String::new()
 }
 
 pub fn event_label(_event: &str) -> String {
@@ -335,8 +340,18 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
         player_state: i32,
         contract_kind: String,
         contract_danger: i32,
+        context: String,
     ) -> i32 {
-        crate::mod_can_complete(&action, player_state, &contract_kind, contract_danger)
+        crate::mod_can_complete(
+            &action,
+            player_state,
+            &contract_kind,
+            contract_danger,
+            &context,
+        )
+    }
+    fn contract_mark(kind: String) -> String {
+        crate::contract_mark(&kind)
     }
     fn event_label(event: String, locale: String) -> String {
         crate::event_label_for(&locale, &event)
@@ -430,7 +445,7 @@ mod tests {
     fn testbed_has_no_heists_or_wallet() {
         assert_eq!(mod_offer_contract(5), (String::new(), 0, 0));
         assert_eq!(mod_wallet_after("complete_contract", 99, 1200), 99);
-        assert_eq!(mod_can_complete("accept_contract", 0, "smash-and-grab", 1), 0);
+        assert_eq!(mod_can_complete("accept_contract", 0, "smash-and-grab", 1, ""), 0);
         assert_eq!(event_label("armored-truck-heist"), "void");
     }
 

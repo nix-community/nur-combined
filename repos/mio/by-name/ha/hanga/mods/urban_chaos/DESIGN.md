@@ -37,6 +37,21 @@ flip like a BeamNG pile-up.
 a tap). Grazing another car without a hard stop stays at 0 unless speed drops
 hard.
 
+## Heists
+
+The host only paints a mark and reports whether you are near it, in a vehicle,
+and what you are holding. This game owns the jobs.
+
+| Wanted | Job | Site | Cash-out |
+| --- | --- | --- | --- |
+| 0 | smash-and-grab | glass storefront (531, 3, 550) | hold glass or tile |
+| 1 | subway pinch | metro hall (400, -6, 400) | be underground at the mark |
+| 2 | chop-shop | sidewalk bench (504, 2, 520) | hold brick, concrete, or a workbench |
+| 3+ | armored-truck | road (510, 2, 495) | be in a vehicle at the mark |
+
+Accept is J, cash-out is K, fence is L (when wanted is 0). Completing smash or
+chop-shop takes the selected item.
+
 ## Out of scope (later)
 
 - True node-beam / tire deformation

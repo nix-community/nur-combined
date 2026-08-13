@@ -49,6 +49,9 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
   plus jump speed. Urban Chaos is Earth; Testbed is a zero-g lab.
 - Vehicle crash rules (`crash-severity`, `crash-crumple`, `crash-detach`,
   `crash-wrecks`, `crash-action`, `crash-part-impulse`)
+- Heist board (`mod-offer-contract`, `contract-mark`, `mod-can-complete` + context).
+  The host paints a mark and reports held item / position / vehicle / near;
+  Urban Chaos owns smash, subway pinch, chop-shop, and the armored truck.
 
 ### Shipped games
 
@@ -93,7 +96,7 @@ Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` 
 room only if a signaling server is already running; a refused connection stays in
 single-player instead of crashing. Mouse look is captured while playing.
 
-Key bindings default to WASD / mouse / E / C / F / 1–8 / Esc. Players can change them
+Key bindings default to WASD / mouse / E / C / F / J K L (job) / 1–8 / Esc. Players can change them
 in the Controls menu or by editing `~/.config/hanga/bindings.conf` (`HANGA_BINDINGS` or
 `--bindings` override). The file is created on first launch.
 
@@ -124,5 +127,5 @@ wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm 
 
 1. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
 2. Kani CI for engine + mods
-3. Matchbox room UI / reconnect; more heist loops beyond smash-and-grab
+3. Matchbox room UI / reconnect
 4. Fuller BeamNG node-beam (Urban Chaos still uses severity + detach, not a solver)

@@ -8,6 +8,7 @@ pub mod crash;
 pub mod figure;
 pub mod game;
 pub mod gravity;
+pub mod heist;
 pub mod i18n;
 pub mod palette;
 pub mod vehicle;

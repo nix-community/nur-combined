@@ -39,6 +39,9 @@ pub const ALL_ACTIONS: &[&str] = &[
     ACTION_PLACE,
     ACTION_ENTER,
     ACTION_CRAFT,
+    ACTION_ACCEPT,
+    ACTION_COMPLETE,
+    ACTION_FENCE,
     ACTION_PAUSE,
     "hotbar_1",
     "hotbar_2",
@@ -86,6 +89,9 @@ impl BindingSet {
         add(&mut map, ACTION_PLACE, &["KeyF", "MouseMiddle"]);
         add(&mut map, ACTION_ENTER, &["KeyE"]);
         add(&mut map, ACTION_CRAFT, &["KeyC"]);
+        add(&mut map, ACTION_ACCEPT, &["KeyJ"]);
+        add(&mut map, ACTION_COMPLETE, &["KeyK"]);
+        add(&mut map, ACTION_FENCE, &["KeyL"]);
         add(&mut map, ACTION_PAUSE, &["Escape"]);
         for i in 1..=8 {
             add(&mut map, &format!("hotbar_{i}"), &[&format!("Digit{i}")]);
@@ -220,6 +226,9 @@ fn alias_bind(folded: &str) -> Option<&'static str> {
         "f" | "keyf" => "KeyF",
         "g" | "keyg" => "KeyG",
         "c" | "keyc" => "KeyC",
+        "j" | "keyj" => "KeyJ",
+        "k" | "keyk" => "KeyK",
+        "l" | "keyl" => "KeyL",
         "q" | "keyq" => "KeyQ",
         "space" | "spacebar" => "Space",
         "esc" | "escape" => "Escape",

@@ -108,10 +108,14 @@ pub const AGENT_COP: &str = "cop";
 pub const AGENT_PEDESTRIAN: &str = "pedestrian";
 
 pub const CONTRACT_SMASH: &str = "smash-and-grab";
+pub const CONTRACT_SUBWAY: &str = "subway-pinch";
+pub const CONTRACT_CHOP: &str = "chop-shop";
 pub const CONTRACT_TRUCK: &str = "armored-truck";
 
 pub const EVENT_QUIET: &str = "quiet-streets";
 pub const EVENT_SMASH: &str = "smash-and-grab-contract";
+pub const EVENT_SUBWAY: &str = "subway-pinch-contract";
+pub const EVENT_CHOP: &str = "chop-shop-contract";
 pub const EVENT_TRUCK: &str = "armored-truck-heist";
 
 impl CityLayout {
@@ -366,12 +370,12 @@ pub fn mod_get_economy_params() -> i32 {
 }
 
 pub fn generate_story_event(player_level: i32) -> String {
-    if player_level < 5 {
-        EVENT_QUIET.into()
-    } else if player_level < 20 {
-        EVENT_SMASH.into()
-    } else {
-        EVENT_TRUCK.into()
+    match player_level.clamp(0, 5) {
+        0 => EVENT_QUIET.into(),
+        1 => EVENT_SMASH.into(),
+        2 => EVENT_SUBWAY.into(),
+        3 => EVENT_CHOP.into(),
+        _ => EVENT_TRUCK.into(),
     }
 }
 
@@ -584,8 +588,20 @@ pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
 pub fn heist_for_wanted(wanted: i32) -> (&'static str, i32, i32) {
     match wanted {
         i if i >= 3 => (CONTRACT_TRUCK, 1200, 4),
-        i if i >= 1 => (CONTRACT_SMASH, 400, 2),
+        2 => (CONTRACT_CHOP, 500, 2),
+        1 => (CONTRACT_SUBWAY, 600, 2),
         _ => (CONTRACT_SMASH, 250, 1),
+    }
+}
+
+/// World mark the host paints. Need rules live in `mod_can_complete`.
+pub fn contract_mark(kind: &str) -> String {
+    match kind {
+        CONTRACT_SMASH => "x=531;y=3;z=550;radius=14;take=1;r=0.92;g=0.28;b=0.22".into(),
+        CONTRACT_SUBWAY => "x=400;y=-6;z=400;radius=16;take=0;r=0.35;g=0.72;b=0.82".into(),
+        CONTRACT_CHOP => "x=504;y=2;z=520;radius=10;take=1;r=0.78;g=0.52;b=0.22".into(),
+        CONTRACT_TRUCK => "x=510;y=2;z=495;radius=12;take=0;r=0.22;g=0.28;b=0.72".into(),
+        _ => String::new(),
     }
 }
 
@@ -603,18 +619,26 @@ pub fn event_label_for(locale: &str, event: &str) -> String {
     match (lang, event) {
         (1, EVENT_QUIET) => "ngā huarahi mārie",
         (1, EVENT_SMASH) => "kirimina pakaru-hopu",
+        (1, EVENT_SUBWAY) => "hopu rerewē",
+        (1, EVENT_CHOP) => "oma toa tapahi",
         (1, EVENT_TRUCK) => "keehi taraka pākaha",
         (1, _) => "takahanga tē mōhiotia",
         (2, EVENT_QUIET) => "rues calmes",
         (2, EVENT_SMASH) => "contrat de vol à la sauvette",
+        (2, EVENT_SUBWAY) => "pincement du métro",
+        (2, EVENT_CHOP) => "course à l'atelier",
         (2, EVENT_TRUCK) => "casse de fourgon blindé",
         (2, _) => "événement inconnu",
         (3, EVENT_QUIET) => "平靜的街道",
         (3, EVENT_SMASH) => "搶劫合約",
+        (3, EVENT_SUBWAY) => "地鐵扒竊",
+        (3, EVENT_CHOP) => "拆車廠跑單",
         (3, EVENT_TRUCK) => "運鈔車搶案",
         (3, _) => "未知事件",
         (_, EVENT_QUIET) => "quiet streets",
         (_, EVENT_SMASH) => "smash-and-grab contract",
+        (_, EVENT_SUBWAY) => "subway pinch",
+        (_, EVENT_CHOP) => "chop-shop run",
         (_, EVENT_TRUCK) => "armored-truck heist",
         _ => "unknown event",
     }
@@ -720,15 +744,23 @@ pub fn contract_label_for(locale: &str, kind: &str) -> String {
     let lang = locale_id(locale);
     match (lang, kind) {
         (1, CONTRACT_SMASH) => "kirimina pakaru-hopu",
+        (1, CONTRACT_SUBWAY) => "hopu rerewē",
+        (1, CONTRACT_CHOP) => "toa tapahi",
         (1, CONTRACT_TRUCK) => "keehi taraka pākaha",
         (1, _) => "mahi tē mōhiotia",
         (2, CONTRACT_SMASH) => "vol à la sauvette",
+        (2, CONTRACT_SUBWAY) => "pincement du métro",
+        (2, CONTRACT_CHOP) => "atelier de découpe",
         (2, CONTRACT_TRUCK) => "fourgon blindé",
         (2, _) => "contrat inconnu",
         (3, CONTRACT_SMASH) => "搶劫合約",
+        (3, CONTRACT_SUBWAY) => "地鐵扒竊",
+        (3, CONTRACT_CHOP) => "拆車廠",
         (3, CONTRACT_TRUCK) => "運鈔車搶案",
         (3, _) => "未知任務",
         (_, CONTRACT_SMASH) => "smash-and-grab",
+        (_, CONTRACT_SUBWAY) => "subway pinch",
+        (_, CONTRACT_CHOP) => "chop-shop",
         (_, CONTRACT_TRUCK) => "armored-truck heist",
         _ => "unknown contract",
     }
@@ -757,31 +789,52 @@ pub fn mod_can_complete(
     player_state: i32,
     contract_kind: &str,
     contract_danger: i32,
+    context: &str,
 ) -> i32 {
     match action {
-        ACTION_ACCEPT => {
-            if !contract_kind.is_empty() {
-                1
-            } else {
-                0
-            }
-        }
+        ACTION_ACCEPT => i32::from(!contract_kind.is_empty()),
         ACTION_COMPLETE => {
-            if !contract_kind.is_empty() && player_state >= contract_danger {
-                1
-            } else {
-                0
+            if contract_kind.is_empty() || player_state < contract_danger {
+                return 0;
             }
+            let near = context_flag(context, "near");
+            let vehicle = context_flag(context, "vehicle");
+            let held = context_value(context, "held");
+            let y = context_int(context, "y");
+            i32::from(match contract_kind {
+                CONTRACT_SMASH => near && held_one_of(held, &["glass", "tile"]),
+                CONTRACT_SUBWAY => near && y < 0,
+                CONTRACT_CHOP => near && held_one_of(held, &["brick", "concrete", "workbench"]),
+                CONTRACT_TRUCK => near && vehicle,
+                _ => near,
+            })
         }
-        ACTION_FENCE => {
-            if player_state <= 0 {
-                1
-            } else {
-                0
-            }
-        }
+        ACTION_FENCE => i32::from(player_state <= 0),
         _ => 0,
     }
+}
+
+fn context_flag(context: &str, key: &str) -> bool {
+    context_value(context, key) == "1"
+}
+
+fn context_int(context: &str, key: &str) -> i32 {
+    context_value(context, key).parse().unwrap_or(0)
+}
+
+fn context_value<'a>(context: &'a str, key: &str) -> &'a str {
+    for rec in context.split(';') {
+        if let Some((k, v)) = rec.split_once('=') {
+            if k.trim() == key {
+                return v.trim();
+            }
+        }
+    }
+    ""
+}
+
+fn held_one_of(held: &str, names: &[&str]) -> bool {
+    names.iter().any(|name| *name == held)
 }
 
 pub fn compute_agent_vx(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
@@ -946,8 +999,19 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
         player_state: i32,
         contract_kind: String,
         contract_danger: i32,
+        context: String,
     ) -> i32 {
-        crate::mod_can_complete(&action, player_state, &contract_kind, contract_danger)
+        crate::mod_can_complete(
+            &action,
+            player_state,
+            &contract_kind,
+            contract_danger,
+            &context,
+        )
+    }
+
+    fn contract_mark(kind: String) -> String {
+        crate::contract_mark(&kind)
     }
 
     fn event_label(event: String, locale: String) -> String {
@@ -1325,19 +1389,15 @@ mod tests {
     #[test]
     fn story_quiet_at_low_level() {
         assert_eq!(generate_story_event(0), EVENT_QUIET);
-        assert_eq!(generate_story_event(4), EVENT_QUIET);
     }
 
     #[test]
-    fn story_smash_and_grab_at_mid_level() {
-        assert_eq!(generate_story_event(5), EVENT_SMASH);
-        assert_eq!(generate_story_event(19), EVENT_SMASH);
-    }
-
-    #[test]
-    fn story_armored_truck_at_high_level() {
-        assert_eq!(generate_story_event(20), EVENT_TRUCK);
-        assert_eq!(generate_story_event(100), EVENT_TRUCK);
+    fn story_follows_the_heist_board() {
+        assert_eq!(generate_story_event(1), EVENT_SMASH);
+        assert_eq!(generate_story_event(2), EVENT_SUBWAY);
+        assert_eq!(generate_story_event(3), EVENT_CHOP);
+        assert_eq!(generate_story_event(4), EVENT_TRUCK);
+        assert_eq!(generate_story_event(5), EVENT_TRUCK);
     }
 
     #[test]
@@ -1533,6 +1593,8 @@ mod tests {
     fn story_event_labels_are_heists_not_aliens() {
         assert_eq!(event_label(EVENT_QUIET), "quiet streets");
         assert_eq!(event_label(EVENT_SMASH), "smash-and-grab contract");
+        assert_eq!(event_label(EVENT_SUBWAY), "subway pinch");
+        assert_eq!(event_label(EVENT_CHOP), "chop-shop run");
         assert_eq!(event_label(EVENT_TRUCK), "armored-truck heist");
     }
 
@@ -1588,22 +1650,63 @@ mod tests {
 
     #[test]
     fn accept_needs_an_offer() {
-        assert_eq!(mod_can_complete(ACTION_ACCEPT, 0, "", 0), 0);
-        assert_eq!(mod_can_complete(ACTION_ACCEPT, 0, CONTRACT_SMASH, 1), 1);
+        assert_eq!(mod_can_complete(ACTION_ACCEPT, 0, "", 0, ""), 0);
+        assert_eq!(mod_can_complete(ACTION_ACCEPT, 0, CONTRACT_SMASH, 1, ""), 1);
     }
 
     #[test]
-    fn complete_needs_enough_heat() {
-        assert_eq!(mod_can_complete(ACTION_COMPLETE, 0, CONTRACT_SMASH, 1), 0);
-        assert_eq!(mod_can_complete(ACTION_COMPLETE, 1, CONTRACT_SMASH, 1), 1);
-        assert_eq!(mod_can_complete(ACTION_COMPLETE, 3, CONTRACT_TRUCK, 4), 0);
-        assert_eq!(mod_can_complete(ACTION_COMPLETE, 4, CONTRACT_TRUCK, 4), 1);
+    fn complete_needs_the_job_site() {
+        let smash = "held=glass;x=531;y=3;z=550;vehicle=0;near=1";
+        let truck = "held=;x=510;y=2;z=495;vehicle=1;near=1";
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 0, CONTRACT_SMASH, 1, smash), 0);
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 1, CONTRACT_SMASH, 1, smash), 1);
+        assert_eq!(
+            mod_can_complete(ACTION_COMPLETE, 1, CONTRACT_SMASH, 1, "held=;near=1;vehicle=0;y=3"),
+            0
+        );
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 3, CONTRACT_TRUCK, 4, truck), 0);
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 4, CONTRACT_TRUCK, 4, truck), 1);
+        assert_eq!(
+            mod_can_complete(ACTION_COMPLETE, 4, CONTRACT_TRUCK, 4, "held=;near=1;vehicle=0;y=2"),
+            0
+        );
+        assert_eq!(
+            mod_can_complete(
+                ACTION_COMPLETE,
+                2,
+                CONTRACT_SUBWAY,
+                2,
+                "held=;near=1;vehicle=0;y=-6"
+            ),
+            1
+        );
+        assert_eq!(
+            mod_can_complete(
+                ACTION_COMPLETE,
+                2,
+                CONTRACT_CHOP,
+                2,
+                "held=brick;near=1;vehicle=0;y=2"
+            ),
+            1
+        );
+    }
+
+    #[test]
+    fn heist_marks_are_in_the_city() {
+        assert!(contract_mark(CONTRACT_SMASH).contains("x=531"));
+        assert!(contract_mark(CONTRACT_SUBWAY).contains("y=-6"));
+        assert!(contract_mark(CONTRACT_CHOP).contains("z=520"));
+        assert!(contract_mark(CONTRACT_TRUCK).contains("x=510"));
+        assert!(contract_mark("nope").is_empty());
+        assert_eq!(mod_offer_contract(1), (CONTRACT_SUBWAY.into(), 600, 2));
+        assert_eq!(mod_offer_contract(2), (CONTRACT_CHOP.into(), 500, 2));
     }
 
     #[test]
     fn fence_only_when_cold() {
-        assert_eq!(mod_can_complete(ACTION_FENCE, 0, "", 0), 1);
-        assert_eq!(mod_can_complete(ACTION_FENCE, 2, "", 0), 0);
+        assert_eq!(mod_can_complete(ACTION_FENCE, 0, "", 0, ""), 1);
+        assert_eq!(mod_can_complete(ACTION_FENCE, 2, "", 0, ""), 0);
     }
 
     #[test]

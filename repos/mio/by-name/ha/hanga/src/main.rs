@@ -30,6 +30,7 @@ use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
     avian_accel, parse_gravity, point_accel, set_jump, set_planar_velocity, walk_up, GravityKit,
 };
+use hanga::heist::{contract_context, mark_reached, parse_contract_mark, ContractMark};
 use hanga::vehicle::{parse_vehicle_kit, VehicleKit};
 use hanga::game::{
     cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
@@ -585,6 +586,13 @@ struct VehicleCrash {
 
 #[derive(Component)]
 struct Wrecked;
+
+#[derive(Component)]
+struct HeistMark {
+    kind: String,
+    radius: f32,
+    take: bool,
+}
 
 #[derive(Resource, Default, Clone)]
 struct WorldGravity(GravityKit);
@@ -1348,6 +1356,79 @@ fn apply_mod_action(
     }
 }
 
+fn matching_mark(
+    marks: &Query<(Entity, &HeistMark, &Transform), Without<Player>>,
+    kind: &str,
+    pos: Vec3,
+) -> (bool, bool) {
+    if kind.is_empty() {
+        return (false, false);
+    }
+    let Some((_, mark, tf)) = marks.iter().find(|(_, m, _)| m.kind == kind) else {
+        return (true, false);
+    };
+    let reached = mark_reached(
+        pos.x,
+        pos.y,
+        pos.z,
+        &ContractMark {
+            pos: [
+                tf.translation.x.round() as i32,
+                tf.translation.y.round() as i32,
+                tf.translation.z.round() as i32,
+            ],
+            radius: mark.radius,
+            rgb: [0.0, 0.0, 0.0],
+            take: mark.take,
+        },
+    );
+    (reached, mark.take)
+}
+
+fn clear_heist_marks(
+    commands: &mut Commands,
+    marks: &Query<(Entity, &HeistMark, &Transform), Without<Player>>,
+) {
+    for (entity, _, _) in marks.iter() {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn spawn_contract_mark(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<StandardMaterial>,
+    mod_runtime: &ModRuntime,
+    kind: &str,
+) {
+    let text = with_mod(mod_runtime, |ctx| {
+        ctx.bindings
+            .hanga_engine_gameplay()
+            .call_contract_mark(&mut ctx.store, kind)
+            .unwrap_or_default()
+    })
+    .unwrap_or_default();
+    let Some(mark) = parse_contract_mark(&text) else {
+        return;
+    };
+    let color = Color::srgb(mark.rgb[0], mark.rgb[1], mark.rgb[2]);
+    commands.spawn((
+        HeistMark {
+            kind: kind.to_string(),
+            radius: mark.radius,
+            take: mark.take,
+        },
+        Mesh3d(meshes.add(Cuboid::from_size(Vec3::new(0.55, 2.2, 0.55)))),
+        MeshMaterial3d(materials.add(StandardMaterial {
+            base_color: color,
+            emissive: LinearRgba::rgb(mark.rgb[0], mark.rgb[1], mark.rgb[2]) * 3.0,
+            perceptual_roughness: 1.0,
+            ..default()
+        })),
+        Transform::from_xyz(mark.pos[0] as f32, mark.pos[1] as f32, mark.pos[2] as f32),
+    ));
+}
+
 fn action_range(mod_runtime: &ModRuntime, action: &str, fallback: f32) -> f32 {
     with_mod(mod_runtime, |ctx| {
         ctx.bindings
@@ -1392,9 +1473,11 @@ fn validate_incoming_actions(
             &mut ModWallet,
             &mut ModContract,
             &mut ModInventory,
+            Option<&InVehicle>,
         ),
         With<Player>,
     >,
+    marks: Query<(Entity, &HeistMark, &Transform), Without<Player>>,
     vehicles: Query<(&Transform, Option<&Wrecked>), (With<Vehicle>, Without<Player>)>,
     mut voxel_world: VoxelWorld<DefaultWorld>,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -1415,7 +1498,7 @@ fn validate_incoming_actions(
                     warn!("FRAUD DETECTED: BreakBlock signature mismatch");
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _, mut inventory)) =
+                let Ok((transform, mut mod_state, mut wallet, _, mut inventory, _)) =
                     player_query.get_mut(player_entity)
                 else {
                     trust_ledger.penalize(player_entity, 1.0);
@@ -1485,7 +1568,7 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _, _)) = player_query.get_mut(player_entity) else {
+                let Ok((transform, mut mod_state, mut wallet, _, _, _)) = player_query.get_mut(player_entity) else {
                     continue;
                 };
                 let player_pos = transform.translation;
@@ -1542,7 +1625,7 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _, mut inventory)) =
+                let Ok((transform, mut mod_state, mut wallet, _, mut inventory, _)) =
                     player_query.get_mut(player_entity)
                 else {
                     trust_ledger.penalize(player_entity, 1.0);
@@ -1597,7 +1680,7 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _, _)) = player_query.get_mut(player_entity) else {
+                let Ok((transform, mut mod_state, mut wallet, _, _, _)) = player_query.get_mut(player_entity) else {
                     continue;
                 };
                 let Ok((v_transform, wrecked)) = vehicles.get(vehicle_entity) else {
@@ -1641,7 +1724,7 @@ fn validate_incoming_actions(
                     warn!("FRAUD DETECTED: Verb signature mismatch");
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, mut contract, mut inventory)) =
+                let Ok((transform, mut mod_state, mut wallet, mut contract, mut inventory, riding)) =
                     player_query.get_mut(player_entity)
                 else {
                     continue;
@@ -1688,6 +1771,16 @@ fn validate_incoming_actions(
                 } else {
                     (contract.kind.clone(), contract.danger, contract.payout)
                 };
+                let held = inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
+                    .unwrap_or("")
+                    .to_string();
+                let pos = [
+                    transform.translation.x.round() as i32,
+                    transform.translation.y.round() as i32,
+                    transform.translation.z.round() as i32,
+                ];
+                let (near, take) = matching_mark(&marks, &kind, transform.translation);
+                let context = contract_context(&held, pos, riding.is_some(), near);
                 let allowed = with_mod(&mod_runtime, |ctx| {
                     ctx.bindings
                         .hanga_engine_gameplay()
@@ -1697,6 +1790,7 @@ fn validate_incoming_actions(
                             mod_state.0 as i32,
                             &kind,
                             danger,
+                            &context,
                         )
                         .unwrap_or(0)
                 })
@@ -1704,6 +1798,15 @@ fn validate_incoming_actions(
                 if allowed <= 0 {
                     info!("Mod refused verb {verb} (state {}, kind {kind}, danger {danger})", mod_state.0);
                     continue;
+                }
+                if verb == ACTION_COMPLETE && take {
+                    let slot = inventory.selected;
+                    let mut items = inventory.items.clone();
+                    let mut counts = inventory.counts;
+                    if inventory_take(&mut items, &mut counts, slot).is_some() {
+                        inventory.items = items;
+                        inventory.counts = counts;
+                    }
                 }
                 let wallet_extra = if verb == ACTION_COMPLETE { payout } else { 0 };
                 let hint = transform.translation;
@@ -1725,10 +1828,19 @@ fn validate_incoming_actions(
                         danger: offer.danger,
                     };
                     *offer = ModOffer::default();
+                    clear_heist_marks(&mut commands, &marks);
+                    spawn_contract_mark(
+                        &mut commands,
+                        &mut meshes,
+                        &mut materials,
+                        &mod_runtime,
+                        &contract.kind,
+                    );
                     info!("Player accepted contract {}", contract.kind);
                 } else if verb == ACTION_COMPLETE {
                     info!("Player completed contract {}", contract.kind);
                     *contract = ModContract::default();
+                    clear_heist_marks(&mut commands, &marks);
                 } else if verb == ACTION_FENCE {
                     info!("Player fenced loot, wallet {}", wallet.0);
                 }
@@ -1972,6 +2084,22 @@ fn player_interaction(
             }
         }
     }
+
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_ACCEPT) {
+        if let Some((player_entity, _, _)) = query.iter().next() {
+            events.write(signed_verb(player_entity, ACTION_ACCEPT, ""));
+        }
+    }
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_COMPLETE) {
+        if let Some((player_entity, _, _)) = query.iter().next() {
+            events.write(signed_verb(player_entity, ACTION_COMPLETE, ""));
+        }
+    }
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_FENCE) {
+        if let Some((player_entity, _, _)) = query.iter().next() {
+            events.write(signed_verb(player_entity, ACTION_FENCE, ""));
+        }
+    }
 }
 
 fn pick_craft_pair(inventory: &ModInventory, mod_runtime: &ModRuntime) -> Option<(String, String)> {
@@ -2007,7 +2135,7 @@ fn pick_craft_pair(inventory: &ModInventory, mod_runtime: &ModRuntime) -> Option
 /// Bridges `bevy_voxel_world` meshes into `avian3d` physics colliders dynamically.
 fn generate_voxel_colliders(
     mut commands: Commands,
-    query: Query<(Entity, &Mesh3d), Added<Mesh3d>>,
+    query: Query<(Entity, &Mesh3d), (Added<Mesh3d>, Without<HeistMark>, Without<VehiclePart>)>,
     meshes: Res<Assets<Mesh>>,
 ) {
     for (entity, mesh3d) in query.iter() {
@@ -2494,8 +2622,7 @@ fn update_storyteller(
     let lang = locale.0.code();
     if let Some((event_id, label)) = with_mod(&mod_runtime, |ctx| {
         let g = ctx.bindings.hanga_engine_gameplay();
-        let player_level = g.call_mod_get_storyteller_level(&mut ctx.store).unwrap_or(0);
-        let event_id = g.call_generate_story_event(&mut ctx.store, player_level).ok()?;
+        let event_id = g.call_generate_story_event(&mut ctx.store, player_state).ok()?;
         let label = g
             .call_event_label(&mut ctx.store, &event_id, lang)
             .unwrap_or_else(|_| "event".into());

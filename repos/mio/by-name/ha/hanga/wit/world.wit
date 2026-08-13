@@ -70,7 +70,11 @@ interface gameplay {
     /// Offered contract (kind, payout, danger). empty kind = none.
     mod-offer-contract: func(player-state: s32) -> tuple<string, s32, s32>;
     /// 1 if this verb is legal given current state + contract (kind, danger).
-    mod-can-complete: func(action: string, player-state: s32, contract-kind: string, contract-danger: s32) -> s32;
+    /// `context` is `held=;x=;y=;z=;vehicle=0|1;near=0|1` from the host.
+    mod-can-complete: func(action: string, player-state: s32, contract-kind: string, contract-danger: s32, context: string) -> s32;
+    /// World mark for an accepted contract. Empty = no marker.
+    /// `x=;y=;z=;radius=;take=0|1;r=;g=;b=`
+    contract-mark: func(kind: string) -> string;
     /// Accessibility / log label for a story event name.
     event-label: func(event: string, locale: string) -> string;
     /// Name of a contract kind (empty = none) in the given locale.
