@@ -1,0 +1,32 @@
+{
+  "name": "AlterSend",
+  "source": {
+    "type": "github-release",
+    "repo": "denislupookov/altersend",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.8.0",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "AlterSend-x86_64.AppImage",
+      "hash": "sha256-K0Ka7a17+Wqmk9VEcVv8WC8ckP3kfotQOqm4FX1hNlY=",
+      "unpack": false
+    },
+    "aarch64-linux": {
+      "file": "AlterSend-arm64.AppImage",
+      "hash": "sha256-QEEGmR2vm6rCBNFeU0Px/+7SLV5EvQFRzIS6NRZqIJo=",
+      "unpack": false
+    },
+    "x86_64-darwin": {
+      "file": "AlterSend-{version}.dmg",
+      "hash": "sha256-XTaXmwTZWuPIL54xc2b6ssDKAJwDYzdVAnXhQA6md3s=",
+      "unpack": false
+    },
+    "aarch64-darwin": {
+      "file": "AlterSend-{version}-arm64.dmg",
+      "hash": "sha256-97p78l7sIjIfhDMWHIQOn0po7TNjQzWEqudpm4HD0EA=",
+      "unpack": false
+    }
+  }
+}
