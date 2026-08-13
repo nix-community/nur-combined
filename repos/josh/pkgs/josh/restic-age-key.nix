@@ -15,16 +15,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "restic-age-key";
-  version = "1.1.4";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "restic-age-key";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xXTe3/tkgayeU+84e0wOsKRvNfTC47nQILxLIox247o=";
+    hash = "sha256-/JXmt1TxeSBteEw9YvA97rV5NZ38DhtBzCBr6S8nhlc=";
   };
 
-  vendorHash = "sha256-27VATsznIVkQFK6z95EhOvda8Ty+6sMyXfHKaVfaz2s=";
+  vendorHash = "sha256-H0h61Hc3CX4ABC6u58NyVjRuq7mjoP8Cs5otNNSlIHo=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
