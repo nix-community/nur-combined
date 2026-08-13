@@ -59,7 +59,7 @@ maven.buildMavenPackage {
   pname = "commafeed";
 
   mvnJdk = graalVM;
-  mvnHash = "sha256-zOovuFi7v1cxNQJ9bVsS3M04kuMHUgF7EDSvdyZT1qY=";
+  mvnHash = "sha256-2s95x2wVe+dsxpohu2OaK7y+o3Om9C/IBuLFEGM3TfQ=";
 
   mvnParameters = lib.escapeShellArgs [
     "-Pnative"
