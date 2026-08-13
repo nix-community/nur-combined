@@ -155,22 +155,22 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260713";
+    version = "20260812";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260713/moegirl.dict.yaml";
-      sha256 = "sha256-Fca5vWdmqaRnP6id4TqVGFsTxnynAoQTMgAWntF5eY0=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260812/moegirl.dict.yaml";
+      sha256 = "sha256-WDbIdQdBX03NsPxFrs9N166CGDplDN15MOHmY+MuOiQ=";
     };
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
+    version = "3f2b8822aa77f8699d70803ef1407ef7a2a77b0d";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
+      rev = "3f2b8822aa77f8699d70803ef1407ef7a2a77b0d";
       fetchSubmodules = false;
-      sha256 = "sha256-IDmmXzQKFx3QZ9u5lMwcTOeWeMPWzIBeKBXkGAgJMaI=";
+      sha256 = "sha256-ixdQLt8DJZRqoK4GqwaytxSrLGc+B5L+ILBs7eG6kLY=";
     };
-    date = "2026-08-07";
+    date = "2026-08-12";
   };
 }
