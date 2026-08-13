@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 8a7f161..2c5f33d 100644
+index 1e4e109..a04e2de 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -27,7 +27,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 3d31c1d..92d46ac 100644
+index 94d1298..ca5041f 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -43,7 +43,7 @@ index 3d31c1d..92d46ac 100644
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-@@ -1278,6 +1284,12 @@ packages:
+@@ -1269,6 +1275,12 @@ packages:
        vite:
          optional: true
  
@@ -56,7 +56,7 @@ index 3d31c1d..92d46ac 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -1285,6 +1297,10 @@ packages:
+@@ -1276,6 +1288,10 @@ packages:
      resolution: {integrity: sha512-xLVRHAI9Jw6L/NrlK6s1mXCvbFwzk5INEL4i3By4jW9yjIMchJ+JGSw4WgFpiLlcoBuR/qIMmSn6te/Jozuybg==}
      engines: {node: '>=20.0.0'}
  
@@ -67,7 +67,7 @@ index 3d31c1d..92d46ac 100644
    '@jridgewell/gen-mapping@0.3.12':
      resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
  
-@@ -4604,6 +4620,11 @@ packages:
+@@ -4593,6 +4609,11 @@ packages:
    flat-cache@6.1.22:
      resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
  
@@ -79,7 +79,7 @@ index 3d31c1d..92d46ac 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7781,6 +7802,16 @@ snapshots:
+@@ -7758,6 +7779,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -96,7 +96,7 @@ index 3d31c1d..92d46ac 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7795,6 +7826,16 @@ snapshots:
+@@ -7772,6 +7803,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -113,7 +113,7 @@ index 3d31c1d..92d46ac 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -10836,6 +10877,8 @@ snapshots:
+@@ -10808,6 +10849,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
