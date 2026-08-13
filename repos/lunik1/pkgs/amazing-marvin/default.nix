@@ -22,7 +22,7 @@ appimageTools.wrapType2 {
     pkgs: with pkgs; [
       xorg.libXScrnSaver
       xorg.libXtst
-      libappindicator-gtk2
+      libappindicator
       libnotify
     ];
 
