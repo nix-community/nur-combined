@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-data";
-  version = "0-unstable-2026-08-05";
+  version = "0-unstable-2026-08-12";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "trakt-data";
-    rev = "79b002b85221546951545ec973924b66a5f28644";
-    hash = "sha256-fbPfte+r3DkfsuiBe+8DRCp2uh3Gc7wmVKxEDhmJPnM=";
+    rev = "bd5bbe5aa9318a573cf133d7dac212f73098dbe4";
+    hash = "sha256-paRc6vGey38pwbkrOvUqdkQn/OFPYTTJ7okvE+r7pZQ=";
   };
 
   build-system = with python3Packages; [
