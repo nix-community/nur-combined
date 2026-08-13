@@ -53,6 +53,7 @@
       ./android-translation-layer-networkcapabilities.patch
       ./android-translation-layer-path-op.patch
       ./android-translation-layer-surfacetexture.patch
+      ./android-translation-layer-build-base-os.patch
       ./android-translation-layer-bitmap-pixels-fix.patch
       ./android-translation-layer-bitmap-factory-null-pixbuf.patch
       ./android-translation-layer-bitmap-factory-fd.patch

@@ -1,0 +1,21 @@
+From: Developer
+Date: Thu, 13 Aug 2026
+Subject: [PATCH] add Build.VERSION.BASE_OS for NewPipe ErrorActivity
+
+NewPipe ErrorActivity.getOsString() reads Build.VERSION.BASE_OS on
+API 23+. ATL lacked the field, so showing an ACRA report aborted ART
+with NoSuchFieldError.
+
+--- a/src/api-impl/android/os/Build.java
++++ b/src/api-impl/android/os/Build.java
+@@ -186,6 +186,10 @@
+ 		public static final int RESOURCES_SDK_INT;
+ 
+ 		public static final String SECURITY_PATCH = getString("ro.build.version.security_patch");
++
++		public static final String BASE_OS = getString("ro.build.version.base_os");
++
++		public static final int PREVIEW_SDK_INT = 0;
+ 	}
+ 
+ 	/**
