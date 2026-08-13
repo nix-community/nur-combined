@@ -14,8 +14,13 @@ buildPythonPackage rec {
     inherit pname version src;
     hash = "sha256-x9wgl4i7Oi2s+Xm3IucJjrGi+RHlXAS85nwyZp/wBZc=";
     nativeBuildInputs = [ cargo ];
+    # Pin a committed lockfile instead of `cargo generate-lockfile`: the
+    # latter re-resolves crates.io at fetch time, so vendored content drifts
+    # when new crate versions are published and the fixed-output hash
+    # mismatches on fresh stores (CI). The lock was captured from a
+    # successful fetch of the same revision.
     postPatch = ''
-      cargo generate-lockfile
+      cp ${./Cargo.lock} Cargo.lock
     '';
   };
 
