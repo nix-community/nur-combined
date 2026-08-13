@@ -21,7 +21,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-bamboo-networking";
-  version = "1.1.0";
+  version = "2.0.0";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ClusterM";
     repo = "open-bamboo-networking";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bxkOwCnlKu2fA3cEiTZq15anSwLkuJIyko19wqul6Fw=";
+    hash = "sha256-NAnPEGgctcfE6Hq+E1xagTAMswFnjqupPlkFdrBqzGo=";
   };
 
   nativeBuildInputs = [
@@ -48,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     (lib.cmakeFeature "OBN_VERSION" pluginVersion)
     (lib.cmakeFeature "OBN_CLIENT_TYPE" client)
+    (lib.cmakeBool "OBN_RELEASE" true)
     (lib.cmakeBool "OBN_PATCH_CLIENT_CONF" false)
     (lib.cmakeBool "OBN_BUILD_TESTS" false)
     # Prefer a staged Nix install, not ~/.config/BambuStudio
