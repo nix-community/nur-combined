@@ -88,8 +88,10 @@ rustPlatform.buildRustPackage {
   postInstall = ''
     mkdir -p $out/share/hanga
     cp -r ${mods}/share/hanga/mods $out/share/hanga/mods
+    cp -r ${mods}/share/hanga/games $out/share/hanga/games
     wrapProgram $out/bin/hanga \
       --set HANGA_MODS $out/share/hanga/mods \
+      --set HANGA_GAMES $out/share/hanga/games \
       --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
           vulkan-loader

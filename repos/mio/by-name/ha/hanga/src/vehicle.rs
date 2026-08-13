@@ -1,0 +1,161 @@
+//! A vehicle is any rideable the host can move occupants with.
+//! Looks, part names, and colors come from the mod kit string.
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct VehiclePartSpec {
+    pub name: String,
+    pub size: [f32; 3],
+    pub offset: [f32; 3],
+    pub rgb: [f32; 3],
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct VehicleKit {
+    pub kind: String,
+    pub traffic: bool,
+    pub speed: f32,
+    pub collider: [f32; 3],
+    pub parts: Vec<VehiclePartSpec>,
+}
+
+impl Default for VehicleKit {
+    fn default() -> Self {
+        Self {
+            kind: "vehicle".into(),
+            traffic: false,
+            speed: 12.0,
+            collider: [2.0, 1.0, 3.0],
+            parts: vec![VehiclePartSpec {
+                name: "body".into(),
+                size: [2.0, 0.8, 3.0],
+                offset: [0.0, 0.0, 0.0],
+                rgb: [0.45, 0.45, 0.48],
+            }],
+        }
+    }
+}
+
+/// Parse a mod `vehicle-kit` string. Unknown keys are ignored.
+///
+/// ```text
+/// kind=car;traffic=1;speed=25;collider=2,1.2,4
+/// part=hull,1.85,0.48,3.80,0,-0.22,0,0.78,0.18,0.14
+/// ```
+pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
+    let mut kit = VehicleKit::default();
+    let mut saw_part = false;
+    for raw in text.split(|c| c == ';' || c == '\n') {
+        let rec = raw.trim();
+        if rec.is_empty() || rec.starts_with('#') {
+            continue;
+        }
+        if let Some(rest) = rec.strip_prefix("part=") {
+            if let Some(part) = parse_part(rest) {
+                if !saw_part {
+                    kit.parts.clear();
+                    saw_part = true;
+                }
+                kit.parts.push(part);
+            }
+            continue;
+        }
+        let Some((key, value)) = rec.split_once('=') else {
+            continue;
+        };
+        match key.trim() {
+            "kind" => kit.kind = value.trim().to_string(),
+            "traffic" | "ai" => kit.traffic = parse_flag(value),
+            "speed" => {
+                if let Ok(speed) = value.trim().parse::<f32>() {
+                    kit.speed = speed.max(0.0);
+                }
+            }
+            "collider" => {
+                if let Some(v) = parse_n(value, 3) {
+                    kit.collider = [v[0].max(0.1), v[1].max(0.1), v[2].max(0.1)];
+                }
+            }
+            _ => {}
+        }
+    }
+    if kit.kind.is_empty() {
+        kit.kind = "vehicle".into();
+    }
+    kit
+}
+
+fn parse_flag(value: &str) -> bool {
+    matches!(value.trim(), "1" | "true" | "yes")
+}
+
+fn parse_n(value: &str, n: usize) -> Option<Vec<f32>> {
+    let nums: Vec<f32> = value
+        .split(|c: char| c == ',' || c.is_whitespace())
+        .filter(|p| !p.is_empty())
+        .filter_map(|p| p.parse().ok())
+        .collect();
+    (nums.len() >= n).then_some(nums)
+}
+
+fn parse_part(value: &str) -> Option<VehiclePartSpec> {
+    let mut bits = value.split(',').map(str::trim);
+    let name = bits.next()?.to_string();
+    if name.is_empty() {
+        return None;
+    }
+    let sx: f32 = bits.next()?.parse().ok()?;
+    let sy: f32 = bits.next()?.parse().ok()?;
+    let sz: f32 = bits.next()?.parse().ok()?;
+    let ox: f32 = bits.next()?.parse().ok()?;
+    let oy: f32 = bits.next()?.parse().ok()?;
+    let oz: f32 = bits.next()?.parse().ok()?;
+    let r: f32 = bits.next()?.parse().ok()?;
+    let g: f32 = bits.next()?.parse().ok()?;
+    let b: f32 = bits.next()?.parse().ok()?;
+    let rgb = if r > 1.0 || g > 1.0 || b > 1.0 {
+        [r / 255.0, g / 255.0, b / 255.0]
+    } else {
+        [r, g, b]
+    };
+    Some(VehiclePartSpec {
+        name,
+        size: [sx.max(0.05), sy.max(0.05), sz.max(0.05)],
+        offset: [ox, oy, oz],
+        rgb,
+    })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn empty_kit_is_a_plain_rideable() {
+        let kit = parse_vehicle_kit("");
+        assert_eq!(kit.kind, "vehicle");
+        assert!(!kit.traffic);
+        assert_eq!(kit.parts.len(), 1);
+    }
+
+    #[test]
+    fn car_kit_stays_opaque_to_the_host() {
+        let kit = parse_vehicle_kit(
+            "kind=car;traffic=1;speed=25;collider=2,1.2,4\n\
+             part=hull,1.85,0.48,3.80,0,-0.22,0,0.78,0.18,0.14\n\
+             part=lamp,0.18,0.12,0.10,-0.62,-0.08,-1.88,0.92,0.86,0.55",
+        );
+        assert_eq!(kit.kind, "car");
+        assert!(kit.traffic);
+        assert!((kit.speed - 25.0).abs() < 1e-5);
+        assert_eq!(kit.parts.len(), 2);
+        assert_eq!(kit.parts[0].name, "hull");
+        assert!((kit.parts[0].rgb[0] - 0.78).abs() < 1e-5);
+    }
+
+    #[test]
+    fn eight_bit_rgb_scales_down() {
+        let kit = parse_vehicle_kit("part=deck,1,1,1,0,0,0,255,128,0");
+        assert!((kit.parts[0].rgb[0] - 1.0).abs() < 1e-5);
+        assert!((kit.parts[0].rgb[1] - 128.0 / 255.0).abs() < 1e-5);
+    }
+}

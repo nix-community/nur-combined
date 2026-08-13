@@ -39,12 +39,13 @@ rustPlatform.buildRustPackage {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/hanga/mods
+    mkdir -p $out/share/hanga/mods $out/share/hanga/games
     for name in urban_chaos testbed; do
       wasm-tools component new \
         "target/wasm32-unknown-unknown/release/$name.wasm" \
         -o "$out/share/hanga/mods/$name.wasm"
     done
+    cp -a games/. $out/share/hanga/games/
     runHook postInstall
   '';
 

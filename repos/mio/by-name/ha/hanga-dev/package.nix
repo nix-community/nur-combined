@@ -42,6 +42,7 @@ cargoNix.workspaceMembers.hanga.build.override {
       postInstall = ''
         wrapProgram $out/bin/hanga \
           --set HANGA_MODS ${mods}/share/hanga/mods \
+          --set HANGA_GAMES ${mods}/share/hanga/games \
           --prefix LD_LIBRARY_PATH : ${
             lib.makeLibraryPath [
               vulkan-loader

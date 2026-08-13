@@ -1,0 +1,44 @@
+# Urban Chaos
+
+Voxel city, subway, GTA wanted level, Teardown buildings, street crafting.
+**Cars belong here**, not in the engine. The host only knows a rideable vehicle
+(kit boxes + occupants). This game's `vehicle-kit` is a street car: hull, cabin,
+lamps, wheels, player red vs traffic colors.
+
+**Gravity belongs here.** Streets use Earth (`kind=constant;y=-9.81;jump=5`).
+The host only applies the field; a later heist in orbit would ship a different kit.
+
+Cars are **soft street metal** in the BeamNG sense: they fold, shed parts, and
+can become wrecks. The host only measures impact and moves meshes; this mod
+owns how cheap the steel is.
+
+## Crash (BeamNG-related, not a full node-beam solver)
+
+BeamNG.drive uses a node-beam soft body. Hanga does not solve that. Urban Chaos
+still wants the *feel*: speed-dependent crumple, parts flying off, a wreck that
+tumbles and will not drive, and a high-speed hit that is treated as an explosion.
+
+The engine reports impact `speed` (m/s) and `into-solid` (voxel or sudden stop).
+This mod returns severity 0–100 and named outcomes.
+
+| Impact speed | Severity | Visual | Heat |
+| --- | --- | --- | --- |
+| below 8 | 0 | none | none |
+| 8–14 | 25 | lamps detach, hull crumples | none (fender tap) |
+| 14–20 | 50 | wheels detach | `crash` (+2 wanted) |
+| 20–28 | 75 | cabin shears, wrecked, tumbles | `crash` |
+| 28+ | 100 | full wreck, Teardown burst | `explode` (5 stars) |
+
+Parts the host may detach: `lamp`, `wheel`, `cabin`. `hull` stays as the wreck
+body. Wrecked cars are undriveable; the engine unlocks pitch/roll so they can
+flip like a BeamNG pile-up.
+
+`into-solid` uses the same thresholds (hitting a building at 12 is a crash, not
+a tap). Grazing another car without a hard stop stays at 0 unless speed drops
+hard.
+
+## Out of scope (later)
+
+- True node-beam / tire deformation
+- Engine fire / fuel tank
+- Multi-mod traffic packs with different stiffness

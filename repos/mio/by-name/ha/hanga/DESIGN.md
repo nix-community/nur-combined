@@ -1,7 +1,11 @@
 # Hanga: engine vs mods
 
 Hanga is a Bevy host. Gameplay lives in WASM components (`wit/world.wit`).
-A "game" is a mod, or a collection of mods.
+A **game** is a collection of mods plus presentation (menu backdrop, titles, sky,
+clouds, lighting, voxel palette). `.game` files in `share/hanga/games`
+(`HANGA_GAMES`) list the mods and the look. Textures are optional PNGs next to
+the file or under `games/<id>/`; `cloud=generated` lets the host paint a tint
+the game chose. The host does not invent Urban Chaos or Testbed chrome.
 
 ## Engine (Rust / Bevy)
 
@@ -11,10 +15,17 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - Window / headless / `--text-client` / `--agent-client` I/O
 - Player-editable key bindings (`bindings.conf` + Controls menu)
 - Player-facing locale (`--lang` / `HANGA_LANG`): English, te reo Māori, français, 台灣中文.
-  Host UI strings live here; gameplay names are asked of the mod with that locale tag.
+  Host UI strings live here (Play, Controls, bindings). Game titles and menu
+  backdrop come from the selected `.game` file; voxel/item names come from the mod.
 - P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints
 - `wasmtime` component sandbox + hot-reload
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
+- Vehicle *execution*: any rideable that can carry a player. The host builds boxes
+  from a kit, moves occupants, and crumples/detaches named parts. It does not
+  know "car". Thresholds and which parts fly off come from the mod.
+- Gravity *execution*: apply a field the game named (`none`, constant vector, or
+  point attractor). Walk/jump stay on the anti-gravity plane. The host does not
+  invent Earth.
 
 Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mod** defines.
 
@@ -32,22 +43,32 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - `voxel-catalog` lists meshing-index order (`air,concrete,...`); `query-voxel` still returns that index
 - Loot names (`loot-item`) that fill the host's generic 8-slot hotbar
 - Crafting recipes (`craft-result`); the host only spends two items and adds the product
+- Rideable kit (`vehicle-kit`): kind, traffic, speed, collider, named box parts.
+  Urban Chaos ships a car; Testbed ships a platform.
+- Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
+  plus jump speed. Urban Chaos is Earth; Testbed is a zero-g lab.
+- Vehicle crash rules (`crash-severity`, `crash-crumple`, `crash-detach`,
+  `crash-wrecks`, `crash-action`, `crash-part-impulse`)
 
-### Shipped mods
+### Shipped games
 
-| Mod | Purpose |
-| --- | --- |
-| `urban_chaos` | Voxel city + subway + GTA wanted level + Teardown buildings |
-| `testbed` | Checkerboard void for engine/debug (no wanted level) |
+| Game | Mods | Menu |
+| --- | --- | --- |
+| `urban_chaos` | `urban_chaos` | dusk city, amber title, generated clouds, haze |
+| `testbed` | `testbed` | lab teal, no clouds, dim sun |
 
-Load with `--mod urban_chaos` (default) or `--mod testbed`. Packaged builds
-install both as wasmtime components in `$out/share/hanga/mods` (`HANGA_MODS`).
+Load with `--game urban_chaos` (default), `--game testbed`, or `--mod` for a
+lone WASM (implicit one-mod game, neutral menu). Packaged builds install
+WASM in `$out/share/hanga/mods` (`HANGA_MODS`) and `.game` files in
+`$out/share/hanga/games` (`HANGA_GAMES`). The engine currently instantiates
+the first listed mod; extra names are reserved for later collections.
 
 ## Commands
 
 ```
 hanga
 hanga --mod testbed
+hanga --game testbed
 hanga --headless
 hanga --text-client
 hanga --agent-client
@@ -65,7 +86,9 @@ hanga --bindings /path/to/bindings.conf
 loads without a local Cargo target dir.
 
 `nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Game / Language / Controls / Quit).
-The Game row cycles Urban Chaos and Testbed; both WASM components ship in `HANGA_MODS`.
+The Game row cycles discovered `.game` files. Each game owns the menu title,
+panel, buttons, and clear/sky colors; switching Game reloads that collection's
+lead WASM. Both shipped games and their mods install in `HANGA_GAMES` / `HANGA_MODS`.
 Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a
 room only if a signaling server is already running; a refused connection stays in
 single-player instead of crashing. Mouse look is captured while playing.
@@ -102,3 +125,4 @@ wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm 
 1. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
 2. Kani CI for engine + mods
 3. Matchbox room UI / reconnect; more heist loops beyond smash-and-grab
+4. Fuller BeamNG node-beam (Urban Chaos still uses severity + detach, not a solver)

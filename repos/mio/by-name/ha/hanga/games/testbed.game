@@ -1,0 +1,20 @@
+# Testbed — checkerboard void for engine and Teardown checks.
+id=testbed
+mods=testbed
+title.en=Testbed
+title.mi=Pae whakamātau
+title.fr=Banc d'essai
+title.zh-TW=測試台
+sky=0.12 0.14 0.16
+menu_clear=0.06 0.14 0.13
+menu_panel=0.03 0.08 0.08 0.78
+menu_accent=0.55 0.90 0.82
+menu_button=0.08 0.22 0.20
+menu_button_hover=0.12 0.36 0.32
+sun=0.80 0.88 0.92
+sun_illuminance=7000
+ambient=0.36 0.42 0.44
+ambient_brightness=160
+cloud=none
+palette.1=198 192 180
+palette.2=140 198 214

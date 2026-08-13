@@ -1,7 +1,8 @@
 //! Hanga Testbed — a debug game that exercises the engine without Urban Chaos rules.
 //!
 //! Infinite checkerboard floor, no wanted level, no cops, no economy spikes.
-//! Used to verify the WASM bridge and Teardown debris independently of city gen.
+//! Zero-g lab (`gravity` is `none`). Used to verify the WASM bridge and Teardown
+//! debris independently of city gen.
 
 wit_bindgen::generate!({ world: "plugin", path: "../../wit" });
 
@@ -93,6 +94,18 @@ pub fn vehicle_spawn_count() -> i32 {
 
 pub fn vehicle_spawn(_index: i32) -> (i32, i32, i32) {
     (4, 2, 0)
+}
+
+/// A rideable slab. Testbed has no cars.
+pub fn vehicle_kit(_index: i32) -> String {
+    "kind=platform;traffic=0;speed=12;collider=2,0.4,2\n\
+     part=deck,2.00,0.20,2.00,0.00,0.00,0.00,0.45,0.45,0.48"
+        .into()
+}
+
+/// Lab void: no gravity. Debris and the player stay where they are.
+pub fn gravity() -> String {
+    "kind=none;jump=2".into()
 }
 
 pub fn can_fracture(voxel: &str) -> i32 {
@@ -207,6 +220,30 @@ pub fn craft_result(_item_a: &str, _item_b: &str) -> String {
     String::new()
 }
 
+pub fn crash_severity(_speed: f32, _into_solid: bool) -> i32 {
+    0
+}
+
+pub fn crash_crumple(_severity: i32) -> i32 {
+    0
+}
+
+pub fn crash_detach(_part: &str, _severity: i32) -> i32 {
+    0
+}
+
+pub fn crash_wrecks(_severity: i32) -> i32 {
+    0
+}
+
+pub fn crash_action(_severity: i32) -> String {
+    String::new()
+}
+
+pub fn crash_part_impulse(_severity: i32) -> f32 {
+    0.0
+}
+
 impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn init_mod() {}
     fn voxel_catalog() -> String {
@@ -256,6 +293,12 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     }
     fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
         crate::vehicle_spawn(index)
+    }
+    fn vehicle_kit(index: i32) -> String {
+        crate::vehicle_kit(index)
+    }
+    fn gravity() -> String {
+        crate::gravity()
     }
     fn can_fracture(voxel: String) -> i32 {
         crate::can_fracture(&voxel)
@@ -315,6 +358,30 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
 
     fn craft_result(item_a: String, item_b: String) -> String {
         crate::craft_result(&item_a, &item_b)
+    }
+
+    fn crash_severity(speed: f32, into_solid: bool) -> i32 {
+        crate::crash_severity(speed, into_solid)
+    }
+
+    fn crash_crumple(severity: i32) -> i32 {
+        crate::crash_crumple(severity)
+    }
+
+    fn crash_detach(part: String, severity: i32) -> i32 {
+        crate::crash_detach(&part, severity)
+    }
+
+    fn crash_wrecks(severity: i32) -> i32 {
+        crate::crash_wrecks(severity)
+    }
+
+    fn crash_action(severity: i32) -> String {
+        crate::crash_action(severity)
+    }
+
+    fn crash_part_impulse(severity: i32) -> f32 {
+        crate::crash_part_impulse(severity)
     }
 }
 
@@ -386,5 +453,27 @@ mod tests {
         assert_eq!(item_label_for("en", "concrete"), "concrete");
         assert!(item_label_for("en", "").is_empty());
         assert!(craft_result("concrete", "concrete").is_empty());
+    }
+
+    #[test]
+    fn testbed_vehicles_do_not_fold() {
+        assert_eq!(crash_severity(40.0, true), 0);
+        assert_eq!(crash_wrecks(100), 0);
+        assert!(crash_action(100).is_empty());
+    }
+
+    #[test]
+    fn testbed_vehicle_is_a_platform() {
+        let kit = vehicle_kit(0);
+        assert!(kit.contains("kind=platform"));
+        assert!(kit.contains("part=deck"));
+        assert!(!kit.contains("kind=car"));
+    }
+
+    #[test]
+    fn testbed_has_no_earth_gravity() {
+        let g = gravity();
+        assert!(g.contains("kind=none"));
+        assert!(!g.contains("-9.81"));
     }
 }

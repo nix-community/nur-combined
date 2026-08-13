@@ -36,6 +36,14 @@ interface gameplay {
     player-spawn: func() -> tuple<s32, s32, s32>;
     vehicle-spawn-count: func() -> s32;
     vehicle-spawn: func(index: s32) -> tuple<s32, s32, s32>;
+    /// Rideable kit. The host does not know "car": it only builds boxes and a collider.
+    /// `kind=...;traffic=0|1;speed=...;collider=x,y,z` then
+    /// `part=name,sx,sy,sz,ox,oy,oz,r,g,b` records (newline or semicolon).
+    vehicle-kit: func(index: s32) -> string;
+    /// Gravity field. The host does not invent Earth: it only applies the kit.
+    /// `kind=none` | `kind=constant;x=0;y=-9.81;z=0` | `kind=down;g=9.81`
+    /// | `kind=point;x=;y=;z=;strength=;falloff=invsq?` then `jump=` leave-ground speed.
+    gravity: func() -> string;
 
     /// Teardown rules owned by the mod.
     /// 1 if this voxel name can become physical debris when fractured.
@@ -76,6 +84,20 @@ interface gameplay {
     item-label: func(item: string, locale: string) -> string;
     /// Product of combining two item names (empty = no recipe). Order must not matter.
     craft-result: func(item-a: string, item-b: string) -> string;
+
+    /// BeamNG-style crash rules. Engine measures impact; the mod rates the metal.
+    /// Severity is 0-100 from impact speed (m/s) and whether we hit a solid.
+    crash-severity: func(speed: f32, into-solid: bool) -> s32;
+    /// Visual squash 0-100 for this severity.
+    crash-crumple: func(severity: s32) -> s32;
+    /// 1 if this part name from `vehicle-kit` should detach.
+    crash-detach: func(part: string, severity: s32) -> s32;
+    /// 1 if the vehicle is wrecked (undriveable) at this severity.
+    crash-wrecks: func(severity: s32) -> s32;
+    /// Action name for wanted / fracture (empty, crash, explode).
+    crash-action: func(severity: s32) -> string;
+    /// Linear impulse applied to a detached part.
+    crash-part-impulse: func(severity: s32) -> f32;
 }
 
 world plugin {

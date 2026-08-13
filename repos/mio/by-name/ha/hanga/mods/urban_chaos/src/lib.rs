@@ -97,6 +97,12 @@ pub const ACTION_ACCEPT: &str = "accept_contract";
 pub const ACTION_COMPLETE: &str = "complete_contract";
 pub const ACTION_FENCE: &str = "fence";
 pub const ACTION_CRAFT: &str = "craft";
+pub const ACTION_CRASH: &str = "crash";
+
+pub const PART_HULL: &str = "hull";
+pub const PART_CABIN: &str = "cabin";
+pub const PART_WHEEL: &str = "wheel";
+pub const PART_LAMP: &str = "lamp";
 
 pub const AGENT_COP: &str = "cop";
 pub const AGENT_PEDESTRIAN: &str = "pedestrian";
@@ -304,6 +310,7 @@ pub fn mod_evaluate_action(action: &str, current_state: i32) -> i32 {
         ACTION_COMPLETE => current_state.saturating_add(1).min(5),
         ACTION_FENCE => current_state,
         ACTION_CRAFT => current_state,
+        ACTION_CRASH => current_state.saturating_add(2).min(5),
         _ => current_state,
     }
 }
@@ -384,6 +391,85 @@ pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
     }
 }
 
+const CAR_BODIES: [[f32; 3]; 6] = [
+    [0.22, 0.24, 0.28],
+    [0.18, 0.32, 0.22],
+    [0.42, 0.40, 0.36],
+    [0.12, 0.14, 0.38],
+    [0.48, 0.18, 0.14],
+    [0.72, 0.72, 0.70],
+];
+
+const CAR_PLAYER: [f32; 3] = [0.78, 0.18, 0.14];
+const CAR_CABIN: [f32; 3] = [0.12, 0.16, 0.20];
+const CAR_WHEEL: [f32; 3] = [0.08, 0.08, 0.09];
+const CAR_LAMP: [f32; 3] = [0.92, 0.86, 0.55];
+
+fn rgb3(c: [f32; 3]) -> String {
+    format!("{:.2},{:.2},{:.2}", c[0], c[1], c[2])
+}
+
+fn car_part(name: &str, size: [f32; 3], offset: [f32; 3], color: [f32; 3]) -> String {
+    format!(
+        "part={name},{:.2},{:.2},{:.2},{:.2},{:.2},{:.2},{}",
+        size[0], size[1], size[2], offset[0], offset[1], offset[2], rgb3(color)
+    )
+}
+
+/// Street car kit. The host only builds boxes; this game owns the car.
+pub fn vehicle_kit(index: i32) -> String {
+    let player = index <= 0;
+    let body = if player {
+        CAR_PLAYER
+    } else {
+        CAR_BODIES[((index - 1) as usize) % CAR_BODIES.len()]
+    };
+    let traffic = i32::from(!player);
+    let mut out = format!("kind=car;traffic={traffic};speed=25;collider=2,1.2,4\n");
+    out.push_str(&car_part(
+        PART_HULL,
+        [1.85, 0.48, 3.80],
+        [0.0, -0.22, 0.0],
+        body,
+    ));
+    out.push('\n');
+    out.push_str(&car_part(
+        PART_CABIN,
+        [1.55, 0.50, 1.70],
+        [0.0, 0.24, 0.45],
+        CAR_CABIN,
+    ));
+    out.push('\n');
+    out.push_str(&car_part(
+        PART_LAMP,
+        [0.18, 0.12, 0.10],
+        [-0.62, -0.08, -1.88],
+        CAR_LAMP,
+    ));
+    out.push('\n');
+    out.push_str(&car_part(
+        PART_LAMP,
+        [0.18, 0.12, 0.10],
+        [0.62, -0.08, -1.88],
+        CAR_LAMP,
+    ));
+    for (x, z) in [(-0.82, -1.15), (0.82, -1.15), (-0.82, 1.20), (0.82, 1.20)] {
+        out.push('\n');
+        out.push_str(&car_part(
+            PART_WHEEL,
+            [0.28, 0.42, 0.42],
+            [x, -0.42, z],
+            CAR_WHEEL,
+        ));
+    }
+    out
+}
+
+/// Earth streets. The host only applies the field; this game owns "down".
+pub fn gravity() -> String {
+    "kind=constant;x=0;y=-9.81;z=0;jump=5".into()
+}
+
 /// Buildings and station tiles shatter; roads, rails, and ground stay put.
 pub fn can_fracture(voxel: &str) -> i32 {
     match voxel {
@@ -404,7 +490,7 @@ pub fn fracture_spread(voxel: &str) -> i32 {
 pub fn debris_impulse(action: &str) -> f32 {
     match action {
         ACTION_EXPLODE => 15.0,
-        ACTION_BREAK => 5.0,
+        ACTION_BREAK | ACTION_CRASH => 5.0,
         _ => 2.0,
     }
 }
@@ -568,6 +654,59 @@ pub fn craft_result(item_a: &str, item_b: &str) -> String {
         ("brick", "brick") => "concrete".into(),
         _ => String::new(),
     }
+}
+
+/// Soft street metal: BeamNG-like fold, not a node-beam solver.
+pub fn crash_severity(speed: f32, into_solid: bool) -> i32 {
+    let speed = speed.max(0.0);
+    if speed < 8.0 {
+        return 0;
+    }
+    if !into_solid && speed < 10.0 {
+        return 0;
+    }
+    if speed < 14.0 {
+        25
+    } else if speed < 20.0 {
+        50
+    } else if speed < 28.0 {
+        75
+    } else {
+        100
+    }
+}
+
+pub fn crash_crumple(severity: i32) -> i32 {
+    severity.clamp(0, 100)
+}
+
+pub fn crash_detach(part: &str, severity: i32) -> i32 {
+    let need = match part {
+        PART_LAMP => 25,
+        PART_WHEEL => 50,
+        PART_CABIN => 75,
+        PART_HULL => 101,
+        _ => 101,
+    };
+    i32::from(severity >= need)
+}
+
+pub fn crash_wrecks(severity: i32) -> i32 {
+    i32::from(severity >= 75)
+}
+
+pub fn crash_action(severity: i32) -> String {
+    if severity >= 100 {
+        ACTION_EXPLODE.into()
+    } else if severity >= 50 {
+        ACTION_CRASH.into()
+    } else {
+        String::new()
+    }
+}
+
+pub fn crash_part_impulse(severity: i32) -> f32 {
+    4.0 + (severity.clamp(0, 100) as f32) * 0.12
 }
 
 pub fn contract_label(kind: &str) -> String {
@@ -754,6 +893,14 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
         crate::vehicle_spawn(index)
     }
 
+    fn vehicle_kit(index: i32) -> String {
+        crate::vehicle_kit(index)
+    }
+
+    fn gravity() -> String {
+        crate::gravity()
+    }
+
     fn can_fracture(voxel: String) -> i32 {
         crate::can_fracture(&voxel)
     }
@@ -826,6 +973,30 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
     fn craft_result(item_a: String, item_b: String) -> String {
         crate::craft_result(&item_a, &item_b)
     }
+
+    fn crash_severity(speed: f32, into_solid: bool) -> i32 {
+        crate::crash_severity(speed, into_solid)
+    }
+
+    fn crash_crumple(severity: i32) -> i32 {
+        crate::crash_crumple(severity)
+    }
+
+    fn crash_detach(part: String, severity: i32) -> i32 {
+        crate::crash_detach(&part, severity)
+    }
+
+    fn crash_wrecks(severity: i32) -> i32 {
+        crate::crash_wrecks(severity)
+    }
+
+    fn crash_action(severity: i32) -> String {
+        crate::crash_action(severity)
+    }
+
+    fn crash_part_impulse(severity: i32) -> f32 {
+        crate::crash_part_impulse(severity)
+    }
 }
 
 export!(UrbanChaosMod);
@@ -871,7 +1042,7 @@ mod kani_verification {
         let action_pick: u8 = kani::any();
         let current_level: i32 = kani::any();
         kani::assume(current_level >= 0 && current_level <= 5);
-        let action = match action_pick % 9 {
+        let action = match action_pick % 10 {
             0 => ACTION_BREAK,
             1 => ACTION_PLACE,
             2 => ACTION_ENTER,
@@ -880,6 +1051,7 @@ mod kani_verification {
             5 => ACTION_COMPLETE,
             6 => ACTION_FENCE,
             7 => ACTION_CRAFT,
+            8 => ACTION_CRASH,
             _ => "unknown",
         };
         let result = mod_evaluate_action(action, current_level);
@@ -1195,6 +1367,33 @@ mod tests {
     }
 
     #[test]
+    fn cars_are_this_game_not_the_engine() {
+        let player = vehicle_kit(0);
+        assert!(player.contains("kind=car"));
+        assert!(player.contains("traffic=0"));
+        assert!(player.contains("speed=25"));
+        assert!(player.contains("part=hull"));
+        assert!(player.contains("part=cabin"));
+        assert!(player.contains("part=wheel"));
+        assert!(player.contains("part=lamp"));
+        assert!(player.contains("0.78,0.18,0.14"));
+        assert_eq!(player.matches("part=").count(), 8);
+        let traffic = vehicle_kit(1);
+        assert!(traffic.contains("traffic=1"));
+        assert!(!traffic.contains("0.78,0.18,0.14"));
+        assert_ne!(vehicle_kit(1), vehicle_kit(2));
+    }
+
+    #[test]
+    fn streets_use_earth_gravity() {
+        let g = gravity();
+        assert!(g.contains("kind=constant"));
+        assert!(g.contains("-9.81"));
+        assert!(g.contains("jump=5"));
+        assert!(!g.contains("kind=none"));
+    }
+
+    #[test]
     fn buildings_fracture_roads_do_not() {
         assert_eq!(can_fracture("concrete"), 1);
         assert_eq!(can_fracture("glass"), 1);
@@ -1410,5 +1609,26 @@ mod tests {
     #[test]
     fn accept_is_not_a_crime() {
         assert_eq!(mod_evaluate_action(ACTION_ACCEPT, 2), 2);
+    }
+
+    #[test]
+    fn street_metal_folds_like_beamng_junk() {
+        assert_eq!(crash_severity(4.0, true), 0);
+        assert_eq!(crash_severity(12.0, true), 25);
+        assert_eq!(crash_severity(18.0, true), 50);
+        assert_eq!(crash_severity(24.0, true), 75);
+        assert_eq!(crash_severity(30.0, true), 100);
+        assert_eq!(crash_detach(PART_LAMP, 25), 1);
+        assert_eq!(crash_detach(PART_WHEEL, 25), 0);
+        assert_eq!(crash_detach(PART_WHEEL, 50), 1);
+        assert_eq!(crash_detach(PART_CABIN, 75), 1);
+        assert_eq!(crash_detach(PART_HULL, 100), 0);
+        assert_eq!(crash_wrecks(50), 0);
+        assert_eq!(crash_wrecks(75), 1);
+        assert!(crash_action(25).is_empty());
+        assert_eq!(crash_action(50), ACTION_CRASH);
+        assert_eq!(crash_action(100), ACTION_EXPLODE);
+        assert_eq!(mod_evaluate_action(ACTION_CRASH, 0), 2);
+        assert!(crash_part_impulse(80) > crash_part_impulse(20));
     }
 }

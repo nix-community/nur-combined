@@ -21,12 +21,20 @@ use hanga::{
     action_fingerprint, apply_mouse_look, catalog_index, catalog_name, clamp_hotbar_index,
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
-    is_action_physically_possible, is_connected_to_ground, parse_mod_spec, parse_name_catalog,
-    parse_p2p_url, resolve_wasm_path, should_skip_menu, shipped_mod_label_key, unpack_economy_params,
-    verify_action_signature, voxel_has_support, cycle_shipped_mod, DEFAULT_P2P_URL, INVENTORY_SLOTS,
-    LOOK_SENSITIVITY,
+    is_action_physically_possible, is_connected_to_ground, parse_name_catalog,
+    parse_p2p_url, resolve_wasm_path, should_skip_menu, unpack_economy_params,
+    verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
-use hanga::figure::{figure_palette, figure_salt, vehicle_palette, yaw_toward};
+use hanga::crash::{crumple_scale, impact_speed};
+use hanga::figure::{figure_palette, figure_salt, yaw_toward};
+use hanga::gravity::{
+    avian_accel, parse_gravity, point_accel, set_jump, set_planar_velocity, walk_up, GravityKit,
+};
+use hanga::vehicle::{parse_vehicle_kit, VehicleKit};
+use hanga::game::{
+    cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
+    MenuBackdrop, DEFAULT_GAME,
+};
 
 mod mod_manager;
 use mod_manager::{ModRuntime, ModManagerPlugin, SHARED_WASM};
@@ -132,11 +140,44 @@ enum GameMode {
 struct SelectedMod(String);
 
 #[derive(Resource, Clone)]
+struct SelectedGame(String);
+
+#[derive(Resource, Clone)]
+struct GameCatalog(Vec<GameSpec>);
+
+#[derive(Resource, Clone)]
+struct MenuTheme(MenuBackdrop);
+
+#[derive(Component)]
+struct ChromePanel;
+
+#[derive(Component)]
+struct ChromeTitle;
+
+#[derive(Component)]
+struct ChromeHint;
+
+#[derive(Component)]
+struct ChromeButton;
+
+#[derive(Resource, Clone)]
 struct ModSearch {
     cwd: PathBuf,
     exe: Option<PathBuf>,
     env: Option<PathBuf>,
 }
+
+#[derive(Resource, Clone)]
+struct GameSearch(Vec<PathBuf>);
+
+#[derive(Component)]
+struct SkyClouds;
+
+#[derive(Component)]
+struct MenuSkyCamera;
+
+#[derive(Resource, Default)]
+struct SkyFor(String);
 
 #[derive(Resource, Default)]
 struct WorldSpawned(bool);
@@ -228,6 +269,29 @@ fn main() {
     let bindings = load_bindings(&bindings_path);
     info!("Key bindings {}", bindings_path.display());
 
+    let env_mods = std::env::var_os("HANGA_MODS").map(PathBuf::from);
+    let env_games = std::env::var_os("HANGA_GAMES").map(PathBuf::from);
+    let exe_dir = std::env::current_exe()
+        .ok()
+        .and_then(|p| p.parent().map(PathBuf::from));
+    let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    let game_dirs = game_search_dirs(
+        &cwd,
+        exe_dir.as_deref(),
+        env_games.as_deref(),
+        env_mods.as_deref(),
+    );
+    let catalog = load_game_catalog(&game_dirs);
+    let game_id = selected_game_id(&args, DEFAULT_GAME);
+    let game = resolve_game(&catalog, &game_id);
+    let mod_name = game.lead_mod().to_string();
+    let wasm_path = resolve_wasm_path(
+        &mod_name,
+        &cwd,
+        exe_dir.as_deref(),
+        env_mods.as_deref(),
+    );
+
     let mut app = App::new();
 
     let (tx, rx) = channel();
@@ -249,10 +313,10 @@ fn main() {
 
     if is_headless {
         info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
-        install_default_plugins(&mut app, window_plugin);
+        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
     } else if is_text_client {
         info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
-        install_default_plugins(&mut app, window_plugin);
+        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_terminal_input.after(validate_incoming_actions));
 
@@ -266,7 +330,7 @@ fn main() {
         });
     } else if is_agent_client {
         info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
-        install_default_plugins(&mut app, window_plugin);
+        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_agent_input.after(validate_incoming_actions));
 
@@ -279,24 +343,12 @@ fn main() {
             }
         });
     } else {
-        install_default_plugins(&mut app, window_plugin);
+        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
     }
 
     if is_cheater {
         warn!("Starting Hanga in CHEAT MODE (Will intentionally broadcast fraudulent packets)");
     }
-
-    let mod_name = parse_mod_spec(&args);
-    let env_mods = std::env::var_os("HANGA_MODS").map(PathBuf::from);
-    let exe_dir = std::env::current_exe()
-        .ok()
-        .and_then(|p| p.parent().map(PathBuf::from));
-    let wasm_path = resolve_wasm_path(
-        &mod_name,
-        &std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")),
-        exe_dir.as_deref(),
-        env_mods.as_deref(),
-    );
     if !wasm_path.is_file() {
         warn!(
             "WASM mod '{}' not found at {} (set HANGA_MODS or build --target wasm32-unknown-unknown)",
@@ -305,8 +357,9 @@ fn main() {
         );
     }
     info!(
-        "Loading WASM mod '{}' from {} (locale {})",
-        mod_name,
+        "Loading game '{}' (mods {}) from {} (locale {})",
+        game.id,
+        game.mods.join(","),
         wasm_path.display(),
         locale.code()
     );
@@ -329,30 +382,55 @@ fn main() {
         .init_resource::<ModOffer>()
         .init_resource::<VoxelCatalog>()
         .init_resource::<WorldSpawned>()
+        .init_resource::<SkyFor>()
+        .init_resource::<WorldGravity>()
+        .insert_resource(Gravity(Vec3::ZERO))
         .insert_resource(CheatMode(is_cheater))
         .insert_resource(UiLocale(locale))
+        .insert_resource(SelectedGame(game.id.clone()))
+        .insert_resource(GameCatalog(catalog))
+        .insert_resource(MenuTheme(game.backdrop))
+        .insert_resource(ClearColor(rgb3(if skip_menu {
+            game.backdrop.sky
+        } else {
+            game.backdrop.clear
+        })))
         .insert_resource(SelectedMod(mod_name.clone()))
         .insert_resource(ModSearch {
-            cwd: std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")),
+            cwd,
             exe: exe_dir.clone(),
             env: env_mods.clone(),
         })
+        .insert_resource(GameSearch(game_dirs))
         .insert_resource(P2pConfig { url: p2p_url })
         .insert_resource(KeyBindings(bindings))
         .insert_resource(BindingsPath(bindings_path))
         .init_resource::<BindCapture>()
-        .add_systems(OnEnter(GameMode::Menu), spawn_main_menu)
-        .add_systems(OnExit(GameMode::Menu), despawn_main_menu)
+        .add_systems(
+            OnEnter(GameMode::Menu),
+            (apply_menu_clear, spawn_menu_sky, spawn_main_menu).chain(),
+        )
+        .add_systems(OnExit(GameMode::Menu), (despawn_menu_sky, despawn_main_menu))
         .add_systems(OnEnter(GameMode::Controls), spawn_controls_menu)
         .add_systems(OnExit(GameMode::Controls), despawn_controls_menu)
         .add_systems(
             OnEnter(GameMode::Playing),
-            (ensure_play_world, spawn_hud, grab_cursor).chain(),
+            (apply_play_sky, ensure_play_world, ensure_clouds, spawn_hud, grab_cursor).chain(),
         )
         .add_systems(OnExit(GameMode::Playing), (despawn_hud, release_cursor))
         .add_systems(
             Update,
-            (menu_keyboard, menu_buttons, refresh_menu_labels).run_if(in_state(GameMode::Menu)),
+            (
+                sync_selected_game,
+                ensure_clouds,
+                apply_menu_chrome,
+                menu_keyboard,
+                menu_buttons,
+                refresh_menu_labels,
+                drift_clouds,
+            )
+                .chain()
+                .run_if(in_state(GameMode::Menu)),
         )
         .add_systems(
             Update,
@@ -366,7 +444,7 @@ fn main() {
         )
         .add_systems(
             Update,
-            (pause_to_menu, select_hotbar, player_look, update_hud)
+            (pause_to_menu, select_hotbar, player_look, update_hud, drift_clouds)
                 .run_if(in_state(GameMode::Playing)),
         )
         .add_message::<ProposedAction>()
@@ -379,6 +457,10 @@ fn main() {
                 validate_incoming_actions,
             )
                 .chain(),
+        )
+        .add_systems(
+            FixedUpdate,
+            apply_point_gravity.run_if(in_state(GameMode::Playing)),
         )
         .run();
 }
@@ -483,6 +565,29 @@ pub struct Vehicle;
 
 #[derive(Component)]
 pub struct InVehicle(pub Entity);
+
+#[derive(Component, Clone)]
+struct VehiclePart {
+    name: String,
+    size: Vec3,
+}
+
+#[derive(Component)]
+struct VehicleDrive {
+    speed: f32,
+}
+
+#[derive(Component, Default)]
+struct VehicleCrash {
+    last_speed: f32,
+    peak: i32,
+}
+
+#[derive(Component)]
+struct Wrecked;
+
+#[derive(Resource, Default, Clone)]
+struct WorldGravity(GravityKit);
 
 /// Represents an optimistic action broadcasted by a P2P client over WebRTC
 #[derive(Message, Debug, Serialize, Deserialize, Clone)]
@@ -694,7 +799,19 @@ fn action_just_pressed(
         .any(|bind| bind_active(bind, keys, mouse, true))
 }
 
-fn menu_caption(locale: Locale, set: &BindingSet, key: &str, selected: &str) -> String {
+fn rgb3(c: [f32; 3]) -> Color {
+    Color::srgb(c[0], c[1], c[2])
+}
+
+fn rgba4(c: [f32; 4]) -> Color {
+    Color::srgba(c[0], c[1], c[2], c[3])
+}
+
+fn current_game(catalog: &GameCatalog, selected: &SelectedGame) -> GameSpec {
+    resolve_game(&catalog.0, &selected.0)
+}
+
+fn menu_caption(locale: Locale, set: &BindingSet, key: &str, game: &GameSpec) -> String {
     let action = match key {
         "menu_play" => Some(ACTION_MENU_PLAY),
         "menu_multiplayer" => Some(ACTION_MENU_MULTI),
@@ -705,12 +822,8 @@ fn menu_caption(locale: Locale, set: &BindingSet, key: &str, selected: &str) -> 
         _ => None,
     };
     let title = match key {
-        "menu_game" => {
-            let game = shipped_mod_label_key(selected)
-                .map(|k| i18n::t(locale, k).to_string())
-                .unwrap_or_else(|| selected.to_string());
-            format!("{}: {game}", i18n::t(locale, key))
-        }
+        "menu_title" => game.title(locale.code()),
+        "menu_game" => format!("{}: {}", i18n::t(locale, key), game.title(locale.code())),
         _ => i18n::t(locale, key).to_string(),
     };
     match action {
@@ -727,8 +840,13 @@ fn bind_row_caption(locale: Locale, set: &BindingSet, action: &str) -> String {
     )
 }
 
-fn install_default_plugins(app: &mut App, window_plugin: WindowPlugin) {
-    let assets = hanga::palette::ensure_asset_dir();
+fn install_default_plugins(
+    app: &mut App,
+    window_plugin: WindowPlugin,
+    game: &GameSpec,
+    search: &[PathBuf],
+) {
+    let assets = hanga::palette::prepare_asset_dir(game, search);
     app.add_plugins(
         DefaultPlugins
             .set(window_plugin)
@@ -737,7 +855,7 @@ fn install_default_plugins(app: &mut App, window_plugin: WindowPlugin) {
                 ..default()
             }),
     );
-    app.insert_resource(ClearColor(Color::srgb(0.46, 0.58, 0.70)));
+    app.insert_resource(ClearColor(rgb3(game.backdrop.clear)));
 }
 
 fn ensure_play_world(
@@ -748,6 +866,8 @@ fn ensure_play_world(
     locale: Res<UiLocale>,
     selected: Res<SelectedMod>,
     search: Res<ModSearch>,
+    catalog: Res<GameCatalog>,
+    selected_game: Res<SelectedGame>,
     mut spawned: ResMut<WorldSpawned>,
 ) {
     let wasm_path = resolve_wasm_path(
@@ -782,6 +902,7 @@ fn ensure_play_world(
         &mut materials,
         &mod_runtime,
         &locale,
+        &current_game(&catalog, &selected_game),
     );
     spawned.0 = true;
 }
@@ -792,6 +913,7 @@ fn spawn_play_world(
     materials: &mut Assets<StandardMaterial>,
     mod_runtime: &ModRuntime,
     locale: &UiLocale,
+    game: &GameSpec,
 ) {
     info!("Hanga engine starting (gameplay owned by the loaded WASM mod)");
     if let Some(supported) = with_mod(&mod_runtime, |ctx| {
@@ -812,6 +934,18 @@ fn spawn_play_world(
         info!("Mod voxels: {}", catalog.0.join(", "));
     }
     commands.insert_resource(catalog);
+
+    let gravity_text = with_mod(&mod_runtime, |ctx| {
+        ctx.bindings
+            .hanga_engine_gameplay()
+            .call_gravity(&mut ctx.store)
+            .unwrap_or_default()
+    })
+    .unwrap_or_default();
+    let gravity = parse_gravity(&gravity_text);
+    let accel = Vec3::from_array(avian_accel(&gravity));
+    commands.insert_resource(Gravity(accel));
+    commands.insert_resource(WorldGravity(gravity));
 
     let (px, py, pz) = with_mod(&mod_runtime, |ctx| {
         ctx.bindings
@@ -843,20 +977,23 @@ fn spawn_play_world(
                 VoxelWorldCamera::<DefaultWorld>::default(),
                 Transform::from_xyz(0.0, 0.55, 0.0),
                 LookPitch(0.0),
+                play_fog(game),
             ));
         });
 
+    let atmo = &game.atmosphere;
     commands.spawn((
         DirectionalLight {
-            illuminance: 14_000.0,
+            color: rgb3(atmo.sun),
+            illuminance: atmo.sun_illuminance,
             shadow_maps_enabled: false,
             ..default()
         },
         Transform::from_rotation(Quat::from_euler(EulerRot::XYZ, -1.05, 0.55, 0.0)),
     ));
     commands.spawn(AmbientLight {
-        color: Color::srgb(0.62, 0.68, 0.78),
-        brightness: 280.0,
+        color: rgb3(atmo.ambient),
+        brightness: atmo.ambient_brightness,
         ..default()
     });
 
@@ -877,13 +1014,19 @@ fn spawn_play_world(
                 .unwrap_or((500, 2, 495))
         })
         .unwrap_or((500, 2, 495));
+        let kit_text = with_mod(&mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_vehicle_kit(&mut ctx.store, i as i32)
+                .unwrap_or_default()
+        })
+        .unwrap_or_default();
         spawn_vehicle(
             commands,
             meshes,
             materials,
             Vec3::new(x as f32, y as f32, z as f32),
-            i == 0,
-            i,
+            &parse_vehicle_kit(&kit_text),
         );
     }
 
@@ -1008,57 +1151,35 @@ fn spawn_vehicle(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
     pos: Vec3,
-    player_car: bool,
-    index: u32,
+    kit: &VehicleKit,
 ) {
-    let pal = vehicle_palette(figure_salt(pos.x, pos.z) ^ index, player_car);
-    let body_mat = mat(materials, pal.body);
-    let cabin_mat = mat(materials, pal.cabin);
-    let wheel_mat = mat(materials, pal.wheel);
-    let light_mat = mat(materials, pal.light);
-    let hull = meshes.add(Cuboid::from_size(Vec3::new(1.85, 0.48, 3.80)));
-    let cabin = meshes.add(Cuboid::from_size(Vec3::new(1.55, 0.50, 1.70)));
-    let wheel = meshes.add(Cuboid::from_size(Vec3::new(0.28, 0.42, 0.42)));
-    let lamp = meshes.add(Cuboid::from_size(Vec3::new(0.18, 0.12, 0.10)));
+    let [cx, cy, cz] = kit.collider;
     let mut entity = commands.spawn((
         Vehicle,
+        VehicleDrive { speed: kit.speed },
         Transform::from_translation(pos),
         Visibility::default(),
         RigidBody::Dynamic,
-        Collider::cuboid(2.0, 1.2, 4.0),
+        Collider::cuboid(cx, cy, cz),
         LockedAxes::new().lock_rotation_x().lock_rotation_z(),
         LinearVelocity::default(),
         AngularVelocity::default(),
+        VehicleCrash::default(),
     ));
-    if !player_car {
+    if kit.traffic {
         entity.insert(VehicleAi);
     }
-    entity.with_children(|car| {
-        car.spawn((
-            Mesh3d(hull),
-            MeshMaterial3d(body_mat),
-            Transform::from_xyz(0.0, -0.22, 0.0),
-        ));
-        car.spawn((
-            Mesh3d(cabin),
-            MeshMaterial3d(cabin_mat),
-            Transform::from_xyz(0.0, 0.24, 0.45),
-        ));
-        car.spawn((
-            Mesh3d(lamp.clone()),
-            MeshMaterial3d(light_mat.clone()),
-            Transform::from_xyz(-0.62, -0.08, -1.88),
-        ));
-        car.spawn((
-            Mesh3d(lamp),
-            MeshMaterial3d(light_mat),
-            Transform::from_xyz(0.62, -0.08, -1.88),
-        ));
-        for (x, z) in [(-0.82, -1.15), (0.82, -1.15), (-0.82, 1.20), (0.82, 1.20)] {
-            car.spawn((
-                Mesh3d(wheel.clone()),
-                MeshMaterial3d(wheel_mat.clone()),
-                Transform::from_xyz(x, -0.42, z),
+    entity.with_children(|body| {
+        for part in &kit.parts {
+            let size = Vec3::from_array(part.size);
+            body.spawn((
+                Mesh3d(meshes.add(Cuboid::from_size(size))),
+                MeshMaterial3d(mat(materials, part.rgb)),
+                Transform::from_xyz(part.offset[0], part.offset[1], part.offset[2]),
+                VehiclePart {
+                    name: part.name.clone(),
+                    size,
+                },
             ));
         }
     });
@@ -1274,7 +1395,7 @@ fn validate_incoming_actions(
         ),
         With<Player>,
     >,
-    vehicles: Query<&Transform, (With<Vehicle>, Without<Player>)>,
+    vehicles: Query<(&Transform, Option<&Wrecked>), (With<Vehicle>, Without<Player>)>,
     mut voxel_world: VoxelWorld<DefaultWorld>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
@@ -1479,11 +1600,14 @@ fn validate_incoming_actions(
                 let Ok((transform, mut mod_state, mut wallet, _, _)) = player_query.get_mut(player_entity) else {
                     continue;
                 };
-                let Ok(v_transform) = vehicles.get(vehicle_entity) else {
+                let Ok((v_transform, wrecked)) = vehicles.get(vehicle_entity) else {
                     trust_ledger.penalize(player_entity, 0.5);
                     warn!("FRAUD DETECTED: EnterVehicle for missing vehicle {:?}", vehicle_entity);
                     continue;
                 };
+                if wrecked.is_some() {
+                    continue;
+                }
                 let range = action_range(&mod_runtime, ACTION_ENTER, 5.0);
                 let player_pos = transform.translation;
                 let v_pos = v_transform.translation;
@@ -1653,23 +1777,66 @@ fn player_look(
     cam.rotation = Quat::from_euler(EulerRot::YXZ, 0.0, pitch.0, 0.0);
 }
 
+fn apply_wish(vel: &mut LinearVelocity, wish: Vec3, speed: f32, kit: &GravityKit, pos: Vec3) {
+    let up = walk_up(kit, pos.to_array());
+    vel.0 = Vec3::from_array(set_planar_velocity(
+        vel.0.to_array(),
+        wish.to_array(),
+        speed,
+        up,
+    ));
+}
+
+fn apply_point_gravity(
+    time: Res<Time>,
+    field: Res<WorldGravity>,
+    mut bodies: Query<(&Transform, &mut LinearVelocity)>,
+) {
+    if !matches!(field.0.kind, hanga::gravity::GravityKind::Point { .. }) {
+        return;
+    }
+    let dt = time.delta_secs();
+    for (tf, mut vel) in &mut bodies {
+        let accel = point_accel(&field.0, tf.translation.to_array());
+        vel.0 += Vec3::from_array(accel) * dt;
+    }
+}
+
 /// Very basic first person controller for MVP (and vehicle controller)
 fn player_movement(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mouse_input: Res<ButtonInput<MouseButton>>,
     bindings: Res<KeyBindings>,
+    gravity: Res<WorldGravity>,
     mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), With<Player>>,
-    mut vehicles: Query<(&Transform, &mut LinearVelocity, &mut AngularVelocity), (With<Vehicle>, Without<Player>)>,
+    mut vehicles: Query<
+        (
+            &Transform,
+            &mut LinearVelocity,
+            &mut AngularVelocity,
+            Option<&Wrecked>,
+            &VehicleDrive,
+        ),
+        (With<Vehicle>, Without<Player>),
+    >,
 ) {
     if let Some((mut player_transform, mut player_velocity, in_vehicle)) = players.iter_mut().next() {
         let mut direction = Vec3::ZERO;
         let mut rotation_y = 0.0;
         
-        let mut target_vehicle: Option<(&mut LinearVelocity, &mut AngularVelocity, Vec3)> = None;
+        let mut target_vehicle: Option<(&mut LinearVelocity, &mut AngularVelocity, Vec3, bool, f32)> = None;
         let forward = if let Some(InVehicle(vehicle_entity)) = in_vehicle {
-            if let Ok((v_transform, v_velocity, v_angular)) = vehicles.get_mut(*vehicle_entity) {
+            if let Ok((v_transform, v_velocity, v_angular, wrecked, drive)) =
+                vehicles.get_mut(*vehicle_entity)
+            {
                 let fwd = v_transform.forward();
-                target_vehicle = Some((v_velocity.into_inner(), v_angular.into_inner(), v_transform.translation));
+                target_vehicle = Some((
+                    v_velocity.into_inner(),
+                    v_angular.into_inner(),
+                    v_transform.translation,
+                    wrecked.is_some(),
+                    drive.speed,
+                ));
                 fwd
             } else {
                 player_transform.forward()
@@ -1701,32 +1868,25 @@ fn player_movement(
             }
         }
 
-        // Flatten movement to XZ plane
-        direction.y = 0.0;
-        let direction = direction.normalize_or_zero();
-        
-        // Apply movement velocity, keeping existing gravity (y-axis)
-        if let Some((v_vel, v_ang, v_pos)) = target_vehicle {
-            let speed = 25.0; // Vehicles are faster!
-            v_vel.x = direction.x * speed;
-            v_vel.z = direction.z * speed;
-            v_ang.y = rotation_y * 2.0; // Apply steering rotation
-            
-            // Sync player position and velocity to match the vehicle (for the camera)
+        if let Some((v_vel, v_ang, v_pos, wrecked, speed)) = target_vehicle {
+            if !wrecked {
+                apply_wish(v_vel, direction, speed, &gravity.0, v_pos);
+                v_ang.y = rotation_y * 2.0;
+            }
             player_transform.translation = v_pos;
-            player_velocity.x = v_vel.x;
-            player_velocity.z = v_vel.z;
-            player_velocity.y = v_vel.y;
+            player_velocity.0 = v_vel.0;
         } else {
-            let speed = 10.0;
-            player_velocity.x = direction.x * speed;
-            player_velocity.z = direction.z * speed;
-            
-            // Player turning camera is usually handled by mouse look, so we just let them strafe with A/D on foot.
-            
-            // Simple jump (only when on foot)
-            if action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP) {
-                player_velocity.y = 5.0;
+            let pos = player_transform.translation;
+            apply_wish(&mut player_velocity, direction, 10.0, &gravity.0, pos);
+            if gravity.0.jump > 0.0
+                && action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP)
+            {
+                let up = walk_up(&gravity.0, pos.to_array());
+                player_velocity.0 = Vec3::from_array(set_jump(
+                    player_velocity.0.to_array(),
+                    gravity.0.jump,
+                    up,
+                ));
             }
         }
     }
@@ -1739,7 +1899,7 @@ fn player_interaction(
     mut events: MessageWriter<ProposedAction>,
     query: Query<(Entity, &Transform, &ModInventory), With<Player>>,
     cameras: Query<&GlobalTransform, With<VoxelWorldCamera<DefaultWorld>>>,
-    vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
+    vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
     cheat_mode: Res<CheatMode>,
     mod_runtime: Res<ModRuntime>,
     bindings: Res<KeyBindings>,
@@ -1877,7 +2037,7 @@ impl Plugin for CitySimPlugin {
             (
                 agent_ai_tick,
                 wanted_decay,
-                vehicle_collision_damage,
+                vehicle_crash_system,
                 vehicle_traffic_system,
             )
                 .chain()
@@ -1887,27 +2047,152 @@ impl Plugin for CitySimPlugin {
     }
 }
 
-fn vehicle_collision_damage(
-    mut events: MessageWriter<ProposedAction>,
-    query: Query<(Entity, &Transform, &LinearVelocity, Option<&InVehicle>), With<Player>>,
+fn vehicle_hits_solid(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -> bool {
+    let fwd = transform.forward();
+    for i in 1..=3 {
+        let check = transform.translation + *fwd * (i as f32);
+        let voxel_pos = IVec3::new(
+            check.x.round() as i32,
+            check.y.round() as i32,
+            check.z.round() as i32,
+        );
+        if voxel_type_of(voxel_world.get_voxel(voxel_pos)).is_some() {
+            return true;
+        }
+    }
+    false
+}
+
+fn vehicle_crash_system(
+    mut commands: Commands,
+    mut vehicles: Query<
+        (
+            Entity,
+            &Transform,
+            &LinearVelocity,
+            &mut AngularVelocity,
+            &Children,
+            &mut VehicleCrash,
+            Option<&Wrecked>,
+        ),
+        With<Vehicle>,
+    >,
+    mut parts: Query<(Entity, &VehiclePart, &mut Transform), Without<Vehicle>>,
+    mut players: Query<(Entity, Option<&InVehicle>), With<Player>>,
     voxel_world: VoxelWorld<DefaultWorld>,
+    mod_runtime: Res<ModRuntime>,
+    mut events: MessageWriter<ProposedAction>,
 ) {
-    for (player_entity, transform, velocity, in_vehicle) in query.iter() {
-        if in_vehicle.is_some() {
-            let speed = velocity.length();
-            if speed > 15.0 {
-                let dir = velocity.normalize_or_zero();
-                if dir == Vec3::ZERO { continue; }
-                
-                // Raycast ahead of the vehicle to find blocks to destroy
-                for i in 2..=4 {
-                    let check_pos = transform.translation + dir * (i as f32);
-                    let voxel_pos = IVec3::new(check_pos.x.round() as i32, check_pos.y.round() as i32, check_pos.z.round() as i32);
-                    if voxel_world.get_voxel(voxel_pos) != WorldVoxel::Unset {
-                        events.write(signed_break(player_entity, voxel_pos));
-                        break;
-                    }
+    for (entity, transform, velocity, mut angular, children, mut crash, wrecked) in
+        vehicles.iter_mut()
+    {
+        let speed = velocity.length();
+        let into_solid = vehicle_hits_solid(transform, &voxel_world);
+        let Some(impact) = impact_speed(crash.last_speed, speed, into_solid) else {
+            crash.last_speed = speed;
+            continue;
+        };
+        crash.last_speed = speed;
+        let severity = with_mod(&mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_crash_severity(&mut ctx.store, impact, into_solid)
+                .unwrap_or(0)
+        })
+        .unwrap_or(0);
+        if severity <= crash.peak {
+            continue;
+        }
+        crash.peak = severity;
+        let crumple = with_mod(&mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_crash_crumple(&mut ctx.store, severity)
+                .unwrap_or(0)
+        })
+        .unwrap_or(0);
+        let scale = crumple_scale(crumple);
+        let mut detach = Vec::new();
+        for child in children.iter() {
+            let Ok((part_entity, part, mut local)) = parts.get_mut(child) else {
+                continue;
+            };
+            let should_drop = with_mod(&mod_runtime, |ctx| {
+                ctx.bindings
+                    .hanga_engine_gameplay()
+                    .call_crash_detach(&mut ctx.store, &part.name, severity)
+                    .unwrap_or(0)
+            })
+            .unwrap_or(0)
+                == 1;
+            if should_drop {
+                detach.push((part_entity, part.size, *local));
+            } else {
+                local.scale = Vec3::new(1.0, 1.0, scale);
+            }
+        }
+        let impulse = with_mod(&mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_crash_part_impulse(&mut ctx.store, severity)
+                .unwrap_or(0.0)
+        })
+        .unwrap_or(0.0);
+        let kick = transform.forward() * -impulse + Vec3::Y * (impulse * 0.35);
+        for (part_entity, size, local) in detach {
+            let world = transform.mul_transform(local);
+            commands.entity(part_entity).remove_parent_in_place();
+            commands.entity(part_entity).insert((
+                world,
+                RigidBody::Dynamic,
+                Collider::cuboid(size.x, size.y, size.z),
+                LinearVelocity(velocity.0 + kick),
+                AngularVelocity(Vec3::new(2.4, 1.1, 0.8)),
+            ));
+        }
+        let wrecks = with_mod(&mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_crash_wrecks(&mut ctx.store, severity)
+                .unwrap_or(0)
+        })
+        .unwrap_or(0)
+            == 1;
+        if wrecks && wrecked.is_none() {
+            commands.entity(entity).insert(Wrecked);
+            commands.entity(entity).remove::<LockedAxes>();
+            commands.entity(entity).remove::<VehicleAi>();
+            angular.0 += Vec3::new(1.6, 0.4, 0.9);
+            for (player_entity, riding) in players.iter_mut() {
+                if matches!(riding, Some(InVehicle(v)) if *v == entity) {
+                    commands.entity(player_entity).remove::<InVehicle>();
                 }
+            }
+        }
+        let action = with_mod(&mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_crash_action(&mut ctx.store, severity)
+                .unwrap_or_default()
+        })
+        .unwrap_or_default();
+        if action.is_empty() {
+            continue;
+        }
+        let Some((player_entity, _)) = players.iter().next() else {
+            continue;
+        };
+        let pos = IVec3::new(
+            transform.translation.x.round() as i32,
+            transform.translation.y.round() as i32,
+            transform.translation.z.round() as i32,
+        );
+        if action == "explode" {
+            events.write(signed_explosion(player_entity, pos, 4.0));
+        } else {
+            events.write(signed_verb(player_entity, &action, "crash"));
+            if into_solid {
+                events.write(signed_break(player_entity, pos + IVec3::new(0, 0, -2)));
             }
         }
     }
@@ -1930,7 +2215,7 @@ fn path_blocked(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -
 }
 
 fn vehicle_traffic_system(
-    mut vehicles: Query<(&mut Transform, &mut LinearVelocity), With<VehicleAi>>,
+    mut vehicles: Query<(&mut Transform, &mut LinearVelocity), (With<VehicleAi>, Without<Wrecked>)>,
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
 ) {
@@ -2409,15 +2694,195 @@ fn play_hint_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInven
     format!("{recipe}  |  {controls}")
 }
 
+fn apply_menu_clear(theme: Res<MenuTheme>, mut clear: ResMut<ClearColor>) {
+    clear.0 = rgb3(theme.0.clear);
+}
+
+fn apply_play_sky(theme: Res<MenuTheme>, mut clear: ResMut<ClearColor>) {
+    clear.0 = rgb3(theme.0.sky);
+}
+
+fn sync_selected_game(
+    selected: Res<SelectedGame>,
+    catalog: Res<GameCatalog>,
+    search: Res<ModSearch>,
+    games: Res<GameSearch>,
+    mut selected_mod: ResMut<SelectedMod>,
+    mut theme: ResMut<MenuTheme>,
+    mut runtime: ResMut<ModRuntime>,
+) {
+    if !selected.is_changed() && !catalog.is_changed() {
+        return;
+    }
+    let game = current_game(&catalog, &selected);
+    selected_mod.0 = game.lead_mod().to_string();
+    theme.0 = game.backdrop;
+    hanga::palette::prepare_asset_dir(&game, &games.0);
+    let wasm_path = resolve_wasm_path(
+        &selected_mod.0,
+        &search.cwd,
+        search.exe.as_deref(),
+        search.env.as_deref(),
+    );
+    if wasm_path.is_file() {
+        runtime.load_spec(&wasm_path);
+    }
+}
+
+fn play_fog(game: &GameSpec) -> DistanceFog {
+    match game.atmosphere.fog {
+        Some(color) => DistanceFog {
+            color: rgb3(color),
+            falloff: FogFalloff::Linear {
+                start: game.atmosphere.fog_start,
+                end: game.atmosphere.fog_end.max(game.atmosphere.fog_start + 1.0),
+            },
+            ..default()
+        },
+        None => DistanceFog {
+            falloff: FogFalloff::Linear {
+                start: 1_000_000.0,
+                end: 1_000_001.0,
+            },
+            ..default()
+        },
+    }
+}
+
+fn spawn_clouds(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<StandardMaterial>,
+    assets: &AssetServer,
+    game: &GameSpec,
+) {
+    if !game.has_clouds() {
+        return;
+    }
+    let image = assets.load(hanga::palette::CLOUD_FILE);
+    let mat = materials.add(StandardMaterial {
+        base_color: Color::WHITE,
+        base_color_texture: Some(image),
+        perceptual_roughness: 1.0,
+        metallic: 0.0,
+        alpha_mode: AlphaMode::Blend,
+        unlit: true,
+        cull_mode: None,
+        ..default()
+    });
+    let scale = game.atmosphere.cloud_scale.max(80.0);
+    let height = game.atmosphere.cloud_height.max(40.0);
+    let mesh = meshes.add(Plane3d {
+        half_size: Vec2::splat(scale * 0.5),
+        ..default()
+    });
+    commands.spawn((
+        SkyClouds,
+        Mesh3d(mesh.clone()),
+        MeshMaterial3d(mat.clone()),
+        Transform::from_xyz(0.0, height, 0.0),
+    ));
+    commands.spawn((
+        SkyClouds,
+        Mesh3d(mesh),
+        MeshMaterial3d(mat),
+        Transform::from_xyz(scale * 0.18, height + 18.0, -scale * 0.12)
+            .with_scale(Vec3::splat(1.15)),
+    ));
+}
+
+fn ensure_clouds(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+    assets: Res<AssetServer>,
+    catalog: Res<GameCatalog>,
+    selected: Res<SelectedGame>,
+    mut sky_for: ResMut<SkyFor>,
+    clouds: Query<Entity, With<SkyClouds>>,
+) {
+    let game = current_game(&catalog, &selected);
+    if sky_for.0 == game.id {
+        return;
+    }
+    for entity in &clouds {
+        commands.entity(entity).despawn();
+    }
+    sky_for.0 = game.id.clone();
+    spawn_clouds(
+        &mut commands,
+        &mut meshes,
+        &mut materials,
+        &assets,
+        &game,
+    );
+}
+
+fn spawn_menu_sky(mut commands: Commands) {
+    commands.spawn((
+        MenuSkyCamera,
+        Camera3d::default(),
+        Camera {
+            order: -1,
+            ..default()
+        },
+        Transform::from_xyz(40.0, 28.0, 90.0).looking_at(Vec3::new(0.0, 140.0, -80.0), Vec3::Y),
+    ));
+}
+
+fn despawn_menu_sky(mut commands: Commands, cams: Query<Entity, With<MenuSkyCamera>>) {
+    for entity in &cams {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn drift_clouds(time: Res<Time>, mut clouds: Query<&mut Transform, With<SkyClouds>>) {
+    let dt = time.delta_secs();
+    for (i, mut transform) in clouds.iter_mut().enumerate() {
+        let spin = if i == 0 { 0.012 } else { -0.008 };
+        transform.rotate_y(spin * dt);
+    }
+}
+
+fn apply_menu_chrome(
+    theme: Res<MenuTheme>,
+    mut clear: ResMut<ClearColor>,
+    mut panels: Query<&mut BackgroundColor, (With<ChromePanel>, Without<ChromeButton>)>,
+    mut buttons: Query<&mut BackgroundColor, (With<ChromeButton>, Without<ChromePanel>)>,
+    mut titles: Query<&mut TextColor, (With<ChromeTitle>, Without<ChromeHint>)>,
+    mut hints: Query<&mut TextColor, (With<ChromeHint>, Without<ChromeTitle>)>,
+) {
+    if !theme.is_changed() {
+        return;
+    }
+    clear.0 = rgb3(theme.0.clear);
+    for mut bg in &mut panels {
+        *bg = BackgroundColor(rgba4(theme.0.panel));
+    }
+    for mut bg in &mut buttons {
+        *bg = BackgroundColor(rgb3(theme.0.button));
+    }
+    for mut color in &mut titles {
+        color.0 = rgb3(theme.0.accent);
+    }
+    for mut color in &mut hints {
+        color.0 = Color::srgba(theme.0.accent[0], theme.0.accent[1], theme.0.accent[2], 0.7);
+    }
+}
+
 fn spawn_main_menu(
     mut commands: Commands,
     locale: Res<UiLocale>,
     bindings: Res<KeyBindings>,
-    selected: Res<SelectedMod>,
+    catalog: Res<GameCatalog>,
+    selected: Res<SelectedGame>,
+    theme: Res<MenuTheme>,
 ) {
+    let game = current_game(&catalog, &selected);
     commands
         .spawn((
             MenuRoot,
+            ChromePanel,
             Node {
                 width: Val::Percent(100.0),
                 height: Val::Percent(100.0),
@@ -2427,25 +2892,27 @@ fn spawn_main_menu(
                 row_gap: Val::Px(10.0),
                 ..default()
             },
-            BackgroundColor(Color::srgba(0.02, 0.03, 0.05, 0.82)),
+            BackgroundColor(rgba4(theme.0.panel)),
         ))
         .with_children(|parent| {
             parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &selected.0)),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &game)),
                 TextFont {
                     font_size: FontSize::Px(64.0),
                     ..default()
                 },
-                TextColor(Color::srgb(0.95, 0.85, 0.45)),
+                TextColor(rgb3(theme.0.accent)),
+                ChromeTitle,
                 MenuLabel("menu_title"),
             ));
             parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &selected.0)),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &game)),
                 TextFont {
                     font_size: FontSize::Px(16.0),
                     ..default()
                 },
-                TextColor(Color::srgb(0.7, 0.72, 0.75)),
+                TextColor(Color::srgba(theme.0.accent[0], theme.0.accent[1], theme.0.accent[2], 0.7)),
+                ChromeHint,
                 MenuLabel("menu_hint"),
             ));
             for (action, key) in [
@@ -2460,6 +2927,7 @@ fn spawn_main_menu(
                     .spawn((
                         Button,
                         action,
+                        ChromeButton,
                         Node {
                             width: Val::Px(380.0),
                             height: Val::Px(48.0),
@@ -2468,11 +2936,11 @@ fn spawn_main_menu(
                             margin: UiRect::top(Val::Px(6.0)),
                             ..default()
                         },
-                        BackgroundColor(Color::srgb(0.14, 0.17, 0.22)),
+                        BackgroundColor(rgb3(theme.0.button)),
                     ))
                     .with_children(|btn| {
                         btn.spawn((
-                            Text::new(menu_caption(locale.0, &bindings.0, key, &selected.0)),
+                            Text::new(menu_caption(locale.0, &bindings.0, key, &game)),
                             TextFont {
                                 font_size: FontSize::Px(22.0),
                                 ..default()
@@ -2495,7 +2963,8 @@ fn apply_menu_action(
     action: MenuAction,
     next: &mut NextState<GameMode>,
     locale: &mut UiLocale,
-    selected: &mut SelectedMod,
+    selected: &mut SelectedGame,
+    catalog: &GameCatalog,
     p2p: &mut P2pConfig,
     exit: &mut MessageWriter<AppExit>,
 ) {
@@ -2516,7 +2985,7 @@ fn apply_menu_action(
             next.set(GameMode::Playing);
         }
         MenuAction::Game => {
-            selected.0 = cycle_shipped_mod(&selected.0).to_string();
+            selected.0 = cycle_game(&catalog.0, &selected.0);
             info!("Game {}", selected.0);
         }
         MenuAction::Lang => {
@@ -2538,7 +3007,8 @@ fn menu_keyboard(
     bindings: Res<KeyBindings>,
     mut next: ResMut<NextState<GameMode>>,
     mut locale: ResMut<UiLocale>,
-    mut selected: ResMut<SelectedMod>,
+    mut selected: ResMut<SelectedGame>,
+    catalog: Res<GameCatalog>,
     mut p2p: ResMut<P2pConfig>,
     mut exit: MessageWriter<AppExit>,
 ) {
@@ -2563,6 +3033,7 @@ fn menu_keyboard(
             &mut next,
             &mut locale,
             &mut selected,
+            &catalog,
             &mut p2p,
             &mut exit,
         );
@@ -2576,7 +3047,9 @@ fn menu_buttons(
     >,
     mut next: ResMut<NextState<GameMode>>,
     mut locale: ResMut<UiLocale>,
-    mut selected: ResMut<SelectedMod>,
+    mut selected: ResMut<SelectedGame>,
+    catalog: Res<GameCatalog>,
+    theme: Res<MenuTheme>,
     mut p2p: ResMut<P2pConfig>,
     mut exit: MessageWriter<AppExit>,
 ) {
@@ -2588,15 +3061,16 @@ fn menu_buttons(
                     &mut next,
                     &mut locale,
                     &mut selected,
+                    &catalog,
                     &mut p2p,
                     &mut exit,
                 );
             }
             Interaction::Hovered => {
-                *bg = BackgroundColor(Color::srgb(0.26, 0.32, 0.42));
+                *bg = BackgroundColor(rgb3(theme.0.button_hover));
             }
             Interaction::None => {
-                *bg = BackgroundColor(Color::srgb(0.14, 0.17, 0.22));
+                *bg = BackgroundColor(rgb3(theme.0.button));
             }
         }
     }
@@ -2605,21 +3079,29 @@ fn menu_buttons(
 fn refresh_menu_labels(
     locale: Res<UiLocale>,
     bindings: Res<KeyBindings>,
-    selected: Res<SelectedMod>,
+    catalog: Res<GameCatalog>,
+    selected: Res<SelectedGame>,
     mut labels: Query<(&MenuLabel, &mut Text)>,
 ) {
     if !locale.is_changed() && !bindings.is_changed() && !selected.is_changed() {
         return;
     }
+    let game = current_game(&catalog, &selected);
     for (label, mut text) in &mut labels {
-        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0, &selected.0));
+        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0, &game));
     }
 }
 
-fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<KeyBindings>) {
+fn spawn_controls_menu(
+    mut commands: Commands,
+    locale: Res<UiLocale>,
+    bindings: Res<KeyBindings>,
+    theme: Res<MenuTheme>,
+) {
     commands
         .spawn((
             ControlsRoot,
+            ChromePanel,
             Node {
                 width: Val::Percent(100.0),
                 height: Val::Percent(100.0),
@@ -2630,7 +3112,7 @@ fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: 
                 padding: UiRect::all(Val::Px(12.0)),
                 ..default()
             },
-            BackgroundColor(Color::srgba(0.02, 0.03, 0.05, 0.88)),
+            BackgroundColor(rgba4(theme.0.panel)),
         ))
         .with_children(|parent| {
             parent.spawn((
@@ -2639,16 +3121,18 @@ fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: 
                     font_size: FontSize::Px(40.0),
                     ..default()
                 },
-                TextColor(Color::srgb(0.95, 0.85, 0.45)),
+                TextColor(rgb3(theme.0.accent)),
+                ChromeTitle,
             ));
             parent.spawn((
                 ControlsHintText,
+                ChromeHint,
                 Text::new(i18n::t(locale.0, "controls_hint")),
                 TextFont {
                     font_size: FontSize::Px(14.0),
                     ..default()
                 },
-                TextColor(Color::srgb(0.7, 0.72, 0.75)),
+                TextColor(Color::srgba(theme.0.accent[0], theme.0.accent[1], theme.0.accent[2], 0.7)),
             ));
             parent
                 .spawn(Node {
@@ -2664,6 +3148,7 @@ fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: 
                         list.spawn((
                             Button,
                             BindRow(action),
+                            ChromeButton,
                             Node {
                                 width: Val::Percent(100.0),
                                 height: Val::Px(32.0),
@@ -2672,7 +3157,7 @@ fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: 
                                 padding: UiRect::horizontal(Val::Px(10.0)),
                                 ..default()
                             },
-                            BackgroundColor(Color::srgb(0.14, 0.17, 0.22)),
+                            BackgroundColor(rgb3(theme.0.button)),
                         ))
                         .with_children(|row| {
                             row.spawn((
@@ -2691,6 +3176,7 @@ fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: 
                 .spawn((
                     Button,
                     ControlsBack,
+                    ChromeButton,
                     Node {
                         width: Val::Px(220.0),
                         height: Val::Px(40.0),
@@ -2699,7 +3185,7 @@ fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: 
                         margin: UiRect::top(Val::Px(8.0)),
                         ..default()
                     },
-                    BackgroundColor(Color::srgb(0.14, 0.17, 0.22)),
+                    BackgroundColor(rgb3(theme.0.button)),
                 ))
                 .with_children(|btn| {
                     btn.spawn((
@@ -2759,6 +3245,7 @@ fn controls_buttons(
     >,
     mut capture: ResMut<BindCapture>,
     mut next: ResMut<NextState<GameMode>>,
+    theme: Res<MenuTheme>,
 ) {
     for (interaction, row, back, mut bg) in &mut interaction {
         match *interaction {
@@ -2776,10 +3263,10 @@ fn controls_buttons(
                 }
             }
             Interaction::Hovered => {
-                *bg = BackgroundColor(Color::srgb(0.26, 0.32, 0.42));
+                *bg = BackgroundColor(rgb3(theme.0.button_hover));
             }
             Interaction::None => {
-                *bg = BackgroundColor(Color::srgb(0.14, 0.17, 0.22));
+                *bg = BackgroundColor(rgb3(theme.0.button));
             }
         }
     }
@@ -2905,7 +3392,7 @@ mod tests {
 
 fn nearest_vehicle(
     player_pos: Vec3,
-    vehicles: &Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
+    vehicles: &Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
 ) -> Option<Entity> {
     vehicles
         .iter()
@@ -3038,11 +3525,12 @@ fn say(locale: Locale, body: &str) {
 fn read_terminal_input(
     receiver: Res<StdinReceiver>,
     mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
-    vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
+    vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
     voxel_world: VoxelWorld<DefaultWorld>,
     catalog: Res<VoxelCatalog>,
     mod_runtime: Res<ModRuntime>,
     offer: Res<ModOffer>,
+    gravity: Res<WorldGravity>,
     mut locale: ResMut<UiLocale>,
     mut events: MessageWriter<ProposedAction>,
 ) {
@@ -3051,9 +3539,13 @@ fn read_terminal_input(
             match i18n::parse_text_command(&line) {
                 TextCommand::MoveForward => {
                     if let Some((_, transform, mut velocity, _, _, _, _)) = query.iter_mut().next() {
-                        let forward = transform.forward();
-                        velocity.x = forward.x * 10.0;
-                        velocity.z = forward.z * 10.0;
+                        apply_wish(
+                            &mut velocity,
+                            *transform.forward(),
+                            10.0,
+                            &gravity.0,
+                            transform.translation,
+                        );
                         say(locale.0, i18n::t(locale.0, "moving"));
                     }
                 }
@@ -3179,11 +3671,12 @@ fn read_terminal_input(
 fn read_agent_input(
     receiver: Res<StdinReceiver>,
     mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory, Option<&InVehicle>), With<Player>>,
-    vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
+    vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
     voxel_world: VoxelWorld<DefaultWorld>,
     catalog: Res<VoxelCatalog>,
     mod_runtime: Res<ModRuntime>,
     offer: Res<ModOffer>,
+    gravity: Res<WorldGravity>,
     locale: Res<UiLocale>,
     mut events: MessageWriter<ProposedAction>,
     trust_ledger: Res<TrustLedger>,
@@ -3194,9 +3687,13 @@ fn read_agent_input(
                 match command {
                     AgentCommand::MoveForward => {
                         if let Some((_, transform, mut velocity, _, _, _, _, _)) = query.iter_mut().next() {
-                            let forward = transform.forward();
-                            velocity.x = forward.x * 10.0;
-                            velocity.z = forward.z * 10.0;
+                            apply_wish(
+                                &mut velocity,
+                                *transform.forward(),
+                                10.0,
+                                &gravity.0,
+                                transform.translation,
+                            );
                         }
                     }
                     AgentCommand::BreakBlock { pos } => {
