@@ -9,6 +9,7 @@
   lib,
   makeWrapper,
   mmdebstrap,
+  debian-archive-keyring ? null,
   perl,
   perlPackages,
   stdenv,
@@ -104,5 +105,6 @@ stdenv.mkDerivation (finalAttrs: {
     badPlatforms = [ "aarch64-linux" ];
     mainProgram = "sbuild";
     maintainers = [ lib.maintainers.skyesoss ];
+    broken = debian-archive-keyring == null;
   };
 })

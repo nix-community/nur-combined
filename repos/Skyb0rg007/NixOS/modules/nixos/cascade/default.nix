@@ -99,7 +99,7 @@ in
       };
     };
 
-    systemd.services.cascaded = {
+    systemd.services.cascade = {
       description = "Cascade DNSSEC Signer";
       documentation = [
         "man:cascaded(1)"
@@ -142,7 +142,7 @@ in
       documentation = [ "man:cascade-hsm-bridge(1)" ];
       after = [
         "network.target"
-        "cascaded.service"
+        "cascade.service"
       ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
