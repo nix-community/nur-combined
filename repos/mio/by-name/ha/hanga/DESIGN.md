@@ -64,7 +64,8 @@ hanga --bindings /path/to/bindings.conf
 `nix run .#hanga` and `nix run .#hanga-dev` wrap `HANGA_MODS` so gameplay WASM
 loads without a local Cargo target dir.
 
-`nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Language / Controls / Quit).
+`nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Game / Language / Controls / Quit).
+The Game row cycles Urban Chaos and Testbed; both WASM components ship in `HANGA_MODS`.
 Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a
 room only if a signaling server is already running; a refused connection stays in
 single-player instead of crashing. Mouse look is captured while playing.
@@ -100,4 +101,4 @@ wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm 
 
 1. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
 2. Kani CI for engine + mods
-3. Procedural voxel palette texture; more Urban Chaos recipes / workbenches
+3. More Urban Chaos recipes / workbenches; vehicle meshes beyond boxes

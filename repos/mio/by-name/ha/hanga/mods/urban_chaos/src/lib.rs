@@ -355,7 +355,7 @@ pub fn generate_story_event(player_level: i32) -> String {
 }
 
 pub fn player_spawn() -> (i32, i32, i32) {
-    (490, 50, 490)
+    (504, 2, 508)
 }
 
 pub fn vehicle_spawn_count() -> i32 {
@@ -364,9 +364,9 @@ pub fn vehicle_spawn_count() -> i32 {
 
 pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
     if index <= 0 {
-        (500, 50, 495)
+        (500, 2, 495)
     } else {
-        (510 + (index - 1) * 10, 50, 495)
+        (510 + (index - 1) * 10, 2, 495)
     }
 }
 
@@ -1145,14 +1145,19 @@ mod tests {
     #[test]
     fn player_spawns_in_city() {
         let (x, y, z) = player_spawn();
-        assert_eq!((x, y, z), (490, 50, 490));
+        assert_eq!(y, 2, "street level, not mid-air");
+        let layout = empty_layout();
+        assert_eq!(layout.get_voxel_at(x, 0, z), Voxel::Sidewalk);
+        assert_eq!(layout.get_voxel_at(x, y, z), Voxel::Air);
     }
 
     #[test]
     fn vehicle_spawns_are_near_player() {
         assert_eq!(vehicle_spawn_count(), 6);
         let (x, y, z) = vehicle_spawn(0);
-        assert_eq!((x, y, z), (500, 50, 495));
+        assert_eq!(y, 2, "cars sit on the road");
+        let layout = empty_layout();
+        assert_eq!(layout.get_voxel_at(x, 0, z), Voxel::Asphalt);
         let (x2, _, _) = vehicle_spawn(1);
         assert_eq!(x2, 510);
     }

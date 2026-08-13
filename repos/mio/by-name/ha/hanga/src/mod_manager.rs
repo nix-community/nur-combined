@@ -1,10 +1,13 @@
 use wasmtime::{Engine, Config, Store};
 use wasmtime::component::{Component, Linker};
 use bevy::prelude::*;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex, RwLock};
 use std::path::{Path, PathBuf};
 use notify::{Watcher, RecursiveMode, Event};
 use crossbeam_channel::{unbounded, Receiver};
+
+static WASM_GEN: AtomicU64 = AtomicU64::new(0);
 
 wasmtime::component::bindgen!({
     world: "plugin",
@@ -13,7 +16,7 @@ wasmtime::component::bindgen!({
 
 /// Global reference so that worker threads (like terrain generation) can 
 /// instantiate their own stateless WASM instances for fast concurrent access.
-pub static SHARED_WASM: RwLock<Option<(Engine, Component)>> = RwLock::new(None);
+pub static SHARED_WASM: RwLock<Option<(u64, Engine, Component)>> = RwLock::new(None);
 
 /// A persistent WASM context that holds the main Store and Instance.
 /// Used by the main thread for game logic, preserving global mod state 
@@ -75,9 +78,9 @@ impl ModRuntime {
             }
         };
         
-        // Update the global reference for worker threads
+        let rev = WASM_GEN.fetch_add(1, Ordering::Relaxed) + 1;
         if let Ok(mut shared) = SHARED_WASM.write() {
-            *shared = Some((engine.clone(), component.clone()));
+            *shared = Some((rev, engine.clone(), component.clone()));
         }
         
         let mut store = Store::new(&engine, ());
@@ -88,6 +91,22 @@ impl ModRuntime {
         let _ = bindings.hanga_engine_gameplay().call_init_mod(&mut store);
         
         Some(MainModContext { store, bindings })
+    }
+
+    /// Load another `.wasm` (same mods directory is already watched).
+    pub fn load_spec(&mut self, path: &Path) {
+        if self.watch_path == path {
+            if let Ok(ctx) = self.context.lock() {
+                if ctx.is_some() {
+                    return;
+                }
+            }
+        }
+        self.watch_path = path.to_path_buf();
+        let new_context = Self::load_mod(path);
+        if let Ok(mut ctx) = self.context.lock() {
+            *ctx = new_context;
+        }
     }
 }
 

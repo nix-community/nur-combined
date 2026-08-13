@@ -13,8 +13,8 @@ use matchbox_socket::WebRtcSocket;
 use hanga::bindings::{
     self, BindingSet, ACTION_ACCEPT, ACTION_BACK, ACTION_BREAK, ACTION_COMPLETE, ACTION_CRAFT,
     ACTION_ENTER, ACTION_EXPLODE, ACTION_FENCE, ACTION_FORWARD, ACTION_JUMP, ACTION_LEFT,
-    ACTION_MENU_CONTROLS, ACTION_MENU_LANG, ACTION_MENU_MULTI, ACTION_MENU_PLAY, ACTION_MENU_QUIT,
-    ACTION_PAUSE, ACTION_PLACE, ACTION_RIGHT, ALL_ACTIONS,
+    ACTION_MENU_CONTROLS, ACTION_MENU_GAME, ACTION_MENU_LANG, ACTION_MENU_MULTI, ACTION_MENU_PLAY,
+    ACTION_MENU_QUIT, ACTION_PAUSE, ACTION_PLACE, ACTION_RIGHT, ALL_ACTIONS,
 };
 use hanga::i18n::{self, Locale, TextCommand};
 use hanga::{
@@ -22,9 +22,11 @@ use hanga::{
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
     is_action_physically_possible, is_connected_to_ground, parse_mod_spec, parse_name_catalog,
-    parse_p2p_url, resolve_wasm_path, should_skip_menu, unpack_economy_params,
-    verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
+    parse_p2p_url, resolve_wasm_path, should_skip_menu, shipped_mod_label_key, unpack_economy_params,
+    verify_action_signature, voxel_has_support, cycle_shipped_mod, DEFAULT_P2P_URL, INVENTORY_SLOTS,
+    LOOK_SENSITIVITY,
 };
+use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 
 mod mod_manager;
 use mod_manager::{ModRuntime, ModManagerPlugin, SHARED_WASM};
@@ -34,7 +36,8 @@ struct DefaultWorld;
 
 
 thread_local! {
-    static WASM_INSTANCE: std::cell::RefCell<Option<(Store<()>, mod_manager::Plugin)>> = std::cell::RefCell::new(None);
+    static WASM_INSTANCE: std::cell::RefCell<Option<(u64, Store<()>, mod_manager::Plugin)>> =
+        const { std::cell::RefCell::new(None) };
 }
 
 impl VoxelWorldConfig for DefaultWorld {
@@ -42,16 +45,17 @@ impl VoxelWorldConfig for DefaultWorld {
     type ChunkUserBundle = ();
 
     fn texture_index_mapper(&self) -> TextureIndexMapperFn<Self::MaterialIndex> {
-        std::sync::Arc::new(|mat| match mat {
-            1 => [1, 1, 1],
-            2 => [2, 2, 2],
-            3 => [3, 3, 3],
-            4 => [4, 4, 4],
-            5 => [5, 5, 5],
-            6 => [6, 6, 6],
-            7 => [7, 7, 7],
-            _ => [0, 0, 0],
+        std::sync::Arc::new(|mat| {
+            let layer = u32::from(mat).min(hanga::palette::VOXEL_PALETTE_LAYERS - 1);
+            [layer, layer, layer]
         })
+    }
+
+    fn voxel_texture(&self) -> Option<(String, u32)> {
+        Some((
+            hanga::palette::VOXEL_PALETTE_FILE.into(),
+            hanga::palette::VOXEL_PALETTE_LAYERS,
+        ))
     }
 
     fn voxel_lookup_delegate(&self) -> VoxelLookupDelegate<Self::MaterialIndex> {
@@ -59,18 +63,31 @@ impl VoxelWorldConfig for DefaultWorld {
             Box::new(|pos, _voxel| {
                 WASM_INSTANCE.with(|instance_ref| {
                     let mut instance_opt = instance_ref.borrow_mut();
-                    if instance_opt.is_none() {
+                    let wanted_gen = SHARED_WASM
+                        .read()
+                        .ok()
+                        .and_then(|shared| shared.as_ref().map(|(rev, _, _)| *rev));
+                    let stale = match (instance_opt.as_ref(), wanted_gen) {
+                        (Some((rev, _, _)), Some(want)) => *rev != want,
+                        (None, Some(_)) => true,
+                        _ => false,
+                    };
+                    if stale {
                         if let Ok(shared) = SHARED_WASM.read() {
-                            if let Some((engine, component)) = shared.as_ref() {
+                            if let Some((rev, engine, component)) = shared.as_ref() {
                                 let mut store = Store::new(engine, ());
-                                if let Ok(instance) = mod_manager::Plugin::instantiate(&mut store, component, &Linker::new(engine)) {
-                                    *instance_opt = Some((store, instance));
+                                if let Ok(instance) = mod_manager::Plugin::instantiate(
+                                    &mut store,
+                                    component,
+                                    &Linker::new(engine),
+                                ) {
+                                    *instance_opt = Some((*rev, store, instance));
                                 }
                             }
                         }
                     }
-                    
-                    if let Some((store, func)) = instance_opt.as_mut() {
+
+                    if let Some((_, store, func)) = instance_opt.as_mut() {
                         if let Ok(voxel_type) = func.hanga_engine_gameplay().call_query_voxel(store, pos.x, pos.y, pos.z) {
                             if voxel_type == 0 {
                                 return WorldVoxel::Unset;
@@ -111,6 +128,19 @@ enum GameMode {
     Playing,
 }
 
+#[derive(Resource, Clone)]
+struct SelectedMod(String);
+
+#[derive(Resource, Clone)]
+struct ModSearch {
+    cwd: PathBuf,
+    exe: Option<PathBuf>,
+    env: Option<PathBuf>,
+}
+
+#[derive(Resource, Default)]
+struct WorldSpawned(bool);
+
 #[derive(Resource, Default)]
 struct P2pConfig {
     url: Option<String>,
@@ -129,6 +159,7 @@ struct MenuRoot;
 enum MenuAction {
     Play,
     Multiplayer,
+    Game,
     Lang,
     Controls,
     Quit,
@@ -218,10 +249,10 @@ fn main() {
 
     if is_headless {
         info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
-        app.add_plugins(DefaultPlugins.set(window_plugin));
+        install_default_plugins(&mut app, window_plugin);
     } else if is_text_client {
         info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
-        app.add_plugins(DefaultPlugins.set(window_plugin));
+        install_default_plugins(&mut app, window_plugin);
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_terminal_input.after(validate_incoming_actions));
 
@@ -235,7 +266,7 @@ fn main() {
         });
     } else if is_agent_client {
         info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
-        app.add_plugins(DefaultPlugins.set(window_plugin));
+        install_default_plugins(&mut app, window_plugin);
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_agent_input.after(validate_incoming_actions));
 
@@ -248,7 +279,7 @@ fn main() {
             }
         });
     } else {
-        app.add_plugins(DefaultPlugins.set(window_plugin));
+        install_default_plugins(&mut app, window_plugin);
     }
 
     if is_cheater {
@@ -297,18 +328,27 @@ fn main() {
         .init_resource::<TrustLedger>()
         .init_resource::<ModOffer>()
         .init_resource::<VoxelCatalog>()
+        .init_resource::<WorldSpawned>()
         .insert_resource(CheatMode(is_cheater))
         .insert_resource(UiLocale(locale))
+        .insert_resource(SelectedMod(mod_name.clone()))
+        .insert_resource(ModSearch {
+            cwd: std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")),
+            exe: exe_dir.clone(),
+            env: env_mods.clone(),
+        })
         .insert_resource(P2pConfig { url: p2p_url })
         .insert_resource(KeyBindings(bindings))
         .insert_resource(BindingsPath(bindings_path))
         .init_resource::<BindCapture>()
-        .add_systems(Startup, setup)
         .add_systems(OnEnter(GameMode::Menu), spawn_main_menu)
         .add_systems(OnExit(GameMode::Menu), despawn_main_menu)
         .add_systems(OnEnter(GameMode::Controls), spawn_controls_menu)
         .add_systems(OnExit(GameMode::Controls), despawn_controls_menu)
-        .add_systems(OnEnter(GameMode::Playing), (spawn_hud, grab_cursor))
+        .add_systems(
+            OnEnter(GameMode::Playing),
+            (ensure_play_world, spawn_hud, grab_cursor).chain(),
+        )
         .add_systems(OnExit(GameMode::Playing), (despawn_hud, release_cursor))
         .add_systems(
             Update,
@@ -654,18 +694,28 @@ fn action_just_pressed(
         .any(|bind| bind_active(bind, keys, mouse, true))
 }
 
-fn menu_caption(locale: Locale, set: &BindingSet, key: &str) -> String {
+fn menu_caption(locale: Locale, set: &BindingSet, key: &str, selected: &str) -> String {
     let action = match key {
         "menu_play" => Some(ACTION_MENU_PLAY),
         "menu_multiplayer" => Some(ACTION_MENU_MULTI),
+        "menu_game" => Some(ACTION_MENU_GAME),
         "menu_lang" => Some(ACTION_MENU_LANG),
         "menu_controls" => Some(ACTION_MENU_CONTROLS),
         "menu_quit" => Some(ACTION_MENU_QUIT),
         _ => None,
     };
+    let title = match key {
+        "menu_game" => {
+            let game = shipped_mod_label_key(selected)
+                .map(|k| i18n::t(locale, k).to_string())
+                .unwrap_or_else(|| selected.to_string());
+            format!("{}: {game}", i18n::t(locale, key))
+        }
+        _ => i18n::t(locale, key).to_string(),
+    };
     match action {
-        Some(action) => format!("{}  {}", set.display(action), i18n::t(locale, key)),
-        None => i18n::t(locale, key).to_string(),
+        Some(action) => format!("{}  {title}", set.display(action)),
+        None => title,
     }
 }
 
@@ -677,12 +727,71 @@ fn bind_row_caption(locale: Locale, set: &BindingSet, action: &str) -> String {
     )
 }
 
-fn setup(
+fn install_default_plugins(app: &mut App, window_plugin: WindowPlugin) {
+    let assets = hanga::palette::ensure_asset_dir();
+    app.add_plugins(
+        DefaultPlugins
+            .set(window_plugin)
+            .set(AssetPlugin {
+                file_path: assets.to_string_lossy().into_owned(),
+                ..default()
+            }),
+    );
+    app.insert_resource(ClearColor(Color::srgb(0.46, 0.58, 0.70)));
+}
+
+fn ensure_play_world(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
-    mod_runtime: Res<ModRuntime>,
+    mut mod_runtime: ResMut<ModRuntime>,
     locale: Res<UiLocale>,
+    selected: Res<SelectedMod>,
+    search: Res<ModSearch>,
+    mut spawned: ResMut<WorldSpawned>,
+) {
+    let wasm_path = resolve_wasm_path(
+        &selected.0,
+        &search.cwd,
+        search.exe.as_deref(),
+        search.env.as_deref(),
+    );
+    if wasm_path.is_file() {
+        if mod_runtime.watch_path != wasm_path {
+            info!(
+                "Loading WASM mod '{}' from {} (locale {})",
+                selected.0,
+                wasm_path.display(),
+                locale.0.code()
+            );
+            mod_runtime.load_spec(&wasm_path);
+        }
+    } else {
+        warn!(
+            "WASM mod '{}' not found at {} (set HANGA_MODS or build --target wasm32-unknown-unknown)",
+            selected.0,
+            wasm_path.display()
+        );
+    }
+    if spawned.0 {
+        return;
+    }
+    spawn_play_world(
+        &mut commands,
+        &mut meshes,
+        &mut materials,
+        &mod_runtime,
+        &locale,
+    );
+    spawned.0 = true;
+}
+
+fn spawn_play_world(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<StandardMaterial>,
+    mod_runtime: &ModRuntime,
+    locale: &UiLocale,
 ) {
     info!("Hanga engine starting (gameplay owned by the loaded WASM mod)");
     if let Some(supported) = with_mod(&mod_runtime, |ctx| {
@@ -747,7 +856,7 @@ fn setup(
     ));
     commands.spawn(AmbientLight {
         color: Color::srgb(0.62, 0.68, 0.78),
-        brightness: 240.0,
+        brightness: 280.0,
         ..default()
     });
 
@@ -765,29 +874,27 @@ fn setup(
             ctx.bindings
                 .hanga_engine_gameplay()
                 .call_vehicle_spawn(&mut ctx.store, i as i32)
-                .unwrap_or((500, 50, 495))
+                .unwrap_or((500, 2, 495))
         })
-        .unwrap_or((500, 50, 495));
+        .unwrap_or((500, 2, 495));
         let transform = Transform::from_xyz(x as f32, y as f32, z as f32);
-        if i == 0 {
-            commands.spawn((
-                Vehicle,
-                transform,
-                RigidBody::Dynamic,
-                Collider::cuboid(2.0, 1.5, 4.0),
-                LinearVelocity::default(),
-                AngularVelocity::default(),
-            ));
+        let color = if i == 0 {
+            Color::srgb(0.78, 0.22, 0.18)
         } else {
-            commands.spawn((
-                Vehicle,
-                VehicleAi,
-                transform,
-                RigidBody::Dynamic,
-                Collider::cuboid(2.0, 1.5, 4.0),
-                LinearVelocity::default(),
-                AngularVelocity::default(),
-            ));
+            Color::srgb(0.32, 0.36, 0.40)
+        };
+        let mut entity = commands.spawn((
+            Vehicle,
+            Mesh3d(meshes.add(Cuboid::from_size(Vec3::new(2.0, 1.2, 4.0)))),
+            MeshMaterial3d(materials.add(color)),
+            transform,
+            RigidBody::Dynamic,
+            Collider::cuboid(2.0, 1.2, 4.0),
+            LinearVelocity::default(),
+            AngularVelocity::default(),
+        ));
+        if i > 0 {
+            entity.insert(VehicleAi);
         }
     }
 
@@ -808,9 +915,9 @@ fn setup(
         })
         .unwrap_or((0, 2, 0, "pedestrian".into()));
         spawn_agent(
-            &mut commands,
-            &mut meshes,
-            &mut materials,
+            commands,
+            meshes,
+            materials,
             Vec3::new(x as f32, y as f32, z as f32),
             &kind,
         );
@@ -828,6 +935,15 @@ fn load_voxel_catalog(mod_runtime: &ModRuntime) -> VoxelCatalog {
     VoxelCatalog(parse_name_catalog(&csv))
 }
 
+fn mat(materials: &mut Assets<StandardMaterial>, rgb: [f32; 3]) -> Handle<StandardMaterial> {
+    materials.add(StandardMaterial {
+        base_color: Color::srgb(rgb[0], rgb[1], rgb[2]),
+        perceptual_roughness: 0.78,
+        metallic: 0.02,
+        ..default()
+    })
+}
+
 fn spawn_agent(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -835,21 +951,67 @@ fn spawn_agent(
     pos: Vec3,
     kind: &str,
 ) {
-    let color = match kind {
-        "cop" => Color::srgb(0.1, 0.2, 0.9),
-        "pedestrian" => Color::srgb(0.2, 0.7, 0.3),
-        _ => Color::srgb(0.5, 0.5, 0.5),
-    };
-    commands.spawn((
-        Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
-        MeshMaterial3d(materials.add(color)),
-        Transform::from_translation(pos),
-        RigidBody::Dynamic,
-        Collider::capsule(0.4, 1.0),
-        LockedAxes::new().lock_rotation_x().lock_rotation_z(),
-        LinearVelocity::default(),
-        AgentAi(kind.to_string()),
-    ));
+    let pal = figure_palette(kind, figure_salt(pos.x, pos.z));
+    let skin = mat(materials, pal.skin);
+    let shirt = mat(materials, pal.shirt);
+    let pants = mat(materials, pal.pants);
+    let accent = mat(materials, pal.accent);
+    let head = meshes.add(Cuboid::from_size(Vec3::new(0.20, 0.22, 0.20)));
+    let torso = meshes.add(Cuboid::from_size(Vec3::new(0.36, 0.42, 0.20)));
+    let arm = meshes.add(Cuboid::from_size(Vec3::new(0.10, 0.40, 0.10)));
+    let leg = meshes.add(Cuboid::from_size(Vec3::new(0.13, 0.48, 0.13)));
+    let hat = meshes.add(Cuboid::from_size(Vec3::new(0.26, 0.08, 0.30)));
+    let facing = yaw_toward(3.0, 0.0).unwrap_or(0.0);
+
+    commands
+        .spawn((
+            Transform::from_translation(pos).with_rotation(Quat::from_rotation_y(facing)),
+            Visibility::default(),
+            RigidBody::Dynamic,
+            Collider::capsule(0.35, 0.95),
+            LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+            LinearVelocity::default(),
+            AgentAi(kind.to_string()),
+        ))
+        .with_children(|body| {
+            body.spawn((
+                Mesh3d(head),
+                MeshMaterial3d(skin),
+                Transform::from_xyz(0.0, 0.58, 0.0),
+            ));
+            body.spawn((
+                Mesh3d(torso),
+                MeshMaterial3d(shirt.clone()),
+                Transform::from_xyz(0.0, 0.18, 0.0),
+            ));
+            body.spawn((
+                Mesh3d(arm.clone()),
+                MeshMaterial3d(shirt.clone()),
+                Transform::from_xyz(-0.24, 0.16, 0.0),
+            ));
+            body.spawn((
+                Mesh3d(arm),
+                MeshMaterial3d(shirt),
+                Transform::from_xyz(0.24, 0.16, 0.0),
+            ));
+            body.spawn((
+                Mesh3d(leg.clone()),
+                MeshMaterial3d(pants.clone()),
+                Transform::from_xyz(-0.10, -0.40, 0.0),
+            ));
+            body.spawn((
+                Mesh3d(leg),
+                MeshMaterial3d(pants),
+                Transform::from_xyz(0.10, -0.40, 0.0),
+            ));
+            if pal.has_hat {
+                body.spawn((
+                    Mesh3d(hat),
+                    MeshMaterial3d(accent),
+                    Transform::from_xyz(0.0, 0.74, 0.04),
+                ));
+            }
+        });
 }
 
 fn voxel_type_of(voxel: WorldVoxel<u8>) -> Option<i32> {
@@ -1749,15 +1911,14 @@ fn vehicle_traffic_system(
 
 /// AI logic for all agents, entirely powered by the WASM mod!
 fn agent_ai_tick(
-    mut agents: Query<(&Transform, &mut LinearVelocity, &AgentAi)>,
+    mut agents: Query<(&mut Transform, &mut LinearVelocity, &AgentAi)>,
     players: Query<&Transform, (With<Player>, Without<AgentAi>)>,
     mod_runtime: Res<ModRuntime>,
 ) {
     if let Some(player_transform) = players.iter().next() {
         let p_pos = player_transform.translation;
-        
-        // Grab the WASM Engine and Module from the globals
-        for (agent_transform, mut velocity, agent) in agents.iter_mut() {
+
+        for (mut agent_transform, mut velocity, agent) in agents.iter_mut() {
             let c_pos = agent_transform.translation;
             if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
                 let g = ctx.bindings.hanga_engine_gameplay();
@@ -1787,6 +1948,9 @@ fn agent_ai_tick(
             {
                 velocity.x = vx;
                 velocity.z = vz;
+                if let Some(yaw) = yaw_toward(vx, vz) {
+                    agent_transform.rotation = Quat::from_rotation_y(yaw);
+                }
             }
         }
     }
@@ -2168,7 +2332,12 @@ fn update_hud(
     }
 }
 
-fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<KeyBindings>) {
+fn spawn_main_menu(
+    mut commands: Commands,
+    locale: Res<UiLocale>,
+    bindings: Res<KeyBindings>,
+    selected: Res<SelectedMod>,
+) {
     commands
         .spawn((
             MenuRoot,
@@ -2185,7 +2354,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<
         ))
         .with_children(|parent| {
             parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_title")),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &selected.0)),
                 TextFont {
                     font_size: FontSize::Px(64.0),
                     ..default()
@@ -2194,7 +2363,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<
                 MenuLabel("menu_title"),
             ));
             parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint")),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &selected.0)),
                 TextFont {
                     font_size: FontSize::Px(16.0),
                     ..default()
@@ -2205,6 +2374,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<
             for (action, key) in [
                 (MenuAction::Play, "menu_play"),
                 (MenuAction::Multiplayer, "menu_multiplayer"),
+                (MenuAction::Game, "menu_game"),
                 (MenuAction::Lang, "menu_lang"),
                 (MenuAction::Controls, "menu_controls"),
                 (MenuAction::Quit, "menu_quit"),
@@ -2214,7 +2384,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<
                         Button,
                         action,
                         Node {
-                            width: Val::Px(320.0),
+                            width: Val::Px(380.0),
                             height: Val::Px(48.0),
                             justify_content: JustifyContent::Center,
                             align_items: AlignItems::Center,
@@ -2225,7 +2395,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<
                     ))
                     .with_children(|btn| {
                         btn.spawn((
-                            Text::new(menu_caption(locale.0, &bindings.0, key)),
+                            Text::new(menu_caption(locale.0, &bindings.0, key, &selected.0)),
                             TextFont {
                                 font_size: FontSize::Px(22.0),
                                 ..default()
@@ -2248,12 +2418,13 @@ fn apply_menu_action(
     action: MenuAction,
     next: &mut NextState<GameMode>,
     locale: &mut UiLocale,
+    selected: &mut SelectedMod,
     p2p: &mut P2pConfig,
     exit: &mut MessageWriter<AppExit>,
 ) {
     match action {
         MenuAction::Play => {
-            info!("Starting single-player");
+            info!("Starting single-player ({})", selected.0);
             next.set(GameMode::Playing);
         }
         MenuAction::Multiplayer => {
@@ -2261,10 +2432,15 @@ fn apply_menu_action(
                 p2p.url = Some(DEFAULT_P2P_URL.to_string());
             }
             info!(
-                "Starting with optional P2P ({})",
+                "Starting {} with optional P2P ({})",
+                selected.0,
                 p2p.url.as_deref().unwrap_or(DEFAULT_P2P_URL)
             );
             next.set(GameMode::Playing);
+        }
+        MenuAction::Game => {
+            selected.0 = cycle_shipped_mod(&selected.0).to_string();
+            info!("Game {}", selected.0);
         }
         MenuAction::Lang => {
             locale.0 = locale.0.next();
@@ -2285,6 +2461,7 @@ fn menu_keyboard(
     bindings: Res<KeyBindings>,
     mut next: ResMut<NextState<GameMode>>,
     mut locale: ResMut<UiLocale>,
+    mut selected: ResMut<SelectedMod>,
     mut p2p: ResMut<P2pConfig>,
     mut exit: MessageWriter<AppExit>,
 ) {
@@ -2292,6 +2469,8 @@ fn menu_keyboard(
         Some(MenuAction::Play)
     } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_MULTI) {
         Some(MenuAction::Multiplayer)
+    } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_GAME) {
+        Some(MenuAction::Game)
     } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_LANG) {
         Some(MenuAction::Lang)
     } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_CONTROLS) {
@@ -2302,7 +2481,14 @@ fn menu_keyboard(
         None
     };
     if let Some(action) = action {
-        apply_menu_action(action, &mut next, &mut locale, &mut p2p, &mut exit);
+        apply_menu_action(
+            action,
+            &mut next,
+            &mut locale,
+            &mut selected,
+            &mut p2p,
+            &mut exit,
+        );
     }
 }
 
@@ -2313,13 +2499,21 @@ fn menu_buttons(
     >,
     mut next: ResMut<NextState<GameMode>>,
     mut locale: ResMut<UiLocale>,
+    mut selected: ResMut<SelectedMod>,
     mut p2p: ResMut<P2pConfig>,
     mut exit: MessageWriter<AppExit>,
 ) {
     for (interaction, action, mut bg) in &mut interaction {
         match *interaction {
             Interaction::Pressed => {
-                apply_menu_action(*action, &mut next, &mut locale, &mut p2p, &mut exit);
+                apply_menu_action(
+                    *action,
+                    &mut next,
+                    &mut locale,
+                    &mut selected,
+                    &mut p2p,
+                    &mut exit,
+                );
             }
             Interaction::Hovered => {
                 *bg = BackgroundColor(Color::srgb(0.26, 0.32, 0.42));
@@ -2334,13 +2528,14 @@ fn menu_buttons(
 fn refresh_menu_labels(
     locale: Res<UiLocale>,
     bindings: Res<KeyBindings>,
+    selected: Res<SelectedMod>,
     mut labels: Query<(&MenuLabel, &mut Text)>,
 ) {
-    if !locale.is_changed() && !bindings.is_changed() {
+    if !locale.is_changed() && !bindings.is_changed() && !selected.is_changed() {
         return;
     }
     for (label, mut text) in &mut labels {
-        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0));
+        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0, &selected.0));
     }
 }
 

@@ -4,7 +4,9 @@
 /// The ECS systems in main.rs call these; `cargo test --lib` exercises them.
 
 pub mod bindings;
+pub mod figure;
 pub mod i18n;
+pub mod palette;
 
 // ─── Anti-cheat / Trust ──────────────────────────────────────────────────────
 
@@ -207,6 +209,7 @@ pub fn should_skip_menu(args: &[String]) -> bool {
 }
 
 pub const DEFAULT_MOD: &str = "urban_chaos";
+pub const SHIPPED_MODS: &[&str] = &["urban_chaos", "testbed"];
 
 /// `--mod urban_chaos` or `--mod /path/to/mod.wasm`. Defaults to Urban Chaos.
 pub fn parse_mod_spec(args: &[String]) -> String {
@@ -214,6 +217,24 @@ pub fn parse_mod_spec(args: &[String]) -> String {
         .find(|w| w[0] == "--mod")
         .map(|w| w[1].clone())
         .unwrap_or_else(|| DEFAULT_MOD.to_string())
+}
+
+/// Cycle Urban Chaos <-> Testbed. Unknown specs return the next shipped mod.
+pub fn cycle_shipped_mod(current: &str) -> &'static str {
+    let idx = SHIPPED_MODS
+        .iter()
+        .position(|name| *name == current)
+        .unwrap_or(0);
+    SHIPPED_MODS[(idx + 1) % SHIPPED_MODS.len()]
+}
+
+/// i18n key for a shipped gameplay mod. Custom `--mod` paths keep the spec text.
+pub fn shipped_mod_label_key(spec: &str) -> Option<&'static str> {
+    match spec {
+        "urban_chaos" => Some("game_urban_chaos"),
+        "testbed" => Some("game_testbed"),
+        _ => None,
+    }
 }
 
 /// Resolve a mod spec to a `.wasm` path. First existing candidate wins.
@@ -865,6 +886,15 @@ mod tests {
             parse_mod_spec(&["hanga".into(), "--mod".into(), "testbed".into()]),
             "testbed"
         );
+    }
+
+    #[test]
+    fn shipped_mods_cycle_urban_chaos_and_testbed() {
+        assert_eq!(cycle_shipped_mod("urban_chaos"), "testbed");
+        assert_eq!(cycle_shipped_mod("testbed"), "urban_chaos");
+        assert_eq!(cycle_shipped_mod("custom.wasm"), "testbed");
+        assert_eq!(shipped_mod_label_key("testbed"), Some("game_testbed"));
+        assert_eq!(shipped_mod_label_key("/tmp/x.wasm"), None);
     }
 
     #[test]
