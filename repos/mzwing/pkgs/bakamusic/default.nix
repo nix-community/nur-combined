@@ -80,10 +80,15 @@
       stdenv.hostPlatform.system
     } or "linux_x64";
 
-  npmDepsHash = "sha256-Lrx6+PEnAYbBuD+cUjzqtYlxG84RyY00k8S074XqQfo=";
+  npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   npmDeps = fetchNpmDeps {
     inherit pname version src;
     hash = npmDepsHash;
+    # BakaMusic's package.json uses npm `overrides` (node-gyp, uuid, tmp,
+    # webpack-dev-server, ...). Applying overrides makes `npm ci` consult
+    # registry packuments, which fetcher version 1 does not cache — the
+    # build then fails with ENOTCACHED. Version 2 caches packuments.
+    fetcherVersion = 2;
   };
 
   # Same shape the upstream installer (scripts/install-media-runtimes.cjs)
