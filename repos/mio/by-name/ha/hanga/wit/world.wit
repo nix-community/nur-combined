@@ -42,7 +42,8 @@ interface gameplay {
     vehicle-kit: func(index: s32) -> string;
     /// Gravity field. The host does not invent Earth: it only applies the kit.
     /// `kind=none` | `kind=constant;x=0;y=-9.81;z=0` | `kind=down;g=9.81`
-    /// | `kind=point;x=;y=;z=;strength=;falloff=invsq?` then `jump=` leave-ground speed.
+    /// | `kind=point;x=;y=;z=;strength=;falloff=invsq?` then `jump=` leave-ground
+    /// speed and `walk=` planar speed.
     gravity: func() -> string;
 
     /// Teardown rules owned by the mod.

@@ -119,6 +119,7 @@ const UI_KEYS: &[&str] = &[
     "status",
     "job_active",
     "job_offer",
+    "job_offer_bind",
     "job_none",
     "look",
     "commands_help",
@@ -187,6 +188,7 @@ fn ui_en(key: &str) -> Option<&'static str> {
         "status" => "Wanted {wanted}. Credits {credits}. {job}. {held}",
         "job_active" => "active job: {name} (${payout}, danger {danger})",
         "job_offer" => "offer: {name} (${payout}, danger {danger}). Type '{accept}'.",
+        "job_offer_bind" => "offer: {name} (${payout}, danger {danger}). {accept} to take it.",
         "job_none" => "no job",
         "look" => "{status}. Ahead is {label} at {pos}. Commands: {commands}.",
         "commands_help" => "move forward, break block, place block, craft, accept job, complete job, fence, lang",
@@ -257,6 +259,7 @@ fn ui_mi(key: &str) -> Option<&'static str> {
         "status" => "Taumata hiahiatia {wanted}. Moni {credits}. {job}. {held}",
         "job_active" => "mahi kaha: {name} (${payout}, mōrearea {danger})",
         "job_offer" => "tuku mahi: {name} (${payout}, mōrearea {danger}). Patohia '{accept}'.",
+        "job_offer_bind" => "tuku mahi: {name} (${payout}, mōrearea {danger}). {accept} hei tango.",
         "job_none" => "kāore he mahi",
         "look" => "{status}. Kei mua ko {label} kei {pos}. Ngā whakahau: {commands}.",
         "commands_help" => "neke whakamua, whati poraka, whakatū poraka, waihanga, whakaae mahi, whakaoti mahi, hoko taonga, reo",
@@ -327,6 +330,7 @@ fn ui_fr(key: &str) -> Option<&'static str> {
         "status" => "Recherché {wanted}. Crédits {credits}. {job}. {held}",
         "job_active" => "contrat actif : {name} ({payout} $, danger {danger})",
         "job_offer" => "offre : {name} ({payout} $, danger {danger}). Tapez « {accept} ».",
+        "job_offer_bind" => "offre : {name} ({payout} $, danger {danger}). {accept} pour accepter.",
         "job_none" => "aucun contrat",
         "look" => "{status}. Devant : {label} en {pos}. Commandes : {commands}.",
         "commands_help" => "avancer, casser un bloc, poser un bloc, fabriquer, accepter le contrat, terminer le contrat, revendre, langue",
@@ -397,6 +401,7 @@ fn ui_zh_tw(key: &str) -> Option<&'static str> {
         "status" => "通緝 {wanted}。信用點 {credits}。{job}。{held}",
         "job_active" => "進行中任務：{name}（${payout}，危險 {danger}）",
         "job_offer" => "可接任務：{name}（${payout}，危險 {danger}）。輸入「{accept}」。",
+        "job_offer_bind" => "可接任務：{name}（${payout}，危險 {danger}）。按 {accept} 接受。",
         "job_none" => "沒有任務",
         "look" => "{status}。前方是{label}，位置 {pos}。指令：{commands}。",
         "commands_help" => "前進、破壞方塊、放置方塊、合成、接受任務、完成任務、銷贓、語言",
@@ -477,77 +482,6 @@ pub fn say(locale: Locale, body: &str) -> String {
     format!("{}{body}", t(locale, "sys_prefix"))
 }
 
-pub fn tr_label(locale: Locale, key: &str) -> String {
-    let folded = key.trim().to_lowercase();
-    let translated = match locale {
-        Locale::English => None,
-        Locale::Maori => match folded.as_str() {
-            "air" => Some("hau"),
-            "concrete" => Some("raima"),
-            "asphalt" => Some("huarahi tā"),
-            "glass" => Some("karaihe"),
-            "sidewalk" => Some("ara hīkoi"),
-            "grass" => Some("pātītī"),
-            "tile" => Some("tāera"),
-            "rail" => Some("rerewē"),
-            "workbench" => Some("pae mahi"),
-            "brick" => Some("pereki"),
-            "unknown" => Some("tē mōhiotia"),
-            "quiet streets" => Some("ngā huarahi mārie"),
-            "smash-and-grab contract" => Some("kirimina pakaru-hopu"),
-            "armored-truck heist" => Some("keehi taraka pākaha"),
-            "subway pinch" => Some("hopu rerewē"),
-            "chop-shop run" => Some("oma toa tapahi"),
-            "void" => Some("korekore"),
-            "unknown event" => Some("takahanga tē mōhiotia"),
-            _ => None,
-        },
-        Locale::French => match folded.as_str() {
-            "air" => Some("air"),
-            "concrete" => Some("béton"),
-            "asphalt" => Some("asphalte"),
-            "glass" => Some("verre"),
-            "sidewalk" => Some("trottoir"),
-            "grass" => Some("herbe"),
-            "tile" => Some("carrelage"),
-            "rail" => Some("rail"),
-            "workbench" => Some("établi"),
-            "brick" => Some("brique"),
-            "unknown" => Some("inconnu"),
-            "quiet streets" => Some("rues calmes"),
-            "smash-and-grab contract" => Some("contrat de vol à la sauvette"),
-            "armored-truck heist" => Some("casse de fourgon blindé"),
-            "subway pinch" => Some("pincement du métro"),
-            "chop-shop run" => Some("course à l'atelier"),
-            "void" => Some("vide"),
-            "unknown event" => Some("événement inconnu"),
-            _ => None,
-        },
-        Locale::TaiwanChinese => match folded.as_str() {
-            "air" => Some("空氣"),
-            "concrete" => Some("混凝土"),
-            "asphalt" => Some("柏油"),
-            "glass" => Some("玻璃"),
-            "sidewalk" => Some("人行道"),
-            "grass" => Some("草地"),
-            "tile" => Some("磁磚"),
-            "rail" => Some("鐵軌"),
-            "workbench" => Some("工作台"),
-            "brick" => Some("磚塊"),
-            "unknown" => Some("未知"),
-            "quiet streets" => Some("平靜的街道"),
-            "smash-and-grab contract" => Some("搶劫合約"),
-            "armored-truck heist" => Some("運鈔車搶案"),
-            "subway pinch" => Some("地鐵扒竊"),
-            "chop-shop run" => Some("拆車廠跑單"),
-            "void" => Some("虛空"),
-            "unknown event" => Some("未知事件"),
-            _ => None,
-        },
-    };
-    translated.unwrap_or(key).to_string()
-}
-
 pub fn accept_job_cmd(locale: Locale) -> &'static str {
     match locale {
         Locale::English => "accept job",
@@ -609,6 +543,24 @@ pub fn format_job_offer(locale: Locale, name: &str, payout: i32, danger: i32) ->
             ("payout", &payout.to_string()),
             ("danger", &danger.to_string()),
             ("accept", accept_job_cmd(locale)),
+        ],
+    )
+}
+
+pub fn format_job_offer_bind(
+    locale: Locale,
+    name: &str,
+    payout: i32,
+    danger: i32,
+    accept: &str,
+) -> String {
+    fill(
+        t(locale, "job_offer_bind"),
+        &[
+            ("name", name),
+            ("payout", &payout.to_string()),
+            ("danger", &danger.to_string()),
+            ("accept", accept),
         ],
     )
 }
@@ -806,36 +758,11 @@ mod tests {
     }
 
     #[test]
-    fn labels_cover_city_and_heist_keys() {
-        for locale in Locale::all() {
-            for key in [
-                "air",
-                "concrete",
-                "asphalt",
-                "glass",
-                "sidewalk",
-                "grass",
-                "tile",
-                "rail",
-                "workbench",
-                "brick",
-                "quiet streets",
-                "smash-and-grab contract",
-                "armored-truck heist",
-                "subway pinch",
-                "chop-shop run",
-                "void",
-            ] {
-                let label = tr_label(locale, key);
-                assert!(!label.is_empty(), "{locale:?} {key}");
-            }
-        }
-        assert_eq!(tr_label(Locale::Maori, "asphalt"), "huarahi tā");
-        assert_eq!(tr_label(Locale::French, "glass"), "verre");
-        assert_eq!(tr_label(Locale::TaiwanChinese, "asphalt"), "柏油");
-        assert_eq!(tr_label(Locale::TaiwanChinese, "armored-truck heist"), "運鈔車搶案");
-        assert_eq!(tr_label(Locale::English, "asphalt"), "asphalt");
-        assert_eq!(tr_label(Locale::French, "mystery-block"), "mystery-block");
+    fn job_offer_bind_uses_the_key_not_a_typed_command() {
+        let line = format_job_offer_bind(Locale::English, "smash-and-grab", 400, 1, "KeyJ");
+        assert!(line.contains("KeyJ"));
+        assert!(line.contains("smash-and-grab"));
+        assert!(!line.contains("Type"));
     }
 
     #[test]

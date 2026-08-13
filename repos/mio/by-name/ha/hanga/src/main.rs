@@ -28,7 +28,8 @@ use hanga::{
 use hanga::crash::{crumple_scale, impact_speed};
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
-    avian_accel, parse_gravity, point_accel, set_jump, set_planar_velocity, walk_up, GravityKit,
+    avian_accel, can_jump_from, jump_needs_floor, parse_gravity, point_accel, set_jump,
+    set_planar_velocity, walk_up, GravityKit,
 };
 use hanga::heist::{contract_context, mark_reached, parse_contract_mark, ContractMark};
 use hanga::vehicle::{parse_vehicle_kit, VehicleKit};
@@ -180,8 +181,15 @@ struct MenuSkyCamera;
 #[derive(Resource, Default)]
 struct SkyFor(String);
 
+/// Which `.game` the current play entities were built for. Empty = none yet.
 #[derive(Resource, Default)]
-struct WorldSpawned(bool);
+struct WorldFor(String);
+
+#[derive(Component)]
+struct PlayWorld;
+
+#[derive(Component)]
+struct PlayCamera;
 
 #[derive(Resource, Default)]
 struct P2pConfig {
@@ -382,7 +390,7 @@ fn main() {
         .init_resource::<TrustLedger>()
         .init_resource::<ModOffer>()
         .init_resource::<VoxelCatalog>()
-        .init_resource::<WorldSpawned>()
+        .init_resource::<WorldFor>()
         .init_resource::<SkyFor>()
         .init_resource::<WorldGravity>()
         .insert_resource(Gravity(Vec3::ZERO))
@@ -416,9 +424,20 @@ fn main() {
         .add_systems(OnExit(GameMode::Controls), despawn_controls_menu)
         .add_systems(
             OnEnter(GameMode::Playing),
-            (apply_play_sky, ensure_play_world, ensure_clouds, spawn_hud, grab_cursor).chain(),
+            (
+                apply_play_sky,
+                ensure_play_world,
+                ensure_clouds,
+                spawn_hud,
+                grab_cursor,
+                activate_play_cameras,
+            )
+                .chain(),
         )
-        .add_systems(OnExit(GameMode::Playing), (despawn_hud, release_cursor))
+        .add_systems(
+            OnExit(GameMode::Playing),
+            (deactivate_play_cameras, despawn_hud, release_cursor),
+        )
         .add_systems(
             Update,
             (
@@ -871,12 +890,14 @@ fn ensure_play_world(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut mod_runtime: ResMut<ModRuntime>,
+    mut offer: ResMut<ModOffer>,
     locale: Res<UiLocale>,
     selected: Res<SelectedMod>,
     search: Res<ModSearch>,
     catalog: Res<GameCatalog>,
     selected_game: Res<SelectedGame>,
-    mut spawned: ResMut<WorldSpawned>,
+    mut world_for: ResMut<WorldFor>,
+    play_world: Query<Entity, With<PlayWorld>>,
 ) {
     let wasm_path = resolve_wasm_path(
         &selected.0,
@@ -901,18 +922,39 @@ fn ensure_play_world(
             wasm_path.display()
         );
     }
-    if spawned.0 {
+    let game = current_game(&catalog, &selected_game);
+    if world_for.0 == game.id {
         return;
     }
+    despawn_play_world(&mut commands, &play_world);
+    *offer = ModOffer::default();
     spawn_play_world(
         &mut commands,
         &mut meshes,
         &mut materials,
         &mod_runtime,
         &locale,
-        &current_game(&catalog, &selected_game),
+        &game,
     );
-    spawned.0 = true;
+    world_for.0 = game.id.clone();
+}
+
+fn despawn_play_world(commands: &mut Commands, worlds: &Query<Entity, With<PlayWorld>>) {
+    for entity in worlds.iter() {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn activate_play_cameras(mut cameras: Query<&mut Camera, With<PlayCamera>>) {
+    for mut camera in &mut cameras {
+        camera.is_active = true;
+    }
+}
+
+fn deactivate_play_cameras(mut cameras: Query<&mut Camera, With<PlayCamera>>) {
+    for mut camera in &mut cameras {
+        camera.is_active = false;
+    }
 }
 
 fn spawn_play_world(
@@ -966,6 +1008,7 @@ fn spawn_play_world(
 
     commands
         .spawn((
+            PlayWorld,
             Transform::from_translation(player_pos),
             Player,
             RigidBody::Dynamic,
@@ -983,6 +1026,7 @@ fn spawn_play_world(
             parent.spawn((
                 Camera3d::default(),
                 VoxelWorldCamera::<DefaultWorld>::default(),
+                PlayCamera,
                 Transform::from_xyz(0.0, 0.55, 0.0),
                 LookPitch(0.0),
                 play_fog(game),
@@ -991,6 +1035,7 @@ fn spawn_play_world(
 
     let atmo = &game.atmosphere;
     commands.spawn((
+        PlayWorld,
         DirectionalLight {
             color: rgb3(atmo.sun),
             illuminance: atmo.sun_illuminance,
@@ -999,11 +1044,14 @@ fn spawn_play_world(
         },
         Transform::from_rotation(Quat::from_euler(EulerRot::XYZ, -1.05, 0.55, 0.0)),
     ));
-    commands.spawn(AmbientLight {
-        color: rgb3(atmo.ambient),
-        brightness: atmo.ambient_brightness,
-        ..default()
-    });
+    commands.spawn((
+        PlayWorld,
+        AmbientLight {
+            color: rgb3(atmo.ambient),
+            brightness: atmo.ambient_brightness,
+            ..default()
+        },
+    ));
 
     let count = with_mod(&mod_runtime, |ctx| {
         ctx.bindings
@@ -1105,6 +1153,7 @@ fn spawn_agent(
 
     commands
         .spawn((
+            PlayWorld,
             Transform::from_translation(pos).with_rotation(Quat::from_rotation_y(facing)),
             Visibility::default(),
             RigidBody::Dynamic,
@@ -1163,6 +1212,7 @@ fn spawn_vehicle(
 ) {
     let [cx, cy, cz] = kit.collider;
     let mut entity = commands.spawn((
+        PlayWorld,
         Vehicle,
         VehicleDrive { speed: kit.speed },
         Transform::from_translation(pos),
@@ -1200,6 +1250,10 @@ fn voxel_type_of(voxel: WorldVoxel<u8>) -> Option<i32> {
     }
 }
 
+fn voxel_is_solid(voxel_world: &VoxelWorld<DefaultWorld>, cell: [i32; 3]) -> bool {
+    voxel_type_of(voxel_world.get_voxel(IVec3::new(cell[0], cell[1], cell[2]))).is_some()
+}
+
 fn spawn_debris(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -1210,6 +1264,7 @@ fn spawn_debris(
 ) {
     let target = Vec3::new(pos.x as f32, pos.y as f32, pos.z as f32);
     commands.spawn((
+        PlayWorld,
         Mesh3d(meshes.add(Cuboid::from_size(Vec3::splat(1.0)))),
         MeshMaterial3d(materials.add(color)),
         Transform::from_translation(target),
@@ -1413,6 +1468,7 @@ fn spawn_contract_mark(
     };
     let color = Color::srgb(mark.rgb[0], mark.rgb[1], mark.rgb[2]);
     commands.spawn((
+        PlayWorld,
         HeistMark {
             kind: kind.to_string(),
             radius: mark.radius,
@@ -1920,6 +1976,7 @@ fn player_movement(
     mouse_input: Res<ButtonInput<MouseButton>>,
     bindings: Res<KeyBindings>,
     gravity: Res<WorldGravity>,
+    voxel_world: VoxelWorld<DefaultWorld>,
     mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), With<Player>>,
     mut vehicles: Query<
         (
@@ -1989,16 +2046,26 @@ fn player_movement(
             player_velocity.0 = v_vel.0;
         } else {
             let pos = player_transform.translation;
-            apply_wish(&mut player_velocity, direction, 10.0, &gravity.0, pos);
+            apply_wish(
+                &mut player_velocity,
+                direction,
+                gravity.0.walk,
+                &gravity.0,
+                pos,
+            );
             if gravity.0.jump > 0.0
                 && action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP)
             {
                 let up = walk_up(&gravity.0, pos.to_array());
-                player_velocity.0 = Vec3::from_array(set_jump(
-                    player_velocity.0.to_array(),
-                    gravity.0.jump,
-                    up,
-                ));
+                if !jump_needs_floor(&gravity.0)
+                    || can_jump_from(pos.to_array(), up, |cell| voxel_is_solid(&voxel_world, cell))
+                {
+                    player_velocity.0 = Vec3::from_array(set_jump(
+                        player_velocity.0.to_array(),
+                        gravity.0.jump,
+                        up,
+                    ));
+                }
             }
         }
     }
@@ -2271,6 +2338,7 @@ fn vehicle_crash_system(
             let world = transform.mul_transform(local);
             commands.entity(part_entity).remove_parent_in_place();
             commands.entity(part_entity).insert((
+                PlayWorld,
                 world,
                 RigidBody::Dynamic,
                 Collider::cuboid(size.x, size.y, size.z),
@@ -2343,11 +2411,14 @@ fn path_blocked(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -
 }
 
 fn vehicle_traffic_system(
-    mut vehicles: Query<(&mut Transform, &mut LinearVelocity), (With<VehicleAi>, Without<Wrecked>)>,
+    mut vehicles: Query<
+        (&mut Transform, &mut LinearVelocity, &VehicleDrive),
+        (With<VehicleAi>, Without<Wrecked>),
+    >,
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
 ) {
-    for (mut transform, mut velocity) in vehicles.iter_mut() {
+    for (mut transform, mut velocity, drive) in vehicles.iter_mut() {
         let fwd = transform.forward();
         let blocked = path_blocked(&transform, &voxel_world);
         if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
@@ -2369,8 +2440,8 @@ fn vehicle_traffic_system(
             velocity.x = 0.0;
             velocity.z = 0.0;
         } else {
-            velocity.x = fwd.x * 10.0;
-            velocity.z = fwd.z * 10.0;
+            velocity.x = fwd.x * drive.speed;
+            velocity.z = fwd.z * drive.speed;
         }
     }
 }
@@ -2484,7 +2555,20 @@ impl Plugin for DistributedMultiplayerPlugin {
 #[derive(Resource)]
 struct P2pSocket(WebRtcSocket);
 
-fn start_p2p_if_requested(mut commands: Commands, config: Res<P2pConfig>) {
+fn start_p2p_if_requested(
+    mut commands: Commands,
+    config: Res<P2pConfig>,
+    socket: Option<Res<P2pSocket>>,
+    dead: Option<Res<P2pDead>>,
+) {
+    if socket.is_some() && dead.is_none() {
+        return;
+    }
+    if dead.is_some() {
+        commands.remove_resource::<P2pSocket>();
+        commands.remove_resource::<P2pWatch>();
+        commands.remove_resource::<P2pDead>();
+    }
     let Some(room_url) = config.url.clone() else {
         info!("Single-player: P2P off. Use Multiplayer or --p2p when a signaling server is running.");
         return;
@@ -2768,6 +2852,7 @@ fn despawn_hud(mut commands: Commands, roots: Query<Entity, With<HudRoot>>) {
 
 fn update_hud(
     locale: Res<UiLocale>,
+    bindings: Res<KeyBindings>,
     players: Query<(&ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
     offer: Res<ModOffer>,
     mod_runtime: Res<ModRuntime>,
@@ -2779,6 +2864,7 @@ fn update_hud(
         return;
     };
     if let Some(mut text) = status.iter_mut().next() {
+        let accept = bindings.0.display(ACTION_ACCEPT);
         *text = Text::new(job_status_line(
             locale.0,
             &mod_runtime,
@@ -2787,6 +2873,7 @@ fn update_hud(
             contract,
             &offer,
             inventory,
+            Some(&accept),
         ));
     }
     if let Some(mut text) = hotbar.iter_mut().next() {
@@ -3557,7 +3644,7 @@ fn look_voxel_ahead(
             .unwrap_or_else(|_| "unknown".into())
     })
     .unwrap_or_else(|| "unknown".into());
-    (voxel_pos, voxel, i18n::tr_label(locale, &raw))
+    (voxel_pos, voxel, raw)
 }
 
 fn mod_contract_name(mod_runtime: &ModRuntime, locale: Locale, kind: &str) -> String {
@@ -3585,7 +3672,6 @@ fn mod_item_label(mod_runtime: &ModRuntime, locale: Locale, item: &str) -> Strin
             .unwrap_or_default()
     })
     .filter(|name| !name.is_empty())
-    .map(|raw| i18n::tr_label(locale, &raw))
     .unwrap_or_else(|| item.to_string())
 }
 
@@ -3626,13 +3712,17 @@ fn job_status_line(
     contract: &ModContract,
     offer: &ModOffer,
     inventory: &ModInventory,
+    accept_bind: Option<&str>,
 ) -> String {
     let job = if contract_is_offered(&contract.kind) {
         let name = mod_contract_name(mod_runtime, locale, &contract.kind);
         i18n::format_job_active(locale, &name, contract.payout, contract.danger)
     } else if contract_is_offered(&offer.kind) {
         let name = mod_contract_name(mod_runtime, locale, &offer.kind);
-        i18n::format_job_offer(locale, &name, offer.payout, offer.danger)
+        match accept_bind {
+            Some(bind) => i18n::format_job_offer_bind(locale, &name, offer.payout, offer.danger, bind),
+            None => i18n::format_job_offer(locale, &name, offer.payout, offer.danger),
+        }
     } else {
         i18n::t(locale, "job_none").to_string()
     };
@@ -3669,7 +3759,7 @@ fn read_terminal_input(
                         apply_wish(
                             &mut velocity,
                             *transform.forward(),
-                            10.0,
+                            gravity.0.walk,
                             &gravity.0,
                             transform.translation,
                         );
@@ -3772,6 +3862,7 @@ fn read_terminal_input(
                             contract,
                             &offer,
                             inventory,
+                            None,
                         );
                         say(
                             locale.0,
@@ -3817,7 +3908,7 @@ fn read_agent_input(
                             apply_wish(
                                 &mut velocity,
                                 *transform.forward(),
-                                10.0,
+                                gravity.0.walk,
                                 &gravity.0,
                                 transform.translation,
                             );

@@ -471,7 +471,7 @@ pub fn vehicle_kit(index: i32) -> String {
 
 /// Earth streets. The host only applies the field; this game owns "down".
 pub fn gravity() -> String {
-    "kind=constant;x=0;y=-9.81;z=0;jump=5".into()
+    "kind=constant;x=0;y=-9.81;z=0;jump=5;walk=10".into()
 }
 
 /// Buildings and station tiles shatter; roads, rails, and ground stay put.
@@ -1450,6 +1450,7 @@ mod tests {
         assert!(g.contains("kind=constant"));
         assert!(g.contains("-9.81"));
         assert!(g.contains("jump=5"));
+        assert!(g.contains("walk=10"));
         assert!(!g.contains("kind=none"));
     }
 

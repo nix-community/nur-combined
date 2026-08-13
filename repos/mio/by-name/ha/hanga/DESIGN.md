@@ -24,8 +24,8 @@ The host knows nothing about cops, wanted levels, cities, or quests.
   from a kit, moves occupants, and crumples/detaches named parts. It does not
   know "car". Thresholds and which parts fly off come from the mod.
 - Gravity *execution*: apply a field the game named (`none`, constant vector, or
-  point attractor). Walk/jump stay on the anti-gravity plane. The host does not
-  invent Earth.
+  point attractor). Walk/jump stay on the anti-gravity plane at the kit's
+  `walk=` / `jump=` speeds. The host does not invent Earth.
 
 Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mod** defines.
 
@@ -46,7 +46,7 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Rideable kit (`vehicle-kit`): kind, traffic, speed, collider, named box parts.
   Urban Chaos ships a car; Testbed ships a platform.
 - Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
-  plus jump speed. Urban Chaos is Earth; Testbed is a zero-g lab.
+  plus `jump=` and `walk=`. Urban Chaos is Earth; Testbed is a zero-g lab.
 - Vehicle crash rules (`crash-severity`, `crash-crumple`, `crash-detach`,
   `crash-wrecks`, `crash-action`, `crash-part-impulse`)
 - Heist board (`mod-offer-contract`, `contract-mark`, `mod-can-complete` + context).
@@ -91,10 +91,12 @@ loads without a local Cargo target dir.
 `nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Game / Language / Controls / Quit).
 The Game row cycles discovered `.game` files. Each game owns the menu title,
 panel, buttons, and clear/sky colors; switching Game reloads that collection's
-lead WASM. Both shipped games and their mods install in `HANGA_GAMES` / `HANGA_MODS`.
+lead WASM and, on the next Play, respawns the world. Both shipped games and
+their mods install in `HANGA_GAMES` / `HANGA_MODS`.
 Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a
 room only if a signaling server is already running; a refused connection stays in
-single-player instead of crashing. Mouse look is captured while playing.
+single-player instead of crashing. Pausing does not open a second P2P socket.
+Mouse look is captured while playing; the play camera is off in the menu.
 
 Key bindings default to WASD / mouse / E / C / F / J K L (job) / 1–8 / Esc. Players can change them
 in the Controls menu or by editing `~/.config/hanga/bindings.conf` (`HANGA_BINDINGS` or

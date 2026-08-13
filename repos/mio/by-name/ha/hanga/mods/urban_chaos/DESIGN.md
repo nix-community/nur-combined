@@ -5,7 +5,7 @@ Voxel city, subway, GTA wanted level, Teardown buildings, street crafting.
 (kit boxes + occupants). This game's `vehicle-kit` is a street car: hull, cabin,
 lamps, wheels, player red vs traffic colors.
 
-**Gravity belongs here.** Streets use Earth (`kind=constant;y=-9.81;jump=5`).
+**Gravity belongs here.** Streets use Earth (`kind=constant;y=-9.81;jump=5;walk=10`).
 The host only applies the field; a later heist in orbit would ship a different kit.
 
 Cars are **soft street metal** in the BeamNG sense: they fold, shed parts, and

@@ -105,7 +105,7 @@ pub fn vehicle_kit(_index: i32) -> String {
 
 /// Lab void: no gravity. Debris and the player stay where they are.
 pub fn gravity() -> String {
-    "kind=none;jump=2".into()
+    "kind=none;jump=2;walk=8".into()
 }
 
 pub fn can_fracture(voxel: &str) -> i32 {
@@ -489,6 +489,7 @@ mod tests {
     fn testbed_has_no_earth_gravity() {
         let g = gravity();
         assert!(g.contains("kind=none"));
+        assert!(g.contains("walk=8"));
         assert!(!g.contains("-9.81"));
     }
 }
