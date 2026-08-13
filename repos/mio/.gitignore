@@ -7,3 +7,9 @@ result-*
 scratch-build/
 
 __pycache__
+
+# local source checkouts from ATL / pixbuf debugging
+/tmp_atl/
+/src-out
+/webp-pixbuf-loader-source
+/webp-pixbuf-loader-src
