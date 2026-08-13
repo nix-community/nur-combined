@@ -124,7 +124,7 @@ jobs:
 
         # One artifact per matrix package, merged back into a single _build/.
       - name: Download packages
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: ${{ env.PACKAGES_ARTIFACT }}-*
           merge-multiple: true
