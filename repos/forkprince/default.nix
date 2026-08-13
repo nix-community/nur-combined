@@ -55,6 +55,7 @@
   roblox = lib.callPackage ./pkgs/roblox {};
   figura = lib.callPackage ./pkgs/figura {};
   achico = lib.callPackage ./pkgs/achico {};
+  macsai = lib.callPackage ./pkgs/macsai {};
   nuvio = lib.callPackage ./pkgs/nuvio {};
   orca = lib.callPackage ./pkgs/orca {};
   muxy = lib.callPackage ./pkgs/muxy {};

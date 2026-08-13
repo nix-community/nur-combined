@@ -1,0 +1,15 @@
+{
+  "name": "MacSai",
+  "source": {
+    "type": "github-release",
+    "repo": "iliyami/MacSai",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "MacSai-{version}.dmg",
+    "unpack": false
+  },
+  "version": "1.18.8",
+  "hash": "sha256-MxBTvkaFbjXQ9dtzXeJtG+SKHaMtN9EcETTB7vcPDyM="
+}
