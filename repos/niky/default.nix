@@ -19,7 +19,7 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  splayer-next = pkgs.callPackage ./pkgs/splayer-next { };
+  deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
