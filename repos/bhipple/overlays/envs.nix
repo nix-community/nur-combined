@@ -87,8 +87,11 @@ in
     name = "unstableEnv";
     paths = [
       self.claude-code
+      self.discord
       self.freerdp
+      self.signal-desktop
       self.yt-dlp
+      self.zoom-us
     ];
   };
 
@@ -104,7 +107,6 @@ in
       self.bubblewrap
       self.chromedriver
       self.direnv
-      self.discord
       self.dunst
       self.emacs
       self.expect
@@ -133,7 +135,6 @@ in
       self.pdsh
       self.pulseaudioFull
       self.shellcheck
-      self.signal-desktop
       self.snixembed
       self.sshfs
       self.vlc
@@ -141,7 +142,6 @@ in
       self.xdotool
       self.xsel
       self.zlib
-      self.zoom-us
     ];
   };
 }
