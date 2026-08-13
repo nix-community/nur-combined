@@ -37,6 +37,7 @@ use hanga::game::{
     cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
     MenuBackdrop, DEFAULT_GAME,
 };
+use hanga::sign::{self, ActionKey};
 
 mod mod_manager;
 use mod_manager::{ModRuntime, ModManagerPlugin, SHARED_WASM};
@@ -202,6 +203,16 @@ struct P2pWatch(Mutex<Receiver<String>>);
 #[derive(Resource)]
 struct P2pDead;
 
+#[derive(Resource, Clone)]
+struct PeerKey(ActionKey);
+
+#[derive(Serialize, Deserialize)]
+struct SignedPacket {
+    payload: Vec<u8>,
+    public: Vec<u8>,
+    signature: Vec<u8>,
+}
+
 #[derive(Component)]
 struct MenuRoot;
 
@@ -277,6 +288,23 @@ fn main() {
     let bindings_path = resolve_bindings_path(&args);
     let bindings = load_bindings(&bindings_path);
     info!("Key bindings {}", bindings_path.display());
+    let peer_key_path = sign::resolve_peer_key_path(&args);
+    let peer_key = sign::load_or_create_key(&peer_key_path).unwrap_or_else(|err| {
+        warn!(
+            "Peer key {}: {err}; using an ephemeral identity",
+            peer_key_path.display()
+        );
+        ActionKey::generate()
+    });
+    let pk = peer_key.public_bytes();
+    info!(
+        "P2P identity {:02x}{:02x}{:02x}{:02x}… ({})",
+        pk[0],
+        pk[1],
+        pk[2],
+        pk[3],
+        peer_key_path.display()
+    );
 
     let env_mods = std::env::var_os("HANGA_MODS").map(PathBuf::from);
     let env_games = std::env::var_os("HANGA_GAMES").map(PathBuf::from);
@@ -412,6 +440,7 @@ fn main() {
         })
         .insert_resource(GameSearch(game_dirs))
         .insert_resource(P2pConfig { url: p2p_url })
+        .insert_resource(PeerKey(peer_key))
         .insert_resource(KeyBindings(bindings))
         .insert_resource(BindingsPath(bindings_path))
         .init_resource::<BindCapture>()
@@ -2638,7 +2667,15 @@ fn handle_p2p_receive(
         socket.0.channel_mut(0).receive()
     })) {
         for (_peer_id, packet) in packets {
-            if let Ok(action) = bincode::deserialize::<ProposedAction>(&packet) {
+            let Ok(signed) = bincode::deserialize::<SignedPacket>(&packet) else {
+                warn!("P2P packet was not a signed action; dropping");
+                continue;
+            };
+            if !sign::verify_signed(&signed.public, &signed.payload, &signed.signature) {
+                warn!("P2P packet failed Ed25519 verify; dropping");
+                continue;
+            }
+            if let Ok(action) = bincode::deserialize::<ProposedAction>(&signed.payload) {
                 event_writer.write(action);
             }
         }
@@ -2651,10 +2688,10 @@ fn handle_p2p_broadcast(
     socket: Option<ResMut<P2pSocket>>,
     mut event_reader: MessageReader<ProposedAction>,
     players: Query<Entity, With<Player>>,
+    key: Res<PeerKey>,
 ) {
     let local_player = players.iter().next();
     if let Some(mut socket) = socket {
-        // Broadcast local messages
         for action in event_reader.read() {
             let is_local = match action {
                 ProposedAction::BreakBlock { player_entity, .. } => Some(*player_entity) == local_player,
@@ -2665,9 +2702,17 @@ fn handle_p2p_broadcast(
             };
 
             if is_local {
-                if let Ok(packet) = bincode::serialize(action) {
+                let Ok(payload) = bincode::serialize(action) else {
+                    continue;
+                };
+                let packet = SignedPacket {
+                    public: key.0.public_bytes().to_vec(),
+                    signature: key.0.sign(&payload).to_vec(),
+                    payload,
+                };
+                if let Ok(bytes) = bincode::serialize(&packet) {
                     let peers: Vec<_> = socket.0.connected_peers().collect();
-                    let packet_boxed = packet.into_boxed_slice();
+                    let packet_boxed = bytes.into_boxed_slice();
                     for peer in peers {
                         socket.0.channel_mut(0).send(packet_boxed.clone(), peer);
                     }

@@ -11,6 +11,7 @@ pub mod gravity;
 pub mod heist;
 pub mod i18n;
 pub mod palette;
+pub mod sign;
 pub mod vehicle;
 
 // ─── Anti-cheat / Trust ──────────────────────────────────────────────────────
@@ -311,6 +312,7 @@ pub fn action_fingerprint(kind: &str, x: i32, y: i32, z: i32, extra: &str) -> u6
 }
 
 /// Peers reject an action whose claimed fingerprint does not match the payload.
+/// This is a content hash, not a cryptographic signature (`sign` is Ed25519).
 pub fn verify_action_signature(
     kind: &str,
     x: i32,

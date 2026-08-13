@@ -17,7 +17,8 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - Player-facing locale (`--lang` / `HANGA_LANG`): English, te reo Māori, français, 台灣中文.
   Host UI strings live here (Play, Controls, bindings). Game titles and menu
   backdrop come from the selected `.game` file; voxel/item names come from the mod.
-- P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints
+- P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints,
+  and Ed25519 signatures on the wire (`~/.config/hanga/peer.key`)
 - `wasmtime` component sandbox + hot-reload
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
@@ -82,21 +83,30 @@ hanga --lang zh-TW
 hanga --play
 hanga --p2p
 hanga --p2p ws://host:3536/hanga_room
+hanga --peer-key /path/to/peer.key
 hanga --bindings /path/to/bindings.conf
+nix run .#hanga-signal          # Matchbox on 0.0.0.0:3536
+hanga-signal                    # same binary, also as matchbox_server
 ```
 
 `nix run .#hanga` and `nix run .#hanga-dev` wrap `HANGA_MODS` so gameplay WASM
-loads without a local Cargo target dir.
+loads without a local Cargo target dir. Day-to-day: `nix build .#hanga-dev`
+(crate2nix, runs host + mod + agent tests). `.#hanga` is the rustPlatform wrap
+and does not re-run that suite.
 
 `nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Game / Language / Controls / Quit).
 The Game row cycles discovered `.game` files. Each game owns the menu title,
 panel, buttons, and clear/sky colors; switching Game reloads that collection's
 lead WASM and, on the next Play, respawns the world. Both shipped games and
 their mods install in `HANGA_GAMES` / `HANGA_MODS`.
-Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a
-room only if a signaling server is already running; a refused connection stays in
-single-player instead of crashing. Pausing does not open a second P2P socket.
-Mouse look is captured while playing; the play camera is off in the menu.
+Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins
+`ws://localhost:3536/hanga_room` (or the URL you pass). Run
+`nix run .#hanga-signal` first (also on `PATH` as `hanga-signal` /
+`matchbox_server` from `nix run .#hanga` and `.#hanga-dev`). A refused
+connection stays in single-player instead of crashing. Pausing does not open a
+second P2P socket. Each peer signs actions with Ed25519; unsigned or forged
+packets are dropped. Mouse look is captured while playing; the play camera is
+off in the menu.
 
 Key bindings default to WASD / mouse / E / C / F / J K L (job) / 1–8 / Esc. Players can change them
 in the Controls menu or by editing `~/.config/hanga/bindings.conf` (`HANGA_BINDINGS` or
@@ -121,13 +131,15 @@ wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm 
 
 ## Tests
 
+Development gate: `nix build .#hanga-dev` (host lib + agent-client under xvfb;
+`mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM wrap).
+
 - `cargo test --lib` — pure engine predicates (anti-cheat, fracture, economy pack)
 - `cargo test -p urban_chaos` / `-p testbed` — mod rules
 - `cargo test --test '*'` — agent-client integration (needs a display / xvfb)
 
 ## Next
 
-1. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
-2. Kani CI for engine + mods
-3. Matchbox room UI / reconnect
-4. Fuller BeamNG node-beam (Urban Chaos still uses severity + detach, not a solver)
+1. Kani CI for engine + mods
+2. Matchbox room UI / reconnect
+3. Fuller BeamNG node-beam (Urban Chaos still uses severity + detach, not a solver)

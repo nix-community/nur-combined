@@ -20,10 +20,24 @@ fn mods_dir() -> Option<PathBuf> {
     None
 }
 
+fn hanga_bin() -> PathBuf {
+    if let Ok(path) = std::env::var("HANGA_BIN") {
+        return PathBuf::from(path);
+    }
+    if let Some(path) = option_env!("CARGO_BIN_EXE_hanga") {
+        return PathBuf::from(path);
+    }
+    std::env::current_exe()
+        .ok()
+        .and_then(|exe| exe.parent().map(|dir| dir.join("hanga")))
+        .filter(|path| path.is_file())
+        .unwrap_or_else(|| PathBuf::from("hanga"))
+}
+
 #[test]
 fn test_agent_client_interaction() {
     // Spawn the agent client directly (avoids cargo run deadlock during cargo test)
-    let mut cmd = Command::new(env!("CARGO_BIN_EXE_hanga"));
+    let mut cmd = Command::new(hanga_bin());
     cmd.args(["--agent-client"])
         .stdin(Stdio::piped())
         .stdout(Stdio::piped());

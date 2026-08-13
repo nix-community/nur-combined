@@ -5,5 +5,6 @@
 - NEVER FORCE PUSH! Just commit and `git push` normally. UNLESS YOU ACCIDENTLY PUSHED binary or other unneeded big files to git history ONLY IN THIS CASE push --force acceptable
 - ALWAYS confirm that `nix build` passes successfully and the built app functions correctly before committing and pushing any changes.
 - CRITICAL: Make absolutely sure `nix build` passes before ANY push!
+- Hanga development gate is `nix build .#hanga-dev` (runs host, mod, and xvfb agent tests). Do not wait on `nix build .#hanga` for day-to-day Hanga work; that wrap skips the long cargo checkPhase.
 - Omnimux vendors `gpui-terminal`: see `by-name/om/omnimux/src/vendor/gpui-terminal/VENDOR.md` for upstream baseline commit and our local patches. App-level notes (appearance/OSC, sessions, packaging): `by-name/om/omnimux/README.md`.
 - Always check `git status` to clean up any temporary files or scratch scripts created during problem solving.

@@ -13728,6 +13728,12 @@ rec {
               );
           }
           {
+            name = "digest";
+            packageId = "digest";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
             name = "fiat-crypto";
             packageId = "fiat-crypto";
             usesDefaultFeatures = false;
@@ -13774,6 +13780,7 @@ rec {
         };
         resolvedDefaultFeatures = [
           "alloc"
+          "digest"
           "precomputed-tables"
           "zeroize"
         ];
@@ -14802,6 +14809,177 @@ rec {
           "spki"
           "std"
           "verifying"
+        ];
+      };
+      "ed25519" = rec {
+        crateName = "ed25519";
+        version = "2.2.3";
+        edition = "2021";
+        sha256 = "0lydzdf26zbn82g7xfczcac9d7mzm3qgx934ijjrd5hjpjx32m8i";
+        authors = [
+          "RustCrypto Developers"
+        ];
+        dependencies = [
+          {
+            name = "pkcs8";
+            packageId = "pkcs8";
+            optional = true;
+          }
+          {
+            name = "signature";
+            packageId = "signature";
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "alloc" = [ "pkcs8?/alloc" ];
+          "default" = [ "std" ];
+          "pem" = [
+            "alloc"
+            "pkcs8/pem"
+          ];
+          "pkcs8" = [ "dep:pkcs8" ];
+          "serde" = [ "dep:serde" ];
+          "serde_bytes" = [
+            "serde"
+            "dep:serde_bytes"
+          ];
+          "std" = [
+            "pkcs8?/std"
+            "signature/std"
+          ];
+          "zeroize" = [ "dep:zeroize" ];
+        };
+        resolvedDefaultFeatures = [
+          "alloc"
+          "std"
+        ];
+      };
+      "ed25519-dalek" = rec {
+        crateName = "ed25519-dalek";
+        version = "2.2.0";
+        edition = "2021";
+        sha256 = "1agcwij1z687hg26ngzwhnmpz29b2w56m8z1ap3pvrnfh709drvh";
+        libName = "ed25519_dalek";
+        authors = [
+          "isis lovecruft <isis@patternsinthevoid.net>"
+          "Tony Arcieri <bascule@gmail.com>"
+          "Michael Rosenberg <michael@mrosenberg.pub>"
+        ];
+        dependencies = [
+          {
+            name = "curve25519-dalek";
+            packageId = "curve25519-dalek";
+            usesDefaultFeatures = false;
+            features = [ "digest" ];
+          }
+          {
+            name = "ed25519";
+            packageId = "ed25519";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.6.4";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "sha2";
+            packageId = "sha2";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "subtle";
+            packageId = "subtle";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "zeroize";
+            packageId = "zeroize";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        devDependencies = [
+          {
+            name = "curve25519-dalek";
+            packageId = "curve25519-dalek";
+            usesDefaultFeatures = false;
+            features = [
+              "digest"
+              "rand_core"
+            ];
+          }
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.6.4";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            features = [ "derive" ];
+          }
+        ];
+        features = {
+          "alloc" = [
+            "curve25519-dalek/alloc"
+            "ed25519/alloc"
+            "serde?/alloc"
+            "zeroize/alloc"
+          ];
+          "asm" = [ "sha2/asm" ];
+          "batch" = [
+            "alloc"
+            "merlin"
+            "rand_core"
+          ];
+          "default" = [
+            "fast"
+            "std"
+            "zeroize"
+          ];
+          "digest" = [ "signature/digest" ];
+          "fast" = [ "curve25519-dalek/precomputed-tables" ];
+          "legacy_compatibility" = [ "curve25519-dalek/legacy_compatibility" ];
+          "merlin" = [ "dep:merlin" ];
+          "pem" = [
+            "alloc"
+            "ed25519/pem"
+            "pkcs8"
+          ];
+          "pkcs8" = [ "ed25519/pkcs8" ];
+          "rand_core" = [ "dep:rand_core" ];
+          "serde" = [
+            "dep:serde"
+            "ed25519/serde"
+          ];
+          "signature" = [ "dep:signature" ];
+          "std" = [
+            "alloc"
+            "ed25519/std"
+            "serde?/std"
+            "sha2/std"
+          ];
+          "zeroize" = [
+            "dep:zeroize"
+            "curve25519-dalek/zeroize"
+          ];
+        };
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "fast"
+          "rand_core"
+          "std"
+          "zeroize"
         ];
       };
       "either" = rec {
@@ -18161,6 +18339,11 @@ rec {
             packageId = "crossbeam-channel";
           }
           {
+            name = "ed25519-dalek";
+            packageId = "ed25519-dalek";
+            features = [ "rand_core" ];
+          }
+          {
             name = "futures";
             packageId = "futures";
           }
@@ -18171,6 +18354,10 @@ rec {
           {
             name = "notify";
             packageId = "notify";
+          }
+          {
+            name = "rand";
+            packageId = "rand 0.8.7";
           }
           {
             name = "serde";
@@ -34881,7 +35068,7 @@ rec {
           }
           {
             name = "rand_chacha";
-            packageId = "rand_chacha";
+            packageId = "rand_chacha 0.9.0";
             usesDefaultFeatures = false;
           }
           {
@@ -35298,6 +35485,67 @@ rec {
           "thread_rng"
         ];
       };
+      "rand 0.8.7" = rec {
+        crateName = "rand";
+        version = "0.8.7";
+        edition = "2018";
+        sha256 = "06iaf16fr0z8zly7anmn8ky0p80xnx9yv0gdcm30fwn9vqmigxi2";
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+        ];
+        dependencies = [
+          {
+            name = "libc";
+            packageId = "libc";
+            optional = true;
+            usesDefaultFeatures = false;
+            target = { target, features }: (target."unix" or false);
+          }
+          {
+            name = "rand_chacha";
+            packageId = "rand_chacha 0.3.1";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.6.4";
+          }
+        ];
+        features = {
+          "alloc" = [ "rand_core/alloc" ];
+          "default" = [
+            "std"
+            "std_rng"
+          ];
+          "getrandom" = [ "rand_core/getrandom" ];
+          "libc" = [ "dep:libc" ];
+          "rand_chacha" = [ "dep:rand_chacha" ];
+          "serde" = [ "dep:serde" ];
+          "serde1" = [
+            "serde"
+            "rand_core/serde1"
+          ];
+          "std" = [
+            "rand_core/std"
+            "rand_chacha/std"
+            "alloc"
+            "getrandom"
+            "libc"
+          ];
+          "std_rng" = [ "rand_chacha" ];
+        };
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "getrandom"
+          "libc"
+          "rand_chacha"
+          "std"
+          "std_rng"
+        ];
+      };
       "rand 0.9.5" = rec {
         crateName = "rand";
         version = "0.9.5";
@@ -35310,7 +35558,7 @@ rec {
         dependencies = [
           {
             name = "rand_chacha";
-            packageId = "rand_chacha";
+            packageId = "rand_chacha 0.9.0";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -35355,7 +35603,37 @@ rec {
           "thread_rng"
         ];
       };
-      "rand_chacha" = rec {
+      "rand_chacha 0.3.1" = rec {
+        crateName = "rand_chacha";
+        version = "0.3.1";
+        edition = "2018";
+        sha256 = "123x2adin558xbhvqb8w4f6syjsdkmqff8cxwhmjacpsl1ihmhg6";
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+          "The CryptoCorrosion Contributors"
+        ];
+        dependencies = [
+          {
+            name = "ppv-lite86";
+            packageId = "ppv-lite86";
+            usesDefaultFeatures = false;
+            features = [ "simd" ];
+          }
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.6.4";
+          }
+        ];
+        features = {
+          "default" = [ "std" ];
+          "serde" = [ "dep:serde" ];
+          "serde1" = [ "serde" ];
+          "std" = [ "ppv-lite86/std" ];
+        };
+        resolvedDefaultFeatures = [ "std" ];
+      };
+      "rand_chacha 0.9.0" = rec {
         crateName = "rand_chacha";
         version = "0.9.0";
         edition = "2021";
