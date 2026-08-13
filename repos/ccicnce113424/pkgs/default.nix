@@ -157,39 +157,6 @@ lib.makeScope pkgs.newScope (
       version = unstableVersion sources 0;
     };
 
-    scx_flow = pkgs.scx.rustscheds.overrideAttrs (
-      final: prev: {
-        pname = "scx_flow";
-        version = "3.1.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "galpt";
-          repo = "scx";
-          rev = "41fe3c68b39bdf5cb563251f82529505945be6db";
-          hash = "sha256-hhiTlKRfrEPMDS7i0CNhj5y4UR1gzBMt3kHhUt33psA=";
-        };
-        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-          inherit (final)
-            pname
-            version
-            src
-            ;
-          hash = "sha256-sVhnKCc6sV37A76EWUt3QyW8XPqmM0qOMSCOPn1yxg8=";
-        };
-        cargoBuildFlags = [
-          "--package"
-          "scx_flow"
-        ];
-        cargoInstallFlags = [
-          "--package"
-          "scx_flow"
-        ];
-        postInstall = "";
-        passthru = lib.recursiveUpdate prev.passthru {
-          schedulers = [ "scx_flow" ];
-        };
-      }
-    );
-
     scx_pandemonium = pkgs.scx.rustscheds.overrideAttrs (
       final: prev: {
         pname = "scx_pandemonium";
@@ -225,11 +192,6 @@ lib.makeScope pkgs.newScope (
 
     shijima-qt = self.callPackage ./shijima-qt { };
 
-    splayer-git = self.callPackage ./splayer-git {
-      inherit (lib.importJSON ./splayer-git/src-info.json) hash;
-      sources = fetchedSrc.splayer-git;
-    };
-
     splayer-kde-bar-lyc = self.callPackage ./splayer-kde-bar-lyc {
       sources = fetchedSrc.splayer-kde-bar-lyc;
     };
@@ -246,11 +208,6 @@ lib.makeScope pkgs.newScope (
 
     svt-av1-hdr = self.callPackage ./svt-av1-shared rec {
       sources = fetchedSrc.svt-av1-hdr;
-      version = stableVersion sources;
-    };
-
-    svt-av1-psyex = self.callPackage ./svt-av1-psyex rec {
-      sources = fetchedSrc.svt-av1-psyex;
       version = stableVersion sources;
     };
 

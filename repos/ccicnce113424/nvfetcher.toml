@@ -94,6 +94,10 @@ src.git = "https://github.com/numtide/nix-auth"
 fetch.github = "ntfsprogs-plus/ntfsprogs-plus"
 src.git = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
 
+[pandemonium]
+fetch.github = "wllclngn/PANDEMONIUM"
+src.git = "https://github.com/wllclngn/PANDEMONIUM"
+
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"
@@ -113,11 +117,6 @@ src.git = "https://github.com/pixes-app/pixes"
 fetch.github = "golfiros/pwasio"
 src.git = "https://github.com/golfiros/pwasio"
 
-[splayer-git]
-cargo_lock = ["Cargo.lock"]
-fetch.github = "imsyy/SPlayer"
-src.git = "https://github.com/imsyy/SPlayer"
-
 [splayer-kde-bar-lyc]
 extract = ["metadata.json"]
 fetch.github = "lrst6963/Splayer-kde-bar-lyc"
@@ -135,10 +134,6 @@ src.github = "nekotrix/SVT-AV1-Essential"
 [svt-av1-hdr]
 fetch.github = "juliobbv-p/svt-av1-hdr"
 src.github_tag = "juliobbv-p/svt-av1-hdr"
-
-[svt-av1-psyex]
-fetch.github = "BlueSwordM/svt-av1-psyex"
-src.github = "BlueSwordM/svt-av1-psyex"
 
 [uosc-danmaku]
 fetch.github = "Tony15246/uosc_danmaku"
