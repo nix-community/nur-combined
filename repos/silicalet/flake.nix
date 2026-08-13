@@ -72,6 +72,7 @@
                       pkgs.gnused
                       pkgs.jq
                       pkgs.nix
+                      pkgs.nixfmt
                       pkgs.nix-update
                     ]
                     + ":"
