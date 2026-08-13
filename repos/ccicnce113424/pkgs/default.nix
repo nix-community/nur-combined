@@ -157,39 +157,6 @@ lib.makeScope pkgs.newScope (
       version = unstableVersion sources 0;
     };
 
-    scx_pandemonium = pkgs.scx.rustscheds.overrideAttrs (
-      final: prev: {
-        pname = "scx_pandemonium";
-        version = "5.14.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "wllclngn";
-          repo = "scx";
-          rev = "02ebec35fa8975eb8176d03aba459cae0b0e8491";
-          hash = "sha256-hOM/3Bht8acUhlwB+OHkRszhvq9X8YVmHW5d5y1iK2o=";
-        };
-        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-          inherit (final)
-            pname
-            version
-            src
-            ;
-          hash = "sha256-wzH/KMpVd8k9jRaugLHpQTNkKnjPgXXOAEbXmJmlZH8=";
-        };
-        cargoBuildFlags = [
-          "--package"
-          "scx_pandemonium"
-        ];
-        cargoInstallFlags = [
-          "--package"
-          "scx_pandemonium"
-        ];
-        postInstall = "";
-        passthru = lib.recursiveUpdate prev.passthru {
-          schedulers = [ "scx_pandemonium" ];
-        };
-      }
-    );
-
     shijima-qt = self.callPackage ./shijima-qt { };
 
     splayer-kde-bar-lyc = self.callPackage ./splayer-kde-bar-lyc {

@@ -94,10 +94,6 @@ src.git = "https://github.com/numtide/nix-auth"
 fetch.github = "ntfsprogs-plus/ntfsprogs-plus"
 src.git = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
 
-[pandemonium]
-fetch.github = "wllclngn/PANDEMONIUM"
-src.git = "https://github.com/wllclngn/PANDEMONIUM"
-
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"

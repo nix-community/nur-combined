@@ -337,24 +337,6 @@
     };
     date = "2026-06-10";
   };
-  splayer-git = {
-    pname = "splayer-git";
-    version = "40d9ec606cc1e323c964ffea7bf0ab02f137e93b";
-    src = fetchFromGitHub {
-      owner = "imsyy";
-      repo = "SPlayer";
-      rev = "40d9ec606cc1e323c964ffea7bf0ab02f137e93b";
-      fetchSubmodules = false;
-      sha256 = "sha256-9rbC91d6hBRS3hWj2TiEXzMA/pf2yjiJQs1jLwHu86Y=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-9rbC91d6hBRS3hWj2TiEXzMA_pf2yjiJQs1jLwHu86Y=/Cargo.lock";
-      outputHashes = {
-        
-      };
-    };
-    date = "2026-06-10";
-  };
   splayer-kde-bar-lyc = {
     pname = "splayer-kde-bar-lyc";
     version = "d89404376a2b27dbb58046ce6da894c1e83c9169";
@@ -407,17 +389,6 @@
       rev = "v4.1.0";
       fetchSubmodules = false;
       sha256 = "sha256-n66RPDTfBsPCR/4y8dpU3Au1WZHpkpln899e2+LKxto=";
-    };
-  };
-  svt-av1-psyex = {
-    pname = "svt-av1-psyex";
-    version = "v3.0.2-B";
-    src = fetchFromGitHub {
-      owner = "BlueSwordM";
-      repo = "svt-av1-psyex";
-      rev = "v3.0.2-B";
-      fetchSubmodules = false;
-      sha256 = "sha256-klfrbow8UtpIPwIgt8tK7FP7Jp6In9nxfOZrdi1PsHo=";
     };
   };
   uosc-danmaku = {
