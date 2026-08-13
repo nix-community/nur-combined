@@ -69,8 +69,19 @@ jobs:
           rm -f secrets.toml
 
       - name: Commit back to repository
+        id: commit
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'auto: update packages'
           commit_user_name: 'zhyiheihei-bot'
           commit_user_email: 'zhyiheihei-bot@users.noreply.github.com'
+
+      # Pushes made with the default GITHUB_TOKEN do not trigger other
+      # workflows' `on: push`; explicitly dispatch the build so updated
+      # sources are built and pushed to the Attic cache. workflow_dispatch
+      # is the one event GITHUB_TOKEN is allowed to trigger.
+      - name: Trigger build and cache workflow
+        if: steps.commit.outputs.changes_detected == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run "Build and populate cache" --ref main
