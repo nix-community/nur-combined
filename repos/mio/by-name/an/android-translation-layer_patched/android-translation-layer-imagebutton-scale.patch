@@ -13,8 +13,9 @@ as a GtkButton wrapping a GtkPicture, but:
 That made the pause icon a few pixels wide in the middle of the video
 while 35dp toolbar icons still looked fine.
 
-Make the picture fill the button, map FIT_CENTER to CONTAIN, and drop
-theme min-size/padding on image buttons.
+Make the picture fill the button and map FIT_CENTER to CONTAIN.
+Do not zero GTK min-size: NewPipe uses layout_width=0dp, and a 0 min
+lets the play/pause control collapse to an invisible 0x0 allocation.
 
 diff -ur a/src/api-impl/android/widget/ImageButton.java b/src/api-impl/android/widget/ImageButton.java
 --- a/src/api-impl/android/widget/ImageButton.java	2026-08-13 11:45:27.955581302 +1000
@@ -29,7 +30,7 @@ diff -ur a/src/api-impl/android/widget/ImageButton.java b/src/api-impl/android/w
 diff -ur a/src/api-impl-jni/widgets/android_widget_ImageButton.c b/src/api-impl-jni/widgets/android_widget_ImageButton.c
 --- a/src/api-impl-jni/widgets/android_widget_ImageButton.c	2026-08-13 11:45:27.964581137 +1000
 +++ b/src/api-impl-jni/widgets/android_widget_ImageButton.c	2026-08-13 11:45:42.484315352 +1000
-@@ -7,11 +7,48 @@
+@@ -7,11 +7,52 @@
  
  #include "../generated_headers/android_widget_ImageButton.h"
  
@@ -70,16 +71,20 @@ diff -ur a/src/api-impl-jni/widgets/android_widget_ImageButton.c b/src/api-impl-
  	GtkWidget *button = gtk_button_new();
 -	GtkWidget *image = gtk_picture_new_for_resource("/org/gtk/libgtk/icons/16x16/status/image-missing.png"); // show "broken image" icon
 +	GtkWidget *image = gtk_picture_new();
++	gtk_widget_set_hexpand(button, TRUE);
++	gtk_widget_set_vexpand(button, TRUE);
++	gtk_widget_set_halign(button, GTK_ALIGN_FILL);
++	gtk_widget_set_valign(button, GTK_ALIGN_FILL);
 +	gtk_widget_set_hexpand(image, TRUE);
 +	gtk_widget_set_vexpand(image, TRUE);
 +	gtk_widget_set_halign(image, GTK_ALIGN_FILL);
 +	gtk_widget_set_valign(image, GTK_ALIGN_FILL);
-+	gtk_picture_set_can_shrink(GTK_PICTURE(image), TRUE);
++	gtk_picture_set_can_shrink(GTK_PICTURE(image), FALSE);
 +	gtk_picture_set_content_fit(GTK_PICTURE(image), GTK_CONTENT_FIT_CONTAIN);
  	gtk_button_set_child(GTK_BUTTON(button), image);
  	wrapper_widget_set_child(WRAPPER_WIDGET(wrapper), button);
  	wrapper_widget_consume_touch_events(WRAPPER_WIDGET(wrapper)); // Android button consumes touch events
-@@ -48,4 +85,12 @@
+@@ -48,4 +89,12 @@
  	gtk_picture_set_paintable(picture, paintable);
  
  	gtk_widget_add_css_class(GTK_WIDGET(button), "ATL-no-border");
@@ -119,13 +124,11 @@ diff -ur a/src/api-impl-jni/widgets/android_widget_ImageView.c b/src/api-impl-jn
 diff -ur a/src/main-executable/css/default-stylesheet.css b/src/main-executable/css/default-stylesheet.css
 --- a/src/main-executable/css/default-stylesheet.css	2026-08-13 11:45:27.981580826 +1000
 +++ b/src/main-executable/css/default-stylesheet.css	2026-08-13 11:45:52.597130229 +1000
-@@ -3,6 +3,12 @@
+@@ -3,6 +3,10 @@
  	border: unset;
  }
  
 +.ATL-image-button {
-+	min-width: 0;
-+	min-height: 0;
 +	padding: 0;
 +}
 +
