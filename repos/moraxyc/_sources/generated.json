@@ -224,6 +224,29 @@
         },
         "version": "v2.0.0"
     },
+    "deepseek-harness": {
+        "cargoLock": null,
+        "date": "2026-08-13",
+        "extract": {
+            "package.json": "sha256-ZPGCNoPXVjP76Tm_tFPDX2X95cd83M4iHLmVP5dR+Ps=/package.json"
+        },
+        "name": "deepseek-harness",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "deepseek-ai",
+            "repo": "deepseek-harness",
+            "rev": "47f943859bef60e4160492346772ded9b24f765a",
+            "sha256": "sha256-ZPGCNoPXVjP76Tm/tFPDX2X95cd83M4iHLmVP5dR+Ps=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "47f943859bef60e4160492346772ded9b24f765a"
+    },
     "elio": {
         "cargoLock": {
             "Cargo.lock": [

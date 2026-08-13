@@ -141,6 +141,20 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  deepseek-harness = {
+    pname = "deepseek-harness";
+    version = "47f943859bef60e4160492346772ded9b24f765a";
+    src = fetchFromGitHub {
+      owner = "deepseek-ai";
+      repo = "deepseek-harness";
+      rev = "47f943859bef60e4160492346772ded9b24f765a";
+      fetchSubmodules = false;
+      sha256 = "sha256-ZPGCNoPXVjP76Tm/tFPDX2X95cd83M4iHLmVP5dR+Ps=";
+    };
+    extract = {
+      "package.json" = ./. + "/sha256-ZPGCNoPXVjP76Tm_tFPDX2X95cd83M4iHLmVP5dR+Ps=/package.json";
+    };date = "2026-08-13";
+  };
   elio = {
     pname = "elio";
     version = "v1.11.2";

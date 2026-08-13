@@ -47,6 +47,11 @@ git.fetchSubmodules = true
 src.github = "daeuniverse/dae"
 fetch.url = "file:///dev/null"
 
+[deepseek-harness]
+src.git = "https://github.com/deepseek-ai/deepseek-harness.git"
+fetch.github = "deepseek-ai/deepseek-harness"
+extract = ["package.json"]
+
 [elio]
 src.github = "elio-fm/elio"
 fetch.github = "elio-fm/elio"

@@ -45,6 +45,7 @@
   systemdLibs,
 
   # runtime deps
+  bubblewrap,
   libGL,
   libpulseaudio,
   libsecret,
@@ -72,6 +73,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   # autoPatchelf moves PT_INTERP beyond detect-libc's 2 KiB scan. Its
   # process.report fallback trips Electron's CFI, so use the glibc watcher.
   postPatch = lib.optionalString isLinux ''
+    grep -aFq 'const family = familySync();' usr/lib/chatgpt/resources/app.asar
     sed -i "s|const family = familySync();|const family = 'glibc'     ;|" usr/lib/chatgpt/resources/app.asar
   '';
 
@@ -169,6 +171,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         lib.makeBinPath [
           nodejs-slim
           xdg-utils
+          bubblewrap
         ]
       } \
       --prefix LD_LIBRARY_PATH : ${
@@ -196,14 +199,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     updateScript = ./update.sh;
-    sources = import ./source.nix;
+    sources = lib.importJSON ./source.json;
     source = finalAttrs.passthru.sources.${system} or (throw "chatgpt is not supported on ${system}");
     launcher = callPackage ./launcher.nix { };
   };
 
   meta = {
     description = "Desktop application for ChatGPT";
-    homepage = "https://openai.com/chatgpt/desktop/";
+    homepage = "https://developers.openai.com/codex/app";
     changelog = "https://learn.chatgpt.com/docs/changelog";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [

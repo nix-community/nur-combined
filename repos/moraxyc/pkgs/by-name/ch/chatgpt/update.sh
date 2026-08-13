@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl gzip libxml2
+#!nix-shell -i bash -p curl gzip jq libxml2
 # shellcheck shell=bash
 
 set -o errexit
@@ -9,6 +9,8 @@ set -o pipefail
 BASE_URL="https://persistent.oaistatic.com/codex-app-prod"
 DARWIN_APPCAST_URL="$BASE_URL/appcast.xml"
 LINUX_REPOSITORY_URL="$BASE_URL/linux/deb"
+
+SOURCE_JSON=${SOURCE_JSON:-"$(dirname "${BASH_SOURCE[0]}")/source.json"}
 
 get_field() {
   local field="$1"
@@ -28,54 +30,74 @@ fetch_linux_metadata() {
 DARWIN_XML=$(curl --fail --location --silent --show-error "$DARWIN_APPCAST_URL")
 DARWIN_VERSION=$(xmllint --xpath '/rss/channel/item[1]/*[local-name()="shortVersionString"]/text()' - <<< "$DARWIN_XML")
 DARWIN_URL=$(xmllint --xpath 'string(//item[1]/enclosure/@url)' - <<< "$DARWIN_XML")
-DARWIN_NIX32_HASH=$(nix-prefetch-url "$DARWIN_URL")
+
+for pair in \
+  "x86_64-linux amd64" \
+  "aarch64-linux arm64"; do
+  read -r system architecture <<< "$pair"
+  metadata=$(fetch_linux_metadata "$architecture")
+
+  [[ $(get_field Package "$metadata") == chatgpt ]]
+  [[ $(get_field Architecture "$metadata") == "$architecture" ]]
+
+  version=$(get_field Version "$metadata")
+  filename=$(get_field Filename "$metadata")
+
+  if [[ "$system" == x86_64-linux ]]; then
+    AMD64_VERSION=$version
+    AMD64_URL="$LINUX_REPOSITORY_URL/$filename"
+  else
+    ARM64_VERSION=$version
+    ARM64_URL="$LINUX_REPOSITORY_URL/$filename"
+  fi
+done
+
+if [[ -f "$SOURCE_JSON" ]] && jq -e \
+  --arg darwin_version "$DARWIN_VERSION" \
+  --arg darwin_url "$DARWIN_URL" \
+  --arg amd64_version "$AMD64_VERSION" \
+  --arg amd64_url "$AMD64_URL" \
+  --arg arm64_version "$ARM64_VERSION" \
+  --arg arm64_url "$ARM64_URL" \
+  '.["aarch64-darwin"].version == $darwin_version
+    and .["aarch64-darwin"].src.url == $darwin_url
+    and .["x86_64-linux"].version == $amd64_version
+    and .["x86_64-linux"].src.url == $amd64_url
+    and .["aarch64-linux"].version == $arm64_version
+    and .["aarch64-linux"].src.url == $arm64_url' \
+  "$SOURCE_JSON" >/dev/null; then
+  echo "chatgpt is already up to date" >&2
+  exit 0
+fi
+
 DARWIN_HASH=$(nix --extra-experimental-features nix-command hash convert \
-  --hash-algo sha256 --from nix32 "$DARWIN_NIX32_HASH")
-
-AMD64_METADATA=$(fetch_linux_metadata amd64)
-ARM64_METADATA=$(fetch_linux_metadata arm64)
-
-[[ $(get_field Package "$AMD64_METADATA") == chatgpt ]]
-[[ $(get_field Architecture "$AMD64_METADATA") == amd64 ]]
-[[ $(get_field Package "$ARM64_METADATA") == chatgpt ]]
-[[ $(get_field Architecture "$ARM64_METADATA") == arm64 ]]
-
-AMD64_VERSION=$(get_field Version "$AMD64_METADATA")
-AMD64_FILENAME=$(get_field Filename "$AMD64_METADATA")
-AMD64_SHA256=$(get_field SHA256 "$AMD64_METADATA")
+  --hash-algo sha256 "$(nix-prefetch-url "$DARWIN_URL")")
 AMD64_HASH=$(nix --extra-experimental-features nix-command hash convert \
-  --hash-algo sha256 --from base16 "$AMD64_SHA256")
-
-ARM64_VERSION=$(get_field Version "$ARM64_METADATA")
-ARM64_FILENAME=$(get_field Filename "$ARM64_METADATA")
-ARM64_SHA256=$(get_field SHA256 "$ARM64_METADATA")
+  --hash-algo sha256 "$(nix-prefetch-url "$AMD64_URL")")
 ARM64_HASH=$(nix --extra-experimental-features nix-command hash convert \
-  --hash-algo sha256 --from base16 "$ARM64_SHA256")
+  --hash-algo sha256 "$(nix-prefetch-url "$ARM64_URL")")
 
-SOURCE_NIX=${SOURCE_NIX:-"$(dirname "${BASH_SOURCE[0]}")/source.nix"}
-
-cat > "$SOURCE_NIX" << _EOF_
-{
-  aarch64-darwin = {
-    version = "$DARWIN_VERSION";
-    src = {
-      url = "$DARWIN_URL";
-      hash = "$DARWIN_HASH";
-    };
-  };
-  aarch64-linux = {
-    version = "$ARM64_VERSION";
-    src = {
-      url = "$LINUX_REPOSITORY_URL/$ARM64_FILENAME";
-      hash = "$ARM64_HASH";
-    };
-  };
-  x86_64-linux = {
-    version = "$AMD64_VERSION";
-    src = {
-      url = "$LINUX_REPOSITORY_URL/$AMD64_FILENAME";
-      hash = "$AMD64_HASH";
-    };
-  };
-}
-_EOF_
+jq -n \
+  --arg darwin_version "$DARWIN_VERSION" \
+  --arg darwin_url "$DARWIN_URL" \
+  --arg darwin_hash "$DARWIN_HASH" \
+  --arg amd64_version "$AMD64_VERSION" \
+  --arg amd64_url "$AMD64_URL" \
+  --arg amd64_hash "$AMD64_HASH" \
+  --arg arm64_version "$ARM64_VERSION" \
+  --arg arm64_url "$ARM64_URL" \
+  --arg arm64_hash "$ARM64_HASH" \
+  '{
+    "aarch64-darwin": {
+      "version": $darwin_version,
+      "src": { "url": $darwin_url, "hash": $darwin_hash }
+    },
+    "aarch64-linux": {
+      "version": $arm64_version,
+      "src": { "url": $arm64_url, "hash": $arm64_hash }
+    },
+    "x86_64-linux": {
+      "version": $amd64_version,
+      "src": { "url": $amd64_url, "hash": $amd64_hash }
+    }
+  }' > "$SOURCE_JSON"
