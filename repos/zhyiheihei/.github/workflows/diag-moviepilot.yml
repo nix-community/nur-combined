@@ -1,0 +1,31 @@
+name: 'Diag moviepilot'
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-moviepilot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: all
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes ca-derivations
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            extra-platforms = i686-linux aarch64-linux arm-linux
+      - name: Build moviepilot
+        run: |
+          nix build --no-link --print-out-paths ".#packages.x86_64-linux.moviepilot" 2>&1 || true
+          echo "=== zhconv-rs ==="
+          nix build --no-link --print-out-paths ".#packages.x86_64-linux.zhconv-rs" 2>&1 || true
+          echo "=== nexus-media-web ==="
+          nix build --no-link --print-out-paths ".#packages.x86_64-linux.nexus-media-web" 2>&1 || true
