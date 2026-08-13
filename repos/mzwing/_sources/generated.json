@@ -231,7 +231,7 @@
     },
     "pumpkin": {
         "cargoLock": null,
-        "date": "2026-08-12",
+        "date": "2026-08-13",
         "extract": null,
         "name": "pumpkin",
         "passthru": null,
@@ -243,12 +243,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "2edc79f7cc79cd101c73672344005b2813408488",
-            "sha256": "sha256-1IUc3FL4lLbd9LCRZ+waoIxmqnEZy1v0t/ZpIQkvbaM=",
+            "rev": "24d9dbdc6b1528dad9794f9bf8956ac9c4e325c3",
+            "sha256": "sha256-0hFAidXKemEnzUxqwRy744wuiQVpJl5BAZuJl6YDpO4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2edc79f7cc79cd101c73672344005b2813408488"
+        "version": "24d9dbdc6b1528dad9794f9bf8956ac9c4e325c3"
     },
     "replay-fish": {
         "cargoLock": null,
