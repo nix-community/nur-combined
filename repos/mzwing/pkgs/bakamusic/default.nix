@@ -107,7 +107,9 @@
         (prev.postUnpack or "")
         + ''
           export NODE_EXTRA_CA_CERTS=${cacert}/etc/ssl/certs/ca-bundle.crt
-          node ${./repair-lockfile.mjs}
+          # postUnpack runs before genericBuild cd's into $sourceRoot, so
+          # the lockfile lives under $sourceRoot, not the cwd.
+          node ${./repair-lockfile.mjs} "$sourceRoot/package-lock.json"
         '';
     });
 
