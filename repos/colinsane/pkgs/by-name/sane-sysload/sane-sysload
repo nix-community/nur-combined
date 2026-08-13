@@ -1,6 +1,6 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ]'
-"""
+USAGE = """
 usage: sane-sysload [options...] formatstr
 
 pretty-prints a battery estimate (icon to indicate state, and a duration estimate)
@@ -484,7 +484,7 @@ def main() -> None:
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(usage=__doc__)
+    parser = argparse.ArgumentParser(usage=USAGE)
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--icon-suffix", default=SUFFIX_ICON)
     parser.add_argument("--hour-suffix", default=SUFFIX_HR)

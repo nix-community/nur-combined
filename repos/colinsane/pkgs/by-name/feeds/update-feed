@@ -1,6 +1,8 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.feedsearch-crawler ps.podcastindex-db ps.python3 ]'
 
+USAGE = "update-feed [options] URL OUTPUT"
+
 from dataclasses import dataclass
 from typing import Any, IO, Iterator
 
@@ -249,7 +251,7 @@ def main():
     logging.getLogger().setLevel(logging.INFO)
     logger.debug("logging enabled")
 
-    parser = argparse.ArgumentParser(usage=__doc__)
+    parser = argparse.ArgumentParser(usage=USAGE)
     parser.add_argument("url", help="where to start searching for a feed")
     parser.add_argument("output", help="where to save extracted feed data (should end in .json)")
     parser.add_argument("--podcast", help="if multiple feeds are found, prefer the podcast feed over any text/image feed", action="store_true")

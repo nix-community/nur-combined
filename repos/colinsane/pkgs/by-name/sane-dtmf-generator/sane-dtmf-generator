@@ -1,7 +1,7 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.numpy ps.python3.pkgs.scipy ]'
 # vim: set filetype=python :
-"""
+USAGE = """
 generate files for any of 16 DTMF tones 0-9, #, *, A, B, C, D,
 as per <https://en.wikipedia.org/wiki/DTMF_signaling#Keypad>
 """
@@ -104,7 +104,7 @@ def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(usage=__doc__)
+    parser = argparse.ArgumentParser(usage=USAGE)
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--duration", type=float, default=0.5)
     parser.add_argument("--sample-rate", type=int, default=44100)

@@ -86,6 +86,10 @@ in
       log.follow = true;  #< make `git log PATH` behave like `git log --follow PATH`
       log.showSignature = false;
 
+      # the default yellow commit header is unreadable
+      color.diff.commit = "bold cyan";
+      color.decorate.tag = "cyan";
+
       merge.autoStash = true;
       merge.conflictStyle = "zdiff3";
 

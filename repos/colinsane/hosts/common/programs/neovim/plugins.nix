@@ -340,6 +340,23 @@ in
     # trigger with `:GitMessenger` or `<Leader>gm` (i.e. `\gm`)
     plugin = vimPlugins.git-messenger-vim;
   }
+  # (let
+  #   deskoHostname = config.sane.hosts.by-name.desko.wg-home.ip;
+  # in
+  # {
+  #   # local LLM-assisted completion and instruction-based editing:
+  #   # <https://github.com/ggml-org/llama.vim>
+  #   # - select text and press `lli` (or run `:LlamaInstruct`) to edit it
+  #   # - use `:LlamaStatus` to check the configured server
+  #   plugin = vimPlugins.llama-vim;
+  #   type = "viml";
+  #   config = ''
+  #     let g:llama_config = {
+  #       'endpoint_fim': 'http://${deskoHostname}:11435/infill',
+  #       'endpoint_inst': 'http://${deskoHostname}:11435/v1/chat/completions',
+  #     }
+  #   '';
+  # })
   # TODO: enable pi-nvim once i figure out sandboxing...
   # i don't want to give all of neovim net access!
   # {

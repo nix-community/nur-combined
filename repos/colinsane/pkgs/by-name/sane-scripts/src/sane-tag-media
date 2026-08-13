@@ -1,7 +1,7 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.mutagen ps.python3.pkgs.pyexiftool ps.python3.pkgs.pykakasi ps.python3.pkgs.unidecode ]'
 # vim: set filetype=python :
-"""
+USAGE = """
 tool which runs over a complete music library (or audiobooks, videos, ebooks (limited)) or a subset of it and:
 - fixes missing or incorrect tags:
   - suggests likely tags based on file path
@@ -1032,7 +1032,7 @@ def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(usage=__doc__)
+    parser = argparse.ArgumentParser(usage=USAGE)
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--album', help="manually specify the tag")

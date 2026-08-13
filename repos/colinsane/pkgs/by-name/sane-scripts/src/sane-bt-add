@@ -1,7 +1,7 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.requests ps.sane-scripts.lib.bt ]'
 # vim: set filetype=python :
-"""
+USAGE = """
 sane-bt-add: instruct servo to download or rename some torrent.
 
 to rename an existing torrent, just invoke sane-bt-add as if it were a new torrent,
@@ -70,7 +70,7 @@ def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=USAGE)
     TransmissionApi.add_arguments(parser)
     MediaMeta.add_arguments(parser)
     parser.add_argument("torrent", help="file path or URI to torrent (magnet, https)")

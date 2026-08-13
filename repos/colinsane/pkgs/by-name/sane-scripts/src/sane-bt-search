@@ -1,7 +1,7 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.requests ]'
 # vim: set filetype=python :
-"""
+USAGE = """
 usage: sane-bt-search [options] <query_string>
 
 searches Jackett for torrent files matching the title.
@@ -68,7 +68,7 @@ class TrackerQuality(IntEnum):
 
 class BadCliArgs(Exception):
     def __init__(self, msg: str | None = None) -> None:
-        helpstr = __doc__
+        helpstr = USAGE
         if msg:
             super().__init__(f"{msg}\n\n{helpstr}")
         else:

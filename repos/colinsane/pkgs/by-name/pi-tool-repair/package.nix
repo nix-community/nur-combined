@@ -10,13 +10,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-tool-repair";
-  version = "0.1.8";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "monotykamary";
     repo = "pi-tool-repair";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-B98sZ5pbp2tSXu1qz46IUlY92ingxQbhQsBF171WNyk=";
+    hash = "sha256-hMCpKj+OZa+fig/j/1Zlj2jpWh+zDkSdAr6ZV9RrIHk=";
   };
 
   npmDeps = null;
@@ -24,7 +24,7 @@ buildNpmPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-y7HljhPm5/jpSJw8AfjDiqrbG/09eB6vw2sWwpMIvC0=";
+    hash = "sha256-K/ojYhl1tRJJxMyFoETbipKNZBJit/WS7URk+My+tFk=";
   };
   npmConfigHook = pnpmConfigHook;
 

@@ -176,12 +176,30 @@ in
   };
 
   # see <repo:nixos/nixpkgs:nixos/modules/services/torrent/transmission.nix>;
+  # the nixpkgs apparmor policy for transmission isn't permissive enough to support the torrent-done hook
+  # => copied inline here, and customized minimally.
+  security.apparmor.includes."local/bin.transmission-daemon" = lib.mkForce ''
+    ${config.systemd.services.transmission.environment.CURL_CA_BUNDLE} r,
+
+    owner /var/lib/transmission/.config/transmission-daemon/** rw,
+    ${download-dir}/** rw,
+
+    profile dirs {
+      ${download-dir}/** rw,
+      # this is the addition which `torrent-done` needs that the upstream transmission module can't provide.
+      /var/media/** rw,
+    }
+
+    ${lib.getExe torrent-done} px -> &@{dirs},
+  '';
+
   # transmission itself has an apparmor profile,
   # and is knowledgeable enough to also inherit the profile of the torrent-done script...
   # but unless i define such a profile, then apparmor will complain:
   # > Feb 08 02:01:24 servo kernel: audit: type=1400 audit(...): apparmor="DENIED" operation="exec" class="file" info="profile transition not found" error=-13 profile="/nix/store/05pbi2xpappimpzl43mbcan7csl3ngni-transmission-4.0.6/bin/transmission-daemon" name="/nix/store/mgf31pv0ar816nw15rizq734vhz2ggk3-torrent-done-0.1.0/bin/torrent-done" pid=... comm="transmission-da" requested_mask="x" denied_mask="x" fsuid=70 ouid=0 target="&@{dirs}"
   # N.B.: `$path/bin/** pixr` means: the referenced path can be read or executed; when executed we attempt an apparmor profile transition but fallback to inheriting the current profile if no explicit profile is defined.
-  # - TODO: what i actually want is "stacked" profiles; i.e. intersect the profiles. <https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking>
+  # - nixpkgs uses AppArmor stacking here; the hook runs with its profile
+  #   intersected with the `dirs` hat above.
   # N.B.: `abstractions/consoles` is included for when you run this interactively.
   security.apparmor.policies."bin.torrent-done".profile = ''
     abi <abi/4.0>,

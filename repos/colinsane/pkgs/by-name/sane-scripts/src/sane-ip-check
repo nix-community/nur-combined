@@ -1,7 +1,7 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.miniupnpc ps.python3 ps.python3.pkgs.requests ps.sane-scripts.lib.ssdp ]'
 # vim: set filetype=python :
-"""
+USAGE = """
 sane-ip-check: query the IP address of this machine as seen by an external Internet host.
 """
 
@@ -71,7 +71,7 @@ def main(format: str, try_upnp: bool, retry_duration: float, expect: str|None) -
 if __name__ == '__main__':
     logging.basicConfig()
 
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=USAGE)
     parser.add_argument("-v", action="store_true", help="be verbose")
     parser.add_argument("-vv", action="store_true", help="be more verbose")
     parser.add_argument("--json", action="store_true", help="output results in json format")
