@@ -120,17 +120,6 @@ in
             behavior = "own";
             key = config.sops.secrets."git_toyvo_sign_ed25519.pub".path;
           };
-          aliases = {
-            rbm = [
-              "util"
-              "exec"
-              "--"
-              "sh"
-              "-c"
-              "jj git fetch --all-remotes && jj rebase \"$@\" -d main@origin"
-              "sh"
-            ];
-          };
         };
       };
       kitty.enable = cfg.gui.enable;
