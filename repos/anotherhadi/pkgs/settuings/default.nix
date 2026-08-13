@@ -6,16 +6,16 @@
 }:
 buildGo126Module rec {
   pname = "settuings";
-  version = "0.0.1";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "settuings";
     rev = "v${version}";
-    hash = "sha256-dbm12xD6LkUxT3aePPWQs7BVkRInGMYfEuK5DHS5Qvk=";
+    hash = "sha256-j5lY0pdQmKQmZ+PYioa9rYxPS8SUENar5rSWdbBLY9c=";
   };
 
-  vendorHash = "sha256-CWWDjtrCUZf2kHUin7n+U54artAFlp36xlc7C0xHXXI=";
+  vendorHash = "sha256-EPbAZPJ0ZdfKqS7JNvjfRkdhRKD5F+epqBpOrPoT3S4=";
 
   ldflags = ["-s" "-w" "-X main.version=${version}"];
 
