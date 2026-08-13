@@ -4,6 +4,7 @@
   fetchFromGitHub,
   pkg-config,
   bzip2,
+  cacert,
   openssl,
   xz,
   zstd,
@@ -33,6 +34,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
     xz
     zstd
+  ];
+
+  nativeCheckInputs = [
+    cacert
   ];
 
   postPatch = ''
