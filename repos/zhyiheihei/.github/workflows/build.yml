@@ -114,6 +114,9 @@ jobs:
                 echo "ok $system/$pkg"
               else
                 echo "FAIL $system/$pkg"
+                # Print the swallowed stderr so failures are visible in CI
+                # logs instead of only a bare FAIL line.
+                tail -200 /tmp/build-err || true
               fi
             done < "/tmp/pkg-names-$system"
           done
