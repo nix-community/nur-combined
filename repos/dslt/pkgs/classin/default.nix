@@ -52,7 +52,6 @@
 , xcbutilkeysyms
 , xcbutilrenderutil
 , xcbutilwm
-, openssl_1_1
 }:
 
 stdenv.mkDerivation rec {
@@ -78,7 +77,6 @@ stdenv.mkDerivation rec {
     libxfixes libxi libxinerama libxkbcommon libxrandr libxrender libxscrnsaver
     libxtst mesa nspr nss pango pcre pixman pulseaudio systemd util-linux
     xcbutilimage xcbutilkeysyms xcbutilrenderutil xcbutilwm
-    openssl_1_1
   ];
 
   unpackPhase = "dpkg-deb -x $src .";
@@ -95,12 +93,14 @@ stdenv.mkDerivation rec {
     fi
 
     pushd $out/opt/apps/classin/lib
+    # Keep the bundled libssl.so.1.1/libcrypto.so.1.1 — classin's libavformat.so
+    # needs the OpenSSL 1.1 ABI, which nixpkgs no longer provides
+    # (openssl_1_1 was removed upstream).
     rm -f libpixman-1.so* libselinux.so* libcairo.so* libglib-2.0.so* \
           libgio-2.0.so* libgobject-2.0.so* libgmodule-2.0.so* \
           libgthread-2.0.so* libdbus-1.so* libfontconfig.so* \
           libfreetype.so* libz.so* libstdc++.so* libgcc_s.so* \
-          libblkid.so* libmount.so* libpcre.so* libcrypto.so* \
-          libssl.so* libxcb*
+          libblkid.so* libmount.so* libpcre.so* libxcb*
     popd
 
     if [ -f $out/share/applications/classin.desktop ]; then
