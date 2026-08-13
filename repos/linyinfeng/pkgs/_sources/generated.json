@@ -509,7 +509,7 @@
     },
     "rime-cantonese": {
         "cargoLock": null,
-        "date": "2026-07-02",
+        "date": "2026-08-13",
         "extract": null,
         "name": "rime-cantonese",
         "passthru": null,
@@ -519,13 +519,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c99b16e44d2df77a5cb8fb0867dd2bab7a112cb0",
-            "sha256": "sha256-M2zFuhKAmSJ3X7zP0+itakhmuHqwtxZVOHS/fn+NSZo=",
+            "rev": "259f0e48bba840c3a2e0d117539e96937f3d89bc",
+            "sha256": "sha256-ctyYZQVCd9Sc7oqPmP4lO1Q0TYDQILqt/BRloaEWjPg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
-        "version": "c99b16e44d2df77a5cb8fb0867dd2bab7a112cb0"
+        "version": "259f0e48bba840c3a2e0d117539e96937f3d89bc"
     },
     "rime-double-pinyin": {
         "cargoLock": null,
