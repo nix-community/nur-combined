@@ -10,10 +10,10 @@
     ],
     "engine": "libmpv",
     "librempeg": {
-      "commit": "2582d0d180d74ffc742f437e010e8c3c1017e437",
-      "hash": "sha256-uvScjeEFevMiQjxP3VHax3XEFx4IAvjp852t9A8xh5g="
+      "commit": "daa932809bf60aae79d3c757523ef17a01939c1d",
+      "hash": "sha256-yW3lf/4PT1pAqCYcfhTcOka2R3dmYDjBuEW6cM8dOyw="
     },
     "mediaBackend": "librempeg",
-    "version": "mpv-94335ab87a.librempeg-2582d0d180.libplacebo-a7a18af88f"
+    "version": "mpv-f4d13e1c2c.librempeg-daa932809b.libplacebo-22ee762e8e"
   }
 }

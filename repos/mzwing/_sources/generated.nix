@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.6.0";
+    version = "v1.6.1";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.6.0";
+      rev = "v1.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-02msOxuJNmHftRXJFGXqUT/jUkoB2tAEdiPnuSmPl/Y=";
+      sha256 = "sha256-ct9Lq2Rey133+SOYC6juG8IO6DU/UtM1dvSmRgr+6FI=";
     };
   };
   cliproxyapiplus = {
@@ -134,15 +134,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "24d9dbdc6b1528dad9794f9bf8956ac9c4e325c3";
+    version = "bd47c4070827cdd36796303074043ad998d480af";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "24d9dbdc6b1528dad9794f9bf8956ac9c4e325c3";
+      rev = "bd47c4070827cdd36796303074043ad998d480af";
       fetchSubmodules = true;
-      sha256 = "sha256-0hFAidXKemEnzUxqwRy744wuiQVpJl5BAZuJl6YDpO4=";
+      sha256 = "sha256-5HADcVzLXa8WRBAV/zI0Z5R7Qu7nOWhhI/eBKLA/GiA=";
     };
-    date = "2026-08-13";
+    date = "2026-08-14";
   };
   replay-fish = {
     pname = "replay-fish";
