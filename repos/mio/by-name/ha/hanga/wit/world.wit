@@ -1,21 +1,47 @@
 package hanga:engine;
 
-/// Calls the host can make. Game nouns stay in kit strings; this is execution and the mod bus.
+/// Calls the host can make. Game nouns stay out of function names; structured
+/// payloads use `payload` (or kit strings the host already knows how to execute).
 interface host {
+    /// Bus payload. Not recursive (WIT forbids that here): scalars or a bag of named atoms.
+    variant atom {
+        flag(bool),
+        int(s64),
+        float(f64),
+        text(string),
+    }
+
+    record field {
+        key: string,
+        value: atom,
+    }
+
+    variant payload {
+        empty,
+        flag(bool),
+        int(s64),
+        float(f64),
+        text(string),
+        /// Named scalars. For a second nesting level, use keys like `part.wheel`.
+        bag(list<field>),
+    }
+
     /// `trace` / `debug` / `info` / `warn` / `error`.
     log: func(level: string, message: string);
     /// Milliseconds since the host process started.
     now-ms: func() -> s64;
     /// This component's collection name (`urban_chaos`, `testbed`, …).
     self-name: func() -> string;
-    /// Other loaded mods, comma-separated. Empty when this is the only component.
-    peers: func() -> string;
+    /// Other loaded mods. Empty when this is the only component.
+    peers: func() -> list<string>;
     /// Call another mod's `on-message`. Empty peer = broadcast; first non-empty reply wins.
-    /// Nested asks that would re-enter a locked store return empty.
-    ask: func(peer: string, topic: string, payload: string) -> string;
+    /// Nested asks that would re-enter a locked store return `empty`.
+    ask: func(peer: string, topic: string, payload: payload) -> payload;
 }
 
 interface gameplay {
+    use host.{payload};
+
     /// Initialize the mod (called once when the component is loaded).
     init-mod: func();
 
@@ -102,8 +128,8 @@ interface gameplay {
     /// Empty = ignore. `severity=;crumple=;wrecks=0|1;ignites=0|1;action=;impulse=;detach=a,b`
     crash-kit: func(speed: f32, into-solid: bool) -> string;
 
-    /// Mod-to-mod bus. `caller` is the other component's collection name. Empty reply = ignored.
-    on-message: func(caller: string, topic: string, payload: string) -> string;
+    /// Mod-to-mod bus. `caller` is the other component's collection name. `empty` = ignored.
+    on-message: func(caller: string, topic: string, payload: payload) -> payload;
 }
 
 world plugin {

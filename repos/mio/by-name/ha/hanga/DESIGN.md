@@ -3,14 +3,16 @@
 Hanga is a Bevy host. Gameplay lives in WASM components (`wit/world.wit`).
 WIT is only the **sandbox ABI**: the host can call what the component exports, and
 mods can call what the host **imports**. Game nouns (cops, fire, lamps, wanted stars)
-must not live as extra WIT functions. Those belong in kit strings the mod invents
-(`crash-kit`, `vehicle-kit`, `gravity`, `steer` context). The host parses numbers
-and flags it already knows how to execute; unknown keys are ignored.
+must not live as extra WIT functions. Host-facing kits (`crash-kit`, `vehicle-kit`,
+`gravity`, `steer` context) stay `key=value` strings the host already executes.
+Unknown keys are ignored.
 
 **Engine API** (`import host`): `log`, `now-ms`, `self-name`, `peers`, `ask`.
-`ask(peer, topic, payload)` is the mod bus: empty peer broadcasts; the first
-non-empty `on-message` reply wins. Nested asks that would re-enter a locked store
-return empty.
+`payload` is a WIT variant: `empty`, `flag`, `int`, `float`, `text`, or `bag`
+(list of `{key, atom}`). WIT here cannot recurse, so deeper trees use dotted
+keys (`part.wheel`). `ask` and `on-message` use `payload`. `peers` is a list of
+names. Empty peer broadcasts; the first non-`empty` reply wins. Nested asks that
+would re-enter a locked store return `empty`.
 
 **Mod API** (`on-message`): packs answer `ping`, `catalog`, `gravity`, and other
 topics they invent. The host does not interpret the payload.
@@ -34,7 +36,7 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints,
   and Ed25519 signatures on the wire (`~/.config/hanga/peer.key`)
 - `wasmtime` component sandbox + hot-reload
-- Host imports for mods (`log`, clock, identity, `ask` bus)
+- Host imports for mods (`log`, clock, identity, `ask` bus, `payload` bags)
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
   from a kit, moves occupants, and crumples/detaches named parts. It does not
@@ -71,7 +73,7 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Heist board (`mod-offer-contract`, `contract-mark`, `mod-can-complete` + context).
   The host paints a mark and reports held item / position / vehicle / near;
   Urban Chaos owns smash, subway pinch, chop-shop, and the armored truck.
-- Mod bus (`on-message`): answer `ask` from other packs (`ping`, `catalog`, …).
+- Mod bus (`on-message`): answer `ask` from other packs with a `payload` (`ping`, `catalog`, …).
 
 ### Shipped games
 

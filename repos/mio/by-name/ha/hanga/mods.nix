@@ -32,8 +32,8 @@ rustPlatform.buildRustPackage {
   buildPhase = ''
     runHook preBuild
     cargo test --offline --release -p urban_chaos -p testbed --lib -- --test-threads=1
-    sed -i 's/crate-type = \[.*\]/crate-type = ["cdylib"]/' \
-      mods/urban_chaos/Cargo.toml mods/testbed/Cargo.toml
+    substituteInPlace mods/urban_chaos/Cargo.toml mods/testbed/Cargo.toml \
+      --replace-fail 'crate-type = ["rlib"]' 'crate-type = ["cdylib"]'
     cargo build --offline --release --target wasm32-unknown-unknown \
       -p urban_chaos -p testbed
     runHook postBuild

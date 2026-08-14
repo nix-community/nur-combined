@@ -952,17 +952,14 @@ pub fn compute_agent_vz(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 
     }
 }
 
-pub fn on_message(from: &str, topic: &str, payload: &str) -> String {
+pub fn on_message(from: &str, topic: &str, _payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
     match topic {
-        "ping" => "pong".into(),
-        "name" => "urban_chaos".into(),
-        "catalog" => voxel_catalog(),
-        "gravity" => gravity(),
-        "hello" => format!("hello {from}"),
-        _ => {
-            let _ = payload;
-            String::new()
-        }
+        "ping" => wire_text("pong"),
+        "name" => wire_text("urban_chaos"),
+        "catalog" => wire_text(voxel_catalog()),
+        "gravity" => wire_text(gravity()),
+        "hello" => wire_text(format!("hello {from}")),
+        _ => wire_empty(),
     }
 }
 
@@ -1112,7 +1109,11 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
         crate::crash_kit(speed, into_solid)
     }
 
-    fn on_message(caller: String, topic: String, payload: String) -> String {
+    fn on_message(
+        caller: String,
+        topic: String,
+        payload: hanga::engine::host::Payload,
+    ) -> hanga::engine::host::Payload {
         crate::on_message(&caller, &topic, &payload)
     }
 }
@@ -1857,7 +1858,14 @@ mod tests {
         assert!(crash_kit(4.0, true).is_empty());
         assert_eq!(mod_evaluate_action(ACTION_CRASH, 0), 2);
         assert!(crash_part_impulse(80) > crash_part_impulse(20));
-        assert_eq!(on_message("testbed", "ping", ""), "pong");
-        assert!(on_message("x", "catalog", "").contains("concrete"));
+        assert_eq!(
+            wire_as_text(&on_message("testbed", "ping", &wire_empty())),
+            Some("pong")
+        );
+        assert!(
+            wire_as_text(&on_message("x", "catalog", &wire_empty()))
+                .unwrap_or("")
+                .contains("concrete")
+        );
     }
 }

@@ -26,3 +26,18 @@ fn kit_bool(text: &str, key: &str) -> bool {
         "1" | "true" | "yes" | "on"
     )
 }
+
+fn wire_empty() -> hanga::engine::host::Payload {
+    hanga::engine::host::Payload::Empty
+}
+
+fn wire_text(text: impl Into<String>) -> hanga::engine::host::Payload {
+    hanga::engine::host::Payload::Text(text.into())
+}
+
+fn wire_as_text(payload: &hanga::engine::host::Payload) -> Option<&str> {
+    match payload {
+        hanga::engine::host::Payload::Text(text) => Some(text.as_str()),
+        _ => None,
+    }
+}

@@ -41,10 +41,20 @@ pub struct HostData {
     pub bus: Arc<dyn EngineBus>,
 }
 
+pub type Wire = hanga::engine::host::Payload;
+
+pub fn wire_empty() -> Wire {
+    Wire::Empty
+}
+
+pub fn wire_is_empty(value: &Wire) -> bool {
+    matches!(value, Wire::Empty)
+}
+
 pub trait EngineBus: Send + Sync {
     fn log(&self, from: &str, level: &str, message: &str);
-    fn peers(&self, from: &str) -> String;
-    fn ask(&self, from: &str, peer: &str, topic: &str, payload: &str) -> String;
+    fn peers(&self, from: &str) -> Vec<String>;
+    fn ask(&self, from: &str, peer: &str, topic: &str, payload: Wire) -> Wire;
 }
 
 pub struct NoopBus;
@@ -59,12 +69,12 @@ impl EngineBus for NoopBus {
         }
     }
 
-    fn peers(&self, _from: &str) -> String {
-        String::new()
+    fn peers(&self, _from: &str) -> Vec<String> {
+        Vec::new()
     }
 
-    fn ask(&self, _from: &str, _peer: &str, _topic: &str, _payload: &str) -> String {
-        String::new()
+    fn ask(&self, _from: &str, _peer: &str, _topic: &str, _payload: Wire) -> Wire {
+        wire_empty()
     }
 }
 
@@ -79,7 +89,7 @@ impl EngineBus for LiveBus {
         NoopBus.log(from, level, message);
     }
 
-    fn peers(&self, from: &str) -> String {
+    fn peers(&self, from: &str) -> Vec<String> {
         let mut names = Vec::new();
         if self.lead_name != from && !self.lead_name.is_empty() {
             names.push(self.lead_name.clone());
@@ -89,41 +99,41 @@ impl EngineBus for LiveBus {
                 names.push(name.clone());
             }
         }
-        names.join(",")
+        names
     }
 
-    fn ask(&self, from: &str, peer: &str, topic: &str, payload: &str) -> String {
+    fn ask(&self, from: &str, peer: &str, topic: &str, payload: Wire) -> Wire {
         if peer.is_empty() {
-            let mut reply = String::new();
+            let mut reply = wire_empty();
             if self.lead_name != from {
-                reply = deliver(&self.lead, from, topic, payload);
+                reply = deliver(&self.lead, from, topic, &payload);
             }
-            if !reply.is_empty() {
+            if !wire_is_empty(&reply) {
                 return reply;
             }
             for (name, ctx) in &self.packs {
                 if name == from {
                     continue;
                 }
-                reply = deliver(ctx, from, topic, payload);
-                if !reply.is_empty() {
+                reply = deliver(ctx, from, topic, &payload);
+                if !wire_is_empty(&reply) {
                     return reply;
                 }
             }
-            return String::new();
+            return wire_empty();
         }
         if peer == from {
-            return String::new();
+            return wire_empty();
         }
         if peer == self.lead_name {
-            return deliver(&self.lead, from, topic, payload);
+            return deliver(&self.lead, from, topic, &payload);
         }
         for (name, ctx) in &self.packs {
             if name == peer {
-                return deliver(ctx, from, topic, payload);
+                return deliver(ctx, from, topic, &payload);
             }
         }
-        String::new()
+        wire_empty()
     }
 }
 
@@ -131,18 +141,18 @@ fn deliver(
     slot: &Mutex<Option<MainModContext>>,
     from: &str,
     topic: &str,
-    payload: &str,
-) -> String {
+    payload: &Wire,
+) -> Wire {
     let Ok(mut guard) = slot.try_lock() else {
-        return String::new();
+        return wire_empty();
     };
     let Some(ctx) = guard.as_mut() else {
-        return String::new();
+        return wire_empty();
     };
     ctx.bindings
         .hanga_engine_gameplay()
         .call_on_message(&mut ctx.store, from, topic, payload)
-        .unwrap_or_default()
+        .unwrap_or_else(|_| wire_empty())
 }
 
 impl hanga::engine::host::Host for HostData {
@@ -158,12 +168,12 @@ impl hanga::engine::host::Host for HostData {
         self.name.clone()
     }
 
-    fn peers(&mut self) -> String {
+    fn peers(&mut self) -> Vec<String> {
         self.bus.peers(&self.name)
     }
 
-    fn ask(&mut self, peer: String, topic: String, payload: String) -> String {
-        self.bus.ask(&self.name, &peer, &topic, &payload)
+    fn ask(&mut self, peer: String, topic: String, payload: Wire) -> Wire {
+        self.bus.ask(&self.name, &peer, &topic, payload)
     }
 }
 

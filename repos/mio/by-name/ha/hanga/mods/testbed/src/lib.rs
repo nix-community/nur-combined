@@ -308,17 +308,14 @@ pub fn crash_kit(_speed: f32, _into_solid: bool) -> String {
     String::new()
 }
 
-pub fn on_message(from: &str, topic: &str, payload: &str) -> String {
+pub fn on_message(from: &str, topic: &str, _payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
     match topic {
-        "ping" => "pong".into(),
-        "name" => "testbed".into(),
-        "catalog" => voxel_catalog(),
-        "gravity" => gravity(),
-        "hello" => format!("hello {from}"),
-        _ => {
-            let _ = payload;
-            String::new()
-        }
+        "ping" => wire_text("pong"),
+        "name" => wire_text("testbed"),
+        "catalog" => wire_text(voxel_catalog()),
+        "gravity" => wire_text(gravity()),
+        "hello" => wire_text(format!("hello {from}")),
+        _ => wire_empty(),
     }
 }
 
@@ -439,7 +436,11 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
         crate::crash_kit(speed, into_solid)
     }
 
-    fn on_message(caller: String, topic: String, payload: String) -> String {
+    fn on_message(
+        caller: String,
+        topic: String,
+        payload: hanga::engine::host::Payload,
+    ) -> hanga::engine::host::Payload {
         crate::on_message(&caller, &topic, &payload)
     }
 }
@@ -521,8 +522,14 @@ mod tests {
         assert!(crash_action(100).is_empty());
         assert_eq!(crash_ignites(100), 0);
         assert!(crash_kit(40.0, true).is_empty());
-        assert_eq!(on_message("urban_chaos", "ping", ""), "pong");
-        assert_eq!(on_message("x", "name", ""), "testbed");
+        assert_eq!(
+            wire_as_text(&on_message("urban_chaos", "ping", &wire_empty())),
+            Some("pong")
+        );
+        assert_eq!(
+            wire_as_text(&on_message("x", "name", &wire_empty())),
+            Some("testbed")
+        );
     }
 
     #[test]

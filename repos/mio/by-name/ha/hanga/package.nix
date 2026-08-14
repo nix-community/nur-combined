@@ -1,24 +1,32 @@
 {
   lib,
+  pkgs,
+  stdenv,
   rustPlatform,
   pkg-config,
-  udev,
-  alsa-lib,
-  vulkan-loader,
-  libx11,
-  libxcursor,
-  libxi,
-  libxrandr,
-  wayland,
-  libxkbcommon,
-  mesa,
   makeWrapper,
   callPackage,
   hanga-signal,
+  apple-sdk_14,
 }:
 
 let
   mods = callPackage ./mods.nix { };
+  linuxGraphics = lib.optionals stdenv.hostPlatform.isLinux (
+    with pkgs;
+    [
+      udev
+      alsa-lib
+      vulkan-loader
+      libx11
+      libxcursor
+      libxi
+      libxrandr
+      wayland
+      libxkbcommon
+      mesa
+    ]
+  );
 in
 rustPlatform.buildRustPackage {
   pname = "hanga";
@@ -36,29 +44,18 @@ rustPlatform.buildRustPackage {
     makeWrapper
   ];
 
-  buildInputs = [
-    udev
-    alsa-lib
-    vulkan-loader
-    libx11
-    libxcursor
-    libxi
-    libxrandr
-    wayland
-    libxkbcommon
-  ];
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isDarwin [
+      apple-sdk_14
+    ]
+    ++ linuxGraphics;
 
-  env.LD_LIBRARY_PATH = lib.makeLibraryPath [
-    vulkan-loader
-    wayland
-    libxkbcommon
-    alsa-lib
-    udev
-    mesa
-  ];
+  env = lib.optionalAttrs stdenv.hostPlatform.isLinux {
+    LD_LIBRARY_PATH = lib.makeLibraryPath linuxGraphics;
+  };
 
-  # Development / CI tests live on `hanga-dev` (crate2nix + xvfb). This
-  # rustPlatform build is the slower release wrap; skip the 10+ min check here.
+  # Development / CI tests live on `hanga-dev`. This rustPlatform wrap skips
+  # the long cargo checkPhase.
   doCheck = false;
 
   postInstall = ''
@@ -69,16 +66,9 @@ rustPlatform.buildRustPackage {
       --set HANGA_MODS $out/share/hanga/mods \
       --set HANGA_GAMES $out/share/hanga/games \
       --prefix PATH : ${lib.makeBinPath [ hanga-signal ]} \
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          vulkan-loader
-          wayland
-          libxkbcommon
-          alsa-lib
-          udev
-          mesa
-        ]
-      }
+      ${lib.optionalString stdenv.hostPlatform.isLinux ''
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath linuxGraphics}
+      ''}
   '';
 
   passthru = {
