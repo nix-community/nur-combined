@@ -570,11 +570,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Y+n66YqR1QRCD8sXUVvOg0YtorlTbRCZJPTa346koUU=/Cargo.lock",
+                "sha256-qYIidNchMyHnYN4B3cpW8pHZzjIBNSwNzeuzrGcsmm8=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-12",
+        "date": "2026-08-15",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -586,12 +586,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "9a7a1255ab1c6157f5326f24caff3d9f14da0d69",
-            "sha256": "sha256-Y+n66YqR1QRCD8sXUVvOg0YtorlTbRCZJPTa346koUU=",
+            "rev": "8a8536514ad5622ca2027722ae4c588758f3bb3b",
+            "sha256": "sha256-qYIidNchMyHnYN4B3cpW8pHZzjIBNSwNzeuzrGcsmm8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9a7a1255ab1c6157f5326f24caff3d9f14da0d69"
+        "version": "8a8536514ad5622ca2027722ae4c588758f3bb3b"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -686,11 +686,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3Acw+3Jj72Bt0JNwVPGicEMj3BLYRKkSv5flaaL8gaw=",
+            "sha256": "sha256-++qVQQH/giLkOYrmrhUHw9w2DjKdhyaBgbG9qKoMwQg=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.3/waywallen-0.3.3-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.4/waywallen-0.3.4-x86_64.AppImage"
         },
-        "version": "0.3.3"
+        "version": "0.3.4"
     },
     "waywallen-display-bin": {
         "cargoLock": null,

@@ -353,21 +353,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "9a7a1255ab1c6157f5326f24caff3d9f14da0d69";
+    version = "8a8536514ad5622ca2027722ae4c588758f3bb3b";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "9a7a1255ab1c6157f5326f24caff3d9f14da0d69";
+      rev = "8a8536514ad5622ca2027722ae4c588758f3bb3b";
       fetchSubmodules = false;
-      sha256 = "sha256-Y+n66YqR1QRCD8sXUVvOg0YtorlTbRCZJPTa346koUU=";
+      sha256 = "sha256-qYIidNchMyHnYN4B3cpW8pHZzjIBNSwNzeuzrGcsmm8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Y+n66YqR1QRCD8sXUVvOg0YtorlTbRCZJPTa346koUU=/Cargo.lock";
+      lockFile = ./. + "/sha256-qYIidNchMyHnYN4B3cpW8pHZzjIBNSwNzeuzrGcsmm8=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-08-12";
+    date = "2026-08-15";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -416,10 +416,10 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.3.3";
+    version = "0.3.4";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.3/waywallen-0.3.3-x86_64.AppImage";
-      sha256 = "sha256-3Acw+3Jj72Bt0JNwVPGicEMj3BLYRKkSv5flaaL8gaw=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.4/waywallen-0.3.4-x86_64.AppImage";
+      sha256 = "sha256-++qVQQH/giLkOYrmrhUHw9w2DjKdhyaBgbG9qKoMwQg=";
     };
   };
   waywallen-display-bin = {
