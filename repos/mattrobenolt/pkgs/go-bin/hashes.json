@@ -5,22 +5,22 @@
     "linux-amd64": "sha256-H8lLVxNNUWacchc61dSf1ir7Dx25vz95j9mO5CP41zA=",
     "linux-arm64": "sha256-dNl74cw6R0EpWQxn6/dIqW5y2fOitv7z7TJ13lkdSbM="
   },
-  "1.25.12": {
-    "darwin-amd64": "sha256-AKLnQ7grzOwDxRxLD35G1f7FIYQHX9bFGDw7s5rp+wA=",
-    "darwin-arm64": "sha256-+iyIu89kvTsq7zVfAmz+xtOkoBwTL5mcj4yWTrdnFk8=",
-    "linux-amd64": "sha256-I0got6ieDjA9JVYxDuVJ+88lPSjek3usPaE9YpQmKsE=",
-    "linux-arm64": "sha256-i1iErviWAK71sLBR+5cfEfSbuZZSHpEfMPAqZohPe9I="
+  "1.25.13": {
+    "darwin-amd64": "sha256-10K3pT+Mi+XgLXUmOINILOurvhTskwjLBW3Yrr6wQN8=",
+    "darwin-arm64": "sha256-kW/mGivHjdUWs2Ke40KLBuFxQbhacPGYbCYBSaPS/70=",
+    "linux-amd64": "sha256-OQQqB46pzuvj7NpKcYjw9bluFKBx0nkjun9AtFboWuM=",
+    "linux-arm64": "sha256-ra0kD8tr0YDPlztLfHR7r07IHQi31AyjWUDuRTGXFJA="
   },
-  "1.26.5": {
-    "darwin-amd64": "sha256-YjHY07j1VS7Gy/bWhb3VSC4ecDIUsSDomzvw178e9yU=",
-    "darwin-arm64": "sha256-77h/8or5oYjQU2711C5j3VK6gmPNc0Spk8xI3RHe22o=",
-    "linux-amd64": "sha256-XCw7FsrvodloqUwdrKBKfKMBpJbZsIbhetd7uBOT8FM=",
-    "linux-arm64": "sha256-/keJ6SsfMzWGgIZLvocEKJ57tfwgfYBiPDCJNb1pbUk="
+  "1.26.6": {
+    "darwin-amd64": "sha256-CLZaY/JEEVEhztbDtVrTjYAadEKsrVyUmheq2Erm1oQ=",
+    "darwin-arm64": "sha256-Lclc5GdYKfLfDoayi87zKDY1kCBipfBYDKZZv1cPMgQ=",
+    "linux-amd64": "sha256-cI7/t3S+gjdXDQrdFjIlq7369PyiiyYR3xZ766T+74k=",
+    "linux-arm64": "sha256-0FB+np1/4BKq5XAQjL12wV3oeeFxMKuMuQ1NdEXLHy4="
   },
-  "1.27rc2": {
-    "darwin-amd64": "sha256-EUV2bgtRDPLwGFuD3d+qfDpn8Day/UYB2Zb6whVxNbY=",
-    "darwin-arm64": "sha256-tUO/Q17SZtZrJ177pDPb5kkEvmB/42VJTPcvetTpG2M=",
-    "linux-amd64": "sha256-4t/fwrLUCSvyPV/7ChEiHC8+7S2Kz8UTRAZrnIOjaNs=",
-    "linux-arm64": "sha256-+Kt1RZPH6i9H4xggwOiDkQVjbEs4rhdLoQeWDqJenpI="
+  "1.27rc3": {
+    "darwin-amd64": "sha256-sOz00pve+HQ75deTjYvuM2cQLVjMuugf1eeB6SVvN38=",
+    "darwin-arm64": "sha256-IF1Wlds13zL92I6m+kIN+199mP6uWpBhqItPYwj2HF8=",
+    "linux-amd64": "sha256-ZHGFLcKWUSBHd125a/Q/8gMHgfeVI9PybVD40GMViPA=",
+    "linux-arm64": "sha256-8J+Y93SEziCMd8fXTTDkdYjfglvZC8Mv8TcHTDDF4EQ="
   }
 }
