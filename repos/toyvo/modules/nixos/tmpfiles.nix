@@ -59,8 +59,9 @@ in
             directory: uids:
             map (uid: ''
               if [ -d "${directory}" ]; then
-                ${pkgs.acl}/bin/setfacl -R -m m::rwx,u:${toString uid}:rwx "${directory}" || true
-                ${pkgs.acl}/bin/setfacl -R -d -m m::rwx,u:${toString uid}:rwx "${directory}" || true
+                find "${directory}" -type d -exec ${pkgs.acl}/bin/setfacl -m m::rwx,u:${toString uid}:rwx {} + || true
+                find "${directory}" -type f -exec ${pkgs.acl}/bin/setfacl -m m::rw-,u:${toString uid}:rw- {} + || true
+                find "${directory}" -type d -exec ${pkgs.acl}/bin/setfacl -d -m m::rwx,u:${toString uid}:rwx {} + || true
                 find "${directory}" -type d -name ".ssh" -exec ${pkgs.acl}/bin/setfacl -R -x u:${toString uid} {} + || true
                 find "${directory}" -type d -name ".ssh" -exec ${pkgs.acl}/bin/setfacl -R -d -x u:${toString uid} {} + || true
                 find "${directory}" -type d -path "*/.config/sops" -exec ${pkgs.acl}/bin/setfacl -R -x u:${toString uid} {} + || true
