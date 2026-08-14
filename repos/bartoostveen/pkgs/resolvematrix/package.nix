@@ -8,7 +8,7 @@
 
 rustPlatform.buildRustPackage (_finalAttrs: {
   pname = "resolvematrix";
-  version = "1.2.0-unstable-2026-08-01";
+  version = "1.3.0-unstable-2026-08-01";
 
   __structuredAttrs = true;
   strictDeps = true;
