@@ -93,17 +93,6 @@
       sha256 = "sha256-d2TtuZ0ZRl5XSiOFfl+XQgtNcg8GuovBigH58rgwHRw=";
     };
   };
-  get-environment = {
-    pname = "get-environment";
-    version = "0.3.0";
-    src = fetchFromGitHub {
-      owner = "wrvsrx";
-      repo = "get-environment";
-      rev = "0.3.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-y0+j7istK7pxc0pW4g/qpYNByH866+zLC6ic0k3upzY=";
-    };
-  };
   giraffe-wallpaper = {
     pname = "giraffe-wallpaper";
     version = "65a3b96f959d9ee95ee3e8333bbc4b9bbc510a40";
@@ -174,6 +163,17 @@
     src = fetchurl {
       url = "https://pypi.org/packages/source/k/keymap_drawer/keymap_drawer-0.22.1.tar.gz";
       sha256 = "sha256-DPkQbw5tpEMJuVqa2IiD9W5Fn9hxQZKHygu3x7oEobo=";
+    };
+  };
+  lean-posix = {
+    pname = "lean-posix";
+    version = "0.4.0";
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "lean-posix";
+      rev = "0.4.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-CkoymdIR/6VLq6ATMx3786a0qP8Y42xRTsGJhxM6NH0=";
     };
   };
   ptrace-time-hook = {

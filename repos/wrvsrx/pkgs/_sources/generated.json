@@ -161,27 +161,6 @@
         },
         "version": "0.20.7"
     },
-    "get-environment": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "get-environment",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wrvsrx",
-            "repo": "get-environment",
-            "rev": "0.3.0",
-            "sha256": "sha256-y0+j7istK7pxc0pW4g/qpYNByH866+zLC6ic0k3upzY=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0.3.0"
-    },
     "giraffe-wallpaper": {
         "cargoLock": null,
         "date": "2025-04-06",
@@ -310,6 +289,27 @@
             "url": "https://pypi.org/packages/source/k/keymap_drawer/keymap_drawer-0.22.1.tar.gz"
         },
         "version": "0.22.1"
+    },
+    "lean-posix": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lean-posix",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wrvsrx",
+            "repo": "lean-posix",
+            "rev": "0.4.0",
+            "sha256": "sha256-CkoymdIR/6VLq6ATMx3786a0qP8Y42xRTsGJhxM6NH0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.4.0"
     },
     "ptrace-time-hook": {
         "cargoLock": null,

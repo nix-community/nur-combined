@@ -100,9 +100,9 @@ git.fetchSubmodules = true
 src.github_tag = "wrvsrx/ptrace-time-hook"
 fetch.github = "wrvsrx/ptrace-time-hook"
 
-[get-environment]
-src.github_tag = "wrvsrx/get-environment"
-fetch.github = "wrvsrx/get-environment"
+[lean-posix]
+src.github_tag = "wrvsrx/lean-posix"
+fetch.github = "wrvsrx/lean-posix"
 
 [xdg]
 src.github_tag = "wrvsrx/xdg"
