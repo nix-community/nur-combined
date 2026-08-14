@@ -38,10 +38,6 @@ workspaced: {
 
 
 	lazy_tools: {
-		zed: {
-			ref: "github:zed-industries/zed"
-			bins: ["zed"]
-		}
 		codex: {
 			ref: "github:openai/codex"
 			bins: ["codex"]
@@ -76,11 +72,6 @@ workspaced: {
 			global: true
 			bins: ["rclone"]
 		}
-		rtk: {
-			ref: "github:rtk-ai/rtk"
-			global: true
-			bins: ["rtk"]
-		}
 		ripgrep: {
 			ref: "github:burntsushi/ripgrep"
 			global: true
@@ -112,45 +103,15 @@ workspaced: {
 			global: true
 			bins: ["uv", "uvx"]
 		}
-		terraform: {
-			ref: "github:hashicorp/terraform"
-			bins: ["terraform"]
-		}
-		tflint: {
-			ref: "github:terraform-linters/tflint"
-			bins: ["tflint"]
-		}
-		go: {
-			ref: "golang"
-			bins: ["go", "gofmt"]
-		}
-		golangci_lint: {
-			ref: "github:golangci/golangci-lint"
-			bins: ["golangci-lint"]
-		}
-		docker_language_server: {
-			ref: "github:docker/docker-language-server"
-			global: true
-			bins: ["docker-langserver"]
-		}
 		ffmpeg: {
 			ref: "github:ffbinaries/ffbinaries-prebuilt"
 			bins: ["ffmpeg", "ffprobe"]
+			global: true
 		}
 		helix: {
 			ref: "github:helix-editor/helix"
 			global: true
 			bins: ["hx"]
-		}
-		ltex_ls: {
-			ref: "github:valentjn/ltex-ls"
-			global: true
-			bins: ["ltex-ls"]
-		}
-		typos_lsp: {
-			ref: "github:tekumara/typos-lsp"
-			global: true
-			bins: ["typos-lsp"]
 		}
 		refactree: {
 			ref: "github:lucasew/refactree"
@@ -162,24 +123,6 @@ workspaced: {
 			global: true
 			bins: ["contapila"]
 		}
-		// bash_language_server: {
-		// 	ref: "mise:npm:bash-language-server"
-		// 	global: true
-		// 	bins: ["bash-language-server"]
-		// }
-		// vscode_langservers: {
-		// 	ref: "mise:npm:vscode-langservers-extracted"
-		// 	bins: [
-		// 		"vscode-html-language-server",
-		// 		"vscode-css-language-server",
-		// 		"vscode-json-language-server",
-		// 		"vscode-eslint-language-server",
-		// 	]
-		// }
-		clang: {
-			ref: "llvm"
-			bins: ["clang", "clang-cpp"]
-		}
 		jless: {
 			ref: "github:PaulJuliusMartinez/jless"
 			global: true
@@ -189,11 +132,6 @@ workspaced: {
 			ref: "github:cli/cli"
 			global: true
 			bins: ["gh"]
-		}
-		ast_grep: {
-			ref: "github:ast-grep/ast-grep"
-			global: true
-			bins: ["ast-grep", "sg"]
 		}
 		scc: {
 			ref: "github:boyter/scc"
@@ -205,25 +143,10 @@ workspaced: {
 			global: true
 			bins: ["tirith"]
 		}
-		jujutsu: {
-			ref: "github:jj-vcs/jj"
-			global: true
-			bins: ["jj"]
-		}
 		lazygit: {
 			ref: "github:jesseduffield/lazygit"
 			global: true
 			bins: ["lazygit"]
-		}
-		pi: {
-			ref: "github:badlogic/pi-mono"
-			global: true
-			bins: ["pi"]
-		}
-		coder: {
-			ref: "github:coder/coder"
-			global: true
-			bins: ["coder"]
 		}
 		herdr: {
 			ref: "github:ogulcancelik/herdr"
@@ -254,11 +177,6 @@ workspaced: {
 			ref: "github:firecrawl/anydoc"
 			global: true
 			bins: ["anydoc"]
-		}
-		pixi: {
-			ref: "github:prefix-dev/pixi"
-			global: true
-			bins: ["pixi"]
 		}
 	}
 
@@ -505,6 +423,15 @@ workspaced: {
 #remote_path: "backup/lucasew"
 
 workspaced: {
+	// Phone backup runs inside one proot/termux-chroot. Default pools
+	// (io=4, internet=4) spawn too many git/rsync children and blow RAM.
+	if #is_phone {
+		concurrency: {
+			io:       1
+			cpu:      1
+			internet: 1
+		}
+	}
 	backup: {
 		actions: [
 			for repo_name in [
@@ -563,27 +490,28 @@ workspaced: {
 			// 	kind: "termux_packages_snapshot"
 			// 	output: "\(workspaced.runtime.home)/.cache/backup/termux/packages.txt"
 			// },
-			if #is_phone {
-				name: "termux sync home"
-				kind: "rsync"
-				skip_permissions: true
-				src:  "\(workspaced.runtime.home)/.cache/backup/termux/"
-				dst:  "\(#rsyncnet_user):\(#remote_path)/termux/"
-			},
-			if #is_phone {
-				name:      "termux archive"
-				kind:      "archive"
-				input_dir: "\(workspaced.runtime.home)/.cache/backup/termux"
-				output:    "\(workspaced.runtime.home)/.cache/backup/termux.tar"
-				format:    "tar"
-			},
-			if #is_phone {
-				name: "termux archive upload"
-				kind: "rsync"
-				skip_permissions: true
-				src:  "\(workspaced.runtime.home)/.cache/backup/termux.tar"
-				dst:  "\(#rsyncnet_user):\(#remote_path)/termux.tar"
-			},
+			// Producer above is off; ~/.cache/backup/termux does not exist.
+			// if #is_phone {
+			// 	name: "termux sync home"
+			// 	kind: "rsync"
+			// 	skip_permissions: true
+			// 	src:  "\(workspaced.runtime.home)/.cache/backup/termux/"
+			// 	dst:  "\(#rsyncnet_user):\(#remote_path)/termux/"
+			// },
+			// if #is_phone {
+			// 	name:      "termux archive"
+			// 	kind:      "archive"
+			// 	input_dir: "\(workspaced.runtime.home)/.cache/backup/termux"
+			// 	output:    "\(workspaced.runtime.home)/.cache/backup/termux.tar"
+			// 	format:    "tar"
+			// },
+			// if #is_phone {
+			// 	name: "termux archive upload"
+			// 	kind: "rsync"
+			// 	skip_permissions: true
+			// 	src:  "\(workspaced.runtime.home)/.cache/backup/termux.tar"
+			// 	dst:  "\(#rsyncnet_user):\(#remote_path)/termux.tar"
+			// },
 		]
 	}
 }

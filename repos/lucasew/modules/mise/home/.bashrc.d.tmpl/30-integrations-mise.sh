@@ -14,17 +14,17 @@ if [[ -x "$HOME/.local/bin/mise" ]]; then
 	export PATH="$HOME/.local/bin${PATH:+:$PATH}"
 fi
 
-if command -v mise >/dev/null 2>&1; then
+export MISE_ALL_COMPILE=false
+
+# Termux: `mise activate` is `workspaced open lazy` + real mise. That blocks
+# bashrc with no output (stderr discarded). The hook also defined a function
+# that shadowed the wrapper; skip activate on Android.
+if [[ -n "${TERMUX_VERSION:-}${ANDROID_ROOT:-}" ]]; then
+	unset -f mise 2>/dev/null || true
+elif command -v mise >/dev/null 2>&1; then
 	__ws_mise_activate="$(mise activate bash 2>/dev/null)" || __ws_mise_activate=""
 	if [[ -n "${__ws_mise_activate}" ]]; then
 		eval "${__ws_mise_activate}" 2>/dev/null
 	fi
 	unset __ws_mise_activate
-fi
-
-export MISE_ALL_COMPILE=false
-
-# Termux: mise activate defines a function that shadows the binary.
-if [[ -n "${TERMUX_VERSION:-}${ANDROID_ROOT:-}" ]] && command -v mise >/dev/null 2>&1; then
-	unset -f mise 2>/dev/null || true
 fi
