@@ -136,9 +136,14 @@ pub fn implicit_game(spec: &str) -> GameSpec {
 pub fn resolve_game(catalog: &[GameSpec], spec: &str) -> GameSpec {
     catalog
         .iter()
-        .find(|game| {
-            game.id == spec || game.lead_mod() == spec || game.mods.iter().any(|m| m == spec)
+        .find(|game| game.id == spec)
+        .or_else(|| {
+            catalog
+                .iter()
+                .find(|game| game.lead_mod() == spec && game.mods.len() == 1)
         })
+        .or_else(|| catalog.iter().find(|game| game.lead_mod() == spec))
+        .or_else(|| catalog.iter().find(|game| game.mods.iter().any(|m| m == spec)))
         .cloned()
         .unwrap_or_else(|| implicit_game(spec))
 }
@@ -398,6 +403,7 @@ pub fn shipped_games() -> Vec<GameSpec> {
     [
         include_str!("../games/urban_chaos.game"),
         include_str!("../games/testbed.game"),
+        include_str!("../games/sandbox.game"),
     ]
     .into_iter()
     .filter_map(|text| parse_game_file(text).ok())
@@ -438,18 +444,25 @@ mod tests {
     #[test]
     fn shipped_games_are_distinct_collections() {
         let games = shipped_games();
-        assert_eq!(games.len(), 2);
+        assert_eq!(games.len(), 3);
         let urban = games.iter().find(|g| g.id == "urban_chaos").unwrap();
         let bed = games.iter().find(|g| g.id == "testbed").unwrap();
+        let sandbox = games.iter().find(|g| g.id == "sandbox").unwrap();
         assert_eq!(urban.mods, vec!["urban_chaos".to_string()]);
         assert_eq!(bed.mods, vec!["testbed".to_string()]);
+        assert_eq!(
+            sandbox.mods,
+            vec!["urban_chaos".to_string(), "testbed".to_string()]
+        );
         assert_eq!(urban.title("en"), "Urban Chaos");
         assert_eq!(bed.title("zh-TW"), "測試台");
         assert_eq!(bed.title("mi"), "Pae whakamātau");
         assert_ne!(urban.backdrop.clear, bed.backdrop.clear);
         assert_ne!(urban.backdrop.accent, NEUTRAL_BACKDROP.accent);
         assert!(urban.has_clouds());
+        assert!(sandbox.has_clouds());
         assert!(!bed.has_clouds());
+        assert_eq!(sandbox.title("en"), "Sandbox");
         assert_ne!(urban.palette_layers()[1], crate::palette::DEFAULT_LAYER_RGB[1]);
     }
 
@@ -469,7 +482,8 @@ mod tests {
     fn cycle_walks_catalog_ids() {
         let catalog = shipped_games();
         assert_eq!(cycle_game(&catalog, "urban_chaos"), "testbed");
-        assert_eq!(cycle_game(&catalog, "testbed"), "urban_chaos");
+        assert_eq!(cycle_game(&catalog, "testbed"), "sandbox");
+        assert_eq!(cycle_game(&catalog, "sandbox"), "urban_chaos");
         assert_eq!(cycle_game(&catalog, "missing.wasm"), "testbed");
     }
 
@@ -499,6 +513,17 @@ mod tests {
             ),
             "urban_chaos"
         );
+    }
+
+    #[test]
+    fn urban_chaos_id_is_not_the_sandbox_collection() {
+        let catalog = shipped_games();
+        let game = resolve_game(&catalog, "urban_chaos");
+        assert_eq!(game.id, "urban_chaos");
+        assert_eq!(game.mods, vec!["urban_chaos".to_string()]);
+        let sandbox = resolve_game(&catalog, "sandbox");
+        assert_eq!(sandbox.id, "sandbox");
+        assert_eq!(sandbox.mods.len(), 2);
     }
 
     #[test]

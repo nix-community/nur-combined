@@ -4,7 +4,7 @@
   stdenv,
   lib,
 }:
-if stdenv.isDarwin then
+if stdenv.hostPlatform.isDarwin then
   pear-desktop # TODO: what bug is it?
 else
   pear-desktop.overrideAttrs (
@@ -17,7 +17,7 @@ else
           --replace-fail "enabled: false," "enabled: true,"
       '';
     }
-    // lib.optionalAttrs stdenv.isLinux {
+    // lib.optionalAttrs stdenv.hostPlatform.isLinux {
       pname = "pear-desktop_patched";
       desktopItems = [
         (makeDesktopItem {

@@ -34,10 +34,10 @@ rustPlatform.buildRustPackage {
   ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs =
-    lib.optionals stdenv.isDarwin [
+    lib.optionals stdenv.hostPlatform.isDarwin [
       apple-sdk_14
     ]
-    ++ lib.optionals stdenv.isLinux [
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       libxcb
       libxkbcommon
       wayland
@@ -60,7 +60,7 @@ rustPlatform.buildRustPackage {
   '';
 
   postFixup =
-    lib.optionalString stdenv.isLinux ''
+    lib.optionalString stdenv.hostPlatform.isLinux ''
       patchelf $out/bin/omnimux --add-rpath ${
         lib.makeLibraryPath [
           wayland

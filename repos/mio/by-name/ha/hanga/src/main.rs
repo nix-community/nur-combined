@@ -22,11 +22,11 @@ use hanga::{
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
     is_action_physically_possible, is_connected_to_ground, parse_name_catalog,
-    cycle_p2p_url, parse_p2p_url, p2p_room_name, resolve_wasm_path, should_skip_menu,
-    unpack_economy_params,
+    cycle_p2p_url, merge_name_catalogs, parse_p2p_url, p2p_room_name,
+    resolve_wasm_path, should_skip_menu, unpack_economy_params,
     verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
-use hanga::crash::{crumple_scale, impact_speed};
+use hanga::crash::{crumple_axes, crumple_node_shift, impact_speed};
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
     avian_accel, can_jump_from, jump_needs_floor, parse_gravity, point_accel, set_jump,
@@ -71,52 +71,68 @@ impl VoxelWorldConfig for DefaultWorld {
     }
 
     fn voxel_lookup_delegate(&self) -> VoxelLookupDelegate<Self::MaterialIndex> {
-        Box::new(|_chunk_pos, _lod, _chunk_data| {
-            Box::new(|pos, _voxel| {
-                WASM_INSTANCE.with(|instance_ref| {
-                    let mut instance_opt = instance_ref.borrow_mut();
-                    let wanted_gen = SHARED_WASM
-                        .read()
-                        .ok()
-                        .and_then(|shared| shared.as_ref().map(|(rev, _, _)| *rev));
-                    let stale = match (instance_opt.as_ref(), wanted_gen) {
-                        (Some((rev, _, _)), Some(want)) => *rev != want,
-                        (None, Some(_)) => true,
-                        _ => false,
-                    };
-                    if stale {
-                        if let Ok(shared) = SHARED_WASM.read() {
-                            if let Some((rev, engine, component)) = shared.as_ref() {
-                                let mut store = Store::new(engine, ());
-                                if let Ok(instance) = mod_manager::Plugin::instantiate(
-                                    &mut store,
-                                    component,
-                                    &Linker::new(engine),
-                                ) {
-                                    *instance_opt = Some((*rev, store, instance));
-                                }
-                            }
-                        }
-                    }
+        Box::new(|_chunk_pos, _lod, _chunk_data| Box::new(|pos, _voxel| query_lead_voxel(pos)))
+    }
+}
 
-                    if let Some((_, store, func)) = instance_opt.as_mut() {
-                        if let Ok(voxel_type) = func.hanga_engine_gameplay().call_query_voxel(store, pos.x, pos.y, pos.z) {
-                            if voxel_type == 0 {
-                                return WorldVoxel::Unset;
-                            } else {
-                                return WorldVoxel::Solid(voxel_type as u8);
-                            }
-                        }
+fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
+    WASM_INSTANCE.with(|instance_ref| {
+        let mut instance_opt = instance_ref.borrow_mut();
+        let wanted_gen = SHARED_WASM
+            .read()
+            .ok()
+            .and_then(|shared| shared.as_ref().map(|(rev, _, _)| *rev));
+        let stale = match (instance_opt.as_ref(), wanted_gen) {
+            (Some((rev, _, _)), Some(want)) => *rev != want,
+            (None, Some(_)) => true,
+            _ => false,
+        };
+        if stale {
+            if let Ok(shared) = SHARED_WASM.read() {
+                if let Some((rev, engine, component)) = shared.as_ref() {
+                    let mut store = Store::new(engine, ());
+                    if let Ok(instance) = mod_manager::Plugin::instantiate(
+                        &mut store,
+                        component,
+                        &Linker::new(engine),
+                    ) {
+                        *instance_opt = Some((*rev, store, instance));
                     }
+                }
+            }
+        }
 
-                    // Fallback if WASM module fails or isn't loaded
-                    if pos.y < 0 {
-                        return WorldVoxel::Solid(1); // Concrete base
-                    }
-                    WorldVoxel::Unset // Air
-                })
-            })
-        })
+        if let Some((_, store, func)) = instance_opt.as_mut() {
+            if let Ok(voxel_type) =
+                func.hanga_engine_gameplay()
+                    .call_query_voxel(store, pos.x, pos.y, pos.z)
+            {
+                if voxel_type == 0 {
+                    return WorldVoxel::Unset;
+                }
+                return WorldVoxel::Solid(voxel_type as u8);
+            }
+        }
+
+        if pos.y < 0 {
+            return WorldVoxel::Solid(1);
+        }
+        WorldVoxel::Unset
+    })
+}
+
+#[derive(Resource, Default)]
+struct VoxelEdits(Vec<IVec3>);
+
+fn note_voxel_edit(edits: &mut VoxelEdits, pos: IVec3) {
+    if !edits.0.iter().any(|existing| *existing == pos) {
+        edits.0.push(pos);
+    }
+}
+
+fn rebake_voxel_edits(voxel_world: &mut VoxelWorld<DefaultWorld>, edits: &VoxelEdits) {
+    for pos in &edits.0 {
+        voxel_world.set_voxel(*pos, query_lead_voxel(*pos));
     }
 }
 
@@ -424,6 +440,7 @@ fn main() {
         .init_resource::<ModOffer>()
         .init_resource::<VoxelCatalog>()
         .init_resource::<WorldFor>()
+        .init_resource::<VoxelEdits>()
         .init_resource::<SkyFor>()
         .init_resource::<WorldGravity>()
         .insert_resource(Gravity(Vec3::ZERO))
@@ -479,6 +496,7 @@ fn main() {
             Update,
             (
                 sync_selected_game,
+                rebake_voxels_on_switch,
                 ensure_clouds,
                 apply_menu_chrome,
                 menu_keyboard,
@@ -758,6 +776,50 @@ fn with_mod<T>(
     Some(f(ctx))
 }
 
+fn with_pack_mods(
+    mod_runtime: &ModRuntime,
+    mut f: impl FnMut(&str, &mut mod_manager::MainModContext),
+) {
+    for pack in &mod_runtime.packs {
+        if let Ok(mut guard) = pack.context.lock() {
+            if let Some(ctx) = guard.as_mut() {
+                f(&pack.name, ctx);
+            }
+        }
+    }
+}
+
+fn game_mod_paths(game: &GameSpec, search: &ModSearch) -> Vec<(String, PathBuf)> {
+    game.mods
+        .iter()
+        .filter_map(|name| {
+            let path = resolve_wasm_path(
+                name,
+                &search.cwd,
+                search.exe.as_deref(),
+                search.env.as_deref(),
+            );
+            if path.is_file() {
+                Some((name.clone(), path))
+            } else {
+                warn!(
+                    "WASM pack '{name}' not found at {} (set HANGA_MODS)",
+                    path.display()
+                );
+                None
+            }
+        })
+        .collect()
+}
+
+fn load_game_mods(runtime: &mut ModRuntime, game: &GameSpec, search: &ModSearch) {
+    let paths = game_mod_paths(game, search);
+    if paths.is_empty() {
+        return;
+    }
+    runtime.load_collection(&paths);
+}
+
 fn resolve_bindings_path(args: &[String]) -> PathBuf {
     if let Some(path) = bindings::parse_bindings_path(args) {
         return PathBuf::from(path);
@@ -948,41 +1010,28 @@ fn ensure_play_world(
     mut mod_runtime: ResMut<ModRuntime>,
     mut offer: ResMut<ModOffer>,
     locale: Res<UiLocale>,
-    selected: Res<SelectedMod>,
     search: Res<ModSearch>,
     catalog: Res<GameCatalog>,
     selected_game: Res<SelectedGame>,
     mut world_for: ResMut<WorldFor>,
     play_world: Query<Entity, With<PlayWorld>>,
+    chunks: Query<Entity, With<Chunk<DefaultWorld>>>,
 ) {
-    let wasm_path = resolve_wasm_path(
-        &selected.0,
-        &search.cwd,
-        search.exe.as_deref(),
-        search.env.as_deref(),
-    );
-    if wasm_path.is_file() {
-        if mod_runtime.watch_path != wasm_path {
-            info!(
-                "Loading WASM mod '{}' from {} (locale {})",
-                selected.0,
-                wasm_path.display(),
-                locale.0.code()
-            );
-            mod_runtime.load_spec(&wasm_path);
-        }
-    } else {
-        warn!(
-            "WASM mod '{}' not found at {} (set HANGA_MODS or build --target wasm32-unknown-unknown)",
-            selected.0,
-            wasm_path.display()
-        );
-    }
     let game = current_game(&catalog, &selected_game);
+    let paths = game_mod_paths(&game, &search);
+    if paths.is_empty() {
+        warn!(
+            "WASM collection '{}' has no mods on disk (set HANGA_MODS)",
+            game.id
+        );
+    } else {
+        mod_runtime.load_collection(&paths);
+    }
     if world_for.0 == game.id {
         return;
     }
     despawn_play_world(&mut commands, &play_world);
+    retire_voxel_chunks(&mut commands, &chunks);
     *offer = ModOffer::default();
     spawn_play_world(
         &mut commands,
@@ -998,6 +1047,36 @@ fn ensure_play_world(
 fn despawn_play_world(commands: &mut Commands, worlds: &Query<Entity, With<PlayWorld>>) {
     for entity in worlds.iter() {
         commands.entity(entity).despawn();
+    }
+}
+
+fn rebake_voxels_on_switch(
+    world_for: Res<WorldFor>,
+    mut last: Local<String>,
+    mut voxel_world: VoxelWorld<DefaultWorld>,
+    edits: Res<VoxelEdits>,
+) {
+    if world_for.0.is_empty() || world_for.0 == *last {
+        return;
+    }
+    *last = world_for.0.clone();
+    if edits.0.is_empty() {
+        return;
+    }
+    rebake_voxel_edits(&mut voxel_world, &edits);
+}
+
+fn retire_voxel_chunks(
+    commands: &mut Commands,
+    chunks: &Query<Entity, With<Chunk<DefaultWorld>>>,
+) {
+    let mut n = 0u32;
+    for entity in chunks.iter() {
+        commands.entity(entity).insert(NeedsDespawn);
+        n += 1;
+    }
+    if n > 0 {
+        info!("Retiring {n} voxel chunks for the new game");
     }
 }
 
@@ -1112,30 +1191,38 @@ fn spawn_play_world(
         },
     ));
 
-    let count = with_mod(&mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_vehicle_spawn_count(&mut ctx.store)
-            .unwrap_or(0)
-    })
-    .unwrap_or(0)
-    .max(0) as u32;
+    with_mod(mod_runtime, |ctx| {
+        spawn_mod_traffic(commands, meshes, materials, ctx);
+    });
+    with_pack_mods(mod_runtime, |name, ctx| {
+        info!("Spawning pack '{name}' vehicles and agents");
+        spawn_mod_traffic(commands, meshes, materials, ctx);
+    });
+}
 
+fn spawn_mod_traffic(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<StandardMaterial>,
+    ctx: &mut mod_manager::MainModContext,
+) {
+    let count = ctx
+        .bindings
+        .hanga_engine_gameplay()
+        .call_vehicle_spawn_count(&mut ctx.store)
+        .unwrap_or(0)
+        .max(0) as u32;
     for i in 0..count {
-        let (x, y, z) = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_vehicle_spawn(&mut ctx.store, i as i32)
-                .unwrap_or((500, 2, 495))
-        })
-        .unwrap_or((500, 2, 495));
-        let kit_text = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_vehicle_kit(&mut ctx.store, i as i32)
-                .unwrap_or_default()
-        })
-        .unwrap_or_default();
+        let (x, y, z) = ctx
+            .bindings
+            .hanga_engine_gameplay()
+            .call_vehicle_spawn(&mut ctx.store, i as i32)
+            .unwrap_or((500, 2, 495));
+        let kit_text = ctx
+            .bindings
+            .hanga_engine_gameplay()
+            .call_vehicle_kit(&mut ctx.store, i as i32)
+            .unwrap_or_default();
         spawn_vehicle(
             commands,
             meshes,
@@ -1145,22 +1232,18 @@ fn spawn_play_world(
         );
     }
 
-    let ambient = with_mod(&mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_ambient_agent_count(&mut ctx.store)
-            .unwrap_or(0)
-    })
-    .unwrap_or(0)
-    .max(0);
+    let ambient = ctx
+        .bindings
+        .hanga_engine_gameplay()
+        .call_ambient_agent_count(&mut ctx.store)
+        .unwrap_or(0)
+        .max(0);
     for i in 0..ambient {
-        let (x, y, z, kind) = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_ambient_agent_spawn(&mut ctx.store, i)
-                .unwrap_or((0, 2, 0, "pedestrian".into()))
-        })
-        .unwrap_or((0, 2, 0, "pedestrian".into()));
+        let (x, y, z, kind) = ctx
+            .bindings
+            .hanga_engine_gameplay()
+            .call_ambient_agent_spawn(&mut ctx.store, i)
+            .unwrap_or((0, 2, 0, "pedestrian".into()));
         spawn_agent(
             commands,
             meshes,
@@ -1172,14 +1255,24 @@ fn spawn_play_world(
 }
 
 fn load_voxel_catalog(mod_runtime: &ModRuntime) -> VoxelCatalog {
-    let csv = with_mod(mod_runtime, |ctx| {
+    let mut layers = Vec::new();
+    if let Some(csv) = with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
             .call_voxel_catalog(&mut ctx.store)
             .unwrap_or_default()
-    })
-    .unwrap_or_default();
-    VoxelCatalog(parse_name_catalog(&csv))
+    }) {
+        layers.push(parse_name_catalog(&csv));
+    }
+    with_pack_mods(mod_runtime, |_, ctx| {
+        let csv = ctx
+            .bindings
+            .hanga_engine_gameplay()
+            .call_voxel_catalog(&mut ctx.store)
+            .unwrap_or_default();
+        layers.push(parse_name_catalog(&csv));
+    });
+    VoxelCatalog(merge_name_catalogs(&layers))
 }
 
 fn mat(materials: &mut Assets<StandardMaterial>, rgb: [f32; 3]) -> Handle<StandardMaterial> {
@@ -1347,6 +1440,7 @@ fn teardown_fracture(
     action: &str,
     catalog: &VoxelCatalog,
     mod_runtime: &ModRuntime,
+    edits: &mut VoxelEdits,
 ) {
     let Some(origin_type) = voxel_type_of(voxel_world.get_voxel(origin)) else {
         return;
@@ -1377,6 +1471,7 @@ fn teardown_fracture(
     .unwrap_or(0);
 
     voxel_world.set_voxel(origin, WorldVoxel::Unset);
+    note_voxel_edit(edits, origin);
     if can > 0 {
         spawn_debris(
             commands,
@@ -1420,6 +1515,7 @@ fn teardown_fracture(
     }
     for (npos, dx, dy, dz) in collapse {
         voxel_world.set_voxel(npos, WorldVoxel::Unset);
+        note_voxel_edit(edits, npos);
         let n_out = Vec3::new(dx as f32, dy as f32 + 1.0, dz as f32).normalize_or_zero() * impulse;
         spawn_debris(
             commands,
@@ -1604,6 +1700,7 @@ fn validate_incoming_actions(
     mut offer: ResMut<ModOffer>,
     catalog: Res<VoxelCatalog>,
     mod_runtime: Res<ModRuntime>,
+    mut edits: ResMut<VoxelEdits>,
 ) {
     for action in events.read() {
         match action {
@@ -1663,6 +1760,7 @@ fn validate_incoming_actions(
                     ACTION_BREAK,
                     &catalog,
                     &mod_runtime,
+                    &mut edits,
                 );
                 apply_mod_action(
                     &mut commands,
@@ -1718,6 +1816,7 @@ fn validate_incoming_actions(
                                     ACTION_EXPLODE,
                                     &catalog,
                                     &mod_runtime,
+                                    &mut edits,
                                 );
                             }
                         }
@@ -1777,6 +1876,7 @@ fn validate_incoming_actions(
                 }
                 info!("Action Verified! Placing {voxel} at {:?}", voxel_pos);
                 voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(clamp_voxel_type(index as i32)));
+                note_voxel_edit(&mut edits, voxel_pos);
                 apply_mod_action(
                     &mut commands,
                     &mut meshes,
@@ -2368,7 +2468,8 @@ fn vehicle_crash_system(
                 .unwrap_or(0)
         })
         .unwrap_or(0);
-        let scale = crumple_scale(crumple);
+        let dir = [velocity.x, velocity.y, velocity.z];
+        let axes = crumple_axes(crumple, dir);
         let mut detach = Vec::new();
         for child in children.iter() {
             let Ok((part_entity, part, mut local)) = parts.get_mut(child) else {
@@ -2385,7 +2486,9 @@ fn vehicle_crash_system(
             if should_drop {
                 detach.push((part_entity, part.size, *local));
             } else {
-                local.scale = Vec3::new(1.0, 1.0, scale);
+                local.scale = Vec3::from_array(axes);
+                let shifted = crumple_node_shift(local.translation.to_array(), dir, crumple);
+                local.translation = Vec3::from_array(shifted);
             }
         }
         let impulse = with_mod(&mod_runtime, |ctx| {
@@ -3054,15 +3157,7 @@ fn sync_selected_game(
     selected_mod.0 = game.lead_mod().to_string();
     theme.0 = game.backdrop;
     hanga::palette::prepare_asset_dir(&game, &games.0);
-    let wasm_path = resolve_wasm_path(
-        &selected_mod.0,
-        &search.cwd,
-        search.exe.as_deref(),
-        search.env.as_deref(),
-    );
-    if wasm_path.is_file() {
-        runtime.load_spec(&wasm_path);
-    }
+    load_game_mods(&mut runtime, &game, &search);
 }
 
 fn play_fog(game: &GameSpec) -> DistanceFog {
@@ -3740,6 +3835,23 @@ mod tests {
             ledger.penalize(entity, penalty);
             let final_score = ledger.peer_scores.get(&entity).unwrap();
             prop_assert_eq!(*final_score, initial_score - penalty);
+        }
+    }
+
+    #[test]
+    fn kani_replay_possible_action_stays_inside_axes() {
+        let max = 10.0;
+        for (px, py, pz, tx, ty, tz) in [
+            (0.0, 0.0, 0.0, 3.0, 4.0, 0.0),
+            (0.0, 0.0, 0.0, 10.0, 0.0, 0.0),
+            (5.0, -2.0, 1.0, 5.0, 7.0, 1.0),
+            (0.0, 0.0, 0.0, 7.0, 7.0, 7.0),
+        ] {
+            if is_action_physically_possible(px, py, pz, tx, ty, tz, max) {
+                assert!((px - tx).abs() <= max);
+                assert!((py - ty).abs() <= max);
+                assert!((pz - tz).abs() <= max);
+            }
         }
     }
 }

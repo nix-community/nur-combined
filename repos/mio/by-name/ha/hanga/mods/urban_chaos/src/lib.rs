@@ -1176,6 +1176,70 @@ mod kani_verification {
 }
 
 #[cfg(test)]
+mod kani_replay {
+    use super::*;
+
+    #[test]
+    fn kani_replay_engine_mod_bounds() {
+        let layout = CityLayout {
+            width: 1000,
+            height: 1000,
+            roads: vec![],
+            districts: vec![],
+        };
+        for (x, y, z) in [
+            (0, 0, 0),
+            (i32::MAX, i32::MIN, 0),
+            (-4, 50, 9999),
+            (500, 2, 500),
+        ] {
+            let voxel = layout.get_voxel_at(x, y, z);
+            assert!((voxel.index() as usize) < Voxel::CATALOG.len());
+            let result = query_voxel(x, y, z);
+            assert!(result >= 0 && (result as usize) < Voxel::CATALOG.len());
+        }
+        for level in 0..=5 {
+            for action in [
+                ACTION_BREAK,
+                ACTION_PLACE,
+                ACTION_ENTER,
+                ACTION_EXPLODE,
+                ACTION_ACCEPT,
+                ACTION_COMPLETE,
+                ACTION_FENCE,
+                ACTION_CRAFT,
+                ACTION_CRASH,
+                "unknown",
+            ] {
+                let result = mod_evaluate_action(action, level);
+                assert!((0..=5).contains(&result));
+            }
+        }
+        for voxel in [
+            "air", "concrete", "asphalt", "glass", "sidewalk", "grass", "tile", "rail",
+            "workbench", "brick", "unknown",
+        ] {
+            let result = can_fracture(voxel);
+            assert!(result == 0 || result == 1);
+        }
+        for voxel in Voxel::CATALOG {
+            let item = loot_item(voxel);
+            assert!(item.is_empty() || item == *voxel);
+            assert!(item.is_empty() || Voxel::from_name(&item).is_some());
+        }
+        for wallet in [0, 1, 50, 1_000_000] {
+            for extra in [0, 10, -3] {
+                for action in [ACTION_BREAK, ACTION_ENTER, ACTION_COMPLETE, ACTION_FENCE, ACTION_PLACE]
+                {
+                    let result = mod_wallet_after(action, wallet, extra);
+                    assert!((0..=1_000_000).contains(&result));
+                }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
 mod tests {
     use super::*;
 

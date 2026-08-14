@@ -6,7 +6,7 @@
 
 let
 
-  isDarwin = pkgs.stdenv.isDarwin;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 
   coreutils = pkgs.coreutils;
   findutils = pkgs.findutils;

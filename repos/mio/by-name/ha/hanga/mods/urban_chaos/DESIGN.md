@@ -19,7 +19,9 @@ still wants the *feel*: speed-dependent crumple, parts flying off, a wreck that
 tumbles and will not drive, and a high-speed hit that is treated as an explosion.
 
 The engine reports impact `speed` (m/s) and `into-solid` (voxel or sudden stop).
-This mod returns severity 0–100 and named outcomes.
+This mod returns severity 0–100 and named outcomes. The host folds remaining
+parts along the travel axis and slides them toward the hit (short beams), not a
+uniform squash.
 
 | Impact speed | Severity | Visual | Heat |
 | --- | --- | --- | --- |

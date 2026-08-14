@@ -130,6 +130,19 @@ pub fn catalog_name(catalog: &[String], index: i32) -> Option<&str> {
     catalog.get(index as usize).map(String::as_str)
 }
 
+/// Lead catalog first; later mods append names the lead does not already have.
+pub fn merge_name_catalogs(layers: &[Vec<String>]) -> Vec<String> {
+    let mut out = Vec::new();
+    for layer in layers {
+        for name in layer {
+            if !name.is_empty() && !out.iter().any(|existing| existing == name) {
+                out.push(name.clone());
+            }
+        }
+    }
+    out
+}
+
 /// Look up a catalog index by English name.
 pub fn catalog_index(catalog: &[String], name: &str) -> Option<u8> {
     catalog
@@ -724,6 +737,11 @@ mod tests {
         assert_eq!(catalog_index(&catalog, "glass"), Some(2));
         assert_eq!(catalog_index(&catalog, "rail"), None);
         assert!(parse_name_catalog("  ").is_empty());
+        let merged = merge_name_catalogs(&[
+            parse_name_catalog("air,concrete,asphalt"),
+            parse_name_catalog("air,concrete,glass"),
+        ]);
+        assert_eq!(merged, ["air", "concrete", "asphalt", "glass"]);
     }
 
     // ── is_connected_to_ground ────────────────────────────────────────────────
@@ -951,6 +969,34 @@ mod tests {
         let missing = resolve_wasm_path("testbed", &cwd, None, Some(&mods));
         assert_eq!(missing, mods.join("testbed.wasm"));
         let _ = fs::remove_dir_all(&root);
+    }
+
+    #[test]
+    fn kani_replay_fingerprint_and_wallet() {
+        for kind in 0u8..4 {
+            let kind_name = match kind {
+                0 => "break",
+                1 => "place",
+                2 => "explode",
+                _ => "craft",
+            };
+            for extra in 0u8..3 {
+                let extra_name = match extra {
+                    0 => "",
+                    1 => "concrete",
+                    _ => "glass",
+                };
+                for (x, y, z) in [(0, 0, 0), (i32::MAX, -3, 9), (i32::MIN, 4, -1)] {
+                    let fp = action_fingerprint(kind_name, x, y, z, extra_name);
+                    assert!(verify_action_signature(kind_name, x, y, z, extra_name, fp));
+                    assert!(!verify_action_signature(kind_name, x, y, z, extra_name, fp ^ 1));
+                }
+            }
+        }
+        for value in [i32::MIN, -1, 0, 1, 1_000_000, 1_000_001, i32::MAX] {
+            let clamped = clamp_wallet(value);
+            assert!((0..=1_000_000).contains(&clamped));
+        }
     }
 }
 

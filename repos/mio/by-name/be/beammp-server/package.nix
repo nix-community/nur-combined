@@ -119,7 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  broken = stdenv.isDarwin;
+  broken = stdenv.hostPlatform.isDarwin;
 
   meta = {
     description = "Server for the BeamMP multiplayer mod for BeamNG.drive";

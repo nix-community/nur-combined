@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace desktop/build.gradle.kts \
       --replace-fail 'nativeDistributions {' 'nativeDistributions { modules("java.sql");'
   ''
-  + lib.optionalString stdenv.isLinux ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
     # iOS Info.plist stamping needs macOS plutil; no-op on Linux.
     substituteInPlace common/build.gradle.kts \
       --replace-fail '"/usr/bin/plutil"' '"${lib.getExe' coreutils "true"}"'
@@ -99,14 +99,14 @@ stdenv.mkDerivation (finalAttrs: {
     copyDesktopItems
     makeWrapper
   ]
-  ++ lib.optionals stdenv.isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook
   ]
-  ++ lib.optionals stdenv.isDarwin [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
     desktopToDarwinBundle
   ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     fontconfig
     libxinerama
     libxrandr
@@ -133,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   installPhase =
-    if stdenv.isDarwin then
+    if stdenv.hostPlatform.isDarwin then
       ''
         runHook preInstall
 
@@ -168,7 +168,7 @@ stdenv.mkDerivation (finalAttrs: {
                 dpkg
                 rpm
               ]
-              ++ lib.optionals stdenv.isLinux [
+              ++ lib.optionals stdenv.hostPlatform.isLinux [
                 kreadconfig5Shim
                 kdePackages.kconfig
               ]

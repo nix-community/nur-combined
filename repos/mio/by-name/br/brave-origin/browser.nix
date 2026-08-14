@@ -257,7 +257,7 @@ mkChromiumDerivation (base: rec {
   # npmConfigHook installs Chromium third_party/node; keep Brave npm from postUnpack.
   postPatch =
     (base.postPatch or "")
-    + lib.optionalString stdenv.isDarwin ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       # posix_spawn_file_actions_addchdir is the POSIX name; macOS only has the _np suffix.
       substituteInPlace base/process/launch_mac.cc \
         --replace-fail 'posix_spawn_file_actions_addchdir(' 'posix_spawn_file_actions_addchdir_np('
