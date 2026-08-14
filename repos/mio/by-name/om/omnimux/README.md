@@ -59,5 +59,5 @@ Localhost / empty host runs a shell script that prefers `tmux` and falls back to
 
 ## Packaging
 
-- Ships Symbols Nerd Font + Noto Color Emoji under `$out/share/omnimux/fonts` (`OMNIMUX_FONTS_DIR`).
+- Ships Hack as a **fallback** terminal face (GPUI cannot resolve fontconfig `monospace`) plus Symbols Nerd Font + Noto Color Emoji under `$out/share/omnimux/fonts` (`OMNIMUX_FONTS_DIR`). Installed fonts such as SF Mono / Menlo / JetBrains Mono are preferred when present.
 - Desktop entry + icon; Darwin `.app` via `desktopToDarwinBundle`.

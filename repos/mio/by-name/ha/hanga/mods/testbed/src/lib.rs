@@ -245,6 +245,10 @@ pub fn crash_action(_severity: i32) -> String {
     String::new()
 }
 
+pub fn crash_ignites(_severity: i32) -> i32 {
+    0
+}
+
 pub fn crash_part_impulse(_severity: i32) -> f32 {
     0.0
 }
@@ -395,6 +399,10 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
         crate::crash_action(severity)
     }
 
+    fn crash_ignites(severity: i32) -> i32 {
+        crate::crash_ignites(severity)
+    }
+
     fn crash_part_impulse(severity: i32) -> f32 {
         crate::crash_part_impulse(severity)
     }
@@ -475,6 +483,7 @@ mod tests {
         assert_eq!(crash_severity(40.0, true), 0);
         assert_eq!(crash_wrecks(100), 0);
         assert!(crash_action(100).is_empty());
+        assert_eq!(crash_ignites(100), 0);
     }
 
     #[test]

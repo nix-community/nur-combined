@@ -13,6 +13,7 @@
   makeWrapper,
   nerd-fonts,
   noto-fonts-color-emoji,
+  hack-font,
   tmux,
 }:
 
@@ -47,12 +48,15 @@ rustPlatform.buildRustPackage {
 
   # Install .desktop + icon on all platforms so Linux gets a launcher entry and
   # Darwin's desktopToDarwinBundle can generate $out/Applications/Omnimux.app.
-  # Ship Nerd + emoji fonts for Starship / powerline prompts on Linux and macOS.
+  # Ship Hack as last-resort terminal face (GPUI/fontdb ignores fontconfig
+  # "monospace"), plus Nerd + emoji for Starship / powerline.
   postInstall = ''
     install -Dm444 ${./omnimux.desktop} $out/share/applications/omnimux.desktop
     install -Dm444 ${./omnimux.svg} $out/share/icons/hicolor/scalable/apps/omnimux.svg
 
     mkdir -p $out/share/omnimux/fonts
+    cp -L ${hack-font}/share/fonts/truetype/Hack-*.ttf \
+      $out/share/omnimux/fonts/
     cp -L ${nerd-fonts.symbols-only}/share/fonts/truetype/NerdFonts/Symbols/*.ttf \
       $out/share/omnimux/fonts/
     cp -L ${noto-fonts-color-emoji}/share/fonts/noto/NotoColorEmoji.ttf \

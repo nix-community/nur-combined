@@ -101,6 +101,8 @@ interface gameplay {
     crash-wrecks: func(severity: s32) -> s32;
     /// Action name for wanted / fracture (empty, crash, explode).
     crash-action: func(severity: s32) -> string;
+    /// 1 if the host should attach a burn light (engine fire). The host does not know fuel.
+    crash-ignites: func(severity: s32) -> s32;
     /// Linear impulse applied to a detached part.
     crash-part-impulse: func(severity: s32) -> f32;
 }

@@ -125,6 +125,28 @@ fn parse_part(value: &str) -> Option<VehiclePartSpec> {
     })
 }
 
+/// True when `other` sits in front of a traffic vehicle on the XZ plane.
+pub fn traffic_ahead_blocks(
+    origin: [f32; 3],
+    fwd: [f32; 3],
+    other: [f32; 3],
+    reach: f32,
+    half_width: f32,
+) -> bool {
+    let dy = other[1] - origin[1];
+    if dy.abs() > 3.0 {
+        return false;
+    }
+    let dx = other[0] - origin[0];
+    let dz = other[2] - origin[2];
+    let along = dx * fwd[0] + dz * fwd[2];
+    if along < 1.0 || along > reach {
+        return false;
+    }
+    let side = dx * -fwd[2] + dz * fwd[0];
+    side.abs() < half_width
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -157,5 +179,30 @@ mod tests {
         let kit = parse_vehicle_kit("part=deck,1,1,1,0,0,0,255,128,0");
         assert!((kit.parts[0].rgb[0] - 1.0).abs() < 1e-5);
         assert!((kit.parts[0].rgb[1] - 128.0 / 255.0).abs() < 1e-5);
+    }
+
+    #[test]
+    fn traffic_stops_for_a_body_ahead() {
+        assert!(traffic_ahead_blocks(
+            [0.0, 2.0, 0.0],
+            [0.0, 0.0, 1.0],
+            [0.2, 2.0, 6.0],
+            12.0,
+            2.5
+        ));
+        assert!(!traffic_ahead_blocks(
+            [0.0, 2.0, 0.0],
+            [0.0, 0.0, 1.0],
+            [8.0, 2.0, 6.0],
+            12.0,
+            2.5
+        ));
+        assert!(!traffic_ahead_blocks(
+            [0.0, 2.0, 0.0],
+            [0.0, 0.0, 1.0],
+            [0.0, 2.0, -4.0],
+            12.0,
+            2.5
+        ));
     }
 }

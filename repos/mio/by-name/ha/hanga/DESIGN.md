@@ -64,8 +64,8 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 Load with `--game urban_chaos` (default), `--game testbed`, or `--mod` for a
 lone WASM (implicit one-mod game, neutral menu). Packaged builds install
 WASM in `$out/share/hanga/mods` (`HANGA_MODS`) and `.game` files in
-`$out/share/hanga/games` (`HANGA_GAMES`). The engine currently instantiates
-the first listed mod; extra names are reserved for later collections.
+`$out/share/hanga/games` (`HANGA_GAMES`). The engine currently instantiates the lead mod for terrain and extra packs
+for vehicles and agents.
 
 ## Commands
 
@@ -148,4 +148,4 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 
 1. Package `cargo-kani` so proofs run as CBMC, not only replay tests
 2. True node-beam / tire deformation (host now folds along the impact axis)
-3. Camera-without-render-graph warning from voxel-world internals
+3. Engine fire that spreads / fuel tanks (host now only hangs a burn light the mod requested)

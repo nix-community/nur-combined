@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-/// Directories that may contain shipped Nerd Font Symbols TTFs.
+/// Directories that may contain shipped Hack / Nerd / emoji TTFs.
 fn symbol_font_dirs() -> Vec<PathBuf> {
     let mut dirs = Vec::new();
     if let Ok(dir) = std::env::var("OMNIMUX_FONTS_DIR") {
@@ -17,7 +17,7 @@ fn symbol_font_dirs() -> Vec<PathBuf> {
     dirs
 }
 
-/// Load bundled Nerd + emoji fonts into GPUI for Starship / powerline fallbacks.
+/// Load bundled Hack + Nerd + emoji fonts into GPUI.
 pub fn load_bundled_symbol_fonts(cx: &gpui::App) {
     use std::borrow::Cow;
 

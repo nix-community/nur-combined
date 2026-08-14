@@ -1,5 +1,7 @@
+use bevy::core_pipeline::Core3d;
 use bevy::input::mouse::AccumulatedMouseMotion;
 use bevy::prelude::*;
+use bevy::render::camera::CameraRenderGraph;
 use bevy::window::{CursorGrabMode, CursorOptions, PrimaryWindow};
 use wasmtime::Store;
 use wasmtime::component::Linker;
@@ -33,7 +35,7 @@ use hanga::gravity::{
     set_planar_velocity, walk_up, GravityKit,
 };
 use hanga::heist::{contract_context, mark_reached, parse_contract_mark, ContractMark};
-use hanga::vehicle::{parse_vehicle_kit, VehicleKit};
+use hanga::vehicle::{parse_vehicle_kit, traffic_ahead_blocks, VehicleKit};
 use hanga::game::{
     cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
     MenuBackdrop, DEFAULT_GAME,
@@ -662,6 +664,15 @@ struct VehicleCrash {
 struct Wrecked;
 
 #[derive(Component)]
+struct Ignited;
+
+#[derive(Component)]
+struct IgnitionLight;
+
+#[derive(Component)]
+struct Debris;
+
+#[derive(Component)]
 struct HeistMark {
     kind: String,
     radius: f32,
@@ -1080,6 +1091,10 @@ fn retire_voxel_chunks(
     }
 }
 
+fn camera_3d() -> (CameraRenderGraph, Camera3d) {
+    (CameraRenderGraph::new(Core3d), Camera3d::default())
+}
+
 fn activate_play_cameras(mut cameras: Query<&mut Camera, With<PlayCamera>>) {
     for mut camera in &mut cameras {
         camera.is_active = true;
@@ -1162,7 +1177,7 @@ fn spawn_play_world(
         .with_children(|parent| {
             parent.spawn((
                 Name::new("play_camera"),
-                Camera3d::default(),
+                camera_3d(),
                 VoxelWorldCamera::<DefaultWorld>::default(),
                 PlayCamera,
                 Transform::from_xyz(0.0, 0.55, 0.0),
@@ -1420,6 +1435,7 @@ fn spawn_debris(
     let target = Vec3::new(pos.x as f32, pos.y as f32, pos.z as f32);
     commands.spawn((
         PlayWorld,
+        Debris,
         Mesh3d(meshes.add(Cuboid::from_size(Vec3::splat(1.0)))),
         MeshMaterial3d(materials.add(color)),
         Transform::from_translation(target),
@@ -2396,6 +2412,7 @@ impl Plugin for CitySimPlugin {
                 wanted_decay,
                 vehicle_crash_system,
                 vehicle_traffic_system,
+                flicker_ignition,
             )
                 .chain()
                 .after(validate_incoming_actions)
@@ -2431,6 +2448,7 @@ fn vehicle_crash_system(
             &Children,
             &mut VehicleCrash,
             Option<&Wrecked>,
+            Option<&Ignited>,
         ),
         With<Vehicle>,
     >,
@@ -2440,7 +2458,7 @@ fn vehicle_crash_system(
     mod_runtime: Res<ModRuntime>,
     mut events: MessageWriter<ProposedAction>,
 ) {
-    for (entity, transform, velocity, mut angular, children, mut crash, wrecked) in
+    for (entity, transform, velocity, mut angular, children, mut crash, wrecked, ignited) in
         vehicles.iter_mut()
     {
         let speed = velocity.length();
@@ -2530,6 +2548,31 @@ fn vehicle_crash_system(
                 }
             }
         }
+        let ignites = with_mod(&mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_crash_ignites(&mut ctx.store, severity)
+                .unwrap_or(0)
+        })
+        .unwrap_or(0)
+            == 1;
+        if ignites && ignited.is_none() {
+            commands.entity(entity).insert(Ignited);
+            commands.entity(entity).with_children(|parent| {
+                parent.spawn((
+                    IgnitionLight,
+                    PointLight {
+                        color: Color::srgb(1.0, 0.42, 0.12),
+                        intensity: 400_000.0,
+                        range: 16.0,
+                        radius: 0.35,
+                        shadow_maps_enabled: false,
+                        ..default()
+                    },
+                    Transform::from_xyz(0.0, 0.55, 0.9),
+                ));
+            });
+        }
         let action = with_mod(&mod_runtime, |ctx| {
             ctx.bindings
                 .hanga_engine_gameplay()
@@ -2577,15 +2620,41 @@ fn path_blocked(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -
 
 fn vehicle_traffic_system(
     mut vehicles: Query<
-        (&mut Transform, &mut LinearVelocity, &VehicleDrive),
-        (With<VehicleAi>, Without<Wrecked>),
+        (Entity, &mut Transform, &mut LinearVelocity, &VehicleDrive),
+        (With<VehicleAi>, Without<Wrecked>, Without<Player>, Without<Debris>),
+    >,
+    extras: Query<
+        (Entity, &Transform),
+        (
+            Without<VehicleAi>,
+            Or<(With<Debris>, With<Player>, With<Wrecked>)>,
+        ),
     >,
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
 ) {
-    for (mut transform, mut velocity, drive) in vehicles.iter_mut() {
+    let traffic_spots: Vec<(Entity, Vec3)> = vehicles
+        .iter()
+        .map(|(entity, transform, _, _)| (entity, transform.translation))
+        .collect();
+    let extra_spots: Vec<(Entity, Vec3)> = extras
+        .iter()
+        .map(|(entity, transform)| (entity, transform.translation))
+        .collect();
+    for (entity, mut transform, mut velocity, drive) in vehicles.iter_mut() {
         let fwd = transform.forward();
-        let blocked = path_blocked(&transform, &voxel_world);
+        let origin = transform.translation.to_array();
+        let heading = [fwd.x, fwd.y, fwd.z];
+        let mut blocked = path_blocked(&transform, &voxel_world);
+        if !blocked {
+            blocked = traffic_spots
+                .iter()
+                .chain(extra_spots.iter())
+                .any(|(other, pos)| {
+                    *other != entity
+                        && traffic_ahead_blocks(origin, heading, pos.to_array(), 12.0, 2.5)
+                });
+        }
         if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
             let g = ctx.bindings.hanga_engine_gameplay();
             let vx = g
@@ -2608,6 +2677,13 @@ fn vehicle_traffic_system(
             velocity.x = fwd.x * drive.speed;
             velocity.z = fwd.z * drive.speed;
         }
+    }
+}
+
+fn flicker_ignition(time: Res<Time>, mut lights: Query<&mut PointLight, With<IgnitionLight>>) {
+    let pulse = (time.elapsed_secs() * 13.0).sin().abs();
+    for mut light in &mut lights {
+        light.intensity = 220_000.0 + 280_000.0 * pulse;
     }
 }
 
@@ -3253,7 +3329,7 @@ fn spawn_menu_sky(mut commands: Commands) {
     commands.spawn((
         Name::new("menu_sky_camera"),
         MenuSkyCamera,
-        Camera3d::default(),
+        camera_3d(),
         Transform::from_xyz(24.0, 18.0, 70.0).looking_at(Vec3::new(0.0, 48.0, -40.0), Vec3::Y),
     ));
 }

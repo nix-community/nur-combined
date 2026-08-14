@@ -10,7 +10,8 @@ The host only applies the field; a later heist in orbit would ship a different k
 
 Cars are **soft street metal** in the BeamNG sense: they fold, shed parts, and
 can become wrecks. The host only measures impact and moves meshes; this mod
-owns how cheap the steel is.
+owns how cheap the steel is. A hard wreck can **ignite** (`crash-ignites`); the
+host only hangs a light. Fuel tanks and spreading fire are later.
 
 ## Crash (BeamNG-related, not a full node-beam solver)
 
@@ -28,8 +29,8 @@ uniform squash.
 | below 8 | 0 | none | none |
 | 8–14 | 25 | lamps detach, hull crumples | none (fender tap) |
 | 14–20 | 50 | wheels detach | `crash` (+2 wanted) |
-| 20–28 | 75 | cabin shears, wrecked, tumbles | `crash` |
-| 28+ | 100 | full wreck, Teardown burst | `explode` (5 stars) |
+| 20–28 | 75 | cabin shears, wrecked, engine fire | `crash` |
+| 28+ | 100 | full wreck, Teardown burst, fire | `explode` |
 
 Parts the host may detach: `lamp`, `wheel`, `cabin`. `hull` stays as the wreck
 body. Wrecked cars are undriveable; the engine unlocks pitch/roll so they can
@@ -57,5 +58,5 @@ chop-shop takes the selected item.
 ## Out of scope (later)
 
 - True node-beam / tire deformation
-- Engine fire / fuel tank
+- Spreading engine fire / fuel tank burst
 - Multi-mod traffic packs with different stiffness

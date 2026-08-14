@@ -729,6 +729,10 @@ pub fn crash_action(severity: i32) -> String {
     }
 }
 
+pub fn crash_ignites(severity: i32) -> i32 {
+    i32::from(severity >= 75)
+}
+
 pub fn crash_part_impulse(severity: i32) -> f32 {
     4.0 + (severity.clamp(0, 100) as f32) * 0.12
 }
@@ -1056,6 +1060,10 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
 
     fn crash_action(severity: i32) -> String {
         crate::crash_action(severity)
+    }
+
+    fn crash_ignites(severity: i32) -> i32 {
+        crate::crash_ignites(severity)
     }
 
     fn crash_part_impulse(severity: i32) -> f32 {
@@ -1796,6 +1804,8 @@ mod tests {
         assert!(crash_action(25).is_empty());
         assert_eq!(crash_action(50), ACTION_CRASH);
         assert_eq!(crash_action(100), ACTION_EXPLODE);
+        assert_eq!(crash_ignites(50), 0);
+        assert_eq!(crash_ignites(75), 1);
         assert_eq!(mod_evaluate_action(ACTION_CRASH, 0), 2);
         assert!(crash_part_impulse(80) > crash_part_impulse(20));
     }

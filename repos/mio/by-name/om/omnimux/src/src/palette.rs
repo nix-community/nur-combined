@@ -1,8 +1,48 @@
-use gpui::WindowAppearance;
+use gpui::{App, WindowAppearance};
 use gpui_terminal::color_scheme::is_dark_rgb;
 use gpui_terminal::ColorPalette;
 
 pub const DEFAULT_FONT_SIZE: f32 = 14.0;
+
+/// Bundled last-resort face (`Hack-*.ttf` via `OMNIMUX_FONTS_DIR`) when no
+/// system monospace family is registered with GPUI/fontdb.
+pub const BUNDLED_TERMINAL_FONT_FAMILY: &str = "Hack";
+
+/// Installed monospace families, preferred before the bundled Hack fallback.
+/// GPUI matches font *file* family names, not fontconfig's `monospace` alias.
+const PREFERRED_TERMINAL_FONTS: &[&str] = &[
+    "SF Mono",
+    "SFMono",
+    "Menlo",
+    "Monaco",
+    "JetBrains Mono",
+    "Cascadia Code",
+    "Cascadia Mono",
+    "Fira Code",
+    "Fira Mono",
+    "Source Code Pro",
+    "Inconsolata",
+    "DejaVu Sans Mono",
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono",
+    "Roboto Mono",
+    "IBM Plex Mono",
+    "Lilex",
+    "Consolas",
+    "Courier New",
+];
+
+/// Pick an installed system mono font; only use bundled Hack if none exist.
+pub fn preferred_terminal_font_family(cx: &App) -> String {
+    let names = cx.text_system().all_font_names();
+    for candidate in PREFERRED_TERMINAL_FONTS {
+        if let Some(found) = names.iter().find(|n| n.eq_ignore_ascii_case(candidate)) {
+            return found.clone();
+        }
+    }
+    BUNDLED_TERMINAL_FONT_FAMILY.to_string()
+}
 
 /// Fallback families for glyphs missing from the primary monospace (Starship nerd
 /// icons, powerline separators, and default emoji like hostname `ssh_symbol` 🌐).
