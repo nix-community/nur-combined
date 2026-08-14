@@ -200,6 +200,32 @@ in
         service.DISABLE_REGISTRATION = true;
       };
     };
+    # Forgejo Actions runner (act runner works with both gitea and forgejo).
+    # Jobs run directly on the host so builds share the system nix store.
+    gitea-actions-runner.instances.nas = {
+      enable = true;
+      name = "nas";
+      url = "https://git.diekvoss.net";
+      tokenFile = config.sops.secrets."forgejo-runner-token".path;
+      labels = [
+        "native:host"
+        "nix-latest:docker://nixos/nix"
+      ];
+      hostPackages = with pkgs; [
+        bash
+        cachix
+        config.nix.package
+        coreutils
+        curl
+        gawk
+        git
+        gnugrep
+        gnused
+        jq
+        nodejs
+        wget
+      ];
+    };
     homepage-dashboard.enable = true;
     nix-serve = {
       enable = true;
@@ -503,6 +529,7 @@ in
     "PATH=/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/hermes/bin:/mnt/POOL/hermes/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   ];
 
+  sops.secrets."forgejo-runner-token" = { };
   sops.secrets."hermes.env".owner = "hermes";
   sops.secrets."signal-cli.env".owner = "signal-cli";
   sops.secrets."cache-priv-key.pem" = { };

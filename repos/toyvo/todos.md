@@ -6,18 +6,20 @@ Outstanding work and follow-up items for this repository.
 > expected to keep this file up to date — check off completed items, and add
 > deferred work or manual steps before finishing a task.
 
+## Manually written down by human
+
+- [ ] allow some ip ranges past forward auth, eg 10.200.x.x
+- [ ] setup forwarding to binary cache/nas with nix.settings.post-build-hook
+
 ## Forgejo (git.diekvoss.net)
 
-### Manual steps to finish the deployment
+### Forgejo Actions (CI runner on the nas)
 
-- [ ] Deploy the nas and router (`deploy .#nas`; router via `nixos-rebuild switch --flake .#router`)
-- [ ] Add a `git.diekvoss.net` A record in Cloudflare pointing at the router (the `*.diekvoss.net` wildcard cert already covers it)
-- [ ] Create the initial admin user (self-registration is disabled). On the nas:
-  ```bash
-  sudo -u forgejo $(systemctl show forgejo -p ExecStart --value | awk '{print $1}') \
-    --work-path /mnt/POOL/forgejo --config /mnt/POOL/forgejo/custom/conf/app.ini \
-    admin user create --admin --username toyvo --email collin@diekvoss.com --password 'CHANGEME'
-  ```
+- [x] Create a runner registration token: Forgejo Site Administration → Actions → Runners → Create new runner
+- [x] Add `forgejo-runner-token` to `secrets.yaml` with content `TOKEN=<registration token>` (`sops secrets.yaml`)
+- [ ] Deploy the nas (`deploy .#nas`), then verify the runner shows as online under Site Administration → Actions → Runners
+- [ ] Add `CACHIX_AUTH_TOKEN` under the repo's Settings → Actions → Secrets on Forgejo
+- [ ] Port the GitHub-only automation still in `.github/workflows/build.yml` (update-flake-lock PRs, auto-format PRs, `gh api` check reporting) — these use the GitHub API and need Forgejo equivalents (Forgejo API + curl, or a tea-based flow)
 
 ### Enhancements
 
@@ -25,8 +27,3 @@ Outstanding work and follow-up items for this repository.
 - [ ] Authentik OIDC login for Forgejo
 - [ ] Periodic backups via `services.forgejo.dump.enable`
 - [ ] Homepage widget (`type: gitea`) with an API key stored in sops as `HOMEPAGE_VAR_FORGEJO_API_KEY`
-
-## Manually written down by human
-
-- [ ] allow some ip ranges past forward auth, eg 10.200.x.x
-- [ ] setup forwarding to binary cache/nas with nix.settings.post-build-hook
