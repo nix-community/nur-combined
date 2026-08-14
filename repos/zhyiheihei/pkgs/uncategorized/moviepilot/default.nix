@@ -12,6 +12,7 @@
 let
   version = sources.moviepilot.version;
   src = sources.moviepilot.src;
+  mpArch = if stdenv.hostPlatform.isAarch64 then "aarch64" else "x86_64";
   slackBolt = pkgs.python3Packages.slack-bolt.overridePythonAttrs (old: {
     doCheck = false;
   });
@@ -78,10 +79,15 @@ let
     dontConfigure = true;
     dontBuild = true;
 
+    # v3 resources are platform binaries (site index + compiled site parser)
+    # that the app auto-downloads at runtime. AUTO_UPDATE_RESOURCE is
+    # disabled in the wrapper because that update crashes the backend
+    # (SIGSEGV on rock5c), so ship the files for this platform instead.
     installPhase = ''
       runHook preInstall
       mkdir -p $out
-      cp -rL resources.v2/. $out/
+      cp -L $src/resources.v3/user.sites.v3.bin $out/
+      cp -L $src/resources.v3/sites.cpython-314-${mpArch}-linux-gnu.so $out/
       runHook postInstall
     '';
   };
@@ -93,8 +99,10 @@ pkgs.python3Packages.buildPythonPackage rec {
 
   postPatch = ''
     sed -i '/^import pillow_avif/d' app/api/endpoints/system.py app/chain/recommend.py
-    sed -i '/existing_paths = {route.path: route for route in app.routes}/c\    existing_paths = {route.path: route for route in app.routes if getattr(route, "path", None) is not None}' app/api/endpoints/plugin.py
-    sed -i '/route for route in app.routes if any(route.path.startswith(prefix) for prefix in prefixes)/c\        route for route in app.routes if any(getattr(route, "path", "").startswith(prefix) for prefix in prefixes)' app/api/endpoints/plugin.py
+    # fastapi >=0.139 dropped Route.path; v3 still accesses it when managing
+    # plugin routes (same incompatibility as v2, four call sites).
+    sed -i 's|existing_paths = {route.path: route for route in app.routes}|existing_paths = {getattr(route, "path", None): route for route in app.routes if getattr(route, "path", None) is not None}|' app/api/endpoints/plugin.py
+    sed -i 's|route for route in app.routes if route.path.startswith(prefix)|route for route in app.routes if getattr(route, "path", "").startswith(prefix)|' app/api/endpoints/plugin.py
   '';
 
   dontBuild = true;
@@ -145,6 +153,7 @@ pkgs.python3Packages.buildPythonPackage rec {
       langgraph
       lark-oapi
       lxml
+      mutagen
       openai
       oss2
       packaging
@@ -195,8 +204,10 @@ pkgs.python3Packages.buildPythonPackage rec {
     ])
     ++ [
       python3Packages.aioshutil
+      python3Packages.cloakbrowser
       python3Packages.cn2an
       python3Packages.jieba-next
+      python3Packages.moviepilot-rust
       python3Packages.pinyin2hanzi
       python3Packages.proces
       python3Packages.telegramify-markdown
@@ -224,6 +235,8 @@ pkgs.python3Packages.buildPythonPackage rec {
     #!${pkgs.bash}/bin/bash
     export PATH="${lib.makeBinPath [ nodejs ]}:\$PATH"
     export PYTHONPATH="${pkgs.python3Packages.makePythonPath propagatedBuildInputs}"
+    export MOVIEPILOT_AUTO_UPDATE=false
+    export AUTO_UPDATE_RESOURCE=false
     cd "$out/share/moviepilot"
     export CONFIG_DIR="\''${CONFIG_DIR:-\''${XDG_CONFIG_HOME:-\$HOME/.config}/moviepilot}"
     mkdir -p "\$CONFIG_DIR"

@@ -6,6 +6,10 @@ src.github_tag = "kumaraditya303/aioshutil"
 fetch.pypi = "cn2an"
 src.pypi = "cn2an"
 
+[cloakbrowser]
+fetch.pypi = "cloakbrowser"
+src.pypi = "cloakbrowser"
+
 [docker-proxy]
 fetch.github = "dqzboy/Docker-Proxy"
 src.github = "dqzboy/Docker-Proxy"

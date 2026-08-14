@@ -16,6 +16,14 @@
       hash = "sha256-+8BpL9CVH0X/9H7vL4xuV5CdA3A10a2A1q4wt1x1sSM=";
     };
   };
+  cloakbrowser = {
+    pname = "cloakbrowser";
+    version = "0.5.7";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/c/cloakbrowser/cloakbrowser-0.5.7.tar.gz";
+      hash = "sha256-ZEYIxPeYXnAHfjNcrZS27I7K76TiZ0YTxpgWUiPLWiM=";
+    };
+  };
   cn2an = {
     pname = "cn2an";
     version = "0.5.24";
@@ -26,22 +34,22 @@
   };
   docker-proxy = {
     pname = "docker-proxy";
-    version = "v5.1.3";
+    version = "v5.1.4";
     src = fetchFromGitHub {
       owner = "dqzboy";
       repo = "Docker-Proxy";
-      tag = "v5.1.3";
-      hash = "sha256-F5ritnGnhK6ubMcLKTjbka2alUPNSh3/w4qcJHsBQj0=";
+      tag = "v5.1.4";
+      hash = "sha256-CAVlCWdOEuM79XnI13LZulSkhk37808Dw1qPc0RISDU=";
     };
   };
   docker-proxy-hubcmdui = {
     pname = "docker-proxy-hubcmdui";
-    version = "v5.1.3";
+    version = "v5.1.4";
     src = fetchFromGitHub {
       owner = "dqzboy";
       repo = "Docker-Proxy";
-      tag = "v5.1.3";
-      hash = "sha256-F5ritnGnhK6ubMcLKTjbka2alUPNSh3/w4qcJHsBQj0=";
+      tag = "v5.1.4";
+      hash = "sha256-CAVlCWdOEuM79XnI13LZulSkhk37808Dw1qPc0RISDU=";
     };
   };
   filecodebox = {
@@ -87,51 +95,67 @@
   };
   moviepilot = {
     pname = "moviepilot";
-    version = "v2.15.5";
+    version = "v3.0.0";
     src = fetchFromGitHub {
       owner = "jxxghp";
       repo = "MoviePilot";
-      tag = "v2.15.5";
-      hash = "sha256-q9owgrfP9uZvwMwi7HFizXc1JR+J/eoTtIXhxcI9Q2s=";
+      tag = "v3.0.0";
+      hash = "sha256-rjg2f3grFq4xap46SPIo114heRUX+2JxlfniQfX/3yc=";
     };
   };
   moviepilot-frontend = {
     pname = "moviepilot-frontend";
-    version = "v2.15.5";
+    version = "v3.0.0";
     src = fetchurl {
-      url = "https://github.com/jxxghp/MoviePilot-Frontend/releases/download/v2.15.5/dist.zip";
-      hash = "sha256-YrtGJV72AYZQ4Ku38DwrHmTA3h8whX++8kn2jroCz4w=";
+      url = "https://github.com/jxxghp/MoviePilot-Frontend/releases/download/v3.0.0/dist.zip";
+      hash = "sha256-ytP/mhf/4LB8anN/cHVm06U6XrDfUm4swgaNV1Eb6OQ=";
     };
   };
   moviepilot-resources = {
     pname = "moviepilot-resources";
-    version = "11c6951ea9dd250c13ad4bbcb91feb1dc7ffa2f2";
+    version = "88593edf55c5ed144512943d6d2bef3d5d37ecb9";
     src = fetchgit {
       url = "https://github.com/jxxghp/MoviePilot-Resources";
-      rev = "11c6951ea9dd250c13ad4bbcb91feb1dc7ffa2f2";
+      rev = "88593edf55c5ed144512943d6d2bef3d5d37ecb9";
       fetchSubmodules = false;
-      hash = "sha256-Q+Abt0KP6N/a4JyFzGPSrGQMk7XVoRKuyFgQdZC2tzw=";
+      hash = "sha256-FL4qCCbm+FmgQpVThKQIoSYYjm1CTWQBuUUxaF25qEg=";
     };
-    date = "2026-08-07";
+    date = "2026-08-13";
+  };
+  moviepilot-rust-aarch64 = {
+    pname = "moviepilot-rust-aarch64";
+    version = "0.2.8";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/15/08/1c4ba8eba94661ddfbadf7e7c1fdcdfbac3abe09e5c3f2adc383c1e468e2/moviepilot_rust-0.2.8-cp311-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl";
+      hash = "sha256-R99K9saQAoeJ+Q0KHHwPKLikQ3VI4ydmv957CAupTZM=";
+    };
+  };
+  moviepilot-rust-x86_64 = {
+    pname = "moviepilot-rust-x86_64";
+    version = "0.2.8";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/27/b8/faddc8ba84138a3b50895d756cf9714eff0ce8a2133c7ea482136cf3d75b/moviepilot_rust-0.2.8-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl";
+      hash = "sha256-89Ls8/TYHJw2QBEsuyguRfrWuqt9cNYjw14LCuKK3fg=";
+    };
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.4.5";
+    version = "v4.6.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.4.5";
-      hash = "sha256-humCdjOtktclRsm4equMhQvnyW6EzOVOgu8AFDTOeHM=";
+      tag = "v4.6.1";
+      hash = "sha256-UzuN+OhbflwodOUOuL3zvfGyZIvwmFzohJIE3x8Jxhs=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.4.5";
+    version = "v4.6.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.4.5";
-      hash = "sha256-bQ/HOvGeMTRh6qwQEaV3083D7mfDZ6eT+0FGFR8ncl8=";
+      tag = "v4.6.1";
+      hash = "sha256-Eq47wMyfXijrm4KtP6/aIQ4go2n0R2jpsvPc0pPWLEk=";
     };
   };
   pinyin2hanzi = {
@@ -216,18 +240,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "4.4.50";
+    version = "4.4.53";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.50/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-ceRHhnpdoJ5viR81P9XhaqSlT/oxG0RJr+xPrPdDzFs=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.53/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-mRpnp6USeDMweRcRq73A16LHVTV9qRlAu7az5i3wMEI=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "4.4.50";
+    version = "4.4.53";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.50/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-DbKcpgcvgJcFvtJ5veQkyd+Os+5Mb56isd0j+GQKxD4=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.53/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-38JuooU9c4MORG0Rbnw9n4MAbLn4e1YMoZrw0yXxNMA=";
     };
   };
   vertex = {
