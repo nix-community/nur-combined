@@ -57,7 +57,7 @@ nh darwin switch ~/nixcfg
 home-manager switch --flake .#<hostname>
 ```
 
-**No Traditional Tests**: This repo has no unit tests. Validation is via `nix flake show` (evaluation check) and building outputs. CI uses `nix-fast-build` for all checks.
+**No Traditional Tests**: This repo has no unit tests. Validation is via `nix flake show` (evaluation check) and building outputs. CI builds the aggregate `checks.<system>.all` derivation with a single `nix build` (cachix `watch-store` pushes results).
 
 ## Code Style Guidelines
 

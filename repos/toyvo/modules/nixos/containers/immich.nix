@@ -110,6 +110,11 @@ in
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.immich ];
 
+          networking.nameservers = [
+            homelab.router.ip
+          ];
+          networking.defaultGateway = cfg.hostAddress;
+
           system.stateVersion = "26.11";
         };
     };

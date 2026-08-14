@@ -610,4 +610,5 @@ in
       toyvo
     ];
   };
+  zramSwap.enable = true;
 }

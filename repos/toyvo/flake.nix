@@ -382,7 +382,13 @@
               // lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") (
                 lib.filterAttrs (n: v: self.lib.isCacheable v) self'.devShells
               )
-              // (deploy-rs-checks.${system} or { });
+              // (deploy-rs-checks.${system} or { })
+              // {
+                # Aggregate of every check. Excludes itself by name to avoid infinite recursion.
+                all = pkgs.runCommand "checks-all" {
+                  buildInputs = builtins.attrValues (builtins.removeAttrs config.checks [ "all" ]);
+                } "touch $out";
+              };
           };
       }
     );

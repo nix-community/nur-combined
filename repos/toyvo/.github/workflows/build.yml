@@ -83,7 +83,9 @@ jobs:
       - name: Check evaluation
         run: nix flake show
       - name: Build nix packages
-        run: nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" -j 1 --eval-workers 1 --no-nom --cachix-cache toyvo --option accept-flake-config true
+        run: |
+          nix run nixpkgs#cachix -- watch-store toyvo &
+          nix build --print-build-logs ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all" --option accept-flake-config true
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Report check to PR branch

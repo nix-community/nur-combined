@@ -38,79 +38,80 @@ in
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      programs.jujutsu.settings.aliases = {
-        f = [
-          "git"
-          "fetch"
-          "--all-remotes"
-        ];
-        fetch = [
-          "git"
-          "fetch"
-          "--all-remotes"
-        ];
-        rbm = [
-          "util"
-          "exec"
-          "--"
-          "bash"
-          "-c"
-          ''jj git fetch --all-remotes && jj rebase "$@" -d main@origin''
-          ""
-        ];
-        ai-describe = lib.mkIf cfg.aiDescribe.enable [
-          "util"
-          "exec"
-          "--"
-          "bash"
-          "-c"
-          ''
-            if [ -n "$1" ]; then
-              CHANGE_ID="$1"
-            else
-              CHANGE_ID="@"
-            fi
-            # Parse extra context flags
-            EXTRA_CONTEXT=""
-            shift 2>/dev/null || true
-            while [ $# -gt 0 ]; do
-              case "$1" in
-                -C)
-                  if [ -n "$2" ]; then
-                    EXTRA_CONTEXT="Add context: $2"
-                    shift 2
-                  else
-                    shift
-                  fi
-                  ;;
-                *)
+  config = lib.mkIf cfg.enable {
+    programs.jujutsu.settings.aliases = {
+      f = [
+        "git"
+        "fetch"
+        "--all-remotes"
+      ];
+      fetch = [
+        "git"
+        "fetch"
+        "--all-remotes"
+      ];
+      rbm = [
+        "util"
+        "exec"
+        "--"
+        "bash"
+        "-c"
+        ''jj git fetch --all-remotes && jj rebase "$@" -d main@origin''
+        ""
+      ];
+      ai-describe = lib.mkIf cfg.aiDescribe.enable [
+        "util"
+        "exec"
+        "--"
+        "bash"
+        "-c"
+        ''
+          if [ -n "$1" ]; then
+            CHANGE_ID="$1"
+          else
+            CHANGE_ID="@"
+          fi
+          # Parse extra context flags
+          EXTRA_CONTEXT=""
+          shift 2>/dev/null || true
+          while [ $# -gt 0 ]; do
+            case "$1" in
+              -C)
+                if [ -n "$2" ]; then
+                  EXTRA_CONTEXT="Add context: $2"
+                  shift 2
+                else
                   shift
-                  ;;
-              esac
-            done
-            DIFF_OUTPUT=$(jj diff -r "$CHANGE_ID" --no-pager 2>/dev/null)
-            if [ -z "$DIFF_OUTPUT" ]; then
-              echo "Error: No diff found for change $CHANGE_ID" >&2
-              exit 1
-            fi
-            PI_ARGS="${if cfg.aiDescribe.provider != null then ''--provider "${cfg.aiDescribe.provider}"'' else ""} ${if cfg.aiDescribe.model != null then ''--model "${cfg.aiDescribe.model}"'' else ""}"
-            FULL_PROMPT=${lib.escapeShellArg cfg.aiDescribe.prompt}
-            if [ -n "$EXTRA_CONTEXT" ]; then
-              FULL_PROMPT="''${EXTRA_CONTEXT}\\n\\n$FULL_PROMPT"
-            fi
-            MESSAGE=$(pi -p --no-session --mode json $PI_ARGS "$FULL_PROMPT\\n\\n$DIFF_OUTPUT" | jq -r 'select(.type == "message_end" and .message.role == "assistant") | .message.content[0].text' 2>/dev/null | head -c 500)
-            # Clean up whitespace
-            MESSAGE=$(echo "$MESSAGE" | tr -d '\\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-            if [ -z "$MESSAGE" ]; then
-              echo "Error: Failed to generate commit message" >&2
-              exit 1
-            fi
-            jj describe -r "$CHANGE_ID" -m "$MESSAGE"
-          ''
-          ""
-        ];
-      };
+                fi
+                ;;
+              *)
+                shift
+                ;;
+            esac
+          done
+          DIFF_OUTPUT=$(jj diff -r "$CHANGE_ID" --no-pager 2>/dev/null)
+          if [ -z "$DIFF_OUTPUT" ]; then
+            echo "Error: No diff found for change $CHANGE_ID" >&2
+            exit 1
+          fi
+          PI_ARGS="${
+            if cfg.aiDescribe.provider != null then ''--provider "${cfg.aiDescribe.provider}"'' else ""
+          } ${if cfg.aiDescribe.model != null then ''--model "${cfg.aiDescribe.model}"'' else ""}"
+          FULL_PROMPT=${lib.escapeShellArg cfg.aiDescribe.prompt}
+          if [ -n "$EXTRA_CONTEXT" ]; then
+            FULL_PROMPT="''${EXTRA_CONTEXT}\\n\\n$FULL_PROMPT"
+          fi
+          MESSAGE=$(pi -p --no-session --mode json $PI_ARGS "$FULL_PROMPT\\n\\n$DIFF_OUTPUT" | jq -r 'select(.type == "message_end" and .message.role == "assistant") | .message.content[0].text' 2>/dev/null | head -c 500)
+          # Clean up whitespace
+          MESSAGE=$(echo "$MESSAGE" | tr -d '\\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+          if [ -z "$MESSAGE" ]; then
+            echo "Error: Failed to generate commit message" >&2
+            exit 1
+          fi
+          jj describe -r "$CHANGE_ID" -m "$MESSAGE"
+        ''
+        ""
+      ];
     };
+  };
 }

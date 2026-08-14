@@ -3,7 +3,7 @@ writeShellScriptBin "pre-push" ''
   echo "Check evaluation"
   nix flake show
   echo "Build nix packages"
-  nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" -j 1 --eval-workers 1
+  nix build --print-build-logs ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all"
   echo "Check evaluation"
   NIX_PAGER=cat nix-env -f . -qa \* --meta --xml \
     --allowed-uris https://static.rust-lang.org \
