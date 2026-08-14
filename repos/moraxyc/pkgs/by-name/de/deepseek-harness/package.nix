@@ -1,101 +1,76 @@
 {
   lib,
-  buildNpmPackage,
-  fetchPnpmDeps,
+  formats,
+  coreutils,
+  jq,
+  stdenvNoCC,
+  linkFarm,
   makeWrapper,
   nodejs-slim,
-  pnpm_11,
-  pnpmConfigHook,
-  python3,
+  symlinkJoin,
   versionCheckHook,
-  yq-go,
+  writeShellApplication,
+  writeText,
 
-  sources,
-  source ? sources.deepseek-harness,
+  deepseek-harness,
+  deepseek-harness-kernel,
+
+  deepseek-harness-base,
+  deepseek-harness-headless,
+  deepseek-harness-web-app,
+
+  # Extra bundles to compose in; see passthru.withPlugins.
+  extraPlugins ? [ ],
+  # Declarative profiles to seed on first use; see passthru.withProfiles.
+  profiles ? { },
+  # e.g. plugin: plugin.pname == "deepseek-harness-web-app".
+  withoutPlugins ? _: false,
 }:
 
-let
-  pnpm = pnpm_11;
-in
-buildNpmPackage (finalAttrs: {
-  inherit (source) pname src;
-  version = (lib.importJSON source.extract."package.json").version;
+stdenvNoCC.mkDerivation (finalAttrs: {
+  pname = "deepseek-harness";
+  inherit (deepseek-harness-kernel) version;
 
-  postPatch = ''
-    # Upstream verifies npm releases by installing every release-family
-    # tarball as a top-level dependency. Reproduce that workspace surface:
-    # profile plugins dynamically import peer service packages which are not
-    # in the CLI's ordinary production dependency closure.
-    workspaceDeps="$TMPDIR/dsh-workspace-dependencies.json"
-    workspaceLockDeps="$TMPDIR/dsh-workspace-lock-dependencies.json"
-    yq ea -o=json -I=0 \
-      '(select(.name | test("^@deepseek-ai/")) | {
-        (.name): "workspace:^"
-      }) as $item ireduce ({}; . * $item)' \
-      vendor/group/package.json packages/*/*/package.json > "$workspaceDeps"
-    yq ea -o=json -I=0 \
-      '(select(.name | test("^@deepseek-ai/")) | {
-        (.name): {
-          "specifier": "workspace:^",
-          "version": "link:" + (filename | sub("/package.json$", "") | sub("^", "../../"))
-        }
-      }) as $item ireduce ({}; . * $item)' \
-      vendor/group/package.json packages/*/*/package.json > "$workspaceLockDeps"
-    DEPS_FILE="$workspaceDeps" yq -i \
-      '.dependencies *= load(strenv(DEPS_FILE))' apps/cli/package.json
-    DEPS_FILE="$workspaceLockDeps" yq -i \
-      '.importers."apps/cli".dependencies *= load(strenv(DEPS_FILE))' pnpm-lock.yaml
-  '';
-
-  pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs)
-      pname
-      version
-      src
-      postPatch
-      ;
-    inherit pnpm;
-    fetcherVersion = 4;
-    hash = "sha256-aySHq0ywTMM5q7YuGHZrV3yQE3bwppgGfWH3wRnHCXk=";
-  };
+  src = null;
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
 
   nativeBuildInputs = [
+    jq
     makeWrapper
-    pnpm
-    python3
-    yq-go
   ];
 
-  npmDeps = null;
-  npmConfigHook = pnpmConfigHook;
-  npmBuildScript = "build";
-
-  preInstall = ''
-    # Make pnpm copy workspace packages into the deploy output
-    pnpm config set --location=project inject-workspace-packages true
-    # Its postinstall runs before deploy has assembled node-pty.
-    yq -i 'del(.scripts.postinstall)' packages/subprocess/subprocess-local/package.json
-  '';
-
   installPhase = ''
-    runHook preInstall
+    kernelApp="${deepseek-harness-kernel}/lib/deepseek-harness"
+    appDir="$out/lib/deepseek-harness"
 
-    # A hoisted tree matches the flat npm installation used by upstream's
-    # packed-release verification and by dsh's profile module fallback.
-    pnpm --filter @deepseek-ai/dsh deploy \
-      --prod \
-      --config.node-linker=hoisted \
-      --config.link-workspace-packages=true \
-      $out/lib/deepseek-harness
-    # The removed workspace postinstall only makes this helper executable.
-    find $out/lib/deepseek-harness/node_modules \
-      -path '*/node-pty/*/spawn-helper' \
-      -exec chmod +x {} +
+    mkdir -p "$appDir"
+    # Copy lib so the profile heal anchors at this manifest, not the kernel's.
+    cp -r "$kernelApp/lib" "$appDir/lib"
+    ln -s "$kernelApp/config" "$appDir/config"
+    cp "$kernelApp/package.json" "$appDir/package.json"
+    ln -s "${finalAttrs.passthru.nodeModules}" "$appDir/node_modules"
+
+    jq --argjson deps '${builtins.toJSON (lib.listToAttrs finalAttrs.passthru.bundleDeps)}' \
+      '.dependencies *= $deps' \
+      "$appDir/package.json" > "$appDir/package.json.tmp"
+    mv "$appDir/package.json.tmp" "$appDir/package.json"
+
     mkdir -p $out/bin
-    # dsh installs a Node module loader and intentionally uses internal hooks.
     makeWrapper ${lib.getExe nodejs-slim} $out/bin/dsh \
+      ${
+        lib.optionalString (
+          finalAttrs.passthru.runtimeDeps != [ ]
+        ) "--prefix PATH : ${lib.makeBinPath finalAttrs.passthru.runtimeDeps} "
+      }\
       --add-flags "--expose-internals" \
-      --add-flags "$out/lib/deepseek-harness/lib/bin.js"
+      --add-flags "$appDir/lib/bin.js"
+
+    ${lib.optionalString (profiles != { }) ''
+      wrapProgram $out/bin/dsh \
+        --run ${lib.escapeShellArg (lib.getExe finalAttrs.passthru.seedProfiles)}
+    ''}
 
     runHook postInstall
   '';
@@ -103,8 +78,116 @@ buildNpmPackage (finalAttrs: {
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
 
-  # nix-update auto -u
-  passthru.updateScript = ./update.sh;
+  passthru = {
+    officialBundles = [
+      deepseek-harness-base
+      deepseek-harness-headless
+      deepseek-harness-web-app
+    ];
+
+    composedBundles = lib.unique (
+      lib.filter (plugin: !withoutPlugins plugin) (
+        finalAttrs.passthru.officialBundles
+        ++ extraPlugins
+        ++ lib.concatMap (profile: profile.plugins) (lib.attrValues profiles)
+      )
+    );
+
+    profileTemplates = linkFarm "deepseek-harness-profiles" (
+      lib.concatMapAttrs (name: profile: {
+        "${name}/package.json" =
+          (formats.json { }).generate
+            "${lib.strings.sanitizeDerivationName "dsh-profile-${name}"}-package.json"
+            {
+              name = "dsh-profile-${name}";
+              private = true;
+              dependencies = { };
+              dsh.profile.bundles = lib.unique (
+                [ "@deepseek-ai/dsh-base" ]
+                ++ lib.concatMap (
+                  plugin:
+                  plugin.passthru.dshBundles or (throw ''
+                    deepseek-harness.withProfiles: ${plugin.pname or plugin.name} has no passthru.dshBundles; it is not a dsh plugin bundle package
+                  '')
+                ) profile.plugins
+              );
+            };
+        "${name}/cordis.patch.yml" =
+          writeText "${lib.strings.sanitizeDerivationName "dsh-profile-${name}"}-cordis.patch.yml"
+            (profile.patch or "[]");
+        "${name}/pnpm-workspace.yaml" =
+          (formats.json { }).generate
+            "${lib.strings.sanitizeDerivationName "dsh-profile-${name}"}-pnpm-workspace.yaml"
+            {
+              packages = [ "." ];
+              nodeLinker = "hoisted";
+              autoInstallPeers = false;
+            };
+      }) profiles
+    );
+
+    seedProfiles = writeShellApplication {
+      name = "dsh-seed-profiles";
+      runtimeInputs = [ coreutils ];
+      inheritPath = false;
+      text = ''
+        home=''${DSH_HOME:-''${HOME:+$HOME/.dsh}}
+        [ -n "$home" ] || exit 0
+
+        mkdir -p "$home/profiles"
+        cp \
+          --dereference \
+          --no-clobber \
+          --no-preserve=mode \
+          --recursive \
+          ${lib.escapeShellArg "${finalAttrs.passthru.profileTemplates}/."} \
+          "$home/profiles"
+      '';
+    };
+
+    nodeModules = symlinkJoin {
+      name = "deepseek-harness-node-modules";
+      paths = [
+        "${deepseek-harness-kernel}/lib/deepseek-harness/node_modules"
+      ]
+      ++ (map (plugin: "${plugin}/lib/node_modules") finalAttrs.passthru.composedBundles);
+    };
+
+    bundleDeps = lib.concatMap (
+      plugin:
+      map (rel: {
+        name = rel;
+        value = plugin.version;
+      }) plugin.passthru.dshBundles
+    ) finalAttrs.passthru.composedBundles;
+
+    runtimeDeps = lib.unique (
+      lib.concatLists (
+        map (plugin: plugin.passthru.runtimeDeps or [ ]) finalAttrs.passthru.composedBundles
+      )
+    );
+
+    dshBundles = lib.concatLists (
+      [ deepseek-harness-kernel.passthru.dshBundles ]
+      ++ map (plugin: plugin.passthru.dshBundles) finalAttrs.passthru.composedBundles
+    );
+
+    # pkgs.deepseek-harness.withPlugins [ pkgs.some-dsh-bundle ]
+    withPlugins =
+      extra:
+      deepseek-harness.override {
+        extraPlugins = extraPlugins ++ extra;
+        inherit profiles withoutPlugins;
+      };
+
+    # pkgs.deepseek-harness.withProfiles { tui.plugins = [ pkgs.deepseek-harness-tui ]; }
+    withProfiles =
+      configuredProfiles:
+      deepseek-harness.override {
+        inherit extraPlugins withoutPlugins;
+        profiles = configuredProfiles;
+      };
+  };
 
   meta = {
     description = "Open-source agent harness developed by DeepSeek AI";

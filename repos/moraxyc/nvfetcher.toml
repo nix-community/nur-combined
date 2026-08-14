@@ -52,6 +52,10 @@ src.git = "https://github.com/deepseek-ai/deepseek-harness.git"
 fetch.github = "deepseek-ai/deepseek-harness"
 extract = ["package.json"]
 
+[deepseek-harness-tui]
+src.github = "ccch1mneyyy/dsh-TUI"
+fetch.github = "ccch1mneyyy/dsh-TUI"
+
 [elio]
 src.github = "elio-fm/elio"
 fetch.github = "elio-fm/elio"
