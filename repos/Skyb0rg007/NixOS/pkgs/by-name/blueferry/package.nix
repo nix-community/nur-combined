@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
   systemd,
-  polkit,
   bluez,
   gobject-introspection,
   wrapGAppsHook4,
@@ -102,9 +101,9 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   postPatch = ''
     substituteInPlace \
-      src/blueferry/{bluetooth_capabilities,backend_lifecycle,pair_setup}.py \
+      src/blueferry/{bluez_setup,bluetooth_capabilities,backend_lifecycle,pair_setup}.py \
       --replace-quiet /usr/bin/systemctl ${lib.getExe' systemd "systemctl"} \
-      --replace-quiet /usr/bin/pkexec ${lib.getExe' polkit "pkexec"} \
+      --replace-quiet /usr/bin/pkexec /run/wrappers/bin/pkexec \
       --replace-quiet /usr/bin/btmgmt ${lib.getExe' bluez "btmgmt"}
   '';
 
