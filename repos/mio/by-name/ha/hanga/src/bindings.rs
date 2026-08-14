@@ -124,6 +124,16 @@ impl BindingSet {
         }
     }
 
+    /// Short labels for menus (`Digit1` → `1`, `KeyR` → `R`). Config files keep Bevy names.
+    pub fn display_pretty(&self, action: &str) -> String {
+        let binds = self.binds(action);
+        if binds.is_empty() {
+            "—".into()
+        } else {
+            binds.iter().map(|b| pretty_bind(b)).collect::<Vec<_>>().join(" / ")
+        }
+    }
+
     pub fn set_bind(&mut self, action: &str, bind: String) {
         if !ALL_ACTIONS.contains(&action) {
             return;
@@ -194,6 +204,34 @@ pub fn format_bindings(set: &BindingSet) -> String {
         out.push('\n');
     }
     out
+}
+
+pub fn pretty_bind(name: &str) -> String {
+    let name = name.trim();
+    if let Some(rest) = name.strip_prefix("Digit") {
+        return rest.to_string();
+    }
+    if let Some(rest) = name.strip_prefix("Key") {
+        if rest.len() == 1 {
+            return rest.to_string();
+        }
+    }
+    match name {
+        "Escape" => "Esc".into(),
+        "Enter" | "Return" => "Enter".into(),
+        "Space" => "Space".into(),
+        "ShiftLeft" | "ShiftRight" => "Shift".into(),
+        "ControlLeft" | "ControlRight" => "Ctrl".into(),
+        "AltLeft" | "AltRight" => "Alt".into(),
+        "ArrowUp" => "↑".into(),
+        "ArrowDown" => "↓".into(),
+        "ArrowLeft" => "←".into(),
+        "ArrowRight" => "→".into(),
+        "MouseLeft" => "LMB".into(),
+        "MouseRight" => "RMB".into(),
+        "MouseMiddle" => "MMB".into(),
+        other => other.to_string(),
+    }
 }
 
 pub fn canonical_bind(raw: &str) -> Option<String> {
@@ -297,6 +335,17 @@ mod tests {
         assert_eq!(canonical_bind("esc"), Some("Escape".into()));
         assert_eq!(canonical_bind("Digit3"), Some("Digit3".into()));
         assert_eq!(canonical_bind("not-a-key"), None);
+    }
+
+    #[test]
+    fn pretty_bind_hides_bevy_prefixes() {
+        assert_eq!(pretty_bind("Digit1"), "1");
+        assert_eq!(pretty_bind("KeyR"), "R");
+        assert_eq!(pretty_bind("Escape"), "Esc");
+        assert_eq!(pretty_bind("MouseLeft"), "LMB");
+        let set = BindingSet::defaults();
+        assert_eq!(set.display_pretty(ACTION_MENU_PLAY), "1 / Enter");
+        assert_eq!(set.display(ACTION_MENU_PLAY), "Digit1, Enter");
     }
 
     #[test]

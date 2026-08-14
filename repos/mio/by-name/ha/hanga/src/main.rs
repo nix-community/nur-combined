@@ -972,7 +972,7 @@ fn menu_caption(
         _ => i18n::t(locale, key).to_string(),
     };
     match action {
-        Some(action) => format!("{}  {title}", set.display(action)),
+        Some(action) => format!("{}    {title}", set.display_pretty(action)),
         None => title,
     }
 }
@@ -981,7 +981,7 @@ fn bind_row_caption(locale: Locale, set: &BindingSet, action: &str) -> String {
     format!(
         "{}   {}",
         i18n::t(locale, &format!("bind_{action}")),
-        set.display(action)
+        set.display_pretty(action)
     )
 }
 
@@ -3254,7 +3254,7 @@ fn spawn_menu_sky(mut commands: Commands) {
         Name::new("menu_sky_camera"),
         MenuSkyCamera,
         Camera3d::default(),
-        Transform::from_xyz(40.0, 28.0, 90.0).looking_at(Vec3::new(0.0, 140.0, -80.0), Vec3::Y),
+        Transform::from_xyz(24.0, 18.0, 70.0).looking_at(Vec3::new(0.0, 48.0, -40.0), Vec3::Y),
     ));
 }
 
@@ -3314,78 +3314,103 @@ fn spawn_main_menu(
     p2p: Res<P2pConfig>,
 ) {
     let game = current_game(&catalog, &selected);
+    let accent_border = Color::srgba(theme.0.accent[0], theme.0.accent[1], theme.0.accent[2], 0.45);
     commands
         .spawn((
             MenuRoot,
-            ChromePanel,
             Node {
                 width: Val::Percent(100.0),
                 height: Val::Percent(100.0),
-                flex_direction: FlexDirection::Column,
                 justify_content: JustifyContent::Center,
                 align_items: AlignItems::Center,
-                row_gap: Val::Px(10.0),
                 ..default()
             },
-            BackgroundColor(rgba4(theme.0.panel)),
+            BackgroundColor(Color::srgba(0.0, 0.0, 0.0, 0.22)),
         ))
-        .with_children(|parent| {
-            parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &game, &p2p)),
-                TextFont {
-                    font_size: FontSize::Px(64.0),
+        .with_children(|root| {
+            root.spawn((
+                ChromePanel,
+                Node {
+                    width: Val::Px(520.0),
+                    flex_direction: FlexDirection::Column,
+                    justify_content: JustifyContent::Center,
+                    align_items: AlignItems::Center,
+                    row_gap: Val::Px(8.0),
+                    padding: UiRect::axes(Val::Px(36.0), Val::Px(28.0)),
+                    border: UiRect::all(Val::Px(1.0)),
+                    border_radius: BorderRadius::all(Val::Px(14.0)),
                     ..default()
                 },
-                TextColor(rgb3(theme.0.accent)),
-                ChromeTitle,
-                MenuLabel("menu_title"),
-            ));
-            parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &game, &p2p)),
-                TextFont {
-                    font_size: FontSize::Px(16.0),
-                    ..default()
-                },
-                TextColor(Color::srgba(theme.0.accent[0], theme.0.accent[1], theme.0.accent[2], 0.7)),
-                ChromeHint,
-                MenuLabel("menu_hint"),
-            ));
-            for (action, key) in [
-                (MenuAction::Play, "menu_play"),
-                (MenuAction::Multiplayer, "menu_multiplayer"),
-                (MenuAction::Room, "menu_room"),
-                (MenuAction::Game, "menu_game"),
-                (MenuAction::Lang, "menu_lang"),
-                (MenuAction::Controls, "menu_controls"),
-                (MenuAction::Quit, "menu_quit"),
-            ] {
-                parent
-                    .spawn((
-                        Button,
-                        action,
-                        ChromeButton,
-                        Node {
-                            width: Val::Px(380.0),
-                            height: Val::Px(48.0),
-                            justify_content: JustifyContent::Center,
-                            align_items: AlignItems::Center,
-                            margin: UiRect::top(Val::Px(6.0)),
-                            ..default()
-                        },
-                        BackgroundColor(rgb3(theme.0.button)),
-                    ))
-                    .with_children(|btn| {
-                        btn.spawn((
-                            Text::new(menu_caption(locale.0, &bindings.0, key, &game, &p2p)),
-                            TextFont {
-                                font_size: FontSize::Px(22.0),
+                BackgroundColor(rgba4(theme.0.panel)),
+            ))
+            .insert(BorderColor::all(accent_border))
+            .with_children(|parent| {
+                parent.spawn((
+                    Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &game, &p2p)),
+                    TextFont {
+                        font_size: FontSize::Px(56.0),
+                        ..default()
+                    },
+                    TextColor(rgb3(theme.0.accent)),
+                    ChromeTitle,
+                    MenuLabel("menu_title"),
+                ));
+                parent.spawn((
+                    Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &game, &p2p)),
+                    TextFont {
+                        font_size: FontSize::Px(16.0),
+                        ..default()
+                    },
+                    TextColor(Color::srgba(
+                        theme.0.accent[0],
+                        theme.0.accent[1],
+                        theme.0.accent[2],
+                        0.7,
+                    )),
+                    ChromeHint,
+                    MenuLabel("menu_hint"),
+                ));
+                for (action, key) in [
+                    (MenuAction::Play, "menu_play"),
+                    (MenuAction::Multiplayer, "menu_multiplayer"),
+                    (MenuAction::Room, "menu_room"),
+                    (MenuAction::Game, "menu_game"),
+                    (MenuAction::Lang, "menu_lang"),
+                    (MenuAction::Controls, "menu_controls"),
+                    (MenuAction::Quit, "menu_quit"),
+                ] {
+                    parent
+                        .spawn((
+                            Button,
+                            action,
+                            ChromeButton,
+                            Node {
+                                width: Val::Px(440.0),
+                                height: Val::Px(46.0),
+                                justify_content: JustifyContent::Start,
+                                align_items: AlignItems::Center,
+                                padding: UiRect::horizontal(Val::Px(18.0)),
+                                margin: UiRect::top(Val::Px(4.0)),
+                                border: UiRect::all(Val::Px(1.0)),
+                                border_radius: BorderRadius::all(Val::Px(8.0)),
                                 ..default()
                             },
-                            TextColor(Color::WHITE),
-                            MenuLabel(key),
-                        ));
-                    });
-            }
+                            BackgroundColor(rgb3(theme.0.button)),
+                        ))
+                        .insert(BorderColor::all(Color::srgba(1.0, 1.0, 1.0, 0.08)))
+                        .with_children(|btn| {
+                            btn.spawn((
+                                Text::new(menu_caption(locale.0, &bindings.0, key, &game, &p2p)),
+                                TextFont {
+                                    font_size: FontSize::Px(20.0),
+                                    ..default()
+                                },
+                                TextColor(Color::WHITE),
+                                MenuLabel(key),
+                            ));
+                        });
+                }
+            });
         });
 }
 
