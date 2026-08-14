@@ -18,7 +18,7 @@ in
   options.programs.kde.catppuccin = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = config.nixcfg.gui.enable && pkgs.stdenv.isLinux;
+      default = config.nixcfg.gui.enable && pkgs.stdenv.hostPlatform.isLinux;
       description = "Enable Catppuccin KDE theme";
     };
   };

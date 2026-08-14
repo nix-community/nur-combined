@@ -10,7 +10,7 @@ in
 {
   options.nixcfg.gui.enable = lib.mkEnableOption "GUI Applications" // {
     # macs will always have GUI enabled
-    default = pkgs.stdenv.isDarwin;
+    default = pkgs.stdenv.hostPlatform.isDarwin;
   };
 
   config = lib.mkIf cfg.gui.enable {
@@ -33,7 +33,7 @@ in
           brave
           inkscape
         ]
-        ++ lib.optionals stdenv.isLinux [
+        ++ lib.optionals stdenv.hostPlatform.isLinux [
           element-desktop
           firefox
           ghostty
@@ -55,7 +55,7 @@ in
         #     [
         #       logseq
         #     ]
-        ++ lib.optionals stdenv.isDarwin [
+        ++ lib.optionals stdenv.hostPlatform.isDarwin [
           appcleaner
           # gimp2
           pinentry_mac

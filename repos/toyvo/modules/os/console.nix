@@ -74,7 +74,7 @@ in
             zip
             zstd
           ]
-          ++ lib.optionals stdenv.isLinux [
+          ++ lib.optionals stdenv.hostPlatform.isLinux [
             aha
             clinfo
             fwupd

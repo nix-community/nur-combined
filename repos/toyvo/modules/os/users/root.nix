@@ -5,7 +5,7 @@
   ...
 }:
 let
-  rootHomeDirectory = if pkgs.stdenv.isDarwin then "/var/root" else "/root";
+  rootHomeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/var/root" else "/root";
 in
 {
   options.userPresets.root.enable = lib.mkEnableOption "root user";
@@ -17,7 +17,7 @@ in
         home = rootHomeDirectory;
         shell = pkgs.zsh;
       }
-      (lib.mkIf pkgs.stdenv.isLinux {
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         hashedPassword = "";
       })
     ];

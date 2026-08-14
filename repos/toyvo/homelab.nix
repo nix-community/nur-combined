@@ -73,6 +73,16 @@
         category = "Nas";
         displayName = "Discord Bot UI";
       };
+      forgejo = {
+        port = 3000;
+        subdomain = "git";
+        # git clients need direct access; forgejo handles its own auth
+        forwardAuthGate = false;
+        displayName = "Forgejo";
+        description = "Git Hosting";
+        category = "Nas";
+        icon = "sh-forgejo";
+      };
       cockpit = {
         port = 9091;
         selfSigned = true;

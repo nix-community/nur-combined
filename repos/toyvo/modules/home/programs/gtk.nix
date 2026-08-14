@@ -8,7 +8,7 @@ let
   cfg = config.nixcfg;
 in
 {
-  config = lib.mkIf (cfg.gui.enable && pkgs.stdenv.isLinux) {
+  config = lib.mkIf (cfg.gui.enable && pkgs.stdenv.hostPlatform.isLinux) {
     catppuccin.cursors = {
       accent = config.catppuccin.accent;
       enable = lib.mkDefault true;

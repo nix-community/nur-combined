@@ -94,16 +94,24 @@ in
             echo "Error: No diff found for change $CHANGE_ID" >&2
             exit 1
           fi
-          PI_ARGS="${
-            if cfg.aiDescribe.provider != null then ''--provider "${cfg.aiDescribe.provider}"'' else ""
-          } ${if cfg.aiDescribe.model != null then ''--model "${cfg.aiDescribe.model}"'' else ""}"
+          PI_ARGS=()
+          ${lib.optionalString (
+            cfg.aiDescribe.provider != null
+          ) "PI_ARGS+=(--provider ${lib.escapeShellArg cfg.aiDescribe.provider})"}
+          ${lib.optionalString (
+            cfg.aiDescribe.model != null
+          ) "PI_ARGS+=(--model ${lib.escapeShellArg cfg.aiDescribe.model})"}
           FULL_PROMPT=${lib.escapeShellArg cfg.aiDescribe.prompt}
           if [ -n "$EXTRA_CONTEXT" ]; then
-            FULL_PROMPT="''${EXTRA_CONTEXT}\\n\\n$FULL_PROMPT"
+            FULL_PROMPT="$EXTRA_CONTEXT"$'\n\n'"$FULL_PROMPT"
           fi
-          MESSAGE=$(pi -p --no-session --mode json $PI_ARGS "$FULL_PROMPT\\n\\n$DIFF_OUTPUT" | jq -r 'select(.type == "message_end" and .message.role == "assistant") | .message.content[0].text' 2>/dev/null | head -c 500)
-          # Clean up whitespace
-          MESSAGE=$(echo "$MESSAGE" | tr -d '\\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+          # pi's plain print mode writes only the response text to stdout
+          if ! MESSAGE=$(pi -p --no-session "''${PI_ARGS[@]}" "$FULL_PROMPT"$'\n\n'"$DIFF_OUTPUT"); then
+            echo "Error: pi failed to generate a commit message" >&2
+            exit 1
+          fi
+          # Flatten to one line, cap length, and trim whitespace
+          MESSAGE=$(printf '%s' "$MESSAGE" | tr -d '\n' | head -c 500 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
           if [ -z "$MESSAGE" ]; then
             echo "Error: Failed to generate commit message" >&2
             exit 1

@@ -18,7 +18,7 @@ in
       defaultSopsFile = ../../secrets.yaml;
       age = {
         keyFile = "${config.home.homeDirectory}/${
-          if pkgs.stdenv.isDarwin then "Library/Application Support" else ".config"
+          if pkgs.stdenv.hostPlatform.isDarwin then "Library/Application Support" else ".config"
         }/sops/age/keys.txt";
       };
     };

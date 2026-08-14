@@ -21,7 +21,7 @@ in
   options.nixcfg.users.hermes.enable = lib.mkEnableOption "hermes system user";
 
   config = lib.mkIf cfg.enable {
-    users.users.hermes = lib.mkIf pkgs.stdenv.isLinux {
+    users.users.hermes = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       uid = hermesUid;
       subUidRanges = [
         {
@@ -36,7 +36,7 @@ in
         }
       ];
     };
-    users.groups.hermes = lib.mkIf pkgs.stdenv.isLinux {
+    users.groups.hermes = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       gid = hermesGid;
     };
   };

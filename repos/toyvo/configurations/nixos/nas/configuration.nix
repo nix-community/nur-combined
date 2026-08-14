@@ -104,6 +104,7 @@ in
         443
         5432
         8080
+        3000 # forgejo
         8642 # hermes-agent API (reachable from open-webui container via veth)
         9119 # hermes-dashboard
         8787 # hermes-webui
@@ -183,6 +184,20 @@ in
         ADDR = "0.0.0.0";
         PORT = homelab.${hostName}.services.discord_bot.port;
         BASE_URL = "https://toyvo.dev";
+      };
+    };
+    forgejo = {
+      enable = true;
+      stateDir = "/mnt/POOL/forgejo";
+      database.type = "postgres";
+      settings = {
+        server = {
+          DOMAIN = "git.diekvoss.net";
+          ROOT_URL = "https://git.diekvoss.net/";
+          HTTP_PORT = homelab.${hostName}.services.forgejo.port;
+        };
+        # accounts are created by the admin via CLI, or log in via OAuth
+        service.DISABLE_REGISTRATION = true;
       };
     };
     homepage-dashboard.enable = true;

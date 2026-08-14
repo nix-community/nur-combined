@@ -40,7 +40,7 @@ in
           "/opt/homebrew/bin"
           "/opt/homebrew/sbin"
         ]
-        ++ lib.optionals pkgs.stdenv.isDarwin [
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           "/System/Cryptexes/App/usr/bin"
         ]
         ++ [
@@ -53,7 +53,7 @@ in
           "/usr/local/games"
           "/usr/games"
         ]
-        ++ lib.optionals pkgs.stdenv.isDarwin [
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
           "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
           "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"

@@ -43,7 +43,7 @@ in
         export OPENCODE_API_KEY
       '';
       beets = {
-        enable = pkgs.stdenv.isLinux;
+        enable = pkgs.stdenv.hostPlatform.isLinux;
         settings = {
           plugins = [
             "fetchart"
@@ -142,7 +142,7 @@ in
         ];
       };
       # TODO: undo
-      rio.enable = cfg.gui.enable && pkgs.stdenv.isLinux;
+      rio.enable = cfg.gui.enable && pkgs.stdenv.hostPlatform.isLinux;
       ssh =
         let
           identityConfig = {
@@ -214,7 +214,7 @@ in
         export OPENCODE_API_KEY
       '';
     };
-    services.easyeffects.enable = pkgs.stdenv.isLinux && cfg.gui.enable;
+    services.easyeffects.enable = pkgs.stdenv.hostPlatform.isLinux && cfg.gui.enable;
     sops = {
       secrets = {
         github_toyvo_pat = { };

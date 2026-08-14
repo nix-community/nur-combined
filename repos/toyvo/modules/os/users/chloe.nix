@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.userPresets;
-  homePath = if pkgs.stdenv.isDarwin then "/Users" else "/home";
+  homePath = if pkgs.stdenv.hostPlatform.isDarwin then "/Users" else "/home";
   enableGui = config.nixcfg.gui.enable;
 in
 {
@@ -31,7 +31,7 @@ in
               home = "${homePath}/${cfg.chloe.name}";
               shell = pkgs.fish;
             }
-            (lib.mkIf pkgs.stdenv.isLinux {
+            (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
               isNormalUser = true;
               extraGroups = [
                 "networkmanager"
@@ -43,7 +43,7 @@ in
           ]
         );
       };
-      groups.${cfg.chloe.name} = lib.mkIf pkgs.stdenv.isLinux {
+      groups.${cfg.chloe.name} = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         gid = config.ids.gids.chloe;
       };
     };

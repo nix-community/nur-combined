@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.userPresets;
-  homePath = if pkgs.stdenv.isDarwin then "/Users" else "/home";
+  homePath = if pkgs.stdenv.hostPlatform.isDarwin then "/Users" else "/home";
   enableGui = config.nixcfg.gui.enable or false;
 in
 {
@@ -39,7 +39,7 @@ in
                 homelab.publicKeys."yubikey_usba_ed25519_sk.pub"
               ];
             }
-            (lib.mkIf pkgs.stdenv.isLinux {
+            (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
               isNormalUser = true;
               extraGroups = [
                 "networkmanager"
@@ -55,7 +55,7 @@ in
           ]
         );
       };
-      groups.${cfg.toyvo.name} = lib.mkIf pkgs.stdenv.isLinux {
+      groups.${cfg.toyvo.name} = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         gid = config.ids.gids.toyvo;
       };
     };
@@ -76,7 +76,7 @@ in
 
     # NixOS activation resets home directory permissions via chmod,
     # which wipes ACLs. Restore them after the users activation script.
-    system.activationScripts.fixToyVoACLs = lib.mkIf pkgs.stdenv.isLinux {
+    system.activationScripts.fixToyVoACLs = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       deps = [ "users" ];
       text = ''
         ${pkgs.acl}/bin/setfacl -m u:hermes:rx ${homePath}/${cfg.toyvo.name} 2>/dev/null || true
