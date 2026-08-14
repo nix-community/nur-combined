@@ -15,6 +15,10 @@ pub struct VehicleKit {
     pub traffic: bool,
     pub speed: f32,
     pub collider: [f32; 3],
+    /// 0 = crumple as the crash kit says; 100 = almost no fold.
+    pub stiffness: i32,
+    /// Part names the host may squash on the local up axis (tires, pads, …).
+    pub tires: Vec<String>,
     pub parts: Vec<VehiclePartSpec>,
 }
 
@@ -25,6 +29,8 @@ impl Default for VehicleKit {
             traffic: false,
             speed: 12.0,
             collider: [2.0, 1.0, 3.0],
+            stiffness: 50,
+            tires: Vec::new(),
             parts: vec![VehiclePartSpec {
                 name: "body".into(),
                 size: [2.0, 0.8, 3.0],
@@ -74,6 +80,18 @@ pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
                 if let Some(v) = parse_n(value, 3) {
                     kit.collider = [v[0].max(0.1), v[1].max(0.1), v[2].max(0.1)];
                 }
+            }
+            "stiffness" | "stiff" => {
+                if let Ok(v) = value.trim().parse::<i32>() {
+                    kit.stiffness = v.clamp(0, 100);
+                }
+            }
+            "tire" | "tires" => {
+                kit.tires = value
+                    .split(',')
+                    .map(|n| n.trim().to_string())
+                    .filter(|n| !n.is_empty())
+                    .collect();
             }
             _ => {}
         }
@@ -125,6 +143,20 @@ fn parse_part(value: &str) -> Option<VehiclePartSpec> {
     })
 }
 
+pub fn is_tire(kit: &VehicleKit, name: &str) -> bool {
+    kit.tires.iter().any(|part| part == name)
+}
+
+/// Local-up scale for a named tire. Stiffer kits squash less. Airborne = 1.
+pub fn tire_squash(speed: f32, stiffness: i32, grounded: bool) -> f32 {
+    if !grounded {
+        return 1.0;
+    }
+    let give = (1.0 - stiffness.clamp(0, 100) as f32 / 100.0) * 0.4;
+    let load = (speed.max(0.0) / 35.0).clamp(0.0, 1.0);
+    (1.0 - give * (0.35 + 0.65 * load)).clamp(0.55, 1.0)
+}
+
 /// True when `other` sits in front of a traffic vehicle on the XZ plane.
 pub fn traffic_ahead_blocks(
     origin: [f32; 3],
@@ -168,6 +200,7 @@ mod tests {
         );
         assert_eq!(kit.kind, "car");
         assert!(kit.traffic);
+        assert_eq!(kit.stiffness, 50);
         assert!((kit.speed - 25.0).abs() < 1e-5);
         assert_eq!(kit.parts.len(), 2);
         assert_eq!(kit.parts[0].name, "hull");
@@ -179,6 +212,15 @@ mod tests {
         let kit = parse_vehicle_kit("part=deck,1,1,1,0,0,0,255,128,0");
         assert!((kit.parts[0].rgb[0] - 1.0).abs() < 1e-5);
         assert!((kit.parts[0].rgb[1] - 128.0 / 255.0).abs() < 1e-5);
+        let kit = parse_vehicle_kit("kind=platform;stiffness=95;part=deck,1,1,1,0,0,0,1,1,1");
+        assert_eq!(kit.stiffness, 95);
+        let kit = parse_vehicle_kit("tire=wheel,pad;part=wheel,1,1,1,0,0,0,1,1,1");
+        assert!(is_tire(&kit, "wheel"));
+        assert!(is_tire(&kit, "pad"));
+        assert!(!is_tire(&kit, "hull"));
+        assert!((tire_squash(0.0, 0, false) - 1.0).abs() < 1e-5);
+        assert!(tire_squash(30.0, 0, true) < tire_squash(30.0, 90, true));
+        assert!(tire_squash(30.0, 32, true) < 1.0);
     }
 
     #[test]

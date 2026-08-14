@@ -174,6 +174,57 @@ pub fn parse_planar(text: &str) -> Option<PlanarVel> {
     saw.then_some(vel)
 }
 
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct FireKit {
+    pub heat: f32,
+    pub range: f32,
+    pub consume: bool,
+    pub jump: bool,
+    pub burst: bool,
+    pub out: bool,
+}
+
+pub fn parse_fire_kit(text: &str) -> FireKit {
+    if text.trim().is_empty() {
+        return FireKit {
+            out: true,
+            ..FireKit::default()
+        };
+    }
+    let mut kit = FireKit {
+        heat: 1.0,
+        range: 6.0,
+        ..FireKit::default()
+    };
+    for (key, value) in kit::fields(text) {
+        match key {
+            "heat" => {
+                if let Ok(v) = value.parse::<f32>() {
+                    kit.heat = v.max(0.0);
+                }
+            }
+            "range" => {
+                if let Ok(v) = value.parse::<f32>() {
+                    kit.range = v.max(0.0);
+                }
+            }
+            "consume" => kit.consume = kit::flag(value),
+            "jump" => kit.jump = kit::flag(value),
+            "burst" => kit.burst = kit::flag(value),
+            "out" => kit.out = kit::flag(value),
+            _ => {}
+        }
+    }
+    kit
+}
+
+/// Fold remaining after the rideable's stiffness (0 = kit crumple, 100 = none).
+pub fn apply_stiffness(crumple: i32, stiffness: i32) -> i32 {
+    let crumple = clamp_crash_severity(crumple);
+    let stiff = stiffness.clamp(0, 100) as f32 / 100.0;
+    (crumple as f32 * (1.0 - stiff)).round() as i32
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -228,5 +279,11 @@ mod tests {
         assert!(frac.can && frac.spread == 3);
         assert_eq!(parse_planar("vx=1;vz=-2"), Some(PlanarVel { vx: 1.0, vz: -2.0 }));
         assert_eq!(parse_planar(""), None);
+        let fire = parse_fire_kit("heat=1.2;range=8;consume=1;jump=1;burst=0;out=0");
+        assert!(fire.consume && fire.jump && !fire.out);
+        assert!(parse_fire_kit("").out);
+        assert_eq!(apply_stiffness(80, 0), 80);
+        assert_eq!(apply_stiffness(80, 100), 0);
+        assert!(apply_stiffness(80, 50) < 80);
     }
 }

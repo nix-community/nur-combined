@@ -41,3 +41,38 @@ fn wire_as_text(payload: &hanga::engine::host::Payload) -> Option<&str> {
         _ => None,
     }
 }
+
+fn greet_peers() {
+    #[cfg(target_arch = "wasm32")]
+    {
+        for peer in hanga::engine::host::peers() {
+            let _ = hanga::engine::host::ask(&peer, "hello", &hanga::engine::host::Payload::Empty);
+        }
+    }
+}
+
+#[allow(dead_code)]
+fn host_peers() -> Vec<String> {
+    #[cfg(target_arch = "wasm32")]
+    {
+        hanga::engine::host::peers()
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        Vec::new()
+    }
+}
+
+#[allow(dead_code)]
+fn beside_peer(name: &str) -> bool {
+    host_peers().iter().any(|peer| peer == name)
+}
+
+fn host_log(level: &str, message: &str) {
+    #[cfg(target_arch = "wasm32")]
+    hanga::engine::host::log(level, message);
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let _ = (level, message);
+    }
+}

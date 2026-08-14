@@ -204,6 +204,10 @@ pub struct ModRuntime {
 }
 
 impl ModRuntime {
+    pub fn lead_name(&self) -> &str {
+        &self.lead_name
+    }
+
     pub fn new(wasm_path: &Path) -> Self {
         let (tx, rx) = unbounded();
 

@@ -3,15 +3,19 @@
 Voxel city, subway, GTA wanted level, Teardown buildings, street crafting.
 **Cars belong here**, not in the engine. The host only knows a rideable vehicle
 (kit boxes + occupants). This game's `vehicle-kit` is a street car: hull, cabin,
-lamps, wheels, player red vs traffic colors.
+lamps, wheels, player red vs traffic colors. Street metal is soft (`stiffness=32`);
+`tire=wheel` lets the host squash the wheels when the car is on the ground.
+The testbed pack in Sandbox adds a stiffer cart that uses that pack's crash/fire kits.
 
 **Gravity belongs here.** Streets use Earth (`kind=constant;y=-9.81;jump=5;walk=10`).
 The host only applies the field; a later heist in orbit would ship a different kit.
 
 Cars are **soft street metal** in the BeamNG sense: they fold, shed parts, and
 can become wrecks. The host only measures impact and moves meshes; this mod
-owns how cheap the steel is. A hard wreck can **ignite** (`ignites=1` on
-`crash-kit`); the host only hangs a light. Fuel tanks and spreading fire are later.
+owns how cheap the steel is. A hard wreck can **ignite** (`ignites=1` on `crash-kit`); the host hangs a light
+and then ticks `fire-kit`. Glass / tile / workbench / grass can be consumed.
+Flame jumps to nearby rideables; after eight seconds the tank can burst; after
+twelve the fire goes out.
 
 ## Crash (BeamNG-related, not a full node-beam solver)
 
@@ -21,8 +25,8 @@ tumbles and will not drive, and a high-speed hit that is treated as an explosion
 
 The engine reports impact `speed` (m/s) and `into-solid` (voxel or sudden stop).
 This mod returns severity 0–100 and named outcomes. The host folds remaining
-parts along the travel axis and slides them toward the hit (short beams), not a
-uniform squash.
+parts along the travel axis, slides them toward the hit (short beams), and
+squashes `tire=` parts on the local up axis. That is not a node-beam solver.
 
 | Impact speed | Severity | Visual | Heat |
 | --- | --- | --- | --- |
@@ -58,5 +62,3 @@ chop-shop takes the selected item.
 ## Out of scope (later)
 
 - True node-beam / tire deformation
-- Spreading engine fire / fuel tank burst
-- Multi-mod traffic packs with different stiffness

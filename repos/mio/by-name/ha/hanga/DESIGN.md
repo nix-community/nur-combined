@@ -39,11 +39,15 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - Host imports for mods (`log`, clock, identity, `ask` bus, `payload` bags)
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
-  from a kit, moves occupants, and crumples/detaches named parts. It does not
-  know "car". Thresholds and which parts fly off come from the mod.
+  from a kit, moves occupants, crumples/detaches named parts, and scales fold by
+  `stiffness`. Named `tire=` parts squash on the local up axis when grounded.
+  Crash and fire kits come from the pack that spawned the rideable.
 - Gravity *execution*: apply a field the game named (`none`, constant vector, or
   point attractor). Walk/jump stay on the anti-gravity plane at the kit's
   `walk=` / `jump=` speeds. The host does not invent Earth.
+- Fire *execution*: tick a burn the mod requested (`fire-kit`). The host hangs a
+  light, may unset the voxel under the flame, may ignite another rideable in
+  range, and may burst. It does not know petrol.
 
 Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mod** defines.
 
@@ -54,13 +58,16 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Economy / storyteller
 - Spawn positions
 - What can shatter (`fracture-kit`: can / spread / impulse)
-- Rideable kit (`vehicle-kit`): kind, traffic, speed, collider, named box parts.
-  Urban Chaos ships a car; Testbed ships a platform.
+- Rideable kit (`vehicle-kit`): kind, traffic, speed, stiffness 0–100, `tire=` names, collider, named box parts.
+  Urban Chaos ships a soft car with squashing wheels; Testbed ships a stiff platform (and a stiff cart when packed with Urban Chaos).
 - Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
   plus `jump=` and `walk=`. Urban Chaos is Earth; Testbed is a zero-g lab.
 - Vehicle crash (`crash-kit`): one impact string (severity, crumple, wrecks,
   ignites, action, impulse, detach names). Urban Chaos owns street metal; the
   host only folds boxes and hangs a light.
+- Burn (`fire-kit`): age + nearby voxel name in, heat / range / consume / jump /
+  burst / out. The host only ticks fuel, unsets voxels, jumps the flame, and
+  bursts. Urban Chaos owns street petrol; Testbed never burns.
 - Planar AI (`steer`): role + measured context in, `vx=`/`vz=` out. Cops and
   traffic are role names, not engine types.
 - Passive tick (wanted decay), ambient NPCs
@@ -81,6 +88,7 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 | --- | --- | --- |
 | `urban_chaos` | `urban_chaos` | dusk city, amber title, generated clouds, haze |
 | `testbed` | `testbed` | lab teal, no clouds, dim sun |
+| `sandbox` | `urban_chaos`,`testbed` | city look plus the lab pack's stiff cart |
 
 Load with `--game urban_chaos` (default), `--game testbed`, or `--mod` for a
 lone WASM (implicit one-mod game, neutral menu). Packaged builds install
@@ -168,5 +176,4 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 ## Next
 
 1. Package `cargo-kani` so proofs run as CBMC, not only replay tests
-2. True node-beam / tire deformation (host now folds along the impact axis)
-3. Engine fire that spreads / fuel tanks (host now only hangs a burn light the mod requested)
+2. True node-beam (host now folds along impact and squashes named tires)

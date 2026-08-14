@@ -29,8 +29,8 @@ use hanga::{
     verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 use hanga::crash::{
-    crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed, parse_crash_kit,
-    parse_fracture_kit, parse_planar,
+    apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
+    parse_crash_kit, parse_fire_kit, parse_fracture_kit, parse_planar,
 };
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
@@ -38,7 +38,7 @@ use hanga::gravity::{
     set_planar_velocity, walk_up, GravityKit,
 };
 use hanga::heist::{contract_context, mark_reached, parse_contract_mark, ContractMark};
-use hanga::vehicle::{parse_vehicle_kit, traffic_ahead_blocks, VehicleKit};
+use hanga::vehicle::{is_tire, parse_vehicle_kit, tire_squash, traffic_ahead_blocks, VehicleKit};
 use hanga::game::{
     cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
     MenuBackdrop, DEFAULT_GAME,
@@ -654,10 +654,18 @@ pub struct Vehicle;
 #[derive(Component)]
 pub struct InVehicle(pub Entity);
 
+#[derive(Component)]
+struct VehicleStiffness(i32);
+
+#[derive(Component, Clone)]
+struct VehicleMod(String);
+
 #[derive(Component, Clone)]
 struct VehiclePart {
     name: String,
     size: Vec3,
+    tire: bool,
+    rest_scale: Vec3,
 }
 
 #[derive(Component)]
@@ -674,8 +682,11 @@ struct VehicleCrash {
 #[derive(Component)]
 struct Wrecked;
 
-#[derive(Component)]
-struct Ignited;
+#[derive(Component, Default)]
+struct Ignited {
+    age_ms: i32,
+    bursted: bool,
+}
 
 #[derive(Component)]
 struct IgnitionLight;
@@ -796,6 +807,23 @@ fn with_mod<T>(
     let mut guard = mod_runtime.context.lock().ok()?;
     let ctx = guard.as_mut()?;
     Some(f(ctx))
+}
+
+fn with_named_mod<T>(
+    mod_runtime: &ModRuntime,
+    name: &str,
+    f: impl FnOnce(&mut mod_manager::MainModContext) -> T,
+) -> Option<T> {
+    if !name.is_empty() && name != mod_runtime.lead_name() {
+        for pack in &mod_runtime.packs {
+            if pack.name == name {
+                let mut guard = pack.context.lock().ok()?;
+                let ctx = guard.as_mut()?;
+                return Some(f(ctx));
+            }
+        }
+    }
+    with_mod(mod_runtime, f)
 }
 
 fn with_pack_mods(
@@ -1217,12 +1245,13 @@ fn spawn_play_world(
         },
     ));
 
+    let lead = mod_runtime.lead_name().to_string();
     with_mod(mod_runtime, |ctx| {
-        spawn_mod_traffic(commands, meshes, materials, ctx);
+        spawn_mod_traffic(commands, meshes, materials, &lead, ctx);
     });
     with_pack_mods(mod_runtime, |name, ctx| {
         info!("Spawning pack '{name}' vehicles and agents");
-        spawn_mod_traffic(commands, meshes, materials, ctx);
+        spawn_mod_traffic(commands, meshes, materials, name, ctx);
     });
 }
 
@@ -1230,6 +1259,7 @@ fn spawn_mod_traffic(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
+    owner: &str,
     ctx: &mut mod_manager::MainModContext,
 ) {
     let count = ctx
@@ -1255,6 +1285,7 @@ fn spawn_mod_traffic(
             materials,
             Vec3::new(x as f32, y as f32, z as f32),
             &parse_vehicle_kit(&kit_text),
+            owner,
         );
     }
 
@@ -1388,6 +1419,7 @@ fn spawn_vehicle(
     materials: &mut Assets<StandardMaterial>,
     pos: Vec3,
     kit: &VehicleKit,
+    owner: &str,
 ) {
     let [cx, cy, cz] = kit.collider;
     let mut entity = commands.spawn((
@@ -1395,6 +1427,8 @@ fn spawn_vehicle(
         Name::new("vehicle"),
         Vehicle,
         VehicleDrive { speed: kit.speed },
+        VehicleStiffness(kit.stiffness),
+        VehicleMod(owner.to_string()),
         Transform::from_translation(pos),
         Visibility::default(),
         RigidBody::Dynamic,
@@ -1418,6 +1452,8 @@ fn spawn_vehicle(
                 VehiclePart {
                     name: part.name.clone(),
                     size,
+                    tire: is_tire(kit, &part.name),
+                    rest_scale: Vec3::ONE,
                 },
             ));
         }
@@ -2412,7 +2448,9 @@ impl Plugin for CitySimPlugin {
                 agent_ai_tick,
                 wanted_decay,
                 vehicle_crash_system,
+                tire_deform_system,
                 vehicle_traffic_system,
+                fire_spread_system,
                 flicker_ignition,
             )
                 .chain()
@@ -2448,18 +2486,20 @@ fn vehicle_crash_system(
             &mut AngularVelocity,
             &Children,
             &mut VehicleCrash,
+            &VehicleMod,
+            &VehicleStiffness,
             Option<&Wrecked>,
             Option<&Ignited>,
         ),
         With<Vehicle>,
     >,
-    mut parts: Query<(Entity, &VehiclePart, &mut Transform), Without<Vehicle>>,
+    mut parts: Query<(Entity, &mut VehiclePart, &mut Transform), Without<Vehicle>>,
     mut players: Query<(Entity, Option<&InVehicle>), With<Player>>,
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
     mut events: MessageWriter<ProposedAction>,
 ) {
-    for (entity, transform, velocity, mut angular, children, mut crash, wrecked, ignited) in
+    for (entity, transform, velocity, mut angular, children, mut crash, owner, stiff, wrecked, ignited) in
         vehicles.iter_mut()
     {
         let speed = velocity.length();
@@ -2469,7 +2509,7 @@ fn vehicle_crash_system(
             continue;
         };
         crash.last_speed = speed;
-        let outcome = with_mod(&mod_runtime, |ctx| {
+        let outcome = with_named_mod(&mod_runtime, &owner.0, |ctx| {
             ctx.bindings
                 .hanga_engine_gameplay()
                 .call_crash_kit(&mut ctx.store, impact, into_solid)
@@ -2482,18 +2522,19 @@ fn vehicle_crash_system(
             continue;
         }
         crash.peak = severity;
-        let crumple = outcome.crumple;
+        let crumple = apply_stiffness(outcome.crumple, stiff.0);
         let dir = [velocity.x, velocity.y, velocity.z];
         let axes = crumple_axes(crumple, dir);
         let mut detach = Vec::new();
         for child in children.iter() {
-            let Ok((part_entity, part, mut local)) = parts.get_mut(child) else {
+            let Ok((part_entity, mut part, mut local)) = parts.get_mut(child) else {
                 continue;
             };
             if crash_kit_detaches(&outcome, &part.name) {
                 detach.push((part_entity, part.size, *local));
             } else {
-                local.scale = Vec3::from_array(axes);
+                part.rest_scale = Vec3::from_array(axes);
+                local.scale = part.rest_scale;
                 let shifted = crumple_node_shift(local.translation.to_array(), dir, crumple);
                 local.translation = Vec3::from_array(shifted);
             }
@@ -2525,21 +2566,7 @@ fn vehicle_crash_system(
             }
         }
         if outcome.ignites && ignited.is_none() {
-            commands.entity(entity).insert(Ignited);
-            commands.entity(entity).with_children(|parent| {
-                parent.spawn((
-                    IgnitionLight,
-                    PointLight {
-                        color: Color::srgb(1.0, 0.42, 0.12),
-                        intensity: 400_000.0,
-                        range: 16.0,
-                        radius: 0.35,
-                        shadow_maps_enabled: false,
-                        ..default()
-                    },
-                    Transform::from_xyz(0.0, 0.55, 0.9),
-                ));
-            });
+            hang_ignition(&mut commands, entity);
         }
         let action = outcome.action;
         if action.is_empty() {
@@ -2564,6 +2591,37 @@ fn vehicle_crash_system(
     }
 }
 
+fn tire_deform_system(
+    vehicles: Query<
+        (&Transform, &LinearVelocity, &VehicleStiffness, &Children),
+        (With<Vehicle>, Without<Wrecked>),
+    >,
+    mut parts: Query<(&VehiclePart, &mut Transform), Without<Vehicle>>,
+    voxel_world: VoxelWorld<DefaultWorld>,
+) {
+    for (transform, velocity, stiff, children) in vehicles.iter() {
+        let feet = transform.translation - Vec3::Y * 0.6;
+        let grounded = voxel_is_solid(
+            &voxel_world,
+            [
+                feet.x.round() as i32,
+                feet.y.round() as i32,
+                feet.z.round() as i32,
+            ],
+        );
+        let squash = tire_squash(velocity.length(), stiff.0, grounded);
+        for child in children.iter() {
+            let Ok((part, mut local)) = parts.get_mut(child) else {
+                continue;
+            };
+            if !part.tire {
+                continue;
+            }
+            local.scale = part.rest_scale * Vec3::new(1.0, squash, 1.0);
+        }
+    }
+}
+
 fn path_blocked(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -> bool {
     let fwd = transform.forward();
     for i in 2..=5 {
@@ -2582,7 +2640,7 @@ fn path_blocked(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -
 
 fn vehicle_traffic_system(
     mut vehicles: Query<
-        (Entity, &mut Transform, &mut LinearVelocity, &VehicleDrive),
+        (Entity, &mut Transform, &mut LinearVelocity, &VehicleDrive, &VehicleMod),
         (With<VehicleAi>, Without<Wrecked>, Without<Player>, Without<Debris>),
     >,
     extras: Query<
@@ -2597,13 +2655,13 @@ fn vehicle_traffic_system(
 ) {
     let traffic_spots: Vec<(Entity, Vec3)> = vehicles
         .iter()
-        .map(|(entity, transform, _, _)| (entity, transform.translation))
+        .map(|(entity, transform, _, _, _)| (entity, transform.translation))
         .collect();
     let extra_spots: Vec<(Entity, Vec3)> = extras
         .iter()
         .map(|(entity, transform)| (entity, transform.translation))
         .collect();
-    for (entity, mut transform, mut velocity, drive) in vehicles.iter_mut() {
+    for (entity, mut transform, mut velocity, drive, owner) in vehicles.iter_mut() {
         let fwd = transform.forward();
         let origin = transform.translation.to_array();
         let heading = [fwd.x, fwd.y, fwd.z];
@@ -2617,7 +2675,7 @@ fn vehicle_traffic_system(
                         && traffic_ahead_blocks(origin, heading, pos.to_array(), 12.0, 2.5)
                 });
         }
-        if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
+        if let Some((vx, vz)) = with_named_mod(&mod_runtime, &owner.0, |ctx| {
             let blocked_flag = i32::from(blocked);
             let ctx_text = format!("fwd-x={};fwd-z={};blocked={blocked_flag}", fwd.x, fwd.z);
             ctx.bindings
@@ -2640,6 +2698,110 @@ fn vehicle_traffic_system(
             velocity.x = fwd.x * drive.speed;
             velocity.z = fwd.z * drive.speed;
         }
+    }
+}
+
+fn hang_ignition(commands: &mut Commands, entity: Entity) {
+    commands.entity(entity).insert(Ignited::default());
+    commands.entity(entity).with_children(|parent| {
+        parent.spawn((
+            IgnitionLight,
+            PointLight {
+                color: Color::srgb(1.0, 0.42, 0.12),
+                intensity: 400_000.0,
+                range: 16.0,
+                radius: 0.35,
+                shadow_maps_enabled: false,
+                ..default()
+            },
+            Transform::from_xyz(0.0, 0.55, 0.9),
+        ));
+    });
+}
+
+fn fire_spread_system(
+    mut commands: Commands,
+    time: Res<Time>,
+    mut timer: Local<f32>,
+    mut burning: Query<(Entity, &Transform, &mut Ignited, &Children, &VehicleMod), With<Vehicle>>,
+    cold: Query<(Entity, &Transform), (With<Vehicle>, Without<Ignited>)>,
+    mut lights: Query<&mut PointLight, With<IgnitionLight>>,
+    voxel_world: VoxelWorld<DefaultWorld>,
+    catalog: Res<VoxelCatalog>,
+    mod_runtime: Res<ModRuntime>,
+    players: Query<Entity, With<Player>>,
+    mut events: MessageWriter<ProposedAction>,
+) {
+    *timer += time.delta_secs();
+    if *timer < 0.2 {
+        return;
+    }
+    let dt_ms = (*timer * 1000.0) as i32;
+    *timer = 0.0;
+    let player = players.iter().next();
+    let cold_spots: Vec<(Entity, Vec3)> = cold
+        .iter()
+        .map(|(entity, transform)| (entity, transform.translation))
+        .collect();
+    let mut jump_to = Vec::new();
+    for (entity, transform, mut fire, children, owner) in burning.iter_mut() {
+        fire.age_ms = fire.age_ms.saturating_add(dt_ms);
+        let pos = IVec3::new(
+            transform.translation.x.round() as i32,
+            transform.translation.y.round() as i32,
+            transform.translation.z.round() as i32,
+        );
+        let nearby = voxel_type_of(voxel_world.get_voxel(pos))
+            .and_then(|index| catalog_name(&catalog.0, index).map(str::to_string))
+            .unwrap_or_default();
+        let kit = with_named_mod(&mod_runtime, &owner.0, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_fire_kit(&mut ctx.store, fire.age_ms, &nearby)
+                .unwrap_or_default()
+        })
+        .map(|text| parse_fire_kit(&text))
+        .unwrap_or_else(|| parse_fire_kit(""));
+        if kit.out {
+            for child in children.iter() {
+                if lights.get(child).is_ok() {
+                    commands.entity(child).despawn();
+                }
+            }
+            commands.entity(entity).remove::<Ignited>();
+            continue;
+        }
+        for child in children.iter() {
+            if let Ok(mut light) = lights.get_mut(child) {
+                light.intensity = 180_000.0 + 320_000.0 * kit.heat;
+                light.range = 8.0 + kit.range;
+            }
+        }
+        if kit.consume {
+            if let Some(player_entity) = player {
+                events.write(signed_break(player_entity, pos));
+            }
+        }
+        if kit.burst && !fire.bursted {
+            fire.bursted = true;
+            if let Some(player_entity) = player {
+                events.write(signed_explosion(player_entity, pos, 3.0));
+            }
+        }
+        if kit.jump {
+            let origin = transform.translation;
+            let reach = kit.range.max(1.0);
+            for (other, spot) in &cold_spots {
+                if origin.distance(*spot) <= reach {
+                    jump_to.push(*other);
+                }
+            }
+        }
+    }
+    jump_to.sort();
+    jump_to.dedup();
+    for other in jump_to {
+        hang_ignition(&mut commands, other);
     }
 }
 

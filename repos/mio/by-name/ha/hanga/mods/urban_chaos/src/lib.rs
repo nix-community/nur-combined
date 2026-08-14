@@ -13,15 +13,6 @@ wit_bindgen::generate!({
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
 
-fn host_log(level: &str, message: &str) {
-    #[cfg(target_arch = "wasm32")]
-    hanga::engine::host::log(level, message);
-    #[cfg(not(target_arch = "wasm32"))]
-    {
-        let _ = (level, message);
-    }
-}
-
 use std::sync::OnceLock;
 
 struct UrbanChaosMod;
@@ -449,7 +440,9 @@ pub fn vehicle_kit(index: i32) -> String {
         CAR_BODIES[((index - 1) as usize) % CAR_BODIES.len()]
     };
     let traffic = i32::from(!player);
-    let mut out = format!("kind=car;traffic={traffic};speed=25;collider=2,1.2,4\n");
+    let mut out = format!(
+        "kind=car;traffic={traffic};speed=25;stiffness=32;tire=wheel;collider=2,1.2,4\n"
+    );
     out.push_str(&car_part(
         PART_HULL,
         [1.85, 0.48, 3.80],
@@ -808,6 +801,23 @@ pub fn crash_kit(speed: f32, into_solid: bool) -> String {
     )
 }
 
+pub const FIRE_FUEL_MS: i32 = 12_000;
+pub const FIRE_BURST_MS: i32 = 8_000;
+
+pub fn fire_kit(age_ms: i32, nearby: &str) -> String {
+    if age_ms >= FIRE_FUEL_MS {
+        return "out=1".into();
+    }
+    let consume = i32::from(matches!(
+        nearby,
+        "glass" | "tile" | "workbench" | "grass"
+    ));
+    let jump = i32::from(age_ms >= 400);
+    let burst = i32::from(age_ms >= FIRE_BURST_MS);
+    let heat = 0.45 + (age_ms as f32 / FIRE_FUEL_MS as f32) * 0.9;
+    format!("heat={heat};range=6;consume={consume};jump={jump};burst={burst};out=0")
+}
+
 pub fn contract_label(kind: &str) -> String {
     contract_label_for("en", kind)
 }
@@ -966,6 +976,7 @@ pub fn on_message(from: &str, topic: &str, _payload: &hanga::engine::host::Paylo
 impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
     fn init_mod() {
         let _ = city();
+        crate::greet_peers();
         crate::host_log("info", "urban_chaos ready");
     }
 
@@ -1107,6 +1118,10 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
 
     fn crash_kit(speed: f32, into_solid: bool) -> String {
         crate::crash_kit(speed, into_solid)
+    }
+
+    fn fire_kit(age_ms: i32, nearby: String) -> String {
+        crate::fire_kit(age_ms, &nearby)
     }
 
     fn on_message(
@@ -1550,7 +1565,8 @@ mod tests {
         let player = vehicle_kit(0);
         assert!(player.contains("kind=car"));
         assert!(player.contains("traffic=0"));
-        assert!(player.contains("speed=25"));
+        assert!(player.contains("stiffness=32"));
+        assert!(player.contains("tire=wheel"));
         assert!(player.contains("part=hull"));
         assert!(player.contains("part=cabin"));
         assert!(player.contains("part=wheel"));
@@ -1858,6 +1874,10 @@ mod tests {
         assert!(crash_kit(4.0, true).is_empty());
         assert_eq!(mod_evaluate_action(ACTION_CRASH, 0), 2);
         assert!(crash_part_impulse(80) > crash_part_impulse(20));
+        assert!(fire_kit(0, "asphalt").contains("out=0"));
+        assert!(fire_kit(0, "glass").contains("consume=1"));
+        assert!(fire_kit(FIRE_FUEL_MS, "glass").contains("out=1"));
+        assert!(fire_kit(FIRE_BURST_MS, "asphalt").contains("burst=1"));
         assert_eq!(
             wire_as_text(&on_message("testbed", "ping", &wire_empty())),
             Some("pong")

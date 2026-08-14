@@ -19,15 +19,6 @@ wit_bindgen::generate!({
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
 
-fn host_log(level: &str, message: &str) {
-    #[cfg(target_arch = "wasm32")]
-    hanga::engine::host::log(level, message);
-    #[cfg(not(target_arch = "wasm32"))]
-    {
-        let _ = (level, message);
-    }
-}
-
 struct TestbedMod;
 
 pub const ACTION_BREAK: &str = "break";
@@ -84,12 +75,20 @@ pub fn mod_get_action_range(_action: &str) -> f32 {
     20.0
 }
 
-pub fn compute_traffic_vx(_forward_x: f32, _forward_z: f32, _blocked: bool) -> f32 {
-    0.0
+pub fn compute_traffic_vx(forward_x: f32, _forward_z: f32, blocked: bool) -> f32 {
+    if blocked {
+        0.0
+    } else {
+        forward_x * 8.0
+    }
 }
 
-pub fn compute_traffic_vz(_forward_x: f32, _forward_z: f32, _blocked: bool) -> f32 {
-    0.0
+pub fn compute_traffic_vz(_forward_x: f32, forward_z: f32, blocked: bool) -> f32 {
+    if blocked {
+        0.0
+    } else {
+        forward_z * 8.0
+    }
 }
 
 pub fn mod_get_storyteller_level() -> i32 {
@@ -109,18 +108,36 @@ pub fn player_spawn() -> (i32, i32, i32) {
 }
 
 pub fn vehicle_spawn_count() -> i32 {
-    1
+    if beside_peer("urban_chaos") {
+        2
+    } else {
+        1
+    }
 }
 
-pub fn vehicle_spawn(_index: i32) -> (i32, i32, i32) {
-    (4, 2, 0)
+pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
+    if beside_peer("urban_chaos") {
+        if index <= 0 {
+            (518, 2, 508)
+        } else {
+            (522, 2, 500)
+        }
+    } else {
+        (4, 2, 0)
+    }
 }
 
-/// A rideable slab. Testbed has no cars.
-pub fn vehicle_kit(_index: i32) -> String {
-    "kind=platform;traffic=0;speed=12;collider=2,0.4,2\n\
-     part=deck,2.00,0.20,2.00,0.00,0.00,0.00,0.45,0.45,0.48"
-        .into()
+/// A rideable slab. Stiff lab plate; a second cart appears next to Urban Chaos.
+pub fn vehicle_kit(index: i32) -> String {
+    if beside_peer("urban_chaos") && index >= 1 {
+        "kind=cart;traffic=1;speed=8;stiffness=88;collider=1.6,0.5,2.2\n\
+         part=deck,1.60,0.18,2.20,0.00,0.00,0.00,0.55,0.62,0.58"
+            .into()
+    } else {
+        "kind=platform;traffic=0;speed=12;stiffness=95;collider=2,0.4,2\n\
+         part=deck,2.00,0.20,2.00,0.00,0.00,0.00,0.45,0.45,0.48"
+            .into()
+    }
 }
 
 /// Lab void: no gravity. Debris and the player stay where they are.
@@ -308,6 +325,10 @@ pub fn crash_kit(_speed: f32, _into_solid: bool) -> String {
     String::new()
 }
 
+pub fn fire_kit(_age_ms: i32, _nearby: &str) -> String {
+    String::new()
+}
+
 pub fn on_message(from: &str, topic: &str, _payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
     match topic {
         "ping" => wire_text("pong"),
@@ -321,6 +342,7 @@ pub fn on_message(from: &str, topic: &str, _payload: &hanga::engine::host::Paylo
 
 impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn init_mod() {
+        crate::greet_peers();
         crate::host_log("info", "testbed ready");
     }
     fn voxel_catalog() -> String {
@@ -435,7 +457,9 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn crash_kit(speed: f32, into_solid: bool) -> String {
         crate::crash_kit(speed, into_solid)
     }
-
+    fn fire_kit(age_ms: i32, nearby: String) -> String {
+        crate::fire_kit(age_ms, &nearby)
+    }
     fn on_message(
         caller: String,
         topic: String,
@@ -522,6 +546,7 @@ mod tests {
         assert!(crash_action(100).is_empty());
         assert_eq!(crash_ignites(100), 0);
         assert!(crash_kit(40.0, true).is_empty());
+        assert!(fire_kit(9_000, "glass").is_empty());
         assert_eq!(
             wire_as_text(&on_message("urban_chaos", "ping", &wire_empty())),
             Some("pong")
@@ -536,8 +561,10 @@ mod tests {
     fn testbed_vehicle_is_a_platform() {
         let kit = vehicle_kit(0);
         assert!(kit.contains("kind=platform"));
+        assert!(kit.contains("stiffness=95"));
         assert!(kit.contains("part=deck"));
         assert!(!kit.contains("kind=car"));
+        assert_eq!(vehicle_spawn_count(), 1);
     }
 
     #[test]
