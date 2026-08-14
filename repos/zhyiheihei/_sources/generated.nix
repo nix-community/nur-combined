@@ -65,7 +65,18 @@
     };
     date = "2026-07-11";
   };
-  hubproxy = {
+    foundation-sunshine = {
+    pname = "foundation-sunshine";
+    version = "v2026.814.163510.杂鱼";
+    src = fetchFromGitHub {
+      owner = "AlkaidLab";
+      repo = "foundation-sunshine";
+      tag = "v2026.814.163510.杂鱼";
+      fetchSubmodules = true;
+      hash = "sha256-SSfOPNTFbkM8e0IMAWBODNqrDjS8eBOOmK8uSszBfyM=";
+    };
+  };
+hubproxy = {
     pname = "hubproxy";
     version = "v1.2.5";
     src = fetchFromGitHub {

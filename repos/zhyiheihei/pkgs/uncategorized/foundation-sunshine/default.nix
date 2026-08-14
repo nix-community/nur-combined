@@ -53,10 +53,25 @@
 }:
 let
   inherit (sources.foundation-sunshine) src;
-  # Source tag is v2026.814.125648.杂鱼 (the upstream release tags carry a
+  # Source tag is v2026.814.163510.杂鱼 (the upstream release tags carry a
   # CJK suffix); keep a clean nix version here while the source itself is
   # tracked by nvfetcher.
-  version = "2026.814.125648";
+  version = "2026.814.163510";
+
+  # pre-built ffmpeg from AlkaidLab/foundation-build-deps (the fork's
+  # counterpart of LizardByte/build-deps), mirroring the nixpkgs sunshine
+  # approach of avoiding network I/O at configure time.
+  ffmpegArch =
+    {
+      x86_64-linux = "Linux-x86_64";
+      aarch64-linux = "Linux-aarch64";
+    }
+    .${stdenv.hostPlatform.system}
+      or (throw "foundation-sunshine: unsupported system ${stdenv.hostPlatform.system} for prebuilt ffmpeg");
+  ffmpegPrebuilt = fetchzip {
+    url = "https://github.com/AlkaidLab/foundation-build-deps/releases/download/v2026.507.72908/${ffmpegArch}-ffmpeg.tar.gz";
+    sha256 = "01bc87k8i81nmdblkqy50xw3a959bqypfmd137bvxs98mlpvw2c7";
+  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "foundation-sunshine";
@@ -79,21 +94,6 @@ stdenv.mkDerivation (finalAttrs: {
 
       runHook postInstall
     '';
-  };
-
-  # pre-built ffmpeg from AlkaidLab/foundation-build-deps (the fork's
-  # counterpart of LizardByte/build-deps), mirroring the nixpkgs sunshine
-  # approach of avoiding network I/O at configure time.
-  ffmpegArch =
-    {
-      x86_64-linux = "Linux-x86_64";
-      aarch64-linux = "Linux-aarch64";
-    }
-    .${stdenv.hostPlatform.system}
-      or (throw "foundation-sunshine: unsupported system ${stdenv.hostPlatform.system} for prebuilt ffmpeg");
-  ffmpegPrebuilt = fetchzip {
-    url = "https://github.com/AlkaidLab/foundation-build-deps/releases/download/v2026.507.72908/${ffmpegArch}-ffmpeg.tar.gz";
-    sha256 = "01bc87k8i81nmdblkqy50xw3a959bqypfmd137bvxs98mlpvw2c7";
   };
 
   postPatch =
