@@ -43,8 +43,9 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
   from a kit, moves occupants, crumples/detaches named parts, and scales fold by
   `stiffness`. Named `tire=` parts squash on the local up axis when grounded.
-  Named `beam=` links keep rest length (shortened by crumple, relaxed a few
-  passes so chains settle). Crash and fire kits come from the pack that spawned
+  Named `beam=` links keep rest length (shortened by crumple). The host
+  relaxes a small lattice: the first kit part stays pinned, other nodes
+  share the length error. Crash and fire kits come from the pack that spawned
   the rideable.
 - Gravity *execution*: apply a field the game named (`none`, constant vector, or
   point attractor). Walk/jump stay on the anti-gravity plane at the kit's
@@ -180,4 +181,3 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 ## Next
 
 1. Package `cargo-kani` so proofs run as CBMC, not only replay tests
-2. A real node-beam lattice (host now shortens named `beam=` rest lengths on crumple)

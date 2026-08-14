@@ -29,8 +29,8 @@ tumbles and will not drive, and a high-speed hit that is treated as an explosion
 The engine reports impact `speed` (m/s) and `into-solid` (voxel or sudden stop).
 This mod returns severity 0–100 and named outcomes. The host folds remaining
 parts along the travel axis, slides them toward the hit, shortens named `beam=`
-links, and squashes `tire=` parts on the local up axis. That is not a node-beam
-solver.
+links (pinned lattice), and squashes `tire=` parts on the local up axis. That is
+not BeamNG's solver.
 
 | Impact speed | Severity | Visual | Heat |
 | --- | --- | --- | --- |

@@ -19,7 +19,8 @@ pub struct VehicleKit {
     pub stiffness: i32,
     /// Part names the host may squash on the local up axis (tires, pads, …).
     pub tires: Vec<String>,
-    /// Named rest-length links. The host shortens these on crumple; it does not solve a lattice.
+    /// Named rest-length links. The host shortens these on crumple and relaxes a lattice
+    /// (first kit part stays pinned so the collider origin does not drift).
     pub beams: Vec<(String, String)>,
     pub parts: Vec<VehiclePartSpec>,
 }
@@ -208,7 +209,46 @@ pub fn beam_constrain(anchor: [f32; 3], other: [f32; 3], length: f32) -> [f32; 3
     ]
 }
 
-pub const BEAM_ROUNDS: u32 = 4;
+/// Split the length error equally (neither node pinned).
+pub fn beam_relax(a: [f32; 3], b: [f32; 3], length: f32) -> ([f32; 3], [f32; 3]) {
+    let dx = b[0] - a[0];
+    let dy = b[1] - a[1];
+    let dz = b[2] - a[2];
+    let len = (dx * dx + dy * dy + dz * dz).sqrt();
+    if len < 1e-4 {
+        return (a, b);
+    }
+    let half = (len - length) * 0.5;
+    let ux = dx / len;
+    let uy = dy / len;
+    let uz = dz / len;
+    (
+        [a[0] + ux * half, a[1] + uy * half, a[2] + uz * half],
+        [b[0] - ux * half, b[1] - uy * half, b[2] - uz * half],
+    )
+}
+
+/// One Gauss–Seidel step. A pinned node stays put; the other slides to `length`.
+pub fn beam_step(
+    a: [f32; 3],
+    b: [f32; 3],
+    length: f32,
+    pin_a: bool,
+    pin_b: bool,
+) -> ([f32; 3], [f32; 3]) {
+    match (pin_a, pin_b) {
+        (true, true) => (a, b),
+        (true, false) => (a, beam_constrain(a, b, length)),
+        (false, true) => (beam_constrain(b, a, length), b),
+        (false, false) => beam_relax(a, b, length),
+    }
+}
+
+pub fn beam_pin_name(parts: &[VehiclePartSpec]) -> Option<&str> {
+    parts.first().map(|part| part.name.as_str())
+}
+
+pub const BEAM_ROUNDS: u32 = 8;
 
 /// True when `other` sits in front of a traffic vehicle on the XZ plane.
 pub fn traffic_ahead_blocks(
@@ -285,19 +325,23 @@ mod tests {
         assert!((rest - 0.5).abs() < 1e-5);
         let pulled = beam_constrain([0.0, 0.0, 0.0], [0.0, 1.0, 0.0], 0.4);
         assert!((pulled[1] - 0.4).abs() < 1e-5);
+        let (left, right) = beam_relax([0.0, 0.0, 0.0], [0.0, 2.0, 0.0], 1.0);
+        assert!((left[1] - 0.5).abs() < 1e-5);
+        assert!((right[1] - 1.5).abs() < 1e-5);
+        assert_eq!(beam_pin_name(&kit.parts), Some("hull"));
         assert!(beam_length(1.0, 80, 0) < beam_length(1.0, 80, 90));
-        let hull = [0.0, 0.0, 0.0];
+        let mut hull = [0.0, 0.0, 0.0];
         let mut cabin = [0.0, 1.0, 0.0];
         let mut lamp = [0.0, 2.0, 0.0];
-        lamp = beam_constrain(cabin, lamp, 0.5);
-        cabin = beam_constrain(hull, cabin, 0.5);
-        assert!((lamp[1] - 2.0).abs() > 0.4);
         for _ in 0..BEAM_ROUNDS {
-            cabin = beam_constrain(hull, cabin, 0.5);
-            lamp = beam_constrain(cabin, lamp, 0.5);
+            (hull, cabin) = beam_step(hull, cabin, 0.5, true, false);
+            (cabin, lamp) = beam_step(cabin, lamp, 0.5, false, false);
+            (cabin, lamp) = beam_step(cabin, lamp, 0.5, false, false);
+            (hull, cabin) = beam_step(hull, cabin, 0.5, true, false);
         }
-        assert!((cabin[1] - 0.5).abs() < 1e-4);
-        assert!((lamp[1] - 1.0).abs() < 1e-4);
+        assert!((hull[1]).abs() < 1e-4);
+        assert!((cabin[1] - 0.5).abs() < 1e-3);
+        assert!((lamp[1] - 1.0).abs() < 1e-3);
     }
 
     #[test]

@@ -40,8 +40,8 @@ use hanga::gravity::{
 };
 use hanga::heist::{contract_context, mark_reached, parse_contract_mark, ContractMark};
 use hanga::vehicle::{
-    beam_constrain, beam_length, is_tire, parse_vehicle_kit, tire_squash, traffic_ahead_blocks,
-    VehicleKit, BEAM_ROUNDS,
+    beam_length, beam_pin_name, beam_step, is_tire, parse_vehicle_kit, tire_squash,
+    traffic_ahead_blocks, VehicleKit, BEAM_ROUNDS,
 };
 use hanga::game::{
     cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
@@ -692,7 +692,10 @@ struct BeamLink {
 }
 
 #[derive(Component, Default)]
-struct VehicleBeams(Vec<BeamLink>);
+struct VehicleBeams {
+    pin: String,
+    links: Vec<BeamLink>,
+}
 
 #[derive(Component)]
 struct VehicleDrive {
@@ -1456,7 +1459,10 @@ fn spawn_vehicle(
         VehicleDrive { speed: kit.speed },
         VehicleStiffness(kit.stiffness),
         VehicleMod(owner.to_string()),
-        VehicleBeams(spawn_beam_links(kit)),
+        VehicleBeams {
+            pin: beam_pin_name(&kit.parts).unwrap_or("").to_string(),
+            links: spawn_beam_links(kit),
+        },
         Transform::from_translation(pos),
         Visibility::default(),
         RigidBody::Dynamic,
@@ -1518,42 +1524,49 @@ fn apply_beam_links(
 ) {
     let skipped: std::collections::HashSet<Entity> =
         detach.iter().map(|(entity, _, _)| *entity).collect();
+    let mut nodes = std::collections::HashMap::<String, Entity>::new();
+    let mut pos = std::collections::HashMap::<String, [f32; 3]>::new();
+    for child in children.iter() {
+        if skipped.contains(&child) {
+            continue;
+        }
+        let Ok((_, part, local)) = parts.get(child) else {
+            continue;
+        };
+        if nodes.contains_key(&part.name) {
+            continue;
+        }
+        nodes.insert(part.name.clone(), child);
+        pos.insert(part.name.clone(), local.translation.to_array());
+    }
     for _ in 0..BEAM_ROUNDS {
-        let mut used = std::collections::HashSet::new();
-        for link in &beams.0 {
-            let mut anchor = None;
-            for child in children.iter() {
-                if skipped.contains(&child) {
-                    continue;
-                }
-                let Ok((_, part, local)) = parts.get_mut(child) else {
-                    continue;
-                };
-                if part.name == link.from {
-                    anchor = Some(local.translation.to_array());
-                    break;
-                }
-            }
-            let Some(anchor) = anchor else {
+        for link in beams.links.iter().chain(beams.links.iter().rev()) {
+            let Some(a) = pos.get(&link.from).copied() else {
+                continue;
+            };
+            let Some(b) = pos.get(&link.to).copied() else {
                 continue;
             };
             let length = beam_length(link.rest, crumple, stiffness);
-            for child in children.iter() {
-                if used.contains(&child) || skipped.contains(&child) {
-                    continue;
-                }
-                let Ok((_, part, mut local)) = parts.get_mut(child) else {
-                    continue;
-                };
-                if part.name != link.to {
-                    continue;
-                }
-                local.translation =
-                    Vec3::from_array(beam_constrain(anchor, local.translation.to_array(), length));
-                used.insert(child);
-                break;
-            }
+            let (na, nb) = beam_step(
+                a,
+                b,
+                length,
+                link.from == beams.pin,
+                link.to == beams.pin,
+            );
+            pos.insert(link.from.clone(), na);
+            pos.insert(link.to.clone(), nb);
         }
+    }
+    for (name, entity) in nodes {
+        let Some(xyz) = pos.get(&name) else {
+            continue;
+        };
+        let Ok((_, _, mut local)) = parts.get_mut(entity) else {
+            continue;
+        };
+        local.translation = Vec3::from_array(*xyz);
     }
 }
 
