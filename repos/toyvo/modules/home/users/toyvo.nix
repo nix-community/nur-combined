@@ -255,6 +255,7 @@ in
         '';
         "shell-secrets.env".content = ''
           OPENCODE_API_KEY=${config.sops.placeholder.opencode_api_key}
+          ZED_OPEN_AI_COMPATIBLE_EDIT_PREDICTION_API_KEY=${config.sops.placeholder.opencode_api_key}
         '';
       };
     };

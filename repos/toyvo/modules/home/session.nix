@@ -3,10 +3,14 @@
   lib,
   pkgs,
   system,
+  osConfig ? null,
   ...
 }:
 let
   cfg = config.nixcfg.session;
+  # Machines serving cache.toyvo.dev via nix-serve should not substitute from
+  # it; everything it publishes is already in the local store.
+  hostServesCache = osConfig != null && (osConfig.services.nix-serve.enable or false);
 in
 {
   options = {
@@ -64,7 +68,9 @@ in
     xdg.configFile = {
       "nix/nix.conf".text = ''
         experimental-features = nix-command flakes pipe-operators
-        substituters = https://cache.nixos.org https://nix-community.cachix.org https://cache.toyvo.dev
+        substituters = https://cache.nixos.org https://nix-community.cachix.org${
+          lib.optionalString (!hostServesCache) " https://cache.toyvo.dev"
+        }
         trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.toyvo.dev:6bv4Qc2/SVaWnWzDOUcoB4pT3i3l4wcM+WrhRBFb7E4=
       '';
       "nixpkgs/config.nix".text = ''

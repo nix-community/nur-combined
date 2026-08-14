@@ -97,6 +97,11 @@ in
   hardware.cpu.amd.updateMicrocode = true;
   networking = {
     hostName = "nas";
+    # Resolve the cache domain via the router over LAN. The nas itself is
+    # excluded from using it as a substituter (nixcfg.nix.excludeOwnCache),
+    # but trusted users and CI can still pick it up from this flake's public
+    # nixConfig, and the WAN path back in (hairpin) is broken.
+    hosts."${homelab.router.ip}" = [ "cache.toyvo.dev" ];
     firewall = {
       allowedTCPPorts = [
         80

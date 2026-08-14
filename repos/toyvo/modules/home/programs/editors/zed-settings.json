@@ -62,7 +62,7 @@
   "edit_predictions": {
     "provider": "open_ai_compatible_api",
     "open_ai_compatible_api": {
-      "api_url": "https://opencode.ai/zen/go/v1/completions",
+      "api_url": "https://opencode.ai/zen/v1/completions",
       "model": "deepseek-v4-flash-free",
       "prompt_format": "infer",
       "max_output_tokens": 512

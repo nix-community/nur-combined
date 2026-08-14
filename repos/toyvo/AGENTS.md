@@ -271,7 +271,11 @@ Configured substituters:
 
 - `https://cache.nixos.org`
 - `https://nix-community.cachix.org`
-- `https://cache.toyvo.dev`
+- `https://cache.toyvo.dev` — served by nix-serve on the nas out of its local
+  store. Automatically excluded from substituters on the machine serving it
+  (`nixcfg.nix.excludeOwnCache`, defaults to `services.nix-serve.enable`), and
+  the nas resolves the domain to the router's LAN IP so trusted-user/CI builds
+  that pick it up from the flake's `nixConfig` don't hairpin the WAN.
 
 ## Git Hooks
 
