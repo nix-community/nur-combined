@@ -24,6 +24,7 @@ use hanga::{
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
     is_action_physically_possible, is_connected_to_ground, parse_name_catalog,
+    overlay_get, overlay_set, VoxelOverlay,
     cycle_p2p_url, merge_name_catalogs, parse_p2p_url, p2p_room_name,
     resolve_wasm_path, should_skip_menu, unpack_economy_params,
     verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
@@ -146,9 +147,21 @@ fn note_voxel_edit(edits: &mut VoxelEdits, pos: IVec3) {
     }
 }
 
-fn rebake_voxel_edits(voxel_world: &mut VoxelWorld<DefaultWorld>, edits: &VoxelEdits) {
+fn rebake_voxel_edits(
+    voxel_world: &mut VoxelWorld<DefaultWorld>,
+    edits: &VoxelEdits,
+    catalog: &[String],
+) {
     for pos in &edits.0 {
-        voxel_world.set_voxel(*pos, query_lead_voxel(*pos));
+        let baked = match overlay_get(pos.x, pos.y, pos.z) {
+            Some(VoxelOverlay::Air) => WorldVoxel::Unset,
+            Some(VoxelOverlay::Solid(name)) => catalog_index(catalog, &name)
+                .filter(|index| *index > 0)
+                .map(|index| WorldVoxel::Solid(clamp_voxel_type(index as i32)))
+                .unwrap_or_else(|| query_lead_voxel(*pos)),
+            None => query_lead_voxel(*pos),
+        };
+        voxel_world.set_voxel(*pos, baked);
     }
 }
 
@@ -1118,6 +1131,7 @@ fn rebake_voxels_on_switch(
     mut last: Local<String>,
     mut voxel_world: VoxelWorld<DefaultWorld>,
     edits: Res<VoxelEdits>,
+    catalog: Res<VoxelCatalog>,
 ) {
     if world_for.0.is_empty() || world_for.0 == *last {
         return;
@@ -1126,7 +1140,7 @@ fn rebake_voxels_on_switch(
     if edits.0.is_empty() {
         return;
     }
-    rebake_voxel_edits(&mut voxel_world, &edits);
+    rebake_voxel_edits(&mut voxel_world, &edits, &catalog.0);
 }
 
 fn retire_voxel_chunks(
@@ -1607,6 +1621,7 @@ fn teardown_fracture(
 
     voxel_world.set_voxel(origin, WorldVoxel::Unset);
     note_voxel_edit(edits, origin);
+    overlay_set(origin.x, origin.y, origin.z, VoxelOverlay::Air);
     if origin_kit.can {
         spawn_debris(
             commands,
@@ -1652,6 +1667,7 @@ fn teardown_fracture(
     for (npos, dx, dy, dz) in collapse {
         voxel_world.set_voxel(npos, WorldVoxel::Unset);
         note_voxel_edit(edits, npos);
+        overlay_set(npos.x, npos.y, npos.z, VoxelOverlay::Air);
         let n_out = Vec3::new(dx as f32, dy as f32 + 1.0, dz as f32).normalize_or_zero() * impulse;
         spawn_debris(
             commands,
@@ -2013,6 +2029,12 @@ fn validate_incoming_actions(
                 info!("Action Verified! Placing {voxel} at {:?}", voxel_pos);
                 voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(clamp_voxel_type(index as i32)));
                 note_voxel_edit(&mut edits, voxel_pos);
+                overlay_set(
+                    voxel_pos.x,
+                    voxel_pos.y,
+                    voxel_pos.z,
+                    VoxelOverlay::Solid(voxel.clone()),
+                );
                 apply_mod_action(
                     &mut commands,
                     &mut meshes,

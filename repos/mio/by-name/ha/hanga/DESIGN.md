@@ -8,8 +8,8 @@ must not live as extra WIT functions. Host-facing kits (`crash-kit`, `vehicle-ki
 Unknown keys are ignored.
 
 **Engine API** (`import host`): `log`, `now-ms`, `self-name`, `peers`, `ask`,
-`voxel-at`. `voxel-at` names the lead generator cell (`air` if missing); it does
-not see player edits.
+`voxel-at`. `voxel-at` names the lead generator cell (`air` if missing). Player
+breaks and places overlay that sample so packs see the edited world.
 `payload` is a WIT variant: `empty`, `flag`, `int`, `float`, `text`, or `bag`
 (list of `{key, atom}`). WIT here cannot recurse, so deeper trees use dotted
 keys (`part.wheel`). `ask` and `on-message` use `payload`. `peers` is a list of

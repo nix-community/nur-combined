@@ -152,6 +152,44 @@ pub fn catalog_index(catalog: &[String], name: &str) -> Option<u8> {
         .and_then(|i| u8::try_from(i).ok())
 }
 
+/// Player edits `voxel-at` can see. Worldgen is used when a cell is absent.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum VoxelOverlay {
+    Air,
+    Solid(String),
+}
+
+static VOXEL_OVERLAY: std::sync::LazyLock<
+    std::sync::RwLock<std::collections::HashMap<(i32, i32, i32), VoxelOverlay>>,
+> = std::sync::LazyLock::new(|| std::sync::RwLock::new(std::collections::HashMap::new()));
+
+pub fn overlay_get(x: i32, y: i32, z: i32) -> Option<VoxelOverlay> {
+    VOXEL_OVERLAY
+        .read()
+        .ok()?
+        .get(&(x, y, z))
+        .cloned()
+}
+
+pub fn overlay_set(x: i32, y: i32, z: i32, voxel: VoxelOverlay) {
+    if let Ok(mut map) = VOXEL_OVERLAY.write() {
+        map.insert((x, y, z), voxel);
+    }
+}
+
+pub fn overlay_clear() {
+    if let Ok(mut map) = VOXEL_OVERLAY.write() {
+        map.clear();
+    }
+}
+
+pub fn overlay_name(x: i32, y: i32, z: i32) -> Option<String> {
+    match overlay_get(x, y, z)? {
+        VoxelOverlay::Air => Some("air".into()),
+        VoxelOverlay::Solid(name) => Some(name),
+    }
+}
+
 // ─── Connectivity (Teardown support) ──────────────────────────────────────────
 
 const FACE_NEIGHBORS: [(i32, i32, i32); 6] = [
@@ -743,6 +781,14 @@ mod tests {
             parse_name_catalog("air,concrete,glass"),
         ]);
         assert_eq!(merged, ["air", "concrete", "asphalt", "glass"]);
+        overlay_clear();
+        overlay_set(1, 2, 3, VoxelOverlay::Air);
+        overlay_set(4, 5, 6, VoxelOverlay::Solid("glass".into()));
+        assert_eq!(overlay_name(1, 2, 3).as_deref(), Some("air"));
+        assert_eq!(overlay_name(4, 5, 6).as_deref(), Some("glass"));
+        assert_eq!(overlay_name(0, 0, 0), None);
+        overlay_clear();
+        assert_eq!(overlay_name(1, 2, 3), None);
     }
 
     // ── is_connected_to_ground ────────────────────────────────────────────────

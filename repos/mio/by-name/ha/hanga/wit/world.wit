@@ -37,7 +37,7 @@ interface host {
     /// Call another mod's `on-message`. Empty peer = broadcast; first non-empty reply wins.
     /// Nested asks that would re-enter a locked store return `empty`.
     ask: func(peer: string, topic: string, payload: payload) -> payload;
-    /// Lead worldgen name at this cell. `air` if missing. Does not see player edits.
+    /// Lead worldgen name at this cell, or a player edit (`air` if empty).
     voxel-at: func(x: s32, y: s32, z: s32) -> string;
 }
 

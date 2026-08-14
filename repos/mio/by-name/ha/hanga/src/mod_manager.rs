@@ -165,6 +165,9 @@ fn deliver(
 }
 
 fn sample_lead_voxel(x: i32, y: i32, z: i32) -> String {
+    if let Some(name) = ::hanga::overlay_name(x, y, z) {
+        return name;
+    }
     let Ok(shared) = SHARED_WASM.read() else {
         return "air".into();
     };
