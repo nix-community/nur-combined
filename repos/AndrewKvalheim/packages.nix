@@ -49,6 +49,7 @@ specify {
   filter-imf = any;
   firefox.overlay = w: { makeWrapperArgs = w.makeWrapperArgs ++ [ "--unset" "LC_TIME" ]; }; # Workaround for bugzilla#1269895
   freecad.env.GSETTINGS_SCHEMA_DIR = "${resolved.gtk3}/share/gsettings-schemas/${resolved.gtk3.name}/glib-2.0/schemas"; # Workaround for NixOS/nixpkgs#467783
+  gimp3-with-plugins.env.QT_QPA_PLATFORM = "wayland-egl"; # Work around “Plug-in crashed: gmic_gimp_qt” (TODO: Upstream)
   git-diff-image = any;
   git-diff-minecraft = any;
   git-remote = any;
