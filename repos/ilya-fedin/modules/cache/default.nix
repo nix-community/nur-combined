@@ -6,7 +6,7 @@ let
 in {
   options = {
     nur.ilya-fedin.cache = {
-      enable = mkEnableOption "Whether to enable binary cache for ilya-fedin's NUR.";
+      enable = mkEnableOption "enable binary cache for ilya-fedin's NUR.";
     };
   };
 
