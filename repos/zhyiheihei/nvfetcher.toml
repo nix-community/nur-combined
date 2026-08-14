@@ -33,16 +33,21 @@ src.github_tag = "mxcoras/jieba-next"
 [moviepilot]
 fetch.github = "jxxghp/MoviePilot"
 src.github = "jxxghp/MoviePilot"
+src.include_regex = "^v3\\.\\d+\\.\\d+$"
 
 [moviepilot-frontend]
 fetch.url = "https://github.com/jxxghp/MoviePilot-Frontend/releases/download/$ver/dist.zip"
 src.github_tag = "jxxghp/MoviePilot-Frontend"
-src.include_regex = "^v2\\.\\d+\\.\\d+$"
+src.include_regex = "^v3\\.\\d+\\.\\d+$"
 
 [moviepilot-resources]
 fetch.git = "https://github.com/jxxghp/MoviePilot-Resources"
 src.git = "https://github.com/jxxghp/MoviePilot-Resources"
 src.branch = "main"
+
+[moviepilot-rust]
+fetch.pypi = "moviepilot-rust"
+src.pypi = "moviepilot-rust"
 
 [nexus-media]
 fetch.github = "linyuan0213/nexus-media"
