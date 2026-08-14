@@ -83,7 +83,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   spmDeps = stdenvNoCC.mkDerivation {
     name = "telegram-mac-spm";
     outputHashMode = "recursive";
-    outputHash = "sha256-2MxwU1tNz3oCCwRSNvSS5hRSWZd87gtlJDQfN7TFwaQ=";
+    outputHash = "sha256-gUhvx3B/16HIZ40Lda2pFhveKIKXERe1VmO9y42R0bc=";
 
     inherit (finalAttrs) src;
     nativeBuildInputs = [ writableTmpDirAsHomeHook ];
