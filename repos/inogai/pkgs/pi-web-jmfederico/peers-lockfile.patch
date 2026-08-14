@@ -1,3 +1,5 @@
+diff --git a/package-lock.json b/package-lock.json
+index bc091be..e90f6d8 100644
 --- a/package-lock.json
 +++ b/package-lock.json
 @@ -34,7 +34,10 @@
@@ -6,9 +8,9 @@
          "undici": "^8.5.0",
 -        "ws": "^8.21.0"
 +        "ws": "^8.21.0",
-+        "@earendil-works/pi-agent-core": "^0.83.0",
-+        "@earendil-works/pi-ai": "^0.83.0",
-+        "@earendil-works/pi-coding-agent": "^0.83.0"
++        "@earendil-works/pi-agent-core": "^0.84.1",
++        "@earendil-works/pi-ai": "^0.84.1",
++        "@earendil-works/pi-coding-agent": "^0.84.1"
        },
        "bin": {
          "pi-web": "dist/cli.js",
@@ -16,16 +18,9 @@
        },
        "devDependencies": {
          "@changesets/cli": "^2.31.0",
--        "@earendil-works/pi-agent-core": "^0.83.0",
--        "@earendil-works/pi-ai": "^0.83.0",
--        "@earendil-works/pi-coding-agent": "^0.83.0",
+-        "@earendil-works/pi-agent-core": "^0.84.1",
+-        "@earendil-works/pi-ai": "^0.84.1",
+-        "@earendil-works/pi-coding-agent": "^0.84.1",
          "@eslint/js": "^10.0.1",
          "@types/node": "^24.13.3",
          "@types/ws": "^8.18.1",
-@@ -10084,4 +10084,4 @@
-       }
-     }
-   }
--}
-+}
-\ No newline at end of file

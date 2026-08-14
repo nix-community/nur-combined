@@ -1,6 +1,6 @@
---- a/package-lock.json
-+++ b/package-lock.json
-@@ -1598,7 +1598,8 @@
+diff --git a/package-lock.json b/package-lock.json
+index bc091be..e90f6d8 100644
+@@ -1557,7 +1557,8 @@
        },
        "engines": {
          "node": ">=22.19.0"
@@ -10,7 +10,7 @@
      },
      "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai": {
        "version": "0.84.1",
-@@ -1623,7 +1624,8 @@
+@@ -1583,7 +1584,8 @@
        },
        "engines": {
          "node": ">=22.19.0"
@@ -20,7 +20,7 @@
      },
      "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-client": {
        "version": "0.84.1",
-@@ -1634,7 +1636,8 @@
+@@ -1595,7 +1597,8 @@
        },
        "engines": {
          "node": ">=22.19.0"
@@ -30,7 +30,7 @@
      },
      "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-protocol": {
        "version": "0.84.1",
-@@ -1645,7 +1648,8 @@
+@@ -1607,7 +1610,8 @@
        },
        "engines": {
          "node": ">=22.19.0"
@@ -40,7 +40,7 @@
      },
      "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-telemetry": {
        "version": "0.84.1",
-@@ -1653,7 +1657,8 @@
+@@ -1616,7 +1620,8 @@
        "license": "MIT",
        "engines": {
          "node": ">=22.19.0"
@@ -50,7 +50,7 @@
      },
      "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-tui": {
        "version": "0.84.1",
-@@ -1665,7 +1670,8 @@
+@@ -1629,7 +1634,8 @@
        },
        "engines": {
          "node": ">=22.19.0"
@@ -60,10 +60,4 @@
      },
      "node_modules/@earendil-works/pi-coding-agent/node_modules/@google/genai": {
        "version": "1.52.0",
-@@ -18346,4 +18352,4 @@
-       }
-     }
-   }
--}
-+}
-\ No newline at end of file
+

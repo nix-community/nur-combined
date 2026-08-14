@@ -20,6 +20,7 @@ in {
   prequery-preprocess = callPackage ./pkgs/prequery-preprocess {};
   prettier-inogai = callPackage ./pkgs/prettier-inogai {};
   pi-web = callPackage ./pkgs/pi-web {};
+  pi-web-jmfederico = callPackage ./pkgs/pi-web-jmfederico {};
   ray-raycast = callPackage ./pkgs/ray-raycast {};
   winterm-rs = callPackage ./pkgs/winterm-rs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
