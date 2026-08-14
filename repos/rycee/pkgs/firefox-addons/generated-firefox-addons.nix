@@ -262,10 +262,10 @@
     };
     "alby" = buildMozillaXpiAddon {
       pname = "alby";
-      version = "3.14.4";
+      version = "3.14.5";
       addonId = "extension@getalby.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4855584/alby-3.14.4.xpi";
-      sha256 = "589a246768385459f399e8bd475e1919c241dd6b884f94f2b7689d67f886eda2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4900495/alby-3.14.5.xpi";
+      sha256 = "9640fe5fc3af5b53120c06c96af0ec2ff54659cc2b20505a7c72c00d9a2fe325";
       meta = with lib;
       {
         homepage = "https://getAlby.com/";
@@ -820,10 +820,10 @@
     };
     "auto-tab-discard" = buildMozillaXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.6.9.1";
+      version = "0.7.0";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4939638/auto_tab_discard-0.6.9.1.xpi";
-      sha256 = "babc34119d8ace6ecc4e9affb6cf68c638d25a68f63bf028f720d6029364cccb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4955895/auto_tab_discard-0.7.0.xpi";
+      sha256 = "8f6793097011a1e8b050eface3dd37eb9fd91a8e2deb4b83b828dd145fbfc46a";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -2914,10 +2914,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "154.0.20260812.182057";
+      version = "155.0.20260813.141559";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4955186/dansk_da_language_pack-154.0.20260812.182057.xpi";
-      sha256 = "cccb5979e5bbabbc5a90ee56234c15e0c3bb0e246ed93d372060b510672433ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4957097/dansk_da_language_pack-155.0.20260813.141559.xpi";
+      sha256 = "51dbf3a6cf121f13aad274c4719f111c5f9d1082f8fbdfe91d3d7c73f9128d32";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3031,10 +3031,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2632.0";
+      version = "6.2633.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4935128/dashlane-6.2632.0.xpi";
-      sha256 = "314baf01e29d9422de97a832b822ba8d778fa5be694493f2f155a682991661e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4949865/dashlane-6.2633.0.xpi";
+      sha256 = "f017fa00b847aa76ba2ba6470c3d35e7567785e7c3c4b476f170b2a08312f995";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3060,6 +3060,7 @@
           "webRequestBlocking"
           "https://accounts.dashlane.com/securitycheck"
           "https://accounts.dashlane.com/securitycheck?*"
+          "https://check.dashlane.com/*"
         ];
         platforms = platforms.all;
       };
@@ -3130,10 +3131,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "154.0.20260812.182057";
+      version = "155.0.20260813.141559";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4955185/deutsch_de_language_pack-154.0.20260812.182057.xpi";
-      sha256 = "847f95930511bc56701f565d00d44096009b4d77d8430e0c09e90f6c3b71debf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4957103/deutsch_de_language_pack-155.0.20260813.141559.xpi";
+      sha256 = "c53fe0a188bffa1f41e05a9217ff80b1392418009b3ffdcb512bab0ae02b7605";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4629,10 +4630,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "154.0.20260812.182057";
+      version = "155.0.20260813.141559";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4955152/francais_language_pack-154.0.20260812.182057.xpi";
-      sha256 = "1058b6a8c46df78f14684bf00e002dd2ed3fc45d101740d4c6ef70b11aa256ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4957129/francais_language_pack-155.0.20260813.141559.xpi";
+      sha256 = "474b052a23ab4ee529dba1eb00c6862d8746bd87536de54db1671dd3ec03a421";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4666,10 +4667,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "154.0.20260812.182057";
+      version = "155.0.20260813.141559";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4955169/gaidhlig_language_pack-154.0.20260812.182057.xpi";
-      sha256 = "945dd1141ee7f0b3a98d8b4e8beef108d5d19b32f7b29c20813d1c77ed4f552e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4957031/gaidhlig_language_pack-155.0.20260813.141559.xpi";
+      sha256 = "8b82b27665d6ff10a82ada8428d63aa376e333c993bceb01b424213aa84bd2ed";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7481,10 +7482,10 @@
     };
     "keepa" = buildMozillaXpiAddon {
       pname = "keepa";
-      version = "4.19";
+      version = "5.63";
       addonId = "amptra@keepa.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257674/keepa-4.19.xpi";
-      sha256 = "7fe354647e4a4074812c272bd70d2fa59ee6fefe2c2228fc21f6c1f76619f283";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4946259/keepa-5.63.xpi";
+      sha256 = "f80cd943a3f4b9b59e54453a1f9cbb9d5c5afb97261002a4dd80335d808168cb";
       meta = with lib;
       {
         homepage = "https://Keepa.com";
@@ -7496,23 +7497,19 @@
           free = false;
         };
         mozPermissions = [
-          "notifications"
-          "cookies"
-          "webRequest"
-          "webRequestBlocking"
           "storage"
+          "cookies"
           "contextMenus"
           "*://*.keepa.com/*"
-          "*://*.amazon.com/*"
           "*://*.amzn.com/*"
+          "*://*.amazon.com/*"
+          "*://*.amazon.ca/*"
+          "*://*.amazon.com.mx/*"
           "*://*.amazon.co.uk/*"
           "*://*.amazon.de/*"
           "*://*.amazon.fr/*"
           "*://*.amazon.it/*"
-          "*://*.amazon.ca/*"
-          "*://*.amazon.com.mx/*"
           "*://*.amazon.es/*"
-          "*://*.amazon.cn/*"
           "*://*.amazon.co.jp/*"
           "*://*.amazon.in/*"
           "*://*.amazon.com.br/*"
@@ -10952,10 +10949,10 @@
     };
     "onepassword-password-manager" = buildMozillaXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.12.30.21";
+      version = "8.12.32.33";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4925154/1password_x_password_manager-8.12.30.21.xpi";
-      sha256 = "eced23e1346211b19ea8f884246b5e740519226b152fca7648bf8b5502bd7e9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4951729/1password_x_password_manager-8.12.32.33.xpi";
+      sha256 = "b952fb617027f78b5649ffdd88f58bc07da92d21dc73cc6bb6e28879e5e2e30b";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -12134,10 +12131,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "2.7.0";
+      version = "2.8.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4925222/private_grammar_checker_harper-2.7.0.xpi";
-      sha256 = "661ae49fdd35af9e5e1e50d48fb71fd832693fe1480f53f63e79e26495b9280e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4957307/private_grammar_checker_harper-2.8.0.xpi";
+      sha256 = "89b924ea7a260eb98f2ab69aa50ff77ac3750b3c1f8aaca7b674b829ff1a71ea";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -12269,10 +12266,10 @@
     };
     "proton-vpn" = buildMozillaXpiAddon {
       pname = "proton-vpn";
-      version = "1.3.5";
+      version = "1.3.6";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4851750/proton_vpn_firefox_extension-1.3.5.xpi";
-      sha256 = "91eca389f57fba18a8d12d2a24f610f3602eedbf8468ccaa5f7fc280409a64ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4951998/proton_vpn_firefox_extension-1.3.6.xpi";
+      sha256 = "552281ee274aeece0f83052f2fc6da3b526021b6739c3decb0390a9b5efc37a3";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -13462,10 +13459,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "154.0.20260812.182057";
+      version = "155.0.20260813.141559";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4955122/scots_language_pack-154.0.20260812.182057.xpi";
-      sha256 = "abfc1495dae831e7d1ea371cc6e438f6b41cb351483770858ef92d5d0f5d9b68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4957149/scots_language_pack-155.0.20260813.141559.xpi";
+      sha256 = "a7af73f31c7424c8a6d9cb586ec8797b1a3fdd1499a78f3f6491d3594d278ca6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14001,10 +13998,10 @@
     };
     "skip-redirect" = buildMozillaXpiAddon {
       pname = "skip-redirect";
-      version = "3.0.0";
+      version = "3.0.1";
       addonId = "skipredirect@sblask";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4926851/skip_redirect-3.0.0.xpi";
-      sha256 = "0ac20d39dda5f6657fdb72883c7a225173bfa3e64569cd47375ddab88fbe6665";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4951882/skip_redirect-3.0.1.xpi";
+      sha256 = "e981580b23c1df9316f04fdb6921e67ddc801b8cbffc86fee6364331674a4253";
       meta = with lib;
       {
         description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
@@ -16839,10 +16836,10 @@
     };
     "wappalyzer" = buildMozillaXpiAddon {
       pname = "wappalyzer";
-      version = "6.12.4";
+      version = "6.12.5";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4887810/wappalyzer-6.12.4.xpi";
-      sha256 = "1198aa26f5bc153f71ce93a72e3eb816df06bbcd89cfc73899a5a551788cf7fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4950558/wappalyzer-6.12.5.xpi";
+      sha256 = "093c2205a5781df6c442967b4ebf6d4742e30071bca532d87c377d091c543912";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
