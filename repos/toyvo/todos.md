@@ -16,14 +16,14 @@ Outstanding work and follow-up items for this repository.
 ### Forgejo Actions (CI runner on the nas)
 
 - [x] Create a runner registration token: Forgejo Site Administration → Actions → Runners → Create new runner
-- [x] Add `forgejo-runner-token` to `secrets.yaml` with content `TOKEN=<registration token>` (`sops secrets.yaml`)
+- [x] Add `forgejo-runner-token` to `secrets.yaml` (`sops secrets.yaml`) — content is the **bare registration token**; the `TOKEN=` env-file wrapper is generated via `sops.templates`
 - [ ] Deploy the nas (`deploy .#nas`), then verify the runner shows as online under Site Administration → Actions → Runners
 - [ ] Add `CACHIX_AUTH_TOKEN` under the repo's Settings → Actions → Secrets on Forgejo
-- [ ] Port the GitHub-only automation still in `.github/workflows/build.yml` (update-flake-lock PRs, auto-format PRs, `gh api` check reporting) — these use the GitHub API and need Forgejo equivalents (Forgejo API + curl, or a tea-based flow)
+- [x] Port the GitHub-only automation (flake.lock updates, auto-format, merge-on-green) to Forgejo Actions; GitHub CI removed entirely (`.github/` deleted)
 
 ### Enhancements
 
-- [ ] Git over SSH via the domain: forward port 22 on the router and switch the router's ssh port (e.g. `2222` & `22` → `nas:22`) so clone URLs like `ssh://forgejo@git.diekvoss.net/user/repo.git` work
+- [x] Git over SSH via the domain: router admin sshd moved to port 2222, and TCP/22 on the router relays to `nas:22` (`git-ssh-relay` socat service) — standard clone URLs work: `forgejo@git.diekvoss.net:user/repo.git`. SSH client config for the router (port 2222) is in `modules/home/programs/ssh.nix`. Needs a router + nas deploy and home-manager switch to take effect.
 - [ ] Authentik OIDC login for Forgejo
 - [ ] Periodic backups via `services.forgejo.dump.enable`
 - [ ] Homepage widget (`type: gitea`) with an API key stored in sops as `HOMEPAGE_VAR_FORGEJO_API_KEY`

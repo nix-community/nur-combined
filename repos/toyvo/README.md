@@ -4,9 +4,9 @@
 
 [Search](https://nur.nix-community.org/repos/toyvo)
 
-![Build and populate cache](https://github.com/ToyVo/nixcfg/workflows/Build%20and%20populate%20cache/badge.svg)
-
 [![Cachix Cache](https://img.shields.io/badge/cachix-toyvo-blue.svg)](https://toyvo.cachix.org)
+
+CI runs on self-hosted Forgejo Actions (git.diekvoss.net, home-network only);
 
 A single Nix flake serving two purposes:
 

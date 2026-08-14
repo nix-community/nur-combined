@@ -1,9 +1,12 @@
 name: "Build and populate cache"
-# Forgejo-native port of .github/workflows/build.yml.
+# Forgejo-native CI (replaces the old GitHub Actions workflow).
 # Runs on the nas runner (host executor), so nix is already installed and
-# builds share the system store. The GitHub-only automation in the original
-# (update-flake-lock PRs, auto-format PRs, gh api calls) intentionally stays
-# on GitHub Actions.
+# builds share the system store.
+#
+# update: on main, refresh flake.lock + formatting into the update-flake-lock
+#         branch and open/reuse its PR (Forgejo API + the job's GITHUB_TOKEN)
+# build:  validate that branch (or the triggering ref) and populate the cache
+# merge:  squash-merge the update PR once build is green
 on:
   pull_request:
   push:
@@ -14,12 +17,80 @@ on:
     # rebuild everyday at 8:26
     - cron: "26 8 * * *"
   workflow_dispatch:
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
+  update:
+    runs-on: native
+    outputs:
+      branch: ${{ steps.update.outputs.branch }}
+      pr_number: ${{ steps.update.outputs.pr_number }}
+    steps:
+      - name: Checkout repository
+        if: github.ref == 'refs/heads/main'
+        uses: actions/checkout@v4
+      - name: Update flake.lock and format code
+        if: github.ref == 'refs/heads/main'
+        id: update
+        run: |
+          set -euo pipefail
+          git config user.name "forgejo-actions[bot]"
+          git config user.email "forgejo-actions[bot]@users.noreply.git.diekvoss.net"
+          BRANCH="update-flake-lock"
+
+          nix flake update
+          nix fmt
+
+          if git diff --quiet; then
+            echo "flake.lock and formatting already up to date"
+            exit 0
+          fi
+
+          git checkout -B "$BRANCH"
+          if ! git diff --quiet -- flake.lock; then
+            git add flake.lock
+            git commit -m "chore: update flake.lock"
+          fi
+          git add -A
+          if ! git diff --staged --quiet; then
+            git commit -m "style: auto-format"
+          fi
+          git push --force origin "$BRANCH"
+
+          # Reuse the open PR for this branch if there is one
+          PR_NUMBER=$(curl -sf -H "Authorization: token $GH_TOKEN" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls?state=open&limit=50" \
+            | jq -r --arg b "$BRANCH" '[.[] | select(.head.ref == $b)][0].number // empty')
+          if [ -z "$PR_NUMBER" ]; then
+            TITLE="style: auto-format"
+            if git log --format='%s' "origin/main..$BRANCH" | grep -q flake.lock; then
+              TITLE="chore: update flake.lock"
+            fi
+            PR_NUMBER=$(jq -n \
+              --arg title "$TITLE" \
+              --arg head "$BRANCH" \
+              --arg base "main" \
+              --arg body "Automated flake.lock update and formatting fixes." \
+              '{title: $title, head: $head, base: $base, body: $body}' \
+              | curl -sf -X POST \
+                -H "Authorization: token $GH_TOKEN" \
+                -H "Content-Type: application/json" \
+                -d @- \
+                "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls" \
+              | jq -r '.number')
+          fi
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
   build:
+    needs: update
     runs-on: native
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # Build the bot branch when the update job produced one,
+          # otherwise the ref that triggered the workflow.
+          ref: ${{ needs.update.outputs.branch }}
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixos-unstable.lib.version'
       - name: Check evaluation
@@ -32,6 +103,24 @@ jobs:
           nix build --print-build-logs ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all" --option accept-flake-config true
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+  merge:
+    needs:
+      - update
+      - build
+    if: needs.update.outputs.pr_number != ''
+    runs-on: native
+    steps:
+      - name: Merge update PR
+        run: |
+          set -euo pipefail
+          curl -sf -X POST \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"Do": "squash"}' \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/${{ needs.update.outputs.pr_number }}/merge"
+          curl -sf -X DELETE \
+            -H "Authorization: token $GH_TOKEN" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/branches/${{ needs.update.outputs.branch }}"
   nur:
     needs: build
     strategy:

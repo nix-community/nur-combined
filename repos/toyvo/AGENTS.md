@@ -209,6 +209,11 @@ To expose a new service: add its entry to `homelab.nix`, run it on its host, and
 open the host firewall port. DNS records for the public domains are managed in
 Cloudflare (manually, except `toyvo.dev`, which uses dyndns).
 
+Note on SSH: the router's admin sshd listens on port **2222** (client config in
+`modules/home/programs/ssh.nix`). TCP/22 on the router is relayed to the nas
+(`git-ssh-relay` service) so forgejo git-over-SSH works on the standard port:
+`forgejo@git.diekvoss.net:user/repo.git`.
+
 ### Domains and Public Exposure
 
 - `diekvoss.net` — **internal-only**: only resolvable within the home network.

@@ -157,7 +157,8 @@ in
     };
     firewall = {
       enable = true;
-      # Port 53 is for DNS, 22 is for SSH, 67/68 is for DHCP, 80 is for HTTP, 443 is for HTTPS
+      # Port 53 is for DNS, 22 is git-over-SSH (relayed to the nas), 2222 is the
+      # router's own SSH, 67/68 is for DHCP, 80 is for HTTP, 443 is for HTTPS
       interfaces.enp2s0 = {
         allowedTCPPorts = [
           80
@@ -172,6 +173,7 @@ in
         allowedTCPPorts = [
           53
           22
+          2222
           80
           443
         ];
@@ -413,6 +415,8 @@ in
     openssh = {
       enable = true;
       openFirewall = false;
+      # 22 is reserved for git-over-SSH (relayed to the nas); admin SSH moves here
+      ports = [ 2222 ];
       settings.PasswordAuthentication = false;
     };
     resolved = {
@@ -451,6 +455,24 @@ in
       ];
       proxied = false;
       apiTokenFile = config.sops.secrets.cloudflare_w_dns_r_zone_token.path;
+    };
+  };
+  # git.diekvoss.net resolves to the router; relay TCP/22 to the nas so
+  # `git clone forgejo@git.diekvoss.net:user/repo.git` works on the standard
+  # port. Note: the nas sees the router as the connecting client for all git
+  # SSH sessions. LAN only -- the WAN firewall does not allow 22.
+  systemd.services.git-ssh-relay = {
+    description = "Relay SSH (port 22) to nas for forgejo git-over-SSH";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:22,bind=${homelab.router.ip},fork,reuseaddr TCP:${homelab.nas.ip}:22";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      DynamicUser = true;
+      # port 22 is privileged
+      AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+      CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
     };
   };
   systemd.services.technitium-dns-server.serviceConfig.LogsDirectory = "technitium";

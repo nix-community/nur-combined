@@ -211,7 +211,7 @@ in
       enable = true;
       name = "nas";
       url = "https://git.diekvoss.net";
-      tokenFile = config.sops.secrets."forgejo-runner-token".path;
+      tokenFile = config.sops.templates."forgejo-runner-token.env".path;
       labels = [
         "native:host"
         "nix-latest:docker://nixos/nix"
@@ -534,7 +534,14 @@ in
     "PATH=/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/hermes/bin:/mnt/POOL/hermes/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   ];
 
+  # Bare registration token from
+  # Forgejo Site Administration -> Actions -> Runners -> Create new runner.
+  # The template wraps it into the TOKEN= env file the runner module expects,
+  # so the secret can't accidentally be stored in the wrong format.
   sops.secrets."forgejo-runner-token" = { };
+  sops.templates."forgejo-runner-token.env".content = ''
+    TOKEN=${config.sops.placeholder.forgejo-runner-token}
+  '';
   sops.secrets."hermes.env".owner = "hermes";
   sops.secrets."signal-cli.env".owner = "signal-cli";
   sops.secrets."cache-priv-key.pem" = { };
