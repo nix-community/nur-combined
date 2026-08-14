@@ -1,6 +1,5 @@
-diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/build/deps/src/org/jetbrains/intellij/build/impl/BundledMavenDownloader.kt ij-src/build/deps/src/org/jetbrains/intellij/build/impl/BundledMavenDownloader.kt
---- /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/build/deps/src/org/jetbrains/intellij/build/impl/BundledMavenDownloader.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/build/deps/src/org/jetbrains/intellij/build/impl/BundledMavenDownloader.kt	2026-07-28 15:27:18.740443515 +1000
+--- a/build/deps/src/org/jetbrains/intellij/build/impl/BundledMavenDownloader.kt
++++ b/build/deps/src/org/jetbrains/intellij/build/impl/BundledMavenDownloader.kt
 @@ -104,7 +104,7 @@
        }
        val file = root.resolve("${split[1]}-${split[2]}.jar")
@@ -34,9 +33,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/build/deps/src/org/j
    }
  
    suspend fun downloadMavenTelemetryDependencies(communityRoot: BuildDependenciesCommunityRoot): Path {
-diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/BuildDependenciesDownloader.kt ij-src/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/BuildDependenciesDownloader.kt
---- /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/BuildDependenciesDownloader.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/BuildDependenciesDownloader.kt	2026-07-28 15:27:18.742443513 +1000
+--- a/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/BuildDependenciesDownloader.kt
++++ b/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/BuildDependenciesDownloader.kt
 @@ -105,7 +105,7 @@
      classifier: String?,
      packaging: String,
@@ -46,9 +44,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
      val groupStr = groupId.replace('.', '/')
      val classifierStr = if (classifier != null) "-${classifier}" else ""
      return URI.create("${base}/${groupStr}/${artifactId}/${version}/${artifactId}-${version}${classifierStr}.${packaging}")
-diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/JdkDownloader.kt ij-src/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/JdkDownloader.kt
---- /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/JdkDownloader.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/JdkDownloader.kt	2026-07-28 15:27:18.742443513 +1000
+--- a/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/JdkDownloader.kt
++++ b/platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/JdkDownloader.kt
 @@ -69,9 +69,7 @@
      infoLog: (String) -> Unit,
    ): Path {
@@ -60,9 +57,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
      val jdkHome = if (os == OS.MACOSX) jdkExtracted.resolve("Contents").resolve("Home") else jdkExtracted
      infoLog("JPS-bootstrap JDK (jdkHome=$jdkHome, executable=${getJavaExecutable(jdkHome)})")
      return jdkHome
-diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/impl/brokenPlugins.kt ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/impl/brokenPlugins.kt
---- /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/impl/brokenPlugins.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/impl/brokenPlugins.kt	2026-07-28 15:28:09.110378602 +1000
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/impl/brokenPlugins.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/impl/brokenPlugins.kt
 @@ -10,6 +10,8 @@
  import java.io.DataOutputStream
  import java.util.TreeMap
@@ -81,9 +77,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
      @Suppress("JSON_FORMAT_REDUNDANT")
      Json { ignoreUnknownKeys = true }.decodeFromString(ListSerializer(MarketplaceBrokenPlugin.serializer()), content)
    }
-diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/impl/LinuxDistributionBuilder.kt ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/impl/LinuxDistributionBuilder.kt
---- /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/impl/LinuxDistributionBuilder.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/impl/LinuxDistributionBuilder.kt	2026-07-28 15:27:49.852403418 +1000
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/impl/LinuxDistributionBuilder.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/impl/LinuxDistributionBuilder.kt
 @@ -79,7 +79,7 @@
          context.executeStep(spanBuilder("copy product bin files"), BuildOptions.PRODUCT_BIN_DIR_STEP) {
            val sourceBinDir = context.paths.communityHomeDir.resolve("bin/linux")
@@ -112,9 +107,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
      copyFile(execPath, distBinDir.resolve(context.productProperties.baseFileName))
      copyFile(licensePath, targetPath.resolve("license/launcher-third-party-libraries.html"))
    }
-diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt
---- /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt	2026-07-28 15:27:18.744443510 +1000
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt
 @@ -44,45 +44,11 @@
  
  
@@ -163,9 +157,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
    }
  
    fun getKotlinJpsPluginVersion(communityRoot: BuildDependenciesCommunityRoot): String {
-diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/LinuxDistributionCustomizer.kt ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/LinuxDistributionCustomizer.kt
---- /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scripts/src/org/jetbrains/intellij/build/LinuxDistributionCustomizer.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/LinuxDistributionCustomizer.kt	2026-07-28 15:27:18.743443511 +1000
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/LinuxDistributionCustomizer.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/LinuxDistributionCustomizer.kt
 @@ -71,7 +71,7 @@
    /**
     * If `true`, a separate `*[org.jetbrains.intellij.build.impl.NO_RUNTIME_SUFFIX].tar.gz` artifact without a runtime will be produced.
@@ -187,8 +180,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
        info("Downloading project classes from $manifestJsonUrl")
        ClassesFromCompileInc.downloadProjectClasses(model.project, communityHome, modulesSubset)
 
---- ij-src/platform/build-scripts/downloader/src/ktor.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/downloader/src/ktor.kt	2026-07-28 17:18:13.418357851 +1000
+--- a/platform/build-scripts/downloader/src/ktor.kt
++++ b/platform/build-scripts/downloader/src/ktor.kt
 @@ -276,81 +276,9 @@
  
      System.err.println(" * Downloading $url")
@@ -275,8 +268,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
  }
  
 
---- ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/impl/BundledRuntimeImpl.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/impl/BundledRuntimeImpl.kt	2026-07-28 17:24:51.786852265 +1000
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/impl/BundledRuntimeImpl.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/impl/BundledRuntimeImpl.kt
 @@ -94,6 +94,14 @@
      val targetDir = paths.communityHomeDir.resolve("build/download/${effectivePrefix}${build}-${os.jbrArchiveSuffix}-${if (isMusl) "musl-" else ""}$arch")
      val jbrDir = targetDir.resolve("jbr")
@@ -314,8 +307,8 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
    /**
     * Update this method together with:
 
---- ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/CommunityRepositoryModules.kt	1970-01-01 10:00:01.000000000 +1000
-+++ ij-src/platform/build-scripts/src/org/jetbrains/intellij/build/CommunityRepositoryModules.kt	2026-07-28 17:25:01.053840504 +1000
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/CommunityRepositoryModules.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/CommunityRepositoryModules.kt
 @@ -364,12 +364,9 @@
          val properties = BuildDependenciesDownloader.getDependencyProperties(communityRoot)
          val jcefBuildNumber = properties.property("jcefBuild")
@@ -329,4 +322,45 @@ diff -ur /nix/store/vy9rwny4vpgqs4bnrlxbk9m8wli1k20s-source/platform/build-scrip
          // Unix ZIP does not have root `jcef` directory
          val jcefOutputDir = if (Files.exists(subDir.resolve("jcef"))) subDir.resolve("jcef") else subDir
          Files.move(jcefOutputDir, targetDir.resolve("jcef"), StandardCopyOption.REPLACE_EXISTING)
+
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/impl/JpsCompilationRunner.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/impl/JpsCompilationRunner.kt
+@@ -51,23 +51,23 @@
+   }
+ 
+   suspend fun buildModules(modules: List<JpsModule>, canceledStatus: CanceledStatus = CanceledStatus.NULL) {
+-    throw NotImplementedError("JPS compilation was broken on purpose, for details see MRI-3677")
++    runBuild()
+   }
+ 
+   suspend fun resolveProjectDependencies() {
+     runBuild()
+   }
+ 
+   suspend fun buildModuleTests(module: JpsModule, canceledStatus: CanceledStatus = CanceledStatus.NULL) {
+-    throw NotImplementedError("JPS compilation was broken on purpose, for details see MRI-3677")
++    runBuild()
+   }
+ 
+   suspend fun buildAll(canceledStatus: CanceledStatus = CanceledStatus.NULL) {
+-    throw NotImplementedError("JPS compilation was broken on purpose, for details see MRI-3677")
++    runBuild()
+   }
+ 
+   suspend fun buildProduction(canceledStatus: CanceledStatus = CanceledStatus.NULL) {
+-    throw NotImplementedError("JPS compilation was broken on purpose, for details see MRI-3677")
++    runBuild()
+   }
+ 
+   private suspend fun runBuild() = context.withCompilationLock {
+@@ -88,6 +88,8 @@
+           .build()
+       )
+     }
++    scopes.add(TargetTypeBuildScope.newBuilder().setTypeId("java-production").setForceBuild(false).setAllTargets(true).build())
++    scopes.add(TargetTypeBuildScope.newBuilder().setTypeId("java-test").setForceBuild(false).setAllTargets(true).build())
+ 
+     val compilationStart = System.nanoTime()
+     spanBuilder("compilation")
+
 
