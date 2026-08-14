@@ -55,6 +55,7 @@ pub trait EngineBus: Send + Sync {
     fn log(&self, from: &str, level: &str, message: &str);
     fn peers(&self, from: &str) -> Vec<String>;
     fn ask(&self, from: &str, peer: &str, topic: &str, payload: Wire) -> Wire;
+    fn voxel_at(&self, x: i32, y: i32, z: i32) -> String;
 }
 
 pub struct NoopBus;
@@ -75,6 +76,10 @@ impl EngineBus for NoopBus {
 
     fn ask(&self, _from: &str, _peer: &str, _topic: &str, _payload: Wire) -> Wire {
         wire_empty()
+    }
+
+    fn voxel_at(&self, _x: i32, _y: i32, _z: i32) -> String {
+        "air".into()
     }
 }
 
@@ -135,6 +140,10 @@ impl EngineBus for LiveBus {
         }
         wire_empty()
     }
+
+    fn voxel_at(&self, x: i32, y: i32, z: i32) -> String {
+        sample_lead_voxel(x, y, z)
+    }
 }
 
 fn deliver(
@@ -153,6 +162,29 @@ fn deliver(
         .hanga_engine_gameplay()
         .call_on_message(&mut ctx.store, from, topic, payload)
         .unwrap_or_else(|_| wire_empty())
+}
+
+fn sample_lead_voxel(x: i32, y: i32, z: i32) -> String {
+    let Ok(shared) = SHARED_WASM.read() else {
+        return "air".into();
+    };
+    let Some((_, engine, component)) = shared.as_ref() else {
+        return "air".into();
+    };
+    let mut store = Store::new(engine, noop_host("sample"));
+    let mut linker = Linker::new(engine);
+    if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() {
+        return "air".into();
+    }
+    let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) else {
+        return "air".into();
+    };
+    let gp = bindings.hanga_engine_gameplay();
+    let index = gp.call_query_voxel(&mut store, x, y, z).unwrap_or(0);
+    let csv = gp.call_voxel_catalog(&mut store).unwrap_or_default();
+    ::hanga::catalog_name(&::hanga::parse_name_catalog(&csv), index)
+        .unwrap_or("air")
+        .to_string()
 }
 
 impl hanga::engine::host::Host for HostData {
@@ -174,6 +206,10 @@ impl hanga::engine::host::Host for HostData {
 
     fn ask(&mut self, peer: String, topic: String, payload: Wire) -> Wire {
         self.bus.ask(&self.name, &peer, &topic, payload)
+    }
+
+    fn voxel_at(&mut self, x: i32, y: i32, z: i32) -> String {
+        self.bus.voxel_at(x, y, z)
     }
 }
 

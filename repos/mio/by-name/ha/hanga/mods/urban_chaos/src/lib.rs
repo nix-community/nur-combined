@@ -963,13 +963,18 @@ pub fn compute_agent_vz(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 
     }
 }
 
-pub fn on_message(from: &str, topic: &str, _payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
+pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
     match topic {
         "ping" => wire_text("pong"),
         "name" => wire_text("urban_chaos"),
         "catalog" => wire_text(voxel_catalog()),
         "gravity" => wire_text(gravity()),
         "hello" => wire_text(format!("hello {from}")),
+        "voxel" => wire_text(host_voxel_at(
+            payload_i64(payload, "x") as i32,
+            payload_i64(payload, "y") as i32,
+            payload_i64(payload, "z") as i32,
+        )),
         _ => wire_empty(),
     }
 }
@@ -1884,6 +1889,10 @@ mod tests {
         assert_eq!(
             wire_as_text(&on_message("testbed", "ping", &wire_empty())),
             Some("pong")
+        );
+        assert_eq!(
+            wire_as_text(&on_message("x", "voxel", &wire_empty())),
+            Some("air")
         );
         assert!(
             wire_as_text(&on_message("x", "catalog", &wire_empty()))

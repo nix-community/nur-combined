@@ -329,13 +329,18 @@ pub fn fire_kit(_age_ms: i32, _nearby: &str) -> String {
     String::new()
 }
 
-pub fn on_message(from: &str, topic: &str, _payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
+pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
     match topic {
         "ping" => wire_text("pong"),
         "name" => wire_text("testbed"),
         "catalog" => wire_text(voxel_catalog()),
         "gravity" => wire_text(gravity()),
         "hello" => wire_text(format!("hello {from}")),
+        "voxel" => wire_text(host_voxel_at(
+            payload_i64(payload, "x") as i32,
+            payload_i64(payload, "y") as i32,
+            payload_i64(payload, "z") as i32,
+        )),
         _ => wire_empty(),
     }
 }
@@ -550,6 +555,10 @@ mod tests {
         assert_eq!(
             wire_as_text(&on_message("urban_chaos", "ping", &wire_empty())),
             Some("pong")
+        );
+        assert_eq!(
+            wire_as_text(&on_message("x", "voxel", &wire_empty())),
+            Some("air")
         );
         assert_eq!(
             wire_as_text(&on_message("x", "name", &wire_empty())),

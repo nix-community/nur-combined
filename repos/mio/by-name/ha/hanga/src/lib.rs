@@ -998,6 +998,9 @@ mod tests {
             let clamped = clamp_wallet(value);
             assert!((0..=1_000_000).contains(&clamped));
         }
+        for crumple in [0, 50, 100] {
+            assert!(vehicle::beam_length(1.0, crumple, 0) <= vehicle::beam_length(1.0, crumple, 100));
+        }
     }
 }
 

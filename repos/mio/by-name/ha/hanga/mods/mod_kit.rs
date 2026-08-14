@@ -68,6 +68,33 @@ fn beside_peer(name: &str) -> bool {
     host_peers().iter().any(|peer| peer == name)
 }
 
+fn host_voxel_at(x: i32, y: i32, z: i32) -> String {
+    #[cfg(target_arch = "wasm32")]
+    {
+        hanga::engine::host::voxel_at(x, y, z)
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let _ = (x, y, z);
+        "air".into()
+    }
+}
+
+fn payload_i64(payload: &hanga::engine::host::Payload, key: &str) -> i64 {
+    match payload {
+        hanga::engine::host::Payload::Bag(fields) => fields
+            .iter()
+            .find(|field| field.key == key)
+            .and_then(|field| match &field.value {
+                hanga::engine::host::Atom::Int(v) => Some(*v),
+                hanga::engine::host::Atom::Text(t) => t.parse().ok(),
+                _ => None,
+            })
+            .unwrap_or(0),
+        _ => 0,
+    }
+}
+
 fn host_log(level: &str, message: &str) {
     #[cfg(target_arch = "wasm32")]
     hanga::engine::host::log(level, message);

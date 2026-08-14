@@ -7,7 +7,9 @@ must not live as extra WIT functions. Host-facing kits (`crash-kit`, `vehicle-ki
 `gravity`, `steer` context) stay `key=value` strings the host already executes.
 Unknown keys are ignored.
 
-**Engine API** (`import host`): `log`, `now-ms`, `self-name`, `peers`, `ask`.
+**Engine API** (`import host`): `log`, `now-ms`, `self-name`, `peers`, `ask`,
+`voxel-at`. `voxel-at` names the lead generator cell (`air` if missing); it does
+not see player edits.
 `payload` is a WIT variant: `empty`, `flag`, `int`, `float`, `text`, or `bag`
 (list of `{key, atom}`). WIT here cannot recurse, so deeper trees use dotted
 keys (`part.wheel`). `ask` and `on-message` use `payload`. `peers` is a list of
@@ -36,7 +38,7 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints,
   and Ed25519 signatures on the wire (`~/.config/hanga/peer.key`)
 - `wasmtime` component sandbox + hot-reload
-- Host imports for mods (`log`, clock, identity, `ask` bus, `payload` bags)
+- Host imports for mods (`log`, clock, identity, `ask` bus, `voxel-at`, `payload` bags)
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
   from a kit, moves occupants, crumples/detaches named parts, and scales fold by
@@ -82,7 +84,7 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Heist board (`mod-offer-contract`, `contract-mark`, `mod-can-complete` + context).
   The host paints a mark and reports held item / position / vehicle / near;
   Urban Chaos owns smash, subway pinch, chop-shop, and the armored truck.
-- Mod bus (`on-message`): answer `ask` from other packs with a `payload` (`ping`, `catalog`, …).
+- Mod bus (`on-message`): answer `ask` from other packs with a `payload` (`ping`, `catalog`, `voxel`, …).
 
 ### Shipped games
 
