@@ -1,0 +1,235 @@
+diff --git a/build.gradle.kts b/build.gradle.kts
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -15,8 +15,6 @@
+ extra["bugsnagAndroidApiKey"] = "3e0ed592029da1d5cc9b52160ef702ea"
+ 
+ plugins {
+-    alias(libs.plugins.android.application) apply false
+-    alias(libs.plugins.android.library) apply false
+     alias(libs.plugins.bugsnag.gradle) apply false
+     alias(libs.plugins.buildkonfig) apply false
+     alias(libs.plugins.compose) apply false
+@@ -24,8 +22,6 @@
+     alias(libs.plugins.kotlin.atomicfu) apply false
+     alias(libs.plugins.kotlin.compose) apply false
+     alias(libs.plugins.kotlin.multiplatform) apply false
+-    alias(libs.plugins.kotlin.multiplatform.android.library) apply false
+-    alias(libs.plugins.kotlin.native.cocoapods) apply false
+     alias(libs.plugins.kotlin.serialization) apply false
+     alias(libs.plugins.moko.resources) apply false
+     alias(libs.plugins.compose.hot.reload) apply false
+diff --git a/common/build.gradle.kts b/common/build.gradle.kts
+--- a/common/build.gradle.kts
++++ b/common/build.gradle.kts
+@@ -1,5 +1,4 @@
+ import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+-import org.gradle.kotlin.dsl.androidComponents
+ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+ 
+ plugins {
+@@ -9,8 +8,6 @@
+     alias(libs.plugins.kotlin.atomicfu)
+     alias(libs.plugins.kotlin.compose)
+     alias(libs.plugins.kotlin.multiplatform)
+-    alias(libs.plugins.kotlin.multiplatform.android.library)
+-    alias(libs.plugins.kotlin.native.cocoapods)
+     alias(libs.plugins.kotlin.serialization)
+     alias(libs.plugins.moko.resources)
+ }
+@@ -28,64 +25,6 @@
+ kotlin {
+     jvmToolchain(javaVersionEnum.toString().toInt())
+ 
+-    val iosArm64 = iosArm64()
+-    val iosSimulatorArm64 = iosSimulatorArm64()
+-
+-    val versionCode: Int = rootProject.extra["versionCode"] as Int
+-    val versionName: String = rootProject.extra["versionName"] as String
+-    val packageName: String = rootProject.extra["packageName"] as String
+-
+-    listOf(iosArm64, iosSimulatorArm64).forEach {
+-        it.compilations.getByName("main") {
+-            cinterops.create("BugsnagSamloader") {
+-                includeDirs("$projectDir/src/nativeInterop/cinterop/Bugsnag")
+-                definitionFile.set(file("$projectDir/src/nativeInterop/cinterop/Bugsnag.def"))
+-            }
+-        }
+-        it.binaries {
+-            framework {
+-                isStatic = true
+-                binaryOption("bundleVersion", versionCode.toString())
+-                binaryOption(
+-                    "bundleShortVersionString",
+-                    versionName,
+-                )
+-                binaryOption("bundleId", packageName)
+-                export(libs.nsexceptionKt.core)
+-            }
+-        }
+-    }
+-
+-    android {
+-        withJava()
+-
+-        val compileSdk: Int = rootProject.extra["compileSdk"] as Int
+-        val minSdk: Int = rootProject.extra["minSdk"] as Int
+-
+-        this.compileSdk = compileSdk
+-        this.minSdk = minSdk
+-
+-        androidResources {
+-            enable = true
+-        }
+-
+-        namespace = "tk.zwander.common"
+-
+-        this.enableCoreLibraryDesugaring = true
+-
+-        compilerOptions {
+-            jvmTarget.set(JvmTarget.fromTarget(javaVersionEnum.toString()))
+-        }
+-
+-//        buildFeatures {
+-//            aidl = true
+-//        }
+-
+-//        sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+-//        sourceSets["main"].res.srcDirs("src/androidMain/res")
+-//        sourceSets["main"].res.srcDir(layout.buildDirectory.file("generated/moko/androidMain/res"))
+-    }
+-
+     jvm {
+         compilations.all {
+             compileTaskProvider.configure {
+@@ -110,28 +49,6 @@
+         freeCompilerArgs.addAll("-Xexpect-actual-classes", "-Xdont-warn-on-error-suppression")
+     }
+ 
+-    cocoapods {
+-        version = versionCode.toString()
+-        summary = "Bifrost"
+-        homepage = "https://zwander.dev"
+-        ios.deploymentTarget = "14.0"
+-        osx.deploymentTarget = "10.13"
+-        podfile = project.file("../iosApp/Podfile")
+-        framework {
+-            baseName = "common"
+-            isStatic = true
+-            export(libs.moko.resources)
+-            export(libs.nsexceptionKt.core)
+-
+-            binaryOption("bundleVersion", versionCode.toString())
+-            binaryOption(
+-                "bundleShortVersionString",
+-                versionName,
+-            )
+-            binaryOption("bundleId", packageName)
+-        }
+-    }
+-
+     sourceSets {
+         commonMain {
+             dependencies {
+@@ -208,52 +125,9 @@
+             }
+         }
+ 
+-        androidMain {
+-            dependsOn(androidAndJvmMain)
+-
+-            dependencies {
+-                api(libs.androidx.activity.compose)
+-                api(libs.androidx.core.ktx)
+-                api(libs.androidx.documentfile)
+-                api(libs.androidx.preference.ktx)
+-                api(libs.bugsnag.android)
+-                api(libs.google.material)
+-                api(libs.kotlinx.coroutines.android)
+-                api(libs.github.api)
+-                api(libs.filepicker)
+-            }
+-        }
+-
+-        val darwinMain = create("darwinMain") {
+-            dependsOn(skiaMain)
+-            dependencies {
+-                api(libs.nsexceptionKt.core)
+-                api(libs.nserrorKt)
+-                api(libs.cryptography.provider.openssl3.prebuilt)
+-                api(libs.ktor.client.darwin)
+-            }
+-        }
+-
+-        val iosMain = create("iosMain") {
+-            dependsOn(darwinMain)
+-        }
+-        iosArm64Main {
+-            dependsOn(iosMain)
+-            resources.srcDirs("build/generated/moko/iosArm64Main/src")
+-        }
+-        iosSimulatorArm64Main {
+-            dependsOn(iosMain)
+-            resources.srcDirs("build/generated/moko/iosSimulatorArm64Main/src")
+-        }
+     }
+ }
+ 
+-androidComponents {
+-    onVariants { variant ->
+-        variant.sources.res?.addStaticSourceDirectory("generated/moko/androidMain/res")
+-    }
+-}
+-
+ buildkonfig {
+     packageName = "tk.zwander.common"
+     objectName = "GradleConfig"
+@@ -275,48 +149,3 @@
+ tasks.withType<Copy> {
+     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+ }
+-
+-dependencies {
+-    coreLibraryDesugaring(libs.desugar.jdk.libs)
+-}
+-
+-afterEvaluate {
+-    val versionName: String = rootProject.extra["versionName"] as String
+-    val versionCode: Int = rootProject.extra["versionCode"] as Int
+-
+-    val setVersionName = providers.exec {
+-        isIgnoreExitValue = true
+-
+-        commandLine(
+-            "/usr/bin/plutil",
+-            "-replace",
+-            "CFBundleShortVersionString",
+-            "-string",
+-            versionName,
+-            "${rootProject.layout.projectDirectory.asFile.absolutePath}/iosApp/iosApp/Info.plist",
+-        )
+-    }
+-
+-    val setVersionCode = providers.exec {
+-        isIgnoreExitValue = true
+-
+-        commandLine(
+-            "/usr/bin/plutil",
+-            "-replace",
+-            "CFBundleVersion",
+-            "-string",
+-            "$versionCode",
+-            "${rootProject.layout.projectDirectory.asFile.absolutePath}/iosApp/iosApp/Info.plist",
+-        )
+-    }
+-
+-    setVersionName.result.get()
+-    setVersionCode.result.get()
+-
+-    setVersionName.standardError.asText.get().takeIf { it.isNotBlank() }?.let {
+-        println(it)
+-    }
+-    setVersionCode.standardError.asText.get().takeIf { it.isNotBlank() }?.let {
+-        println(it)
+-    }
+-}
