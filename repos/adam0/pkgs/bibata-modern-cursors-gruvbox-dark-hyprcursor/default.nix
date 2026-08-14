@@ -6,6 +6,7 @@
   fetchzip,
   hyprcursor,
   lib,
+  python3,
   stdenvNoCC,
   xcur2png,
   # keep-sorted end
@@ -31,6 +32,7 @@ stdenvNoCC.mkDerivation rec {
     bash
     clickgen
     hyprcursor
+    python3
     xcur2png
     # keep-sorted end
   ];
@@ -42,7 +44,11 @@ stdenvNoCC.mkDerivation rec {
     ctgen build.toml -d $bitmaps -n 'Bibata-Modern-Gruvbox-Dark' -c 'Gruvbox dark Bibata modern XCursors'
 
     # Build hyprcursors
-    bash hyprcursor-build.sh
+    buildScript=hyprcursor-build.sh
+    if [[ -f scripts/build-hyprcursor.sh ]]; then
+      buildScript=scripts/build-hyprcursor.sh
+    fi
+    bash "$buildScript"
 
     # Ensure manifest names match the hyprcursor pack directories
     for manifest in bin/*-hyprcursor/manifest.hl; do

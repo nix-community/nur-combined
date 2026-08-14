@@ -1,6 +1,6 @@
 {
   # keep-sorted start
-  fetchgit,
+  fetchFromTangled,
   lib,
   python3Packages,
   # keep-sorted end
@@ -10,8 +10,8 @@ python3Packages.buildPythonApplication rec {
   version = "0.0.14";
   pyproject = true;
 
-  src = fetchgit {
-    url = "https://tangled.org/zzstoatzz.io/tangled-mcp";
+  src = fetchFromTangled {
+    did = "did:plc:ml5ytzwznx6tjyjuanvvmctr";
     tag = "v${version}";
     hash = "sha256-6yXDNdnKvvJ5OiROsIEaiTWEQ+dG15AZ5WyI0cAbERQ=";
   };

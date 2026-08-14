@@ -1,7 +1,7 @@
 {
   # keep-sorted start
   buildGo126Module,
-  fetchgit,
+  fetchFromTangled,
   git,
   installShellFiles,
   lib,
@@ -12,8 +12,8 @@ buildGo126Module {
   pname = "tg";
   version = "0-unstable-2026-07-31";
 
-  src = fetchgit {
-    url = "https://tangled.org/aly.codes/tg";
+  src = fetchFromTangled {
+    did = "did:plc:g5uweck3xar3m745g43giuhr";
     rev = "c2391cb2f22526bcb0beb1b84c7764084436f9e7";
     hash = "sha256-0R6k6X7/k2/LjAy/pwPke/ja/Lx9/MFrF/jYtAKIdqI=";
   };

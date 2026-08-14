@@ -59,13 +59,21 @@ let
   isDerivation = v: builtins.isAttrs v && v ? type && v.type == "derivation";
   hasDerivationMembers = set:
     builtins.any (name: isDerivation (builtins.getAttr name set)) (builtins.attrNames set);
+  visit = prefix: set:
+    builtins.concatLists
+    (map
+      (name:
+        let
+          value = builtins.getAttr name set;
+          path = if prefix == "" then name else "${prefix}.${name}";
+          nested = builtins.isAttrs value && !isDerivation value;
+          recursive = nested && (value.recurseForDerivations or false);
+        in
+          (if recursive && hasDerivationMembers value then [path] else [])
+          ++ (if recursive then visit path value else []))
+      (builtins.attrNames set));
 in
-  builtins.concatStringsSep "\n"
-  (builtins.filter
-    (name:
-      let v = builtins.getAttr name attrs;
-      in builtins.isAttrs v && !isDerivation v && hasDerivationMembers v)
-    (builtins.attrNames attrs))
+  builtins.concatStringsSep "\n" (visit "" attrs)
 """,
         ]
     ).stdout
@@ -134,7 +142,12 @@ pkgs:
         return None
 
     root_dir = file_path.parent
-    for candidate in (root_dir / attr / "default.nix", root_dir / f"{attr}.nix"):
+    attrset_file = root_dir / f"{attrset.rsplit('.', 1)[-1]}.nix"
+    for candidate in (
+        root_dir / attr / "default.nix",
+        root_dir / f"{attr}.nix",
+        attrset_file,
+    ):
         if candidate.is_file():
             return candidate
     return file_path

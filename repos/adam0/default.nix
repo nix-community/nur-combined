@@ -7,8 +7,13 @@
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}, ...}: let
   inherit (builtins) isAttrs;
+
+  localPkgs = pkgs.extend (final: _previous: {
+    fetchFromTangled = final.callPackage ./lib/fetch-from-tangled.nix {};
+  });
+
   inherit
-    (pkgs)
+    (localPkgs)
     # keep-sorted start
     callPackage
     lib
@@ -35,7 +40,7 @@
   recurseCallPackage = path: recurseIntoAttrs (callPackage path {});
 
   discoveredPackages = filesystem.packagesFromDirectoryRecursive {
-    inherit (pkgs) callPackage newScope;
+    inherit (localPkgs) callPackage newScope;
     directory = ./pkgs;
   };
 
@@ -51,6 +56,7 @@ in
     # keep-sorted end
 
     # keep-sorted start
+    ghosttyShaders = recurseCallPackage ./pkgs/ghostty-shaders;
     gotifyPlugins = recurseIntoAttrs (callPackage ./pkgs/gotify-server/plugins {inherit (allPackages) gotify-server;});
     hyprlandPlugins = recurseCallPackage ./pkgs/hyprland/plugins;
     spicetifyExtensions = recurseCallPackage ./pkgs/spicetify/extensions;

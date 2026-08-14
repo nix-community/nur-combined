@@ -14,8 +14,6 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    systems.url = "github:nix-systems/default";
-
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +23,7 @@
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = import inputs.systems;
+      systems = inputs.nixpkgs.lib.systems.flakeExposed;
       imports = [(inputs.import-tree ./flake)];
     };
 }
