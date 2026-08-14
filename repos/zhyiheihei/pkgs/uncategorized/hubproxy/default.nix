@@ -16,12 +16,20 @@ let
     src = sources.hubproxy.src;
     sourceRoot = "${sources.hubproxy.src.name}/web";
 
-    npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    npmDepsHash = "sha256-Jjkjl/3HCoZf/HddV2RLqMs/dxH37DY+ix4bfw6Iddk=";
+
+    # vite's configured outDir (`../src/dist`) points outside the npm build
+    # root where the tree is read-only; build into `dist` inside web/ instead.
+    buildPhase = ''
+      runHook preBuild
+      npm run build -- --outDir dist
+      runHook postBuild
+    '';
 
     installPhase = ''
       runHook preInstall
       mkdir -p $out/dist
-      cp -r ../src/dist/. $out/dist/
+      cp -r dist/. $out/dist/
       runHook postInstall
     '';
   };
@@ -48,7 +56,7 @@ buildGoModule (finalAttrs: {
     "-X main.Version=${finalAttrs.version}"
   ];
 
-  vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  vendorHash = "sha256-vQLkd/Z9tLNSu9j9HXfaDbrkP5qfQylyqhcg8KEjMOY=";
 
   meta = {
     changelog = "https://github.com/sky22333/hubproxy/releases/tag/v${finalAttrs.version}";
