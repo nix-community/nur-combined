@@ -1,8 +1,8 @@
 {
   lib,
   stdenv,
-  python3Packages,
   sources,
+  buildPythonPackage,
 }:
 let
   arch =
@@ -14,7 +14,7 @@ let
       throw "unsupported system: ${stdenv.hostPlatform.system}";
   source = sources."moviepilot-rust-${arch}";
 in
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "moviepilot-rust";
   inherit (source) version;
   src = source.src;

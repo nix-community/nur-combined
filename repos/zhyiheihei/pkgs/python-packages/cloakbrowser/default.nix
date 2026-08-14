@@ -1,15 +1,18 @@
 {
   lib,
-  python3Packages,
   sources,
+  buildPythonPackage,
+  cryptography,
+  httpx,
+  playwright,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "cloakbrowser";
   inherit (sources.cloakbrowser) version src;
 
   pyproject = true;
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     cryptography
     httpx
     playwright
