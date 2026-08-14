@@ -38,7 +38,10 @@ use hanga::gravity::{
     set_planar_velocity, walk_up, GravityKit,
 };
 use hanga::heist::{contract_context, mark_reached, parse_contract_mark, ContractMark};
-use hanga::vehicle::{is_tire, parse_vehicle_kit, tire_squash, traffic_ahead_blocks, VehicleKit};
+use hanga::vehicle::{
+    beam_constrain, beam_length, is_tire, parse_vehicle_kit, tire_squash, traffic_ahead_blocks,
+    VehicleKit, BEAM_ROUNDS,
+};
 use hanga::game::{
     cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
     MenuBackdrop, DEFAULT_GAME,
@@ -667,6 +670,16 @@ struct VehiclePart {
     tire: bool,
     rest_scale: Vec3,
 }
+
+#[derive(Clone)]
+struct BeamLink {
+    from: String,
+    to: String,
+    rest: f32,
+}
+
+#[derive(Component, Default)]
+struct VehicleBeams(Vec<BeamLink>);
 
 #[derive(Component)]
 struct VehicleDrive {
@@ -1429,6 +1442,7 @@ fn spawn_vehicle(
         VehicleDrive { speed: kit.speed },
         VehicleStiffness(kit.stiffness),
         VehicleMod(owner.to_string()),
+        VehicleBeams(spawn_beam_links(kit)),
         Transform::from_translation(pos),
         Visibility::default(),
         RigidBody::Dynamic,
@@ -1458,6 +1472,75 @@ fn spawn_vehicle(
             ));
         }
     });
+}
+
+fn spawn_beam_links(kit: &VehicleKit) -> Vec<BeamLink> {
+    let mut links = Vec::new();
+    for (from, to) in &kit.beams {
+        let Some(anchor) = kit.parts.iter().find(|part| part.name == *from) else {
+            continue;
+        };
+        for part in kit.parts.iter().filter(|part| part.name == *to) {
+            let dx = part.offset[0] - anchor.offset[0];
+            let dy = part.offset[1] - anchor.offset[1];
+            let dz = part.offset[2] - anchor.offset[2];
+            links.push(BeamLink {
+                from: from.clone(),
+                to: to.clone(),
+                rest: (dx * dx + dy * dy + dz * dz).sqrt(),
+            });
+        }
+    }
+    links
+}
+
+fn apply_beam_links(
+    children: &Children,
+    parts: &mut Query<(Entity, &mut VehiclePart, &mut Transform), Without<Vehicle>>,
+    beams: &VehicleBeams,
+    detach: &[(Entity, Vec3, Transform)],
+    crumple: i32,
+    stiffness: i32,
+) {
+    let skipped: std::collections::HashSet<Entity> =
+        detach.iter().map(|(entity, _, _)| *entity).collect();
+    for _ in 0..BEAM_ROUNDS {
+        let mut used = std::collections::HashSet::new();
+        for link in &beams.0 {
+            let mut anchor = None;
+            for child in children.iter() {
+                if skipped.contains(&child) {
+                    continue;
+                }
+                let Ok((_, part, local)) = parts.get_mut(child) else {
+                    continue;
+                };
+                if part.name == link.from {
+                    anchor = Some(local.translation.to_array());
+                    break;
+                }
+            }
+            let Some(anchor) = anchor else {
+                continue;
+            };
+            let length = beam_length(link.rest, crumple, stiffness);
+            for child in children.iter() {
+                if used.contains(&child) || skipped.contains(&child) {
+                    continue;
+                }
+                let Ok((_, part, mut local)) = parts.get_mut(child) else {
+                    continue;
+                };
+                if part.name != link.to {
+                    continue;
+                }
+                local.translation =
+                    Vec3::from_array(beam_constrain(anchor, local.translation.to_array(), length));
+                used.insert(child);
+                break;
+            }
+        }
+    }
 }
 
 fn voxel_type_of(voxel: WorldVoxel<u8>) -> Option<i32> {
@@ -2488,6 +2571,7 @@ fn vehicle_crash_system(
             &mut VehicleCrash,
             &VehicleMod,
             &VehicleStiffness,
+            &VehicleBeams,
             Option<&Wrecked>,
             Option<&Ignited>,
         ),
@@ -2499,7 +2583,7 @@ fn vehicle_crash_system(
     mod_runtime: Res<ModRuntime>,
     mut events: MessageWriter<ProposedAction>,
 ) {
-    for (entity, transform, velocity, mut angular, children, mut crash, owner, stiff, wrecked, ignited) in
+    for (entity, transform, velocity, mut angular, children, mut crash, owner, stiff, beams, wrecked, ignited) in
         vehicles.iter_mut()
     {
         let speed = velocity.length();
@@ -2539,6 +2623,7 @@ fn vehicle_crash_system(
                 local.translation = Vec3::from_array(shifted);
             }
         }
+        apply_beam_links(children, &mut parts, beams, &detach, crumple, stiff.0);
         let impulse = outcome.impulse;
         let kick = transform.forward() * -impulse + Vec3::Y * (impulse * 0.35);
         for (part_entity, size, local) in detach {

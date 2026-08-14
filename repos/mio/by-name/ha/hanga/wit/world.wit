@@ -75,7 +75,8 @@ interface gameplay {
     vehicle-spawn-count: func() -> s32;
     vehicle-spawn: func(index: s32) -> tuple<s32, s32, s32>;
     /// Rideable kit. The host does not know "car": it only builds boxes and a collider.
-    /// `kind=...;traffic=0|1;speed=...;stiffness=0-100;tire=name,name;collider=x,y,z` then
+    /// `kind=...;traffic=0|1;speed=...;stiffness=0-100;tire=name,name;collider=x,y,z`
+    /// then `beam=from,to` rest-length links and
     /// `part=name,sx,sy,sz,ox,oy,oz,r,g,b` records (newline or semicolon).
     vehicle-kit: func(index: s32) -> string;
     /// Gravity field. The host does not invent Earth: it only applies the kit.

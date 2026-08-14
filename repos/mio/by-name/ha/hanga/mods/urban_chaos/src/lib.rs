@@ -441,7 +441,8 @@ pub fn vehicle_kit(index: i32) -> String {
     };
     let traffic = i32::from(!player);
     let mut out = format!(
-        "kind=car;traffic={traffic};speed=25;stiffness=32;tire=wheel;collider=2,1.2,4\n"
+        "kind=car;traffic={traffic};speed=25;stiffness=32;tire=wheel;collider=2,1.2,4\n\
+         beam=hull,cabin;beam=cabin,lamp;beam=hull,wheel;beam=hull,lamp\n"
     );
     out.push_str(&car_part(
         PART_HULL,
@@ -1567,6 +1568,8 @@ mod tests {
         assert!(player.contains("traffic=0"));
         assert!(player.contains("stiffness=32"));
         assert!(player.contains("tire=wheel"));
+        assert!(player.contains("beam=hull,wheel"));
+        assert!(player.contains("beam=cabin,lamp"));
         assert!(player.contains("part=hull"));
         assert!(player.contains("part=cabin"));
         assert!(player.contains("part=wheel"));

@@ -19,6 +19,8 @@ pub struct VehicleKit {
     pub stiffness: i32,
     /// Part names the host may squash on the local up axis (tires, pads, …).
     pub tires: Vec<String>,
+    /// Named rest-length links. The host shortens these on crumple; it does not solve a lattice.
+    pub beams: Vec<(String, String)>,
     pub parts: Vec<VehiclePartSpec>,
 }
 
@@ -31,6 +33,7 @@ impl Default for VehicleKit {
             collider: [2.0, 1.0, 3.0],
             stiffness: 50,
             tires: Vec::new(),
+            beams: Vec::new(),
             parts: vec![VehiclePartSpec {
                 name: "body".into(),
                 size: [2.0, 0.8, 3.0],
@@ -92,6 +95,14 @@ pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
                     .map(|n| n.trim().to_string())
                     .filter(|n| !n.is_empty())
                     .collect();
+            }
+            "beam" => {
+                let mut bits = value.split(',').map(str::trim);
+                if let (Some(a), Some(b)) = (bits.next(), bits.next()) {
+                    if !a.is_empty() && !b.is_empty() {
+                        kit.beams.push((a.to_string(), b.to_string()));
+                    }
+                }
             }
             _ => {}
         }
@@ -157,6 +168,48 @@ pub fn tire_squash(speed: f32, stiffness: i32, grounded: bool) -> f32 {
     (1.0 - give * (0.35 + 0.65 * load)).clamp(0.55, 1.0)
 }
 
+fn offset_len(a: [f32; 3], b: [f32; 3]) -> f32 {
+    let dx = b[0] - a[0];
+    let dy = b[1] - a[1];
+    let dz = b[2] - a[2];
+    (dx * dx + dy * dy + dz * dz).sqrt()
+}
+
+pub fn part_offset(parts: &[VehiclePartSpec], name: &str) -> Option<[f32; 3]> {
+    parts.iter().find(|part| part.name == name).map(|part| part.offset)
+}
+
+pub fn beam_rest(parts: &[VehiclePartSpec], a: &str, b: &str) -> Option<f32> {
+    Some(offset_len(part_offset(parts, a)?, part_offset(parts, b)?))
+}
+
+/// Rest length after crumple. Stiffer kits shorten less.
+pub fn beam_length(rest: f32, crumple: i32, stiffness: i32) -> f32 {
+    let give = (1.0 - stiffness.clamp(0, 100) as f32 / 100.0)
+        * (crumple.clamp(0, 100) as f32 / 100.0)
+        * 0.5;
+    rest * (1.0 - give).clamp(0.45, 1.0)
+}
+
+/// Keep `other` on the ray from `anchor`, at `length`.
+pub fn beam_constrain(anchor: [f32; 3], other: [f32; 3], length: f32) -> [f32; 3] {
+    let dx = other[0] - anchor[0];
+    let dy = other[1] - anchor[1];
+    let dz = other[2] - anchor[2];
+    let len = (dx * dx + dy * dy + dz * dz).sqrt();
+    if len < 1e-4 {
+        return other;
+    }
+    let s = length / len;
+    [
+        anchor[0] + dx * s,
+        anchor[1] + dy * s,
+        anchor[2] + dz * s,
+    ]
+}
+
+pub const BEAM_ROUNDS: u32 = 4;
+
 /// True when `other` sits in front of a traffic vehicle on the XZ plane.
 pub fn traffic_ahead_blocks(
     origin: [f32; 3],
@@ -221,6 +274,30 @@ mod tests {
         assert!((tire_squash(0.0, 0, false) - 1.0).abs() < 1e-5);
         assert!(tire_squash(30.0, 0, true) < tire_squash(30.0, 90, true));
         assert!(tire_squash(30.0, 32, true) < 1.0);
+        let kit = parse_vehicle_kit(
+            "beam=hull,cabin;beam=hull,wheel\n\
+             part=hull,1,1,1,0,0,0,1,1,1\n\
+             part=cabin,1,1,1,0,0.5,0,1,1,1\n\
+             part=wheel,1,1,1,0,-0.5,0,1,1,1",
+        );
+        assert_eq!(kit.beams.len(), 2);
+        let rest = beam_rest(&kit.parts, "hull", "cabin").unwrap();
+        assert!((rest - 0.5).abs() < 1e-5);
+        let pulled = beam_constrain([0.0, 0.0, 0.0], [0.0, 1.0, 0.0], 0.4);
+        assert!((pulled[1] - 0.4).abs() < 1e-5);
+        assert!(beam_length(1.0, 80, 0) < beam_length(1.0, 80, 90));
+        let hull = [0.0, 0.0, 0.0];
+        let mut cabin = [0.0, 1.0, 0.0];
+        let mut lamp = [0.0, 2.0, 0.0];
+        lamp = beam_constrain(cabin, lamp, 0.5);
+        cabin = beam_constrain(hull, cabin, 0.5);
+        assert!((lamp[1] - 2.0).abs() > 0.4);
+        for _ in 0..BEAM_ROUNDS {
+            cabin = beam_constrain(hull, cabin, 0.5);
+            lamp = beam_constrain(cabin, lamp, 0.5);
+        }
+        assert!((cabin[1] - 0.5).abs() < 1e-4);
+        assert!((lamp[1] - 1.0).abs() < 1e-4);
     }
 
     #[test]

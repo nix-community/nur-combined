@@ -5,6 +5,9 @@ Voxel city, subway, GTA wanted level, Teardown buildings, street crafting.
 (kit boxes + occupants). This game's `vehicle-kit` is a street car: hull, cabin,
 lamps, wheels, player red vs traffic colors. Street metal is soft (`stiffness=32`);
 `tire=wheel` lets the host squash the wheels when the car is on the ground.
+`beam=hull,cabin` / `beam=cabin,lamp` / `beam=hull,wheel` / `beam=hull,lamp` are
+rest-length links. The host shortens them on crumple and relaxes the chain a few
+times so lamps follow the cabin.
 The testbed pack in Sandbox adds a stiffer cart that uses that pack's crash/fire kits.
 
 **Gravity belongs here.** Streets use Earth (`kind=constant;y=-9.81;jump=5;walk=10`).
@@ -25,8 +28,9 @@ tumbles and will not drive, and a high-speed hit that is treated as an explosion
 
 The engine reports impact `speed` (m/s) and `into-solid` (voxel or sudden stop).
 This mod returns severity 0–100 and named outcomes. The host folds remaining
-parts along the travel axis, slides them toward the hit (short beams), and
-squashes `tire=` parts on the local up axis. That is not a node-beam solver.
+parts along the travel axis, slides them toward the hit, shortens named `beam=`
+links, and squashes `tire=` parts on the local up axis. That is not a node-beam
+solver.
 
 | Impact speed | Severity | Visual | Heat |
 | --- | --- | --- | --- |
@@ -61,4 +65,4 @@ chop-shop takes the selected item.
 
 ## Out of scope (later)
 
-- True node-beam / tire deformation
+- A real node-beam lattice / solver
