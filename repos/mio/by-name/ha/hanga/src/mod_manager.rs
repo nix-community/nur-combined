@@ -332,6 +332,12 @@ impl ModRuntime {
         let mut config = Config::new();
         config.wasm_multi_memory(true);
         config.wasm_component_model(true);
+        // Kotlin/Wasm guests (hanga-contrib) use WasmGC and funcrefs.
+        config.wasm_reference_types(true);
+        config.wasm_function_references(true);
+        config.wasm_gc(true);
+        let _ = config.wasm_tail_call(true);
+        let _ = config.wasm_exceptions(true);
         let engine = Engine::new(&config).ok()?;
         let component = match Component::from_file(&engine, path) {
             Ok(component) => component,

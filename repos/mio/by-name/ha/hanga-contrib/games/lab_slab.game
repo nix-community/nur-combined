@@ -1,0 +1,23 @@
+# Checkerboard slabs from the TinyGo/Wasm contrib pack.
+id=lab_slab
+mods=lab_slab
+title.en=Lab slab
+title.mi=Papa tapawae
+title.fr=Dalle Go
+title.zh-TW=實驗板
+sky=0.14 0.16 0.20
+menu_clear=0.07 0.10 0.13
+menu_panel=0.03 0.05 0.07 0.82
+menu_accent=0.62 0.78 0.88
+menu_button=0.10 0.18 0.26
+menu_button_hover=0.16 0.26 0.36
+sun=0.92 0.94 1.00
+sun_illuminance=8500
+ambient=0.42 0.50 0.58
+ambient_brightness=210
+fog=0.16 0.20 0.26
+fog_start=80
+fog_end=360
+palette.0=22 24 28
+palette.1=132 148 160
+palette.2=90 170 210

@@ -19,6 +19,8 @@ wit_bindgen::generate!({
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
 
+const BUS_TOPICS: &str = "ping,name,catalog,gravity,hello,voxel,probe,has,methods";
+
 struct TestbedMod;
 
 pub const ACTION_BREAK: &str = "break";
@@ -346,6 +348,8 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Payloa
             payload_i64(payload, "y") as i32,
             payload_i64(payload, "z") as i32,
         ),
+        "has" => bus_has(BUS_TOPICS, payload),
+        "methods" => wire_text(BUS_TOPICS),
         _ => wire_empty(),
     }
 }
@@ -568,6 +572,14 @@ mod tests {
         let probe = on_message("x", "probe", &wire_empty());
         assert_eq!(payload_text(&probe, "name"), Some("air"));
         assert!(!payload_flag(&probe, "edit"));
+        assert!(matches!(
+            on_message("x", "has", &wire_text("voxel")),
+            hanga::engine::host::Payload::Flag(true)
+        ));
+        assert!(matches!(
+            on_message("x", "has", &wire_text("nope")),
+            hanga::engine::host::Payload::Flag(false)
+        ));
         assert_eq!(
             wire_as_text(&on_message("x", "name", &wire_empty())),
             Some("testbed")

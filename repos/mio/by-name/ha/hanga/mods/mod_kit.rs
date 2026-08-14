@@ -27,8 +27,33 @@ fn kit_bool(text: &str, key: &str) -> bool {
     )
 }
 
+fn wire_flag(value: bool) -> hanga::engine::host::Payload {
+    hanga::engine::host::Payload::Flag(value)
+}
+
 fn wire_empty() -> hanga::engine::host::Payload {
     hanga::engine::host::Payload::Empty
+}
+
+fn bus_has(methods: &str, payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
+    let name = match payload {
+        hanga::engine::host::Payload::Text(text) => text.as_str(),
+        hanga::engine::host::Payload::Bag(fields) => fields
+            .iter()
+            .find(|field| field.key == "name" || field.key == "method")
+            .and_then(|field| match &field.value {
+                hanga::engine::host::Atom::Text(text) => Some(text.as_str()),
+                _ => None,
+            })
+            .unwrap_or(""),
+        _ => "",
+    };
+    wire_flag(
+        methods
+            .split(',')
+            .map(str::trim)
+            .any(|method| method == name),
+    )
 }
 
 fn wire_text(text: impl Into<String>) -> hanga::engine::host::Payload {

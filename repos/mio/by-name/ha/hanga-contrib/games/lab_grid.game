@@ -1,0 +1,23 @@
+# Checkerboard grid from the Zig/Wasm contrib pack.
+id=lab_grid
+mods=lab_grid
+title.en=Lab grid
+title.mi=Mātiti taiwhanga
+title.fr=Grille de labo
+title.zh-TW=實驗格
+sky=0.10 0.16 0.18
+menu_clear=0.06 0.10 0.12
+menu_panel=0.03 0.05 0.06 0.82
+menu_accent=0.70 0.86 0.62
+menu_button=0.12 0.20 0.16
+menu_button_hover=0.18 0.30 0.22
+sun=0.88 1.00 0.90
+sun_illuminance=8800
+ambient=0.40 0.52 0.44
+ambient_brightness=210
+fog=0.14 0.22 0.18
+fog_start=80
+fog_end=360
+palette.0=20 28 24
+palette.1=120 160 132
+palette.2=180 220 90

@@ -18,7 +18,35 @@ names. Empty peer broadcasts; the first non-`empty` reply wins. Nested asks that
 would re-enter a locked store return `empty`.
 
 **Mod API** (`on-message`): packs answer `ping`, `catalog`, `gravity`, and other
-topics they invent. The host does not interpret the payload.
+topics they invent. The host does not interpret the payload. `has` with a text
+name returns a flag (Godot `has_method`); `methods` returns the topic CSV.
+
+## Languages (Godot)
+
+Godot talks to GDScript, C#, and GDExtension through **one value type**
+(`Variant`) and **named** get/set/call (`Object.call`, `has_method`, signals).
+ClassDB registers classes; scripts only override what they care about. The
+engine is trying to collapse ScriptLanguage and GDExtension into that one
+registry so languages are not second-class.
+
+Hanga already has the Variant-shaped piece: `payload` (plus kit strings the host
+knows how to run). `ask` / `on-message` is the named call / signal bus. We should
+**not** copy ClassDB or expose Bevy nodes: the host stays an executor, not a
+reflection dump of the scene tree.
+
+What we take:
+
+- Keep `query-voxel` (and other hot paths) **typed**. Godot would not generate a
+  chunk from GDScript per cell either.
+- Treat empty kits and `on-message` `empty` as “virtual not overridden”.
+- Advertise bus topics with `has` / `methods` so Rust and Kotlin packs can
+  discover each other without a new WIT function per noun.
+- Later: split WIT into a small required export (`init`, catalog, `query-voxel`,
+  `on-message`) and optional interfaces for vehicles/heists, so a Kotlin pack
+  does not stub forty methods. That is Godot’s “only implement what you use”.
+
+What we skip: engine `call("spawn_mesh", …)` into Bevy, script inheritance across
+languages, and a second scripting VM beside WASM.
 
 A **game** is a collection of mods plus presentation (menu backdrop, titles, sky,
 clouds, lighting, voxel palette). `.game` files in `share/hanga/games`
@@ -38,7 +66,7 @@ The host knows nothing about cops, wanted levels, cities, or quests.
   backdrop come from the selected `.game` file; voxel/item names come from the mod.
 - P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints,
   and Ed25519 signatures on the wire (`~/.config/hanga/peer.key`)
-- `wasmtime` component sandbox + hot-reload
+- `wasmtime` component sandbox + hot-reload (WasmGC on so Kotlin/Wasm contrib mods load)
 - Host imports for mods (`log`, clock, identity, `ask` bus, `voxel-at`, `voxel-probe`, `payload` bags)
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
@@ -99,7 +127,9 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 Load with `--game urban_chaos` (default), `--game testbed`, or `--mod` for a
 lone WASM (implicit one-mod game, neutral menu). Packaged builds install
 WASM in `$out/share/hanga/mods` (`HANGA_MODS`) and `.game` files in
-`$out/share/hanga/games` (`HANGA_GAMES`). The engine currently instantiates the lead mod for terrain and extra packs
+`$out/share/hanga/games` (`HANGA_GAMES`). Extra language packs live in
+`nix build .#hanga-contrib` (`lab_tile` Kotlin/Wasm, `lab_slab` TinyGo, `lab_grid` Zig, `lab_owl` Hoot). The engine
+currently instantiates the lead mod for terrain and extra packs
 for vehicles and agents.
 
 ## Commands
@@ -182,3 +212,4 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 ## Next
 
 1. Package `cargo-kani` so proofs run as CBMC, not only replay tests
+2. Optional WIT exports (core vs vehicles/heists) so non-Rust packs skip unused stubs

@@ -1,0 +1,27 @@
+package hangamod
+
+import "testing"
+
+func TestKit(t *testing.T) {
+	fields := Fields("a=1;mystery=nope\nb=2")
+	if len(fields) != 3 || fields[0] != [2]string{"a", "1"} || fields[2] != [2]string{"b", "2"} {
+		t.Fatalf("fields: %#v", fields)
+	}
+	if !Flag("1") || Flag("0") {
+		t.Fatal("flag")
+	}
+	if v, ok := Get("kind=none;jump=5", "kind"); !ok || v != "none" {
+		t.Fatal("get")
+	}
+	if F32("walk=10", "walk", 0) != 10 {
+		t.Fatal("f32")
+	}
+	catalog := ParseCatalog("air, tile ,lamp")
+	if len(catalog) != 3 || CatalogName(catalog, 1) != "tile" || CatalogIndex(catalog, "lamp") != 2 {
+		t.Fatalf("catalog: %#v", catalog)
+	}
+	probe := VoxelProbe("glass", true)
+	if text, ok := probe.BagText("name"); !ok || text != "glass" || !probe.BagFlag("edit") {
+		t.Fatal("wire probe")
+	}
+}

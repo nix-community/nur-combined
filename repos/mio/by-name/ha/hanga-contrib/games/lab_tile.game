@@ -1,0 +1,23 @@
+# Tiled lab floor from the Kotlin/Wasm contrib pack.
+id=lab_tile
+mods=lab_tile
+title.en=Lab tile
+title.mi=Tae tapa
+title.fr=Dalle de labo
+title.zh-TW=實驗磚
+sky=0.12 0.18 0.22
+menu_clear=0.08 0.12 0.14
+menu_panel=0.04 0.06 0.07 0.82
+menu_accent=0.55 0.82 0.78
+menu_button=0.12 0.22 0.24
+menu_button_hover=0.18 0.32 0.34
+sun=0.90 0.95 1.00
+sun_illuminance=9000
+ambient=0.45 0.55 0.58
+ambient_brightness=220
+fog=0.18 0.24 0.28
+fog_start=80
+fog_end=360
+palette.0=24 24 28
+palette.1=160 148 132
+palette.2=220 200 90

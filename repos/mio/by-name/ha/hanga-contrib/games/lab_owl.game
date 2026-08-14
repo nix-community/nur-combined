@@ -1,0 +1,24 @@
+# Checkerboard from the Hoot (Scheme/WasmGC) contrib pack.
+# Hoot binaries are not WIT components yet; keep this next to the wasm.
+id=lab_owl
+mods=lab_owl
+title.en=Lab owl
+title.mi=Ruru taiwhanga
+title.fr=Hibou de labo
+title.zh-TW=實驗梟
+sky=0.12 0.10 0.16
+menu_clear=0.07 0.06 0.10
+menu_panel=0.04 0.03 0.06 0.82
+menu_accent=0.86 0.72 0.48
+menu_button=0.22 0.16 0.12
+menu_button_hover=0.32 0.24 0.16
+sun=1.00 0.92 0.78
+sun_illuminance=8200
+ambient=0.50 0.44 0.40
+ambient_brightness=200
+fog=0.18 0.14 0.20
+fog_start=80
+fog_end=360
+palette.0=28 22 18
+palette.1=148 112 72
+palette.2=220 180 90

@@ -1,0 +1,15 @@
+;; TinyGo WASI preview1 imports the host does not need.
+(module
+  (func (export "fd_write") (param i32 i32 i32 i32) (result i32)
+    i32.const 0)
+  (func (export "proc_exit") (param i32)
+    unreachable)
+  (func (export "clock_time_get") (param i32 i64 i32) (result i32)
+    i32.const 0)
+  (func (export "args_sizes_get") (param i32 i32) (result i32)
+    i32.const 0)
+  (func (export "args_get") (param i32 i32) (result i32)
+    i32.const 0)
+  (func (export "random_get") (param i32 i32) (result i32)
+    i32.const 0)
+)
