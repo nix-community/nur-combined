@@ -19,8 +19,14 @@ in {
   moegi-nvim = callPackage ./pkgs/moegi-nvim {};
   prequery-preprocess = callPackage ./pkgs/prequery-preprocess {};
   prettier-inogai = callPackage ./pkgs/prettier-inogai {};
-  pi-web = callPackage ./pkgs/pi-web {};
+  pi-web-agegr = callPackage ./pkgs/pi-web-agegr {};
   pi-web-jmfederico = callPackage ./pkgs/pi-web-jmfederico {};
+  # Deprecated: the original `pi-web` attr (was the jmfederico package). Both
+  # projects are literally named "pi-web" (agegr/pi-web, jmfederico/pi-web),
+  # so use the explicit names: pi-web-agegr or pi-web-jmfederico.
+  pi-web = lib.warn "pi-web is deprecated — use pi-web-agegr or pi-web-jmfederico" (
+    callPackage ./pkgs/pi-web-jmfederico {}
+  );
   ray-raycast = callPackage ./pkgs/ray-raycast {};
   winterm-rs = callPackage ./pkgs/winterm-rs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

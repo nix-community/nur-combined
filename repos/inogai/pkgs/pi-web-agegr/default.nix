@@ -1,4 +1,6 @@
-# pi-web (agegr): Web UI for persistent Pi Coding Agent sessions.
+# pi-web-agegr: agegr/pi-web (agegr lineage, 0.8.x) — see also
+# pi-web-jmfederico (jmfederico lineage, 1.202608.x). The two projects are
+# both named "pi-web" but are separate parallel projects, not fork/upstream.
 # Single-process `next start` server (no sessiond split like jmfederico);
 # agent runs in-process via @earendil-works/pi-* 0.84.1, which are regular
 # dependencies (not peers), so they survive npm prune — no patch needed.
@@ -27,7 +29,7 @@ let
   };
 in
 buildNpmPackage rec {
-  pname = "pi-web";
+  pname = "pi-web-agegr";
   version = "0.8.8";
 
   inherit src;
@@ -51,7 +53,7 @@ buildNpmPackage rec {
   npmFlags = [ "--legacy-peer-deps" ];
 
   meta = with lib; {
-    description = "Web UI for persistent Pi Coding Agent sessions (agegr)";
+    description = "Web UI for persistent Pi Coding Agent sessions (agegr lineage)";
     homepage = "https://github.com/agegr/pi-web";
     license = licenses.mit;
     maintainers = [ ];
