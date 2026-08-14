@@ -15,7 +15,7 @@ When updating code or documentation, treat these files as authoritative:
 - `.agents/command/*.md` - repo-local omp command docs
 - `.agents/skill/nix-packaging/SKILL.md` - repo-local omp nix-packaging skill
 - `.opencode/opencode.jsonc` - OpenCode config and remote `context7` MCP setup
-- `pkgs/*/AGENTS.md` - package-level packaging guides (currently `pkgs/oh-my-pi/AGENTS.md`, `pkgs/banguminet/AGENTS.md`, `pkgs/pctx/AGENTS.md`)
+- `pkgs/*/AGENTS.md` - package-level packaging guides (currently `pkgs/banguminet/AGENTS.md`, `pkgs/pctx/AGENTS.md`)
 
 ## Current Repository Shape
 
@@ -52,7 +52,7 @@ Do not document modules or overlays as active features unless they have been imp
 
 ## Package Inventory Summary
 
-The repo currently exports 30 packages from `default.nix`, grouped roughly as:
+The repo currently exports 29 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`

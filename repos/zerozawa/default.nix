@@ -68,7 +68,6 @@ in
   agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix { };
   lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
   deskbrid = pkgs.callPackage ./pkgs/deskbrid.nix { };
-  oh-my-pi = pkgs.callPackage ./pkgs/oh-my-pi { };
   context-mode = pkgs.callPackage ./pkgs/context-mode.nix { };
   codegraph = pkgs.callPackage ./pkgs/codegraph.nix { };
   spec-kit = pkgs.callPackage ./pkgs/spec-kit.nix { };

@@ -50,8 +50,5 @@ nix-build ci.nix -A cacheOutputs
 - `LoveIwara` has Flutter pub-lock, native-asset, SQLite, and libmpv runtime handling.
 - `JMComic-qt` and `picacg-qt` expect the model-linked `sr-vulkan` composition.
 - `deskbrid` resolves compositor helper tools (hyprctl, grim, wl-clipboard, ydotool, ...) from PATH at runtime; it is intentionally not wrapped.
-- **`oh-my-pi`**: after building, verify ELF patching by checking all onnxruntime
-  `.node` files have `self-dir` in RPATH and NEEDED matches the renamed
-  `libonnxruntime.so.1.<cksum>` on disk. See `pkgs/oh-my-pi/AGENTS.md`.
 
 !`nix-build -A "$ARGUMENTS"`
