@@ -18,13 +18,10 @@ interface gameplay {
     /// Empty string = spawn nobody. Otherwise an agent name such as cop.
     mod-should-spawn-agent: func(action: string, old-state: s32, new-state: s32) -> string;
 
-    /// Traffic AI: engine supplies heading + whether the path is blocked.
-    compute-traffic-vx: func(fwd-x: f32, fwd-z: f32, blocked: bool) -> f32;
-    compute-traffic-vz: func(fwd-x: f32, fwd-z: f32, blocked: bool) -> f32;
-
-    /// Agent AI (cops, pedestrians, etc.)
-    compute-agent-vx: func(agent: string, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
-    compute-agent-vz: func(agent: string, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
+    /// Planar velocity for a named role. The host only measures; the mod names the role
+    /// (`traffic`, `cop`, …). Context is `key=value` (heading, blocked, positions).
+    /// Return `vx=;vz=`. Empty = host default.
+    steer: func(role: string, context: string) -> string;
 
     /// Storyteller and economy owned by the mod.
     mod-get-storyteller-level: func() -> s32;
@@ -46,13 +43,9 @@ interface gameplay {
     /// speed and `walk=` planar speed.
     gravity: func() -> string;
 
-    /// Teardown rules owned by the mod.
-    /// 1 if this voxel name can become physical debris when fractured.
-    can-fracture: func(voxel: string) -> s32;
-    /// Chebyshev radius of collapse around a broken voxel of this name.
-    fracture-spread: func(voxel: string) -> s32;
-    /// Impulse applied to spawned debris for an action name.
-    debris-impulse: func(action: string) -> f32;
+    /// Shatter outcome for this voxel name and action. Empty = do not spawn debris.
+    /// `can=0|1;spread=;impulse=`
+    fracture-kit: func(voxel: string, action: string) -> string;
 
     /// Passive tick owned by the mod (wanted-level decay, etc.). `dt-ms` is elapsed millis.
     mod-tick: func(current-state: s32, dt-ms: s32) -> s32;
@@ -90,21 +83,9 @@ interface gameplay {
     /// Product of combining two item names (empty = no recipe). Order must not matter.
     craft-result: func(item-a: string, item-b: string) -> string;
 
-    /// BeamNG-style crash rules. Engine measures impact; the mod rates the metal.
-    /// Severity is 0-100 from impact speed (m/s) and whether we hit a solid.
-    crash-severity: func(speed: f32, into-solid: bool) -> s32;
-    /// Visual squash 0-100 for this severity.
-    crash-crumple: func(severity: s32) -> s32;
-    /// 1 if this part name from `vehicle-kit` should detach.
-    crash-detach: func(part: string, severity: s32) -> s32;
-    /// 1 if the vehicle is wrecked (undriveable) at this severity.
-    crash-wrecks: func(severity: s32) -> s32;
-    /// Action name for wanted / fracture (empty, crash, explode).
-    crash-action: func(severity: s32) -> string;
-    /// 1 if the host should attach a burn light (engine fire). The host does not know fuel.
-    crash-ignites: func(severity: s32) -> s32;
-    /// Linear impulse applied to a detached part.
-    crash-part-impulse: func(severity: s32) -> f32;
+    /// Impact outcome. Host measured speed (m/s) and whether we hit a solid.
+    /// Empty = ignore. `severity=;crumple=;wrecks=0|1;ignites=0|1;action=;impulse=;detach=a,b`
+    crash-kit: func(speed: f32, into-solid: bool) -> string;
 }
 
 world plugin {

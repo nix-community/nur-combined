@@ -6,6 +6,7 @@
 pub mod bindings;
 pub mod crash;
 pub mod figure;
+pub mod kit;
 pub mod game;
 pub mod gravity;
 pub mod heist;

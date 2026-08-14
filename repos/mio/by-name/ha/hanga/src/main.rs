@@ -28,7 +28,10 @@ use hanga::{
     resolve_wasm_path, should_skip_menu, unpack_economy_params,
     verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
-use hanga::crash::{crumple_axes, crumple_node_shift, impact_speed};
+use hanga::crash::{
+    crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed, parse_crash_kit,
+    parse_fracture_kit, parse_planar,
+};
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
     avian_accel, can_jump_from, jump_needs_floor, parse_gravity, point_accel, set_jump,
@@ -1464,31 +1467,20 @@ fn teardown_fracture(
     let origin_name = catalog_name(&catalog.0, origin_type)
         .unwrap_or("")
         .to_string();
-    let can = with_mod(mod_runtime, |ctx| {
+    let origin_kit = with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_can_fracture(&mut ctx.store, &origin_name)
-            .unwrap_or(0)
+            .call_fracture_kit(&mut ctx.store, &origin_name, action)
+            .unwrap_or_default()
     })
-    .unwrap_or(0);
-    let impulse = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_debris_impulse(&mut ctx.store, action)
-            .unwrap_or(5.0)
-    })
-    .unwrap_or(5.0);
-    let spread = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_fracture_spread(&mut ctx.store, &origin_name)
-            .unwrap_or(0)
-    })
-    .unwrap_or(0);
+    .map(|text| parse_fracture_kit(&text))
+    .unwrap_or_default();
+    let impulse = origin_kit.impulse;
+    let spread = origin_kit.spread;
 
     voxel_world.set_voxel(origin, WorldVoxel::Unset);
     note_voxel_edit(edits, origin);
-    if can > 0 {
+    if origin_kit.can {
         spawn_debris(
             commands,
             meshes,
@@ -1507,14 +1499,15 @@ fn teardown_fracture(
             continue;
         };
         let nname = catalog_name(&catalog.0, ntype).unwrap_or("").to_string();
-        let ncan = with_mod(mod_runtime, |ctx| {
+        let nkit = with_mod(mod_runtime, |ctx| {
             ctx.bindings
                 .hanga_engine_gameplay()
-                .call_can_fracture(&mut ctx.store, &nname)
-                .unwrap_or(0)
+                .call_fracture_kit(&mut ctx.store, &nname, action)
+                .unwrap_or_default()
         })
-        .unwrap_or(0);
-        if ncan <= 0 {
+        .map(|text| parse_fracture_kit(&text))
+        .unwrap_or_default();
+        if !nkit.can {
             continue;
         }
         let below_solid = voxel_type_of(voxel_world.get_voxel(npos - IVec3::Y)).is_some();
@@ -2468,24 +2461,20 @@ fn vehicle_crash_system(
             continue;
         };
         crash.last_speed = speed;
-        let severity = with_mod(&mod_runtime, |ctx| {
+        let outcome = with_mod(&mod_runtime, |ctx| {
             ctx.bindings
                 .hanga_engine_gameplay()
-                .call_crash_severity(&mut ctx.store, impact, into_solid)
-                .unwrap_or(0)
+                .call_crash_kit(&mut ctx.store, impact, into_solid)
+                .unwrap_or_default()
         })
-        .unwrap_or(0);
+        .map(|text| parse_crash_kit(&text))
+        .unwrap_or_default();
+        let severity = outcome.severity;
         if severity <= crash.peak {
             continue;
         }
         crash.peak = severity;
-        let crumple = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_crash_crumple(&mut ctx.store, severity)
-                .unwrap_or(0)
-        })
-        .unwrap_or(0);
+        let crumple = outcome.crumple;
         let dir = [velocity.x, velocity.y, velocity.z];
         let axes = crumple_axes(crumple, dir);
         let mut detach = Vec::new();
@@ -2493,15 +2482,7 @@ fn vehicle_crash_system(
             let Ok((part_entity, part, mut local)) = parts.get_mut(child) else {
                 continue;
             };
-            let should_drop = with_mod(&mod_runtime, |ctx| {
-                ctx.bindings
-                    .hanga_engine_gameplay()
-                    .call_crash_detach(&mut ctx.store, &part.name, severity)
-                    .unwrap_or(0)
-            })
-            .unwrap_or(0)
-                == 1;
-            if should_drop {
+            if crash_kit_detaches(&outcome, &part.name) {
                 detach.push((part_entity, part.size, *local));
             } else {
                 local.scale = Vec3::from_array(axes);
@@ -2509,13 +2490,7 @@ fn vehicle_crash_system(
                 local.translation = Vec3::from_array(shifted);
             }
         }
-        let impulse = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_crash_part_impulse(&mut ctx.store, severity)
-                .unwrap_or(0.0)
-        })
-        .unwrap_or(0.0);
+        let impulse = outcome.impulse;
         let kick = transform.forward() * -impulse + Vec3::Y * (impulse * 0.35);
         for (part_entity, size, local) in detach {
             let world = transform.mul_transform(local);
@@ -2529,14 +2504,7 @@ fn vehicle_crash_system(
                 AngularVelocity(Vec3::new(2.4, 1.1, 0.8)),
             ));
         }
-        let wrecks = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_crash_wrecks(&mut ctx.store, severity)
-                .unwrap_or(0)
-        })
-        .unwrap_or(0)
-            == 1;
+        let wrecks = outcome.wrecks;
         if wrecks && wrecked.is_none() {
             commands.entity(entity).insert(Wrecked);
             commands.entity(entity).remove::<LockedAxes>();
@@ -2548,15 +2516,7 @@ fn vehicle_crash_system(
                 }
             }
         }
-        let ignites = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_crash_ignites(&mut ctx.store, severity)
-                .unwrap_or(0)
-        })
-        .unwrap_or(0)
-            == 1;
-        if ignites && ignited.is_none() {
+        if outcome.ignites && ignited.is_none() {
             commands.entity(entity).insert(Ignited);
             commands.entity(entity).with_children(|parent| {
                 parent.spawn((
@@ -2573,13 +2533,7 @@ fn vehicle_crash_system(
                 ));
             });
         }
-        let action = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_crash_action(&mut ctx.store, severity)
-                .unwrap_or_default()
-        })
-        .unwrap_or_default();
+        let action = outcome.action;
         if action.is_empty() {
             continue;
         }
@@ -2656,15 +2610,16 @@ fn vehicle_traffic_system(
                 });
         }
         if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
-            let g = ctx.bindings.hanga_engine_gameplay();
-            let vx = g
-                .call_compute_traffic_vx(&mut ctx.store, fwd.x, fwd.z, blocked)
-                .unwrap_or(0.0);
-            let vz = g
-                .call_compute_traffic_vz(&mut ctx.store, fwd.x, fwd.z, blocked)
-                .unwrap_or(0.0);
-            (vx, vz)
-        }) {
+            let blocked_flag = i32::from(blocked);
+            let ctx_text = format!("fwd-x={};fwd-z={};blocked={blocked_flag}", fwd.x, fwd.z);
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_steer(&mut ctx.store, "traffic", &ctx_text)
+                .ok()
+                .and_then(|text| parse_planar(&text).map(|v| (v.vx, v.vz)))
+        })
+        .flatten()
+        {
             velocity.x = vx;
             velocity.z = vz;
             if let Some(yaw) = yaw_toward(vx, vz) {
@@ -2699,28 +2654,15 @@ fn agent_ai_tick(
         for (mut agent_transform, mut velocity, agent) in agents.iter_mut() {
             let c_pos = agent_transform.translation;
             if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
-                let g = ctx.bindings.hanga_engine_gameplay();
-                let vx = g
-                    .call_compute_agent_vx(
-                        &mut ctx.store,
-                        &agent.0,
-                        c_pos.x,
-                        c_pos.z,
-                        p_pos.x,
-                        p_pos.z,
-                    )
-                    .ok()?;
-                let vz = g
-                    .call_compute_agent_vz(
-                        &mut ctx.store,
-                        &agent.0,
-                        c_pos.x,
-                        c_pos.z,
-                        p_pos.x,
-                        p_pos.z,
-                    )
-                    .ok()?;
-                Some((vx, vz))
+                let ctx_text = format!(
+                    "cur-x={};cur-z={};target-x={};target-z={}",
+                    c_pos.x, c_pos.z, p_pos.x, p_pos.z
+                );
+                ctx.bindings
+                    .hanga_engine_gameplay()
+                    .call_steer(&mut ctx.store, &agent.0, &ctx_text)
+                    .ok()
+                    .and_then(|text| parse_planar(&text).map(|v| (v.vx, v.vz)))
             })
             .flatten()
             {

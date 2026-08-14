@@ -7,6 +7,7 @@
 wit_bindgen::generate!({ world: "plugin", path: "../../wit" });
 
 include!("../../locale.rs");
+include!("../../mod_kit.rs");
 
 struct TestbedMod;
 
@@ -122,6 +123,37 @@ pub fn fracture_spread(_voxel: &str) -> i32 {
 
 pub fn debris_impulse(_action: &str) -> f32 {
     8.0
+}
+
+pub fn fracture_kit(voxel: &str, action: &str) -> String {
+    format!(
+        "can={};spread={};impulse={}",
+        can_fracture(voxel),
+        fracture_spread(voxel),
+        debris_impulse(action)
+    )
+}
+
+pub fn steer(role: &str, context: &str) -> String {
+    if role == "traffic" {
+        let fwd_x = kit_f32(context, "fwd-x", 0.0);
+        let fwd_z = kit_f32(context, "fwd-z", 0.0);
+        let blocked = kit_bool(context, "blocked");
+        return format!(
+            "vx={};vz={}",
+            compute_traffic_vx(fwd_x, fwd_z, blocked),
+            compute_traffic_vz(fwd_x, fwd_z, blocked)
+        );
+    }
+    let cx = kit_f32(context, "cur-x", 0.0);
+    let cz = kit_f32(context, "cur-z", 0.0);
+    let tx = kit_f32(context, "target-x", 0.0);
+    let tz = kit_f32(context, "target-z", 0.0);
+    format!(
+        "vx={};vz={}",
+        compute_agent_vx(role, cx, cz, tx, tz),
+        compute_agent_vz(role, cx, cz, tx, tz)
+    )
 }
 
 pub fn mod_tick(current_state: i32, _dt_ms: i32) -> i32 {
@@ -253,6 +285,10 @@ pub fn crash_part_impulse(_severity: i32) -> f32 {
     0.0
 }
 
+pub fn crash_kit(_speed: f32, _into_solid: bool) -> String {
+    String::new()
+}
+
 impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn init_mod() {}
     fn voxel_catalog() -> String {
@@ -267,23 +303,14 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn mod_should_spawn_agent(a: String, o: i32, n: i32) -> String {
         crate::mod_should_spawn_agent(&a, o, n)
     }
-    fn compute_agent_vx(t: String, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-        crate::compute_agent_vx(&t, cx, cz, px, pz)
-    }
-    fn compute_agent_vz(t: String, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-        crate::compute_agent_vz(&t, cx, cz, px, pz)
-    }
     fn compute_economy_price(b: i32, s: i32, d: i32) -> i32 {
         crate::compute_economy_price(b, s, d)
     }
     fn mod_get_action_range(a: String) -> f32 {
         crate::mod_get_action_range(&a)
     }
-    fn compute_traffic_vx(x: f32, z: f32, blocked: bool) -> f32 {
-        crate::compute_traffic_vx(x, z, blocked)
-    }
-    fn compute_traffic_vz(x: f32, z: f32, blocked: bool) -> f32 {
-        crate::compute_traffic_vz(x, z, blocked)
+    fn steer(role: String, context: String) -> String {
+        crate::steer(&role, &context)
     }
     fn mod_get_storyteller_level() -> i32 {
         crate::mod_get_storyteller_level()
@@ -309,14 +336,8 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn gravity() -> String {
         crate::gravity()
     }
-    fn can_fracture(voxel: String) -> i32 {
-        crate::can_fracture(&voxel)
-    }
-    fn fracture_spread(voxel: String) -> i32 {
-        crate::fracture_spread(&voxel)
-    }
-    fn debris_impulse(action: String) -> f32 {
-        crate::debris_impulse(&action)
+    fn fracture_kit(voxel: String, action: String) -> String {
+        crate::fracture_kit(&voxel, &action)
     }
     fn mod_tick(current_state: i32, dt_ms: i32) -> i32 {
         crate::mod_tick(current_state, dt_ms)
@@ -379,32 +400,8 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
         crate::craft_result(&item_a, &item_b)
     }
 
-    fn crash_severity(speed: f32, into_solid: bool) -> i32 {
-        crate::crash_severity(speed, into_solid)
-    }
-
-    fn crash_crumple(severity: i32) -> i32 {
-        crate::crash_crumple(severity)
-    }
-
-    fn crash_detach(part: String, severity: i32) -> i32 {
-        crate::crash_detach(&part, severity)
-    }
-
-    fn crash_wrecks(severity: i32) -> i32 {
-        crate::crash_wrecks(severity)
-    }
-
-    fn crash_action(severity: i32) -> String {
-        crate::crash_action(severity)
-    }
-
-    fn crash_ignites(severity: i32) -> i32 {
-        crate::crash_ignites(severity)
-    }
-
-    fn crash_part_impulse(severity: i32) -> f32 {
-        crate::crash_part_impulse(severity)
+    fn crash_kit(speed: f32, into_solid: bool) -> String {
+        crate::crash_kit(speed, into_solid)
     }
 }
 
@@ -484,6 +481,7 @@ mod tests {
         assert_eq!(crash_wrecks(100), 0);
         assert!(crash_action(100).is_empty());
         assert_eq!(crash_ignites(100), 0);
+        assert!(crash_kit(40.0, true).is_empty());
     }
 
     #[test]

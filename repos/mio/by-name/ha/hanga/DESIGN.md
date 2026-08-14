@@ -1,6 +1,13 @@
 # Hanga: engine vs mods
 
 Hanga is a Bevy host. Gameplay lives in WASM components (`wit/world.wit`).
+WIT is only the **sandbox ABI**: the host can call what the component exports, and
+nothing else. That is why a new *engine verb* (measure impact, spawn a light,
+move a body) needs a WIT entry. Game nouns (cops, fire, lamps, wanted stars)
+must not. Those belong in kit strings the mod invents (`crash-kit`, `vehicle-kit`,
+`gravity`, `steer` context). The host parses numbers and flags it already knows
+how to execute; unknown keys are ignored.
+
 A **game** is a collection of mods plus presentation (menu backdrop, titles, sky,
 clouds, lighting, voxel palette). `.game` files in `share/hanga/games`
 (`HANGA_GAMES`) list the mods and the look. Textures are optional PNGs next to
@@ -34,9 +41,18 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 
 - World gen (`query-voxel`)
 - Rules (`mod-evaluate-action`, `mod-should-spawn-agent`, wanted level)
-- AI velocities, traffic speed, economy, storyteller
+- Economy / storyteller
 - Spawn positions
-- What can shatter (`can-fracture`, `fracture-spread`, `debris-impulse`)
+- What can shatter (`fracture-kit`: can / spread / impulse)
+- Rideable kit (`vehicle-kit`): kind, traffic, speed, collider, named box parts.
+  Urban Chaos ships a car; Testbed ships a platform.
+- Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
+  plus `jump=` and `walk=`. Urban Chaos is Earth; Testbed is a zero-g lab.
+- Vehicle crash (`crash-kit`): one impact string (severity, crumple, wrecks,
+  ignites, action, impulse, detach names). Urban Chaos owns street metal; the
+  host only folds boxes and hangs a light.
+- Planar AI (`steer`): role + measured context in, `vx=`/`vz=` out. Cops and
+  traffic are role names, not engine types.
 - Passive tick (wanted decay), ambient NPCs
 - Localized copy (`voxel-label`, `event-label`, `contract-label`, `item-label`, `supported-locales`)
 - Wallet / contracts (`mod-wallet-after`, `mod-offer-contract`, `mod-can-complete`)
@@ -44,12 +60,6 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - `voxel-catalog` lists meshing-index order (`air,concrete,...`); `query-voxel` still returns that index
 - Loot names (`loot-item`) that fill the host's generic 8-slot hotbar
 - Crafting recipes (`craft-result`); the host only spends two items and adds the product
-- Rideable kit (`vehicle-kit`): kind, traffic, speed, collider, named box parts.
-  Urban Chaos ships a car; Testbed ships a platform.
-- Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
-  plus `jump=` and `walk=`. Urban Chaos is Earth; Testbed is a zero-g lab.
-- Vehicle crash rules (`crash-severity`, `crash-crumple`, `crash-detach`,
-  `crash-wrecks`, `crash-action`, `crash-part-impulse`)
 - Heist board (`mod-offer-contract`, `contract-mark`, `mod-can-complete` + context).
   The host paints a mark and reports held item / position / vehicle / near;
   Urban Chaos owns smash, subway pinch, chop-shop, and the armored truck.

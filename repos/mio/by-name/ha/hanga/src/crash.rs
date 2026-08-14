@@ -1,4 +1,6 @@
-//! Generic crash math. The mod decides severity; the host only applies it.
+//! Generic crash math. The mod returns a kit; the host only applies it.
+
+use crate::kit;
 
 pub const CRASH_SEVERITY_MAX: i32 = 100;
 
@@ -59,6 +61,119 @@ pub fn impact_speed(last_speed: f32, current_speed: f32, into_solid: bool) -> Op
     None
 }
 
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CrashKit {
+    pub severity: i32,
+    pub crumple: i32,
+    pub wrecks: bool,
+    pub ignites: bool,
+    pub action: String,
+    pub impulse: f32,
+    pub detach: Vec<String>,
+}
+
+pub fn parse_crash_kit(text: &str) -> CrashKit {
+    let mut kit = CrashKit::default();
+    for (key, value) in kit::fields(text) {
+        match key {
+            "severity" => {
+                if let Ok(v) = value.parse::<i32>() {
+                    kit.severity = clamp_crash_severity(v);
+                }
+            }
+            "crumple" => {
+                if let Ok(v) = value.parse::<i32>() {
+                    kit.crumple = clamp_crash_severity(v);
+                }
+            }
+            "wrecks" => kit.wrecks = kit::flag(value),
+            "ignites" | "burn" | "fire" => kit.ignites = kit::flag(value),
+            "action" => kit.action = value.to_string(),
+            "impulse" => {
+                if let Ok(v) = value.parse::<f32>() {
+                    kit.impulse = v.max(0.0);
+                }
+            }
+            "detach" => {
+                kit.detach = value
+                    .split(',')
+                    .map(|n| n.trim().to_string())
+                    .filter(|n| !n.is_empty())
+                    .collect();
+            }
+            _ => {}
+        }
+    }
+    kit
+}
+
+pub fn crash_kit_detaches(kit: &CrashKit, part: &str) -> bool {
+    kit.detach.iter().any(|name| name == part)
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct FractureKit {
+    pub can: bool,
+    pub spread: i32,
+    pub impulse: f32,
+}
+
+pub fn parse_fracture_kit(text: &str) -> FractureKit {
+    let mut kit = FractureKit {
+        impulse: 5.0,
+        ..FractureKit::default()
+    };
+    for (key, value) in kit::fields(text) {
+        match key {
+            "can" => kit.can = kit::flag(value),
+            "spread" => {
+                if let Ok(v) = value.parse::<i32>() {
+                    kit.spread = v.max(0);
+                }
+            }
+            "impulse" => {
+                if let Ok(v) = value.parse::<f32>() {
+                    kit.impulse = v.max(0.0);
+                }
+            }
+            _ => {}
+        }
+    }
+    kit
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct PlanarVel {
+    pub vx: f32,
+    pub vz: f32,
+}
+
+pub fn parse_planar(text: &str) -> Option<PlanarVel> {
+    if text.trim().is_empty() {
+        return None;
+    }
+    let mut vel = PlanarVel::default();
+    let mut saw = false;
+    for (key, value) in kit::fields(text) {
+        match key {
+            "vx" => {
+                if let Ok(v) = value.parse::<f32>() {
+                    vel.vx = v;
+                    saw = true;
+                }
+            }
+            "vz" => {
+                if let Ok(v) = value.parse::<f32>() {
+                    vel.vz = v;
+                    saw = true;
+                }
+            }
+            _ => {}
+        }
+    }
+    saw.then_some(vel)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -96,5 +211,22 @@ mod tests {
         let shifted = crumple_node_shift([0.0, 0.4, 1.2], [0.0, 0.0, 10.0], 100);
         assert!(shifted[2] < 1.2);
         assert!((shifted[0]).abs() < 1e-5);
+    }
+
+    #[test]
+    fn crash_kit_is_opaque_to_the_host() {
+        let kit = parse_crash_kit(
+            "severity=75;crumple=70;wrecks=1;ignites=1;action=crash;impulse=12;detach=lamp,wheel",
+        );
+        assert_eq!(kit.severity, 75);
+        assert!(kit.wrecks && kit.ignites);
+        assert_eq!(kit.action, "crash");
+        assert!(crash_kit_detaches(&kit, "lamp"));
+        assert!(!crash_kit_detaches(&kit, "hull"));
+        assert_eq!(parse_crash_kit("").severity, 0);
+        let frac = parse_fracture_kit("can=1;spread=3;impulse=15");
+        assert!(frac.can && frac.spread == 3);
+        assert_eq!(parse_planar("vx=1;vz=-2"), Some(PlanarVel { vx: 1.0, vz: -2.0 }));
+        assert_eq!(parse_planar(""), None);
     }
 }

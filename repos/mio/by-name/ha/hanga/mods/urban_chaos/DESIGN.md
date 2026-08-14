@@ -10,8 +10,8 @@ The host only applies the field; a later heist in orbit would ship a different k
 
 Cars are **soft street metal** in the BeamNG sense: they fold, shed parts, and
 can become wrecks. The host only measures impact and moves meshes; this mod
-owns how cheap the steel is. A hard wreck can **ignite** (`crash-ignites`); the
-host only hangs a light. Fuel tanks and spreading fire are later.
+owns how cheap the steel is. A hard wreck can **ignite** (`ignites=1` on
+`crash-kit`); the host only hangs a light. Fuel tanks and spreading fire are later.
 
 ## Crash (BeamNG-related, not a full node-beam solver)
 
