@@ -1,0 +1,106 @@
+--- a/DiscordChatExporter.Gui/App.axaml.cs
++++ b/DiscordChatExporter.Gui/App.axaml.cs
+@@ -1,5 +1,7 @@
+ using System;
++using System.Globalization;
+ using Avalonia;
++using Avalonia.Controls;
+ using Avalonia.Controls.ApplicationLifetimes;
+ using Avalonia.Markup.Xaml;
+ using Avalonia.Media;
+@@ -107,6 +109,12 @@
+             var viewModelManager = _services.GetRequiredService<ViewModelManager>();
+ 
+             desktop.MainWindow = viewManager.TryBindWindow(viewModelManager.GetMainViewModel());
++            if (desktop.MainWindow is { } mainWindow)
++            {
++                mainWindow.Opened += (_, _) => ApplyLinuxHidpiScale(mainWindow);
++                if (mainWindow.IsVisible)
++                    ApplyLinuxHidpiScale(mainWindow);
++            }
+ 
+             // Although `App.Dispose()` is invoked from `Program.Main(...)`, on some platforms
+             // it may be called too late in the shutdown lifecycle. Attach an exit
+@@ -121,6 +129,82 @@
+         base.OnFrameworkInitializationCompleted();
+     }
+ 
++    // X11/XWayland often reports RenderScaling=1 on HiDPI. Scale the visual tree instead.
++    private static void ApplyLinuxHidpiScale(Window window)
++    {
++        if (!OperatingSystem.IsLinux())
++            return;
++
++        if (window.Content is LayoutTransformControl)
++            return;
++
++        var scale = ResolveLinuxUiScale(window);
++        if (scale <= 1.01)
++            return;
++
++        if (window.Content is Control child)
++        {
++            window.Content = null;
++            window.Content = new LayoutTransformControl
++            {
++                LayoutTransform = new ScaleTransform(scale, scale),
++                Child = child,
++            };
++        }
++
++        window.MinWidth *= scale;
++        window.MinHeight *= scale;
++        window.Width *= scale;
++        window.Height *= scale;
++    }
++
++    private static double ResolveLinuxUiScale(Window window)
++    {
++        foreach (var name in new[] { "DISCORDCHATEXPORTER_SCALE", "AVALONIA_GLOBAL_SCALE_FACTOR" })
++        {
++            var raw = Environment.GetEnvironmentVariable(name);
++            if (
++                !string.IsNullOrWhiteSpace(raw)
++                && double.TryParse(
++                    raw,
++                    NumberStyles.Any,
++                    CultureInfo.InvariantCulture,
++                    out var parsed
++                )
++                && parsed > 0
++            )
++                return parsed;
++        }
++
++        if (window.RenderScaling > 1.1)
++            return 1;
++
++        var screen = window.Screens?.ScreenFromWindow(window) ?? window.Screens?.Primary;
++        if (screen is null)
++            return 1;
++
++        if (screen.Scaling > 1.1)
++            return 1;
++
++        var guessed = screen.Bounds.Width / 1920.0;
++        guessed = Math.Clamp(guessed, 1, 3);
++
++        var steps = new[] { 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 3.0 };
++        var best = 1.0;
++        var bestDelta = double.MaxValue;
++        foreach (var step in steps)
++        {
++            var delta = Math.Abs(step - guessed);
++            if (delta < bestDelta)
++            {
++                best = step;
++                bestDelta = delta;
++            }
++        }
++
++        return best;
++    }
++
+     private void Application_OnActualThemeVariantChanged(object? sender, EventArgs args) =>
+         // Re-initialize the theme when the system theme changes
+         InitializeTheme();
