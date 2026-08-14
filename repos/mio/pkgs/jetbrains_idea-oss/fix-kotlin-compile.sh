@@ -90,7 +90,7 @@ substituteInPlace .idea/kotlinc.xml \
 substituteInPlace .idea/libraries/kotlinc_kotlin_jps_plugin_classpath.xml \
   --replace-fail \
   '0d6103ec6a0eb9c36e856c04d3478099ab86437dd5f19a22a69d9e80b4cff2cb' \
-  'ecce173028d70a046238b8881b72544a66737a2fac6e8f1caf32de8efc585fbc'
+  'a39474812cda48e90ae28981c4d7fd02c9c3e9b3ac0124b8d7a7dbaaa3803e61'
 substituteInPlace .idea/libraries/kotlinc_kotlin_jps_plugin_tests.xml \
   --replace-fail \
   'fb351eeb8e11fae3096c43241611f686e8d1940d0f3b6ba6befe71ef908426ce' \
@@ -98,7 +98,7 @@ substituteInPlace .idea/libraries/kotlinc_kotlin_jps_plugin_tests.xml \
 substituteInPlace .idea/libraries/kotlinc_kotlin_dist.xml \
   --replace-fail \
   '74eabb16163c4575b5dc4b2038268026f389849200f466870714342ccc3792d3' \
-  '4279120a4bf9b7ae4cd060290e3df30d0776f5b29395f0f68a780357c8cb2fc7'
+  '8334ecdb6a6cd849bd4a9d25f3910c8ee16b2f3e40bb15c2c5707925031c44e2'
 
 # Bypass expects compiler plugin: bind common expect functions to JVM actuals.
 sed -i 's/.*fun <K, V> MultiplatformConcurrentHashMap().*/fun <K, V> MultiplatformConcurrentHashMap(): MultiplatformConcurrentHashMap<K, V> = MultiplatformConcurrentHashMapJvm()/' \

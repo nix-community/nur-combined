@@ -18,12 +18,12 @@ let
     hasSuffix
     ;
 
-  version = "2026.2";
-  buildNumber = "262.8665.259";
+  version = "2026.2.1";
+  buildNumber = "262.9437.185";
 
-  # compose-compiler-plugin-for-ide 2.4.20-dev-6724 needs IR APIs from this
-  # snapshot (e.g. IrDeclarationsKt.isSingleFieldValueClass).
-  kotlinDistVersion = "2.4.20-dev-6724";
+  # compose-compiler-plugin-for-ide 2.4.20-ij262-34 needs IR APIs from this
+  # Kotlin-for-IDE snapshot (e.g. IrDeclarationsKt.isSingleFieldValueClass).
+  kotlinDistVersion = "2.4.20-ij262-34";
   kotlinIdeOldVersion = "2.3.20";
 
   kotlinDist = stdenvNoCC.mkDerivation {
@@ -32,7 +32,7 @@ let
 
     src = fetchurl {
       url = "https://cache-redirector.jetbrains.com/intellij-dependencies/org/jetbrains/kotlin/kotlin-dist-for-ide/${kotlinDistVersion}/kotlin-dist-for-ide-${kotlinDistVersion}.jar";
-      hash = "sha256-QnkSCkv5t65M0GApDj3zDQd29bKTlfD2ingDV8jLL8c=";
+      hash = "sha256-gzTs22ps2Em9Sp0l85EMjuFrLz5AuxXCxXB5JQMcROI=";
     };
 
     nativeBuildInputs = [ unzip ];
@@ -106,14 +106,14 @@ let
     (mkJetBrainsSource {
       inherit version buildNumber;
       buildType = "idea";
-      ideaHash = "sha256-i089/IBb0vY0nwjt8Q7nqmxqGoypsKFTVW6Oo0bPy64=";
-      androidHash = "sha256-xqEuO/GEZC9cbba4jcMxi3rlx8N4JL1/PPPZqVz0GSw=";
+      ideaHash = "sha256-iwT2QqmLtsbNyQgoBY26pfxXVEzjSnQ99Ort63a9GXo=";
+      androidHash = "sha256-poTjTGR10Ne8VKDWApgu+XcCFMLiAacSFYpIp1tsgbk=";
       jpsHash = "sha256-nxjoLBpiHYzeYwgjbCSSjTFQTFOtBJTqz1VkmPzXijs=";
       restarterHash = "sha256-acCmC58URd6p9uKZrm0qWgdZkqu9yqCs23v8qgxV2Ag=";
       mvnDeps = ./idea_maven_artefacts.json;
       kotlin-jps-plugin = {
         version = kotlinDistVersion;
-        hash = "sha256-7M4XMCjXCgRiOLiIG3JUSmZzei+sbo8crzLejvxYX7w=";
+        hash = "sha256-o5R0gSzaSOkK4omBxNf9AsnD6bOsASS416fbqqOAPmE=";
       };
       repositories = [
         "repo1.maven.org/maven2"

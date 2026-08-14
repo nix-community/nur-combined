@@ -260,8 +260,7 @@ byName
   with byName;
   rec {
 
-    jetbrains_idea-oss = pkgs.callPackage ./pkgs/jetbrains_idea-oss/package.nix {
-    };
+    jetbrains_idea-oss = pkgs.callPackage ./pkgs/jetbrains_idea-oss/package.nix { };
 
     supertuxkart-evolution = v3override (
       pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }

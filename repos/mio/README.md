@@ -111,7 +111,7 @@ files are copied from following locations. some are modified in this repo and so
 + versionCheckHomeHook <https://github.com/numtide/llm-agents.nix/tree/main/packages/versionCheckHomeHook> commit 04df876de28f0684a0d7110444d7f64da5c14d17
 + ryubing - copied from nixpkgs commit [9b50d450945903abb6fb7933c6cfd8f483f0dc2d](https://github.com/NixOS/nixpkgs/tree/9b50d450945903abb6fb7933c6cfd8f483f0dc2d) and modified to copy the desktop/icon files on Darwin to allow `desktopToDarwinBundle` to generate a macOS application bundle.
 + telegram-desktop_682 nixpkgs 8dc49b8b206a683d1f6605e0fd993c0f5d49c98d
-+ jetbrains_idea-oss - copied from nixpkgs commit 38a4887411571457d700c51c64a6e49ead2ed5ab
++ jetbrains_idea-oss — IntelliJ IDEA Community built from JetBrains `idea/2026.2.1`
 + qq_bwrap - adapted from linuxqq-nt-bwrap https://aur.archlinux.org/packages/linuxqq-nt-bwrap
 + wechat_bwrap - adapted from AUR package wechat-universal-bwrap (https://aur.archlinux.org/packages/wechat-universal-bwrap) by 7Ji, leaeasy, and devome
 + gcenx-wine-staging / gcenx-wine-devel / gcenx-wine-stable — packaging adapted from [nobbmaestro/wine-stable-nix](https://github.com/nobbmaestro/wine-stable-nix); prebuilt Wine.app binaries from [Gcenx/macOS_Wine_builds](https://github.com/Gcenx/macOS_Wine_builds). Prefixed `gcenx-` to distinguish from nixpkgs `wine*` (Linux source builds; Darwin unsupported on nixpkgs-unstable).
