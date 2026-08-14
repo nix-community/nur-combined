@@ -2,6 +2,7 @@
   lib,
   sources,
   buildPythonPackage,
+  hatchling,
   cryptography,
   httpx,
   playwright,
@@ -11,6 +12,7 @@ buildPythonPackage rec {
   inherit (sources.cloakbrowser) version src;
 
   pyproject = true;
+  build-system = [ hatchling ];
 
   propagatedBuildInputs = [
     cryptography
