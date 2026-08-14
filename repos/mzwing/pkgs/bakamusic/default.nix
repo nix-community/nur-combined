@@ -249,7 +249,7 @@ in
       done
       # The npm wrapper verifies the native module version at load time.
       node -e '
-        const native = require(process.argv[1]);
+        const native = require("./" + process.argv[1]);
         const expected = require("koffi/package.json").version;
         if (native.version !== expected) {
           throw new Error(`koffi native ''${native.version} != ''${expected}`);

@@ -160,10 +160,6 @@ jobs:
 
     # With nix:false the cache action extracts as the runner user rather than
     # managing /nix permissions, so prepare its only writable subtree first.
-    # attic-cache-tmp receives the multi-GiB tar/zstd staging: the archive
-    # temp directory defaults to RUNNER_TEMP on the root filesystem, which
-    # nothing-but-nix leaves with only ~2G free (its disk images preallocate
-    # the rest), so large generations must stream through the /nix mount.
     - name: Prepare Attic data directory
       run: |
         sudo install -d -o "$(id -u)" -g "$(id -g)" \
@@ -172,14 +168,21 @@ jobs:
         # so btrfs copy-on-write and data checksumming only amplify writes
         # on the loop-backed pool. Disable them for the Attic subtree.
         sudo chattr +C /nix/attic-data /nix/attic-cache-tmp /nix/attic-checkpoint
+        # The runner resolves its temp directory before the job starts and
+        # forces that value onto cache action steps, so a per-step env
+        # override cannot relocate the multi-GiB tar/zstd staging off the
+        # tiny root filesystem (nothing-but-nix preallocates all but ~2G).
+        # Replace the runner temp directory with a symlink into the /nix
+        # pool; the currently executing step script stays readable through
+        # its already-open file descriptor.
+        sudo rm -rf "${RUNNER_TEMP}"
+        sudo ln -s /nix/attic-cache-tmp "${RUNNER_TEMP}"
 
     # The unique key prevents save races; prefix restore picks the latest
     # Attic database and NAR storage. `nix: false` is essential: the ordinary
     # Nix store is deliberately excluded from this cache.
     - name: Restore builder store cache
       uses: nix-community/cache-nix-action/restore@v7
-      env:
-        RUNNER_TEMP: /nix/attic-cache-tmp
       with:
         primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
         restore-prefixes-first-match: nix-builder-attic-
@@ -201,8 +204,6 @@ jobs:
     - name: Restore checkpoint builder store cache
       if: steps.attic-restored.outputs.restored == 'false'
       uses: nix-community/cache-nix-action/restore@v7
-      env:
-        RUNNER_TEMP: /nix/attic-cache-tmp
       with:
         primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}
         restore-prefixes-first-match: nix-builder-atticchk-
@@ -270,8 +271,6 @@ jobs:
     - name: Save builder store cache checkpoint
       if: ${{ !cancelled() && steps.attic-checkpoint.outputs.checkpoint-ready == 'true' }}
       uses: nix-community/cache-nix-action/save@v7
-      env:
-        RUNNER_TEMP: /nix/attic-cache-tmp
       with:
         primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}
         nix: false
@@ -293,8 +292,6 @@ jobs:
     - name: Save builder store cache
       if: ${{ !cancelled() && steps.attic.outputs.save-ready == 'true' }}
       uses: nix-community/cache-nix-action/save@v7
-      env:
-        RUNNER_TEMP: /nix/attic-cache-tmp
       with:
         primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
         nix: false
