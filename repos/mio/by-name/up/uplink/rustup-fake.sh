@@ -7,6 +7,11 @@ fi
 
 if [ "$1" = "target" ] && [ "$2" = "list" ]; then
     echo "x86_64-unknown-linux-gnu"
+    echo "aarch64-unknown-linux-gnu"
+    echo "aarch64-linux-android"
+    echo "armv7-linux-androideabi"
+    echo "x86_64-linux-android"
+    echo "i686-linux-android"
     exit 0
 fi
 
