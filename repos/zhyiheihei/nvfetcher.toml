@@ -22,15 +22,6 @@ src.github = "vastsa/FileCodeBox"
 fetch.git = "https://github.com/vastsa/FileCodeBoxFronted.git"
 src.git = "https://github.com/vastsa/FileCodeBoxFronted.git"
 
-# Release tags look like v2026.814.125648.杂鱼 (CJK suffix); other tags on the
-# repo (e.g. v2026.814.153434.B|) are broken, so restrict to the CJK-suffixed
-# version tags only.
-[foundation-sunshine]
-fetch.github = "AlkaidLab/foundation-sunshine"
-src.github_tag = "AlkaidLab/foundation-sunshine"
-src.include_regex = '^v[0-9]+\.[0-9]+\.[0-9]+\.[^|A-Za-z]+$'
-git.fetchSubmodules = true
-
 [hubproxy]
 fetch.github = "sky22333/hubproxy"
 src.github = "sky22333/hubproxy"

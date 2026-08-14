@@ -118,27 +118,6 @@
         },
         "version": "19a208b6a24b173f9ced1aaf6d120aa36758e9e5"
     },
-    "foundation-sunshine": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "foundation-sunshine",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "AlkaidLab",
-            "repo": "foundation-sunshine",
-            "rev": "v2026.814.163510.杂鱼",
-            "sha256": "sha256-SSfOPNTFbkM8e0IMAWBODNqrDjS8eBOOmK8uSszBfyM=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v2026.814.163510.杂鱼"
-    },
     "hubproxy": {
         "cargoLock": null,
         "date": null,
