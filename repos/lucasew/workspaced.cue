@@ -423,15 +423,6 @@ workspaced: {
 #remote_path: "backup/lucasew"
 
 workspaced: {
-	// Phone backup runs inside one proot/termux-chroot. Default pools
-	// (io=4, internet=4) spawn too many git/rsync children and blow RAM.
-	if #is_phone {
-		concurrency: {
-			io:       1
-			cpu:      1
-			internet: 1
-		}
-	}
 	backup: {
 		actions: [
 			for repo_name in [
