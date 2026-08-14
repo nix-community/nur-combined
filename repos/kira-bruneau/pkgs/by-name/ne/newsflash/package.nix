@@ -115,6 +115,6 @@ stdenv.mkDerivation (finalAttrs: {
     teams = [ lib.teams.gnome-circle ];
     platforms = lib.platforms.unix;
     mainProgram = "io.gitlab.news_flash.NewsFlash";
-    broken = stdenv.isDarwin; # webkitgtk doesn't build on Darwin
+    broken = stdenv.hostPlatform.isDarwin; # webkitgtk doesn't build on Darwin
   };
 })
