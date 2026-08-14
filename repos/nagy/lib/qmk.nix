@@ -5,13 +5,15 @@
 {
   mkQmkFirmware =
     {
-      name,
+      pname,
       keyboard,
       keymap ? "default",
       ...
     }@args:
     pkgs.stdenv.mkDerivation (
       {
+        version = "0.20.7";
+
         src = pkgs.fetchFromGitHub {
           owner = "qmk";
           repo = "qmk_firmware";
@@ -63,15 +65,15 @@
           runHook preInstall
 
           mkdir -p $out/share/qmk $out/bin
-          install -Dm644 *.hex $out/share/qmk/${name}.hex
+          install -Dm644 *.hex $out/share/qmk/${pname}.hex
           install -Dm644 *.hex $hex
-          cat > $out/bin/${name} <<EOF
+          cat > $out/bin/${pname} <<EOF
           #!/usr/bin/env bash
           exec ${pkgs.avrdude}/bin/avrdude \\
             -p atmega32u4 \\
             -c avr109 \\
             -P /dev/ttyACM0 \\
-            -U flash:w:$out/share/qmk/${name}.hex:i "\$@"
+            -U flash:w:$out/share/qmk/${pname}.hex:i "\$@"
           EOF
           patchShebangs $out/bin/*
           chmod +x $out/bin/*

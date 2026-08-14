@@ -72,8 +72,8 @@ in
             git-alias = pkgs.fetchFromGitHub {
               owner = "GitAlias";
               repo = "gitalias";
-              rev = "ed036c1fd16c8e690329c594bc028f58c6e3b349";
-              sha256 = "sha256-OtKdN4SeJSswtF3Uvs3cMZwTwpL2wEm4KU1iKmfEr30=";
+              rev = "7653169af41a9fa93d6f5c5e2aedb4c7ce801840";
+              sha256 = "sha256-nLXqRA6iB2ng/ESeu4dmccTNMg4wYPvBYJ2MlY1ci/A=";
             };
           in
           "${git-alias}/gitalias.txt";
