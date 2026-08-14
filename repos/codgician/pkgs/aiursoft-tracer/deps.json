@@ -16,33 +16,33 @@
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket",
-    "version": "10.0.11",
-    "hash": "sha256-FW3MyZIZ7eIN9JTWKXt+dajfP8t5DhOnY8JYFkQlP8U="
+    "version": "10.0.12",
+    "hash": "sha256-9xcZyhHtc/m7dpjni59z9S+m5HXRZy2v+J/gR3Uo8ps="
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket.Server",
-    "version": "10.0.11",
-    "hash": "sha256-eKi+JWW7mnwinpjaPrtF0WSJFii2fdpiBwTx/p8ZmGQ="
+    "version": "10.0.12",
+    "hash": "sha256-7HdV/Jh4b1Ok8qdUZhFt6jWEcj+MbjoW7+OAlMo9Mic="
   },
   {
     "pname": "Aiursoft.Canon",
-    "version": "10.0.12",
-    "hash": "sha256-UCfpNpbIjJHabdh4JXUQfF9WyT+M8/iGPRy0MYxcNvA="
+    "version": "10.0.13",
+    "hash": "sha256-Rhtl+E1tiAmH9C8rZTm09KtJDF2vLp+qsSnCgLF3k/M="
   },
   {
     "pname": "Aiursoft.Canon.BackgroundJobs",
-    "version": "10.0.12",
-    "hash": "sha256-3hSu7hb+nTs33QbgUgkuU0T8a4bOafVrdXuWUYlX93o="
+    "version": "10.0.13",
+    "hash": "sha256-Mnn4NgABreKhzXa5xXfL8lXBTtS0uaA1LbrXjMdYd+4="
   },
   {
     "pname": "Aiursoft.Canon.ScheduledTasks",
-    "version": "10.0.12",
-    "hash": "sha256-tWg2c+OunNVD06CCqcJ5d5EgO9DpYVB1Y9Rz3yV1Fdk="
+    "version": "10.0.13",
+    "hash": "sha256-UnkyymfLXHFglHia3iQnmQFGA0vvujFG9C6WQ9GAWJ8="
   },
   {
     "pname": "Aiursoft.Canon.ServiceTaskQueue",
-    "version": "10.0.13",
-    "hash": "sha256-okI94+Pbnw3zdl6mjmaxcbjjpVrg1BrX0Fkpkuqs2OU="
+    "version": "10.0.14",
+    "hash": "sha256-IXALGXQjKLX/+BREm3XMSm0a7Kg/0eCd/WgCJ+y3ufc="
   },
   {
     "pname": "Aiursoft.ClickhouseLoggerProvider",
@@ -96,8 +96,8 @@
   },
   {
     "pname": "Aiursoft.Scanner",
-    "version": "10.0.10",
-    "hash": "sha256-E9N7wCnNDGtwHXuh4/H+Y+ZYBJiBHG+DQyxcS78Sv78="
+    "version": "10.0.11",
+    "hash": "sha256-6FaokiiFdTukR712UDXfgQihRMhO0wvZHkqUcSuVv5E="
   },
   {
     "pname": "Aiursoft.Scanner.Abstractions",
