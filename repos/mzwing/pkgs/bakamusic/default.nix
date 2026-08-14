@@ -273,8 +273,7 @@ in
       mkdir -p "$runtime_dir/lib" "$runtime_dir/licenses/mpv" "$runtime_dir/licenses/librempeg"
       cp -a ${lib.getLib libmpv}/lib/libmpv.so.2* "$runtime_dir/lib/"
       cp ${mpv-unwrapped.src}/LICENSE.GPL ${mpv-unwrapped.src}/LICENSE.LGPL "$runtime_dir/licenses/mpv/"
-      cp ${librempeg.src}/COPYING.AGPLv3 ${librempeg.src}/COPYING.GPLv3 ${librempeg.src}/LICENSE.md \
-        "$runtime_dir/licenses/librempeg/"
+      cp ${librempeg}/share/licenses/librempeg/* "$runtime_dir/licenses/librempeg/"
       cp ${runtimeJson} "$runtime_dir/runtime.json"
 
       # --- 5. Private prebuilt service modules (qmc2/ence/taglib) ---

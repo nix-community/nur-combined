@@ -71,6 +71,14 @@ in
 
     enableParallelBuilding = true;
 
+    # Keep the license texts with the library so consumers (bakamusic's
+    # bundled runtime) can ship them next to libmpv without re-fetching the
+    # tarball (src is a fetchurl archive, not an unpacked directory).
+    postInstall = ''
+      mkdir -p $out/share/licenses/librempeg
+      cp COPYING.AGPLv3 COPYING.GPLv3 LICENSE.md $out/share/licenses/librempeg/
+    '';
+
     doInstallCheck = true;
     installCheckPhase = ''
       runHook preInstallCheck
