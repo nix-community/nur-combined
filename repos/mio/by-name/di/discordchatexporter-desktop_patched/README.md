@@ -38,7 +38,7 @@ Override: `DISCORDCHATEXPORTER_SCALE`.
 
 ### Darwin
 
-nixpkgs `meta.platforms` is Linux-only. We add `x86_64-darwin` / `aarch64-darwin`, `desktopToDarwinBundle`, Linux-only X11 `runtimeDeps`, and the csharpier MSBuild flag used by `discordchatexporter-cli`.
+nixpkgs `meta.platforms` is Linux-only. We add `x86_64-darwin` / `aarch64-darwin`, `desktopToDarwinBundle`, Linux-only X11 `runtimeDeps`, `executables = [ "DiscordChatExporter" ]` so Avalonia dylibs are not wrapped, and the csharpier MSBuild flag used by `discordchatexporter-cli`. The desktop `exec` is `DiscordChatExporter` so the Darwin `.app` stub matches the wrapped binary. The lowercase `discordchatexporter` symlink is Linux-only: a Darwin Nix store is case-insensitive, so that name is the same file as `DiscordChatExporter`.
 
 ### Other packaging
 

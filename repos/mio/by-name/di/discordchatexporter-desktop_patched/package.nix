@@ -33,6 +33,8 @@ buildDotnetModule (finalAttrs: {
   nugetDeps = ./deps.json;
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
   dotnet-runtime = dotnetCorePackages.runtime_10_0;
+  # Avoid wrapping Avalonia native dylibs as if they were CLI entry points.
+  executables = [ "DiscordChatExporter" ];
 
   # Same csharpier workaround as nixpkgs discordchatexporter-cli.
   dotnetBuildFlags = [
@@ -69,7 +71,7 @@ buildDotnetModule (finalAttrs: {
       name = "discordchatexporter";
       desktopName = "DiscordChatExporter";
       comment = "Export Discord chat logs";
-      exec = "discordchatexporter";
+      exec = "DiscordChatExporter";
       icon = "discordchatexporter";
       categories = [
         "Network"
@@ -83,8 +85,10 @@ buildDotnetModule (finalAttrs: {
     install -Dm644 favicon.ico $out/share/icons/hicolor/256x256/apps/discordchatexporter.ico
   '';
 
-  postFixup = ''
-    ln -s $out/bin/DiscordChatExporter $out/bin/discordchatexporter
+  # On Darwin the Nix store is case-insensitive, so discordchatexporter collides
+  # with DiscordChatExporter. Linux needs the lowercase alias for mainProgram.
+  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+    ln -s DiscordChatExporter $out/bin/discordchatexporter
   '';
 
   passthru.updateScript = ./updater.sh;
