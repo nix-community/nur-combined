@@ -248,9 +248,13 @@ in
         [[ $dir == "$koffi_dir" ]] || rm -rf "$dir"
       done
       # The npm wrapper verifies the native module version at load time.
+      # (koffi's package.json has an exports map without ./package.json, so
+      # read the file instead of require().)
       node -e '
         const native = require("./" + process.argv[1]);
-        const expected = require("koffi/package.json").version;
+        const expected = JSON.parse(
+          require("fs").readFileSync("node_modules/koffi/package.json", "utf8")
+        ).version;
         if (native.version !== expected) {
           throw new Error(`koffi native ''${native.version} != ''${expected}`);
         }
