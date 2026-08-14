@@ -22,6 +22,10 @@ src.github = "vastsa/FileCodeBox"
 fetch.git = "https://github.com/vastsa/FileCodeBoxFronted.git"
 src.git = "https://github.com/vastsa/FileCodeBoxFronted.git"
 
+[hubproxy]
+fetch.github = "sky22333/hubproxy"
+src.github = "sky22333/hubproxy"
+
 [jieba-next]
 fetch.github = "mxcoras/jieba-next"
 src.github_tag = "mxcoras/jieba-next"

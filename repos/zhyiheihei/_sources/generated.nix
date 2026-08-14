@@ -65,6 +65,16 @@
     };
     date = "2026-07-11";
   };
+  hubproxy = {
+    pname = "hubproxy";
+    version = "v1.2.5";
+    src = fetchFromGitHub {
+      owner = "sky22333";
+      repo = "hubproxy";
+      tag = "v1.2.5";
+      hash = "sha256-AGsOxbbUG78oHbys6ijMZaDEFgZ/sWkihvvx2qI3sjc=";
+    };
+  };
   jieba-next = {
     pname = "jieba-next";
     version = "v1.0.0rc1";
