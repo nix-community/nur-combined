@@ -1,7 +1,8 @@
 --- a/DiscordChatExporter.Gui/Program.cs
 +++ b/DiscordChatExporter.Gui/Program.cs
-@@ -1,5 +1,8 @@
+@@ -1,5 +1,9 @@
  using System;
++using System.Collections.Generic;
 +using System.Globalization;
 +using System.IO;
  using System.Reflection;
@@ -9,7 +10,7 @@
  using Avalonia;
  using DiscordChatExporter.Gui.Utils;
  
-@@ -29,6 +32,8 @@
+@@ -29,6 +33,8 @@
      [STAThread]
      public static int Main(string[] args)
      {
@@ -18,13 +19,16 @@
          // Build and run the app
          var builder = BuildAvaloniaApp();
  
-@@ -50,4 +55,166 @@
+@@ -50,4 +56,213 @@
                  disposableApp.Dispose();
          }
      }
 +
 +    // LayoutTransform stretches a 1x buffer (blurry). Set Avalonia X11 scale
 +    // before the platform starts so Skia renders at the real DPI.
++    // AVALONIA_GLOBAL_SCALE_FACTOR post-multiplies Xft.dpi/96, so 1.5x GLOBAL
++    // on a 144dpi Xft is 2.25x (sharp but huge). Named SCREEN_SCALE_FACTORS
++    // replace Xrdb and are absolute.
 +    private static void ConfigureLinuxHidpi()
 +    {
 +        if (!OperatingSystem.IsLinux())
@@ -38,7 +42,36 @@
 +        Environment.SetEnvironmentVariable("AVALONIA_SCREEN_SCALE_IGNORE_QT", "1");
 +        Environment.SetEnvironmentVariable("QT_SCREEN_SCALE_FACTORS", null);
 +        Environment.SetEnvironmentVariable("QT_SCALE_FACTOR", null);
-+        Environment.SetEnvironmentVariable("AVALONIA_GLOBAL_SCALE_FACTOR", text);
++        Environment.SetEnvironmentVariable("AVALONIA_GLOBAL_SCALE_FACTOR", null);
++        Environment.SetEnvironmentVariable(
++            "AVALONIA_SCREEN_SCALE_FACTORS",
++            NamedScaleFactors(text)
++        );
++    }
++
++    private static string NamedScaleFactors(string text)
++    {
++        var names = new SortedSet<string>(StringComparer.Ordinal)
++        {
++            "DP-1",
++            "DP-2",
++            "DP-3",
++            "DisplayPort-1",
++            "HDMI-1",
++            "HDMI-A-1",
++            "HDMI-A-2",
++            "WL-1",
++            "XWAYLAND0",
++            "eDP-1",
++            "eDP-2",
++        };
++        foreach (var name in ReadKwinOutputNames())
++            names.Add(name);
++
++        var parts = new List<string>();
++        foreach (var name in names)
++            parts.Add(name + "=" + text);
++        return string.Join(";", parts);
 +    }
 +
 +    private static double? ResolveLinuxUiScale()
@@ -51,7 +84,6 @@
 +        )
 +            return parsed;
 +
-+        // KWin magnifies X11 itself — leaving Avalonia at 1x is correct (blurry but sized).
 +        if (KwinXwaylandClientsScale() == false)
 +            return null;
 +
@@ -106,6 +138,22 @@
 +        }
 +
 +        return best;
++    }
++
++    private static IEnumerable<string> ReadKwinOutputNames()
++    {
++        var path = Path.Combine(XdgConfigHome(), "kwinoutputconfig.json");
++        if (!File.Exists(path))
++            yield break;
++
++        foreach (
++            Match match in Regex.Matches(File.ReadAllText(path), @"""name""\s*:\s*""([^""]+)""")
++        )
++        {
++            var name = match.Groups[1].Value;
++            if (name.Length > 0 && name.Length < 32)
++                yield return name;
++        }
 +    }
 +
 +    private static double? ReadKwinOutputScale()

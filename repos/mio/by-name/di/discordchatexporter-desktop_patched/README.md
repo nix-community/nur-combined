@@ -27,7 +27,7 @@ To refresh: copy those four files from a newer nixpkgs commit, update this table
 
 ### Linux HiDPI (`hidpi-scale.patch`)
 
-Avalonia stays on **X11/XWayland**. `LayoutTransform` only stretches a 1× Skia buffer (blurry, easy to clip). The patch instead sets `AVALONIA_GLOBAL_SCALE_FACTOR` in `Program.Main` **before** the X11 backend starts, and sets `AVALONIA_SCREEN_SCALE_IGNORE_QT=1` so Plasma’s `QT_SCREEN_SCALE_FACTORS=1` does not pin scale to 1×.
+Avalonia stays on **X11/XWayland**. `LayoutTransform` only stretches a 1× Skia buffer (blurry, easy to clip). The patch sets `AVALONIA_SCREEN_SCALE_IGNORE_QT=1` so Plasma’s `QT_SCREEN_SCALE_FACTORS=1` does not pin scale to 1×, then sets **named** `AVALONIA_SCREEN_SCALE_FACTORS` (absolute). It does **not** set `AVALONIA_GLOBAL_SCALE_FACTOR`: that value is multiplied on top of `Xft.dpi/96`, which made a sharp but oversized UI (e.g. 1.5× × 144dpi → 2.25×).
 
 **KDE Plasma Wayland — Legacy X11 apps:**
 
