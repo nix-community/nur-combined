@@ -4,10 +4,29 @@
 //! Zero-g lab (`gravity` is `none`). Used to verify the WASM bridge and Teardown
 //! debris independently of city gen.
 
+#[cfg(target_arch = "wasm32")]
 wit_bindgen::generate!({ world: "plugin", path: "../../wit" });
+
+#[cfg(not(target_arch = "wasm32"))]
+wit_bindgen::generate!({
+    world: "plugin",
+    path: "../../wit",
+    with: {
+        "hanga:engine/host": generate,
+    },
+});
 
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
+
+fn host_log(level: &str, message: &str) {
+    #[cfg(target_arch = "wasm32")]
+    hanga::engine::host::log(level, message);
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let _ = (level, message);
+    }
+}
 
 struct TestbedMod;
 
@@ -289,8 +308,24 @@ pub fn crash_kit(_speed: f32, _into_solid: bool) -> String {
     String::new()
 }
 
+pub fn on_message(from: &str, topic: &str, payload: &str) -> String {
+    match topic {
+        "ping" => "pong".into(),
+        "name" => "testbed".into(),
+        "catalog" => voxel_catalog(),
+        "gravity" => gravity(),
+        "hello" => format!("hello {from}"),
+        _ => {
+            let _ = payload;
+            String::new()
+        }
+    }
+}
+
 impl exports::hanga::engine::gameplay::Guest for TestbedMod {
-    fn init_mod() {}
+    fn init_mod() {
+        crate::host_log("info", "testbed ready");
+    }
     fn voxel_catalog() -> String {
         crate::voxel_catalog()
     }
@@ -403,6 +438,10 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn crash_kit(speed: f32, into_solid: bool) -> String {
         crate::crash_kit(speed, into_solid)
     }
+
+    fn on_message(caller: String, topic: String, payload: String) -> String {
+        crate::on_message(&caller, &topic, &payload)
+    }
 }
 
 export!(TestbedMod);
@@ -482,6 +521,8 @@ mod tests {
         assert!(crash_action(100).is_empty());
         assert_eq!(crash_ignites(100), 0);
         assert!(crash_kit(40.0, true).is_empty());
+        assert_eq!(on_message("urban_chaos", "ping", ""), "pong");
+        assert_eq!(on_message("x", "name", ""), "testbed");
     }
 
     #[test]

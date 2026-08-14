@@ -1,7 +1,26 @@
+#[cfg(target_arch = "wasm32")]
 wit_bindgen::generate!({ world: "plugin", path: "../../wit" });
+
+#[cfg(not(target_arch = "wasm32"))]
+wit_bindgen::generate!({
+    world: "plugin",
+    path: "../../wit",
+    with: {
+        "hanga:engine/host": generate,
+    },
+});
 
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
+
+fn host_log(level: &str, message: &str) {
+    #[cfg(target_arch = "wasm32")]
+    hanga::engine::host::log(level, message);
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let _ = (level, message);
+    }
+}
 
 use std::sync::OnceLock;
 
@@ -933,9 +952,24 @@ pub fn compute_agent_vz(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 
     }
 }
 
+pub fn on_message(from: &str, topic: &str, payload: &str) -> String {
+    match topic {
+        "ping" => "pong".into(),
+        "name" => "urban_chaos".into(),
+        "catalog" => voxel_catalog(),
+        "gravity" => gravity(),
+        "hello" => format!("hello {from}"),
+        _ => {
+            let _ = payload;
+            String::new()
+        }
+    }
+}
+
 impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
     fn init_mod() {
         let _ = city();
+        crate::host_log("info", "urban_chaos ready");
     }
 
     fn voxel_catalog() -> String {
@@ -1076,6 +1110,10 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
 
     fn crash_kit(speed: f32, into_solid: bool) -> String {
         crate::crash_kit(speed, into_solid)
+    }
+
+    fn on_message(caller: String, topic: String, payload: String) -> String {
+        crate::on_message(&caller, &topic, &payload)
     }
 }
 
@@ -1819,5 +1857,7 @@ mod tests {
         assert!(crash_kit(4.0, true).is_empty());
         assert_eq!(mod_evaluate_action(ACTION_CRASH, 0), 2);
         assert!(crash_part_impulse(80) > crash_part_impulse(20));
+        assert_eq!(on_message("testbed", "ping", ""), "pong");
+        assert!(on_message("x", "catalog", "").contains("concrete"));
     }
 }

@@ -1,5 +1,20 @@
 package hanga:engine;
 
+/// Calls the host can make. Game nouns stay in kit strings; this is execution and the mod bus.
+interface host {
+    /// `trace` / `debug` / `info` / `warn` / `error`.
+    log: func(level: string, message: string);
+    /// Milliseconds since the host process started.
+    now-ms: func() -> s64;
+    /// This component's collection name (`urban_chaos`, `testbed`, …).
+    self-name: func() -> string;
+    /// Other loaded mods, comma-separated. Empty when this is the only component.
+    peers: func() -> string;
+    /// Call another mod's `on-message`. Empty peer = broadcast; first non-empty reply wins.
+    /// Nested asks that would re-enter a locked store return empty.
+    ask: func(peer: string, topic: string, payload: string) -> string;
+}
+
 interface gameplay {
     /// Initialize the mod (called once when the component is loaded).
     init-mod: func();
@@ -86,8 +101,12 @@ interface gameplay {
     /// Impact outcome. Host measured speed (m/s) and whether we hit a solid.
     /// Empty = ignore. `severity=;crumple=;wrecks=0|1;ignites=0|1;action=;impulse=;detach=a,b`
     crash-kit: func(speed: f32, into-solid: bool) -> string;
+
+    /// Mod-to-mod bus. `caller` is the other component's collection name. Empty reply = ignored.
+    on-message: func(caller: string, topic: string, payload: string) -> string;
 }
 
 world plugin {
+    import host;
     export gameplay;
 }

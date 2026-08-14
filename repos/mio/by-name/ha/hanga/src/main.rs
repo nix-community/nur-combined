@@ -53,7 +53,7 @@ struct DefaultWorld;
 
 
 thread_local! {
-    static WASM_INSTANCE: std::cell::RefCell<Option<(u64, Store<()>, mod_manager::Plugin)>> =
+    static WASM_INSTANCE: std::cell::RefCell<Option<(u64, Store<mod_manager::HostData>, mod_manager::Plugin)>> =
         const { std::cell::RefCell::new(None) };
 }
 
@@ -95,13 +95,21 @@ fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
         if stale {
             if let Ok(shared) = SHARED_WASM.read() {
                 if let Some((rev, engine, component)) = shared.as_ref() {
-                    let mut store = Store::new(engine, ());
-                    if let Ok(instance) = mod_manager::Plugin::instantiate(
-                        &mut store,
-                        component,
-                        &Linker::new(engine),
-                    ) {
-                        *instance_opt = Some((*rev, store, instance));
+                    let mut store = Store::new(engine, mod_manager::noop_host("terrain"));
+                    let mut linker = Linker::new(engine);
+                    if mod_manager::Plugin::add_to_linker::<
+                        mod_manager::HostData,
+                        wasmtime::component::HasSelf<_>,
+                    >(&mut linker, |data| data)
+                    .is_ok()
+                    {
+                        if let Ok(instance) = mod_manager::Plugin::instantiate(
+                            &mut store,
+                            component,
+                            &linker,
+                        ) {
+                            *instance_opt = Some((*rev, store, instance));
+                        }
                     }
                 }
             }
