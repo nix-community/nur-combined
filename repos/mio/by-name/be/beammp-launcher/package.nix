@@ -43,6 +43,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
+  # Darwin fork's debug dump calls httplib::Client::get_openssl_verify_result(),
+  # which was removed in cpp-httplib 0.53 (nixpkgs). Drop the debug field only.
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    substituteInPlace src/Network/Http.cpp \
+      --replace-fail '{ "openssl_verify_result", client.get_openssl_verify_result() },' ""
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'ZLIB::ZLIB OpenSSL::SSL OpenSSL::Crypto CURL::libcurl)' \
+        'ZLIB::ZLIB OpenSSL::SSL OpenSSL::Crypto CURL::libcurl httplib::httplib)'
+  '';
+
   nativeBuildInputs =
     lib.optionals (!stdenv.hostPlatform.isDarwin) [
       copyDesktopItems
