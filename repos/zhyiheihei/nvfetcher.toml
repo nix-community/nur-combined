@@ -45,8 +45,12 @@ fetch.git = "https://github.com/jxxghp/MoviePilot-Resources"
 src.git = "https://github.com/jxxghp/MoviePilot-Resources"
 src.branch = "main"
 
-[moviepilot-rust]
-fetch.pypi = "moviepilot-rust"
+[moviepilot-rust-aarch64]
+fetch.url = "https://files.pythonhosted.org/packages/15/08/1c4ba8eba94661ddfbadf7e7c1fdcdfbac3abe09e5c3f2adc383c1e468e2/moviepilot_rust-$ver-cp311-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl"
+src.pypi = "moviepilot-rust"
+
+[moviepilot-rust-x86_64]
+fetch.url = "https://files.pythonhosted.org/packages/27/b8/faddc8ba84138a3b50895d756cf9714eff0ce8a2133c7ea482136cf3d75b/moviepilot_rust-$ver-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 src.pypi = "moviepilot-rust"
 
 [nexus-media]
