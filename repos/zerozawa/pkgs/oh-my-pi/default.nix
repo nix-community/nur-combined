@@ -19,14 +19,14 @@
 }:
 
 let
-  version = "17.2.15";
+  version = "17.3.3";
   pname = "oh-my-pi";
 
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
     rev = "v${version}";
-    hash = "sha256-awBMMm7YDaoO9PrypRTDLUfKUBIDR7xFvv/kWBiV2Q8=";
+    hash = "sha256-2oUmZzf5FTLAxaBhbwCmvJkbIUAz0wv740myNDTtG+0=";
   };
 
   # Platform mapping
@@ -75,7 +75,7 @@ let
       runHook postInstall
     '';
 
-    outputHash = "sha256-1sH9QtihjjhnV4MqdvZJwja5Kz4TEgYOJpLYeI6hHBM=";
+    outputHash = "sha256-bTOUSxXET5+hjFbcGJB86vKCFhb0rZRq5ezF4Jb8SeM=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -87,7 +87,7 @@ let
     pname = "${pname}-pi-natives";
     inherit version src;
 
-    cargoHash = "sha256-NJlKB1CEvdjMvQ14XRCJ6IvfAkPsIwXx5vzeQwxtWkk=";
+    cargoHash = "sha256-C4PCcRQONfCUWX+6An6G5BCFNEavtdLoTaOtL5NyMbI=";
 
     nativeBuildInputs = [
       clang
@@ -403,7 +403,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "The most capable agent surface that ships. Continuously tuned by real-world use — complete out of the box, open all the way down.";
+    description = "A coding agent with the IDE wired in.";
     homepage = "https://github.com/can1357/oh-my-pi";
     license = lib.licenses.mit;
     platforms = [
