@@ -37,16 +37,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sequin";
-  version = "0-unstable-2026-08-03";
+  version = "0-unstable-2026-08-09";
 
   src = fetchFromGitLab {
     owner = "sequoia-pgp";
     repo = "Sequin";
-    rev = "eb2c3e848b3fd492fb5576ea0e8a2b250bee6ba7";
-    hash = "sha256-PNuevBGddIjMzatj5NI7SiUhhFVDYjd0SN4IH8k4kNc=";
+    rev = "7b3ed4f63d5f4d3599ca5b9c94fbf172832a033c";
+    hash = "sha256-7Fy43GJb5FSNWfojyjLzUkQcXdtn9uXXy+VLZHxior4=";
   };
 
-  cargoHash = "sha256-BKIg6nWykuXyo6+ThEnw0ujQbIqnme61g1J6q3Hk0u4=";
+  cargoHash = "sha256-cPeOy9C4bhKqIUTRv0HlcBq5Rc4nrJm/A8z5ohV2ZCc=";
 
   nativeBuildInputs = [
     autoPatchelfHook
