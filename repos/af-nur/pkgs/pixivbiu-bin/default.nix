@@ -10,8 +10,14 @@ stdenv.mkDerivation (finalAttrs: {
   version = "3.0.1";
 
   src = fetchurl {
-    url = "https://github.com/txperl/PixivBiu/releases/download/v${finalAttrs.version}/PixivBiu_${finalAttrs.version}_linux_amd64.tar.gz";
-    hash = "sha256-dgA1LV1P7U/lYMcuNwRdPpdH1/ul1qt0QLOcVVP147M=";
+    url = if stdenv.hostPlatform.isAarch64 then
+      "https://github.com/txperl/PixivBiu/releases/download/v${finalAttrs.version}/PixivBiu_${finalAttrs.version}_linux_arm64.tar.gz"
+    else
+      "https://github.com/txperl/PixivBiu/releases/download/v${finalAttrs.version}/PixivBiu_${finalAttrs.version}_linux_amd64.tar.gz";
+    hash = if stdenv.hostPlatform.isAarch64 then
+      "sha256-s2KQFHFh55pnsiM8PcGfOnIW0EEsA3U3X5Wf0oQp7r0="
+    else
+      "sha256-dgA1LV1P7U/lYMcuNwRdPpdH1/ul1qt0QLOcVVP147M=";
   };
 
   sourceRoot = ".";
@@ -42,6 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "pixivbiu";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 })

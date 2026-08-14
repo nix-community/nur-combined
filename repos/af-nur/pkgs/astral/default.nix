@@ -34,13 +34,13 @@
 
 let
   pname = "astral";
-  version = "2.9.9";
+  version = "2.9.12";
 
   src = fetchFromGitHub {
     owner = "ldoubil";
     repo = "astral";
     tag = "v${version}";
-    hash = "sha256-ejoBbJygMNV7ZI9dg8VdhX1Z6aYNCZWPznyFhIpIW7Q=";
+    hash = "sha256-ihdscsq4sM+bA455JovsimPZ14wKhNdhlf3amwpTYFQ=";
   };
 
   astralLicense = {
@@ -156,6 +156,13 @@ let
     ];
 
     buildInputs = runtimeLibraries;
+
+    # librust_lib_astral.so is dlopen'd by the flutter_rust_bridge from within
+    # libflutter_linux_gtk.so, whose RUNPATH does not include $out/app/astral/lib;
+    # without this the Rust bridge fails to load and the UI never renders.
+    extraWrapProgramArgs = ''
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibraries}:$out/app/astral/lib"
+    '';
 
     postInstall = ''
       install -Dm644 assets/logo.png $out/share/icons/hicolor/512x512/apps/astral.png

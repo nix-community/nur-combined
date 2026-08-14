@@ -54,13 +54,21 @@
 , xcbutilwm
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "classin";
-  version = "6.0.8.2737";
+  # Note: the official Linux amd64/arm64 builds are not version-synced
+  # (see https://www.eeo.cn/sysshare/custom/download_conf.json).
+  version = if stdenv.hostPlatform.isAarch64 then "6.0.8.2738" else "6.0.8.2737";
 
   src = fetchurl {
-    url = "https://www.eeo.cn/download/client/classin_${version}_amd64.deb";
-    hash = "sha256-w+hx6vbygQ0Mn/sW9CWaapd4T27XMPQifd3vZoLXPgc=";
+    url = if stdenv.hostPlatform.isAarch64 then
+      "https://www.eeo.cn/download/client/classin_${finalAttrs.version}_arm64.deb"
+    else
+      "https://www.eeo.cn/download/client/classin_${finalAttrs.version}_amd64.deb";
+    hash = if stdenv.hostPlatform.isAarch64 then
+      "sha256-35qdkyKoTjYDiNvdxH3ila1xvFrWHJk4FMiATm/+UjA="
+    else
+      "sha256-w+hx6vbygQ0Mn/sW9CWaapd4T27XMPQifd3vZoLXPgc=";
   };
 
   nativeBuildInputs = [
@@ -112,7 +120,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     makeWrapper $out/opt/apps/classin/ClassIn $out/bin/classin \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}:$out/opt/apps/classin/lib" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}:$out/opt/apps/classin/lib" \
       --set QT_QPA_PLATFORM x11 \
       --chdir "$out/opt/apps/classin" \
       --add-flags "--no-sandbox"
@@ -123,7 +131,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.eeo.cn/";
     sourceProvenance = [ sourceTypes.binaryNativeCode ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     maintainers = [ ];
   };
-}
+})

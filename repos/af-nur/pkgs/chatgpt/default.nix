@@ -42,7 +42,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chatgpt";
-  version = "26.803.81509";
+  version = "26.810.41047";
 
   src = fetchurl {
     url = if stdenv.hostPlatform.isAarch64 then
@@ -50,9 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
     else
       "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb";
     hash = if stdenv.hostPlatform.isAarch64 then
-      "sha256-84/MGU7KmrAyfcEMkjQGgernfF11Fk33ADhM4q2sy8E="
+      "sha256-mW95PKA5dnb8uc0AIRTJd1XMN0GQfEAPf13c9scMCk4="
     else
-      "sha256-qb+Ro2j598Tuo4CCqfuPtGuNAFtxmm13FdLloZgsOOs=";
+      "sha256-eHFfo80Tb/ZwcNqnaBmtrsxbQumYUVWWWWRdzh+/KvM=";
   };
 
   nativeBuildInputs = [
