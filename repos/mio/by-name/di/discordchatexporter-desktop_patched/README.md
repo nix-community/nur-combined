@@ -29,9 +29,16 @@ To refresh: copy those four files from a newer nixpkgs commit, update this table
 
 Avalonia on X11/XWayland often keeps `RenderScaling = 1` on HiDPI (e.g. Framework 13 2880×1920). `AVALONIA_GLOBAL_SCALE_FACTOR` / `AVALONIA_SCREEN_SCALE_FACTORS` did not take effect here.
 
-On window open, if Linux scale is still ~1×, wrap the window content in `LayoutTransformControl` (detach `Content` first so Avalonia does not throw “The Control already has a parent”). Scale is guessed as `screenWidth / 1920` snapped to 1.25 steps (2880 → 1.5×).
+On window open, if Linux scale is still ~1×, wrap the window content in `LayoutTransformControl` (detach `Content` first so Avalonia does not throw “The Control already has a parent”).
 
-Do **not** read `AVALONIA_GLOBAL_SCALE_FACTOR` here: that is a session-wide Avalonia/X11 knob for other apps. Using it as a layout multiplier stacked on the guessed scale made the window huge. Override only with `DISCORDCHATEXPORTER_SCALE`.
+**KDE Plasma Wayland — Legacy X11 apps:**
+
+- *Apply scaling themselves* (`kdeglobals`/`kwinrc` `XwaylandClientsScale=true`): KWin does **not** magnify X11. We guess scale as `screenWidth / 1920` (2880 → 1.5×) so Avalonia matches the Plasma output scale.
+- *Scaled by the system* (`XwaylandClientsScale=false`): KWin already magnifies XWayland. Auto layout-scale is skipped so the window is not double-sized.
+
+**Other Wayland (GNOME, …):** auto layout-scale is skipped (compositor scales XWayland).
+
+Override with `DISCORDCHATEXPORTER_SCALE`. Do **not** use `AVALONIA_GLOBAL_SCALE_FACTOR` here.
 
 ### Darwin
 

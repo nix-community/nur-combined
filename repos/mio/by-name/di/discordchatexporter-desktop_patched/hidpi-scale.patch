@@ -1,14 +1,15 @@
 --- a/DiscordChatExporter.Gui/App.axaml.cs
 +++ b/DiscordChatExporter.Gui/App.axaml.cs
-@@ -1,5 +1,7 @@
+@@ -1,5 +1,8 @@
  using System;
 +using System.Globalization;
++using System.IO;
  using Avalonia;
 +using Avalonia.Controls;
  using Avalonia.Controls.ApplicationLifetimes;
  using Avalonia.Markup.Xaml;
  using Avalonia.Media;
-@@ -107,6 +109,12 @@
+@@ -107,6 +110,12 @@
              var viewModelManager = _services.GetRequiredService<ViewModelManager>();
  
              desktop.MainWindow = viewManager.TryBindWindow(viewModelManager.GetMainViewModel());
@@ -21,7 +22,7 @@
  
              // Although `App.Dispose()` is invoked from `Program.Main(...)`, on some platforms
              // it may be called too late in the shutdown lifecycle. Attach an exit
-@@ -121,6 +129,74 @@
+@@ -121,6 +130,144 @@
          base.OnFrameworkInitializationCompleted();
      }
  
@@ -67,6 +68,27 @@
 +        if (window.RenderScaling > 1.1)
 +            return 1;
 +
++        // KWin "Scaled by the system": compositor magnifies X11; do not stack.
++        // KWin "Apply scaling themselves" (XwaylandClientsScale=true): we must scale.
++        if (KwinXwaylandClientsScale() == false)
++            return 1;
++
++        var wayland =
++            !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WAYLAND_DISPLAY"))
++            || string.Equals(
++                Environment.GetEnvironmentVariable("XDG_SESSION_TYPE"),
++                "wayland",
++                StringComparison.OrdinalIgnoreCase
++            );
++        var kde = (Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP") ?? "").Contains(
++            "KDE",
++            StringComparison.OrdinalIgnoreCase
++        );
++        // GNOME and other compositors scale XWayland themselves unless Plasma
++        // opted into client-side X11 scale.
++        if (wayland && !kde && KwinXwaylandClientsScale() != true)
++            return 1;
++
 +        var screen = window.Screens?.ScreenFromWindow(window) ?? window.Screens?.Primary;
 +        if (screen is null)
 +            return 1;
@@ -91,6 +113,55 @@
 +        }
 +
 +        return best;
++    }
++
++    private static string XdgConfigHome()
++    {
++        var xdg = Environment.GetEnvironmentVariable("XDG_CONFIG_HOME");
++        if (!string.IsNullOrEmpty(xdg))
++            return xdg;
++        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
++        return Path.Combine(home, ".config");
++    }
++
++    // true = Legacy X11 apps apply scaling themselves; false = scaled by KWin.
++    private static bool? KwinXwaylandClientsScale()
++    {
++        var config = XdgConfigHome();
++        return ReadKdeIniBool(Path.Combine(config, "kdeglobals"), "KScreen", "XwaylandClientsScale")
++            ?? ReadKdeIniBool(Path.Combine(config, "kwinrc"), "Xwayland", "XwaylandClientsScale");
++    }
++
++    private static bool? ReadKdeIniBool(string path, string group, string key)
++    {
++        if (!File.Exists(path))
++            return null;
++
++        string? current = null;
++        foreach (var line in File.ReadLines(path))
++        {
++            var t = line.Trim();
++            if (t.Length == 0 || t.StartsWith('#') || t.StartsWith(';'))
++                continue;
++            if (t.StartsWith('[') && t.EndsWith(']'))
++            {
++                current = t[1..^1];
++                continue;
++            }
++            var eq = t.IndexOf('=');
++            if (eq <= 0 || current != group)
++                continue;
++            var name = t[..eq].Trim();
++            if (name != key && !name.StartsWith(key + "[", StringComparison.Ordinal))
++                continue;
++            var value = t[(eq + 1)..].Trim();
++            if (value is "true" or "1" or "yes")
++                return true;
++            if (value is "false" or "0" or "no")
++                return false;
++        }
++
++        return null;
 +    }
 +
      private void Application_OnActualThemeVariantChanged(object? sender, EventArgs args) =>
