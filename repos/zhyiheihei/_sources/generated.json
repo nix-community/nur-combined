@@ -20,21 +20,6 @@
         },
         "version": "v1.6"
     },
-    "cloakbrowser": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "cloakbrowser",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-ZEYIxPeYXnAHfjNcrZS27I7K76TiZ0YTxpgWUiPLWiM=",
-            "type": "url",
-            "url": "https://pypi.org/packages/source/c/cloakbrowser/cloakbrowser-0.5.7.tar.gz"
-        },
-        "version": "0.5.7"
-    },
     "cn2an": {
         "cargoLock": null,
         "date": null,
@@ -175,92 +160,6 @@
         },
         "version": "v1.0.0rc1"
     },
-    "moviepilot": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "moviepilot",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "jxxghp",
-            "repo": "MoviePilot",
-            "rev": "v3.0.0",
-            "sha256": "sha256-rjg2f3grFq4xap46SPIo114heRUX+2JxlfniQfX/3yc=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v3.0.0"
-    },
-    "moviepilot-frontend": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "moviepilot-frontend",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-ytP/mhf/4LB8anN/cHVm06U6XrDfUm4swgaNV1Eb6OQ=",
-            "type": "url",
-            "url": "https://github.com/jxxghp/MoviePilot-Frontend/releases/download/v3.0.0/dist.zip"
-        },
-        "version": "v3.0.0"
-    },
-    "moviepilot-resources": {
-        "cargoLock": null,
-        "date": "2026-08-13",
-        "extract": null,
-        "name": "moviepilot-resources",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "88593edf55c5ed144512943d6d2bef3d5d37ecb9",
-            "sha256": "sha256-FL4qCCbm+FmgQpVThKQIoSYYjm1CTWQBuUUxaF25qEg=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/jxxghp/MoviePilot-Resources"
-        },
-        "version": "88593edf55c5ed144512943d6d2bef3d5d37ecb9"
-    },
-    "moviepilot-rust-aarch64": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "moviepilot-rust-aarch64",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-R99K9saQAoeJ+Q0KHHwPKLikQ3VI4ydmv957CAupTZM=",
-            "type": "url",
-            "url": "https://files.pythonhosted.org/packages/15/08/1c4ba8eba94661ddfbadf7e7c1fdcdfbac3abe09e5c3f2adc383c1e468e2/moviepilot_rust-0.2.8-cp311-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl"
-        },
-        "version": "0.2.8"
-    },
-    "moviepilot-rust-x86_64": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "moviepilot-rust-x86_64",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-89Ls8/TYHJw2QBEsuyguRfrWuqt9cNYjw14LCuKK3fg=",
-            "type": "url",
-            "url": "https://files.pythonhosted.org/packages/27/b8/faddc8ba84138a3b50895d756cf9714eff0ce8a2133c7ea482136cf3d75b/moviepilot_rust-0.2.8-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-        },
-        "version": "0.2.8"
-    },
     "nexus-media": {
         "cargoLock": null,
         "date": null,
@@ -275,12 +174,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.6.1",
-            "sha256": "sha256-UzuN+OhbflwodOUOuL3zvfGyZIvwmFzohJIE3x8Jxhs=",
+            "rev": "v4.6.2",
+            "sha256": "sha256-+kJ4a8BByCqaIebqYjvaghM1pFHBPDSQHrnppUDRdPc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.6.1"
+        "version": "v4.6.2"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -296,12 +195,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.6.1",
-            "sha256": "sha256-Eq47wMyfXijrm4KtP6/aIQ4go2n0R2jpsvPc0pPWLEk=",
+            "rev": "v4.6.2",
+            "sha256": "sha256-qRhTj3n2E08QAclPVRd0SIxDqFvHxmdKs6U19fpYqKw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.6.1"
+        "version": "v4.6.2"
     },
     "pinyin2hanzi": {
         "cargoLock": null,

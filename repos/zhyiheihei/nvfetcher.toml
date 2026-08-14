@@ -6,10 +6,6 @@ src.github_tag = "kumaraditya303/aioshutil"
 fetch.pypi = "cn2an"
 src.pypi = "cn2an"
 
-[cloakbrowser]
-fetch.pypi = "cloakbrowser"
-src.pypi = "cloakbrowser"
-
 [docker-proxy]
 fetch.github = "dqzboy/Docker-Proxy"
 src.github = "dqzboy/Docker-Proxy"
@@ -33,29 +29,6 @@ src.github = "sky22333/hubproxy"
 [jieba-next]
 fetch.github = "mxcoras/jieba-next"
 src.github_tag = "mxcoras/jieba-next"
-
-[moviepilot]
-fetch.github = "jxxghp/MoviePilot"
-src.github = "jxxghp/MoviePilot"
-src.include_regex = "^v3\\.\\d+\\.\\d+$"
-
-[moviepilot-frontend]
-fetch.url = "https://github.com/jxxghp/MoviePilot-Frontend/releases/download/$ver/dist.zip"
-src.github_tag = "jxxghp/MoviePilot-Frontend"
-src.include_regex = "^v3\\.\\d+\\.\\d+$"
-
-[moviepilot-resources]
-fetch.git = "https://github.com/jxxghp/MoviePilot-Resources"
-src.git = "https://github.com/jxxghp/MoviePilot-Resources"
-src.branch = "main"
-
-[moviepilot-rust-aarch64]
-fetch.url = "https://files.pythonhosted.org/packages/15/08/1c4ba8eba94661ddfbadf7e7c1fdcdfbac3abe09e5c3f2adc383c1e468e2/moviepilot_rust-$ver-cp311-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl"
-src.pypi = "moviepilot-rust"
-
-[moviepilot-rust-x86_64]
-fetch.url = "https://files.pythonhosted.org/packages/27/b8/faddc8ba84138a3b50895d756cf9714eff0ce8a2133c7ea482136cf3d75b/moviepilot_rust-$ver-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-src.pypi = "moviepilot-rust"
 
 [nexus-media]
 fetch.github = "linyuan0213/nexus-media"
