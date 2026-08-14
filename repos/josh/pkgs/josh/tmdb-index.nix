@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tmdb-index";
-  version = "1.1.0-unstable-2026-08-11";
+  version = "1.1.0";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "tmdb-index";
-    rev = "9f2b9065328ab965bbd01b4dbf961a2ffe5a20b3";
-    hash = "sha256-XAfwlxmeXmxBD1v64jkFQ5F2vtwoYe+Wz958vxuWTvQ=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-99Dn+OZNVCRt1GA8dOX9C+XZn7cHDGuONQeeqEANt6U=";
   };
 
   build-system = with python3Packages; [
@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   pythonImportsCheck = [ "tmdb_index" ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     # TODO: Add --version test

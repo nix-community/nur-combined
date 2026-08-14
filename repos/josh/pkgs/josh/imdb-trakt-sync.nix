@@ -7,7 +7,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "imdb-trakt-sync";
-  version = "0.2.0-unstable-2026-08-14";
+  version = "0.2.0";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "imdb-trakt-sync";
-    rev = "bd9be2e98d6e51e4919ba1e62d2b28da074591ce";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-BOPVsY+hMRu8XE8lzexSaeisBHkwjGtxNIKEhR3OQYk=";
   };
 
@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   pythonImportsCheck = [ "imdb_trakt_sync" ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     # TODO: Add --version test
