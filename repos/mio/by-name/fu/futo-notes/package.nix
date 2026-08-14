@@ -1,42 +1,38 @@
 {
   lib,
   stdenv,
+  pkgs,
   fetchFromGitLab,
   rustPlatform,
   cargo-tauri,
   nodejs_22,
   pnpm_10,
   pkg-config,
-  wrapGAppsHook3,
-  glib,
-  gtk3,
-  webkitgtk_4_1,
   openssl,
-  onnxruntime,
+  makeWrapper,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "futo-notes";
-  version = "1.6.1";
+  version = "1.7.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.futo.org";
     owner = "futo-notes";
     repo = "futo-notes";
     rev = "v${version}";
-    hash = "sha256-ILtfrU/Pr+Gmnngt65W2A4NBx93OwfHHAVCA8r7Nm4c=";
+    hash = "sha256-gVlTN6PomLUilpb+DO45nesULCvad5gw+thMQT1dJ9E=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit pname version src;
-    hash = "sha256-QlvQ+7Q3ZTHEYELKkge99CsfXgBGiF9+WLpmqg7Gx5E=";
+    hash = "sha256-nLRLZdjSWl/5PXysfokM2xNUODtRzwvwq82BTdT6qvU=";
     fetcherVersion = 4;
   };
 
-  cargoHash = "sha256-ZeCFObDMeI37QqklsqqqWMe0CBsaXoyyrfI7X5IayP4=";
+  cargoHash = "sha256-xNwvPBxGtLQ62WtLIznp3g1puyMOIDudAAkNjfCMSAs=";
 
-  # The Cargo workspace root is in the repo root
-  # We just want to build the tauri app
+  # The Cargo workspace root is in the repo root; we build the tauri app.
   buildAndTestSubdir = "apps/tauri/src-tauri";
 
   nativeBuildInputs = [
@@ -44,24 +40,79 @@ rustPlatform.buildRustPackage rec {
     cargo-tauri.hook
     nodejs_22
     pnpm_10.configHook
-    wrapGAppsHook3
+    makeWrapper
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    pkgs.wrapGAppsHook3
   ];
 
   buildInputs = [
-    glib
-    gtk3
-    webkitgtk_4_1
     openssl
-    onnxruntime
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    pkgs.glib
+    pkgs.gtk3
+    pkgs.webkitgtk_4_1
   ];
 
-  preBuild = ''
-    pnpm install --offline --frozen-lockfile --ignore-scripts
-    # Tauri's hook will run pnpm build if configured in tauri.conf.json,
-    # or we can run it manually. Let's run it manually just in case:
-    pnpm run build || true
-    mkdir -p apps/tauri/src-tauri/gen/linux
-    cp ${onnxruntime}/lib/libonnxruntime.so apps/tauri/src-tauri/gen/linux/
+  # cargo-tauri.hook always passes --bundles; Darwin only accepts app/dmg/ios.
+  # Skip the Apple bundler (codesign --options) and install the binary ourselves.
+  dontTauriBuild = lib.optionalString stdenv.hostPlatform.isDarwin "1";
+  dontTauriInstall = lib.optionalString stdenv.hostPlatform.isDarwin "1";
+
+  buildPhase = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    runHook preBuild
+    export CARGO_TARGET_DIR="$PWD/target"
+    printf '\nbuild.target-dir = "%s"\n' "$CARGO_TARGET_DIR" >> config.toml
+    pushd ${buildAndTestSubdir}
+    cargo tauri build --no-bundle --target ${stdenv.hostPlatform.rust.rustcTarget} -- \
+      -j "$NIX_BUILD_CORES" --target ${stdenv.hostPlatform.rust.rustcTarget} --offline --profile "''${cargoBuildType:-release}"
+    popd
+    runHook postBuild
+  '';
+
+  env = {
+    CI = "true";
+    # rustc is built for 14.0; tauri.conf.json otherwise forces 11.0.
+    MACOSX_DEPLOYMENT_TARGET = "14.0";
+  };
+
+  doCheck = false;
+
+  installPhase = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    runHook preInstall
+
+    bin="target/${stdenv.hostPlatform.rust.cargoShortTarget}/''${cargoBuildType:-release}/futo-notes-tauri"
+    app="$out/Applications/FUTO Notes.app"
+    mkdir -p "$app/Contents/MacOS" "$out/bin"
+    cp "$bin" "$app/Contents/MacOS/FUTO Notes"
+
+    cat > "$app/Contents/Info.plist" <<EOF
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>CFBundleExecutable</key>
+      <string>FUTO Notes</string>
+      <key>CFBundleIdentifier</key>
+      <string>com.futo.notes</string>
+      <key>CFBundleName</key>
+      <string>FUTO Notes</string>
+      <key>CFBundlePackageType</key>
+      <string>APPL</string>
+      <key>CFBundleShortVersionString</key>
+      <string>${version}</string>
+      <key>LSMinimumSystemVersion</key>
+      <string>14.0</string>
+      <key>NSHighResolutionCapable</key>
+      <true/>
+    </dict>
+    </plist>
+    EOF
+
+    makeWrapper "$app/Contents/MacOS/FUTO Notes" "$out/bin/futo-notes"
+
+    runHook postInstall
   '';
 
   meta = {
@@ -69,5 +120,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.futo.org/futo-notes/futo-notes";
     license = lib.licenses.unfree; # Change me
     mainProgram = "futo-notes";
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

@@ -11,13 +11,13 @@
 
 let
   pname = "meru";
-  version = "3.58.0";
+  version = "3.59.0";
 
   src = fetchFromGitHub {
     owner = "zoidsh";
     repo = "meru";
     rev = "v${version}";
-    hash = "sha256-9Xw8CsL/ZvVcYTEIr4k5g0e5uHJ6y8rPfm3inE4rD8c=";
+    hash = "sha256-BGo+EzSAk06q0v/5VXLOhyZ2Th00NkHiLRiUfSgfI5M=";
   };
 
   # Fixed-output derivation to fetch all node_modules using bun
@@ -42,7 +42,7 @@ let
     installPhase = "true";
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-JUhkaz2TJQPlvk37fqOUo8nEdse3AHF9Zfr3H9+43Y8=";
+    outputHash = "sha256-WMxEHnQDdQPIEy0tVKeHzjRA4DxbHAUaGtIkRrYCF7w=";
   };
 
 in
@@ -56,6 +56,9 @@ stdenv.mkDerivation {
   ];
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+
+  # Vite 8 resolves localhost via DNS during build; Darwin sandbox blocks that.
+  __darwinAllowLocalNetworking = true;
 
   buildPhase = ''
     runHook preBuild
