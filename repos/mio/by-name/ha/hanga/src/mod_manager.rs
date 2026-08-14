@@ -47,6 +47,19 @@ pub fn wire_empty() -> Wire {
     Wire::Empty
 }
 
+pub fn wire_voxel_probe(name: impl Into<String>, edit: bool) -> Wire {
+    Wire::Bag(vec![
+        hanga::engine::host::Field {
+            key: "name".into(),
+            value: hanga::engine::host::Atom::Text(name.into()),
+        },
+        hanga::engine::host::Field {
+            key: "edit".into(),
+            value: hanga::engine::host::Atom::Flag(edit),
+        },
+    ])
+}
+
 pub fn wire_is_empty(value: &Wire) -> bool {
     matches!(value, Wire::Empty)
 }
@@ -168,6 +181,18 @@ fn sample_lead_voxel(x: i32, y: i32, z: i32) -> String {
     if let Some(name) = ::hanga::overlay_name(x, y, z) {
         return name;
     }
+    sample_lead_worldgen(x, y, z)
+}
+
+fn probe_lead_voxel(x: i32, y: i32, z: i32) -> Wire {
+    match ::hanga::overlay_get(x, y, z) {
+        Some(::hanga::VoxelOverlay::Air) => wire_voxel_probe("air", true),
+        Some(::hanga::VoxelOverlay::Solid(name)) => wire_voxel_probe(name, true),
+        None => wire_voxel_probe(sample_lead_worldgen(x, y, z), false),
+    }
+}
+
+fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
     let Ok(shared) = SHARED_WASM.read() else {
         return "air".into();
     };
@@ -213,6 +238,10 @@ impl hanga::engine::host::Host for HostData {
 
     fn voxel_at(&mut self, x: i32, y: i32, z: i32) -> String {
         self.bus.voxel_at(x, y, z)
+    }
+
+    fn voxel_probe(&mut self, x: i32, y: i32, z: i32) -> Wire {
+        probe_lead_voxel(x, y, z)
     }
 }
 

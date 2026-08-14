@@ -6,8 +6,8 @@ Voxel city, subway, GTA wanted level, Teardown buildings, street crafting.
 lamps, wheels, player red vs traffic colors. Street metal is soft (`stiffness=32`);
 `tire=wheel` lets the host squash the wheels when the car is on the ground.
 `beam=hull,cabin` / `beam=cabin,lamp` / `beam=hull,wheel` / `beam=hull,lamp` are
-rest-length links. The host shortens them on crumple and relaxes the chain a few
-times so lamps follow the cabin.
+rest-length links. The host shortens them on crumple and relaxes a pinned lattice
+(first kit part stays put) so lamps follow the cabin.
 The testbed pack in Sandbox adds a stiffer cart that uses that pack's crash/fire kits.
 
 **Gravity belongs here.** Streets use Earth (`kind=constant;y=-9.81;jump=5;walk=10`).
@@ -65,4 +65,4 @@ chop-shop takes the selected item.
 
 ## Out of scope (later)
 
-- A real node-beam lattice / solver
+- BeamNG-style masses, deformation nodes, and a full soft-body solver

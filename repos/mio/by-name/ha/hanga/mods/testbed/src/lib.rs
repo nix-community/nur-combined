@@ -341,6 +341,11 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Payloa
             payload_i64(payload, "y") as i32,
             payload_i64(payload, "z") as i32,
         )),
+        "probe" => host_voxel_probe(
+            payload_i64(payload, "x") as i32,
+            payload_i64(payload, "y") as i32,
+            payload_i64(payload, "z") as i32,
+        ),
         _ => wire_empty(),
     }
 }
@@ -560,6 +565,9 @@ mod tests {
             wire_as_text(&on_message("x", "voxel", &wire_empty())),
             Some("air")
         );
+        let probe = on_message("x", "probe", &wire_empty());
+        assert_eq!(payload_text(&probe, "name"), Some("air"));
+        assert!(!payload_flag(&probe, "edit"));
         assert_eq!(
             wire_as_text(&on_message("x", "name", &wire_empty())),
             Some("testbed")

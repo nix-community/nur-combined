@@ -1,10 +1,7 @@
 {
   pkgs,
   lib,
-  stdenv,
   callPackage,
-  fetchFromGitHub,
-  fetchpatch,
   bzip2,
   expat,
   libffi,
@@ -22,7 +19,6 @@
   zlib,
   coreutils,
   ucsEncoding ? 4,
-  config,
 }:
 
 let
@@ -31,35 +27,36 @@ let
     pkgs.replaceVars ./setup-hook.sh {
       inherit sitePackages;
     };
-in
-callPackage ./default.nix {
-  inherit
-    bzip2
-    expat
-    libffi
-    gdbm
-    db
-    ncurses
-    openssl
-    readline
-    sqlite
-    tcl
-    tk
-    tclPackages
-    libx11
-    x11Support
-    zlib
-    coreutils
-    ucsEncoding
-    python-setup-hook
-    ;
-  self = callPackage ./default.nix { };
-  passthruFun = attrs: attrs;
-  sourceVersion = {
-    major = "2";
-    minor = "7";
-    patch = "18";
-    suffix = "";
+
+  args = {
+    inherit
+      bzip2
+      expat
+      libffi
+      gdbm
+      db
+      ncurses
+      openssl
+      readline
+      sqlite
+      tcl
+      tk
+      tclPackages
+      libx11
+      x11Support
+      zlib
+      coreutils
+      ucsEncoding
+      python-setup-hook
+      ;
+    passthruFun = passthru: passthru;
+    sourceVersion = {
+      major = "2";
+      minor = "7";
+      patch = "18";
+      suffix = "";
+    };
+    hash = "sha256-NtDJrVmGgKrb2okcl42+La6t/aj4S2WuuktJ8VavH2s=";
   };
-  hash = "sha256-NtDJrVmGgKrb2okcl42+La6t/aj4S2WuuktJ8VavH2s="; # updated sri hash for ActiveState cpython 2.7.18
-}
+in
+lib.fix (self: callPackage ./default.nix (args // { inherit self; }))

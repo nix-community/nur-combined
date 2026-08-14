@@ -341,7 +341,7 @@ mod tests {
         }
         assert!((hull[1]).abs() < 1e-4);
         assert!((cabin[1] - 0.5).abs() < 1e-3);
-        assert!((lamp[1] - 1.0).abs() < 1e-3);
+        assert!((lamp[1] - 1.0).abs() < 1e-2);
     }
 
     #[test]

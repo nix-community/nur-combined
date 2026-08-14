@@ -39,6 +39,8 @@ interface host {
     ask: func(peer: string, topic: string, payload: payload) -> payload;
     /// Lead worldgen name at this cell, or a player edit (`air` if empty).
     voxel-at: func(x: s32, y: s32, z: s32) -> string;
+    /// Same cell as `voxel-at`, as a bag: `name` (text) and `edit` (flag, player overlay).
+    voxel-probe: func(x: s32, y: s32, z: s32) -> payload;
 }
 
 interface gameplay {

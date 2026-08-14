@@ -21,7 +21,7 @@
  
              // Although `App.Dispose()` is invoked from `Program.Main(...)`, on some platforms
              // it may be called too late in the shutdown lifecycle. Attach an exit
-@@ -121,6 +129,82 @@
+@@ -121,6 +129,74 @@
          base.OnFrameworkInitializationCompleted();
      }
  
@@ -56,21 +56,13 @@
 +
 +    private static double ResolveLinuxUiScale(Window window)
 +    {
-+        foreach (var name in new[] { "DISCORDCHATEXPORTER_SCALE", "AVALONIA_GLOBAL_SCALE_FACTOR" })
-+        {
-+            var raw = Environment.GetEnvironmentVariable(name);
-+            if (
-+                !string.IsNullOrWhiteSpace(raw)
-+                && double.TryParse(
-+                    raw,
-+                    NumberStyles.Any,
-+                    CultureInfo.InvariantCulture,
-+                    out var parsed
-+                )
-+                && parsed > 0
-+            )
-+                return parsed;
-+        }
++        var raw = Environment.GetEnvironmentVariable("DISCORDCHATEXPORTER_SCALE");
++        if (
++            !string.IsNullOrWhiteSpace(raw)
++            && double.TryParse(raw, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed)
++            && parsed > 0
++        )
++            return parsed;
 +
 +        if (window.RenderScaling > 1.1)
 +            return 1;

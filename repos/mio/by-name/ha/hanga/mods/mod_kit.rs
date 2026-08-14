@@ -80,6 +80,55 @@ fn host_voxel_at(x: i32, y: i32, z: i32) -> String {
     }
 }
 
+fn host_voxel_probe(x: i32, y: i32, z: i32) -> hanga::engine::host::Payload {
+    #[cfg(target_arch = "wasm32")]
+    {
+        hanga::engine::host::voxel_probe(x, y, z)
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let _ = (x, y, z);
+        hanga::engine::host::Payload::Bag(vec![
+            hanga::engine::host::Field {
+                key: "name".into(),
+                value: hanga::engine::host::Atom::Text("air".into()),
+            },
+            hanga::engine::host::Field {
+                key: "edit".into(),
+                value: hanga::engine::host::Atom::Flag(false),
+            },
+        ])
+    }
+}
+
+fn payload_text<'a>(payload: &'a hanga::engine::host::Payload, key: &str) -> Option<&'a str> {
+    match payload {
+        hanga::engine::host::Payload::Bag(fields) => fields.iter().find_map(|field| {
+            if field.key != key {
+                return None;
+            }
+            match &field.value {
+                hanga::engine::host::Atom::Text(text) => Some(text.as_str()),
+                _ => None,
+            }
+        }),
+        _ => None,
+    }
+}
+
+fn payload_flag(payload: &hanga::engine::host::Payload, key: &str) -> bool {
+    match payload {
+        hanga::engine::host::Payload::Bag(fields) => fields.iter().any(|field| {
+            field.key == key
+                && matches!(
+                    &field.value,
+                    hanga::engine::host::Atom::Flag(true) | hanga::engine::host::Atom::Int(1)
+                )
+        }),
+        _ => false,
+    }
+}
+
 fn payload_i64(payload: &hanga::engine::host::Payload, key: &str) -> i64 {
     match payload {
         hanga::engine::host::Payload::Bag(fields) => fields
