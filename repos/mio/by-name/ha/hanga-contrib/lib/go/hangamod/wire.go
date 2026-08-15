@@ -10,6 +10,7 @@ const (
 	WireText
 	WireList
 	WireBag
+	WireFail
 )
 
 type Field struct {
@@ -30,6 +31,10 @@ type Wire struct {
 
 func TextWire(value string) Wire {
 	return Wire{Kind: WireText, Text: value}
+}
+
+func FailWire(reason string) Wire {
+	return Wire{Kind: WireFail, Text: reason}
 }
 
 func VoxelProbe(name string, edit bool) Wire {

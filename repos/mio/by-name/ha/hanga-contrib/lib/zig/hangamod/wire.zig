@@ -14,6 +14,7 @@ pub const Wire = union(enum) {
     text: []const u8,
     list: []const Wire,
     bag: []const Field,
+    fail: []const u8,
 
     pub fn asText(self: Wire) ?[]const u8 {
         return switch (self) {
@@ -71,6 +72,15 @@ test "wire probe" {
     const probe = Wire{ .bag = &fields };
     try std.testing.expectEqualStrings("glass", probe.bagText("name").?);
     try std.testing.expect(probe.bagFlag("edit"));
+}
+
+test "wire fail" {
+    const err = Wire{ .fail = "busy" };
+    try std.testing.expect(err.asText() == null);
+    switch (err) {
+        .fail => |reason| try std.testing.expectEqualStrings("busy", reason),
+        else => unreachable,
+    }
 }
 
 test "wire nest" {

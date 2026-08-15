@@ -3,19 +3,19 @@
 Voxel city, subway, GTA wanted level, Teardown buildings, street crafting.
 **Cars belong here**, not in the engine. The host only knows a rideable vehicle
 (kit boxes + occupants). This game's `vehicle-kit` is a street car: hull, cabin,
-lamps, wheels, player red vs traffic colors. Street metal is soft (`stiffness=32`);
-`tire=wheel` lets the host squash the wheels when the car is on the ground.
-`beam=hull,cabin` / `beam=cabin,lamp` / `beam=hull,wheel` / `beam=hull,lamp` are
-rest-length links. The host shortens them on crumple and relaxes a pinned lattice
+lamps, wheels, player red vs traffic colors. Street metal is soft (`stiffness` 32);
+`tires: ["wheel"]` lets the host squash the wheels when the car is on the ground.
+`beams` are rest-length `{a,b}` links (`hull`–`cabin`, `cabin`–`lamp`, …).
+The host shortens them on crumple and relaxes a pinned lattice
 (first kit part stays put) so lamps follow the cabin.
 The testbed pack in Sandbox adds a stiffer cart that uses that pack's crash/fire kits.
 
-**Gravity belongs here.** Streets use Earth (`kind=constant;y=-9.81;jump=5;walk=10`).
+**Gravity belongs here.** Streets use Earth (`kind` constant, `y` -9.81, `jump` 5, `walk` 10).
 The host only applies the field; a later heist in orbit would ship a different kit.
 
 Cars are **soft street metal** in the BeamNG sense: they fold, shed parts, and
 can become wrecks. The host only measures impact and moves meshes; this mod
-owns how cheap the steel is. A hard wreck can **ignite** (`ignites=1` on `crash-kit`); the host hangs a light
+owns how cheap the steel is. A hard wreck can **ignite** (`ignites` on `crash-kit`); the host hangs a light
 and then ticks `fire-kit`. Glass / tile / workbench / grass can be consumed.
 Flame jumps to nearby rideables; after eight seconds the tank can burst; after
 twelve the fire goes out.
@@ -28,8 +28,8 @@ tumbles and will not drive, and a high-speed hit that is treated as an explosion
 
 The engine reports impact `speed` (m/s) and `into-solid` (voxel or sudden stop).
 This mod returns severity 0–100 and named outcomes. The host folds remaining
-parts along the travel axis, slides them toward the hit, shortens named `beam=`
-links (pinned lattice), and squashes `tire=` parts on the local up axis. That is
+parts along the travel axis, slides them toward the hit, shortens named `beams`
+links (pinned lattice), and squashes `tires` parts on the local up axis. That is
 not BeamNG's solver.
 
 | Impact speed | Severity | Visual | Heat |

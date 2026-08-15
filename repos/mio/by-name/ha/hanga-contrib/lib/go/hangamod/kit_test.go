@@ -40,4 +40,8 @@ func TestKit(t *testing.T) {
 	if name, ok := nested.Fields[0].Value.Items[0].BagText("name"); !ok || name != "hull" {
 		t.Fatal("nested list of objects")
 	}
+	fail := FailWire("busy")
+	if fail.Kind != WireFail || fail.Text != "busy" {
+		t.Fatal("fail wire")
+	}
 }

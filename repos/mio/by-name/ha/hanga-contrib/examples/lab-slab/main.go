@@ -98,7 +98,7 @@ func queryVoxel(x, y, z int32) int32 {
 	}
 	if y == 0 {
 		if (x+z)&1 == 0 {
-			return 2
+			return 1
 		}
 		return 2
 	}

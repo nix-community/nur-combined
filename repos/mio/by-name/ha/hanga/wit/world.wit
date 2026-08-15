@@ -57,7 +57,7 @@ interface host {
     voxel-set: func(x: s32, y: s32, z: s32, name: string);
     /// Local player snapshot, or `empty` in menu. Dict: `x` `y` `z` `yaw` (float), `state` `wallet` (int).
     player: func() -> value;
-    /// Luanti `core.after`: invoke `method` on this pack after `ms` milliseconds.
+    /// Luanti `core.after` / OTP `send_after`: cast `method` on this pack after `ms`.
     after: func(ms: s32, method: string, args: value);
 }
 

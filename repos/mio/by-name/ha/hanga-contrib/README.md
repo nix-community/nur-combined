@@ -17,7 +17,7 @@ host.
 
 ## Layout
 
-- `lib/hanga/mod` — Kotlin kit strings, catalog CSV, bus `Wire` (JVM-tested)
+- `lib/hanga/mod` — Kotlin catalog CSV and recursive bus `Wire` (JVM-tested)
 - `lib/go/hangamod` — the same helpers in Go (`go test`)
 - `lib/zig/hangamod` — the same helpers in Zig (`zig test`)
 - `lib/scheme/hangamod` — the same helpers in Scheme (`guile` + `hoot compile --run`)
@@ -45,3 +45,6 @@ Required WIT is `abi` (major 6), `ready`, `voxel-catalog`, `query-voxel`, and
 Empty `invoke` replies (including empty text) mean “not mine”. `fail` is a bus
 error (`busy` / `self` / `noproc`), not a missing method. `send` is fire-and-forget
 (OTP cast). Kits (`gravity`, `fracture-kit`, vehicles) are nested dicts/lists, not `key=value` strings.
+
+Longer follow-ups (Hoot guest, Zig bindgen, lifting arena helpers):
+`by-name/ha/hanga/FOLLOWUP.md`.

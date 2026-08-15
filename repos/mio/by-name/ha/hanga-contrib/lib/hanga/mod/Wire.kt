@@ -9,6 +9,7 @@ sealed class Wire {
     data class Text(val value: String) : Wire()
     data class Items(val items: List<Wire>) : Wire()
     data class Bag(val fields: List<Field>) : Wire()
+    data class Fail(val reason: String) : Wire()
 
     fun asText(): String? = (this as? Text)?.value
 

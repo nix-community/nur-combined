@@ -40,7 +40,7 @@ The engine uses **call** only when it needs a reply: `before-dig` is `emit_all`
 `voxel-set` is Luanti `core.set_node` (queued onto the mesh next tick).
 `player` is a snapshot dict (`x` `y` `z` `yaw` float, `state` `wallet` int), or
 `empty` in the menu.
-`after(ms, method, args)` is Luanti `core.after`: the host invokes that method
+`after(ms, method, args)` is OTP `send_after`: the host **casts** that method
 on the same pack later.
 `has-mod` is Luanti `core.get_modpath != nil`.
 `invoke(peer)` is a direct call into that pack (Luanti `mobs.api()`). Empty peer
@@ -108,8 +108,8 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
   from a kit dict, moves occupants, crumples/detaches named parts, and scales fold by
-  `stiffness`. `tire.<name>` flags squash on the local up axis when grounded.
-  `beam.n.a` / `beam.n.b` links keep rest length (shortened by crumple). The host
+  `stiffness`. `tires` is a list of part names squashed on the local up axis when grounded.
+  `beams` is `[{a,b}, …]` rest-length links. The host
   relaxes a small lattice: the first kit part stays pinned, other nodes
   share the length error. Crash and fire kits come from the pack that spawned
   the rideable.
@@ -125,30 +125,30 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 ## Mods (Rust → `wasm32-unknown-unknown` component)
 
 - World gen (`query-voxel`)
-- Rules (`mod-evaluate-action`, `mod-should-spawn-agent`, wanted level)
+- Rules (`evaluate-action`, `should-spawn-agent`, wanted level)
 - Economy / storyteller
 - Spawn positions
 - What can shatter (`fracture-kit`: can / spread / impulse)
-- Rideable kit (`vehicle-kit`): kind, traffic, speed, stiffness 0–100, `tire=` names, `beam=` links, collider, named box parts.
+- Rideable kit (`vehicle-kit`): kind, traffic, speed, stiffness 0–100, `tires` names, `beams` links, collider, named box parts.
   Urban Chaos ships a soft car with squashing wheels; Testbed ships a stiff platform (and a stiff cart when packed with Urban Chaos).
 - Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
-  plus `jump=` and `walk=`. Urban Chaos is Earth; Testbed is a zero-g lab.
-- Vehicle crash (`crash-kit`): one impact string (severity, crumple, wrecks,
-  ignites, action, impulse, detach names). Urban Chaos owns street metal; the
+  plus `jump` and `walk`. Urban Chaos is Earth; Testbed is a zero-g lab.
+- Vehicle crash (`crash-kit`): dict (severity, crumple, wrecks,
+  ignites, action, impulse, `detach` list). Urban Chaos owns street metal; the
   host only folds boxes and hangs a light.
 - Burn (`fire-kit`): age + nearby voxel name in, heat / range / consume / jump /
   burst / out. The host only ticks fuel, unsets voxels, jumps the flame, and
   bursts. Urban Chaos owns street petrol; Testbed never burns.
-- Planar AI (`steer`): role + measured context in, `vx=`/`vz=` out. Cops and
+- Planar AI (`steer`): role + measured context in, `vx`/`vz` out. Cops and
   traffic are role names, not engine types.
 - Passive tick (wanted decay), ambient NPCs
 - Localized copy (`voxel-label`, `event-label`, `contract-label`, `item-label`, `supported-locales`)
-- Wallet / contracts (`mod-wallet-after`, `mod-offer-contract`, `mod-can-complete`)
+- Wallet / contracts (`wallet-after`, `offer-contract`, `can-complete`)
 - English names for voxels, items, actions, agents, contracts, and story events
 - `voxel-catalog` is a list of names in meshing-index order; `query-voxel` still returns that index
 - Loot names (`loot-item`) that fill the host's generic 8-slot hotbar
 - Crafting recipes (`craft-result`); the host only spends two items and adds the product
-- Heist board (`mod-offer-contract`, `contract-mark`, `mod-can-complete` + context).
+- Heist board (`offer-contract`, `contract-mark`, `can-complete` + context).
   The host paints a mark and reports held item / position / vehicle / near;
   Urban Chaos owns smash, subway pinch, chop-shop, and the armored truck.
 - Mod bus (`invoke` call / `send` cast / `emit` event): OTP `gen_server` + `gen_event`.
@@ -248,4 +248,6 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 
 ## Next
 
-1. Package `cargo-kani` so proofs run as CBMC, not only replay tests
+Larger follow-ups (mailbox bounds, nested kit parse without flattening, Hoot guest,
+mod crash isolation, tests for `fail`/`busy`, cargo-kani packaging) are in
+[FOLLOWUP.md](FOLLOWUP.md).

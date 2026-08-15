@@ -578,6 +578,14 @@ impl EngineBus for LiveBus {
                 let _ = deliver_now(&queued.slot, &queued.from, &queued.topic, &queued.payload);
             }
         }
+        if let Ok(pending) = self.pending.lock() {
+            if !pending.is_empty() {
+                warn!(
+                    "mod mailbox still has {} message(s) after 32 drain rounds",
+                    pending.len()
+                );
+            }
+        }
     }
 }
 
@@ -1244,4 +1252,26 @@ fn watch_mod_changes(mut runtime: ResMut<ModRuntime>) {
         }
     }
     runtime.wake_all();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fail_is_not_empty() {
+        assert!(wire_is_empty(&Wire::Empty));
+        assert!(wire_is_empty(&Wire::Text(String::new())));
+        assert!(!wire_is_empty(&wire_fail("busy")));
+        assert!(wire_is_fail(&wire_fail("self")));
+    }
+
+    #[test]
+    fn fail_roundtrips_the_arena() {
+        let lowered = lower_wire(&wire_fail("noproc"));
+        match lift_wire(&lowered) {
+            Wire::Fail(reason) => assert_eq!(reason, "noproc"),
+            other => panic!("{other:?}"),
+        }
+    }
 }

@@ -96,6 +96,7 @@ object GuestImpl : Guest {
                 is Wire.Bag -> cells.add(
                     Host.Cell.Dict(value.fields.map { Host.Field(it.key, add(it.value)) }),
                 )
+                is Wire.Fail -> cells.add(Host.Cell.Fail(value.reason))
             }
             return cells.lastIndex.toUInt()
         }
@@ -113,7 +114,7 @@ object GuestImpl : Guest {
                 is Host.Cell.Text -> Wire.Text(cell.value)
                 is Host.Cell.Items -> Wire.Items(cell.value.map { at(it) })
                 is Host.Cell.Dict -> Wire.Bag(cell.value.map { Field(it.key, at(it.at)) })
-                is Host.Cell.Fail -> Wire.Empty
+                is Host.Cell.Fail -> Wire.Fail(cell.value)
             }
         }
         return at(value.root)

@@ -1,5 +1,5 @@
 //! A vehicle is any rideable the host can move occupants with.
-//! Looks, part names, and colors come from the mod kit string.
+//! Looks, part names, and colors come from the mod `vehicle-kit` dict.
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct VehiclePartSpec {
