@@ -1481,24 +1481,31 @@ mod tests {
         path.is_file().then_some(path)
     }
 
-    #[test]
-    fn live_wasm_testbed_ping_and_self_cast() {
-        let Some(path) = mods_wasm("testbed") else {
-            return;
-        };
+    fn instantiate_live(
+        name: &str,
+    ) -> Option<(
+        Arc<LiveBus>,
+        Arc<Mutex<Option<MainModContext>>>,
+        MainModContext,
+    )> {
+        let path = mods_wasm(name)?;
         let slot = Arc::new(Mutex::new(None));
-        let bus = Arc::new(LiveBus::new(
-            "testbed".into(),
-            Arc::clone(&slot),
-            Vec::new(),
-        ));
+        let bus = Arc::new(LiveBus::new(name.into(), Arc::clone(&slot), Vec::new()));
         let ctx = ModRuntime::instantiate(
             &path,
-            "testbed",
+            name,
             Arc::clone(&bus) as Arc<dyn EngineBus>,
             false,
         )
-        .expect("load testbed.wasm");
+        .unwrap_or_else(|| panic!("load {name}.wasm"));
+        Some((bus, slot, ctx))
+    }
+
+    #[test]
+    fn live_wasm_testbed_ping_and_self_cast() {
+        let Some((bus, slot, ctx)) = instantiate_live("testbed") else {
+            return;
+        };
         assert!(ctx.offers("ping"));
         assert!(ctx.offers("veto"));
         *slot.lock().unwrap() = Some(ctx);
@@ -1786,23 +1793,10 @@ mod tests {
     }
 
     #[test]
-    fn live_wasm_urban_chaos_gameplay_bus() {
-        let Some(path) = mods_wasm("urban_chaos") else {
+    fn live_wasm_urban_chaos_loot_and_kits() {
+        let Some((_bus, slot, mut ctx)) = instantiate_live("urban_chaos") else {
             return;
         };
-        let slot = Arc::new(Mutex::new(None));
-        let bus = Arc::new(LiveBus::new(
-            "urban_chaos".into(),
-            Arc::clone(&slot),
-            Vec::new(),
-        ));
-        let mut ctx = ModRuntime::instantiate(
-            &path,
-            "urban_chaos",
-            Arc::clone(&bus) as Arc<dyn EngineBus>,
-            false,
-        )
-        .expect("load urban_chaos.wasm");
         let names = ctx.voxel_catalog();
         assert!(names.contains(&"asphalt".to_string()));
         let index = ctx.query_voxel(0, 0, 0);
@@ -1853,6 +1847,14 @@ mod tests {
             ),
             5
         );
+        *slot.lock().unwrap() = Some(ctx);
+    }
+
+    #[test]
+    fn live_wasm_urban_chaos_world_and_steer() {
+        let Some((_bus, slot, mut ctx)) = instantiate_live("urban_chaos") else {
+            return;
+        };
         assert_eq!(
             ctx.bus_xyz("player-spawn", &wire_empty(), (0, 0, 0)),
             (504, 2, 508)
@@ -2057,6 +2059,14 @@ mod tests {
             ctx.bus_xyz("vehicle-spawn", &wire_int(0), (0, 0, 0)),
             (500, 2, 495)
         );
+        *slot.lock().unwrap() = Some(ctx);
+    }
+
+    #[test]
+    fn live_wasm_urban_chaos_locales() {
+        let Some((_bus, slot, mut ctx)) = instantiate_live("urban_chaos") else {
+            return;
+        };
         let locales = ctx.bus_node("supported-locales", &wire_empty());
         assert!(locales.get("en").is_some_and(::hanga::kit::Node::as_flag));
         assert!(locales.get("mi").is_some_and(::hanga::kit::Node::as_flag));

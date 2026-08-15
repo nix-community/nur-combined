@@ -16,8 +16,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `.#hanga-dev`) for ping, self-cast drain, empty-peer override, testbed
   `query-voxel` / catalog names, gravity, guest `fail("busy")` via `refuse`,
   and emit veto (`veto` vs `ping`). Testbed `selfie` returns the host `player()`
-  snapshot. `live_wasm_urban_chaos_gameplay_bus` loads the city lead for
-  terrain, kits, spawn, agents, labels, and economy. Empty-peer
+  snapshot. Urban live coverage is split: loot/kits, world/steer, locales.
+  Empty-peer
   `craft-result` uses the urban pack over testbed's empty reply. Testbed
   `toss` is guest `send` (self mailbox or a free peer). `ask` is guest
   `invoke` (`self` / `noproc` / named peer). `boom` traps and reloads the
