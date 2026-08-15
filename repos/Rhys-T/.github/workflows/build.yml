@@ -284,7 +284,7 @@ jobs:
         EOF
         # cat "$tempFlake/flake.nix"
         nix flake lock "$tempFlake"
-        nix shell 'github:Mic92/nix-fast-build${{ matrix.nixFastBuildFlakeArgs }}' 'myNixpkgs#ansifilter' -c bash -c '
+        nix shell 'github:Mic92/nix-fast-build${{ matrix.nixFastBuildFlakeArgs }}' 'myNixpkgs#ansifilter' --override-input nixpkgs myNixpkgs -c bash -c '
           set -o pipefail
           nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom --result-file /tmp/build-status.json 2>&1 | \
             tee >(ansifilter > /tmp/build-uncached.log)
