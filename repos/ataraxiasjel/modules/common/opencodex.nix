@@ -44,18 +44,6 @@ with lib;
       '';
     };
 
-    codexHome = mkOption {
-      type = with types; nullOr path;
-      default = null;
-      description = lib.mdDoc ''
-        Directory where opencodex reads and writes the Codex config/state it
-        manages (config.toml, opencodex.config.toml, catalog, model cache),
-        exposed as `CODEX_HOME`. When `null`, defaults to the Codex default
-        (`~/.codex` for the current user). Useful to redirect writes out of
-        `$HOME` under an impermanence setup.
-      '';
-    };
-
     extraEnvironment = mkOption {
       type = with types; attrsOf str;
       default = { };

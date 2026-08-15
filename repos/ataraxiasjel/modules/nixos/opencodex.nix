@@ -46,7 +46,6 @@ in
         HOME = stateDir;
         OPENCODEX_HOME = stateDir;
       }
-      // optionalAttrs (cfg.codexHome != null) { CODEX_HOME = cfg.codexHome; }
       // cfg.extraEnvironment;
       serviceConfig = {
         Type = "simple";

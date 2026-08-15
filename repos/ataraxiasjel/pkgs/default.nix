@@ -23,6 +23,7 @@ let
       a2ln = final.python3Packages.callPackage ./a2ln { };
       arkenfox-userjs = final.callPackage ./arkenfox-userjs { };
       bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
+      cargo-doc-mcp = final.callPackage ./cargo-doc-mcp { };
       ceserver = final.callPackage ./ceserver { };
       endfield-daily = final.callPackage ./endfield-daily { };
       github-mcp-server = final.callPackage ./github-mcp-server { };
@@ -38,7 +39,6 @@ let
       prts-cursor = final.callPackage ./prts-cursor { };
       realrtcw = final.callPackage ./realrtcw { };
       reshade-shaders = final.callPackage ./reshade-shaders { };
-      rsync-stable = final.callPackage ./rsync-stable { };
       seadrive-fuse = final.callPackage ./seadrive-fuse { };
       sing-box-beta = final.callPackage ./sing-box/beta.nix { };
       sing-box-extended = final.callPackage ./sing-box/extended.nix { };

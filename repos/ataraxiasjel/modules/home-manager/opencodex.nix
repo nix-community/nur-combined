@@ -34,7 +34,6 @@ in
         Environment = [
           "OPENCODEX_HOME=${stateDir}"
         ]
-        ++ optional (cfg.codexHome != null) "CODEX_HOME=${cfg.codexHome}"
         ++ (mapAttrsToList (name: value: "${name}=${value}") cfg.extraEnvironment);
         NoNewPrivileges = true;
         RestrictSUIDSGID = true;
