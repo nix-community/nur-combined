@@ -858,13 +858,6 @@ impl MainModContext {
         }
     }
 
-    pub fn bus_f32(&mut self, topic: &str, payload: &Wire, fallback: f32) -> f32 {
-        match self.bus(topic, payload) {
-            Wire::Empty | Wire::Fail(_) => fallback,
-            other => payload_f32(&other, "value"),
-        }
-    }
-
     pub fn bus_xyz(&mut self, topic: &str, payload: &Wire, fallback: (i32, i32, i32)) -> (i32, i32, i32) {
         payload_xyz(&self.bus(topic, payload), fallback)
     }

@@ -10,10 +10,7 @@
 (define bus-topics "ping,name,catalog,gravity,has,methods,voxel")
 
 (define (query-voxel x y z)
-  (cond
-   ((< y 0) 1)
-   ((= y 0) (if (even? (+ x z)) 1 2))
-   (else 0)))
+  (checker-floor x y z))
 
 (define (gravity)
   "kind=down;g=9.81;jump=5;walk=10")

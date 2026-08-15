@@ -1,5 +1,5 @@
 (library (hangamod catalog)
-  (export catalog-parse catalog-name catalog-index)
+  (export catalog-parse catalog-name catalog-index checker-floor)
   (import (scheme base) (scheme char))
 
   (define (trim s)
@@ -41,4 +41,10 @@
       (cond
        ((null? xs) 0)
        ((string=? (car xs) name) i)
-       (else (loop (cdr xs) (+ i 1)))))))
+       (else (loop (cdr xs) (+ i 1))))))
+
+  (define (checker-floor x y z)
+    (cond
+     ((< y 0) 2)
+     ((= y 0) (if (even? (+ x z)) 1 2))
+     (else 0))))

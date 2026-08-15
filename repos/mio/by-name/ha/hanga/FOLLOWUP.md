@@ -61,15 +61,17 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
   `ready` now `send` `hello` to peers. `ask_any` / empty-peer `invoke` stop on
   `fail` (`first_override`); they no longer skip it as “not mine”.
-- **lab_slab / lab_grid / lab_nim / lab_koka floor** uses hangamod `checkerFloor`
-  (Go/Zig/Nim/Koka tests).
+- **lab floors** use hangamod `checkerFloor` (Kotlin/Go/Zig/Nim/Koka/Scheme).
+  Underground cells are catalog index 2.
 - **Go/Zig arena helpers** live in `lib/go/hangamod/arena.go` (Pack/Unpack) and
   `lib/c/hangamod` (WIT C guests). Returned C strings are `plugin_string_dup`
   so `cabi_post_*` can free them; `send`/`peers` results are freed after the import.
 
 ## Tooling
 
-- Package **cargo-kani** so proofs run as CBMC, not only `kani_replay_*`.
+- **Dead host helpers.** `load_spec` is unused (collections go through
+  `load_collection`). Package **cargo-kani** so proofs run as CBMC, not only
+  `kani_replay_*`.
 - `.#hanga` skips cargo checkPhase (`doCheck = false` in `package.nix`). Gate is
   `.#hanga-dev`. NUR CI evals the whole tree, not only `.#hanga`.
 

@@ -26,11 +26,8 @@ object GuestImpl : Guest {
 
     override fun voxelCatalog(): List<String> = names
 
-    override fun queryVoxel(x: Int, y: Int, z: Int): Int {
-        if (y < 0) return 1
-        if (y == 0) return if (((x + z) and 1) == 0) 1 else 2
-        return 0
-    }
+    override fun queryVoxel(x: Int, y: Int, z: Int): Int =
+        Catalog.checkerFloor(x, y, z)
 
     override fun invoke(caller: String, method: String, args: Host.Value): Host.Value {
         Kit.get(caller, "unused")
