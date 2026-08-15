@@ -13,14 +13,14 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
-  version = "0.6.3";
+  version = "0.7.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "erikwb";
     repo = "blueferry";
-    rev = "94b8642b04c70bc7580ef2c1cfd98a1b1d80da3b";
-    hash = "sha256-Nf4hwZVwKOKiTEXz6fJrWR9UC+JWm0HHHrqi8aOY9as=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-poLecUSAHXzSgBeFGnOSZAguKi+nISsaDeI0UW4VS0U=";
   };
 
   build-system = [
@@ -132,8 +132,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     wrapGApp $out/bin/blueferry-gtk
     wrapQtApp $out/bin/blueferry-qt
   '';
-
-  passthru.updateScript = null;
 
   meta = {
     description = "iPhone iMessage/SMS and notifications bridge to Linux over Bluetooth";
