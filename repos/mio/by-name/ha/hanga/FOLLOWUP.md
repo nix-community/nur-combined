@@ -60,7 +60,10 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   if a pack is busy. `wake_all` leaves `woken` false if a slot is busy
   so load retries `ready`. Traffic `steer` `fail`/busy keeps velocity
   (host cruise only when the kit is empty). `vehicle-kit` `fail` skips
-  that spawn index instead of a default car. The host bus no longer has
+  that spawn index instead of a default car. Ambient agent spawn skips
+  `fail`/empty instead of pedestrians at the origin. Voxel labels keep
+  the voxel name on `fail` (`unknown` only when the method is missing).
+  The host bus no longer has
   CSV `bus_kit` / `fields_from_wire` callers.
 - **Two value types.** `hanga::kit::Atom` is a flat scalar; `Node` is the tree;
   WIT `cell` is the arena encoding.

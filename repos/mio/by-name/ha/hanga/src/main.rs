@@ -51,8 +51,8 @@ use hanga::sign::{self, ActionKey};
 
 mod mod_manager;
 use mod_manager::{
-    payload_f32, payload_i64, payload_text, reply_range, ModRuntime, ModManagerPlugin, SHARED_WASM, wire_bag,
-    wire_empty, wire_float, wire_int, wire_text, Wire,
+    payload_f32, payload_i64, payload_text, reply_range, wire_as_text, wire_is_fail, ModRuntime,
+    ModManagerPlugin, SHARED_WASM, wire_bag, wire_empty, wire_float, wire_int, wire_text, Wire,
 };
 
 #[derive(Resource, Clone, Default)]
@@ -1242,8 +1242,10 @@ fn spawn_play_world(
     commands.insert_resource(catalog);
 
     let gravity = with_mod(&mod_runtime, |ctx| {
-        parse_gravity_node(&ctx.bus_node("gravity", &wire_empty()))
+        ctx.bus_node_ok("gravity", &wire_empty())
+            .map(|node| parse_gravity_node(&node))
     })
+    .flatten()
     .unwrap_or_default();
     let accel = Vec3::from_array(avian_accel(&gravity));
     commands.insert_resource(Gravity(accel));
@@ -1354,11 +1356,11 @@ fn spawn_mod_traffic(
         .bus_i32("ambient-agent-count", &wire_empty(), 0)
         .max(0);
     for i in 0..ambient {
-        let (x, y, z, kind) = ctx.bus_xyz_name(
-            "ambient-agent-spawn",
-            &wire_int(i as i64),
-            (0, 2, 0, "pedestrian".into()),
-        );
+        let Some((x, y, z, kind)) =
+            ctx.bus_xyz_name_ok("ambient-agent-spawn", &wire_int(i as i64), "pedestrian")
+        else {
+            continue;
+        };
         spawn_agent(
             commands,
             meshes,
@@ -4338,17 +4340,22 @@ fn look_voxel_ahead(
     let voxel = catalog_name(&catalog.0, voxel_type)
         .unwrap_or("air")
         .to_string();
-    let raw = mod_runtime.ask_any_text(
+    let reply = mod_runtime.ask_any(
         "voxel-label",
         &wire_bag(vec![
             ("voxel", Wire::Text(voxel.clone())),
             ("locale", Wire::Text(locale.code().to_string())),
         ]),
     );
-    let raw = if raw.is_empty() {
-        "unknown".into()
+    let raw = if wire_is_fail(&reply) {
+        voxel.clone()
     } else {
-        raw
+        let text = wire_as_text(&reply);
+        if text.is_empty() {
+            "unknown".into()
+        } else {
+            text
+        }
     };
     (voxel_pos, voxel, raw)
 }

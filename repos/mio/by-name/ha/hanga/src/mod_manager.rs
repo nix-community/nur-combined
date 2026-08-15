@@ -352,6 +352,24 @@ pub fn payload_xyz(payload: &Wire, fallback: (i32, i32, i32)) -> (i32, i32, i32)
     )
 }
 
+/// Named spawn: `fail` / empty skip this index. Missing `name` uses `fallback_name`.
+pub fn reply_xyz_name(reply: &Wire, fallback_name: &str) -> Option<(i32, i32, i32, String)> {
+    if wire_is_fail(reply) || wire_is_empty(reply) {
+        return None;
+    }
+    let name = payload_text(reply, "name");
+    Some((
+        payload_i64(reply, "x") as i32,
+        payload_i64(reply, "y") as i32,
+        payload_i64(reply, "z") as i32,
+        if name.is_empty() {
+            fallback_name.to_string()
+        } else {
+            name.to_string()
+        },
+    ))
+}
+
 pub fn wire_voxel_probe(name: impl Into<String>, edit: bool) -> Wire {
     wire_bag(vec![
         ("name", Wire::Text(name.into())),
@@ -1005,6 +1023,15 @@ impl MainModContext {
         )
     }
 
+    pub fn bus_xyz_name_ok(
+        &mut self,
+        topic: &str,
+        payload: &Wire,
+        fallback_name: &str,
+    ) -> Option<(i32, i32, i32, String)> {
+        reply_xyz_name(&self.bus(topic, payload), fallback_name)
+    }
+
     pub fn query_voxel(&mut self, x: i32, y: i32, z: i32) -> i32 {
         self.bindings
             .hanga_engine_guest()
@@ -1546,6 +1573,15 @@ mod tests {
             (1, 2, 3)
         );
         assert_eq!(payload_xyz(&wire_fail("busy"), (1, 2, 3)), (1, 2, 3));
+        assert!(reply_xyz_name(&wire_fail("busy"), "pedestrian").is_none());
+        assert!(reply_xyz_name(&wire_empty(), "pedestrian").is_none());
+        assert_eq!(
+            reply_xyz_name(
+                &wire_bag(vec![("x", Wire::Int(1)), ("y", Wire::Int(2)), ("z", Wire::Int(3))]),
+                "pedestrian"
+            ),
+            Some((1, 2, 3, "pedestrian".into()))
+        );
     }
 
     #[test]
