@@ -24,16 +24,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "269e8206c814be1d06258dded82abacca4960f3b";
+    version = "241a49283c9382fc5ccb93efde9b81711087e930";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "269e8206c814be1d06258dded82abacca4960f3b";
+      rev = "241a49283c9382fc5ccb93efde9b81711087e930";
       fetchSubmodules = false;
-      sha256 = "sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl/FGagY=";
+      sha256 = "sha256-DOGxYvuTTho2QOiGtrYCQEWuJTjjLQk7ZfSQtW5dp+c=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl_FGagY=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-DOGxYvuTTho2QOiGtrYCQEWuJTjjLQk7ZfSQtW5dp+c=/src-tauri/Cargo.lock";
       outputHashes = {
         "rsrpc-0.28.0" = "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=";
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
@@ -42,7 +42,7 @@
         "window_titles-0.1.0" = "sha256-lk2T+6curAwqOUuQ8RtYCjX2ygGBgzt4ILBAMV+ql0w=";
       };
     };
-    date = "2026-07-30";
+    date = "2026-08-14";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
@@ -223,24 +223,24 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "e9f8c1d8e24dae13edaadfca0b76909fbeaa518b";
+    version = "464089f575956cbac82e7605bf08f41c1936a279";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "e9f8c1d8e24dae13edaadfca0b76909fbeaa518b";
+      rev = "464089f575956cbac82e7605bf08f41c1936a279";
       fetchSubmodules = false;
-      sha256 = "sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=";
+      sha256 = "sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=";
     };
     extract = {
-      "frontend/kde/metadata.json" = ./. + "/sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=/frontend/kde/metadata.json";
-      "Cargo.toml" = ./. + "/sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=/Cargo.toml";
+      "frontend/kde/metadata.json" = ./. + "/sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=/frontend/kde/metadata.json";
+      "Cargo.toml" = ./. + "/sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=/Cargo.toml";
     };cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=/Cargo.lock";
+      lockFile = ./. + "/sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.2" = "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA=";
       };
     };
-    date = "2026-07-10";
+    date = "2026-08-15";
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";

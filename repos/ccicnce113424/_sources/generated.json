@@ -32,7 +32,7 @@
     "dorion-git": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl_FGagY=/src-tauri/Cargo.lock",
+                "sha256-DOGxYvuTTho2QOiGtrYCQEWuJTjjLQk7ZfSQtW5dp+c=/src-tauri/Cargo.lock",
                 {
                     "livesplit-hotkey-0.8.0": "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=",
                     "rsrpc-0.28.0": "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=",
@@ -42,7 +42,7 @@
                 }
             ]
         },
-        "date": "2026-07-30",
+        "date": "2026-08-14",
         "extract": null,
         "name": "dorion-git",
         "passthru": null,
@@ -54,12 +54,12 @@
             "name": null,
             "owner": "SpikeHD",
             "repo": "Dorion",
-            "rev": "269e8206c814be1d06258dded82abacca4960f3b",
-            "sha256": "sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl/FGagY=",
+            "rev": "241a49283c9382fc5ccb93efde9b81711087e930",
+            "sha256": "sha256-DOGxYvuTTho2QOiGtrYCQEWuJTjjLQk7ZfSQtW5dp+c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "269e8206c814be1d06258dded82abacca4960f3b"
+        "version": "241a49283c9382fc5ccb93efde9b81711087e930"
     },
     "dxvk-gplall": {
         "cargoLock": null,
@@ -358,16 +358,16 @@
     "lyrica": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=/Cargo.lock",
+                "sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=/Cargo.lock",
                 {
                     "netease-cloud-music-api-1.5.2": "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA="
                 }
             ]
         },
-        "date": "2026-07-10",
+        "date": "2026-08-15",
         "extract": {
-            "Cargo.toml": "sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=/Cargo.toml",
-            "frontend/kde/metadata.json": "sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=/frontend/kde/metadata.json"
+            "Cargo.toml": "sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=/Cargo.toml",
+            "frontend/kde/metadata.json": "sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=/frontend/kde/metadata.json"
         },
         "name": "lyrica",
         "passthru": null,
@@ -379,12 +379,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "e9f8c1d8e24dae13edaadfca0b76909fbeaa518b",
-            "sha256": "sha256-jNIVLFisnf2RKKc3BKNRQfk7kZBgJAtKCW8zLVLDOjs=",
+            "rev": "464089f575956cbac82e7605bf08f41c1936a279",
+            "sha256": "sha256-kgoALJjLHwijlWZdo6MG+54FpL6qs5u44CaRw2JwQ+g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e9f8c1d8e24dae13edaadfca0b76909fbeaa518b"
+        "version": "464089f575956cbac82e7605bf08f41c1936a279"
     },
     "motrix-next-beta": {
         "cargoLock": {
