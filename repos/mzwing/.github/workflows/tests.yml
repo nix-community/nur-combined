@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Set up Nix
-        uses: mzwing/nix-config/.github/actions/setup-nix@master
+        uses: mzwing/nix-actions/nix/setup@master
         with:
           cachix-pull: 'false'
           install-devenv: 'true'

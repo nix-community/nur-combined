@@ -27,6 +27,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 from pathlib import Path
@@ -34,6 +35,10 @@ from typing import Any
 
 BUILDERS_JSON = Path(".github/builders.json")
 HTTP_TIMEOUT_SECONDS = 15
+# Scheduled targets at which a pool runs at full width. Below it the pool is
+# scaled down, because booting every runner to rebuild one bumped package costs
+# more in setup than the build itself. Per-pool override: 'saturationTargets'.
+DEFAULT_SATURATION_TARGETS = 6
 ID_PREFIX_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 # Cachix (Cloudflare) blocks urllib's default User-Agent with a 403, so
 # identify ourselves explicitly.
@@ -118,12 +123,27 @@ def load_builder_pools() -> list[dict[str, Any]]:
             value = pool.get(key)
             if not isinstance(value, int) or isinstance(value, bool) or value <= 0:
                 fail(f"'{key}' must be a positive integer, got {value!r}")
+        saturation = pool.get("saturationTargets", DEFAULT_SATURATION_TARGETS)
+        if (
+            not isinstance(saturation, int)
+            or isinstance(saturation, bool)
+            or saturation <= 0
+        ):
+            fail(f"'saturationTargets' must be a positive integer, got {saturation!r}")
 
     id_prefixes = [pool["idPrefix"] for pool in pools]
     if len(id_prefixes) != len(set(id_prefixes)):
         fail(f"duplicate 'idPrefix' values: {id_prefixes}")
 
     return pools
+
+
+def pool_width(pool: dict[str, Any], target_count: int) -> int:
+    """How many runners of this pool to start for that many scheduled targets."""
+    saturation = pool.get("saturationTargets", DEFAULT_SATURATION_TARGETS)
+    if target_count >= saturation:
+        return pool["count"]
+    return max(1, -(-pool["count"] * target_count // saturation))
 
 
 def main() -> None:
@@ -152,6 +172,7 @@ def main() -> None:
     if missing:
         sys.exit(f"No builder pool configured for: {', '.join(missing)}")
 
+    targets_per_system = Counter(target["system"] for target in targets)
     builders = {
         "include": [
             {
@@ -162,9 +183,20 @@ def main() -> None:
             }
             for pool in pools
             if pool["system"] in active_systems
-            for index in range(1, pool["count"] + 1)
+            for index in range(
+                1, pool_width(pool, targets_per_system[pool["system"]]) + 1
+            )
         ]
     }
+    for pool in pools:
+        if pool["system"] in active_systems:
+            count = targets_per_system[pool["system"]]
+            width = pool_width(pool, count)
+            print(
+                f"{pool['system']}: {count} scheduled targets -> "
+                f"{width}/{pool['count']} builders",
+                file=sys.stderr,
+            )
 
     outputs = {
         "builders": json.dumps(builders, separators=(",", ":")),

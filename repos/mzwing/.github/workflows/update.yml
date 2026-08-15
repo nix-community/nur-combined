@@ -36,7 +36,7 @@ jobs:
         hatchet-protocol: cleave
 
     - name: Set up Nix
-      uses: mzwing/nix-config/.github/actions/setup-nix@master
+      uses: mzwing/nix-actions/nix/setup@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         install-devenv: 'true'
@@ -53,7 +53,7 @@ jobs:
     # (left behind by interrupted builds or substitutions of earlier
     # runs; they break the unprivileged tar of the post-run store save).
     - name: Restore Nix store
-      uses: mzwing/nix-config/.github/actions/restore-nix-store@master
+      uses: mzwing/nix-actions/nix/restore-store@master
       with:
         primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
         restore-prefix: nix-ci-
@@ -89,53 +89,13 @@ jobs:
         # shared runner IPs hit the anonymous rate limit easily. The
         # public API remains usable without a token for local runs.
         GITHUB_TOKEN: ${{ github.token }}
-      run: |
-        set -euo pipefail
-        trap 'rm -f secrets.toml' EXIT
+      run: scripts/ci/update-packages.sh
 
-        # nothing-but-nix cleaves almost all disk into the /nix mount and
-        # leaves / with ~1G. The gomod2nix module downloads (and
-        # crate2nix's cargo registry) overflow / unless their caches live
-        # on the big mount. /nix itself is root-owned, so create the
-        # directories with sudo first.
-        export GOMODCACHE=/nix/var/tmp/gomodcache
-        export CARGO_HOME=/nix/var/tmp/cargo
-        sudo mkdir -p "$GOMODCACHE" "$CARGO_HOME"
-        sudo chown "$(id -u):$(id -g)" "$GOMODCACHE" "$CARGO_HOME"
-
-        cat >secrets.toml <<EOF
-        [keys]
-        github = "${{ secrets.GITHUB_TOKEN }}"
-        EOF
-
-        nix run .#update-sources
-
-        nix run .#update-lockfiles
-
-        nix run .#update-pins
-
-        nix run .#update-hashes
-
-        rm -f secrets.toml
-        trap - EXIT
-
-    # Root the update toolchain (nvfetcher, gomod2nix, crate2nix, ...)
-    # so the store GC in the save phase (gc-max-store-size-linux) cannot
-    # evict it: restored cache entries carry no gcroots, so without this
-    # every path is collectable and the daily toolchain re-download
-    # (~500 MiB) never stops. The app scripts reference the tools via
-    # runtimeInputs, so rooting the scripts roots the whole closures.
+    # Restored cache entries carry no gcroots, so without this the save phase's store GC collects the toolchain and the daily ~500 MiB re-download never stops.
     - name: Root the update toolchain for the store cache
       if: always()
       shell: bash
-      run: |
-        set -euo pipefail
-        sudo install -d /nix/var/nix/gcroots/nur-ci-update
-        for app in update-sources update-lockfiles update-pins update-hashes; do
-          program="$(nix eval --raw ".#apps.x86_64-linux.${app}.program")"
-          [[ -e "${program}" ]] || continue
-          sudo ln -sfn "${program}" "/nix/var/nix/gcroots/nur-ci-update/${app}"
-        done
+      run: scripts/ci/root-update-toolchain.sh
 
     # Realise the devenv shell so its tools (typenix, actionlint, ruff,
     # ...) ride along in the saved store for the tests job. devenv
@@ -145,7 +105,7 @@ jobs:
       run: devenv shell -- true
 
     - name: Commit and push changes
-      uses: mzwing/nix-config/.github/actions/commit-and-push@master
+      uses: mzwing/nix-actions/git/commit-and-push@master
       with:
         paths: devenv.lock flake.lock _sources pkgs
         message: 'chore: update packages'
@@ -163,7 +123,7 @@ jobs:
     # failure can never block publishing the updates.
     - name: Garbage-collect stale store paths
       if: always()
-      uses: mzwing/nix-config/.github/actions/gc-store-to-build-closure@master
+      uses: mzwing/nix-actions/nix/gc-store@master
       with:
         gcroots-name: nur-ci-update-closure
 
