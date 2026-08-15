@@ -7607,34 +7607,6 @@
         platforms = platforms.all;
       };
     };
-    "keybase" = buildMozillaXpiAddon {
-      pname = "keybase";
-      version = "1.10.17resigned1";
-      addonId = "keybase@keybase.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4272716/keybase_for_firefox-1.10.17resigned1.xpi";
-      sha256 = "b401ae32963446ad03a37d4e57619e785c74b1522e85430176765117064edd46";
-      meta = with lib;
-      {
-        homepage = "https://keybase.io/docs/extension";
-        description = "A secure chat button for every profile.";
-        license = licenses.bsd2;
-        mozPermissions = [
-          "activeTab"
-          "contextMenus"
-          "declarativeContent"
-          "nativeMessaging"
-          "storage"
-          "https://reddit.com/*"
-          "https://*.reddit.com/*"
-          "https://twitter.com/*"
-          "https://www.facebook.com/*"
-          "https://github.com/*"
-          "https://news.ycombinator.com/user*"
-          "https://keybase.io/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
       version = "2.0.32";
@@ -14342,10 +14314,10 @@
     };
     "steam-database" = buildMozillaXpiAddon {
       pname = "steam-database";
-      version = "4.35";
+      version = "4.36";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4891926/steam_database-4.35.xpi";
-      sha256 = "37c1cdc2eafa701e365eb8e0ef2a5051b956ea1e9941b399b5ab3fa4214fc123";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4959174/steam_database-4.36.xpi";
+      sha256 = "01bee1c1977d665f7c794c08e6eaa8dcde968fb501d94a8ab8547e1a8f4cec1f";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -17877,10 +17849,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.8.7";
+      version = "18.8.9";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4947537/youtube_subscription_groups-18.8.7.xpi";
-      sha256 = "0347c0711f2463e516f13a9c1a460666330941c34310d667ff3f677f1c7dbd5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4959077/youtube_subscription_groups-18.8.9.xpi";
+      sha256 = "4f68093adb33abbab777a8cff30ea857190dd60a839a51ffeda7dbf3e3a5cd2e";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
