@@ -60,8 +60,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
   `ready` now `send` `hello` to peers. Treat `fail` as `{error, Reason}` at more
   call sites.
-- **Go/Zig arena helpers are copy-pasted** in the example, not in `hangamod`.
-  Lift pack/unpack into the libs so examples stay small.
+- **Go/Zig arena helpers** live in `lib/go/hangamod/arena.go` (Pack/Unpack) and
+  `lib/c/hangamod` (WIT C guests). Returned C strings are `plugin_string_dup`
+  so `cabi_post_*` can free them; `send`/`peers` results are freed after the import.
 - **lab_slab floor** was a uniform `mark` checker (both branches returned 2);
   it now alternates slab/mark. Add a TinyGo-level test if the example grows.
 

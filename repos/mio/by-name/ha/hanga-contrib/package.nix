@@ -182,9 +182,9 @@ stdenv.mkDerivation {
     mkdir -p zig-c
     ${wit-bindgen}/bin/wit-bindgen c --world plugin --out-dir zig-c wit
     cp -a lib/zig/hangamod examples/lab-grid/hangamod
-    zig build-exe examples/lab-grid/main.zig zig-c/plugin.c zig-c/plugin_component_type.o \
+    zig build-exe examples/lab-grid/main.zig lib/c/hangamod/payload.c zig-c/plugin.c zig-c/plugin_component_type.o \
       -target wasm32-wasi-musl -O ReleaseSmall -fno-entry -rdynamic -lc \
-      -I zig-c -femit-bin=lab_grid.core.wasm
+      -I zig-c -I lib/c/hangamod -femit-bin=lab_grid.core.wasm
     wasm-tools component embed wit lab_grid.core.wasm -o lab_grid.embedded.wasm
     wasm-tools component new lab_grid.embedded.wasm \
       --adapt wasi_snapshot_preview1=wasi_p1_stub.wasm \
@@ -207,10 +207,10 @@ stdenv.mkDerivation {
     # Nim C backend + the same wit-bindgen C objects as Zig produces the component.
     nim c --cpu:wasm32 --os:standalone --mm:none --noMain --threads:off \
       --compileOnly --nimcache:nimcache examples/lab-nim/main.nim
-    zig build-exe examples/lab-nim/payload.c zig-c/plugin.c zig-c/plugin_component_type.o \
+    zig build-exe lib/c/hangamod/payload.c zig-c/plugin.c zig-c/plugin_component_type.o \
       $(find nimcache -name '*.c') \
       -target wasm32-wasi-musl -O ReleaseSmall -fno-entry -rdynamic -lc \
-      -I zig-c -I ${nim-unwrapped}/nim/lib -femit-bin=lab_nim.core.wasm
+      -I zig-c -I lib/c/hangamod -I ${nim-unwrapped}/nim/lib -femit-bin=lab_nim.core.wasm
     wasm-tools component embed wit lab_nim.core.wasm -o lab_nim.embedded.wasm
     wasm-tools component new lab_nim.embedded.wasm \
       --adapt wasi_snapshot_preview1=wasi_p1_stub.wasm \
@@ -227,11 +227,11 @@ stdenv.mkDerivation {
     KKLIB=$(echo ${koka}/share/koka/v*/kklib)
     zig cc "$KKLIB/src/all.c" \
       examples/lab-koka/wasi-stubs.c \
-      examples/lab-koka/payload.c \
+      lib/c/hangamod/payload.c \
       examples/lab-koka/guest.c \
       zig-c/plugin.c zig-c/plugin_component_type.o \
       $(find "$KOKAC" -name '*.c') \
-      -I "$KKLIB/include" -I "$KOKAC" -I zig-c \
+      -I "$KKLIB/include" -I "$KOKAC" -I zig-c -I lib/c/hangamod \
       -include examples/lab-koka/wasi-posix.h \
       -Wno-#pragma-messages \
       -DKK_STATIC_LIB=1 -DKK_COMP_VERSION='"3.2.3"' \

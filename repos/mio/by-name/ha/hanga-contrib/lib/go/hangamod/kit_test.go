@@ -44,4 +44,14 @@ func TestKit(t *testing.T) {
 	if fail.Kind != WireFail || fail.Text != "busy" {
 		t.Fatal("fail wire")
 	}
+	packed := Pack(nested)
+	if packed.Root != 3 || len(packed.Cells) != 4 {
+		t.Fatalf("pack: %#v", packed)
+	}
+	if name, ok := Unpack(packed).Fields[0].Value.Items[0].BagText("name"); !ok || name != "hull" {
+		t.Fatal("unpack nested")
+	}
+	if !BusHas(TextWire("ping"), []string{"ping", "name"}) || BusHas(EmptyVal(), []string{"ping"}) {
+		t.Fatal("bus has")
+	}
 }

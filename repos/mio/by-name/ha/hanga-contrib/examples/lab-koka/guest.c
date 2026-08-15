@@ -1,22 +1,10 @@
 #include "plugin.h"
+#include "payload.h"
 #include "labkoka.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
-
-void payload_text(hanga_engine_host_value_t *ret, const char *value);
-void payload_flag(hanga_engine_host_value_t *ret, bool value);
-void payload_empty(hanga_engine_host_value_t *ret);
-void payload_gravity(hanga_engine_host_value_t *ret);
-void payload_fracture(hanga_engine_host_value_t *ret);
-void payload_methods(hanga_engine_host_value_t *ret, const char **topics, size_t n);
-void payload_catalog(plugin_list_string_t *ret, const char **parts, size_t n);
-int64_t bag_int(const hanga_engine_host_value_t *payload, const char *key);
-int bag_text_eq(const hanga_engine_host_value_t *payload, const char *key, const char *want);
-int bus_has(const hanga_engine_host_value_t *payload, const char **topics, size_t n);
-void host_log_info(const char *message);
-void greet_peers(void);
 
 static const char *catalog_parts[] = {"air", "koka", "effect"};
 static const char *bus_topics[] = {

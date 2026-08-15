@@ -1,7 +1,6 @@
 package main
 
 import (
-	"strconv"
 	"strings"
 
 	"go.bytecodealliance.org/cm"
@@ -12,7 +11,9 @@ import (
 
 var names = []string{"air", "slab", "mark"}
 
-const busTopics = "ping,name,catalog,gravity,has,methods,voxel,fracture-kit,loot-item"
+var busTopics = []string{
+	"ping", "name", "catalog", "gravity", "has", "methods", "voxel", "fracture-kit", "loot-item",
+}
 
 func init() {
 	guest.Exports.ABI = func() int32 { return 6 }
@@ -25,78 +26,89 @@ func init() {
 func ready() {
 	host.Log("info", "lab_slab ready")
 	for _, peer := range host.Peers().Slice() {
-		host.Send(peer, "hello", valEmpty())
+		host.Send(peer, "hello", toHost(hangamod.EmptyVal()))
 	}
 }
 
-func shiftCell(cell host.Cell, base uint32) host.Cell {
-	if items := (&cell).Items(); items != nil {
-		idx := make([]uint32, 0, items.Len())
-		for _, at := range items.Slice() {
-			idx = append(idx, at+base)
-		}
-		return host.CellItems(cm.ToList(idx))
-	}
-	if bag := (&cell).Dict(); bag != nil {
-		fields := make([]host.Field, 0, bag.Len())
-		for _, field := range bag.Slice() {
-			fields = append(fields, host.Field{Key: field.Key, At: field.At + base})
+func toHostCell(cell hangamod.ArenaCell) host.Cell {
+	switch cell.Kind {
+	case hangamod.WireFlag:
+		return host.CellFlag(cell.Flag)
+	case hangamod.WireInt:
+		return host.CellInt(cell.Int)
+	case hangamod.WireFloat:
+		return host.CellFloat(cell.Float)
+	case hangamod.WireText:
+		return host.CellText(cell.Text)
+	case hangamod.WireList:
+		return host.CellItems(cm.ToList(cell.Items))
+	case hangamod.WireBag:
+		fields := make([]host.Field, 0, len(cell.Fields))
+		for _, field := range cell.Fields {
+			fields = append(fields, host.Field{Key: field.Key, At: field.At})
 		}
 		return host.CellDict(cm.ToList(fields))
-	}
-	return cell
-}
-
-func appendValue(cells []host.Cell, child host.Value) ([]host.Cell, uint32) {
-	base := uint32(len(cells))
-	for _, cell := range child.Cells.Slice() {
-		cells = append(cells, shiftCell(cell, base))
-	}
-	return cells, base + child.Root
-}
-
-func valLeaf(cell host.Cell) host.Value {
-	return host.Value{Cells: cm.ToList([]host.Cell{cell}), Root: 0}
-}
-
-func valText(s string) host.Value { return valLeaf(host.CellText(s)) }
-func valFlag(v bool) host.Value   { return valLeaf(host.CellFlag(v)) }
-func valInt(v int64) host.Value   { return valLeaf(host.CellInt(v)) }
-func valFloat(v float64) host.Value {
-	return valLeaf(host.CellFloat(v))
-}
-func valEmpty() host.Value { return valLeaf(host.CellEmpty()) }
-
-func valDict(pairs [][2]any) host.Value {
-	cells := make([]host.Cell, 0)
-	fields := make([]host.Field, 0, len(pairs))
-	for _, pair := range pairs {
-		key := pair[0].(string)
-		child := pair[1].(host.Value)
-		var at uint32
-		cells, at = appendValue(cells, child)
-		fields = append(fields, host.Field{Key: key, At: at})
-	}
-	root := uint32(len(cells))
-	cells = append(cells, host.CellDict(cm.ToList(fields)))
-	return host.Value{Cells: cm.ToList(cells), Root: root}
-}
-
-func rootCell(v host.Value) host.Cell {
-	slice := v.Cells.Slice()
-	if int(v.Root) >= len(slice) {
+	case hangamod.WireFail:
+		return host.CellFail(cell.Text)
+	default:
 		return host.CellEmpty()
 	}
-	return slice[v.Root]
 }
 
-func gravity() host.Value {
-	return valDict([][2]any{
-		{"kind", valText("down")},
-		{"g", valFloat(9.81)},
-		{"jump", valFloat(5)},
-		{"walk", valFloat(10)},
-	})
+func fromHostCell(cell host.Cell) hangamod.ArenaCell {
+	if v := (&cell).Flag(); v != nil {
+		return hangamod.ArenaCell{Kind: hangamod.WireFlag, Flag: *v}
+	}
+	if v := (&cell).Int(); v != nil {
+		return hangamod.ArenaCell{Kind: hangamod.WireInt, Int: *v}
+	}
+	if v := (&cell).Float(); v != nil {
+		return hangamod.ArenaCell{Kind: hangamod.WireFloat, Float: *v}
+	}
+	if v := (&cell).Text(); v != nil {
+		return hangamod.ArenaCell{Kind: hangamod.WireText, Text: *v}
+	}
+	if v := (&cell).Items(); v != nil {
+		return hangamod.ArenaCell{Kind: hangamod.WireList, Items: v.Slice()}
+	}
+	if v := (&cell).Dict(); v != nil {
+		fields := make([]hangamod.ArenaField, 0, v.Len())
+		for _, field := range v.Slice() {
+			fields = append(fields, hangamod.ArenaField{Key: field.Key, At: field.At})
+		}
+		return hangamod.ArenaCell{Kind: hangamod.WireBag, Fields: fields}
+	}
+	if v := (&cell).Fail(); v != nil {
+		return hangamod.ArenaCell{Kind: hangamod.WireFail, Text: *v}
+	}
+	return hangamod.ArenaCell{Kind: hangamod.WireEmpty}
+}
+
+func toHost(w hangamod.Wire) host.Value {
+	arena := hangamod.Pack(w)
+	cells := make([]host.Cell, len(arena.Cells))
+	for i, cell := range arena.Cells {
+		cells[i] = toHostCell(cell)
+	}
+	return host.Value{Cells: cm.ToList(cells), Root: arena.Root}
+}
+
+func fromHost(v host.Value) hangamod.Wire {
+	slice := v.Cells.Slice()
+	cells := make([]hangamod.ArenaCell, len(slice))
+	for i, cell := range slice {
+		cells[i] = fromHostCell(cell)
+	}
+	return hangamod.Unpack(hangamod.Arena{Cells: cells, Root: v.Root})
+}
+
+func gravity() hangamod.Wire {
+	return hangamod.DictVal(
+		hangamod.Field{Key: "kind", Value: hangamod.TextWire("down")},
+		hangamod.Field{Key: "g", Value: hangamod.FloatVal(9.81)},
+		hangamod.Field{Key: "jump", Value: hangamod.FloatVal(5)},
+		hangamod.Field{Key: "walk", Value: hangamod.FloatVal(10)},
+	)
 }
 
 func queryVoxel(x, y, z int32) int32 {
@@ -113,129 +125,63 @@ func queryVoxel(x, y, z int32) int32 {
 }
 
 func onMessage(caller, topic string, payload host.Value) host.Value {
+	return toHost(handle(caller, topic, fromHost(payload)))
+}
+
+func handle(caller, topic string, payload hangamod.Wire) hangamod.Wire {
 	hangamod.Get(caller, "unused")
 	switch topic {
 	case "ping":
-		return valText("pong")
+		return hangamod.TextWire("pong")
 	case "name":
-		return valText("lab_slab")
+		return hangamod.TextWire("lab_slab")
 	case "catalog":
-		return valText(strings.Join(names, ","))
+		return hangamod.TextWire(strings.Join(names, ","))
 	case "gravity":
 		return gravity()
 	case "has":
-		return valFlag(busHas(payload))
+		return hangamod.FlagVal(hangamod.BusHas(payload, busTopics))
 	case "methods":
 		return methodsBag()
 	case "voxel":
-		x := int32(bagInt(payload, "x"))
-		y := int32(bagInt(payload, "y"))
-		z := int32(bagInt(payload, "z"))
-		return valText(hangamod.CatalogName(names, int(queryVoxel(x, y, z))))
+		x := int32(payload.BagInt("x"))
+		y := int32(payload.BagInt("y"))
+		z := int32(payload.BagInt("z"))
+		return hangamod.TextWire(hangamod.CatalogName(names, int(queryVoxel(x, y, z))))
 	case "fracture-kit":
-		voxel := bagText(payload, "voxel")
-		action := bagText(payload, "action")
+		voxel, _ := payload.BagText("voxel")
+		action, _ := payload.BagText("action")
 		if action != "break" && action != "explode" {
-			return valEmpty()
+			return hangamod.EmptyVal()
 		}
 		if voxel == "slab" || voxel == "mark" {
-			return valDict([][2]any{
-				{"can", valFlag(true)},
-				{"spread", valInt(1)},
-				{"impulse", valFloat(4)},
-			})
+			return hangamod.DictVal(
+				hangamod.Field{Key: "can", Value: hangamod.FlagVal(true)},
+				hangamod.Field{Key: "spread", Value: hangamod.IntVal(1)},
+				hangamod.Field{Key: "impulse", Value: hangamod.FloatVal(4)},
+			)
 		}
-		return valEmpty()
+		return hangamod.EmptyVal()
 	case "loot-item":
-		voxel := payloadText(payload)
+		voxel := payload.RootText()
 		if voxel == "" {
-			voxel = bagText(payload, "voxel")
+			voxel, _ = payload.BagText("voxel")
 		}
 		if voxel == "mark" {
-			return valText("mark")
+			return hangamod.TextWire("mark")
 		}
-		return valEmpty()
+		return hangamod.EmptyVal()
 	default:
-		return valEmpty()
+		return hangamod.EmptyVal()
 	}
 }
 
-func methodsBag() host.Value {
-	pairs := make([][2]any, 0)
-	for _, topic := range strings.Split(busTopics, ",") {
-		topic = strings.TrimSpace(topic)
-		if topic == "" {
-			continue
-		}
-		pairs = append(pairs, [2]any{topic, valFlag(true)})
+func methodsBag() hangamod.Wire {
+	fields := make([]hangamod.Field, 0, len(busTopics))
+	for _, topic := range busTopics {
+		fields = append(fields, hangamod.Field{Key: topic, Value: hangamod.FlagVal(true)})
 	}
-	return valDict(pairs)
-}
-
-func busHas(payload host.Value) bool {
-	name := payloadText(payload)
-	if name == "" {
-		name = bagText(payload, "name")
-		if name == "" {
-			name = bagText(payload, "method")
-		}
-	}
-	for _, method := range strings.Split(busTopics, ",") {
-		if strings.TrimSpace(method) == name {
-			return true
-		}
-	}
-	return false
-}
-
-func payloadText(payload host.Value) string {
-	cell := rootCell(payload)
-	if text := (&cell).Text(); text != nil {
-		return *text
-	}
-	return ""
-}
-
-func bagText(payload host.Value, key string) string {
-	root := rootCell(payload)
-	bag := (&root).Dict()
-	if bag == nil {
-		return ""
-	}
-	cells := payload.Cells.Slice()
-	for _, field := range bag.Slice() {
-		if field.Key != key || int(field.At) >= len(cells) {
-			continue
-		}
-		child := cells[field.At]
-		if text := (&child).Text(); text != nil {
-			return *text
-		}
-	}
-	return ""
-}
-
-func bagInt(payload host.Value, key string) int64 {
-	root := rootCell(payload)
-	bag := (&root).Dict()
-	if bag == nil {
-		return 0
-	}
-	cells := payload.Cells.Slice()
-	for _, field := range bag.Slice() {
-		if field.Key != key || int(field.At) >= len(cells) {
-			continue
-		}
-		child := cells[field.At]
-		if n := (&child).Int(); n != nil {
-			return *n
-		}
-		if text := (&child).Text(); text != nil {
-			v, _ := strconv.ParseInt(*text, 10, 64)
-			return v
-		}
-	}
-	return 0
+	return hangamod.DictVal(fields...)
 }
 
 func main() {}

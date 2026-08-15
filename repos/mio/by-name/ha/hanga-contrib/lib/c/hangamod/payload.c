@@ -1,9 +1,6 @@
-#include "plugin.h"
+#include "payload.h"
 
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdlib.h>
-#include <string.h>
 
 __attribute__((export_name("cabi_realloc"))) void *cabi_realloc(void *ptr, size_t old_size,
                                                                 size_t align, size_t new_size) {
@@ -17,10 +14,8 @@ __attribute__((export_name("cabi_realloc"))) void *cabi_realloc(void *ptr, size_
   return out;
 }
 
-extern void *cabi_realloc(void *ptr, size_t old_size, size_t align, size_t new_size);
-
-static void set_str(plugin_string_t *ret, const char *value) {
-  plugin_string_set(ret, value);
+static void own_str(plugin_string_t *ret, const char *value) {
+  plugin_string_dup(ret, value);
 }
 
 static hanga_engine_host_cell_t *alloc_cells(size_t n) {
@@ -36,7 +31,16 @@ static hanga_engine_host_field_t *alloc_fields(size_t n) {
 void payload_text(hanga_engine_host_value_t *ret, const char *value) {
   hanga_engine_host_cell_t *cells = alloc_cells(1);
   cells[0].tag = HANGA_ENGINE_HOST_CELL_TEXT;
-  set_str(&cells[0].val.text, value);
+  own_str(&cells[0].val.text, value);
+  ret->cells.ptr = cells;
+  ret->cells.len = 1;
+  ret->root = 0;
+}
+
+void payload_text_n(hanga_engine_host_value_t *ret, const char *value, size_t len) {
+  hanga_engine_host_cell_t *cells = alloc_cells(1);
+  cells[0].tag = HANGA_ENGINE_HOST_CELL_TEXT;
+  plugin_string_dup_n(&cells[0].val.text, value, len);
   ret->cells.ptr = cells;
   ret->cells.len = 1;
   ret->root = 0;
@@ -59,24 +63,33 @@ void payload_empty(hanga_engine_host_value_t *ret) {
   ret->root = 0;
 }
 
+void payload_fail(hanga_engine_host_value_t *ret, const char *reason) {
+  hanga_engine_host_cell_t *cells = alloc_cells(1);
+  cells[0].tag = HANGA_ENGINE_HOST_CELL_FAIL;
+  own_str(&cells[0].val.fail, reason);
+  ret->cells.ptr = cells;
+  ret->cells.len = 1;
+  ret->root = 0;
+}
+
 void payload_gravity(hanga_engine_host_value_t *ret) {
   hanga_engine_host_cell_t *cells = alloc_cells(5);
   hanga_engine_host_field_t *fields = alloc_fields(4);
   cells[0].tag = HANGA_ENGINE_HOST_CELL_TEXT;
-  set_str(&cells[0].val.text, "down");
+  own_str(&cells[0].val.text, "down");
   cells[1].tag = HANGA_ENGINE_HOST_CELL_FLOAT;
   cells[1].val.float_ = 9.81;
   cells[2].tag = HANGA_ENGINE_HOST_CELL_FLOAT;
   cells[2].val.float_ = 5;
   cells[3].tag = HANGA_ENGINE_HOST_CELL_FLOAT;
   cells[3].val.float_ = 10;
-  set_str(&fields[0].key, "kind");
+  own_str(&fields[0].key, "kind");
   fields[0].at = 0;
-  set_str(&fields[1].key, "g");
+  own_str(&fields[1].key, "g");
   fields[1].at = 1;
-  set_str(&fields[2].key, "jump");
+  own_str(&fields[2].key, "jump");
   fields[2].at = 2;
-  set_str(&fields[3].key, "walk");
+  own_str(&fields[3].key, "walk");
   fields[3].at = 3;
   cells[4].tag = HANGA_ENGINE_HOST_CELL_DICT;
   cells[4].val.dict.ptr = fields;
@@ -95,11 +108,11 @@ void payload_fracture(hanga_engine_host_value_t *ret) {
   cells[1].val.int_ = 1;
   cells[2].tag = HANGA_ENGINE_HOST_CELL_FLOAT;
   cells[2].val.float_ = 4;
-  set_str(&fields[0].key, "can");
+  own_str(&fields[0].key, "can");
   fields[0].at = 0;
-  set_str(&fields[1].key, "spread");
+  own_str(&fields[1].key, "spread");
   fields[1].at = 1;
-  set_str(&fields[2].key, "impulse");
+  own_str(&fields[2].key, "impulse");
   fields[2].at = 2;
   cells[3].tag = HANGA_ENGINE_HOST_CELL_DICT;
   cells[3].val.dict.ptr = fields;
@@ -109,12 +122,12 @@ void payload_fracture(hanga_engine_host_value_t *ret) {
   ret->root = 3;
 }
 
-void payload_methods(hanga_engine_host_value_t *ret, const char **topics, size_t n) {
+void payload_methods(hanga_engine_host_value_t *ret, const char *const *topics, size_t n) {
   hanga_engine_host_cell_t *cells = alloc_cells(n + 1);
   uint32_t *idx = (uint32_t *)cabi_realloc(NULL, 0, _Alignof(uint32_t), n * sizeof(uint32_t));
   for (size_t i = 0; i < n; i++) {
     cells[i].tag = HANGA_ENGINE_HOST_CELL_TEXT;
-    set_str(&cells[i].val.text, topics[i]);
+    own_str(&cells[i].val.text, topics[i]);
     idx[i] = (uint32_t)i;
   }
   cells[n].tag = HANGA_ENGINE_HOST_CELL_ITEMS;
@@ -125,11 +138,11 @@ void payload_methods(hanga_engine_host_value_t *ret, const char **topics, size_t
   ret->root = (uint32_t)n;
 }
 
-void payload_catalog(plugin_list_string_t *ret, const char **parts, size_t n) {
+void payload_catalog(plugin_list_string_t *ret, const char *const *parts, size_t n) {
   plugin_string_t *strings =
       (plugin_string_t *)cabi_realloc(NULL, 0, _Alignof(plugin_string_t), n * sizeof(plugin_string_t));
   for (size_t i = 0; i < n; i++) {
-    plugin_string_set(&strings[i], parts[i]);
+    plugin_string_dup(&strings[i], parts[i]);
   }
   ret->ptr = strings;
   ret->len = n;
@@ -225,7 +238,7 @@ int bag_text_eq(const hanga_engine_host_value_t *payload, const char *key, const
   return str_eq_n(text, len, want);
 }
 
-int bus_has(const hanga_engine_host_value_t *payload, const char **topics, size_t n) {
+int bus_has(const hanga_engine_host_value_t *payload, const char *const *topics, size_t n) {
   const hanga_engine_host_cell_t *cell = root_cell(payload);
   const char *name = "";
   size_t len = 0;
@@ -251,8 +264,8 @@ int bus_has(const hanga_engine_host_value_t *payload, const char **topics, size_
 void host_log_info(const char *message) {
   plugin_string_t level = {0};
   plugin_string_t msg = {0};
-  set_str(&level, "info");
-  set_str(&msg, message);
+  plugin_string_set(&level, "info");
+  plugin_string_set(&msg, message);
   hanga_engine_host_log(&level, &msg);
 }
 
@@ -262,10 +275,12 @@ void greet_peers(void) {
   for (size_t i = 0; i < peers.len; i++) {
     plugin_string_t method = {0};
     hanga_engine_host_value_t args = {0};
-    set_str(&method, "hello");
+    plugin_string_set(&method, "hello");
     payload_empty(&args);
     hanga_engine_host_send(&peers.ptr[i], &method, &args);
+    hanga_engine_host_value_free(&args);
   }
+  plugin_list_string_free(&peers);
 }
 
 int topic_eq(const plugin_string_t *topic, const char *want) {

@@ -32,6 +32,7 @@ pack. A Hoot runtime in the host is still required before it can run.
 - `lib/scheme/hangamod` — the same helpers in Scheme (`guile` + `hoot compile --run`)
 - `lib/nim/hangamod` — the same helpers in Nim (`nlvm` native tests on x86_64-linux)
 - `lib/koka/hangamod` — the same helpers in Koka (`koka -e`)
+- `lib/c/hangamod` — WIT cell pack/unpack used by Zig, Nim, and Koka guests
 - `examples/lab-tile` — tiled floor pack (`lab_tile.wasm`, Kotlin)
 - `examples/lab-slab` — checkerboard slabs (`lab_slab.wasm`, TinyGo)
 - `examples/lab-grid` — checkerboard grid (`lab_grid.wasm`, Zig)
@@ -59,5 +60,5 @@ Empty `invoke` replies (including empty text) mean “not mine”. `fail` is a b
 error (`busy` / `self` / `noproc`), not a missing method. `send` is fire-and-forget
 (OTP cast). Kits (`gravity`, `fracture-kit`, vehicles) are nested dicts/lists, not `key=value` strings.
 
-Longer follow-ups (Hoot guest, Zig bindgen, lifting arena helpers):
+Longer follow-ups (Hoot guest, Zig bindgen):
 `by-name/ha/hanga/FOLLOWUP.md`.

@@ -78,7 +78,7 @@ interface guest {
     /// Worldgen hot path (typed, not `invoke`).
     query-voxel: func(x: s32, y: s32, z: s32) -> s32;
 
-    /// Named methods. Reserved: `has` (flag), `methods` (dict keys, or CSV text).
+    /// Named methods. Reserved: `has` (flag), `methods` (`items` of names, dict keys, or CSV text).
     invoke: func(caller: string, method: string, args: value) -> value;
 }
 
