@@ -1,6 +1,7 @@
 {
   lib,
   bashInteractive,
+  bubblewrap,
   buildNpmPackage,
   nodejs_24,
   python3,
@@ -48,6 +49,7 @@ buildNpmPackage (finalAttrs: {
         'shellPath: z.string().default("${lib.getExe bashInteractive}")'
 
     makeWrapper ${lib.getExe nodejs_24} $out/bin/dsh \
+      --prefix PATH : ${lib.makeBinPath [ bubblewrap ]} \
       --add-flags "--expose-internals" \
       --add-flags $out/share/deepseek-harness/node_modules/@deepseek-ai/dsh/lib/bin.js
 
