@@ -55,7 +55,9 @@ interface host {
     voxel: func(x: s32, y: s32, z: s32) -> value;
     /// Luanti `core.set_node`. `air` or empty name unsets. Applied next tick to the mesh.
     voxel-set: func(x: s32, y: s32, z: s32, name: string);
-    /// Local player snapshot, or `empty` in menu. Dict: `x` `y` `z` `yaw` (float), `state` `wallet` (int).
+    /// Local player snapshot, or `empty` in menu. Dict: `x` `y` `z` `yaw` (float).
+    /// `state` if this pack advertised `evaluate-action` or `tick`; `wallet` if
+    /// it advertised `wallet-after`.
     player: func() -> value;
     /// Luanti `core.after` / OTP `send_after`: cast `method` on this pack after `ms`.
     after: func(ms: s32, method: string, args: value);

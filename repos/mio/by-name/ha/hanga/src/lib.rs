@@ -233,6 +233,12 @@ pub fn player_snap() -> Option<PlayerSnap> {
     PLAYER_SNAP.read().ok().and_then(|slot| *slot)
 }
 
+pub fn clear_player_snap() {
+    if let Ok(mut slot) = PLAYER_SNAP.write() {
+        *slot = None;
+    }
+}
+
 pub fn overlay_clear() {
     if let Ok(mut map) = VOXEL_OVERLAY.write() {
         map.clear();

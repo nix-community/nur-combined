@@ -6,6 +6,7 @@
 void kk_hanga_payload_text(intptr_t ret, kk_string_t s, kk_context_t *ctx);
 void kk_hanga_payload_flag(intptr_t ret, bool value, kk_context_t *ctx);
 void kk_hanga_payload_empty(intptr_t ret, kk_context_t *ctx);
+void kk_hanga_payload_fail(intptr_t ret, kk_string_t reason, kk_context_t *ctx);
 void kk_hanga_payload_gravity(intptr_t ret, kk_context_t *ctx);
 void kk_hanga_payload_fracture(intptr_t ret, kk_context_t *ctx);
 void kk_hanga_payload_methods(intptr_t ret, kk_context_t *ctx);

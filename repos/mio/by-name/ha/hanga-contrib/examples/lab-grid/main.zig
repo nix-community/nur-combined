@@ -7,6 +7,7 @@ const c = @cImport({
 const catalog_csv = "air,grid,mark";
 const bus_topic_list = [_][:0]const u8{
     "ping", "name", "catalog", "gravity", "has", "methods", "voxel", "fracture-kit", "loot-item",
+    "refuse",
 };
 
 fn cSlice(s: [*c]const c.plugin_string_t) []const u8 {
@@ -117,6 +118,10 @@ export fn exports_hanga_engine_guest_invoke(
             return;
         }
         c.payload_empty(ret);
+        return;
+    }
+    if (topicEql(name, "refuse")) {
+        c.payload_fail(ret, "busy");
         return;
     }
     c.payload_empty(ret);

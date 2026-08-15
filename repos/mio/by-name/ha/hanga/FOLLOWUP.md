@@ -15,7 +15,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `live_wasm_two_packs_empty_peer_ping` load `HANGA_MODS` guests (set in
   `.#hanga-dev`) for ping, self-cast drain, empty-peer override, testbed
   `query-voxel` / catalog names, gravity, guest `fail("busy")` via `refuse`,
-  and emit veto (`veto` vs `ping`). `live_wasm_urban_chaos_query_voxel` loads
+  and emit veto (`veto` vs `ping`). Testbed `selfie` returns the host `player()`
+  snapshot. `live_wasm_urban_chaos_query_voxel` loads
   the city lead and checks a catalog name at `(0,0,0)`.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
@@ -40,9 +41,10 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 - **Lead WASM for terrain.** Documented: workers clone the lead for
   `query-voxel`. Extra packs overlay loot/kits. Multi-lead merge is still unset.
-- **`player` snapshot is engine-shaped.** Wallet and wanted `state` are always
-  on the snapshot (documented on the host import). Optional: omit keys the lead
-  did not advertise.
+- **`player` snapshot is engine-shaped.** Pose is always present. `state` and
+  `wallet` are included only if that pack advertised `evaluate-action`/`tick`
+  or `wallet-after`. Testbed `selfie` returns `player()` so live WASM covers
+  the host import.
 - **P2P is not the mod bus.** Matchbox carries signed player actions. The signed
   envelope includes `collection_key` (`id:mod+mod`); mismatched peers drop the
   action. Not a WASM content hash.
@@ -60,10 +62,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   is fixed. Native hangamod tests still use nlvm (x86_64-linux only).
 - **Koka wasm is emcc in upstream.** Contrib uses `--target=c32` + Zig WASI
   instead of Emscripten so the guest is a WIT component.
-- **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
-  `ready` now `send` `hello` to peers. Testbed `refuse` returns `fail("busy")`
-  so live empty-peer `invoke` stops on a guest error. `ask_any` / empty-peer
-  `invoke` stop on `fail` (`first_override`); they no longer skip it as “not mine”.
+- **Guests still rarely `send` or return `fail`.** Lab packs `send` `hello` on
+  `ready`. Testbed and contrib labs (`refuse`) return `fail("busy")`. `ask_any`
+  / empty-peer `invoke` stop on `fail` (`first_override`).
 - **lab floors** use hangamod `checkerFloor` (Kotlin/Go/Zig/Nim/Koka/Scheme).
   Underground cells are catalog index 2.
 - **Go/Zig arena helpers** live in `lib/go/hangamod/arena.go` (Pack/Unpack) and

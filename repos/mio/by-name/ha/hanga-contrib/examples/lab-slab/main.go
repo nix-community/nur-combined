@@ -13,6 +13,7 @@ var names = []string{"air", "slab", "mark"}
 
 var busTopics = []string{
 	"ping", "name", "catalog", "gravity", "has", "methods", "voxel", "fracture-kit", "loot-item",
+	"refuse",
 }
 
 func init() {
@@ -162,6 +163,8 @@ func handle(caller, topic string, payload hangamod.Wire) hangamod.Wire {
 			return hangamod.TextWire("mark")
 		}
 		return hangamod.EmptyVal()
+	case "refuse":
+		return hangamod.FailWire("busy")
 	default:
 		return hangamod.EmptyVal()
 	}

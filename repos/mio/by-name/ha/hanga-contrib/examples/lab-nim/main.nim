@@ -11,6 +11,7 @@ type
 proc payload_text(ret: ptr HostValue; value: cstring) {.importc, cdecl.}
 proc payload_flag(ret: ptr HostValue; value: bool) {.importc, cdecl.}
 proc payload_empty(ret: ptr HostValue) {.importc, cdecl.}
+proc payload_fail(ret: ptr HostValue; reason: cstring) {.importc, cdecl.}
 proc payload_gravity(ret: ptr HostValue) {.importc, cdecl.}
 proc payload_fracture(ret: ptr HostValue) {.importc, cdecl.}
 proc payload_methods(ret: ptr HostValue; topics: ptr cstring; n: csize_t) {.importc, cdecl.}
@@ -24,8 +25,9 @@ proc topic_eq(topic: ptr PluginString; want: cstring): cint {.importc, cdecl.}
 
 const
   catalogParts: array[3, cstring] = [cstring"air", "nim", "knot"]
-  busTopics: array[9, cstring] = [
-    cstring"ping", "name", "catalog", "gravity", "has", "methods", "voxel", "fracture-kit", "loot-item"
+  busTopics: array[10, cstring] = [
+    cstring"ping", "name", "catalog", "gravity", "has", "methods", "voxel", "fracture-kit", "loot-item",
+    "refuse"
   ]
 
 proc queryVoxel(x, y, z: int32): int32 =
@@ -88,5 +90,7 @@ proc exports_hanga_engine_guest_invoke(
       payload_text(ret, "knot")
     else:
       payload_empty(ret)
+  elif topic_eq(topic, "refuse") != 0:
+    payload_fail(ret, "busy")
   else:
     payload_empty(ret)

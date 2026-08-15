@@ -38,8 +38,8 @@ The engine uses **call** only when it needs a reply: `before-dig` is `emit_all`
 `invoke`, `send`, `emit`, `voxel`, `voxel-set`, `player`, `after`.
 `voxel` is the lead cell plus player overlay as a dict (`name` text, `edit` flag).
 `voxel-set` is Luanti `core.set_node` (queued onto the mesh next tick).
-`player` is a snapshot dict (`x` `y` `z` `yaw` float, `state` `wallet` int), or
-`empty` in the menu.
+`player` is a snapshot dict (`x` `y` `z` `yaw` float; `state` / `wallet` only
+if that pack advertised wanted or wallet methods), or `empty` in the menu.
 `after(ms, method, args)` is OTP `send_after`: the host **casts** that method
 on the same pack later.
 `has-mod` is Luanti `core.get_modpath != nil`.

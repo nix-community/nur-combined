@@ -9,6 +9,7 @@
 static const char *catalog_parts[] = {"air", "koka", "effect"};
 static const char *bus_topics[] = {
     "ping", "name", "catalog", "gravity", "has", "methods", "voxel", "fracture-kit", "loot-item",
+    "refuse",
 };
 
 static kk_context_t *boot(void) {
@@ -32,6 +33,10 @@ void kk_hanga_payload_flag(intptr_t ret, bool value, kk_context_t *ctx) {
 void kk_hanga_payload_empty(intptr_t ret, kk_context_t *ctx) {
   (void)ctx;
   payload_empty((hanga_engine_host_value_t *)ret);
+}
+
+void kk_hanga_payload_fail(intptr_t ret, kk_string_t reason, kk_context_t *ctx) {
+  payload_fail((hanga_engine_host_value_t *)ret, kk_string_cbuf_borrow(reason, NULL, ctx));
 }
 
 void kk_hanga_payload_gravity(intptr_t ret, kk_context_t *ctx) {

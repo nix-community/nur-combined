@@ -35,12 +35,14 @@ pub fn noop_host(name: impl Into<String>) -> HostData {
     HostData {
         name: name.into(),
         bus: Arc::new(NoopBus),
+        topics: HashSet::new(),
     }
 }
 
 pub struct HostData {
     pub name: String,
     pub bus: Arc<dyn EngineBus>,
+    pub topics: HashSet<String>,
 }
 
 struct AfterJob {
@@ -207,6 +209,26 @@ pub fn wire_bag(fields: Vec<(&str, Wire)>) -> Wire {
             })
             .collect(),
     )
+}
+
+pub fn player_snapshot_wire(
+    snap: &::hanga::PlayerSnap,
+    wanted: bool,
+    wallet: bool,
+) -> Wire {
+    let mut fields = vec![
+        ("x", Wire::Float(snap.x as f64)),
+        ("y", Wire::Float(snap.y as f64)),
+        ("z", Wire::Float(snap.z as f64)),
+        ("yaw", Wire::Float(snap.yaw as f64)),
+    ];
+    if wanted {
+        fields.push(("state", Wire::Int(snap.state as i64)));
+    }
+    if wallet {
+        fields.push(("wallet", Wire::Int(snap.wallet as i64)));
+    }
+    wire_bag(fields)
 }
 
 pub fn parse_topics(payload: &Wire) -> HashSet<String> {
@@ -736,17 +758,12 @@ impl hanga::engine::host::Host for HostData {
     }
 
     fn player(&mut self) -> AbiValue {
-        // Snapshot is engine-shaped: pose plus wanted `state` and `wallet`.
-        // Packs that do not use wanted still see those keys.
         lower_wire(&match ::hanga::player_snap() {
-            Some(snap) => wire_bag(vec![
-                ("x", Wire::Float(snap.x as f64)),
-                ("y", Wire::Float(snap.y as f64)),
-                ("z", Wire::Float(snap.z as f64)),
-                ("yaw", Wire::Float(snap.yaw as f64)),
-                ("state", Wire::Int(snap.state as i64)),
-                ("wallet", Wire::Int(snap.wallet as i64)),
-            ]),
+            Some(snap) => player_snapshot_wire(
+                &snap,
+                self.topics.contains("evaluate-action") || self.topics.contains("tick"),
+                self.topics.contains("wallet-after"),
+            ),
             None => wire_empty(),
         })
     }
@@ -781,6 +798,7 @@ impl MainModContext {
             .map(|value| lift_wire(&value))
             .unwrap_or_else(|_| wire_empty());
         self.topics = parse_topics(&methods);
+        self.store.data_mut().topics = self.topics.clone();
     }
 
     pub fn call(&mut self, from: &str, topic: &str, payload: &Wire) -> Wire {
@@ -1098,6 +1116,7 @@ impl ModRuntime {
             HostData {
                 name: name.to_string(),
                 bus,
+                topics: HashSet::new(),
             },
         );
         let mut linker = Linker::new(&engine);
@@ -1116,6 +1135,7 @@ impl ModRuntime {
             .map(|value| lift_wire(&value))
             .unwrap_or_else(|_| wire_empty());
         let topics = parse_topics(&methods);
+        store.data_mut().topics = topics.clone();
 
         Some(MainModContext {
             store,
@@ -1266,6 +1286,25 @@ mod tests {
         assert!(wire_is_empty(&Wire::Text(String::new())));
         assert!(!wire_is_empty(&wire_fail("busy")));
         assert!(wire_is_fail(&wire_fail("self")));
+    }
+
+    #[test]
+    fn player_snapshot_omits_unadvertised_keys() {
+        let snap = ::hanga::PlayerSnap {
+            x: 1.0,
+            y: 2.0,
+            z: 3.0,
+            yaw: 0.5,
+            state: 4,
+            wallet: 9,
+        };
+        let pose = node_from_wire(&player_snapshot_wire(&snap, false, false));
+        assert_eq!(pose.get("x").and_then(::hanga::kit::Node::as_f32), Some(1.0));
+        assert!(pose.get("state").is_none());
+        assert!(pose.get("wallet").is_none());
+        let full = node_from_wire(&player_snapshot_wire(&snap, true, true));
+        assert_eq!(full.get("state").and_then(::hanga::kit::Node::as_i32), Some(4));
+        assert_eq!(full.get("wallet").and_then(::hanga::kit::Node::as_i32), Some(9));
     }
 
     #[test]
@@ -1475,6 +1514,28 @@ mod tests {
         }
         assert!(bus.emit("host", "veto", wire_empty()));
         assert!(!bus.emit("host", "ping", wire_empty()));
+        ::hanga::set_player_snap(::hanga::PlayerSnap {
+            x: 1.5,
+            y: 2.0,
+            z: 3.0,
+            yaw: 0.25,
+            state: 2,
+            wallet: 40,
+        });
+        let selfie = node_from_wire(&bus.invoke("host", "testbed", "selfie", wire_empty()));
+        assert_eq!(
+            selfie.get("x").and_then(::hanga::kit::Node::as_f32),
+            Some(1.5)
+        );
+        assert_eq!(
+            selfie.get("state").and_then(::hanga::kit::Node::as_i32),
+            Some(2)
+        );
+        assert_eq!(
+            selfie.get("wallet").and_then(::hanga::kit::Node::as_i32),
+            Some(40)
+        );
+        ::hanga::clear_player_snap();
         assert!(matches!(
             bus.invoke("testbed", "testbed", "ping", wire_empty()),
             Wire::Fail(reason) if reason == "self"

@@ -15,6 +15,9 @@ extern payload-flag(ret: intptr_t, value: bool): ()
 extern payload-empty(ret: intptr_t): ()
   c "kk_hanga_payload_empty"
 
+extern payload-fail(ret: intptr_t, reason: string): ()
+  c "kk_hanga_payload_fail"
+
 extern payload-gravity(ret: intptr_t): ()
   c "kk_hanga_payload_gravity"
 
@@ -63,5 +66,6 @@ pub fun invoke(topic: string, payload: intptr_t, ret: intptr_t): ()
   elif topic == "loot-item" then
     if bag-text-eq(payload, "voxel", "effect") then payload-text(ret, "effect")
     else payload-empty(ret)
+  elif topic == "refuse" then payload-fail(ret, "busy")
   else
     payload-empty(ret)

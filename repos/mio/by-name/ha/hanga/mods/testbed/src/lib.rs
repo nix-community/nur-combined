@@ -22,7 +22,7 @@ include!("../../mod_kit.rs");
 struct TestbedMod;
 
 fn testbed_topics() -> String {
-    format!("{BUS_TOPICS},refuse,veto")
+    format!("{BUS_TOPICS},refuse,veto,selfie")
 }
 
 pub const ACTION_BREAK: &str = "break";
@@ -392,6 +392,7 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Value)
         "methods" => wire_methods(&testbed_topics()),
         "refuse" => wire_fail("busy"),
         "veto" => wire_flag(true),
+        "selfie" => host_player(),
         _ => wire_empty(),
     }
 }

@@ -13,7 +13,7 @@ import hanga.mod.Wire
  */
 object GuestImpl : Guest {
     private val names = listOf("air", "tile", "lamp")
-    private const val BUS_TOPICS = "ping,name,catalog,gravity,has,methods,voxel,fracture-kit,loot-item"
+    private const val BUS_TOPICS = "ping,name,catalog,gravity,has,methods,voxel,fracture-kit,loot-item,refuse"
 
     override fun abi(): Int = 6
 
@@ -70,6 +70,7 @@ object GuestImpl : Guest {
                     val voxel = wire.asText() ?: wire.bagText("voxel").orEmpty()
                     if (voxel == "lamp") Wire.Text("lamp") else Wire.Empty
                 }
+                "refuse" -> Wire.Fail("busy")
                 else -> Wire.Empty
             },
         )
