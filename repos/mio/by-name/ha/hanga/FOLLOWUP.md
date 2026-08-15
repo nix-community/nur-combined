@@ -20,7 +20,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   the city lead and checks a catalog name at `(0,0,0)`. Two-pack live tests
   also probe lead `voxel()` and guest `voxel-set` (`paint`). Testbed `later`
   covers host `after` (flushed in-process); `who` / `see` cover `id` and
-  `has-mod`.
+  `has-mod`; `clock` / `crew` / `yell` cover `now-ms`, `peers`, and guest
+  `emit` (self is skipped).
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names

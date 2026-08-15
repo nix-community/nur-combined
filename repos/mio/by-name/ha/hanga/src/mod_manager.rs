@@ -1568,6 +1568,15 @@ mod tests {
             payload_i64(&bus.invoke("host", "testbed", "count", wire_empty()), "value"),
             1
         );
+        let t0 = payload_i64(&bus.invoke("host", "testbed", "clock", wire_empty()), "value");
+        let t1 = payload_i64(&bus.invoke("host", "testbed", "clock", wire_empty()), "value");
+        assert!(t0 >= 0 && t1 >= t0);
+        let crew = node_from_wire(&bus.invoke("host", "testbed", "crew", wire_empty()));
+        assert!(crew.items().is_empty());
+        assert!(matches!(
+            bus.invoke("host", "testbed", "yell", wire_empty()),
+            Wire::Flag(false)
+        ));
         assert!(matches!(
             bus.invoke("testbed", "testbed", "ping", wire_empty()),
             Wire::Fail(reason) if reason == "self"
@@ -1621,6 +1630,14 @@ mod tests {
             bus.invoke("host", "", "refuse", wire_empty()),
             Wire::Fail(reason) if reason == "busy"
         ));
+        let crew = node_from_wire(&bus.invoke("host", "testbed", "crew", wire_empty()));
+        assert_eq!(
+            crew.items()
+                .iter()
+                .map(::hanga::kit::Node::text)
+                .collect::<Vec<_>>(),
+            vec!["urban_chaos".to_string()]
+        );
         let at = wire_bag(vec![
             ("x", Wire::Int(0)),
             ("y", Wire::Int(0)),

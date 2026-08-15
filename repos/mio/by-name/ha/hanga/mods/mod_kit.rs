@@ -288,6 +288,17 @@ fn host_id() -> String {
     }
 }
 
+fn host_clock() -> i64 {
+    #[cfg(target_arch = "wasm32")]
+    {
+        hanga::engine::host::now_ms()
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        0
+    }
+}
+
 fn host_has_mod(name: &str) -> bool {
     #[cfg(target_arch = "wasm32")]
     {
