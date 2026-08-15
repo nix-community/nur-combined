@@ -87,8 +87,8 @@ in
       log.showSignature = false;
 
       # the default yellow commit header is unreadable
-      color.diff.commit = "bold cyan";
-      color.decorate.tag = "cyan";
+      # color.diff.commit = "bold cyan";
+      # color.decorate.tag = "cyan";
 
       merge.autoStash = true;
       merge.conflictStyle = "zdiff3";

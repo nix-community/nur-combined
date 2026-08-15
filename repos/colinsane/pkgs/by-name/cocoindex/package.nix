@@ -11,11 +11,11 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "cocoindex";
-  version = "1.0.19";
+  version = "1.0.20";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-5wgnC68qPfWKqXdS31ibTbdrZh5XY+G10Sy9LQ3AMyk=";
+    sha256 = "sha256-gixtcoEHr0iTpJW+58XT++CiqXmsr/1kw0k8Dd5SpWA=";
   };
 
   pyproject = true;
@@ -25,7 +25,7 @@ python3.pkgs.buildPythonPackage rec {
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-AVegOuwZrsKIMknJoI8WpKX2MNHUYfrIdq30hWrAT4s=";
+    hash = "sha256-5TuC7UUFNh8r7KGy7Y42Zpk+uYH2Ffn9w/RZLurpQK4=";
   };
 
   nativeBuildInputs = with rustPlatform; [

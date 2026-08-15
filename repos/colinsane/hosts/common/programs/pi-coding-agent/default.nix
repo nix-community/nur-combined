@@ -598,4 +598,11 @@ in
     # - `rg` -> use instead of grep; it honors .gitignore
     # - everything else you'd expect in a typical dev environment
   };
+
+  sane.programs.fontconfig.config = lib.mkIf config.sane.programs.pi-coding-agent.enabled {
+    extraPackages = [
+      # pi-speeed needs a custom font for its bunny animation
+      pkgs.pi-speeed.assets
+    ];
+  };
 }

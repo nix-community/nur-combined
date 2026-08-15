@@ -37,12 +37,15 @@ set listchars=tab:▷\·,trail:·,extends:◣,precedes:◢,nbsp:○
 " :colorscheme <tab>
 " colors can be more finely set by editing ~/.config/nvim/colors/$colorscheme
 " see: <https://neovim.io/doc/user/usr_06.html>
-"
+
 " black-on-white schemes:
 " colorscheme delek
-colorscheme shine
-" colorscheme vim
+" colorscheme shine
+colorscheme vim
 " colorscheme zellner
+"
+" use the terminal's ANSI palette for syntax highlighting.
+set notermguicolors
 
 " when using vim to view manpages
 "   (`:Man topic` or `MANPAGER='nvim +Man!' man topic` or `vim man://topic`),

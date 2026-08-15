@@ -7,6 +7,7 @@
 # - `fc-conflist` -> show all config files loaded
 { config, lib, pkgs, ... }:
 let
+  cfg = config.sane.programs.fontconfig.config;
   # see: <repo:nixos/nixpkgs:nixos/modules/config/fonts/fontconfig.nix>
   # and: <repo:nixos/nixpkgs:pkgs/development/libraries/fontconfig/make-fonts-cache.nix>
   # nixpkgs creates a fontconfig cache, which covers 99% of apps.
@@ -25,6 +26,17 @@ let
 in
 {
   sane.programs.fontconfig = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options = {
+          extraPackages = mkOption {
+            type = types.listOf types.package;
+            default = [];
+          };
+        };
+      };
+    };
     sandbox.autodetectCliPaths = "existingOrParent";  #< this might be overkill; or, how many programs reference fontconfig internally?
 
     # persist.byStore.plaintext = [
@@ -77,6 +89,7 @@ in
       gyre-fonts              #  4 MiB; Tex Gyre *; ttf substitutes for standard PostScript fonts
       # hack-font               #  1 MiB; Hack; also available as a NerdFonts
       liberation_ttf          # 4 MiB; Liberation {Mono,Sans,Serif}; also available as a NerdFonts
+      # material-icons          # 1 MiB; Material Icons; provides icons for the Unicode Private Use Area
       monaspace               # 20 MiB;
       noto-fonts-color-emoji  # 10 Mib; Noto Color Emoji
       unifont                 # 16 MiB; Unifont; provides LOTS of unicode coverage
@@ -98,6 +111,6 @@ in
       # good terminal/coding font: grab via nerdfonts for more emoji/unicode support
       nerd-fonts.hack  # 26 MiB
       nerd-fonts.noto  # 861 MiB
-    ];
+    ] ++ cfg.extraPackages;
   };
 }

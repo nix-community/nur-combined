@@ -332,6 +332,10 @@ in
     config = builtins.readFile ./nix_shell.lua;
   }
   {
+    type = "lua";
+    config = builtins.readFile ./tty_colors.lua;
+  }
+  {
     type = "viml";
     config = builtins.readFile ./source_nav.vim;
   }

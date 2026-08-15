@@ -220,6 +220,49 @@
     }
   },
   {
+    "id": "liquid/lfm-2.5-2.6b",
+    "name": "LFM2.5 2.6B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 128000,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "meta/muse-glimmer-30b",
+    "name": "Muse Glimmer 30B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.35,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "meta/muse-spark-1.2-contributor",
     "name": "Muse Spark 1.2 Contributor (Data Used for Training)",
     "pricing": {
@@ -4222,6 +4265,29 @@
     }
   },
   {
+    "id": "bytedance-seed/seed-2.0-code",
+    "name": "ByteDance Seed 2.0 Code",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00025,
+      "completion": 3.0,
+      "currency": "USD",
+      "prompt": 0.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ]
+    }
+  },
+  {
     "id": "bytedance-seed/seed-2.0-lite",
     "name": "ByteDance Seed 2.0 Lite",
     "pricing": {
@@ -4277,6 +4343,48 @@
     "max_output_tokens": 128000,
     "capabilities": {
       "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "upstage/solar-pro4",
+    "name": "Solar Pro 4",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 6e-06,
+      "completion": 0.12,
+      "currency": "USD",
+      "prompt": 0.03,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 524288,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "upstage/solar-pro4:thinking",
+    "name": "Solar Pro 4 Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 6e-06,
+      "completion": 0.12,
+      "currency": "USD",
+      "prompt": 0.03,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 524288,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -5217,8 +5325,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -7425,10 +7532,10 @@
     "id": "TheDrummer/Cydonia-24B-v4.3",
     "name": "The Drummer Cydonia 24B v4.3",
     "pricing": {
-      "cacheReadInputPer1kTokens": 5.015e-05,
-      "completion": 0.1207,
+      "cacheReadInputPer1kTokens": 6e-05,
+      "completion": 0.15,
       "currency": "USD",
-      "prompt": 0.1003,
+      "prompt": 0.12,
       "unit": "per_million_tokens"
     },
     "context_length": 32768,
@@ -8669,10 +8776,10 @@
     "id": "TEE/gemma4-31b",
     "name": "Gemma 4 31B",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00045,
+      "cacheReadInputPer1kTokens": 0.0004,
       "completion": 1.0,
       "currency": "USD",
-      "prompt": 0.45,
+      "prompt": 0.4,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -8691,10 +8798,10 @@
     "id": "TEE/gemma4-31b:thinking",
     "name": "Gemma 4 31B Thinking TEE",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00045,
+      "cacheReadInputPer1kTokens": 0.0004,
       "completion": 1.0,
       "currency": "USD",
-      "prompt": 0.45,
+      "prompt": 0.4,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -8713,10 +8820,10 @@
     "id": "TEE/llama3-3-70b",
     "name": "Llama 3.3 70B",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.002,
-      "completion": 2.0,
+      "cacheReadInputPer1kTokens": 0.00175,
+      "completion": 2.75,
       "currency": "USD",
-      "prompt": 2.0,
+      "prompt": 1.75,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -8741,7 +8848,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 65535,
+    "max_output_tokens": 1048576,
     "capabilities": {
       "reasoning": true
     },
@@ -11273,28 +11380,6 @@
     }
   },
   {
-    "id": "Qwen3.5-27B-Blossom-V6.4-Derestricted-Lite",
-    "name": "Qwen3.5 27B Blossom V6.4 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted",
     "name": "Qwen3.5 27B Claude 4.6 Opus Reasoning Distilled Derestricted",
     "pricing": {
@@ -11321,248 +11406,6 @@
     "name": "Qwen3.5 27B Claude 4.6 Opus Reasoning Distilled Derestricted Lite",
     "pricing": {
       "cacheReadInputPer1kTokens": 3.06e-05,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Dark-Nexus-v3.0-Derestricted",
-    "name": "Qwen3.5 27B Dark Nexus v3.0 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Dark-Nexus-v3.0-Derestricted-Lite",
-    "name": "Qwen3.5 27B Dark Nexus v3.0 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Derestricted-Aconite-v0",
-    "name": "Qwen3.5 27B Derestricted Aconite v0",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Enteles-v0-Derestricted",
-    "name": "Qwen3.5 27B Enteles v0 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Enteles-v0-Derestricted-Lite",
-    "name": "Qwen3.5 27B Enteles v0 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Melinoe-Derestricted",
-    "name": "Qwen3.5 27B Melinoe Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Melinoe-Derestricted-Lite",
-    "name": "Qwen3.5 27B Melinoe Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Omnimerge-v2-Derestricted",
-    "name": "Qwen3.5 27B Omnimerge v2 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Omnimerge-v2-Derestricted-Lite",
-    "name": "Qwen3.5 27B Omnimerge v2 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-QuettaLLMs-Koreasoner-V3-Derestricted",
-    "name": "Qwen3.5 27B QuettaLLMs Koreasoner V3 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-QuettaLLMs-Koreasoner-V3-Derestricted-Lite",
-    "name": "Qwen3.5 27B QuettaLLMs Koreasoner V3 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
       "completion": 0.306,
       "currency": "USD",
       "prompt": 0.306,
@@ -11669,28 +11512,6 @@
     }
   },
   {
-    "id": "Gemma-4-31B-Gembrain",
-    "name": "Gemma 4 31B Gembrain",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Gemma-4-31B-Gembrain-uncensored-heretic",
     "name": "Gemma 4 31B Gembrain Uncensored Heretic",
     "pricing": {
@@ -11735,118 +11556,8 @@
     }
   },
   {
-    "id": "Gemma-4-31B-Gemsicle",
-    "name": "Gemma 4 31B Gemsicle",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Gemma-4-31B-Glamour",
-    "name": "Gemma 4 31B Glamour",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Gemma-4-31B-Goetia-v1",
-    "name": "Gemma 4 31B Goetia v1",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Gemma-4-31B-Gutenberg",
-    "name": "Gemma 4 31B Gutenberg",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Gemma-4-31B-Isometry-RP",
     "name": "Gemma 4 31B Isometry RP",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Gemma-4-31B-Melinoe",
-    "name": "Gemma 4 31B Melinoe",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
       "completion": 0.306,
@@ -11911,52 +11622,8 @@
     }
   },
   {
-    "id": "Gemma-4-31B-Pantheon-Reasoning-1.1",
-    "name": "Gemma 4 31B Pantheon Reasoning 1.1",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Gemma-4-31B-SDFT-Heretic-RP",
     "name": "Gemma 4 31B SDFT Heretic RP",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Gemma-4-31B-Sphinsikus-Chronist",
-    "name": "Gemma 4 31B Sphinsikus Chronist",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
       "completion": 0.306,
@@ -11999,160 +11666,6 @@
     }
   },
   {
-    "id": "Qwen3.5-27B-Vivid-Durian",
-    "name": "Qwen3.5 27B Vivid Durian",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Musica-v1",
-    "name": "Qwen3.5 27B Musica v1",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Derestricted",
-    "name": "Qwen3.5 27B Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-BlueStar-Derestricted",
-    "name": "Qwen3.5 27B BlueStar Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-BlueStar-Derestricted-Lite",
-    "name": "Qwen3.5 27B BlueStar Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-BlueStar-v2-Derestricted",
-    "name": "Qwen3.5 27B BlueStar v2 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-BlueStar-v2-Derestricted-Lite",
-    "name": "Qwen3.5 27B BlueStar v2 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Qwen3.5-27B-BlueStar-v3-Derestricted",
     "name": "Qwen3.5 27B BlueStar v3 Derestricted",
     "pricing": {
@@ -12175,470 +11688,8 @@
     }
   },
   {
-    "id": "Qwen3.5-27B-BlueStar-v3-Derestricted-Lite",
-    "name": "Qwen3.5 27B BlueStar v3 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Omega-Evolution-v2.0-Derestricted",
-    "name": "Qwen3.5 27B Omega Evolution v2.0 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Omega-Evolution-v2.0-Derestricted-Lite",
-    "name": "Qwen3.5 27B Omega Evolution v2.0 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Omega-Evolution-v2.2-Derestricted",
-    "name": "Qwen3.5 27B Omega Evolution v2.2 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Omega-Evolution-v2.2-Derestricted-Lite",
-    "name": "Qwen3.5 27B Omega Evolution v2.2 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Anko",
-    "name": "Qwen3.5 27B Anko",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Infracelestial",
-    "name": "Qwen3.5 27B Infracelestial",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Marvin-DPO-V2-Derestricted",
-    "name": "Qwen3.5 27B Marvin DPO V2 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Marvin-DPO-V2-Derestricted-Lite",
-    "name": "Qwen3.5 27B Marvin DPO V2 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Marvin-V2-Derestricted",
-    "name": "Qwen3.5 27B Marvin V2 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Marvin-V2-Derestricted-Lite",
-    "name": "Qwen3.5 27B Marvin V2 Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-NaNovel-Derestricted",
-    "name": "Qwen3.5 27B NaNovel Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-NaNovel-Derestricted-Lite",
-    "name": "Qwen3.5 27B NaNovel Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Qwen3.5-27B-Queen-Derestricted",
     "name": "Qwen3.5 27B Queen Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Queen-Derestricted-Lite",
-    "name": "Qwen3.5 27B Queen Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-RpRMax-v1",
-    "name": "Qwen3.5 27B RpRMax v1",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-earica-Derestricted",
-    "name": "Qwen3.5 27B earica Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-earica-Derestricted-Lite",
-    "name": "Qwen3.5 27B earica Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Writer-Derestricted",
-    "name": "Qwen3.5 27B Writer Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Writer-Derestricted-Lite",
-    "name": "Qwen3.5 27B Writer Derestricted Lite",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Writer-V2-Derestricted",
-    "name": "Qwen3.5 27B Writer V2 Derestricted",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Qwen3.5-27B-Writer-V2-Derestricted-Lite",
-    "name": "Qwen3.5 27B Writer V2 Derestricted Lite",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
       "completion": 0.306,
@@ -12747,52 +11798,8 @@
     }
   },
   {
-    "id": "Gemma-4-31B-Garnet",
-    "name": "Gemma 4 31B Garnet",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Gemma-4-31B-GarnetV2",
     "name": "Gemma 4 31B Garnet V2",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Gemma-4-31B-Gemopus",
-    "name": "Gemma 4 31B Gemopus",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
       "completion": 0.306,
@@ -12837,28 +11844,6 @@
   {
     "id": "Gemma-4-31B-MeroMero",
     "name": "Gemma 4 31B MeroMero",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "Gemma-4-31B-Musica-v1",
-    "name": "Gemma 4 31B Musica v1",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
       "completion": 0.306,
@@ -12939,50 +11924,6 @@
     "architecture": {
       "input_modalities": [
         "text"
-      ]
-    }
-  },
-  {
-    "id": "TEE/kimi-k2.5",
-    "name": "Kimi K2.5 TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0003,
-      "completion": 3.0,
-      "currency": "USD",
-      "prompt": 0.6,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 65535,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "TEE/kimi-k2.5-thinking",
-    "name": "Kimi K2.5 Thinking TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0003,
-      "completion": 3.0,
-      "currency": "USD",
-      "prompt": 0.6,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 65535,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },
@@ -13356,6 +12297,48 @@
       "completion": 0.22,
       "currency": "USD",
       "prompt": 0.075,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "inclusionai/ling-3.0-tiny",
+    "name": "Ling 3.0 Tiny",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1e-05,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "inclusionai/ling-3.0-tiny:thinking",
+    "name": "Ling 3.0 Tiny Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1e-05,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,

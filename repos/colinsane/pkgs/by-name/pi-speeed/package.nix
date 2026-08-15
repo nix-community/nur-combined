@@ -9,6 +9,11 @@ buildNpmPackage (finalAttrs: {
   pname = "pi-speeed";
   version = "0.4.0";
 
+  outputs = [
+    "out"
+    "assets"
+  ];
+
   src = fetchFromGitHub {
     owner = "somus";
     repo = "pi-speeed";
@@ -51,6 +56,14 @@ buildNpmPackage (finalAttrs: {
     rmdir $out/lib/node_modules/pi-speeed
     rmdir $out/lib/node_modules
     rmdir $out/lib
+
+    mkdir -p $out/share/fonts/truetype
+    mv $out/assets/runcat.ttf $out/share/fonts/truetype/runcat.ttf
+    rmdir $out/assets
+  '';
+
+  postFixup = ''
+    moveToOutput share/fonts/truetype/runcat.ttf $assets
   '';
 
   passthru.updateScript = nix-update-script {

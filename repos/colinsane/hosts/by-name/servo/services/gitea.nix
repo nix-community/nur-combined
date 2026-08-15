@@ -135,19 +135,19 @@
     policy.extraBots = [
       {
         name = "high-load";
-        expression = "load_1m >= 12.0";
+        expression = "load_1m >= 16.0";
         action = "WEIGH";
         weight.adjust = 5;
       }
       {
         name = "sustained-high-load";
-        expression = "load_5m >= 14.0";
+        expression = "load_5m >= 18.0";
         action = "WEIGH";
         weight.adjust = 10;
       }
       {
         name = "low-load";
-        expression = "load_15m <= 8.0";
+        expression = "load_15m <= 12.0";
         action = "WEIGH";
         weight.adjust = -10;
       }
@@ -176,11 +176,11 @@
       heavyweight = [
         "/colin/linux/"
         "/colin/nixpkgs/"
-        "/colin/ModemManager/"
-        "/colin/NetworkManager/"
+        # "/colin/ModemManager/"
+        # "/colin/NetworkManager/"
         "/colin/opencellid-mirror/"
         "/colin/podcastindex-db-mirror/"
-        "/colin/Signal-Desktop/"
+        # "/colin/Signal-Desktop/"
         "/colin/u-boot/"
         # "/shelvacu-mirrors/"
         "/shelvacu-mirrors/mozilla-"

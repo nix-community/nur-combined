@@ -380,6 +380,29 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
+    # 2026-08-13: Alpine disables checks because the HLS FATE tests fail on musl.
+    # Its musl ioctl fix is also applied here for the libv4l2 build.
+    ffmpeg = prev.ffmpeg.overrideAttrs (upstream: {
+      patches = (upstream.patches or []) ++ [
+        (fetchAports {
+          path = "community/ffmpeg/posix-ioctl.patch";
+          rev = "7ca9594090928aeac18de3caf4c8002109e70445";
+          hash = "sha256-vwOxK3xmwssUNrExPMotaS+y23ZM1QvYXEk/izfpS6w=";
+        })
+      ];
+      doCheck = false;
+    });
+    ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (upstream: {
+      patches = (upstream.patches or []) ++ [
+        (fetchAports {
+          path = "community/ffmpeg/posix-ioctl.patch";
+          rev = "7ca9594090928aeac18de3caf4c8002109e70445";
+          hash = "sha256-vwOxK3xmwssUNrExPMotaS+y23ZM1QvYXEk/izfpS6w=";
+        })
+      ];
+      doCheck = false;
+    });
+
     # 2026-06-07: still required
     # 2026-01-28: disable malcontent to unblock flatpak: it's some "parental controls" thing?
     # flatpak -> malcontent -> accountsservice (broken).

@@ -18,13 +18,13 @@ let
       (fetchpatch {
         # this one is relevant only to the daemon:
         name = "polkit: add owner annotations to all actions";
-        url = "https://git.uninsane.org/colin/NetworkManager/commit/a01293861fa24201ffaeb84c07f1c71136c49759.patch";
-        hash = "sha256-th1/M2slo7rjkVBwETZII53Lmhyw8OMS0aT9QYI5Uvk=";
+        url = "https://git.uninsane.org/colin/NetworkManager/commit/4bcba9cf97b9cccf16c2bba4002f770bc0a6afca.diff";
+        hash = "sha256-U4DhAsuqbX0CtsmZaAwb+FJKd1hfgFMqTAdNUTpnVeo=";
       })
       (fetchpatch {
         # this one is relevant only to nmcli/nmtui (where it fixes a hang)
         name = "nm-secret-agent-old: allow dbus requests from 'networkmanager' user";
-        url = "https://git.uninsane.org/colin/NetworkManager/commit/31c88239a067bbf8d6c638c6f8247547fddd4885.patch";
+        url = "https://git.uninsane.org/colin/NetworkManager/commit/13d6c0449863a25cf908a08497bdf03a1f48d0cf.diff";
         hash = "sha256-+8kPU/0dNdXQ8feP4Jl1cJ4IaCUbVkBy6KHrn3kB6C4=";
       })
     ];

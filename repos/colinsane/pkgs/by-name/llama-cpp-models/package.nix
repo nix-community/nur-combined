@@ -35,16 +35,16 @@ let
       # gemma-4-26b-a4b-it-qat-ud-q4_k_xl
       # gemma-4-31b-it-qat-ud-q4_k_xl
       # glm-4_7-flash
-      gpt-oss-20b
+      # gpt-oss-20b
       # lfm2_5-230m-fable-5-q8_0
-      lfm2_5-8b-a1b-ud-iq4_xs
-      liquidai-lfm2-24b-a2b-iq4_xs
+      # lfm2_5-8b-a1b-ud-iq4_xs
+      # liquidai-lfm2-24b-a2b-iq4_xs
       # minimax-m2_5
       # nemotron-3-nano-4b
       # nemotron-3-nano-30b-a3b
       # omnicoder-9b
-      ornith-1_0-35b-q4_k_m
-      qwen-agentworld-35b-a3b-ud-iq2_m
+      # ornith-1_0-35b-q4_k_m
+      # qwen-agentworld-35b-a3b-ud-iq2_m
       qwen-agentworld-35b-a3b-ud-iq3_s  # seems equally capable as iq4_nl
       # qwen-agentworld-35b-a3b-iq4_nl
       # qwen3_5-35b-a3b-q4_k_m
@@ -58,10 +58,11 @@ let
       # qwen3_5-27b-claude-4_6-opus-reasoning-distilled-v2
       qwen3_5-122b-a10b-ud-iq4_xs
       # qwen3_5-122b-a10b-ud-q4_k_xl
-      qwen3_6-27b-mtp-q4_k_m
+      # qwen3_6-27b-mtp-q4_k_m
       # qwen3_6-35b-a3b-ud-q4_k_m
-      qwen3_6-35b-a3b-mtp-ud-q4_k_m
-      qwopus3_6-35b-a3b-coder-mtp-q4_k_m
+      # qwen3_6-35b-a3b-mtp-ud-q4_k_m
+      qwen3_6-35b-a3b-uncensored-hauhaucs-aggressive-q3_k_p
+      # qwopus3_6-35b-a3b-coder-mtp-q4_k_m
       # qwythos-9b-claude-mythos-5-1m-q4_k_m
       qwythos-9b-v2-q4_k_m
       step3_7-flash-iq4_xs
