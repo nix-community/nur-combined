@@ -2,6 +2,8 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  makeWrapper,
+  nftables,
 }:
 
 buildGoModule (finalAttrs: {
@@ -30,6 +32,15 @@ buildGoModule (finalAttrs: {
   ];
 
   env.CGO_ENABLED = 0;
+
+  nativeBuildInputs = [
+    makeWrapper
+  ];
+
+  postInstall = ''
+    wrapProgram $out/bin/pvpnd \
+      --prefix PATH : ${lib.makeBinPath [ nftables ]}
+  '';
 
   meta = {
     description = "Unofficial Proton VPN client for Linux";
