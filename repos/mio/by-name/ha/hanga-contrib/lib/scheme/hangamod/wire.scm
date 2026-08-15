@@ -1,9 +1,12 @@
 (library (hangamod wire)
-  (export wire-text wire-voxel-probe wire-as-text wire-bag-text wire-bag-flag)
+  (export wire-text wire-fail wire-voxel-probe wire-as-text wire-bag-text wire-bag-flag)
   (import (scheme base))
 
   (define (wire-text value)
     (list 'text value))
+
+  (define (wire-fail reason)
+    (list 'fail reason))
 
   (define (wire-voxel-probe name edit)
     (list 'bag

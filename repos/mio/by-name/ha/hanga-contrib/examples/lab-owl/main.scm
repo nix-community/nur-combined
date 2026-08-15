@@ -7,7 +7,7 @@
         (hangamod wire))
 
 (define catalog "air,owl,perch")
-(define bus-topics "ping,name,catalog,gravity,has,methods,voxel")
+(define bus-topics "ping,name,catalog,gravity,has,methods,voxel,refuse")
 
 (define (query-voxel x y z)
   (checker-floor x y z))
@@ -22,6 +22,9 @@
 (let ((probe (wire-voxel-probe "owl" #f)))
   (unless (string=? (wire-bag-text probe "name") "owl")
     (error "lab_owl wire")))
+(let ((err (wire-fail "busy")))
+  (unless (and (pair? err) (eq? (car err) 'fail) (string=? (cadr err) "busy"))
+    (error "lab_owl fail")))
 (display "lab_owl ready")
 (newline)
 (list catalog bus-topics (gravity) (query-voxel 1 0 1))

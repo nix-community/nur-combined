@@ -19,10 +19,14 @@ wit_bindgen::generate!({
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
 
+use std::sync::atomic::{AtomicI32, Ordering};
+
+static NOTES: AtomicI32 = AtomicI32::new(0);
+
 struct TestbedMod;
 
 fn testbed_topics() -> String {
-    format!("{BUS_TOPICS},refuse,veto,selfie")
+    format!("{BUS_TOPICS},refuse,veto,selfie,paint,later,note,count,who,see")
 }
 
 pub const ACTION_BREAK: &str = "break";
@@ -393,6 +397,29 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Value)
         "refuse" => wire_fail("busy"),
         "veto" => wire_flag(true),
         "selfie" => host_player(),
+        "paint" => {
+            host_voxel_set(
+                payload_i64(payload, "x") as i32,
+                payload_i64(payload, "y") as i32,
+                payload_i64(payload, "z") as i32,
+                payload_str(payload, "name"),
+            );
+            wire_empty()
+        }
+        "later" => {
+            host_after(0, "note", &wire_empty());
+            wire_empty()
+        }
+        "note" => wire_int(NOTES.fetch_add(1, Ordering::Relaxed) as i64 + 1),
+        "count" => wire_int(NOTES.load(Ordering::Relaxed) as i64),
+        "who" => wire_text(host_id()),
+        "see" => {
+            let name = match root_cell(payload) {
+                Cell::Text(text) => text,
+                _ => payload_str(payload, "name").to_string(),
+            };
+            wire_flag(host_has_mod(&name))
+        }
         _ => wire_empty(),
     }
 }

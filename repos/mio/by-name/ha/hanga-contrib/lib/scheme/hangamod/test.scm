@@ -29,6 +29,9 @@
 (define probe (wire-voxel-probe "glass" #t))
 (unless (string=? (wire-bag-text probe "name") "glass") (fail "wire text"))
 (unless (wire-bag-flag probe "edit") (fail "wire flag"))
+(let ((err (wire-fail "busy")))
+  (unless (and (pair? err) (eq? (car err) 'fail) (string=? (cadr err) "busy"))
+    (fail "wire fail")))
 (display "hangamod kit ok")
 (newline)
 #t

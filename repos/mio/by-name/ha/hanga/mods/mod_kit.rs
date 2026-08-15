@@ -277,6 +277,17 @@ fn beside_peer(name: &str) -> bool {
     host_has_mod(name)
 }
 
+fn host_id() -> String {
+    #[cfg(target_arch = "wasm32")]
+    {
+        hanga::engine::host::id()
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        String::new()
+    }
+}
+
 fn host_has_mod(name: &str) -> bool {
     #[cfg(target_arch = "wasm32")]
     {
