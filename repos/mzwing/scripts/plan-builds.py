@@ -24,6 +24,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -53,18 +54,46 @@ def store_hash(store_path: str) -> str:
     return os.path.basename(store_path).split("-", maxsplit=1)[0]
 
 
-def is_cached(store_path: str, caches: list[str]) -> bool:
+def narinfo_status(store_path: str, cache: str) -> bool | None:
+    """True: present; False: definitively absent; None: probe failed."""
     narinfo = f"{store_hash(store_path)}.narinfo"
-    for cache in caches:
-        request = urllib.request.Request(
-            f"{cache}/{narinfo}", method="HEAD", headers={"User-Agent": USER_AGENT}
-        )
-        try:
-            with urllib.request.urlopen(request, timeout=HTTP_TIMEOUT_SECONDS):
+    request = urllib.request.Request(
+        f"{cache}/{narinfo}", method="HEAD", headers={"User-Agent": USER_AGENT}
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=HTTP_TIMEOUT_SECONDS):
+            return True
+    except urllib.error.HTTPError as exc:
+        if exc.code in (404, 410):
+            return False
+        return None
+    except (urllib.error.URLError, TimeoutError):
+        return None
+
+
+def is_cached(store_path: str, caches: list[str]) -> bool:
+    # Only a definitive 404 from every cache means missing. Cachix sits
+    # behind Cloudflare, which intermittently 403/429s HEAD bursts from
+    # runner IPs; treating such errors as "missing" schedules thousands of
+    # already-cached derivations for a full rebuild. Retry, and if a probe
+    # stays inconclusive assume cached: a wrong "cached" merely defers the
+    # push until the next run (self-healing), while a wrong "missing"
+    # wastes hours of builder time.
+    for attempt in range(3):
+        if attempt:
+            time.sleep(2 * attempt)
+        unknown = False
+        for cache in caches:
+            status = narinfo_status(store_path, cache)
+            if status is True:
                 return True
-        except (urllib.error.URLError, TimeoutError):
-            continue
-    return False
+            if status is None:
+                unknown = True
+                break
+        if not unknown:
+            return False
+    print(f"probe inconclusive, assuming cached: {store_path}", file=sys.stderr)
+    return True
 
 
 def load_builder_pools() -> list[dict[str, Any]]:

@@ -239,40 +239,77 @@ jobs:
       with:
         cache-host: ${{ env.CACHE_HOST }}
 
-    # The coordinator signals right after its Cachix push. Stage a
-    # consistent snapshot (online SQLite backup + hardlinked write-once
-    # storage) so even a cancelled run leaves a warm generation behind.
-    - name: Wait for checkpoint signal
-      id: attic-checkpoint
-      if: ${{ !cancelled() }}
-      run: |
-        set -euo pipefail
-        ready=false
-        deadline=$(( SECONDS + 390 * 60 ))
-        atticd_pid="$(cat /tmp/atticd.pid)"
-        while (( SECONDS < deadline )); do
-          if [[ -e /tmp/cache_checkpoint ]]; then
-            ready=true
-            break
-          fi
-          [[ -e /tmp/cache_done ]] && break
-          kill -0 "${atticd_pid}" 2>/dev/null || break
-          sleep 20
-        done
-        echo "checkpoint-ready=${ready}" >>"${GITHUB_OUTPUT}"
-        if [[ "${ready}" == true ]]; then
-          echo 'Staging a consistent mid-run Attic snapshot...'
-          sqlite3 /nix/attic-data/server.db \
-            ".backup '/nix/attic-checkpoint/server.db'"
-          cp -al /nix/attic-data/storage /nix/attic-checkpoint/storage
-          echo "Checkpoint staged: $(du -sh /nix/attic-checkpoint | cut -f1)."
-        fi
+    # Checkpoint rounds: the coordinator signals right after its Cachix
+    # push, but a cold rebuild can run for hours before that. Each round
+    # stages a consistent snapshot (online SQLite backup + hardlinked
+    # write-once storage) on signal OR timeout, so even a cancelled run
+    # leaves a recent warm generation behind. Rounds with no new Attic
+    # objects skip staging; each save purges the previous checkpoint entry.
+    - name: Wait for checkpoint (round 1)
+      id: attic-checkpoint-1
+      uses: mzwing/nix-config/.github/actions/stage-builder-store-cache-checkpoint@master
+      with:
+        timeout-minutes: '45'
 
-    - name: Save builder store cache checkpoint
-      if: ${{ !cancelled() && steps.attic-checkpoint.outputs.checkpoint-ready == 'true' }}
+    - name: Save builder store cache checkpoint (round 1)
+      if: ${{ !cancelled() && steps.attic-checkpoint-1.outputs.checkpoint-ready == 'true' }}
       uses: nix-community/cache-nix-action/save@v7
       with:
-        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}
+        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}-1
+        nix: false
+        paths: /nix/attic-checkpoint
+        purge: true
+        purge-prefixes: nix-builder-atticchk-
+        purge-last-accessed: 0
+        purge-primary-key: never
+
+    - name: Wait for checkpoint (round 2)
+      id: attic-checkpoint-2
+      uses: mzwing/nix-config/.github/actions/stage-builder-store-cache-checkpoint@master
+      with:
+        timeout-minutes: '60'
+
+    - name: Save builder store cache checkpoint (round 2)
+      if: ${{ !cancelled() && steps.attic-checkpoint-2.outputs.checkpoint-ready == 'true' }}
+      uses: nix-community/cache-nix-action/save@v7
+      with:
+        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}-2
+        nix: false
+        paths: /nix/attic-checkpoint
+        purge: true
+        purge-prefixes: nix-builder-atticchk-
+        purge-last-accessed: 0
+        purge-primary-key: never
+
+    - name: Wait for checkpoint (round 3)
+      id: attic-checkpoint-3
+      uses: mzwing/nix-config/.github/actions/stage-builder-store-cache-checkpoint@master
+      with:
+        timeout-minutes: '60'
+
+    - name: Save builder store cache checkpoint (round 3)
+      if: ${{ !cancelled() && steps.attic-checkpoint-3.outputs.checkpoint-ready == 'true' }}
+      uses: nix-community/cache-nix-action/save@v7
+      with:
+        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}-3
+        nix: false
+        paths: /nix/attic-checkpoint
+        purge: true
+        purge-prefixes: nix-builder-atticchk-
+        purge-last-accessed: 0
+        purge-primary-key: never
+
+    - name: Wait for checkpoint (round 4)
+      id: attic-checkpoint-4
+      uses: mzwing/nix-config/.github/actions/stage-builder-store-cache-checkpoint@master
+      with:
+        timeout-minutes: '60'
+
+    - name: Save builder store cache checkpoint (round 4)
+      if: ${{ !cancelled() && steps.attic-checkpoint-4.outputs.checkpoint-ready == 'true' }}
+      uses: nix-community/cache-nix-action/save@v7
+      with:
+        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}-4
         nix: false
         paths: /nix/attic-checkpoint
         purge: true
