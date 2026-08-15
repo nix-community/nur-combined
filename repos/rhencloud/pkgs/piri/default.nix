@@ -1,25 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  fetchzip,
   pkg-config,
-  makeRustPlatform,
-  stdenv,
+  rustPlatform,
 }:
 
-let
-  modernPkgs = import (fetchzip {
-    url = "https://github.com/NixOS/nixpkgs/archive/13043924aaa7375ce482ebe2494338e058282925.tar.gz";
-    sha256 = "sha256-nwASzrRDD1JBEu/o8ekKYEXm/oJW6EMCzCRdrwcLe90=";
-  }) {
-    system = stdenv.hostPlatform.system;
-  };
-
-  rustPlatform = makeRustPlatform {
-    cargo = modernPkgs.cargo;
-    rustc = modernPkgs.rustc;
-  };
-in
 rustPlatform.buildRustPackage {
   pname = "piri";
   version = "unstable-2026-04-12";
@@ -31,7 +16,9 @@ rustPlatform.buildRustPackage {
     hash = "sha256-IMC7HaPZmj/3yfqgBgTW2Shg0LJcWlraExyxUGe0Pfo=";
   };
 
-  cargoHash = "sha256-lpmkDm2Xuc3/Xx+6i+pYAmQ2KzQxMD4YeQG203xgROc=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
 
   nativeBuildInputs = [
     pkg-config
