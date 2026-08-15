@@ -11,30 +11,26 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   Drain still stops after 32 rounds and warns if work remains. `LiveBus` OTP
   errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
   `cargo test --bin hanga`.
-- **No tests for live WASM packs on the bus.** Cap eviction and empty-slot
-  LiveBus tests stay in `cargo test --bin hanga`. `live_wasm_testbed_ping_and_self_cast`
-  loads `HANGA_MODS/testbed.wasm` (set in `.#hanga-dev`) and checks ping plus a
-  self-cast mailbox drain.
-- **No supervision.** A guest trap returns `fail("trap")`, `emit` treats fail as
-  veto, and the host reinstantiates that pack from disk (OTP restart) at most
-  once per 2s. Guest statics reset. If reload fails, the store stays dead.
+- **Live WASM on the bus.** `live_wasm_testbed_ping_and_self_cast` loads
+  `HANGA_MODS/testbed.wasm` (set in `.#hanga-dev`) for ping and a self-cast drain.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names
-  use `ask_any_text` / `bus_text_payload`. `ask_any_kit` / `bus_kit` remain for
-  leftover CSV callers.
+  use `ask_any_text` / `bus_text_payload`. Kits use `ask_any_node` / `bus_node`.
+- **Trap restart cooldown.** After `fail("trap")` the host reloads the pack from
+  disk at most once per 2s (`trap_restart_ready`). Guest statics reset. If reload
+  fails, the store stays dead. Covered in `cargo test --bin hanga`.
 - **Selective receive / priorities.** OTP can skip mailbox items. We FIFO only.
   Not needed until a pack both `send`s to self and must handle `on-step` first.
 
 ## Values and kits
 
-- **Host still flattens kits.** Vehicle, crash, gravity, fire, fracture, planar,
-  and contract-mark walk `Node`. `fields_from_wire` remains for leftover CSV
-  callers (`ask_any_fields` / `bus_fields`).
+- **Host still flattens some kits via `Node` walks.** Vehicle, crash, gravity,
+  fire, fracture, planar, and contract-mark parse trees. `key=value;` text is
+  only a fallback inside those parsers (lib tests). The host bus no longer has
+  CSV `bus_kit` / `fields_from_wire` callers.
 - **Two value types.** `hanga::kit::Atom` is a flat scalar; `Node` is the tree;
-  WIT `cell` is the arena encoding. Flattened `Fields` remain for CSV fallback.
-- **`key=value;` fallback.** Keep until leftover CSV callers go away. Zig
-  `methods` is now a list of topic names.
+  WIT `cell` is the arena encoding.
 
 ## Engine vs mods
 

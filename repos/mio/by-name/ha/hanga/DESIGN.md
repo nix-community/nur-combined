@@ -59,7 +59,8 @@ float, string, array (`items`), object (`dict`). WIT cannot nest types, so the
 tree is a cell arena (`cells` + index `at` / `root`). Host and kits still see
 nested objects, e.g. `vehicle-kit`
 `{kind, parts: [{name,sx,…}], beams: [{a,b}], tires: ["wheel"]}`.
-A `key=value;` string is only a fallback. `has` / `methods` advertise names
+A `key=value;` string is only a fallback inside kit parsers. Host bus kits are
+`Node` trees (`bus_node` / `ask_any_node`). `has` / `methods` advertise names
 (`methods` is an `items` list of topic strings, dict keys, or CSV text).
 
 ## Languages (Godot + Luanti)

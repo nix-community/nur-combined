@@ -308,37 +308,6 @@ pub fn wire_is_empty(value: &Wire) -> bool {
     }
 }
 
-fn value_kit(value: &Wire) -> String {
-    match value {
-        Wire::Empty => String::new(),
-        Wire::Flag(flag) => {
-            if *flag {
-                "1".into()
-            } else {
-                "0".into()
-            }
-        }
-        Wire::Int(n) => n.to_string(),
-        Wire::Float(n) => n.to_string(),
-        Wire::Text(text) => text.clone(),
-        Wire::Items(items) => items.iter().map(value_kit).collect::<Vec<_>>().join(","),
-        Wire::Dict(fields) => fields
-            .iter()
-            .map(|field| format!("{}={}", field.key, value_kit(&field.value)))
-            .collect::<Vec<_>>()
-            .join(";"),
-        Wire::Fail(_) => String::new(),
-    }
-}
-
-fn join_key(prefix: &str, key: &str) -> String {
-    if prefix.is_empty() {
-        key.into()
-    } else {
-        format!("{prefix}.{key}")
-    }
-}
-
 pub fn node_from_wire(value: &Wire) -> ::hanga::kit::Node {
     match value {
         Wire::Empty | Wire::Fail(_) => ::hanga::kit::Node::Empty,
@@ -356,73 +325,6 @@ pub fn node_from_wire(value: &Wire) -> ::hanga::kit::Node {
                 .collect(),
         ),
     }
-}
-
-fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit::Atom)>) {
-    match value {
-        Wire::Empty => {}
-        Wire::Flag(flag) => out.push((
-            if prefix.is_empty() {
-                "value".into()
-            } else {
-                prefix.into()
-            },
-            ::hanga::kit::Atom::Flag(*flag),
-        )),
-        Wire::Int(n) => out.push((
-            if prefix.is_empty() {
-                "value".into()
-            } else {
-                prefix.into()
-            },
-            ::hanga::kit::Atom::Int(*n),
-        )),
-        Wire::Float(n) => out.push((
-            if prefix.is_empty() {
-                "value".into()
-            } else {
-                prefix.into()
-            },
-            ::hanga::kit::Atom::Float(*n),
-        )),
-        Wire::Text(text) => out.push((
-            if prefix.is_empty() {
-                "value".into()
-            } else {
-                prefix.into()
-            },
-            ::hanga::kit::Atom::Text(text.clone()),
-        )),
-        Wire::Items(items) => {
-            for (i, item) in items.iter().enumerate() {
-                flatten_wire(&join_key(prefix, &i.to_string()), item, out);
-            }
-        }
-        Wire::Dict(fields) => {
-            for field in fields {
-                flatten_wire(&join_key(prefix, &field.key), &field.value, out);
-            }
-        }
-        Wire::Fail(_) => {}
-    }
-}
-
-/// Kits are JSON-shaped values. A `key=value;` string is still accepted as a fallback.
-pub fn fields_from_wire(value: &Wire) -> ::hanga::kit::Fields {
-    match value {
-        Wire::Empty => ::hanga::kit::Fields::default(),
-        Wire::Fail(_) => ::hanga::kit::Fields::default(),
-        Wire::Text(text) => ::hanga::kit::Fields::from_text(text),
-        other => {
-            let mut pairs = Vec::new();
-            flatten_wire("", other, &mut pairs);
-            ::hanga::kit::Fields { pairs }
-        }
-    }
-}
-
-pub fn wire_as_kit(value: &Wire) -> String {
-    value_kit(value)
 }
 
 /// Name-shaped replies (`loot-item`, labels). Dicts are not flattened into a fake name.
@@ -492,6 +394,11 @@ impl EngineBus for NoopBus {
 
 const MAILBOX_CAP: usize = 256;
 const MAILBOX_DRAIN_ROUNDS: usize = 32;
+const TRAP_RESTART_COOLDOWN_MS: u128 = 2000;
+
+fn trap_restart_ready(last: Option<Instant>, now: Instant) -> bool {
+    last.is_none_or(|at| now.duration_since(at).as_millis() >= TRAP_RESTART_COOLDOWN_MS)
+}
 
 struct QueuedAsk {
     slot: Arc<Mutex<Option<MainModContext>>>,
@@ -896,10 +803,7 @@ impl MainModContext {
     fn restart_after_trap(&mut self) {
         let name = self.store.data().name.clone();
         let now = Instant::now();
-        if self
-            .last_restart
-            .is_some_and(|at| now.duration_since(at).as_millis() < 2000)
-        {
+        if !trap_restart_ready(self.last_restart, now) {
             warn!("mod {name} trapped again; waiting before another restart");
             return;
         }
@@ -922,14 +826,6 @@ impl MainModContext {
 
     pub fn bus(&mut self, topic: &str, payload: &Wire) -> Wire {
         self.call("host", topic, payload)
-    }
-
-    pub fn bus_kit(&mut self, topic: &str, payload: &Wire) -> String {
-        wire_as_kit(&self.bus(topic, payload))
-    }
-
-    pub fn bus_fields(&mut self, topic: &str, payload: &Wire) -> ::hanga::kit::Fields {
-        fields_from_wire(&self.bus(topic, payload))
     }
 
     pub fn bus_node(&mut self, topic: &str, payload: &Wire) -> ::hanga::kit::Node {
@@ -1035,16 +931,8 @@ impl ModRuntime {
         first_override(replies)
     }
 
-    pub fn ask_any_kit(&self, method: &str, args: &Wire) -> String {
-        wire_as_kit(&self.ask_any(method, args))
-    }
-
     pub fn ask_any_text(&self, method: &str, args: &Wire) -> String {
         wire_as_text(&self.ask_any(method, args))
-    }
-
-    pub fn ask_any_fields(&self, method: &str, args: &Wire) -> ::hanga::kit::Fields {
-        fields_from_wire(&self.ask_any(method, args))
     }
 
     pub fn ask_any_node(&self, method: &str, args: &Wire) -> ::hanga::kit::Node {
@@ -1376,6 +1264,20 @@ mod tests {
         assert!(wire_is_empty(&Wire::Text(String::new())));
         assert!(!wire_is_empty(&wire_fail("busy")));
         assert!(wire_is_fail(&wire_fail("self")));
+    }
+
+    #[test]
+    fn trap_restart_waits_two_seconds() {
+        let t0 = Instant::now();
+        assert!(trap_restart_ready(None, t0));
+        assert!(!trap_restart_ready(
+            Some(t0),
+            t0 + std::time::Duration::from_millis(1999)
+        ));
+        assert!(trap_restart_ready(
+            Some(t0),
+            t0 + std::time::Duration::from_millis(2000)
+        ));
     }
 
     #[test]
