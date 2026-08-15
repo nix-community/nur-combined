@@ -10,7 +10,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   requeues a message if the pack is still locked instead of dropping it as empty.
   Drain still stops after 32 rounds and warns if work remains. `LiveBus` OTP
   errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
-  `cargo test --bin hanga`.
+  `cargo test --bin hanga`. Live WASM `live_wasm_testbed_mailbox_cap_and_drain`
+  fills a loaded testbed slot to the 256 cap (oldest `note` dropped) and
+  checks drain-while-locked requeue.
 - **Live WASM on the bus.** `live_wasm_testbed_ping_and_self_cast` and
   `live_wasm_two_packs_empty_peer_ping` load `HANGA_MODS` guests (set in
   `.#hanga-dev`) for ping, self-cast drain, empty-peer override, testbed
@@ -21,8 +23,13 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `craft-result` uses the urban pack over testbed's empty reply. Testbed
   `toss` is guest `send` (self mailbox or a free peer). `ask` is guest
   `invoke` (`self` / `noproc` / named peer). `boom` traps and reloads the
-  pack (guest statics reset). Testbed `bark` covers guest `log`. Urban
+  pack (guest statics reset). A second `boom` within 2s still returns `trap`
+  and leaves the store dead until the cooldown (`count` is `fail("trap")`,
+  not a reloaded zero). Testbed `bark` covers guest `log`. Urban
   `steer` covers cop chase and traffic planar (`fwd-x` / `fwd-z` / `blocked`).
+  `hello` / `name` / `has` / `methods` are live on testbed. `ready` greets a
+  locked peer (`hello` mailbox) and logs `testbed ready`. Host `voxel()`
+  matches guest `probe` for worldgen and overlay.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names

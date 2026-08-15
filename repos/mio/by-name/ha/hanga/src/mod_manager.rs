@@ -1501,6 +1501,35 @@ mod tests {
         Some((bus, slot, ctx))
     }
 
+    fn instantiate_live_pair(
+        lead_name: &str,
+        pack_name: &str,
+    ) -> Option<(
+        Arc<LiveBus>,
+        Arc<Mutex<Option<MainModContext>>>,
+        Arc<Mutex<Option<MainModContext>>>,
+    )> {
+        let lead_path = mods_wasm(lead_name)?;
+        let pack_path = mods_wasm(pack_name)?;
+        let lead = Arc::new(Mutex::new(None));
+        let pack = Arc::new(Mutex::new(None));
+        let bus = Arc::new(LiveBus::new(
+            lead_name.into(),
+            Arc::clone(&lead),
+            vec![(pack_name.into(), Arc::clone(&pack))],
+        ));
+        let host: Arc<dyn EngineBus> = Arc::clone(&bus) as Arc<dyn EngineBus>;
+        *lead.lock().unwrap() = Some(
+            ModRuntime::instantiate(&lead_path, lead_name, Arc::clone(&host), true)
+                .unwrap_or_else(|| panic!("load {lead_name}.wasm")),
+        );
+        *pack.lock().unwrap() = Some(
+            ModRuntime::instantiate(&pack_path, pack_name, host, false)
+                .unwrap_or_else(|| panic!("load {pack_name}.wasm")),
+        );
+        Some((bus, lead, pack))
+    }
+
     #[test]
     fn live_wasm_testbed_ping_and_self_cast() {
         let Some((bus, slot, ctx)) = instantiate_live("testbed") else {
@@ -1643,29 +1672,112 @@ mod tests {
     }
 
     #[test]
-    fn live_wasm_two_packs_empty_peer_ping() {
-        let Some(testbed) = mods_wasm("testbed") else {
+    fn live_wasm_testbed_mailbox_cap_and_drain() {
+        let Some((bus, slot, ctx)) = instantiate_live("testbed") else {
             return;
         };
-        let Some(urban) = mods_wasm("urban_chaos") else {
+        *slot.lock().unwrap() = Some(ctx);
+        {
+            let hold = slot.lock().unwrap();
+            bus.send("host", "testbed", "note", wire_empty());
+            bus.flush_deferred();
+            assert_eq!(bus.pending.lock().unwrap().len(), 1);
+            for _ in 0..MAILBOX_CAP {
+                bus.send("host", "testbed", "note", wire_empty());
+            }
+            assert_eq!(bus.pending.lock().unwrap().len(), MAILBOX_CAP);
+            drop(hold);
+        }
+        bus.flush_deferred();
+        assert!(bus.pending.lock().unwrap().is_empty());
+        assert_eq!(
+            payload_i64(&bus.invoke("host", "testbed", "count", wire_empty()), "value"),
+            MAILBOX_CAP as i64
+        );
+    }
+
+    #[test]
+    fn live_wasm_testbed_trap_cooldown_keeps_dead_store() {
+        let Some((bus, slot, ctx)) = instantiate_live("testbed") else {
             return;
         };
-        let lead = Arc::new(Mutex::new(None));
-        let pack = Arc::new(Mutex::new(None));
-        let bus = Arc::new(LiveBus::new(
-            "testbed".into(),
-            Arc::clone(&lead),
-            vec![("urban_chaos".into(), Arc::clone(&pack))],
+        *slot.lock().unwrap() = Some(ctx);
+        assert!(matches!(
+            bus.invoke("host", "testbed", "boom", wire_empty()),
+            Wire::Fail(reason) if reason == "trap"
         ));
-        let host: Arc<dyn EngineBus> = Arc::clone(&bus) as Arc<dyn EngineBus>;
-        *lead.lock().unwrap() = Some(
-            ModRuntime::instantiate(&testbed, "testbed", Arc::clone(&host), true)
-                .expect("load testbed.wasm"),
+        assert_eq!(
+            payload_i64(&bus.invoke("host", "testbed", "count", wire_empty()), "value"),
+            0
         );
-        *pack.lock().unwrap() = Some(
-            ModRuntime::instantiate(&urban, "urban_chaos", host, false)
-                .expect("load urban_chaos.wasm"),
+        assert!(matches!(
+            bus.invoke("host", "testbed", "boom", wire_empty()),
+            Wire::Fail(reason) if reason == "trap"
+        ));
+        assert!(matches!(
+            bus.invoke("host", "testbed", "count", wire_empty()),
+            Wire::Fail(reason) if reason == "trap"
+        ));
+    }
+
+    #[test]
+    fn live_wasm_testbed_hello_name_has_methods() {
+        let Some((bus, slot, ctx)) = instantiate_live("testbed") else {
+            return;
+        };
+        *slot.lock().unwrap() = Some(ctx);
+        assert_eq!(
+            wire_as_text(&bus.invoke("host", "testbed", "hello", wire_empty())),
+            "hello host"
         );
+        assert_eq!(
+            wire_as_text(&bus.invoke("host", "testbed", "name", wire_empty())),
+            "testbed"
+        );
+        assert!(matches!(
+            bus.invoke("host", "testbed", "has", Wire::Text("ping".into())),
+            Wire::Flag(true)
+        ));
+        assert!(matches!(
+            bus.invoke("host", "testbed", "has", Wire::Text("nope".into())),
+            Wire::Flag(false)
+        ));
+        let methods = parse_topics(&bus.invoke("host", "testbed", "methods", wire_empty()));
+        assert!(methods.contains("ping") && methods.contains("hello"));
+    }
+
+    #[test]
+    fn live_wasm_two_packs_ready_greets_peer() {
+        let Some((bus, lead, pack)) = instantiate_live_pair("testbed", "urban_chaos") else {
+            return;
+        };
+        {
+            let hold = pack.lock().unwrap();
+            {
+                let mut guard = lead.lock().unwrap();
+                guard.as_mut().expect("testbed").wake();
+            }
+            assert!(
+                bus.pending
+                    .lock()
+                    .unwrap()
+                    .iter()
+                    .any(|queued| queued.topic == "hello" && queued.from == "testbed")
+            );
+            drop(hold);
+        }
+        bus.flush_deferred();
+        assert!(bus.pending.lock().unwrap().is_empty());
+        assert!(bus.logs.lock().unwrap().iter().any(|(from, level, message)| {
+            from == "testbed" && level == "info" && message == "testbed ready"
+        }));
+    }
+
+    #[test]
+    fn live_wasm_two_packs_empty_peer_ping() {
+        let Some((bus, _lead, _pack)) = instantiate_live_pair("testbed", "urban_chaos") else {
+            return;
+        };
         assert!(bus.has_mod("testbed") && bus.has_mod("urban_chaos"));
         assert_eq!(bus.peers("testbed"), vec!["urban_chaos".to_string()]);
         assert_eq!(
@@ -1761,6 +1873,12 @@ mod tests {
             Some("concrete")
         );
         assert!(!world.get("edit").is_some_and(::hanga::kit::Node::as_flag));
+        let lead_voxel = node_from_wire(&bus.voxel(0, 0, 0));
+        assert_eq!(
+            lead_voxel.get("name").map(::hanga::kit::Node::text).as_deref(),
+            Some("concrete")
+        );
+        assert!(!lead_voxel.get("edit").is_some_and(::hanga::kit::Node::as_flag));
         let painted = wire_bag(vec![
             ("x", Wire::Int(99)),
             ("y", Wire::Int(1)),
@@ -1788,6 +1906,15 @@ mod tests {
             Some("glass")
         );
         assert!(overlay.get("edit").is_some_and(::hanga::kit::Node::as_flag));
+        let host_overlay = node_from_wire(&bus.voxel(99, 1, 99));
+        assert_eq!(
+            host_overlay
+                .get("name")
+                .map(::hanga::kit::Node::text)
+                .as_deref(),
+            Some("glass")
+        );
+        assert!(host_overlay.get("edit").is_some_and(::hanga::kit::Node::as_flag));
         ::hanga::overlay_clear();
         let _ = ::hanga::take_voxel_writes();
     }
