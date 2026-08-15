@@ -9,6 +9,11 @@
   callPackage,
 }:
 
+let
+  koffiArch = stdenv.hostPlatform.node.arch;
+  unusedKoffiVariant =
+    if stdenv.hostPlatform.isMusl then "linux_${koffiArch}" else "musl_${koffiArch}";
+in
 buildNpmPackage (finalAttrs: {
   pname = "deepseek-harness";
   inherit (source) version;
@@ -33,6 +38,8 @@ buildNpmPackage (finalAttrs: {
 
     mkdir -p $out/share/deepseek-harness
     cp -r node_modules $out/share/deepseek-harness/
+    rm -r \
+      $out/share/deepseek-harness/node_modules/@koromix/koffi-linux-${koffiArch}/${unusedKoffiVariant}
 
     makeWrapper ${lib.getExe nodejs_24} $out/bin/dsh \
       --add-flags $out/share/deepseek-harness/node_modules/@deepseek-ai/dsh/lib/bin.js
