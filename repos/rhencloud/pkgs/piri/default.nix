@@ -1,13 +1,14 @@
 {
   lib,
   fetchFromGitHub,
+  fetchzip,
   pkg-config,
   makeRustPlatform,
   stdenv,
 }:
 
 let
-  modernPkgs = import (builtins.fetchTarball {
+  modernPkgs = import (fetchzip {
     url = "https://github.com/NixOS/nixpkgs/archive/13043924aaa7375ce482ebe2494338e058282925.tar.gz";
     sha256 = "sha256-nwASzrRDD1JBEu/o8ekKYEXm/oJW6EMCzCRdrwcLe90=";
   }) {
