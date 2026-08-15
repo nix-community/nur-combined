@@ -51,7 +51,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 - **Host still flattens some kits via `Node` walks.** Vehicle, crash, gravity,
   fire, fracture, planar, and contract-mark parse trees. `key=value;` text is
-  only a fallback inside those parsers (lib tests). The host bus no longer has
+  only a fallback inside those parsers (lib tests). Gravity, crash, and
+  vehicle kits treat empty text/dict like `Empty`. `with_mod` uses
+  `try_lock` like `ask_any`. The host bus no longer has
   CSV `bus_kit` / `fields_from_wire` callers.
 - **Two value types.** `hanga::kit::Atom` is a flat scalar; `Node` is the tree;
   WIT `cell` is the arena encoding.

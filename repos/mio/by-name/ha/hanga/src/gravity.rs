@@ -54,7 +54,7 @@ pub fn parse_gravity_fields(fields: &crate::kit::Fields) -> GravityKit {
 
 pub fn parse_gravity_node(node: &crate::kit::Node) -> GravityKit {
     use crate::kit::Node;
-    if matches!(node, Node::Empty) {
+    if node.is_empty() {
         return GravityKit::default();
     }
     let mut kit = GravityKit::default();
@@ -310,6 +310,10 @@ mod tests {
         assert_eq!(avian_accel(&kit), [0.0, 0.0, 0.0]);
         assert_eq!(kit.jump, 0.0);
         assert!((kit.walk - 10.0).abs() < 1e-5);
+        assert_eq!(
+            parse_gravity_node(&crate::kit::Node::Dict(vec![])),
+            GravityKit::default()
+        );
     }
 
     #[test]

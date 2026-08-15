@@ -57,8 +57,10 @@ pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
 
 pub fn parse_vehicle_kit_node(node: &crate::kit::Node) -> VehicleKit {
     use crate::kit::Node;
+    if node.is_empty() {
+        return VehicleKit::default();
+    }
     match node {
-        Node::Empty => VehicleKit::default(),
         Node::Text(text) => parse_vehicle_kit(text),
         Node::Dict(_) => parse_vehicle_kit_tree(node),
         _ => VehicleKit::default(),
@@ -525,6 +527,10 @@ mod tests {
         assert_eq!(kit.kind, "vehicle");
         assert!(!kit.traffic);
         assert_eq!(kit.parts.len(), 1);
+        assert_eq!(
+            parse_vehicle_kit_node(&crate::kit::Node::Dict(vec![])),
+            VehicleKit::default()
+        );
     }
 
     #[test]

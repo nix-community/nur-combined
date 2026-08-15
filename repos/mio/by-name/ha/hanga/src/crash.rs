@@ -76,8 +76,10 @@ pub fn parse_crash_kit(text: &str) -> CrashKit {
 
 pub fn parse_crash_kit_node(node: &crate::kit::Node) -> CrashKit {
     use crate::kit::Node;
+    if node.is_empty() {
+        return CrashKit::default();
+    }
     match node {
-        Node::Empty => CrashKit::default(),
         Node::Text(text) => parse_crash_kit(text),
         Node::Dict(_) => {
             let mut kit = CrashKit::default();
@@ -301,6 +303,19 @@ mod tests {
     fn taps_are_not_impacts() {
         assert_eq!(impact_speed(6.0, 5.0, false), None);
         assert_eq!(impact_speed(6.0, 5.0, true), None);
+    }
+
+    #[test]
+    fn empty_crash_shapes_are_default() {
+        assert_eq!(parse_crash_kit_node(&crate::kit::Node::Empty), CrashKit::default());
+        assert_eq!(
+            parse_crash_kit_node(&crate::kit::Node::Text(String::new())),
+            CrashKit::default()
+        );
+        assert_eq!(
+            parse_crash_kit_node(&crate::kit::Node::Dict(vec![])),
+            CrashKit::default()
+        );
     }
 
     #[test]

@@ -848,7 +848,7 @@ fn with_mod<T>(
     mod_runtime: &ModRuntime,
     f: impl FnOnce(&mut mod_manager::MainModContext) -> T,
 ) -> Option<T> {
-    let mut guard = mod_runtime.context.lock().ok()?;
+    let mut guard = mod_runtime.context.try_lock().ok()?;
     let ctx = guard.as_mut()?;
     Some(f(ctx))
 }
@@ -861,7 +861,7 @@ fn with_named_mod<T>(
     if !name.is_empty() && name != mod_runtime.lead_name() {
         for pack in &mod_runtime.packs {
             if pack.name == name {
-                let mut guard = pack.context.lock().ok()?;
+                let mut guard = pack.context.try_lock().ok()?;
                 let ctx = guard.as_mut()?;
                 return Some(f(ctx));
             }
@@ -875,7 +875,7 @@ fn with_pack_mods(
     mut f: impl FnMut(&str, &mut mod_manager::MainModContext),
 ) {
     for pack in &mod_runtime.packs {
-        if let Ok(mut guard) = pack.context.lock() {
+        if let Ok(mut guard) = pack.context.try_lock() {
             if let Some(ctx) = guard.as_mut() {
                 f(&pack.name, ctx);
             }
