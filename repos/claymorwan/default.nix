@@ -13,13 +13,14 @@
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  nixosModules = import ./nixos-modules; # NixOS modules
-  # homeModules = { }; # Home Manager modules
+  nixosModules = import ./modules/nixos; # NixOS modules
+  homeModules = import ./modules/hm; # Home Manager modules
   # darwinModules = { }; # nix-darwin modules
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
   shimelinux = pkgs.callPackage ./pkgs/shimelinux { };
   utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
+  pvpn = pkgs.callPackage ./pkgs/pvpn { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }
