@@ -50,6 +50,5 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "shifuctl";
-    broken = true; # https://github.com/NixOS/nixpkgs/pull/519903
   };
 })

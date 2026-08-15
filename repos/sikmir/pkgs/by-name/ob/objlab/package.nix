@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
     mainProgram = "objlab";
   };
 }

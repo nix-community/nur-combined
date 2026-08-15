@@ -34,9 +34,9 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
     the-foundation
   ]
-  ++ lib.optional stdenv.isLinux libx11;
+  ++ lib.optional stdenv.hostPlatform.isLinux libx11;
 
-  installPhase = lib.optionalString stdenv.isDarwin ''
+  installPhase = lib.optionalString stdenv.hostPlatform.isDarwin ''
     runHook preInstall
     mkdir -p $out/Applications
     mv *.app $out/Applications

@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     qt5.wrapQtAppsHook
   ]
-  ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     qt5.qtsvg
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     zeromq
     zstd
   ]
-  ++ lib.optionals stdenv.isLinux [ qt5.qtx11extras ];
+  ++ lib.optionals stdenv.hostPlatform.isLinux [ qt5.qtx11extras ];
 
   meta = {
     description = "The Time Series Visualization Tool";

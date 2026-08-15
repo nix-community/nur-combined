@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace src/buffer/buffer.h \
       --replace-fail "<endian.h>" "<machine/endian.h>"
   '';
@@ -49,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
   };
 })

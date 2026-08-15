@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage {
   ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
+    lib.optionals stdenv.hostPlatform.isLinux [ openssl ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       curl
       libiconv
@@ -48,6 +48,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://git.sr.ht/~matthiasbeyer/repolocli";
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = stdenv.isLinux;
+    broken = stdenv.hostPlatform.isLinux;
   };
 }

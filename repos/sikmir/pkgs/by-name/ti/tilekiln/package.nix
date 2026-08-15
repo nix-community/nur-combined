@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     hash = "sha256-tsihU/63SC0QO2HIBXkrU2GDKql6X3OF4D2qjxgCOTs=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     sed -i 's/len(os.sched_getaffinity(0))/4/' tilekiln/scripts/{generate,serve}.py
   '';
 

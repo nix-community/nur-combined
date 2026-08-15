@@ -9,7 +9,7 @@
 }:
 
 let
-  fuse = if stdenv.isDarwin then macfuse-stubs else fuse3;
+  fuse = if stdenv.hostPlatform.isDarwin then macfuse-stubs else fuse3;
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ffs";

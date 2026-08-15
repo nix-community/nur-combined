@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     qt5.wrapQtAppsHook
-  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs = [ mariadb-connector-c ];
 
@@ -44,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
     mainProgram = "ocelotgui";
-    broken = stdenv.isDarwin;
+    broken = stdenv.hostPlatform.isDarwin;
   };
 })

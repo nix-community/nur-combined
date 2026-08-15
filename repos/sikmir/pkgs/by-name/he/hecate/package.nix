@@ -32,6 +32,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Hecate/Hecate";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = stdenv.isLinux;
+    broken = stdenv.hostPlatform.isLinux;
   };
 })

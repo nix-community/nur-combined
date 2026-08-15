@@ -31,6 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
   };
 })

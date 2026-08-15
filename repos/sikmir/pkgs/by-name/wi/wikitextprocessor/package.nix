@@ -30,7 +30,7 @@ python3Packages.buildPythonPackage {
   disabledTests = [
     "test_string_format2"
   ]
-  ++ lib.optionals stdenv.isDarwin [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "test_long_twothread"
     "test_expr29"
   ];

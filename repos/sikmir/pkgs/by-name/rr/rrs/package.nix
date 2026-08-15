@@ -101,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
     mainProgram = "launcher";
     broken = true; # error: 'KTX_BASIS_CODEC_ETC1S' was not declared in this scope
   };

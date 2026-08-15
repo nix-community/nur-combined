@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     hash = "sha256-oXTMnTsldf5IoKL6O4HtMmUAyJTy75PH0gBmO81a9Wo=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     rm ff-vccapture.c ff-xcapture.c ff-xdraw.c ff-xwin.c
   '';
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     ghostscript
     sqlite
   ]
-  ++ lib.optionals stdenv.isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     libx11
     libxrender
   ];

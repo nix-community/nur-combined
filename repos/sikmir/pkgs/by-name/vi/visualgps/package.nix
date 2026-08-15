@@ -29,7 +29,7 @@ stdenv.mkDerivation {
   qmakeFlags = [ "Software/VisualGPSqt/Source/VisualGPSqt.pro" ];
 
   postInstall =
-    if stdenv.isDarwin then
+    if stdenv.hostPlatform.isDarwin then
       ''
         mkdir -p $out/Applications
         mv *.app $out/Applications

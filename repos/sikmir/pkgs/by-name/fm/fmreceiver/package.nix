@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace fmreceiver.pro --replace-fail "CONFIG" "#CONFIG"
   ''
-  + lib.optionalString stdenv.isDarwin ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace fmreceiver.pro --replace-fail "-lrt " ""
     substituteInPlace includes/fm-constants.h --replace-fail "<malloc.h>" "<stdlib.h>"
     substituteInPlace devices/rtlsdr-handler/rtlsdr-handler.cpp --replace-fail ".so" ".dylib"
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   qmakeFlags = [ "CONFIG+=dabstick" ];
 
   gappsWrapperArgs = [
-    "--prefix ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH : ${
+    "--prefix ${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH : ${
       lib.makeLibraryPath [ rtl-sdr ]
     }"
   ];
@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_LDFLAGS = "-lqwt";
 
   installPhase =
-    if stdenv.isDarwin then
+    if stdenv.hostPlatform.isDarwin then
       ''
         mkdir -p $out/Applications
         mv linux-bin/fmreceiver-3.20.app $out/Applications/fmreceiver.app

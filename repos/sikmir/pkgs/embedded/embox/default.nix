@@ -89,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
         arm = "model=smc91c111";
         x86 = "model=virtio";
       };
-      withNetwork = (lib.hasAttr arch net_args) && stdenv.isLinux;
+      withNetwork = (lib.hasAttr arch net_args) && stdenv.hostPlatform.isLinux;
     in
     ''
       mkdir -p $out/bin

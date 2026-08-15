@@ -30,6 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
   };
 })

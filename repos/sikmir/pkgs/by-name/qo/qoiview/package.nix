@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isLinux (toString [
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux (toString [
     "-I${libx11.dev}/include"
     "-I${xorgproto}/include"
     "-I${libxi.dev}/include"
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-I${libglvnd.dev}/include"
   ]);
 
-  env.NIX_LDFLAGS = lib.optionalString stdenv.isLinux (toString [
+  env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux (toString [
     "-L${libx11}/lib"
     "-L${libxi}/lib"
     "-L${libxcursor}/lib"
@@ -54,6 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
   };
 })

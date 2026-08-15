@@ -36,6 +36,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/sfluor/musig";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = stdenv.isDarwin;
+    broken = stdenv.hostPlatform.isDarwin;
   };
 })

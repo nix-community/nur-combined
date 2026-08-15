@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   installPhase =
-    if stdenv.isDarwin then
+    if stdenv.hostPlatform.isDarwin then
       ''
         mkdir -p $out/Applications $out/bin
         mv Capture2Text_CLI.app $out/Applications

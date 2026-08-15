@@ -69,6 +69,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "eio";
-    broken = stdenv.isDarwin; # postgresql-test-hook
+    broken = stdenv.hostPlatform.isDarwin; # postgresql-test-hook
   };
 })

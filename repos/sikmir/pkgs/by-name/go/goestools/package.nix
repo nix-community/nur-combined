@@ -23,6 +23,10 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
+  postPatch = ''
+    sed -i '3i #include <cstdint>' src/goesrecv/packet_publisher.h
+  '';
+
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -34,12 +38,15 @@ stdenv.mkDerivation {
     zlib
   ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+  ];
+
   meta = {
     description = "Tools to work with signals and files from GOES satellites";
     homepage = "https://pietern.github.io/goestools/";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = true;
   };
 }

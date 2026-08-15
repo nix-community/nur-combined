@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-fzR+HKAZmvjiL4pBqfi3xIl5Ju0W3Hpy3SDHOmgoWZ0=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace gdcv.c \
       --replace-fail "#include <error.h>" ""
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     emacs
     zlib
   ]
-  ++ lib.optional stdenv.isDarwin argp-standalone;
+  ++ lib.optional stdenv.hostPlatform.isDarwin argp-standalone;
 
   makeFlags = [
     "CC:=$(CC)"
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     "emacs-module"
   ];
 
-  env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-largp";
+  env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-largp";
 
   installPhase = ''
     runHook preInstall
@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
     mainProgram = "gdcv";
   };
 })

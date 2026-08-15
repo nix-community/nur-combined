@@ -19,7 +19,7 @@ perlPackages.buildPerlPackage {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin shortenPerlShebang;
 
   propagatedBuildInputs = with perlPackages; [
     ConfigStd
@@ -52,10 +52,10 @@ perlPackages.buildPerlPackage {
     install -dm755 $out/lib/perl5/site_perl
     cp -r lib/* $out/lib/perl5/site_perl
   ''
-  + lib.optionalString stdenv.isLinux ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
     patchShebangs $out/bin/osm2mp
   ''
-  + lib.optionalString stdenv.isDarwin ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     shortenPerlShebang $out/bin/osm2mp
   '';
 

@@ -54,7 +54,7 @@ in
   config = mkIf cfg.enable (mkMerge [
     { home.packages = [ cfg.package ]; }
 
-    (mkIf pkgs.stdenv.isLinux {
+    (mkIf pkgs.stdenv.hostPlatform.isLinux {
       home.activation.createConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
         $DRY_RUN_CMD mkdir -p ${configDir}
         $DRY_RUN_CMD touch ${configFile}
@@ -63,7 +63,7 @@ in
 
     (mkIf (length cfg.demPackages > 0) {
       home.activation.setupDemPaths = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Canvas.demPaths -array ${toString cfg.demPackages}"
         else
           "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} Canvas demPaths ${concatStringsSep "," cfg.demPackages}"
@@ -72,7 +72,7 @@ in
 
     (mkIf (length cfg.mapPackages > 0) {
       home.activation.setupMapPaths = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Canvas.mapPath -array ${toString cfg.mapPackages}"
         else
           "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} Canvas mapPath ${concatStringsSep "," cfg.mapPackages}"
@@ -81,7 +81,7 @@ in
 
     (mkIf (length cfg.routinoPackages > 0) {
       home.activation.setupRoutinoPaths = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Route.routino.paths -array ${toString cfg.routinoPackages}"
         else
           "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} Route routino\\\\paths ${concatStringsSep "," cfg.routinoPackages}"

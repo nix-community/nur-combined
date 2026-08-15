@@ -62,7 +62,7 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
     mainProgram = "gpx2video";
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
     broken = true; # error: no matching function for call to 'channels(OpenImageIO::v3_1::ImageBuf&, OpenImageIO::v3_1::ImageBuf&, int, int [4], float [0], std::string [4])'
   };
 }

@@ -114,7 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
     unzip
     wrapGAppsHook3
   ]
-  ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     db

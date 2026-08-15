@@ -19,7 +19,7 @@ perlPackages.buildPerlPackage {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin shortenPerlShebang;
 
   propagatedBuildInputs = [ perlPackages.XMLParser ];
 
@@ -28,10 +28,10 @@ perlPackages.buildPerlPackage {
   installPhase = ''
     install -Dm755 parse-gpx $out/bin/datamaps-parse-gpx
   ''
-  + lib.optionalString stdenv.isLinux ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
     patchShebangs $out/bin/datamaps-parse-gpx
   ''
-  + lib.optionalString stdenv.isDarwin ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     shortenPerlShebang $out/bin/datamaps-parse-gpx
   '';
 

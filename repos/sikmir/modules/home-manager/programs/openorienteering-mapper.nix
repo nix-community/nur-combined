@@ -30,7 +30,7 @@ in
   config = mkIf cfg.enable (mkMerge [
     { home.packages = [ cfg.package ]; }
 
-    (mkIf pkgs.stdenv.isLinux {
+    (mkIf pkgs.stdenv.hostPlatform.isLinux {
       home.activation.createConfigFile = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         $DRY_RUN_CMD mkdir -p ${configDir}
         $DRY_RUN_CMD touch ${configFile}
@@ -39,7 +39,7 @@ in
 
     {
       home.activation.tipsVisible = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "$DRY_RUN_CMD /usr/bin/defaults write ${domain} HomeScreen.tipsVisible -bool false"
         else
           "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} HomeScreen tipsVisible 0"

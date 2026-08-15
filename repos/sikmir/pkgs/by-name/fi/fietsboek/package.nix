@@ -69,6 +69,5 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://fietsboek.org/";
     license = lib.licenses.agpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # https://github.com/NixOS/nixpkgs/pull/548396
   };
 })

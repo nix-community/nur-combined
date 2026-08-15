@@ -33,6 +33,6 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.darwin;
-    skip.ci = !stdenv.isDarwin;
+    skip.ci = !stdenv.hostPlatform.isDarwin;
   };
 })

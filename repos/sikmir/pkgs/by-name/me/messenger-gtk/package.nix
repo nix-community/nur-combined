@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     desktop-file-utils # for update-desktop-database
   ]
-  ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     gnunet
@@ -68,6 +68,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.agpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = stdenv.hostPlatform.isDarwin;
   };
 })

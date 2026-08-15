@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-DOSX";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-DOSX";
 
   meta = {
     description = "A frequency scanner for Gqrx Software Defined Radio receiver";

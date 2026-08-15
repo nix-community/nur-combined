@@ -13,7 +13,7 @@ let
   domain = "com.gpxsee.GPXSee";
 
   appDataLocation =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "Library/Application Support/GPXSee"
     else
       "${config.xdg.dataHome}/gpxsee";
@@ -76,14 +76,14 @@ in
       home.packages = [ cfg.package ];
 
       home.activation.hideToolbar = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Settings.toolbar -bool false"
         else
           "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} Settings toolbar 0"
       );
     }
 
-    (mkIf pkgs.stdenv.isLinux {
+    (mkIf pkgs.stdenv.hostPlatform.isLinux {
       home.activation.createConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
         $DRY_RUN_CMD mkdir -p ${configDir}
         $DRY_RUN_CMD touch ${configFile}

@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.programs.josm;
   configDir =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "${config.home.homeDirectory}/Library/Preferences/JOSM"
     else
       "${config.xdg.configHome}/JOSM";

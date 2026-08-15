@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-incompatible-function-pointer-types";
 
-  hardeningDisable = lib.optional stdenv.isDarwin "format";
+  hardeningDisable = lib.optional stdenv.hostPlatform.isDarwin "format";
 
   meta = {
     description = "Translation tools for rust";

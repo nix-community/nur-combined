@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ qt6.qtbase ];
 
-  postInstall = lib.optionalString stdenv.isDarwin ''
+  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mv $out/{bin,Applications}
   '';
 

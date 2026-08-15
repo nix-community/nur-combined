@@ -24,7 +24,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     numpy
   ];
 
-  doCheck = !stdenv.isDarwin;
+  doCheck = !stdenv.hostPlatform.isDarwin;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

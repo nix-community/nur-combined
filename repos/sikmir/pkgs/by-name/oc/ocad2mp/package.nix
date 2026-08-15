@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-w5QV7dwfTAWRJ3ausSIRHbR8ZiUp761lwkc0qd1VAJw=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace Makefile.gcc \
       --replace-fail "CXX=g++" "" \
       --replace-fail "LINK=g++" "LINK=$CXX" \
