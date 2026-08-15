@@ -51,7 +51,7 @@ Build artifacts are cached in the Attic binary cache:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (22 packages)</summary>
+<summary>Package set: (Uncategorized) (23 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -61,6 +61,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.4 | Web management panel for the Docker-Proxy registry proxy |
 | - [x] |  | `filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.5.4 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
 | - [ ] |  | `hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
+| - [ ] |  | `imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [x] |  | `jieba-next` | [jieba-next](https://github.com/mxcoras/jieba-next) | 1.0.0rc1 | Modern jieba fork with Rust speedups |
 | - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 4.6.2 | Media library manager with automated downloading, media organization and subscription workflows |
 | - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.6.2 | Vue 3 web frontend for the Nexus Media media library manager |
@@ -99,7 +100,7 @@ Build artifacts are cached in the Attic binary cache:
 </details>
 
 <details>
-<summary>Package set: uncategorized (11 packages)</summary>
+<summary>Package set: uncategorized (12 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -107,6 +108,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.4 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `uncategorized.filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.5.4 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
 | - [ ] |  | `uncategorized.hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
+| - [ ] |  | `uncategorized.imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 4.6.2 | Media library manager with automated downloading, media organization and subscription workflows |
 | - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.6.2 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.17 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
