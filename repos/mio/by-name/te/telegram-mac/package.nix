@@ -26,7 +26,8 @@
 # - Use a broad sandboxProfile so xcodebuild can use host Xcode / Metal.
 # - Prefetch SwiftPM deps in a fixed-output derivation (FODs may use the network).
 #
-# Requires Xcode at /Applications/Xcode.app and the Shared Metal toolchain.
+# Requires Xcode at /Applications/Xcode.app and the Metal toolchain
+# (`xcodebuild -downloadComponent MetalToolchain`; `xcrun --find metal`).
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "telegram-mac";
@@ -147,6 +148,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   sandboxProfile = ''
     (allow file-read* file-write* process-exec mach-lookup)
     (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
+    (allow file-read* process-exec (subpath "/var/run/com.apple.security.cryptexd"))
+    (allow file-read* process-exec (subpath "/private/var/run/com.apple.security.cryptexd"))
+    (allow file-read* (subpath "/System/Library/AssetsV2/com_apple_MobileAsset_MetalToolchain"))
   '';
 
   dontUseCmakeConfigure = true;
@@ -276,13 +280,38 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # Fix OpusBinding header search path
     mkdir -p submodules/telegram-ios/submodules/OpusBinding/SharedHeaders/libopus/include/opus
-    find . -name "opus*.h" -exec cp {} submodules/telegram-ios/submodules/OpusBinding/SharedHeaders/libopus/include/opus/ \;
+    find . -name "opus*.h" -exec cp {} submodules/telegram-ios/submodules/OpusBinding/SharedHeaders/libopus/include/opus/ \; || true
 
-    # Xcode's metal stub is broken even after `xcodebuild -downloadComponent MetalToolchain`.
-    # Precompile with the working Shared Metal toolchain, then hide sources so xcodebuild
-    # does not invoke CompileMetalFile.
-    METAL=/Users/Shared/Metal.xctoolchain/usr/bin/metal
-    METALLIB=/Users/Shared/Metal.xctoolchain/usr/bin/metallib
+    # XcodeDefault's metal stub cannot compile. Xcode 26+ mounts MetalToolchain
+    # under cryptexd; xcrun only finds it if ~/Library has the mapping plist, but
+    # the Nix build HOME is a temp dir. Locate the toolchain on disk instead.
+    METAL=
+    METALLIB=
+    for d in \
+      /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-*/Metal.xctoolchain \
+      /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-*/Metal.xctoolchain \
+      /Users/Shared/Metal.xctoolchain \
+      /Users/*/Library/Developer/DVTDownloads/MetalToolchain/mounts/*/Metal.xctoolchain
+    do
+      if [ -x "$d/usr/bin/metal" ] && [ -x "$d/usr/bin/metallib" ]; then
+        METAL="$d/usr/bin/metal"
+        METALLIB="$d/usr/bin/metallib"
+        break
+      fi
+    done
+    if [ -z "$METAL" ]; then
+      METAL="$(xcrun --sdk macosx --find metal 2>/dev/null || true)"
+      METALLIB="$(xcrun --sdk macosx --find metallib 2>/dev/null || true)"
+      case "$METAL" in *XcodeDefault.xctoolchain*) METAL= ;; esac
+      case "$METALLIB" in *XcodeDefault.xctoolchain*) METALLIB= ;; esac
+    fi
+    if [ ! -x "$METAL" ] || [ ! -x "$METALLIB" ]; then
+      echo "Metal compiler not found (cryptexd mount, /Users/Shared/Metal.xctoolchain, xcrun)."
+      echo "On the host run: xcodebuild -downloadComponent MetalToolchain && xcrun --find metal"
+      exit 1
+    fi
+    echo "Using METAL=$METAL"
+    echo "Using METALLIB=$METALLIB"
 
     $METAL -c -target air64-apple-macos10.13 \
       submodules/telegram-ios/submodules/MetalEngine/Sources/MetalEngineShaders.metal \
@@ -437,7 +466,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/overtake/TelegramSwift";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.darwin;
-    # Host Xcode + Shared Metal toolchain; not buildable on Hydra.
+    # Host Xcode + Metal toolchain (xcrun metal); not buildable on Hydra.
     hydraPlatforms = [ ];
   };
 })
