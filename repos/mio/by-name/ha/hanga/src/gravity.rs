@@ -45,6 +45,10 @@ impl Default for GravityKit {
 /// kind=point;x=0;y=0;z=0;strength=500;falloff=invsq
 /// ```
 pub fn parse_gravity(text: &str) -> GravityKit {
+    parse_gravity_fields(&crate::kit::Fields::from_text(text))
+}
+
+pub fn parse_gravity_fields(fields: &crate::kit::Fields) -> GravityKit {
     let mut kit = GravityKit::default();
     let mut kind = String::new();
     let mut x = 0.0;
@@ -55,59 +59,71 @@ pub fn parse_gravity(text: &str) -> GravityKit {
     let mut saw_g = false;
     let mut strength = 20.0;
     let mut inv_sq = false;
-    for raw in text.split(|c| c == ';' || c == '\n') {
-        let rec = raw.trim();
-        if rec.is_empty() || rec.starts_with('#') {
-            continue;
-        }
-        let Some((key, value)) = rec.split_once('=') else {
-            continue;
-        };
-        match key.trim() {
+    for (key, cell) in &fields.pairs {
+        let value = cell.text();
+        match key.as_str() {
             "kind" | "type" => kind = value.trim().to_ascii_lowercase(),
             "x" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_f32() {
                     x = v;
                     saw_axis = true;
                 }
             }
             "y" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_f32() {
                     y = v;
                     saw_axis = true;
                 }
             }
             "z" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_f32() {
                     z = v;
                     saw_axis = true;
                 }
             }
             "g" | "magnitude" => {
-                if let Ok(v) = value.trim().parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     g = v.abs();
                     saw_g = true;
                 }
             }
             "strength" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_f32() {
                     strength = v;
                 }
             }
-            "falloff" => inv_sq = matches!(value.trim(), "invsq" | "inv-sq" | "inverse-square"),
+            "falloff" => {
+                inv_sq = cell.as_flag()
+                    || matches!(value.trim(), "invsq" | "inv-sq" | "inverse-square")
+            }
             "jump" => {
-                if let Ok(v) = value.trim().parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     kit.jump = v.max(0.0);
                 }
             }
             "walk" => {
-                if let Ok(v) = value.trim().parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     kit.walk = v.max(0.0);
                 }
             }
             "up" => {
-                if let Some(v) = parse_n(value, 3) {
+                if let Some(v) = parse_n(&value, 3) {
                     kit.up = unit([v[0], v[1], v[2]], [0.0, 1.0, 0.0]);
+                }
+            }
+            "up.x" => {
+                if let Some(v) = cell.as_f32() {
+                    kit.up[0] = v;
+                }
+            }
+            "up.y" => {
+                if let Some(v) = cell.as_f32() {
+                    kit.up[1] = v;
+                }
+            }
+            "up.z" => {
+                if let Some(v) = cell.as_f32() {
+                    kit.up[2] = v;
                 }
             }
             _ => {}

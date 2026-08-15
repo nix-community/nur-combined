@@ -24,4 +24,20 @@ func TestKit(t *testing.T) {
 	if text, ok := probe.BagText("name"); !ok || text != "glass" || !probe.BagFlag("edit") {
 		t.Fatal("wire probe")
 	}
+	nested := Wire{
+		Kind: WireBag,
+		Fields: []Field{{
+			Key: "parts",
+			Value: Wire{
+				Kind: WireList,
+				Items: []Wire{{
+					Kind:   WireBag,
+					Fields: []Field{{Key: "name", Value: Wire{Kind: WireText, Text: "hull"}}},
+				}},
+			},
+		}},
+	}
+	if name, ok := nested.Fields[0].Value.Items[0].BagText("name"); !ok || name != "hull" {
+		t.Fatal("nested list of objects")
+	}
 }

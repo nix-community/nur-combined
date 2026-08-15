@@ -1,27 +1,18 @@
 const std = @import("std");
 
-pub const AtomKind = enum { flag, int, float, text };
-
-pub const Atom = union(AtomKind) {
-    flag: bool,
-    int: i64,
-    float: f64,
-    text: []const u8,
-};
-
 pub const Field = struct {
     key: []const u8,
-    value: Atom,
+    value: Wire,
 };
 
-pub const WireKind = enum { empty, flag, int, float, text, bag };
-
-pub const Wire = union(WireKind) {
+/// JSON-shaped payload: null, bool, number, string, array, object.
+pub const Wire = union(enum) {
     empty: void,
     flag: bool,
     int: i64,
     float: f64,
     text: []const u8,
+    list: []const Wire,
     bag: []const Field,
 
     pub fn asText(self: Wire) ?[]const u8 {
@@ -80,4 +71,13 @@ test "wire probe" {
     const probe = Wire{ .bag = &fields };
     try std.testing.expectEqualStrings("glass", probe.bagText("name").?);
     try std.testing.expect(probe.bagFlag("edit"));
+}
+
+test "wire nest" {
+    const inner = [_]Field{.{ .key = "sx", .value = .{ .float = 1.5 } }};
+    const part = Wire{ .bag = &inner };
+    const items = [_]Wire{part};
+    const outer_fields = [_]Field{.{ .key = "parts", .value = .{ .list = &items } }};
+    const kit = Wire{ .bag = &outer_fields };
+    try std.testing.expect(kit.bagText("parts") == null);
 }

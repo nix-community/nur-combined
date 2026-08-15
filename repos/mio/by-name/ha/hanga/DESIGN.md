@@ -1,49 +1,86 @@
 # Hanga: engine vs mods
 
 Hanga is a Bevy host. Gameplay lives in WASM components (`wit/world.wit`).
-WIT is only the **sandbox ABI**: the host can call what the component exports, and
-mods can call what the host **imports**. Game nouns (cops, fire, lamps, wanted stars)
-must not live as extra WIT functions. Host-facing kits (`crash-kit`, `vehicle-kit`,
-`gravity`, `steer` context) stay `key=value` strings the host already executes.
-Unknown keys are ignored.
+WIT is only the **sandbox ABI**. Game nouns stay out of function names.
 
-**Engine API** (`import host`): `log`, `now-ms`, `self-name`, `peers`, `ask`,
-`voxel-at`, `voxel-probe`. `voxel-at` names the lead generator cell (`air` if
-missing). Player breaks and places overlay that sample so packs see the edited
-world. `voxel-probe` is the same cell as a bag (`name` text, `edit` flag).
-`payload` is a WIT variant: `empty`, `flag`, `int`, `float`, `text`, or `bag`
-(list of `{key, atom}`). WIT here cannot recurse, so deeper trees use dotted
-keys (`part.wheel`). `ask` and `on-message` use `payload`. `peers` is a list of
-names. Empty peer broadcasts; the first non-`empty` reply wins. Nested asks that
-would re-enter a locked store return `empty`.
+Required guest exports (`interface guest`, ABI **6**): `abi`, `ready`,
+`voxel-catalog`, `query-voxel`, `invoke`. Everything else is a named `invoke`
+method. Missing method, `empty`, or empty text is “not mine” (Luanti
+`register_craft` that does not match). The host caches `methods` at load and
+skips unused calls.
 
-**Mod API** (`on-message`): packs answer `ping`, `catalog`, `gravity`, and other
-topics they invent. The host does not interpret the payload. `has` with a text
-name returns a flag (Godot `has_method`); `methods` returns the topic CSV.
+Each pack is a single-threaded actor (Erlang process / `gen_server`): one WASM
+store, one mailbox. Wasmtime cannot re-enter a store, so this matches BEAM
+“one mailbox, no shared heap” rather than Lua’s reentrant VM.
 
-## Languages (Godot)
+| OTP / BEAM | Hanga |
+| --- | --- |
+| `gen_server:call` | `invoke` — wait for a reply |
+| `gen_server:cast` / `!` | `send` — mailbox, no reply |
+| `gen_event` | `emit` — every listener; veto is fail-closed |
+| `erlang:send_after` | `after` |
+| `{error, Reason}` | `cell.fail` (`busy`, `self`, `noproc`) |
+| `undefined` | `empty` |
 
-Godot talks to GDScript, C#, and GDExtension through **one value type**
-(`Variant`) and **named** get/set/call (`Object.call`, `has_method`, signals).
-ClassDB registers classes; scripts only override what they care about. The
-engine is trying to collapse ScriptLanguage and GDExtension into that one
-registry so languages are not second-class.
+`invoke` to a locked pack returns `fail("busy")` and does **not** queue. Queueing
+a call and returning `empty` was a silent cast (Godot `call_deferred` pretending
+to be `call`). Use `send` when you want later delivery. `invoke` to self is
+`fail("self")` (OTP self-call deadlock). Unknown name is `fail("noproc")`.
+`emit` to a busy listener **vetoes** (do not skip `before-dig`). Mailbox drains
+when the host-import call stack unwinds (`flush_deferred`).
 
-Hanga already has the Variant-shaped piece: `payload` (plus kit strings the host
-knows how to run). `ask` / `on-message` is the named call / signal bus. We should
-**not** copy ClassDB or expose Bevy nodes: the host stays an executor, not a
-reflection dump of the scene tree.
+The engine uses **call** only when it needs a reply: `before-dig` is `emit_all`
+(veto). Notifications are **cast**: `on-dig`, `on-place`, `on-step`,
+`on-mods-loaded` (`notify_all` / `send`), and `after` delivers with `send`
+(OTP `send_after`, not `call`).
+
+**Engine API** (`import host`): `log`, `now-ms`, `id`, `peers`, `has-mod`,
+`invoke`, `send`, `emit`, `voxel`, `voxel-set`, `player`, `after`.
+`voxel` is the lead cell plus player overlay as a dict (`name` text, `edit` flag).
+`voxel-set` is Luanti `core.set_node` (queued onto the mesh next tick).
+`player` is a snapshot dict (`x` `y` `z` `yaw` float, `state` `wallet` int), or
+`empty` in the menu.
+`after(ms, method, args)` is Luanti `core.after`: the host invokes that method
+on the same pack later.
+`has-mod` is Luanti `core.get_modpath != nil`.
+`invoke(peer)` is a direct call into that pack (Luanti `mobs.api()`). Empty peer
+asks later packs then the lead (Luanti `override_item`).
+`emit(method)` calls **every** pack that lists the method and skips the caller
+(Luanti `register_on_dignode`). `flag(true)` vetoes.
+
+`ready` runs after every pack in the collection exists (Luanti file load). The
+host then **casts** `on-mods-loaded`. Each playing frame it **casts** `on-step`
+with `{dt}` milliseconds (Luanti `register_globalstep`) and flushes `after`.
+
+**Mod API** (`invoke`): packs answer `ping`, `gravity`, kits, labels, and methods
+they invent. Engine hooks: `before-dig` (veto), `on-dig`, `on-place`,
+`on-mods-loaded`, `on-step`. `value` is JSON-shaped: null (`empty`), bool, int,
+float, string, array (`items`), object (`dict`). WIT cannot nest types, so the
+tree is a cell arena (`cells` + index `at` / `root`). Host and kits still see
+nested objects, e.g. `vehicle-kit`
+`{kind, parts: [{name,sx,…}], beams: [{a,b}], tires: ["wheel"]}`.
+A `key=value;` string is only a fallback. `has` / `methods` advertise names.
+
+## Languages (Godot + Luanti)
+
+Godot: one `Variant`, named `Object.call`, optional virtuals.
+
+Luanti: mods share a world. They **register** stacked callbacks, **call** each
+other's APIs by name, **override** later definitions, and **set nodes** through
+the engine. They check `get_modpath` before using an optional dependency.
+
+Hanga keeps WASM isolation (no shared Lua table) and maps those patterns onto
+`value` + `invoke` / `send` / `emit` / `has-mod` / `voxel-set` / `player` / `after`. We do **not** copy
+ClassDB or dump Bevy nodes into scripts.
 
 What we take:
 
-- Keep `query-voxel` (and other hot paths) **typed**. Godot would not generate a
-  chunk from GDScript per cell either.
-- Treat empty kits and `on-message` `empty` as “virtual not overridden”.
-- Advertise bus topics with `has` / `methods` so Rust and Kotlin packs can
-  discover each other without a new WIT function per noun.
-- Later: split WIT into a small required export (`init`, catalog, `query-voxel`,
-  `on-message`) and optional interfaces for vehicles/heists, so a Kotlin pack
-  does not stub forty methods. That is Godot’s “only implement what you use”.
+- Keep `query-voxel` (and catalog) **typed**.
+- Treat empty `invoke` as “virtual not overridden”.
+- Stacked world events: `emit` only for veto (`before-dig`); `send`/`notify_all` for `on-dig`, `on-place`, `on-step`.
+- Fill-in / override via later packs on loot, craft, labels, fracture (empty reply skips).
+- `has-mod` for optional dependencies (`if has_mod("testbed")`).
+- `player` + `after` for ABM-style logic without dumping Bevy into the guest.
 
 What we skip: engine `call("spawn_mesh", …)` into Bevy, script inheritance across
 languages, and a second scripting VM beside WASM.
@@ -67,18 +104,18 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints,
   and Ed25519 signatures on the wire (`~/.config/hanga/peer.key`)
 - `wasmtime` component sandbox + hot-reload (WasmGC on so Kotlin/Wasm contrib mods load)
-- Host imports for mods (`log`, clock, identity, `ask` bus, `voxel-at`, `voxel-probe`, `payload` bags)
+- Host imports for mods (`log`, clock, `id`, `has-mod`, `invoke`, `send`, `emit`, `voxel`, `voxel-set`, `player`, `after`)
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
-  from a kit, moves occupants, crumples/detaches named parts, and scales fold by
-  `stiffness`. Named `tire=` parts squash on the local up axis when grounded.
-  Named `beam=` links keep rest length (shortened by crumple). The host
+  from a kit dict, moves occupants, crumples/detaches named parts, and scales fold by
+  `stiffness`. `tire.<name>` flags squash on the local up axis when grounded.
+  `beam.n.a` / `beam.n.b` links keep rest length (shortened by crumple). The host
   relaxes a small lattice: the first kit part stays pinned, other nodes
   share the length error. Crash and fire kits come from the pack that spawned
   the rideable.
 - Gravity *execution*: apply a field the game named (`none`, constant vector, or
   point attractor). Walk/jump stay on the anti-gravity plane at the kit's
-  `walk=` / `jump=` speeds. The host does not invent Earth.
+  `walk` / `jump` speeds. The host does not invent Earth.
 - Fire *execution*: tick a burn the mod requested (`fire-kit`). The host hangs a
   light, may unset the voxel under the flame, may ignite another rideable in
   range, and may burst. It does not know petrol.
@@ -108,13 +145,13 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Localized copy (`voxel-label`, `event-label`, `contract-label`, `item-label`, `supported-locales`)
 - Wallet / contracts (`mod-wallet-after`, `mod-offer-contract`, `mod-can-complete`)
 - English names for voxels, items, actions, agents, contracts, and story events
-- `voxel-catalog` lists meshing-index order (`air,concrete,...`); `query-voxel` still returns that index
+- `voxel-catalog` is a list of names in meshing-index order; `query-voxel` still returns that index
 - Loot names (`loot-item`) that fill the host's generic 8-slot hotbar
 - Crafting recipes (`craft-result`); the host only spends two items and adds the product
 - Heist board (`mod-offer-contract`, `contract-mark`, `mod-can-complete` + context).
   The host paints a mark and reports held item / position / vehicle / near;
   Urban Chaos owns smash, subway pinch, chop-shop, and the armored truck.
-- Mod bus (`on-message`): answer `ask` from other packs with a `payload` (`ping`, `catalog`, `voxel`, `probe`, …).
+- Mod bus (`invoke` call / `send` cast / `emit` event): OTP `gen_server` + `gen_event`.
 
 ### Shipped games
 
@@ -212,4 +249,3 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 ## Next
 
 1. Package `cargo-kani` so proofs run as CBMC, not only replay tests
-2. Optional WIT exports (core vs vehicles/heists) so non-Rust packs skip unused stubs

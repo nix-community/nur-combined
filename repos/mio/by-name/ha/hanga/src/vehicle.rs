@@ -52,41 +52,134 @@ impl Default for VehicleKit {
 /// part=hull,1.85,0.48,3.80,0,-0.22,0,0.78,0.18,0.14
 /// ```
 pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
+    parse_vehicle_kit_fields(&crate::kit::Fields::from_text(text))
+}
+
+pub fn parse_vehicle_kit_fields(fields: &crate::kit::Fields) -> VehicleKit {
     let mut kit = VehicleKit::default();
     let mut saw_part = false;
-    for raw in text.split(|c| c == ';' || c == '\n') {
-        let rec = raw.trim();
-        if rec.is_empty() || rec.starts_with('#') {
-            continue;
-        }
-        if let Some(rest) = rec.strip_prefix("part=") {
-            if let Some(part) = parse_part(rest) {
-                if !saw_part {
-                    kit.parts.clear();
-                    saw_part = true;
+    let mut indexed_parts: std::collections::BTreeMap<usize, VehiclePartSpec> =
+        std::collections::BTreeMap::new();
+    let mut indexed_beams: std::collections::BTreeMap<usize, (String, String)> =
+        std::collections::BTreeMap::new();
+    for (key, cell) in &fields.pairs {
+        if let Some((i, field)) = indexed_field(key, &["parts.", "part."]) {
+            let part = indexed_parts.entry(i).or_insert_with(|| VehiclePartSpec {
+                name: String::new(),
+                size: [1.0, 1.0, 1.0],
+                offset: [0.0, 0.0, 0.0],
+                rgb: [0.5, 0.5, 0.5],
+            });
+            match field {
+                "name" => part.name = cell.text(),
+                "sx" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.size[0] = v.max(0.05);
+                    }
                 }
-                kit.parts.push(part);
+                "sy" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.size[1] = v.max(0.05);
+                    }
+                }
+                "sz" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.size[2] = v.max(0.05);
+                    }
+                }
+                "ox" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.offset[0] = v;
+                    }
+                }
+                "oy" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.offset[1] = v;
+                    }
+                }
+                "oz" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.offset[2] = v;
+                    }
+                }
+                "r" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.rgb[0] = scale_rgb(v);
+                    }
+                }
+                "g" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.rgb[1] = scale_rgb(v);
+                    }
+                }
+                "b" => {
+                    if let Some(v) = cell.as_f32() {
+                        part.rgb[2] = scale_rgb(v);
+                    }
+                }
+                _ => {}
             }
             continue;
         }
-        let Some((key, value)) = rec.split_once('=') else {
+        if let Some(rest) = key
+            .strip_prefix("tires.")
+            .or_else(|| key.strip_prefix("tire."))
+        {
+            if rest.parse::<usize>().is_ok() {
+                let name = cell.text();
+                if !name.is_empty() {
+                    kit.tires.push(name);
+                }
+            } else if cell.as_flag() {
+                kit.tires.push(rest.to_string());
+            }
             continue;
-        };
-        match key.trim() {
-            "kind" => kit.kind = value.trim().to_string(),
-            "traffic" | "ai" => kit.traffic = parse_flag(value),
+        }
+        if let Some((i, end)) = indexed_field(key, &["beams.", "beam."]) {
+            let beam = indexed_beams
+                .entry(i)
+                .or_insert_with(|| (String::new(), String::new()));
+            match end {
+                "a" => beam.0 = cell.text(),
+                "b" => beam.1 = cell.text(),
+                _ => {}
+            }
+            continue;
+        }
+        if key == "collider.x" {
+            if let Some(v) = cell.as_f32() {
+                kit.collider[0] = v.max(0.1);
+            }
+            continue;
+        }
+        if key == "collider.y" {
+            if let Some(v) = cell.as_f32() {
+                kit.collider[1] = v.max(0.1);
+            }
+            continue;
+        }
+        if key == "collider.z" {
+            if let Some(v) = cell.as_f32() {
+                kit.collider[2] = v.max(0.1);
+            }
+            continue;
+        }
+        let value = cell.text();
+        match key.as_str() {
+            "kind" => kit.kind = value,
+            "traffic" | "ai" => kit.traffic = cell.as_flag(),
             "speed" => {
-                if let Ok(speed) = value.trim().parse::<f32>() {
+                if let Some(speed) = cell.as_f32() {
                     kit.speed = speed.max(0.0);
                 }
             }
             "collider" => {
-                if let Some(v) = parse_n(value, 3) {
+                if let Some(v) = parse_n(&value, 3) {
                     kit.collider = [v[0].max(0.1), v[1].max(0.1), v[2].max(0.1)];
                 }
             }
             "stiffness" | "stiff" => {
-                if let Ok(v) = value.trim().parse::<i32>() {
+                if let Some(v) = cell.as_i32() {
                     kit.stiffness = v.clamp(0, 100);
                 }
             }
@@ -105,7 +198,27 @@ pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
                     }
                 }
             }
+            "part" => {
+                if let Some(part) = parse_part(&value) {
+                    if !saw_part {
+                        kit.parts.clear();
+                        saw_part = true;
+                    }
+                    kit.parts.push(part);
+                }
+            }
             _ => {}
+        }
+    }
+    if !indexed_parts.is_empty() {
+        kit.parts = indexed_parts
+            .into_values()
+            .filter(|part| !part.name.is_empty())
+            .collect();
+    }
+    for (a, b) in indexed_beams.into_values() {
+        if !a.is_empty() && !b.is_empty() {
+            kit.beams.push((a, b));
         }
     }
     if kit.kind.is_empty() {
@@ -114,8 +227,25 @@ pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
     kit
 }
 
-fn parse_flag(value: &str) -> bool {
-    matches!(value.trim(), "1" | "true" | "yes")
+fn indexed_field<'a>(key: &'a str, prefixes: &[&str]) -> Option<(usize, &'a str)> {
+    for prefix in prefixes {
+        if let Some(rest) = key.strip_prefix(prefix) {
+            if let Some((index, field)) = rest.split_once('.') {
+                if let Ok(i) = index.parse::<usize>() {
+                    return Some((i, field));
+                }
+            }
+        }
+    }
+    None
+}
+
+fn scale_rgb(n: f32) -> f32 {
+    if n > 1.0 {
+        (n / 255.0).clamp(0.0, 1.0)
+    } else {
+        n.clamp(0.0, 1.0)
+    }
 }
 
 fn parse_n(value: &str, n: usize) -> Option<Vec<f32>> {

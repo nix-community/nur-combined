@@ -15,7 +15,11 @@ pub struct ContractMark {
 /// x=531;y=3;z=550;radius=12;take=1;r=0.9;g=0.7;b=0.2
 /// ```
 pub fn parse_contract_mark(text: &str) -> Option<ContractMark> {
-    if text.trim().is_empty() {
+    parse_contract_mark_fields(&crate::kit::Fields::from_text(text))
+}
+
+pub fn parse_contract_mark_fields(fields: &crate::kit::Fields) -> Option<ContractMark> {
+    if fields.is_empty() {
         return None;
     }
     let mut pos = [0, 2, 0];
@@ -23,51 +27,44 @@ pub fn parse_contract_mark(text: &str) -> Option<ContractMark> {
     let mut rgb = [0.92, 0.78, 0.28];
     let mut take = false;
     let mut saw = false;
-    for raw in text.split(|c| c == ';' || c == '\n') {
-        let rec = raw.trim();
-        if rec.is_empty() || rec.starts_with('#') {
-            continue;
-        }
-        let Some((key, value)) = rec.split_once('=') else {
-            continue;
-        };
-        match key.trim() {
+    for (key, cell) in &fields.pairs {
+        match key.as_str() {
             "x" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_i32() {
                     pos[0] = v;
                     saw = true;
                 }
             }
             "y" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_i32() {
                     pos[1] = v;
                     saw = true;
                 }
             }
             "z" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_i32() {
                     pos[2] = v;
                     saw = true;
                 }
             }
             "radius" => {
-                if let Ok(v) = value.trim().parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     radius = v.max(0.5);
                 }
             }
-            "take" => take = matches!(value.trim(), "1" | "true" | "yes"),
+            "take" => take = cell.as_flag(),
             "r" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_f32() {
                     rgb[0] = scale_channel(v);
                 }
             }
             "g" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_f32() {
                     rgb[1] = scale_channel(v);
                 }
             }
             "b" => {
-                if let Ok(v) = value.trim().parse() {
+                if let Some(v) = cell.as_f32() {
                     rgb[2] = scale_channel(v);
                 }
             }

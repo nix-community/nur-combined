@@ -2,6 +2,8 @@ use wasmtime::{Engine, Config, Store};
 use wasmtime::component::{Component, HasSelf, Linker};
 use bevy::prelude::*;
 use std::sync::atomic::{AtomicU64, Ordering};
+use std::cell::Cell;
+use std::collections::HashSet;
 use std::sync::{Arc, Mutex, RwLock};
 use std::path::{Path, PathBuf};
 use std::time::Instant;
@@ -41,34 +43,365 @@ pub struct HostData {
     pub bus: Arc<dyn EngineBus>,
 }
 
-pub type Wire = hanga::engine::host::Payload;
+struct AfterJob {
+    at_ms: i64,
+    pack: String,
+    method: String,
+    args: Wire,
+}
+
+static AFTER_JOBS: Mutex<Vec<AfterJob>> = Mutex::new(Vec::new());
+
+fn queue_after(pack: String, ms: i32, method: String, args: Wire) {
+    let delay = ms.max(0) as i64;
+    if let Ok(mut jobs) = AFTER_JOBS.lock() {
+        jobs.push(AfterJob {
+            at_ms: host_now_ms().saturating_add(delay),
+            pack,
+            method,
+            args,
+        });
+    }
+}
+
+/// JSON tree on the host. WIT carries the same tree as a cell arena
+/// (`value.cells` + indexes) because WIT types cannot recurse.
+#[derive(Clone, Debug)]
+pub enum Wire {
+    Empty,
+    Flag(bool),
+    Int(i64),
+    Float(f64),
+    Text(String),
+    Items(Vec<Wire>),
+    Dict(Vec<WireField>),
+    Fail(String),
+}
+
+#[derive(Clone, Debug)]
+pub struct WireField {
+    pub key: String,
+    pub value: Wire,
+}
+
+type AbiValue = hanga::engine::host::Value;
+type AbiCell = hanga::engine::host::Cell;
+type AbiField = hanga::engine::host::Field;
+
+pub fn lift_wire(value: &AbiValue) -> Wire {
+    lift_cell(value, value.root)
+}
+
+fn lift_cell(value: &AbiValue, at: u32) -> Wire {
+    let Some(cell) = value.cells.get(at as usize) else {
+        return Wire::Empty;
+    };
+    match cell {
+        AbiCell::Empty => Wire::Empty,
+        AbiCell::Flag(flag) => Wire::Flag(*flag),
+        AbiCell::Int(n) => Wire::Int(*n),
+        AbiCell::Float(n) => Wire::Float(*n),
+        AbiCell::Text(text) => Wire::Text(text.clone()),
+        AbiCell::Items(idx) => Wire::Items(idx.iter().map(|child| lift_cell(value, *child)).collect()),
+        AbiCell::Dict(fields) => Wire::Dict(
+            fields
+                .iter()
+                .map(|field| WireField {
+                    key: field.key.clone(),
+                    value: lift_cell(value, field.at),
+                })
+                .collect(),
+        ),
+        AbiCell::Fail(reason) => Wire::Fail(reason.clone()),
+    }
+}
+
+pub fn lower_wire(value: &Wire) -> AbiValue {
+    let mut cells = Vec::new();
+    let root = lower_into(&mut cells, value);
+    AbiValue { cells, root }
+}
+
+fn lower_into(cells: &mut Vec<AbiCell>, value: &Wire) -> u32 {
+    match value {
+        Wire::Empty => push_cell(cells, AbiCell::Empty),
+        Wire::Flag(flag) => push_cell(cells, AbiCell::Flag(*flag)),
+        Wire::Int(n) => push_cell(cells, AbiCell::Int(*n)),
+        Wire::Float(n) => push_cell(cells, AbiCell::Float(*n)),
+        Wire::Text(text) => push_cell(cells, AbiCell::Text(text.clone())),
+        Wire::Items(items) => {
+            let idx: Vec<u32> = items.iter().map(|item| lower_into(cells, item)).collect();
+            push_cell(cells, AbiCell::Items(idx))
+        }
+        Wire::Dict(fields) => {
+            let bag: Vec<AbiField> = fields
+                .iter()
+                .map(|field| AbiField {
+                    key: field.key.clone(),
+                    at: lower_into(cells, &field.value),
+                })
+                .collect();
+            push_cell(cells, AbiCell::Dict(bag))
+        }
+        Wire::Fail(reason) => push_cell(cells, AbiCell::Fail(reason.clone())),
+    }
+}
+
+fn push_cell(cells: &mut Vec<AbiCell>, cell: AbiCell) -> u32 {
+    let at = cells.len() as u32;
+    cells.push(cell);
+    at
+}
+
+pub const ABI_MAJOR: i32 = 6;
+
+thread_local! {
+    static ASK_DEPTH: Cell<u32> = const { Cell::new(0) };
+}
 
 pub fn wire_empty() -> Wire {
     Wire::Empty
 }
 
+pub fn wire_int(value: i64) -> Wire {
+    Wire::Int(value)
+}
+
+pub fn wire_float(value: f64) -> Wire {
+    Wire::Float(value)
+}
+
+pub fn wire_text(text: impl Into<String>) -> Wire {
+    Wire::Text(text.into())
+}
+
+pub fn wire_flag(value: bool) -> Wire {
+    Wire::Flag(value)
+}
+
+pub fn wire_fail(reason: impl Into<String>) -> Wire {
+    Wire::Fail(reason.into())
+}
+
+pub fn wire_is_fail(value: &Wire) -> bool {
+    matches!(value, Wire::Fail(_))
+}
+
+pub fn wire_bag(fields: Vec<(&str, Wire)>) -> Wire {
+    Wire::Dict(
+        fields
+            .into_iter()
+            .map(|(key, value)| WireField {
+                key: key.into(),
+                value,
+            })
+            .collect(),
+    )
+}
+
+pub fn parse_topics(payload: &Wire) -> HashSet<String> {
+    match payload {
+        Wire::Text(csv) => csv
+            .split(',')
+            .map(str::trim)
+            .filter(|name| !name.is_empty())
+            .map(|name| name.to_string())
+            .collect(),
+        Wire::Dict(fields) => fields.iter().map(|field| field.key.clone()).collect(),
+        _ => HashSet::new(),
+    }
+}
+
+pub fn payload_text<'a>(payload: &'a Wire, key: &str) -> &'a str {
+    match payload {
+        Wire::Text(text) => text.as_str(),
+        Wire::Dict(fields) => fields
+            .iter()
+            .find(|field| field.key == key)
+            .and_then(|field| match &field.value {
+                Wire::Text(text) => Some(text.as_str()),
+                _ => None,
+            })
+            .unwrap_or(""),
+        _ => "",
+    }
+}
+
+pub fn payload_i64(payload: &Wire, key: &str) -> i64 {
+    match payload {
+        Wire::Int(value) => *value,
+        Wire::Float(value) => *value as i64,
+        Wire::Text(text) => text.parse().unwrap_or(0),
+        Wire::Dict(fields) => fields
+            .iter()
+            .find(|field| field.key == key)
+            .and_then(|field| match &field.value {
+                Wire::Int(value) => Some(*value),
+                Wire::Float(value) => Some(*value as i64),
+                Wire::Text(text) => text.parse().ok(),
+                _ => None,
+            })
+            .unwrap_or(0),
+        _ => 0,
+    }
+}
+
+pub fn payload_f32(payload: &Wire, key: &str) -> f32 {
+    match payload {
+        Wire::Float(value) => *value as f32,
+        Wire::Int(value) => *value as f32,
+        Wire::Dict(fields) => fields
+            .iter()
+            .find(|field| field.key == key)
+            .and_then(|field| match &field.value {
+                Wire::Float(value) => Some(*value as f32),
+                Wire::Int(value) => Some(*value as f32),
+                Wire::Text(text) => text.parse().ok(),
+                _ => None,
+            })
+            .unwrap_or(0.0),
+        _ => 0.0,
+    }
+}
+
+pub fn payload_xyz(payload: &Wire, fallback: (i32, i32, i32)) -> (i32, i32, i32) {
+    if matches!(payload, Wire::Empty) {
+        return fallback;
+    }
+    (
+        payload_i64(payload, "x") as i32,
+        payload_i64(payload, "y") as i32,
+        payload_i64(payload, "z") as i32,
+    )
+}
+
 pub fn wire_voxel_probe(name: impl Into<String>, edit: bool) -> Wire {
-    Wire::Bag(vec![
-        hanga::engine::host::Field {
-            key: "name".into(),
-            value: hanga::engine::host::Atom::Text(name.into()),
-        },
-        hanga::engine::host::Field {
-            key: "edit".into(),
-            value: hanga::engine::host::Atom::Flag(edit),
-        },
+    wire_bag(vec![
+        ("name", Wire::Text(name.into())),
+        ("edit", Wire::Flag(edit)),
     ])
 }
 
 pub fn wire_is_empty(value: &Wire) -> bool {
-    matches!(value, Wire::Empty)
+    match value {
+        Wire::Empty => true,
+        Wire::Text(text) if text.is_empty() => true,
+        Wire::Dict(fields) if fields.is_empty() => true,
+        _ => false,
+    }
+}
+
+fn value_kit(value: &Wire) -> String {
+    match value {
+        Wire::Empty => String::new(),
+        Wire::Flag(flag) => {
+            if *flag {
+                "1".into()
+            } else {
+                "0".into()
+            }
+        }
+        Wire::Int(n) => n.to_string(),
+        Wire::Float(n) => n.to_string(),
+        Wire::Text(text) => text.clone(),
+        Wire::Items(items) => items.iter().map(value_kit).collect::<Vec<_>>().join(","),
+        Wire::Dict(fields) => fields
+            .iter()
+            .map(|field| format!("{}={}", field.key, value_kit(&field.value)))
+            .collect::<Vec<_>>()
+            .join(";"),
+        Wire::Fail(_) => String::new(),
+    }
+}
+
+fn join_key(prefix: &str, key: &str) -> String {
+    if prefix.is_empty() {
+        key.into()
+    } else {
+        format!("{prefix}.{key}")
+    }
+}
+
+fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit::Cell)>) {
+    match value {
+        Wire::Empty => {}
+        Wire::Flag(flag) => out.push((
+            if prefix.is_empty() {
+                "value".into()
+            } else {
+                prefix.into()
+            },
+            ::hanga::kit::Cell::Flag(*flag),
+        )),
+        Wire::Int(n) => out.push((
+            if prefix.is_empty() {
+                "value".into()
+            } else {
+                prefix.into()
+            },
+            ::hanga::kit::Cell::Int(*n),
+        )),
+        Wire::Float(n) => out.push((
+            if prefix.is_empty() {
+                "value".into()
+            } else {
+                prefix.into()
+            },
+            ::hanga::kit::Cell::Float(*n),
+        )),
+        Wire::Text(text) => out.push((
+            if prefix.is_empty() {
+                "value".into()
+            } else {
+                prefix.into()
+            },
+            ::hanga::kit::Cell::Text(text.clone()),
+        )),
+        Wire::Items(items) => {
+            for (i, item) in items.iter().enumerate() {
+                flatten_wire(&join_key(prefix, &i.to_string()), item, out);
+            }
+        }
+        Wire::Dict(fields) => {
+            for field in fields {
+                flatten_wire(&join_key(prefix, &field.key), &field.value, out);
+            }
+        }
+        Wire::Fail(_) => {}
+    }
+}
+
+/// Kits are JSON-shaped values. A `key=value;` string is still accepted as a fallback.
+pub fn fields_from_wire(value: &Wire) -> ::hanga::kit::Fields {
+    match value {
+        Wire::Empty => ::hanga::kit::Fields::default(),
+        Wire::Fail(_) => ::hanga::kit::Fields::default(),
+        Wire::Text(text) => ::hanga::kit::Fields::from_text(text),
+        other => {
+            let mut pairs = Vec::new();
+            flatten_wire("", other, &mut pairs);
+            ::hanga::kit::Fields { pairs }
+        }
+    }
+}
+
+pub fn wire_as_kit(value: &Wire) -> String {
+    value_kit(value)
+}
+
+pub fn wire_is_veto(value: &Wire) -> bool {
+    matches!(value, Wire::Flag(true) | Wire::Int(1))
 }
 
 pub trait EngineBus: Send + Sync {
     fn log(&self, from: &str, level: &str, message: &str);
     fn peers(&self, from: &str) -> Vec<String>;
-    fn ask(&self, from: &str, peer: &str, topic: &str, payload: Wire) -> Wire;
-    fn voxel_at(&self, x: i32, y: i32, z: i32) -> String;
+    fn has_mod(&self, name: &str) -> bool;
+    fn invoke(&self, from: &str, peer: &str, method: &str, args: Wire) -> Wire;
+    fn send(&self, from: &str, peer: &str, method: &str, args: Wire);
+    fn emit(&self, from: &str, method: &str, args: Wire) -> bool;
+    fn voxel(&self, x: i32, y: i32, z: i32) -> Wire;
+    fn flush_deferred(&self) {}
 }
 
 pub struct NoopBus;
@@ -87,19 +420,37 @@ impl EngineBus for NoopBus {
         Vec::new()
     }
 
-    fn ask(&self, _from: &str, _peer: &str, _topic: &str, _payload: Wire) -> Wire {
+    fn has_mod(&self, _name: &str) -> bool {
+        false
+    }
+
+    fn invoke(&self, _from: &str, _peer: &str, _method: &str, _args: Wire) -> Wire {
         wire_empty()
     }
 
-    fn voxel_at(&self, _x: i32, _y: i32, _z: i32) -> String {
-        "air".into()
+    fn send(&self, _from: &str, _peer: &str, _method: &str, _args: Wire) {}
+
+    fn emit(&self, _from: &str, _method: &str, _args: Wire) -> bool {
+        false
     }
+
+    fn voxel(&self, _x: i32, _y: i32, _z: i32) -> Wire {
+        wire_voxel_probe("air", false)
+    }
+}
+
+struct QueuedAsk {
+    slot: Arc<Mutex<Option<MainModContext>>>,
+    from: String,
+    topic: String,
+    payload: Wire,
 }
 
 struct LiveBus {
     lead_name: String,
     lead: Arc<Mutex<Option<MainModContext>>>,
     packs: Vec<(String, Arc<Mutex<Option<MainModContext>>>)>,
+    pending: Mutex<Vec<QueuedAsk>>,
 }
 
 impl EngineBus for LiveBus {
@@ -120,46 +471,177 @@ impl EngineBus for LiveBus {
         names
     }
 
-    fn ask(&self, from: &str, peer: &str, topic: &str, payload: Wire) -> Wire {
+    fn has_mod(&self, name: &str) -> bool {
+        self.lead_name == name || self.packs.iter().any(|(pack, _)| pack == name)
+    }
+
+    fn invoke(&self, from: &str, peer: &str, method: &str, args: Wire) -> Wire {
         if peer.is_empty() {
-            let mut reply = wire_empty();
-            if self.lead_name != from {
-                reply = deliver(&self.lead, from, topic, &payload);
-            }
-            if !wire_is_empty(&reply) {
-                return reply;
-            }
-            for (name, ctx) in &self.packs {
+            for (name, ctx) in self.packs.iter().rev() {
                 if name == from {
                     continue;
                 }
-                reply = deliver(ctx, from, topic, &payload);
-                if !wire_is_empty(&reply) {
-                    return reply;
+                match self.call_now(ctx, from, method, &args) {
+                    Ok(reply) if wire_is_fail(&reply) => return reply,
+                    Ok(reply) if !wire_is_empty(&reply) => return reply,
+                    Ok(_) => {}
+                    Err(()) => return wire_fail("busy"),
                 }
+            }
+            if self.lead_name != from {
+                return match self.call_now(&self.lead, from, method, &args) {
+                    Ok(reply) => reply,
+                    Err(()) => wire_fail("busy"),
+                };
             }
             return wire_empty();
         }
         if peer == from {
-            return wire_empty();
+            return wire_fail("self");
         }
-        if peer == self.lead_name {
-            return deliver(&self.lead, from, topic, &payload);
+        let Some(slot) = self.slot(peer) else {
+            return wire_fail("noproc");
+        };
+        match self.call_now(slot, from, method, &args) {
+            Ok(reply) => reply,
+            Err(()) => wire_fail("busy"),
         }
-        for (name, ctx) in &self.packs {
-            if name == peer {
-                return deliver(ctx, from, topic, &payload);
-            }
-        }
-        wire_empty()
     }
 
-    fn voxel_at(&self, x: i32, y: i32, z: i32) -> String {
-        sample_lead_voxel(x, y, z)
+    fn send(&self, from: &str, peer: &str, method: &str, args: Wire) {
+        if peer.is_empty() {
+            if self.lead_name != from {
+                self.cast(&self.lead, from, method, &args);
+            }
+            for (name, ctx) in &self.packs {
+                if name != from {
+                    self.cast(ctx, from, method, &args);
+                }
+            }
+            return;
+        }
+        if peer == from {
+            if let Some(slot) = self.slot(from) {
+                self.enqueue(slot, from, method, &args);
+            }
+            return;
+        }
+        if let Some(slot) = self.slot(peer) {
+            self.cast(slot, from, method, &args);
+        }
+    }
+
+    fn emit(&self, from: &str, method: &str, args: Wire) -> bool {
+        let mut veto = false;
+        if self.lead_name != from {
+            match self.call_now(&self.lead, from, method, &args) {
+                Ok(reply) => {
+                    if wire_is_veto(&reply) {
+                        veto = true;
+                    }
+                }
+                Err(()) => veto = true,
+            }
+        }
+        for (name, ctx) in &self.packs {
+            if name == from {
+                continue;
+            }
+            match self.call_now(ctx, from, method, &args) {
+                Ok(reply) => {
+                    if wire_is_veto(&reply) {
+                        veto = true;
+                    }
+                }
+                Err(()) => veto = true,
+            }
+        }
+        veto
+    }
+
+    fn voxel(&self, x: i32, y: i32, z: i32) -> Wire {
+        probe_lead_voxel(x, y, z)
+    }
+
+    fn flush_deferred(&self) {
+        for _ in 0..32 {
+            let batch = {
+                let Ok(mut pending) = self.pending.lock() else {
+                    return;
+                };
+                if pending.is_empty() {
+                    return;
+                }
+                std::mem::take(&mut *pending)
+            };
+            for queued in batch {
+                let _ = deliver_now(&queued.slot, &queued.from, &queued.topic, &queued.payload);
+            }
+        }
     }
 }
 
-fn deliver(
+impl LiveBus {
+    fn slot(&self, name: &str) -> Option<&Arc<Mutex<Option<MainModContext>>>> {
+        if name == self.lead_name {
+            return Some(&self.lead);
+        }
+        self.packs
+            .iter()
+            .find(|(pack, _)| pack == name)
+            .map(|(_, slot)| slot)
+    }
+
+    fn enqueue(
+        &self,
+        slot: &Arc<Mutex<Option<MainModContext>>>,
+        from: &str,
+        topic: &str,
+        payload: &Wire,
+    ) {
+        if let Ok(mut pending) = self.pending.lock() {
+            pending.push(QueuedAsk {
+                slot: Arc::clone(slot),
+                from: from.to_string(),
+                topic: topic.to_string(),
+                payload: payload.clone(),
+            });
+        }
+    }
+
+    /// OTP call: run now or `{error, busy}`. Never queues a pretend reply.
+    fn call_now(
+        &self,
+        slot: &Arc<Mutex<Option<MainModContext>>>,
+        from: &str,
+        topic: &str,
+        payload: &Wire,
+    ) -> Result<Wire, ()> {
+        let Ok(mut guard) = slot.try_lock() else {
+            return Err(());
+        };
+        let Some(ctx) = guard.as_mut() else {
+            return Ok(wire_empty());
+        };
+        Ok(ctx.call(from, topic, payload))
+    }
+
+    /// OTP cast: run now if free, else mailbox.
+    fn cast(
+        &self,
+        slot: &Arc<Mutex<Option<MainModContext>>>,
+        from: &str,
+        topic: &str,
+        payload: &Wire,
+    ) {
+        match self.call_now(slot, from, topic, payload) {
+            Ok(_) => {}
+            Err(()) => self.enqueue(slot, from, topic, payload),
+        }
+    }
+}
+
+fn deliver_now(
     slot: &Mutex<Option<MainModContext>>,
     from: &str,
     topic: &str,
@@ -171,17 +653,7 @@ fn deliver(
     let Some(ctx) = guard.as_mut() else {
         return wire_empty();
     };
-    ctx.bindings
-        .hanga_engine_gameplay()
-        .call_on_message(&mut ctx.store, from, topic, payload)
-        .unwrap_or_else(|_| wire_empty())
-}
-
-fn sample_lead_voxel(x: i32, y: i32, z: i32) -> String {
-    if let Some(name) = ::hanga::overlay_name(x, y, z) {
-        return name;
-    }
-    sample_lead_worldgen(x, y, z)
+    ctx.call(from, topic, payload)
 }
 
 fn probe_lead_voxel(x: i32, y: i32, z: i32) -> Wire {
@@ -207,10 +679,10 @@ fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
     let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) else {
         return "air".into();
     };
-    let gp = bindings.hanga_engine_gameplay();
+    let gp = bindings.hanga_engine_guest();
     let index = gp.call_query_voxel(&mut store, x, y, z).unwrap_or(0);
-    let csv = gp.call_voxel_catalog(&mut store).unwrap_or_default();
-    ::hanga::catalog_name(&::hanga::parse_name_catalog(&csv), index)
+    let names = gp.call_voxel_catalog(&mut store).unwrap_or_default();
+    ::hanga::catalog_name(&names, index)
         .unwrap_or("air")
         .to_string()
 }
@@ -224,7 +696,7 @@ impl hanga::engine::host::Host for HostData {
         host_now_ms()
     }
 
-    fn self_name(&mut self) -> String {
+    fn id(&mut self) -> String {
         self.name.clone()
     }
 
@@ -232,16 +704,75 @@ impl hanga::engine::host::Host for HostData {
         self.bus.peers(&self.name)
     }
 
-    fn ask(&mut self, peer: String, topic: String, payload: Wire) -> Wire {
-        self.bus.ask(&self.name, &peer, &topic, payload)
+    fn has_mod(&mut self, name: String) -> bool {
+        name == self.name || self.bus.has_mod(&name)
     }
 
-    fn voxel_at(&mut self, x: i32, y: i32, z: i32) -> String {
-        self.bus.voxel_at(x, y, z)
+    fn invoke(&mut self, peer: String, method: String, args: AbiValue) -> AbiValue {
+        ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
+        let reply = self.bus.invoke(&self.name, &peer, &method, lift_wire(&args));
+        let remaining = ASK_DEPTH.with(|depth| {
+            let next = depth.get().saturating_sub(1);
+            depth.set(next);
+            next
+        });
+        if remaining == 0 {
+            self.bus.flush_deferred();
+        }
+        lower_wire(&reply)
     }
 
-    fn voxel_probe(&mut self, x: i32, y: i32, z: i32) -> Wire {
-        probe_lead_voxel(x, y, z)
+    fn send(&mut self, peer: String, method: String, args: AbiValue) {
+        ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
+        self.bus.send(&self.name, &peer, &method, lift_wire(&args));
+        let remaining = ASK_DEPTH.with(|depth| {
+            let next = depth.get().saturating_sub(1);
+            depth.set(next);
+            next
+        });
+        if remaining == 0 {
+            self.bus.flush_deferred();
+        }
+    }
+
+    fn emit(&mut self, method: String, args: AbiValue) -> bool {
+        ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
+        let veto = self.bus.emit(&self.name, &method, lift_wire(&args));
+        let remaining = ASK_DEPTH.with(|depth| {
+            let next = depth.get().saturating_sub(1);
+            depth.set(next);
+            next
+        });
+        if remaining == 0 {
+            self.bus.flush_deferred();
+        }
+        veto
+    }
+
+    fn voxel(&mut self, x: i32, y: i32, z: i32) -> AbiValue {
+        lower_wire(&self.bus.voxel(x, y, z))
+    }
+
+    fn voxel_set(&mut self, x: i32, y: i32, z: i32, name: String) {
+        ::hanga::queue_voxel_write(x, y, z, name);
+    }
+
+    fn player(&mut self) -> AbiValue {
+        lower_wire(&match ::hanga::player_snap() {
+            Some(snap) => wire_bag(vec![
+                ("x", Wire::Float(snap.x as f64)),
+                ("y", Wire::Float(snap.y as f64)),
+                ("z", Wire::Float(snap.z as f64)),
+                ("yaw", Wire::Float(snap.yaw as f64)),
+                ("state", Wire::Int(snap.state as i64)),
+                ("wallet", Wire::Int(snap.wallet as i64)),
+            ]),
+            None => wire_empty(),
+        })
+    }
+
+    fn after(&mut self, ms: i32, method: String, args: AbiValue) {
+        queue_after(self.name.clone(), ms, method, lift_wire(&args));
     }
 }
 
@@ -251,6 +782,101 @@ impl hanga::engine::host::Host for HostData {
 pub struct MainModContext {
     pub store: Store<HostData>,
     pub bindings: Plugin,
+    pub topics: HashSet<String>,
+}
+
+impl MainModContext {
+    pub fn offers(&self, topic: &str) -> bool {
+        self.topics.is_empty() || self.topics.contains(topic)
+    }
+
+    fn wake(&mut self) {
+        let gp = self.bindings.hanga_engine_guest();
+        let _ = gp.call_ready(&mut self.store);
+        let methods = gp
+            .call_invoke(&mut self.store, "host", "methods", &lower_wire(&wire_empty()))
+            .map(|value| lift_wire(&value))
+            .unwrap_or_else(|_| wire_empty());
+        self.topics = parse_topics(&methods);
+    }
+
+    pub fn call(&mut self, from: &str, topic: &str, payload: &Wire) -> Wire {
+        if topic != "has" && topic != "methods" && !self.offers(topic) {
+            return wire_empty();
+        }
+        self.bindings
+            .hanga_engine_guest()
+            .call_invoke(&mut self.store, from, topic, &lower_wire(payload))
+            .map(|value| lift_wire(&value))
+            .unwrap_or_else(|_| wire_empty())
+    }
+
+    pub fn bus(&mut self, topic: &str, payload: &Wire) -> Wire {
+        self.call("host", topic, payload)
+    }
+
+    pub fn bus_kit(&mut self, topic: &str, payload: &Wire) -> String {
+        wire_as_kit(&self.bus(topic, payload))
+    }
+
+    pub fn bus_fields(&mut self, topic: &str, payload: &Wire) -> ::hanga::kit::Fields {
+        fields_from_wire(&self.bus(topic, payload))
+    }
+
+    pub fn bus_text(&mut self, topic: &str) -> String {
+        match self.bus(topic, &wire_empty()) {
+            Wire::Text(text) => text,
+            Wire::Dict(fields) => fields
+                .iter()
+                .map(|field| field.key.clone())
+                .collect::<Vec<_>>()
+                .join(","),
+            _ => String::new(),
+        }
+    }
+
+    pub fn bus_text_payload(&mut self, topic: &str, payload: &Wire) -> String {
+        match self.bus(topic, payload) {
+            Wire::Text(text) => text,
+            _ => String::new(),
+        }
+    }
+
+    pub fn bus_i32(&mut self, topic: &str, payload: &Wire, fallback: i32) -> i32 {
+        match self.bus(topic, payload) {
+            Wire::Empty | Wire::Fail(_) => fallback,
+            other => payload_i64(&other, "value") as i32,
+        }
+    }
+
+    pub fn bus_f32(&mut self, topic: &str, payload: &Wire, fallback: f32) -> f32 {
+        match self.bus(topic, payload) {
+            Wire::Empty | Wire::Fail(_) => fallback,
+            other => payload_f32(&other, "value"),
+        }
+    }
+
+    pub fn bus_xyz(&mut self, topic: &str, payload: &Wire, fallback: (i32, i32, i32)) -> (i32, i32, i32) {
+        payload_xyz(&self.bus(topic, payload), fallback)
+    }
+
+    pub fn bus_xyz_name(
+        &mut self,
+        topic: &str,
+        payload: &Wire,
+        fallback: (i32, i32, i32, String),
+    ) -> (i32, i32, i32, String) {
+        let reply = self.bus(topic, payload);
+        if matches!(reply, Wire::Empty) {
+            return fallback;
+        }
+        (
+            payload_i64(&reply, "x") as i32,
+            payload_i64(&reply, "y") as i32,
+            payload_i64(&reply, "z") as i32,
+            payload_text(&reply, "name").to_string(),
+        )
+    }
 }
 
 pub struct PackMod {
@@ -268,12 +894,111 @@ pub struct ModRuntime {
     lead_name: String,
     bus: Arc<dyn EngineBus>,
     loaded_paths: Vec<PathBuf>,
+    woken: bool,
     _watcher: notify::RecommendedWatcher,
 }
 
 impl ModRuntime {
     pub fn lead_name(&self) -> &str {
         &self.lead_name
+    }
+
+    /// Later packs first, then lead. First non-empty wins (Luanti override_item).
+    pub fn ask_any(&self, method: &str, args: &Wire) -> Wire {
+        for pack in self.packs.iter().rev() {
+            if let Ok(mut guard) = pack.context.lock() {
+                if let Some(ctx) = guard.as_mut() {
+                    let reply = ctx.call("host", method, args);
+                    if wire_is_fail(&reply) {
+                        continue;
+                    }
+                    if !wire_is_empty(&reply) {
+                        return reply;
+                    }
+                }
+            }
+        }
+        if let Ok(mut guard) = self.context.lock() {
+            if let Some(ctx) = guard.as_mut() {
+                return ctx.call("host", method, args);
+            }
+        }
+        wire_empty()
+    }
+
+    pub fn ask_any_kit(&self, method: &str, args: &Wire) -> String {
+        wire_as_kit(&self.ask_any(method, args))
+    }
+
+    pub fn ask_any_fields(&self, method: &str, args: &Wire) -> ::hanga::kit::Fields {
+        fields_from_wire(&self.ask_any(method, args))
+    }
+
+    pub fn wake_all(&mut self) {
+        if let Ok(mut guard) = self.context.lock() {
+            if let Some(ctx) = guard.as_mut() {
+                ctx.wake();
+            }
+        }
+        for pack in &self.packs {
+            if let Ok(mut guard) = pack.context.lock() {
+                if let Some(ctx) = guard.as_mut() {
+                    ctx.wake();
+                }
+            }
+        }
+        self.notify_all("on-mods-loaded", &wire_empty());
+        self.woken = true;
+    }
+
+    pub fn flush_after(&self) {
+        let now = host_now_ms();
+        let due = {
+            let Ok(mut jobs) = AFTER_JOBS.lock() else {
+                return;
+            };
+            let mut keep = Vec::new();
+            let mut due = Vec::new();
+            for job in std::mem::take(&mut *jobs) {
+                if job.at_ms <= now {
+                    due.push(job);
+                } else {
+                    keep.push(job);
+                }
+            }
+            *jobs = keep;
+            due
+        };
+        for job in due {
+            self.bus.send("host", &job.pack, &job.method, job.args);
+        }
+    }
+
+    /// OTP `gen_event:notify`. No reply, no veto. Mailbox if a pack is in a call.
+    pub fn notify_all(&self, method: &str, args: &Wire) {
+        self.bus.send("host", "", method, args.clone());
+    }
+
+    /// OTP `gen_event:call` to every pack. Any veto flag stops the engine action.
+    pub fn emit_all(&self, method: &str, args: &Wire) -> bool {
+        let mut veto = false;
+        if let Ok(mut guard) = self.context.lock() {
+            if let Some(ctx) = guard.as_mut() {
+                if wire_is_veto(&ctx.call("host", method, args)) {
+                    veto = true;
+                }
+            }
+        }
+        for pack in &self.packs {
+            if let Ok(mut guard) = pack.context.lock() {
+                if let Some(ctx) = guard.as_mut() {
+                    if wire_is_veto(&ctx.call("host", method, args)) {
+                        veto = true;
+                    }
+                }
+            }
+        }
+        veto
     }
 
     pub fn new(wasm_path: &Path) -> Self {
@@ -304,6 +1029,7 @@ impl ModRuntime {
             lead_name: lead_name.clone(),
             lead: Arc::clone(&context),
             packs: Vec::new(),
+            pending: Mutex::new(Vec::new()),
         });
         *context.lock().unwrap() = Self::instantiate(&watch_path, &lead_name, Arc::clone(&bus), true);
 
@@ -315,6 +1041,7 @@ impl ModRuntime {
             lead_name,
             bus,
             loaded_paths: vec![watch_path],
+            woken: false,
             _watcher: watcher,
         }
     }
@@ -364,10 +1091,25 @@ impl ModRuntime {
         let mut linker = Linker::new(&engine);
         Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).ok()?;
         let bindings = Plugin::instantiate(&mut store, &component, &linker).ok()?;
+        let gp = bindings.hanga_engine_guest();
+        let abi = gp.call_abi(&mut store).unwrap_or(0);
+        if abi != ABI_MAJOR {
+            error!(
+                "Refusing {name}: ABI {abi} (host wants {ABI_MAJOR})"
+            );
+            return None;
+        }
+        let methods = gp
+            .call_invoke(&mut store, "host", "methods", &lower_wire(&wire_empty()))
+            .map(|value| lift_wire(&value))
+            .unwrap_or_else(|_| wire_empty());
+        let topics = parse_topics(&methods);
 
-        let _ = bindings.hanga_engine_gameplay().call_init_mod(&mut store);
-
-        Some(MainModContext { store, bindings })
+        Some(MainModContext {
+            store,
+            bindings,
+            topics,
+        })
     }
 
     /// Load another `.wasm` as the lead (same mods directory is already watched).
@@ -381,12 +1123,17 @@ impl ModRuntime {
             return;
         }
         let paths: Vec<PathBuf> = mods.iter().map(|(_, path)| path.clone()).collect();
-        if self.loaded_paths == paths {
-            if let Ok(ctx) = self.context.lock() {
-                if ctx.is_some() {
-                    return;
-                }
+        let already = self
+            .context
+            .lock()
+            .ok()
+            .map(|ctx| ctx.is_some())
+            .unwrap_or(false);
+        if self.loaded_paths == paths && already {
+            if !self.woken {
+                self.wake_all();
             }
+            return;
         }
         let (lead_name, lead_path) = &mods[0];
         let lead_name = if lead_name.is_empty() {
@@ -419,6 +1166,7 @@ impl ModRuntime {
                 .iter()
                 .map(|(name, _, ctx)| (name.clone(), Arc::clone(ctx)))
                 .collect(),
+            pending: Mutex::new(Vec::new()),
         });
         self.bus = Arc::clone(&bus);
 
@@ -443,6 +1191,7 @@ impl ModRuntime {
             "Game collection lead '{lead_name}' plus {} pack(s)",
             self.packs.len()
         );
+        self.wake_all();
     }
 }
 
@@ -458,7 +1207,7 @@ impl bevy::app::Plugin for ModManagerPlugin {
     }
 }
 
-fn watch_mod_changes(runtime: ResMut<ModRuntime>) {
+fn watch_mod_changes(mut runtime: ResMut<ModRuntime>) {
     let mut changed = false;
     while let Ok(event) = runtime.rx.try_recv() {
         if event.kind.is_modify() || event.kind.is_create() {
@@ -494,4 +1243,5 @@ fn watch_mod_changes(runtime: ResMut<ModRuntime>) {
             *ctx = reloaded;
         }
     }
+    runtime.wake_all();
 }

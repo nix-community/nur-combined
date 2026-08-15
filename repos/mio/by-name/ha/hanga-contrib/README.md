@@ -39,5 +39,9 @@ WIT bindings are generated at build time (`wit-bindgen` Kotlin fork,
 `wit-bindgen-go`, or `wit-bindgen c` for Zig), then the guest compiler and
 `wasm-tools component embed`. Hoot uses `hoot compile` instead.
 
-Bus topics include Godot-style `has` (flag) and `methods` (CSV) so packs can
-discover each other without extra WIT functions.
+Required WIT is `abi` (major 6), `ready`, `voxel-catalog`, `query-voxel`, and
+`invoke`. Host: `id`, `has-mod`, `invoke`, `send`, `emit`, `voxel`, `voxel-set`,
+`player`, `after`. `value` is JSON-shaped (null, bool, number, string, array, object).
+Empty `invoke` replies (including empty text) mean “not mine”. `fail` is a bus
+error (`busy` / `self` / `noproc`), not a missing method. `send` is fire-and-forget
+(OTP cast). Kits (`gravity`, `fracture-kit`, vehicles) are nested dicts/lists, not `key=value` strings.

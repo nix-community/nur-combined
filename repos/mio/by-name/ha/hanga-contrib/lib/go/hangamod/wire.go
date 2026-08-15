@@ -1,27 +1,5 @@
 package hangamod
 
-type AtomKind uint8
-
-const (
-	AtomFlag AtomKind = iota
-	AtomInt
-	AtomFloat
-	AtomText
-)
-
-type Atom struct {
-	Kind  AtomKind
-	Flag  bool
-	Int   int64
-	Float float64
-	Text  string
-}
-
-type Field struct {
-	Key   string
-	Value Atom
-}
-
 type WireKind uint8
 
 const (
@@ -30,15 +8,23 @@ const (
 	WireInt
 	WireFloat
 	WireText
+	WireList
 	WireBag
 )
 
+type Field struct {
+	Key   string
+	Value Wire
+}
+
+// JSON-shaped payload: null, bool, number, string, array, object.
 type Wire struct {
 	Kind   WireKind
 	Flag   bool
 	Int    int64
 	Float  float64
 	Text   string
+	Items  []Wire
 	Fields []Field
 }
 
@@ -50,8 +36,8 @@ func VoxelProbe(name string, edit bool) Wire {
 	return Wire{
 		Kind: WireBag,
 		Fields: []Field{
-			{Key: "name", Value: Atom{Kind: AtomText, Text: name}},
-			{Key: "edit", Value: Atom{Kind: AtomFlag, Flag: edit}},
+			{Key: "name", Value: Wire{Kind: WireText, Text: name}},
+			{Key: "edit", Value: Wire{Kind: WireFlag, Flag: edit}},
 		},
 	}
 }
@@ -68,7 +54,7 @@ func (w Wire) BagText(key string) (string, bool) {
 		return "", false
 	}
 	for _, field := range w.Fields {
-		if field.Key == key && field.Value.Kind == AtomText {
+		if field.Key == key && field.Value.Kind == WireText {
 			return field.Value.Text, true
 		}
 	}
@@ -84,9 +70,9 @@ func (w Wire) BagFlag(key string) bool {
 			continue
 		}
 		switch field.Value.Kind {
-		case AtomFlag:
+		case WireFlag:
 			return field.Value.Flag
-		case AtomInt:
+		case WireInt:
 			return field.Value.Int == 1
 		}
 	}
@@ -102,9 +88,9 @@ func (w Wire) BagInt(key string) int64 {
 			continue
 		}
 		switch field.Value.Kind {
-		case AtomInt:
+		case WireInt:
 			return field.Value.Int
-		case AtomText:
+		case WireText:
 			n, _ := parseInt64(field.Value.Text)
 			return n
 		}

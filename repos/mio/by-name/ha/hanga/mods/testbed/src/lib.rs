@@ -19,8 +19,6 @@ wit_bindgen::generate!({
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
 
-const BUS_TOPICS: &str = "ping,name,catalog,gravity,hello,voxel,probe,has,methods";
-
 struct TestbedMod;
 
 pub const ACTION_BREAK: &str = "break";
@@ -130,21 +128,56 @@ pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
 }
 
 /// A rideable slab. Stiff lab plate; a second cart appears next to Urban Chaos.
-pub fn vehicle_kit(index: i32) -> String {
-    if beside_peer("urban_chaos") && index >= 1 {
-        "kind=cart;traffic=1;speed=8;stiffness=88;collider=1.6,0.5,2.2\n\
-         part=deck,1.60,0.18,2.20,0.00,0.00,0.00,0.55,0.62,0.58"
-            .into()
+pub fn vehicle_kit(index: i32) -> hanga::engine::host::Value {
+    let cart = beside_peer("urban_chaos") && index >= 1;
+    let (kind, traffic, speed, stiffness, collider, deck, rgb) = if cart {
+        (
+            "cart",
+            true,
+            8.0,
+            88,
+            [1.6, 0.5, 2.2],
+            [1.60, 0.18, 2.20],
+            [0.55, 0.62, 0.58],
+        )
     } else {
-        "kind=platform;traffic=0;speed=12;stiffness=95;collider=2,0.4,2\n\
-         part=deck,2.00,0.20,2.00,0.00,0.00,0.00,0.45,0.45,0.48"
-            .into()
-    }
+        (
+            "platform",
+            false,
+            12.0,
+            95,
+            [2.0, 0.4, 2.0],
+            [2.00, 0.20, 2.00],
+            [0.45, 0.45, 0.48],
+        )
+    };
+    wire_dict(vec![
+        field("kind", atom_text(kind)),
+        field("traffic", atom_flag(traffic)),
+        field("speed", atom_float(speed)),
+        field("stiffness", atom_int(stiffness)),
+        field(
+            "collider",
+            wire_dict(vec![
+                field("x", atom_float(collider[0])),
+                field("y", atom_float(collider[1])),
+                field("z", atom_float(collider[2])),
+            ]),
+        ),
+        field(
+            "parts",
+            wire_list(vec![part_dict("deck", deck, [0.0, 0.0, 0.0], rgb)]),
+        ),
+    ])
 }
 
 /// Lab void: no gravity. Debris and the player stay where they are.
-pub fn gravity() -> String {
-    "kind=none;jump=2;walk=8".into()
+pub fn gravity() -> hanga::engine::host::Value {
+    wire_dict(vec![
+        field("kind", atom_text("none")),
+        field("jump", atom_float(2.0)),
+        field("walk", atom_float(8.0)),
+    ])
 }
 
 pub fn can_fracture(voxel: &str) -> i32 {
@@ -163,35 +196,33 @@ pub fn debris_impulse(_action: &str) -> f32 {
     8.0
 }
 
-pub fn fracture_kit(voxel: &str, action: &str) -> String {
-    format!(
-        "can={};spread={};impulse={}",
-        can_fracture(voxel),
-        fracture_spread(voxel),
-        debris_impulse(action)
-    )
+pub fn fracture_kit(voxel: &str, action: &str) -> hanga::engine::host::Value {
+    wire_dict(vec![
+        field("can", atom_flag(can_fracture(voxel) != 0)),
+        field("spread", atom_int(fracture_spread(voxel) as i64)),
+        field("impulse", atom_float(debris_impulse(action) as f64)),
+    ])
 }
 
-pub fn steer(role: &str, context: &str) -> String {
+pub fn steer(payload: &hanga::engine::host::Value) -> hanga::engine::host::Value {
+    let role = payload_str(payload, "role");
     if role == "traffic" {
-        let fwd_x = kit_f32(context, "fwd-x", 0.0);
-        let fwd_z = kit_f32(context, "fwd-z", 0.0);
-        let blocked = kit_bool(context, "blocked");
-        return format!(
-            "vx={};vz={}",
-            compute_traffic_vx(fwd_x, fwd_z, blocked),
-            compute_traffic_vz(fwd_x, fwd_z, blocked)
-        );
+        let fwd_x = payload_f32(payload, "fwd-x");
+        let fwd_z = payload_f32(payload, "fwd-z");
+        let blocked = payload_flag(payload, "blocked");
+        return wire_dict(vec![
+            field("vx", atom_float(compute_traffic_vx(fwd_x, fwd_z, blocked) as f64)),
+            field("vz", atom_float(compute_traffic_vz(fwd_x, fwd_z, blocked) as f64)),
+        ]);
     }
-    let cx = kit_f32(context, "cur-x", 0.0);
-    let cz = kit_f32(context, "cur-z", 0.0);
-    let tx = kit_f32(context, "target-x", 0.0);
-    let tz = kit_f32(context, "target-z", 0.0);
-    format!(
-        "vx={};vz={}",
-        compute_agent_vx(role, cx, cz, tx, tz),
-        compute_agent_vz(role, cx, cz, tx, tz)
-    )
+    let cx = payload_f32(payload, "cur-x");
+    let cz = payload_f32(payload, "cur-z");
+    let tx = payload_f32(payload, "target-x");
+    let tz = payload_f32(payload, "target-z");
+    wire_dict(vec![
+        field("vx", atom_float(compute_agent_vx(role, cx, cz, tx, tz) as f64)),
+        field("vz", atom_float(compute_agent_vz(role, cx, cz, tx, tz) as f64)),
+    ])
 }
 
 pub fn mod_tick(current_state: i32, _dt_ms: i32) -> i32 {
@@ -250,13 +281,16 @@ pub fn mod_can_complete(
     _player_state: i32,
     _contract_kind: &str,
     _contract_danger: i32,
-    _context: &str,
+    _held: &str,
+    _y: i32,
+    _vehicle: bool,
+    _near: bool,
 ) -> i32 {
     0
 }
 
-pub fn contract_mark(_kind: &str) -> String {
-    String::new()
+pub fn contract_mark(_kind: &str) -> hanga::engine::host::Value {
+    wire_empty()
 }
 
 pub fn event_label(_event: &str) -> String {
@@ -323,20 +357,22 @@ pub fn crash_part_impulse(_severity: i32) -> f32 {
     0.0
 }
 
-pub fn crash_kit(_speed: f32, _into_solid: bool) -> String {
-    String::new()
+pub fn crash_kit(_speed: f32, _into_solid: bool) -> hanga::engine::host::Value {
+    wire_empty()
 }
 
-pub fn fire_kit(_age_ms: i32, _nearby: &str) -> String {
-    String::new()
+pub fn fire_kit(_age_ms: i32, _nearby: &str) -> hanga::engine::host::Value {
+    wire_empty()
 }
 
-pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Payload) -> hanga::engine::host::Payload {
+pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Value) -> hanga::engine::host::Value {
+    if let Some(reply) = host_bus_reply(topic, payload) {
+        return reply;
+    }
     match topic {
         "ping" => wire_text("pong"),
         "name" => wire_text("testbed"),
         "catalog" => wire_text(voxel_catalog()),
-        "gravity" => wire_text(gravity()),
         "hello" => wire_text(format!("hello {from}")),
         "voxel" => wire_text(host_voxel_at(
             payload_i64(payload, "x") as i32,
@@ -349,137 +385,35 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Payloa
             payload_i64(payload, "z") as i32,
         ),
         "has" => bus_has(BUS_TOPICS, payload),
-        "methods" => wire_text(BUS_TOPICS),
+        "methods" => wire_methods(BUS_TOPICS),
         _ => wire_empty(),
     }
 }
 
-impl exports::hanga::engine::gameplay::Guest for TestbedMod {
-    fn init_mod() {
+impl exports::hanga::engine::guest::Guest for TestbedMod {
+    fn abi() -> i32 {
+        6
+    }
+
+    fn ready() {
         crate::greet_peers();
         crate::host_log("info", "testbed ready");
     }
-    fn voxel_catalog() -> String {
-        crate::voxel_catalog()
+
+    fn voxel_catalog() -> Vec<String> {
+        catalog_names(&crate::voxel_catalog())
     }
+
     fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
         crate::query_voxel(x, y, z)
     }
-    fn mod_evaluate_action(action: String, current_state: i32) -> i32 {
-        crate::mod_evaluate_action(&action, current_state)
-    }
-    fn mod_should_spawn_agent(a: String, o: i32, n: i32) -> String {
-        crate::mod_should_spawn_agent(&a, o, n)
-    }
-    fn compute_economy_price(b: i32, s: i32, d: i32) -> i32 {
-        crate::compute_economy_price(b, s, d)
-    }
-    fn mod_get_action_range(a: String) -> f32 {
-        crate::mod_get_action_range(&a)
-    }
-    fn steer(role: String, context: String) -> String {
-        crate::steer(&role, &context)
-    }
-    fn mod_get_storyteller_level() -> i32 {
-        crate::mod_get_storyteller_level()
-    }
-    fn mod_get_economy_params() -> i32 {
-        crate::mod_get_economy_params()
-    }
-    fn generate_story_event(level: i32) -> String {
-        crate::generate_story_event(level)
-    }
-    fn player_spawn() -> (i32, i32, i32) {
-        crate::player_spawn()
-    }
-    fn vehicle_spawn_count() -> i32 {
-        crate::vehicle_spawn_count()
-    }
-    fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
-        crate::vehicle_spawn(index)
-    }
-    fn vehicle_kit(index: i32) -> String {
-        crate::vehicle_kit(index)
-    }
-    fn gravity() -> String {
-        crate::gravity()
-    }
-    fn fracture_kit(voxel: String, action: String) -> String {
-        crate::fracture_kit(&voxel, &action)
-    }
-    fn mod_tick(current_state: i32, dt_ms: i32) -> i32 {
-        crate::mod_tick(current_state, dt_ms)
-    }
-    fn should_despawn_agent(agent: String, current_state: i32) -> i32 {
-        crate::should_despawn_agent(&agent, current_state)
-    }
-    fn ambient_agent_count() -> i32 {
-        crate::ambient_agent_count()
-    }
-    fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, String) {
-        crate::ambient_agent_spawn(index)
-    }
-    fn voxel_label(voxel: String, locale: String) -> String {
-        crate::voxel_label_for(&locale, &voxel)
-    }
-    fn mod_wallet_after(action: String, current_wallet: i32, extra: i32) -> i32 {
-        crate::mod_wallet_after(&action, current_wallet, extra)
-    }
-    fn mod_offer_contract(player_state: i32) -> (String, i32, i32) {
-        crate::mod_offer_contract(player_state)
-    }
-    fn mod_can_complete(
-        action: String,
-        player_state: i32,
-        contract_kind: String,
-        contract_danger: i32,
-        context: String,
-    ) -> i32 {
-        crate::mod_can_complete(
-            &action,
-            player_state,
-            &contract_kind,
-            contract_danger,
-            &context,
-        )
-    }
-    fn contract_mark(kind: String) -> String {
-        crate::contract_mark(&kind)
-    }
-    fn event_label(event: String, locale: String) -> String {
-        crate::event_label_for(&locale, &event)
-    }
-    fn contract_label(kind: String, locale: String) -> String {
-        crate::contract_label_for(&locale, &kind)
-    }
-    fn supported_locales() -> String {
-        crate::supported_locales()
-    }
 
-    fn loot_item(voxel: String) -> String {
-        crate::loot_item(&voxel)
-    }
-
-    fn item_label(item: String, locale: String) -> String {
-        crate::item_label_for(&locale, &item)
-    }
-
-    fn craft_result(item_a: String, item_b: String) -> String {
-        crate::craft_result(&item_a, &item_b)
-    }
-
-    fn crash_kit(speed: f32, into_solid: bool) -> String {
-        crate::crash_kit(speed, into_solid)
-    }
-    fn fire_kit(age_ms: i32, nearby: String) -> String {
-        crate::fire_kit(age_ms, &nearby)
-    }
-    fn on_message(
+    fn invoke(
         caller: String,
-        topic: String,
-        payload: hanga::engine::host::Payload,
-    ) -> hanga::engine::host::Payload {
-        crate::on_message(&caller, &topic, &payload)
+        method: String,
+        args: hanga::engine::host::Value,
+    ) -> hanga::engine::host::Value {
+        crate::on_message(&caller, &method, &args)
     }
 }
 
@@ -528,7 +462,7 @@ mod tests {
     fn testbed_has_no_heists_or_wallet() {
         assert_eq!(mod_offer_contract(5), (String::new(), 0, 0));
         assert_eq!(mod_wallet_after("complete_contract", 99, 1200), 99);
-        assert_eq!(mod_can_complete("accept_contract", 0, "smash-and-grab", 1, ""), 0);
+        assert_eq!(mod_can_complete("accept_contract", 0, "smash-and-grab", 1, "", 0, false, false), 0);
         assert_eq!(event_label("armored-truck-heist"), "void");
     }
 
@@ -559,8 +493,8 @@ mod tests {
         assert_eq!(crash_wrecks(100), 0);
         assert!(crash_action(100).is_empty());
         assert_eq!(crash_ignites(100), 0);
-        assert!(crash_kit(40.0, true).is_empty());
-        assert!(fire_kit(9_000, "glass").is_empty());
+        assert!(wire_is_null(&crash_kit(40.0, true)));
+        assert!(wire_is_null(&fire_kit(9_000, "glass")));
         assert_eq!(
             wire_as_text(&on_message("urban_chaos", "ping", &wire_empty())),
             Some("pong")
@@ -572,14 +506,8 @@ mod tests {
         let probe = on_message("x", "probe", &wire_empty());
         assert_eq!(payload_text(&probe, "name"), Some("air"));
         assert!(!payload_flag(&probe, "edit"));
-        assert!(matches!(
-            on_message("x", "has", &wire_text("voxel")),
-            hanga::engine::host::Payload::Flag(true)
-        ));
-        assert!(matches!(
-            on_message("x", "has", &wire_text("nope")),
-            hanga::engine::host::Payload::Flag(false)
-        ));
+        assert!(wire_is_flag(&on_message("x", "has", &wire_text("voxel")), true));
+        assert!(wire_is_flag(&on_message("x", "has", &wire_text("nope")), false));
         assert_eq!(
             wire_as_text(&on_message("x", "name", &wire_empty())),
             Some("testbed")
@@ -589,18 +517,19 @@ mod tests {
     #[test]
     fn testbed_vehicle_is_a_platform() {
         let kit = vehicle_kit(0);
-        assert!(kit.contains("kind=platform"));
-        assert!(kit.contains("stiffness=95"));
-        assert!(kit.contains("part=deck"));
-        assert!(!kit.contains("kind=car"));
+        assert_eq!(payload_str(&kit, "kind"), "platform");
+        assert_eq!(payload_i64(&kit, "stiffness"), 95);
+        let parts = as_list(&dict_child(&kit, "parts").unwrap()).unwrap();
+        assert_eq!(payload_str(&parts[0], "name"), "deck");
+        assert_ne!(payload_str(&kit, "kind"), "car");
         assert_eq!(vehicle_spawn_count(), 1);
     }
 
     #[test]
     fn testbed_has_no_earth_gravity() {
         let g = gravity();
-        assert!(g.contains("kind=none"));
-        assert!(g.contains("walk=8"));
-        assert!(!g.contains("-9.81"));
+        assert_eq!(payload_str(&g, "kind"), "none");
+        assert!((payload_f32(&g, "walk") - 8.0).abs() < 1e-5);
+        assert_eq!(payload_f32(&g, "y"), 0.0);
     }
 }

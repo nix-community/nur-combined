@@ -177,6 +177,62 @@ pub fn overlay_set(x: i32, y: i32, z: i32, voxel: VoxelOverlay) {
     }
 }
 
+/// Guest `voxel-set` writes, flushed on the play thread (Luanti `core.set_node`).
+#[derive(Clone, Debug)]
+pub struct VoxelWrite {
+    pub x: i32,
+    pub y: i32,
+    pub z: i32,
+    pub name: String,
+}
+
+static VOXEL_WRITES: std::sync::LazyLock<std::sync::Mutex<Vec<VoxelWrite>>> =
+    std::sync::LazyLock::new(|| std::sync::Mutex::new(Vec::new()));
+
+pub fn queue_voxel_write(x: i32, y: i32, z: i32, name: impl Into<String>) {
+    let name = name.into();
+    let overlay = if name.is_empty() || name == "air" {
+        VoxelOverlay::Air
+    } else {
+        VoxelOverlay::Solid(name.clone())
+    };
+    overlay_set(x, y, z, overlay);
+    if let Ok(mut queue) = VOXEL_WRITES.lock() {
+        queue.push(VoxelWrite { x, y, z, name });
+    }
+}
+
+pub fn take_voxel_writes() -> Vec<VoxelWrite> {
+    VOXEL_WRITES
+        .lock()
+        .map(|mut queue| std::mem::take(&mut *queue))
+        .unwrap_or_default()
+}
+
+/// Local player for guest `player()` (Luanti `get_player_by_name` snapshot).
+#[derive(Clone, Copy, Debug)]
+pub struct PlayerSnap {
+    pub x: f32,
+    pub y: f32,
+    pub z: f32,
+    pub yaw: f32,
+    pub state: i32,
+    pub wallet: i32,
+}
+
+static PLAYER_SNAP: std::sync::LazyLock<std::sync::RwLock<Option<PlayerSnap>>> =
+    std::sync::LazyLock::new(|| std::sync::RwLock::new(None));
+
+pub fn set_player_snap(snap: PlayerSnap) {
+    if let Ok(mut slot) = PLAYER_SNAP.write() {
+        *slot = Some(snap);
+    }
+}
+
+pub fn player_snap() -> Option<PlayerSnap> {
+    PLAYER_SNAP.read().ok().and_then(|slot| *slot)
+}
+
 pub fn overlay_clear() {
     if let Ok(mut map) = VOXEL_OVERLAY.write() {
         map.clear();

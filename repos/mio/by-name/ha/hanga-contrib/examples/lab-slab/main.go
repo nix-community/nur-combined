@@ -6,153 +6,171 @@ import (
 
 	"go.bytecodealliance.org/cm"
 	"hanga.example/hangamod"
-	"hanga.example/lab-slab/gen/hanga/engine/gameplay"
+	"hanga.example/lab-slab/gen/hanga/engine/guest"
 	"hanga.example/lab-slab/gen/hanga/engine/host"
 )
 
-const catalog = "air,slab,mark"
-const busTopics = "ping,name,catalog,gravity,has,methods,voxel"
+var names = []string{"air", "slab", "mark"}
+
+const busTopics = "ping,name,catalog,gravity,has,methods,voxel,fracture-kit,loot-item"
 
 func init() {
-	gameplay.Exports.InitMod = func() { host.Log("info", "lab_slab ready") }
-	gameplay.Exports.VoxelCatalog = func() string { return catalog }
-	gameplay.Exports.QueryVoxel = queryVoxel
-	gameplay.Exports.ModGetActionRange = func(action string) float32 {
-		hangamod.Get(action, "unused")
-		return 20
-	}
-	gameplay.Exports.ModEvaluateAction = func(_ string, state int32) int32 { return state }
-	gameplay.Exports.ModShouldSpawnAgent = func(string, int32, int32) string { return "" }
-	gameplay.Exports.Steer = func(_, context string) string {
-		hangamod.Get(context, "blocked")
-		return ""
-	}
-	gameplay.Exports.ModGetStorytellerLevel = func() int32 { return 0 }
-	gameplay.Exports.GenerateStoryEvent = func(int32) string { return "void" }
-	gameplay.Exports.ModGetEconomyParams = func() int32 { return (1 << 16) | 1 }
-	gameplay.Exports.ComputeEconomyPrice = func(base, supply, demand int32) int32 {
-		if supply == 0 {
-			return base
-		}
-		n := base * demand / supply
-		if n < 1 {
-			return 1
-		}
-		return n
-	}
-	gameplay.Exports.PlayerSpawn = func() [3]int32 { return [3]int32{0, 4, 0} }
-	gameplay.Exports.VehicleSpawnCount = func() int32 { return 0 }
-	gameplay.Exports.VehicleSpawn = func(i int32) [3]int32 { return [3]int32{i, 2, 0} }
-	gameplay.Exports.VehicleKit = func(int32) string { return "" }
-	gameplay.Exports.Gravity = gravity
-	gameplay.Exports.FractureKit = func(voxel, action string) string {
-		if action != "break" && action != "explode" {
-			return ""
-		}
-		if voxel == "slab" || voxel == "mark" {
-			return "can=1;spread=1;impulse=4"
-		}
-		return ""
-	}
-	gameplay.Exports.ModTick = func(state, _ int32) int32 { return state }
-	gameplay.Exports.ShouldDespawnAgent = func(string, int32) int32 { return 0 }
-	gameplay.Exports.AmbientAgentCount = func() int32 { return 0 }
-	gameplay.Exports.AmbientAgentSpawn = func(int32) cm.Tuple4[int32, int32, int32, string] {
-		return cm.Tuple4[int32, int32, int32, string]{}
-	}
-	gameplay.Exports.VoxelLabel = func(voxel, _ string) string { return voxel }
-	gameplay.Exports.ModWalletAfter = func(_ string, wallet, extra int32) int32 {
-		n := wallet + extra
-		if n < 0 {
-			return 0
-		}
-		if n > 1_000_000 {
-			return 1_000_000
-		}
-		return n
-	}
-	gameplay.Exports.ModOfferContract = func(int32) cm.Tuple3[string, int32, int32] {
-		return cm.Tuple3[string, int32, int32]{}
-	}
-	gameplay.Exports.ModCanComplete = func(string, int32, string, int32, string) int32 { return 0 }
-	gameplay.Exports.ContractMark = func(string) string { return "" }
-	gameplay.Exports.EventLabel = func(event, _ string) string { return event }
-	gameplay.Exports.ContractLabel = func(kind, _ string) string { return kind }
-	gameplay.Exports.SupportedLocales = func() string { return "en" }
-	gameplay.Exports.LootItem = func(voxel string) string {
-		if voxel == "mark" {
-			return "mark"
-		}
-		return ""
-	}
-	gameplay.Exports.ItemLabel = func(item, _ string) string { return item }
-	gameplay.Exports.CraftResult = func(a, b string) string {
-		hangamod.ParseCatalog(a + "," + b)
-		return ""
-	}
-	gameplay.Exports.CrashKit = func(speed float32, intoSolid bool) string {
-		hangamod.F32("s="+formatF32(speed), "s", 0)
-		if intoSolid {
-			hangamod.Flag("1")
-		}
-		return ""
-	}
-	gameplay.Exports.FireKit = func(int32, string) string { return "" }
-	gameplay.Exports.OnMessage = onMessage
+	guest.Exports.ABI = func() int32 { return 6 }
+	guest.Exports.Ready = func() { host.Log("info", "lab_slab ready") }
+	guest.Exports.VoxelCatalog = func() cm.List[string] { return cm.ToList(names) }
+	guest.Exports.QueryVoxel = queryVoxel
+	guest.Exports.Invoke = onMessage
 }
 
-func gravity() string { return "kind=down;g=9.81;jump=5;walk=10" }
+func shiftCell(cell host.Cell, base uint32) host.Cell {
+	if items := (&cell).Items(); items != nil {
+		idx := make([]uint32, 0, items.Len())
+		for _, at := range items.Slice() {
+			idx = append(idx, at+base)
+		}
+		return host.CellItems(cm.ToList(idx))
+	}
+	if bag := (&cell).Dict(); bag != nil {
+		fields := make([]host.Field, 0, bag.Len())
+		for _, field := range bag.Slice() {
+			fields = append(fields, host.Field{Key: field.Key, At: field.At + base})
+		}
+		return host.CellDict(cm.ToList(fields))
+	}
+	return cell
+}
+
+func appendValue(cells []host.Cell, child host.Value) ([]host.Cell, uint32) {
+	base := uint32(len(cells))
+	for _, cell := range child.Cells.Slice() {
+		cells = append(cells, shiftCell(cell, base))
+	}
+	return cells, base + child.Root
+}
+
+func valLeaf(cell host.Cell) host.Value {
+	return host.Value{Cells: cm.ToList([]host.Cell{cell}), Root: 0}
+}
+
+func valText(s string) host.Value { return valLeaf(host.CellText(s)) }
+func valFlag(v bool) host.Value   { return valLeaf(host.CellFlag(v)) }
+func valInt(v int64) host.Value   { return valLeaf(host.CellInt(v)) }
+func valFloat(v float64) host.Value {
+	return valLeaf(host.CellFloat(v))
+}
+func valEmpty() host.Value { return valLeaf(host.CellEmpty()) }
+
+func valDict(pairs [][2]any) host.Value {
+	cells := make([]host.Cell, 0)
+	fields := make([]host.Field, 0, len(pairs))
+	for _, pair := range pairs {
+		key := pair[0].(string)
+		child := pair[1].(host.Value)
+		var at uint32
+		cells, at = appendValue(cells, child)
+		fields = append(fields, host.Field{Key: key, At: at})
+	}
+	root := uint32(len(cells))
+	cells = append(cells, host.CellDict(cm.ToList(fields)))
+	return host.Value{Cells: cm.ToList(cells), Root: root}
+}
+
+func rootCell(v host.Value) host.Cell {
+	slice := v.Cells.Slice()
+	if int(v.Root) >= len(slice) {
+		return host.CellEmpty()
+	}
+	return slice[v.Root]
+}
+
+func gravity() host.Value {
+	return valDict([][2]any{
+		{"kind", valText("down")},
+		{"g", valFloat(9.81)},
+		{"jump", valFloat(5)},
+		{"walk", valFloat(10)},
+	})
+}
 
 func queryVoxel(x, y, z int32) int32 {
 	if y < 0 {
-		return 1
+		return 2
 	}
 	if y == 0 {
 		if (x+z)&1 == 0 {
-			return 1
+			return 2
 		}
 		return 2
 	}
 	return 0
 }
 
-func onMessage(caller, topic string, payload host.Payload) host.Payload {
+func onMessage(caller, topic string, payload host.Value) host.Value {
 	hangamod.Get(caller, "unused")
 	switch topic {
 	case "ping":
-		return host.PayloadText("pong")
+		return valText("pong")
 	case "name":
-		return host.PayloadText("lab_slab")
+		return valText("lab_slab")
 	case "catalog":
-		return host.PayloadText(catalog)
+		return valText(strings.Join(names, ","))
 	case "gravity":
-		return host.PayloadText(gravity())
+		return gravity()
 	case "has":
-		return host.PayloadFlag(busHas(payload))
+		return valFlag(busHas(payload))
 	case "methods":
-		return host.PayloadText(busTopics)
+		return methodsBag()
 	case "voxel":
 		x := int32(bagInt(payload, "x"))
 		y := int32(bagInt(payload, "y"))
 		z := int32(bagInt(payload, "z"))
-		names := hangamod.ParseCatalog(catalog)
-		return host.PayloadText(hangamod.CatalogName(names, int(queryVoxel(x, y, z))))
+		return valText(hangamod.CatalogName(names, int(queryVoxel(x, y, z))))
+	case "fracture-kit":
+		voxel := bagText(payload, "voxel")
+		action := bagText(payload, "action")
+		if action != "break" && action != "explode" {
+			return valEmpty()
+		}
+		if voxel == "slab" || voxel == "mark" {
+			return valDict([][2]any{
+				{"can", valFlag(true)},
+				{"spread", valInt(1)},
+				{"impulse", valFloat(4)},
+			})
+		}
+		return valEmpty()
+	case "loot-item":
+		voxel := payloadText(payload)
+		if voxel == "" {
+			voxel = bagText(payload, "voxel")
+		}
+		if voxel == "mark" {
+			return valText("mark")
+		}
+		return valEmpty()
 	default:
-		return host.PayloadEmpty()
+		return valEmpty()
 	}
 }
 
-func busHas(payload host.Payload) bool {
-	name := ""
-	if text := payload.Text(); text != nil {
-		name = *text
-	} else if bag := payload.Bag(); bag != nil {
-		for _, field := range bag.Slice() {
-			if field.Key == "name" || field.Key == "method" {
-				if text := field.Value.Text(); text != nil {
-					name = *text
-				}
-			}
+func methodsBag() host.Value {
+	pairs := make([][2]any, 0)
+	for _, topic := range strings.Split(busTopics, ",") {
+		topic = strings.TrimSpace(topic)
+		if topic == "" {
+			continue
+		}
+		pairs = append(pairs, [2]any{topic, valFlag(true)})
+	}
+	return valDict(pairs)
+}
+
+func busHas(payload host.Value) bool {
+	name := payloadText(payload)
+	if name == "" {
+		name = bagText(payload, "name")
+		if name == "" {
+			name = bagText(payload, "method")
 		}
 	}
 	for _, method := range strings.Split(busTopics, ",") {
@@ -163,28 +181,54 @@ func busHas(payload host.Payload) bool {
 	return false
 }
 
-func bagInt(payload host.Payload, key string) int64 {
-	bag := payload.Bag()
+func payloadText(payload host.Value) string {
+	cell := rootCell(payload)
+	if text := (&cell).Text(); text != nil {
+		return *text
+	}
+	return ""
+}
+
+func bagText(payload host.Value, key string) string {
+	root := rootCell(payload)
+	bag := (&root).Dict()
+	if bag == nil {
+		return ""
+	}
+	cells := payload.Cells.Slice()
+	for _, field := range bag.Slice() {
+		if field.Key != key || int(field.At) >= len(cells) {
+			continue
+		}
+		child := cells[field.At]
+		if text := (&child).Text(); text != nil {
+			return *text
+		}
+	}
+	return ""
+}
+
+func bagInt(payload host.Value, key string) int64 {
+	root := rootCell(payload)
+	bag := (&root).Dict()
 	if bag == nil {
 		return 0
 	}
+	cells := payload.Cells.Slice()
 	for _, field := range bag.Slice() {
-		if field.Key != key {
+		if field.Key != key || int(field.At) >= len(cells) {
 			continue
 		}
-		if n := field.Value.Int(); n != nil {
+		child := cells[field.At]
+		if n := (&child).Int(); n != nil {
 			return *n
 		}
-		if text := field.Value.Text(); text != nil {
+		if text := (&child).Text(); text != nil {
 			v, _ := strconv.ParseInt(*text, 10, 64)
 			return v
 		}
 	}
 	return 0
-}
-
-func formatF32(value float32) string {
-	return strconv.FormatFloat(float64(value), 'f', -1, 32)
 }
 
 func main() {}

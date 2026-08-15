@@ -23,24 +23,24 @@ use hanga::{
     action_fingerprint, apply_mouse_look, catalog_index, catalog_name, clamp_hotbar_index,
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
-    is_action_physically_possible, is_connected_to_ground, parse_name_catalog,
-    overlay_get, overlay_set, VoxelOverlay,
+    is_action_physically_possible, is_connected_to_ground,
+    overlay_get, overlay_set, take_voxel_writes, VoxelOverlay, PlayerSnap, set_player_snap,
     cycle_p2p_url, merge_name_catalogs, parse_p2p_url, p2p_room_name,
     resolve_wasm_path, should_skip_menu, unpack_economy_params,
     verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 use hanga::crash::{
     apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
-    parse_crash_kit, parse_fire_kit, parse_fracture_kit, parse_planar,
+    parse_crash_kit_fields, parse_fire_kit_fields, parse_fracture_kit_fields, parse_planar_fields,
 };
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
-    avian_accel, can_jump_from, jump_needs_floor, parse_gravity, point_accel, set_jump,
+    avian_accel, can_jump_from, jump_needs_floor, parse_gravity_fields, point_accel, set_jump,
     set_planar_velocity, walk_up, GravityKit,
 };
-use hanga::heist::{contract_context, mark_reached, parse_contract_mark, ContractMark};
+use hanga::heist::{mark_reached, parse_contract_mark_fields, ContractMark};
 use hanga::vehicle::{
-    beam_length, beam_pin_name, beam_step, is_tire, parse_vehicle_kit, tire_squash,
+    beam_length, beam_pin_name, beam_step, is_tire, parse_vehicle_kit_fields, tire_squash,
     traffic_ahead_blocks, VehicleKit, BEAM_ROUNDS,
 };
 use hanga::game::{
@@ -50,7 +50,10 @@ use hanga::game::{
 use hanga::sign::{self, ActionKey};
 
 mod mod_manager;
-use mod_manager::{ModRuntime, ModManagerPlugin, SHARED_WASM};
+use mod_manager::{
+    payload_f32, payload_i64, payload_text, ModRuntime, ModManagerPlugin, SHARED_WASM, wire_bag,
+    wire_empty, wire_float, wire_int, wire_text, Wire,
+};
 
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
@@ -121,7 +124,7 @@ fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
 
         if let Some((_, store, func)) = instance_opt.as_mut() {
             if let Ok(voxel_type) =
-                func.hanga_engine_gameplay()
+                func.hanga_engine_guest()
                     .call_query_voxel(store, pos.x, pos.y, pos.z)
             {
                 if voxel_type == 0 {
@@ -556,7 +559,9 @@ fn main() {
             Update,
             (
                 generate_voxel_colliders,
+                apply_guest_voxels.run_if(in_state(GameMode::Playing)),
                 player_movement.run_if(in_state(GameMode::Playing)),
+                snapshot_player.run_if(in_state(GameMode::Playing)),
                 player_interaction.run_if(in_state(GameMode::Playing)),
                 validate_incoming_actions,
             )
@@ -865,6 +870,33 @@ fn with_pack_mods(
                 f(&pack.name, ctx);
             }
         }
+    }
+}
+
+fn voxel_event(pos: IVec3, name: &str) -> Wire {
+    wire_bag(vec![
+        ("x", Wire::Int(pos.x as i64)),
+        ("y", Wire::Int(pos.y as i64)),
+        ("z", Wire::Int(pos.z as i64)),
+        ("name", Wire::Text(name.to_string())),
+    ])
+}
+
+fn apply_guest_voxels(
+    mut voxel_world: VoxelWorld<DefaultWorld>,
+    catalog: Res<VoxelCatalog>,
+    mut edits: ResMut<VoxelEdits>,
+) {
+    for write in take_voxel_writes() {
+        let pos = IVec3::new(write.x, write.y, write.z);
+        if write.name.is_empty() || write.name == "air" {
+            voxel_world.set_voxel(pos, WorldVoxel::Unset);
+        } else if let Some(index) = catalog_index(&catalog.0, &write.name) {
+            voxel_world.set_voxel(pos, WorldVoxel::Solid(clamp_voxel_type(index as i32)));
+        } else {
+            continue;
+        }
+        note_voxel_edit(&mut edits, pos);
     }
 }
 
@@ -1185,12 +1217,7 @@ fn spawn_play_world(
     game: &GameSpec,
 ) {
     info!("Hanga engine starting (gameplay owned by the loaded WASM mod)");
-    if let Some(supported) = with_mod(&mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_supported_locales(&mut ctx.store)
-            .unwrap_or_default()
-    }) {
+    if let Some(supported) = with_mod(&mod_runtime, |ctx| ctx.bus_text("supported-locales")) {
         info!(
             "Mod locales: {supported} (host locale {})",
             locale.0.code()
@@ -1204,23 +1231,16 @@ fn spawn_play_world(
     }
     commands.insert_resource(catalog);
 
-    let gravity_text = with_mod(&mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_gravity(&mut ctx.store)
-            .unwrap_or_default()
+    let gravity = with_mod(&mod_runtime, |ctx| {
+        parse_gravity_fields(&ctx.bus_fields("gravity", &wire_empty()))
     })
     .unwrap_or_default();
-    let gravity = parse_gravity(&gravity_text);
     let accel = Vec3::from_array(avian_accel(&gravity));
     commands.insert_resource(Gravity(accel));
     commands.insert_resource(WorldGravity(gravity));
 
     let (px, py, pz) = with_mod(&mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_player_spawn(&mut ctx.store)
-            .unwrap_or((490, 50, 490))
+        ctx.bus_xyz("player-spawn", &wire_empty(), (490, 50, 490))
     })
     .unwrap_or((490, 50, 490));
     let player_pos = Vec3::new(px as f32, py as f32, pz as f32);
@@ -1293,44 +1313,30 @@ fn spawn_mod_traffic(
     ctx: &mut mod_manager::MainModContext,
 ) {
     let count = ctx
-        .bindings
-        .hanga_engine_gameplay()
-        .call_vehicle_spawn_count(&mut ctx.store)
-        .unwrap_or(0)
+        .bus_i32("vehicle-spawn-count", &wire_empty(), 0)
         .max(0) as u32;
     for i in 0..count {
-        let (x, y, z) = ctx
-            .bindings
-            .hanga_engine_gameplay()
-            .call_vehicle_spawn(&mut ctx.store, i as i32)
-            .unwrap_or((500, 2, 495));
-        let kit_text = ctx
-            .bindings
-            .hanga_engine_gameplay()
-            .call_vehicle_kit(&mut ctx.store, i as i32)
-            .unwrap_or_default();
+        let (x, y, z) = ctx.bus_xyz("vehicle-spawn", &wire_int(i as i64), (500, 2, 495));
+        let kit = parse_vehicle_kit_fields(&ctx.bus_fields("vehicle-kit", &wire_int(i as i64)));
         spawn_vehicle(
             commands,
             meshes,
             materials,
             Vec3::new(x as f32, y as f32, z as f32),
-            &parse_vehicle_kit(&kit_text),
+            &kit,
             owner,
         );
     }
 
     let ambient = ctx
-        .bindings
-        .hanga_engine_gameplay()
-        .call_ambient_agent_count(&mut ctx.store)
-        .unwrap_or(0)
+        .bus_i32("ambient-agent-count", &wire_empty(), 0)
         .max(0);
     for i in 0..ambient {
-        let (x, y, z, kind) = ctx
-            .bindings
-            .hanga_engine_gameplay()
-            .call_ambient_agent_spawn(&mut ctx.store, i)
-            .unwrap_or((0, 2, 0, "pedestrian".into()));
+        let (x, y, z, kind) = ctx.bus_xyz_name(
+            "ambient-agent-spawn",
+            &wire_int(i as i64),
+            (0, 2, 0, "pedestrian".into()),
+        );
         spawn_agent(
             commands,
             meshes,
@@ -1343,21 +1349,21 @@ fn spawn_mod_traffic(
 
 fn load_voxel_catalog(mod_runtime: &ModRuntime) -> VoxelCatalog {
     let mut layers = Vec::new();
-    if let Some(csv) = with_mod(mod_runtime, |ctx| {
+    if let Some(names) = with_mod(mod_runtime, |ctx| {
         ctx.bindings
-            .hanga_engine_gameplay()
+            .hanga_engine_guest()
             .call_voxel_catalog(&mut ctx.store)
             .unwrap_or_default()
     }) {
-        layers.push(parse_name_catalog(&csv));
+        layers.push(names);
     }
     with_pack_mods(mod_runtime, |_, ctx| {
-        let csv = ctx
+        let names = ctx
             .bindings
-            .hanga_engine_gameplay()
+            .hanga_engine_guest()
             .call_voxel_catalog(&mut ctx.store)
             .unwrap_or_default();
-        layers.push(parse_name_catalog(&csv));
+        layers.push(names);
     });
     VoxelCatalog(merge_name_catalogs(&layers))
 }
@@ -1621,14 +1627,13 @@ fn teardown_fracture(
     let origin_name = catalog_name(&catalog.0, origin_type)
         .unwrap_or("")
         .to_string();
-    let origin_kit = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_fracture_kit(&mut ctx.store, &origin_name, action)
-            .unwrap_or_default()
-    })
-    .map(|text| parse_fracture_kit(&text))
-    .unwrap_or_default();
+    let origin_kit = parse_fracture_kit_fields(&mod_runtime.ask_any_fields(
+        "fracture-kit",
+        &wire_bag(vec![
+            ("voxel", Wire::Text(origin_name.clone())),
+            ("action", Wire::Text(action.to_string())),
+        ]),
+    ));
     let impulse = origin_kit.impulse;
     let spread = origin_kit.spread;
 
@@ -1654,14 +1659,13 @@ fn teardown_fracture(
             continue;
         };
         let nname = catalog_name(&catalog.0, ntype).unwrap_or("").to_string();
-        let nkit = with_mod(mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_fracture_kit(&mut ctx.store, &nname, action)
-                .unwrap_or_default()
-        })
-        .map(|text| parse_fracture_kit(&text))
-        .unwrap_or_default();
+        let nkit = parse_fracture_kit_fields(&mod_runtime.ask_any_fields(
+            "fracture-kit",
+            &wire_bag(vec![
+                ("voxel", Wire::Text(nname.clone())),
+                ("action", Wire::Text(action.to_string())),
+            ]),
+        ));
         if !nkit.can {
             continue;
         }
@@ -1705,16 +1709,31 @@ fn apply_mod_action(
     spawn_hint: Vec3,
 ) {
     if let Some((new_state, agent, new_wallet)) = with_mod(mod_runtime, |ctx| {
-        let g = ctx.bindings.hanga_engine_gameplay();
-        let new_state = g
-            .call_mod_evaluate_action(&mut ctx.store, action, mod_state.0 as i32)
-            .ok()?;
-        let agent = g
-            .call_mod_should_spawn_agent(&mut ctx.store, action, mod_state.0 as i32, new_state)
-            .unwrap_or_default();
-        let new_wallet = g
-            .call_mod_wallet_after(&mut ctx.store, action, wallet.0, extra)
-            .unwrap_or(wallet.0);
+        let new_state = ctx.bus_i32(
+            "evaluate-action",
+            &wire_bag(vec![
+                ("action", Wire::Text(action.to_string())),
+                ("state", Wire::Int(mod_state.0 as i64)),
+            ]),
+            mod_state.0 as i32,
+        );
+        let agent = ctx.bus_kit(
+            "should-spawn-agent",
+            &wire_bag(vec![
+                ("action", Wire::Text(action.to_string())),
+                ("old", Wire::Int(mod_state.0 as i64)),
+                ("new", Wire::Int(new_state as i64)),
+            ]),
+        );
+        let new_wallet = ctx.bus_i32(
+            "wallet-after",
+            &wire_bag(vec![
+                ("action", Wire::Text(action.to_string())),
+                ("wallet", Wire::Int(wallet.0 as i64)),
+                ("extra", Wire::Int(extra as i64)),
+            ]),
+            wallet.0,
+        );
         Some((new_state, agent, new_wallet))
     })
     .flatten()
@@ -1779,14 +1798,10 @@ fn spawn_contract_mark(
     mod_runtime: &ModRuntime,
     kind: &str,
 ) {
-    let text = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_contract_mark(&mut ctx.store, kind)
-            .unwrap_or_default()
-    })
-    .unwrap_or_default();
-    let Some(mark) = parse_contract_mark(&text) else {
+    let Some(mark) = parse_contract_mark_fields(&mod_runtime.ask_any_fields(
+        "contract-mark",
+        &wire_text(kind),
+    )) else {
         return;
     };
     let color = Color::srgb(mark.rgb[0], mark.rgb[1], mark.rgb[2]);
@@ -1809,24 +1824,15 @@ fn spawn_contract_mark(
 }
 
 fn action_range(mod_runtime: &ModRuntime, action: &str, fallback: f32) -> f32 {
-    with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_mod_get_action_range(&mut ctx.store, action)
-            .unwrap_or(fallback)
-    })
-    .unwrap_or(fallback)
+    match mod_runtime.ask_any("action-range", &wire_text(action)) {
+        Wire::Empty => fallback,
+        other => payload_f32(&other, "value"),
+    }
 }
 
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
 fn grant_loot(inv: &mut ModInventory, mod_runtime: &ModRuntime, voxel: &str) {
-    let item = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_loot_item(&mut ctx.store, voxel)
-            .unwrap_or_default()
-    })
-    .unwrap_or_default();
+    let item = mod_runtime.ask_any_kit("loot-item", &wire_text(voxel));
     if !item.is_empty() {
         let _ = inventory_add(&mut inv.items, &mut inv.counts, &item);
     }
@@ -1902,12 +1908,18 @@ fn validate_incoming_actions(
                     continue;
                 }
 
+                let name = voxel_type_of(voxel_world.get_voxel(voxel_pos))
+                    .and_then(|origin_type| catalog_name(&catalog.0, origin_type).map(str::to_string))
+                    .unwrap_or_default();
+                if mod_runtime.emit_all("before-dig", &voxel_event(voxel_pos, &name)) {
+                    continue;
+                }
+
                 info!(
                     "Action Verified fingerprint={fingerprint:#x}! Fracturing block at {:?}",
                     voxel_pos
                 );
-                if let Some(origin_type) = voxel_type_of(voxel_world.get_voxel(voxel_pos)) {
-                    let name = catalog_name(&catalog.0, origin_type).unwrap_or("").to_string();
+                if !name.is_empty() {
                     grant_loot(&mut inventory, &mod_runtime, &name);
                 }
                 let outward = Vec3::new(
@@ -1927,6 +1939,7 @@ fn validate_incoming_actions(
                     &mod_runtime,
                     &mut edits,
                 );
+                mod_runtime.notify_all("on-dig", &voxel_event(voxel_pos, &name));
                 apply_mod_action(
                     &mut commands,
                     &mut meshes,
@@ -2048,6 +2061,7 @@ fn validate_incoming_actions(
                     voxel_pos.z,
                     VoxelOverlay::Solid(voxel.clone()),
                 );
+                mod_runtime.notify_all("on-place", &voxel_event(voxel_pos, voxel));
                 apply_mod_action(
                     &mut commands,
                     &mut meshes,
@@ -2123,13 +2137,13 @@ fn validate_incoming_actions(
                         info!("Craft refused: extra is not item+item");
                         continue;
                     };
-                    let product = with_mod(&mod_runtime, |ctx| {
-                        ctx.bindings
-                            .hanga_engine_gameplay()
-                            .call_craft_result(&mut ctx.store, item_a, item_b)
-                            .unwrap_or_default()
-                    })
-                    .unwrap_or_default();
+                    let product = mod_runtime.ask_any_kit(
+                        "craft-result",
+                        &wire_bag(vec![
+                            ("a", Wire::Text(item_a.to_string())),
+                            ("b", Wire::Text(item_b.to_string())),
+                        ]),
+                    );
                     let mut items = inventory.items.clone();
                     let mut counts = inventory.counts;
                     if product.is_empty()
@@ -2169,19 +2183,23 @@ fn validate_incoming_actions(
                     transform.translation.z.round() as i32,
                 ];
                 let (near, take) = matching_mark(&marks, &kind, transform.translation);
-                let context = contract_context(&held, pos, riding.is_some(), near);
                 let allowed = with_mod(&mod_runtime, |ctx| {
-                    ctx.bindings
-                        .hanga_engine_gameplay()
-                        .call_mod_can_complete(
-                            &mut ctx.store,
-                            verb,
-                            mod_state.0 as i32,
-                            &kind,
-                            danger,
-                            &context,
-                        )
-                        .unwrap_or(0)
+                    ctx.bus_i32(
+                        "can-complete",
+                        &wire_bag(vec![
+                            ("action", Wire::Text(verb.to_string())),
+                            ("state", Wire::Int(mod_state.0 as i64)),
+                            ("kind", Wire::Text(kind.clone())),
+                            ("danger", Wire::Int(danger as i64)),
+                            ("held", Wire::Text(held.clone())),
+                            ("x", Wire::Int(pos[0] as i64)),
+                            ("y", Wire::Int(pos[1] as i64)),
+                            ("z", Wire::Int(pos[2] as i64)),
+                            ("vehicle", Wire::Flag(riding.is_some())),
+                            ("near", Wire::Flag(near)),
+                        ]),
+                        0,
+                    )
                 })
                 .unwrap_or(0);
                 if allowed <= 0 {
@@ -2404,6 +2422,23 @@ fn player_movement(
     }
 }
 
+fn snapshot_player(
+    players: Query<(&Transform, &ModState, &ModWallet), With<Player>>,
+) {
+    let Some((transform, state, wallet)) = players.iter().next() else {
+        return;
+    };
+    let (yaw, _, _) = transform.rotation.to_euler(EulerRot::YXZ);
+    set_player_snap(PlayerSnap {
+        x: transform.translation.x,
+        y: transform.translation.y,
+        z: transform.translation.z,
+        yaw,
+        state: state.0 as i32,
+        wallet: wallet.0,
+    });
+}
+
 /// Allows the player to click and fracture blocks
 fn player_interaction(
     mouse_input: Res<ButtonInput<MouseButton>>,
@@ -2506,13 +2541,13 @@ fn pick_craft_pair(inventory: &ModInventory, mod_runtime: &ModRuntime) -> Option
     let a = inventory_selected(&inventory.items, &inventory.counts, inventory.selected)?
         .to_string();
     let recipe = |x: &str, y: &str| {
-        with_mod(mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_craft_result(&mut ctx.store, x, y)
-                .unwrap_or_default()
-        })
-        .unwrap_or_default()
+        mod_runtime.ask_any_kit(
+            "craft-result",
+            &wire_bag(vec![
+                ("a", Wire::Text(x.to_string())),
+                ("b", Wire::Text(y.to_string())),
+            ]),
+        )
     };
     if inventory.counts[inventory.selected] >= 2 && !recipe(&a, &a).is_empty() {
         return Some((a.clone(), a));
@@ -2563,6 +2598,7 @@ impl Plugin for CitySimPlugin {
         app.add_systems(
             Update,
             (
+                guest_globalstep,
                 agent_ai_tick,
                 wanted_decay,
                 vehicle_crash_system,
@@ -2629,12 +2665,14 @@ fn vehicle_crash_system(
         };
         crash.last_speed = speed;
         let outcome = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_crash_kit(&mut ctx.store, impact, into_solid)
-                .unwrap_or_default()
+            parse_crash_kit_fields(&ctx.bus_fields(
+                "crash-kit",
+                &wire_bag(vec![
+                    ("speed", Wire::Float(impact as f64)),
+                    ("solid", Wire::Flag(into_solid)),
+                ]),
+            ))
         })
-        .map(|text| parse_crash_kit(&text))
         .unwrap_or_default();
         let severity = outcome.severity;
         if severity <= crash.peak {
@@ -2796,13 +2834,16 @@ fn vehicle_traffic_system(
                 });
         }
         if let Some((vx, vz)) = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            let blocked_flag = i32::from(blocked);
-            let ctx_text = format!("fwd-x={};fwd-z={};blocked={blocked_flag}", fwd.x, fwd.z);
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_steer(&mut ctx.store, "traffic", &ctx_text)
-                .ok()
-                .and_then(|text| parse_planar(&text).map(|v| (v.vx, v.vz)))
+            parse_planar_fields(&ctx.bus_fields(
+                "steer",
+                &wire_bag(vec![
+                    ("role", Wire::Text("traffic".into())),
+                    ("fwd-x", Wire::Float(fwd.x as f64)),
+                    ("fwd-z", Wire::Float(fwd.z as f64)),
+                    ("blocked", Wire::Flag(blocked)),
+                ]),
+            ))
+            .map(|v| (v.vx, v.vz))
         })
         .flatten()
         {
@@ -2875,13 +2916,15 @@ fn fire_spread_system(
             .and_then(|index| catalog_name(&catalog.0, index).map(str::to_string))
             .unwrap_or_default();
         let kit = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_fire_kit(&mut ctx.store, fire.age_ms, &nearby)
-                .unwrap_or_default()
+            parse_fire_kit_fields(&ctx.bus_fields(
+                "fire-kit",
+                &wire_bag(vec![
+                    ("age", Wire::Int(fire.age_ms as i64)),
+                    ("nearby", Wire::Text(nearby.clone())),
+                ]),
+            ))
         })
-        .map(|text| parse_fire_kit(&text))
-        .unwrap_or_else(|| parse_fire_kit(""));
+        .unwrap_or_else(|| parse_fire_kit_fields(&hanga::kit::Fields::default()));
         if kit.out {
             for child in children.iter() {
                 if lights.get(child).is_ok() {
@@ -2944,15 +2987,17 @@ fn agent_ai_tick(
         for (mut agent_transform, mut velocity, agent) in agents.iter_mut() {
             let c_pos = agent_transform.translation;
             if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
-                let ctx_text = format!(
-                    "cur-x={};cur-z={};target-x={};target-z={}",
-                    c_pos.x, c_pos.z, p_pos.x, p_pos.z
-                );
-                ctx.bindings
-                    .hanga_engine_gameplay()
-                    .call_steer(&mut ctx.store, &agent.0, &ctx_text)
-                    .ok()
-                    .and_then(|text| parse_planar(&text).map(|v| (v.vx, v.vz)))
+                parse_planar_fields(&ctx.bus_fields(
+                    "steer",
+                    &wire_bag(vec![
+                        ("role", Wire::Text(agent.0.clone())),
+                        ("cur-x", Wire::Float(c_pos.x as f64)),
+                        ("cur-z", Wire::Float(c_pos.z as f64)),
+                        ("target-x", Wire::Float(p_pos.x as f64)),
+                        ("target-z", Wire::Float(p_pos.z as f64)),
+                    ]),
+                ))
+                .map(|v| (v.vx, v.vz))
             })
             .flatten()
             {
@@ -2964,6 +3009,15 @@ fn agent_ai_tick(
             }
         }
     }
+}
+
+fn guest_globalstep(time: Res<Time>, mod_runtime: Res<ModRuntime>) {
+    mod_runtime.flush_after();
+    let dt_ms = (time.delta_secs() * 1000.0).round() as i64;
+    mod_runtime.notify_all(
+        "on-step",
+        &wire_bag(vec![("dt", Wire::Int(dt_ms))]),
+    );
 }
 
 fn wanted_decay(
@@ -2983,12 +3037,15 @@ fn wanted_decay(
     let mut wanted = 0i32;
     for mut state in players.iter_mut() {
         if let Some(new_state) = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_mod_tick(&mut ctx.store, state.0 as i32, dt_ms)
-                .ok()
+            ctx.bus_i32(
+                "tick",
+                &wire_bag(vec![
+                    ("state", Wire::Int(state.0 as i64)),
+                    ("dt", Wire::Int(dt_ms as i64)),
+                ]),
+                state.0 as i32,
+            )
         })
-        .flatten()
         {
             let clamped = clamp_mod_state(new_state, 0, 5) as u32;
             if clamped != state.0 {
@@ -3000,10 +3057,14 @@ fn wanted_decay(
     }
     for (entity, agent) in agents.iter() {
         let drop = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_should_despawn_agent(&mut ctx.store, &agent.0, wanted)
-                .unwrap_or(0)
+            ctx.bus_i32(
+                "should-despawn-agent",
+                &wire_bag(vec![
+                    ("agent", Wire::Text(agent.0.clone())),
+                    ("state", Wire::Int(wanted as i64)),
+                ]),
+                0,
+            )
         })
         .unwrap_or(0);
         if drop > 0 {
@@ -3210,11 +3271,22 @@ fn update_storyteller(
     let player_state = players.iter().next().map(|s| s.0 as i32).unwrap_or(0);
     let lang = locale.0.code();
     if let Some((event_id, label)) = with_mod(&mod_runtime, |ctx| {
-        let g = ctx.bindings.hanga_engine_gameplay();
-        let event_id = g.call_generate_story_event(&mut ctx.store, player_state).ok()?;
-        let label = g
-            .call_event_label(&mut ctx.store, &event_id, lang)
-            .unwrap_or_else(|_| "event".into());
+        let event_id = ctx.bus_kit("story-event", &wire_int(player_state as i64));
+        if event_id.is_empty() {
+            return None;
+        }
+        let label = ctx.bus_kit(
+            "event-label",
+            &wire_bag(vec![
+                ("event", Wire::Text(event_id.clone())),
+                ("locale", Wire::Text(lang.to_string())),
+            ]),
+        );
+        let label = if label.is_empty() {
+            "event".into()
+        } else {
+            label
+        };
         Some((event_id, label))
     })
     .flatten()
@@ -3223,10 +3295,16 @@ fn update_storyteller(
     }
     if !contract_is_offered(&offer.kind) {
         if let Some((kind, payout, danger)) = with_mod(&mod_runtime, |ctx| {
-            ctx.bindings
-                .hanga_engine_gameplay()
-                .call_mod_offer_contract(&mut ctx.store, player_state)
-                .ok()
+            let reply = ctx.bus("offer-contract", &wire_int(player_state as i64));
+            let kind = payload_text(&reply, "kind").to_string();
+            if kind.is_empty() {
+                return None;
+            }
+            Some((
+                kind,
+                payload_i64(&reply, "payout") as i32,
+                payload_i64(&reply, "danger") as i32,
+            ))
         })
         .flatten()
         {
@@ -3256,12 +3334,17 @@ fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>, mod_runtime: Res
     if *timer >= 5.0 {
         *timer = 0.0;
         if let Some((price, supply, demand)) = with_mod(&mod_runtime, |ctx| {
-            let g = ctx.bindings.hanga_engine_gameplay();
-            let packed = g.call_mod_get_economy_params(&mut ctx.store).unwrap_or(0);
+            let packed = ctx.bus_i32("economy-params", &wire_empty(), 0);
             let (supply, demand) = unpack_economy_params(packed);
-            let price = g
-                .call_compute_economy_price(&mut ctx.store, 100, supply, demand)
-                .ok()?;
+            let price = ctx.bus_i32(
+                "economy-price",
+                &wire_bag(vec![
+                    ("base", Wire::Int(100)),
+                    ("supply", Wire::Int(supply as i64)),
+                    ("demand", Wire::Int(demand as i64)),
+                ]),
+                100,
+            );
             Some((price, supply, demand))
         })
         .flatten()
@@ -3422,13 +3505,13 @@ fn play_hint_line(
     let Some((a, b)) = pick_craft_pair(inventory, mod_runtime) else {
         return format!("{controls}  |  {p2p}");
     };
-    let product = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_craft_result(&mut ctx.store, &a, &b)
-            .unwrap_or_default()
-    })
-    .unwrap_or_default();
+    let product = mod_runtime.ask_any_kit(
+        "craft-result",
+        &wire_bag(vec![
+            ("a", Wire::Text(a.clone())),
+            ("b", Wire::Text(b.clone())),
+        ]),
+    );
     if product.is_empty() {
         return format!("{controls}  |  {p2p}");
     }
@@ -4222,13 +4305,18 @@ fn look_voxel_ahead(
     let voxel = catalog_name(&catalog.0, voxel_type)
         .unwrap_or("air")
         .to_string();
-    let raw = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_voxel_label(&mut ctx.store, &voxel, locale.code())
-            .unwrap_or_else(|_| "unknown".into())
-    })
-    .unwrap_or_else(|| "unknown".into());
+    let raw = mod_runtime.ask_any_kit(
+        "voxel-label",
+        &wire_bag(vec![
+            ("voxel", Wire::Text(voxel.clone())),
+            ("locale", Wire::Text(locale.code().to_string())),
+        ]),
+    );
+    let raw = if raw.is_empty() {
+        "unknown".into()
+    } else {
+        raw
+    };
     (voxel_pos, voxel, raw)
 }
 
@@ -4236,28 +4324,36 @@ fn mod_contract_name(mod_runtime: &ModRuntime, locale: Locale, kind: &str) -> St
     if kind.is_empty() {
         return i18n::t(locale, "job_none").to_string();
     }
-    with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_contract_label(&mut ctx.store, kind, locale.code())
-            .unwrap_or_default()
-    })
-    .filter(|name| !name.is_empty())
-    .unwrap_or_else(|| kind.to_string())
+    let name = mod_runtime.ask_any_kit(
+        "contract-label",
+        &wire_bag(vec![
+            ("kind", Wire::Text(kind.to_string())),
+            ("locale", Wire::Text(locale.code().to_string())),
+        ]),
+    );
+    if name.is_empty() {
+        kind.to_string()
+    } else {
+        name
+    }
 }
 
 fn mod_item_label(mod_runtime: &ModRuntime, locale: Locale, item: &str) -> String {
     if item.is_empty() {
         return String::new();
     }
-    with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_gameplay()
-            .call_item_label(&mut ctx.store, item, locale.code())
-            .unwrap_or_default()
-    })
-    .filter(|name| !name.is_empty())
-    .unwrap_or_else(|| item.to_string())
+    let name = mod_runtime.ask_any_kit(
+        "item-label",
+        &wire_bag(vec![
+            ("item", Wire::Text(item.to_string())),
+            ("locale", Wire::Text(locale.code().to_string())),
+        ]),
+    );
+    if name.is_empty() {
+        item.to_string()
+    } else {
+        name
+    }
 }
 
 fn held_status(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventory) -> String {
@@ -4421,13 +4517,13 @@ fn read_terminal_input(
                             events.write(signed_verb(player_entity, ACTION_CRAFT, &format!("{a}+{b}")));
                             let la = mod_item_label(&mod_runtime, locale.0, &a);
                             let lb = mod_item_label(&mod_runtime, locale.0, &b);
-                            let product = with_mod(&mod_runtime, |ctx| {
-                                ctx.bindings
-                                    .hanga_engine_gameplay()
-                                    .call_craft_result(&mut ctx.store, &a, &b)
-                                    .unwrap_or_default()
-                            })
-                            .unwrap_or_default();
+                            let product = mod_runtime.ask_any_kit(
+                                "craft-result",
+                                &wire_bag(vec![
+                                    ("a", Wire::Text(a.clone())),
+                                    ("b", Wire::Text(b.clone())),
+                                ]),
+                            );
                             let out = mod_item_label(&mod_runtime, locale.0, &product);
                             say(locale.0, &i18n::format_crafting(locale.0, &la, &lb, &out));
                         } else {

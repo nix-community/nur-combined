@@ -1,7 +1,5 @@
 //! Generic crash math. The mod returns a kit; the host only applies it.
 
-use crate::kit;
-
 pub const CRASH_SEVERITY_MAX: i32 = 100;
 
 pub fn clamp_crash_severity(severity: i32) -> i32 {
@@ -73,24 +71,40 @@ pub struct CrashKit {
 }
 
 pub fn parse_crash_kit(text: &str) -> CrashKit {
+    parse_crash_kit_fields(&crate::kit::Fields::from_text(text))
+}
+
+pub fn parse_crash_kit_fields(fields: &crate::kit::Fields) -> CrashKit {
     let mut kit = CrashKit::default();
-    for (key, value) in kit::fields(text) {
-        match key {
+    for (key, cell) in &fields.pairs {
+        if let Some(rest) = key.strip_prefix("detach.") {
+            if rest.parse::<usize>().is_ok() {
+                let name = cell.text();
+                if !name.is_empty() {
+                    kit.detach.push(name);
+                }
+            } else if cell.as_flag() {
+                kit.detach.push(rest.to_string());
+            }
+            continue;
+        }
+        let value = cell.text();
+        match key.as_str() {
             "severity" => {
-                if let Ok(v) = value.parse::<i32>() {
+                if let Some(v) = cell.as_i32() {
                     kit.severity = clamp_crash_severity(v);
                 }
             }
             "crumple" => {
-                if let Ok(v) = value.parse::<i32>() {
+                if let Some(v) = cell.as_i32() {
                     kit.crumple = clamp_crash_severity(v);
                 }
             }
-            "wrecks" => kit.wrecks = kit::flag(value),
-            "ignites" | "burn" | "fire" => kit.ignites = kit::flag(value),
-            "action" => kit.action = value.to_string(),
+            "wrecks" => kit.wrecks = cell.as_flag(),
+            "ignites" | "burn" | "fire" => kit.ignites = cell.as_flag(),
+            "action" => kit.action = value,
             "impulse" => {
-                if let Ok(v) = value.parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     kit.impulse = v.max(0.0);
                 }
             }
@@ -119,20 +133,24 @@ pub struct FractureKit {
 }
 
 pub fn parse_fracture_kit(text: &str) -> FractureKit {
+    parse_fracture_kit_fields(&crate::kit::Fields::from_text(text))
+}
+
+pub fn parse_fracture_kit_fields(fields: &crate::kit::Fields) -> FractureKit {
     let mut kit = FractureKit {
         impulse: 5.0,
         ..FractureKit::default()
     };
-    for (key, value) in kit::fields(text) {
-        match key {
-            "can" => kit.can = kit::flag(value),
+    for (key, cell) in &fields.pairs {
+        match key.as_str() {
+            "can" => kit.can = cell.as_flag(),
             "spread" => {
-                if let Ok(v) = value.parse::<i32>() {
+                if let Some(v) = cell.as_i32() {
                     kit.spread = v.max(0);
                 }
             }
             "impulse" => {
-                if let Ok(v) = value.parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     kit.impulse = v.max(0.0);
                 }
             }
@@ -149,21 +167,25 @@ pub struct PlanarVel {
 }
 
 pub fn parse_planar(text: &str) -> Option<PlanarVel> {
-    if text.trim().is_empty() {
+    parse_planar_fields(&crate::kit::Fields::from_text(text))
+}
+
+pub fn parse_planar_fields(fields: &crate::kit::Fields) -> Option<PlanarVel> {
+    if fields.is_empty() {
         return None;
     }
     let mut vel = PlanarVel::default();
     let mut saw = false;
-    for (key, value) in kit::fields(text) {
-        match key {
+    for (key, cell) in &fields.pairs {
+        match key.as_str() {
             "vx" => {
-                if let Ok(v) = value.parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     vel.vx = v;
                     saw = true;
                 }
             }
             "vz" => {
-                if let Ok(v) = value.parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     vel.vz = v;
                     saw = true;
                 }
@@ -185,7 +207,11 @@ pub struct FireKit {
 }
 
 pub fn parse_fire_kit(text: &str) -> FireKit {
-    if text.trim().is_empty() {
+    parse_fire_kit_fields(&crate::kit::Fields::from_text(text))
+}
+
+pub fn parse_fire_kit_fields(fields: &crate::kit::Fields) -> FireKit {
+    if fields.is_empty() {
         return FireKit {
             out: true,
             ..FireKit::default()
@@ -196,22 +222,22 @@ pub fn parse_fire_kit(text: &str) -> FireKit {
         range: 6.0,
         ..FireKit::default()
     };
-    for (key, value) in kit::fields(text) {
-        match key {
+    for (key, cell) in &fields.pairs {
+        match key.as_str() {
             "heat" => {
-                if let Ok(v) = value.parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     kit.heat = v.max(0.0);
                 }
             }
             "range" => {
-                if let Ok(v) = value.parse::<f32>() {
+                if let Some(v) = cell.as_f32() {
                     kit.range = v.max(0.0);
                 }
             }
-            "consume" => kit.consume = kit::flag(value),
-            "jump" => kit.jump = kit::flag(value),
-            "burst" => kit.burst = kit::flag(value),
-            "out" => kit.out = kit::flag(value),
+            "consume" => kit.consume = cell.as_flag(),
+            "jump" => kit.jump = cell.as_flag(),
+            "burst" => kit.burst = cell.as_flag(),
+            "out" => kit.out = cell.as_flag(),
             _ => {}
         }
     }

@@ -1,147 +1,88 @@
 package hanga:engine;
 
-/// Calls the host can make. Game nouns stay out of function names; structured
-/// payloads use `payload` (or kit strings the host already knows how to execute).
+/// Sandbox ABI. Game nouns are not function names. One value type (JSON / Godot Variant)
+/// plus named `invoke` (Godot `Object.call`).
 interface host {
-    /// Bus payload. Not recursive (WIT forbids that here): scalars or a bag of named atoms.
-    variant atom {
-        flag(bool),
-        int(s64),
-        float(f64),
-        text(string),
-    }
-
+    /// Object entry: `at` indexes `value.cells`.
     record field {
         key: string,
-        value: atom,
+        at: u32,
     }
 
-    variant payload {
+    /// One JSON node. `items` / `dict` store child indexes, not nested `value`
+    /// (WIT types cannot recurse).
+    variant cell {
         empty,
         flag(bool),
         int(s64),
         float(f64),
         text(string),
-        /// Named scalars. For a second nesting level, use keys like `part.wheel`.
-        bag(list<field>),
+        items(list<u32>),
+        dict(list<field>),
+        /// Bus error, not game data. `busy` `self` `noproc` (OTP `{error, Reason}`).
+        fail(string),
+    }
+
+    /// JSON-shaped tree: `empty` is null. Arrays and objects nest via indexes.
+    record value {
+        cells: list<cell>,
+        root: u32,
     }
 
     /// `trace` / `debug` / `info` / `warn` / `error`.
     log: func(level: string, message: string);
     /// Milliseconds since the host process started.
     now-ms: func() -> s64;
-    /// This component's collection name (`urban_chaos`, `testbed`, …).
-    self-name: func() -> string;
-    /// Other loaded mods. Empty when this is the only component.
+    /// This component's collection name.
+    id: func() -> string;
+    /// Other loaded mods (not including this one). Empty when this is the only component.
     peers: func() -> list<string>;
-    /// Call another mod's `on-message`. Empty peer = broadcast; first non-empty reply wins.
-    /// Nested asks that would re-enter a locked store return `empty`.
-    ask: func(peer: string, topic: string, payload: payload) -> payload;
-    /// Lead worldgen name at this cell, or a player edit (`air` if empty).
-    voxel-at: func(x: s32, y: s32, z: s32) -> string;
-    /// Same cell as `voxel-at`, as a bag: `name` (text) and `edit` (flag, player overlay).
-    voxel-probe: func(x: s32, y: s32, z: s32) -> payload;
+    /// Luanti `core.get_modpath`: true if that pack is in this game (including self).
+    has-mod: func(name: string) -> bool;
+    /// OTP `gen_server:call` / Luanti `othermod.api()`. Waits for a reply.
+    /// Empty peer: later packs then lead, first real reply (Luanti `override_item`).
+    /// `empty` = not overridden. `fail` = bus error (`busy`, `self`, `noproc`).
+    /// A busy target is *not* queued: that would be a cast with a fake “not mine”.
+    invoke: func(peer: string, method: string, args: value) -> value;
+    /// OTP `gen_server:cast` / Godot `call_deferred`. No reply. Queues a mailbox
+    /// if the target is in a call. Empty peer: every pack except the caller.
+    /// Same pack: enqueue on self (OTP `!` to self).
+    send: func(peer: string, method: string, args: value);
+    /// OTP `gen_event` / Luanti `register_on_*`. Skip the caller.
+    /// `flag(true)` / `int(1)` vetoes. A busy listener vetoes (fail closed).
+    emit: func(method: string, args: value) -> bool;
+    /// Lead worldgen + player overlay at this cell. Dict: `name` (text), `edit` (flag).
+    voxel: func(x: s32, y: s32, z: s32) -> value;
+    /// Luanti `core.set_node`. `air` or empty name unsets. Applied next tick to the mesh.
+    voxel-set: func(x: s32, y: s32, z: s32, name: string);
+    /// Local player snapshot, or `empty` in menu. Dict: `x` `y` `z` `yaw` (float), `state` `wallet` (int).
+    player: func() -> value;
+    /// Luanti `core.after`: invoke `method` on this pack after `ms` milliseconds.
+    after: func(ms: s32, method: string, args: value);
 }
 
-interface gameplay {
-    use host.{payload};
+/// Required guest surface. Everything else is `invoke` (optional virtuals).
+/// Empty reply = not overridden. `has` / `methods` advertise method names.
+interface guest {
+    use host.{value};
 
-    /// Initialize the mod (called once when the component is loaded).
-    init-mod: func();
+    /// ABI major. Host loads only `6`.
+    abi: func() -> s32;
 
-    /// Voxel names in meshing-index order, comma-separated. Index 0 is always air.
-    /// `query-voxel` returns this catalog index (kept numeric only for the hot path).
-    voxel-catalog: func() -> string;
+    /// Godot `_ready` / Luanti file load: once after every pack in the collection exists.
+    ready: func();
 
-    /// Voxel world generation owned by the mod.
+    /// Voxel names in meshing-index order. Index 0 is always air.
+    voxel-catalog: func() -> list<string>;
+
+    /// Worldgen hot path (typed, not `invoke`).
     query-voxel: func(x: s32, y: s32, z: s32) -> s32;
 
-    /// Action validation and state owned by the mod.
-    /// Action names are English identifiers, e.g. break, place, enter_vehicle, explode.
-    mod-get-action-range: func(action: string) -> f32;
-    mod-evaluate-action: func(action: string, current-state: s32) -> s32;
-    /// Empty string = spawn nobody. Otherwise an agent name such as cop.
-    mod-should-spawn-agent: func(action: string, old-state: s32, new-state: s32) -> string;
-
-    /// Planar velocity for a named role. The host only measures; the mod names the role
-    /// (`traffic`, `cop`, …). Context is `key=value` (heading, blocked, positions).
-    /// Return `vx=;vz=`. Empty = host default.
-    steer: func(role: string, context: string) -> string;
-
-    /// Storyteller and economy owned by the mod.
-    mod-get-storyteller-level: func() -> s32;
-    generate-story-event: func(player-level: s32) -> string;
-    mod-get-economy-params: func() -> s32;
-    compute-economy-price: func(base: s32, supply: s32, demand: s32) -> s32;
-
-    /// World setup owned by the mod (engine only instantiates the entities).
-    player-spawn: func() -> tuple<s32, s32, s32>;
-    vehicle-spawn-count: func() -> s32;
-    vehicle-spawn: func(index: s32) -> tuple<s32, s32, s32>;
-    /// Rideable kit. The host does not know "car": it only builds boxes and a collider.
-    /// `kind=...;traffic=0|1;speed=...;stiffness=0-100;tire=name,name;collider=x,y,z`
-    /// then `beam=from,to` rest-length links and
-    /// `part=name,sx,sy,sz,ox,oy,oz,r,g,b` records (newline or semicolon).
-    vehicle-kit: func(index: s32) -> string;
-    /// Gravity field. The host does not invent Earth: it only applies the kit.
-    /// `kind=none` | `kind=constant;x=0;y=-9.81;z=0` | `kind=down;g=9.81`
-    /// | `kind=point;x=;y=;z=;strength=;falloff=invsq?` then `jump=` leave-ground
-    /// speed and `walk=` planar speed.
-    gravity: func() -> string;
-
-    /// Shatter outcome for this voxel name and action. Empty = do not spawn debris.
-    /// `can=0|1;spread=;impulse=`
-    fracture-kit: func(voxel: string, action: string) -> string;
-
-    /// Passive tick owned by the mod (wanted-level decay, etc.). `dt-ms` is elapsed millis.
-    mod-tick: func(current-state: s32, dt-ms: s32) -> s32;
-    /// 1 if this agent name should leave given the current mod state.
-    should-despawn-agent: func(agent: string, current-state: s32) -> s32;
-
-    /// Ambient civilians / NPCs the mod wants at load (x, y, z, agent name).
-    ambient-agent-count: func() -> s32;
-    ambient-agent-spawn: func(index: s32) -> tuple<s32, s32, s32, string>;
-
-    /// Human-readable material name. `locale` is a BCP-47 tag (en, mi, fr, zh-TW).
-    voxel-label: func(voxel: string, locale: string) -> string;
-
-    /// Mod-owned wallet / score after this action. `extra` is payout or unused.
-    mod-wallet-after: func(action: string, current-wallet: s32, extra: s32) -> s32;
-    /// Offered contract (kind, payout, danger). empty kind = none.
-    mod-offer-contract: func(player-state: s32) -> tuple<string, s32, s32>;
-    /// 1 if this verb is legal given current state + contract (kind, danger).
-    /// `context` is `held=;x=;y=;z=;vehicle=0|1;near=0|1` from the host.
-    mod-can-complete: func(action: string, player-state: s32, contract-kind: string, contract-danger: s32, context: string) -> s32;
-    /// World mark for an accepted contract. Empty = no marker.
-    /// `x=;y=;z=;radius=;take=0|1;r=;g=;b=`
-    contract-mark: func(kind: string) -> string;
-    /// Accessibility / log label for a story event name.
-    event-label: func(event: string, locale: string) -> string;
-    /// Name of a contract kind (empty = none) in the given locale.
-    contract-label: func(kind: string, locale: string) -> string;
-    /// Comma-separated locales this mod ships, e.g. "en,mi,fr,zh-TW".
-    supported-locales: func() -> string;
-
-    /// Item name granted when this voxel is broken (empty = nothing).
-    loot-item: func(voxel: string) -> string;
-    /// Label for a hotbar / inventory item name.
-    item-label: func(item: string, locale: string) -> string;
-    /// Product of combining two item names (empty = no recipe). Order must not matter.
-    craft-result: func(item-a: string, item-b: string) -> string;
-
-    /// Impact outcome. Host measured speed (m/s) and whether we hit a solid.
-    /// Empty = ignore. `severity=;crumple=;wrecks=0|1;ignites=0|1;action=;impulse=;detach=a,b`
-    crash-kit: func(speed: f32, into-solid: bool) -> string;
-
-    /// How a burn evolves. `nearby` is the voxel name under the flame (empty = air).
-    /// Empty / `out=1` = extinguish. `heat=;range=;consume=0|1;jump=0|1;burst=0|1`
-    fire-kit: func(age-ms: s32, nearby: string) -> string;
-
-    /// Mod-to-mod bus. `caller` is the other component's collection name. `empty` = ignored.
-    on-message: func(caller: string, topic: string, payload: payload) -> payload;
+    /// Named methods. Reserved: `has` (flag), `methods` (dict keys, or CSV text).
+    invoke: func(caller: string, method: string, args: value) -> value;
 }
 
 world plugin {
     import host;
-    export gameplay;
+    export guest;
 }
