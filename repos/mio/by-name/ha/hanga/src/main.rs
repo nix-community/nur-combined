@@ -51,7 +51,8 @@ use hanga::sign::{self, ActionKey};
 
 mod mod_manager;
 use mod_manager::{
-    payload_f32, payload_i64, payload_text, reply_range, wire_as_text, wire_is_fail, ModRuntime,
+    payload_f32, payload_i64, payload_text, reply_i32, reply_range, wire_as_text, wire_is_empty,
+    wire_is_fail, ModRuntime,
     ModManagerPlugin, SHARED_WASM, wire_bag, wire_empty, wire_float, wire_int, wire_text, Wire,
 };
 
@@ -1337,7 +1338,9 @@ fn spawn_mod_traffic(
         .bus_i32("vehicle-spawn-count", &wire_empty(), 0)
         .max(0) as u32;
     for i in 0..count {
-        let (x, y, z) = ctx.bus_xyz("vehicle-spawn", &wire_int(i as i64), (500, 2, 495));
+        let Some((x, y, z)) = ctx.bus_xyz_ok("vehicle-spawn", &wire_int(i as i64)) else {
+            continue;
+        };
         let Some(node) = ctx.bus_node_ok("vehicle-kit", &wire_int(i as i64)) else {
             continue;
         };
@@ -1651,13 +1654,19 @@ fn teardown_fracture(
     let origin_name = catalog_name(&catalog.0, origin_type)
         .unwrap_or("")
         .to_string();
-    let origin_kit = parse_fracture_kit_node(&mod_runtime.ask_any_node(
-        "fracture-kit",
-        &wire_bag(vec![
-            ("voxel", Wire::Text(origin_name.clone())),
-            ("action", Wire::Text(action.to_string())),
-        ]),
-    ));
+    let payload = wire_bag(vec![
+        ("voxel", Wire::Text(origin_name.clone())),
+        ("action", Wire::Text(action.to_string())),
+    ]);
+    let origin_kit = match mod_runtime.ask_any_node_ok("fracture-kit", &payload) {
+        Some(node) => parse_fracture_kit_node(&node),
+        None => {
+            voxel_world.set_voxel(origin, WorldVoxel::Unset);
+            note_voxel_edit(edits, origin);
+            overlay_set(origin.x, origin.y, origin.z, VoxelOverlay::Air);
+            return;
+        }
+    };
     let impulse = origin_kit.impulse;
     let spread = origin_kit.spread;
 
@@ -1683,13 +1692,18 @@ fn teardown_fracture(
             continue;
         };
         let nname = catalog_name(&catalog.0, ntype).unwrap_or("").to_string();
-        let nkit = parse_fracture_kit_node(&mod_runtime.ask_any_node(
-            "fracture-kit",
-            &wire_bag(vec![
-                ("voxel", Wire::Text(nname.clone())),
-                ("action", Wire::Text(action.to_string())),
-            ]),
-        ));
+        let Some(nkit) = mod_runtime
+            .ask_any_node_ok(
+                "fracture-kit",
+                &wire_bag(vec![
+                    ("voxel", Wire::Text(nname.clone())),
+                    ("action", Wire::Text(action.to_string())),
+                ]),
+            )
+            .map(|node| parse_fracture_kit_node(&node))
+        else {
+            continue;
+        };
         if !nkit.can {
             continue;
         }
@@ -1822,10 +1836,10 @@ fn spawn_contract_mark(
     mod_runtime: &ModRuntime,
     kind: &str,
 ) {
-    let Some(mark) = parse_contract_mark_node(&mod_runtime.ask_any_node(
-        "contract-mark",
-        &wire_text(kind),
-    )) else {
+    let Some(mark) = mod_runtime
+        .ask_any_node_ok("contract-mark", &wire_text(kind))
+        .and_then(|node| parse_contract_mark_node(&node))
+    else {
         return;
     };
     let color = Color::srgb(mark.rgb[0], mark.rgb[1], mark.rgb[2]);
@@ -2688,16 +2702,19 @@ fn vehicle_crash_system(
             continue;
         };
         crash.last_speed = speed;
-        let outcome = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            parse_crash_kit_node(&ctx.bus_node(
+        let Some(outcome) = with_named_mod(&mod_runtime, &owner.0, |ctx| {
+            ctx.bus_node_ok(
                 "crash-kit",
                 &wire_bag(vec![
                     ("speed", Wire::Float(impact as f64)),
                     ("solid", Wire::Flag(into_solid)),
                 ]),
-            ))
+            )
+            .map(|node| parse_crash_kit_node(&node))
         })
-        .unwrap_or_default();
+        .flatten() else {
+            continue;
+        };
         let severity = outcome.severity;
         if severity <= crash.peak {
             continue;
@@ -3304,21 +3321,30 @@ fn update_storyteller(
     let player_state = players.iter().next().map(|s| s.0 as i32).unwrap_or(0);
     let lang = locale.0.code();
     if let Some((event_id, label)) = with_mod(&mod_runtime, |ctx| {
-        let event_id = ctx.bus_text_payload("story-event", &wire_int(player_state as i64));
+        let event = ctx.bus("story-event", &wire_int(player_state as i64));
+        if wire_is_fail(&event) {
+            return None;
+        }
+        let event_id = wire_as_text(&event);
         if event_id.is_empty() {
             return None;
         }
-        let label = ctx.bus_text_payload(
+        let labeled = ctx.bus(
             "event-label",
             &wire_bag(vec![
                 ("event", Wire::Text(event_id.clone())),
                 ("locale", Wire::Text(lang.to_string())),
             ]),
         );
-        let label = if label.is_empty() {
-            "event".into()
+        let label = if wire_is_fail(&labeled) {
+            event_id.clone()
         } else {
-            label
+            let text = wire_as_text(&labeled);
+            if text.is_empty() {
+                "event".into()
+            } else {
+                text
+            }
         };
         Some((event_id, label))
     })
@@ -3329,6 +3355,9 @@ fn update_storyteller(
     if !contract_is_offered(&offer.kind) {
         if let Some((kind, payout, danger)) = with_mod(&mod_runtime, |ctx| {
             let reply = ctx.bus("offer-contract", &wire_int(player_state as i64));
+            if wire_is_fail(&reply) {
+                return None;
+            }
             let kind = payload_text(&reply, "kind").to_string();
             if kind.is_empty() {
                 return None;
@@ -3367,18 +3396,23 @@ fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>, mod_runtime: Res
     if *timer >= 5.0 {
         *timer = 0.0;
         if let Some((price, supply, demand)) = with_mod(&mod_runtime, |ctx| {
-            let packed = ctx.bus_i32("economy-params", &wire_empty(), 0);
-            let (supply, demand) = unpack_economy_params(packed);
-            let price = ctx.bus_i32(
+            let params = ctx.bus("economy-params", &wire_empty());
+            if wire_is_fail(&params) || wire_is_empty(&params) {
+                return None;
+            }
+            let (supply, demand) = unpack_economy_params(reply_i32(&params, 0));
+            let priced = ctx.bus(
                 "economy-price",
                 &wire_bag(vec![
                     ("base", Wire::Int(100)),
                     ("supply", Wire::Int(supply as i64)),
                     ("demand", Wire::Int(demand as i64)),
                 ]),
-                100,
             );
-            Some((price, supply, demand))
+            if wire_is_fail(&priced) || wire_is_empty(&priced) {
+                return None;
+            }
+            Some((reply_i32(&priced, 100), supply, demand))
         })
         .flatten()
         {

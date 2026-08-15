@@ -40,7 +40,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   use `ask_any_text` / `bus_text_payload`. Kits use `ask_any_node` / `bus_node`.
   `action-range` uses `reply_range`: empty/empty-text is the engine fallback;
   `fail` is range 0 (closed), not a skip. `reply_i32` / `payload_xyz` use
-  fallback for every empty shape and for `fail` (keep current state/spawn).
+  fallback for empty shapes and `fail` (keep current state / player-spawn).
+  Vehicle and ambient spawn use `reply_xyz` / `reply_xyz_name` (skip the index).
 - **Trap restart cooldown.** After `fail("trap")` the host reloads the pack from
   disk at most once per 2s (`trap_restart_ready`). Guest statics reset. If reload
   fails, the store stays dead. Covered in `cargo test --bin hanga`.
@@ -60,10 +61,14 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   if a pack is busy. `wake_all` leaves `woken` false if a slot is busy
   so load retries `ready`. Traffic `steer` `fail`/busy keeps velocity
   (host cruise only when the kit is empty). `vehicle-kit` `fail` skips
-  that spawn index instead of a default car. Ambient agent spawn skips
-  `fail`/empty instead of pedestrians at the origin. Voxel labels keep
-  the voxel name on `fail` (`unknown` only when the method is missing).
-  The host bus no longer has
+  that spawn index instead of a default car. Vehicle spawn xyz skips
+  `fail`/empty instead of stacking at a fallback point. Ambient agent
+  spawn skips `fail`/empty instead of pedestrians at the origin. Voxel
+  labels keep the voxel name on `fail` (`unknown` only when the method
+  is missing). Story `event-label` `fail` keeps the event id. Economy
+  ticks skip `fail`/empty instead of logging `$100`. Crash and fracture
+  kits skip `fail` (no invented crumple or chain). Contract marks skip
+  `fail`. The host bus no longer has
   CSV `bus_kit` / `fields_from_wire` callers.
 - **Two value types.** `hanga::kit::Atom` is a flat scalar; `Node` is the tree;
   WIT `cell` is the arena encoding.

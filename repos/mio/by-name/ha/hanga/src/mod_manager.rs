@@ -352,6 +352,19 @@ pub fn payload_xyz(payload: &Wire, fallback: (i32, i32, i32)) -> (i32, i32, i32)
     )
 }
 
+/// Spawn xyz: `fail` / empty skip this index (do not invent a pile-up point).
+pub fn reply_xyz(reply: &Wire) -> Option<(i32, i32, i32)> {
+    if wire_is_fail(reply) || wire_is_empty(reply) {
+        None
+    } else {
+        Some((
+            payload_i64(reply, "x") as i32,
+            payload_i64(reply, "y") as i32,
+            payload_i64(reply, "z") as i32,
+        ))
+    }
+}
+
 /// Named spawn: `fail` / empty skip this index. Missing `name` uses `fallback_name`.
 pub fn reply_xyz_name(reply: &Wire, fallback_name: &str) -> Option<(i32, i32, i32, String)> {
     if wire_is_fail(reply) || wire_is_empty(reply) {
@@ -1005,6 +1018,10 @@ impl MainModContext {
         payload_xyz(&self.bus(topic, payload), fallback)
     }
 
+    pub fn bus_xyz_ok(&mut self, topic: &str, payload: &Wire) -> Option<(i32, i32, i32)> {
+        reply_xyz(&self.bus(topic, payload))
+    }
+
     pub fn bus_xyz_name(
         &mut self,
         topic: &str,
@@ -1102,6 +1119,10 @@ impl ModRuntime {
 
     pub fn ask_any_node(&self, method: &str, args: &Wire) -> ::hanga::kit::Node {
         node_from_wire(&self.ask_any(method, args))
+    }
+
+    pub fn ask_any_node_ok(&self, method: &str, args: &Wire) -> Option<::hanga::kit::Node> {
+        node_from_reply(&self.ask_any(method, args))
     }
 
     pub fn wake_all(&mut self) {
@@ -1573,6 +1594,16 @@ mod tests {
             (1, 2, 3)
         );
         assert_eq!(payload_xyz(&wire_fail("busy"), (1, 2, 3)), (1, 2, 3));
+        assert!(reply_xyz(&wire_fail("busy")).is_none());
+        assert!(reply_xyz(&wire_empty()).is_none());
+        assert_eq!(
+            reply_xyz(&wire_bag(vec![
+                ("x", Wire::Int(4)),
+                ("y", Wire::Int(5)),
+                ("z", Wire::Int(6))
+            ])),
+            Some((4, 5, 6))
+        );
         assert!(reply_xyz_name(&wire_fail("busy"), "pedestrian").is_none());
         assert!(reply_xyz_name(&wire_empty(), "pedestrian").is_none());
         assert_eq!(
