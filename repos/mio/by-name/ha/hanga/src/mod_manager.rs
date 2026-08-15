@@ -467,11 +467,17 @@ struct LiveBus {
     lead: Arc<Mutex<Option<MainModContext>>>,
     packs: Vec<(String, Arc<Mutex<Option<MainModContext>>>)>,
     pending: Mutex<Vec<QueuedAsk>>,
+    logs: Mutex<Vec<(String, String, String)>>,
 }
 
 impl EngineBus for LiveBus {
     fn log(&self, from: &str, level: &str, message: &str) {
         NoopBus.log(from, level, message);
+        let mut logs = self.logs.lock().unwrap();
+        if logs.len() >= 32 {
+            logs.remove(0);
+        }
+        logs.push((from.into(), level.into(), message.into()));
     }
 
     fn peers(&self, from: &str) -> Vec<String> {
@@ -618,6 +624,20 @@ impl EngineBus for LiveBus {
 }
 
 impl LiveBus {
+    fn new(
+        lead_name: String,
+        lead: Arc<Mutex<Option<MainModContext>>>,
+        packs: Vec<(String, Arc<Mutex<Option<MainModContext>>>)>,
+    ) -> Self {
+        Self {
+            lead_name,
+            lead,
+            packs,
+            pending: Mutex::new(Vec::new()),
+            logs: Mutex::new(Vec::new()),
+        }
+    }
+
     fn slot(&self, name: &str) -> Option<&Arc<Mutex<Option<MainModContext>>>> {
         if name == self.lead_name {
             return Some(&self.lead);
@@ -1060,12 +1080,11 @@ impl ModRuntime {
             .unwrap_or("mod")
             .to_string();
         let context = Arc::new(Mutex::new(None));
-        let bus: Arc<dyn EngineBus> = Arc::new(LiveBus {
-            lead_name: lead_name.clone(),
-            lead: Arc::clone(&context),
-            packs: Vec::new(),
-            pending: Mutex::new(Vec::new()),
-        });
+        let bus: Arc<dyn EngineBus> = Arc::new(LiveBus::new(
+            lead_name.clone(),
+            Arc::clone(&context),
+            Vec::new(),
+        ));
         *context.lock().unwrap() = Self::instantiate(&watch_path, &lead_name, Arc::clone(&bus), true);
 
         Self {
@@ -1194,15 +1213,14 @@ impl ModRuntime {
                 )
             })
             .collect();
-        let bus: Arc<dyn EngineBus> = Arc::new(LiveBus {
-            lead_name: lead_name.clone(),
-            lead: Arc::clone(&self.context),
-            packs: pack_slots
+        let bus: Arc<dyn EngineBus> = Arc::new(LiveBus::new(
+            lead_name.clone(),
+            Arc::clone(&self.context),
+            pack_slots
                 .iter()
                 .map(|(name, _, ctx)| (name.clone(), Arc::clone(ctx)))
                 .collect(),
-            pending: Mutex::new(Vec::new()),
-        });
+        ));
         self.bus = Arc::clone(&bus);
 
         let lead = Self::instantiate(lead_path, &lead_name, Arc::clone(&bus), true);
@@ -1425,12 +1443,11 @@ mod tests {
     #[test]
     fn live_bus_otp_errors_and_mailbox() {
         let pack = Arc::new(Mutex::new(None));
-        let bus = LiveBus {
-            lead_name: "lead".into(),
-            lead: Arc::new(Mutex::new(None)),
-            packs: vec![("pack".into(), Arc::clone(&pack))],
-            pending: Mutex::new(Vec::new()),
-        };
+        let bus = LiveBus::new(
+            "lead".into(),
+            Arc::new(Mutex::new(None)),
+            vec![("pack".into(), Arc::clone(&pack))],
+        );
         assert!(matches!(
             bus.invoke("lead", "lead", "ping", wire_empty()),
             Wire::Fail(reason) if reason == "self"
@@ -1470,12 +1487,11 @@ mod tests {
             return;
         };
         let slot = Arc::new(Mutex::new(None));
-        let bus = Arc::new(LiveBus {
-            lead_name: "testbed".into(),
-            lead: Arc::clone(&slot),
-            packs: Vec::new(),
-            pending: Mutex::new(Vec::new()),
-        });
+        let bus = Arc::new(LiveBus::new(
+            "testbed".into(),
+            Arc::clone(&slot),
+            Vec::new(),
+        ));
         let ctx = ModRuntime::instantiate(
             &path,
             "testbed",
@@ -1491,6 +1507,15 @@ mod tests {
             wire_as_text(&bus.invoke("host", "testbed", "ping", wire_empty())),
             "pong"
         );
+        assert!(wire_is_empty(&bus.invoke(
+            "host",
+            "testbed",
+            "bark",
+            wire_empty()
+        )));
+        assert!(bus.logs.lock().unwrap().iter().any(|(from, level, message)| {
+            from == "testbed" && level == "warn" && message == "woof"
+        }));
         {
             let mut guard = slot.lock().unwrap();
             let ctx = guard.as_mut().expect("testbed");
@@ -1620,12 +1645,11 @@ mod tests {
         };
         let lead = Arc::new(Mutex::new(None));
         let pack = Arc::new(Mutex::new(None));
-        let bus = Arc::new(LiveBus {
-            lead_name: "testbed".into(),
-            lead: Arc::clone(&lead),
-            packs: vec![("urban_chaos".into(), Arc::clone(&pack))],
-            pending: Mutex::new(Vec::new()),
-        });
+        let bus = Arc::new(LiveBus::new(
+            "testbed".into(),
+            Arc::clone(&lead),
+            vec![("urban_chaos".into(), Arc::clone(&pack))],
+        ));
         let host: Arc<dyn EngineBus> = Arc::clone(&bus) as Arc<dyn EngineBus>;
         *lead.lock().unwrap() = Some(
             ModRuntime::instantiate(&testbed, "testbed", Arc::clone(&host), true)
@@ -1767,12 +1791,11 @@ mod tests {
             return;
         };
         let slot = Arc::new(Mutex::new(None));
-        let bus = Arc::new(LiveBus {
-            lead_name: "urban_chaos".into(),
-            lead: Arc::clone(&slot),
-            packs: Vec::new(),
-            pending: Mutex::new(Vec::new()),
-        });
+        let bus = Arc::new(LiveBus::new(
+            "urban_chaos".into(),
+            Arc::clone(&slot),
+            Vec::new(),
+        ));
         let mut ctx = ModRuntime::instantiate(
             &path,
             "urban_chaos",
@@ -1996,6 +2019,40 @@ mod tests {
             ]),
         );
         assert_eq!(steer.get("vx").and_then(::hanga::kit::Node::as_f32), Some(8.0));
+        let traffic = ctx.bus_node(
+            "steer",
+            &wire_bag(vec![
+                ("role", wire_text("traffic")),
+                ("fwd-x", Wire::Float(1.0)),
+                ("fwd-z", Wire::Float(0.0)),
+                ("blocked", Wire::Flag(false)),
+            ]),
+        );
+        assert_eq!(
+            traffic.get("vx").and_then(::hanga::kit::Node::as_f32),
+            Some(10.0)
+        );
+        assert_eq!(
+            traffic.get("vz").and_then(::hanga::kit::Node::as_f32),
+            Some(0.0)
+        );
+        let jammed = ctx.bus_node(
+            "steer",
+            &wire_bag(vec![
+                ("role", wire_text("traffic")),
+                ("fwd-x", Wire::Float(1.0)),
+                ("fwd-z", Wire::Float(1.0)),
+                ("blocked", Wire::Flag(true)),
+            ]),
+        );
+        assert_eq!(
+            jammed.get("vx").and_then(::hanga::kit::Node::as_f32),
+            Some(0.0)
+        );
+        assert_eq!(
+            jammed.get("vz").and_then(::hanga::kit::Node::as_f32),
+            Some(0.0)
+        );
         assert_eq!(
             ctx.bus_xyz("vehicle-spawn", &wire_int(0), (0, 0, 0)),
             (500, 2, 495)

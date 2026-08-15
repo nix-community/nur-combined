@@ -21,7 +21,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `craft-result` uses the urban pack over testbed's empty reply. Testbed
   `toss` is guest `send` (self mailbox or a free peer). `ask` is guest
   `invoke` (`self` / `noproc` / named peer). `boom` traps and reloads the
-  pack (guest statics reset).
+  pack (guest statics reset). Testbed `bark` covers guest `log`. Urban
+  `steer` covers cop chase and traffic planar (`fwd-x` / `fwd-z` / `blocked`).
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names
