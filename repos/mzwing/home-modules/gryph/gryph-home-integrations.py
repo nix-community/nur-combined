@@ -20,17 +20,20 @@ def die(message):
     sys.exit(1)
 
 
-def check_store_symlink(path, hint):
-    if path.is_symlink():
-        try:
-            target = os.readlink(path)
-        except OSError:
-            return
-        if target.startswith("/nix/store"):
-            die(
-                f"{path} is a Nix store symlink managed by another Home Manager "
-                f"module. {hint}"
-            )
+def is_store_symlink(path):
+    if not path.is_symlink():
+        return False
+    try:
+        return os.readlink(path).startswith("/nix/store")
+    except OSError:
+        return False
+
+
+def refuse_store_symlink(path, hint):
+    die(
+        f"{path} is a Nix store symlink managed by another Home Manager "
+        f"module. {hint}"
+    )
 
 
 def write_json(path, data):
@@ -47,12 +50,18 @@ def write_json(path, data):
 def merge_settings(home, name, agent, prefix):
     path = home / agent["path"]
     enabled = agent["enabled"]
-    check_store_symlink(
-        path,
-        f'Inject the read-only programs.gryph.hooks."{name}" value into that '
-        f"module's settings instead, or set "
-        f'programs.gryph.enableIntegration."{name}" = false.',
-    )
+    if is_store_symlink(path):
+        if enabled:
+            refuse_store_symlink(
+                path,
+                f'Inject the read-only programs.gryph.hooks."{name}" value into '
+                f"that module's settings instead, or set "
+                f'programs.gryph.enableIntegration."{name}" = false.',
+            )
+        # Another Home Manager module owns the file. Any gryph hooks in it
+        # were injected there by the user (via programs.gryph.hooks), so
+        # there is nothing for a disabled integration to prune.
+        return
 
     data = {}
     if path.exists():
@@ -121,11 +130,15 @@ def merge_settings(home, name, agent, prefix):
 def sync_codex_flag(home, codex):
     path = home / codex["path"]
     enabled = codex["enabled"]
-    check_store_symlink(
-        path,
-        "Set programs.gryph.enableIntegration.codex = false and manage "
-        "codex_hooks in that module's own configuration.",
-    )
+    if is_store_symlink(path):
+        if enabled:
+            refuse_store_symlink(
+                path,
+                "Set programs.gryph.enableIntegration.codex = false and manage "
+                "codex_hooks in that module's own configuration.",
+            )
+        # See merge_settings for why a disabled integration skips this.
+        return
 
     if not path.exists():
         if not enabled:

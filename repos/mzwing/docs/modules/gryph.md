@@ -72,7 +72,7 @@ The default bare `gryph` matches upstream behavior: gryph is on `PATH` via `home
 
 ### Sharing a settings file with another Home Manager module
 
-If you already manage `~/.claude/settings.json` or `~/.gemini/settings.json` with another Home Manager module (e.g. `programs.claude-code.settings`), the file is a Nix store symlink and the activation script refuses to touch it, aborting the switch with an explanatory error. Either disable the corresponding `programs.gryph.enableIntegration` entry, or inject the read-only hook payload into that module yourself:
+If you already manage `~/.claude/settings.json` or `~/.gemini/settings.json` with another Home Manager module (e.g. `programs.claude-code.settings`), the file is a Nix store symlink. An **enabled** integration then aborts the switch with an explanatory error, since the activation script cannot merge into a read-only store file. Either disable the corresponding `programs.gryph.enableIntegration` entry, or inject the read-only hook payload into that module yourself. A **disabled** integration silently skips store-symlinked files — combining both (disable the integration here, inject the hooks there) is a supported configuration:
 
 ```nix
 programs.claude-code.settings.hooks = config.programs.gryph.hooks.claude-code;

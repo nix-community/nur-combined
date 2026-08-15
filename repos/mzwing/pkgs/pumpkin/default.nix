@@ -41,7 +41,7 @@
     # nixpkgs' buildRustCrate defaults to -C codegen-units=1 (crate2nix
     # does not propagate the workspace profile); 16 units matches Cargo's
     # own release default and roughly halves this graph's compile time.
-    buildRustCrateForPkgs = pkgs: pkgs.buildRustCrate.override { defaultCodegenUnits = 16; };
+    buildRustCrateForPkgs = pkgs: pkgs.buildRustCrate.override {defaultCodegenUnits = 16;};
     defaultCrateOverrides = crateOverrides;
   };
 
