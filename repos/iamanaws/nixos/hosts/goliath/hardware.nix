@@ -113,9 +113,6 @@
       };
     };
 
-    logitech.wireless = {
-      enable = true; # ltunify
-      enableGraphical = true; # Solaar
-    };
+    logitech.wireless.enable = true; # ltunify
   };
 }

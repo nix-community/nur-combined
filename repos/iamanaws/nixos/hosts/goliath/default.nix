@@ -28,6 +28,7 @@
     # garden.jamie.Morphosis
   ];
 
+  programs.solaar.enable = true;
   programs.zoom-us.enable = true;
 
   environment.systemPackages = with pkgs; [

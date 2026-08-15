@@ -12,6 +12,23 @@
   boot = {
     # kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_hardened;
 
+    # Preload required modules before disabling runtime kernel module loading.
+    # kernelModules = [
+    #   # /boot
+    #   "vfat"
+    #   "nls_cp437"
+    #   "nls_iso8859_1"
+    #
+    #   # Firewall
+    #   "nf_tables"
+    #   "nft_compat"
+    #   "xt_conntrack"
+    #   "xt_tcpudp"
+    #   "xt_pkttype"
+    #   "ipt_rpfilter"
+    #   "ip6t_rpfilter"
+    # ];
+
     # Enable unprivileged user namespaces (kernel-level risk)
     # for chromium based apps, flatpacks, and steam sandboxing
     kernel.sysctl = lib.optionalAttrs (hostConfig.isGraphical && hostConfig.isLinux) {
@@ -52,7 +69,7 @@
 
     extras = {
       kernel = {
-        # load-kernel-modules = true;
+        load-kernel-modules = true; # enable runtime kernel module loading
       };
 
       network = {
