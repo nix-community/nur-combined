@@ -1315,6 +1315,15 @@ fn spawn_play_world(
     });
 }
 
+/// `Err` = `fail` (keep last motion). `Ok(None)` = not mine (host AI). `Ok(Some)` = kit.
+fn steer_planar(
+    ctx: &mut mod_manager::MainModContext,
+    payload: &Wire,
+) -> Result<Option<(f32, f32)>, ()> {
+    let node = ctx.bus_node_ok("steer", payload).ok_or(())?;
+    Ok(parse_planar_node(&node).map(|v| (v.vx, v.vz)))
+}
+
 fn spawn_mod_traffic(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -1327,7 +1336,10 @@ fn spawn_mod_traffic(
         .max(0) as u32;
     for i in 0..count {
         let (x, y, z) = ctx.bus_xyz("vehicle-spawn", &wire_int(i as i64), (500, 2, 495));
-        let kit = parse_vehicle_kit_node(&ctx.bus_node("vehicle-kit", &wire_int(i as i64)));
+        let Some(node) = ctx.bus_node_ok("vehicle-kit", &wire_int(i as i64)) else {
+            continue;
+        };
+        let kit = parse_vehicle_kit_node(&node);
         spawn_vehicle(
             commands,
             meshes,
@@ -2843,31 +2855,30 @@ fn vehicle_traffic_system(
                         && traffic_ahead_blocks(origin, heading, pos.to_array(), 12.0, 2.5)
                 });
         }
-        if let Some((vx, vz)) = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            parse_planar_node(&ctx.bus_node(
-                "steer",
-                &wire_bag(vec![
-                    ("role", Wire::Text("traffic".into())),
-                    ("fwd-x", Wire::Float(fwd.x as f64)),
-                    ("fwd-z", Wire::Float(fwd.z as f64)),
-                    ("blocked", Wire::Flag(blocked)),
-                ]),
-            ))
-            .map(|v| (v.vx, v.vz))
-        })
-        .flatten()
-        {
-            velocity.x = vx;
-            velocity.z = vz;
-            if let Some(yaw) = yaw_toward(vx, vz) {
-                transform.rotation = Quat::from_rotation_y(yaw);
+        let payload = wire_bag(vec![
+            ("role", Wire::Text("traffic".into())),
+            ("fwd-x", Wire::Float(fwd.x as f64)),
+            ("fwd-z", Wire::Float(fwd.z as f64)),
+            ("blocked", Wire::Flag(blocked)),
+        ]);
+        match with_named_mod(&mod_runtime, &owner.0, |ctx| steer_planar(ctx, &payload)) {
+            None | Some(Err(())) => {}
+            Some(Ok(Some((vx, vz)))) => {
+                velocity.x = vx;
+                velocity.z = vz;
+                if let Some(yaw) = yaw_toward(vx, vz) {
+                    transform.rotation = Quat::from_rotation_y(yaw);
+                }
             }
-        } else if blocked {
-            velocity.x = 0.0;
-            velocity.z = 0.0;
-        } else {
-            velocity.x = fwd.x * drive.speed;
-            velocity.z = fwd.z * drive.speed;
+            Some(Ok(None)) => {
+                if blocked {
+                    velocity.x = 0.0;
+                    velocity.z = 0.0;
+                } else {
+                    velocity.x = fwd.x * drive.speed;
+                    velocity.z = fwd.z * drive.speed;
+                }
+            }
         }
     }
 }
@@ -2925,16 +2936,19 @@ fn fire_spread_system(
         let nearby = voxel_type_of(voxel_world.get_voxel(pos))
             .and_then(|index| catalog_name(&catalog.0, index).map(str::to_string))
             .unwrap_or_default();
-        let kit = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            parse_fire_kit_node(&ctx.bus_node(
+        let Some(kit) = with_named_mod(&mod_runtime, &owner.0, |ctx| {
+            ctx.bus_node_ok(
                 "fire-kit",
                 &wire_bag(vec![
                     ("age", Wire::Int(fire.age_ms as i64)),
                     ("nearby", Wire::Text(nearby.clone())),
                 ]),
-            ))
+            )
+            .map(|node| parse_fire_kit_node(&node))
         })
-        .unwrap_or_else(|| parse_fire_kit_node(&hanga::kit::Node::Empty));
+        .flatten() else {
+            continue;
+        };
         if kit.out {
             for child in children.iter() {
                 if lights.get(child).is_ok() {
@@ -2996,20 +3010,15 @@ fn agent_ai_tick(
 
         for (mut agent_transform, mut velocity, agent) in agents.iter_mut() {
             let c_pos = agent_transform.translation;
-            if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
-                parse_planar_node(&ctx.bus_node(
-                    "steer",
-                    &wire_bag(vec![
-                        ("role", Wire::Text(agent.0.clone())),
-                        ("cur-x", Wire::Float(c_pos.x as f64)),
-                        ("cur-z", Wire::Float(c_pos.z as f64)),
-                        ("target-x", Wire::Float(p_pos.x as f64)),
-                        ("target-z", Wire::Float(p_pos.z as f64)),
-                    ]),
-                ))
-                .map(|v| (v.vx, v.vz))
-            })
-            .flatten()
+            let payload = wire_bag(vec![
+                ("role", Wire::Text(agent.0.clone())),
+                ("cur-x", Wire::Float(c_pos.x as f64)),
+                ("cur-z", Wire::Float(c_pos.z as f64)),
+                ("target-x", Wire::Float(p_pos.x as f64)),
+                ("target-z", Wire::Float(p_pos.z as f64)),
+            ]);
+            if let Some(Ok(Some((vx, vz)))) =
+                with_mod(&mod_runtime, |ctx| steer_planar(ctx, &payload))
             {
                 velocity.x = vx;
                 velocity.z = vz;

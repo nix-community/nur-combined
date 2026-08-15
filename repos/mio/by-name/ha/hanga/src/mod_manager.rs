@@ -275,6 +275,20 @@ pub fn parse_topics(payload: &Wire) -> HashSet<String> {
     }
 }
 
+/// `fail` is not an empty catalog. Empty still means "try every topic".
+fn advertised_topics(payload: &Wire) -> Option<HashSet<String>> {
+    if wire_is_fail(payload) {
+        None
+    } else {
+        Some(parse_topics(payload))
+    }
+}
+
+/// Empty catalog means "try every topic" (pack did not advertise `methods`).
+fn topics_include(topics: &HashSet<String>, name: &str) -> bool {
+    topics.is_empty() || topics.contains(name)
+}
+
 pub fn payload_text<'a>(payload: &'a Wire, key: &str) -> &'a str {
     match payload {
         Wire::Text(text) => text.as_str(),
@@ -351,6 +365,15 @@ pub fn wire_is_empty(value: &Wire) -> bool {
         Wire::Text(text) if text.is_empty() => true,
         Wire::Dict(fields) if fields.is_empty() => true,
         _ => false,
+    }
+}
+
+/// Kit trees: `fail` is not a skip. `None` means keep the last host state.
+pub fn node_from_reply(value: &Wire) -> Option<::hanga::kit::Node> {
+    if wire_is_fail(value) {
+        None
+    } else {
+        Some(node_from_wire(value))
     }
 }
 
@@ -826,8 +849,9 @@ impl hanga::engine::host::Host for HostData {
         lower_wire(&match ::hanga::player_snap() {
             Some(snap) => player_snapshot_wire(
                 &snap,
-                self.topics.contains("evaluate-action") || self.topics.contains("tick"),
-                self.topics.contains("wallet-after"),
+                topics_include(&self.topics, "evaluate-action")
+                    || topics_include(&self.topics, "tick"),
+                topics_include(&self.topics, "wallet-after"),
             ),
             None => wire_empty(),
         })
@@ -852,18 +876,35 @@ pub struct MainModContext {
 
 impl MainModContext {
     pub fn offers(&self, topic: &str) -> bool {
-        self.topics.is_empty() || self.topics.contains(topic)
+        topics_include(&self.topics, topic)
     }
 
     fn wake(&mut self) {
         let gp = self.bindings.hanga_engine_guest();
-        let _ = gp.call_ready(&mut self.store);
-        let methods = gp
-            .call_invoke(&mut self.store, "host", "methods", &lower_wire(&wire_empty()))
-            .map(|value| lift_wire(&value))
-            .unwrap_or_else(|_| wire_empty());
-        self.topics = parse_topics(&methods);
-        self.store.data_mut().topics = self.topics.clone();
+        if gp.call_ready(&mut self.store).is_err() {
+            warn!(
+                "mod {} ready trapped; next invoke will restart",
+                self.store.data().name
+            );
+        }
+        match gp.call_invoke(&mut self.store, "host", "methods", &lower_wire(&wire_empty()))
+        {
+            Ok(value) => {
+                if let Some(topics) = advertised_topics(&lift_wire(&value)) {
+                    self.topics = topics;
+                    self.store.data_mut().topics = self.topics.clone();
+                } else {
+                    warn!(
+                        "mod {} methods failed after ready; keeping advertised topics",
+                        self.store.data().name
+                    );
+                }
+            }
+            Err(_) => warn!(
+                "mod {} methods trapped after ready; keeping advertised topics",
+                self.store.data().name
+            ),
+        }
     }
 
     pub fn call(&mut self, from: &str, topic: &str, payload: &Wire) -> Wire {
@@ -913,6 +954,10 @@ impl MainModContext {
 
     pub fn bus_node(&mut self, topic: &str, payload: &Wire) -> ::hanga::kit::Node {
         node_from_wire(&self.bus(topic, payload))
+    }
+
+    pub fn bus_node_ok(&mut self, topic: &str, payload: &Wire) -> Option<::hanga::kit::Node> {
+        node_from_reply(&self.bus(topic, payload))
     }
 
     pub fn bus_text(&mut self, topic: &str) -> String {
@@ -1033,20 +1078,27 @@ impl ModRuntime {
     }
 
     pub fn wake_all(&mut self) {
-        if let Ok(mut guard) = self.context.try_lock() {
-            if let Some(ctx) = guard.as_mut() {
-                ctx.wake();
-            }
-        }
-        for pack in &self.packs {
-            if let Ok(mut guard) = pack.context.try_lock() {
+        let mut missed = false;
+        match self.context.try_lock() {
+            Ok(mut guard) => {
                 if let Some(ctx) = guard.as_mut() {
                     ctx.wake();
                 }
             }
+            Err(_) => missed = true,
+        }
+        for pack in &self.packs {
+            match pack.context.try_lock() {
+                Ok(mut guard) => {
+                    if let Some(ctx) = guard.as_mut() {
+                        ctx.wake();
+                    }
+                }
+                Err(_) => missed = true,
+            }
         }
         self.notify_all("on-mods-loaded", &wire_empty());
-        self.woken = true;
+        self.woken = !missed;
     }
 
     fn try_reload_from_disk(&mut self) -> bool {
@@ -1223,11 +1275,22 @@ impl ModRuntime {
             );
             return None;
         }
-        let methods = gp
-            .call_invoke(&mut store, "host", "methods", &lower_wire(&wire_empty()))
-            .map(|value| lift_wire(&value))
-            .unwrap_or_else(|_| wire_empty());
-        let topics = parse_topics(&methods);
+        let methods = match gp.call_invoke(
+            &mut store,
+            "host",
+            "methods",
+            &lower_wire(&wire_empty()),
+        ) {
+            Ok(value) => lift_wire(&value),
+            Err(_) => {
+                error!("Refusing {name}: methods trapped");
+                return None;
+            }
+        };
+        let Some(topics) = advertised_topics(&methods) else {
+            error!("Refusing {name}: methods failed");
+            return None;
+        };
         store.data_mut().topics = topics.clone();
 
         Some(MainModContext {
@@ -1345,6 +1408,9 @@ fn watch_mod_changes(mut runtime: ResMut<ModRuntime>) {
         runtime.reload_pending = true;
     }
     if !runtime.reload_pending {
+        if !runtime.woken && !runtime.loaded_paths.is_empty() {
+            runtime.wake_all();
+        }
         return;
     }
     info!("Reloading WASM collection...");
@@ -1357,6 +1423,7 @@ fn watch_mod_changes(mut runtime: ResMut<ModRuntime>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashSet;
 
     #[test]
     fn fail_is_not_empty() {
@@ -1383,6 +1450,11 @@ mod tests {
         let full = node_from_wire(&player_snapshot_wire(&snap, true, true));
         assert_eq!(full.get("state").and_then(::hanga::kit::Node::as_i32), Some(4));
         assert_eq!(full.get("wallet").and_then(::hanga::kit::Node::as_i32), Some(9));
+        assert!(topics_include(&HashSet::new(), "tick"));
+        assert!(!topics_include(
+            &HashSet::from(["ping".into()]),
+            "tick"
+        ));
     }
 
     #[test]
@@ -1477,6 +1549,13 @@ mod tests {
     }
 
     #[test]
+    fn node_from_reply_drops_fail() {
+        assert!(node_from_reply(&wire_fail("busy")).is_none());
+        assert!(node_from_reply(&wire_empty()).unwrap().is_empty());
+        assert_eq!(node_from_reply(&wire_text("wheel")).unwrap().text(), "wheel");
+    }
+
+    #[test]
     fn nested_wire_becomes_a_node_tree() {
         let wire = Wire::Dict(vec![WireField {
             key: "tires".into(),
@@ -1515,6 +1594,13 @@ mod tests {
         assert!(csv.contains("ping") && csv.contains("gravity"));
         let dict = parse_topics(&wire_bag(vec![("ping", Wire::Flag(true))]));
         assert!(dict.contains("ping"));
+    }
+
+    #[test]
+    fn advertised_topics_reject_fail() {
+        assert!(advertised_topics(&wire_fail("busy")).is_none());
+        assert!(advertised_topics(&wire_empty()).unwrap().is_empty());
+        assert!(advertised_topics(&wire_text("ping")).unwrap().contains("ping"));
     }
 
     #[test]
