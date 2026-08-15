@@ -28,13 +28,13 @@
 
 stdenv.mkDerivation {
   pname = "android-translation-layer";
-  version = "0-unstable-2026-07-30";
+  version = "0-unstable-2026-08-12";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "cf2c759fa93330f45df6107dcf8984cf49b29c64";
-    hash = "sha256-+TTntAnE/5j/FhGcdXRui3/p/sfkc83CKNdBf9Yage0=";
+    rev = "b7bedbb8f0a7126fdd9011b1cc2f3a096cb13b0e";
+    hash = "sha256-gjrWTP77rdAVK0xTBwhGdNLqH2clZMsk+maChOR83Ds=";
   };
 
   patches = [
