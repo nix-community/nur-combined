@@ -53,10 +53,14 @@ struct AfterJob {
 }
 
 static AFTER_JOBS: Mutex<Vec<AfterJob>> = Mutex::new(Vec::new());
+const AFTER_CAP: usize = 256;
 
 fn queue_after(pack: String, ms: i32, method: String, args: Wire) {
     let delay = ms.max(0) as i64;
     if let Ok(mut jobs) = AFTER_JOBS.lock() {
+        if mailbox_evict_if_full(&mut *jobs, AFTER_CAP) {
+            warn!("after queue full ({AFTER_CAP}); dropping oldest timer");
+        }
         jobs.push(AfterJob {
             at_ms: host_now_ms().saturating_add(delay),
             pack,

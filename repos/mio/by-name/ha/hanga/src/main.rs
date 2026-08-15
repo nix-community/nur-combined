@@ -124,15 +124,12 @@ fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
         }
 
         if let Some((_, store, func)) = instance_opt.as_mut() {
-            if let Ok(voxel_type) =
-                func.hanga_engine_guest()
-                    .call_query_voxel(store, pos.x, pos.y, pos.z)
+            return match func.hanga_engine_guest().call_query_voxel(store, pos.x, pos.y, pos.z)
             {
-                if voxel_type == 0 {
-                    return WorldVoxel::Unset;
-                }
-                return WorldVoxel::Solid(voxel_type as u8);
-            }
+                Ok(0) => WorldVoxel::Unset,
+                Ok(voxel_type) => WorldVoxel::Solid(voxel_type as u8),
+                Err(_) => WorldVoxel::Unset,
+            };
         }
 
         if pos.y < 0 {
@@ -1382,17 +1379,20 @@ fn load_voxel_catalog(mod_runtime: &ModRuntime) -> VoxelCatalog {
         ctx.bindings
             .hanga_engine_guest()
             .call_voxel_catalog(&mut ctx.store)
-            .unwrap_or_default()
-    }) {
+            .ok()
+    })
+    .flatten()
+    {
         layers.push(names);
     }
     with_pack_mods(mod_runtime, |_, ctx| {
-        let names = ctx
+        if let Ok(names) = ctx
             .bindings
             .hanga_engine_guest()
             .call_voxel_catalog(&mut ctx.store)
-            .unwrap_or_default();
-        layers.push(names);
+        {
+            layers.push(names);
+        }
     });
     VoxelCatalog(merge_name_catalogs(&layers))
 }
@@ -1749,15 +1749,18 @@ fn apply_mod_action(
     spawn_hint: Vec3,
 ) {
     if let Some((new_state, agent, new_wallet)) = with_mod(mod_runtime, |ctx| {
-        let new_state = ctx.bus_i32(
+        let eval = ctx.bus(
             "evaluate-action",
             &wire_bag(vec![
                 ("action", Wire::Text(action.to_string())),
                 ("state", Wire::Int(mod_state.0 as i64)),
             ]),
-            mod_state.0 as i32,
         );
-        let agent = ctx.bus_text_payload(
+        if wire_is_fail(&eval) {
+            return None;
+        }
+        let new_state = reply_i32(&eval, mod_state.0 as i32);
+        let spawn = ctx.bus(
             "should-spawn-agent",
             &wire_bag(vec![
                 ("action", Wire::Text(action.to_string())),
@@ -1765,16 +1768,24 @@ fn apply_mod_action(
                 ("new", Wire::Int(new_state as i64)),
             ]),
         );
-        let new_wallet = ctx.bus_i32(
+        let agent = if wire_is_fail(&spawn) {
+            String::new()
+        } else {
+            wire_as_text(&spawn)
+        };
+        let wallet_reply = ctx.bus(
             "wallet-after",
             &wire_bag(vec![
                 ("action", Wire::Text(action.to_string())),
                 ("wallet", Wire::Int(wallet.0 as i64)),
                 ("extra", Wire::Int(extra as i64)),
             ]),
-            wallet.0,
         );
-        Some((new_state, agent, new_wallet))
+        if wire_is_fail(&wallet_reply) {
+            Some((new_state, agent, wallet.0))
+        } else {
+            Some((new_state, agent, reply_i32(&wallet_reply, wallet.0)))
+        }
     })
     .flatten()
     {
@@ -3076,16 +3087,22 @@ fn wanted_decay(
     *timer = 0.0;
     let mut wanted = 0i32;
     for mut state in players.iter_mut() {
+        wanted = state.0 as i32;
         if let Some(new_state) = with_mod(&mod_runtime, |ctx| {
-            ctx.bus_i32(
+            let reply = ctx.bus(
                 "tick",
                 &wire_bag(vec![
                     ("state", Wire::Int(state.0 as i64)),
                     ("dt", Wire::Int(dt_ms as i64)),
                 ]),
-                state.0 as i32,
-            )
+            );
+            if wire_is_fail(&reply) {
+                None
+            } else {
+                Some(reply_i32(&reply, state.0 as i32))
+            }
         })
+        .flatten()
         {
             let clamped = clamp_mod_state(new_state, 0, 5) as u32;
             if clamped != state.0 {

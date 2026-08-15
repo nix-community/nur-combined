@@ -8,7 +8,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 - **Mailbox bound.** Casts cap at 256; oldest is dropped with a warning. Drain
   requeues a message if the pack is still locked instead of dropping it as empty.
-  Drain still stops after 32 rounds and warns if work remains. `LiveBus` OTP
+  Drain still stops after 32 rounds and warns if work remains. Guest `after`
+  timers cap at 256 the same way. `LiveBus` OTP
   errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
   `cargo test --bin hanga`. Live WASM `live_wasm_testbed_mailbox_cap_and_drain`
   fills a loaded testbed slot to the 256 cap (oldest `note` dropped) and
@@ -80,6 +81,10 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `query-voxel`. Extra packs overlay loot/kits. Multi-lead merge is still unset.
   `methods` fail/trap at load refuses the pack (empty catalog still means try
   every topic). After `ready`, a failed methods refresh keeps the load catalog.
+  `evaluate-action` `fail` skips spawn and wallet for that verb. Catalog trap
+  skips that layer instead of merging an empty list. Worker `query-voxel`
+  trap is air, not the engine `y < 0` stub. `tick` `fail`/busy keeps the
+  current wanted level so agents are not despawned as if wanted were 0.
 - **`player` snapshot is engine-shaped.** Pose is always present. `state` and
   `wallet` are included only if that pack advertised `evaluate-action`/`tick`
   or `wallet-after`, or if `methods` was empty (try every topic, same as
