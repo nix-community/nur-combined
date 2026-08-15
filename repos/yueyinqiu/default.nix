@@ -21,7 +21,8 @@
 
   mihomo-manager-mihomo-mixin = pkgs.callPackage ./pkgs/mihomo-manager-mihomo-mixin { };
   snavi = pkgs.callPackage ./pkgs/snavi { };
-  nix-fod-exporter = pkgs.callPackage ./pkgs/nix-fod-exporter { };
+  nix-daemon-proxy-server = pkgs.callPackage ./pkgs/nix-daemon-proxy-server { };
+  nix-daemon-proxy-client = pkgs.callPackage ./pkgs/nix-daemon-proxy-client { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
