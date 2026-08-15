@@ -206,7 +206,7 @@ stdenv.mkDerivation {
     # nlvm --cpu:wasm32 SIGSEGVs on the continuous Linux tarball (llgen).
     # Nim C backend + the same wit-bindgen C objects as Zig produces the component.
     nim c --cpu:wasm32 --os:standalone --mm:none --noMain --threads:off \
-      --compileOnly --nimcache:nimcache examples/lab-nim/main.nim
+      --compileOnly --nimcache:nimcache --path:lib/nim/hangamod examples/lab-nim/main.nim
     zig build-exe lib/c/hangamod/payload.c zig-c/plugin.c zig-c/plugin_component_type.o \
       $(find nimcache -name '*.c') \
       -target wasm32-wasi-musl -O ReleaseSmall -fno-entry -rdynamic -lc \
@@ -220,6 +220,7 @@ stdenv.mkDerivation {
     (
       cd examples/lab-koka
       koka -c --library --target=c32 --builddir="$TMPDIR/koka-mod" \
+        --include=../../lib/koka \
         --ccopts=-Wno-implicit-function-declaration \
         labkoka.kk
     )

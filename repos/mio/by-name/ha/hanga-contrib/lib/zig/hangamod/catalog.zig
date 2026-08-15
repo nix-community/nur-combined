@@ -25,10 +25,20 @@ pub fn indexOf(entries: []const []const u8, voxel: []const u8) usize {
     return 0;
 }
 
+pub fn checkerFloor(x: i32, y: i32, z: i32) i32 {
+    if (y < 0) return 2;
+    if (y == 0) return if ((x + z) & 1 == 0) 1 else 2;
+    return 0;
+}
+
 test "catalog" {
     var buf: [8][]const u8 = undefined;
     const n = parse("air, tile ,lamp", &buf);
     try std.testing.expectEqual(@as(usize, 3), n);
     try std.testing.expectEqualStrings("tile", catalogName(buf[0..n], 1));
     try std.testing.expectEqual(@as(usize, 2), indexOf(buf[0..n], "lamp"));
+    try std.testing.expectEqual(@as(i32, 2), checkerFloor(0, -1, 0));
+    try std.testing.expectEqual(@as(i32, 1), checkerFloor(0, 0, 0));
+    try std.testing.expectEqual(@as(i32, 2), checkerFloor(1, 0, 0));
+    try std.testing.expectEqual(@as(i32, 0), checkerFloor(0, 1, 0));
 }

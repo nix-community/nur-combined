@@ -11,8 +11,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   Drain still stops after 32 rounds and warns if work remains. `LiveBus` OTP
   errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
   `cargo test --bin hanga`.
-- **Live WASM on the bus.** `live_wasm_testbed_ping_and_self_cast` loads
-  `HANGA_MODS/testbed.wasm` (set in `.#hanga-dev`) for ping and a self-cast drain.
+- **Live WASM on the bus.** `live_wasm_testbed_ping_and_self_cast` and
+  `live_wasm_two_packs_empty_peer_ping` load `HANGA_MODS` guests (set in
+  `.#hanga-dev`) for ping, self-cast drain, and empty-peer override.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names
@@ -59,7 +60,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
   `ready` now `send` `hello` to peers. `ask_any` / empty-peer `invoke` stop on
   `fail` (`first_override`); they no longer skip it as “not mine”.
-- **lab_slab floor** uses `hangamod.CheckerFloor` (tested in `go test`).
+- **lab_slab / lab_grid / lab_nim / lab_koka floor** uses hangamod `checkerFloor`
+  (Go/Zig/Nim/Koka tests).
 - **Go/Zig arena helpers** live in `lib/go/hangamod/arena.go` (Pack/Unpack) and
   `lib/c/hangamod` (WIT C guests). Returned C strings are `plugin_string_dup`
   so `cabi_post_*` can free them; `send`/`peers` results are freed after the import.

@@ -3,6 +3,7 @@ module hangamod/test
 import hangamod/kit
 import hangamod/catalog
 import hangamod/wire
+import std/num/int32
 
 fun demand(b: bool, msg: string): console ()
   if b then () else println("FAIL " ++ msg)
@@ -21,6 +22,10 @@ pub fun main(): console ()
   demand(names.length == 3, "catalog len")
   demand(catalog-name(names, 1) == "tile", "catalog name")
   demand(index-of(names, "lamp") == 2, "catalog index")
+  demand(checker-floor(0.int32, 0.int32 - 1.int32, 0.int32) == 2.int32, "floor below")
+  demand(checker-floor(0.int32, 0.int32, 0.int32) == 1.int32, "floor even")
+  demand(checker-floor(1.int32, 0.int32, 0.int32) == 2.int32, "floor odd")
+  demand(checker-floor(0.int32, 1.int32, 0.int32) == 0.int32, "floor air")
   val probe = voxel-probe("glass", True)
   demand(bag-text(probe, "name") == Just("glass"), "probe name")
   demand(bag-flag(probe, "edit"), "probe edit")

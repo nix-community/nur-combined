@@ -1453,4 +1453,41 @@ mod tests {
         bus.flush_deferred();
         assert!(bus.pending.lock().unwrap().is_empty());
     }
+
+    #[test]
+    fn live_wasm_two_packs_empty_peer_ping() {
+        let Some(testbed) = mods_wasm("testbed") else {
+            return;
+        };
+        let Some(urban) = mods_wasm("urban_chaos") else {
+            return;
+        };
+        let lead = Arc::new(Mutex::new(None));
+        let pack = Arc::new(Mutex::new(None));
+        let bus = Arc::new(LiveBus {
+            lead_name: "testbed".into(),
+            lead: Arc::clone(&lead),
+            packs: vec![("urban_chaos".into(), Arc::clone(&pack))],
+            pending: Mutex::new(Vec::new()),
+        });
+        let host: Arc<dyn EngineBus> = Arc::clone(&bus) as Arc<dyn EngineBus>;
+        *lead.lock().unwrap() = Some(
+            ModRuntime::instantiate(&testbed, "testbed", Arc::clone(&host), true)
+                .expect("load testbed.wasm"),
+        );
+        *pack.lock().unwrap() = Some(
+            ModRuntime::instantiate(&urban, "urban_chaos", host, false)
+                .expect("load urban_chaos.wasm"),
+        );
+        assert!(bus.has_mod("testbed") && bus.has_mod("urban_chaos"));
+        assert_eq!(bus.peers("testbed"), vec!["urban_chaos".to_string()]);
+        assert_eq!(
+            wire_as_text(&bus.invoke("host", "", "ping", wire_empty())),
+            "pong"
+        );
+        assert_eq!(
+            wire_as_text(&bus.invoke("testbed", "urban_chaos", "ping", wire_empty())),
+            "pong"
+        );
+    }
 }

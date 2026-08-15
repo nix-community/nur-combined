@@ -1,4 +1,5 @@
 # Compile with Nim C backend + wit-bindgen C (nlvm wasm32 currently SIGSEGVs).
+import catalog
 
 type
   PluginString {.importc: "plugin_string_t", header: "plugin.h", bycopy.} = object
@@ -28,12 +29,7 @@ const
   ]
 
 proc queryVoxel(x, y, z: int32): int32 =
-  if y < 0:
-    return 2
-  if y == 0:
-    if ((x + z) and 1) == 0: 1 else: 2
-  else:
-    0
+  checkerFloor(x, y, z)
 
 proc voxelName(index: int32): cstring =
   if index >= 0 and index < catalogParts.len:

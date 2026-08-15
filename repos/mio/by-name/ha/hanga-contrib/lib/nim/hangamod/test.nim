@@ -17,6 +17,10 @@ let names = parse("air, tile ,lamp")
 doAssert names.len == 3
 doAssert catalogName(names, 1) == "tile"
 doAssert indexOf(names, "lamp") == 2
+doAssert checkerFloor(0, -1, 0) == 2
+doAssert checkerFloor(0, 0, 0) == 1
+doAssert checkerFloor(1, 0, 0) == 2
+doAssert checkerFloor(0, 1, 0) == 0
 
 let probe = voxelProbe("glass", true)
 doAssert bagText(probe, "name").value == "glass"

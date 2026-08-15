@@ -18,3 +18,11 @@ proc indexOf*(entries: openArray[string], voxel: string): int =
     if entry == voxel:
       return i
   0
+
+proc checkerFloor*(x, y, z: int32): int32 =
+  if y < 0:
+    return 2
+  if y == 0:
+    if ((x + z) and 1) == 0: 1 else: 2
+  else:
+    0

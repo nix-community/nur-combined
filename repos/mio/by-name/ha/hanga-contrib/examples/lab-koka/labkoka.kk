@@ -1,6 +1,7 @@
 module labkoka
 
 import std/num/int32
+import hangamod/catalog
 
 extern import
   c file "kk-hanga-decl.h"
@@ -33,9 +34,7 @@ extern bus-has(payload: intptr_t): bool
   c "kk_hanga_bus_has"
 
 pub fun query-voxel(x: int32, y: int32, z: int32): int32
-  if y < 0.int32 then 2.int32
-  elif y == 0.int32 then (if and(x + z, 1.int32) == 0.int32 then 1.int32 else 2.int32)
-  else 0.int32
+  checker-floor(x, y, z)
 
 fun voxel-name(index: int32): string
   if index == 1.int32 then "koka"

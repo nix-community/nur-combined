@@ -19,11 +19,7 @@ fn setStr(ret: [*c]c.plugin_string_t, value: [:0]const u8) void {
 }
 
 fn queryVoxel(x: i32, y: i32, z: i32) i32 {
-    if (y < 0) return 2;
-    if (y == 0) {
-        return if ((x + z) & 1 == 0) 1 else 2;
-    }
-    return 0;
+    return hangamod.catalog.checkerFloor(x, y, z);
 }
 
 fn topicEql(topic: []const u8, want: []const u8) bool {
