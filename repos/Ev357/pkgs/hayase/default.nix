@@ -3,7 +3,7 @@
   pkgs,
   ...
 }:
-pkgs.appimageTools.wrapType2 rec {
+pkgs.appimageTools.wrapAppImage rec {
   pname = "hayase";
   version = "6.4.86";
 
@@ -25,24 +25,28 @@ pkgs.appimageTools.wrapType2 rec {
       update-source-version ${pname} "$version"
     '';
 
+  appimageContents = pkgs.appimageTools.extract {
+    inherit pname version src;
+  };
+
   nativeBuildInputs = with pkgs; [
     makeWrapper
   ];
 
-  extraInstallCommands = let
-    contents = pkgs.appimageTools.extractType2 {inherit pname version src;};
-  in ''
-    mkdir -p "$out/share/applications"
-    mkdir -p "$out/share/lib/hayase"
-    cp -r ${contents}/{locales,resources} "$out/share/lib/hayase"
-    cp -r ${contents}/usr/share/* "$out/share"
-    cp "${contents}/${pname}.desktop" "$out/share/applications/"
-    wrapProgram $out/bin/hayase --add-flags "--ozone-platform=wayland"
-    substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
-  '';
+  extraInstallCommands =
+    # bash
+    ''
+      mkdir -p "$out/share/applications"
+      mkdir -p "$out/share/lib/hayase"
+      cp -r ${appimageContents}/{locales,resources} "$out/share/lib/hayase"
+      cp -r ${appimageContents}/usr/share/* "$out/share"
+      cp "${appimageContents}/${pname}.desktop" "$out/share/applications/"
+      wrapProgram $out/bin/hayase --add-flags "--ozone-platform=wayland"
+      substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
+    '';
 
   meta = {
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     description = "Hayase - Torrent streaming made simple";
     homepage = "https://hayase.watch";
     changelog = "https://hayase.watch/changelog";
