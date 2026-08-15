@@ -32,6 +32,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   matches guest `probe` for worldgen and overlay. `ModRuntime::load_collection`
   is live for `ask_any` (urban `craft-result` over testbed empty, `refuse` fail)
   and `emit_all` (veto vs ping, and `refuse` `fail("busy")` also blocks).
+  A locked pack is `fail("busy")` / veto on `ask_any` and `emit_all`, not a
+  blocking wait.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names

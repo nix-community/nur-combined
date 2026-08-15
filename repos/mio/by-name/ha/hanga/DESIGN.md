@@ -30,7 +30,8 @@ to be `call`). Use `send` when you want later delivery. `invoke` to self is
 when the host-import call stack unwinds (`flush_deferred`).
 
 The engine uses **call** only when it needs a reply: `before-dig` is `emit_all`
-(veto). Notifications are **cast**: `on-dig`, `on-place`, `on-step`,
+(veto). A locked pack is `fail("busy")` on `ask_any` and a veto on `emit_all`
+(`try_lock`, same as guest `invoke`/`emit`). Notifications are **cast**: `on-dig`, `on-place`, `on-step`,
 `on-mods-loaded` (`notify_all` / `send`), and `after` delivers with `send`
 (OTP `send_after`, not `call`).
 

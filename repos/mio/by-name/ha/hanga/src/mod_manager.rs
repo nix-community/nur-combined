@@ -983,20 +983,25 @@ impl ModRuntime {
 
     /// Later packs first, then lead. First real reply wins (Luanti override_item).
     /// `fail` stops the walk (OTP `{error, Reason}` is not a missing method).
+    /// A locked pack is `fail("busy")`, not a blocking wait.
     pub fn ask_any(&self, method: &str, args: &Wire) -> Wire {
         let mut replies = Vec::new();
         for pack in self.packs.iter().rev() {
-            if let Ok(mut guard) = pack.context.lock() {
-                if let Some(ctx) = guard.as_mut() {
-                    replies.push(ctx.call("host", method, args));
-                }
-            }
+            replies.push(match pack.context.try_lock() {
+                Ok(mut guard) => guard
+                    .as_mut()
+                    .map(|ctx| ctx.call("host", method, args))
+                    .unwrap_or_else(wire_empty),
+                Err(_) => wire_fail("busy"),
+            });
         }
-        if let Ok(mut guard) = self.context.lock() {
-            if let Some(ctx) = guard.as_mut() {
-                replies.push(ctx.call("host", method, args));
-            }
-        }
+        replies.push(match self.context.try_lock() {
+            Ok(mut guard) => guard
+                .as_mut()
+                .map(|ctx| ctx.call("host", method, args))
+                .unwrap_or_else(wire_empty),
+            Err(_) => wire_fail("busy"),
+        });
         first_override(replies)
     }
 
@@ -1034,23 +1039,30 @@ impl ModRuntime {
         self.bus.send("host", "", method, args.clone());
     }
 
-    /// OTP `gen_event:call` to every pack. Veto flag or `fail` stops the engine action.
+    /// OTP `gen_event:call` to every pack. Veto flag, `fail`, or a busy listener
+    /// stops the engine action (do not skip `before-dig`).
     pub fn emit_all(&self, method: &str, args: &Wire) -> bool {
         let mut veto = false;
-        if let Ok(mut guard) = self.context.lock() {
-            if let Some(ctx) = guard.as_mut() {
-                if emit_blocks(Ok(&ctx.call("host", method, args))) {
-                    veto = true;
-                }
-            }
-        }
-        for pack in &self.packs {
-            if let Ok(mut guard) = pack.context.lock() {
+        match self.context.try_lock() {
+            Ok(mut guard) => {
                 if let Some(ctx) = guard.as_mut() {
                     if emit_blocks(Ok(&ctx.call("host", method, args))) {
                         veto = true;
                     }
                 }
+            }
+            Err(_) => veto = true,
+        }
+        for pack in &self.packs {
+            match pack.context.try_lock() {
+                Ok(mut guard) => {
+                    if let Some(ctx) = guard.as_mut() {
+                        if emit_blocks(Ok(&ctx.call("host", method, args))) {
+                            veto = true;
+                        }
+                    }
+                }
+                Err(_) => veto = true,
             }
         }
         veto
@@ -1952,6 +1964,23 @@ mod tests {
         assert!(runtime.emit_all("refuse", &wire_empty()));
         assert!(!runtime.emit_all("ping", &wire_empty()));
         runtime.notify_all("hello", &wire_empty());
+    }
+
+    #[test]
+    fn live_wasm_mod_runtime_busy_pack_is_fail_closed() {
+        let Some(runtime) = instantiate_live_runtime("testbed", "urban_chaos") else {
+            return;
+        };
+        {
+            let _hold = runtime.packs[0].context.lock().unwrap();
+            assert!(matches!(
+                runtime.ask_any("ping", &wire_empty()),
+                Wire::Fail(reason) if reason == "busy"
+            ));
+            assert!(runtime.emit_all("ping", &wire_empty()));
+        }
+        assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
+        assert!(!runtime.emit_all("ping", &wire_empty()));
     }
 
     #[test]
