@@ -33,11 +33,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qj1gbXvw6pc5ptDeEYEOcqZi56TlBh1n7n+LxHyIkPk=",
+            "sha256": "sha256-izrhjfQRCYzlVwXEuxUenJfjTfVf43nHtrMSKmnw6nQ=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.232/darwin-x64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.233/darwin-x64/claude"
         },
-        "version": "2.1.232"
+        "version": "2.1.233"
     },
     "claude-code-bin-amd64-linux": {
         "cargoLock": null,
@@ -48,11 +48,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YdI/h0kTaQfVhtWxGDHqilI01MHepApeVcM7UuIExtE=",
+            "sha256": "sha256-VdKBCW9X1BHrvdlNv16f86zLfAVxPjc0jCwR1Lg7+dk=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.232/linux-x64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.233/linux-x64/claude"
         },
-        "version": "2.1.232"
+        "version": "2.1.233"
     },
     "claude-code-bin-arm64-darwin": {
         "cargoLock": null,
@@ -63,11 +63,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-eznBWI35GdAB3qP/1WUa22gvJFG1oOGNQtQjMpa1PMc=",
+            "sha256": "sha256-vEZrbN5j7a/Hc/RxofuYeH+rsx9SJAyGFs5+H1h7IS0=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.232/darwin-arm64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.233/darwin-arm64/claude"
         },
-        "version": "2.1.232"
+        "version": "2.1.233"
     },
     "claude-code-bin-arm64-linux": {
         "cargoLock": null,
@@ -78,11 +78,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IHl+vGRN/EemmGXEbVz3Asfb7dSNQmgGO4go69VbOdA=",
+            "sha256": "sha256-Qt8YQfdOmyrBPywaKoIO9rmsWy77hka7JcmpK4vWkZQ=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.232/linux-arm64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.233/linux-arm64/claude"
         },
-        "version": "2.1.232"
+        "version": "2.1.233"
     },
     "codex": {
         "cargoLock": {
@@ -382,11 +382,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XmWu+SUtGwxo43H4qkWI1jYXljcrev4XXyL/Rtn8MfY=",
+            "sha256": "sha256-UaF8r1u8f16wx4tpV8/8uIqZ1GrkBWdNnuJihRmNtus=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.36.0.tgz"
+            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.36.1.tgz"
         },
-        "version": "0.36.0"
+        "version": "0.36.1"
     },
     "kwok": {
         "cargoLock": null,
@@ -418,11 +418,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hwT9WOjsKs6YBgARAHPqUK9Ug9jrRpgcCV44jJYtSEM=",
+            "sha256": "sha256-zClVM8MtHl3B/r6MWXLBI15BuWFDGL7FdEHQPEdfcME=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.3/omp-darwin-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.4/omp-darwin-x64"
         },
-        "version": "v17.3.3"
+        "version": "v17.3.4"
     },
     "oh-my-pi-bin-amd64-linux": {
         "cargoLock": null,
@@ -433,11 +433,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JdZC01zwemuUM22pT6bWm3oKiy8bhlzPkudwujeqpgY=",
+            "sha256": "sha256-P85LJWKAZLDNe/vGJF7NraMxdQ7Us0Gspr0pukR4qrU=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.3/omp-linux-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.4/omp-linux-x64"
         },
-        "version": "v17.3.3"
+        "version": "v17.3.4"
     },
     "oh-my-pi-bin-arm64-darwin": {
         "cargoLock": null,
@@ -448,11 +448,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Iey1IQOsdFc2/gr4l96oPZJPNGSh0B6b2z1qnPtLN6g=",
+            "sha256": "sha256-dqbCL4ukujGePVKK3NkhlJ4DOPKxMEJyHmS5kPb//hY=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.3/omp-darwin-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.4/omp-darwin-arm64"
         },
-        "version": "v17.3.3"
+        "version": "v17.3.4"
     },
     "oh-my-pi-bin-arm64-linux": {
         "cargoLock": null,
@@ -463,11 +463,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-suiulCy9iu4sq+piyWFmdTypsljBMUiXq4Hvjxj9CQ4=",
+            "sha256": "sha256-jifnv+SfwPM/bLC1ASirhf5UAzMNHftbs0zx90Is3Og=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.3/omp-linux-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.3.4/omp-linux-arm64"
         },
-        "version": "v17.3.3"
+        "version": "v17.3.4"
     },
     "pi-agent": {
         "cargoLock": null,
@@ -478,11 +478,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ppoYWWAX6RlV/Q/Wd75p+rW26gHVsGIHvO407hUivCA=",
+            "sha256": "sha256-lbiZzXsaDB8BdMe/M6tCdDXjVTp9H0dWZhqpx/Gmj/o=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-0.84.1.tgz"
+            "url": "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-0.84.2.tgz"
         },
-        "version": "0.84.1"
+        "version": "0.84.2"
     },
     "pi-agent-bin-amd64-darwin": {
         "cargoLock": null,
@@ -493,11 +493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+QYJYrnMpUONf7l7YK2unJMCUD05to2K6ouJHi6z54Y=",
+            "sha256": "sha256-gIzwKpPNYB0+oF1H3BXEUHSxIKyB3syGRM0+QKNYJOY=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.1/pi-darwin-x64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.2/pi-darwin-x64.tar.gz"
         },
-        "version": "v0.84.1"
+        "version": "v0.84.2"
     },
     "pi-agent-bin-amd64-linux": {
         "cargoLock": null,
@@ -508,11 +508,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VjTX69GCdLY68zcelC80LXS+oBI4lXXB0f8VzmyoDC8=",
+            "sha256": "sha256-kG++eH/SJcSsYk/n69Wx1Vpg4PXH71F5XSMVZPnuHBM=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.1/pi-linux-x64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.2/pi-linux-x64.tar.gz"
         },
-        "version": "v0.84.1"
+        "version": "v0.84.2"
     },
     "pi-agent-bin-arm64-darwin": {
         "cargoLock": null,
@@ -523,11 +523,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aDyEJh9AuHC0p8zxgaSK1uzXGFOwES0bthdTlTDGEh0=",
+            "sha256": "sha256-yZboiLf33ORLzyT2kXasZGxEE505Fr1JprKOWoxeOmU=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.1/pi-darwin-arm64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.2/pi-darwin-arm64.tar.gz"
         },
-        "version": "v0.84.1"
+        "version": "v0.84.2"
     },
     "pi-agent-bin-arm64-linux": {
         "cargoLock": null,
@@ -538,11 +538,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-q5XAWKRlG1/12Mh45STt+3diY8ekRPMlUF8kfAVu7Pw=",
+            "sha256": "sha256-0VNy2p5LTF/vn9Fb7XbX9fFyDdOf583g7GLltlrWPvE=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.1/pi-linux-arm64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.84.2/pi-linux-arm64.tar.gz"
         },
-        "version": "v0.84.1"
+        "version": "v0.84.2"
     },
     "vagrant-vmware-utility": {
         "cargoLock": null,
