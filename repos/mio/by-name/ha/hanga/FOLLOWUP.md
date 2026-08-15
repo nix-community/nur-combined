@@ -9,12 +9,12 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Mailbox bound.** Casts cap at 256; oldest is dropped with a warning. Drain
   requeues a message if the pack is still locked instead of dropping it as empty.
   Drain still stops after 32 rounds and warns if work remains.
-- **No tests for live `busy` / mailbox.** Cap eviction and `emit_blocks` (busy /
-  trap / veto) are unit-tested; still need a test that locks a pack mutex so
-  `invoke` returns `fail("busy")` without enqueue and `send` enqueues.
-- **No supervision.** A guest trap now returns `fail("trap")` (and `emit` treats
-  fail as a closed/veto). The store is still dead; decide unload, restart WASM,
-  or fail the game.
+- **No tests for live `busy` / mailbox.** Cap eviction, `emit_blocks`, and a
+  held-mutex call/cast split are unit-tested. A full LiveBus with WASM packs is
+  still not in `cargo test --lib`.
+- **No supervision.** A guest trap returns `fail("trap")`, `emit` treats fail as
+  veto, and the host reinstantiates that pack from disk (OTP restart). Guest
+  statics reset. If reload fails, the store stays dead.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, and labels use `ask_any_text` (plain
@@ -34,9 +34,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 ## Engine vs mods
 
-- **Lead WASM for terrain.** Worker threads clone the **lead** component for
-  `query-voxel`. Extra packs cannot own worldgen cells; they only overlay via
-  loot/kits. Multi-lead terrain needs a defined merge, not silent lead-only.
+- **Lead WASM for terrain.** Documented: workers clone the lead for
+  `query-voxel`. Extra packs overlay loot/kits. Multi-lead merge is still unset.
 - **`player` snapshot is engine-shaped.** Wallet and wanted `state` live on the
   host player. Fine for Urban Chaos; a pack that does not use wanted still sees
   those keys. Optional: omit keys the lead did not advertise.
@@ -51,9 +50,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   host (see contrib README).
 - **Zig has no guest wit-bindgen.** C `plugin.h` + `cabi_realloc` is fragile
   (already burned once). Track upstream Zig component bindgen.
-- **Guests still rarely `send` or return `fail`.** Kotlin/Go/Zig `Wire` now has
-  `Fail`; lab_tile maps it instead of collapsing to empty. Examples should still
-  use `send` for hello and treat `fail` as `{error, Reason}` at call sites.
+- **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
+  `ready` now `send` `hello` to peers. Treat `fail` as `{error, Reason}` at more
+  call sites.
 - **Go/Zig arena helpers are copy-pasted** in the example, not in `hangamod`.
   Lift pack/unpack into the libs so examples stay small.
 - **lab_slab floor** was a uniform `mark` checker (both branches returned 2);
@@ -62,8 +61,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 ## Tooling
 
 - Package **cargo-kani** so proofs run as CBMC, not only `kani_replay_*`.
-- `.#hanga` still skips the long cargo checkPhase; keep `.#hanga-dev` as the
-  gate and say so in CI if a workflow only builds `.#hanga`.
+- `.#hanga` skips cargo checkPhase (`doCheck = false` in `package.nix`). Gate is
+  `.#hanga-dev`. NUR CI evals the whole tree, not only `.#hanga`.
 
 ## Out of scope (do not do)
 

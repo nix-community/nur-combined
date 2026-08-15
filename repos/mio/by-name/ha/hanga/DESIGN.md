@@ -124,7 +124,8 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 
 ## Mods (Rust → `wasm32-unknown-unknown` component)
 
-- World gen (`query-voxel`)
+- World gen (`query-voxel`) is **lead-only**. Worker threads clone the lead
+  component. Extra packs overlay loot, kits, and agents; they do not own cells.
 - Rules (`evaluate-action`, `should-spawn-agent`, wanted level)
 - Economy / storyteller
 - Spawn positions
@@ -166,8 +167,8 @@ lone WASM (implicit one-mod game, neutral menu). Packaged builds install
 WASM in `$out/share/hanga/mods` (`HANGA_MODS`) and `.game` files in
 `$out/share/hanga/games` (`HANGA_GAMES`). Extra language packs live in
 `nix build .#hanga-contrib` (`lab_tile` Kotlin/Wasm, `lab_slab` TinyGo, `lab_grid` Zig, `lab_owl` Hoot). The engine
-currently instantiates the lead mod for terrain and extra packs
-for vehicles and agents.
+currently instantiates the lead mod for terrain (`query-voxel`) and extra packs
+for vehicles, agents, and loot. Extra packs cannot replace lead worldgen.
 
 ## Commands
 
@@ -250,5 +251,5 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 
 ## Next
 
-Larger follow-ups (Hoot runtime, pack restart after trap, live mailbox mutex
-tests, cargo-kani packaging) are in [FOLLOWUP.md](FOLLOWUP.md).
+Larger follow-ups (Hoot runtime in the host, cargo-kani packaging, Zig guest
+bindgen) are in [FOLLOWUP.md](FOLLOWUP.md).

@@ -16,10 +16,17 @@ const busTopics = "ping,name,catalog,gravity,has,methods,voxel,fracture-kit,loot
 
 func init() {
 	guest.Exports.ABI = func() int32 { return 6 }
-	guest.Exports.Ready = func() { host.Log("info", "lab_slab ready") }
+	guest.Exports.Ready = ready
 	guest.Exports.VoxelCatalog = func() cm.List[string] { return cm.ToList(names) }
 	guest.Exports.QueryVoxel = queryVoxel
 	guest.Exports.Invoke = onMessage
+}
+
+func ready() {
+	host.Log("info", "lab_slab ready")
+	for _, peer := range host.Peers().Slice() {
+		host.Send(peer, "hello", valEmpty())
+	}
 }
 
 func shiftCell(cell host.Cell, base uint32) host.Cell {

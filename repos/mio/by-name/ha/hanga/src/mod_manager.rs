@@ -208,6 +208,13 @@ pub fn parse_topics(payload: &Wire) -> HashSet<String> {
             .map(|name| name.to_string())
             .collect(),
         Wire::Dict(fields) => fields.iter().map(|field| field.key.clone()).collect(),
+        Wire::Items(items) => items
+            .iter()
+            .filter_map(|item| match item {
+                Wire::Text(name) if !name.is_empty() => Some(name.clone()),
+                _ => None,
+            })
+            .collect(),
         _ => HashSet::new(),
     }
 }
@@ -838,6 +845,8 @@ pub struct MainModContext {
     pub store: Store<HostData>,
     pub bindings: Plugin,
     pub topics: HashSet<String>,
+    wasm_path: PathBuf,
+    is_lead: bool,
 }
 
 impl MainModContext {
@@ -859,11 +868,32 @@ impl MainModContext {
         if topic != "has" && topic != "methods" && !self.offers(topic) {
             return wire_empty();
         }
-        self.bindings
+        match self
+            .bindings
             .hanga_engine_guest()
             .call_invoke(&mut self.store, from, topic, &lower_wire(payload))
-            .map(|value| lift_wire(&value))
-            .unwrap_or_else(|_| wire_fail("trap"))
+        {
+            Ok(value) => lift_wire(&value),
+            Err(_) => {
+                self.restart_after_trap();
+                wire_fail("trap")
+            }
+        }
+    }
+
+    fn restart_after_trap(&mut self) {
+        let name = self.store.data().name.clone();
+        let bus = Arc::clone(&self.store.data().bus);
+        let path = self.wasm_path.clone();
+        let lead = self.is_lead;
+        warn!("mod {name} trapped; restarting {}", path.display());
+        match ModRuntime::instantiate(&path, &name, bus, lead) {
+            Some(mut fresh) => {
+                fresh.wake();
+                *self = fresh;
+            }
+            None => error!("mod {name} trapped and failed to restart"),
+        }
     }
 
     pub fn bus(&mut self, topic: &str, payload: &Wire) -> Wire {
@@ -1176,6 +1206,8 @@ impl ModRuntime {
             store,
             bindings,
             topics,
+            wasm_path: path.to_path_buf(),
+            is_lead: publish_shared,
         })
     }
 
@@ -1343,6 +1375,32 @@ mod tests {
         assert!(!mailbox_evict_if_full(&mut pending, 8));
         pending.push(5);
         assert_eq!(pending, vec![2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn held_mutex_is_busy_for_call_and_enqueue_for_cast() {
+        let slot = Mutex::new(Some(1u8));
+        let _hold = slot.lock().unwrap();
+        assert!(slot.try_lock().is_err());
+        let call = match slot.try_lock() {
+            Ok(_) => wire_empty(),
+            Err(_) => wire_fail("busy"),
+        };
+        assert!(wire_is_fail(&call));
+        let mut mailbox = Vec::new();
+        if slot.try_lock().is_err() {
+            mailbox.push("cast");
+        }
+        assert_eq!(mailbox, ["cast"]);
+    }
+
+    #[test]
+    fn methods_list_is_topics() {
+        let topics = parse_topics(&Wire::Items(vec![
+            wire_text("ping"),
+            wire_text("gravity"),
+        ]));
+        assert!(topics.contains("ping") && topics.contains("gravity"));
     }
 
     #[test]

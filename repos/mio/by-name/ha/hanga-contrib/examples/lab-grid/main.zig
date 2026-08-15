@@ -214,6 +214,20 @@ export fn exports_hanga_engine_guest_ready() callconv(.c) void {
     setStr(&level, "info");
     setStr(&msg, "lab_grid ready");
     c.hanga_engine_host_log(&level, &msg);
+    greetPeers();
+}
+
+fn greetPeers() void {
+    var peers = c.plugin_list_string_t{ .ptr = null, .len = 0 };
+    c.hanga_engine_host_peers(&peers);
+    var i: usize = 0;
+    while (i < peers.len) : (i += 1) {
+        var method = c.plugin_string_t{};
+        setStr(&method, "hello");
+        var args = c.hanga_engine_host_value_t{};
+        payloadEmpty(&args);
+        c.hanga_engine_host_send(&peers.ptr[i], &method, &args);
+    }
 }
 
 export fn exports_hanga_engine_guest_voxel_catalog(ret: [*c]c.plugin_list_string_t) callconv(.c) void {

@@ -19,6 +19,9 @@ object GuestImpl : Guest {
 
     override fun ready() {
         Host.Import.log("info", "lab_tile ready")
+        for (peer in Host.Import.peers()) {
+            Host.Import.send(peer, "hello", toHost(Wire.Empty))
+        }
     }
 
     override fun voxelCatalog(): List<String> = names
