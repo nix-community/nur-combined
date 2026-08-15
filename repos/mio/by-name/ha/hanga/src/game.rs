@@ -91,6 +91,11 @@ impl GameSpec {
             .unwrap_or(crate::palette::DEFAULT_LAYER_RGB)
     }
 
+    /// Wire id for P2P: game id plus mods in load order. Mismatched peers drop actions.
+    pub fn collection_key(&self) -> String {
+        format!("{}:{}", self.id, self.mods.join("+"))
+    }
+
     pub fn title(&self, locale: &str) -> String {
         let folded = locale.trim().to_lowercase();
         let primary = folded.split('-').next().unwrap_or(&folded);
@@ -463,6 +468,15 @@ mod tests {
         assert!(sandbox.has_clouds());
         assert!(!bed.has_clouds());
         assert_eq!(sandbox.title("en"), "Sandbox");
+        assert_eq!(
+            urban.collection_key(),
+            "urban_chaos:urban_chaos"
+        );
+        assert_eq!(
+            sandbox.collection_key(),
+            "sandbox:urban_chaos+testbed"
+        );
+        assert_ne!(urban.collection_key(), sandbox.collection_key());
         assert_ne!(urban.palette_layers()[1], crate::palette::DEFAULT_LAYER_RGB[1]);
     }
 

@@ -13,12 +13,13 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   held-mutex call/cast split are unit-tested. A full LiveBus with WASM packs is
   still not in `cargo test --lib`.
 - **No supervision.** A guest trap returns `fail("trap")`, `emit` treats fail as
-  veto, and the host reinstantiates that pack from disk (OTP restart). Guest
-  statics reset. If reload fails, the store stays dead.
+  veto, and the host reinstantiates that pack from disk (OTP restart) at most
+  once per 2s. Guest statics reset. If reload fails, the store stays dead.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
-- **Name replies vs kits.** Loot, craft, and labels use `ask_any_text` (plain
-  `text` only). `ask_any_kit` still stringifies trees for leftover CSV callers.
+- **Name replies vs kits.** Loot, craft, labels, story events, and agent names
+  use `ask_any_text` / `bus_text_payload`. `ask_any_kit` / `bus_kit` remain for
+  leftover CSV callers.
 - **Selective receive / priorities.** OTP can skip mailbox items. We FIFO only.
   Not needed until a pack both `send`s to self and must handle `on-step` first.
 
@@ -29,19 +30,19 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   callers (`ask_any_fields` / `bus_fields`).
 - **Two value types.** `hanga::kit::Atom` is a flat scalar; `Node` is the tree;
   WIT `cell` is the arena encoding. Flattened `Fields` remain for CSV fallback.
-- **`key=value;` fallback.** Keep until contrib examples and tests stop sending
-  CSV `methods` / kit strings. Zig `methodsBag` still returns topic CSV text.
+- **`key=value;` fallback.** Keep until leftover CSV callers go away. Zig
+  `methods` is now a list of topic names.
 
 ## Engine vs mods
 
 - **Lead WASM for terrain.** Documented: workers clone the lead for
   `query-voxel`. Extra packs overlay loot/kits. Multi-lead merge is still unset.
-- **`player` snapshot is engine-shaped.** Wallet and wanted `state` live on the
-  host player. Fine for Urban Chaos; a pack that does not use wanted still sees
-  those keys. Optional: omit keys the lead did not advertise.
-- **P2P is not the mod bus.** Matchbox carries signed player actions. Mods do
-  not message across peers. Documented in `DESIGN.md`; a collection checksum in
-  the handshake is still optional.
+- **`player` snapshot is engine-shaped.** Wallet and wanted `state` are always
+  on the snapshot (documented on the host import). Optional: omit keys the lead
+  did not advertise.
+- **P2P is not the mod bus.** Matchbox carries signed player actions. The signed
+  envelope includes `collection_key` (`id:mod+mod`); mismatched peers drop the
+  action. Not a WASM content hash.
 
 ## Contrib / languages
 

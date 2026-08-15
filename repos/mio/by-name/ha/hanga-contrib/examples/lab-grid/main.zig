@@ -5,7 +5,9 @@ const c = @cImport({
 });
 
 const catalog_csv = "air,grid,mark";
-const bus_topics = "ping,name,catalog,gravity,has,methods,voxel,fracture-kit,loot-item";
+const bus_topic_list = [_][:0]const u8{
+    "ping", "name", "catalog", "gravity", "has", "methods", "voxel", "fracture-kit", "loot-item",
+};
 
 fn cSlice(s: [*c]const c.plugin_string_t) []const u8 {
     if (s == null or s.*.ptr == null or s.*.len == 0) return "";
@@ -53,9 +55,8 @@ fn busHas(payload: [*c]const c.hanga_engine_host_value_t) bool {
             name = if (want.len > 0) want else bagText(payload, "method");
         }
     }
-    var it = std.mem.splitScalar(u8, bus_topics, ',');
-    while (it.next()) |method| {
-        if (std.mem.eql(u8, std.mem.trim(u8, method, " "), name)) return true;
+    for (bus_topic_list) |method| {
+        if (std.mem.eql(u8, method, name)) return true;
     }
     return false;
 }
@@ -201,7 +202,22 @@ fn payloadFracture(ret: [*c]c.hanga_engine_host_value_t) void {
 extern fn cabi_realloc(ptr: ?*anyopaque, old_size: usize, alignment: usize, new_size: usize) callconv(.c) ?*anyopaque;
 
 fn methodsBag(ret: [*c]c.hanga_engine_host_value_t) void {
-    payloadText(ret, bus_topics);
+    const n = bus_topic_list.len;
+    const cells = allocCells(n + 1);
+    const idx_bytes = n * @sizeOf(u32);
+    const raw = cabi_realloc(null, 0, @alignOf(u32), idx_bytes) orelse unreachable;
+    const idx: [*]u32 = @ptrCast(@alignCast(raw));
+    for (bus_topic_list, 0..) |topic, i| {
+        cells[i].tag = c.HANGA_ENGINE_HOST_CELL_TEXT;
+        setStr(&cells[i].val.text, topic);
+        idx[i] = @intCast(i);
+    }
+    cells[n].tag = c.HANGA_ENGINE_HOST_CELL_ITEMS;
+    cells[n].val.items.ptr = idx;
+    cells[n].val.items.len = n;
+    ret.*.cells.ptr = cells;
+    ret.*.cells.len = n + 1;
+    ret.*.root = @intCast(n);
 }
 
 export fn exports_hanga_engine_guest_abi() callconv(.c) i32 {
@@ -285,8 +301,12 @@ export fn exports_hanga_engine_guest_invoke(
         var names: [8][]const u8 = undefined;
         const n = hangamod.catalog.parse(catalog_csv, &names);
         const voxel = hangamod.catalog.catalogName(names[0..n], @intCast(queryVoxel(x, y, z)));
-        payloadText(ret, "grid");
-        dupSlice(&ret.*.cells.ptr[0].val.text, voxel);
+        const cells = allocCells(1);
+        cells[0].tag = c.HANGA_ENGINE_HOST_CELL_TEXT;
+        dupSlice(&cells[0].val.text, voxel);
+        ret.*.cells.ptr = cells;
+        ret.*.cells.len = 1;
+        ret.*.root = 0;
         return;
     }
     if (topicEql(name, "fracture-kit")) {

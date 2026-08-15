@@ -258,11 +258,20 @@ struct P2pDead;
 #[derive(Resource, Clone)]
 struct PeerKey(ActionKey);
 
+#[derive(Resource, Clone)]
+struct CollectionId(String);
+
 #[derive(Serialize, Deserialize)]
 struct SignedPacket {
     payload: Vec<u8>,
     public: Vec<u8>,
     signature: Vec<u8>,
+}
+
+#[derive(Serialize, Deserialize)]
+struct ActionEnvelope {
+    collection: String,
+    action: ProposedAction,
 }
 
 #[derive(Component)]
@@ -479,6 +488,7 @@ fn main() {
         .insert_resource(CheatMode(is_cheater))
         .insert_resource(UiLocale(locale))
         .insert_resource(SelectedGame(game.id.clone()))
+        .insert_resource(CollectionId(game.collection_key()))
         .insert_resource(GameCatalog(catalog))
         .insert_resource(MenuTheme(game.backdrop))
         .insert_resource(ClearColor(rgb3(if skip_menu {
@@ -1717,7 +1727,7 @@ fn apply_mod_action(
             ]),
             mod_state.0 as i32,
         );
-        let agent = ctx.bus_kit(
+        let agent = ctx.bus_text_payload(
             "should-spawn-agent",
             &wire_bag(vec![
                 ("action", Wire::Text(action.to_string())),
@@ -3164,6 +3174,7 @@ fn handle_p2p_receive(
     socket: Option<ResMut<P2pSocket>>,
     mut event_writer: MessageWriter<ProposedAction>,
     mut commands: Commands,
+    collection: Res<CollectionId>,
 ) {
     let Some(mut socket) = socket else {
         return;
@@ -3196,8 +3207,15 @@ fn handle_p2p_receive(
                 warn!("P2P packet failed Ed25519 verify; dropping");
                 continue;
             }
-            if let Ok(action) = bincode::deserialize::<ProposedAction>(&signed.payload) {
-                event_writer.write(action);
+            if let Ok(envelope) = bincode::deserialize::<ActionEnvelope>(&signed.payload) {
+                if envelope.collection != collection.0 {
+                    warn!(
+                        "P2P action from another collection ({}); dropping",
+                        envelope.collection
+                    );
+                    continue;
+                }
+                event_writer.write(envelope.action);
             }
         }
     } else {
@@ -3210,6 +3228,7 @@ fn handle_p2p_broadcast(
     mut event_reader: MessageReader<ProposedAction>,
     players: Query<Entity, With<Player>>,
     key: Res<PeerKey>,
+    collection: Res<CollectionId>,
 ) {
     let local_player = players.iter().next();
     if let Some(mut socket) = socket {
@@ -3223,7 +3242,10 @@ fn handle_p2p_broadcast(
             };
 
             if is_local {
-                let Ok(payload) = bincode::serialize(action) else {
+                let Ok(payload) = bincode::serialize(&ActionEnvelope {
+                    collection: collection.0.clone(),
+                    action: action.clone(),
+                }) else {
                     continue;
                 };
                 let packet = SignedPacket {
@@ -3271,11 +3293,11 @@ fn update_storyteller(
     let player_state = players.iter().next().map(|s| s.0 as i32).unwrap_or(0);
     let lang = locale.0.code();
     if let Some((event_id, label)) = with_mod(&mod_runtime, |ctx| {
-        let event_id = ctx.bus_kit("story-event", &wire_int(player_state as i64));
+        let event_id = ctx.bus_text_payload("story-event", &wire_int(player_state as i64));
         if event_id.is_empty() {
             return None;
         }
-        let label = ctx.bus_kit(
+        let label = ctx.bus_text_payload(
             "event-label",
             &wire_bag(vec![
                 ("event", Wire::Text(event_id.clone())),
@@ -3540,12 +3562,14 @@ fn sync_selected_game(
     mut selected_mod: ResMut<SelectedMod>,
     mut theme: ResMut<MenuTheme>,
     mut runtime: ResMut<ModRuntime>,
+    mut collection: ResMut<CollectionId>,
 ) {
     if !selected.is_changed() && !catalog.is_changed() {
         return;
     }
     let game = current_game(&catalog, &selected);
     selected_mod.0 = game.lead_mod().to_string();
+    collection.0 = game.collection_key();
     theme.0 = game.backdrop;
     hanga::palette::prepare_asset_dir(&game, &games.0);
     load_game_mods(&mut runtime, &game, &search);

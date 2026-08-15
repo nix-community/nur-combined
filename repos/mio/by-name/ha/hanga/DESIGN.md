@@ -214,7 +214,8 @@ shows wait / live / dropped. Multiplayer after a drop reconnects; pausing does
 not open a second socket. Changing Room then Multiplayer switches rooms. Each
 peer signs actions with Ed25519; unsigned or forged packets are dropped. Matchbox
 is that player-action bus only: WASM packs do not `send` across peers. Both
-clients must load the same `.game` collection or kits can diverge. Mouse
+clients must load the same `.game` collection (`collection_key`, e.g.
+`sandbox:urban_chaos+testbed`) or signed actions are dropped. Mouse
 look is captured while playing; the play camera is off in the menu.
 
 Key bindings default to WASD / mouse / E / C / F / J K L (job) / 1–8 / Esc; menu Room is R. Players can change them
