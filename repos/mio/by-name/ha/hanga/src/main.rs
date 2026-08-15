@@ -1832,7 +1832,7 @@ fn action_range(mod_runtime: &ModRuntime, action: &str, fallback: f32) -> f32 {
 
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
 fn grant_loot(inv: &mut ModInventory, mod_runtime: &ModRuntime, voxel: &str) {
-    let item = mod_runtime.ask_any_kit("loot-item", &wire_text(voxel));
+    let item = mod_runtime.ask_any_text("loot-item", &wire_text(voxel));
     if !item.is_empty() {
         let _ = inventory_add(&mut inv.items, &mut inv.counts, &item);
     }
@@ -2137,7 +2137,7 @@ fn validate_incoming_actions(
                         info!("Craft refused: extra is not item+item");
                         continue;
                     };
-                    let product = mod_runtime.ask_any_kit(
+                    let product = mod_runtime.ask_any_text(
                         "craft-result",
                         &wire_bag(vec![
                             ("a", Wire::Text(item_a.to_string())),
@@ -2541,7 +2541,7 @@ fn pick_craft_pair(inventory: &ModInventory, mod_runtime: &ModRuntime) -> Option
     let a = inventory_selected(&inventory.items, &inventory.counts, inventory.selected)?
         .to_string();
     let recipe = |x: &str, y: &str| {
-        mod_runtime.ask_any_kit(
+        mod_runtime.ask_any_text(
             "craft-result",
             &wire_bag(vec![
                 ("a", Wire::Text(x.to_string())),
@@ -3505,7 +3505,7 @@ fn play_hint_line(
     let Some((a, b)) = pick_craft_pair(inventory, mod_runtime) else {
         return format!("{controls}  |  {p2p}");
     };
-    let product = mod_runtime.ask_any_kit(
+    let product = mod_runtime.ask_any_text(
         "craft-result",
         &wire_bag(vec![
             ("a", Wire::Text(a.clone())),
@@ -4305,7 +4305,7 @@ fn look_voxel_ahead(
     let voxel = catalog_name(&catalog.0, voxel_type)
         .unwrap_or("air")
         .to_string();
-    let raw = mod_runtime.ask_any_kit(
+    let raw = mod_runtime.ask_any_text(
         "voxel-label",
         &wire_bag(vec![
             ("voxel", Wire::Text(voxel.clone())),
@@ -4324,7 +4324,7 @@ fn mod_contract_name(mod_runtime: &ModRuntime, locale: Locale, kind: &str) -> St
     if kind.is_empty() {
         return i18n::t(locale, "job_none").to_string();
     }
-    let name = mod_runtime.ask_any_kit(
+    let name = mod_runtime.ask_any_text(
         "contract-label",
         &wire_bag(vec![
             ("kind", Wire::Text(kind.to_string())),
@@ -4342,7 +4342,7 @@ fn mod_item_label(mod_runtime: &ModRuntime, locale: Locale, item: &str) -> Strin
     if item.is_empty() {
         return String::new();
     }
-    let name = mod_runtime.ask_any_kit(
+    let name = mod_runtime.ask_any_text(
         "item-label",
         &wire_bag(vec![
             ("item", Wire::Text(item.to_string())),
@@ -4517,7 +4517,7 @@ fn read_terminal_input(
                             events.write(signed_verb(player_entity, ACTION_CRAFT, &format!("{a}+{b}")));
                             let la = mod_item_label(&mod_runtime, locale.0, &a);
                             let lb = mod_item_label(&mod_runtime, locale.0, &b);
-                            let product = mod_runtime.ask_any_kit(
+                            let product = mod_runtime.ask_any_text(
                                 "craft-result",
                                 &wire_bag(vec![
                                     ("a", Wire::Text(a.clone())),

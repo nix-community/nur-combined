@@ -389,6 +389,14 @@ pub fn wire_as_kit(value: &Wire) -> String {
     value_kit(value)
 }
 
+/// Name-shaped replies (`loot-item`, labels). Dicts are not flattened into a fake name.
+pub fn wire_as_text(value: &Wire) -> String {
+    match value {
+        Wire::Text(text) => text.clone(),
+        _ => String::new(),
+    }
+}
+
 pub fn wire_is_veto(value: &Wire) -> bool {
     matches!(value, Wire::Flag(true) | Wire::Int(1))
 }
@@ -439,11 +447,23 @@ impl EngineBus for NoopBus {
     }
 }
 
+const MAILBOX_CAP: usize = 256;
+const MAILBOX_DRAIN_ROUNDS: usize = 32;
+
 struct QueuedAsk {
     slot: Arc<Mutex<Option<MainModContext>>>,
     from: String,
     topic: String,
     payload: Wire,
+}
+
+fn mailbox_evict_if_full<T>(pending: &mut Vec<T>, cap: usize) -> bool {
+    if pending.len() >= cap {
+        pending.remove(0);
+        true
+    } else {
+        false
+    }
 }
 
 struct LiveBus {
@@ -564,7 +584,7 @@ impl EngineBus for LiveBus {
     }
 
     fn flush_deferred(&self) {
-        for _ in 0..32 {
+        for _ in 0..MAILBOX_DRAIN_ROUNDS {
             let batch = {
                 let Ok(mut pending) = self.pending.lock() else {
                     return;
@@ -574,14 +594,27 @@ impl EngineBus for LiveBus {
                 }
                 std::mem::take(&mut *pending)
             };
+            let mut stuck = Vec::new();
             for queued in batch {
-                let _ = deliver_now(&queued.slot, &queued.from, &queued.topic, &queued.payload);
+                let Ok(mut guard) = queued.slot.try_lock() else {
+                    stuck.push(queued);
+                    continue;
+                };
+                if let Some(ctx) = guard.as_mut() {
+                    let _ = ctx.call(&queued.from, &queued.topic, &queued.payload);
+                }
+            }
+            if !stuck.is_empty() {
+                if let Ok(mut pending) = self.pending.lock() {
+                    stuck.append(&mut *pending);
+                    *pending = stuck;
+                }
             }
         }
         if let Ok(pending) = self.pending.lock() {
             if !pending.is_empty() {
                 warn!(
-                    "mod mailbox still has {} message(s) after 32 drain rounds",
+                    "mod mailbox still has {} message(s) after {MAILBOX_DRAIN_ROUNDS} drain rounds",
                     pending.len()
                 );
             }
@@ -608,6 +641,9 @@ impl LiveBus {
         payload: &Wire,
     ) {
         if let Ok(mut pending) = self.pending.lock() {
+            if mailbox_evict_if_full(&mut *pending, MAILBOX_CAP) {
+                warn!("mod mailbox full ({MAILBOX_CAP}); dropping oldest cast");
+            }
             pending.push(QueuedAsk {
                 slot: Arc::clone(slot),
                 from: from.to_string(),
@@ -647,21 +683,6 @@ impl LiveBus {
             Err(()) => self.enqueue(slot, from, topic, payload),
         }
     }
-}
-
-fn deliver_now(
-    slot: &Mutex<Option<MainModContext>>,
-    from: &str,
-    topic: &str,
-    payload: &Wire,
-) -> Wire {
-    let Ok(mut guard) = slot.try_lock() else {
-        return wire_empty();
-    };
-    let Some(ctx) = guard.as_mut() else {
-        return wire_empty();
-    };
-    ctx.call(from, topic, payload)
 }
 
 fn probe_lead_voxel(x: i32, y: i32, z: i32) -> Wire {
@@ -936,6 +957,10 @@ impl ModRuntime {
 
     pub fn ask_any_kit(&self, method: &str, args: &Wire) -> String {
         wire_as_kit(&self.ask_any(method, args))
+    }
+
+    pub fn ask_any_text(&self, method: &str, args: &Wire) -> String {
+        wire_as_text(&self.ask_any(method, args))
     }
 
     pub fn ask_any_fields(&self, method: &str, args: &Wire) -> ::hanga::kit::Fields {
@@ -1273,5 +1298,25 @@ mod tests {
             Wire::Fail(reason) => assert_eq!(reason, "noproc"),
             other => panic!("{other:?}"),
         }
+    }
+
+    #[test]
+    fn mailbox_sheds_oldest_when_full() {
+        let mut pending = vec![1, 2, 3];
+        assert!(mailbox_evict_if_full(&mut pending, 3));
+        pending.push(4);
+        assert_eq!(pending, vec![2, 3, 4]);
+        assert!(!mailbox_evict_if_full(&mut pending, 8));
+        pending.push(5);
+        assert_eq!(pending, vec![2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn name_replies_ignore_dicts() {
+        assert_eq!(wire_as_text(&wire_text("glass")), "glass");
+        assert_eq!(
+            wire_as_text(&wire_bag(vec![("name", Wire::Text("glass".into()))])),
+            ""
+        );
     }
 }

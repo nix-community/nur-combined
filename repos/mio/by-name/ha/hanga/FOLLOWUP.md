@@ -6,22 +6,19 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 ## Bus (OTP)
 
-- **Mailbox bound.** Casts queue on a `Vec`. Drain stops after 32 rounds and now
-  logs a warning; leftover messages are still dropped on the next host import
-  only if something else drains. Cap the queue, drop with `fail` metrics, or
-  shed oldest — do not grow without limit (Armstrong: unbounded mailboxes hide
-  overload).
-- **No tests for live `busy` / mailbox.** Arena round-trip of `fail` is covered;
-  still need a test that locks a pack mutex so `invoke` returns `fail("busy")`
-  without enqueue, `send` enqueues, and `before-dig` busy vetoes.
+- **Mailbox bound.** Casts cap at 256; oldest is dropped with a warning. Drain
+  requeues a message if the pack is still locked instead of dropping it as empty.
+  Drain still stops after 32 rounds and warns if work remains.
+- **No tests for live `busy` / mailbox.** Cap eviction is unit-tested; still need
+  a test that locks a pack mutex so `invoke` returns `fail("busy")` without
+  enqueue, `send` enqueues, and `before-dig` busy vetoes.
 - **No supervision.** A guest trap kills that store; OTP would restart a child.
   Decide: unload the pack, restart WASM, or fail the game. Wasmtime traps are
   not mapped to `fail` today.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
-- **`ask_any_kit` stringifies trees.** Labels and loot go through `wire_as_kit`
-  (nested dicts become `k=v;` / CSV). Switch those call sites to `ask_any` +
-  `payload_text` so a dict reply is not flattened into a fake name.
+- **Name replies vs kits.** Loot, craft, and labels use `ask_any_text` (plain
+  `text` only). `ask_any_kit` still stringifies trees for leftover CSV callers.
 - **Selective receive / priorities.** OTP can skip mailbox items. We FIFO only.
   Not needed until a pack both `send`s to self and must handle `on-step` first.
 
@@ -44,8 +41,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   host player. Fine for Urban Chaos; a pack that does not use wanted still sees
   those keys. Optional: omit keys the lead did not advertise.
 - **P2P is not the mod bus.** Matchbox carries signed player actions. Mods do
-  not message across peers. If two clients load different packs, kits can
-  diverge — document or checksum the collection in the handshake.
+  not message across peers. Documented in `DESIGN.md`; a collection checksum in
+  the handshake is still optional.
 
 ## Contrib / languages
 
