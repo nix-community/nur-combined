@@ -29,7 +29,8 @@
   commandLineArgs ? "",
 }:
 let
-  source = if stdenv.isAarch64 then sources.helium-bin-arm64 else sources.helium-bin-x86_64;
+  source =
+    if stdenv.targetPlatform.isAarch64 then sources.helium-bin-arm64 else sources.helium-bin-x86_64;
 in
 stdenv.mkDerivation {
   pname = "helium-bin";

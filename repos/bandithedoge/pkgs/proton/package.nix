@@ -55,7 +55,8 @@ in
   };
 
   ge = mkProton rec {
-    source = if stdenvNoCC.isAarch64 then sources.proton-ge-aarch64 else sources.proton-ge-x86_64;
+    source =
+      if stdenvNoCC.targetPlatform.isAarch64 then sources.proton-ge-aarch64 else sources.proton-ge-x86_64;
     version = lib.removePrefix "GE-Proton" source.version;
     meta = {
       description = "Compatibility tool for Steam Play based on Wine and additional components";

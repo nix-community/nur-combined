@@ -22,7 +22,7 @@
 }:
 let
   source =
-    if stdenv.isAarch64 then
+    if stdenv.targetPlatform.isAarch64 then
       sources.glide-bin-unwrapped-aarch64-linux
     else
       sources.glide-bin-unwrapped-x86_64-linux;
