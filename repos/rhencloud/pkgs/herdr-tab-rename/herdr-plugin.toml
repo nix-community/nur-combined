@@ -1,0 +1,18 @@
+id = "rhencloud.tab-rename"
+name = "Tab Auto-Rename"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+description = "根据前台进程目录自动重命名标签页"
+platforms = ["linux"]
+
+[[actions]]
+id = "auto-name"
+title = "Auto-rename current tab"
+contexts = ["workspace"]
+command = ["herdr-tab-rename", "on-pwd"]
+
+[[actions]]
+id = "ssh-name"
+title = "Mark tab as SSH session"
+contexts = ["workspace"]
+command = ["herdr-tab-rename", "on-ssh"]

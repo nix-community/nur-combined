@@ -1,0 +1,53 @@
+diff --git a/niri-config/src/window_rule.rs b/niri-config/src/window_rule.rs
+index f2bc2ad..336a26b 100644
+--- a/niri-config/src/window_rule.rs
++++ b/niri-config/src/window_rule.rs
+@@ -75,6 +75,8 @@ pub struct WindowRule {
+     pub scroll_factor: Option<FloatOrInt<0, 100>>,
+     #[knuffel(child, unwrap(argument))]
+     pub tiled_state: Option<bool>,
++    #[knuffel(child, unwrap(argument))]
++    pub mouse_passthrough: Option<bool>,
+     #[knuffel(child, default)]
+     pub background_effect: BackgroundEffectRule,
+     #[knuffel(child, default)]
+diff --git a/src/layout/tile.rs b/src/layout/tile.rs
+index 86c7eba..85157d5 100644
+--- a/src/layout/tile.rs
++++ b/src/layout/tile.rs
+@@ -885,6 +885,10 @@ impl<W: LayoutElement> Tile<W> {
+         let offset = self.bob_offset();
+         let point = point - offset;
+
++        if self.window.rules().mouse_passthrough == Some(true) {
++            return None;
++        }
++
+         if self.is_in_input_region(point) {
+             let win_pos = self.buf_loc() + offset;
+             Some(HitType::Input { win_pos })
+diff --git a/src/window/mod.rs b/src/window/mod.rs
+index 14527cd..2af36b2 100644
+--- a/src/window/mod.rs
++++ b/src/window/mod.rs
+@@ -120,6 +120,9 @@ pub struct ResolvedWindowRules {
+     /// Override whether to set the Tiled xdg-toplevel state on the window.
+     pub tiled_state: Option<bool>,
+ 
++    /// Whether mouse events should pass through this window.
++    pub mouse_passthrough: Option<bool>,
++
+     /// Background effect configuration.
+     pub background_effect: BackgroundEffect,
+ 
+@@ -303,6 +306,10 @@ impl ResolvedWindowRules {
+                     resolved.tiled_state = Some(x);
+                 }
+ 
++                if let Some(x) = rule.mouse_passthrough {
++                    resolved.mouse_passthrough = Some(x);
++                }
++
+                 resolved
+                     .background_effect
+                     .merge_with(&rule.background_effect);

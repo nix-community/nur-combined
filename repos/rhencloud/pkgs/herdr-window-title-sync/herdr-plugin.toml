@@ -1,0 +1,56 @@
+id = "rjyo.window-title-sync"
+name = "Window Title Sync"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+description = "Sync the outer terminal title to the focused Herdr workspace, tab, and agent session."
+platforms = ["linux"]
+
+[[actions]]
+id = "refresh"
+title = "Refresh terminal title"
+contexts = ["workspace", "tab", "pane"]
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "workspace.focused"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "workspace.renamed"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "workspace.updated"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "tab.focused"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "tab.renamed"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "pane.focused"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "pane.agent_detected"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "pane.agent_status_changed"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "pane.moved"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "pane.created"
+command = ["bun", "sync-title.js"]
+
+[[events]]
+on = "pane.closed"
+command = ["bun", "sync-title.js"]

@@ -1,37 +1,63 @@
-# nur-packages-template
+# rhencloud-nur-repo
 
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
+My personal [NUR](https://github.com/nix-community/NUR) repository.
 
-## Setup
+[![Build and populate cache](https://github.com/RhenCloud/rhencloud-nur-repo/workflows/Build%20and%20populate%20cache/badge.svg)](https://github.com/RhenCloud/rhencloud-nur-repo/actions)
+[![Cachix Cache](https://img.shields.io/badge/cachix-rhencloud-blue.svg)](https://rhencloud.cachix.org)
 
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
+## Packages
 
-## README template
+| Package | Description |
+| --- | --- |
+| `aicommits` | A CLI that writes your git commit messages for you with AI |
+| `bt-iso-enable` | Kernel module to enable Bluetooth ISO sockets via kprobe-based iso_init call |
+| `cnm-player` | A command-line music player for NetEase Cloud Music |
+| `herdr-plus` | Herdr plugin that adds projects and quick actions |
+| `herdr-spreader` | Apply tmuxinator-style project layouts to herdr from a YAML file |
+| `herdr-tab-rename` | Herdr plugin for auto-renaming tabs based on foreground directory |
+| `herdr-window-title-sync` | Sync the outer terminal title to the focused Herdr workspace, tab, and agent session |
+| `piri` | Extend niri compositor capabilities with extensible command system and plugins |
+| `we-layerd` | A Rust daemon for running Wallpaper Engine on Linux compositors |
+| `zed-globalization` | Zed Editor Chinese Localization (Zed 编辑器汉化版) |
 
-# nur-packages
+## Overlays
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+- `niri` — patched niri (mouse passthrough, window pinning)
+- `go-musicfox` — go-musicfox pinned to v5.1.0
+- `waylyrics` — waylyrics pinned to v0.4.0
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+## Usage
 
-<!--
-Uncomment this if you use travis:
+### Flake
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    rhencloud-nur.url = "github:RhenCloud/rhencloud-nur-repo";
+  };
 
+  outputs = { nixpkgs, rhencloud-nur, ... }: {
+    nixosConfigurations.example = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [
+            rhencloud-nur.legacyPackages.${pkgs.system}.overlays.niri
+            rhencloud-nur.legacyPackages.${pkgs.system}.overlays.go-musicfox
+            rhencloud-nur.legacyPackages.${pkgs.system}.overlays.waylyrics
+          ];
+          environment.systemPackages = [
+            rhencloud-nur.packages.${pkgs.system}.aicommits
+          ];
+        })
+      ];
+    };
+  };
+}
+```
+
+### NUR
+
+Once the repo is added to [NUR](https://github.com/nix-community/NUR), packages can be accessed as
+`nur.repos.rhencloud.<package>` and overlays as `nur.repos.rhencloud.overlays.<name>`.

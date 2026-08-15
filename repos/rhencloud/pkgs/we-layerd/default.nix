@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage rec {
     owner = "Aromatic05";
     repo = "we-layerd";
     rev = "main";
-    hash = "sha256-YyAaeHIYFVtjTpYFb3sTW/8ybIqJS28LHcqpDLI1bjg=";
+    hash = "sha256-U/bZGJ7UinqH0rojnh6lVm6DXdJXqfwg0VnkFMrm/vk=";
   };
 
-  cargoHash = "sha256-ik07WfbdMeTHGGGO2tvlERe5n2LSfLoDAjwyAC4QHNg=";
+  cargoHash = "sha256-5/OpeYpqK+aJiH002A3ikQ0cJC2nv4P/7w64wxpxvvc=";
 
   nativeBuildInputs = [
     pkg-config

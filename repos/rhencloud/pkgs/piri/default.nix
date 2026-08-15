@@ -2,9 +2,23 @@
   lib,
   fetchFromGitHub,
   pkg-config,
-  rustPlatform,
+  makeRustPlatform,
+  stdenv,
 }:
 
+let
+  modernPkgs = import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/13043924aaa7375ce482ebe2494338e058282925.tar.gz";
+    sha256 = "sha256-nwASzrRDD1JBEu/o8ekKYEXm/oJW6EMCzCRdrwcLe90=";
+  }) {
+    system = stdenv.hostPlatform.system;
+  };
+
+  rustPlatform = makeRustPlatform {
+    cargo = modernPkgs.cargo;
+    rustc = modernPkgs.rustc;
+  };
+in
 rustPlatform.buildRustPackage {
   pname = "piri";
   version = "unstable-2026-04-12";

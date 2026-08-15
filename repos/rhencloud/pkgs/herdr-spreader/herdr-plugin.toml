@@ -1,0 +1,12 @@
+id = "herdr-spreader"
+name = "Spreader"
+version = "0.2.0"
+min_herdr_version = "0.7.0"
+description = "Apply tmuxinator-style project layouts to herdr from a YAML file"
+platforms = ["linux"]
+
+[[actions]]
+id = "apply"
+title = "Apply layout"
+contexts = ["workspace"]
+command = ["herdr-spreader", "apply"]

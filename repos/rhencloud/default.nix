@@ -21,9 +21,16 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  aicommits = pkgs.callPackage ./pkgs/aicommits { };
+  bt-iso-enable = pkgs.callPackage ./pkgs/bt-iso-enable { };
   cnm-player = pkgs.callPackage ./pkgs/cnm-player { };
+  herdr-plus = pkgs.callPackage ./pkgs/herdr-plus { };
+  herdr-spreader = pkgs.callPackage ./pkgs/herdr-spreader { };
+  herdr-tab-rename = pkgs.callPackage ./pkgs/herdr-tab-rename { };
+  herdr-window-title-sync = pkgs.callPackage ./pkgs/herdr-window-title-sync { };
   piri = pkgs.callPackage ./pkgs/piri { };
   we-layerd = pkgs.callPackage ./pkgs/we-layerd { };
+  zed-globalization = pkgs.callPackage ./pkgs/zed-globalization { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

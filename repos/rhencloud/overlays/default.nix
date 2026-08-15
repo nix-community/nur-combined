@@ -1,5 +1,5 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  niri = import ./niri;
+  go-musicfox = import ./musicfox;
+  waylyrics = import ./waylyrics;
 }
