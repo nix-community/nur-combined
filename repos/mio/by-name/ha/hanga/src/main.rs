@@ -1228,7 +1228,9 @@ fn spawn_play_world(
     game: &GameSpec,
 ) {
     info!("Hanga engine starting (gameplay owned by the loaded WASM mod)");
-    if let Some(supported) = with_mod(&mod_runtime, |ctx| ctx.bus_text("supported-locales")) {
+    if let Some(supported) =
+        with_mod(&mod_runtime, |ctx| ctx.bus_text_ok("supported-locales")).flatten()
+    {
         info!(
             "Mod locales: {supported} (host locale {})",
             locale.0.code()

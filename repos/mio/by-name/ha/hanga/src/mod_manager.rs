@@ -289,6 +289,16 @@ fn topics_include(topics: &HashSet<String>, name: &str) -> bool {
     topics.is_empty() || topics.contains(name)
 }
 
+/// Hot reload: keep the running store if instantiate failed.
+fn keep_fresh<T>(slot: &mut Option<T>, fresh: Option<T>) -> bool {
+    if fresh.is_some() {
+        *slot = fresh;
+        true
+    } else {
+        false
+    }
+}
+
 pub fn payload_text<'a>(payload: &'a Wire, key: &str) -> &'a str {
     match payload {
         Wire::Text(text) => text.as_str(),
@@ -992,7 +1002,15 @@ impl MainModContext {
     }
 
     pub fn bus_text(&mut self, topic: &str) -> String {
-        match self.bus(topic, &wire_empty()) {
+        self.bus_text_ok(topic).unwrap_or_default()
+    }
+
+    pub fn bus_text_ok(&mut self, topic: &str) -> Option<String> {
+        let reply = self.bus(topic, &wire_empty());
+        if wire_is_fail(&reply) || wire_is_empty(&reply) {
+            return None;
+        }
+        Some(match reply {
             Wire::Text(text) => text,
             Wire::Dict(fields) => fields
                 .iter()
@@ -1000,7 +1018,7 @@ impl MainModContext {
                 .collect::<Vec<_>>()
                 .join(","),
             _ => String::new(),
-        }
+        })
     }
 
     pub fn bus_text_payload(&mut self, topic: &str, payload: &Wire) -> String {
@@ -1172,13 +1190,13 @@ impl ModRuntime {
             };
             pack_locks.push(guard);
         }
-        if new_lead.is_some() {
-            *lead = new_lead;
-        } else {
+        if !keep_fresh(&mut *lead, new_lead) {
             error!("Failed to reload lead WASM mod");
         }
-        for (guard, fresh) in pack_locks.iter_mut().zip(new_packs) {
-            **guard = fresh;
+        for (pack, (guard, fresh)) in self.packs.iter().zip(pack_locks.iter_mut().zip(new_packs)) {
+            if !keep_fresh(guard, fresh) {
+                error!("Failed to reload pack '{}'", pack.name);
+            }
         }
         drop(lead);
         drop(pack_locks);
@@ -1503,6 +1521,15 @@ mod tests {
             &HashSet::from(["ping".into()]),
             "tick"
         ));
+    }
+
+    #[test]
+    fn keep_fresh_leaves_the_old_store() {
+        let mut slot = Some(1u8);
+        assert!(!keep_fresh(&mut slot, None));
+        assert_eq!(slot, Some(1));
+        assert!(keep_fresh(&mut slot, Some(2)));
+        assert_eq!(slot, Some(2));
     }
 
     #[test]

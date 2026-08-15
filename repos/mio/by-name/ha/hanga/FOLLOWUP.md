@@ -59,7 +59,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   fire-kit still means extinguish. `with_mod` uses `try_lock` like
   `ask_any`. Hot reload `try_lock`s every slot and retries next frame
   if a pack is busy. `wake_all` leaves `woken` false if a slot is busy
-  so load retries `ready`. Traffic `steer` `fail`/busy keeps velocity
+  so load retries `ready`. Hot reload keeps a running pack if
+  instantiate fails (lead already did). Traffic `steer` `fail`/busy keeps velocity
   (host cruise only when the kit is empty). `vehicle-kit` `fail` skips
   that spawn index instead of a default car. Vehicle spawn xyz skips
   `fail`/empty instead of stacking at a fallback point. Ambient agent
