@@ -21,6 +21,10 @@ include!("../../mod_kit.rs");
 
 struct TestbedMod;
 
+fn testbed_topics() -> String {
+    format!("{BUS_TOPICS},refuse")
+}
+
 pub const ACTION_BREAK: &str = "break";
 pub const ACTION_EXPLODE: &str = "explode";
 
@@ -384,8 +388,9 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Value)
             payload_i64(payload, "y") as i32,
             payload_i64(payload, "z") as i32,
         ),
-        "has" => bus_has(BUS_TOPICS, payload),
-        "methods" => wire_methods(BUS_TOPICS),
+        "has" => bus_has(&testbed_topics(), payload),
+        "methods" => wire_methods(&testbed_topics()),
+        "refuse" => wire_fail("busy"),
         _ => wire_empty(),
     }
 }
@@ -422,6 +427,14 @@ export!(TestbedMod);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn refuse_is_a_bus_error() {
+        match root_cell(&on_message("host", "refuse", &wire_empty())) {
+            Cell::Fail(reason) => assert_eq!(reason, "busy"),
+            other => panic!("{other:?}"),
+        }
+    }
 
     #[test]
     fn floor_is_checkerboard() {

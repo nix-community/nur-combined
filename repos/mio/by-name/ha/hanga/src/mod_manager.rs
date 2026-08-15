@@ -1127,11 +1127,6 @@ impl ModRuntime {
         })
     }
 
-    /// Load another `.wasm` as the lead (same mods directory is already watched).
-    pub fn load_spec(&mut self, path: &Path) {
-        self.load_collection(&[("".to_string(), path.to_path_buf())]);
-    }
-
     /// Lead is `mods[0]` (terrain + gameplay). Later entries are packs (vehicles, agents, extra voxels).
     pub fn load_collection(&mut self, mods: &[(String, PathBuf)]) {
         if mods.is_empty() {
@@ -1522,5 +1517,13 @@ mod tests {
             wire_as_text(&bus.invoke("testbed", "urban_chaos", "ping", wire_empty())),
             "pong"
         );
+        assert!(matches!(
+            bus.invoke("host", "testbed", "refuse", wire_empty()),
+            Wire::Fail(reason) if reason == "busy"
+        ));
+        assert!(matches!(
+            bus.invoke("host", "", "refuse", wire_empty()),
+            Wire::Fail(reason) if reason == "busy"
+        ));
     }
 }

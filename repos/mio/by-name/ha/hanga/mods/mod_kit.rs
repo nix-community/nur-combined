@@ -240,6 +240,10 @@ fn wire_text(text: impl Into<String>) -> Value {
     }
 }
 
+fn wire_fail(reason: impl Into<String>) -> Value {
+    leaf(Cell::Fail(reason.into()))
+}
+
 fn wire_as_text(payload: &Value) -> Option<&str> {
     match payload.cells.get(payload.root as usize) {
         Some(Cell::Text(text)) => Some(text.as_str()),

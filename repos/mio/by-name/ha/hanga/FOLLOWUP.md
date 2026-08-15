@@ -14,7 +14,7 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Live WASM on the bus.** `live_wasm_testbed_ping_and_self_cast` and
   `live_wasm_two_packs_empty_peer_ping` load `HANGA_MODS` guests (set in
   `.#hanga-dev`) for ping, self-cast drain, empty-peer override, testbed
-  `query-voxel` / catalog names, and the gravity kit.
+  `query-voxel` / catalog names, gravity, and guest `fail("busy")` via `refuse`.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names
@@ -59,8 +59,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Koka wasm is emcc in upstream.** Contrib uses `--target=c32` + Zig WASI
   instead of Emscripten so the guest is a WIT component.
 - **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
-  `ready` now `send` `hello` to peers. `ask_any` / empty-peer `invoke` stop on
-  `fail` (`first_override`); they no longer skip it as “not mine”.
+  `ready` now `send` `hello` to peers. Testbed `refuse` returns `fail("busy")`
+  so live empty-peer `invoke` stops on a guest error. `ask_any` / empty-peer
+  `invoke` stop on `fail` (`first_override`); they no longer skip it as “not mine”.
 - **lab floors** use hangamod `checkerFloor` (Kotlin/Go/Zig/Nim/Koka/Scheme).
   Underground cells are catalog index 2.
 - **Go/Zig arena helpers** live in `lib/go/hangamod/arena.go` (Pack/Unpack) and
@@ -69,9 +70,7 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 ## Tooling
 
-- **Dead host helpers.** `load_spec` is unused (collections go through
-  `load_collection`). Package **cargo-kani** so proofs run as CBMC, not only
-  `kani_replay_*`.
+- Package **cargo-kani** so proofs run as CBMC, not only `kani_replay_*`.
 - `.#hanga` skips cargo checkPhase (`doCheck = false` in `package.nix`). Gate is
   `.#hanga-dev`. NUR CI evals the whole tree, not only `.#hanga`.
 
