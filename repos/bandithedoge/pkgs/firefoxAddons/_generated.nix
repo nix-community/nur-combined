@@ -220,10 +220,10 @@
   };
   "auto-tab-discard" = buildMozillaXpiAddon {
     pname = "auto-tab-discard";
-    version = "0.6.9.1";
+    version = "0.7.0";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4939638/auto_tab_discard-0.6.9.1.xpi";
-    sha256 = "babc34119d8ace6ecc4e9affb6cf68c638d25a68f63bf028f720d6029364cccb";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4955895/auto_tab_discard-0.7.0.xpi";
+    sha256 = "8f6793097011a1e8b050eface3dd37eb9fd91a8e2deb4b83b828dd145fbfc46a";
     meta = with lib; {
       homepage = "https://webextension.org/listing/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
@@ -506,10 +506,10 @@
   };
   "harper" = buildMozillaXpiAddon {
     pname = "harper";
-    version = "2.7.0";
+    version = "2.8.0";
     addonId = "harper@writewithharper.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4925222/private_grammar_checker_harper-2.7.0.xpi";
-    sha256 = "661ae49fdd35af9e5e1e50d48fb71fd832693fe1480f53f63e79e26495b9280e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4957307/private_grammar_checker_harper-2.8.0.xpi";
+    sha256 = "89b924ea7a260eb98f2ab69aa50ff77ac3750b3c1f8aaca7b674b829ff1a71ea";
     meta = with lib; {
       homepage = "https://writewithharper.com";
       description = "A private grammar checker for 21st Century English";
@@ -1468,10 +1468,10 @@
   };
   "skip-redirect" = buildMozillaXpiAddon {
     pname = "skip-redirect";
-    version = "3.0.0";
+    version = "3.0.1";
     addonId = "skipredirect@sblask";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4926851/skip_redirect-3.0.0.xpi";
-    sha256 = "0ac20d39dda5f6657fdb72883c7a225173bfa3e64569cd47375ddab88fbe6665";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4951882/skip_redirect-3.0.1.xpi";
+    sha256 = "e981580b23c1df9316f04fdb6921e67ddc801b8cbffc86fee6364331674a4253";
     meta = with lib; {
       description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
       license = licenses.mit;

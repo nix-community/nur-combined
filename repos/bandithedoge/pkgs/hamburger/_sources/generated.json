@@ -54,12 +54,12 @@
             "name": null,
             "owner": "Davit-G",
             "repo": "Hamburger",
-            "rev": "v0.7.1",
-            "sha256": "sha256-mAyG7EEQ4byh+kPvBJ0okwxbjw7t0tkwqn+ws/2ekek=",
+            "rev": "v0.7.2",
+            "sha256": "sha256-tmE0JcJ3m2M02ZQjpbHphqRA5Mo1lr8xvZ24pUpXBEY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.7.1"
+        "version": "v0.7.2"
     },
     "juce": {
         "cargoLock": null,
@@ -84,7 +84,7 @@
     },
     "xsimd": {
         "cargoLock": null,
-        "date": "2026-08-09",
+        "date": "2026-08-13",
         "extract": null,
         "name": "xsimd",
         "passthru": null,
@@ -94,12 +94,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "2b09e9776c26624153dd670526a78045f63d8836",
-            "sha256": "sha256-dWeo62dfIPUfEg63YvMbuJPKTYbez+6frvs556P/RZQ=",
+            "rev": "e3cdb6aee0fe0676d2eea50016d4b340acb56709",
+            "sha256": "sha256-CGAlbQ/FhsEVhav4Kjn+Zupe2BItqWxEo3tjJqZxg4U=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/xtensor-stack/xsimd.git"
         },
-        "version": "2b09e9776c26624153dd670526a78045f63d8836"
+        "version": "e3cdb6aee0fe0676d2eea50016d4b340acb56709"
     }
 }

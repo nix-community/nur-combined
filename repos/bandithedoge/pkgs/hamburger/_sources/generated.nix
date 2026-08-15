@@ -34,13 +34,13 @@
   };
   hamburger = {
     pname = "hamburger";
-    version = "v0.7.1";
+    version = "v0.7.2";
     src = fetchFromGitHub {
       owner = "Davit-G";
       repo = "Hamburger";
-      rev = "v0.7.1";
+      rev = "v0.7.2";
       fetchSubmodules = false;
-      sha256 = "sha256-mAyG7EEQ4byh+kPvBJ0okwxbjw7t0tkwqn+ws/2ekek=";
+      sha256 = "sha256-tmE0JcJ3m2M02ZQjpbHphqRA5Mo1lr8xvZ24pUpXBEY=";
     };
   };
   juce = {
@@ -56,16 +56,16 @@
   };
   xsimd = {
     pname = "xsimd";
-    version = "2b09e9776c26624153dd670526a78045f63d8836";
+    version = "e3cdb6aee0fe0676d2eea50016d4b340acb56709";
     src = fetchgit {
       url = "https://github.com/xtensor-stack/xsimd.git";
-      rev = "2b09e9776c26624153dd670526a78045f63d8836";
+      rev = "e3cdb6aee0fe0676d2eea50016d4b340acb56709";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-dWeo62dfIPUfEg63YvMbuJPKTYbez+6frvs556P/RZQ=";
+      sha256 = "sha256-CGAlbQ/FhsEVhav4Kjn+Zupe2BItqWxEo3tjJqZxg4U=";
     };
-    date = "2026-08-09";
+    date = "2026-08-13";
   };
 }

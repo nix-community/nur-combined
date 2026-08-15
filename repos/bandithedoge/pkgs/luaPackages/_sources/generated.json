@@ -1,7 +1,7 @@
 {
     "astal-lua": {
         "cargoLock": null,
-        "date": "2026-07-05",
+        "date": "2026-08-12",
         "extract": null,
         "name": "astal-lua",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "tokyob0t",
             "repo": "astal-lua",
-            "rev": "67ad5202206e83a3702f45b7c2dfbebb5b6c027d",
-            "sha256": "sha256-u/ilx1GthOLu6UScjtyIsE+mLNGhBJBJrrFrxfKpIis=",
+            "rev": "54fc970e99a9148a85438dbd144500ad8f6e886e",
+            "sha256": "sha256-phPqhIfGbvie6GSnnMVIrpRuKHwYJfpZBS8HUQ7iYf0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "67ad5202206e83a3702f45b7c2dfbebb5b6c027d"
+        "version": "54fc970e99a9148a85438dbd144500ad8f6e886e"
     },
     "bling": {
         "cargoLock": null,

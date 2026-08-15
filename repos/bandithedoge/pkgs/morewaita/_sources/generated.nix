@@ -8,14 +8,14 @@
 {
   morewaita = {
     pname = "morewaita";
-    version = "2c1d617272a35db2f8c91e7a67ae862959ebac0c";
+    version = "5438528502c6ee6473ede1087ed46c3872535f5f";
     src = fetchFromGitHub {
       owner = "somepaulo";
       repo = "MoreWaita";
-      rev = "2c1d617272a35db2f8c91e7a67ae862959ebac0c";
+      rev = "5438528502c6ee6473ede1087ed46c3872535f5f";
       fetchSubmodules = false;
-      sha256 = "sha256-fom/CZ9FMP3K2V71u9Kgv4HYNKI4KKwYPZftLJPP57Y=";
+      sha256 = "sha256-6x4pFPSnR3RkkK4tF+dpOq071o65dKqbnA0RffvPby0=";
     };
-    date = "2026-08-09";
+    date = "2026-08-13";
   };
 }

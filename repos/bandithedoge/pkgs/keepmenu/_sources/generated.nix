@@ -8,14 +8,14 @@
 {
   keepmenu = {
     pname = "keepmenu";
-    version = "4832a3ae3e7160acb286873a5f87052bb7c50e30";
+    version = "e1ede351bf355567d37e395e7e171282e6157106";
     src = fetchFromGitHub {
       owner = "firecat53";
       repo = "keepmenu";
-      rev = "4832a3ae3e7160acb286873a5f87052bb7c50e30";
+      rev = "e1ede351bf355567d37e395e7e171282e6157106";
       fetchSubmodules = false;
-      sha256 = "sha256-MUtwQ9V5PcczR2mISMs8EcFGkDAPmuYSvNW+COC4Bhw=";
+      sha256 = "sha256-E6xZUyU6k/TB99Ufy1E1ouPBMrlkQH693/YKQ+5VFXM=";
     };
-    date = "2026-06-05";
+    date = "2026-08-13";
   };
 }
