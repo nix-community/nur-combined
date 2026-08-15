@@ -42,4 +42,14 @@ let nested = Wire(
 doAssert nested.fields[0].value.items[0].bagText("name").value == "hull"
 doAssert failWire("busy").kind == wkFail
 doAssert failWire("busy").text == "busy"
+doAssert bagInt(voxelProbe("glass", true), "missing") == 0
+let xyz = Wire(
+  kind: wkBag,
+  fields: @[
+    Field(key: "x", value: Wire(kind: wkInt, intVal: 4)),
+    Field(key: "z", value: textWire("-2")),
+  ],
+)
+doAssert bagInt(xyz, "x") == 4
+doAssert bagInt(xyz, "z") == -2
 echo "hangamod ok"

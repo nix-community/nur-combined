@@ -8,10 +8,12 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 - **Mailbox bound.** Casts cap at 256; oldest is dropped with a warning. Drain
   requeues a message if the pack is still locked instead of dropping it as empty.
-  Drain still stops after 32 rounds and warns if work remains.
-- **No tests for live `busy` / mailbox.** Cap eviction, `emit_blocks`, and a
-  held-mutex call/cast split are unit-tested. A full LiveBus with WASM packs is
-  still not in `cargo test --lib`.
+  Drain still stops after 32 rounds and warns if work remains. `LiveBus` OTP
+  errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
+  `cargo test --bin hanga`.
+- **No tests for live WASM packs on the bus.** Cap eviction, `emit_blocks`, and
+  LiveBus with empty slots (no component) are unit-tested. Instantiating a full
+  guest in `cargo test --lib` is still unset.
 - **No supervision.** A guest trap returns `fail("trap")`, `emit` treats fail as
   veto, and the host reinstantiates that pack from disk (OTP restart) at most
   once per 2s. Guest statics reset. If reload fails, the store stays dead.
@@ -58,13 +60,12 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Koka wasm is emcc in upstream.** Contrib uses `--target=c32` + Zig WASI
   instead of Emscripten so the guest is a WIT component.
 - **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
-  `ready` now `send` `hello` to peers. Treat `fail` as `{error, Reason}` at more
-  call sites.
+  `ready` now `send` `hello` to peers. `ask_any` / empty-peer `invoke` stop on
+  `fail` (`first_override`); they no longer skip it as “not mine”.
+- **lab_slab floor** uses `hangamod.CheckerFloor` (tested in `go test`).
 - **Go/Zig arena helpers** live in `lib/go/hangamod/arena.go` (Pack/Unpack) and
   `lib/c/hangamod` (WIT C guests). Returned C strings are `plugin_string_dup`
   so `cabi_post_*` can free them; `send`/`peers` results are freed after the import.
-- **lab_slab floor** was a uniform `mark` checker (both branches returned 2);
-  it now alternates slab/mark. Add a TinyGo-level test if the example grows.
 
 ## Tooling
 

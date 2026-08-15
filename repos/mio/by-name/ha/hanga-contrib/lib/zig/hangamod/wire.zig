@@ -54,6 +54,22 @@ pub const Wire = union(enum) {
         }
         return false;
     }
+
+    pub fn bagInt(self: Wire, key: []const u8) i64 {
+        const fields = switch (self) {
+            .bag => |list| list,
+            else => return 0,
+        };
+        for (fields) |field| {
+            if (!std.mem.eql(u8, field.key, key)) continue;
+            return switch (field.value) {
+                .int => |value| value,
+                .text => |value| std.fmt.parseInt(i64, value, 10) catch 0,
+                else => 0,
+            };
+        }
+        return 0;
+    }
 };
 
 pub fn text(value: []const u8) Wire {
@@ -90,4 +106,15 @@ test "wire nest" {
     const outer_fields = [_]Field{.{ .key = "parts", .value = .{ .list = &items } }};
     const kit = Wire{ .bag = &outer_fields };
     try std.testing.expect(kit.bagText("parts") == null);
+}
+
+test "wire bag int" {
+    const fields = [_]Field{
+        .{ .key = "x", .value = .{ .int = 4 } },
+        .{ .key = "z", .value = .{ .text = "-2" } },
+    };
+    const bag = Wire{ .bag = &fields };
+    try std.testing.expectEqual(@as(i64, 4), bag.bagInt("x"));
+    try std.testing.expectEqual(@as(i64, -2), bag.bagInt("z"));
+    try std.testing.expectEqual(@as(i64, 0), bag.bagInt("missing"));
 }

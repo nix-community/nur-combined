@@ -54,4 +54,11 @@ func TestKit(t *testing.T) {
 	if !BusHas(TextWire("ping"), []string{"ping", "name"}) || BusHas(EmptyVal(), []string{"ping"}) {
 		t.Fatal("bus has")
 	}
+	if CheckerFloor(0, -1, 0) != 2 || CheckerFloor(0, 0, 0) != 1 || CheckerFloor(1, 0, 0) != 2 || CheckerFloor(0, 1, 0) != 0 {
+		t.Fatal("checker floor")
+	}
+	failArena := Pack(FailWire("busy"))
+	if Unpack(failArena).Kind != WireFail || Unpack(failArena).Text != "busy" {
+		t.Fatal("pack fail")
+	}
 }

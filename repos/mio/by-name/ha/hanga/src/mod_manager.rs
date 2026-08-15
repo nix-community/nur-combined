@@ -187,6 +187,16 @@ pub fn wire_is_fail(value: &Wire) -> bool {
     matches!(value, Wire::Fail(_))
 }
 
+/// First non-skip reply. `fail` is `{error, Reason}`, not “not mine”.
+pub fn first_override(replies: impl IntoIterator<Item = Wire>) -> Wire {
+    for reply in replies {
+        if wire_is_fail(&reply) || !wire_is_empty(&reply) {
+            return reply;
+        }
+    }
+    wire_empty()
+}
+
 pub fn wire_bag(fields: Vec<(&str, Wire)>) -> Wire {
     Wire::Dict(
         fields
@@ -535,8 +545,7 @@ impl EngineBus for LiveBus {
                     continue;
                 }
                 match self.call_now(ctx, from, method, &args) {
-                    Ok(reply) if wire_is_fail(&reply) => return reply,
-                    Ok(reply) if !wire_is_empty(&reply) => return reply,
+                    Ok(reply) if wire_is_fail(&reply) || !wire_is_empty(&reply) => return reply,
                     Ok(_) => {}
                     Err(()) => return wire_fail("busy"),
                 }
@@ -971,7 +980,7 @@ impl MainModContext {
         fallback: (i32, i32, i32, String),
     ) -> (i32, i32, i32, String) {
         let reply = self.bus(topic, payload);
-        if matches!(reply, Wire::Empty) {
+        if wire_is_empty(&reply) || wire_is_fail(&reply) {
             return fallback;
         }
         (
@@ -1007,27 +1016,23 @@ impl ModRuntime {
         &self.lead_name
     }
 
-    /// Later packs first, then lead. First non-empty wins (Luanti override_item).
+    /// Later packs first, then lead. First real reply wins (Luanti override_item).
+    /// `fail` stops the walk (OTP `{error, Reason}` is not a missing method).
     pub fn ask_any(&self, method: &str, args: &Wire) -> Wire {
+        let mut replies = Vec::new();
         for pack in self.packs.iter().rev() {
             if let Ok(mut guard) = pack.context.lock() {
                 if let Some(ctx) = guard.as_mut() {
-                    let reply = ctx.call("host", method, args);
-                    if wire_is_fail(&reply) {
-                        continue;
-                    }
-                    if !wire_is_empty(&reply) {
-                        return reply;
-                    }
+                    replies.push(ctx.call("host", method, args));
                 }
             }
         }
         if let Ok(mut guard) = self.context.lock() {
             if let Some(ctx) = guard.as_mut() {
-                return ctx.call("host", method, args);
+                replies.push(ctx.call("host", method, args));
             }
         }
-        wire_empty()
+        first_override(replies)
     }
 
     pub fn ask_any_kit(&self, method: &str, args: &Wire) -> String {
@@ -1446,5 +1451,62 @@ mod tests {
         assert!(emit_blocks(Ok(&Wire::Flag(true))));
         assert!(!emit_blocks(Ok(&wire_empty())));
         assert!(!emit_blocks(Ok(&wire_text("ok"))));
+    }
+
+    #[test]
+    fn first_override_stops_on_fail() {
+        assert!(matches!(
+            first_override([wire_empty(), wire_fail("busy"), wire_text("pong")]),
+            Wire::Fail(reason) if reason == "busy"
+        ));
+        assert_eq!(
+            wire_as_text(&first_override([wire_empty(), wire_text("pong")])),
+            "pong"
+        );
+        assert!(wire_is_empty(&first_override([wire_empty(), Wire::Text(String::new())])));
+    }
+
+    #[test]
+    fn parse_topics_csv_dict_and_items() {
+        let csv = parse_topics(&wire_text("ping, gravity ,"));
+        assert!(csv.contains("ping") && csv.contains("gravity"));
+        let dict = parse_topics(&wire_bag(vec![("ping", Wire::Flag(true))]));
+        assert!(dict.contains("ping"));
+    }
+
+    #[test]
+    fn live_bus_otp_errors_and_mailbox() {
+        let pack = Arc::new(Mutex::new(None));
+        let bus = LiveBus {
+            lead_name: "lead".into(),
+            lead: Arc::new(Mutex::new(None)),
+            packs: vec![("pack".into(), Arc::clone(&pack))],
+            pending: Mutex::new(Vec::new()),
+        };
+        assert!(matches!(
+            bus.invoke("lead", "lead", "ping", wire_empty()),
+            Wire::Fail(reason) if reason == "self"
+        ));
+        assert!(matches!(
+            bus.invoke("lead", "gone", "ping", wire_empty()),
+            Wire::Fail(reason) if reason == "noproc"
+        ));
+        assert!(wire_is_empty(&bus.invoke("lead", "pack", "ping", wire_empty())));
+        assert!(bus.has_mod("pack") && bus.has_mod("lead"));
+        assert_eq!(bus.peers("pack"), vec!["lead".to_string()]);
+
+        let hold = pack.lock().unwrap();
+        assert!(matches!(
+            bus.invoke("lead", "pack", "ping", wire_empty()),
+            Wire::Fail(reason) if reason == "busy"
+        ));
+        bus.send("lead", "pack", "hello", wire_empty());
+        assert_eq!(bus.pending.lock().unwrap().len(), 1);
+        assert!(bus.emit("lead", "before-dig", wire_empty()));
+        bus.flush_deferred();
+        assert_eq!(bus.pending.lock().unwrap().len(), 1);
+        drop(hold);
+        bus.flush_deferred();
+        assert!(bus.pending.lock().unwrap().is_empty());
     }
 }

@@ -28,3 +28,17 @@ func CatalogIndex(entries []string, name string) int {
 	}
 	return 0
 }
+
+// CheckerFloor is the lab slab/grid checker: bedrock-style below, striped y==0, air above.
+func CheckerFloor(x, y, z int32) int32 {
+	if y < 0 {
+		return 2
+	}
+	if y == 0 {
+		if (x+z)&1 == 0 {
+			return 1
+		}
+		return 2
+	}
+	return 0
+}
