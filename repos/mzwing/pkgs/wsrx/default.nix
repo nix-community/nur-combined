@@ -13,6 +13,12 @@
   # buildRustCrate.
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
+    # nixpkgs' buildRustCrate defaults to -C codegen-units=1 (crate2nix
+    # does not propagate the workspace profile), which serialises LLVM
+    # codegen per crate; the WebRTC/Slint crates in this graph then need
+    # 5+ hours each — beyond the 6-hour CI job limit, so they can never
+    # finish. 16 units matches Cargo's own release default.
+    buildRustCrateForPkgs = pkgs: pkgs.buildRustCrate.override { defaultCodegenUnits = 16; };
     defaultCrateOverrides =
       pkgs.defaultCrateOverrides
       // {
