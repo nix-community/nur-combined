@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-plex-sync";
-  version = "0.2.0-unstable-2026-08-13";
+  version = "0.3.0";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "trakt-plex-sync";
-    rev = "31ae0832034e783fab9a5045bedbe945f4a1c345";
-    hash = "sha256-luKHW5Bhr9JRBiKvGZfVEGb3ugGWpqOkPGbVa6LM6hk=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-BFDdGhJOYsP8svU6ukp0HeDpv6eVGsQWZBdbhtjilSM=";
   };
 
   build-system = with python3Packages; [
@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     plexapi
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   # Upstream has no CLI framework, so --version and --help tests are not possible
   passthru.tests = {

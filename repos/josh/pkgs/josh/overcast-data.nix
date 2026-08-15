@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "overcast-data";
-  version = "0-unstable-2026-08-09";
+  version = "0.1.0";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "overcast-data";
-    rev = "0dd02e9dab44a0b112137d39048b60eab0727690";
-    hash = "sha256-kNKf/rwlbkj5gTXrguYsPtVgaBcFss3yHvHNKC8ir6M=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-ZPt/0ntPcoMBkCTIi6HfwFeSaPeFVal9xQDU5wCcsuo=";
   };
 
   build-system = with python3Packages; [
@@ -38,7 +38,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   pythonImportsCheck = [ "overcast_data" ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     # TODO: Add --version test
