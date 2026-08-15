@@ -1,0 +1,120 @@
+{
+  "version": "2.0.3",
+  "tagHash": "ce8e115480c0cf0d64e1cf7f3b936f472f7e410c",
+  "sourceHash": "sha256-BVtmsafpEam5n2mITqCUP2JOcYn6mApK1umCDL4/H6A=",
+  "palettes": {
+    "catppuccin-frappe": {
+      "displayName": "Catppuccin Frappé",
+      "themeName": "Catppuccin-Frappe"
+    },
+    "catppuccin-latte": {
+      "displayName": "Catppuccin Latte",
+      "themeName": "Catppuccin-Latte"
+    },
+    "catppuccin-macchiato": {
+      "displayName": "Catppuccin Macchiato",
+      "themeName": "Catppuccin-Macchiato"
+    },
+    "catppuccin-mocha": {
+      "displayName": "Catppuccin Mocha",
+      "themeName": "Catppuccin-Mocha"
+    },
+    "classic": {
+      "displayName": "Classic",
+      "themeName": "Classic"
+    },
+    "gruvbox-dark": {
+      "displayName": "Gruvbox dark",
+      "themeName": "Gruvbox-Dark"
+    },
+    "gruvbox-light": {
+      "displayName": "Gruvbox light",
+      "themeName": "Gruvbox-Light"
+    },
+    "rosepine": {
+      "displayName": "Rosé Pine",
+      "themeName": "Rosepine"
+    },
+    "rosepine-dawn": {
+      "displayName": "Rosé Pine Dawn",
+      "themeName": "Rosepine-Dawn"
+    },
+    "rosepine-moon": {
+      "displayName": "Rosé Pine Moon",
+      "themeName": "Rosepine-Moon"
+    }
+  },
+  "variants": {
+    "modern": {
+      "buildFile": "build.toml",
+      "displayName": "modern",
+      "shape": "Modern",
+      "suffix": ""
+    },
+    "modern-right": {
+      "buildFile": "build.right.toml",
+      "displayName": "modern right-handed",
+      "shape": "Modern",
+      "suffix": "-Right"
+    },
+    "original": {
+      "buildFile": "build.toml",
+      "displayName": "original",
+      "shape": "Original",
+      "suffix": ""
+    },
+    "original-right": {
+      "buildFile": "build.right.toml",
+      "displayName": "original right-handed",
+      "shape": "Original",
+      "suffix": "-Right"
+    }
+  },
+  "hashes": {
+    "Bibata-Modern-Catppuccin-Frappe": "sha256-pdleF4e0Cho/ex85BF4WDREwdjU8h2QvdVyVSfqEQzA=",
+    "Bibata-Modern-Catppuccin-Frappe-Right": "sha256-Um4wRPo4sXlX+WbkHmCL067S4h2fijv81J/Q8mtDG8c=",
+    "Bibata-Modern-Catppuccin-Latte": "sha256-eGGgw98aTjGkvfa80kLqiVvDIb6v4lWo9YiGVXVsNDc=",
+    "Bibata-Modern-Catppuccin-Latte-Right": "sha256-QCOYMKM83l7TFVcAqrvJP07fV/omHGPSO9PlGvv9DaM=",
+    "Bibata-Modern-Catppuccin-Macchiato": "sha256-hlpqEqAw+z+ZSTR717Q+gTWGRfo4LyH8bGp8x4FfzrI=",
+    "Bibata-Modern-Catppuccin-Macchiato-Right": "sha256-v6olaiQCjLjpQ9s3+r/ax5XAZXryB+VwNC7Q70GKo/Q=",
+    "Bibata-Modern-Catppuccin-Mocha": "sha256-XuECdCPZfWR64dnW8sGtYBk79RI8h6/n5V1uYBUl4ks=",
+    "Bibata-Modern-Catppuccin-Mocha-Right": "sha256-XemtIEOr86BCmooVP58K8KwHyQWR547MK1PexAnhV4g=",
+    "Bibata-Modern-Classic": "sha256-Wmdg0WziCUY1XYr6J9PBQZExHGrghp6AQm4+wRDJdTs=",
+    "Bibata-Modern-Classic-Right": "sha256-3pchP2Sq8v95eg9sBQMI9X8AxpNdecIfBiBhTtAea8k=",
+    "Bibata-Modern-Gruvbox-Dark": "sha256-ER/pWUg7nIemwlwnibHs7kLNN0j4gH/TbuNYzlNpZKg=",
+    "Bibata-Modern-Gruvbox-Dark-Right": "sha256-DwrVJWF9xT62nW0yg/lH+opZPlv9m7yiXwMaimvWNRs=",
+    "Bibata-Modern-Gruvbox-Light": "sha256-JN1SdoDmUew6HQAS8w+Fhv5Mao+T1uj5pt88y7tXZWc=",
+    "Bibata-Modern-Gruvbox-Light-Right": "sha256-iJE/pJggLjAlzaWW9FqrqkJ5oE6UUMRQy4ZWJpTHBgQ=",
+    "Bibata-Modern-Rosepine": "sha256-/S8t6TXV3t9a5I1pQqMpd+W9JIn4A+na1JEyJHOg3co=",
+    "Bibata-Modern-Rosepine-Dawn": "sha256-Uz3s4Xg2vkmcrN8mYsrrhOa+bjyGr7r1N1NscQiS4P4=",
+    "Bibata-Modern-Rosepine-Dawn-Right": "sha256-/S1k3h6HErxJJBpCSYx79QTX7Rvkm13TvLnh1y7B33Q=",
+    "Bibata-Modern-Rosepine-Moon": "sha256-2OfUmQMMEGxEqPUxZmYU8877Y3MeZUYLXHxuTRvihNo=",
+    "Bibata-Modern-Rosepine-Moon-Right": "sha256-9nsfChrzEgMhJx/sL6x2rjVGU7EpeBLjAYXXW4unVDM=",
+    "Bibata-Modern-Rosepine-Right": "sha256-hZhsX5XDH1PSzj7fQE4OJkMoykAmQJhIWQBdeAiIXyI=",
+    "Bibata-Original-Catppuccin-Frappe": "sha256-plSx2ugXXVx2vBVqewMAbFGY0RalY/+M6khp9ipPSsk=",
+    "Bibata-Original-Catppuccin-Frappe-Right": "sha256-roz1q/KPYViQLiAT3lZjPQKZT1fqWyQQUf2omogTv1A=",
+    "Bibata-Original-Catppuccin-Latte": "sha256-9xTAYlb+RXSyuE/GWRDA7qmumADV/dDzP5IrCfs9frY=",
+    "Bibata-Original-Catppuccin-Latte-Right": "sha256-LthOOIBA0j38jfjCjOnpj7z88CsvbmHvPODg74pMwEY=",
+    "Bibata-Original-Catppuccin-Macchiato": "sha256-nhsAZpxus9dMjXp0PsokOyqf8yH9bgzTYzSODOxcEP0=",
+    "Bibata-Original-Catppuccin-Macchiato-Right": "sha256-vjrPxwkkeZNFOB4CjjmmXmeIPLXNW+VdoTrCGLgxC6A=",
+    "Bibata-Original-Catppuccin-Mocha": "sha256-twvZxo9w++dvoQq+9DV8Z8xXI1XzF6DRORnOFpYNivc=",
+    "Bibata-Original-Catppuccin-Mocha-Right": "sha256-MAQYeezJlJ3m2oa9HOxx+XT1DbD/wtXyZIHUHt0gKiI=",
+    "Bibata-Original-Classic": "sha256-kns+DXk7/FrjHi9Fcx0dRbLXyw9AtAlkxDMbZo24304=",
+    "Bibata-Original-Classic-Right": "sha256-gir1U0uh7KBiRNGym9bzbCCIWp61XYKPNyhtxzM7umw=",
+    "Bibata-Original-Gruvbox-Dark": "sha256-WLWz7cfprDItnGD8lOhMpciCmeJY5jYav3zDT3r4jro=",
+    "Bibata-Original-Gruvbox-Dark-Right": "sha256-/Ta1wODJNmkbTe3o0AOFk1Kp3bXhbGUISo2decY2MBg=",
+    "Bibata-Original-Gruvbox-Light": "sha256-EoKSu1QKS3b1iYRuVw5S9+/G8qUI0cnb6ycWsQC0vzQ=",
+    "Bibata-Original-Gruvbox-Light-Right": "sha256-MDbDbyCL7PPXrdZywnPpGFtu4KFmawKkdsSTQ47sseM=",
+    "Bibata-Original-Rosepine": "sha256-6hEEljkZ7hkbEk0wF0baJroJ6B/r0UGWsnnszfdKFXc=",
+    "Bibata-Original-Rosepine-Dawn": "sha256-oo7CVxM6FgnE6vo7I6sZZeX9nnmdPf9DOtxEzheddhk=",
+    "Bibata-Original-Rosepine-Dawn-Right": "sha256-kpwAHf9jgNXL6GS+BM9Oo6qPZS4mf5CnPmwHatj6GJs=",
+    "Bibata-Original-Rosepine-Moon": "sha256-KIEEpQZZXcIWivKO2tKDgrcy4vWagObHhVZZNKHDW+A=",
+    "Bibata-Original-Rosepine-Moon-Right": "sha256-j1ZYnIkHlnqz+kshJema8cxELY0YGZ8eXwFNqPL9gAA=",
+    "Bibata-Original-Rosepine-Right": "sha256-d9LXzc1IhUTaGn4PrkKzUhu87L2ayrMKxMQXalYRSok="
+  },
+  "updater": {
+    "type": "tangled-tag-artifacts",
+    "did": "did:plc:v3hmlmsytt6b2zvi3e35o2oj",
+    "repo": "bibata-cursor"
+  }
+}

@@ -36,14 +36,25 @@ Then use packages from the flake output for your system:
   pkgs,
   ...
 }: let
-  nurPkgs = inputs.adam0-nur.packages.${pkgs.stdenv.hostPlatform.system};
+  nurPkgs = inputs.adam0-nur.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   home.packages = [
     nurPkgs.gruvbox-plus-icons
-    nurPkgs.bibata-modern-cursors-gruvbox-dark
+    nurPkgs.bibata.modern.cursors.gruvbox-dark
+    nurPkgs.bibata.modern.cursors.gruvbox-dark.hyprcursor
   ];
 }
 ```
+
+Bibata exposes 40 XCursor themes and their 40 Hyprcursor variants:
+
+```nix
+bibata.<modern|modern-right|original|original-right>.cursors.<palette>
+bibata.<modern|modern-right|original|original-right>.cursors.<palette>.hyprcursor
+```
+
+Available palettes are `classic`, `gruvbox-dark`, `gruvbox-light`, `rosepine`,
+`rosepine-dawn`, `rosepine-moon`, and the four `catppuccin-*` flavors.
 
 For classic NUR usage, import it like any other NUR repository:
 

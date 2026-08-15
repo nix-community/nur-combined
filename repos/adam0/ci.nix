@@ -48,7 +48,7 @@
       if shouldRecurseForDerivations p
       then flattenPkgs p
       else if isDerivation p
-      then [p]
+      then [p] ++ (p.ciPackages or [])
       else [];
   in
     concatMap f (attrValues s);
