@@ -1769,6 +1769,60 @@ mod tests {
             ),
             5
         );
+        assert_eq!(
+            ctx.bus_xyz("player-spawn", &wire_empty(), (0, 0, 0)),
+            (504, 2, 508)
+        );
+        assert_eq!(
+            ctx.bus_i32("vehicle-spawn-count", &wire_empty(), 0),
+            6
+        );
+        let car = ctx.bus_node("vehicle-kit", &wire_int(0));
+        assert_eq!(
+            car.get("kind").map(::hanga::kit::Node::text).as_deref(),
+            Some("car")
+        );
+        assert!(!car.get("traffic").is_some_and(::hanga::kit::Node::as_flag));
+        assert_eq!(
+            ctx.bus_i32(
+                "wallet-after",
+                &wire_bag(vec![
+                    ("action", wire_text("break")),
+                    ("wallet", Wire::Int(10)),
+                    ("extra", Wire::Int(0)),
+                ]),
+                -1
+            ),
+            15
+        );
+        assert_eq!(
+            ctx.bus_text_payload(
+                "voxel-label",
+                &wire_bag(vec![
+                    ("locale", wire_text("mi")),
+                    ("voxel", wire_text("glass")),
+                ])
+            ),
+            "karaihe"
+        );
+        assert_eq!(
+            ctx.bus_i32(
+                "economy-price",
+                &wire_bag(vec![
+                    ("base", Wire::Int(80)),
+                    ("supply", Wire::Int(0)),
+                    ("demand", Wire::Int(1)),
+                ]),
+                -1
+            ),
+            800
+        );
+        let mark = ctx.bus_node(
+            "contract-mark",
+            &wire_bag(vec![("kind", wire_text("smash-and-grab"))]),
+        );
+        assert_eq!(mark.get("x").and_then(::hanga::kit::Node::as_i32), Some(531));
+        assert!(mark.get("take").is_some_and(::hanga::kit::Node::as_flag));
         *slot.lock().unwrap() = Some(ctx);
     }
 }
