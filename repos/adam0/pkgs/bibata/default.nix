@@ -107,14 +107,11 @@
 
     hyprcursorPackage =
       mkHyprcursor
-      # keep-sorted start
       cursor
       variantName
       variant
       paletteName
-      palette
-      # keep-sorted end
-      ;
+      palette;
 
     cursor = stdenvNoCC.mkDerivation {
       pname = "bibata-${variantName}-cursors-${paletteName}";
