@@ -13,16 +13,16 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "sing-box-dashboard";
-  version = "0-unstable-2026-08-12";
+  version = "0-unstable-2026-08-15";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-dashboard";
-    rev = "e5b293de743b2f4de1f3d3a14fc260ab42b93139";
+    rev = "96b91aab307d8fe016fc152d3fe3c8b6539e26c1";
     fetchSubmodules = true;
-    hash = "sha256-GhYo0i4Lhv7e4iDbhklPPbLaPzOkfWz8ExKmA/LeLp4=";
+    hash = "sha256-dim7DcwKJhMm1nO7E4ovrNlhVzyPwS9Rgbss6QdMEKM=";
   };
 
   npmDeps = null;
@@ -30,7 +30,7 @@ buildNpmPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-Pc5VcwlE/bAlTYvATfFKPM5k37AD0W1SJxtlbygt2RA=";
+    hash = "sha256-QbcvSwJh5v+h4rYPAzGAViQX/LRQAlQdA+oXrp5zq0o=";
   };
 
   nativeBuildInputs = [ pnpm ];
