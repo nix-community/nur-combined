@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 1a9d5ae..534b668 100644
+index dcca1a5..9a11473 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -7,7 +7,7 @@ index 1a9d5ae..534b668 100644
      "@csstools/normalize.css": "12.1.1",
      "@iconify/json": "2.2.516",
 +    "@inlang/plugin-m-function-matcher": "^2.2.9",
-+    "@inlang/plugin-message-format": "^4.4.1",
++    "@inlang/plugin-message-format": "^4.4.2",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.3",
      "@tanstack/react-query": "5.101.4",
@@ -27,7 +27,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 18b7afb..a0c9720 100644
+index 9e2dc5e..367107a 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -38,8 +38,8 @@ index 18b7afb..a0c9720 100644
 +        specifier: ^2.2.9
 +        version: 2.2.9
 +      '@inlang/plugin-message-format':
-+        specifier: ^4.4.1
-+        version: 4.4.1
++        specifier: ^4.4.2
++        version: 4.4.2
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -50,8 +50,8 @@ index 18b7afb..a0c9720 100644
 +  '@inlang/plugin-m-function-matcher@2.2.9':
 +    resolution: {integrity: sha512-FqrEw6p5UKn0fVLedILx5vjEAPAl01Uuv1xlF6pQ9XMxpDsTUSOAPrjWuus1jiPBnYEdbK8cP43Ni0e3IPz9aQ==}
 +
-+  '@inlang/plugin-message-format@4.4.1':
-+    resolution: {integrity: sha512-gI918CgIbOzrSk8BdETtARYVo3WcojjD33ASmn+taeNunkgrN5U4TkEqpC3yDJ+G0tMZm1mhEzS3dn3JwJpQoA==}
++  '@inlang/plugin-message-format@4.4.2':
++    resolution: {integrity: sha512-DRUSTzOWw7s52AAKuihZCMo987gUvzRHqCEzi9tQiJrDzkGFMC7ItxoQlLXdnMl3Pc4ZueXBQszFMq0gUxbBjg==}
 +
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
@@ -89,7 +89,7 @@ index 18b7afb..a0c9720 100644
 +    transitivePeerDependencies:
 +      - babel-plugin-macros
 +
-+  '@inlang/plugin-message-format@4.4.1':
++  '@inlang/plugin-message-format@4.4.2':
 +    dependencies:
 +      flat: 6.0.1
 +
