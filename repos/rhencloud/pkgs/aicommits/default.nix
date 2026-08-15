@@ -4,12 +4,15 @@
   fetchFromGitHub,
   nodejs,
   pnpm,
+  pnpm_10 ? null,
   pnpmConfigHook,
   fetchPnpmDeps,
 }:
 
 let
   version = "4.1.1";
+
+  pnpm' = if pnpm_10 != null then pnpm_10 else pnpm;
 
   src = fetchFromGitHub {
     owner = "nutlope";
@@ -25,12 +28,13 @@ stdenv.mkDerivation {
   pnpmDeps = fetchPnpmDeps {
     pname = "aicommits-pnpm-deps";
     inherit version src;
-    fetcherVersion = 4;
-    hash = "sha256-5WXLKMcI6MWM+pjXIIX1cmVluIsX0FUZnFNfvCW5rFY=";
+    pnpm = pnpm';
+    fetcherVersion = 3;
+    hash = "sha256-wDJ9unTtRX0Mwigm+zMibScyFM9oUmVYuIz5esSya/A=";
   };
 
   nativeBuildInputs = [
-    pnpm
+    pnpm'
     pnpmConfigHook
     nodejs
   ];
