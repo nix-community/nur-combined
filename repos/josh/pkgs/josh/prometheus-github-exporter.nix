@@ -9,16 +9,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-github-exporter";
-  version = "1.3.1";
+  version = "1.3.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "github_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1znlOlkccMrVmvG6fqFrMEQEgJX2nw48ig7AwQ2J/go=";
+    hash = "sha256-fisOYfIrkGriumbXQs05fD/TLg2ysoMHvHLnxG29PgU=";
   };
 
-  vendorHash = "sha256-I96j4uT1qzuigetxZgYSq6Pr+fzc9NE3nF05T0DSI40=";
+  vendorHash = "sha256-9D1EfO99sAtAJhi6oDRk1BQl4l3y85Bz85iQh2mxZp8=";
 
   env.CGO_ENABLED = 0;
   ldflags = [

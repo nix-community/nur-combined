@@ -7,7 +7,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gametrack-data";
-  version = "2.0.2";
+  version = "2.0.3";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "gametrack-data";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Qsd/KSbKSt62I5o7LgL2+ibZBAjKPTY5NiqCNemLcC8=";
+    hash = "sha256-IvZ6jXdTJPTU3EQT5jA/bpaFyVVlIm0IdtbxgiyAmsk=";
   };
 
   build-system = with python3Packages; [
