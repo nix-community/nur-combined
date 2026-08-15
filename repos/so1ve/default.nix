@@ -4,6 +4,7 @@
 
 {
   ab-download-manager = pkgs.callPackage ./pkgs/ab-download-manager { };
+  deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
   firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
   niri = pkgs.callPackage ./pkgs/niri { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };

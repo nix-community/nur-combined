@@ -1,0 +1,8 @@
+{
+  "name": "nix-repin-deepseek-ai-dsh",
+  "private": true,
+  "version": "0.1.0-rc.6",
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.1.0-rc.6"
+  }
+}
