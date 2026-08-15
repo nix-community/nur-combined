@@ -7,13 +7,13 @@
 
 php.buildComposerProject (finalAttrs: {
   pname = "level0";
-  version = "2025-07-17";
+  version = "2026-03-08";
 
   src = fetchFromGitHub {
     owner = "Zverik";
     repo = "Level0";
-    rev = "90966b7346e7086db178da0c610fb15bf4831339";
-    hash = "sha256-VbufWA4pl4+6jOcaLQ5AZFhWKFoOKlcZFEuRbLJq4TQ=";
+    rev = "3346f1b60e32a4d0913bd03342c56b43b1e9bf75";
+    hash = "sha256-jzF9LlOsLTlp3+VS3E+CZ5hNsKgv2c0o4O4OkLuqIuA=";
   };
 
   vendorHash = "sha256-+49ednqEuhTNO6t20SdkSYYSL9v8QNehxVWLgCuJWW0=";

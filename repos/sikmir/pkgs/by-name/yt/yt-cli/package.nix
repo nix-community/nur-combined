@@ -12,6 +12,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "0.25.1";
   pyproject = true;
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ryancheley";
     repo = "yt-cli";

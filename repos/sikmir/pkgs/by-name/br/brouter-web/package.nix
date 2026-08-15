@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "brouter-web";
   version = "0.18.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "nrenner";
     repo = "brouter-web";

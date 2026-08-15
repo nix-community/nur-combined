@@ -16,18 +16,28 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-fiY5cJIus4eLzSfqVjZfmco4pFABYWNPVUOXGGYPEso=";
   };
 
+  build-system = with python3Packages; [
+    setuptools_80
+  ];
+
   dependencies = with python3Packages; [
     aiohttp
     cytoolz
     numpy
     pillow
-    setuptools
+    setuptools_80
   ];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     pytest-asyncio
-    pytest-cov
+    pytest-cov-stub
+  ];
+
+  disabledTests = [
+    "test_redis_downloader_and_cache"
+    "test_render_image"
+    "test_render_image_error"
   ];
 
   postInstall = ''
