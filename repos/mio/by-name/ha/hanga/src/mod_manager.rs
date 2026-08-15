@@ -886,6 +886,20 @@ impl MainModContext {
             payload_text(&reply, "name").to_string(),
         )
     }
+
+    pub fn query_voxel(&mut self, x: i32, y: i32, z: i32) -> i32 {
+        self.bindings
+            .hanga_engine_guest()
+            .call_query_voxel(&mut self.store, x, y, z)
+            .unwrap_or(0)
+    }
+
+    pub fn voxel_catalog(&mut self) -> Vec<String> {
+        self.bindings
+            .hanga_engine_guest()
+            .call_voxel_catalog(&mut self.store)
+            .unwrap_or_default()
+    }
 }
 
 pub struct PackMod {
@@ -1444,6 +1458,32 @@ mod tests {
             wire_as_text(&bus.invoke("host", "testbed", "ping", wire_empty())),
             "pong"
         );
+        {
+            let mut guard = slot.lock().unwrap();
+            let ctx = guard.as_mut().expect("testbed");
+            let names = ctx.voxel_catalog();
+            assert_eq!(
+                ::hanga::catalog_name(&names, ctx.query_voxel(0, 0, 0)),
+                Some("concrete")
+            );
+            assert_eq!(
+                ::hanga::catalog_name(&names, ctx.query_voxel(1, 0, 0)),
+                Some("glass")
+            );
+            assert_eq!(
+                ::hanga::catalog_name(&names, ctx.query_voxel(0, 1, 0)),
+                Some("air")
+            );
+            let gravity = ctx.bus_node("gravity", &wire_empty());
+            assert_eq!(
+                gravity.get("kind").map(::hanga::kit::Node::text).as_deref(),
+                Some("none")
+            );
+            assert_eq!(
+                gravity.get("jump").and_then(::hanga::kit::Node::as_f32),
+                Some(2.0)
+            );
+        }
         assert!(matches!(
             bus.invoke("testbed", "testbed", "ping", wire_empty()),
             Wire::Fail(reason) if reason == "self"
