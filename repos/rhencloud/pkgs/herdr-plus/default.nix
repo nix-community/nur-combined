@@ -1,10 +1,10 @@
 {
   lib,
-  buildGoModule,
+  buildGo126Module,
   fetchFromGitHub,
 }:
 
-buildGoModule {
+buildGo126Module {
   pname = "herdr-plus";
   version = "0.1.16";
 
