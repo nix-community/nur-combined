@@ -1,5 +1,6 @@
 {
   lib,
+  bashInteractive,
   buildNpmPackage,
   nodejs_24,
   python3,
@@ -40,6 +41,11 @@ buildNpmPackage (finalAttrs: {
 
     mkdir -p $out/share/deepseek-harness
     cp -r node_modules $out/share/deepseek-harness/
+    substituteInPlace \
+      $out/share/deepseek-harness/node_modules/@deepseek-ai/dsh-terminal-bash/lib/index.js \
+      --replace-fail \
+        'shellPath: z.string().default("/bin/bash")' \
+        'shellPath: z.string().default("${lib.getExe bashInteractive}")'
 
     makeWrapper ${lib.getExe nodejs_24} $out/bin/dsh \
       --add-flags "--expose-internals" \
