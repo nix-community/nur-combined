@@ -11,7 +11,7 @@ buildNpmPackage rec {
 
   src = fetchgit {
     url = "https://github.com/raycast/extensions";
-    rev = "38c0e1983e233ff463b19cc0dc4b1d83cd7e5f3d";
+    rev = "62edb5f5b52d28d38c918add66553e827d9cdc4b";
     sha256 = "sha256-HK7UCPnLlNQP1YqjqcofMNvVIigOpo1DfzxNX1I90gQ=";
     sparseCheckout = [
       "/extensions/${pname}"

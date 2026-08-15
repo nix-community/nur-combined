@@ -8,16 +8,16 @@
   widevine-cdm,
   enableWideVine ? false,
 }: let
-  version = "0.15.3.1";
+  version = "0.15.4.1";
   repo = "https://github.com/imputnet/helium-linux";
   sourceMap = {
     x86_64-linux = fetchurl {
       url = "${repo}/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-ZCCm/prkgYgbDHW6OBPWvoIE77g7IYQpYdqc/PnIrSU=";
+      hash = "sha256-VNVETBXVO1skExhK3maw7N/HuFufeHRky/z1CRwjqkw=";
     };
     aarch64-linux = fetchurl {
       url = "${repo}/releases/download/${version}/helium-${version}-arm64.AppImage";
-      hash = "sha256-3Ut6Mr5Spj9mPUuXgtRf2WVqlMzkOAWEyZXdXQiwb4k=";
+      hash = "sha256-R47v2/D2zLhM0K5iQ86N4s7z0fGzR//u/v0g/X6BAn0=";
     };
   };
 in
@@ -25,10 +25,10 @@ in
     pname = "helium";
     inherit version;
 
-    src = appimageTools.extract {
-      inherit pname version;
+    src = sourceMap.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-      src = sourceMap.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    appimageContents = appimageTools.extract {
+      inherit pname version src;
 
       postExtract =
         lib.optionalString enableWideVine
@@ -55,14 +55,14 @@ in
       ''
         mkdir -p "$out/share/applications"
         mkdir -p "$out/share/lib/helium"
-        cp -r ${src}/opt/helium/locales "$out/share/lib/helium"
-        cp -r ${src}/usr/share/* "$out/share"
-        cp "${src}/${pname}.desktop" "$out/share/applications/"
+        cp -r ${appimageContents}/opt/helium/locales "$out/share/lib/helium"
+        cp -r ${appimageContents}/usr/share/* "$out/share"
+        cp "${appimageContents}/${pname}.desktop" "$out/share/applications/"
         substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=helium %U' 'Exec=${meta.mainProgram} %U'
       '';
 
     meta = {
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       description = "Private, fast, and honest web browser based on Chromium";
       homepage = "https://github.com/imputnet/helium-chromium";
       changelog = "https://github.com/imputnet/helium-linux/releases/tag/${version}";
