@@ -1,19 +1,13 @@
 {
   lib,
-  stdenv,
   buildNpmPackage,
   nodejs_24,
+  python3,
   makeWrapper,
-  autoPatchelfHook,
   source ? callPackage ./source.nix { },
   callPackage,
 }:
 
-let
-  koffiArch = stdenv.hostPlatform.node.arch;
-  unusedKoffiVariant =
-    if stdenv.hostPlatform.isMusl then "linux_${koffiArch}" else "musl_${koffiArch}";
-in
 buildNpmPackage (finalAttrs: {
   pname = "deepseek-harness";
   inherit (source) version;
@@ -28,20 +22,27 @@ buildNpmPackage (finalAttrs: {
 
   nativeBuildInputs = [
     makeWrapper
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+    python3
+  ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ stdenv.cc.cc.lib ];
+  dontPatchELF = true;
+
+  buildPhase = ''
+    runHook preBuild
+
+    npm rebuild node-pty --offline
+
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/share/deepseek-harness
     cp -r node_modules $out/share/deepseek-harness/
-    rm -r \
-      $out/share/deepseek-harness/node_modules/@koromix/koffi-linux-${koffiArch}/${unusedKoffiVariant}
 
     makeWrapper ${lib.getExe nodejs_24} $out/bin/dsh \
+      --add-flags "--expose-internals" \
       --add-flags $out/share/deepseek-harness/node_modules/@deepseek-ai/dsh/lib/bin.js
 
     runHook postInstall
