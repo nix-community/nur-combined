@@ -38,6 +38,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names
   use `ask_any_text` / `bus_text_payload`. Kits use `ask_any_node` / `bus_node`.
+  `action-range` uses `reply_range`: empty/empty-text is the engine fallback;
+  `fail` is range 0 (closed), not a skip. `reply_i32` / `payload_xyz` use
+  fallback for every empty shape and for `fail` (keep current state/spawn).
 - **Trap restart cooldown.** After `fail("trap")` the host reloads the pack from
   disk at most once per 2s (`trap_restart_ready`). Guest statics reset. If reload
   fails, the store stays dead. Covered in `cargo test --bin hanga`.

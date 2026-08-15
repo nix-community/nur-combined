@@ -51,7 +51,7 @@ use hanga::sign::{self, ActionKey};
 
 mod mod_manager;
 use mod_manager::{
-    payload_f32, payload_i64, payload_text, ModRuntime, ModManagerPlugin, SHARED_WASM, wire_bag,
+    payload_f32, payload_i64, payload_text, reply_range, ModRuntime, ModManagerPlugin, SHARED_WASM, wire_bag,
     wire_empty, wire_float, wire_int, wire_text, Wire,
 };
 
@@ -1834,10 +1834,10 @@ fn spawn_contract_mark(
 }
 
 fn action_range(mod_runtime: &ModRuntime, action: &str, fallback: f32) -> f32 {
-    match mod_runtime.ask_any("action-range", &wire_text(action)) {
-        Wire::Empty => fallback,
-        other => payload_f32(&other, "value"),
-    }
+    reply_range(
+        &mod_runtime.ask_any("action-range", &wire_text(action)),
+        fallback,
+    )
 }
 
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
