@@ -38,10 +38,14 @@ stdenv.mkDerivation rec {
       cp main.js manifest.json styles.css $out/
     '';
 
+  env = {
+    ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
+  };
+
   pnpmDeps = pkgs.fetchPnpmDeps {
     fetcherVersion = 4;
     inherit pname version src;
-    hash = "sha256-UZh7rcNYqScLRB3nGVGp1Mp54flOdtWz3rDNVu+OwCg=";
+    hash = "sha256-RLUrS80b0+7WUJGsD5gHZEw8MgE11SnxbAokKb9Ruvw=";
   };
 
   meta = {
