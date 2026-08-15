@@ -7,13 +7,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "nix-daemon-proxy-server";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "yueyinqiu";
     repo = "NixDaemonProxy";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-0DKhhCOTJ5hl8bASGEJglm6J1QVKSzANY8H0TejbIt0=";
+    hash = "sha256-Wpe3JKdxEwuXulPUYKxMJv6r1wHoBXKC+1KQZnS7NNo=";
   };
 
   projectFile = "src/NixDaemonProxy.Server/NixDaemonProxy.Server.csproj";
