@@ -1576,6 +1576,21 @@ mod tests {
             payload_i64(&bus.invoke("host", "testbed", "count", wire_empty()), "value"),
             0
         );
+        assert!(wire_is_empty(&bus.invoke(
+            "host",
+            "testbed",
+            "toss",
+            wire_bag(vec![
+                ("peer", wire_text("testbed")),
+                ("method", wire_text("note")),
+            ])
+        )));
+        assert_eq!(bus.pending.lock().unwrap().len(), 1);
+        bus.flush_deferred();
+        assert_eq!(
+            payload_i64(&bus.invoke("host", "testbed", "count", wire_empty()), "value"),
+            1
+        );
         let t0 = payload_i64(&bus.invoke("host", "testbed", "clock", wire_empty()), "value");
         let t1 = payload_i64(&bus.invoke("host", "testbed", "clock", wire_empty()), "value");
         assert!(t0 >= 0 && t1 >= t0);
@@ -1658,6 +1673,40 @@ mod tests {
             )),
             "pong"
         );
+        assert!(matches!(
+            bus.invoke(
+                "host",
+                "testbed",
+                "ask",
+                wire_bag(vec![
+                    ("peer", wire_text("gone")),
+                    ("method", wire_text("ping")),
+                ])
+            ),
+            Wire::Fail(reason) if reason == "noproc"
+        ));
+        assert!(matches!(
+            bus.invoke(
+                "host",
+                "testbed",
+                "ask",
+                wire_bag(vec![
+                    ("peer", wire_text("testbed")),
+                    ("method", wire_text("ping")),
+                ])
+            ),
+            Wire::Fail(reason) if reason == "self"
+        ));
+        assert!(wire_is_empty(&bus.invoke(
+            "host",
+            "testbed",
+            "toss",
+            wire_bag(vec![
+                ("peer", wire_text("urban_chaos")),
+                ("method", wire_text("ping")),
+            ])
+        )));
+        assert!(bus.pending.lock().unwrap().is_empty());
         assert_eq!(
             wire_as_text(&bus.invoke(
                 "host",
@@ -1713,7 +1762,7 @@ mod tests {
     }
 
     #[test]
-    fn live_wasm_urban_chaos_query_voxel() {
+    fn live_wasm_urban_chaos_gameplay_bus() {
         let Some(path) = mods_wasm("urban_chaos") else {
             return;
         };
