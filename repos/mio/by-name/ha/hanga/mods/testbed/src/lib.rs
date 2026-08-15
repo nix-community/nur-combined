@@ -22,7 +22,7 @@ include!("../../mod_kit.rs");
 struct TestbedMod;
 
 fn testbed_topics() -> String {
-    format!("{BUS_TOPICS},refuse")
+    format!("{BUS_TOPICS},refuse,veto")
 }
 
 pub const ACTION_BREAK: &str = "break";
@@ -391,6 +391,7 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Value)
         "has" => bus_has(&testbed_topics(), payload),
         "methods" => wire_methods(&testbed_topics()),
         "refuse" => wire_fail("busy"),
+        "veto" => wire_flag(true),
         _ => wire_empty(),
     }
 }
@@ -432,6 +433,10 @@ mod tests {
     fn refuse_is_a_bus_error() {
         match root_cell(&on_message("host", "refuse", &wire_empty())) {
             Cell::Fail(reason) => assert_eq!(reason, "busy"),
+            other => panic!("{other:?}"),
+        }
+        match root_cell(&on_message("host", "veto", &wire_empty())) {
+            Cell::Flag(true) => {}
             other => panic!("{other:?}"),
         }
     }

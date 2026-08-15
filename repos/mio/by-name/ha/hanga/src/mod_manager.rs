@@ -1440,6 +1440,7 @@ mod tests {
         )
         .expect("load testbed.wasm");
         assert!(ctx.offers("ping"));
+        assert!(ctx.offers("veto"));
         *slot.lock().unwrap() = Some(ctx);
 
         assert_eq!(
@@ -1472,6 +1473,8 @@ mod tests {
                 Some(2.0)
             );
         }
+        assert!(bus.emit("host", "veto", wire_empty()));
+        assert!(!bus.emit("host", "ping", wire_empty()));
         assert!(matches!(
             bus.invoke("testbed", "testbed", "ping", wire_empty()),
             Wire::Fail(reason) if reason == "self"
@@ -1525,5 +1528,31 @@ mod tests {
             bus.invoke("host", "", "refuse", wire_empty()),
             Wire::Fail(reason) if reason == "busy"
         ));
+    }
+
+    #[test]
+    fn live_wasm_urban_chaos_query_voxel() {
+        let Some(path) = mods_wasm("urban_chaos") else {
+            return;
+        };
+        let slot = Arc::new(Mutex::new(None));
+        let bus = Arc::new(LiveBus {
+            lead_name: "urban_chaos".into(),
+            lead: Arc::clone(&slot),
+            packs: Vec::new(),
+            pending: Mutex::new(Vec::new()),
+        });
+        let mut ctx = ModRuntime::instantiate(
+            &path,
+            "urban_chaos",
+            Arc::clone(&bus) as Arc<dyn EngineBus>,
+            false,
+        )
+        .expect("load urban_chaos.wasm");
+        let names = ctx.voxel_catalog();
+        assert!(names.contains(&"asphalt".to_string()));
+        let index = ctx.query_voxel(0, 0, 0);
+        assert!(::hanga::catalog_name(&names, index).is_some());
+        *slot.lock().unwrap() = Some(ctx);
     }
 }

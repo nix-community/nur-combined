@@ -14,7 +14,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Live WASM on the bus.** `live_wasm_testbed_ping_and_self_cast` and
   `live_wasm_two_packs_empty_peer_ping` load `HANGA_MODS` guests (set in
   `.#hanga-dev`) for ping, self-cast drain, empty-peer override, testbed
-  `query-voxel` / catalog names, gravity, and guest `fail("busy")` via `refuse`.
+  `query-voxel` / catalog names, gravity, guest `fail("busy")` via `refuse`,
+  and emit veto (`veto` vs `ping`). `live_wasm_urban_chaos_query_voxel` loads
+  the city lead and checks a catalog name at `(0,0,0)`.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names
