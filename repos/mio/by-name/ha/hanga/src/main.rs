@@ -1375,22 +1375,14 @@ fn spawn_mod_traffic(
 
 fn load_voxel_catalog(mod_runtime: &ModRuntime) -> VoxelCatalog {
     let mut layers = Vec::new();
-    if let Some(names) = with_mod(mod_runtime, |ctx| {
-        ctx.bindings
-            .hanga_engine_guest()
-            .call_voxel_catalog(&mut ctx.store)
-            .ok()
-    })
-    .flatten()
-    {
-        layers.push(names);
+    if let Some(names) = with_mod(mod_runtime, |ctx| ctx.voxel_catalog()) {
+        if !names.is_empty() {
+            layers.push(names);
+        }
     }
     with_pack_mods(mod_runtime, |_, ctx| {
-        if let Ok(names) = ctx
-            .bindings
-            .hanga_engine_guest()
-            .call_voxel_catalog(&mut ctx.store)
-        {
+        let names = ctx.voxel_catalog();
+        if !names.is_empty() {
             layers.push(names);
         }
     });

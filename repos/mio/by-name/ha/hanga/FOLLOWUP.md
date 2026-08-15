@@ -61,7 +61,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `ask_any`. Hot reload `try_lock`s every slot and retries next frame
   if a pack is busy. `wake_all` leaves `woken` false if a slot is busy
   so load retries `ready`. Hot reload keeps a running pack if
-  instantiate fails (lead already did). Traffic `steer` `fail`/busy keeps velocity
+  instantiate fails (lead already did) and only `ready`s stores that
+  actually swapped. Traffic `steer` `fail`/busy keeps velocity
   (host cruise only when the kit is empty). `vehicle-kit` `fail` skips
   that spawn index instead of a default car. Vehicle spawn xyz skips
   `fail`/empty instead of stacking at a fallback point. Ambient agent
@@ -82,7 +83,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `methods` fail/trap at load refuses the pack (empty catalog still means try
   every topic). After `ready`, a failed methods refresh keeps the load catalog.
   `evaluate-action` `fail` skips spawn and wallet for that verb. Catalog trap
-  skips that layer instead of merging an empty list. Worker `query-voxel`
+  skips that layer instead of merging an empty list. Typed `query-voxel` /
+  `voxel-catalog` traps restart the pack like `invoke` (air / skip layer).
+  Guest `voxel()` worldgen sample returns air if `query-voxel` traps. Worker `query-voxel`
   trap is air, not the engine `y < 0` stub. `tick` `fail`/busy keeps the
   current wanted level so agents are not despawned as if wanted were 0.
 - **`player` snapshot is engine-shaped.** Pose is always present. `state` and

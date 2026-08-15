@@ -813,7 +813,9 @@ fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
         return "air".into();
     };
     let gp = bindings.hanga_engine_guest();
-    let index = gp.call_query_voxel(&mut store, x, y, z).unwrap_or(0);
+    let Ok(index) = gp.call_query_voxel(&mut store, x, y, z) else {
+        return "air".into();
+    };
     let names = gp.call_voxel_catalog(&mut store).unwrap_or_default();
     ::hanga::catalog_name(&names, index)
         .unwrap_or("air")
@@ -1072,17 +1074,31 @@ impl MainModContext {
     }
 
     pub fn query_voxel(&mut self, x: i32, y: i32, z: i32) -> i32 {
-        self.bindings
+        match self
+            .bindings
             .hanga_engine_guest()
             .call_query_voxel(&mut self.store, x, y, z)
-            .unwrap_or(0)
+        {
+            Ok(index) => index,
+            Err(_) => {
+                self.restart_after_trap();
+                0
+            }
+        }
     }
 
     pub fn voxel_catalog(&mut self) -> Vec<String> {
-        self.bindings
+        match self
+            .bindings
             .hanga_engine_guest()
             .call_voxel_catalog(&mut self.store)
-            .unwrap_or_default()
+        {
+            Ok(names) => names,
+            Err(_) => {
+                self.restart_after_trap();
+                Vec::new()
+            }
+        }
     }
 }
 
@@ -1194,17 +1210,41 @@ impl ModRuntime {
             };
             pack_locks.push(guard);
         }
-        if !keep_fresh(&mut *lead, new_lead) {
+        let lead_ok = keep_fresh(&mut *lead, new_lead);
+        if !lead_ok {
             error!("Failed to reload lead WASM mod");
         }
+        let mut pack_ok = Vec::new();
         for (pack, (guard, fresh)) in self.packs.iter().zip(pack_locks.iter_mut().zip(new_packs)) {
-            if !keep_fresh(guard, fresh) {
+            let ok = keep_fresh(guard, fresh);
+            if !ok {
                 error!("Failed to reload pack '{}'", pack.name);
             }
+            pack_ok.push(ok);
         }
         drop(lead);
         drop(pack_locks);
-        self.wake_all();
+        if lead_ok {
+            if let Ok(mut guard) = self.context.try_lock() {
+                if let Some(ctx) = guard.as_mut() {
+                    ctx.wake();
+                }
+            }
+        }
+        for (pack, ok) in self.packs.iter().zip(pack_ok.iter().copied()) {
+            if !ok {
+                continue;
+            }
+            if let Ok(mut guard) = pack.context.try_lock() {
+                if let Some(ctx) = guard.as_mut() {
+                    ctx.wake();
+                }
+            }
+        }
+        if lead_ok || pack_ok.iter().any(|ok| *ok) {
+            self.notify_all("on-mods-loaded", &wire_empty());
+            self.woken = true;
+        }
         true
     }
 
