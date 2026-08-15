@@ -47,5 +47,6 @@ rustPlatform.buildRustPackage rec {
     license = licenses.free;
     platforms = platforms.linux;
     mainProgram = "we-layerd";
+    broken = true;
   };
 }
