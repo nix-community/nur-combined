@@ -409,6 +409,7 @@ pub fn wire_is_empty(value: &Wire) -> bool {
         Wire::Empty => true,
         Wire::Text(text) if text.is_empty() => true,
         Wire::Dict(fields) if fields.is_empty() => true,
+        Wire::Items(items) if items.is_empty() => true,
         _ => false,
     }
 }
@@ -1539,6 +1540,8 @@ mod tests {
     fn fail_is_not_empty() {
         assert!(wire_is_empty(&Wire::Empty));
         assert!(wire_is_empty(&Wire::Text(String::new())));
+        assert!(wire_is_empty(&Wire::Dict(vec![])));
+        assert!(wire_is_empty(&Wire::Items(vec![])));
         assert!(!wire_is_empty(&wire_fail("busy")));
         assert!(wire_is_fail(&wire_fail("self")));
     }
@@ -1724,6 +1727,15 @@ mod tests {
             "pong"
         );
         assert!(wire_is_empty(&first_override([wire_empty(), Wire::Text(String::new())])));
+        assert!(wire_is_empty(&first_override([
+            Wire::Items(vec![]),
+            Wire::Dict(vec![]),
+            wire_empty()
+        ])));
+        assert_eq!(
+            wire_as_text(&first_override([Wire::Items(vec![]), wire_text("pong")])),
+            "pong"
+        );
     }
 
     #[test]

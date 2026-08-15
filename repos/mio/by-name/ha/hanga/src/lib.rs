@@ -189,6 +189,9 @@ pub struct VoxelWrite {
 static VOXEL_WRITES: std::sync::LazyLock<std::sync::Mutex<Vec<VoxelWrite>>> =
     std::sync::LazyLock::new(|| std::sync::Mutex::new(Vec::new()));
 
+/// Guest `voxel-set` mesh flush cap. Overlay still records every write.
+pub const VOXEL_WRITE_CAP: usize = 256;
+
 pub fn queue_voxel_write(x: i32, y: i32, z: i32, name: impl Into<String>) {
     let name = name.into();
     let overlay = if name.is_empty() || name == "air" {
@@ -198,6 +201,9 @@ pub fn queue_voxel_write(x: i32, y: i32, z: i32, name: impl Into<String>) {
     };
     overlay_set(x, y, z, overlay);
     if let Ok(mut queue) = VOXEL_WRITES.lock() {
+        if queue.len() >= VOXEL_WRITE_CAP {
+            queue.remove(0);
+        }
         queue.push(VoxelWrite { x, y, z, name });
     }
 }
@@ -851,6 +857,20 @@ mod tests {
         assert_eq!(overlay_name(0, 0, 0), None);
         overlay_clear();
         assert_eq!(overlay_name(1, 2, 3), None);
+    }
+
+    #[test]
+    fn voxel_write_queue_drops_oldest() {
+        overlay_clear();
+        let _ = take_voxel_writes();
+        for i in 0..=VOXEL_WRITE_CAP {
+            queue_voxel_write(i as i32, 0, 0, "glass");
+        }
+        let writes = take_voxel_writes();
+        assert_eq!(writes.len(), VOXEL_WRITE_CAP);
+        assert_eq!(writes[0].x, 1);
+        assert_eq!(writes[VOXEL_WRITE_CAP - 1].x, VOXEL_WRITE_CAP as i32);
+        overlay_clear();
     }
 
     // ── is_connected_to_ground ────────────────────────────────────────────────
