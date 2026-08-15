@@ -2,21 +2,22 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  go,
   nix-update-script,
   runCommand,
 }:
 buildGoModule (finalAttrs: {
   pname = "ceph-mgr-ts-gateway";
-  version = "0.2.0";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "ceph-mgr-ts-gateway";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-h3cdemyYqITtzjwnm7Md6HlTl9EkBsldBvRcBIAc7Hc=";
+    hash = "sha256-UFOZxjvTIi/hQF9EkkKgM4koXVZLIzXiImgppvQWDmU=";
   };
 
-  vendorHash = "sha256-UpLPXWyA4aIDjlUNKgFh3hkres4QfUDHnB0hykeR7WA=";
+  vendorHash = "sha256-OfUI9qWzTh2rhTYfW7f8y9UGwqAZZJsU0AtcQFC5ROo=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
@@ -44,5 +45,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/ceph-mgr-ts-gateway";
     license = lib.licenses.mit;
     mainProgram = "ceph-mgr-ts-gateway";
+    broken = lib.strings.versionOlder go.version "1.26.5";
   };
 })
