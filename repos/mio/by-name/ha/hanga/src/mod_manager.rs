@@ -1658,6 +1658,18 @@ mod tests {
             )),
             "pong"
         );
+        assert_eq!(
+            wire_as_text(&bus.invoke(
+                "host",
+                "",
+                "craft-result",
+                wire_bag(vec![
+                    ("a", wire_text("concrete")),
+                    ("b", wire_text("glass")),
+                ])
+            )),
+            "tile"
+        );
         let at = wire_bag(vec![
             ("x", Wire::Int(0)),
             ("y", Wire::Int(0)),
@@ -1823,6 +1835,155 @@ mod tests {
         );
         assert_eq!(mark.get("x").and_then(::hanga::kit::Node::as_i32), Some(531));
         assert!(mark.get("take").is_some_and(::hanga::kit::Node::as_flag));
+        assert_eq!(
+            ctx.bus_i32("ambient-agent-count", &wire_empty(), 0),
+            6
+        );
+        assert_eq!(
+            ctx.bus_xyz_name(
+                "ambient-agent-spawn",
+                &wire_int(0),
+                (0, 0, 0, String::new())
+            ),
+            (502, 2, 500, "pedestrian".into())
+        );
+        assert_eq!(
+            ctx.bus_text_payload(
+                "should-spawn-agent",
+                &wire_bag(vec![
+                    ("action", wire_text("break")),
+                    ("old", Wire::Int(0)),
+                    ("new", Wire::Int(1)),
+                ])
+            ),
+            "cop"
+        );
+        assert_eq!(
+            ctx.bus_node("action-range", &wire_bag(vec![("action", wire_text("explode"))]))
+                .as_f32(),
+            Some(30.0)
+        );
+        assert_eq!(
+            ctx.bus_i32(
+                "can-complete",
+                &wire_bag(vec![
+                    ("action", wire_text("accept_contract")),
+                    ("state", Wire::Int(0)),
+                    ("kind", wire_text("smash-and-grab")),
+                    ("danger", Wire::Int(1)),
+                    ("held", wire_text("")),
+                    ("y", Wire::Int(0)),
+                    ("vehicle", Wire::Flag(false)),
+                    ("near", Wire::Flag(false)),
+                ]),
+                -1
+            ),
+            1
+        );
+        let crash = ctx.bus_node(
+            "crash-kit",
+            &wire_bag(vec![
+                ("speed", Wire::Float(30.0)),
+                ("solid", Wire::Flag(true)),
+            ]),
+        );
+        assert_eq!(
+            crash.get("severity").and_then(::hanga::kit::Node::as_i32),
+            Some(100)
+        );
+        let fire = ctx.bus_node(
+            "fire-kit",
+            &wire_bag(vec![
+                ("age", Wire::Int(0)),
+                ("nearby", wire_text("glass")),
+            ]),
+        );
+        assert!(fire.get("consume").is_some_and(::hanga::kit::Node::as_flag));
+        assert!(!fire.get("out").is_some_and(::hanga::kit::Node::as_flag));
+        assert_eq!(
+            ctx.bus_i32(
+                "tick",
+                &wire_bag(vec![("state", Wire::Int(3)), ("dt", Wire::Int(8000))]),
+                -1
+            ),
+            2
+        );
+        assert_eq!(
+            ctx.bus_i32(
+                "should-despawn-agent",
+                &wire_bag(vec![
+                    ("agent", wire_text("cop")),
+                    ("state", Wire::Int(0)),
+                ]),
+                -1
+            ),
+            1
+        );
+        assert_eq!(
+            ctx.bus_text_payload("story-event", &wire_int(0)),
+            "quiet-streets"
+        );
+        let offer = ctx.bus_node("offer-contract", &wire_int(0));
+        assert_eq!(
+            offer.get("kind").map(::hanga::kit::Node::text).as_deref(),
+            Some("smash-and-grab")
+        );
+        assert_eq!(
+            offer.get("payout").and_then(::hanga::kit::Node::as_i32),
+            Some(250)
+        );
+        assert_eq!(
+            ctx.bus_i32("economy-params", &wire_empty(), 0),
+            (5 << 16) | 8
+        );
+        let steer = ctx.bus_node(
+            "steer",
+            &wire_bag(vec![
+                ("role", wire_text("cop")),
+                ("cur-x", Wire::Float(0.0)),
+                ("cur-z", Wire::Float(0.0)),
+                ("target-x", Wire::Float(10.0)),
+                ("target-z", Wire::Float(0.0)),
+            ]),
+        );
+        assert_eq!(steer.get("vx").and_then(::hanga::kit::Node::as_f32), Some(8.0));
+        assert_eq!(
+            ctx.bus_xyz("vehicle-spawn", &wire_int(0), (0, 0, 0)),
+            (500, 2, 495)
+        );
+        let locales = ctx.bus_node("supported-locales", &wire_empty());
+        assert!(locales.get("en").is_some_and(::hanga::kit::Node::as_flag));
+        assert!(locales.get("mi").is_some_and(::hanga::kit::Node::as_flag));
+        assert_eq!(
+            ctx.bus_text_payload(
+                "contract-label",
+                &wire_bag(vec![
+                    ("locale", wire_text("en")),
+                    ("kind", wire_text("smash-and-grab")),
+                ])
+            ),
+            "smash-and-grab"
+        );
+        assert_eq!(
+            ctx.bus_text_payload(
+                "item-label",
+                &wire_bag(vec![
+                    ("locale", wire_text("mi")),
+                    ("item", wire_text("glass")),
+                ])
+            ),
+            "karaihe"
+        );
+        assert_eq!(
+            ctx.bus_text_payload(
+                "event-label",
+                &wire_bag(vec![
+                    ("locale", wire_text("mi")),
+                    ("event", wire_text("quiet-streets")),
+                ])
+            ),
+            "ngā huarahi mārie"
+        );
         *slot.lock().unwrap() = Some(ctx);
     }
 }

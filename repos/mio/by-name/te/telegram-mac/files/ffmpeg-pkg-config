@@ -1,0 +1,64 @@
+#!/bin/sh
+# FFmpeg configure helper used by Telegram-iOS's bundled ffmpeg build.
+LIBOPUS_PATH=""
+LIBVPX_PATH=""
+LIBDAV1D_PATH=""
+CMD=""
+NAME=""
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --libopus_path)
+      LIBOPUS_PATH="$2"
+      shift 2
+      ;;
+    --libvpx_path)
+      LIBVPX_PATH="$2"
+      shift 2
+      ;;
+    --libdav1d_path)
+      LIBDAV1D_PATH="$2"
+      shift 2
+      ;;
+    --version | --exists | --cflags | --libs)
+      CMD="$1"
+      shift 1
+      ;;
+    --print-errors) shift 1 ;;
+    zlib* | opus* | vpx* | dav1d*)
+      NAME="$1"
+      shift 1
+      ;;
+    *) shift 1 ;;
+  esac
+done
+
+if [ "$CMD" = "--version" ]; then
+  echo "0.29.2"
+  exit 0
+elif [ "$CMD" = "--exists" ]; then
+  case "$NAME" in
+    zlib* | opus* | vpx* | dav1d*) exit 0 ;;
+    *) exit 1 ;;
+  esac
+elif [ "$CMD" = "--cflags" ]; then
+  case "$NAME" in
+    zlib*) echo "" ;;
+    opus*) echo "-I$LIBOPUS_PATH/include/opus/include -I$LIBOPUS_PATH/include/opus" ;;
+    vpx*) echo "-I$LIBVPX_PATH/include" ;;
+    dav1d*) echo "-I$LIBDAV1D_PATH/include" ;;
+    *) exit 1 ;;
+  esac
+  exit 0
+elif [ "$CMD" = "--libs" ]; then
+  case "$NAME" in
+    zlib*) echo "-lz" ;;
+    opus*) echo "-L$LIBOPUS_PATH/lib -lopus" ;;
+    vpx*) echo "-L$LIBVPX_PATH/lib -lVPX" ;;
+    dav1d*) echo "-L$LIBDAV1D_PATH/lib -ldav1d" ;;
+    *) exit 1 ;;
+  esac
+  exit 0
+else
+  exit 1
+fi

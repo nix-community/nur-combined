@@ -19,7 +19,10 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   snapshot. `live_wasm_urban_chaos_query_voxel` loads
   the city lead and checks a catalog name at `(0,0,0)`, loot/craft names,
   gravity, fracture-kit, evaluate-action, spawn, vehicle-kit, wallet,
-  labels, economy-price, and contract-mark. Two-pack live tests
+  labels, economy-price, contract-mark, agents, crash/fire kits, tick,
+  story-event, offer-contract, steer, locales, vehicle-spawn, and
+  remaining labels. Empty-peer `craft-result` uses the urban pack over
+  testbed's empty reply. Two-pack live tests
   also probe lead `voxel()` and guest `voxel-set` (`paint`). Testbed `later`
   covers host `after` (flushed in-process); `who` / `see` cover `id` and
   `has-mod`; `clock` / `crew` / `yell` cover `now-ms`, `peers`, and guest
