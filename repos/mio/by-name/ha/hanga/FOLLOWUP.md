@@ -17,11 +17,13 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `query-voxel` / catalog names, gravity, guest `fail("busy")` via `refuse`,
   and emit veto (`veto` vs `ping`). Testbed `selfie` returns the host `player()`
   snapshot. `live_wasm_urban_chaos_query_voxel` loads
-  the city lead and checks a catalog name at `(0,0,0)`. Two-pack live tests
+  the city lead and checks a catalog name at `(0,0,0)`, loot/craft names,
+  gravity, fracture-kit, and evaluate-action. Two-pack live tests
   also probe lead `voxel()` and guest `voxel-set` (`paint`). Testbed `later`
   covers host `after` (flushed in-process); `who` / `see` cover `id` and
   `has-mod`; `clock` / `crew` / `yell` cover `now-ms`, `peers`, and guest
-  `emit` (self is skipped).
+  `emit` (self is skipped). `ask` is guest `invoke` to a named peer. `boom`
+  traps and reloads the pack (guest statics reset).
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names

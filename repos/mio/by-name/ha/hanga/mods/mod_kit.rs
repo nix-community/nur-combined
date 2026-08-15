@@ -337,6 +337,23 @@ fn host_send(peer: &str, method: &str, args: &hanga::engine::host::Value) {
 }
 
 #[allow(dead_code)]
+fn host_invoke(
+    peer: &str,
+    method: &str,
+    args: &hanga::engine::host::Value,
+) -> hanga::engine::host::Value {
+    #[cfg(target_arch = "wasm32")]
+    {
+        hanga::engine::host::invoke(peer, method, args)
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let _ = (peer, method, args);
+        wire_empty()
+    }
+}
+
+#[allow(dead_code)]
 fn host_voxel_set(x: i32, y: i32, z: i32, name: &str) {
     #[cfg(target_arch = "wasm32")]
     {

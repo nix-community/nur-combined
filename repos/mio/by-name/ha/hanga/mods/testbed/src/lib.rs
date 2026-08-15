@@ -26,7 +26,7 @@ static NOTES: AtomicI32 = AtomicI32::new(0);
 struct TestbedMod;
 
 fn testbed_topics() -> String {
-    format!("{BUS_TOPICS},refuse,veto,selfie,paint,later,note,count,who,see,clock,crew,yell")
+    format!("{BUS_TOPICS},refuse,veto,selfie,paint,later,note,count,who,see,clock,crew,yell,ask,boom")
 }
 
 pub const ACTION_BREAK: &str = "break";
@@ -423,6 +423,12 @@ pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Value)
         "clock" => wire_int(host_clock()),
         "crew" => wire_list(host_peers().into_iter().map(atom_text).collect()),
         "yell" => wire_flag(host_emit("veto", &wire_empty())),
+        "ask" => host_invoke(
+            payload_str(payload, "peer"),
+            payload_str(payload, "method"),
+            &wire_empty(),
+        ),
+        "boom" => panic!("testbed boom"),
         _ => wire_empty(),
     }
 }
