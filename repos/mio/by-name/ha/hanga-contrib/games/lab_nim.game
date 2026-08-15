@@ -1,0 +1,23 @@
+# Checkerboard grid from the nlvm/Nim contrib pack.
+id=lab_nim
+mods=lab_nim
+title.en=Lab nim
+title.mi=Nim taiwhanga
+title.fr=Nim de labo
+title.zh-TW=實驗 Nim
+sky=0.12 0.14 0.20
+menu_clear=0.07 0.08 0.12
+menu_panel=0.04 0.04 0.07 0.82
+menu_accent=0.78 0.86 0.55
+menu_button=0.16 0.18 0.12
+menu_button_hover=0.24 0.28 0.16
+sun=0.95 0.98 0.80
+sun_illuminance=8600
+ambient=0.42 0.48 0.40
+ambient_brightness=210
+fog=0.16 0.18 0.22
+fog_start=80
+fog_end=360
+palette.0=24 26 32
+palette.1=140 170 90
+palette.2=210 200 80

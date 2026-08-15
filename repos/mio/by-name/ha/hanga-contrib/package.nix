@@ -16,6 +16,12 @@
   wit-bindgen,
   guile,
   guile-hoot,
+  nlvm,
+  llvmPackages,
+  patchelf,
+  nim,
+  nim-unwrapped,
+  koka,
 }:
 
 let
@@ -88,6 +94,14 @@ stdenv.mkDerivation {
     wit-bindgen
     guile
     guile-hoot
+    nim
+    koka
+  ]
+  ++ lib.optionals (stdenv.buildPlatform.system == "x86_64-linux") [
+    nlvm
+    llvmPackages.clang
+    llvmPackages.lld
+    patchelf
   ];
 
   env.JAVA_HOME = jdk;
@@ -179,6 +193,58 @@ stdenv.mkDerivation {
     hoot compile -L lib/scheme --mode=standalone \
       -o lab_owl.wasm examples/lab-owl/main.scm
 
+    ${lib.optionalString (stdenv.buildPlatform.system == "x86_64-linux") ''
+      nlvm c --path:lib/nim/hangamod --outdir:"$TMPDIR/nlvm-test" \
+        --passl:-L${stdenv.cc.libc.out}/lib \
+        --passl:-L${stdenv.cc.cc.lib}/lib \
+        lib/nim/hangamod/test.nim
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        "$TMPDIR/nlvm-test/test"
+      "$TMPDIR/nlvm-test/test"
+    ''}
+
+    # nlvm --cpu:wasm32 SIGSEGVs on the continuous Linux tarball (llgen).
+    # Nim C backend + the same wit-bindgen C objects as Zig produces the component.
+    nim c --cpu:wasm32 --os:standalone --mm:none --noMain --threads:off \
+      --compileOnly --nimcache:nimcache examples/lab-nim/main.nim
+    zig build-exe examples/lab-nim/payload.c zig-c/plugin.c zig-c/plugin_component_type.o \
+      $(find nimcache -name '*.c') \
+      -target wasm32-wasi-musl -O ReleaseSmall -fno-entry -rdynamic -lc \
+      -I zig-c -I ${nim-unwrapped}/nim/lib -femit-bin=lab_nim.core.wasm
+    wasm-tools component embed wit lab_nim.core.wasm -o lab_nim.embedded.wasm
+    wasm-tools component new lab_nim.embedded.wasm \
+      --adapt wasi_snapshot_preview1=wasi_p1_stub.wasm \
+      -o lab_nim.wasm
+
+    koka -e --builddir="$TMPDIR/koka-test" --include=lib/koka lib/koka/hangamod/test.kk
+    (
+      cd examples/lab-koka
+      koka -c --library --target=c32 --builddir="$TMPDIR/koka-mod" \
+        --ccopts=-Wno-implicit-function-declaration \
+        labkoka.kk
+    )
+    KOKAC=$(find "$TMPDIR/koka-mod" -name labkoka.c -printf '%h\n' | head -n 1)
+    KKLIB=$(echo ${koka}/share/koka/v*/kklib)
+    zig cc "$KKLIB/src/all.c" \
+      examples/lab-koka/wasi-stubs.c \
+      examples/lab-koka/payload.c \
+      examples/lab-koka/guest.c \
+      zig-c/plugin.c zig-c/plugin_component_type.o \
+      $(find "$KOKAC" -name '*.c') \
+      -I "$KKLIB/include" -I "$KOKAC" -I zig-c \
+      -include examples/lab-koka/wasi-posix.h \
+      -Wno-#pragma-messages \
+      -DKK_STATIC_LIB=1 -DKK_COMP_VERSION='"3.2.3"' \
+      -D_WASI_EMULATED_SIGNAL \
+      -target wasm32-wasi-musl -O2 -Wl,--no-entry -Wl,--export-dynamic \
+      -lc -lwasi-emulated-signal \
+      -o lab_koka.core.wasm
+    wat2wasm wasi_p1_koka_stub.wat -o wasi_p1_koka_stub.wasm
+    wasm-tools component embed wit lab_koka.core.wasm -o lab_koka.embedded.wasm
+    wasm-tools component new lab_koka.embedded.wasm \
+      --adapt wasi_snapshot_preview1=wasi_p1_koka_stub.wasm \
+      -o lab_koka.wasm
+
     runHook postBuild
   '';
 
@@ -188,6 +254,8 @@ stdenv.mkDerivation {
     cp lab_tile.wasm $out/share/hanga/mods/lab_tile.wasm
     cp lab_slab.wasm $out/share/hanga/mods/lab_slab.wasm
     cp lab_grid.wasm $out/share/hanga/mods/lab_grid.wasm
+    cp lab_nim.wasm $out/share/hanga/mods/lab_nim.wasm
+    cp lab_koka.wasm $out/share/hanga/mods/lab_koka.wasm
     cp lab_owl.wasm $out/share/hanga/hoot/lab_owl.wasm
     cp -a games/. $out/share/hanga/games/
     rm -f $out/share/hanga/games/lab_owl.game
@@ -197,7 +265,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Hanga contrib mods: Kotlin, TinyGo, Zig, and Hoot examples";
+    description = "Hanga contrib mods: Kotlin, TinyGo, Zig, nlvm/Nim, Koka, and Hoot examples";
     license = lib.licenses.mit;
   };
 }

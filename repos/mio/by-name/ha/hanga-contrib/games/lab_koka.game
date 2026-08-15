@@ -1,0 +1,23 @@
+# Checkerboard from the Koka contrib pack.
+id=lab_koka
+mods=lab_koka
+title.en=Lab koka
+title.mi=Koka taiwhanga
+title.fr=Koka de labo
+title.zh-TW=實驗 Koka
+sky=0.14 0.12 0.18
+menu_clear=0.08 0.06 0.12
+menu_panel=0.05 0.04 0.08 0.82
+menu_accent=0.86 0.70 0.92
+menu_button=0.20 0.14 0.22
+menu_button_hover=0.30 0.20 0.32
+sun=0.96 0.88 1.00
+sun_illuminance=8400
+ambient=0.48 0.40 0.52
+ambient_brightness=210
+fog=0.18 0.14 0.22
+fog_start=80
+fog_end=360
+palette.0=28 22 32
+palette.1=170 110 190
+palette.2=220 160 90

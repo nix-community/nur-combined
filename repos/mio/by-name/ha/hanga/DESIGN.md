@@ -166,7 +166,7 @@ Load with `--game urban_chaos` (default), `--game testbed`, or `--mod` for a
 lone WASM (implicit one-mod game, neutral menu). Packaged builds install
 WASM in `$out/share/hanga/mods` (`HANGA_MODS`) and `.game` files in
 `$out/share/hanga/games` (`HANGA_GAMES`). Extra language packs live in
-`nix build .#hanga-contrib` (`lab_tile` Kotlin/Wasm, `lab_slab` TinyGo, `lab_grid` Zig, `lab_owl` Hoot). The engine
+`nix build .#hanga-contrib` (`lab_tile` Kotlin/Wasm, `lab_slab` TinyGo, `lab_grid` Zig, `lab_nim` nlvm, `lab_koka` Koka, `lab_owl` Hoot). The engine
 currently instantiates the lead mod for terrain (`query-voxel`) and extra packs
 for vehicles, agents, and loot. Extra packs cannot replace lead worldgen.
 

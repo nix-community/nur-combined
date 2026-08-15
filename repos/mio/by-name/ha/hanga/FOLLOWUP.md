@@ -50,7 +50,13 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `share/hanga/hoot/`, not next to WIT packs. Still needs a Hoot runtime in the
   host (see contrib README).
 - **Zig has no guest wit-bindgen.** C `plugin.h` + `cabi_realloc` is fragile
-  (already burned once). Track upstream Zig component bindgen.
+  (already burned once). Track upstream Zig component bindgen. The nlvm pack
+  uses the same C bindgen; Nim itself does not generate WIT guests.
+- **nlvm wasm32 SIGSEGV.** The continuous Linux tarball crashes in `llgen` on
+  `--cpu:wasm32`. `lab_nim` uses the Nim C backend + Zig/wasi link until that
+  is fixed. Native hangamod tests still use nlvm (x86_64-linux only).
+- **Koka wasm is emcc in upstream.** Contrib uses `--target=c32` + Zig WASI
+  instead of Emscripten so the guest is a WIT component.
 - **Guests still rarely `send` or return `fail`.** lab_tile / lab_slab / lab_grid
   `ready` now `send` `hello` to peers. Treat `fail` as `{error, Reason}` at more
   call sites.
