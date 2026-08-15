@@ -991,6 +991,7 @@ pub struct ModRuntime {
     bus: Arc<dyn EngineBus>,
     loaded_paths: Vec<PathBuf>,
     woken: bool,
+    reload_pending: bool,
     _watcher: notify::RecommendedWatcher,
 }
 
@@ -1032,13 +1033,13 @@ impl ModRuntime {
     }
 
     pub fn wake_all(&mut self) {
-        if let Ok(mut guard) = self.context.lock() {
+        if let Ok(mut guard) = self.context.try_lock() {
             if let Some(ctx) = guard.as_mut() {
                 ctx.wake();
             }
         }
         for pack in &self.packs {
-            if let Ok(mut guard) = pack.context.lock() {
+            if let Ok(mut guard) = pack.context.try_lock() {
                 if let Some(ctx) = guard.as_mut() {
                     ctx.wake();
                 }
@@ -1046,6 +1047,43 @@ impl ModRuntime {
         }
         self.notify_all("on-mods-loaded", &wire_empty());
         self.woken = true;
+    }
+
+    fn try_reload_from_disk(&mut self) -> bool {
+        let bus = Arc::clone(&self.bus);
+        let new_lead = Self::instantiate(
+            &self.watch_path,
+            &self.lead_name,
+            Arc::clone(&bus),
+            true,
+        );
+        let new_packs: Vec<_> = self
+            .packs
+            .iter()
+            .map(|pack| Self::instantiate(&pack.path, &pack.name, Arc::clone(&bus), false))
+            .collect();
+        let Ok(mut lead) = self.context.try_lock() else {
+            return false;
+        };
+        let mut pack_locks = Vec::new();
+        for pack in &self.packs {
+            let Ok(guard) = pack.context.try_lock() else {
+                return false;
+            };
+            pack_locks.push(guard);
+        }
+        if new_lead.is_some() {
+            *lead = new_lead;
+        } else {
+            error!("Failed to reload lead WASM mod");
+        }
+        for (guard, fresh) in pack_locks.iter_mut().zip(new_packs) {
+            **guard = fresh;
+        }
+        drop(lead);
+        drop(pack_locks);
+        self.wake_all();
+        true
     }
 
     pub fn flush_after(&self) {
@@ -1126,6 +1164,7 @@ impl ModRuntime {
             bus,
             loaded_paths: vec![watch_path],
             woken: false,
+            reload_pending: false,
             _watcher: watcher,
         }
     }
@@ -1302,31 +1341,17 @@ fn watch_mod_changes(mut runtime: ResMut<ModRuntime>) {
         }
     }
 
-    if !changed {
+    if changed {
+        runtime.reload_pending = true;
+    }
+    if !runtime.reload_pending {
         return;
     }
     info!("Reloading WASM collection...");
-    let bus = Arc::clone(&runtime.bus);
-    let new_context = ModRuntime::instantiate(
-        &runtime.watch_path,
-        &runtime.lead_name,
-        Arc::clone(&bus),
-        true,
-    );
-    if new_context.is_some() {
-        let mut ctx_lock = runtime.context.lock().unwrap();
-        *ctx_lock = new_context;
-        info!("Lead WASM reloaded successfully!");
-    } else {
-        error!("Failed to reload lead WASM mod");
+    if runtime.try_reload_from_disk() {
+        runtime.reload_pending = false;
+        info!("WASM collection reloaded");
     }
-    for pack in &runtime.packs {
-        let reloaded = ModRuntime::instantiate(&pack.path, &pack.name, Arc::clone(&bus), false);
-        if let Ok(mut ctx) = pack.context.lock() {
-            *ctx = reloaded;
-        }
-    }
-    runtime.wake_all();
 }
 
 #[cfg(test)]
@@ -2033,6 +2058,22 @@ mod tests {
         }
         assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
         assert!(!runtime.emit_all("ping", &wire_empty()));
+    }
+
+    #[test]
+    fn live_wasm_mod_runtime_reload_skips_when_busy() {
+        let Some(mut runtime) = instantiate_live_runtime("testbed", "urban_chaos") else {
+            return;
+        };
+        let slot = Arc::clone(&runtime.packs[0].context);
+        {
+            let _hold = slot.lock().unwrap();
+            runtime.reload_pending = true;
+            assert!(!runtime.try_reload_from_disk());
+            assert!(runtime.reload_pending);
+        }
+        assert!(runtime.try_reload_from_disk());
+        assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
     }
 
     #[test]

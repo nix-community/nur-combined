@@ -173,6 +173,9 @@ pub fn parse_fracture_kit_fields(fields: &crate::kit::Fields) -> FractureKit {
 }
 
 pub fn parse_fracture_kit_node(node: &crate::kit::Node) -> FractureKit {
+    if node.is_empty() {
+        return FractureKit::default();
+    }
     let mut kit = FractureKit {
         impulse: 5.0,
         ..FractureKit::default()
@@ -373,6 +376,7 @@ mod tests {
         assert_eq!(parse_crash_kit("").severity, 0);
         let frac = parse_fracture_kit("can=1;spread=3;impulse=15");
         assert!(frac.can && frac.spread == 3);
+        assert_eq!(parse_fracture_kit(""), FractureKit::default());
         assert_eq!(parse_planar("vx=1;vz=-2"), Some(PlanarVel { vx: 1.0, vz: -2.0 }));
         assert_eq!(parse_planar(""), None);
         let fire = parse_fire_kit("heat=1.2;range=8;consume=1;jump=1;burst=0;out=0");
