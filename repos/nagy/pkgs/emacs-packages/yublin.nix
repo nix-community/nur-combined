@@ -15,6 +15,18 @@ melpaBuild {
     hash = "sha256-/O6N5w/dgo3EdUEW+pGlYamnjgwQ5xJV26Fjsyn6L8A=";
   };
 
+  turnCompilationWarningToError = true;
+
+  checkPhase = ''
+    runHook preCheck
+    emacs --batch -L . \
+      -l yublin-tests.el \
+      -f ert-run-tests-batch-and-exit
+    runHook postCheck
+  '';
+
+  doCheck = true;
+
   meta = {
     homepage = "https://github.com/nagy/yublin.el";
     description = "Yublin shorthand expansion for Emacs";

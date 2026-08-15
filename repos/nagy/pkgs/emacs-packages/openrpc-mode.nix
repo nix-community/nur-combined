@@ -20,6 +20,8 @@ melpaBuild {
     jsonrpc
   ];
 
+  turnCompilationWarningToError = true;
+
   meta = {
     homepage = "https://github.com/nagy/emacs-openrpc-mode";
     description = "Introspect JSON-RPC commands and servers via OpenRPC";

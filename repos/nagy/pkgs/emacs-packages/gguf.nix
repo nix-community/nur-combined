@@ -15,6 +15,8 @@ melpaBuild {
     hash = "sha256-OuDtSTn56bHqma3txFou6G+XHXy5FtF+Wm8ateUObb4=";
   };
 
+  turnCompilationWarningToError = true;
+
   meta = {
     homepage = "https://github.com/nagy/gguf.el";
     description = "Major mode for viewing GGUF file metadata";

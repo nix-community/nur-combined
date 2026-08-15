@@ -15,6 +15,18 @@ melpaBuild {
     hash = "sha256-zO2tKTXk68NgyyaB7HmwIqTtUbgpgXB9HmT20jry6pY=";
   };
 
+  turnCompilationWarningToError = true;
+
+  checkPhase = ''
+    runHook preCheck
+    emacs --batch -L . \
+      -l derivation-tests.el \
+      -f ert-run-tests-batch-and-exit
+    runHook postCheck
+  '';
+
+  doCheck = true;
+
   meta = {
     homepage = "https://github.com/nagy/derivation.el";
     description = "Live buffer derivation via external commands";

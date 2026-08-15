@@ -3,6 +3,7 @@
   melpaBuild,
   fetchFromGitHub,
   magit-section,
+  universal-ctags,
 }:
 
 melpaBuild {
@@ -19,6 +20,13 @@ melpaBuild {
   packageRequires = [
     magit-section
   ];
+
+  postPatch = ''
+    substituteInPlace ctags-mode.el \
+      --replace-fail 'ctags-program "ctags"' 'ctags-program "${lib.getExe universal-ctags}"'
+  '';
+
+  turnCompilationWarningToError = true;
 
   meta = {
     homepage = "https://github.com/nagy/emacs-ctags-mode";
