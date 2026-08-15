@@ -46,7 +46,8 @@ on the same pack later.
 `invoke(peer)` is a direct call into that pack (Luanti `mobs.api()`). Empty peer
 asks later packs then the lead (Luanti `override_item`).
 `emit(method)` calls **every** pack that lists the method and skips the caller
-(Luanti `register_on_dignode`). `flag(true)` vetoes.
+(Luanti `register_on_dignode`). `flag(true)` or `fail` vetoes (`emit_all` and
+guest `emit` share `emit_blocks`).
 
 `ready` runs after every pack in the collection exists (Luanti file load). The
 host then **casts** `on-mods-loaded`. Each playing frame it **casts** `on-step`

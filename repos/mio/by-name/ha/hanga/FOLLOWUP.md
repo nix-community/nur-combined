@@ -29,7 +29,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `steer` covers cop chase and traffic planar (`fwd-x` / `fwd-z` / `blocked`).
   `hello` / `name` / `has` / `methods` are live on testbed. `ready` greets a
   locked peer (`hello` mailbox) and logs `testbed ready`. Host `voxel()`
-  matches guest `probe` for worldgen and overlay.
+  matches guest `probe` for worldgen and overlay. `ModRuntime::load_collection`
+  is live for `ask_any` (urban `craft-result` over testbed empty, `refuse` fail)
+  and `emit_all` (veto vs ping, and `refuse` `fail("busy")` also blocks).
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names

@@ -1034,12 +1034,12 @@ impl ModRuntime {
         self.bus.send("host", "", method, args.clone());
     }
 
-    /// OTP `gen_event:call` to every pack. Any veto flag stops the engine action.
+    /// OTP `gen_event:call` to every pack. Veto flag or `fail` stops the engine action.
     pub fn emit_all(&self, method: &str, args: &Wire) -> bool {
         let mut veto = false;
         if let Ok(mut guard) = self.context.lock() {
             if let Some(ctx) = guard.as_mut() {
-                if wire_is_veto(&ctx.call("host", method, args)) {
+                if emit_blocks(Ok(&ctx.call("host", method, args))) {
                     veto = true;
                 }
             }
@@ -1047,7 +1047,7 @@ impl ModRuntime {
         for pack in &self.packs {
             if let Ok(mut guard) = pack.context.lock() {
                 if let Some(ctx) = guard.as_mut() {
-                    if wire_is_veto(&ctx.call("host", method, args)) {
+                    if emit_blocks(Ok(&ctx.call("host", method, args))) {
                         veto = true;
                     }
                 }
@@ -1530,6 +1530,14 @@ mod tests {
         Some((bus, lead, pack))
     }
 
+    fn instantiate_live_runtime(lead: &str, pack: &str) -> Option<ModRuntime> {
+        let lead_path = mods_wasm(lead)?;
+        let pack_path = mods_wasm(pack)?;
+        let mut runtime = ModRuntime::new(&lead_path);
+        runtime.load_collection(&[(lead.into(), lead_path), (pack.into(), pack_path)]);
+        Some(runtime)
+    }
+
     #[test]
     fn live_wasm_testbed_ping_and_self_cast() {
         let Some((bus, slot, ctx)) = instantiate_live("testbed") else {
@@ -1917,6 +1925,33 @@ mod tests {
         assert!(host_overlay.get("edit").is_some_and(::hanga::kit::Node::as_flag));
         ::hanga::overlay_clear();
         let _ = ::hanga::take_voxel_writes();
+    }
+
+    #[test]
+    fn live_wasm_mod_runtime_ask_any_and_emit_all() {
+        let Some(runtime) = instantiate_live_runtime("testbed", "urban_chaos") else {
+            return;
+        };
+        assert_eq!(runtime.lead_name(), "testbed");
+        assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
+        assert_eq!(
+            runtime.ask_any_text(
+                "craft-result",
+                &wire_bag(vec![
+                    ("a", wire_text("concrete")),
+                    ("b", wire_text("glass")),
+                ])
+            ),
+            "tile"
+        );
+        assert!(matches!(
+            runtime.ask_any("refuse", &wire_empty()),
+            Wire::Fail(reason) if reason == "busy"
+        ));
+        assert!(runtime.emit_all("veto", &wire_empty()));
+        assert!(runtime.emit_all("refuse", &wire_empty()));
+        assert!(!runtime.emit_all("ping", &wire_empty()));
+        runtime.notify_all("hello", &wire_empty());
     }
 
     #[test]
