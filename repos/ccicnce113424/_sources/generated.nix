@@ -424,10 +424,10 @@
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.3.1";
+    version = "0.3.2";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.3.1/waywallen-kde-0.3.1-x86_64-embed.zip";
-      sha256 = "sha256-6eb/4kRBMjIRYBvMK1XKGB33x7OSqyLKFrgBiFjYY6s=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.3.2/waywallen-kde-0.3.2-x86_64-embed.zip";
+      sha256 = "sha256-1fNWNuaaTsksQ142v5vzB90aceH9kNcMMDFx9X2Ib5s=";
     };
   };
   wild = {
