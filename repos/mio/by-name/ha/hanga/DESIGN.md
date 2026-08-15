@@ -250,6 +250,6 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 
 ## Next
 
-Larger follow-ups (mailbox bounds, nested kit parse without flattening, Hoot guest,
-mod crash isolation, tests for `fail`/`busy`, cargo-kani packaging) are in
+Larger follow-ups (remaining kit parsers on `Node`, Hoot guest, pack restart
+after trap, tests for live `busy`, cargo-kani packaging) are in
 [FOLLOWUP.md](FOLLOWUP.md).

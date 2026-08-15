@@ -322,7 +322,26 @@ fn join_key(prefix: &str, key: &str) -> String {
     }
 }
 
-fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit::Cell)>) {
+pub fn node_from_wire(value: &Wire) -> ::hanga::kit::Node {
+    match value {
+        Wire::Empty | Wire::Fail(_) => ::hanga::kit::Node::Empty,
+        Wire::Flag(flag) => ::hanga::kit::Node::Flag(*flag),
+        Wire::Int(n) => ::hanga::kit::Node::Int(*n),
+        Wire::Float(n) => ::hanga::kit::Node::Float(*n),
+        Wire::Text(text) => ::hanga::kit::Node::Text(text.clone()),
+        Wire::Items(items) => {
+            ::hanga::kit::Node::Items(items.iter().map(node_from_wire).collect())
+        }
+        Wire::Dict(fields) => ::hanga::kit::Node::Dict(
+            fields
+                .iter()
+                .map(|field| (field.key.clone(), node_from_wire(&field.value)))
+                .collect(),
+        ),
+    }
+}
+
+fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit::Atom)>) {
     match value {
         Wire::Empty => {}
         Wire::Flag(flag) => out.push((
@@ -331,7 +350,7 @@ fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit:
             } else {
                 prefix.into()
             },
-            ::hanga::kit::Cell::Flag(*flag),
+            ::hanga::kit::Atom::Flag(*flag),
         )),
         Wire::Int(n) => out.push((
             if prefix.is_empty() {
@@ -339,7 +358,7 @@ fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit:
             } else {
                 prefix.into()
             },
-            ::hanga::kit::Cell::Int(*n),
+            ::hanga::kit::Atom::Int(*n),
         )),
         Wire::Float(n) => out.push((
             if prefix.is_empty() {
@@ -347,7 +366,7 @@ fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit:
             } else {
                 prefix.into()
             },
-            ::hanga::kit::Cell::Float(*n),
+            ::hanga::kit::Atom::Float(*n),
         )),
         Wire::Text(text) => out.push((
             if prefix.is_empty() {
@@ -355,7 +374,7 @@ fn flatten_wire(prefix: &str, value: &Wire, out: &mut Vec<(String, ::hanga::kit:
             } else {
                 prefix.into()
             },
-            ::hanga::kit::Cell::Text(text.clone()),
+            ::hanga::kit::Atom::Text(text.clone()),
         )),
         Wire::Items(items) => {
             for (i, item) in items.iter().enumerate() {
@@ -556,7 +575,7 @@ impl EngineBus for LiveBus {
         if self.lead_name != from {
             match self.call_now(&self.lead, from, method, &args) {
                 Ok(reply) => {
-                    if wire_is_veto(&reply) {
+                    if wire_is_veto(&reply) || wire_is_fail(&reply) {
                         veto = true;
                     }
                 }
@@ -569,7 +588,7 @@ impl EngineBus for LiveBus {
             }
             match self.call_now(ctx, from, method, &args) {
                 Ok(reply) => {
-                    if wire_is_veto(&reply) {
+                    if wire_is_veto(&reply) || wire_is_fail(&reply) {
                         veto = true;
                     }
                 }
@@ -837,7 +856,7 @@ impl MainModContext {
             .hanga_engine_guest()
             .call_invoke(&mut self.store, from, topic, &lower_wire(payload))
             .map(|value| lift_wire(&value))
-            .unwrap_or_else(|_| wire_empty())
+            .unwrap_or_else(|_| wire_fail("trap"))
     }
 
     pub fn bus(&mut self, topic: &str, payload: &Wire) -> Wire {
@@ -850,6 +869,10 @@ impl MainModContext {
 
     pub fn bus_fields(&mut self, topic: &str, payload: &Wire) -> ::hanga::kit::Fields {
         fields_from_wire(&self.bus(topic, payload))
+    }
+
+    pub fn bus_node(&mut self, topic: &str, payload: &Wire) -> ::hanga::kit::Node {
+        node_from_wire(&self.bus(topic, payload))
     }
 
     pub fn bus_text(&mut self, topic: &str) -> String {
@@ -965,6 +988,10 @@ impl ModRuntime {
 
     pub fn ask_any_fields(&self, method: &str, args: &Wire) -> ::hanga::kit::Fields {
         fields_from_wire(&self.ask_any(method, args))
+    }
+
+    pub fn ask_any_node(&self, method: &str, args: &Wire) -> ::hanga::kit::Node {
+        node_from_wire(&self.ask_any(method, args))
     }
 
     pub fn wake_all(&mut self) {
@@ -1318,5 +1345,15 @@ mod tests {
             wire_as_text(&wire_bag(vec![("name", Wire::Text("glass".into()))])),
             ""
         );
+    }
+
+    #[test]
+    fn nested_wire_becomes_a_node_tree() {
+        let wire = Wire::Dict(vec![WireField {
+            key: "tires".into(),
+            value: Wire::Items(vec![wire_text("wheel")]),
+        }]);
+        let node = node_from_wire(&wire);
+        assert_eq!(node.get("tires").unwrap().names(), vec!["wheel"]);
     }
 }

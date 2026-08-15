@@ -74,6 +74,36 @@ pub fn parse_crash_kit(text: &str) -> CrashKit {
     parse_crash_kit_fields(&crate::kit::Fields::from_text(text))
 }
 
+pub fn parse_crash_kit_node(node: &crate::kit::Node) -> CrashKit {
+    use crate::kit::Node;
+    match node {
+        Node::Empty => CrashKit::default(),
+        Node::Text(text) => parse_crash_kit(text),
+        Node::Dict(_) => {
+            let mut kit = CrashKit::default();
+            if let Some(v) = node.get("severity").and_then(Node::as_i32) {
+                kit.severity = clamp_crash_severity(v);
+            }
+            if let Some(v) = node.get("crumple").and_then(Node::as_i32) {
+                kit.crumple = clamp_crash_severity(v);
+            }
+            kit.wrecks = node.flag("wrecks");
+            kit.ignites = node.flag("ignites") || node.flag("burn") || node.flag("fire");
+            if let Some(action) = node.get("action") {
+                kit.action = action.text();
+            }
+            if let Some(v) = node.get("impulse").and_then(Node::as_f32) {
+                kit.impulse = v.max(0.0);
+            }
+            if let Some(detach) = node.get("detach") {
+                kit.detach = detach.names();
+            }
+            kit
+        }
+        _ => CrashKit::default(),
+    }
+}
+
 pub fn parse_crash_kit_fields(fields: &crate::kit::Fields) -> CrashKit {
     let mut kit = CrashKit::default();
     for (key, cell) in &fields.pairs {
@@ -297,6 +327,19 @@ mod tests {
         );
         assert_eq!(kit.severity, 75);
         assert!(kit.wrecks && kit.ignites);
+        assert_eq!(kit.detach, vec!["lamp", "wheel"]);
+        let nested = parse_crash_kit_node(&crate::kit::Node::Dict(vec![
+            ("severity".into(), crate::kit::Node::Int(40)),
+            (
+                "detach".into(),
+                crate::kit::Node::Items(vec![
+                    crate::kit::Node::Text("lamp".into()),
+                    crate::kit::Node::Text("wheel".into()),
+                ]),
+            ),
+        ]));
+        assert_eq!(nested.severity, 40);
+        assert_eq!(nested.detach, vec!["lamp", "wheel"]);
         assert_eq!(kit.action, "crash");
         assert!(crash_kit_detaches(&kit, "lamp"));
         assert!(!crash_kit_detaches(&kit, "hull"));

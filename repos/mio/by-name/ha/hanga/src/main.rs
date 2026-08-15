@@ -31,7 +31,7 @@ use hanga::{
 };
 use hanga::crash::{
     apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
-    parse_crash_kit_fields, parse_fire_kit_fields, parse_fracture_kit_fields, parse_planar_fields,
+    parse_crash_kit_node, parse_fire_kit_fields, parse_fracture_kit_fields, parse_planar_fields,
 };
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
@@ -40,7 +40,7 @@ use hanga::gravity::{
 };
 use hanga::heist::{mark_reached, parse_contract_mark_fields, ContractMark};
 use hanga::vehicle::{
-    beam_length, beam_pin_name, beam_step, is_tire, parse_vehicle_kit_fields, tire_squash,
+    beam_length, beam_pin_name, beam_step, is_tire, parse_vehicle_kit_node, tire_squash,
     traffic_ahead_blocks, VehicleKit, BEAM_ROUNDS,
 };
 use hanga::game::{
@@ -1317,7 +1317,7 @@ fn spawn_mod_traffic(
         .max(0) as u32;
     for i in 0..count {
         let (x, y, z) = ctx.bus_xyz("vehicle-spawn", &wire_int(i as i64), (500, 2, 495));
-        let kit = parse_vehicle_kit_fields(&ctx.bus_fields("vehicle-kit", &wire_int(i as i64)));
+        let kit = parse_vehicle_kit_node(&ctx.bus_node("vehicle-kit", &wire_int(i as i64)));
         spawn_vehicle(
             commands,
             meshes,
@@ -2665,7 +2665,7 @@ fn vehicle_crash_system(
         };
         crash.last_speed = speed;
         let outcome = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            parse_crash_kit_fields(&ctx.bus_fields(
+            parse_crash_kit_node(&ctx.bus_node(
                 "crash-kit",
                 &wire_bag(vec![
                     ("speed", Wire::Float(impact as f64)),

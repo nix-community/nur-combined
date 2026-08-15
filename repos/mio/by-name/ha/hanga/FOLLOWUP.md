@@ -12,9 +12,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **No tests for live `busy` / mailbox.** Cap eviction is unit-tested; still need
   a test that locks a pack mutex so `invoke` returns `fail("busy")` without
   enqueue, `send` enqueues, and `before-dig` busy vetoes.
-- **No supervision.** A guest trap kills that store; OTP would restart a child.
-  Decide: unload the pack, restart WASM, or fail the game. Wasmtime traps are
-  not mapped to `fail` today.
+- **No supervision.** A guest trap now returns `fail("trap")` (and `emit` treats
+  fail as a closed/veto). The store is still dead; decide unload, restart WASM,
+  or fail the game.
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Use `text` only for non-empty names; keep `empty` for skip.
 - **Name replies vs kits.** Loot, craft, and labels use `ask_any_text` (plain
@@ -24,11 +24,11 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 ## Values and kits
 
-- **Host still flattens kits.** `fields_from_wire` turns `parts: [{name,sx}]`
-  into dotted `parts.0.name` for `parse_*_kit_fields`. Parsers should walk
-  `Wire::Dict` / `Wire::Items` directly and drop the dotted encoding.
-- **Two `Cell` types.** `hanga::kit::Cell` is a flat atom; WIT `cell` is an
-  arena node. Rename the kit one (`Atom` / `KitCell`) when touching parsers.
+- **Host still flattens kits.** Vehicle and crash kits walk `Node` (`parts` /
+  `tires` / `beams` / `detach` lists). Gravity, fire, fracture, and planar still
+  go through dotted `fields_from_wire` until those parsers take `Node` too.
+- **Two value types.** `hanga::kit::Atom` is a flat scalar; `Node` is the tree;
+  WIT `cell` is the arena encoding. Flattened `Fields` remain for CSV fallback.
 - **`key=value;` fallback.** Keep until contrib examples and tests stop sending
   CSV `methods` / kit strings. Zig `methodsBag` still returns topic CSV text.
 

@@ -55,6 +55,119 @@ pub fn parse_vehicle_kit(text: &str) -> VehicleKit {
     parse_vehicle_kit_fields(&crate::kit::Fields::from_text(text))
 }
 
+pub fn parse_vehicle_kit_node(node: &crate::kit::Node) -> VehicleKit {
+    use crate::kit::Node;
+    match node {
+        Node::Empty => VehicleKit::default(),
+        Node::Text(text) => parse_vehicle_kit(text),
+        Node::Dict(_) => parse_vehicle_kit_tree(node),
+        _ => VehicleKit::default(),
+    }
+}
+
+fn parse_vehicle_kit_tree(node: &crate::kit::Node) -> VehicleKit {
+    use crate::kit::Node;
+    let mut kit = VehicleKit::default();
+    if let Some(kind) = node.get("kind") {
+        let kind = kind.text();
+        if !kind.is_empty() {
+            kit.kind = kind;
+        }
+    }
+    kit.traffic = node.flag("traffic") || node.flag("ai");
+    if let Some(speed) = node.get("speed").and_then(Node::as_f32) {
+        kit.speed = speed.max(0.0);
+    }
+    if let Some(stiff) = node
+        .get("stiffness")
+        .or_else(|| node.get("stiff"))
+        .and_then(Node::as_i32)
+    {
+        kit.stiffness = stiff.clamp(0, 100);
+    }
+    if let Some(collider) = node.get("collider") {
+        match collider {
+            Node::Dict(_) => {
+                kit.collider = [
+                    collider.f32("x", kit.collider[0]).max(0.1),
+                    collider.f32("y", kit.collider[1]).max(0.1),
+                    collider.f32("z", kit.collider[2]).max(0.1),
+                ];
+            }
+            other => {
+                if let Some(v) = parse_n(&other.text(), 3) {
+                    kit.collider = [v[0].max(0.1), v[1].max(0.1), v[2].max(0.1)];
+                }
+            }
+        }
+    }
+    if let Some(tires) = node.get("tires").or_else(|| node.get("tire")) {
+        kit.tires = tires.names();
+    }
+    if let Some(beams) = node.get("beams").or_else(|| node.get("beam")) {
+        kit.beams = match beams {
+            Node::Items(items) => items
+                .iter()
+                .filter_map(|item| {
+                    let a = item.get("a").map(Node::text).unwrap_or_default();
+                    let b = item.get("b").map(Node::text).unwrap_or_default();
+                    (!a.is_empty() && !b.is_empty()).then_some((a, b))
+                })
+                .collect(),
+            Node::Text(text) => {
+                let mut bits = text.split(',').map(str::trim);
+                match (bits.next(), bits.next()) {
+                    (Some(a), Some(b)) if !a.is_empty() && !b.is_empty() => {
+                        vec![(a.to_string(), b.to_string())]
+                    }
+                    _ => Vec::new(),
+                }
+            }
+            _ => Vec::new(),
+        };
+    }
+    if let Some(parts) = node.get("parts").or_else(|| node.get("part")) {
+        let parsed: Vec<VehiclePartSpec> = match parts {
+            Node::Items(items) => items.iter().filter_map(parse_part_node).collect(),
+            Node::Dict(_) => parse_part_node(parts).into_iter().collect(),
+            Node::Text(text) => parse_part(text).into_iter().collect(),
+            _ => Vec::new(),
+        };
+        if !parsed.is_empty() {
+            kit.parts = parsed;
+        }
+    }
+    if kit.kind.is_empty() {
+        kit.kind = "vehicle".into();
+    }
+    kit
+}
+
+fn parse_part_node(node: &crate::kit::Node) -> Option<VehiclePartSpec> {
+    use crate::kit::Node;
+    if let Node::Text(text) = node {
+        return parse_part(text);
+    }
+    let name = node.get("name").map(Node::text).unwrap_or_default();
+    if name.is_empty() {
+        return None;
+    }
+    Some(VehiclePartSpec {
+        name,
+        size: [
+            node.f32("sx", 1.0).max(0.05),
+            node.f32("sy", 1.0).max(0.05),
+            node.f32("sz", 1.0).max(0.05),
+        ],
+        offset: [node.f32("ox", 0.0), node.f32("oy", 0.0), node.f32("oz", 0.0)],
+        rgb: [
+            scale_rgb(node.f32("r", 0.5)),
+            scale_rgb(node.f32("g", 0.5)),
+            scale_rgb(node.f32("b", 0.5)),
+        ],
+    })
+}
+
 pub fn parse_vehicle_kit_fields(fields: &crate::kit::Fields) -> VehicleKit {
     let mut kit = VehicleKit::default();
     let mut saw_part = false;
@@ -412,6 +525,49 @@ mod tests {
         assert_eq!(kit.kind, "vehicle");
         assert!(!kit.traffic);
         assert_eq!(kit.parts.len(), 1);
+    }
+
+    #[test]
+    fn nested_vehicle_kit_keeps_lists() {
+        use crate::kit::Node;
+        let kit = parse_vehicle_kit_node(&Node::Dict(vec![
+            ("kind".into(), Node::Text("car".into())),
+            ("stiffness".into(), Node::Int(32)),
+            (
+                "collider".into(),
+                Node::Dict(vec![
+                    ("x".into(), Node::Float(2.0)),
+                    ("y".into(), Node::Float(1.2)),
+                    ("z".into(), Node::Float(4.0)),
+                ]),
+            ),
+            (
+                "tires".into(),
+                Node::Items(vec![Node::Text("wheel".into())]),
+            ),
+            (
+                "beams".into(),
+                Node::Items(vec![Node::Dict(vec![
+                    ("a".into(), Node::Text("hull".into())),
+                    ("b".into(), Node::Text("cabin".into())),
+                ])]),
+            ),
+            (
+                "parts".into(),
+                Node::Items(vec![Node::Dict(vec![
+                    ("name".into(), Node::Text("hull".into())),
+                    ("sx".into(), Node::Float(1.85)),
+                    ("sy".into(), Node::Float(0.48)),
+                    ("sz".into(), Node::Float(3.8)),
+                ])]),
+            ),
+        ]));
+        assert_eq!(kit.kind, "car");
+        assert_eq!(kit.stiffness, 32);
+        assert!((kit.collider[1] - 1.2).abs() < 1e-5);
+        assert_eq!(kit.tires, vec!["wheel"]);
+        assert_eq!(kit.beams, vec![("hull".into(), "cabin".into())]);
+        assert_eq!(kit.parts[0].name, "hull");
     }
 
     #[test]
