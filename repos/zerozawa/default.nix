@@ -74,4 +74,5 @@ in
   truenas-mcp = pkgs.callPackage ./pkgs/truenas-mcp.nix { };
   banguminet = pkgs.callPackage ./pkgs/banguminet { };
   pctx = pkgs.callPackage ./pkgs/pctx { };
+  deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
 }

@@ -5,7 +5,7 @@
 ![Build and populate cache](https://github.com/lz37/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-zerozawa-blue.svg)](https://zerozawa.cachix.org)
 
-This repository currently exports **29 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
+This repository currently exports **30 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
 
 ## Current Exports
 
@@ -35,6 +35,7 @@ This repository currently exports **29 packages**, **1 library helper**, and pla
 | `context-mode` | MCP server for context window optimization — sandboxed code execution, FTS5 knowledge base |
 | `codegraph` | Pre-indexed code knowledge graph with MCP support — semantic code intelligence |
 | `pctx` | Source-built Code Mode execution CLI; its Python SDK is available as `pctx.passthru.py` |
+| `deepseek-harness` | DeepSeek's open-source agent harness (`dsh` CLI + Web UI); wrapped with `node --expose-internals` for Nix-built Node |
 | `spec-kit` | GitHub's official Spec-Driven Development CLI toolkit |
 #### Desktop customization and utilities
 

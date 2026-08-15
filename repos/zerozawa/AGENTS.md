@@ -52,12 +52,12 @@ Do not document modules or overlays as active features unless they have been imp
 
 ## Package Inventory Summary
 
-The repo currently exports 29 packages from `default.nix`, grouped roughly as:
+The repo currently exports 30 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`
 - Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
-- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `deskbrid`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`, `wechatbot-mcp`
+- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `deepseek-harness`, `deskbrid`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`, `wechatbot-mcp`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
 Always derive exact package names from `default.nix`, not from README snippets or memory files.
@@ -115,6 +115,7 @@ Filtering behavior:
 - `banguminet` uses `buildDotnetModule` with a hand-generated `deps.json`; read `pkgs/banguminet/AGENTS.md` before updating
 - `wechat-web-devtools-linux` source-builds from the `continuous` branch (upstream only ships a rolling `continuous` release tag), mirroring its CI (`tools/setup-wechat-devtools.sh`): extracts `package.nw` from the official Windows installer FOD, rebuilds native npm modules with `node-gyp --nodedir` (nw headers for nwjs-side modules — upstream's `nw-gyp` needs python2 which nixpkgs dropped), and patches the nw `common.gypi` py2 syntax plus `-std=gnu89` for the bundled onig C library. Desktop entry is a `makeDesktopItem` mirroring upstream `res/deb.desktop` and icons come from upstream `res/icons`; native-module npm deps are pinned by hand-written lockfiles under `pkgs/wechat-web-devtools-linux/npm/` (upstream rebuilds from a floating `npm install` in `tools/rebuild-node-modules.sh` with no manifest)
 - `pctx` source-builds its Rust CLI and exposes a separately released Python SDK only as `pctx.passthru.py`; read `pkgs/pctx/AGENTS.md` before updating its V8, Swagger UI, or Python build inputs
+- `deepseek-harness` packages the npm-published `@deepseek-ai/dsh` prebuilt bundle from a stub `package.json` + checked-in `package-lock.json` under `pkgs/deepseek-harness/` (the upstream pnpm monorepo is not source-built). The `dsh` wrapper must keep `node --expose-internals`: the runtime's `node-addon-require-builtin` V8-layout probe only recognizes official nodejs.org builds and fails on Nix source-built Node (verified with 0.1.5; upstream discussions #690/#752/#1873), and Node rejects the flag via `NODE_OPTIONS`. `node-pty` has no linux prebuild, so `npm ci` runs `node-gyp rebuild` offline against `npm_config_nodedir = nodejs`; first `dsh web` boot materializes profile packages into `~/.dsh/profiles` over the network
 
 ## Quick Commands
 
