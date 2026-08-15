@@ -11,9 +11,10 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   Drain still stops after 32 rounds and warns if work remains. `LiveBus` OTP
   errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
   `cargo test --bin hanga`.
-- **No tests for live WASM packs on the bus.** Cap eviction, `emit_blocks`, and
-  LiveBus with empty slots (no component) are unit-tested. Instantiating a full
-  guest in `cargo test --lib` is still unset.
+- **No tests for live WASM packs on the bus.** Cap eviction and empty-slot
+  LiveBus tests stay in `cargo test --bin hanga`. `live_wasm_testbed_ping_and_self_cast`
+  loads `HANGA_MODS/testbed.wasm` (set in `.#hanga-dev`) and checks ping plus a
+  self-cast mailbox drain.
 - **No supervision.** A guest trap returns `fail("trap")`, `emit` treats fail as
   veto, and the host reinstantiates that pack from disk (OTP restart) at most
   once per 2s. Guest statics reset. If reload fails, the store stays dead.

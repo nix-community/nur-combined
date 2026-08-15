@@ -1509,4 +1509,46 @@ mod tests {
         bus.flush_deferred();
         assert!(bus.pending.lock().unwrap().is_empty());
     }
+
+    fn mods_wasm(name: &str) -> Option<PathBuf> {
+        let dir = std::env::var_os("HANGA_MODS")?;
+        let path = PathBuf::from(dir).join(format!("{name}.wasm"));
+        path.is_file().then_some(path)
+    }
+
+    #[test]
+    fn live_wasm_testbed_ping_and_self_cast() {
+        let Some(path) = mods_wasm("testbed") else {
+            return;
+        };
+        let slot = Arc::new(Mutex::new(None));
+        let bus = Arc::new(LiveBus {
+            lead_name: "testbed".into(),
+            lead: Arc::clone(&slot),
+            packs: Vec::new(),
+            pending: Mutex::new(Vec::new()),
+        });
+        let ctx = ModRuntime::instantiate(
+            &path,
+            "testbed",
+            Arc::clone(&bus) as Arc<dyn EngineBus>,
+            false,
+        )
+        .expect("load testbed.wasm");
+        assert!(ctx.offers("ping"));
+        *slot.lock().unwrap() = Some(ctx);
+
+        assert_eq!(
+            wire_as_text(&bus.invoke("host", "testbed", "ping", wire_empty())),
+            "pong"
+        );
+        assert!(matches!(
+            bus.invoke("testbed", "testbed", "ping", wire_empty()),
+            Wire::Fail(reason) if reason == "self"
+        ));
+        bus.send("testbed", "testbed", "hello", wire_empty());
+        assert_eq!(bus.pending.lock().unwrap().len(), 1);
+        bus.flush_deferred();
+        assert!(bus.pending.lock().unwrap().is_empty());
+    }
 }
