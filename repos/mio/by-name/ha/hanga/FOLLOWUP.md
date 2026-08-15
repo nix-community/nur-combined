@@ -9,9 +9,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Mailbox bound.** Casts cap at 256; oldest is dropped with a warning. Drain
   requeues a message if the pack is still locked instead of dropping it as empty.
   Drain still stops after 32 rounds and warns if work remains.
-- **No tests for live `busy` / mailbox.** Cap eviction is unit-tested; still need
-  a test that locks a pack mutex so `invoke` returns `fail("busy")` without
-  enqueue, `send` enqueues, and `before-dig` busy vetoes.
+- **No tests for live `busy` / mailbox.** Cap eviction and `emit_blocks` (busy /
+  trap / veto) are unit-tested; still need a test that locks a pack mutex so
+  `invoke` returns `fail("busy")` without enqueue and `send` enqueues.
 - **No supervision.** A guest trap now returns `fail("trap")` (and `emit` treats
   fail as a closed/veto). The store is still dead; decide unload, restart WASM,
   or fail the game.
@@ -24,9 +24,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 ## Values and kits
 
-- **Host still flattens kits.** Vehicle and crash kits walk `Node` (`parts` /
-  `tires` / `beams` / `detach` lists). Gravity, fire, fracture, and planar still
-  go through dotted `fields_from_wire` until those parsers take `Node` too.
+- **Host still flattens kits.** Vehicle, crash, gravity, fire, fracture, planar,
+  and contract-mark walk `Node`. `fields_from_wire` remains for leftover CSV
+  callers (`ask_any_fields` / `bus_fields`).
 - **Two value types.** `hanga::kit::Atom` is a flat scalar; `Node` is the tree;
   WIT `cell` is the arena encoding. Flattened `Fields` remain for CSV fallback.
 - **`key=value;` fallback.** Keep until contrib examples and tests stop sending
@@ -46,9 +46,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 
 ## Contrib / languages
 
-- **`lab_owl` (Hoot) is not a WIT component.** wasmtime will not load it until a
-  Hoot runtime is in the host (see contrib README). Either wire that runtime or
-  stop installing `lab_owl.wasm` next to real packs.
+- **`lab_owl` (Hoot) is not a WIT component.** The artifact lives in
+  `share/hanga/hoot/`, not next to WIT packs. Still needs a Hoot runtime in the
+  host (see contrib README).
 - **Zig has no guest wit-bindgen.** C `plugin.h` + `cabi_realloc` is fragile
   (already burned once). Track upstream Zig component bindgen.
 - **Guests still rarely `send` or return `fail`.** Kotlin/Go/Zig `Wire` now has

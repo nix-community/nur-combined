@@ -420,6 +420,13 @@ pub fn wire_is_veto(value: &Wire) -> bool {
     matches!(value, Wire::Flag(true) | Wire::Int(1))
 }
 
+fn emit_blocks(reply: Result<&Wire, ()>) -> bool {
+    match reply {
+        Ok(value) => wire_is_veto(value) || wire_is_fail(value),
+        Err(()) => true,
+    }
+}
+
 pub trait EngineBus: Send + Sync {
     fn log(&self, from: &str, level: &str, message: &str);
     fn peers(&self, from: &str) -> Vec<String>;
@@ -575,7 +582,7 @@ impl EngineBus for LiveBus {
         if self.lead_name != from {
             match self.call_now(&self.lead, from, method, &args) {
                 Ok(reply) => {
-                    if wire_is_veto(&reply) || wire_is_fail(&reply) {
+                    if emit_blocks(Ok(&reply)) {
                         veto = true;
                     }
                 }
@@ -588,7 +595,7 @@ impl EngineBus for LiveBus {
             }
             match self.call_now(ctx, from, method, &args) {
                 Ok(reply) => {
-                    if wire_is_veto(&reply) || wire_is_fail(&reply) {
+                    if emit_blocks(Ok(&reply)) {
                         veto = true;
                     }
                 }
@@ -1355,5 +1362,15 @@ mod tests {
         }]);
         let node = node_from_wire(&wire);
         assert_eq!(node.get("tires").unwrap().names(), vec!["wheel"]);
+    }
+
+    #[test]
+    fn emit_blocks_on_busy_fail_and_veto() {
+        assert!(emit_blocks(Err(())));
+        assert!(emit_blocks(Ok(&wire_fail("trap"))));
+        assert!(emit_blocks(Ok(&wire_fail("busy"))));
+        assert!(emit_blocks(Ok(&Wire::Flag(true))));
+        assert!(!emit_blocks(Ok(&wire_empty())));
+        assert!(!emit_blocks(Ok(&wire_text("ok"))));
     }
 }

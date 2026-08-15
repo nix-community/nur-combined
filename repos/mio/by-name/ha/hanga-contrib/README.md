@@ -11,9 +11,9 @@ WIT generator yet: we generate **C** bindings and compile them with Zig.
 [Hoot](https://codeberg.org/spritely/hoot) compiles Guile Scheme to Wasm 3
 (GC, tail calls). It is **not** a WASI/WIT guest: the binary imports a `rt`
 / `io` host (JS `reflect.js` or Hoot’s own VM). `hoot compile` still runs in
-this package so the Scheme pack is a real artifact; wasmtime will not load
-`lab_owl.wasm` as a WIT component until a Hoot runtime is wired into the
-host.
+this package so the Scheme pack is a real artifact. It is installed under
+`share/hanga/hoot/` (not `mods/`) so wasmtime never tries to load it as a WIT
+pack. A Hoot runtime in the host is still required before it can run.
 
 ## Layout
 
@@ -24,7 +24,7 @@ host.
 - `examples/lab-tile` — tiled floor pack (`lab_tile.wasm`, Kotlin)
 - `examples/lab-slab` — checkerboard slabs (`lab_slab.wasm`, TinyGo)
 - `examples/lab-grid` — checkerboard grid (`lab_grid.wasm`, Zig)
-- `examples/lab-owl` — checkerboard owl (`lab_owl.wasm`, Hoot)
+- `examples/lab-owl` — checkerboard owl (`share/hanga/hoot/lab_owl.wasm`, Hoot; not a WIT guest)
 - `games/*.game` — menu chrome for those packs
 
 Build with `nix build .#hanga-contrib`. Point the host at a WIT pack:

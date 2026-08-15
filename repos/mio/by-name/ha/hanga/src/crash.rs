@@ -163,15 +163,19 @@ pub struct FractureKit {
 }
 
 pub fn parse_fracture_kit(text: &str) -> FractureKit {
-    parse_fracture_kit_fields(&crate::kit::Fields::from_text(text))
+    parse_fracture_kit_node(&crate::kit::Node::Text(text.into()))
 }
 
 pub fn parse_fracture_kit_fields(fields: &crate::kit::Fields) -> FractureKit {
+    parse_fracture_kit_node(&fields.as_node())
+}
+
+pub fn parse_fracture_kit_node(node: &crate::kit::Node) -> FractureKit {
     let mut kit = FractureKit {
         impulse: 5.0,
         ..FractureKit::default()
     };
-    for (key, cell) in &fields.pairs {
+    for (key, cell) in node.entries() {
         match key.as_str() {
             "can" => kit.can = cell.as_flag(),
             "spread" => {
@@ -197,16 +201,20 @@ pub struct PlanarVel {
 }
 
 pub fn parse_planar(text: &str) -> Option<PlanarVel> {
-    parse_planar_fields(&crate::kit::Fields::from_text(text))
+    parse_planar_node(&crate::kit::Node::Text(text.into()))
 }
 
 pub fn parse_planar_fields(fields: &crate::kit::Fields) -> Option<PlanarVel> {
-    if fields.is_empty() {
+    parse_planar_node(&fields.as_node())
+}
+
+pub fn parse_planar_node(node: &crate::kit::Node) -> Option<PlanarVel> {
+    if node.is_empty() {
         return None;
     }
     let mut vel = PlanarVel::default();
     let mut saw = false;
-    for (key, cell) in &fields.pairs {
+    for (key, cell) in node.entries() {
         match key.as_str() {
             "vx" => {
                 if let Some(v) = cell.as_f32() {
@@ -237,11 +245,15 @@ pub struct FireKit {
 }
 
 pub fn parse_fire_kit(text: &str) -> FireKit {
-    parse_fire_kit_fields(&crate::kit::Fields::from_text(text))
+    parse_fire_kit_node(&crate::kit::Node::Text(text.into()))
 }
 
 pub fn parse_fire_kit_fields(fields: &crate::kit::Fields) -> FireKit {
-    if fields.is_empty() {
+    parse_fire_kit_node(&fields.as_node())
+}
+
+pub fn parse_fire_kit_node(node: &crate::kit::Node) -> FireKit {
+    if node.is_empty() {
         return FireKit {
             out: true,
             ..FireKit::default()
@@ -252,7 +264,7 @@ pub fn parse_fire_kit_fields(fields: &crate::kit::Fields) -> FireKit {
         range: 6.0,
         ..FireKit::default()
     };
-    for (key, cell) in &fields.pairs {
+    for (key, cell) in node.entries() {
         match key.as_str() {
             "heat" => {
                 if let Some(v) = cell.as_f32() {

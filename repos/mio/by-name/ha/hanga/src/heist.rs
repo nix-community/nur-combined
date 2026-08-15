@@ -15,11 +15,15 @@ pub struct ContractMark {
 /// x=531;y=3;z=550;radius=12;take=1;r=0.9;g=0.7;b=0.2
 /// ```
 pub fn parse_contract_mark(text: &str) -> Option<ContractMark> {
-    parse_contract_mark_fields(&crate::kit::Fields::from_text(text))
+    parse_contract_mark_node(&crate::kit::Node::Text(text.into()))
 }
 
 pub fn parse_contract_mark_fields(fields: &crate::kit::Fields) -> Option<ContractMark> {
-    if fields.is_empty() {
+    parse_contract_mark_node(&fields.as_node())
+}
+
+pub fn parse_contract_mark_node(node: &crate::kit::Node) -> Option<ContractMark> {
+    if node.is_empty() {
         return None;
     }
     let mut pos = [0, 2, 0];
@@ -27,7 +31,7 @@ pub fn parse_contract_mark_fields(fields: &crate::kit::Fields) -> Option<Contrac
     let mut rgb = [0.92, 0.78, 0.28];
     let mut take = false;
     let mut saw = false;
-    for (key, cell) in &fields.pairs {
+    for (key, cell) in node.entries() {
         match key.as_str() {
             "x" => {
                 if let Some(v) = cell.as_i32() {

@@ -156,6 +156,17 @@ impl Node {
         self.get(key).is_some_and(Node::as_flag)
     }
 
+    pub fn entries(&self) -> Vec<(String, Node)> {
+        match self {
+            Node::Dict(fields) => fields.clone(),
+            Node::Text(text) => match Fields::from_text(text).as_node() {
+                Node::Dict(fields) => fields,
+                _ => Vec::new(),
+            },
+            _ => Vec::new(),
+        }
+    }
+
     pub fn names(&self) -> Vec<String> {
         match self {
             Node::Text(text) => text
@@ -219,6 +230,26 @@ impl Fields {
 
     pub fn flag(&self, key: &str) -> bool {
         self.get(key).is_some_and(Atom::as_flag)
+    }
+
+    pub fn as_node(&self) -> Node {
+        Node::Dict(
+            self.pairs
+                .iter()
+                .map(|(key, atom)| (key.clone(), Node::from(atom)))
+                .collect(),
+        )
+    }
+}
+
+impl From<&Atom> for Node {
+    fn from(atom: &Atom) -> Self {
+        match atom {
+            Atom::Flag(value) => Node::Flag(*value),
+            Atom::Int(value) => Node::Int(*value),
+            Atom::Float(value) => Node::Float(*value),
+            Atom::Text(text) => Node::Text(text.clone()),
+        }
     }
 }
 

@@ -184,12 +184,13 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/hanga/mods $out/share/hanga/games $out/share/hanga-contrib
+    mkdir -p $out/share/hanga/mods $out/share/hanga/games $out/share/hanga/hoot $out/share/hanga-contrib
     cp lab_tile.wasm $out/share/hanga/mods/lab_tile.wasm
     cp lab_slab.wasm $out/share/hanga/mods/lab_slab.wasm
     cp lab_grid.wasm $out/share/hanga/mods/lab_grid.wasm
-    cp lab_owl.wasm $out/share/hanga/mods/lab_owl.wasm
+    cp lab_owl.wasm $out/share/hanga/hoot/lab_owl.wasm
     cp -a games/. $out/share/hanga/games/
+    rm -f $out/share/hanga/games/lab_owl.game
     cp -a lib $out/share/hanga-contrib/lib
     cp README.md $out/share/hanga-contrib/
     runHook postInstall

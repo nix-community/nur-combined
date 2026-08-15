@@ -45,10 +45,18 @@ impl Default for GravityKit {
 /// kind=point;x=0;y=0;z=0;strength=500;falloff=invsq
 /// ```
 pub fn parse_gravity(text: &str) -> GravityKit {
-    parse_gravity_fields(&crate::kit::Fields::from_text(text))
+    parse_gravity_node(&crate::kit::Node::Text(text.into()))
 }
 
 pub fn parse_gravity_fields(fields: &crate::kit::Fields) -> GravityKit {
+    parse_gravity_node(&fields.as_node())
+}
+
+pub fn parse_gravity_node(node: &crate::kit::Node) -> GravityKit {
+    use crate::kit::Node;
+    if matches!(node, Node::Empty) {
+        return GravityKit::default();
+    }
     let mut kit = GravityKit::default();
     let mut kind = String::new();
     let mut x = 0.0;
@@ -59,7 +67,7 @@ pub fn parse_gravity_fields(fields: &crate::kit::Fields) -> GravityKit {
     let mut saw_g = false;
     let mut strength = 20.0;
     let mut inv_sq = false;
-    for (key, cell) in &fields.pairs {
+    for (key, cell) in node.entries() {
         let value = cell.text();
         match key.as_str() {
             "kind" | "type" => kind = value.trim().to_ascii_lowercase(),
@@ -107,7 +115,12 @@ pub fn parse_gravity_fields(fields: &crate::kit::Fields) -> GravityKit {
                 }
             }
             "up" => {
-                if let Some(v) = parse_n(&value, 3) {
+                if let Node::Dict(_) = &cell {
+                    kit.up = unit(
+                        [cell.f32("x", 0.0), cell.f32("y", 1.0), cell.f32("z", 0.0)],
+                        [0.0, 1.0, 0.0],
+                    );
+                } else if let Some(v) = parse_n(&value, 3) {
                     kit.up = unit([v[0], v[1], v[2]], [0.0, 1.0, 0.0]);
                 }
             }
@@ -354,5 +367,18 @@ mod tests {
         assert!(!can_jump_from(pos, up, |_| false));
         assert!(jump_needs_floor(&parse_gravity("kind=down;g=9.81")));
         assert!(!jump_needs_floor(&parse_gravity("kind=none;jump=2")));
+        let nested = parse_gravity_node(&crate::kit::Node::Dict(vec![
+            ("kind".into(), crate::kit::Node::Text("constant".into())),
+            ("x".into(), crate::kit::Node::Float(0.0)),
+            ("y".into(), crate::kit::Node::Float(-9.81)),
+            ("z".into(), crate::kit::Node::Float(0.0)),
+            ("jump".into(), crate::kit::Node::Float(5.0)),
+        ]));
+        assert_eq!(
+            nested.kind,
+            GravityKind::Constant {
+                accel: [0.0, -9.81, 0.0]
+            }
+        );
     }
 }

@@ -31,14 +31,14 @@ use hanga::{
 };
 use hanga::crash::{
     apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
-    parse_crash_kit_node, parse_fire_kit_fields, parse_fracture_kit_fields, parse_planar_fields,
+    parse_crash_kit_node, parse_fire_kit_node, parse_fracture_kit_node, parse_planar_node,
 };
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
-    avian_accel, can_jump_from, jump_needs_floor, parse_gravity_fields, point_accel, set_jump,
+    avian_accel, can_jump_from, jump_needs_floor, parse_gravity_node, point_accel, set_jump,
     set_planar_velocity, walk_up, GravityKit,
 };
-use hanga::heist::{mark_reached, parse_contract_mark_fields, ContractMark};
+use hanga::heist::{mark_reached, parse_contract_mark_node, ContractMark};
 use hanga::vehicle::{
     beam_length, beam_pin_name, beam_step, is_tire, parse_vehicle_kit_node, tire_squash,
     traffic_ahead_blocks, VehicleKit, BEAM_ROUNDS,
@@ -1232,7 +1232,7 @@ fn spawn_play_world(
     commands.insert_resource(catalog);
 
     let gravity = with_mod(&mod_runtime, |ctx| {
-        parse_gravity_fields(&ctx.bus_fields("gravity", &wire_empty()))
+        parse_gravity_node(&ctx.bus_node("gravity", &wire_empty()))
     })
     .unwrap_or_default();
     let accel = Vec3::from_array(avian_accel(&gravity));
@@ -1627,7 +1627,7 @@ fn teardown_fracture(
     let origin_name = catalog_name(&catalog.0, origin_type)
         .unwrap_or("")
         .to_string();
-    let origin_kit = parse_fracture_kit_fields(&mod_runtime.ask_any_fields(
+    let origin_kit = parse_fracture_kit_node(&mod_runtime.ask_any_node(
         "fracture-kit",
         &wire_bag(vec![
             ("voxel", Wire::Text(origin_name.clone())),
@@ -1659,7 +1659,7 @@ fn teardown_fracture(
             continue;
         };
         let nname = catalog_name(&catalog.0, ntype).unwrap_or("").to_string();
-        let nkit = parse_fracture_kit_fields(&mod_runtime.ask_any_fields(
+        let nkit = parse_fracture_kit_node(&mod_runtime.ask_any_node(
             "fracture-kit",
             &wire_bag(vec![
                 ("voxel", Wire::Text(nname.clone())),
@@ -1798,7 +1798,7 @@ fn spawn_contract_mark(
     mod_runtime: &ModRuntime,
     kind: &str,
 ) {
-    let Some(mark) = parse_contract_mark_fields(&mod_runtime.ask_any_fields(
+    let Some(mark) = parse_contract_mark_node(&mod_runtime.ask_any_node(
         "contract-mark",
         &wire_text(kind),
     )) else {
@@ -2834,7 +2834,7 @@ fn vehicle_traffic_system(
                 });
         }
         if let Some((vx, vz)) = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            parse_planar_fields(&ctx.bus_fields(
+            parse_planar_node(&ctx.bus_node(
                 "steer",
                 &wire_bag(vec![
                     ("role", Wire::Text("traffic".into())),
@@ -2916,7 +2916,7 @@ fn fire_spread_system(
             .and_then(|index| catalog_name(&catalog.0, index).map(str::to_string))
             .unwrap_or_default();
         let kit = with_named_mod(&mod_runtime, &owner.0, |ctx| {
-            parse_fire_kit_fields(&ctx.bus_fields(
+            parse_fire_kit_node(&ctx.bus_node(
                 "fire-kit",
                 &wire_bag(vec![
                     ("age", Wire::Int(fire.age_ms as i64)),
@@ -2924,7 +2924,7 @@ fn fire_spread_system(
                 ]),
             ))
         })
-        .unwrap_or_else(|| parse_fire_kit_fields(&hanga::kit::Fields::default()));
+        .unwrap_or_else(|| parse_fire_kit_node(&hanga::kit::Node::Empty));
         if kit.out {
             for child in children.iter() {
                 if lights.get(child).is_ok() {
@@ -2987,7 +2987,7 @@ fn agent_ai_tick(
         for (mut agent_transform, mut velocity, agent) in agents.iter_mut() {
             let c_pos = agent_transform.translation;
             if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
-                parse_planar_fields(&ctx.bus_fields(
+                parse_planar_node(&ctx.bus_node(
                     "steer",
                     &wire_bag(vec![
                         ("role", Wire::Text(agent.0.clone())),
