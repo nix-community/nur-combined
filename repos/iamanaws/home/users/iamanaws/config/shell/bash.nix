@@ -1,4 +1,8 @@
-{ lib, ... }:
+{
+  lib,
+  hostConfig,
+  ...
+}:
 
 {
   programs.bash = {
@@ -56,15 +60,13 @@
       
       fet.sh
       
-      # if uwsm check may-start && uwsm select; then
-      # 	exec systemd-cat -t uwsm_start uwsm start default
-      # fi
-      
-      if uwsm check may-start; then
-        # exec uwsm start hyprland.desktop
-        # exec uwsm start hyprland-systemd.desktop
-        exec uwsm start hyprland-uwsm.desktop
-      fi
+      ${lib.optionalString (hostConfig.device.hostname == "archimedes") ''
+        # Start Hyprland only on the primary TTY, leaving other TTYs available
+        # as recovery shells if the graphical session fails.
+        if [ "$XDG_VTNR" = "1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+          exec Hyprland
+        fi
+      ''}
     ";
   };
 

@@ -232,9 +232,9 @@ in
         (sh "${mod1} + space" "rofi -show drun" { description = "open app menu"; })
         (sh "${mod1} + SHIFT + space" "rofi -show" { description = "open full menu"; })
 
-        (sh "${mod} + B" "uwsm app -- rofi-bluetooth" { description = "open bluetooth menu"; })
-        (sh "${mod} + N" "uwsm app -- networkmanager_dmenu" { description = "open networkmanager menu"; })
-        (sh "${mod} + A" "uwsm app -- dmenu-wpctl" { description = "open audio menu"; })
+        (sh "${mod} + B" "rofi-bluetooth" { description = "open bluetooth menu"; })
+        (sh "${mod} + N" "networkmanager_dmenu" { description = "open networkmanager menu"; })
+        (sh "${mod} + A" "dmenu-wpctl" { description = "open audio menu"; })
         (sh "${mod} + SHIFT + D" "date.sh" { description = "show system date"; })
         (sh "${mod} + SHIFT + B" "battery.sh" { description = "show battery status"; })
         (sh "${mod} + SHIFT + I" "cpu-mem.sh" { description = "show resources consumption"; })
