@@ -2,8 +2,8 @@ name: Update NUR packages
 
 on:
   schedule:
-    # Mondays at 11:17 Asia/Shanghai (03:17 UTC).
-    - cron: "17 3 * * 1"
+    # Daily at 11:17 Asia/Shanghai (03:17 UTC).
+    - cron: "17 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -40,8 +40,8 @@ jobs:
 
     steps:
       # nixos/nix cannot run actions/checkout (no host Node interpreter).
-      - name: Install git and GitHub CLI
-        run: nix-env -iA nixpkgs.git nixpkgs.gh
+      - name: Install GitHub CLI
+        run: nix-env -iA nixpkgs.gh
 
       - name: Checkout default branch
         run: |
