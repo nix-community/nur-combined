@@ -820,10 +820,10 @@
     };
     "auto-tab-discard" = buildMozillaXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.7.0";
+      version = "0.7.1";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4955895/auto_tab_discard-0.7.0.xpi";
-      sha256 = "8f6793097011a1e8b050eface3dd37eb9fd91a8e2deb4b83b828dd145fbfc46a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4959845/auto_tab_discard-0.7.1.xpi";
+      sha256 = "3eea86e33f1716026b9e3d7d9d0bde3c91163d420081290530d29a2fefedd683";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -17849,10 +17849,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.8.9";
+      version = "18.8.10";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4959077/youtube_subscription_groups-18.8.9.xpi";
-      sha256 = "4f68093adb33abbab777a8cff30ea857190dd60a839a51ffeda7dbf3e3a5cd2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4960516/youtube_subscription_groups-18.8.10.xpi";
+      sha256 = "1b625e38770332b77d3076be94c4a78fdcb4e99088a2d204bb2724e269e94a47";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
