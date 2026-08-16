@@ -130,24 +130,26 @@ jobs:
     - name: Wait for distributed builds
       uses: mzwing/nix-actions/builders/serve@master
 
-  # Central sparse Attic cache for the builders. Its binary-cache database
-  # may reference public-cache paths without storing them, so Actions Cache
-  # contains only private/local NARs rather than a complete /nix/store.
-  # Reconciliation supplies the current-lock keep-set before shutdown;
-  # Attic then deletes stale objects and orphan data deterministically.
+  # Central sparse Attic cache for the builders. Its binary-cache database may
+  # reference public-cache paths without storing them, so the persisted
+  # generation holds only private/local NARs rather than a complete /nix/store.
+  #
+  # The generation lives on an rclone remote rather than in Actions Cache: that
+  # quota is 10 GiB for the whole repository and evicts by least recent use, and
+  # a single generation had already reached 9.61 GiB — leaving no room to grow
+  # and starving the nix-ci- store cache. The NAR storage is content-addressed
+  # and written once, so a push uploads only what the run added.
   cache:
     name: Builder store cache
     needs: config
     if: needs.config.outputs.has_builds == 'true'
     runs-on: ubuntu-latest
-    # 420 was silently capped at the runner's 6-hour maximum, which cancels
-    # the job and therefore skips the final save — the run's whole point.
-    # Stay below it so finalize + save always get to run.
     timeout-minutes: 355
     permissions:
-      # actions: write is required to purge expired cache entries.
-      actions: write
       contents: read
+    env:
+      RCLONE_CONFIG_BASE64: ${{ secrets.RCLONE_CONFIG }}
+      STORE_CACHE_REMOTE: ${{ vars.STORE_CACHE_REMOTE }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
@@ -162,34 +164,17 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         cachix-name: ${{ env.CACHE_NAME }}
-        # The cache job only substitutes prebuilt Attic tools; never compile
+        # The cache job only substitutes prebuilt Attic and rclone; never compile
         # packages locally on this orchestration runner.
         max-jobs: '0'
 
     - name: Prepare Attic data directory
       uses: mzwing/nix-actions/store-cache/prepare-dirs@master
 
-    # The unique key prevents save races; prefix restore picks the latest
-    # Attic database and NAR storage. `nix: false` is essential: the ordinary
-    # Nix store is deliberately excluded from this cache.
-    - name: Restore builder store cache
-      uses: nix-community/cache-nix-action/restore@v7
+    - name: Pull builder store cache
+      uses: mzwing/nix-actions/store-cache/pull@master
       with:
-        primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
-        restore-prefixes-first-match: nix-builder-attic-
-        nix: false
-        paths: /nix/attic-data
-
-    - name: Restore checkpoint builder store cache
-      uses: nix-community/cache-nix-action/restore@v7
-      with:
-        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}
-        restore-prefixes-first-match: nix-builder-atticchk-
-        nix: false
-        paths: /nix/attic-checkpoint
-
-    - name: Adopt checkpoint generation
-      uses: mzwing/nix-actions/store-cache/adopt-checkpoint@master
+        remote: ${{ env.STORE_CACHE_REMOTE }}
 
     - name: Join cache network
       uses: mzwing/nix-actions/tailnet/join@master
@@ -200,134 +185,42 @@ jobs:
         hostname: ${{ env.CACHE_HOST }}
         args: --ssh
 
-    # Starts Attic in the background and returns; the job continues with
-    # the mid-run checkpoint snapshot before the finalize step shuts Attic
-    # down. Client bootstrap (push-only token, rotated signing key) is
-    # published over Tailscale SSH as before.
     - name: Start Attic
       uses: mzwing/nix-actions/store-cache/start@master
       with:
         cache-host: ${{ env.CACHE_HOST }}
 
-    # Checkpoint rounds: the coordinator signals right after its Cachix
-    # push, but a cold rebuild can run for hours before that. Each round
-    # stages a consistent snapshot (online SQLite backup + hardlinked
-    # write-once storage) on signal OR timeout, so even a cancelled run
-    # leaves a recent warm generation behind. Rounds with no new Attic
-    # objects skip staging.
-    #
-    # Three rounds rather than six: six waited 345 minutes in total, so the
-    # job spent its whole 6-hour allowance inside the last round and was
-    # cancelled before Finalize could hand a generation to the save step —
-    # the one thing the job exists to do. Three leave well over an hour for
-    # it. Rounds are not free insurance either: each save re-uploads the
-    # entire multi-GiB generation into a 10 GiB repository-wide quota.
-    - name: Wait for checkpoint (round 1)
-      id: attic-checkpoint-1
-      uses: mzwing/nix-actions/store-cache/checkpoint@master
-      with:
-        timeout-minutes: '60'
-
-    - name: Reclaim Actions cache quota (round 1)
-      if: ${{ !cancelled() && steps.attic-checkpoint-1.outputs.checkpoint-ready == 'true' }}
-      uses: mzwing/nix-actions/store-cache/reclaim-quota@master
-      env:
-        GH_TOKEN: ${{ github.token }}
-
-    - name: Save builder store cache checkpoint (round 1)
-      if: ${{ !cancelled() && steps.attic-checkpoint-1.outputs.checkpoint-ready == 'true' }}
-      uses: nix-community/cache-nix-action/save@v7
-      with:
-        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}-1
-        nix: false
-        paths: /nix/attic-checkpoint
-        purge: true
-        purge-prefixes: nix-builder-atticchk-
-        purge-last-accessed: 0
-        purge-primary-key: never
-
-    - name: Wait for checkpoint (round 2)
-      id: attic-checkpoint-2
+    # One mid-run push, on the coordinator's signal or a timeout. It is additive,
+    # so it cannot damage the remote, and it only moves the NARs built so far —
+    # cheap insurance that a lost run does not discard its work.
+    - name: Wait for checkpoint
+      id: checkpoint
       uses: mzwing/nix-actions/store-cache/checkpoint@master
       with:
         timeout-minutes: '90'
+        stage: 'false'
 
-    - name: Reclaim Actions cache quota (round 2)
-      if: ${{ !cancelled() && steps.attic-checkpoint-2.outputs.checkpoint-ready == 'true' }}
-      uses: mzwing/nix-actions/store-cache/reclaim-quota@master
-      env:
-        GH_TOKEN: ${{ github.token }}
-
-    - name: Save builder store cache checkpoint (round 2)
-      if: ${{ !cancelled() && steps.attic-checkpoint-2.outputs.checkpoint-ready == 'true' }}
-      uses: nix-community/cache-nix-action/save@v7
+    - name: Push builder store cache (mid-run)
+      if: ${{ !cancelled() && steps.checkpoint.outputs.checkpoint-ready == 'true' }}
+      uses: mzwing/nix-actions/store-cache/push@master
       with:
-        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}-2
-        nix: false
-        paths: /nix/attic-checkpoint
-        purge: true
-        purge-prefixes: nix-builder-atticchk-
-        purge-last-accessed: 0
-        purge-primary-key: never
+        remote: ${{ env.STORE_CACHE_REMOTE }}
+        prune: 'false'
 
-    - name: Wait for checkpoint (round 3)
-      id: attic-checkpoint-3
-      uses: mzwing/nix-actions/store-cache/checkpoint@master
-      with:
-        timeout-minutes: '75'
-
-    - name: Reclaim Actions cache quota (round 3)
-      if: ${{ !cancelled() && steps.attic-checkpoint-3.outputs.checkpoint-ready == 'true' }}
-      uses: mzwing/nix-actions/store-cache/reclaim-quota@master
-      env:
-        GH_TOKEN: ${{ github.token }}
-
-    - name: Save builder store cache checkpoint (round 3)
-      if: ${{ !cancelled() && steps.attic-checkpoint-3.outputs.checkpoint-ready == 'true' }}
-      uses: nix-community/cache-nix-action/save@v7
-      with:
-        primary-key: nix-builder-atticchk-${{ github.run_id }}-${{ github.run_attempt }}-3
-        nix: false
-        paths: /nix/attic-checkpoint
-        purge: true
-        purge-prefixes: nix-builder-atticchk-
-        purge-last-accessed: 0
-        purge-primary-key: never
-
-    # The deadline covers the coordinator's remaining work after the last
-    # checkpoint round (Cachix push plus reconciliation) and still leaves
-    # room inside the job for the save below. Its 390-minute default
-    # outlived the job itself, so a coordinator that never signalled left
-    # this step waiting until GitHub cancelled everything.
     - name: Finalize Attic
       id: attic
       uses: mzwing/nix-actions/store-cache/finalize@master
       with:
         deadline-minutes: '90'
 
-    - name: Reclaim Actions cache quota
+    # Prunes here: the local tree is authoritative only once shutdown has dropped
+    # stale and now-public objects.
+    - name: Push builder store cache
       if: ${{ !cancelled() && steps.attic.outputs.save-ready == 'true' }}
-      uses: mzwing/nix-actions/store-cache/reclaim-quota@master
-      env:
-        GH_TOKEN: ${{ github.token }}
-
-    # Save even on a red build: successfully uploaded crate/FOD paths remain
-    # useful. Save only Attic's sparse data directory, keep this family at
-    # exactly one entry, and purge legacy full-store entries during migration.
-    - name: Save builder store cache
-      if: ${{ !cancelled() && steps.attic.outputs.save-ready == 'true' }}
-      uses: nix-community/cache-nix-action/save@v7
+      uses: mzwing/nix-actions/store-cache/push@master
       with:
-        primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
-        nix: false
-        paths: /nix/attic-data
-        purge: true
-        purge-prefixes: |-
-          nix-builder-attic-
-          nix-builder-atticchk-
-          nix-builder-store-
-        purge-last-accessed: 0
-        purge-primary-key: never
+        remote: ${{ env.STORE_CACHE_REMOTE }}
+        prune: 'true'
 
   coordinator:
     name: Distributed build coordinator
