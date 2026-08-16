@@ -85,24 +85,34 @@
       hash = "sha256-9xZjuK4oD/5A1ElXNtTbDmpoGNz/poWnGjTdzSX+AzE=";
     };
   };
+  navdash = {
+    pname = "navdash";
+    version = "v0.1.0";
+    src = fetchFromGitHub {
+      owner = "zhyiheihei";
+      repo = "navdash";
+      tag = "v0.1.0";
+      hash = "sha256-kDiQymHs/kgSLzqmoKGb+7kTUjBF0Vu/hyNvw3n1H7o=";
+    };
+  };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.6.2";
+    version = "v4.6.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.6.2";
-      hash = "sha256-+kJ4a8BByCqaIebqYjvaghM1pFHBPDSQHrnppUDRdPc=";
+      tag = "v4.6.3";
+      hash = "sha256-UlU2PN0fbEUSa1BEXIlgWxBzxGjU7Rki2UbeP/57xrE=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.6.2";
+    version = "v4.6.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.6.2";
-      hash = "sha256-qRhTj3n2E08QAclPVRd0SIxDqFvHxmdKs6U19fpYqKw=";
+      tag = "v4.6.3";
+      hash = "sha256-+5GtRUBj22pWjtjlzlVXKn+0ILyevfi09UlXDNUArVI=";
     };
   };
   pinyin2hanzi = {
@@ -133,18 +143,18 @@
   };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
-    version = "1.2.17";
+    version = "1.2.18";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-amd64";
-      hash = "sha256-STf84T349oI8ixjI5zKCQeSvs7uIUqYuM5IedCd84lM=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.18/sublinkPro-linux-amd64";
+      hash = "sha256-2js9kmy0BfDy3kAp1y1lhTuncNDAZPtCat+jZTexYmE=";
     };
   };
   sublinkpro-linux-arm64 = {
     pname = "sublinkpro-linux-arm64";
-    version = "1.2.17";
+    version = "1.2.18";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-arm64";
-      hash = "sha256-fvLRAwcEg/aHPcOc1sq/Dx5tNB308wOxShkp1HxCEgQ=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.18/sublinkPro-linux-arm64";
+      hash = "sha256-8U6Bx4qk/hgHIL0B9sT90fhNMkUUY7UD0WWmtQNMz4s=";
     };
   };
   sun-panel = {

@@ -160,6 +160,27 @@
         },
         "version": "v1.0.0rc1"
     },
+    "navdash": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "navdash",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "zhyiheihei",
+            "repo": "navdash",
+            "rev": "v0.1.0",
+            "sha256": "sha256-kDiQymHs/kgSLzqmoKGb+7kTUjBF0Vu/hyNvw3n1H7o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.0"
+    },
     "nexus-media": {
         "cargoLock": null,
         "date": null,
@@ -174,12 +195,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.6.2",
-            "sha256": "sha256-+kJ4a8BByCqaIebqYjvaghM1pFHBPDSQHrnppUDRdPc=",
+            "rev": "v4.6.3",
+            "sha256": "sha256-UlU2PN0fbEUSa1BEXIlgWxBzxGjU7Rki2UbeP/57xrE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.6.2"
+        "version": "v4.6.3"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -195,12 +216,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.6.2",
-            "sha256": "sha256-qRhTj3n2E08QAclPVRd0SIxDqFvHxmdKs6U19fpYqKw=",
+            "rev": "v4.6.3",
+            "sha256": "sha256-+5GtRUBj22pWjtjlzlVXKn+0ILyevfi09UlXDNUArVI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.6.2"
+        "version": "v4.6.3"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -262,11 +283,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-STf84T349oI8ixjI5zKCQeSvs7uIUqYuM5IedCd84lM=",
+            "sha256": "sha256-2js9kmy0BfDy3kAp1y1lhTuncNDAZPtCat+jZTexYmE=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-amd64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.18/sublinkPro-linux-amd64"
         },
-        "version": "1.2.17"
+        "version": "1.2.18"
     },
     "sublinkpro-linux-arm64": {
         "cargoLock": null,
@@ -277,11 +298,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fvLRAwcEg/aHPcOc1sq/Dx5tNB308wOxShkp1HxCEgQ=",
+            "sha256": "sha256-8U6Bx4qk/hgHIL0B9sT90fhNMkUUY7UD0WWmtQNMz4s=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-arm64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.18/sublinkPro-linux-arm64"
         },
-        "version": "1.2.17"
+        "version": "1.2.18"
     },
     "sun-panel": {
         "cargoLock": null,
