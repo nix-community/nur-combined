@@ -17,17 +17,17 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "velaterm";
-  version = "0.1.100";
+  version = "0.1.101";
 
   src = fetchFromGitHub {
     owner = "vlinx-io";
     repo = "VelaTerm";
-    rev = "7735086fa263f3379b5982867b766410f781b656";
-    hash = "sha256-encLYPtoWPgheXjk/afGnDlBLeK8503dlSEx7CRDsyc=";
+    rev = "c099cc248df5fc351eae90cd617e7f23685245f6";
+    hash = "sha256-AeL26bV3wwO0Nl6p+5cbMNuEX7uER+hJgnej6lubm3U=";
   };
 
   cargoDeps = rustPlatform.importCargoLock {
-    lockFile = "${finalAttrs.src}/src-tauri/Cargo.lock";
+    lockFile = ./Cargo.lock;
   };
 
   cargoRoot = "src-tauri";
