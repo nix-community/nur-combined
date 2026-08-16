@@ -13,6 +13,7 @@ main (args) {
         "meatshell-bin",
         "neomacs-bin",
         "nyaterm-bin",
+        "oh-dsh-bin",
         "quien",
         "seekey",
         "uipro-cli",

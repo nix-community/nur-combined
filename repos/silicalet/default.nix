@@ -37,6 +37,7 @@
   neomacs-bin = pkgs.callPackage ./pkgs/neomacs/binary.nix { };
   nyaterm = pkgs.callPackage ./pkgs/nyaterm { };
   nyaterm-bin = pkgs.callPackage ./pkgs/nyaterm/binary.nix { };
+  oh-dsh-bin = pkgs.callPackage ./pkgs/oh-dsh/binary.nix { };
   quien = pkgs.callPackage ./pkgs/quien { };
   seekey = pkgs.callPackage ./pkgs/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/uipro-cli { };

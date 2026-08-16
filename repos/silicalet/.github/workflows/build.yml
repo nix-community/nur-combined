@@ -57,6 +57,7 @@ jobs:
           - { package: meatshell-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: neomacs-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: nyaterm-bin, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: oh-dsh-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: quien, system: x86_64-linux, runner: ubuntu-latest }
           - { package: seekey, system: x86_64-linux, runner: ubuntu-latest }
           - { package: uipro-cli, system: x86_64-linux, runner: ubuntu-latest }
