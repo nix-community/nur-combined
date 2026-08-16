@@ -3,7 +3,7 @@
 ## 仓库定位
 
 本仓库只是“包补充”仓库，主战场是上级目录的
-`../nixos-config`。学习文档统一放在 `nixos-config/docs/learning/`，
+`../nixos-config`。学习文档统一放在 `nixos-config/docs/human/learning/`（项目相关）与 `docs/archive/learning/`（生态笔记归档），
 不要在本仓库维护学习文档。
 
 本仓库的职责：
