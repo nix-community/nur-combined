@@ -15,6 +15,7 @@ let
     id
     packagesFromDirectoryRecursive
     warn
+    recurseIntoAttrs
     ;
 
   _bartPackages = pkgs._bartPackages or { };
@@ -66,5 +67,7 @@ let
         ''
     )
       packages;
+
+  all = recurseIntoAttrs packagesWithWarning;
 in
-if prefix == null then packagesWithWarning else { ${prefix} = packagesWithWarning; }
+if prefix == null then all else { ${prefix} = all; }
