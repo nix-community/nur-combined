@@ -12,7 +12,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   timers cap at 256 the same way. Guest `voxel-set` mesh flushes cap at 256
   (oldest dropped; overlay still records the write). Play-thread voxel
   edit rebake uses a `HashSet` of cells. Guest `invoke`/`send`/`emit`
-  share `with_host_stack` for ask-depth and deferred flush. `LiveBus` OTP
+  share `with_host_stack` for ask-depth and deferred flush (Drop restores
+  depth if a nested import panics). `LiveBus` OTP
   errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
   `cargo test --bin hanga`. Live WASM `live_wasm_testbed_mailbox_cap_and_drain`
   fills a loaded testbed slot to the 256 cap (oldest `note` dropped) and

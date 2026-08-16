@@ -185,18 +185,27 @@ fn push_cell(cells: &mut Vec<AbiCell>, cell: AbiCell) -> u32 {
 
 pub const ABI_MAJOR: i32 = 6;
 
+struct HostStack<'a> {
+    bus: &'a dyn EngineBus,
+}
+
+impl Drop for HostStack<'_> {
+    fn drop(&mut self) {
+        let remaining = ASK_DEPTH.with(|depth| {
+            let next = depth.get().saturating_sub(1);
+            depth.set(next);
+            next
+        });
+        if remaining == 0 {
+            self.bus.flush_deferred();
+        }
+    }
+}
+
 fn with_host_stack<T>(bus: &dyn EngineBus, f: impl FnOnce() -> T) -> T {
     ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
-    let out = f();
-    let remaining = ASK_DEPTH.with(|depth| {
-        let next = depth.get().saturating_sub(1);
-        depth.set(next);
-        next
-    });
-    if remaining == 0 {
-        bus.flush_deferred();
-    }
-    out
+    let _stack = HostStack { bus };
+    f()
 }
 
 thread_local! {
@@ -1609,6 +1618,18 @@ mod tests {
         assert_eq!(slot, Some(1));
         assert!(keep_fresh(&mut slot, Some(2)));
         assert_eq!(slot, Some(2));
+    }
+
+    #[test]
+    fn host_stack_restores_depth_on_panic() {
+        ASK_DEPTH.with(|depth| depth.set(0));
+        let panicked = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            with_host_stack(&NoopBus, || panic!("nested import"));
+        }));
+        assert!(panicked.is_err());
+        ASK_DEPTH.with(|depth| assert_eq!(depth.get(), 0));
+        with_host_stack(&NoopBus, || {});
+        ASK_DEPTH.with(|depth| assert_eq!(depth.get(), 0));
     }
 
     #[test]
