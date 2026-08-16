@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "overcast-data";
-  version = "0.1.0";
+  version = "0.1.1";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "overcast-data";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ZPt/0ntPcoMBkCTIi6HfwFeSaPeFVal9xQDU5wCcsuo=";
+    hash = "sha256-y8fzxqE1SAK2bmIamMnTKACme1rcW8olzQLF38Uzl3A=";
   };
 
   build-system = with python3Packages; [
