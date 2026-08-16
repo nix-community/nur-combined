@@ -6,7 +6,7 @@
 }:
 
 let
-  version = "1.9.21";
+  version = "1.9.22";
 in
 buildNpmPackage rec {
   pname = "blueprint-mcp";
@@ -16,12 +16,12 @@ buildNpmPackage rec {
     owner = "railsblueprint";
     repo = "blueprint-mcp";
     rev = "v${version}";
-    sha256 = "sha256-TLAYKJT2QYNPDuMdgGVRnCgoT80Yz/MDNYkU4MCE/Js=";
+    sha256 = "sha256-REOnzXrUXSliDFEFSXDY4DirDiB9c/kcwmzESxvusDI=";
   };
 
   sourceRoot = "${src.name}/server";
 
-  npmDepsHash = "sha256-Evgt+WhAEMBXVXaaGWwVKYlTMTfesZ91IFuZTw+Tfwc=";
+  npmDepsHash = "sha256-K/yW8oSQooRLJoyu1Nl/YDGCR3D9j4Kp33r6UILCH10=";
 
   dontNpmBuild = true;
 
