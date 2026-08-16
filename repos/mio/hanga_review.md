@@ -34,7 +34,6 @@ Hanga is a Bevy-based host engine that runs game logic encapsulated in WASM comp
 
 ## Areas for Improvement
 - [ ] **Serialization Overhead**: Since WIT cannot easily nest variant types like JSON natively, Hanga uses a flattened index-based arena (`cells` + `root`) for complex types. While clever, this necessitates heavy packing/unpacking over the FFI boundary, which might become a bottleneck for very complex JSON payloads on high-frequency events.
-- [ ] **Veto Ambiguity**: The `emit` method considers a locked/busy pack as a veto (fail-closed). This strict concurrency approach ensures consistency, but could result in unexpected drops or blocked actions (like `before-dig`) if a mod pack accidentally blocks for too long.
 - [ ] **Synchronous `invoke` Deadlocks**: Making a direct `invoke` to a busy mod fails with `"busy"` rather than queueing. While this is well-documented (analogous to OTP's self-call deadlock prevention), it puts the burden on mod developers to explicitly use `send` when queueing is intended.
 
 ## Summary

@@ -160,7 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
   ''
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir -p $out/share/chatbox
+    mkdir -p $out/Applications $out/bin
     appDir=
     for d in release/build/mac*/Chatbox.app; do
       if [ -d "$d" ]; then
@@ -173,13 +173,9 @@ stdenv.mkDerivation (finalAttrs: {
       find release/build -maxdepth 4 -type d || true
       exit 1
     fi
-    cp -Pr --no-preserve=ownership "$appDir/Contents/Resources" $out/share/chatbox/
+    cp -Pr --no-preserve=ownership "$appDir" $out/Applications/
 
-    makeWrapper ${lib.getExe electron} $out/bin/chatbox \
-      --add-flags $out/share/chatbox/resources/app.asar \
-      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-      --set-default ELECTRON_IS_DEV 0 \
-      --inherit-argv0
+    makeWrapper "$out/Applications/Chatbox.app/Contents/MacOS/Chatbox" $out/bin/chatbox
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/share/chatbox

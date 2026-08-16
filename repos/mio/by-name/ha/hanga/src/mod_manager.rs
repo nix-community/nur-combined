@@ -1323,7 +1323,7 @@ impl ModRuntime {
                     }
                 }
             }
-            Err(_) => veto = true,
+            Err(_) => {} // Do not veto if busy
         }
         for pack in &self.packs {
             match pack.context.try_lock() {
@@ -1334,7 +1334,7 @@ impl ModRuntime {
                         }
                     }
                 }
-                Err(_) => veto = true,
+                Err(_) => {} // Do not veto if busy
             }
         }
         veto
@@ -2382,7 +2382,7 @@ mod tests {
         {
             let _hold = runtime.packs[0].context.lock().unwrap();
             assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
-            assert!(runtime.emit_all("ping", &wire_empty()));
+            assert!(!runtime.emit_all("ping", &wire_empty()));
         }
         assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
         assert!(!runtime.emit_all("ping", &wire_empty()));
