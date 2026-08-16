@@ -117,7 +117,7 @@ pub fn parse_gravity_node(node: &crate::kit::Node) -> GravityKit {
             "up" => {
                 if let Node::Dict(_) = &cell {
                     kit.up = unit(
-                        [cell.f32("x", 0.0), cell.f32("y", 1.0), cell.f32("z", 0.0)],
+                        [cell.f32("x", 0.0), cell.f32("y", 0.0), cell.f32("z", 0.0)],
                         [0.0, 1.0, 0.0],
                     );
                 } else if let Some(v) = parse_n(&value, 3) {
@@ -390,5 +390,14 @@ mod tests {
                 accel: [0.0, -9.81, 0.0]
             }
         );
+        let tilted = parse_gravity_node(&crate::kit::Node::Dict(vec![
+            ("kind".into(), crate::kit::Node::Text("none".into())),
+            (
+                "up".into(),
+                crate::kit::Node::Dict(vec![("x".into(), crate::kit::Node::Float(1.0))]),
+            ),
+        ]));
+        assert!((tilted.up[0] - 1.0).abs() < 1e-5);
+        assert!(tilted.up[1].abs() < 1e-5);
     }
 }
