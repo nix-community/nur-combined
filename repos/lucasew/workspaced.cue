@@ -518,7 +518,7 @@ workspaced: {
 	if !#is_phone {
 		lewtec: {
 			from: "github:lewtec/skills"
-			version: "afab5e4de7cb215e61bf54e4617ee95308d1f13e"
+			version: "cb673b4cd42ac4d20902cd093a6d1d11232ecc58"
 		}
 	}
 	workspaced: {
@@ -571,6 +571,61 @@ workspaced: {
 				config: {
 					items: {
 						".agents/skills/\(value.destination)": "self:\(value.origin)"
+					}
+				}
+			}
+		}
+	}
+}
+
+// ========== Agent definitions
+// Same shape as #skills. Origin defaults to "agents/". Destination is
+// ~/.grok/agents (Grok user agents) so spawn_subagent can see the type.
+
+#agents: {
+	if !#is_phone {
+		lewtec: {
+			from:    #skills.lewtec.from
+			version: #skills.lewtec.version
+			origin:  "agents"
+		}
+	}
+}
+
+#agents: [string]: {
+	from:        string
+	version:     string | *"HEAD"
+	origin:      string | *"agents"
+	destination: string | *""
+}
+
+workspaced: {
+	inputs: {
+		for name, src in #agents if !strings.HasPrefix(src.from, "self") {
+			"agents_\(name)": {
+				from:    src.from
+				version: src.version
+			}
+		}
+	}
+
+	modules: {
+		for name, value in #agents if !strings.HasPrefix(value.from, "self") {
+			"agents_\(name)": {
+				from: "core:place"
+				config: {
+					items: {
+						".grok/agents/\(value.destination)": "agents_\(name):\(value.origin)"
+					}
+				}
+			}
+		}
+		for name, value in #agents if strings.HasPrefix(value.from, "self") {
+			"agents_\(name)": {
+				from: "core:place"
+				config: {
+					items: {
+						".grok/agents/\(value.destination)": "self:\(value.origin)"
 					}
 				}
 			}
