@@ -1,6 +1,6 @@
 { callPackage, fetchFromGitHub, unstableGitUpdater, writeShellScript, ... }@args: let
-    version = "37.03-ce-unstable-2026-06-22";
-    hash = "sha256-7TZ1qfZkRNaH0YRkCQg6HbRP16W+PlEF/n7+KIirTLw=";
+    version = "37.03-ce-unstable-2026-08-15";
+    hash = "sha256-vin+Vcj8NzPl9i2nZOCSozngleQQG/xvqr1kxpqudas=";
     options = callPackage ./options.nix {};
     minivmac = callPackage ./generic.nix (args // {
         inherit minivmac version options;
@@ -8,7 +8,7 @@
         src = fetchFromGitHub {
             owner = "minivmac";
             repo = "minivmac";
-            rev = "05129c767a61922ac6177c446373baf49da6e627";
+            rev = "0638fb094a60a74688ab55cd8473c55411ec231f";
             # Remove unfree disk and ROM images:
             sparseCheckout = [
                 "/"
