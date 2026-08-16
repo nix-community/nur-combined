@@ -192,7 +192,7 @@ let
             done
           fi
         ''
-        + optionalString (stdenv.isLinux && pname == "cargo") ''
+        + optionalString (stdenv.hostPlatform.isLinux && pname == "cargo") ''
           patchelf --add-needed ${pkgsHostHost.libsecret}/lib/libsecret-1.so.0 $out/bin/cargo
         '';
 

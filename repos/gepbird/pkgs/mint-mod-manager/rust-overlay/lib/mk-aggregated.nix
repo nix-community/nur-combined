@@ -70,17 +70,17 @@ symlinkJoin {
       if [ -e $file ]; then
         [[ $file != */*clippy* ]] || cp --remove-destination "$(realpath -e $file)" $file
         chmod +w $file
-        ${lib.optionalString stdenv.isLinux ''
+        ${lib.optionalString stdenv.hostPlatform.isLinux ''
           if prev_rpath="$(patchelf --print-rpath "$file")"; then
             patchelf --set-rpath "$out/lib''${prev_rpath:+:}$prev_rpath" "$file"
           fi
         ''}
-        ${lib.optionalString stdenv.isDarwin ''
+        ${lib.optionalString stdenv.hostPlatform.isDarwin ''
           install_name_tool -add_rpath $out/lib "$file" || true
         ''}
       fi
     done
-    ${lib.optionalString stdenv.isDarwin ''
+    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
       cargo="$out/bin/cargo"
       if [ -e "$cargo" ]; then
         cp --remove-destination "$(realpath -e $cargo)" "$cargo"
