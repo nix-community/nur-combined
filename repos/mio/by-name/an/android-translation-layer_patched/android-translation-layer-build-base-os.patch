@@ -8,14 +8,11 @@ with NoSuchFieldError.
 
 --- a/src/api-impl/android/os/Build.java
 +++ b/src/api-impl/android/os/Build.java
-@@ -186,6 +186,10 @@
- 		public static final int RESOURCES_SDK_INT;
+@@ -187,6 +187,8 @@
  
  		public static final String SECURITY_PATCH = getString("ro.build.version.security_patch");
 +
 +		public static final String BASE_OS = getString("ro.build.version.base_os");
-+
-+		public static final int PREVIEW_SDK_INT = 0;
- 	}
  
- 	/**
+ 		/**
+ 		 * The developer preview revision of a prerelease SDK. This value will always

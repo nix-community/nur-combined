@@ -401,3 +401,53 @@ mod tests {
         assert!(tilted.up[1].abs() < 1e-5);
     }
 }
+
+#[cfg(kani)]
+mod kani_verification {
+    use super::*;
+
+    #[kani::proof]
+    fn verify_unit_vector_length() {
+        let vx: f32 = kani::any();
+        let vy: f32 = kani::any();
+        let vz: f32 = kani::any();
+        let fx: f32 = kani::any();
+        let fy: f32 = kani::any();
+        let fz: f32 = kani::any();
+
+        kani::assume(vx.is_finite() && vy.is_finite() && vz.is_finite());
+        kani::assume(fx.is_finite() && fy.is_finite() && fz.is_finite());
+        
+        // Prevent huge numbers that cause floating point inaccuracies
+        kani::assume(vx.abs() < 1e6 && vy.abs() < 1e6 && vz.abs() < 1e6);
+
+        // fallback must be a valid unit vector
+        kani::assume((fx * fx + fy * fy + fz * fz - 1.0).abs() < 1e-4);
+
+        let u = unit([vx, vy, vz], [fx, fy, fz]);
+        
+        let len_sq = u[0] * u[0] + u[1] * u[1] + u[2] * u[2];
+        
+        kani::assert((len_sq - 1.0).abs() < 1e-2, "unit vector must have length approx 1");
+    }
+
+    #[kani::proof]
+    fn verify_set_jump_keeps_planar() {
+        let vx: f32 = kani::any();
+        let vy: f32 = kani::any();
+        let vz: f32 = kani::any();
+        let jump: f32 = kani::any();
+        
+        kani::assume(vx.is_finite() && vy.is_finite() && vz.is_finite());
+        kani::assume(jump.is_finite());
+        
+        kani::assume(vx.abs() < 1e6 && vy.abs() < 1e6 && vz.abs() < 1e6 && jump.abs() < 1e6);
+        
+        let up = [0.0, 1.0, 0.0];
+        let new_v = set_jump([vx, vy, vz], jump, up);
+        
+        kani::assert((new_v[1] - jump).abs() < 1e-4, "y velocity should match jump");
+        kani::assert((new_v[0] - vx).abs() < 1e-4, "x velocity should be unchanged");
+        kani::assert((new_v[2] - vz).abs() < 1e-4, "z velocity should be unchanged");
+    }
+}
