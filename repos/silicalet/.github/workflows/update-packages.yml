@@ -45,6 +45,8 @@ jobs:
 
       - name: Checkout default branch
         run: |
+          # The bind-mounted workspace is owned by the host runner.
+          git config --global --add safe.directory "$(pwd)"
           git clone --depth 1 --branch "$UPDATE_BRANCH" \
             "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" .
           git config user.name "github-actions[bot]"
