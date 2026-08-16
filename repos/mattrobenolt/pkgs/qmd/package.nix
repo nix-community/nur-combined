@@ -144,10 +144,13 @@ stdenv.mkDerivation {
     # (node-llama-cpp's build shells out to npm run / cmake-js). The .bin
     # entries are symlinks, so patch the whole tree, not just .bin.
     patchShebangs node_modules
-    # node-gyp's nixpkgs wrapper points npm_config_nodedir at ITS node 24;
-    # build the binding against the node we pin at runtime instead (ABI).
+    # Build the binding against the pinned runtime node. Two layers of
+    # "do not let anything else choose": call node-gyp's js directly (the
+    # nixpkgs wrapper force-sets npm_config_nodedir to ITS node, which is
+    # older) and export the nodedir ourselves. A 24-built binding fails to
+    # load under 26 (ERR_DLOPEN_FAILED, verified).
     export npm_config_nodedir=${nodejs_26}
-    (cd node_modules/better-sqlite3 && node-gyp rebuild --release)
+    (cd node_modules/better-sqlite3 && ${lib.getExe nodejs_26} ${node-gyp}/lib/node_modules/node-gyp/bin/node-gyp.js rebuild --release)
 
     ${llamaBackendStep}
 

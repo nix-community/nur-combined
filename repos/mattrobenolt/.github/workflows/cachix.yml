@@ -38,16 +38,13 @@ jobs:
           echo "✅ All source packages built successfully"
 
   build-arm-linux:
-    runs-on: ubuntu-latest
+    # Native arm64 runner — the QEMU-emulated build was slow and flaky
+    # (died mid-llama.cpp compile). Free for public repos.
+    runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
-
-      - name: Set up QEMU for ARM emulation
-        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
-        with:
-          platforms: arm64
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
