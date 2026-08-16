@@ -215,25 +215,26 @@ pub fn parse_planar_node(node: &crate::kit::Node) -> Option<PlanarVel> {
         return None;
     }
     let mut vel = PlanarVel::default();
-    let mut saw = false;
+    let mut saw_vx = false;
+    let mut saw_vz = false;
     for (key, cell) in node.entries() {
         match key.as_str() {
             "vx" => {
                 if let Some(v) = cell.as_f32() {
                     vel.vx = v;
-                    saw = true;
+                    saw_vx = true;
                 }
             }
             "vz" => {
                 if let Some(v) = cell.as_f32() {
                     vel.vz = v;
-                    saw = true;
+                    saw_vz = true;
                 }
             }
             _ => {}
         }
     }
-    saw.then_some(vel)
+    (saw_vx && saw_vz).then_some(vel)
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -381,6 +382,7 @@ mod tests {
         assert_eq!(parse_fracture_kit("can=1;spread=3").impulse, 0.0);
         assert_eq!(parse_planar("vx=1;vz=-2"), Some(PlanarVel { vx: 1.0, vz: -2.0 }));
         assert_eq!(parse_planar(""), None);
+        assert_eq!(parse_planar("vx=1"), None);
         let fire = parse_fire_kit("heat=1.2;range=8;consume=1;jump=1;burst=0;out=0");
         assert!(fire.consume && fire.jump && !fire.out);
         assert!(parse_fire_kit("").out);

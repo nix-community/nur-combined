@@ -10,8 +10,6 @@ the host parsers and `cargo test` (`.#hanga-dev`).
   `send`s to self and must handle `on-step` first.
 - **Multi-lead terrain merge.** Workers clone one lead for `query-voxel`. Extra
   packs overlay loot/kits only.
-- **Voxel overlay map is unbounded.** It is world state (player/guest edits).
-  The 256 cap is the pending mesh flush, not the overlay.
 - **`ask_any` stops on the first `fail`.** A busy testbed slot can block urban
   for that topic. Changing that is a bus-policy change, not a parser tweak.
 - **`lab_owl` (Hoot)** is not a WIT component; the host still needs a Hoot
