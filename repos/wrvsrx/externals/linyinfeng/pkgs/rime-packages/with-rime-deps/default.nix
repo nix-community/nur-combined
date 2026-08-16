@@ -1,1 +1,0 @@
-{ withRimeDeps' }: rimePackages: [ (withRimeDeps' rimePackages) ]

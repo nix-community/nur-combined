@@ -1,8 +1,9 @@
+{ inputs }:
 {
   pkgs ? import <nixpkgs> { },
 }:
 let
-  overlay = import ./pkgs/overlay.nix;
+  overlay = import ./pkgs/overlay.nix { inherit inputs; };
   pkgs' = pkgs.extend overlay;
   getAllPackages =
     packageNames: packages:

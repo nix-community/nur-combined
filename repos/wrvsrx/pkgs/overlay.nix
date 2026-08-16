@@ -1,3 +1,4 @@
+{ inputs }:
 final: prev:
 let
   inherit (final) callPackage;
@@ -72,6 +73,7 @@ let
   rimePackages = callPackage ./rime-packages {
     inherit sources;
     inherit (final) librime;
+    hooksPath = "${inputs.linyinfeng}/pkgs/rime-packages/hooks";
   };
   lean-overlay = import ./lean-packages {
     inherit sources;

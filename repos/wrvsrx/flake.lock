@@ -38,6 +38,22 @@
         "type": "github"
       }
     },
+    "linyinfeng": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786905573,
+        "narHash": "sha256-dKDw3V4K/Fu0NJUzUAPBEph0z3Rs7GGT5ezue55y4rY=",
+        "owner": "linyinfeng",
+        "repo": "nur-packages",
+        "rev": "5ace571292d3958735db94c9f836b69fc3c93b57",
+        "type": "github"
+      },
+      "original": {
+        "owner": "linyinfeng",
+        "repo": "nur-packages",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1786894677,
@@ -58,6 +74,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
+        "linyinfeng": "linyinfeng",
         "nixpkgs": "nixpkgs"
       }
     },

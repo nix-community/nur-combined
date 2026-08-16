@@ -6,6 +6,10 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    linyinfeng = {
+      url = "github:linyinfeng/nur-packages";
+      flake = false;
+    };
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs =
@@ -13,7 +17,7 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, inputs, ... }:
       let
-        overlay = import ./pkgs/overlay.nix;
+        overlay = import ./pkgs/overlay.nix { inherit inputs; };
       in
       {
         systems = [ "x86_64-linux" ];
@@ -29,7 +33,7 @@
               inherit system;
               config.allowUnfree = true;
             };
-            packages = inputs.flake-utils.lib.flattenTree (import ./. { inherit pkgs; });
+            packages = inputs.flake-utils.lib.flattenTree (import ./. { inherit inputs; } { inherit pkgs; });
             devShells.default = pkgs.mkShell {
               nativeBuildInputs = with pkgs; [
                 nvfetcher
