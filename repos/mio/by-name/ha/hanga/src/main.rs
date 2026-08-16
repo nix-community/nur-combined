@@ -1346,6 +1346,9 @@ fn spawn_mod_traffic(
             continue;
         }
         let kit = parse_vehicle_kit_node(&node);
+        if kit.parts.is_empty() {
+            continue;
+        }
         spawn_vehicle(
             commands,
             meshes,

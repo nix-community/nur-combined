@@ -78,7 +78,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   instantiate fails (lead already did) and only `ready`s stores that
   actually swapped. Traffic `steer` `fail`/busy keeps velocity
   (host cruise only when the kit is empty). `vehicle-kit` `fail` or empty
-  skips that spawn index instead of a default car. Vehicle spawn xyz skips
+  skips that spawn index instead of a default car. Missing `speed` /
+  `stiffness` on a non-empty kit are 0, not 12/50. Missing `parts` is no
+  body (spawn skips), not the default gray box. Vehicle spawn xyz skips
   `fail`/empty instead of stacking at a fallback point. Ambient agent
   spawn skips `fail`/empty instead of pedestrians at the origin. Voxel
   labels keep the voxel name on `fail` (`unknown` only when the method
