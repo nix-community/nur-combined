@@ -133,3 +133,5 @@ While Python 3.8 reached End-Of-Life in October 2024 and is removed from modern 
 
 * `wolfssl`: Copied from Nixpkgs commit `3040774c2f99756cc03c28dd78bbcb2bbd4e73f9` (the revision immediately before it was dropped from the tree), to support JNI for `art-standalone_patched`.
 * `python27`: Copied from Nixpkgs commit `55280fa56481cd71b53545171eb9ec5ab44c3795` (the revision immediately before cpython 2.7 and its helpers were moved to resholve and subsequently removed from the top-level). It was removed in commit `e6871d9800efed3395535a879e323b546d96feab` (PR #516241). Details: `by-name/py/python27/README.md`.
+* `pianotrans`: Copied from Nixpkgs commit `f1e9650b64f293a7accfc69508c1e649b7e6a43a` (the revision immediately before it was dropped in `83e6090d1801915f1845f6faa994e5f00a3f9f00`).
+* `piano-transcription-inference`: Copied from Nixpkgs commit `83e6090d1801915f1845f6faa994e5f00a3f9f00` (the revision immediately before it was dropped in `bf55b4a6ed1577b567c8b6fb5c8a2eda8c31b869`).

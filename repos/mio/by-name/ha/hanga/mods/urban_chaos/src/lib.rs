@@ -1117,6 +1117,61 @@ mod kani_verification {
         let result = mod_wallet_after(action, wallet, extra);
         kani::assert(result >= 0 && result <= 1_000_000, "wallet stays in range");
     }
+
+    #[kani::proof]
+    fn verify_mod_can_complete_anti_cheat() {
+        let action_pick: u8 = kani::any();
+        let player_state: i32 = kani::any();
+        let contract_kind_pick: u8 = kani::any();
+        let contract_danger: i32 = kani::any();
+        let held_pick: u8 = kani::any();
+        let y: i32 = kani::any();
+        let vehicle: bool = kani::any();
+        let near: bool = kani::any();
+
+        let action = match action_pick % 4 {
+            0 => ACTION_ACCEPT,
+            1 => ACTION_COMPLETE,
+            2 => ACTION_FENCE,
+            _ => "unknown",
+        };
+
+        let contract_kind = match contract_kind_pick % 5 {
+            0 => CONTRACT_SMASH,
+            1 => CONTRACT_SUBWAY,
+            2 => CONTRACT_CHOP,
+            3 => CONTRACT_TRUCK,
+            _ => "",
+        };
+
+        let held = match held_pick % 5 {
+            0 => "glass",
+            1 => "brick",
+            2 => "concrete",
+            3 => "workbench",
+            _ => "",
+        };
+
+        let result = mod_can_complete(
+            action,
+            player_state,
+            contract_kind,
+            contract_danger,
+            held,
+            y,
+            vehicle,
+            near,
+        );
+
+        if action == ACTION_COMPLETE {
+            if player_state < contract_danger {
+                kani::assert(result == 0, "Cannot complete contract if wanted level is too low");
+            }
+            if !near {
+                kani::assert(result == 0, "Cannot complete contract if not near the mark");
+            }
+        }
+    }
 }
 
 #[cfg(test)]
