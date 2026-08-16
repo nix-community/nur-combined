@@ -134,8 +134,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SableClient";
     repo = "Sable";
-    rev = "e40782906dcc8347e8840f446232c62f6fe62b56";
-    hash = "sha256-jcvkjnh+saOGHUvMJN1cVzbW1zLymc0CAuZBFib6StM=";
+    rev = "bb8baacf6de83c8ee2eac7ef139943f3d027fcb9";
+    hash = "sha256-iuU+DX33+UjmGaH+uEfPXSMoc8bPpawS8KL/ACwTetY=";
   };
 
   inherit
