@@ -25,7 +25,7 @@ let
 
   src = sourceMap.${stdenv.hostPlatform.system};
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit pname version src;
   };
 in

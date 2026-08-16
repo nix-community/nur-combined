@@ -15,7 +15,7 @@ let
     hash = current.hash;
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit src pname version;
   };
 in

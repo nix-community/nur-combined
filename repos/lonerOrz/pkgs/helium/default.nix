@@ -24,7 +24,7 @@ pkgs.appimageTools.wrapType2 rec {
 
   extraInstallCommands =
     let
-      contents = pkgs.appimageTools.extractType2 { inherit pname version src; };
+      contents = pkgs.appimageTools.extract { inherit pname version src; };
     in
     ''
       mkdir -p $out/share/{applications,lib/helium}
