@@ -1,4 +1,4 @@
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "gemma-4-E4B-it-qat-GGUF";
   path = "gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf";

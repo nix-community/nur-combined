@@ -2,7 +2,7 @@
 # "small" models are 128k context, "medium" are 256k context.
 # <https://deepmind.google/models/gemma/gemma-4/>
 # <https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF>
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "gemma-4-26B-A4B-it-GGUF";
   path = "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf";

@@ -5,7 +5,7 @@
 #
 # this is a multi-file model -- not sure the intended way to use this?
 # i'll just replicate the folder layout
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "MiniMax-M2.5-GGUF";
   path = "UD-Q3_K_XL";

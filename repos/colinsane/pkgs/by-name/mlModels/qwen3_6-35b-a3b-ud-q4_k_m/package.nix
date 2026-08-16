@@ -1,7 +1,7 @@
 # Alibaba's Qwen3.6-35B-A3B, Unsloth Dynamic 2.0 Q4_K_M quant.
 # <https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF/blob/main/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf>
 # <https://unsloth.ai/docs/models/qwen3.6>
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "Qwen3.6-35B-A3B-GGUF";
   path = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";

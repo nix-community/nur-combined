@@ -2,7 +2,7 @@
 # Released 2026-06-26.
 # <https://huggingface.co/unsloth/LFM2.5-8B-A1B-GGUF>
 # <https://huggingface.co/unsloth/LFM2.5-8B-A1B-GGUF/blob/main/LFM2.5-8B-A1B-UD-IQ4_XS.gguf>
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "LFM2.5-8B-A1B-GGUF";
   path = "LFM2.5-8B-A1B-UD-IQ4_XS.gguf";

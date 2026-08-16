@@ -62,6 +62,8 @@ let
       # qwen3_6-35b-a3b-ud-q4_k_m
       # qwen3_6-35b-a3b-mtp-ud-q4_k_m
       qwen3_6-35b-a3b-uncensored-hauhaucs-aggressive-q3_k_p
+      qwen3_5-122b-a10b-uncensored-hauhaucs-aggressive-q3_k_p
+      qwen3-next-80b-a3b-thinking-grpo-uncensored-i1-q4_k_s
       # qwopus3_6-35b-a3b-coder-mtp-q4_k_m
       # qwythos-9b-claude-mythos-5-1m-q4_k_m
       qwythos-9b-v2-q4_k_m

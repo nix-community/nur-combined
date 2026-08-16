@@ -1,7 +1,7 @@
 # released 2025-08-08
 # <https://unsloth.ai/blog/gpt-oss>
 # <https://unsloth.ai/docs/models/gpt-oss-how-to-run-and-fine-tune>
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "gpt-oss-20b-GGUF";
   path = "gpt-oss-20b-Q4_K_M.gguf";

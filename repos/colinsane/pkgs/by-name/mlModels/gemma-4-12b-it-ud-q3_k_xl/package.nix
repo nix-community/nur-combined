@@ -1,7 +1,7 @@
 # Google's model, tuned for local inference, released 2026-06-03.
 # <https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/>
 # <https://huggingface.co/unsloth/gemma-4-12b-it-GGUF>
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "gemma-4-12b-it-GGUF";
   path = "gemma-4-12b-it-UD-Q3_K_XL.gguf";

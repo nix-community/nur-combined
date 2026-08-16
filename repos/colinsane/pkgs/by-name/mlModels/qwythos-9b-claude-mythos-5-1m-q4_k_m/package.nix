@@ -1,5 +1,5 @@
-{ fetchFromHuggingFace }:
-fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "empero-ai";
   repo = "Qwythos-9B-Claude-Mythos-5-1M-GGUF";
   path = "Qwythos-9B-Claude-Mythos-5-1M-Q4_K_M.gguf";

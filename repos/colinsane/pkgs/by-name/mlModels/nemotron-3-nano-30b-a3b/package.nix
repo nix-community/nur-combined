@@ -1,4 +1,4 @@
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "Nemotron-3-Nano-30B-A3B-GGUF";
   path = "Nemotron-3-Nano-30B-A3B-Q4_K_M.gguf";

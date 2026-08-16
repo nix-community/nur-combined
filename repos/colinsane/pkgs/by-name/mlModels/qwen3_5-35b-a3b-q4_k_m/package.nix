@@ -2,7 +2,7 @@
 # <https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF>
 # <https://unsloth.ai/docs/models/qwen3.5>
 # N.B.: 35B-A3B is allegedly _faster_ than 27B.
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "Qwen3.5-35B-A3B-GGUF";
   path = "Qwen3.5-35B-A3B-Q4_K_M.gguf";

@@ -1,6 +1,6 @@
 # Qwythos-9B-v2-Q4_K_M.gguf from huggingface.co/empero-ai/Qwythos-9B-v2-GGUF
 # <https://huggingface.co/empero-ai/Qwythos-9B-v2-GGUF/blob/main/Qwythos-9B-v2-Q4_K_M.gguf>
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "empero-ai";
   repo = "Qwythos-9B-v2-GGUF";
   path = "Qwythos-9B-v2-Q4_K_M.gguf";

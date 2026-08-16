@@ -1,6 +1,6 @@
 # Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M GGUF model by Jackrong
 # https://huggingface.co/Jackrong/Qwopus3.6-35B-A3B-Coder-MTP-GGUF
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "Jackrong";
   repo = "Qwopus3.6-35B-A3B-Coder-MTP-GGUF";
   path = "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf";

@@ -1,7 +1,7 @@
 # Alibaba's model, released 2026-02-15
 # <https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/blob/main/Qwen3.5-9B-Q4_K_M.gguf>
 # <https://unsloth.ai/docs/models/qwen3.5>
-{ fetchFromHuggingFace }: fetchFromHuggingFace {
+{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "Qwen3.5-9B-GGUF";
   path = "Qwen3.5-9B-Q4_K_M.gguf";
