@@ -7,9 +7,10 @@ let
   inherit (lib)
     makeScope
     substring
+    recurseIntoAttrs
     ;
 in
-makeScope newScope (self: {
+makeScope newScope (self: recurseIntoAttrs {
   mkWpPlugin =
     {
       stdenv,
@@ -103,7 +104,7 @@ makeScope newScope (self: {
   languages = {
     nl = self.callPackage self.mkLanguage {
       language = "nl_NL";
-      hash = "sha256-LOEmvX50MMjMIw++k2AkYpZo9WDfxzn4xBPiHTewuMg=";
+      hash = "sha256-CipLLCxHSMhMjFYMCTUAZbGA3iAWWfzM13DXzR17wB8=";
     };
   };
 })
