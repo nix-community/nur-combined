@@ -15,7 +15,7 @@ in
 
   config = lib.mkIf cfg.enable {
     users.users.keylime = {
-      isSystemUser = "keylime";
+      isSystemUser = true;
       group = "keylime";
     };
     users.groups.keylime = { };
@@ -28,7 +28,7 @@ in
         ExecStart = "${lib.getExe' cfg.package "keylime_registrar"}";
         User = "keylime";
         Group = "keylime";
-        TimoutSec = "60s";
+        TimeoutSec = "60s";
         Restart = "on-failure";
         RestartSec = "120s";
         StateDirectory = "keylime";
@@ -46,7 +46,7 @@ in
         ExecStart = "${lib.getExe' cfg.package "keylime_verifier"}";
         User = "keylime";
         Group = "keylime";
-        TimoutSec = "60s";
+        TimeoutSec = "60s";
         Restart = "on-failure";
         RestartSec = "120s";
         StateDirectory = "keylime";

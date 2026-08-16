@@ -5,7 +5,17 @@
   pkg-config,
   rustPlatform,
   tpm2-tss,
+  nixosTests,
 }:
+let
+  # Bug in tpm2-tss 4.2.0
+  # Remove once https://github.com/tpm2-software/tpm2-tss/pull/3123 is merged
+  tpm2-tss-keylime = tpm2-tss.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ./revert-skip-hmac-for-pure-policy-sessions.patch
+    ];
+  });
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rust-keylime";
   version = "0.2.10";
@@ -26,8 +36,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     openssl.dev
-    tpm2-tss.dev
+    tpm2-tss-keylime.dev
   ];
+
+  passthru.tests.nixos = nixosTests.keylime;
 
   meta = {
     description = "Rust implementation of the keylime agent";
