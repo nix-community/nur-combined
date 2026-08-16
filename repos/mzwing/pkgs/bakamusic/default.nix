@@ -218,10 +218,23 @@ in
       fi
       export BAKAMUSIC_ELECTRON_ZIP_DIR="$PWD/.electron-zips"
       mkdir -p "$BAKAMUSIC_ELECTRON_ZIP_DIR"
+
+      # Zip a writable copy rather than the store dist directly. zip records the
+      # store's read-only modes and extract-zip restores them, so packager then
+      # fails with EACCES trying to unlink resources/default_app.asar — removing
+      # a directory entry needs write permission on the directory, not the file.
+      # Only the modes differ; installPhase still links the runtime back to the
+      # store dist, so the packaged output is unchanged.
+      electron_dist=$(mktemp -d)
+      cp -r ${electronPkg.dist}/. "$electron_dist"
+      chmod -R u+w "$electron_dist"
       (
-        cd ${electronPkg.dist}
-        zip -X -q -r "$BAKAMUSIC_ELECTRON_ZIP_DIR/electron-v$electron_version-linux-${electronArch}.zip" .
+        cd "$electron_dist"
+        # -0 stores without compressing: packager extracts this zip on the same
+        # machine moments later, so deflating the whole runtime is pure waste.
+        zip -X -0 -q -r "$BAKAMUSIC_ELECTRON_ZIP_DIR/electron-v$electron_version-linux-${electronArch}.zip" .
       )
+      rm -rf "$electron_dist"
 
       # --- 2. sharp: rebuild from source against nixpkgs libvips ---
       #
