@@ -7,6 +7,8 @@
   pnpm_11,
   pnpmConfigHook,
   makeBinaryWrapper,
+  cargo,
+  rustc,
   nix-update-script,
 }:
 let
@@ -54,7 +56,13 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r build node_modules package.json $out/lib/cargo-doc-mcp/
 
     makeWrapper ${nodejs}/bin/node $out/bin/cargo-doc-mcp \
-      --add-flags "$out/lib/cargo-doc-mcp/build/index.js"
+      --add-flags "$out/lib/cargo-doc-mcp/build/index.js" \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          cargo
+          rustc
+        ]
+      }
 
     runHook postInstall
   '';
