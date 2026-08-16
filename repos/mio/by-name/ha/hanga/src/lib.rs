@@ -186,10 +186,21 @@ pub struct VoxelWrite {
     pub name: String,
 }
 
-static VOXEL_WRITES: std::sync::LazyLock<std::sync::Mutex<Vec<VoxelWrite>>> =
-    std::sync::LazyLock::new(|| std::sync::Mutex::new(Vec::new()));
+struct VoxelWriteQueue {
+    pending: Vec<VoxelWrite>,
+    shed: std::collections::HashSet<(i32, i32, i32)>,
+}
 
-/// Guest `voxel-set` mesh flush cap. Overlay still records every write.
+static VOXEL_WRITES: std::sync::LazyLock<std::sync::Mutex<VoxelWriteQueue>> =
+    std::sync::LazyLock::new(|| {
+        std::sync::Mutex::new(VoxelWriteQueue {
+            pending: Vec::new(),
+            shed: std::collections::HashSet::new(),
+        })
+    });
+
+/// Guest `voxel-set` pending-list cap. Overlay still records every write;
+/// shed cells are flushed from overlay on the next take so the mesh is not lost.
 pub const VOXEL_WRITE_CAP: usize = 256;
 
 pub fn queue_voxel_write(x: i32, y: i32, z: i32, name: impl Into<String>) {
@@ -201,18 +212,33 @@ pub fn queue_voxel_write(x: i32, y: i32, z: i32, name: impl Into<String>) {
     };
     overlay_set(x, y, z, overlay);
     if let Ok(mut queue) = VOXEL_WRITES.lock() {
-        if queue.len() >= VOXEL_WRITE_CAP {
-            queue.remove(0);
+        if queue.pending.len() >= VOXEL_WRITE_CAP {
+            let dropped = queue.pending.remove(0);
+            queue.shed.insert((dropped.x, dropped.y, dropped.z));
         }
-        queue.push(VoxelWrite { x, y, z, name });
+        queue.shed.remove(&(x, y, z));
+        queue.pending.push(VoxelWrite { x, y, z, name });
     }
 }
 
 pub fn take_voxel_writes() -> Vec<VoxelWrite> {
-    VOXEL_WRITES
-        .lock()
-        .map(|mut queue| std::mem::take(&mut *queue))
-        .unwrap_or_default()
+    let Ok(mut queue) = VOXEL_WRITES.lock() else {
+        return Vec::new();
+    };
+    let mut writes = std::mem::take(&mut queue.pending);
+    let shed = std::mem::take(&mut queue.shed);
+    let queued: std::collections::HashSet<_> = writes
+        .iter()
+        .map(|write| (write.x, write.y, write.z))
+        .collect();
+    for (x, y, z) in shed {
+        if queued.contains(&(x, y, z)) {
+            continue;
+        }
+        let name = overlay_name(x, y, z).unwrap_or_else(|| "air".into());
+        writes.push(VoxelWrite { x, y, z, name });
+    }
+    writes
 }
 
 /// Local player for guest `player()` (Luanti `get_player_by_name` snapshot).
@@ -246,6 +272,10 @@ pub fn clear_player_snap() {
 }
 
 pub fn overlay_clear() {
+    if let Ok(mut queue) = VOXEL_WRITES.lock() {
+        queue.pending.clear();
+        queue.shed.clear();
+    }
     if let Ok(mut map) = VOXEL_OVERLAY.write() {
         map.clear();
     }
@@ -862,15 +892,24 @@ mod tests {
     #[test]
     fn voxel_write_queue_drops_oldest() {
         overlay_clear();
-        let _ = take_voxel_writes();
         for i in 0..=VOXEL_WRITE_CAP {
             queue_voxel_write(i as i32, 0, 0, "glass");
         }
         let writes = take_voxel_writes();
-        assert_eq!(writes.len(), VOXEL_WRITE_CAP);
-        assert_eq!(writes[0].x, 1);
-        assert_eq!(writes[VOXEL_WRITE_CAP - 1].x, VOXEL_WRITE_CAP as i32);
+        assert_eq!(writes.len(), VOXEL_WRITE_CAP + 1);
+        assert!(writes.iter().any(|write| write.x == 0));
+        assert!(writes.iter().any(|write| write.x == VOXEL_WRITE_CAP as i32));
         overlay_clear();
+        assert!(take_voxel_writes().is_empty());
+    }
+
+    #[test]
+    fn overlay_clear_drops_pending_voxel_writes() {
+        overlay_clear();
+        queue_voxel_write(3, 1, 4, "glass");
+        overlay_clear();
+        assert_eq!(overlay_name(3, 1, 4), None);
+        assert!(take_voxel_writes().is_empty());
     }
 
     // ── is_connected_to_ground ────────────────────────────────────────────────

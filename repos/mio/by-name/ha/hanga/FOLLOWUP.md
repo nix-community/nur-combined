@@ -9,8 +9,10 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Mailbox bound.** Casts cap at 256; oldest is dropped with a warning. Drain
   requeues a message if the pack is still locked instead of dropping it as empty.
   Drain still stops after 32 rounds and warns if work remains. Guest `after`
-  timers cap at 256 the same way. Guest `voxel-set` mesh flushes cap at 256
-  (oldest dropped; overlay still records the write). Play-thread voxel
+  timers cap at 256 the same way. Guest `voxel-set` pending writes cap at 256
+  (oldest shed, then flushed from overlay on the next take so the mesh
+  still matches guest `voxel()`). `overlay_clear` drops pending and shed
+  writes so a wipe cannot replay air. Play-thread voxel
   edit rebake uses a `HashSet` of cells. Guest `invoke`/`send`/`emit`
   share `with_host_stack` for ask-depth and deferred flush (Drop restores
   depth if a nested import panics). `LiveBus` OTP
