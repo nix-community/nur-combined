@@ -87,7 +87,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `evaluate-action` `fail` skips spawn and wallet for that verb. Catalog trap
   skips that layer instead of merging an empty list. Typed `query-voxel` /
   `voxel-catalog` traps restart the pack like `invoke` (air / skip layer).
-  Guest `voxel()` worldgen sample returns air if `query-voxel` traps. Worker `query-voxel`
+  Guest `voxel()` worldgen sample returns air if `query-voxel` traps and
+  reuses a cached lead clone (same generation as workers), not a new
+  instance per cell. Worker `query-voxel`
   trap is air, not the engine `y < 0` stub. `tick` `fail`/busy keeps the
   current wanted level so agents are not despawned as if wanted were 0.
 - **`player` snapshot is engine-shaped.** Pose is always present. `state` and

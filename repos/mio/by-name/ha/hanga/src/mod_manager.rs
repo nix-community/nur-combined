@@ -2,7 +2,7 @@ use wasmtime::{Engine, Config, Store};
 use wasmtime::component::{Component, HasSelf, Linker};
 use bevy::prelude::*;
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::cell::Cell;
+use std::cell::{Cell, RefCell};
 use std::collections::HashSet;
 use std::sync::{Arc, Mutex, RwLock};
 use std::path::{Path, PathBuf};
@@ -187,6 +187,8 @@ pub const ABI_MAJOR: i32 = 6;
 
 thread_local! {
     static ASK_DEPTH: Cell<u32> = const { Cell::new(0) };
+    static SAMPLE_WORLDGEN: RefCell<Option<(u64, Store<HostData>, Plugin, Vec<String>)>> =
+        RefCell::new(None);
 }
 
 pub fn wire_empty() -> Wire {
@@ -799,28 +801,63 @@ fn probe_lead_voxel(x: i32, y: i32, z: i32) -> Wire {
 }
 
 fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
-    let Ok(shared) = SHARED_WASM.read() else {
-        return "air".into();
-    };
-    let Some((_, engine, component)) = shared.as_ref() else {
-        return "air".into();
-    };
-    let mut store = Store::new(engine, noop_host("sample"));
-    let mut linker = Linker::new(engine);
-    if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() {
-        return "air".into();
-    }
-    let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) else {
-        return "air".into();
-    };
-    let gp = bindings.hanga_engine_guest();
-    let Ok(index) = gp.call_query_voxel(&mut store, x, y, z) else {
-        return "air".into();
-    };
-    let names = gp.call_voxel_catalog(&mut store).unwrap_or_default();
-    ::hanga::catalog_name(&names, index)
-        .unwrap_or("air")
-        .to_string()
+    SAMPLE_WORLDGEN.with(|slot| {
+        let mut slot = slot.borrow_mut();
+        let wanted = SHARED_WASM
+            .read()
+            .ok()
+            .and_then(|shared| shared.as_ref().map(|(rev, _, _)| *rev));
+        let stale = match (slot.as_ref(), wanted) {
+            (Some((rev, _, _, _)), Some(want)) => *rev != want,
+            (None, Some(_)) => true,
+            _ => false,
+        };
+        if stale {
+            *slot = None;
+            let Ok(shared) = SHARED_WASM.read() else {
+                return "air".into();
+            };
+            let Some((rev, engine, component)) = shared.as_ref() else {
+                return "air".into();
+            };
+            let mut store = Store::new(engine, noop_host("sample"));
+            let mut linker = Linker::new(engine);
+            if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() {
+                return "air".into();
+            }
+            let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) else {
+                return "air".into();
+            };
+            let names = bindings
+                .hanga_engine_guest()
+                .call_voxel_catalog(&mut store)
+                .unwrap_or_default();
+            *slot = Some((*rev, store, bindings, names));
+        }
+        let name = {
+            let Some((_, store, bindings, names)) = slot.as_mut() else {
+                return "air".into();
+            };
+            match bindings
+                .hanga_engine_guest()
+                .call_query_voxel(store, x, y, z)
+            {
+                Ok(index) => Some(
+                    ::hanga::catalog_name(names, index)
+                        .unwrap_or("air")
+                        .to_string(),
+                ),
+                Err(_) => None,
+            }
+        };
+        match name {
+            Some(name) => name,
+            None => {
+                *slot = None;
+                "air".into()
+            }
+        }
+    })
 }
 
 impl hanga::engine::host::Host for HostData {
