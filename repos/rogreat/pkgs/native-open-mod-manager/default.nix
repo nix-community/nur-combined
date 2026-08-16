@@ -16,14 +16,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "native-open-mod-manager";
-  version = "0.11.0";
+  version = "0.12.0";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "Allexio";
     repo = "nomm";
     tag = finalAttrs.version;
-    hash = "sha256-MNnmzAAugyWARcWgC9q/INN2fH4NhJ7JOIh5Xnr5A0s=";
+    hash = "sha256-/xnPK7+fVRa/uPTPX+hL9pkqA9A2qPU2OlOuUeE68a8=";
   };
 
   nativeBuildInputs = [
@@ -62,7 +62,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
     install -D build/flatpak/com.nomm.Nomm.desktop $out/share/applications/com.nomm.Nomm.desktop
     install -D build/flatpak/com.nomm.Nomm.metainfo.xml $out/share/metainfo/com.nomm.Nomm.metainfo.xml
-    install -D assets/nomm.png $out/share/icons/hicolor/64x64/apps/com.nomm.Nomm.png
+    install -D assets/icons/nomm-logo.svg $out/share/icons/hicolor/scalable/apps/com.nomm.Nomm.png
 
     mkdir -p $out/${python3Packages.python.sitePackages}
     cp -r src -T $out/${python3Packages.python.sitePackages}
