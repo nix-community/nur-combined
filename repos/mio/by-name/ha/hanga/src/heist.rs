@@ -26,29 +26,31 @@ pub fn parse_contract_mark_node(node: &crate::kit::Node) -> Option<ContractMark>
     if node.is_empty() {
         return None;
     }
-    let mut pos = [0, 2, 0];
+    let mut pos = [0, 0, 0];
     let mut radius = 8.0;
     let mut rgb = [0.92, 0.78, 0.28];
     let mut take = false;
-    let mut saw = false;
+    let mut saw_x = false;
+    let mut saw_y = false;
+    let mut saw_z = false;
     for (key, cell) in node.entries() {
         match key.as_str() {
             "x" => {
                 if let Some(v) = cell.as_i32() {
                     pos[0] = v;
-                    saw = true;
+                    saw_x = true;
                 }
             }
             "y" => {
                 if let Some(v) = cell.as_i32() {
                     pos[1] = v;
-                    saw = true;
+                    saw_y = true;
                 }
             }
             "z" => {
                 if let Some(v) = cell.as_i32() {
                     pos[2] = v;
-                    saw = true;
+                    saw_z = true;
                 }
             }
             "radius" => {
@@ -75,7 +77,7 @@ pub fn parse_contract_mark_node(node: &crate::kit::Node) -> Option<ContractMark>
             _ => {}
         }
     }
-    saw.then_some(ContractMark {
+    (saw_x && saw_y && saw_z).then_some(ContractMark {
         pos,
         radius,
         rgb,
@@ -118,6 +120,7 @@ mod tests {
     fn empty_mark_is_none() {
         assert_eq!(parse_contract_mark(""), None);
         assert_eq!(parse_contract_mark("need=held:glass"), None);
+        assert_eq!(parse_contract_mark("x=531"), None);
     }
 
     #[test]
