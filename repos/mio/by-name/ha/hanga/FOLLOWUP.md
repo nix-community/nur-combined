@@ -64,7 +64,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **Host still flattens some kits via `Node` walks.** Vehicle, crash, gravity,
   fire, fracture, planar, and contract-mark parse trees. `key=value;` text is
   only a fallback inside those parsers (lib tests). Gravity, crash, and
-  vehicle kits treat empty text/dict like `Empty`. Fracture empty is
+  vehicle kits treat empty text/dict like `Empty`. Point gravity missing
+  `strength` is 0, not 20. `kind=down` without `g` or an axis is zero accel,
+  not 9.81. Fracture empty is
   `FractureKit::default()` (no invented impulse). Missing `impulse` on a
   non-empty kit is 0, not 5. `node_from_reply` /
   `bus_node_ok` drop `fail` so fire does not treat busy as `out`. Empty

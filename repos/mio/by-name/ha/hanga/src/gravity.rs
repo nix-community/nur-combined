@@ -65,7 +65,7 @@ pub fn parse_gravity_node(node: &crate::kit::Node) -> GravityKit {
     let mut g = 9.81;
     let mut saw_axis = false;
     let mut saw_g = false;
-    let mut strength = 20.0;
+    let mut strength = 0.0;
     let mut inv_sq = false;
     for (key, cell) in node.entries() {
         let value = cell.text();
@@ -152,8 +152,10 @@ pub fn parse_gravity_node(node: &crate::kit::Node) -> GravityKit {
         "down" | "earth" => {
             let accel = if saw_axis {
                 [x, y, z]
-            } else {
+            } else if saw_g {
                 [0.0, -g, 0.0]
+            } else {
+                [0.0, 0.0, 0.0]
             };
             GravityKind::Constant { accel }
         }
@@ -348,6 +350,10 @@ mod tests {
         let inv = parse_gravity("kind=point;x=0;y=0;z=0;strength=40;falloff=invsq");
         let b = point_accel(&inv, [2.0, 0.0, 0.0]);
         assert!((b[0] + 10.0).abs() < 1e-4);
+        let bare = parse_gravity("kind=point;x=0;y=0;z=0");
+        assert_eq!(point_accel(&bare, [10.0, 0.0, 0.0]), [0.0, 0.0, 0.0]);
+        let down = parse_gravity("kind=down");
+        assert_eq!(avian_accel(&down), [0.0, 0.0, 0.0]);
     }
 
     #[test]
