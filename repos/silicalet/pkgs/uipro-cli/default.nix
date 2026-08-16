@@ -8,13 +8,13 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "uipro-cli";
-  version = "2.14.2";
+  version = "2.15.0";
 
   src = fetchFromGitHub {
     owner = "nextlevelbuilder";
     repo = "ui-ux-pro-max-skill";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5cubOj9k/84+3PvAJA/tv39SCZUzU0GHhFOEfA1Lct4=";
+    hash = "sha256-nqMRolK+lNhE0esQED2Q+9wdJEke7wGhWmZ9chQ0ma4=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/cli";
