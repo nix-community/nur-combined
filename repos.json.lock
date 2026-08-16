@@ -1335,8 +1335,8 @@
             "url": "https://github.com/jorsn/nur-packages"
         },
         "josh": {
-            "rev": "fb72551da304c94bd0793d2cebaa13d6951956bc",
-            "sha256": "1mrprkbq0pmc65l3ldz939bg0s6m140s6isj6hdhpbq7pw2mn03w",
+            "rev": "7706b6db438587160bf688f33055dbcd02a2e949",
+            "sha256": "1lh4yk089s0r57cp3wv0h6z10n1fcml9zcyc9kphhx3wps8hdxi6",
             "url": "https://github.com/josh/nurpkgs"
         },
         "jpts": {
@@ -1648,8 +1648,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "84c78d4dc91e06b77f6c93b4077298b77daf3ca3",
-            "sha256": "1h9ynbm2smgq51qyg6cdss9w21v0mpfzf2r3j8zfncxvha08xi2c",
+            "rev": "12e5ebe965636d971d115733dbfc4bfc66bac8de",
+            "sha256": "1vg52704h2lj4v1bar084sig0x5ipv2ajfxmn93zydkir7a5nkfz",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2310,8 +2310,8 @@
             "url": "https://github.com/sn0wm1x/ur"
         },
         "so1ve": {
-            "rev": "96a9c4bd3bdb37ae9d022086cb3b05e3e003290d",
-            "sha256": "04x5sgzdjr5a7nrvpwsslmm76qfklbkp02dqd1c8jsanl0047gbl",
+            "rev": "1f5303b7c2760a609099dadc5260c998efcf2d68",
+            "sha256": "0maakff2527g6i5ph5859bkdrag0hicb19bgkxxpi0j630hp433z",
             "url": "https://github.com/so1ve/nur-packages"
         },
         "some-pkgs": {
