@@ -1,5 +1,5 @@
 {
-  "name": "nix-repin-deepseek-ai-dsh",
+  "name": "nix-repin-package",
   "private": true,
   "version": "0.1.0-rc.6",
   "dependencies": {
