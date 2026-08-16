@@ -284,7 +284,7 @@ jobs:
         EOF
         # cat "$tempFlake/flake.nix"
         nix flake lock "$tempFlake"
-        PATH="$(nix shell 'github:Mic92/nix-fast-build${{ matrix.nixFastBuildFlakeArgs }}' --override-input nixpkgs myNixpkgs 'myNixpkgs#ansifilter' -c bash -c 'echo -E "$PATH"')
+        PATH="$(nix shell 'github:Mic92/nix-fast-build${{ matrix.nixFastBuildFlakeArgs }}' --override-input nixpkgs myNixpkgs 'myNixpkgs#ansifilter' -c bash -c 'echo -E "$PATH"')"
         set -o pipefail
         nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom --result-file /tmp/build-status.json 2>&1 | \
           tee >(ansifilter > /tmp/build-uncached.log)
