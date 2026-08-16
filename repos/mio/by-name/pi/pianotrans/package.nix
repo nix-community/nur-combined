@@ -24,7 +24,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   dependencies = [
     piano-transcription-inference
-  ] ++ (with python3.pkgs; [
+  ]
+  ++ (with python3.pkgs; [
     resampy
     tkinter
     torch

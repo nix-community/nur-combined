@@ -1007,6 +1007,66 @@ impl exports::hanga::engine::guest::Guest for UrbanChaosMod {
     }
 }
 
+// ─── Soft-Body Solver (BeamNG-style) ──────────────────────────────────────────
+
+#[derive(Clone, Copy)]
+pub struct Node {
+    pub mass: f32,
+    pub px: f32, pub py: f32, pub pz: f32,
+    pub vx: f32, pub vy: f32, pub vz: f32,
+}
+
+#[derive(Clone, Copy)]
+pub struct Beam {
+    pub node_a: usize,
+    pub node_b: usize,
+    pub rest_length: f32,
+    pub stiffness: f32,
+    pub damping: f32,
+    pub plastic_yield: f32,
+}
+
+pub fn tick_softbody(nodes: &mut [Node], beams: &mut [Beam], dt: f32) {
+    // Spring-damper forces
+    for beam in beams.iter_mut() {
+        let a = nodes[beam.node_a];
+        let b = nodes[beam.node_b];
+        
+        let dx = b.px - a.px;
+        let dy = b.py - a.py;
+        let dz = b.pz - a.pz;
+        
+        let dist = (dx * dx + dy * dy + dz * dz).sqrt().max(0.001);
+        let deformation = dist - beam.rest_length;
+        
+        // Plastic yield: permanently deform rest length if stressed too much
+        if deformation.abs() > beam.plastic_yield {
+            beam.rest_length += deformation * 0.1 * dt; 
+        }
+        
+        let force_mag = deformation * beam.stiffness;
+        
+        let fx = (dx / dist) * force_mag;
+        let fy = (dy / dist) * force_mag;
+        let fz = (dz / dist) * force_mag;
+        
+        nodes[beam.node_a].vx += fx / a.mass * dt;
+        nodes[beam.node_a].vy += fy / a.mass * dt;
+        nodes[beam.node_a].vz += fz / a.mass * dt;
+        
+        nodes[beam.node_b].vx -= fx / b.mass * dt;
+        nodes[beam.node_b].vy -= fy / b.mass * dt;
+        nodes[beam.node_b].vz -= fz / b.mass * dt;
+    }
+    
+    // Integration
+    for node in nodes.iter_mut() {
+        node.px += node.vx * dt;
+        node.py += node.vy * dt;
+        node.pz += node.vz * dt;
+    }
+}
+
 export!(UrbanChaosMod);
 
 #[cfg(kani)]
@@ -1171,6 +1231,48 @@ mod kani_verification {
                 kani::assert(result == 0, "Cannot complete contract if not near the mark");
             }
         }
+    }
+
+    #[kani::proof]
+    fn verify_softbody_momentum_conservation() {
+        let dt: f32 = 0.016;
+        
+        let mut nodes = [
+            Node { mass: 1.0, px: kani::any(), py: kani::any(), pz: kani::any(), vx: kani::any(), vy: kani::any(), vz: kani::any() },
+            Node { mass: 2.0, px: kani::any(), py: kani::any(), pz: kani::any(), vx: kani::any(), vy: kani::any(), vz: kani::any() },
+        ];
+        
+        let mut beams = [
+            Beam { node_a: 0, node_b: 1, rest_length: kani::any(), stiffness: kani::any(), damping: 0.0, plastic_yield: kani::any() },
+        ];
+        
+        for n in &nodes {
+            kani::assume(n.px.is_finite() && n.px.abs() < 100.0);
+            kani::assume(n.py.is_finite() && n.py.abs() < 100.0);
+            kani::assume(n.pz.is_finite() && n.pz.abs() < 100.0);
+            kani::assume(n.vx.is_finite() && n.vx.abs() < 100.0);
+            kani::assume(n.vy.is_finite() && n.vy.abs() < 100.0);
+            kani::assume(n.vz.is_finite() && n.vz.abs() < 100.0);
+        }
+        
+        kani::assume(beams[0].rest_length.is_finite() && beams[0].rest_length > 0.1 && beams[0].rest_length < 100.0);
+        kani::assume(beams[0].stiffness.is_finite() && beams[0].stiffness >= 0.0 && beams[0].stiffness < 1000.0);
+        kani::assume(beams[0].plastic_yield.is_finite() && beams[0].plastic_yield > 0.0 && beams[0].plastic_yield < 100.0);
+        
+        let initial_px = nodes[0].mass * nodes[0].vx + nodes[1].mass * nodes[1].vx;
+        let initial_py = nodes[0].mass * nodes[0].vy + nodes[1].mass * nodes[1].vy;
+        let initial_pz = nodes[0].mass * nodes[0].vz + nodes[1].mass * nodes[1].vz;
+        
+        tick_softbody(&mut nodes, &mut beams, dt);
+        
+        let final_px = nodes[0].mass * nodes[0].vx + nodes[1].mass * nodes[1].vx;
+        let final_py = nodes[0].mass * nodes[0].vy + nodes[1].mass * nodes[1].vy;
+        let final_pz = nodes[0].mass * nodes[0].vz + nodes[1].mass * nodes[1].vz;
+        
+        // The internal spring forces must cancel out perfectly.
+        kani::assert((initial_px - final_px).abs() < 0.1, "X momentum must be conserved");
+        kani::assert((initial_py - final_py).abs() < 0.1, "Y momentum must be conserved");
+        kani::assert((initial_pz - final_pz).abs() < 0.1, "Z momentum must be conserved");
     }
 }
 
