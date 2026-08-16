@@ -64,10 +64,10 @@
             lib.optionalString
             (hostConfig.device.hostname == "archimedes")
             ''
-              # Start Hyprland only on the primary TTY, leaving other TTYs available
-              # as recovery shells if the graphical session fails.
+              # Start Hyprland only on the primary TTY, leaving other TTYs
+              # available as recovery shells if the graphical session fails.
               if [ "$XDG_VTNR" = "1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-                exec Hyprland
+                exec start-hyprland
               fi
             ''
           }
