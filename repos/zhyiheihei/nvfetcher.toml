@@ -30,6 +30,10 @@ src.github = "sky22333/hubproxy"
 fetch.github = "mxcoras/jieba-next"
 src.github_tag = "mxcoras/jieba-next"
 
+[navdash]
+fetch.github = "zhyiheihei/navdash"
+src.github_tag = "zhyiheihei/navdash"
+
 [nexus-media]
 fetch.github = "linyuan0213/nexus-media"
 src.github = "linyuan0213/nexus-media"
