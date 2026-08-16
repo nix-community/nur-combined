@@ -81,7 +81,7 @@
       stdenv.hostPlatform.system
     } or "linux_x64";
 
-  npmDepsHash = "sha256-5FLU6sES3NHHe0ZL/qcXlF6cfpWBHI76vCYFP23IAvQ=";
+  npmDepsHash = "sha256-jfTXwUXh9/qdRs1Rd6Y8SmE1jK621buyX1hQ7elDyS8=";
   npmDeps =
     (fetchNpmDeps {
       inherit pname version src;
@@ -199,6 +199,11 @@ in
     '';
 
     preBuild = ''
+      # extract-zip 2 can terminate Electron Packager early on Node 24 and leave out/ empty.
+      # Electron already provides its drop-in replacement, so this needs no lockfile change.
+      substituteInPlace node_modules/@electron/packager/dist/unzip.js \
+        --replace-fail 'require("extract-zip")' 'require("@electron-internal/extract-zip")'
+
       # --- 1. Offline Electron runtime for electron-packager ---
       #
       # electron-packager can only consume an Electron runtime from a flat
@@ -294,14 +299,6 @@ in
 
     buildPhase = ''
       runHook preBuild
-
-      # Diagnostic, remove once the packaging hang is understood. In CI run
-      # 31921034156 this step sat 169 minutes with a whole builder to itself and
-      # produced nothing after "Running packaging hooks": the forge webpack
-      # plugin swallows webpack's output, so a compile in progress and a
-      # deadlock look identical. forge logs its own progress through `debug`,
-      # which at least names the compiler that stops making progress.
-      export DEBUG='electron-forge:*'
 
       # Only package (no makers): produces out/BakaMusic-linux-<arch>/.
       NODE_ENV=production npm exec -- electron-forge package

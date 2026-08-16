@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.7.1";
+    version = "v1.8.0";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.7.1";
+      rev = "v1.8.0";
       fetchSubmodules = false;
-      sha256 = "sha256-ajskSyRLxka6BbmMBWibImwQtRu7LgEXbHq2YQDkfss=";
+      sha256 = "sha256-aWvV5tuZaR1vdMpr9lGsFtCUYmoHQ5kqopPJxhbF1r8=";
     };
   };
   cliproxyapiplus = {
