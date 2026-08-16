@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 48 packages.
+Generated from 51 packages.
 
 ## `ambient-build-vm`
 
@@ -13,7 +13,7 @@ Generated from 48 packages.
 ## `ambient-ci`
 
 - **Package name:** ambient-ci
-- **Version:** 0.16.0
+- **Version:** 0.17.0
 - **Description:** Ambient continuous integration engine
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** AGPL-3.0-or-later
@@ -42,6 +42,14 @@ Generated from 48 packages.
 - **Homepage:** [https://dldc.lib.uchicago.edu/open/attachment-converter/](https://dldc.lib.uchicago.edu/open/attachment-converter/)
 - **License:** GPL-3.0-or-later
 
+## `blueferry`
+
+- **Package name:** blueferry
+- **Version:** 0.7.0
+- **Description:** iPhone iMessage/SMS and notifications bridge to Linux over Bluetooth
+- **Homepage:** [https://github.com/erikwb/blueferry](https://github.com/erikwb/blueferry)
+- **License:** GPL-2.0-only
+
 ## `browsertrix-crawler`
 
 - **Package name:** browsertrix-crawler
@@ -53,7 +61,7 @@ Generated from 48 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-08-03
+- **Version:** 0.4.0-unstable-2026-08-10
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -61,7 +69,7 @@ Generated from 48 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.8.7
+- **Version:** 0.8.8
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -69,7 +77,7 @@ Generated from 48 packages.
 ## `cascade`
 
 - **Package name:** cascade
-- **Version:** 0.1.0-beta5
+- **Version:** 0.1.0-beta6
 - **Description:** Friendly DNSSEC signing pipeline
 - **Homepage:** [https://blog.nlnetlabs.nl/cascade/](https://blog.nlnetlabs.nl/cascade/)
 - **License:** BSD-3-Clause
@@ -90,14 +98,6 @@ Generated from 48 packages.
 - **Homepage:** [https://github.com/linux-credentials/credentialsd](https://github.com/linux-credentials/credentialsd)
 - **License:** LGPL-3.0-only
 
-## `debian-archive-keyring`
-
-- **Package name:** debian-archive-keyring
-- **Version:** 2025.1
-- **Description:** GnuPG archive keys of the Debian archive
-- **Homepage:** [https://salsa.debian.org/release-team/debian-archive-keyring](https://salsa.debian.org/release-team/debian-archive-keyring)
-- **License:** GPL-2.0-or-later AND LicenseRef-nixos-publicDomain
-
 ## `debspawn`
 
 - **Package name:** debspawn
@@ -106,10 +106,25 @@ Generated from 48 packages.
 - **Homepage:** [https://github.com/lkhq/debspawn](https://github.com/lkhq/debspawn)
 - **License:** LGPL-3.0-or-later
 
+## `dnclient`
+
+- **Package name:** dnclient
+- **Version:** 0.9.7
+- **Homepage:** [https://www.defined.net/](https://www.defined.net/)
+- **License:** LicenseRef-nixos-unfree
+
+## `filc-pizfix`
+
+- **Package name:** filc-pizfix
+- **Version:** 0.683
+- **Description:** Fil-C toolchain (Pizfix)
+- **Homepage:** [https://fil-c.org/pizfix](https://fil-c.org/pizfix)
+- **License:** (Apache-2.0 WITH LLVM-exception) AND (BSD-2-Clause AND BSD-3-Clause)
+
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 77.0.0
+- **Version:** 78.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -138,14 +153,6 @@ Generated from 48 packages.
 - **Homepage:** [https://landlock.io](https://landlock.io)
 - **License:** Apache-2.0 OR MIT
 
-## `jetring`
-
-- **Package name:** jetring
-- **Version:** 0.32
-- **Description:** Maintenance of gpg keyrings using changesets
-- **Homepage:** [https://salsa.debian.org/debian/jetring](https://salsa.debian.org/debian/jetring)
-- **License:** GPL-2.0-or-later
-
 ## `keylime`
 
 - **Package name:** keylime
@@ -165,7 +172,7 @@ Generated from 48 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.18.26
+- **Version:** 0.18.27
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-2.1-or-later
@@ -185,14 +192,6 @@ Generated from 48 packages.
 - **Description:** Make BuildStream OS Image
 - **Homepage:** [https://gitlab.com/freedesktop-sdk/mkbstosi](https://gitlab.com/freedesktop-sdk/mkbstosi)
 - **License:** LGPL-2.1-or-later
-
-## `mmdebstrap`
-
-- **Package name:** mmdebstrap
-- **Version:** 1.5.7
-- **Description:** Alternative to debootstrap which uses apt internally
-- **Homepage:** [https://gitlab.mister-muffin.de/josch/mmdebstrap/](https://gitlab.mister-muffin.de/josch/mmdebstrap/)
-- **License:** MIT
 
 ## `mxc`
 
@@ -233,6 +232,13 @@ Generated from 48 packages.
 - **Description:** An unofficial DDNS-Client for Porkbun Domains
 - **Homepage:** [https://github.com/mietzen/porkbun-ddns](https://github.com/mietzen/porkbun-ddns)
 - **License:** MIT
+
+## `pristine-tar`
+
+- **Package name:** pristine-tar
+- **Version:** 1.49
+- **Homepage:** [https://salsa.debian.org/debian/pristine-tar](https://salsa.debian.org/debian/pristine-tar)
+- **License:** BSD-3-Clause AND bzip2-1.0.6 AND GPL-2.0-or-later
 
 ## `python3Packages.buildgrid-metering-client`
 
@@ -298,18 +304,10 @@ Generated from 48 packages.
 - **Homepage:** [https://keylime.dev](https://keylime.dev)
 - **License:** Apache-2.0
 
-## `sbuild`
-
-- **Package name:** sbuild
-- **Version:** 0.91.10
-- **Description:** Tool for building Debian binary packages from Debian sources
-- **Homepage:** [https://salsa.debian.org/debian/sbuild](https://salsa.debian.org/debian/sbuild)
-- **License:** GPL-2.0-or-later
-
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-08-03
+- **Version:** 0-unstable-2026-08-09
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -330,6 +328,14 @@ Generated from 48 packages.
 - **Homepage:** [https://subplot.tech/](https://subplot.tech/)
 - **License:** MIT-0
 
+## `systemd-btf`
+
+- **Package name:** systemd-btf
+- **Version:** 261.1
+- **Description:** System and service manager for Linux
+- **Homepage:** [https://systemd.io](https://systemd.io)
+- **License:** BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT AND MIT-0 AND OFL-1.1 AND LicenseRef-nixos-publicDomain
+
 ## `tcl9Packages.tcl-syslog`
 
 - **Package name:** tcl-syslog
@@ -337,6 +343,14 @@ Generated from 48 packages.
 - **Description:** Syslog interface for Tcl
 - **Homepage:** [https://github.com/mxmanghi/tcl-syslog](https://github.com/mxmanghi/tcl-syslog)
 - **License:** GPL-3.0-or-later
+
+## `timewarp`
+
+- **Package name:** timewarp
+- **Version:** 0-unstable-2026-03-04
+- **Description:** Run a command with a faked system time without LD\_PRELOAD
+- **Homepage:** [https://github.com/renard/timewarp](https://github.com/renard/timewarp)
+- **License:** AGPL-3.0-or-later
 
 ## `tmux-notify`
 
@@ -353,14 +367,6 @@ Generated from 48 packages.
 - **Description:** CLI for accessing TPM 2.0 chips on Linux.
 - **Homepage:** [https://gitlab.com/tpm-protocol/tpm2sh](https://gitlab.com/tpm-protocol/tpm2sh)
 - **License:** GPL-3.0-or-later
-
-## `upki`
-
-- **Package name:** upki
-- **Version:** 1.0.0-beta.3
-- **Description:** Platform-independent browser-grade certificate infrastructure
-- **Homepage:** [https://github.com/rustls/upki](https://github.com/rustls/upki)
-- **License:** MIT OR Apache-2.0
 
 ## `vmdb2`
 
@@ -379,6 +385,24 @@ Generated from 48 packages.
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause
+- **Status:** Broken
+
+## `mmdebstrap`
+
+- **Package name:** mmdebstrap
+- **Version:** 1.5.7
+- **Description:** Alternative to debootstrap which uses apt internally
+- **Homepage:** [https://gitlab.mister-muffin.de/josch/mmdebstrap/](https://gitlab.mister-muffin.de/josch/mmdebstrap/)
+- **License:** MIT
+- **Status:** Broken
+
+## `sbuild`
+
+- **Package name:** sbuild
+- **Version:** 0.91.10
+- **Description:** Tool for building Debian binary packages from Debian sources
+- **Homepage:** [https://salsa.debian.org/debian/sbuild](https://salsa.debian.org/debian/sbuild)
+- **License:** GPL-2.0-or-later
 - **Status:** Broken
 
 ## `tubearchivist`
