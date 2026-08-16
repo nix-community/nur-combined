@@ -14,29 +14,41 @@ concurrency:
   group: nur-package-updates
   cancel-in-progress: false
 
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+  UPDATE_BRANCH: ${{ github.event.repository.default_branch }}
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+    access-tokens = github.com=${{ github.token }}
+    extra-substituters = https://cache.mr-why.cn/nur
+    extra-trusted-public-keys = nur:aQlY5sfibsfPJgLVG4yMCrJLB4+RJ1vaebK4sWl74K4=
+    sandbox = false
+    filter-syscalls = false
+
 jobs:
   update:
     name: Update packages and push
     runs-on: ubuntu-latest
     timeout-minutes: 360
-    env:
-      GITHUB_TOKEN: ${{ github.token }}
-      UPDATE_BRANCH: ${{ github.event.repository.default_branch }}
+    container:
+      image: nixos/nix:2.35.2
+      # nix-update --build wraps AppImage/FHS packages with bwrap.
+      options: --privileged
+    defaults:
+      run:
+        shell: bash
 
     steps:
-      - name: Checkout default branch
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ env.UPDATE_BRANCH }}
+      # nixos/nix cannot run actions/checkout (no host Node interpreter).
+      - name: Install git and GitHub CLI
+        run: nix-env -iA nixpkgs.git nixpkgs.gh
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ github.token }}
-            extra-substituters = https://cache.mr-why.cn/nur
-            extra-trusted-public-keys = nur:aQlY5sfibsfPJgLVG4yMCrJLB4+RJ1vaebK4sWl74K4=
+      - name: Checkout default branch
+        run: |
+          git clone --depth 1 --branch "$UPDATE_BRANCH" \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Update regular and x86_64 binary packages
         run: nix run .#update -- --all
