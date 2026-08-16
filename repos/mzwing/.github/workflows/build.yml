@@ -67,9 +67,9 @@ jobs:
 
     - name: Check caches and generate builder matrix
       id: plan
-      env:
-        ALL_TARGETS: ${{ steps.evaluate.outputs.targets }}
-      run: python3 scripts/ci/plan-builds.py
+      uses: mzwing/nix-actions/nix/plan-builds@master
+      with:
+        targets: ${{ steps.evaluate.outputs.targets }}
 
   builder:
     name: Builder ${{ matrix.id }}
@@ -395,12 +395,9 @@ jobs:
 
     - name: Build package outputs
       if: needs.config.outputs.targets != '[]'
-      env:
-        TARGETS: ${{ needs.config.outputs.targets }}
-        BUILD_TIMEOUT_MINUTES: '200'
-        MAX_SILENT_SECONDS: '3600'
-        BUILD_LOG: /tmp/nix-build.log
-      run: scripts/ci/build-outputs.sh
+      uses: mzwing/nix-actions/nix/build-targets@master
+      with:
+        targets: ${{ needs.config.outputs.targets }}
 
     # The job log is size-capped and silently truncates a long build; the artifact is not, so a post-mortem has the whole thing.
     - name: Upload build log
@@ -417,7 +414,7 @@ jobs:
       if: '!cancelled()'
       env:
         TARGETS: ${{ needs.config.outputs.targets }}
-      run: scripts/ci/assemble-push-set.sh
+      run: bash scripts/ci/assemble-push-set.sh
 
     - name: Push final outputs to Cachix
       if: '!cancelled()'

@@ -89,13 +89,13 @@ jobs:
         # shared runner IPs hit the anonymous rate limit easily. The
         # public API remains usable without a token for local runs.
         GITHUB_TOKEN: ${{ github.token }}
-      run: scripts/ci/update-packages.sh
+      run: bash scripts/ci/update-packages.sh
 
     # Restored cache entries carry no gcroots, so without this the save phase's store GC collects the toolchain and the daily ~500 MiB re-download never stops.
     - name: Root the update toolchain for the store cache
       if: always()
       shell: bash
-      run: scripts/ci/root-update-toolchain.sh
+      run: bash scripts/ci/root-update-toolchain.sh
 
     # Realise the devenv shell so its tools (typenix, actionlint, ruff,
     # ...) ride along in the saved store for the tests job. devenv

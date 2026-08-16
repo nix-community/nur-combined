@@ -17,6 +17,8 @@
     just
     nixd
     ruff
+    shellcheck
+    shfmt
     ty
     nur.repos.mzwing.typenix
   ];

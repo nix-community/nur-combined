@@ -30,10 +30,7 @@ def is_store_symlink(path):
 
 
 def refuse_store_symlink(path, hint):
-    die(
-        f"{path} is a Nix store symlink managed by another Home Manager "
-        f"module. {hint}"
-    )
+    die(f"{path} is a Nix store symlink managed by another Home Manager module. {hint}")
 
 
 def write_json(path, data):
