@@ -163,20 +163,25 @@ lib.extendMkDerivation {
       linux = universal // {
         outputs = universal.outputs or [ ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "debug" ];
 
-        nativeBuildInputs = (universal.nativeBuildInputs or [ ]) ++ lib.optionals stdenv.hostPlatform.isLinux [
-          wrapGAppsHook3
-        ] ++ [
-          # Flutter requires pkg-config for Linux desktop support, and many plugins
-          # attempt to use it.
-          #
-          # It is available to the `flutter` tool through its wrapper, but it must be
-          # available to the derivation as well so it's setup hook is run.
-          pkg-config
-        ];
+        nativeBuildInputs =
+          (universal.nativeBuildInputs or [ ])
+          ++ lib.optionals stdenv.hostPlatform.isLinux [
+            wrapGAppsHook3
+          ]
+          ++ [
+            # Flutter requires pkg-config for Linux desktop support, and many plugins
+            # attempt to use it.
+            #
+            # It is available to the `flutter` tool through its wrapper, but it must be
+            # available to the derivation as well so it's setup hook is run.
+            pkg-config
+          ];
 
-        buildInputs = (universal.buildInputs or [ ]) ++ lib.optionals stdenv.hostPlatform.isLinux [
-          glib
-        ];
+        buildInputs =
+          (universal.buildInputs or [ ])
+          ++ lib.optionals stdenv.hostPlatform.isLinux [
+            glib
+          ];
 
         dontDartBuild = true;
         buildPhase =
