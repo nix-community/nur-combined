@@ -393,11 +393,13 @@ jobs:
         builders-json: ${{ needs.config.outputs.builders }}
         builder-prefix: ${{ env.BUILDER_PREFIX }}
 
+    # Measured on run 31921034156: the push took 10s and reconciliation 1m04s, not the ~90 minutes the original 200 reserved for them. That run spent its whole budget still making progress and lost only bakamusic, so give the build the headroom back — 300 plus ~6 minutes of setup and publishing still clears this job's 350.
     - name: Build package outputs
       if: needs.config.outputs.targets != '[]'
       uses: mzwing/nix-actions/nix/build-targets@master
       with:
         targets: ${{ needs.config.outputs.targets }}
+        timeout-minutes: '300'
 
     # The job log is size-capped and silently truncates a long build; the artifact is not, so a post-mortem has the whole thing.
     - name: Upload build log

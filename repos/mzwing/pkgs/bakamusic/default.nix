@@ -295,6 +295,14 @@ in
     buildPhase = ''
       runHook preBuild
 
+      # Diagnostic, remove once the packaging hang is understood. In CI run
+      # 31921034156 this step sat 169 minutes with a whole builder to itself and
+      # produced nothing after "Running packaging hooks": the forge webpack
+      # plugin swallows webpack's output, so a compile in progress and a
+      # deadlock look identical. forge logs its own progress through `debug`,
+      # which at least names the compiler that stops making progress.
+      export DEBUG='electron-forge:*'
+
       # Only package (no makers): produces out/BakaMusic-linux-<arch>/.
       NODE_ENV=production npm exec -- electron-forge package
 
