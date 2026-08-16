@@ -2894,7 +2894,10 @@ fn vehicle_traffic_system(
             ("blocked", Wire::Flag(blocked)),
         ]);
         match with_named_mod(&mod_runtime, &owner.0, |ctx| steer_planar(ctx, &payload)) {
-            None | Some(Err(())) => {}
+            None | Some(Err(())) => {
+                velocity.x = 0.0;
+                velocity.z = 0.0;
+            }
             Some(Ok(Some((vx, vz)))) => {
                 velocity.x = vx;
                 velocity.z = vz;
@@ -2979,6 +2982,12 @@ fn fire_spread_system(
             .map(|node| parse_fire_kit_node(&node))
         })
         .flatten() else {
+            for child in children.iter() {
+                if lights.get(child).is_ok() {
+                    commands.entity(child).despawn();
+                }
+            }
+            commands.entity(entity).remove::<Ignited>();
             continue;
         };
         if kit.out {
@@ -3049,13 +3058,17 @@ fn agent_ai_tick(
                 ("target-x", Wire::Float(p_pos.x as f64)),
                 ("target-z", Wire::Float(p_pos.z as f64)),
             ]);
-            if let Some(Ok(Some((vx, vz)))) =
-                with_mod(&mod_runtime, |ctx| steer_planar(ctx, &payload))
-            {
-                velocity.x = vx;
-                velocity.z = vz;
-                if let Some(yaw) = yaw_toward(vx, vz) {
-                    agent_transform.rotation = Quat::from_rotation_y(yaw);
+            match with_mod(&mod_runtime, |ctx| steer_planar(ctx, &payload)) {
+                Some(Ok(Some((vx, vz)))) => {
+                    velocity.x = vx;
+                    velocity.z = vz;
+                    if let Some(yaw) = yaw_toward(vx, vz) {
+                        agent_transform.rotation = Quat::from_rotation_y(yaw);
+                    }
+                }
+                _ => {
+                    velocity.x = 0.0;
+                    velocity.z = 0.0;
                 }
             }
         }
@@ -3088,7 +3101,7 @@ fn wanted_decay(
     let mut wanted = 0i32;
     for mut state in players.iter_mut() {
         wanted = state.0 as i32;
-        if let Some(new_state) = with_mod(&mod_runtime, |ctx| {
+        let new_state = with_mod(&mod_runtime, |ctx| {
             let reply = ctx.bus(
                 "tick",
                 &wire_bag(vec![
@@ -3103,14 +3116,14 @@ fn wanted_decay(
             }
         })
         .flatten()
-        {
-            let clamped = clamp_mod_state(new_state, 0, 5) as u32;
-            if clamped != state.0 {
-                info!("Mod tick: state {} -> {}", state.0, clamped);
-            }
-            state.0 = clamped;
-            wanted = state.0 as i32;
+        .unwrap_or(0);
+        
+        let clamped = clamp_mod_state(new_state, 0, 5) as u32;
+        if clamped != state.0 {
+            info!("Mod tick: state {} -> {}", state.0, clamped);
         }
+        state.0 = clamped;
+        wanted = state.0 as i32;
     }
     for (entity, agent) in agents.iter() {
         let drop = with_mod(&mod_runtime, |ctx| {
