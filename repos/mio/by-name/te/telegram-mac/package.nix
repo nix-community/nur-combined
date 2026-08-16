@@ -16,6 +16,7 @@
   pkg-config,
   meson,
   fetchzip,
+  fetchpatch,
   writableTmpDirAsHomeHook,
 }:
 
@@ -50,8 +51,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   srcRev = "76ff8e4219452df317cd19e4df69b9e394dd5a87";
 
   ffmpegSrc = fetchzip {
-    url = "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz";
-    hash = "sha256-cNb7sIx7YIoVcamG6/cCFAdELSAm/N0OFBaJ1imJDQk=";
+    url = "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz";
+    hash = "sha256-PMAtwm8oKm9tnX6x4Fj5vd+VBDoafEYKB83eKgLlClg=";
   };
 
   openh264Src = fetchzip {
@@ -93,6 +94,30 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       rm -rf .git
     '';
   };
+
+  patches = [
+    # overtake/TelegramSwift#1371 — Xcode 26 / CMake 3.5 / ffmpeg 7.1.1
+    (fetchpatch {
+      name = "telegram-mac-pr1371-xcode26-cmake-ffmpeg.patch";
+      url = "https://github.com/overtake/TelegramSwift/compare/579cebbf0c01fd41b712eff3647fa7f69db9665d...56ae13e0ab0ddf5120aa40bb6f5d327ea70af75a.patch";
+      hash = "sha256-5scfRe7vYGnCXaGAnU04gtykb9fodBbVFSmkJzK9MOA=";
+      excludes = [ "INSTALL.md" ];
+    })
+    # overtake/TelegramSwift#1416 macOS hook. Telegram-iOS#4 cannot replace the
+    # 11.15 telegram-ios pin (macos-11.14-release APIs; StarGift/search break).
+    (fetchpatch {
+      name = "telegram-mac-pr1416-refresh-unsupported-rich-bot-messages.patch";
+      url = "https://github.com/overtake/TelegramSwift/commit/335d53699c06a5bce83aaabd9604ccd378479422.patch";
+      hash = "sha256-IsLpLrW3NnwCZr/s4SIFYliTL1ga47HxUJFOs0f2UIo=";
+      excludes = [ "submodules/telegram-ios" ];
+    })
+    # overtake/TelegramSwift#1446 — clamp attributed-string link ranges
+    (fetchpatch {
+      name = "telegram-mac-pr1446-clamp-attributed-string-link-range.patch";
+      url = "https://github.com/overtake/TelegramSwift/commit/a80ae5a9e497832ace2975f9430bd986f1ca54e7.patch";
+      hash = "sha256-6YgLrw4FCDdTB3vJcoGc90AujMwq+HXbGpGtDXkRtCw=";
+    })
+  ];
 
   spmDeps = stdenvNoCC.mkDerivation {
     name = "telegram-mac-spm-${finalAttrs.version}";
@@ -159,7 +184,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    mkdir -p submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1
+    mkdir -p submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1.1 \
+             submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1
+    cp -r ${finalAttrs.ffmpegSrc}/* submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1.1/
     cp -r ${finalAttrs.ffmpegSrc}/* submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1/
 
     mkdir -p core-xprojects/OpenH264/openh264_src

@@ -1342,6 +1342,9 @@ fn spawn_mod_traffic(
         let Some(node) = ctx.bus_node_ok("vehicle-kit", &wire_int(i as i64)) else {
             continue;
         };
+        if node.is_empty() {
+            continue;
+        }
         let kit = parse_vehicle_kit_node(&node);
         spawn_vehicle(
             commands,

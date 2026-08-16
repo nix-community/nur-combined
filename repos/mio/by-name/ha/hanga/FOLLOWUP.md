@@ -65,16 +65,18 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   fire, fracture, planar, and contract-mark parse trees. `key=value;` text is
   only a fallback inside those parsers (lib tests). Gravity, crash, and
   vehicle kits treat empty text/dict like `Empty`. Fracture empty is
-  `FractureKit::default()` (no invented impulse). `node_from_reply` /
+  `FractureKit::default()` (no invented impulse). Missing `impulse` on a
+  non-empty kit is 0, not 5. `node_from_reply` /
   `bus_node_ok` drop `fail` so fire does not treat busy as `out`. Empty
-  fire-kit still means extinguish. `with_mod` uses `try_lock` like
+  fire-kit still means extinguish. Missing `heat`/`range` on a burning kit
+  are 0, not 1/6. `with_mod` uses `try_lock` like
   `ask_any`. Hot reload `try_lock`s every slot and retries next frame
   if a pack is busy. `wake_all` leaves `woken` false if a slot is busy
   so load retries `ready`. Hot reload keeps a running pack if
   instantiate fails (lead already did) and only `ready`s stores that
   actually swapped. Traffic `steer` `fail`/busy keeps velocity
-  (host cruise only when the kit is empty). `vehicle-kit` `fail` skips
-  that spawn index instead of a default car. Vehicle spawn xyz skips
+  (host cruise only when the kit is empty). `vehicle-kit` `fail` or empty
+  skips that spawn index instead of a default car. Vehicle spawn xyz skips
   `fail`/empty instead of stacking at a fallback point. Ambient agent
   spawn skips `fail`/empty instead of pedestrians at the origin. Voxel
   labels keep the voxel name on `fail` (`unknown` only when the method
