@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.6.1",
-            "sha256": "sha256-ct9Lq2Rey133+SOYC6juG8IO6DU/UtM1dvSmRgr+6FI=",
+            "rev": "v1.7.1",
+            "sha256": "sha256-ajskSyRLxka6BbmMBWibImwQtRu7LgEXbHq2YQDkfss=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.6.1"
+        "version": "v1.7.1"
     },
     "cliproxyapiplus": {
         "cargoLock": null,
@@ -231,7 +231,7 @@
     },
     "pumpkin": {
         "cargoLock": null,
-        "date": "2026-08-14",
+        "date": "2026-08-15",
         "extract": null,
         "name": "pumpkin",
         "passthru": null,
@@ -243,12 +243,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "fc063c4dff40f581eec331253f87e72eb4710eb6",
-            "sha256": "sha256-sQTMO1ezD3nTt0bu6BNwhs3XI8AUDCugQvO8tOQ1C3c=",
+            "rev": "c13c515081914ba436bf5b9082e1412040a39026",
+            "sha256": "sha256-eipqImdhXqm3GJ1ruNct8z7C+z9tdl4/HYhXXltJdh0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fc063c4dff40f581eec331253f87e72eb4710eb6"
+        "version": "c13c515081914ba436bf5b9082e1412040a39026"
     },
     "replay-fish": {
         "cargoLock": null,
@@ -285,12 +285,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.14",
-            "sha256": "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=",
+            "rev": "v1.14.0-beta.15",
+            "sha256": "sha256-fUaq2tyC2kTDveKhRMB+TQMZLL515MqkyK8mS85U7kI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.14"
+        "version": "v1.14.0-beta.15"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -306,12 +306,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.14",
-            "sha256": "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=",
+            "rev": "v1.14.0-beta.15",
+            "sha256": "sha256-fUaq2tyC2kTDveKhRMB+TQMZLL515MqkyK8mS85U7kI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.14"
+        "version": "v1.14.0-beta.15"
     },
     "tree-sitter-nix": {
         "cargoLock": null,

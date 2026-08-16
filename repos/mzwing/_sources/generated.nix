@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.6.1";
+    version = "v1.7.1";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.6.1";
+      rev = "v1.7.1";
       fetchSubmodules = false;
-      sha256 = "sha256-ct9Lq2Rey133+SOYC6juG8IO6DU/UtM1dvSmRgr+6FI=";
+      sha256 = "sha256-ajskSyRLxka6BbmMBWibImwQtRu7LgEXbHq2YQDkfss=";
     };
   };
   cliproxyapiplus = {
@@ -134,15 +134,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "fc063c4dff40f581eec331253f87e72eb4710eb6";
+    version = "c13c515081914ba436bf5b9082e1412040a39026";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "fc063c4dff40f581eec331253f87e72eb4710eb6";
+      rev = "c13c515081914ba436bf5b9082e1412040a39026";
       fetchSubmodules = true;
-      sha256 = "sha256-sQTMO1ezD3nTt0bu6BNwhs3XI8AUDCugQvO8tOQ1C3c=";
+      sha256 = "sha256-eipqImdhXqm3GJ1ruNct8z7C+z9tdl4/HYhXXltJdh0=";
     };
-    date = "2026-08-14";
+    date = "2026-08-15";
   };
   replay-fish = {
     pname = "replay-fish";
@@ -158,24 +158,24 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.14.0-beta.14";
+    version = "v1.14.0-beta.15";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-beta.14";
+      rev = "v1.14.0-beta.15";
       fetchSubmodules = false;
-      sha256 = "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=";
+      sha256 = "sha256-fUaq2tyC2kTDveKhRMB+TQMZLL515MqkyK8mS85U7kI=";
     };
   };
   sing-box-beta = {
     pname = "sing-box-beta";
-    version = "v1.14.0-beta.14";
+    version = "v1.14.0-beta.15";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-beta.14";
+      rev = "v1.14.0-beta.15";
       fetchSubmodules = false;
-      sha256 = "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=";
+      sha256 = "sha256-fUaq2tyC2kTDveKhRMB+TQMZLL515MqkyK8mS85U7kI=";
     };
   };
   tree-sitter-nix = {
