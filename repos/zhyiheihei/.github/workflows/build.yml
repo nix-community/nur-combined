@@ -41,12 +41,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      - name: Set up QEMU
-        id: qemu
-        uses: docker/setup-qemu-action@v4
-        with:
-          image: tonistiigi/binfmt:latest
-          platforms: all
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -73,6 +67,8 @@ jobs:
     needs:
       - test-nur-eval
       - check-package-meta
+    env:
+      GIT_SSL_NO_VERIFY: 'true'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
