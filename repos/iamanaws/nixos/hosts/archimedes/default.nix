@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   flakeRoot,
   nixosModules,
@@ -8,13 +7,6 @@
 
 let
   secrets = flakeRoot + /secrets;
-  kernelPackages = inputs.nixpkgs-kernel.legacyPackages.x86_64-linux;
-  kernel = kernelPackages.linuxPackages.kernel.overrideAttrs (old: {
-    passthru = (old.passthru or { }) // {
-      buildDTBs = false;
-      target = "bzImage";
-    };
-  });
 in
 
 {
@@ -27,8 +19,21 @@ in
     services.automount
   ]);
 
-  # Linux 6.18.44 hard-resets this machine during early boot.
-  boot.kernelPackages = kernelPackages.linuxPackagesFor kernel;
+  # Temporarily expose and persist early-boot failures instead of rebooting.
+  boot.kernelParams = [ "dis_ucode_ldr" ];
+
+  nix-mineral = {
+    settings = {
+      debug = {
+        efipstore = true;
+        panic-reboot = false;
+        quiet-boot = false;
+        restrict-printk = false;
+      };
+      kernel.oops-panic = false;
+    };
+    extras.kernel.warn-panic = false;
+  };
 
   programs.zoom-us.enable = true;
 

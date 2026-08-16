@@ -406,22 +406,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-kernel": {
-      "locked": {
-        "lastModified": 1781002606,
-        "narHash": "sha256-R0pJoI3h4hepBtEc0MLKAaT4Zm6vFy9qySsfBBK+C78=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "4e8d7d7406b6870487a607098edf53714a31773f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "4e8d7d7406b6870487a607098edf53714a31773f",
-        "type": "github"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1777168982,
@@ -556,7 +540,6 @@
         "nix-mineral": "nix-mineral",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-kernel": "nixpkgs-kernel",
         "nur": "nur",
         "sops-nix": "sops-nix"
       }

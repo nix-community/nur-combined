@@ -7,9 +7,6 @@
     # Nixpkgs source, pinned for the entire system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Keep Archimedes on the last kernel known to boot reliably.
-    nixpkgs-kernel.url = "github:NixOS/nixpkgs/4e8d7d7406b6870487a607098edf53714a31773f";
-
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
