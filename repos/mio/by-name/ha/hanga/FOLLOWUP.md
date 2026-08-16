@@ -19,6 +19,7 @@ the host parsers and `cargo test` (`.#hanga-dev`).
 - **nlvm wasm32 SIGSEGV** on the continuous Linux tarball (`llgen`). `lab_nim`
   uses Nim C + Zig WASI until that is fixed.
 - **Package cargo-kani** so proofs run as CBMC, not only `kani_replay_*`.
+- **Continue parser review:** `by-name/ha/hanga/src/main.rs` (around line offset 3000) for fail-closed logic.
 
 ## Out of scope (do not do)
 

@@ -23,18 +23,18 @@ let
 
   # Matches cmake/package.cmake setup_llvm(...). Distro LLVM lacks the private
   # Clang headers clice needs, so we use the project's published prebuilts.
-  llvmVersion = "21.1.8+r1";
+  llvmVersion = "22.1.8";
 
   llvmArtifact =
     if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64 then
       {
-        name = "x64-linux-gnu-releasedbg";
-        hash = "sha256-QAHT5iYnLmJxSQQ0cN56GQcdyjScMhfoHoKciNzUiPU=";
+        name = "x86_64-unknown-linux-gnu.releasedbg";
+        hash = "sha256-QYuAUTsTiRof1gXz1BH8eEZPkuatbndJUkxNZKjQlew=";
       }
     else if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64 then
       {
-        name = "arm64-linux-gnu-releasedbg";
-        hash = "sha256-8LC5n54Unh5IiYBFT8pa14SDbv55urL27K/BR00rDcY=";
+        name = "aarch64-unknown-linux-gnu.releasedbg";
+        hash = "sha256-xET+gQxUl5Oj8bZQ0eGglxi6AaWtTILz/1Oj4BqvvVg=";
       }
     else
       throw "clice: unsupported platform ${stdenv.hostPlatform.system}";
@@ -77,13 +77,13 @@ let
   flatbuffersSrc = fetchFromGitHub {
     owner = "google";
     repo = "flatbuffers";
-    tag = "v25.9.23";
-    hash = "sha256-A9nWfgcuVW3x9MDFeviCUK/oGcWJQwadI8LqNR8BlQw=";
+    tag = "v25.2.10";
+    hash = "sha256-u5AVjbep3iWwGNXLrkPJUnF8SbmIXlHOYoy3NIlUl/E=";
   };
 
   flatc = stdenv.mkDerivation {
     pname = "flatbuffers-flatc";
-    version = "25.9.23";
+    version = "25.2.10";
     src = flatbuffersSrc;
     nativeBuildInputs = [ cmake ];
     cmakeFlags = [ "-DFLATBUFFERS_BUILD_TESTS=OFF" ];
@@ -92,8 +92,8 @@ let
   kotatsuSrc = fetchFromGitHub {
     owner = "clice-io";
     repo = "kotatsu";
-    rev = "f2cdf651e2b9121a8aab64e0ba64aa3011c74712";
-    hash = "sha256-+YuZW8dTQW6XgwyrooR9NfvUYpDkS9/LUmqywcZ6GgE=";
+    rev = "5232e67c28fee3a85ad01341a675dd4b78b122b1";
+    hash = "sha256-c8WB0MXThN2wNgJcDx4E+msO6wbDf9LJAgkYQyprIW8=";
   };
 
   simdjsonSrc = fetchFromGitHub {
@@ -142,13 +142,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026080704";
+  version = "0.1.2026081503";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Khn9dj3I+ZpHPzaoQx7LxdDN3hTpXVuTwopiJZYckSI=";
+    hash = "sha256-fwWhWAliWlpgg0SHeLr14Sb9KjXqsVgU7yrlRPGsSv0=";
   };
 
   nativeBuildInputs = [
