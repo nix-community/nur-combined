@@ -1,7 +1,6 @@
 {
   lib,
   neovimUtils,
-  nvim-treesitter-parsers,
   plumb,
   runCommandLocal,
   vimUtils,
@@ -35,9 +34,6 @@ let
     };
   });
 in
-lib.recurseIntoAttrs (
-  nvim-treesitter-parsers
-  // {
-    plumb = parser;
-  }
-)
+{
+  plumb = parser;
+}

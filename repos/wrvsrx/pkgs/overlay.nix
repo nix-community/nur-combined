@@ -76,11 +76,12 @@ let
   lean-overlay = import ./lean-packages {
     inherit sources;
   };
-  vim-plugins-overlay = import ./vim-plugins-overlay {
+  vim-plugins = import ./vim-plugins-overlay {
     inherit sources;
-    inherit (prev) callPackage;
+    inherit (prev) callPackage lib;
     inherit (final) plumb;
   };
+  vim-plugins-overlay = vim-plugins.overlay;
 in
 toplevelPackages
 # nested packages
@@ -106,6 +107,11 @@ toplevelPackages
     kdePackages._packageNames = builtins.attrNames (kde-overlay prev.kdePackages prev.kdePackages);
     libsForQt5._packageNames = builtins.attrNames (qt5-overlay prev.libsForQt5 prev.libsForQt5);
     leanPackages._packageNames = builtins.attrNames (lean-overlay prev.leanPackages prev.leanPackages);
-    vimPlugins._packageNames = builtins.attrNames (vim-plugins-overlay prev.vimPlugins prev.vimPlugins);
+    vimPlugins._packageNames = builtins.attrNames (
+      builtins.removeAttrs (vim-plugins-overlay prev.vimPlugins prev.vimPlugins) [
+        "nvim-treesitter-parsers"
+      ]
+    );
+    vimPlugins.nvim-treesitter-parsers._packageNames = vim-plugins.nvim-treesitter-parser-names;
   };
 }
