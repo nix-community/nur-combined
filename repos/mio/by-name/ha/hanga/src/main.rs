@@ -140,12 +140,10 @@ fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
 }
 
 #[derive(Resource, Default)]
-struct VoxelEdits(Vec<IVec3>);
+struct VoxelEdits(std::collections::HashSet<IVec3>);
 
 fn note_voxel_edit(edits: &mut VoxelEdits, pos: IVec3) {
-    if !edits.0.iter().any(|existing| *existing == pos) {
-        edits.0.push(pos);
-    }
+    edits.0.insert(pos);
 }
 
 fn rebake_voxel_edits(
@@ -1252,8 +1250,9 @@ fn spawn_play_world(
     commands.insert_resource(WorldGravity(gravity));
 
     let (px, py, pz) = with_mod(&mod_runtime, |ctx| {
-        ctx.bus_xyz("player-spawn", &wire_empty(), (490, 50, 490))
+        ctx.bus_xyz_ok("player-spawn", &wire_empty())
     })
+    .flatten()
     .unwrap_or((490, 50, 490));
     let player_pos = Vec3::new(px as f32, py as f32, pz as f32);
 

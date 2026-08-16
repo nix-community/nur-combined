@@ -185,6 +185,20 @@ fn push_cell(cells: &mut Vec<AbiCell>, cell: AbiCell) -> u32 {
 
 pub const ABI_MAJOR: i32 = 6;
 
+fn with_host_stack<T>(bus: &dyn EngineBus, f: impl FnOnce() -> T) -> T {
+    ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
+    let out = f();
+    let remaining = ASK_DEPTH.with(|depth| {
+        let next = depth.get().saturating_sub(1);
+        depth.set(next);
+        next
+    });
+    if remaining == 0 {
+        bus.flush_deferred();
+    }
+    out
+}
+
 thread_local! {
     static ASK_DEPTH: Cell<u32> = const { Cell::new(0) };
     static SAMPLE_WORLDGEN: RefCell<Option<(u64, Store<HostData>, Plugin, Vec<String>)>> =
@@ -828,10 +842,10 @@ fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
             let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) else {
                 return "air".into();
             };
-            let names = bindings
-                .hanga_engine_guest()
-                .call_voxel_catalog(&mut store)
-                .unwrap_or_default();
+            let Ok(names) = bindings.hanga_engine_guest().call_voxel_catalog(&mut store)
+            else {
+                return "air".into();
+            };
             *slot = Some((*rev, store, bindings, names));
         }
         let name = {
@@ -882,44 +896,25 @@ impl hanga::engine::host::Host for HostData {
     }
 
     fn invoke(&mut self, peer: String, method: String, args: AbiValue) -> AbiValue {
-        ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
-        let reply = self.bus.invoke(&self.name, &peer, &method, lift_wire(&args));
-        let remaining = ASK_DEPTH.with(|depth| {
-            let next = depth.get().saturating_sub(1);
-            depth.set(next);
-            next
-        });
-        if remaining == 0 {
-            self.bus.flush_deferred();
-        }
-        lower_wire(&reply)
+        let bus = Arc::clone(&self.bus);
+        let name = self.name.clone();
+        with_host_stack(&*bus, || {
+            lower_wire(&bus.invoke(&name, &peer, &method, lift_wire(&args)))
+        })
     }
 
     fn send(&mut self, peer: String, method: String, args: AbiValue) {
-        ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
-        self.bus.send(&self.name, &peer, &method, lift_wire(&args));
-        let remaining = ASK_DEPTH.with(|depth| {
-            let next = depth.get().saturating_sub(1);
-            depth.set(next);
-            next
+        let bus = Arc::clone(&self.bus);
+        let name = self.name.clone();
+        with_host_stack(&*bus, || {
+            bus.send(&name, &peer, &method, lift_wire(&args));
         });
-        if remaining == 0 {
-            self.bus.flush_deferred();
-        }
     }
 
     fn emit(&mut self, method: String, args: AbiValue) -> bool {
-        ASK_DEPTH.with(|depth| depth.set(depth.get().saturating_add(1)));
-        let veto = self.bus.emit(&self.name, &method, lift_wire(&args));
-        let remaining = ASK_DEPTH.with(|depth| {
-            let next = depth.get().saturating_sub(1);
-            depth.set(next);
-            next
-        });
-        if remaining == 0 {
-            self.bus.flush_deferred();
-        }
-        veto
+        let bus = Arc::clone(&self.bus);
+        let name = self.name.clone();
+        with_host_stack(&*bus, || bus.emit(&name, &method, lift_wire(&args)))
     }
 
     fn voxel(&mut self, x: i32, y: i32, z: i32) -> AbiValue {

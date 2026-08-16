@@ -10,7 +10,9 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   requeues a message if the pack is still locked instead of dropping it as empty.
   Drain still stops after 32 rounds and warns if work remains. Guest `after`
   timers cap at 256 the same way. Guest `voxel-set` mesh flushes cap at 256
-  (oldest dropped; overlay still records the write). `LiveBus` OTP
+  (oldest dropped; overlay still records the write). Play-thread voxel
+  edit rebake uses a `HashSet` of cells. Guest `invoke`/`send`/`emit`
+  share `with_host_stack` for ask-depth and deferred flush. `LiveBus` OTP
   errors (`self` / `noproc` / `busy`) and mailbox requeue are covered in
   `cargo test --bin hanga`. Live WASM `live_wasm_testbed_mailbox_cap_and_drain`
   fills a loaded testbed slot to the 256 cap (oldest `note` dropped) and
@@ -43,7 +45,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   use `ask_any_text` / `bus_text_payload`. Kits use `ask_any_node` / `bus_node`.
   `action-range` uses `reply_range`: empty/empty-text is the engine fallback;
   `fail` is range 0 (closed), not a skip. `reply_i32` / `payload_xyz` use
-  fallback for empty shapes and `fail` (keep current state / player-spawn).
+  fallback for empty shapes and `fail` (keep current state). Player spawn
+  uses `bus_xyz_ok`: empty/`fail` take the engine default (no prior pose).
   Vehicle and ambient spawn use `reply_xyz` / `reply_xyz_name` (skip the index).
 - **Trap restart cooldown.** After `fail("trap")` the host reloads the pack from
   disk at most once per 2s (`trap_restart_ready`). Guest statics reset. If reload
@@ -89,7 +92,8 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   `voxel-catalog` traps restart the pack like `invoke` (air / skip layer).
   Guest `voxel()` worldgen sample returns air if `query-voxel` traps and
   reuses a cached lead clone (same generation as workers), not a new
-  instance per cell. Worker `query-voxel`
+  instance per cell. A catalog trap on that sample is not cached as an
+  empty name list (would paint every cell air until reload). Worker `query-voxel`
   trap is air, not the engine `y < 0` stub. `tick` `fail`/busy keeps the
   current wanted level so agents are not despawned as if wanted were 0.
 - **`player` snapshot is engine-shaped.** Pose is always present. `state` and
