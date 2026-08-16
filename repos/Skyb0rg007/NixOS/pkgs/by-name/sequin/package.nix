@@ -37,13 +37,13 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sequin";
-  version = "0-unstable-2026-08-09";
+  version = "0-unstable-2026-08-14";
 
   src = fetchFromGitLab {
     owner = "sequoia-pgp";
     repo = "Sequin";
-    rev = "7b3ed4f63d5f4d3599ca5b9c94fbf172832a033c";
-    hash = "sha256-7Fy43GJb5FSNWfojyjLzUkQcXdtn9uXXy+VLZHxior4=";
+    rev = "4380970a202e25b40af542d0742769a1a7bf87c4";
+    hash = "sha256-wsA76dQWHzs04bHqentLa/dJKt+/coHFdQ+M7fdp7Fo=";
   };
 
   cargoHash = "sha256-cPeOy9C4bhKqIUTRv0HlcBq5Rc4nrJm/A8z5ohV2ZCc=";
