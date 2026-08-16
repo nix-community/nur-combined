@@ -87,12 +87,12 @@
   };
   navdash = {
     pname = "navdash";
-    version = "v0.2.2";
+    version = "v0.3.0";
     src = fetchFromGitHub {
       owner = "zhyiheihei";
       repo = "navdash";
-      tag = "v0.2.2";
-      hash = "sha256-vzHRSjcYH5LuMeRuOILKhvzws5P/i2Bust2MMVysJE0=";
+      tag = "v0.3.0";
+      hash = "sha256-M3RxqaXokpp64Kr2NzTnsqLXOamDXFh4VdjjPVNXynM=";
     };
   };
   nexus-media = {
