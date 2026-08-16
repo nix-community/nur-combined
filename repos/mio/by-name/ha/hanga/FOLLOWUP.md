@@ -44,6 +44,7 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
 - **`empty` vs empty text.** Both mean “not mine”, so a pack cannot return a
   real empty string. Empty dict and empty `items` are the same skip
   (`Node::is_empty`). Use `text` only for non-empty names; keep `empty` for skip.
+  A broken cell-arena index lifts as `fail("cell")`, not skip.
 - **Name replies vs kits.** Loot, craft, labels, story events, and agent names
   use `ask_any_text` / `bus_text_payload`. Kits use `ask_any_node` / `bus_node`.
   `action-range` uses `reply_range`: empty/empty-text is the engine fallback;
@@ -51,6 +52,7 @@ drive-by edit. Live ABI is **6** (`wit/world.wit`). Gate: `nix build .#hanga-dev
   fallback for empty shapes and `fail` (keep current state). Player spawn
   uses `bus_xyz_ok`: empty/`fail` take the engine default (no prior pose).
   Vehicle and ambient spawn use `reply_xyz` / `reply_xyz_name` (skip the index).
+  Those replies need `x`, `y`, and `z`; a partial dict is not the origin.
 - **Trap restart cooldown.** After `fail("trap")` the host reloads the pack from
   disk at most once per 2s (`trap_restart_ready`). Guest statics reset. If reload
   fails, the store stays dead. Covered in `cargo test --bin hanga`.
