@@ -65,7 +65,6 @@ let
       changelog = "https://github.com/SableClient/matrix-rtc/blob/${finalAttrs.src.rev}/CHANGELOG.md";
       license = lib.licenses.agpl3Only;
       maintainers = with lib.maintainers; [ bartoostveen ];
-      mainProgram = "matrix-rtc";
       platforms = lib.platforms.all;
     };
   });
@@ -121,7 +120,6 @@ let
       homepage = "https://github.com/SableClient/tauri-plugin-livekit-mobile";
       license = lib.licenses.agpl3Only;
       maintainers = with lib.maintainers; [ bartoostveen ];
-      mainProgram = "tauri-plugin-livekit-mobile";
       platforms = lib.platforms.all;
     };
   });
