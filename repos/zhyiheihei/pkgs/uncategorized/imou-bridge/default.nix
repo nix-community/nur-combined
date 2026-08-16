@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/home-assistant-tools/imou-life";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [ { github = "zhyiheihei"; } ];
   };
 }
