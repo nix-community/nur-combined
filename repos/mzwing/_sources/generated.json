@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.8.0",
-            "sha256": "sha256-aWvV5tuZaR1vdMpr9lGsFtCUYmoHQ5kqopPJxhbF1r8=",
+            "rev": "v1.8.1",
+            "sha256": "sha256-wl3dyiAlu+eqBd2BjcW44mP2EgTQI09xwt4OGrNyri8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.0"
+        "version": "v1.8.1"
     },
     "cliproxyapiplus": {
         "cargoLock": null,

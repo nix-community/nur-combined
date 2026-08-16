@@ -81,7 +81,7 @@
       stdenv.hostPlatform.system
     } or "linux_x64";
 
-  npmDepsHash = "sha256-jfTXwUXh9/qdRs1Rd6Y8SmE1jK621buyX1hQ7elDyS8=";
+  npmDepsHash = "sha256-mBfCRrJebTctb9cU7zKHp/VDb7gIoFaF4cwiKW0098k=";
   npmDeps =
     (fetchNpmDeps {
       inherit pname version src;
@@ -357,40 +357,71 @@ in
     installCheckPhase = ''
       runHook preInstallCheck
 
+      # Every assertion below reports itself. They are all `test`/`grep -q`/`cmp`,
+      # which say nothing when they fail, so under `set -e` the phase used to die
+      # with no output at all — and since the package never built this far before,
+      # none of them had ever actually run.
+      assert() {
+        local description=$1
+        shift
+        if ! "$@"; then
+          echo "installCheck: $description" >&2
+          exit 1
+        fi
+      }
+
       resources=$out/lib/bakamusic/resources
 
-      test -x $out/lib/bakamusic/BakaMusic
-      test -f $resources/app.asar
-      grep -q "Exec=bakamusic" $out/share/applications/bakamusic.desktop
-      test -f $out/share/icons/hicolor/512x512/apps/bakamusic.png
+      assert 'the launcher binary is missing' test -x $out/lib/bakamusic/BakaMusic
+      assert 'app.asar is missing' test -f $resources/app.asar
+      assert 'the desktop entry does not exec bakamusic' \
+        grep -q "Exec=bakamusic" $out/share/applications/bakamusic.desktop
+      assert 'the icon is missing' test -f $out/share/icons/hicolor/512x512/apps/bakamusic.png
 
       # The libmpv runtime is seeded and linked against the librempeg build
       # (the AC-4 decoder itself is asserted by librempeg's installCheck).
       runtime_dir=$resources/res/.runtime/mpv/linux-${electronArch}
-      test -e "$runtime_dir/lib/libmpv.so.2"
-      grep -q '"ac4"' "$runtime_dir/runtime.json"
-      patchelf --print-rpath "$runtime_dir/lib/libmpv.so.2" | grep -qF "${librempeg}"
+      assert 'libmpv is missing from the seeded runtime' test -e "$runtime_dir/lib/libmpv.so.2"
+      assert 'the seeded runtime does not advertise ac4' grep -q '"ac4"' "$runtime_dir/runtime.json"
+      assert "libmpv is not linked against ${librempeg}" \
+        grep -qF "${librempeg}" <(patchelf --print-rpath "$runtime_dir/lib/libmpv.so.2")
 
-      # The private prebuilt service modules are in place and all their
-      # NEEDED libraries resolve with the wrapper's LD_LIBRARY_PATH.
+      # The private prebuilt service modules are in place and every NEEDED library
+      # resolves with the wrapper's LD_LIBRARY_PATH. ldd needs the file to be
+      # executable and store files are not, so check a writable copy — otherwise
+      # ldd only warns, prints no dependencies, and the grep below always passes.
+      probe_dir=$(mktemp -d)
       for module in qmc2 ence taglib; do
         module_path=$resources/res/.service/native/$module.node
-        test -f "$module_path"
-        if LD_LIBRARY_PATH=${lib.makeLibraryPath [stdenv.cc.cc.lib]} ldd "$module_path" | grep "not found"; then
-          echo "unresolved dependencies in $module.node" >&2
+        assert "$module.node is missing" test -f "$module_path"
+
+        install -m755 "$module_path" "$probe_dir/$module.node"
+        if ! LD_LIBRARY_PATH=${lib.makeLibraryPath [stdenv.cc.cc.lib]} \
+          ldd "$probe_dir/$module.node" >"$probe_dir/$module.ldd"; then
+          echo "installCheck: ldd could not inspect $module.node" >&2
+          cat "$probe_dir/$module.ldd" >&2
+          exit 1
+        fi
+        if grep 'not found' "$probe_dir/$module.ldd"; then
+          echo "installCheck: unresolved dependencies in $module.node" >&2
           exit 1
         fi
       done
 
-      # The packaged koffi native module is the one built from source.
+      # The packaged koffi native module is the one built from source. fixupPhase
+      # shrinks RPATHs in the packaged tree, so compare what the loader needs
+      # rather than the bytes, which no longer match by construction.
       koffi_node=$(find $resources/app.asar.unpacked -path "*@koromix/koffi-linux-*/linux_*/koffi.node" | head -n 1)
-      test -n "$koffi_node"
-      cmp "$koffi_node" ${koffi}/lib/koffi/${koffiTriplet}/koffi.node
+      assert 'the packaged koffi native module is missing' test -n "$koffi_node"
+      assert 'the packaged koffi module is not the one built from source' \
+        cmp -s <(patchelf --print-needed "$koffi_node") \
+        <(patchelf --print-needed ${koffi}/lib/koffi/${koffiTriplet}/koffi.node)
 
       # sharp was rebuilt from source against nixpkgs libvips.
       sharp_node=$(find $resources/app.asar.unpacked -path "*@img/sharp-linux-*/sharp.node" | head -n 1)
-      test -n "$sharp_node"
-      patchelf --print-rpath "$sharp_node" | grep -qF "${vips}"
+      assert 'the packaged sharp native module is missing' test -n "$sharp_node"
+      assert "sharp is not linked against ${vips}" \
+        grep -qF "${vips}" <(patchelf --print-rpath "$sharp_node")
 
       runHook postInstallCheck
     '';
