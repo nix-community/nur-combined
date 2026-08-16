@@ -103,14 +103,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       hash = "sha256-5scfRe7vYGnCXaGAnU04gtykb9fodBbVFSmkJzK9MOA=";
       excludes = [ "INSTALL.md" ];
     })
-    # overtake/TelegramSwift#1416 macOS hook. Telegram-iOS#4 cannot replace the
-    # 11.15 telegram-ios pin (macos-11.14-release APIs; StarGift/search break).
-    (fetchpatch {
-      name = "telegram-mac-pr1416-refresh-unsupported-rich-bot-messages.patch";
-      url = "https://github.com/overtake/TelegramSwift/commit/335d53699c06a5bce83aaabd9604ccd378479422.patch";
-      hash = "sha256-IsLpLrW3NnwCZr/s4SIFYliTL1ga47HxUJFOs0f2UIo=";
-      excludes = [ "submodules/telegram-ios" ];
-    })
+    # #1416 macOS hook skipped: Telegram-iOS#4 is macos-11.14-release and cannot
+    # replace the 11.15 telegram-ios pin (StarGift/search APIs break). The hook
+    # alone would refresh unsupported media without the new TL parsers.
+    # (fetchpatch {
+    #   name = "telegram-mac-pr1416-refresh-unsupported-rich-bot-messages.patch";
+    #   url = "https://github.com/overtake/TelegramSwift/commit/335d53699c06a5bce83aaabd9604ccd378479422.patch";
+    #   hash = "sha256-IsLpLrW3NnwCZr/s4SIFYliTL1ga47HxUJFOs0f2UIo=";
+    #   excludes = [ "submodules/telegram-ios" ];
+    # })
     # overtake/TelegramSwift#1446 — clamp attributed-string link ranges
     (fetchpatch {
       name = "telegram-mac-pr1446-clamp-attributed-string-link-range.patch";
@@ -122,7 +123,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   spmDeps = stdenvNoCC.mkDerivation {
     name = "telegram-mac-spm-${finalAttrs.version}";
     outputHashMode = "recursive";
-    outputHash = "sha256-ezltxhmWnxCqvl6czoU3cDtB1X6C4mHXxVe5xVA9H9I=";
+    outputHash = "sha256-evBdlSK4ORgAa44H1YQ2BekBPgKQwaZ/u1iIo0DXYNQ=";
 
     inherit (finalAttrs) src;
     nativeBuildInputs = [ writableTmpDirAsHomeHook ];
