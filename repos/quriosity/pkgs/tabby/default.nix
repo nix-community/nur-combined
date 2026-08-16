@@ -29,7 +29,6 @@
 , libXfixes
 , libXrandr
 , libxcb
-, libdbusmenu-gtk2
 , libdbusmenu
 , gtk2
 , dbus-glib
@@ -98,7 +97,6 @@ stdenv.mkDerivation {
     libXfixes
     libXrandr
     libxcb
-    libdbusmenu-gtk2
     libdbusmenu
     gtk2
     dbus-glib
@@ -108,7 +106,7 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
   dontBuild = true;
-  autoPatchelfIgnoreMissingDeps = [ "libdbusmenu-gtk3.so.4" "libdbusmenu-glib.so.4" ];
+  autoPatchelfIgnoreMissingDeps = [ "libdbusmenu-gtk3.so.4" "libdbusmenu-gtk.so.4" ];
 
   installPhase = ''
     runHook preInstall

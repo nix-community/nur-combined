@@ -21,7 +21,7 @@
 , libGL
 , libglvnd
 , libgcc
-, libdbusmenu-gtk2
+, libdbusmenu
 , libgbm
 , libX11
 , libXcomposite
@@ -89,7 +89,7 @@ stdenv.mkDerivation {
     libGL
     libglvnd
     libgcc
-    libdbusmenu-gtk2
+    libdbusmenu
     libgbm
     libX11
     libXcomposite
@@ -102,7 +102,7 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
   dontBuild = true;
-  autoPatchelfIgnoreMissingDeps = [ "libdbusmenu-gtk3.so.4" "libdbusmenu-glib.so.4" ];
+  autoPatchelfIgnoreMissingDeps = [ "libdbusmenu-gtk.so.4" ];
 
   installPhase = ''
     runHook preInstall
