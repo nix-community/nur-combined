@@ -64,6 +64,7 @@ jobs:
           run_update_script quarkpantool
           run_update_script blueprint-mcp
           run_update_script zju-connect
+          run_update_script niri-sidebar
 
       - name: Update special packages via nu scripts
         run: |
