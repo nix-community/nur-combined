@@ -2,14 +2,14 @@
 
 let
   pname = "zen-browser";
-  version = "1.21.12b";
+  version = "1.21.14b";
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen-x86_64.AppImage";
-    hash = "sha256-QBqDuJ89iJosIwtcNQtzOkU0EEAb/70J8W5CEBOl1fM=";
+    hash = "sha256-280U1ZosNo0Rt+ww836EAVV9bhNdTzYn38OODBE0BF0=";
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit pname version src;
   };
 

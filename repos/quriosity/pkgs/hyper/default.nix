@@ -41,7 +41,7 @@ let
     hash = "sha256-0iV+0fC50J7lEKtKjCTQWqrh5HVmv/dhjqKULAci7V8=";
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit pname version src;
   };
 
@@ -102,6 +102,7 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
   dontBuild = true;
+  autoPatchelfIgnoreMissingDeps = [ "libdbusmenu-gtk3.so.4" "libdbusmenu-glib.so.4" ];
 
   installPhase = ''
     runHook preInstall
@@ -131,6 +132,5 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "hyper";
-    broken = true;
   };
 }

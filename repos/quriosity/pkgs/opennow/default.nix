@@ -2,14 +2,14 @@
 
 let
   pname = "opennow";
-  version = "0.5.3";
+  version = "0.5.5";
 
   src = fetchurl {
     url = "https://github.com/OpenCloudGaming/OpenNOW/releases/download/v${version}/OpenNOW-v${version}-linux-x86_64.AppImage";
-    hash = "sha256-uiGy5f9kWidMby7/DBt89jarGFH7eits9XfvtQ5s6rQ=";
+    hash = "sha256-JvQ1MQaWzk94boSw2ioEaS+mXu/QPoPxuIGO3RP/i4w=";
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit pname version src;
   };
 
