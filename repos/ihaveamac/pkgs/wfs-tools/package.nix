@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = lib.optionals withFUSE (
-    if stdenv.isDarwin then
+    if stdenv.hostPlatform.isDarwin then
       [
         (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse}/include")
         (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")

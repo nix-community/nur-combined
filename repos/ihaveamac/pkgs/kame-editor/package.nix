@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     }"
     # even adding qt6.qtwayland doesn't make wayland work for some reason i'm not sure of yet
   ]
-  ++ (lib.optional (!stdenv.isDarwin) "--set WAYLAND_DISPLAY \"\"");
+  ++ (lib.optional (!stdenv.hostPlatform.isDarwin) "--set WAYLAND_DISPLAY \"\"");
 
   buildInputs = [
     qt6.qtbase
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     qt6.wrapQtAppsHook
   ];
 
-  postInstall = lib.optionalString stdenv.isDarwin ''
+  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir $out/Applications
     mv $out/bin/kame-editor.app $out/Applications/kame-editor.app
     ln -s $out/Applications/kame-editor.app/Contents/MacOS/kame-editor $out/bin/kame-editor

@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "3beans";
-  version = "release-unstable-2026-07-05";
+  version = "release-unstable-2026-08-05";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "5b50adc0b028ecc3dd83f1efd1804cd2e301fdaa";
-    hash = "sha256-tdh6x6MmKsKJ4YasklV/AT04tInsy0QrH7xvTFacqZE=";
+    rev = "c5ce9ee29635ba229ba40a534842cf6675533bb1";
+    hash = "sha256-d+vAfNAPOqV0/9RAca25TIRjHWUYH3gM99AgAPLmpo0=";
   };
 
   buildInputs = [
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
   ''
   + (
-    if stdenv.isDarwin then
+    if stdenv.hostPlatform.isDarwin then
       ''
         contents=$out/Applications/3Beans.app/Contents
         mkdir -p $contents/{MacOS,Resources}

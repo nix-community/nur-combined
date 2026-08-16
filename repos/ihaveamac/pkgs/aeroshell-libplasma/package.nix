@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     libx11
     libglvnd
     libxcb
-  ] ++ (with kdePackages; [
+  ]
+  ++ (with kdePackages; [
     qtbase
     qtdeclarative
     qt5compat

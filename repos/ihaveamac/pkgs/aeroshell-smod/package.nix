@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     libepoxy
     wayland
     wayland-protocols
-  ] ++ (with kdePackages; [
+  ]
+  ++ (with kdePackages; [
     qtbase
     qtwayland
     qttools

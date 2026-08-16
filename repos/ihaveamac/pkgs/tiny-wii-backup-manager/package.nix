@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-TJsim+VcGtkt0LWHFvzTmH9a5z2l8o6funs8bUvwrRU=";
 
   postInstall =
-    if stdenv.isDarwin then
+    if stdenv.hostPlatform.isDarwin then
       ''
         # ???
       ''

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp Corgi3DS $out/bin
     ${
-      if stdenv.isDarwin then
+      if stdenv.hostPlatform.isDarwin then
         ''
           APPDIR=$out/Applications/Corgi3DS.app/Contents
           mkdir -p $APPDIR/MacOS

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
   ''
   + (
-    if stdenv.isDarwin then
-      # TODO: check if this works
+    if stdenv.hostPlatform.isDarwin then
       ''
         contents=$out/Applications/rokuyon.app/Contents
         mkdir -p $contents/{MacOS,Resources}
@@ -58,6 +57,5 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
     platforms = platforms.all;
     mainProgram = "rokuyon";
-    broken = stdenv.isDarwin;
   };
 }

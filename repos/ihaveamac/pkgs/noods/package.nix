@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "noods";
-  version = "release-unstable-2026-07-09";
+  version = "release-unstable-2026-08-09";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "NooDS";
-    rev = "fa02ddf721c3f943ead01f00f6215be0b392e732";
-    hash = "sha256-ZNy+xnOLqeY+hzgzhOfD8U4tmj8prQjQBB1Mj6g+Ico=";
+    rev = "4cb1439c330248b26cdf5f8dbcfa4e5ac53dcda0";
+    hash = "sha256-jVibIjDEyyD744gfJ2tm73G8/aHxm5T/i4r85Qk4jqQ=";
   };
 
   buildInputs = [
@@ -37,12 +37,11 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
   ''
   + (
-    if stdenv.isDarwin then
-      # TODO: check if this works
+    if stdenv.hostPlatform.isDarwin then
       ''
         contents=$out/Applications/NooDS.app/Contents
         mkdir -p $contents/{MacOS,Resources}
-        cp Info.plist $contents
+        cp meta/Info-macOS.plist $contents/Info.plist
         cp noods $contents/MacOS/NooDS
         cp icon/icon-mac.icns $contents/Resources/NooDS.icns
         ln -s $contents/MacOS/NooDS $out/bin/noods
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
       ''
         mkdir -p $out/share/applications $out/share/icons/hicolor/64x64/apps
         cp noods $out/bin
-        cp com.hydra.noods.desktop $out/share/applications
+        cp meta/com.hydra.noods.desktop $out/share/applications
         cp icon/icon-linux.png $out/share/icons/hicolor/64x64/apps/com.hydra.threebeans.png
       ''
   );
@@ -62,6 +61,5 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
     platforms = platforms.all;
     mainProgram = "noods";
-    broken = stdenv.isDarwin;
   };
 }

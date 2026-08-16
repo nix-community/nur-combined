@@ -3,17 +3,19 @@
   yt-dlp,
 }:
 
-yt-dlp.overrideAttrs (final: prev: {
-  version = "2026.07.04-unstable-2026-07-09";
+yt-dlp.overrideAttrs (
+  final: prev: {
+    version = "2026.07.04-unstable-2026-08-04";
 
-  src = fetchFromGitHub {
-    owner = "yt-dlp";
-    repo = "yt-dlp";
-    rev = "59d9ae606a24a80523da35de9fb75b71eb35b501";
-    hash = "sha256-ZGk0ufcQqS4lu8d4vgplt8VNOFrdMDR1bqajI3DEKa4=";
-  };
+    src = fetchFromGitHub {
+      owner = "yt-dlp";
+      repo = "yt-dlp";
+      rev = "5d6b8c8cd19785c3086ae3a9ec618c45e25eb3bc";
+      hash = "sha256-tDJNBlmgOCX2FRNgojk9wvC5z9MQFVu7xo/e20ghjp8=";
+    };
 
-  meta = prev.meta // {
-    description = prev.meta.description + " (master branch)";
-  };
-})
+    meta = prev.meta // {
+      description = prev.meta.description + " (master branch)";
+    };
+  }
+)

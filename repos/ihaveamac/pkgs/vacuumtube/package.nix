@@ -14,16 +14,18 @@
 
 buildNpmPackage rec {
   pname = "vacuumtube";
-  version = "1.8.1";
+  version = "1.8.2";
 
   src = fetchFromGitHub {
     owner = "shy1132";
     repo = "vacuumtube";
     rev = "v${version}";
-    hash = "sha256-jLktsUza5cEPIry+LyP8lB4A0ivxdGtE5y1i6UHap30=";
+    hash = "sha256-KgXV6fSvV6jl8V2YEjJm+CIG8ATvb1/iEhLog91DPY0=";
   };
 
-  npmDepsHash = "sha256-Q/E+Rc9CuaN2cN6AKKT3EHiR97sdLAAnks5DYBQK24I=";
+  npmDepsHash = "sha256-Wtyft343sSs018v5bagCvvta5z+yzU9IgkJ4LH+HQzs=";
+
+  makeCacheWritable = true;
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -49,8 +51,7 @@ buildNpmPackage rec {
   installPhase = ''
     runHook preInstall
   ''
-  + lib.optionalString stdenv.hostPlatform.isDarwin ''
-  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ""
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/lib/vacuumtube
     cp -r . $out/lib/vacuumtube/

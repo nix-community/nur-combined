@@ -57,7 +57,7 @@ let
     '';
 
     preFixup =
-      if stdenv.isDarwin then
+      if stdenv.hostPlatform.isDarwin then
         ''
           mkdir $out/Applications
           mv $out/TheXTech.app $out/Applications/TheXTech.app
@@ -158,7 +158,7 @@ let
     };
   };
 in
-if stdenv.isDarwin then
+if stdenv.hostPlatform.isDarwin then
   lib.warn "macOS implementation is incomplete, but the game launches" thextech
 else
   thextech

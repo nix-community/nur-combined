@@ -86,6 +86,8 @@ rec {
   wheelwizard = callPackage ./pkgs/wheelwizard/package.nix { };
   noods = callPackage ./pkgs/noods/package.nix { };
   rokuyon = callPackage ./pkgs/rokuyon/package.nix { };
+  ytdl-nfo = callPackage ./pkgs/ytdl-nfo/package.nix { };
+  chlink = callPackage ./pkgs/chlink/package.nix { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
@@ -96,15 +98,6 @@ rec {
   mediawiki_1_43_core = callPackage ./pkgs/mediawiki/package.nix {
     version = "1.43.9";
     hash = "sha256-etCk/QYgYCoYQLhmFktYMtxw2BRs2ARivP0b8Br90TE=";
-    core = true;
-  };
-  mediawiki_1_44 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.44.6";
-    hash = "sha256-KBFZrWk/ahuHzpeTGXuCe4dvWNwFCM3jjLHIq6boLFk=";
-  };
-  mediawiki_1_44_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.44.6";
-    hash = "sha256-qSWs/KypR5D/HcfRO5PwaJReEgB2gi20QI84k9xvbNg=";
     core = true;
   };
   mediawiki_1_45 = callPackage ./pkgs/mediawiki/package.nix {
@@ -138,31 +131,48 @@ rec {
     core = true;
     knownVulnerabilities = [ "MediaWiki 1.39 has been end-of-life since 2025-12-31." ];
   };
+  mediawiki_1_44 = callPackage ./pkgs/mediawiki/package.nix {
+    version = "1.44.6";
+    hash = "sha256-KBFZrWk/ahuHzpeTGXuCe4dvWNwFCM3jjLHIq6boLFk=";
+    knownVulnerabilities = [ "MediaWiki 1.44 has been end-of-life since 2026-07-31." ];
+  };
+  mediawiki_1_44_core = callPackage ./pkgs/mediawiki/package.nix {
+    version = "1.44.6";
+    hash = "sha256-qSWs/KypR5D/HcfRO5PwaJReEgB2gi20QI84k9xvbNg=";
+    knownVulnerabilities = [ "MediaWiki 1.44 has been end-of-life since 2026-07-31." ];
+    core = true;
+  };
 
   # compatibility
   "3dstool" = _3dstool;
   "3dslink" = _3dslink;
-} // (if (!includeIncomplete) then {} else rec {
-  aeroshell-libplasma = qt6.callPackage ./pkgs/aeroshell-libplasma/package.nix { };
-  aeroshell-kwin-components = qt6.callPackage ./pkgs/aeroshell-kwin-components/package.nix {
-    inherit aeroshell-libplasma;
-  };
-  aeroshell-smod = qt6.callPackage ./pkgs/aeroshell-smod/package.nix { };
-  aeroshell-smodglow = qt6.callPackage ./pkgs/aeroshell-smod/smodglow.nix { inherit aeroshell-smod; };
-  aeroshell-workspace = qt6.callPackage ./pkgs/aeroshell-workspace/package.nix {
-    inherit aeroshell-libplasma;
-  };
-  aerothemeplasma-icons = callPackage ./pkgs/aerothemeplasma-icons/package.nix { };
-  aerothemeplasma-sounds = callPackage ./pkgs/aerothemeplasma-sounds/package.nix { };
-  aerothemeplasma = qt6.callPackage ./pkgs/aerothemeplasma/package.nix {
-    inherit
-      aeroshell-libplasma
-      aeroshell-workspace
-      aeroshell-kwin-components
-      aerothemeplasma-sounds
-      aerothemeplasma-icons
-      aeroshell-smod
-      aeroshell-smodglow # not sure if this is necessary
-      ;
-  };
-})
+}
+// (
+  if (!includeIncomplete) then
+    { }
+  else
+    rec {
+      aeroshell-libplasma = qt6.callPackage ./pkgs/aeroshell-libplasma/package.nix { };
+      aeroshell-kwin-components = qt6.callPackage ./pkgs/aeroshell-kwin-components/package.nix {
+        inherit aeroshell-libplasma;
+      };
+      aeroshell-smod = qt6.callPackage ./pkgs/aeroshell-smod/package.nix { };
+      aeroshell-smodglow = qt6.callPackage ./pkgs/aeroshell-smod/smodglow.nix { inherit aeroshell-smod; };
+      aeroshell-workspace = qt6.callPackage ./pkgs/aeroshell-workspace/package.nix {
+        inherit aeroshell-libplasma;
+      };
+      aerothemeplasma-icons = callPackage ./pkgs/aerothemeplasma-icons/package.nix { };
+      aerothemeplasma-sounds = callPackage ./pkgs/aerothemeplasma-sounds/package.nix { };
+      aerothemeplasma = qt6.callPackage ./pkgs/aerothemeplasma/package.nix {
+        inherit
+          aeroshell-libplasma
+          aeroshell-workspace
+          aeroshell-kwin-components
+          aerothemeplasma-sounds
+          aerothemeplasma-icons
+          aeroshell-smod
+          aeroshell-smodglow # not sure if this is necessary
+          ;
+      };
+    }
+)

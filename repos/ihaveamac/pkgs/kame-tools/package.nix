@@ -28,12 +28,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ fakeZip ];
 
   # gotta patch the patch!
-  prePatch = lib.optionalString stdenv.isAarch64 ''
+  prePatch = lib.optionalString stdenv.hostPlatform.isAarch64 ''
     substituteInPlace aarch64.patch \
       --replace-fail /make_base "/buildtools/make_base"
   '';
 
-  patches = lib.optional stdenv.isAarch64 [
+  patches = lib.optional stdenv.hostPlatform.isAarch64 [
     "aarch64.patch"
   ];
 

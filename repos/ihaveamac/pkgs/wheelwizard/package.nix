@@ -1,6 +1,7 @@
 {
   fetchFromGitHub,
   buildDotnetModule,
+  stdenv,
   lib,
 }:
 
@@ -17,6 +18,15 @@ buildDotnetModule rec {
 
   projectFile = "WheelWizard/WheelWizard.csproj";
   nugetDeps = ./deps.json;
+
+  postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+    mkdir -p mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
+    cp $src/Flatpak/io.github.TeamWheelWizard.WheelWizard.desktop \
+      $src/Flatpak/io.github.TeamWheelWizard.WheelWizard-url-handler.desktop \
+      $out/share/applications
+    cp $src/Flatpak/io.github.TeamWheelWizard.WheelWizard.png \
+      $out/share/icons/hicolor/256x256/apps
+  '';
 
   meta = with lib; {
     description = "Retro Rewind Launcher";

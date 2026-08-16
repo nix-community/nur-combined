@@ -45,7 +45,7 @@ swiftPackages.swift.stdenv.mkDerivation rec {
     license = licenses.lgpl3;
     platforms = platforms.unix;
     # funny that this is broken on macOS, but there's build errors i don't know how to fix yet
-    broken = stdenv.isDarwin;
+    broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "unxip";
   };
 }

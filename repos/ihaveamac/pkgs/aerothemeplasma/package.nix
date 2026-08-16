@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     aerothemeplasma-icons
     aeroshell-smod
     aeroshell-smodglow
-  ] ++ (with kdePackages; [
+  ]
+  ++ (with kdePackages; [
     qtbase
     qtvirtualkeyboard
     qtmultimedia

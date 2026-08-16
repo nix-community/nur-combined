@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     wayland
     libepoxy
-  ] ++ (with kdePackages; [
+  ]
+  ++ (with kdePackages; [
     qtbase
     qtsvg
     qt5compat

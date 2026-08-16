@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     aeroshell-libplasma
-  ] ++ (with kdePackages; [
+  ]
+  ++ (with kdePackages; [
     qtbase
     qtdeclarative
     sddm

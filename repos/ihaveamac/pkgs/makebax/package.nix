@@ -11,7 +11,7 @@
 
 let
   realOpencv =
-    if stdenv.isDarwin && stdenv.hostPlatform.isStatic then
+    if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isStatic then
       opencv.override {
         ffmpeg = ffmpeg.override {
           withSdl2 = false;
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/Wolfvak/BAX";
     license = licenses.mit;
     platforms = platforms.all;
-    broken = stdenv.isDarwin && stdenv.hostPlatform.isStatic;
+    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isStatic;
     mainProgram = "makebax";
   };
 }

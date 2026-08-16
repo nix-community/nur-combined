@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   qmakeFlags = lib.optional (!withFFmpeg) "CONFIG+=DISABLE_FFMPEG";
 
   # postInstall is used to avoid conflicting with the non-macOS phase
-  postInstall = lib.optionalString stdenv.isDarwin ''
+  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/Applications
     cp -prv gui/qcma.app $out/Applications/qcma.app
   '';
