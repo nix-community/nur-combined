@@ -73,6 +73,7 @@ fn parse_vehicle_kit_tree(node: &crate::kit::Node) -> VehicleKit {
     kit.speed = 0.0;
     kit.stiffness = 0;
     kit.parts.clear();
+    kit.collider = [0.0, 0.0, 0.0];
     if let Some(kind) = node.get("kind") {
         let kind = kind.text();
         if !kind.is_empty() {
@@ -179,6 +180,7 @@ pub fn parse_vehicle_kit_fields(fields: &crate::kit::Fields) -> VehicleKit {
         kit.speed = 0.0;
         kit.stiffness = 0;
         kit.parts.clear();
+        kit.collider = [0.0, 0.0, 0.0];
     }
     let mut saw_part = false;
     let mut indexed_parts: std::collections::BTreeMap<usize, VehiclePartSpec> =
@@ -540,6 +542,7 @@ mod tests {
             VehicleKit::default()
         );
         assert!(parse_vehicle_kit("kind=car").parts.is_empty());
+        assert_eq!(parse_vehicle_kit("kind=car").collider, [0.0, 0.0, 0.0]);
     }
 
     #[test]
