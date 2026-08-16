@@ -1206,4 +1206,97 @@ mod kani_verification {
         let clamped = clamp_wallet(value);
         kani::assert(clamped >= 0 && clamped <= 1_000_000, "wallet clamp bounds");
     }
+
+    #[kani::proof]
+    fn verify_economy_params_roundtrip() {
+        let supply: i16 = kani::any();
+        let demand: i16 = kani::any();
+        
+        let supply_i32 = supply as i32;
+        let demand_i32 = demand as i32;
+        
+        let packed = pack_economy_params(supply_i32, demand_i32);
+        let (unpacked_supply, unpacked_demand) = unpack_economy_params(packed);
+        
+        // Because of the bitwise masking, we need to compare the lowest 16 bits,
+        // or compare as u16 to handle negative numbers being sign extended differently
+        // if we aren't careful, but pack/unpack masks with 0xFFFF.
+        kani::assert(
+            unpacked_supply == (supply_i32 & 0xFFFF),
+            "supply roundtrip must match lower 16 bits",
+        );
+        kani::assert(
+            unpacked_demand == (demand_i32 & 0xFFFF),
+            "demand roundtrip must match lower 16 bits",
+        );
+    }
+
+    #[kani::proof]
+    fn verify_chebyshev_distance_properties() {
+        let ax: i32 = kani::any();
+        let ay: i32 = kani::any();
+        let az: i32 = kani::any();
+        let bx: i32 = kani::any();
+        let by: i32 = kani::any();
+        let bz: i32 = kani::any();
+
+        // Constrain to prevent overflow when subtracting
+        kani::assume(ax >= -1_000_000 && ax <= 1_000_000);
+        kani::assume(ay >= -1_000_000 && ay <= 1_000_000);
+        kani::assume(az >= -1_000_000 && az <= 1_000_000);
+        kani::assume(bx >= -1_000_000 && bx <= 1_000_000);
+        kani::assume(by >= -1_000_000 && by <= 1_000_000);
+        kani::assume(bz >= -1_000_000 && bz <= 1_000_000);
+
+        let dist_ab = chebyshev_distance(ax, ay, az, bx, by, bz);
+        let dist_ba = chebyshev_distance(bx, by, bz, ax, ay, az);
+
+        // Symmetry
+        kani::assert(dist_ab == dist_ba, "distance must be symmetric");
+        // Non-negativity
+        kani::assert(dist_ab >= 0, "distance must be non-negative");
+
+        // Identity of indiscernibles
+        if ax == bx && ay == by && az == bz {
+            kani::assert(dist_ab == 0, "distance to self must be 0");
+        } else {
+            kani::assert(dist_ab > 0, "distance to other must be positive");
+        }
+    }
+
+    #[kani::proof]
+    fn verify_voxel_has_support() {
+        let y: i32 = kani::any();
+        let below_is_solid: bool = kani::any();
+        
+        let has_support = voxel_has_support(y, below_is_solid);
+        
+        // Formally verify the logic conditions
+        if y < 0 {
+            kani::assert(has_support, "voxels below ground always have support");
+        }
+        
+        if y >= 0 && !below_is_solid {
+            kani::assert(!has_support, "voxels above ground without solid below lack support");
+        }
+        
+        if below_is_solid {
+            kani::assert(has_support, "voxels with solid below always have support");
+        }
+    }
+
+    #[kani::proof]
+    fn verify_clamp_voxel_type() {
+        let voxel_type: i32 = kani::any();
+        let clamped = clamp_voxel_type(voxel_type);
+        
+        // Assert the returned u8 is correctly bounded by the clamp rules
+        if voxel_type < 0 {
+            kani::assert(clamped == 0, "negative types clamp to 0");
+        } else if voxel_type > 255 {
+            kani::assert(clamped == 255, "types above 255 clamp to 255");
+        } else {
+            kani::assert(clamped == voxel_type as u8, "valid types remain unchanged");
+        }
+    }
 }
