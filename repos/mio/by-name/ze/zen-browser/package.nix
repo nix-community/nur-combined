@@ -18,7 +18,7 @@
 }:
 
 let
-  version = "1.21.12b";
+  version = "1.21.14b";
   firefoxVersion = "153.0.3";
 
   firefoxSrc = fetchurl {
@@ -89,7 +89,7 @@ let
       owner = "zen-browser";
       repo = "desktop";
       tag = version;
-      hash = "sha256-27dR0cSi1kD/dAn8OCQLEKEXOAmEeSCf5qc56SzwvH8=";
+      hash = "sha256-O9z8C19xa8od8M52CHt+ZKdOksyAwbVj38FDnunTQ6Y=";
       fetchSubmodules = true;
     };
 
