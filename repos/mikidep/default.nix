@@ -5,7 +5,7 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{pkgs ? import <nixpkgs> {}}: {
+{pkgs ? import <nixpkgs> {}}: rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib {inherit pkgs;}; # functions
   modules = import ./modules; # NixOS modules
@@ -16,6 +16,5 @@
   ttymidi = pkgs.callPackage ./pkgs/ttymidi {};
   openscadWithPackages = pkgs.callPackage ./pkgs/openscad/openscad-with-packages.nix {};
   openscadPackages = pkgs.callPackage ./pkgs/openscad/openscad-packages.nix {};
-  # rayforge = pkgs.python311Packages.callPackage ./pkgs/rayforge {};
-  codecad = pkgs.callPackage ./pkgs/codecad {};
+  julia-mono-nf = pkgs.callPackage ./pkgs/julia-mono-nf.nix {};
 }
