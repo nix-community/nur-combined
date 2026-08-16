@@ -10,7 +10,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "mautrix-telegram";
-  version = "0.2607.0";
+  version = "0.2608.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -19,10 +19,10 @@ buildGoModule (finalAttrs: {
     owner = "mautrix";
     repo = "telegram";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MpdsWtEsVnC6purF5sw+RD+Nb/3Wo0xrzSn2BuFZmj8=";
+    hash = "sha256-EQ7c98GOaXaMcLF5xJfZ6tV+X9TKjNnd8a3ToJahNsE=";
   };
 
-  vendorHash = "sha256-bmpTm1/6Z+kAFGAJ70ohBz8+n8JZk7mZyCfX0+FB/fE=";
+  vendorHash = "sha256-sh3CejNXhSLp2l4ZnfWwdwxqF+yzCn7/T4EWfVX84m8=";
 
   ldflags = [
     "-X"
