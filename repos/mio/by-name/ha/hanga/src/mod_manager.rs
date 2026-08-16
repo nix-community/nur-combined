@@ -249,12 +249,19 @@ pub fn wire_is_fail(value: &Wire) -> bool {
 
 /// First non-skip reply. `fail` is `{error, Reason}`, not “not mine”.
 pub fn first_override(replies: impl IntoIterator<Item = Wire>) -> Wire {
+    let mut first_fail = None;
     for reply in replies {
-        if wire_is_fail(&reply) || !wire_is_empty(&reply) {
+        if wire_is_fail(&reply) {
+            if first_fail.is_none() {
+                first_fail = Some(reply);
+            }
+            continue;
+        }
+        if !wire_is_empty(&reply) {
             return reply;
         }
     }
-    wire_empty()
+    first_fail.unwrap_or_else(wire_empty)
 }
 
 pub fn wire_bag(fields: Vec<(&str, Wire)>) -> Wire {
@@ -1801,9 +1808,13 @@ mod tests {
     }
 
     #[test]
-    fn first_override_stops_on_fail() {
+    fn first_override_skips_fail_if_success_follows() {
+        assert_eq!(
+            wire_as_text(&first_override([wire_empty(), wire_fail("busy"), wire_text("pong")])),
+            "pong"
+        );
         assert!(matches!(
-            first_override([wire_empty(), wire_fail("busy"), wire_text("pong")]),
+            first_override([wire_empty(), wire_fail("busy"), wire_empty()]),
             Wire::Fail(reason) if reason == "busy"
         ));
         assert_eq!(
@@ -2370,10 +2381,7 @@ mod tests {
         };
         {
             let _hold = runtime.packs[0].context.lock().unwrap();
-            assert!(matches!(
-                runtime.ask_any("ping", &wire_empty()),
-                Wire::Fail(reason) if reason == "busy"
-            ));
+            assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
             assert!(runtime.emit_all("ping", &wire_empty()));
         }
         assert_eq!(runtime.ask_any_text("ping", &wire_empty()), "pong");
