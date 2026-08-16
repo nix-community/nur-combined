@@ -9,6 +9,7 @@ rec {
 	mdremotifier = pkgs.callPackage ./pkgs/mdremotifier { inherit rich-13-9-4 rich-argparse-rich-13-9-4; };
 	nbt = pkgs.callPackage ./pkgs/nbt { };
 	obsidian-better-markdown-links = pkgs.callPackage ./pkgs/obsidian-better-markdown-links { };
+	obsidian-daily-note-navbar = pkgs.callPackage ./pkgs/obsidian-daily-note-navbar { };
 	obsidian-filename-heading-sync = pkgs.callPackage ./pkgs/obsidian-filename-heading-sync { };
 	obsidian-folder-notes = pkgs.callPackage ./pkgs/obsidian-folder-notes { };
 	obsidian-privacy-screen = pkgs.callPackage ./pkgs/obsidian-privacy-screen { };
