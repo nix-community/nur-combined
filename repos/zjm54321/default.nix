@@ -18,5 +18,8 @@
 
   anyrun-weather = pkgs.callPackage ./pkgs/Anyrun-Weather { };
   anyrun-qalculate = pkgs.callPackage ./pkgs/Anyrun-Qalculate { };
+  officecli = pkgs.callPackage ./pkgs/officecli { };
   taskwarrior-mcp = pkgs.callPackage ./pkgs/taskwarrior-mcp { };
+  xiaohongshu-cli = pkgs.callPackage ./pkgs/xiaohongshu-cli { };
+  zhihu-cli = pkgs.callPackage ./pkgs/zhihu-cli { };
 }
