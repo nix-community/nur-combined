@@ -15,7 +15,7 @@ pub fn crumple_scale(crumple: i32) -> f32 {
 fn unit3(dir: [f32; 3]) -> [f32; 3] {
     let len = (dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]).sqrt();
     if len < 1e-4 {
-        [0.0, 0.0, 1.0]
+        [0.0, 0.0, 0.0]
     } else {
         [dir[0] / len, dir[1] / len, dir[2] / len]
     }
@@ -341,6 +341,14 @@ mod tests {
         let shifted = crumple_node_shift([0.0, 0.4, 1.2], [0.0, 0.0, 10.0], 100);
         assert!(shifted[2] < 1.2);
         assert!((shifted[0]).abs() < 1e-5);
+        let still = crumple_axes(80, [0.0, 0.0, 0.0]);
+        assert!((still[0] - 1.0).abs() < 1e-5);
+        assert!((still[1] - 1.0).abs() < 1e-5);
+        assert!((still[2] - 1.0).abs() < 1e-5);
+        assert_eq!(
+            crumple_node_shift([0.0, 0.4, 1.2], [0.0, 0.0, 0.0], 100),
+            [0.0, 0.4, 1.2]
+        );
     }
 
     #[test]
