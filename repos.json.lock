@@ -432,8 +432,8 @@
             "url": "https://github.com/bandithedoge/nur-packages"
         },
         "bartoostveen": {
-            "rev": "38c792e5f4995927fccbadb562871da0f4ee7eb6",
-            "sha256": "1dxvy4xvnpqknakvzy658z0yw2xxrpcw2m2nf8nlnv7lq1pgglpz",
+            "rev": "ac541c000bae512f80381cc13d9db050e4f03936",
+            "sha256": "09yyzz4w02rq44375igvam43csnx9rd9ym2v9gnsix6bvcxc0ki7",
             "url": "https://github.com/bartoostveen/nix-packages"
         },
         "bb010g": {
@@ -953,11 +953,6 @@
             "rev": "515ac4475f4797b4d481398956e31e830c4ea7b7",
             "sha256": "0c1bs83mg7qznv550vznx095lk7lrqsyb7q29wpimqpasri3y8xa",
             "url": "https://github.com/fooker/nur-packages"
-        },
-        "foolnotion": {
-            "rev": "5280f0e76848cb998a9067fe51638f60989c1fc3",
-            "sha256": "0lvhwhg804gy3bvg7jsf9jpj0890xd08f8vqcc187wnp0mvpq2cn",
-            "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
             "rev": "af832ac9bbe2213339c3c6d8e6d8f4adf4ae2d4a",
