@@ -25,6 +25,7 @@ Outstanding work and follow-up items for this repository.
 - [x] Create a runner registration token: Forgejo Site Administration → Actions → Runners → Create new runner
 - [x] Add `forgejo-runner-token` to `secrets.yaml` (`sops secrets.yaml`) — content is the **bare registration token**; the `TOKEN=` env-file wrapper is generated via `sops.templates`
 - [ ] Deploy the nas (`deploy .#nas`), then verify the runner shows as online under Site Administration → Actions → Runners
+- [x] Runner registration: Forgejo 15 creates runners server-side (UI shows uuid + secret; no registration token to exchange) — `.runner` credentials are rendered directly by `forgejo-runner-nas-credentials`; update the uuid in the nas config and the secret in `secrets.yaml` if the runner is ever recreated in the UI
 - [ ] Add `CACHIX_AUTH_TOKEN` under the repo's Settings → Actions → Secrets on Forgejo
 - [x] Port the GitHub-only automation (flake.lock updates, auto-format, merge-on-green) to Forgejo Actions; GitHub CI removed entirely (`.github/` deleted)
 
