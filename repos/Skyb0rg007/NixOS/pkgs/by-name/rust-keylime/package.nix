@@ -1,5 +1,6 @@
 {
   fetchFromGitHub,
+  fetchpatch,
   lib,
   openssl,
   pkg-config,
@@ -12,7 +13,10 @@ let
   # Remove once https://github.com/tpm2-software/tpm2-tss/pull/3123 is merged
   tpm2-tss-keylime = tpm2-tss.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
-      ./revert-skip-hmac-for-pure-policy-sessions.patch
+      (fetchpatch {
+        url = "https://github.com/tpm2-software/tpm2-tss/commit/1a02ac3395c028cccf176d47e95a0bcb30d0987a.patch";
+        hash = "sha256-AldDncNE+MmLzIFW2LLvuHWh9pvvCtBwwT9KIeSdGWQ=";
+      })
     ];
   });
 in

@@ -13,14 +13,14 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
-  version = "0.7.0";
+  version = "0.7.5";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "erikwb";
     repo = "blueferry";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-poLecUSAHXzSgBeFGnOSZAguKi+nISsaDeI0UW4VS0U=";
+    hash = "sha256-m4X8zpazYemMgbMXkq0ZA0p+NyQxq7T/4tFAcWlZ2cQ=";
   };
 
   build-system = [
@@ -41,7 +41,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
       genericName = "iPhone Bluetooth Bridge";
       comment = "Your iPhone's messages and notifications on the Linux desktop";
       exec = "blueferry-gtk";
-      icon = "io.weirdware.BlueFerry.Gtk";
+      icon = "io.weirdware.BlueFerry";
       terminal = false;
       categories = [
         "Network"
@@ -64,7 +64,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
       genericName = "iPhone Bluetooth Bridge";
       comment = "Your iPhone's messages and notifications on Plasma";
       exec = "blueferry-qt";
-      icon = "io.weirdware.BlueFerry.Qt";
+      icon = "io.weirdware.BlueFerry";
       terminal = false;
       categories = [
         "Network"
@@ -119,10 +119,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     install -Dm644 data/io.weirdware.BlueFerry.xml \
       $out/share/dbus-1/interfaces/io.weirdware.BlueFerry.xml
 
-    install -Dm644 data/icons/io.weirdware.BlueFerry.Gtk.svg \
-      $out/share/icons/hicolor/scalable/apps/io.weirdware.BlueFerry.Gtk.svg
-    install -Dm644 data/icons/io.weirdware.BlueFerry.Gtk.svg \
-      $out/share/icons/hicolor/scalable/apps/io.weirdware.BlueFerry.Qt.svg
+    install -Dm644 data/icons/io.weirdware.BlueFerry.svg \
+      $out/share/icons/hicolor/scalable/apps/io.weirdware.BlueFerry.svg
   '';
 
   dontWrapGApps = true;
