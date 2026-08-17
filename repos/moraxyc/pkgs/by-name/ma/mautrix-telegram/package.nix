@@ -15,7 +15,7 @@ buildGoModule (finalAttrs: {
   inherit (source) version src;
 
   # nix-update auto
-  vendorHash = "sha256-bmpTm1/6Z+kAFGAJ70ohBz8+n8JZk7mZyCfX0+FB/fE=";
+  vendorHash = "sha256-sh3CejNXhSLp2l4ZnfWwdwxqF+yzCn7/T4EWfVX84m8=";
 
   ldflags = [
     "-s"
