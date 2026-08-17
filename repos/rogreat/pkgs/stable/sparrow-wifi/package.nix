@@ -7,7 +7,6 @@
   makeDesktopItem,
   python3Packages,
   qt5,
-  runtimeShell,
   usbutils,
 }:
 
