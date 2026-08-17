@@ -35,7 +35,7 @@
   };
 
   vacu.qemuVMs.jv-shel = {
-    address = "10.78.77.4";
+    address = "10.78.77.5";
     baseMem = 1 * 1024;
     maxMem = 16 * 1024;
     dimmSlots = 4;

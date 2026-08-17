@@ -317,7 +317,16 @@ in
     # The low bit of the first octet is the multicast bit — a value like
     # 11:cc:.. silently breaks host->guest ARP. The derived default always
     # satisfies this; the assertion only guards hand-set overrides.
-    assertions = lib.mapAttrsToList (
+    assertions = [
+      {
+        assertion =
+          let
+            addresses = lib.mapAttrsToList (_: vmCfg: vmCfg.address) cfg;
+          in
+          (builtins.length addresses) == (builtins.length (lib.uniqueStrings addresses));
+        message = "vm addresses are not unique";
+      }
+    ] ++ lib.mapAttrsToList (
       vmName: vmCfg:
       let
         firstOctet = lib.fromHexString (builtins.head (lib.splitString ":" vmCfg.mac));
