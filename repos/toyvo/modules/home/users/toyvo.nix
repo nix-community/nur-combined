@@ -158,11 +158,21 @@ in
           enable = true;
           settings = {
             "github.com" = {
+              User = "git";
+              HostName = "github.com";
               IdentitiesOnly = "yes";
               IdentityFile = [
                 config.sops.secrets.github_toyvo_auth_ed25519.path
                 config.sops.secrets.yubikey_usbc_ed25519_sk.path
                 config.sops.secrets.yubikey_usba_ed25519_sk.path
+              ];
+            };
+            "git.diekvoss.net" = {
+              User = "forgejo";
+              HostName = "git.diekvoss.net";
+              IdentitiesOnly = "yes";
+              IdentityFile = [
+                config.sops.secrets.github_toyvo_auth_ed25519.path
               ];
             };
             "macmini-intel" = identityConfig // {
@@ -192,6 +202,7 @@ in
             "router" = identityConfig // {
               User = "toyvo";
               HostName = "router.internal";
+              Port = "2222";
             };
             "steamdeck-nixos" = identityConfig // {
               User = "toyvo";
