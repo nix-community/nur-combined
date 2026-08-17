@@ -1,6 +1,5 @@
 {
   copyDesktopItems,
-  cuprate,
   dbus,
   fetchFromGitHub,
   lib,
@@ -27,8 +26,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "gupax-io";
     repo = "gupax";
-    rev = "bb5827eb19d6494d1edb6eba7a991e71fd396f5e";
-    hash = "sha256-LEVJI3AWrr85g+X0Xt1uuvD1AtXB9UCHiacp4i0egP0=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-M+Sgn3TafVcxaurBj3eG228z4noVwJWg6oTwBqhhPRk=";
+    leaveDotGit = true;
+    postFetch = ''
+      cd $out
+      git rev-parse HEAD > COMMIT
+      rm -rf .git
+    '';
   };
 
   cargoHash = "sha256-7Kew11N/rakHLhKBu+BUM3f4AP9xDZl1xARpbyqHCFY=";
@@ -43,7 +48,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip helper::xvb::algorithm::test::test_manual_xvb_mode"
   ];
 
-  preBuild = ''
+  postPatch = ''
+    export COMMIT="$(cat COMMIT)"
+    export GITHUB_SHA="$COMMIT"
     rm build.rs
   '';
 
@@ -96,10 +103,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   env = {
     # https://doc.rust-lang.org/beta/unstable-book/compiler-environment-variables/RUSTC_BOOTSTRAP.html
     RUSTC_BOOTSTRAP = 1;
-    # https://github.com/gupax-io/gupax/blob/main/build.rs
-    COMMIT = finalAttrs.src.rev;
-    # https://github.com/Cuprate/cuprate/blob/main/constants/build.rs
-    GITHUB_SHA = cuprate.src.rev;
   };
 
   strictDeps = true;

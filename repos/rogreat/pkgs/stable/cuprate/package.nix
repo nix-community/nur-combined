@@ -10,24 +10,30 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cuprate";
-  version = "cuprated-0.0.9";
+  version = "0.0.9";
 
   src = fetchFromGitHub {
     owner = "Cuprate";
     repo = "cuprate";
-    rev = "bc059f047651a743565330e8fe533e4f5a81d388";
-    hash = "sha256-IQcyLtQtc8xNGFt7V1Y1qBW5Zr941jZy7jdHOxiDvqo=";
+    tag = "cuprated-${finalAttrs.version}";
+    hash = "sha256-j7swVsxOk52tRrxEBMJLPJgt/btWBXY+xJ5LSYxDHgY=";
+    leaveDotGit = true;
+    postFetch = ''
+      cd $out
+      git rev-parse HEAD > COMMIT
+      rm -rf .git
+    '';
   };
 
   cargoHash = "sha256-NDZb/DLNP35EKqsoLz/AallYyeHcm9M+DtNxZzq+PFQ=";
 
   checkFlags = [
-    # Tests don't work in CI
-    "--skip rpc::client::tests::localhost"
-    "--skip rpc::client::tests::get"
-    "--skip data::statics::tests::block_same_as_rpc"
-    "--skip data::statics::tests::tx_same_as_rpc"
+    "--skip=rpc::client::tests::localhost" # Failed
   ];
+
+  postPatch = ''
+    export GITHUB_SHA="$(cat COMMIT)"
+  '';
 
   nativeBuildInputs = [
     cmake
@@ -43,12 +49,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   env = {
-    # Needed to get openssl-sys to use pkg-config.
+    # https://docs.rs/openssl/latest/openssl/
     OPENSSL_NO_VENDOR = 1;
-    # Use Rust nightly.
+    # https://doc.rust-lang.org/beta/unstable-book/compiler-environment-variables/RUSTC_BOOTSTRAP.html
     RUSTC_BOOTSTRAP = 1;
-    # https://github.com/Cuprate/cuprate/blob/main/constants/build.rs
-    GITHUB_SHA = finalAttrs.src.rev;
   };
 
   strictDeps = true;
