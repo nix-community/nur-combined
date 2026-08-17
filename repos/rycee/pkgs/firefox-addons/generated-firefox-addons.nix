@@ -820,10 +820,10 @@
     };
     "auto-tab-discard" = buildMozillaXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.7.1";
+      version = "0.7.2";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4959845/auto_tab_discard-0.7.1.xpi";
-      sha256 = "3eea86e33f1716026b9e3d7d9d0bde3c91163d420081290530d29a2fefedd683";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4962080/auto_tab_discard-0.7.2.xpi";
+      sha256 = "ff0ed41080d4596a3577e1751b6a5780ab4672114ca91b79accf024083a80d3b";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -2419,10 +2419,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.23.0";
+      version = "4.24.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4882870/control_panel_for_twitter-4.23.0.xpi";
-      sha256 = "e358db87f82c453d9e1a2eeff06dde9f7716e3c9441f6d1ee26e99672cf5b2f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4963137/control_panel_for_twitter-4.24.0.xpi";
+      sha256 = "7345582690b64ddd994dd4962b8ce36a0039546021f1336ca3c9d34ac1789015";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -4711,10 +4711,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.1.4";
+      version = "2.1.5";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4948056/geo_spoof-2.1.4.xpi";
-      sha256 = "6e2bb9fb1725272b1a5b1ab5330d9b473f1ed61ed22f1d29d43de8c054f2904f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4961383/geo_spoof-2.1.5.xpi";
+      sha256 = "10637f26fc5966cc52f360bc90c4c27d7a66914fc9debb45df755aa232e5964b";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -8466,10 +8466,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.228";
+      version = "2.4.229";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4941522/lichess_tools_by_siderite-2.4.228.xpi";
-      sha256 = "d9a0dcad98bb236390ba914f0231de2561b3e0fa392605890660b63e71af3af0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4962767/lichess_tools_by_siderite-2.4.229.xpi";
+      sha256 = "52a1ebdd74c73c70bbe6de1d4f576154db30f8c44acbe9602f1e4f0ed6b8dbca";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8517,10 +8517,10 @@
     };
     "lingq-importer2" = buildMozillaXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.50";
+      version = "2.3.52";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4954673/lingq_importer2-2.3.50.xpi";
-      sha256 = "62ca3dfb9e3d2c0496bdf073f4de1732f596f59fbc04f72ee946d430431b04c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4962526/lingq_importer2-2.3.52.xpi";
+      sha256 = "e3972366733ebef9d247bdd1318524d7df24eb364bd7cae943cb4cd4d2f029c9";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -8888,10 +8888,10 @@
     };
     "llmfeeder" = buildMozillaXpiAddon {
       pname = "llmfeeder";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "llmfeeder@j47.in";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4925415/llmfeeder-2.2.0.xpi";
-      sha256 = "079ac8da43d4f2430e71090b5b0422692404ef974ac3228d8828d9ba3d25d92e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4963096/llmfeeder-2.2.1.xpi";
+      sha256 = "ccd0c9d7ae7cb2fd5c1f40dd8d28a27989e84f676c796b76123b27afa4819bdd";
       meta = with lib;
       {
         homepage = "https://github.com/jatinkrmalik/LLMFeeder";
@@ -15020,10 +15020,10 @@
     };
     "themesong-for-youtube-music" = buildMozillaXpiAddon {
       pname = "themesong-for-youtube-music";
-      version = "1.3.3";
+      version = "1.3.4";
       addonId = "{6458ac08-a9d7-4e42-a1b0-f0c43bf90f7d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4820351/themesong_for_youtube_music-1.3.3.xpi";
-      sha256 = "b1fa04056510e616413f3bbdb81b9832378c06acd8d70499fa3d80b9cc6d235b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4963069/themesong_for_youtube_music-1.3.4.xpi";
+      sha256 = "50c8e222c2c95fdb19b1e53682ab6255218b9432ba725fb5532385237c03ccb8";
       meta = with lib;
       {
         homepage = "https://www.themesong.app";
@@ -15292,10 +15292,10 @@
     };
     "translate-web-pages" = buildMozillaXpiAddon {
       pname = "translate-web-pages";
-      version = "10.1.1.1";
+      version = "10.2.1.0";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4455681/traduzir_paginas_web-10.1.1.1.xpi";
-      sha256 = "dc94a7efac63468f7d34a74bedf5c8b360a67c99d213bb5b1a1d55d911797782";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4962745/traduzir_paginas_web-10.2.1.0.xpi";
+      sha256 = "67f4b90279426590ccf88f85aef14509948b4e661682d938a93c0bcce94c523b";
       meta = with lib;
       {
         description = "Translate your page in real time using Google, Bing or Yandex.\nIt is not necessary to open new tabs.";
@@ -15306,7 +15306,6 @@
           "activeTab"
           "contextMenus"
           "webRequest"
-          "https://www.deepl.com/*/translator*"
         ];
         platforms = platforms.all;
       };
@@ -16301,10 +16300,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.5.10.2";
+      version = "10.5.33.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4891485/video_downloadhelper-10.5.10.2.xpi";
-      sha256 = "f5385166569339ea553919334bdee927fe5ff1704738bfa07e2c34f9ef5f5109";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4963150/video_downloadhelper-10.5.33.2.xpi";
+      sha256 = "50669f796e817c26fea07167be46ac99c379100eb059e13621635c2b3966a38d";
       meta = with lib;
       {
         homepage = "https://www.downloadhelper.net/";
@@ -16347,6 +16346,8 @@
           "*://*.chaturbate.com/*"
           "*://*.chaturbate.eu/*"
           "*://*.chaturbate.global/*"
+          "*://*.91porna.com/*"
+          "*://*.9n6gyt.umydsfs.cc/*"
           "https://downloadhelper.net/activate*"
           "https://app.downloadhelper.net/activate*"
           "https://v10.downloadhelper.net/activate*"
@@ -17849,10 +17850,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.8.10";
+      version = "18.8.11";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4960516/youtube_subscription_groups-18.8.10.xpi";
-      sha256 = "1b625e38770332b77d3076be94c4a78fdcb4e99088a2d204bb2724e269e94a47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4962417/youtube_subscription_groups-18.8.11.xpi";
+      sha256 = "e309ad674f169c847e4e31c8cd9b762f9f284f06767ff09eba047d5d71c5f8f0";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
