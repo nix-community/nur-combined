@@ -14,5 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  drift = pkgs.callPackage ./pkgs/drift { };
   shcopy = pkgs.callPackage ./pkgs/shcopy { };
 }
