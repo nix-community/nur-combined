@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -35,15 +34,12 @@ in
           core.autocrlf = "input";
           gpg.format = "ssh";
           init.defaultBranch = "main";
-          init.defaultRefFormat = "reftable";
           url."git@github.com:".pushInsteadOf = "https://github.com/";
           alias = {
             a = "add";
             aa = "add -A";
             b = "branch";
             ba = "branch -a";
-            ac = "!oco";
-            aca = "!git add -A && oco";
             c = "commit -m";
             ca = "commit -am";
             cam = "commit --amend --date=now";
@@ -58,7 +54,6 @@ in
             ignore = "update-index --assume-unchanged";
             unignore = "update-index --no-assume-unchanged";
             ignored = "!git ls-files -v | grep ^h | cut -c 3-";
-            bare-clone = "!f() { if [ \"$#\" -ge 2 ]; then for d; do :; done; else d=\"$(echo \"$1\" | sed 's|.*[:/]||; s|[.]git$||').git\"; fi; git clone --bare \"$@\" && git -C \"$d\" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git -C \"$d\" fetch; }; f";
             rbm = "!git fetch && git rebase origin/main";
             rbc = "-c core.editor=true rebase --continue";
           };

@@ -18,7 +18,7 @@ Outstanding work and follow-up items for this repository.
 - [x] One-time cleanup of the `nixcfg` working copy: stripped owner/other execute on 13 spurious files and restored a real user-execute bit on the 12 legitimately-executable scripts (whose exec was previously faked by the mask leak).
 - [ ] Deploy the nas (`nh os switch .#nas` or `deploy .#nas`) so the new `apply-generated-acls` oneshot runs and the fix sticks — until then the old oneshot would re-poison file modes on next activation.
 
-## Forgejo (git.diekvoss.net)
+## Forgejo (git.toyvo.dev)
 
 ### Forgejo Actions (CI runner on the nas)
 
@@ -31,7 +31,7 @@ Outstanding work and follow-up items for this repository.
 
 ### Enhancements
 
-- [x] Git over SSH via the domain: router admin sshd moved to port 2222, and TCP/22 on the router relays to `nas:22` (`git-ssh-relay` socat service) — standard clone URLs work: `forgejo@git.diekvoss.net:user/repo.git`. SSH client config for the router (port 2222) is in `modules/home/programs/ssh.nix`. Needs a router + nas deploy and home-manager switch to take effect.
+- [x] Git over SSH via the domain: router admin sshd moved to port 2222, and TCP/22 on the router relays to `nas:22` (`git-ssh-relay` socat service) — standard clone URLs work: `forgejo@git.toyvo.dev:user/repo.git`. SSH client config for the router (port 2222) is in `modules/home/programs/ssh.nix`. Needs a router + nas deploy and home-manager switch to take effect.
 - [ ] Authentik OIDC login for Forgejo
 - [ ] Periodic backups via `services.forgejo.dump.enable`
 - [ ] Homepage widget (`type: gitea`) with an API key stored in sops as `HOMEPAGE_VAR_FORGEJO_API_KEY`

@@ -6,7 +6,7 @@
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-toyvo-blue.svg)](https://toyvo.cachix.org)
 
-CI runs on self-hosted Forgejo Actions (git.diekvoss.net, home-network only);
+CI runs on self-hosted Forgejo Actions (git.toyvo.dev);
 
 A single Nix flake serving two purposes:
 
@@ -15,8 +15,7 @@ A single Nix flake serving two purposes:
    [cache.toyvo.dev](https://cache.toyvo.dev) binary cache.
 1. **System configurations** — shared NixOS, nix-darwin, and Home Manager
    configurations for my machines (desktops, laptops, NAS, router, VPS, ...),
-   including the self-hosted services behind `*.diekvoss.net` (e.g. Forgejo at
-   git.diekvoss.net — resolvable only on my home network).
+   including the self-hosted services behind `*.diekvoss.net`, `*.diekvoss.com`, or `*.toyvo.dev`.
 
 ## Layout
 

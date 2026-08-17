@@ -197,12 +197,15 @@ in
       database.type = "postgres";
       settings = {
         server = {
-          DOMAIN = "git.diekvoss.net";
-          ROOT_URL = "https://git.diekvoss.net/";
+          DOMAIN = "git.toyvo.dev";
+          ROOT_URL = "https://git.toyvo.dev/";
           HTTP_PORT = homelab.${hostName}.services.forgejo.port;
         };
         # accounts are created by the admin via CLI, or log in via OAuth
         service.DISABLE_REGISTRATION = true;
+        # global actions switch (already the forgejo default); each repo also
+        # needs its Actions unit enabled: Repo Settings -> Actions
+        actions.ENABLED = true;
       };
     };
     # Forgejo Actions runner (act runner works with both gitea and forgejo).
@@ -210,7 +213,7 @@ in
     gitea-actions-runner.instances.nas = {
       enable = true;
       name = "nas";
-      url = "https://git.diekvoss.net";
+      url = "https://git.toyvo.dev";
       tokenFile = config.sops.templates."forgejo-runner-token-nas.env".path;
       labels = [
         "native:host"

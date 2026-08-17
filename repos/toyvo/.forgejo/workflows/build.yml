@@ -35,7 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           git config user.name "forgejo-actions[bot]"
-          git config user.email "forgejo-actions[bot]@users.noreply.git.diekvoss.net"
+          git config user.email "forgejo-actions[bot]@users.noreply.git.toyvo.dev"
           BRANCH="update-flake-lock"
 
           nix flake update

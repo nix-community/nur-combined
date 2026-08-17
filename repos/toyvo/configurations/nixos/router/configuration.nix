@@ -161,6 +161,8 @@ in
       # router's own SSH, 67/68 is for DHCP, 80 is for HTTP, 443 is for HTTPS
       interfaces.enp2s0 = {
         allowedTCPPorts = [
+          # this is NOT ssh into the router, but the relay to git
+          22
           80
           443
         ];
@@ -453,20 +455,20 @@ in
         "toyvo.dev"
         "cache.toyvo.dev"
       ];
-      proxied = false;
+      proxied = true;
       apiTokenFile = config.sops.secrets.cloudflare_w_dns_r_zone_token.path;
     };
   };
-  # git.diekvoss.net resolves to the router; relay TCP/22 to the nas so
-  # `git clone forgejo@git.diekvoss.net:user/repo.git` works on the standard
+  # git.toyvo.dev resolves to the router; relay TCP/22 to the nas so
+  # `git clone forgejo@git.toyvo.dev:user/repo.git` works on the standard
   # port. Note: the nas sees the router as the connecting client for all git
-  # SSH sessions. LAN only -- the WAN firewall does not allow 22.
+  # SSH sessions.
   systemd.services.git-ssh-relay = {
     description = "Relay SSH (port 22) to nas for forgejo git-over-SSH";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:22,bind=${homelab.router.ip},fork,reuseaddr TCP:${homelab.nas.ip}:22";
+      ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:22,bind=0.0.0.0,fork,reuseaddr TCP:${homelab.nas.ip}:22";
       Restart = "on-failure";
       RestartSec = "5s";
       DynamicUser = true;

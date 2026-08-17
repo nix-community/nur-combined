@@ -76,6 +76,7 @@
       forgejo = {
         port = 3000;
         subdomain = "git";
+        domain = "toyvo.dev";
         # git clients need direct access; forgejo handles its own auth
         forwardAuthGate = false;
         displayName = "Forgejo";

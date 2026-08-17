@@ -212,7 +212,7 @@ Cloudflare (manually, except `toyvo.dev`, which uses dyndns).
 Note on SSH: the router's admin sshd listens on port **2222** (client config in
 `modules/home/programs/ssh.nix`). TCP/22 on the router is relayed to the nas
 (`git-ssh-relay` service) so forgejo git-over-SSH works on the standard port:
-`forgejo@git.diekvoss.net:user/repo.git`.
+`forgejo@git.toyvo.dev:user/repo.git`.
 
 ### Domains and Public Exposure
 

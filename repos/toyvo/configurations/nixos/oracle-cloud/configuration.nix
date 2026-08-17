@@ -107,8 +107,8 @@
           metrics
         }
       '';
-      virtualHosts."mc.toyvo.dev" = {
-        useACMEHost = "mc.toyvo.dev";
+      virtualHosts."cloud.toyvo.dev" = {
+        useACMEHost = "cloud.toyvo.dev";
         # Proxy to the terraria container's TShock REST API
         extraConfig = "reverse_proxy http://10.200.1.6:7878";
       };
@@ -117,7 +117,7 @@
   security = {
     acme = {
       acceptTerms = true;
-      certs."mc.toyvo.dev" = {
+      certs."cloud.toyvo.dev" = {
         email = "collin@diekvoss.com";
         dnsProvider = "cloudflare";
         credentialFiles = {
