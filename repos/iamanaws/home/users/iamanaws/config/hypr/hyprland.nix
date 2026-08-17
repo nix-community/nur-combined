@@ -82,11 +82,10 @@ in
 {
   wayland.windowManager.hyprland = {
     enable = true;
-
     xwayland.enable = true;
 
     settings = {
-      ### PROGRAMS (Lua locals) ###
+      ### PROGRAMS ###
 
       terminal._var = "kitty";
       browser._var = "brave";
@@ -103,7 +102,6 @@ in
           "hyprland.start"
           (mkLuaInline ''
             function()
-              hl.exec_cmd("hyprpaper")
               hl.exec_cmd("systemctl --user start hyprpolkitagent")
             end'')
         ];
