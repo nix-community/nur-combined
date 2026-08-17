@@ -40,6 +40,7 @@ let
       "pkgs/os-specific/linux/xpadneo"
 
       "pkgs/by-name/an/anytype"
+      "pkgs/by-name/ar/arc-theme"
       "pkgs/by-name/cc/ccache"
       "pkgs/by-name/cl/clonehero"
       "pkgs/by-name/cm/cmake-language-server"
