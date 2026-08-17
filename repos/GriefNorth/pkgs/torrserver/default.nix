@@ -9,24 +9,24 @@
 
 pkgs.stdenv.mkDerivation rec {
   pname = "torrserver";
-  version = "MatriX.142.2";
+  version = "MatriX.143";
 
   src = pkgs.fetchgit {
     url = "https://github.com/YouROK/TorrServer.git";
     rev = "${version}";
-    hash = "sha256-hwlhAQLSLSmQLeaNVt8QKClwkCn9XHN0kyrNllnC06I=";
+    hash = "sha256-vjctXA4n5RTikeZXOr4eT3X1oQw3ZWXrJGGNHmcJQGY=";
   };
 
   yarnOfflineCache = pkgs.fetchYarnDeps {
     yarnLock = "${src}/web/yarn.lock";
-    hash = "sha256-mgWn9mOTaZJRLa7uphho002jpxFSHGjXZmNcmXaurBo=";
+    hash = "sha256-M1SADFYG/lEf+1P5Tiqki936lo9obDYDgCa4+fTLU0A=";
   };
 
   goModules = pkgs.buildGoModule.override { go = pkgs.go_1_26; } {
     pname = "torrserver-go-deps";
     version = version;
     src = "${src}/server";
-    vendorHash = "sha256-CUnIKZ3MDv+ne0Yk8MI4dV0VBbEfz2a04zDxdonnnvE=";
+    vendorHash = "sha256-jZFVbCDAZyoGeUrO+55CsGxCHsz2f+gMjt1OSw9c/XM=";
 
     modBuildPhase = ''
       go mod download
