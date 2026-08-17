@@ -1,10 +1,10 @@
 {
   "nodeModulesHashes": {
-    "aarch64-darwin": "sha256-gDyJ5boyH44SeXlKo+W4G36GSUejyXP5PFvW+dFS1Mk=",
-    "aarch64-linux": "sha256-+6Sa/IjLdoD9Xm42Bzp/4xdB3I4q+FT3wjSi0sGo9eY=",
-    "x86_64-linux": "sha256-sVXoNWIcx1RYRtRWB4F2j7x8/cabFBKq+plFhPU7tBc="
+    "aarch64-darwin": "sha256-9vvR3KLmBc+4bfyWEyyM8FHWg+DfiDzUlwqUlm3NFc8=",
+    "aarch64-linux": "sha256-DGl1qSb25R2aGYK7UXFgjWUkxPpko5V92nRR3XI389c=",
+    "x86_64-linux": "sha256-jvq2TO0SxEV1BHyT6C32VQ916wMTM/D1nsV2rNcJQSo="
   },
-  "rev": "854ffdc5c76531941eb351b964b02d8bb8439c35",
-  "sourceHash": "sha256-LLkrANLLR+2QgOpSdrjbwvzgP7dpOzayy9nCVqFUzeI=",
-  "version": "2.6.3"
+  "rev": "facd35e01359e59d938bc9418e93fb9318addee3",
+  "sourceHash": "sha256-/7Z94r/9rXqzKlz/YkB6/nToSCPamV4Dnxm8EhelTDo=",
+  "version": "2.8.3"
 }
