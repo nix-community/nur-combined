@@ -272,6 +272,11 @@ workspaced: {
 			global: true
 			bins: ["helium"]
 		}
+		rod_mcp: {
+			ref: "github:aliwatters/rod-mcp"
+			global: true
+			bins: ["rod-mcp"]
+		}
 	}
 	modules: {
 		webapp: {

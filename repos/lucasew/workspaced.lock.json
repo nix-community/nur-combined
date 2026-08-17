@@ -25,6 +25,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:aliwatters/rod-mcp",
+      "depName": "aliwatters/rod-mcp",
+      "currentValue": "v0.4.3",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:anomalyco/opencode",
       "depName": "anomalyco/opencode",
       "currentValue": "v1.18.18",
