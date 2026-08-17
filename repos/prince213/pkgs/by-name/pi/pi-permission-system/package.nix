@@ -13,7 +13,7 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "pi-permission-system";
-  version = "25.4.0";
+  version = "26.2.0";
 
   __structuredAttrs = true;
 
@@ -21,7 +21,7 @@ buildNpmPackage (finalAttrs: {
     owner = "gotgenes";
     repo = "pi-packages";
     tag = "pi-permission-system-v${finalAttrs.version}";
-    hash = "sha256-o/YJQryAd3Did5SRfMJl+kS2bfYovh4+QZjJWqFHdEE=";
+    hash = "sha256-ot8Bl6s8EZIDN24oX9tlJwOHJhR5PmeRPwMeB8k09kQ=";
   };
 
   pnpmWorkspaces = [ "@gotgenes/pi-permission-system" ];

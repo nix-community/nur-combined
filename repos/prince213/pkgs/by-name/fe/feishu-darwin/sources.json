@@ -1,16 +1,16 @@
 {
   "aarch64-darwin": {
-    "version": "7.73.9",
+    "version": "7.74.16",
     "src": {
-      "url": "https://sf3-cn.feishucdn.com/obj/ee-appcenter/0672e97f/Feishu-darwin_arm64-7.73.9-signed.dmg",
-      "hash": "sha256-OfeUOOXrn4MBH4RVZdervEn8GN398Ohvms9rQluuxys="
+      "url": "https://sf3-cn.feishucdn.com/obj/ee-appcenter/b64e4272/Feishu-darwin_arm64-7.74.16-signed.dmg",
+      "hash": "sha256-t4wjYqaSLGhv1mg+m2hv8ODgLLs2C+HmuC3WrgTeids="
     }
   },
   "x86_64-darwin": {
-    "version": "7.73.9",
+    "version": "7.74.16",
     "src": {
-      "url": "https://sf3-cn.feishucdn.com/obj/ee-appcenter/ac6a604b/Feishu-darwin_x64-7.73.9-signed.dmg",
-      "hash": "sha256-MKwSKciN5ulpXoj8z10y/9eRb0H7WqodkEfqNfccNg0="
+      "url": "https://sf3-cn.feishucdn.com/obj/ee-appcenter/140108f6/Feishu-darwin_x64-7.74.16-signed.dmg",
+      "hash": "sha256-IdCphMTfBnhXba8vAvyjfzIw0UONwyOPwaYC2mh1qkw="
     }
   }
 }

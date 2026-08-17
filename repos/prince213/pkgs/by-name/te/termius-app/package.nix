@@ -30,36 +30,20 @@ let
     license = lib.licenses.unfree;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = with lib.maintainers; [ prince213 ];
-    platforms = [
-      "aarch64-darwin"
-      "x86_64-linux"
-    ];
+    platforms = lib.attrNames sources;
   };
 
-  sources = {
-    aarch64-darwin = {
-      version = "9.43.0";
-      src = fetchurl {
-        url = "https://web.archive.org/web/20260810130523if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
-        hash = "sha256-48jyqt/H0gbAplR3kW8oQS39UkSI6d6nbOm7kqrwxzM=";
-      };
-    };
-    x86_64-linux = {
-      version = "9.43.0";
-      src = fetchurl {
-        url = "https://web.archive.org/web/20260810130548if_/https://deb.termius.com/pool/main/t/termius-app/termius-app_9.43.0_amd64.deb";
-        hash = "sha256-il/NsFkmwCiXsMjQxhFS1NvO4XP8yr8hktJ81R5VnTQ=";
-      };
-    };
-  };
+  sources = lib.fromJSON (lib.readFile ./sources.json);
 
   throwSystem = throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}";
   source = sources.${stdenvNoCC.hostPlatform.system} or throwSystem;
+  src = fetchurl source.src or throwSystem;
 in
 if stdenvNoCC.hostPlatform.isDarwin then
   import ./darwin.nix {
     inherit pname meta;
-    inherit (source) version src;
+    inherit (source) version;
+    inherit src;
 
     inherit
       stdenvNoCC
@@ -69,7 +53,8 @@ if stdenvNoCC.hostPlatform.isDarwin then
 else
   import ./linux.nix {
     inherit pname meta;
-    inherit (source) version src;
+    inherit (source) version;
+    inherit src;
 
     inherit
       alsa-lib

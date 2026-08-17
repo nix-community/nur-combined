@@ -15,8 +15,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Aidoku";
     repo = "aidoku-rs";
-    rev = "aaca5a1b12ad315f18195310b8af02011e300ded";
-    hash = "sha256-o3QMXCQRvG+fvYgQsXk1P0UrpFxbQCbBIesM0W16Yuc=";
+    rev = "a3a736c781137759c64dac29b68c2f4b53ed9010";
+    hash = "sha256-3lDSrDZuOM9sHS0qw0uWkRost/UYBdgGAwvy1ZrdxFc=";
   };
 
   cargoHash = "sha256-zA9UgryFsJhuTZfquDj7sIC1Omjuy8WWdc5uwWIx2UY=";
