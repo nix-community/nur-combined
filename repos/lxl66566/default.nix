@@ -24,6 +24,7 @@ in
   git-simple-encrypt = callPackage ./pkgs/git-simple-encrypt { };
   git-sync-backup = callPackage ./pkgs/git-sync-backup { };
   git-touchfish-commit = callPackage ./pkgs/git-touchfish-commit { };
+  nextppp = callPackage ./pkgs/nextppp { };
   openppp2 = callPackage ./pkgs/openppp2 { };
   selector4nix = callPackage ./pkgs/selector4nix { };
   system76-scheduler-niri = callPackage ./pkgs/system76-scheduler-niri { };

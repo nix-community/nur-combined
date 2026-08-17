@@ -64,6 +64,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [git-simple-encrypt](https://github.com/lxl66566/git-simple-encrypt) | null, musl | Encrypt/decrypt files in git repo using one password |
 | [git-sync-backup](https://github.com/lxl66566/git-sync-backup) | null, musl | Synchronize and backup files/folders using Git, cross-device & configurable |
 | [git-touchfish-commit](https://github.com/lxl66566/git-touchfish-commit) | null, musl | make your commit time safe |
+| [nextppp](https://github.com/lxl66566/nextppp) | null, musl | proxy to bypass GFW |
 | [openppp2](https://github.com/liulilittle/openppp2) | null, tc | Next-generation security network access technology, providing high-performance Virtual Ethernet tunneling service. |
 | [selector4nix](https://github.com/StarryReverie/selector4nix) | null, musl | Nix substituter proxy with parallel cache queries and latency-aware selection |
 | [system76-scheduler-niri](https://github.com/lxl66566/system76-scheduler-niri) | null, musl | Niri integration for system76-scheduler |
@@ -104,9 +105,45 @@ reference to [StarryReverie/selector4nix](https://github.com/StarryReverie/selec
 }
 ```
 
+### nextppp
+
+```nix
+# server
+{
+  services.nextppp = {
+    enable = true;
+    mode = "server";
+    settings = {
+      listen = "0.0.0.0:6666";
+      password = "CHANGE_ME";
+      # connect_timeout = 10;
+      # handshake_timeout = 15;
+      # obfuscation = { ... };
+    };
+  };
+}
+
+# client
+{
+  services.nextppp = {
+    enable = true;
+    mode = "client";
+    settings = {
+      listen = "127.0.0.1:1080";
+      password = "CHANGE_ME";
+      server = {
+        address = "your.server.example:6666";
+      };
+    };
+  };
+}
+```
+
 ### fungi
 
 not support attrSet config, since I don't use _fungi_ now... (currently using easytier.)
+
+<details><summary>expand to view</summary>
 
 ```nix
 {
@@ -141,11 +178,13 @@ not support attrSet config, since I don't use _fungi_ now... (currently using ea
 }
 ```
 
+</details>
+
 ## development
 
 how to test packages/modules in this NUR:
 
 ```nix
 nix-build -A openppp2               # build a package
-nix-build tests/fungi-test.nix      # build a module
+nix-build tests/fungi-test.nix      # test a module
 ```

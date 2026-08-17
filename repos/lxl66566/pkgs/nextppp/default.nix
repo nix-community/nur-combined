@@ -2,20 +2,17 @@
   stdenv,
   lib,
   pkgs,
-  zlib,
   makeBinPackage,
 }:
 
 let
-  pname = "git-sync-backup";
-  bname = "gsb";
-  description = "Synchronize and backup files/folders using Git, cross-device & configurable.";
+  pname = "nextppp";
+  description = "proxy to bypass GFW";
 
   sourceInfo = lib.importJSON ./source-info.json;
   commonArgs = {
     inherit
       pname
-      bname
       description
       ;
   }
@@ -26,7 +23,6 @@ let
     // {
       nixSystem = stdenv.hostPlatform.system;
       libc = "gnu";
-      otherBuildInputs = [ zlib ];
     }
   );
 
@@ -48,7 +44,6 @@ let
         // {
           inherit nixSystem libc;
           overrideStdenv = if libc == "musl" then pkgs.pkgsStatic.stdenv else null;
-          otherBuildInputs = lib.optionals (libc != "musl") [ zlib ];
         }
       )
     ) libcMap

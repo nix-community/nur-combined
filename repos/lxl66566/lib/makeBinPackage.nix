@@ -14,6 +14,7 @@
   bname ? null,
   libc ? "gnu",
   otherNativeBuildInputs ? [ ],
+  otherBuildInputs ? [ ],
   description ? "",
   license ? lib.licenses.mit,
   overrideStdenv ? null,
@@ -52,9 +53,12 @@ currentStdenv.mkDerivation {
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  nativeBuildInputs = otherNativeBuildInputs ++ lib.optional (lib.hasSuffix ".zip" finalUrl) unzip;
+  nativeBuildInputs =
+    otherNativeBuildInputs
+    ++ lib.optional (libc != "musl") autoPatchelfHook
+    ++ lib.optional (lib.hasSuffix ".zip" finalUrl) unzip;
 
-  buildInputs = lib.optional (libc == "gnu") stdenv.cc.cc.lib;
+  buildInputs = lib.optionals (libc != "musl") [ stdenv.cc.cc.lib ] ++ otherBuildInputs;
 
   unpackPhase = ''
     runHook preUnpack
