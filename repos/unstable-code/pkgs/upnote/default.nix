@@ -25,11 +25,11 @@ stdenv.mkDerivation {
   #   https://download.getupnote.com/app/latest-linux.yml
   # (electron-builder 메타파일 — version + 각 아티팩트 sha512 를 base64 로 주므로 그대로 SRI 로 쓴다).
   # 갱신 절차: 그 yml 을 읽어 아래 version/hash 두 줄만 교체.
-  version = "9.20.0";
+  version = "9.21.1";
 
   src = fetchurl {
     url = "https://download.getupnote.com/app/upnote_amd64.deb";
-    hash = "sha512-EOggAsO+aaQjYV7T116KxU+gtC9/bpy5g3ZtOUk+PYtKG9tXZz6q4hRQexT1PCINeKArybMyLzCvnd3XBzbTLg==";
+    hash = "sha512-dQcO/+7T0JowAmJ08Jl1v94Fc1QqR7Evnpy+wZtUgST3NBTtK6eaYvJ0uXMqdQBzQGlaEbxC36UFVJYjRSSZCw==";
   };
 
   nativeBuildInputs = [
