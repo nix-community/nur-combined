@@ -153,6 +153,16 @@ rec {
       # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
+    "pumpkin-plugin-utils" = rec {
+      packageId = "pumpkin-plugin-utils";
+      build = internal.buildRustCrateWithFeatures {
+        packageId = "pumpkin-plugin-utils";
+      };
+
+      # Debug support which might change between releases.
+      # File a bug if you depend on any for non-debug work!
+      debug = internal.debugCrate { inherit packageId; };
+    };
     "pumpkin-protocol" = rec {
       packageId = "pumpkin-protocol";
       build = internal.buildRustCrateWithFeatures {
@@ -11410,6 +11420,78 @@ rec {
             packageId = "wit-bindgen";
             usesDefaultFeatures = false;
             features = [ "macros" ];
+          }
+        ];
+
+      };
+      "pumpkin-plugin-utils" = rec {
+        crateName = "pumpkin-plugin-utils";
+        version = "0.1.0";
+        edition = "2024";
+        src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-plugin-utils; };
+        libName = "pumpkin_plugin_utils";
+        dependencies = [
+          {
+            name = "ed25519-dalek";
+            packageId = "ed25519-dalek";
+            usesDefaultFeatures = false;
+            features = [ "fast" ];
+          }
+          {
+            name = "hex";
+            packageId = "hex";
+            usesDefaultFeatures = false;
+            features = [ "std" ];
+          }
+          {
+            name = "pumpkin-plugin-api";
+            packageId = "pumpkin-plugin-api";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            usesDefaultFeatures = false;
+            features = [ "derive" "std" "derive" ];
+          }
+          {
+            name = "serde_json";
+            packageId = "serde_json";
+            usesDefaultFeatures = false;
+            features = [ "std" ];
+          }
+          {
+            name = "thiserror";
+            packageId = "thiserror 2.0.20";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "tracing";
+            packageId = "tracing";
+            usesDefaultFeatures = false;
+            features = [ "std" "attributes" ];
+          }
+          {
+            name = "ureq";
+            packageId = "ureq";
+            usesDefaultFeatures = false;
+            features = [ "rustls" "json" ];
+          }
+          {
+            name = "wasmparser";
+            packageId = "wasmparser 0.256.0";
+            usesDefaultFeatures = false;
+          }
+        ];
+        devDependencies = [
+          {
+            name = "tempfile";
+            packageId = "tempfile";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "wasm-encoder";
+            packageId = "wasm-encoder 0.256.0";
           }
         ];
 
