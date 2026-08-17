@@ -49,6 +49,7 @@ use hanga::game::{
 };
 use hanga::sign::{self, ActionKey};
 
+pub mod hoot_runtime;
 mod mod_manager;
 use mod_manager::{
     payload_f32, payload_i64, payload_text, reply_i32, reply_range, wire_as_text, wire_is_empty,

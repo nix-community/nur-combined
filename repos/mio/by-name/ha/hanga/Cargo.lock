@@ -4144,6 +4144,7 @@ dependencies = [
  "rand 0.8.7",
  "serde",
  "serde_json",
+ "wasmparser 0.256.0",
  "wasmtime",
 ]
 
@@ -8269,6 +8270,19 @@ dependencies = [
  "bitflags 2.13.1",
  "indexmap",
  "semver",
+]
+
+[[package]]
+name = "wasmparser"
+version = "0.256.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "60bd825ffedc6cba8a642924ba7ae424afbc47811cffbcb7b92031ec24e59b4c"
+dependencies = [
+ "bitflags 2.13.1",
+ "hashbrown 0.17.1",
+ "indexmap",
+ "semver",
+ "serde",
 ]
 
 [[package]]

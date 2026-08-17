@@ -863,7 +863,7 @@ fn probe_lead_voxel(x: i32, y: i32, z: i32) -> Wire {
 
 fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
     thread_local! {
-        static SAMPLE_WORLDGEN: RefCell<Option<(u64, Vec<(Store<HostData>, Plugin, Vec<String>)>)>> = RefCell::new(None);
+        static SAMPLE_WORLDGEN: RefCell<Option<(u64, Vec<(Store<HostData>, ModBindings, Vec<String>)>)>> = RefCell::new(None);
     }
     SAMPLE_WORLDGEN.with(|slot| {
         let mut slot = slot.borrow_mut();
@@ -891,7 +891,7 @@ fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
                     if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() { continue; }
                     if let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) {
                         if let Ok(names) = bindings.hanga_engine_guest().call_voxel_catalog(&mut store) {
-                            instances.push((store, bindings, names));
+                            instances.push((store, ModBindings::Component(bindings), names));
                         }
                     }
                 }
@@ -904,9 +904,11 @@ fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
         };
         
         for (store, bindings, names) in instances.iter_mut().rev() {
-            if let Ok(index) = bindings.hanga_engine_guest().call_query_voxel(store, x, y, z) {
-                if index != 0 {
-                    return ::hanga::catalog_name(names, index).unwrap_or("air").to_string();
+            if let ModBindings::Component(plugin) = bindings {
+                if let Ok(index) = plugin.hanga_engine_guest().call_query_voxel(store, x, y, z) {
+                    if index != 0 {
+                        return ::hanga::catalog_name(names, index).unwrap_or("air").to_string();
+                    }
                 }
             }
         }
@@ -986,9 +988,14 @@ impl hanga::engine::host::Host for HostData {
 /// A persistent WASM context that holds the main Store and Instance.
 /// Used by the main thread for game logic, preserving global mod state
 /// (e.g. static variables) between game ticks.
+pub enum ModBindings {
+    Component(Plugin),
+    Core(wasmtime::Instance),
+}
+
 pub struct MainModContext {
     pub store: Store<HostData>,
-    pub bindings: Plugin,
+    pub bindings: ModBindings,
     pub topics: HashSet<String>,
     wasm_path: PathBuf,
     is_lead: bool,
@@ -1001,30 +1008,37 @@ impl MainModContext {
     }
 
     fn wake(&mut self) {
-        let gp = self.bindings.hanga_engine_guest();
-        if gp.call_ready(&mut self.store).is_err() {
-            warn!(
-                "mod {} ready trapped; next invoke will restart",
-                self.store.data().name
-            );
-        }
-        match gp.call_invoke(&mut self.store, "host", "methods", &lower_wire(&wire_empty()))
-        {
-            Ok(value) => {
-                if let Some(topics) = advertised_topics(&lift_wire(&value)) {
-                    self.topics = topics;
-                    self.store.data_mut().topics = self.topics.clone();
-                } else {
+        match &self.bindings {
+            ModBindings::Component(plugin) => {
+                let gp = plugin.hanga_engine_guest();
+                if gp.call_ready(&mut self.store).is_err() {
                     warn!(
-                        "mod {} methods failed after ready; keeping advertised topics",
+                        "mod {} ready trapped; next invoke will restart",
                         self.store.data().name
                     );
                 }
+                match gp.call_invoke(&mut self.store, "host", "methods", &lower_wire(&wire_empty()))
+                {
+                    Ok(value) => {
+                        if let Some(topics) = advertised_topics(&lift_wire(&value)) {
+                            self.topics = topics;
+                            self.store.data_mut().topics = self.topics.clone();
+                        } else {
+                            warn!(
+                                "mod {} methods failed after ready; keeping advertised topics",
+                                self.store.data().name
+                            );
+                        }
+                    }
+                    Err(_) => warn!(
+                        "mod {} methods trapped after ready; keeping advertised topics",
+                        self.store.data().name
+                    ),
+                }
             }
-            Err(_) => warn!(
-                "mod {} methods trapped after ready; keeping advertised topics",
-                self.store.data().name
-            ),
+            ModBindings::Core(_) => {
+                // Core Wasm does not have ready/methods exports implemented yet
+            }
         }
     }
 
@@ -1032,16 +1046,20 @@ impl MainModContext {
         if topic != "has" && topic != "methods" && !self.offers(topic) {
             return wire_empty();
         }
-        match self
-            .bindings
-            .hanga_engine_guest()
-            .call_invoke(&mut self.store, from, topic, &lower_wire(payload))
-        {
-            Ok(value) => lift_wire(&value),
-            Err(_) => {
-                self.restart_after_trap();
-                wire_fail("trap")
+        match &self.bindings {
+            ModBindings::Component(plugin) => {
+                match plugin
+                    .hanga_engine_guest()
+                    .call_invoke(&mut self.store, from, topic, &lower_wire(payload))
+                {
+                    Ok(value) => lift_wire(&value),
+                    Err(_) => {
+                        self.restart_after_trap();
+                        wire_fail("trap")
+                    }
+                }
             }
+            ModBindings::Core(_) => wire_empty(),
         }
     }
 
@@ -1140,30 +1158,38 @@ impl MainModContext {
     }
 
     pub fn query_voxel(&mut self, x: i32, y: i32, z: i32) -> i32 {
-        match self
-            .bindings
-            .hanga_engine_guest()
-            .call_query_voxel(&mut self.store, x, y, z)
-        {
-            Ok(index) => index,
-            Err(_) => {
-                self.restart_after_trap();
-                0
+        match &self.bindings {
+            ModBindings::Component(plugin) => {
+                match plugin
+                    .hanga_engine_guest()
+                    .call_query_voxel(&mut self.store, x, y, z)
+                {
+                    Ok(index) => index,
+                    Err(_) => {
+                        self.restart_after_trap();
+                        0
+                    }
+                }
             }
+            ModBindings::Core(_) => 0,
         }
     }
 
     pub fn voxel_catalog(&mut self) -> Vec<String> {
-        match self
-            .bindings
-            .hanga_engine_guest()
-            .call_voxel_catalog(&mut self.store)
-        {
-            Ok(names) => names,
-            Err(_) => {
-                self.restart_after_trap();
-                Vec::new()
+        match &self.bindings {
+            ModBindings::Component(plugin) => {
+                match plugin
+                    .hanga_engine_guest()
+                    .call_voxel_catalog(&mut self.store)
+                {
+                    Ok(names) => names,
+                    Err(_) => {
+                        self.restart_after_trap();
+                        Vec::new()
+                    }
+                }
             }
+            ModBindings::Core(_) => Vec::new(),
         }
     }
 }
@@ -1417,15 +1443,31 @@ impl ModRuntime {
         let _ = config.wasm_tail_call(true);
         let _ = config.wasm_exceptions(true);
         let engine = Engine::new(&config).ok()?;
-        let format = match Component::from_file(&engine, path) {
-            Ok(component) => ModFormat::Component(component),
-            Err(_) => {
-                match wasmtime::Module::from_file(&engine, path) {
-                    Ok(module) => ModFormat::Core(module),
-                    Err(err) => {
-                        error!("Failed to load WASM file {}: {err}", path.display());
-                        return None;
-                    }
+        let bytes = std::fs::read(path).ok()?;
+        let mut is_component = false;
+        for payload in wasmparser::Parser::new(0).parse_all(&bytes) {
+            if let Ok(wasmparser::Payload::Version { encoding, .. }) = payload {
+                if encoding == wasmparser::Encoding::Component {
+                    is_component = true;
+                }
+                break;
+            }
+        }
+
+        let format = if is_component {
+            match Component::from_file(&engine, path) {
+                Ok(component) => ModFormat::Component(component),
+                Err(err) => {
+                    error!("Failed to load WASM component {}: {err}", path.display());
+                    return None;
+                }
+            }
+        } else {
+            match wasmtime::Module::from_file(&engine, path) {
+                Ok(module) => ModFormat::Core(module),
+                Err(err) => {
+                    error!("Failed to load Core WASM {}: {err}", path.display());
+                    return None;
                 }
             }
         };
@@ -1445,51 +1487,64 @@ impl ModRuntime {
                 topics: HashSet::new(),
             },
         );
-        let mut linker = Linker::new(&engine);
-        Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).ok()?;
-        
-        let ModFormat::Component(component) = &format else {
-            error!("Hoot core modules not yet fully implemented for live instantiation");
-            return None;
-        };
 
-        let bindings = Plugin::instantiate(&mut store, component, &linker).ok()?;
-        let gp = bindings.hanga_engine_guest();
-        let abi = gp.call_abi(&mut store).unwrap_or(0);
-        if abi != ABI_MAJOR {
-            error!(
-                "Refusing {name}: ABI {abi} (host wants {ABI_MAJOR})"
-            );
-            return None;
-        }
-        let methods = match gp.call_invoke(
-            &mut store,
-            "host",
-            "methods",
-            &lower_wire(&wire_empty()),
-        ) {
-            Ok(value) => lift_wire(&value),
-            Err(_) => {
-                error!("Refusing {name}: methods trapped");
-                return None;
+        match &format {
+            ModFormat::Component(component) => {
+                let mut linker = Linker::new(&engine);
+                Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).ok()?;
+                
+                let bindings = Plugin::instantiate(&mut store, component, &linker).ok()?;
+                let gp = bindings.hanga_engine_guest();
+                let abi = gp.call_abi(&mut store).unwrap_or(0);
+                if abi != ABI_MAJOR {
+                    error!(
+                        "Refusing {name}: ABI {abi} (host wants {ABI_MAJOR})"
+                    );
+                    return None;
+                }
+                let methods = match gp.call_invoke(
+                    &mut store,
+                    "host",
+                    "methods",
+                    &lower_wire(&wire_empty()),
+                ) {
+                    Ok(value) => lift_wire(&value),
+                    Err(_) => {
+                        error!("Refusing {name}: methods trapped");
+                        return None;
+                    }
+                };
+                let Some(topics) = advertised_topics(&methods) else {
+                    error!("Refusing {name}: methods failed");
+                    return None;
+                };
+                store.data_mut().topics = topics.clone();
+
+                Some(MainModContext {
+                    store,
+                    bindings: ModBindings::Component(bindings),
+                    topics,
+                    wasm_path: path.to_path_buf(),
+                    is_lead: publish_shared,
+                    last_restart: None,
+                })
             }
-        };
-        let Some(topics) = advertised_topics(&methods) else {
-            error!("Refusing {name}: methods failed");
-            return None;
-        };
-        store.data_mut().topics = topics.clone();
-
-        Some(MainModContext {
-            store,
-            bindings,
-            topics,
-            wasm_path: path.to_path_buf(),
-            is_lead: publish_shared,
-            last_restart: None,
-        })
+            ModFormat::Core(module) => {
+                let mut linker = wasmtime::Linker::new(&engine);
+                crate::hoot_runtime::add_to_linker(&mut linker).ok()?;
+                let instance = linker.instantiate(&mut store, module).ok()?;
+                
+                Some(MainModContext {
+                    store,
+                    bindings: ModBindings::Core(instance),
+                    topics: HashSet::new(),
+                    wasm_path: path.to_path_buf(),
+                    is_lead: publish_shared,
+                    last_restart: None,
+                })
+            }
+        }
     }
-
     /// Lead is `mods[0]` (terrain + gameplay). Later entries are packs (vehicles, agents, extra voxels).
     pub fn load_collection(&mut self, mods: &[(String, PathBuf)]) {
         if mods.is_empty() {
@@ -2779,5 +2834,23 @@ mod tests {
         assert_eq!(pending[1].topic, "some-event");
         assert_eq!(pending[2].topic, "other-event");
         assert_eq!(pending[3].topic, "final-event");
+    }
+    #[test]
+    fn test_hoot_instantiation() {
+        let mut path = std::env::current_dir().unwrap();
+        // Since we run this from hanga directory, test_mods is in parent's parent's parent
+        path.pop(); path.pop(); path.pop();
+        let wasm_path = path.join("test_mods/lab_owl.wasm");
+        if !wasm_path.exists() {
+            println!("Skipping test, lab_owl.wasm not found");
+            return;
+        }
+        
+        let mut runtime = ModRuntime::new(&wasm_path);
+        runtime.load_collection(&[("lab_owl".to_string(), wasm_path)]);
+        
+        // This implicitly calls into the Wasm code
+        let v = sample_lead_worldgen(0, 0, 0);
+        assert!(!v.is_empty());
     }
 }

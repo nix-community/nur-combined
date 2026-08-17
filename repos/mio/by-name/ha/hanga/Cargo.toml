@@ -31,6 +31,7 @@ crossbeam-channel = "0.5.11"
 notify = "6.1.1"
 ed25519-dalek = { version = "2.1", features = ["rand_core"] }
 rand = "0.8"
+wasmparser = "0.256.0"
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
