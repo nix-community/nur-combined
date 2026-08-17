@@ -1482,8 +1482,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "6c17b6e188369d8c5cfb02a1c5a152edd50d7997",
-            "sha256": "1ah6m2qz1gdabggw9g5sgw8bgbvgmh0vppv77c0zhdj0pkg24bzp",
+            "rev": "b9c404f69fcc5c3a72e79677c296fece8861af7a",
+            "sha256": "16gqjc7y2x4rlbaqph0g32zzd7scks7bqvnpxpfam77gzl7illwx",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -1497,8 +1497,8 @@
             "url": "https://github.com/ltpie123/nur-packages"
         },
         "lucasew": {
-            "rev": "475526dff0e2a3ad526746d537aaae8f03bd7dee",
-            "sha256": "16clw8mk0rannk3zg9ajzqa5ai719w3hpwkmy7zjiyf7byngc0dl",
+            "rev": "435792ee36caa6154a4ada38bd7d30bc75ee441a",
+            "sha256": "0vylnvy64lagbna1xv10mpmlydyjkfhfd2snwxc3csy6hfg8mvw1",
             "url": "https://github.com/lucasew/nixcfg"
         },
         "lucasfa": {
