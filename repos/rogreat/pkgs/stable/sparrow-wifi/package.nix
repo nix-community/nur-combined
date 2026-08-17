@@ -45,13 +45,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    cat << EOF > $out/bin/sparrow-wifi
-    #!${runtimeShell}
-    exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/sparrow-wifi.py "\$@"
-    EOF
-    chmod +x $out/bin/sparrow-wifi
-
     mkdir -p $out/${python3Packages.python.sitePackages}
     cp *.py $out/${python3Packages.python.sitePackages}
 
@@ -79,16 +72,16 @@ python3Packages.buildPythonApplication (finalAttrs: {
   dontWrapQtApps = true;
 
   preFixup = ''
-    makeWrapperArgs+=(
-        --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
-        --set PATH "${
+    makeWrapper ${python3Packages.python.interpreter} $out/bin/sparrow-wifi \
+        --add-flags "-m sparrow-wifi" \
+        ''${qtWrapperArgs[@]} \
+        --set PYTHONPATH $out/${python3Packages.python.sitePackages}:$PYTHONPATH \
+        --set PATH ${
           lib.makeBinPath [
             iw
             usbutils
           ]
-        }"
-    )
-    wrapQtApp $out/bin/sparrow-wifi ''${makeWrapperArgs[@]}
+        }
   '';
 
   nativeCheckInputs = [ python3Packages.pytestCheckHook ];
