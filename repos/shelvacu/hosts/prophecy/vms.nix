@@ -12,24 +12,32 @@
 
   vacu.qemuVMs.vavm = {
     address = "10.78.77.2";
-    baseMem = 4096;
-    maxMem = 16384;
+    baseMem = 4 * 1024;
+    maxMem = 16 * 1024;
     dimmSlots = 4;
     cpus = 4;
   };
 
   vacu.qemuVMs.savm = {
     address = "10.78.77.4";
-    baseMem = 4096;
-    maxMem = 16384;
+    baseMem = 4 * 1024;
+    maxMem = 16 * 1024;
     dimmSlots = 4;
     cpus = 4;
   };
 
   vacu.qemuVMs.quasar2 = {
     address = "10.78.77.3";
-    baseMem = 1024;
-    maxMem = 16384;
+    baseMem = 1 * 1024;
+    maxMem = 16 * 1024;
+    dimmSlots = 4;
+    cpus = 2;
+  };
+
+  vacu.qemuVMs.jv-shel = {
+    address = "10.78.77.4";
+    baseMem = 1 * 1024;
+    maxMem = 16 * 1024;
     dimmSlots = 4;
     cpus = 2;
   };
