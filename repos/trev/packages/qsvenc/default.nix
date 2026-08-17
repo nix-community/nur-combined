@@ -3,6 +3,10 @@
   cmrt,
   fetchFromGitHub,
   ffmpeg,
+  fontconfig,
+  fribidi,
+  glib,
+  harfbuzz,
   hdr10plus,
   intel-compute-runtime,
   intel-media-driver,
@@ -10,6 +14,7 @@
   libass,
   libdovi,
   libdrm,
+  libsysprof-capture,
   libva,
   libx11,
   makeWrapper,
@@ -18,6 +23,7 @@
   nix-update-script,
   ocl-icd,
   opencl-headers,
+  pcre2,
   pkg-config,
   stdenv,
   vpl-gpu-rt,
@@ -25,7 +31,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qsvenc";
-  version = "8.26";
+  version = "8.27";
 
   hardeningDisable = [ "all" ];
 
@@ -33,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "rigaya";
     repo = "QSVEnc";
     tag = finalAttrs.version;
-    hash = "sha256-q0dfSFd1OTve6yoyP3CsCl3UUniKU1694aRD/21sMk0=";
+    hash = "sha256-1WtgMuftxEXj6Vf+nvz+fm1PKQ+4XCvmEIHBkF4Q864=";
     fetchSubmodules = true;
   };
 
@@ -55,6 +61,12 @@ stdenv.mkDerivation (finalAttrs: {
     libdrm
     ffmpeg # libavcodec, libavformat, etc
     libass
+    fontconfig.dev
+    fribidi.dev
+    glib.dev
+    harfbuzz.dev
+    libsysprof-capture
+    pcre2.dev
     libx11
     opencl-headers
     ocl-icd
