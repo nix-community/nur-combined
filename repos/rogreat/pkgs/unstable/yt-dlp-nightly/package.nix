@@ -19,7 +19,7 @@ yt-dlp.overrideAttrs (
       version=${lib.replaceString "-" "." finalAttrs.version}
       prefix=*unstable.
       version="''${version#$prefix}"
-      python devscripts/update-version.py -c nightly -r NixOS/nixpkgs $version
+      python devscripts/update-version.py -c nightly -r RoGreat/nur-packages $version
     ''
     + previousAttrs.postPatch;
 
