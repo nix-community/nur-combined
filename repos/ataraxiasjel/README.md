@@ -1,3 +1,5 @@
+
+
 # AtaraxiaDev's NUR repo
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
@@ -35,7 +37,7 @@ Usage [example](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machine
 
 * [telemt](https://github.com/telemt/lelemt/), MTProxy for Telegram on Rust + Tokio. Available as [services.telemt](modules/nixos/telemt.nix).
 
-* [wopiserver](https://github.com/benbusby/whoogle-search/), a self-hosted, ad-free, privacy-respecting metasearch engine. Available as [services.services.whoogle-search](modules/nixos/whoogle.nix).
+* [whoogle-search](https://github.com/benbusby/whoogle-search/), a self-hosted, ad-free, privacy-respecting metasearch engine. Available as [services.whoogle-search](modules/nixos/whoogle.nix).
 
 * [wopiserver](https://github.com/cs3org/wopiserver/), a vendor-neutral application gateway compatible with the WOPI specifications. Available as [services.wopiserver](modules/nixos/wopiserver.nix).
 
