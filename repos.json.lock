@@ -1648,8 +1648,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "c0920793b8fe28f177c36f28082e0d8bbb8b68a4",
-            "sha256": "0kxyg6ydq356cx7qbjqmbpyzwm1cbj9vfh1x0bwd0diz8786kzpj",
+            "rev": "30f91fd53a36ed1308b545f4ca71d0889d7c5c3a",
+            "sha256": "1x7gdrgvid7pmikpk807h9ygk0l3b2xhx73x52fn3hk3krgclz37",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -1974,8 +1974,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "0d05ffcb208311b543bb14a8ff73199b328b1a2e",
-            "sha256": "1rpgymcpy85yg1wf9g866sa4ipxspzwl4m08pakv3y8ni262jdzc",
+            "rev": "a658235fad06ba3705715545982b092c27de14db",
+            "sha256": "1pf69jhq3ir3aw1sapkvrlyk63nixd0fyd7qpx5smm798s6d5mra",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
@@ -2150,8 +2150,8 @@
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
-            "rev": "f452638a0309e5d40d722bfeedf663f68c4df18f",
-            "sha256": "1sghbad5r046p88m100habbra0x52zsm9cypkhy0zc84565bm0h0",
+            "rev": "9ea6ef69d82bd4a72bfdc84871e75404b7b524a8",
+            "sha256": "1h984qrxjz9ij7byg3i67gxvh7qw0wym98i7ykb6fz3widy005ny",
             "url": "https://github.com/RoGreat/nur-packages"
         },
         "rseops": {
@@ -2487,8 +2487,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "07d8c121637c6711860809a4ec40fce72a6b3261",
-            "sha256": "0as3qnsfn01bksij7hbzifs9xcgfjfvnhxgvlqjfcl72p13rgg36",
+            "rev": "a818afa8e0ccff1848b0856d05bb3e78bdd49089",
+            "sha256": "0vnn1cmm5c00ybmp8hbd19lbww0ii95plriizqcawr8v056p5f0s",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
