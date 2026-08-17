@@ -46,21 +46,6 @@ in
             type = lib.types.str;
             description = "Shared tunnel password. Must be changed per deployment.";
           };
-
-          server = lib.mkOption {
-            type = lib.types.nullOr (
-              lib.types.submodule {
-                freeformType = settingsFormat.type;
-                options.address = lib.mkOption {
-                  type = lib.types.str;
-                  description = "Remote nextppp server address (client mode only).";
-                  example = "your.server.example:6666";
-                };
-              }
-            );
-            description = "Remote nextppp server configuration (client mode only).";
-            default = null;
-          };
         };
       };
       description = "The nextppp configuration.";
@@ -72,6 +57,22 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.nextppp.settings =
+      if cfg.mode == "server" then
+        {
+          listen = lib.mkDefault "0.0.0.0:6666";
+          password = lib.mkDefault "CHANGE_ME";
+          connect_timeout = lib.mkDefault 10;
+          handshake_timeout = lib.mkDefault 15;
+        }
+      else
+        {
+          listen = lib.mkDefault "127.0.0.1:1080";
+          password = lib.mkDefault "CHANGE_ME";
+          server = lib.mkDefault {
+            address = "your.server.example:6666";
+          };
+        };
     systemd.services.nextppp = {
       description = "nextppp ${cfg.mode} service";
       after = [ "network-online.target" ];
