@@ -2487,8 +2487,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "a72866467368b7e5b771fb567e29bc9bbdf164d0",
-            "sha256": "1zfbwqxxqs1g0hd718rkn0l545gn4zggbg0gyjzkp3qnq1fs6npy",
+            "rev": "c9977fd57b80cfd7f15c71b9a1934b456b0dad5c",
+            "sha256": "11qpsil74lpvdr5ghbkip2galq9cvd03mw9595qm82bhgv5bi5x2",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
@@ -2667,8 +2667,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "23172d155a6a7f66373696cba318f8fce2a8358e",
-            "sha256": "06kmjf13rpzb1r1gn0xkpjgsgcjy0a9wgnwl9i6jmsia9nr82c35",
+            "rev": "ce6e455a2a184aea0f78612b5e6560772af90ef1",
+            "sha256": "0c1khs5i1954k1q2q6s8fpkx94wqwgj97ff0vh9dm1b46vybb0ap",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
