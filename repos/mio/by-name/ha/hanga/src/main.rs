@@ -104,16 +104,18 @@ fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
             if let Ok(shared) = SHARED_WASM.read() {
                 let mut instances = Vec::new();
                 let mut last_rev = 0;
-                for (rev, name, engine, component) in shared.iter() {
+                for (rev, name, engine, format) in shared.iter() {
                     last_rev = *rev;
-                    let mut store = Store::new(engine, mod_manager::noop_host(name.clone()));
-                    let mut linker = Linker::new(engine);
-                    if mod_manager::Plugin::add_to_linker::<
-                        mod_manager::HostData,
-                        wasmtime::component::HasSelf<_>,
-                    >(&mut linker, |data| data).is_err() { continue; }
-                    if let Ok(instance) = mod_manager::Plugin::instantiate(&mut store, component, &linker) {
-                        instances.push((store, instance));
+                    if let mod_manager::ModFormat::Component(component) = format {
+                        let mut store = Store::new(engine, mod_manager::noop_host(name.clone()));
+                        let mut linker = Linker::new(engine);
+                        if mod_manager::Plugin::add_to_linker::<
+                            mod_manager::HostData,
+                            wasmtime::component::HasSelf<_>,
+                        >(&mut linker, |data| data).is_err() { continue; }
+                        if let Ok(instance) = mod_manager::Plugin::instantiate(&mut store, component, &linker) {
+                            instances.push((store, instance));
+                        }
                     }
                 }
                 *instance_opt = Some((last_rev, instances));

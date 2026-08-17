@@ -13,6 +13,8 @@ wit_bindgen::generate!({
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
 
+pub mod soft_body;
+
 use std::sync::OnceLock;
 
 struct UrbanChaosMod;
@@ -117,17 +119,20 @@ pub const PART_LAMP: &str = "lamp";
 
 pub const AGENT_COP: &str = "cop";
 pub const AGENT_PEDESTRIAN: &str = "pedestrian";
+pub const AGENT_TRAIN: &str = "train";
 
 pub const CONTRACT_SMASH: &str = "smash-and-grab";
 pub const CONTRACT_SUBWAY: &str = "subway-pinch";
 pub const CONTRACT_CHOP: &str = "chop-shop";
 pub const CONTRACT_TRUCK: &str = "armored-truck";
+pub const CONTRACT_BANK: &str = "bank-robbery";
 
 pub const EVENT_QUIET: &str = "quiet-streets";
 pub const EVENT_SMASH: &str = "smash-and-grab-contract";
 pub const EVENT_SUBWAY: &str = "subway-pinch-contract";
 pub const EVENT_CHOP: &str = "chop-shop-contract";
 pub const EVENT_TRUCK: &str = "armored-truck-heist";
+pub const EVENT_BANK: &str = "bank-robbery-heist";
 
 impl CityLayout {
     pub fn generate(width: u32, height: u32) -> Self {
@@ -557,11 +562,15 @@ pub fn should_despawn_agent(agent: &str, current_state: i32) -> i32 {
 }
 
 pub fn ambient_agent_count() -> i32 {
-    6
+    8
 }
 
 pub fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, String) {
     let i = index.max(0);
+    if i >= 6 {
+        let z = 400 + (i - 6) * 100;
+        return (400, -7, z, AGENT_TRAIN.into());
+    }
     (502 + i * 8, 2, 500, AGENT_PEDESTRIAN.into())
 }
 
@@ -623,7 +632,8 @@ pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
 /// Heist board. Danger is min wanted to cash out.
 pub fn heist_for_wanted(wanted: i32) -> (&'static str, i32, i32) {
     match wanted {
-        i if i >= 3 => (CONTRACT_TRUCK, 1200, 4),
+        i if i >= 4 => (CONTRACT_BANK, 5000, 5),
+        3 => (CONTRACT_TRUCK, 1200, 4),
         2 => (CONTRACT_CHOP, 500, 2),
         1 => (CONTRACT_SUBWAY, 600, 2),
         _ => (CONTRACT_SMASH, 250, 1),
@@ -637,6 +647,7 @@ pub fn contract_mark(kind: &str) -> hanga::engine::host::Value {
         CONTRACT_SUBWAY => (400, -6, 400, 16.0, false, 0.35, 0.72, 0.82),
         CONTRACT_CHOP => (504, 2, 520, 10.0, true, 0.78, 0.52, 0.22),
         CONTRACT_TRUCK => (510, 2, 495, 12.0, false, 0.22, 0.28, 0.72),
+        CONTRACT_BANK => (550, -4, 550, 12.0, true, 1.0, 0.84, 0.0),
         _ => return wire_empty(),
     };
     wire_dict(vec![
@@ -680,12 +691,14 @@ pub fn event_label_for(locale: &str, event: &str) -> String {
         (3, EVENT_SUBWAY) => "地鐵扒竊",
         (3, EVENT_CHOP) => "拆車廠跑單",
         (3, EVENT_TRUCK) => "運鈔車搶案",
+        (3, EVENT_BANK) => "銀行搶劫案",
         (3, _) => "未知事件",
         (_, EVENT_QUIET) => "quiet streets",
         (_, EVENT_SMASH) => "smash-and-grab contract",
         (_, EVENT_SUBWAY) => "subway pinch",
         (_, EVENT_CHOP) => "chop-shop run",
         (_, EVENT_TRUCK) => "armored-truck heist",
+        (_, EVENT_BANK) => "bank-robbery heist",
         _ => "unknown event",
     }
     .into()
@@ -844,21 +857,25 @@ pub fn contract_label_for(locale: &str, kind: &str) -> String {
         (1, CONTRACT_SUBWAY) => "hopu rerewē",
         (1, CONTRACT_CHOP) => "toa tapahi",
         (1, CONTRACT_TRUCK) => "keehi taraka pākaha",
+        (1, CONTRACT_BANK) => "pāhua pēke",
         (1, _) => "mahi tē mōhiotia",
         (2, CONTRACT_SMASH) => "vol à la sauvette",
         (2, CONTRACT_SUBWAY) => "pincement du métro",
         (2, CONTRACT_CHOP) => "atelier de découpe",
         (2, CONTRACT_TRUCK) => "fourgon blindé",
+        (2, CONTRACT_BANK) => "braquage de banque",
         (2, _) => "contrat inconnu",
         (3, CONTRACT_SMASH) => "搶劫合約",
         (3, CONTRACT_SUBWAY) => "地鐵扒竊",
         (3, CONTRACT_CHOP) => "拆車廠",
         (3, CONTRACT_TRUCK) => "運鈔車搶案",
+        (3, CONTRACT_BANK) => "銀行搶劫",
         (3, _) => "未知任務",
         (_, CONTRACT_SMASH) => "smash-and-grab",
         (_, CONTRACT_SUBWAY) => "subway pinch",
         (_, CONTRACT_CHOP) => "chop-shop",
         (_, CONTRACT_TRUCK) => "armored-truck heist",
+        (_, CONTRACT_BANK) => "bank-robbery",
         _ => "unknown contract",
     }
     .into()
@@ -902,6 +919,7 @@ pub fn mod_can_complete(
                 CONTRACT_SUBWAY => near && y < 0,
                 CONTRACT_CHOP => near && held_one_of(held, &["brick", "concrete", "workbench"]),
                 CONTRACT_TRUCK => near && vehicle,
+                CONTRACT_BANK => near && y < 0 && held == "brick",
                 _ => near,
             })
         }
@@ -934,6 +952,7 @@ pub fn compute_agent_vx(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 
                 3.0
             }
         }
+        AGENT_TRAIN => 0.0,
         _ => 0.0,
     }
 }
@@ -950,6 +969,7 @@ pub fn compute_agent_vz(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 
             (dz / len) * 8.0
         }
         AGENT_PEDESTRIAN => 0.0,
+        AGENT_TRAIN => 25.0,
         _ => 0.0,
     }
 }
@@ -1677,11 +1697,21 @@ mod tests {
 
     #[test]
     fn ambient_agents_are_pedestrians_on_the_street() {
-        assert_eq!(ambient_agent_count(), 6);
+        assert_eq!(ambient_agent_count(), 8);
         let (x, y, _z, kind) = ambient_agent_spawn(0);
         assert_eq!(kind, AGENT_PEDESTRIAN);
         assert!(y < 10, "pedestrians walk the street, not rooftops");
         assert!(x >= 500);
+    }
+
+    #[test]
+    fn train_agent_moves_fast_along_z_axis() {
+        let (x, y, _z, kind) = ambient_agent_spawn(6);
+        assert_eq!(kind, AGENT_TRAIN);
+        assert_eq!(y, -7);
+        assert_eq!(x, 400);
+        assert_eq!(compute_agent_vx(AGENT_TRAIN, 0.0, 0.0, 0.0, 0.0), 0.0);
+        assert_eq!(compute_agent_vz(AGENT_TRAIN, 0.0, 0.0, 0.0, 0.0), 25.0);
     }
 
     #[test]
@@ -1799,8 +1829,9 @@ mod tests {
     }
 
     #[test]
-    fn high_wanted_unlocks_armored_truck() {
-        assert_eq!(mod_offer_contract(4), (CONTRACT_TRUCK.into(), 1200, 4));
+    fn high_wanted_unlocks_heists() {
+        assert_eq!(mod_offer_contract(3), (CONTRACT_TRUCK.into(), 1200, 4));
+        assert_eq!(mod_offer_contract(4), (CONTRACT_BANK.into(), 5000, 5));
     }
 
     #[test]
@@ -1850,6 +1881,14 @@ mod tests {
         assert_eq!(
             mod_can_complete(ACTION_COMPLETE, 2, CONTRACT_CHOP, 2, "brick", 2, false, true),
             1
+        );
+        assert_eq!(
+            mod_can_complete(ACTION_COMPLETE, 5, CONTRACT_BANK, 5, "brick", -4, false, true),
+            1
+        );
+        assert_eq!(
+            mod_can_complete(ACTION_COMPLETE, 5, CONTRACT_BANK, 5, "", -4, false, true),
+            0
         );
     }
 

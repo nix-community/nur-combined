@@ -21,8 +21,13 @@ wasmtime::component::bindgen!({
 /// Global reference so that worker threads (like terrain generation) can
 /// instantiate their own stateless WASM instances for fast concurrent access.
 /// Holds all loaded mods to support multi-lead terrain merge.
-pub static SHARED_WASM: RwLock<Vec<(u64, String, Engine, Component)>> = RwLock::new(Vec::new());
+pub static SHARED_WASM: RwLock<Vec<(u64, String, Engine, ModFormat)>> = RwLock::new(Vec::new());
 
+#[derive(Clone)]
+pub enum ModFormat {
+    Component(Component),
+    Core(wasmtime::Module),
+}
 pub fn host_now_ms() -> i64 {
     HOST_START
         .get_or_init(Instant::now)
@@ -791,15 +796,28 @@ impl LiveBus {
         payload: &Wire,
     ) {
         if let Ok(mut pending) = self.pending.lock() {
-            if mailbox_evict_if_full(&mut *pending, MAILBOX_CAP) {
+            if pending.len() >= MAILBOX_CAP {
                 warn!("mod mailbox full ({MAILBOX_CAP}); dropping oldest cast");
+                if let Some(pos) = pending.iter().position(|a| a.topic != "on-step") {
+                    pending.remove(pos);
+                } else {
+                    pending.remove(0);
+                }
             }
-            pending.push(QueuedAsk {
+            
+            let ask = QueuedAsk {
                 slot: Arc::clone(slot),
                 from: from.to_string(),
                 topic: topic.to_string(),
                 payload: payload.clone(),
-            });
+            };
+            
+            if topic == "on-step" {
+                let pos = pending.iter().position(|a| a.topic != "on-step").unwrap_or(pending.len());
+                pending.insert(pos, ask);
+            } else {
+                pending.push(ask);
+            }
         }
     }
 
@@ -865,14 +883,16 @@ fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
             };
             let mut instances = Vec::new();
             let mut last_rev = 0;
-            for (rev, name, engine, component) in shared.iter() {
+            for (rev, name, engine, format) in shared.iter() {
                 last_rev = *rev;
-                let mut store = Store::new(engine, noop_host(name.clone()));
-                let mut linker = Linker::new(engine);
-                if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() { continue; }
-                if let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) {
-                    if let Ok(names) = bindings.hanga_engine_guest().call_voxel_catalog(&mut store) {
-                        instances.push((store, bindings, names));
+                if let ModFormat::Component(component) = format {
+                    let mut store = Store::new(engine, noop_host(name.clone()));
+                    let mut linker = Linker::new(engine);
+                    if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() { continue; }
+                    if let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) {
+                        if let Ok(names) = bindings.hanga_engine_guest().call_voxel_catalog(&mut store) {
+                            instances.push((store, bindings, names));
+                        }
                     }
                 }
             }
@@ -1397,18 +1417,23 @@ impl ModRuntime {
         let _ = config.wasm_tail_call(true);
         let _ = config.wasm_exceptions(true);
         let engine = Engine::new(&config).ok()?;
-        let component = match Component::from_file(&engine, path) {
-            Ok(component) => component,
-            Err(err) => {
-                error!("Failed to load WASM component {}: {err}", path.display());
-                return None;
+        let format = match Component::from_file(&engine, path) {
+            Ok(component) => ModFormat::Component(component),
+            Err(_) => {
+                match wasmtime::Module::from_file(&engine, path) {
+                    Ok(module) => ModFormat::Core(module),
+                    Err(err) => {
+                        error!("Failed to load WASM file {}: {err}", path.display());
+                        return None;
+                    }
+                }
             }
         };
 
         if publish_shared {
             let rev = WASM_GEN.fetch_add(1, Ordering::Relaxed) + 1;
             if let Ok(mut shared) = SHARED_WASM.write() {
-                shared.push((rev, name.to_string(), engine.clone(), component.clone()));
+                shared.push((rev, name.to_string(), engine.clone(), format.clone()));
             }
         }
 
@@ -1422,7 +1447,13 @@ impl ModRuntime {
         );
         let mut linker = Linker::new(&engine);
         Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).ok()?;
-        let bindings = Plugin::instantiate(&mut store, &component, &linker).ok()?;
+        
+        let ModFormat::Component(component) = &format else {
+            error!("Hoot core modules not yet fully implemented for live instantiation");
+            return None;
+        };
+
+        let bindings = Plugin::instantiate(&mut store, component, &linker).ok()?;
         let gp = bindings.hanga_engine_guest();
         let abi = gp.call_abi(&mut store).unwrap_or(0);
         if abi != ABI_MAJOR {
@@ -2515,7 +2546,7 @@ mod tests {
         assert!(mark.get("take").is_some_and(::hanga::kit::Node::as_flag));
         assert_eq!(
             ctx.bus_i32("ambient-agent-count", &wire_empty(), 0),
-            6
+            8
         );
         assert_eq!(
             ctx.bus_xyz_name(
@@ -2719,6 +2750,34 @@ mod tests {
         let _ = ModRuntime::instantiate(&pack_path, "urban_chaos", bus, true);
         
         assert_eq!(SHARED_WASM.read().unwrap().len(), 2);
-        let _ = sample_lead_worldgen(0, 0, 0);
+        
+        let voxel = sample_lead_worldgen(0, 0, 0);
+        assert_ne!(voxel, "air");
+    }
+
+    #[test]
+    fn live_bus_mailbox_selective_priority() {
+        let slot = Arc::new(Mutex::new(None));
+        let bus = LiveBus::new("lead".into(), slot.clone(), vec![("mod".into(), slot.clone())]);
+        
+        // Push normal casts
+        bus.enqueue(&slot, "lead", "some-event", &Wire::Float(0.0));
+        bus.enqueue(&slot, "lead", "other-event", &Wire::Float(0.0));
+        
+        // Push on-step
+        bus.enqueue(&slot, "lead", "on-step", &Wire::Float(0.5));
+        
+        // Push another normal cast
+        bus.enqueue(&slot, "lead", "final-event", &Wire::Float(0.0));
+        
+        let pending = bus.pending.lock().unwrap();
+        assert_eq!(pending.len(), 4);
+        
+        // `on-step` should be routed to the front (index 0)
+        assert_eq!(pending[0].topic, "on-step");
+        // Followed by standard FIFO
+        assert_eq!(pending[1].topic, "some-event");
+        assert_eq!(pending[2].topic, "other-event");
+        assert_eq!(pending[3].topic, "final-event");
     }
 }
