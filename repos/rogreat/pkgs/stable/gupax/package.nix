@@ -40,12 +40,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   checkFlags = [
     # Test requires filesystem write outside of sandbox.
-    "--skip disk::test::create_and_serde_gupax_p2pool_api"
+    "--skip=disk::test::create_and_serde_gupax_p2pool_api"
     # Tests require access to CA certificates.
-    "--skip disk::tests::test::create_and_serde_gupax_p2pool_api"
-    "--skip helper::tests::test::public_api_deserialize"
-    "--skip helper::xvb::algorithm::test::test_manual_p2pool_mode"
-    "--skip helper::xvb::algorithm::test::test_manual_xvb_mode"
+    "--skip=disk::tests::test::create_and_serde_gupax_p2pool_api"
+    "--skip=helper::tests::test::public_api_deserialize"
+    "--skip=helper::xvb::algorithm::test::test_manual_p2pool_mode"
+    "--skip=helper::xvb::algorithm::test::test_manual_xvb_mode"
   ];
 
   postPatch = ''
