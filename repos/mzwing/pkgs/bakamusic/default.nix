@@ -420,8 +420,10 @@ in
       # sharp was rebuilt from source against nixpkgs libvips.
       sharp_node=$(find $resources/app.asar.unpacked -path "*@img/sharp-linux-*/sharp.node" | head -n 1)
       assert 'the packaged sharp native module is missing' test -n "$sharp_node"
-      assert "sharp is not linked against ${vips}" \
-        grep -qF "${vips}" <(patchelf --print-rpath "$sharp_node")
+      # getLib, not the bare package: vips lists "bin" first, so ${vips} is the
+      # executables-only output and libvips-cpp.so lives in "out".
+      assert "sharp is not linked against ${lib.getLib vips}" \
+        grep -qF "${lib.getLib vips}" <(patchelf --print-rpath "$sharp_node")
 
       runHook postInstallCheck
     '';
