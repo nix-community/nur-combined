@@ -10919,13 +10919,13 @@ rec {
             name = "wasmtime-wasi";
             packageId = "wasmtime-wasi";
             usesDefaultFeatures = false;
-            features = [ "p2" ];
+            features = [ "p2" "p3" ];
           }
           {
             name = "wasmtime-wasi-http";
             packageId = "wasmtime-wasi-http";
             usesDefaultFeatures = false;
-            features = [ "p2" "default-send-request" ];
+            features = [ "p2" "p3" "default-send-request" ];
           }
           {
             name = "webrtc";
@@ -17833,6 +17833,12 @@ rec {
             packageId = "bumpalo";
           }
           {
+            name = "bytes";
+            packageId = "bytes";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
             name = "cfg-if";
             packageId = "cfg-if";
           }
@@ -18057,7 +18063,7 @@ rec {
           "wit-parser" = [ "dep:wit-parser" "component-model" "std" ];
           "wmemcheck" = [ "dep:wasmtime-wmemcheck" "wasmtime-environ/wmemcheck" "std" ];
         };
-        resolvedDefaultFeatures = [ "async" "cache" "component-model" "cranelift" "gc" "gc-drc" "once_cell" "runtime" "std" "threads" "wasmtime-jit-icache-coherence" ];
+        resolvedDefaultFeatures = [ "async" "cache" "component-model" "component-model-async" "component-model-bytes" "cranelift" "gc" "gc-drc" "once_cell" "runtime" "std" "threads" "wasmtime-jit-icache-coherence" ];
       };
       "wasmtime-environ" = rec {
         crateName = "wasmtime-environ";
@@ -18348,7 +18354,7 @@ rec {
           "async" = [ "wasmtime-wit-bindgen/async" ];
           "component-model-async" = [ "async" "wasmtime-wit-bindgen/component-model-async" ];
         };
-        resolvedDefaultFeatures = [ "async" ];
+        resolvedDefaultFeatures = [ "async" "component-model-async" ];
       };
       "wasmtime-internal-component-util" = rec {
         crateName = "wasmtime-internal-component-util";
@@ -18737,7 +18743,7 @@ rec {
         ];
         features = {
         };
-        resolvedDefaultFeatures = [ "async" ];
+        resolvedDefaultFeatures = [ "async" "component-model-async" ];
       };
       "wasmtime-wasi" = rec {
         crateName = "wasmtime-wasi";
@@ -18860,7 +18866,7 @@ rec {
           "p2" = [ "wasmtime/component-model" "wasmtime/async" ];
           "p3" = [ "wasmtime/component-model-async" "wasmtime/component-model-bytes" ];
         };
-        resolvedDefaultFeatures = [ "p2" ];
+        resolvedDefaultFeatures = [ "p2" "p3" ];
       };
       "wasmtime-wasi-http" = rec {
         crateName = "wasmtime-wasi-http";
@@ -18923,6 +18929,11 @@ rec {
             features = [ "ring" "tls12" "logging" ];
           }
           {
+            name = "tokio-util";
+            packageId = "tokio-util";
+            optional = true;
+          }
+          {
             name = "tracing";
             packageId = "tracing";
             usesDefaultFeatures = false;
@@ -18975,7 +18986,7 @@ rec {
           "p2" = [ "wasmtime-wasi/p2" ];
           "p3" = [ "wasmtime-wasi/p3" "dep:tokio-util" ];
         };
-        resolvedDefaultFeatures = [ "default-send-request" "p2" ];
+        resolvedDefaultFeatures = [ "default-send-request" "p2" "p3" ];
       };
       "wasmtime-wasi-io" = rec {
         crateName = "wasmtime-wasi-io";
