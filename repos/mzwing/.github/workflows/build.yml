@@ -168,14 +168,8 @@ jobs:
         # packages locally on this orchestration runner.
         max-jobs: '0'
 
-    - name: Prepare Attic data directory
-      uses: mzwing/nix-actions/store-cache/prepare-dirs@master
-
-    - name: Pull builder store cache
-      uses: mzwing/nix-actions/store-cache/pull@master
-      with:
-        remote: ${{ env.STORE_CACHE_REMOTE }}
-
+    # Ahead of the pull, which is minutes of Google Drive traffic: until this node is on the tailnet the macOS builders cannot even resolve it, so leaving the join until afterwards made a slow restore look like a missing host.
+    # Joining costs three seconds and does not disturb public DNS on Linux (only the macOS path in the action touches it).
     - name: Join cache network
       uses: mzwing/nix-actions/tailnet/join@master
       with:
@@ -184,6 +178,14 @@ jobs:
         tags: tag:nur-ci-cache
         hostname: ${{ env.CACHE_HOST }}
         args: --ssh
+
+    - name: Prepare Attic data directory
+      uses: mzwing/nix-actions/store-cache/prepare-dirs@master
+
+    - name: Pull builder store cache
+      uses: mzwing/nix-actions/store-cache/pull@master
+      with:
+        remote: ${{ env.STORE_CACHE_REMOTE }}
 
     - name: Start Attic
       uses: mzwing/nix-actions/store-cache/start@master
