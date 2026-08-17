@@ -61,7 +61,7 @@ struct DefaultWorld;
 
 
 thread_local! {
-    static WASM_INSTANCE: std::cell::RefCell<Option<(u64, Store<mod_manager::HostData>, mod_manager::Plugin)>> =
+    static WASM_INSTANCE: std::cell::RefCell<Option<(u64, Vec<(Store<mod_manager::HostData>, mod_manager::Plugin)>)>> =
         const { std::cell::RefCell::new(None) };
 }
 
@@ -94,42 +94,40 @@ fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
         let wanted_gen = SHARED_WASM
             .read()
             .ok()
-            .and_then(|shared| shared.as_ref().map(|(rev, _, _)| *rev));
+            .and_then(|shared| shared.last().map(|(rev, _, _, _)| *rev));
         let stale = match (instance_opt.as_ref(), wanted_gen) {
-            (Some((rev, _, _)), Some(want)) => *rev != want,
+            (Some((rev, _)), Some(want)) => *rev != want,
             (None, Some(_)) => true,
             _ => false,
         };
         if stale {
             if let Ok(shared) = SHARED_WASM.read() {
-                if let Some((rev, engine, component)) = shared.as_ref() {
-                    let mut store = Store::new(engine, mod_manager::noop_host("terrain"));
+                let mut instances = Vec::new();
+                let mut last_rev = 0;
+                for (rev, name, engine, component) in shared.iter() {
+                    last_rev = *rev;
+                    let mut store = Store::new(engine, mod_manager::noop_host(name.clone()));
                     let mut linker = Linker::new(engine);
                     if mod_manager::Plugin::add_to_linker::<
                         mod_manager::HostData,
                         wasmtime::component::HasSelf<_>,
-                    >(&mut linker, |data| data)
-                    .is_ok()
-                    {
-                        if let Ok(instance) = mod_manager::Plugin::instantiate(
-                            &mut store,
-                            component,
-                            &linker,
-                        ) {
-                            *instance_opt = Some((*rev, store, instance));
-                        }
+                    >(&mut linker, |data| data).is_err() { continue; }
+                    if let Ok(instance) = mod_manager::Plugin::instantiate(&mut store, component, &linker) {
+                        instances.push((store, instance));
                     }
                 }
+                *instance_opt = Some((last_rev, instances));
             }
         }
 
-        if let Some((_, store, func)) = instance_opt.as_mut() {
-            return match func.hanga_engine_guest().call_query_voxel(store, pos.x, pos.y, pos.z)
-            {
-                Ok(0) => WorldVoxel::Unset,
-                Ok(voxel_type) => WorldVoxel::Solid(voxel_type as u8),
-                Err(_) => WorldVoxel::Unset,
-            };
+        if let Some((_, instances)) = instance_opt.as_mut() {
+            for (store, func) in instances.iter_mut().rev() {
+                if let Ok(voxel_type) = func.hanga_engine_guest().call_query_voxel(store, pos.x, pos.y, pos.z) {
+                    if voxel_type != 0 {
+                        return WorldVoxel::Solid(voxel_type as u8);
+                    }
+                }
+            }
         }
 
         if pos.y < 0 {

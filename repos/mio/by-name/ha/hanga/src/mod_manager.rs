@@ -20,8 +20,8 @@ wasmtime::component::bindgen!({
 
 /// Global reference so that worker threads (like terrain generation) can
 /// instantiate their own stateless WASM instances for fast concurrent access.
-/// Always the **lead** mod of the current game.
-pub static SHARED_WASM: RwLock<Option<(u64, Engine, Component)>> = RwLock::new(None);
+/// Holds all loaded mods to support multi-lead terrain merge.
+pub static SHARED_WASM: RwLock<Vec<(u64, String, Engine, Component)>> = RwLock::new(Vec::new());
 
 pub fn host_now_ms() -> i64 {
     HOST_START
@@ -844,14 +844,17 @@ fn probe_lead_voxel(x: i32, y: i32, z: i32) -> Wire {
 }
 
 fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
+    thread_local! {
+        static SAMPLE_WORLDGEN: RefCell<Option<(u64, Vec<(Store<HostData>, Plugin, Vec<String>)>)>> = RefCell::new(None);
+    }
     SAMPLE_WORLDGEN.with(|slot| {
         let mut slot = slot.borrow_mut();
         let wanted = SHARED_WASM
             .read()
             .ok()
-            .and_then(|shared| shared.as_ref().map(|(rev, _, _)| *rev));
+            .and_then(|shared| shared.last().map(|(rev, _, _, _)| *rev));
         let stale = match (slot.as_ref(), wanted) {
-            (Some((rev, _, _, _)), Some(want)) => *rev != want,
+            (Some((rev, _)), Some(want)) => *rev != want,
             (None, Some(_)) => true,
             _ => false,
         };
@@ -860,46 +863,35 @@ fn sample_lead_worldgen(x: i32, y: i32, z: i32) -> String {
             let Ok(shared) = SHARED_WASM.read() else {
                 return "air".into();
             };
-            let Some((rev, engine, component)) = shared.as_ref() else {
-                return "air".into();
-            };
-            let mut store = Store::new(engine, noop_host("sample"));
-            let mut linker = Linker::new(engine);
-            if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() {
-                return "air".into();
+            let mut instances = Vec::new();
+            let mut last_rev = 0;
+            for (rev, name, engine, component) in shared.iter() {
+                last_rev = *rev;
+                let mut store = Store::new(engine, noop_host(name.clone()));
+                let mut linker = Linker::new(engine);
+                if Plugin::add_to_linker::<HostData, HasSelf<_>>(&mut linker, |data| data).is_err() { continue; }
+                if let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) {
+                    if let Ok(names) = bindings.hanga_engine_guest().call_voxel_catalog(&mut store) {
+                        instances.push((store, bindings, names));
+                    }
+                }
             }
-            let Ok(bindings) = Plugin::instantiate(&mut store, component, &linker) else {
-                return "air".into();
-            };
-            let Ok(names) = bindings.hanga_engine_guest().call_voxel_catalog(&mut store)
-            else {
-                return "air".into();
-            };
-            *slot = Some((*rev, store, bindings, names));
+            *slot = Some((last_rev, instances));
         }
-        let name = {
-            let Some((_, store, bindings, names)) = slot.as_mut() else {
-                return "air".into();
-            };
-            match bindings
-                .hanga_engine_guest()
-                .call_query_voxel(store, x, y, z)
-            {
-                Ok(index) => Some(
-                    ::hanga::catalog_name(names, index)
-                        .unwrap_or("air")
-                        .to_string(),
-                ),
-                Err(_) => None,
-            }
+        
+        let Some((_, instances)) = slot.as_mut() else {
+            return "air".into();
         };
-        match name {
-            Some(name) => name,
-            None => {
-                *slot = None;
-                "air".into()
+        
+        for (store, bindings, names) in instances.iter_mut().rev() {
+            if let Ok(index) = bindings.hanga_engine_guest().call_query_voxel(store, x, y, z) {
+                if index != 0 {
+                    return ::hanga::catalog_name(names, index).unwrap_or("air").to_string();
+                }
             }
         }
+        
+        "air".into()
     })
 }
 
@@ -1416,7 +1408,7 @@ impl ModRuntime {
         if publish_shared {
             let rev = WASM_GEN.fetch_add(1, Ordering::Relaxed) + 1;
             if let Ok(mut shared) = SHARED_WASM.write() {
-                *shared = Some((rev, engine.clone(), component.clone()));
+                shared.push((rev, name.to_string(), engine.clone(), component.clone()));
             }
         }
 
@@ -2713,5 +2705,20 @@ mod tests {
             "ngā huarahi mārie"
         );
         *slot.lock().unwrap() = Some(ctx);
+    }
+
+    #[test]
+    fn live_wasm_multi_lead_terrain_merge() {
+        SHARED_WASM.write().unwrap().clear();
+        
+        let Some(lead_path) = mods_wasm("testbed") else { return; };
+        let Some(pack_path) = mods_wasm("urban_chaos") else { return; };
+        let bus = Arc::new(NoopBus);
+        
+        let _ = ModRuntime::instantiate(&lead_path, "testbed", Arc::clone(&bus) as Arc<dyn EngineBus>, true);
+        let _ = ModRuntime::instantiate(&pack_path, "urban_chaos", bus, true);
+        
+        assert_eq!(SHARED_WASM.read().unwrap().len(), 2);
+        let _ = sample_lead_worldgen(0, 0, 0);
     }
 }
