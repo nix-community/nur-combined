@@ -1,12 +1,12 @@
 { colloid-gtk-theme, fetchFromGitHub }:
 colloid-gtk-theme.overrideAttrs (
   final: prev: {
-    version = "2026-08-08-unstable-2026-08-07";
+    version = "2026-08-08-unstable-2026-08-17";
     src = fetchFromGitHub {
       owner = "vinceliuice";
       repo = "Colloid-gtk-theme";
-      rev = "6c2dc65865628bda9fdc8157a30cd5eda6fd41f9";
-      hash = "sha256-2FNX5S4xN86ljj1GxHRuloP31b/QLkTCmle90NkpcpA=";
+      rev = "6f000fc68eef6c18002bf3a112808d0e348abf4e";
+      hash = "sha256-dkYd1GVYL0VmiQAPx7XHQtDWym44O0kpqVYhgvvLDNg=";
     };
   }
 )
