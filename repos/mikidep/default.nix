@@ -17,4 +17,5 @@
   openscadWithPackages = pkgs.callPackage ./pkgs/openscad/openscad-with-packages.nix {};
   openscadPackages = pkgs.callPackage ./pkgs/openscad/openscad-packages.nix {};
   julia-mono-nf = pkgs.callPackage ./pkgs/julia-mono-nf.nix {};
+  bibman = pkgs.callPackage ./pkgs/bibman.nix {};
 }
