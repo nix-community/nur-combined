@@ -50,6 +50,11 @@ flutter.buildFlutterApplication rec {
     rm -f linux/flutter/generated_plugin_registrant.cc \
       linux/flutter/generated_plugin_registrant.h \
       linux/flutter/generated_plugins.cmake
+
+    # Remove default-flavor (gms) from pubspec.yaml so Flutter 3.47+ outputs
+    # to the standard build/linux/<arch>/release/bundle path that
+    # buildFlutterApplication's installPhase glob expects.
+    sed -i '/default-flavor:/d' pubspec.yaml
   '';
 
   patches = [
