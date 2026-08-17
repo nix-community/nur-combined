@@ -155,15 +155,15 @@
   };
   krunner-fd-plugin = {
     pname = "krunner-fd-plugin";
-    version = "2aa89312b2979d552336a5b56e3710b7e8cf48e2";
+    version = "5ff8206d2586165154342ada2c041a5507e6accb";
     src = fetchFromGitHub {
       owner = "wangzk";
       repo = "krunner-fd-plugin";
-      rev = "2aa89312b2979d552336a5b56e3710b7e8cf48e2";
+      rev = "5ff8206d2586165154342ada2c041a5507e6accb";
       fetchSubmodules = false;
-      sha256 = "sha256-nz6zp/e6A8OyRgjps0JA29t7K+DJY+nGeAuY09I/wMU=";
+      sha256 = "sha256-HzWyNTB1p7C29Q0fdaIgUDDoppZHxaKRmvw7Mig1B54=";
     };
-    date = "2026-03-21";
+    date = "2026-08-16";
   };
   krunner-zed = {
     pname = "krunner-zed";
@@ -416,18 +416,18 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.3.4";
+    version = "0.3.5";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.4/waywallen-0.3.4-x86_64.AppImage";
-      sha256 = "sha256-++qVQQH/giLkOYrmrhUHw9w2DjKdhyaBgbG9qKoMwQg=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.5/waywallen-0.3.5-x86_64.AppImage";
+      sha256 = "sha256-s1RnL7/mwh+mHJgBGTTBUece8aTCyQUuXK4bPACpMcc=";
     };
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.3.2";
+    version = "0.3.3";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.3.2/waywallen-kde-0.3.2-x86_64-embed.zip";
-      sha256 = "sha256-1fNWNuaaTsksQ142v5vzB90aceH9kNcMMDFx9X2Ib5s=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.3.3/waywallen-kde-0.3.3-x86_64-embed.zip";
+      sha256 = "sha256-0SGuTy/KLSZkts1qb1x3GticUwOI3CQVWyRNhzOuBZ4=";
     };
   };
   wild = {
