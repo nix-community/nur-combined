@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://victoriametrics.github.io/helm-charts";
   chart = "victoria-metrics-agent";
-  version = "0.45.0";
-  hash = "sha256-lUIyjeGLj90PV0TnNHXcjNlGR4KmQrvKL545A+ZL6+E=";
+  version = "0.46.0";
+  hash = "sha256-Fedaqq05kREIIAAlzvN632rqOzh1u5GzhAMBKvVEnlQ=";
   helmTestValues = {
     remoteWrite = [
       { url = "http://victoria-metrics:8428"; }

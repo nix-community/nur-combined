@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://victoriametrics.github.io/helm-charts";
   chart = "victoria-metrics-single";
-  version = "0.44.0";
-  hash = "sha256-KZBoDDrm0uw8W/W3R52x+OTQolumgBRD30C4rYCjXGk=";
+  version = "0.45.0";
+  hash = "sha256-PudufXF+x6m+RAzkb7B8wqNqTlLz+t6BPwoPgb0r5o8=";
 
   meta = {
     description = "Helm chart for single-node VictoriaMetrics, a time series database and long-term remote storage for Prometheus";

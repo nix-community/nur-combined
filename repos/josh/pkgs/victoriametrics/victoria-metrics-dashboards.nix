@@ -8,7 +8,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "victoria-metrics-dashboards";
-  version = "1.149.0-cluster";
+  version = "1.150.0-cluster";
 
   outputs = [
     "out"
@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "VictoriaMetrics";
     repo = "VictoriaMetrics";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ywHDOJRhr1tk9F3z5FjUH8oWs7OajdKB1iO5RH3MCqc=";
+    hash = "sha256-Bz7VBOWGmEX8bUhbLaJvhoD0oe4QPW+V3a3VjPUye+k=";
   };
 
   dontBuild = true;
