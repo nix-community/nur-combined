@@ -1648,8 +1648,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "38bdad813749c39e7c9079d482d3b62ea49600e2",
-            "sha256": "0f8f8nb6dnj1xjif183vnan5vf0fmaz6vmnhk7bdsani4wwj49qk",
+            "rev": "c0920793b8fe28f177c36f28082e0d8bbb8b68a4",
+            "sha256": "0kxyg6ydq356cx7qbjqmbpyzwm1cbj9vfh1x0bwd0diz8786kzpj",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2702,8 +2702,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "287b749c9b55056940e171634558f635883e8ed8",
-            "sha256": "1p1cmvcjha1irr7rcb44qxlz114k52slhdv00ramc7jcg6fw29dr",
+            "rev": "189e9c39f874ce4f53fde834375983f8eca0b664",
+            "sha256": "0bjpgcmnahkp9sfplv8frvqxmcd0m0f8g5ad5lh95a3g9vhf60xj",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
