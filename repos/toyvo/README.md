@@ -38,5 +38,11 @@ deploy .#nas                                     # deploy-rs to a remote node
 nix run .#setup-sops                             # provision sops/age keys
 ```
 
+## Mirrors
+
+- https://git.toyvo.dev/toyvo/nixcfg
+- https://github.com/toyvo/nixcfg
+- https://tangled.org/toyvo.dev/nixcfg
+
 See [AGENTS.md](AGENTS.md) for full build/deploy commands and development
 conventions.

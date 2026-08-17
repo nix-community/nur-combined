@@ -29,20 +29,27 @@ in
       };
     };
 
-    catppuccin = rec {
-      enable = true;
-      flavor = "frappe";
-      accent = "red";
-      tty = {
+    catppuccin =
+      let
+        paletteThemeSrc = builtins.fetchTarball {
+          url = "https://github.com/catppuccin/palette/archive/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd.tar.gz";
+          sha256 = "sha256-hsy+GhuM4MSjnwGq1YJSLBFIbVm67SSdPRgObP00mxw=";
+        };
+      in
+      rec {
         enable = true;
-        flavor = flavor;
+        flavor = "frappe";
+        accent = "red";
+        tty = {
+          enable = true;
+          flavor = flavor;
+        };
+        plymouth.enable = true;
+        # Avoid IFD: tty module imports palette.json from the whiskers-built
+        # package at eval time, which cannot be built when evaluating for a
+        # foreign platform. Use the raw port source instead.
+        sources.palette = "${paletteThemeSrc}";
       };
-      plymouth.enable = true;
-      # Avoid IFD: tty module imports palette.json from the whiskers-built
-      # package at eval time, which cannot be built when evaluating for a
-      # foreign platform. Use the raw port source instead.
-      sources.palette = "${inputs.catppuccin-palette}";
-    };
 
     console.useXkbConfig = true;
 

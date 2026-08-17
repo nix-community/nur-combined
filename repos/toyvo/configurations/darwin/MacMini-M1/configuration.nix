@@ -16,7 +16,6 @@
     inputs.nix-index-database.darwinModules.nix-index
     inputs.nur.modules.darwin.default
     inputs.sops-nix.darwinModules.sops
-    inputs.odysseus.darwinModules.default
   ];
   nixcfg = {
     nix.enable = true;

@@ -4,28 +4,6 @@
   inputs = {
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
     catppuccin.url = "github:catppuccin/nix";
-    # Raw (unbuilt) starship port source. catppuccin/nix's starship module
-    # imports the theme TOML at eval time (IFD) from the whiskers-built
-    # package, which breaks cross-platform evaluation (e.g. evaluating
-    # darwin configs on x86_64-linux CI). Point catppuccin.sources.starship
-    # at this instead. Rev mirrors catppuccin/nix's pkgs/sources.json.
-    catppuccin-starship = {
-      url = "github:catppuccin/starship/5906cc369dd8207e063c0e6e2d27bd0c0b567cb8";
-      flake = false;
-    };
-    # Same IFD workaround as catppuccin-starship, for rio. Rev mirrors
-    # catppuccin/nix's pkgs/sources.json.
-    catppuccin-rio = {
-      url = "github:catppuccin/rio/4d37b8334a3e8f853fc6543dc2a60c295a66ddca";
-      flake = false;
-    };
-    # Same IFD workaround, for the palette (NixOS tty module reads
-    # palette.json at eval time). Rev mirrors catppuccin/nix's
-    # pkgs/sources.json.
-    catppuccin-palette = {
-      url = "github:catppuccin/palette/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd";
-      flake = false;
-    };
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell = {
       url = "github:numtide/devshell";
@@ -50,8 +28,8 @@
     mac-app-util.url = "github:hraban/mac-app-util";
     nh.url = "github:toyvo/nh";
     odysseus = {
-      url = "github:pewdiepie-archdaemon/odysseus/pull/2568/head";
-      inputs.nixpkgs.follows = "nixos-unstable";
+      url = "github:odysseus-dev/odysseus/dev";
+      flake = false;
     };
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";

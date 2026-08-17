@@ -22,6 +22,7 @@
         ./kanata.nix
         ./networking.nix
         ./nix-ld.nix
+        ./odysseus.nix
         ./system.nix
         ./ids.nix
         ./filesystems.nix
@@ -64,6 +65,7 @@
   kanata = ./kanata.nix;
   networking = ./networking.nix;
   nix-ld = ./nix-ld.nix;
+  odysseus = ./odysseus.nix;
   system = ./system.nix;
   ids = ./ids.nix;
   filesystems = ./filesystems.nix;

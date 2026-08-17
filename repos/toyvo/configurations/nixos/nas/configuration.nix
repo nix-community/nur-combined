@@ -16,7 +16,6 @@ in
   imports = [
     inputs.nixcfg.modules.nixos.default
     inputs.hermes-agent.nixosModules.default
-    inputs.odysseus.nixosModules.default
     ./samba.nix
     ./homepage.nix
     inputs.catppuccin.nixosModules.catppuccin

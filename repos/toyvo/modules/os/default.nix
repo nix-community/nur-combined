@@ -11,6 +11,7 @@
         ./gui.nix
         ./home-manager.nix
         ./nix.nix
+        ./odysseus.nix
         ./podman.nix
         ./security.nix
         ./users/chloe.nix
@@ -24,6 +25,7 @@
   gui = ./gui.nix;
   home-manager = ./home-manager.nix;
   nix = ./nix.nix;
+  odysseus = ./odysseus.nix;
   podman = ./podman.nix;
   security = ./security.nix;
   chloe = ./users/chloe.nix;

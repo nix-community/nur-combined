@@ -40,6 +40,7 @@ let
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
     mcsmanager = callPackage ./pkgs/mcsmanager;
     network-inventory = callPackage ./pkgs/network-inventory;
+    odysseus = callPackage ./pkgs/odysseus;
     pre-commit = callPackage ./pkgs/pre-commit;
     technitium-exporter = callPackage ./pkgs/technitium-exporter;
     toyvo-neovim = callPackage ./pkgs/toyvo-neovim;

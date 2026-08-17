@@ -9,6 +9,7 @@
         ./bash.nix
         ./homebrew.nix
         ./keyboard.nix
+        ./odysseus.nix
         ./ollama.nix
         ./podman.nix
         ./system.nix
@@ -20,6 +21,7 @@
   bash = ./bash.nix;
   homebrew = ./homebrew.nix;
   keyboard = ./keyboard.nix;
+  odysseus = ./odysseus.nix;
   ollama = ./ollama.nix;
   podman = ./podman.nix;
   system = ./system.nix;
