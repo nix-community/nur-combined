@@ -37,4 +37,8 @@
   wiliwili = pkgs.callPackage ./pkgs/wiliwili { };
   sunloginclient = pkgs.callPackage ./pkgs/sunloginclient { };
   nutstore = pkgs.callPackage ./pkgs/nutstore { };
+  gstarcad = pkgs.callPackage ./pkgs/gstarcad { };
+  edrawmax = pkgs.callPackage ./pkgs/edrawmax { };
+  mindmaster = pkgs.callPackage ./pkgs/mindmaster { };
+  yozo-office = pkgs.callPackage ./pkgs/yozo-office { };
 }

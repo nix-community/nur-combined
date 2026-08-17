@@ -6,6 +6,7 @@
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
+  nix-update-script,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -59,6 +60,8 @@ buildNpmPackage (finalAttrs: {
       ];
     })
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Cross-platform Go/Baduk board and SGF editor";

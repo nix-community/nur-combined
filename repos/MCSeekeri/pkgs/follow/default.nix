@@ -2,6 +2,7 @@
   lib,
   fetchurl,
   appimageTools,
+  nix-update-script,
 }:
 
 let
@@ -21,6 +22,8 @@ appimageTools.wrapType2 {
     install -m 644 -D ${appimageContents}/Folo.png $out/share/pixmaps/ 2>/dev/null || true
     cp -r ${appimageContents}/usr/share/icons $out/share/ 2>/dev/null || true
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Next generation information browser";

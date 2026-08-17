@@ -21,10 +21,10 @@
 }:
 
 let
-  version = "227k_14";
+  version = "227k_15";
   src = fetchurl {
     url = "https://github.com/OldUnreal/Unreal-testing/releases/download/v${version}/OldUnreal-UnrealPatch227k-Linux.tar.bz2";
-    hash = "sha256-lVADQ8C8RXqncGO8bvuvgweXm9ALbqPUCGzifF0HD40=";
+    hash = "sha256-sE66bVyIXJi9nagnmECxXNj6Bu0rdQI15616om7z96E=";
   };
 
   gameData =

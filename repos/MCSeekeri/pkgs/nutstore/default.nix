@@ -22,7 +22,7 @@
   libnotify,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "nutstore";
   version = "6.4.3";
 
@@ -37,10 +37,21 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    gtk3 glib pango cairo gdk-pixbuf atk
-    gobject-introspection harfbuzz at-spi2-core
-    webkitgtk_4_1 glib-networking
-    libappindicator libnotify libXtst alsa-lib
+    gtk3
+    glib
+    pango
+    cairo
+    gdk-pixbuf
+    atk
+    gobject-introspection
+    harfbuzz
+    at-spi2-core
+    webkitgtk_4_1
+    glib-networking
+    libappindicator
+    libnotify
+    libXtst
+    alsa-lib
   ];
 
   dontConfigure = true;
@@ -64,14 +75,36 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper ${python3.withPackages (ps: [ ps.pygobject3 ])}/bin/python3 $out/bin/nutstore \
       --add-flags "$out/libexec/nutstore/bin/nutstore-pydaemon.py" \
       --chdir $out/libexec/nutstore \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
-        gtk3 glib pango cairo gdk-pixbuf atk harfbuzz
-        webkitgtk_4_1 glib-networking libappindicator libnotify
-      ]}" \
-      --prefix GI_TYPELIB_PATH : "${lib.makeSearchPathOutput "lib" "lib/girepository-1.0" [
-        gobject-introspection gtk3 pango cairo gdk-pixbuf atk glib harfbuzz
-        at-spi2-core libappindicator libnotify
-      ]}" \
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          gtk3
+          glib
+          pango
+          cairo
+          gdk-pixbuf
+          atk
+          harfbuzz
+          webkitgtk_4_1
+          glib-networking
+          libappindicator
+          libnotify
+        ]
+      }" \
+      --prefix GI_TYPELIB_PATH : "${
+        lib.makeSearchPathOutput "lib" "lib/girepository-1.0" [
+          gobject-introspection
+          gtk3
+          pango
+          cairo
+          gdk-pixbuf
+          atk
+          glib
+          harfbuzz
+          at-spi2-core
+          libappindicator
+          libnotify
+        ]
+      }" \
       --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}" \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules"
 

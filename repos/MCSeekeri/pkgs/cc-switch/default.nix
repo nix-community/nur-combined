@@ -22,28 +22,26 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cc-switch";
-  version = "3.19.1";
+  version = "3.19.2";
 
   src = fetchFromGitHub {
     owner = "farion1231";
     repo = "cc-switch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5QcttpdiwjPyHfE8UdLkXP5DemLnddlwTr6P0S6tKF4=";
+    hash = "sha256-8LnvqzxKNF9Ezexix3d5P5MT0cQssV6YwwewnZ5Af2M=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-FcaLjk+DleNAnw5hr+Vpkfawe7oJ789biy0nFhbqeM4=";
+    hash = "sha256-Ghgq4NfPcgnFI4fttgYvTJqSQXCpLbeukUifgLzEGNY=";
   };
 
   cargoRoot = "src-tauri";
-  cargoHash = "sha256-hmo4AWlSCrRPdcmFJw+p60oqcgq+9UcEWUfgXeTVbOY=";
+  cargoHash = "sha256-IqTLxSDYm9PHxbQamVs/bA2UINvtGq+CRc9Q6iv/KRU=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  checkFlags = [
-     "--skip=npm_anchor_supplies_sibling_node_to_env_shebang"
-  ];
+  checkFlags = [ "--skip=npm_anchor_supplies_sibling_node_to_env_shebang" ];
 
   postPatch = ''
     substituteInPlace src-tauri/tauri.conf.json \

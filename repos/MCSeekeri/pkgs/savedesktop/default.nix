@@ -13,6 +13,7 @@
   gtk4,
   libadwaita,
   python3Packages,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -50,6 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/savedesktop \
       --prefix PYTHONPATH : "${python3Packages.pygobject3}/${python3Packages.python.sitePackages}"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Save and restore your Linux desktop configuration";

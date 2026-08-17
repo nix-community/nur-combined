@@ -26,7 +26,7 @@
 }:
 
 let
-  version = "0.65.1";
+  version = "0.66.2";
 
   srcArgs = {
     owner = "voxelum";

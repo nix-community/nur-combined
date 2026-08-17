@@ -29,15 +29,15 @@ let
     meta
     ;
 
-    src = fetchFromGitHub (
-    srcArgs // { hash = "sha256-RnNO3D560NddUWRcAtYo9wqFrnaaDxvBeZT/I7gvOe4="; }
+  src = fetchFromGitHub (
+    srcArgs // { hash = "sha256-3eCEVsQkksW4CSaHcLkIMnEjT0k6tvRhFR1oXPRazwo="; }
   );
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
     pnpm = pnpm_11;
     fetcherVersion = 4;
-    hash = "sha256-sv9eHIOc4ytHM3FQMnb6T4nhjSCarzJ8uGVihcH0XUs=";
+    hash = "sha256-Xod60sC/112qyWMDQiIrIuDerEwdgAje/z0SVGZMCHw=";
   };
 
   patches = [
