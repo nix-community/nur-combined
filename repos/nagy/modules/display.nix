@@ -14,7 +14,7 @@
   # That issue is closed but not fixed.
   # run to check: $ brightnessctl -m --class=backlight --list info
   # to find:
-  # $ S: ddcutil ; $ ddcutil detect
+  # $ nix shell ddcutil ; $ ddcutil detect
   # boot.postBootCommands =
   #   # does not work in this place
   #   ''
