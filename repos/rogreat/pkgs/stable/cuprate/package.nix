@@ -51,6 +51,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     GITHUB_SHA = finalAttrs.src.rev;
   };
 
+  strictDeps = true;
+
+  __structuredAttrs = true;
+
   meta = {
     description = "Modular Monero node written in Rust";
     homepage = "https://cuprate.org";

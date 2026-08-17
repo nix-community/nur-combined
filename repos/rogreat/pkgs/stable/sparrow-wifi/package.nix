@@ -95,6 +95,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   enabledTestPaths = [ "tests/" ];
 
+  strictDeps = true;
+
+  __structuredAttrs = true;
+
   meta = {
     description = "Next-Gen GUI-based WiFi and Bluetooth Analyzer for Linux";
     homepage = "https://github.com/ghostop14/sparrow-wifi";

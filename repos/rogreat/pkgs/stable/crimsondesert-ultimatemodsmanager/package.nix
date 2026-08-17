@@ -142,6 +142,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
         --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
   '';
 
+  __structuredAttrs = true;
+
   meta = {
     description = "Crimson Desert Ultimate Mods Manager";
     homepage = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager";

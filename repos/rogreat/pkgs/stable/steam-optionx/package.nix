@@ -72,6 +72,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     })
   ];
 
+  strictDeps = true;
+
+  __structuredAttrs = true;
+
   meta = {
     description = "Modify app launch options in Steam's config file";
     homepage = "https://github.com/RoGreat/steam-optionx";

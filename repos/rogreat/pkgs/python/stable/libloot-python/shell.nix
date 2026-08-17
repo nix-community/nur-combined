@@ -4,7 +4,7 @@ let
   python = pkgs.python3.override {
     self = python;
     packageOverrides = pyfinal: pyprev: {
-      libloot-python = pyfinal.callPackage ./default.nix { };
+      libloot-python = pyfinal.callPackage ./package.nix { };
     };
   };
 in

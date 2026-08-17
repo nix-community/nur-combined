@@ -102,6 +102,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     GITHUB_SHA = cuprate.src.rev;
   };
 
+  strictDeps = true;
+
+  __structuredAttrs = true;
+
   meta = {
     description = "GUI Uniting P2Pool And XMRig";
     homepage = "https://gupax.io";

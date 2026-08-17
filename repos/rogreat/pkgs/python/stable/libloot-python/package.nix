@@ -21,11 +21,13 @@ buildPythonPackage (finalAttrs: {
   sourceRoot = "${finalAttrs.src.name}/python";
   cargoRoot = "..";
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
+  nativeBuildInputs = [
     git
+  ]
+  ++ (with rustPlatform; [
+    cargoSetupHook
     maturinBuildHook
-  ];
+  ]);
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
@@ -38,7 +40,12 @@ buildPythonPackage (finalAttrs: {
 
   # no tests
   doCheck = false;
+
+  pythonImportsCheck = [ "loot" ];
+
   dontCheckPythonMetadata = true;
+
+  __structuredAttrs = true;
 
   meta = {
     description = "Experimental Python wrapper around libloot";

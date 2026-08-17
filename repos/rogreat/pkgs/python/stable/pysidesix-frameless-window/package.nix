@@ -25,6 +25,8 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "qframelesswindow" ];
 
+  __structuredAttrs = true;
+
   meta = {
     description = "Frameless window based on PySide6";
     homepage = "https://github.com/zhiyiYo/PyQt-Frameless-Window";

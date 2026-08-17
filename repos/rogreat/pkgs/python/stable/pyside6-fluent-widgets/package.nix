@@ -31,6 +31,8 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "qfluentwidgets" ];
 
+  __structuredAttrs = true;
+
   meta = {
     description = "Fluent design widgets library based on PySide6";
     homepage = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets";

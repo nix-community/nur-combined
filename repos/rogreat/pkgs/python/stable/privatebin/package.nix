@@ -43,6 +43,8 @@ buildPythonPackage (finalAttrs: {
     tomli
   ];
 
+  __structuredAttrs = true;
+
   meta = {
     description = "Python library for interacting with PrivateBin's v2 API";
     homepage = "https://github.com/Ravencentric/privatebin";

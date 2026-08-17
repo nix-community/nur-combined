@@ -91,6 +91,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   # no tests
   doCheck = false;
 
+  __structuredAttrs = true;
+
   meta = {
     description = "Linux native mod manager for a variety of games";
     homepage = "https://github.com/ChrisDKN/Amethyst-Mod-Manager";
