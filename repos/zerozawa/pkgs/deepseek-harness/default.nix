@@ -10,14 +10,14 @@
 
 buildNpmPackage rec {
   pname = "deepseek-harness";
-  version = "0.1.0-rc.6";
+  version = "0.1.0-rc.7";
 
   # Stub project depending on the npm-published @deepseek-ai/dsh bundle; the
   # source repo is a pnpm monorepo whose published package ships the same
   # prebuilt lib/ the README's `npx @deepseek-ai/dsh web` path runs.
   src = ./.;
 
-  npmDepsHash = "sha256-QnqBWWoXyRNYxGo1/1EImFXHi4vwZDTDf9EZOfFaSA0=";
+  npmDepsHash = "sha256-SY6TEcKVTGbYTn3d2srQvmIZaikEhLYG+lcfNz9ZhTI=";
 
   # node-pty ships no linux prebuild, so npm ci falls back to `node-gyp
   # rebuild`; point it at the offline header tree.
@@ -50,7 +50,7 @@ buildNpmPackage rec {
   '';
 
   meta = with lib; {
-    description = "DeepSeek Harness (dsh) is an open-source agent harness developed by DeepSeek AI";
+    description = "DeepSeek Harness (`dsh`) is an open-source agent harness developed by DeepSeek AI.";
     # official product page; the GitHub repo is the source/download page
     homepage = "https://www.deepseek.com/harness/";
     downloadPage = "https://github.com/deepseek-ai/deepseek-harness";

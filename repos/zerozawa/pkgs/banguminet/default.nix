@@ -6,6 +6,7 @@
   copyDesktopItems,
   makeDesktopItem,
   imagemagick,
+  powershell,
   libx11,
   libSM,
   fontconfig,
@@ -15,13 +16,13 @@
 
 buildDotnetModule rec {
   pname = "banguminet";
-  version = "1.1.4";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "ajtn123";
     repo = "BangumiNet";
     rev = "v${version}";
-    hash = "sha256-wgMW3fd6GkGkR9g4+Q1Bql1Aujwvk81D0Z3ZIZgxWtI=";
+    hash = "sha256-Jge/ccgvSn1y9gODocvTCfC5SrLPfJbBh7dchSo+J4c=";
   };
 
   projectFile = "BangumiNet/BangumiNet.csproj";
@@ -43,6 +44,7 @@ buildDotnetModule rec {
   nativeBuildInputs = [
     copyDesktopItems
     imagemagick
+    powershell
   ];
 
   desktopItems = [
