@@ -194,9 +194,32 @@
 
         ${box64}/bin/box64 ${shirok1-x86_64.stata.override { ignoreCurl = true; }}/stata-mp "$@"
       '')
+      nodejs
+      ffmpeg
+      mosh
+      tsshd
+      unzip
+      upx
+      bun
+      fd
+      p7zip
+      file
       llm-agents.codex
       llm-agents.claude-code
+      llm-agents.opencode
       llm-agents.herdr
+      llm-agents.skills
+
+      (ghidra.withExtensions (
+        p: with p; [
+          findcrypt
+          ghidra-firmware-utils
+          ghidraninja-ghidra-scripts
+          lightkeeper
+          ret-sync
+          ghidra-golanganalyzerextension
+        ]
+      ))
     ];
   };
 
@@ -228,7 +251,13 @@
     patchelf
     libtree
     ghostty.terminfo
+    lsof
+    jdupes
+    (lib.getBin pkgs.elfutils)
+    uv
   ];
+
+  programs.nix-ld.enable = true;
 
   environment.etc."vuetorrent".source = "${pkgs.vuetorrent}/share/vuetorrent";
 
@@ -242,6 +271,7 @@
   # };
   programs.zsh.enable = true;
   programs.fish.enable = true;
+  programs.fish.generateCompletions = false;
 
   virtualisation.docker = {
     enable = true;
@@ -500,6 +530,71 @@
           "::1"
         ];
       };
+
+      script = {
+        ir_fan_on_off.alias = "落地扇开关 IR";
+        ir_fan_on_off.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"SYMPHONY","Bits":12,"Data":"0xD81","DataLSB":"0xB081"}'';
+        };
+        ir_fan_plus.alias = "落地扇加 IR";
+        ir_fan_plus.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"SYMPHONY","Bits":12,"Data":"0xDC3","DataLSB":"0xB0C3"}'';
+        };
+        ir_fan_minus.alias = "落地扇减 IR";
+        ir_fan_minus.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"SYMPHONY","Bits":12,"Data":"0xDC6","DataLSB":"0xB063"}'';
+        };
+        ir_fan_swing.alias = "落地扇摇头 IR";
+        ir_fan_swing.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"SYMPHONY","Bits":12,"Data":"0xD90","DataLSB":"0xB009"}'';
+        };
+        ir_fan_mode.alias = "落地扇模式 IR";
+        ir_fan_mode.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"SYMPHONY","Bits":12,"Data":"0xD84","DataLSB":"0xB021"}'';
+        };
+        ir_ac_light.alias = "空调屏显 IR";
+        ir_ac_light.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F509","DataLSB":"0x9DAF90"}'';
+        };
+      };
+      template = [
+        {
+          fan = [
+            {
+              default_entity_id = "fan.ir_fan";
+              name = "格力落地扇";
+              unique_id = "517d9c34-2f9c-4364-928f-b57449a71f5b";
+              optimistic = true;
+              turn_on.action = "script.ir_fan_on_off";
+              turn_off.action = "script.ir_fan_on_off";
+              set_oscillating.action = "script.ir_fan_swing";
+            }
+          ];
+        }
+        {
+          switch = [
+            {
+              name = "空调屏显";
+              unique_id = "db4fe1d1-c4d8-4218-bf1d-6353a933a3e3";
+              optimistic = true;
+              turn_on.action = "script.ir_ac_light";
+              turn_off.action = "script.ir_ac_light";
+            }
+          ];
+        }
+      ];
     };
     customComponents = with pkgs.home-assistant-custom-components; [
       pkgs.shirok1.hasscc-tianqi
@@ -549,7 +644,7 @@
     settings.host = "0.0.0.0";
     secretFile = config.sops.secrets."qui/secret".path;
   };
-  sops.secrets."qui/secret" = {};
+  sops.secrets."qui/secret" = { };
 
   services.qbittorrent-clientblocker = {
     enable = false;
