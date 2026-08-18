@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.2304.79";
   src = fetchurl {
     url = "https://github.com/SpaceTimee/Fusion-JetBrainsMapleMono/releases/download/${version}/JetBrainsMapleMono-NF-XX-XX-XX.zip";
-    hash = "sha256-ULNvnvqj/XbeZjbbbmMuU39MXDvf9seD1pN0k/i0rm4=";
+    hash = "sha256-On7V5Q9oMdwUFKStlrHgPBPLxnyjK8G7fp2QxWuQM1g=";
   };
 
   nativeBuildInputs = [ unzip ];
