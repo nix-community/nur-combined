@@ -260,6 +260,43 @@ in
           '';
         };
 
+        # authentik core - required for embedded outpost functionality
+        # Creates /dev/shm/authentik-core.sock for internal proxy routing
+        systemd.services.authentik-core = {
+          description = "Authentik Core";
+          wantedBy = [ "multi-user.target" ];
+          after = [
+            "network-online.target"
+            "authentik-server.service"
+          ];
+          wants = [ "network-online.target" ];
+          environment = {
+            AUTHENTIK_POSTGRESQL__HOST = cfg.db.host;
+            AUTHENTIK_POSTGRESQL__PORT = toString cfg.db.port;
+            AUTHENTIK_POSTGRESQL__NAME = cfg.db.name;
+            AUTHENTIK_POSTGRESQL__USER = cfg.db.user;
+            AUTHENTIK_REDIS__HOST = cfg.redis.host;
+            AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
+          };
+          serviceConfig = {
+            Type = "simple";
+            User = "authentik";
+            Group = "authentik";
+            WorkingDirectory = "/var/lib/authentik";
+            ExecStart = "${cfg.package}/bin/ak core";
+            Restart = "on-failure";
+            RestartSec = "5s";
+          };
+          preStart = ''
+            mkdir -p /etc/authentik
+            cat > /etc/authentik/config.yml << 'EOF'
+            secret_key: "file:///run/secrets/authentik-secret-key"
+            postgresql:
+              password: "file:///run/secrets/authentik-db-password"
+            EOF
+          '';
+        };
+
         systemd.services.authentik-ldap-outpost = {
           description = "Authentik LDAP Outpost";
           wantedBy = [ "multi-user.target" ];

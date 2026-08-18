@@ -108,15 +108,73 @@ jobs:
     steps:
       - name: Merge update PR
         run: |
-          set -euo pipefail
-          curl -sf -X POST \
+          set -uo pipefail
+          PR_NUMBER="${{ needs.update.outputs.pr_number }}"
+          BRANCH="${{ needs.update.outputs.branch }}"
+
+          # Check PR status first
+          echo "Checking PR #$PR_NUMBER status..."
+          PR_STATE=$(curl -sf -H "Authorization: token $GH_TOKEN" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" \
+            | jq -r '.state // "unknown"')
+          echo "PR #$PR_NUMBER state: $PR_STATE"
+
+          if [ "$PR_STATE" != "open" ]; then
+            echo "PR is not open (state: $PR_STATE), skipping merge"
+            exit 0
+          fi
+
+          # Check if PR is mergeable
+          PR_MERGEABLE=$(curl -sf -H "Authorization: token $GH_TOKEN" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" \
+            | jq -r '.mergeable // "null"')
+          echo "PR #$PR_NUMBER mergeable: $PR_MERGEABLE"
+
+          if [ "$PR_MERGEABLE" != "true" ]; then
+            echo "PR is not mergeable, skipping merge"
+            exit 0
+          fi
+
+          echo "Attempting to merge PR #$PR_NUMBER..."
+          # Forgejo uses PUT not POST for merge
+          MERGE_RESPONSE=$(curl -s -w "%{http_code}" -X PUT \
             -H "Authorization: token $GH_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{"Do": "squash"}' \
-            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/${{ needs.update.outputs.pr_number }}/merge"
-          curl -sf -X DELETE \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge" \
+            -o /tmp/merge_response.json)
+
+          if [ "$MERGE_RESPONSE" = "200" ]; then
+            echo "Successfully merged PR #$PR_NUMBER"
+          elif [ "$MERGE_RESPONSE" = "201" ]; then
+            echo "Successfully merged PR #$PR_NUMBER (created)"
+          elif [ "$MERGE_RESPONSE" = "405" ]; then
+            echo "PR #$PR_NUMBER already merged or merge not allowed (HTTP 405)"
+          elif [ "$MERGE_RESPONSE" = "404" ]; then
+            echo "PR #$PR_NUMBER not found (HTTP 404)"
+          elif [ "$MERGE_RESPONSE" = "409" ]; then
+            echo "PR #$PR_NUMBER has merge conflicts (HTTP 409)"
+          else
+            echo "Merge failed with HTTP $MERGE_RESPONSE"
+            cat /tmp/merge_response.json 2>/dev/null || echo "No response body"
+            echo "Continuing anyway..."
+          fi
+
+          echo "Attempting to delete branch $BRANCH..."
+          DELETE_RESPONSE=$(curl -s -w "%{http_code}" -X DELETE \
             -H "Authorization: token $GH_TOKEN" \
-            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/branches/${{ needs.update.outputs.branch }}"
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/branches/$BRANCH" \
+            -o /tmp/delete_response.json)
+
+          if [ "$DELETE_RESPONSE" = "204" ]; then
+            echo "Successfully deleted branch $BRANCH"
+          elif [ "$DELETE_RESPONSE" = "404" ]; then
+            echo "Branch $BRANCH not found (HTTP 404) - may already be deleted"
+          else
+            echo "Delete failed with HTTP $DELETE_RESPONSE"
+            cat /tmp/delete_response.json 2>/dev/null || echo "No response body"
+            echo "Continuing..."
+          fi
   nur:
     needs: build
     strategy:
