@@ -17,12 +17,11 @@ buildDotnetModule (finalAttrs: {
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.sdk_9_0;
+  dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
   projectFile = "Cpp2IL/Cpp2IL.csproj";
   nugetDeps = ./deps.json;
   dotnetInstallFlags = [ "--framework=net9.0" ];
-  selfContainedBuild = true;
   executables = [ "Cpp2IL" ];
 
   strictDeps = true;
