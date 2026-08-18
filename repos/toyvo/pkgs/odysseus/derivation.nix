@@ -16,6 +16,7 @@
   # consumers opt in without hand-listing nixpkgs attrs:
   #   odysseus.override { extras = [ "pdf" "stt" ]; }
   extras ? [ ],
+  pkgs,
 }:
 let
   # Python interpreter with Odysseus-specific test skips: niquests' and
@@ -133,6 +134,7 @@ stdenv.mkDerivation {
     description = "Odysseus AI assistant";
     homepage = "https://github.com/odysseus-dev/odysseus";
     license = lib.licenses.agpl3Only;
+    platforms = lib.platformsOf ([ pkgs.gts ]);
     maintainers = with lib.maintainers; [ toyvo ];
   };
 

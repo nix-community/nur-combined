@@ -16,6 +16,7 @@
   inputs ? { },
   extraPythonPackages ? _ps: [ ],
   extras ? [ ],
+  lib,
   ...
 }:
 let
@@ -27,5 +28,5 @@ let
   });
 in
 callPackage ./derivation.nix {
-  inherit src extraPythonPackages extras;
+  inherit lib src extraPythonPackages extras;
 }
