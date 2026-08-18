@@ -207,7 +207,7 @@ let
                 -no-reboot
             '';
 
-            unitConfig.AssertPathExists = [ "${vmCfg.rootDir}/nix/var/nix/profiles/system" ];
+            unitConfig.AssertPathExists = [ "${vmCfg.rootDir}/nix/var/nix/profiles" ];
 
             serviceConfig = {
               Type = "simple";
