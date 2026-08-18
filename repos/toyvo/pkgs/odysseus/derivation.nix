@@ -96,9 +96,10 @@ let
     ps: (map (n: ps.${n}) reqNames) ++ extraDefault ps ++ extraFromExtras ps ++ extraPythonPackages ps
   );
 
-  # Single source of truth for the version: src/constants.py's APP_VERSION
-  # (the value the app serves at /version), parsed at eval time.
-  version = import ./version.nix { inherit src; };
+  # Hardcoded version - update this to match APP_VERSION in src/constants.py
+  # when updating the package. Using import from src breaks NUR eval with
+  # restrict-eval because the source store path isn't available at eval time.
+  version = "2026.8.18";
 in
 stdenv.mkDerivation {
   pname = "odysseus";
