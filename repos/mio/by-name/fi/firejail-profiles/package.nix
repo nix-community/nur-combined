@@ -5,7 +5,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "firejail-profiles";
-  version = "0-unstable-20250114";
+  version = "0-unstable-20260818";
 
   dontUnpack = true;
 
