@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.2.2";
+  version = "4.4.2.6";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.2.2.xpi";
-  sha256 = "51d1f1e13441e69e99fae3f20d9fa93e4e4438c007ea524dc18c52847bb687c1";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.2.6.xpi";
+  sha256 = "c5f0a7b47183cc7120a278cafc5573df0cf00526b2338614c456bf89f93ee176";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -962,7 +962,6 @@ buildFirefoxXpiAddon {
       "*://*.emol.cl/*"
       "*://*.epochbase.com/*"
       "*://*.flip-pay.com/*"
-      "*://*.ftspecialist-us.com/*"
       "*://*.gjirafa.tech/*"
       "*://*.glanacion.com/*"
       "*://*.go.com/*"
