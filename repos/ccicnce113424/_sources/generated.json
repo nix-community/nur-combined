@@ -90,12 +90,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.4.0-alpha.5",
-            "sha256": "sha256-BVN1k2lDZwCpXp5pUS3bCLH0Qnx4TOIEXG3IsdO/19g=",
+            "rev": "v0.4.0-alpha.6",
+            "sha256": "sha256-iiH4+3InrtChhqPyNGEQsk/mCJ0aLmh6du7jeu0WIEQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.4.0-alpha.5"
+        "version": "v0.4.0-alpha.6"
     },
     "fast-nix-gc": {
         "cargoLock": {
