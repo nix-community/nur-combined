@@ -4,5 +4,4 @@
   nixpkgs-pr-tracker = ./nixpkgs-pr-tracker;
   nix-package-versions = ./nix-package-versions;
   telemikiya = ./telemikiya;
-  prometheus-kvrocks-exporter = ./prometheus-kvrocks-exporter;
 }
