@@ -6,7 +6,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kodama";
-  version = "1.0.1";
+  version = "1.1.0";
 
   __structuredAttrs = true;
 
@@ -14,10 +14,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "kodama-community";
     repo = "kodama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mOVBYG5V7vJDDlyeU7A2Y3LKFxiqbMkFnCEWK1wjEfg=";
+    hash = "sha256-td/QAWZ0th7V0FnPTupxu809aNPBJRAHHLhsIVSIIeE=";
   };
 
-  cargoHash = "sha256-7EMH40utzbtT1AB64VRlGDBvPpx0fDrWXpOPf/JS+TE=";
+  cargoHash = "sha256-1fmoRjpIXoHc1t1m2X2LQ6COAp4hhSUt1yTMRdNSU+M=";
 
   meta = {
     description = "Typst-friendly static Zettelkästen site generator";

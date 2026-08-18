@@ -1,11 +1,11 @@
 {
   "aarch64-darwin": {
-    "url": "https://github.com/anyproto/anytype-ts/releases/download/v0.56.1/Anytype-0.56.1-mac-arm64.zip",
-    "hash": "sha256-9AXrTf6RkyEGbVwxVAWhchQyy5AjnNXatghqR4ivjpM="
+    "url": "https://github.com/anyproto/anytype-ts/releases/download/v0.56.4/Anytype-0.56.4-mac-arm64.zip",
+    "hash": "sha256-h5nItKAggGZabHOatNTcwpQI6SreTf374DKB5mdKKUU="
   },
-  "version": "0.56.1",
+  "version": "0.56.4",
   "x86_64-darwin": {
-    "url": "https://github.com/anyproto/anytype-ts/releases/download/v0.56.1/Anytype-0.56.1-mac-x64.zip",
-    "hash": "sha256-MXumwCquJA6XP6GsyUILtbmFaplme3O8jZS4/D8LyLs="
+    "url": "https://github.com/anyproto/anytype-ts/releases/download/v0.56.4/Anytype-0.56.4-mac-x64.zip",
+    "hash": "sha256-ZFmKdsEUz4bpNrcuKeDCOCRwopG06G9uOXSaZnxQKFA="
   }
 }
