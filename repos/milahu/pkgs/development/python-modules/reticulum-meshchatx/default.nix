@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromGitHub,
   buildNpmPackage,
   electron,
   python,
@@ -45,9 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   version = "4.2.1-21db104";
 
-  src = fetchFromGitea {
-    domain = "git.quad4.io";
-    owner = "RNS-Things";
+  src = fetchFromGitHub {
+    owner = "Quad4-Software";
     repo = "MeshChatX";
     rev = "21db1046af08161173290ea42a9dfcda7b58a370";
     hash = "sha256-p9KCpVEvilFyhSZsds+ZaLG4AvGnX9IueN+E9vNKVvE=";
@@ -129,7 +128,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A Reticulum MeshChat fork from the future";
-    homepage = "https://git.quad4.io/RNS-Things/MeshChatX";
+    homepage = "https://github.com/Quad4-Software/MeshChatX";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "reticulum-meshchatx";

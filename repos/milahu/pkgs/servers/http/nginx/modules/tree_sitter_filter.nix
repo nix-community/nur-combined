@@ -1,12 +1,14 @@
 {
   lib,
+  mkNginxPlugin,
   fetchFromGitHub,
   tree-sitter,
   stdenv,
 }:
 
-rec {
-  name = "ngx_tree_sitter_filter_module";
+mkNginxPlugin rec {
+  pname = "ngx_tree_sitter_filter_module";
+  version = "f47cc05";
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "ngx_tree_sitter_filter_module";

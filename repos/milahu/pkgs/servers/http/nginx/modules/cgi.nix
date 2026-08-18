@@ -1,14 +1,16 @@
 {
   lib,
+  mkNginxPlugin,
   fetchFromGitHub,
 }:
 
-{
-  name = "nginx-cgi";
+mkNginxPlugin rec {
+  pname = "nginx-cgi";
+  version = "0.15";
   src = fetchFromGitHub {
     owner = "pjincz";
     repo = "nginx-cgi";
-    rev = "v0.15";
+    rev = "v${version}";
     hash = "sha256-HsMn2VdiClioJV19YF+lUHX4Tn/NNSml06YNbbEPdUY=";
   };
   meta = with lib; {

@@ -80,7 +80,7 @@ let
       if supports nginxVersion then
         mod.${attrPath} or [ ]
       else
-        throw "Module at ${toString mod.src} does not support nginx version ${nginxVersion}!"
+        throw "Module ${mod.name} does not support nginx version ${nginxVersion}!"
     );
 
 in
@@ -189,7 +189,7 @@ stdenv.mkDerivation {
   ) "--crossbuild=${stdenv.hostPlatform.uname.system}::${stdenv.hostPlatform.uname.processor}"
   ++ configureFlags
   ++ mapModules "configureFlags"
-  ++ map (mod: "--add-module=${moduleSource mod}") modules;
+  ;
 
   env = {
     NIX_CFLAGS_COMPILE = toString (
@@ -230,6 +230,15 @@ stdenv.mkDerivation {
   preConfigure = ''
     setOutputFlags=
   ''
+  # Make all modules source trees writable
+  + ''
+    for module in ${toString modules}; do
+      dst="$NIX_BUILD_TOP/$(basename "$module")"
+      cp --recursive "$module" "$dst"
+      chmod --recursive +w "$dst"
+      appendToVar configureFlags "--add-module=$dst"
+    done
+  ''
   + preConfigure
   + lib.concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules;
 
@@ -260,7 +269,7 @@ stdenv.mkDerivation {
           sha256 = "sha256-M7V3ZJfKImur2OoqXcoL+CbgFj/huWnfZ4xMCmvkqfc=";
         })
       ]
-      ++ mapModules "patches"
+      ++ mapModules "nginxPatches"
     )
     ++ extraPatches;
 
@@ -324,15 +333,14 @@ stdenv.mkDerivation {
       {
         description = "Reverse proxy and lightweight webserver";
         mainProgram = "nginx";
-        homepage = "http://nginx.org";
+        homepage = "https://nginx.org";
         license = [ lib.licenses.bsd2 ] ++ lib.concatMap (m: lib.toList m.meta.license) modules;
         broken = lib.any (m: m.meta.broken or false) modules;
         platforms = lib.platforms.all;
         maintainers = with lib.maintainers; [
-          das_j
-          fpletz
           helsinki-Jo
-          raitobezarius
+          ma27
+          leona
         ];
       };
 }
