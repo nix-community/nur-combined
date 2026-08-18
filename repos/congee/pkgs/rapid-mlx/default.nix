@@ -68,6 +68,12 @@ python3Packages.buildPythonApplication rec {
     websockets
   ];
 
+  # Upstream caps transformers<5.13 because 5.13.0's _LazyAutoMapping.register
+  # dereferenced key.__module__, and mlx-lm registers its NewlineTokenizer by
+  # string name. 5.14.0 restored getattr(key, "__module__", ""), so nixpkgs'
+  # 5.15.0 imports fine.
+  pythonRelaxDeps = [ "transformers" ];
+
   # tests require downloaded models and a live server
   doCheck = false;
 
