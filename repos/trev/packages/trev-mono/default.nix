@@ -1,4 +1,4 @@
 { system }:
 (builtins.getFlake
-  "git+https://trev.zip/llc/trev-mono?rev=e5dc69b0a51d30701cb4e38c2783bf0a0c07d195" # v0.2.2
+  "git+https://trev.zip/llc/trev-mono?rev=c0d1cac90b4cf1d532aa4a5ae5b563d66a3a3510" # v0.2.3
 ).packages."${system}".default
