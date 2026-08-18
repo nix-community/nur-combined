@@ -1,6 +1,4 @@
-{
-  pkgs ? import <nixpkgs> { },
-}:
+{ pkgs }:
 let
   packages = stable // unstable // nightly // python-stable;
   callPackage = pkgs.lib.callPackageWith (pkgs // packages);
