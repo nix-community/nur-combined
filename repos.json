@@ -38,6 +38,9 @@
         "AusCyber": {
             "url": "https://github.com/Auscyber/nur-packages"
         },
+        "Chiloute": {
+            "url": "https://github.com/Chiloute/nur-packages"
+        },
         "Communix": {
             "url": "https://forge.kruemmelspalter.org/communix/nur-packages"
         },
@@ -201,6 +204,9 @@
         "amesgen": {
             "url": "https://github.com/amesgen/nur-packages"
         },
+        "anas": {
+            "url": "https://github.com/0x61nas/nur"
+        },
         "andreasrid": {
             "url": "https://github.com/andreasrid/nur-packages"
         },
@@ -222,6 +228,9 @@
         "arc": {
             "file": "nur.nix",
             "url": "https://github.com/arcnmx/nixexprs"
+        },
+        "arch-fan": {
+            "url": "https://github.com/arch-fan/nur-packages"
         },
         "armaria": {
             "url": "https://github.com/JonathanHope/nur-armaria"
