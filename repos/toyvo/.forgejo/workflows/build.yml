@@ -131,7 +131,32 @@ jobs:
         uses: actions/checkout@v4
       - name: Show nixpkgs version
         run: NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Check evaluation
+      - name: Check evaluation (NUR-style)
+        timeout-minutes: 1
+        run: |
+          curl -fsL https://raw.githubusercontent.com/nix-community/NUR/master/lib/evalRepo.nix > /tmp/evalRepo.nix
+          nixpkgs_path=$(NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --find-file nixpkgs)
+          nix-env -f /dev/stdin -qa \* --meta --json \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --show-trace \
+            -I nixpkgs="$nixpkgs_path" \
+            -I . \
+            --arg pkgs 'import <nixpkgs> {}' <<'NIX'
+          { pkgs ? import <nixpkgs> {} }:
+          let
+            repo_file = "${toString ./.}/default.nix";
+          in
+          import /tmp/evalRepo.nix {
+            name = "toyvo";
+            url = "${toString ./.}";
+            src = repo_file;
+            inherit pkgs;
+            lib = pkgs.lib;
+          }
+          NIX
+      - name: Check evaluation (flake)
         run: |
           NIX_PATH="${{ matrix.nixPath }}" nix-env -f . -qa \* --meta --xml \
             --allowed-uris https://static.rust-lang.org \

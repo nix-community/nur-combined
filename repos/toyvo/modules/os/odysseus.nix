@@ -34,7 +34,7 @@ in
       # Uses the flake's package output directly. Requires this module to be
       # used via the flake (or flake-compat). extraPythonPackages are handled
       # through the package override mechanism.
-      default = inputs.nixcfg.packages.odysseus;
+      default = inputs.nixcfg.packages.${pkgs.stdenv.hostPlatform.system}.odysseus;
       defaultText = lib.literalExpression ''
         nixcfg.packages.odysseus
       '';
