@@ -1581,6 +1581,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   circle-so-scraper = python3Packages.callPackage ./pkgs/by-name/ci/circle-so-scraper/package.nix { };
 
+  undither = callPackage ./pkgs/by-name/un/undither/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
