@@ -192,25 +192,9 @@ jobs:
       - name: Check evaluation (NUR-style)
         timeout-minutes: 1
         run: |
-          curl -fsL https://raw.githubusercontent.com/nix-community/NUR/master/lib/evalRepo.nix > /tmp/evalRepo.nix
           nixpkgs_path=$(NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --find-file nixpkgs)
           
-          # Create eval file (can't use /dev/stdin with restrict-eval)
-          cat > /tmp/nur-eval.nix <<'NIX'
-          { pkgs ? import <nixpkgs> {} }:
-          let
-            repo_file = ./default.nix;
-          in
-          import /tmp/evalRepo.nix {
-            name = "toyvo";
-            url = "${toString ./.}";
-            src = repo_file;
-            inherit pkgs;
-            lib = pkgs.lib;
-          }
-          NIX
-          
-          nix-env -f /tmp/nur-eval.nix -qa \* --meta --json \
+          nix-env -f ./.forgejo/workflows/nur-eval.nix -qa \* --meta --json \
             --allowed-uris https://static.rust-lang.org \
             --option restrict-eval true \
             --option allow-import-from-derivation true \

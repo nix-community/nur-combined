@@ -291,6 +291,22 @@ Dev shell includes pre-commit and pre-push hooks (auto-enabled):
 
 Hooks configured in `flake.nix` via `devshell` module.
 
+## Version Control (jj)
+
+This repo uses **jj** (Jujutsu) for version control, not git. When pushing changes:
+
+```bash
+# Move main bookmark to current commit and push
+jj bookmark set main -r @ && jj git push
+```
+
+**Never use `jj git push --all` or create new bookmarks without explicit user request.**
+
+The standard workflow is:
+1. Make changes
+2. `jj describe -m "commit message"`
+3. `jj bookmark set main -r @ && jj git push`
+
 ## Downstream Usage
 
 Work machine config imports this flake and uses `nixcfg.lib.darwinSystem` to inherit shared modules/overlays.
