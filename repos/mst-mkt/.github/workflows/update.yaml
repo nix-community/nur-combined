@@ -1,0 +1,72 @@
+name: Update
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  flake-lock:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ secrets.GH_TOKEN || github.token }}
+      - uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342 # v31.11.0
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
+        with:
+          name: mst-mkt
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - run: nix flake update
+      - run: nix flake check --print-build-logs
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git diff --quiet || (git commit -am "chore: update flake.lock" && git push)
+
+  packages:
+    needs: flake-lock
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          token: ${{ secrets.GH_TOKEN || github.token }}
+      - uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342 # v31.11.0
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
+        with:
+          name: mst-mkt
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Update packages
+        run: |
+          nix eval .#packages.x86_64-linux --apply builtins.attrNames --json \
+            | jq -r '.[]' \
+            | while read -r pkg; do
+                nix run nixpkgs#nix-update -- --flake "$pkg" --version=stable < /dev/null || echo "::warning::nix-update failed: $pkg"
+              done
+      - run: nix flake check --print-build-logs
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          updated=$(git diff --name-only | sed -nE 's|^pkgs/([^/]+)/.*|\1|p' | sort -u | paste -sd, - | sed 's/,/, /g')
+          git diff --quiet || (git commit -am "chore: update packages ($updated)" && git push)
