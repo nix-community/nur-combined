@@ -31,17 +31,12 @@ in
 
     package = mkOption {
       type = types.package;
-      # Hand the flake inputs through so the package builds from the flake's
-      # `odysseus` source input; without them (downstream/NUR use) it falls
-      # back to its pinned rev in pkgs/odysseus/versions.json.
-      default = pkgs.callPackage ../../pkgs/odysseus {
-        inherit inputs;
-        inherit (cfg) extraPythonPackages;
-      };
+      # Uses the flake's package output directly. Requires this module to be
+      # used via the flake (or flake-compat). extraPythonPackages are handled
+      # through the package override mechanism.
+      default = inputs.nixcfg.packages.odysseus;
       defaultText = lib.literalExpression ''
-        pkgs.callPackage nixcfg/pkgs/odysseus {
-          extraPythonPackages = config.services.odysseus.extraPythonPackages;
-        }
+        nixcfg.packages.odysseus
       '';
       description = "The odysseus package to use.";
     };

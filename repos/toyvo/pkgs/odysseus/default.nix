@@ -21,12 +21,20 @@
 }:
 let
   pinned = builtins.fromJSON (builtins.readFile ./versions.json);
-  src = inputs.odysseus or (fetchFromGitHub {
-    owner = "odysseus-dev";
-    repo = "odysseus";
-    inherit (pinned) rev hash;
-  });
+  src =
+    inputs.odysseus or (fetchFromGitHub {
+      owner = "odysseus-dev";
+      repo = "odysseus";
+      inherit (pinned) rev hash;
+    });
+  ourLib = import ../../lib { inherit lib inputs; };
+  lib' = lib.recursiveUpdate lib ourLib;
 in
 callPackage ./derivation.nix {
-  inherit lib src extraPythonPackages extras;
+  lib = lib';
+  inherit
+    src
+    extraPythonPackages
+    extras
+    ;
 }
