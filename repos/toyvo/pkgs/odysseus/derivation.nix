@@ -35,44 +35,6 @@ let
     };
   };
 
-  # requirements name -> nixpkgs python3Packages attr, where they differ.
-  reqRenames = {
-    # The bundled odysseus-chroma needs the full ChromaDB server; the
-    # HTTP-only client used by the Docker path isn't packaged in nixpkgs.
-    "chromadb-client" = "chromadb";
-  };
-
-  # nixpkgs attr names parsed from requirements.txt: drop comments / blanks,
-  # strip version specifiers and extras, normalise (lowercase, _/. -> -).
-  # Skip packages that don't exist in nixpkgs (test-only deps like httpx2).
-  # Also skip fastembed on aarch64-linux where it's marked as badPlatform.
-  reqNames =
-    let
-      nameOf =
-        line:
-        let
-          noComment = builtins.head (lib.splitString "#" line);
-          m = builtins.match "[[:space:]]*([A-Za-z0-9][A-Za-z0-9._-]*).*" noComment;
-        in
-        if m == null then null else builtins.head m;
-      normalise = n: reqRenames.${n} or (lib.replaceStrings [ "_" "." ] [ "-" "-" ] (lib.toLower n));
-      lines = lib.splitString "\n" (builtins.readFile (src + "/requirements.txt"));
-      rawNames = lib.filter (n: n != null) (map nameOf lines);
-      normalisedNames = map normalise rawNames;
-      # Packages to skip (test-only or not in nixpkgs)
-      # fastembed is not available on aarch64-linux (badPlatform in nixpkgs)
-      skipPackages = [ "httpx2" ] ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "fastembed" ];
-    in
-    lib.unique (lib.filter (n: !builtins.elem n skipPackages) normalisedNames);
-
-  # Deps the native app needs that requirements.txt doesn't declare (the
-  # Docker/pip path doesn't need them): libmagic-backed MIME detection, and
-  # pillow for the qrcode[pil] extra (the extras spec is stripped above).
-  extraDefault = ps: [
-    ps.python-magic
-    ps.pillow
-  ];
-
   # Optional feature deps, keyed by the `extras` list. nixpkgs' markitdown
   # already bundles mammoth/lxml/python-pptx/pandas/openpyxl/xlrd, so the
   # [docx,pptx,xlsx,xls] extras from requirements-optional.txt come for free.
@@ -93,7 +55,39 @@ let
   # on top, so consumers can add deps the Cookbook would otherwise pip-install —
   # which fails on the read-only Nix store.
   pythonEnv = python.withPackages (
-    ps: (map (n: ps.${n}) reqNames) ++ extraDefault ps ++ extraFromExtras ps ++ extraPythonPackages ps
+    ps: with ps; [
+    bcrypt
+    beautifulsoup4
+    caldav
+    charset-normalizer
+    chromadb
+    croniter
+    cryptography
+    fastapi
+    fastembed
+    httpcore
+    httpx
+    icalendar
+    markdown
+    mcp
+    nh3
+    numpy
+    pillow
+    pydantic
+    pydantic-settings
+    pyotp
+    pypdf
+    pytest
+    pytest-asyncio
+    python-dateutil
+    python-dotenv
+    python-magic
+    python-multipart
+    qrcode
+    sqlalchemy
+    uvicorn
+    youtube-transcript-api
+  ] ++ extraFromExtras ps ++ extraPythonPackages ps
   );
 
   # Hardcoded version - update this to match APP_VERSION in src/constants.py
