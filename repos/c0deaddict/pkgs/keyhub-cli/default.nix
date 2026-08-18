@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, unzip, runtimeShell, writeScriptBin, python3
-, autoPatchelfHook, zlib, glibc }:
+{ lib
+, stdenv
+, fetchurl
+, unzip
+, writeScriptBin
+, python3
+, autoPatchelfHook
+, zlib
+, glibc
+}:
 
 let
 
@@ -8,31 +16,33 @@ let
     ${builtins.readFile ./keyhub.py}
   '';
 
-in stdenv.mkDerivation rec {
-  name = "keyhub-cli-${version}";
-  version = "45";
+in
+stdenv.mkDerivation (finalAttrs: {
+  pname = "keyhub-cli";
+  version = "50";
 
   src = fetchurl {
-    url = "https://files.topicus-keyhub.com/manual/keyhub-cli-${version}.zip";
-    hash = "sha256-GjBVLisnWSnC/WQdRQ66x8JHCeoY96RQlla55UIJWOw=";
+    url = "https://files.topicus-keyhub.com/manual/keyhub-cli-${finalAttrs.version}.zip";
+    hash = "sha256-s55aIX2LM3nb6ifUO0MNYnCZXe6kX0OhLuP6sj9jQNY=";
   };
 
-  buildInputs = [ autoPatchelfHook glibc stdenv.cc.cc zlib ];
-  nativeBuildInputs = [ unzip ];
+  buildInputs = [ zlib ];
+  nativeBuildInputs = [ unzip autoPatchelfHook ];
 
-  unpackPhase = ''
-    unzip $src
-  '';
+  sourceRoot = ".";
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp linux/keyhub $out/bin
+    install -Dm755 linux/keyhub $out/bin/keyhub
     ln -sf ${wrapper}/bin/keyhub.py $out/bin/keyhub.py
   '';
 
   meta = with lib; {
-    homepage = "https://topicus-keyhub.com/";
     description = "A command line interface to Topicus KeyHub";
+    homepage = "https://topicus-keyhub.com/";
+    license = lib.licenses.unfree;
+    mainProgram = "keyhub";
     maintainers = with maintainers; [ c0deaddict ];
+    platforms = [ "x86_64-linux" ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
-}
+})
