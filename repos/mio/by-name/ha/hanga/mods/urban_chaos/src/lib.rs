@@ -1422,7 +1422,7 @@ mod tests {
     fn catalog_is_english_names_in_index_order() {
         assert_eq!(
             voxel_catalog(),
-            "air,concrete,asphalt,glass,sidewalk,grass,tile,rail,workbench,brick"
+            "air,concrete,asphalt,glass,sidewalk,grass,tile,rail,workbench,brick,drill"
         );
         assert_eq!(Voxel::from_name("tile"), Some(Voxel::Tile));
         assert_eq!(Voxel::from_name("workbench"), Some(Voxel::Workbench));
