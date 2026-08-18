@@ -16,6 +16,10 @@ in
 
     hardware.deviceTree.name = "qcom/sdm845-xiaomi-beryllium-tianma.dtb";
 
+    hardware.firmware = [
+      pkgs.firmware-xiaomi-beryllium
+    ];
+
     boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-postmarketos-qcom-sdm845;
 
     # TODO: enable systemd-boot, but needs linux-postmarketos-qcom-sdm845.features.efiBootStub == true.

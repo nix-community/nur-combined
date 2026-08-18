@@ -75,7 +75,7 @@ let
       #   ];
       #   # directTools = true;
       # };
-      auto-zoekt = lib.optionalAttrs cfg.auto-zoekt {
+      ${if cfg.auto-zoekt then "auto-zoekt" else null} = {
         command = "auto-zoekt";
         args = [ "mcp" ];
         directTools = true;
@@ -96,7 +96,7 @@ let
       #     "regex_search"
       #   ];
       # };
-      coderag = lib.optionalAttrs cfg.coderag {
+      ${if cfg.coderag then "coderag" else null} = {
         command = "coderag";
         args = [ "mcp" ];
         directTools = [
@@ -430,7 +430,7 @@ in
         # pkgs.pi-md-export  #< adds `/md` slash command
         # pkgs.pi-move-session  #< adds `/move-session` slash command
         pkgs.pi-speeed
-        # pkgs.pi-subagents
+        pkgs.pi-subagents
         pkgs.pi-tool-repair  #< repairs "Error: Upstream emitted malformed tool call data that could not be repaired"
         # pkgs.pi-simplify  #< adds `/simplify` slash command
         pkgs.pi-vim  #< makes the input textarea behave like vim

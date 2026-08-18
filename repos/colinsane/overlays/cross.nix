@@ -820,7 +820,7 @@ in with final; {
   # > tree-sitter-aarch64-unknown-linux-gnu>   thread 'main' (4005) panicked at /build/tree-sitter-0.26.8-vendor/source-registry-0/rquickjs-sys-0.10.0/build.rs:352:39:
   # > tree-sitter-aarch64-unknown-linux-gnu>   Unable to generate bindings: ClangDiagnostic("/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:182:9: error: unknown type name '__SVFloat32_t'\n/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:183:9: error: unknown type name '__SVFloat64_t'\n/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:184:9: error: unknown type name '__SVBool_t'\n")
   tree-sitter = prev.tree-sitter.overrideAttrs (finalAttrs: prevAttrs: {
-    version = lib.warnIf (lib.versionOlder "0.26.8" prevAttrs.version) "tree-sitter is updated upstream: remove version override?" "0.25.10";
+    version = lib.warnIf (lib.versionOlder "0.26.9" prevAttrs.version) "tree-sitter is updated upstream: remove version override?" "0.25.10";
     src = prevAttrs.src.overrideAttrs {
       hash = "sha256-aHszbvLCLqCwAS4F4UmM3wbSb81QuG9FM7BDHTu1ZvM=";
     };

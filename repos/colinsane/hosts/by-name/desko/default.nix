@@ -41,6 +41,7 @@
 
   sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
+  sane.programs."sane-scripts.sync-from-iphone".enableFor.user.colin = true;
 
   sane.programs.sway.enableFor.user.colin = true;
   sane.programs.pcGameApps.suggestedPrograms = [

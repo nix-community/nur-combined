@@ -16,7 +16,7 @@
 {
   bash,
   fetchFromGitHub,
-  ffmpeg,
+  ffmpeg_8,
   gnused,
   gmp,
   lame,
@@ -43,16 +43,19 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pikeru";
-  version = "1.16";
+  version = "1.17";
 
   src = fetchFromGitHub {
     owner = "dvhar";
     repo = "pikeru";
     rev = finalAttrs.version;
-    hash = "sha256-tUqDOOQnNZCJhTYJc/bt1SOn8+gyp5Nqw3Yv0BvyJy0=";
+    hash = "sha256-bxBQMcMan+wwUeGv01b9eS7KAAs2X6w4YU8bK8HaSVw=";
   };
 
-  cargoHash = "sha256-WecoTne1TwhWFLx9tLq5zRkrnyq358Kd2aMMx1FlGr4=";
+  cargoHash = "sha256-D7B+TD+6ULVbDtLOUn/EEwDM0q1I7rpCS1D15rq2Its=";
+
+  # most tests fail: "Portal failed to register on D-Bus after 5s."
+  doCheck = false;
 
   # this is nasty; should work with upstream to find a better solution.
   # pikeru as portal reads a ~/.config file, then execs a helper referenced from that file.
@@ -64,6 +67,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace src/portal.rs \
       --replace-fail '/usr/local/share' '/run/current-system/sw/share' \
       --replace-fail '/usr/share' "${placeholder "out"}/share"
+    # Disable the `build` feature in video-rs to use system ffmpeg instead of building from source
+    substituteInPlace src/video-rs/Cargo.toml \
+      --replace-fail '"build"' '"static"'
   '';
 
   nativeBuildInputs = [
@@ -77,7 +83,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # TODO: does it really need all of these?
     # i guess most of them are thumbnail related.
     bash  #< for runtime scripts
-    ffmpeg
+    ffmpeg_8
     gmp
     lame
     libogg

@@ -95,6 +95,7 @@ let
   defconfigRaw = builtins.readFile "${pmaports}/device/community/linux-postmarketos-qcom-sdm845/config-postmarketos-qcom-sdm845.aarch64";
   overlayConfig = let
     m = "m";
+    n = "n";
     y = "y";
   in {
     #
@@ -221,6 +222,14 @@ let
     # extra sane-specific options
     #
     CONFIG_SECURITY_LANDLOCK = y;
+    CONFIG_SECURITY_APPARMOR = y;
+    # to support `bpf-restrict-fs`
+    CONFIG_BPF_EVENTS = y;
+    CONFIG_BPF_SYSCALL = y;
+    CONFIG_BPF_LSM = y;
+    # BTF requires the full DWARF type information, not the reduced form.
+    CONFIG_DEBUG_INFO_REDUCED = n;
+    CONFIG_DEBUG_INFO_BTF = y;
     CONFIG_LSM = ''"landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,bpf"'';
     #
     # "NEW" options (set them to default)
@@ -292,8 +301,11 @@ let
     # CONFIG_RANDSTRUCT_PERFORMANCE=n
   };
   filteredBase = lib.replaceStrings
-    (lib.map (k: "# ${k} is not set") (lib.attrNames overlayConfig) ++ [''CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,ipe,bpf"''])
-    (lib.map (k: "") (lib.attrNames overlayConfig)                  ++ [""])
+    (lib.map (k: "# ${k} is not set") (lib.attrNames overlayConfig) ++ [
+      ''CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,ipe,bpf"''
+      "CONFIG_DEBUG_INFO_REDUCED=y"
+    ])
+    (lib.map (k: "") (lib.attrNames overlayConfig) ++ [ "" "" ])
     # (lib.map (k: "${k}=m") (lib.attrNames overlayConfig) ++ lib.map (k: "# ${k} is not set") (lib.attrNames overlayConfig))
     # (lib.map (k: "") (lib.attrNames overlayConfig)       ++ lib.map (k: "") (lib.attrNames overlayConfig))
     defconfigRaw;
