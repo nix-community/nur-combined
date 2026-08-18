@@ -25,7 +25,7 @@ Options:
 ```nix
 programs.ab-download-manager = {
   enable = true;
-  uiScale = 2;
+  uiScale = 2; # Positive integer; null uses Skiko's automatic scaling.
   autostart.enable = true; # ABDM's autostart feature is overridden by this package because it doesn't handle path to the binary correctly.
   browserIntegration.firefox = {
     enable = true;

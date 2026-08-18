@@ -22,8 +22,8 @@
 }:
 
 assert lib.assertMsg (
-  uiScale == null || ((builtins.isInt uiScale || builtins.isFloat uiScale) && uiScale > 0)
-) "ab-download-manager: uiScale must be null or a positive number";
+  uiScale == null || (builtins.isInt uiScale && uiScale > 0)
+) "ab-download-manager: uiScale must be null or a positive integer";
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ab-download-manager";
@@ -86,12 +86,13 @@ stdenv.mkDerivation (finalAttrs: {
         $'[Application]\napp.classpath=$APPDIR/nix-disable-autostart.jar'
     done
 
+    # Skiko otherwise overwrites the manual Java UI scale during initialization
     ${lib.optionalString (uiScale != null) ''
       substituteInPlace \
         "$out/opt/ab-download-manager/lib/app/ABDownloadManager.cfg" \
         --replace-fail \
         "[JavaOptions]" \
-        $'[JavaOptions]\njava-options=-Dsun.java2d.uiScale=${toString uiScale}'
+        $'[JavaOptions]\njava-options=-Dskiko.linux.autodpi=false\njava-options=-Dsun.java2d.uiScale=${toString uiScale}'
     ''}
 
     mkdir -p "$out/bin"

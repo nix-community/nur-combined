@@ -27,11 +27,13 @@ in
     };
 
     uiScale = lib.mkOption {
-      type = lib.types.nullOr lib.types.number;
+      type = lib.types.nullOr lib.types.ints.positive;
       default = null;
       example = 2;
       description = ''
-        Java UI scale factor. Leave this as null to use automatic scaling.
+        Java UI scale factor. Must be integer; fractional scaling is not
+        supported by the JetBrains Runtime Linux X11 backend. Leave this
+        as null to use Skiko's automatic scaling.
       '';
     };
 
@@ -61,10 +63,6 @@ in
 
   config = lib.mkIf cfg.enable {
     assertions = [
-      {
-        assertion = cfg.uiScale == null || cfg.uiScale > 0;
-        message = "programs.ab-download-manager.uiScale must be null or a positive number";
-      }
       {
         assertion =
           !cfg.browserIntegration.firefox.installExtension || cfg.browserIntegration.firefox.enable;
