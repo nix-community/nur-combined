@@ -28,3 +28,4 @@ dbus-user.talk org.freedesktop.portal.Desktop
 # Allow NetworkManager on system dbus for network detection
 dbus-system filter
 dbus-system.talk org.freedesktop.NetworkManager
+net filter
