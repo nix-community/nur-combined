@@ -523,8 +523,8 @@
             "url": "https://github.com/bryanhonof/nur-packages"
         },
         "c0deaddict": {
-            "rev": "b63f674c306076b94ee5d447790b8f7e9c14d7d7",
-            "sha256": "0w8kq3sg397rbagqfkinckhncagppsv9f977dijyh7hy2yhylhm8",
+            "rev": "a66c98130d61867bd5a90ca9f6199c842789f293",
+            "sha256": "04b1gqmnyxz69kdlqnbbii5ki26adsxcrk7lg286s8yrl4rv5bc1",
             "url": "https://github.com/c0deaddict/nur-packages"
         },
         "c2vi": {
@@ -1638,8 +1638,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "54884e96bb30c7abe2b1e7e06e19c85d4fe76969",
-            "sha256": "0rd5kbddscasi533k4gyjq9kphmansafbl0g2cpcxp7padmzy3kd",
+            "rev": "79ad9dee09066336abc6b939163216a602127fec",
+            "sha256": "1rqqdr2m9x8fksd5y5zp2mpskss56zy2wd0xv2agq309x2vy1jfv",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
