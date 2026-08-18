@@ -1,17 +1,17 @@
 {
   lib,
   stdenv,
-  pkgs,
+  fetchzip,
   ...
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "peerbanhelper";
-  version = "9.4.2";
+  version = "9.4.3";
 
-  src = pkgs.fetchzip {
-    url = "https://github.com/PBH-BTN/PeerBanHelper/releases/download/v${version}/PeerBanHelper_${version}.zip";
-    hash = "sha256-b/Uz/NIVyIZmwDMc29AUOu6OqkoS0wu8sRJscZAjWpw=";
+  src = fetchzip {
+    url = "https://github.com/PBH-BTN/PeerBanHelper/releases/download/v${finalAttrs.version}/PeerBanHelper_${finalAttrs.version}.zip";
+    hash = "sha256-H1DrR8c3hAslh/W1lVnXLLJcbmrtM/m2ByTuS2vpWfE=";
   };
 
   installPhase = ''
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/PBH-BTN/PeerBanHelper";
     license = licenses.gpl3Only;
     sourceProvenance = [ sourceTypes.binaryBytecode ];
-    mainProgram = pname;
+    mainProgram = "peerbanhelper";
   };
-}
+})

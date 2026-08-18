@@ -303,6 +303,7 @@
 
   services.daed = {
     enable = true;
+    package = pkgs.daed;
     listen = "0.0.0.0:2023";
     openFirewall = {
       enable = true;
@@ -444,7 +445,6 @@
 
   services.home-assistant = {
     enable = true;
-    openFirewall = true;
     extraComponents = [
       # Components required to complete the onboarding
       "analytics"
@@ -609,6 +609,7 @@
     9898 # PeerBanHelper
     9000
     13831 # Snell
+    8123 # Home Assistant
     21064 # Home Assistant HomeKit Bridge
     1400 # Home Assistant Sonos
     1443 # Home Assistant Sonos

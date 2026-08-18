@@ -5,14 +5,15 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
-  name = "msd-lite";
+stdenv.mkDerivation {
+  pname = "msd-lite";
+  version = "unstable";
 
   src = fetchFromGitHub {
     owner = "rozhuk-im";
     repo = "msd_lite";
-    rev = "79a6c62c8fced6128a5e445ee110709b3b51bb78";
-    sha256 = "sha256-OEpPlxJqsGrokyVvvACrZMV7wosY/RzFPBnqRr2lUIg=";
+    rev = "fa68e131343fb58c67ad77b2d26f2cb7c49a2c95";
+    hash = "sha256-+LMcsU/kfaRD/0OTN4IN84GeFOsuiGCKjtvVP4dyY6g=";
     fetchSubmodules = true;
   };
 

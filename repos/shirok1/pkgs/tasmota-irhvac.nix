@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildHomeAssistantComponent rec {
+buildHomeAssistantComponent (finalAttrs: {
   owner = "hristo-atanasov";
   domain = "tasmota_irhvac";
   version = "2026.04.05";
@@ -12,7 +12,7 @@ buildHomeAssistantComponent rec {
   src = fetchFromGitHub {
     owner = "hristo-atanasov";
     repo = "Tasmota-IRHVAC";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-aFnyar2R0ibkLfJh9UgR899lQ9iLSufsDuX33Al3UiU=";
   };
 
@@ -21,4 +21,4 @@ buildHomeAssistantComponent rec {
     homepage = "https://github.com/hristo-atanasov/Tasmota-IRHVAC/";
     license = lib.licenses.asl20;
   };
-}
+})

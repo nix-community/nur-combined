@@ -7,13 +7,13 @@
   libusb1,
   ...
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osmo-fl2k";
   version = "0.2.1";
 
   src = fetchgit {
     url = "https://gitea.osmocom.org/sdr/osmo-fl2k.git";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-8Q/lM7nWps12Pekat90fgk2TssO3ht5VNygTx3Rl+lE=";
   };
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     homepage = "https://osmocom.org/projects/osmo-fl2k/wiki";
     license = licenses.gpl2Plus;
   };
-}
+})

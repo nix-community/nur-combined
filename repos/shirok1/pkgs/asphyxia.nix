@@ -2,8 +2,6 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  buildFHSEnv,
-  writeShellScript,
   buildNpmPackage,
   nodejs,
   makeWrapper,
@@ -24,7 +22,7 @@
 
 let
   pname = "asphyxia";
-  version = "v1.60b";
+  version = "1.60b";
 
   meta = with lib; {
     description = "This is a “e-amuse emulator”";
@@ -36,7 +34,7 @@ let
   coreSrc = fetchFromGitHub {
     owner = "asphyxia-core";
     repo = "core";
-    rev = version;
+    rev = "v${version}";
     sha256 = "sha256-bRgMLvyPF5fIr2NaruwB+oY2ItZ7Ulo0muFj9BH3j38=";
   };
 
@@ -48,7 +46,7 @@ let
     sha256 = "sha256-xxhnwIC8Ik0Wq3ccKtxXvYXSNfx5zoianoFDOGfGo1c=";
   };
 
-  core = buildNpmPackage rec {
+  core = buildNpmPackage {
     inherit version meta;
 
     pname = "asphyxia-core";

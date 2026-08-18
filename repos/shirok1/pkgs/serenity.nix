@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-  nixosTests,
 }:
 
 buildGoModule (finalAttrs: {

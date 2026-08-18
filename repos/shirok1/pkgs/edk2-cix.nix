@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "edk2-cix";
-  version = "1.3.0";
+  version = "1.3.1";
 
   src = fetchurl {
     url = "https://github.com/radxa-pkg/edk2-cix/releases/download/${finalAttrs.version}/edk2-cix_${finalAttrs.version}_all.deb";
-    hash = "sha256-T5B7DhxXvrbKX67TI3RVjjV5fvjxz2mkqqMu8aXfsqE=";
+    hash = "sha256-9vJQzt+KkcyTVjP4IqziuYe+HGdIFNfDwAtUCzgS8oI=";
   };
 
   nativeBuildInputs = [ dpkg ];
