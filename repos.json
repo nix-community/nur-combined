@@ -1038,6 +1038,10 @@
         "moosingin3space": {
             "url": "https://github.com/moosingin3space/nur-packages"
         },
+        "mopigames": {
+            "file": "packaging/nix/nur.nix",
+            "url": "https://github.com/MopigamesYT/moonlight-os"
+        },
         "moraxyc": {
             "url": "https://github.com/moraxyc/nur-packages"
         },
@@ -1069,6 +1073,9 @@
         },
         "msaxena": {
             "url": "https://github.com/MayurSaxena/nurpkgs"
+        },
+        "mst-mkt": {
+            "url": "https://github.com/mst-mkt/nur-packages"
         },
         "mweinelt": {
             "url": "https://github.com/mweinelt/nur-packages"
