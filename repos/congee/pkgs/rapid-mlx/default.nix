@@ -29,14 +29,14 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "rapid-mlx";
-  version = "0.12.4";
+  version = "0.12.15";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "raullenchai";
     repo = "Rapid-MLX";
     rev = "v${version}";
-    hash = "sha256-nECkrhsW9J2Hplkii1Fe94XJW5fwhs/rfEh4805Mmiw=";
+    hash = "sha256-epagTbdL5btfwAx1jUu5q6KyMAKojg1VtSBNMkdzq2w=";
   };
 
   build-system = with python3Packages; [
@@ -61,6 +61,7 @@ python3Packages.buildPythonApplication rec {
     requests
     tabulate
     tokenizers
+    tomli-w
     tqdm
     transformers
     uvicorn
