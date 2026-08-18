@@ -46,7 +46,7 @@ buildGoModule (finalAttrs: {
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
     "-DCMAKE_SKIP_INSTALL_RPATH=ON"
   ]
-  ++ lib.optional stdenv.isLinux "-DCMAKE_OSX_ARCHITECTURES=";
+  ++ lib.optional stdenv.hostPlatform.isLinux "-DCMAKE_OSX_ARCHITECTURES=";
 
   preBuild = lib.optionalString (!lib.systems.equals stdenv.hostPlatform stdenv.buildPlatform) ''
     export GOARCH=$(go env GOHOSTARCH)
