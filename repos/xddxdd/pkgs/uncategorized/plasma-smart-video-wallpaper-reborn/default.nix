@@ -1,9 +1,9 @@
 {
   lib,
   sources,
-  stdenvNoCC,
+  stdenv,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.plasma-smart-video-wallpaper-reborn) pname version src;
 
   postInstall = ''

@@ -1,11 +1,11 @@
 {
-  stdenvNoCC,
+  stdenv,
   lib,
   sources,
   ...
 }:
 let
-  package = stdenvNoCC.mkDerivation (finalAttrs: {
+  package = stdenv.mkDerivation (finalAttrs: {
     pname = "plangothic-fonts";
     inherit (sources.plangothic-fonts) version src;
     installPhase = ''

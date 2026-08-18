@@ -47,9 +47,9 @@ let
         lib.filterAttrs (n: v: v != null) (
           lib.mapAttrs (
             name: value:
-            if stdenv.isx86_64 && (value."64" or "unset") != "unset" then
+            if stdenv.hostPlatform.isx86_64 && (value."64" or "unset") != "unset" then
               mkLibrary asterisk_version name "64" value."64"
-            else if stdenv.isi686 && (value."32" or "unset") != "unset" then
+            else if stdenv.hostPlatform.isi686 && (value."32" or "unset") != "unset" then
               mkLibrary asterisk_version name "32" value."32"
             else
               null

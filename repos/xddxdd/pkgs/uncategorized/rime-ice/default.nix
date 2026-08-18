@@ -1,9 +1,9 @@
 {
   sources,
-  stdenvNoCC,
+  stdenv,
   lib,
 }:
-stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   inherit (sources.rime-ice) pname version src;
 
   buildPhase = ''

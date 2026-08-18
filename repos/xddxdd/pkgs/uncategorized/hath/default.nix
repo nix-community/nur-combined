@@ -1,11 +1,11 @@
 {
-  stdenvNoCC,
+  stdenv,
   fetchzip,
   lib,
   jre_headless,
   makeWrapper,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "hath";
   version = "1.6.2";
   src = fetchzip {

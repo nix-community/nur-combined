@@ -10,9 +10,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "lightpanda";
   inherit
     (
-      if stdenv.isx86_64 then
+      if stdenv.hostPlatform.isx86_64 then
         sources.lightpanda-amd64
-      else if stdenv.isAarch64 then
+      else if stdenv.hostPlatform.isAarch64 then
         sources.lightpanda-arm64
       else
         throw "Unsupported architecture"

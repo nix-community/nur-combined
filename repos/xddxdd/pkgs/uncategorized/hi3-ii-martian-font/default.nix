@@ -1,9 +1,9 @@
 {
-  stdenvNoCC,
+  stdenv,
   lib,
   sources,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.hi3-ii-martian-font) pname version src;
 
   installPhase = ''

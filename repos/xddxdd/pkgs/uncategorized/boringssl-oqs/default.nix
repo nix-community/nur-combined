@@ -20,7 +20,7 @@ let
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
     "-DCMAKE_SKIP_INSTALL_RPATH=ON"
   ]
-  ++ lib.optionals stdenv.isLinux [ "-DCMAKE_OSX_ARCHITECTURES=" ];
+  ++ lib.optionals stdenv.hostPlatform.isLinux [ "-DCMAKE_OSX_ARCHITECTURES=" ];
 in
 buildGoModule rec {
   inherit (sources.boringssl-oqs) pname version src;

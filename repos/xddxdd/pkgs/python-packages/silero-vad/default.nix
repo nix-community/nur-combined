@@ -25,7 +25,7 @@ buildPythonPackage rec {
   ];
 
   # onnxruntime may fail to start on ARM64
-  pythonImportsCheck = lib.optionals stdenv.isx86_64 [ "silero_vad" ];
+  pythonImportsCheck = lib.optionals stdenv.hostPlatform.isx86_64 [ "silero_vad" ];
 
   meta = {
     changelog = "https://github.com/snakers4/silero-vad/releases/tag/v${version}";

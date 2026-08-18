@@ -1,5 +1,5 @@
 {
-  stdenvNoCC,
+  stdenv,
   lib,
   sources,
   fetchurl,
@@ -14,7 +14,7 @@ let
     hash = "sha256-apFbGtWacE3GjXU/6h2yseskAsob0Xc/NWEu2uC0v3M=";
   };
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.grasscutter) pname version src;
 
   dontUnpack = true;

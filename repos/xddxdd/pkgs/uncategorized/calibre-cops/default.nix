@@ -1,13 +1,13 @@
 {
   sources,
   lib,
-  stdenvNoCC,
+  stdenv,
   unzip,
 }:
 let
   configFile = ./config_local.php;
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.calibre-cops) pname version src;
 
   unpackPhase = ''

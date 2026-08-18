@@ -1,9 +1,9 @@
 {
-  stdenvNoCC,
+  stdenv,
   sources,
   lib,
 }:
-stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   inherit (sources.rime-zhwiki) pname version src;
 
   dontUnpack = true;

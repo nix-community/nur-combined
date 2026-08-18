@@ -57,7 +57,7 @@ let
       libXtst
       zlib
     ]
-    ++ lib.optional stdenv.isAarch32 libffi;
+    ++ lib.optional stdenv.hostPlatform.isAarch32 libffi;
 
     nativeBuildInputs = [
       autoPatchelfHook

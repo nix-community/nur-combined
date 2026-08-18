@@ -1,5 +1,5 @@
 {
-  stdenvNoCC,
+  stdenv,
   lib,
   fetchurl,
 }:
@@ -13,7 +13,7 @@ let
     hash = "sha256-2nvseKgZSVIy0oYkT+DB+V0UfoSBG4Ds4EcWnFfNSkU=";
   };
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kaixinsong-fonts";
   version = "3.0";
 

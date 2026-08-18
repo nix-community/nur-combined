@@ -45,13 +45,13 @@ let
       };
     };
 in
-if stdenv.isx86_64 then
+if stdenv.hostPlatform.isx86_64 then
   mkPackage sources.qemu-user-static-amd64
-else if stdenv.isi686 then
+else if stdenv.hostPlatform.isi686 then
   mkPackage sources.qemu-user-static-i386
-else if stdenv.isAarch64 then
+else if stdenv.hostPlatform.isAarch64 then
   mkPackage sources.qemu-user-static-arm64
-else if stdenv.isAarch32 then
+else if stdenv.hostPlatform.isAarch32 then
   mkPackage sources.qemu-user-static-armhf
 else
   throw "Unsupported architecture"

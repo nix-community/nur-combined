@@ -1,5 +1,5 @@
 {
-  stdenvNoCC,
+  stdenv,
   sources,
   lib,
   python3,
@@ -11,7 +11,7 @@ let
     win2xcur
   ]);
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.sam-toki-mouse-cursors) pname version src;
 
   nativeBuildInputs = [ py ];

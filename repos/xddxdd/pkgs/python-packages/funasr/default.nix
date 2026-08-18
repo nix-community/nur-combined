@@ -83,6 +83,6 @@ buildPythonPackage rec {
     license = with lib.licenses; [ mit ];
     mainProgram = "funasr";
     # Dependency librosa doesn't work on ARM64
-    broken = stdenv.isAarch64;
+    broken = stdenv.hostPlatform.isAarch64;
   };
 }

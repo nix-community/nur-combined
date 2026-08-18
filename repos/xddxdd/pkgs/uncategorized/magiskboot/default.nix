@@ -1,23 +1,23 @@
 {
   sources,
   lib,
-  stdenvNoCC,
+  stdenv,
   unzip,
 }:
 let
   arch =
-    if stdenvNoCC.isx86_64 then
+    if stdenv.hostPlatform.isx86_64 then
       "x86_64"
-    else if stdenvNoCC.isx86_32 then
+    else if stdenv.hostPlatform.isx86_32 then
       "x86"
-    else if stdenvNoCC.isAarch64 then
+    else if stdenv.hostPlatform.isAarch64 then
       "arm64-v8a"
-    else if stdenvNoCC.isAarch32 then
+    else if stdenv.hostPlatform.isAarch32 then
       "armeabi-v7a"
     else
       throw "Unsupported architecture";
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.magiskboot) pname version src;
   dontUnpack = true;
 

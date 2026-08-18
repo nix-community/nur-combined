@@ -38,9 +38,9 @@ let
   ];
 
   source =
-    if stdenv.isx86_64 then
+    if stdenv.hostPlatform.isx86_64 then
       sources.qq-amd64
-    else if stdenv.isAarch64 then
+    else if stdenv.hostPlatform.isAarch64 then
       sources.qq-arm64
     else
       throw "Unsupported architecture";

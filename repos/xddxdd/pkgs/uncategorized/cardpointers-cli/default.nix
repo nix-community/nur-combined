@@ -1,13 +1,13 @@
 {
   sources,
-  stdenvNoCC,
+  stdenv,
   lib,
   makeWrapper,
   curl,
   jq,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.cardpointers-cli) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];

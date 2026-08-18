@@ -15,7 +15,7 @@ let
       mask = ''\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff'';
     };
     qemu-aarch64-static = {
-      enable = !pkgs.stdenv.isAarch64;
+      enable = !pkgs.stdenv.hostPlatform.isAarch64;
       interpreter = lib.getExe' qemuPackage "qemu-aarch64";
       magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00'';
       mask = ''\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
@@ -46,13 +46,13 @@ let
       mask = ''\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff'';
     };
     qemu-i386-static = {
-      enable = !pkgs.stdenv.isx86_64;
+      enable = !pkgs.stdenv.hostPlatform.isx86_64;
       interpreter = lib.getExe' qemuPackage "qemu-i386";
       magicOrExtension = ''\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x03\x00'';
       mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
     };
     qemu-i686-static = {
-      enable = !pkgs.stdenv.isx86_64;
+      enable = !pkgs.stdenv.hostPlatform.isx86_64;
       interpreter = lib.getExe' qemuPackage "qemu-i386";
       magicOrExtension = ''\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x06\x00'';
       mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
@@ -168,7 +168,7 @@ let
       mask = ''\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff'';
     };
     qemu-x86_64-static = {
-      enable = !pkgs.stdenv.isx86_64;
+      enable = !pkgs.stdenv.hostPlatform.isx86_64;
       interpreter = lib.getExe' qemuPackage "qemu-x86_64";
       magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
       mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
@@ -217,7 +217,7 @@ let
     in
     lib.optionalString enable ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 
-  enabled = pkgs.stdenv.isx86_64 || pkgs.stdenv.isAarch64;
+  enabled = pkgs.stdenv.hostPlatform.isx86_64 || pkgs.stdenv.hostPlatform.isAarch64;
 in
 {
   key = "xddxdd-nur-packages-qemu-user-static-binfmt";

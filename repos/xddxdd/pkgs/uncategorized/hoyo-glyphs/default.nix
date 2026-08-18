@@ -1,10 +1,10 @@
 {
-  stdenvNoCC,
+  stdenv,
   lib,
   sources,
   unzip,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.hoyo-glyphs) pname version src;
 
   sourceRoot = ".";

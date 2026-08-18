@@ -1,5 +1,5 @@
 {
-  stdenvNoCC,
+  stdenv,
   sources,
   lib,
   python3,
@@ -16,7 +16,7 @@ let
     ]
   );
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.decluttarr) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];

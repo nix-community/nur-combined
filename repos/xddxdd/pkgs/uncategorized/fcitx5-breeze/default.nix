@@ -1,12 +1,12 @@
 {
   sources,
-  stdenvNoCC,
+  stdenv,
   lib,
   python3,
   inkscape,
   writableTmpDirAsHomeHook,
 }:
-stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   inherit (sources.fcitx5-breeze) pname version src;
 
   nativeBuildInputs = [

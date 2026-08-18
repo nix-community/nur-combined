@@ -1,12 +1,12 @@
 {
   lib,
-  stdenvNoCC,
+  stdenv,
   sources,
 }:
 let
   configFile = ./config.inc.php;
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.phppgadmin) pname version src;
 
   installPhase = ''

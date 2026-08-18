@@ -1,12 +1,12 @@
 {
   sources,
-  stdenvNoCC,
+  stdenv,
   lib,
   jdk25_headless,
   makeWrapper,
   unzip,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.peerbanhelper) pname version src;
 
   nativeBuildInputs = [

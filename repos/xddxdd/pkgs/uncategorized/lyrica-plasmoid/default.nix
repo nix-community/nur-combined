@@ -1,10 +1,10 @@
 {
   lib,
   sources,
-  stdenvNoCC,
+  stdenv,
   lyrica,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.lyrica) pname version src;
 
   postInstall = ''

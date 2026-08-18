@@ -1,13 +1,13 @@
 {
   sources,
   lib,
-  stdenvNoCC,
+  stdenv,
   libime,
   imewlconverter,
   unzip,
 }:
 # Based on https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=rime-custom-pinyin-dictionary
-stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   inherit (sources.rime-custom-pinyin-dictionary) pname version src;
 
   sourceRoot = ".";

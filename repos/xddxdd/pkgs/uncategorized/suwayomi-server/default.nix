@@ -1,12 +1,12 @@
 {
-  stdenvNoCC,
+  stdenv,
   lib,
   sources,
   unzip,
   jre_headless,
   makeWrapper,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.suwayomi-server) pname version src;
 
   dontUnpack = true;

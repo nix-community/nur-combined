@@ -1,12 +1,12 @@
 {
   sources,
-  stdenvNoCC,
+  stdenv,
   lib,
   jre_headless,
   makeWrapper,
   unzip,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.jproxy) pname version src;
 
   nativeBuildInputs = [

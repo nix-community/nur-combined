@@ -1,9 +1,9 @@
 {
   sources,
-  stdenvNoCC,
+  stdenv,
   lib,
 }:
-stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   inherit (sources.rime-aurora-pinyin) pname version src;
   installPhase = ''
     runHook preInstall

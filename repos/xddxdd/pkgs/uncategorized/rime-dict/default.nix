@@ -1,9 +1,9 @@
 {
-  stdenvNoCC,
+  stdenv,
   sources,
   lib,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.rime-dict) pname version src;
   installPhase = ''
     runHook preInstall

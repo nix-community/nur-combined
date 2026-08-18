@@ -1,9 +1,9 @@
 {
-  stdenvNoCC,
+  stdenv,
   sources,
   lib,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.rime-moegirl) pname version src;
 
   dontUnpack = true;

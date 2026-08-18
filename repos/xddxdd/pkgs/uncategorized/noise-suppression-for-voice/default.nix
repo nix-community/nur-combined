@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DBUILD_AU_PLUGIN=OFF"
     "-DBUILD_AUV3_PLUGIN=OFF"
   ]
-  ++ lib.optionals stdenv.isx86_64 [ "-DBUILD_RTCD=ON" ];
+  ++ lib.optionals stdenv.hostPlatform.isx86_64 [ "-DBUILD_RTCD=ON" ];
 
   meta = {
     changelog = "https://github.com/werman/noise-suppression-for-voice/releases/tag/v${finalAttrs.version}";
