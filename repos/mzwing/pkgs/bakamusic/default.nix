@@ -12,13 +12,17 @@
 #     official global-libvips build path.
 #   - get-windows is pure JavaScript on Linux (it shells out to xprop and
 #     xwininfo), so no native rebuild is needed — only wrapper PATH entries.
-#   - The qmc2/ence/taglib Node-API bindings are the one exception: their
-#     sources live in the private repository Zencok/baka-native, so the
-#     prebuilt binaries vendored in the upstream repo for exactly this
-#     purpose (`npm run native:install`, offline, sha256-verified) are used
-#     as-is and declared via meta.sourceProvenance. They are plain N-API
-#     modules linked against libc and libstdc++; the wrapper's
-#     LD_LIBRARY_PATH provides the latter.
+#   - The qmc2/ence/taglib/transcode Node-API bindings are the one
+#     exception: scripts/build-native.js builds them from a native/ checkout
+#     that only exists in Zencok/baka-native, which is private (the repo and
+#     its release assets both 404), so the prebuilt binaries vendored in the
+#     upstream repo for exactly this purpose (`npm run native:install`,
+#     offline, sha256-verified) are used as-is and declared via
+#     meta.sourceProvenance. They are plain N-API modules needing only libc
+#     and libstdc++; the wrapper's LD_LIBRARY_PATH provides the latter.
+#     taglib.node statically links upstream TagLib (2.3.1 at this pin) and
+#     transcode.node dlopens the seeded libmpv, but both bindings themselves
+#     are baka-native's.
 {
   lib,
   stdenv,
@@ -26,12 +30,17 @@
   source,
   fetchNpmDeps,
   npmHooks,
-  makeWrapper,
+  makeShellWrapper,
+  wrapGAppsHook3,
   nodejs_24,
   electron,
   electron_43 ? electron,
   mpv-unwrapped,
   vips,
+  gsettings-desktop-schemas,
+  glib,
+  gtk3,
+  gtk4,
   pkg-config,
   binutils,
   python3,
@@ -145,7 +154,8 @@ in
     inherit pname src version;
 
     nativeBuildInputs = [
-      makeWrapper
+      makeShellWrapper
+      wrapGAppsHook3
       nodejs_24
       npmHooks.npmConfigHook
       python3 # node-gyp (sharp)
@@ -157,6 +167,12 @@ in
 
     buildInputs = [
       vips # sharp --build-from-source against the system libvips
+      # What wrapper.nix carries for GSETTINGS_SCHEMAS_PATH; librsvg, gtk3
+      # and dconf come along with wrapGAppsHook3 itself.
+      gsettings-desktop-schemas
+      glib
+      gtk3
+      gtk4
     ];
 
     inherit npmDeps;
@@ -345,12 +361,30 @@ in
       install -Dm644 res/logo.png $out/share/icons/hicolor/512x512/apps/bakamusic.png
       install -Dm644 ${desktopFile} $out/share/applications/bakamusic.desktop
 
-      makeWrapper $out/lib/bakamusic/BakaMusic $out/bin/bakamusic \
+      runHook postInstall
+    '';
+
+    # wrapper.nix applies gappsWrapperArgs by hand for the same reason.
+    dontWrapGApps = true;
+
+    # What launches is electron-packager's own copy of the binary, so nixpkgs'
+    # electron wrapper never runs and everything wrapper.nix would have set has
+    # to be set here: the GTK/GSettings environment, plus CHROME_DEVEL_SANDBOX.
+    # Chromium reads the chrome-sandbox next to the executable as a user-managed
+    # build (no store file is setuid root) and kills the zygote with SIGILL
+    # unless that variable names the helper explicitly; naming it is all it
+    # wants, the sandboxing itself still comes from user namespaces.
+    preFixup = ''
+      # makeShellWrapper because wrapGAppsHook3 propagates makeBinaryWrapper,
+      # which shadows makeWrapper and bakes flags in literally instead of
+      # expanding NIXOS_OZONE_WL at run time; preFixup because gappsWrapperArgs
+      # is filled by a preFixupPhases hook, i.e. only after installPhase.
+      makeShellWrapper $out/lib/bakamusic/BakaMusic $out/bin/bakamusic \
+        "''${gappsWrapperArgs[@]}" \
         --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime}" \
+        --set CHROME_DEVEL_SANDBOX $out/lib/bakamusic/chrome-sandbox \
         --prefix PATH : ${lib.makeBinPath [xdg-utils xprop xwininfo]} \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [stdenv.cc.cc.lib]}
-
-      runHook postInstall
     '';
 
     doInstallCheck = true;
@@ -374,6 +408,18 @@ in
 
       assert 'the launcher binary is missing' test -x $out/lib/bakamusic/BakaMusic
       assert 'app.asar is missing' test -f $resources/app.asar
+
+      # Both halves matter: a dangling symlink here or a wrapper that forgets
+      # the variable is the same SIGILL at zygote startup.
+      assert 'the chrome-sandbox helper is missing' test -x $out/lib/bakamusic/chrome-sandbox
+      assert 'the wrapper does not set CHROME_DEVEL_SANDBOX' \
+        grep -q "CHROME_DEVEL_SANDBOX=.*$out/lib/bakamusic/chrome-sandbox" $out/bin/bakamusic
+
+      # A gappsWrapperArgs that expanded to nothing — the wrapper built too
+      # early, say — is silent until GTK aborts on a missing schema.
+      assert 'the wrapper carries no GSettings schemas' \
+        grep -q 'gsettings-schemas' $out/bin/bakamusic
+
       assert 'the desktop entry does not exec bakamusic' \
         grep -q "Exec=bakamusic" $out/share/applications/bakamusic.desktop
       assert 'the icon is missing' test -f $out/share/icons/hicolor/512x512/apps/bakamusic.png
@@ -391,7 +437,7 @@ in
       # executable and store files are not, so check a writable copy — otherwise
       # ldd only warns, prints no dependencies, and the grep below always passes.
       probe_dir=$(mktemp -d)
-      for module in qmc2 ence taglib; do
+      for module in qmc2 ence taglib transcode; do
         module_path=$resources/res/.service/native/$module.node
         assert "$module.node is missing" test -f "$module_path"
 
