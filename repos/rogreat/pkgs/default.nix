@@ -2,7 +2,8 @@
   pkgs ? import <nixpkgs> { },
 }:
 let
-  callPackage = pkgs.lib.callPackageWith (pkgs // stable // unstable // python-stable);
+  packages = stable // unstable // nightly // python-stable;
+  callPackage = pkgs.lib.callPackageWith (pkgs // packages);
   pythonCallPackage = pkgs.lib.callPackageWith (pkgs // pkgs.python3Packages // python-stable);
   stable = pkgs.lib.packagesFromDirectoryRecursive {
     callPackage = callPackage;
@@ -12,9 +13,13 @@ let
     callPackage = callPackage;
     directory = ./unstable;
   };
+  nightly = pkgs.lib.packagesFromDirectoryRecursive {
+    callPackage = callPackage;
+    directory = ./nightly;
+  };
   python-stable = pkgs.lib.packagesFromDirectoryRecursive {
     callPackage = pythonCallPackage;
     directory = ./python/stable;
   };
 in
-stable // unstable // python-stable
+packages
