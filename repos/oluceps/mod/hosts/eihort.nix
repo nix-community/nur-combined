@@ -123,7 +123,7 @@
           ];
         };
 
-        kernelPackages = pkgs.linuxPackages_latest.zfs_2_4;
+        kernelPackages = pkgs.linuxPackages_latest;
       };
 
       zramSwap = {

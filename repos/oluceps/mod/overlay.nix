@@ -36,7 +36,7 @@
 
               // {
                 inherit (inputs'.browser-previews.packages) google-chrome-beta;
-                inherit (inputs'.nixpkgs-stable.legacyPackages) calibre-web;
+                inherit (inputs'.nixpkgs-stable.legacyPackages) calibre-web wayprompt;
                 # foot = prev.foot.overrideAttrs (o: {
                 #   version = "1.26.0-ecf3";
                 #   src = prev.fetchFromCodeberg {

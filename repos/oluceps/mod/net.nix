@@ -186,7 +186,10 @@ in
           };
           hostName = "eihort"; # Define your hostname.
           firewall = {
-            allowedTCPPorts = [ 21027 ];
+            allowedTCPPorts = [
+              21027
+              443
+            ];
             allowedUDPPorts = [ ];
           };
           hostId = "0bc55a2e";

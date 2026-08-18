@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 [
   {
     handle = [
@@ -137,6 +140,44 @@
         upstreams = [ { dial = "[fdcc::3]:1411"; } ];
         response_buffers = 2097152;
       }
+    ];
+    terminal = true;
+  }
+  {
+    match = [ { host = [ "vault.nyaw.xyz" ]; } ];
+    handle = [
+      {
+        handler = "subroute";
+        routes = [
+          {
+            handle = [
+              {
+                handler = "static_response";
+                status_code = 404;
+              }
+            ];
+            match = [
+              {
+                path = [
+                  "/admin"
+                  "/admin/*"
+                ];
+              }
+            ];
+          }
+
+          {
+            handle = [
+              {
+                handler = "reverse_proxy";
+                headers.request.set.X-Real-Ip = [ "{http.request.remote.host}" ];
+                upstreams = [ { dial = "[fdcc::3]:8003"; } ];
+              }
+            ];
+          }
+        ];
+      }
+
     ];
     terminal = true;
   }

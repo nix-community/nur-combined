@@ -51,16 +51,17 @@
                         ];
                         match = [ { host = [ "alert.nyaw.xyz" ]; } ];
                       }
-                      {
-                        handle = [
-                          {
-                            handler = "reverse_proxy";
-                            upstreams = [ { dial = "[fdcc::3]:8003"; } ];
-                          }
-                        ];
-                        match = [ { host = [ "vault.nyaw.xyz" ]; } ];
-                        terminal = true;
-                      }
+                      # {
+                      #   handle = [
+                      #     {
+                      #       handler = "reverse_proxy";
+                      #       headers.request.set.X-Real-Ip = [ "{http.request.remote.host}" ];
+                      #       upstreams = [ { dial = "[fdcc::3]:8003"; } ];
+                      #     }
+                      #   ];
+                      #   match = [ { host = [ "vault.nyaw.xyz" ]; } ];
+                      #   terminal = true;
+                      # }
                       {
                         handle = [
                           {

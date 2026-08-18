@@ -40,6 +40,7 @@
             yggdrasil
             earlyoom
             dae
+            # honk
             # limes
             secureboot
             home
@@ -47,6 +48,7 @@
             prometheus
             # xray
             june
+            # ipex
             # scx
           ])
         )

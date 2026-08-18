@@ -492,6 +492,7 @@ in
       // Disable the use of the cursor plane.
       // The cursor will be rendered together with the rest of the frame.
       // disable-cursor-plane
+      deactivate-unfocused-windows
 
       // Slow down animations by this factor.
       // animation-slowdown 3.0
