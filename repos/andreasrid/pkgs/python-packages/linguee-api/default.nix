@@ -1,22 +1,47 @@
 {
-  python3Packages,
+  lib,
+  buildPythonPackage,
   fetchFromGitHub,
-  python-xextract,
+  fastapi,
+  aiosqlite,
+  async-lru,
+  httpx,
+  loguru,
+  lxml,
+  pydantic_1,
+  python-dotenv,
+  starlette,
+  sentry-sdk,
+  uvicorn,
+  xextract,
+  poetry-core,
+  pythonRelaxDepsHook,
+  makeWrapper,
 }:
 
-with python3Packages;
-
 let
+  starlette_047 = starlette.overridePythonAttrs (old: rec {
+    version = "0.47.2";
+    src = old.src.override {
+      tag = version;
+      hash = "sha256-FseSZrLWuNaLro2iLMcfiCrbx2Gz8+aEmLaSk/+PgN4=";
+    };
+  });
+
   # fastapi and linguee-api depend on different version of pydantic
   # replace dependency pydantic with pydantic_1
   fastapi-customized =
-    (python3Packages.fastapi.override { pydantic = pydantic_1; }).overridePythonAttrs
+    (fastapi.override {
+      pydantic = pydantic_1;
+      starlette = starlette_047;
+    }).overridePythonAttrs
       (old: rec {
         version = "0.116.1";
         src = old.src.override {
           tag = version;
           hash = "sha256-sd0SnaxuuF3Zaxx7rffn4ttBpRmWQoOtXln/amx9rII=";
         };
+        doCheck = false;
         disabledTestPaths = [
           # Don't test docs and examples
           "docs_src"
@@ -38,7 +63,7 @@ buildPythonPackage {
     hash = "sha256-CSskCYnB+mD+jxXWtAuXhLal9UWWFcEPR2olN7EfEZU=";
   };
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     poetry-core
     pythonRelaxDepsHook
     makeWrapper
@@ -46,7 +71,7 @@ buildPythonPackage {
 
   pythonRelaxDeps = true;
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     aiosqlite
     async-lru
     fastapi-customized
@@ -57,7 +82,7 @@ buildPythonPackage {
     python-dotenv
     sentry-sdk
     uvicorn
-    python-xextract
+    xextract
   ];
 
   patches = [

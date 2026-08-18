@@ -1,9 +1,10 @@
 {
-  python3Packages,
+  buildPythonPackage,
   fetchFromGitHub,
+  setuptools,
+  lxml,
+  cssselect,
 }:
-
-with python3Packages;
 
 buildPythonPackage {
   pname = "xextract";
@@ -16,7 +17,7 @@ buildPythonPackage {
     hash = "sha256-KAyDNSrbIFb+KYy15sdBM2xt6oa3xH85zfrjwtzR0vY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     setuptools
     lxml
     cssselect
