@@ -17,6 +17,15 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-XezEeG214Ng5D/MEhxl475PWt96Zk7x0jeIwDgRRFiE=";
   };
 
+  postPatch = ''
+    # https://github.com/uktrade/stream-zip/issues/136
+    # fix: The 'stream-zip' derivation has version '0.0.84' but .dist-info/METADATA specifies version '0.0.0.dev0'.
+    substituteInPlace pyproject.toml \
+      --replace \
+        'version = "0.0.0.dev0"' \
+        'version = "${version}"'
+  '';
+
   nativeBuildInputs = [
     python3.pkgs.hatchling
   ];
