@@ -414,7 +414,7 @@
     },
     "nix-auth": {
         "cargoLock": null,
-        "date": "2026-08-06",
+        "date": "2026-08-17",
         "extract": null,
         "name": "nix-auth",
         "passthru": null,
@@ -426,12 +426,12 @@
             "name": null,
             "owner": "numtide",
             "repo": "nix-auth",
-            "rev": "d43fad3e926493db26d915aba7c0284606e07782",
-            "sha256": "sha256-PHKMqGwfwniAHlbuZl5CUg1bEoSeIGUJHXwzHpHOQeA=",
+            "rev": "8711fcb7ff3f6fcaf7f2bfda58c19634c619dae4",
+            "sha256": "sha256-3fbtONIV8NJas9UPcklZB3W8xIya6o+ig28l4lhB4o4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d43fad3e926493db26d915aba7c0284606e07782"
+        "version": "8711fcb7ff3f6fcaf7f2bfda58c19634c619dae4"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -570,11 +570,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-qYIidNchMyHnYN4B3cpW8pHZzjIBNSwNzeuzrGcsmm8=/Cargo.lock",
+                "sha256-o7rh6MmTzlIc4rowT7TQuO6FS_eub8Za0qvt8zGu2zs=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-15",
+        "date": "2026-08-17",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -586,12 +586,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "8a8536514ad5622ca2027722ae4c588758f3bb3b",
-            "sha256": "sha256-qYIidNchMyHnYN4B3cpW8pHZzjIBNSwNzeuzrGcsmm8=",
+            "rev": "72cfea2b7df4d9791f5a51dab8dff9e7db6de8d6",
+            "sha256": "sha256-o7rh6MmTzlIc4rowT7TQuO6FS/eub8Za0qvt8zGu2zs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8a8536514ad5622ca2027722ae4c588758f3bb3b"
+        "version": "72cfea2b7df4d9791f5a51dab8dff9e7db6de8d6"
     },
     "svt-av1-essential": {
         "cargoLock": null,
