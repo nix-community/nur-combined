@@ -6,7 +6,7 @@
 }:
 
 buildDotnetModule (finalAttrs: {
-  pname = "Cpp2IL";
+  pname = "cpp2il-preview";
   version = "2022.1.0-pre-release.21";
 
   src = fetchFromGitHub {
