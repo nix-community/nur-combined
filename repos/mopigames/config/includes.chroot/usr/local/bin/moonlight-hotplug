@@ -1,0 +1,89 @@
+#!/bin/sh
+# Watch for monitors being plugged in and unplugged, and rearrange to suit.
+#
+# This is a laptop appliance: it gets carried to a monitor, plugged in, and
+# carried away again, and none of that should need a menu.  Started by
+# moonlight-wlsession and dies with the session.
+#
+# This used to poll, and the polling was expensive in a way that took a long
+# time to find.  Recorded here because the reasoning is still worth having:
+#
+#   A plain "xrandr --query" asks the X server to re-probe every connector --
+#   a DDC transaction per output.  On a machine with one panel and six dead
+#   DP/HDMI connectors, all six had to time out before the call returned, and
+#   the X server is single-threaded, so that was the whole display frozen.
+#   Measured at 200 ms per call, once every 2 seconds, for the life of the
+#   session: during a stream it read as a regular half-second stutter every
+#   few seconds, and looked exactly like a network fault.  The fix was
+#   --current, which reads the state the server already holds rather than
+#   re-probing.
+#
+# None of that applies now.  The compositor publishes an event when outputs
+# change, so this waits on that event instead of asking anything: no interval,
+# no probing, and no cost at all while nothing is happening.  The kernel's DRM
+# uevent is what discovers a hotplug either way -- polling was only ever a way
+# to notice that it had.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+[ -n "${WAYLAND_DISPLAY:-}" ] || exit 0
+
+# Just the names and whether each is active -- resolution changes made from
+# the menu must not look like a hotplug and start a loop.  This matters more
+# here than it did when polling, because applying a layout itself produces an
+# output event: without comparing state, reacting to our own change would
+# loop forever.
+state() {
+	swaymsg -t get_outputs -r 2>/dev/null | python3 -c '
+import json, sys
+try:
+    outs = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+for o in sorted(outs, key=lambda o: o.get("name") or ""):
+    print(o.get("name"), "active" if o.get("active") else "inactive")
+'
+}
+
+log() {
+	printf '%s moonlight-hotplug: %s\n' "$(date '+%H:%M:%S')" "$1"
+}
+
+last="$(state)"
+
+# -m keeps the subscription open and prints one line per event.  When the
+# compositor goes away the pipe closes and the loop ends, which is how this
+# dies with the session.
+swaymsg -t subscribe -m '["output"]' 2>/dev/null | while read -r _event; do
+	now="$(state)"
+
+	# An empty read means the compositor went away; so should we.
+	[ -n "$now" ] || exit 0
+	[ "$now" = "$last" ] && continue
+
+	log "screens changed"
+	last="$now"
+
+	# The screen actually in use before this change, which is not always
+	# the one that was asked for.
+	before="$(cat "$MLOS_STATE/current-output" 2>/dev/null)"
+
+	# Settle: a monitor coming up over DisplayPort can report connected
+	# before its mode list is readable, and building a layout from half of
+	# an EDID produces a blank screen.
+	sleep 1
+
+	moonlight-displays --apply
+
+	after="$(cat "$MLOS_STATE/current-output" 2>/dev/null)"
+	if [ "$after" != "$before" ]; then
+		# Either the screen it was drawing on went away, or the one you
+		# actually asked for came back.  The client picks its display once,
+		# at start-up, so it has to be restarted to follow.
+		log "client moving from ${before:-none} to ${after:-none}, restarting it"
+		mlos_restart_moonlight
+	else
+		log "layout reapplied, client stays on ${after:-auto}"
+	fi
+done

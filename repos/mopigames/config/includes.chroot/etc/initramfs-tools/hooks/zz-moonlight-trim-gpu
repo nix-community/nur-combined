@@ -1,0 +1,68 @@
+#!/bin/sh
+# Keep the GPU drivers, and the ~100 MB of firmware they drag behind them, out
+# of the initramfs.
+#
+# MODULES=most and the "kms" hook put amdgpu, i915, xe, radeon and nouveau in
+# the initrd, and initramfs-tools then copies every firmware blob those modules
+# declare -- all of them, for every chip generation, because it cannot know
+# which card this USB stick will be plugged into.  That is 97 MB of the 185 MB
+# initrd, 86 MB of it amdgpu alone.
+#
+# The cost is paid at the worst possible moment.  GRUB reads the whole
+# compressed initrd off the boot medium before the kernel runs, prints nothing
+# while it does so, and the boot command line says "quiet splash
+# vt.global_cursor_default=0" -- no text, no cursor, and no plymouth yet,
+# because plymouth needs the kernel that has not started.  On a slow USB stick,
+# read through UEFI block I/O at a few MB/s, that is minutes of a completely
+# black and completely motionless screen straight after the boot menu.  It is
+# indistinguishable from a machine that has hung, and it gets worse every time
+# Debian's firmware packages grow.
+#
+# So the drivers come out of the initrd entirely rather than just their
+# firmware.  Dropping only the firmware would be worse than useless: amdgpu
+# asks for its blobs during probe and fails the device outright when they are
+# missing, and a failed probe is not retried later -- the appliance would come
+# up with no GPU at all, which for a video-decoding streaming client is the one
+# thing that must not happen.  With the module absent instead, nothing probes
+# early, and the driver loads normally once the real root is mounted and the
+# full /lib/firmware is there.
+#
+# What is lost: plymouth's splash draws on the firmware framebuffer (efifb or
+# simpledrm) instead of on native KMS for the first few seconds.  It looks the
+# same.  The handover to the real driver happens exactly as it did before, just
+# after pivot_root rather than before it.
+#
+# It edits a queue rather than deleting files, and that is not a style choice.
+# Hooks do not copy modules themselves -- "kms" and friends only append module
+# names to $__MODULES_TO_ADD, and mkinitramfs materialises the whole list, with
+# each module's firmware, in the apply_add_modules call that runs *after* every
+# hook has finished.  At the time this runs, drivers/gpu/drm holds drm.ko and
+# nothing else, so there is nothing on disk to delete yet.  Taking the names
+# off the queue is what actually keeps them out, and it keeps their firmware
+# out for free, since firmware is only pulled in for modules that get
+# installed.
+
+PREREQ=""
+prereqs() { echo "$PREREQ"; }
+case "$1" in
+prereqs)
+	prereqs
+	exit 0
+	;;
+esac
+
+[ -n "$__MODULES_TO_ADD" ] && [ -f "$__MODULES_TO_ADD" ] || exit 0
+
+# kvmgt is in the list because dracut-install pulls a module's dependencies in
+# with it, and kvmgt -- Intel GVT-g, which carves a GPU up between virtual
+# machines -- depends on i915.  Dropping i915 alone left it behind, and kvmgt
+# quietly brought all 11 MB of i915 firmware back with it.  Nothing else in the
+# initrd depends on any of these.
+#
+# Whole-line matches.  The queue holds bare module names, and a substring match
+# would take drm_exec and drm_xen_front out with them.
+tmp="${__MODULES_TO_ADD}.mlos"
+grep -vxE 'amdgpu|radeon|i915|xe|nouveau|kvmgt' "$__MODULES_TO_ADD" > "$tmp" || true
+mv "$tmp" "$__MODULES_TO_ADD"
+
+exit 0

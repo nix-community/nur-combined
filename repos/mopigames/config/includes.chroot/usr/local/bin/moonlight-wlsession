@@ -1,0 +1,79 @@
+#!/bin/sh
+# The session sway runs (see /etc/sway/config).  When this exits, sway exits
+# and control returns to moonlight-session on the console.
+#
+# Replaces moonlight-xsession.  Most of what that script did was working
+# around X: xset to stop blanking, unclutter to hide the pointer, openbox to
+# have something answer fullscreen requests, and xdotool to shove the client
+# onto the right monitor.  The compositor does all four itself, so what is
+# left here is the appliance's own logic.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+mlos_load
+
+# Carry the console keyboard layout into the session.
+moonlight-region --apply-session
+
+# Trackpad scroll direction, touchscreen mapping.
+moonlight-input --apply
+
+# Record the real output layout so the (TTY-side) display menu has
+# something accurate to offer next time it runs.
+mkdir -p "$MLOS_STATE"
+swaymsg -t get_outputs > "$MLOS_SNAPSHOT" 2>/dev/null || true
+
+# Rebuild the layout for whatever is plugged in right now.
+moonlight-displays --apply
+
+# ...and keep doing it.  A laptop gets carried to a monitor and away again;
+# neither should need the menu.
+moonlight-hotplug >> "$MLOS_STATE/hotplug.log" 2>&1 &
+
+# Low-battery warnings, drawn over the stream.  Exits by itself on a machine
+# with no battery, so there is nothing to guard here.
+moonlight-battery >> "$MLOS_STATE/battery.log" 2>&1 &
+
+# Put the client on the chosen screen and keep it there.
+#
+# Under X11 this was a background loop polling xdotool for the window to
+# appear and then moving it by pixel coordinates.  A placement rule is
+# declarative and applies the moment the window maps, so there is no race to
+# lose and no polling loop to leave running.
+#
+# app_id comes from Qt's desktop file name, which Selene sets explicitly.
+if [ -n "$MOONLIGHT_OUTPUT" ]; then
+	swaymsg "for_window [app_id=\"dev.mopigames.Selene\"] move container to output \"$MOONLIGHT_OUTPUT\"" >/dev/null 2>&1 || true
+fi
+
+# Selene runs in a loop so the Ctrl+Alt+M panel can restart it in place.
+# Video settings are read once at start-up, and tearing down the whole session
+# to change one would dump the user back on the console.
+rm -f "$MLOS_STATE/restart"
+while :; do
+	# Backgrounded only so the pid can be recorded; the wrapper execs
+	# selene, so this pid stays the one to signal.  Killing by pid beats
+	# matching a command line, which catches innocent bystanders.
+	/usr/local/bin/moonlight &
+	ml_pid=$!
+	echo "$ml_pid" > "$MLOS_STATE/moonlight.pid"
+	wait "$ml_pid"
+	rm -f "$MLOS_STATE/moonlight.pid"
+
+	[ -e "$MLOS_STATE/restart" ] || break
+	rm -f "$MLOS_STATE/restart"
+	mlos_load
+	moonlight-region --apply-session
+	moonlight-displays --apply
+done
+
+# Bring the compositor down with us.
+#
+# sway's `exec` only spawns a process -- unlike startx, which owned the X
+# server's lifetime and tore it down when its client exited.  Without this the
+# session script ends, sway stays up showing an empty desktop, and
+# moonlight-session never regains the console to offer the menu.  Which is
+# exactly what a client that fails to start looks like: a black screen and no
+# way out.
+swaymsg exit >/dev/null 2>&1 || true

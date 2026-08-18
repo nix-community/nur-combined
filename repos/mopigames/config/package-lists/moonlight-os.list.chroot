@@ -1,0 +1,218 @@
+# Moonlight OS package set.
+# Everything here was verified to resolve on Debian trixie with
+# --no-install-recommends.  Keep it tight: this is the whole OS.
+
+## ---- base / live ----------------------------------------------------
+systemd-sysv
+live-boot
+live-config
+live-config-systemd
+linux-image-amd64
+
+## ---- firmware (wifi/gpu on real hardware) ---------------------------
+# Dropped when the build runs with FIRMWARE=slim.
+firmware-linux
+firmware-misc-nonfree
+firmware-iwlwifi
+firmware-realtek
+firmware-atheros
+firmware-brcm80211
+firmware-mediatek
+# i915 DMC.  firmware-linux-nonfree only *recommends* it, and this build uses
+# --no-install-recommends, so it was missing -- the kernel then logs
+# "Failed to load DMC firmware ... Disabling runtime power management" and the
+# display power states are left off, which on Gemini Lake and friends shows up
+# as a flickering backlight.
+firmware-intel-graphics
+# Intel SST audio DSP firmware.  Without intel/fw_sst_22a8.bin the DSP on a
+# Bay Trail or Cherry Trail tablet never starts, and the failure is silent in
+# the worst way: the card enumerates, the codec is detected, every driver
+# loads -- and then every PCM open returns EBUSY, so PipeWire's card-profile
+# probe finds no usable device, offers only "off" and "pro-audio", picks
+# "off", and creates no sink at all.  What you see is a working-looking sound
+# menu with nothing behind it.  Debian split this out of firmware-misc-nonfree
+# and nothing here depends on it, so --no-install-recommends dropped it.
+firmware-intel-sound
+
+## ---- networking ------------------------------------------------------
+network-manager
+wpasupplicant
+iw
+wireless-regdb
+ca-certificates
+# mDNS, so Moonlight can auto-discover the host on the LAN
+avahi-daemon
+libnss-mdns
+
+## ---- console UI + shell tooling the menus rely on --------------------
+whiptail
+ncurses-term
+sudo
+procps
+iproute2
+util-linux
+pciutils
+usbutils
+systemd-timesyncd
+# Everything here is POSIX sh except the USB passthrough client, which speaks
+# line-delimited JSON over TCP to the host PC -- doing that in sh means nc
+# plus a JSON parser written in sed, and the failure mode of that is a wheel
+# that silently stops working.  Python was already in the image as somebody
+# else's dependency; this makes it deliberate, so a future slimming pass does
+# not quietly take moonlight-hostagent with it.  Standard library only --
+# but the full python3, not python3-minimal: json lives in the stdlib package
+# and minimal does not carry it.  This costs nothing, python3 was already
+# being pulled in.
+python3
+
+## ---- remote access ---------------------------------------------------
+# Key-only by default; the key comes from the machine that ran build.sh.
+openssh-server
+
+## ---- Tailscale -------------------------------------------------------
+# The binaries themselves come from the official static tarball (build.sh);
+# these are what the daemon needs from Debian.  tailscaled programs the
+# firewall itself, so it needs one of the two backends present.
+iptables
+nftables
+
+## ---- dbus -------------------------------------------------------------
+# NetworkManager, bluez and pipewire all want a bus, and nothing else in this
+# list pulls the daemon in as a hard dependency -- dbus itself is only ever
+# Recommended, which --no-install-recommends drops.  These two are what put it
+# in the image; they are not optional despite looking like it.
+dbus-bin
+dbus-user-session
+
+## ---- shell niceties --------------------------------------------------
+# Shows the distro icon as coloured half-blocks; see /etc/fastfetch.
+fastfetch
+
+## ---- initramfs compression -------------------------------------------
+# /etc/initramfs-tools/initramfs.conf says COMPRESS=zstd, which is Debian's
+# default, but the zstd binary is not in the image by default and nothing
+# depends on it -- so mkinitramfs printed "W: No zstd in /usr/bin:/sbin:/bin,
+# using gzip" and silently fell back.  That matters more than it sounds: GRUB
+# has to read the whole initrd off a USB stick, with nothing on screen, before
+# the kernel starts, so its compressed size is boot time you sit through in the
+# dark.
+zstd
+
+## ---- boot splash -----------------------------------------------------
+# two-step, the plugin our theme uses, lives in plymouth-themes rather than
+# in plymouth itself.
+plymouth
+plymouth-themes
+
+## ---- USB passthrough + input ----------------------------------------
+usbip
+evtest
+joystick
+bluez
+# Without this a Bluetooth headset pairs and then produces no sound device.
+libspa-0.2-bluetooth
+
+## ---- Wayland session -------------------------------------------------
+# sway is the whole graphical session: compositor, window manager and hotkey
+# daemon in one.  Under X11 that was Xorg plus openbox plus triggerhappy plus
+# xdotool, and the hotkey daemon existed only because a client holding the X
+# keyboard grab stopped the window manager from ever seeing Ctrl+Alt+M.  A
+# compositor binding is evaluated before the key reaches any client, so all of
+# that is gone.
+sway
+# The settings panel is whiptail in a terminal on top of the stream; foot is
+# the terminal, in place of xterm.
+foot
+# So the USB passthrough screen can put the command for the host PC on the
+# clipboard rather than making you copy it off the screen by eye.
+wl-clipboard
+# Low-battery warnings over the top of the stream.  This has to be a
+# layer-shell client: a Wayland client cannot place itself above others the
+# way osd_cat's override-redirect window could, and layer-shell is the
+# protocol that exists for exactly this.  Notifications go through it without
+# ever taking focus, which is the property that matters mid-stream.
+mako-notifier
+libnotify-bin
+# Qt's Wayland platform plugin.  Qt dlopens this, so nothing links against it
+# and no dependency resolver will pull it in -- and without it Qt finds no
+# usable platform and the client does not start at all.
+qt6-wayland
+
+## ---- GPU / video decode ---------------------------------------------
+libgl1-mesa-dri
+libglx-mesa0
+# EGL and GLES.  Moonlight's preferred path on Linux is its EGL renderer, and
+# without libGLESv2 it fails with "Could not initialize OpenGL / GLES library"
+# and silently falls back -- the fallback works, but the failure happens
+# mid-stream, taking a renderer teardown and rebuild with it.
+libegl1
+libegl-mesa0
+libgles2
+libgbm1
+mesa-va-drivers
+mesa-vdpau-drivers
+mesa-vulkan-drivers
+# iHD covers Broadwell and newer; older Intel needs the i965 driver, and
+# without it VAAPI simply fails to initialise (which looks like a black
+# stream, since the launcher UI does not need a decoder).
+intel-media-va-driver-non-free
+i965-va-driver-shaders
+vainfo
+vdpauinfo
+vulkan-tools
+
+## ---- audio -----------------------------------------------------------
+pipewire
+pipewire-pulse
+wireplumber
+libpulse0
+libasound2
+alsa-utils
+# libasound2-data only *recommends* these two, and this build installs no
+# recommends, so both were missing.  ucm2 is what tells ALSA how to route a
+# UCM card -- every Atom tablet codec is one -- and pipewire-alsa is what
+# makes ALSA's "default" device go to PipeWire.  Without the latter, anything
+# speaking plain ALSA (including speaker-test, which is what the sound menu
+# uses to make a noise) bypasses PipeWire and fights it for the raw card.
+alsa-ucm-conf
+alsa-topology-conf
+pipewire-alsa
+
+## ---- Qt platform plugin ----------------------------------------------
+# Qt's platform plugin pulls in libgcrypt -> libgpg-error, and Debian does not
+# install the latter by default under --no-install-recommends.  Without it Qt
+# loads no platform plugin and the client never draws a window.  It arrives as
+# a dependency of Debian's Qt rather than being needed by a bundled copy --
+# named here so it stays true by intent rather than by luck.
+libgpg-error0
+fonts-dejavu-core
+# Scalable Type1 core fonts.  Listed for moonlight-osd's sake: the low-battery
+# warning is drawn by osd_cat, which can only see X core fonts, and these are
+# the only scalable ones in the image.  It arrives as a dependency of
+# fontconfig-config anyway -- named here so that staying true is not luck.
+fonts-urw-base35
+
+## ---- keyboard / clock ------------------------------------------------
+console-setup
+kbd
+xkb-data
+tzdata
+# No "locales".  It was here for years generating nothing: /etc/locale.gen has
+# no active entries, /usr/lib/locale holds only C.utf8, and /etc/default/locale
+# says LANG=C.UTF-8 -- which glibc provides on its own.  All the package
+# actually shipped was 15 MB of locale source definitions for a locale-gen run
+# that never happens.  Keyboard layout is xkb-data's job and is unaffected.
+
+## ---- persistence + installer -----------------------------------------
+parted
+gdisk
+dosfstools
+rsync
+# grub-*-bin only: the -bin packages carry the platform modules and
+# grub-install without the postinst that tries to write to an ESP at
+# build time (there isn't one inside a live-build chroot).
+grub-common
+grub2-common
+grub-efi-amd64-bin
+grub-pc-bin
+efibootmgr

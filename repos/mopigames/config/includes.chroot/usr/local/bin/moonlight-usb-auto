@@ -1,0 +1,292 @@
+#!/usr/bin/python3
+"""Keep the host PC's USB devices in step with what is plugged in here.
+
+Plug a wheel into this machine and it appears on the host PC.  Unplug it
+and it goes away again.  No menu, no command to type at the other end, and
+nothing on this side that knows or cares which operating system the host PC
+runs -- mlos-host-utils works that out over there.
+
+Started by systemd when USB_AUTOSHARE is on; exits quietly when it is not.
+
+    moonlight-usb-auto            run as a daemon
+    moonlight-usb-auto --once     one pass, then exit
+    moonlight-usb-auto --list     what would be shared, and why not
+"""
+
+import os
+import signal
+import sys
+import time
+
+sys.path.insert(0, "/usr/local/lib/moonlight-os")
+
+import mlos_host as mh  # noqa: E402
+
+# sysfs has no usable inotify, and moonlight-hotplug already establishes that
+# polling is how this appliance notices hardware.  A listdir of a directory
+# with a dozen entries, once a second, does not register on anything.
+POLL = float(os.environ.get("MLOS_USB_POLL", "1.0"))
+
+# Even with nothing changing, re-offer the set periodically.  It costs one
+# small message and it is what recovers the session after the host PC
+# reboots, or after the agent is restarted, without anyone noticing.
+HEARTBEAT = float(os.environ.get("MLOS_USB_HEARTBEAT", "60"))
+
+# After a failure, back off rather than hammering a PC that is switched off.
+BACKOFF_MAX = 30.0
+
+
+def log(msg):
+    print("moonlight-usb-auto: %s" % msg, flush=True)
+
+
+class Watcher:
+    def __init__(self):
+        self.bound = set()      # busids this daemon bound, so it only unbinds its own
+        self.last_offer = None  # the set last sent, to keep quiet when nothing changed
+        self.last_seen = None   # the bus ids present at the last survey
+        self.last_sync = 0.0
+        self.backoff = 0.0
+        self.client = None
+        self.reachable = False  # has the host PC answered on this connection
+        self.stop = False
+
+    # ------------------------------------------------------------ change
+    def plugged(self):
+        """Which bus ids exist, and nothing else.
+
+        This is the once-a-second question, so it has to be nearly free: one
+        directory listing and a regex, no file reads, no subprocesses.  The
+        full survey behind it opens a dozen files per device and asks the
+        routing table what the network interface is -- affordable when
+        something actually changed, and not sixty times a minute forever.
+
+        Measured on the machine this is for, an Atom x5-Z8350, surveying
+        every second cost 3% of a core continuously, doing nothing, while
+        the same chip was trying to decode a 1080p stream.
+        """
+        try:
+            return frozenset(n for n in os.listdir(mh.SYS_USB) if mh.BUSID_RE.match(n))
+        except OSError:
+            return frozenset()
+
+    # ------------------------------------------------------------ config
+    def settings(self):
+        conf = mh.load_conf()
+        return (
+            conf.get("USB_AUTOSHARE", "no") == "yes",
+            conf.get("USB_AUTOSHARE_POLICY", "safe") or "safe",
+            conf.get("USB_AUTOSHARE_INCLUDE", "").split(),
+            conf.get("USB_AUTOSHARE_EXCLUDE", "").split(),
+            conf,
+        )
+
+    # ------------------------------------------------------------ binding
+    def bind_all(self, devs):
+        """Export the offered devices from this machine.
+
+        Binding is what makes a device available over USB/IP at all, and it
+        takes the device away from this machine's own drivers -- so it
+        happens here, before the host PC is told to attach, and never to
+        anything policy did not offer.
+        """
+        good = []
+        for d in devs:
+            if d.busid in self.bound:
+                good.append(d)
+                continue
+            okay, err = mh.bind(d.busid)
+            if okay:
+                self.bound.add(d.busid)
+                log("sharing %s (%s)" % (d.busid, d.label))
+                good.append(d)
+            else:
+                log("could not share %s (%s): %s" % (d.busid, d.label, err))
+        return good
+
+    def unbind_gone(self, keep):
+        for busid in sorted(self.bound - keep):
+            # A device that was physically unplugged is already gone from
+            # the kernel's point of view and unbind fails; that is not worth
+            # reporting, the device is released either way.
+            mh.unbind(busid)
+            self.bound.discard(busid)
+            log("stopped sharing %s" % busid)
+
+    # ------------------------------------------------------------ syncing
+    def connect(self, conf):
+        if self.client is None:
+            self.client = mh.client_from_conf(conf, timeout=10.0)
+        return self.client
+
+    def drop(self):
+        if self.client is not None:
+            self.client.close()
+            self.client = None
+
+    def pass_once(self, force=False):
+        enabled, policy, include, exclude, conf = self.settings()
+        if not enabled:
+            if self.bound:
+                log("auto-share turned off, handing everything back")
+                self.hand_back()
+            return True
+
+        # The cheap gate first.  Nothing plugged or unplugged and no
+        # heartbeat due means there is nothing to work out.
+        seen = self.plugged()
+        heartbeat = (time.time() - self.last_sync) >= HEARTBEAT
+        if not force and not heartbeat and seen == self.last_seen:
+            return True
+
+        devs = mh.offered(policy, include, exclude)
+        offer = frozenset(d.busid for d in devs)
+
+        due = force or heartbeat or offer != self.last_offer
+        if not due:
+            # Something changed, but not something we would have offered --
+            # a hub, or a device the policy skips.  Remember that we have
+            # looked, so the survey does not run again until it changes.
+            self.last_seen = seen
+            return True
+
+        if devs and not mh.ensure_daemon():
+            log("the USB/IP daemon is not running; nothing can be shared")
+            return False
+
+        # Reach the host PC *before* binding anything.
+        #
+        # Binding takes a device away from this machine -- the wheel stops
+        # being a wheel here the moment it is exported.  If the host PC is
+        # switched off, binding first would leave it working on neither
+        # machine, and re-binding on every retry would re-enumerate it every
+        # thirty seconds for as long as the PC stayed off.  So: knock first,
+        # and if nobody answers, release what we hold and leave the hardware
+        # alone until somebody does.
+        try:
+            client = self.connect(conf)
+            if not self.reachable:
+                client.ping()
+                self.reachable = True
+        except mh.HostError as exc:
+            if self.bound:
+                log("%s; releasing the devices it was holding" % exc)
+                self.release_local()
+            else:
+                log("%s" % exc)
+            self.reachable = False
+            self.drop()
+            return False
+
+        devs = self.bind_all(devs)
+        self.unbind_gone({d.busid for d in devs})
+
+        try:
+            data = client.sync(devs)
+        except mh.HostError as exc:
+            if exc.code in ("unreachable", "not_paired"):
+                self.reachable = False
+                self.drop()
+                self.release_local()
+            log("%s" % exc)
+            return False
+
+        # Only on success.  A failed pass must survey again next tick rather
+        # than conclude it has already dealt with this set of devices.
+        self.last_offer = offer
+        self.last_seen = seen
+        self.last_sync = time.time()
+
+        got, lost = data.get("attached") or [], data.get("detached") or []
+        if got or lost:
+            log("host PC attached %s, released %s" % (
+                ", ".join(got) or "nothing", ", ".join(lost) or "nothing"))
+        for item in data.get("failed") or []:
+            log("host PC could not attach %s: %s" % (item.get("busid"), item.get("error")))
+        return True
+
+    def release_local(self):
+        """Give the devices back to this machine, without involving the
+        host PC -- which is the case where this is needed."""
+        for busid in sorted(self.bound):
+            mh.unbind(busid)
+        self.bound.clear()
+        self.last_offer = None
+        self.last_seen = None
+
+    def hand_back(self):
+        """Release everything, both ends.  Called on the way out."""
+        try:
+            self.connect(mh.load_conf()).sync([])
+        except mh.HostError:
+            pass
+        self.release_local()
+        self.drop()
+
+    # ------------------------------------------------------------ loop
+    def run(self):
+        def handler(signum, _frame):
+            self.stop = True
+        signal.signal(signal.SIGTERM, handler)
+        signal.signal(signal.SIGINT, handler)
+
+        log("watching for USB devices to hand to the host PC")
+        while not self.stop:
+            if self.pass_once():
+                self.backoff = 0.0
+            else:
+                self.backoff = min(BACKOFF_MAX, max(POLL * 2, self.backoff * 2))
+
+            # Sleep in slices so a stop signal is acted on promptly rather
+            # than after a full backoff.
+            waited = 0.0
+            target = max(POLL, self.backoff)
+            while waited < target and not self.stop:
+                time.sleep(min(POLL, target - waited))
+                waited += POLL
+
+        log("stopping, handing devices back")
+        self.hand_back()
+
+
+def cmd_list():
+    conf = mh.load_conf()
+    policy = conf.get("USB_AUTOSHARE_POLICY", "safe") or "safe"
+    include = conf.get("USB_AUTOSHARE_INCLUDE", "").split()
+    exclude = conf.get("USB_AUTOSHARE_EXCLUDE", "").split()
+
+    devs = mh.devices(policy, include, exclude)
+    if not devs:
+        print("No USB devices plugged in.")
+        return
+    print("policy: %s\n" % policy)
+    for d in devs:
+        mark = "[*]" if not d.reason else ("[-]" if d.protected else "[ ]")
+        print("%s %-8s %-10s %s" % (mark, d.busid, d.hwid, d.label))
+        if d.reason:
+            print("             %s" % d.reason)
+    print("\n[*] shared   [ ] skipped by policy   [-] never shared")
+
+
+def main():
+    args = sys.argv[1:]
+    if "--help" in args or "-h" in args:
+        print(__doc__.strip())
+        return
+    if "--list" in args:
+        cmd_list()
+        return
+
+    watcher = Watcher()
+    if "--once" in args:
+        raise SystemExit(0 if watcher.pass_once(force=True) else 1)
+
+    enabled = watcher.settings()[0]
+    if not enabled:
+        log("auto-share is off; nothing to do")
+        return
+    watcher.run()
+
+
+if __name__ == "__main__":
+    main()

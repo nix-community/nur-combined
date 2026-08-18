@@ -1,0 +1,97 @@
+#!/bin/sh
+# Pointer behaviour.  Currently one knob: which way the trackpad scrolls.
+#
+#   moonlight-input --apply   push the saved setting into the running session
+#   moonlight-input --menu    change it
+#
+# Moonlight has a reverse-scroll setting of its own, and leaving both on
+# means they cancel out during a stream and nothing appears to change.  So
+# this is the single source of truth: libinput does the inverting, and
+# Moonlight's own flag is held off.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+CONF=/etc/sway/config.d/40-touchpad.conf
+
+# Persisted for the next X server; libinput reads this at device add time.
+#
+# DisableWhileTyping is off deliberately, and it is not a preference.
+# libinput mutes a touchpad for a moment after every keystroke so a palm
+# brushing the pad while you type prose does not move the cursor.  That is the
+# right default for a laptop and the wrong one here: holding a movement key is
+# not typing, so in a game the pad is muted for as long as you are moving, and
+# the trackpad appears simply dead.  The symptom is easy to misread, because
+# the pad works perfectly until the moment you touch a key.
+write_conf() {
+	# There is no X server to read an InputClass any more.  sway applies
+	# input settings from its own config, and a drop-in in this directory is
+	# read at compositor start -- so this is the same idea in the compositor's
+	# vocabulary: written once, applied on every session.
+	printf 'input type:touchpad {\n\tnatural_scroll %s\n\tdwt disabled\n}\n' "$1" \
+		| mlos_root tee "$CONF" >/dev/null
+}
+
+# ...and into the devices that already exist, so it takes effect now.
+apply_live() {
+	[ -n "${WAYLAND_DISPLAY:-}" ] || return 0
+	command -v swaymsg >/dev/null 2>&1 || return 0
+	# type:touchpad covers every touchpad the seat has now and any plugged in
+	# later, which is what the per-device xinput loop had to enumerate by
+	# name -- and it matched on the name containing "touchpad", which is
+	# exactly the kind of guess that misses a device called something else.
+	swaymsg input type:touchpad natural_scroll "$1" >/dev/null 2>&1 || true
+	# See write_conf: the pad must keep working while a key is held down.
+	swaymsg input type:touchpad dwt disabled >/dev/null 2>&1 || true
+}
+
+apply() {
+	mlos_load
+	# sway spells these enabled/disabled; xinput wanted 1/0 and the
+	# xorg.conf.d drop-in wanted true/false, so this is now one word for
+	# both places rather than two spellings of the same setting.
+	if [ "${NATURAL_SCROLL:-no}" = "yes" ]; then
+		write_conf enabled
+		apply_live enabled
+	else
+		write_conf disabled
+		apply_live disabled
+	fi
+	# Keep Moonlight from inverting it a second time.
+	mlos_qt_set reversescroll false
+}
+
+menu() {
+	while :; do
+		mlos_load
+		if [ "${NATURAL_SCROLL:-no}" = "yes" ]; then
+			now="inverted (content follows your fingers)"
+		else
+			now="standard (content moves the other way)"
+		fi
+
+		choice=$(whiptail --title "Trackpad" --menu \
+"Scroll direction: $now
+
+This applies to the menus here, and to what
+gets sent to the host PC while streaming." 18 74 3 \
+			1 "Standard" \
+			2 "Inverted" \
+			3 "Back" \
+			3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			1) mlos_set NATURAL_SCROLL no; apply
+			   mlos_msg "Trackpad scrolls the standard way now." ;;
+			2) mlos_set NATURAL_SCROLL yes; apply
+			   mlos_msg "Trackpad scroll inverted.\n\nIt is live already; a stream picks it up when Moonlight next starts." ;;
+			3) return 0 ;;
+		esac
+	done
+}
+
+case "${1:---menu}" in
+	--apply) apply ;;
+	--menu)  menu ;;
+	*) printf 'usage: moonlight-input [--apply|--menu]\n' >&2; exit 2 ;;
+esac

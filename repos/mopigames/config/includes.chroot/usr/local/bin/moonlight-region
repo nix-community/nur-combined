@@ -1,0 +1,260 @@
+#!/bin/sh
+# Keyboard layout and time zone.
+#
+#   moonlight-region --first-run   run once, before anything asks for typing
+#   moonlight-region --keyboard    just the layout, without the clock or the flag
+#   moonlight-region --menu        change it later
+#   moonlight-region --apply-session     apply the layout to the running compositor
+#
+# The keyboard has to be settled before the Wi-Fi prompt: on a non-US layout
+# every password typed at that prompt would otherwise come out wrong.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+XKB_LST=/usr/share/X11/xkb/rules/base.lst
+FIRSTRUN_FLAG=/etc/moonlight-os/.configured
+
+sq() {
+	printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+# --------------------------------------------------------------- keyboard ---
+
+# "us  English (US)" -> tab-separated code/description
+layout_list() {
+	awk '
+		/^! layout/     {inlayout = 1; next}
+		/^!/            {inlayout = 0}
+		inlayout && NF > 1 {
+			code = $1
+			$1 = ""
+			sub(/^[[:space:]]+/, "")
+			printf "%s\t%s\n", code, $0
+		}
+	' "$XKB_LST" 2>/dev/null
+}
+
+variant_list() {
+	awk -v l="$1" '
+		/^! variant/    {invar = 1; next}
+		/^!/            {invar = 0}
+		invar && NF > 2 {
+			if ($2 != (l ":")) next
+			code = $1
+			$1 = ""; $2 = ""
+			sub(/^[[:space:]]+/, "")
+			printf "%s\t%s\n", code, $0
+		}
+	' "$XKB_LST" 2>/dev/null
+}
+
+pick_layout() {
+	list=$(mktemp)
+	# Common layouts first -- most people never scroll past these.
+	{
+		layout_list | grep -E '^(us|gb|fr|de|es|it|be|ch|nl|pt|se|no|dk|fi|pl|cz|br|ca|ru|jp)\b'
+		printf '.sep\t(all other layouts below)\n'
+		layout_list
+	} > "$list"
+
+	menu=""
+	n=0
+	while IFS="$(printf '\t')" read -r code desc; do
+		n=$((n + 1))
+		menu="$menu $n $(sq "$desc")"
+	done < "$list"
+
+	choice=$(eval whiptail --title '"Keyboard layout"' \
+		--menu '"Select your keyboard layout:"' 22 74 14 -- "$menu" \
+		3>&1 1>&2 2>&3) || { rm -f "$list"; return 1; }
+
+	code=$(sed -n "${choice}p" "$list" | cut -f1)
+	rm -f "$list"
+	[ "$code" = ".sep" ] && return 1
+	printf '%s' "$code"
+}
+
+pick_variant() {
+	layout="$1"
+	list=$(mktemp)
+	# Sentinel rather than an empty first field: tab is IFS whitespace, so
+	# `read code desc` on a leading-tab line silently shifts "Default" into
+	# $code and would set XKBVARIANT=Default, which is not a real variant.
+	printf '.default\tDefault\n' > "$list"
+	variant_list "$layout" >> "$list"
+	if [ "$(wc -l < "$list")" -le 1 ]; then
+		rm -f "$list"
+		printf ''
+		return 0
+	fi
+
+	menu=""
+	n=0
+	while IFS="$(printf '\t')" read -r code desc; do
+		n=$((n + 1))
+		menu="$menu $n $(sq "$desc")"
+	done < "$list"
+
+	choice=$(eval whiptail --title '"Keyboard variant"' \
+		--menu "$(sq "Variant for $layout:")" 20 74 12 -- "$menu" \
+		3>&1 1>&2 2>&3) || { rm -f "$list"; printf ''; return 0; }
+
+	code=$(sed -n "${choice}p" "$list" | cut -f1)
+	rm -f "$list"
+	[ "$code" = ".default" ] && code=""
+	printf '%s' "$code"
+}
+
+apply_keyboard() {
+	layout="$1"
+	variant="$2"
+
+	# No xorg.conf.d InputClass any more: nothing reads it.  wlroots takes
+	# its keymap from the XKB_DEFAULT_* environment at compositor start (see
+	# mlos_run_compositor) and from `swaymsg input` afterwards, so the layout
+	# now travels through the config file below plus --apply-session.
+	#
+	# console-setup reads this directly, and it is also what makes the layout
+	# correct on the TTY before the compositor ever starts.
+	printf 'XKBMODEL="pc105"\nXKBLAYOUT="%s"\nXKBVARIANT="%s"\nXKBOPTIONS=""\nBACKSPACE="guess"\n' \
+		"$layout" "$variant" | mlos_root tee /etc/default/keyboard >/dev/null
+
+	# Take effect on this console right now, so the Wi-Fi prompt is correct.
+	# --save-only writes the cache without applying anything; --save applies
+	# it too.  Note plain `loadkeys be` cannot work here: it wants a keymap
+	# from console-data, which this image does not carry.  setupcon goes via
+	# ckbcomp instead and builds the keymap from the XKB data we do have.
+	if ! mlos_root setupcon --force --save >/dev/null 2>&1; then
+		mlos_root sh -c 'ckbcomp "$1" "$2" | loadkeys -' _ "$layout" "$variant" \
+			>/dev/null 2>&1 || true
+	fi
+
+	mlos_set KEYBOARD_LAYOUT "$layout"
+	mlos_set KEYBOARD_VARIANT "$variant"
+}
+
+keyboard_menu() {
+	layout=$(pick_layout) || return 1
+	[ -n "$layout" ] || return 1
+	variant=$(pick_variant "$layout")
+	apply_keyboard "$layout" "$variant"
+
+	# Let them prove it works before it matters.
+	test=$(whiptail --title "Test the keyboard" --inputbox \
+		"Layout set to ${layout}${variant:+ (${variant})}.\n\nType a few characters to check it, then press Enter:" \
+		12 74 3>&1 1>&2 2>&3) || return 0
+	if [ -n "$test" ]; then
+		mlos_yesno "You typed:\n\n    $test\n\nIs that what you pressed?" || keyboard_menu
+	fi
+	return 0
+}
+
+# -------------------------------------------------------------- time zone ---
+
+zone_regions() {
+	timedatectl list-timezones 2>/dev/null | cut -d/ -f1 | sort -u
+}
+
+zone_cities() {
+	timedatectl list-timezones 2>/dev/null | grep "^$1/" | sed "s|^$1/||" | sort
+}
+
+timezone_menu() {
+	regions=$(zone_regions)
+	[ -n "$regions" ] || { mlos_msg "No time zone data is available."; return 1; }
+
+	menu=""
+	n=0
+	while IFS= read -r r; do
+		n=$((n + 1))
+		menu="$menu $n $(sq "$r")"
+	done <<-EOF
+	$regions
+	EOF
+
+	choice=$(eval whiptail --title '"Time zone"' \
+		--menu '"Select your region:"' 20 60 12 -- "$menu" 3>&1 1>&2 2>&3) || return 1
+	region=$(printf '%s\n' "$regions" | sed -n "${choice}p")
+
+	cities=$(zone_cities "$region")
+	if [ -z "$cities" ]; then
+		zone="$region"
+	else
+		menu=""
+		n=0
+		while IFS= read -r c; do
+			n=$((n + 1))
+			menu="$menu $n $(sq "$c")"
+		done <<-EOF
+		$cities
+		EOF
+		choice=$(eval whiptail --title '"Time zone"' \
+			--menu "$(sq "Select the city closest to you in $region:")" \
+			20 60 12 -- "$menu" 3>&1 1>&2 2>&3) || return 1
+		zone="$region/$(printf '%s\n' "$cities" | sed -n "${choice}p")"
+	fi
+
+	mlos_root timedatectl set-timezone "$zone" 2>/dev/null || true
+	mlos_root timedatectl set-ntp true 2>/dev/null || true
+	mlos_set TIMEZONE "$zone"
+	mlos_msg "Time zone set to $zone.\n\nThe clock syncs over the network once you are online."
+	return 0
+}
+
+# ------------------------------------------------------------------ entry ---
+
+case "${1:---menu}" in
+	--first-run)
+		[ -e "$FIRSTRUN_FLAG" ] && exit 0
+		whiptail --title "Welcome to Moonlight OS" --msgbox \
+			"Let's set up the keyboard and clock first.\n\nAfter this you'll pick a network, and then Moonlight starts." \
+			12 74
+		keyboard_menu || true
+		timezone_menu || true
+		mlos_root touch "$FIRSTRUN_FLAG" 2>/dev/null || true
+		;;
+	--keyboard)
+		# The layout on its own, for the welcome screen: somebody about to
+		# type ERASE into the installer needs the right keys and nothing
+		# else.  Deliberately does not set the first-run flag -- whether the
+		# wizard still owes them a time zone is a separate question.
+		keyboard_menu || true
+		;;
+	--menu)
+		while :; do
+			mlos_load
+			choice=$(whiptail --title "Region" --menu \
+"Keyboard: ${KEYBOARD_LAYOUT:-us}${KEYBOARD_VARIANT:+ (${KEYBOARD_VARIANT})}
+Time zone: ${TIMEZONE:-UTC}
+Clock: $(date '+%Y-%m-%d %H:%M')" 18 74 3 \
+				1 "Keyboard layout" \
+				2 "Time zone" \
+				3 "Back" \
+				3>&1 1>&2 2>&3) || exit 0
+			case "$choice" in
+				1) keyboard_menu || true ;;
+				2) timezone_menu || true ;;
+				3) exit 0 ;;
+			esac
+		done
+		;;
+	--apply-session)
+		mlos_load
+		[ -n "${KEYBOARD_LAYOUT:-}" ] || exit 0
+		# type:keyboard covers every keyboard the seat has now and any
+		# plugged in later, which is what the X version needed a separate
+		# per-device pass for.
+		swaymsg input type:keyboard xkb_layout "$KEYBOARD_LAYOUT" >/dev/null 2>&1 || true
+		# Setting an empty variant is not the same as not setting one: it
+		# is rejected, and sway then keeps the previous variant rather than
+		# clearing it -- so only send it when there is one.
+		if [ -n "${KEYBOARD_VARIANT:-}" ]; then
+			swaymsg input type:keyboard xkb_variant "$KEYBOARD_VARIANT" >/dev/null 2>&1 || true
+		fi
+		;;
+	*)
+		printf 'usage: moonlight-region [--first-run|--keyboard|--menu|--apply-session]\n' >&2
+		exit 2
+		;;
+esac

@@ -1,0 +1,120 @@
+#!/bin/sh
+# Video diagnostics and logs.
+#
+# A black stream with a working launcher almost always means the decoder or
+# the renderer failed, not the network -- the launcher UI needs neither.
+# Everything needed to tell those apart is here.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+LOG="$MLOS_STATE/xsession.log"
+
+show_file() {
+	title="$1"
+	file="$2"
+	if [ ! -s "$file" ]; then
+		mlos_msg "Nothing recorded yet in:\n\n$file"
+		return
+	fi
+	whiptail --title "$title" --scrolltext --textbox "$file" 24 100
+}
+
+video_report() {
+	rep=$(mktemp)
+	{
+		printf '== Graphics hardware ==\n'
+		lspci -nn 2>/dev/null | grep -iE 'vga|display|3d' || printf '  (none reported)\n'
+
+		printf '\n== Render nodes ==\n'
+		ls -l /dev/dri/ 2>/dev/null || printf '  /dev/dri missing -- no GPU access at all\n'
+
+		printf '\n== VAAPI (hardware video decoding) ==\n'
+		printf 'LIBVA_DRIVERS_PATH=%s\n' "${LIBVA_DRIVERS_PATH:-/usr/lib/x86_64-linux-gnu/dri}"
+		if command -v vainfo >/dev/null; then
+			LIBVA_DRIVERS_PATH="${LIBVA_DRIVERS_PATH:-/usr/lib/x86_64-linux-gnu/dri}" \
+				vainfo 2>&1 | head -30
+		else
+			printf '  vainfo not installed\n'
+		fi
+
+		printf '\n== Installed VA drivers ==\n'
+		ls /usr/lib/x86_64-linux-gnu/dri/*_drv_video.so 2>/dev/null \
+			| sed 's|.*/|  |' || printf '  none found\n'
+
+		printf '\n== Vulkan ==\n'
+		if command -v vulkaninfo >/dev/null; then
+			vulkaninfo --summary 2>&1 | grep -iE 'deviceName|driverName|apiVersion|ERROR' | head -10
+		else
+			printf '  vulkaninfo not installed\n'
+		fi
+
+		printf '\n== Outputs ==\n'
+		if [ -s "$MLOS_SNAPSHOT" ]; then
+			grep -E ' connected' "$MLOS_SNAPSHOT" || printf '  none\n'
+		else
+			printf '  no snapshot yet\n'
+		fi
+	} > "$rep" 2>&1
+	whiptail --title "Video report" --scrolltext --textbox "$rep" 24 100
+	rm -f "$rep"
+}
+
+# Pull the interesting lines out of a very long Moonlight log.
+decoder_summary() {
+	if [ ! -s "$LOG" ]; then
+		mlos_msg "No session log yet.\n\nStart Moonlight once, quit, then come back."
+		return
+	fi
+	sum=$(mktemp)
+	grep -iE 'decoder|renderer|vulkan|vaapi|vdpau|error|warn|fail|unsupported' "$LOG" \
+		| tail -40 > "$sum"
+	[ -s "$sum" ] || printf 'Nothing notable found in the log.\n' > "$sum"
+	whiptail --title "Decoder / renderer messages" --scrolltext --textbox "$sum" 24 100
+	rm -f "$sum"
+}
+
+copy_logs() {
+	dest=""
+	for d in /run/live/medium /media/*; do
+		[ -d "$d" ] && [ -w "$d" ] && { dest="$d"; break; }
+	done
+	if [ -z "$dest" ]; then
+		mlos_msg "No writable removable drive found.\n\nThe boot medium is read-only unless you set up persistence.\n\nPlug in a second USB stick and try again."
+		return
+	fi
+	out="$dest/moonlight-os-logs.txt"
+	moonlight-report > "$out" 2>&1
+	mlos_msg "Written to:\n\n$out"
+}
+
+while :; do
+	mlos_load
+	choice=$(whiptail --title "Video & logs" --menu \
+"Force software rendering: ${FORCE_SOFTWARE:-no}
+
+A black stream with a working launcher points at the decoder
+or the renderer, not the network." 20 74 6 \
+		1 "Decoder / renderer messages from the last run" \
+		2 "Full session log" \
+		3 "Video hardware report" \
+		4 "Toggle force-software rendering" \
+		5 "Copy logs to a USB stick" \
+		6 "Back" \
+		3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		1) decoder_summary ;;
+		2) show_file "Session log" "$LOG" ;;
+		3) video_report ;;
+		4) if [ "${FORCE_SOFTWARE:-no}" = "yes" ]; then
+			   mlos_set FORCE_SOFTWARE "no"
+			   mlos_msg "Hardware rendering re-enabled.\n\nTakes effect when Moonlight restarts."
+		   else
+			   mlos_set FORCE_SOFTWARE "yes"
+			   mlos_msg "Software rendering forced.\n\nSlow, but if the stream now appears, the GPU path is the problem.\n\nTakes effect when Moonlight restarts."
+		   fi ;;
+		5) copy_logs ;;
+		6) exit 0 ;;
+	esac
+done

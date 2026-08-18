@@ -1,0 +1,12 @@
+[Unit]
+Description=USB/IP host daemon (device passthrough to the host PC)
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=-/sbin/modprobe usbip-host
+ExecStart=/usr/sbin/usbipd
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

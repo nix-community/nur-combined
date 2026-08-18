@@ -1,0 +1,213 @@
+#!/usr/bin/python3
+"""Talk to mlos-host-utils on the host PC.
+
+This is what the shell menus use.  It never mentions Windows or Linux,
+because it does not know which one is at the other end and does not need to:
+the agent there translates.
+
+    moonlight-hostagent ping                 is the host PC there, and ready?
+    moonlight-hostagent check ADDR PORT TOK  try a pairing before saving it
+    moonlight-hostagent install              have it install its USB/IP client
+    moonlight-hostagent devices              what is plugged in here, and why
+    moonlight-hostagent sync                 offer that set to the host PC
+    moonlight-hostagent list                 what it currently has attached
+    moonlight-hostagent detach-all           hand everything back
+
+Exit codes: 0 fine, 1 something failed, 2 no host PC paired yet.
+"""
+
+import json
+import sys
+
+sys.path.insert(0, "/usr/local/lib/moonlight-os")
+
+import mlos_host as mh  # noqa: E402
+
+NOT_PAIRED = 2
+
+
+def die(msg, code=1):
+    print(msg, file=sys.stderr)
+    raise SystemExit(code)
+
+
+def fmt_ping(data):
+    tool = data.get("client_tool") or {}
+    lines = [
+        "host PC     %s (%s/%s)" % (data.get("hostname", "?"), data.get("os", "?"), data.get("arch", "?")),
+        "agent       mlos-host-utils %s" % data.get("version", "?"),
+    ]
+    if tool.get("present"):
+        lines.append("usb/ip      %s" % (tool.get("version") or tool.get("path") or "installed"))
+    else:
+        lines.append("usb/ip      not installed there yet")
+    if data.get("needs_reboot"):
+        lines.append("            the driver is installed but needs that PC rebooted")
+    lines.append("attached    %d device(s)" % data.get("attached", 0))
+    return "\n".join(lines)
+
+
+def cmd_ping(args):
+    with mh.client_from_conf() as c:
+        data = c.ping()
+    print(json.dumps(data) if "--json" in args else fmt_ping(data))
+
+
+def cmd_check(args):
+    if len(args) < 3:
+        die("usage: moonlight-hostagent check ADDR PORT TOKEN")
+    addr, port, token = args[0], args[1], args[2]
+    try:
+        port = int(port)
+    except ValueError:
+        die("port must be a number")
+    # Short timeout: this runs with someone watching a menu, and a wrong
+    # address should say so rather than look like a hang.
+    with mh.Client(addr, port, token, timeout=6.0) as c:
+        data = c.ping()
+    print(fmt_ping(data))
+
+
+def cmd_install(args):
+    with mh.client_from_conf(timeout=300.0) as c:
+        data = c.install()
+    if "--json" in args:
+        print(json.dumps(data))
+        return
+    for act in data.get("actions") or []:
+        print(" -", act)
+    print(data.get("message") or "done")
+    if data.get("needs_reboot"):
+        print()
+        print("Reboot the host PC before streaming -- the USB/IP driver is")
+        print("installed but does not take effect until then.")
+
+
+def _policy():
+    conf = mh.load_conf()
+    return (
+        conf.get("USB_AUTOSHARE_POLICY", "safe") or "safe",
+        conf.get("USB_AUTOSHARE_INCLUDE", "").split(),
+        conf.get("USB_AUTOSHARE_EXCLUDE", "").split(),
+    )
+
+
+def cmd_devices(args):
+    policy, include, exclude = _policy()
+    devs = mh.devices(policy, include, exclude)
+    if "--json" in args:
+        print(json.dumps([
+            {
+                "busid": d.busid, "hwid": d.hwid, "label": d.label,
+                "offered": not d.reason, "protected": d.protected, "reason": d.reason,
+            } for d in devs
+        ]))
+        return
+    if "--tsv" in args:
+        # For the shell menus.  Tabs, because a device label can contain
+        # anything a manufacturer felt like putting in a string descriptor
+        # -- spaces, colons, quotes -- but never a tab.
+        for d in devs:
+            print("\t".join([
+                d.busid, d.hwid, "yes" if not d.reason else "no",
+                "yes" if d.protected else "no", d.reason, d.label,
+            ]))
+        return
+    if not devs:
+        print("No USB devices plugged in.")
+        return
+    for d in devs:
+        mark = "[*]" if not d.reason else ("[-]" if d.protected else "[ ]")
+        print("%s %-8s %-10s %s" % (mark, d.busid, d.hwid, d.label))
+        if d.reason:
+            print("             %s" % d.reason)
+
+
+def cmd_sync(args):
+    policy, include, exclude = _policy()
+    devs = mh.offered(policy, include, exclude)
+
+    if devs and not mh.ensure_daemon():
+        die("the USB/IP daemon is not running here, so nothing can be shared")
+
+    failed = []
+    for d in list(devs):
+        okay, err = mh.bind(d.busid)
+        if not okay:
+            failed.append((d, err))
+    bad = {d.busid for d, _ in failed}
+    devs = [d for d in devs if d.busid not in bad]
+
+    with mh.client_from_conf() as c:
+        data = c.sync(devs)
+
+    if "--json" in args:
+        print(json.dumps(data))
+        return
+    for d, err in failed:
+        print("could not share %s (%s): %s" % (d.busid, d.label, err), file=sys.stderr)
+    print("offered %d device(s); the host PC attached %d and released %d" % (
+        len(devs), len(data.get("attached") or []), len(data.get("detached") or [])))
+    for item in data.get("failed") or []:
+        print("  %s: %s" % (item.get("busid"), item.get("error")), file=sys.stderr)
+    if failed or (data.get("failed") or []):
+        raise SystemExit(1)
+
+
+def cmd_list(args):
+    with mh.client_from_conf() as c:
+        data = c.list()
+    attached = data.get("attached") or []
+    if "--json" in args:
+        print(json.dumps(attached))
+        return
+    if not attached:
+        print("The host PC has nothing attached from this machine.")
+        return
+    for a in attached:
+        print("%-8s %s" % (a.get("busid"), a.get("label") or ""))
+
+
+def cmd_detach_all(args):
+    with mh.client_from_conf() as c:
+        data = c.detach_all()
+    for busid in data.get("detached") or []:
+        mh.unbind(busid)
+    print("handed back %d device(s)" % len(data.get("detached") or []))
+
+
+COMMANDS = {
+    "ping": cmd_ping,
+    "check": cmd_check,
+    "install": cmd_install,
+    "devices": cmd_devices,
+    "sync": cmd_sync,
+    "list": cmd_list,
+    "detach-all": cmd_detach_all,
+}
+
+
+def main():
+    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help", "help"):
+        print(__doc__.strip())
+        raise SystemExit(0 if len(sys.argv) > 1 else 2)
+
+    fn = COMMANDS.get(sys.argv[1])
+    if fn is None:
+        die("unknown command %r -- try --help" % sys.argv[1])
+
+    try:
+        fn(sys.argv[2:])
+    except mh.HostError as exc:
+        if exc.code == "not_paired":
+            die("No host PC is paired yet.\n"
+                "Run  mlos-host-utils install  on it, then use\n"
+                "Devices & input -> USB passthrough -> Pair this host PC.",
+                NOT_PAIRED)
+        die("%s" % exc)
+    except KeyboardInterrupt:
+        raise SystemExit(130)
+
+
+if __name__ == "__main__":
+    main()

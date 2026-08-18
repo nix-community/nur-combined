@@ -1,0 +1,152 @@
+#!/bin/sh
+# What the host PC is asked to send: resolution, frame rate, bitrate, and
+# whether the Windows key belongs to the PC or to this machine.
+#
+# Moonlight's own default is 1280x720, which on a box wired to a 1080p panel
+# is a blurry picture nobody asked for -- so "match this screen" is the
+# default here and is what an empty resolution in the config file means.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+resolution_label() {
+	if [ -z "$STREAM_WIDTH" ] || [ -z "$STREAM_HEIGHT" ]; then
+		m="$(mlos_screen_mode)"
+		printf 'match this screen%s' "${m:+ ($m)}"
+	else
+		printf '%sx%s' "$STREAM_WIDTH" "$STREAM_HEIGHT"
+	fi
+}
+
+resolution_menu() {
+	c=$(whiptail --title "Resolution" --menu \
+"Higher costs bandwidth and decoding effort.  Asking for more
+than this screen can show just wastes both." 18 74 6 \
+		1 "Match this screen ($(mlos_screen_mode))" \
+		2 "1280x720" \
+		3 "1920x1080" \
+		4 "2560x1440" \
+		5 "3840x2160" \
+		6 "Something else" \
+		3>&1 1>&2 2>&3) || return
+
+	case "$c" in
+		1) mlos_set STREAM_WIDTH ""; mlos_set STREAM_HEIGHT "" ;;
+		2) mlos_set STREAM_WIDTH 1280; mlos_set STREAM_HEIGHT 720 ;;
+		3) mlos_set STREAM_WIDTH 1920; mlos_set STREAM_HEIGHT 1080 ;;
+		4) mlos_set STREAM_WIDTH 2560; mlos_set STREAM_HEIGHT 1440 ;;
+		5) mlos_set STREAM_WIDTH 3840; mlos_set STREAM_HEIGHT 2160 ;;
+		6) r=$(whiptail --title "Resolution" --inputbox \
+			"Width x height, for example 1600x900:" 10 74 \
+			"${STREAM_WIDTH:-1920}x${STREAM_HEIGHT:-1080}" 3>&1 1>&2 2>&3) || return
+		   w="${r%%x*}"; h="${r##*x}"
+		   case "$w$h" in
+			   *[!0-9]*|"") mlos_msg "That is not a width by a height."; return ;;
+		   esac
+		   mlos_set STREAM_WIDTH "$w"; mlos_set STREAM_HEIGHT "$h" ;;
+	esac
+	saved
+}
+
+fps_menu() {
+	c=$(whiptail --title "Frame rate" --menu \
+"The screen here refreshes at $(refresh_hz) Hz.  Asking for more
+frames than it can show buys nothing." 16 74 4 \
+		1 "30" 2 "60" 3 "90" 4 "120" \
+		3>&1 1>&2 2>&3) || return
+	case "$c" in
+		1) mlos_set STREAM_FPS 30 ;;
+		2) mlos_set STREAM_FPS 60 ;;
+		3) mlos_set STREAM_FPS 90 ;;
+		4) mlos_set STREAM_FPS 120 ;;
+	esac
+	saved
+}
+
+refresh_hz() {
+	[ -n "${WAYLAND_DISPLAY:-}" ] || { printf '?'; return; }
+	# xrandr marked the active mode with an asterisk in free text; sway
+	# reports it outright, in mHz.
+	swaymsg -t get_outputs -r 2>/dev/null | MLOS_WANT="${MOONLIGHT_OUTPUT:-}" python3 -c '
+import json, os, sys
+try:
+    outs = [o for o in json.load(sys.stdin) if o.get("active")]
+except Exception:
+    sys.exit(0)
+if not outs:
+    sys.exit(0)
+want = os.environ.get("MLOS_WANT") or ""
+chosen = next((o for o in outs if o.get("name") == want), outs[0])
+m = chosen.get("current_mode") or {}
+if m.get("refresh"):
+    print("%d" % round(m["refresh"] / 1000.0), end="")
+' || printf '?'
+}
+
+bitrate_menu() {
+	c=$(whiptail --title "Bitrate" --menu \
+"Automatic works it out from the resolution and frame rate.
+Lower it if the picture breaks up on a weak connection." 16 74 2 \
+		1 "Automatic" \
+		2 "Set it by hand" \
+		3>&1 1>&2 2>&3) || return
+	case "$c" in
+		1) mlos_set STREAM_BITRATE 0 ;;
+		2) b=$(whiptail --title "Bitrate" --inputbox \
+			"Kbps (20000 is a common choice for 1080p60):" 10 74 \
+			"${STREAM_BITRATE:-20000}" 3>&1 1>&2 2>&3) || return
+		   case "$b" in
+			   *[!0-9]*|"") mlos_msg "That is not a number."; return ;;
+		   esac
+		   mlos_set STREAM_BITRATE "$b" ;;
+	esac
+	saved
+}
+
+syskeys_toggle() {
+	if [ "${CAPTURE_SYS_KEYS:-yes}" = "yes" ]; then
+		mlos_set CAPTURE_SYS_KEYS no
+		mlos_msg "The Windows key and Alt+Tab now belong to this machine.\n\nCtrl+Alt+M works during a stream again."
+	else
+		mlos_set CAPTURE_SYS_KEYS yes
+		mlos_msg "The Windows key and Alt+Tab now go to the host PC.\n\nWhile a stream is running this machine sees no keys at all, so Ctrl+Alt+M will not open the menu. Press Ctrl+Alt+Shift+Q to leave the stream first."
+	fi
+}
+
+saved() {
+	mlos_msg "Saved.\n\nIt applies the next time Moonlight starts -- the top menu has \"Restart Moonlight\"."
+}
+
+while :; do
+	mlos_load
+	if [ "${STREAM_BITRATE:-0}" = "0" ]; then
+		br="automatic"
+	else
+		br="${STREAM_BITRATE} Kbps"
+	fi
+	if [ "${CAPTURE_SYS_KEYS:-yes}" = "yes" ]; then
+		sk="the host PC"
+	else
+		sk="this machine"
+	fi
+
+	choice=$(whiptail --title "Stream quality" --menu \
+"Resolution: $(resolution_label)
+Frame rate: ${STREAM_FPS:-60} fps
+Bitrate:    $br
+Windows key and Alt+Tab go to: $sk" 20 74 5 \
+		1 "Resolution" \
+		2 "Frame rate" \
+		3 "Bitrate" \
+		4 "Who gets the Windows key and Alt+Tab" \
+		5 "Back" \
+		3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		1) resolution_menu ;;
+		2) fps_menu ;;
+		3) bitrate_menu ;;
+		4) syskeys_toggle ;;
+		5) exit 0 ;;
+	esac
+done

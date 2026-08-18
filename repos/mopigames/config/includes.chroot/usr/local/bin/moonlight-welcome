@@ -1,0 +1,72 @@
+#!/bin/sh
+# The first thing a live boot asks: install this, or just try it?
+#
+# It used to be the last thing.  Reaching the installer meant answering the
+# keyboard wizard, then the time zone wizard, then picking a Wi-Fi network,
+# then waiting for X, then knowing that Ctrl+Alt+M opens a menu with an
+# installer in it -- and every one of those answers was thrown away minutes
+# later, either by the fresh system asking again or by the settings carried
+# over from the disk being erased.  None of it is needed to install: the
+# installer copies the running system and touches no network.
+#
+# So the question comes first, and the wizards belong to the live path that
+# actually needs them.  Skipping them also leaves /etc/moonlight-os/.configured
+# absent, which is what makes the installed system ask on its own first boot --
+# unless a migration brought the answers along, in which case nobody is asked
+# anything.  See moonlight-session for where this sits in the boot flow.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+FLAG=/run/moonlight-os/welcome-done
+
+# Nothing to offer on an installed system, and nothing to draw on without a
+# console to draw it on.
+[ -d /run/live/medium ] || exit 0
+mlos_have_tty || exit 0
+
+# Once per boot.  The session loop comes back round here every time Moonlight
+# exits, and being asked whether you would like to install the thing you are
+# already using, every time you quit a stream, is not a question.
+[ -e "$FLAG" ] && exit 0
+
+done_asking() {
+	mlos_root mkdir -p "$(dirname "$FLAG")" 2>/dev/null || true
+	mlos_root touch "$FLAG" 2>/dev/null || true
+	exit 0
+}
+
+while :; do
+	choice=$(whiptail --title "Welcome to Moonlight OS" --menu \
+"Running from the USB stick.  Nothing has been written to this
+computer.
+
+Installing needs no network and no setup first -- and if this
+machine already has Moonlight OS on it, the installer carries
+its pairing, Wi-Fi and everything else across." 20 74 3 \
+		install  "Install Moonlight OS on this computer" \
+		live     "Try it from the USB stick, without installing" \
+		keyboard "Change the keyboard layout" \
+		3>&1 1>&2 2>&3) || done_asking
+
+	case "$choice" in
+		install)
+			moonlight-install
+			# Back here means the install was cancelled, finished
+			# without a reboot, or found no disk -- all of which leave
+			# the choice open rather than stranding someone in a live
+			# session they did not ask for.
+			;;
+		live)
+			done_asking
+			;;
+		keyboard)
+			# Confirming an erase means typing a word, and on a
+			# keyboard this has not been told about yet the word comes
+			# out as something else.  This is the escape hatch, and it
+			# is only worth showing here because the rest of this
+			# screen needs nothing but the arrow keys.
+			moonlight-region --keyboard || true
+			;;
+	esac
+done

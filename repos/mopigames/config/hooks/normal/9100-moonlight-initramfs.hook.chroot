@@ -1,0 +1,19 @@
+#!/bin/sh
+# Rebuild the initramfs, last thing.
+#
+# The one the kernel's postinst produced is stale by now.  live-build installs
+# linux-image long before config/includes.chroot is copied in, so at the point
+# it ran, /etc/initramfs-tools/hooks/zz-moonlight-trim-gpu did not exist yet --
+# and neither did anything else this build drops into the chroot.  Without this
+# the trim hook would be shipped in the image and never once executed.
+#
+# 9100 so it lands after 9000-moonlight-slim, whose firmware deletions the new
+# initramfs should also reflect.
+set -e
+
+chmod +x /etc/initramfs-tools/hooks/zz-moonlight-trim-gpu
+
+before=$(du -sk /boot/initrd.img-* 2>/dev/null | sort -n | tail -1 | cut -f1)
+update-initramfs -u -k all
+after=$(du -sk /boot/initrd.img-* 2>/dev/null | sort -n | tail -1 | cut -f1)
+echo "I: initramfs ${before:-?} kB -> ${after:-?} kB"

@@ -1,0 +1,110 @@
+#!/bin/sh
+# Thin wrapper around Selene, installed from the selene .deb as /usr/bin/selene.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+mlos_load
+
+# The platform comes from the session (mlos_run_compositor), which is the one
+# place that knows what is running.  This used to hardcode xcb, and left that
+# way it overrode the session's setting and sent Qt looking for an X server
+# that no longer exists -- the client then aborted outright with "no Qt
+# platform plugin could be initialized".
+#
+# Only defaulted, so that running this by hand from a TTY for debugging still
+# picks something rather than failing.
+export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-wayland}"
+
+# No LIBVA_DRIVERS_PATH override here on purpose.  It existed because the
+# AppImage bundled its own libva built against a different prefix, so the
+# compiled-in driver search path was not Debian's.  A native package links
+# against the system libva and finds its drivers unaided.
+
+# Escape hatch for a black stream: FORCE_SOFTWARE=yes in the config file makes
+# Moonlight skip Vulkan/libplacebo and hardware decode entirely.  Slower, but
+# it isolates whether the GPU path is at fault.
+if [ "${FORCE_SOFTWARE:-no}" = "yes" ]; then
+	export LIBGL_ALWAYS_SOFTWARE=1
+	export PLVK_ALLOW_SOFTWARE=1
+fi
+
+# Window mode.  Exclusive fullscreen makes Moonlight ask the monitor to switch
+# to the stream's resolution; when the panel has no matching mode the modeset
+# is retried, which shows up as the backlight flashing on and off and ends in
+# "connection terminated".  Borderless covers the whole screen without
+# touching the mode, so it is the default here.
+#
+# The launcher reads this out of Qt's settings file, so it has to be seeded
+# there; the direct-stream path can just be told on the command line.
+case "${WINDOW_MODE:-borderless}" in
+	fullscreen) wm_name=fullscreen; wm_id=0 ;;
+	windowed)   wm_name=windowed;   wm_id=2 ;;
+	*)          wm_name=borderless; wm_id=1 ;;
+esac
+
+# 0 = WM_FULLSCREEN, 1 = WM_FULLSCREEN_DESKTOP (borderless), 2 = WM_WINDOWED.
+mlos_qt_set windowmode "$wm_id"
+
+# Stream resolution.  Moonlight's own default is 1280x720, which on a
+# dedicated box wired to a 1080p panel is just a blurry picture nobody asked
+# for.  Empty in the config file means "whatever this screen is running at".
+width="$STREAM_WIDTH"
+height="$STREAM_HEIGHT"
+if [ -z "$width" ] || [ -z "$height" ]; then
+	mode="$(mlos_screen_mode)"
+	if [ -n "$mode" ]; then
+		width="${mode%x*}"
+		height="${mode#*x}"
+	fi
+fi
+if [ -n "$width" ] && [ -n "$height" ]; then
+	mlos_qt_set width "$width"
+	mlos_qt_set height "$height"
+fi
+mlos_qt_set fps "${STREAM_FPS:-60}"
+
+# Bitrate.  The stored key is "bitrate", and leaving it out entirely is what
+# makes Moonlight recompute it from the resolution and frame rate -- writing a
+# zero would just be a zero.
+if [ "${STREAM_BITRATE:-0}" = "0" ]; then
+	mlos_qt_del bitrate
+else
+	mlos_qt_set bitrate "$STREAM_BITRATE"
+fi
+
+# AC_STEREO, AC_51_SURROUND, AC_71_SURROUND.
+case "${AUDIO_CONFIG:-stereo}" in
+	5.1) audio_id=1 ;;
+	7.1) audio_id=2 ;;
+	*)   audio_id=0 ;;
+esac
+mlos_qt_set audiocfg "$audio_id"
+if [ "${HOST_AUDIO:-no}" = "yes" ]; then
+	mlos_qt_set hostaudio true
+else
+	mlos_qt_set hostaudio false
+fi
+
+# CSK_OFF (0) / CSK_FULLSCREEN (1) / CSK_ALWAYS (2).
+#
+# With capture on, SDL grabs the whole keyboard while streaming, so the
+# Windows key and Alt+Tab reach the host PC -- and the window manager stops
+# seeing Ctrl+Alt+M for the duration.  Moonlight's own Ctrl+Alt+Shift+Q still
+# quits the stream, and the panel is reachable again the moment it does.
+if [ "${CAPTURE_SYS_KEYS:-yes}" = "yes" ]; then
+	mlos_qt_set capturesyskeys 1
+else
+	mlos_qt_set capturesyskeys 0
+fi
+
+if [ -n "$AUTOCONNECT_HOST" ]; then
+	# Skip the launcher entirely and go straight into the stream.
+	set -- stream --display-mode "$wm_name"
+	[ -n "$width" ] && [ -n "$height" ] && set -- "$@" --resolution "${width}x${height}"
+	set -- "$@" --fps "${STREAM_FPS:-60}"
+	exec /usr/bin/selene "$@" \
+		"$AUTOCONNECT_HOST" "${AUTOCONNECT_APP:-Desktop}"
+fi
+
+exec /usr/bin/selene "$@"

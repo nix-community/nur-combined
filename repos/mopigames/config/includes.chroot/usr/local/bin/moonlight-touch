@@ -1,0 +1,131 @@
+#!/bin/sh
+# Point the touchscreen at the right corner of the screen.
+#
+#   moonlight-touch --apply    map every touchscreen onto its output
+#   moonlight-touch --show     what it would set, and why
+#
+# Rotating a screen does not rotate the touchscreen with it.  The panel keeps
+# reporting where a finger landed in its own coordinates -- on a tablet whose
+# panel is physically portrait and running rotated, that is 90 degrees away
+# from where the picture is, so the pointer runs off at right angles to the
+# finger.
+#
+# Under X11 the fix was a 3x3 "Coordinate Transformation Matrix" property,
+# composed by hand from the rotation matrix and the output's share of the
+# whole screen, then set on each device with xinput.  That arithmetic -- and
+# the enumeration of X device ids behind it -- was the entire script.
+#
+# A compositor already knows where each output is and how it is rotated, so
+# the whole thing is one directive: map_to_output.  sway recomputes it on
+# every layout change by itself, which is also why there is no matrix to
+# reapply.
+#
+# Devices are still matched on udev's ID_INPUT_TOUCHSCREEN rather than by
+# name.  Matching on names looked tempting -- until a real machine turned up
+# with "FTSC1000:00 2808:1015" and "FTSC1000:00 2808:1015 UNKNOWN", one a
+# touchscreen and one not.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+[ -n "${WAYLAND_DISPLAY:-}" ] || exit 0
+command -v swaymsg >/dev/null 2>&1 || exit 0
+
+# Which output a touchscreen belongs to.
+#
+# A touchscreen is glued to a panel, and the panel is the built-in one --
+# nobody carries a second touch monitor to a machine like this.  So an
+# internal output wins outright; failing that the screen the appliance was
+# told to use, which on a single-screen machine is the same answer anyway.
+touch_output() {
+	names=$(swaymsg -t get_outputs -r 2>/dev/null | python3 -c '
+import json, sys
+try:
+    print("\n".join(o["name"] for o in json.load(sys.stdin) if o.get("name")))
+except Exception:
+    pass
+') || return 1
+	[ -n "$names" ] || return 1
+
+	internal=$(printf '%s\n' "$names" | grep -E '^(DSI|eDP|LVDS)' | head -1)
+	if [ -n "$internal" ]; then
+		printf '%s' "$internal"
+		return 0
+	fi
+
+	mlos_load
+	if [ -n "${MOONLIGHT_OUTPUT:-}" ] && printf '%s\n' "$names" | grep -qx "$MOONLIGHT_OUTPUT"; then
+		printf '%s' "$MOONLIGHT_OUTPUT"
+		return 0
+	fi
+
+	printf '%s\n' "$names" | head -1
+}
+
+# Every input sway knows about that udev calls a touchscreen, as sway
+# identifiers ("1234:5678:Some_Touchscreen").
+touch_devices() {
+	swaymsg -t get_inputs -r 2>/dev/null | python3 -c '
+import json, sys, subprocess
+try:
+    inputs = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+for d in inputs:
+    ident = d.get("identifier")
+    if not ident:
+        continue
+    # sway reports the type it inferred; trust udev over it, since that is
+    # what distinguished the two near-identical devices noted above.
+    node = d.get("libinput", {}).get("device_path") or ""
+    if node:
+        try:
+            props = subprocess.run(["udevadm", "info", "--query=property",
+                                    "--name=" + node],
+                                   capture_output=True, text=True, timeout=5).stdout
+        except Exception:
+            props = ""
+        if "ID_INPUT_TOUCHSCREEN=1" in props.splitlines():
+            print(ident)
+            continue
+    elif d.get("type") == "touch":
+        print(ident)
+'
+}
+
+apply() {
+	out="$(touch_output)" || return 0
+	[ -n "$out" ] || return 0
+
+	found=0
+	for id in $(touch_devices); do
+		found=1
+		[ "${SHOW_ONLY:-0}" = "1" ] && continue
+		swaymsg input "$id" map_to_output "$out" >/dev/null 2>&1 || true
+	done
+
+	MLOS_TOUCH_OUT="$out"
+	MLOS_TOUCH_FOUND="$found"
+}
+
+case "${1:---apply}" in
+	--apply)
+		apply
+		;;
+	--show)
+		SHOW_ONLY=1
+		apply
+		if [ "${MLOS_TOUCH_FOUND:-0}" = "0" ]; then
+			echo "No touchscreen on this machine."
+		else
+			echo "touchscreen -> $MLOS_TOUCH_OUT"
+			for id in $(touch_devices); do
+				echo "  $id"
+			done
+		fi
+		;;
+	*)
+		echo "usage: moonlight-touch [--apply|--show]" >&2
+		exit 2
+		;;
+esac

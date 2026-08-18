@@ -1,0 +1,3 @@
+# Single-user appliance: the console autologs in with no password anyway,
+# so gating the settings menus behind a password buys nothing.
+moonlight ALL=(ALL) NOPASSWD: ALL

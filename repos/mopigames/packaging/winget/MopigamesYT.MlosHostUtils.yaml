@@ -1,0 +1,8 @@
+# Version manifest.  __VERSION__ and the two hashes are filled in by
+# packaging/winget/render.sh at release time; the checked-in file is the
+# template, so a manifest is never hand-edited for a release.
+PackageIdentifier: MopigamesYT.MlosHostUtils
+PackageVersion: __VERSION__
+DefaultLocale: en-US
+ManifestType: version
+ManifestVersion: 1.6.0

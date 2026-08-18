@@ -1,0 +1,191 @@
+#!/bin/sh
+# Warn when this machine's battery is getting low, over the top of the stream.
+#
+#   moonlight-battery           watch (started by moonlight-xsession)
+#   moonlight-battery status    one line, for the menus
+#   moonlight-battery percent   just the number, or nothing
+#   moonlight-battery test      show the warning you would get at the first level
+#
+# The host PC cannot help here.  Nothing in the streaming protocol carries
+# the client's system battery -- the only battery field in it is per-gamepad --
+# and a fullscreen app covers whatever taskbar might have shown it anyway.  So
+# the warning is drawn on this end, over the stream, where you are looking.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+INTERVAL="${MLOS_BATTERY_INTERVAL:-30}"
+
+# How often to repeat once past the last (most urgent) level, in seconds.
+# Silence after one warning at 5% is how you end up shut down mid-match.
+CRITICAL_REPEAT="${MLOS_BATTERY_REPEAT:-300}"
+
+log() {
+	printf '%s moonlight-battery: %s\n' "$(date '+%H:%M:%S')" "$1"
+}
+
+# The machine's own battery.
+#
+# "type Battery" alone is not enough: a wireless controller or headset reports
+# itself exactly that way, and this laptop has a Switch pad sitting in
+# /sys/class/power_supply doing so right now.  Peripherals set scope=Device,
+# so that is the line to draw -- warning that the machine is about to die
+# because a gamepad needs charging would be nonsense.
+battery_path() {
+	for b in "${MLOS_POWER_SUPPLY:-/sys/class/power_supply}"/*; do
+		[ -d "$b" ] || continue
+		[ "$(cat "$b/type" 2>/dev/null)" = "Battery" ] || continue
+		[ "$(cat "$b/scope" 2>/dev/null)" = "Device" ] && continue
+		[ -r "$b/capacity" ] || continue
+		[ -r "$b/status" ] || continue
+		printf '%s' "$b"
+		return 0
+	done
+	return 1
+}
+
+percent() { cat "$BAT/capacity" 2>/dev/null; }
+
+# Discharging is the only state that counts as "on battery".  "Not charging"
+# means plugged in and simply not taking a charge, which several laptops
+# report permanently once they hit a charge limit -- treating that as
+# unplugged would warn forever on a machine sitting on its charger.
+on_battery() {
+	[ "$(cat "$BAT/status" 2>/dev/null)" = "Discharging" ]
+}
+
+state_word() {
+	s="$(cat "$BAT/status" 2>/dev/null)"
+	case "$s" in
+		Discharging)   printf 'on battery' ;;
+		Charging)      printf 'charging' ;;
+		Full)          printf 'full' ;;
+		"Not charging") printf 'plugged in' ;;
+		*)             printf '%s' "${s:-unknown}" ;;
+	esac
+}
+
+# Levels, largest first, so the loop always reports the most urgent one that
+# applies rather than whichever came first in the config file.
+levels() {
+	for l in ${BATTERY_LEVELS:-20 10 5}; do
+		case "$l" in ''|*[!0-9]*) continue ;; esac
+		printf '%s\n' "$l"
+	done | sort -rn | uniq
+}
+
+warn() {
+	colour="$1"
+	shift
+	log "$*"
+	moonlight-osd -c "$colour" -d 8 "$@" 2>/dev/null || true
+}
+
+watch() {
+	mlos_load
+	[ "${BATTERY_WARN:-yes}" = "yes" ] || { log "warnings off"; return 0; }
+	[ -n "${WAYLAND_DISPLAY:-}" ] || return 0
+
+	lowest="$(levels | tail -1)"
+
+	# Levels already warned about this discharge, as " 20 10 ".  Cleared
+	# whenever the charger goes back in, so unplugging again warns again.
+	fired=" "
+	last_on_battery=""
+	last_critical=0
+
+	while :; do
+		sleep "$INTERVAL"
+
+		# The compositor going away takes the session with it, and this
+		# watcher along with it.  Checked against the compositor rather
+		# than the battery: /sys does not stop existing when the session
+		# ends, and a warner with nowhere to draw is just a wakeup timer.
+		swaymsg -t get_version >/dev/null 2>&1 || return 0
+		[ -d "$BAT" ] || return 0
+		p="$(percent)"
+		case "$p" in ''|*[!0-9]*) continue ;; esac
+
+		# Re-read every pass: the levels can be changed from the menu
+		# while this is running, and so can the on/off switch.
+		mlos_load
+		[ "${BATTERY_WARN:-yes}" = "yes" ] || continue
+
+		if on_battery; then
+			now_on_battery=yes
+		else
+			now_on_battery=no
+		fi
+
+		# Charger in or out.  The unplug notice is the one that earns
+		# its keep -- a charger knocked out of the socket is invisible
+		# from inside a fullscreen app until the machine dies.
+		if [ -n "$last_on_battery" ] && [ "$now_on_battery" != "$last_on_battery" ]; then
+			if [ "$now_on_battery" = yes ]; then
+				warn "#ffcc00" "Unplugged - running on battery" "${p}% left"
+			else
+				warn "#66dd66" "Charger connected - ${p}%"
+				# A charge resets the whole ladder.
+				fired=" "
+				last_critical=0
+			fi
+		fi
+		last_on_battery="$now_on_battery"
+
+		if [ "$now_on_battery" != yes ]; then
+			continue
+		fi
+
+		for l in $(levels); do
+			[ "$p" -le "$l" ] || continue
+			case "$fired" in
+				*" $l "*) ;;
+				*)
+					fired="$fired$l "
+					if [ "$l" = "$lowest" ]; then
+						warn "#ff4444" \
+							"Battery critical - ${p}%" \
+							"Plug in or save your work"
+						last_critical=$(date +%s)
+					else
+						warn "#ffcc00" \
+							"Battery low - ${p}% left"
+					fi
+					;;
+			esac
+			# Only the most urgent level that applies.
+			break
+		done
+
+		# Past the last level, keep saying so.  One warning at 5% that
+		# scrolled past while you were looking at the stream is not a
+		# warning, it is a formality.
+		if [ -n "$lowest" ] && [ "$p" -le "$lowest" ]; then
+			now=$(date +%s)
+			if [ "$((now - last_critical))" -ge "$CRITICAL_REPEAT" ]; then
+				warn "#ff4444" \
+					"Battery critical - ${p}%" \
+					"Plug in or save your work"
+				last_critical="$now"
+			fi
+		fi
+	done
+}
+
+BAT="$(battery_path)" || {
+	# A desktop.  Not a failure, just nothing to do.
+	[ "${1:-watch}" = "status" ] && printf 'no battery\n'
+	exit 0
+}
+
+case "${1:-watch}" in
+	watch)   watch ;;
+	status)  printf '%s%% (%s)\n' "$(percent)" "$(state_word)" ;;
+	percent) percent ;;
+	test)    mlos_load
+	         moonlight-osd -c "#ffcc00" -d 8 \
+			"Battery low - $(percent)% left" \
+			"(this is a test)" ;;
+	*) printf 'usage: moonlight-battery [watch|status|percent|test]\n' >&2
+	   exit 2 ;;
+esac

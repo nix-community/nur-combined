@@ -1,0 +1,141 @@
+#!/bin/sh
+# Remote access over SSH.
+#
+# The image ships with key-only logins and whatever public keys the machine
+# that built it had.  This screen exists to tell you where to connect, and to
+# let you fall back to a password when the key is not to hand.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+AUTH_KEYS="$HOME/.ssh/authorized_keys"
+SSHD_CONF=/etc/ssh/sshd_config.d/10-moonlight-os.conf
+
+running() { systemctl is-active --quiet ssh 2>/dev/null; }
+
+# sshd takes the *first* value it sees for a keyword, and Debian's
+# sshd_config pulls in the drop-in directory on its first line -- so a second
+# drop-in cannot override this one.  The switch is the file itself.
+password_on() { grep -q '^PasswordAuthentication yes' "$SSHD_CONF" 2>/dev/null; }
+
+host_name() { hostname 2>/dev/null || cat /etc/hostname 2>/dev/null; }
+
+reload_sshd() {
+	mlos_root systemctl reload ssh 2>/dev/null || mlos_root systemctl restart ssh
+}
+
+addresses() {
+	ip="$(mlos_ip)"
+	[ -n "$ip" ] && printf 'ssh moonlight@%s\n' "$ip"
+	printf 'ssh moonlight@%s.local\n' "$(host_name)"
+	if [ -x /usr/bin/tailscale ]; then
+		ts=$(mlos_root /usr/bin/tailscale ip -4 2>/dev/null | head -1)
+		[ -n "$ts" ] && printf 'ssh moonlight@%s   (over Tailscale)\n' "$ts"
+	fi
+}
+
+details() {
+	rep="$(mktemp)"
+	{
+		printf '== Connect with ==\n'
+		addresses
+
+		printf '\n== Server ==\n'
+		if running; then printf 'running\n'; else printf 'stopped\n'; fi
+		printf 'password logins: '
+		if password_on; then printf 'on\n'; else printf 'off (keys only)\n'; fi
+
+		printf '\n== Authorised keys ==\n'
+		if [ -s "$AUTH_KEYS" ]; then
+			ssh-keygen -lf "$AUTH_KEYS" 2>/dev/null || cat "$AUTH_KEYS"
+		else
+			printf 'none -- only a password login can work\n'
+		fi
+
+		printf '\n== This machine'"'"'s host keys ==\n'
+		printf 'Compare these with what your client shows the first time.\n'
+		for k in /etc/ssh/ssh_host_*_key.pub; do
+			[ -f "$k" ] && ssh-keygen -lf "$k" 2>/dev/null
+		done
+		printf '\nA live boot with no persistence generates new host keys on\n'
+		printf 'every start, so your client will complain each time.\n'
+	} > "$rep" 2>&1
+	whiptail --title "Remote access" --scrolltext --textbox "$rep" 24 100
+	rm -f "$rep"
+}
+
+set_password() {
+	p1=$(whiptail --title "SSH password" --passwordbox \
+"Password for the 'moonlight' account.
+
+This account can run anything as root, so pick a real one." \
+		12 74 3>&1 1>&2 2>&3) || return 0
+	[ -n "$p1" ] || { mlos_msg "An empty password would be refused. Nothing changed."; return 0; }
+
+	p2=$(whiptail --title "SSH password" --passwordbox "Type it again:" 10 74 \
+		3>&1 1>&2 2>&3) || return 0
+	if [ "$p1" != "$p2" ]; then
+		mlos_msg "Those did not match. Nothing changed."
+		return 0
+	fi
+
+	if ! printf 'moonlight:%s\n' "$p1" | mlos_root chpasswd; then
+		mlos_msg "The password could not be set."
+		return 0
+	fi
+
+	mlos_root sed -i \
+		's/^PasswordAuthentication no/PasswordAuthentication yes/;
+		 s/^KbdInteractiveAuthentication no/KbdInteractiveAuthentication yes/' \
+		"$SSHD_CONF"
+	reload_sshd
+	mlos_msg "Password logins are on.\n\n$(addresses)"
+}
+
+password_off() {
+	mlos_root sed -i \
+		's/^PasswordAuthentication yes/PasswordAuthentication no/;
+		 s/^KbdInteractiveAuthentication yes/KbdInteractiveAuthentication no/' \
+		"$SSHD_CONF"
+	# Back to no password at all, which is what the console autologin wants.
+	mlos_root passwd -d moonlight >/dev/null 2>&1 || true
+	reload_sshd
+	mlos_msg "Password logins are off again. Keys only."
+}
+
+while :; do
+	if running; then state="SSH server: running"; else state="SSH server: stopped"; fi
+	if [ -s "$AUTH_KEYS" ]; then
+		keys="Keys installed: $(grep -c . "$AUTH_KEYS")"
+	else
+		keys="Keys installed: none"
+	fi
+	if password_on; then pw="Password logins: on"; else pw="Password logins: off"; fi
+
+	choice=$(whiptail --title "Remote access (SSH)" --menu \
+"$state
+$keys
+$pw
+
+$(addresses)" 22 78 5 \
+		1 "Connection details and fingerprints" \
+		2 "Allow password logins (and set a password)" \
+		3 "Turn password logins off" \
+		4 "Start / stop the SSH server" \
+		5 "Back" \
+		3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		1) details ;;
+		2) set_password ;;
+		3) password_off ;;
+		4) if running; then
+			   mlos_root systemctl stop ssh
+			   mlos_msg "SSH server stopped.\n\nIt comes back on the next boot."
+		   else
+			   mlos_root systemctl start ssh
+			   mlos_msg "SSH server started.\n\n$(addresses)"
+		   fi ;;
+		5) exit 0 ;;
+	esac
+done

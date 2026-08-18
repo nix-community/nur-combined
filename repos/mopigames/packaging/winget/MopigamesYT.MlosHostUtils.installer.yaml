@@ -1,0 +1,30 @@
+# Installer manifest.
+#
+# InstallerType is portable rather than an MSI or an EXE installer, because
+# what we ship *is* one static binary and nothing else -- there is no
+# installer to run.  Portable also settles the PATH question for winget
+# users: winget drops a shim named by PortableCommandAlias into its Links
+# directory, which is on PATH already, so `mlos-host-utils` works in a new
+# terminal the moment the install finishes.
+#
+# What winget does NOT do is set up the agent: it has no idea about USB/IP,
+# the boot task or the firewall.  That is still one elevated
+# `mlos-host-utils install`, and the locale manifest says so in the notes
+# winget prints after installing.
+PackageIdentifier: MopigamesYT.MlosHostUtils
+PackageVersion: __VERSION__
+InstallerType: portable
+Commands:
+  - mlos-host-utils
+ReleaseDate: __RELEASE_DATE__
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/MopigamesYT/moonlight-os/releases/download/__TAG__/mlos-host-utils-windows-amd64.exe
+    InstallerSha256: __SHA256_X64__
+    PortableCommandAlias: mlos-host-utils
+  - Architecture: arm64
+    InstallerUrl: https://github.com/MopigamesYT/moonlight-os/releases/download/__TAG__/mlos-host-utils-windows-arm64.exe
+    InstallerSha256: __SHA256_ARM64__
+    PortableCommandAlias: mlos-host-utils
+ManifestType: installer
+ManifestVersion: 1.6.0

@@ -1,0 +1,18 @@
+[Unit]
+Description=Moonlight OS automatic USB passthrough
+Documentation=man:moonlight-usb-auto
+After=network-online.target usbipd.service
+Wants=network-online.target usbipd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/moonlight-usb-auto
+# On the way out it unbinds every device it shared and tells the host PC to
+# let go, which is two round trips on a machine that is probably shutting
+# down.  Give it room rather than leaving a wheel attached to nothing.
+TimeoutStopSec=20
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

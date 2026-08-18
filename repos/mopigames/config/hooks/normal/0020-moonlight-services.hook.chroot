@@ -1,0 +1,55 @@
+#!/bin/sh
+# Service layout: console only, no display manager, nothing background that
+# a streaming appliance does not need.
+set -e
+
+systemctl set-default multi-user.target
+
+# NetworkManager-wait-online is what makes network-online.target mean
+# "associated" rather than "the daemon that manages associations is up".
+# The package enables it on its own, but two units here are ordered after
+# that target and one of them is tailscaled, which comes up dead when it
+# starts before Wi-Fi -- so do not leave it to the package's presets.
+for svc in NetworkManager NetworkManager-wait-online avahi-daemon usbipd \
+           systemd-timesyncd ssh bluetooth; do
+	systemctl enable "$svc" 2>/dev/null || true
+done
+
+# The automatic USB passthrough watcher is enabled but reads USB_AUTOSHARE on
+# start and exits immediately when it is off, which it is by default.  That
+# is deliberately not the same as leaving it disabled: the menu toggles one
+# setting and restarts the unit, rather than having to enable and disable it
+# and keep the two in agreement.
+systemctl enable moonlight-usb-auto 2>/dev/null || true
+
+# Tailscale comes from the upstream tarball, so its unit is dropped into
+# /etc/systemd/system by build.sh rather than installed by a package -- it
+# has no postinst to enable itself.  The daemon idles until someone logs in.
+# That unit is taken as it ships and corrected from tailscaled.service.d
+# beside it, which is where the ordering against Wi-Fi lives -- editing the
+# fetched copy would only be undone by the next build.
+if [ -f /etc/systemd/system/tailscaled.service ]; then
+	systemctl enable tailscaled 2>/dev/null || true
+	install -d -m 0700 /var/lib/tailscale
+fi
+
+# Nothing here should ever run apt or rebuild indexes on an appliance.
+# wpa_supplicant is deliberately absent from this list: NetworkManager
+# D-Bus-activates it, and masking it kills Wi-Fi outright.
+for svc in apt-daily.timer apt-daily-upgrade.timer \
+           man-db.timer e2scrub_all.timer fstrim.timer \
+           ModemManager.service; do
+	systemctl disable "$svc" 2>/dev/null || true
+	systemctl mask "$svc" 2>/dev/null || true
+done
+
+# PipeWire runs as a user service; enable it in the skeleton so the
+# appliance user picks it up on first login.
+if [ -f /usr/lib/systemd/user/pipewire.service ]; then
+	install -d /etc/systemd/user/default.target.wants
+	for u in pipewire.socket pipewire-pulse.socket wireplumber.service; do
+		[ -f "/usr/lib/systemd/user/$u" ] || continue
+		ln -sf "/usr/lib/systemd/user/$u" \
+			"/etc/systemd/user/default.target.wants/$u" 2>/dev/null || true
+	done
+fi

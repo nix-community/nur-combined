@@ -1,0 +1,114 @@
+# Moonlight OS compositor configuration.
+#
+# This is deliberately not sway's shipped default config: that one binds most
+# of the keyboard for a tiling desktop, and every one of those bindings would
+# be a key the streamed host PC never receives.  An appliance that forwards
+# almost the whole keyboard wants the opposite -- exactly one binding.
+#
+# sway is started by moonlight-session on tty1 after autologin.  There is no
+# display manager.
+
+### --- appearance ---------------------------------------------------------
+# Nothing here is ever meant to look like a desktop.  No decorations, no gaps,
+# no status bar: a single fullscreen client on a black background.
+default_border none
+default_floating_border none
+titlebar_border_thickness 0
+hide_edge_borders both
+font pango:DejaVu Sans 11
+
+output * bg #000000 solid_color
+
+# Replaces unclutter: the pointer disappears when it stops moving rather than
+# sitting over the stream.
+seat * hide_cursor 3000
+
+# A stream is not a desktop -- the pointer crossing a window edge should never
+# move focus away from what is being watched.
+focus_follows_mouse no
+
+### --- X11 ----------------------------------------------------------------
+# Off on purpose.  Selene is a native Wayland client (Qt's wayland QPA plus
+# SDL's wayland video driver), and nothing else in the image needs X, so
+# leaving Xwayland enabled would ship an X server to run nothing.
+#
+# If a future client turns out to need X, this is the single line to flip.
+xwayland disable
+
+### --- the settings panel -------------------------------------------------
+# The whole reason the X11 session had a triggerhappy daemon reading
+# /dev/input: while streaming, the client grabbed the X keyboard, so the
+# window manager never saw this combination and the panel could not be opened.
+#
+# A compositor binding is evaluated before the key reaches any client, so that
+# entire mechanism -- triggerhappy, its evdev rules, the setuid-ish hand-off
+# script, the iconify-to-drop-the-grab dance -- collapses into this one line.
+#
+# --to-code binds the physical key position rather than the letter, so this
+# still lands on the key labelled M under an AZERTY layout, where it would
+# otherwise be the semicolon.  That replaces the duplicated KEY_SEMICOLON
+# rules the evdev version needed.
+bindsym --to-code Ctrl+Alt+m exec /usr/local/bin/moonlight-panel
+
+# ...and the client is not allowed to take that binding away.
+#
+# Wayland has a direct analogue of the X keyboard grab: a client may ask the
+# compositor to stop processing its own shortcuts, via
+# zwp_keyboard_shortcuts_inhibit.  SDL implements SDL_SetWindowKeyboardGrab
+# with it, and the client turns that on while streaming (capturesyskeys), so
+# by default sway stops honouring the binding above at exactly the moment it
+# is needed -- the same failure the X11 grab caused, in a new protocol.
+#
+# Refusing the inhibitor is what keeps the panel reachable mid-stream.  The
+# cost is that the two combinations bound here no longer reach the host PC;
+# every other key still does.  Under X11 they reached both, because reading
+# /dev/input is passive.
+seat * shortcuts_inhibitor disable
+
+# Panic exit, matching the old session's Ctrl+Alt+Shift+Q.
+bindsym --to-code Ctrl+Alt+Shift+q exit
+
+### --- window placement ---------------------------------------------------
+# The panel gets a workspace to itself, and the compositor switches to it as
+# the window appears.
+#
+# It cannot simply open on top.  A second toplevel over a fullscreen client
+# does not reliably get drawn: sway reports the panel fullscreen and visible
+# and the client not visible, and the screen still shows the client.
+#
+# That is a compositing bug rather than a display one -- grim reads back what
+# wlroots composited, and in the failing case grim returns the client, so the
+# wrong surface really was composited.  Nothing at the DRM layer is involved:
+# this output runs transform=90 and wlroots cannot scan out a rotated output,
+# so direct scanout was never in play, and neither
+# WLR_SCENE_DISABLE_DIRECT_SCANOUT, WLR_SCENE_DEBUG_DAMAGE=rerender,
+# WLR_DRM_NO_ATOMIC nor WLR_DRM_NO_MODIFIERS makes any difference.
+#
+# A layer-shell surface on the overlay layer is the mechanism that is actually
+# defined to draw above fullscreen surfaces, and it works here (checked with
+# swaynag -y overlay over a live stream).  foot cannot use it -- no layer-shell
+# support -- so until the panel stops being a terminal, it goes where the
+# client isn't.  See moonlight-panel for the full write-up.
+#
+# Done here rather than in moonlight-panel because a script that switches
+# workspace and then spawns the terminal races: sway places a window on
+# whatever is focused when it maps, which is not reliably the workspace the
+# script just asked for.  As one rule on the window itself, there is no gap.
+for_window [app_id="moonlight-panel"] move container to workspace mlos-panel, workspace mlos-panel, fullscreen enable
+
+### --- notifications -----------------------------------------------------
+# What draws the low-battery warning over a running stream.  It has to be the
+# notification daemon rather than anything of ours, because layer-shell is the
+# only way to paint above a fullscreen client without taking focus from it.
+exec mako
+
+### --- drop-ins -----------------------------------------------------------
+# Settings the menus write out so they survive a reboot -- the touchpad's
+# scroll direction, for one.  Included last so a drop-in wins over anything
+# above it.
+include /etc/sway/config.d/*
+
+### --- the session --------------------------------------------------------
+# Applies the saved layout, keymap and input settings, then runs the client.
+# When it exits, sway exits, and moonlight-session takes over on the console.
+exec /usr/local/bin/moonlight-wlsession

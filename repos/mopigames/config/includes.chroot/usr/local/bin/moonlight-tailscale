@@ -1,0 +1,195 @@
+#!/bin/sh
+# Tailscale: reach the host PC from anywhere, not just its own LAN.
+#
+# Moonlight discovers hosts with mDNS, which does not cross a tailnet -- so
+# once this is connected you still have to add the PC in Moonlight by its
+# Tailscale IP.  "Host PCs on your tailnet" prints those addresses.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+TS=/usr/bin/tailscale
+
+if [ ! -x "$TS" ]; then
+	mlos_msg "Tailscale is not installed in this image."
+	exit 0
+fi
+
+ts() { mlos_root "$TS" "$@"; }
+
+# The daemon is enabled at boot, but a live session that has just come up may
+# still be starting it.
+ts_ready() {
+	i=0
+	while [ $i -lt 20 ]; do
+		ts status >/dev/null 2>&1 && return 0
+		ts status 2>&1 | grep -q 'Logged out' && return 0
+		i=$((i + 1))
+		sleep 0.5
+	done
+	return 1
+}
+
+ts_backend() {
+	ts status --json 2>/dev/null \
+		| tr ',' '\n' \
+		| sed -n 's/.*"BackendState": *"\([^"]*\)".*/\1/p' | head -1
+}
+
+ts_ip() { ts ip -4 2>/dev/null | head -1; }
+
+summary() {
+	state="$(ts_backend)"
+	case "$state" in
+		Running) printf 'Connected as %s' "$(ts_ip)" ;;
+		NeedsLogin|NoState) printf 'Not logged in' ;;
+		Stopped) printf 'Logged in, but disconnected' ;;
+		"") printf 'Daemon not responding' ;;
+		*) printf '%s' "$state" ;;
+	esac
+}
+
+# tailscale up blocks until the login completes, printing the URL (and a QR
+# code) as it waits.  Run it in the background and watch its output so the URL
+# can be pulled out and shown in a dialog -- there is no browser on this image,
+# so the login is finished on a phone or another computer.
+login() {
+	log="$(mktemp)"
+	# Started without a wrapping function or subshell so $! is the process
+	# that actually has to be killed if the user gives up on the login.
+	if [ "$(id -u)" = "0" ]; then
+		"$TS" up --qr >"$log" 2>&1 &
+	else
+		sudo -n "$TS" up --qr >"$log" 2>&1 &
+	fi
+	up_pid=$!
+
+	url=""
+	i=0
+	while [ $i -lt 60 ]; do
+		url=$(grep -oE 'https://login\.tailscale\.com/[A-Za-z0-9./_%-]+' "$log" \
+			| head -1)
+		[ -n "$url" ] && break
+		kill -0 "$up_pid" 2>/dev/null || break
+		sleep 0.5
+		i=$((i + 1))
+	done
+
+	if [ -z "$url" ]; then
+		wait "$up_pid" 2>/dev/null
+		if [ "$(ts_backend)" = "Running" ]; then
+			mlos_msg "Connected.\n\nThis machine is $(ts_ip) on your tailnet."
+		else
+			whiptail --title "Tailscale" --scrolltext --textbox "$log" 20 90
+		fi
+		rm -f "$log"
+		return
+	fi
+
+	while :; do
+		choice=$(whiptail --title "Tailscale login" --menu \
+"Approve this machine at:
+
+$url
+
+There is no browser on this image, so finish the login on your
+phone or another computer.  It stays open until you do, or until
+you pick Cancel." \
+			20 90 2 \
+			1 "Show the QR code (scan it with your phone)" \
+			2 "Cancel the login" \
+			3>&1 1>&2 2>&3) || choice=2
+
+		case "$choice" in
+			1) clear
+			   cat "$log"
+			   printf '\n  Scan the code above, then press Enter.\n'
+			   read -r _ </dev/tty ;;
+			2) kill "$up_pid" 2>/dev/null
+			   # sudo relays the signal, but not reliably without a tty.
+			   mlos_root pkill -f "$TS up" 2>/dev/null || true
+			   break ;;
+		esac
+
+		# Finished in the meantime?
+		if ! kill -0 "$up_pid" 2>/dev/null; then
+			break
+		fi
+	done
+
+	wait "$up_pid" 2>/dev/null
+	rm -f "$log"
+
+	if [ "$(ts_backend)" = "Running" ]; then
+		mlos_msg "Connected.\n\nThis machine is $(ts_ip) on your tailnet.\n\nAdd the host PC in Moonlight using its Tailscale IP -- automatic discovery does not cross a tailnet."
+	fi
+}
+
+peers() {
+	rep="$(mktemp)"
+	{
+		printf 'This machine: %s\n\n' "$(ts_ip)"
+		printf 'Machines on your tailnet:\n\n'
+		ts status 2>/dev/null | awk 'NF >= 2 && $1 ~ /^[0-9]+\./ {printf "  %-16s %s\n", $1, $2}'
+		printf '\nIn Moonlight, choose "Add PC" and type the address of the\n'
+		printf 'machine running Sunshine or GeForce Experience.  Discovery\n'
+		printf 'over mDNS does not work across a tailnet.\n'
+	} > "$rep" 2>&1
+	whiptail --title "Host PCs on your tailnet" --scrolltext --textbox "$rep" 22 90
+	rm -f "$rep"
+}
+
+status_report() {
+	rep="$(mktemp)"
+	{
+		printf '== Backend ==\n%s\n\n' "$(ts_backend)"
+		printf '== Addresses ==\n'
+		ts ip 2>&1
+		printf '\n== Status ==\n'
+		ts status 2>&1
+	} > "$rep" 2>&1
+	whiptail --title "Tailscale status" --scrolltext --textbox "$rep" 24 100
+	rm -f "$rep"
+}
+
+if ! ts_ready; then
+	# Ordering and Restart= keep the daemon alive by themselves (see
+	# tailscaled.service.d), but this menu is the one place a person is
+	# already asking for it, and the ten-second gap between restarts is
+	# long enough to land in.  Ask for it once, then wait again.
+	mlos_root systemctl reset-failed tailscaled >/dev/null 2>&1 || true
+	mlos_root systemctl start tailscaled >/dev/null 2>&1 || true
+fi
+
+if ! ts_ready; then
+	mlos_msg "The Tailscale daemon is not responding.\n\nIt may still be starting up -- try again in a moment."
+	exit 0
+fi
+
+while :; do
+	choice=$(whiptail --title "Tailscale" --menu \
+"$(summary)
+
+Tailscale gets you to the host PC over the internet, so
+streaming works away from home." 20 74 6 \
+		1 "Connect / log in" \
+		2 "Host PCs on your tailnet" \
+		3 "Disconnect (stay logged in)" \
+		4 "Log out of this Tailscale account" \
+		5 "Status details" \
+		6 "Back" \
+		3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		1) login ;;
+		2) peers ;;
+		3) ts down >/dev/null 2>&1
+		   mlos_msg "Disconnected from the tailnet." ;;
+		4) if mlos_yesno "Log out of Tailscale on this machine?\n\nYou will have to approve it again next time."; then
+			   ts logout >/dev/null 2>&1
+			   mlos_msg "Logged out."
+		   fi ;;
+		5) status_report ;;
+		6) exit 0 ;;
+	esac
+done

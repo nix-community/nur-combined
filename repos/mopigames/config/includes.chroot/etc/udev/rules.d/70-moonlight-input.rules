@@ -1,0 +1,6 @@
+# Give the logged-in session ACL access to hidraw.  SDL talks to DualSense,
+# DualShock 4 and Switch Pro controllers over hidraw for rumble, gyro and
+# battery level; without this they fall back to basic gamepad input.
+KERNEL=="hidraw*", TAG+="uaccess"
+# uinput, for controller remapping tools.
+KERNEL=="uinput", TAG+="uaccess", OPTIONS+="static_node=uinput"

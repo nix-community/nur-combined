@@ -1,0 +1,27 @@
+[Plymouth Theme]
+Name=Moonlight OS
+Description=Moonlight OS boot splash
+ModuleName=two-step
+
+[two-step]
+ImageDir=/usr/share/plymouth/themes/moonlight-os
+HorizontalAlignment=.5
+VerticalAlignment=.5
+Transition=none
+TransitionDuration=0.0
+BackgroundStartColor=0x14161A
+BackgroundEndColor=0x14161A
+ProgressBarBackgroundColor=0x545A62
+ProgressBarForegroundColor=0xD60852
+Font=DejaVu Sans 12
+TitleFont=DejaVu Sans 22
+MessageBelowAnimation=true
+
+[boot-up]
+UseEndAnimation=false
+
+[shutdown]
+UseEndAnimation=false
+
+[reboot]
+UseEndAnimation=false

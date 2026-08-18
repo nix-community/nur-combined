@@ -1,0 +1,395 @@
+#!/bin/sh
+# Install Moonlight OS to an internal disk.
+#
+# Deliberately not debian-installer: this is a single-purpose appliance with
+# one partition layout and no choices worth asking about.  It copies the
+# running system to the target, drops the live-boot machinery, and installs
+# GRUB for both UEFI and BIOS so the result boots anywhere.
+#
+# THIS ERASES THE SELECTED DISK.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+TARGET=/mnt/target
+
+sq() {
+	printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+die_ui() {
+	mlos_msg "$1"
+	cleanup
+	exit 1
+}
+
+cleanup() {
+	for m in dev/pts dev proc sys run boot/efi ""; do
+		mountpoint -q "$TARGET/$m" 2>/dev/null && mlos_root umount -l "$TARGET/$m" 2>/dev/null
+	done
+	return 0
+}
+
+# The disk we booted from must not be the disk we install onto.
+live_disk() {
+	part=$(findmnt -no SOURCE /run/live/medium 2>/dev/null)
+	[ -n "$part" ] || return 0
+	pk=$(lsblk -no PKNAME "$part" 2>/dev/null | head -1)
+	if [ -n "$pk" ]; then
+		printf '/dev/%s' "$pk"
+	else
+		# Booted from a whole device rather than a partition on one.
+		printf '%s' "$part"
+	fi
+}
+
+pick_disk() {
+	src=$(live_disk)
+	list=$(mktemp)
+	# SIZE in bytes so anything too small to hold the system can be dropped:
+	# emulated floppies and card-reader slots otherwise show up as install
+	# targets.  The image is about 3 GB unpacked.
+	lsblk -dnp -b -o NAME,SIZE,TYPE,MODEL 2>/dev/null \
+		| awk '$3 == "disk" && $2 >= 6000000000 {
+			size = $2 / 1000000000
+			printf "%s\t%.1f GB\t", $1, size
+			out = ""
+			for (i = 4; i <= NF; i++) out = out (i > 4 ? " " : "") $i
+			print out
+		}' \
+		| grep -v '^/dev/loop' > "$list"
+
+	menu=""
+	n=0
+	while IFS= read -r line; do
+		dev=$(printf '%s' "$line" | awk '{print $1}')
+		[ "$dev" = "$src" ] && continue          # never offer the boot stick
+		n=$((n + 1))
+		menu="$menu $n $(sq "$(printf '%s' "$line" | tr '\t' ' ')")"
+	done < "$list"
+
+	if [ "$n" -eq 0 ]; then
+		rm -f "$list"
+		mlos_msg "No installable disk was found.\n\nThe USB stick you booted from is excluded, and it is the only drive this machine has."
+		return 1
+	fi
+
+	choice=$(eval whiptail --title '"Install Moonlight OS"' --menu \
+		"$(sq "Choose the disk to install to.
+Everything on it will be erased.")" 20 76 10 -- "$menu" \
+		3>&1 1>&2 2>&3) || { rm -f "$list"; return 1; }
+
+	# Re-walk the same filtered order to map the choice back to a device.
+	n=0
+	while IFS= read -r line; do
+		dev=$(printf '%s' "$line" | awk '{print $1}')
+		[ "$dev" = "$src" ] && continue
+		n=$((n + 1))
+		if [ "$n" = "$choice" ]; then
+			rm -f "$list"
+			printf '%s' "$dev"
+			return 0
+		fi
+	done < "$list"
+	rm -f "$list"
+	return 1
+}
+
+# ---------------------------------------------------------------- migration ---
+
+# Every ext4 partition that is not on the medium we booted from, with the one
+# about to be erased first.  Reinstalling onto the same disk is the common
+# case, but moving from the old spinning disk to a new NVMe is the one where
+# losing the settings hurts most -- and there the old system is sitting on a
+# drive the installer is not going to touch, so it has to be looked at too.
+installs_found() {
+	target="$1"
+	src=$(live_disk)
+	for d in $(lsblk -dnp -o NAME,TYPE 2>/dev/null | awk '$2 == "disk" {print $1}'); do
+		[ "$d" = "$src" ] && continue
+		case "$d" in /dev/loop*) continue ;; esac
+		for part in $(lsblk -lnp -o NAME,FSTYPE "$d" 2>/dev/null \
+				| awk '$2 == "ext4" {print $1}'); do
+			if [ "$d" = "$target" ]; then
+				printf '0\t%s\t%s\n' "$part" "$d"
+			else
+				printf '1\t%s\t%s\n' "$part" "$d"
+			fi
+		done
+	done | sort -k1,1
+}
+
+# Read the settings off an existing installation, or off a backup archive on
+# any medium that happens to be plugged in.  Prints the archive path, and
+# nothing at all when there was nothing to take or the user said no.
+#
+# Everything here runs before the disk is touched, and a failure is reported
+# rather than swallowed: silently installing a system with none of your
+# settings in it is the one outcome nobody would have chosen.
+#
+# The candidate list is read on fd 3, not on stdin.  whiptail takes its
+# keystrokes from stdin, so a dialog raised inside a `while read` loop that is
+# fed by a pipe or a redirect gets the partition list typed into it instead of
+# the user's answer.
+harvest_settings() {
+	target="$1"
+	found=""
+	mnt=$(mktemp -d)
+	list=$(mktemp)
+	installs_found "$target" > "$list"
+
+	while IFS="$(printf '\t')" read -r _ part disk <&3; do
+		mlos_root mount -o ro "$part" "$mnt" 2>/dev/null || continue
+		if [ ! -f "$mnt/etc/moonlight-os/moonlight-os.conf" ]; then
+			mlos_root umount "$mnt" 2>/dev/null
+			continue
+		fi
+
+		if [ "$disk" = "$target" ]; then
+			where="This disk already has Moonlight OS on it."
+		else
+			where="Moonlight OS is installed on $disk, which is not the disk being erased."
+		fi
+
+		if ! mlos_yesno "$where\n\nCarry its settings over into the new installation?"; then
+			mlos_root umount "$mnt" 2>/dev/null
+			continue
+		fi
+
+		err=$(mktemp)
+		out=$(mlos_root moonlight-backup --save-from "$mnt" /tmp 2>"$err")
+		mlos_root umount "$mnt" 2>/dev/null
+
+		if [ -n "$out" ] && [ -f "$out" ]; then
+			what=$(moonlight-backup --summary "$out" 2>/dev/null | sed 's/^/  /')
+			rm -f "$err"
+			if mlos_yesno "Taken from $part:\n\n${what:-  (nothing recognisable)}\n\nCarry all of this over?"; then
+				found="$out"
+				break
+			fi
+			continue
+		fi
+
+		reason=$(tail -3 "$err" 2>/dev/null | sed 's/^/  /')
+		rm -f "$err"
+		if ! mlos_yesno "The settings on $part could not be read:\n\n${reason:-  (no reason given)}\n\nInstall anyway?  Everything on that disk -- pairing, Wi-Fi, Tailscale -- would have to be set up again from scratch."; then
+			found="ABORT"
+			break
+		fi
+	done 3< "$list"
+
+	rmdir "$mnt" 2>/dev/null
+
+	if [ -n "$found" ]; then
+		rm -f "$list"
+		printf '%s\n' "$found"
+		return 0
+	fi
+
+	# ...or from a backup on any plugged-in medium, newest first.  Not just
+	# the boot stick: the archive is usually on whichever stick was to hand
+	# when it was written, and that is rarely the one being booted from.
+	# The names are timestamped, so a reverse sort is newest first.
+	moonlight-backup --find 2>/dev/null | sort -r > "$list"
+	while IFS= read -r f <&3; do
+		[ -f "$f" ] || continue
+		what=$(moonlight-backup --summary "$f" 2>/dev/null | sed 's/^/  /')
+		if mlos_yesno "Found a settings backup:\n\n$f\n\nIt holds:\n\n${what:-  (nothing recognisable)}\n\nRestore it into the new installation?"; then
+			found="$f"
+			break
+		fi
+	done 3< "$list"
+	rm -f "$list"
+
+	[ -n "$found" ] && printf '%s\n' "$found"
+	return 0
+}
+
+main() {
+	if [ ! -d /run/live/medium ]; then
+		mlos_msg "Moonlight OS is already installed on this machine."
+		exit 0
+	fi
+
+	disk=$(pick_disk) || exit 0
+
+	info=$(lsblk -dn -o NAME,SIZE,MODEL "$disk" 2>/dev/null)
+	existing=$(lsblk -n -o NAME,SIZE,FSTYPE,LABEL "$disk" 2>/dev/null | tail -n +2)
+
+	whiptail --title "Erase $disk?" --defaultno --yesno \
+"About to erase and install to:
+
+  $info
+
+Current contents:
+$(printf '%s' "${existing:-  (no partitions)}")
+
+This cannot be undone. Continue?" 20 76 || exit 0
+
+	confirm=$(whiptail --title "Final confirmation" --inputbox \
+		"Type ERASE to confirm that $disk should be wiped:" 10 74 \
+		3>&1 1>&2 2>&3) || exit 0
+	[ "$confirm" = "ERASE" ] || { mlos_msg "Not confirmed. Nothing was changed."; exit 0; }
+
+	# ---- carry the old settings over ------------------------------------
+	# Done before anything is written: reinstalling should not cost you
+	# Moonlight's pairing, the Wi-Fi passwords, the Tailscale login, the
+	# Bluetooth pairings or the display setup.
+	carried=$(harvest_settings "$disk")
+	if [ "$carried" = "ABORT" ]; then
+		mlos_msg "Installation cancelled.  Nothing was changed and $disk is untouched.\n\nIf the old system still boots, System -> Back up / restore settings will write its settings to a USB stick, and this installer picks that up instead."
+		exit 0
+	fi
+
+	clear
+	printf '\n  Installing Moonlight OS to %s\n\n' "$disk"
+
+	# ---- partition ----------------------------------------------------
+	printf '  [1/6] Partitioning...\n'
+	mlos_root wipefs -a "$disk" >/dev/null 2>&1 || true
+	mlos_root sgdisk --zap-all "$disk" >/dev/null 2>&1 || true
+	# 1 MiB BIOS boot + 512 MiB ESP + the rest for the system.  Both boot
+	# partitions are always created so the disk works in either firmware mode.
+	mlos_root sgdisk \
+		-n 1:0:+1M    -t 1:ef02 -c 1:"BIOS boot" \
+		-n 2:0:+512M  -t 2:ef00 -c 2:"EFI system" \
+		-n 3:0:0      -t 3:8300 -c 3:"Moonlight OS" \
+		"$disk" >/dev/null 2>&1 || die_ui "Partitioning failed."
+	mlos_root partprobe "$disk" >/dev/null 2>&1 || true
+	sleep 2
+
+	# nvme0n1 -> nvme0n1p1, sda -> sda1
+	case "$disk" in
+		*[0-9]) p="${disk}p" ;;
+		*)      p="${disk}" ;;
+	esac
+	esp="${p}2"
+	root="${p}3"
+	[ -b "$esp" ] && [ -b "$root" ] || die_ui "The new partitions did not appear."
+
+	# ---- format ---------------------------------------------------------
+	printf '  [2/6] Formatting...\n'
+	mlos_root mkfs.vfat -F32 -n MLOS-ESP "$esp" >/dev/null 2>&1 \
+		|| die_ui "Could not format the EFI partition."
+	mlos_root mkfs.ext4 -q -L moonlight-root "$root" >/dev/null 2>&1 \
+		|| die_ui "Could not format the system partition."
+
+	# ---- copy -----------------------------------------------------------
+	printf '  [3/6] Copying the system (this takes a few minutes)...\n'
+	mlos_root mkdir -p "$TARGET"
+	mlos_root mount "$root" "$TARGET" || die_ui "Could not mount the new system partition."
+	mlos_root rsync -aHAX --info=progress2 \
+		--exclude=/proc --exclude=/sys --exclude=/dev --exclude=/run \
+		--exclude=/tmp --exclude=/mnt --exclude=/media --exclude=/lost+found \
+		--exclude=/target --exclude=/var/cache/apt/archives \
+		/ "$TARGET/" || die_ui "Copying the system failed."
+
+	mlos_root mkdir -p "$TARGET/proc" "$TARGET/sys" "$TARGET/dev" "$TARGET/run" \
+		"$TARGET/tmp" "$TARGET/mnt" "$TARGET/media" "$TARGET/boot/efi"
+	mlos_root chmod 1777 "$TARGET/tmp"
+
+	# ---- fstab ----------------------------------------------------------
+	printf '  [4/6] Writing fstab...\n'
+	# blkid has to probe the raw device, which this user cannot open -- run
+	# unprivileged it prints nothing and succeeds, and the fstab ends up
+	# saying "UUID=" for both filesystems.  systemd then waits for a device
+	# unit that can never appear and the installed system boots into
+	# emergency mode.
+	root_uuid=$(mlos_root blkid -s UUID -o value "$root")
+	esp_uuid=$(mlos_root blkid -s UUID -o value "$esp")
+	[ -n "$root_uuid" ] && [ -n "$esp_uuid" ] \
+		|| die_ui "Could not read the new filesystem UUIDs, so the installed system would not boot. Nothing further was written."
+
+	# nofail on the ESP: a missing or reformatted EFI partition should cost
+	# you the ability to update the bootloader, not the ability to boot.
+	printf 'UUID=%s  /          ext4  errors=remount-ro,noatime  0 1\nUUID=%s  /boot/efi  vfat  umask=0077,nofail          0 0\ntmpfs        /tmp       tmpfs defaults,nosuid,nodev        0 0\n' \
+		"$root_uuid" "$esp_uuid" | mlos_root tee "$TARGET/etc/fstab" >/dev/null
+
+	# ---- chroot: drop live-boot, install grub ---------------------------
+	printf '  [5/6] Installing the bootloader...\n'
+	for m in proc sys dev; do
+		mlos_root mount --bind "/$m" "$TARGET/$m"
+	done
+	mlos_root mount --bind /dev/pts "$TARGET/dev/pts" 2>/dev/null || true
+	mlos_root mount "$esp" "$TARGET/boot/efi" || die_ui "Could not mount the EFI partition."
+
+	mlos_root chroot "$TARGET" /bin/sh -eu <<-CHROOT
+		export DEBIAN_FRONTEND=noninteractive
+		# Without this the installed system still tries to boot as a live image.
+		dpkg --purge --force-depends live-boot live-boot-initramfs-tools \\
+			live-config live-config-systemd 2>/dev/null || true
+		rm -f /etc/systemd/system/multi-user.target.wants/live-config.service 2>/dev/null || true
+		# live-config writes this at boot and it gets copied across by rsync.
+		# It runs a bare "while true; do startx; done" from /etc/profile, which
+		# pre-empts the login shell before ~/.bash_profile is ever read.
+		rm -f /etc/profile.d/zz-live-config_xinit.sh 2>/dev/null || true
+
+		# UEFI. --removable also writes the fallback path, so machines that
+		# ignore NVRAM entries still find it.
+		if [ -d /sys/firmware/efi ]; then
+			grub-install --target=x86_64-efi --efi-directory=/boot/efi \\
+				--bootloader-id=moonlight-os --recheck >/dev/null 2>&1 || true
+			grub-install --target=x86_64-efi --efi-directory=/boot/efi \\
+				--removable --recheck >/dev/null 2>&1 || true
+		fi
+		# BIOS, always -- costs nothing and saves a reinstall on older boxes.
+		grub-install --target=i386-pc --recheck $disk >/dev/null 2>&1 || true
+
+		update-initramfs -u -k all >/dev/null 2>&1 || true
+		update-grub >/dev/null 2>&1 || true
+	CHROOT
+
+	# ---- finish ----------------------------------------------------------
+	printf '  [6/6] Finishing up...\n'
+	# Keyboard, time zone and any pairing done from the live session carry
+	# over as-is -- that is the point of copying the running system.
+	#
+	# The default name is written before the restore, not after: an archive
+	# carries /etc/hostname, and a machine that had been renamed should come
+	# back under its own name rather than this one.
+	printf 'moonlight-os\n' | mlos_root tee "$TARGET/etc/hostname" >/dev/null
+
+	if [ -n "$carried" ] && [ -f "$carried" ]; then
+		printf '  Restoring your settings...\n'
+		err=$(mktemp)
+		if mlos_root moonlight-backup --restore-to "$TARGET" "$carried" 2>"$err"; then
+			what=$(moonlight-backup --summary "$carried" 2>/dev/null | sed 's/^/  /')
+			settings_note="
+
+Carried over:
+
+${what:-  (nothing this version recognises)}"
+		else
+			# The archive is in the live system's tmpfs and the next thing
+			# that happens is a reboot, so a copy goes onto the new disk --
+			# otherwise the one existing copy of the settings evaporates
+			# along with the message explaining where to find it.
+			keep="/home/moonlight/$(basename "$carried")"
+			mlos_root cp "$carried" "$TARGET$keep" 2>/dev/null \
+				&& mlos_root chown moonlight:moonlight "$TARGET$keep" 2>/dev/null
+			settings_note="
+
+The settings could not be restored:
+
+$(tail -3 "$err" | sed 's/^/  /')
+
+A copy was left at $keep on the new disk.  Once it has
+booted, System -> Back up / restore settings will find it there."
+		fi
+		rm -f "$err"
+	fi
+
+	mlos_root sync
+	cleanup
+
+	# Its own box rather than mlos_msg: the list of what was carried over is
+	# the part worth reading, and it does not fit in twelve lines.
+	if whiptail --title "Moonlight OS" --yesno \
+"Moonlight OS has been installed to $disk.${settings_note:-}
+
+Remove the USB stick and reboot now?" 24 76; then
+		mlos_root systemctl reboot
+	fi
+}
+
+main "$@"

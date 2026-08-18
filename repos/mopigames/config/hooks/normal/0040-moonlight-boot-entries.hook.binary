@@ -1,0 +1,126 @@
+#!/bin/sh
+# Two extra boot menu entries, for when the normal one shows nothing.
+#
+# The normal entry boots with "quiet splash loglevel=3
+# vt.global_cursor_default=0", and plymouth's background is 0x14161A.  That is
+# the look we want, but it also means a boot that has *failed* and a boot that
+# is merely slow are the same picture: a black screen with no cursor and no
+# text.  There is no way to tell them apart, and no way to find out where a
+# stuck boot got to.
+#
+# So:
+#
+#   verbose        -- identical to the normal entry with the silencing removed,
+#                     and nothing else changed.  Answers "where does it stop?"
+#                     for any fault that is not the display itself.
+#   safe graphics  -- verbose, plus the two things that turn off every graphics
+#                     handoff in the chain:
+#
+#                       gfxpayload=text  stops GRUB handing the kernel the
+#                                        800x600 framebuffer it set up for its
+#                                        own menu, and puts the firmware back
+#                                        in text mode instead.
+#                       nomodeset        stops i915/amdgpu/nouveau taking the
+#                                        panel over from that framebuffer.
+#
+#                     Those two handoffs are the classic cause of a screen that
+#                     goes black the instant a menu entry is chosen and never
+#                     comes back.  If this entry shows text and "verbose" does
+#                     not, the fault is one of them and nothing else.
+#                     Streaming will be unusable here (no GPU decode) -- the
+#                     entry exists to identify the fault, not to run on.
+#
+# Both are generated from whatever the real live entry ended up containing, so
+# they cannot drift away from it when LB_BOOTAPPEND_LIVE changes.
+#
+# This runs as a binary hook because live-build writes the menus itself; there
+# is no config file to add an entry to.  binary_hooks runs after
+# binary_syslinux and binary_grub-efi and before binary_iso, and with the
+# working directory already inside binary/.
+set -e
+
+# Strip the silencing options and turn the kernel's own logging up.  Written
+# as whole-word matches so a substring like "loglevel=3" inside another value
+# is left alone.
+verbose_append() {
+	echo "$1" | sed -e 's/\bquiet\b//g' \
+	                -e 's/\bsplash\b//g' \
+	                -e 's/\bvt\.global_cursor_default=0\b//g' \
+	                -e 's/\bloglevel=[0-9]*\b//g' \
+	                -e 's/  */ /g' -e 's/^ //' -e 's/ $//'
+}
+
+# ------------------------------------------------------------------ grub ----
+GRUB=boot/grub/grub.cfg
+if [ -f "$GRUB" ]; then
+	# Say something before the long read.
+	#
+	# live-build's menu entries go straight from "linux" to "initrd" with no
+	# echo between them, so GRUB spends the entire time it takes to pull the
+	# kernel and the initrd off the boot medium showing an empty black
+	# console box.  On a slow USB stick that is a long time with nothing at
+	# all on screen, and the next thing to appear is plymouth on a near-black
+	# background -- so the honest report from the machine is "it hung".
+	#
+	# One line of text turns that into "it is working".  It is inserted
+	# before every "linux" line in the file, which covers the entries
+	# live-build wrote; the two added below carry their own.
+	sed -i 's|^\([[:space:]]*\)linux\([[:space:]]\)|\1echo "Loading Moonlight OS -- this can take a minute from a USB stick..."\n\1linux\2|' \
+		"$GRUB"
+
+	# The first linux/initrd pair in the file is the default live entry.
+	kernel=$(sed -n 's/^[[:space:]]*linux[[:space:]]\{1,\}\([^[:space:]]\{1,\}\).*/\1/p' "$GRUB" | head -n1)
+	initrd=$(sed -n 's/^[[:space:]]*initrd[[:space:]]\{1,\}\([^[:space:]]\{1,\}\).*/\1/p' "$GRUB" | head -n1)
+	append=$(sed -n 's/^[[:space:]]*linux[[:space:]]\{1,\}[^[:space:]]\{1,\}[[:space:]]\{1,\}\(.*\)/\1/p' "$GRUB" | head -n1)
+
+	if [ -n "$kernel" ] && [ -n "$initrd" ]; then
+		v=$(verbose_append "$append")
+		cat >> "$GRUB" <<EOF
+
+# Moonlight OS diagnostics -- see config/hooks/normal/0040-moonlight-boot-entries.hook.binary
+menuentry "Moonlight OS (verbose boot)" --hotkey=v {
+	echo "Loading Moonlight OS -- this can take a minute from a USB stick..."
+	linux	$kernel $v loglevel=7 systemd.show_status=1
+	initrd	$initrd
+}
+menuentry "Moonlight OS (safe graphics, verbose)" --hotkey=s {
+	set gfxpayload=text
+	echo "Loading Moonlight OS -- this can take a minute from a USB stick..."
+	linux	$kernel $v loglevel=7 systemd.show_status=1 nomodeset
+	initrd	$initrd
+}
+EOF
+		echo "P: added verbose/safe-graphics entries to $GRUB"
+	else
+		echo "W: could not parse a live entry out of $GRUB, no extra entries added" >&2
+	fi
+fi
+
+# -------------------------------------------------------------- isolinux ----
+ISO=isolinux/live.cfg
+if [ -f "$ISO" ]; then
+	kernel=$(sed -n 's/^[[:space:]]*linux[[:space:]]\{1,\}\(.*\)/\1/p' "$ISO" | head -n1)
+	initrd=$(sed -n 's/^[[:space:]]*initrd[[:space:]]\{1,\}\(.*\)/\1/p' "$ISO" | head -n1)
+	append=$(sed -n 's/^[[:space:]]*append[[:space:]]\{1,\}\(.*\)/\1/p' "$ISO" | head -n1)
+
+	if [ -n "$kernel" ] && [ -n "$initrd" ]; then
+		v=$(verbose_append "$append")
+		cat >> "$ISO" <<EOF
+
+label live-amd64-verbose
+	menu label Moonlight OS (^verbose boot)
+	linux $kernel
+	initrd $initrd
+	append $v loglevel=7 systemd.show_status=1
+
+label live-amd64-safegfx
+	menu label Moonlight OS (^safe graphics, verbose)
+	linux $kernel
+	initrd $initrd
+	append $v loglevel=7 systemd.show_status=1 nomodeset
+EOF
+		echo "P: added verbose/safe-graphics entries to $ISO"
+	else
+		echo "W: could not parse a live entry out of $ISO, no extra entries added" >&2
+	fi
+fi

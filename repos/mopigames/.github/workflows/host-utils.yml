@@ -1,0 +1,339 @@
+name: host-utils
+
+# The host PC half of USB passthrough.  Cheap to build, so it runs on every
+# push that touches it -- the ISO workflow is the expensive one.
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths:
+      - 'host-utils/**'
+      - 'packaging/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/host-utils.yml'
+  pull_request:
+    paths:
+      - 'host-utils/**'
+      - 'packaging/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/host-utils.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: host-utils
+
+env:
+  # Matches GO_IMAGE in build.sh, so CI and the ISO build use one toolchain.
+  GO_VERSION: '1.24'
+
+permissions:
+  contents: write   # needed only when attaching tag builds to a release
+
+jobs:
+  test:
+    # Windows too: there is a platform_windows.go, and it is never exercised
+    # by a linux-only vet.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          # Stdlib only -- there is no go.sum to key a module cache on.
+          cache: false
+
+      - name: gofmt
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          unformatted="$(gofmt -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "not gofmt'd:"; echo "$unformatted"; exit 1
+          fi
+
+      - run: go vet ./...
+
+      # -race needs cgo and a C toolchain, which only the linux runner is
+      # guaranteed to have.
+      - run: go test -race ./...
+        if: matrix.os == 'ubuntu-latest'
+      - run: go test ./...
+        if: matrix.os != 'ubuntu-latest'
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          # Stdlib only -- there is no go.sum to key a module cache on.
+          cache: false
+
+      # build.sh already cross-compiles every target we ship; keeping the
+      # target list in one place means CI cannot drift from a local build.
+      #
+      # A tag build takes its version from the tag, so that what the binary
+      # prints, what the release is called and what winget publishes are all
+      # the same string.  Everything else gets a dated snapshot version.
+      - name: Build all targets
+        run: |
+          case "${GITHUB_REF}" in
+            refs/tags/v*) version="${GITHUB_REF_NAME#v}" ;;
+            *)            version="$(date +%Y.%m.%d)-${GITHUB_SHA::7}" ;;
+          esac
+          VERSION="$version" ./build.sh
+
+      - name: Checksums
+        run: |
+          cd dist
+          sha256sum mlos-host-utils-* > SHA256SUMS
+          cat SHA256SUMS
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mlos-host-utils
+          path: host-utils/dist/
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Attach to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          gh release view "$tag" >/dev/null 2>&1 \
+            || gh release create "$tag" --generate-notes --title "$tag"
+          gh release upload "$tag" \
+            dist/mlos-host-utils-* dist/SHA256SUMS --clobber
+
+  # Publishing to winget is a pull request against microsoft/winget-pkgs,
+  # which is why it needs a personal access token rather than github.token:
+  # the fork the PR comes from lives in the maintainer's account.  Without
+  # the secret the job renders the manifests, checks them, and stops there --
+  # a release still happens, it just does not reach winget.
+  winget:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    env:
+      WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # The hashes have to be of the files that were actually released, so
+      # they come from the same artifact the release was uploaded from
+      # rather than from a second build of the same commit.
+      - uses: actions/download-artifact@v4
+        with:
+          name: mlos-host-utils
+          path: dist
+
+      - name: Render the manifests
+        run: packaging/winget/render.sh "${GITHUB_REF_NAME}" dist manifests
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: winget-manifests
+          path: manifests/
+          if-no-files-found: error
+
+      - name: Validate
+        run: |
+          curl -sSL -o wingetcreate.exe https://aka.ms/wingetcreate/latest
+          version="${GITHUB_REF_NAME#v}"
+          ./wingetcreate.exe show \
+            --manifest "manifests/m/MopigamesYT/MlosHostUtils/$version" \
+            || true
+
+      - name: Submit to microsoft/winget-pkgs
+        if: env.WINGET_TOKEN != ''
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          ./wingetcreate.exe submit \
+            --token "$WINGET_TOKEN" \
+            "manifests/m/MopigamesYT/MlosHostUtils/$version"
+
+      - name: No token, no submission
+        if: env.WINGET_TOKEN == ''
+        run: |
+          echo "WINGET_TOKEN is not set, so nothing was submitted to winget." >> "$GITHUB_STEP_SUMMARY"
+          echo "The rendered manifests are attached to this run as winget-manifests." >> "$GITHUB_STEP_SUMMARY"
+
+  # The AUR is a git repository of build recipes, so publishing is a commit
+  # and a push over SSH -- no API, no token, just a key the AUR account has.
+  # The recipe builds from the tag's source tarball, which is why this job
+  # needs only the tag to exist and not the release binaries.
+  aur:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    env:
+      AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
+    steps:
+      - name: Dependencies
+        run: pacman -Syu --noconfirm --needed git go openssh
+
+      - uses: actions/checkout@v4
+
+      # makepkg refuses to run as root, and everything in this container is
+      # root, so the actual work happens as a build user.
+      - name: A user makepkg will talk to
+        run: |
+          useradd -m builder
+          git config --global --add safe.directory '*'
+          chown -R builder .
+
+      - name: Render PKGBUILD and .SRCINFO
+        run: sudo -u builder packaging/aur/render.sh "${GITHUB_REF_NAME}" /tmp/aur
+
+      # Building it here is the only place the recipe is ever tested.  A
+      # PKGBUILD that does not build is discovered by whoever installs it
+      # otherwise, and by then it is in the AUR.
+      - name: Build it
+        run: |
+          chown -R builder /tmp/aur
+          cd /tmp/aur && sudo -u builder makepkg --nodeps --noconfirm -f
+          ls -l /tmp/aur/*.pkg.tar.*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aur-pkgbuild
+          path: |
+            /tmp/aur/PKGBUILD
+            /tmp/aur/.SRCINFO
+
+      - name: Push to the AUR
+        if: env.AUR_SSH_KEY != ''
+        run: |
+          # Everything ssh needs is passed on the command line rather than
+          # left in ~/.ssh, because in a container job those are two
+          # different directories: the runner sets HOME=/github/home, while
+          # ssh expands ~ from /etc/passwd, which for root is /root.  Files
+          # written to ~ are then invisible to ssh, and the only symptom is
+          # "Host key verification failed" on a host that is pinned right
+          # there in the script.
+          mkdir -p /tmp/aur-ssh
+          install -Dm600 /dev/stdin /tmp/aur-ssh/key <<< "$AUR_SSH_KEY"
+          # The AUR's host key, pinned rather than blindly accepted: this
+          # step pushes with a key that can rewrite the package everyone
+          # installs, so it should not be handed to whatever answers.
+          install -Dm644 /dev/stdin /tmp/aur-ssh/known_hosts <<'EOF'
+          # SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4, the fingerprint
+          # Arch publishes at https://wiki.archlinux.org/title/AUR_submission_guidelines
+          aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN
+          EOF
+          export GIT_SSH_COMMAND="ssh -i /tmp/aur-ssh/key -o IdentitiesOnly=yes -o UserKnownHostsFile=/tmp/aur-ssh/known_hosts -o StrictHostKeyChecking=yes"
+
+          git config --global user.name "Margot Prego"
+          git config --global user.email "mopigames@proton.me"
+
+          git clone ssh://aur@aur.archlinux.org/mlos-host-utils.git /tmp/aur-repo
+          cp /tmp/aur/PKGBUILD /tmp/aur/.SRCINFO /tmp/aur-repo/
+          cd /tmp/aur-repo
+          # Staged first, and compared against the index rather than the
+          # worktree: on the very first publish the AUR repository is empty,
+          # so the copied files are untracked -- and `git diff` on its own
+          # sees no change, reports the version as already published and
+          # pushes nothing at all.
+          git add PKGBUILD .SRCINFO
+          if git diff --cached --quiet; then
+            echo "the AUR already has this version"
+            exit 0
+          fi
+          git commit -m "${GITHUB_REF_NAME#v}"
+          git push
+
+      - name: No key, no push
+        if: env.AUR_SSH_KEY == ''
+        run: |
+          {
+            echo "AUR_SSH_KEY is not set, so nothing was pushed to the AUR."
+            echo "The built PKGBUILD and .SRCINFO are attached to this run as aur-pkgbuild."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # Nix ships through the NUR, which is not a place CI pushes to: NUR
+  # re-evaluates packaging/nix/nur.nix from this repository's default branch
+  # on its own schedule.  Publishing a release is therefore getting the bumped
+  # version and hash onto main, which is what this job does -- after proving
+  # the derivation and the NixOS module still evaluate.
+  nix:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # the tag build commits the version bump back to main
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Build the derivation
+        run: nix build --print-build-logs .#mlos-host-utils
+
+      # Checks the NixOS module evaluates too, which nothing else here does.
+      - name: nix flake check
+        run: nix flake check --print-build-logs
+
+      - name: Point the NUR at this tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          # A tag build is checked out detached at the tag; the bump belongs
+          # on the branch NUR evaluates.
+          git fetch origin main
+          git checkout -B main origin/main
+
+          packaging/nix/update.sh "${GITHUB_REF_NAME}"
+
+          if git diff --quiet -- packaging/nix/package.nix; then
+            echo "package.nix already points at ${GITHUB_REF_NAME}" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # The bumped file has to build before it is pushed: NUR evaluates
+          # main unattended, and a wrong hash there is a broken package for
+          # everyone until someone notices.  Through nur.nix rather than the
+          # flake, because that is the path NUR itself takes -- and it builds
+          # the released tarball, not this working tree.
+          nix-build packaging/nix/nur.nix -A mlos-host-utils --no-out-link
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packaging/nix/package.nix
+          git commit -m "nix: ${GITHUB_REF_NAME#v}"
+          git push origin HEAD:main
+
+          {
+            echo '## NUR'
+            echo
+            echo "packaging/nix/package.nix now points at ${GITHUB_REF_NAME} on main;"
+            echo 'the NUR picks it up on its next evaluation.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          name: nix-package
+          path: packaging/nix/package.nix

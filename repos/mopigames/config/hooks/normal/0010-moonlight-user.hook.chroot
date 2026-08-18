@@ -1,0 +1,39 @@
+#!/bin/sh
+# Create the appliance user.  Done at build time rather than leaving it to
+# live-config so the account, its groups and its home directory are identical
+# on every boot and cannot race the autologin getty.
+set -e
+
+USER_NAME=moonlight
+
+if ! getent passwd "$USER_NAME" >/dev/null; then
+	adduser --disabled-password --gecos "Moonlight" "$USER_NAME"
+fi
+
+# No password at all: the console autologs in, and the sudoers drop-in
+# already grants this account full rights on what is a single-user box.
+passwd -d "$USER_NAME"
+
+# Group membership for input devices, GPU nodes, audio and Bluetooth
+# controllers.  Skip any group this Debian release does not ship.
+# systemd-journal is in here so the logs can be read over SSH without sudo,
+# which is the whole point of having SSH on a box like this.
+for grp in audio video render input plugdev netdev bluetooth dialout sudo systemd-journal; do
+	if getent group "$grp" >/dev/null; then
+		adduser "$USER_NAME" "$grp" >/dev/null
+	fi
+done
+
+install -d -o "$USER_NAME" -g "$USER_NAME" -m 0755 "/home/$USER_NAME/.config"
+install -d -m 0755 /var/lib/moonlight-os
+chown "$USER_NAME:$USER_NAME" /var/lib/moonlight-os
+
+# SSH keys.  build.sh stages them somewhere root-owned rather than writing
+# straight into the home directory, because files delivered through
+# includes.chroot keep the ownership and mode they had on the build machine
+# -- and sshd ignores an authorized_keys file that anyone else can write.
+if [ -s /etc/moonlight-os/authorized_keys ]; then
+	install -d -o "$USER_NAME" -g "$USER_NAME" -m 0700 "/home/$USER_NAME/.ssh"
+	install -o "$USER_NAME" -g "$USER_NAME" -m 0600 \
+		/etc/moonlight-os/authorized_keys "/home/$USER_NAME/.ssh/authorized_keys"
+fi

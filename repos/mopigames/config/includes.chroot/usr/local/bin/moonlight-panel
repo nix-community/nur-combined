@@ -1,0 +1,175 @@
+#!/bin/sh
+# The settings menu, opened from inside the graphical session with Ctrl+Alt+M.
+#
+# Without this the menus were only reachable by quitting the client, which is
+# not obvious and is impossible mid-stream -- so there was no way to install
+# the system or change anything once the appliance had started.
+#
+# This used to be the most contorted script in the image, and all of it was
+# X11's doing.  For the record, since the shape of the old version explains
+# why several other things existed:
+#
+#   * the client grabbed the X keyboard while streaming, so the window manager
+#     never saw Ctrl+Alt+M -- hence a triggerhappy daemon reading /dev/input,
+#     evdev rules listing the key twice for AZERTY, and a root-to-user hand-off
+#     script to get a DISPLAY back;
+#   * a window opened over the grab came up focused and receiving nothing, so
+#     the client had to be iconified first to make SDL drop the grab, then
+#     restored afterwards from an EXIT trap;
+#   * fullscreen windows sit in a layer of their own under openbox, so the
+#     panel needed its own openbox rule plus xdotool activate/raise polling to
+#     land in front rather than behind the stream.
+#
+# A compositor binding is evaluated before the key reaches any client, and a
+# placement rule puts the window in front, so none of the above is needed. The
+# script is now: take a lock, run the menu in a terminal.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+# One panel at a time.  A second Ctrl+Alt+M focuses the one already open
+# instead of stacking terminals on top of each other.
+LOCK=/tmp/moonlight-panel.lock
+if ! mkdir "$LOCK" 2>/dev/null; then
+	if swaymsg '[app_id="moonlight-panel"] focus' >/dev/null 2>&1; then
+		exit 0
+	fi
+	# No window.  That is either a panel that was killed rather than closed
+	# -- without this the key would silently stop working for the rest of
+	# the session -- or one that started a moment ago and has not mapped
+	# its window yet.  Only the first deserves the lock taken off it.
+	#
+	# The pid in the lock separates the two exactly.  This used to be an age
+	# test (reclaim only a lock older than a minute), which cannot tell a
+	# dead panel from a slow one and therefore swallowed every Ctrl+Alt+M
+	# for a whole minute after any panel that was killed rather than closed
+	# -- the key doing nothing at all, with nothing on screen to say why.
+	# That is what made the panel feel unreliable in use.
+	pid="$(cat "$LOCK/pid" 2>/dev/null)"
+	if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+		exit 0
+	fi
+	rm -f "$LOCK/pid" 2>/dev/null
+	rmdir "$LOCK" 2>/dev/null
+	mkdir "$LOCK" 2>/dev/null || exit 0
+fi
+echo $$ > "$LOCK/pid" 2>/dev/null || true
+
+# The panel opens on a workspace of its own.
+#
+# It has to be somewhere the client is not, because an ordinary window cannot
+# reliably draw over a fullscreen one here.  Open a second toplevel over a
+# fullscreen Selene and sway will report exactly what you asked for -- panel
+# fullscreen and visible, client un-fullscreened and not visible -- while the
+# screen still shows the client.  Reproduced on demand on the reference
+# tablet, with a live stream running.
+#
+# This is a compositing bug, not a display one, and the distinction cost a
+# whole night to get right.  `grim` reads back what wlroots composited rather
+# than what the panel is showing, and in the failing case grim returns the
+# stream: sway really did composite the wrong surface.  So none of the
+# hardware explanations hold.  Direct scanout is impossible on this output
+# anyway -- it runs transform=90, and wlroots cannot scan out a rotated
+# output -- which is why WLR_SCENE_DISABLE_DIRECT_SCANOUT changed nothing:
+# it switched off something that was never on.  WLR_SCENE_DEBUG_DAMAGE,
+# WLR_DRM_NO_ATOMIC and WLR_DRM_NO_MODIFIERS changed nothing either, alone or
+# together, for the same reason.
+#
+# The Wayland-correct fix is a layer-shell surface on the overlay layer, which
+# is defined to render above fullscreen surfaces -- verified here: swaynag
+# -y overlay draws over the live stream perfectly.  We do not use it because
+# foot has no layer-shell support, so a terminal panel can only ever be an
+# xdg toplevel.  Moving off whiptail-in-a-terminal (fuzzel --dmenu already
+# defaults to layer=overlay; gtk4-layer-shell for something richer) is the
+# real fix and is deliberately not attempted here.
+#
+# Until then the panel goes where the client isn't.  A workspace switch is the
+# cheapest way to arrange that, and it is a reasonable design in its own right
+# for a modal full-screen settings menu.  The scratchpad also works, but
+# `scratchpad show` hands the window back floating at some other size, and
+# putting a stream's geometry back together afterwards is fiddly and was
+# visibly wrong.  Switching workspaces does not touch the window at all.
+#
+# The X11 version iconified the client here for a different reason entirely --
+# to make SDL drop its keyboard grab. That reason is gone; the need to get the
+# client off the screen outlived it.
+PANEL_WS=mlos-panel
+
+# Where to go back to. Read before the panel window exists, so it is the
+# workspace the stream is on -- and guarded against being the panel's own
+# workspace, which would leave nowhere to return to if the lock ever went
+# stale while the panel workspace was focused.
+prev_ws() {
+	swaymsg -t get_workspaces -r 2>/dev/null | python3 -c '
+import json, sys
+try:
+    for w in json.load(sys.stdin):
+        if w.get("focused"):
+            print(w.get("name"))
+            break
+except Exception:
+    pass
+'
+}
+
+# The window to hand focus back to, captured the same way and at the same
+# moment.  Going back by workspace alone is not enough -- see restore().
+prev_con() {
+	swaymsg -t get_tree 2>/dev/null | python3 -c '
+import json, sys
+def walk(n):
+    if n.get("focused") and n.get("pid"):
+        print(n.get("id"))
+        return True
+    for k in ("nodes", "floating_nodes"):
+        for c in n.get(k, []):
+            if walk(c):
+                return True
+    return False
+try:
+    walk(json.load(sys.stdin))
+except Exception:
+    pass
+'
+}
+
+PREV="$(prev_ws)"
+PREV_CON="$(prev_con)"
+[ "$PREV" = "$PANEL_WS" ] && PREV=""
+
+restore() {
+	swaymsg workspace "${PREV:-1}" >/dev/null 2>&1 || true
+
+	# Switching workspace brings the stream back and gives it keyboard
+	# focus, and that is where this used to stop -- leaving the client
+	# visible but with the compositor still drawing its own cursor over it,
+	# so the first click after closing the panel was spent waking the
+	# stream up instead of reaching the host.
+	#
+	# Two things are missing at that point.  The workspace switch focuses
+	# whatever sway last had there, which is not necessarily the client, so
+	# refocus the exact window that was focused before the panel opened.
+	# And pointer focus does not follow it: the session sets
+	# focus_follows_mouse no, so the client gets no enter event until the
+	# pointer actually moves.  Nudging the cursor one pixel and back is
+	# enough to deliver one, and lands it where it already was.
+	[ -n "$PREV_CON" ] && swaymsg "[con_id=$PREV_CON] focus" >/dev/null 2>&1
+	swaymsg 'seat - cursor move 1 0' >/dev/null 2>&1 || true
+	swaymsg 'seat - cursor move -1 0' >/dev/null 2>&1 || true
+
+	rm -f "$LOCK/pid" 2>/dev/null
+	rmdir "$LOCK" 2>/dev/null
+}
+trap restore EXIT INT TERM HUP
+
+# Not exec'd: the trap above has to run when the menu closes, or the lock
+# outlives the panel and Ctrl+Alt+M never works again for the rest of the
+# session.
+#
+# C.UTF-8 always exists and keeps whiptail's box drawing characters intact.
+# foot is told the app_id so the sway rules in /etc/sway/config match it.
+env LANG=C.UTF-8 foot \
+	--app-id=moonlight-panel \
+	--title="Moonlight OS settings" \
+	--font="DejaVu Sans Mono:size=13" \
+	-- /usr/local/bin/moonlight-menu --in-session

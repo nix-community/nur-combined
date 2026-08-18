@@ -1,0 +1,190 @@
+#!/bin/sh
+# Network setup for Moonlight OS.
+#
+#   moonlight-netsetup --ensure   prompt only if nothing is connected
+#   moonlight-netsetup --menu     always show the network menu
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+NM() { mlos_root nmcli "$@"; }
+
+# Single-quote a string so it survives `eval`.  SSIDs and connection names
+# routinely contain spaces, so menus have to be built this way.
+sq() {
+	printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+wait_for_nm() {
+	i=0
+	while [ $i -lt 30 ]; do
+		nmcli -t -f RUNNING general 2>/dev/null | grep -q running && return 0
+		i=$((i + 1))
+		sleep 1
+	done
+	return 1
+}
+
+# Wired links need a moment to negotiate before we decide we are offline.
+settle() {
+	i=0
+	while [ $i -lt "$1" ]; do
+		mlos_online && return 0
+		i=$((i + 1))
+		sleep 1
+	done
+	return 1
+}
+
+status_text() {
+	if mlos_online; then
+		conn=$(nmcli -t -f NAME connection show --active 2>/dev/null | head -1)
+		printf 'Connected to "%s"\nIP address: %s' "$conn" "$(mlos_ip)"
+	else
+		printf 'Not connected.'
+	fi
+}
+
+scan_and_connect() {
+	if ! mlos_have_wifi; then
+		mlos_msg "No Wi-Fi adapter was found.\n\nPlug in an Ethernet cable, or a USB Wi-Fi adapter, and try again."
+		return 1
+	fi
+
+	NM radio wifi on >/dev/null 2>&1
+
+	list=$(mktemp)
+	{
+		printf '\033[?25l'
+		printf '  Scanning for Wi-Fi networks...\n'
+	} >/dev/tty 2>/dev/null || true
+	NM -t -f SSID,SIGNAL,SECURITY device wifi list --rescan yes 2>/dev/null \
+		| awk -F: 'NF>=3 {
+			ssid=$1
+			for (i = 2; i <= NF - 2; i++) ssid = ssid ":" $i
+			gsub(/\\:/, ":", ssid)
+			if (ssid == "") next
+			sig = $(NF-1); sec = $NF
+			if (!(ssid in best) || sig + 0 > best[ssid] + 0) { best[ssid] = sig; secu[ssid] = sec }
+		}
+		END { for (s in best) printf "%s\t%s\t%s\n", best[s], s, secu[s] }' \
+		| sort -rn > "$list"
+	printf '\033[?25h' >/dev/tty 2>/dev/null || true
+
+	if [ ! -s "$list" ]; then
+		rm -f "$list"
+		mlos_msg "No Wi-Fi networks were found.\n\nMove closer to the access point and try again."
+		return 1
+	fi
+
+	# whiptail needs unique tags, so index the list by line number.
+	menu=""
+	n=0
+	while IFS="$(printf '\t')" read -r sig ssid sec; do
+		n=$((n + 1))
+		[ -n "$sec" ] || sec="open"
+		menu="$menu $n $(sq "[${sig}%] ${ssid} (${sec})")"
+	done < "$list"
+
+	choice=$(eval whiptail --title '"Wi-Fi networks"' \
+		--menu '"Select a network:"' 20 74 12 -- "$menu" 3>&1 1>&2 2>&3) || {
+		rm -f "$list"
+		return 1
+	}
+
+	line=$(sed -n "${choice}p" "$list")
+	rm -f "$list"
+	ssid=$(printf '%s' "$line" | cut -f2)
+	sec=$(printf '%s' "$line" | cut -f3)
+
+	if [ -n "$sec" ]; then
+		pw=$(whiptail --title "Wi-Fi password" \
+			--passwordbox "Password for \"$ssid\":" 10 74 3>&1 1>&2 2>&3) || return 1
+		out=$(NM device wifi connect "$ssid" password "$pw" 2>&1)
+	else
+		out=$(NM device wifi connect "$ssid" 2>&1)
+	fi
+
+	if mlos_online; then
+		return 0
+	fi
+	mlos_msg "Could not connect to \"$ssid\".\n\n$out"
+	return 1
+}
+
+hidden_network() {
+	ssid=$(whiptail --title "Hidden network" \
+		--inputbox "Network name (SSID):" 10 74 3>&1 1>&2 2>&3) || return 1
+	[ -n "$ssid" ] || return 1
+	pw=$(whiptail --title "Hidden network" \
+		--passwordbox "Password (leave empty for an open network):" 10 74 3>&1 1>&2 2>&3) || return 1
+	if [ -n "$pw" ]; then
+		out=$(NM device wifi connect "$ssid" password "$pw" hidden yes 2>&1)
+	else
+		out=$(NM device wifi connect "$ssid" hidden yes 2>&1)
+	fi
+	mlos_online && return 0
+	mlos_msg "Could not connect to \"$ssid\".\n\n$out"
+	return 1
+}
+
+forget_networks() {
+	saved=$(nmcli -t -f NAME,TYPE connection show 2>/dev/null \
+		| awk -F: '$2 ~ /wireless/ {print $1}')
+	[ -n "$saved" ] || { mlos_msg "No saved Wi-Fi networks."; return 0; }
+	menu=""
+	n=0
+	while IFS= read -r s; do
+		[ -n "$s" ] || continue
+		n=$((n + 1))
+		menu="$menu $n $(sq "$s")"
+	done <<-EOF
+	$saved
+	EOF
+	choice=$(eval whiptail --title '"Forget a network"' \
+		--menu '"Remove a saved network:"' 18 74 10 -- "$menu" 3>&1 1>&2 2>&3) || return 0
+	name=$(printf '%s\n' "$saved" | sed -n "${choice}p")
+	NM connection delete "$name" >/dev/null 2>&1
+	mlos_msg "Removed \"$name\"."
+}
+
+network_menu() {
+	while :; do
+		choice=$(whiptail --title "Network" \
+			--menu "$(status_text)" 18 74 6 \
+			1 "Connect to Wi-Fi" \
+			2 "Connect to a hidden network" \
+			3 "Retry / reconnect" \
+			4 "Forget a saved Wi-Fi network" \
+			5 "Continue without a network" \
+			3>&1 1>&2 2>&3) || return 1
+		case "$choice" in
+			1) scan_and_connect && return 0 ;;
+			2) hidden_network && return 0 ;;
+			3) NM networking off >/dev/null 2>&1
+			   NM networking on >/dev/null 2>&1
+			   settle 15 && return 0
+			   mlos_msg "Still not connected." ;;
+			4) forget_networks ;;
+			5) return 1 ;;
+		esac
+	done
+}
+
+case "${1:---ensure}" in
+	--ensure)
+		wait_for_nm || true
+		# Already have a link (wired, or a remembered Wi-Fi network)?
+		settle 12 && exit 0
+		network_menu || true
+		;;
+	--menu)
+		wait_for_nm || true
+		network_menu || true
+		;;
+	*)
+		printf 'usage: moonlight-netsetup [--ensure|--menu]\n' >&2
+		exit 2
+		;;
+esac
+exit 0

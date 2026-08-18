@@ -1,0 +1,156 @@
+#!/bin/sh
+# Sound: local volume and output device, plus the two audio settings that
+# belong to the stream itself.
+#
+# There was previously no way at all to change the volume on this appliance,
+# which is a problem when PipeWire comes up at 40% and the only other machine
+# in the conversation is the one being streamed from.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+SINK=@DEFAULT_AUDIO_SINK@
+
+have_wp() { command -v wpctl >/dev/null 2>&1; }
+
+volume_pct() {
+	have_wp || return 0
+	wpctl get-volume "$SINK" 2>/dev/null \
+		| awk '{ for (i = 1; i <= NF; i++) if ($i ~ /^[0-9.]+$/) { printf "%d", $i * 100 + 0.5; exit } }'
+}
+
+muted() {
+	have_wp || return 1
+	wpctl get-volume "$SINK" 2>/dev/null | grep -q MUTED
+}
+
+set_volume() {
+	wpctl set-volume "$SINK" "$1%" >/dev/null 2>&1
+}
+
+nudge() {
+	v="$(volume_pct)"
+	[ -n "$v" ] || return 0
+	v=$((v + $1))
+	[ "$v" -lt 0 ] && v=0
+	[ "$v" -gt 150 ] && v=150
+	set_volume "$v"
+}
+
+# "id<tab>marker<tab>name" for every audio sink.  wpctl's tree output is the
+# only listing wireplumber offers, and only its first Sinks block is audio --
+# the second belongs to the video section.
+sink_list() {
+	wpctl status 2>/dev/null | awk '
+		/Sinks:/   { if (!seen) { inS = 1; seen = 1; next } }
+		/Sources:/ { inS = 0 }
+		inS {
+			line = $0
+			gsub(/[^ -~]/, "", line)        # strip the box-drawing characters
+			gsub(/^ +/, "", line)
+			if (line ~ /^\*? *[0-9]+\./) {
+				mark = (line ~ /^\*/) ? "*" : " "
+				sub(/^\* */, "", line)
+				id = line; sub(/\..*$/, "", id)
+				name = line
+				sub(/^[0-9]+\. */, "", name)
+				sub(/ *\[vol:.*$/, "", name)
+				sub(/ +$/, "", name)
+				printf "%s\t%s\t%s\n", id, mark, name
+			}
+		}'
+}
+
+pick_output() {
+	list="$(sink_list)"
+	if [ -z "$list" ]; then
+		mlos_msg "No sound outputs were found.\n\nPipeWire may still be starting up."
+		return
+	fi
+
+	menu=""
+	while IFS='	' read -r id mark name; do
+		[ -n "$id" ] || continue
+		label="$name"
+		[ "$mark" = "*" ] && label="$name  (current)"
+		menu="$menu $id '$(printf '%s' "$label" | sed "s/'/'\\\\''/g")'"
+	done <<-LIST
+	$list
+	LIST
+
+	choice=$(eval whiptail --title '"Sound output"' --menu \
+		"'Where sound should come out:'" 18 74 8 -- "$menu" 3>&1 1>&2 2>&3) || return
+	wpctl set-default "$choice" >/dev/null 2>&1
+	mlos_msg "Output changed."
+}
+
+channels_menu() {
+	c=$(whiptail --title "Channels" --menu \
+"What the host PC should send.  Surround only helps if the
+speakers plugged into this machine can actually do it." 16 74 3 \
+		1 "Stereo" 2 "5.1 surround" 3 "7.1 surround" \
+		3>&1 1>&2 2>&3) || return
+	case "$c" in
+		1) mlos_set AUDIO_CONFIG stereo ;;
+		2) mlos_set AUDIO_CONFIG 5.1 ;;
+		3) mlos_set AUDIO_CONFIG 7.1 ;;
+	esac
+	mlos_msg "Saved.\n\nIt applies the next time Moonlight starts."
+}
+
+test_sound() {
+	if ! command -v speaker-test >/dev/null 2>&1; then
+		mlos_msg "speaker-test is not installed."
+		return
+	fi
+	clear
+	printf '\n  Two seconds of tone on the current output...\n\n'
+	speaker-test -t sine -f 440 -l 1 -c 2 >/dev/null 2>&1 &
+	sleep 2
+	kill $! 2>/dev/null
+	wait 2>/dev/null
+	mlos_msg "Heard anything?\n\nIf not, try a different output, or check the volume is not muted."
+}
+
+while :; do
+	mlos_load
+	v="$(volume_pct)"
+	if muted; then
+		vol="Volume: ${v:-?}%  (MUTED)"
+	else
+		vol="Volume: ${v:-?}%"
+	fi
+	out="$(sink_list | awk -F'\t' '$2 == "*" { print $3; exit }')"
+
+	choice=$(whiptail --title "Audio" --menu \
+"$vol
+Output: ${out:-unknown}
+Channels: ${AUDIO_CONFIG:-stereo}
+Play on the host PC instead: ${HOST_AUDIO:-no}" 20 74 7 \
+		1 "Louder" \
+		2 "Quieter" \
+		3 "Mute / unmute" \
+		4 "Sound output device" \
+		5 "Channels (stereo / surround)" \
+		6 "Play audio on the host PC instead" \
+		7 "Test the speakers" \
+		8 "Back" \
+		3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		1) nudge 10 ;;
+		2) nudge -10 ;;
+		3) wpctl set-mute "$SINK" toggle >/dev/null 2>&1 ;;
+		4) pick_output ;;
+		5) channels_menu ;;
+		6) if [ "${HOST_AUDIO:-no}" = "yes" ]; then
+			   mlos_set HOST_AUDIO no
+			   mlos_msg "Sound will come out of this machine again.\n\nApplies the next time Moonlight starts."
+		   else
+			   mlos_set HOST_AUDIO yes
+			   mlos_msg "Sound will play on the host PC instead of here.\n\nApplies the next time Moonlight starts."
+		   fi ;;
+		7) test_sound ;;
+		8) exit 0 ;;
+	esac
+done

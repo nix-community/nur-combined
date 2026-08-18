@@ -1,0 +1,59 @@
+#!/bin/sh
+# Boot artwork: the plymouth splash, and the background GRUB uses once the
+# system has been installed to a disk.
+#
+# The ISO's own boot menus do not come through here -- live-build picks those
+# up from config/bootloaders/*/splash.png, which both bootloaders already look
+# for by that name.
+set -e
+
+THEME=moonlight-os
+
+if [ -d "/usr/share/plymouth/themes/$THEME" ]; then
+	# -R rebuilds the initramfs, which is where plymouth actually reads the
+	# theme from: setting it without that leaves the default in the initrd
+	# and the splash silently stays Debian's.
+	if command -v plymouth-set-default-theme >/dev/null 2>&1; then
+		plymouth-set-default-theme -R "$THEME" || \
+			plymouth-set-default-theme "$THEME" || true
+	fi
+fi
+
+# What the system calls itself.  Only the pretty name and the URLs: ID and
+# VERSION_ID are left alone because package tooling keys off them.
+# Both paths: /etc/os-release is usually a symlink to the one under /usr,
+# but not here -- something in the live-build stack leaves a real file behind,
+# and that is the copy everything actually reads.
+for OSR in /usr/lib/os-release /etc/os-release; do
+	[ -f "$OSR" ] || continue
+	sed -i 's|^PRETTY_NAME=.*|PRETTY_NAME="Moonlight OS (Debian 13)"|' "$OSR"
+	sed -i 's|^HOME_URL=.*|HOME_URL="https://moonlight-stream.org/"|' "$OSR"
+	grep -q '^LOGO=' "$OSR" || printf 'LOGO=moonlight-os\n' >> "$OSR"
+done
+
+# GRUB on an installed disk.  The live ISO never reads this file; the
+# installer copies it across with everything else, and its update-grub run
+# turns these into the generated grub.cfg.
+BG=/usr/share/moonlight-os/grub-background.png
+if [ -f "$BG" ]; then
+	touch /etc/default/grub
+	# Replace each setting if present, append it if not.
+	set_grub() {
+		key="$1"
+		val="$2"
+		if grep -q "^$key=" /etc/default/grub; then
+			sed -i "s|^$key=.*|$key=$val|" /etc/default/grub
+		else
+			printf '%s=%s\n' "$key" "$val" >> /etc/default/grub
+		fi
+	}
+	set_grub GRUB_BACKGROUND "\"$BG\""
+	set_grub GRUB_TIMEOUT 3
+	set_grub GRUB_TIMEOUT_STYLE menu
+	set_grub GRUB_CMDLINE_LINUX_DEFAULT '"quiet splash loglevel=3 vt.global_cursor_default=0"'
+	set_grub GRUB_DISTRIBUTOR '"Moonlight OS"'
+	# The generated menu is drawn over the background rather than in a box.
+	set_grub GRUB_TERMINAL_OUTPUT '"gfxterm"'
+	set_grub GRUB_GFXMODE '"auto"'
+	set_grub GRUB_GFXPAYLOAD_LINUX '"keep"'
+fi

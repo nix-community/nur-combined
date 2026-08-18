@@ -1,0 +1,295 @@
+#!/bin/sh
+# The settings menu.
+#
+# Two ways in:
+#   * on the console, whenever Moonlight exits (moonlight-session runs it)
+#   * over the top of a running Moonlight, via Ctrl+Alt+M (moonlight-panel
+#     runs it with --in-session)
+#
+# The second form is the important one: without it the only way to reach the
+# installer was to quit Moonlight first, which is neither obvious nor possible
+# in the middle of a stream.
+#
+# The top level is deliberately short.  Every entry is either something you do
+# constantly (start the stream, fix the picture) or a drawer; the drawers hold
+# the rest, grouped by what you were trying to achieve rather than by which
+# script happens to implement it.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+IN_SESSION=0
+[ "${1:-}" = "--in-session" ] && IN_SESSION=1
+
+sq() {
+	printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+is_live() { [ -d /run/live/medium ]; }
+have_tailscale() { [ -x /usr/bin/tailscale ]; }
+
+# Settings Moonlight only reads at start-up need it restarted.  On the console
+# that happens anyway when the menu exits; in X we can do it in place.
+restart_prompt() {
+	if [ "$IN_SESSION" = "1" ]; then
+		if mlos_yesno "Saved.\n\nRestart Moonlight now to apply it?"; then
+			mlos_restart_moonlight
+			exit 0
+		fi
+	else
+		mlos_msg "Saved.\n\nIt applies when Moonlight starts."
+	fi
+}
+
+# Everything about the stream itself: what to connect to, what to ask the
+# host PC for, how it is drawn, and where to look when it misbehaves.
+stream_menu() {
+	while :; do
+		mlos_load
+		choice=$(whiptail --title "Streaming" --menu \
+"Connect to:  ${AUTOCONNECT_HOST:-(nothing - the Moonlight launcher opens)}
+App:         ${AUTOCONNECT_APP:-Desktop}
+Window mode: ${WINDOW_MODE:-borderless}" 20 74 6 \
+			1 "Connect to a host automatically on start-up" \
+			2 "Which app to launch (default: Desktop)" \
+			3 "Do not connect automatically" \
+			4 "Picture quality (resolution, frame rate, bitrate)" \
+			5 "Window mode" \
+			6 "Video problems & logs" \
+			3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			1) h=$(whiptail --title "Auto-connect" --inputbox \
+				"Host name or IP address of the PC to stream from:" 10 74 \
+				"$AUTOCONNECT_HOST" 3>&1 1>&2 2>&3) || continue
+			   mlos_set AUTOCONNECT_HOST "$h" ;;
+			2) a=$(whiptail --title "Auto-connect" --inputbox \
+				"App to launch:" 10 74 "${AUTOCONNECT_APP:-Desktop}" \
+				3>&1 1>&2 2>&3) || continue
+			   mlos_set AUTOCONNECT_APP "$a" ;;
+			3) mlos_set AUTOCONNECT_HOST "" ;;
+			4) moonlight-stream ;;
+			5) window_mode_menu ;;
+			6) moonlight-diag ;;
+		esac
+	done
+}
+
+window_mode_menu() {
+	c=$(whiptail --title "Window mode" --menu \
+"Borderless is the safe default: it draws over the whole screen
+without changing the monitor's mode.  Exclusive fullscreen asks
+the monitor to switch to the stream's resolution, which on some
+Intel laptops flashes the backlight and drops the connection." 17 74 2 \
+		borderless "Borderless (recommended)" \
+		fullscreen "Exclusive fullscreen" \
+		3>&1 1>&2 2>&3) || return 0
+	mlos_set WINDOW_MODE "$c"
+	restart_prompt
+}
+
+network_menu() {
+	while :; do
+		if mlos_online; then
+			state="Connected, address $(mlos_ip)"
+		else
+			state="Not connected"
+		fi
+
+		entries="wifi $(sq 'Wi-Fi / network')"
+		if have_tailscale; then
+			entries="$entries tailscale $(sq 'Tailscale (stream from anywhere)')"
+		fi
+		entries="$entries ssh $(sq 'Remote access (SSH)')"
+		entries="$entries back $(sq 'Back')"
+
+		choice=$(eval whiptail --title '"Network & internet"' \
+			--menu "$(sq "$state")" 14 74 4 -- "$entries" \
+			3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			wifi)      moonlight-netsetup --menu ;;
+			tailscale) moonlight-tailscale ;;
+			ssh)       moonlight-ssh ;;
+			back)      return 0 ;;
+		esac
+	done
+}
+
+have_battery() { [ -n "$(moonlight-battery percent 2>/dev/null)" ]; }
+
+devices_menu() {
+	while :; do
+		entries="bluetooth $(sq 'Bluetooth')"
+		entries="$entries usb $(sq 'USB passthrough')"
+		entries="$entries trackpad $(sq 'Trackpad')"
+		entries="$entries region $(sq 'Keyboard & time zone')"
+		if have_battery; then
+			entries="$entries battery $(sq 'Battery warnings')"
+		fi
+		entries="$entries back $(sq 'Back')"
+
+		choice=$(eval whiptail --title '"Devices & input"' --menu \
+			"$(sq 'Controllers, headsets, and anything plugged in.')" \
+			16 74 6 -- "$entries" 3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			bluetooth) moonlight-bluetooth ;;
+			usb)       moonlight-usb ;;
+			trackpad)  moonlight-input --menu ;;
+			region)    moonlight-region --menu
+			           [ "$IN_SESSION" = "1" ] && moonlight-region --apply-session ;;
+			battery)   battery_menu ;;
+			back)      return 0 ;;
+		esac
+	done
+}
+
+# The host PC cannot show this -- nothing in the streaming protocol carries
+# the client's battery, and a fullscreen app covers any taskbar that could
+# have -- so the warning is drawn here, over the stream.
+battery_menu() {
+	while :; do
+		mlos_load
+		if [ "${BATTERY_WARN:-yes}" = "yes" ]; then
+			state="on, at $(printf '%s' "${BATTERY_LEVELS:-20 10 5}" \
+				| sed 's/ /%, /g')%"
+		else
+			state="off"
+		fi
+
+		entries="toggle $(sq 'Turn warnings on / off')"
+		entries="$entries levels $(sq 'Levels to warn at')"
+		# Nothing to draw on from the console; the OSD needs the
+		# running X session that the stream lives in.
+		if [ "$IN_SESSION" = "1" ]; then
+			entries="$entries test $(sq 'Show a test warning now')"
+		fi
+		entries="$entries back $(sq 'Back')"
+
+		choice=$(eval whiptail --title '"Battery warnings"' --menu "$(sq \
+"Battery:  $(moonlight-battery status)
+Warnings: $state
+
+The last level is treated as critical and repeats until the
+charger goes back in.")" 18 74 4 -- "$entries" 3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			toggle) if [ "${BATTERY_WARN:-yes}" = "yes" ]; then
+					mlos_set BATTERY_WARN no
+					mlos_msg "Battery warnings off."
+				else
+					mlos_set BATTERY_WARN yes
+					mlos_msg "Battery warnings on."
+				fi ;;
+			levels) l=$(whiptail --title "Levels" --inputbox \
+"Percentages to warn at, separated by spaces.
+
+The last one is the critical level and repeats." 13 74 \
+				"${BATTERY_LEVELS:-20 10 5}" 3>&1 1>&2 2>&3) || continue
+			   clean=""
+			   for n in $l; do
+				   case "$n" in
+					   ''|*[!0-9]*) clean="bad"; break ;;
+				   esac
+				   [ "$n" -ge 1 ] && [ "$n" -le 100 ] || { clean="bad"; break; }
+				   clean="$clean${clean:+ }$n"
+			   done
+			   if [ "$clean" = "bad" ] || [ -z "$clean" ]; then
+				   mlos_msg "Give one or more whole numbers between 1 and 100, separated by spaces.\n\nFor example: 20 10 5"
+				   continue
+			   fi
+			   mlos_set BATTERY_LEVELS "$clean"
+			   mlos_msg "Warning at ${clean}%.\n\nApplies straight away." ;;
+			test)   moonlight-battery test ;;
+			back)   return 0 ;;
+		esac
+	done
+}
+
+system_menu() {
+	while :; do
+		entries="backup $(sq 'Back up / restore settings')"
+		if is_live; then
+			entries="$entries install $(sq 'Install to this computer')"
+			entries="$entries persist $(sq 'Save settings to this USB stick')"
+		fi
+		entries="$entries shell $(sq 'Command line')"
+		entries="$entries back $(sq 'Back')"
+
+		choice=$(eval whiptail --title '"System"' --menu \
+			"$(sq 'Settings live in /etc/moonlight-os/moonlight-os.conf,
+which is a plain shell file you can also edit by hand.')" \
+			16 74 5 -- "$entries" 3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			backup)  moonlight-backup --menu ;;
+			install) moonlight-install ;;
+			persist) moonlight-persist ;;
+			shell)   clear
+			         command -v fastfetch >/dev/null 2>&1 && fastfetch
+			         printf '\nType "exit" to return to the Moonlight menu.\n\n'
+			         ${SHELL:-/bin/bash} -l || true ;;
+			back)    return 0 ;;
+		esac
+	done
+}
+
+power_menu() {
+	act=$(whiptail --title "Power" --menu "" 12 60 3 \
+		1 "Reboot" 2 "Shut down" 3 "Back" 3>&1 1>&2 2>&3) || return 0
+	case "$act" in
+		1) mlos_root systemctl reboot ;;
+		2) mlos_root systemctl poweroff ;;
+	esac
+}
+
+while :; do
+	mlos_load
+	if mlos_online; then
+		net="Network: connected ($(mlos_ip))"
+	else
+		net="Network: not connected"
+	fi
+	# Worth a line at the top on a laptop: this is the one machine in the
+	# setup whose battery nobody else can see.
+	bat="$(moonlight-battery status 2>/dev/null)"
+	case "$bat" in
+		''|'no battery') ;;
+		*) net="$net
+Battery: $bat" ;;
+	esac
+
+	# Entries are tagged by name so the ones that only make sense in some
+	# situations can come and go without renumbering everything.
+	if [ "$IN_SESSION" = "1" ]; then
+		entries="start $(sq 'Back to Moonlight')"
+		entries="$entries restart $(sq 'Restart Moonlight')"
+	else
+		entries="start $(sq 'Start Moonlight')"
+	fi
+	entries="$entries stream $(sq 'Streaming')"
+	entries="$entries displays $(sq 'Displays')"
+	entries="$entries audio $(sq 'Sound')"
+	entries="$entries devices $(sq 'Devices & input')"
+	entries="$entries network $(sq 'Network & internet')"
+	entries="$entries system $(sq 'System')"
+	entries="$entries power $(sq 'Reboot / shut down')"
+
+	choice=$(eval whiptail --title '"Moonlight OS"' --menu "$(sq "$net")" \
+		18 74 9 -- "$entries" 3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		start)     exit 0 ;;
+		restart)   mlos_restart_moonlight; exit 0 ;;
+		stream)    stream_menu ;;
+		displays)  moonlight-displays --menu
+		           # In X the new layout can be applied straight away.
+		           [ "$IN_SESSION" = "1" ] && moonlight-displays --apply ;;
+		audio)     moonlight-audio ;;
+		devices)   devices_menu ;;
+		network)   network_menu ;;
+		system)    system_menu ;;
+		power)     power_menu ;;
+	esac
+done

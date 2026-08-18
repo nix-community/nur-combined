@@ -1,0 +1,32 @@
+#!/bin/sh
+# Start tailscaled the moment a network actually appears.
+#
+# The drop-in beside tailscaled.service orders it after network-online.target,
+# which covers the normal boot.  It does not cover the first boot of a live
+# image: there is no saved Wi-Fi yet, so the wait times out, tailscaled starts
+# offline, and the user only picks a network minutes later in the Wi-Fi menu.
+# That is the case this handles -- poke the daemon as soon as the connection
+# comes up instead of leaving it to the next restart tick.
+#
+# $1 is the interface, $2 the action.  No `set -e`: every call below is
+# already guarded, and an AND-OR list under it is read differently by
+# different shells.
+[ "$2" = "up" ] || exit 0
+
+# Absent from images built without Tailscale, and off if someone disabled it.
+systemctl is-enabled --quiet tailscaled 2>/dev/null || exit 0
+
+# Never touch a healthy daemon: restarting it here would drop the tailnet
+# every time Wi-Fi reconnects, which is exactly when it is wanted.
+if systemctl is-active --quiet tailscaled 2>/dev/null; then
+	exit 0
+fi
+
+# A unit that hit the start rate limit refuses to start until that is
+# cleared.  The drop-in switches the limit off, so this only matters for a
+# daemon that failed for some other reason, but it is one cheap call.
+systemctl reset-failed tailscaled 2>/dev/null || true
+
+# --no-block: NetworkManager kills dispatcher scripts that take too long, and
+# tailscaled is Type=notify, so a plain start would block until it is ready.
+systemctl start --no-block tailscaled 2>/dev/null || true

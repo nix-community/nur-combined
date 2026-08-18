@@ -1,0 +1,36 @@
+#!/bin/sh
+# live-build configuration for Moonlight OS.
+# Invoked automatically by `lb config`.
+
+set -e
+
+SUITE="${MLOS_SUITE:-trixie}"
+ARCH="${MLOS_ARCH:-amd64}"
+FLAVOUR="${MLOS_FLAVOUR:-amd64}"
+
+lb config noauto \
+	--mode debian \
+	--distribution "${SUITE}" \
+	--architecture "${ARCH}" \
+	--linux-flavours "${FLAVOUR}" \
+	--archive-areas "main contrib non-free non-free-firmware" \
+	--updates true \
+	--security true \
+	--backports false \
+	--apt-recommends false \
+	--apt-indices false \
+	--binary-image iso-hybrid \
+	--bootloaders "syslinux,grub-efi" \
+	--debian-installer none \
+	--memtest none \
+	--firmware-chroot false \
+	--firmware-binary false \
+	--checksums none \
+	--zsync false \
+	--image-name "moonlight-os" \
+	--iso-application "Moonlight OS" \
+	--iso-volume "MOONLIGHTOS" \
+	--iso-publisher "moonlight-os" \
+	--iso-preparer "live-build" \
+	--bootappend-live "boot=live components quiet splash loglevel=3 vt.global_cursor_default=0 username=moonlight hostname=moonlight-os persistence persistence-encryption=none" \
+	"${@}"

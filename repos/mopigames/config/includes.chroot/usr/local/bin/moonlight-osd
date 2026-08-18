@@ -1,0 +1,65 @@
+#!/bin/sh
+# A line or two of text over the top of whatever is on screen, stream included.
+#
+#   moonlight-osd [-c colour] [-d seconds] LINE [LINE ...]
+#
+# The property that matters has not changed: nothing may take focus.  The
+# client is a focused fullscreen window, and stealing focus from it mid-stream
+# to show a warning would be worse than the warning.
+#
+# Under X11 this was osd_cat, whose window is override-redirect -- openbox
+# never managed it, so it needed none of the layer juggling the Ctrl+Alt+M
+# panel does.  There is no Wayland equivalent of override-redirect, and there
+# cannot be: a client cannot place itself above others.  What replaces it is
+# the layer-shell protocol, which is how notification daemons draw over
+# fullscreen windows without ever being focused.  mako speaks it, so the
+# message goes through the ordinary notification path.
+#
+# The font sizing that used to live here is gone with it: mako is configured
+# once (/etc/xdg/mako/config) rather than being told a pixel size per message,
+# and it scales with the output like every other Wayland surface.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+colour="#ffcc00"
+seconds=6
+
+while [ $# -gt 0 ]; do
+	case "$1" in
+		-c|--colour)  colour="$2"; shift 2 ;;
+		-d|--seconds) seconds="$2"; shift 2 ;;
+		--) shift; break ;;
+		-?*) printf 'usage: moonlight-osd [-c colour] [-d seconds] line...\n' >&2
+		     exit 2 ;;
+		*) break ;;
+	esac
+done
+[ $# -gt 0 ] || exit 0
+
+[ -n "${WAYLAND_DISPLAY:-}" ] || exit 0
+command -v notify-send >/dev/null 2>&1 || {
+	printf 'moonlight-osd: notify-send is not installed\n' >&2
+	exit 1
+}
+
+# One message at a time.  A second warning arriving while the first is still
+# up would otherwise stack below it; replacing keeps the newest one where the
+# eye already is.  A fixed tag is how the notification protocol expresses
+# "this supersedes the last one".
+#
+# The colour is carried as an urgency rather than an RGB value: mako styles by
+# urgency, and the two callers only ever wanted "warning" and "worse".
+case "$colour" in
+	'#ff0000'|red)  urgency=critical ;;
+	*)              urgency=normal ;;
+esac
+
+body=$(printf '%s\n' "$@")
+
+notify-send \
+	--app-name=moonlight-os \
+	--urgency="$urgency" \
+	--expire-time="$((seconds * 1000))" \
+	--hint=string:x-canonical-private-synchronous:moonlight-osd \
+	"$body" >/dev/null 2>&1 || true

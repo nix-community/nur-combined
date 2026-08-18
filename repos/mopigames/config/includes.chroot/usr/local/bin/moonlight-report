@@ -1,0 +1,87 @@
+#!/bin/sh
+# Everything worth knowing about this machine's display and streaming setup,
+# on stdout, in one go.  Meant to be run over SSH:
+#
+#     ssh moonlight@moonlight-os.local moonlight-report > report.txt
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+mlos_load
+
+# Run over SSH there is no session in the environment, and vainfo, vulkaninfo
+# and swaymsg all quietly report nothing useful without one.  The compositor
+# puts its socket here, so point at the running session's.
+if [ -z "${WAYLAND_DISPLAY:-}" ]; then
+	export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u moonlight 2>/dev/null || id -u)}"
+	sock=$(find "$XDG_RUNTIME_DIR" -maxdepth 1 -name 'wayland-*' ! -name '*.lock' 2>/dev/null | head -1)
+	[ -n "$sock" ] && export WAYLAND_DISPLAY="${sock##*/}"
+fi
+
+sec() { printf '\n===== %s =====\n' "$1"; }
+
+sec "System"
+uname -a
+[ -r /etc/os-release ] && . /etc/os-release && printf 'base: %s\n' "${PRETTY_NAME:-unknown}"
+printf 'uptime:%s\n' "$(uptime)"
+if [ -d /run/live/medium ]; then printf 'booted: live medium\n'; else printf 'booted: installed disk\n'; fi
+
+sec "Moonlight OS settings"
+cat "$MLOS_CONF" 2>/dev/null
+
+sec "Selene's own settings"
+grep -vE 'certificate|^key=' "$MLOS_QT_CONF" 2>/dev/null \
+	|| printf '(none yet)\n'
+
+sec "Graphics hardware"
+lspci -nnk 2>/dev/null | grep -iA3 -E 'vga|display|3d' || printf '(none reported)\n'
+
+sec "Kernel graphics messages"
+# journalctl first: dmesg is restricted to root on Debian and returns empty
+# *successfully*, so trying it first would silently win and show nothing.
+kmsg=$(journalctl -kb --no-pager 2>/dev/null | grep -iE 'i915|amdgpu|nouveau|drm|backlight' | tail -40)
+[ -n "$kmsg" ] || kmsg=$(dmesg 2>/dev/null | grep -iE 'i915|amdgpu|nouveau|drm|backlight' | tail -40)
+printf '%s\n' "${kmsg:-(nothing, and the kernel log is not readable)}"
+
+sec "Render nodes"
+ls -l /dev/dri/ 2>/dev/null || printf '/dev/dri missing\n'
+
+sec "Displays (live)"
+swaymsg -t get_outputs 2>&1 | head -120
+
+sec "Displays (snapshot taken at session start)"
+cat "$MLOS_SNAPSHOT" 2>/dev/null || printf '(none)\n'
+
+sec "VAAPI"
+LIBVA_DRIVERS_PATH="${LIBVA_DRIVERS_PATH:-/usr/lib/x86_64-linux-gnu/dri}" \
+	vainfo 2>&1 | head -40
+
+sec "Installed VA drivers"
+ls /usr/lib/x86_64-linux-gnu/dri/*_drv_video.so 2>/dev/null | sed 's|.*/||' || printf '(none)\n'
+
+sec "Vulkan"
+vulkaninfo --summary 2>&1 \
+	| grep -iE 'GPU id|deviceName|driverName|driverInfo|apiVersion|deviceType|ERROR' \
+	| head -20
+
+sec "Xorg log"
+for f in "$HOME/.local/share/xorg/Xorg.0.log" /var/log/Xorg.0.log; do
+	if [ -r "$f" ]; then
+		printf -- '--- %s ---\n' "$f"
+		grep -E '\(EE\)|\(WW\)|Output|Modeline|NOUVEAU|intel|amdgpu|modeset' "$f" | tail -60
+		break
+	fi
+done
+
+sec "Moonlight session log (last 120 lines)"
+tail -120 "$MLOS_STATE/xsession.log" 2>/dev/null || printf '(none)\n'
+
+sec "Moonlight decoder / renderer lines"
+grep -iE 'decoder|renderer|vulkan|vaapi|vdpau|error|warn|fail|unsupported|modeset' \
+	"$MLOS_STATE/xsession.log" 2>/dev/null | tail -60 || printf '(none)\n'
+
+sec "Network"
+ip -br addr 2>/dev/null
+nmcli -t -f DEVICE,TYPE,STATE device 2>/dev/null
+
+sec "Done"

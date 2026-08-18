@@ -1,0 +1,356 @@
+#!/bin/sh
+# Shared helpers for the Moonlight OS session scripts.  Sourced, not run.
+
+MLOS_CONF=/etc/moonlight-os/moonlight-os.conf
+MLOS_STATE=/var/lib/moonlight-os
+MLOS_SNAPSHOT="$MLOS_STATE/outputs.snapshot"
+
+mlos_load() {
+	MOONLIGHT_OUTPUT=""
+	DISPLAY_MODE="single"
+	XRANDR_ARGS=""
+	MODE_OVERRIDES=""
+	# "HDMI-1=left eDP-1=normal" and "HDMI-1=above", both relative to the
+	# screen Moonlight opens on.
+	ROTATIONS=""
+	SCREEN_SIDES=""
+	AUTOCONNECT_HOST=""
+	AUTOCONNECT_APP=""
+	KEYBOARD_LAYOUT=""
+	KEYBOARD_VARIANT=""
+	TIMEZONE=""
+	FORCE_SOFTWARE="no"
+	# Atomic modesetting: auto|yes|no.  auto keeps atomic except on the DSI
+	# tablet panels that mishandle it -- see mlos_run_compositor.
+	DRM_ATOMIC="auto"
+	# Extra KEY=VALUE pairs for the compositor, for driver quirks.
+	COMPOSITOR_ENV=""
+	WINDOW_MODE="borderless"
+	STREAM_WIDTH=""
+	STREAM_HEIGHT=""
+	STREAM_FPS="60"
+	STREAM_BITRATE="0"
+	AUDIO_CONFIG="stereo"
+	HOST_AUDIO="no"
+	CAPTURE_SYS_KEYS="yes"
+	NATURAL_SCROLL="no"
+	BATTERY_WARN="yes"
+	BATTERY_LEVELS="20 10 5"
+	# USB passthrough to a host PC running mlos-host-utils.
+	USB_AUTOSHARE="no"
+	USB_AUTOSHARE_POLICY="safe"
+	USB_AUTOSHARE_INCLUDE=""
+	USB_AUTOSHARE_EXCLUDE=""
+	USB_HOST_ADDR=""
+	USB_HOST_PORT="48020"
+	USB_HOST_TOKEN=""
+	# shellcheck disable=SC1090
+	[ -r "$MLOS_CONF" ] && . "$MLOS_CONF"
+}
+
+# mlos_set KEY VALUE -- rewrite one key in the config file.
+#
+# The file lives in /etc and is owned by root, while everything here runs as
+# the unprivileged session user, so the write has to go through sudo.  Doing
+# it directly fails with EACCES and -- because the failure is on a redirect --
+# does so silently, which loses every setting the menus think they saved.
+mlos_set() {
+	key="$1"
+	val="$2"
+	tmp="$(mktemp)"
+	if [ -r "$MLOS_CONF" ]; then
+		grep -v "^${key}=" "$MLOS_CONF" > "$tmp" 2>/dev/null || true
+	fi
+	printf '%s="%s"\n' "$key" "$val" >> "$tmp"
+
+	mlos_root mkdir -p "$(dirname "$MLOS_CONF")"
+	if ! mlos_root cp "$tmp" "$MLOS_CONF"; then
+		rm -f "$tmp"
+		return 1
+	fi
+	# mktemp makes files 0600.  Overwriting keeps the existing mode, but if
+	# the file ever has to be created fresh it would end up unreadable to
+	# this very user -- losing settings the same silent way.
+	mlos_root chmod 0644 "$MLOS_CONF"
+	rm -f "$tmp"
+}
+
+# Run a command as root.  The session user has passwordless sudo for the
+# handful of things that need it (nmcli is allowed for the user directly).
+mlos_root() {
+	if [ "$(id -u)" = "0" ]; then
+		"$@"
+	else
+		sudo -n "$@"
+	fi
+}
+
+# whiptail draws its widget on stdout.  These get called from inside command
+# substitutions (pick_disk, pick_output, ...), where stdout is a pipe -- so
+# the dialog has to be aimed at the terminal explicitly or it is swallowed
+# and silently corrupts the caller's return value.
+#
+# They also get called from the hotplug watcher, which is a daemon with no
+# terminal at all -- there, a whiptail box would simply fail, so the text goes
+# to the log instead and a question answers itself with "no".
+#
+# The test runs in a subshell on purpose.  ":" is a POSIX special builtin, and
+# a redirection that fails on one of those takes the whole shell down with it
+# -- so with no controlling terminal this function did not report "no tty", it
+# killed the script that asked.  The subshell dies instead and we get our
+# answer back as an exit status, which is all that was ever wanted.
+mlos_have_tty() { ( : > /dev/tty ) 2>/dev/null; }
+
+mlos_msg() {
+	if mlos_have_tty; then
+		whiptail --title "Moonlight OS" --msgbox "$1" 12 74 >/dev/tty 2>/dev/tty
+	else
+		printf '%s\n' "$1" >&2
+	fi
+}
+
+mlos_yesno() {
+	if mlos_have_tty; then
+		whiptail --title "Moonlight OS" --yesno "$1" 12 74 >/dev/tty 2>/dev/tty
+	else
+		return 1
+	fi
+}
+
+# True when at least one NetworkManager device has an active connection.
+mlos_online() {
+	nmcli -t -f DEVICE,STATE device 2>/dev/null | grep -qE ':connected$'
+}
+
+mlos_have_wifi() {
+	nmcli -t -f DEVICE,TYPE device 2>/dev/null | grep -q ':wifi$'
+}
+
+mlos_ip() {
+	ip -4 route get 1.1.1.1 2>/dev/null | sed -n 's/.* src \([0-9.]*\).*/\1/p' | head -1
+}
+
+# Selene's Qt settings.  The path is derived from the organization and
+# application names Selene sets at startup (app/main.cpp), so the two must
+# change together or every setting write below silently goes nowhere.
+#
+# Relative to a filesystem root, so that tools which work on a disk mounted
+# elsewhere (moonlight-backup) can reuse it instead of repeating the literal.
+MLOS_QT_DIR_REL=".config/moonlight-os"
+MLOS_QT_CONF="$HOME/$MLOS_QT_DIR_REL/Selene.conf"
+
+# Moonlight keeps its own settings in a Qt ini file, and the launcher reads
+# them from there rather than from any command line.  These two put one key in
+# the [General] section without disturbing the client certificate or the list
+# of paired hosts sitting alongside it.  Enums are stored as plain integers.
+mlos_qt_get() {
+	sed -n "s/^$1=//p" "$MLOS_QT_CONF" 2>/dev/null | head -1
+}
+
+mlos_qt_set() {
+	mkdir -p "$(dirname "$MLOS_QT_CONF")" 2>/dev/null || true
+	tmp="$(mktemp)"
+	if [ -f "$MLOS_QT_CONF" ] && grep -q '^\[General\]' "$MLOS_QT_CONF"; then
+		awk -v k="$1" -v v="$2" '
+			/^\[General\]$/ { print; print k "=" v; next }
+			$0 ~ "^" k "="  { next }
+			{ print }
+		' "$MLOS_QT_CONF" > "$tmp" && cat "$tmp" > "$MLOS_QT_CONF"
+	else
+		printf '[General]\n%s=%s\n' "$1" "$2" > "$tmp"
+		[ -f "$MLOS_QT_CONF" ] && cat "$MLOS_QT_CONF" >> "$tmp"
+		cat "$tmp" > "$MLOS_QT_CONF"
+	fi
+	rm -f "$tmp"
+}
+
+# Remove a key entirely.  Not the same as setting it to zero: Moonlight fills
+# some settings in from the others when they are absent, and the bitrate is
+# one of them.
+mlos_qt_del() {
+	[ -f "$MLOS_QT_CONF" ] || return 0
+	tmp="$(mktemp)"
+	grep -v "^$1=" "$MLOS_QT_CONF" > "$tmp" 2>/dev/null || true
+	[ -s "$tmp" ] && cat "$tmp" > "$MLOS_QT_CONF"
+	rm -f "$tmp"
+}
+
+# Current mode of the screen the client will open on, as "1920x1080".  Empty
+# if the compositor is not up.
+#
+# This was the awk-parsed xrandr the migration was partly for: three rules
+# picking a geometry field out of free text, with a fallback branch because
+# xrandr marks a primary output and the parse had to cope with there not being
+# one.  sway reports the active outputs as JSON, and has no notion of primary
+# at all -- the appliance's own MOONLIGHT_OUTPUT is the answer to that
+# question, so it is asked directly.
+mlos_screen_mode() {
+	[ -n "${WAYLAND_DISPLAY:-}" ] || return 0
+	swaymsg -t get_outputs -r 2>/dev/null | MLOS_WANT="${MOONLIGHT_OUTPUT:-}" python3 -c '
+import json, os, sys
+try:
+    outs = [o for o in json.load(sys.stdin) if o.get("active")]
+except Exception:
+    sys.exit(0)
+if not outs:
+    sys.exit(0)
+want = os.environ.get("MLOS_WANT") or ""
+chosen = next((o for o in outs if o.get("name") == want), outs[0])
+r = chosen.get("rect") or {}
+w, h = r.get("width"), r.get("height")
+if w and h:
+    print("%dx%d" % (w, h))
+'
+}
+
+# Put text on this machine's clipboard.  Only possible inside the graphical
+# session: wl-copy needs a compositor to own the selection against.
+#
+# wl-copy daemonises itself to keep owning it, exactly as xclip did -- a
+# Wayland selection belongs to a live client, so nothing can hand it over and
+# exit.
+mlos_clip() {
+	[ -n "${WAYLAND_DISPLAY:-}" ] || return 1
+	command -v wl-copy >/dev/null 2>&1 || return 1
+	printf '%s' "$1" | wl-copy >/dev/null 2>&1 || return 1
+	printf '%s' "$1" | wl-copy --primary >/dev/null 2>&1 || true
+	return 0
+}
+
+# True when we are running inside the graphical session rather than on the
+# console.  WAYLAND_DISPLAY is set by the compositor for everything it starts,
+# which is exactly the set of things that can talk to it.
+mlos_in_session() {
+	[ -n "${WAYLAND_DISPLAY:-}" ] && command -v swaymsg >/dev/null 2>&1
+}
+
+# Start the compositor.  sway execs the session itself (/etc/sway/config), so
+# this blocks until the whole graphical session is over.
+#
+# The environment is set here rather than in the sway config because a sway
+# config cannot export anything to processes it did not start, and some of
+# these are read by the client's libraries at load time.
+mlos_run_compositor() {
+	# Wayland-native everywhere.  Qt would otherwise pick xcb and find no X
+	# server -- and SDL, which draws the actual stream, would do the same.
+	# Both fall back silently to something worse rather than failing loudly.
+	export XDG_SESSION_TYPE=wayland
+	export XDG_CURRENT_DESKTOP=sway
+	export QT_QPA_PLATFORM=wayland
+	export SDL_VIDEODRIVER=wayland
+	# Qt's own scaling stays off: the display menu decides resolution, and
+	# a compositor-side scale would be applied on top of it.
+	export QT_AUTO_SCREEN_SCALE_FACTOR=0
+
+	# Atomic modesetting is broken on some Intel panels.
+	#
+	# Measured on the reference tablet (Cherry Trail, 8086:22b0, DSI panel):
+	# wlroots' atomic path fails every commit with "Atomic commit failed:
+	# Device or resource busy", 1454 of them in 11 minutes, and each one is a
+	# frame that never reaches the screen.  During a stream that reads as the
+	# picture freezing or not coming back -- and it is silent unless you go
+	# looking in the session log.
+	#
+	# WLR_DRM_NO_ATOMIC makes wlroots use the legacy interface, which these
+	# drivers do handle.  The cost is losing atomic's tear-free presentation
+	# guarantees; a frozen screen is worse.
+	#
+	# DRM_ATOMIC=yes or =no in the config file overrides the detection either
+	# way, for hardware the heuristic gets wrong.
+	# "auto" is the default: leave atomic alone unless this machine is the
+	# kind that breaks under it.  Forcing legacy everywhere would cost every
+	# other machine atomic's tear-free presentation to fix one tablet.
+	#
+	# The tell is a DSI panel.  The failing hardware is the cheap Intel
+	# Atom/Cherry Trail tablet class, where the internal panel hangs off DSI
+	# rather than eDP -- and those are the boards whose display engines
+	# mishandle atomic commits.  A laptop or mini-PC has eDP or HDMI/DP and
+	# is left on atomic.
+	#
+	# Re-measured cleanly, since the original count was taken in a session
+	# that also had three unrelated WLR_ variables set.  Same tablet, one
+	# boot each, no other flags, identical 60s repaint load (a terminal
+	# running `yes`):
+	#
+	#     atomic   126 failures/minute  (~2.1/s)
+	#     legacy     0
+	#
+	# which reproduces the original 1454-in-11-minutes rate almost exactly.
+	# Two things worth knowing about the shape of it: the failures are
+	# load-dependent, so an idle session shows nothing and proves nothing --
+	# measure under repaint -- and roughly 15 of them fire during startup
+	# regardless.  The session does still come up under atomic; it just
+	# drops frames continuously once anything is redrawing.
+	#
+	# What remains unproven is only the generalisation.  The tell is
+	# inferred from one machine, so a DSI device whose atomic path is fine
+	# would be needlessly put on legacy.  Harmless, and DRM_ATOMIC=yes in
+	# the config overrides it.
+	drm_atomic="${DRM_ATOMIC:-auto}"
+	if [ "$drm_atomic" = "auto" ]; then
+		drm_atomic=yes
+		for conn in /sys/class/drm/card*-DSI-*; do
+			[ -e "$conn/status" ] || continue
+			[ "$(cat "$conn/status" 2>/dev/null)" = "connected" ] || continue
+			drm_atomic=no
+			break
+		done
+	fi
+
+	if [ "$drm_atomic" != "yes" ]; then
+		export WLR_DRM_NO_ATOMIC=1
+		# Modifiers go with it.  The legacy interface cannot describe a
+		# buffer's modifier to the display engine, so a composited frame
+		# allocated with one is silently never presented -- the screen keeps
+		# showing the last frame that *was*, which on this appliance is the
+		# stream, scanned out directly from the client's own buffer.
+		#
+		# What that looks like: the settings panel opens, the compositor says
+		# it is focused and visible, and the screen still shows the stream.
+		# Only the cursor moves, because the cursor is its own plane.
+		export WLR_DRM_NO_MODIFIERS=1
+	fi
+
+	# Escape hatch for the next driver quirk.  COMPOSITOR_ENV in the config
+	# file is a space-separated list of KEY=VALUE passed to the compositor,
+	# so a machine that needs one more knob does not need this script edited.
+	#
+	#   COMPOSITOR_ENV="WLR_SCENE_DISABLE_DIRECT_SCANOUT=1"
+	if [ -n "${COMPOSITOR_ENV:-}" ]; then
+		for kv in $COMPOSITOR_ENV; do
+			case "$kv" in
+				*=*) export "$kv" ;;
+			esac
+		done
+	fi
+
+	# wlroots builds its keymap from these at startup.  Setting them here
+	# rather than only calling `swaymsg input` afterwards means the layout is
+	# right for the very first keypress -- including Ctrl+Alt+M, which is
+	# bound by position but still needs a keymap to exist.
+	if [ -n "${KEYBOARD_LAYOUT:-}" ]; then
+		export XKB_DEFAULT_LAYOUT="$KEYBOARD_LAYOUT"
+		[ -n "${KEYBOARD_VARIANT:-}" ] && export XKB_DEFAULT_VARIANT="$KEYBOARD_VARIANT"
+	fi
+	exec_sway=$(command -v sway) || return 1
+	"$exec_sway"
+}
+
+# Ask the running Moonlight to exit so the session loop starts it again with
+# whatever was just changed.  Video settings are read once at start-up.
+#
+# By pid, not by name.  A -f match on the install path also matches anything
+# that merely mentions it on its command line -- including the shell of an
+# SSH session that was inspecting it, which is exactly how this was found.
+mlos_restart_moonlight() {
+	: > "$MLOS_STATE/restart" 2>/dev/null || return 1
+	pid=$(cat "$MLOS_STATE/moonlight.pid" 2>/dev/null)
+	if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+		kill "$pid" 2>/dev/null
+	else
+		# No pidfile: an older session, or Selene started by hand.
+		# Was "pkill -x AppRun" -- AppRun is the AppImage runtime's name, not
+		# the client's, and it matched any AppImage that happened to be running.
+		pkill -x selene 2>/dev/null || true
+	fi
+}

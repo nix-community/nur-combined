@@ -1,0 +1,185 @@
+#!/bin/sh
+# Bluetooth: controllers, headsets, keyboards.
+#
+# bluetoothctl is an interactive shell by design, so the guided flow here
+# feeds it a script and shows you what it said.  If a device needs something
+# unusual, "Open the Bluetooth console" hands you the real thing.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+BT=/usr/bin/bluetoothctl
+
+if [ ! -x "$BT" ]; then
+	mlos_msg "Bluetooth support is not installed in this image."
+	exit 0
+fi
+
+sq() {
+	printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+powered() {
+	"$BT" show 2>/dev/null | grep -q 'Powered: yes'
+}
+
+has_adapter() {
+	"$BT" list 2>/dev/null | grep -q .
+}
+
+# "MAC<tab>Name" for a bluetoothctl device listing.
+parse_devices() {
+	sed -n 's/^Device \([0-9A-Fa-f:]\{17\}\) \(.*\)$/\1\t\2/p'
+}
+
+known_devices()     { "$BT" devices 2>/dev/null | parse_devices; }
+paired_devices()    { "$BT" devices Paired 2>/dev/null | parse_devices; }
+connected_devices() { "$BT" devices Connected 2>/dev/null | parse_devices; }
+
+# Present a device list and echo the chosen MAC.
+#
+# The MAC is never shown.  whiptail's tag column is what you pick with, and a
+# 17-character address in it pushed the name off the right-hand side on the
+# console this actually runs on -- leaving a list of addresses to choose a
+# headset from.  So the tag is a number, the name gets the whole width, and
+# the address is looked back up from the line that was picked.
+pick_device() {
+	title="$1"
+	list="$2"
+	if [ -z "$list" ]; then
+		mlos_msg "Nothing to choose from yet."
+		return 1
+	fi
+	# Blank lines dropped first: the tag is a line number, so anything the
+	# menu skips but the lookup counts would hand back the wrong device.
+	list=$(printf '%s\n' "$list" | grep -v '^[[:space:]]*$')
+	[ -n "$list" ] || { mlos_msg "Nothing to choose from yet."; return 1; }
+
+	menu=""
+	n=0
+	while IFS='	' read -r mac name; do
+		n=$((n + 1))
+		menu="$menu $n $(sq "${name:-$mac}")"
+	done <<-LIST
+	$list
+	LIST
+
+	choice=$(eval whiptail --title "$(sq "$title")" --menu "$(sq 'Pick a device:')" \
+		20 74 10 -- "$menu" 3>&1 1>&2 2>&3) || return 1
+	printf '%s\n' "$list" | sed -n "${choice}p" | cut -f1
+}
+
+# The name we showed for a device, for messages afterwards.  Falls back to the
+# address if bluetoothctl never learned one.
+name_of() {
+	name=$(known_devices | awk -F '\t' -v m="$1" '$1 == m {print $2; exit}')
+	printf '%s' "${name:-$1}"
+}
+
+scan_and_pair() {
+	if ! powered; then
+		"$BT" power on >/dev/null 2>&1
+		sleep 1
+	fi
+
+	# Discovery has to be running for long enough to hear a device that
+	# only advertises every few seconds.
+	{
+		printf 'scan on\n'
+		sleep 15
+		printf 'scan off\nquit\n'
+	} | "$BT" >/dev/null 2>&1 &
+	scan_pid=$!
+
+	TERM=${TERM:-linux} whiptail --title "Bluetooth" --infobox \
+"Looking for devices for 15 seconds...
+
+Put the device into pairing mode now.  Controllers usually
+want a button held down; headsets often want the power
+button held until the light flashes." 12 74
+	wait "$scan_pid" 2>/dev/null
+
+	mac=$(pick_device "Devices found" "$(known_devices)") || return 0
+	[ -n "$mac" ] || return 0
+
+	out="$(mktemp)"
+	{
+		printf 'agent NoInputNoOutput\ndefault-agent\n'
+		sleep 1
+		printf 'pair %s\n' "$mac"
+		sleep 10
+		printf 'trust %s\n' "$mac"
+		sleep 1
+		printf 'connect %s\n' "$mac"
+		sleep 6
+		printf 'quit\n'
+	} | "$BT" > "$out" 2>&1
+
+	if grep -qE 'Connection successful|Pairing successful' "$out"; then
+		mlos_msg "$(name_of "$mac") is paired and connected.\n\nIt will reconnect on its own from now on.\n\nFor a headset, pick it under Audio -> Sound output device."
+	else
+		whiptail --title "That did not work" --scrolltext --textbox "$out" 22 90
+	fi
+	rm -f "$out"
+}
+
+simple_action() {
+	verb="$1"
+	mac="$2"
+	nm="$(name_of "$mac")"
+	out="$("$BT" "$verb" "$mac" 2>&1)"
+	mlos_msg "$nm\n\n$out"
+}
+
+console() {
+	clear
+	printf '\n  bluetoothctl. Useful commands:\n\n'
+	printf '    scan on / scan off      look for devices\n'
+	printf '    devices                 list what has been seen\n'
+	printf '    pair <mac>              pair with one\n'
+	printf '    trust <mac>             let it reconnect by itself\n'
+	printf '    connect <mac>           connect now\n'
+	printf '    remove <mac>            forget it\n'
+	printf '    quit                    come back here\n\n'
+	"$BT" || true
+}
+
+while :; do
+	if ! has_adapter; then
+		mlos_msg "No Bluetooth adapter was found.\n\nIf this machine has one, it may be switched off in the BIOS or by a hardware switch."
+		exit 0
+	fi
+	if powered; then state="Bluetooth: on"; else state="Bluetooth: off"; fi
+	conn="$(connected_devices | cut -f2 | paste -sd ', ' -)"
+
+	choice=$(whiptail --title "Bluetooth" --menu \
+"$state
+Connected: ${conn:-nothing}" 20 74 6 \
+		1 "Pair a new device" \
+		2 "Connect a paired device" \
+		3 "Disconnect a device" \
+		4 "Forget a device" \
+		5 "Turn Bluetooth on / off" \
+		6 "Open the Bluetooth console" \
+		7 "Back" \
+		3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		1) scan_and_pair ;;
+		2) m=$(pick_device "Connect" "$(paired_devices)") || continue
+		   simple_action connect "$m" ;;
+		3) m=$(pick_device "Disconnect" "$(connected_devices)") || continue
+		   simple_action disconnect "$m" ;;
+		4) m=$(pick_device "Forget" "$(paired_devices)") || continue
+		   if mlos_yesno "Forget $(name_of "$m")?\n\nYou will have to pair it again."; then
+			   simple_action remove "$m"
+		   fi ;;
+		5) if powered; then
+			   "$BT" power off >/dev/null 2>&1
+		   else
+			   "$BT" power on >/dev/null 2>&1
+		   fi ;;
+		6) console ;;
+		7) exit 0 ;;
+	esac
+done

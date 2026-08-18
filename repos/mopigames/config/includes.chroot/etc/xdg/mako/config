@@ -1,0 +1,28 @@
+# Notification styling for Moonlight OS.
+#
+# The only notifications this appliance ever shows are its own warnings, drawn
+# over a running stream -- so this is tuned to be readable at a glance from
+# across a room, not to look like a desktop.
+
+# Large, high-contrast, top-centre: the same placement osd_cat used under X11.
+font=DejaVu Sans Bold 20
+anchor=top-center
+margin=40
+padding=18
+border-size=2
+default-timeout=6000
+max-visible=1
+
+background-color=#000000e0
+text-color=#ffcc00
+border-color=#ffcc00
+
+# Layer-shell layer.  "overlay" is what puts it above a fullscreen client
+# without the client ever losing focus -- the property the X11 version got
+# from an override-redirect window.
+layer=overlay
+
+[urgency=critical]
+text-color=#ff4444
+border-color=#ff4444
+default-timeout=10000

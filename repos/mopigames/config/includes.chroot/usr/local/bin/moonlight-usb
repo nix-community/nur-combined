@@ -1,0 +1,536 @@
+#!/bin/sh
+# USB passthrough over USB/IP.
+#
+# Local USB input devices (gamepads, keyboards, mice, headsets) already work
+# without any of this -- Moonlight reads them directly and forwards input to
+# the host.  This tool is for the other case: making a *specific* USB device
+# physically attached to this box appear on the host PC as if it were
+# plugged in there (wheels, HOTAS, flight pedals, licence dongles, printers).
+#
+# There are two ways to do that, and the difference is only in who runs the
+# other half:
+#
+#   Paired    mlos-host-utils is installed on the host PC.  Sharing
+#             a device here makes it appear there, and unplugging it takes it
+#             away, with nothing to type at that end.  Turn on automatic
+#             sharing and even the sharing is not a decision any more.
+#
+#   By hand   No agent over there.  This machine can still export a device,
+#             but somebody has to run usbip attach on the host PC, and the
+#             command is different depending on what that PC runs.
+#
+# The paired path is the one worth having.  The manual path stays because it
+# needs nothing installed anywhere, which is the right answer for a one-off
+# on somebody else's computer.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+HOSTAGENT=/usr/local/bin/moonlight-hostagent
+USBAUTO=/usr/local/bin/moonlight-usb-auto
+
+sq() {
+	printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+mlos_load
+
+paired() {
+	[ -n "$USB_HOST_ADDR" ] && [ -n "$USB_HOST_TOKEN" ]
+}
+
+ensure_daemon() {
+	mlos_root modprobe usbip-host 2>/dev/null || true
+	mlos_root modprobe usbip_host 2>/dev/null || true
+	if ! pgrep -x usbipd >/dev/null 2>&1; then
+		mlos_root systemctl start usbipd >/dev/null 2>&1 || true
+		sleep 1
+	fi
+	pgrep -x usbipd >/dev/null 2>&1
+}
+
+# Devices currently exported (bound to usbip-host).
+bound_busids() {
+	mlos_root usbip list -r 127.0.0.1 2>/dev/null \
+		| sed -n 's/^[[:space:]]*\([0-9]\+-[0-9.]\+\):.*/\1/p'
+}
+
+# ---------------------------------------------------------------- pairing
+
+# The pairing code is Crockford base32, so the dashes it is printed with and
+# the case it was typed in are both noise.  Strip them here as well as at the
+# far end: a code that looks different in the config file to the one on the
+# host PC's screen is a support question waiting to happen.
+normalise_code() {
+	printf '%s' "$1" | tr 'a-z' 'A-Z' | tr -cd '0-9ABCDEFGHJKMNPQRSTVWXYZ'
+}
+
+pair_menu() {
+	whiptail --title "Pair the host PC" --msgbox \
+"On the host PC, install mlos-host-utils and run it once:
+
+  Windows   winget install MopigamesYT.MlosHostUtils
+            then  mlos-host-utils install  as Administrator.
+            Or download the .exe and double-click it -- it
+            walks you through the same thing.
+
+  Arch      paru -S mlos-host-utils
+            then  sudo mlos-host-utils install
+
+  Linux     sudo ./mlos-host-utils-linux-amd64 install
+
+It prints an address and a four-group code.  Type those in next." 21 74 || return 1
+
+	addr=$(whiptail --title "Host PC address" --inputbox \
+"Address of the host PC, as mlos-host-utils printed it.
+
+A tailnet address works from anywhere; a LAN address only at home.
+Add :port only if you changed it from 48020." \
+		14 74 "${USB_HOST_ADDR:-$AUTOCONNECT_HOST}" 3>&1 1>&2 2>&3) || return 1
+	[ -n "$addr" ] || return 1
+
+	# "host:port", but not an IPv6 address, which is all colons.
+	port=48020
+	case "$addr" in
+		*:*:*) : ;;
+		*:*)   port="${addr##*:}"; addr="${addr%:*}" ;;
+	esac
+	case "$port" in
+		''|*[!0-9]*) port=48020 ;;
+	esac
+
+	code=$(whiptail --title "Pairing code" --inputbox \
+"The code mlos-host-utils printed, for example
+
+    S95G-234X-0H8A-K602
+
+Dashes and capitals do not matter." 13 74 "" 3>&1 1>&2 2>&3) || return 1
+	code=$(normalise_code "$code")
+	[ -n "$code" ] || { mlos_msg "That is not a pairing code."; return 1; }
+
+	if ! out=$("$HOSTAGENT" check "$addr" "$port" "$code" 2>&1); then
+		mlos_msg "Could not pair with $addr.\n\n$out"
+		return 1
+	fi
+
+	mlos_set USB_HOST_ADDR "$addr"
+	mlos_set USB_HOST_PORT "$port"
+	mlos_set USB_HOST_TOKEN "$code"
+	mlos_load
+
+	mlos_msg "Paired.\n\n$out"
+
+	# Freshly installed agents usually have their USB/IP client already,
+	# because `install` set it up -- but on Windows it can need a reboot,
+	# and on an unusual Linux the package may have been missing.  Asking
+	# now is cheaper than finding out when a wheel does not appear.
+	if printf '%s' "$out" | grep -q "not installed there yet"; then
+		if mlos_yesno "The host PC has no USB/IP client yet.\n\nInstall it now?  This downloads and installs it over there, which can take a minute."; then
+			inst=$("$HOSTAGENT" install 2>&1)
+			mlos_msg "$inst"
+		fi
+	fi
+	return 0
+}
+
+# ---------------------------------------------------------------- automatic
+
+toggle_auto() {
+	if [ "$USB_AUTOSHARE" = "yes" ]; then
+		mlos_set USB_AUTOSHARE "no"
+		mlos_load
+		mlos_root systemctl restart moonlight-usb-auto >/dev/null 2>&1 || true
+		mlos_msg "Automatic sharing is off.\n\nAnything it was sharing has been handed back."
+		return
+	fi
+
+	if ! paired; then
+		mlos_yesno "No host PC is paired yet.\n\nAutomatic sharing needs mlos-host-utils running on it.  Pair one now?" \
+			|| return
+		pair_menu || return
+	fi
+
+	if [ "$USB_AUTOSHARE_POLICY" = "all" ]; then
+		mlos_yesno "Turn on automatic sharing?\n\nThe policy is set to 'everything', which includes this machine's keyboard and mouse -- once they are handed over you will be driving the host PC with them, not this menu.\n\nContinue?" \
+			|| return
+	fi
+
+	mlos_set USB_AUTOSHARE "yes"
+	mlos_load
+	mlos_root systemctl restart moonlight-usb-auto >/dev/null 2>&1 || true
+	sleep 1
+
+	# "It is on" is not the useful sentence.  With a keyboard, a hub and a
+	# spare memory stick plugged in -- which is what an appliance in front
+	# of a television actually has -- the honest answer is that nothing
+	# here qualifies, and saying so beats leaving someone to wonder why
+	# turning the feature on did nothing at all.
+	shared=$("$HOSTAGENT" devices --tsv 2>/dev/null | awk -F"$(printf '\t')" '$3 == "yes"' | wc -l)
+	if [ "${shared:-0}" -gt 0 ]; then
+		names=$("$HOSTAGENT" devices --tsv 2>/dev/null \
+			| awk -F"$(printf '\t')" '$3 == "yes" { print "  " $6 }')
+		mlos_msg "Automatic sharing is on.\n\nHanding these to the host PC now:\n\n$names\n\nUnplug one and it goes back."
+	else
+		mlos_msg "Automatic sharing is on -- but nothing plugged in right now qualifies.\n\nThe policy is '${USB_AUTOSHARE_POLICY:-safe}', which skips keyboards, mice, audio, webcams and storage, and never shares hubs or the boot disk.\n\nPlug in a wheel, HOTAS or dongle and it will appear on the host PC.  'What is plugged in, and what is shared' lists everything here with the reason for each."
+	fi
+}
+
+policy_menu() {
+	while :; do
+		cur="${USB_AUTOSHARE_POLICY:-safe}"
+		if [ "$cur" = "all" ]; then
+			safe_mark="   "; all_mark="[*]"
+		else
+			safe_mark="[*]"; all_mark="   "
+		fi
+
+		choice=$(whiptail --title "What gets shared" --menu \
+"Hubs, whatever this machine booted from, and the network adapter
+carrying this connection are never shared, under either policy." 19 74 4 \
+			1 "$safe_mark Sensible devices only" \
+			2 "$all_mark Everything plugged in" \
+			3 "Never share these devices..." \
+			4 "Back" \
+			3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			1) mlos_set USB_AUTOSHARE_POLICY "safe"; mlos_load
+			   mlos_root systemctl restart moonlight-usb-auto >/dev/null 2>&1 || true
+			   mlos_msg "Sharing wheels, HOTAS, pedals, dongles, printers and the like.\n\nKeyboards, mice, webcams, audio and storage stay here -- Moonlight already forwards input and sound better than USB/IP can, and video and disks are more than it can carry." ;;
+			2) if mlos_yesno "Share everything plugged in?\n\nThat includes this machine's keyboard and mouse.  Once they are handed to the host PC they drive it, not this menu -- leaving the stream with Ctrl+Alt+Shift+Q still works, but the menu will not.\n\nAre you sure?"; then
+				   mlos_set USB_AUTOSHARE_POLICY "all"; mlos_load
+				   mlos_root systemctl restart moonlight-usb-auto >/dev/null 2>&1 || true
+			   fi ;;
+			3) exclude_menu ;;
+			4) return 0 ;;
+		esac
+	done
+}
+
+# A per-device never-share list, by vendor:product rather than by bus id --
+# a bus id is really "which socket", and moving the cable to the other side
+# of the laptop would silently drop the exclusion.
+exclude_menu() {
+	list=$(mktemp)
+	"$HOSTAGENT" devices --tsv 2>/dev/null > "$list"
+	if [ ! -s "$list" ]; then
+		rm -f "$list"
+		mlos_msg "No USB devices plugged in."
+		return
+	fi
+
+	menu=""
+	# offered and reason are read only to land the later fields in the
+	# right variables; the tsv column order is the contract.
+	# shellcheck disable=SC2034
+	while IFS="$(printf '\t')" read -r busid hwid offered protected reason label; do
+		[ -n "$hwid" ] || continue
+		[ "$protected" = "yes" ] && continue
+		state="off"
+		case " $USB_AUTOSHARE_EXCLUDE " in
+			*" $hwid "*) state="on" ;;
+		esac
+		menu="$menu $(sq "$hwid") $(sq "$label") $state"
+	done < "$list"
+	rm -f "$list"
+
+	[ -n "$menu" ] || { mlos_msg "Nothing here can be excluded."; return; }
+
+	picked=$(eval whiptail --title '"Never share these"' --checklist \
+		"$(sq "Space to tick.  Ticked devices are never shared, automatically or otherwise:")" \
+		20 74 10 -- "$menu" 3>&1 1>&2 2>&3) || return
+
+	# whiptail returns "aaaa:bbbb" "cccc:dddd"; the quotes have to go.
+	cleaned=$(printf '%s' "$picked" | tr -d '"')
+	mlos_set USB_AUTOSHARE_EXCLUDE "$cleaned"
+	mlos_load
+	mlos_root systemctl restart moonlight-usb-auto >/dev/null 2>&1 || true
+}
+
+status_screen() {
+	rep=$(mktemp)
+	{
+		if paired; then
+			printf 'Host PC\n---------\n'
+			"$HOSTAGENT" ping 2>&1
+			printf '\n'
+			printf 'Attached from here\n------------------\n'
+			"$HOSTAGENT" list 2>&1
+			printf '\n'
+		else
+			printf 'No host PC is paired.\n\n'
+		fi
+		printf 'USB devices on this machine\n---------------------------\n'
+		"$USBAUTO" --list 2>&1
+	} > "$rep"
+	whiptail --title "USB passthrough" --scrolltext --textbox "$rep" 24 78
+	rm -f "$rep"
+}
+
+# ---------------------------------------------------------------- by hand
+
+device_menu() {
+	list=$(mktemp)
+	# `usbip list -p -l` prints lines like:
+	#   busid=1-2#usbid=046d:c52b#
+	mlos_root usbip list -p -l 2>/dev/null \
+		| sed -n 's/^busid=\([^#]*\)#usbid=\([^#]*\)#.*/\1\t\2/p' > "$list"
+
+	if [ ! -s "$list" ]; then
+		rm -f "$list"
+		mlos_msg "No USB devices available for passthrough."
+		return 1
+	fi
+
+	bound=$(bound_busids)
+	menu=""
+	n=0
+	while IFS="$(printf '\t')" read -r busid usbid; do
+		[ -n "$busid" ] || continue
+		n=$((n + 1))
+		name=$(lsusb -d "$usbid" 2>/dev/null | head -1 | cut -d' ' -f7-)
+		[ -n "$name" ] || name="$usbid"
+		state="   "
+		printf '%s\n' "$bound" | grep -qx "$busid" && state="[*]"
+		menu="$menu $n $(sq "$state $busid  $name")"
+	done < "$list"
+
+	choice=$(eval whiptail --title '"Share a device"' --menu \
+		"$(sq "[*] = shared.  Select a device to toggle:")" \
+		20 76 12 -- "$menu" 3>&1 1>&2 2>&3) || { rm -f "$list"; return 1; }
+
+	busid=$(sed -n "${choice}p" "$list" | cut -f1)
+	rm -f "$list"
+
+	if printf '%s\n' "$bound" | grep -qx "$busid"; then
+		out=$(mlos_root usbip unbind -b "$busid" 2>&1)
+		mlos_msg "Stopped sharing $busid.\n\n$out"
+	else
+		out=$(mlos_root usbip bind -b "$busid" 2>&1)
+		if printf '%s\n' "$(bound_busids)" | grep -qx "$busid"; then
+			handoff "$busid"
+		else
+			mlos_msg "Could not share $busid.\n\n$out"
+		fi
+	fi
+	return 0
+}
+
+# The address the host PC should reach this machine on.  Over a tailnet the
+# LAN address is useless to it, so offer whichever applies.
+host_address() {
+	if [ -x /usr/bin/tailscale ]; then
+		ts=$(mlos_root /usr/bin/tailscale ip -4 2>/dev/null | head -1)
+		if [ -n "$ts" ] && [ "$1" = "tailnet" ]; then
+			printf '%s' "$ts"
+			return
+		fi
+	fi
+	mlos_ip
+}
+
+windows_cmd() { printf 'usbip.exe attach -r %s -b %s' "$(host_address "$2")" "$1"; }
+linux_cmd()   { printf 'usbip attach -r %s -b %s'     "$(host_address "$2")" "$1"; }
+
+HOSTUTILS_DIR=/opt/mlos-host-utils
+
+# Getting the agent onto the host PC is the one step that cannot happen
+# from here, so the ISO carries the binaries and this hands them over on a
+# port the host PC can just browse to.  No USB stick, no second computer,
+# no SSH key that machine does not have.
+#
+# It stops when the box is dismissed.  A file server left running on a
+# machine that lives in front of a television is not something to leave on by
+# accident.
+serve_installer() {
+	[ -d "$HOSTUTILS_DIR" ] || {
+		mlos_msg "This image was built without the host utils.\n\nDownload them on the host PC instead:\n\n  https://github.com/MopigamesYT/moonlight-os/releases"
+		return
+	}
+
+	port=8099
+	python3 -m http.server "$port" --bind 0.0.0.0 \
+		--directory "$HOSTUTILS_DIR" >/dev/null 2>&1 &
+	pid=$!
+	sleep 1
+
+	if ! kill -0 "$pid" 2>/dev/null; then
+		mlos_msg "Could not start the download server on port $port."
+		return
+	fi
+
+	lan="$(mlos_ip)"
+	ts=""
+	if [ -x /usr/bin/tailscale ]; then
+		ts=$(mlos_root /usr/bin/tailscale ip -4 2>/dev/null | head -1)
+	fi
+
+	msg="On the host PC, open:
+
+    http://$lan:$port/"
+	[ -n "$ts" ] && msg="$msg
+    http://$ts:$port/      (from anywhere on the tailnet)"
+	msg="$msg
+
+Download the file for that machine:
+
+    Windows   ...-windows-amd64.exe
+    Linux     ...-linux-amd64
+
+Then run it once, as Administrator or with sudo:
+
+    mlos-host-utils... install
+
+It prints an address and a code -- bring those back here.
+
+The server stops as soon as you dismiss this."
+
+	whiptail --title "Download it on the host PC" --msgbox "$msg" 24 74
+	kill "$pid" 2>/dev/null || true
+	wait "$pid" 2>/dev/null || true
+}
+
+setup_help() {
+	rep=$(mktemp)
+	{
+		printf 'Setting up the host PC\n'
+		printf '========================\n\n'
+		printf 'The easy way -- mlos-host-utils\n'
+		printf -- '---------------------------------------\n\n'
+		printf 'One binary, Windows or Linux, no dependencies.  It installs a\n'
+		printf 'USB/IP client if the PC has none, starts itself at boot, and\n'
+		printf 'does the attaching so nobody has to type anything there.\n\n'
+		printf 'This image carries it: use "Download it on the host PC",\n'
+		printf 'which serves it over the network for as long as the box is up.\n'
+		printf 'Then, on that machine:\n\n'
+		printf '  Windows, in an Administrator PowerShell:\n'
+		printf '      .\\mlos-host-utils-windows-amd64.exe install\n\n'
+		printf '  Linux:\n'
+		printf '      sudo ./mlos-host-utils-linux-amd64 install\n\n'
+		printf 'It prints an address and a code.  Bring those back here and use\n'
+		printf '"Pair the host PC".  After that, plugging a wheel into this\n'
+		printf 'machine is the whole procedure.\n\n'
+		printf 'The manual way -- usbip by hand\n'
+		printf -- '-------------------------------\n\n'
+		printf 'Nothing to install here, but the host PC needs a USB/IP client\n'
+		printf 'and somebody to run it:\n\n'
+		printf '  Linux     usbip is in the kernel.  Debian, Arch and Fedora call\n'
+		printf '            the package usbip; Ubuntu hides it inside\n'
+		printf '            linux-tools-generic.  Then:\n\n'
+		printf '                %s\n\n' "$(linux_cmd "${1:-<busid>}")"
+		printf '  Windows    ships no USB/IP client at all, in this direction.\n'
+		printf '            usbipd-win, the winget one, only exports devices\n'
+		printf '            *from* Windows and cannot import.  Install\n'
+		printf '            usbip-win2 instead:\n\n'
+		printf '              https://github.com/vadimgrn/usbip-win2/releases\n\n'
+		printf '            Run its installer as Administrator, reboot if asked,\n'
+		printf '            then in an Administrator PowerShell:\n\n'
+		printf '                "C:\\Program Files\\USBip\\usbip.exe" \\\n'
+		printf '                    attach -r %s -b %s\n\n' "$(host_address lan)" "${1:-<busid>}"
+		printf '            usbip.exe is not on the PATH, hence the full path.\n\n'
+		printf 'Notes\n-----\n'
+		printf '  * The device disappears from this machine while the host PC\n'
+		printf '    holds it, and comes back when it is detached.\n'
+		printf '  * Port 3240 has to be reachable.  On the same network it is;\n'
+		printf '    over Tailscale use the tailnet address instead.\n'
+		printf '  * Force feedback over a WAN link feels mushy -- the round trip\n'
+		printf '    is in the loop.  On a LAN it is fine.\n'
+		printf '  * Webcams and USB audio do not work well over USB/IP at all.\n'
+		printf '    The stream already carries sound; use that.\n'
+	} > "$rep"
+	whiptail --title "Host PC setup" --scrolltext --textbox "$rep" 24 78
+	rm -f "$rep"
+}
+
+# What to do once a device is shared and there is no agent to tell.
+handoff() {
+	busid="$1"
+	while :; do
+		scope=lan
+		[ "${USE_TAILNET:-0}" = "1" ] && scope=tailnet
+		wcmd="$(windows_cmd "$busid" "$scope")"
+		lcmd="$(linux_cmd "$busid" "$scope")"
+
+		choice=$(whiptail --title "Sharing $busid" --menu \
+"Run this on the host PC:
+
+  Windows:  $wcmd
+  Linux:    $lcmd
+
+Address in use: $(host_address "$scope") ($scope)" 20 78 5 \
+			1 "Copy the Windows command" \
+			2 "Copy the Linux command" \
+			3 "Use the Tailscale address instead" \
+			4 "Set up the host PC properly instead" \
+			5 "Done" \
+			3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			1) if mlos_clip "$wcmd"; then
+				   mlos_msg "Copied to this machine's clipboard:\n\n$wcmd\n\nNote the clipboard is not shared with the host PC over a stream, so the command still has to be typed at that end.\n\nPairing the host PC removes this whole step."
+			   else
+				   mlos_msg "No clipboard available (that needs the graphical session).\n\nThe command is:\n\n$wcmd"
+			   fi ;;
+			2) if mlos_clip "$lcmd"; then
+				   mlos_msg "Copied:\n\n$lcmd"
+			   else
+				   mlos_msg "No clipboard available.\n\nThe command is:\n\n$lcmd"
+			   fi ;;
+			3) if [ "${USE_TAILNET:-0}" = "1" ]; then
+				   USE_TAILNET=0
+			   else
+				   USE_TAILNET=1
+			   fi ;;
+			4) setup_help "$busid" ;;
+			5) return 0 ;;
+		esac
+	done
+}
+
+# ---------------------------------------------------------------- main
+
+if ! ensure_daemon; then
+	mlos_msg "The USB/IP daemon could not be started.\n\nUSB passthrough is unavailable, but local controllers still work normally."
+	exit 0
+fi
+
+while :; do
+	mlos_load
+
+	if paired; then
+		who="$USB_HOST_ADDR"
+	else
+		who="not paired"
+	fi
+	if [ "$USB_AUTOSHARE" = "yes" ]; then
+		auto="on (${USB_AUTOSHARE_POLICY:-safe})"
+	else
+		auto="off"
+	fi
+
+	choice=$(whiptail --title "USB passthrough" \
+		--menu "This machine: $(mlos_ip)
+Host PC:    $who
+Automatic:    $auto
+
+Controllers and headsets already work without any of this." \
+		22 76 7 \
+		1 "Automatic sharing: $auto" \
+		2 "Pair the host PC" \
+		3 "What gets shared automatically" \
+		4 "Share one device by hand" \
+		5 "What is plugged in, and what is shared" \
+		6 "Download the agent on the host PC" \
+		7 "How this all works" \
+		3>&1 1>&2 2>&3) || exit 0
+
+	case "$choice" in
+		1) toggle_auto ;;
+		2) pair_menu || true ;;
+		3) policy_menu ;;
+		4) device_menu || true ;;
+		5) status_screen ;;
+		6) serve_installer ;;
+		7) setup_help ;;
+	esac
+done

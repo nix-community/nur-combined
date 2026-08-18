@@ -1,0 +1,46 @@
+#!/bin/sh
+# One fact per call, for things that want a plain string -- fastfetch's
+# Command modules, mostly.  Keeping the shell out of the JSON config.
+#
+#   moonlight-facts version | host | screen | layout | tailscale
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common 2>/dev/null || exit 0
+
+mlos_load 2>/dev/null || true
+
+case "${1:-}" in
+	version)
+		dpkg-query -W -f='${Version}' selene 2>/dev/null || printf 'unknown'
+		;;
+	host)
+		if [ -n "$AUTOCONNECT_HOST" ]; then
+			printf '%s (auto-connect)' "$AUTOCONNECT_HOST"
+		else
+			# Whatever Selene itself has paired, if anything.
+			h=$(sed -n 's/^1\\localaddress=//p' \
+				"$MLOS_QT_CONF" \
+				2>/dev/null | head -1)
+			printf '%s' "${h:-nothing paired yet}"
+		fi
+		;;
+	screen)
+		s=$(cat "$MLOS_STATE/current-output" 2>/dev/null)
+		printf '%s' "${s:-${MOONLIGHT_OUTPUT:-auto}}"
+		;;
+	layout)
+		printf '%s' "${DISPLAY_MODE:-single}"
+		;;
+	tailscale)
+		if [ -x /usr/bin/tailscale ]; then
+			ip=$(sudo -n /usr/bin/tailscale ip -4 2>/dev/null | head -1)
+			printf '%s' "${ip:-not connected}"
+		else
+			printf 'not installed'
+		fi
+		;;
+	*)
+		printf 'usage: moonlight-facts version|host|screen|layout|tailscale\n' >&2
+		exit 2
+		;;
+esac

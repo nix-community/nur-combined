@@ -1,0 +1,84 @@
+#!/bin/sh
+# Set up a persistence partition on the USB stick Moonlight OS booted from,
+# so pairing, Wi-Fi passwords and display settings survive a reboot.
+#
+# It only ever creates a new partition in the free space that follows the
+# existing ones -- nothing already on the stick is touched.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+MEDIUM=/run/live/medium
+
+die_persist() {
+	mlos_msg "$1"
+	exit 1
+}
+
+if [ -e /dev/disk/by-label/persistence ]; then
+	mlos_msg "Persistence is already set up.\n\nYour settings are being saved automatically."
+	exit 0
+fi
+
+# Which partition are we booted from, and which disk is it on?
+part=$(findmnt -no SOURCE "$MEDIUM" 2>/dev/null)
+if [ -z "$part" ]; then
+	mlos_msg "Could not tell which device Moonlight OS booted from.\n\nSettings will not be saved across reboots."
+	exit 1
+fi
+
+disk="/dev/$(lsblk -no PKNAME "$part" 2>/dev/null | head -1)"
+if [ ! -b "$disk" ]; then
+	mlos_msg "Booted from $part, which is not on a writable disk.\n\nWrite the image to a USB stick to enable saving."
+	exit 1
+fi
+
+if lsblk -no RM "$disk" 2>/dev/null | head -1 | grep -q '^0$'; then
+	mlos_yesno "$disk does not look like a removable USB stick.\n\nAdd a settings partition to it anyway?" || exit 0
+fi
+
+# Free space at the end of the disk, in MiB.
+free=$(mlos_root parted -sm "$disk" unit MiB print free 2>/dev/null \
+	| awk -F: '$NF ~ /free/ {gsub(/MiB/, "", $4); last = $4 + 0} END {printf "%d\n", last}')
+
+if [ -z "$free" ] || [ "$free" -lt 64 ]; then
+	mlos_msg "There is no free space left on $disk (only ${free:-0} MiB).\n\nRe-write the image to a larger USB stick to enable saving."
+	exit 1
+fi
+
+mlos_yesno "Create a ${free} MiB settings partition on $disk?\n\nYour Moonlight pairing, Wi-Fi passwords and display settings will then be remembered.\n\nNothing already on the stick is changed." || exit 0
+
+# Start of the last stretch of free space, e.g. "3204MiB".
+start=$(mlos_root parted -sm "$disk" unit MiB print free 2>/dev/null \
+	| awk -F: '$NF ~ /free/ {s = $2} END {print s}')
+[ -n "$start" ] || die_persist "Could not work out where the free space starts."
+
+mlos_root parted -s "$disk" mkpart primary ext4 "$start" 100% >/dev/null 2>&1 \
+	|| die_persist "Could not create the settings partition."
+mlos_root partprobe "$disk" >/dev/null 2>&1 || true
+mlos_root udevadm settle >/dev/null 2>&1 || true
+sleep 2
+
+# The new partition is the highest-numbered one on the disk.
+newpart=$(lsblk -lno NAME,TYPE "$disk" | awk '$2 == "part" {p = $1} END {print "/dev/" p}')
+if [ ! -b "$newpart" ]; then
+	mlos_msg "The partition could not be created.\n\nSettings will not be saved."
+	exit 1
+fi
+
+if ! mlos_root mkfs.ext4 -q -L persistence "$newpart" >/dev/null 2>&1; then
+	mlos_msg "The settings partition could not be formatted."
+	exit 1
+fi
+
+tmp=$(mktemp -d)
+if mlos_root mount "$newpart" "$tmp" 2>/dev/null; then
+	printf '/ union\n' | mlos_root tee "$tmp/persistence.conf" >/dev/null
+	mlos_root umount "$tmp"
+	rmdir "$tmp"
+	mlos_msg "Done.\n\nReboot once and your settings will be saved from then on."
+else
+	rmdir "$tmp"
+	mlos_msg "The settings partition was created but could not be prepared."
+	exit 1
+fi

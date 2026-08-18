@@ -1,0 +1,616 @@
+#!/bin/sh
+# Multi-monitor configuration.
+#
+#   moonlight-displays --apply    rebuild and apply the layout (inside the session)
+#   moonlight-displays --menu     configure the layout (from the TTY menu)
+#
+# Opened from the Ctrl+Alt+M panel there is a compositor to ask, so it is
+# asked -- a monitor plugged in after boot has to show up, and reading only
+# the session-start snapshot meant it never did.  On the console there is no
+# compositor, and the snapshot is the fallback.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+sq() {
+	printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+# Where the output list comes from, resolved once per invocation.
+#
+# Both sources are now the same shape: swaymsg speaks JSON, and the snapshot
+# written at session start is that JSON verbatim.  Under X11 these were two
+# different text formats -- live xrandr output and a saved copy of it -- parsed
+# by the same awk, which is why the parsing was as fussy as it was.
+#
+# The JSON is flattened once into a small table so the rest of the script can
+# stay line-oriented:
+#
+#   OUT  <name> <active> <x> <y> <width> <height> <transform>
+#   MODE <name> <width>x<height> <refresh>
+XR=""
+xr() {
+	if [ -z "$XR" ]; then
+		XR="$(mktemp)"
+		{
+			if [ -n "${WAYLAND_DISPLAY:-}" ]; then
+				swaymsg -t get_outputs -r 2>/dev/null
+			else
+				cat "$MLOS_SNAPSHOT" 2>/dev/null
+			fi
+		} | python3 -c '
+import json, sys
+try:
+    outs = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+for o in outs:
+    name = o.get("name") or ""
+    if not name:
+        continue
+    r = o.get("rect") or {}
+    print("OUT %s %s %d %d %d %d %s" % (
+        name,
+        "yes" if o.get("active") else "no",
+        r.get("x", 0), r.get("y", 0), r.get("width", 0), r.get("height", 0),
+        o.get("transform") or "normal"))
+    seen = set()
+    for m in o.get("modes") or []:
+        w, h = m.get("width"), m.get("height")
+        if not w or not h:
+            continue
+        # sway reports refresh in mHz; xrandr-style Hz is what the menus show.
+        hz = (m.get("refresh") or 0) / 1000.0
+        key = (w, h, round(hz, 2))
+        if key in seen:
+            continue
+        seen.add(key)
+        print("MODE %s %dx%d %.2f" % (name, w, h, hz))
+' > "$XR" 2>/dev/null || true
+	fi
+	printf '%s' "$XR"
+}
+
+# Forget it, so the next read picks up a monitor plugged in just now.
+xr_refresh() {
+	[ -n "$XR" ] && rm -f "$XR"
+	XR=""
+}
+
+cleanup_xr() { [ -n "$XR" ] && rm -f "$XR"; }
+trap cleanup_xr EXIT INT TERM HUP
+
+# Connected output names.  sway only lists outputs that exist, so presence in
+# the table is what "connected" meant under xrandr.
+outputs() {
+	awk '$1 == "OUT" {print $2}' "$(xr)" 2>/dev/null
+}
+
+# The mode a screen should use when nobody has chosen one.
+#
+# xrandr flagged a preferred mode and it was simply the first listed; sway's
+# JSON carries no such flag, so this takes the largest mode by area, breaking
+# ties on refresh rate.  For a real monitor that is its native mode, which is
+# what "preferred" meant in practice.
+preferred_mode() {
+	awk -v o="$1" '
+		$1 == "MODE" && $2 == o {
+			split($3, d, "x")
+			a = d[1] * d[2]
+			if (a > besta || (a == besta && $4 + 0 > bestr + 0)) {
+				besta = a; bestr = $4; m = $3
+			}
+		}
+		END {if (m) print m}
+	' "$(xr)" 2>/dev/null
+}
+
+# Highest refresh rate available for a given mode on an output.
+best_rate() {
+	awk -v o="$1" -v m="$2" '
+		$1 == "MODE" && $2 == o && $3 == m && $4 + 0 > best + 0 {best = $4}
+		END {if (best) printf "%.2f\n", best}
+	' "$(xr)" 2>/dev/null
+}
+
+# One line per resolution, in the order the driver reports them.  The table has
+# a row per refresh rate, so without the dedupe a screen offering 1920x1080 at
+# three rates would appear three times in the resolution menu -- xrandr listed
+# each resolution once, with its rates alongside.
+modes_for() {
+	awk -v o="$1" '$1 == "MODE" && $2 == o && !seen[$3]++ {print $3}' "$(xr)" 2>/dev/null
+}
+
+# Width and height a screen occupies once its rotation is taken into account.
+# xrandr worked this out itself when told --left-of; sway takes absolute
+# positions, so the arithmetic has to happen here.
+#
+# The transform is passed in rather than read back from the live output: this
+# is called while building a layout, so what matters is the rotation about to
+# be applied, not the one currently in effect.  Reading the live value would
+# place a screen beside a neighbour using its pre-rotation width.
+#
+#   effective_dims <WxH> <transform>
+effective_dims() {
+	w="${1%%x*}"
+	h="${1#*x}"
+	case "$2" in
+		90|270) printf '%s %s' "$h" "$w" ;;
+		*)      printf '%s %s' "$w" "$h" ;;
+	esac
+}
+
+mode_width()  { printf '%s' "${1%%x*}"; }
+
+# Per-output resolution overrides, stored as "HDMI-1=1920x1080@119.88 ...".
+# Kept separate from the generated xrandr line so the layout can always be
+# rebuilt from scratch instead of being patched in place.
+override_for() {
+	for entry in $MODE_OVERRIDES; do
+		case "$entry" in
+			"$1="*) printf '%s' "${entry#*=}"; return 0 ;;
+		esac
+	done
+	return 1
+}
+
+set_override() {
+	out="$1"
+	new=""
+	for entry in $MODE_OVERRIDES; do
+		case "$entry" in
+			"$out="*) ;;
+			*) new="$new $entry" ;;
+		esac
+	done
+	new=$(printf '%s %s=%s@%s' "$new" "$out" "$2" "$3" | sed 's/^ *//')
+	mlos_set MODE_OVERRIDES "$new"
+	MODE_OVERRIDES="$new"
+}
+
+# Back to whatever the screen says it prefers.  Not the same as picking that
+# resolution by hand: swap the monitor for a better one and an override would
+# still hold the old, smaller mode.
+clear_override() {
+	out="$1"
+	new=""
+	for entry in $MODE_OVERRIDES; do
+		case "$entry" in
+			"$out="*) ;;
+			*) new="$new $entry" ;;
+		esac
+	done
+	new="$(printf '%s' "$new" | sed 's/^ *//')"
+	mlos_set MODE_OVERRIDES "$new"
+	MODE_OVERRIDES="$new"
+}
+
+# Generic "OUTPUT=value OUTPUT=value" list, used for rotation and for where
+# each screen sits.  Same shape as MODE_OVERRIDES above.
+list_get() {
+	for entry in $2; do
+		case "$entry" in
+			"$1="*) printf '%s' "${entry#*=}"; return 0 ;;
+		esac
+	done
+	return 1
+}
+
+list_set() {
+	key="$1"
+	out="$2"
+	val="$3"
+	old="$4"
+	new=""
+	for entry in $old; do
+		case "$entry" in
+			"$out="*) ;;
+			*) new="$new $entry" ;;
+		esac
+	done
+	new=$(printf '%s %s=%s' "$new" "$out" "$val" | sed 's/^ *//')
+	mlos_set "$key" "$new"
+	printf '%s' "$new"
+}
+
+rotation_for() { list_get "$1" "$ROTATIONS" 2>/dev/null || printf 'normal'; }
+side_for()     { list_get "$1" "$SCREEN_SIDES" 2>/dev/null || printf 'right'; }
+
+# ROTATIONS is stored in xrandr's vocabulary (normal/left/right/inverted) and
+# is carried across reinstalls by moonlight-backup, so the stored values stay
+# as they are and are translated here instead.  sway names transforms by the
+# clockwise angle applied to the output.
+sway_transform() {
+	case "$1" in
+		right)    printf '90' ;;
+		inverted) printf '180' ;;
+		left)     printf '270' ;;
+		90|180|270|normal) printf '%s' "$1" ;;
+		*)        printf 'normal' ;;
+	esac
+}
+
+# Largest resolution every connected output can display.  Mirroring needs a
+# single shared mode -- giving each screen its own just produces a stretched
+# framebuffer that the smaller panel crops.
+common_mode() {
+	n=$(outputs | wc -l)
+	[ "$n" -gt 0 ] || return 1
+	for o in $(outputs); do
+		modes_for "$o" | sort -u
+	done | sort | uniq -c \
+		| awk -v n="$n" '$1 == n {print $2}' \
+		| awk -F x '{a = $1 * $2; if (a > best) {best = a; m = $0}} END {if (m) print m}'
+}
+
+# Build the xrandr argument string for the chosen policy and save it.
+#
+# $1 = policy (single|mirror|extend)
+# $2 = output to build around
+# $3 = "no" to leave MOONLIGHT_OUTPUT alone
+#
+# That third argument matters more than it looks.  MOONLIGHT_OUTPUT is the
+# screen you *asked* for; when it is unplugged the layout has to fall back to
+# something that exists, but overwriting the preference with the fallback
+# means plugging the monitor back in leaves you on the laptop panel forever.
+build_layout() {
+	policy="$1"
+	primary="$2"
+	persist="${3:-yes}"
+	args=""
+
+	if [ "$policy" = "mirror" ]; then
+		shared=$(common_mode)
+		if [ -z "$shared" ]; then
+			mlos_msg "These screens share no common resolution, so they cannot be mirrored.\n\nUse one screen only, or extend instead."
+			return 1
+		fi
+	fi
+
+	# The primary goes first: everything else is placed relative to it, and
+	# xrandr wants the anchor it is told to sit beside to be one it has
+	# already been given.
+	ordered="$primary"
+	for o in $(outputs); do
+		[ "$o" = "$primary" ] || ordered="$ordered $o"
+	done
+
+	# The anchor's rotated size, needed to place anything beside it.
+	if pm=$(override_for "$primary"); then pmode="${pm%@*}"; else pmode=$(preferred_mode "$primary"); fi
+	# shellcheck disable=SC2046
+	set -- $(effective_dims "${pmode:-0x0}" "$(sway_transform "$(rotation_for "$primary")")")
+	pw="${1:-0}"; ph="${2:-0}"
+
+	for o in $ordered; do
+		if ov=$(override_for "$o"); then
+			mode="${ov%@*}"
+			rate="${ov#*@}"
+		else
+			mode=$(preferred_mode "$o")
+			rate=$(best_rate "$o" "$mode")
+		fi
+		[ -n "$mode" ] || continue
+
+		rot="$(sway_transform "$(rotation_for "$o")")"
+
+		case "$policy" in
+			single)
+				if [ "$o" = "$primary" ]; then
+					args="$args output $o enable mode ${mode}@${rate:-60}Hz position 0 0 transform $rot,"
+				else
+					args="$args output $o disable,"
+				fi
+				;;
+			mirror)
+				# Every output gets the same shared mode at the origin.
+				# Overlapping regions are how a compositor mirrors: there
+				# is no separate mirror mode to ask for.
+				args="$args output $o enable mode $shared position 0 0 transform $rot,"
+				;;
+			extend)
+				if [ "$o" = "$primary" ]; then
+					args="$args output $o enable mode ${mode}@${rate:-60}Hz position 0 0 transform $rot,"
+				else
+					# sway takes absolute positions -- there is no
+					# --left-of.  Placing a screen therefore needs the
+					# anchor's rotated size, which xrandr worked out
+					# for us.  Only ever one screen beside the anchor,
+					# which is what the menu offers.
+					# shellcheck disable=SC2046
+					set -- $(effective_dims "$mode" "$rot")
+					ow="${1:-0}"; oh="${2:-0}"
+					case "$(side_for "$o")" in
+						left)  x=$((0 - ow)); y=0 ;;
+						above) x=0; y=$((0 - oh)) ;;
+						below) x=0; y="$ph" ;;
+						*)     x="$pw"; y=0 ;;
+					esac
+					args="$args output $o enable mode ${mode}@${rate:-60}Hz position $x $y transform $rot,"
+				fi
+				;;
+		esac
+	done
+
+	# The generated command is no longer saved.  XRANDR_ARGS was written on
+	# every layout change and never read by anything: apply() deliberately
+	# rebuilds from the screens present at the time, because replaying a
+	# stored line naming outputs by hand fails whole when one is unplugged.
+	mlos_set DISPLAY_MODE "$policy"
+	[ "$persist" = "no" ] || mlos_set MOONLIGHT_OUTPUT "$primary"
+
+	# Which screen is in use *right now*, as opposed to which one is
+	# wanted.  The hotplug watcher compares this before and after to work
+	# out whether Moonlight has to be restarted to follow it.
+	mkdir -p "$MLOS_STATE" 2>/dev/null || true
+	printf '%s\n' "$primary" > "$MLOS_STATE/current-output" 2>/dev/null || true
+
+	# Inside the session the new layout can take hold now rather than at the
+	# next one, which is the difference between the menu appearing to work
+	# and appearing to do nothing.
+	if [ -n "${WAYLAND_DISPLAY:-}" ]; then
+		# One swaymsg call, comma-separated: sway applies a whole command
+		# list atomically, so the screens never flicker through an
+		# intermediate layout the way a series of xrandr calls did.
+		swaymsg "${args%,}" >/dev/null 2>&1 || true
+		swaymsg -t get_outputs > "$MLOS_SNAPSHOT" 2>/dev/null || true
+		xr_refresh
+
+		# Rotating a screen does not rotate the touchscreen with it -- the
+		# panel goes on reporting where a finger landed in its own
+		# coordinates, so on a tablet running on its side the pointer moves
+		# at right angles to the finger.
+		moonlight-touch --apply 2>/dev/null || true
+	fi
+}
+
+# Moonlight works out which screen to open on when it starts, so moving it
+# needs it restarted -- the xrandr change alone will not shift it.
+restart_note() {
+	if mlos_in_session && mlos_yesno "$1\n\nMoonlight has to restart to move onto it. Restart now?"; then
+		mlos_restart_moonlight
+	elif ! mlos_in_session; then
+		mlos_msg "$1\n\nTakes effect when Moonlight restarts."
+	fi
+}
+
+# Rebuild the layout from the screens that are plugged in *now* and apply it.
+#
+# Replaying the saved xrandr line instead would be a trap: it names outputs by
+# hand, and xrandr rejects the whole command if one of them has been unplugged
+# -- so a stale layout silently leaves every screen unconfigured, not just the
+# missing one.
+apply() {
+	mlos_load
+	want="${1:-$MOONLIGHT_OUTPUT}"
+
+	# The screen you asked for may not be plugged in at the moment.
+	connected="$(outputs)"
+	[ -n "$connected" ] || return 0
+	found=0
+	for o in $connected; do
+		[ "$o" = "$want" ] && found=1
+	done
+	if [ "$found" != "1" ]; then
+		want="$(printf '%s\n' "$connected" | head -1)"
+	fi
+
+	# "no": never let an automatic fallback overwrite the preference, so
+	# the chosen screen is used again the moment it comes back.
+	build_layout "${DISPLAY_MODE:-single}" "$want" no
+}
+
+# The screen Moonlight opens on.  Everything else is described relative to it.
+main_output() {
+	if [ -n "${MOONLIGHT_OUTPUT:-}" ] && outputs | grep -qx "$MOONLIGHT_OUTPUT"; then
+		printf '%s' "$MOONLIGHT_OUTPUT"
+	else
+		outputs | head -1
+	fi
+}
+
+pick_output() {
+	menu=""
+	for o in $(outputs); do
+		menu="$menu $(sq "$o") $(sq "$(preferred_mode "$o")")"
+	done
+	[ -n "$menu" ] || return 1
+	eval whiptail --title '"Displays"' --menu "$(sq "$1")" \
+		18 74 8 -- "$menu" 3>&1 1>&2 2>&3
+}
+
+# Chosen resolution for an output, or "automatic" when it has no override.
+current_mode() {
+	if ov=$(override_for "$1"); then
+		printf '%s @ %sHz' "${ov%@*}" "${ov#*@}"
+	else
+		cm="$(preferred_mode "$1")"
+		printf '%s (automatic)' "${cm:-unknown}"
+	fi
+}
+
+# One line per screen: what it is, and what it is doing.
+describe_screens() {
+	m="$(main_output)"
+	for o in $(outputs); do
+		line="  $o: $(current_mode "$o")"
+		[ "$(rotation_for "$o")" = "normal" ] ||
+			line="$line, $(rotation_for "$o")"
+		if [ "$o" = "$m" ]; then
+			line="$line  <- Moonlight"
+		else
+			case "${DISPLAY_MODE:-single}" in
+				single) line="$line, switched off" ;;
+				extend) line="$line, $(side_for "$o") of $m" ;;
+				# Mirroring runs every screen at one shared mode, so
+				# the per-screen figure above is not what it shows.
+				mirror) line="$line, mirroring $m" ;;
+			esac
+		fi
+		printf '%s\n' "$line"
+	done
+}
+
+layout_label() {
+	case "${DISPLAY_MODE:-single}" in
+		mirror) printf 'the same picture on every screen' ;;
+		extend) printf 'extended across every screen' ;;
+		*)      printf 'one screen only' ;;
+	esac
+}
+
+set_mode() {
+	o="$1"
+	menu="auto $(sq 'Automatic - the best this screen offers')"
+	for md in $(modes_for "$o" | awk '!seen[$0]++'); do
+		menu="$menu $(sq "$md") $(sq "$md @ $(best_rate "$o" "$md")Hz")"
+	done
+	c=$(eval whiptail --title '"Resolution"' --menu "$(sq "Resolution for $o:")" \
+		20 74 12 -- "$menu" 3>&1 1>&2 2>&3) || return 0
+
+	if [ "$c" = "auto" ]; then
+		clear_override "$o"
+		note="$o back to its automatic resolution."
+	else
+		r=$(best_rate "$o" "$c")
+		set_override "$o" "$c" "$r"
+		note="$o set to $c @ ${r}Hz."
+	fi
+	# Rebuild from scratch so the change is picked up and any neighbouring
+	# screen shifts over by the new width.
+	build_layout "${DISPLAY_MODE:-single}" "$(main_output)"
+	restart_note "$note"
+}
+
+set_rotation() {
+	o="$1"
+	r=$(whiptail --title "Rotation" --menu \
+"Which way up is $o?
+
+\"On its side\" is for a monitor physically stood on its end." 16 74 4 \
+		normal   "The right way up" \
+		left     "On its side, top to the left" \
+		right    "On its side, top to the right" \
+		inverted "Upside down" \
+		3>&1 1>&2 2>&3) || return 0
+	ROTATIONS="$(list_set ROTATIONS "$o" "$r" "$ROTATIONS")"
+	build_layout "${DISPLAY_MODE:-single}" "$(main_output)"
+	restart_note "$o rotated: $r."
+}
+
+set_position() {
+	o="$1"
+	m="$2"
+	s=$(whiptail --title "Position" --menu \
+"Where does $o sit, relative to $m?" 15 74 4 \
+		right "To the right of $m" \
+		left  "To the left of $m" \
+		above "Above $m" \
+		below "Below $m" \
+		3>&1 1>&2 2>&3) || return 0
+	SCREEN_SIDES="$(list_set SCREEN_SIDES "$o" "$s" "$SCREEN_SIDES")"
+	build_layout extend "$m"
+	restart_note "$o placed $s of $m."
+}
+
+# Everything about one screen, in one place.  Entries that cannot apply --
+# a position for the main screen, say -- are simply not offered.
+screen_menu() {
+	o="$1"
+	while :; do
+		mlos_load
+		m="$(main_output)"
+
+		info="Resolution: $(current_mode "$o")
+Rotation:   $(rotation_for "$o")"
+
+		entries="mode $(sq 'Resolution')"
+		entries="$entries rotate $(sq 'Rotation')"
+		if [ "$o" = "$m" ]; then
+			info="$info
+
+This is the screen Moonlight opens on."
+		else
+			entries="$entries main $(sq 'Open Moonlight on this screen')"
+			if [ "${DISPLAY_MODE:-single}" = "extend" ]; then
+				info="$info
+Position:   $(side_for "$o") of $m"
+				entries="$entries where $(sq "Where it sits next to $m")"
+			fi
+		fi
+		entries="$entries back $(sq 'Back')"
+
+		c=$(eval whiptail --title "$(sq "$o")" --menu "$(sq "$info")" \
+			19 74 5 -- "$entries" 3>&1 1>&2 2>&3) || return 0
+
+		case "$c" in
+			mode)   set_mode "$o" ;;
+			rotate) set_rotation "$o" ;;
+			where)  set_position "$o" "$m" ;;
+			main)   build_layout "${DISPLAY_MODE:-single}" "$o"
+			        restart_note "Moonlight will open on $o." ;;
+			back)   return 0 ;;
+		esac
+	done
+}
+
+menu() {
+	if [ ! -s "$(xr)" ]; then
+		mlos_msg "No display information yet.\n\nStart Moonlight once, then come back."
+		return 0
+	fi
+
+	while :; do
+		mlos_load
+		n=$(outputs | wc -l)
+		m="$(main_output)"
+		summary="Layout: $(layout_label)
+
+$(describe_screens)"
+
+		# With one screen there is no layout to choose, so its own
+		# settings are the menu rather than something buried under it.
+		entries=""
+		if [ "$n" -gt 1 ]; then
+			for o in $(outputs); do
+				entries="$entries use:$o $(sq "Use $o only")"
+			done
+			entries="$entries mirror $(sq 'Show the same picture on every screen')"
+			entries="$entries extend $(sq 'Extend across every screen')"
+			entries="$entries adjust $(sq 'Adjust one screen...')"
+		else
+			entries="$entries mode $(sq 'Resolution')"
+			entries="$entries rotate $(sq 'Rotation')"
+		fi
+		entries="$entries rescan $(sq 'Look again for screens')"
+		entries="$entries back $(sq 'Back')"
+
+		choice=$(eval whiptail --title '"Displays"' --menu "$(sq "$summary")" \
+			22 74 8 -- "$entries" 3>&1 1>&2 2>&3) || return 0
+
+		case "$choice" in
+			use:*) o="${choice#use:}"
+			       build_layout single "$o"
+			       restart_note "Using $o only." ;;
+			mirror) if build_layout mirror "$m"; then
+					restart_note "Every screen now shows the same picture."
+				fi ;;
+			extend) build_layout extend "$m"
+			        restart_note "Screens extended, with Moonlight on $m." ;;
+			adjust) o=$(pick_output "Which screen?") || continue
+			        screen_menu "$o" ;;
+			mode)   set_mode "$m" ;;
+			rotate) set_rotation "$m" ;;
+			rescan) xr_refresh
+			        mlos_msg "Looked again. $(outputs | wc -l) screen(s) connected:\n\n$(outputs | sed 's/^/  - /')" ;;
+			back)   return 0 ;;
+		esac
+	done
+}
+
+case "${1:---menu}" in
+	--apply)   apply "$2" ;;
+	--menu)    menu ;;
+	--outputs) outputs ;;
+	*) printf 'usage: moonlight-displays [--apply [output]|--menu|--outputs]\n' >&2
+	   exit 2 ;;
+esac
