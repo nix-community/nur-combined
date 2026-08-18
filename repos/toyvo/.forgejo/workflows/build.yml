@@ -194,17 +194,12 @@ jobs:
         run: |
           curl -fsL https://raw.githubusercontent.com/nix-community/NUR/master/lib/evalRepo.nix > /tmp/evalRepo.nix
           nixpkgs_path=$(NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --find-file nixpkgs)
-          nix-env -f /dev/stdin -qa \* --meta --json \
-            --allowed-uris https://static.rust-lang.org \
-            --option restrict-eval true \
-            --option allow-import-from-derivation true \
-            --show-trace \
-            -I nixpkgs="$nixpkgs_path" \
-            -I . \
-            --arg pkgs 'import <nixpkgs> {}' <<'NIX'
+          
+          # Create eval file (can't use /dev/stdin with restrict-eval)
+          cat > /tmp/nur-eval.nix <<'NIX'
           { pkgs ? import <nixpkgs> {} }:
           let
-            repo_file = "${toString ./.}/default.nix";
+            repo_file = ./default.nix;
           in
           import /tmp/evalRepo.nix {
             name = "toyvo";
@@ -214,6 +209,15 @@ jobs:
             lib = pkgs.lib;
           }
           NIX
+          
+          nix-env -f /tmp/nur-eval.nix -qa \* --meta --json \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --show-trace \
+            -I nixpkgs="$nixpkgs_path" \
+            -I . \
+            --arg pkgs 'import <nixpkgs> {}'
       - name: Check evaluation (flake)
         run: |
           NIX_PATH="${{ matrix.nixPath }}" nix-env -f . -qa \* --meta --xml \
