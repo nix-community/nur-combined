@@ -25,13 +25,6 @@
     },
     {
       "kind": "tool",
-      "ref": "github:aliwatters/rod-mcp",
-      "depName": "aliwatters/rod-mcp",
-      "currentValue": "v0.4.3",
-      "datasource": "github-releases"
-    },
-    {
-      "kind": "tool",
       "ref": "github:anomalyco/opencode",
       "depName": "anomalyco/opencode",
       "currentValue": "v1.18.18",
@@ -196,6 +189,13 @@
       "ref": "github:lewtec/contapila",
       "depName": "lewtec/contapila",
       "currentValue": "0.2.4",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
+      "ref": "github:lewtec/rod-mcp",
+      "depName": "lewtec/rod-mcp",
+      "currentValue": "0.2.1",
       "datasource": "github-releases"
     },
     {

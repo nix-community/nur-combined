@@ -36,11 +36,12 @@ args = [
 	"--headless",
 	"--no-banner",
 	"--compact-snapshot",
+	"--omit-images",
 	"--no-clone",
-	"--user-data-dir",
-	"{{ userDataDir }}/rod-mcp/profile",
-	"--output-dir",
-	"{{ userDataDir }}/rod-mcp/output",
+	"--browser-bin-path",
+	"{{ .root.browser.webapp }}",
+	"--data-dir",
+	"{{ .root.runtime.home }}/.cache/rod-mcp",
 ]
 startup_timeout_sec = 60
 enabled = true
