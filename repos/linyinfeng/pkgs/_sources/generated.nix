@@ -36,17 +36,17 @@
   };
   codestable = {
     pname = "codestable";
-    version = "ec47e8e08dd4ca3ab45a37c87a167e7f1db5f902";
+    version = "19c796de5990973a9e5d44aa9536d90513e37b5c";
     src = fetchgit {
       url = "https://github.com/liuzhengdongfortest/CodeStable";
-      rev = "ec47e8e08dd4ca3ab45a37c87a167e7f1db5f902";
+      rev = "19c796de5990973a9e5d44aa9536d90513e37b5c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-AZQPWwuaJVN+K2J/luYEujNl+dr2mEP/+U019OzKOUQ=";
+      sha256 = "sha256-bCphi9JAoVlRYqHNEJ3c5Fk8He6uaAnS2t4yt+ZVcyM=";
     };
-    date = "2026-08-10";
+    date = "2026-08-18";
   };
   cowrie = {
     pname = "cowrie";
