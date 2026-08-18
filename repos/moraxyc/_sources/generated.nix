@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "4cc61dc2caec1ba2fde00bed9ca39bdf81c53faa";
+    version = "6f0904cc44a8eec023c840074d77e4452e199ff6";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "4cc61dc2caec1ba2fde00bed9ca39bdf81c53faa";
+      rev = "6f0904cc44a8eec023c840074d77e4452e199ff6";
       fetchSubmodules = false;
-      sha256 = "sha256-OI+tmbRAyPBwBh+v456YgMaNDq1/EpbE6TPRtVUpaPI=";
+      sha256 = "sha256-iYna4a0mbVY9Zc4aSC5NLsVjH/3b7/8QHmzgm74CCYM=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-OI+tmbRAyPBwBh+v456YgMaNDq1_EpbE6TPRtVUpaPI=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-iYna4a0mbVY9Zc4aSC5NLsVjH_3b7_8QHmzgm74CCYM=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -88,7 +88,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-08-16";
+    date = "2026-08-17";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -115,7 +115,7 @@
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.14.4";
+    version = "v1.14.5";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -392,15 +392,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "666c0d1bc6ddd9c8eaa424404edb45e90b55f02d";
+    version = "9381d0509df131a00d7341658119026ac38d1e14";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "666c0d1bc6ddd9c8eaa424404edb45e90b55f02d";
+      rev = "9381d0509df131a00d7341658119026ac38d1e14";
       fetchSubmodules = false;
-      sha256 = "sha256-6zscJtu8sRaYstnxmpE7+yiiejr3w3/Nvca+mEEq+D4=";
+      sha256 = "sha256-2bRHUK/lOf+XkRX6WWzeZXRFM8i1q+OjLdeGXgSQzPQ=";
     };
-    date = "2026-08-16";
+    date = "2026-08-17";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -415,21 +415,21 @@
   };
   microfetch = {
     pname = "microfetch";
-    version = "d4c630c9f9564cc1666cdf60348cc15379767648";
+    version = "7583ea83c7e9dfbbc921084b32f19a0e52f03799";
     src = fetchFromGitHub {
       owner = "NotAShelf";
       repo = "microfetch";
-      rev = "d4c630c9f9564cc1666cdf60348cc15379767648";
+      rev = "7583ea83c7e9dfbbc921084b32f19a0e52f03799";
       fetchSubmodules = false;
-      sha256 = "sha256-AMYfEHzLWw1l7Go3KlwTUmhMtqLT4QTsNCTz0AW88n8=";
+      sha256 = "sha256-4EP06i7p5TmfgJe/At9fW5sKZ+4gaakuWk8fmEDsZYQ=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-AMYfEHzLWw1l7Go3KlwTUmhMtqLT4QTsNCTz0AW88n8=/Cargo.lock";
+      lockFile = ./. + "/sha256-4EP06i7p5TmfgJe_At9fW5sKZ+4gaakuWk8fmEDsZYQ=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-08-10";
+    date = "2026-08-17";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -470,13 +470,13 @@
   };
   nezha = {
     pname = "nezha";
-    version = "v2.3.6";
+    version = "v2.3.7";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "nezha";
-      rev = "v2.3.6";
+      rev = "v2.3.7";
       fetchSubmodules = false;
-      sha256 = "sha256-xl5F6EaxhXogLRgB0voFijYaK69Pq6G54+VzoUBYmr0=";
+      sha256 = "sha256-RK6eRKqZtyBDGRfrapAOwpnrEM9cq5qa0Ev958SOcII=";
     };
   };
   nezha-agent = {
@@ -673,15 +673,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "fc0126b243191b50a20303eb05665c3ca254e4fd";
+    version = "979d0c52020869cb026ab33b1d897871cc492806";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "fc0126b243191b50a20303eb05665c3ca254e4fd";
+      rev = "979d0c52020869cb026ab33b1d897871cc492806";
       fetchSubmodules = false;
-      sha256 = "sha256-z9Ku7OZz7FFRdD9gyE8dAgAL+AVDDJoK+0W3NEwUWJc=";
+      sha256 = "sha256-oLc5Req4J0gr8UDioehhuwvCSFTgQYt0ufNTzlHc6Qc=";
     };
-    date = "2026-08-16";
+    date = "2026-08-17";
   };
   whois42d-ng = {
     pname = "whois42d-ng";
