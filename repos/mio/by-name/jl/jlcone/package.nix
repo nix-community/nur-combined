@@ -1,44 +1,15 @@
 {
   lib,
   stdenv,
-  autoPatchelfHook,
   dpkg,
+  electron_43,
   fetchurl,
   makeWrapper,
-  alsa-lib,
-  at-spi2-atk,
-  at-spi2-core,
-  atk,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  libdrm,
-  libgbm,
-  libsecret,
-  libxkbcommon,
-  libx11,
-  libxcomposite,
-  libxdamage,
-  libxext,
-  libxfixes,
-  libxrandr,
-  libxcb,
-  libXtst,
-  libxshmfence,
-  nspr,
-  nss,
-  pango,
-  systemd,
-  udev,
-  zlib,
 }:
 
+let
+  electron = electron_43;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "jlcone";
   version = "1.0.67";
@@ -49,45 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    autoPatchelfHook
     dpkg
     makeWrapper
-  ];
-
-  buildInputs = [
-    alsa-lib
-    at-spi2-atk
-    at-spi2-core
-    atk
-    cairo
-    cups
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    gtk3
-    libdrm
-    libgbm
-    libsecret
-    libxkbcommon
-    libx11
-    libxcomposite
-    libxdamage
-    libxext
-    libxfixes
-    libxrandr
-    libxcb
-    libXtst
-    libxshmfence
-    nspr
-    nss
-    pango
-    stdenv.cc.cc.lib
-    systemd
-    udev
-    zlib
   ];
 
   unpackPhase = ''
@@ -99,9 +33,10 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$out/bin" "$out/opt/jlcone" "$out/share"
-
-    cp -a opt/JLCONE/. "$out/opt/jlcone/"
+    # Install only the app resources — no bundled Electron binary needed
+    install -dm755 "$out/lib/jlcone"
+    cp -a opt/JLCONE/resources/. "$out/lib/jlcone/resources/"
+    cp -a opt/JLCONE/locales "$out/lib/jlcone/locales"
 
     if [ -d usr/share ]; then
       cp -a usr/share/. "$out/share/"
@@ -113,23 +48,22 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-warn "/opt/JLCONE/jlcone" "jlcone"
     fi
 
-    # chrome-sandbox requires setuid in a real install; under Nix we pass --no-sandbox
-    makeWrapper "$out/opt/jlcone/jlcone" "$out/bin/jlcone" \
-      --chdir "$out/opt/jlcone" \
-      --prefix LD_LIBRARY_PATH : "$out/opt/jlcone" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}" \
-      --add-flags "--no-sandbox"
+    makeWrapper ${lib.getExe electron} "$out/bin/jlcone" \
+      --add-flags "$out/lib/jlcone/resources/app.asar" \
+      --add-flags "--no-sandbox" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --set-default ELECTRON_IS_DEV 0 \
+      --inherit-argv0
 
     runHook postInstall
   '';
-
-  dontStrip = true;
 
   meta = {
     description = "JLCPCB desktop client (JLCONE)";
     longDescription = ''
       JLCONE is the official desktop client for JLCPCB, the PCB prototyping
-      and assembly service. Built on Electron.
+      and assembly service. Runs on nixpkgs Electron (upstream ships Electron 35;
+      no native node modules so a newer Electron major is compatible).
     '';
     homepage = "https://jlcpcb.com/download";
     license = lib.licenses.unfree;
