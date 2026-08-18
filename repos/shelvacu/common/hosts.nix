@@ -77,6 +77,15 @@
       primaryIp = "45.63.36.113";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeABuK70NGsVFqaOgDDdmwaweUJ2GeQYP/Bbd9+oq20";
     };
+    "jv-shel" = {
+      primaryIp = "10.78.77.5";
+      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuMMNppiWY0VY8FxNsQO+fGE3yEcSJwRPKZnBWemrlD";
+    };
+    "jv-java".ssh = {
+      connectAddress = "server12.javamurray.com";
+      port = 7483;
+      keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILG9A0O3AsxLmFt+8vZG4pH4X4dh6XvYc8bBiQ3Tkot+";
+    };
 
     #personal hosts
     # keep-sorted start block=yes
