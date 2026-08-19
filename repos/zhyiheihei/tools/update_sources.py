@@ -781,6 +781,15 @@ def main():
     )
     args = ap.parse_args()
 
+    # nvchecker resolves the ``keyfile`` path relative to the temp config
+    # file's directory (``Path(file).parent`` in nvchecker/core.py), not the
+    # process cwd.  A relative ``-k secrets.toml`` therefore never resolves to
+    # the repo and every keyed source 401s.  Resolve it to an absolute path up
+    # front so the token is actually found.
+    keyfile = args.keyfile
+    if keyfile:
+        keyfile = str(Path(keyfile).resolve())
+
     config_path = Path(args.config)
     build_dir = Path(args.build_dir)
     packages = load_config(config_path)
@@ -811,7 +820,7 @@ def main():
     errors: dict[str, str] = {}
     if to_check:
         versions, errors = run_nvchecker(
-            build_nvchecker_config(to_check, args.keyfile), args.tries
+            build_nvchecker_config(to_check, keyfile), args.tries
         )
         for name, err in errors.items():
             if name not in versions:

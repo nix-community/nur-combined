@@ -10,3 +10,7 @@ update-git-commits.txt
 *.cmp
 *.fetchlog
 __pycache__/
+
+# nvchecker keyfile written by the auto-update workflow; contains a GitHub
+# token and must never be committed (defense-in-depth alongside the rm).
+secrets.toml
