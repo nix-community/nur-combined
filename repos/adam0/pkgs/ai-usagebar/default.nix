@@ -1,8 +1,8 @@
 {
   # keep-sorted start
   fetchFromGitHub,
-  lib,
   gnutar,
+  lib,
   rustPlatform,
   # keep-sorted end
 }:
