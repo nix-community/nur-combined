@@ -12,6 +12,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `ab-download-manager` | [Usage](pkgs/ab-download-manager/README.md) |
 | `deepseek-harness` | [Usage](pkgs/deepseek-harness/README.md) |
 | `firefoxpwa-xwayland` | [Usage](pkgs/firefoxpwa-xwayland/README.md) |
+| `flutter-rust-bridge-codegen` | [Upstream](https://github.com/fzyzcjy/flutter_rust_bridge) |
 | `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
 | `xwayland-satellite` | [Upstream](https://github.com/so1ve/xwayland-satellite) |
 | `yanhekt-autoslides` | [Upstream](https://github.com/BIT-Admin/Yanhekt-AutoSlides) |
