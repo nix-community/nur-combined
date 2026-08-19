@@ -30,6 +30,7 @@ let
       hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
       json-liquid-rs = final.callPackage ./json-liquid-rs { };
       kes = final.callPackage ./kes { };
+      maki = final.callPackage ./maki { };
       mcp-server-searxng = final.callPackage ./mcp-server-searxng { };
       mpris-ctl = final.callPackage ./mpris-ctl { };
       nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
