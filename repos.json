@@ -1398,10 +1398,6 @@
         "shamilton": {
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
-        "shelvacu": {
-            "file": "nur.nix",
-            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
-        },
         "shirok1": {
             "url": "https://github.com/shirok1/flakes"
         },
