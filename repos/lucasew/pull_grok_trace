@@ -2,7 +2,9 @@
 # /// script
 # requires-python = ">=3.10"
 # ///
-"""Export a grok session trace; if --from HOST, rsync the tarball into local /tmp.
+"""Export a grok session trace tarball into local /tmp.
+
+If --from HOST, run grok trace on HOST via ssh and rsync the tarball here.
 
 HOST can be user@host (e.g. janitor@ravenrock). Use --jump when you need a
 ProxyJump hop (e.g. Tailscale only reaches the bastion).
@@ -117,24 +119,20 @@ def run_trace(from_host: str | None) -> Path:
     return Path(local_path)
 
 
-remote_path = run_trace(args.from_host)
+src = run_trace(args.from_host)
+dest = Path("/tmp") / src.name
+rsync_src = f"{args.from_host}:{src}" if args.from_host else str(src)
 
-if args.from_host:
-    dest = Path("/tmp") / remote_path.name
-    print(f"rsync {args.from_host}:{remote_path} → {dest}", file=sys.stderr)
-    try:
-        subprocess.run(
-            [
-                "rsync",
-                "-avP",
-                *rsync_ssh(),
-                f"{args.from_host}:{remote_path}",
-                str(dest),
-            ],
-            check=True,
-        )
-    except subprocess.CalledProcessError as e:
-        die(f"rsync failed (exit {e.returncode})")
+if not args.from_host and src.resolve() == dest.resolve():
     print(dest)
-else:
-    print(remote_path)
+    raise SystemExit(0)
+
+print(f"rsync {rsync_src} → {dest}", file=sys.stderr)
+try:
+    subprocess.run(
+        ["rsync", "-avP", *rsync_ssh(), rsync_src, str(dest)],
+        check=True,
+    )
+except subprocess.CalledProcessError as e:
+    die(f"rsync failed (exit {e.returncode})")
+print(dest)
