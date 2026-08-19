@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
 """Export a grok session trace; if --from HOST, rsync the tarball into local /tmp.
 
 HOST can be user@host (e.g. janitor@ravenrock). Use --jump when you need a
