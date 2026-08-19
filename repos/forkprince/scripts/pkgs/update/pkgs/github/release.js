@@ -108,7 +108,9 @@ async function platforms(file, { config, force }) {
 
       console.log(`Checking ${platform} (${repo})...`);
 
-      let releases = (await getReleases(repo, config.source.skip_prerelease)).sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+      let releases = (await getReleases(repo, config.source.skip_prerelease && !config.source.tag_filter)).sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+
+      if (config.source.skip_prerelease) releases = releases.filter(release => !release.prerelease);
 
       if (config.source.tag_filter) {
         releases = releases.filter(r => new RegExp(config.source.tag_filter).test(r.tag_name));

@@ -19,7 +19,9 @@ async function getReleases(repo, skip = false) {
 async function check(file, { config, force, repo = null }) {
   const api_repo = repo || config.source.repo;
 
-  let releases = (await getReleases(api_repo, config.source.skip_prerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  let releases = (await getReleases(api_repo, config.source.skip_prerelease && !config.source.tag_filter)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+  if (config.source.skip_prerelease) releases = releases.filter(release => !release.prerelease);
 
   if (config.source.tag_filter) {
     const filter = new RegExp(config.source.tag_filter);

@@ -4,6 +4,7 @@
     "type": "github-release",
     "repo": "momenbasel/PureMac",
     "skip_prerelease": true,
+    "tag_filter": "^v\\d",
     "tag_prefix": "v"
   },
   "asset": {
