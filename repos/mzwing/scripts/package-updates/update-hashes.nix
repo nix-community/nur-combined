@@ -1,10 +1,4 @@
-# Scope boundary: this app only refreshes vendored dependency hashes
-# whose fetch URL is static (vendorHash, pnpmDepsHash, ...), recomputed by
-# nix-update from the already-updated sources/lockfiles. Pins whose URL
-# and hash must change together (e.g. wsrx-desktop's Skia prebuilts in
-# pins.json) are NOT handled here — they are owned by the package's
-# passthru.pinUpdater and the update-pins app (./update-pins.nix), which
-# runs one stage earlier. See ./README.md.
+# Refresh static-URL dependency hashes; update-pins handles coupled URLs and hashes.
 {pkgs}: let
   system = pkgs.stdenv.hostPlatform.system;
   script = pkgs.writeShellApplication {
@@ -18,12 +12,7 @@
       pkgs.nix-update
     ];
     text = ''
-      # Optional positional arguments: package names to force-refresh. When
-      # given, only those packages are processed and change detection is
-      # skipped for them. This is the escape hatch for hash drift that
-      # source change detection cannot see — e.g. fetcher behavior changes
-      # after a nixpkgs bump, or dependency edits committed without going
-      # through nvfetcher: nix run .#update-hashes -- <name>
+      # Optional package names force-refresh only those packages.
       declare -A forced=()
       for arg in "$@"; do
         forced[$arg]=1
@@ -34,17 +23,10 @@
         [[ -n "''${forced[$1]:-}" ]]
       }
 
-      # _sources entry name for a package whose source is not named
-      # after its directory; mirrors the extraArgs exception table in
-      # the repository root's default.nix (typenix-vscode is built from
-      # sources.typenix). Everything else defaults to the dirname.
+      # Package-to-source naming exceptions.
       declare -A source_names=([typenix-vscode]=typenix)
 
-      # Change detection: _sources/generated.json is committed to git, so
-      # the pre-update snapshot is simply the file at HEAD. Returns success
-      # when the nvfetcher source entry for $1 differs between HEAD and the
-      # working tree (or HEAD has no such file yet, e.g. before the first
-      # commit — then everything counts as changed).
+      # Compare each nvfetcher source with HEAD.
       source_changed() {
         local name=$1
         local old_entry new_entry
@@ -53,23 +35,7 @@
         [[ "$old_entry" != "$new_entry" ]]
       }
 
-      # Refresh the vendored dependency hashes (vendorHash, npmDepsHash,
-      # ...) of every package whose nvfetcher source changed. nix-update
-      # recomputes a hash by building the FOD with a blanked outputHash,
-      # which always re-downloads all dependencies (the fake-hash output
-      # path can never be substituted from a cache), so running it for
-      # unchanged packages — the common case on the daily cron — is pure
-      # waste. Convention: any pkgs/<name>/default.nix containing a
-      # `*Hash = "sha256-` attribute has its hashes refreshed by
-      # nix-update. Packages without a _sources entry (not managed by
-      # nvfetcher) count as changed: their hashes cannot be checked any
-      # other way. A file still carrying the placeholder hash
-      # (lib.fakeHash) always counts as changed: the placeholder must
-      # never survive an update run. This covers newly added packages,
-      # whose source entry is typically committed in the same commit as
-      # the package itself, so the HEAD-vs-worktree comparison above
-      # reports them as unchanged and they would otherwise keep the
-      # placeholder forever.
+      # Refresh hash-bearing packages when their source changed, is unknown, or still uses the placeholder hash.
       files="$(
         grep --recursive --files-with-matches --include='*.nix' \
           --extended-regexp '[[:alnum:]_]+Hash = "sha256-' pkgs || true
@@ -82,10 +48,7 @@
             is_forced "$attr" || continue
           fi
 
-          # Dynamic lookup via --apply: Nix's flake-fragment parser cannot
-          # address attribute names that are not plain identifiers
-          # (e.g. icalingua++; even nixpkgs' gtk+ is unreachable that
-          # way), while builtins.getAttr handles any string.
+          # Use getAttr for non-identifier package names.
           if nix eval ".#packages.${system}" --apply "pkgs: (builtins.getAttr \"$attr\" pkgs).pname" >/dev/null 2>&1; then
             if ! is_forced "$attr"; then
               source_name="''${source_names[$attr]:-$attr}"
@@ -106,8 +69,7 @@
         done <<<"$files"
       fi
 
-      # A forced name that matched nothing above is almost certainly a
-      # typo; say so instead of exiting quietly.
+      # Warn about unmatched forced names.
       for arg in "''${!forced[@]}"; do
         if [[ -z "''${handled[$arg]:-}" ]]; then
           echo "WARNING: forced package $arg was not refreshed (no vendored hash or no matching flake package)" >&2

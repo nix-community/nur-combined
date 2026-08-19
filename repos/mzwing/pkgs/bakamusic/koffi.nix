@@ -1,16 +1,4 @@
-# koffi (the Node.js FFI library BakaMusic uses to dlopen libmpv) built
-# from source. nixpkgs has no koffi package and upstream only publishes
-# prebuilt binaries (the @koromix/koffi-* npm packages), which this
-# repository's rules forbid shipping/patchelf'ing when source is available.
-# The source lives in the Koromix/rygel monorepo on Codeberg; npm releases
-# map to `koffi/<version>` tags there (resolved and pinned by
-# ./update-pins.sh into ./pins.json).
-#
-# The build uses koffi's own CNoke (a thin, dependency-free CMake wrapper
-# vendored in the same monorepo) with the vendored Node-API headers
-# (src/koffi/package.json cnoke.api -> vendor/node-api-headers), so nothing
-# is downloaded at build time. koffi is a Node-API addon, so the result is
-# not tied to a specific Node/Electron ABI.
+# Build BakaMusic's Node-API FFI dependency from its pinned rygel source with vendored headers.
 {
   lib,
   stdenv,
@@ -21,9 +9,7 @@
 }: let
   pins = (lib.importJSON ./pins.json).koffi;
 
-  # CNoke's host triplet naming: process.platform + "_" + ABI-normalized
-  # process.arch. The fallback keeps evaluation (which never builds) alive
-  # on non-Linux platforms; meta.platforms gates actual builds.
+  # CNoke host triplet, with a non-building evaluation fallback.
   cnokeTriplet =
     {
       x86_64-linux = "linux_x64";
@@ -47,25 +33,19 @@ in
       nodejs
     ];
 
-    # The Codeberg archive extracts to ./rygel.
+    # Codeberg archive root.
     sourceRoot = "rygel";
 
-    # The monorepo root has no CMakeLists.txt; koffi's own CNoke wrapper runs
-    # cmake against the src/koffi subtree in buildPhase. Disable the cmake
-    # setup hook's automatic configurePhase (cmake stays on PATH for CNoke).
+    # Let CNoke configure the koffi subproject.
     dontConfigure = true;
 
     buildPhase = ''
       runHook preBuild
 
-      # CNoke computes its cache directory from HOME in its constructor even
-      # when (as here, thanks to the vendored Node-API headers) nothing is
-      # ever cached there.
+      # Give CNoke a writable cache directory.
       export HOME=$TMPDIR
 
-      # -D selects the koffi subproject inside the monorepo. Output lands in
-      # bin/Koffi/<triplet>/koffi.node (via the cnoke.output template in
-      # src/koffi/package.json).
+      # Build the koffi subproject.
       node src/cnoke/cnoke.js build -D src/koffi --release
 
       runHook postBuild
@@ -84,9 +64,7 @@ in
     installCheckPhase = ''
       runHook preInstallCheck
 
-      # Load the freshly built addon under plain Node (Node-API, so no
-      # Electron needed) and verify it reports the pinned version — the npm
-      # koffi package refuses a version-mismatched native module at runtime.
+      # Verify the Node-API addon reports the pinned version.
       node -e '
         const koffi = require(process.argv[1]);
         if (koffi.version !== "${pins.version}") {

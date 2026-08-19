@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Refresh sources, lockfiles, pins and dependency hashes. Expects GITHUB_TOKEN in the environment.
+# Refresh package sources and dependency metadata using `GITHUB_TOKEN`.
 set -euo pipefail
 trap 'rm -f secrets.toml' EXIT
 
-# nothing-but-nix cleaves almost all disk into /nix and leaves / with ~1G, which the gomod2nix module downloads and crate2nix's cargo registry overflow unless their caches live on the big mount.
+# Keep Go and Cargo caches on the large Nix mount.
 export GOMODCACHE=/nix/var/tmp/gomodcache
 export CARGO_HOME=/nix/var/tmp/cargo
 sudo mkdir -p "${GOMODCACHE}" "${CARGO_HOME}"

@@ -5,8 +5,7 @@
 }:
 fishPlugins.buildFishPlugin {
   inherit (source) pname src;
-  # nvfetcher tracks the upstream HEAD commit; use the nixpkgs
-  # unstable-version convention (same as hfd).
+  # Version the tracked HEAD commit as unstable.
   version = "0-unstable-${source.date}";
 
   meta = {

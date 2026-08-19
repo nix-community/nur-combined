@@ -15,33 +15,23 @@
 
   cargoNixPath = ./Cargo.nix;
 
-  # Workspace members, derived from the generated Cargo.nix itself so this
-  # list tracks upstream automatically when the update script regenerates
-  # the file. This first import only reads the attribute names of
-  # workspaceMembers; evaluation is lazy, so no crate source is forced.
+  # Read workspace members lazily from the generated Cargo.nix.
   workspaceCrates = builtins.attrNames (import cargoNixPath {inherit pkgs;}).workspaceMembers;
 
-  # Most members live in crates/<crate name>; exceptions only:
+  # Workspace directory exceptions.
   memberDirs = {
-    # crates/autocli-cli contains the "autocli" binary crate.
+    # The `autocli` crate lives in autocli-cli.
     autocli = "crates/autocli-cli";
   };
 
-  # ./Cargo.nix (next to this file) is generated with `crate2nix generate`
-  # at the upstream source root by the update script
-  # (scripts/package-updates) and committed to this repository. Building it
-  # needs no crate2nix at evaluation or build time, only nixpkgs'
-  # buildRustCrate.
+  # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
   cargoNix = import cargoNixPath {
     inherit pkgs;
     defaultCrateOverrides =
       pkgs.defaultCrateOverrides
       // lib.genAttrs workspaceCrates (
         name: attrs: {
-          # Build every member from the full source tree (buildRustCrate
-          # cds into `workspace_member` during configure). The generated
-          # per-member ./crates/<dir> paths do not exist in this
-          # repository and are never forced once src is overridden here.
+          # Build each member from the fetched workspace root.
           src = source.src;
           workspace_member = memberDirs.${name} or "crates/${name}";
         }
@@ -51,20 +41,12 @@
   autocli = cargoNix.workspaceMembers.autocli.build;
 in
   autocli.overrideAttrs (old: {
-    # crate2nix names the derivation rust_autocli-<crate version>.
+    # Replace the crate2nix derivation name.
     name = "${pname}-${version}";
 
-    # buildRustCrate unconditionally splits crate artifacts into "out" and
-    # "lib" outputs. The "lib" artifacts and the installed binary end up
-    # embedding each other's store paths, which Nix rejects as an output
-    # reference cycle ("cycle detected ... in the references of output
-    # 'lib' from output 'out'"). autocli-cli is a bin-only crate and this
-    # is a leaf application package — nothing consumes the rlib — so
-    # collapse to a single output with a bins-only install phase.
+    # Collapse this bin-only leaf crate to one output to avoid a reference cycle.
     outputs = ["out"];
-    # outputDev must follow: buildRustCrate points it at the (now
-    # nonexistent) "lib" output, and stdenv's multiple-outputs hook
-    # expands the corresponding variables during fixup.
+    # Keep buildRustCrate's development output on the remaining output.
     outputDev = ["out"];
     installPhase = ''
       runHook preInstall

@@ -14,8 +14,7 @@ buildGoApplication rec {
 
   subPackages = ["cmd/server"];
 
-  # Top-level (not env.*) so gomod2nix's go-cache-env derivation builds
-  # its dependency cache with the same CGO setting as the main build.
+  # Share the CGO setting with gomod2nix's dependency cache.
   CGO_ENABLED = "1";
 
   ldflags = [

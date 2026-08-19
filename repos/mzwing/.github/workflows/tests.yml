@@ -29,26 +29,17 @@ jobs:
           cachix-pull: 'false'
           install-devenv: 'true'
 
-      # Read-only reader of the nix-ci- store cache family written by
-      # the daily update.yml run (the only writer — readers must never
-      # save: cache-nix-action skips the save on an exact primary-key
-      # hit, so the first writer's store would otherwise poison the
-      # family). Restores the most recent entry via the prefix.
+      # Restore the latest read-only update cache.
       - name: Restore Nix store
         uses: nix-community/cache-nix-action/restore@v7
         with:
           primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
           restore-prefixes-first-match: nix-ci-
 
-      # No --no-build: evaluating the packages requires realising the
-      # fetched package sources (gomod2nix applies builtins.path to the
-      # fetched src at evaluation time). Those source paths live in the
-      # warm nix-ci- store cache saved by the update runs, but on a cold
-      # cache --no-build turns their absence into an evaluation error.
-      # The flake has no checks output, so nothing else gets built.
+      # Allow source realization because gomod2nix evaluates fetched paths.
       - name: Check flake
         run: nix flake check --all-systems --no-write-lock-file --show-trace
 
-      # Nix formatting and types, actions, shell and Python — see the justfile for what each covers and why the exclusions exist.
+      # Run repository linters.
       - name: Lint
         run: just lint

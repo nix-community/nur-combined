@@ -41,17 +41,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         install-devenv: 'true'
 
-    # The nix-ci- store cache family has exactly ONE writer: this job.
-    # The readers (the config job of build.yml, tests.yml) restore with
-    # the nix-ci- prefix but never save — cache-nix-action skips the
-    # save on an exact primary-key hit, so whichever job saved first
-    # used to win, and its small store (no toolchain) poisoned the
-    # family. The key hashes the lock inputs. After a successful save,
-    # purge every older nix-ci- entry (0 seconds) while protecting the
-    # new primary key, so this multi-GiB family keeps exactly one entry.
-    # The action also removes stale root-owned store lock files
-    # (left behind by interrupted builds or substitutions of earlier
-    # runs; they break the unprivileged tar of the post-run store save).
+    # Sole writer for the lock-keyed update store cache; prune older entries and stale root locks.
     - name: Restore Nix store
       uses: mzwing/nix-actions/nix/restore-store@master
       with:
@@ -71,10 +61,7 @@ jobs:
     - name: Update devenv inputs
       run: devenv update
 
-    # Bumping nixpkgs invalidates every package derivation and forces a
-    # full fleet rebuild (hours), so flake inputs move weekly (Mondays UTC)
-    # and on manual dispatch. Daily runs only refresh nvfetcher package
-    # sources, which is incremental and cache-friendly.
+    # Update flake inputs weekly or manually to avoid daily full rebuilds.
     - name: Update flake inputs (weekly)
       run: |
         if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]] || \
@@ -85,21 +72,17 @@ jobs:
     - name: Update sources, lockfiles, pins and dependency hashes
       shell: bash
       env:
-        # Read-only API token for update-pins' GitHub Release queries;
-        # shared runner IPs hit the anonymous rate limit easily. The
-        # public API remains usable without a token for local runs.
+        # Avoid anonymous GitHub API limits on shared runners.
         GITHUB_TOKEN: ${{ github.token }}
       run: bash scripts/ci/update-packages.sh
 
-    # Restored cache entries carry no gcroots, so without this the save phase's store GC collects the toolchain and the daily ~500 MiB re-download never stops.
+    # Root update tools before store garbage collection.
     - name: Root the update toolchain for the store cache
       if: always()
       shell: bash
       run: bash scripts/ci/root-update-toolchain.sh
 
-    # Realise the devenv shell so its tools (typenix, actionlint, ruff,
-    # ...) ride along in the saved store for the tests job. devenv
-    # registers its own gcroots for the shell, so the GC below keeps it.
+    # Cache the rooted devenv toolchain for tests.
     - name: Warm the devenv shell into the store cache
       if: always()
       run: devenv shell -- true
@@ -112,25 +95,14 @@ jobs:
         trigger-workflow: build.yml
         github-token: ${{ github.token }}
 
-    # Prune the store deterministically before the post-run save — the
-    # same treatment as the builder store cache in build.yml: keep the
-    # build closure of the current lock (drvs, fetched sources, and any
-    # outputs present, which is what the evaluating readers need) plus
-    # everything rooted above (the update toolchain, the devenv shell),
-    # and collect the rest. Without this the entry grows until
-    # cache-nix-action's size cap triggers a `nix store gc --max`, which
-    # evicts arbitrary unrooted paths. Runs after the commit so a GC
-    # failure can never block publishing the updates.
+    # Keep the current build closure and rooted tools before saving the store cache.
     - name: Garbage-collect stale store paths
       if: always()
       uses: mzwing/nix-actions/nix/gc-store@master
       with:
         gcroots-name: nur-ci-update-closure
 
-    # actions/cache has no built-in purge, so prune old nvfetcher
-    # databases manually: keep only the newest entry (the one the
-    # restore step above picked); the post-job save then adds the new
-    # one, leaving at most two nvfetcher caches around.
+    # Keep the newest existing nvfetcher cache before the post-job save.
     - name: Purge old nvfetcher caches
       if: always()
       env:

@@ -18,9 +18,7 @@ in {
   update-sources = {
     type = "app";
     program = "${script}/bin/update-sources";
-    # Flake inputs (nixpkgs) are deliberately NOT updated here: bumping
-    # nixpkgs invalidates every derivation and forces a full rebuild, so
-    # the update workflow does it on a weekly cadence instead.
+    # Leave flake input updates to the weekly workflow.
     meta.description = "Update nvfetcher package sources";
   };
 }

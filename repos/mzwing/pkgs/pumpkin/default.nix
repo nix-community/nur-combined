@@ -7,30 +7,15 @@
   inherit (source) pname src;
   version = "0-unstable-${source.date}";
 
-  # Workspace members, derived from the generated Cargo.nix itself so this
-  # list tracks upstream automatically when the update script regenerates
-  # the file. This first import only reads the attribute names of
-  # workspaceMembers; evaluation is lazy, so no crate source (and in
-  # particular none of the ./crates/<name> path thunks, which do not exist
-  # in this repository) is forced.
+  # Read workspace members lazily from the generated Cargo.nix.
   workspaceCrates =
     builtins.attrNames (import ./Cargo.nix {inherit pkgs;}).workspaceMembers;
 
-  # ./Cargo.nix (next to this file) is generated with `crate2nix generate`
-  # at the upstream source root by the update script
-  # (scripts/package-updates) and committed to this repository. Building it
-  # needs no crate2nix at evaluation or build time, only nixpkgs'
-  # buildRustCrate.
+  # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
   crateOverrides =
     pkgs.defaultCrateOverrides
     // lib.genAttrs workspaceCrates (name: attrs: {
-      # The generated file points each member's src at ./crates/<name>
-      # relative to the committed Cargo.nix, which does not exist in this
-      # repository. Those path thunks are never forced once src is
-      # overridden here. Every member builds from the full source tree
-      # (buildRustCrate cds into `workspace_member` during configure),
-      # which also makes pumpkin-plugin-api's compile-time include of
-      # ../pumpkin-plugin-wit/v0.1 (a git submodule) work.
+      # Build each member from the fetched workspace, including the plugin WIT submodule.
       src = source.src;
       workspace_member = "crates/${name}";
       nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [rustfmt];
@@ -38,9 +23,7 @@
 
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
-    # nixpkgs' buildRustCrate defaults to -C codegen-units=1 (crate2nix
-    # does not propagate the workspace profile); 16 units matches Cargo's
-    # own release default and roughly halves this graph's compile time.
+    # Match Cargo's 16 release codegen units for faster builds.
     buildRustCrateForPkgs = pkgs: pkgs.buildRustCrate.override {defaultCodegenUnits = 16;};
     defaultCrateOverrides = crateOverrides;
   };
@@ -48,7 +31,7 @@
   pumpkin = cargoNix.workspaceMembers.pumpkin.build;
 in
   pumpkin.overrideAttrs (old: {
-    # crate2nix names the derivation rust_pumpkin-<crate version>.
+    # Replace the crate2nix derivation name.
     name = "${pname}-${version}";
 
     postInstall = ''

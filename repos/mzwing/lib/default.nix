@@ -1,6 +1,6 @@
 {pkgs}:
 with pkgs.lib; {
-  # Add your library functions here
+  # Library function example:
   #
   # hexint = x: hexvals.${toLower x};
 }

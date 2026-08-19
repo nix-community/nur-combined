@@ -1,5 +1,5 @@
 {
-  # Add your overlays here
+  # Overlay example:
   #
   # my-overlay = import ./my-overlay;
 }

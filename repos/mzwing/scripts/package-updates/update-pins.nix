@@ -10,20 +10,8 @@
       pkgs.nix
     ];
     text = ''
-      # Generic package pin runner. A "pin" is data whose URL and hash
-      # must change together (unlike the static-URL vendored hashes
-      # handled by update-hashes/nix-update). Packages that have such
-      # data expose an executable as passthru.pinUpdater; this runner
-      # discovers them in the current system's flake package set, builds
-      # the updaters and runs them from the repository root. Each updater
-      # owns exactly the pin files in its own package directory; this
-      # script contains no package-specific logic.
-      #
-      # Discovery uses legacyPackages (the unfiltered package set), not
-      # packages: the latter drops platform-restricted packages on other
-      # systems (e.g. the Linux-only wsrx-desktop on darwin), while pin
-      # updaters themselves are platform-independent scripts.
-      #
+      # Run package-provided updaters for coupled URL and hash pins from the unfiltered package set.
+
       # Usage:
       #   nix run .#update-pins                 # run every pin updater
       #   nix run .#update-pins -- <name> ...   # run only these, with
@@ -33,11 +21,7 @@
         exit 1
       fi
 
-      # Dynamic lookup via --apply/getAttr: Nix's flake-fragment parser
-      # cannot address attribute names that are not plain identifiers
-      # (e.g. icalingua++), while builtins.getAttr handles any string.
-      # Not a process substitution: a failed nix eval must abort the run
-      # (set -e), not masquerade as "no updaters found".
+      # Use getAttr for non-identifier package names and preserve evaluation failures.
       names_json=$(
         nix eval --json ".#legacyPackages.${system}" --apply '
           pkgs: builtins.filter
@@ -54,10 +38,7 @@
 
       selected=()
       if [[ ''${#forced[@]} -gt 0 ]]; then
-        # Explicitly named packages run with --force (the escape hatch
-        # for upstream asset drift or fetcher behavior changes). A name
-        # that matches no pinUpdater is almost certainly a typo; fail
-        # instead of silently doing nothing.
+        # Force named packages and reject unknown names.
         bad=0
         for arg in "$@"; do
           found=0
@@ -88,15 +69,13 @@
 
       for name in "''${selected[@]}"; do
         echo "Updating pins for $name"
-        # --impure --expr with builtins.getFlake (same pattern as
-        # update-lockfiles): nix build has no --apply flag, and flake
-        # fragments cannot express names like icalingua++.
+        # Use getFlake/getAttr because nix build lacks `--apply`.
         updater=$(
           nix build --no-link --print-out-paths --impure --expr "
             (builtins.getAttr \"$name\"
               (builtins.getFlake (toString ./.)).legacyPackages.${system}).pinUpdater"
         )
-        # writeShellApplication installs a single executable under bin/.
+        # Run the updater's sole executable.
         bin=$(find "$updater/bin" -maxdepth 1 \( -type f -o -type l \) | head -n 1)
         if [[ ''${#forced[@]} -gt 0 ]]; then
           "$bin" --force

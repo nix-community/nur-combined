@@ -6,22 +6,15 @@
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  # ./Cargo.nix (next to this file) is generated with `crate2nix generate`
-  # at the upstream source root by the update script
-  # (scripts/package-updates) and committed to this repository. Building it
-  # needs no crate2nix at evaluation or build time, only nixpkgs'
-  # buildRustCrate.
+  # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
     defaultCrateOverrides =
       pkgs.defaultCrateOverrides
       // {
-        # The crate name is haru-cat; the binary it installs is haru.
+        # The `haru-cat` crate installs `haru`.
         haru-cat = attrs: {
-          # The generated file points src at ./. relative to the committed
-          # Cargo.nix, which is not the crate source; that path thunk is
-          # never forced once src is overridden here. Single-crate project:
-          # the crate root is the source root, so no workspace_member.
+          # Build the single crate from the fetched source root.
           src = source.src;
         };
       };
@@ -30,7 +23,7 @@
   haru = cargoNix.rootCrate.build;
 in
   haru.overrideAttrs (old: {
-    # crate2nix names the derivation rust_haru-cat-<crate version>.
+    # Replace the crate2nix derivation name.
     name = "${pname}-${version}";
 
     postInstall = ''

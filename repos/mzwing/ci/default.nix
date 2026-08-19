@@ -1,19 +1,4 @@
-# This file provides all the buildable and cacheable packages and
-# package outputs in your package set. These are what gets built by CI,
-# so if you correctly mark packages as
-#
-# - broken (using `meta.broken`),
-# - unfree (using `meta.license.free`), and
-# - locally built (using `preferLocalBuild`)
-#
-# then your CI will be able to build and cache only those packages for
-# which this is possible.
-#
-# Dependency build caches are ordinary Nix outputs: Rust packages use
-# crate2nix (one derivation per dependency crate) and Go packages use
-# gomod2nix (pre-compiled dependencies in go-cache-env). CI persists those
-# private intermediates in its sparse Attic builder cache while public
-# dependencies remain references to upstream binary caches.
+# Select buildable outputs and cacheable dependency artifacts for CI.
 {pkgs ? import <nixpkgs> {}}:
 with builtins; let
   reservedNames = [

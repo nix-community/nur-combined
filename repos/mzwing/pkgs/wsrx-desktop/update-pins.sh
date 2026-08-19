@@ -1,13 +1,6 @@
-# wsrx-desktop pin updater (exposed as passthru.pinUpdater, driven by the
-# generic `nix run .#update-pins` runner). Regenerates pins.json — the
-# rust-skia prebuilt asset pin — from the committed, crate2nix-generated
-# Cargo.nix. Must run from the repository root; only ever writes
-# pkgs/wsrx-desktop/pins.json. `--force` re-prefetches the assets even
-# when the pin identity is unchanged (upstream asset drift, fetcher
-# behavior changes).
+# Update Skia asset pins from Cargo.nix; `--force` refreshes unchanged assets.
 
-# PIN_UTILS is injected by the Nix wrapper (runtimeEnv); it points at
-# scripts/package-updates/lib/pin-utils.sh.
+# Shared helpers injected by the Nix wrapper.
 # shellcheck source=/dev/null
 source "$PIN_UTILS"
 
@@ -28,11 +21,7 @@ version=$(pin_crate_version "$cargo_nix" skia-bindings)
 features=$(pin_crate_resolved_features "$cargo_nix" skia-bindings)
 echo "skia-bindings $version, resolved features: $features"
 
-# rust-skia release asset feature keys, in the fixed order upstream uses
-# in its binary file names. A resolved feature that is not in this table
-# must be added to ignored_features below after checking upstream naming —
-# never guessed, because a wrong key silently produces a 404 or, worse, a
-# valid URL to the wrong binaries.
+# Map resolved features to rust-skia asset keys in upstream order.
 declare -A feature_keys=(
   [gl]=gl
   [jpeg-decode]=jpegd
@@ -46,9 +35,7 @@ declare -A feature_keys=(
 )
 key_order=(gl jpeg-decode jpeg-encode pdf svg textlayout vulkan webp-decode webp-encode)
 
-# Resolved features that never appear in Linux asset keys: build-time
-# behavior (binary-cache, embed-icudtl), pure aliases (jpeg = jpeg-encode
-# + jpeg-decode, webp likewise) and non-Linux GPU backends (d3d, metal).
+# Features excluded from Linux asset names.
 ignored_features=(binary-cache embed-icudtl jpeg webp d3d metal)
 
 declare -A unhandled=()
@@ -82,9 +69,7 @@ feature_key=$(
 
 assets=$(pin_gh_release_assets rust-skia/skia-binaries "$version")
 
-# Each architecture must yield exactly one asset, and the Skia commit
-# embedded in both file names must agree (a release mixing commits would
-# mean the two tarballs are not the same Skia build).
+# Require one asset per architecture from the same Skia commit.
 declare -A asset_url=()
 declare -A commits=()
 for target in x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu; do
@@ -101,8 +86,7 @@ if ((${#commits[@]} != 1)); then
 fi
 commit=${!commits[*]}
 
-# Identity check: skip the (expensive) prefetch when the pin already
-# describes exactly these assets, unless a refresh was forced.
+# Skip unchanged pins unless forced.
 if [[ -f $pins_file ]]; then
   cur_version=$(jq -r '.skia.version // empty' "$pins_file")
   cur_commit=$(jq -r '.skia.commit // empty' "$pins_file")

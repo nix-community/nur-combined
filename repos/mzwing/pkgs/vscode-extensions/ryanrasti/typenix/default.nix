@@ -13,7 +13,7 @@ vscode-utils.buildVscodeExtension {
   vscodeExtName = "typenix";
   vscodeExtUniqueId = "ryanrasti.typenix";
 
-  # Not published on the Marketplace; disable the default marketplace updateScript
+  # Disable marketplace updates for this unpublished extension.
   passthru.updateScript = null;
 
   meta = {

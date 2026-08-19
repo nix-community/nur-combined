@@ -179,9 +179,7 @@ def write_outputs(
         raise
 
     try:
-        # Commit bookkeeping first. If replacing the runtime config then fails,
-        # the old config remains valid and the next invocation can safely retry
-        # with the new path set.
+        # Save managed paths first so a config write failure can be retried safely.
         replace_if_changed(state_temp, state_path)
         replace_if_changed(config_temp, config_path)
     finally:

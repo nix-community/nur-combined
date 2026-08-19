@@ -1,14 +1,6 @@
-# bakamusic pin updater (exposed as passthru.pinUpdater, driven by the
-# generic `nix run .#update-pins` runner). Regenerates pins.json — the
-# LibreMPEG source pin and the koffi (rygel monorepo) source pin — from the
-# upstream BakaMusic tag recorded in _sources/generated.json by nvfetcher.
-# Must run from the repository root; only ever writes
-# pkgs/bakamusic/pins.json. `--force` re-prefetches the sources even when
-# the pin identity is unchanged (upstream tag drift, fetcher behavior
-# changes).
-#
-# PIN_UTILS is injected by the Nix wrapper (runtimeEnv); it points at
-# scripts/package-updates/lib/pin-utils.sh.
+# Update LibreMPEG and koffi pins from the nvfetcher BakaMusic tag; `--force` refreshes unchanged sources.
+
+# Shared helpers injected by the Nix wrapper.
 # shellcheck source=/dev/null
 source "$PIN_UTILS"
 
@@ -32,13 +24,7 @@ if [[ ! $tag =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
 fi
 echo "bakamusic upstream tag: $tag"
 
-# --- LibreMPEG: scripts/media-runtime-manifest.json at the tag ---
-#
-# BakaMusic's libmpv runtime requires the AC-4 decoder, which only exists
-# in the LibreMPEG fork of FFmpeg. mpv and libplacebo themselves are NOT
-# pinned here: they are reused from nixpkgs. The manifest's
-# version/engine/mediaBackend/decoders metadata is kept in pins.json so an
-# upstream backend change shows up in the pins diff.
+# Read the LibreMPEG pin and runtime metadata from the tagged manifest.
 
 manifest_url="https://raw.githubusercontent.com/Zencok/BakaMusic/${tag}/scripts/media-runtime-manifest.json"
 if ! manifest=$(curl -fsSL --retry 3 "$manifest_url"); then
@@ -69,11 +55,7 @@ if [[ ! $librempeg_commit =~ ^[0-9a-f]{40}$ ]]; then
   exit 1
 fi
 
-# --- koffi: package-lock.json at the tag, mapped to a rygel monorepo tag ---
-#
-# koffi's source lives in the Koromix/rygel monorepo on Codeberg, tagged
-# `koffi/<npm version>`. If the mapping cannot be resolved reliably, fail
-# loudly and ask for a manual pin instead of guessing a commit.
+# Map the tagged npm koffi version to its rygel source tag.
 
 lock_url="https://raw.githubusercontent.com/Zencok/BakaMusic/${tag}/package-lock.json"
 if ! lockfile=$(curl -fsSL --retry 3 "$lock_url"); then
@@ -100,7 +82,7 @@ if [[ ! $koffi_commit =~ ^[0-9a-f]{40}$ ]]; then
   exit 1
 fi
 
-# Sanity: the tagged tree must actually be koffi at the lockfile's version.
+# Verify the source tag matches the lockfile version.
 koffi_pkg_url="https://codeberg.org/Koromix/rygel/raw/tag/${koffi_ref_encoded}/src/koffi/package.json"
 koffi_pkg_version=$(curl -fsSL --retry 3 "$koffi_pkg_url" | jq -r '.version // empty')
 if [[ $koffi_pkg_version != "$koffi_version" ]]; then
@@ -108,8 +90,7 @@ if [[ $koffi_pkg_version != "$koffi_version" ]]; then
   exit 1
 fi
 
-# --- Identity check: skip the prefetches when the pins already describe
-# exactly these sources, unless a refresh was forced. ---
+# Skip unchanged pins unless forced.
 
 if [[ -f $pins_file && $force -eq 0 ]]; then
   cur_mpv_version=$(jq -r '.mpvRuntime.version // empty' "$pins_file")

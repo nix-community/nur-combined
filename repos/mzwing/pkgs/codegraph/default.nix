@@ -10,12 +10,7 @@
   inherit (source) src;
   version = lib.removePrefix "v" source.version;
 
-  # The native tree-sitter extraction kernel (a napi cdylib), built with
-  # crate2nix from ./Cargo.nix next to this file. The Cargo.nix is
-  # generated with `crate2nix generate -f codegraph-kernel/Cargo.toml` at
-  # the upstream source root by the update script (scripts/package-updates)
-  # and committed to this repository; building it needs no crate2nix, only
-  # nixpkgs' buildRustCrate.
+  # Build the native tree-sitter kernel from the committed crate2nix graph.
   kernel = let
     cargoNix = import ./Cargo.nix {
       inherit pkgs;
@@ -23,10 +18,7 @@
         pkgs.defaultCrateOverrides
         // {
           codegraph-kernel = attrs: {
-            # The generated file points src at ./codegraph-kernel relative to
-            # the committed Cargo.nix, which does not exist in this
-            # repository; that path thunk is never forced once src is
-            # overridden here.
+            # Build the kernel from its fetched source subdirectory.
             src = source.src + "/codegraph-kernel";
           };
         };
@@ -35,9 +27,7 @@
     cargoNix.rootCrate.build.overrideAttrs (old: {
       name = "codegraph-kernel-${version}";
 
-      # Ship the cdylib as a Node native module. Runs at the end of
-      # buildRustCrate's own installPhase, which installs shared libraries
-      # into the "lib" output first.
+      # Install the built cdylib as a Node native module.
       postInstall = ''
         install -Dm755 \
           "$lib/lib/libcodegraph_kernel${stdenv.hostPlatform.extensions.sharedLibrary}" \

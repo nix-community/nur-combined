@@ -1,16 +1,4 @@
-# LibreMPEG (an FFmpeg fork) built from source at the commit pinned by the
-# upstream BakaMusic media-runtime manifest
-# (scripts/media-runtime-manifest.json -> mpv.sourceCommits.librempeg, kept
-# in ./pins.json by ./update-pins.sh). BakaMusic's libmpv runtime requires
-# the AC-4 decoder, which only exists in this fork — FFmpeg proper has no
-# ac4dec.c.
-#
-# The configure flags mirror upstream's runtime build (Zencok/
-# mpv-libre-runtime, build/unix/build.sh) with one deliberate difference:
-# shared libraries instead of static. Upstream links statically to make a
-# self-contained redistribution tarball; under Nix the consumers' rpath
-# holds absolute store paths, so static linking buys nothing and only
-# complicates the mpv meson link.
+# Build pinned LibreMPEG with its AC-4 decoder and shared libraries for BakaMusic's libmpv runtime.
 {
   lib,
   stdenv,
@@ -33,30 +21,27 @@ in
       [pkg-config]
       ++ lib.optionals stdenv.hostPlatform.isx86 [nasm];
 
-    # The FFmpeg-family configure script is not autoconf: no --build/--host
-    # platforms and no output flag splitting.
+    # Disable autoconf platform and output flag handling.
     configurePlatforms = [];
     setOutputFlags = false;
 
     configureFlags = [
       "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
       "--target_os=${stdenv.hostPlatform.parsed.kernel.name}"
-      # Licensing flags (upstream uses --enable-agpl for the AC-4 decoder)
+      # AC-4 licensing.
       "--enable-gpl"
       "--enable-version3"
       "--enable-agpl"
-      # Build flags
+      # Shared library build.
       "--enable-pic"
       "--enable-shared"
       "--disable-static"
       "--enable-runtime-cpudetect"
-      # No external libraries: the codec box is entirely internal
+      # Internal codecs only.
       "--disable-autodetect"
       "--disable-debug"
       "--disable-doc"
-      # Programs: ffprobe only exists for the installCheck AC-4 probe;
-      # neither program is shipped in the final package (mirrors upstream,
-      # which prunes them from the installed runtime).
+      # Build ffprobe only for the AC-4 check.
       "--enable-ffmpeg"
       "--enable-ffprobe"
       "--disable-ffplay"
@@ -64,16 +49,13 @@ in
       "--disable-manpages"
       "--disable-podpages"
       "--disable-txtpages"
-      # Give the installed programs an rpath to $out/lib so the
-      # installCheck probe runs without LD_LIBRARY_PATH.
+      # Make the installed probe find its libraries.
       "--enable-rpath"
     ];
 
     enableParallelBuilding = true;
 
-    # Keep the license texts with the library so consumers (bakamusic's
-    # bundled runtime) can ship them next to libmpv without re-fetching the
-    # tarball (src is a fetchurl archive, not an unpacked directory).
+    # Install licenses for bundled runtime consumers.
     postInstall = ''
       mkdir -p $out/share/licenses/librempeg
       cp COPYING.AGPLv3 COPYING.GPLv3 LICENSE.md $out/share/licenses/librempeg/
@@ -83,7 +65,7 @@ in
     installCheckPhase = ''
       runHook preInstallCheck
 
-      # The whole point of the fork: the AC-4 decoder must be present.
+      # Verify AC-4 support.
       $out/bin/ffprobe -hide_banner -decoders | grep -w ac4
 
       runHook postInstallCheck

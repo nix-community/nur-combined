@@ -1,16 +1,6 @@
-# Shared helpers for package pin updaters (the executables packages expose
-# as passthru.pinUpdater, driven by scripts/package-updates/update-pins.nix).
-#
-# This file is meant to be SOURCED, not executed. Callers must provide
-# bash plus curl, jq, nix and grep/sed/coreutils in PATH. Every helper
-# fails loudly on missing input, ambiguous matches and empty results; a
-# pin is never silently kept when its inputs cannot be verified.
+# Strict shared helpers sourced by package pin updaters.
 
-# Print the crate2nix definition block of crate $2 in the generated
-# Cargo.nix $1, from its `"<crate>" = rec {` line up to and including the
-# resolvedDefaultFeatures line (the last attribute crate2nix emits per
-# crate). Fails when the crate is absent or defined more than once
-# (multiple versions — the caller must then disambiguate first).
+# Print one crate2nix crate block through `resolvedDefaultFeatures`.
 _pin_crate_block() {
   local cargo_nix=$1 crate=$2
   awk -v crate="$crate" '
@@ -55,8 +45,7 @@ pin_crate_version() {
   printf '%s\n' "$version"
 }
 
-# pin_crate_resolved_features <Cargo.nix> <crate>
-# -> space-separated resolvedDefaultFeatures on stdout (may be empty)
+# pin_crate_resolved_features <Cargo.nix> <crate> -> space-separated features
 pin_crate_resolved_features() {
   _pin_crate_block "$1" "$2" |
     sed -n 's/^[[:space:]]*resolvedDefaultFeatures = \[\(.*\)\];$/\1/p' |
@@ -64,10 +53,7 @@ pin_crate_resolved_features() {
     tr -s ' '
 }
 
-# pin_gh_release_assets <owner/repo> <tag>
-# -> "name<TAB>browser_download_url" lines for every asset of the release
-# Uses GITHUB_TOKEN/GH_TOKEN when set (shared CI runners easily hit the
-# anonymous API rate limit); the public API works without a token.
+# pin_gh_release_assets <owner/repo> <tag> -> tab-separated release assets
 pin_gh_release_assets() {
   local repo=$1 tag=$2
   local -a headers=(-H "Accept: application/vnd.github+json")
@@ -93,9 +79,7 @@ pin_gh_release_assets() {
   printf '%s\n' "$assets"
 }
 
-# pin_match_asset <extended-regex>  (asset "name<TAB>url" lines on stdin)
-# -> the single matching line on stdout; fails unless exactly one asset
-# matches. Anchor the pattern with \t ($'\t') to match the name field only.
+# pin_match_asset <regex> -> exactly one matching asset line
 pin_match_asset() {
   local pattern=$1 matches count
   matches=$(grep -E "$pattern" || true)
@@ -123,10 +107,7 @@ pin_prefetch_sri() {
   printf '%s\n' "$hash"
 }
 
-# pin_write_json <path> <json>
-# Stable-format the JSON (sorted keys, canonical indentation) and
-# atomically replace <path> only when the content actually changed, so a
-# no-op run touches neither the file's mtime nor the worktree.
+# pin_write_json <path> <json> -> atomically write canonical changed JSON
 pin_write_json() {
   local path=$1 json=$2 new tmp
   if ! new=$(jq -S . <<<"$json"); then

@@ -11,8 +11,7 @@ buildGoApplication rec {
 
   subPackages = ["cmd/gryph"];
 
-  # Top-level (not env.*) so gomod2nix's go-cache-env derivation builds
-  # its dependency cache with the same CGO setting as the main build.
+  # Share the CGO setting with gomod2nix's dependency cache.
   CGO_ENABLED = "0";
 
   ldflags = [
@@ -27,9 +26,7 @@ buildGoApplication rec {
   postInstall = ''
     install -Dm644 LICENSE README.md -t $out/share/doc/gryph
 
-    # Agent plugin sources with the __GRYPH_COMMAND__ placeholder left intact,
-    # for consumers (e.g. the gryph Home Manager module) that install hooks
-    # declaratively instead of running `gryph install`.
+    # Install agent plugins with the command placeholder intact.
     install -Dm644 \
       agent/opencode/plugin.js \
       agent/piagent/plugin.ts \

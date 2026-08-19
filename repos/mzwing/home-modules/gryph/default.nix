@@ -15,12 +15,9 @@
     };
   };
 
-  # Hook definitions aligned with upstream GenerateHooksConfig per agent.
-  # The module intentionally does not validate gryph's own config keys, but
-  # the hook payloads below must mirror what `gryph install` writes so that
-  # `gryph status` recognizes the installation.
+  # Match the hook payloads written by `gryph install`.
 
-  # claude-code: merged into ~/.claude/settings.json ("hooks" key)
+  # Claude Code settings hooks.
   claudeCodeHookTypes = [
     "PreToolUse"
     "PostToolUse"
@@ -33,7 +30,7 @@
   ];
   claudeCodeMatcherTypes = ["PreToolUse" "PostToolUse" "PostToolUseFailure"];
 
-  # gemini: merged into ~/.gemini/settings.json ("hooks" key)
+  # Gemini settings hooks.
   geminiHookTypes = [
     "BeforeTool"
     "AfterTool"
@@ -43,7 +40,7 @@
   ];
   geminiMatcherTypes = ["BeforeTool" "AfterTool"];
 
-  # codex: standalone ~/.codex/hooks.json
+  # Codex hooks file.
   codexHookTypes = [
     "SessionStart"
     "PreToolUse"
@@ -53,7 +50,7 @@
   ];
   codexMatcherTypes = ["PreToolUse" "PostToolUse"];
 
-  # cursor: standalone ~/.cursor/hooks.json (version 1)
+  # Cursor hooks file.
   cursorHookTypes = [
     "preToolUse"
     "beforeShellExecution"
@@ -77,7 +74,7 @@
     "preCompact"
   ];
 
-  # windsurf: standalone ~/.codeium/windsurf/hooks.json
+  # Windsurf hooks file.
   windsurfHookTypes = [
     "pre_read_code"
     "post_read_code"
@@ -94,7 +91,7 @@
 
   hookCommand = agent: hookType: "${cfg.hookCommand} _hook ${agent} ${hookType}";
 
-  # Claude Code / Gemini style: { <hookType> = [ { matcher?; hooks = [ { type; command; } ]; } ]; }
+  # Claude Code and Gemini hook shape.
   mkSettingsHooks = {
     agent,
     hookTypes,
@@ -180,10 +177,7 @@
     };
   };
 
-  # Convergent merge/prune of gryph hooks into agent-owned config files.
-  # Enabled integrations ensure their hooks are present; disabled ones have
-  # their previously-installed gryph hooks removed again. Kept as a
-  # standalone file so it can be linted and exercised directly.
+  # Merge enabled hooks and prune disabled hooks without touching user settings.
   activationScript = ./gryph-home-integrations.py;
 in {
   options.programs.gryph = {

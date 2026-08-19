@@ -15,8 +15,7 @@
 }:
 stdenvNoCC.mkDerivation {
   inherit (source) pname src;
-  # fetchgit leaves no .git metadata, so the AUR-style r<count>.<rev>
-  # version cannot be reproduced; use the nixpkgs convention instead.
+  # Use an unstable version because fetchgit omits revision metadata.
   version = "0-unstable-${source.date}";
 
   nativeBuildInputs = [makeWrapper];
@@ -29,11 +28,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  # The script relies on GNU extensions (find -printf, stat -c%s, sed -i),
-  # so the wrapped PATH must provide the GNU toolset for it to work on
-  # Darwin. aria2 (default) and wget (fallback) are both included: the
-  # script picks one via --tool. Intentionally no git/git-lfs (which the
-  # AUR package still depends on): the current script never invokes them.
+  # Provide GNU tools plus the aria2 and wget download backends on every platform.
   postFixup = ''
     wrapProgram $out/bin/hfd \
       --prefix PATH : ${
@@ -55,7 +50,7 @@ stdenvNoCC.mkDerivation {
   installCheckPhase = ''
     runHook preInstallCheck
 
-    # hfd --help always exits 1; check its output instead.
+    # `hfd --help` exits 1, so inspect its output.
     help_output="$($out/bin/hfd --help 2>&1 || :)"
     grep -F 'hfd <REPO_ID>' <<<"$help_output"
 
@@ -65,8 +60,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "CLI tool for downloading Hugging Face models and datasets with aria2/wget";
     homepage = "https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f";
-    # The upstream gist carries no license file (the AUR package also
-    # marks it as "unknown"), so meta.license is left unset.
+    # Upstream provides no license file.
     mainProgram = "hfd";
     maintainers = [
       {

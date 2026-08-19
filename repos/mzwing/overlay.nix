@@ -1,6 +1,4 @@
-# You can use this file as a nixpkgs overlay. This is useful in the
-# case where you don't want to add the whole NUR namespace to your
-# configuration.
+# Expose repository packages without the full NUR namespace.
 self: super: let
   isReserved = n: n == "lib" || n == "overlays" || n == "nixosModules" || n == "homeModules" || n == "darwinModules" || n == "flakeModules";
   nameValuePair = n: v: {

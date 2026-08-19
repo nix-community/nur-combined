@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Work out which realised outputs go to Cachix, and which derivations reconciliation should treat as this run's active set.
-# Only 'out' outputs are published: auxiliary outputs like crate2nix's '-lib' reference the whole crate graph through nix-support/propagated-build-inputs, so `cachix push` would upload that entire build-time closure as "runtime dependencies".
+# Publish realized `out` outputs only; auxiliary crate outputs retain the full build graph.
 set -euo pipefail
 
 jq -r '.[].drvPath' <<<"${TARGETS}" | sort --unique >/tmp/active-drvs.txt

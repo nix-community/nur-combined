@@ -9,21 +9,14 @@
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  # ./Cargo.nix (next to this file) is generated with `crate2nix generate`
-  # at the upstream source root by the update script
-  # (scripts/package-updates) and committed to this repository. Building it
-  # needs no crate2nix at evaluation or build time, only nixpkgs'
-  # buildRustCrate.
+  # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
     defaultCrateOverrides =
       pkgs.defaultCrateOverrides
       // {
         ace-ctx = attrs: {
-          # The generated file points src at ./. relative to the committed
-          # Cargo.nix, which is not the crate source; that path thunk is
-          # never forced once src is overridden here. Single-crate project:
-          # the crate root is the source root, so no workspace_member.
+          # Build the single crate from the fetched source root.
           src = source.src;
         };
       };
@@ -32,7 +25,7 @@
   ace-ctx = cargoNix.rootCrate.build;
 in
   ace-ctx.overrideAttrs (old: {
-    # crate2nix names the derivation rust_ace-ctx-<crate version>.
+    # Replace the crate2nix derivation name.
     name = "${pname}-${version}";
 
     nativeBuildInputs =

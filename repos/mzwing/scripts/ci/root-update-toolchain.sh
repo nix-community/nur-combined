@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Root the update apps so the post-run store GC keeps them; restored cache entries carry no gcroots of their own.
+# Root update apps before post-run garbage collection.
 set -euo pipefail
 
 gcroots=/nix/var/nix/gcroots/nur-ci-update

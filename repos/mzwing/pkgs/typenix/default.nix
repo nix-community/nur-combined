@@ -10,9 +10,7 @@ buildGoApplication {
 
   modules = ./gomod2nix.toml;
 
-  # CGO is needed for tree-sitter-nix. Top-level (not env.*) so gomod2nix's
-  # go-cache-env derivation builds its dependency cache with the same CGO
-  # setting as the main build.
+  # Enable CGO for tree-sitter and gomod2nix's dependency cache.
   CGO_ENABLED = "1";
 
   subPackages = ["cmd/tsgo"];
@@ -22,7 +20,7 @@ buildGoApplication {
     "-w"
   ];
 
-  # Point upstream symlink at tree-sitter-nix source
+  # Use the packaged tree-sitter-nix source.
   preBuild = ''
     ln -sfn ${tree-sitter-nix.src}/src internal/nixparser/treesitter_nix/upstream
   '';

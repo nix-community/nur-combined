@@ -1,5 +1,4 @@
-# Systems supported by this repository's packages and CI builders.
-# Shared by flake.nix (per-system outputs) and ci/targets.nix (CI matrix).
+# Package and CI systems.
 [
   "x86_64-linux"
   "aarch64-linux"

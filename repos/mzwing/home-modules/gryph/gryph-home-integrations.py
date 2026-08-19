@@ -55,9 +55,7 @@ def merge_settings(home, name, agent, prefix):
                 f"that module's settings instead, or set "
                 f'programs.gryph.enableIntegration."{name}" = false.',
             )
-        # Another Home Manager module owns the file. Any gryph hooks in it
-        # were injected there by the user (via programs.gryph.hooks), so
-        # there is nothing for a disabled integration to prune.
+        # Another Home Manager module owns this file.
         return
 
     data = {}
@@ -75,8 +73,7 @@ def merge_settings(home, name, agent, prefix):
     if not isinstance(existing, dict):
         die(f'{path}: "hooks" is not an object; refusing to modify it.')
 
-    # Drop every previously installed gryph hook (identified by the command
-    # prefix); user hooks and matchers are preserved as-is.
+    # Remove gryph hooks while preserving user hooks and matchers.
     cleaned = {}
     for hook_type, matchers in existing.items():
         if not isinstance(matchers, list):
@@ -134,7 +131,7 @@ def sync_codex_flag(home, codex):
                 "Set programs.gryph.enableIntegration.codex = false and manage "
                 "codex_hooks in that module's own configuration.",
             )
-        # See merge_settings for why a disabled integration skips this.
+        # Another Home Manager module owns this file.
         return
 
     if not path.exists():

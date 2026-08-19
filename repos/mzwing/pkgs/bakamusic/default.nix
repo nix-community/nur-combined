@@ -1,28 +1,4 @@
-# BakaMusic — a plugin-based, customizable, ad-free music player
-# (Electron 43 app).
-#
-# Packaging principles (see the repository rules):
-#   - Electron, libmpv (and its whole dependency tree: libplacebo, lua,
-#     libass, ...) and libvips are reused from nixpkgs.
-#   - LibreMPEG (./librempeg.nix) and koffi (./koffi.nix) are built from
-#     source — the former because the app's AC-4 decoder only exists in
-#     that FFmpeg fork, the latter because nixpkgs has no koffi package
-#     and upstream only ships prebuilt binaries.
-#   - sharp is rebuilt from source against nixpkgs libvips via sharp's
-#     official global-libvips build path.
-#   - get-windows is pure JavaScript on Linux (it shells out to xprop and
-#     xwininfo), so no native rebuild is needed — only wrapper PATH entries.
-#   - The qmc2/ence/taglib/transcode Node-API bindings are the one
-#     exception: scripts/build-native.js builds them from a native/ checkout
-#     that only exists in Zencok/baka-native, which is private (the repo and
-#     its release assets both 404), so the prebuilt binaries vendored in the
-#     upstream repo for exactly this purpose (`npm run native:install`,
-#     offline, sha256-verified) are used as-is and declared via
-#     meta.sourceProvenance. They are plain N-API modules needing only libc
-#     and libstdc++; the wrapper's LD_LIBRARY_PATH provides the latter.
-#     taglib.node statically links upstream TagLib (2.3.1 at this pin) and
-#     transcode.node dlopens the seeded libmpv, but both bindings themselves
-#     are baka-native's.
+# Electron app using nixpkgs runtimes, source-built LibreMPEG, koffi and sharp, plus declared private service modules.
 {
   lib,
   stdenv,
@@ -48,7 +24,6 @@
   zip,
   writeText,
   writeShellApplication,
-  cacert,
   coreutils,
   curl,
   jq,
@@ -64,17 +39,13 @@
 
   electronPkg = electron_43;
 
-  # Codec backend of the libmpv runtime. Everything mpv links besides this
-  # comes from the nixpkgs mpv-unwrapped expression unmodified.
+  # Replace only mpv's codec backend with LibreMPEG.
   librempeg = callPackage ./librempeg.nix {};
   libmpv = mpv-unwrapped.override {ffmpeg = librempeg;};
 
   koffi = callPackage ./koffi.nix {};
 
-  # Arch naming used by Electron zips, the app's runtime directory layout
-  # and the npm prebuilt package names. The fallbacks only keep evaluation
-  # (which never builds) working on non-Linux platforms; meta.platforms
-  # gates actual builds.
+  # Runtime architecture names with non-building evaluation fallbacks.
   electronArch =
     {
       x86_64-linux = "x64";
@@ -91,41 +62,14 @@
     } or "linux_x64";
 
   npmDepsHash = "sha256-+W0K9ETI4yZxzDkMZmYn1Ks2ha6qvFpkYnTQpimFadY=";
-  npmDeps =
-    (fetchNpmDeps {
-      inherit pname version src;
-      hash = npmDepsHash;
-      # BakaMusic's package.json uses npm `overrides` (node-gyp, uuid, tmp,
-      # webpack-dev-server, ...). Version 2 caches registry packuments in
-      # addition to tarballs, which is what npm needs whenever it has to
-      # consult metadata (overrides resolution, optional peer deps).
-      fetcherVersion = 2;
-    }).overrideAttrs (prev: {
-      nativeBuildInputs =
-        (prev.nativeBuildInputs or [])
-        ++ [
-          nodejs_24
-          cacert
-        ];
-      # Upstream's package-lock.json is missing `resolved`/`integrity` for
-      # ~75% of its entries (npm/cli#6301); prefetch-npm-deps drops such
-      # entries, which later makes `npm ci --offline` fail with ENOTCACHED.
-      # Repair the lockfile in place (registry access is available in this
-      # fixed-output derivation) before prefetch-npm-deps consumes it.
-      postUnpack =
-        (prev.postUnpack or "")
-        + ''
-          export NODE_EXTRA_CA_CERTS=${cacert}/etc/ssl/certs/ca-bundle.crt
-          # postUnpack runs before genericBuild cd's into $sourceRoot, so
-          # the lockfile lives under $sourceRoot, not the cwd.
-          node ${./repair-lockfile.mjs} "$sourceRoot/package-lock.json"
-        '';
-    });
+  npmDeps = fetchNpmDeps {
+    inherit pname version src;
+    hash = npmDepsHash;
+    # Cache registry metadata needed by npm overrides.
+    fetcherVersion = 2;
+  };
 
-  # Same shape the upstream installer (scripts/install-media-runtimes.cjs)
-  # writes for its `local-build` path; the app validates engine,
-  # mediaBackend and decoders (must include "ac4") before accepting the
-  # runtime.
+  # Runtime metadata expected by the upstream local-build installer.
   runtimeJson = writeText "runtime.json" (builtins.toJSON {
     schemaVersion = 1;
     name = "mpv-libre-runtime";
@@ -167,8 +111,7 @@ in
 
     buildInputs = [
       vips # sharp --build-from-source against the system libvips
-      # What wrapper.nix carries for GSETTINGS_SCHEMAS_PATH; librsvg, gtk3
-      # and dconf come along with wrapGAppsHook3 itself.
+      # Additional GSettings schemas for the wrapper.
       gsettings-desktop-schemas
       glib
       gtk3
@@ -177,11 +120,7 @@ in
 
     inherit npmDeps;
 
-    # The default npm rebuild phase would run every dependency's install
-    # scripts; get-windows unconditionally goes through node-pre-gyp (which
-    # may try the network) even though it is pure JavaScript on Linux.
-    # Native modules that actually need it are rebuilt explicitly in
-    # preBuild below.
+    # Skip dependency scripts and rebuild required native modules explicitly.
     npmRebuildFlags = ["--ignore-scripts"];
 
     dontNpmBuild = true;
@@ -193,41 +132,26 @@ in
     };
 
     postPatch = ''
-      # The fetchNpmDeps derivation repaired upstream's broken lockfile in
-      # place and wrote it into its output; use that exact file here so the
-      # lockfile consistency check passes and `npm ci` runs offline.
+      # Reuse the repaired lockfile from the npm dependency output.
       cp ${npmDeps}/package-lock.json package-lock.json
 
-      # Husky's prepare script fails outside a git checkout.
+      # Disable Husky outside a git checkout.
       npm pkg delete scripts.prepare
 
-      # Match the upstream release flow, which stamps the tag version into
-      # package.json before packaging. The lockfile is intentionally left
-      # untouched: npmConfigHook diffs it against the vendored npm cache.
+      # Stamp the release version without changing the lockfile.
       npm pkg set "version=${version}"
 
-      # Offline Electron runtime: point electron-packager at a directory of
-      # Electron zips that preBuild synthesizes from the nixpkgs electron
-      # dist (already patched for NixOS) instead of downloading a pristine
-      # upstream zip.
+      # Use a synthesized nixpkgs Electron zip offline.
       substituteInPlace forge.config.ts \
         --replace-fail '        executableName: "BakaMusic",' $'        electronZipDir: process.env.BAKAMUSIC_ELECTRON_ZIP_DIR,\n        executableName: "BakaMusic",'
     '';
 
     preBuild = ''
-      # extract-zip 2 can terminate Electron Packager early on Node 24 and leave out/ empty.
-      # Electron already provides its drop-in replacement, so this needs no lockfile change.
+      # Replace extract-zip 2 with Electron's Node 24-compatible implementation.
       substituteInPlace node_modules/@electron/packager/dist/unzip.js \
         --replace-fail 'require("extract-zip")' 'require("@electron-internal/extract-zip")'
 
-      # --- 1. Offline Electron runtime for electron-packager ---
-      #
-      # electron-packager can only consume an Electron runtime from a flat
-      # directory of electron-v<version>-<platform>-<arch>.zip files
-      # (electronZipDir). Synthesize exactly one such zip from the nixpkgs
-      # electron dist: it is already patched for NixOS, and the forge fuses
-      # step later flips the fuse bytes (RunAsNode etc.) in the extracted
-      # copy just like upstream does for the official binaries.
+      # Synthesize electron-packager's expected runtime zip from nixpkgs Electron.
       electron_version=$(node -p "require('electron/package.json').version")
       if [[ $electron_version != "${electronPkg.version}" ]]; then
         echo "WARNING: npm electron $electron_version differs from nixpkgs electron ${electronPkg.version}; using the nixpkgs runtime" >&2
@@ -235,55 +159,36 @@ in
       export BAKAMUSIC_ELECTRON_ZIP_DIR="$PWD/.electron-zips"
       mkdir -p "$BAKAMUSIC_ELECTRON_ZIP_DIR"
 
-      # Zip a writable copy rather than the store dist directly. zip records the
-      # store's read-only modes and extract-zip restores them, so packager then
-      # fails with EACCES trying to unlink resources/default_app.asar — removing
-      # a directory entry needs write permission on the directory, not the file.
-      # Only the modes differ; installPhase still links the runtime back to the
-      # store dist, so the packaged output is unchanged.
+      # Zip a writable copy so packager can replace default_app.asar.
       electron_dist=$(mktemp -d)
       cp -r ${electronPkg.dist}/. "$electron_dist"
       chmod -R u+w "$electron_dist"
       (
         cd "$electron_dist"
-        # -0 stores without compressing: packager extracts this zip on the same
-        # machine moments later, so deflating the whole runtime is pure waste.
+        # Skip compression for this short-lived local zip.
         zip -X -0 -q -r "$BAKAMUSIC_ELECTRON_ZIP_DIR/electron-v$electron_version-linux-${electronArch}.zip" .
       )
       rm -rf "$electron_dist"
 
-      # --- 2. sharp: rebuild from source against nixpkgs libvips ---
-      #
-      # sharp's build script probes pkg-config (vips-cpp >= 8.18.3) and
-      # builds node_modules/sharp/src with node-gyp (headers via
-      # npm_config_nodedir from npmConfigHook); cc-wrapper automatically
-      # puts the vips store path in the rpath. The result replaces the
-      # prebuilt binary of the matching @img/sharp-linux-* package — that
-      # directory is the first resolution target of sharp.js and the forge
-      # runtime-include plugin excludes node_modules/sharp/src — so the
-      # packaging logic stays identical to upstream.
+      # Rebuild sharp against nixpkgs libvips and replace its platform binary.
       npm run build --prefix node_modules/sharp
       cp node_modules/sharp/src/build/Release/sharp-linux-*.node \
         node_modules/@img/sharp-linux-${electronArch}/sharp.node
 
-      # Remove prebuilt binaries of other platforms (and the wasm fallback):
-      # a load failure must be loud instead of silently falling back to a
-      # prebuilt variant.
+      # Remove foreign and fallback sharp binaries.
       rm -rf node_modules/@img/sharp-libvips-*
       for dir in node_modules/@img/sharp-*; do
         [[ $dir == "node_modules/@img/sharp-linux-${electronArch}" ]] || rm -rf "$dir"
       done
 
-      # --- 3. koffi: replace the prebuilt binaries with the source build ---
+      # Replace prebuilt koffi with the source build.
       koffi_dir=node_modules/@koromix/koffi-linux-${electronArch}
       cp ${koffi}/lib/koffi/${koffiTriplet}/koffi.node "$koffi_dir/${koffiTriplet}/koffi.node"
       rm -rf "$koffi_dir"/musl_*
       for dir in node_modules/@koromix/koffi-*; do
         [[ $dir == "$koffi_dir" ]] || rm -rf "$dir"
       done
-      # The npm wrapper verifies the native module version at load time.
-      # (koffi's package.json has an exports map without ./package.json, so
-      # read the file instead of require().)
+      # Verify the source-built koffi version without package exports.
       node -e '
         const native = require("./" + process.argv[1]);
         const expected = JSON.parse(
@@ -294,15 +199,7 @@ in
         }
       ' "$koffi_dir/${koffiTriplet}/koffi.node"
 
-      # --- 4. Seed the libmpv runtime ---
-      #
-      # Same layout and runtime.json format the upstream installer produces
-      # for its `local-build` path, but the content comes from nixpkgs mpv
-      # rebuilt against our librempeg instead of a downloaded tarball.
-      # libmpv's rpath holds absolute store paths, so no LD_LIBRARY_PATH is
-      # needed at runtime. Like upstream, the ffmpeg/ffprobe programs are
-      # not shipped; the AC-4 decoder is asserted by librempeg's own
-      # installCheck.
+      # Seed the upstream runtime layout with nixpkgs mpv and LibreMPEG.
       runtime_dir=res/.runtime/mpv/linux-${electronArch}
       mkdir -p "$runtime_dir/lib" "$runtime_dir/licenses/mpv" "$runtime_dir/licenses/librempeg"
       cp -a ${lib.getLib libmpv}/lib/libmpv.so.2* "$runtime_dir/lib/"
@@ -310,16 +207,10 @@ in
       cp ${librempeg}/share/licenses/librempeg/* "$runtime_dir/licenses/librempeg/"
       cp ${runtimeJson} "$runtime_dir/runtime.json"
 
-      # --- 5. Private prebuilt service modules (qmc2/ence/taglib) ---
-      #
-      # Sources live in the private repository Zencok/baka-native, so the
-      # binaries upstream vendors for exactly this purpose are used as-is
-      # (declared via meta.sourceProvenance). The installer verifies sha256
-      # and works fully offline.
+      # Install checksum-verified service modules whose sources are private.
       npm run native:install
 
-      # The prebuilt pool of the other architecture is installer input, not
-      # runtime data; drop it from the packaged resources.
+      # Remove installer inputs for the other architecture.
       case ${electronArch} in
         x64) rm -rf res/.service/native/prebuilt/linux-arm64 ;;
         arm64) rm -rf res/.service/native/prebuilt/linux-x64 ;;
@@ -329,7 +220,7 @@ in
     buildPhase = ''
       runHook preBuild
 
-      # Only package (no makers): produces out/BakaMusic-linux-<arch>/.
+      # Package without platform makers.
       NODE_ENV=production npm exec -- electron-forge package
 
       runHook postBuild
@@ -343,13 +234,10 @@ in
 
       mkdir -p $out/lib/bakamusic
       cp -r "$app_dir/resources" $out/lib/bakamusic/resources
-      # The fuse-flipped Electron binary, renamed by electron-packager.
+      # Install the fuse-configured Electron binary.
       install -Dm755 "$app_dir/BakaMusic" $out/lib/bakamusic/BakaMusic
 
-      # Everything else in the packaged tree is byte-identical to the zip
-      # synthesized from the nixpkgs electron dist (packager only renames
-      # the executable and replaces resources/). Link back to the store
-      # copy instead of duplicating the Electron runtime.
+      # Link unchanged Electron runtime files back to nixpkgs.
       for entry in ${electronPkg.dist}/*; do
         base=$(basename "$entry")
         case $base in
@@ -364,21 +252,12 @@ in
       runHook postInstall
     '';
 
-    # wrapper.nix applies gappsWrapperArgs by hand for the same reason.
+    # Apply GApp arguments manually below.
     dontWrapGApps = true;
 
-    # What launches is electron-packager's own copy of the binary, so nixpkgs'
-    # electron wrapper never runs and everything wrapper.nix would have set has
-    # to be set here: the GTK/GSettings environment, plus CHROME_DEVEL_SANDBOX.
-    # Chromium reads the chrome-sandbox next to the executable as a user-managed
-    # build (no store file is setuid root) and kills the zygote with SIGILL
-    # unless that variable names the helper explicitly; naming it is all it
-    # wants, the sandboxing itself still comes from user namespaces.
+    # Recreate nixpkgs Electron wrapper settings for GTK, GSettings and the Chromium sandbox helper.
     preFixup = ''
-      # makeShellWrapper because wrapGAppsHook3 propagates makeBinaryWrapper,
-      # which shadows makeWrapper and bakes flags in literally instead of
-      # expanding NIXOS_OZONE_WL at run time; preFixup because gappsWrapperArgs
-      # is filled by a preFixupPhases hook, i.e. only after installPhase.
+      # Use a shell wrapper after wrapGAppsHook3 populates runtime arguments.
       makeShellWrapper $out/lib/bakamusic/BakaMusic $out/bin/bakamusic \
         "''${gappsWrapperArgs[@]}" \
         --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime}" \
@@ -391,10 +270,7 @@ in
     installCheckPhase = ''
       runHook preInstallCheck
 
-      # Every assertion below reports itself. They are all `test`/`grep -q`/`cmp`,
-      # which say nothing when they fail, so under `set -e` the phase used to die
-      # with no output at all — and since the package never built this far before,
-      # none of them had ever actually run.
+      # Report each silent assertion failure.
       assert() {
         local description=$1
         shift
@@ -409,14 +285,12 @@ in
       assert 'the launcher binary is missing' test -x $out/lib/bakamusic/BakaMusic
       assert 'app.asar is missing' test -f $resources/app.asar
 
-      # Both halves matter: a dangling symlink here or a wrapper that forgets
-      # the variable is the same SIGILL at zygote startup.
+      # Verify the sandbox helper and wrapper variable together.
       assert 'the chrome-sandbox helper is missing' test -x $out/lib/bakamusic/chrome-sandbox
       assert 'the wrapper does not set CHROME_DEVEL_SANDBOX' \
         grep -q "CHROME_DEVEL_SANDBOX=.*$out/lib/bakamusic/chrome-sandbox" $out/bin/bakamusic
 
-      # A gappsWrapperArgs that expanded to nothing — the wrapper built too
-      # early, say — is silent until GTK aborts on a missing schema.
+      # Verify GSettings schemas reached the wrapper.
       assert 'the wrapper carries no GSettings schemas' \
         grep -q 'gsettings-schemas' $out/bin/bakamusic
 
@@ -424,18 +298,14 @@ in
         grep -q "Exec=bakamusic" $out/share/applications/bakamusic.desktop
       assert 'the icon is missing' test -f $out/share/icons/hicolor/512x512/apps/bakamusic.png
 
-      # The libmpv runtime is seeded and linked against the librempeg build
-      # (the AC-4 decoder itself is asserted by librempeg's installCheck).
+      # Verify the seeded LibreMPEG-backed runtime.
       runtime_dir=$resources/res/.runtime/mpv/linux-${electronArch}
       assert 'libmpv is missing from the seeded runtime' test -e "$runtime_dir/lib/libmpv.so.2"
       assert 'the seeded runtime does not advertise ac4' grep -q '"ac4"' "$runtime_dir/runtime.json"
       assert "libmpv is not linked against ${librempeg}" \
         grep -qF "${librempeg}" <(patchelf --print-rpath "$runtime_dir/lib/libmpv.so.2")
 
-      # The private prebuilt service modules are in place and every NEEDED library
-      # resolves with the wrapper's LD_LIBRARY_PATH. ldd needs the file to be
-      # executable and store files are not, so check a writable copy — otherwise
-      # ldd only warns, prints no dependencies, and the grep below always passes.
+      # Check service module dependencies on executable writable copies.
       probe_dir=$(mktemp -d)
       for module in qmc2 ence taglib transcode; do
         module_path=$resources/res/.service/native/$module.node
@@ -454,20 +324,17 @@ in
         fi
       done
 
-      # The packaged koffi native module is the one built from source. fixupPhase
-      # shrinks RPATHs in the packaged tree, so compare what the loader needs
-      # rather than the bytes, which no longer match by construction.
+      # Compare koffi dependencies because fixup changes its bytes.
       koffi_node=$(find $resources/app.asar.unpacked -path "*@koromix/koffi-linux-*/linux_*/koffi.node" | head -n 1)
       assert 'the packaged koffi native module is missing' test -n "$koffi_node"
       assert 'the packaged koffi module is not the one built from source' \
         cmp -s <(patchelf --print-needed "$koffi_node") \
         <(patchelf --print-needed ${koffi}/lib/koffi/${koffiTriplet}/koffi.node)
 
-      # sharp was rebuilt from source against nixpkgs libvips.
+      # Verify the source-built sharp module.
       sharp_node=$(find $resources/app.asar.unpacked -path "*@img/sharp-linux-*/sharp.node" | head -n 1)
       assert 'the packaged sharp native module is missing' test -n "$sharp_node"
-      # getLib, not the bare package: vips lists "bin" first, so ${vips} is the
-      # executables-only output and libvips-cpp.so lives in "out".
+      # libvips lives in the library output, not the default bin output.
       assert "sharp is not linked against ${lib.getLib vips}" \
         grep -qF "${lib.getLib vips}" <(patchelf --print-rpath "$sharp_node")
 
@@ -506,9 +373,7 @@ in
         "x86_64-linux"
         "aarch64-linux"
       ];
-      # The vendored qmc2/ence/taglib prebuilt Node-API modules (private
-      # sources) and the prebuilt binaries that ship inside the upstream
-      # tarball for other platforms.
+      # Upstream vendored native modules with private or platform-specific sources.
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
   }

@@ -7,7 +7,7 @@
   source,
   typenix,
 }: let
-  # Patch extension source: remove @vscode/vsce devDep (pulls in native keytar)
+  # Remove the vsce development dependency and its native keytar dependency.
   extensionSrc =
     runCommand "typenix-extension-src" {
       src = "${source.src}/_extension";
@@ -41,7 +41,7 @@ in
     buildPhase = ''
       runHook preBuild
 
-      # Bundle extension JS
+      # Bundle the extension.
       npx esbuild src/extension.ts \
         --bundle \
         --external:vscode \
@@ -50,12 +50,12 @@ in
         --outfile=dist/extension.bundle.js \
         --minify
 
-      # Place binary and nixlibs
+      # Add typenix and its declarations.
       mkdir -p lib/nixlibs
       cp ${typenix}/bin/typenix lib/typenix
       cp ${typenix}/share/nixlibs/*.d.ts lib/nixlibs/
 
-      # Package VSIX
+      # Package the VSIX.
       vsce package --no-dependencies --allow-package-secrets slack -o typenix.vsix
 
       runHook postBuild
