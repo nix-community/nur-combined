@@ -5,6 +5,14 @@
   python3Packages,
   # keep-sorted end
 }: let
+  inherit
+    (lib)
+    # keep-sorted start
+    optional
+    versionOlder
+    # keep-sorted end
+    ;
+
   holehe = python3Packages.buildPythonPackage rec {
     pname = "holehe";
     version = "1.61";
@@ -79,33 +87,34 @@ in
           'Path.home() / ".mailaccess" / "maltego" / "MailAccess.mtz"'
     '';
 
-    dependencies = with python3Packages; [
-      # keep-sorted start
-      aiosqlite
-      asyncpg
-      curl-cffi
-      dnspython
-      fastapi
-      holehe
-      httpx
-      imagehash
-      pillow
-      pydantic
-      pydantic-settings
-      python-dotenv
-      python-whois
-      pyyaml
-      rapidfuzz
-      rich
-      sqlalchemy
-      stix2
-      typer
-      unidecode
-      user-scanner
-      uvicorn
-      websockets
-      # keep-sorted end
-    ];
+    dependencies = with python3Packages;
+      [
+        # keep-sorted start
+        aiosqlite
+        asyncpg
+        curl-cffi
+        dnspython
+        fastapi
+        holehe
+        httpx
+        imagehash
+        pillow
+        pydantic
+        pydantic-settings
+        python-dotenv
+        python-whois
+        pyyaml
+        rapidfuzz
+        rich
+        sqlalchemy
+        typer
+        unidecode
+        user-scanner
+        uvicorn
+        websockets
+        # keep-sorted end
+      ]
+      ++ optional (versionOlder python3Packages.antlr4-python3-runtime.version "4.10") python3Packages.stix2;
 
     doCheck = false;
     pythonImportsCheck = [
@@ -113,13 +122,14 @@ in
       "cli"
     ];
 
-    meta = {
+    meta = with lib; {
       # keep-sorted start
+      broken = versionAtLeast python3Packages.antlr4-python3-runtime.version "4.10";
       description = "Open-source OSINT email intelligence tool";
       homepage = "https://github.com/KatrielMoses/MailAccess";
-      license = lib.licenses.mit;
+      license = licenses.mit;
       mainProgram = "mailaccess";
-      platforms = lib.platforms.unix;
+      platforms = platforms.unix;
       # keep-sorted end
     };
   }
