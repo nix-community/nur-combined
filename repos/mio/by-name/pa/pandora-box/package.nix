@@ -8,6 +8,9 @@ rustPlatform.buildRustPackage rec {
   pname = "pandora-box";
   version = "0.23.0";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchCrate {
     pname = "pandora_box";
     inherit version;
@@ -24,6 +27,9 @@ rustPlatform.buildRustPackage rec {
     description = "Syd's log inspector & profile writer";
     homepage = "https://man.exherbo.org";
     license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [
+      mio
+    ];
     mainProgram = "pandora";
     platforms = lib.platforms.linux;
   };
