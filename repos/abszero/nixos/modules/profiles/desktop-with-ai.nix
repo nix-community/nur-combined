@@ -20,7 +20,7 @@ in
     abszero = {
       profiles.desktop.enable = true;
       services = {
-        comfyui.enable = true;
+        # comfyui.enable = true; # TODO: enable
         llama-cpp.enable = true;
         sillytavern.enable = true;
       };

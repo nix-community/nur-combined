@@ -63,6 +63,7 @@ in
         specialArgs = { inherit inputs; };
         modules = flatten [
           inputs.nixified-ai.nixosModules.comfyui
+          inputs.driftwm.nixosModules.driftwm
           inputs.wisp.nixosModules.wisp
           inputs.charmbracelet.nixosModules.crush
           inputs.sops.nixosModules.sops
@@ -76,7 +77,6 @@ in
             nixpkgs.overlays = [
               (_: prev: import ../../../pkgs { pkgs = prev; })
               inputs.nix-cachyos-kernel.overlays.default
-              inputs.niri.overlays.niri
             ];
             networking = { inherit (c) hostName; };
           }

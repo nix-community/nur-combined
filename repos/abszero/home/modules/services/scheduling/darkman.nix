@@ -26,7 +26,7 @@ let
     export NIRI_SOCKET="''$(find /run/user/* -maxdepth 1 -name 'niri*.sock' 2>/dev/null | head -n 1)"
     if [[ -n "$NIRI_SOCKET" ]]; then
       echo "Using socket found at $NIRI_SOCKET"
-      ${lib.getExe config.programs.niri.package} msg action do-screen-transition
+      ${lib.getExe config.wayland.windowManager.niri.package} msg action do-screen-transition
     else
       echo "Cannot find NIRI_SOCKET; skipping screen transition"
     fi
@@ -51,7 +51,7 @@ in
       darkModeScripts."00-switch-hm-specialisation" = switch-hm-specialisation cfg.darkSpecialisation;
       settings.usegeoclue = true;
     }
-    (mkIf config.programs.niri.enable {
+    (mkIf config.wayland.windowManager.niri.enable {
       lightModeScripts."01-call-screen-transition" = call-screen-transition;
       darkModeScripts."01-call-screen-transition" = call-screen-transition;
     })

@@ -27,39 +27,37 @@ in
     # Remove minimize, maximize, close buttons
     dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "";
 
-    programs.niri.settings = mkMerge [
+    wayland.windowManager.niri.settings = mkMerge [
       {
         layout = {
           tab-indicator = {
-            place-within-column = true;
+            place-within-column = { };
             gaps-between-tabs = 4;
             corner-radius = 100;
           };
           focus-ring = {
-            active.gradient = {
+            active-gradient._props = {
               from = palette.pink.hex;
               to = palette.mauve.hex;
-              in' = "oklab";
+              "in" = "oklab";
               angle = 135;
             };
-            inactive.gradient = {
+            inactive-gradient._props = {
               from = palette.lavender.hex;
               to = palette.blue.hex;
-              in' = "oklab";
+              "in" = "oklab";
               angle = 135;
             };
           };
-          shadow.enable = true;
+          shadow.on = { };
         };
 
-        window-rules = [
-          { clip-to-geometry = true; }
-        ];
+        _children = singleton { window-rule.clip-to-geometry = true; };
       }
 
       (mkIf (!cfg.niri.enableCompactLayout) {
         layout = {
-          always-center-single-column = true;
+          always-center-single-column = { };
           tab-indicator.gap = 8;
           gaps = 24;
           struts = rec {
@@ -70,14 +68,7 @@ in
           };
         };
 
-        window-rules = singleton {
-          geometry-corner-radius = rec {
-            top-left = 8.0;
-            top-right = top-left;
-            bottom-right = top-left;
-            bottom-left = top-left;
-          };
-        };
+        _children = singleton { window-rule.geometry-corner-radius = 8; };
       })
 
       (mkIf cfg.niri.enableCompactLayout {
@@ -94,30 +85,27 @@ in
           };
         };
 
-        window-rules = [
+        _children = [
           {
-            border = {
-              enable = true;
-              width = 6; # Widen border because smaller screen has lower scale
-              active.gradient = {
-                from = palette.pink.hex;
-                to = palette.mauve.hex;
-                in' = "oklab";
-                angle = 135; # Top left to bottom right
+            window-rule = {
+              match._props.is-floating = false;
+              border = {
+                on = { };
+                width = 6; # Widen border because smaller screen has lower scale
+                active-gradient = {
+                  from = palette.pink.hex;
+                  to = palette.mauve.hex;
+                  "in" = "oklab";
+                  angle = 135; # Top left to bottom right
+                };
+                inactive-color = "#000000";
               };
-              inactive.color = "#000000";
+              focus-ring.off = { };
             };
-            focus-ring.enable = false;
-            matches = [ { is-floating = false; } ];
           }
           {
-            geometry-corner-radius = rec {
-              top-left = 10.0;
-              top-right = top-left;
-              bottom-right = top-left;
-              bottom-left = top-left;
-            };
-            matches = [ { is-floating = true; } ];
+            match._props.is-floating = true;
+            geometry-corner-radius = 10;
           }
         ];
       })

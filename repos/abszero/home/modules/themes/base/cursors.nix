@@ -9,6 +9,10 @@ in
   options.abszero.themes.base.pointerCursor.enable = mkEnableOption "base cursor theme";
 
   config = mkIf cfg.enable {
+    abszero.programs.driftwm.settings.cursor = {
+      theme = config.home.pointerCursor.name;
+      size = config.home.pointerCursor.size;
+    };
     home.pointerCursor = {
       enable = true;
       size = mkDefault 48;
@@ -16,9 +20,9 @@ in
       hyprcursor.enable = true;
       x11.enable = true;
     };
-    programs.niri.settings.cursor = {
-      theme = config.home.pointerCursor.name;
-      size = config.home.pointerCursor.size;
+    wayland.windowManager.niri.settings.cursor = {
+      xcursor-theme = config.home.pointerCursor.name;
+      xcursor-size = config.home.pointerCursor.size;
     };
   };
 }

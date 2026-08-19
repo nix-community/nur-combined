@@ -18,7 +18,11 @@ in
     homeDirectory = mkIf (homeDirectory != null) homeDirectory;
     modules = singleton {
       abszero = {
-        profiles.buildConfig.enable = true;
+        profiles = {
+          base.enable = true;
+          full.enable = true;
+          driftwm.enable = true;
+        };
         programs.firefox.profile = mkIf (firefoxProfile != null) firefoxProfile;
         themes.base = {
           fastfetch.enable = true;
@@ -48,6 +52,10 @@ in
             enable = true;
             cursors.enable = true;
             discord.enable = true;
+            driftwm = {
+              enable = true;
+              enableCompactLayout = true;
+            };
             fcitx5.enable = true;
             fonts.enable = true;
             foot.enable = true;

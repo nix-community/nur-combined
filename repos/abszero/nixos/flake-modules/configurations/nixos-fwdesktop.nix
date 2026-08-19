@@ -60,12 +60,13 @@ let
         };
       };
 
-      programs.niri.enable = true;
+      programs.driftwm.enable = true;
 
       themes.catppuccin = {
         enable = true;
         fonts.enable = true;
         plymouth.enable = true;
+        tuigreet.enable = true;
       };
     };
 

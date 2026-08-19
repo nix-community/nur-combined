@@ -27,28 +27,40 @@ in
       vicinae
     ];
 
-    programs = {
-      ghostty.enable = true;
-      niri.settings = {
-        binds = with config.lib.niri.actions; {
-          XF86MonBrightnessDown.action = spawn "sudo" "brillo" "-qu" "200000" "-U" "5";
-          XF86MonBrightnessUp.action = spawn "sudo" "brillo" "-qu" "200000" "-A" "5";
-
-          "Mod+Ctrl+t".action = spawn "ghostty";
-          "Mod+Ctrl+slash".action = spawn "vicinae" "open";
-          "Mod+Ctrl+b".action = spawn "zen-beta";
-          "Mod+Ctrl+period".action = spawn "smile";
-        };
-
-        spawn-at-startup = [
-          {
-            command = [
-              "vicinae"
-              "server"
-            ];
-          }
+    wayland.windowManager.niri.settings = {
+      binds = {
+        XF86MonBrightnessDown.spawn = [
+          "sudo"
+          "brillo"
+          "-qu"
+          "200000"
+          "-U"
+          "5"
         ];
+        XF86MonBrightnessUp.spawn = [
+          "sudo"
+          "brillo"
+          "-qu"
+          "200000"
+          "-A"
+          "5"
+        ];
+
+        "Mod+Ctrl+t".spawn = "ghostty";
+        "Mod+Ctrl+slash".spawn = [
+          "vicinae"
+          "open"
+        ];
+        "Mod+Ctrl+b".spawn = "zen-beta";
+        "Mod+Ctrl+period".spawn = "smile";
       };
+
+      spawn-at-startup = [
+        "vicinae"
+        "server"
+      ];
     };
+
+    programs.ghostty.enable = true;
   };
 }

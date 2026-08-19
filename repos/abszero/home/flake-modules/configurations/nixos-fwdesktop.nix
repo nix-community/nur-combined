@@ -1,12 +1,23 @@
+{ lib, ... }:
+
 let
+  inherit (lib) singleton;
+
   mainModule = {
     abszero = {
-      profiles.niri.enable = true;
+      profiles.driftwm.enable = true;
 
       services.darkman = {
         enable = true;
         lightSpecialisation = "catppuccin-latte-pink";
         darkSpecialisation = "catppuccin-macchiato-pink";
+      };
+
+      programs.driftwm.settings.outputs = singleton {
+        name = "DP-4";
+        mode = "3840x2160@120";
+        scale = 2;
+        # variable-refresh-rate = true; # TODO: enable when supported
       };
 
       themes = {
@@ -17,10 +28,10 @@ let
         };
         catppuccin = {
           cursors.enable = true;
+          driftwm.enable = true;
           fcitx5.enable = true;
           ghostty.enable = true;
           gtk.enable = true;
-          niri.enable = true;
         };
       };
     };
@@ -28,15 +39,6 @@ let
     catppuccin = {
       accent = "pink";
       gtk.icon.enable = true;
-    };
-
-    programs.niri.settings.outputs.DP-4 = {
-      mode = {
-        width = 3840;
-        height = 2160;
-        refresh = 120.0;
-      };
-      variable-refresh-rate = true;
     };
 
     specialisation = {

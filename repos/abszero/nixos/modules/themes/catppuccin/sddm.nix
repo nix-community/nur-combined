@@ -21,7 +21,7 @@ in
     };
     catppuccin.sddm = {
       enable = true;
-      font = "Open Sans";
+      font = "Maple Mono NF CN";
       fontSize = "14";
     };
   };

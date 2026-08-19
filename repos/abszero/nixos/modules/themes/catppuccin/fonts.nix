@@ -16,10 +16,9 @@ in
 
   config = mkIf cfg.fonts.enable {
     fonts.packages = with pkgs; [
-      open-sans
+      maple-mono.NF-CN
       iosevka-inconsolata
-      nerd-fonts.departure-mono
     ];
-    services.kmscon.config.font-name = "Iosevka Inconsolata, DepartureMono Nerd Font";
+    services.kmscon.config.font-name = "Iosevka Inconsolata, Maple Mono NF CN";
   };
 }

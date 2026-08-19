@@ -17,6 +17,7 @@ in
       ];
       # search = [ config.networking.domain ];
     };
+    systemd.services.tailscale-serve.enable = false; # TODO: remove
     services.tailscale = {
       enable = true;
       disableUpstreamLogging = true;

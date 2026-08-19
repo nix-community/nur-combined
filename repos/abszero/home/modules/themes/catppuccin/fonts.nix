@@ -19,7 +19,7 @@ in
       enable = true;
       defaultFonts = {
         sansSerif = [
-          "Open Sans"
+          "Maple Mono NF CN"
           "Noto Sans CJK"
         ];
         serif = [ "Iosevka Etoile" ];
@@ -33,13 +33,12 @@ in
     };
 
     home.packages = with pkgs; [
-      open-sans
+      maple-mono.NF-CN # TODO: custom build when supported
       noto-fonts-cjk-sans
       (iosevka-bin.override { variant = "Etoile"; })
       fira-code
       inconsolata
       iosevka-inconsolata
-      nerd-fonts.departure-mono
     ];
   };
 }

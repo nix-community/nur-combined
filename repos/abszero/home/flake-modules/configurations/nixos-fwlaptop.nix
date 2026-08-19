@@ -1,12 +1,22 @@
+{ lib, ... }:
+
 let
+  inherit (lib) singleton;
+
   mainModule = {
     abszero = {
-      profiles.niri.enable = true;
+      profiles.driftwm.enable = true;
 
       services.darkman = {
         enable = true;
         lightSpecialisation = "catppuccin-latte-pink";
         darkSpecialisation = "catppuccin-macchiato-pink";
+      };
+
+      programs.driftwm.settings.outputs = singleton {
+        name = "eDP-1";
+        scale = 1.25;
+        # variable-refresh-rate = true; # TODO: enable when supported
       };
 
       themes = {
@@ -17,13 +27,13 @@ let
         };
         catppuccin = {
           cursors.enable = true;
-          fcitx5.enable = true;
-          ghostty.enable = true;
-          gtk.enable = true;
-          niri = {
+          driftwm = {
             enable = true;
             enableCompactLayout = true;
           };
+          fcitx5.enable = true;
+          ghostty.enable = true;
+          gtk.enable = true;
         };
       };
     };
@@ -35,11 +45,6 @@ let
 
     # There's no ALS on framework 12 :(
     services.wluma.enable = false;
-
-    programs.niri.settings.outputs.eDP-1 = {
-      scale = 1.25;
-      variable-refresh-rate = true;
-    };
 
     specialisation = {
       # Hint nh to autoswitch to the current specialisation

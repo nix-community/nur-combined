@@ -12,6 +12,9 @@ let
 in
 
 {
+  # TODO: migrate to nixpkgs when custom nodes are supported
+  disabledModules = [ "services/misc/comfyui.nix" ];
+
   options.abszero.services.comfyui.enable = mkEnableOption "comfyui generative AI frontend";
 
   config.services = mkIf cfg.enable {
@@ -23,7 +26,6 @@ in
         "--enable-triton-backend"
       ];
       customNodes = with pkgs; [
-        comfyuiPackages.comfy-kitchen
         comfyui-anima-booster
         comfyui-manager
         comfyuiPackages.comfyui-res4lyf

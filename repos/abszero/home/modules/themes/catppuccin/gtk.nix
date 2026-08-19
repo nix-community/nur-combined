@@ -11,7 +11,6 @@ let
     mkOption
     mkEnableOption
     mkIf
-    optional
     optionalString
     ;
   inherit (builtins) elem;
@@ -32,32 +31,13 @@ let
     "teal"
     "grey"
   ];
-
-  polarity = if cfg.gtk.flavor == "latte" then "light" else "dark";
-
-  flavorTweak = optionalString (
-    cfg.gtk.flavor == "frappe" || cfg.gtk.flavor == "macchiato"
-  ) cfg.gtk.flavor;
 in
 
 {
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
   options.abszero.themes.catppuccin.gtk = {
-    enable = mkEnableOption "magnetic-catppuccin-gtk theme";
-
-    gnomeShellTheme = mkEnableOption "Whether to use the gnome shell theme.";
-
-    flavor = mkOption {
-      type = types.enum [
-        "latte"
-        "frappe"
-        "macchiato"
-        "mocha"
-      ];
-      default = ctpCfg.flavor;
-      description = "Flavor of the theme.";
-    };
+    enable = mkEnableOption "colloid gtk theme with catppuccin scheme";
 
     accent = mkOption {
       type = types.enum accents;
@@ -79,9 +59,9 @@ in
         with types;
         listOf (enum [
           "black"
+          "rimless"
+          "normal"
           "float"
-          "outline"
-          "macos"
         ]);
       default = [ ];
       description = "Tweaks of the theme.";
@@ -93,31 +73,14 @@ in
 
     gtk.theme = {
       name =
-        "Catppuccin-GTK"
+        "Colloid"
         + optionalString (cfg.gtk.accent != "default") (mkSuffix cfg.gtk.accent)
-        + mkSuffix polarity
         + optionalString (cfg.gtk.size == "compact") "-Compact"
-        + optionalString (flavorTweak != "") (mkSuffix flavorTweak);
-      package = pkgs.magnetic-catppuccin-gtk.override {
-        accent = [ cfg.gtk.accent ];
-        shade = polarity;
-        inherit (cfg.gtk) size;
-        tweaks = cfg.gtk.tweaks ++ optional (flavorTweak != "") flavorTweak;
-      };
-    };
-
-    home.packages = with pkgs; mkIf cfg.gtk.gnomeShellTheme [ gnomeExtensions.user-themes ];
-
-    dconf.settings = mkIf cfg.gtk.gnomeShellTheme {
-      "org/gnome/shell" = {
-        disable-user-extensions = false;
-        enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" ];
-      };
-      "org/gnome/shell/extensions/user-theme" = {
-        inherit (config.gtk.theme) name;
-      };
-      "org/gnome/desktop/interface" = {
-        color-scheme = if cfg.polarity == "light" then "default" else "prefer-dark";
+        + "-Catppuccin";
+      package = pkgs.colloid-gtk-theme.override {
+        themeVariants = [ cfg.gtk.accent ];
+        sizeVariants = [ cfg.gtk.size ];
+        tweaks = [ "catppuccin" ] ++ cfg.gtk.tweaks;
       };
     };
   };

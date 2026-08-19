@@ -11,10 +11,10 @@ functions.
 
 ## Rice
 
-- Display manager: [tuigreet](https://github.com/apognu/tuigreet)
-- Window manager: [niri](https://github.com/YaLTeR/niri)
+- Display manager: [tuigreet](https://github.com/tuigreet/tuigreet)
+- Window manager: [DriftWM](https://github.com/malbiruk/driftwm)
 - Desktop shell: [under construction](https://github.com/Weathercold/wisp)
-- Terminal: [foot](https://codeberg.org/dnkl/foot)
+- Terminal: [ghostty](https://ghostty.org)
 - Shell: [Nu](https://www.nushell.sh)
 - Prompt: [starship](https://starship.rs)
 - Color theme: [catppuccin](https://catppuccin.com)

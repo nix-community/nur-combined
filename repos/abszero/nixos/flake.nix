@@ -18,12 +18,9 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
-      };
+    driftwm = {
+      url = "github:malbiruk/driftwm";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     wisp = {
       url = "github:Weathercold/wisp";

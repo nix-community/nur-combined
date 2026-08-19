@@ -6,7 +6,9 @@
       "right": 1
     },
     "color": {
-      "2": "magenta"
+      "2": "magenta",
+      "4": "magenta",
+      "6": "magenta"
     }
   },
   "modules": [

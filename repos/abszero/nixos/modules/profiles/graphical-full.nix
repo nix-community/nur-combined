@@ -39,7 +39,7 @@ in
 
     nixpkgs.config.permittedInsecurePackages = [
       "idea-oss-2025.3.4"
-      "ventoy-1.1.12" # Chronic
+      "ventoy-1.1.17" # Chronic
     ];
 
     hardware.keyboard.qmk.enable = true;
