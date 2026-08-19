@@ -215,7 +215,7 @@ workspaced: {
 	modules: {
 		icons: {
 			input: "core:base16-icons-linux"
-			enable: !workspaced.runtime.is_phone && !(workspaced.runtime.hostname == "ravenrock")
+			enable: workspaced.runtime.hostname == "whiterun" || workspaced.runtime.hostname == "riverwood"
 			config: {
 				input_dir: "papirus:Papirus"
 			}
@@ -429,6 +429,8 @@ workspaced: {
 #rsyncnet_user: "de3163@de3163.rsync.net"
 #is_whiterun: workspaced.runtime.hostname == "whiterun"
 #is_riverwood: workspaced.runtime.hostname == "riverwood"
+#is_massan: workspaced.runtime.hostname == "MacBook-Air-de-Lucas.local"
+#is_computer: #is_whiterun || #is_riverwood || #is_massan
 #is_phone: workspaced.runtime.is_phone
 #remote_path: "backup/lucasew"
 
@@ -442,7 +444,7 @@ workspaced: {
 				"personal-bookmarks",
 				"personal-decsync",
 				"personal-zettel-org",
-			] if (#is_whiterun || #is_phone || #is_riverwood) {
+			] if (#is_computer || #is_phone) {
 				name: "git repo \(repo_name)"
 				kind: "git_repo_sync"
 				src:  "\(workspaced.runtime.home)/.personal/\(repo_name)"
