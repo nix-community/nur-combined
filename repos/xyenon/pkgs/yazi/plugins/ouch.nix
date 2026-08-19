@@ -9,12 +9,12 @@ stdenvNoCC.mkDerivation {
   __structuredAttrs = true;
 
   pname = "ouch";
-  version = "0.7.0-unstable-2026-03-03";
+  version = "0.7.1-unstable-2026-08-18";
   src = fetchFromGitHub {
     owner = "ndtoan96";
     repo = "ouch.yazi";
-    rev = "406ce6c13ec3a18d4872b8f64b62f4a530759b2c";
-    hash = "sha256-14x/bD0aD9hXONaqQD8Dt7rLBCMq7bkVLH6uCPOQ0C8=";
+    rev = "8e70ec74efbec63c7d7db3b1e567b56763affc09";
+    hash = "sha256-CSthsFIiIa81xHgs2Szoy9atRouRESHOPxUt/pOtvl0=";
   };
 
   dontBuild = true;
