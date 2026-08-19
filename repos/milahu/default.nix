@@ -674,8 +674,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       kobo-book-downloader = callPackage ./pkgs/development/python-modules/kobo-book-downloader { };
 
-      python-fontconfig = callPackage ./pkgs/development/python-modules/python-fontconfig { };
-
       epub-meta = callPackage ./pkgs/development/python-modules/epub-meta { };
 
       epub-toc = callPackage ./pkgs/development/python-modules/epub-toc { };
