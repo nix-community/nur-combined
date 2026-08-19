@@ -8,12 +8,12 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ioskeley-mono-nl";
-  version = "2.0.0";
+  version = "2.1.0";
 
   src = fetchzip {
     url = "https://github.com/ahatem/IoskeleyMono/releases/download/v${finalAttrs.version}/IoskeleyMono-NL.zip";
     stripRoot = false;
-    hash = "sha256-dNOpQJ1VOrjcKS/UtPXKUP9W0gaxFMvH4aa+xK2hg2w=";
+    hash = "sha256-3zqO7W23Zcdz7L8cO0A8oAH0PQqYUNwKiKnAmN/Ja8s=";
   };
 
   installPhase = ''
@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         test -s "$f"
         count=$((count + 1))
       done
-      test "$count" -eq 60
+      test "$count" -eq 40
       touch $out
     '';
 

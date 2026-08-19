@@ -8,12 +8,12 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ioskeley-mono-nl-nerd-font";
-  version = "2.0.0";
+  version = "2.1.0";
 
   src = fetchzip {
     url = "https://github.com/ahatem/IoskeleyMono/releases/download/v${finalAttrs.version}/IoskeleyMono-NL-NerdFont.zip";
     stripRoot = false;
-    hash = "sha256-N7mtM/aQwps77u907z8Rop3RftRGR4K8zDXFX8xWq5w=";
+    hash = "sha256-3eTVqMlLx/AF3aoTbQ68Qzhr5nQzWIKt4HWZZsH2yE0=";
   };
 
   installPhase = ''
@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         test -s "$f"
         count=$((count + 1))
       done
-      test "$count" -eq 60
+      test "$count" -eq 40
       touch $out
     '';
 
@@ -45,7 +45,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         ''
           fc-scan --format '%{family}\n' ${finalAttrs.finalPackage}/share/fonts/truetype |
             tr ',' '\n' | sort -u >families.txt
-          grep -qx 'IoskeleyMonoNL Nerd Font' families.txt
+          grep -qx 'IoskeleyMonoNL Nerd Font Mono' families.txt
           touch $out
         '';
   };

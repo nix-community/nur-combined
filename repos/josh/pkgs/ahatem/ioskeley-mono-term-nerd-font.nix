@@ -8,12 +8,12 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ioskeley-mono-term-nerd-font";
-  version = "2.0.0";
+  version = "2.1.0";
 
   src = fetchzip {
     url = "https://github.com/ahatem/IoskeleyMono/releases/download/v${finalAttrs.version}/IoskeleyMono-Term-NerdFont.zip";
     stripRoot = false;
-    hash = "sha256-GiMI2YTl20K+zUObcFNzgP1ivm7pH2zHWFG15gFgasg=";
+    hash = "sha256-joAhNADErBErDqTrNelJ0ulGZCN/OUZ1SMYyU++7l6U=";
   };
 
   installPhase = ''
@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         test -s "$f"
         count=$((count + 1))
       done
-      test "$count" -eq 60
+      test "$count" -eq 40
       touch $out
     '';
 
@@ -45,7 +45,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         ''
           fc-scan --format '%{family}\n' ${finalAttrs.finalPackage}/share/fonts/truetype |
             tr ',' '\n' | sort -u >families.txt
-          grep -qx 'IoskeleyMonoTerm Nerd Font' families.txt
+          grep -qx 'IoskeleyMonoTerm Nerd Font Mono' families.txt
           touch $out
         '';
   };
