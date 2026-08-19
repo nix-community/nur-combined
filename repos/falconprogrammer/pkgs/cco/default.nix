@@ -23,13 +23,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "cco";
-  version = "0-unstable-2026-06-27";
+  version = "0-unstable-2026-08-17";
 
   src = fetchFromGitHub {
     owner = "nikvdp";
     repo = "cco";
-    rev = "8a24b4ff8073e4f8f016d49e6093b85d6eb99a52";
-    hash = "sha256-IDiDarzVa6w+SyXz9oBVvJ69QsZ6VQyUOqo+mErya94=";
+    rev = "0c7c2a8b75c7be0b3e4db5d07e183bec2b161151";
+    hash = "sha256-l6uZsi+jchSPlEStlFF90TGW4f1CV3iJM5/ario+430=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
