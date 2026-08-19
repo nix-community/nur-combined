@@ -45,8 +45,8 @@ buildNpmPackage (finalAttrs: {
     substituteInPlace \
       $out/share/deepseek-harness/node_modules/@deepseek-ai/dsh-terminal-bash/lib/index.js \
       --replace-fail \
-        'shellPath: z.string().default("/bin/bash")' \
-        'shellPath: z.string().default("${lib.getExe bashInteractive}")'
+        '"/bin/bash"' \
+        '"${lib.getExe bashInteractive}"'
 
     makeWrapper ${lib.getExe nodejs_24} $out/bin/dsh \
       --prefix PATH : ${lib.makeBinPath [ bubblewrap ]} \
