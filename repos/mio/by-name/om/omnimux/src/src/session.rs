@@ -200,7 +200,7 @@ fi"#;
             font_family: if cfg!(target_os = "macos") {
                 "Menlo".into()
             } else {
-                "SF Mono, FiraCode Nerd Font Mono, monospace".into()
+                "monospace".into()
             },
             font_size,
             line_height_multiplier: 1.14,
