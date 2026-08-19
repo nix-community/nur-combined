@@ -222,6 +222,7 @@ in
       _7zip
       altcaps
       bat
+      btw
       ddrescue
       dnsutils
       ethtool
