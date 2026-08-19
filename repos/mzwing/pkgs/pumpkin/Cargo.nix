@@ -11432,18 +11432,6 @@ rec {
         libName = "pumpkin_plugin_utils";
         dependencies = [
           {
-            name = "ed25519-dalek";
-            packageId = "ed25519-dalek";
-            usesDefaultFeatures = false;
-            features = [ "fast" ];
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
             name = "pumpkin-plugin-api";
             packageId = "pumpkin-plugin-api";
             usesDefaultFeatures = false;
@@ -11477,21 +11465,12 @@ rec {
             usesDefaultFeatures = false;
             features = [ "rustls" "json" ];
           }
-          {
-            name = "wasmparser";
-            packageId = "wasmparser 0.256.0";
-            usesDefaultFeatures = false;
-          }
         ];
         devDependencies = [
           {
             name = "tempfile";
             packageId = "tempfile";
             usesDefaultFeatures = false;
-          }
-          {
-            name = "wasm-encoder";
-            packageId = "wasm-encoder 0.256.0";
           }
         ];
 
@@ -11572,6 +11551,12 @@ rec {
             packageId = "serde";
             usesDefaultFeatures = false;
             features = [ "derive" "std" "derive" ];
+          }
+          {
+            name = "serde_json";
+            packageId = "serde_json";
+            usesDefaultFeatures = false;
+            features = [ "std" ];
           }
           {
             name = "thiserror";
