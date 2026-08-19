@@ -58,6 +58,10 @@ jobs:
           [keys]
           github = "${{ secrets.GITHUB_TOKEN }}"
           EOF
+          # Always remove the token file, even if a step below fails (the
+          # default shell runs with `set -e`, so a bare `rm` at the end would
+          # be skipped and the token could leak into the auto-commit).
+          trap 'rm -f secrets.toml' EXIT
 
           sudo mkdir -p /nix/tmpdir2
           sudo chown "$(whoami)" /nix/tmpdir2
@@ -65,8 +69,6 @@ jobs:
 
           nix run .#update
           nix run .#update-hashes
-
-          rm -f secrets.toml
 
       - name: Commit back to repository
         id: commit
