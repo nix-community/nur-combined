@@ -1,27 +1,65 @@
 # shellcheck shell=bash
 # Apply terminal colors (generated from palette)
 function apply_colors {
-	if [[ $- == *i* ]]; then
-		printf '\033]4;0;#{{ .root.modules.base16.config.base00 }}\033\\'
-		printf '\033]4;1;#{{ .root.modules.base16.config.base08 }}\033\\'
-		printf '\033]4;2;#{{ .root.modules.base16.config.base0B }}\033\\'
-		printf '\033]4;3;#{{ .root.modules.base16.config.base0A }}\033\\'
-		printf '\033]4;4;#{{ .root.modules.base16.config.base0D }}\033\\'
-		printf '\033]4;5;#{{ .root.modules.base16.config.base0E }}\033\\'
-		printf '\033]4;6;#{{ .root.modules.base16.config.base0C }}\033\\'
-		printf '\033]4;7;#{{ .root.modules.base16.config.base05 }}\033\\'
-		printf '\033]4;8;#{{ .root.modules.base16.config.base03 }}\033\\'
-		printf '\033]4;9;#{{ .root.modules.base16.config.base08 }}\033\\'
-		printf '\033]4;10;#{{ .root.modules.base16.config.base0B }}\033\\'
-		printf '\033]4;11;#{{ .root.modules.base16.config.base0A }}\033\\'
-		printf '\033]4;12;#{{ .root.modules.base16.config.base0D }}\033\\'
-		printf '\033]4;13;#{{ .root.modules.base16.config.base0E }}\033\\'
-		printf '\033]4;14;#{{ .root.modules.base16.config.base0C }}\033\\'
-		printf '\033]4;15;#{{ .root.modules.base16.config.base07 }}\033\\'
-		printf '\033]10;#{{ .root.modules.base16.config.base05 }}\033\\'  # foreground
-		printf '\033]11;#{{ .root.modules.base16.config.base00 }}\033\\'  # background
-		printf '\033]12;#{{ .root.modules.base16.config.base05 }}\033\\'  # cursor
+	if [[ $- != *i* ]]; then
+		return
 	fi
+
+	if [[ -n "${ITERM_SESSION_ID:-}" ]]; then
+		# iTerm2 proprietary ]PnRRGGBB — writes profile wells, not just OSC 4/10/11/12
+		_iterm_p() {
+			if [[ -n "${TMUX:-}" ]]; then
+				printf '\033Ptmux;\033\033]P%s%s\033\033\\\033\\' "$1" "$2"
+			else
+				printf '\033]P%s%s\033\\' "$1" "$2"
+			fi
+		}
+		_iterm_p 0 '{{ .root.modules.base16.config.base00 }}'
+		_iterm_p 1 '{{ .root.modules.base16.config.base08 }}'
+		_iterm_p 2 '{{ .root.modules.base16.config.base0B }}'
+		_iterm_p 3 '{{ .root.modules.base16.config.base0A }}'
+		_iterm_p 4 '{{ .root.modules.base16.config.base0D }}'
+		_iterm_p 5 '{{ .root.modules.base16.config.base0E }}'
+		_iterm_p 6 '{{ .root.modules.base16.config.base0C }}'
+		_iterm_p 7 '{{ .root.modules.base16.config.base05 }}'
+		_iterm_p 8 '{{ .root.modules.base16.config.base03 }}'
+		_iterm_p 9 '{{ .root.modules.base16.config.base08 }}'
+		_iterm_p a '{{ .root.modules.base16.config.base0B }}'
+		_iterm_p b '{{ .root.modules.base16.config.base0A }}'
+		_iterm_p c '{{ .root.modules.base16.config.base0D }}'
+		_iterm_p d '{{ .root.modules.base16.config.base0E }}'
+		_iterm_p e '{{ .root.modules.base16.config.base0C }}'
+		_iterm_p f '{{ .root.modules.base16.config.base07 }}'
+		_iterm_p g '{{ .root.modules.base16.config.base05 }}' # foreground
+		_iterm_p h '{{ .root.modules.base16.config.base00 }}' # background
+		_iterm_p i '{{ .root.modules.base16.config.base05 }}' # bold
+		_iterm_p j '{{ .root.modules.base16.config.base02 }}' # selection
+		_iterm_p k '{{ .root.modules.base16.config.base05 }}' # selected text
+		_iterm_p l '{{ .root.modules.base16.config.base05 }}' # cursor
+		_iterm_p m '{{ .root.modules.base16.config.base00 }}' # cursor text
+		unset -f _iterm_p
+		return
+	fi
+
+	printf '\033]4;0;#{{ .root.modules.base16.config.base00 }}\033\\'
+	printf '\033]4;1;#{{ .root.modules.base16.config.base08 }}\033\\'
+	printf '\033]4;2;#{{ .root.modules.base16.config.base0B }}\033\\'
+	printf '\033]4;3;#{{ .root.modules.base16.config.base0A }}\033\\'
+	printf '\033]4;4;#{{ .root.modules.base16.config.base0D }}\033\\'
+	printf '\033]4;5;#{{ .root.modules.base16.config.base0E }}\033\\'
+	printf '\033]4;6;#{{ .root.modules.base16.config.base0C }}\033\\'
+	printf '\033]4;7;#{{ .root.modules.base16.config.base05 }}\033\\'
+	printf '\033]4;8;#{{ .root.modules.base16.config.base03 }}\033\\'
+	printf '\033]4;9;#{{ .root.modules.base16.config.base08 }}\033\\'
+	printf '\033]4;10;#{{ .root.modules.base16.config.base0B }}\033\\'
+	printf '\033]4;11;#{{ .root.modules.base16.config.base0A }}\033\\'
+	printf '\033]4;12;#{{ .root.modules.base16.config.base0D }}\033\\'
+	printf '\033]4;13;#{{ .root.modules.base16.config.base0E }}\033\\'
+	printf '\033]4;14;#{{ .root.modules.base16.config.base0C }}\033\\'
+	printf '\033]4;15;#{{ .root.modules.base16.config.base07 }}\033\\'
+	printf '\033]10;#{{ .root.modules.base16.config.base05 }}\033\\'  # foreground
+	printf '\033]11;#{{ .root.modules.base16.config.base00 }}\033\\'  # background
+	printf '\033]12;#{{ .root.modules.base16.config.base05 }}\033\\'  # cursor
 }
 
 # Apply colors on shell startup

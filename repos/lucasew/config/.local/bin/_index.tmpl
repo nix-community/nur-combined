@@ -21,12 +21,13 @@ exec "{{ home }}/.local/bin/workspaced" open exec -p "{{ userDataDir }}/shim/laz
         {{- end }}
         {{- range $bins }}
             {{- file . "0755" }}
+{{- $locked := lockTool $ref }}{{ if not $locked }}{{ $locked = lockTool $name }}{{ end }}
 #!/usr/bin/env bash
-{{- $locked := lockTool $name }}
-{{- if $locked }}
-# locked: {{ $locked.ref }}@{{ $locked.version }}
-{{- end }}
+{{ if $locked -}}
+exec "$("{{ home }}/.local/bin/workspaced" tool which "{{ $locked.ref }}@{{ $locked.version }}" "{{ . }}")" "$@"
+{{ else -}}
 exec "{{ home }}/.local/bin/workspaced" open lazy --home --bin "{{ . }}" "{{ $ref }}" -- "$@"
+{{ end }}
             {{- endfile }}
         {{- end }}
     {{- end }}
