@@ -1,3 +1,4 @@
 /result
 /result-*
 /.devenv
+node_modules/
