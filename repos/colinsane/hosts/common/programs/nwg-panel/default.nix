@@ -160,6 +160,8 @@ in
     suggestedPrograms = [
       "brightnessctl"
       "pactl"  # pactl required by `per-app-volume` component.
+      "sane-open"
+      "xdg-terminal-exec"
     ] ++ lib.optionals (cfg.config.torch != null) [
       "torch-toggle"
     ];
@@ -201,10 +203,14 @@ in
 
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
+    sandbox.whitelistMpris.controlPlayers = true;
+    sandbox.whitelistPortal = [
+      "DynamicLauncher"  # for sane-open xdg-terminal-exec
+    ];
+    sandbox.whitelistSendNotifications = true;
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistMpris.controlPlayers = true;
-    sandbox.whitelistSendNotifications = true;
+    sandbox.extraHomePaths = config.sane.programs.mimeo-query-desktop.sandbox.extraHomePaths;
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/class/leds"  #< for torch/flashlight on moby

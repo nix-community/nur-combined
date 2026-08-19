@@ -92,6 +92,10 @@
       menu.icon = "system-shutdown-symbolic";
       menu.items = [
         {
+          name = "Terminal";
+          cmd = "sane-open --application xdg-terminal-exec.desktop";
+        }
+        {
           name = "Lock";
           cmd = "systemctl start ${locker}";
         }

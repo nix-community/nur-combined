@@ -6,11 +6,27 @@ in
 {
   sane.programs.kagi-epiphany = {
     sandbox.method = null;  #< TODO: sandbox
-    # sandbox.net = "clearnet";
+    sandbox.net = "clearnet";
+    sandbox.whitelistDbus.user = true; #< TODO: finer-grain dbus sandboxing
     # sandbox.whitelistPortal = [
     #   "OpenURI"
     # ];
-    # sandbox.whitelistWayland = true;
+    # sandbox.whitelistDbus.user.own = [
+    #   "org.gnome.Epiphany.WebApp_Kagi"
+    # ];
+    sandbox.whitelistWayland = true;
+
+    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy";
+
+    sandbox.extraPaths = [
+      # epiphany sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
+      # TODO: these could maybe be mounted empty.
+      "/sys/block"
+      "/sys/bus"
+      "/sys/class"
+      "/sys/dev"
+      "/sys/devices"
+    ];
 
     buildCost = lib.mkDefault 2;
 

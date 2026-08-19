@@ -4,8 +4,8 @@
   unstableGitUpdater,
 }:
 stdenv.mkDerivation {
-  name = "linux-firmware-megous";
-  version = "unstable-2025-12-22";
+  name = "firmware-xiaomi-beryllium";
+  version = "0-unstable-2025-12-22";
 
   src = fetchFromGitLab {
     owner = "sdm845-mainline";
