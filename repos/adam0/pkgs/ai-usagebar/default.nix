@@ -2,6 +2,7 @@
   # keep-sorted start
   fetchFromGitHub,
   lib,
+  gnutar,
   rustPlatform,
   # keep-sorted end
 }:
@@ -17,6 +18,11 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-JSv9NBGMNm3npyDdH8MlTLoNF+xV+SmQSC2SgXpcrxQ=";
+
+  postPatch = ''
+    substituteInPlace src/claude_desktop/app.rs \
+      --replace-fail 'Command::new("/usr/bin/tar")' 'Command::new("${gnutar}/bin/tar")'
+  '';
 
   meta = with lib; {
     # keep-sorted start
