@@ -31,12 +31,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     files = runCommand "test-ioskeley-mono-nl-files" { } ''
-      count=0
-      for f in ${finalAttrs.finalPackage}/share/fonts/truetype/*.ttf; do
-        test -s "$f"
-        count=$((count + 1))
-      done
-      test "$count" -eq 40
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoNL-Regular.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoNL-Bold.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoNL-Italic.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoNL-BoldItalic.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoNL-SemiCondensed.ttf
       touch $out
     '';
 

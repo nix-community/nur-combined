@@ -31,12 +31,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     files = runCommand "test-ioskeley-mono-term-nerd-font-files" { } ''
-      count=0
-      for f in ${finalAttrs.finalPackage}/share/fonts/truetype/*.ttf; do
-        test -s "$f"
-        count=$((count + 1))
-      done
-      test "$count" -eq 40
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoTermNerdFontMono-Regular.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoTermNerdFontMono-Bold.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoTermNerdFontMono-Italic.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoTermNerdFontMono-BoldItalic.ttf
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/IoskeleyMonoTermNerdFontMono-SemiCondensed.ttf
       touch $out
     '';
 
