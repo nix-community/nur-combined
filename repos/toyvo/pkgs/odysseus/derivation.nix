@@ -64,7 +64,6 @@ let
     croniter
     cryptography
     fastapi
-    fastembed
     httpcore
     httpx
     icalendar
@@ -87,7 +86,8 @@ let
     sqlalchemy
     uvicorn
     youtube-transcript-api
-  ] ++ extraFromExtras ps ++ extraPythonPackages ps
+  ] ++ lib.optionals (!stdenv.hostPlatform.isAarch64) [ ps.fastembed ]
+    ++ extraFromExtras ps ++ extraPythonPackages ps
   );
 
   # Hardcoded version - update this to match APP_VERSION in src/constants.py
