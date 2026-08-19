@@ -48,9 +48,31 @@ let
       forwarder = "dns.quad9.net:853 (9.9.9.9)";
     }
   ];
-  zoneRecords = lib.flatten (
-    lib.map (zone: map (host: host // { inherit zone; }) internalHosts) primaryZones
-  );
+  zoneRecords =
+    lib.flatten (lib.map (zone: map (host: host // { inherit zone; }) internalHosts) primaryZones)
+    ++ [
+      {
+        name = "git";
+        ttl = "300";
+        type = "A";
+        value = "10.1.0.1";
+        zone = "toyvo.dev";
+      }
+      {
+        name = "cache";
+        ttl = "300";
+        type = "A";
+        value = "10.1.0.1";
+        zone = "toyvo.dev";
+      }
+      {
+        name = "@";
+        ttl = "300";
+        type = "A";
+        value = "10.1.0.1";
+        zone = "toyvo.dev";
+      }
+    ];
   blocklistUrls = [
     "https://big.oisd.nl/domainswild2"
     "https://nsfw.oisd.nl/domainswild2"
@@ -178,6 +200,7 @@ in
           2222
           80
           443
+          homelab.${hostName}.services.technitium.port
         ];
         allowedUDPPorts = [
           53
@@ -454,6 +477,7 @@ in
       domains = [
         "toyvo.dev"
         "cache.toyvo.dev"
+        "git.toyvo.dev"
       ];
       proxied = true;
       apiTokenFile = config.sops.secrets.cloudflare_w_dns_r_zone_token.path;
@@ -468,7 +492,7 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:22,bind=0.0.0.0,fork,reuseaddr TCP:${homelab.nas.ip}:22";
+      ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:22,bind=${homelab.router.ip},fork,reuseaddr TCP:${homelab.nas.ip}:22";
       Restart = "on-failure";
       RestartSec = "5s";
       DynamicUser = true;
@@ -543,7 +567,7 @@ in
       User = "root";
       Group = "root";
       Environment = [
-        "TECHNITIUM_URL=http://127.0.0.1:${toString homelab.${hostName}.services.technitium.port}"
+        "TECHNITIUM_URL=http://0.0.0.0:${toString homelab.${hostName}.services.technitium.port}"
         "TECHNITIUM_TOKEN_FILE=${config.sops.secrets.technitium_api_key.path}"
         "TECHNITIUM_ADMIN_PASS_FILE=${config.sops.secrets.technitium_admin_password.path}"
         "TECHNITIUM_ZONE_RECORDS_FILE=${zoneRecordsFile}"

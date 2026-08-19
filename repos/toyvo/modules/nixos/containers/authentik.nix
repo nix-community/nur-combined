@@ -229,7 +229,10 @@ in
         systemd.services.authentik-server = {
           description = "Authentik Server";
           wantedBy = [ "multi-user.target" ];
-          after = [ "network-online.target" ];
+          after = [
+            "network-online.target"
+            "authentik-migrate.service"
+          ];
           wants = [ "network-online.target" ];
           environment = {
             AUTHENTIK_POSTGRESQL__HOST = cfg.db.host;
@@ -260,16 +263,15 @@ in
           '';
         };
 
-        # authentik core - required for embedded outpost functionality
-        # Creates /dev/shm/authentik-core.sock for internal proxy routing
-        systemd.services.authentik-core = {
-          description = "Authentik Core";
+        # Note: authentik 2025.12+ no longer has a separate 'ak core' command.
+        # The embedded outpost is handled internally by 'ak server' which
+        # creates /dev/shm/authentik-core.sock automatically.
+
+        systemd.services.authentik-migrate = {
+          description = "Authentik Database Migration";
           wantedBy = [ "multi-user.target" ];
-          after = [
-            "network-online.target"
-            "authentik-server.service"
-          ];
-          wants = [ "network-online.target" ];
+          after = [ "network-online.target" ];
+          before = [ "authentik-server.service" ];
           environment = {
             AUTHENTIK_POSTGRESQL__HOST = cfg.db.host;
             AUTHENTIK_POSTGRESQL__PORT = toString cfg.db.port;
@@ -279,13 +281,11 @@ in
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
           serviceConfig = {
-            Type = "simple";
+            Type = "oneshot";
             User = "authentik";
             Group = "authentik";
             WorkingDirectory = "/var/lib/authentik";
-            ExecStart = "${cfg.package}/bin/ak core";
-            Restart = "on-failure";
-            RestartSec = "5s";
+            ExecStart = "${cfg.package}/bin/ak migrate";
           };
           preStart = ''
             mkdir -p /etc/authentik

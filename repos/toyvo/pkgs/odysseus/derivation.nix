@@ -55,39 +55,43 @@ let
   # on top, so consumers can add deps the Cookbook would otherwise pip-install —
   # which fails on the read-only Nix store.
   pythonEnv = python.withPackages (
-    ps: with ps; [
-    bcrypt
-    beautifulsoup4
-    caldav
-    charset-normalizer
-    chromadb
-    croniter
-    cryptography
-    fastapi
-    httpcore
-    httpx
-    icalendar
-    markdown
-    mcp
-    nh3
-    numpy
-    pillow
-    pydantic
-    pydantic-settings
-    pyotp
-    pypdf
-    pytest
-    pytest-asyncio
-    python-dateutil
-    python-dotenv
-    python-magic
-    python-multipart
-    qrcode
-    sqlalchemy
-    uvicorn
-    youtube-transcript-api
-  ] ++ lib.optionals (!stdenv.hostPlatform.isAarch64) [ ps.fastembed ]
-    ++ extraFromExtras ps ++ extraPythonPackages ps
+    ps:
+    with ps;
+    [
+      bcrypt
+      beautifulsoup4
+      caldav
+      charset-normalizer
+      chromadb
+      croniter
+      cryptography
+      fastapi
+      httpcore
+      httpx
+      icalendar
+      markdown
+      mcp
+      nh3
+      numpy
+      pillow
+      pydantic
+      pydantic-settings
+      pyotp
+      pypdf
+      pytest
+      pytest-asyncio
+      python-dateutil
+      python-dotenv
+      python-magic
+      python-multipart
+      qrcode
+      sqlalchemy
+      uvicorn
+      youtube-transcript-api
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isAarch64) [ ps.fastembed ]
+    ++ extraFromExtras ps
+    ++ extraPythonPackages ps
   );
 
   # Hardcoded version - update this to match APP_VERSION in src/constants.py

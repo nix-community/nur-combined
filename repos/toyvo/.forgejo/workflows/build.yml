@@ -193,7 +193,7 @@ jobs:
         timeout-minutes: 1
         run: |
           nixpkgs_path=$(NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --find-file nixpkgs)
-          
+
           nix-env -f ./.forgejo/workflows/nur-eval.nix -qa \* --meta --json \
             --allowed-uris https://static.rust-lang.org \
             --option restrict-eval true \

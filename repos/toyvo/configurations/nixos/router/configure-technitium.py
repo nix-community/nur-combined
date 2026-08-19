@@ -1,4 +1,9 @@
-import json, os, sys, time, urllib.request as u, urllib.parse as p
+import json
+import os
+import sys
+import time
+import urllib.parse as p
+import urllib.request as u
 
 url = os.environ.get("TECHNITIUM_URL", "http://127.0.0.1:5380")
 token_file = os.environ.get("TECHNITIUM_TOKEN_FILE", "")
@@ -308,8 +313,8 @@ if __name__ == "__main__":
     if not t:
         sys.exit(1)
 
-    zone(t)
     forwarder_zones(t)
+    zone(t)
     blocklists(t)
     forwarders(t)
 

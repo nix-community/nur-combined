@@ -303,9 +303,10 @@ jj bookmark set main -r @ && jj git push
 **Never use `jj git push --all` or create new bookmarks without explicit user request.**
 
 The standard workflow is:
+
 1. Make changes
-2. `jj describe -m "commit message"`
-3. `jj bookmark set main -r @ && jj git push`
+1. `jj describe -m "commit message"`
+1. `jj bookmark set main -r @ && jj git push`
 
 ## Downstream Usage
 
