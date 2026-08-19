@@ -1,4 +1,4 @@
-From 3d220de168d5f50544f2863ab2ec3061ba0c1aeb Mon Sep 17 00:00:00 2001
+From 7c8376d547571686ef700aab3a404c2e2842ad3b Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Fri, 26 Jun 2026 20:17:57 +0200
 Subject: [PATCH 1/5] chore(rtc): default peer limit 3 -> 15
@@ -8,11 +8,10 @@ Subject: [PATCH 1/5] chore(rtc): default peer limit 3 -> 15
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/sync/src/providers/http-polling/config.ts b/packages/sync/src/providers/http-polling/config.ts
-index 896809f968a..53273cfc5d2 100644
+index 58a0e0f4d19..107df957e26 100644
 --- a/packages/sync/src/providers/http-polling/config.ts
 +++ b/packages/sync/src/providers/http-polling/config.ts
-@@ -3,7 +3,7 @@
-  */
+@@ -1,6 +1,6 @@
  import { applyFilters } from '@wordpress/hooks';
  
 -export const DEFAULT_CLIENT_LIMIT_PER_ROOM = 3;

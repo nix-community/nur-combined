@@ -1,24 +1,23 @@
-From e5565e2f4612b7e15e7f992c38741640e31e45d9 Mon Sep 17 00:00:00 2001
+From 5bcb3bd7bd2c5d7af4f04f3c22171fb19e62e2db Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Mon, 6 Jul 2026 23:25:15 +0200
 Subject: [PATCH 3/5] fix(build): do not run commands silently
 
 ---
- tools/build-scripts/build.mjs | 145 ++++++++++------------------------
- 1 file changed, 42 insertions(+), 103 deletions(-)
+ tools/build-scripts/build.mjs | 146 ++++++++++------------------------
+ 1 file changed, 43 insertions(+), 103 deletions(-)
 
 diff --git a/tools/build-scripts/build.mjs b/tools/build-scripts/build.mjs
-index 7c5346e4fd4..159b2d673d6 100644
+index 9df3264c5be..7e997ff898a 100644
 --- a/tools/build-scripts/build.mjs
 +++ b/tools/build-scripts/build.mjs
-@@ -3,75 +3,39 @@
- /**
-  * External dependencies
-  */
--import spawn from 'cross-spawn';
+@@ -1,73 +1,38 @@
+ #!/usr/bin/env node
++
  import { fileURLToPath } from 'url';
  import { parseArgs } from 'util';
  import path from 'path';
+-import spawn from 'cross-spawn';
 +import { spawn } from 'child_process';
  
  const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
@@ -99,7 +98,7 @@ index 7c5346e4fd4..159b2d673d6 100644
  	} );
  }
  
-@@ -92,45 +56,8 @@ async function build() {
+@@ -88,45 +53,8 @@ async function build() {
  	const startTime = Date.now();
  
  	try {
@@ -146,7 +145,7 @@ index 7c5346e4fd4..159b2d673d6 100644
  
  		// This must happen before TypeScript compilation because some packages
  		// (like vips) have source files that import from generated worker-code.ts
-@@ -168,9 +95,20 @@ async function build() {
+@@ -164,9 +92,20 @@ async function build() {
  		const buildArgs = process.argv
  			.slice( 2 )
  			.filter( ( arg ) => arg !== '--skip-types' );
@@ -170,7 +169,7 @@ index 7c5346e4fd4..159b2d673d6 100644
  
  		console.log( '\n📦 Building blocks manifests...' );
  		const blocksDirs = [
-@@ -188,23 +126,24 @@ async function build() {
+@@ -184,23 +123,24 @@ async function build() {
  			},
  		];
  		for ( const { input, output } of blocksDirs ) {

@@ -1,4 +1,4 @@
-From 09d973fd135e91102e53086a07d527b45c882346 Mon Sep 17 00:00:00 2001
+From 46affb032e9a5dba21166f43fbb398160d61c1ce Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Fri, 26 Jun 2026 20:37:05 +0200
 Subject: [PATCH 2/5] fix(build): do not run git clean
@@ -8,10 +8,10 @@ Subject: [PATCH 2/5] fix(build): do not run git clean
  1 file changed, 10 deletions(-)
 
 diff --git a/packages/icons/lib/generate-library.cjs b/packages/icons/lib/generate-library.cjs
-index 2c7568dd08f..b96e498c0bf 100644
+index fd1a5083886..e750d875633 100644
 --- a/packages/icons/lib/generate-library.cjs
 +++ b/packages/icons/lib/generate-library.cjs
-@@ -115,7 +115,6 @@ const SVG_ATTRIBUTE_WITH_DASHES = [
+@@ -107,7 +107,6 @@ const SVG_ATTRIBUTE_WITH_DASHES = [
  // `src/library/index.ts`.
  async function main() {
  	await ensureSvgFilesTracked();
@@ -19,7 +19,7 @@ index 2c7568dd08f..b96e498c0bf 100644
  	await generateTsxFiles();
  	await generateIndex();
  	await validateCollection();
-@@ -165,15 +164,6 @@ async function ensureSvgFilesTracked() {
+@@ -157,15 +156,6 @@ async function ensureSvgFilesTracked() {
  	}
  }
  
