@@ -44,8 +44,8 @@ rec {
       "github.com/caddyserver/cache-handler@v0.16.0"
     ];
     hash = {
-      "2.11.4@1.26.4" = "sha256-JuJhKemHwx5geqA0Y0Vkaccmuf29ulUfWgXu2tOcsHk=";
       "2.11.4@1.26.5" = "sha256-SIZvtm7T4aM5gySIYTaVGnqqtK3/HvElyLjEAvNFTfI=";
+      "2.11.4@1.26.6" = "sha256-afY6udsdjSXgWgOPTkM+HSO8u8rO58psRUlS0WcvuKk=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
   };
   cc-icons-unicode = callPackage ./library/cc-icons-unicode.pkg.nix { };

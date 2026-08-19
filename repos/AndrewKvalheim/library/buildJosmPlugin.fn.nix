@@ -32,6 +32,7 @@ extendMkDerivation {
       ignoreExternals = true;
       hash = {
         "19555" = "sha256-QVyVwS4hckTSI8/iFvawLqB83fcafTzKUlRd2FIo220=";
+        "19613" = "sha256-QVyVwS4hckTSI8/iFvawLqB83fcafTzKUlRd2FIo220=";
       }."${josm.version}" or lib.fakeHash;
     };
 
