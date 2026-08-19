@@ -20,7 +20,7 @@ buildNpmPackage (finalAttrs: {
   patches = [ ./package-lock.patch ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-Zc2mHJ4lz3/254btiJH7768AxCuFvYtats3yCsJMg/E=";
+  npmDepsHash = "sha256-8FdaHw2en1rFAKf3B8MlCV6jBgrkjlooIJGxrGPdgtc=";
 
   dontNpmBuild = true;
 
