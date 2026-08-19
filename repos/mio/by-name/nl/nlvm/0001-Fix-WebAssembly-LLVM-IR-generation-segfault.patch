@@ -1,0 +1,25 @@
+From 53d9413e8d8f7c505dbb8cf48599d2cf9e7f2bb1 Mon Sep 17 00:00:00 2001
+From: Mio <mio@mio19.uk>
+Date: Wed, 19 Aug 2026 14:41:30 +1000
+Subject: [PATCH] Fix WebAssembly LLVM IR generation segfault
+
+---
+ nlvm/llgen.nim | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nlvm/llgen.nim b/nlvm/llgen.nim
+index 075a6a9..ee62c35 100644
+--- a/nlvm/llgen.nim
++++ b/nlvm/llgen.nim
+@@ -10915,7 +10915,7 @@ proc myOpen(graph: ModuleGraph, s: PSym, idgen: IdGenerator): PPassContext =
+     # PIC/PIE is used by default when linking on certain platforms to enable address space randomization:
+     # https://stackoverflow.com/q/43367427
+     let
+-      reloc = llvm.RelocPIC
++      reloc = if graph.config.target.targetCPU == cpuWasm32: llvm.RelocStatic else: llvm.RelocPIC
+       cgl =
+         if optOptimizeSpeed in graph.config.options:
+           llvm.CodeGenLevelAggressive
+-- 
+2.55.0
+

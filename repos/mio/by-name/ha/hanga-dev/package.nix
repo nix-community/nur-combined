@@ -2,6 +2,7 @@
   pkgs,
   lib,
   hanga-signal,
+  cargo-kani,
 }:
 
 let
@@ -42,6 +43,7 @@ if stdenv.hostPlatform.isLinux then
         nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
           pkg-config
           makeWrapper
+          cargo-kani
         ];
         buildInputs = (attrs.buildInputs or [ ]) ++ linuxGraphics;
         postInstall = ''

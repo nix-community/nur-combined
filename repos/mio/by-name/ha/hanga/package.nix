@@ -8,6 +8,7 @@
   callPackage,
   hanga-signal,
   apple-sdk_14,
+  cargo-kani,
 }:
 
 let
@@ -42,6 +43,7 @@ rustPlatform.buildRustPackage {
     pkg-config
     rustPlatform.bindgenHook
     makeWrapper
+    cargo-kani
   ];
 
   buildInputs =

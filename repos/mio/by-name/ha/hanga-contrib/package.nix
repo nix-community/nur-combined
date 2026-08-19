@@ -22,6 +22,7 @@
   nim,
   nim-unwrapped,
   koka,
+  pkgsCross,
 }:
 
 let
@@ -107,6 +108,7 @@ stdenv.mkDerivation {
   env.JAVA_HOME = jdk;
 
   buildPhase = ''
+set -x
     runHook preBuild
 
     kotlinc-jvm \
@@ -179,12 +181,15 @@ stdenv.mkDerivation {
       --adapt wasi_snapshot_preview1=wasi_p1_stub.wasm \
       -o lab_slab.wasm
 
-    mkdir -p zig-c
-    ${wit-bindgen}/bin/wit-bindgen c --world plugin --out-dir zig-c wit
+    mkdir -p zig-bindings c-bindings
+    ${wit-bindgen}/bin/wit-bindgen c wit --out-dir c-bindings
+    python3 scripts/wit-bindgen-zig.py wit.json zig-bindings
+    cp zig-bindings/plugin.zig examples/lab-grid/plugin.zig
     cp -a lib/zig/hangamod examples/lab-grid/hangamod
-    zig build-exe examples/lab-grid/main.zig lib/c/hangamod/payload.c zig-c/plugin.c zig-c/plugin_component_type.o \
+    zig build-exe examples/lab-grid/main.zig \
       -target wasm32-wasi-musl -O ReleaseSmall -fno-entry -rdynamic -lc \
-      -I zig-c -I lib/c/hangamod -femit-bin=lab_grid.core.wasm
+      c-bindings/plugin.c c-bindings/plugin_component_type.o -I c-bindings \
+      -femit-bin=lab_grid.core.wasm
     wasm-tools component embed wit lab_grid.core.wasm -o lab_grid.embedded.wasm
     wasm-tools component new lab_grid.embedded.wasm \
       --adapt wasi_snapshot_preview1=wasi_p1_stub.wasm \
@@ -203,14 +208,19 @@ stdenv.mkDerivation {
       "$TMPDIR/nlvm-test/test"
     ''}
 
-    # nlvm --cpu:wasm32 SIGSEGVs on the continuous Linux tarball (llgen).
-    # Nim C backend + the same wit-bindgen C objects as Zig produces the component.
-    nim c --cpu:wasm32 --os:standalone --mm:none --noMain --threads:off \
-      --compileOnly --nimcache:nimcache --path:lib/nim/hangamod examples/lab-nim/main.nim
-    zig build-exe lib/c/hangamod/payload.c zig-c/plugin.c zig-c/plugin_component_type.o \
-      $(find nimcache -name '*.c') \
-      -target wasm32-wasi-musl -O ReleaseSmall -fno-entry -rdynamic -lc \
-      -I zig-c -I lib/c/hangamod -I ${nim-unwrapped}/nim/lib -femit-bin=lab_nim.core.wasm
+    zig cc -target wasm32-wasi-musl -O2 -c c-bindings/plugin.c -o c-bindings/plugin.o
+    zig cc -target wasm32-wasi-musl -O2 -c lib/c/hangamod/payload.c -o lib/c/hangamod/payload.o -Ic-bindings
+
+    # Use nlvm to compile Nim to wasm32, linking against the C bindings
+    nlvm c --cpu:wasm32 --os:standalone --mm:none --noMain --threads:off \
+      --passL:-Wl,--no-entry --passL:-rdynamic --passL:-Wl,-L${pkgsCross.wasi32.wasilibc}/lib/wasm32-wasip1 --passL:-lc \
+      --passL:lib/c/hangamod/payload.o --passL:c-bindings/plugin.o \
+      --passL:c-bindings/plugin_component_type.o \
+      --passC:-Ic-bindings --passC:-Ilib/c/hangamod \
+      --path:lib/nim/hangamod \
+      --out:lab_nim.core.wasm \
+      examples/lab-nim/main.nim
+      
     wasm-tools component embed wit lab_nim.core.wasm -o lab_nim.embedded.wasm
     wasm-tools component new lab_nim.embedded.wasm \
       --adapt wasi_snapshot_preview1=wasi_p1_stub.wasm \
@@ -230,9 +240,9 @@ stdenv.mkDerivation {
       examples/lab-koka/wasi-stubs.c \
       lib/c/hangamod/payload.c \
       examples/lab-koka/guest.c \
-      zig-c/plugin.c zig-c/plugin_component_type.o \
+      c-bindings/plugin.c c-bindings/plugin_component_type.o \
       $(find "$KOKAC" -name '*.c') \
-      -I "$KKLIB/include" -I "$KOKAC" -I zig-c -I lib/c/hangamod \
+      -I "$KKLIB/include" -I "$KOKAC" -I c-bindings -I lib/c/hangamod \
       -include examples/lab-koka/wasi-posix.h \
       -Wno-#pragma-messages \
       -DKK_STATIC_LIB=1 -DKK_COMP_VERSION='"3.2.3"' \

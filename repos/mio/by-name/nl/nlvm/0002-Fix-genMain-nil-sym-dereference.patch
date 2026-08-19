@@ -1,0 +1,25 @@
+From b511e69da5b2a0fb11a8b30349a4639bdcd9f98c Mon Sep 17 00:00:00 2001
+From: Mio <mio@mio19.uk>
+Date: Wed, 19 Aug 2026 15:41:30 +1000
+Subject: [PATCH] Fix genMain nil sym dereference
+
+---
+ nlvm/llgen.nim | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nlvm/llgen.nim b/nlvm/llgen.nim
+index ee62c35..6be1340 100644
+--- a/nlvm/llgen.nim
++++ b/nlvm/llgen.nim
+@@ -10407,7 +10407,7 @@ proc genMain(g: LLGen) =
+     mainName =
+       # TODO hackish way to not steal the `main` symbol!
+       if optNoMain in g.graph.config.globalOptions:
+-        ".nlvm.main." & g.module.sym.name.s
++        ".nlvm.main." & (if g.module != nil and g.module.sym != nil and g.module.sym.name != nil: g.module.sym.name.s else: "unknown")
+       else:
+         "main"
+     main = g.m.addFunction(mainName, llMainType)
+-- 
+2.55.0
+
