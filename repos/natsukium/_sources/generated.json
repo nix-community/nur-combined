@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-08-13",
+        "date": "2026-08-19",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "a660bd97ae01ba3b40148777c8639045d3af788c",
-            "sha256": "sha256-061htQz+9dv8itHu2ogUaEL9LtbL5g0aZmguR5woA3M=",
+            "rev": "5fe9c66e50ef72c885c2905418620b96660bdfa7",
+            "sha256": "sha256-qsgEtOd9g8IReS8padioPEFEsWeSOn3AUfP5TfYjzBs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a660bd97ae01ba3b40148777c8639045d3af788c"
+        "version": "5fe9c66e50ef72c885c2905418620b96660bdfa7"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -73,7 +73,7 @@
     },
     "paperwm-spoon": {
         "cargoLock": null,
-        "date": "2026-08-01",
+        "date": "2026-08-18",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -85,12 +85,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "a291a40a8adb3f2986bac57f2482ba34a679850b",
-            "sha256": "sha256-FS0DobdVJ8U8S1lviNFeT0aV4GIj00ON7BCgWO0DkE8=",
+            "rev": "cb6dd31a392a0d79ed090befc03f05d0ad375bba",
+            "sha256": "sha256-tbz2MJQZogdh643kMvfUI9XMTBhC2Mzd//nHChShkMQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a291a40a8adb3f2986bac57f2482ba34a679850b"
+        "version": "cb6dd31a392a0d79ed090befc03f05d0ad375bba"
     },
     "playwright-cli": {
         "cargoLock": null,
@@ -122,11 +122,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-WPre2csGAQzavtksLbj3L/MrWUT6d2gTJVq7eAmpcLk=",
+            "sha256": "sha256-CgUUltkU1YinVu5L4u6KoD3J1dMoczAS5vBv6k9CXQg=",
             "type": "url",
-            "url": "https://github.com/qmk/qmk_toolbox/releases/download/0.3.3/QMK.Toolbox.app.zip"
+            "url": "https://github.com/qmk/qmk_toolbox/releases/download/0.3.4/QMK.Toolbox.app.zip"
         },
-        "version": "0.3.3"
+        "version": "0.3.4"
     },
     "qutebrowser-darwin": {
         "cargoLock": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rjS2YUXepqy4zhXDqKo80+Iv3pCU5lLdHUAJYYhw504=",
+            "sha256": "sha256-3jaygGtEE/fZNqDGuzbqokFyG0b+vixy0Aey5rCbmP4=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.64.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.68.universal.dmg"
         },
-        "version": "8.1.4087.64"
+        "version": "8.1.4087.68"
     },
     "zen-browser": {
         "cargoLock": null,
@@ -209,10 +209,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HcQ0zBkZHm7Y6p7x/Ov7jWbjl/bncVXq0QC4SICYLlg=",
+            "sha256": "sha256-Do6fOjbV80tTNWMeSVQU9G+Nj7eOe6WnMvmSMF3o4Ec=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.21.14b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.21.15b/zen.macos-universal.dmg"
         },
-        "version": "1.21.14b"
+        "version": "1.21.15b"
     }
 }

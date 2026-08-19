@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "a660bd97ae01ba3b40148777c8639045d3af788c";
+    version = "5fe9c66e50ef72c885c2905418620b96660bdfa7";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "a660bd97ae01ba3b40148777c8639045d3af788c";
+      rev = "5fe9c66e50ef72c885c2905418620b96660bdfa7";
       fetchSubmodules = false;
-      sha256 = "sha256-061htQz+9dv8itHu2ogUaEL9LtbL5g0aZmguR5woA3M=";
+      sha256 = "sha256-qsgEtOd9g8IReS8padioPEFEsWeSOn3AUfP5TfYjzBs=";
     };
-    date = "2026-08-13";
+    date = "2026-08-19";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -48,15 +48,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "a291a40a8adb3f2986bac57f2482ba34a679850b";
+    version = "cb6dd31a392a0d79ed090befc03f05d0ad375bba";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "a291a40a8adb3f2986bac57f2482ba34a679850b";
+      rev = "cb6dd31a392a0d79ed090befc03f05d0ad375bba";
       fetchSubmodules = false;
-      sha256 = "sha256-FS0DobdVJ8U8S1lviNFeT0aV4GIj00ON7BCgWO0DkE8=";
+      sha256 = "sha256-tbz2MJQZogdh643kMvfUI9XMTBhC2Mzd//nHChShkMQ=";
     };
-    date = "2026-08-01";
+    date = "2026-08-18";
   };
   playwright-cli = {
     pname = "playwright-cli";
@@ -71,10 +71,10 @@
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
-    version = "0.3.3";
+    version = "0.3.4";
     src = fetchurl {
-      url = "https://github.com/qmk/qmk_toolbox/releases/download/0.3.3/QMK.Toolbox.app.zip";
-      sha256 = "sha256-WPre2csGAQzavtksLbj3L/MrWUT6d2gTJVq7eAmpcLk=";
+      url = "https://github.com/qmk/qmk_toolbox/releases/download/0.3.4/QMK.Toolbox.app.zip";
+      sha256 = "sha256-CgUUltkU1YinVu5L4u6KoD3J1dMoczAS5vBv6k9CXQg=";
     };
   };
   qutebrowser-darwin = {
@@ -111,18 +111,18 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "8.1.4087.64";
+    version = "8.1.4087.68";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.64.universal.dmg";
-      sha256 = "sha256-rjS2YUXepqy4zhXDqKo80+Iv3pCU5lLdHUAJYYhw504=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.68.universal.dmg";
+      sha256 = "sha256-3jaygGtEE/fZNqDGuzbqokFyG0b+vixy0Aey5rCbmP4=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.21.14b";
+    version = "1.21.15b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.21.14b/zen.macos-universal.dmg";
-      sha256 = "sha256-HcQ0zBkZHm7Y6p7x/Ov7jWbjl/bncVXq0QC4SICYLlg=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.21.15b/zen.macos-universal.dmg";
+      sha256 = "sha256-Do6fOjbV80tTNWMeSVQU9G+Nj7eOe6WnMvmSMF3o4Ec=";
     };
   };
 }
