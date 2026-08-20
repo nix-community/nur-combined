@@ -38,6 +38,12 @@
                       [
                         "0.0.0.0"
                         "[::]"
+                        # Private-domain sites explicitly bind router.ip too, which
+                        # otherwise steals connections addressed to that specific IP
+                        # into their own server (no route -> empty 200) since Caddy
+                        # groups sites into servers by exact listenAddresses set and
+                        # a specific bind wins over the 0.0.0.0 wildcard for that IP.
+                        homelab.router.ip
                       ]
                     else
                       [
@@ -47,6 +53,13 @@
                       ];
                   extraConfig =
                     let
+                      # stdout -> journal -> already shipped to Loki/Grafana by the
+                      # monitoring module's loki.source.journal "systemd" block.
+                      logBlock = ''
+                        log {
+                          output stdout
+                        }
+                      '';
                       forwardAuthBlock = lib.optionalString (forwardAuthGate && !selfSigned) ''
                         forward_auth http://${homelab.authentik.ip}:9000 {
                           uri /outpost.goauthentik.io/auth/caddy
@@ -59,7 +72,8 @@
                         }
                       '';
                     in
-                    forwardAuthBlock
+                    logBlock
+                    + forwardAuthBlock
                     + (
                       if selfSigned then
                         ''

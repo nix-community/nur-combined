@@ -35,6 +35,7 @@ in
           gpg.format = "ssh";
           init.defaultBranch = "main";
           url."git@github.com:".pushInsteadOf = "https://github.com/";
+          url."forgejo@git.toyvo.dev:".pushInsteadOf = "https://git.toyvo.dev/";
           alias = {
             a = "add";
             aa = "add -A";
