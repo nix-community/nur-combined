@@ -16,14 +16,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "native-open-mod-manager";
-  version = "0.12.1";
+  version = "0.12.2";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "Allexio";
     repo = "nomm";
     tag = finalAttrs.version;
-    hash = "sha256-YR8STG8o9RjSzJwSh9/wKJf3TEZsphgk3xxEJoxdVXc=";
+    hash = "sha256-Ix6sLBuZ82hBon6oRWqRDzJnUx/CkEaRM984cDRE4+s=";
   };
 
   nativeBuildInputs = [
