@@ -42,7 +42,7 @@ in
       server_name = "sv.mt";
       allow_federation = true;
       allow_announcements_check = false;
-      new_user_displayname-suffix = "";
+      new_user_displayname_suffix = "";
       ip_lookup_strategy = 1;
       log_colors = false;
     };
@@ -59,10 +59,12 @@ in
     "sv.mt".extraConfig = lib.mkBefore ''
       handle /.well-known/matrix/server {
         header Content-Type application/json
+        header Access-Control-Allow-Origin *
         respond `${wellKnownServer}` 200
       }
       handle /.well-known/matrix/client {
         header Content-Type application/json
+        header Access-Control-Allow-Origin *
         respond `${wellKnownClient}` 200
       }
     '';

@@ -12,7 +12,7 @@
 
   vacu.qemuVMs.vavm = {
     address = "10.78.77.2";
-    baseMem = 4 * 1024;
+    baseMem = 8 * 1024;
     maxMem = 16 * 1024;
     dimmSlots = 4;
     cpus = 4;
