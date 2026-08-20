@@ -29,6 +29,13 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
+  extraPkgs = pkgs: with pkgs; [
+      webkitgtk_4_1
+      gtk3
+      libsoup_3
+      glib-networking
+    ];
+
   extraInstallCommands = ''
     install -m 444 -D ${desktopItem}/share/applications/${pname}.desktop \
       $out/share/applications/${pname}.desktop
