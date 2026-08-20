@@ -54,13 +54,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.4.0-alpha.6";
+    version = "v0.4.0-alpha.7";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.4.0-alpha.6";
+      rev = "v0.4.0-alpha.7";
       fetchSubmodules = false;
-      sha256 = "sha256-iiH4+3InrtChhqPyNGEQsk/mCJ0aLmh6du7jeu0WIEQ=";
+      sha256 = "sha256-YyQN4Fcn/a9h6wET6sZsDIc0a+0sSRqOaC90lv228sg=";
     };
   };
   fast-nix-gc = {
