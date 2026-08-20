@@ -41,15 +41,38 @@ jobs:
           git config user.email "forgejo-actions[bot]@users.noreply.git.toyvo.dev"
           BRANCH="update-flake-lock"
 
+          # Always rebuild the branch from current main first, even when
+          # there's nothing new to commit this run. Otherwise a branch/PR
+          # from an earlier run (when the lock last changed) just sits
+          # frozen while main keeps moving, and eventually genuinely
+          # conflicts even though nothing about this workflow's own commits
+          # changed.
+          git checkout -B "$BRANCH"
+
           nix flake update
           nix fmt
 
           if git diff --quiet; then
             echo "flake.lock and formatting already up to date"
+            # Close any stale PR left over from an earlier run - it has
+            # nothing left to merge now that main already matches it.
+            PR_NUMBER=$(curl -sf -H "Authorization: token $GH_TOKEN" \
+              "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls?state=open&limit=50" \
+              | jq -r --arg b "$BRANCH" '[.[] | select(.head.ref == $b)][0].number // empty')
+            if [ -n "$PR_NUMBER" ]; then
+              echo "Closing stale PR #$PR_NUMBER (nothing left to merge)"
+              curl -sf -X PATCH \
+                -H "Authorization: token $GH_TOKEN" \
+                -H "Content-Type: application/json" \
+                -d '{"state": "closed"}' \
+                "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" > /dev/null
+              curl -s -X DELETE \
+                -H "Authorization: token $GH_TOKEN" \
+                "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/branches/$BRANCH" > /dev/null
+            fi
             exit 0
           fi
 
-          git checkout -B "$BRANCH"
           if ! git diff --quiet -- flake.lock; then
             git add flake.lock
             git commit -m "chore: update flake.lock"
