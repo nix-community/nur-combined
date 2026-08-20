@@ -164,11 +164,11 @@
     "nh": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-xiNjPARH+Fw366Svkjr8sKULp7fb3ORLa3NimY13IGk=/Cargo.lock",
+                "sha256-qNlWrVGN6bxibex1t98G4CKVQ7cnLMOXNhJ9sge7nbE=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-10",
+        "date": "2026-08-20",
         "extract": null,
         "name": "nh",
         "passthru": null,
@@ -180,12 +180,12 @@
             "name": null,
             "owner": "XYenon",
             "repo": "nh",
-            "rev": "eeb9224fd02dc118ef6506da2b56605313a294b6",
-            "sha256": "sha256-xiNjPARH+Fw366Svkjr8sKULp7fb3ORLa3NimY13IGk=",
+            "rev": "6aee07815715a7148042e9251830a45d71ec7fa2",
+            "sha256": "sha256-qNlWrVGN6bxibex1t98G4CKVQ7cnLMOXNhJ9sge7nbE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "eeb9224fd02dc118ef6506da2b56605313a294b6"
+        "version": "6aee07815715a7148042e9251830a45d71ec7fa2"
     },
     "nix-package-versions": {
         "cargoLock": null,
