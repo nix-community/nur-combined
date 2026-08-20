@@ -30,10 +30,10 @@ jobs:
       pr_number: ${{ steps.update.outputs.pr_number }}
     steps:
       - name: Checkout repository
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         uses: actions/checkout@v4
       - name: Update flake.lock and format code
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         id: update
         run: |
           set -euo pipefail
