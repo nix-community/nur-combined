@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  date = "2026-08-13";
-  rev = "ff4b01b78bac944917e9c94dca5a225b66da3c30";
+  date = "2026-08-19";
+  rev = "2c6dc19af3207b781d1f27dcef02921388632500";
   src = fetchzip {
-    url = "https://codeload.github.com/so1ve/niri/tar.gz/ff4b01b78bac944917e9c94dca5a225b66da3c30";
-    hash = "sha256-UaJn6dfl3aUCNIs4rHZbmcAXpoIefuHxSBhfeNlNdqI=";
+    url = "https://codeload.github.com/so1ve/niri/tar.gz/2c6dc19af3207b781d1f27dcef02921388632500";
+    hash = "sha256-7Yi7s+C96MLyoRw6sqp3YsdHfaUzNG35FKfJ3zWo0yc=";
     extension = "tar.gz";
   };
 in
