@@ -50,7 +50,10 @@ stdenv.mkDerivation rec {
 
   # zlib/zstd are needed by the static LLVM link; system llvm_18 is NOT listed
   # here since nlvm links against its own locally-built static LLVM (llvm/sta/).
-  buildInputs = [ zlib zstd ];
+  buildInputs = [
+    zlib
+    zstd
+  ];
 
   buildPhase = ''
     runHook preBuild

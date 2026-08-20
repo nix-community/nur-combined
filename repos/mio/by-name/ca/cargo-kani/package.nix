@@ -28,10 +28,10 @@ let
     toolchain_components.llvm-tools-preview
     toolchain_components.rust-src
   ];
-  
+
   # Kani 0.67.0
   version = "0.67.0";
-  
+
   rustPlatform = makeRustPlatform {
     cargo = toolchain;
     rustc = toolchain;
@@ -82,7 +82,7 @@ rustPlatform.buildRustPackage rec {
     runHook preInstall
     mkdir -p $out
     tar -xzf kani-0.67.0-*.tar.gz -C $out --strip-components=1
-    
+
     # Remove proxy wrappers and symlink the real kani-driver
     rm -f $out/bin/cargo-kani $out/bin/kani
     ln -s $out/bin/kani-driver $out/bin/cargo-kani

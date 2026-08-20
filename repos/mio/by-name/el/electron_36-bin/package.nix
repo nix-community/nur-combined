@@ -62,8 +62,13 @@ let
   };
 
   src = fetchurl {
-    url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-${tags.${stdenv.hostPlatform.system} or (throw "electron_36-bin: unsupported system ${stdenv.hostPlatform.system}")}.zip";
-    hash = hashes.${stdenv.hostPlatform.system} or (throw "electron_36-bin: unsupported system ${stdenv.hostPlatform.system}");
+    url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-${
+      tags.${stdenv.hostPlatform.system}
+        or (throw "electron_36-bin: unsupported system ${stdenv.hostPlatform.system}")
+    }.zip";
+    hash =
+      hashes.${stdenv.hostPlatform.system}
+        or (throw "electron_36-bin: unsupported system ${stdenv.hostPlatform.system}");
   };
 
   headers = fetchzip {
@@ -153,7 +158,13 @@ stdenv.mkDerivation (finalAttrs: {
 
     # patch libANGLE
     patchelf \
-      --set-rpath "${lib.makeLibraryPath [ libGL pciutils vulkan-loader ]}" \
+      --set-rpath "${
+        lib.makeLibraryPath [
+          libGL
+          pciutils
+          vulkan-loader
+        ]
+      }" \
       $out/libexec/electron/lib*GL*
 
     # replace bundled vulkan-loader
@@ -177,6 +188,8 @@ stdenv.mkDerivation (finalAttrs: {
       "aarch64-linux"
     ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    knownVulnerabilities = [ "Electron 36 is EOL — use only for apps that require this specific ABI (e.g. EasyEDA Pro)" ];
+    knownVulnerabilities = [
+      "Electron 36 is EOL — use only for apps that require this specific ABI (e.g. EasyEDA Pro)"
+    ];
   };
 })

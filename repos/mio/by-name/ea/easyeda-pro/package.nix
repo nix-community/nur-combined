@@ -28,7 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "easyeda-pro";
   inherit version;
 
-  src = srcs.${stdenv.hostPlatform.system} or (throw "easyeda-pro: unsupported system ${stdenv.hostPlatform.system}");
+  src =
+    srcs.${stdenv.hostPlatform.system}
+      or (throw "easyeda-pro: unsupported system ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [
     copyDesktopItems
