@@ -39,7 +39,6 @@ in
       pname
       version
       # keep-sorted end
-      # keep-sorted end
       ;
 
     src = fetchurl {
