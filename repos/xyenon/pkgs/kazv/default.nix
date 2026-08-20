@@ -36,14 +36,14 @@ stdenv.mkDerivation {
   __structuredAttrs = true;
 
   pname = "kazv";
-  version = "0.6.0-unstable-2026-08-16";
+  version = "0.6.0-unstable-2026-08-19";
 
   src = fetchFromCodeberg {
     owner = "the-kazv-project";
     repo = "kazv";
     fetchSubmodules = true;
-    rev = "b608d9889e6458ba4f359580a2a51bfaf598e2d7";
-    hash = "sha256-OLnKofYA2b5H4jNo+DLRAvOqtMurGqD1Jym3lgwr8VA=";
+    rev = "beb00fb6c3c7faf1eee442399dccc593d2cd0f8b";
+    hash = "sha256-XV3aRJyJxEhT9xFIieZMHP2I+pKuPZjw1kFJm1TZUdw=";
   };
 
   nativeBuildInputs = [
