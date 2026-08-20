@@ -3,7 +3,6 @@
   lib,
   pkgs,
   homelab,
-  stablePkgs,
   ...
 }:
 let
@@ -16,7 +15,7 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      default = stablePkgs.authentik;
+      default = pkgs.authentik;
     };
 
     hostAddress = lib.mkOption {
