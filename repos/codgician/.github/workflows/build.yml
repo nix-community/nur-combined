@@ -100,7 +100,7 @@ jobs:
       checks: write
       # Atelier's nested workflow declares OIDC for optional cache pushes.
       id-token: write
-    uses: stepbrobd/atelier/.github/workflows/discover.yaml@0dc970e40d5be02aaea0d7e88cbf5e0b96a9a8b6 # 2026.722.0
+    uses: stepbrobd/atelier/.github/workflows/discover.yaml@8d6b6281f2d1f28b6115609df00f020e3042571f # 2026.813.0
     with:
       attr: ${{ needs.harness.outputs.attr }}
       push: ${{ github.ref == 'refs/heads/main' }}
