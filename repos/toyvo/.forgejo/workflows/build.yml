@@ -139,8 +139,7 @@ jobs:
           fi
 
           echo "Attempting to merge PR #$PR_NUMBER..."
-          # Forgejo uses PUT not POST for merge
-          MERGE_RESPONSE=$(curl -s -w "%{http_code}" -X PUT \
+          MERGE_RESPONSE=$(curl -s -w "%{http_code}" -X POST \
             -H "Authorization: token $GH_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{"Do": "squash"}' \
