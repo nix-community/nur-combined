@@ -75,13 +75,16 @@ in
     jobs.A = propA;
     local-nixcache.A = s "10.78.79.22";
     mail.A = doA;
+    matrix-rtc.A = propA;
     matrix.A = propA;
-    mc.SRV = [ {
-      service = "minecraft";
-      proto = "tcp";
-      port = 25565;
-      target = "powerhouse.dyn.74358228.xyz.";
-    } ];
+    mc.SRV = [
+      {
+        service = "minecraft";
+        proto = "tcp";
+        port = 25565;
+        target = "powerhouse.dyn.74358228.xyz.";
+      }
+    ];
     mumble.A = propA;
     nitter.A = propA;
     nixcache.A = propA;

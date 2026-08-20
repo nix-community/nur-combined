@@ -9,7 +9,16 @@ let
   socketPath = "${socketDir}/socket.unix";
   delegatedName = "matrix.shelvacu.com";
   wellKnownServer = builtins.toJSON { "m.server" = "${delegatedName}:443"; };
-  wellKnownClient = builtins.toJSON { "m.homeserver".base_url = "https://${delegatedName}"; };
+  wellKnownClient = builtins.toJSON {
+    "m.homeserver".base_url = "https://${delegatedName}";
+    # MatrixRTC / Element Call focus. Backend configured in ./matrix-rtc.nix.
+    "org.matrix.msc4143.rtc_foci" = [
+      {
+        type = "livekit";
+        livekit_service_url = "https://matrix-rtc.shelvacu.com";
+      }
+    ];
+  };
 in
 {
   systemd.tmpfiles.settings.whatever.${socketDir}.d = {
