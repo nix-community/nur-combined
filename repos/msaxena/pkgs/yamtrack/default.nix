@@ -127,7 +127,11 @@ stdenv.mkDerivation (finalAttrs: {
           services.yamtrack = {
             enable = true;
             package = finalAttrs.finalPackage;
-            port = 8001;
+            # The module's new default; set explicitly to document that this
+            # is now the co-located proxy's port, not gunicorn's (which binds
+            # loopback-only on its own fixed internal port and is never
+            # reachable here).
+            port = 8000;
             openFirewall = true;
             environmentFiles = [
               (pkgs.writeText "yamtrack-env" ''
@@ -144,20 +148,106 @@ stdenv.mkDerivation (finalAttrs: {
         };
 
       testScript = ''
+        import re
+
         machine.wait_for_unit("redis-yamtrack.service")
         machine.wait_for_unit("yamtrack-migrate.service")
         machine.wait_for_unit("yamtrack-worker.service")
         machine.wait_for_unit("yamtrack.service")
-        machine.wait_for_open_port(8001)
+        machine.wait_for_unit("yamtrack-proxy.service")
+        machine.wait_for_open_port(8000)
 
         # /health/ (health_check.Cache, .Database, .contrib.celery.Ping,
         # .contrib.redis.Redis) only returns 200 once the celery worker has
         # registered with the broker; until then it 500s. -f makes curl
-        # fail (and wait_until_succeeds retry) on non-2xx responses.
+        # fail (and wait_until_succeeds retry) on non-2xx responses. Port
+        # 8000 is the co-located proxy, not gunicorn directly, so this also
+        # exercises its reverse_proxy path end to end.
         machine.wait_until_succeeds(
-          "curl -sf http://localhost:8001/health/",
-          timeout=60,
+          "curl -sf http://localhost:8000/health/",
+          timeout=120,
         )
+
+        with subtest("proxy serves collectstatic's output directly"):
+            # Don't hardcode a filename (STATIC_ROOT's contents depend on
+            # whatever apps happen to ship static/ dirs) -- discover a real
+            # collected asset at runtime and fetch it through the proxy's
+            # own port, with no separate reverse proxy involved.
+            static_root = "${finalAttrs.finalPackage}/share/yamtrack/src/staticfiles"
+            # `-print -quit` (not `| head -n1`) to avoid a broken-pipe exit
+            # code from `find`/`sort` once `head` closes the pipe early.
+            sample_file = machine.succeed(
+                f"find {static_root} -type f -print -quit"
+            ).strip()
+            rel_path = sample_file[len(static_root):].lstrip("/")
+            machine.succeed(f"curl -sf -o /dev/null http://localhost:8000/static/{rel_path}")
+
+        with subtest("registration succeeds through the proxy alone"):
+            # The check that a healthy-looking systemd unit set does NOT
+            # cover: django-allauth's per-IP signup rate limiter (default
+            # ACCOUNT_RATE_LIMITS "signup": "20/m/ip") calls get_client_ip()
+            # on every POST to /accounts/signup/, which raises
+            # PermissionDenied (403) whenever ALLAUTH_TRUSTED_CLIENT_IP_HEADER
+            # ("X-Real-IP", set whenever not running via manage.py
+            # runserver/test -- see settings.py) is configured but the header
+            # itself is missing from the request. Before the proxy set
+            # X-Real-IP, this 403ed on every single signup/login attempt
+            # while every unit above still reported healthy.
+            #
+            # Mirror Django's real cookie+token CSRF flow: GET the signup
+            # page to obtain both the csrftoken cookie and the
+            # csrfmiddlewaretoken hidden input, then POST them back together
+            # with matching Origin/Referer headers. Retried: gunicorn's
+            # preload_app import (WEB_CONCURRENCY=1, the whole INSTALLED_APPS
+            # list) can take upwards of 20+ seconds to complete under this
+            # test's emulated CPU -- much longer than on real hardware --
+            # during which Caddy's reverse_proxy can return a transient
+            # incomplete response even though its own /health/ check above
+            # already passed once. django-allauth's rate limiter would 403
+            # (not merely return an incomplete/empty body) regardless of
+            # timing, so retrying here doesn't mask the actual X-Real-IP bug
+            # this test exists to catch.
+            csrf_match = None
+            for _ in range(150):
+                status, out = machine.execute(
+                    "curl -sf -c /tmp/yamtrack-cookies.txt http://localhost:8000/accounts/signup/"
+                )
+                if status == 0:
+                    csrf_match = re.search(
+                        r'name="csrfmiddlewaretoken" value="([^"]+)"', out
+                    )
+                    if csrf_match is not None:
+                        break
+                machine.execute("sleep 1")
+            assert csrf_match is not None, (
+                "csrfmiddlewaretoken not found on signup page after retrying for 150s"
+            )
+            csrf_token = csrf_match.group(1)
+
+            status = machine.succeed(
+                "curl -s -o /tmp/post-result.html -w '%{http_code}' "
+                "-b /tmp/yamtrack-cookies.txt "
+                "-H 'Origin: http://localhost:8000' "
+                "-H 'Referer: http://localhost:8000/accounts/signup/' "
+                f"--data-urlencode 'csrfmiddlewaretoken={csrf_token}' "
+                "--data-urlencode 'username=e2e-registration-test' "
+                "--data-urlencode 'password1=Correct-Horse-Battery-Staple9' "
+                "--data-urlencode 'password2=Correct-Horse-Battery-Staple9' "
+                "http://localhost:8000/accounts/signup/"
+            ).strip()
+            if status != "302":
+                print(
+                    "signup POST failed -- response body:",
+                    machine.execute("cat /tmp/post-result.html")[1],
+                )
+                print(
+                    "signup POST failed -- gunicorn journal:",
+                    machine.execute("journalctl -u yamtrack.service --no-pager -n 60")[1],
+                )
+            assert status == "302", (
+                f"expected a redirect (302) after successful signup, got HTTP {status} "
+                "-- see the response body/journal logged above"
+            )
       '';
     };
 
@@ -174,7 +264,10 @@ stdenv.mkDerivation (finalAttrs: {
           services.yamtrack = {
             enable = true;
             package = finalAttrs.finalPackage;
-            port = 8001;
+            # See the sqlite-backed test above: this is now the co-located
+            # proxy's port, not gunicorn's fixed internal one, and must not
+            # collide with it.
+            port = 8000;
             celery.enable = false;
             database.createLocally = true;
             environmentFiles = [
@@ -189,7 +282,8 @@ stdenv.mkDerivation (finalAttrs: {
         machine.wait_for_unit("postgresql.service")
         machine.wait_for_unit("yamtrack-migrate.service")
         machine.wait_for_unit("yamtrack.service")
-        machine.wait_for_open_port(8001)
+        machine.wait_for_unit("yamtrack-proxy.service")
+        machine.wait_for_open_port(8000)
         machine.succeed(
           "runuser -u postgres -- psql yamtrack -c \"select count(*) from django_migrations;\""
         )
@@ -207,8 +301,12 @@ stdenv.mkDerivation (finalAttrs: {
 
       This package builds Yamtrack from source against nixpkgs' Python
       package set instead of using the upstream Docker image, so it does not
-      include nginx or supervisord. Use the accompanying `nixosModules.yamtrack`
-      NixOS module to run it as systemd services.
+      itself include nginx or supervisord. Use the accompanying
+      `nixosModules.yamtrack` NixOS module to run it as systemd services --
+      as of the module's `port`/`host` breaking change (see that option's
+      description), it provides its own co-located Caddy-based equivalent of
+      upstream's bundled nginx layer (static-file serving, X-Real-IP), so
+      nothing further is required for a working deployment.
     '';
     homepage = "https://github.com/FuzzyGrim/Yamtrack";
     changelog = "https://github.com/FuzzyGrim/Yamtrack/releases/tag/v${finalAttrs.version}";

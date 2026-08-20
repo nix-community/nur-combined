@@ -7,9 +7,10 @@ My personal [NUR](https://github.com/nix-community/NUR) repository.
 - `scrobblex` — self-hosted Plex-to-Trakt scrobbler.
 - `trek` — self-hosted, collaborative travel planner ([liketrek/TREK](https://github.com/liketrek/TREK)).
 - `yamtrack` — self-hosted media tracker (movies, TV, anime, manga, games, books, ...).
-  Built from source against nixpkgs' Python packages; does not include the
-  upstream Docker image's nginx/supervisord layer. Use `nixosModules.yamtrack`
-  to run it.
+  Built from source against nixpkgs' Python packages; the package itself
+  does not include the upstream Docker image's nginx/supervisord layer, but
+  `nixosModules.yamtrack` provides an equivalent co-located proxy of its
+  own — see below.
 
 ## NixOS modules
 
@@ -86,6 +87,22 @@ supported key.
   };
 }
 ```
+
+**Proxy included**: `services.yamtrack.host`/`port` (default `127.0.0.1:8000`)
+are a small co-located Caddy instance the module runs in front of gunicorn —
+mirroring upstream's own Docker image, which bundles nginx alongside
+gunicorn for exactly the same reason. It serves `/static/` directly from
+the package's `collectstatic` output and sets `X-Real-IP` on the way to
+gunicorn, which `django-allauth`'s per-IP signup/login rate limiter requires
+(without it, every registration/login attempt 403s even though every
+systemd unit reports healthy). Gunicorn itself no longer binds
+`host`/`port` — it's loopback-only on a fixed internal port that isn't part
+of this module's option surface. **Breaking change** if upgrading from an
+older version of this module: `host`/`port` used to be gunicorn's own bind
+address, and every consumer had to put their own reverse proxy in front to
+get working static assets and correct client-IP detection at all — anything
+that assumed `host`:`port` was gunicorn (firewall rules, an external
+proxy's upstream target) needs re-checking.
 
 State: with the sqlite default, only `/var/lib/yamtrack` needs to survive a
 reboot (add it to your impermanence persistence list); with

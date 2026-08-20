@@ -16,6 +16,14 @@ let
   # data; django-celery-beat stores its schedule in the database, not Redis.
   stateDir = "/var/lib/yamtrack";
 
+  # gunicorn is no longer part of this module's public option surface: it
+  # binds to a fixed loopback-only address, and `services.yamtrack.host`/
+  # `port` now describe the co-located proxy in front of it instead (see
+  # those options' descriptions). This mirrors upstream's own Docker image,
+  # which always runs gunicorn on 127.0.0.1:8001 behind an nginx that's the
+  # only thing actually reachable -- see yamtrackCaddyfile below.
+  gunicornPort = 8001;
+
   boolStr = b: if b then "true" else "false";
 
   isSqlite = cfg.database.host == null && !cfg.database.createLocally;
@@ -160,6 +168,82 @@ let
   // hardening;
 
   dbUnitDeps = lib.optional cfg.database.createLocally "postgresql.service";
+
+  # Path static assets are served under, matching Django's own STATIC_URL
+  # (which gets BASE_URL prefixed onto it -- see settings.py). `handle_path`
+  # strips this whole prefix before handing off to file_server, same as
+  # nginx's `alias` does for the equivalent `location` block.
+  staticUrlPath = "${lib.optionalString (cfg.baseUrl != null) cfg.baseUrl}/static/*";
+
+  # A small co-located Caddy instance standing in for upstream's bundled
+  # nginx: serves collectstatic's output at /static/ and reverse-proxies
+  # everything else to gunicorn, setting X-Real-IP along the way (required
+  # by django-allauth's per-IP rate limiter -- see ALLAUTH_TRUSTED_CLIENT_IP_HEADER
+  # in Yamtrack's settings.py; without it, every signup/login POST raises
+  # PermissionDenied and 403s, even though gunicorn itself is perfectly
+  # healthy). `admin off` disables Caddy's admin API, which this static
+  # single-site config never needs.
+  #
+  # X-Forwarded-Proto is passed through from whatever this proxy itself
+  # received, matching upstream nginx.conf's `$http_x_forwarded_proto`
+  # verbatim-forward behavior -- deliberately, so that a consumer's own
+  # TLS-terminating reverse proxy in front of this one (a normal setup; see
+  # `services.yamtrack.urls`) still has its scheme reach gunicorn correctly.
+  # As with nginx, this makes that header attacker-controlled input if this
+  # proxy is instead exposed directly to untrusted clients (see openFirewall
+  # below) with nothing in front of it to set/strip it first. X-Real-IP is
+  # NOT forwarded this way -- it is always set from this proxy's own view of
+  # the immediate peer address, so it can't be spoofed by an inbound header
+  # regardless of exposure. (X-Forwarded-For needs no explicit handling
+  # here: Caddy's reverse_proxy already sets it the same anti-spoofing way
+  # by default, so overriding it would be redundant -- Caddy's own linter
+  # flags exactly that.)
+  yamtrackCaddyfile = pkgs.writeText "yamtrack-Caddyfile" ''
+    {
+        admin off
+    }
+
+    :${toString cfg.port} {
+        # A Caddyfile site address's host part (e.g. "127.0.0.1" in
+        # "http://127.0.0.1:8000") is a *Host-header matcher*, not a listen
+        # filter -- Caddy still binds it wildcard regardless, and any
+        # request whose Host header doesn't literally match gets an empty
+        # default response instead of reaching the handlers below (e.g. a
+        # client that reaches this proxy via "localhost" rather than
+        # "127.0.0.1" would silently get nothing). `bind` is the actual
+        # listen-address control, decoupled from Host-header matching --
+        # this site intentionally matches any Host header, since gunicorn
+        # behind it already validates Host via ALLOWED_HOSTS.
+        bind ${cfg.host}
+
+        header {
+            X-Frame-Options "SAMEORIGIN"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        }
+
+        handle_path ${staticUrlPath} {
+            root * ${pkg}/share/yamtrack/src/staticfiles
+            file_server
+            header Cache-Control "public, max-age=2592000"
+        }
+
+        handle {
+            reverse_proxy 127.0.0.1:${toString gunicornPort} {
+                # {host} (unlike {http.request.hostport}) silently strips the
+                # port, which breaks Django's CSRF Origin check: it compares
+                # the browser's Origin header (scheme://host:port) against
+                # one it builds from the forwarded Host header, and a
+                # missing port makes those never match on any non-default
+                # port -- every POST 403s ("Origin checking failed"), not
+                # just cross-site ones.
+                header_up Host {http.request.hostport}
+                header_up X-Real-IP {remote_host}
+                header_up X-Forwarded-Proto {http.request.header.X-Forwarded-Proto}
+            }
+        }
+    }
+  '';
 in
 {
   options.services.yamtrack = {
@@ -176,18 +260,31 @@ in
       type = lib.types.str;
       default = "127.0.0.1";
       description = ''
-        Address gunicorn binds to. Yamtrack does not ship a bundled reverse
-        proxy (the upstream Docker image's nginx/static-file layer is not
-        part of this package) — put a proxy such as
-        {option}`services.nginx.virtualHosts` in front of it and serve
-        `${"$"}{package}/share/yamtrack/src/staticfiles` at `/static/`.
+        Address the module's co-located static-file/reverse-proxy front-end
+        binds to (see {option}`services.yamtrack.port`) — mirroring upstream's
+        own Docker image, gunicorn itself is no longer reachable directly; it
+        always binds loopback-only on an internal, unconfigurable port.
+
+        > **Warning**
+        > Breaking change: before this module included its own proxy,
+        > `host`/`port` were gunicorn's own bind address, and every consumer
+        > had to put their own reverse proxy in front to get working static
+        > assets and correct client-IP detection. Bumping to a module version
+        > with this option's new meaning changes what is actually listening
+        > on `host`:`port` — re-check any firewall/proxy config that assumed
+        > it was gunicorn.
       '';
     };
 
     port = lib.mkOption {
       type = lib.types.port;
-      default = 8001;
-      description = "TCP port gunicorn listens on.";
+      default = 8000;
+      description = ''
+        TCP port the module's co-located proxy listens on (see
+        {option}`services.yamtrack.host` for the breaking-change note on what
+        this used to mean). Matches upstream's own nginx/gunicorn split
+        (public :8000, internal gunicorn on 127.0.0.1:8001).
+      '';
     };
 
     workers = lib.mkOption {
@@ -199,7 +296,14 @@ in
     openFirewall = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Open {option}`services.yamtrack.port` in the firewall.";
+      description = ''
+        Open {option}`services.yamtrack.port` in the firewall. That port's
+        proxy passes through whatever `X-Forwarded-Proto` header it itself
+        received (matching upstream's nginx.conf) — only enable this if
+        clients cannot reach the proxy directly without going through
+        another reverse proxy that sets or strips that header first,
+        otherwise it is attacker-controlled input.
+      '';
     };
 
     timeZone = lib.mkOption {
@@ -583,9 +687,78 @@ in
       environment = commonEnv;
       serviceConfig = baseServiceConfig // {
         Type = "simple";
-        ExecStart = "${pkg}/bin/yamtrack-gunicorn --bind ${cfg.host}:${toString cfg.port}";
+        ExecStart = "${pkg}/bin/yamtrack-gunicorn --bind 127.0.0.1:${toString gunicornPort}";
         Restart = "on-failure";
         RestartSec = "5s";
+      };
+    };
+
+    systemd.services.yamtrack-proxy = {
+      description = "Yamtrack static-file/reverse-proxy front-end (co-located Caddy, mirrors upstream's bundled nginx)";
+      after = [
+        "network.target"
+        "yamtrack.service"
+      ];
+      # Soft dependency only: this proxy can stay up (serving /static/ and
+      # passing through 502s) across a gunicorn restart, so it shouldn't be
+      # torn down whenever yamtrack.service is -- unlike yamtrack-worker's
+      # `requires` on yamtrack-migrate, which genuinely cannot function
+      # before migrations have run.
+      wants = [ "yamtrack.service" ];
+      wantedBy = [ "multi-user.target" ];
+
+      # Caddy always tries to persist an autosave of its last-loaded config
+      # to $XDG_DATA_HOME/caddy on startup, even with the admin API disabled
+      # -- give it a private, writable scratch space rather than letting it
+      # fall back to a homeless system user's unwritable $HOME.
+      environment = {
+        HOME = "/run/yamtrack-proxy";
+        XDG_DATA_HOME = "/run/yamtrack-proxy";
+        XDG_CONFIG_HOME = "/run/yamtrack-proxy";
+        XDG_CACHE_HOME = "/run/yamtrack-proxy";
+      };
+
+      serviceConfig = {
+        DynamicUser = true;
+        RuntimeDirectory = "yamtrack-proxy";
+        ExecStart = "${lib.getExe pkgs.caddy} run --config ${yamtrackCaddyfile} --adapter caddyfile";
+        Restart = "on-failure";
+        RestartSec = "5s";
+
+        # Lets `services.yamtrack.port` be a privileged port (e.g. 80/443)
+        # without running any part of this as root.
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+
+        # A stateless local proxy has a much smaller attack surface than the
+        # Django app (baseServiceConfig above) -- same hardening density
+        # where it applies, minus the state-directory/user plumbing this
+        # unit doesn't need.
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        RemoveIPC = true;
+        SystemCallArchitectures = "native";
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectClock = true;
+        ProtectProc = "invisible";
+        UMask = "0077";
+        SystemCallFilter = [ "@system-service" ];
       };
     };
 
