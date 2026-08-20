@@ -17,7 +17,11 @@
       icon = "sh-technitium";
       widget = {
         type = "technitium";
-        url = "https://dns.diekvoss.net";
+        # Direct internal address: this is a server-side call from
+        # homepage-dashboard, not a browser request, so it can't complete
+        # authentik's forward_auth login redirect and would otherwise just
+        # get the login page's HTML back instead of API data.
+        url = "http://10.1.0.1:5380";
         username = "{{HOMEPAGE_VAR_TECHNITIUM_USERNAME}}";
         password = "{{HOMEPAGE_VAR_TECHNITIUM_PASSWORD}}";
       };
@@ -165,7 +169,8 @@
         icon = "sh-nextcloud";
         widget = {
           type = "nextcloud";
-          url = "https://nextcloud.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.10:80";
           username = "{{HOMEPAGE_VAR_NEXTCLOUD_USERNAME}}";
           password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}";
         };
@@ -189,7 +194,8 @@
       icon = "sh-home-assistant";
       widget = {
         type = "homeassistant";
-        url = "https://home-assistant.diekvoss.net";
+        # Direct internal address; see technitium widget comment above.
+        url = "http://10.200.0.8:8123";
         key = "{{HOMEPAGE_VAR_HOMEASSISTANT_API_KEY}}";
       };
     };
@@ -257,7 +263,8 @@
         icon = "sh-bazarr";
         widget = {
           type = "bazarr";
-          url = "https://bazarr.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.2:6767";
           key = "{{HOMEPAGE_VAR_BAZARR_API_KEY}}";
         };
       };
@@ -276,7 +283,8 @@
         icon = "sh-lidarr";
         widget = {
           type = "lidarr";
-          url = "https://lidarr.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.2:8686";
           key = "{{HOMEPAGE_VAR_LIDARR_API_KEY}}";
         };
       };
@@ -288,7 +296,8 @@
         icon = "sh-prowlarr";
         widget = {
           type = "prowlarr";
-          url = "https://prowlarr.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.2:9696";
           key = "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}";
         };
       };
@@ -300,7 +309,8 @@
         icon = "sh-radarr";
         widget = {
           type = "radarr";
-          url = "https://radarr.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.2:7878";
           key = "{{HOMEPAGE_VAR_RADARR_API_KEY}}";
         };
       };
@@ -312,7 +322,8 @@
         icon = "sh-readarr";
         widget = {
           type = "readarr";
-          url = "https://readarr.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.2:8787";
           key = "{{HOMEPAGE_VAR_READARR_API_KEY}}";
         };
       };
@@ -324,7 +335,8 @@
         icon = "sh-sonarr";
         widget = {
           type = "sonarr";
-          url = "https://sonarr.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.2:8989";
           key = "{{HOMEPAGE_VAR_SONARR_API_KEY}}";
         };
       };
@@ -336,7 +348,8 @@
         icon = "sh-qbittorrent";
         widget = {
           type = "qbittorrent";
-          url = "https://qbittorrent.diekvoss.net";
+          # Direct internal address; see technitium widget comment above.
+          url = "http://10.200.0.2:4080";
           username = "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}";
           password = "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}";
         };

@@ -181,7 +181,8 @@ jobs:
           elif [ "$MERGE_RESPONSE" = "404" ]; then
             echo "PR #$PR_NUMBER not found (HTTP 404)"
           elif [ "$MERGE_RESPONSE" = "409" ]; then
-            echo "PR #$PR_NUMBER has merge conflicts (HTTP 409)"
+            echo "PR #$PR_NUMBER merge returned HTTP 409:"
+            cat /tmp/merge_response.json 2>/dev/null || echo "No response body"
           else
             echo "Merge failed with HTTP $MERGE_RESPONSE"
             cat /tmp/merge_response.json 2>/dev/null || echo "No response body"
