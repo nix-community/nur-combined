@@ -60,9 +60,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -D build/flatpak/com.nomm.Nomm.desktop $out/share/applications/com.nomm.Nomm.desktop
-    install -D build/flatpak/com.nomm.Nomm.metainfo.xml $out/share/metainfo/com.nomm.Nomm.metainfo.xml
-    install -D assets/icons/nomm-logo.svg $out/share/icons/hicolor/scalable/apps/com.nomm.Nomm.png
+    APP_ID=moe.nomm.Nomm
+    install -D build/flatpak/$APP_ID.desktop $out/share/applications/$APP_ID.desktop
+    install -D build/flatpak/$APP_ID.metainfo.xml $out/share/metainfo/$APP_ID.metainfo.xml
+    install -D assets/icons/nomm-logo.svg $out/share/icons/hicolor/scalable/apps/$APP_ID.png
 
     mkdir -p $out/${python3Packages.python.sitePackages}
     cp -r src -T $out/${python3Packages.python.sitePackages}
@@ -70,7 +71,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     cp -r default_game_configs $out/${python3Packages.python.sitePackages}
 
     mkdir -p $out/share/locale/fr/LC_MESSAGES
-    msgfmt locale/fr.po -o $out/share/locale/fr/LC_MESSAGES/com.nomm.Nomm.mo
+    msgfmt locale/fr.po -o $out/share/locale/fr/LC_MESSAGES/$APP_ID.mo
 
     export GDK_PIXBUF_MODULE_FILE="${
       gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
