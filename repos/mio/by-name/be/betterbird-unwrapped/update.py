@@ -6,7 +6,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-MAJOR_VERSION = 153
+MAJOR_VERSION = 140
 
 
 def get_tags() -> list[str]:

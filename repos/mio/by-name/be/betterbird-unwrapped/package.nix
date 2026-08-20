@@ -4,7 +4,7 @@
   fetchFromGitHub,
   git,
   libdbusmenu-gtk3 ? null,
-  thunderbird-153-unwrapped,
+  thunderbird-140-unwrapped,
   stdenv,
   fetchhg,
   writers,
@@ -13,24 +13,24 @@
 }:
 
 let
-  betterbirdVersion = "153.1.0esr-bb7";
+  betterbirdVersion = "140.13.0esr-bb25";
   majVer = lib.versions.major betterbirdVersion;
 
-  thunderbird-unwrapped = thunderbird-153-unwrapped;
+  thunderbird-unwrapped = thunderbird-140-unwrapped;
 
   betterbird-patches = fetchFromGitHub {
     owner = "Betterbird";
     repo = "thunderbird-patches";
     rev = betterbirdVersion;
-    hash = "sha256-s38liMnilztlH8JGsN9sZZ3yKhcERCjLPwwyShzRaTo=";
+    hash = "sha256-eDuhkuvawdbk6Th4SByGkDNFLD8NXHdylqx9LBt/SXo=";
   };
 
   # Fetch and extract comm subdirectory
   comm-source = fetchhg {
     name = "comm-source";
     url = "https://hg.mozilla.org/releases/comm-esr${majVer}";
-    rev = "05d0149d7b259241";
-    hash = "sha256-JW+nEQRmbql46W7mhAPD756SYLEH8A1vv8Op+noTHKQ=";
+    rev = "7b16fa0b13811dc1bd97613971a6ac37057c9d87";
+    hash = "sha256-rmTsKpyQq4uSeiWlTYTdK92Vk1VxiyWZz8Cv0Oz/V9A=";
   };
 
   updatePackage = writers.writePython3 "update-betterbird" {
@@ -69,9 +69,9 @@ in
 
     src = fetchhg {
       name = "mozilla-source";
-      url = "https://hg.mozilla.org/releases/mozilla-esr${majVer}";
-      rev = "bdb74c45c2e1e3fe593fbf3c5ca6d2ab2046ef08";
-      hash = "sha256-P4vgLSOfk9locmhw2CTWQTV2hQr+A0PDKszcKrDe2rE=";
+      url = "https://hg.mozilla.org/releases/mozilla-esr140";
+      rev = "611eeda342a90baf6918fe754fcf168087b3767e";
+      hash = "sha256-C+mHPDhVfYccaCiYt4lHhtJmjbGoCvp7yHz1iJKk+II=";
     };
 
     unpackPhase = ''
@@ -100,13 +100,9 @@ in
 
       # fix FHS paths to libdbusmenu (only on non-Darwin when libdbusmenu-gtk3 is available)
       ${lib.optionalString (!stdenv.hostPlatform.isDarwin && libdbusmenu-gtk3 != null) ''
-        for patch in "$bb_patches"/features/12*-feature-linux-systray*.patch; do
-          if [[ -f "$patch" ]]; then
-            substituteInPlace "$patch" \
-              --replace-warn "/usr/include/libdbusmenu-glib-0.4/" "${lib.getDev libdbusmenu-gtk3}/include/libdbusmenu-glib-0.4/" \
-              --replace-warn "/usr/include/libdbusmenu-gtk3-0.4/" "${lib.getDev libdbusmenu-gtk3}/include/libdbusmenu-gtk3-0.4/"
-          fi
-        done
+        substituteInPlace "$bb_patches/features/12-feature-linux-systray.patch" \
+          --replace-fail "/usr/include/libdbusmenu-glib-0.4/" "${lib.getDev libdbusmenu-gtk3}/include/libdbusmenu-glib-0.4/" \
+          --replace-fail "/usr/include/libdbusmenu-gtk3-0.4/" "${lib.getDev libdbusmenu-gtk3}/include/libdbusmenu-gtk3-0.4/"
       ''}
 
       function trim_var() {
