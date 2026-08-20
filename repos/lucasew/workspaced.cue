@@ -525,7 +525,7 @@ workspaced: {
 	if !#is_phone {
 		lewtec: {
 			from: "github:lewtec/skills"
-			version: "cb673b4cd42ac4d20902cd093a6d1d11232ecc58"
+			version: "91e75117533fce41a8dbdc32e0c0ff848944deab"
 		}
 	}
 	workspaced: {
