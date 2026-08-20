@@ -212,8 +212,8 @@ def render_asset_url(data: dict[str, Any], tag: str, asset: str) -> str:
     return (
         template.replace("{{owner}}", updater.get("owner", ""))
         .replace("{{repo}}", updater.get("repo", ""))
-        .replace("{{tag}}", tag)
         .replace("{{asset}}", asset)
+        .replace("{{tag}}", tag)
     )
 
 

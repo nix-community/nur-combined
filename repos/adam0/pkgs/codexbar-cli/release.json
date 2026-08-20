@@ -1,0 +1,17 @@
+{
+  "version": "0.54.0",
+  "hashes": {
+    "aarch64-linux": "sha256-Y2Tqvuo04U7S8XArTQ6zP/EK8kN0WEU6sGVo12EveOA=",
+    "x86_64-linux": "sha256-MCqYMsutrcq90tM8FFM+JHW3GgoZlCD/riYVe3tX9Ww="
+  },
+  "updater": {
+    "type": "github-release-assets",
+    "owner": "steipete",
+    "repo": "CodexBar",
+    "tagPrefix": "v",
+    "assets": {
+      "aarch64-linux": "CodexBarCLI-{{tag}}-linux-aarch64.tar.gz",
+      "x86_64-linux": "CodexBarCLI-{{tag}}-linux-x86_64.tar.gz"
+    }
+  }
+}
