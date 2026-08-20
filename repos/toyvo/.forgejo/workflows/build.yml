@@ -163,7 +163,7 @@ jobs:
 
           echo "Attempting to merge PR #$PR_NUMBER..."
           MERGE_RESPONSE=$(curl -s -w "%{http_code}" -X POST \
-            -H "Authorization: token $GH_TOKEN" \
+            -H "Authorization: token ${{ secrets.MERGE_PAT }}" \
             -H "Content-Type: application/json" \
             -d '{"Do": "squash"}' \
             "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge" \
