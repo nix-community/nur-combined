@@ -19,71 +19,73 @@ jobs:
   prepare:
     runs-on: ubuntu-24.04
     outputs:
-      base: ${{ steps.changes.outputs.base }}
-      changed: ${{ steps.changes.outputs.changed }}
-      packages: ${{ steps.changes.outputs.packages }}
+      base: ${{ steps.updates.outputs.base }}
+      changed: ${{ steps.updates.outputs.changed }}
+      failed: ${{ steps.updates.outputs.failed }}
+      packages: ${{ steps.updates.outputs.packages }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ github.event.repository.default_branch }}
       - uses: cachix/install-nix-action@v31
-      - name: Restore npm updater cache
-        uses: actions/cache@v5
-        with:
-          path: ~/.npm
-          key: npm-updater-${{ runner.os }}-${{ hashFiles('pkgs/deepseek-harness/package-lock.json') }}
-          restore-keys: |
-            npm-updater-${{ runner.os }}-
 
       - name: Update packages
+        id: updates
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
+          changed=()
           failed=()
+          mkdir -p "$RUNNER_TEMP/per-package"
+
           for source in pkgs/*/source.ts; do
-            package="$(basename "$(dirname "$source")")"
+            directory="$(dirname "$source")"
+            package="$(basename "$directory")"
             echo "::group::Update $package"
+
             if nix run .#update -- "$package"; then
-              echo "Updated $package"
+              git add -- "$directory"
+              if git diff --cached --quiet HEAD -- "$directory"; then
+                echo "$package is already up to date"
+              else
+                git diff --cached HEAD --binary --full-index -- "$directory" \
+                  >"$RUNNER_TEMP/per-package/$package.patch"
+                changed+=("$package")
+              fi
             else
               echo "::warning::Failed to update $package, continuing with other packages"
               failed+=("$package")
             fi
+
             echo "::endgroup::"
           done
-          git add --all -- pkgs
 
-          if ((${#failed[@]} > 0)); then
-            echo "Failed to update: ${failed[*]}" >>"$GITHUB_STEP_SUMMARY"
-          fi
-
-      - name: Detect updates
-        id: changes
-        run: |
+          packages="$(
+            printf '%s\n' "${changed[@]}" \
+              | jq --raw-input --slurp --compact-output \
+                'split("\n") | map(select(length > 0))'
+          )"
           echo "base=$(git rev-parse HEAD)" >>"$GITHUB_OUTPUT"
+          echo "packages=$packages" >>"$GITHUB_OUTPUT"
 
-          if git diff --quiet HEAD --; then
+          if ((${#changed[@]} > 0)); then
+            echo "changed=true" >>"$GITHUB_OUTPUT"
+            git diff --cached HEAD --stat >>"$GITHUB_STEP_SUMMARY"
+          else
             echo "changed=false" >>"$GITHUB_OUTPUT"
             echo "All packages are up to date." >>"$GITHUB_STEP_SUMMARY"
-          else
-            echo "changed=true" >>"$GITHUB_OUTPUT"
-            git diff HEAD --stat >>"$GITHUB_STEP_SUMMARY"
+          fi
 
-            packages="[]"
-            mkdir -p "$RUNNER_TEMP/per-package"
-            for dir in pkgs/*/; do
-              package="$(basename "$dir")"
-              if ! git diff --quiet HEAD -- "$dir"; then
-                git diff HEAD --binary --full-index -- "$dir" >"$RUNNER_TEMP/per-package/$package.patch"
-                packages="$(jq --arg package "$package" '. + [$package]' <<<"$packages")"
-              fi
-            done
-            echo "packages=$packages" >>"$GITHUB_OUTPUT"
+          if ((${#failed[@]} > 0)); then
+            echo "failed=true" >>"$GITHUB_OUTPUT"
+            echo "Failed to update: ${failed[*]}" >>"$GITHUB_STEP_SUMMARY"
+          else
+            echo "failed=false" >>"$GITHUB_OUTPUT"
           fi
 
       - name: Save package updates
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.updates.outputs.changed == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: package-updates
@@ -94,17 +96,17 @@ jobs:
   validate:
     if: needs.prepare.outputs.changed == 'true'
     needs: prepare
-    name: Validate ${{ matrix.package }} (${{ matrix.system }})
+    name: Validate ${{ matrix.package }} (${{ matrix.target.system }})
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.prepare.outputs.packages) }}
-        include:
+        target:
           - system: x86_64-linux
             runner: ubuntu-24.04
           - system: aarch64-linux
             runner: ubuntu-24.04-arm
-    runs-on: ${{ matrix.runner }}
+    runs-on: ${{ matrix.target.runner }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -121,27 +123,35 @@ jobs:
           name: so1ve
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build package
-        shell: bash
         env:
-          SYSTEM: ${{ matrix.system }}
           PACKAGE: ${{ matrix.package }}
+          SYSTEM: ${{ matrix.target.system }}
         run: |
-          if nix eval --raw ".#packages.$SYSTEM" \
-            --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)' \
-            | grep --line-regexp --quiet "$PACKAGE"; then
+          package_names="$(
+            nix eval --raw ".#packages.$SYSTEM" \
+              --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)'
+          )"
+
+          if grep --fixed-strings --line-regexp --quiet "$PACKAGE" <<<"$package_names"; then
             nix build ".#packages.$SYSTEM.$PACKAGE" --print-build-logs
           else
-            echo "$PACKAGE is not available on $SYSTEM, skipping"
+            echo "$PACKAGE is not available on $SYSTEM; skipping"
           fi
+
       - name: Record validation result
         if: always()
-        run: echo "${{ job.status }}" >"$RUNNER_TEMP/${{ matrix.system }}"
+        env:
+          PACKAGE: ${{ matrix.package }}
+          SYSTEM: ${{ matrix.target.system }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/validation/$PACKAGE"
+          echo "${{ job.status }}" >"$RUNNER_TEMP/validation/$PACKAGE/$SYSTEM"
 
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: validated-${{ matrix.package }}-${{ matrix.system }}
-          path: ${{ runner.temp }}/${{ matrix.system }}
+          name: validated-${{ matrix.package }}-${{ matrix.target.system }}
+          path: ${{ runner.temp }}/validation
           if-no-files-found: error
           retention-days: 1
 
@@ -152,7 +162,8 @@ jobs:
       - validate
     runs-on: ubuntu-24.04
     outputs:
-      publishable: ${{ steps.collect.outputs.publishable }}
+      changed: ${{ steps.collect.outputs.changed }}
+      packages: ${{ steps.collect.outputs.packages }}
     steps:
       - uses: actions/download-artifact@v8
         with:
@@ -167,29 +178,40 @@ jobs:
         run: |
           publishable=()
           failed=()
-          for package in $(jq --raw-output '.[]' <<<"$PACKAGES"); do
-            results="$(find "$RUNNER_TEMP/validated/$package" -type f -exec cat {} +)"
-            if [[ -n "$results" ]] && ! grep --quiet --invert-match '^success$' <<<"$results"; then
+
+          while IFS= read -r package; do
+            result_directory="$RUNNER_TEMP/validated/$package"
+            if [[ -f "$result_directory/x86_64-linux" \
+              && -f "$result_directory/aarch64-linux" \
+              && "$(<"$result_directory/x86_64-linux")" == success \
+              && "$(<"$result_directory/aarch64-linux")" == success ]]; then
               publishable+=("$package")
             else
               failed+=("$package")
             fi
-          done
+          done < <(jq --raw-output '.[]' <<<"$PACKAGES")
 
-          if ((${#failed[@]} > 0)); then
-            echo "::warning::Validation failed for: ${failed[*]}, skipping their updates"
-            echo "Validation failed, skipped: ${failed[*]}" >>"$GITHUB_STEP_SUMMARY"
-          fi
+          packages="$(
+            printf '%s\n' "${publishable[@]}" \
+              | jq --raw-input --slurp --compact-output \
+                'split("\n") | map(select(length > 0))'
+          )"
+          echo "packages=$packages" >>"$GITHUB_OUTPUT"
 
           if ((${#publishable[@]} > 0)); then
-            echo "publishable=true" >>"$GITHUB_OUTPUT"
+            echo "changed=true" >>"$GITHUB_OUTPUT"
           else
-            echo "publishable=false" >>"$GITHUB_OUTPUT"
+            echo "changed=false" >>"$GITHUB_OUTPUT"
             echo "No packages passed validation." >>"$GITHUB_STEP_SUMMARY"
           fi
 
+          if ((${#failed[@]} > 0)); then
+            echo "::warning::Validation failed for: ${failed[*]}; skipping their updates"
+            echo "Validation failed, skipped: ${failed[*]}" >>"$GITHUB_STEP_SUMMARY"
+          fi
+
   publish:
-    if: ${{ always() && needs.collect.outputs.publishable == 'true' }}
+    if: ${{ always() && needs.collect.outputs.changed == 'true' }}
     needs:
       - prepare
       - collect
@@ -201,25 +223,18 @@ jobs:
           ref: ${{ needs.prepare.outputs.base }}
       - uses: actions/download-artifact@v8
         with:
-          pattern: validated-*
-          path: ${{ runner.temp }}/validated
-          merge-multiple: true
-      - uses: actions/download-artifact@v8
-        with:
           name: package-updates
           path: ${{ runner.temp }}/package-updates
 
       - name: Apply validated package updates
         env:
-          PACKAGES: ${{ needs.prepare.outputs.packages }}
+          PACKAGES: ${{ needs.collect.outputs.packages }}
         run: |
-          for package in $(jq --raw-output '.[]' <<<"$PACKAGES"); do
-            results="$(find "$RUNNER_TEMP/validated/$package" -type f -exec cat {} +)"
-            if [[ -n "$results" ]] && ! grep --quiet --invert-match '^success$' <<<"$results"; then
-              git apply "$RUNNER_TEMP/package-updates/$package.patch"
-              echo "Applied update for $package"
-            fi
-          done
+          while IFS= read -r package; do
+            git apply "$RUNNER_TEMP/package-updates/$package.patch"
+            git add -- "pkgs/$package"
+            echo "Applied update for $package"
+          done < <(jq --raw-output '.[]' <<<"$PACKAGES")
 
       - name: Commit package updates
         env:
@@ -227,6 +242,17 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add --all -- pkgs
           git commit --message "packages: update"
           git push origin "HEAD:$DEFAULT_BRANCH"
+
+  report:
+    if: ${{ always() && needs.prepare.outputs.failed == 'true' }}
+    needs:
+      - prepare
+      - publish
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Report updater failures
+        run: |
+          echo "::error::One or more package updaters failed; see the prepare job summary."
+          exit 1
