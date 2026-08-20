@@ -7,6 +7,10 @@ on:
     paths:
       - 'pkgs/**'
       - 'nvfetcher.toml'
+      - 'default.nix'
+      - 'flake.nix'
+      - 'flake.lock'
+      - 'internal/npm-lockfile-fix.nix'
       - '.github/workflows/update.yml'
       - 'scripts/**'
   schedule:
@@ -29,6 +33,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
+      with:
+        # update-hashes compares package definitions with the pre-push revision.
+        fetch-depth: 0
 
     - name: Maximize Nix disk space
       uses: wimpysworld/nothing-but-nix@v10
@@ -74,6 +81,8 @@ jobs:
       env:
         # Avoid anonymous GitHub API limits on shared runners.
         GITHUB_TOKEN: ${{ github.token }}
+        # Empty for schedule/dispatch; working-tree changes are still detected.
+        UPDATE_BASE_REV: ${{ github.event.before }}
       run: bash scripts/ci/update-packages.sh
 
     # Root update tools before store garbage collection.

@@ -5,13 +5,15 @@ The update workflow (`.github/workflows/update.yml`) runs four stages, in this o
 1. **`update-sources`** — nvfetcher refreshes `_sources/generated.json` (upstream versions and source hashes).
 2. **`update-lockfiles`** — regenerates crate2nix `Cargo.nix` and gomod2nix `gomod2nix.toml` files for packages whose source changed.
 3. **`update-pins`** — refreshes package *pins*: data whose URL and hash must change together, exposed by packages as `passthru.pinUpdater`.
-4. **`update-hashes`** — nix-update recomputes vendored dependency hashes (`vendorHash`, `pnpmDepsHash`, ...) for packages whose source changed.
+4. **`update-hashes`** — nix-update recomputes vendored dependency hashes (`vendorHash`, `pnpmDepsHash`, ...) when a package source, package definition, or shared hash input changed.
 
-Pins run after lockfiles because pin data is typically derived from the regenerated lockfiles (e.g. wsrx-desktop derives its Skia asset pin from `Cargo.nix`), and before hash refreshes so nix-update sees settled pins.
+Pins run after lockfiles because pin data is typically derived from the regenerated lockfiles (e.g. wsrx-desktop derives its Skia asset pin from `Cargo.nix`), and before hash refreshes so nix-update sees settled pins. NPM lockfile repair is part of the repository's `fetchNpmDeps` wrapper, so it runs inside the dependency FOD before nix-update observes and writes the resulting hash; it does not need a separate pipeline stage.
+
+For push-triggered runs, the workflow passes the pre-push revision as `UPDATE_BASE_REV`, allowing package changes already committed at `HEAD` to trigger a refresh. Working-tree source, lockfile, pin, and flake input changes are detected directly. Changes to `default.nix`, `flake.nix`, `flake.lock`, or `internal/npm-lockfile-fix.nix` refresh every hash-bearing package because they can change dependency outputs without changing an nvfetcher source.
 
 ## Which mechanism owns what
 
-- **Static URL, only the hash changes** (dependency FODs recomputed from a lockfile): `update-hashes` / nix-update. Convention: a `*Hash = "sha256-..."` attribute in `pkgs/<name>/default.nix`.
+- **Static URL, only the hash changes** (dependency FODs recomputed from a lockfile): `update-hashes` / nix-update. Convention: a `*Hash = "sha256-..."` attribute in `pkgs/<name>/default.nix`. Use `nix run .#update-hashes -- <name>` to force a package after external hash drift.
 - **URL and hash must change together** (a version/commit/feature tuple embedded in the URL): `update-pins`, via the package's own `passthru.pinUpdater`. The pin data lives in a `pins.json` next to the package's `default.nix` and is imported with `lib.importJSON`, so plain evaluation stays offline.
 
 ## The `passthru.pinUpdater` contract
