@@ -72,6 +72,40 @@ let
         value = "10.1.0.1";
         zone = "toyvo.dev";
       }
+      # Without a local HTTPS/SVCB override, queries for that record type
+      # fall through the forwarder zone to the real public record (Cloudflare),
+      # which advertises an ECH config for the Cloudflare edge. A client then
+      # encrypts its ClientHello for Cloudflare's ECH key but sends it to the
+      # local A-record target (this router's Caddy), which can't decrypt it,
+      # causing SSL_ERROR_INTERNAL_ERROR_ALERT. Override HTTPS locally too,
+      # without an ech param, so it matches the local origin.
+      {
+        name = "git";
+        ttl = "300";
+        type = "HTTPS";
+        zone = "toyvo.dev";
+        svcPriority = "1";
+        svcTargetName = ".";
+        svcParams = "alpn|h2";
+      }
+      {
+        name = "cache";
+        ttl = "300";
+        type = "HTTPS";
+        zone = "toyvo.dev";
+        svcPriority = "1";
+        svcTargetName = ".";
+        svcParams = "alpn|h2";
+      }
+      {
+        name = "@";
+        ttl = "300";
+        type = "HTTPS";
+        zone = "toyvo.dev";
+        svcPriority = "1";
+        svcTargetName = ".";
+        svcParams = "alpn|h2";
+      }
     ];
   blocklistUrls = [
     "https://big.oisd.nl/domainswild2"
