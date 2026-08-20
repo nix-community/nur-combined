@@ -53,6 +53,7 @@ in
     baregit.A = propA;
     copy.A = propA;
     copyparty.A = propA;
+    coturn.A = propA;
     couch.A = propA;
     couchdb.A = propA;
     dav-experiment.A = propA;
