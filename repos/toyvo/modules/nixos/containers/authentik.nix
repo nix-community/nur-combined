@@ -149,6 +149,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # authentik-migrate retries the DB connection internally forever and never
+    # exits, so it stays "activating" until the DB is reachable. The default
+    # 1min container start timeout was killing the container mid-attempt
+    # every time, tearing down ve-authentik and restarting the whole loop.
+    systemd.services."container@authentik".serviceConfig.TimeoutStartSec = lib.mkForce "10min";
+
     networking.nat = lib.mkIf (cfg.natInterface != null) {
       enable = true;
       externalInterface = cfg.natInterface;
@@ -239,6 +245,7 @@ in
             AUTHENTIK_POSTGRESQL__PORT = toString cfg.db.port;
             AUTHENTIK_POSTGRESQL__NAME = cfg.db.name;
             AUTHENTIK_POSTGRESQL__USER = cfg.db.user;
+            AUTHENTIK_POSTGRESQL__SSLMODE = "prefer";
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
@@ -278,6 +285,7 @@ in
             AUTHENTIK_POSTGRESQL__PORT = toString cfg.db.port;
             AUTHENTIK_POSTGRESQL__NAME = cfg.db.name;
             AUTHENTIK_POSTGRESQL__USER = cfg.db.user;
+            AUTHENTIK_POSTGRESQL__SSLMODE = "prefer";
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
@@ -397,6 +405,7 @@ in
             AUTHENTIK_POSTGRESQL__PORT = toString cfg.db.port;
             AUTHENTIK_POSTGRESQL__NAME = cfg.db.name;
             AUTHENTIK_POSTGRESQL__USER = cfg.db.user;
+            AUTHENTIK_POSTGRESQL__SSLMODE = "prefer";
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
@@ -429,6 +438,7 @@ in
             AUTHENTIK_POSTGRESQL__PORT = toString cfg.db.port;
             AUTHENTIK_POSTGRESQL__NAME = cfg.db.name;
             AUTHENTIK_POSTGRESQL__USER = cfg.db.user;
+            AUTHENTIK_POSTGRESQL__SSLMODE = "prefer";
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
