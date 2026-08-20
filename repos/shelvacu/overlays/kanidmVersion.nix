@@ -1,1 +1,1 @@
-final: super: { kanidm_vacuVersion = final.kanidmWithSecretProvisioning_1_10; }
+final: super: { kanidm_vacuVersion = final.kanidmWithSecretProvisioning_1_11; }
