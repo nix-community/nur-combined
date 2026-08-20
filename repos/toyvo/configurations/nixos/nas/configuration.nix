@@ -265,6 +265,7 @@ in
         host  dioxus_music  dioxus_music  10.1.0.0/16  scram-sha-256
         host  discord_bot  discord_bot  10.1.0.0/16  scram-sha-256
         host  authentik  authentik  10.200.0.0/16  scram-sha-256
+        host  authentik  authentik  10.1.0.0/16  scram-sha-256
       '';
     };
     protonmail-bridge.enable = true;
