@@ -1,0 +1,115 @@
+name: Update packages
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # yamtrack and trek both publish proper GitHub Releases, so
+          # --use-github-releases (backed by the REST API's `prerelease`
+          # flag) is the correct source of truth for "latest stable" -- the
+          # plain-tags feed nix-update otherwise uses picked up TREK's
+          # v4.0.0-pre.1 tag as if it were a real release.
+          - package: yamtrack
+            releaseFlag: --use-github-releases
+            tests: yamtrack yamtrackPostgres
+          - package: trek
+            releaseFlag: --use-github-releases
+            tests: trek
+          # scrobblex is the opposite case: upstream stopped publishing
+          # GitHub Releases after v1.4.3 but kept tagging newer versions
+          # (currently up to v1.6.0), so --use-github-releases is stale here
+          # and would silently *downgrade* the package. Plain tags (the
+          # default, no flag) track it correctly.
+          - package: scrobblex
+            releaseFlag: ""
+            tests: scrobblex
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      # NixOS VM tests need /dev/kvm for reasonable performance; GitHub's
+      # runners have the device but not always usable permissions by
+      # default.
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Check for a new release
+        id: update
+        run: |
+          nix run nixpkgs#nix-update -- --flake --version=stable ${{ matrix.releaseFlag }} ${{ matrix.package }}
+          if git diff --quiet -- "pkgs/${{ matrix.package }}"; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff -- "pkgs/${{ matrix.package }}"
+          fi
+
+      # Runs the full build plus every NixOS VM test the package defines
+      # (passthru.tests) against the *new* version before anything reaches
+      # a PR. Deliberately doesn't fail the step itself (set +e / exit 0)
+      # so the PR still gets opened either way -- see the next two steps.
+      - name: Build and test the update
+        if: steps.update.outputs.changed == 'true'
+        id: verify
+        run: |
+          set +e
+          failed=0
+
+          echo "::group::nix build .#packages.x86_64-linux.${{ matrix.package }}"
+          nix build -L ".#packages.x86_64-linux.${{ matrix.package }}" || failed=1
+          echo "::endgroup::"
+
+          for test in ${{ matrix.tests }}; do
+            echo "::group::nix build .#packages.x86_64-linux.${{ matrix.package }}.tests.$test"
+            nix build -L ".#packages.x86_64-linux.${{ matrix.package }}.tests.$test" || failed=1
+            echo "::endgroup::"
+          done
+
+          echo "failed=$failed" >> "$GITHUB_OUTPUT"
+          if [ "$failed" = "1" ]; then
+            echo "status=❌ FAILED -- do not merge without investigating" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=✅ passed" >> "$GITHUB_OUTPUT"
+          fi
+          exit 0
+
+      - name: Open pull request
+        if: steps.update.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "${{ matrix.package }}: automated update"
+          title: "${{ matrix.package }}: automated update"
+          body: |
+            Automated version bump proposed by [`nix-update`](https://github.com/Mic92/nix-update).
+
+            **Build + NixOS VM test result:** ${{ steps.verify.outputs.status }}
+
+            Full logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Review the version/hash diff below (GitHub's own diff view), then merge if it looks right.
+          branch: nix-update/${{ matrix.package }}
+          delete-branch: true
+          add-paths: pkgs/${{ matrix.package }}
+
+      # Separate from PR creation: fails the job (and so notifies you the
+      # normal Actions-failure way) whenever verification failed, without
+      # blocking the PR itself from going up first.
+      - name: Fail the job if verification failed
+        if: steps.update.outputs.changed == 'true' && steps.verify.outputs.failed == '1'
+        run: exit 1
