@@ -30,14 +30,10 @@ in
       '';
     };
 
-    useSystemPolarity = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Whether to automatically switch between light and dark themes based
-        on the system theme polarity.
-      '';
-    };
+    useSystemPolarity = mkEnableOption ''
+      automatically switch between light and dark themes based on the system
+      theme polarity
+    '';
 
     lightFlavor = mkOption {
       type = types.enum [

@@ -64,6 +64,7 @@ let
 
       themes.catppuccin = {
         enable = true;
+        polarity = "dark";
         fonts.enable = true;
         plymouth.enable = true;
         tuigreet.enable = true;
@@ -173,7 +174,7 @@ let
     config.modules = [
       {
         nix.settings.substituters = mkIf submodule.config.substituters.${hostName}.enable [
-          "ssh-ng://weathercold@${hostName}.${domain}:1337"
+          "ssh-ng://weathercold@${hostName}.${domain}:1337?trusted=true"
         ];
       }
       {

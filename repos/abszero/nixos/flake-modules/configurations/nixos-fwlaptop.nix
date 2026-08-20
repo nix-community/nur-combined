@@ -42,6 +42,7 @@ let
 
       themes.catppuccin = {
         enable = true;
+        polarity = "dark";
         plymouth.enable = true;
         tuigreet.enable = true;
       };

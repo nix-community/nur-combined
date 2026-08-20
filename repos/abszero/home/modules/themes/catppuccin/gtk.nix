@@ -71,17 +71,22 @@ in
   config = mkIf cfg.gtk.enable {
     abszero.themes.catppuccin.enable = true;
 
-    gtk.theme = {
-      name =
-        "Colloid"
-        + optionalString (cfg.gtk.accent != "default") (mkSuffix cfg.gtk.accent)
-        + optionalString (cfg.gtk.size == "compact") "-Compact"
-        + "-Catppuccin";
-      package = pkgs.colloid-gtk-theme.override {
-        themeVariants = [ cfg.gtk.accent ];
-        sizeVariants = [ cfg.gtk.size ];
-        tweaks = [ "catppuccin" ] ++ cfg.gtk.tweaks;
+    gtk = {
+      theme = {
+        name =
+          "Colloid"
+          + optionalString (cfg.gtk.accent != "default") (mkSuffix cfg.gtk.accent)
+          + optionalString (cfg.polarity == "dark") "-Dark"
+          + optionalString (cfg.gtk.size == "compact") "-Compact"
+          + "-Catppuccin";
+        package = pkgs.colloid-gtk-theme.override {
+          colorVariants = [ cfg.polarity ];
+          themeVariants = [ cfg.gtk.accent ];
+          sizeVariants = [ cfg.gtk.size ];
+          tweaks = [ "catppuccin" ] ++ cfg.gtk.tweaks;
+        };
       };
+      colorScheme = cfg.polarity;
     };
   };
 }

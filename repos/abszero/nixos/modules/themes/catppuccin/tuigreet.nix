@@ -19,9 +19,9 @@ in
       background = {
         kind = "matrix";
         matrix = {
-          head_color = "bright-magenta";
-          bright_color = "bright-blue";
-          dim_color = "gray";
+          head_color = "bright-yellow";
+          bright_color = "bright-yellow";
+          dim_color = "bright-gray";
         };
       };
       theme = {
@@ -29,7 +29,7 @@ in
         border = "blue";
         title = "magenta";
         prompt = "cyan";
-        button = "yellow";
+        button = "magenta";
       };
     };
   };
