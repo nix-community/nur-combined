@@ -10,6 +10,7 @@
   glib,
   dbus,
   nix-update-script,
+  installShellFiles,
   ...
 }:
 
@@ -40,6 +41,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     cmake # Required by `zlib-sys` crate
     pkg-config
+    installShellFiles
   ];
 
   buildInputs = [
@@ -54,14 +56,23 @@ rustPlatform.buildRustPackage (finalAttrs: {
   dontCargoCheck = true; # Who cares about tests?
   cargoBuildFlags = cargoFlags;
 
-  env =
-    {
-      OPENSSL_NO_VENDOR = true;
-      VERSION = finalAttrs.version;
-    }
-    // lib.optionalAttrs (lib.versionAtLeast libgit2Experimental.version "1.9.4") {
-      LIBGIT2_NO_VENDOR = 1;
-    };
+  env = {
+    OPENSSL_NO_VENDOR = true;
+    VERSION = finalAttrs.version;
+  }
+  // lib.optionalAttrs (lib.versionAtLeast libgit2Experimental.version "1.9.4") {
+    LIBGIT2_NO_VENDOR = 1;
+  };
+
+  postInstall = ''
+    export XDG_CONFIG_HOME="$TMPDIR/home/config"
+    mkdir -p "$XDG_CONFIG_HOME"
+
+    installShellCompletion --cmd but \
+    --bash <($out/bin/but completions bash) \
+    --fish <($out/bin/but completions fish) \
+    --zsh <($out/bin/but completions zsh)
+  '';
 
   passthru = {
     updateScript = nix-update-script {
