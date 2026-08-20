@@ -34,7 +34,24 @@ appimageTools.wrapType2 {
       gtk3
       libsoup_3
       glib-networking
-    ];
+      python3
+
+      mesa
+      libGL
+      vulkan-loader
+      libX11
+      libXext
+      libXrandr
+      libXi
+      libXcursor
+      libXxf86vm
+    ] ++ (with pkgs.pkgsi686Linux; [
+      glibc
+      mesa
+      libGL
+      libX11
+      libXext
+    ]);
 
   extraInstallCommands = ''
     install -m 444 -D ${desktopItem}/share/applications/${pname}.desktop \
