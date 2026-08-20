@@ -11,7 +11,7 @@ in each application's own repository.
 
 | Attribute | Project | Status |
 | --- | --- | --- |
-| `ff00-vwm` | [FF00 Video Wallpaper Manager](https://crimsonvariable.com/projects/ff00-vwm/) | `0.1.0-alpha.1` |
+| `ff00-vwm` | [FF00 Video Wallpaper Manager](https://crimsonvariable.com/projects/ff00-vwm/) | `0.2.0-alpha.1` |
 
 ## Local validation
 
