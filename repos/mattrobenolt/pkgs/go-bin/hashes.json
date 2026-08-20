@@ -5,22 +5,22 @@
     "linux-amd64": "sha256-H8lLVxNNUWacchc61dSf1ir7Dx25vz95j9mO5CP41zA=",
     "linux-arm64": "sha256-dNl74cw6R0EpWQxn6/dIqW5y2fOitv7z7TJ13lkdSbM="
   },
-  "1.25.13": {
-    "darwin-amd64": "sha256-10K3pT+Mi+XgLXUmOINILOurvhTskwjLBW3Yrr6wQN8=",
-    "darwin-arm64": "sha256-kW/mGivHjdUWs2Ke40KLBuFxQbhacPGYbCYBSaPS/70=",
-    "linux-amd64": "sha256-OQQqB46pzuvj7NpKcYjw9bluFKBx0nkjun9AtFboWuM=",
-    "linux-arm64": "sha256-ra0kD8tr0YDPlztLfHR7r07IHQi31AyjWUDuRTGXFJA="
+  "1.25.14": {
+    "darwin-amd64": "sha256-sJCHpn1Xkqiw/L90IS1iVgyUrIqP11D/kg2MtfHiARg=",
+    "darwin-arm64": "sha256-WybAtvMIJA/KJhT7AvYiz8yMDMO2nHi7pIRUiaRZAlk=",
+    "linux-amd64": "sha256-ohrlYzomm81+kM92fkgiVjN5XpnYMXQsvzOXBk/udxI=",
+    "linux-arm64": "sha256-m/I06nD/7JNH/fayLOSt1RcX0zhqOKRB6Mh0P8616u4="
   },
-  "1.26.6": {
-    "darwin-amd64": "sha256-CLZaY/JEEVEhztbDtVrTjYAadEKsrVyUmheq2Erm1oQ=",
-    "darwin-arm64": "sha256-Lclc5GdYKfLfDoayi87zKDY1kCBipfBYDKZZv1cPMgQ=",
-    "linux-amd64": "sha256-cI7/t3S+gjdXDQrdFjIlq7369PyiiyYR3xZ766T+74k=",
-    "linux-arm64": "sha256-0FB+np1/4BKq5XAQjL12wV3oeeFxMKuMuQ1NdEXLHy4="
+  "1.26.7": {
+    "darwin-amd64": "sha256-kuizS/88iasWQExZVmmsjLAEzC9nbcvR9bh6a43vO0c=",
+    "darwin-arm64": "sha256-AgoegiSBG+dRY+kgvHfgkmoTkKau6hm9zyP3S510n20=",
+    "linux-amd64": "sha256-/7X43hDGJVDf3atms2tXAwch4KRKMhjp4Rgde1nxIco=",
+    "linux-arm64": "sha256-Wk7IgzedUe6c4QQNXof4014gOHV03YyUf+sB6rw8Gzc="
   },
-  "1.27rc3": {
-    "darwin-amd64": "sha256-sOz00pve+HQ75deTjYvuM2cQLVjMuugf1eeB6SVvN38=",
-    "darwin-arm64": "sha256-IF1Wlds13zL92I6m+kIN+199mP6uWpBhqItPYwj2HF8=",
-    "linux-amd64": "sha256-ZHGFLcKWUSBHd125a/Q/8gMHgfeVI9PybVD40GMViPA=",
-    "linux-arm64": "sha256-8J+Y93SEziCMd8fXTTDkdYjfglvZC8Mv8TcHTDDF4EQ="
+  "1.27.0": {
+    "darwin-amd64": "sha256-0zFOJUluQ4HXGlxR0pB+evZV0Zn2eAtUnwFb2F/vSYY=",
+    "darwin-arm64": "sha256-kEk7O71eEPkdEhUxmL8ZlP11Y5m0/sk7SbDG4qze6z4=",
+    "linux-amd64": "sha256-Z1wmxEnLsY/CS3RlDeHqu65uFvZDJv2FooP7O1goBoU=",
+    "linux-arm64": "sha256-UXmNLELQ4cbtf9n0hyi0GTq6yeiq1tusL+lqgfWQm9o="
   }
 }
