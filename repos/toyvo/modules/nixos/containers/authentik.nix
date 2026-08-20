@@ -295,28 +295,6 @@ in
             postgresql:
               password: "file:///run/secrets/authentik-db-password"
             EOF
-
-            # Wait for network interface to have an IP address
-            echo "Waiting for network interface to be ready..."
-            for i in $(seq 1 30); do
-              if ${pkgs.iproute2}/bin/ip addr show | grep -q "${cfg.localAddress}"; then
-                echo "Network interface has IP ${cfg.localAddress}"
-                break
-              fi
-              echo "Waiting for IP ${cfg.localAddress}... (attempt $i/30)"
-              sleep 1
-            done
-
-            # Wait for host to be reachable
-            echo "Waiting for PostgreSQL host ${cfg.db.host} to be reachable..."
-            for i in $(seq 1 30); do
-              if ${pkgs.iputils}/bin/ping -c 1 -W 1 ${cfg.db.host} >/dev/null 2>&1; then
-                echo "Host ${cfg.db.host} is reachable"
-                break
-              fi
-              echo "Waiting for host ${cfg.db.host}... (attempt $i/30)"
-              sleep 1
-            done
           '';
         };
 
