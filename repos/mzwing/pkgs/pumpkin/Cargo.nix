@@ -11617,6 +11617,11 @@ rec {
             usesDefaultFeatures = false;
           }
           {
+            name = "dashmap";
+            packageId = "dashmap";
+            usesDefaultFeatures = false;
+          }
+          {
             name = "ecdsa";
             packageId = "ecdsa 0.17.0";
             usesDefaultFeatures = false;
@@ -11703,12 +11708,6 @@ rec {
             name = "thiserror";
             packageId = "thiserror 2.0.20";
             usesDefaultFeatures = false;
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            usesDefaultFeatures = false;
-            features = [ "sync" ];
           }
           {
             name = "ureq";

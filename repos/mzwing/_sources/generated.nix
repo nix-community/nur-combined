@@ -41,13 +41,13 @@
   };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
-    version = "v7.2.127-3";
+    version = "v7.2.127-6";
     src = fetchFromGitHub {
       owner = "kaitranntt";
       repo = "CLIProxyAPIPlus";
-      rev = "v7.2.127-3";
+      rev = "v7.2.127-6";
       fetchSubmodules = false;
-      sha256 = "sha256-Rbg90C8wtNYavhPUGJfS352s+E4xRG49U8s7DicsdMY=";
+      sha256 = "sha256-QJdsh6n3QR/T9QEWduktLMLvIDvKxLPpqVuyPZzQ4pM=";
     };
   };
   codegraph = {
@@ -134,15 +134,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "399bf14150e241857f0e78e85aa7f94e54eb144c";
+    version = "d654e01e2530f45598a84ffcb9ac4e63ed0de4de";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "399bf14150e241857f0e78e85aa7f94e54eb144c";
+      rev = "d654e01e2530f45598a84ffcb9ac4e63ed0de4de";
       fetchSubmodules = true;
-      sha256 = "sha256-+r2BDr8KnK33wgXCFLNuvwfvivYsNLSyoe9PcWPMRRY=";
+      sha256 = "sha256-dlCgIREdUYskVtPOxjbb2CATuQi9ZyIGfFiSUXl4cfo=";
     };
-    date = "2026-08-19";
+    date = "2026-08-20";
   };
   replay-fish = {
     pname = "replay-fish";
