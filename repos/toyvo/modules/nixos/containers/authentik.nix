@@ -234,10 +234,7 @@ in
         systemd.services.authentik-server = {
           description = "Authentik Server";
           wantedBy = [ "multi-user.target" ];
-          after = [
-            "network-online.target"
-            "authentik-migrate.service"
-          ];
+          after = [ "network-online.target" ];
           wants = [ "network-online.target" ];
           environment = {
             AUTHENTIK_POSTGRESQL__HOST = cfg.db.host;
@@ -265,42 +262,6 @@ in
               password: "file:///run/secrets/authentik-db-password"
             bootstrap:
               admin_password: "file:///run/secrets/authentik-bootstrap-password"
-            EOF
-          '';
-        };
-
-        # Note: authentik 2025.12+ no longer has a separate 'ak core' command.
-        # The embedded outpost is handled internally by 'ak server' which
-        # creates /dev/shm/authentik-core.sock automatically.
-
-        systemd.services.authentik-migrate = {
-          description = "Authentik Database Migration";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network-online.target" ];
-          wants = [ "network-online.target" ];
-          before = [ "authentik-server.service" ];
-          environment = {
-            AUTHENTIK_POSTGRESQL__HOST = cfg.db.host;
-            AUTHENTIK_POSTGRESQL__PORT = toString cfg.db.port;
-            AUTHENTIK_POSTGRESQL__NAME = cfg.db.name;
-            AUTHENTIK_POSTGRESQL__USER = cfg.db.user;
-            AUTHENTIK_POSTGRESQL__SSLMODE = "prefer";
-            AUTHENTIK_REDIS__HOST = cfg.redis.host;
-            AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
-          };
-          serviceConfig = {
-            Type = "oneshot";
-            User = "authentik";
-            Group = "authentik";
-            WorkingDirectory = "/var/lib/authentik";
-            ExecStart = "${cfg.package}/bin/ak migrate";
-          };
-          preStart = ''
-            mkdir -p /etc/authentik
-            cat > /etc/authentik/config.yml << 'EOF'
-            secret_key: "file:///run/secrets/authentik-secret-key"
-            postgresql:
-              password: "file:///run/secrets/authentik-db-password"
             EOF
           '';
         };
