@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+env:
+  NIX_CONFIG: |
+    accept-flake-config = true
+
 concurrency:
   group: update
   cancel-in-progress: true
