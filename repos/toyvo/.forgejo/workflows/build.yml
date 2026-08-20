@@ -17,6 +17,9 @@ on:
     # rebuild everyday at 8:26
     - cron: "26 8 * * *"
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
@@ -144,10 +147,13 @@ jobs:
             "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge" \
             -o /tmp/merge_response.json)
 
+          MERGE_OK=false
           if [ "$MERGE_RESPONSE" = "200" ]; then
             echo "Successfully merged PR #$PR_NUMBER"
+            MERGE_OK=true
           elif [ "$MERGE_RESPONSE" = "201" ]; then
             echo "Successfully merged PR #$PR_NUMBER (created)"
+            MERGE_OK=true
           elif [ "$MERGE_RESPONSE" = "405" ]; then
             echo "PR #$PR_NUMBER already merged or merge not allowed (HTTP 405)"
           elif [ "$MERGE_RESPONSE" = "404" ]; then
@@ -157,7 +163,11 @@ jobs:
           else
             echo "Merge failed with HTTP $MERGE_RESPONSE"
             cat /tmp/merge_response.json 2>/dev/null || echo "No response body"
-            echo "Continuing anyway..."
+          fi
+
+          if [ "$MERGE_OK" != true ]; then
+            echo "Merge did not succeed, leaving branch $BRANCH in place for investigation"
+            exit 1
           fi
 
           echo "Attempting to delete branch $BRANCH..."
