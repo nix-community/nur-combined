@@ -68,7 +68,14 @@
           ...
         }:
         let
-          drvPackages = lib.filterAttrs (_: v: lib.isDerivation v) self'.legacyPackages;
+          # filters out derivations for the target system
+          drvPackages =
+            let
+              hasPlatformsMeta = drv: builtins.hasAttr "platforms" drv.meta;
+            in
+            self'.legacyPackages
+            |> lib.filterAttrs (_: pkg: lib.isDerivation pkg)
+            |> lib.filterAttrs (_: drv: !hasPlatformsMeta drv || builtins.elem system drv.meta.platforms);
         in
         {
           _module.args.pkgs = import inputs.nixpkgs {
@@ -82,10 +89,7 @@
             config = { };
           };
 
-          # filters out checks based on supported platforms
-          checks = lib.filterAttrs (
-            _: drv: !builtins.hasAttr "platforms" drv.meta || builtins.elem system drv.meta.platforms
-          ) drvPackages;
+          checks = drvPackages;
 
           devShells = import ./shell.nix { inherit pkgs system; };
           # explicitly skip modules as they break nix flake check; in fact the
@@ -108,7 +112,9 @@
               inherit (pkgs) gomod2nix;
             }
             // lib.optionalAttrs (lib.hasSuffix "-linux" system) {
-              inherit (pkgs) nix-installer-static;
+              nix-installer-static = pkgs.nix-installer-static.overrideAttrs (prev: {
+                meta.platforms = prev.meta.platforms or lib.platforms.all;
+              });
             };
         };
 

@@ -29,9 +29,10 @@ let
     lists.optionals (pathExists path) (do path);
 in
 {
-  meta.maintainers = [
-    maintainers.wwmoraes or "wwmoraes"
-  ];
+  meta = {
+    maintainers = with maintainers; [ wwmoraes ];
+    platforms = platforms.darwin;
+  };
 
   options = {
     environment.manPath = mkOption {

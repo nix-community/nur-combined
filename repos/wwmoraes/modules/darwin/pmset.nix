@@ -228,9 +228,10 @@ let
   pmset = flag: attrs: writePmset flag (pmsetSettingsToList attrs);
 in
 {
-  meta.maintainers = [
-    maintainers.wwmoraes or "wwmoraes"
-  ];
+  meta = {
+    maintainers = with maintainers; [ wwmoraes ];
+    platforms = platforms.darwin;
+  };
 
   options = {
     system.pmset.all = mkOption {

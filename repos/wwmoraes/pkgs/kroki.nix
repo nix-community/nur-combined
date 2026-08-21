@@ -40,5 +40,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mainProgram = "kroki";
     maintainers = with lib.maintainers; [ wwmoraes ];
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    platforms = lib.platforms.all;
   };
 })

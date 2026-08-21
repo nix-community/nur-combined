@@ -10,9 +10,7 @@ let
   ini = pkgs.formats.ini { };
 in
 {
-  meta.maintainers = [
-    lib.maintainers.wwmoraes
-  ];
+  meta.maintainers = with lib.maintainers; [ wwmoraes ];
 
   imports = [
     (mkFormatterModule {

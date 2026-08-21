@@ -56,9 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight and modular continuous integration service (client only)";
     homepage = "https://laminar.ohwg.net";
     license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ wwmoraes ];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [
-      wwmoraes
-    ];
   };
 })

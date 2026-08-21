@@ -20,11 +20,12 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-mvUnt+CQ02EPzrCTgf6Hcg5L9O2FWasLpFh/okk5tak=";
 
-  meta = with lib; {
+  meta = {
     description = "Go AST Declaration Extractor";
     homepage = "https://github.com/1pkg/goutline";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     mainProgram = "goutline";
-    maintainers = with maintainers; [ wwmoraes ];
+    maintainers = with lib.maintainers; [ wwmoraes ];
+    platforms = lib.platforms.all;
   };
 })

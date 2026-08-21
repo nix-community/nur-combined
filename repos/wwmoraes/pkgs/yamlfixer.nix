@@ -24,11 +24,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
     yamllint
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Automates the fixing of problems reported by yamllint by parsing its output";
-    mainProgram = "yamlfixer";
-    license = licenses.gpl3Plus;
     homepage = "https://github.com/opt-nc/yamlfixer";
-    maintainers = [ maintainers.wwmoraes ];
+    license = lib.licenses.gpl3Plus;
+    mainProgram = "yamlfixer";
+    maintainers = with lib.maintainers; [ wwmoraes ];
+    platforms = lib.platforms.all;
   };
 })

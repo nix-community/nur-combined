@@ -14,9 +14,10 @@ let
     attrs: mapAttrsToList writeAuthorizationDB (filterAttrs (n: v: v != null) attrs);
 in
 {
-  meta.maintainers = [
-    maintainers.wwmoraes or "wwmoraes"
-  ];
+  meta = {
+    maintainers = with maintainers; [ wwmoraes ];
+    platforms = platforms.darwin;
+  };
 
   options = {
     system.authorizationDB = mkOption {

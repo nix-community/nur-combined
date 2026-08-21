@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/snosrap/xpc_set_event_stream_handler";
     license = lib.licenses.mit;
     mainProgram = "xpc_set_event_stream_handler";
-    maintainers = [ lib.maintainers.wwmoraes ];
+    maintainers = with lib.maintainers; [ wwmoraes ];
     platforms = lib.platforms.darwin;
   };
 })

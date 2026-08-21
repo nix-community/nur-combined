@@ -47,6 +47,6 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3;
     mainProgram = "update-motd";
     maintainers = with lib.maintainers; [ wwmoraes ];
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.unix;
   };
 }

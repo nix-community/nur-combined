@@ -22,12 +22,12 @@ buildGoModule (finalAttrs: {
     		$out/bin/git-credential-azure --help
     	'';
 
-  meta = with lib; {
+  meta = {
     description = "A Git credential helper for Azure Repos";
     homepage = "https://github.com/hickford/git-credential-azure";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
     mainProgram = "git-credential-azure";
-    maintainers = with maintainers; [ wwmoraes ];
-    platforms = platforms.all;
+    maintainers = with lib.maintainers; [ wwmoraes ];
+    platforms = lib.platforms.all;
   };
 })

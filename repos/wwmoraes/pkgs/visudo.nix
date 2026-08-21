@@ -48,17 +48,17 @@ stdenv.mkDerivation (finalAttrs: {
     		cp plugins/sudoers/visudo $out/bin/visudo
     	'';
 
-  meta = with lib; {
+  meta = {
     description = "safely edit the sudoers file";
     homepage = "https://git.sudo.ws/sudo";
-    license = with licenses; [
+    license = with lib.licenses; [
       sudo
       bsd2
       bsd3
       zlib
     ];
     mainProgram = "visudo";
-    maintainers = with maintainers; [ wwmoraes ];
-    platforms = platforms.unix;
+    maintainers = with lib.maintainers; [ wwmoraes ];
+    platforms = lib.platforms.unix;
   };
 })

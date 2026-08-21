@@ -9,9 +9,10 @@ let
   makeDrvInfoPath = concatMapStringsSep ":" (p: if isDerivation p then "${p}/info" else p);
 in
 {
-  meta.maintainers = [
-    maintainers.wwmoraes or "wwmoraes"
-  ];
+  meta = {
+    maintainers = with maintainers; [ wwmoraes ];
+    platforms = platforms.darwin;
+  };
 
   options = {
     environment.infoPath = mkOption {

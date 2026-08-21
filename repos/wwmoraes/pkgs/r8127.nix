@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Realtek 8127 Linux driver";
     homepage = "https://github.com/openwrt/rtl8127";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.wwmoraes ];
+    maintainers = with lib.maintainers; [ wwmoraes ];
     platforms = lib.platforms.linux;
   };
 })

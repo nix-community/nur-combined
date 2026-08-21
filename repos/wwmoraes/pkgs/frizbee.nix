@@ -39,11 +39,12 @@ buildGoModule (finalAttrs: {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Throw a tag at it and it comes back with a checksum.";
     homepage = "https://github.com/stacklok/frizbee";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
     mainProgram = "frizbee";
-    maintainers = with maintainers; [ wwmoraes ];
+    maintainers = with lib.maintainers; [ wwmoraes ];
+    platforms = lib.platforms.all;
   };
 })

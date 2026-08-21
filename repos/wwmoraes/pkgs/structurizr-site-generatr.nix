@@ -50,6 +50,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     mainProgram = "structurizr-site-generatr";
     maintainers = with lib.maintainers; [ wwmoraes ];
+    platforms = lib.platforms.all;
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
   };
 })
