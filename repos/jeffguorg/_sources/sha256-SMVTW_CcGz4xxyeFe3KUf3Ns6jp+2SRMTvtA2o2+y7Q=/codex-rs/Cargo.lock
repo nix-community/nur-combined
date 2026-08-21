@@ -2014,7 +2014,6 @@ dependencies = [
  "codex-git-attribution",
  "codex-git-utils",
  "codex-goal-extension",
- "codex-guardian",
  "codex-guardian-v2",
  "codex-home",
  "codex-hooks",
@@ -2053,10 +2052,10 @@ dependencies = [
  "flate2",
  "futures",
  "hmac 0.12.1",
+ "http 1.4.0",
  "opentelemetry",
  "opentelemetry_sdk",
  "pretty_assertions",
- "reqwest 0.12.28",
  "rmcp",
  "serde",
  "serde_json",
@@ -2714,6 +2713,7 @@ version = "0.0.0"
 dependencies = [
  "codex-connectors",
  "codex-core-plugins",
+ "codex-file-system",
  "codex-plugin",
  "codex-utils-path-uri",
  "serde_json",
@@ -3142,6 +3142,7 @@ dependencies = [
  "codex-core",
  "codex-core-plugins",
  "codex-hooks",
+ "codex-login",
  "codex-memories-write",
  "codex-otel",
  "codex-plugin",
@@ -3178,14 +3179,17 @@ name = "codex-feedback"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "codex-http-client",
  "codex-login",
  "codex-protocol",
  "log",
  "mime_guess",
  "pretty_assertions",
  "sentry",
+ "tokio",
  "tracing",
  "tracing-subscriber",
+ "wiremock",
 ]
 
 [[package]]
@@ -3291,15 +3295,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "codex-guardian"
-version = "0.0.0"
-dependencies = [
- "codex-core",
- "codex-extension-api",
- "codex-protocol",
-]
-
-[[package]]
 name = "codex-guardian-v2"
 version = "0.0.0"
 dependencies = [
@@ -3308,7 +3303,6 @@ dependencies = [
  "codex-core",
  "codex-extension-api",
  "codex-features",
- "codex-history",
  "codex-http-client",
  "codex-login",
  "codex-model-provider",
@@ -3379,6 +3373,7 @@ dependencies = [
  "codex-utils-rustls-provider",
  "futures",
  "http 1.4.0",
+ "native-tls",
  "opentelemetry",
  "opentelemetry_sdk",
  "pretty_assertions",
@@ -3845,6 +3840,7 @@ dependencies = [
  "eventsource-stream",
  "gethostname",
  "http 1.4.0",
+ "libc",
  "opentelemetry",
  "opentelemetry-appender-tracing",
  "opentelemetry-otlp",
@@ -3853,6 +3849,7 @@ dependencies = [
  "os_info",
  "pretty_assertions",
  "reqwest 0.12.28",
+ "seccompiler",
  "serde",
  "serde_json",
  "strum_macros 0.28.0",
@@ -4013,6 +4010,7 @@ dependencies = [
  "futures",
  "http 1.4.0",
  "keyring",
+ "libc",
  "memchr",
  "oauth2",
  "pretty_assertions",
@@ -4031,6 +4029,7 @@ dependencies = [
  "urlencoding",
  "webbrowser",
  "which 8.0.0",
+ "windows-sys 0.52.0",
  "wiremock",
 ]
 
@@ -4137,8 +4136,10 @@ dependencies = [
  "serde",
  "serde_json",
  "shlex",
+ "tempfile",
  "tree-sitter",
  "tree-sitter-bash",
+ "tree-sitter-powershell",
  "url",
  "which 8.0.0",
 ]
@@ -5030,6 +5031,7 @@ dependencies = [
  "codex-model-provider-info",
  "codex-models-manager",
  "codex-protocol",
+ "codex-thread-store",
  "codex-utils-absolute-path",
  "codex-utils-cargo-bin",
  "codex-utils-path-uri",
@@ -5373,6 +5375,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "darling"
+version = "0.24.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "88490bf1b990d87eaaa7ac8aa887f629a08e7359765b4911faf63c3763347d23"
+dependencies = [
+ "darling_core 0.24.0",
+ "darling_macro 0.24.0",
+]
+
+[[package]]
 name = "darling_core"
 version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5414,6 +5426,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "darling_core"
+version = "0.24.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "084e274f91c482280130e1e34e0b8d6e66776a060d7b6de7b84289ca778868c4"
+dependencies = [
+ "ident_case",
+ "proc-macro2",
+ "quote",
+ "strsim 0.11.1",
+ "syn 3.0.3",
+]
+
+[[package]]
 name = "darling_macro"
 version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5444,6 +5469,17 @@ dependencies = [
  "darling_core 0.23.0",
  "quote",
  "syn 2.0.117",
+]
+
+[[package]]
+name = "darling_macro"
+version = "0.24.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "68f5792fa0d41cd2325ce0ffa64f0a340eaebd4971a3a0c5e1ffd2cc488a355e"
+dependencies = [
+ "darling_core 0.24.0",
+ "quote",
+ "syn 3.0.3",
 ]
 
 [[package]]
@@ -7648,9 +7684,9 @@ dependencies = [
 
 [[package]]
 name = "h2"
-version = "0.4.13"
+version = "0.4.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2f44da3a8150a6703ed5d34e164b875fd14c2cdab9af1252a9a1020bde2bdc54"
+checksum = "a9f37a958b41b3b19ee2707c06439c0e9e547e847223eb791ecb0cb821c65e27"
 dependencies = [
  "atomic-waker",
  "bytes",
@@ -11805,9 +11841,9 @@ dependencies = [
 
 [[package]]
 name = "rmcp"
-version = "3.0.0"
+version = "3.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcd2b6dd3b18129368955f32661a7718969e8c152c7d8866434c09cf15a512e0"
+checksum = "c8dddc5b1924b9a59fba420166160ca2c4663a4e01803e52eda33070f56d63c8"
 dependencies = [
  "async-trait",
  "base64 0.23.0",
@@ -11840,15 +11876,15 @@ dependencies = [
 
 [[package]]
 name = "rmcp-macros"
-version = "3.0.0"
+version = "3.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e1aa4b9345795260a43fc23d6d05e096407c8b953903f673af7c4404b49fb2d6"
+checksum = "6898e24cd16342b59bfa8a53c2c04b9cf62fc8a2cfea57b9c038b09984bfc521"
 dependencies = [
- "darling 0.23.0",
+ "darling 0.24.0",
  "proc-macro2",
  "quote",
  "serde_json",
- "syn 2.0.117",
+ "syn 3.0.3",
 ]
 
 [[package]]
@@ -13510,6 +13546,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "syn"
+version = "3.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "53e9bae58849f64dfa4f5d5ae372c8341f7305f82a3868709269343628b659a3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "unicode-ident",
+]
+
+[[package]]
 name = "sync_wrapper"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -14471,6 +14518,16 @@ name = "tree-sitter-language"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "009994f150cc0cd50ff54917d5bc8bffe8cad10ca10d81c34da2ec421ae61782"
+
+[[package]]
+name = "tree-sitter-powershell"
+version = "0.26.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3faf304d44b9ddd4a7d97804bb8de7daf564336dd5a526dc6de5b39238243022"
+dependencies = [
+ "cc",
+ "tree-sitter-language",
+]
 
 [[package]]
 name = "tree_magic_mini"
