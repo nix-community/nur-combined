@@ -47,6 +47,7 @@ jobs:
           # pkgs/motrix-next/update.sh
           pkgs/motrix-next/update-beta.sh
           pkgs/nix-auth/update.sh
+          pkgs/open-orpheus-dev/update.sh
           pkgs/piliplus/update.sh
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
