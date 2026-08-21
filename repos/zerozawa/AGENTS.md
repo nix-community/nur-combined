@@ -8,7 +8,7 @@ When updating code or documentation, treat these files as authoritative:
 
 - `default.nix` - exported packages plus reserved attrs `lib`, `modules`, `overlays`
 - `lib/default.nix` - exported library helpers (currently `fetchPixiv`)
-- `flake.nix` - flake outputs (`legacyPackages`, filtered `packages`)
+- `flake.nix` - flake outputs (`legacyPackages`, filtered `packages`, `ciJobs`)
 - `ci.nix` - CI build/cache filtering rules
 - `modules/default.nix` - current modules namespace (placeholder)
 - `overlays/default.nix` - current overlays namespace (placeholder)
@@ -86,7 +86,7 @@ This repo is not limited to one packaging style. Examples worth following:
 - Add new library helpers to `lib/default.nix`.
 - Reserved attrs `lib`, `modules`, and `overlays` are not normal package targets.
 
-### CI behavior (`ci.nix`)
+### CI behavior (`ci.nix` + `.github/workflows/build.yml`)
 
 CI excludes reserved attrs and flattens derivations recursively when `recurseForDerivations = true`.
 
@@ -96,10 +96,17 @@ Filtering behavior:
 - unfree licenses -> excluded from build/cache sets
 - `preferLocalBuild = true` -> buildable locally but excluded from cache set
 
+The GitHub Actions workflow builds `.#ciJobs.x86_64-linux` with `nix-fast-build`
+against the nixpkgs pinned in `flake.lock` (not a channel matrix), so cached
+paths match what flake users build locally. Scheduled and manually dispatched
+runs run `nix flake update` first and push the bumped `flake.lock` only after
+the build against it succeeds.
+
 ### Flake behavior (`flake.nix`)
 
 - `legacyPackages.<system>` imports `default.nix`
 - `packages.<system>` filters derivations by platform compatibility
+- `ciJobs.<system>` exposes the `ci.nix` `cachePkgs` set keyed by package name for `nix-fast-build`
 - `nixpkgs` is pinned to `nixpkgs-unstable`
 - the flake config also publishes Cachix substituters and trusted keys
 

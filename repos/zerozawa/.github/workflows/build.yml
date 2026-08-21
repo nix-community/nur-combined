@@ -6,38 +6,16 @@ on:
       - main
       - master
   schedule:
-    # rebuild everyday at 2:51
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron: '55 5 * * *'
+    # rebuild everyday at 5:55; scheduled runs also bump flake.lock first
+    - cron: "55 5 * * *"
   workflow_dispatch:
+
+# push-flake-lock needs to commit the updated flake.lock back to the branch.
+permissions:
+  contents: write
+
 jobs:
-  tests:
-    strategy:
-      matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - zerozawa
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - zerozawa
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+  update-flake:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -45,32 +23,85 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
-          nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Setup cachix
-        uses: cachix/cachix-action@v17
-        # Don't replace <YOUR_CACHIX_NAME> here!
-        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+      - name: Update flake.lock
+        # Only scheduled and manual runs move the pin; push/PR builds
+        # always use the committed lock.
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: nix flake update
+      - name: Hand flake.lock to later jobs
+        uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.cachixName }}
-          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - name: Check evaluation
-        run: |
-          nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org \
-            --option restrict-eval true \
-            --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" \
-            -I "$PWD"
+          name: flake-lock
+          path: flake.lock
+          overwrite: true
+
+  build:
+    needs: update-flake
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Restore flake.lock
+        uses: actions/download-artifact@v8
+        with:
+          name: flake-lock
+          path: .
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            extra-substituters = https://zerozawa.cachix.org https://nix-community.cachix.org
+            extra-trusted-public-keys = zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+      - name: Show flake inputs
+        run: nix flake metadata
+      # Builds against the nixpkgs pinned in flake.lock, so the pushed
+      # store paths match exactly what flake users build locally.
+      # nix-fast-build pushes each finished build to cachix via its own
+      # `nix shell nixpkgs#cachix` daemon; no cachix-action needed.
       - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --flake .#ciJobs.x86_64-linux --cachix-cache zerozawa
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
       - name: Trigger NUR update
-        # Don't replace <YOUR_REPO_NAME> here!
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+        if: ${{ github.event_name != 'pull_request' }}
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=zerozawa"
+
+  push-flake-lock:
+    # Only land the bumped pin once the build against it is green, so a
+    # broken nixpkgs-unstable HEAD never reaches the committed lock.
+    if: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Restore flake.lock
+        uses: actions/download-artifact@v8
+        with:
+          name: flake-lock
+          path: .
+      - name: Commit flake.lock
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "flake.lock unchanged, nothing to push"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git commit -m "chore(flake): update flake.lock"
+          git push

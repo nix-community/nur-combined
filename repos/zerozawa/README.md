@@ -150,6 +150,8 @@ nix build .#mcp-cli
 
 # Build what CI caches
 nix-build ci.nix -A cacheOutputs
+# Same package set via the flake (what GitHub Actions actually runs)
+nix run nixpkgs#nix-fast-build -- --skip-cached --flake .#ciJobs.x86_64-linux
 
 # Inspect flake outputs
 nix flake show
@@ -158,7 +160,8 @@ nix flake show
 ## CI and Cache Notes
 
 - GitHub Actions builds this repository on push, pull request, schedule, and manual dispatch.
-- CI evaluates packages against multiple nixpkgs channels and builds `nix-build ci.nix -A cacheOutputs`.
+- CI builds the flake output `.#ciJobs.x86_64-linux` (same package set as `nix-build ci.nix -A cacheOutputs`) with `nix-fast-build` against the nixpkgs pinned in `flake.lock`, so cached paths match what flake users build locally.
+- Scheduled and manually dispatched runs bump `flake.lock` first and push the updated lock only after the build against it succeeds.
 - Binary cache is published to `https://zerozawa.cachix.org`.
 
 If you want to use the cache locally, prefer declarative Nix configuration instead of commands that mutate the local environment:
