@@ -2,8 +2,12 @@ name: "Build and populate cache"
 on:
   workflow_dispatch: # allows manual triggering
     inputs:
+      jobfilter:
+        description: "--jobfilter: jq filter for the job matrix"
+        required: false
+        default: ""
       upterm:
-        description: "--upterm: run an Upterm session after running `act`"
+        description: "--upterm: run an Upterm session before running `nix-fast-build`"
         required: false
         default: "false"
   pull_request:
@@ -104,6 +108,7 @@ jobs:
               ($subset == "lix-game-darwin") as $flaky |
               ($runner | startswith("ubuntu") and endswith("arm")) as $needsOpenapvWorkaround |
               {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName, $flaky, $needsOpenapvWorkaround, $nixFastBuildFlakeArgs}
+              ${{ github.event.inputs.jobfilter != '' && format(' | {0}', github.event.inputs.jobfilter) || '' }}
             ]}
             
           EOF
