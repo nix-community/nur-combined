@@ -1,4 +1,5 @@
 {
+  buildPackages,
   fetchgit,
   lib,
   stdenv,
@@ -14,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-1G6KddRyXbEDZr7PBHXMxgq5moFUXuihYsPXNgSDTNQ=";
   };
+
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   prePatch = ''
     # do not set sticky bit in nix store
@@ -34,19 +37,19 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildPhase = ''
-    		make -C lib/util
-    		make -C lib/iolog
-    		make -C lib/eventlog
-    		make -C lib/logsrv
-    		make -C lib/protobuf-c
+    make -C lib/util
+    make -C lib/iolog
+    make -C lib/eventlog
+    make -C lib/logsrv
+    make -C lib/protobuf-c
 
-    		make -C plugins/sudoers
-    	'';
+    make -C plugins/sudoers
+  '';
 
   installPhase = ''
-    		mkdir -p $out/bin
-    		cp plugins/sudoers/visudo $out/bin/visudo
-    	'';
+    mkdir -p $out/bin
+    cp plugins/sudoers/visudo $out/bin/visudo
+  '';
 
   meta = {
     description = "safely edit the sudoers file";
