@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "solod";
-  version = "0.2.0";
+  version = "0.3.0";
 
   __structuredAttrs = true;
 
@@ -14,7 +14,7 @@ buildGoModule (finalAttrs: {
     owner = "solod-dev";
     repo = "solod";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+uAHGurm/OZ7Nj91aVeIiMAYPMjDTcxjwA1ullnfkOg=";
+    hash = "sha256-Lvumcf69cQMl7TsvYM6Gk+lxq93UYJrME+FcGdS7odQ=";
   };
 
   vendorHash = "sha256-NIoEiLEb/p5kGQzYibPW9PI28tG3hjrqkLGs4TpSFxA=";
@@ -24,10 +24,7 @@ buildGoModule (finalAttrs: {
     "cmd/inspect"
   ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "A subset of Go that translates to C";

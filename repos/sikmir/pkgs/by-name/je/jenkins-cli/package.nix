@@ -8,7 +8,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "jenkins-cli";
-  version = "0.0.35";
+  version = "0.0.36";
 
   __structuredAttrs = true;
 
@@ -16,10 +16,10 @@ buildGoModule (finalAttrs: {
     owner = "avivsinai";
     repo = "jenkins-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PY1VC/fEnodXGHyrhbJqMOmfB8muhbpA6qfzJ4ld2Gk=";
+    hash = "sha256-iq6pecIp3nT963oBNOKlj9mU0r9BZwrlwb92vZctDAQ=";
   };
 
-  vendorHash = "sha256-nVHIZbbVoy2PWD2liRrXaQ7tIISmz8pE+nCzos9F6K8=";
+  vendorHash = "sha256-C+De7EVziBecP7ifXkychDb2h2mDWw3LidiDEaLnagQ=";
 
   subPackages = [ "cmd/jk" ];
 
@@ -27,7 +27,6 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
-    "-w"
     "-X github.com/avivsinai/jenkins-cli/internal/build.versionFromLdflags=${finalAttrs.version}"
   ];
 
