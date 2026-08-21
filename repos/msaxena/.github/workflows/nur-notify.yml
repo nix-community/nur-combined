@@ -1,0 +1,22 @@
+name: Notify NUR
+
+# NUR (nix-community/NUR) polls registered repos on its own schedule rather
+# than picking up changes the moment they're pushed. This tells it to
+# re-sync immediately instead, on every push to main that could plausibly
+# change what NUR serves.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "pkgs/**"
+      - "nixos-modules/**"
+      - "default.nix"
+      - "flake.nix"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger NUR re-sync
+        run: curl -sS --fail -X POST "https://nur-update.nix-community.org/update?repo=msaxena"

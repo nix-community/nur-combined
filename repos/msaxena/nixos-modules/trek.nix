@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.services.trek;
   pkg = cfg.package;
   isDefaultDataDir = cfg.dataDir == "/var/lib/trek";
@@ -21,8 +22,9 @@
     "uploads/photos"
   ];
 
-  optionalEnv = name: value: lib.optionalAttrs (value != null) {${name} = value;};
-in {
+  optionalEnv = name: value: lib.optionalAttrs (value != null) { ${name} = value; };
+in
+{
   options.services.trek = {
     enable = lib.mkEnableOption "TREK, a self-hosted collaborative travel planner";
 
@@ -82,7 +84,10 @@ in {
     };
 
     logLevel = lib.mkOption {
-      type = lib.types.enum ["info" "debug"];
+      type = lib.types.enum [
+        "info"
+        "debug"
+      ];
       default = "info";
       description = ''
         `info` logs concise user actions; `debug` adds verbose admin-level
@@ -92,8 +97,8 @@ in {
 
     allowedOrigins = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
-      example = ["https://trek.example.com"];
+      default = [ ];
+      example = [ "https://trek.example.com" ];
       description = ''
         Origins allowed for CORS and used in email links. Required in
         practice once TREK is reachable from anywhere but localhost.
@@ -278,7 +283,7 @@ in {
     overpass = {
       urls = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [];
+        default = [ ];
         description = ''
           Custom Overpass endpoint(s) for the map POI "explore" search. When
           set, this replaces the bundled public mirrors -- point it at an
@@ -361,7 +366,7 @@ in {
 
     environment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = {};
+      default = { };
       example = {
         SMTP_HOST = "smtp.example.com";
         SMTP_PORT = "587";
@@ -378,8 +383,8 @@ in {
 
     environmentFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [];
-      example = lib.literalExpression ''[ config.sops.secrets.trek-env.path ]'';
+      default = [ ];
+      example = lib.literalExpression "[ config.sops.secrets.trek-env.path ]";
       description = ''
         Files of secret environment variables (`KEY=value` per line),
         loaded by systemd before the service starts and merged in order
@@ -411,152 +416,139 @@ in {
       isSystemUser = true;
       group = "trek";
     };
-    users.groups.trek = {};
+    users.groups.trek = { };
 
     systemd.services.trek = {
       description = "TREK travel planner";
-      after = ["network.target"];
-      wantedBy = ["multi-user.target"];
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-      environment =
-        {
-          NODE_ENV = "production";
-          PORT = toString cfg.port;
-          HOST = cfg.listenAddress;
-          TZ = cfg.timezone;
-          LOG_LEVEL = cfg.logLevel;
-          FORCE_HTTPS = lib.boolToString cfg.forceHttps;
-          HSTS_INCLUDE_SUBDOMAINS = lib.boolToString cfg.hstsIncludeSubdomains;
-          ALLOW_INTERNAL_NETWORK = lib.boolToString cfg.allowInternalNetwork;
-          DEMO_MODE = lib.boolToString cfg.demoMode;
-          # Always set explicitly rather than leaving COOKIE_SECURE unset:
-          # upstream's own auto-derivation is "secure when NODE_ENV=production
-          # OR FORCE_HTTPS=true", and this module always sets
-          # NODE_ENV=production above, so leaving it to auto-derive would
-          # make cookies secure unconditionally -- silently breaking login
-          # over plain HTTP for anyone running with forceHttps = false.
-          COOKIE_SECURE = lib.boolToString (
-            if cfg.cookieSecure != null then cfg.cookieSecure else cfg.forceHttps
-          );
-        }
-        // optionalEnv "ALLOWED_ORIGINS" (
-          if cfg.allowedOrigins == []
-          then null
-          else lib.concatStringsSep "," cfg.allowedOrigins
-        )
-        // optionalEnv "APP_URL" cfg.appUrl
-        // optionalEnv "TRUST_PROXY" (
-          if cfg.trustProxy == null
-          then null
-          else toString cfg.trustProxy
-        )
-        // optionalEnv "DEFAULT_LANGUAGE" cfg.defaultLanguage
-        // optionalEnv "SESSION_DURATION" cfg.sessionDuration
-        // optionalEnv "SESSION_DURATION_REMEMBER" cfg.sessionDurationRemember
-        // optionalEnv "BACKUP_UPLOAD_LIMIT_MB" (
-          if cfg.backupUploadLimitMb == null
-          then null
-          else toString cfg.backupUploadLimitMb
-        )
-        // optionalEnv "MCP_RATE_LIMIT" (
-          if cfg.mcp.rateLimit == null
-          then null
-          else toString cfg.mcp.rateLimit
-        )
-        // optionalEnv "MCP_MAX_SESSION_PER_USER" (
-          if cfg.mcp.maxSessionsPerUser == null
-          then null
-          else toString cfg.mcp.maxSessionsPerUser
-        )
-        // optionalEnv "OVERPASS_URL" (
-          if cfg.overpass.urls == []
-          then null
-          else lib.concatStringsSep "," cfg.overpass.urls
-        )
-        // optionalEnv "OVERPASS_TIMEOUT_MS" (
-          if cfg.overpass.timeoutMs == null
-          then null
-          else toString cfg.overpass.timeoutMs
-        )
-        // optionalEnv "OIDC_ISSUER" cfg.oidc.issuer
-        // optionalEnv "OIDC_CLIENT_ID" cfg.oidc.clientId
-        // optionalEnv "OIDC_DISPLAY_NAME" cfg.oidc.displayName
-        // lib.optionalAttrs cfg.oidc.only {OIDC_ONLY = "true";}
-        // optionalEnv "OIDC_ADMIN_CLAIM" cfg.oidc.adminClaim
-        // optionalEnv "OIDC_ADMIN_VALUE" cfg.oidc.adminValue
-        // optionalEnv "OIDC_DISCOVERY_URL" cfg.oidc.discoveryUrl
-        // optionalEnv "OIDC_SCOPE" cfg.oidc.scope
-        // cfg.environment;
+      environment = {
+        NODE_ENV = "production";
+        PORT = toString cfg.port;
+        HOST = cfg.listenAddress;
+        TZ = cfg.timezone;
+        LOG_LEVEL = cfg.logLevel;
+        FORCE_HTTPS = lib.boolToString cfg.forceHttps;
+        HSTS_INCLUDE_SUBDOMAINS = lib.boolToString cfg.hstsIncludeSubdomains;
+        ALLOW_INTERNAL_NETWORK = lib.boolToString cfg.allowInternalNetwork;
+        DEMO_MODE = lib.boolToString cfg.demoMode;
+        # Always set explicitly rather than leaving COOKIE_SECURE unset:
+        # upstream's own auto-derivation is "secure when NODE_ENV=production
+        # OR FORCE_HTTPS=true", and this module always sets
+        # NODE_ENV=production above, so leaving it to auto-derive would
+        # make cookies secure unconditionally -- silently breaking login
+        # over plain HTTP for anyone running with forceHttps = false.
+        COOKIE_SECURE = lib.boolToString (
+          if cfg.cookieSecure != null then cfg.cookieSecure else cfg.forceHttps
+        );
+      }
+      // optionalEnv "ALLOWED_ORIGINS" (
+        if cfg.allowedOrigins == [ ] then null else lib.concatStringsSep "," cfg.allowedOrigins
+      )
+      // optionalEnv "APP_URL" cfg.appUrl
+      // optionalEnv "TRUST_PROXY" (if cfg.trustProxy == null then null else toString cfg.trustProxy)
+      // optionalEnv "DEFAULT_LANGUAGE" cfg.defaultLanguage
+      // optionalEnv "SESSION_DURATION" cfg.sessionDuration
+      // optionalEnv "SESSION_DURATION_REMEMBER" cfg.sessionDurationRemember
+      // optionalEnv "BACKUP_UPLOAD_LIMIT_MB" (
+        if cfg.backupUploadLimitMb == null then null else toString cfg.backupUploadLimitMb
+      )
+      // optionalEnv "MCP_RATE_LIMIT" (
+        if cfg.mcp.rateLimit == null then null else toString cfg.mcp.rateLimit
+      )
+      // optionalEnv "MCP_MAX_SESSION_PER_USER" (
+        if cfg.mcp.maxSessionsPerUser == null then null else toString cfg.mcp.maxSessionsPerUser
+      )
+      // optionalEnv "OVERPASS_URL" (
+        if cfg.overpass.urls == [ ] then null else lib.concatStringsSep "," cfg.overpass.urls
+      )
+      // optionalEnv "OVERPASS_TIMEOUT_MS" (
+        if cfg.overpass.timeoutMs == null then null else toString cfg.overpass.timeoutMs
+      )
+      // optionalEnv "OIDC_ISSUER" cfg.oidc.issuer
+      // optionalEnv "OIDC_CLIENT_ID" cfg.oidc.clientId
+      // optionalEnv "OIDC_DISPLAY_NAME" cfg.oidc.displayName
+      // lib.optionalAttrs cfg.oidc.only { OIDC_ONLY = "true"; }
+      // optionalEnv "OIDC_ADMIN_CLAIM" cfg.oidc.adminClaim
+      // optionalEnv "OIDC_ADMIN_VALUE" cfg.oidc.adminValue
+      // optionalEnv "OIDC_DISCOVERY_URL" cfg.oidc.discoveryUrl
+      // optionalEnv "OIDC_SCOPE" cfg.oidc.scope
+      // cfg.environment;
 
-      serviceConfig =
-        {
-          Type = "simple";
+      serviceConfig = {
+        Type = "simple";
 
-          # A static user, not DynamicUser: with DynamicUser, systemd's
-          # StateDirectory implementation stores the real files under
-          # /var/lib/private/trek/... and presents them at /var/lib/trek/...
-          # through an idmapped mount scoped to *that* mount point. Our own
-          # BindPaths= below bind-mounts the same source onto a second target
-          # (inside the store) -- a plain rbind, which does not carry that
-          # idmap translation along -- so the app would see the untranslated
-          # underlying ownership through the bind-mounted view and fail with
-          # EACCES even though the "native" /var/lib/trek/data path is
-          # perfectly writable. A static user's StateDirectory is chowned
-          # for real (no idmap indirection), so every path referencing it,
-          # bind-mounted or not, agrees on the same plain ownership.
-          User = "trek";
-          Group = "trek";
+        # A static user, not DynamicUser: with DynamicUser, systemd's
+        # StateDirectory implementation stores the real files under
+        # /var/lib/private/trek/... and presents them at /var/lib/trek/...
+        # through an idmapped mount scoped to *that* mount point. Our own
+        # BindPaths= below bind-mounts the same source onto a second target
+        # (inside the store) -- a plain rbind, which does not carry that
+        # idmap translation along -- so the app would see the untranslated
+        # underlying ownership through the bind-mounted view and fail with
+        # EACCES even though the "native" /var/lib/trek/data path is
+        # perfectly writable. A static user's StateDirectory is chowned
+        # for real (no idmap indirection), so every path referencing it,
+        # bind-mounted or not, agrees on the same plain ownership.
+        User = "trek";
+        Group = "trek";
 
-          # The server resolves node_modules and tsconfig.json (for
-          # tsconfig-paths) relative to the working directory, so it must
-          # run from within the package's server directory; "./data" and
-          # "./uploads" are bind-mounted in from dataDir below.
-          WorkingDirectory = "${pkg}/lib/trek/server";
-          ExecStart = "${lib.getExe pkgs.nodejs} --require tsconfig-paths/register ${pkg}/lib/trek/server/dist/index.js";
+        # The server resolves node_modules and tsconfig.json (for
+        # tsconfig-paths) relative to the working directory, so it must
+        # run from within the package's server directory; "./data" and
+        # "./uploads" are bind-mounted in from dataDir below.
+        WorkingDirectory = "${pkg}/lib/trek/server";
+        ExecStart = "${lib.getExe pkgs.nodejs} --require tsconfig-paths/register ${pkg}/lib/trek/server/dist/index.js";
 
-          BindPaths = [
-            "${cfg.dataDir}/data:${pkg}/lib/trek/server/data"
-            "${cfg.dataDir}/uploads:${pkg}/lib/trek/server/uploads"
-          ];
+        BindPaths = [
+          "${cfg.dataDir}/data:${pkg}/lib/trek/server/data"
+          "${cfg.dataDir}/uploads:${pkg}/lib/trek/server/uploads"
+        ];
 
-          EnvironmentFile = cfg.environmentFiles;
+        EnvironmentFile = cfg.environmentFiles;
 
-          Restart = "on-failure";
-          RestartSec = "5s";
+        Restart = "on-failure";
+        RestartSec = "5s";
 
-          # ── Hardening ──────────────────────────────────────────────────
-          NoNewPrivileges = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectControlGroups = true;
-          RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-          RestrictNamespaces = true;
-          LockPersonality = true;
-          # Node.js JIT requires the ability to map memory as writable+executable.
-          MemoryDenyWriteExecute = false;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          RemoveIPC = true;
-          CapabilityBoundingSet = [];
-          SystemCallArchitectures = "native";
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectClock = true;
-          # "invisible" only hides *other* users' /proc/<pid> entries; trek's
-          # own plugin child processes run as the same "trek" user and stay
-          # visible to it.
-          ProtectProc = "invisible";
-          UMask = "0077";
-          ReadWritePaths = [cfg.dataDir];
-        }
-        // lib.optionalAttrs isDefaultDataDir {
-          StateDirectory = map (d: "trek/${d}") stateSubdirs;
-          StateDirectoryMode = "0700";
-        };
+        # ── Hardening ──────────────────────────────────────────────────
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+          "AF_NETLINK"
+        ];
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        # Node.js JIT requires the ability to map memory as writable+executable.
+        MemoryDenyWriteExecute = false;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        RemoveIPC = true;
+        CapabilityBoundingSet = [ ];
+        SystemCallArchitectures = "native";
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectClock = true;
+        # "invisible" only hides *other* users' /proc/<pid> entries; trek's
+        # own plugin child processes run as the same "trek" user and stay
+        # visible to it.
+        ProtectProc = "invisible";
+        UMask = "0077";
+        ReadWritePaths = [ cfg.dataDir ];
+      }
+      // lib.optionalAttrs isDefaultDataDir {
+        StateDirectory = map (d: "trek/${d}") stateSubdirs;
+        StateDirectoryMode = "0700";
+      };
     };
 
     networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;

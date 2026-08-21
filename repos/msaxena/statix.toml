@@ -1,0 +1,9 @@
+# repeated_keys flags separate top-level `systemd.services.<name> = { ... }`
+# assignments (one per service) as an anti-pattern, preferring a single
+# nested `systemd.services = { <name> = { ... }; ... };` block. The
+# repeated-assignment style is deliberate and common practice in real-world
+# NixOS modules with many services (each service's config stays a
+# self-contained, independently diffable block) -- not a bug worth flagging.
+disabled = [
+  "repeated_keys"
+]

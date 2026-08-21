@@ -33,9 +33,10 @@ let
   # be able to shadow: HOME backs gunicorn's control socket path, and
   # SQLITE_PATH is what keeps the live database inside the persisted state
   # directory. Applied as the last override below, after cfg.environment.
-  protectedEnv =
-    { HOME = stateDir; }
-    // lib.optionalAttrs isSqlite { SQLITE_PATH = "${stateDir}/db.sqlite3"; };
+  protectedEnv = {
+    HOME = stateDir;
+  }
+  // lib.optionalAttrs isSqlite { SQLITE_PATH = "${stateDir}/db.sqlite3"; };
 
   # Settings that are inherently credential-shaped (API keys, OAuth client
   # secrets, the Django SECRET_KEY, a remote DB_PASSWORD, ...) are
@@ -44,84 +45,83 @@ let
   # world-readable. Put them in `environmentFiles` instead (see its
   # description for the full list of supported keys) — e.g. a file produced
   # by sops-nix.
-  commonEnv =
-    {
-      # Give gunicorn a writable $HOME for its control socket (it otherwise
-      # tries ~/.gunicorn, which resolves under the read-only ProtectHome=
-      # jail for a homeless system user).
-      HOME = stateDir;
-      TZ = cfg.timeZone;
-      VERSION = pkg.version;
-      # Only gunicorn (the "yamtrack" service) reads this; harmless to also
-      # set it in the manage/celery units' environment, which just ignore it.
-      WEB_CONCURRENCY = toString cfg.workers;
-      DEBUG = boolStr cfg.debug;
-      ADMIN_ENABLED = boolStr cfg.adminEnabled;
-      REGISTRATION = boolStr cfg.registrationEnabled;
-      TRACK_TIME = boolStr cfg.trackTime;
-      ALLOWED_HOSTS = lib.concatStringsSep "," cfg.allowedHosts;
-      CSRF = lib.concatStringsSep "," cfg.csrfTrustedOrigins;
-      URLS = lib.concatStringsSep "," cfg.urls;
-      SESSION_COOKIE_AGE = toString cfg.sessionCookieAge;
-      DAILY_DIGEST_HOUR = toString cfg.dailyDigestHour;
-      USER_MESSAGE_RETENTION_DAYS = toString cfg.userMessageRetentionDays;
-      HEALTHCHECK_CELERY_PING_TIMEOUT = toString cfg.healthcheckCeleryPingTimeout;
-      REDIS_URL = cfg.redis.url;
-      CELERY_REDIS_URL = if cfg.redis.celeryUrl != null then cfg.redis.celeryUrl else cfg.redis.url;
-      SOCIAL_PROVIDERS = lib.concatStringsSep "," cfg.socialProviders;
-      SOCIALACCOUNT_ONLY = boolStr cfg.socialAccountOnly;
-      REDIRECT_LOGIN_TO_SSO = boolStr cfg.redirectLoginToSso;
-      TMDB_NSFW = boolStr cfg.providers.tmdb.nsfw;
-      TMDB_LANG = cfg.providers.tmdb.language;
-      MAL_NSFW = boolStr cfg.providers.mal.nsfw;
-      MU_NSFW = boolStr cfg.providers.mangaUpdates.nsfw;
-      IGDB_NSFW = boolStr cfg.providers.igdb.nsfw;
-    }
-    // lib.optionalAttrs (cfg.baseUrl != null) { BASE_URL = cfg.baseUrl; }
-    // lib.optionalAttrs (cfg.redis.prefix != null) { REDIS_PREFIX = cfg.redis.prefix; }
-    // lib.optionalAttrs (cfg.autoLoginUsername != null) {
-      YAMTRACK_AUTO_LOGIN_USERNAME = cfg.autoLoginUsername;
-    }
-    // lib.optionalAttrs (cfg.accountDefaultHttpProtocol != null) {
-      ACCOUNT_DEFAULT_HTTP_PROTOCOL = cfg.accountDefaultHttpProtocol;
-    }
-    // lib.optionalAttrs (cfg.accountLogoutRedirectUrl != null) {
-      ACCOUNT_LOGOUT_REDIRECT_URL = cfg.accountLogoutRedirectUrl;
-    }
-    // lib.optionalAttrs (cfg.requestsCaBundle != null) {
-      REQUESTS_CA_BUNDLE = cfg.requestsCaBundle;
-    }
-    // (
-      if cfg.database.createLocally then
-        {
-          DB_HOST = "/run/postgresql";
-          DB_PORT = toString cfg.database.port;
-          DB_NAME = cfg.database.name;
-          DB_USER = cfg.database.user;
-          # Peer auth over the local Unix socket ignores the password, but
-          # Yamtrack requires DB_PASSWORD to be set to *something* once
-          # DB_HOST is set.
-          DB_PASSWORD = "";
-        }
-      else if cfg.database.host != null then
-        {
-          DB_HOST = cfg.database.host;
-          DB_PORT = toString cfg.database.port;
-          DB_NAME = cfg.database.name;
-          DB_USER = cfg.database.user;
-          # DB_PASSWORD is required here too — set it via environmentFiles.
-        }
-        // lib.optionalAttrs (cfg.database.sslMode != null) { DB_SSL_MODE = cfg.database.sslMode; }
-        // lib.optionalAttrs (cfg.database.sslCertMode != null) {
-          DB_SSL_CERT_MODE = cfg.database.sslCertMode;
-        }
-      else
-        {
-          SQLITE_PATH = "${stateDir}/db.sqlite3";
-        }
-    )
-    // cfg.environment
-    // protectedEnv;
+  commonEnv = {
+    # Give gunicorn a writable $HOME for its control socket (it otherwise
+    # tries ~/.gunicorn, which resolves under the read-only ProtectHome=
+    # jail for a homeless system user).
+    HOME = stateDir;
+    TZ = cfg.timeZone;
+    VERSION = pkg.version;
+    # Only gunicorn (the "yamtrack" service) reads this; harmless to also
+    # set it in the manage/celery units' environment, which just ignore it.
+    WEB_CONCURRENCY = toString cfg.workers;
+    DEBUG = boolStr cfg.debug;
+    ADMIN_ENABLED = boolStr cfg.adminEnabled;
+    REGISTRATION = boolStr cfg.registrationEnabled;
+    TRACK_TIME = boolStr cfg.trackTime;
+    ALLOWED_HOSTS = lib.concatStringsSep "," cfg.allowedHosts;
+    CSRF = lib.concatStringsSep "," cfg.csrfTrustedOrigins;
+    URLS = lib.concatStringsSep "," cfg.urls;
+    SESSION_COOKIE_AGE = toString cfg.sessionCookieAge;
+    DAILY_DIGEST_HOUR = toString cfg.dailyDigestHour;
+    USER_MESSAGE_RETENTION_DAYS = toString cfg.userMessageRetentionDays;
+    HEALTHCHECK_CELERY_PING_TIMEOUT = toString cfg.healthcheckCeleryPingTimeout;
+    REDIS_URL = cfg.redis.url;
+    CELERY_REDIS_URL = if cfg.redis.celeryUrl != null then cfg.redis.celeryUrl else cfg.redis.url;
+    SOCIAL_PROVIDERS = lib.concatStringsSep "," cfg.socialProviders;
+    SOCIALACCOUNT_ONLY = boolStr cfg.socialAccountOnly;
+    REDIRECT_LOGIN_TO_SSO = boolStr cfg.redirectLoginToSso;
+    TMDB_NSFW = boolStr cfg.providers.tmdb.nsfw;
+    TMDB_LANG = cfg.providers.tmdb.language;
+    MAL_NSFW = boolStr cfg.providers.mal.nsfw;
+    MU_NSFW = boolStr cfg.providers.mangaUpdates.nsfw;
+    IGDB_NSFW = boolStr cfg.providers.igdb.nsfw;
+  }
+  // lib.optionalAttrs (cfg.baseUrl != null) { BASE_URL = cfg.baseUrl; }
+  // lib.optionalAttrs (cfg.redis.prefix != null) { REDIS_PREFIX = cfg.redis.prefix; }
+  // lib.optionalAttrs (cfg.autoLoginUsername != null) {
+    YAMTRACK_AUTO_LOGIN_USERNAME = cfg.autoLoginUsername;
+  }
+  // lib.optionalAttrs (cfg.accountDefaultHttpProtocol != null) {
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = cfg.accountDefaultHttpProtocol;
+  }
+  // lib.optionalAttrs (cfg.accountLogoutRedirectUrl != null) {
+    ACCOUNT_LOGOUT_REDIRECT_URL = cfg.accountLogoutRedirectUrl;
+  }
+  // lib.optionalAttrs (cfg.requestsCaBundle != null) {
+    REQUESTS_CA_BUNDLE = cfg.requestsCaBundle;
+  }
+  // (
+    if cfg.database.createLocally then
+      {
+        DB_HOST = "/run/postgresql";
+        DB_PORT = toString cfg.database.port;
+        DB_NAME = cfg.database.name;
+        DB_USER = cfg.database.user;
+        # Peer auth over the local Unix socket ignores the password, but
+        # Yamtrack requires DB_PASSWORD to be set to *something* once
+        # DB_HOST is set.
+        DB_PASSWORD = "";
+      }
+    else if cfg.database.host != null then
+      {
+        DB_HOST = cfg.database.host;
+        DB_PORT = toString cfg.database.port;
+        DB_NAME = cfg.database.name;
+        DB_USER = cfg.database.user;
+        # DB_PASSWORD is required here too — set it via environmentFiles.
+      }
+      // lib.optionalAttrs (cfg.database.sslMode != null) { DB_SSL_MODE = cfg.database.sslMode; }
+      // lib.optionalAttrs (cfg.database.sslCertMode != null) {
+        DB_SSL_CERT_MODE = cfg.database.sslCertMode;
+      }
+    else
+      {
+        SQLITE_PATH = "${stateDir}/db.sqlite3";
+      }
+  )
+  // cfg.environment
+  // protectedEnv;
 
   hardening = {
     NoNewPrivileges = true;
@@ -435,7 +435,12 @@ in
     };
 
     accountDefaultHttpProtocol = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "http" "https" ]);
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "http"
+          "https"
+        ]
+      );
       default = null;
       description = ''
         Protocol used to build absolute URLs for OAuth callbacks
@@ -681,7 +686,8 @@ in
       after = [
         "network.target"
         "yamtrack-migrate.service"
-      ] ++ dbUnitDeps;
+      ]
+      ++ dbUnitDeps;
       requires = [ "yamtrack-migrate.service" ] ++ dbUnitDeps;
       wantedBy = [ "multi-user.target" ];
       environment = commonEnv;
@@ -767,7 +773,8 @@ in
       after = [
         "network.target"
         "yamtrack-migrate.service"
-      ] ++ dbUnitDeps;
+      ]
+      ++ dbUnitDeps;
       requires = [ "yamtrack-migrate.service" ] ++ dbUnitDeps;
       wantedBy = [ "multi-user.target" ];
       environment = commonEnv;

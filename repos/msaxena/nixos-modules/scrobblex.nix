@@ -3,14 +3,16 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.services.scrobblex;
   pkg = cfg.package;
   # The app resolves static/, views/, favicon.ico and the OAuth data dir all
   # relative to process.cwd().  We set WorkingDirectory to the writable state
   # directory and symlink the read-only store assets in on startup.
   stateDir = "/var/lib/scrobblex";
-in {
+in
+{
   options.services.scrobblex = {
     enable = lib.mkEnableOption "Scrobblex Plex-to-Trakt scrobbler";
 
@@ -28,15 +30,26 @@ in {
     };
 
     logLevel = lib.mkOption {
-      type = lib.types.enum ["error" "warn" "info" "http" "verbose" "debug" "silly"];
+      type = lib.types.enum [
+        "error"
+        "warn"
+        "info"
+        "http"
+        "verbose"
+        "debug"
+        "silly"
+      ];
       default = "info";
       description = "Winston log level.";
     };
 
     plexUser = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
-      example = ["alice" "bob"];
+      default = [ ];
+      example = [
+        "alice"
+        "bob"
+      ];
       description = ''
         Plex usernames whose webhook events are accepted.
         An empty list (the default) allows all users through.
@@ -68,17 +81,16 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.services.scrobblex = {
       description = "Scrobblex";
-      after = ["network.target"];
-      wantedBy = ["multi-user.target"];
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-      environment =
-        {
-          PORT = toString cfg.port;
-          LOG_LEVEL = cfg.logLevel;
-        }
-        // lib.optionalAttrs (cfg.plexUser != []) {
-          PLEX_USER = lib.concatStringsSep "," cfg.plexUser;
-        };
+      environment = {
+        PORT = toString cfg.port;
+        LOG_LEVEL = cfg.logLevel;
+      }
+      // lib.optionalAttrs (cfg.plexUser != [ ]) {
+        PLEX_USER = lib.concatStringsSep "," cfg.plexUser;
+      };
 
       serviceConfig = {
         Type = "simple";
@@ -126,7 +138,12 @@ in {
         ProtectControlGroups = true;
         # libuv uses AF_NETLINK (NETLINK_ROUTE) to query network interfaces
         # for Node.js os.networkInterfaces(); without it the process crashes.
-        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+          "AF_NETLINK"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         # Node.js JIT requires the ability to map memory as writable+executable.
@@ -134,7 +151,7 @@ in {
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
-        ReadWritePaths = [stateDir];
+        ReadWritePaths = [ stateDir ];
       };
     };
 

@@ -1,0 +1,26 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: nixfmt --check
+        run: |
+          mapfile -t nix_files < <(find . -name "*.nix" -not -path "./.git/*")
+          nix run nixpkgs#nixfmt -- --check "${nix_files[@]}"
+
+      - name: statix check
+        run: nix run nixpkgs#statix -- check .
+
+      - name: deadnix
+        run: nix run nixpkgs#deadnix -- --fail .
