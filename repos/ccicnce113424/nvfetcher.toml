@@ -94,6 +94,11 @@ src.git = "https://github.com/numtide/nix-auth"
 fetch.github = "ntfsprogs-plus/ntfsprogs-plus"
 src.git = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
 
+[open-orpheus-dev]
+cargo_lock = ["Cargo.lock"]
+fetch.github = "YUCLing/open-orpheus"
+src.git = "https://github.com/YUCLing/open-orpheus"
+
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"

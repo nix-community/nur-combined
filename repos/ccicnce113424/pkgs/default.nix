@@ -135,6 +135,13 @@ lib.makeScope pkgs.newScope (
       sources = fetchedSrc.ntfsprogs-plus;
     };
 
+    open-orpheus = self.callPackage ./open-orpheus-dev/package.nix { };
+
+    open-orpheus-dev = self.callPackage ./open-orpheus-dev {
+      inherit (lib.importJSON ./open-orpheus-dev/src-info.json) hash;
+      sources = fetchedSrc.open-orpheus-dev;
+    };
+
     piliplus = self.callPackage ./piliplus rec {
       sources = fetchedSrc.piliplus;
       inherit (sources) version;

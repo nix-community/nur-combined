@@ -454,6 +454,32 @@
         },
         "version": "53943daef955cc2a4a405c8e37c62478e4272fec"
     },
+    "open-orpheus-dev": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-dHRq6YrAO6PqVBfPhgwPwHRISSMMUjewmtfokq+IriE=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-08-18",
+        "extract": null,
+        "name": "open-orpheus-dev",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "YUCLing",
+            "repo": "open-orpheus",
+            "rev": "da75ffd6394ba52b0d798a7ad20aa8db67d99ec6",
+            "sha256": "sha256-dHRq6YrAO6PqVBfPhgwPwHRISSMMUjewmtfokq+IriE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "da75ffd6394ba52b0d798a7ad20aa8db67d99ec6"
+    },
     "piliplus": {
         "cargoLock": null,
         "date": null,

@@ -131,6 +131,9 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
+    # remove references to nodejs
+    find dist/*-unpacked/{locales,resources{,.pak}} -type f -exec remove-references-to -t ${nodejs} '{}' \;
+
     mkdir -p "${shareDir}"
     cp -Pr --no-preserve=ownership dist/*-unpacked/{locales,resources{,.pak}} "${shareDir}"
 

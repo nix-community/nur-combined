@@ -283,6 +283,24 @@
     };
     date = "2026-05-07";
   };
+  open-orpheus-dev = {
+    pname = "open-orpheus-dev";
+    version = "da75ffd6394ba52b0d798a7ad20aa8db67d99ec6";
+    src = fetchFromGitHub {
+      owner = "YUCLing";
+      repo = "open-orpheus";
+      rev = "da75ffd6394ba52b0d798a7ad20aa8db67d99ec6";
+      fetchSubmodules = false;
+      sha256 = "sha256-dHRq6YrAO6PqVBfPhgwPwHRISSMMUjewmtfokq+IriE=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-dHRq6YrAO6PqVBfPhgwPwHRISSMMUjewmtfokq+IriE=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+    date = "2026-08-18";
+  };
   piliplus = {
     pname = "piliplus";
     version = "2.1.0";
