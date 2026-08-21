@@ -10,13 +10,13 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "scrobblex";
-  version = "1.5.1";
+  version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "ryck";
     repo = "scrobblex";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rNtuditjzCdpBUnheM/Y+88cB8b/PZKF5U2Bczo1vdw=";
+    hash = "sha256-g0jNo+iFg6ynLmXzh1vgVe9HLNScz7aFbosb3r4bgSQ=";
   };
 
   npmDepsHash = "sha256-2kgqQr0oiCIcUEkvnqDsmlKK9UdDKYxtLYDJ9+gMkNA=";
