@@ -1,5 +1,5 @@
 final: prev: {
-  yt-dlp = prev.yt-dlp.overrideAttrs (
+  yt-dlp-nightly = prev.yt-dlp.overrideAttrs (
     finalAttrs: previousAttrs: {
       pname = "yt-dlp-nightly";
       version = "2026.08.19-unstable-2026-08-19";
