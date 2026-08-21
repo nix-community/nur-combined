@@ -82,13 +82,14 @@ in
           StartLimitIntervalSec = 0;
         };
         description = "hysteria daemon";
+        path = [ pkgs.mimic-bpf ];
         serviceConfig =
           let
             binSuffix = if opts.serve then "server" else "client";
           in
           {
             Type = "simple";
-            DynamicUser = true;
+            # DynamicUser = true;
             ExecStart = "${lib.getExe' opts.package "hysteria"} ${binSuffix} -c \${CREDENTIALS_DIRECTORY}/config.yaml";
             LoadCredential = [ "config.yaml:${opts.configFile}" ] ++ opts.credentials;
             Environment = [ "HYSTERIA_DISABLE_UPDATE_CHECK=1" ];
@@ -96,11 +97,15 @@ in
               "CAP_NET_ADMIN"
               "CAP_NET_BIND_SERVICE"
               "CAP_NET_RAW"
+              "CAP_BPF"
+              "CAP_PERFMON"
             ];
             CapabilityBoundingSet = [
               "CAP_NET_ADMIN"
               "CAP_NET_BIND_SERVICE"
               "CAP_NET_RAW"
+              "CAP_BPF"
+              "CAP_PERFMON"
             ];
             LimitNPROC = 512;
             LimitNOFILE = "infinity";

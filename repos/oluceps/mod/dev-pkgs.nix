@@ -134,7 +134,7 @@
               codex
 
               opencode
-              claude-code
+              # claude-code
             ];
 
             lang = [

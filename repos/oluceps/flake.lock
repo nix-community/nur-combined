@@ -2994,11 +2994,11 @@
     },
     "nixpkgs_26": {
       "locked": {
-        "lastModified": 1786797340,
-        "narHash": "sha256-e4ZFEC9qysrKRdrEiARdaMCfp7+TfGK7gdLAC9XzgKE=",
+        "lastModified": 1787291479,
+        "narHash": "sha256-k326H1BqYPTUJ2q48zbLzrjAZG6vHlblZXm0Yg+/u60=",
         "owner": "oluceps",
         "repo": "nixpkgs",
-        "rev": "38258f621fa7167532d5a65bc4c4b3fa5fc24333",
+        "rev": "a6481b9f18f9b835e7685ca689bc0df52cfcac54",
         "type": "github"
       },
       "original": {

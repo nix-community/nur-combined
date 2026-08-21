@@ -224,11 +224,12 @@
                   htop
                   q
                   lsof
+                  mimic-bpf
                 ];
                 services.hysteria.instances = {
                   ext = {
                     enable = true;
-                    package = (import (inputs.nixpkgs-stable) { inherit (pkgs.stdenv.hostPlatform) system; }).hysteria;
+                    package = pkgs.hysteria;
                     configFile = "/var/lib/hy/config.yml";
                   };
                 };
