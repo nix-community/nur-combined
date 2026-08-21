@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "ubolite";
-  version = "2026.812.1211";
+  version = "2026.818.1458";
   addonId = "uBOLiteRedux@raymondhill.net";
-  url = "https://github.com/uBlockOrigin/uBOL-home/releases/download/2026.812.1211/uBOLite_2026.812.1211.firefox.signed.xpi";
-  sha256 = "aa9aff5284eac5e096f14807df6aa8a2501b53956c5a474970951ba3173d2092";
+  url = "https://github.com/uBlockOrigin/uBOL-home/releases/download/2026.818.1458/uBOLite_2026.818.1458.firefox.signed.xpi";
+  sha256 = "2bb8acc0c96ec98a199503f14cc7186568b0290640323a1192f793e1004bbc51";
   mozPermissions = [
     "<all_urls>"
     "activeTab"
