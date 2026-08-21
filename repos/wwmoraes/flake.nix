@@ -12,33 +12,11 @@
       inputs.flake-utils.follows = "flake-utils";
       url = "github:nix-community/gomod2nix";
     };
+    synology-nix-installer.url = "github:sini/synology-nix-installer";
     systems.url = "github:nix-systems/default";
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
-    };
-    synology-nix-installer = {
-      # optimize upstream flake inputs
-      inputs.determinate.inputs = {
-        fh.inputs = {
-          fenix.follows = "synology-nix-installer/fenix";
-          naersk.follows = "synology-nix-installer/naersk";
-          nixpkgs.follows = "nixpkgs";
-        };
-      };
-      inputs.nix = {
-        inputs.nix = {
-          inputs.flake-compat.follows = "synology-nix-installer/flake-compat";
-          inputs.flake-parts.follows = "flake-parts";
-          inputs.nixpkgs.follows = "nixpkgs";
-          inputs.pre-commit-hooks = {
-            inputs.flake-utils.follows = "flake-utils";
-          };
-        };
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:sini/synology-nix-installer";
     };
   };
 
@@ -104,7 +82,11 @@
             config = { };
           };
 
-          checks = drvPackages;
+          # filters out checks based on supported platforms
+          checks = lib.filterAttrs (
+            _: drv: !builtins.hasAttr "platforms" drv.meta || builtins.elem system drv.meta.platforms
+          ) drvPackages;
+
           devShells = import ./shell.nix { inherit pkgs system; };
           # explicitly skip modules as they break nix flake check; in fact the
           # upstream NUR suggestion is an abuse of the packages attribute. They
@@ -130,6 +112,6 @@
             };
         };
 
-      systems = inputs.nixpkgs.lib.subtractLists [ "x86_64-darwin" ] (import inputs.systems);
+      systems = builtins.filter (system: system != "x86_64-darwin") (import inputs.systems);
     });
 }

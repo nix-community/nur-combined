@@ -36,6 +36,7 @@ let
     structurizr-site-generatr = callPackage ./pkgs/structurizr-site-generatr.nix { };
     update-motd = callPackage ./pkgs/update-motd.nix { };
     visudo = callPackage ./pkgs/visudo.nix { };
+    xpc_set_event_stream_handler = callPackage ./pkgs/xpc_set_event_stream_handler.nix { };
     yamlfixer = callPackage ./pkgs/yamlfixer.nix { };
   };
 in
