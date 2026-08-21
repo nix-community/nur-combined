@@ -334,6 +334,25 @@
             ]
             ++ lib.optionals (config.networking.hostName == "eihort") [
               {
+                job_name = "ping-bridge";
+                scheme = "http";
+                metrics_path = "/probe";
+                params = {
+                  module = [ "icmp" ];
+                };
+                static_configs = [
+                  {
+                    targets = [ "10.10.10.2" ];
+                    labels = {
+                      name = "BREAD";
+                      code = "MSP";
+                      ip = "IPv4";
+                    };
+                  }
+                ];
+                relabel_configs = gen_relabel_configs "10.255.0.1:9115";
+              }
+              {
                 job_name = "metrics-sept";
                 scheme = "http";
                 static_configs = [ { targets = [ "[fec0::1]:9100" ]; } ];

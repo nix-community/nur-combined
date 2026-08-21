@@ -15,7 +15,7 @@
         };
         services = {
           sudo.u2fAuth = true;
-          login.u2fAuth = true;
+          login.u2fAuth = false;
           greetd.u2fAuth = false;
         };
         loginLimits = [

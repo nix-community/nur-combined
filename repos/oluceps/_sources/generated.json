@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CKvpSFlyWmOKtmjQzMH6EFFrDZYjuwCY2vZOwifTNic=",
+            "sha256": "sha256-8ZWDtVm7Lx7g3tdE/4DTn8NcpDQll3qhZQBaBc0FwfE=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.13/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.19/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.08.13"
+        "version": "2026.08.19"
     },
     "GeoLite2-City": {
         "cargoLock": null,
@@ -23,11 +23,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RkglNZhzRtCWngfdDfwDmZxC96tY+5PFBptdvv5bMMY=",
+            "sha256": "sha256-g5qQASLprttRzBUGUE44JP1mhbvofLoWmbPRlmkJSrg=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.13/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.19/GeoLite2-City.mmdb"
         },
-        "version": "2026.08.13"
+        "version": "2026.08.19"
     },
     "alist": {
         "cargoLock": null,
@@ -64,12 +64,12 @@
             "name": null,
             "owner": "AdguardTeam",
             "repo": "dnsproxy",
-            "rev": "v0.84.0",
-            "sha256": "sha256-7O0/2eApgy6w1RFdEZ9hxTZK9adWsUN9RYBzoz8WRTA=",
+            "rev": "v0.84.1",
+            "sha256": "sha256-cBbboorz7r+C9BAE8gFQP38WYp5r4Rs4xqR2xdNBLMw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.84.0"
+        "version": "v0.84.1"
     },
     "lxgw-neo-xihei": {
         "cargoLock": null,
@@ -95,11 +95,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-a5d5A9tAONJzdZI0KrVQIxh4/UEPo9Q2+tKHZfTQr8c=",
+            "sha256": "sha256-B24F0uPcZkGg7CgapLl6GBk/vMN50Tl2LDLZCtsieTw=",
             "type": "url",
-            "url": "https://github.com/MetaCubeX/metacubexd/releases/download/v1.271.0/compressed-dist.tgz"
+            "url": "https://github.com/MetaCubeX/metacubexd/releases/download/v1.273.0/compressed-dist.tgz"
         },
-        "version": "v1.271.0"
+        "version": "v1.273.0"
     },
     "mosdns": {
         "cargoLock": null,

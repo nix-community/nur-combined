@@ -204,9 +204,6 @@
             disallow-generic-driver-for-switch-rules
           ];
         };
-        oo7 = {
-          enable = true;
-        };
         flatpak.enable = true;
         pcscd.enable = true;
         xserver = {

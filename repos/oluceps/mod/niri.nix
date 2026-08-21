@@ -1,4 +1,4 @@
-{ inputs, self, ... }:
+{ config, self, ... }:
 {
   flake.modules.nixos.niri =
     {
@@ -14,23 +14,44 @@
         package = pkgs.niri;
         enable = true;
       };
-      services.greetd = {
+      services.displayManager.sessionPackages = [ pkgs.niri ];
+      systemd.services.display-manager.environment.XDG_CURRENT_DESKTOP = "X-NIXOS-SYSTEMD-AWARE";
+      services.displayManager.ly = {
         enable = true;
-        settings = rec {
-          initial_session = {
-            command = "${lib.getExe pkgs.tuigreet} --remember --time --cmd ${lib.getExe' pkgs.niri "niri-session"}";
-            inherit (config.identity) user;
-          };
-          default_session = initial_session;
+        settings = {
+          animation = "dur_file";
+          bigclock = "en";
+          full_color = true;
+          save = true;
+          load = true;
+          # auto_login_session = "Niri";
+          # auto_login_user = config.identity.user;
+          default_login = "password";
+          dur_file_path = "${
+            pkgs.fetchFromGitea {
+              domain = "codeberg.org";
+              owner = "fairyglade";
+              repo = "ly-community";
+              rev = "2f22cfaf7d17598c8f60f562d56e16d74b6c99ab";
+              hash = "sha256-BQhlvWmEkXNpbUgtGBzbHjdQwRa2jxHhBBNu8sVzIDQ=";
+            }
+          }/animations/dur/blackhole-smooth-240x67.dur";
         };
       };
       services.gnome.gnome-keyring.enable = true;
+      services.oo7.enable = false;
       security.pam.services = {
-        greetd.enableGnomeKeyring = true;
-        # login.enableGnomeKeyring = true;
-        # greetd.oo7.enable = true;
+        ly.enableGnomeKeyring = true;
+        # greetd.enableGnomeKeyring = true;
+        login.enableGnomeKeyring = true;
       };
-      # xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "gnome-keyring";
+
+      systemd.services.display-manager.preStart = lib.mkAfter ''
+        mkdir -p /var/lib/ly
+        ln -sf /etc/ly/config.ini /var/lib/ly/config.ini
+      '';
+      systemd.services.display-manager.script = lib.mkForce "exec /run/current-system/sw/bin/ly --config /var/lib/ly";
+      xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "gnome-keyring";
       # services.gnome.gcr-ssh-agent.enable = true;
       environment.systemPackages = [
         # pkgs.show-current-ws

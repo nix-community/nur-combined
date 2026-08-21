@@ -46,6 +46,11 @@
                 #     hash = "sha256-TbeDUJkdkz8IVAnSnf75gvVhGxwcMOizpSGSHq6rKrM=";
                 #   };
                 # });
+                # telegram-desktop = prev.telegram-desktop.override {
+                #   unwrapped = prev.telegram-desktop.unwrapped.overrideAttrs (old: {
+                #     patches = (old.patches or [ ]) ++ [ ./tdesktop-focus.patch ];
+                #   });
+                # };
                 sing-box = prev.sing-box.overrideAttrs (o: {
                   version = prev.sing-box.version + "-mldsa65";
                   src = prev.fetchFromGitHub {

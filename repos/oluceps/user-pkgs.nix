@@ -79,7 +79,7 @@ with pkgs;
   ccid
 
   yubikey-manager
-  canokey-manager
+  # canokey-manager
 
   # xdeltaUnstable
 
@@ -117,7 +117,21 @@ with pkgs;
   # social
   # discord
   # materialgram
-  telegram-desktop
+  (pkgs.symlinkJoin {
+    name = "telegram-desktop-wayland";
+    paths = [
+      (pkgs.telegram-desktop.override {
+        unwrapped = pkgs.telegram-desktop.unwrapped.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ./tdesktop-focus.patch ];
+        });
+      })
+    ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/Telegram \
+        --set QT_QPA_PLATFORM wayland
+    '';
+  })
   # thunderbird
   # fluffychat
   scrcpy
@@ -139,7 +153,7 @@ with pkgs;
   fuzzel
   swaybg
   wl-clipboard
-  wf-recorder
+  # wf-recorder
   grim
   slurp
 
