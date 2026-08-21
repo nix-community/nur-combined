@@ -10,14 +10,14 @@
 
 buildNpmPackage rec {
   pname = "deepseek-harness";
-  version = "0.1.0-rc.7";
+  version = "0.1.0-rc.8";
 
   # Stub project depending on the npm-published @deepseek-ai/dsh bundle; the
   # source repo is a pnpm monorepo whose published package ships the same
   # prebuilt lib/ the README's `npx @deepseek-ai/dsh web` path runs.
   src = ./.;
 
-  npmDepsHash = "sha256-SY6TEcKVTGbYTn3d2srQvmIZaikEhLYG+lcfNz9ZhTI=";
+  npmDepsHash = "sha256-Z421K+ZQuB5/6+3QSYDZokJvfGS/QFVv1z5a9l+V+e8=";
 
   # node-pty ships no linux prebuild, so npm ci falls back to `node-gyp
   # rebuild`; point it at the offline header tree.
