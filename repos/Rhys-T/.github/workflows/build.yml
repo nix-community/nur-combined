@@ -206,6 +206,9 @@ jobs:
         echo -E 'NIX_PATH=nixpkgs=flake:myNixpkgs' >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Poke the store to avoid lock issues
+      run: |
+        nix build --no-link 'myNixpkgs#hello'
     - name: Manually grab openapv from cache.nixos.org
       # See <https://github.com/NixOS/nixpkgs/issues/533028>
       if: ${{ matrix.needsOpenapvWorkaround }}
@@ -284,10 +287,11 @@ jobs:
         EOF
         # cat "$tempFlake/flake.nix"
         nix flake lock "$tempFlake"
-        PATH="$(nix shell 'github:Mic92/nix-fast-build${{ matrix.nixFastBuildFlakeArgs }}' --override-input nixpkgs myNixpkgs 'myNixpkgs#ansifilter' -c bash -c 'echo -E "$PATH"')"
-        set -o pipefail
-        nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom --result-file /tmp/build-status.json 2>&1 | \
-          tee >(ansifilter > /tmp/build-uncached.log)
+        nix shell 'github:Mic92/nix-fast-build${{ matrix.nixFastBuildFlakeArgs }}' --override-input nixpkgs myNixpkgs 'myNixpkgs#ansifilter' -c bash -c '
+          set -o pipefail
+          nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom --result-file /tmp/build-status.json 2>&1 | \
+            tee >(ansifilter > /tmp/build-uncached.log)
+        '
     - name: Upload build logs
       if: 'always()'
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
