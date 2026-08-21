@@ -21,7 +21,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-bamboo-networking";
-  version = "2.0.0";
+  version = "2.0.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ClusterM";
     repo = "open-bamboo-networking";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-NAnPEGgctcfE6Hq+E1xagTAMswFnjqupPlkFdrBqzGo=";
+    hash = "sha256-dbqvQdeEpMEmjZGsMMXE7+HPuLVZpIfN13XXv0joIuQ=";
   };
 
   nativeBuildInputs = [

@@ -1,19 +1,19 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   xz,
 }:
 
-buildGoModule rec {
+buildGo127Module rec {
   pname = "payload-dumper-go";
-  version = "2.0.0";
+  version = "2.0.2";
 
   src = fetchFromGitHub {
     owner = "ssut";
     repo = "payload-dumper-go";
-    rev = "2.0.0";
-    hash = "sha256-A9WVPn/MeLTt1ySmN8Xge/Ye8BDhtETJstxB6mI5FFU=";
+    rev = "2.0.2";
+    hash = "sha256-k/goQi79CwqO8GWBa5BgzdS0L1ASHjUl/268Q4WLzTY=";
   };
 
   vendorHash = "sha256-hjVgIVOwci1IXaV+0AHgB36pMSgQsYi3A+9NIMsSz54=";
@@ -21,6 +21,10 @@ buildGoModule rec {
   buildInputs = [
     xz
   ];
+
+  postPatch = ''
+    substituteInPlace go.mod --replace-fail "go 1.27.0" "go 1.26" || true
+  '';
 
   meta = with lib; {
     description = "An Android OTA payload dumper written in Go";
