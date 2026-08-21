@@ -91,7 +91,13 @@
               inputs.gomod2nix.overlays.default
               self.overlays.gomod2nix
             ];
-            config = { };
+            config = {
+              allowUnfreePredicate =
+                pkg:
+                builtins.elem (lib.getName pkg) [
+                  "test-results-parser" # needed by codecov-cli
+                ];
+            };
           };
 
           checks = drvPackages;
