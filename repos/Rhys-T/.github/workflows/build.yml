@@ -216,8 +216,10 @@ jobs:
         echo -E 'NIX_PATH=nixpkgs=flake:myNixpkgs' >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Poke the store to avoid lock issues
+    - name: Update nix and poke the store
       run: |
+        set -ex
+        nix-env -iA nixpkgs.nix
         nix build --no-link 'myNixpkgs#hello'
     - name: Manually grab openapv from cache.nixos.org
       # See <https://github.com/NixOS/nixpkgs/issues/533028>
