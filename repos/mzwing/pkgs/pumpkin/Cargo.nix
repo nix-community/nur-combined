@@ -11188,7 +11188,7 @@ rec {
           "villager" = [ "item" "sound" ];
           "world" = [ "world_event" "message_type" ];
         };
-        resolvedDefaultFeatures = [ "advancement" "attributes" "bedrock_biome" "bedrock_creative" "biome" "block" "carver" "chunk" "chunk_gen_settings" "chunk_status" "composter" "configured_feature" "damage" "data_component" "default" "dimension" "dye_color" "effect" "enchantment" "entity" "entity_id_remap" "entity_pose" "entity_status" "entity_type" "flower_pot" "fluid" "fuels" "game_event" "game_rules" "item" "item_id_remap" "jukebox_song" "map_color" "map_decoration" "message_type" "meta_data_type" "noise_parameter" "noise_router" "packet" "particle" "particle_id_remap" "placed_feature" "potion" "potion_brewing" "recipe_remainder" "recipes" "registry" "scoreboard" "screen" "slot_ranges" "sound" "sound_id_remap" "spawn_egg" "statistic" "structures" "tag" "tracked_data" "translation" "villager" "world" "world_event" ];
+        resolvedDefaultFeatures = [ "advancement" "argument_type_id_remap" "attributes" "bedrock_biome" "bedrock_creative" "biome" "block" "carver" "chunk" "chunk_gen_settings" "chunk_status" "composter" "configured_feature" "damage" "data_component" "default" "dimension" "dye_color" "effect" "enchantment" "entity" "entity_id_remap" "entity_pose" "entity_status" "entity_type" "flower_pot" "fluid" "fuels" "game_event" "game_rules" "item" "item_id_remap" "jukebox_song" "map_color" "map_decoration" "menu_id_remap" "message_type" "meta_data_type" "noise_parameter" "noise_router" "packet" "particle" "particle_id_remap" "placed_feature" "potion" "potion_brewing" "recipe_remainder" "recipe_serializer_id_remap" "recipes" "registry" "scoreboard" "screen" "slot_ranges" "sound" "sound_id_remap" "spawn_egg" "statistic" "structures" "tag" "tracked_data" "translation" "villager" "world" "world_event" ];
       };
       "pumpkin-fuzzer" = rec {
         crateName = "pumpkin-fuzzer";
@@ -11524,7 +11524,7 @@ rec {
             name = "pumpkin-data";
             packageId = "pumpkin-data";
             usesDefaultFeatures = false;
-            features = [ "packet" "item_id_remap" "entity_id_remap" "sound_id_remap" "particle_id_remap" "recipes" "bedrock_creative" "bedrock_biome" ];
+            features = [ "packet" "item_id_remap" "entity_id_remap" "sound_id_remap" "particle_id_remap" "menu_id_remap" "recipe_serializer_id_remap" "argument_type_id_remap" "recipes" "bedrock_creative" "bedrock_biome" ];
           }
           {
             name = "pumpkin-macros";

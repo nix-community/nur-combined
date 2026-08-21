@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.8.4",
-            "sha256": "sha256-zcdvY+P5z9ZWmt473R3NsdCQrxLTmDI11PnAIUljyOw=",
+            "rev": "v1.8.5",
+            "sha256": "sha256-rqGa9QWjhfR/M2xpmf+VB2vG+rhPwZUaF4boH9QyAGs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.4"
+        "version": "v1.8.5"
     },
     "cliproxyapiplus": {
         "cargoLock": null,
@@ -243,12 +243,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "d654e01e2530f45598a84ffcb9ac4e63ed0de4de",
-            "sha256": "sha256-dlCgIREdUYskVtPOxjbb2CATuQi9ZyIGfFiSUXl4cfo=",
+            "rev": "c7c8d10d4709fcd1066c4a7d58404d2e0196f12c",
+            "sha256": "sha256-3lvylYSS2k+TKRwuWYb6hM49cUi7Rm6yQdmQuHv2DTQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d654e01e2530f45598a84ffcb9ac4e63ed0de4de"
+        "version": "c7c8d10d4709fcd1066c4a7d58404d2e0196f12c"
     },
     "replay-fish": {
         "cargoLock": null,
