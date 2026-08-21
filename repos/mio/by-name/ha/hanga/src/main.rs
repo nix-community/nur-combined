@@ -288,6 +288,9 @@ enum MenuAction {
 #[derive(Component)]
 struct MenuLabel(&'static str);
 
+#[derive(Component)]
+struct MenuHotkey(&'static str);
+
 #[derive(Resource, Clone)]
 struct KeyBindings(BindingSet);
 
@@ -1055,13 +1058,10 @@ fn current_game(catalog: &GameCatalog, selected: &SelectedGame) -> GameSpec {
     resolve_game(&catalog.0, &selected.0)
 }
 
-fn menu_caption(
-    locale: Locale,
+fn menu_action_hotkey(
     set: &BindingSet,
     key: &str,
-    game: &GameSpec,
-    p2p: &P2pConfig,
-) -> String {
+) -> Option<String> {
     let action = match key {
         "menu_play" => Some(ACTION_MENU_PLAY),
         "menu_multiplayer" => Some(ACTION_MENU_MULTI),
@@ -1072,7 +1072,16 @@ fn menu_caption(
         "menu_quit" => Some(ACTION_MENU_QUIT),
         _ => None,
     };
-    let title = match key {
+    action.map(|a| set.display_pretty(a))
+}
+
+fn menu_text(
+    locale: Locale,
+    key: &str,
+    game: &GameSpec,
+    p2p: &P2pConfig,
+) -> String {
+    match key {
         "menu_title" => game.title(locale.code()),
         "menu_game" => format!("{}: {}", i18n::t(locale, key), game.title(locale.code())),
         "menu_room" => {
@@ -1088,10 +1097,6 @@ fn menu_caption(
             None => i18n::t(locale, key).to_string(),
         },
         _ => i18n::t(locale, key).to_string(),
-    };
-    match action {
-        Some(action) => format!("{}    {title}", set.display_pretty(action)),
-        None => title,
     }
 }
 
@@ -3839,7 +3844,7 @@ fn spawn_main_menu(
             .insert(BorderColor::all(accent_border))
             .with_children(|parent| {
                 parent.spawn((
-                    Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &game, &p2p)),
+                    Text::new(menu_text(locale.0, "menu_title", &game, &p2p)),
                     TextFont {
                         font_size: FontSize::Px(56.0),
                         ..default()
@@ -3849,7 +3854,7 @@ fn spawn_main_menu(
                     MenuLabel("menu_title"),
                 ));
                 parent.spawn((
-                    Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &game, &p2p)),
+                    Text::new(menu_text(locale.0, "menu_hint", &game, &p2p)),
                     TextFont {
                         font_size: FontSize::Px(16.0),
                         ..default()
@@ -3892,8 +3897,26 @@ fn spawn_main_menu(
                         ))
                         .insert(BorderColor::all(Color::srgba(1.0, 1.0, 1.0, 0.08)))
                         .with_children(|btn| {
+                            if let Some(hotkey) = menu_action_hotkey(&bindings.0, key) {
+                                btn.spawn((
+                                    Node {
+                                        width: Val::Px(120.0),
+                                        ..default()
+                                    },
+                                )).with_children(|container| {
+                                    container.spawn((
+                                        Text::new(hotkey),
+                                        TextFont {
+                                            font_size: FontSize::Px(16.0),
+                                            ..default()
+                                        },
+                                        TextColor(Color::srgba(1.0, 1.0, 1.0, 0.4)),
+                                        MenuHotkey(key),
+                                    ));
+                                });
+                            }
                             btn.spawn((
-                                Text::new(menu_caption(locale.0, &bindings.0, key, &game, &p2p)),
+                                Text::new(menu_text(locale.0, key, &game, &p2p)),
                                 TextFont {
                                     font_size: FontSize::Px(20.0),
                                     ..default()
@@ -4047,7 +4070,8 @@ fn refresh_menu_labels(
     catalog: Res<GameCatalog>,
     selected: Res<SelectedGame>,
     p2p: Res<P2pConfig>,
-    mut labels: Query<(&MenuLabel, &mut Text)>,
+    mut labels: Query<(&MenuLabel, &mut Text), Without<MenuHotkey>>,
+    mut hotkeys: Query<(&MenuHotkey, &mut Text), Without<MenuLabel>>,
 ) {
     if !locale.is_changed() && !bindings.is_changed() && !selected.is_changed() && !p2p.is_changed()
     {
@@ -4055,7 +4079,12 @@ fn refresh_menu_labels(
     }
     let game = current_game(&catalog, &selected);
     for (label, mut text) in &mut labels {
-        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0, &game, &p2p));
+        *text = Text::new(menu_text(locale.0, label.0, &game, &p2p));
+    }
+    for (hotkey, mut text) in &mut hotkeys {
+        if let Some(h) = menu_action_hotkey(&bindings.0, hotkey.0) {
+            *text = Text::new(h);
+        }
     }
 }
 
