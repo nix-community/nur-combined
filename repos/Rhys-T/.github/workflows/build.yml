@@ -1,6 +1,11 @@
 name: "Build and populate cache"
 on:
   workflow_dispatch: # allows manual triggering
+    inputs:
+      upterm:
+        description: "--upterm: run an Upterm session after running `act`"
+        required: false
+        default: "false"
   pull_request:
     paths:
       - '.github/workflows/build.yml'
@@ -252,6 +257,12 @@ jobs:
         key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
         restore-keys:
           buildFailures-
+    - name: Run Upterm
+      if: "${{ !cancelled() && matrix.runner == 'ubuntu-latest' && matrix.nixpkgs == 'nixpkgs-unstable' && matrix.subset == 'base' && github.event.inputs.upterm == 'true' }}"
+      uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1.15.0
+      with:
+        limit-access-to-actor: true
+        limit-access-to-users: Rhys-T
     - name: Build nix packages
       id: build
       run: |
