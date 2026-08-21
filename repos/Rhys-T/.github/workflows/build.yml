@@ -281,7 +281,7 @@ jobs:
         cat <<EOF >"$tempFlake/flake.nix"
         {
           inputs.nixpkgs.url = "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}";
-          inputs.Rhys-T.url = $(nix-instantiate --eval -E '"git+file://" + toString ./.');
+          inputs.Rhys-T.url = $(nix-instantiate --eval -E '"git+file://" + toString ./. + "?shallow=1"');
           inputs.Rhys-T.inputs.nixpkgs.follows = "nixpkgs";
           inputs.Rhys-T.inputs.ciSubsetName = {
               url = "path:$tempFlake/conf";
