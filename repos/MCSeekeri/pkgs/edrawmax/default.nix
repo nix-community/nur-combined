@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = "15.0.6";
 
   src = fetchurl {
-    url = "https://cc-download.wondershare.cc/business/prd/edrawmax_cn_full5374.deb";
+    url = "https://cc-download.wondershare.cc/business/prd/edrawmax_${finalAttrs.version}_cn.deb";
     hash = "sha256-qGEtBGJNB6EvyIg1wjoQC2kqTTlu1UjDHMcludi3kEE=";
   };
 

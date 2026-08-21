@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "lain-kde-splashscreen";
-  version = "0-unstable-2026-08-12";
+  version = "0-unstable-2026-08-20";
 
   src = fetchFromGitHub {
     owner = "dgudim";
     repo = "themes";
-    rev = "c2059d01888d97ca29c36d755c063fa9c56e486a";
-    hash = "sha256-H+1GI7IaV4SwS173+PDx26h7UFEuuwu8Ru8i7c+6jIg=";
+    rev = "a6c34bb8d658edaac9085b01214a34812eaead2b";
+    hash = "sha256-Hkl4mulcYeUuRuS4bk3kFZs3V64rmGgECW+y1K4203w=";
   };
   installPhase = ''
     runHook preInstall
