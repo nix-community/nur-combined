@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+systemd-run --user -e DISPLAY=:0 -e WAYLAND_DISPLAY=:0 -u steam steam
