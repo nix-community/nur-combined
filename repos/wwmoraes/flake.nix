@@ -22,6 +22,9 @@
 
   nixConfig = {
     builders-use-substitutes = true;
+    extra-experimental-features = [
+      "pipe-operators"
+    ];
     substituters = [
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org/"
@@ -75,7 +78,9 @@
             in
             self'.legacyPackages
             |> lib.filterAttrs (_: pkg: lib.isDerivation pkg)
-            |> lib.filterAttrs (_: drv: !hasPlatformsMeta drv || builtins.elem system drv.meta.platforms);
+            |> lib.filterAttrs (
+              _: drv: if hasPlatformsMeta drv then builtins.elem system drv.meta.platforms else true
+            );
         in
         {
           _module.args.pkgs = import inputs.nixpkgs {
