@@ -17,7 +17,7 @@ buildNpmPackage rec {
   # prebuilt lib/ the README's `npx @deepseek-ai/dsh web` path runs.
   src = ./.;
 
-  npmDepsHash = "sha256-Z421K+ZQuB5/6+3QSYDZokJvfGS/QFVv1z5a9l+V+e8=";
+  npmDepsHash = "sha256-uKSqW9QfkHJVFFYqKpP6gfSw/6RNhA+7IWf6t2UwWb8=";
 
   # node-pty ships no linux prebuild, so npm ci falls back to `node-gyp
   # rebuild`; point it at the offline header tree.
