@@ -37,3 +37,17 @@ jobs:
     - name: queue NUR update
       run: remake queue-refresh
       if: github.ref == 'refs/heads/main' || github.ref_type == 'tag'
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+        - os: macos-latest
+          system: aarch64-darwin
+        - os: ubuntu-24.04-arm
+          system: aarch64-linux
+        - os: ubuntu-latest
+          system: x86_64-linux
+        system:
+        - aarch64-darwin
+        - aarch64-linux
+        - x86_64-linux
