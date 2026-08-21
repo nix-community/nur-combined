@@ -132,6 +132,13 @@ lib.overrideDerivation
         install -Dm644 assets/icon.png $out/share/icons/hicolor/512x512/apps/uplink.png
       '';
 
+      preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+        gappsWrapperArgs+=(
+          --set-default NO_AT_BRIDGE 1
+          --set-default XCURSOR_THEME Adwaita
+        )
+      '';
+
       meta = with lib; {
         description = "Uplink - Cross-platform pastebin GUI app";
         homepage = "https://github.com/example/uplink";
