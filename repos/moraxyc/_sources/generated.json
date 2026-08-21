@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-Ifa2DS7VDuN866JPjl58_l0rlIlXCFYkYUHEbGGW5Y4=/backend/Cargo.lock",
+                "sha256-sum5QVPKyoZ5dl7YsdT5f89yZ4G_1+jHsaiCcQTMspQ=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -115,7 +115,7 @@
                 }
             ]
         },
-        "date": "2026-08-18",
+        "date": "2026-08-20",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -127,12 +127,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "babae31f61ea868b078b7cddbc4e0e66a0d74776",
-            "sha256": "sha256-Ifa2DS7VDuN866JPjl58/l0rlIlXCFYkYUHEbGGW5Y4=",
+            "rev": "301757f053c752ebefa8b734df4eefddd27a2d47",
+            "sha256": "sha256-sum5QVPKyoZ5dl7YsdT5f89yZ4G/1+jHsaiCcQTMspQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "babae31f61ea868b078b7cddbc4e0e66a0d74776"
+        "version": "301757f053c752ebefa8b734df4eefddd27a2d47"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -151,10 +151,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-08-19",
+        "date": "2026-08-20",
         "extract": {
-            "web/package-lock.json": "sha256-E_GkmGCDRldb7Nyz2QiZXdu6BDutlQeiNgj9LKTiB00=/web/package-lock.json",
-            "web/package.json": "sha256-E_GkmGCDRldb7Nyz2QiZXdu6BDutlQeiNgj9LKTiB00=/web/package.json"
+            "web/package-lock.json": "sha256-fNhSwpj9FB+52l2a6e_ft0dk9FUHRK4jvck+2fDnOh0=/web/package-lock.json",
+            "web/package.json": "sha256-fNhSwpj9FB+52l2a6e_ft0dk9FUHRK4jvck+2fDnOh0=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -166,12 +166,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "0f5feb6e740b2941847c4e803cc52d045b6f117c",
-            "sha256": "sha256-E/GkmGCDRldb7Nyz2QiZXdu6BDutlQeiNgj9LKTiB00=",
+            "rev": "73dfa0fc9acfa2e645d330f4d8df5cfd5bec5a26",
+            "sha256": "sha256-fNhSwpj9FB+52l2a6e/ft0dk9FUHRK4jvck+2fDnOh0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0f5feb6e740b2941847c4e803cc52d045b6f117c"
+        "version": "73dfa0fc9acfa2e645d330f4d8df5cfd5bec5a26"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -342,11 +342,11 @@
     "gaze": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-+ERbXjxN4qCZ_w+bQn2LY0j5eWAlSoJmih5Kpo8zOs0=/Cargo.lock",
+                "sha256-yFZmeZVHQg3QOgyLc5eSjgu4rveav7RRlo58FmbVLIA=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-19",
+        "date": "2026-08-20",
         "extract": null,
         "name": "gaze",
         "passthru": null,
@@ -358,12 +358,12 @@
             "name": null,
             "owner": "GunduLabs",
             "repo": "gaze",
-            "rev": "ddfb8b1e84a5d7423589b094b7d49f77d2b1a649",
-            "sha256": "sha256-+ERbXjxN4qCZ/w+bQn2LY0j5eWAlSoJmih5Kpo8zOs0=",
+            "rev": "27faac91da46890530ca84da332348956b9b2e3a",
+            "sha256": "sha256-yFZmeZVHQg3QOgyLc5eSjgu4rveav7RRlo58FmbVLIA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ddfb8b1e84a5d7423589b094b7d49f77d2b1a649"
+        "version": "27faac91da46890530ca84da332348956b9b2e3a"
     },
     "gaze-stable": {
         "cargoLock": null,
@@ -658,7 +658,7 @@
     },
     "meta-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-19",
+        "date": "2026-08-20",
         "extract": null,
         "name": "meta-rules-dat",
         "passthru": null,
@@ -670,12 +670,12 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "meta-rules-dat",
-            "rev": "1a873849714eceb6d72d7f8970136f1ce9b0f610",
-            "sha256": "sha256-cMVUNPmp2110T7DAMQCYBPsjzOkKVGJXKcDBFZJ25Ko=",
+            "rev": "1cea4eb0bfe77ba209e8b90d1c16a894e0a9e1b3",
+            "sha256": "sha256-1Z7BhBDwPSo/NfpUqGx9KLrqBrOisCs11CTSqtZlOwQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1a873849714eceb6d72d7f8970136f1ce9b0f610"
+        "version": "1cea4eb0bfe77ba209e8b90d1c16a894e0a9e1b3"
     },
     "metacubex-geo": {
         "cargoLock": null,
@@ -1142,7 +1142,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-19",
+        "date": "2026-08-20",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -1154,12 +1154,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "9d4a0c21a86bb52562d9c0b65decb73289c44089",
-            "sha256": "sha256-cJSieCAW9Sdr6hdYx+SckFcLL4K1zXPu4KW1y5vpFdE=",
+            "rev": "fa6101c4a13ddd3bbe8d208bcbef681b0a36058d",
+            "sha256": "sha256-qXtr2JILtPmuqz8o8SJU+l95Vn3aNTRQH5kn10NxpLo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9d4a0c21a86bb52562d9c0b65decb73289c44089"
+        "version": "fa6101c4a13ddd3bbe8d208bcbef681b0a36058d"
     },
     "whois42d-ng": {
         "cargoLock": {
