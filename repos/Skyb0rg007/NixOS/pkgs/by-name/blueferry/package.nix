@@ -13,14 +13,14 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
-  version = "0.7.5";
+  version = "0.7.7";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "erikwb";
     repo = "blueferry";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-m4X8zpazYemMgbMXkq0ZA0p+NyQxq7T/4tFAcWlZ2cQ=";
+    hash = "sha256-xQpqZ4exzHy0zs/XWUta18u4zqfNC0ioBfEW36GbA5w=";
   };
 
   build-system = [
