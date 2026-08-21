@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://charts.rook.io/release/";
   chart = "rook-ceph";
-  version = "1.20.5";
-  hash = "sha256-V3SCQ/7fWCZaeqmab+rsdKEFJWz/L7M2roIViflDG8k=";
+  version = "1.20.6";
+  hash = "sha256-SJZ30Iw2oYzrL+nbOv/r5enGdPVkE8kIoUZrCOIuShw=";
 
   meta = {
     description = "Helm chart for the Rook operator, orchestrating Ceph storage on Kubernetes";
