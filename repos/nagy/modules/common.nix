@@ -35,7 +35,6 @@ in
     # jaq
     socat
     unzip
-    pv
     ## Processes
     killall
     bubblewrap
@@ -53,14 +52,12 @@ in
     oxipng
     jqfmt
     jless
-    self.all-converters
+    # self.all-converters
 
     # for man pages
     (lib.getMan pkgs.msmtp)
     (lib.getMan pkgs.isync)
     pkgs.darkhttpd
-
-    pkgs.universal-ctags
   ];
 
   # tmpfs on all machines

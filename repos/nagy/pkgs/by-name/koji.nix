@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
     zlib
   ]
-  ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   env = {
     OPENSSL_NO_VENDOR = true;
