@@ -27,6 +27,7 @@ jobs:
         cache-store: false
         extra_nix_config: |
           extra-experimental-features = flakes nix-command pipe-operators
+          sandbox = true
     - name: configure nix cache
       run: cachix use wwmoraes
     - name: run checks
