@@ -60,6 +60,17 @@ use mod_manager::{
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
 
+#[derive(Resource, Clone, Copy, PartialEq, Eq, Default)]
+pub enum NetworkMode {
+    #[default]
+    Distributed,
+    Server,
+    Client,
+}
+
+#[derive(Resource, Default)]
+struct ServerPeer(Option<matchbox_socket::PeerId>);
+
 
 thread_local! {
     static WASM_INSTANCE: std::cell::RefCell<Option<(u64, Vec<(Store<mod_manager::HostData>, mod_manager::Plugin)>)>> =
@@ -344,6 +355,13 @@ fn main() {
     let is_cheater = args.contains(&"--cheat".to_string());
     let is_text_client = args.contains(&"--text-client".to_string());
     let is_agent_client = args.contains(&"--agent-client".to_string());
+    let network_mode = if args.contains(&"--mode=server".to_string()) {
+        NetworkMode::Server
+    } else if args.contains(&"--mode=client".to_string()) {
+        NetworkMode::Client
+    } else {
+        NetworkMode::Distributed
+    };
     let locale = Locale::from_env_and_args(&args);
     let p2p_url = parse_p2p_url(&args);
     let skip_menu = should_skip_menu(&args);
@@ -508,6 +526,8 @@ fn main() {
             url: p2p_url,
         })
         .insert_resource(PeerKey(peer_key))
+        .insert_resource(network_mode)
+        .insert_resource(ServerPeer::default())
         .insert_resource(KeyBindings(bindings))
         .insert_resource(BindingsPath(bindings_path))
         .init_resource::<BindCapture>()
@@ -3236,11 +3256,14 @@ fn reap_dead_p2p(
     }
 }
 
+
 fn handle_p2p_receive(
     socket: Option<ResMut<P2pSocket>>,
     mut event_writer: MessageWriter<ProposedAction>,
     mut commands: Commands,
     collection: Res<CollectionId>,
+    network_mode: Res<NetworkMode>,
+    mut server_peer: ResMut<ServerPeer>,
 ) {
     let Some(mut socket) = socket else {
         return;
@@ -3256,15 +3279,33 @@ fn handle_p2p_receive(
     };
     for (peer, new_state) in peers {
         match new_state {
-            matchbox_socket::PeerState::Connected => info!("P2P Peer {:?} connected!", peer),
-            matchbox_socket::PeerState::Disconnected => info!("P2P Peer {:?} disconnected!", peer),
+            matchbox_socket::PeerState::Connected => {
+                info!("P2P Peer {:?} connected!", peer);
+                if *network_mode == NetworkMode::Client && server_peer.0.is_none() {
+                    server_peer.0 = Some(peer);
+                    info!("Assigned {:?} as the Authoritative Server", peer);
+                }
+            },
+            matchbox_socket::PeerState::Disconnected => {
+                info!("P2P Peer {:?} disconnected!", peer);
+                if *network_mode == NetworkMode::Client && server_peer.0 == Some(peer) {
+                    warn!("Authoritative Server disconnected!");
+                    server_peer.0 = None;
+                }
+            },
         }
     }
 
     if let Ok(packets) = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
         socket.rtc.channel_mut(0).receive()
     })) {
-        for (_peer_id, packet) in packets {
+        for (peer_id, packet) in packets {
+            if *network_mode == NetworkMode::Client {
+                if Some(peer_id) != server_peer.0 {
+                    continue; // Ignore packets from non-server peers
+                }
+            }
+
             let Ok(signed) = bincode::deserialize::<SignedPacket>(&packet) else {
                 warn!("P2P packet was not a signed action; dropping");
                 continue;
@@ -3281,6 +3322,7 @@ fn handle_p2p_receive(
                     );
                     continue;
                 }
+                
                 event_writer.write(envelope.action);
             }
         }
@@ -3289,12 +3331,16 @@ fn handle_p2p_receive(
     }
 }
 
+
+
 fn handle_p2p_broadcast(
     socket: Option<ResMut<P2pSocket>>,
     mut event_reader: MessageReader<ProposedAction>,
     players: Query<Entity, With<Player>>,
     key: Res<PeerKey>,
     collection: Res<CollectionId>,
+    network_mode: Res<NetworkMode>,
+    server_peer: Res<ServerPeer>,
 ) {
     let local_player = players.iter().next();
     if let Some(mut socket) = socket {
@@ -3307,7 +3353,13 @@ fn handle_p2p_broadcast(
                 ProposedAction::Verb { player_entity, .. } => Some(*player_entity) == local_player,
             };
 
-            if is_local {
+            let should_broadcast = match *network_mode {
+                NetworkMode::Distributed => is_local,
+                NetworkMode::Client => is_local,
+                NetworkMode::Server => true, // Server broadcasts all accepted actions
+            };
+
+            if should_broadcast {
                 let Ok(payload) = bincode::serialize(&ActionEnvelope {
                     collection: collection.0.clone(),
                     action: action.clone(),
@@ -3323,6 +3375,9 @@ fn handle_p2p_broadcast(
                     let peers: Vec<_> = socket.rtc.connected_peers().collect();
                     let packet_boxed = bytes.into_boxed_slice();
                     for peer in peers {
+                        if *network_mode == NetworkMode::Client && Some(peer) != server_peer.0 {
+                            continue; // Clients only send to the server
+                        }
                         socket.rtc.channel_mut(0).send(packet_boxed.clone(), peer);
                     }
                 }
@@ -3330,6 +3385,7 @@ fn handle_p2p_broadcast(
         }
     }
 }
+
 
 // --- Dynamic AI ---
 pub struct AiStorytellerPlugin;
