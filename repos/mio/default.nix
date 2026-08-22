@@ -113,6 +113,7 @@ with (import ./private.nix { inherit pkgs; });
               rain
               wireguird
               nix-software-center
+              uplink
             ];
           }
         );
