@@ -94,9 +94,6 @@
   # hack in the `boot.shell_on_fail` arg since that doesn't always seem to work.
   # boot.initrd.preFailCommands = "allowShell=1";
 
-  # default: 4 (warn). 7 is debug
-  boot.consoleLogLevel = 7;
-
   boot.loader.grub.enable = lib.mkDefault false;
   boot.loader.systemd-boot.enable = lib.mkDefault true;
   boot.loader.systemd-boot.configurationLimit = lib.mkDefault 20;
@@ -120,4 +117,29 @@
   # there should be little-to-no cost in increasing the _limit_. but when registered, each watch consumes ~1 KiB RAM (allegedly).
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 16777216;
   boot.kernel.sysctl."fs.inotify.max_user_instances" = 16777216;
+
+  # default: 4 (warn). 7 is debug
+  boot.consoleLogLevel = 7;
+
+  systemd.services.quiet-kernel-console = {
+    wantedBy = [ "getty.target" ];
+    after = [ "getty.target" ];
+    description = "reduce console logging once it becomes interactive";
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      # console log levels:
+      # - 0: no kernel messages  (= --console-off)
+      # - 1: emergency only
+      # - 2: alerts and more severe
+      # - 3: errors and more severe
+      # - 4: warnings and more severe
+      # - 5: notices and more severe
+      # - 6: informational and more severe
+      # - 7: debug and more severe
+      # N.B. `dmesg` itself, plus syslog/journalctl still get all messages; this just controls what's forcibly printed to the console
+      ExecStart = "${lib.getExe' pkgs.util-linux "dmesg"} --console-level 1";
+    };
+  };
 }

@@ -12,16 +12,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kagi-cli";
-  version = "0.17.1";
+  version = "0.17.2";
 
   src = fetchFromGitHub {
     owner = "Microck";
     repo = "kagi-cli";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-oqu1MsuOWbiS8XZXgNqvgwkHfrG9+C1Y392S2tcTKJg=";
+    hash = "sha256-C1bTEpbOj7afFyZCo/zXVCqifmlxZXzOxmg2eNOkA0w=";
   };
 
-  cargoHash = "sha256-SgEPTNLK/owxVsSd2vkkZ2ojEnVhLmzA6O8Q0h2839o=";
+  cargoHash = "sha256-uQqQY9umaFUm9X3cOb8bgJiessrzyq92y0kYiTzDGyk=";
 
   nativeBuildInputs = [
     pkg-config

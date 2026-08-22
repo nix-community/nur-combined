@@ -1,5 +1,49 @@
 [
   {
+    "id": "ornith-ai/ornith-1.5-35b-a3b",
+    "name": "Ornith 1.5 35B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1e-05,
+      "completion": 0.4,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "ornith-ai/ornith-1.5-35b-a3b:thinking",
+    "name": "Ornith 1.5 35B Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1e-05,
+      "completion": 0.4,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "qwen3.8-27b",
     "name": "Qwen3.8 27B",
     "pricing": {
@@ -8577,48 +8621,6 @@
       "completion": 0.4,
       "currency": "USD",
       "prompt": 0.2,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 1048576,
-    "max_output_tokens": 1048576,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "TEE/deepseek-v4-pro-0813",
-    "name": "DeepSeek V4 Pro 0813 TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000132,
-      "completion": 3.96,
-      "currency": "USD",
-      "prompt": 1.32,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 1048576,
-    "max_output_tokens": 1048576,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "TEE/deepseek-v4-pro-0813:thinking",
-    "name": "DeepSeek V4 Pro 0813 Thinking TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000132,
-      "completion": 3.96,
-      "currency": "USD",
-      "prompt": 1.32,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,

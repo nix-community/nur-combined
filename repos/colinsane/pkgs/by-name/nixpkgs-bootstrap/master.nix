@@ -7,8 +7,8 @@
   mkNixpkgs ? import ./mkNixpkgs.nix {},
 }:
 mkNixpkgs {
-  rev = "0ba71a1e4f7ca9fa53341c076fed5818bb4ca04a";
-  sha256 = "sha256-jHM4lm2OmFDW4A1CbHrcfb6hUBrwrPUH8XRBbd+3Mqk=";
-  version = "unstable-2026-08-18";
+  rev = "a7a678191317d9010e8f417423eeb746fe49f1b2";
+  sha256 = "sha256-9PCEEHz8Y16rliH1hpKWHaVEtCfYp8JljggsNGi9kI8=";
+  version = "unstable-2026-08-21";
   branch = "master";
 }

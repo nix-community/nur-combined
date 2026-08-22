@@ -9,7 +9,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nanogpt-data";
-  version = "0-unstable-2026-08-18";
+  version = "0-unstable-2026-08-20";
 
   src = lib.fileset.toSource {
     root = ./.; fileset = ./models.json;

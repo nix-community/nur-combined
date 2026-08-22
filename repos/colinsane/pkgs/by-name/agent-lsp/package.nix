@@ -7,16 +7,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "agent-lsp";
-  version = "0.17.0";
+  version = "0.18.0";
 
   src = fetchFromGitHub {
     owner = "blackwell-systems";
     repo = "agent-lsp";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-jtBGtLkuGW4aEaeyY4ytT1zHfR9qLzNEKtxbH3gIj4U=";
+    hash = "sha256-8zi+iY75p7BwQC3ZdNtva3jWF81EFLZy0XBzd1IjeuU=";
   };
 
-  vendorHash = "sha256-7xbpuIN0dlI1IKSlTVKnrtbUpCzdZmno6kgi7xUqGFA=";
+  vendorHash = "sha256-+MIeasBGRIRrndYmmYNapGt/i+HP805PclSs4jYTCsk=";
   proxyVendor = true;
 
   subPackages = [

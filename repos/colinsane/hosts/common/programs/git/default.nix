@@ -48,6 +48,7 @@ in
       # - <https://git-scm.com/docs/git-config#_variables>
       alias.ad      = "add";
       alias.amend   = "commit --amend --no-edit";
+      alias.blog    = "log --decorate --pretty=format:'%C(auto)%h %s%d' --abbrev";  #< brief log (like `git log --oneline` but better)
       alias.br      = "branch";
       alias.co      = "checkout";
       alias.com     = "commit";

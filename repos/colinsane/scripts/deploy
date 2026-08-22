@@ -314,6 +314,15 @@ proc deployOneHost (; nixcfg) {
     info "$attrName: built $myStorePath"
   }
 
+  # paths need to be signed in order for `nix copy` to work.
+  # sign them now, even if not asked to `--copy`, as the user may wish to manually copy (e.g. to SD card).
+  if test -e /run/secrets/nix_signing_key {
+    info "signing store paths ..."
+    destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$myStorePath" (translate_error=FAILED_COPY)
+  } else {
+    info "not signing store paths: /run/secrets/nix_signing_key does not exist"
+  }
+
   # mimic `nixos-rebuild --target-host`, in effect:
   # - nix-copy-closure ...
   # - nix-env --set ...
@@ -328,12 +337,6 @@ proc deployOneHost (; nixcfg) {
   case (nixcfg.action) {
     copy | switch | test {
       if (host !== SELF) {
-        if test -e /run/secrets/nix_signing_key {
-          info "signing store paths ..."
-          destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$myStorePath" (translate_error=FAILED_COPY)
-        } else {
-          info "not signing store paths: /run/secrets/nix_signing_key does not exist"
-        }
         # add more `-v` for more verbosity (up to 5).
         # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
         #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.

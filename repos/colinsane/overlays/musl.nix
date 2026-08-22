@@ -1382,6 +1382,25 @@ super.lib.composeManyExtensions [
           ];
         });
 
+        ml-dtypes = pysuper.ml-dtypes.overridePythonAttrs (prevAttrs: {
+          # musl's libm returns different NaN and infinity components for complex
+          # functions than glibc, so these upstream comparisons are not portable.
+          disabledTestPaths = (prevAttrs.disabledTestPaths or []) ++ [
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccos-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccos-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctan-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctan-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsinh-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsinh-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccosh-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccosh-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctanh-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctanh-bcomplex32]"
+          ];
+        });
+
         crawl4ai = (pysuper.crawl4ai.override {
           alphashape = null;
           shapely = null;

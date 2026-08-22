@@ -72,7 +72,7 @@ in
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
       "captree"
-      "ck"  # semantic code search (`ck --sem "where is X defined"`)
+      # "ck"  # semantic code search (`ck --sem "where is X defined"`)
       # "cocoindex-code"
       "cryptsetup"
       "ddrescue"

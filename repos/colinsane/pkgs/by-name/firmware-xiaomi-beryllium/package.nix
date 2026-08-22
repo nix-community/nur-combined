@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   name = "firmware-xiaomi-beryllium";
-  version = "0-unstable-2025-12-22";
+  version = "0-unstable-2026-04-28";
 
   src = fetchFromGitLab {
     owner = "sdm845-mainline";

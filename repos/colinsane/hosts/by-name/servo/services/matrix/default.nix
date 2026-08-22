@@ -11,6 +11,9 @@
 #   - `curl --header "Authorization: Bearer <your_access_token>" --data '{ "app_display_name": "<topic>", "app_id": "ntfy.uninsane.org", "data": { "url": "https://ntfy.uninsane.org/_matrix/push/v1/notify", "format": "event_id_only" }, "device_display_name": "<topic>", "kind": "http", "lang": "en-US", "profile_tag": "", "pushkey": "<topic>" }' localhost:8008/_matrix/client/v3/pushers/set`
 # - delete a notification destination by setting `kind` to `null` (otherwise, request is identical to above)
 #
+# ENABLING CALLS:
+# - <https://matrix-org.github.io/synapse/v1.48/turn-howto.html>
+#
 { config, lib, pkgs, ... }:
 let
   ntfy = config.services.ntfy-sh.enable;
@@ -64,6 +67,16 @@ in
 
     admin_contact = "admin.matrix@uninsane.org";
     registrations_require_3pid = [ "email" ];
+
+    turn_uris = [
+      "turn:turn.uninsane.org?transport=udp"
+      "turn:turn.uninsane.org?transport=tcp"
+      # "turns:turn.uninsane.org:5349?transport=tcp"  #< coturn advertises this; untested
+    ];
+
+    turn_shared_secret_path = "/run/secrets/coturn_shared_secret";
+    turn_user_lifetime = "86400000";  # 1 day; recommended default
+    turn_allow_guests = false;
   };
 
   services.matrix-synapse.extraConfigFiles = [
@@ -170,6 +183,9 @@ in
   sops.secrets."matrix_access_token" = {
     owner = config.users.users.matrix-synapse.name;
   };
-  # provide access to ntfy-sh-topic secret
-  users.users.matrix-synapse.extraGroups = lib.optionals ntfy [ "ntfy-sh" ];
+  users.users.matrix-synapse.extraGroups = [
+    "turnserver"  #< to access the coturn shared secret
+  ] ++ lib.optionals ntfy [
+    "ntfy-sh"  #< provide access to ntfy-sh-topic secret
+  ];
 }
