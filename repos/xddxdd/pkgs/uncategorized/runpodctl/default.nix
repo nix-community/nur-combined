@@ -1,10 +1,10 @@
 {
   sources,
   lib,
-  buildGoModule,
+  buildGo127Module,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   inherit (sources.runpodctl) pname version src;
 
   vendorHash = "sha256-aCrN521urP1FioTmbcR1BNKg+OCith1mabyayuC9FtI=";

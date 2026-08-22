@@ -1,7 +1,5 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index c0a68ee..9aa46fc 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
+--- a/CMakeLists.txt	2026-08-22 10:52:35.924082216 -0700
++++ b/CMakeLists.txt	2026-08-22 10:52:45.527791809 -0700
 @@ -10,32 +10,11 @@
  set(CMAKE_CXX_STANDARD_REQUIRED ON)
  add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
@@ -35,34 +33,31 @@ index c0a68ee..9aa46fc 100644
  add_subdirectory(ElaWidgetTools)
  add_subdirectory(ElaWidgetToolsExample)
  
-diff --git a/ElaWidgetTools/CMakeLists.txt b/ElaWidgetTools/CMakeLists.txt
-index 3c9a360..1d1af46 100644
---- a/ElaWidgetTools/CMakeLists.txt
-+++ b/ElaWidgetTools/CMakeLists.txt
-@@ -38,6 +38,7 @@
+--- a/ElaWidgetTools/CMakeLists.txt	2026-08-22 10:52:35.924168701 -0700
++++ b/ElaWidgetTools/CMakeLists.txt	2026-08-22 10:52:45.527952304 -0700
+@@ -36,11 +36,12 @@
+ add_library(Ela::WidgetTools ALIAS ${PROJECT_NAME})
  
- FILE(GLOB EXPORT_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
  target_include_directories(${PROJECT_NAME} PUBLIC
 +    @QT_INCLUDE_DIRS@
      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/private>
-     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DeveloperComponents>
-@@ -52,12 +53,10 @@
-     set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
- endif ()
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Development>
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Development/Command>
+-    $<INSTALL_INTERFACE:${PROJECT_NAME}/include>
++    $<INSTALL_INTERFACE:include>
+ )
  
--set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
--set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
--set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
-+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+ if (MINGW)
+@@ -52,7 +53,6 @@
+ 
  target_link_libraries(${PROJECT_NAME} PUBLIC
      Qt${QT_VERSION_MAJOR}::Widgets
 -    Qt${QT_VERSION_MAJOR}::WidgetsPrivate
  )
  if (WIN32)
      target_link_libraries(${PROJECT_NAME} PUBLIC
-@@ -70,9 +69,8 @@
+@@ -65,13 +65,12 @@
  install(
      TARGETS ${PROJECT_NAME}
      EXPORT ${PROJECT_NAME}Targets
@@ -73,17 +68,13 @@ index 3c9a360..1d1af46 100644
 +    RUNTIME DESTINATION bin
  )
  
- #if (MSVC AND NOT LIB_TYPE STREQUAL "STATIC")
-@@ -82,7 +80,7 @@
- #    )
- #endif ()
- 
--install(FILES ${EXPORT_HEADERS} DESTINATION ${PROJECT_NAME}/include)
-+install(FILES ${EXPORT_HEADERS} DESTINATION include)
- 
- set(INCLUDE_DIRS include)
- set(LIBRARIES ${PROJECT_NAME})
-@@ -92,7 +90,7 @@
+ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+-    DESTINATION ${PROJECT_NAME}/include
++    DESTINATION include
+     FILES_MATCHING
+     PATTERN "*.h"
+     PATTERN "Font" EXCLUDE
+@@ -84,7 +83,7 @@
      EXPORT ${PROJECT_NAME}Targets
      NAMESPACE Ela::
      FILE ${PROJECT_NAME}Targets.cmake
@@ -92,10 +83,10 @@ index 3c9a360..1d1af46 100644
  )
  
  include(CMakePackageConfigHelpers)
-@@ -107,9 +105,8 @@
+@@ -98,9 +97,8 @@
+     ${PROJECT_SOURCE_DIR}/${PROJECT_NAME}Config.cmake.in
      ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
      INSTALL_DESTINATION lib/cmake
-     PATH_VARS INCLUDE_DIRS LIBRARIES LIB_DIR
 -    INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
  )
  
@@ -103,10 +94,8 @@ index 3c9a360..1d1af46 100644
 -    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${PROJECT_NAME}/lib/cmake
 +    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION lib/cmake
  )
-diff --git a/ElaWidgetToolsExample/CMakeLists.txt b/ElaWidgetToolsExample/CMakeLists.txt
-index 063c40a..cb24186 100644
---- a/ElaWidgetToolsExample/CMakeLists.txt
-+++ b/ElaWidgetToolsExample/CMakeLists.txt
+--- a/ElaWidgetToolsExample/CMakeLists.txt	2026-08-22 10:52:35.929609225 -0700
++++ b/ElaWidgetToolsExample/CMakeLists.txt	2026-08-22 10:52:45.528018749 -0700
 @@ -41,9 +41,9 @@
      )
  endif ()
