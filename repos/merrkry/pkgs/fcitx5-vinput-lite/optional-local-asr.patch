@@ -1,0 +1,73 @@
+diff --git a/src/daemon/CMakeLists.txt b/src/daemon/CMakeLists.txt
+index 177e0b1..ce6154c 100644
+--- a/src/daemon/CMakeLists.txt
++++ b/src/daemon/CMakeLists.txt
+@@ -1,4 +1,7 @@
+-find_library(SHERPA_ONNX_CXX_LIB sherpa-onnx-cxx-api REQUIRED)
+-find_library(SHERPA_ONNX_C_LIB sherpa-onnx-c-api REQUIRED)
+-find_library(ONNXRUNTIME_LIB onnxruntime REQUIRED)
+-find_path(SHERPA_ONNX_INCLUDE_DIR sherpa-onnx/c-api/c-api.h REQUIRED)
++option(VINPUT_ENABLE_LOCAL_ASR "Build sherpa-onnx local ASR backends" ON)
++if(VINPUT_ENABLE_LOCAL_ASR)
++    find_library(SHERPA_ONNX_CXX_LIB sherpa-onnx-cxx-api REQUIRED)
++    find_library(SHERPA_ONNX_C_LIB sherpa-onnx-c-api REQUIRED)
++    find_library(ONNXRUNTIME_LIB onnxruntime REQUIRED)
++    find_path(SHERPA_ONNX_INCLUDE_DIR sherpa-onnx/c-api/c-api.h REQUIRED)
++endif()
+@@ -22,0 +26,11 @@ set(VINPUT_VAD_MODEL_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/fcitx5-vinput/vad")
++if(VINPUT_ENABLE_LOCAL_ASR)
++    set(VINPUT_LOCAL_ASR_SOURCES
++        asr/hotword_utils.cpp
++        asr/backends/sherpa_offline_backend.cpp
++        asr/backends/sherpa_streaming_backend.cpp
++        asr/vad_trimmer.cpp
++    )
++else()
++    set(VINPUT_LOCAL_ASR_SOURCES asr/backends/sherpa_disabled_backend.cpp)
++endif()
++
+@@ -27,3 +41 @@ add_executable(daemon
+-    asr/hotword_utils.cpp
+-    asr/backends/sherpa_offline_backend.cpp
+-    asr/backends/sherpa_streaming_backend.cpp
++    ${VINPUT_LOCAL_ASR_SOURCES}
+@@ -35 +46,0 @@ add_executable(daemon
+-    asr/vad_trimmer.cpp
+@@ -100 +111 @@ endif()
+-if(EXISTS "${CMAKE_SOURCE_DIR}/data/vad/silero_vad.onnx")
++if(VINPUT_ENABLE_LOCAL_ASR AND EXISTS "${CMAKE_SOURCE_DIR}/data/vad/silero_vad.onnx")
+diff --git a/src/daemon/asr/backends/sherpa_disabled_backend.cpp b/src/daemon/asr/backends/sherpa_disabled_backend.cpp
+new file mode 100644
+index 0000000..558c5a3
+--- /dev/null
++++ b/src/daemon/asr/backends/sherpa_disabled_backend.cpp
+@@ -0,0 +1,29 @@
++#include "daemon/asr/backends/sherpa_offline_backend.h"
++#include "daemon/asr/backends/sherpa_streaming_backend.h"
++
++namespace vinput::daemon::asr {
++
++namespace {
++
++std::unique_ptr<AsrBackend> LocalAsrUnavailable(std::string *error) {
++  if (error) {
++    *error = "Local ASR support is not available in this build.";
++  }
++  return nullptr;
++}
++
++}  // namespace
++
++std::unique_ptr<AsrBackend>
++CreateSherpaOfflineBackend(const CoreConfig &, const LocalAsrProvider &,
++                           std::string *error) {
++  return LocalAsrUnavailable(error);
++}
++
++std::unique_ptr<AsrBackend>
++CreateSherpaStreamingBackend(const CoreConfig &, const LocalAsrProvider &,
++                             std::string *error) {
++  return LocalAsrUnavailable(error);
++}
++
++}  // namespace vinput::daemon::asr
