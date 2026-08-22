@@ -3,15 +3,15 @@ set -euo pipefail
 shopt -s nullglob
 
 for pkg in ./pkgs/{python/,}stable/*; do
-	pkg=$(basename "$pkg")
-	echo nix-update "$pkg"
-	nix-update "$pkg" &
+	attribute=$(basename "$pkg")
+	echo nix-update "$attribute"
+	nix-update "$attribute" &
 done
 
 for pkg in ./pkgs/unstable/*; do
-	pkg=$(basename "$pkg")
-	echo nix-update --version=unstable "$pkg"
-	nix-update --version=unstable "$pkg" &
+	attribute=$(basename "$pkg")
+	echo nix-update --version=unstable "$attribute"
+	nix-update --version=unstable "$attribute" &
 done
 
 wait
