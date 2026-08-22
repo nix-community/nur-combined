@@ -7,9 +7,12 @@ pkgs.appimageTools.wrapAppImage rec {
   pname = "hayase";
   version = "6.4.86";
 
-  src = pkgs.fetchurl {
-    url = "https://api.hayase.watch/files/linux-hayase-${version}-linux.AppImage";
-    hash = "sha256-Qdi5NO8G8JLUFNDJoCvnM/zZsDlEPn3/GnKAoAosG+0=";
+  src = pkgs.appimageTools.extract {
+    inherit pname version;
+    src = pkgs.fetchurl {
+      url = "https://api.hayase.watch/files/linux-hayase-${version}-linux.AppImage";
+      hash = "sha256-Qdi5NO8G8JLUFNDJoCvnM/zZsDlEPn3/GnKAoAosG+0=";
+    };
   };
 
   passthru.updateScript =
@@ -25,10 +28,6 @@ pkgs.appimageTools.wrapAppImage rec {
       update-source-version ${pname} "$version"
     '';
 
-  appimageContents = pkgs.appimageTools.extract {
-    inherit pname version src;
-  };
-
   nativeBuildInputs = with pkgs; [
     makeWrapper
   ];
@@ -38,9 +37,9 @@ pkgs.appimageTools.wrapAppImage rec {
     ''
       mkdir -p "$out/share/applications"
       mkdir -p "$out/share/lib/hayase"
-      cp -r ${appimageContents}/{locales,resources} "$out/share/lib/hayase"
-      cp -r ${appimageContents}/usr/share/* "$out/share"
-      cp "${appimageContents}/${pname}.desktop" "$out/share/applications/"
+      cp -r ${src}/{locales,resources} "$out/share/lib/hayase"
+      cp -r ${src}/usr/share/* "$out/share"
+      cp "${src}/${pname}.desktop" "$out/share/applications/"
       wrapProgram $out/bin/hayase --add-flags "--ozone-platform=wayland"
       substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
     '';

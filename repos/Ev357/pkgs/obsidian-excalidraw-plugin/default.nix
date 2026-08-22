@@ -9,12 +9,12 @@
 in
   pkgs.buildNpmPackage rec {
     pname = "obsidian-excalidraw-plugin";
-    version = "2.27.0-beta.2";
+    version = "2.27.0-beta.4";
 
     src = pkgs.fetchFromGitHub {
       inherit owner repo;
       rev = version;
-      sha256 = "sha256-7o3EilNkNFEFb7KrZSkZlJs7TFBipERrNs0GyLj2z6g=";
+      sha256 = "sha256-qqC+5jLhIK3i2B5HDwdG3ZqoQDnqrf56KJgOV1f9p1Q=";
     };
 
     passthru.updateScript =
@@ -42,7 +42,7 @@ in
         nix-update ${pname} --flake --version=unstable
       '';
 
-    npmDepsHash = "sha256-KRUBtUx63oWkvycir8qek68giQYTmR3soQkQsTzktFk=";
+    npmDepsHash = "sha256-+Hl/phTcWWdKCA0CR+CyP09xSWX7Av+q65sJ6puUIGc=";
 
     patches =
       []

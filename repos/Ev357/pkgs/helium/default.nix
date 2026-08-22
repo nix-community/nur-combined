@@ -8,27 +8,28 @@
   widevine-cdm,
   enableWideVine ? false,
 }: let
-  version = "0.15.4.1";
   repo = "https://github.com/imputnet/helium-linux";
-  sourceMap = {
-    x86_64-linux = fetchurl {
-      url = "${repo}/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-h3yxZnMb/EHvPJALQlJgHUVYUNsfuv0pnewgf6K6sx8=";
-    };
-    aarch64-linux = fetchurl {
-      url = "${repo}/releases/download/${version}/helium-${version}-arm64.AppImage";
-      hash = "sha256-VNVETBXVO1skExhK3maw7N/HuFufeHRky/z1CRwjqkw=";
-    };
-  };
 in
   appimageTools.wrapAppImage rec {
+    version = "0.15.6.1";
     pname = "helium";
-    inherit version;
 
-    src = sourceMap.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-
-    appimageContents = appimageTools.extract {
-      inherit pname version src;
+    src = appimageTools.extract {
+      pname = "helium";
+      inherit version;
+      src = let
+        sourceMap = {
+          x86_64-linux = fetchurl {
+            url = "${repo}/releases/download/${version}/helium-${version}-x86_64.AppImage";
+            hash = "sha256-OqXMEZOoFu6NZAozde3ApjNWcvivIItIyeG0HbADpDU=";
+          };
+          aarch64-linux = fetchurl {
+            url = "${repo}/releases/download/${version}/helium-${version}-arm64.AppImage";
+            hash = "sha256-J10Xxl1Ks7JPp4tC3/ObayNsqgxkU7FpWRhnE439LUc=";
+          };
+        };
+      in
+        sourceMap.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
       postExtract =
         lib.optionalString enableWideVine
@@ -55,9 +56,9 @@ in
       ''
         mkdir -p "$out/share/applications"
         mkdir -p "$out/share/lib/helium"
-        cp -r ${appimageContents}/opt/helium/locales "$out/share/lib/helium"
-        cp -r ${appimageContents}/usr/share/* "$out/share"
-        cp "${appimageContents}/${pname}.desktop" "$out/share/applications/"
+        cp -r ${src}/opt/helium/locales "$out/share/lib/helium"
+        cp -r ${src}/usr/share/* "$out/share"
+        cp "${src}/${pname}.desktop" "$out/share/applications/"
         substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=helium %U' 'Exec=${meta.mainProgram} %U'
       '';
 
