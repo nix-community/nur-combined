@@ -25,10 +25,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Disable cargo-auditable until https://github.com/rust-secure-code/cargo-auditable/issues/124 is solved.
   auditable = false;
 
-  # cost::tests::booked_cost_new_panics_in_debug_on_overflow
-  # cost::tests::booked_cost_new_rejects_inconsistent_pair_in_debug
-  # cost::tests::booked_cost_new_rejects_zero_units_in_debug
-  checkType = "debug";
+  # checkType = "debug";
+  checkFlags = [
+    "--skip=cost::tests::booked_cost_new_panics_in_debug_on_overflow"
+    "--skip=cost::tests::booked_cost_new_rejects_inconsistent_pair_in_debug"
+    "--skip=cost::tests::booked_cost_new_rejects_zero_units_in_debug"
+  ];
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
