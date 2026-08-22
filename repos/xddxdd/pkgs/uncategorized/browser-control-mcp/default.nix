@@ -9,7 +9,7 @@ buildNpmPackage (finalAttrs: {
   inherit (sources.browser-control-mcp) pname version src;
 
   sourceRoot = "${finalAttrs.src.name}/mcp-server";
-  npmDepsHash = "sha256-MkCOtHekydKyBkymLFv1nuhrxhwh1Xd8aGLa40Gxa+k=";
+  npmDepsHash = "sha256-C2XXxn1P3COFXdBnNzYGzQwx3GRHv3nfFUvRV8v/MI8=";
 
   postInstall = ''
     rm $out/lib/node_modules/mcp-server/node_modules/@browser-control-mcp/common

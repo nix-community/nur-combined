@@ -221,12 +221,12 @@
   };
   browser-control-mcp = {
     pname = "browser-control-mcp";
-    version = "v1.5.1";
+    version = "v1.5.2";
     src = fetchFromGitHub {
       owner = "eyalzh";
       repo = "browser-control-mcp";
-      tag = "v1.5.1";
-      hash = "sha256-P0ZYjaHArngobtOf4C3j3LpuwfT4vZdJnoZnzeNoIWo=";
+      tag = "v1.5.2";
+      hash = "sha256-lC8/gQKK0nnJ5RC+ABmL5Pavq03ztFm9TiURONSbvtQ=";
     };
   };
   browser360-amd64 = {
@@ -337,12 +337,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.139";
+    version = "v7.2.140";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.139";
-      hash = "sha256-69GmtxbCqp8Vw5qZAxlvhOwkNyPAFxulhs4bwnNbobo=";
+      tag = "v7.2.140";
+      hash = "sha256-XM5pW3a0Y1oYPVk1DjHTs0zBV7N+Hnw5lYMlORNypkQ=";
     };
   };
   cockpy = {
@@ -650,12 +650,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.57";
+    version = "v0.2.58";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.57";
-      hash = "sha256-x++tkkpFm15swYxPFR9HWr/o0AdZhDbTylKA3/zI1WU=";
+      tag = "v0.2.58";
+      hash = "sha256-WFKM5V7Q+ZEFmy83XCUrFe/CloR3BWqWBvBbyGzR3os=";
     };
   };
   edge-tts = {
@@ -1083,14 +1083,14 @@
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";
-    version = "1ef518acf93bf497c1d42fb52ca648bd8942742d";
+    version = "6a104dc2be609cca61a875e1d97a73fbffd9f210";
     src = fetchFromGitHub {
       owner = "FoxIO-LLC";
       repo = "ja4-nginx-module";
-      rev = "1ef518acf93bf497c1d42fb52ca648bd8942742d";
-      hash = "sha256-k1oqsvYHxQqVJEPhVacJH2mxKS4kQ1EpPLZKVoF1scs=";
+      rev = "6a104dc2be609cca61a875e1d97a73fbffd9f210";
+      hash = "sha256-ndUslPhXArAlJTeLl/D62MIReKbUv9OR+KAvHu75jXQ=";
     };
-    date = "2026-08-19";
+    date = "2026-08-22";
   };
   jproxy = {
     pname = "jproxy";
@@ -2138,14 +2138,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "c398c0d4526b012cb3b306f792089abed13e0413";
+    version = "75e6572bebc05b49021e842949ce947882e3e4b2";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "c398c0d4526b012cb3b306f792089abed13e0413";
-      hash = "sha256-UZtxZ1GwURCNNJoS/j0mZFgX7UprdlgxpxGvsAqqTKY=";
+      rev = "75e6572bebc05b49021e842949ce947882e3e4b2";
+      hash = "sha256-AyHB67oFxEW0Y2gc8XaYbkkZ2uRtQMKwft31of5uR8I=";
     };
-    date = "2026-08-14";
+    date = "2026-08-22";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
