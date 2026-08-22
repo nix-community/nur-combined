@@ -4,16 +4,16 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "cykhash";
-  version = "2.0.1";
+  version = "2.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "realead";
     repo = "cykhash";
-    rev = "99db6d2075b1f33177ed034e0c873d58190658ae";
-    hash = "sha256-R6a19oExRVHSnfeEM5XsD77BPEWpC0BeNdep12YffN8=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Bw85RJudoGNa2GrEwxGaln93T7c2YyRakWZcMJAJwUU=";
   };
 
   build-system = with python3Packages; [
@@ -36,4 +36,4 @@ python3Packages.buildPythonPackage {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

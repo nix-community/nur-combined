@@ -26,5 +26,6 @@ buildGoModule {
     homepage = "https://github.com/sikmir/tracks_storage_server";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "tracks_storage_server";
   };
 }

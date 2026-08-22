@@ -9,19 +9,15 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyrosm";
-  version = "0.11.0";
+  version = "0.13.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "HTenkanen";
     repo = "pyrosm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AAeqOLWJSrUpTjydYiJpfOJEvIgvsgTedzKlfAb2UkU=";
+    hash = "sha256-SN/scNc+UUkWeINF2xYUrtC333DQGiz+owMWzUHwjs0=";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml --replace-fail "cykhash==2.0.0" "cykhash"
-  '';
 
   build-system = with python3Packages; [
     setuptools
@@ -33,6 +29,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     geopandas
     shapely
     cykhash
+    protobuf
     pyrobuf
   ];
 
