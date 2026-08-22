@@ -1527,8 +1527,8 @@
             "url": "https://github.com/lwb-2021/nur"
         },
         "lxl66566": {
-            "rev": "621de5f1d87113d944522b6b4518f9ddf37c4c30",
-            "sha256": "1c9i1mgs1hflj11f4rffvg9zklfgzlxndkja65valbyr7ipk32md",
+            "rev": "59e2ac232e2a3ce4953c7bb01716ef9b9a937e79",
+            "sha256": "0az0xy1h8cdyfgvq1w3ll9rmrkvr9cs4873ncbfl51jmq011z1vn",
             "url": "https://github.com/lxl66566/NUR"
         },
         "lykos153": {
@@ -1653,8 +1653,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "5310c21a2c2028bd26c16831c0e01be8640e9af6",
-            "sha256": "16prrm2fzvigykyndv8byz09r55lfx80384m753qvsv7f30qvk1b",
+            "rev": "71623b6c6d04a2a48ba6aa91072c128a718857e4",
+            "sha256": "0drmraf5g2lmj3ypjkmmxnx4cz75mnc1i7zky7fcfgg30cxs5php",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
