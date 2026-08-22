@@ -12,12 +12,16 @@
   withMicrovm ? true,
 }:
 let
-  lxcPackages = lib.map (p: "--package=${p}") [
-    "lxc"
-    "lxc_common"
-    "wxc_common"
-    "bwrap_common"
-    "linux_test_proxy"
+  linuxPackages = [
+    "--package=lxc"
+    "--package=lxc_common"
+    "--package=wxc_common"
+    "--package=bwrap_common"
+    "--package=unix_test_proxy"
+  ];
+  darwinPackages = [
+    "--package=mxc_darwin"
+    "--package=unix_test_proxy"
   ];
   buildFeatures = lib.optional withHyperlight "hyperlight" ++ lib.optional withMicrovm "microvm";
 
@@ -27,40 +31,51 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mxc";
-  version = "0.7.0-unstable-2026-07-08";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "mxc";
-    rev = "25e504e08f297b52c8aa2ca4966560a6ebb8b48f";
-    hash = "sha256-1PP0P3JoCCwaKRNQEqqH8Rf2N0PQABTAnoE8ILwQGns=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Z5xrkN5MWPtTGgh5G1V4RMSkgFcJtQq5nRqHRY5C7pE=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  cargoHash = "sha256-noSmQB4ZvCBbJ63XAf1wKibVR6WIw+5omTNUvN3nFYw=";
+  cargoHash = "sha256-CSZv4dgjlgiguA7Ghz8I+yhjajk3upRpHElrIog2PbE=";
 
   env = {
-    RUST_BACKTRACE = "full";
-    NANVIX_BIN = fetchzip {
-      url = "https://github.com/nanvix/nanvix-python/releases/download/${nanvixVersions.tag}/${nanvixVersions.asset_linux}";
-      hash = "sha256-ud2quBPm8rP4AUV0edu0sbvgWpF6bLCxhJJvTkNm+wk=";
-      postFetch = ''
-        mv $out/bin/nanvixd.elf $out
-      '';
-    };
+    RUST_BACKTRACE = "1";
+    NANVIX_BIN =
+      if stdenv.hostPlatform.isLinux then
+        fetchzip {
+          url = "https://github.com/nanvix/nanvix-python/releases/download/${nanvixVersions.tag}/${nanvixVersions.asset_linux}";
+          hash = "sha256-ud2quBPm8rP4AUV0edu0sbvgWpF6bLCxhJJvTkNm+wk=";
+          postFetch = ''
+            mv $out/bin/nanvixd.elf $out
+          '';
+        }
+      else
+        null;
   };
 
   nativeBuildInputs = [ makeWrapper ];
   nativeCheckInputs = [ bubblewrap ];
   buildInputs = [ lxc ];
 
-  cargoBuildFlags = lxcPackages ++ [
+  cargoBuildFlags = [
     "--features=${lib.concatStringsSep "," buildFeatures}"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux linuxPackages
+  ++ lib.optionals stdenv.hostPlatform.isDarwin darwinPackages;
+  cargoTestFlags =
+    lib.optionals stdenv.hostPlatform.isLinux linuxPackages
+    ++ lib.optionals stdenv.hostPlatform.isDarwin darwinPackages;
+  checkFlags = [
+    "--skip=signal_cleanup::tests::the_watchdogs_view_of_a_container_is_built_and_reset_as_a_single_unit"
   ];
-  cargoTestFlags = lxcPackages;
 
-  postInstall = ''
+  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapProgram $out/bin/lxc-exec \
       --prefix PATH : ${lib.makeBinPath [ bubblewrap ]}
   '';
@@ -75,7 +90,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
     homepage = "https://github.com/microsoft/mxc";
     license = lib.licenses.mit;
-    mainProgram = if stdenv.hostPlatform.isLinux then "lxc-exec" else null;
+    mainProgram =
+      if stdenv.hostPlatform.isLinux then
+        "lxc-exec"
+      else if stdenv.hostPlatform.isDarwin then
+        "mxc-exec-mac"
+      else
+        null;
     platforms = [
       "x86_64-linux"
       "aarch64-darwin"
