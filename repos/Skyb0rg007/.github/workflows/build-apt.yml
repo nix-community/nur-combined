@@ -13,6 +13,8 @@ concurrency:
   group: build-apt
   cancel-in-progress: false
 
+permissions: {}
+
 env:
   # cascade and dnst need rustc >= 1.88, which noble and plucky do not have.
   DISTRIBUTION: sid
@@ -30,13 +32,15 @@ jobs:
           - dnst
           - skyenet-archive-keyring
     steps:
-      - uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
 
         # A build consumes only pkgs/<package>/ and the two scripts, so a hit
         # here means rebuilding would reproduce what is already cached.
       - name: Restore built packages
         id: built
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
             Debian/_build/*.deb
@@ -52,7 +56,7 @@ jobs:
         # the crates vendored from it, which prepare reuses when present.
       - name: Restore upstream and vendored tarballs
         if: steps.built.outputs.cache-hit != 'true'
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: Debian/_build/*.orig*.tar.gz
           key: >-
@@ -69,11 +73,12 @@ jobs:
 
       - name: Download debcraft source
         if: steps.built.outputs.cache-hit != 'true'
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: ottok/debcraft
           path: debcraft
           ref: refs/tags/debian/0.9.3
+          persist-credentials: false
 
       - name: Install debcraft
         if: steps.built.outputs.cache-hit != 'true'
@@ -103,7 +108,7 @@ jobs:
         run: ./scripts/buildbin.sh "${{ matrix.package }}" "$DISTRIBUTION"
 
       - name: Upload packages
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: ${{ env.PACKAGES_ARTIFACT }}-${{ matrix.package }}
           path: |
@@ -115,7 +120,9 @@ jobs:
     runs-on: ubuntu-24.04
     needs: build-debs
     steps:
-      - uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
 
       - name: Install reprepro
         run: |
@@ -124,7 +131,7 @@ jobs:
 
         # One artifact per matrix package, merged back into a single _build/.
       - name: Download packages
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           pattern: ${{ env.PACKAGES_ARTIFACT }}-*
           merge-multiple: true
@@ -160,7 +167,7 @@ jobs:
 
       - name: Upload repository as artifact
         id: apt_repo_deployment
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
         with:
           path: Debian/repo
 
@@ -175,11 +182,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: create-repo
     steps:
-      - uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
 
       - name: Setup Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
 
       - name: Deploy to GitHub Pages
         id: apt_repo_deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128

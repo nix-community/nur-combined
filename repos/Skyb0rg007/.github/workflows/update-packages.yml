@@ -1,0 +1,141 @@
+name: Update packages
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: 'Space-separated list of attributes to update (empty = all)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    name: Discover packages
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.list.outputs.packages }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - name: List attributes with an updateScript
+        id: list
+        env:
+          REQUESTED: ${{ inputs.packages }}
+        working-directory: NixOS
+        run: |
+          set -euo pipefail
+          if [[ -n "$REQUESTED" ]]; then
+            attrs=$(tr ' ' '\n' <<<"$REQUESTED")
+          else
+            attrs=$(
+              {
+                git ls-files -- 'pkgs/by-name/*/package.nix'
+                git ls-files -- 'pkgs/python-modules/*/package.nix'
+                git ls-files -- 'pkgs/tcl-modules/*/package.nix'
+              } \
+                | grep -E '^pkgs/[^/]+/[^/]+/package\.nix$' \
+                | xargs grep -l 'updateScript' \
+                | xargs grep -L 'updateScript = null' \
+                | sed -E \
+                  -e 's#^pkgs/by-name/([^/]+)/package.nix$#\1#' \
+                  -e 's#^pkgs/python-modules/([^/]+)/package.nix$#python3Packages.\1#' \
+                  -e 's#^pkgs/tcl-modules/([^/]+)/package.nix$#tcl9Packages.\1#' \
+                | sort
+            )
+            attrs=$(grep -vxFf <(tr ' ' '\n' <<<"$SKIP_PACKAGES") <<<"$attrs")
+          fi
+          jq -R -s -c 'split("\n") | map(select(. != ""))' <<<"$attrs" \
+            | sed 's/^/packages=/' >>"$GITHUB_OUTPUT"
+
+  update:
+    name: ${{ matrix.package }}
+    needs: discover
+    if: needs.discover.outputs.packages != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        package: ${{ fromJson(needs.discover.outputs.packages) }}
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      PACKAGE: ${{ matrix.package }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          # Pushing the update branch needs real history, not a shallow clone.
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run update script
+        working-directory: NixOS
+        run: |
+          set -euo pipefail
+          system=$(nix eval --raw --impure --expr 'builtins.currentSystem')
+          version() {
+            nix eval --raw ".#legacyPackages.$system.$PACKAGE" \
+              --apply 'p: p.version or ""'
+          }
+          echo "OLD_VERSION=$(version)" >>"$GITHUB_ENV"
+          ./scripts/nix-update.sh "$PACKAGE"
+          # A dirty flake is evaluated from the working tree, so this picks up
+          # the version the update script just wrote.
+          echo "NEW_VERSION=$(version)" >>"$GITHUB_ENV"
+
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUSH_URL: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          # Some update scripts commit themselves, others just edit the tree.
+          if ! git diff --quiet || ! git diff --cached --quiet; then
+            git commit -a -m "$PACKAGE: $OLD_VERSION -> $NEW_VERSION"
+          fi
+
+          base=$GITHUB_REF_NAME
+          if git diff --quiet "$GITHUB_SHA" HEAD; then
+            echo "No changes for $PACKAGE"
+            exit 0
+          fi
+
+          # The checkout persists no credentials, so authenticate the push.
+          branch="update/$PACKAGE"
+          git push --force "$PUSH_URL" "HEAD:refs/heads/$branch"
+
+          if [[ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]]; then
+            echo "Pull request for $branch is already open, pushed the update to it"
+            exit 0
+          fi
+
+          run_url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+          # gh pr create fails outright if the label does not exist yet.
+          gh label create "automated update" --color ededed \
+            --description "Opened by the update workflow" || true
+
+          gh pr create \
+            --base "$base" \
+            --head "$branch" \
+            --title "$PACKAGE: $OLD_VERSION -> $NEW_VERSION" \
+            --label "automated update" \
+            --body "Automated update of \`$PACKAGE\` via \`passthru.updateScript\`, run by \`NixOS/scripts/nix-update.sh\`. Triggered by [workflow run]($run_url)."

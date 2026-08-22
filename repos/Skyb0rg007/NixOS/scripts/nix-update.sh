@@ -15,16 +15,23 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit
 
 system=$(nix eval --raw --impure --expr 'builtins.currentSystem')
 
+# With no arguments, update every package in the repo; otherwise update only
+# the attributes named on the command line (e.g. `cdash python3Packages.foo`).
+#
 # Only consider git-tracked files: the flake is evaluated from a git+file://
 # copy that filters out untracked paths, so untracked packages (or ones only
 # `git add --intent-to-add`'d) would otherwise fail `nix eval` below.
-mapfile -t attrs < <(
-  {
-    git ls-files -- 'pkgs/by-name/*' | cut -d/ -f3 | sort -u
-    git ls-files -- 'pkgs/python-modules/*' | sed -E 's#^pkgs/python-modules/([^/]+).*#python3Packages.\1#' | sort -u
-    git ls-files -- 'pkgs/tcl-modules/*' | sed -E 's#^pkgs/tcl-modules/([^/]+).*#tcl9Packages.\1#' | sort -u
-  } | sort
-)
+if (($#)); then
+  attrs=("$@")
+else
+  mapfile -t attrs < <(
+    {
+      git ls-files -- 'pkgs/by-name/*' | cut -d/ -f3 | sort -u
+      git ls-files -- 'pkgs/python-modules/*' | sed -E 's#^pkgs/python-modules/([^/]+).*#python3Packages.\1#' | sort -u
+      git ls-files -- 'pkgs/tcl-modules/*' | sed -E 's#^pkgs/tcl-modules/([^/]+).*#tcl9Packages.\1#' | sort -u
+    } | sort
+  )
+fi
 
 failed=()
 
@@ -56,6 +63,28 @@ for attr in "${attrs[@]}"; do
   [[ "$(jq -r '.hasScript' <<<"$info")" == "true" ]] || continue
 
   mapfile -t cmd < <(jq -r '.command[]' <<<"$info")
+
+  # `nix eval` only reports the command's store paths, it does not build them.
+  # Realise them (via a derivation that references the command string, so its
+  # context pulls in every dependency) before trying to execute anything.
+  # shellcheck disable=SC2016 # this is a Nix expression, not a shell one
+  if ! UPDATE_NIX_ATTR_PATH="$attr" nix build --no-link --impure --expr '
+    let
+      flake = builtins.getFlake (toString ./.);
+      system = builtins.currentSystem;
+      nixpkgs = flake.inputs.nixpkgs.legacyPackages.${system};
+      inherit (nixpkgs) lib;
+      attr = builtins.getEnv "UPDATE_NIX_ATTR_PATH";
+      drv = lib.getAttrFromPath (lib.splitString "." attr) flake.legacyPackages.${system};
+      script = drv.updateScript;
+      command = if builtins.isList script then script else script.command;
+    in
+    nixpkgs.writeText "update-script-deps" (toString command)
+  '; then
+    echo "!! failed to build update script: $attr" >&2
+    failed+=("$attr")
+    continue
+  fi
 
   echo "== $attr =="
   UPDATE_NIX_NAME=$(jq -r '.name' <<<"$info") \
