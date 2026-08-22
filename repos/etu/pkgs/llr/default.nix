@@ -5,7 +5,7 @@
   ...
 }: let
   pname = "llr";
-  version = "0.10.1";
+  version = "0.11.0";
 in
   buildGoModule {
     inherit pname version;
@@ -14,10 +14,12 @@ in
       owner = "etu";
       repo = pname;
       rev = version;
-      hash = "sha256-94jeRUR8kzVWWOroqLEwwd8HUGM4ycCH9uwhjBGHfog=";
+      hash = "sha256-e28oY6AcUl+24xDDR7w1dPiNpDVWHpTdT753fZ0lXAw=";
     };
 
     vendorHash = "sha256-25a2WMXvabxUelm0OKVAN+YQ5WKb05Euq+ubWdvaXgQ=";
+
+    ldflags = ["-X main.version=${version}"];
 
     meta = with lib; {
       description = "llr reads text and truncates it to the terminal width";
