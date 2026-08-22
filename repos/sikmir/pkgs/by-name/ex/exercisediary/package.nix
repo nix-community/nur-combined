@@ -19,10 +19,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-VKY5cvcjGfjOWa+GnMwdPOfTPOiwoXy0LB7kVD9l4kw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "Workout diary with GitHub-style year visualization";

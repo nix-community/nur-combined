@@ -24,7 +24,6 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
-    "-w"
     "-X github.com/prometheus/common/version.Version=${finalAttrs.version}"
   ];
 

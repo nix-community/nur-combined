@@ -19,10 +19,7 @@ buildGoModule {
 
   vendorHash = "sha256-/UIfgwPFZxdnSywA7ysyVIFQXTRud/nlkOdzGEESEbY=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "Static git gemini viewer";

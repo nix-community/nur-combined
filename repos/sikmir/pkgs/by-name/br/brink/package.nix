@@ -21,7 +21,6 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
-    "-w"
     "-X github.com/jsiebens/brink/internal/version.Version=${finalAttrs.version}"
   ];
 

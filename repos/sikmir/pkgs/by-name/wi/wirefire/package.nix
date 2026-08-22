@@ -19,10 +19,7 @@ buildGoModule {
 
   vendorHash = "sha256-RRahISh6nPSDc+iCZ/EEb6Oa1vQAlhBwaxPc5eTRzHw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "Lightweight, open-source implementation of Tailscale control server";

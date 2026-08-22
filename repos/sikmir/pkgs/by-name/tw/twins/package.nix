@@ -21,10 +21,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-/v7DXGOiL8jZtOnIx8R+gYmmayyuIvx8ahYSbRQjUAY=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "Gemini server";

@@ -19,10 +19,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-oTzSCT2vYBYPQAQHBD0exmtuHZUxomf22XZlpECWllM=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "High performance mqtt broker";

@@ -19,10 +19,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-iX7Vqj/4MIK1EGuTJzrZgY8wNXX1PtIavw+qDfkV0uc=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "GPX library for golang";

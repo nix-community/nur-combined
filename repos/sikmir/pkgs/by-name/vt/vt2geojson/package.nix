@@ -22,7 +22,6 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
-    "-w"
     "-X main.appVersion=${finalAttrs.version}"
   ];
 

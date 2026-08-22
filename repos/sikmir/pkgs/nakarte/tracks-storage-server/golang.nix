@@ -19,10 +19,7 @@ buildGoModule {
 
   vendorHash = "sha256-5RBA1JI0rXgFLx97sYozckt2w5R8qMxzMvzJWZzCDKc=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "Tracks storage server";

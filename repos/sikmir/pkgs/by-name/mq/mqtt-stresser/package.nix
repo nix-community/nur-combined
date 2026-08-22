@@ -19,10 +19,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "Load testing tool to stress MQTT message broker";

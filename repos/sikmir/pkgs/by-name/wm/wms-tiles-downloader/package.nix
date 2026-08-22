@@ -22,10 +22,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-9ICZowuE2qBxH12bJ8nDxr/sTM0I0JSKe5YtHJsYgi0=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   nativeBuildInputs = [ installShellFiles ];
 

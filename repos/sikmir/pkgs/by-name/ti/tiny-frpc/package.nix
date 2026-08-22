@@ -19,10 +19,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-RbqMuLMSIrQQLDXh79hik5+IPqoYa4oXx01ouQYCpgc=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   meta = {
     description = "tiny frpc using ssh protocol with frps";
