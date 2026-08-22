@@ -237,11 +237,11 @@ index b29c41a6b6..a21e7c40f5 100644
  static const MOVParseTableEntry mov_default_parse_table[] = {
  { MKTAG('A','C','L','R'), mov_read_aclr },
  { MKTAG('A','P','R','G'), mov_read_avid },
-@@ -9430,6 +9527,7 @@ static const MOVParseTableEntry mov_default_parse_table[] = {
+@@ -9816,6 +9816,7 @@ static const MOVParseTableEntry mov_default_parse_table[] = {
+ { MKTAG('c','l','l','i'), mov_read_clli },
  { MKTAG('d','v','c','C'), mov_read_dvcc_dvvc },
  { MKTAG('d','v','v','C'), mov_read_dvcc_dvvc },
  { MKTAG('d','v','w','C'), mov_read_dvcc_dvvc },
 +{ MKTAG('d','c','a','3'), mov_read_dca3 },
+ { MKTAG('h','v','c','E'), mov_read_hvce },
  { MKTAG('k','i','n','d'), mov_read_kind },
- { MKTAG('S','A','3','D'), mov_read_SA3D }, /* ambisonic audio box */
- { MKTAG('S','A','N','D'), mov_read_SAND }, /* non diegetic audio box */

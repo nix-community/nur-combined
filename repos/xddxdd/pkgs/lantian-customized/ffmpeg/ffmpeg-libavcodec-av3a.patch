@@ -531,11 +531,12 @@ diff --git a/libavcodec/codec_id.h b/libavcodec/codec_id.h
 index 3fd2ab3886..bf3158b13b 100644
 --- a/libavcodec/codec_id.h
 +++ b/libavcodec/codec_id.h
-@@ -564,6 +564,7 @@ enum AVCodecID {
+@@ -558,6 +558,7 @@ enum AVCodecID {
      AV_CODEC_ID_LC3,
      AV_CODEC_ID_G728,
      AV_CODEC_ID_AHX,
 +    AV_CODEC_ID_AVS3DA,
+     AV_CODEC_ID_APPLE_APAC,
  
      /* subtitle codecs */
      AV_CODEC_ID_FIRST_SUBTITLE = 0x17000,          ///< A dummy ID pointing at the start of subtitle codecs.

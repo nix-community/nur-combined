@@ -1024,14 +1024,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "bef2b42864f5224b85845920554003371b11f3af";
+    version = "d52b7023ce6eefc8c7128cdc7ea931a056703c1c";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "bef2b42864f5224b85845920554003371b11f3af";
-      hash = "sha256-5qw5I2PTJAnhAzKKZ6inSECfXpj5j1m7pg4JmbXiT8o=";
+      rev = "d52b7023ce6eefc8c7128cdc7ea931a056703c1c";
+      hash = "sha256-pSah4/69DUCizibWlRJr7iXZIWg2y7hMs2fqWE3hsdk=";
     };
-    date = "2026-08-02";
+    date = "2026-08-12";
   };
   igsc = {
     pname = "igsc";

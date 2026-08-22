@@ -15,6 +15,9 @@ let
       ./0005-Option-to-disable-stories.patch
     ];
 
+    # Full parallelism OOM-kills cc1plus on the build machine; limit jobs
+    ninjaFlags = [ "-j2" ];
+
     meta = old.meta // {
       description = "${old.meta.description} (Without anti-features)";
       maintainers = with lib.maintainers; [ xddxdd ];

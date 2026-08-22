@@ -321,12 +321,8 @@ def _mapped_entries(src: dict, vs: str) -> list[tuple[str, object]]:
     return []
 
 
-def build_nvchecker_config(packages: dict[str, Package], keyfile: str | None) -> str:
+def build_nvchecker_config(packages: dict[str, Package]) -> str:
     lines = []
-    if keyfile:
-        lines.append("[__config__]")
-        lines.append(f"keyfile = {json.dumps(keyfile)}")
-        lines.append("")
     for name, pkg in packages.items():
         lines.append(f"[{json.dumps(name)}]")
         src = pkg.src
@@ -365,20 +361,30 @@ def build_nvchecker_config(packages: dict[str, Package], keyfile: str | None) ->
 
 
 def run_nvchecker(
-    config_text: str, tries: int
+    config_text: str, tries: int, keyfile: str | None = None
 ) -> tuple[dict[str, str], dict[str, str]]:
     with tempfile.NamedTemporaryFile("w", suffix=".toml", delete=False) as f:
         f.write(config_text)
         cfg = f.name
     try:
+        # Pass the keyfile via the CLI instead of embedding it in the config:
+        # nvchecker resolves a ``[__config__] keyfile`` relative to the config
+        # file's directory (a temp dir here), so a relative path like
+        # ``secrets.toml`` would never be found.
+        cmd = ["nvchecker", "--logger", "json", "-t", str(tries), "-c", cfg]
+        if keyfile:
+            cmd += ["-k", keyfile]
         r = subprocess.run(
-            ["nvchecker", "--logger", "json", "-t", str(tries), "-c", cfg],
+            cmd,
             text=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
     finally:
         os.unlink(cfg)
+
+    if r.returncode != 0 and r.stderr.strip():
+        sys.stderr.write(f"[nvchecker] (exit {r.returncode}) {r.stderr.strip()}\n")
 
     versions: dict[str, str] = {}
     errors: dict[str, str] = {}
@@ -811,7 +817,7 @@ def main():
     errors: dict[str, str] = {}
     if to_check:
         versions, errors = run_nvchecker(
-            build_nvchecker_config(to_check, args.keyfile), args.tries
+            build_nvchecker_config(to_check), args.tries, args.keyfile
         )
         for name, err in errors.items():
             if name not in versions:

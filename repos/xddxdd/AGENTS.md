@@ -136,6 +136,8 @@ appimageTools.wrapType2 {
   - 版本检查复用同一套 `nvchecker`，且支持 **所有** nvchecker 源类型。nvfetcher 内置映射的源用 `src.<源名>` 形式；其余源在运行时从已安装的 `nvchecker_source` 包动态发现（新增源无需改代码），可直接写 `src.<源名> = ...`（当值的键名与源名一致时）或用显式形式 `src.source = "apt"; src.ppa = ...; src.suite = ...` 把 nvchecker 原生键原样透传
   - 读写相同的 `nvfetcher.toml` 与 `_sources/generated.{nix,json}` 格式，输出按包名排序，**已内置** 原 `tools/postprocess_nvfetcher.py` 的处理（`hash`/`tag`、去除默认字段），因此 `update-sources` 命令后无需再跑 postprocess
   - **任何单个包失败（nvchecker 报错或 prefetch 报错）时保留 `generated.json` 中的现有条目**，而不是整体失败或从输出中删除
+  - **keyfile 必须通过 `-k` 传给 nvchecker 命令行，不能写进生成配置的 `[__config__] keyfile`**：nvchecker 会把配置里的 keyfile 路径按配置文件所在目录（脚本生成的临时 `/tmp` 文件）解析，相对路径（如 CI 的 `secrets.toml`）永远找不到，`KeyManager` 直接抛 `FileLoadError` 导致 nvchecker 整体退出、零输出，全部包都报 `nvchecker failed, keeping existing`（包括非 GitHub 源）；而 `-k` 按当前工作目录解析，CI 在仓库根目录运行即可正常读取
+  - **nvchecker 整体退出（非零返回码）时要把其 stderr 打印出来**：`run_nvchecker` 用 `subprocess.PIPE` 捕获了 stderr 但原实现直接丢弃，全局失败（如 keyfile 加载失败）时日志里只有满屏 `[keep]`，看不到真正原因
 - CLI 选项与 nvfetcher 一致：`-c`（配置）、`-o`（输出目录，默认 `_sources`）、`-f`（正则过滤）、`-k`（keyfile）、`-j`（并行度）、`-t`（重试）、`--force`（强制重新拉取）
 
 ### 更新源码
@@ -171,8 +173,10 @@ appimageTools.wrapType2 {
 ### 构建命令
 
 - 使用 `nix build .#package-name` 构建包
-- 只需指定包名本身，无需中间路径
-- 示例：`pkgs/uncategorized/package-name` 应构建为 `nix build .#package-name`
+- 包名是否带组前缀取决于包所在目录：`pkgs/uncategorized/` 下的包直接使用 `.#package-name`；`pkgs/asterisk-digium-codecs/`、`pkgs/kernel-modules/`、`pkgs/lantian-customized/`、`pkgs/python-packages/` 等分组目录下的包需带上组前缀
+- 组前缀与目录名一一对应：`asteriskDigiumCodecs`、`kernel-modules`、`lantianCustomized`、`python3Packages`，可在 `pkgs/default.nix` 中查看全部分组
+- 示例：`pkgs/uncategorized/package-name` 应构建为 `nix build .#package-name`；`pkgs/lantian-customized/ffmpeg` 应构建为 `nix build .#lantianCustomized.ffmpeg`；`pkgs/python-packages/mtkclient` 应构建为 `nix build .#python3Packages.mtkclient`
+- 嵌套更深的包（如 asterisk 编解码器 `pkgs/asterisk-digium-codecs/` 下按版本分目录）需逐级引用：`nix build '.#asteriskDigiumCodecs."24".g729a'`
 
 ## pnpm 前端构建
 

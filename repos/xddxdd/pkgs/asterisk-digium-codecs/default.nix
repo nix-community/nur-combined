@@ -23,7 +23,7 @@ let
         runHook preInstall
 
         mkdir -p $out
-        cp * $out/
+        cp -r * $out/
 
         runHook postInstall
       '';

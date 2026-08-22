@@ -22,13 +22,6 @@
   shiboken6,
   unicorn,
 }:
-let
-  mfusepy' = mfusepy.overridePythonAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace pyproject.toml --replace-fail 'setuptools >= 61, < 83' 'setuptools >= 61'
-    '';
-  });
-in
 buildPythonPackage rec {
   inherit (sources.mtkclient) pname version;
   pyproject = true;
@@ -43,7 +36,7 @@ buildPythonPackage rec {
     fusepy
     keystone-engine
     hatchling
-    mfusepy'
+    mfusepy
     mock
     pycryptodome
     pycryptodomex
