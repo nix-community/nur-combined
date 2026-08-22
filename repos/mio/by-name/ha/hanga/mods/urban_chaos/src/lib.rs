@@ -745,6 +745,7 @@ pub fn craft_result(item_a: &str, item_b: &str) -> String {
         ("concrete", "grass") => "brick".into(),
         ("concrete", "workbench") => "brick".into(),
         ("brick", "brick") => "concrete".into(),
+        ("rail", "workbench") => "drill".into(),
         _ => String::new(),
     }
 }
@@ -1081,9 +1082,17 @@ pub fn tick_softbody(nodes: &mut [Node], beams: &mut [Beam], dt: f32) {
         
         let force_mag = deformation * beam.stiffness;
         
-        let fx = (dx / dist) * force_mag;
-        let fy = (dy / dist) * force_mag;
-        let fz = (dz / dist) * force_mag;
+        let rel_vx = b.vx - a.vx;
+        let rel_vy = b.vy - a.vy;
+        let rel_vz = b.vz - a.vz;
+        let rel_v_proj = (rel_vx * dx + rel_vy * dy + rel_vz * dz) / dist;
+        let damping_force = rel_v_proj * beam.damping;
+        
+        let total_force = force_mag + damping_force;
+        
+        let fx = (dx / dist) * total_force;
+        let fy = (dy / dist) * total_force;
+        let fz = (dz / dist) * total_force;
         
         nodes[beam.node_a].vx += fx / a.mass * dt;
         nodes[beam.node_a].vy += fy / a.mass * dt;
@@ -1805,6 +1814,7 @@ mod tests {
         assert_eq!(craft_result("workbench", "concrete"), "brick");
         assert_eq!(craft_result("grass", "concrete"), "brick");
         assert_eq!(craft_result("brick", "brick"), "concrete");
+        assert_eq!(craft_result("rail", "workbench"), "drill");
         assert!(craft_result("asphalt", "asphalt").is_empty());
         assert!(craft_result("concrete", "rail").is_empty());
     }
