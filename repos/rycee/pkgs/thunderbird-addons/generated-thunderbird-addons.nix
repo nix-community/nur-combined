@@ -246,10 +246,10 @@
     };
     "quickfilters" = buildMozillaXpiAddon {
       pname = "quickfilters";
-      version = "6.13.1";
+      version = "6.13.2";
       addonId = "quickFilters@axelg.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1048778/quickfilters-6.13.1-tb.xpi?src=";
-      sha256 = "afd6efa30bd62e6184acf30d2a15bfbd69b5dcf846932635870f4838fd6c73de";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1049867/quickfilters-6.13.2-tb.xpi?src=";
+      sha256 = "3f226fa26088f024cdaaf530dba97ce96f415378590caac2c0cd30c6eec4f1d8";
       meta = with lib;
       {
         homepage = "https://quickfilters.quickfolders.org/";

@@ -2915,10 +2915,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "155.0.20260819.90452";
+      version = "155.0.20260821.90339";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4968246/dansk_da_language_pack-155.0.20260819.90452.xpi";
-      sha256 = "e91cb368b95b348ad3241ba6544fb76f9cee60a33e7b85e65bce7e23418c48b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972532/dansk_da_language_pack-155.0.20260821.90339.xpi";
+      sha256 = "d8eb5f98517b209b7b15dbd90772be074d0e7f4b5835484aa13ddf0169d03731";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3132,10 +3132,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "155.0.20260819.90452";
+      version = "155.0.20260821.90339";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4968245/deutsch_de_language_pack-155.0.20260819.90452.xpi";
-      sha256 = "38344e4673f006f8172c7cf4024a1b388288c5a994f7dbc0434015737551ea25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972514/deutsch_de_language_pack-155.0.20260821.90339.xpi";
+      sha256 = "635d4a1c17a81119350b2cd972c9643f5aa0702a88aa05c6cb5f299d600c1d6a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4257,10 +4257,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.7";
+      version = "3.8";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4932315/firemonkey-3.7.xpi";
-      sha256 = "d24b68c936e23e201a7ae305ba8d2fdd7e83c4cdfba383e24129b8aaa21fb237";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972788/firemonkey-3.8.xpi";
+      sha256 = "ea0fafc1f6279969c5d014282cb3705a7ec0d12cda90dc51c1e141dd44b35863";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -4631,10 +4631,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "155.0.20260819.90452";
+      version = "155.0.20260821.90339";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4968212/francais_language_pack-155.0.20260819.90452.xpi";
-      sha256 = "01477654e9d5f52d3b8d19eb4a25a1da67d2b82c6a6935498d19723d6287feb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972545/francais_language_pack-155.0.20260821.90339.xpi";
+      sha256 = "7d0a141ee0fc7ddbc907bd78b7e63f91b7167dfd53c846ce736ce76827f3acbb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4668,10 +4668,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "155.0.20260819.90452";
+      version = "155.0.20260821.90339";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4968267/gaidhlig_language_pack-155.0.20260819.90452.xpi";
-      sha256 = "66a8413dcd4dc797fd390ba5841dff2a3925ed80922a1a04cc98028dbdcfd7e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972596/gaidhlig_language_pack-155.0.20260821.90339.xpi";
+      sha256 = "339a844d2d7107303e18e4af10f9556b6d03d8baf1ebdd478c8bdd215cbd8d33";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7490,7 +7490,7 @@
       meta = with lib;
       {
         homepage = "https://Keepa.com";
-        description = "→ Price History charts \n→ Price Drop &amp; Availability Alerts\n→ Over 7 billion tracked products\n→ Supports Amazon .com, .co.uk, .de, .co.jp, .fr, .ca, .it, .es, .in, .mx., .br";
+        description = "→ Price History charts \n→ Price Drop and Availability Alerts\n→ Over 7 billion tracked products\n→ Supports Amazon .com, .co.uk, .de, .co.jp, .fr, .ca, .it, .es, .in, .mx., .br";
         license = {
           shortName = "keepa";
           fullName = "License for Keepa.com - Amazon Price Tracker";
@@ -8825,10 +8825,10 @@
     };
     "linkhints" = buildMozillaXpiAddon {
       pname = "linkhints";
-      version = "1.3.3";
+      version = "1.4.0";
       addonId = "linkhints@lydell.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346988/linkhints-1.3.3.xpi";
-      sha256 = "209e50c4f9b9162d5ce0ebf4097518f51ae74129c29d920019497f6323871e6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4973478/linkhints-1.4.0.xpi";
+      sha256 = "b83543830e6bdbb767b756cbd8b31c0445ac762882c0169dce88c852cd485cec";
       meta = with lib;
       {
         homepage = "https://lydell.github.io/LinkHints";
@@ -13434,10 +13434,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "155.0.20260819.90452";
+      version = "155.0.20260821.90339";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4968229/scots_language_pack-155.0.20260819.90452.xpi";
-      sha256 = "35775e926b1547274fc3a6217998c557c81bfaa4ba177744674934bc9efc9b70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972579/scots_language_pack-155.0.20260821.90339.xpi";
+      sha256 = "9ccbeac86b9f1128971ca01de7b94dabca541e55617341dbeb9ffbe0b05f2273";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14017,10 +14017,10 @@
     };
     "smartproxy" = buildMozillaXpiAddon {
       pname = "smartproxy";
-      version = "2.2";
+      version = "2.3";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4812135/smartproxy-2.2.xpi";
-      sha256 = "46ad294dcdf77ed1a26a1814748315f3d785c1677517b5780f15067a07c03deb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972492/smartproxy-2.3.xpi";
+      sha256 = "9525b73985d36a04020a0cf97ac11db222081c723ff8b296e96b8d43895dcf17";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
@@ -14030,6 +14030,7 @@
           "<all_urls>"
           "activeTab"
           "tabs"
+          "webNavigation"
           "proxy"
           "webRequest"
           "webRequestBlocking"
@@ -16288,10 +16289,10 @@
     };
     "varia-integrator" = buildMozillaXpiAddon {
       pname = "varia-integrator";
-      version = "1.5.5";
+      version = "1.5.6";
       addonId = "giantpinkrobots@protonmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4936207/varia_integrator-1.5.5.xpi";
-      sha256 = "14041a1abf7deb83c54494047f55d00aef28f00cfd1c93881d66844ff71a6a15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4973113/varia_integrator-1.5.6.xpi";
+      sha256 = "0a530f7e8acf8cb11125e3e99d89c2813b61ee6130b38be9e504b68e08004bf5";
       meta = with lib;
       {
         homepage = "https://giantpinkrobots.github.io/varia/";
