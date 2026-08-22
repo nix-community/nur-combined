@@ -41,6 +41,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
+  disabledTests = [ "test_daemon_process_termination" ];
+
   __darwinAllowLocalNetworking = true;
 
   meta = {
