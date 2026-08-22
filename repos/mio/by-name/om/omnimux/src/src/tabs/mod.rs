@@ -115,10 +115,11 @@ impl TerminalTabs {
     pub(crate) fn get_visible_hosts(&self, cx: &App) -> Vec<crate::hosts::HostItem> {
         let input = self.host_input.read(cx).value().to_string();
         let is_empty = input.is_empty();
+        let has_at = input.contains('@');
         let filtered = crate::hosts::filter_hosts(crate::hosts::host_query(&input), &self.ssh_hosts);
         
         filtered.into_iter().filter(|h| {
-            if is_empty && h.is_open {
+            if (is_empty && h.is_open) || (has_at && h.host.contains('@')) {
                 false
             } else {
                 true
