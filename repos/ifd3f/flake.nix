@@ -1,22 +1,37 @@
 {
   description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs =
     {
-      nixosModules = import ./modules;
-      overlays.default = import ./overlay.nix;
-    } // (let
-      systems = [
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachSystem
+      [
         "x86_64-linux"
         "i686-linux"
         "x86_64-darwin"
         "aarch64-linux"
         "armv6l-linux"
         "armv7l-linux"
-      ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-    in {
-      packages = forAllSystems (system:
-        import ./default.nix { pkgs = import nixpkgs { inherit system; }; });
-    });
+      ]
+      (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          packages = import ./default.nix { inherit pkgs; };
+        }
+      )
+    // {
+      nixosModules = import ./modules;
+      overlays.default = import ./overlay.nix;
+    };
 }
