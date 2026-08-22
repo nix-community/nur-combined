@@ -416,6 +416,7 @@ fn main() {
     let window_plugin = if is_headless {
         WindowPlugin {
             primary_window: None,
+            exit_condition: bevy::window::ExitCondition::DontExit,
             ..default()
         }
     } else {
@@ -428,26 +429,10 @@ fn main() {
         }
     };
 
-    if is_headless {
-        info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
-        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
-    } else if is_text_client {
-        info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
-        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
-        app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
-        app.add_systems(Update, read_terminal_input.after(validate_incoming_actions));
+    install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
 
-        std::thread::spawn(move || {
-            let stdin = io::stdin();
-            for line in stdin.lock().lines() {
-                if let Ok(line) = line {
-                    let _ = tx.send(line);
-                }
-            }
-        });
-    } else if is_agent_client {
+    if is_agent_client {
         info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
-        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_agent_input.after(validate_incoming_actions));
 
@@ -459,8 +444,21 @@ fn main() {
                 }
             }
         });
-    } else {
-        install_default_plugins(&mut app, window_plugin, &game, &game_dirs);
+    } else if is_text_client {
+        info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
+        app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
+        app.add_systems(Update, read_terminal_input.after(validate_incoming_actions));
+
+        std::thread::spawn(move || {
+            let stdin = io::stdin();
+            for line in stdin.lock().lines() {
+                if let Ok(line) = line {
+                    let _ = tx.send(line);
+                }
+            }
+        });
+    } else if is_headless {
+        info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
     }
 
     if is_cheater {
@@ -1135,14 +1133,31 @@ fn install_default_plugins(
     search: &[PathBuf],
 ) {
     let assets = hanga::palette::prepare_asset_dir(game, search);
-    app.add_plugins(
-        DefaultPlugins
-            .set(window_plugin)
-            .set(AssetPlugin {
-                file_path: assets.to_string_lossy().into_owned(),
-                ..default()
-            }),
-    );
+    let is_headless = window_plugin.primary_window.is_none();
+    if is_headless {
+        app.add_plugins(
+            DefaultPlugins
+                .build()
+                .disable::<bevy::winit::WinitPlugin>()
+                .set(window_plugin)
+                .set(AssetPlugin {
+                    file_path: assets.to_string_lossy().into_owned(),
+                    ..default()
+                }),
+        );
+        app.add_plugins(bevy::app::ScheduleRunnerPlugin::run_loop(
+            std::time::Duration::from_secs_f64(1.0 / 60.0),
+        ));
+    } else {
+        app.add_plugins(
+            DefaultPlugins
+                .set(window_plugin)
+                .set(AssetPlugin {
+                    file_path: assets.to_string_lossy().into_owned(),
+                    ..default()
+                }),
+        );
+    }
     app.insert_resource(ClearColor(rgb3(game.backdrop.clear)));
 }
 

@@ -348,6 +348,20 @@ pub fn mod_should_spawn_agent(_action: &str, old_state: i32, new_state: i32) -> 
     }
 }
 
+
+#[cfg(kani)]
+#[kani::proof]
+fn verify_economy_price_bounds() {
+    let base_price: i32 = kani::any();
+    let supply: i32 = kani::any();
+    let demand: i32 = kani::any();
+    kani::assume(base_price > 0 && base_price < 10000);
+    kani::assume(supply >= 0 && supply < 10000);
+    kani::assume(demand >= 0 && demand < 10000);
+    let price = compute_economy_price(base_price, supply, demand);
+    kani::assert(price >= 1, "Price must never drop below 1 credit");
+}
+
 pub fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
     if supply == 0 {
         return base_price * 10;
@@ -1378,6 +1392,18 @@ mod kani_replay {
                 {
                     let result = mod_wallet_after(action, wallet, extra);
                     assert!((0..=1_000_000).contains(&result));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn kani_replay_economy_price_bounds() {
+        for base_price in [1, 10, 80, 100, 1000] {
+            for supply in [0, 1, 5, 10, 1000] {
+                for demand in [0, 1, 8, 20, 500] {
+                    let price = compute_economy_price(base_price, supply, demand);
+                    assert!(price >= 1, "Price must never drop below 1 credit");
                 }
             }
         }

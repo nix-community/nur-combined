@@ -99,6 +99,36 @@ pub fn contract_context(held: &str, pos: [i32; 3], in_vehicle: bool, near: bool)
     )
 }
 
+
+#[cfg(kani)]
+#[kani::proof]
+fn verify_mark_reached_bounds() {
+    let px: f32 = kani::any();
+    let py: f32 = kani::any();
+    let pz: f32 = kani::any();
+    kani::assume(px.is_finite() && py.is_finite() && pz.is_finite());
+    
+    let mx: i32 = kani::any();
+    let my: i32 = kani::any();
+    let mz: i32 = kani::any();
+    let r: f32 = kani::any();
+    kani::assume(r.is_finite() && r >= 0.0 && r < 1e4);
+    
+    let mark = ContractMark {
+        pos: [mx, my, mz],
+        radius: r,
+        rgb: [1.0, 1.0, 1.0],
+        take: false,
+    };
+    
+    let reached = mark_reached(px, py, pz, &mark);
+    if reached {
+        let dx = px - mx as f32;
+        let dy = py - my as f32;
+        let dz = pz - mz as f32;
+        kani::assert(dx * dx + dy * dy + dz * dz <= r * r * 1.01, "reached point must be within radius squared");
+    }
+}
 pub fn mark_reached(px: f32, py: f32, pz: f32, mark: &ContractMark) -> bool {
     let dx = px - mark.pos[0] as f32;
     let dy = py - mark.pos[1] as f32;
@@ -143,5 +173,18 @@ mod tests {
         assert!(ctx.contains("near=1"));
         assert!(ctx.contains("vehicle=0"));
         assert!(ctx.contains("y=2"));
+    }
+
+    #[test]
+    fn kani_replay_mark_reached() {
+        let mark = ContractMark {
+            pos: [10, 20, 30],
+            radius: 5.0,
+            rgb: [1.0, 1.0, 1.0],
+            take: false,
+        };
+        assert!(mark_reached(10.0, 20.0, 30.0, &mark));
+        assert!(mark_reached(13.0, 20.0, 34.0, &mark)); // 3^2 + 4^2 = 25 <= 25
+        assert!(!mark_reached(14.0, 20.0, 34.0, &mark)); // 4^2 + 4^2 = 32 > 25
     }
 }

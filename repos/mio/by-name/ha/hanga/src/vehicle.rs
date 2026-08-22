@@ -449,6 +449,22 @@ pub fn beam_length(rest: f32, crumple: i32, stiffness: i32) -> f32 {
 }
 
 /// Keep `other` on the ray from `anchor`, at `length`.
+
+#[cfg(kani)]
+#[kani::proof]
+fn verify_beam_constrain_bounds() {
+    let ax: f32 = kani::any(); let ay: f32 = kani::any(); let az: f32 = kani::any();
+    let ox: f32 = kani::any(); let oy: f32 = kani::any(); let oz: f32 = kani::any();
+    let length: f32 = kani::any();
+    kani::assume(ax.is_finite() && ay.is_finite() && az.is_finite());
+    kani::assume(ox.is_finite() && oy.is_finite() && oz.is_finite());
+    kani::assume(length.is_finite() && length >= 0.0);
+    let anchor = [ax, ay, az];
+    let other = [ox, oy, oz];
+    let res = beam_constrain(anchor, other, length);
+    kani::assert(res[0].is_finite() && res[1].is_finite() && res[2].is_finite(), "beam constrain yields finite coordinates");
+}
+
 pub fn beam_constrain(anchor: [f32; 3], other: [f32; 3], length: f32) -> [f32; 3] {
     let dx = other[0] - anchor[0];
     let dy = other[1] - anchor[1];
@@ -674,5 +690,13 @@ mod tests {
             12.0,
             2.5
         ));
+    }
+
+    #[test]
+    fn kani_replay_beam_constrain() {
+        let constrained = beam_constrain([0.0, 0.0, 0.0], [3.0, 4.0, 0.0], 10.0);
+        assert!((constrained[0] - 6.0).abs() < 1e-4);
+        assert!((constrained[1] - 8.0).abs() < 1e-4);
+        assert!((constrained[2] - 0.0).abs() < 1e-4);
     }
 }
