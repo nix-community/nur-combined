@@ -1,0 +1,75 @@
+diff --git a/src/fetcher/patch.rs b/src/fetcher/patch.rs
+index 8d77e7f..03c67f6 100644
+--- a/src/fetcher/patch.rs
++++ b/src/fetcher/patch.rs
+@@ -1,4 +1,5 @@
+ use eyre::Result;
++use serde::Deserialize;
+ 
+ use crate::{Url, config::FetcherConfig, revless::RevlessFetcher};
+ 
+@@ -10,4 +11,38 @@ impl RevlessFetcher for Fetchpatch {
+     fn fetch(&self, url: &Url, cfg: &FetcherConfig) -> Result<String> {
+         self.fetch_fod(url, cfg)
+     }
++
++    fn name(&self, url: &Url) -> Result<Option<String>> {
++        let s = url.as_str();
++        if let Some(rest) = s.strip_prefix("https://github.com/") {
++            let mut parts = rest.split('/');
++            if let (Some(owner), Some(repo), Some("pull"), Some(pr_file)) = (parts.next(), parts.next(), parts.next(), parts.next()) {
++                if parts.next().is_none() && (pr_file.ends_with(".patch") || pr_file.ends_with(".diff")) {
++                    let pr = pr_file.trim_end_matches(".patch").trim_end_matches(".diff");
++                    let api_url = format!("https://api.github.com/repos/{owner}/{repo}/pulls/{pr}");
++                    
++                    let mut request = ureq::get(&api_url)
++                        .header("Accept", "application/vnd.github+json")
++                        .header("X-GitHub-Api-Version", "2022-11-28");
++
++                    if let Some(token) = ["GH_TOKEN", "GITHUB_TOKEN", "GITHUB_API_TOKEN"].iter().find_map(|key| std::env::var(key).ok()) {
++                        request = request.header("Authorization", &format!("Bearer {token}"));
++                    }
++
++                    #[derive(Deserialize)]
++                    struct PullRequest {
++                        title: String,
++                    }
++
++                    if let Ok(response) = request.call() {
++                        if let Ok(pr) = response.into_body().read_json::<PullRequest>() {
++                            let title = pr.title.replace('"', "\\\"");
++                            return Ok(Some(title));
++                        }
++                    }
++                }
++            }
++        }
++        Ok(None)
++    }
+ }
+diff --git a/src/revless.rs b/src/revless.rs
+index 56bc273..6b66f66 100644
+--- a/src/revless.rs
++++ b/src/revless.rs
+@@ -10,6 +10,10 @@ pub trait RevlessFetcher {
+ 
+     fn fetch(&self, url: &Url, cfg: &FetcherConfig) -> Result<String>;
+ 
++    fn name(&self, _url: &Url) -> Result<Option<String>> {
++        Ok(None)
++    }
++
+     fn fetch_fod(&self, url: &Url, cfg: &FetcherConfig) -> Result<String> {
+         let mut expr = format!(
+             r#"(import({}){{}}).{}{{url="{url}";hash="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";"#,
+@@ -41,6 +45,10 @@ impl<'a, T: RevlessFetcher> Fetcher<'a> for T {
+ 
+         writeln!(out, "{} {{", Self::NAME)?;
+ 
++        if let Some(name) = self.name(url)? {
++            writeln!(out, r#"{indent}  name = "{name}";"#)?;
++        }
++
+         if let Some(url) = cfg.overwrites.remove("url") {
+             writeln!(out, "{indent}  {url} = {url};")?;
+         } else {
