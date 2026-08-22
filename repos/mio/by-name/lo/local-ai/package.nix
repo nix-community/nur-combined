@@ -113,8 +113,8 @@ let
         src = fetchFromGitHub {
           owner = "ggerganov";
           repo = "llama.cpp";
-          rev = "221f0f6356efe2260023208365705ec5d5a7c8f5";
-          hash = "sha256-MxSoUmCdusWpiXO8/ZvCV2yRGE7JUAm4/rkyPkuxcnY=";
+          rev = "60addddf3c567c43ec3caf70fc953fba3572d96f";
+          hash = "sha256-8TKMRYsNSEZcQX9gx56Yb+wbq1lMPr500Heox+UKv10=";
           fetchSubmodules = true;
         };
         npmDeps = null;
@@ -128,6 +128,7 @@ let
             for patch in "$llamaCppBackend"/patches/*; do
               echo "Applying LocalAI llama.cpp patch $patch"
               patch -p1 < "$patch"
+              sed -i -e "/add_subdirectory(tts)/d" tools/CMakeLists.txt || true
             done
           fi
 
@@ -144,6 +145,10 @@ let
             "$llamaCppBackend"/passthrough_options_test.cpp \
             "$llamaCppBackend"/parent_watch.h \
             "$llamaCppBackend"/parent_watch_test.cpp \
+            "$llamaCppBackend"/thread_params.h \
+            "$llamaCppBackend"/thread_params_test.cpp \
+            "$llamaCppBackend"/tts_request_options.h \
+            "$llamaCppBackend"/tts_request_options_test.cpp \
             tools/grpc-server/
           cp --no-preserve=mode vendor/nlohmann/json.hpp tools/grpc-server/
           cp --no-preserve=mode vendor/cpp-httplib/httplib.h tools/grpc-server/
@@ -154,10 +159,16 @@ let
           else
             legacyLoadMode=1
           fi
+          if grep -q "server_metrics metrics;" tools/server/server-task.h; then
+            hasServerMetrics=1
+          else
+            hasServerMetrics=0
+          fi
           printf '%s\n' \
             '// Generated for LocalAI nix packaging. Do not edit.' \
             '#pragma once' \
             "#define LOCALAI_LEGACY_LOAD_MODE $legacyLoadMode" \
+            "#define LOCALAI_HAS_SERVER_METRICS $hasServerMetrics" \
             > tools/grpc-server/llama_compat.h
 
           sed -i tools/grpc-server/CMakeLists.txt \
@@ -427,12 +438,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.8.2";
+  version = "4.9.0";
   src = fetchFromGitHub {
     owner = "mudler";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-xdqefohG5lW63Ia4c0FcpdQ57vpTeLiXz7cNoyU4hXw=";
+    hash = "sha256-8y0xZauO/19PsnUV+TahQLcis/SvCYep2zyBTdwgGkk=";
   };
 
   prepare-sources =
@@ -458,7 +469,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/core/http/react-ui";
-      hash = "sha256-CWG9xlnukGI/9KqyCOslTJtYJ7TireRH4TWI01WVzRo=";
+      hash = "sha256-8pGEaSdlFH9RMrYlebGYbmIIFCUryE36elsOFVyo/oo=";
     };
 
     nativeBuildInputs = [
@@ -482,7 +493,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-cCf6C6MgEZyexnr1hYH7CcBHT25cozqMIYEnna1+J/Y=";
+    vendorHash = "sha256-5AT0t83gFRLrQZPKPQW0BeOJx8LLk+aJgMtyuvoeCSE=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 

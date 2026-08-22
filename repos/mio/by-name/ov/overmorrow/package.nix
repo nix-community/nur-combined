@@ -8,13 +8,13 @@
 
 flutter338.buildFlutterApplication rec {
   pname = "overmorrow";
-  version = "2.6.3";
+  version = "2.6.4";
 
   src = fetchFromGitHub {
     owner = "bmaroti9";
     repo = "Overmorrow";
     tag = "v${version}";
-    hash = "sha256-Z39Az8JcHwggbBRxyf8aaI3P1ifUezyWpc0hLFtPDVw=";
+    hash = "sha256-CLnBuuxOBW/SiG8qiQonV+w3/PG2AiWj9It70OFzO54=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;

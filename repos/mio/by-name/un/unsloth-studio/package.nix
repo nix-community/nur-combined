@@ -10,13 +10,13 @@
 
 let
   pname = "unsloth";
-  version = "0.1.800-beta";
+  version = "0.1.801-beta";
 
   src = fetchFromGitHub {
     owner = "unslothai";
     repo = "unsloth";
     rev = "v${version}";
-    hash = "sha256-TbAHjRxoTSaiKJRcXk5vrOhfBS+C5M72spGfYYUyl20=";
+    hash = "sha256-zKtI77YOnRCuC/1YhFiHnIPgwjN4kRJOijkoUtdKSG0=";
   };
 
   # Unsloth Studio frontend is built with npm/vite
