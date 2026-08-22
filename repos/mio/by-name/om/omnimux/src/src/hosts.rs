@@ -62,6 +62,9 @@ pub fn is_safe_ssh_destination(host: &str) -> bool {
     if host.is_empty() || host.starts_with('-') {
         return false;
     }
+    if host.chars().filter(|&c| c == '@').count() > 1 {
+        return false;
+    }
     host.chars().all(|c| {
         c.is_ascii_alphanumeric()
             || matches!(c, '.' | '_' | '-' | '@' | ':' | '%' | '[' | ']')
@@ -120,6 +123,7 @@ mod tests {
         assert!(is_safe_ssh_destination("user@web.example"));
         assert!(is_safe_ssh_destination("192.168.1.1"));
         assert!(is_safe_ssh_destination("[::1]:22"));
+        assert!(!is_safe_ssh_destination("a@b@host"));
         assert_eq!(host_option("-oProxyCommand=x"), None);
     }
 }
