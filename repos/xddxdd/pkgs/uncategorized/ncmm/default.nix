@@ -6,7 +6,7 @@
 }:
 buildGoModule (finalAttrs: {
   inherit (sources.ncmm) pname version src;
-  vendorHash = "sha256-anvrZI6b5zEgpPEUd96OG9FlkaeUn38NZSOs+WibbhM=";
+  vendorHash = "sha256-dYGMbXaPARioUHlNcQCtCM8q79g66m9utnAS7Bdyrk4=";
 
   ldflags = [
     "-s"
