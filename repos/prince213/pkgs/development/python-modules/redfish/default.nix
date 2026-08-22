@@ -7,13 +7,16 @@
   setuptools,
 
   # dependencies
+  aiohttp,
   jsonpatch,
   jsonpath-ng,
   jsonpointer,
+  multidict,
   requests,
   requests-toolbelt,
   requests-unixsocket,
   urllib3,
+  yarl,
 
   # nativeCheckInputs
   pytestCheckHook,
@@ -21,7 +24,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "redfish";
-  version = "3.3.8";
+  version = "3.3.9";
   pyproject = true;
 
   __structuredAttrs = true;
@@ -30,19 +33,22 @@ buildPythonPackage (finalAttrs: {
     owner = "DMTF";
     repo = "python-redfish-library";
     tag = finalAttrs.version;
-    hash = "sha256-b+cIvJSoqhzncvchH63lG4k3p7ks+lrmF0GikYBT0eM=";
+    hash = "sha256-c50+QALePV30Dr5LOfGvCRqW9Oqdqj/qyNQPiqwK+hY=";
   };
 
   build-system = [ setuptools ];
 
   dependencies = [
+    aiohttp
     jsonpatch
     jsonpath-ng
     jsonpointer
+    multidict
     requests
     requests-toolbelt
     requests-unixsocket
     urllib3
+    yarl
   ]
   ++ urllib3.optional-dependencies.zstd;
 

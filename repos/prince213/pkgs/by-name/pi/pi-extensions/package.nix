@@ -6,19 +6,19 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-extensions";
-  version = "0-unstable-2026-08-18";
+  version = "0-unstable-2026-08-22";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "narumiruna";
     repo = "pi-extensions";
-    rev = "df8b78055a203dbb3d571b5b15ad08b13ec12b68";
-    hash = "sha256-o4gjtcs8w24G/1kgf3dsgbObik75MKawrIiMXko65Fg=";
+    rev = "25ad2d64334333a08bb6d24fad193ee0ace3bdd7";
+    hash = "sha256-RbeRK+mIXmCytav9OFrWLk3hMXJByYYzwtCrR3q0hCc=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-pSCGXM/b5TsDekM/6t907BozOpC+ijYvm1/nO8gZHZ4=";
+  npmDepsHash = "sha256-otx+K00izo0hGmr551yglxnlMm+3DHBxukoGK3+glsQ=";
 
   postInstall = ''
     cp -r $out/lib/node_modules/pi-extensions/. $out
