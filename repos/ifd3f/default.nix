@@ -6,6 +6,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # for testing purposes
+  hello = pkgs.hello;
+
   # talosctl-bin = pkgs.callPackage ./pkgs/talosctl-bin { };
   akkoma-bin = pkgs.callPackage ./pkgs/akkoma-bin { };
   pleroma-ebooks = pkgs.callPackage ./pkgs/pleroma-ebooks { };
