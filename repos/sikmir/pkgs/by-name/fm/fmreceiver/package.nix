@@ -78,5 +78,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = stdenv.hostPlatform.isDarwin; # ld: library not found for -lqwt
   };
 })
