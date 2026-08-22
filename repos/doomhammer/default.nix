@@ -20,6 +20,7 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  awl = pkgs.callPackage ./pkgs/awl { source = { inherit (sources) awl awl-flutter; }; };
   gitpane = pkgs.callPackage ./pkgs/gitpane { source = sources.gitpane; };
   hammerspoon = pkgs.callPackage ./pkgs/hammerspoon { source = sources.hammerspoon; };
   omniwm = pkgs.callPackage ./pkgs/omniwm { source = sources.omniwm; };

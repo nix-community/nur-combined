@@ -6,6 +6,28 @@
   dockerTools,
 }:
 {
+  awl = {
+    pname = "awl";
+    version = "v0.19.0";
+    src = fetchFromGitHub {
+      owner = "anywherelan";
+      repo = "awl";
+      rev = "v0.19.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-Tg442iFLxGgqQfXHiKeHMX4Y7IAIi63wYdrD5TLlN3E=";
+    };
+  };
+  awl-flutter = {
+    pname = "awl-flutter";
+    version = "v0.19.0";
+    src = fetchFromGitHub {
+      owner = "anywherelan";
+      repo = "awl-flutter";
+      rev = "v0.19.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-zSKCM3OczzShOrBv14qVzbKueezbsvsNq+5bJ+NcVLQ=";
+    };
+  };
   gitpane = {
     pname = "gitpane";
     version = "v0.13.0";

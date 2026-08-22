@@ -1,3 +1,11 @@
+[awl]
+src.github_tag = "anywherelan/awl"
+fetch.github = "anywherelan/awl"
+
+[awl-flutter]
+src.github_tag = "anywherelan/awl-flutter"
+fetch.github = "anywherelan/awl-flutter"
+
 [gitpane]
 src.github_tag = "affromero/gitpane"
 fetch.github = "affromero/gitpane"

@@ -1,4 +1,46 @@
 {
+    "awl": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "awl",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "anywherelan",
+            "repo": "awl",
+            "rev": "v0.19.0",
+            "sha256": "sha256-Tg442iFLxGgqQfXHiKeHMX4Y7IAIi63wYdrD5TLlN3E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.19.0"
+    },
+    "awl-flutter": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "awl-flutter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "anywherelan",
+            "repo": "awl-flutter",
+            "rev": "v0.19.0",
+            "sha256": "sha256-zSKCM3OczzShOrBv14qVzbKueezbsvsNq+5bJ+NcVLQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.19.0"
+    },
     "gitpane": {
         "cargoLock": {
             "Cargo.lock": [
