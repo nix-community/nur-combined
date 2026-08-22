@@ -1,11 +1,11 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 0dfcd93..dd59106 100644
+index 6e67897..87ea1f7 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.517",
+     "@iconify/json": "2.2.518",
 +    "@inlang/plugin-m-function-matcher": "^2.2.12",
 +    "@inlang/plugin-message-format": "^4.4.3",
      "@monaco-editor/react": "4.7.0",
@@ -27,13 +27,13 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index e651f4b..8b57585 100644
+index 8b3185c..9141adb 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.517
-         version: 2.2.517
+         specifier: 2.2.518
+         version: 2.2.518
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.12
 +        version: 2.2.12
