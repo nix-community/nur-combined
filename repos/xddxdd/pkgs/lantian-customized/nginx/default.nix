@@ -168,7 +168,7 @@ stdenv.mkDerivation rec {
     "--add-module=bundle/ngx_brotli"
     "--add-module=bundle/stream-echo-nginx-module"
     "--add-module=bundle/zstd-nginx-module"
-    "--add-module=bundle/ja4-nginx-module/src"
+    "--add-module=bundle/ja4-nginx-module"
     "--add-module=bundle/nginx-auth-jwt"
     "--add-module=bundle/nginx-oidc"
     # "--without-http_encrypted_session_module" # Conflict with quic stuff
