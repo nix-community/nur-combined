@@ -44,9 +44,9 @@ stdenv.mkDerivation {
   meta = {
     description = "Collection of assorted small programs based on the Osmium framework";
     homepage = "https://github.com/osmcode/osmium-surplus";
-    license = with lib.licenses; [
-      gpl3Plus
-      boost
+    license = with lib; [
+      licenses.gpl3Plus
+      licenses.boost
     ];
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
