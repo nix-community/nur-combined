@@ -8,6 +8,11 @@ on:
       - 'NixOS/**.nix'
       - 'NixOS/flake.lock'
       - '.github/workflows/build-nix.yml'
+  pull_request:
+    paths:
+      - 'NixOS/**.nix'
+      - 'NixOS/flake.lock'
+      - '.github/workflows/build-nix.yml'
 
 permissions: {}
 
