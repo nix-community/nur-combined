@@ -238,6 +238,36 @@
         },
         "version": "v2.3.0"
     },
+    "lxgw-neozhisong": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lxgw-neozhisong",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-MrOY+cYnjE7TT0Ewd63SwvPIQDTUY68rnLmPEsTCxs0=",
+            "type": "url",
+            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.067/LXGWNeoZhiSong.ttf"
+        },
+        "version": "v1.067"
+    },
+    "lxgw-neozhisong-plus": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lxgw-neozhisong-plus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Y5WVxlABhy0NoW2srrfeO6OWxkw3twoW/rFTYJG7bB8=",
+            "type": "url",
+            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.067/LXGWNeoZhiSongPlus.ttf"
+        },
+        "version": "v1.067"
+    },
     "ly2video": {
         "cargoLock": null,
         "date": null,

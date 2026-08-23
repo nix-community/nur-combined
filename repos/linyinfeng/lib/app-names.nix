@@ -22,6 +22,7 @@ let
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
     (empty "libva-v4l2")
+    (empty "lxgw-neozhisong")
     (empty "niri-taskbar")
     (empty "plangothic")
     (empty "rimePackages/librime")

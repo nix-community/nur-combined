@@ -50,6 +50,7 @@ packageSet = do
   fishPlugins
   linuxIntelMainlineTracking
   linuxIntelTts
+  lxgwNeoZhiSong
   mediawikiAuthManagerOAuth
   moeKoeMusic
   mstickereditor
@@ -118,6 +119,21 @@ tgSend =
       `hasCargoLock` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/tg-send.git"
+
+lxgwNeoZhiSong :: PackageSet ()
+lxgwNeoZhiSong = do
+  define $
+    package "lxgw-neozhisong"
+      `sourceGitHub` ("lxgw", "LxgwNeoZhiSong")
+      `fetchUrl` regular
+  define $
+    package "lxgw-neozhisong-plus"
+      `sourceGitHub` ("lxgw", "LxgwNeoZhiSong")
+      `fetchUrl` plus
+  return ()
+  where
+    regular (Version v) = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/" <> v <> "/LXGWNeoZhiSong.ttf"
+    plus (Version v) = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/" <> v <> "/LXGWNeoZhiSongPlus.ttf"
 
 yacd :: PackageSet ()
 yacd =

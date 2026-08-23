@@ -41,6 +41,7 @@ lib.makeScope newScope (
     libva-v4l2 = callPackage ./libva-v4l2 { };
     llm-wiki-compiler = callPackage ./llm-wiki-compiler { };
     lpac = callPackage ./lpac { };
+    lxgw-neozhisong = callPackage ./lxgw-neozhisong { };
     ly2video = callPackage ./ly2video { };
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
