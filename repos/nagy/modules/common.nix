@@ -8,6 +8,12 @@ let
   self = import ../. { inherit pkgs; };
 in
 {
+
+  imports = [
+    ./ssh.nix
+    ./shortcommands_common.nix
+  ];
+
   users.users.user = {
     isNormalUser = true;
     uid = 1000;

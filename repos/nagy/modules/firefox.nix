@@ -6,10 +6,39 @@
   ...
 }:
 
+let
+  bruvtabPkgs =
+    (builtins.getFlake "github:pschmitt/bruvtab").packages.${pkgs.stdenv.hostPlatform.system};
+  cfg = config.programs.firefox;
+
+  # Bake the whole configuration into the binary via wrapFirefox's
+  # `extraPolicies`, so it lands in
+  # $out/lib/firefox/distribution/policies.json instead of
+  # /etc/firefox/policies/policies.json (which is why `enable` stays false
+  # below). This mirrors the policy merging nixpkgs does when `enable = true`:
+  # preferences become locked `Preferences` entries and `DisableAppUpdate` is
+  # added.
+  bakedPolicies =
+    cfg.policies
+    // {
+      DisableAppUpdate = true;
+      Preferences = lib.mapAttrs (_: value: {
+        Value = value;
+        Status = cfg.preferencesStatus;
+      }) cfg.preferences;
+    };
+
+  wrappedFirefox = pkgs.wrapFirefox cfg.package.unwrapped {
+    extraPolicies = bakedPolicies;
+    nativeMessagingHosts = cfg.nativeMessagingHosts.packages;
+  };
+in
 {
   programs.firefox = {
-    enable = true;
-    package = pkgs.firefox-esr-140;
+    # Purposefully disable here to not have conflicting binaries installed.
+    # enable = true;
+    package = pkgs.firefox-esr-153;
+    nativeMessagingHosts.packages = [ bruvtabPkgs.bruvtab ];
     policies = {
       Cookies = {
         AcceptThirdParty = "never";
@@ -61,6 +90,8 @@
             (makeXpiPath nur.repos.rycee.firefox-addons.old-reddit-redirect)
             # # "https://addons.mozilla.org/firefox/downloads/latest/toggley/latest.xpi"
             # (makeXpiPath nur.repos.rycee.firefox-addons.toggley)
+            # "https://github.com/pschmitt/bruvtab"
+            (makeXpiPath bruvtabPkgs.firefoxAddon)
 
             # absolute file paths work here as well
             # https://github.com/mozilla/policy-templates#policiesjson-47
@@ -186,6 +217,11 @@
       # "browser.altClickSave" = true;
     };
   };
+
+  environment.systemPackages = [
+    bruvtabPkgs.bruvtab
+    wrappedFirefox
+  ];
 
   # Firefox connects to these hosts on every start.
   # Hard disable them on the whole host.

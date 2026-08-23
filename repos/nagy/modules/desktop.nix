@@ -10,6 +10,13 @@ let
 in
 {
 
+  imports = [
+    ./scanner.nix
+    ./keyboard_layout.nix
+    ./gtk.nix
+    ./fonts.nix
+  ];
+
   services.xserver = {
     enable = true;
   };

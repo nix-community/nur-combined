@@ -52,6 +52,8 @@ in
     nix = {
       nixPath = [
         "nixpkgs=${lib.cleanSource pkgs.path}"
+        "nur=https://github.com/nix-community/NUR/archive/main.tar.gz"
+        "nixpkgs-esp-dev=https://github.com/mirrexagon/nixpkgs-esp-dev/archive/master.tar.gz"
       ];
       settings = {
         experimental-features = [

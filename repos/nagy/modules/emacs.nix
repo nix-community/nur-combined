@@ -49,6 +49,18 @@ let
           allowSubstitutes = false;
         };
 
+        magit-difftastic = nur.repos.nagy.emacsPackages.magit-difftastic.override {
+          magit = self.magit;
+        };
+
+        cid-mode = super.cid-mode.override {
+          magit-section = self.magit-section;
+        };
+
+        ctags-mode = super.ctags-mode.override {
+          magit-section = self.magit-section;
+        };
+
         memoize = super.memoize.overrideAttrs {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
@@ -89,10 +101,12 @@ let
           }
         );
 
+        nixos = nur.repos.nagy.emacsPackages.nixos.override {
+          nix-mode = self.nix-mode;
+        };
+
         lua = super.lua.override {
           lua = pkgs.lua5_4;
-          preferLocalBuild = true;
-          allowSubstitutes = false;
         };
 
         hledger-mode = super.hledger-mode.overrideAttrs {
@@ -101,6 +115,15 @@ let
             repo = "hledger-mode";
             rev = "03b8c78d448823eade5d2a2ae08d150d00146263";
             hash = "sha256-G9IHDhy1kdmnusHUQR0F4kLs2DUrawgxDnhloZvV7FM=";
+          };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        };
+
+        pi-coding-agent = super.pi-coding-agent.overrideAttrs {
+          src = builtins.fetchGit {
+            url = "https://github.com/dnouri/pi-coding-agent";
+            ref = "master";
           };
           preferLocalBuild = true;
           allowSubstitutes = false;

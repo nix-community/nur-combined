@@ -25,18 +25,15 @@ let
           imports = [
             nur.repos.nagy.modules.alacritty
             nur.repos.nagy.modules.common-lisp
-            # nur.repos.nagy.modules.common
-            # nur.repos.nagy.modules.coredns
             nur.repos.nagy.modules.desktop
             nur.repos.nagy.modules.emacs
-            # nur.repos.nagy.modules.firefox
+            nur.repos.nagy.modules.firefox
             nur.repos.nagy.modules.fonts
             nur.repos.nagy.modules.fzf
             nur.repos.nagy.modules.git
             nur.repos.nagy.modules.go
             nur.repos.nagy.modules.gtk
             nur.repos.nagy.modules.hledger
-            # nur.repos.nagy.modules.hmconvert
             nur.repos.nagy.modules.hmmodule-mpv
             nur.repos.nagy.modules.hmmodule-readline
             nur.repos.nagy.modules.hmmodule-zathura
@@ -44,9 +41,8 @@ let
             nur.repos.nagy.modules.javascript
             nur.repos.nagy.modules.keyboard_layout
             nur.repos.nagy.modules.kubernetes
-            nur.repos.nagy.modules.llama-cpp
-            # nur.repos.nagy.modules.lua
             nur.repos.nagy.modules.ncdu
+            nur.repos.nagy.modules.neovim
             nur.repos.nagy.modules.nix
             nur.repos.nagy.modules.openstack
             nur.repos.nagy.modules.opentofu
@@ -54,13 +50,11 @@ let
             nur.repos.nagy.modules.python
             nur.repos.nagy.modules.pytr
             nur.repos.nagy.modules.restic
-            nur.repos.nagy.modules.rust
             nur.repos.nagy.modules.shortcommands_common
             nur.repos.nagy.modules.shortcommands
-            nur.repos.nagy.modules.ssh
+            # nur.repos.nagy.modules.ssh
             nur.repos.nagy.modules.starship
             nur.repos.nagy.modules.typst
-            # nur.repos.nagy.modules.wasm
             nur.repos.nagy.modules.xcompose
             nur.repos.nagy.modules.yggdrasil
           ]
@@ -88,6 +82,8 @@ let
             pkgs.ron-lsp
 
             self.pngattach
+
+            pkgs.disko
           ];
 
           services.xserver.enable = true;

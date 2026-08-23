@@ -45,48 +45,5 @@
   #   CARGO_ALIAS_tr = "test --release";
   # };
 
-  nagy.shortcommands.commands = {
-    # may also be done via aliases
-    # https://doc.rust-lang.org/cargo/reference/config.html#alias
-    C = [ "cargo" ];
-    Cr = [
-      "cargo"
-      "run"
-      "--quiet"
-    ];
-    Crr = [
-      "cargo"
-      "run"
-      "--release"
-      "--quiet"
-    ];
-    Cb = [
-      "cargo"
-      "build"
-    ];
-    Cbr = [
-      "cargo"
-      "build"
-      "--release"
-    ];
-    Ct = [
-      "cargo"
-      "test"
-    ];
-    Ctr = [
-      "cargo"
-      "test"
-      "--release"
-    ];
-    Cd = [
-      "cargo"
-      "doc"
-    ];
-    Cx = [
-      "cargo"
-      "clean"
-    ];
-  };
-
   environment.sessionVariables.CARGO_TARGET_WASM32_WASIP1_RUNNER = "${pkgs.wasmtime}/bin/wasmtime run";
 }
