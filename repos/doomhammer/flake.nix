@@ -17,6 +17,8 @@
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
       overlays.default = import ./overlay.nix;
+      darwinModules.default = import ./modules/darwin;
       homeModules.default = import ./modules/home-manager;
+      nixosModules.default = import ./modules/nixos;
     };
 }
