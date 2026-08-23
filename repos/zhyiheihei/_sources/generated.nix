@@ -8,12 +8,12 @@
 {
   aioshutil = {
     pname = "aioshutil";
-    version = "v1.6";
+    version = "v1.7a1";
     src = fetchFromGitHub {
       owner = "kumaraditya303";
       repo = "aioshutil";
-      tag = "v1.6";
-      hash = "sha256-+8BpL9CVH0X/9H7vL4xuV5CdA3A10a2A1q4wt1x1sSM=";
+      tag = "v1.7a1";
+      hash = "sha256-wBh56FqwbfOvshQe9HN7H5kPKkM37XL/vL3txeivVBY=";
     };
   };
   cn2an = {
@@ -197,18 +197,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "4.4.55";
+    version = "4.4.61";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.55/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-K0ZQhgVm4rU9xcc6ges/HJi3WQ2hal20Sn6Q7ehbmac=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.61/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-KaQH63Od/jebWsBMsbdTMJIwpziQ0QIqotCPPmtgpCE=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "4.4.55";
+    version = "4.4.61";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.55/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-VKly7o3QR+FAncWaBJ5yQlNW25xzdAlTNz7kK3ahmo8=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.61/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-lm3aAmDlpDh6NZfAfZBRFTE3Skl6NLNWXQq8sZ4FnHY=";
     };
   };
   vertex = {

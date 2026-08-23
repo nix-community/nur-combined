@@ -55,7 +55,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [x] |  | `aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.6 | Asynchronous shutil module |
+| - [x] |  | `aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.7a1 | Asynchronous shutil module |
 | - [x] |  | `cn2an` | [cn2an](https://github.com/Ailln/cn2an) | 0.5.24 | Convert Chinese numerals and Arabic numerals |
 | - [x] |  | `docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.4 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [x] |  | `docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.4 | Web management panel for the Docker-Proxy registry proxy |
@@ -76,7 +76,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.2.0 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [x] |  | `tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
-| - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.55 | Lightweight S3-compatible object storage with built-in web dashboard |
+| - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.61 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [x] |  | `vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [x] |  | `zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.1 | Fast Chinese variant conversion backed by Rust |
 </details>
@@ -87,7 +87,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `python3Packages.aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.6 | Asynchronous shutil module |
+| - [ ] |  | `python3Packages.aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.7a1 | Asynchronous shutil module |
 | - [ ] |  | `python3Packages.cn2an` | [cn2an](https://github.com/Ailln/cn2an) | 0.5.24 | Convert Chinese numerals and Arabic numerals |
 | - [ ] |  | `python3Packages.jieba-next` | [jieba-next](https://github.com/mxcoras/jieba-next) | 1.0.0rc1 | Modern jieba fork with Rust speedups |
 | - [ ] |  | `python3Packages.pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
@@ -116,7 +116,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.18 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.3.2243 | Self-hosted manga reader and aggregator server |
-| - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.55 | Lightweight S3-compatible object storage with built-in web dashboard |
+| - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.61 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 </details>
 
