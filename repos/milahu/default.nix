@@ -690,6 +690,52 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       fsindex = callPackage ./pkgs/development/python-modules/fsindex { };
 
+
+
+      # python3.pkgs.opencv4
+      # based on nixpkgs: pkgs/top-level/python-packages.nix
+
+      # opencv4 = toPythonModule (
+      opencv4 = pkgs.python3Packages.toPythonModule (
+        # pkgs.opencv4.override {
+        pkgs-opencv4.override {
+          enablePython = true;
+          # pythonPackages = self;
+          pythonPackages = pkgs.python3Packages;
+        }
+      );
+
+      # opencv4Full = toPythonModule (
+      opencv4Full = pkgs.python3Packages.toPythonModule (
+        # pkgs.opencv4.override rec {
+        pkgs-opencv4.override rec {
+          enablePython = true;
+          # pythonPackages = self;
+          pythonPackages = pkgs.python3Packages;
+          enableCuda = pkgs.config.cudaSupport;
+          enableCublas = enableCuda;
+          enableCudnn = enableCuda;
+          enableCufft = enableCuda;
+          # enableLto = !stdenv.hostPlatform.isLinux; # https://github.com/NixOS/nixpkgs/issues/343123
+          enableLto = !pkgs.stdenv.hostPlatform.isLinux; # https://github.com/NixOS/nixpkgs/issues/343123
+          enableUnfree = false; # prevents cache
+          enableIpp = true;
+          enableGtk3 = true;
+          enableVtk = true;
+          enableFfmpeg = true;
+          enableGStreamer = true;
+          enableTesseract = true;
+          enableTbb = true;
+          enableOvis = true;
+          enableGPhoto2 = true;
+          enableDC1394 = true;
+          enableDocs = true;
+        }
+      );
+
+
+
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -1580,6 +1626,30 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   circle-so-scraper = python3Packages.callPackage ./pkgs/by-name/ci/circle-so-scraper/package.nix { };
 
   undither = callPackage ./pkgs/by-name/un/undither/package.nix { };
+
+
+
+  # opencv4
+  # based on nixpkgs: pkgs/top-level/all-packages.nix
+
+  opencv4 = callPackage ./pkgs/development/libraries/opencv/4.x.nix {
+    pythonPackages = python3Packages;
+    # TODO: LTO does not work.
+    # https://github.com/NixOS/nixpkgs/issues/343123
+    enableLto = false;
+  };
+
+  opencv4WithoutCuda = opencv4.override {
+    enableCuda = false;
+  };
+
+  opencv = opencv4;
+
+  # alias for python3.pkgs.opencv4
+  pkgs-opencv = opencv4;
+  pkgs-opencv4 = opencv4;
+
+
 
 }
 
