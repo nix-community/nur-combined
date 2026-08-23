@@ -1061,16 +1061,6 @@
       hash = "sha256-0+rYXM7kS1iHcc/NpHEFKtYDoLKET5XWhmA7Keh71lk=";
     };
   };
-  invisible-firefox = {
-    pname = "invisible-firefox";
-    version = "firefox-20";
-    src = fetchFromGitHub {
-      owner = "feder-cr";
-      repo = "firefox_antidetect_patch";
-      tag = "firefox-20";
-      hash = "sha256-7j2TLlpTsyoJRiWe4EKHfaCyMqEDeoYMAkT/OaVKv7k=";
-    };
-  };
   it-tools = {
     pname = "it-tools";
     version = "v2026.7.11";
