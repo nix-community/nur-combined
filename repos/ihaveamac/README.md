@@ -17,7 +17,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [3dstool-1.2.6](https://github.com/dnasdw/3dstool) | \_3dstool | An all-in-one tool for extracting/creating 3ds roms. |
 | [3dstools-1.3.1](https://github.com/devkitpro/3dstools) | \_3dstools | Tools for 3DS homebrew |
 | [3gxtool-1.3](https://gitlab.com/thepixellizeross/3gxtool) | \_3gxtool | An utility to generate 3GX plugins. |
-| [azahar-2126.0-unstable-2026-08-17](https://github.com/azahar-emu/azahar) | azahar-master | Open-source 3DS emulator project based on Citra (master branch) |
+| [azahar-2126.1-alpha1-unstable-2026-08-23](https://github.com/azahar-emu/azahar) | azahar-master | Open-source 3DS emulator project based on Citra (master branch) |
 | [bannertool-2024-11-30](https://github.com/ihaveamac/3ds-bannertool) | bannertool | A tool for creating 3DS banners. (Mix of Windows unicode fix and CMake build system) |
 | [caesar-0.4.2-unstable-2022-08-16](https://github.com/kr3nshaw/caesar) | caesar | A tool that extracts the contents of Citrus Sound Archives |
 | [chlink-5.0.0](https://github.com/BernardoGiordano/Checkpoint) | chlink | Companion PC CLI for Checkpoint's wireless save transfer |
@@ -29,7 +29,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [cxitool-unstable-2019-04-10](https://github.com/devkitpro/3dstools) | cxitool | Convert 3dsx to CXI |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
 | [darctool-yls8-0-unstable-2015-11-21](https://github.com/yellows8/darctool) | darctool-yls8 | Tool for extracting and building 3DS darc archive files. |
-| [DiscordWikiBot-0-unstable-2026-06-18](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
+| [DiscordWikiBot-0-unstable-2026-08-03](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
 | [gmodpatchtool-20260722](https://github.com/ticky/lnshot) | gmodpatchtool | Patches for Garry's Mod. Updates/Improves CEF and Fixes common launch/performance issues (esp. on Linux/Proton/macOS) |
 | [kame-editor-1.4.1-unstable-2025-06-04](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
@@ -79,7 +79,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [wheelwizard-2.4.11](https://github.com/TeamWheelWizard/WheelWizard) | wheelwizard | Retro Rewind Launcher |
 | [wifiboot-host-unstable-2023-07-02](https://github.com/danny8376/wifiboot-host) | wifiboot-host | command line version uploader for https://problemkaputt.de/wifiboot.htm |
 | [xenonrecomp-0-unstable-2025-08-04](https://github.com/hedge-dev/XenonRecomp) | xenonrecomp | A tool for recompiling Xbox 360 games to native executables. |
-| [yt-dlp-2026.07.04-unstable-2026-08-17](https://github.com/yt-dlp/yt-dlp/) | yt-dlp-master | Feature-rich command-line audio/video downloader (master branch) |
+| [yt-dlp-2026.08.19-unstable-2026-08-20](https://github.com/yt-dlp/yt-dlp/) | yt-dlp-master | Feature-rich command-line audio/video downloader (master branch) |
 | [ytdl-nfo-0.3.0-unstable-2026-01-31](https://github.com/owdevel/ytdl-nfo) | ytdl-nfo | youtube-dl JSON metadata to Kodi-style NFO converter (fork with setuptools fix) |
 
 ## Overlay
