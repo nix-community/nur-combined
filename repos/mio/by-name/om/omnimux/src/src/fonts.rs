@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
-/// Directories that may contain shipped Nerd Font Symbols TTFs.
-fn symbol_font_dirs() -> Vec<PathBuf> {
+/// Directories that may contain shipped terminal/fallback TTFs.
+fn bundled_font_dirs() -> Vec<PathBuf> {
     let mut dirs = Vec::new();
     if let Ok(dir) = std::env::var("OMNIMUX_FONTS_DIR") {
         dirs.push(PathBuf::from(dir));
@@ -17,12 +17,12 @@ fn symbol_font_dirs() -> Vec<PathBuf> {
     dirs
 }
 
-/// Load bundled Nerd + emoji fonts into GPUI for Starship / powerline fallbacks.
-pub fn load_bundled_symbol_fonts(cx: &gpui::App) {
+/// Load bundled terminal, Nerd, and emoji fonts into GPUI.
+pub fn load_bundled_fonts(cx: &gpui::App) {
     use std::borrow::Cow;
 
     let mut fonts: Vec<Cow<'static, [u8]>> = Vec::new();
-    for dir in symbol_font_dirs() {
+    for dir in bundled_font_dirs() {
         let Ok(entries) = std::fs::read_dir(&dir) else {
             continue;
         };
@@ -44,6 +44,6 @@ pub fn load_bundled_symbol_fonts(cx: &gpui::App) {
         return;
     }
     if let Err(err) = cx.text_system().add_fonts(fonts) {
-        eprintln!("omnimux: failed to load bundled symbol fonts: {err}");
+        eprintln!("omnimux: failed to load bundled fonts: {err}");
     }
 }

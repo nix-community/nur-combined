@@ -12,7 +12,7 @@ use actions::{
     PassthroughShiftTab, PassthroughTab, Paste, PrevTab, SearchNext, SearchPrev, ZoomIn, ZoomOut,
     ZoomReset,
 };
-use fonts::load_bundled_symbol_fonts;
+use fonts::load_bundled_fonts;
 use gpui::prelude::*;
 use gpui::*;
 use settings::load_settings;
@@ -30,7 +30,7 @@ fn main() {
 
     gpui::Application::new().run(move |cx: &mut gpui::App| {
         gpui_component::init(cx);
-        load_bundled_symbol_fonts(cx);
+        load_bundled_fonts(cx);
 
         cx.bind_keys([
             KeyBinding::new("cmd-t", NewTab, Some("omnimux")),
