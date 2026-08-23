@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -6,14 +8,11 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # for testing purposes
-  hello = pkgs.hello;
+  hello = pkgs.hello.overrideAttrs (old: {
+    meta = old.meta // {
+      description = "the hello from nixpkgs, reproduced here to act as a smoke test";
+    };
+  });
 
-  # talosctl-bin = pkgs.callPackage ./pkgs/talosctl-bin { };
   argen = pkgs.callPackage ./pkgs/argen { };
-  akkoma-bin = pkgs.callPackage ./pkgs/akkoma-bin { };
-  pleroma-ebooks = pkgs.callPackage ./pkgs/pleroma-ebooks { };
-
-  # intiface-desktop = pkgs.callPackage ./pkgs/intiface-desktop { };
-  # intiface-nix-patcher = pkgs.callPackage ./pkgs/intiface-nix-patcher { };
 }
