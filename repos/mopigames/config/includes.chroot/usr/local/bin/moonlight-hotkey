@@ -1,0 +1,48 @@
+#!/bin/sh
+# Hand Ctrl+Alt+M to the client while it is streaming, and take it back after.
+#
+#   moonlight-hotkey release   the client owns the key
+#   moonlight-hotkey grab      the compositor owns it again
+#
+# Both cases need a panel, and only one of them can have the key.
+#
+# While a stream is running the panel is drawn by Selene itself, into its own
+# surface -- the only way to get a panel over a fullscreen client that the
+# compositor will reliably composite.  For that, sway must not bind the key,
+# or it never reaches the client at all: `seat * shortcuts_inhibitor disable`
+# means sway wins every contest for a binding it holds.
+#
+# Outside a stream there is no client drawing an overlay, so the key goes back
+# to the compositor, which opens the same model and painter in a standalone
+# Selene window. Without this, Wi-Fi could not be set up before the first
+# stream -- which is exactly when someone needs it.
+#
+# Selene calls this at the start and end of a session.  The binding lives here
+# rather than in the client so there is one definition of what the key does,
+# and it is in the same file as the rest of the appliance's session policy.
+#
+# shellcheck source=./moonlight-common
+. /usr/local/bin/moonlight-common
+
+BINDING="--to-code Ctrl+Alt+m"
+PANEL="/usr/bin/selene panel"
+
+# Selene runs as the same user as sway, so the socket is findable without
+# being told.  Not an error when it is absent: a client running anywhere
+# other than the appliance session has no compositor to ask.
+SWAYSOCK="${SWAYSOCK:-$(ls /run/user/$(id -u)/sway-ipc.*.sock 2>/dev/null | head -1)}"
+[ -n "$SWAYSOCK" ] || exit 0
+export SWAYSOCK
+
+case "$1" in
+release)
+	swaymsg "unbindsym $BINDING" >/dev/null 2>&1 || true
+	;;
+grab)
+	swaymsg "bindsym $BINDING exec $PANEL" >/dev/null 2>&1 || true
+	;;
+*)
+	printf 'usage: moonlight-hotkey release|grab\n' >&2
+	exit 2
+	;;
+esac

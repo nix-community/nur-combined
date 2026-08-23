@@ -1,0 +1,8 @@
+[Unit]
+Description=Confirm a healthy Moonlight OS A/B boot
+ConditionPathExists=/boot/moonlight/pending
+ConditionPathIsMountPoint=/boot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/moonlight-update --confirm-boot

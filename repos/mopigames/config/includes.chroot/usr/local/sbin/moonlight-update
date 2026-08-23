@@ -1,0 +1,395 @@
+#!/bin/sh
+# Signed, rollback-safe Moonlight OS updater.
+#
+# A release ISO is copied into the inactive root slot. GRUB tries that slot
+# once; a timer makes it the default only after the new system has stayed up
+# for 90 seconds. If it cannot boot, GRUB's one-shot entry has already been
+# consumed and the next boot returns to the previous slot.
+set -eu
+
+MANIFEST_URL=https://github.com/moonlight-os/moonlight-os/releases/latest/download/moonlight-os-update.txt
+SIGNATURE_URL=${MANIFEST_URL}.sig
+PUBLIC_KEY=/usr/share/moonlight-os/update.pub
+STATE_DIR=/var/lib/moonlight-os/update
+BOOT_DIR=/boot/moonlight
+TARGET=/mnt/moonlight-update
+ISO_MOUNT=/mnt/moonlight-update-iso
+SOURCE_MOUNT=/mnt/moonlight-update-source
+
+WORK=""
+BOUND_PATHS=""
+MOUNTED_TARGET=0
+MOUNTED_SOURCE=0
+MOUNTED_ISO=0
+CURRENT_SLOT=""
+INACTIVE_SLOT=""
+ROOT_DEV=""
+INACTIVE_DEV=""
+BOOT_DEV=""
+ESP_DEV=""
+DISK=""
+AVAILABLE_VERSION=""
+AVAILABLE_ISO=""
+AVAILABLE_SHA256=""
+AVAILABLE_SIZE=""
+
+have_tty() { ( : > /dev/tty ) 2>/dev/null; }
+
+message() {
+	if have_tty; then
+		whiptail --title "Moonlight OS update" --msgbox "$1" 15 76 >/dev/tty 2>/dev/tty
+	else
+		printf '%s\n' "$1" >&2
+	fi
+}
+
+confirm() {
+	have_tty || return 1
+	whiptail --title "Moonlight OS update" --defaultno --yesno "$1" 19 76 \
+		>/dev/tty 2>/dev/tty
+}
+
+die() {
+	message "$1"
+	exit 1
+}
+
+cleanup() {
+	set +e
+	for path in $BOUND_PATHS; do
+		mountpoint -q "$path" 2>/dev/null && umount -l "$path" 2>/dev/null
+	done
+	[ "$MOUNTED_TARGET" -eq 1 ] && umount -l "$TARGET" 2>/dev/null
+	[ "$MOUNTED_SOURCE" -eq 1 ] && umount -l "$SOURCE_MOUNT" 2>/dev/null
+	[ "$MOUNTED_ISO" -eq 1 ] && umount -l "$ISO_MOUNT" 2>/dev/null
+	[ -n "$WORK" ] && rm -rf "$WORK"
+}
+trap cleanup EXIT HUP INT TERM
+
+require_root() {
+	[ "$(id -u)" -eq 0 ] || die "The updater must run as root."
+}
+
+find_on_disk() {
+	label="$1"
+	lsblk -lnpo NAME,LABEL "$DISK" 2>/dev/null \
+		| awk -v wanted="$label" '$2 == wanted { print $1; exit }'
+}
+
+detect_layout() {
+	[ ! -d /run/live/medium ] \
+		|| die "Install Moonlight OS to this computer before updating it."
+
+	ROOT_DEV=$(readlink -f "$(findmnt -no SOURCE / 2>/dev/null)")
+	root_label=$(blkid -s LABEL -o value "$ROOT_DEV" 2>/dev/null || true)
+	case "$root_label" in
+		moonlight-root-a) CURRENT_SLOT=a; INACTIVE_SLOT=b ;;
+		moonlight-root-b) CURRENT_SLOT=b; INACTIVE_SLOT=a ;;
+		moonlight-root)
+			die "This installation uses Moonlight OS's older single-root layout.\n\nReinstall once from a current USB image to enable safe A/B updates. The installer can carry your settings over automatically."
+			;;
+		*) die "This does not look like an installed Moonlight OS system.\n\nRoot device: $ROOT_DEV\nLabel: ${root_label:-none}" ;;
+	esac
+
+	parent=$(lsblk -ndo PKNAME "$ROOT_DEV" 2>/dev/null | head -1)
+	[ -n "$parent" ] || die "Could not find the disk containing $ROOT_DEV."
+	DISK=/dev/$parent
+
+	INACTIVE_DEV=$(find_on_disk "moonlight-root-$INACTIVE_SLOT")
+	BOOT_DEV=$(find_on_disk moonlight-boot)
+	ESP_DEV=$(find_on_disk MLOS-ESP)
+	[ -b "$INACTIVE_DEV" ] && [ -b "$BOOT_DEV" ] && [ -b "$ESP_DEV" ] \
+		|| die "The A/B partitions on $DISK are incomplete. Nothing was changed."
+
+	boot_source=$(readlink -f "$(findmnt -no SOURCE /boot 2>/dev/null)")
+	[ "$boot_source" = "$(readlink -f "$BOOT_DEV")" ] \
+		|| die "The shared Moonlight boot partition is not mounted at /boot. Nothing was changed."
+
+	if findmnt -rn -S "$INACTIVE_DEV" >/dev/null 2>&1; then
+		die "The inactive slot $INACTIVE_DEV is already mounted. Unmount it before updating."
+	fi
+}
+
+release_version() {
+	sed -n 's/^VERSION=//p' /etc/moonlight-os/release 2>/dev/null | head -1
+}
+
+manifest_value() {
+	key="$1"
+	sed -n "s/^${key}=//p" "$WORK/manifest" | head -1
+}
+
+fetch_release() {
+	mkdir -p "$STATE_DIR"
+	chmod 0700 "$STATE_DIR"
+	WORK=$(mktemp -d "$STATE_DIR/work.XXXXXX")
+
+	curl --proto '=https' --tlsv1.2 -fsSL --retry 3 \
+		-o "$WORK/manifest" "$MANIFEST_URL" \
+		|| die "Could not check for updates.\n\nCheck the network connection and try again."
+	curl --proto '=https' --tlsv1.2 -fsSL --retry 3 \
+		-o "$WORK/manifest.sig" "$SIGNATURE_URL" \
+		|| die "The update signature could not be downloaded. Nothing was changed."
+
+	[ -r "$PUBLIC_KEY" ] || die "The built-in update public key is missing. Nothing was changed."
+	openssl pkeyutl -verify -pubin -inkey "$PUBLIC_KEY" -rawin \
+		-in "$WORK/manifest" -sigfile "$WORK/manifest.sig" >/dev/null 2>&1 \
+		|| die "The update metadata has an invalid signature.\n\nNothing was downloaded or installed."
+
+	[ "$(grep -c '^format=' "$WORK/manifest")" -eq 1 ] \
+		&& [ "$(manifest_value format)" = 1 ] \
+		|| die "The signed update metadata uses an unsupported format."
+
+	AVAILABLE_VERSION=$(manifest_value version)
+	AVAILABLE_ISO=$(manifest_value iso)
+	AVAILABLE_SHA256=$(manifest_value sha256)
+	AVAILABLE_SIZE=$(manifest_value size)
+
+	case "$AVAILABLE_VERSION" in
+		[0-9]*[!0-9A-Za-z.+:~_-]*|[!0-9]*|'') die "The signed update version is invalid." ;;
+	esac
+	case "$AVAILABLE_ISO" in
+		''|*[!0-9A-Za-z._-]*|*..*) die "The signed update filename is invalid." ;;
+	esac
+	case "$AVAILABLE_SHA256" in
+		*[!0-9a-f]*|'') die "The signed update checksum is invalid." ;;
+	esac
+	[ "${#AVAILABLE_SHA256}" -eq 64 ] || die "The signed update checksum is invalid."
+	case "$AVAILABLE_SIZE" in
+		''|*[!0-9]*) die "The signed update size is invalid." ;;
+	esac
+	[ "$AVAILABLE_SIZE" -gt 0 ] || die "The signed update size is invalid."
+}
+
+human_size() {
+	awk -v bytes="$1" 'BEGIN { printf "%.1f GB", bytes / 1000000000 }'
+}
+
+download_iso() {
+	available=$(df -PB1 "$STATE_DIR" | awk 'NR == 2 { print $4 }')
+	needed=$((AVAILABLE_SIZE + 536870912))
+	[ "${available:-0}" -ge "$needed" ] \
+		|| die "There is not enough free space to download this update.\n\nNeeded: $(human_size "$needed")\nAvailable: $(human_size "${available:-0}")"
+
+	if have_tty; then
+		whiptail --title "Moonlight OS update" --infobox \
+			"Downloading Moonlight OS $AVAILABLE_VERSION...\n\nThis can take a few minutes." \
+			9 68 >/dev/tty 2>/dev/tty
+	fi
+	url="https://github.com/moonlight-os/moonlight-os/releases/download/v${AVAILABLE_VERSION}/${AVAILABLE_ISO}"
+	curl --proto '=https' --tlsv1.2 -fL --retry 3 --progress-bar \
+		-o "$WORK/system.iso" "$url" \
+		|| die "The Moonlight OS image could not be downloaded. Nothing was changed."
+
+	actual_size=$(wc -c < "$WORK/system.iso" | tr -d '[:space:]')
+	[ "$actual_size" = "$AVAILABLE_SIZE" ] \
+		|| die "The downloaded image has the wrong size. Nothing was changed."
+	actual_sha=$(sha256sum "$WORK/system.iso" | awk '{ print $1 }')
+	[ "$actual_sha" = "$AVAILABLE_SHA256" ] \
+		|| die "The downloaded image failed its signed checksum. Nothing was changed."
+}
+
+write_slot_files() {
+	root_uuid=$(blkid -s UUID -o value "$INACTIVE_DEV")
+	a_dev=$(find_on_disk moonlight-root-a)
+	b_dev=$(find_on_disk moonlight-root-b)
+	a_uuid=$(blkid -s UUID -o value "$a_dev")
+	b_uuid=$(blkid -s UUID -o value "$b_dev")
+	boot_uuid=$(blkid -s UUID -o value "$BOOT_DEV")
+	esp_uuid=$(blkid -s UUID -o value "$ESP_DEV")
+	[ -n "$root_uuid" ] && [ -n "$a_uuid" ] && [ -n "$b_uuid" ] \
+		&& [ -n "$boot_uuid" ] && [ -n "$esp_uuid" ] \
+		|| die "Could not read the A/B filesystem identifiers."
+
+	cat > "$TARGET/etc/fstab" <<-EOF
+	UUID=$root_uuid  /          ext4  errors=remount-ro,noatime  0 1
+	UUID=$boot_uuid  /boot      ext4  errors=remount-ro,noatime  0 2
+	UUID=$esp_uuid   /boot/efi  vfat  umask=0077,nofail          0 0
+	tmpfs             /tmp       tmpfs defaults,nosuid,nodev       0 0
+	EOF
+
+	mkdir -p "$TARGET/etc/moonlight-os"
+	cat > "$TARGET/etc/moonlight-os/slots.conf" <<-EOF
+	MLOS_ROOT_A_UUID=$a_uuid
+	MLOS_ROOT_B_UUID=$b_uuid
+	MLOS_BOOT_UUID=$boot_uuid
+	MLOS_ESP_UUID=$esp_uuid
+	EOF
+	printf '%s\n' "$INACTIVE_SLOT" > "$TARGET/etc/moonlight-os/slot"
+	if [ -r "$TARGET/usr/share/moonlight-os/release" ]; then
+		cp "$TARGET/usr/share/moonlight-os/release" \
+			"$TARGET/etc/moonlight-os/release"
+	fi
+}
+
+bind_target() {
+	mkdir -p "$TARGET/proc" "$TARGET/sys" "$TARGET/dev" "$TARGET/run" \
+		"$TARGET/tmp" "$TARGET/mnt" "$TARGET/media" "$TARGET/boot/efi"
+	chmod 1777 "$TARGET/tmp"
+	mount --bind /boot "$TARGET/boot"
+	BOUND_PATHS="$TARGET/boot $BOUND_PATHS"
+	mount --bind /boot/efi "$TARGET/boot/efi"
+	BOUND_PATHS="$TARGET/boot/efi $BOUND_PATHS"
+	for path in proc sys dev run; do
+		mount --bind "/$path" "$TARGET/$path"
+		BOUND_PATHS="$TARGET/$path $BOUND_PATHS"
+	done
+	if mount --bind /dev/pts "$TARGET/dev/pts" 2>/dev/null; then
+		BOUND_PATHS="$TARGET/dev/pts $BOUND_PATHS"
+	fi
+}
+
+prepare_target() {
+	if have_tty; then
+		whiptail --title "Moonlight OS update" --infobox \
+			"Installing into inactive slot $(printf '%s' "$INACTIVE_SLOT" | tr 'ab' 'AB')...\n\nThe current system remains available for rollback." \
+			10 70 >/dev/tty 2>/dev/tty
+	fi
+
+	backup=$(moonlight-backup --save-from / "$STATE_DIR") \
+		|| die "Your settings could not be backed up, so the update was stopped before changing the inactive slot."
+
+	mkdir -p "$ISO_MOUNT" "$SOURCE_MOUNT" "$TARGET"
+	for path in "$ISO_MOUNT" "$SOURCE_MOUNT" "$TARGET"; do
+		mountpoint -q "$path" 2>/dev/null \
+			&& die "The update workspace $path is already mounted. Nothing was changed."
+	done
+	mount -o loop,ro "$WORK/system.iso" "$ISO_MOUNT" \
+		|| die "The verified update image could not be mounted."
+	MOUNTED_ISO=1
+	[ -f "$ISO_MOUNT/live/filesystem.squashfs" ] \
+		|| die "The verified image has no Moonlight OS filesystem."
+	mount -o loop,ro "$ISO_MOUNT/live/filesystem.squashfs" "$SOURCE_MOUNT" \
+		|| die "The update filesystem could not be mounted."
+	MOUNTED_SOURCE=1
+
+	# This is the only destructive step: the exact inactive partition was
+	# shown in the confirmation dialog, and the running slot is never touched.
+	mkfs.ext4 -F -q -L "moonlight-root-$INACTIVE_SLOT" "$INACTIVE_DEV" \
+		|| die "Could not prepare inactive slot $INACTIVE_DEV."
+	mount "$INACTIVE_DEV" "$TARGET" || die "Could not mount the inactive slot."
+	MOUNTED_TARGET=1
+
+	rsync -aHAX --numeric-ids --info=progress2 \
+		--exclude=/boot --exclude=/proc --exclude=/sys --exclude=/dev \
+		--exclude=/run --exclude=/tmp --exclude=/mnt --exclude=/media \
+		--exclude=/target --exclude=/lost+found \
+		"$SOURCE_MOUNT/" "$TARGET/" \
+		|| die "Copying the new system into the inactive slot failed."
+
+	bind_target
+	moonlight-backup --restore-to "$TARGET" "$backup" \
+		|| die "The new system was copied, but your settings could not be restored. The current slot is still the default."
+	# Settings archives written by releases before 0.2.2 included the whole
+	# /etc/moonlight-os directory.  Restore the image-owned slot and release
+	# metadata after extracting one so an old archive cannot make the new root
+	# unbootable or make it claim to be the previous release.
+	write_slot_files
+
+	chroot "$TARGET" /bin/sh -eu <<-'CHROOT'
+		export DEBIAN_FRONTEND=noninteractive
+		dpkg --purge --force-depends live-boot live-boot-initramfs-tools \
+			live-config live-config-systemd 2>/dev/null || true
+		rm -f /etc/systemd/system/multi-user.target.wants/live-config.service \
+			/etc/profile.d/zz-live-config_xinit.sh 2>/dev/null || true
+		systemctl enable moonlight-slot-sync.service \
+			moonlight-update-confirm.timer >/dev/null 2>&1 || true
+		update-initramfs -u -k all >/dev/null
+	CHROOT
+
+	kernel_version=$(find "$TARGET/lib/modules" -mindepth 1 -maxdepth 1 -type d \
+		-printf '%f\n' | sort -V | tail -1)
+	[ -n "$kernel_version" ] \
+		&& [ -f "/boot/vmlinuz-$kernel_version" ] \
+		&& [ -f "/boot/initrd.img-$kernel_version" ] \
+		|| die "The new system did not produce a bootable kernel. The current slot is still the default."
+	mkdir -p "$BOOT_DIR/$INACTIVE_SLOT"
+	cp "/boot/vmlinuz-$kernel_version" "$BOOT_DIR/$INACTIVE_SLOT/vmlinuz.new"
+	cp "/boot/initrd.img-$kernel_version" "$BOOT_DIR/$INACTIVE_SLOT/initrd.img.new"
+	mv "$BOOT_DIR/$INACTIVE_SLOT/vmlinuz.new" "$BOOT_DIR/$INACTIVE_SLOT/vmlinuz"
+	mv "$BOOT_DIR/$INACTIVE_SLOT/initrd.img.new" "$BOOT_DIR/$INACTIVE_SLOT/initrd.img"
+
+	chroot "$TARGET" update-grub >/dev/null \
+		|| die "The boot menu could not be updated. The current slot is still the default."
+
+	cat > "$BOOT_DIR/pending" <<-EOF
+	slot=$INACTIVE_SLOT
+	previous=$CURRENT_SLOT
+	version=$AVAILABLE_VERSION
+	EOF
+	if ! grub-reboot "moonlight-$INACTIVE_SLOT"; then
+		rm -f "$BOOT_DIR/pending"
+		die "GRUB could not schedule the new slot. The current slot remains unchanged."
+	fi
+	printf 'RESULT=staged\nVERSION=%s\nSLOT=%s\n' \
+		"$AVAILABLE_VERSION" "$INACTIVE_SLOT" > "$STATE_DIR/status"
+	sync
+}
+
+confirm_boot() {
+	require_root
+	[ -f "$BOOT_DIR/pending" ] || exit 0
+	detect_layout
+	pending_slot=$(sed -n 's/^slot=//p' "$BOOT_DIR/pending" | head -1)
+	pending_version=$(sed -n 's/^version=//p' "$BOOT_DIR/pending" | head -1)
+	case "$pending_slot" in a|b) ;; *) exit 1 ;; esac
+
+	mkdir -p "$STATE_DIR"
+	if [ "$pending_slot" = "$CURRENT_SLOT" ]; then
+		grub-set-default "moonlight-$CURRENT_SLOT"
+		printf 'RESULT=installed\nVERSION=%s\nSLOT=%s\n' \
+			"$pending_version" "$CURRENT_SLOT" > "$STATE_DIR/status"
+	else
+		printf 'RESULT=rolled-back\nVERSION=%s\nSLOT=%s\n' \
+			"$pending_version" "$pending_slot" > "$STATE_DIR/status"
+	fi
+	rm -f "$BOOT_DIR/pending"
+	sync
+}
+
+show_status() {
+	detect_layout
+	current=$(release_version)
+	printf 'version=%s\nslot=%s\nroot=%s\ninactive=%s\n' \
+		"${current:-unknown}" "$CURRENT_SLOT" "$ROOT_DEV" "$INACTIVE_DEV"
+	[ -r "$STATE_DIR/status" ] && cat "$STATE_DIR/status"
+}
+
+update_menu() {
+	require_root
+	detect_layout
+	if [ -f "$BOOT_DIR/pending" ]; then
+		pending_version=$(sed -n 's/^version=//p' "$BOOT_DIR/pending" | head -1)
+		if confirm "Moonlight OS ${pending_version:-update} is already installed in the inactive slot and waiting for its first boot.\n\nReboot now?"; then
+			systemctl reboot
+		fi
+		exit 0
+	fi
+	fetch_release
+	current=$(release_version)
+	current=${current:-unknown}
+
+	if [ "$current" != unknown ] \
+		&& dpkg --compare-versions "$AVAILABLE_VERSION" le "$current" 2>/dev/null; then
+		message "Moonlight OS is up to date.\n\nInstalled: $current (slot $(printf '%s' "$CURRENT_SLOT" | tr 'ab' 'AB'))\nLatest:    $AVAILABLE_VERSION"
+		exit 0
+	fi
+
+	confirm "A signed Moonlight OS update is available.\n\nInstalled: $current (slot $(printf '%s' "$CURRENT_SLOT" | tr 'ab' 'AB'))\nNew:       $AVAILABLE_VERSION\nDownload:  $(human_size "$AVAILABLE_SIZE")\n\nInactive slot $(printf '%s' "$INACTIVE_SLOT" | tr 'ab' 'AB') is $INACTIVE_DEV. It will be erased and replaced. The current slot stays untouched as an automatic fallback.\n\nInstall this update?" \
+		|| exit 0
+
+	download_iso
+	prepare_target
+	if confirm "Moonlight OS $AVAILABLE_VERSION is ready in slot $(printf '%s' "$INACTIVE_SLOT" | tr 'ab' 'AB').\n\nThe next boot will try it once. After 90 healthy seconds it becomes the default; otherwise the following boot returns here automatically.\n\nReboot now?"; then
+		systemctl reboot
+	else
+		message "The update is ready. It will be tried on the next reboot."
+	fi
+}
+
+case "${1:---menu}" in
+	--menu)         update_menu ;;
+	--confirm-boot) confirm_boot ;;
+	--status)       require_root; show_status ;;
+	*) printf 'usage: moonlight-update [--menu|--status|--confirm-boot]\n' >&2; exit 2 ;;
+esac

@@ -9,20 +9,18 @@ on:
     inputs:
       iso_version:
         description: 'Version label stamped into the ISO filename'
-        default: '6.1.0'
+        default: '6.2.0'
+      os_version:
+        description: 'Installed OS version (tag builds use the tag)'
+        default: '0~dev'
       selene_ref:
-        description: 'Selene ref to build the client from'
-        default: 'main'
+        description: 'Compatible Selene ref (must provide setup and panel actions)'
+        default: 'v6.2.0'
       firmware:
         description: 'full keeps every blob, slim drops ~400 MB'
         type: choice
         options: [full, slim]
         default: full
-      host_utils:
-        description: 'Which host-utils builds to carry on the ISO'
-        type: choice
-        options: [amd64, all, none]
-        default: amd64
       ssh_public_key:
         description: 'Public key authorised for the moonlight user (blank = none)'
         default: ''
@@ -52,17 +50,17 @@ jobs:
           sudo docker image prune -af
           df -h /
 
-      # cache/ holds the Tailscale tarball, the Go
-      # caches and live-build's .deb pool.  Restoring it cuts the download
+      # cache/ holds the Tailscale tarball and live-build's .deb pool.
+      # Restoring it cuts the download
       # from ~1 GB to almost nothing; the key rolls weekly so the pool does
       # not go stale (and stays under the 10 GB cache budget).
       - name: Restore download cache
         uses: actions/cache@v4
         with:
           path: cache
-          key: mlos-cache-${{ inputs.iso_version || '6.1.0' }}-${{ github.run_id }}
+          key: mlos-cache-${{ inputs.iso_version || '6.2.0' }}-${{ github.run_id }}
           restore-keys: |
-            mlos-cache-${{ inputs.iso_version || '6.1.0' }}-
+            mlos-cache-${{ inputs.iso_version || '6.2.0' }}-
 
       - name: Stage SSH key
         id: ssh
@@ -85,15 +83,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: moonlight-os/selene
-          ref: ${{ inputs.selene_ref || 'main' }}
+          # Pin the compatible appliance client. Selene main does not yet
+          # provide the setup/panel commands the session calls at boot.
+          ref: ${{ inputs.selene_ref || 'v6.2.0' }}
           submodules: recursive
           path: selene
 
       - name: Build the ISO
         env:
-          ISO_VERSION: ${{ inputs.iso_version || '6.1.0' }}
+          ISO_VERSION: ${{ inputs.iso_version || '6.2.0' }}
+          MLOS_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || inputs.os_version || '0~dev' }}
           FIRMWARE: ${{ inputs.firmware || 'full' }}
-          HOST_UTILS: ${{ inputs.host_utils || 'amd64' }}
           SSH_KEYS: ${{ steps.ssh.outputs.arg }}
           SELENE_SRC: ${{ github.workspace }}/selene
         run: ./build.sh
@@ -110,6 +110,29 @@ jobs:
           ls -lh out
           cat out/SHA256SUMS
 
+      - name: Sign updater metadata
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          SIGNING_KEY: ${{ secrets.MLOS_UPDATE_SIGNING_KEY }}
+        run: |
+          [ -n "$SIGNING_KEY" ] || { echo "MLOS_UPDATE_SIGNING_KEY is not configured"; exit 1; }
+          iso="${{ steps.iso.outputs.path }}"
+          version="${GITHUB_REF_NAME#v}"
+          sha256="$(sha256sum "$iso" | awk '{ print $1 }')"
+          size="$(wc -c < "$iso" | tr -d '[:space:]')"
+          printf 'format=1\nversion=%s\niso=%s\nsha256=%s\nsize=%s\n' \
+            "$version" "$(basename "$iso")" "$sha256" "$size" \
+            > out/moonlight-os-update.txt
+          key="$RUNNER_TEMP/moonlight-os-update.pem"
+          printf '%s\n' "$SIGNING_KEY" > "$key"
+          chmod 0600 "$key"
+          openssl pkeyutl -sign -rawin -inkey "$key" \
+            -in out/moonlight-os-update.txt \
+            -out out/moonlight-os-update.txt.sig
+          openssl pkey -in "$key" -pubout -out "$RUNNER_TEMP/update.pub"
+          cmp "$RUNNER_TEMP/update.pub" \
+            config/includes.chroot/usr/share/moonlight-os/update.pub
+
       # An ISO is already compressed; re-compressing it wastes several
       # minutes for nothing.
       - name: Upload the ISO
@@ -119,6 +142,8 @@ jobs:
           path: |
             out/*.iso
             out/SHA256SUMS
+            out/moonlight-os-update.txt
+            out/moonlight-os-update.txt.sig
           compression-level: 0
           retention-days: 14
           if-no-files-found: error
@@ -171,4 +196,5 @@ jobs:
           gh release view "$tag" >/dev/null 2>&1 \
             || gh release create "$tag" --generate-notes --title "$tag"
           gh release upload "$tag" \
-            "${{ steps.iso.outputs.path }}" out/SHA256SUMS --clobber
+            "${{ steps.iso.outputs.path }}" out/SHA256SUMS \
+            out/moonlight-os-update.txt out/moonlight-os-update.txt.sig --clobber

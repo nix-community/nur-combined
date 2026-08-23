@@ -1,0 +1,2493 @@
+#!/usr/bin/python3
+"""Do the privileged parts of Moonlight OS on behalf of the client.
+
+The settings panel is moving inside Selene (M4), and Selene runs as the
+unprivileged `moonlight` user while most of what the panel does -- joining a
+Wi-Fi network, logging into Tailscale, writing a partition table -- does not.
+This daemon is the piece in between.
+
+    moonlight-helper              serve until stopped
+    moonlight-helper --self-test  run every read-only op once and exit
+
+WHAT THIS IS NOT
+----------------
+It is not a way to run commands as root.  Every operation is named, its
+arguments are validated here, and the command line is built from those
+arguments rather than from anything the caller sent.  A "run this string" op
+would make this a root shell with extra steps, reachable by anything that can
+open a socket, and no amount of care elsewhere would buy it back.
+
+Adding an operation therefore means writing a handler, not passing a flag
+through.  That is the intended friction.
+
+THE WIRE
+--------
+One JSON object per line, both directions, UTF-8, newline framed.  Dull on
+purpose: the far end is a C++ client that should not need a parser library,
+and the same shape already works between Moonlight OS and its host agent.
+
+    -> {"id": 1, "op": "wifi.connect", "args": {"ssid": "x", "psk": "y"}}
+    <- {"id": 1, "event": "progress", "message": "Associating..."}
+    <- {"id": 1, "ok": true, "result": {...}}
+
+or
+
+    <- {"id": 1, "ok": false, "error": {"code": "bad_request", "message": "..."}}
+
+Every request gets exactly one terminal reply, possibly preceded by progress
+events.  Long operations exist -- installing to disk is not a
+request/response -- so the protocol has room for them from the start rather
+than growing it later.
+"""
+
+import json
+import glob
+import os
+import re
+import shutil
+import socket
+import stat
+import subprocess
+import sys
+import tempfile
+import threading
+import time
+
+sys.path.insert(0, "/usr/local/lib/moonlight-os")
+
+SOCKET_PATH = "/run/moonlight-os/helper.sock"
+
+# The client is the `moonlight` user; the socket is opened root-owned and
+# group-readable so that user and nothing else can reach it.
+SOCKET_GROUP = "moonlight"
+SOCKET_MODE = 0o660
+
+PROTOCOL_VERSION = 1
+
+# Error codes are part of the contract: the panel switches on them to decide
+# what to show, so they are strings and they do not change meaning.
+E_BAD_REQUEST = "bad_request"
+E_UNKNOWN_OP = "unknown_op"
+E_FAILED = "failed"
+E_UNAVAILABLE = "unavailable"  # the underlying tool is not on this image
+
+SSID_MAX = 32          # IEEE 802.11
+PSK_MIN, PSK_MAX = 8, 63
+MAX_REQUEST_BYTES = 64 * 1024
+MAX_CLIENTS = 8
+CLIENT_IDLE_TIMEOUT = 120
+
+MLOS_CONF = "/etc/moonlight-os/moonlight-os.conf"
+TOUCHPAD_CONF = "/etc/sway/config.d/40-touchpad.conf"
+CONFIG_LOCK = threading.Lock()
+DISPLAY_LOCK = threading.Lock()
+REGION_LOCK = threading.Lock()
+BACKUP_LOCK = threading.Lock()
+USB_SESSION_LOCK = threading.Lock()
+DISK_SESSION_LOCK = threading.Lock()
+INSTALL_MIN_BYTES = 20_000_000_000
+FIRST_RUN_FLAG = "/etc/moonlight-os/.configured"
+WELCOME_FLAG = "/run/moonlight-os/welcome-done"
+# Bus IDs acquired by native Selene sessions, with a reference count for the
+# unlikely case that two streams overlap. Devices that were already exported
+# before a session began are deliberately absent: the session must not take
+# ownership of a manual share and hand it back on disconnect.
+USB_SESSION_REFS = {}
+USB_SESSION_STATE = "/run/moonlight-os/usb-session-owned"
+DISK_SESSION_STATE = "/run/moonlight-os/disk-session-owned"
+DISK_DM_NAME = "moonlight-os-session-disk"
+DISK_BACKSTORE = "moonlight_os_system"
+DISK_TARGET_IQN = "iqn.2026-08.os.moonlight:system"
+DISK_PORT = 3260
+DISK_SESSION_REFS = 0
+DISK_SESSION_INFO = None
+KEYBOARD_CONF = "/etc/default/keyboard"
+XKB_LIST = "/usr/share/X11/xkb/rules/base.lst"
+
+# The panel can edit these settings and no others.  This is deliberately an
+# allow-list of meanings rather than a generic key/value file editor: adding a
+# setting should require deciding what a valid value is at this boundary.
+SETTING_DEFAULTS = {
+    "MOONLIGHT_OUTPUT": "",
+    "DISPLAY_MODE": "single",
+    "MODE_OVERRIDES": "",
+    "ROTATIONS": "",
+    "SCREEN_SIDES": "",
+    "AUTOCONNECT_HOST": "",
+    "AUTOCONNECT_APP": "",
+    "WINDOW_MODE": "borderless",
+    "STREAM_WIDTH": "",
+    "STREAM_HEIGHT": "",
+    "STREAM_FPS": "60",
+    "STREAM_BITRATE": "0",
+    "AUDIO_CONFIG": "stereo",
+    "HOST_AUDIO": "no",
+    "CAPTURE_SYS_KEYS": "yes",
+    "NATURAL_SCROLL": "no",
+    "FORCE_SOFTWARE": "no",
+    "BATTERY_WARN": "yes",
+    "BATTERY_LEVELS": "20 10 5",
+    "USB_AUTOSHARE": "no",
+    "USB_AUTOSHARE_POLICY": "safe",
+    "KEYBOARD_LAYOUT": "us",
+    "KEYBOARD_VARIANT": "",
+    "TIMEZONE": "UTC",
+}
+
+
+def log(msg):
+    print("moonlight-helper: %s" % msg, file=sys.stderr, flush=True)
+
+
+def run(argv, timeout=30, input_text=None):
+    """Run a command built from our own arguments. Never a shell."""
+    try:
+        proc = subprocess.run(
+            argv,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            input=input_text,
+        )
+    except FileNotFoundError:
+        return None, "%s is not installed" % argv[0]
+    except subprocess.TimeoutExpired:
+        return None, "%s timed out" % argv[0]
+
+    if proc.returncode != 0:
+        detail = (proc.stderr or proc.stdout or "").strip().splitlines()
+        return None, detail[-1] if detail else "%s failed" % argv[0]
+
+    return proc.stdout, None
+
+
+def session_argv(argv):
+    """Run a desktop command in the moonlight user's PipeWire/Sway session."""
+    env = ["XDG_RUNTIME_DIR=/run/user/1000", "WAYLAND_DISPLAY=wayland-1"]
+    sockets = sorted(glob.glob("/run/user/1000/sway-ipc.*.sock"))
+    if sockets:
+        env.append("SWAYSOCK=%s" % sockets[0])
+    return ["runuser", "-u", "moonlight", "--", "env"] + env + argv
+
+
+def run_session(argv, timeout=30, input_text=None):
+    return run(session_argv(argv), timeout=timeout, input_text=input_text)
+
+
+def root_session_argv(argv):
+    """Desktop environment for a fixed command that must retain root."""
+    env = ["XDG_RUNTIME_DIR=/run/user/1000", "WAYLAND_DISPLAY=wayland-1"]
+    sockets = sorted(glob.glob("/run/user/1000/sway-ipc.*.sock"))
+    if sockets:
+        env.append("SWAYSOCK=%s" % sockets[0])
+    return ["env"] + env + argv
+
+
+class Error(Exception):
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
+        self.message = message
+
+
+def conf_values():
+    values = dict(SETTING_DEFAULTS)
+    try:
+        with open(MLOS_CONF, encoding="utf-8") as stream:
+            for raw in stream:
+                match = re.match(r'^([A-Z][A-Z0-9_]*)="(.*)"\s*$', raw.rstrip("\n"))
+                if match and match.group(1) in values:
+                    values[match.group(1)] = match.group(2)
+    except FileNotFoundError:
+        pass
+    return values
+
+
+def conf_public(values=None):
+    values = values or conf_values()
+
+    def number(key, fallback=0):
+        try:
+            return int(values.get(key, fallback) or fallback)
+        except (TypeError, ValueError):
+            return fallback
+
+    width = number("STREAM_WIDTH")
+    height = number("STREAM_HEIGHT")
+    return {
+        "autoconnect_host": values["AUTOCONNECT_HOST"],
+        "autoconnect_app": values["AUTOCONNECT_APP"] or "Desktop",
+        "window_mode": values["WINDOW_MODE"],
+        "resolution": {"width": width, "height": height, "automatic": not width or not height},
+        "fps": number("STREAM_FPS", 60),
+        "bitrate": number("STREAM_BITRATE"),
+        "audio_channels": values["AUDIO_CONFIG"],
+        "host_audio": values["HOST_AUDIO"] == "yes",
+        "capture_system_keys": values["CAPTURE_SYS_KEYS"] == "yes",
+        "natural_scroll": values["NATURAL_SCROLL"] == "yes",
+        "force_software": values["FORCE_SOFTWARE"] == "yes",
+    }
+
+
+def clean_text(value, name, maximum, empty=True):
+    if not isinstance(value, str) or "\n" in value or "\r" in value or '"' in value:
+        raise Error(E_BAD_REQUEST, "%s must be plain text" % name)
+    if (not empty and not value) or len(value) > maximum:
+        raise Error(E_BAD_REQUEST, "%s is too long or empty" % name)
+    return value
+
+
+def setting_updates(args):
+    """Validate public setting names and return config-file values."""
+    changes = args.get("values")
+    if not isinstance(changes, dict) or not changes:
+        raise Error(E_BAD_REQUEST, "values must be a non-empty object")
+
+    allowed = {
+        "autoconnect_host", "autoconnect_app", "window_mode", "resolution",
+        "fps", "bitrate", "audio_channels", "host_audio",
+        "capture_system_keys", "natural_scroll", "force_software",
+    }
+    unknown = set(changes) - allowed
+    if unknown:
+        raise Error(E_BAD_REQUEST, "unknown setting: %s" % sorted(unknown)[0])
+
+    updates = {}
+    for key, value in changes.items():
+        if key == "autoconnect_host":
+            updates["AUTOCONNECT_HOST"] = clean_text(value, key, 255)
+        elif key == "autoconnect_app":
+            updates["AUTOCONNECT_APP"] = clean_text(value, key, 128)
+        elif key == "window_mode":
+            if value not in ("borderless", "fullscreen"):
+                raise Error(E_BAD_REQUEST, "window_mode must be borderless or fullscreen")
+            updates["WINDOW_MODE"] = value
+        elif key == "resolution":
+            if not isinstance(value, dict):
+                raise Error(E_BAD_REQUEST, "resolution must be an object")
+            automatic = value.get("automatic", False)
+            width, height = value.get("width"), value.get("height")
+            if automatic is True:
+                updates.update({"STREAM_WIDTH": "", "STREAM_HEIGHT": ""})
+            elif (isinstance(width, int) and not isinstance(width, bool)
+                  and isinstance(height, int) and not isinstance(height, bool)
+                  and 320 <= width <= 7680 and 240 <= height <= 4320):
+                updates.update({"STREAM_WIDTH": str(width), "STREAM_HEIGHT": str(height)})
+            else:
+                raise Error(E_BAD_REQUEST, "resolution is outside 320x240 to 7680x4320")
+        elif key == "fps":
+            if value not in (30, 60, 90, 120):
+                raise Error(E_BAD_REQUEST, "fps must be 30, 60, 90, or 120")
+            updates["STREAM_FPS"] = str(value)
+        elif key == "bitrate":
+            if not isinstance(value, int) or isinstance(value, bool) or not 0 <= value <= 150000:
+                raise Error(E_BAD_REQUEST, "bitrate must be 0 to 150000 Kbps")
+            updates["STREAM_BITRATE"] = str(value)
+        elif key == "audio_channels":
+            if value not in ("stereo", "5.1", "7.1"):
+                raise Error(E_BAD_REQUEST, "audio_channels must be stereo, 5.1, or 7.1")
+            updates["AUDIO_CONFIG"] = value
+        elif key in ("host_audio", "capture_system_keys", "natural_scroll", "force_software"):
+            if not isinstance(value, bool):
+                raise Error(E_BAD_REQUEST, "%s must be true or false" % key)
+            disk_key = {
+                "host_audio": "HOST_AUDIO",
+                "capture_system_keys": "CAPTURE_SYS_KEYS",
+                "natural_scroll": "NATURAL_SCROLL",
+                "force_software": "FORCE_SOFTWARE",
+            }[key]
+            updates[disk_key] = "yes" if value else "no"
+    return updates
+
+
+def write_conf(updates):
+    """Replace selected assignments atomically, preserving unknown settings."""
+    with CONFIG_LOCK:
+        try:
+            with open(MLOS_CONF, encoding="utf-8") as stream:
+                lines = stream.readlines()
+        except FileNotFoundError:
+            lines = []
+
+        keys = set(updates)
+        kept = [line for line in lines if not any(line.startswith(key + "=") for key in keys)]
+        kept.extend('%s="%s"\n' % item for item in updates.items())
+
+        os.makedirs(os.path.dirname(MLOS_CONF), mode=0o755, exist_ok=True)
+        fd, temporary = tempfile.mkstemp(prefix=".moonlight-os.", dir=os.path.dirname(MLOS_CONF))
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as stream:
+                stream.writelines(kept)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.chmod(temporary, 0o644)
+            os.replace(temporary, MLOS_CONF)
+        finally:
+            try:
+                os.unlink(temporary)
+            except FileNotFoundError:
+                pass
+
+
+def write_text_atomic(path, text, mode=0o644):
+    os.makedirs(os.path.dirname(path), mode=0o755, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=".%s." % os.path.basename(path), dir=os.path.dirname(path))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.chmod(temporary, mode)
+        os.replace(temporary, path)
+    finally:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+
+
+# --------------------------------------------------------------- operations --
+#
+# Each takes (args, emit) and returns a JSON-serialisable result. `emit` sends
+# a progress event and is what keeps a slow operation from looking hung.
+
+
+def op_ping(args, emit):
+    return {"version": PROTOCOL_VERSION}
+
+
+def op_status(args, emit):
+    out, _ = run(["hostname"], timeout=5)
+    hostname = (out or "").strip()
+
+    ip = None
+    out, _ = run(["ip", "-4", "-o", "addr", "show", "scope", "global"], timeout=5)
+    if out:
+        for line in out.splitlines():
+            parts = line.split()
+            if len(parts) >= 4:
+                ip = parts[3].split("/")[0]
+                break
+
+    wifi = None
+    out, _ = run(["nmcli", "-t", "-f", "NAME,TYPE", "connection", "show", "--active"], timeout=5)
+    if out:
+        for line in out.splitlines():
+            name, _, kind = line.partition(":")
+            if "wireless" in kind:
+                wifi = name
+                break
+
+    return {"hostname": hostname, "address": ip, "wifi": wifi}
+
+
+def op_wifi_list(args, emit):
+    emit("Scanning...")
+    # --rescan yes so the list reflects now rather than whatever NetworkManager
+    # last happened to see, which on a machine that just booted is nothing.
+    out, err = run(
+        ["nmcli", "--terse", "--fields", "SSID,SIGNAL,SECURITY", "device", "wifi", "list", "--rescan", "yes"],
+        timeout=45,
+    )
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+
+    seen = {}
+    for line in out.splitlines():
+        # nmcli escapes colons inside fields as \:, so split on unescaped ones.
+        fields = re.split(r"(?<!\\):", line)
+        if len(fields) < 3:
+            continue
+        ssid = fields[0].replace("\\:", ":")
+        if not ssid:
+            continue  # hidden network: nothing to show and nothing to click
+        try:
+            signal = int(fields[1])
+        except ValueError:
+            signal = 0
+        secure = fields[2] not in ("", "--")
+        # The same SSID appears once per band and per AP. Keep the strongest.
+        if ssid not in seen or signal > seen[ssid]["signal"]:
+            seen[ssid] = {"ssid": ssid, "signal": signal, "secure": secure}
+
+    return {"networks": sorted(seen.values(), key=lambda n: -n["signal"])}
+
+
+def op_wifi_connect(args, emit):
+    ssid = args.get("ssid")
+    psk = args.get("psk")
+    hidden = args.get("hidden", False)
+
+    if not isinstance(ssid, str) or not 0 < len(ssid) <= SSID_MAX:
+        raise Error(E_BAD_REQUEST, "ssid must be 1 to %d characters" % SSID_MAX)
+    if psk is not None:
+        if not isinstance(psk, str) or not PSK_MIN <= len(psk) <= PSK_MAX:
+            raise Error(E_BAD_REQUEST, "psk must be %d to %d characters" % (PSK_MIN, PSK_MAX))
+    if not isinstance(hidden, bool):
+        raise Error(E_BAD_REQUEST, "hidden must be true or false")
+
+    emit("Connecting to %s..." % ssid)
+
+    argv = ["nmcli", "--ask", "device", "wifi", "connect", ssid]
+    if hidden:
+        argv += ["hidden", "yes"]
+
+    # `password <psk>` exposes the secret in /proc and process listings. With
+    # --ask, nmcli reads it from its private stdin pipe instead.
+    out, err = run(argv, timeout=60, input_text=(psk + "\n") if psk else None)
+    if out is None:
+        raise Error(E_FAILED, err)
+
+    return op_status({}, emit)
+
+
+def op_wifi_saved(args, emit):
+    out, err = run(
+        ["nmcli", "--terse", "--fields", "UUID,NAME,TYPE", "connection", "show"],
+        timeout=10,
+    )
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+
+    connections = []
+    for line in out.splitlines():
+        fields = re.split(r"(?<!\\):", line)
+        if len(fields) < 3 or "wireless" not in fields[-1]:
+            continue
+        uuid = fields[0]
+        name = ":".join(fields[1:-1]).replace("\\:", ":").replace("\\\\", "\\")
+        if re.fullmatch(r"[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}", uuid):
+            connections.append({"uuid": uuid, "name": name or "Unnamed network"})
+    connections.sort(key=lambda item: item["name"].casefold())
+    return {"connections": connections}
+
+
+def op_wifi_forget(args, emit):
+    uuid = args.get("uuid")
+    if not isinstance(uuid, str) or not re.fullmatch(
+            r"[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}", uuid):
+        raise Error(E_BAD_REQUEST, "uuid is not a valid saved-network identifier")
+    emit("Removing the saved network...")
+    out, err = run(["nmcli", "connection", "delete", "uuid", uuid], timeout=20)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return op_wifi_saved({}, emit)
+
+
+def op_tailscale_status(args, emit):
+    out, err = run(["tailscale", "status", "--json"], timeout=15)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+
+    try:
+        status = json.loads(out)
+    except ValueError:
+        raise Error(E_FAILED, "tailscale returned something that is not JSON")
+
+    self_node = status.get("Self") or {}
+    peers = []
+    for peer in (status.get("Peer") or {}).values():
+        addresses = peer.get("TailscaleIPs") or []
+        peers.append({
+            "name": peer.get("HostName") or peer.get("DNSName", "").rstrip(".") or "unnamed machine",
+            "address": addresses[0] if addresses else "",
+            "online": bool(peer.get("Online")),
+            "active": bool(peer.get("Active")),
+        })
+    peers.sort(key=lambda peer: (not peer["online"], peer["name"].casefold()))
+    return {
+        "state": status.get("BackendState"),
+        "name": self_node.get("DNSName", "").rstrip("."),
+        "addresses": self_node.get("TailscaleIPs") or [],
+        "peers": peers,
+    }
+
+
+def op_tailscale_connect(args, emit):
+    state = op_tailscale_status({}, emit).get("state")
+    if state == "Running":
+        return op_tailscale_status({}, emit)
+    emit("Connecting to Tailscale...")
+    if state == "Stopped":
+        out, err = run(["tailscale", "up"], timeout=30)
+        if out is None:
+            raise Error(E_FAILED, err)
+        return op_tailscale_status({}, emit)
+
+    # `tailscale login` waits for approval, but prints a durable HTTPS URL
+    # first. Let it wait briefly, collect that URL, then stop only the CLI;
+    # tailscaled keeps the pending login and notices browser approval itself.
+    try:
+        proc = subprocess.Popen(["tailscale", "login", "--timeout=8s"],
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                text=True)
+        output, _ = proc.communicate(timeout=12)
+    except FileNotFoundError:
+        raise Error(E_UNAVAILABLE, "tailscale is not installed")
+    except subprocess.TimeoutExpired:
+        proc.terminate()
+        output, _ = proc.communicate(timeout=3)
+    match = re.search(r'https://login\.tailscale\.com/[A-Za-z0-9./_%-]+', output or "")
+    result = op_tailscale_status({}, emit)
+    if match:
+        result["login_url"] = match.group(0)
+        return result
+    if result.get("state") != "Running":
+        detail = (output or "").strip().splitlines()
+        raise Error(E_FAILED, detail[-1] if detail else "Tailscale did not provide a login link")
+    return result
+
+
+def op_tailscale_disconnect(args, emit):
+    emit("Disconnecting from Tailscale...")
+    out, err = run(["tailscale", "down"], timeout=20)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return op_tailscale_status({}, emit)
+
+
+def op_tailscale_logout(args, emit):
+    emit("Logging out of Tailscale...")
+    out, err = run(["tailscale", "logout"], timeout=20)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return op_tailscale_status({}, emit)
+
+
+# --------------------------------------------------------- settings / input --
+
+
+def op_settings_status(args, emit):
+    return conf_public()
+
+
+def op_settings_update(args, emit):
+    updates = setting_updates(args)
+    write_conf(updates)
+    result = conf_public()
+
+    # These are consumed only when Selene starts.  Live settings either have
+    # their own operation (trackpad) or take effect immediately (local audio).
+    restart_keys = {
+        "AUTOCONNECT_HOST", "AUTOCONNECT_APP", "WINDOW_MODE", "STREAM_WIDTH",
+        "STREAM_HEIGHT", "STREAM_FPS", "STREAM_BITRATE", "AUDIO_CONFIG",
+        "HOST_AUDIO", "CAPTURE_SYS_KEYS", "FORCE_SOFTWARE",
+    }
+    result["restart_required"] = bool(set(updates) & restart_keys)
+    return result
+
+
+def op_input_scroll(args, emit):
+    natural = args.get("natural")
+    if not isinstance(natural, bool):
+        raise Error(E_BAD_REQUEST, "natural must be true or false")
+
+    write_conf({"NATURAL_SCROLL": "yes" if natural else "no"})
+    sway_value = "enabled" if natural else "disabled"
+    write_text_atomic(
+        TOUCHPAD_CONF,
+        "input type:touchpad {\n\tnatural_scroll %s\n\tdwt disabled\n}\n" % sway_value,
+    )
+
+    # A compositor is not guaranteed (the helper also runs on the console),
+    # so persistence succeeding is the verdict.  The live apply is best effort.
+    run_session(["swaymsg", "input", "type:touchpad", "natural_scroll", sway_value], timeout=10)
+    run_session(["swaymsg", "input", "type:touchpad", "dwt", "disabled"], timeout=10)
+    return {"natural_scroll": natural, "applied_live": bool(glob.glob("/run/user/1000/sway-ipc.*.sock"))}
+
+
+# ------------------------------------------------------------------- display --
+
+
+OUTPUT_RE = re.compile(r"^[A-Za-z0-9_.:-]{1,64}$")
+
+
+def display_outputs():
+    out, err = run_session(["swaymsg", "-r", "-t", "get_outputs"], timeout=10)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err or "No graphical session is running")
+    try:
+        raw_outputs = json.loads(out)
+    except (TypeError, ValueError):
+        raise Error(E_FAILED, "The compositor returned invalid display information")
+
+    outputs = []
+    for raw in raw_outputs if isinstance(raw_outputs, list) else []:
+        name = raw.get("name") or ""
+        if not OUTPUT_RE.match(name):
+            continue
+        current = raw.get("current_mode") or {}
+        modes_by_size = {}
+        for mode in raw.get("modes") or []:
+            width, height = mode.get("width"), mode.get("height")
+            refresh = mode.get("refresh") or 0
+            if not isinstance(width, int) or not isinstance(height, int):
+                continue
+            key = (width, height)
+            modes_by_size[key] = max(modes_by_size.get(key, 0), refresh)
+        modes = [
+            {"width": width, "height": height, "refresh": round(refresh / 1000.0, 2)}
+            for (width, height), refresh in sorted(
+                modes_by_size.items(), key=lambda item: item[0][0] * item[0][1], reverse=True)
+        ]
+        make, model = raw.get("make") or "", raw.get("model") or ""
+        label_parts = [part for part in (make, model) if part and part != "Unknown"]
+        outputs.append({
+            "name": name,
+            "label": " ".join(label_parts) or name,
+            "active": bool(raw.get("active")),
+            "width": current.get("width") or 0,
+            "height": current.get("height") or 0,
+            "refresh": round((current.get("refresh") or 0) / 1000.0, 2),
+            "transform": str(raw.get("transform") or "normal"),
+            "modes": modes,
+        })
+    return outputs
+
+
+def assignment_list_update(raw, output, value):
+    entries = [item for item in raw.split() if not item.startswith(output + "=")]
+    if value:
+        entries.append("%s=%s" % (output, value))
+    return " ".join(entries)
+
+
+def assignment_list_value(raw, output, fallback=""):
+    prefix = output + "="
+    for item in raw.split():
+        if item.startswith(prefix):
+            return item[len(prefix):]
+    return fallback
+
+
+def display_state():
+    values = conf_values()
+    outputs = display_outputs()
+    names = {output["name"] for output in outputs}
+    primary = values["MOONLIGHT_OUTPUT"]
+    if primary not in names:
+        primary = outputs[0]["name"] if outputs else ""
+    for output in outputs:
+        output["side"] = assignment_list_value(values["SCREEN_SIDES"], output["name"], "right")
+    return {
+        "outputs": outputs,
+        "layout": values["DISPLAY_MODE"] if values["DISPLAY_MODE"] in ("single", "mirror", "extend") else "single",
+        "primary": primary,
+        "mode_overrides": values["MODE_OVERRIDES"],
+        "rotations": values["ROTATIONS"],
+    }
+
+
+def display_output(args, outputs=None):
+    name = args.get("output")
+    if not isinstance(name, str) or not OUTPUT_RE.match(name):
+        raise Error(E_BAD_REQUEST, "output must be a display name")
+    outputs = outputs if outputs is not None else display_outputs()
+    match = next((output for output in outputs if output["name"] == name), None)
+    if match is None:
+        raise Error(E_BAD_REQUEST, "that display is no longer connected")
+    return match
+
+
+def apply_display(primary):
+    out, err = run(
+        root_session_argv(["/usr/local/bin/moonlight-displays", "--apply", primary]),
+        timeout=30,
+    )
+    if out is None:
+        raise Error(E_FAILED, err or "Could not apply the display layout")
+
+
+def op_display_status(args, emit):
+    return display_state()
+
+
+def op_display_layout(args, emit):
+    with DISPLAY_LOCK:
+        layout = args.get("layout")
+        if layout not in ("single", "mirror", "extend"):
+            raise Error(E_BAD_REQUEST, "layout must be single, mirror, or extend")
+        outputs = display_outputs()
+        primary = display_output(args, outputs)["name"]
+        if layout != "single" and len(outputs) < 2:
+            raise Error(E_BAD_REQUEST, "connect another display before choosing that layout")
+        write_conf({"DISPLAY_MODE": layout, "MOONLIGHT_OUTPUT": primary})
+        emit("Applying the display layout...")
+        apply_display(primary)
+        return display_state()
+
+
+def op_display_mode(args, emit):
+    with DISPLAY_LOCK:
+        outputs = display_outputs()
+        output = display_output(args, outputs)
+        mode = args.get("mode")
+        values = conf_values()
+        override = ""
+        if mode != "automatic":
+            if not isinstance(mode, dict):
+                raise Error(E_BAD_REQUEST, "mode must be automatic or a display mode")
+            width, height = mode.get("width"), mode.get("height")
+            available = next((item for item in output["modes"]
+                              if item["width"] == width and item["height"] == height), None)
+            if available is None:
+                raise Error(E_BAD_REQUEST, "that resolution is not offered by this display")
+            override = "%dx%d@%.2f" % (width, height, available["refresh"])
+        updated = assignment_list_update(values["MODE_OVERRIDES"], output["name"], override)
+        write_conf({"MODE_OVERRIDES": updated})
+        emit("Applying the resolution...")
+        apply_display(display_state()["primary"])
+        return display_state()
+
+
+def op_display_rotation(args, emit):
+    with DISPLAY_LOCK:
+        outputs = display_outputs()
+        output = display_output(args, outputs)
+        rotation = args.get("rotation")
+        if rotation not in ("normal", "left", "right", "inverted"):
+            raise Error(E_BAD_REQUEST, "rotation must be normal, left, right, or inverted")
+        values = conf_values()
+        updated = assignment_list_update(values["ROTATIONS"], output["name"], rotation)
+        write_conf({"ROTATIONS": updated})
+        emit("Rotating the display...")
+        apply_display(display_state()["primary"])
+        return display_state()
+
+
+def op_display_position(args, emit):
+    with DISPLAY_LOCK:
+        outputs = display_outputs()
+        output = display_output(args, outputs)
+        side = args.get("side")
+        if side not in ("left", "right", "above", "below"):
+            raise Error(E_BAD_REQUEST, "side must be left, right, above, or below")
+        state = display_state()
+        if state["layout"] != "extend":
+            raise Error(E_BAD_REQUEST, "positions apply only to an extended desktop")
+        if output["name"] == state["primary"]:
+            raise Error(E_BAD_REQUEST, "the main display is the layout anchor")
+        values = conf_values()
+        updated = assignment_list_update(values["SCREEN_SIDES"], output["name"], side)
+        write_conf({"SCREEN_SIDES": updated})
+        emit("Moving the display...")
+        apply_display(state["primary"])
+        return display_state()
+
+
+# --------------------------------------------------------------------- audio --
+
+
+def audio_state():
+    volume_out, volume_err = run_session(
+        ["wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"], timeout=10)
+    if volume_out is None:
+        return {"available": False, "message": volume_err}
+
+    match = re.search(r"([0-9]+(?:\.[0-9]+)?)", volume_out)
+    volume = int(float(match.group(1)) * 100 + 0.5) if match else 0
+    muted = "MUTED" in volume_out
+
+    status_out, _ = run_session(["wpctl", "status"], timeout=10)
+    sinks = []
+    in_sinks = False
+    for raw in (status_out or "").splitlines():
+        if "Sinks:" in raw and not in_sinks:
+            in_sinks = True
+            continue
+        if in_sinks and "Sources:" in raw:
+            break
+        if not in_sinks:
+            continue
+        line = "".join(ch for ch in raw if 32 <= ord(ch) < 127).strip()
+        sink = re.match(r"(\*)?\s*(\d+)\.\s+(.+?)(?:\s+\[vol:.*)?$", line)
+        if sink:
+            sinks.append({
+                "id": int(sink.group(2)),
+                "name": sink.group(3).strip(),
+                "current": bool(sink.group(1)),
+            })
+
+    return {
+        "available": True,
+        "volume": volume,
+        "muted": muted,
+        "sinks": sinks,
+        "current": next((sink["name"] for sink in sinks if sink["current"]), "unknown"),
+    }
+
+
+def op_audio_status(args, emit):
+    return audio_state()
+
+
+def op_audio_volume(args, emit):
+    volume = args.get("volume")
+    if not isinstance(volume, int) or isinstance(volume, bool) or not 0 <= volume <= 150:
+        raise Error(E_BAD_REQUEST, "volume must be 0 to 150 percent")
+    out, err = run_session(
+        ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "%d%%" % volume], timeout=10)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return audio_state()
+
+
+def op_audio_mute(args, emit):
+    muted = args.get("muted")
+    if not isinstance(muted, bool):
+        raise Error(E_BAD_REQUEST, "muted must be true or false")
+    out, err = run_session(
+        ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "1" if muted else "0"], timeout=10)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return audio_state()
+
+
+def op_audio_output(args, emit):
+    sink_id = args.get("id")
+    if not isinstance(sink_id, int) or isinstance(sink_id, bool) or sink_id < 0:
+        raise Error(E_BAD_REQUEST, "id must be a sound output id")
+    known = {sink["id"] for sink in audio_state().get("sinks", [])}
+    if sink_id not in known:
+        raise Error(E_BAD_REQUEST, "that sound output is no longer available")
+    out, err = run_session(["wpctl", "set-default", str(sink_id)], timeout=10)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return audio_state()
+
+
+def op_audio_test(args, emit):
+    if shutil.which("speaker-test") is None:
+        raise Error(E_UNAVAILABLE, "speaker-test is not installed")
+    emit("Playing a two-second tone...")
+    try:
+        proc = subprocess.Popen(
+            session_argv(["speaker-test", "-t", "sine", "-f", "440", "-l", "1", "-c", "2"]),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except FileNotFoundError:
+        raise Error(E_UNAVAILABLE, "speaker-test is not installed")
+    try:
+        proc.wait(timeout=2)
+    except subprocess.TimeoutExpired:
+        proc.terminate()
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=2)
+    return audio_state()
+
+
+# ------------------------------------------------------------------ bluetooth --
+#
+# bluetoothctl is an interactive shell by design, and the shell menu drove it
+# by piping a script full of sleeps at it and grepping the transcript. None of
+# that is needed non-interactively: `--timeout` bounds a scan, and every other
+# command below returns when the operation it started has actually finished.
+
+
+BT = "bluetoothctl"
+
+# Addresses come back to us from a list we produced, but they still go on a
+# command line, so they are checked rather than trusted. Nothing is ever
+# pasted into a shell -- this refuses garbage by name instead of running it.
+MAC_RE = re.compile(r"^[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){5}$")
+
+SCAN_MIN, SCAN_MAX, SCAN_DEFAULT = 5, 30, 12
+
+
+def bt_mac(args):
+    mac = args.get("mac")
+    if not isinstance(mac, str) or not MAC_RE.match(mac):
+        raise Error(E_BAD_REQUEST, "mac must be a Bluetooth address")
+    return mac.upper()
+
+
+def bt_parse(out):
+    """{mac: name} from a `bluetoothctl devices` listing."""
+    found = {}
+    for line in (out or "").splitlines():
+        parts = line.split(" ", 2)
+        if len(parts) == 3 and parts[0] == "Device" and MAC_RE.match(parts[1]):
+            found[parts[1].upper()] = parts[2].strip()
+    return found
+
+
+def bt_adapter():
+    """(present, powered). A machine with no radio is a fact, not a failure."""
+    out, err = run([BT, "list"], timeout=10)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+    if not out.strip():
+        return False, False
+
+    out, _ = run([BT, "show"], timeout=10)
+    return True, "Powered: yes" in (out or "")
+
+
+def bt_anonymous(mac, name):
+    """Did this device tell us a name, or is bluez showing us its address?
+
+    A device with no name of its own is listed as its own address with the
+    colons turned into dashes, so that is the tell.
+    """
+    return not name or name.replace("-", ":").upper() == mac.upper()
+
+
+def bt_devices():
+    """Every device worth showing, each with what is currently true of it.
+
+    Three list calls rather than `info` per device: after a scan in a busy
+    room the device count is unbounded, and the three set memberships are the
+    only properties the panel shows.
+
+    Devices that never gave a name are left out unless they are already ours.
+    A scan in a flat turns up thirty radios, and twenty-one of them are the
+    neighbours' phones, tags and televisions advertising nothing but an
+    address -- which is not something anyone can pick a headset out of.  What
+    you want to pair announces itself; that is what pairing mode is for.
+    """
+    known, _ = run([BT, "devices"], timeout=15)
+    paired, _ = run([BT, "devices", "Paired"], timeout=15)
+    connected, _ = run([BT, "devices", "Connected"], timeout=15)
+
+    names = bt_parse(known)
+    paired = set(bt_parse(paired))
+    connected = set(bt_parse(connected))
+
+    devices = []
+    hidden = 0
+    for mac, name in names.items():
+        ours = mac in paired or mac in connected
+        if bt_anonymous(mac, name) and not ours:
+            hidden += 1
+            continue
+        devices.append({
+            "mac": mac,
+            "name": name or mac,
+            "paired": mac in paired,
+            "connected": mac in connected,
+        })
+
+    # Connected first, then paired, then whatever the last scan turned up,
+    # because that is the order they are likely to be wanted in.
+    devices.sort(key=lambda d: (not d["connected"], not d["paired"], d["name"].lower()))
+    return {"devices": devices, "hidden": hidden}
+
+
+def op_bluetooth_status(args, emit):
+    present, powered = bt_adapter()
+    result = {"present": present, "powered": powered, "devices": []}
+    if present and powered:
+        result.update(bt_devices())
+    return result
+
+
+def op_bluetooth_scan(args, emit):
+    present, powered = bt_adapter()
+    if not present:
+        raise Error(E_UNAVAILABLE, "this machine has no Bluetooth adapter")
+    if not powered:
+        raise Error(E_FAILED, "Bluetooth is turned off")
+
+    seconds = args.get("seconds", SCAN_DEFAULT)
+    if not isinstance(seconds, int) or isinstance(seconds, bool) or not SCAN_MIN <= seconds <= SCAN_MAX:
+        raise Error(E_BAD_REQUEST, "seconds must be %d to %d" % (SCAN_MIN, SCAN_MAX))
+
+    emit("Looking for devices for %d seconds..." % seconds)
+
+    # --timeout ends discovery on its own, so nothing here has to decide when
+    # to stop it -- and a caller that goes away cannot leave the radio
+    # scanning forever. Failure is not fatal: whatever was already known is
+    # still worth returning.
+    out, err = run([BT, "--timeout", str(seconds), "scan", "on"], timeout=seconds + 20)
+    if out is None:
+        log("scan failed: %s" % err)
+
+    result = bt_devices()
+    # Without this a scan in a busy room finds thirty things and shows two,
+    # which looks like a scan that did not work.
+    if result["hidden"]:
+        result["message"] = ("%d other device%s nearby did not give a name."
+                             % (result["hidden"], "" if result["hidden"] == 1 else "s"))
+    return result
+
+
+def bt_reason(out):
+    """The line bluetoothctl printed saying why, if it printed one."""
+    for line in reversed((out or "").splitlines()):
+        line = line.strip()
+        if line.startswith("Failed to") and ":" in line:
+            return line.split(":", 1)[1].strip()
+    return None
+
+
+def bt_verify(mac, field, expected, out):
+    """Did the thing actually happen?
+
+    bluetoothctl is not usable as a verdict.  Connecting to a device that is
+    switched off prints "Attempting to connect", says nothing further, and
+    exits 0 after its timeout -- so exit status and output between them report
+    success for a device that is not there.  The device's own state is the only
+    honest answer, and we are fetching it anyway to return it.
+    """
+    result = bt_devices()
+    device = next((d for d in result["devices"] if d["mac"] == mac), None)
+
+    if device is None:
+        # Not listed at all. Nothing can be connected to a device bluez has
+        # forgotten, so that is only a failure if we wanted it connected.
+        if not expected:
+            return result
+        raise Error(E_FAILED, "that device is no longer there")
+
+    if device[field] == expected:
+        return result
+
+    raise Error(E_FAILED, bt_reason(out) or
+                "%s did not answer. Check that it is switched on and in range." % device["name"])
+
+
+def op_bluetooth_pair(args, emit):
+    """Pair, trust, and connect -- which is one intention, not three.
+
+    Trusting is what lets the device come back by itself after a reboot, and
+    a controller that has to be re-paired every morning is indistinguishable
+    from one that does not work. Nobody pairing a gamepad wants the other
+    two steps as separate menu entries.
+    """
+    mac = bt_mac(args)
+
+    emit("Pairing...")
+    # NoInputNoOutput is the capability this appliance actually has while a
+    # game is on screen: there is no way to show a passkey and no way to
+    # confirm one, so anything needing them cannot be paired from here.
+    out, err = run([BT, "--agent", "NoInputNoOutput", "--timeout", "40", "pair", mac], timeout=60)
+    if out is None:
+        raise Error(E_FAILED, err)
+    bt_verify(mac, "paired", True, out)
+
+    emit("Trusting...")
+    run([BT, "trust", mac], timeout=15)
+
+    emit("Connecting...")
+    out, _ = run([BT, "--timeout", "20", "connect", mac], timeout=40)
+
+    # Paired but not connected is a real, recoverable state: the device is
+    # remembered and the panel can offer Connect. Failing here would send the
+    # user round the pairing loop again for something already done.
+    result = bt_devices()
+    for device in result["devices"]:
+        if device["mac"] == mac and not device["connected"]:
+            result["message"] = "Paired, but it has not connected yet -- try Connect."
+    return result
+
+
+def op_bluetooth_connect(args, emit):
+    mac = bt_mac(args)
+    emit("Connecting...")
+    out, err = run([BT, "--timeout", "20", "connect", mac], timeout=40)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return bt_verify(mac, "connected", True, out)
+
+
+def op_bluetooth_disconnect(args, emit):
+    mac = bt_mac(args)
+    out, err = run([BT, "--timeout", "20", "disconnect", mac], timeout=40)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return bt_verify(mac, "connected", False, out)
+
+
+def op_bluetooth_forget(args, emit):
+    mac = bt_mac(args)
+    out, err = run([BT, "remove", mac], timeout=20)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return bt_devices()
+
+
+def op_bluetooth_power(args, emit):
+    on = args.get("on")
+    if not isinstance(on, bool):
+        raise Error(E_BAD_REQUEST, "on must be true or false")
+
+    out, err = run([BT, "power", "on" if on else "off"], timeout=15)
+    if out is None:
+        raise Error(E_FAILED, err)
+
+    return op_bluetooth_status({}, emit)
+
+
+# ------------------------------------------------------------------------ usb --
+#
+# Making a wheel, a HOTAS or a licence dongle plugged in here appear on the
+# host PC.  Controllers, keyboards and mice need none of this -- the stream
+# already forwards them, better than USB/IP would.
+#
+# The device policy is not reimplemented here.  `mlos_host` already decides
+# what may be handed over and, more importantly, why something may not be, and
+# the shell menu has been showing those reasons for as long as it has existed.
+# Two answers to "why is my wheel not shared" is one too many.
+
+
+def usb_module():
+    """mlos_host, or a clear refusal if this image has no host-utils."""
+    try:
+        import mlos_host
+    except ImportError:
+        raise Error(E_UNAVAILABLE, "USB sharing is not installed in this image")
+    return mlos_host
+
+
+def usb_busid(args, mh):
+    busid = args.get("busid")
+    if not isinstance(busid, str) or not mh.BUSID_RE.match(busid):
+        raise Error(E_BAD_REQUEST, "busid must be a USB bus id")
+    return busid
+
+
+def usb_state(mh):
+    """Every device, with what is true of it and why."""
+    bound = mh.bound_busids()
+    addr, _, token = mh.host_settings()
+    values = conf_values()
+
+    devices = [
+        {
+            "busid": dev.busid,
+            "hwid": dev.hwid,
+            "label": dev.label,
+            "shared": dev.busid in bound,
+            # An empty reason is the whole test for "may be handed over";
+            # `protected` is the subset that no policy can override.
+            "reason": dev.reason,
+            "protected": dev.protected,
+        }
+        for dev in mh.devices()
+    ]
+
+    # Shared first, then shareable, then the ones with a reason -- so what you
+    # came to change is at the top and the explanations are below it.
+    devices.sort(key=lambda d: (not d["shared"], bool(d["reason"]), d["label"].lower()))
+
+    return {
+        "devices": devices,
+        # Retained for an older Selene during the transition. New clients use
+        # native_transport: Helios receives the exported set through the
+        # authenticated streaming session, with no separately paired agent.
+        "paired": bool(addr and token),
+        "native_transport": True,
+        "autoshare": values["USB_AUTOSHARE"] == "yes",
+        "autoshare_policy": values["USB_AUTOSHARE_POLICY"]
+            if values["USB_AUTOSHARE_POLICY"] in ("safe", "all") else "safe",
+    }
+
+
+def op_usb_list(args, emit):
+    return usb_state(usb_module())
+
+
+def op_usb_session_sync(args, emit, owned):
+    """Reconcile the native stream's appliance-side USB export lease.
+
+    The old watcher only bound devices after its separate TCP 48020 agent
+    answered. Native Selene/Helios carries that traffic inside the stream, so
+    waiting for the retired agent creates a deadlock: Selene cannot offer a
+    device until it is bound, and the watcher will not bind it without the old
+    host. This operation makes the helper connection itself the lease.
+
+    `owned` belongs to one helper connection. Closing that connection releases
+    only devices acquired for it; manual shares survive, and overlapping native
+    sessions share a reference count.
+    """
+    if args:
+        raise Error(E_BAD_REQUEST, "usb.session.sync takes no arguments")
+
+    mh = usb_module()
+    conf = mh.load_conf()
+    enabled = conf.get("USB_AUTOSHARE", "no") == "yes"
+    policy = conf.get("USB_AUTOSHARE_POLICY", "safe") or "safe"
+    if policy not in ("safe", "all"):
+        policy = "safe"
+    include = conf.get("USB_AUTOSHARE_INCLUDE", "").split()
+    exclude = conf.get("USB_AUTOSHARE_EXCLUDE", "").split()
+    wanted_devices = mh.offered(policy, include, exclude) if enabled else []
+    wanted = {device.busid for device in wanted_devices}
+
+    with USB_SESSION_LOCK:
+        # Release claims that disappeared or became disallowed before taking
+        # new devices. A physically unplugged bus ID is harmless: unbind may
+        # fail because sysfs has already removed it, but ownership still ends.
+        for busid in sorted(owned - wanted):
+            remaining = USB_SESSION_REFS.get(busid, 0) - 1
+            if remaining <= 0:
+                USB_SESSION_REFS.pop(busid, None)
+                mh.unbind(busid)
+            else:
+                USB_SESSION_REFS[busid] = remaining
+            owned.discard(busid)
+        persist_usb_sessions()
+
+        if wanted and not mh.ensure_daemon():
+            raise Error(E_UNAVAILABLE, "the USB/IP daemon is not running")
+
+        bound = mh.bound_busids()
+        failures = []
+        for device in wanted_devices:
+            busid = device.busid
+            if busid in owned:
+                # Repair state if usbipd or the kernel-side export restarted
+                # while the streaming session remained alive.
+                if busid not in bound:
+                    okay, error = mh.bind(busid)
+                    if okay:
+                        bound.add(busid)
+                    else:
+                        failures.append("%s: %s" % (device.label, error))
+                continue
+            if busid in USB_SESSION_REFS:
+                USB_SESSION_REFS[busid] += 1
+                owned.add(busid)
+                continue
+            if busid in bound:
+                # A manual/legacy share: offer it, but do not own it.
+                continue
+            okay, error = mh.bind(busid)
+            if okay:
+                USB_SESSION_REFS[busid] = 1
+                owned.add(busid)
+                bound.add(busid)
+            else:
+                failures.append("%s: %s" % (device.label, error))
+        persist_usb_sessions()
+
+    result = usb_state(mh)
+    if failures:
+        result["message"] = "Could not share " + "; ".join(failures)
+    return result
+
+
+def usb_session_release(owned):
+    """Release one native session's claims after its helper connection dies."""
+    if not owned:
+        return
+    try:
+        mh = usb_module()
+    except Error as err:
+        log("could not release the USB session: %s" % err.message)
+        return
+    with USB_SESSION_LOCK:
+        for busid in sorted(owned):
+            remaining = USB_SESSION_REFS.get(busid, 0) - 1
+            if remaining <= 0:
+                USB_SESSION_REFS.pop(busid, None)
+                mh.unbind(busid)
+            else:
+                USB_SESSION_REFS[busid] = remaining
+        owned.clear()
+        persist_usb_sessions()
+
+
+def persist_usb_sessions():
+    """Journal only native-session ownership so helper restarts can recover."""
+    if USB_SESSION_REFS:
+        write_text_atomic(USB_SESSION_STATE,
+                          "".join(busid + "\n" for busid in sorted(USB_SESSION_REFS)),
+                          mode=0o600)
+        return
+    try:
+        os.unlink(USB_SESSION_STATE)
+    except FileNotFoundError:
+        pass
+
+
+def recover_usb_sessions():
+    """Hand back exports left by a killed helper before accepting clients."""
+    try:
+        with open(USB_SESSION_STATE, encoding="utf-8") as stream:
+            stale = {line.strip() for line in stream if line.strip()}
+    except FileNotFoundError:
+        return
+    try:
+        mh = usb_module()
+    except Error as err:
+        # USB support is optional on development images; it must not prevent
+        # Wi-Fi, display, installer and every other helper operation starting.
+        log("could not recover the stale USB session: %s" % err.message)
+        return
+    for busid in sorted(stale):
+        if mh.BUSID_RE.fullmatch(busid):
+            mh.unbind(busid)
+    USB_SESSION_REFS.clear()
+    try:
+        os.unlink(USB_SESSION_STATE)
+    except FileNotFoundError:
+        pass
+
+
+# ----------------------------------------------------------- read-only disk --
+
+def disk_backing_info():
+    """Return the installed system disk without accepting a caller path."""
+    source, err = run(["findmnt", "--noheadings", "--output", "SOURCE", "--target", "/"])
+    if source is None:
+        raise Error(E_UNAVAILABLE, err)
+    source = source.strip()
+    if not re.fullmatch(r"/dev/[A-Za-z0-9._+-]+", source):
+        raise Error(E_UNAVAILABLE, "the running root filesystem is not on an exportable disk")
+
+    parent, err = run(["lsblk", "--noheadings", "--output", "PKNAME", source])
+    if parent is None:
+        raise Error(E_UNAVAILABLE, err)
+    parent = parent.strip()
+    if not re.fullmatch(r"[A-Za-z0-9._+-]+", parent):
+        raise Error(E_UNAVAILABLE, "could not identify the system disk")
+    device = "/dev/" + parent
+    try:
+        if not stat.S_ISBLK(os.stat(device).st_mode):
+            raise Error(E_UNAVAILABLE, "the system disk is not a block device")
+    except FileNotFoundError:
+        raise Error(E_UNAVAILABLE, "the system disk disappeared")
+
+    size_text, err = run(["blockdev", "--getsize64", device])
+    if size_text is None:
+        raise Error(E_UNAVAILABLE, err)
+    sector_text, err = run(["blockdev", "--getss", device])
+    if sector_text is None:
+        raise Error(E_UNAVAILABLE, err)
+    try:
+        size = int(size_text.strip())
+        sector_size = int(sector_text.strip())
+    except ValueError:
+        raise Error(E_FAILED, "the system disk reported invalid geometry")
+    if size <= 0 or size % 512 or sector_size not in (512, 4096):
+        raise Error(E_FAILED, "the system disk geometry is unsupported")
+    return {"device": device, "size": size, "sector_size": sector_size}
+
+
+def disk_target_remove():
+    """Remove only M9's fixed target/backstore/mapping, never unrelated LIO state."""
+    complete = True
+    try:
+        from rtslib_fb import RTSRoot
+        root = RTSRoot()
+        for target in list(root.targets):
+            if target.wwn == DISK_TARGET_IQN:
+                target.delete()
+        for storage in list(root.storage_objects):
+            if storage.name == DISK_BACKSTORE:
+                storage.delete()
+    except Exception as err:  # rtslib surfaces configfs errors through several types
+        log("could not fully remove the system disk target: %s" % err)
+        complete = False
+
+    # The mapping is exact and reserved to this helper. A busy failure is
+    # reported and left intact; it is never retried with a stronger primitive.
+    out, err = run(["dmsetup", "remove", DISK_DM_NAME], timeout=10)
+    if out is None and "not found" not in (err or "").lower():
+        log("could not remove the system disk mapping: %s" % err)
+        complete = False
+    return complete
+
+
+def disk_target_create(info):
+    """Build two independent read-only barriers and a loopback-only LIO target."""
+    sectors = info["size"] // 512
+    table = "0 %d linear %s 0" % (sectors, info["device"])
+    out, err = run(["dmsetup", "create", DISK_DM_NAME, "--readonly", "--table", table], timeout=10)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+
+    try:
+        from rtslib_fb import BlockStorageObject, FabricModule, LUN, NetworkPortal, Target, TPG
+        storage = BlockStorageObject(
+            DISK_BACKSTORE, "/dev/mapper/" + DISK_DM_NAME, readonly=True)
+        target = Target(FabricModule("iscsi"), DISK_TARGET_IQN)
+        tpg = TPG(target, mode="create")
+        tpg.set_attribute("authentication", "0")
+        NetworkPortal(tpg, "127.0.0.1", DISK_PORT)
+        LUN(tpg, storage_object=storage)
+        tpg.enable = True
+    except Exception as err:  # rtslib raises several backend-specific types
+        raise Error(E_UNAVAILABLE, "could not create the read-only disk target: %s" % err)
+
+
+def persist_disk_session(active):
+    if active:
+        write_text_atomic(DISK_SESSION_STATE, DISK_TARGET_IQN + "\n", mode=0o600)
+        return
+    try:
+        os.unlink(DISK_SESSION_STATE)
+    except FileNotFoundError:
+        pass
+
+
+def op_disk_session_acquire(args, emit, owned):
+    """Acquire one connection-owned reference to the appliance system disk."""
+    del emit
+    global DISK_SESSION_REFS, DISK_SESSION_INFO
+    if args:
+        raise Error(E_BAD_REQUEST, "disk.session.acquire takes no arguments")
+
+    with DISK_SESSION_LOCK:
+        if not owned[0]:
+            if DISK_SESSION_REFS == 0:
+                if os.path.exists(DISK_SESSION_STATE):
+                    if not disk_target_remove():
+                        raise Error(E_UNAVAILABLE,
+                                    "the previous disk session is still shutting down")
+                    persist_disk_session(False)
+                info = disk_backing_info()
+                # Journal first so a killed helper recovers even if it dies
+                # halfway through device-mapper or configfs construction.
+                persist_disk_session(True)
+                try:
+                    disk_target_create(info)
+                except Exception:
+                    if disk_target_remove():
+                        persist_disk_session(False)
+                    raise
+                DISK_SESSION_INFO = info
+            DISK_SESSION_REFS += 1
+            owned[0] = True
+
+        info = DISK_SESSION_INFO
+        return {
+            "iqn": DISK_TARGET_IQN,
+            "size": info["size"],
+            "sector_size": info["sector_size"],
+            "readonly": True,
+        }
+
+
+def disk_session_release(owned):
+    global DISK_SESSION_REFS, DISK_SESSION_INFO
+    if not owned[0]:
+        return
+    with DISK_SESSION_LOCK:
+        owned[0] = False
+        DISK_SESSION_REFS = max(0, DISK_SESSION_REFS - 1)
+        if DISK_SESSION_REFS == 0:
+            if disk_target_remove():
+                DISK_SESSION_INFO = None
+                persist_disk_session(False)
+            else:
+                log("system disk session remains journalled for retry on restart")
+
+
+def recover_disk_session():
+    global DISK_SESSION_REFS, DISK_SESSION_INFO
+    if not os.path.exists(DISK_SESSION_STATE):
+        return
+    if disk_target_remove():
+        DISK_SESSION_REFS = 0
+        DISK_SESSION_INFO = None
+        persist_disk_session(False)
+    else:
+        log("stale system disk session remains journalled for the next recovery attempt")
+
+
+def op_usb_share(args, emit):
+    mh = usb_module()
+    busid = usb_busid(args, mh)
+
+    device = next((d for d in mh.devices() if d.busid == busid), None)
+    if device is None:
+        raise Error(E_BAD_REQUEST, "no such device")
+    if device.protected:
+        # The boot medium and the interface we are talking to the host over.
+        # Handing either across would take the machine down with it, so this
+        # is refused here as well as filtered in the interface -- a rule worth
+        # having in both places.
+        raise Error(E_BAD_REQUEST, "that one cannot be shared: %s" % device.reason)
+
+    if not mh.ensure_daemon():
+        raise Error(E_UNAVAILABLE, "the USB/IP daemon is not running")
+
+    emit("Sharing %s..." % device.label)
+    okay, err = mh.bind(busid)
+    if not okay:
+        raise Error(E_FAILED, err or "could not share that device")
+
+    # Same lesson as Bluetooth: ask the daemon what it is exporting rather
+    # than believe the command that was supposed to make it so.
+    if busid not in mh.bound_busids():
+        raise Error(E_FAILED, "%s did not come up as shared" % device.label)
+
+    result = usb_state(mh)
+    result["message"] = "Shared. Helios will attach it during the streaming session."
+
+    return result
+
+
+def op_usb_unshare(args, emit):
+    mh = usb_module()
+    busid = usb_busid(args, mh)
+
+    emit("Stopping...")
+    mh.unbind(busid)
+    if busid in mh.bound_busids():
+        raise Error(E_FAILED, "that device is still shared")
+
+    return usb_state(mh)
+
+
+def op_usb_handback(args, emit):
+    """Withdraw every local export from the native streaming session."""
+    mh = usb_module()
+    emit("Withdrawing USB devices from the stream...")
+    for busid in list(mh.bound_busids()):
+        mh.unbind(busid)
+
+    return usb_state(mh)
+
+
+def op_usb_autoshare(args, emit):
+    enabled = args.get("enabled")
+    policy = args.get("policy")
+    if not isinstance(enabled, bool):
+        raise Error(E_BAD_REQUEST, "enabled must be true or false")
+    if policy not in ("safe", "all"):
+        raise Error(E_BAD_REQUEST, "policy must be safe or all")
+
+    emit("Updating automatic USB sharing...")
+    write_conf({
+        "USB_AUTOSHARE": "yes" if enabled else "no",
+        "USB_AUTOSHARE_POLICY": policy,
+    })
+    # The active Selene session polls usb.session.sync and applies this policy
+    # itself. Restarting the retired TCP-agent watcher here races that lease
+    # and can bind or release the same device behind Selene's back.
+    return usb_state(usb_module())
+
+
+def active_service(name):
+    out, _ = run(["systemctl", "is-active", name], timeout=10)
+    return (out or "").strip() == "active"
+
+
+def battery_state():
+    out, err = run(["/usr/local/bin/moonlight-battery", "status"], timeout=10)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+    status = out.strip()
+    if status == "no battery" or not status:
+        return {"available": False}
+    match = re.match(r"^(\d+)% \((.*)\)$", status)
+    if not match:
+        raise Error(E_FAILED, "battery status could not be read")
+    values = conf_values()
+    levels = []
+    for value in values["BATTERY_LEVELS"].split():
+        try:
+            number = int(value)
+        except ValueError:
+            continue
+        if 1 <= number <= 100 and number not in levels:
+            levels.append(number)
+    return {
+        "available": True,
+        "percent": int(match.group(1)),
+        "state": match.group(2),
+        "warnings": values["BATTERY_WARN"] == "yes",
+        "levels": levels,
+    }
+
+
+def op_battery_status(args, emit):
+    return battery_state()
+
+
+def op_battery_update(args, emit):
+    updates = {}
+    if "warnings" in args:
+        warnings = args["warnings"]
+        if not isinstance(warnings, bool):
+            raise Error(E_BAD_REQUEST, "warnings must be true or false")
+        updates["BATTERY_WARN"] = "yes" if warnings else "no"
+    if "levels" in args:
+        levels = args["levels"]
+        if (not isinstance(levels, list) or not levels or len(levels) > 6
+                or any(not isinstance(value, int) or isinstance(value, bool)
+                       or not 1 <= value <= 100 for value in levels)):
+            raise Error(E_BAD_REQUEST, "levels must be 1 to 6 percentages")
+        updates["BATTERY_LEVELS"] = " ".join(str(value) for value in sorted(set(levels), reverse=True))
+    if not updates:
+        raise Error(E_BAD_REQUEST, "warnings or levels is required")
+    write_conf(updates)
+    return battery_state()
+
+
+def op_battery_test(args, emit):
+    emit("Showing a test warning...")
+    out, err = run_session(["/usr/local/bin/moonlight-battery", "test"], timeout=15)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return battery_state()
+
+
+def op_system_health(args, emit):
+    """A compact, structured health summary for the in-client panel."""
+    try:
+        with open("/proc/uptime", encoding="ascii") as stream:
+            uptime_seconds = int(float(stream.read().split()[0]))
+    except (FileNotFoundError, ValueError, IndexError):
+        uptime_seconds = 0
+
+    out, _ = run(["lspci", "-mm"], timeout=10)
+    graphics = "not reported"
+    for line in (out or "").splitlines():
+        if any(kind in line.lower() for kind in ("vga compatible", "3d controller", "display controller")):
+            fields = re.findall(r'"([^"]*)"', line)
+            # lspci -mm quotes class, vendor, product, subsystem vendor, and
+            # subsystem product in that order. The final pair is often just
+            # "Lenovo Device 1234", which is much less useful than the GPU.
+            if len(fields) >= 3:
+                vendor = fields[1].replace(" Corporation", "")
+                product = re.sub(r"\s+(Integrated )?Graphics Controller$", "", fields[2])
+                graphics = "%s %s" % (vendor, product)
+            else:
+                graphics = line
+            break
+
+    render_nodes = sorted(os.path.basename(path) for path in glob.glob("/dev/dri/renderD*"))
+    log_path = "/var/lib/moonlight-os/session.log"
+    notable = []
+    try:
+        with open(log_path, encoding="utf-8", errors="replace") as stream:
+            for line in stream:
+                if re.search(r"decoder|renderer|vulkan|vaapi|error|warn|fail|unsupported", line, re.I):
+                    notable.append(line.strip())
+                    notable = notable[-40:]
+    except FileNotFoundError:
+        pass
+
+    try:
+        free_bytes = shutil.disk_usage("/").free
+    except OSError:
+        free_bytes = 0
+
+    values = conf_values()
+    return {
+        "uptime_seconds": uptime_seconds,
+        "boot_mode": "live" if os.path.isdir("/run/live/medium") else "installed",
+        "graphics": graphics,
+        "render_nodes": render_nodes,
+        "session_log": os.path.isfile(log_path),
+        "notable_log_lines": len(notable),
+        "last_notable": notable[-1][-240:] if notable else "",
+        "free_bytes": free_bytes,
+        "force_software": values["FORCE_SOFTWARE"] == "yes",
+        "report_destinations": backup_destinations(),
+    }
+
+
+def op_system_context(args, emit):
+    live = os.path.isdir("/run/live/medium")
+    return {
+        "boot_mode": "live" if live else "installed",
+        "persistence": os.path.exists("/dev/disk/by-label/persistence"),
+        "install_available": live and os.path.isfile("/usr/local/bin/moonlight-install"),
+        "persistence_available": live and os.path.isfile("/usr/local/bin/moonlight-persist"),
+        "update_available": not live and os.path.isfile("/usr/local/sbin/moonlight-update"),
+        "terminal_available": shutil.which("foot") is not None,
+    }
+
+
+def op_setup_status(args, emit):
+    return {
+        "configured": os.path.exists(FIRST_RUN_FLAG),
+        "live": os.path.isdir("/run/live/medium"),
+        "welcome_done": os.path.exists(WELCOME_FLAG),
+    }
+
+
+def op_setup_complete(args, emit):
+    if args.get("completed") is not True:
+        raise Error(E_BAD_REQUEST, "completed must be true")
+    os.makedirs(os.path.dirname(FIRST_RUN_FLAG), mode=0o755, exist_ok=True)
+    with open(FIRST_RUN_FLAG, "a", encoding="utf-8"):
+        pass
+    os.chmod(FIRST_RUN_FLAG, 0o644)
+    # Completing the full wizard in a live session also answers the earlier
+    # "try or install" choice.  Keep that boot-scoped state in /run so the
+    # welcome screen cannot reappear when Selene restarts during this boot.
+    if os.path.isdir("/run/live/medium"):
+        os.makedirs(os.path.dirname(WELCOME_FLAG), mode=0o755, exist_ok=True)
+        with open(WELCOME_FLAG, "a", encoding="utf-8"):
+            pass
+    return op_setup_status({}, emit)
+
+
+def op_welcome_complete(args, emit):
+    if args.get("completed") is not True:
+        raise Error(E_BAD_REQUEST, "completed must be true")
+    os.makedirs(os.path.dirname(WELCOME_FLAG), mode=0o755, exist_ok=True)
+    with open(WELCOME_FLAG, "a", encoding="utf-8"):
+        pass
+    return op_setup_status({}, emit)
+
+
+def install_live_disk():
+    """Return the whole disk containing the live medium, never a partition."""
+    source, _ = run(["findmnt", "-no", "SOURCE", "/run/live/medium"], timeout=5)
+    source = (source or "").strip()
+    if not source.startswith("/dev/"):
+        return ""
+
+    parent, _ = run(["lsblk", "-no", "PKNAME", source], timeout=5)
+    parent = (parent or "").strip().splitlines()
+    return "/dev/%s" % parent[0] if parent and parent[0] else os.path.realpath(source)
+
+
+def op_install_status(args, emit):
+    """Inventory eligible install targets without mounting or writing them."""
+    live = os.path.isdir("/run/live/medium")
+    installer = os.path.isfile("/usr/local/bin/moonlight-install")
+    result = {
+        "available": live and installer,
+        "boot_mode": "live" if live else "installed",
+        "live_disk": install_live_disk() if live else "",
+        "targets": [],
+        "settings_sources": [],
+    }
+    if not result["available"]:
+        result["reason"] = ("Installation is available only after booting from a Moonlight OS USB stick."
+                            if not live else "The installer is not included in this image.")
+        return result
+    if not result["live_disk"]:
+        result["available"] = False
+        result["reason"] = "The boot USB could not be identified, so no disk will be offered."
+        return result
+
+    out, err = run([
+        "lsblk", "--json", "--bytes", "--paths",
+        "--output", "NAME,PATH,SIZE,TYPE,MODEL,FSTYPE,LABEL,MOUNTPOINTS",
+    ], timeout=10)
+    if out is None:
+        raise Error(E_FAILED, "installable disks could not be read: %s" % err)
+
+    try:
+        devices = json.loads(out).get("blockdevices", [])
+    except (TypeError, ValueError):
+        raise Error(E_FAILED, "lsblk returned an invalid disk inventory")
+
+    for disk in devices:
+        path = disk.get("path") or disk.get("name") or ""
+        try:
+            size = int(disk.get("size") or 0)
+        except (TypeError, ValueError):
+            size = 0
+        if (disk.get("type") != "disk" or not path.startswith("/dev/")
+                or path.startswith("/dev/loop") or size < INSTALL_MIN_BYTES
+                or os.path.realpath(path) == os.path.realpath(result["live_disk"])):
+            continue
+
+        contents = []
+        for child in disk.get("children") or []:
+            kind = child.get("fstype") or child.get("type") or "partition"
+            label = child.get("label") or ""
+            mounted = [item for item in (child.get("mountpoints") or []) if item]
+            description = label or kind
+            if mounted:
+                description += " mounted at %s" % mounted[0]
+            contents.append(description)
+
+            # This remains an inventory, not a promise that the partition is
+            # a valid installation. install.begin mounts the selected source
+            # read-only and verifies its Moonlight OS settings before the
+            # target is touched. Offering every ext4 candidate here also
+            # covers old images whose filesystem label predates the current
+            # "moonlight-root" convention.
+            child_path = child.get("path") or child.get("name") or ""
+            if child.get("fstype") == "ext4" and child_path.startswith("/dev/"):
+                result["settings_sources"].append({
+                    "kind": "installation",
+                    "path": child_path,
+                    "disk": path,
+                    "label": label or "Existing Linux system",
+                })
+
+        model = re.sub(r"\s+", " ", (disk.get("model") or "").strip())
+        result["targets"].append({
+            "device": path,
+            "model": model or "Unknown disk",
+            "size_bytes": size,
+            "contents": contents,
+        })
+
+    # Backups are already parsed and validated by the native backup screen.
+    # Reuse that allow-listed inventory so install.begin can accept an exact
+    # archive path rather than a caller-controlled filesystem path.
+    for archive in backup_archives():
+        if archive["valid"]:
+            result["settings_sources"].append({
+                "kind": "archive",
+                "path": archive["path"],
+                "label": archive["name"],
+                "summary": archive["summary"],
+            })
+
+    return result
+
+
+def launch_system_workflow(workflow, workflow_env=None):
+    # Processes forked directly from this hardened service inherit
+    # NoNewPrivileges=yes. The old launcher then changed to the moonlight user
+    # and opened a terminal whose fixed sudo command could never become root:
+    # foot disappeared immediately and the compositor returned to Selene.
+    #
+    # Ask PID 1 to create a fresh, unprivileged transient service instead.
+    # It does not inherit this helper's sandbox, while the sudo policy still
+    # permits only the named appliance workflows. --service-type=exec makes
+    # systemd-run report an exec failure before we tell Selene to close.
+    argv = [
+        "systemd-run", "--quiet", "--collect", "--service-type=exec",
+        "--uid=moonlight",
+        "--setenv=XDG_RUNTIME_DIR=/run/user/1000",
+        "--setenv=WAYLAND_DISPLAY=wayland-1",
+        "--setenv=MLOS_PANEL_COMMAND=%s" % workflow,
+    ]
+    sockets = sorted(glob.glob("/run/user/1000/sway-ipc.*.sock"))
+    if sockets:
+        argv.append("--setenv=SWAYSOCK=%s" % sockets[0])
+    for key, value in sorted((workflow_env or {}).items()):
+        argv.append("--setenv=%s=%s" % (key, value))
+    argv.append("/usr/local/bin/moonlight-panel")
+
+    out, err = run(argv, timeout=10)
+    if out is None:
+        raise Error(E_FAILED, "the %s workflow could not be opened: %s" % (workflow, err))
+
+
+def op_system_launch(args, emit):
+    workflow = args.get("workflow")
+    if workflow not in ("install", "persist", "update", "ssh", "shell"):
+        raise Error(E_BAD_REQUEST, "unknown system workflow")
+    context = op_system_context({}, emit)
+    if not context["terminal_available"]:
+        raise Error(E_UNAVAILABLE, "the guided terminal is not installed")
+    if workflow == "install" and not context["install_available"]:
+        raise Error(E_BAD_REQUEST, "installation is available only from a live USB")
+    if workflow == "persist":
+        if not context["persistence_available"]:
+            raise Error(E_BAD_REQUEST, "USB persistence is available only from a live USB")
+        if context["persistence"]:
+            raise Error(E_BAD_REQUEST, "persistence is already configured")
+    if workflow == "update" and not context["update_available"]:
+        raise Error(E_BAD_REQUEST, "updates are available only on an installed Moonlight OS system")
+    if workflow == "ssh" and not os.path.isfile("/usr/local/bin/moonlight-ssh"):
+        raise Error(E_UNAVAILABLE, "the SSH setup workflow is not installed")
+
+    workflow_env = {}
+    result = {"launched": workflow}
+    if workflow == "install":
+        selected = args.get("device")
+        inventory = op_install_status({}, emit)
+        allowed = {target["device"] for target in inventory.get("targets", [])}
+        if not isinstance(selected, str) or selected not in allowed:
+            raise Error(E_BAD_REQUEST, "the selected install disk is no longer available")
+        workflow_env["MLOS_INSTALL_DEVICE"] = selected
+        result["device"] = selected
+
+    launch_system_workflow(workflow, workflow_env)
+    return result
+
+
+def op_ssh_status(args, emit):
+    out, _ = run(["hostname"], timeout=5)
+    hostname = (out or "moonlight-os").strip()
+    addresses = []
+    out, _ = run(["ip", "-4", "-o", "addr", "show", "scope", "global"], timeout=5)
+    for line in (out or "").splitlines():
+        parts = line.split()
+        if len(parts) >= 4:
+            address = parts[3].split("/")[0]
+            if address not in addresses:
+                addresses.append(address)
+
+    keys = 0
+    try:
+        with open("/home/moonlight/.ssh/authorized_keys", encoding="utf-8") as stream:
+            keys = sum(1 for line in stream if line.strip() and not line.lstrip().startswith("#"))
+    except FileNotFoundError:
+        pass
+
+    conf = "/etc/ssh/sshd_config.d/10-moonlight-os.conf"
+    password_logins = False
+    try:
+        with open(conf, encoding="utf-8") as stream:
+            password_logins = any(line.strip() == "PasswordAuthentication yes" for line in stream)
+    except FileNotFoundError:
+        pass
+
+    host_fingerprints = []
+    for path in sorted(glob.glob("/etc/ssh/ssh_host_*_key.pub")):
+        out, _ = run(["ssh-keygen", "-lf", path], timeout=5)
+        line = (out or "").strip()
+        if line:
+            host_fingerprints.append(line)
+
+    authorized_fingerprints = []
+    auth_path = "/home/moonlight/.ssh/authorized_keys"
+    if os.path.isfile(auth_path):
+        out, _ = run(["ssh-keygen", "-lf", auth_path], timeout=10)
+        authorized_fingerprints = [line.strip() for line in (out or "").splitlines()
+                                   if line.strip()]
+
+    return {
+        "running": active_service("ssh"),
+        "hostname": hostname,
+        "addresses": addresses,
+        "authorized_keys": keys,
+        "password_logins": password_logins,
+        "host_fingerprints": host_fingerprints,
+        "authorized_fingerprints": authorized_fingerprints,
+    }
+
+
+def op_ssh_enabled(args, emit):
+    enabled = args.get("enabled")
+    if not isinstance(enabled, bool):
+        raise Error(E_BAD_REQUEST, "enabled must be true or false")
+    emit("Starting remote access..." if enabled else "Stopping remote access...")
+    out, err = run(["systemctl", "start" if enabled else "stop", "ssh"], timeout=20)
+    if out is None:
+        raise Error(E_FAILED, err)
+    return op_ssh_status({}, emit)
+
+
+def op_system_power(args, emit):
+    """Reboot or shut down.
+
+    The action is an enumerated choice, not a command: "reboot" and "poweroff"
+    map to fixed argument vectors here. Accepting a string to run would make
+    this a root shell, which is the one thing this daemon exists not to be.
+    """
+    action = args.get("action")
+    if action not in ("reboot", "poweroff"):
+        raise Error(E_BAD_REQUEST, "action must be reboot or poweroff")
+
+    emit("Shutting down..." if action == "poweroff" else "Rebooting...")
+
+    # No confirmation here on purpose: whether to ask is a question about the
+    # interface, and the interface is the only place that knows whether the
+    # user was asked. A daemon second-guessing its caller would just mean two
+    # confirmations or none.
+    out, err = run(["systemctl", action], timeout=15)
+    if out is None:
+        raise Error(E_FAILED, err)
+
+    return {"action": action}
+
+
+def xkb_catalogue():
+    """Return layouts and their variants from xkeyboard-config's own list."""
+    layouts = []
+    variants = {}
+    section = ""
+    try:
+        with open(XKB_LIST, encoding="utf-8", errors="replace") as stream:
+            for raw in stream:
+                line = raw.strip()
+                if line.startswith("!"):
+                    section = line[1:].strip().split()[0] if line[1:].strip() else ""
+                    continue
+                if not line:
+                    continue
+                if section == "layout":
+                    parts = line.split(None, 1)
+                    if len(parts) == 2:
+                        layouts.append({"code": parts[0], "name": parts[1]})
+                elif section == "variant":
+                    parts = line.split(None, 2)
+                    if len(parts) == 3 and parts[1].endswith(":"):
+                        layout = parts[1][:-1]
+                        variants.setdefault(layout, []).append({"code": parts[0], "name": parts[2]})
+    except FileNotFoundError:
+        pass
+    return layouts, variants
+
+
+def current_region():
+    values = conf_values()
+    layout = values.get("KEYBOARD_LAYOUT", "")
+    variant = values.get("KEYBOARD_VARIANT", "")
+    if not layout:
+        try:
+            with open(KEYBOARD_CONF, encoding="utf-8") as stream:
+                text = stream.read()
+            match = re.search(r'^XKBLAYOUT="([^"]*)"', text, re.M)
+            layout = match.group(1) if match else "us"
+            match = re.search(r'^XKBVARIANT="([^"]*)"', text, re.M)
+            variant = match.group(1) if match else ""
+        except FileNotFoundError:
+            layout = "us"
+
+    out, _ = run(["timedatectl", "show", "--property=Timezone", "--value"], timeout=10)
+    timezone = (out or values.get("TIMEZONE") or "UTC").strip()
+    return layout, variant, timezone
+
+
+def op_region_status(args, emit):
+    layouts, variants = xkb_catalogue()
+    layout, variant, timezone = current_region()
+    common = ("us", "gb", "fr", "de", "es", "it", "be", "ch", "nl", "pt",
+              "se", "no", "dk", "fi", "pl", "cz", "br", "ca", "ru", "jp")
+    common_rank = {code: index for index, code in enumerate(common)}
+    layouts.sort(key=lambda item: (
+        0 if item["code"] == layout else 1 if item["code"] in common_rank else 2,
+        common_rank.get(item["code"], 0), item["name"].casefold()))
+    out, _ = run(["timedatectl", "list-timezones"], timeout=15)
+    zones = sorted(line.strip() for line in (out or "").splitlines() if line.strip())
+    regions = sorted(set(zone.split("/", 1)[0] for zone in zones))
+    return {
+        "layout": layout,
+        "variant": variant,
+        "timezone": timezone,
+        "layouts": layouts,
+        "variants": variants.get(layout, []),
+        "regions": regions,
+    }
+
+
+def op_region_variants(args, emit):
+    layout = clean_text(args.get("layout"), "layout", 32, empty=False)
+    layouts, variants = xkb_catalogue()
+    if layout not in {item["code"] for item in layouts}:
+        raise Error(E_BAD_REQUEST, "unknown keyboard layout")
+    return {"layout": layout, "variants": variants.get(layout, [])}
+
+
+def op_region_keyboard(args, emit):
+    layout = clean_text(args.get("layout"), "layout", 32, empty=False)
+    variant = clean_text(args.get("variant", ""), "variant", 64)
+    layouts, variants = xkb_catalogue()
+    if layout not in {item["code"] for item in layouts}:
+        raise Error(E_BAD_REQUEST, "unknown keyboard layout")
+    if variant and variant not in {item["code"] for item in variants.get(layout, [])}:
+        raise Error(E_BAD_REQUEST, "unknown variant for this keyboard layout")
+
+    emit("Saving the keyboard layout...")
+    with REGION_LOCK:
+        write_text_atomic(KEYBOARD_CONF,
+            'XKBMODEL="pc105"\nXKBLAYOUT="%s"\nXKBVARIANT="%s"\n'
+            'XKBOPTIONS=""\nBACKSPACE="guess"\n' % (layout, variant))
+        write_conf({"KEYBOARD_LAYOUT": layout, "KEYBOARD_VARIANT": variant})
+        run(["setupcon", "--force", "--save"], timeout=30)
+        run_session(["swaymsg", "input", "type:keyboard", "xkb_layout", layout], timeout=10)
+        # Sway accepts xkb_variant "" and that is how an old variant is
+        # cleared when returning to a layout's default.
+        run_session(["swaymsg", "input", "type:keyboard", "xkb_variant", variant], timeout=10)
+    result = op_region_status({}, emit)
+    result["applied_live"] = True
+    return result
+
+
+def op_region_zones(args, emit):
+    region = clean_text(args.get("region"), "region", 64, empty=False)
+    out, err = run(["timedatectl", "list-timezones"], timeout=15)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+    all_zones = [line.strip() for line in out.splitlines() if line.strip()]
+    zones = sorted(zone for zone in all_zones
+                   if zone == region or zone.startswith(region + "/"))
+    if not zones:
+        raise Error(E_BAD_REQUEST, "unknown time-zone region")
+    return {"region": region, "zones": zones}
+
+
+def op_region_timezone(args, emit):
+    timezone = clean_text(args.get("timezone"), "timezone", 128, empty=False)
+    out, err = run(["timedatectl", "list-timezones"], timeout=15)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+    if timezone not in {line.strip() for line in out.splitlines()}:
+        raise Error(E_BAD_REQUEST, "unknown time zone")
+    emit("Setting the time zone...")
+    with REGION_LOCK:
+        _, err = run(["timedatectl", "set-timezone", timezone], timeout=20)
+        if err:
+            raise Error(E_FAILED, err)
+        run(["timedatectl", "set-ntp", "true"], timeout=20)
+        write_conf({"TIMEZONE": timezone})
+    return op_region_status({}, emit)
+
+
+def backup_destinations():
+    """Mounted, writable removable-media roots offered to the client."""
+    out, _ = run(["findmnt", "-J", "-o", "TARGET,SOURCE,FSTYPE,OPTIONS"], timeout=10)
+    try:
+        roots = json.loads(out or "{}").get("filesystems") or []
+    except ValueError:
+        roots = []
+
+    entries = []
+    allowed = ("/media/", "/run/media/", "/mnt/", "/run/live/medium")
+
+    def visit(nodes):
+        for node in nodes:
+            target = os.path.realpath(str(node.get("target") or ""))
+            options = set(str(node.get("options") or "").split(","))
+            if target and "rw" in options and (target == "/run/live/medium"
+                    or any(target.startswith(prefix) for prefix in allowed[:3])):
+                try:
+                    free = shutil.disk_usage(target).free
+                except OSError:
+                    free = 0
+                entries.append({
+                    "path": target,
+                    "label": os.path.basename(target) or str(node.get("source") or target),
+                    "source": str(node.get("source") or ""),
+                    "free_bytes": free,
+                })
+            visit(node.get("children") or [])
+    visit(roots)
+
+    unique = {}
+    for entry in entries:
+        unique[entry["path"]] = entry
+    return sorted(unique.values(), key=lambda entry: entry["label"].casefold())
+
+
+def backup_archives(destinations=None):
+    archives = []
+    for destination in destinations or backup_destinations():
+        root = destination["path"]
+        for path in sorted(glob.glob(os.path.join(root, "moonlight-os-settings-*.tar.gz")), reverse=True):
+            real = os.path.realpath(path)
+            if os.path.dirname(real) != root or not os.path.isfile(real):
+                continue
+            out, err = run(["/usr/local/bin/moonlight-backup", "--summary", real], timeout=20)
+            if out is None:
+                summary = ["Archive could not be read"]
+                valid = False
+            else:
+                summary = [line.strip() for line in out.splitlines() if line.strip()]
+                valid = True
+            archives.append({
+                "path": real,
+                "name": os.path.basename(real),
+                "summary": summary,
+                "valid": valid,
+                "size_bytes": os.path.getsize(real),
+            })
+    return archives
+
+
+def op_backup_status(args, emit):
+    destinations = backup_destinations()
+    out, err = run(["/usr/local/bin/moonlight-backup", "--list"], timeout=20)
+    if out is None:
+        raise Error(E_UNAVAILABLE, err)
+    paths = [line.strip() for line in out.splitlines() if line.strip()]
+    return {
+        "destinations": destinations,
+        "archives": backup_archives(destinations),
+        "saved_paths": paths,
+        "has_settings": bool(paths),
+    }
+
+
+def op_backup_save(args, emit):
+    destination = clean_text(args.get("destination"), "destination", 512, empty=False)
+    choices = {entry["path"] for entry in backup_destinations()}
+    destination = os.path.realpath(destination)
+    if destination not in choices:
+        raise Error(E_BAD_REQUEST, "choose a mounted writable removable drive")
+    emit("Collecting settings and pairing data...")
+    with BACKUP_LOCK:
+        out, err = run(["/usr/local/bin/moonlight-backup", "--save", destination], timeout=180)
+    if out is None:
+        raise Error(E_FAILED, err)
+    result = op_backup_status({}, emit)
+    result["saved_to"] = (out or "").strip().splitlines()[-1]
+    return result
+
+
+def op_backup_restore(args, emit):
+    archive = clean_text(args.get("archive"), "archive", 768, empty=False)
+    archive = os.path.realpath(archive)
+    choices = {item["path"] for item in backup_archives() if item["valid"]}
+    if archive not in choices:
+        raise Error(E_BAD_REQUEST, "choose a valid backup on mounted removable media")
+    emit("Restoring settings and pairing data...")
+    with BACKUP_LOCK:
+        out, err = run(["/usr/local/bin/moonlight-backup", "--restore", archive], timeout=180)
+    if out is None:
+        raise Error(E_FAILED, err)
+    result = op_backup_status({}, emit)
+    result["restored_from"] = archive
+    result["restart_required"] = True
+    return result
+
+
+def op_diagnostics_export(args, emit):
+    destination = clean_text(args.get("destination"), "destination", 512, empty=False)
+    destination = os.path.realpath(destination)
+    choices = {entry["path"]: entry for entry in backup_destinations()}
+    if destination not in choices:
+        raise Error(E_BAD_REQUEST, "choose a mounted writable removable drive")
+
+    emit("Collecting the full diagnostic report...")
+    out, err = run_session(["/usr/local/bin/moonlight-report"], timeout=90)
+    if out is None:
+        raise Error(E_FAILED, err)
+
+    stamp = time.strftime("%Y%m%d-%H%M%S")
+    filename = "moonlight-os-report-%s.txt" % stamp
+    path = os.path.join(destination, filename)
+    if os.path.exists(path):
+        for suffix in range(1, 100):
+            candidate = os.path.join(destination,
+                                     "moonlight-os-report-%s-%d.txt" % (stamp, suffix))
+            if not os.path.exists(candidate):
+                path = candidate
+                break
+        else:
+            raise Error(E_FAILED, "too many reports were created in the same second")
+
+    emit("Writing the report to the removable drive...")
+    fd, temporary = tempfile.mkstemp(prefix=".moonlight-os-report-", dir=destination)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(out)
+            if out and not out.endswith("\n"):
+                stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.chmod(temporary, 0o644)
+        os.replace(temporary, path)
+    finally:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+    return {
+        "saved_to": path,
+        "size_bytes": os.path.getsize(path),
+        "report_destinations": backup_destinations(),
+    }
+
+
+OPS = {
+    "ping": op_ping,
+    "status": op_status,
+    "wifi.list": op_wifi_list,
+    "wifi.connect": op_wifi_connect,
+    "wifi.saved": op_wifi_saved,
+    "wifi.forget": op_wifi_forget,
+    "tailscale.status": op_tailscale_status,
+    "tailscale.connect": op_tailscale_connect,
+    "tailscale.disconnect": op_tailscale_disconnect,
+    "tailscale.logout": op_tailscale_logout,
+    "settings.status": op_settings_status,
+    "settings.update": op_settings_update,
+    "input.scroll": op_input_scroll,
+    "display.status": op_display_status,
+    "display.layout": op_display_layout,
+    "display.mode": op_display_mode,
+    "display.rotation": op_display_rotation,
+    "display.position": op_display_position,
+    "audio.status": op_audio_status,
+    "audio.volume": op_audio_volume,
+    "audio.mute": op_audio_mute,
+    "audio.output": op_audio_output,
+    "audio.test": op_audio_test,
+    "system.power": op_system_power,
+    "bluetooth.status": op_bluetooth_status,
+    "bluetooth.scan": op_bluetooth_scan,
+    "bluetooth.pair": op_bluetooth_pair,
+    "bluetooth.connect": op_bluetooth_connect,
+    "bluetooth.disconnect": op_bluetooth_disconnect,
+    "bluetooth.forget": op_bluetooth_forget,
+    "bluetooth.power": op_bluetooth_power,
+    "usb.list": op_usb_list,
+    "usb.share": op_usb_share,
+    "usb.unshare": op_usb_unshare,
+    "usb.handback": op_usb_handback,
+    "usb.autoshare": op_usb_autoshare,
+    "system.health": op_system_health,
+    "system.context": op_system_context,
+    "setup.status": op_setup_status,
+    "setup.complete": op_setup_complete,
+    "welcome.complete": op_welcome_complete,
+    "install.status": op_install_status,
+    "system.launch": op_system_launch,
+    "ssh.status": op_ssh_status,
+    "ssh.enabled": op_ssh_enabled,
+    "battery.status": op_battery_status,
+    "battery.update": op_battery_update,
+    "battery.test": op_battery_test,
+    "region.status": op_region_status,
+    "region.variants": op_region_variants,
+    "region.keyboard": op_region_keyboard,
+    "region.zones": op_region_zones,
+    "region.timezone": op_region_timezone,
+    "backup.status": op_backup_status,
+    "backup.save": op_backup_save,
+    "backup.restore": op_backup_restore,
+    "diagnostics.export": op_diagnostics_export,
+}
+
+# The ops safe to run unattended, for --self-test. Anything that changes the
+# machine is deliberately absent.
+READ_ONLY = ("ping", "status", "settings.status", "display.status", "audio.status", "wifi.list", "wifi.saved",
+             "tailscale.status", "bluetooth.status", "usb.list", "system.health", "system.context", "ssh.status",
+             "battery.status", "region.status", "backup.status", "install.status", "setup.status")
+
+
+# ------------------------------------------------------------------- serving --
+
+
+def handle_client(conn):
+    usb_owned = set()
+    disk_owned = [False]
+    try:
+        conn.settimeout(CLIENT_IDLE_TIMEOUT)
+        with conn, conn.makefile("rwb") as stream:
+            while True:
+                raw = stream.readline(MAX_REQUEST_BYTES + 1)
+                if not raw:
+                    break
+                if len(raw) > MAX_REQUEST_BYTES:
+                    stream.write(json.dumps({
+                        "ok": False,
+                        "error": {"code": E_BAD_REQUEST,
+                                  "message": "request exceeds %d bytes" % MAX_REQUEST_BYTES},
+                    }).encode() + b"\n")
+                    stream.flush()
+                    break
+                try:
+                    request = json.loads(raw)
+                    if not isinstance(request, dict):
+                        raise ValueError
+                except ValueError:
+                    # No id to answer with, so this is all that can be said.
+                    stream.write(json.dumps({
+                        "ok": False,
+                        "error": {"code": E_BAD_REQUEST, "message": "not a JSON object"},
+                    }).encode() + b"\n")
+                    stream.flush()
+                    continue
+
+                req_id = request.get("id")
+                op_name = request.get("op")
+                args = request.get("args") or {}
+
+                def emit(message):
+                    stream.write(json.dumps({
+                        "id": req_id, "event": "progress", "message": message,
+                    }).encode() + b"\n")
+                    stream.flush()
+
+                handler = OPS.get(op_name)
+                if op_name == "usb.session.sync":
+                    handler = lambda request_args, progress: op_usb_session_sync(
+                        request_args, progress, usb_owned)
+                elif op_name == "disk.session.acquire":
+                    handler = lambda request_args, progress: op_disk_session_acquire(
+                        request_args, progress, disk_owned)
+                if handler is None:
+                    reply = {"id": req_id, "ok": False,
+                             "error": {"code": E_UNKNOWN_OP, "message": "no such operation"}}
+                elif not isinstance(args, dict):
+                    reply = {"id": req_id, "ok": False,
+                             "error": {"code": E_BAD_REQUEST, "message": "args must be an object"}}
+                else:
+                    try:
+                        reply = {"id": req_id, "ok": True, "result": handler(args, emit)}
+                    except Error as err:
+                        reply = {"id": req_id, "ok": False,
+                                 "error": {"code": err.code, "message": err.message}}
+                    except Exception as err:  # noqa: BLE001 - a handler bug must not kill the daemon
+                        log("%s raised %r" % (op_name, err))
+                        reply = {"id": req_id, "ok": False,
+                                 "error": {"code": E_FAILED, "message": "internal error"}}
+
+                stream.write(json.dumps(reply).encode() + b"\n")
+                stream.flush()
+    except (socket.timeout, ConnectionError, OSError):
+        # Idle and disconnected clients are routine. Their session leases are
+        # released below without an unhandled worker-thread traceback.
+        pass
+    finally:
+        # A stream crash, network loss, helper-client reconnect, and an orderly
+        # Selene exit all close this connection and therefore release the same
+        # appliance-side lease without a separate teardown command.
+        usb_session_release(usb_owned)
+        disk_session_release(disk_owned)
+
+
+def serve():
+    os.makedirs(os.path.dirname(SOCKET_PATH), mode=0o755, exist_ok=True)
+    recover_usb_sessions()
+    recover_disk_session()
+
+    # A socket left behind by a killed daemon would make bind() fail; nothing
+    # else owns this path, so removing it is safe rather than presumptuous.
+    try:
+        os.unlink(SOCKET_PATH)
+    except FileNotFoundError:
+        pass
+
+    server = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    server.bind(SOCKET_PATH)
+
+    # Ownership before listen(), so there is no window where the socket exists
+    # and is reachable by more than it should be.
+    try:
+        import grp
+        os.chown(SOCKET_PATH, 0, grp.getgrnam(SOCKET_GROUP).gr_gid)
+    except (KeyError, OSError) as err:
+        log("could not set socket group: %s" % err)
+    os.chmod(SOCKET_PATH, SOCKET_MODE)
+
+    server.listen(4)
+    log("listening on %s" % SOCKET_PATH)
+
+    clients = threading.BoundedSemaphore(MAX_CLIENTS)
+
+    def serve_client(conn):
+        try:
+            handle_client(conn)
+        finally:
+            clients.release()
+
+    while True:
+        conn, _ = server.accept()
+        if not clients.acquire(blocking=False):
+            log("rejecting helper client: connection limit reached")
+            conn.close()
+            continue
+        threading.Thread(target=serve_client, args=(conn,), daemon=True).start()
+
+
+def self_test():
+    failures = 0
+    for name in READ_ONLY:
+        try:
+            result = OPS[name]({}, lambda message: None)
+            print("%-18s ok  %s" % (name, json.dumps(result)[:100]))
+        except Error as err:
+            print("%-18s %s: %s" % (name, err.code, err.message))
+            # An absent tool is a fact about the image, not a failure of this.
+            if err.code != E_UNAVAILABLE:
+                failures += 1
+        except Exception as err:  # noqa: BLE001
+            print("%-18s raised %r" % (name, err))
+            failures += 1
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    if "--self-test" in sys.argv[1:]:
+        sys.exit(self_test())
+    try:
+        serve()
+    except KeyboardInterrupt:
+        pass

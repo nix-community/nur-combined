@@ -13,9 +13,9 @@ border-size=2
 default-timeout=6000
 max-visible=1
 
-background-color=#000000e0
-text-color=#ffcc00
-border-color=#ffcc00
+background-color=#171b24f5
+text-color=#f4f7ff
+border-color=#8ea2ff
 
 # Layer-shell layer.  "overlay" is what puts it above a fullscreen client
 # without the client ever losing focus -- the property the X11 version got
@@ -23,6 +23,6 @@ border-color=#ffcc00
 layer=overlay
 
 [urgency=critical]
-text-color=#ff4444
-border-color=#ff4444
+text-color=#f4f7ff
+border-color=#ff7e88
 default-timeout=10000

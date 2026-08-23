@@ -54,15 +54,9 @@ util-linux
 pciutils
 usbutils
 systemd-timesyncd
-# Everything here is POSIX sh except the USB passthrough client, which speaks
-# line-delimited JSON over TCP to the host PC -- doing that in sh means nc
-# plus a JSON parser written in sed, and the failure mode of that is a wheel
-# that silently stops working.  Python was already in the image as somebody
-# else's dependency; this makes it deliberate, so a future slimming pass does
-# not quietly take moonlight-hostagent with it.  Standard library only --
-# but the full python3, not python3-minimal: json lives in the stdlib package
-# and minimal does not carry it.  This costs nothing, python3 was already
-# being pulled in.
+# The privileged settings helper and USB device policy are Python. Keep the
+# full interpreter explicit so an image-slimming pass cannot silently remove
+# their standard-library JSON and socket support.
 python3
 
 ## ---- remote access ---------------------------------------------------
@@ -208,6 +202,14 @@ parted
 gdisk
 dosfstools
 rsync
+# The installed OS updater downloads a signed ISO and mounts its SquashFS.
+curl
+openssl
+squashfs-tools
+# Session-owned, loopback-only read-only export of the running system disk.
+dmsetup
+targetcli-fb
+python3-rtslib-fb
 # grub-*-bin only: the -bin packages carry the platform modules and
 # grub-install without the postinst that tries to write to an ESP at
 # build time (there isn't one inside a live-build chroot).

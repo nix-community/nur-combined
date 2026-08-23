@@ -1,11 +1,10 @@
 name: host-utils
 
-# The host PC half of USB passthrough.  Cheap to build, so it runs on every
-# push that touches it -- the ISO workflow is the expensive one.
+# Legacy plos-host-utils validation only. Helios owns release packaging and
+# publication now, so OS release tags must never trigger this workflow.
 on:
   push:
     branches: [main]
-    tags: ['v*']
     paths:
       - 'host-utils/**'
       - 'packaging/**'

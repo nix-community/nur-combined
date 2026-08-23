@@ -1,0 +1,49 @@
+#!/bin/sh
+# Stable A/B boot entries. The kernels live on the shared boot partition so
+# either root remains bootable while the other one is replaced.
+set -e
+
+slots=/etc/moonlight-os/slots.conf
+[ -r "$slots" ] || exit 0
+
+# shellcheck disable=SC1090
+. "$slots"
+
+# Treat the recorded UUIDs as a fallback only.  Settings archives produced by
+# releases before 0.2.2 accidentally included slots.conf; restoring one after
+# formatting the inactive slot left its old UUID here.  update-grub runs with
+# access to the real block devices, so prefer the UUID currently attached to
+# each stable filesystem label.
+uuid_for_label() {
+	device=$(blkid -L "$1" 2>/dev/null || true)
+	[ -n "$device" ] || return 0
+	blkid -s UUID -o value "$device" 2>/dev/null || true
+}
+
+actual_root_a=$(uuid_for_label moonlight-root-a)
+actual_root_b=$(uuid_for_label moonlight-root-b)
+actual_boot=$(uuid_for_label moonlight-boot)
+[ -n "$actual_root_a" ] && MLOS_ROOT_A_UUID=$actual_root_a
+[ -n "$actual_root_b" ] && MLOS_ROOT_B_UUID=$actual_root_b
+[ -n "$actual_boot" ] && MLOS_BOOT_UUID=$actual_boot
+
+emit_slot() {
+	slot="$1"
+	root_uuid="$2"
+	upper=$(printf '%s' "$slot" | tr 'ab' 'AB')
+	[ -n "$root_uuid" ] || return 0
+	[ -f "/boot/moonlight/$slot/vmlinuz" ] || return 0
+	[ -f "/boot/moonlight/$slot/initrd.img" ] || return 0
+
+	cat <<-EOF
+	menuentry 'Moonlight OS (slot $upper)' --class moonlight-os --class gnu-linux --id 'moonlight-$slot' {
+		insmod ext2
+		search --no-floppy --fs-uuid --set=root $MLOS_BOOT_UUID
+		linux /moonlight/$slot/vmlinuz root=UUID=$root_uuid ro $GRUB_CMDLINE_LINUX_DEFAULT $GRUB_CMDLINE_LINUX
+		initrd /moonlight/$slot/initrd.img
+	}
+	EOF
+}
+
+emit_slot a "${MLOS_ROOT_A_UUID:-}"
+emit_slot b "${MLOS_ROOT_B_UUID:-}"

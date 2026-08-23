@@ -1,0 +1,10 @@
+[Unit]
+Description=Confirm a Moonlight OS update after a stable boot
+
+[Timer]
+OnBootSec=90s
+AccuracySec=5s
+Unit=moonlight-update-confirm.service
+
+[Install]
+WantedBy=timers.target

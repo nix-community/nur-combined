@@ -2,12 +2,12 @@
 # Moonlight OS boot flow.  Started from ~/.bash_profile on tty1 after
 # autologin.  Owns the whole lifetime of the appliance:
 #
-#   install or try it? -> keyboard -> network up? -> start sway -> Selene
+#   start sway -> graphical welcome/setup -> Selene
 #     -> (Selene exits) -> menu -> repeat
 #
-# The first step only happens on a live boot, and only once per boot.  It is
-# first because installing needs none of the steps after it, and answering
-# them anyway means answering them twice -- see moonlight-welcome.
+# The graphical first-run flow lives inside sway so it can provide real
+# progress, errors, pointer input, and a consistent control-centre UI.  The
+# older console flows remain below as the fallback when no display starts.
 #
 # shellcheck source=./moonlight-common
 . /usr/local/bin/moonlight-common
@@ -23,18 +23,8 @@ printf '\n  Moonlight OS -- starting up\n\n'
 while :; do
 	mlos_load
 
-	# 1. Live boot only, once: install this, or try it from the stick?
-	#    Nothing below is needed to install, so nothing below runs first.
-	moonlight-welcome
-
-	# 2. Keyboard and clock, once.  Must come before anything asks the user
-	#    to type: on a non-US layout the Wi-Fi password would be wrong.
-	moonlight-region --first-run
-
-	# 3. Network.  Prompts for Wi-Fi only when nothing is connected.
-	moonlight-netsetup --ensure
-
-	# 4. Graphical session.  Blocks until Moonlight exits.
+	# Graphical session.  Blocks until Moonlight exits.  sway starts
+	# moonlight-wlsession, which owns first-run before launching the streamer.
 	#    The hint is the only place the panel key is advertised, and the
 	#    panel is the only route to the installer once Moonlight has the
 	#    screen -- so it gets its own pause rather than scrolling past.
@@ -51,12 +41,20 @@ while :; do
 		clear
 		printf '\n  The graphical session failed to start.\n'
 		printf '  Log: %s\n\n' "$MLOS_STATE/session.log"
+
+		# A machine without a usable compositor must still be recoverable.  Each
+		# console tool keeps its own completion guard, so these are no-ops after
+		# setup and become the complete first-run path only when still needed.
+		sudo -n /usr/local/bin/moonlight-welcome
+		sudo -n /usr/local/bin/moonlight-region --first-run
+		sudo -n /usr/local/bin/moonlight-netsetup --ensure
+
 		if ! mlos_yesno "Moonlight could not start a display.\n\nOpen the maintenance menu?"; then
 			sleep 3
 			continue
 		fi
 	fi
 
-	# 5. Moonlight exited -- offer the maintenance menu.
+	# Moonlight exited -- offer the maintenance menu.
 	moonlight-menu || true
 done

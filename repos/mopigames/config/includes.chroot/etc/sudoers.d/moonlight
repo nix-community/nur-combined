@@ -1,3 +1,22 @@
-# Single-user appliance: the console autologs in with no password anyway,
-# so gating the settings menus behind a password buys nothing.
-moonlight ALL=(ALL) NOPASSWD: ALL
+# Fixed appliance workflows. Each script validates its own choices and none
+# accepts a command string. The console still needs no password, but it no
+# longer receives an unrestricted root shell through sudo.
+Cmnd_Alias MLOS_WORKFLOWS = /usr/local/bin/moonlight-install "", \
+    /usr/local/bin/moonlight-persist "", \
+    /usr/local/bin/moonlight-ssh "", \
+    /usr/local/bin/moonlight-tailscale "", \
+    /usr/local/bin/moonlight-bluetooth "", \
+    /usr/local/bin/moonlight-usb "", \
+    /usr/local/bin/moonlight-input --menu, \
+    /usr/local/bin/moonlight-region --menu, \
+    /usr/local/bin/moonlight-region --keyboard, \
+    /usr/local/bin/moonlight-region --first-run, \
+    /usr/local/bin/moonlight-netsetup --menu, \
+    /usr/local/bin/moonlight-netsetup --ensure, \
+    /usr/local/bin/moonlight-backup --menu, \
+    /usr/local/sbin/moonlight-update --menu, \
+    /usr/local/bin/moonlight-welcome "", \
+    /usr/local/sbin/moonlight-config-set *, \
+    /usr/bin/systemctl reboot, /usr/bin/systemctl poweroff, \
+    /usr/bin/tailscale ip -4
+moonlight ALL=(root) NOPASSWD: MLOS_WORKFLOWS

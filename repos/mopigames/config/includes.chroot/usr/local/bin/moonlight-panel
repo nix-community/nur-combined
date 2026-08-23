@@ -1,9 +1,9 @@
 #!/bin/sh
-# The settings menu, opened from inside the graphical session with Ctrl+Alt+M.
+# Guarded terminal workflows launched from Selene's native settings panel.
 #
-# Without this the menus were only reachable by quitting the client, which is
-# not obvious and is impossible mid-stream -- so there was no way to install
-# the system or change anything once the appliance had started.
+# Install, persistence, SSH-password setup, and a shell still need a real
+# terminal. This wrapper gives them an isolated workspace, one-at-a-time
+# locking, and reliable restoration of stream focus when they finish.
 #
 # This used to be the most contorted script in the image, and all of it was
 # X11's doing.  For the record, since the shape of the old version explains
@@ -27,8 +27,8 @@
 # shellcheck source=./moonlight-common
 . /usr/local/bin/moonlight-common
 
-# One panel at a time.  A second Ctrl+Alt+M focuses the one already open
-# instead of stacking terminals on top of each other.
+# One guarded workflow at a time. A second request focuses the one already
+# open instead of stacking terminals on top of each other.
 LOCK=/tmp/moonlight-panel.lock
 if ! mkdir "$LOCK" 2>/dev/null; then
 	if swaymsg '[app_id="moonlight-panel"] focus' >/dev/null 2>&1; then
@@ -168,8 +168,20 @@ trap restore EXIT INT TERM HUP
 #
 # C.UTF-8 always exists and keeps whiptail's box drawing characters intact.
 # foot is told the app_id so the sway rules in /etc/sway/config match it.
+# Selene may request one of the existing guided workflows directly.  This is
+# an allow-list rather than a command string: the privileged helper cannot be
+# turned into a general shell launcher, and the same lock/workspace cleanup
+# above still wraps every workflow.
+case "${MLOS_PANEL_COMMAND:-menu}" in
+	install) set -- sudo -n /usr/local/bin/moonlight-install ;;
+	persist) set -- sudo -n /usr/local/bin/moonlight-persist ;;
+	update)  set -- sudo -n /usr/local/sbin/moonlight-update --menu ;;
+	ssh)     set -- sudo -n /usr/local/bin/moonlight-ssh ;;
+	shell)   set -- /bin/bash -l ;;
+	*)       set -- /usr/local/bin/moonlight-menu --in-session ;;
+esac
 env LANG=C.UTF-8 foot \
 	--app-id=moonlight-panel \
 	--title="Moonlight OS settings" \
 	--font="DejaVu Sans Mono:size=13" \
-	-- /usr/local/bin/moonlight-menu --in-session
+	-- "$@"

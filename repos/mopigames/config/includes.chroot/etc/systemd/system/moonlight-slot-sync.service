@@ -1,0 +1,12 @@
+[Unit]
+Description=Reconcile Moonlight OS A/B slot metadata
+After=local-fs.target
+Before=moonlight-helper.service moonlight-update-confirm.service
+ConditionPathIsMountPoint=/boot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/moonlight-slot-sync
+
+[Install]
+WantedBy=multi-user.target

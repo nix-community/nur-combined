@@ -1,8 +1,9 @@
 #!/bin/sh
 # Pointer behaviour.  Currently one knob: which way the trackpad scrolls.
 #
-#   moonlight-input --apply   push the saved setting into the running session
-#   moonlight-input --menu    change it
+#   moonlight-input --apply           persist and apply the saved setting
+#   moonlight-input --apply-session   apply it to an existing user session
+#   moonlight-input --menu            change it
 #
 # Moonlight has a reverse-scroll setting of its own, and leaving both on
 # means they cancel out during a stream and nothing appears to change.  So
@@ -45,6 +46,17 @@ apply_live() {
 	swaymsg input type:touchpad dwt disabled >/dev/null 2>&1 || true
 }
 
+apply_session() {
+	mlos_load
+	if [ "${NATURAL_SCROLL:-no}" = "yes" ]; then
+		apply_live enabled
+	else
+		apply_live disabled
+	fi
+	# Keep Moonlight from inverting it a second time.
+	mlos_qt_set reversescroll false
+}
+
 apply() {
 	mlos_load
 	# sway spells these enabled/disabled; xinput wanted 1/0 and the
@@ -52,13 +64,10 @@ apply() {
 	# both places rather than two spellings of the same setting.
 	if [ "${NATURAL_SCROLL:-no}" = "yes" ]; then
 		write_conf enabled
-		apply_live enabled
 	else
 		write_conf disabled
-		apply_live disabled
 	fi
-	# Keep Moonlight from inverting it a second time.
-	mlos_qt_set reversescroll false
+	apply_session
 }
 
 menu() {
@@ -92,6 +101,7 @@ gets sent to the host PC while streaming." 18 74 3 \
 
 case "${1:---menu}" in
 	--apply) apply ;;
+	--apply-session) apply_session ;;
 	--menu)  menu ;;
-	*) printf 'usage: moonlight-input [--apply|--menu]\n' >&2; exit 2 ;;
+	*) printf 'usage: moonlight-input [--apply|--apply-session|--menu]\n' >&2; exit 2 ;;
 esac

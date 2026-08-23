@@ -29,6 +29,7 @@ import subprocess
 # test can point at a config that is not the running machine's.
 CONF = os.environ.get("MLOS_CONF", "/etc/moonlight-os/moonlight-os.conf")
 DEFAULT_PORT = 48020
+USBIP_HOST_DRIVER = "/sys/bus/usb/drivers/usbip-host"
 
 # ---------------------------------------------------------------- config
 
@@ -495,9 +496,14 @@ def _usbip(args, timeout=20):
 
 
 def bound_busids():
-    """What usbipd is currently exporting.  Asked of the daemon over the
-    loopback rather than read out of sysfs, so it is the same answer the
-    host PC would get."""
+    """Devices owned by usbip-host, whether waiting or already attached.
+
+    usbipd's remote list is useful for devices that a host may attach, but it
+    deliberately omits an export as soon as a host is using it.  Treating
+    that omission as "not shared" makes a successful fast attachment look
+    like a failed bind.  The driver directory remains authoritative for both
+    states, so merge its bus IDs into the daemon's answer.
+    """
     res = _usbip(["list", "-p", "-r", "127.0.0.1"])
     found = set()
     for line in res.stdout.splitlines():
@@ -508,6 +514,13 @@ def bound_busids():
         m = re.search(r"busid=([0-9]+-[0-9.]+)", line)
         if m:
             found.add(m.group(1))
+    try:
+        entries = os.listdir(USBIP_HOST_DRIVER)
+    except OSError:
+        entries = []
+    for busid in entries:
+        if BUSID_RE.fullmatch(busid) and os.path.isdir(os.path.join(USBIP_HOST_DRIVER, busid)):
+            found.add(busid)
     return found
 
 

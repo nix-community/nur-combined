@@ -15,12 +15,10 @@ for svc in NetworkManager NetworkManager-wait-online avahi-daemon usbipd \
 	systemctl enable "$svc" 2>/dev/null || true
 done
 
-# The automatic USB passthrough watcher is enabled but reads USB_AUTOSHARE on
-# start and exits immediately when it is off, which it is by default.  That
-# is deliberately not the same as leaving it disabled: the menu toggles one
-# setting and restarts the unit, rather than having to enable and disable it
-# and keep the two in agreement.
-systemctl enable moonlight-usb-auto 2>/dev/null || true
+# The privileged helper behind the in-client settings panel. Enabled here
+# rather than by a package because, like everything in this image, it is a
+# file dropped into includes.chroot with no postinst to do it.
+systemctl enable moonlight-helper 2>/dev/null || true
 
 # Tailscale comes from the upstream tarball, so its unit is dropped into
 # /etc/systemd/system by build.sh rather than installed by a package -- it

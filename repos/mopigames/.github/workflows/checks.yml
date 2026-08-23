@@ -1,0 +1,50 @@
+name: source checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  appliance:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shell checker
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends shellcheck
+      - name: Privileged-helper regression tests
+        run: |
+          for test in tools/test-helper-*.py; do
+            python3 "$test"
+          done
+          python3 tools/test-updater-contract.py
+          python3 tools/test-session-contract.py
+      - name: Python syntax
+        run: |
+          python3 -m py_compile \
+            config/includes.chroot/usr/local/bin/moonlight-helper \
+            config/includes.chroot/usr/local/sbin/moonlight-config-set
+      - name: Changed workflow shell syntax
+        run: |
+          shellcheck -S error \
+            config/includes.chroot/usr/local/bin/moonlight-common \
+            config/includes.chroot/usr/local/bin/moonlight-backup \
+            config/includes.chroot/usr/local/bin/moonlight-install \
+            config/includes.chroot/usr/local/bin/moonlight-menu \
+            config/includes.chroot/usr/local/bin/moonlight-panel \
+            config/includes.chroot/usr/local/bin/moonlight-session \
+            config/includes.chroot/usr/local/bin/moonlight-input \
+            config/includes.chroot/usr/local/bin/moonlight-wlsession \
+            config/includes.chroot/usr/local/bin/moonlight-welcome \
+            config/includes.chroot/usr/local/sbin/moonlight-update \
+            config/includes.chroot/usr/local/sbin/moonlight-slot-sync \
+            config/includes.chroot/etc/grub.d/09_moonlight_slots \
+            config/hooks/normal/0050-moonlight-updater.hook.chroot
+      - name: Sudo policy has no unrestricted rule
+        run: |
+          ! grep -Eq "NOPASSWD:[[:space:]]*(ALL|/bin/(ba)?sh)" config/includes.chroot/etc/sudoers.d/moonlight
+          sudo visudo -cf config/includes.chroot/etc/sudoers.d/moonlight

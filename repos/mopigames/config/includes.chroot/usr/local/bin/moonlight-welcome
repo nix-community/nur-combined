@@ -51,7 +51,7 @@ its pairing, Wi-Fi and everything else across." 20 74 3 \
 
 	case "$choice" in
 		install)
-			moonlight-install
+			sudo -n /usr/local/bin/moonlight-install
 			# Back here means the install was cancelled, finished
 			# without a reboot, or found no disk -- all of which leave
 			# the choice open rather than stranding someone in a live
@@ -66,7 +66,7 @@ its pairing, Wi-Fi and everything else across." 20 74 3 \
 			# out as something else.  This is the escape hatch, and it
 			# is only worth showing here because the rest of this
 			# screen needs nothing but the arrow keys.
-			moonlight-region --keyboard || true
+			sudo -n /usr/local/bin/moonlight-region --keyboard || true
 			;;
 	esac
 done

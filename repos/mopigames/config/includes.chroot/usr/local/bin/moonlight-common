@@ -36,7 +36,8 @@ mlos_load() {
 	NATURAL_SCROLL="no"
 	BATTERY_WARN="yes"
 	BATTERY_LEVELS="20 10 5"
-	# USB passthrough to a host PC running mlos-host-utils.
+	# USB passthrough through the active Selene/Helios session. The USB_HOST
+	# values are read only for one-release compatibility with the retired agent.
 	USB_AUTOSHARE="no"
 	USB_AUTOSHARE_POLICY="safe"
 	USB_AUTOSHARE_INCLUDE=""
@@ -57,6 +58,10 @@ mlos_load() {
 mlos_set() {
 	key="$1"
 	val="$2"
+	if [ "$(id -u)" != "0" ]; then
+		sudo -n /usr/local/sbin/moonlight-config-set "$key" "$val"
+		return
+	fi
 	tmp="$(mktemp)"
 	if [ -r "$MLOS_CONF" ]; then
 		grep -v "^${key}=" "$MLOS_CONF" > "$tmp" 2>/dev/null || true

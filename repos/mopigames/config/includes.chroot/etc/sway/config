@@ -40,15 +40,15 @@ xwayland disable
 # /dev/input: while streaming, the client grabbed the X keyboard, so the
 # window manager never saw this combination and the panel could not be opened.
 #
-# A compositor binding is evaluated before the key reaches any client, so that
-# entire mechanism -- triggerhappy, its evdev rules, the setuid-ish hand-off
-# script, the iconify-to-drop-the-grab dance -- collapses into this one line.
+# Outside a stream the compositor launches Selene's native panel. During a
+# stream Selene temporarily removes this binding and handles the same key
+# itself, drawing the panel directly into the streamed frame.
 #
 # --to-code binds the physical key position rather than the letter, so this
 # still lands on the key labelled M under an AZERTY layout, where it would
 # otherwise be the semicolon.  That replaces the duplicated KEY_SEMICOLON
 # rules the evdev version needed.
-bindsym --to-code Ctrl+Alt+m exec /usr/local/bin/moonlight-panel
+bindsym --to-code Ctrl+Alt+m exec /usr/bin/selene panel
 
 # ...and the client is not allowed to take that binding away.
 #
@@ -60,8 +60,8 @@ bindsym --to-code Ctrl+Alt+m exec /usr/local/bin/moonlight-panel
 # is needed -- the same failure the X11 grab caused, in a new protocol.
 #
 # Refusing the inhibitor is what keeps the panel reachable mid-stream.  The
-# cost is that the two combinations bound here no longer reach the host PC;
-# every other key still does.  Under X11 they reached both, because reading
+# cost is that the combinations bound here no longer reach the host PC; every
+# other key still does. Under X11 they reached both, because reading
 # /dev/input is passive.
 seat * shortcuts_inhibitor disable
 
@@ -69,8 +69,8 @@ seat * shortcuts_inhibitor disable
 bindsym --to-code Ctrl+Alt+Shift+q exit
 
 ### --- window placement ---------------------------------------------------
-# The panel gets a workspace to itself, and the compositor switches to it as
-# the window appears.
+# Guarded terminal workflows get a workspace to themselves, and the
+# compositor switches to it as their window appears.
 #
 # It cannot simply open on top.  A second toplevel over a fullscreen client
 # does not reliably get drawn: sway reports the panel fullscreen and visible
@@ -86,9 +86,9 @@ bindsym --to-code Ctrl+Alt+Shift+q exit
 #
 # A layer-shell surface on the overlay layer is the mechanism that is actually
 # defined to draw above fullscreen surfaces, and it works here (checked with
-# swaynag -y overlay over a live stream).  foot cannot use it -- no layer-shell
-# support -- so until the panel stops being a terminal, it goes where the
-# client isn't.  See moonlight-panel for the full write-up.
+# swaynag -y overlay over a live stream). foot cannot use it, so installer,
+# persistence, SSH-password, and shell workflows go where the client is not.
+# The everyday panel is drawn by Selene and does not need this rule.
 #
 # Done here rather than in moonlight-panel because a script that switches
 # workspace and then spawns the terminal races: sway places a window on

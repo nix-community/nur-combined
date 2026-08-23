@@ -1,0 +1,50 @@
+#!/usr/bin/python3
+"""Narrow sudo entry point for the legacy console settings menus."""
+
+import os
+import re
+import sys
+import tempfile
+
+PATH = "/etc/moonlight-os/moonlight-os.conf"
+ALLOWED = {
+    "MOONLIGHT_OUTPUT", "DISPLAY_MODE", "MODE_OVERRIDES", "ROTATIONS",
+    "SCREEN_SIDES", "AUTOCONNECT_HOST", "AUTOCONNECT_APP", "WINDOW_MODE",
+    "STREAM_WIDTH", "STREAM_HEIGHT", "STREAM_FPS", "STREAM_BITRATE",
+    "AUDIO_CONFIG", "HOST_AUDIO", "CAPTURE_SYS_KEYS", "NATURAL_SCROLL",
+    "FORCE_SOFTWARE", "BATTERY_WARN", "BATTERY_LEVELS", "USB_AUTOSHARE",
+    "USB_AUTOSHARE_POLICY", "USB_AUTOSHARE_EXCLUDE", "USB_HOST_ADDR",
+    "USB_HOST_PORT", "USB_HOST_TOKEN", "KEYBOARD_LAYOUT", "KEYBOARD_VARIANT",
+    "TIMEZONE",
+}
+
+if os.geteuid() != 0 or len(sys.argv) != 3 or sys.argv[1] not in ALLOWED:
+    raise SystemExit("usage: moonlight-config-set ALLOWED_KEY VALUE")
+
+key, value = sys.argv[1:]
+if len(value) > 1024 or any(ch in value for ch in '\n\r"\0'):
+    raise SystemExit("invalid setting value")
+if key == "USB_HOST_TOKEN" and value and not re.fullmatch(r"[A-Za-z0-9._~-]{1,128}", value):
+    raise SystemExit("invalid host token")
+
+os.makedirs(os.path.dirname(PATH), mode=0o755, exist_ok=True)
+try:
+    with open(PATH, encoding="utf-8") as stream:
+        lines = [line for line in stream if not line.startswith(key + "=")]
+except FileNotFoundError:
+    lines = []
+lines.append('%s="%s"\n' % (key, value))
+
+fd, temporary = tempfile.mkstemp(prefix=".moonlight-os.", dir=os.path.dirname(PATH))
+try:
+    with os.fdopen(fd, "w", encoding="utf-8") as stream:
+        stream.writelines(lines)
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.chmod(temporary, 0o644)
+    os.replace(temporary, PATH)
+finally:
+    try:
+        os.unlink(temporary)
+    except FileNotFoundError:
+        pass

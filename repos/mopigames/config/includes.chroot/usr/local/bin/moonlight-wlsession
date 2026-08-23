@@ -17,7 +17,11 @@ mlos_load
 moonlight-region --apply-session
 
 # Trackpad scroll direction, touchscreen mapping.
-moonlight-input --apply
+# Persistence is handled when the setting changes.  Session startup runs as
+# the appliance user, so only touch the live compositor and its own Selene
+# preference here; retrying the root-owned drop-in would prompt for sudo on
+# every boot and still fail.
+moonlight-input --apply-session
 
 # Record the real output layout so the (TTY-side) display menu has
 # something accurate to offer next time it runs.
@@ -25,6 +29,22 @@ mkdir -p "$MLOS_STATE"
 swaymsg -t get_outputs > "$MLOS_SNAPSHOT" 2>/dev/null || true
 
 # Rebuild the layout for whatever is plugged in right now.
+moonlight-displays --apply
+
+# First-run belongs inside the compositor: the same themed, pointer-friendly
+# interface can explain work and errors instead of dropping users through a
+# chain of console prompts.  On configured systems this performs one status
+# request and closes immediately.  A failure exits sway so moonlight-session
+# can offer the retained console setup and maintenance fallback.
+if ! /usr/bin/selene setup; then
+	printf 'Graphical first-run failed; returning to the console fallback.\n' >&2
+	swaymsg exit >/dev/null 2>&1 || true
+	exit 1
+fi
+
+# The wizard may have changed the keyboard or display selection.
+mlos_load
+moonlight-region --apply-session
 moonlight-displays --apply
 
 # ...and keep doing it.  A laptop gets carried to a monitor and away again;

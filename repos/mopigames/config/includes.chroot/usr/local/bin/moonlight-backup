@@ -29,7 +29,8 @@
 # than the one that wrote the archive, then travels without anybody having to
 # remember to add it here.
 PATHS="
-/etc/moonlight-os
+/etc/moonlight-os/moonlight-os.conf
+/etc/moonlight-os/.configured
 /etc/NetworkManager/system-connections
 /etc/ssh/sshd_config.d
 /etc/default/keyboard
@@ -38,6 +39,7 @@ PATHS="
 /etc/adjtime
 /etc/hostname
 /etc/hosts
+/etc/machine-id
 /var/lib/tailscale
 /var/lib/bluetooth
 /home/moonlight/.ssh/authorized_keys

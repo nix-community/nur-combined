@@ -44,6 +44,9 @@
 
 # SSH public keys of whoever ran the build -- never commit these.
 /config/includes.chroot/etc/moonlight-os/authorized_keys
+# Generated for each image so the installed updater can compare releases.
+/config/includes.chroot/etc/moonlight-os/release
+/config/includes.chroot/usr/share/moonlight-os/release
 
 # --- host utils ---------------------------------------------------------
 /host-utils/dist/
@@ -54,6 +57,8 @@
 *.part
 *.swp
 .DS_Store
+__pycache__/
+*.py[cod]
 
 # nix build drops a symlink to the store here
 /result

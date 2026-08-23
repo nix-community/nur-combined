@@ -2,9 +2,10 @@
 # Install Moonlight OS to an internal disk.
 #
 # Deliberately not debian-installer: this is a single-purpose appliance with
-# one partition layout and no choices worth asking about.  It copies the
-# running system to the target, drops the live-boot machinery, and installs
-# GRUB for both UEFI and BIOS so the result boots anywhere.
+# one partition layout and no choices worth asking about. It creates two root
+# slots around a shared /boot, copies the running system into slot A, drops the
+# live-boot machinery, and installs GRUB for both UEFI and BIOS. Slot B is kept
+# empty for the first signed, rollback-safe update.
 #
 # THIS ERASES THE SELECTED DISK.
 #
@@ -24,7 +25,7 @@ die_ui() {
 }
 
 cleanup() {
-	for m in dev/pts dev proc sys run boot/efi ""; do
+	for m in dev/pts dev proc sys run boot/efi boot ""; do
 		mountpoint -q "$TARGET/$m" 2>/dev/null && mlos_root umount -l "$TARGET/$m" 2>/dev/null
 	done
 	return 0
@@ -50,7 +51,7 @@ pick_disk() {
 	# emulated floppies and card-reader slots otherwise show up as install
 	# targets.  The image is about 3 GB unpacked.
 	lsblk -dnp -b -o NAME,SIZE,TYPE,MODEL 2>/dev/null \
-		| awk '$3 == "disk" && $2 >= 6000000000 {
+		| awk '$3 == "disk" && $2 >= 20000000000 {
 			size = $2 / 1000000000
 			printf "%s\t%.1f GB\t", $1, size
 			out = ""
@@ -58,6 +59,23 @@ pick_disk() {
 			print out
 		}' \
 		| grep -v '^/dev/loop' > "$list"
+
+	# The native panel already made this choice. Revalidate it against the
+	# current inventory and the boot-medium exclusion, then continue directly
+	# to confirmation instead of asking for the same disk twice.
+	if [ -n "${MLOS_INSTALL_DEVICE:-}" ]; then
+		while IFS= read -r line; do
+			dev=$(printf '%s' "$line" | awk '{print $1}')
+			if [ "$dev" = "$MLOS_INSTALL_DEVICE" ] && [ "$dev" != "$src" ]; then
+				rm -f "$list"
+				printf '%s' "$dev"
+				return 0
+			fi
+		done < "$list"
+		rm -f "$list"
+		mlos_msg "The disk selected in the control centre is no longer available. Nothing was changed."
+		return 1
+	fi
 
 	menu=""
 	n=0
@@ -248,12 +266,21 @@ This cannot be undone. Continue?" 20 76 || exit 0
 	printf '  [1/6] Partitioning...\n'
 	mlos_root wipefs -a "$disk" >/dev/null 2>&1 || true
 	mlos_root sgdisk --zap-all "$disk" >/dev/null 2>&1 || true
-	# 1 MiB BIOS boot + 512 MiB ESP + the rest for the system.  Both boot
-	# partitions are always created so the disk works in either firmware mode.
+	# 1 MiB BIOS boot + 512 MiB ESP + 1 GiB shared /boot + equal A/B roots.
+	# The shared boot partition keeps both slot kernels available while either
+	# root is being replaced. Both firmware partitions are always created so
+	# the disk works in either UEFI or BIOS mode.
+	disk_bytes=$(mlos_root blockdev --getsize64 "$disk")
+	usable_mib=$((disk_bytes / 1048576 - 1537))
+	root_mib=$((usable_mib / 2))
+	[ "$root_mib" -ge 8000 ] \
+		|| die_ui "This disk is too small for rollback-safe A/B updates. Moonlight OS needs at least 20 GB."
 	mlos_root sgdisk \
 		-n 1:0:+1M    -t 1:ef02 -c 1:"BIOS boot" \
 		-n 2:0:+512M  -t 2:ef00 -c 2:"EFI system" \
-		-n 3:0:0      -t 3:8300 -c 3:"Moonlight OS" \
+		-n 3:0:+1G    -t 3:8300 -c 3:"Moonlight boot" \
+		-n 4:0:+${root_mib}M -t 4:8300 -c 4:"Moonlight OS A" \
+		-n 5:0:0      -t 5:8300 -c 5:"Moonlight OS B" \
 		"$disk" >/dev/null 2>&1 || die_ui "Partitioning failed."
 	mlos_root partprobe "$disk" >/dev/null 2>&1 || true
 	sleep 2
@@ -264,25 +291,39 @@ This cannot be undone. Continue?" 20 76 || exit 0
 		*)      p="${disk}" ;;
 	esac
 	esp="${p}2"
-	root="${p}3"
-	[ -b "$esp" ] && [ -b "$root" ] || die_ui "The new partitions did not appear."
+	boot="${p}3"
+	root_a="${p}4"
+	root_b="${p}5"
+	root="$root_a"
+	[ -b "$esp" ] && [ -b "$boot" ] && [ -b "$root_a" ] \
+		&& [ -b "$root_b" ] || die_ui "The new partitions did not appear."
 
 	# ---- format ---------------------------------------------------------
 	printf '  [2/6] Formatting...\n'
 	mlos_root mkfs.vfat -F32 -n MLOS-ESP "$esp" >/dev/null 2>&1 \
 		|| die_ui "Could not format the EFI partition."
-	mlos_root mkfs.ext4 -q -L moonlight-root "$root" >/dev/null 2>&1 \
-		|| die_ui "Could not format the system partition."
+	mlos_root mkfs.ext4 -q -L moonlight-boot "$boot" >/dev/null 2>&1 \
+		|| die_ui "Could not format the shared boot partition."
+	mlos_root mkfs.ext4 -q -L moonlight-root-a "$root_a" >/dev/null 2>&1 \
+		|| die_ui "Could not format system slot A."
+	mlos_root mkfs.ext4 -q -L moonlight-root-b "$root_b" >/dev/null 2>&1 \
+		|| die_ui "Could not format system slot B."
 
 	# ---- copy -----------------------------------------------------------
 	printf '  [3/6] Copying the system (this takes a few minutes)...\n'
 	mlos_root mkdir -p "$TARGET"
 	mlos_root mount "$root" "$TARGET" || die_ui "Could not mount the new system partition."
+	mlos_root mkdir -p "$TARGET/boot/efi"
+	mlos_root mount "$boot" "$TARGET/boot" || die_ui "Could not mount the shared boot partition."
+	mlos_root mkdir -p "$TARGET/boot/efi"
+	mlos_root mount "$esp" "$TARGET/boot/efi" || die_ui "Could not mount the EFI partition."
 	mlos_root rsync -aHAX --info=progress2 \
 		--exclude=/proc --exclude=/sys --exclude=/dev --exclude=/run \
 		--exclude=/tmp --exclude=/mnt --exclude=/media --exclude=/lost+found \
-		--exclude=/target --exclude=/var/cache/apt/archives \
+		--exclude=/target --exclude=/var/cache/apt/archives --exclude=/boot \
 		/ "$TARGET/" || die_ui "Copying the system failed."
+	mlos_root rsync -aHAX --exclude=/efi /boot/ "$TARGET/boot/" \
+		|| die_ui "Copying the boot files failed."
 
 	mlos_root mkdir -p "$TARGET/proc" "$TARGET/sys" "$TARGET/dev" "$TARGET/run" \
 		"$TARGET/tmp" "$TARGET/mnt" "$TARGET/media" "$TARGET/boot/efi"
@@ -295,15 +336,24 @@ This cannot be undone. Continue?" 20 76 || exit 0
 	# saying "UUID=" for both filesystems.  systemd then waits for a device
 	# unit that can never appear and the installed system boots into
 	# emergency mode.
-	root_uuid=$(mlos_root blkid -s UUID -o value "$root")
+	root_uuid=$(mlos_root blkid -s UUID -o value "$root_a")
+	root_b_uuid=$(mlos_root blkid -s UUID -o value "$root_b")
+	boot_uuid=$(mlos_root blkid -s UUID -o value "$boot")
 	esp_uuid=$(mlos_root blkid -s UUID -o value "$esp")
-	[ -n "$root_uuid" ] && [ -n "$esp_uuid" ] \
+	[ -n "$root_uuid" ] && [ -n "$root_b_uuid" ] \
+		&& [ -n "$boot_uuid" ] && [ -n "$esp_uuid" ] \
 		|| die_ui "Could not read the new filesystem UUIDs, so the installed system would not boot. Nothing further was written."
 
 	# nofail on the ESP: a missing or reformatted EFI partition should cost
 	# you the ability to update the bootloader, not the ability to boot.
-	printf 'UUID=%s  /          ext4  errors=remount-ro,noatime  0 1\nUUID=%s  /boot/efi  vfat  umask=0077,nofail          0 0\ntmpfs        /tmp       tmpfs defaults,nosuid,nodev        0 0\n' \
-		"$root_uuid" "$esp_uuid" | mlos_root tee "$TARGET/etc/fstab" >/dev/null
+	printf 'UUID=%s  /          ext4  errors=remount-ro,noatime  0 1\nUUID=%s  /boot      ext4  errors=remount-ro,noatime  0 2\nUUID=%s  /boot/efi  vfat  umask=0077,nofail          0 0\ntmpfs        /tmp       tmpfs defaults,nosuid,nodev        0 0\n' \
+		"$root_uuid" "$boot_uuid" "$esp_uuid" \
+		| mlos_root tee "$TARGET/etc/fstab" >/dev/null
+	mlos_root mkdir -p "$TARGET/etc/moonlight-os"
+	printf 'MLOS_ROOT_A_UUID=%s\nMLOS_ROOT_B_UUID=%s\nMLOS_BOOT_UUID=%s\nMLOS_ESP_UUID=%s\n' \
+		"$root_uuid" "$root_b_uuid" "$boot_uuid" "$esp_uuid" \
+		| mlos_root tee "$TARGET/etc/moonlight-os/slots.conf" >/dev/null
+	printf 'a\n' | mlos_root tee "$TARGET/etc/moonlight-os/slot" >/dev/null
 
 	# ---- chroot: drop live-boot, install grub ---------------------------
 	printf '  [5/6] Installing the bootloader...\n'
@@ -311,9 +361,7 @@ This cannot be undone. Continue?" 20 76 || exit 0
 		mlos_root mount --bind "/$m" "$TARGET/$m"
 	done
 	mlos_root mount --bind /dev/pts "$TARGET/dev/pts" 2>/dev/null || true
-	mlos_root mount "$esp" "$TARGET/boot/efi" || die_ui "Could not mount the EFI partition."
-
-	mlos_root chroot "$TARGET" /bin/sh -eu <<-CHROOT
+	if ! mlos_root chroot "$TARGET" /bin/sh -eu <<-CHROOT
 		export DEBIAN_FRONTEND=noninteractive
 		# Without this the installed system still tries to boot as a live image.
 		dpkg --purge --force-depends live-boot live-boot-initramfs-tools \\
@@ -327,17 +375,41 @@ This cannot be undone. Continue?" 20 76 || exit 0
 		# UEFI. --removable also writes the fallback path, so machines that
 		# ignore NVRAM entries still find it.
 		if [ -d /sys/firmware/efi ]; then
-			grub-install --target=x86_64-efi --efi-directory=/boot/efi \\
-				--bootloader-id=moonlight-os --recheck >/dev/null 2>&1 || true
-			grub-install --target=x86_64-efi --efi-directory=/boot/efi \\
-				--removable --recheck >/dev/null 2>&1 || true
+			if grub-install --target=x86_64-efi --efi-directory=/boot/efi \\
+					--bootloader-id=moonlight-os --recheck >/dev/null 2>&1; then
+				grub-install --target=x86_64-efi --efi-directory=/boot/efi \\
+					--removable --recheck >/dev/null 2>&1 || true
+			else
+				grub-install --target=x86_64-efi --efi-directory=/boot/efi \\
+					--removable --recheck >/dev/null 2>&1
+			fi
+			# BIOS support is useful on a disk moved to another machine, but a
+			# UEFI install remains valid when this compatibility copy fails.
+			grub-install --target=i386-pc --recheck $disk >/dev/null 2>&1 || true
+		else
+			grub-install --target=i386-pc --recheck $disk >/dev/null 2>&1
 		fi
-		# BIOS, always -- costs nothing and saves a reinstall on older boxes.
-		grub-install --target=i386-pc --recheck $disk >/dev/null 2>&1 || true
 
-		update-initramfs -u -k all >/dev/null 2>&1 || true
-		update-grub >/dev/null 2>&1 || true
+		systemctl enable moonlight-slot-sync.service \
+			moonlight-update-confirm.timer >/dev/null 2>&1 || true
+		update-initramfs -u -k all >/dev/null 2>&1
+		kernel_version=\$(find /lib/modules -mindepth 1 -maxdepth 1 -type d \
+			-printf '%f\\n' | sort -V | tail -1)
+		if [ -n "\$kernel_version" ] \
+				&& [ -f "/boot/vmlinuz-\$kernel_version" ] \
+				&& [ -f "/boot/initrd.img-\$kernel_version" ]; then
+			mkdir -p /boot/moonlight/a
+			cp "/boot/vmlinuz-\$kernel_version" /boot/moonlight/a/vmlinuz
+			cp "/boot/initrd.img-\$kernel_version" /boot/moonlight/a/initrd.img
+		else
+			exit 1
+		fi
+		update-grub >/dev/null 2>&1
+		grub-set-default moonlight-a >/dev/null 2>&1
 	CHROOT
+	then
+		die_ui "The bootloader or installed kernel could not be prepared."
+	fi
 
 	# ---- finish ----------------------------------------------------------
 	printf '  [6/6] Finishing up...\n'
@@ -377,6 +449,17 @@ A copy was left at $keep on the new disk.  Once it has
 booted, System -> Back up / restore settings will find it there."
 		fi
 		rm -f "$err"
+	fi
+
+	# Old settings archives included image-owned A/B metadata.  Put the values
+	# for this installation back after restoring one.
+	printf 'MLOS_ROOT_A_UUID=%s\nMLOS_ROOT_B_UUID=%s\nMLOS_BOOT_UUID=%s\nMLOS_ESP_UUID=%s\n' \
+		"$root_uuid" "$root_b_uuid" "$boot_uuid" "$esp_uuid" \
+		| mlos_root tee "$TARGET/etc/moonlight-os/slots.conf" >/dev/null
+	printf 'a\n' | mlos_root tee "$TARGET/etc/moonlight-os/slot" >/dev/null
+	if [ -r "$TARGET/usr/share/moonlight-os/release" ]; then
+		mlos_root cp "$TARGET/usr/share/moonlight-os/release" \
+			"$TARGET/etc/moonlight-os/release"
 	fi
 
 	mlos_root sync

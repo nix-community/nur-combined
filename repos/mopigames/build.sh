@@ -17,8 +17,7 @@
 #   SSH_KEYS=auto|none|<path>  which public keys may log in over SSH.
 #                              auto takes ~/.ssh/*.pub from this machine.
 #   MLOS_SUITE=trixie          Debian release to base on
-#   HOST_UTILS=amd64|all|none  which mlos-host-utils builds to carry
-#                              on the ISO for copying to the host PC
+#   MLOS_VERSION=0.2.0         OS release version written into the image
 #   INCREMENTAL=1              reuse the existing chroot (fast, but silently
 #                              ignores any config change -- debugging only)
 
@@ -28,15 +27,17 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 IMAGE=moonlight-os-builder
 # Stamped into the ISO filename. It used to select which Moonlight AppImage to
 # download; the client is now built from source, so it is only a label.
-ISO_VERSION="${ISO_VERSION:-6.1.0}"
+ISO_VERSION="${ISO_VERSION:-6.2.0}"
+MLOS_VERSION="${MLOS_VERSION:-0~dev}"
 FIRMWARE="${FIRMWARE:-full}"
 MLOS_SUITE="${MLOS_SUITE:-trixie}"
 TAILSCALE_VERSION="${TAILSCALE_VERSION:-}"
 SSH_KEYS="${SSH_KEYS:-auto}"
-HOST_UTILS="${HOST_UTILS:-amd64}"
-GO_IMAGE="${GO_IMAGE:-golang:1.24-bookworm}"
 # Used when pkgs.tailscale.com cannot be reached to ask what stable is.
 TAILSCALE_FALLBACK=1.102.2
+MSQUIC_VERSION=2.5.9
+MSQUIC_SHA256=1baa61ade0b7b4a99f6dcb6b00d9aedb12b5566d00918a325be7425e878e51ba
+MSQUIC_URL="https://packages.microsoft.com/debian/13/prod/pool/main/libm/libmsquic/libmsquic_${MSQUIC_VERSION}_amd64.deb"
 
 SELENE_SRC="${SELENE_SRC:-$HOME/moonlight-os-stuff/selene}"
 
@@ -45,6 +46,7 @@ die() { printf '\033[1;31mError:\033[0m %s\n' "$*" >&2; exit 1; }
 
 command -v docker >/dev/null || die "docker is required to build the image."
 docker info >/dev/null 2>&1 || die "cannot talk to the docker daemon."
+command -v dpkg-deb >/dev/null || die "dpkg-deb is required to verify the Selene package."
 
 # ---------------------------------------------------------------- builder ---
 build_builder_image() {
@@ -71,6 +73,25 @@ build_builder_image() {
 # FFmpeg and VA-API rather than carrying a second copy of all of them, and it
 # is why the LIBVA_DRIVERS_PATH override and the "pkill -x AppRun" fallback are
 # both gone from the launcher scripts.
+verify_selene_package() {
+	local package="$1"
+	local setup_help='  setup           Run Moonlight OS first-run setup'
+	local panel_help='  panel           Open the Moonlight OS control centre'
+	local update_action='Update Moonlight OS'
+	local matches
+
+	matches="$(dpkg-deb --fsys-tarfile "$package" \
+		| tar -xOf - ./usr/bin/selene 2>/dev/null \
+		| { grep -aFo -e "$setup_help" -e "$panel_help" -e "$update_action"; grep_status=$?; [ "$grep_status" -le 1 ]; } \
+		| sort -u)" \
+		|| die "could not inspect the Selene binary in $package"
+	if ! grep -Fx "$setup_help" <<< "$matches" >/dev/null \
+		|| ! grep -Fx "$panel_help" <<< "$matches" >/dev/null \
+		|| ! grep -Fx "$update_action" <<< "$matches" >/dev/null; then
+		die "Selene package lacks the setup/panel/updater interface required by Moonlight OS: $package"
+	fi
+}
+
 fetch_selene() {
 	[[ -d "$SELENE_SRC" ]] \
 		|| die "Selene source not found at $SELENE_SRC. Set SELENE_SRC to the checkout."
@@ -87,8 +108,24 @@ fetch_selene() {
 
 	local dest="$HERE/config/packages.chroot"
 	mkdir -p "$dest"
+	local msquic_package="$dest/libmsquic_${MSQUIC_VERSION}_amd64.deb"
+	if [[ -f "$msquic_package" ]]; then
+		echo "$MSQUIC_SHA256  $msquic_package" | sha256sum -c - \
+			|| die "staged MsQuic package checksum mismatch: $msquic_package"
+	else
+		local msquic_download="$msquic_package.part.$$"
+		say "Downloading pinned MsQuic $MSQUIC_VERSION runtime"
+		curl -fL --retry 3 -o "$msquic_download" "$MSQUIC_URL" \
+			|| die "could not download $MSQUIC_URL"
+		echo "$MSQUIC_SHA256  $msquic_download" | sha256sum -c - \
+			|| die "downloaded MsQuic package checksum mismatch"
+		mv "$msquic_download" "$msquic_package"
+	fi
 
 	if [[ -z "${SELENE_REBUILD:-}" ]] && compgen -G "$dest/selene_*.deb" >/dev/null; then
+		local staged_package
+		staged_package="$(compgen -G "$dest/selene_*.deb" | head -1)"
+		verify_selene_package "$staged_package"
 		say "Using the Selene package already staged in packages.chroot"
 		return
 	fi
@@ -102,7 +139,10 @@ fetch_selene() {
 	rm -f "$dest"/selene_*.deb
 	cp "$SELENE_SRC"/dist/selene_*.deb "$dest/" \
 		|| die "no Selene .deb was produced"
-	say "Staged $(basename "$(ls -1 "$dest"/selene_*.deb | head -1)")"
+	local staged_package
+	staged_package="$(compgen -G "$dest/selene_*.deb" | head -1)"
+	verify_selene_package "$staged_package"
+	say "Staged $(basename "$staged_package")"
 }
 
 # ------------------------------------------------------------- tailscale ----
@@ -157,63 +197,6 @@ fetch_tailscale() {
 		" || die "could not unpack Tailscale"
 }
 
-# ------------------------------------------------------- host utils --------
-# The host PC half of USB passthrough, carried on the ISO so there is
-# something to copy across without a second machine and a browser.  The USB
-# passthrough menu prints the scp line that fetches it.
-#
-# amd64 is the default because a host PC is one, and shipping the arm64
-# builds as well doubles this for a case nobody has yet.
-build_host_utils() {
-	local dest="$HERE/config/includes.chroot/opt/mlos-host-utils"
-	rm -rf "$dest"
-
-	if [[ "$HOST_UTILS" == "none" ]]; then
-		say "Host utils: not carrying them on the ISO"
-		return
-	fi
-
-	local targets="linux/amd64 windows/amd64"
-	[[ "$HOST_UTILS" == "all" ]] && targets="linux/amd64 linux/arm64 windows/amd64 windows/arm64"
-
-	local version
-	version="$(date +%Y.%m.%d)"
-
-	say "Building mlos-host-utils $version ($HOST_UTILS)"
-	mkdir -p "$dest" "$HERE/cache/go-build" "$HERE/cache/go-mod"
-
-	# Built in the container so the toolchain is not a requirement for
-	# building the ISO, and so the binaries are reproducible across the
-	# machines people build this on.  Caches are kept in cache/ alongside
-	# the .debs, so a rebuild is quick and `clean` leaves them alone.
-	docker run --rm --network host \
-		-v "$HERE/host-utils:/src:ro" \
-		-v "$dest:/out" \
-		-v "$HERE/cache/go-build:/gocache" \
-		-v "$HERE/cache/go-mod:/gomod" \
-		-e HOST_UID="$(id -u)" -e HOST_GID="$(id -g)" \
-		-e GOCACHE=/gocache -e GOMODCACHE=/gomod \
-		-e CGO_ENABLED=0 \
-		-w /src \
-		"$GO_IMAGE" bash -euc "
-			go vet ./...
-			go test ./...
-			for t in $targets; do
-				os=\${t%/*}; arch=\${t#*/}
-				name=mlos-host-utils-\$os-\$arch
-				[ \"\$os\" = windows ] && name=\$name.exe
-				GOOS=\$os GOARCH=\$arch go build -trimpath \
-					-ldflags '-s -w -X main.Version=$version' \
-					-o /out/\$name .
-			done
-			cp README.md /out/README.md
-			chmod -R a+rX /out
-			chown -R \$HOST_UID:\$HOST_GID /out
-		" || die "could not build mlos-host-utils"
-
-	say "Host utils: $(du -sh "$dest" | cut -f1) staged for the ISO"
-}
-
 # ------------------------------------------------------------- ssh keys ----
 # Password logins are off in the image, so whatever lands here is the only
 # way in over the network.  Staged root-side of the home directory; the user
@@ -253,13 +236,31 @@ stage_ssh_keys() {
 	done < <(ssh-keygen -lf "$dest" 2>/dev/null || true)
 }
 
+# ---------------------------------------------------------- release stamp ----
+# This file is generated rather than tracked: tag builds and local development
+# images must never claim to be the same installed release.
+stage_release() {
+	local version="${MLOS_VERSION#v}"
+	[[ "$version" =~ ^[0-9][0-9A-Za-z.+:~_-]*$ ]] \
+		|| die "MLOS_VERSION contains unsupported characters: $MLOS_VERSION"
+	local dest="$HERE/config/includes.chroot/etc/moonlight-os/release"
+	local immutable="$HERE/config/includes.chroot/usr/share/moonlight-os/release"
+	local revision
+	revision="$(git -C "$HERE" rev-parse --short=12 HEAD 2>/dev/null || printf unknown)"
+	mkdir -p "$(dirname "$dest")" "$(dirname "$immutable")"
+	printf 'FORMAT=2\nVERSION=%s\nBUILD_ID=%s\nREVISION=%s\n' \
+		"$version" "$(date -u +%Y%m%dT%H%M%SZ)" "$revision" > "$dest"
+	cp "$dest" "$immutable"
+	say "Moonlight OS release: $version ($revision)"
+}
+
 # ----------------------------------------------------------------- build ----
 do_build() {
 	build_builder_image
 	fetch_selene
 	fetch_tailscale
-	build_host_utils
 	stage_ssh_keys
+	stage_release
 
 	local pkglist="config/package-lists/moonlight-os.list.chroot"
 	if [[ "$FIRMWARE" == "slim" ]]; then
@@ -323,6 +324,8 @@ do_clean() {
 		"$IMAGE" bash -uc 'lb clean --purge || true
 			chown -R "$HOST_UID:$HOST_GID" /build 2>/dev/null || true' || true
 	rm -rf "$HERE/config/includes.chroot/etc/moonlight-os/authorized_keys" \
+	       "$HERE/config/includes.chroot/etc/moonlight-os/release" \
+	       "$HERE/config/includes.chroot/usr/share/moonlight-os/release" \
 	       "$HERE/config/includes.chroot/usr/bin/tailscale" \
 	       "$HERE/config/includes.chroot/usr/bin/.tailscale-version" \
 	       "$HERE/config/includes.chroot/usr/sbin/tailscaled" \

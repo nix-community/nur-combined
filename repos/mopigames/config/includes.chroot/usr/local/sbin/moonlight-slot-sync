@@ -1,0 +1,50 @@
+#!/bin/sh
+# Reconcile image-owned A/B metadata after restoring settings from an archive.
+set -eu
+
+ROOT_DEV=$(readlink -f "$(findmnt -no SOURCE / 2>/dev/null)")
+root_label=$(blkid -s LABEL -o value "$ROOT_DEV" 2>/dev/null || true)
+case "$root_label" in
+	moonlight-root-a) slot=a ;;
+	moonlight-root-b) slot=b ;;
+	*) exit 0 ;;
+esac
+
+parent=$(lsblk -ndo PKNAME "$ROOT_DEV" 2>/dev/null | head -1)
+[ -n "$parent" ] || exit 1
+disk=/dev/$parent
+
+find_on_disk() {
+	lsblk -lnpo NAME,LABEL "$disk" 2>/dev/null \
+		| awk -v wanted="$1" '$2 == wanted { print $1; exit }'
+}
+
+uuid_for_label() {
+	device=$(find_on_disk "$1")
+	[ -b "$device" ] || return 1
+	blkid -s UUID -o value "$device"
+}
+
+root_a_uuid=$(uuid_for_label moonlight-root-a)
+root_b_uuid=$(uuid_for_label moonlight-root-b)
+boot_uuid=$(uuid_for_label moonlight-boot)
+esp_uuid=$(uuid_for_label MLOS-ESP)
+[ -n "$root_a_uuid" ] && [ -n "$root_b_uuid" ] \
+	&& [ -n "$boot_uuid" ] && [ -n "$esp_uuid" ] || exit 1
+
+mkdir -p /etc/moonlight-os
+tmp=$(mktemp /etc/moonlight-os/slots.conf.XXXXXX)
+cat > "$tmp" <<-EOF
+MLOS_ROOT_A_UUID=$root_a_uuid
+MLOS_ROOT_B_UUID=$root_b_uuid
+MLOS_BOOT_UUID=$boot_uuid
+MLOS_ESP_UUID=$esp_uuid
+EOF
+chmod 0644 "$tmp"
+mv "$tmp" /etc/moonlight-os/slots.conf
+printf '%s\n' "$slot" > /etc/moonlight-os/slot
+
+if [ -r /usr/share/moonlight-os/release ]; then
+	cp /usr/share/moonlight-os/release /etc/moonlight-os/release
+	chmod 0644 /etc/moonlight-os/release
+fi

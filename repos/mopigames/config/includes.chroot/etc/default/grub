@@ -1,5 +1,6 @@
 # Used by the installer's update-grub run on the target disk.
-GRUB_DEFAULT=0
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=false
 GRUB_TIMEOUT=1
 GRUB_DISTRIBUTOR="Moonlight OS"
 GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=3"

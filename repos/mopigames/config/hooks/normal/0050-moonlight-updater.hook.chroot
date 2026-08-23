@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+chmod 0755 /etc/grub.d/09_moonlight_slots /usr/local/sbin/moonlight-update \
+	/usr/local/sbin/moonlight-slot-sync
+systemctl enable moonlight-slot-sync.service moonlight-update-confirm.timer >/dev/null

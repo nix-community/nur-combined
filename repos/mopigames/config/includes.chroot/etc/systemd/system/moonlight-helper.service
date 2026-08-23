@@ -1,0 +1,47 @@
+[Unit]
+Description=Moonlight OS privileged helper
+Documentation=file:/usr/local/bin/moonlight-helper
+# NetworkManager is what most of the operations talk to. Wanted rather than
+# Required: a machine with no network still needs the panel to come up, not
+# least so it can be used to set the network up.
+Wants=NetworkManager.service
+Wants=target.service
+After=NetworkManager.service target.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/moonlight-helper
+Restart=always
+RestartSec=2
+
+# It runs as root because joining a Wi-Fi network and writing a partition
+# table need root, and it exists so that Selene does not. The protection
+# below is what keeps "runs as root" from meaning "can do anything": the
+# daemon has no enumerated operation that touches /home, and no reason to.
+# Keep the tree visible but read-only because PipeWire and Sway publish their
+# session sockets below /run/user. ProtectHome=yes hides that directory too,
+# which makes live desktop controls look unavailable from the service even
+# though the exact same helper operation succeeds in a shell.
+ProtectHome=read-only
+ProtectSystem=strict
+# Settings updates use atomic replacement, so the containing directories—not
+# just the files—must be writable inside the service's mount namespace.
+ReadWritePaths=/run/moonlight-os /var/lib/moonlight-os /etc/moonlight-os /etc/sway/config.d /etc/default
+# M9 creates one fixed read-only device-mapper view and one exact LIO target.
+# Configfs remains read-only to every other service and the target binds only
+# to 127.0.0.1; Helios reaches it through the authenticated stream tunnel.
+ReadWritePaths=-/sys/kernel/config/target
+# Backups are written only to helper-discovered mounted removable roots.
+ReadWritePaths=-/media -/run/media -/mnt -/run/live/medium
+# Restore has its own archive allow-list and may replace only the settings
+# that moonlight-backup owns. Keep the rest of /etc and /home read-only.
+ReadWritePaths=-/etc/NetworkManager/system-connections -/etc/ssh -/etc/console-setup -/etc/timezone -/etc/localtime -/etc/adjtime -/etc/hostname -/etc/hosts -/etc/shadow
+ReadWritePaths=-/var/lib/tailscale -/var/lib/bluetooth
+ReadWritePaths=-/home/moonlight/.ssh -/home/moonlight/.local/state/wireplumber -/home/moonlight/.config/moonlight-os -/home/moonlight/.config/fastfetch
+RuntimeDirectory=moonlight-os
+RuntimeDirectoryMode=0755
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

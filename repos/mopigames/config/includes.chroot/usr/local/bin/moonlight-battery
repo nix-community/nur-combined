@@ -44,7 +44,25 @@ battery_path() {
 	return 1
 }
 
-percent() { cat "$BAT/capacity" 2>/dev/null; }
+# Clamped, because the kernel does not clamp it.
+#
+# capacity is charge_now/charge_full, and charge_full is a value the pack's
+# fuel gauge *learns*. A gauge that learned a low figure from a partial cycle
+# and then charged past it reports over 100 -- seen on this hardware at 105%,
+# with charge_now 8501 mAh against a learned full of 8024 mAh. Nothing is
+# wrong with the battery and nothing is overcharged; the reference is stale
+# and re-learns after a full discharge and charge.
+#
+# Showing it raw makes the appliance look broken, and a warning threshold
+# comparing against it would behave oddly too, so every reader gets the
+# clamped number.
+percent() {
+	p=$(cat "$BAT/capacity" 2>/dev/null) || return 1
+	[ -n "$p" ] || return 1
+	[ "$p" -gt 100 ] 2>/dev/null && p=100
+	[ "$p" -lt 0 ] 2>/dev/null && p=0
+	printf '%s' "$p"
+}
 
 # Discharging is the only state that counts as "on battery".  "Not charging"
 # means plugged in and simply not taking a charge, which several laptops
@@ -75,10 +93,10 @@ levels() {
 }
 
 warn() {
-	colour="$1"
+	urgency="$1"
 	shift
 	log "$*"
-	moonlight-osd -c "$colour" -d 8 "$@" 2>/dev/null || true
+	moonlight-osd -u "$urgency" -d 8 "$@" 2>/dev/null || true
 }
 
 watch() {
@@ -122,9 +140,9 @@ watch() {
 		# from inside a fullscreen app until the machine dies.
 		if [ -n "$last_on_battery" ] && [ "$now_on_battery" != "$last_on_battery" ]; then
 			if [ "$now_on_battery" = yes ]; then
-				warn "#ffcc00" "Unplugged - running on battery" "${p}% left"
+				warn normal "Unplugged - running on battery" "${p}% left"
 			else
-				warn "#66dd66" "Charger connected - ${p}%"
+				warn normal "Charger connected - ${p}%"
 				# A charge resets the whole ladder.
 				fired=" "
 				last_critical=0
@@ -143,12 +161,12 @@ watch() {
 				*)
 					fired="$fired$l "
 					if [ "$l" = "$lowest" ]; then
-						warn "#ff4444" \
+						warn critical \
 							"Battery critical - ${p}%" \
 							"Plug in or save your work"
 						last_critical=$(date +%s)
 					else
-						warn "#ffcc00" \
+						warn normal \
 							"Battery low - ${p}% left"
 					fi
 					;;
@@ -163,7 +181,7 @@ watch() {
 		if [ -n "$lowest" ] && [ "$p" -le "$lowest" ]; then
 			now=$(date +%s)
 			if [ "$((now - last_critical))" -ge "$CRITICAL_REPEAT" ]; then
-				warn "#ff4444" \
+				warn critical \
 					"Battery critical - ${p}%" \
 					"Plug in or save your work"
 				last_critical="$now"
@@ -183,7 +201,7 @@ case "${1:-watch}" in
 	status)  printf '%s%% (%s)\n' "$(percent)" "$(state_word)" ;;
 	percent) percent ;;
 	test)    mlos_load
-	         moonlight-osd -c "#ffcc00" -d 8 \
+	         moonlight-osd -u normal -d 8 \
 			"Battery low - $(percent)% left" \
 			"(this is a test)" ;;
 	*) printf 'usage: moonlight-battery [watch|status|percent|test]\n' >&2

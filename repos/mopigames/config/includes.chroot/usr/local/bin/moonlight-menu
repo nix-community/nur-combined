@@ -108,9 +108,9 @@ network_menu() {
 			3>&1 1>&2 2>&3) || return 0
 
 		case "$choice" in
-			wifi)      moonlight-netsetup --menu ;;
-			tailscale) moonlight-tailscale ;;
-			ssh)       moonlight-ssh ;;
+			wifi)      sudo -n /usr/local/bin/moonlight-netsetup --menu ;;
+			tailscale) sudo -n /usr/local/bin/moonlight-tailscale ;;
+			ssh)       sudo -n /usr/local/bin/moonlight-ssh ;;
 			back)      return 0 ;;
 		esac
 	done
@@ -134,10 +134,10 @@ devices_menu() {
 			16 74 6 -- "$entries" 3>&1 1>&2 2>&3) || return 0
 
 		case "$choice" in
-			bluetooth) moonlight-bluetooth ;;
-			usb)       moonlight-usb ;;
-			trackpad)  moonlight-input --menu ;;
-			region)    moonlight-region --menu
+			bluetooth) sudo -n /usr/local/bin/moonlight-bluetooth ;;
+			usb)       sudo -n /usr/local/bin/moonlight-usb ;;
+			trackpad)  sudo -n /usr/local/bin/moonlight-input --menu ;;
+			region)    sudo -n /usr/local/bin/moonlight-region --menu
 			           [ "$IN_SESSION" = "1" ] && moonlight-region --apply-session ;;
 			battery)   battery_menu ;;
 			back)      return 0 ;;
@@ -213,6 +213,8 @@ system_menu() {
 		if is_live; then
 			entries="$entries install $(sq 'Install to this computer')"
 			entries="$entries persist $(sq 'Save settings to this USB stick')"
+		else
+			entries="$entries update $(sq 'Update Moonlight OS')"
 		fi
 		entries="$entries shell $(sq 'Command line')"
 		entries="$entries back $(sq 'Back')"
@@ -223,9 +225,10 @@ which is a plain shell file you can also edit by hand.')" \
 			16 74 5 -- "$entries" 3>&1 1>&2 2>&3) || return 0
 
 		case "$choice" in
-			backup)  moonlight-backup --menu ;;
-			install) moonlight-install ;;
-			persist) moonlight-persist ;;
+			backup)  sudo -n /usr/local/bin/moonlight-backup --menu ;;
+			install) sudo -n /usr/local/bin/moonlight-install ;;
+			persist) sudo -n /usr/local/bin/moonlight-persist ;;
+			update)  sudo -n /usr/local/sbin/moonlight-update --menu ;;
 			shell)   clear
 			         command -v fastfetch >/dev/null 2>&1 && fastfetch
 			         printf '\nType "exit" to return to the Moonlight menu.\n\n'
