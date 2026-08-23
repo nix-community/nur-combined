@@ -650,12 +650,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.58";
+    version = "v0.2.61";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.58";
-      hash = "sha256-WFKM5V7Q+ZEFmy83XCUrFe/CloR3BWqWBvBbyGzR3os=";
+      tag = "v0.2.61";
+      hash = "sha256-swTDJ4vYdxL7eVladHTqRMRvHVQbnL/zWslSLVDy7M4=";
     };
   };
   edge-tts = {
@@ -1140,14 +1140,14 @@
   };
   kikoplay-app = {
     pname = "kikoplay-app";
-    version = "62082956bbb0719c4a3a544be6d26e84162370de";
+    version = "3b4b0f8bca528291dd0b1e3ea28e06e0f72e863b";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayApp";
-      rev = "62082956bbb0719c4a3a544be6d26e84162370de";
-      hash = "sha256-/BuEyOwZvm1LRU0UQ/xqxOqouGB06p72WYFcSSdjqiw=";
+      rev = "3b4b0f8bca528291dd0b1e3ea28e06e0f72e863b";
+      hash = "sha256-15YbnA7m/XsVXmi9eVgQ0Ogs448rJfs6j7IoZOBllqY=";
     };
-    date = "2025-11-05";
+    date = "2026-08-23";
   };
   kikoplay-script = {
     pname = "kikoplay-script";
@@ -1892,14 +1892,14 @@
   };
   pyosmocom = {
     pname = "pyosmocom";
-    version = "75785e4500bc501dd15c48ad5587b76f78d08373";
+    version = "e1701b243335277b5214619e3edbbcb7099ccecf";
     src = fetchgit {
       url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
-      rev = "75785e4500bc501dd15c48ad5587b76f78d08373";
+      rev = "e1701b243335277b5214619e3edbbcb7099ccecf";
       fetchSubmodules = false;
-      hash = "sha256-ta45NLidA3PkXl5EyvsTxNL0FC3PlR5Nmd+T8k1HC2E=";
+      hash = "sha256-/QPEadNkCYvjXFW1DB5vKvxlxx6KTv2sYqJ09NhCY8Y=";
     };
-    date = "2026-03-26";
+    date = "2026-08-23";
   };
   pysctp = {
     pname = "pysctp";
