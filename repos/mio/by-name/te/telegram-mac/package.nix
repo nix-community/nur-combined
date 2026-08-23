@@ -123,7 +123,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   spmDeps = stdenvNoCC.mkDerivation {
     name = "telegram-mac-spm-${finalAttrs.version}";
     outputHashMode = "recursive";
-    outputHash = "sha256-M8bwQUGUlWoz1gFHktWVoBmDSldzUFv2oo/4Zh76+xs=";
+    outputHash = "sha256-IjmprMoczwB+Oigg3RuonTVdF70oBHhnQHWlAe9f5KQ=";
 
     inherit (finalAttrs) src;
     nativeBuildInputs = [ writableTmpDirAsHomeHook ];
@@ -204,6 +204,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
     export PATH="$TMPDIR/macos-bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin"
     export CFFIXED_USER_HOME=$HOME
+
+    # Disable built-in updater (updates are managed by Nix)
+    substituteInPlace Telegram-Mac/AppDelegate.swift \
+      --replace-fail 'updater_resetWithUpdaterSource' '// updater_resetWithUpdaterSource' \
+      --replace-fail 'showModal(with: InputDataModalController(AppUpdateViewController()), for: window)' '// showModal(with: InputDataModalController(AppUpdateViewController()), for: window)'
 
     mkdir -p build/swiftpm
     cp -a ${finalAttrs.spmDeps}/. build/swiftpm/
@@ -320,7 +325,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
                  DISABLE_INFOPLIST_BUNDLE_VALIDATION=YES \
                  CODE_SIGN_IDENTITY="" \
                  CODE_SIGNING_REQUIRED=NO \
-                 CODE_SIGNING_ALLOWED=NO
+                 CODE_SIGNING_ALLOWED=NO \
+                 MODULE_VERIFIER_SUPPORTED_LANGUAGES="" \
+                 MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS=""
     }
 
     # First pass may fail at Validate on shallow Firebase frameworks.
