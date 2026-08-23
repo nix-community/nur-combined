@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.8.5",
-            "sha256": "sha256-rqGa9QWjhfR/M2xpmf+VB2vG+rhPwZUaF4boH9QyAGs=",
+            "rev": "v1.8.6",
+            "sha256": "sha256-egTJqfNW3gx+Aq+vjSrYriOPgHy6SR79LrxlQGDy510=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.5"
+        "version": "v1.8.6"
     },
     "cliproxyapiplus": {
         "cargoLock": null,
@@ -231,7 +231,7 @@
     },
     "pumpkin": {
         "cargoLock": null,
-        "date": "2026-08-20",
+        "date": "2026-08-23",
         "extract": null,
         "name": "pumpkin",
         "passthru": null,
@@ -243,12 +243,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "c7c8d10d4709fcd1066c4a7d58404d2e0196f12c",
-            "sha256": "sha256-3lvylYSS2k+TKRwuWYb6hM49cUi7Rm6yQdmQuHv2DTQ=",
+            "rev": "5fd0933c1cbb4e181db76d83c8d68788e34982c3",
+            "sha256": "sha256-+NfBtXNrsBVSOTMoF3BKT9R4VpB90NKhg2dh+qxJdzQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c7c8d10d4709fcd1066c4a7d58404d2e0196f12c"
+        "version": "5fd0933c1cbb4e181db76d83c8d68788e34982c3"
     },
     "replay-fish": {
         "cargoLock": null,
@@ -369,12 +369,12 @@
             "name": null,
             "owner": "XDSEC",
             "repo": "WebSocketReflectorX",
-            "rev": "0.5.17",
-            "sha256": "sha256-QUlxNN987U64RPxkPdniKGkB//NNtUXlxa5155eViuo=",
+            "rev": "0.6.0",
+            "sha256": "sha256-faRMhSOEy6sX4P9NuHEgBkgcsBWwv+7X3gcQ3K9dCw4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.5.17"
+        "version": "0.6.0"
     },
     "wsrx-desktop": {
         "cargoLock": null,
@@ -390,11 +390,11 @@
             "name": null,
             "owner": "XDSEC",
             "repo": "WebSocketReflectorX",
-            "rev": "0.5.17",
-            "sha256": "sha256-QUlxNN987U64RPxkPdniKGkB//NNtUXlxa5155eViuo=",
+            "rev": "0.6.0",
+            "sha256": "sha256-faRMhSOEy6sX4P9NuHEgBkgcsBWwv+7X3gcQ3K9dCw4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.5.17"
+        "version": "0.6.0"
     }
 }
