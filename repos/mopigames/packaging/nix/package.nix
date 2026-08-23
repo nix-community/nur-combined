@@ -14,13 +14,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "mlos-host-utils";
-  version = "0.2.2";
+  version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "MopigamesYT";
     repo = "moonlight-os";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Ig7F05vN28B91xAewMk9CKP9oGHOOuNxJGjkywehSYs=";
+    hash = "sha256-FZs1ggxEP2uxAHOhQta6hNMknh8BxDW/EbGib6s3Df8=";
   };
 
   # Where nixpkgs is going, and required of new packages there: the builder
