@@ -19,6 +19,7 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  unifont-psf = pkgs.callPackage ./pkgs/unifont-psf { };
   UnifontExMono = pkgs.callPackage ./pkgs/UnifontExMono { };
   retrosmart-x11-cursors = pkgs.callPackage ./pkgs/retrosmart-x11-cursors { };
 }

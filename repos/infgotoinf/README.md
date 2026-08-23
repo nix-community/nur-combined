@@ -8,6 +8,12 @@
 
 ## Packages
 
+### unifont-psf
+
+A specialized PSF 1 console frame buffer font consisting of 512 glyphs for use with APL, A Programming Language, in console mode (single-user mode on GNU/Linux, etc.), mainly to support GNU APL. Can be found [here](https://unifoundry.com/unifont/index.html).
+Add fonts:
+- `Unifont-pfs`
+
 ### UnifontEX
 
 An extended fork of GNU Unifont with a focus on high compatibility. Can be found [here](https://github.com/stgiga/UnifontEX).
