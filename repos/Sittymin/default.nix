@@ -22,6 +22,7 @@ in
   sysmon = pkgs.callPackage ./pkgs/sysmon { };
   guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
   libmks = pkgs.callPackage ./pkgs/libmks { };
+  chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
 
   # Blender with Intel oneAPI (Intel Arc / integrated GPU) Cycles support.
   inherit blender;
