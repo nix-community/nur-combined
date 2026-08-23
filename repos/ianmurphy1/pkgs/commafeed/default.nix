@@ -12,7 +12,7 @@
   glibc,
 }:
 let
-  binaryVersion = "7.3.1";
+  binaryVersion = "7.3.2";
   # version = "a2ed16c6fd8a786d2cb859b2db53a07b6a890cbc";
   version = binaryVersion;
   db = "h2";
@@ -23,7 +23,7 @@ let
     owner = "Athou";
     repo = "commafeed";
     rev = version;
-    hash = "sha256-5ZQjCjeXRiuvv7mrnQ3K1b7QqbeuXgJd2RAG13rHfBc=";
+    hash = "sha256-AmmXM6lLGa5t9tHe4Ae8LCkIR/nkY89/4D2KIQnVcNU=";
   };
 
   frontend = buildNpmPackage {
@@ -32,7 +32,7 @@ let
 
     sourceRoot = "${src.name}/commafeed-client";
 
-    npmDepsHash = "sha256-NoBtLNfB3sBCR3mu7A1Ye5NdTFa6rLol18Ove9NKND4=";
+    npmDepsHash = "sha256-oh97YH9yaIqjjOqtd8iMvlZ5gc4cwJpkLrZyAZGS9Ho=";
 
     nativeBuildInputs = [ biome ];
 
@@ -59,7 +59,7 @@ maven.buildMavenPackage {
   pname = "commafeed";
 
   mvnJdk = graalVM;
-  mvnHash = "sha256-dcqZAembq+EPKNmsQOmrx0Q+vphDTxWfvFr2KCo8MQc=";
+  mvnHash = "sha256-OOk8QtMje2VVx8DrLILr9IC2Qb6RvwVpQyNvRAdyJuo=";
 
   mvnParameters = lib.escapeShellArgs [
     "-Pnative"
