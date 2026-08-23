@@ -31,7 +31,7 @@ lib.overrideDerivation
       version = "0.1.0";
       src = ./.;
 
-      targetFlutterPlatform = "linux"; # Bypass nixpkgs assertion, we will override buildPhase
+      targetFlutterPlatform = if stdenv.hostPlatform.isDarwin then "macos" else "linux";
 
       autoPubspecLock = ./pubspec.lock;
 
@@ -106,6 +106,8 @@ lib.overrideDerivation
               chmod +x ./rinf_patched/cargokit/run_build_tool.sh
               sed -i "s|$RINF_PATH|$(pwd)/rinf_patched|g" .dart_tool/package_config.json
             fi
+
+            chmod -R u+w macos
       '';
 
       dontUseCmakeConfigure = true;

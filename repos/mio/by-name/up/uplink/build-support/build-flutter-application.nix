@@ -259,6 +259,8 @@ lib.extendMkDerivation {
             runHook postInstall
           '';
       };
+
+      macos = universal;
     }
     .${targetFlutterPlatform} or (throw "Unsupported Flutter host platform: ${targetFlutterPlatform}");
 }
