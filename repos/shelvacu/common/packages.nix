@@ -59,37 +59,10 @@ in
       tshark.enable = !config.vacu.isMinimal && !config.vacu.isGui;
       wireshark.enable = !config.vacu.isMinimal && config.vacu.isGui;
     }
-    ''
-      element-call
+    (lib.mkIf (config.vacu.isGui && !config.vacu.isMinimal) ''
       element-desktop
       fluffychat
-      nheko
-    ''
-    # (lib.mkIf (config.vacu.isGui && !config.vacu.isMinimal)
-    #   # just do all the matrix clients, surely one of them will work enough
-    #   ''
-    #     # keep-sorted start
-    #     # cinny-desktop # marked broken
-    #     element-call
-    #     element-desktop
-    #     fluffychat
-    #     fractal
-    #     # gomuks
-    #     # gomuks-web
-    #     # hydrogen has no -desktop version
-    #     # iamb # build borked
-    #     kazv
-    #     matrix-commander
-    #     matrix-commander-rs
-    #     matrix-dl
-    #     mm
-    #     neosay
-    #     nheko
-    #     # pinecone # marked insecure
-    #     # quaternion # build is borked
-    #     # keep-sorted end
-    #   ''
-    # )
+    '')
     (lib.mkIf config.vacu.isGui
       # pkgs for GUI systems, minimal or not
       ''

@@ -8,7 +8,10 @@ in
     type = types.attrsOf types.str;
   };
   config.vacu.shell.functions.qcd = ''
-    svl_exact_args $# 1
+    if [[ $# != 1 ]]; then
+      svl_eprintln "qcd expects exactly one argument"
+      return 1
+    fi
     declare the_arg="$1"
 
     declare base="''${the_arg%%/*}"
@@ -23,7 +26,7 @@ in
       (lib.concatStringsSep "\n")
     ]}
     fi
-    if ! [[ -v path ]]; then
+    if ! [[ -z path ]]; then
       svl_eprintln "unrecognized alias $base"
       return 1
     fi
@@ -51,6 +54,7 @@ in
     gg = "~/dev/gallerygrab";
     inv = "~/dev/inv6";
     inv6 = inv;
+    jv = "~/dev/javavacu-nixconfigs";
     nod = "~/dev/nix-on-droid";
     np = "~/dev/nixpkgs";
     ns = "~/dev/nix-stuff";

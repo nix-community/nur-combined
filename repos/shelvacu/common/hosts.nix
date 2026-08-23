@@ -73,7 +73,7 @@
 
     #javavacu hosts
     "jv-tiebreak" = {
-      altNames = [ "jv-tiebreaker" "jvtb" ];
+      altNames = [ "jv-tiebreaker" "jvtb" "jv-tb" ];
       primaryIp = "45.63.36.113";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeABuK70NGsVFqaOgDDdmwaweUJ2GeQYP/Bbd9+oq20";
     };
