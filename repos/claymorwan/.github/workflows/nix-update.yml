@@ -1,0 +1,15 @@
+name: "Update Packages"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *" # 10 am every day
+jobs:
+  updateFlakePackages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: cachix/install-nix-action@v20
+      - name: Update flake packages
+        uses: selfuryon/nix-update-action@v1.1.0
