@@ -5,12 +5,15 @@ use gpui_terminal::ColorPalette;
 pub const DEFAULT_FONT_SIZE: f32 = 14.0;
 
 /// Primary terminal font. Linux packages bundle this exact family so GPUI does
-/// not depend on host fontconfig aliases for terminal cell metrics.
+/// not depend on host fontconfig aliases for terminal cell metrics. Other
+/// platforms keep their native/generic terminal font path.
 pub fn terminal_font_family() -> &'static str {
-    if cfg!(target_os = "macos") {
+    if cfg!(target_os = "linux") {
+        "FiraCode Nerd Font Mono"
+    } else if cfg!(target_os = "macos") {
         "Menlo"
     } else {
-        "FiraCode Nerd Font Mono"
+        "monospace"
     }
 }
 

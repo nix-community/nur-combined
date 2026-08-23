@@ -17,7 +17,7 @@ fn bundled_font_dirs() -> Vec<PathBuf> {
     dirs
 }
 
-/// Load bundled terminal, Nerd, and emoji fonts into GPUI.
+/// Load bundled terminal/fallback fonts into GPUI.
 pub fn load_bundled_fonts(cx: &gpui::App) {
     use std::borrow::Cow;
 
