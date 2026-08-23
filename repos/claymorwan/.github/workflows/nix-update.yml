@@ -1,8 +1,8 @@
 name: "Update Packages"
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 10 * * *" # 10 am every day
+  # schedule:
+  #   - cron: "0 10 * * *" # 10 am every day
 permissions:
   contents: write
   pull-requests: write
