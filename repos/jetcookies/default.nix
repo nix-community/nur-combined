@@ -23,4 +23,5 @@
   typewords = pkgs.callPackage ./pkgs/typewords { };
   libtinycbor = pkgs.callPackage ./pkgs/libtinycbor { };
   virtualgamepad-pc = pkgs.libsForQt5.callPackage ./pkgs/virtualgamepad-pc { };
+  kwm = pkgs.callPackage ./pkgs/kwm { };
 }
