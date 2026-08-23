@@ -12,7 +12,7 @@ let
   pnpm = pnpm_11;
 in
 buildNpmPackage (finalAttrs: {
-  pname = "pi-permission-system";
+  pname = "gotgenes-pi-permission-system";
   version = "27.0.0";
 
   __structuredAttrs = true;

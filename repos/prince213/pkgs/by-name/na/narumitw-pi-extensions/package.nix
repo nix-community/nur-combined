@@ -5,7 +5,7 @@
 }:
 
 buildNpmPackage (finalAttrs: {
-  pname = "pi-extensions";
+  pname = "narumitw-pi-extensions";
   version = "0-unstable-2026-08-22";
 
   __structuredAttrs = true;
