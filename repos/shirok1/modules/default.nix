@@ -7,6 +7,7 @@
 {
   edk2-cix = importApply ./edk2-cix.nix { inherit localFlake withSystem; };
   futu-opend = importApply ./futu-opend.nix { inherit localFlake withSystem; };
+  futu-opend-rs = importApply ./futu-opend-rs.nix { inherit localFlake withSystem; };
   msd-lite = importApply ./msd-lite.nix { inherit localFlake withSystem; };
   osmo-fl2k = importApply ./osmo-fl2k.nix { inherit localFlake withSystem; };
   peerbanhelper = importApply ./peerbanhelper.nix { inherit localFlake withSystem; };

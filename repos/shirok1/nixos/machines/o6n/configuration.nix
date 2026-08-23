@@ -607,6 +607,7 @@
           hash = "sha256-DSPNI/o9P2fu7UgbVvEtv7Uj77p5g5xCgAlFTolh/0o=";
         };
       }))
+      pkgs.shirok1.zuyan9-ha-cuk-ble
     ];
   };
 
