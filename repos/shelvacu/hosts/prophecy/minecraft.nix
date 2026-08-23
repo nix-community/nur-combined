@@ -1,4 +1,11 @@
-{ config, pkgs, inputs, vaculib, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  vaculib,
+  lib,
+  ...
+}:
 let
   inherit (pkgs) fetchurl linkFarmFromDrvs;
   cfg = config.services.minecraft-servers;
@@ -28,9 +35,9 @@ in
     servers.vanilla-perf = {
       enable = true;
       # Fabric server jar for your MC version
-      package = inputs.nix-minecraft.legacyPackages.${pkgs.stdenv.hostPlatform.system}.fabricServers.fabric-26_2.override {
-        jre_headless = pkgs.openjdk25_headless;
-      };
+      package =
+        inputs.nix-minecraft.legacyPackages.${pkgs.stdenv.hostPlatform.system}.fabricServers.fabric-26_2.override
+          { jre_headless = pkgs.openjdk25_headless; };
       jvmOpts = "-Xms4G -Xmx4G";
 
       serverProperties = {

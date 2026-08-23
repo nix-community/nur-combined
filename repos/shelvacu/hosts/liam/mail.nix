@@ -41,7 +41,7 @@ let
     "nic.ua"
     "rfidlabel.com"
     "spam.example.com"
-    "temuemail.com" #they send their non-spam emails from temu.com lol
+    "temuemail.com" # they send their non-spam emails from temu.com lol
     "temuofficial.com"
     "wolfram.com"
     # keep-sorted end

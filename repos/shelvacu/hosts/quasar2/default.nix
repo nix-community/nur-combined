@@ -1,5 +1,4 @@
-{ vaculib, vacuModules, ... }:
-{
+{ vaculib, vacuModules, ... }: {
   imports = [
     vacuModules.vacuvmGuest
     vacuModules.sops

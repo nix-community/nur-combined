@@ -135,6 +135,10 @@ in
   fileSystems."/vms" = {
     device = btrfsDevice;
     fsType = "btrfs";
-    options = [ "subvol=vms" "nofail" ] ++ btrfsOpts;
+    options = [
+      "subvol=vms"
+      "nofail"
+    ]
+    ++ btrfsOpts;
   };
 }

@@ -35,11 +35,11 @@ let
     ];
     quasar2.inp = [ "sops-nix" ];
     ripper = { };
+    savm = { };
     shel-installer-iso = {
       module = /${vacuRoot}/hosts/installer/iso.nix;
       readOnlyPkgs = false;
     };
-    savm = { };
     shel-installer-pxe = {
       module = /${vacuRoot}/hosts/installer/pxe.nix;
       readOnlyPkgs = false;

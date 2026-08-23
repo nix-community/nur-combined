@@ -140,15 +140,15 @@ let
   dataText = dataImportText + "\n\n" + dataMainText;
   dataFile = writeText "${name}-nixdata.py" dataText;
 
-  nixdataPkg = python3Packages.toPythonModule (runCommand "nixdata-for-${name}" {
-    nativeBuildInputs = [ python3Packages.python ];
-  } ''
-    declare outDir="$out/"${lib.escapeShellArg python3Packages.python.sitePackages}"/nixdata"
-    mkdir -p "$outDir"
-    cp -T -- ${dataFile} "$outDir/__init__.py"
-    touch "$outDir/py.typed"
-    python -m compileall -q --invalidation-mode unchecked-hash "$outDir"
-  '');
+  nixdataPkg = python3Packages.toPythonModule (
+    runCommand "nixdata-for-${name}" { nativeBuildInputs = [ python3Packages.python ]; } ''
+      declare outDir="$out/"${lib.escapeShellArg python3Packages.python.sitePackages}"/nixdata"
+      mkdir -p "$outDir"
+      cp -T -- ${dataFile} "$outDir/__init__.py"
+      touch "$outDir/py.typed"
+      python -m compileall -q --invalidation-mode unchecked-hash "$outDir"
+    ''
+  );
 
   initFile = writeText "makeVacuPythonScript-init.py" ''
     def run():

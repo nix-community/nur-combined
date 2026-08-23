@@ -58,21 +58,20 @@ in
       # through to the tunnel table (breaking e.g. VM->doofStatic4 replies).
       # Explicit priorities keep the per-subnet main-table exceptions ahead of
       # the catch-all tunnel rule.
-      routingPolicyRules = (
-        map (subnet: {
+      routingPolicyRules =
+        (map (subnet: {
           From = "${cfg.ips.doofStatic4}/32";
           To = subnet;
           Table = "main";
           Priority = 100;
-        }) cfg.ips.t2dSubnets
-      )
-      ++ [
-        {
-          From = "${cfg.ips.doofStatic4}/32";
-          Table = tunnelName;
-          Priority = 200;
-        }
-      ];
+        }) cfg.ips.t2dSubnets)
+        ++ [
+          {
+            From = "${cfg.ips.doofStatic4}/32";
+            Table = tunnelName;
+            Priority = 200;
+          }
+        ];
     };
     systemd.network.networks.${cfg.lan_bridge_network} = {
       address = lib.mkAfter [ "${cfg.ips.doofStatic4}/32" ];

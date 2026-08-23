@@ -1,7 +1,4 @@
-{
-  fetchFromGitHub,
-  rustPlatform,
-}:
+{ fetchFromGitHub, rustPlatform }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "maelstrom-matrix";
   version = "0-unstable-2026-04-14";

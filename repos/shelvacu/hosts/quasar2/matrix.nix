@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   canonicalDomain = "consortium.chat";
   delegatedDomain = "matrix.consortium.chat";
@@ -19,14 +24,19 @@ in
     }
   '';
 
-  networking.firewall.allowedTCPPorts = [ 443 80 ];
+  networking.firewall.allowedTCPPorts = [
+    443
+    80
+  ];
 
   services.postgresql = {
     enable = true;
-    ensureUsers = [ {
-      name = "matrix-synapse";
-      ensureDBOwnership = true;
-    } ];
+    ensureUsers = [
+      {
+        name = "matrix-synapse";
+        ensureDBOwnership = true;
+      }
+    ];
     ensureDatabases = [ "matrix-synapse" ];
   };
 
@@ -45,9 +55,7 @@ in
       let
         wellknown = {
           server = builtins.toJSON { "m.server" = "${delegatedDomain}:443"; };
-          client = builtins.toJSON {
-            "m.homeserver".base_url = "https://${delegatedDomain}";
-          };
+          client = builtins.toJSON { "m.homeserver".base_url = "https://${delegatedDomain}"; };
         };
       in
       ''

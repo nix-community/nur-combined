@@ -59,67 +59,63 @@ in
       tshark.enable = !config.vacu.isMinimal && !config.vacu.isGui;
       wireshark.enable = !config.vacu.isMinimal && config.vacu.isGui;
     }
-    (lib.mkIf config.vacu.isGui
-      # pkgs for GUI systems, minimal or not
-      ''
-        acpi
-        feh
-        gparted
-        iio-sensor-proxy
-        ungoogled-chromium
-        wl-clipboard
-        xev
-      ''
-    )
-    (lib.mkIf (config.vacu.isGui && !config.vacu.isMinimal)
-      # pkgs for systems with a desktop GUI
-      ''
-        # keep-sorted start
-        anki
-        arduino-ide
-        audacity
-        beatblock-cursor
-        bitwarden-desktop
-        brave
-        calibre
-        dino
-        dissent # discord client
-        element-desktop # matrix client
-        evince
-        filezilla
-        fluffychat # matrix client
-        gamemode
-        ghidra
-        gimp
-        gnome-maps
-        haruna
-        inkscape
-        josm
-        kdePackages.elisa
-        kdePackages.kdenlive
-        libreoffice-qt6-fresh
-        merkaartor
-        monero-gui
-        obsidian
-        openscad
-        # openterface-qt #broken build
-        orca-slicer
-        oscar
-        prismlauncher
-        shotcut
-        signal-desktop
-        simplex-chat-desktop
-        svp_4_6_263
-        tor-browser
-        tremotesf
-        vlc
-        wayland-utils
-        wev
-        wine
-        wine-fonts
-        # keep-sorted end
-      ''
-    )
+    # pkgs for GUI systems, minimal or not
+    (lib.mkIf config.vacu.isGui ''
+      acpi
+      feh
+      gparted
+      iio-sensor-proxy
+      ungoogled-chromium
+      wev
+      wl-clipboard
+      xev
+    '')
+    # pkgs for systems with a desktop GUI
+    (lib.mkIf (config.vacu.isGui && !config.vacu.isMinimal) ''
+      # keep-sorted start
+      anki
+      arduino-ide
+      audacity
+      beatblock-cursor
+      bitwarden-desktop
+      brave
+      calibre
+      dino
+      dissent # discord client
+      element-desktop # matrix client
+      evince
+      filezilla
+      fluffychat # matrix client
+      gamemode
+      ghidra
+      gimp
+      gnome-maps
+      haruna
+      inkscape
+      josm
+      kdePackages.elisa
+      kdePackages.kdenlive
+      libreoffice-qt6-fresh
+      merkaartor
+      monero-gui
+      obsidian
+      openscad
+      # openterface-qt #broken build
+      orca-slicer
+      oscar
+      prismlauncher
+      shotcut
+      signal-desktop
+      simplex-chat-desktop
+      svp_4_6_263
+      tor-browser
+      tremotesf
+      vlc
+      wayland-utils
+      wine
+      wine-fonts
+      # keep-sorted end
+    '')
     # pkgs for development-ish
     (lib.mkIf config.vacu.isDev ''
       # keep-sorted start

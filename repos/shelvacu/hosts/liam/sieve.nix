@@ -91,10 +91,11 @@ let
     assert isString match_type;
     assert isString pattern;
     if match_type == ":is" then
-      lib.warnIf (builtins.match ''.*\*.*'' pattern != null) "testing for exact match against ${lib.strings.escapeNixString pattern}, did you mean _matches?" passthru
+      lib.warnIf (builtins.match ''.*\*.*'' pattern != null)
+        "testing for exact match against ${lib.strings.escapeNixString pattern}, did you mean _matches?"
+        passthru
     else
-      passthru
-  ;
+      passthru;
   warn_for =
     match_type: pattern: passthru:
     assert isString match_type;
@@ -102,18 +103,15 @@ let
     if isString pattern then
       warn_for_single match_type pattern passthru
     else if isList pattern then
-      lib.foldl
-        (inner_passthru: inner_pattern: warn_for_single match_type inner_pattern inner_passthru)
-        passthru
-        pattern
+      lib.foldl (
+        inner_passthru: inner_pattern: warn_for_single match_type inner_pattern inner_passthru
+      ) passthru pattern
     else
-      throw "impossible"
-    ;
+      throw "impossible";
   envelope_generic =
     match_type: key:
     assert stringOrList key;
-    warn_for match_type key
-    ''string ${match_type} "${interp dest}" ${sieve_encode key}'';
+    warn_for match_type key ''string ${match_type} "${interp dest}" ${sieve_encode key}'';
   envelope_is = envelope_generic ":is";
   envelope_matches = envelope_generic ":matches";
   sieve_encode_list =
@@ -250,7 +248,7 @@ let
     assert stringOrList header_s;
     assert stringOrList match_es;
     warn_for match_kind match_es
-    "/* header_generic START */ header ${match_kind} ${sieve_encode header_s} ${sieve_encode match_es} /* header_generic END */";
+      "/* header_generic START */ header ${match_kind} ${sieve_encode header_s} ${sieve_encode match_es} /* header_generic END */";
   header_matches = header_generic ":matches";
   header_is = header_generic ":is";
   subject_generic = match_kind: match_es: header_generic match_kind "Subject" match_es;
@@ -261,22 +259,21 @@ let
     assert stringOrList environment_name_s;
     assert stringOrList match_es;
     warn_for match_kind match_es
-    "environment ${match_kind} ${sieve_encode environment_name_s} ${sieve_encode match_es}";
+      "environment ${match_kind} ${sieve_encode environment_name_s} ${sieve_encode match_es}";
   environment_matches = environment_generic ":matches";
   environment_is = environment_generic ":is";
   from_generic =
     match_type: addr_list:
     assert stringOrList addr_list;
     warn_for match_type addr_list
-    ''/* from_generic START */ address ${match_type} :all "From" ${sieve_encode addr_list} /* from_generic END */'';
+      ''/* from_generic START */ address ${match_type} :all "From" ${sieve_encode addr_list} /* from_generic END */'';
   from_is = from_generic ":is";
   from_matches = from_generic ":matches";
   var_is =
     var_name: rhs:
     assert isString var_name;
     assert stringOrList rhs;
-    warn_for ":is" rhs
-    ''string :is "''${${var_name}}" ${sieve_encode rhs}'';
+    warn_for ":is" rhs ''string :is "''${${var_name}}" ${sieve_encode rhs}'';
   var_is_true = var_name: var_is var_name "1";
   has_flag =
     flag_name:
@@ -808,7 +805,10 @@ let
         ]
       }
       ${pure_flags [ "aliexpress" ] (anyof [
-        (from_matches [ "*@aliexpress.com" "*@*.aliexpress.com" ])
+        (from_matches [
+          "*@aliexpress.com"
+          "*@*.aliexpress.com"
+        ])
         (envelope_is "ali@shelvacu.com")
       ])}
       ${pure_flags
@@ -832,7 +832,10 @@ let
         [
           (not (has_flag "aliexpress-delivered"))
           (not (has_flag "aliexpress-misc"))
-          (from_matches [ "*@aliexpress.com" "*@*.aliexpress.com" ])
+          (from_matches [
+            "*@aliexpress.com"
+            "*@*.aliexpress.com"
+          ])
         ]
       }
       ${pure_flags [ "dhmed" "D" ] (envelope_is "dhmed@shelvacu.com")}

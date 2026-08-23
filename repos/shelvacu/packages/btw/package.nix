@@ -1,7 +1,4 @@
-{
-  stdenv,
-  vaculib,
-}:
+{ stdenv, vaculib }:
 stdenv.mkDerivation {
   pname = "btw";
   version = "420.69.67";

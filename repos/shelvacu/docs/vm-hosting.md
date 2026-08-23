@@ -3,30 +3,31 @@
 ## Design decisions
 
 - **Rootfs**: writable virtiofs share backed by a btrfs subvolume on prophecy.
-  The entire guest root (including `/nix/store`) lives at `/vms/<name>/root` on the host.
-  Guest can run `nixos-rebuild switch` freely; the host restarts the QEMU service to
-  pick up kernel updates.
-- **Kernel**: passed directly via QEMU `-kernel`/`-initrd` flags, read from the guest's
-  own `/nix/var/nix/profiles/system` inside the virtiofs share. No bootloader in the guest.
-- **Memory**: fixed base + `virtio-balloon` for reclaiming + `maxmem`/DIMM slots defined
-  for future `virtio-mem` hotplug. No KSM.
-- **Networking**: dedicated bridge `vmbr0` (10.78.77.1/24) on prophecy; guests get
-  static IPs in that subnet. Prophecy routes (no NAT) — the upstream router carries
-  a static route for 10.78.77.0/24 via prophecy's LAN IP. Each VM's TAP is created
-  in the QEMU service's `preStart` and torn down in `postStop`.
+  The entire guest root (including `/nix/store`) lives at `/vms/<name>/root` on
+  the host. Guest can run `nixos-rebuild switch` freely; the host restarts the
+  QEMU service to pick up kernel updates.
+- **Kernel**: passed directly via QEMU `-kernel`/`-initrd` flags, read from the
+  guest's own `/nix/var/nix/profiles/system` inside the virtiofs share. No
+  bootloader in the guest.
+- **Memory**: fixed base + `virtio-balloon` for reclaiming + `maxmem`/DIMM slots
+  defined for future `virtio-mem` hotplug. No KSM.
+- **Networking**: dedicated bridge `vmbr0` (10.78.77.1/24) on prophecy; guests
+  get static IPs in that subnet. Prophecy routes (no NAT) — the upstream router
+  carries a static route for 10.78.77.0/24 via prophecy's LAN IP. Each VM's TAP
+  is created in the QEMU service's `preStart` and torn down in `postStop`.
 - **Persistence**: the btrfs subvolume `/vms/<name>/root` is outside prophecy's
   impermanence setup (separate subvolume, not under `/persistent`).
 
 ## Files changed
 
-| File | What |
-|------|------|
-| `hosts/vacu-agent-vm/hardware.nix` | Replace VirtualBox guest with virtiofs root; no bootloader |
-| `hosts/vacu-agent-vm/default.nix` | Static IP 10.78.77.2, drop networkmanager |
-| `hosts/prophecy/agent-vm.nix` | New: virtiofsd + QEMU systemd services, vmbr0 bridge, fw rules, bootstrap script |
-| `hosts/prophecy/btrfs.nix` | Mount btrfs subvol `vms` at `/vms` |
-| `common/hosts.nix` | Update agent `primaryIp` to 10.78.77.2 |
-| `common/staticNames.nix` | Add 10.78.77.2 → agent/agent-vm/vacu-agent-vm |
+| File                               | What                                                                             |
+| ---------------------------------- | -------------------------------------------------------------------------------- |
+| `hosts/vacu-agent-vm/hardware.nix` | Replace VirtualBox guest with virtiofs root; no bootloader                       |
+| `hosts/vacu-agent-vm/default.nix`  | Static IP 10.78.77.2, drop networkmanager                                        |
+| `hosts/prophecy/agent-vm.nix`      | New: virtiofsd + QEMU systemd services, vmbr0 bridge, fw rules, bootstrap script |
+| `hosts/prophecy/btrfs.nix`         | Mount btrfs subvol `vms` at `/vms`                                               |
+| `common/hosts.nix`                 | Update agent `primaryIp` to 10.78.77.2                                           |
+| `common/staticNames.nix`           | Add 10.78.77.2 → agent/agent-vm/vacu-agent-vm                                    |
 
 ## Manual steps on prophecy (one-time)
 
@@ -61,6 +62,7 @@ vacuvm bootstrap vacu-agent-vm "$toplevel"
 
 The `vacuvm bootstrap <vm>` subcommand (the `vacuvm` command is installed on
 prophecy by the qemu-vm module):
+
 - `nix copy`s the full closure into the rootfs treated as a chroot store
   (`local?root=<rootDir>`), which also registers the paths in the rootfs's own
   Nix database so nix works inside the guest
@@ -88,10 +90,11 @@ Add a static route: `10.78.77.0/24 via <prophecy LAN IP (10.78.79.22)>`.
 Each guest has two consoles:
 
 - **ttyS0** — wired to QEMU's stdio, captured passively in prophecy's journal
-  (`journalctl -fu vacuvm-<name>-qemu`). Read-only boot/kernel logs; non-interactive.
-- **hvc0** — a virtio console exported as a host-only unix socket in the VM's boot
-  runtime dir. This is the interactive one (login prompt, driving a broken-network
-  guest, answering boot prompts).
+  (`journalctl -fu vacuvm-<name>-qemu`). Read-only boot/kernel logs;
+  non-interactive.
+- **hvc0** — a virtio console exported as a host-only unix socket in the VM's
+  boot runtime dir. This is the interactive one (login prompt, driving a
+  broken-network guest, answering boot prompts).
 
 Attach with:
 
@@ -100,19 +103,24 @@ vacuvm console <name>       # e.g. vacuvm console jv-shel
 ```
 
 Detach with `Ctrl-]`. The command re-execs under sudo (the socket is root-owned)
-and errors out with a hint if the VM isn't running. `vacuvm list` shows known VMs.
+and errors out with a hint if the VM isn't running. `vacuvm list` shows known
+VMs.
 
 ## Adding future VMs
 
 1. Create a NixOS config under `hosts/<name>/`
-2. Add a btrfs subvolume: `btrfs subvolume create /btr-root-in-here/rw/vms/<name>`
-3. Add a service file `hosts/prophecy/<name>.nix` (same pattern as `agent-vm.nix`)
-4. Pick an IP in 10.78.77.0/24; update `common/hosts.nix` and `common/staticNames.nix`
+2. Add a btrfs subvolume:
+   `btrfs subvolume create /btr-root-in-here/rw/vms/<name>`
+3. Add a service file `hosts/prophecy/<name>.nix` (same pattern as
+   `agent-vm.nix`)
+4. Pick an IP in 10.78.77.0/24; update `common/hosts.nix` and
+   `common/staticNames.nix`
 5. Bootstrap and start
 
 ## Memory hotplug (when needed)
 
-To increase a running VM's memory without a restart, add a `virtio-mem` device via QMP:
+To increase a running VM's memory without a restart, add a `virtio-mem` device
+via QMP:
 
 ```bash
 # Connect to QEMU monitor
@@ -123,5 +131,5 @@ echo '{"execute":"device_add","arguments":{"driver":"virtio-mem-pci","id":"vm0",
   nc -U /run/qemu-vacu-agent-vm/monitor.sock
 ```
 
-The `maxmem` and DIMM slots are already configured in the QEMU command, so hotplug
-up to 16384MB total is available without restarting the VM.
+The `maxmem` and DIMM slots are already configured in the QEMU command, so
+hotplug up to 16384MB total is available without restarting the VM.

@@ -73,7 +73,11 @@
 
     #javavacu hosts
     "jv-tiebreak" = {
-      altNames = [ "jv-tiebreaker" "jvtb" "jv-tb" ];
+      altNames = [
+        "jv-tiebreaker"
+        "jvtb"
+        "jv-tb"
+      ];
       primaryIp = "45.63.36.113";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeABuK70NGsVFqaOgDDdmwaweUJ2GeQYP/Bbd9+oq20";
     };
@@ -179,7 +183,11 @@
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPhFKmRMfk+4Xx96Jwt6S9/ikC0cm4ukeO8hjpZDj+9n";
     };
     vavm = {
-      altNames = [ "agent" "agent-vm" "vacu-agent-vm" ];
+      altNames = [
+        "agent"
+        "agent-vm"
+        "vacu-agent-vm"
+      ];
       primaryIp = "10.78.77.2";
       ssh.username = "agent";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpQF6K3Zqxc0vlEgrJWCEkcIpWkBbR6ks6TA3Q5lc6B";

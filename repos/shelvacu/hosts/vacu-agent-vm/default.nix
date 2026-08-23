@@ -1,8 +1,12 @@
-{ lib, config, vaculib, vacuModules, ... }:
 {
-  imports = [
-    vacuModules.vacuvmGuest
-  ] ++ vaculib.directoryGrabberList ./.;
+  lib,
+  config,
+  vaculib,
+  vacuModules,
+  ...
+}:
+{
+  imports = [ vacuModules.vacuvmGuest ] ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "vacu-agent-vm";
 

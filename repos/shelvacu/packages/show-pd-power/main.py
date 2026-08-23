@@ -14,7 +14,9 @@ for path in sorted(Path("/sys/class/power_supply").iterdir()):
             continue
         k, v = line.split("=", 1)
         if k in attrs and attrs[k] != v:
-            print(f"warn: {uevent_path} has duplicate key {k!r}={attrs[k]!r}, {k!r}={v!r}")
+            print(
+                f"warn: {uevent_path} has duplicate key {k!r}={attrs[k]!r}, {k!r}={v!r}"
+            )
         attrs[k] = v
 
     if "POWER_SUPPLY_TYPE" not in attrs:

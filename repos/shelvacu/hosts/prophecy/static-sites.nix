@@ -1,20 +1,22 @@
 { vaculib, ... }: {
-  environment.persistence."/persistent".directories = [ {
-    directory = "/var/static-sites";
-    user = "shelvacu";
-    group = "root";
-    mode = vaculib.accessModeStr {
-      user = "all";
-      group = {
-        read = true;
-        execute = true;
+  environment.persistence."/persistent".directories = [
+    {
+      directory = "/var/static-sites";
+      user = "shelvacu";
+      group = "root";
+      mode = vaculib.accessModeStr {
+        user = "all";
+        group = {
+          read = true;
+          execute = true;
+        };
+        other = {
+          read = true;
+          execute = true;
+        };
       };
-      other = {
-        read = true;
-        execute = true;
-      };
-    };
-  } ];
+    }
+  ];
 
   services.caddy.virtualHosts = {
     "inv6.shelvacu.com" = {
