@@ -2,7 +2,7 @@
   lib,
   callPackage,
   buildGoModule,
-  fetchFromGitea,
+  fetchFromCodeberg,
   nix-update-script,
   go,
   mdbook,
@@ -17,8 +17,7 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "matrix-venator";
     repo = "venator";
     rev = "c3e1e5c4172072b7fecfef5414229ecd3f96f20c";
@@ -48,19 +47,19 @@ buildGoModule (finalAttrs: {
     "-s"
     "-w"
     "-X"
-    "codeberg.org/matrix-venator/venator/version.LatestTag=${finalAttrs.version}"
+    "kuat.thefifthfleet.net/venator/version.LatestTag=${finalAttrs.version}"
     "-X"
-    "codeberg.org/matrix-venator/venator/version.CurrentTag=${finalAttrs.version}"
+    "kuat.thefifthfleet.net/venator/version.CurrentTag=${finalAttrs.version}"
     "-X"
-    "codeberg.org/matrix-venator/venator/version.CommitHash=${finalAttrs.src.rev}"
+    "kuat.thefifthfleet.net/venator/version.CommitHash=${finalAttrs.src.rev}"
     "-X"
-    "codeberg.org/matrix-venator/venator/version.Dirty=false"
+    "kuat.thefifthfleet.net/venator/version.Dirty=false"
     "-X"
-    "codeberg.org/matrix-venator/venator/version.BuildDate=\"1970.01.01T00.00.00Z\""
+    "kuat.thefifthfleet.net/venator/version.BuildDate=\"1970.01.01T00.00.00Z\""
     "-X"
-    "codeberg.org/matrix-venator/venator/version.GoVersion=${go.version}"
+    "kuat.thefifthfleet.net/venator/version.GoVersion=${go.version}"
     "-X"
-    "codeberg.org/matrix-venator/venator/version.OSArch=${finalAttrs.goModules.GOARCH}"
+    "kuat.thefifthfleet.net/venator/version.OSArch=${finalAttrs.goModules.GOARCH}"
   ];
 
   passthru = {
