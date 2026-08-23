@@ -7,7 +7,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "sops-install-secrets";
-  version = "0-unstable-2026-08-13";
+  version = "assets-unstable-2026-08-13";
 
   src = fetchFromGitHub {
     owner = "Mic92";
