@@ -99,6 +99,12 @@ let
         # etc.). Lives in the qemu unit's own RuntimeDirectory, so it is wiped
         # on stop and never exposed to the guest.
         qmpSocket = "${bootDir}/qmp.sock";
+        # Host-only serial console socket for the guest's virtio console (hvc0).
+        # Also in the boot RuntimeDirectory (wiped on stop, root-only). Attach an
+        # interactive terminal to it with `vacuvm console ${vmName}`. This is a
+        # *second* console: ttyS0 stays wired to QEMU stdio -> the host journal
+        # for passive boot/kernel logging, while hvc0 gives an interactive login.
+        consoleSocket = "${bootDir}/console.sock";
         slice = "vacuvm-${vmName}.slice";
         qemuUnit = "vacuvm-${vmName}-qemu.service";
         virtiofsdUnit = "vacuvm-${vmName}-virtiofsd.service";
@@ -196,6 +202,9 @@ let
                 -numa node,memdev=mem0 \
                 -device virtio-balloon-pci \
                 -qmp unix:${qmpSocket},server=on,wait=off \
+                -chardev socket,id=console0,path=${consoleSocket},server=on,wait=off \
+                -device virtio-serial-pci \
+                -device virtconsole,chardev=console0 \
                 -chardev socket,id=virtiofs0,path=${virtiofsdSocket} \
                 -device vhost-user-fs-pci,chardev=virtiofs0,tag=rootfs \
                 -netdev tap,id=net0,ifname=${tapName},script=no,downscript=no${netdevExtra} \
@@ -237,46 +246,125 @@ let
     vmName: _vmCfg: lib.nameValuePair "vacuvm-${vmName}" { description = "vacu QEMU VM ${vmName}"; }
   ) cfg;
 
-  vmPackages = lib.mapAttrsToList (
-    vmName: vmCfg:
-    pkgs.writeShellScriptBin "bootstrap-${vmName}" ''
-      set -euo pipefail
-      toplevel="''${1:-}"
-      if [[ -z "$toplevel" ]]; then
-        echo "Usage: bootstrap-${vmName} /nix/store/...-nixos-system-${vmName}" >&2
+  # Shell-quoted `[name]=value` pairs for bash associative arrays baked into the
+  # `vacuvm` command, so it knows every VM's rootfs and console socket.
+  rootDirEntries = lib.concatStringsSep " " (
+    lib.mapAttrsToList (n: c: "[${n}]=${lib.escapeShellArg c.rootDir}") cfg
+  );
+  consoleSockEntries = lib.concatStringsSep " " (
+    lib.mapAttrsToList (n: _: "[${n}]=${lib.escapeShellArg "/run/vacuvm-${n}-boot/console.sock"}") cfg
+  );
+
+  # Single management command with subcommands, installed on the host.
+  #   vacuvm list                    — list known VMs
+  #   vacuvm bootstrap <vm> <path>   — populate a VM's rootfs from a system closure
+  #   vacuvm console <vm>            — attach an interactive terminal to hvc0
+  # Both bootstrap and console touch root-owned paths, so they re-exec via sudo.
+  vacuvmPackage = pkgs.writeShellScriptBin "vacuvm" ''
+    set -euo pipefail
+
+    declare -A ROOTDIR=( ${rootDirEntries} )
+    declare -A CONSOLE_SOCK=( ${consoleSockEntries} )
+
+    usage() {
+      cat >&2 <<'EOF'
+    Usage: vacuvm <command> [args]
+
+    Commands:
+      list                       List known VMs
+      bootstrap <vm> <toplevel>  Populate <vm>'s rootfs from a nixos-system store path
+      console <vm>               Attach to <vm>'s serial console (detach with Ctrl-])
+    EOF
+    }
+
+    need_vm() {
+      local vm="''${1:-}"
+      if [[ -z "''${ROOTDIR[$vm]:-}" ]]; then
+        echo "vacuvm: unknown VM '$vm' (known: ''${!ROOTDIR[*]})" >&2
         exit 1
       fi
+    }
 
-      echo "Creating directory structure in ${vmCfg.rootDir}..."
-      mkdir -p "${vmCfg.rootDir}/nix/store"
-      mkdir -p "${vmCfg.rootDir}/nix/var/nix/profiles"
-      mkdir -p "${vmCfg.rootDir}/nix/var/nix/gcroots"
+    # Re-exec the whole command under sudo when not already root.
+    ensure_root() {
+      if [[ "$(id -u)" -ne 0 ]]; then
+        exec sudo -- "$0" "$@"
+      fi
+    }
 
-      echo "Copying closure (this may take a while)..."
-      # Capture into a variable first so a failed query aborts (set -e does not
-      # fire on failures inside a `for ... in $(...)` command substitution).
-      requisites=$(${pkgs.nix}/bin/nix-store --query --requisites "$toplevel")
-      for path in $requisites; do
-        dest_path="${vmCfg.rootDir}$path"
-        if [[ ! -e "$dest_path" ]]; then
-          cp -a "$path" "$dest_path"
+    cmd="''${1:-}"
+    case "$cmd" in
+      list)
+        for vm in "''${!ROOTDIR[@]}"; do echo "$vm"; done | sort
+        ;;
+
+      bootstrap)
+        vm="''${2:-}"
+        toplevel="''${3:-}"
+        need_vm "$vm"
+        if [[ -z "$toplevel" ]]; then
+          echo "Usage: vacuvm bootstrap $vm /nix/store/...-nixos-system-$vm" >&2
+          exit 1
         fi
-      done
+        ensure_root "$@"
+        rootDir="''${ROOTDIR[$vm]}"
 
-      # Relative symlink (../../../store/<x>): three `..` climb
-      # profiles -> nix -> var -> nix's parent, then into store. Must be relative
-      # (not absolute) so it resolves within the rootfs both post-switch-root and
-      # in the initrd, where the rootfs is mounted at /sysroot — an absolute
-      # /nix/store/<x> would wrongly resolve against the initrd's own root.
-      # confine-copy reads it host-side via RESOLVE_IN_ROOT (retrying the EAGAIN
-      # that the `..` traversal can trigger).
-      store_suffix="''${toplevel#/nix/store/}"
-      ln -sfT "../../../store/$store_suffix" "${vmCfg.rootDir}/nix/var/nix/profiles/system"
+        echo "Creating directory structure in $rootDir..."
+        mkdir -p "$rootDir/nix/store"
+        mkdir -p "$rootDir/nix/var/nix/profiles"
+        mkdir -p "$rootDir/nix/var/nix/gcroots"
 
-      echo ""
-      echo "Done. Start with: systemctl start vacuvm-${vmName}-qemu"
-    ''
-  ) cfg;
+        echo "Copying closure (this may take a while)..."
+        # Capture into a variable first so a failed query aborts (set -e does not
+        # fire on failures inside a `for ... in $(...)` command substitution).
+        requisites=$(${pkgs.nix}/bin/nix-store --query --requisites "$toplevel")
+        for path in $requisites; do
+          dest_path="$rootDir$path"
+          if [[ ! -e "$dest_path" ]]; then
+            cp -a "$path" "$dest_path"
+          fi
+        done
+
+        # Relative symlink (../../../store/<x>): three `..` climb
+        # profiles -> nix -> var -> nix's parent, then into store. Must be relative
+        # (not absolute) so it resolves within the rootfs both post-switch-root and
+        # in the initrd, where the rootfs is mounted at /sysroot — an absolute
+        # /nix/store/<x> would wrongly resolve against the initrd's own root.
+        # confine-copy reads it host-side via RESOLVE_IN_ROOT (retrying the EAGAIN
+        # that the `..` traversal can trigger).
+        store_suffix="''${toplevel#/nix/store/}"
+        ln -sfT "../../../store/$store_suffix" "$rootDir/nix/var/nix/profiles/system"
+
+        echo ""
+        echo "Done. Start with: systemctl start vacuvm-$vm-qemu"
+        ;;
+
+      console)
+        vm="''${2:-}"
+        need_vm "$vm"
+        ensure_root "$@"
+        sock="''${CONSOLE_SOCK[$vm]}"
+        if [[ ! -S "$sock" ]]; then
+          echo "vacuvm: console socket $sock not found — is $vm running? (systemctl status vacuvm-$vm-qemu)" >&2
+          exit 1
+        fi
+        echo "Attaching to $vm console. Detach with Ctrl-] . Press Enter for a login prompt." >&2
+        # rawer: put the local terminal in raw mode (no echo/line-editing) so keys
+        # pass through untouched; escape=0x1d makes Ctrl-] cleanly close the link.
+        exec ${pkgs.socat}/bin/socat -,rawer,escape=0x1d "unix-connect:$sock"
+        ;;
+
+      ""|-h|--help|help)
+        usage
+        ;;
+
+      *)
+        echo "vacuvm: unknown command '$cmd'" >&2
+        usage
+        exit 1
+        ;;
+    esac
+  '';
 in
 {
   options.vacu.vmNet = {
@@ -310,7 +398,7 @@ in
 
     systemd.services = vmServices;
 
-    environment.systemPackages = vmPackages;
+    environment.systemPackages = [ vacuvmPackage ];
 
     # A guest NIC MAC must be unicast (I/G bit clear) and should be
     # locally-administered (U/L bit set) since these are made-up addresses.
@@ -326,7 +414,8 @@ in
           (builtins.length addresses) == (builtins.length (lib.uniqueStrings addresses));
         message = "vm addresses are not unique";
       }
-    ] ++ lib.mapAttrsToList (
+    ]
+    ++ lib.mapAttrsToList (
       vmName: vmCfg:
       let
         firstOctet = lib.fromHexString (builtins.head (lib.splitString ":" vmCfg.mac));

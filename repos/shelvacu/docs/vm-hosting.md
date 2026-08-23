@@ -56,10 +56,11 @@ toplevel=$(nix build .#nixosConfigurations.vacu-agent-vm.config.system.build.top
   --no-link --print-out-paths)
 
 # Populate the rootfs
-bootstrap-vacu-agent-vm "$toplevel"
+vacuvm bootstrap vacu-agent-vm "$toplevel"
 ```
 
-The `bootstrap-vacu-agent-vm` script (installed on prophecy by agent-vm.nix):
+The `vacuvm bootstrap <vm>` subcommand (the `vacuvm` command is installed on
+prophecy by the qemu-vm module):
 - Creates `/vms/vacu-agent-vm/root/nix/store/` and copies the full closure
 - Creates a relative symlink at `/nix/var/nix/profiles/system` inside the rootfs
 
@@ -74,6 +75,25 @@ journalctl -fu qemu-vacu-agent-vm
 ### 5. Configure the upstream router
 
 Add a static route: `10.78.77.0/24 via <prophecy LAN IP (10.78.79.22)>`.
+
+## Console access
+
+Each guest has two consoles:
+
+- **ttyS0** — wired to QEMU's stdio, captured passively in prophecy's journal
+  (`journalctl -fu vacuvm-<name>-qemu`). Read-only boot/kernel logs; non-interactive.
+- **hvc0** — a virtio console exported as a host-only unix socket in the VM's boot
+  runtime dir. This is the interactive one (login prompt, driving a broken-network
+  guest, answering boot prompts).
+
+Attach with:
+
+```bash
+vacuvm console <name>       # e.g. vacuvm console jv-shel
+```
+
+Detach with `Ctrl-]`. The command re-execs under sudo (the socket is root-owned)
+and errors out with a hint if the VM isn't running. `vacuvm list` shows known VMs.
 
 ## Adding future VMs
 

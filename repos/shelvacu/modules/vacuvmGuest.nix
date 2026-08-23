@@ -1,18 +1,23 @@
-{ modulesPath, lib, config, ... }:
+{
+  modulesPath,
+  lib,
+  config,
+  ...
+}:
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   options = {
-    vacuvmGuest.ip = lib.mkOption {
-      type = lib.types.str;
-    };
+    vacuvmGuest.ip = lib.mkOption { type = lib.types.str; };
   };
 
   config = {
     # virtiofs is the root filesystem; must be in initrd
     boot.initrd.kernelModules = [ "virtiofs" ];
     boot.initrd.availableKernelModules = [ "virtio_pci" ];
-    boot.kernelModules = [ ];
+    # virtio_console provides /dev/hvc0 — the interactive console the QEMU host
+    # exposes as a unix socket (attach with `vacuvm console <name>`).
+    boot.kernelModules = [ "virtio_console" ];
     boot.extraModulePackages = [ ];
 
     # Kernel is provided directly by the QEMU host command; no bootloader needed
@@ -26,7 +31,19 @@
     hardware.enableAllFirmware = false;
     hardware.enableRedistributableFirmware = false;
 
-    boot.kernelParams = [ "console=ttyS0" ];
+    # Two consoles: ttyS0 (last = primary /dev/console) is wired to QEMU stdio and
+    # captured passively in the host journal; hvc0 is the interactive console on a
+    # host unix socket. The kernel logs to both; getty on hvc0 gives login.
+    boot.kernelParams = [
+      "console=hvc0"
+      "console=ttyS0"
+    ];
+    # /dev/hvc0 appears via the virtio_console module; serial-getty@hvc0 waits on
+    # dev-hvc0.device (BindsTo), so this login prompt starts once the device is up.
+    systemd.services."serial-getty@hvc0" = {
+      enable = true;
+      wantedBy = [ "getty.target" ];
+    };
 
     vacu.systemKind = lib.mkDefault "minimal";
 

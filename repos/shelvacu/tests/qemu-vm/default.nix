@@ -33,9 +33,7 @@ let
 
           hardware.enableAllFirmware = false;
           hardware.enableRedistributableFirmware = false;
-          boot.kernelParams = [
-            "console=ttyS0"
-          ];
+          boot.kernelParams = [ "console=ttyS0" ];
 
           networking.useNetworkd = true;
           systemd.network.enable = true;
@@ -94,7 +92,7 @@ in
     };
 
     # Register the guest system closure as valid in the host node's Nix DB so
-    # `bootstrap-test-vm` can query its requisites and copy it into the rootfs.
+    # `vacuvm bootstrap test-vm` can query its requisites and copy it into the rootfs.
     virtualisation.additionalPaths = [ guestSystem ];
 
     # Give the host node enough RAM to run a 512 MiB QEMU guest
@@ -112,7 +110,7 @@ in
     host.succeed("test \"$(cat /proc/sys/net/ipv4/ip_forward)\" = 1")
 
     # Populate the guest rootfs from the pre-built NixOS system closure.
-    host.succeed("bootstrap-test-vm ${guestSystem}", timeout=600)
+    host.succeed("vacuvm bootstrap test-vm ${guestSystem}", timeout=600)
 
     # Verify the profile symlink was created
     host.succeed("test -L /tmp/test-vm-root/nix/var/nix/profiles/system")
@@ -124,6 +122,9 @@ in
     # route back to the guest.
     host.wait_until_succeeds("ip link show tap-test-vm", timeout=30)
     host.succeed("ip route get ${guestIP} | grep -q 'dev tap-test-vm'")
+
+    # The interactive console socket (hvc0) is created host-side by QEMU on start.
+    host.wait_until_succeeds("test -S /run/vacuvm-test-vm-boot/console.sock", timeout=30)
 
     # Wait for the guest to boot and come up on the routed network.
     host.wait_until_succeeds("ping -c1 -W2 ${guestIP}", timeout=120)
