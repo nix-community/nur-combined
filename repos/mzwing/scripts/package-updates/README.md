@@ -7,7 +7,7 @@ The update workflow (`.github/workflows/update.yml`) runs four stages, in this o
 3. **`update-pins`** — refreshes package *pins*: data whose URL and hash must change together, exposed by packages as `passthru.pinUpdater`.
 4. **`update-hashes`** — nix-update recomputes vendored dependency hashes (`vendorHash`, `pnpmDepsHash`, ...) when a package source, package definition, or shared hash input changed.
 
-Pins run after lockfiles because pin data is typically derived from the regenerated lockfiles (e.g. wsrx-desktop derives its Skia asset pin from `Cargo.nix`), and before hash refreshes so nix-update sees settled pins. NPM lockfile repair is part of the repository's `fetchNpmDeps` wrapper, so it runs inside the dependency FOD before nix-update observes and writes the resulting hash; it does not need a separate pipeline stage.
+Pins run after lockfiles because pin data can be derived from the regenerated lockfiles, and before hash refreshes so nix-update sees settled pins. NPM lockfile repair is part of the repository's `fetchNpmDeps` wrapper, so it runs inside the dependency FOD before nix-update observes and writes the resulting hash; it does not need a separate pipeline stage.
 
 For push-triggered runs, the workflow passes the pre-push revision as `UPDATE_BASE_REV`, allowing package changes already committed at `HEAD` to trigger a refresh. Working-tree source, lockfile, pin, and flake input changes are detected directly. Changes to `default.nix`, `flake.nix`, `flake.lock`, or `internal/npm-lockfile-fix.nix` refresh every hash-bearing package because they can change dependency outputs without changing an nvfetcher source.
 

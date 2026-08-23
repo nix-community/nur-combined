@@ -6,14 +6,11 @@
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  # Linux link-time and runtime desktop libraries from the upstream flake.
+  # Linux link-time and runtime desktop libraries for the GPUI/wgpu renderer.
   linuxDesktopLibraries = with pkgs; [
     fontconfig
     freetype
     libGL
-    libdrm
-    libgbm
-    libinput
     libx11
     libxcb
     libxcb-cursor
@@ -27,27 +24,9 @@
     libxkbcommon
     libxkbfile
     libxrandr
+    vulkan-loader
     wayland
   ];
-
-  # Coupled Skia asset URLs and hashes maintained by the package pin updater.
-  pins = lib.importJSON ./pins.json;
-
-  # Rust targets used in Skia asset names.
-  skiaTargets = {
-    x86_64-linux = "x86_64-unknown-linux-gnu";
-    aarch64-linux = "aarch64-unknown-linux-gnu";
-  };
-
-  skiaBinaries =
-    lib.mapAttrs (
-      system: target:
-        pkgs.fetchurl {
-          url = "https://github.com/rust-skia/skia-binaries/releases/download/${pins.skia.version}/skia-binaries-${pins.skia.commit}-${target}-${pins.skia.features}.tar.gz";
-          hash = pins.skia.hashes.${system};
-        }
-    )
-    skiaTargets;
 
   # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
   cargoNix = import ./Cargo.nix {
@@ -75,48 +54,28 @@
         build-target = attrs: {
           env.CARGO_CRATE_NAME = "build_target";
         };
-        # Provide Cargo's empty encoded rustflags expected by rust-av build scripts.
-        av-scenechange = attrs: {
-          env.CARGO_ENCODED_RUSTFLAGS = "";
-        };
-        rav1e = attrs: {
-          env.CARGO_ENCODED_RUSTFLAGS = "";
+
+        # Link the vendored AWS-LC through its CMake builder.
+        aws-lc-sys = attrs: {
+          nativeBuildInputs = with pkgs; [cmake perl];
+          env.AWS_LC_SYS_CMAKE_BUILDER = "1";
         };
 
-        # Use prebuilt Skia while keeping libclang available for bindgen.
-        skia-bindings = attrs:
-          lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-            env.SKIA_BINARIES_URL = "file://${skiaBinaries.${pkgs.stdenv.hostPlatform.system}}";
-            env.LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
-            # Propagate libraries required by prebuilt Skia features.
-            propagatedBuildInputs = with pkgs; [
-              fontconfig
-              freetype
-              libGL
-            ];
-          };
+        # Resolve libxkbcommon, which the crate links through `#[link]` without a build script.
+        xkbcommon = attrs: {
+          propagatedBuildInputs = [pkgs.libxkbcommon];
+        };
 
-        # Propagate native `-sys` libraries to the final link.
+        # Probe fontconfig for font-kit, the font source GPUI uses on Linux.
+        yeslogic-fontconfig-sys = attrs: {
+          nativeBuildInputs = [pkgs.pkg-config];
+          propagatedBuildInputs = [pkgs.fontconfig];
+        };
+
+        # Keep wayland linkable for consumers that drop the crate's dlopen feature.
         wayland-sys = attrs: {
           nativeBuildInputs = [pkgs.pkg-config];
           propagatedBuildInputs = [pkgs.wayland];
-        };
-        gbm-sys = attrs: {
-          propagatedBuildInputs = [pkgs.libgbm];
-        };
-        drm-sys = attrs: {
-          propagatedBuildInputs = [pkgs.libdrm];
-        };
-        input-sys = attrs: {
-          propagatedBuildInputs = [pkgs.libinput];
-        };
-        xkeysym = attrs: {
-          propagatedBuildInputs = [pkgs.libxcb-keysyms];
-        };
-        libudev-sys = attrs: {
-          # Propagate udev to the final link.
-          nativeBuildInputs = [pkgs.pkg-config];
-          propagatedBuildInputs = [pkgs.udev];
         };
       };
   };
@@ -138,31 +97,6 @@ in
       wrapProgram $out/bin/wsrx-desktop \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath linuxDesktopLibraries}
     '';
-
-    passthru =
-      (old.passthru or {})
-      // {
-        # Update coupled Skia asset pins through the generic pin pipeline.
-        pinUpdater = pkgs.writeShellApplication {
-          name = "wsrx-desktop-update-pins";
-          runtimeInputs = with pkgs; [
-            coreutils
-            curl
-            gawk
-            gnugrep
-            jq
-            nix
-          ];
-          # Ignore shellcheck errors caused by the runtime-injected helper path.
-          excludeShellChecks = [
-            "SC1090"
-            "SC1091"
-            "SC2154"
-          ];
-          runtimeEnv.PIN_UTILS = ../../scripts/package-updates/lib/pin-utils.sh;
-          text = builtins.readFile ./update-pins.sh;
-        };
-      };
 
     # Skip executing the GUI without a display.
     doInstallCheck = true;
