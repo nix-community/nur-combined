@@ -7,7 +7,7 @@
 buildHomeAssistantComponent {
   owner = "hasscc";
   domain = "tianqi";
-  version = "0.0.1";
+  version = "0.0.1-unstable";
 
   src = fetchFromGitHub {
     owner = "hasscc";

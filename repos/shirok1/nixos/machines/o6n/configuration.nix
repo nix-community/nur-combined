@@ -171,18 +171,6 @@
       gitui
       dive
 
-      (writeShellScriptBin "FutuOpenD" ''
-        export LD_LIBRARY_PATH="${
-          lib.makeLibraryPath [
-            # libgcc.lib
-            zlib
-            curl
-            openssl
-          ]
-        }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-
-        ${box64}/bin/box64 ${shirok1-x86_64.futu-opend.override { ignoreCurl = true; }}/bin/FutuOpenD "$@"
-      '')
       (writeShellScriptBin "stata-mp" ''
         export LD_LIBRARY_PATH="${
           lib.makeLibraryPath [
@@ -255,6 +243,7 @@
     jdupes
     (lib.getBin pkgs.elfutils)
     uv
+    shirok1.futu-opend-rs
   ];
 
   programs.nix-ld.enable = true;
@@ -496,6 +485,7 @@
       "mqtt_json"
       "mqtt_room"
       "mqtt_statestream"
+      "openai_conversation"
       "ping"
       "qbittorrent"
       "sonos"
@@ -568,6 +558,30 @@
           data.topic = "cmnd/tasmota_5E6E7B/IrSend";
           data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F509","DataLSB":"0x9DAF90"}'';
         };
+        ir_ac_swing_v_on.alias = "空调上下摆风开 IR";
+        ir_ac_swing_v_on.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F504","DataLSB":"0x9DAF20"}'';
+        };
+        ir_ac_swing_v_off.alias = "空调上下摆风关 IR";
+        ir_ac_swing_v_off.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F505","DataLSB":"0x9DAFA0"}'';
+        };
+        ir_ac_swing_h_on.alias = "空调左右摆风开 IR";
+        ir_ac_swing_h_on.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F507","DataLSB":"0x9DAFE0"}'';
+        };
+        ir_ac_swing_h_off.alias = "空调左右摆风关 IR";
+        ir_ac_swing_h_off.sequence = {
+          service = "mqtt.publish";
+          data.topic = "cmnd/tasmota_5E6E7B/IrSend";
+          data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F508","DataLSB":"0x9DAF10"}'';
+        };
       };
       template = [
         {
@@ -592,12 +606,97 @@
               turn_on.action = "script.ir_ac_light";
               turn_off.action = "script.ir_ac_light";
             }
+            {
+              name = "空调上下摆风";
+              unique_id = "8ccd543d-bca1-474e-8c0a-16268c1c8fc6";
+              optimistic = true;
+              turn_on.action = "script.ir_ac_swing_v_on";
+              turn_off.action = "script.ir_ac_swing_v_off";
+            }
+            {
+              name = "空调左右摆风";
+              unique_id = "25cf3c50-0379-455b-ac13-c8b427f665e6";
+              optimistic = true;
+              turn_on.action = "script.ir_ac_swing_h_on";
+              turn_off.action = "script.ir_ac_swing_h_off";
+            }
           ];
+        }
+      ];
+      climate = [
+        {
+          platform = "tasmota_irhvac";
+          name = "美的空调";
+          unique_id = "7798482a-d424-4824-a3ec-7a31e8d3d26f";
+
+          command_topic = "cmnd/tasmota_5E6E7B/IRHVAC";
+          state_topic = "stat/tasmota_5E6E7B/RESULT";
+          availability_topic = "tele/tasmota_5E6E7B/LWT";
+
+          temperature_sensor = "sensor.wo_shi_daikin_air_sensor_temperature_sensor";
+          humidity_sensor = "sensor.wo_shi_daikin_air_sensor_humidity_sensor";
+
+          vendor = "COOLIX";
+          mqtt_delay = 0.0;
+
+          min_temp = 16;
+          max_temp = 30;
+          target_temp = 26;
+          initial_operation_mode = "off";
+          away_temp = 24;
+          precision = 1; # 0.5 fail to send
+
+          supported_modes = [
+            "off"
+            "auto"
+            "cool"
+            "dry"
+            "heat"
+            "fan_only"
+          ];
+
+          supported_fan_speeds = [
+            "auto" # Auto
+            "min" # 20%
+            "low" # 40%
+            "medium" # 60%
+            "high" # 80%
+            "max" # 100%
+          ];
+
+          supported_swing_list = [
+            "off"
+            "vertical"
+            "horizontal"
+            "both"
+          ];
+
+          set_swingv = {
+            "if".condition = "template";
+            "if".value_template = "{{ swingv != 'off' }}";
+            "then".action = "script.ir_ac_swing_v_on";
+            "else".action = "script.ir_ac_swing_v_off";
+          };
+
+          set_swingh = {
+            "if".condition = "template";
+            "if".value_template = "{{ swingh != 'off' }}";
+            "then".action = "script.ir_ac_swing_v_on";
+            "else".action = "script.ir_ac_swing_h_off";
+          };
         }
       ];
     };
     customComponents = with pkgs.home-assistant-custom-components; [
       pkgs.shirok1.hasscc-tianqi
+      (pkgs.shirok1.tasmota-irhvac.overrideAttrs (oldAttrs: {
+        src = pkgs.fetchFromGitHub {
+          owner = "hristo-atanasov";
+          repo = "Tasmota-IRHVAC";
+          rev = "pull/190/head";
+          hash = "sha256-HlVUVbtbrCFWFlrVtQ+UqET+VpN9fpN261c8OkG1jZU=";
+        };
+      }))
       (xiaomi_home.overrideAttrs (oldAttrs: {
         # src = inputs.ha-xiaomi-home;
         src = pkgs.fetchFromGitHub {
@@ -609,6 +708,13 @@
       }))
       pkgs.shirok1.zuyan9-ha-cuk-ble
     ];
+  };
+  systemd.services.home-assistant = {
+    serviceConfig = {
+      Environment = [
+        "OPENAI_BASE_URL=https://api.deepseek.com/v1"
+      ];
+    };
   };
 
   services.mosquitto = {
