@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 let
+  self = import ../. { inherit pkgs; };
   llmAgentsPkgs = (builtins.getFlake "github:numtide/llm-agents.nix").packages.x86_64-linux;
 in
 {
@@ -8,6 +9,10 @@ in
   environment.systemPackages = [
     llmAgentsPkgs.pi
     llmAgentsPkgs.omp
+
+    pkgs.llama-cpp-vulkan
+    # pkgs.aichat
+    self.llm-ttok
   ];
 
   environment.sessionVariables = {

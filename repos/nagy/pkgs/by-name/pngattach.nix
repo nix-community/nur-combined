@@ -9,6 +9,9 @@ stdenv.mkDerivation {
   pname = "pngattach";
   version = "0-unstable-2025-03-12";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "skeeto";
     repo = "scratch";

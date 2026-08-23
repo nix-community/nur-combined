@@ -11,6 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "vncterm";
   version = "0.9.10";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "LibVNC";
     repo = "vncterm";

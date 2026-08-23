@@ -8,6 +8,9 @@ stdenv.mkDerivation {
   pname = "gguf-tools";
   version = "0-unstable-2026-05-16";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "gguf-tools";

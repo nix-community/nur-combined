@@ -37,6 +37,7 @@ let
             '';
           }
         );
+
         sotlisp = super.sotlisp.overrideAttrs {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
@@ -47,6 +48,7 @@ let
           preferLocalBuild = true;
           allowSubstitutes = false;
         };
+
         memoize = super.memoize.overrideAttrs {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
@@ -57,6 +59,7 @@ let
           preferLocalBuild = true;
           allowSubstitutes = false;
         };
+
         hy-mode = super.hy-mode.overrideAttrs {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
@@ -67,6 +70,7 @@ let
           preferLocalBuild = true;
           allowSubstitutes = false;
         };
+
         nix-mode = super.nix-mode.overrideAttrs (
           {
             packageRequires ? [ ],
@@ -84,11 +88,13 @@ let
             allowSubstitutes = false;
           }
         );
+
         lua = super.lua.override {
           lua = pkgs.lua5_4;
           preferLocalBuild = true;
           allowSubstitutes = false;
         };
+
         hledger-mode = super.hledger-mode.overrideAttrs {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
@@ -171,9 +177,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-08-17
+          # updated 2026-08-22
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/2e89533df9375c48448ba92d7299c4d16b46e06f.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/63cad05958ad638c0423b922f23db06d6edcc1a8.tar.gz";
         }
       ))
     ];

@@ -14,6 +14,9 @@ stdenv.mkDerivation {
   pname = "osmos-demo";
   version = "0-unstable-2023-06-21";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchurl {
     urls = [
       "https://www.hemispheregames.com/latest_osmos_demo_linux_deb"

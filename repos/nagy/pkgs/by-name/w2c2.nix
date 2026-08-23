@@ -9,6 +9,9 @@ stdenv.mkDerivation {
   pname = "w2c2";
   version = "0-unstable-2026-08-01";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "turbolent";
     repo = "w2c2";

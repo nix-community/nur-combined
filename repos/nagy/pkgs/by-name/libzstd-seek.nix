@@ -10,6 +10,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libzstd-seek";
   version = "1.3.0";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "martinellimarco";
     repo = "libzstd-seek";

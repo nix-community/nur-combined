@@ -10,6 +10,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "iec16022";
   version = "0.3.1";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "rdoeffinger";
     repo = "iec16022";

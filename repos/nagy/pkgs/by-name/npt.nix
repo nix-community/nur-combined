@@ -9,6 +9,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "npt";
   version = "1.1.1";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "nptcl";
     repo = "npt";

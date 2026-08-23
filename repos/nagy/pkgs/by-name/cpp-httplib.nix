@@ -9,6 +9,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "cpp-httplib";
   version = "0.20.0";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "yhirose";
     repo = "cpp-httplib";

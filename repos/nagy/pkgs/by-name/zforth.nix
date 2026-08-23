@@ -9,6 +9,9 @@ stdenv.mkDerivation {
   pname = "zforth";
   version = "0-unstable-2025-08-15";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "zevv";
     repo = "zForth";

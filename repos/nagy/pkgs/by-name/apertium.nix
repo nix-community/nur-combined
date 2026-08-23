@@ -2,9 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
   libxml2,
   libxslt,
   pkg-config,
@@ -21,6 +18,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "apertium";
   version = "3.9.12";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "apertium";
@@ -31,15 +31,15 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
+    flex # lexer generator, build-time only
+    libxml2.bin # xmllint, needed at build time (runtime lib stays in buildInputs)
+    libxslt.bin # xsltproc, needed at build time
   ];
 
   buildInputs = [
-    autoconf
-    automake
-    libtool
+    flex # runtime: apertium-gen-{de,re}format invoke it for user formats
     libxml2
     libxslt
-    flex
     pcre
     pcre-cpp
     icu
@@ -60,5 +60,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.apertium.org/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })
