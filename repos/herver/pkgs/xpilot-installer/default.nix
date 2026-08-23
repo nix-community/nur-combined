@@ -10,23 +10,26 @@
 
 let
   version = "4.0.0-beta.6";
-  pname = "xpilot";
+  pname = "xpilot-installer";
 
-  # dwarfs 0.14.0 does not build against this nixpkgs's toolchain
+  # Same toolchain workaround as pkgs/xpilot
   dwarfs' = (dwarfs.override { fmt = pkgs.fmt_11; }).overrideAttrs (old: {
     env = (old.env or { }) // {
       CXXFLAGS = "${old.env.CXXFLAGS or ""} -include cstring";
     };
   });
 
+  # The xPilot client downloads this installer and launches it with
+  # `--csl --manifest-url https://downloads.xpilot.app` to install the Bluebell
+  # CSL model set. On NixOS the downloaded AppImage cannot start, so package it
+  # here to run the CSL installer directly. URL and checksum come from the
+  # `installer.linux` entry of the https://downloads.xpilot.app manifest.
   src = fetchurl {
-    url = "https://downloads.xpilot.app/artifacts/${version}/linux-x64/xPilot.AppImage";
-    hash = "sha256-+5XCYvur2mZfoZ9xpfkKPG8V7IYC+nQqL5uhlnzxr5c=";
-    name = "xPilot-${version}.AppImage";
+    url = "https://downloads.xpilot.app/artifacts/${version}/linux-x64/xPilot-Installer.AppImage";
+    hash = "sha256-eGS1j4bf4+j7sykF88IPub+wB++nEEabKxUg52iD9ao=";
+    name = "xPilot-Installer-${version}.AppImage";
   };
 
-  # The AppImage is a type-2 image whose payload is a DwarFS filesystem
-  # (not squashfs), so appimageTools.extractType2 cannot unpack it.
   appimageContents = stdenv.mkDerivation {
     name = "${pname}-${version}-extracted";
     inherit src;
@@ -71,32 +74,32 @@ stdenv.mkDerivation {
     mkdir -p $out/bin $out/libexec $out/share
 
     # Self-contained .NET/Avalonia app tree shipped inside the AppImage.
-    # The native .so live in usr/lib; usr/libexec/xPilot holds ../../lib
-    # relative symlinks to them, so both trees must be preserved.
+    # usr/libexec/xPilot-Installer holds ../../lib relative symlinks to the
+    # native .so in usr/lib, so both trees must be preserved.
     cp -r usr/lib $out/lib
-    cp -r usr/libexec/xPilot $out/libexec/xPilot
+    cp -r usr/libexec/xPilot-Installer $out/libexec/xPilot-Installer
 
-    # Icons (only the client's, not the bundled installer's).
     for size in 256x256 512x512; do
-      install -Dm644 usr/share/icons/hicolor/$size/apps/xpilot.png \
-        $out/share/icons/hicolor/$size/apps/xpilot.png
+      install -Dm644 usr/share/icons/hicolor/$size/apps/xpilot-installer.png \
+        $out/share/icons/hicolor/$size/apps/xpilot-installer.png
     done
 
-    # Desktop file
-    install -Dm644 xPilot.desktop $out/share/applications/xpilot.desktop
-    substituteInPlace $out/share/applications/xpilot.desktop \
-      --replace-fail 'Exec=xPilot' 'Exec=xpilot'
+    install -Dm644 xPilot-Installer.desktop $out/share/applications/xpilot-installer.desktop
+    substituteInPlace $out/share/applications/xpilot-installer.desktop \
+      --replace-fail 'Exec=xPilot-Installer' 'Exec=xpilot-installer'
 
-    makeWrapper $out/libexec/xPilot/xPilot $out/bin/xpilot \
+    # Launch the installer in CSL mode, exactly as the client would, so the
+    # Bluebell model-set installer runs. Extra arguments are appended, and the
+    # installer's other modes (e.g. --update) remain reachable by overriding.
+    makeWrapper $out/libexec/xPilot-Installer/xPilot-Installer $out/bin/xpilot-installer \
       --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" \
+      --add-flags "--csl --manifest-url https://downloads.xpilot.app" \
       --prefix LD_LIBRARY_PATH : "$out/lib:${lib.makeLibraryPath [
         (lib.getLib pkgs.icu)
         pkgs.libGL
         pkgs.vulkan-loader
         pkgs.fontconfig.lib
         pkgs.openssl
-        pkgs.alsa-lib
-        pkgs.libpulseaudio
         pkgs.xorg.libX11
         pkgs.xorg.libICE
         pkgs.xorg.libSM
@@ -110,12 +113,12 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Cross-platform X-Plane pilot client for the VATSIM network";
+    description = "xPilot installer for VATSIM, packaged to run the CSL (Bluebell) model-set installer on NixOS";
     homepage = "https://xpilot.app";
     downloadPage = "https://xpilot.app";
     license = lib.licenses.gpl3Plus;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
-    mainProgram = "xpilot";
+    mainProgram = "xpilot-installer";
   };
 }

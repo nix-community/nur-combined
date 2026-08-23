@@ -27,4 +27,6 @@
   xpilot = pkgs.callPackage ./pkgs/xpilot { };
 
   xpilot-plugin = pkgs.callPackage ./pkgs/xpilot-plugin { };
+
+  xpilot-installer = pkgs.callPackage ./pkgs/xpilot-installer { };
 }
