@@ -27,7 +27,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 IMAGE=moonlight-os-builder
 # Stamped into the ISO filename. It used to select which Moonlight AppImage to
 # download; the client is now built from source, so it is only a label.
-ISO_VERSION="${ISO_VERSION:-6.2.0}"
+ISO_VERSION="${ISO_VERSION:-6.2.1}"
 MLOS_VERSION="${MLOS_VERSION:-0~dev}"
 FIRMWARE="${FIRMWARE:-full}"
 MLOS_SUITE="${MLOS_SUITE:-trixie}"

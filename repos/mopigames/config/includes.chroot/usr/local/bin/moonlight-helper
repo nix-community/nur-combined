@@ -370,15 +370,42 @@ def op_status(args, emit):
                 break
 
     wifi = None
+    ethernet = None
     out, _ = run(["nmcli", "-t", "-f", "NAME,TYPE", "connection", "show", "--active"], timeout=5)
     if out:
         for line in out.splitlines():
-            name, _, kind = line.partition(":")
-            if "wireless" in kind:
+            # Connection names may contain escaped colons, so the type is the
+            # final unescaped field rather than everything after the first one.
+            fields = re.split(r"(?<!\\):", line)
+            if len(fields) < 2:
+                continue
+            name = ":".join(fields[:-1]).replace("\\:", ":")
+            kind = fields[-1]
+            if kind == "802-11-wireless" and wifi is None:
                 wifi = name
-                break
+            elif kind == "802-3-ethernet" and ethernet is None:
+                ethernet = name
 
-    return {"hostname": hostname, "address": ip, "wifi": wifi}
+    if ethernet:
+        connection_type = "ethernet"
+        connection_name = ethernet
+    elif wifi:
+        connection_type = "wifi"
+        connection_name = wifi
+    elif ip:
+        connection_type = "other"
+        connection_name = ""
+    else:
+        connection_type = "none"
+        connection_name = ""
+
+    return {
+        "hostname": hostname,
+        "address": ip,
+        "wifi": wifi,
+        "connection_type": connection_type,
+        "connection_name": connection_name,
+    }
 
 
 def op_wifi_list(args, emit):
@@ -503,6 +530,32 @@ def op_tailscale_status(args, emit):
     }
 
 
+def tailscale_login_payload(output):
+    """Return the approval URL and PNG data URL from `tailscale up --json`."""
+    decoder = json.JSONDecoder()
+    offset = 0
+    while offset < len(output or ""):
+        start = output.find("{", offset)
+        if start < 0:
+            break
+        try:
+            value, offset = decoder.raw_decode(output, start)
+        except json.JSONDecodeError:
+            offset = start + 1
+            continue
+        if not isinstance(value, dict):
+            continue
+        url = value.get("AuthURL")
+        qr = value.get("QR")
+        if not isinstance(url, str):
+            continue
+        if not isinstance(qr, str) or not qr.startswith("data:image/png;base64,") \
+                or len(qr) > 262144:
+            qr = ""
+        return url, qr
+    return "", ""
+
+
 def op_tailscale_connect(args, emit):
     state = op_tailscale_status({}, emit).get("state")
     if state == "Running":
@@ -514,11 +567,13 @@ def op_tailscale_connect(args, emit):
             raise Error(E_FAILED, err)
         return op_tailscale_status({}, emit)
 
-    # `tailscale login` waits for approval, but prints a durable HTTPS URL
-    # first. Let it wait briefly, collect that URL, then stop only the CLI;
-    # tailscaled keeps the pending login and notices browser approval itself.
+    # A bare `tailscale up` preserves the existing preferences. JSON mode
+    # gives us the durable approval URL and the exact PNG QR code produced by
+    # Tailscale, so the SDL control centre does not have to reimplement QR
+    # encoding. Stop only the CLI after its short wait; tailscaled keeps the
+    # pending login and notices browser approval itself.
     try:
-        proc = subprocess.Popen(["tailscale", "login", "--timeout=8s"],
+        proc = subprocess.Popen(["tailscale", "up", "--qr", "--json", "--timeout=8s"],
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                 text=True)
         output, _ = proc.communicate(timeout=12)
@@ -527,10 +582,13 @@ def op_tailscale_connect(args, emit):
     except subprocess.TimeoutExpired:
         proc.terminate()
         output, _ = proc.communicate(timeout=3)
+    login_url, login_qr = tailscale_login_payload(output or "")
     match = re.search(r'https://login\.tailscale\.com/[A-Za-z0-9./_%-]+', output or "")
     result = op_tailscale_status({}, emit)
-    if match:
-        result["login_url"] = match.group(0)
+    if login_url or match:
+        result["login_url"] = login_url or match.group(0)
+        if login_qr:
+            result["login_qr"] = login_qr
         return result
     if result.get("state") != "Running":
         detail = (output or "").strip().splitlines()

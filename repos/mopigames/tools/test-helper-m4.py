@@ -28,6 +28,50 @@ def load_helper():
 helper = load_helper()
 
 
+class NetworkStatusTest(unittest.TestCase):
+    def status(self, active_connections, address="192.0.2.10"):
+        def fake_run(argv, timeout=30, input_text=None):
+            del timeout, input_text
+            if argv == ["hostname"]:
+                return "moonlight-os\n", None
+            if argv[:4] == ["ip", "-4", "-o", "addr"]:
+                if not address:
+                    return "", None
+                return "2: enp1s0    inet %s/24 scope global enp1s0\n" % address, None
+            if argv[:3] == ["nmcli", "-t", "-f"]:
+                return active_connections, None
+            raise AssertionError("unexpected command: %r" % argv)
+
+        with mock.patch.object(helper, "run", fake_run):
+            return helper.op_status({}, lambda message: None)
+
+    def test_active_ethernet_is_reported_explicitly(self):
+        result = self.status("Wired connection 1:802-3-ethernet\n")
+
+        self.assertEqual(result["connection_type"], "ethernet")
+        self.assertEqual(result["connection_name"], "Wired connection 1")
+        self.assertIsNone(result["wifi"])
+
+    def test_ethernet_wins_when_wired_and_wifi_are_both_active(self):
+        result = self.status(
+            "Cafe\\: upstairs:802-11-wireless\n"
+            "Dock Ethernet:802-3-ethernet\n"
+        )
+
+        self.assertEqual(result["connection_type"], "ethernet")
+        self.assertEqual(result["connection_name"], "Dock Ethernet")
+        self.assertEqual(result["wifi"], "Cafe: upstairs")
+
+    def test_wifi_and_offline_states_remain_distinct(self):
+        wifi = self.status("Home:802-11-wireless\n")
+        offline = self.status("", address="")
+
+        self.assertEqual((wifi["connection_type"], wifi["connection_name"]),
+                         ("wifi", "Home"))
+        self.assertEqual((offline["connection_type"], offline["connection_name"]),
+                         ("none", ""))
+
+
 class UsbSharedStateTest(unittest.TestCase):
     def test_attached_export_remains_shared_after_usbipd_hides_it(self):
         mh = helper.usb_module()
@@ -115,6 +159,50 @@ class HiddenWifiTest(unittest.TestCase):
         with mock.patch.object(helper, "run", fake_run):
             helper.op_wifi_forget({"uuid": uuid}, lambda message: None)
         self.assertEqual(calls[0], ["nmcli", "connection", "delete", "uuid", uuid])
+
+
+class TailscaleLoginTest(unittest.TestCase):
+    def test_json_login_payload_preserves_url_and_png_qr(self):
+        output = """Connecting...\n{
+          \"AuthURL\": \"https://login.tailscale.com/a/0123456789abcdef\",
+          \"QR\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUg==\",
+          \"BackendState\": \"NeedsLogin\"
+        }\n"""
+
+        url, qr = helper.tailscale_login_payload(output)
+
+        self.assertEqual(url, "https://login.tailscale.com/a/0123456789abcdef")
+        self.assertEqual(qr, "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg==")
+
+    def test_login_payload_rejects_non_png_or_oversized_qr_data(self):
+        url = "https://login.tailscale.com/a/0123456789abcdef"
+        non_png = json.dumps({"AuthURL": url, "QR": "data:image/svg+xml;base64,AAAA"})
+        oversized = json.dumps({"AuthURL": url,
+                                "QR": "data:image/png;base64," + "A" * 262145})
+
+        self.assertEqual(helper.tailscale_login_payload(non_png), (url, ""))
+        self.assertEqual(helper.tailscale_login_payload(oversized), (url, ""))
+
+    def test_connect_requests_tailscales_json_png_qr(self):
+        output = json.dumps({
+            "AuthURL": "https://login.tailscale.com/a/0123456789abcdef",
+            "QR": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg==",
+            "BackendState": "NeedsLogin",
+        })
+        process = mock.Mock()
+        process.communicate.return_value = (output, None)
+
+        with mock.patch.object(helper, "op_tailscale_status", side_effect=[
+                {"state": "NeedsLogin"}, {"state": "NeedsLogin"}]), \
+             mock.patch.object(helper.subprocess, "Popen", return_value=process) as popen:
+            result = helper.op_tailscale_connect({}, lambda message: None)
+
+        self.assertEqual(popen.call_args.args[0], [
+            "tailscale", "up", "--qr", "--json", "--timeout=8s",
+        ])
+        self.assertEqual(result["login_url"],
+                         "https://login.tailscale.com/a/0123456789abcdef")
+        self.assertTrue(result["login_qr"].startswith("data:image/png;base64,"))
 
 
 class InstallInventoryTest(unittest.TestCase):

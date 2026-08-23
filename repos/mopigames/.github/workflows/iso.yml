@@ -9,13 +9,13 @@ on:
     inputs:
       iso_version:
         description: 'Version label stamped into the ISO filename'
-        default: '6.2.0'
+        default: '6.2.1'
       os_version:
         description: 'Installed OS version (tag builds use the tag)'
         default: '0~dev'
       selene_ref:
         description: 'Compatible Selene ref (must provide setup and panel actions)'
-        default: 'v6.2.0'
+        default: 'v6.2.1'
       firmware:
         description: 'full keeps every blob, slim drops ~400 MB'
         type: choice
@@ -58,9 +58,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: cache
-          key: mlos-cache-${{ inputs.iso_version || '6.2.0' }}-${{ github.run_id }}
+          key: mlos-cache-${{ inputs.iso_version || '6.2.1' }}-${{ github.run_id }}
           restore-keys: |
-            mlos-cache-${{ inputs.iso_version || '6.2.0' }}-
+            mlos-cache-${{ inputs.iso_version || '6.2.1' }}-
 
       - name: Stage SSH key
         id: ssh
@@ -85,13 +85,13 @@ jobs:
           repository: moonlight-os/selene
           # Pin the compatible appliance client. Selene main does not yet
           # provide the setup/panel commands the session calls at boot.
-          ref: ${{ inputs.selene_ref || 'v6.2.0' }}
+          ref: ${{ inputs.selene_ref || 'v6.2.1' }}
           submodules: recursive
           path: selene
 
       - name: Build the ISO
         env:
-          ISO_VERSION: ${{ inputs.iso_version || '6.2.0' }}
+          ISO_VERSION: ${{ inputs.iso_version || '6.2.1' }}
           MLOS_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || inputs.os_version || '0~dev' }}
           FIRMWARE: ${{ inputs.firmware || 'full' }}
           SSH_KEYS: ${{ steps.ssh.outputs.arg }}

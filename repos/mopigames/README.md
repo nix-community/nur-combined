@@ -38,7 +38,7 @@ Needs `docker` and about 8 GB of free disk. Nothing is installed on your host â€
 `live-build` runs inside a throwaway Debian container.
 
 ```sh
-./build.sh                    # -> out/moonlight-os-6.2.0-YYYYMMDD.iso
+./build.sh                    # -> out/moonlight-os-6.2.1-YYYYMMDD.iso
 ./build.sh clean              # remove build artifacts, keep the download cache
 ./build.sh shell              # poke around inside the build container
 ```
@@ -47,7 +47,7 @@ Options:
 
 | Variable            | Default  | Effect                                          |
 | ------------------- | -------- | ----------------------------------------------- |
-| `ISO_VERSION`       | `6.2.0`  | Version label stamped into the ISO filename     |
+| `ISO_VERSION`       | `6.2.1`  | Version label stamped into the ISO filename     |
 | `MLOS_VERSION`      | `0~dev`  | Installed OS version used by the updater         |
 | `SELENE_SRC`        | `~/moonlight-os-stuff/selene` | Selene checkout to build the client from |
 | `FIRMWARE`          | `full`   | `slim` drops ~400 MB of firmware blobs          |
@@ -58,7 +58,7 @@ Options:
 Write it to a USB stick:
 
 ```sh
-sudo dd if=out/moonlight-os-6.2.0-*.iso of=/dev/sdX bs=4M status=progress oflag=sync
+sudo dd if=out/moonlight-os-6.2.1-*.iso of=/dev/sdX bs=4M status=progress oflag=sync
 ```
 
 ### Keeping it small
@@ -145,7 +145,7 @@ countdown.
 
 ```sh
 qemu-system-x86_64 -enable-kvm -m 3072 -smp 2 \
-    -cdrom out/moonlight-os-6.2.0-*.iso -boot d \
+    -cdrom out/moonlight-os-6.2.1-*.iso -boot d \
     -vga std -netdev user,id=n0 -device e1000,netdev=n0
 ```
 
