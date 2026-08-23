@@ -72,7 +72,7 @@ rec {
   rime-ice-unstable = rime-ice.override { isUnstable = true; };
   caddy = callPackage ./pkgs/caddy { inherit sources; };
   pleroma = callPackage ./pkgs/pleroma {
-    beamPackages = beam27Packages.extend (
+    beamPackages = (beam27Packages.overrideScope or beam27Packages.extend) (
       self: _super: { rebar3 = self.rebar3WithPlugins { plugins = with self; [ pc ]; }; }
     );
   };
