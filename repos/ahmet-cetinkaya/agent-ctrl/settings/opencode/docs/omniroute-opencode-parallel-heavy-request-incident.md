@@ -5,7 +5,20 @@
 limiti (`OMNIROUTE_CHAT_MAX_HEAVY_IN_FLIGHT=1`) olarak doğrulandı. `2`'ye çıkarılıp
 OmniRoute yeniden başlatıldıktan sonra iki paralel OpenCode + OMO session'ı, alt
 ajanları dahil, hatasız tamamlandı (bkz. "Doğrulama — düzeltme uygulandı" bölümü).  
-**İlgili önceki belge:** `omo-parallel-session-root-cause.md` — ilk hipotezleri kaydeder; bu belge sonraki karşılaştırmalı testlerle ulaşılan güncel sonucu esas alır.
+
+## Kapsam ve tarihçe
+
+Bu belge, aynı belirti için oluşturulan önceki OMO runtime-fallback ve upstream/heap
+hipotez notlarının yerine geçen kanonik incident kaydıdır. İlk izolasyon testleri
+OMO'nun varlığını kuvvetli aday gösterdi: OMO olmadan aynı OmniRoute combo'suyla iki
+session sorunsuz ilerledi. Sonraki karşılaştırmalı testler ve OmniRoute #9176, gerçek
+kök nedenin OMO değil, OmniRoute'un varsayılan process-wide ağır-istek admission
+limiti (`1`) olduğunu doğruladı. OMO'nun retry/abort davranışı yalnızca reddedilen
+ikinci isteğin kullanıcıya yansıyan semptomlarını büyüttü.
+
+Upstream OAuth relay'leri de zaman zaman ayrı admission-capacity hataları verebilir;
+bu olayın `chat_admission_busy` hatasıyla karıştırılmamalıdır. Yerel heap tavanını
+artırmak OOM dayanıklılığı için hijyendir, fakat bu incident'ın çözümü değildir.
 
 ## Yönetici özeti
 
@@ -394,7 +407,6 @@ Kök neden düzeltilene kadar:
 - OpenCode log: `~/.local/share/opencode/log/opencode.log`
 - Aktif OpenCode config: `~/.config/opencode/opencode.jsonc`
 - Aktif OMO config: `~/.omo/omo.jsonc`
-- Önceki incident notu: `settings/opencode/docs/omo-parallel-session-root-cause.md`
 - OMO schema issue: https://github.com/code-yeongyu/oh-my-openagent/issues/6515
 - OmniRoute repo: `/home/ac/Code/ahmet-cetinkaya/OmniRoute`
 

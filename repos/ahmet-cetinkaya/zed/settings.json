@@ -1,22 +1,93 @@
 {
+  "auto_update": false,
+  "markdown_preview_code_font_family": "FiraCode Nerd Font Mono",
+  "markdown_preview_font_family": ".SystemUIFont",
+  "markdown_preview_font_size": 24.0,
+  "agent_servers": {
+    "opencode": {
+      "default_config_options": {
+        "mode": "Prometheus - Plan Builder"
+      },
+      "type": "registry"
+    }
+  },
   "minimap": {
     "show": "always"
   },
   "edit_predictions": {
+    "allow_data_collection": "no",
     "mode": "subtle",
     "provider": "codestral"
   },
-  "diff_view_style": "unified",
+  "diff_view_style": "split",
   "language_models": {
+    "openai_compatible": {
+      "OmniRoute": {
+        "api_url": "http://192.168.1.4:8208/v1",
+        "available_models": [
+          {
+            "name": "combo/high-models",
+            "max_tokens": 500000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "reasoning_effort": "medium",
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true,
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": true
+            }
+          },
+          {
+            "name": "combo/mid-models",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "reasoning_effort": "medium",
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true,
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": true
+            }
+          },
+          {
+            "name": "combo/lite-models",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "reasoning_effort": "medium",
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true,
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": true
+            }
+          }
+        ]
+      }
+    },
     "opencode": {
       "show_zen_models": false,
       "show_go_models": false
     }
   },
   "agent": {
+    "sidebar_side": "right",
+    "play_sound_when_agent_done": "always",
     "default_model": {
-      "provider": "openrouter",
-      "model": "openrouter/free",
+      "effort": "medium",
+      "provider": "OmniRoute",
+      "model": "combo/lite-models",
       "enable_thinking": true
     },
     "dock": "right",

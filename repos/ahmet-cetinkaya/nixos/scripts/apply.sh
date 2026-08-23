@@ -4,8 +4,13 @@ set -euo pipefail
 
 ## Apply NixOS flake configuration for a given host
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-NIXOS_DIR="$(dirname "$SCRIPT_DIR")"
+# Use NIXOS_CONFIG_DIR if set (from Nix wrapper), otherwise resolve from script location
+if [ -n "${NIXOS_CONFIG_DIR:-}" ]; then
+    NIXOS_DIR="$NIXOS_CONFIG_DIR"
+else
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    NIXOS_DIR="$(dirname "$SCRIPT_DIR")"
+fi
 
 # Function to display usage
 usage() {
@@ -30,6 +35,9 @@ HOST="$1"
 
 echo "🔧 Applying NixOS flake for ${HOST}..."
 
-sudo nixos-rebuild switch --flake "$NIXOS_DIR#$HOST"
+sudo nixos-rebuild switch \
+	--option extra-substituters "https://cache.nixos-cuda.org" \
+	--option extra-trusted-public-keys "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" \
+	--flake "$NIXOS_DIR#$HOST"
 
 echo "✨ NixOS flake applied successfully!"

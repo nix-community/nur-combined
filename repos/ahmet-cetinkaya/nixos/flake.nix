@@ -22,7 +22,6 @@
     # CachyOS
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     cachyos-settings-nix = {
       url = "github:Daaboulex/cachyos-settings-nix";
@@ -54,7 +53,7 @@
                 (import ./pkgs)
                 inputs.nur.overlays.default
                 inputs.antigravity-nix.overlays.default
-                inputs.nix-cachyos-kernel.overlays.default
+                inputs.nix-cachyos-kernel.overlays.pinned
               ];
             }
             nix-flatpak.nixosModules.nix-flatpak

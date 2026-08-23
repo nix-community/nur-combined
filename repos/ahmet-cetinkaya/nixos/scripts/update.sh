@@ -4,9 +4,14 @@ set -euo pipefail
 
 ## Update custom pkgs and flake inputs
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PKGS_DIR="$(dirname "$SCRIPT_DIR")/pkgs"
-NIXOS_DIR="$(dirname "$SCRIPT_DIR")"
+# Use NIXOS_CONFIG_DIR if set (from Nix wrapper), otherwise resolve from script location
+if [ -n "${NIXOS_CONFIG_DIR:-}" ]; then
+    NIXOS_DIR="$NIXOS_CONFIG_DIR"
+else
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    NIXOS_DIR="$(dirname "$SCRIPT_DIR")"
+fi
+PKGS_DIR="${NIXOS_DIR}/pkgs"
 
 usage() {
 	echo "Usage: $0"
@@ -16,7 +21,6 @@ usage() {
 	echo "This script:"
 	echo "  1. Runs update.sh for each custom package"
 	echo "  2. Runs nix flake update"
-	echo "  3. Rebuilds the current host so managed Bun, .NET, and uv tools update"
 	exit 1
 }
 
@@ -39,12 +43,5 @@ done
 
 echo -e "\n🔄 Running nix flake update."
 (cd "$NIXOS_DIR" && nix flake update)
-
-echo -e "\n🔧 Applying the refreshed tool definitions."
-if command -v nixos-rebuild >/dev/null 2>&1; then
-  sudo nixos-rebuild switch --flake "$NIXOS_DIR#$(hostname)"
-else
-  echo "⚠️ Warning: nixos-rebuild not found; run scripts/apply.sh after updating." >&2
-fi
 
 echo -e "\n✅ Update completed successfully!"

@@ -2,6 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  cmake,
+  pkg-config,
   qt6,
   qt6Packages,
   openssl,
@@ -26,70 +28,21 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    qt6.qmake
+    cmake
+    pkg-config
     qt6.qttools
     qt6.wrapQtAppsHook
   ];
 
   postPatch = ''
-    sed -i 's|/usr/sbin/pppd|${ppp}/bin/pppd|g' openfortigui/openfortigui.pro
-    substituteInPlace openfortigui/openfortigui.pro \
-      --replace-fail '-lqt5keychain' '-lqt6keychain'
-    substituteInPlace \
-      openfortigui/vpngroupeditor.cpp \
-      openfortigui/vpnprofileeditor.cpp \
-      openfortigui/proc/vpnbarracuda.cpp \
-      openfortigui/proc/vpnprocess.cpp \
-      --replace-fail 'QRegExp' 'QRegularExpression'
-    substituteInPlace \
-      openfortigui/ticonfmain.cpp \
-      openfortigui/vpnhelper.cpp \
-      --replace-fail 'qt5keychain/keychain.h' 'qt6keychain/keychain.h'
-    substituteInPlace openfortigui/ticonfmain.cpp \
-      --replace-fail '#include <QValidator>' '#include <QRegularExpression>' \
-      --replace-fail 'QRegExp' 'QRegularExpression' \
-      --replace-fail 'rexpName.exactMatch(profile.name)' 'rexpName.match(profile.name).hasMatch()' \
-      --replace-fail 'rexpName.exactMatch(vpnprofilename)' 'rexpName.match(vpnprofilename).hasMatch()' \
-      --replace-fail 'rexpName.exactMatch(group.name)' 'rexpName.match(group.name).hasMatch()' \
-      --replace-fail 'rexpName.exactMatch(vpngroupname)' 'rexpName.match(vpngroupname).hasMatch()'
-    sed -i '/#include <QTimer>/a #include <QRegularExpression>' openfortigui/proc/vpnbarracuda.cpp
-    substituteInPlace openfortigui/vpnhelper.cpp \
-      --replace-fail 'proc.start(cmd, QIODevice::ReadOnly);' 'proc.startCommand(cmd, QIODevice::ReadOnly);'
-    substituteInPlace openfortigui/mainwindow.cpp \
-      --replace-fail '#include <QDesktopWidget>' '#include <QGuiApplication>'
-    # Qt6 removed QSignalMapper::mapped(QString); it was renamed to mappedString(QString).
-    # The old string-based connect() fails silently at runtime, which breaks VPN
-    # start actions AND the OTP prompt pipeline (readyReadStandardOutput -> mapper ->
-    # logVPNOutput never fires, so the OTP-Login window never appears). Rename to the
-    # Qt6 signal in every QSignalMapper connect (mainwindow.cpp x2, vpnlogger.cpp x2).
-    sed -i 's|SIGNAL(mapped(QString))|SIGNAL(mappedString(QString))|g' \
-      openfortigui/mainwindow.cpp \
-      openfortigui/vpnlogger.cpp
-    substituteInPlace openfortigui/setupwizard.cpp \
-      --replace-fail '#include <QDateTime>' '#include <QRandomGenerator>' \
-      --replace-fail '    qsrand(QTime::currentTime().msec());' '    // QRandomGenerator is seeded securely by Qt.' \
-      --replace-fail 'qrand()' 'QRandomGenerator::global()->generate()'
+    # Update pppd path to Nix store path
+    substituteInPlace openfortigui/CMakeLists.txt \
+      --replace-fail '/usr/sbin/pppd' '${ppp}/bin/pppd'
 
-    substituteInPlace openfortigui/app-entry/openfortigui.desktop \
-      --replace-fail '/usr/bin/openfortigui' 'openfortigui' \
-      --replace-fail '/usr/share/pixmaps/openfortigui.png' 'openfortigui'
-  '';
-
-  preConfigure = ''
-    mkdir -p build
-    cd build
-  '';
-
-  qmakeFlags = ["../openfortigui/openfortigui.pro"];
-
-  installPhase = ''
-    runHook preInstall
-
-    install -Dm755 openfortigui $out/bin/openfortigui
-    install -Dm644 ../openfortigui/app-entry/openfortigui.desktop $out/share/applications/openfortigui.desktop
-    install -Dm644 ../openfortigui/app-entry/openfortigui.png $out/share/pixmaps/openfortigui.png
-
-    runHook postInstall
+    # Sudoers fragments belong in /etc/sudoers.d, not the Nix store; the
+    # sandboxed build can't write there anyway. Drop the install() stanza.
+    sed -i '/install(FILES sudo\/openfortigui/,/PERMISSIONS OWNER_READ GROUP_READ)/d' \
+      openfortigui/CMakeLists.txt
   '';
 
   meta = with lib; {

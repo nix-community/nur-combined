@@ -7,8 +7,6 @@
     "opencode-wakelock@latest",
     "opencode-mermaid-renderer@latest"
   ],
-  "model": "omniroute/combo/high-models",
-  "small_model": "omniroute/combo/lite-models",
   "provider": {
     // opencode-omniroute-auth Settings
     "omniroute": {

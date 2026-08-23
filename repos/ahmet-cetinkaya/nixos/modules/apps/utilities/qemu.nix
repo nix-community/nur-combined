@@ -54,7 +54,10 @@ in {
     after = [ "libvirtd.service" ];
     serviceConfig.Type = "oneshot";
     script = ''
-      ${pkgs.libvirt}/bin/virsh net-define ${defaultNetworkXml}
+      # Only define if the network doesn't already exist.
+      if ! ${pkgs.libvirt}/bin/virsh net-info default >/dev/null 2>&1; then
+        ${pkgs.libvirt}/bin/virsh net-define ${defaultNetworkXml}
+      fi
       if ! ${pkgs.libvirt}/bin/virsh net-info default | ${pkgs.gnugrep}/bin/grep -q 'Active:.*yes'; then
         ${pkgs.libvirt}/bin/virsh net-start default
       fi

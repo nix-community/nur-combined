@@ -37,23 +37,6 @@ final: prev: {
     };
   };
 
-  ollama-cuda = prev.ollama-cuda.overrideAttrs (old: {
-    preBuild = ''
-      # CMake 4.3.4's FindCUDAToolkit.cmake reads CUDAToolkit_ROOT from the
-      # environment. The nixpkgs setupCUDAToolkitCompilers hook appends all
-      # buildInputs paths to it, producing a garbled single path.
-      # CUDA_PATH has the major version suffix stripped (cuda-merged) which
-      # doesn't exist; the actual buildEnv is cuda-merged-<MAJ>. Find it.
-      for _cu_dir in "$CUDA_PATH" "$CUDA_PATH"-*; do
-        if [ -x "$_cu_dir/bin/nvcc" ]; then
-          export CUDAToolkit_ROOT="$_cu_dir"
-          break
-        fi
-      done
-      unset _cu_dir
-    '' + (old.preBuild or "");
-  });
-
   whisper-gui-cuda = final.callPackage ./whisper-gui-cuda {
     python3 = final.pkgsCuda.python3.override {
       packageOverrides = pyfinal: pyprev: {

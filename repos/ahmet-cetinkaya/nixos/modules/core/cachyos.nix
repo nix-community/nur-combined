@@ -104,10 +104,10 @@ in {
     # Fetch pre-built CachyOS kernels from upstream binary cache.
     # Without this, every rebuild compiles the kernel locally.
     nix.settings.extra-substituters = [
-      "https://xddxdd.cachix.org"
+      "https://attic.xuyh0120.win/lantian"
     ];
     nix.settings.extra-trusted-public-keys = [
-      "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
   };
 }
