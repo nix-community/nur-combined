@@ -18,6 +18,16 @@
     ];
   };
 
+  # do nix builds in-memory, otherwise disk I/O becomes a bottleneck
+  fileSystems."/nix/var/nix/b" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = [
+      "mode=755"
+      "size=100%"
+    ];
+  };
+
   # in-memory compressed RAM
   # defaults to compressing at most 50% size of RAM
   # claimed compression ratio is about 2:1

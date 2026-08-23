@@ -34,5 +34,33 @@ in
       # "nt36xxx"  # mentioned in postmarketos, but not upstreamed and not observed to be in `lsmod` on Pocophone
       "novatek_nvt_ts"
     ];
+
+    boot.initrd.extraFirmwarePaths = [
+      # pmOS explicitly puts these in the initrd: device/community/firmware-xiaomi-beryllium/firmware-initramfs.files
+      "qcom/a630_sqe.fw"
+      "qcom/a630_gmu.bin"
+      "qcom/sdm845/Xiaomi/beryllium/a630_zap.mbn"
+
+      # dunno if these are required in initrd
+      "qcom/sdm845/Xiaomi/beryllium/adsp.mbn"
+      "qcom/sdm845/Xiaomi/beryllium/cdsp.mbn"
+      "qcom/sdm845/Xiaomi/beryllium/ipa_fws.mbn"
+      "qcom/sdm845/Xiaomi/beryllium/slpi.mbn"
+
+      # dunno if these are required in initrd
+      "ath10k/WCN3990/hw1.0/board-2.bin"
+      "ath10k/WCN3990/hw1.0/firmware-5.bin"
+
+      # dunno if these are required in initrd
+      "qca/crbtfw21.tlv"
+      "qca/crnv21.bin"
+    ];
+
+    boot.blacklistedKernelModules = [
+      # these are likely not *all* necessary
+      "fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
+      "qcom_fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
+      "ipa"  #< vanilla-mobile-nixos claims this causes boot lockup
+    ];
   };
 }

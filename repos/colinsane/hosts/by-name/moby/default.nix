@@ -10,6 +10,7 @@
 {
   imports = [
     ../../common
+    ./boot.nix
     ./fs.nix
   ];
 

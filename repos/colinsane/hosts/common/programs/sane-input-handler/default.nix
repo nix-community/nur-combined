@@ -61,8 +61,10 @@ in
               "1:1:AT_Translated_Set_2_keyboard"  #< Thinkpad volume buttons (plus all its other buttons)
               "0:0:axp20x-pek"  #< Pinephone power button
               "1:1:1c21800.lradc"  #< Pinephone volume buttons
-              "1:1:gpio-keys"  #< Pinephone Pro power button
+              "1:1:gpio-keys"  #< Pinephone Pro power button; Pocophone vol-up
               "1:1:adc-keys"  #< Pinephone Pro volume buttons
+              "0:0:pm8941_resin"  #< Pocophone vol-down
+              "0:0:pm8941_pwrkey"  #< Pocophone power button
             ];
             description = ''
               list of devices which we should listen for special inputs from.
