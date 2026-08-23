@@ -64,9 +64,9 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libappindicator glib ]}
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=v(\d\.\d\.\d))" ];
-  };
+  # passthru.updateScript = nix-update-script {
+  #   extraArgs = [ "--version-regex=v(\\d\\.\\d\\.\\d))" ];
+  # };
 
   meta = {
     description = "An unofficial Linux port of Shimeji-ee Desktop Pet";
