@@ -12,7 +12,6 @@
   desktopToDarwinBundle,
   makeWrapper,
   nerd-fonts,
-  fira-code,
   noto-fonts-color-emoji,
   tmux,
 }:
@@ -54,8 +53,6 @@ rustPlatform.buildRustPackage {
     install -Dm444 ${./omnimux.svg} $out/share/icons/hicolor/scalable/apps/omnimux.svg
 
     mkdir -p $out/share/omnimux/fonts
-    cp -L ${fira-code}/share/fonts/truetype/*.ttf \
-      $out/share/omnimux/fonts/
     cp -L ${nerd-fonts.symbols-only}/share/fonts/truetype/NerdFonts/Symbols/*.ttf \
       $out/share/omnimux/fonts/
     cp -L ${noto-fonts-color-emoji}/share/fonts/noto/NotoColorEmoji.ttf \
