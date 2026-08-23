@@ -90,12 +90,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.4.0-alpha.7",
-            "sha256": "sha256-YyQN4Fcn/a9h6wET6sZsDIc0a+0sSRqOaC90lv228sg=",
+            "rev": "v0.4.0-alpha.8",
+            "sha256": "sha256-YhpUiLeHm4w1ZWLFTYKFg5OnkDRVOZ7yFsZUK2TIqeE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.4.0-alpha.7"
+        "version": "v0.4.0-alpha.8"
     },
     "fast-nix-gc": {
         "cargoLock": {
@@ -223,7 +223,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-WivvnT2Pq_SxUEZdcjsnEsJ+2B0c1lbTcmBh0HyI9K0=/pubspec.lock"
+            "pubspec.lock": "sha256-znUzq_CtIbn40ZnYeyI0AutTPLi4+crUQGkoCLIgFI8=/pubspec.lock"
         },
         "name": "kikoflu",
         "passthru": null,
@@ -235,12 +235,12 @@
             "name": null,
             "owner": "pa-jesusf",
             "repo": "KikoFlu",
-            "rev": "v3.5.0",
-            "sha256": "sha256-WivvnT2Pq/SxUEZdcjsnEsJ+2B0c1lbTcmBh0HyI9K0=",
+            "rev": "v3.8.0",
+            "sha256": "sha256-znUzq/CtIbn40ZnYeyI0AutTPLi4+crUQGkoCLIgFI8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.5.0"
+        "version": "v3.8.0"
     },
     "krunner-fd-plugin": {
         "cargoLock": null,
@@ -596,11 +596,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-czNTnAmLXTSbfr8t5xaQP_MYIEU1B5MlfY1Szybj_mg=/Cargo.lock",
+                "sha256-me3TOQJ8nokeQoRmdeGw2QJpDrWV_dZPjhLhd17usgI=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-22",
+        "date": "2026-08-24",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -612,12 +612,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "538a7f441d04ec46a97e4d84376cb7185d57617b",
-            "sha256": "sha256-czNTnAmLXTSbfr8t5xaQP/MYIEU1B5MlfY1Szybj/mg=",
+            "rev": "eb8a15fbe6a430603548dbe81a70e9cea048b5fc",
+            "sha256": "sha256-me3TOQJ8nokeQoRmdeGw2QJpDrWV/dZPjhLhd17usgI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "538a7f441d04ec46a97e4d84376cb7185d57617b"
+        "version": "eb8a15fbe6a430603548dbe81a70e9cea048b5fc"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -684,7 +684,7 @@
     },
     "uosc-danmaku-git": {
         "cargoLock": null,
-        "date": "2026-08-02",
+        "date": "2026-08-23",
         "extract": null,
         "name": "uosc-danmaku-git",
         "passthru": null,
@@ -696,12 +696,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "948f64eef08011faf2f3eb43050062d7ce5ed1ba",
-            "sha256": "sha256-+Dz7EC/YXj4UsNAYBmUxMnk3EkCe3kAjPDwZVX/PLdU=",
+            "rev": "1ee2bfa4c1386454aae6fa1d96b8c7d156793a8b",
+            "sha256": "sha256-ovqtTjJfv3bomotK71uZ+rup+nBy4bgEYgtFNfcR/7E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "948f64eef08011faf2f3eb43050062d7ce5ed1ba"
+        "version": "1ee2bfa4c1386454aae6fa1d96b8c7d156793a8b"
     },
     "waywallen-bin": {
         "cargoLock": null,
