@@ -4,6 +4,7 @@
   fetchFromGitHub,
   git,
   dotnetCorePackages,
+  nix-update-script,
 }:
 
 buildDotnetModule (finalAttrs: {
@@ -35,6 +36,8 @@ buildDotnetModule (finalAttrs: {
   postFixup = ''
     ln -s $out/bin/UndertaleModCli $out/bin/utmt
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "The most complete tool for modding, decompiling and unpacking Undertale (and other GameMaker games!)";
