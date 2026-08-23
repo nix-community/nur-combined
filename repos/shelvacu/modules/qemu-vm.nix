@@ -315,15 +315,16 @@ let
         mkdir -p "$rootDir/nix/var/nix/gcroots"
 
         echo "Copying closure (this may take a while)..."
-        # Capture into a variable first so a failed query aborts (set -e does not
-        # fire on failures inside a `for ... in $(...)` command substitution).
-        requisites=$(${pkgs.nix}/bin/nix-store --query --requisites "$toplevel")
-        for path in $requisites; do
-          dest_path="$rootDir$path"
-          if [[ ! -e "$dest_path" ]]; then
-            cp -a "$path" "$dest_path"
-          fi
-        done
+        # `nix copy` into the rootfs treated as a chroot store: it writes each
+        # path to a temporary name and renames it into place, so an interrupted
+        # run leaves no half-copied store paths behind (unlike `cp -a`), and a
+        # re-run resumes rather than trusting whatever is already there. It also
+        # registers the paths in the rootfs's own Nix database, so nix inside the
+        # guest sees a valid store. --no-check-sigs because locally built paths
+        # are unsigned.
+        ${pkgs.nix}/bin/nix \
+          --extra-experimental-features nix-command \
+          copy --no-check-sigs --to "local?root=$rootDir" "$toplevel"
 
         # Relative symlink (../../../store/<x>): three `..` climb
         # profiles -> nix -> var -> nix's parent, then into store. Must be relative

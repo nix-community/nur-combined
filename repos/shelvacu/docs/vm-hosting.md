@@ -61,8 +61,15 @@ vacuvm bootstrap vacu-agent-vm "$toplevel"
 
 The `vacuvm bootstrap <vm>` subcommand (the `vacuvm` command is installed on
 prophecy by the qemu-vm module):
-- Creates `/vms/vacu-agent-vm/root/nix/store/` and copies the full closure
+- `nix copy`s the full closure into the rootfs treated as a chroot store
+  (`local?root=<rootDir>`), which also registers the paths in the rootfs's own
+  Nix database so nix works inside the guest
 - Creates a relative symlink at `/nix/var/nix/profiles/system` inside the rootfs
+
+Because `nix copy` renames each path into place only once it is complete, an
+interrupted bootstrap leaves no half-copied store paths; just re-run it, and it
+copies only what is missing (or unregistered, e.g. left over from the older
+`cp -a` bootstrap).
 
 ### 4. Start the VM
 
