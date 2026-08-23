@@ -12,6 +12,20 @@ let
   version = "4.0.0-beta.6";
   pname = "xpilot";
 
+  # dwarfs 0.14.0 does not build against this nixpkgs's toolchain:
+  #  - its vendored fbthrift predates fmt 12's API break ('fmt::format' is
+  #    not found, 'fmt::join(initializer_list)' is deprecated), so build it
+  #    against fmt 11 instead of the default fmt 12;
+  #  - its vendored folly headers use std::memcpy/std::memset without
+  #    including <cstring>, which recent libstdc++ no longer pulls in
+  #    transitively, so force-include <cstring> for every C++ translation
+  #    unit (CXX-only, leaving the handful of C sources untouched).
+  dwarfs' = (dwarfs.override { fmt = pkgs.fmt_11; }).overrideAttrs (old: {
+    env = (old.env or { }) // {
+      CXXFLAGS = "${old.env.CXXFLAGS or ""} -include cstring";
+    };
+  });
+
   src = fetchurl {
     url = "https://downloads.xpilot.app/artifacts/${version}/linux-x64/xPilot.AppImage";
     hash = "sha256-+5XCYvur2mZfoZ9xpfkKPG8V7IYC+nQqL5uhlnzxr5c=";
@@ -23,7 +37,7 @@ let
   appimageContents = stdenv.mkDerivation {
     name = "${pname}-${version}-extracted";
     inherit src;
-    nativeBuildInputs = [ dwarfs ];
+    nativeBuildInputs = [ dwarfs' ];
     dontUnpack = true;
     dontConfigure = true;
     dontBuild = true;
