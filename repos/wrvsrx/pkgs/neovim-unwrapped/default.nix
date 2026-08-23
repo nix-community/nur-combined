@@ -1,12 +1,30 @@
 {
+  lib,
   neovim-unwrapped,
-  fetchpatch,
+  fetchFromGitHub,
 }:
-neovim-unwrapped.overrideAttrs (oldAttrs: {
-  patches = (oldAttrs.patches or [ ]) ++ [
-    (fetchpatch {
-      url = "https://github.com/wrvsrx/neovim/compare/deffa9f71...lsp-nested-folds-nvim-0.12.4-v1.diff";
-      hash = "sha256-p3nG4RNx7BdENGJu6zdr9sDKXKde9eSVDKWIW198Wac=";
-    })
-  ];
-})
+
+neovim-unwrapped.overrideAttrs (
+  finalAttrs: oldAttrs:
+  let
+    versionSuffix = lib.removePrefix "0.12.4" finalAttrs.version;
+  in
+  {
+    version = "0.12.4+fold-improvement.2";
+
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "neovim";
+      rev = finalAttrs.version;
+      hash = "sha256-ZhHv6tTdRw7VXQPw8ZMsvSNKgGkqOOxq9v0m0+uc3TQ=";
+    };
+
+    patches = oldAttrs.patches or [ ];
+
+    postPatch = (oldAttrs.postPatch or "") + ''
+      substituteInPlace CMakeLists.txt \
+        --replace-fail 'set(NVIM_VERSION_PRERELEASE "")' \
+        'set(NVIM_VERSION_PRERELEASE "${versionSuffix}")'
+    '';
+  }
+)
