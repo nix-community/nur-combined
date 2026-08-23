@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-UuiMsVeYgLHAu_MATjWuBCvsL_fiuyqJ9+JU0JgCJgs=/backend/Cargo.lock",
+                "sha256-smnmVuFtoV7ieCnmLNZ2LB0qijbLsJchRpgrVqYa4yU=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -127,12 +127,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "20d411ba03b0d1d93be79186f96d359d068637ef",
-            "sha256": "sha256-UuiMsVeYgLHAu/MATjWuBCvsL/fiuyqJ9+JU0JgCJgs=",
+            "rev": "341a3df32310a95973c4e01d1d9e36add159a3f1",
+            "sha256": "sha256-smnmVuFtoV7ieCnmLNZ2LB0qijbLsJchRpgrVqYa4yU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "20d411ba03b0d1d93be79186f96d359d068637ef"
+        "version": "341a3df32310a95973c4e01d1d9e36add159a3f1"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -342,11 +342,11 @@
     "gaze": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-yFZmeZVHQg3QOgyLc5eSjgu4rveav7RRlo58FmbVLIA=/Cargo.lock",
+                "sha256-zzWVCRggork7Rvf1SmeWNRRG71iz7MeKmb9qAXcJufw=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-20",
+        "date": "2026-08-22",
         "extract": null,
         "name": "gaze",
         "passthru": null,
@@ -358,12 +358,12 @@
             "name": null,
             "owner": "GunduLabs",
             "repo": "gaze",
-            "rev": "27faac91da46890530ca84da332348956b9b2e3a",
-            "sha256": "sha256-yFZmeZVHQg3QOgyLc5eSjgu4rveav7RRlo58FmbVLIA=",
+            "rev": "bbfaeae1525669371a64adedf2cf8b3e16f1035a",
+            "sha256": "sha256-zzWVCRggork7Rvf1SmeWNRRG71iz7MeKmb9qAXcJufw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "27faac91da46890530ca84da332348956b9b2e3a"
+        "version": "bbfaeae1525669371a64adedf2cf8b3e16f1035a"
     },
     "gaze-stable": {
         "cargoLock": null,
@@ -658,7 +658,7 @@
     },
     "meta-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-21",
+        "date": "2026-08-22",
         "extract": null,
         "name": "meta-rules-dat",
         "passthru": null,
@@ -670,12 +670,12 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "meta-rules-dat",
-            "rev": "0646cbfd2ed8c082c0f34024a498dcebbb2b3da2",
-            "sha256": "sha256-6fgO7xuKS9c7OwpFZscC8I0C65dbIKaVu6Z+S795z1k=",
+            "rev": "1f6f3413cac6c0bbba7fc25073650b40e0a37788",
+            "sha256": "sha256-RSrGaYQg77S4Seb6E1plWxKojFeJB7sDMIprxXd+tZM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0646cbfd2ed8c082c0f34024a498dcebbb2b3da2"
+        "version": "1f6f3413cac6c0bbba7fc25073650b40e0a37788"
     },
     "metacubex-geo": {
         "cargoLock": null,
@@ -882,11 +882,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dPDE+IJKHDPZqEoUmm0fuz+95rnm9NtALUSZO2F/ar0=",
+            "sha256": "sha256-GjKs92QcoBSfNrvPKlMVM8K2xGNl6d1sX65Yp5UK/x0=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.4/NipaPlay_1.11.4_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.5/NipaPlay_1.11.5_macOS_Universal.dmg"
         },
-        "version": "1.11.4"
+        "version": "1.11.5"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -897,22 +897,22 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FLfJK8yUH7XwoPfkhsZpgVcF85fZRAy0ebG/0DfjtWc=",
+            "sha256": "sha256-BMUu5LiClvSbO+9it4ICQbeBBaBAuabNR87MvMOQI6M=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.4/NipaPlay-1.11.4-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.5/NipaPlay-1.11.5-Linux-amd64.AppImage"
         },
-        "version": "1.11.4"
+        "version": "1.11.5"
     },
     "nyanpasu-service": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-S1qni79VpcC66B3zxOLtsQIue7+uQZQpj6pwXhK0LhA=/Cargo.lock",
+                "sha256-hhOWtdDAX0Qj_QwsYwWue6myCRetYP76JMbm9XSshaw=/Cargo.lock",
                 {
                     "processkit-2.2.5": "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo="
                 }
             ]
         },
-        "date": "2026-08-12",
+        "date": "2026-08-22",
         "extract": null,
         "name": "nyanpasu-service",
         "passthru": null,
@@ -924,12 +924,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "nyanpasu-service",
-            "rev": "e899bce34200d0bc32bd789a79e7b53dc687c336",
-            "sha256": "sha256-S1qni79VpcC66B3zxOLtsQIue7+uQZQpj6pwXhK0LhA=",
+            "rev": "b38e138a80c722706334e40253097f1795ae8176",
+            "sha256": "sha256-hhOWtdDAX0Qj/QwsYwWue6myCRetYP76JMbm9XSshaw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e899bce34200d0bc32bd789a79e7b53dc687c336"
+        "version": "b38e138a80c722706334e40253097f1795ae8176"
     },
     "nyanpasu-service-stable": {
         "cargoLock": null,
@@ -1142,7 +1142,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-21",
+        "date": "2026-08-22",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -1154,12 +1154,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "5ccf5bb87736f41535f05b9eda5283e15ab4002f",
-            "sha256": "sha256-Hngm76y+vkcuH9hZNPUAkwzWhVobL3cCwaToSOaKUdU=",
+            "rev": "94278457006c8e39ac4b82d9c00842eb3087ea43",
+            "sha256": "sha256-+RQcR+V55Y/VOfkjcDNZHvtrQsfxM3uwhbf2e8s42TM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5ccf5bb87736f41535f05b9eda5283e15ab4002f"
+        "version": "94278457006c8e39ac4b82d9c00842eb3087ea43"
     },
     "whois42d-ng": {
         "cargoLock": {
