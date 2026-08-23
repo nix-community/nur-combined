@@ -12,6 +12,7 @@ This is a personal NUR-style Nix package repository. The root `flake.nix` expose
 - `nix eval .#packages.x86_64-linux.<package>.version`: inspect an attribute without building.
 - `treefmt`: format Nix and TOML files according to `treefmt.toml`.
 - `nvfetcher`: refresh generated sources in `pkgs/_sources/` after editing `pkgs/nvfetcher.toml`.
+- `nix develop . -c -- nix-update --flake <package>`: update a package whose source is not tracked by nvfetcher, then verify it with `nix build .#<package>`.
 
 ## Coding Style & Naming Conventions
 
