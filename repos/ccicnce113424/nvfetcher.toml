@@ -101,6 +101,7 @@ src.git = "https://github.com/YUCLing/open-orpheus"
 
 [piliplus]
 extract = ["pubspec.lock"]
+pinned = true
 fetch.github = "bggRGjQaUbCoE/PiliPlus"
 src.github = "bggRGjQaUbCoE/PiliPlus"
 
