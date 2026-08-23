@@ -3851,10 +3851,10 @@
     };
     "enhancer-for-nebula" = buildMozillaXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.8";
+      version = "1.7.9";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4934267/enhancer_for_nebula-1.7.8.xpi";
-      sha256 = "2984634cda2b4f9a1cee34281666ee32108accd231bf2140d1d61b0316892e6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4974533/enhancer_for_nebula-1.7.9.xpi";
+      sha256 = "111e167a71d26e93b7bd196fb0981701a89b517baba85b65e987bce7f8ed9ddd";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -4344,10 +4344,10 @@
     };
     "flexheaders-alter-http-headers" = buildMozillaXpiAddon {
       pname = "flexheaders-alter-http-headers";
-      version = "1.10.0";
+      version = "1.11.0";
       addonId = "flexheaders@harrisondeo.me.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4927392/flexheaders_alter_http_headers-1.10.0.xpi";
-      sha256 = "d79956d5385214785b816f76d2ce9ed63d6228545f356839a92ca1a71746ff27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4974228/flexheaders_alter_http_headers-1.11.0.xpi";
+      sha256 = "b5e97fafeaa78b46378ec9e812b99d9b8da36332435ecb4fd7b2503d81ca3d40";
       meta = with lib;
       {
         homepage = "https://github.com/harrisondeo/FlexHeader";
@@ -16130,10 +16130,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.4.45";
+      version = "2.4.46";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4813545/v2ex_polish-2.4.45.xpi";
-      sha256 = "46d15437a33771a4171564bf05d66f9aa6af2f5bd36de87dcf5c13d4fd6d360e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4974828/v2ex_polish-2.4.46.xpi";
+      sha256 = "9a939d0eda7c8dd25aa4fa01cde5ac81d8c36c2a9c0d3c76864dad287d06b7d5";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
