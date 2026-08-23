@@ -8,9 +8,13 @@
 #     nur.repos.mopigamesyt.overlays.mlos-host-utils
 #
 # NUR evaluates it with `pkgs` supplied; the default is only so that
-# `nix-build packaging/nix/nur.nix -A mlos-host-utils` works by hand.
+# `nix-build packaging/nix/nur.nix -A mlos-host-utils` works by hand.  Use
+# the repository's locked flake input instead of assuming a global nixpkgs
+# channel exists, which keeps that standalone check reproducible in CI.
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ?
+    (builtins.getFlake ("git+file://" + toString ../..))
+    .inputs.nixpkgs.legacyPackages.${builtins.currentSystem},
 }:
 
 let
