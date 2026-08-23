@@ -6,7 +6,7 @@ niri.overrideAttrs (
   finalAttrs: oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ [
       (fetchpatch {
-        url = "https://github.com/wrvsrx/niri/compare/tag_session-env-flag%5E..tag_session-env-flag.patch";
+        url = "https://github.com/wrvsrx/niri/compare/tag_session-env-flag^..tag_session-env-flag.patch";
         hash = "sha256-EDZZdFpbgPcIBJYU/L9tqXctGk1dboZbErEt0GIKhVw=";
       })
       (fetchpatch {
