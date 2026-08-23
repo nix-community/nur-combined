@@ -12,7 +12,7 @@
 stdenvNoCC.mkDerivation (finalAttrs: {
 
   pname = "typewords";
-  version = "3.0.3-unstable-2026-07-02";
+  version = "3.0.4";
 
   src = fetchFromGitHub {
     owner = "zyronon";
@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-Za0TqGxORI1HpswD0YCvpDttRwuXc64dusjFGHkHwio=";
+    hash = "sha256-rPoM3oQf30g5kbgXw0S22OgetXB1leffZWetFT15gms=";
   };
 
   nativeBuildInputs = [
