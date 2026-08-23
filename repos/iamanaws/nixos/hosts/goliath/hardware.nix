@@ -83,6 +83,15 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+
+  # Keep the same 595.45.04 userspace driver while isolating the open
+  # kernel module and mandatory GSP firmware path.
+  # boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor fixedKernel);
+  # boot.extraModprobeConfig = lib.mkAfter ''
+  #   options nvidia NVreg_EnableGpuFirmware=0
+  # '';
+  # hardware.nvidia.open = lib.mkForce false;
+
   hardware = {
     graphics = {
       enable = true;

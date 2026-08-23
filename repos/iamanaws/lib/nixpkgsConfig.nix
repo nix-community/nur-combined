@@ -56,8 +56,6 @@ let
     "steam-unwrapped"
     "vscode"
     "vscode-extension-bmewburn-vscode-intelephense-client"
-
-    # Dependencies
   ];
 
   sourceProvenanceOf = pkg: lib.toList (pkg.meta.sourceProvenance or [ ]);
