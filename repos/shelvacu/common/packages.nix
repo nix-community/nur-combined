@@ -59,10 +59,6 @@ in
       tshark.enable = !config.vacu.isMinimal && !config.vacu.isGui;
       wireshark.enable = !config.vacu.isMinimal && config.vacu.isGui;
     }
-    (lib.mkIf (config.vacu.isGui && !config.vacu.isMinimal) ''
-      element-desktop
-      fluffychat
-    '')
     (lib.mkIf config.vacu.isGui
       # pkgs for GUI systems, minimal or not
       ''
@@ -88,8 +84,10 @@ in
         calibre
         dino
         dissent # discord client
+        element-desktop # matrix client
         evince
         filezilla
+        fluffychat # matrix client
         gamemode
         ghidra
         gimp
