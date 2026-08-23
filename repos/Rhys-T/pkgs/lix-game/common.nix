@@ -74,9 +74,9 @@
                             update-source-version "$@" --ignore-same-version --source-key=pkgs._toUpdate.assets-PNG32
                             
                             dubLock="''${file%/*}/dub-lock.json"
-                            pushd "$(nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".src)"
+                            pushd "$(nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".src)" > /dev/null
                             dub-to-nix > "$dubLock.cmp"
-                            popd
+                            popd > /dev/null
                             if ! cmp -s "$dubLock.cmp" "$dubLock"; then
                                 mv -f "$dubLock.cmp" "$dubLock"
                                 changes="$(jq -c --arg dubLock "$dubLock" '.[0].files += [$dubLock]' <<< "$changes")"
