@@ -7,8 +7,8 @@ rec {
   cargoCratesIoRegistryGit = pkgs.fetchFromGitHub {
     owner = "rust-lang";
     repo = "crates.io-index";
-    rev = "b0be0971bd0fc1a9496da6e44e4391205f26445f";
-    hash = "sha256-mOBKMzftjO6MpGsYqec4nakDJwP1ci0Jb3k2dHQ1t2g=";
+    rev = "c44025494aad713844669dc54394b3e451ccbbc7";
+    hash = "sha256-+/X6U4S7BBBC2iPYXWneD2hkFWnJM6dhWqy9bLhB16c=";
   };
 
   cargoConfigWithLocalRegistry = pkgs.linkFarm "cargo-home" {
@@ -124,6 +124,47 @@ rec {
         sed -i -e 's,/build/script.rs,${file},' Cargo.toml
         cp -- Cargo.toml $out
       '';
+
+  mkRustScript =
+    { file }:
+    let
+      name = lib.removeSuffix ".rs" (lib.baseNameOf file);
+
+      cargoDir =
+        pkgs.runCommandLocal "rust-script-${name}"
+          {
+            nativeBuildInputs = [
+              pkgs.rustc
+              pkgs.cargo
+              pkgs.rust-script
+            ];
+            env = {
+              CARGO_HOME = cargoConfigWithLocalRegistry;
+            };
+          }
+          ''
+            mkdir -p "$out"
+            cp -- "${file}" "$out/${name}.rs"
+            cd "$out"
+            rust-script -p --pkg-path . "${name}.rs"
+            sed -i Cargo.toml \
+              -e 's,^name = .*,name = "${name}",' \
+              -e 's,^path = .*,path = "${name}.rs",'
+            cargo generate-lockfile
+          '';
+    in
+    pkgs.rustPlatform.buildRustPackage {
+      inherit name;
+      src = cargoDir;
+      cargoLock = {
+        lockFile = "${cargoDir}/Cargo.lock";
+      };
+      doCheck = false;
+      meta = {
+        description = "${name} (rust-script)";
+        mainProgram = name;
+      };
+    };
 
   mkCratesIoSqlite =
     let
