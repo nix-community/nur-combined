@@ -1,5 +1,5 @@
 use super::TerminalTabs;
-use crate::hosts::{host_option, resolve_host};
+use crate::hosts::{resolve_host, validate_host_option};
 use crate::session::TerminalSession;
 use crate::settings::save_session;
 use gpui::prelude::*;
@@ -215,8 +215,11 @@ impl TerminalTabs {
             .map(|s| s.host.as_str());
         let input = self.host_input.read(cx).value().to_string();
         let final_host = resolve_host(&input, selected);
-        let host_opt = host_option(&final_host);
-        self.open_tab_for_host(host_opt, window, cx);
+        if let Ok(host_opt) = validate_host_option(&final_host) {
+            self.open_tab_for_host(host_opt, window, cx);
+        } else {
+            cx.notify();
+        }
     }
 
     pub(crate) fn persist_sessions_if_enabled(&self, cx: &App) {

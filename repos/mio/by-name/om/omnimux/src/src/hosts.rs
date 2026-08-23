@@ -35,6 +35,10 @@ pub fn filter_hosts(query: &str, hosts: &[HostItem]) -> Vec<HostItem> {
 
 /// Resolve the SSH host string from prompt text and optional list selection.
 pub fn resolve_host(input: &str, selected: Option<&str>) -> String {
+    if input.chars().filter(|&c| c == '@').count() > 1 {
+        return input.to_string();
+    }
+
     let prefix = host_prefix(input);
     match selected {
         Some("localhost") => "localhost".to_string(),
@@ -43,14 +47,17 @@ pub fn resolve_host(input: &str, selected: Option<&str>) -> String {
     }
 }
 
-pub fn host_option(final_host: &str) -> Option<String> {
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct InvalidSshDestination;
+
+pub fn validate_host_option(final_host: &str) -> Result<Option<String>, InvalidSshDestination> {
     let trimmed = final_host.trim();
     if trimmed.is_empty() || trimmed == "localhost" {
-        None
+        Ok(None)
     } else if is_safe_ssh_destination(trimmed) {
-        Some(trimmed.to_string())
+        Ok(Some(trimmed.to_string()))
     } else {
-        None
+        Err(InvalidSshDestination)
     }
 }
 
@@ -108,10 +115,16 @@ mod tests {
     }
 
     #[test]
-    fn host_option_localhost_is_none() {
-        assert_eq!(host_option("localhost"), None);
-        assert_eq!(host_option("  "), None);
-        assert_eq!(host_option("web.example"), Some("web.example".into()));
+    fn resolve_host_rejects_ambiguous_user_host_input() {
+        assert_eq!(resolve_host("dev@dev@mbp", Some("mbp")), "dev@dev@mbp");
+    }
+
+    #[test]
+    fn validate_host_option_distinguishes_localhost_from_invalid() {
+        assert_eq!(validate_host_option("localhost"), Ok(None));
+        assert_eq!(validate_host_option(""), Ok(None));
+        assert_eq!(validate_host_option("dev@mbp"), Ok(Some("dev@mbp".into())));
+        assert_eq!(validate_host_option("dev@dev@mbp"), Err(InvalidSshDestination));
     }
 
     #[test]
@@ -124,6 +137,9 @@ mod tests {
         assert!(is_safe_ssh_destination("192.168.1.1"));
         assert!(is_safe_ssh_destination("[::1]:22"));
         assert!(!is_safe_ssh_destination("a@b@host"));
-        assert_eq!(host_option("-oProxyCommand=x"), None);
+        assert_eq!(
+            validate_host_option("-oProxyCommand=x"),
+            Err(InvalidSshDestination)
+        );
     }
 }

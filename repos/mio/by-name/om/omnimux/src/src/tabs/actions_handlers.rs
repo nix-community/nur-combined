@@ -1,5 +1,4 @@
 use super::TerminalTabs;
-use crate::hosts::{filter_hosts, host_query};
 use crate::palette::DEFAULT_FONT_SIZE;
 use crate::settings::save_settings_from_tabs;
 use gpui::prelude::*;

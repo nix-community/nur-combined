@@ -1,5 +1,5 @@
 use super::{ChromeColors, TerminalTabs};
-use crate::hosts::{filter_hosts, host_option, host_prefix, host_query};
+use crate::hosts::{resolve_host, validate_host_option};
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::input::Input;
@@ -10,9 +10,7 @@ pub fn render_host_prompt(
     _window: &mut Window,
     cx: &mut Context<TerminalTabs>,
 ) -> impl IntoElement {
-    let input = this.host_input.read(cx).value().to_string();
     let visible = this.get_visible_hosts(cx);
-    let prefix = host_prefix(&input);
 
     let mut list_div = div()
         .id("host_list")
@@ -28,7 +26,6 @@ pub fn render_host_prompt(
                 .min(visible.len().saturating_sub(1));
         let host_clone = host.host.clone();
         let host_for_click = host.host.clone();
-        let prefix = prefix.clone();
         list_div = list_div.child(
             div()
                 .id(("host_item", idx))
@@ -50,13 +47,13 @@ pub fn render_host_prompt(
                     }))
                 })
                 .on_click(cx.listener(move |this, _, window, cx| {
-                    let final_host = if host_for_click == "localhost" {
-                        "localhost".to_string()
+                    let input = this.host_input.read(cx).value().to_string();
+                    let final_host = resolve_host(&input, Some(&host_for_click));
+                    if let Ok(host_opt) = validate_host_option(&final_host) {
+                        this.open_tab_for_host(host_opt, window, cx);
                     } else {
-                        format!("{prefix}{host_for_click}")
-                    };
-                    let host_opt = host_option(&final_host);
-                    this.open_tab_for_host(host_opt, window, cx);
+                        cx.notify();
+                    }
                 }))
                 .child(
                     div()
