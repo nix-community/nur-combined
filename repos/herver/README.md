@@ -16,3 +16,4 @@
  * [Tunnet](https://github.com/tunnetio/Tunnet)
  * [udpxy](https://github.com/pcherenkov/udpxy)
  * [vATIS](https://github.com/vatis-project/vatis)
+ * [xPilot](https://xpilot.app)

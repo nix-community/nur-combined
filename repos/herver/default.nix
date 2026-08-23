@@ -23,4 +23,6 @@
   udpxy = pkgs.callPackage ./pkgs/udpxy { };
 
   vatis = pkgs.callPackage ./pkgs/vatis { };
+
+  xpilot = pkgs.callPackage ./pkgs/xpilot { };
 }
