@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "oci://ghcr.io/grafana/helm-charts/grafana-operator";
   chart = "grafana-operator";
-  version = "5.24.0";
-  hash = "sha256-jULnmFaxi3gsWbCnE26FfML6MOqQ60QCpMuOoSv0hdw=";
+  version = "5.25.0";
+  hash = "sha256-ViRNz7EFkdD2Nlw6Ms79E2A+N4RPFEfWV529xWlhHx0=";
 
   meta = {
     description = "Helm chart for the Grafana operator, managing Grafana instances on Kubernetes";
