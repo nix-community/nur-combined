@@ -24,6 +24,22 @@ let
           --replace-fail 'show link: underline' "// "
       '';
     };
+  letter_pro_overrider =
+    package:
+    package.overrideAttrs {
+      src = pkgs.fetchFromGitHub {
+        owner = "nagy";
+        repo = "typst-letter-pro";
+        rev = "bacc123b632e7ac48630775ee896b40fa3f14e27";
+        hash = "sha256-Mn8uuya0ufnR7T5v+ajTVYOAaN6p2EZmklOf4bm8Z44=";
+      };
+      # per default no folding marks
+      postPatch = ''
+        substituteInPlace src/lib.typ \
+          --replace-fail 'folding-marks: true,' 'folding-marks: false,' \
+          --replace-fail 'hole-mark: true,' 'hole-mark: false,'
+      '';
+    };
 in
 {
   options.nagy.typst = {
@@ -32,7 +48,7 @@ in
       default = pkgs.typst.withPackages (p: [
         p.modern-cv_0_9_0
         (basic_resume_overrider p.basic-resume_0_2_8)
-        # (letter_pro_overrider p.letter-pro_3_0_0)
+        (letter_pro_overrider p.letter-pro_3_0_0)
       ]);
     };
   };
