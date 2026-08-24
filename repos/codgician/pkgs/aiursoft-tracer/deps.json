@@ -61,33 +61,33 @@
   },
   {
     "pname": "Aiursoft.CSTools",
-    "version": "10.0.5",
-    "hash": "sha256-orKm4xVMZSI9YZNcy5+uDj1GaR7H/8VExwUKB5SERC4="
+    "version": "10.0.6",
+    "hash": "sha256-peCIaoANHuza5DVMPggbU3Tv4BhgD66Ij0PSocOs0iI="
   },
   {
     "pname": "Aiursoft.DbTools",
-    "version": "10.0.23",
-    "hash": "sha256-cx4TxXxi9IHOYRMYnOHGGx+2qZzZUX8LJLVFQNvkx6M="
+    "version": "10.0.24",
+    "hash": "sha256-bF4qyqlnIMsI1zkIxOGqULT23gujxWbyxEav87Rjm1k="
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.23",
-    "hash": "sha256-bfHVMI2u0m48/tU/pBMGrB2uOaETxX+HO8bMJxrGfr8="
+    "version": "10.0.24",
+    "hash": "sha256-SfegAnoMnWchXk/DPgO6l5P9Y1JbiDM+weCcfdetTI4="
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.28",
-    "hash": "sha256-7GQaNbc85xocaj+PYV90I7oTDp3gYWEiDjODkE9XNUk="
+    "version": "10.0.29",
+    "hash": "sha256-UBef9x8Hp1zHDcwvg4Ewd5LfJX7fmPGWp8jJmm4qkHY="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.32",
-    "hash": "sha256-2JzAVcza2Ozv623KmNaAnrXjZ6ZkCv2uU8yt5Yq1WVY="
+    "version": "10.0.33",
+    "hash": "sha256-L690lXJJNvI6iwmdyJcJRKNdRfTokdcZBH3cEuPv4Pw="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.23",
-    "hash": "sha256-FrWyaZ85zcwVEnAMs2DIuUhO599GLw7wm0Iy0++vrtE="
+    "version": "10.0.24",
+    "hash": "sha256-yZ0J5V3q033N7tyCtuyCWyOGajdW7ek6uYEpkcgoUZY="
   },
   {
     "pname": "Aiursoft.EntityFrameworkCore.MySql",
@@ -106,13 +106,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.24",
-    "hash": "sha256-RWVimBxC5SMgg6katfufWQKHbNSWUg+crVd0oFCDyEg="
+    "version": "10.0.25",
+    "hash": "sha256-m3jqBclvHNYgoFH5UDk+POSkqTMaiJMS24M8CiJIBY4="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.14",
-    "hash": "sha256-D/SBeN7zLu9WGQQky6u7Qi9BWc/R6z9uyBNLBhTr8cE="
+    "version": "10.0.15",
+    "hash": "sha256-1+hiQZ7+IBLqE2NVPi4tlKR/Rl7Yh1TtoEMujK2IRGY="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
