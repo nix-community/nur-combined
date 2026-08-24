@@ -34,7 +34,7 @@ jobs:
           nix flake update
           NIXPKGS_PATH=$(nix eval --raw .#nixpkgs)
           export NIX_PATH="nixpkgs=$NIXPKGS_PATH"
-          nix run .#nvfetcher-bin
+          nix run -L .#nvfetcher-bin
           git add .
           cp "$NIXPKGS_PATH/pkgs/by-name/mo/motrix-next/package.nix" ./pkgs/motrix-next
           pkgs/daed/update.sh

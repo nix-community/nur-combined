@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nix shell nixpkgs#nix-prefetch-git .#jaq -c bash
+#!/usr/bin/env -S nix shell -L nixpkgs#nix-prefetch-git .#jaq -c bash
 set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../../_scripts/update-lib.sh"
