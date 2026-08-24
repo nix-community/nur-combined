@@ -1,3 +1,2089 @@
 schema = 4
 
 [mod]
+  [mod.'cel.dev/expr']
+    version = 'v0.25.2'
+    hash = 'sha256-J8C2tbW9PcXA71UhcEdyXPR8vmqkEiapZk/RnZz3qyo='
+
+  [mod.'cloud.google.com/go']
+    version = 'v0.123.0'
+    hash = 'sha256-OjuvlqYrGvoUiXO/5ALbMxHvXRlrhDjLby1BN/nuhAw='
+
+  [mod.'cloud.google.com/go/auth']
+    version = 'v0.20.0'
+    hash = 'sha256-HlKu/WvrK7oj5hgaAkpv9WAufMLfEVLiRJAdM5W6GVU='
+
+  [mod.'cloud.google.com/go/auth/oauth2adapt']
+    version = 'v0.2.8'
+    hash = 'sha256-GoXFqAbp1WO1tDj07PF5EyxDYvCBP0l0qwxY2oV2hfc='
+
+  [mod.'cloud.google.com/go/compute/metadata']
+    version = 'v0.9.0'
+    hash = 'sha256-VFqQwLJKyH1zReR/XtygEHP5UkI01T9BHEL0hvXtauo='
+
+  [mod.'cloud.google.com/go/iam']
+    version = 'v1.11.0'
+    hash = 'sha256-cqK0LLViHAzK/XQEUWTF7OBTqdC59oWgdWr7v3JNcvE='
+
+  [mod.'cloud.google.com/go/monitoring']
+    version = 'v1.29.0'
+    hash = 'sha256-Hn/YZtZle8ObXy8yft4pgiNslqScuCdVnK8ztPnyEqw='
+
+  [mod.'cloud.google.com/go/storage']
+    version = 'v1.62.3'
+    hash = 'sha256-iWy8PDGTWxeVDEfyh5XzkUqxSkDTgU6Uk4Wij90AlF8='
+
+  [mod.'github.com/BurntSushi/toml']
+    version = 'v1.6.0'
+    hash = 'sha256-ptdUJvuc21ixeLt+M5way/na3aCnCO4MYHWulWp8NEY='
+
+  [mod.'github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp']
+    version = 'v1.33.0'
+    hash = 'sha256-1RlE7uCsgdQ1T0pIvMJQ5SRPqPzeWqrYGPzYHXQBhbQ='
+
+  [mod.'github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric']
+    version = 'v0.57.0'
+    hash = 'sha256-vCsapCImRi4i0gfZVPeLWwj8BeMAmZRF7sGQzWMvMyE='
+
+  [mod.'github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping']
+    version = 'v0.57.0'
+    hash = 'sha256-HMMjGdEbwBe26a5VKonuIr2qNu6xWaJ67pE1f6oI0TE='
+
+  [mod.'github.com/JohannesKaufmann/html-to-markdown']
+    version = 'v1.6.0'
+    hash = 'sha256-P5YeGrzocbqUkbXBk+/dVnAYfylqn0fFMCdGM8ifCPk='
+
+  [mod.'github.com/PuerkitoBio/goquery']
+    version = 'v1.12.0'
+    hash = 'sha256-TMoje93q9Rk+zEW78R+SmKew9qCVussko0w8GPnYy5c='
+
+  [mod.'github.com/adrg/frontmatter']
+    version = 'v0.2.0'
+    hash = 'sha256-WJsVcdCpkIkjqUz5fJOFStZYwQlrcFzQ6+mZatZiimo='
+
+  [mod.'github.com/alecthomas/chroma/v2']
+    version = 'v2.27.0'
+    hash = 'sha256-nL8pyVmx45wouhzd1WSYqRu2IuuyiiBqC9f+aScgZXA='
+
+  [mod.'github.com/andybalholm/cascadia']
+    version = 'v1.3.4'
+    hash = 'sha256-CpXE/C+gW7V8MXREZguszzAQumizrCXGTdDRPBaflCs='
+
+  [mod.'github.com/atotto/clipboard']
+    version = 'v0.1.4'
+    hash = 'sha256-ZZ7U5X0gWOu8zcjZcWbcpzGOGdycwq0TjTFh/eZHjXk='
+
+  [mod.'github.com/aws/aws-sdk-go-v2']
+    version = 'v1.42.0'
+    hash = 'sha256-NAB0Xf/I0LfFbi01v2Z5FTnbLyqOn9t4Ao0aBzS5hF4='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream']
+    version = 'v1.7.13'
+    hash = 'sha256-VgXaGmkg9zBu1zqZ+mIdGKnn2KO4485JHxC0fPuU258='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/config']
+    version = 'v1.32.25'
+    hash = 'sha256-fNbv39eDSjFPIJy6hk6tEPVkc0kFB9kAXgK3Ul42fpM='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/credentials']
+    version = 'v1.19.24'
+    hash = 'sha256-anvHM7aJJZnFU3kawdubTBmTTql/To1pBr5h7PoiOyA='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/feature/ec2/imds']
+    version = 'v1.18.29'
+    hash = 'sha256-FtNSP2uygw+Yp6y4kKFUhYR6Q5rqDp3YJOkdhxexSOE='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/internal/configsources']
+    version = 'v1.4.29'
+    hash = 'sha256-jYjF19qwFqSLsLpFdlaOMfRmqU1vu9l07OpKoKlRzJA='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/internal/endpoints/v2']
+    version = 'v2.7.29'
+    hash = 'sha256-hL/HovKQp7zxU5GJPph7jFhsoB9su6AVY0lPnCYIskM='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/internal/v4a']
+    version = 'v1.4.30'
+    hash = 'sha256-/5GUNIcQ8AFQNuEQtkZU9TNxl6YSYMODdivW2/KDhGM='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding']
+    version = 'v1.13.12'
+    hash = 'sha256-YXMPMvr43AcyZw1fOeGhmNjYEfuE5xWmi/mALqjwx54='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/internal/checksum']
+    version = 'v1.9.22'
+    hash = 'sha256-WmabR8FaX2u/s3Le5oMzzOI7qAM3sa2UtmyUxui6lkA='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/internal/presigned-url']
+    version = 'v1.13.29'
+    hash = 'sha256-iITG6WwpmkK+p2ewOD3RJBX3iLPNa8vkeu7lunWUimI='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/internal/s3shared']
+    version = 'v1.19.29'
+    hash = 'sha256-D3sEAqOox+Fi/pBu//Ub9YfJZhnYhpbhj33n8QggmbI='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/s3']
+    version = 'v1.104.0'
+    hash = 'sha256-HDbY0XOHIVtB7X6sYua0HrfwGSxydGzTemi/tJlK4bw='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/signin']
+    version = 'v1.2.0'
+    hash = 'sha256-0aMJCT1dkqH/CwrDcfceOu/kcQoi7XGJgYIs9JKuA3U='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/sso']
+    version = 'v1.31.3'
+    hash = 'sha256-Ob6IivAmg3u71HicgFhneUBt5JhHTKV0epTPay6Butk='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/ssooidc']
+    version = 'v1.36.6'
+    hash = 'sha256-xrFdgWlq27aMffkZOn8pgH9y4cT0MOjGxh3LAR0rMwo='
+
+  [mod.'github.com/aws/aws-sdk-go-v2/service/sts']
+    version = 'v1.43.3'
+    hash = 'sha256-WWav9rCwe7b8UH9JhJ9dc6BeJ/gHmRReSBhpPTg9l4E='
+
+  [mod.'github.com/aws/smithy-go']
+    version = 'v1.27.2'
+    hash = 'sha256-xC/HVhXmeqwUP0IJmoUgsKsuAmag873kPb1NRHCucC0='
+
+  [mod.'github.com/aymanbagabas/go-osc52/v2']
+    version = 'v2.0.1'
+    hash = 'sha256-6Bp0jBZ6npvsYcKZGHHIUSVSTAMEyieweAX2YAKDjjg='
+
+  [mod.'github.com/aymerick/douceur']
+    version = 'v0.2.0'
+    hash = 'sha256-NiBX8EfOvLXNiK3pJaZX4N73YgfzdrzRXdiBFe3X3sE='
+
+  [mod.'github.com/bgentry/go-netrc']
+    version = 'v0.0.0-20140422174119-9fd32a8b3d3d'
+    hash = 'sha256-NDxQzO5C5M/aDz5/pjUHfZUh4VwIXovbb3irtxWCwjY='
+
+  [mod.'github.com/catppuccin/go']
+    version = 'v0.3.0'
+    hash = 'sha256-otcMhI62ezoKGqzG7Owi/NROep7O0voJxp6bwXYg9+Q='
+
+  [mod.'github.com/cespare/xxhash/v2']
+    version = 'v2.3.0'
+    hash = 'sha256-7hRlwSR+fos1kx4VZmJ/7snR7zHh8ZFKX+qqqqGcQpY='
+
+  [mod.'github.com/charmbracelet/bubbles']
+    version = 'v1.0.0'
+    hash = 'sha256-Vz9QgctlzJqggPwfi48Lbn38ZJXu3Y71byp5uuuzUvU='
+
+  [mod.'github.com/charmbracelet/bubbletea']
+    version = 'v1.3.10'
+    hash = 'sha256-7wr85TLszu1CHNEMv+o4w+r24Z0xdzCgecPv+ZtRX/A='
+
+  [mod.'github.com/charmbracelet/colorprofile']
+    version = 'v0.4.3'
+    hash = 'sha256-y+QDUxGOKhugEMQLRUTZYT2C+wKqYHnMLJ44jbh7+JA='
+
+  [mod.'github.com/charmbracelet/glamour']
+    version = 'v1.0.0'
+    hash = 'sha256-1sGgVA3QXJ2P5c/DNMb7R0HFG1X5vz9nmDhLrzKdgMw='
+
+  [mod.'github.com/charmbracelet/huh']
+    version = 'v1.0.0'
+    hash = 'sha256-vDqcsW9uBPDt0FaOA7Bij+Q9CkozggstOZ0r557TaC4='
+
+  [mod.'github.com/charmbracelet/lipgloss']
+    version = 'v1.1.1-0.20250404203927-76690c660834'
+    hash = 'sha256-CwS1AyoRsPOFA4SrC0CTtwLnbg57FmmSW/mvVQUFYcc='
+
+  [mod.'github.com/charmbracelet/x/ansi']
+    version = 'v0.11.7'
+    hash = 'sha256-q8BZJq4K7NE5ETocN9/G/EoV0dUyD703ONSfHiUYzWQ='
+
+  [mod.'github.com/charmbracelet/x/cellbuf']
+    version = 'v0.0.15'
+    hash = 'sha256-0S60XaWhKZG+TB3Kqe1oMn2Okwdq53nym8XayVSHHiM='
+
+  [mod.'github.com/charmbracelet/x/exp/slice']
+    version = 'v0.0.0-20260621010513-945fab64fd3e'
+    hash = 'sha256-bMsbEzP1gHA2OJx4zMYZUI3UFhcTG+mcFm8rRY+Khh8='
+
+  [mod.'github.com/charmbracelet/x/exp/strings']
+    version = 'v0.1.0'
+    hash = 'sha256-unEwCLaKdabzuQGdq75AwWLEuXcWXajF2h891UIWvpc='
+
+  [mod.'github.com/charmbracelet/x/term']
+    version = 'v0.2.2'
+    hash = 'sha256-KF7IU1Luxl/sZP6XjomWB2e3lxSUS4/5AahhapGir/4='
+
+  [mod.'github.com/clipperhouse/displaywidth']
+    version = 'v0.11.0'
+    hash = 'sha256-WokyTaofEy95xlshqK5YDzpemhXV5oaQifxS9YyfCXo='
+
+  [mod.'github.com/clipperhouse/uax29/v2']
+    version = 'v2.7.0'
+    hash = 'sha256-GO3az7WiGcwU0OvmocwdfR5ohGRL8NbjscIaMyhAdxE='
+
+  [mod.'github.com/cncf/xds/go']
+    version = 'v0.0.0-20260202195803-dba9d589def2'
+    hash = 'sha256-nCcna5Dwr8a+FgdSZt43VmoMds5U0FZta2vpJfdMOhs='
+
+  [mod.'github.com/dlclark/regexp2/v2']
+    version = 'v2.2.2'
+    hash = 'sha256-FqxCqYtijRRlYrNmvL05k00TcZHx9y23pNwsDBH0XIc='
+
+  [mod.'github.com/dustin/go-humanize']
+    version = 'v1.0.1'
+    hash = 'sha256-yuvxYYngpfVkUg9yAmG99IUVmADTQA0tMbBXe0Fq0Mc='
+
+  [mod.'github.com/ebitengine/purego']
+    version = 'v0.10.1'
+    hash = 'sha256-LiJz/PNyealSiA8m/OPE0JnF1XD17YtpIlhx44jd34U='
+
+  [mod.'github.com/envoyproxy/go-control-plane/envoy']
+    version = 'v1.37.0'
+    hash = 'sha256-xxQd6objJVXpcQ8B7MznhqeQLoLWlyjlASnq2hJDp+k='
+
+  [mod.'github.com/envoyproxy/protoc-gen-validate']
+    version = 'v1.3.3'
+    hash = 'sha256-NsI6A4CBVTpAq4gsmv66sMx0gvY0J0kF/t9zbtlRLr4='
+
+  [mod.'github.com/erikgeiser/coninput']
+    version = 'v0.0.0-20211004153227-1c3628e74d0f'
+    hash = 'sha256-OWSqN1+IoL73rWXWdbbcahZu8n2al90Y3eT5Z0vgHvU='
+
+  [mod.'github.com/fatih/color']
+    version = 'v1.19.0'
+    hash = 'sha256-YgMm1nid8yigNLG6aHfuMbsvMI1UYVf/Rkg44pp/NTU='
+
+  [mod.'github.com/felixge/httpsnoop']
+    version = 'v1.1.0'
+    hash = 'sha256-oePAjhI+dYRrMQAeUWnJ3o+PdHFU1tk1Z/R3/kGdjnw='
+
+  [mod.'github.com/fsnotify/fsnotify']
+    version = 'v1.10.1'
+    hash = 'sha256-6LBLgsh4nKkMpgRKVsYFEaGDSU1fncBcWVSjKBdfgjU='
+
+  [mod.'github.com/glebarez/go-sqlite']
+    version = 'v1.22.0'
+    hash = 'sha256-AIkoSmpQY9ZaeQxls8hCFPOob9MVe0RyDREqk2DsXgg='
+
+  [mod.'github.com/glebarez/sqlite']
+    version = 'v1.11.0'
+    hash = 'sha256-hQ1i6VFFyUvvQq8wckeG/FAhtn1ku1Hg/vQpUPTluy8='
+
+  [mod.'github.com/go-jose/go-jose/v4']
+    version = 'v4.1.4'
+    hash = 'sha256-MKoJKXup1jfwOyN8mHXu1CQ8fvFJTaEf3K2LVtNSRhc='
+
+  [mod.'github.com/go-logr/logr']
+    version = 'v1.4.3'
+    hash = 'sha256-Nnp/dEVNMxLp3RSPDHZzGbI8BkSNuZMX0I0cjWKXXLA='
+
+  [mod.'github.com/go-logr/stdr']
+    version = 'v1.2.2'
+    hash = 'sha256-rRweAP7XIb4egtT1f2gkz4sYOu7LDHmcJ5iNsJUd0sE='
+
+  [mod.'github.com/go-ole/go-ole']
+    version = 'v1.3.0'
+    hash = 'sha256-tF8t3VcV71jQ4jbPL91BwR59AKDpUAFV1waIKzkXJu8='
+
+  [mod.'github.com/go-rod/rod']
+    version = 'v0.116.2'
+    hash = 'sha256-f66euaZq7TEZOmTw7vVw0ScmKRTuYZ4Epz/fMQwZXds='
+
+  [mod.'github.com/go-rod/stealth']
+    version = 'v0.4.9'
+    hash = 'sha256-JaYSfiy/kOx5oWuIa68qYh6PLgysKfyTIPbj2yGyK/M='
+
+  [mod.'github.com/go-viper/mapstructure/v2']
+    version = 'v2.5.0'
+    hash = 'sha256-LbrCBANBprVI84M0CWrXc7rriJL5ac5VKbh58LBTw7U='
+
+  [mod.'github.com/gofrs/flock']
+    version = 'v0.13.0'
+    hash = 'sha256-5imm90Iqstu+PnSX9RLZMHUG7qW2KX2t3xIpZ2cXSco='
+
+  [mod.'github.com/google/s2a-go']
+    version = 'v0.1.9'
+    hash = 'sha256-0AdSpSTso4bATmM/9qamWzKrVtOLDf7afvDhoiT/UpA='
+
+  [mod.'github.com/google/uuid']
+    version = 'v1.6.0'
+    hash = 'sha256-VWl9sqUzdOuhW0KzQlv0gwwUQClYkmZwSydHG2sALYw='
+
+  [mod.'github.com/googleapis/enterprise-certificate-proxy']
+    version = 'v0.3.16'
+    hash = 'sha256-8He6bIdZ92rh7JqLfCHBnIcziffbFOV/8XhueQNEeMA='
+
+  [mod.'github.com/googleapis/gax-go/v2']
+    version = 'v2.22.0'
+    hash = 'sha256-EEoIpOYGDuzhiQdhJcpjMs4mSb2oMw3uPYRhCHCESR0='
+
+  [mod.'github.com/gorilla/css']
+    version = 'v1.0.1'
+    hash = 'sha256-6JwNHqlY2NpZ0pSQTyYPSpiNqjXOdFHqrUT10sv3y8A='
+
+  [mod.'github.com/hashicorp/aws-sdk-go-base/v2']
+    version = 'v2.0.0-beta.73'
+    hash = 'sha256-AHD3sIEA9eibc8NoLdVQWBRAJtGVwdYSoGYcDGFjXIE='
+
+  [mod.'github.com/hashicorp/go-cleanhttp']
+    version = 'v0.5.2'
+    hash = 'sha256-N9GOKYo7tK6XQUFhvhImtL7PZW/mr4C4Manx/yPVvcQ='
+
+  [mod.'github.com/hashicorp/go-getter']
+    version = 'v1.8.6'
+    hash = 'sha256-oN12gFUHqlF2J0h63wo8P1OSfuWeN8h4LJrBZvKHEvw='
+
+  [mod.'github.com/hashicorp/go-version']
+    version = 'v1.9.0'
+    hash = 'sha256-sRr/50k8Wra0PJLCJgSkIxvR+ce3PItx4HpFvVijGYk='
+
+  [mod.'github.com/hpcloud/tail']
+    version = 'v1.0.0'
+    hash = 'sha256-7ByBr/RcOwIsGPCiCUpfNwUSvU18QAY+HMnCJr8uU1w='
+
+  [mod.'github.com/hybridgroup/yzma']
+    version = 'v1.17.1'
+    hash = 'sha256-giiAIXEEP1JvOsi4CcudMugcnpZe/cx0Uy2zSDUWVHQ='
+
+  [mod.'github.com/inconshreveable/mousetrap']
+    version = 'v1.1.0'
+    hash = 'sha256-XWlYH0c8IcxAwQTnIi6WYqq44nOKUylSWxWO/vi+8pE='
+
+  [mod.'github.com/jeandeaual/go-locale']
+    version = 'v0.0.0-20250612000132-0ef82f21eade'
+    hash = 'sha256-cBzGwCgGtOj4VM5kc457GVD47jthrVIUIAvTfoUNd0Y='
+
+  [mod.'github.com/jinzhu/inflection']
+    version = 'v1.0.0'
+    hash = 'sha256-3h3pHib5MaCXKyKLIMyQnSptDJ16kPjCOQPoEBoQsZg='
+
+  [mod.'github.com/jinzhu/now']
+    version = 'v1.1.5'
+    hash = 'sha256-NNLqoFx9FczBBDpD0O0aSHnC/YDZ9E/xQ340o7u63IM='
+
+  [mod.'github.com/joho/godotenv']
+    version = 'v1.5.1'
+    hash = 'sha256-kA0osKfsc6Kp+nuGTRJyXZZlJt1D/kuEazKMWYCWcQ8='
+
+  [mod.'github.com/jupiterrider/ffi']
+    version = 'v0.7.0'
+    hash = 'sha256-9LUC4rq2yFmGar4HmYNjHB+WYfMLCOh2W4pMJjCrlw0='
+
+  [mod.'github.com/kardianos/osext']
+    version = 'v0.0.0-20190222173326-2bc1f35cddc0'
+    hash = 'sha256-uTDfg87dfqCz32K6Sc1Glj/8/oJXudUd6JW4XHdeed8='
+
+  [mod.'github.com/klauspost/compress']
+    version = 'v1.18.6'
+    hash = 'sha256-gULc+A2Clg2HnwR9UNXSIHVGdFY/aGqhf0zlvMxqaSY='
+
+  [mod.'github.com/lucasb-eyer/go-colorful']
+    version = 'v1.4.0'
+    hash = 'sha256-i/3GDHKEMLCy0kc3mtyk58UWYOPmKoUVaq6QCAWXKP0='
+
+  [mod.'github.com/lufia/plan9stats']
+    version = 'v0.0.0-20260330125221-c963978e514e'
+    hash = 'sha256-BmFzkPZ+UeYgJom+1VesNiqIrTwKEGhUmYY0cWzAwfE='
+
+  [mod.'github.com/mattn/go-colorable']
+    version = 'v0.1.15'
+    hash = 'sha256-hH+yMJHjboEDQbv399OEjfc50RgtO/edw0r2sJfxEJg='
+
+  [mod.'github.com/mattn/go-isatty']
+    version = 'v0.0.22'
+    hash = 'sha256-6O/0jc33pKUzlzUGpH8Ekk54XgJvx6Qe7kJtbcNJAV4='
+
+  [mod.'github.com/mattn/go-localereader']
+    version = 'v0.0.1'
+    hash = 'sha256-JlWckeGaWG+bXK8l8WEdZqmSiTwCA8b1qbmBKa/Fj3E='
+
+  [mod.'github.com/mattn/go-runewidth']
+    version = 'v0.0.24'
+    hash = 'sha256-t2uvZkmlTXQCj76p4poI9y82iziJX2lF44UhkLgLN40='
+
+  [mod.'github.com/microcosm-cc/bluemonday']
+    version = 'v1.0.27'
+    hash = 'sha256-EZSya9FLPQ83CL7N2cZy21fdS35hViTkiMK5f3op8Es='
+
+  [mod.'github.com/mitchellh/go-homedir']
+    version = 'v1.1.0'
+    hash = 'sha256-oduBKXHAQG8X6aqLEpqZHs5DOKe84u6WkBwi4W6cv3k='
+
+  [mod.'github.com/mitchellh/hashstructure/v2']
+    version = 'v2.0.2'
+    hash = 'sha256-O4Yw4pPQECWe8DoVDIH2nUMN8Zl8waS7/O1sv18M2Xs='
+
+  [mod.'github.com/muesli/ansi']
+    version = 'v0.0.0-20230316100256-276c6243b2f6'
+    hash = 'sha256-qRKn0Bh2yvP0QxeEMeZe11Vz0BPFIkVcleKsPeybKMs='
+
+  [mod.'github.com/muesli/cancelreader']
+    version = 'v0.2.2'
+    hash = 'sha256-uEPpzwRJBJsQWBw6M71FDfgJuR7n55d/7IV8MO+rpwQ='
+
+  [mod.'github.com/muesli/reflow']
+    version = 'v0.3.0'
+    hash = 'sha256-Pou2ybE9SFSZG6YfZLVV1Eyfm+X4FuVpDPLxhpn47Cc='
+
+  [mod.'github.com/muesli/termenv']
+    version = 'v0.16.0'
+    hash = 'sha256-hGo275DJlyLtcifSLpWnk8jardOksdeX9lH4lBeE3gI='
+
+  [mod.'github.com/ncruces/go-strftime']
+    version = 'v1.0.0'
+    hash = 'sha256-GYIwYDONuv/yTE0AEugCHQbtV3oiBaco93xUNYFcVBQ='
+
+  [mod.'github.com/nicksnyder/go-i18n/v2']
+    version = 'v2.6.1'
+    hash = 'sha256-ag/8GBAwqkOyIVrdlaFYLxy9dgPOq7VbactrLmzxK7E='
+
+  [mod.'github.com/pelletier/go-toml/v2']
+    version = 'v2.4.0'
+    hash = 'sha256-RfZLQPFujCKUmT5f1VzkgpyK2E1gH5yUQbi4VRBEzxk='
+
+  [mod.'github.com/planetscale/vtprotobuf']
+    version = 'v0.6.1-0.20240319094008-0393e58bdf10'
+    hash = 'sha256-L8dyNm+PCRDNADiIGKZqsPkCgB4xpLrosZjssrN+sUY='
+
+  [mod.'github.com/power-devops/perfstat']
+    version = 'v0.0.0-20240221224432-82ca36839d55'
+    hash = 'sha256-ujzuJ1ttQgjHQJEij4O/2+I8DZaUVZQCQgA4ysfqulI='
+
+  [mod.'github.com/remyoudompheng/bigfft']
+    version = 'v0.0.0-20230129092748-24d4a6f8daec'
+    hash = 'sha256-vYmpyCE37eBYP/navhaLV4oX4/nu0Z/StAocLIFqrmM='
+
+  [mod.'github.com/rivo/uniseg']
+    version = 'v0.4.7'
+    hash = 'sha256-rDcdNYH6ZD8KouyyiZCUEy8JrjOQoAkxHBhugrfHjFo='
+
+  [mod.'github.com/robfig/cron/v3']
+    version = 'v3.0.1'
+    hash = 'sha256-FUdqNbWYi5biQc/tjCeqzxu4iy4ot1ZvDU1M1wRf/6k='
+
+  [mod.'github.com/sagikazarmark/locafero']
+    version = 'v0.12.0'
+    hash = 'sha256-EXk9S5Z5sYyApAzCgHIugsGMbt/pHWRfHYFZH5D+5Ws='
+
+  [mod.'github.com/sashabaranov/go-openai']
+    version = 'v1.41.2'
+    hash = 'sha256-KbN4cNSi3S9pQDDQF6eN12KkN94dlVJTVIO1JKDQ+bw='
+
+  [mod.'github.com/sevlyar/go-daemon']
+    version = 'v0.1.6'
+    hash = 'sha256-CyCp/d/VKPbb75NyIuRrCKWg/Xl2S6MejBKEFw6yWvQ='
+
+  [mod.'github.com/shirou/gopsutil/v4']
+    version = 'v4.26.5'
+    hash = 'sha256-ODPWgxRHQqlARId7n9Crvpgiv54YFr96PnqZg+IAWpI='
+
+  [mod.'github.com/spf13/afero']
+    version = 'v1.15.0'
+    hash = 'sha256-LhcezbOqfuBzacytbqck0hNUxi6NbWNhifUc5/9uHQ8='
+
+  [mod.'github.com/spf13/cast']
+    version = 'v1.10.0'
+    hash = 'sha256-dQ6Qqf26IZsa6XsGKP7GDuCj+WmSsBmkBwGTDfue/rk='
+
+  [mod.'github.com/spf13/cobra']
+    version = 'v1.10.2'
+    hash = 'sha256-nbRCTFiDCC2jKK7AHi79n7urYCMP5yDZnWtNVJrDi+k='
+
+  [mod.'github.com/spf13/pflag']
+    version = 'v1.0.10'
+    hash = 'sha256-uDPnWjHpSrzXr17KEYEA1yAbizfcsfo5AyztY2tS6ZU='
+
+  [mod.'github.com/spf13/viper']
+    version = 'v1.21.0'
+    hash = 'sha256-A9A8i7HH/ge4j3hw7G++HNj8BjhhpZKvxHhfY+QAxkI='
+
+  [mod.'github.com/spiffe/go-spiffe/v2']
+    version = 'v2.8.1'
+    hash = 'sha256-9rVvr5oguOnMBZYFv06cg/DuOUNxKAD+qO/Y85AXf0g='
+
+  [mod.'github.com/subosito/gotenv']
+    version = 'v1.6.0'
+    hash = 'sha256-LspbjTniiq2xAICSXmgqP7carwlNaLqnCTQfw2pa80A='
+
+  [mod.'github.com/tklauser/go-sysconf']
+    version = 'v0.4.0'
+    hash = 'sha256-8zTRLfBMOenFqvpMuZOkRERAFN3r7C2Jjvr7sh5andY='
+
+  [mod.'github.com/tklauser/numcpus']
+    version = 'v0.12.0'
+    hash = 'sha256-jxPbfsDXNqpx4qR+BSw0wmthRf9D1MV7CD1mK7ZSbbQ='
+
+  [mod.'github.com/ulikunitz/xz']
+    version = 'v0.5.15'
+    hash = 'sha256-L5KYLue5U14bxUuNyhZ6lIjbda6eCQsx1V6gToqfRdk='
+
+  [mod.'github.com/xo/terminfo']
+    version = 'v0.0.0-20220910002029-abceb7e1c41e'
+    hash = 'sha256-GyCDxxMQhXA3Pi/TsWXpA8cX5akEoZV7CFx4RO3rARU='
+
+  [mod.'github.com/ysmood/fetchup']
+    version = 'v0.2.3'
+    hash = 'sha256-sJ9PBMJ/PH3Es/ngAJkrxTPNAXr7AFjdsblF67mP2Hc='
+
+  [mod.'github.com/ysmood/goob']
+    version = 'v0.4.0'
+    hash = 'sha256-o0yVrxQRbN1dSjBH359VHADzPmkyrYOp7jn1GqIYhvw='
+
+  [mod.'github.com/ysmood/got']
+    version = 'v0.41.0'
+    hash = 'sha256-vaUnNqRPyMmqxtb1Coxgm9gwz9cVSV8/hQOM1oBLdzI='
+
+  [mod.'github.com/ysmood/gson']
+    version = 'v0.7.3'
+    hash = 'sha256-Dn5cTopPKtKCjQ7G6nlvPW2d7G4c5NfIdLVM9eLgR0E='
+
+  [mod.'github.com/ysmood/leakless']
+    version = 'v0.9.0'
+    hash = 'sha256-nGfyb2fFT1AN33AtsCj+9xcAiK5XjHLlH/Oqc3DRyo8='
+
+  [mod.'github.com/yuin/goldmark']
+    version = 'v1.8.2'
+    hash = 'sha256-LoWfW1Tb6mNuMR7SoA/4SJv4pTKfsVXqeXEVm4uEQ7Q='
+
+  [mod.'github.com/yuin/goldmark-emoji']
+    version = 'v1.0.6'
+    hash = 'sha256-+d6bZzOPE+JSFsZbQNZMCWE+n3jgcQnkPETVk47mxSY='
+
+  [mod.'github.com/yusufpapurcu/wmi']
+    version = 'v1.2.4'
+    hash = 'sha256-N+YDBjOW59YOsZ2lRBVtFsEEi48KhNQRb63/0ZSU3bA='
+
+  [mod.'go.opentelemetry.io/auto/sdk']
+    version = 'v1.2.1'
+    hash = 'sha256-73bFYhnxNf4SfeQ52ebnwOWywdQbqc9lWawCcSgofvE='
+
+  [mod.'go.opentelemetry.io/contrib/detectors/gcp']
+    version = 'v1.44.0'
+    hash = 'sha256-dp+EQTl8DCYVrRKEJ/IpRMUomgIRx/M0z2LkeCctwiY='
+
+  [mod.'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc']
+    version = 'v0.69.0'
+    hash = 'sha256-37oe5RsiBWxaOs7lZXJWEUN4P49jkr2ej+64FQ4ybT8='
+
+  [mod.'go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp']
+    version = 'v0.69.0'
+    hash = 'sha256-ypZB41ebghWCNZmuoDgdGbWyTjCglBEirLZ+s7jqCgc='
+
+  [mod.'go.opentelemetry.io/otel']
+    version = 'v1.44.0'
+    hash = 'sha256-XTGV9RjOIKyWrrgXJ32IA59lovxXqSeRrpcpC1FAFZA='
+
+  [mod.'go.opentelemetry.io/otel/metric']
+    version = 'v1.44.0'
+    hash = 'sha256-e8dVyRoavby/YG7aH2T05IhWHlLvwnMHyPhelAS1mCQ='
+
+  [mod.'go.opentelemetry.io/otel/sdk']
+    version = 'v1.44.0'
+    hash = 'sha256-rNqJXr5P2f5Qgllp/3E5Rm5lqt1kBhxHXppT5dXw5Cw='
+
+  [mod.'go.opentelemetry.io/otel/sdk/metric']
+    version = 'v1.44.0'
+    hash = 'sha256-9OJi3uCRMdCo0d5YZjJnPCveQ9JNifNoOUBOEPtNBBE='
+
+  [mod.'go.opentelemetry.io/otel/trace']
+    version = 'v1.44.0'
+    hash = 'sha256-69HorWRTLLzAHRgLe4nPp13qJthb3qp7RU7c0Y9qV/c='
+
+  [mod.'go.yaml.in/yaml/v3']
+    version = 'v3.0.4'
+    hash = 'sha256-NkGFiDPoCxbr3LFsI6OCygjjkY0rdmg5ggvVVwpyDQ4='
+
+  [mod.'golang.org/x/crypto']
+    version = 'v0.53.0'
+    hash = 'sha256-TWcccM4d5t0ZbDyHXEm4elxKk5uzlo29i85lVHSZcNw='
+
+  [mod.'golang.org/x/net']
+    version = 'v0.56.0'
+    hash = 'sha256-JUORjxDZqZanYWo2yunaDpQ2/zvHiFb0TnF1Jw6D+30='
+
+  [mod.'golang.org/x/oauth2']
+    version = 'v0.36.0'
+    hash = 'sha256-evS7WkMrpgonmTcqtWFpC5rSKZN8O+vnAhNUs1MS9kw='
+
+  [mod.'golang.org/x/sync']
+    version = 'v0.21.0'
+    hash = 'sha256-2n7PVb1krz7UpnXYGVmCrxV0fZBnjQdVVt6eVudEPYY='
+
+  [mod.'golang.org/x/sys']
+    version = 'v0.46.0'
+    hash = 'sha256-NzRXMSEk6upeudJvUEPVnw6clJ3d8UdC/vdfANWAc8g='
+
+  [mod.'golang.org/x/term']
+    version = 'v0.44.0'
+    hash = 'sha256-nzbvOgvGRbx1qpq1rbk7b6zNsNeNj8mOGoyZLtnzq3w='
+
+  [mod.'golang.org/x/text']
+    version = 'v0.38.0'
+    hash = 'sha256-PzREcn7yzTAJ0WBvyYL/2/r+tfoeKTY/E5HVXi/CJsU='
+
+  [mod.'golang.org/x/time']
+    version = 'v0.15.0'
+    hash = 'sha256-5D24A65wn7k93Jj3+918UKjB9ccmGHPBEqjD2XDB92E='
+
+  [mod.'google.golang.org/api']
+    version = 'v0.285.0'
+    hash = 'sha256-8FdFFQ2eEPHi2KAbf922d65Q9FyspyyspJjtnkUItnU='
+
+  [mod.'google.golang.org/genproto']
+    version = 'v0.0.0-20260618152121-87f3d3e198d3'
+    hash = 'sha256-MD+DSrFKsLyu3tamv2NNkWe1Yb1m9YTWR8iJEBBAWAg='
+
+  [mod.'google.golang.org/genproto/googleapis/api']
+    version = 'v0.0.0-20260618152121-87f3d3e198d3'
+    hash = 'sha256-p69+PrsVk3bj1bB/wb03KvfVXWBPLqpj18SU0+C6in8='
+
+  [mod.'google.golang.org/genproto/googleapis/rpc']
+    version = 'v0.0.0-20260618152121-87f3d3e198d3'
+    hash = 'sha256-ldJTTb7hhj1mdmzTn9IEkQVwCoj3KRlENZtUSEKHABU='
+
+  [mod.'google.golang.org/grpc']
+    version = 'v1.81.1'
+    hash = 'sha256-YZ5KMHmN1HvsMxyIBIl3SmFmL3r+6bwjzzFLxUFhm1o='
+
+  [mod.'google.golang.org/protobuf']
+    version = 'v1.36.11'
+    hash = 'sha256-7W+6jntfI/awWL3JP6yQedxqP5S9o3XvPgJ2XxxsIeE='
+
+  [mod.'gopkg.in/fsnotify.v1']
+    version = 'v1.4.7'
+    hash = 'sha256-j/Ts92oXa3k1MFU7Yd8/AqafRTsFn7V2pDKCyDJLah8='
+
+  [mod.'gopkg.in/telebot.v3']
+    version = 'v3.3.8'
+    hash = 'sha256-Zi+khCdDntTOSgi2mMDkTImmQcNF5TNAjSWGJsOgz1A='
+
+  [mod.'gopkg.in/tomb.v1']
+    version = 'v1.0.0-20141024135613-dd632973f1e7'
+    hash = 'sha256-W/4wBAvuaBFHhowB67SZZfXCRDp5tzbYG4vo81TAFdM='
+
+  [mod.'gopkg.in/yaml.v2']
+    version = 'v2.4.0'
+    hash = 'sha256-uVEGglIedjOIGZzHW4YwN1VoRSTK8o0eGZqzd+TNdd0='
+
+  [mod.'gorm.io/gorm']
+    version = 'v1.31.1'
+    hash = 'sha256-EJTS1yueSRGDQz4l2MxkgESJG7meCESKbjgNceer/J8='
+
+  [mod.'modernc.org/libc']
+    version = 'v1.73.4'
+    hash = 'sha256-YN3m9MDZ2GRZznT5ErWZJdap+E5xOwOyKlZ/ixyGT+0='
+
+  [mod.'modernc.org/mathutil']
+    version = 'v1.7.1'
+    hash = 'sha256-COZ5rF2GhQVR1r6a0DanJ8qwQ94JSKdQxTMWrDzE0Cc='
+
+  [mod.'modernc.org/memory']
+    version = 'v1.11.0'
+    hash = 'sha256-MkybF8vvrxXS5j7O8w3skwTo0aMo1yjWS0K440rYcHM='
+
+  [mod.'modernc.org/sqlite']
+    version = 'v1.53.0'
+    hash = 'sha256-G8pXCpu2jJlPxd+7p1vQd8GzWGCTnKQug58fnQzTVRY='
+
+[cacheModules]
+  [cacheModules.'cel.dev/expr']
+    packages = [
+      'cel.dev/expr'
+    ]
+    deps = [
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'cloud.google.com/go/auth']
+    packages = [
+      'cloud.google.com/go/auth',
+      'cloud.google.com/go/auth/credentials',
+      'cloud.google.com/go/auth/grpctransport',
+      'cloud.google.com/go/auth/httptransport'
+    ]
+    deps = [
+      'cloud.google.com/go/compute/metadata',
+      'github.com/googleapis/gax-go/v2',
+      'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc',
+      'go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp',
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/trace',
+      'golang.org/x/net',
+      'golang.org/x/time',
+      'google.golang.org/api',
+      'google.golang.org/grpc'
+    ]
+
+  [cacheModules.'cloud.google.com/go/auth/oauth2adapt']
+    packages = [
+      'cloud.google.com/go/auth/oauth2adapt'
+    ]
+    deps = [
+      'cloud.google.com/go/auth',
+      'golang.org/x/oauth2'
+    ]
+
+  [cacheModules.'cloud.google.com/go/compute/metadata']
+    packages = [
+      'cloud.google.com/go/compute/metadata'
+    ]
+
+  [cacheModules.'cloud.google.com/go/iam']
+    packages = [
+      'cloud.google.com/go/iam',
+      'cloud.google.com/go/iam/apiv1/iampb'
+    ]
+    deps = [
+      'github.com/googleapis/gax-go/v2',
+      'google.golang.org/genproto',
+      'google.golang.org/genproto/googleapis/api',
+      'google.golang.org/grpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'cloud.google.com/go/monitoring']
+    packages = [
+      'cloud.google.com/go/monitoring/apiv3/v2',
+      'cloud.google.com/go/monitoring/apiv3/v2/monitoringpb'
+    ]
+    deps = [
+      'github.com/googleapis/gax-go/v2',
+      'google.golang.org/api',
+      'google.golang.org/genproto',
+      'google.golang.org/genproto/googleapis/api',
+      'google.golang.org/genproto/googleapis/rpc',
+      'google.golang.org/grpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'github.com/BurntSushi/toml']
+    packages = [
+      'github.com/BurntSushi/toml'
+    ]
+
+  [cacheModules.'github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp']
+    packages = [
+      'github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp'
+    ]
+    deps = [
+      'cloud.google.com/go/compute/metadata'
+    ]
+
+  [cacheModules.'github.com/JohannesKaufmann/html-to-markdown']
+    packages = [
+      'github.com/JohannesKaufmann/html-to-markdown',
+      'github.com/JohannesKaufmann/html-to-markdown/escape'
+    ]
+    deps = [
+      'github.com/PuerkitoBio/goquery',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/PuerkitoBio/goquery']
+    packages = [
+      'github.com/PuerkitoBio/goquery'
+    ]
+    deps = [
+      'github.com/andybalholm/cascadia',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/adrg/frontmatter']
+    packages = [
+      'github.com/adrg/frontmatter'
+    ]
+    deps = [
+      'github.com/BurntSushi/toml',
+      'gopkg.in/yaml.v2'
+    ]
+
+  [cacheModules.'github.com/alecthomas/chroma/v2']
+    packages = [
+      'github.com/alecthomas/chroma/v2',
+      'github.com/alecthomas/chroma/v2/formatters',
+      'github.com/alecthomas/chroma/v2/formatters/html',
+      'github.com/alecthomas/chroma/v2/formatters/svg',
+      'github.com/alecthomas/chroma/v2/lexers',
+      'github.com/alecthomas/chroma/v2/quick',
+      'github.com/alecthomas/chroma/v2/styles'
+    ]
+    deps = [
+      'github.com/dlclark/regexp2/v2'
+    ]
+
+  [cacheModules.'github.com/andybalholm/cascadia']
+    packages = [
+      'github.com/andybalholm/cascadia'
+    ]
+    deps = [
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/atotto/clipboard']
+    packages = [
+      'github.com/atotto/clipboard'
+    ]
+
+  [cacheModules.'github.com/aws/aws-sdk-go-v2']
+    packages = [
+      'github.com/aws/aws-sdk-go-v2/aws',
+      'github.com/aws/aws-sdk-go-v2/aws/arn',
+      'github.com/aws/aws-sdk-go-v2/aws/defaults',
+      'github.com/aws/aws-sdk-go-v2/aws/middleware',
+      'github.com/aws/aws-sdk-go-v2/aws/protocol/query',
+      'github.com/aws/aws-sdk-go-v2/aws/protocol/restjson',
+      'github.com/aws/aws-sdk-go-v2/aws/protocol/xml',
+      'github.com/aws/aws-sdk-go-v2/aws/ratelimit',
+      'github.com/aws/aws-sdk-go-v2/aws/retry',
+      'github.com/aws/aws-sdk-go-v2/aws/signer/v4',
+      'github.com/aws/aws-sdk-go-v2/aws/transport/http'
+    ]
+    deps = [
+      'github.com/aws/smithy-go'
+    ]
+
+  [cacheModules.'github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream']
+    packages = [
+      'github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream',
+      'github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream/eventstreamapi'
+    ]
+    deps = [
+      'github.com/aws/smithy-go'
+    ]
+
+  [cacheModules.'github.com/aws/aws-sdk-go-v2/feature/ec2/imds']
+    packages = [
+      'github.com/aws/aws-sdk-go-v2/feature/ec2/imds'
+    ]
+    deps = [
+      'github.com/aws/aws-sdk-go-v2',
+      'github.com/aws/smithy-go'
+    ]
+
+  [cacheModules.'github.com/aws/smithy-go']
+    packages = [
+      'github.com/aws/smithy-go',
+      'github.com/aws/smithy-go/auth',
+      'github.com/aws/smithy-go/auth/bearer',
+      'github.com/aws/smithy-go/container/private/cache',
+      'github.com/aws/smithy-go/container/private/cache/lru',
+      'github.com/aws/smithy-go/context',
+      'github.com/aws/smithy-go/document',
+      'github.com/aws/smithy-go/encoding',
+      'github.com/aws/smithy-go/encoding/httpbinding',
+      'github.com/aws/smithy-go/encoding/json',
+      'github.com/aws/smithy-go/encoding/xml',
+      'github.com/aws/smithy-go/endpoints',
+      'github.com/aws/smithy-go/endpoints/private/bdd',
+      'github.com/aws/smithy-go/endpoints/private/rulesfn',
+      'github.com/aws/smithy-go/eventstream',
+      'github.com/aws/smithy-go/io',
+      'github.com/aws/smithy-go/logging',
+      'github.com/aws/smithy-go/metrics',
+      'github.com/aws/smithy-go/middleware',
+      'github.com/aws/smithy-go/private/requestcompression',
+      'github.com/aws/smithy-go/ptr',
+      'github.com/aws/smithy-go/rand',
+      'github.com/aws/smithy-go/sync',
+      'github.com/aws/smithy-go/time',
+      'github.com/aws/smithy-go/tracing',
+      'github.com/aws/smithy-go/traits',
+      'github.com/aws/smithy-go/transport/http',
+      'github.com/aws/smithy-go/waiter'
+    ]
+
+  [cacheModules.'github.com/aymanbagabas/go-osc52/v2']
+    packages = [
+      'github.com/aymanbagabas/go-osc52/v2'
+    ]
+
+  [cacheModules.'github.com/aymerick/douceur']
+    packages = [
+      'github.com/aymerick/douceur/css',
+      'github.com/aymerick/douceur/parser'
+    ]
+    deps = [
+      'github.com/gorilla/css'
+    ]
+
+  [cacheModules.'github.com/bgentry/go-netrc']
+    packages = [
+      'github.com/bgentry/go-netrc/netrc'
+    ]
+
+  [cacheModules.'github.com/catppuccin/go']
+    packages = [
+      'github.com/catppuccin/go'
+    ]
+
+  [cacheModules.'github.com/cespare/xxhash/v2']
+    packages = [
+      'github.com/cespare/xxhash/v2'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/bubbles']
+    packages = [
+      'github.com/charmbracelet/bubbles/cursor',
+      'github.com/charmbracelet/bubbles/filepicker',
+      'github.com/charmbracelet/bubbles/help',
+      'github.com/charmbracelet/bubbles/key',
+      'github.com/charmbracelet/bubbles/runeutil',
+      'github.com/charmbracelet/bubbles/spinner',
+      'github.com/charmbracelet/bubbles/textarea',
+      'github.com/charmbracelet/bubbles/textarea/memoization',
+      'github.com/charmbracelet/bubbles/textinput',
+      'github.com/charmbracelet/bubbles/viewport'
+    ]
+    deps = [
+      'github.com/atotto/clipboard',
+      'github.com/charmbracelet/bubbletea',
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/dustin/go-humanize',
+      'github.com/mattn/go-runewidth',
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/bubbletea']
+    packages = [
+      'github.com/charmbracelet/bubbletea'
+    ]
+    deps = [
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/term',
+      'github.com/muesli/ansi',
+      'github.com/muesli/cancelreader'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/colorprofile']
+    packages = [
+      'github.com/charmbracelet/colorprofile'
+    ]
+    deps = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/term',
+      'github.com/xo/terminfo'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/glamour']
+    packages = [
+      'github.com/charmbracelet/glamour',
+      'github.com/charmbracelet/glamour/ansi',
+      'github.com/charmbracelet/glamour/styles'
+    ]
+    deps = [
+      'github.com/alecthomas/chroma/v2',
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/exp/slice',
+      'github.com/microcosm-cc/bluemonday',
+      'github.com/muesli/reflow',
+      'github.com/muesli/termenv',
+      'github.com/yuin/goldmark',
+      'github.com/yuin/goldmark-emoji',
+      'golang.org/x/term',
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/huh']
+    packages = [
+      'github.com/charmbracelet/huh'
+    ]
+    deps = [
+      'github.com/catppuccin/go',
+      'github.com/charmbracelet/bubbles',
+      'github.com/charmbracelet/bubbletea',
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/x/cellbuf',
+      'github.com/charmbracelet/x/exp/strings',
+      'github.com/mitchellh/hashstructure/v2'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/lipgloss']
+    packages = [
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/lipgloss/table'
+    ]
+    deps = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/cellbuf',
+      'github.com/muesli/termenv',
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/ansi']
+    packages = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/ansi/parser'
+    ]
+    deps = [
+      'github.com/clipperhouse/displaywidth',
+      'github.com/clipperhouse/uax29/v2',
+      'github.com/lucasb-eyer/go-colorful',
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/cellbuf']
+    packages = [
+      'github.com/charmbracelet/x/cellbuf'
+    ]
+    deps = [
+      'github.com/charmbracelet/colorprofile',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/term',
+      'github.com/mattn/go-runewidth',
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/exp/slice']
+    packages = [
+      'github.com/charmbracelet/x/exp/slice'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/exp/strings']
+    packages = [
+      'github.com/charmbracelet/x/exp/strings'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/term']
+    packages = [
+      'github.com/charmbracelet/x/term'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/displaywidth']
+    packages = [
+      'github.com/clipperhouse/displaywidth'
+    ]
+    deps = [
+      'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/uax29/v2']
+    packages = [
+      'github.com/clipperhouse/uax29/v2/graphemes'
+    ]
+
+  [cacheModules.'github.com/cncf/xds/go']
+    packages = [
+      'github.com/cncf/xds/go/udpa/annotations',
+      'github.com/cncf/xds/go/udpa/type/v1',
+      'github.com/cncf/xds/go/xds/annotations/v3',
+      'github.com/cncf/xds/go/xds/core/v3',
+      'github.com/cncf/xds/go/xds/data/orca/v3',
+      'github.com/cncf/xds/go/xds/service/orca/v3',
+      'github.com/cncf/xds/go/xds/type/matcher/v3',
+      'github.com/cncf/xds/go/xds/type/v3'
+    ]
+    deps = [
+      'cel.dev/expr',
+      'github.com/envoyproxy/protoc-gen-validate',
+      'google.golang.org/genproto/googleapis/api',
+      'google.golang.org/grpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'github.com/dlclark/regexp2/v2']
+    packages = [
+      'github.com/dlclark/regexp2/v2',
+      'github.com/dlclark/regexp2/v2/helpers',
+      'github.com/dlclark/regexp2/v2/syntax'
+    ]
+
+  [cacheModules.'github.com/dustin/go-humanize']
+    packages = [
+      'github.com/dustin/go-humanize'
+    ]
+
+  [cacheModules.'github.com/ebitengine/purego']
+    packages = [
+      'github.com/ebitengine/purego'
+    ]
+
+  [cacheModules.'github.com/envoyproxy/go-control-plane/envoy']
+    packages = [
+      'github.com/envoyproxy/go-control-plane/envoy/admin/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/annotations',
+      'github.com/envoyproxy/go-control-plane/envoy/config/accesslog/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/bootstrap/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/common/matcher/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/common/mutation_rules/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/core/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/listener/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/metrics/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/overload/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/rbac/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/route/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/tap/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/config/trace/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/data/accesslog/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/clusters/aggregate/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/filters/common/fault/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/fault/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/rbac/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/router/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/load_balancing_policies/client_side_weighted_round_robin/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/load_balancing_policies/common/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/load_balancing_policies/least_request/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/load_balancing_policies/pick_first/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/load_balancing_policies/ring_hash/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/load_balancing_policies/wrr_locality/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/rbac/audit_loggers/stream/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/service/load_stats/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/service/status/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/type/http/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/type/matcher/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/type/metadata/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/type/tracing/v3',
+      'github.com/envoyproxy/go-control-plane/envoy/type/v3'
+    ]
+    deps = [
+      'github.com/cncf/xds/go',
+      'github.com/envoyproxy/protoc-gen-validate',
+      'google.golang.org/genproto/googleapis/api',
+      'google.golang.org/genproto/googleapis/rpc',
+      'google.golang.org/grpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'github.com/envoyproxy/protoc-gen-validate']
+    packages = [
+      'github.com/envoyproxy/protoc-gen-validate/validate'
+    ]
+    deps = [
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'github.com/fatih/color']
+    packages = [
+      'github.com/fatih/color'
+    ]
+    deps = [
+      'github.com/mattn/go-colorable',
+      'github.com/mattn/go-isatty'
+    ]
+
+  [cacheModules.'github.com/felixge/httpsnoop']
+    packages = [
+      'github.com/felixge/httpsnoop'
+    ]
+
+  [cacheModules.'github.com/fsnotify/fsnotify']
+    packages = [
+      'github.com/fsnotify/fsnotify'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/glebarez/go-sqlite']
+    packages = [
+      'github.com/glebarez/go-sqlite'
+    ]
+    deps = [
+      'golang.org/x/sys',
+      'modernc.org/libc',
+      'modernc.org/sqlite'
+    ]
+
+  [cacheModules.'github.com/glebarez/sqlite']
+    packages = [
+      'github.com/glebarez/sqlite'
+    ]
+    deps = [
+      'github.com/glebarez/go-sqlite',
+      'gorm.io/gorm',
+      'modernc.org/sqlite'
+    ]
+
+  [cacheModules.'github.com/go-jose/go-jose/v4']
+    packages = [
+      'github.com/go-jose/go-jose/v4',
+      'github.com/go-jose/go-jose/v4/cipher',
+      'github.com/go-jose/go-jose/v4/json'
+    ]
+
+  [cacheModules.'github.com/go-logr/logr']
+    packages = [
+      'github.com/go-logr/logr',
+      'github.com/go-logr/logr/funcr'
+    ]
+
+  [cacheModules.'github.com/go-logr/stdr']
+    packages = [
+      'github.com/go-logr/stdr'
+    ]
+    deps = [
+      'github.com/go-logr/logr'
+    ]
+
+  [cacheModules.'github.com/go-rod/rod']
+    packages = [
+      'github.com/go-rod/rod',
+      'github.com/go-rod/rod/lib/assets',
+      'github.com/go-rod/rod/lib/cdp',
+      'github.com/go-rod/rod/lib/defaults',
+      'github.com/go-rod/rod/lib/devices',
+      'github.com/go-rod/rod/lib/input',
+      'github.com/go-rod/rod/lib/js',
+      'github.com/go-rod/rod/lib/launcher',
+      'github.com/go-rod/rod/lib/launcher/flags',
+      'github.com/go-rod/rod/lib/proto',
+      'github.com/go-rod/rod/lib/utils'
+    ]
+    deps = [
+      'github.com/ysmood/fetchup',
+      'github.com/ysmood/goob',
+      'github.com/ysmood/got',
+      'github.com/ysmood/gson',
+      'github.com/ysmood/leakless'
+    ]
+
+  [cacheModules.'github.com/go-rod/stealth']
+    packages = [
+      'github.com/go-rod/stealth'
+    ]
+    deps = [
+      'github.com/go-rod/rod'
+    ]
+
+  [cacheModules.'github.com/go-viper/mapstructure/v2']
+    packages = [
+      'github.com/go-viper/mapstructure/v2'
+    ]
+
+  [cacheModules.'github.com/gofrs/flock']
+    packages = [
+      'github.com/gofrs/flock'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/google/s2a-go']
+    packages = [
+      'github.com/google/s2a-go',
+      'github.com/google/s2a-go/fallback',
+      'github.com/google/s2a-go/retry',
+      'github.com/google/s2a-go/stream'
+    ]
+    deps = [
+      'google.golang.org/grpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'github.com/google/uuid']
+    packages = [
+      'github.com/google/uuid'
+    ]
+
+  [cacheModules.'github.com/googleapis/enterprise-certificate-proxy']
+    packages = [
+      'github.com/googleapis/enterprise-certificate-proxy/client',
+      'github.com/googleapis/enterprise-certificate-proxy/client/util'
+    ]
+
+  [cacheModules.'github.com/googleapis/gax-go/v2']
+    packages = [
+      'github.com/googleapis/gax-go/v2',
+      'github.com/googleapis/gax-go/v2/apierror',
+      'github.com/googleapis/gax-go/v2/callctx',
+      'github.com/googleapis/gax-go/v2/iterator'
+    ]
+    deps = [
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/metric',
+      'google.golang.org/api',
+      'google.golang.org/genproto/googleapis/rpc',
+      'google.golang.org/grpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'github.com/gorilla/css']
+    packages = [
+      'github.com/gorilla/css/scanner'
+    ]
+
+  [cacheModules.'github.com/hashicorp/aws-sdk-go-base/v2']
+    packages = [
+      'github.com/hashicorp/aws-sdk-go-base/v2/endpoints'
+    ]
+
+  [cacheModules.'github.com/hashicorp/go-cleanhttp']
+    packages = [
+      'github.com/hashicorp/go-cleanhttp'
+    ]
+
+  [cacheModules.'github.com/hashicorp/go-version']
+    packages = [
+      'github.com/hashicorp/go-version'
+    ]
+
+  [cacheModules.'github.com/hpcloud/tail']
+    packages = [
+      'github.com/hpcloud/tail',
+      'github.com/hpcloud/tail/ratelimiter',
+      'github.com/hpcloud/tail/util',
+      'github.com/hpcloud/tail/watch'
+    ]
+    deps = [
+      'gopkg.in/fsnotify.v1',
+      'gopkg.in/tomb.v1'
+    ]
+
+  [cacheModules.'github.com/jeandeaual/go-locale']
+    packages = [
+      'github.com/jeandeaual/go-locale'
+    ]
+
+  [cacheModules.'github.com/jinzhu/inflection']
+    packages = [
+      'github.com/jinzhu/inflection'
+    ]
+
+  [cacheModules.'github.com/jinzhu/now']
+    packages = [
+      'github.com/jinzhu/now'
+    ]
+
+  [cacheModules.'github.com/joho/godotenv']
+    packages = [
+      'github.com/joho/godotenv'
+    ]
+
+  [cacheModules.'github.com/jupiterrider/ffi']
+    packages = [
+      'github.com/jupiterrider/ffi'
+    ]
+    deps = [
+      'github.com/ebitengine/purego'
+    ]
+
+  [cacheModules.'github.com/klauspost/compress']
+    packages = [
+      'github.com/klauspost/compress',
+      'github.com/klauspost/compress/fse',
+      'github.com/klauspost/compress/huff0',
+      'github.com/klauspost/compress/zstd'
+    ]
+
+  [cacheModules.'github.com/lucasb-eyer/go-colorful']
+    packages = [
+      'github.com/lucasb-eyer/go-colorful'
+    ]
+
+  [cacheModules.'github.com/mattn/go-colorable']
+    packages = [
+      'github.com/mattn/go-colorable'
+    ]
+    deps = [
+      'github.com/mattn/go-isatty'
+    ]
+
+  [cacheModules.'github.com/mattn/go-isatty']
+    packages = [
+      'github.com/mattn/go-isatty'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/mattn/go-runewidth']
+    packages = [
+      'github.com/mattn/go-runewidth'
+    ]
+    deps = [
+      'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/microcosm-cc/bluemonday']
+    packages = [
+      'github.com/microcosm-cc/bluemonday',
+      'github.com/microcosm-cc/bluemonday/css'
+    ]
+    deps = [
+      'github.com/aymerick/douceur',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/mitchellh/go-homedir']
+    packages = [
+      'github.com/mitchellh/go-homedir'
+    ]
+
+  [cacheModules.'github.com/mitchellh/hashstructure/v2']
+    packages = [
+      'github.com/mitchellh/hashstructure/v2'
+    ]
+
+  [cacheModules.'github.com/muesli/ansi']
+    packages = [
+      'github.com/muesli/ansi',
+      'github.com/muesli/ansi/compressor'
+    ]
+    deps = [
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/muesli/cancelreader']
+    packages = [
+      'github.com/muesli/cancelreader'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/muesli/reflow']
+    packages = [
+      'github.com/muesli/reflow/ansi',
+      'github.com/muesli/reflow/indent',
+      'github.com/muesli/reflow/padding',
+      'github.com/muesli/reflow/wordwrap'
+    ]
+    deps = [
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/muesli/termenv']
+    packages = [
+      'github.com/muesli/termenv'
+    ]
+    deps = [
+      'github.com/aymanbagabas/go-osc52/v2',
+      'github.com/lucasb-eyer/go-colorful',
+      'github.com/mattn/go-isatty',
+      'github.com/rivo/uniseg',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/nicksnyder/go-i18n/v2']
+    packages = [
+      'github.com/nicksnyder/go-i18n/v2/i18n',
+      'github.com/nicksnyder/go-i18n/v2/i18n/template'
+    ]
+    deps = [
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/pelletier/go-toml/v2']
+    packages = [
+      'github.com/pelletier/go-toml/v2',
+      'github.com/pelletier/go-toml/v2/unstable'
+    ]
+
+  [cacheModules.'github.com/remyoudompheng/bigfft']
+    packages = [
+      'github.com/remyoudompheng/bigfft'
+    ]
+
+  [cacheModules.'github.com/rivo/uniseg']
+    packages = [
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/robfig/cron/v3']
+    packages = [
+      'github.com/robfig/cron/v3'
+    ]
+
+  [cacheModules.'github.com/sagikazarmark/locafero']
+    packages = [
+      'github.com/sagikazarmark/locafero'
+    ]
+    deps = [
+      'github.com/spf13/afero'
+    ]
+
+  [cacheModules.'github.com/sashabaranov/go-openai']
+    packages = [
+      'github.com/sashabaranov/go-openai',
+      'github.com/sashabaranov/go-openai/jsonschema'
+    ]
+
+  [cacheModules.'github.com/sevlyar/go-daemon']
+    packages = [
+      'github.com/sevlyar/go-daemon'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/shirou/gopsutil/v4']
+    packages = [
+      'github.com/shirou/gopsutil/v4/common',
+      'github.com/shirou/gopsutil/v4/cpu',
+      'github.com/shirou/gopsutil/v4/disk',
+      'github.com/shirou/gopsutil/v4/host',
+      'github.com/shirou/gopsutil/v4/load',
+      'github.com/shirou/gopsutil/v4/mem',
+      'github.com/shirou/gopsutil/v4/net',
+      'github.com/shirou/gopsutil/v4/process'
+    ]
+    deps = [
+      'github.com/tklauser/go-sysconf',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/spf13/afero']
+    packages = [
+      'github.com/spf13/afero',
+      'github.com/spf13/afero/mem'
+    ]
+    deps = [
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/spf13/cast']
+    packages = [
+      'github.com/spf13/cast'
+    ]
+
+  [cacheModules.'github.com/spf13/cobra']
+    packages = [
+      'github.com/spf13/cobra'
+    ]
+    deps = [
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/spf13/pflag']
+    packages = [
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/spf13/viper']
+    packages = [
+      'github.com/spf13/viper'
+    ]
+    deps = [
+      'github.com/fsnotify/fsnotify',
+      'github.com/go-viper/mapstructure/v2',
+      'github.com/sagikazarmark/locafero',
+      'github.com/spf13/afero',
+      'github.com/spf13/cast',
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/spiffe/go-spiffe/v2']
+    packages = [
+      'github.com/spiffe/go-spiffe/v2/bundle/jwtbundle',
+      'github.com/spiffe/go-spiffe/v2/bundle/spiffebundle',
+      'github.com/spiffe/go-spiffe/v2/bundle/x509bundle',
+      'github.com/spiffe/go-spiffe/v2/exp/bundle/witbundle',
+      'github.com/spiffe/go-spiffe/v2/spiffeid'
+    ]
+    deps = [
+      'github.com/go-jose/go-jose/v4'
+    ]
+
+  [cacheModules.'github.com/subosito/gotenv']
+    packages = [
+      'github.com/subosito/gotenv'
+    ]
+    deps = [
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/tklauser/go-sysconf']
+    packages = [
+      'github.com/tklauser/go-sysconf'
+    ]
+    deps = [
+      'github.com/tklauser/numcpus',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/tklauser/numcpus']
+    packages = [
+      'github.com/tklauser/numcpus'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/ulikunitz/xz']
+    packages = [
+      'github.com/ulikunitz/xz',
+      'github.com/ulikunitz/xz/lzma'
+    ]
+
+  [cacheModules.'github.com/xo/terminfo']
+    packages = [
+      'github.com/xo/terminfo'
+    ]
+
+  [cacheModules.'github.com/ysmood/fetchup']
+    packages = [
+      'github.com/ysmood/fetchup'
+    ]
+
+  [cacheModules.'github.com/ysmood/goob']
+    packages = [
+      'github.com/ysmood/goob'
+    ]
+
+  [cacheModules.'github.com/ysmood/got']
+    packages = [
+      'github.com/ysmood/got/lib/lcs'
+    ]
+
+  [cacheModules.'github.com/ysmood/gson']
+    packages = [
+      'github.com/ysmood/gson'
+    ]
+
+  [cacheModules.'github.com/ysmood/leakless']
+    packages = [
+      'github.com/ysmood/leakless',
+      'github.com/ysmood/leakless/pkg/shared',
+      'github.com/ysmood/leakless/pkg/utils'
+    ]
+
+  [cacheModules.'github.com/yuin/goldmark']
+    packages = [
+      'github.com/yuin/goldmark',
+      'github.com/yuin/goldmark/ast',
+      'github.com/yuin/goldmark/extension',
+      'github.com/yuin/goldmark/extension/ast',
+      'github.com/yuin/goldmark/parser',
+      'github.com/yuin/goldmark/renderer',
+      'github.com/yuin/goldmark/renderer/html',
+      'github.com/yuin/goldmark/text',
+      'github.com/yuin/goldmark/util'
+    ]
+
+  [cacheModules.'github.com/yuin/goldmark-emoji']
+    packages = [
+      'github.com/yuin/goldmark-emoji',
+      'github.com/yuin/goldmark-emoji/ast',
+      'github.com/yuin/goldmark-emoji/definition'
+    ]
+    deps = [
+      'github.com/yuin/goldmark'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/auto/sdk']
+    packages = [
+      'go.opentelemetry.io/auto/sdk'
+    ]
+    deps = [
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/trace'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/contrib/detectors/gcp']
+    packages = [
+      'go.opentelemetry.io/contrib/detectors/gcp'
+    ]
+    deps = [
+      'cloud.google.com/go/compute/metadata',
+      'github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp',
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/sdk'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc']
+    packages = [
+      'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc'
+    ]
+    deps = [
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/metric',
+      'go.opentelemetry.io/otel/trace',
+      'google.golang.org/grpc'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp']
+    packages = [
+      'go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp'
+    ]
+    deps = [
+      'github.com/felixge/httpsnoop',
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/metric',
+      'go.opentelemetry.io/otel/trace'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/otel']
+    packages = [
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/attribute',
+      'go.opentelemetry.io/otel/baggage',
+      'go.opentelemetry.io/otel/codes',
+      'go.opentelemetry.io/otel/propagation',
+      'go.opentelemetry.io/otel/semconv/v1.37.0',
+      'go.opentelemetry.io/otel/semconv/v1.37.0/rpcconv',
+      'go.opentelemetry.io/otel/semconv/v1.41.0',
+      'go.opentelemetry.io/otel/semconv/v1.41.0/httpconv',
+      'go.opentelemetry.io/otel/semconv/v1.41.0/otelconv',
+      'go.opentelemetry.io/otel/semconv/v1.41.0/rpcconv'
+    ]
+    deps = [
+      'github.com/go-logr/logr',
+      'go.opentelemetry.io/otel/metric',
+      'go.opentelemetry.io/otel/trace'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/otel/metric']
+    packages = [
+      'go.opentelemetry.io/otel/metric',
+      'go.opentelemetry.io/otel/metric/embedded',
+      'go.opentelemetry.io/otel/metric/noop'
+    ]
+    deps = [
+      'go.opentelemetry.io/otel'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/otel/sdk']
+    packages = [
+      'go.opentelemetry.io/otel/sdk',
+      'go.opentelemetry.io/otel/sdk/instrumentation',
+      'go.opentelemetry.io/otel/sdk/resource'
+    ]
+    deps = [
+      'github.com/google/uuid',
+      'go.opentelemetry.io/otel',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/otel/sdk/metric']
+    packages = [
+      'go.opentelemetry.io/otel/sdk/metric',
+      'go.opentelemetry.io/otel/sdk/metric/exemplar',
+      'go.opentelemetry.io/otel/sdk/metric/metricdata'
+    ]
+    deps = [
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/metric',
+      'go.opentelemetry.io/otel/sdk',
+      'go.opentelemetry.io/otel/trace'
+    ]
+
+  [cacheModules.'go.opentelemetry.io/otel/trace']
+    packages = [
+      'go.opentelemetry.io/otel/trace',
+      'go.opentelemetry.io/otel/trace/embedded',
+      'go.opentelemetry.io/otel/trace/noop'
+    ]
+    deps = [
+      'go.opentelemetry.io/otel'
+    ]
+
+  [cacheModules.'go.yaml.in/yaml/v3']
+    packages = [
+      'go.yaml.in/yaml/v3'
+    ]
+
+  [cacheModules.'golang.org/x/crypto']
+    packages = [
+      'golang.org/x/crypto/chacha20',
+      'golang.org/x/crypto/chacha20poly1305',
+      'golang.org/x/crypto/cryptobyte',
+      'golang.org/x/crypto/cryptobyte/asn1',
+      'golang.org/x/crypto/hkdf'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/net']
+    packages = [
+      'golang.org/x/net/html',
+      'golang.org/x/net/html/atom',
+      'golang.org/x/net/http/httpguts',
+      'golang.org/x/net/http2',
+      'golang.org/x/net/http2/hpack',
+      'golang.org/x/net/idna',
+      'golang.org/x/net/publicsuffix',
+      'golang.org/x/net/trace'
+    ]
+    deps = [
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'golang.org/x/oauth2']
+    packages = [
+      'golang.org/x/oauth2',
+      'golang.org/x/oauth2/authhandler',
+      'golang.org/x/oauth2/google',
+      'golang.org/x/oauth2/google/externalaccount',
+      'golang.org/x/oauth2/jws',
+      'golang.org/x/oauth2/jwt'
+    ]
+    deps = [
+      'cloud.google.com/go/compute/metadata'
+    ]
+
+  [cacheModules.'golang.org/x/sync']
+    packages = [
+      'golang.org/x/sync/semaphore'
+    ]
+
+  [cacheModules.'golang.org/x/sys']
+    packages = [
+      'golang.org/x/sys/cpu',
+      'golang.org/x/sys/unix'
+    ]
+
+  [cacheModules.'golang.org/x/term']
+    packages = [
+      'golang.org/x/term'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/text']
+    packages = [
+      'golang.org/x/text/cases',
+      'golang.org/x/text/encoding',
+      'golang.org/x/text/encoding/unicode',
+      'golang.org/x/text/language',
+      'golang.org/x/text/runes',
+      'golang.org/x/text/secure/bidirule',
+      'golang.org/x/text/transform',
+      'golang.org/x/text/unicode/bidi',
+      'golang.org/x/text/unicode/norm'
+    ]
+
+  [cacheModules.'golang.org/x/time']
+    packages = [
+      'golang.org/x/time/rate'
+    ]
+
+  [cacheModules.'google.golang.org/api']
+    packages = [
+      'google.golang.org/api/googleapi',
+      'google.golang.org/api/googleapi/transport',
+      'google.golang.org/api/iamcredentials/v1',
+      'google.golang.org/api/iterator',
+      'google.golang.org/api/option',
+      'google.golang.org/api/storage/v1',
+      'google.golang.org/api/transport',
+      'google.golang.org/api/transport/grpc',
+      'google.golang.org/api/transport/http'
+    ]
+    deps = [
+      'cloud.google.com/go/auth',
+      'cloud.google.com/go/auth/oauth2adapt',
+      'cloud.google.com/go/compute/metadata',
+      'github.com/googleapis/gax-go/v2',
+      'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc',
+      'go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp',
+      'golang.org/x/net',
+      'golang.org/x/oauth2',
+      'golang.org/x/time',
+      'google.golang.org/grpc'
+    ]
+
+  [cacheModules.'google.golang.org/genproto']
+    packages = [
+      'google.golang.org/genproto/googleapis/type/calendarperiod',
+      'google.golang.org/genproto/googleapis/type/date',
+      'google.golang.org/genproto/googleapis/type/expr',
+      'google.golang.org/genproto/googleapis/type/timeofday'
+    ]
+    deps = [
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/genproto/googleapis/api']
+    packages = [
+      'google.golang.org/genproto/googleapis/api',
+      'google.golang.org/genproto/googleapis/api/annotations',
+      'google.golang.org/genproto/googleapis/api/distribution',
+      'google.golang.org/genproto/googleapis/api/expr/v1alpha1',
+      'google.golang.org/genproto/googleapis/api/label',
+      'google.golang.org/genproto/googleapis/api/metric',
+      'google.golang.org/genproto/googleapis/api/monitoredres'
+    ]
+    deps = [
+      'google.golang.org/genproto/googleapis/rpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/genproto/googleapis/rpc']
+    packages = [
+      'google.golang.org/genproto/googleapis/rpc/code',
+      'google.golang.org/genproto/googleapis/rpc/errdetails',
+      'google.golang.org/genproto/googleapis/rpc/status'
+    ]
+    deps = [
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/grpc']
+    packages = [
+      'google.golang.org/grpc',
+      'google.golang.org/grpc/attributes',
+      'google.golang.org/grpc/authz/audit',
+      'google.golang.org/grpc/authz/audit/stdout',
+      'google.golang.org/grpc/backoff',
+      'google.golang.org/grpc/balancer',
+      'google.golang.org/grpc/balancer/base',
+      'google.golang.org/grpc/balancer/endpointsharding',
+      'google.golang.org/grpc/balancer/grpclb',
+      'google.golang.org/grpc/balancer/grpclb/grpc_lb_v1',
+      'google.golang.org/grpc/balancer/grpclb/state',
+      'google.golang.org/grpc/balancer/lazy',
+      'google.golang.org/grpc/balancer/leastrequest',
+      'google.golang.org/grpc/balancer/pickfirst',
+      'google.golang.org/grpc/balancer/ringhash',
+      'google.golang.org/grpc/balancer/rls',
+      'google.golang.org/grpc/balancer/roundrobin',
+      'google.golang.org/grpc/balancer/weightedroundrobin',
+      'google.golang.org/grpc/balancer/weightedtarget',
+      'google.golang.org/grpc/balancer/weightedtarget/weightedaggregator',
+      'google.golang.org/grpc/binarylog/grpc_binarylog_v1',
+      'google.golang.org/grpc/channelz',
+      'google.golang.org/grpc/codes',
+      'google.golang.org/grpc/connectivity',
+      'google.golang.org/grpc/credentials',
+      'google.golang.org/grpc/credentials/alts',
+      'google.golang.org/grpc/credentials/google',
+      'google.golang.org/grpc/credentials/insecure',
+      'google.golang.org/grpc/credentials/jwt',
+      'google.golang.org/grpc/credentials/oauth',
+      'google.golang.org/grpc/credentials/tls/certprovider',
+      'google.golang.org/grpc/credentials/tls/certprovider/pemfile',
+      'google.golang.org/grpc/encoding',
+      'google.golang.org/grpc/encoding/gzip',
+      'google.golang.org/grpc/encoding/proto',
+      'google.golang.org/grpc/experimental/opentelemetry',
+      'google.golang.org/grpc/experimental/stats',
+      'google.golang.org/grpc/grpclog',
+      'google.golang.org/grpc/keepalive',
+      'google.golang.org/grpc/mem',
+      'google.golang.org/grpc/metadata',
+      'google.golang.org/grpc/orca',
+      'google.golang.org/grpc/peer',
+      'google.golang.org/grpc/resolver',
+      'google.golang.org/grpc/resolver/dns',
+      'google.golang.org/grpc/resolver/manual',
+      'google.golang.org/grpc/resolver/ringhash',
+      'google.golang.org/grpc/serviceconfig',
+      'google.golang.org/grpc/stats',
+      'google.golang.org/grpc/stats/opentelemetry',
+      'google.golang.org/grpc/status',
+      'google.golang.org/grpc/tap',
+      'google.golang.org/grpc/xds',
+      'google.golang.org/grpc/xds/bootstrap',
+      'google.golang.org/grpc/xds/csds',
+      'google.golang.org/grpc/xds/googledirectpath'
+    ]
+    deps = [
+      'github.com/cespare/xxhash/v2',
+      'github.com/cncf/xds/go',
+      'github.com/envoyproxy/go-control-plane/envoy',
+      'github.com/google/uuid',
+      'github.com/spiffe/go-spiffe/v2',
+      'go.opentelemetry.io/otel',
+      'go.opentelemetry.io/otel/metric',
+      'go.opentelemetry.io/otel/trace',
+      'golang.org/x/net',
+      'golang.org/x/oauth2',
+      'google.golang.org/genproto/googleapis/rpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/protobuf']
+    packages = [
+      'google.golang.org/protobuf/encoding/protojson',
+      'google.golang.org/protobuf/encoding/prototext',
+      'google.golang.org/protobuf/encoding/protowire',
+      'google.golang.org/protobuf/proto',
+      'google.golang.org/protobuf/protoadapt',
+      'google.golang.org/protobuf/reflect/protoreflect',
+      'google.golang.org/protobuf/reflect/protoregistry',
+      'google.golang.org/protobuf/runtime/protoiface',
+      'google.golang.org/protobuf/runtime/protoimpl',
+      'google.golang.org/protobuf/types/descriptorpb',
+      'google.golang.org/protobuf/types/known/anypb',
+      'google.golang.org/protobuf/types/known/durationpb',
+      'google.golang.org/protobuf/types/known/emptypb',
+      'google.golang.org/protobuf/types/known/fieldmaskpb',
+      'google.golang.org/protobuf/types/known/structpb',
+      'google.golang.org/protobuf/types/known/timestamppb',
+      'google.golang.org/protobuf/types/known/wrapperspb'
+    ]
+
+  [cacheModules.'gopkg.in/fsnotify.v1']
+    packages = [
+      'gopkg.in/fsnotify.v1'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'gopkg.in/telebot.v3']
+    packages = [
+      'gopkg.in/telebot.v3'
+    ]
+
+  [cacheModules.'gopkg.in/tomb.v1']
+    packages = [
+      'gopkg.in/tomb.v1'
+    ]
+
+  [cacheModules.'gopkg.in/yaml.v2']
+    packages = [
+      'gopkg.in/yaml.v2'
+    ]
+
+  [cacheModules.'gorm.io/gorm']
+    packages = [
+      'gorm.io/gorm',
+      'gorm.io/gorm/callbacks',
+      'gorm.io/gorm/clause',
+      'gorm.io/gorm/logger',
+      'gorm.io/gorm/migrator',
+      'gorm.io/gorm/schema',
+      'gorm.io/gorm/utils'
+    ]
+    deps = [
+      'github.com/jinzhu/inflection',
+      'github.com/jinzhu/now',
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'modernc.org/libc']
+    packages = [
+      'modernc.org/libc',
+      'modernc.org/libc/sys/types',
+      'modernc.org/libc/uuid/uuid'
+    ]
+    deps = [
+      'github.com/dustin/go-humanize',
+      'github.com/google/uuid',
+      'golang.org/x/sys',
+      'modernc.org/mathutil',
+      'modernc.org/memory'
+    ]
+
+  [cacheModules.'modernc.org/mathutil']
+    packages = [
+      'modernc.org/mathutil'
+    ]
+    deps = [
+      'github.com/remyoudompheng/bigfft'
+    ]
+
+  [cacheModules.'modernc.org/memory']
+    packages = [
+      'modernc.org/memory'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'modernc.org/sqlite']
+    packages = [
+      'modernc.org/sqlite/lib'
+    ]
+    deps = [
+      'modernc.org/libc'
+    ]
