@@ -149,8 +149,8 @@
           echo "Regenerating $lockfile"
           handled[$attr]=1
 
-          # The package names the Flutter it resolves against; the runner stays generic.
-          flutter="$(nix build --no-link --print-out-paths ".#packages.${system}.''${attr}.pubLockFlutter")/bin/flutter"
+          # The package names the SDK it resolves against; the runner stays generic.
+          sdk="$(nix build --no-link --print-out-paths ".#packages.${system}.''${attr}.pubLockFlutter")"
           src=$(nix build --no-link --print-out-paths --impure --expr "($sources_expr).\"$attr\".src")
 
           tmp=$(mktemp -d)
@@ -163,11 +163,20 @@
             export PUB_CACHE="''${PUB_CACHE:-$tmp/pub-cache}"
             mkdir -p "$HOME"
             cd "$tmp/src"
-            "$flutter" --no-version-check config --no-analytics >/dev/null
-            "$flutter" --no-version-check pub get >&2
+            "$sdk/bin/flutter" --no-version-check config --no-analytics >/dev/null
+            "$sdk/bin/flutter" --no-version-check pub get >&2
           )
 
           yq eval --output-format=json --prettyPrint "$tmp/src/pubspec.lock" >"$lockfile"
+
+          # A Flutter SDK is several gigabytes and is only needed when upstream
+          # releases, but gc-store roots every package's build closure — so an SDK
+          # left behind here would ride the shared store cache from now on. Nix
+          # keeps whatever is still live, so a partial sweep is expected and fine.
+          echo "Dropping the $attr SDK from the store"
+          nix-store --query --requisites "$sdk" >"$tmp/sdk-paths"
+          xargs -a "$tmp/sdk-paths" -r sudo "$(command -v nix-store)" --delete || true
+
           rm -rf "$tmp"
         else
           echo "Skipping $lockfile: no matching flake package" >&2

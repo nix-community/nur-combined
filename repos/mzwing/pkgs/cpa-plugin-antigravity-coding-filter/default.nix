@@ -50,6 +50,11 @@ in
       runHook postInstall
     '';
 
+    # buildPhase above displaces goBuildHook, the only thing that writes the file goCheckHook then sources.
+    preCheck = ''
+      touch "$TMPDIR/buildFlagsArray"
+    '';
+
     doCheck = true;
 
     doInstallCheck = true;

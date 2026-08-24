@@ -19,6 +19,16 @@
     gst-plugins-good
     gst-plugins-bad
   ];
+
+  # The same narrowing `buildFlutterApplication` applies internally, named here so
+  # resolving the lock reuses the build's SDK closure instead of realizing a second
+  # one that also carries the unused Android and Web engine artifacts.
+  flutterForPub = flutter344.override {
+    supportedTargetFlutterPlatforms = [
+      "universal"
+      "linux"
+    ];
+  };
 in
   flutter344.buildFlutterApplication {
     inherit pname src version;
@@ -75,7 +85,7 @@ in
     '';
 
     # update-lockfiles resolves pubspec.lock with this; the version lives here only.
-    passthru.pubLockFlutter = flutter344;
+    passthru.pubLockFlutter = flutterForPub;
 
     doInstallCheck = true;
     installCheckPhase = ''
