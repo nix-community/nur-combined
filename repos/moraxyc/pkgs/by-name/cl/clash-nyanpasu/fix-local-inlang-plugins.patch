@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index ef78a4a..5ce37a8 100644
+index 1bb17d7..dfaf1ef 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -27,7 +27,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index b416d30..129703b 100644
+index 0749739..5ad740a 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -129,7 +129,7 @@ index b416d30..129703b 100644
  
 @@ -7739,6 +7783,14 @@ snapshots:
        typescript: 7.0.2
-       vite: 8.2.2(@types/node@24.13.3)(jiti@2.7.0)(less@4.9.0(supports-color@10.2.2))(sass-embedded@1.102.0)(sass@1.102.0)(terser@5.36.0)(yaml@2.9.0)
+       vite: 8.2.2(@types/node@24.13.3)(jiti@2.7.0)(less@4.9.0(supports-color@10.2.2))(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
 +  '@inlang/plugin-m-function-matcher@2.2.12':
 +    dependencies:
