@@ -1,4 +1,5 @@
 {
+  fcitx5,
   fcitx5-rime,
   fetchpatch,
   librime,
@@ -16,5 +17,5 @@ let
 in
 fcitx5-rime'.override {
   rimeDataPkgs = [ ];
-  inherit librime;
+  inherit fcitx5 librime;
 }

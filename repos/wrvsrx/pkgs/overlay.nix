@@ -28,6 +28,7 @@ let
     ptrace-time-hook = callPackage ./ptrace-time-hook { source = sources.ptrace-time-hook; };
 
     # override packages
+    fcitx5 = callPackage ./fcitx5 { inherit (prev) fcitx5; };
     pam_ssh_agent_auth = callPackage ./pam_ssh_agent_auth { inherit (prev) pam_ssh_agent_auth; };
     xclip = callPackage ./xclip {
       inherit (prev) xclip;
@@ -36,7 +37,7 @@ let
     librime = callPackage ./librime { inherit (prev) librime; };
     fcitx5-rime = callPackage ./fcitx5-rime {
       inherit (prev) fcitx5-rime;
-      inherit (final) librime;
+      inherit (final) fcitx5 librime;
     };
     niri = callPackage ./niri { inherit (prev) niri; };
     neovim-unwrapped = callPackage ./neovim-unwrapped { inherit (prev) neovim-unwrapped; };
