@@ -76,7 +76,6 @@ stdenv.mkDerivation {
     cp -r usr/lib $out/lib
     cp -r usr/libexec/xPilot $out/libexec/xPilot
 
-    # Icons (only the client's, not the bundled installer's).
     for size in 256x256 512x512; do
       install -Dm644 usr/share/icons/hicolor/$size/apps/xpilot.png \
         $out/share/icons/hicolor/$size/apps/xpilot.png
