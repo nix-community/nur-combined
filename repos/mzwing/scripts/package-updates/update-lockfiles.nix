@@ -13,6 +13,7 @@
       pkgs.nix
       pkgs.crate2nix
       pkgs.cargo
+      pkgs.yq-go
       gomod2nix
     ];
     text = ''
@@ -125,10 +126,58 @@
         fi
       done < <(find pkgs -name gomod2nix.toml)
 
+      # Regenerate committed pub locks for changed Flutter sources. Upstream projects
+      # often gitignore pubspec.lock, so resolution happens here and lands as JSON.
+      while IFS= read -r lockfile; do
+        attr="$(basename "$(dirname "$lockfile")")"
+        if [[ "''${#forced[@]}" -gt 0 ]]; then
+          is_forced "$attr" || continue
+        fi
+        # Flutter packages are Linux-only here, so darwin runs skip them.
+        if nix eval ".#packages.${system}.$attr.pname" >/dev/null 2>&1; then
+          if ! is_forced "$attr"; then
+            new_entry=$(jq --compact-output --arg name "$attr" '.[$name]' _sources/generated.json)
+            if [[ "$new_entry" == "null" ]]; then
+              echo "Note: $attr has no source in _sources/generated.json; cannot detect changes, regenerating anyway" >&2
+            elif ! source_changed "$attr"; then
+              # Always replace placeholder locks that resolved nothing.
+              if [[ "$(jq '.packages | length' "$lockfile")" -gt 0 ]]; then
+                continue
+              fi
+            fi
+          fi
+          echo "Regenerating $lockfile"
+          handled[$attr]=1
+
+          # The package names the Flutter it resolves against; the runner stays generic.
+          flutter="$(nix build --no-link --print-out-paths ".#packages.${system}.''${attr}.pubLockFlutter")/bin/flutter"
+          src=$(nix build --no-link --print-out-paths --impure --expr "($sources_expr).\"$attr\".src")
+
+          tmp=$(mktemp -d)
+          cp -r "$src/." "$tmp/src"
+          chmod -R u+w "$tmp/src"
+
+          # Pub resolution needs a writable HOME and network access.
+          (
+            export HOME="$tmp/home"
+            export PUB_CACHE="''${PUB_CACHE:-$tmp/pub-cache}"
+            mkdir -p "$HOME"
+            cd "$tmp/src"
+            "$flutter" --no-version-check config --no-analytics >/dev/null
+            "$flutter" --no-version-check pub get >&2
+          )
+
+          yq eval --output-format=json --prettyPrint "$tmp/src/pubspec.lock" >"$lockfile"
+          rm -rf "$tmp"
+        else
+          echo "Skipping $lockfile: no matching flake package" >&2
+        fi
+      done < <(find pkgs -name pubspec.lock.json)
+
       # Warn about unmatched forced names.
       for arg in "''${!forced[@]}"; do
         if [[ -z "''${handled[$arg]:-}" ]]; then
-          echo "WARNING: forced package $arg was not regenerated (not a crate2nix/gomod2nix package or no matching flake package)" >&2
+          echo "WARNING: forced package $arg was not regenerated (not a crate2nix/gomod2nix/pub package or no matching flake package)" >&2
         fi
       done
     '';
@@ -137,6 +186,6 @@ in {
   update-lockfiles = {
     type = "app";
     program = "${script}/bin/update-lockfiles";
-    meta.description = "Regenerate crate2nix Cargo.nix and gomod2nix.toml lockfiles for changed sources";
+    meta.description = "Regenerate crate2nix Cargo.nix, gomod2nix.toml and pubspec.lock.json lockfiles for changed sources";
   };
 }

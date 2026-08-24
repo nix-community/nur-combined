@@ -250,6 +250,48 @@
         },
         "version": "v2.26.3"
     },
+    "kelivo": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kelivo",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Chevey339",
+            "repo": "kelivo",
+            "rev": "v1.2.3",
+            "sha256": "sha256-wTlHFJizR4aNm/TJbewKZPKwe01PYOGkXkM/Qsax71o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.2.3"
+    },
+    "magic-context": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "magic-context",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "cortexkit",
+            "repo": "magic-context",
+            "rev": "v0.39.0",
+            "sha256": "sha256-42eamPU7+MXeQbAs+n6VSzKYSZyej/XYHk7RK5uDiuw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.39.0"
+    },
     "manboster": {
         "cargoLock": null,
         "date": null,

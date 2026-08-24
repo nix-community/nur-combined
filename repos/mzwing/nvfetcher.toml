@@ -58,6 +58,17 @@ fetch.github = "Icalingua-plus-plus/Icalingua-plus-plus"
 src.github_tag = "Icalingua-plus-plus/Icalingua-plus-plus"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[kelivo]
+fetch.github = "Chevey339/kelivo"
+src.github_tag = "Chevey339/kelivo"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
+# The regex excludes the dashboard's own `dashboard-v*` tag series.
+[magic-context]
+fetch.github = "cortexkit/magic-context"
+src.github_tag = "cortexkit/magic-context"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
 [manboster]
 fetch.github = "manboster/manboster"
 src.github_tag = "manboster/manboster"
