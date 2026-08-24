@@ -53,10 +53,18 @@ check_stale() {
 nix_build_hash() {
   local expr="$1"
   local label="$2"
-  build_output=$(nix build --impure --expr "$expr" 2>&1) || true
+  # fd3 暂存真实 stdout 的指向，供管道内把 nix 的 stdout 送回终端直通
+  exec 3>&1
+  # stderr（含 -L 构建日志与失败信息）经 tee 实时回显，同时流入下游提取 hash；
+  # 2>&1 1>&3：stderr 并入管道，stdout 经 fd3 直通终端；末尾 || true 兜底 grep 无匹配时的退出码
   echo "$label build output is:"
-  echo "$build_output"
-  extracted_hash=$(tr -s ' ' <<<$build_output | grep -Po "got: \K.+$")
+  extracted_hash=$(
+    { nix build -L --impure --expr "$expr" 2>&1 1>&3 || true; } |
+      tee /dev/stderr |
+      tr -s ' ' |
+      grep -Po "got: \K.+$" || true
+  )
+  exec 3>&-
   if [ -z "$extracted_hash" ]; then
     echo "Failed to extract hash from build output."
     exit 1
