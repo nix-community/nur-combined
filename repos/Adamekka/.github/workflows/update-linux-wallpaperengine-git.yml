@@ -1,0 +1,49 @@
+name: Update linux-wallpaperengine-git
+
+on:
+  schedule:
+    - cron: "15 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Update linux-wallpaperengine-git
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+
+      - name: Update package
+        env:
+          # nix-update starts nested Nix commands, so this must be inherited rather
+          # than passed only to the outer `nix run`.
+          NIX_CONFIG: |
+            fallback = true
+        run: |
+          nix run nixpkgs#nix-update -- --flake --use-update-script linux-wallpaperengine-git
+
+          if ! git diff --quiet pkgs/linux-wallpaperengine-git/default.nix; then
+            nix build --no-link .#linux-wallpaperengine-git
+          fi
+
+      - name: Commit and push package update
+        run: |
+          if git diff --quiet pkgs/linux-wallpaperengine-git/default.nix; then
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs/linux-wallpaperengine-git/default.nix
+          git commit -m "Update linux-wallpaperengine-git"
+          git push origin HEAD:main
