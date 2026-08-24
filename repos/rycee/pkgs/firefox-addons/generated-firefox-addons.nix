@@ -3168,10 +3168,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "7.5.1";
+      version = "8.0.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4896991/dictionaries-7.5.1.xpi";
-      sha256 = "170a3bf8b6b512add8b0b4c03af621d1e0782bd2897b5b29513eeef2728fd603";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4977278/dictionaries-8.0.0.xpi";
+      sha256 = "310be98a253dadcd772bc1b3a484b282eca4fa8dd312221616d52d3170b77228";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -14256,10 +14256,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.3.8";
+      version = "3.3.9";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4899523/statshunters-3.3.8.xpi";
-      sha256 = "6c255d6c5cc77152e3b8ecf81fec2036d3e907f188a5764da4dbe2c95e90f5c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4976291/statshunters-3.3.9.xpi";
+      sha256 = "877897e654d8f67af7193a72b055044e563b33c37ae2f86a805665cb578050aa";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -15926,10 +15926,10 @@
     };
     "ukrainian-dictionary" = buildMozillaXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.8.0";
+      version = "6.8.5";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4776321/ukrainian_dictionary-6.8.0.xpi";
-      sha256 = "92814fa9d8da587f7a975c8003be6b54b9c434c47d9adea117fdf219c6419f6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4977583/ukrainian_dictionary-6.8.5.xpi";
+      sha256 = "994628fce3e81e633b17f27c6086738e691cd973b470cf853f1d0a1e92f5aaba";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
