@@ -1,162 +1,343 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash --pure --keep GITHUB_TOKEN -p nix curl cacert jq
+#!nix-shell -i python3 --pure --keep GITHUB_TOKEN -p python3 nix curl cacert
+# ruff: noqa: EXE005
 
-set -euo pipefail
+import json
+import re
+import subprocess
+import sys
+from dataclasses import dataclass
+from datetime import datetime, timezone
+from functools import total_ordering
+from pathlib import Path
+from typing import NamedTuple
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$script_dir"
+SCRIPT_DIR = Path(__file__).resolve().parent
+SOURCES_NIX = SCRIPT_DIR / "sources.nix"
+SRI_SCRIPT = SCRIPT_DIR / "../../.github/script/fetch-sri-hash.sh"
 
-# ── 日志函数 ──────────────────────────────────────────────
-log_info()    { echo "[INFO] $*"; }
-log_warn()    { echo "[WARN] $*"; }
-log_success() { echo "[OK]   $*"; }
-log_skip()    { echo "[SKIP] $*"; }
+PLATFORM_KEYS = ("aarch64-darwin", "aarch64-linux", "x86_64-linux")
 
-# ── 回退机制 ──────────────────────────────────────────────
-backup="$(mktemp)"
-cp "sources.nix" "$backup" 2>/dev/null || true
-rollback() { log_warn "更新失败，回滚 sources.nix"; cp "$backup" "sources.nix" 2>/dev/null || true; }
-trap rollback EXIT
 
-# ── 工具函数 ──────────────────────────────────────────────
+@total_ordering
+@dataclass(frozen=True)
+class Version:
+    semver: tuple[int, ...]
+    date_str: str
 
-fetch_payload() { curl -s "$1" | grep -oP 'var params\s*=\s*\K\{[^;]*\}'; }
-extract_version() { jq -r .version <<<"$1"; }
-fetch_sri_hash() { "$script_dir/../../.github/script/fetch-sri-hash.sh" "$1"; }
-version_gt() { [[ "$(printf '%s\n%s' "$1" "$2" | sort -V | tail -n1)" == "$1" && "$1" != "$2" ]]; }
+    @property
+    def full(self) -> str:
+        semver_str = ".".join(str(x) for x in self.semver)
+        return f"{semver_str}-{self.date_str}"
 
-get_attr_field() {
-    local attr="$1" field="$2"
-    if [[ -f sources.nix ]]; then
-        sed -n "/${attr} = {/,/};/p" sources.nix \
-            | grep "${field} =" \
-            | awk -F\" '{printf "%s", $2}'
-    fi
-}
+    def __lt__(self, other: "Version") -> bool:
+        if self.semver != other.semver:
+            return self.semver < other.semver
+        return self.date_str < other.date_str
 
-extract_vernum() {
-    local platform="$1" raw_version="$2"
-    if [[ "$platform" == "darwin" ]]; then
-        sed 's/ *(.*)//' <<<"$raw_version"
-    else
-        awk -F'[- ]' '{print $1}' <<<"$raw_version"
-    fi
-}
+    @classmethod
+    def parse_url(cls, url: str, fallback_date: str | None = None) -> "Version":
+        filename = url.split("/")[-1]
+        semver_match = re.search(
+            r"[Qq][Qq](?:[Nn][Tt])?[-._]?([0-9]+(?:\.[0-9]+)+)", filename
+        )
+        if not semver_match:
+            raise ValueError(f"Cannot parse SemVer from: {filename} (URL: {url})")
+        semver = tuple(int(x) for x in semver_match.group(1).split("."))
 
-check_and_update() {
-    local platform="$1" arch="$2" old_raw_version="$3"
-    local new_raw_version="$4" new_url="$5"
-    local old_vernum="" new_vernum=""
+        match_8d = re.search(
+            r"_([2][0-9]{3})([0-1][0-9])([0-3][0-9])(?=_|\.|$)", filename
+        )
+        if match_8d:
+            ver_date = f"{match_8d.group(1)}-{match_8d.group(2)}-{match_8d.group(3)}"
+        else:
+            match_6d = re.search(
+                r"_([0-9]{2})([0-1][0-9])([0-3][0-9])(?=_|\.|$)", filename
+            )
+            if match_6d:
+                ver_date = (
+                    f"20{match_6d.group(1)}-{match_6d.group(2)}-{match_6d.group(3)}"
+                )
+            else:
+                ver_date = (
+                    fallback_date
+                    if (
+                        fallback_date
+                        and re.match(r"^\d{4}-\d{2}-\d{2}$", fallback_date)
+                    )
+                    else datetime.now(tz=timezone.utc).date().isoformat()
+                )
 
-    new_vernum=$(extract_vernum "$platform" "$new_raw_version")
+        return cls(semver=semver, date_str=ver_date)
 
-    if [[ -n "$old_raw_version" ]]; then
-        old_vernum=$(extract_vernum "$platform" "$old_raw_version")
-    fi
+    @classmethod
+    def from_exact_str(cls, ver_str: str) -> "Version":
+        match = re.match(r"^(\d+(?:\.\d+)+)-(\d{4}-\d{2}-\d{2})$", ver_str.strip())
+        if not match:
+            raise ValueError(f"Corrupted version format in sources.nix: '{ver_str}'")
+        semver = tuple(int(x) for x in match.group(1).split("."))
+        return cls(semver=semver, date_str=match.group(2))
 
-    if [[ -z "$old_vernum" ]] || version_gt "$new_vernum" "$old_vernum"; then
-        log_info "$platform $arch: ${old_vernum:-无} -> $new_vernum"
-        FINAL_VERSION="${new_vernum}-${today}"
-        FINAL_URL="$new_url"
-        FINAL_HASH="$(fetch_sri_hash "$new_url")"
-        NEED_UPDATE=true
-    else
-        log_skip "$platform $arch: $new_vernum (≤ $old_vernum)"
-        FINAL_VERSION="$old_raw_version"
-        FINAL_URL="$(get_attr_field "${arch}-${platform}" url)"
-        FINAL_HASH="$(get_attr_field "${arch}-${platform}" hash)"
-        NEED_UPDATE=false
-    fi
-}
 
-# ── 主流程 ────────────────────────────────────────────────
-update_needed=false
-today=$(date +%F)
+class Source(NamedTuple):
+    version: Version
+    url: str
+    sri_hash: str = ""
 
-# macOS
-darwin_payload=$(fetch_payload "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/macOSConfig.js")
-darwin_raw_version=$(extract_version "$darwin_payload")
-darwin_url=$(jq -r .downloadUrl <<<"$darwin_payload")
-old_darwin_version=$(get_attr_field "any-darwin" version)
 
-NEED_UPDATE=false
-check_and_update "darwin" "any" "$old_darwin_version" "$darwin_raw_version" "$darwin_url"
-darwin_need_update=$NEED_UPDATE
-darwin_final_version=$FINAL_VERSION
-darwin_final_url=$FINAL_URL
-darwin_final_hash=$FINAL_HASH
+def extract_balanced_json(text: str, marker: str = "var params") -> str:
+    idx = text.find(marker)
+    if idx == -1:
+        raise RuntimeError(f"Marker '{marker}' not found in response")
+    i = text.find("{", idx)
+    if i == -1:
+        raise RuntimeError("Opening brace '{' not found in response")
 
-# Linux
-linux_payload=$(fetch_payload "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js")
-linux_raw_version=$(extract_version "$linux_payload")
+    depth = 0
+    in_str = False
+    esc = False
 
-declare -A linux_final_version linux_final_url linux_final_hash linux_need_update
+    for j in range(i, len(text)):
+        c = text[j]
+        if in_str:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                in_str = False
+            continue
+        if c == '"':
+            in_str = True
+        elif c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                return text[i : j + 1]
 
-for arch in aarch64 x86_64; do
-    if [[ "$arch" == "aarch64" ]]; then
-        linux_url=$(jq -r .armDownloadUrl.deb <<<"$linux_payload")
-    else
-        linux_url=$(jq -r .x64DownloadUrl.deb <<<"$linux_payload")
-    fi
+    raise RuntimeError("Unbalanced braces in JSON payload")
 
-    old_linux_version=$(get_attr_field "${arch}-linux" version)
 
-    NEED_UPDATE=false
-    check_and_update "linux" "$arch" "$old_linux_version" "$linux_raw_version" "$linux_url"
-    linux_need_update[$arch]=$NEED_UPDATE
-    linux_final_version[$arch]=$FINAL_VERSION
-    linux_final_url[$arch]=$FINAL_URL
-    linux_final_hash[$arch]=$FINAL_HASH
+def fetch_json_payload(url: str) -> dict:
+    res = subprocess.run(
+        ["curl", "-sSfL", url],
+        check=True,
+        stdout=subprocess.PIPE,
+        text=True,
+        timeout=30,
+    )
+    return json.loads(extract_balanced_json(res.stdout))
 
-    $NEED_UPDATE && update_needed=true
-done
 
-$darwin_need_update && update_needed=true
+def probe_accessible_url(url: str) -> str:
+    """Prefer upstream raw URL; fallback to legacy storage path if raw URL is unreachable."""
+    candidates = [url]
+    if "/QQNTV2/" in url:
+        candidates.append(url.replace("/QQNTV2/", "/QQNT/"))
 
-# 生成 sources.nix
-if ! $update_needed; then
-    echo ""
-    log_info "所有架构已是最新版本，无需更新"
-    trap - EXIT
-    rm -f "$backup"
-    exit 0
-fi
+    for candidate in candidates:
+        res = subprocess.run(
+            [
+                "curl",
+                "-sL",
+                "-o",
+                "/dev/null",
+                "-w",
+                "%{http_code}",
+                "-r",
+                "0-0",
+                "-H",
+                "Referer: https://im.qq.com/",
+                "-H",
+                "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+                candidate,
+            ],
+            check=False,
+            stdout=subprocess.PIPE,
+            text=True,
+            timeout=10,
+        )
+        if res.stdout.strip() in ("200", "206"):
+            return candidate
 
-cat >sources.nix <<EOF
-# Generated by ./update.sh - do not update manually!
-# Last updated: $today
-{ fetchurl }:
+    return url
+
+
+def fetch_sri_hash(url: str) -> str:
+    res = subprocess.run(
+        [str(SRI_SCRIPT), url],
+        check=True,
+        stdout=subprocess.PIPE,
+        text=True,
+    )
+    sri_hash = res.stdout.strip()
+    if not sri_hash.startswith("sha256-"):
+        raise ValueError(f"Invalid SRI hash format: '{sri_hash}' (URL: {url})")
+    return sri_hash
+
+
+def load_current_state() -> dict[str, Source] | None:
+    if not SOURCES_NIX.exists():
+        return None
+
+    expr = f"import {SOURCES_NIX} {{ fetchurl = x: x; }}"
+    res = subprocess.run(
+        [
+            "nix",
+            "eval",
+            "--impure",
+            "--extra-experimental-features",
+            "nix-command",
+            "--expr",
+            expr,
+            "--json",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    if res.returncode != 0:
+        return None
+
+    try:
+        data = json.loads(res.stdout)
+        return {
+            platform: Source(
+                version=Version.from_exact_str(data[platform]["version"]),
+                url=data[platform]["src"]["url"],
+                sri_hash=data[platform]["src"]["hash"],
+            )
+            for platform in PLATFORM_KEYS
+        }
+    except (KeyError, ValueError, json.JSONDecodeError):
+        return None
+
+
+def resolve_source(
+    name: str,
+    raw_url: str,
+    fallback_date: str | None,
+    current: Source | None,
+) -> Source:
+    new_url = probe_accessible_url(raw_url)
+    new_version = Version.parse_url(new_url, fallback_date)
+
+    if current:
+        # 1. 第一级：比对 Version 是否发生回退
+        if new_version < current.version:
+            print(
+                f"[WARN] {name}: Upstream rollback detected ({new_version.full} < {current.version.full}), keeping current"
+            )
+            return current
+
+        # 2. 第二级：Version 完全一致
+        if new_version == current.version:
+            # 第三级：比对 URL
+            if new_url == current.url:
+                # 第四级：URL 也一致，检查本地 Hash 是否有效存在
+                if current.sri_hash and current.sri_hash.startswith("sha256-"):
+                    print(f"[SKIP] {name}: Up to date ({current.version.full})")
+                    return current
+                print(f"[INFO] {name}: Hash missing or invalid, fetching...")
+            else:
+                print(f"[INFO] {name}: URL changed ({current.url} -> {new_url})")
+        else:
+            print(
+                f"[INFO] {name}: Version changed ({current.version.full} -> {new_version.full})"
+            )
+    else:
+        print(f"[INFO] {name}: Initial fetch ({new_version.full})")
+
+    # 仅在确定需要更新时发起真实网络下载
+    new_sri_hash = fetch_sri_hash(new_url)
+    return Source(
+        version=new_version,
+        url=new_url,
+        sri_hash=new_sri_hash,
+    )
+
+
+def render_sources_nix(resolved: dict[str, Source]) -> str:
+    today_str = datetime.now(tz=timezone.utc).date().isoformat()
+    darwin = resolved["aarch64-darwin"]
+    linux_arm = resolved["aarch64-linux"]
+    linux_x64 = resolved["x86_64-linux"]
+
+    return f"""# Generated by ./update.sh - do not update manually!
+# Last updated: {today_str}
+{{ fetchurl }}:
 let
-  any-darwin = {
-    version = "$darwin_final_version";
-    src = fetchurl {
-      url = "$darwin_final_url";
-      hash = "$darwin_final_hash";
-    };
-  };
+  any-darwin = {{
+    version = "{darwin.version.full}";
+    src = fetchurl {{
+      url = "{darwin.url}";
+      hash = "{darwin.sri_hash}";
+    }};
+  }};
 in
-{
+{{
   aarch64-darwin = any-darwin;
   x86_64-darwin = any-darwin;
 
-  aarch64-linux = {
-    version = "${linux_final_version[aarch64]}";
-    src = fetchurl {
-      url = "${linux_final_url[aarch64]}";
-      hash = "${linux_final_hash[aarch64]}";
-    };
-  };
+  aarch64-linux = {{
+    version = "{linux_arm.version.full}";
+    src = fetchurl {{
+      url = "{linux_arm.url}";
+      hash = "{linux_arm.sri_hash}";
+    }};
+  }};
 
-  x86_64-linux = {
-    version = "${linux_final_version[x86_64]}";
-    src = fetchurl {
-      url = "${linux_final_url[x86_64]}";
-      hash = "${linux_final_hash[x86_64]}";
-    };
-  };
-}
-EOF
+  x86_64-linux = {{
+    version = "{linux_x64.version.full}";
+    src = fetchurl {{
+      url = "{linux_x64.url}";
+      hash = "{linux_x64.sri_hash}";
+    }};
+  }};
+}}
+"""
 
-trap - EXIT
-rm -f "$backup"
-log_success "更新完成"
+
+def main():
+    darwin_payload = fetch_json_payload(
+        "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/macOSConfig.js"
+    )
+    linux_payload = fetch_json_payload(
+        "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js"
+    )
+
+    current = load_current_state() or {}
+
+    resolved = {
+        "aarch64-darwin": resolve_source(
+            "macOS universal",
+            darwin_payload["downloadUrl"],
+            darwin_payload.get("updateDate"),
+            current.get("aarch64-darwin"),
+        ),
+        "aarch64-linux": resolve_source(
+            "Linux aarch64",
+            linux_payload["armDownloadUrl"]["deb"],
+            linux_payload.get("updateDate"),
+            current.get("aarch64-linux"),
+        ),
+        "x86_64-linux": resolve_source(
+            "Linux x86_64",
+            linux_payload["x64DownloadUrl"]["deb"],
+            linux_payload.get("updateDate"),
+            current.get("x86_64-linux"),
+        ),
+    }
+
+    if current and resolved == current:
+        print("\n[OK] No changes detected across all platforms")
+        sys.exit(0)
+
+    SOURCES_NIX.write_text(render_sources_nix(resolved))
+    print("\n[OK] sources.nix updated successfully")
+
+
+if __name__ == "__main__":
+    main()

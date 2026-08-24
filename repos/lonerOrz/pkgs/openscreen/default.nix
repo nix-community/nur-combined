@@ -12,7 +12,7 @@ let
   version = current.version;
 
   src = fetchurl {
-    url = "https://github.com/siddharthvaddem/openscreen/releases/download/v${version}/Openscreen-Linux-latest.AppImage";
+    url = "https://github.com/siddharthvaddem/openscreen/releases/download/v${version}/Openscreen-Linux-${version}.AppImage";
     hash = current.hash;
   };
 

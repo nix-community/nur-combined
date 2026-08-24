@@ -39,7 +39,7 @@ let
   passthru = {
     updateScript = ./update.sh;
     versionPolicy = {
-      file = "source.nix";
+      file = "sources.nix";
     };
   };
 
@@ -72,6 +72,7 @@ if stdenv.hostPlatform.isDarwin then
     sourceRoot = ".";
 
     installPhase = ''
+
       runHook preInstall
       mkdir -p $out/Applications
       cp -a QQ.app $out/Applications
@@ -120,8 +121,8 @@ else
     ];
 
     installPhase = ''
-      runHook preInstall
 
+      runHook preInstall
       mkdir -p $out/bin
       cp -r opt $out/opt
       cp -r usr/share $out/share
@@ -151,12 +152,14 @@ else
           ]
         }" \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
-        --add-flags ${lib.escapeShellArg commandLineArgs} \
+        ${
+          lib.optionalString (commandLineArgs != "") "--add-flags ${lib.escapeShellArg commandLineArgs}"
+        } \
         "''${gappsWrapperArgs[@]}"
 
-      ln -s ${libayatana-appindicator}/lib/libayatana-appindicator3.so \
+      ln -s ${lib.getLib libayatana-appindicator}/lib/libayatana-appindicator3.so.1 \
         $out/opt/QQ/libappindicator3.so
-      ln -s ${libnotify}/lib/libnotify.so \
+      ln -s ${lib.getLib libnotify}/lib/libnotify.so.4 \
         $out/opt/QQ/libnotify.so
 
       runHook postInstall
