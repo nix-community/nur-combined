@@ -12,7 +12,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-restic-exporter";
-  version = "2.0.0";
+  version = "2.0.1";
 
   outputs = [
     "out"
@@ -23,7 +23,7 @@ buildGoModule (finalAttrs: {
     owner = "josh";
     repo = "restic-exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-OvEBCcLcXRcBv/qejgPn1/KsToiaOMCi6oT97qcuTno=";
+    hash = "sha256-DbZSfD050wrAgPKNwb4TWIIO/05Hdo/MoboNvOIAXmQ=";
   };
 
   vendorHash = "sha256-HgB+zjf7V2VsEntyMOT6ZItnNXSRUc+wXgftV0LIb80=";
