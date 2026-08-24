@@ -223,7 +223,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-znUzq_CtIbn40ZnYeyI0AutTPLi4+crUQGkoCLIgFI8=/pubspec.lock"
+            "pubspec.lock": "sha256-R1x3rsgp0eI3V4r7mb8_fE3FUfcrej94TYwb5vqyPhg=/pubspec.lock"
         },
         "name": "kikoflu",
         "passthru": null,
@@ -235,12 +235,12 @@
             "name": null,
             "owner": "pa-jesusf",
             "repo": "KikoFlu",
-            "rev": "v3.8.0",
-            "sha256": "sha256-znUzq/CtIbn40ZnYeyI0AutTPLi4+crUQGkoCLIgFI8=",
+            "rev": "v3.8.1",
+            "sha256": "sha256-R1x3rsgp0eI3V4r7mb8/fE3FUfcrej94TYwb5vqyPhg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.8.0"
+        "version": "v3.8.1"
     },
     "krunner-fd-plugin": {
         "cargoLock": null,
@@ -596,11 +596,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-me3TOQJ8nokeQoRmdeGw2QJpDrWV_dZPjhLhd17usgI=/Cargo.lock",
+                "sha256-w_KMem_dElLi3GQs42g8PExjAf6ZXSC3KSD5FGpobMo=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-24",
+        "date": "2026-08-25",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -612,12 +612,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "eb8a15fbe6a430603548dbe81a70e9cea048b5fc",
-            "sha256": "sha256-me3TOQJ8nokeQoRmdeGw2QJpDrWV/dZPjhLhd17usgI=",
+            "rev": "75158c4d71c0d6863fc2867812996bd7e2966ebe",
+            "sha256": "sha256-w/KMem/dElLi3GQs42g8PExjAf6ZXSC3KSD5FGpobMo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "eb8a15fbe6a430603548dbe81a70e9cea048b5fc"
+        "version": "75158c4d71c0d6863fc2867812996bd7e2966ebe"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -684,7 +684,7 @@
     },
     "uosc-danmaku-git": {
         "cargoLock": null,
-        "date": "2026-08-23",
+        "date": "2026-08-24",
         "extract": null,
         "name": "uosc-danmaku-git",
         "passthru": null,
@@ -696,12 +696,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "1ee2bfa4c1386454aae6fa1d96b8c7d156793a8b",
-            "sha256": "sha256-ovqtTjJfv3bomotK71uZ+rup+nBy4bgEYgtFNfcR/7E=",
+            "rev": "d8c1cd8b4786c286a19079caef3f9ac9fa64933d",
+            "sha256": "sha256-UwS7aCEWBVH0fkxXvnla26dLCJ3PLz9+fLSmqhUAIOA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1ee2bfa4c1386454aae6fa1d96b8c7d156793a8b"
+        "version": "d8c1cd8b4786c286a19079caef3f9ac9fa64933d"
     },
     "waywallen-bin": {
         "cargoLock": null,
@@ -712,11 +712,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-s1RnL7/mwh+mHJgBGTTBUece8aTCyQUuXK4bPACpMcc=",
+            "sha256": "sha256-qDn5g3COWGekVJUrr5Vngplga72w+kHSPnQduEZUz10=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.5/waywallen-0.3.5-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.6/waywallen-0.3.6-x86_64.AppImage"
         },
-        "version": "0.3.5"
+        "version": "0.3.6"
     },
     "waywallen-display-bin": {
         "cargoLock": null,

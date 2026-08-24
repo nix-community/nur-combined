@@ -141,16 +141,16 @@
   };
   kikoflu = {
     pname = "kikoflu";
-    version = "v3.8.0";
+    version = "v3.8.1";
     src = fetchFromGitHub {
       owner = "pa-jesusf";
       repo = "KikoFlu";
-      rev = "v3.8.0";
+      rev = "v3.8.1";
       fetchSubmodules = false;
-      sha256 = "sha256-znUzq/CtIbn40ZnYeyI0AutTPLi4+crUQGkoCLIgFI8=";
+      sha256 = "sha256-R1x3rsgp0eI3V4r7mb8/fE3FUfcrej94TYwb5vqyPhg=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-znUzq_CtIbn40ZnYeyI0AutTPLi4+crUQGkoCLIgFI8=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-R1x3rsgp0eI3V4r7mb8_fE3FUfcrej94TYwb5vqyPhg=/pubspec.lock";
     };
   };
   krunner-fd-plugin = {
@@ -371,21 +371,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "eb8a15fbe6a430603548dbe81a70e9cea048b5fc";
+    version = "75158c4d71c0d6863fc2867812996bd7e2966ebe";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "eb8a15fbe6a430603548dbe81a70e9cea048b5fc";
+      rev = "75158c4d71c0d6863fc2867812996bd7e2966ebe";
       fetchSubmodules = false;
-      sha256 = "sha256-me3TOQJ8nokeQoRmdeGw2QJpDrWV/dZPjhLhd17usgI=";
+      sha256 = "sha256-w/KMem/dElLi3GQs42g8PExjAf6ZXSC3KSD5FGpobMo=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-me3TOQJ8nokeQoRmdeGw2QJpDrWV_dZPjhLhd17usgI=/Cargo.lock";
+      lockFile = ./. + "/sha256-w_KMem_dElLi3GQs42g8PExjAf6ZXSC3KSD5FGpobMo=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-08-24";
+    date = "2026-08-25";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -422,22 +422,22 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "1ee2bfa4c1386454aae6fa1d96b8c7d156793a8b";
+    version = "d8c1cd8b4786c286a19079caef3f9ac9fa64933d";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "1ee2bfa4c1386454aae6fa1d96b8c7d156793a8b";
+      rev = "d8c1cd8b4786c286a19079caef3f9ac9fa64933d";
       fetchSubmodules = false;
-      sha256 = "sha256-ovqtTjJfv3bomotK71uZ+rup+nBy4bgEYgtFNfcR/7E=";
+      sha256 = "sha256-UwS7aCEWBVH0fkxXvnla26dLCJ3PLz9+fLSmqhUAIOA=";
     };
-    date = "2026-08-23";
+    date = "2026-08-24";
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.3.5";
+    version = "0.3.6";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.5/waywallen-0.3.5-x86_64.AppImage";
-      sha256 = "sha256-s1RnL7/mwh+mHJgBGTTBUece8aTCyQUuXK4bPACpMcc=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.6/waywallen-0.3.6-x86_64.AppImage";
+      sha256 = "sha256-qDn5g3COWGekVJUrr5Vngplga72w+kHSPnQduEZUz10=";
     };
   };
   waywallen-display-bin = {

@@ -1,6 +1,6 @@
 {
-  "version": "v3.8.0",
-  "sourceSha256": "sha256-znUzq/CtIbn40ZnYeyI0AutTPLi4+crUQGkoCLIgFI8=",
+  "version": "v3.8.1",
+  "sourceSha256": "sha256-R1x3rsgp0eI3V4r7mb8/fE3FUfcrej94TYwb5vqyPhg=",
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
