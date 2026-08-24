@@ -5,16 +5,16 @@
 }:
 buildGo126Module rec {
   pname = "usbguard-tui";
-  version = "1.2.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "usbguard-tui";
     rev = "v${version}";
-    hash = "sha256-npbU82IC0ExgRYjsjJXm1zyuzh+222UP/fSn6xtMdpQ=";
+    hash = "sha256-Z72ZQ1jYFK9itc93fBVQUQJbx2Iw4K1l1k3GCbUO8AU=";
   };
 
-  vendorHash = "sha256-8QP2FbNmvqrJhFe3Ia7tPhkxMeFWBhvr4Zr9kpV9bR4=";
+  vendorHash = "sha256-O9DG0pxRKt8VwpZdyvoQ4wsfEbsh5npmwocmtcm2IfA=";
 
   ldflags = ["-s" "-w" "-X main.version=${version}"];
 
