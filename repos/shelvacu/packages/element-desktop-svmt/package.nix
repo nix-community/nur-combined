@@ -1,5 +1,5 @@
 { vacupkglib }:
 vacupkglib.elementProfile {
-  profile = "personal";
+  profile = "svmt";
   icon = builtins.path { path = ./icon.svg; };
 }

@@ -26,7 +26,7 @@ in
       (lib.concatStringsSep "\n")
     ]}
     fi
-    if ! [[ -z path ]]; then
+    if [[ -z path ]]; then
       svl_eprintln "unrecognized alias $base"
       return 1
     fi

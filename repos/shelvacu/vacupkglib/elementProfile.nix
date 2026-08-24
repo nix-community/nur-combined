@@ -43,9 +43,6 @@
         mv package.json.new unpacked/package.json
         asar pack unpacked $out/share/${id}/app.asar
         rm -rf unpacked
-        # element finds these relative to the realpath of app.asar, so they
-        # have to sit next to our copy rather than the original
-        ln -s ${element}/share/element/webapp $out/share/${id}/webapp
 
         # $out/share/${id}/build/icon.png is the icon element loads itself:
         # _NET_WM_ICON on X11, and the tray icon. The copies under
@@ -65,6 +62,31 @@
         }
         install -Dm444 $out/share/${id}/build/icon.png \
           $out/share/icons/hicolor/512x512/apps/${id}.png
+
+        # element finds the webapp relative to app.asar, so it has to sit next
+        # to our copy rather than the original. Only index.html changes, so
+        # link the entries across instead of copying the whole webapp.
+        mkdir $out/share/${id}/webapp
+        find ${element}/share/element/webapp/ -mindepth 1 -maxdepth 1 \
+          -exec ln -st $out/share/${id}/webapp {} +
+
+        # element-web draws the unread badge onto a canvas seeded with the icon
+        # from the last <link rel="icon">, and the main process copies the
+        # result over the window and tray icons (tray.js, on
+        # "page-favicon-updated"). Left at the stock element logo, that means
+        # the panel icon reverts to it the moment anything is unread, so point
+        # the favicons at ours. All three get the same file; the sizes= hints
+        # are left alone as nothing distinguishes them any more.
+        rm $out/share/${id}/webapp/index.html
+        install -m444 $out/share/${id}/build/icon.png \
+          $out/share/${id}/webapp/${id}-icon.png
+        sed -E 's,(<link rel="icon"[^>]*href=")[^"]*",\1${id}-icon.png",g' \
+          ${element}/share/element/webapp/index.html \
+          > $out/share/${id}/webapp/index.html
+        grep -q 'href="${id}-icon.png"' $out/share/${id}/webapp/index.html || {
+          echo "no <link rel=\"icon\"> in index.html to redirect at our icon" >&2
+          exit 1
+        }
 
         # element's launcher has the asar path baked in; point it at ours
         substitute ${element}/bin/element-desktop $out/libexec/${id} \
