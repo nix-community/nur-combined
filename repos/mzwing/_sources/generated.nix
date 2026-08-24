@@ -86,13 +86,13 @@
   };
   gomod2nix = {
     pname = "gomod2nix";
-    version = "4e456b184a19fd4c2a35af4ebddfad64929d2505";
+    version = "3f112b481eed7f7a32e00fcd13c4186f003bf8b6";
     src = fetchFromGitHub {
       owner = "mzwing";
       repo = "gomod2nix";
-      rev = "4e456b184a19fd4c2a35af4ebddfad64929d2505";
+      rev = "3f112b481eed7f7a32e00fcd13c4186f003bf8b6";
       fetchSubmodules = false;
-      sha256 = "sha256-9UurDF0HKrNxUbThdVUF5ABhiUAAxy5Av4Sd8jlsNfE=";
+      sha256 = "sha256-LqiPeyQH0uNN4trNE9YmJnwUrZgW4UznFxl4ftkI4lo=";
     };
     date = "2026-08-24";
   };

@@ -160,12 +160,12 @@
             "name": null,
             "owner": "mzwing",
             "repo": "gomod2nix",
-            "rev": "4e456b184a19fd4c2a35af4ebddfad64929d2505",
-            "sha256": "sha256-9UurDF0HKrNxUbThdVUF5ABhiUAAxy5Av4Sd8jlsNfE=",
+            "rev": "3f112b481eed7f7a32e00fcd13c4186f003bf8b6",
+            "sha256": "sha256-LqiPeyQH0uNN4trNE9YmJnwUrZgW4UznFxl4ftkI4lo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4e456b184a19fd4c2a35af4ebddfad64929d2505"
+        "version": "3f112b481eed7f7a32e00fcd13c4186f003bf8b6"
     },
     "gryph": {
         "cargoLock": null,
