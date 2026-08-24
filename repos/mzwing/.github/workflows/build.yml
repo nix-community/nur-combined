@@ -57,7 +57,9 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
-        printf 'targets=%s\n' "$(nix eval --json --impure --file ci/targets.nix)" >>"${GITHUB_OUTPUT}"
+        # Assign first: a command substitution that fails inside printf's argument list leaves the step green and hands an empty `targets` to the next one.
+        targets="$(nix eval --json --impure --file ci/targets.nix)"
+        printf 'targets=%s\n' "$targets" >>"${GITHUB_OUTPUT}"
 
     - name: Check caches and generate builder matrix
       id: plan
