@@ -1,19 +1,25 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
   aiohttp,
+  nix-update-script,
   poetry-core,
   setuptools,
   websockets,
 }:
 buildPythonPackage rec {
-  inherit (sources.smartrent_py) pname version;
+  pname = "smartrent_py";
+  version = "0.5.2";
   pyproject = true;
 
-  inherit (sources.smartrent_py) src;
-
+  src = fetchFromGitHub {
+    owner = "zacherythomas";
+    repo = "smartrent-py";
+    tag = "v0.5.2";
+    hash = "sha256-UptzFqGpQtefvBE2X0ji1UvEOP8+f/E0w64XuVoVpSM=";
+  };
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail '"poetry>=' '"poetry-core>='
@@ -31,6 +37,7 @@ buildPythonPackage rec {
   # Upstream dependency restriction is too strict
   dontCheckRuntimeDeps = true;
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/zacherythomas/smartrent-py/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -1,13 +1,21 @@
 {
   buildGoModule,
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "etherguard";
-  inherit (sources.etherguard) version src;
+  version = "0.3.5-f5";
+  src = fetchFromGitHub {
+    owner = "KusakabeShi";
+    repo = "EtherGuard-VPN";
+    tag = "v0.3.5-f5";
+    hash = "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=";
+  };
   vendorHash = "sha256-9+zpQ/AhprMMfC4Om64GfQLgms6eluTOB6DdnSTNOlk=";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/KusakabeShi/EtherGuard-VPN/releases/tag/v${finalAttrs.version}";
     mainProgram = "EtherGuard-VPN";

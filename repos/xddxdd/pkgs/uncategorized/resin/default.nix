@@ -1,15 +1,21 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildGoModule,
   buildNpmPackage,
+  nix-update-script,
 }:
 
 let
   frontendDist = buildNpmPackage (finalAttrs: {
-    pname = "${sources.resin.pname}-webui";
-    inherit (sources.resin) version src;
-
+    pname = "${"resin"}-webui";
+    version = "1.2.0";
+    src = fetchFromGitHub {
+      owner = "Resinat";
+      repo = "Resin";
+      tag = "v1.2.0";
+      hash = "sha256-tqSuYZce0uq9gVSstNLPlSyJPGWwYrfvCEgAyXiek4c=";
+    };
     sourceRoot = "source/webui";
 
     npmDepsHash = "sha256-HM1+bcEry9BY39xt7qUgRwnNfXwyfBJyUeFAPosrnKU=";
@@ -23,8 +29,14 @@ let
   });
 in
 buildGoModule (finalAttrs: {
-  inherit (sources.resin) pname version src;
-
+  pname = "resin";
+  version = "1.2.0";
+  src = fetchFromGitHub {
+    owner = "Resinat";
+    repo = "Resin";
+    tag = "v1.2.0";
+    hash = "sha256-tqSuYZce0uq9gVSstNLPlSyJPGWwYrfvCEgAyXiek4c=";
+  };
   vendorHash = "sha256-iLZRA3n3Rn5sGxDUNg9+C8XmGDVBLyn/ceZ84/NRyLg=";
 
   proxyVendor = true;
@@ -50,6 +62,7 @@ buildGoModule (finalAttrs: {
     cp -r ${frontendDist}/* webui/dist/
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     mainProgram = "resin";
     maintainers = with lib.maintainers; [ xddxdd ];

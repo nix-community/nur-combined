@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   stdenv,
   nodejs_24,
   pnpm_11,
@@ -10,11 +11,23 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = sources.it-tools.pname;
-  inherit (sources.it-tools) version src;
-
+  pname = "it-tools";
+  version = "2026.7.11";
+  src = fetchFromGitHub {
+    owner = "sharevb";
+    repo = "it-tools";
+    tag = "v2026.7.11";
+    hash = "sha256-Jo2S/LE8Hg4M/TdoivGq4CaSnHfbm70E1cFMdsFDjnE=";
+  };
   pnpmDeps = fetchPnpmDeps {
-    inherit (sources.it-tools) pname version src;
+    pname = "it-tools";
+    version = "2026.7.11";
+    src = fetchFromGitHub {
+      owner = "sharevb";
+      repo = "it-tools";
+      tag = "v2026.7.11";
+      hash = "sha256-Jo2S/LE8Hg4M/TdoivGq4CaSnHfbm70E1cFMdsFDjnE=";
+    };
     pnpm = pnpm_11;
     fetcherVersion = 4;
     hash = "sha256-5p/BNX+lEOAJlPlnKdjs1Zvk+Ty7hYeFU6pMzzShyog=";
@@ -42,6 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     description = "Collection of handy online tools for developers, with great UX";
     homepage = "https://github.com/sharevb/it-tools";

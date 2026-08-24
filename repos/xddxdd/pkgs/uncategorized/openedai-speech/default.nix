@@ -1,7 +1,8 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   python3,
   piper-tts,
   makeWrapper,
@@ -25,8 +26,14 @@ let
   ];
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.openedai-speech) pname version src;
-
+  pname = "openedai-speech";
+  version = "0.18.2";
+  src = fetchFromGitHub {
+    owner = "matatonic";
+    repo = "openedai-speech";
+    tag = "0.18.2";
+    hash = "sha256-AC9fClFDUj8TV5W7sTZy+AjvNZgU6Vuvq9nP8Iy+WLY=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   postPatch = ''
@@ -62,6 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/matatonic/openedai-speech/releases/tag/${finalAttrs.version}";
     mainProgram = finalAttrs.pname;

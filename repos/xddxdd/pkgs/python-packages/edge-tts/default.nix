@@ -1,7 +1,8 @@
 {
-  lib,
-  sources,
   buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
   # Dependencies
   aiohttp,
   certifi,
@@ -11,10 +12,16 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.edge-tts) pname version;
+  pname = "edge-tts";
+  version = "7.2.8";
   pyproject = true;
 
-  inherit (sources.edge-tts) src;
+  src = fetchFromGitHub {
+    owner = "rany2";
+    repo = "edge-tts";
+    tag = version;
+    hash = "sha256-Zjng/7ALTjmDS4ubSFWoBJQ8TNsc2Ijl9V3jSyKifMc=";
+  };
 
   build-system = [ setuptools ];
   dependencies = [
@@ -38,4 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rany2/edge-tts";
     license = with lib.licenses; [ lgpl3Only ];
   };
+
+  passthru.updateScript = nix-update-script { };
 }

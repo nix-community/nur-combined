@@ -1,10 +1,18 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   buildGoModule,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.ldap-auth-proxy) pname version src;
+  pname = "ldap-auth-proxy";
+  version = "0.2.0-unstable-2020-07-29";
+  src = fetchFromGitHub {
+    owner = "pinepain";
+    repo = "ldap-auth-proxy";
+    rev = "66a8236af574f554478fe376051b95f61235efc9";
+    hash = "sha256-kV3P3hRmfFH5g+BzjxZGstVHoQ4KMn9DVup5cInin+Y=";
+  };
   vendorHash = "sha256-drLTMaRelaz36ORl1qKndGYN2i6qRgJxy2D+wTDzmWA=";
 
   postPatch = ''
@@ -12,6 +20,12 @@ buildGoModule (finalAttrs: {
     cp ${./go.sum} go.sum
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend";

@@ -1,21 +1,47 @@
 {
-  sources,
-  lib,
-  stdenv,
   buildFHSEnv,
-  runCommand,
   dpkg,
+  fetchurl,
+  lib,
+  runCommand,
+  stdenv,
 }:
 let
+  sources = builtins.fromJSON (builtins.readFile ./sources.json);
+
   source =
     if stdenv.hostPlatform.isx86_64 then
-      sources.fr24feed-amd64
+      {
+        pname = "fr24feed-amd64";
+        inherit (sources.fr24feed-amd64) version;
+        src = fetchurl {
+          inherit (sources.fr24feed-amd64) url hash;
+        };
+      }
     else if stdenv.hostPlatform.isi686 then
-      sources.fr24feed-i386
+      {
+        pname = "fr24feed-i386";
+        inherit (sources.fr24feed-i386) version;
+        src = fetchurl {
+          inherit (sources.fr24feed-i386) url hash;
+        };
+      }
     else if stdenv.hostPlatform.isAarch32 then
-      sources.fr24feed-armhf
+      {
+        pname = "fr24feed-armhf";
+        inherit (sources.fr24feed-armhf) version;
+        src = fetchurl {
+          inherit (sources.fr24feed-armhf) url hash;
+        };
+      }
     else if stdenv.hostPlatform.isAarch64 then
-      sources.fr24feed-arm64
+      {
+        pname = "fr24feed-arm64";
+        inherit (sources.fr24feed-arm64) version;
+        src = fetchurl {
+          inherit (sources.fr24feed-arm64) url hash;
+        };
+      }
     else
       throw "Unsupported architecture";
 
@@ -88,7 +114,10 @@ stdenv.mkDerivation (finalAttrs: {
     printf "\necho \"NixOS note: fr24uat-feed.ini is generated in current directory\"\n" >> $out/bin/fr24feed-signup-uat
   '';
 
-  passthru = { inherit distPkg; };
+  passthru = {
+    inherit distPkg;
+    updateScript = [ (toString ./update.sh) ];
+  };
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

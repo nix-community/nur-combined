@@ -1,14 +1,19 @@
 {
+  fetchurl,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   unzip,
   jre_headless,
   makeWrapper,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.suwayomi-server) pname version src;
-
+  pname = "suwayomi-server";
+  version = "2.3.2243";
+  src = fetchurl {
+    url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2243/Suwayomi-Server-v2.3.2243.jar";
+    hash = "sha256-ghFBsy4XDUoC08vf7Vd+2PB70iOD/19BMuu1rkDpjdU=";
+  };
   dontUnpack = true;
 
   nativeBuildInputs = [
@@ -29,6 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/Suwayomi/Suwayomi-Server/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

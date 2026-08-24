@@ -1,7 +1,8 @@
 {
+  fetchurl,
   lib,
-  sources,
   buildPythonPackage,
+  nix-update-script,
   setuptools,
   # Dependencies
   torch,
@@ -9,11 +10,14 @@
   packaging,
 }:
 buildPythonPackage rec {
-  inherit (sources.torch-complex) pname version;
+  pname = "torch-complex";
+  version = "0.4.4";
   pyproject = true;
 
-  inherit (sources.torch-complex) src;
-
+  src = fetchurl {
+    url = "mirror://pypi/t/torch_complex/torch_complex-${version}";
+    hash = "sha256-QVP9aySgutaJ5vGTv70A84KDsYkNgIvvaE3cbR9j/T8=";
+  };
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [
@@ -29,6 +33,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "torch_complex" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Temporal python class for PyTorch-ComplexTensor";

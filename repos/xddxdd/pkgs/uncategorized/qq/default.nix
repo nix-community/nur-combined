@@ -1,6 +1,6 @@
 {
+  fetchurl,
   stdenv,
-  sources,
   autoPatchelfHook,
   wrapGAppsHook3,
   makeWrapper,
@@ -37,11 +37,25 @@ let
     libXdamage
   ];
 
+  sources = builtins.fromJSON (builtins.readFile ./sources.json);
+
   source =
     if stdenv.hostPlatform.isx86_64 then
-      sources.qq-amd64
+      {
+        pname = "qq-amd64";
+        inherit (sources.qq-amd64) version;
+        src = fetchurl {
+          inherit (sources.qq-amd64) url hash;
+        };
+      }
     else if stdenv.hostPlatform.isAarch64 then
-      sources.qq-arm64
+      {
+        pname = "qq-arm64";
+        inherit (sources.qq-arm64) version;
+        src = fetchurl {
+          inherit (sources.qq-arm64) url hash;
+        };
+      }
     else
       throw "Unsupported architecture";
 in
@@ -84,6 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Desktop client for QQ on Linux";

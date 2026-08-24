@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   lib,
   stdenv,
   libime,
@@ -8,8 +8,12 @@
 }:
 # Based on https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=rime-custom-pinyin-dictionary
 stdenv.mkDerivation {
-  inherit (sources.rime-custom-pinyin-dictionary) pname version src;
-
+  pname = "rime-custom-pinyin-dictionary";
+  version = "20260101";
+  src = fetchurl {
+    url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_Magisk_20260101.zip";
+    hash = "sha256-0+da8NepstQWR3YIJRgoF5bGokqFRxqLfPKS9EPya6k=";
+  };
   sourceRoot = ".";
 
   nativeBuildInputs = [
@@ -37,6 +41,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。";

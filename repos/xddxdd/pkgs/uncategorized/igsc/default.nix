@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   nix-update-script,
   stdenv,
@@ -8,8 +8,14 @@
   udev,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.igsc) pname version src;
-
+  pname = "igsc";
+  version = "1.3.1";
+  src = fetchFromGitHub {
+    owner = "intel";
+    repo = "igsc";
+    tag = "V1.3.1";
+    hash = "sha256-NSNLiUMJBGtnfWUDIPIukyjgcI1YX9cfDDWphW8uSWs=";
+  };
   buildInputs = [
     metee
     udev
@@ -22,7 +28,6 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { };
-
   meta = {
     mainProgram = "igsc";
     maintainers = with lib.maintainers; [ xddxdd ];

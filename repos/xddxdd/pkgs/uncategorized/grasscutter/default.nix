@@ -1,22 +1,34 @@
 {
+  fetchgit,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   fetchurl,
   jre_headless,
   procps,
   makeWrapper,
 }:
 let
-  resources = sources.grasscutter-resources.src;
+  grasscutterResourcesSrc = fetchgit {
+    url = "https://gitlab.com/YuukiPS/GC-Resources.git";
+    rev = "6e83bd13ba95d07e017ebaf4037dbd76ac76fda7";
+    fetchSubmodules = false;
+    hash = "sha256-T2SApSv+UTezRoY9hwFVDr/Zaz5WVGK2QWSpRNeFI0w=";
+  };
+
+  resources = grasscutterResourcesSrc;
   keystore = fetchurl {
     url = "https://github.com/Grasscutters/Grasscutter/raw/development/keystore.p12";
     hash = "sha256-apFbGtWacE3GjXU/6h2yseskAsob0Xc/NWEu2uC0v3M=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.grasscutter) pname version src;
-
+  pname = "grasscutter";
+  version = "1.7.4";
+  src = fetchurl {
+    url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.7.4/grasscutter-1.7.4.jar";
+    hash = "sha256-tIYnCxtB14M+cGSuIZSZHworIzFEXKowyAgwmJ1jZpU=";
+  };
   dontUnpack = true;
 
   nativeBuildInputs = [
@@ -52,6 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/Grasscutters/Grasscutter/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

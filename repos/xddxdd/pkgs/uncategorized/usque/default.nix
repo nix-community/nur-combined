@@ -1,16 +1,23 @@
 {
+  fetchFromGitHub,
   lib,
   buildGoModule,
   # fetchFromGitHub,
   stdenv,
   nix-update-script,
   buildPackages,
-  sources,
   installShellFiles,
   versionCheckHook,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.usque) pname version src;
+  pname = "usque";
+  version = "4.2.1";
+  src = fetchFromGitHub {
+    owner = "Diniboy1123";
+    repo = "usque";
+    tag = "v4.2.1";
+    hash = "sha256-aUAji41gVsRs47IDtLAinxUZsZjTQvO/SMWe5GdmJLw=";
+  };
   vendorHash = "sha256-XvbH6w0po2piUwuHTRxGbqwoKEOl2nLp0VnXONOvA14=";
 
   ldflags = [
@@ -42,7 +49,6 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "version";
 
   passthru.updateScript = nix-update-script { };
-
   meta = {
     mainProgram = "usque";
     maintainers = with lib.maintainers; [ xddxdd ];

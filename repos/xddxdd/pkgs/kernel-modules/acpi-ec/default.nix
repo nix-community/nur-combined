@@ -1,12 +1,19 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   kernel,
 }:
 stdenv.mkDerivation rec {
-  inherit (sources.acpi-ec) pname version src;
-
+  pname = "acpi-ec";
+  version = "1.0.4";
+  src = fetchFromGitHub {
+    owner = "musikid";
+    repo = "acpi_ec";
+    tag = "v1.0.4";
+    hash = "sha256-gDcEzZKtHMULtTtJSDTRH1W9otSB6IC0E6EBF9j6F7Q=";
+  };
   sourceRoot = "source/src";
   hardeningDisable = [
     "pic"
@@ -23,6 +30,7 @@ stdenv.mkDerivation rec {
   '';
   installTargets = [ "modules_install" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/musikid/acpi_ec/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -1,10 +1,19 @@
 {
-  lib,
-  sources,
   buildGoModule,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.deeplx) pname version src;
+  pname = "deeplx";
+  version = "1.2.4";
+
+  src = fetchFromGitHub {
+    owner = "OwO-Network";
+    repo = "DeepLX";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-7WuuO80CtmK4Zd8tI2VR0xH8votIz6AplJVoM58LU/w=";
+  };
   vendorHash = "sha256-w3KuV7+JUJYn8Bmku5aY1eyB8S+0y6ypDncVfiajDSY=";
 
   meta = {
@@ -15,4 +24,6 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "DeepLX";
   };
+
+  passthru.updateScript = nix-update-script { };
 })

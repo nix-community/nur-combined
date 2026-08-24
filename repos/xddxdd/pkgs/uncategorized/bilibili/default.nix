@@ -1,16 +1,29 @@
 {
+  fetchFromGitHub,
+  fetchurl,
+  nix-update-script,
   stdenv,
-  sources,
   electron,
   lib,
   makeWrapper,
 }:
 let
-  res = "${sources.bilibili-src.src}/res";
+  bilibiliSrcSrc = fetchFromGitHub {
+    owner = "msojocs";
+    repo = "bilibili-linux";
+    tag = "v1.18.0-1";
+    hash = "sha256-JRXf1C587OWC5aIUfaf8YPjYlnGxGC1KIvzAXZmCtMg=";
+  };
+
+  res = "${bilibiliSrcSrc}/res";
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.bilibili) pname version src;
-
+  pname = "bilibili";
+  version = "1.18.0-1";
+  src = fetchurl {
+    url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.18.0-1/bilibili-asar-v1.18.0-1.tar.gz";
+    hash = "sha256-t0l4R9toyvfZmKKIH/tZlQ5hln/BXR9hH9th1cmMJfk=";
+  };
   buildInputs = [ makeWrapper ];
 
   sourceRoot = ".";
@@ -35,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/msojocs/bilibili-linux/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

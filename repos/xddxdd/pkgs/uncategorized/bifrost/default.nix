@@ -1,13 +1,18 @@
 {
+  fetchurl,
   lib,
-  sources,
   buildGoModule,
+  nix-update-script,
   sqlite,
 }:
 
 buildGoModule (finalAttrs: {
-  inherit (sources.bifrost) pname version src;
-
+  pname = "bifrost";
+  version = "1.6.11";
+  src = fetchurl {
+    url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v${finalAttrs.version}.tar.gz";
+    hash = "sha256-fvdQyfm+pNbFgJzrUcI+hte58T8FV19xe6TGRIRO+bk=";
+  };
   sourceRoot = "bifrost-transports-v${finalAttrs.version}/transports";
 
   vendorHash = "sha256-DEWblNhMeIoxgmtnXhjApA/XllNF3TCX7fR5vmQfD54=";
@@ -37,6 +42,12 @@ buildGoModule (finalAttrs: {
 
   doCheck = false;
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "transports/v(.*)"
+    ];
+  };
   meta = {
     changelog = "https://github.com/maximhq/bifrost/releases/tag/transports/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

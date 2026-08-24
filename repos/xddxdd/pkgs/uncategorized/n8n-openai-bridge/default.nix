@@ -1,13 +1,20 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   buildNpmPackage,
+  nix-update-script,
   nodejs,
 }:
 
 buildNpmPackage (finalAttrs: {
-  inherit (sources.n8n-openai-bridge) pname version src;
-
+  pname = "n8n-openai-bridge";
+  version = "0.0.17";
+  src = fetchFromGitHub {
+    owner = "sveneisenschmidt";
+    repo = "n8n-openai-bridge";
+    tag = "v0.0.17";
+    hash = "sha256-tti1VBvY4UA1cGax99bRIkYWLbuuolI1MPbl9Ky1TxM=";
+  };
   npmDepsHash = "sha256-El0CL6jlyEIH73caqm6VU3V/eA3CMVSaD6Uno381QUg=";
 
   postPatch = ''
@@ -22,6 +29,7 @@ buildNpmPackage (finalAttrs: {
       --add-flags "$out/lib/node_modules/n8n-openai-bridge/src/server.js"
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     description = "OpenAI-compatible API middleware for n8n workflows";
     homepage = "https://github.com/sveneisenschmidt/n8n-openai-bridge";

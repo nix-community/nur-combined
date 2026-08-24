@@ -1,12 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
   kernel ? false,
 }:
 stdenv.mkDerivation {
-  inherit (sources.cryptodev-linux) pname version src;
-
+  pname = "cryptodev-linux";
+  version = "cryptodev-linux-1.14-unstable-2025-11-03";
+  src = fetchFromGitHub {
+    owner = "cryptodev-linux";
+    repo = "cryptodev-linux";
+    rev = "08644db02d43478f802755903212f5ee506af73b";
+    hash = "sha256-tYTiyysofO23ApXQbnJF5muTTLv1kKu/nLggGv3ntr4=";
+  };
   nativeBuildInputs = kernel.moduleBuildDependencies;
   hardeningDisable = [ "pic" ];
 
@@ -16,6 +23,12 @@ stdenv.mkDerivation {
     "prefix=$(out)"
   ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Device that allows access to Linux kernel cryptographic drivers";

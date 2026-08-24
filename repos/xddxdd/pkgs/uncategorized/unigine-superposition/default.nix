@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   lib,
   stdenv,
   autoPatchelfHook,
@@ -30,8 +30,12 @@
 }:
 let
   distPackage = stdenv.mkDerivation {
-    inherit (sources.unigine-superposition) pname version src;
-
+    pname = "unigine-superposition";
+    version = "1.1";
+    src = fetchurl {
+      url = "https://assets.unigine.com/d/Unigine_Superposition-1.1.run";
+      hash = "sha256-dJThxzv1nvIWFRPV1cudm/+9hHmSnUl2rFO2lV3lgPg=";
+    };
     nativeBuildInputs = [
       autoPatchelfHook
       makeWrapper
@@ -109,8 +113,8 @@ let
   };
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.unigine-superposition) pname version;
-
+  pname = "unigine-superposition";
+  version = "1.1";
   dontUnpack = true;
 
   nativeBuildInputs = [ copyDesktopItems ];
@@ -138,6 +142,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Extreme performance and stability test for PC hardware: video card, power supply, cooling system";

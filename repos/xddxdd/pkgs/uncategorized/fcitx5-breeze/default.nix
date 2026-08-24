@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   stdenv,
   lib,
   python3,
@@ -7,8 +7,12 @@
   writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
-  inherit (sources.fcitx5-breeze) pname version src;
-
+  pname = "fcitx5-breeze";
+  version = "3.1.0";
+  src = fetchurl {
+    url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v3.1.0/fcitx5-breeze-v3.1.0.tar.gz";
+    hash = "sha256-rRVRUY69M5Nz8MwarePlqy2JIOX8MP0nz6Ia2pwmkTA=";
+  };
   nativeBuildInputs = [
     python3
     inkscape
@@ -32,6 +36,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Fcitx5 theme to match KDE's Breeze style";

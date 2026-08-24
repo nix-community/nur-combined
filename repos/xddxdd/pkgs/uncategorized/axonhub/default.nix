@@ -1,7 +1,8 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildGoModule,
+  nix-update-script,
   versionCheckHook,
   nodejs,
   pnpm_10,
@@ -11,8 +12,14 @@
 }:
 let
   frontendPnpmDeps = fetchPnpmDeps {
-    pname = "${sources.axonhub.pname}-frontend-pnpm-deps";
-    inherit (sources.axonhub) version src;
+    pname = "${"axonhub"}-frontend-pnpm-deps";
+    version = "1.0.0-beta7";
+    src = fetchFromGitHub {
+      owner = "looplj";
+      repo = "axonhub";
+      tag = "v1.0.0-beta7";
+      hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
+    };
     sourceRoot = "source/frontend";
     pnpm = pnpm_10;
     fetcherVersion = 3;
@@ -20,8 +27,14 @@ let
   };
 
   frontendDist = stdenv.mkDerivation {
-    pname = "${sources.axonhub.pname}-frontend-dist";
-    inherit (sources.axonhub) version src;
+    pname = "${"axonhub"}-frontend-dist";
+    version = "1.0.0-beta7";
+    src = fetchFromGitHub {
+      owner = "looplj";
+      repo = "axonhub";
+      tag = "v1.0.0-beta7";
+      hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
+    };
     sourceRoot = "source/frontend";
     pnpmDeps = frontendPnpmDeps;
     nativeBuildInputs = [
@@ -45,7 +58,14 @@ let
   };
 in
 buildGoModule (finalAttrs: {
-  inherit (sources.axonhub) pname version src;
+  pname = "axonhub";
+  version = "0.9.43";
+  src = fetchFromGitHub {
+    owner = "looplj";
+    repo = "axonhub";
+    tag = "v1.0.0-beta7";
+    hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
+  };
   vendorHash = "sha256-RyjXygorzbWzrMIeAVdjiF0wkHL9aZJFdpVnnbc693E=";
 
   tags = [ "nomsgpack" ];
@@ -70,6 +90,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgramArg = "version";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/looplj/axonhub/releases/tag/v${finalAttrs.version}";
     mainProgram = "axonhub";

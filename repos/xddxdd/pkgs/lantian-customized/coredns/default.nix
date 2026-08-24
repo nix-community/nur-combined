@@ -1,7 +1,6 @@
 {
   lib,
   coredns,
-  sources,
   buildGoModule,
   installShellFiles,
   ...
@@ -56,9 +55,9 @@ buildGoModule (finalAttrs: {
     meship:github.com/zhoreeq/coredns-meship
     EOF
 
-    go get github.com/serverwentdown/alias@${sources.coredns-alias.rawVersion}
-    go get github.com/zhoreeq/coredns-meshname@${sources.coredns-meshname.rawVersion}
-    go get github.com/zhoreeq/coredns-meship@${sources.coredns-meship.rawVersion}
+    go get github.com/serverwentdown/alias@${"1.0.6"}
+    go get github.com/zhoreeq/coredns-meshname@${"a3eb6c946497242b3d5aa73e979a62444299dde2"}
+    go get github.com/zhoreeq/coredns-meship@${"ba2685d1803672262638f752edb0ae97932b58fa"}
 
     go mod vendor
     CC= GOOS= GOARCH= go generate
@@ -77,6 +76,7 @@ buildGoModule (finalAttrs: {
 
   doCheck = false;
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     homepage = "https://github.com/xddxdd/coredns";

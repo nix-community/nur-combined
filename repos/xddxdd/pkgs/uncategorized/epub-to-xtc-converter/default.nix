@@ -1,13 +1,20 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   buildNpmPackage,
+  nix-update-script,
   nodejs,
   versionCheckHook,
 }:
 buildNpmPackage (finalAttrs: {
-  inherit (sources.epub-to-xtc-converter) pname version src;
-
+  pname = "epub-to-xtc-converter";
+  version = "0.8.0";
+  src = fetchFromGitHub {
+    owner = "bigbag";
+    repo = "epub-to-xtc-converter";
+    tag = "v0.8.0";
+    hash = "sha256-ox921Uk0YaKmCRL66ksbKj7YnCC0i1E3BMEChyZpS4U=";
+  };
   sourceRoot = "${finalAttrs.src.name}/cli";
   npmDepsHash = "sha256-GuvoKLhcFqEw8zfMBl4vc4ISp1/r+FOQOpxMLOXrPXs=";
 
@@ -41,6 +48,7 @@ buildNpmPackage (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     description = "CLI tool for converting EPUB files to XTC/XTCH format for Xteink e-readers";
     homepage = "https://github.com/bigbag/epub-to-xtc-converter";

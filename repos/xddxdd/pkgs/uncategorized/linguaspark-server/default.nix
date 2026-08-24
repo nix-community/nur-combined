@@ -1,12 +1,20 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
   buildArch ? null,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
-  inherit (sources.linguaspark-server) pname version src;
-
+  pname = "linguaspark-server";
+  version = "0-unstable-2026-07-19";
+  src = fetchFromGitHub {
+    owner = "LinguaSpark";
+    repo = "server";
+    rev = "19276b4d131cb064c6d58bbf335111c33f9a3134";
+    fetchSubmodules = true;
+    hash = "sha256-gctAIemzCCk9zOWGlUFLGuRuzhVNttBojn/TJi8nIcQ=";
+  };
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
     hash = "sha256-zmyBVEldNwNZvScs0PBRZtXXSk7vx6v/vC08bZl7bg0=";
@@ -24,6 +32,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     [ -n "$d" ] && patch -p1 -d "$d" < ${./rten-gemm-avx512vnni.patch}
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     mainProgram = finalAttrs.pname;
     maintainers = with lib.maintainers; [ xddxdd ];

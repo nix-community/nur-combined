@@ -1,11 +1,15 @@
 {
+  fetchurl,
   lib,
   stdenv,
-  sources,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.ftp-proxy) pname version src;
-
+  pname = "ftp-proxy";
+  version = "1.2.3";
+  src = fetchurl {
+    url = "http://www.ftpproxy.org/download/ftpproxy-1.2.3.tgz";
+    hash = "sha256-36r+iOaKEA9DMHBufEW+eoiRlEu1+VsYaWvK957l1uU=";
+  };
   postPatch = ''
     substituteInPlace src/ip-lib.c \
       --replace-fail ", *gethostbyname();" ";" \
@@ -28,6 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     mainProgram = "ftp.proxy";
     maintainers = with lib.maintainers; [ xddxdd ];

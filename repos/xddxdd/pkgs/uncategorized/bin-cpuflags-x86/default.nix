@@ -1,12 +1,23 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
-  inherit (sources.bin-cpuflags-x86) pname version src;
+  pname = "bin-cpuflags-x86";
+  version = "1.0.9";
+
+  src = fetchFromGitHub {
+    owner = "HanabishiRecca";
+    repo = "bin-cpuflags-x86";
+    tag = finalAttrs.version;
+    hash = "sha256-1+UHA6xWzO5ftaqZWVsfiXW75SBUQP2ukk1P1OYMVLk=";
+  };
 
   cargoHash = "sha256-3il1w8Y2p3qt6WLyqSwIwt5ubh2QAM9Fdg14NS0UqkE=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     changelog = "https://github.com/HanabishiRecca/bin-cpuflags-x86/releases/tag/v${finalAttrs.version}";

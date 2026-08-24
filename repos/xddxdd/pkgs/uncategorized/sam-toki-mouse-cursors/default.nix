@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   python3,
   win2xcur,
@@ -12,8 +13,14 @@ let
   ]);
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.sam-toki-mouse-cursors) pname version src;
-
+  pname = "sam-toki-mouse-cursors";
+  version = "10.00";
+  src = fetchFromGitHub {
+    owner = "SamToki";
+    repo = "Sam-Toki-Mouse-Cursors";
+    tag = "v10.00";
+    hash = "sha256-juRUv7/9dd+bIDjbwzfznPyPUZpPyL9sYKcNgZXngro=";
+  };
   nativeBuildInputs = [ py ];
 
   installPhase = ''
@@ -33,6 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/SamToki/Sam-Toki-Mouse-Cursors/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

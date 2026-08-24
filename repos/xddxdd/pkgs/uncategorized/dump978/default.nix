@@ -1,13 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   stdenv,
   boost186,
   soapysdr-with-plugins,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.dump978) pname version src;
-
+  pname = "dump978";
+  version = "11.1";
+  src = fetchFromGitHub {
+    owner = "flightaware";
+    repo = "dump978";
+    tag = "v11.1";
+    hash = "sha256-GErOwkO3dJBXOCI7RpXezNXa3hL6AOyl3KpMUmjfkTg=";
+  };
   enableParallelBuilding = true;
 
   buildInputs = [

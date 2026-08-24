@@ -1,6 +1,7 @@
 {
-  sources,
+  fetchurl,
   lib,
+  nix-update-script,
   stdenv,
   unzip,
 }:
@@ -8,8 +9,12 @@ let
   configFile = ./config_local.php;
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.calibre-cops) pname version src;
-
+  pname = "calibre-cops";
+  version = "4.5.2";
+  src = fetchurl {
+    url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.5.2/cops-4.5.2-php84.zip";
+    hash = "sha256-Z0uOwMXA/C8uvsM2xc3lYR840Qos41SOFMIPp4FJSSY=";
+  };
   unpackPhase = ''
     runHook preUnpack
 
@@ -32,6 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/mikespub-org/seblucas-cops/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

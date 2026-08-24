@@ -1,8 +1,8 @@
 {
-  sources,
   stdenv,
   makeWrapper,
   lib,
+  fetchurl,
   electron_11,
   makeDesktopItem,
   copyDesktopItems,
@@ -18,6 +18,13 @@
 # https://aur.archlinux.org/packages/baidunetdisk-electron
 ################################################################################
 let
+  version = "8.6.0";
+
+  src = fetchurl {
+    url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/${version}/baidunetdisk_${version}_amd64.deb";
+    hash = "sha256-KPYogv41RptACMEyTkPSqRCTlby9/AUgfgSKhId1nVY=";
+  };
+
   libraries = [
     stdenv.cc.cc.lib
     libappindicator
@@ -27,7 +34,8 @@ let
   ];
 
   dist = stdenv.mkDerivation (finalAttrs: {
-    inherit (sources.baidunetdisk) pname version src;
+    pname = "baidunetdisk";
+    inherit version src;
 
     dontFixup = true;
 
@@ -73,7 +81,8 @@ let
   });
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.baidunetdisk) pname version;
+  pname = "baidunetdisk";
+  inherit version src;
   dontUnpack = true;
 
   nativeBuildInputs = [
@@ -109,6 +118,8 @@ stdenv.mkDerivation (finalAttrs: {
       };
     })
   ];
+
+  passthru.updateScript = [ (toString ./update.sh) ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

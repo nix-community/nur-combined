@@ -1,5 +1,6 @@
 {
-  sources,
+  fetchurl,
+  nix-update-script,
   stdenv,
   lib,
   jdk25_headless,
@@ -7,8 +8,12 @@
   unzip,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.peerbanhelper) pname version src;
-
+  pname = "peerbanhelper";
+  version = "9.5.0";
+  src = fetchurl {
+    url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.5.0/PeerBanHelper_9.5.0.zip";
+    hash = "sha256-wMb6ZSb+TcTR9LEacpHr9ts3vUH9vmZ+xJYbGwElzLQ=";
+  };
   nativeBuildInputs = [
     makeWrapper
     unzip
@@ -28,6 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/Ghost-chu/PeerBanHelper/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

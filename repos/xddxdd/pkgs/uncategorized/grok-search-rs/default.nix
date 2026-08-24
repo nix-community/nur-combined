@@ -1,12 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
-  inherit (sources.grok-search-rs) pname version src;
-
+  pname = "grok-search-rs";
+  version = "0.1.24";
+  src = fetchFromGitHub {
+    owner = "Episkey-G";
+    repo = "GrokSearch-rs";
+    tag = "v0.1.24";
+    hash = "sha256-RbGspj/jQ/Z5VwUFFKegfJsRJn4AZcTQjczPngbDuUw=";
+  };
   cargoHash = "sha256-zyIuQuYtiViv33VXIvMB3YQbacXIQdYaqjlBdHNYQUc=";
 
   postPatch = ''
@@ -19,6 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/Episkey-G/GrokSearch-rs/releases/tag/v${finalAttrs.version}";
     description = "Rust MCP server for Grok web search and Tavily-backed source retrieval";

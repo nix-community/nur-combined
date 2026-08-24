@@ -1,15 +1,22 @@
 {
-  lib,
-  sources,
   buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
   setuptools,
   pyudev,
 }:
 buildPythonPackage rec {
-  inherit (sources.smfc) pname version;
+  pname = "smfc";
+  version = "6.2.0";
   pyproject = true;
 
-  inherit (sources.smfc) src;
+  src = fetchFromGitHub {
+    owner = "petersulyok";
+    repo = "smfc";
+    tag = "v${version}";
+    hash = "sha256-4VbC1DrP4eqSy3xaK6WV2bpWRrcZHP4/AhlzRzOV2+o=";
+  };
 
   build-system = [ setuptools ];
 
@@ -43,6 +50,8 @@ buildPythonPackage rec {
     license = with lib.licenses; [ gpl3Only ];
     mainProgram = "smfc";
   };
+
+  passthru.updateScript = nix-update-script { };
 }
 
 # stdenv.mkDerivation (finalAttrs: {

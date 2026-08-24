@@ -1,23 +1,28 @@
 {
-  sources,
+  fetchurl,
   lib,
   stdenv,
 }:
+let
+  sources = builtins.fromJSON (builtins.readFile ./sources.json);
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "dbip-lite";
-  inherit (sources.dbip-asn-lite) version;
+  version = sources.dbip-country-lite.version;
   dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out
-    zcat ${sources.dbip-asn-lite.src} > $out/dbip-asn-lite.mmdb
-    zcat ${sources.dbip-city-lite.src} > $out/dbip-city-lite.mmdb
-    zcat ${sources.dbip-country-lite.src} > $out/dbip-country-lite.mmdb
+    zcat ${fetchurl { inherit (sources.dbip-asn-lite) url hash; }} > $out/dbip-asn-lite.mmdb
+    zcat ${fetchurl { inherit (sources.dbip-city-lite) url hash; }} > $out/dbip-city-lite.mmdb
+    zcat ${fetchurl { inherit (sources.dbip-country-lite) url hash; }} > $out/dbip-country-lite.mmdb
 
     runHook postInstall
   '';
+
+  passthru.updateScript = [ (toString ./update.sh) ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

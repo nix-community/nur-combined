@@ -1,12 +1,19 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.env-dedup) pname version src;
-
+  pname = "env-dedup";
+  version = "0-unstable-2025-09-06";
+  src = fetchFromGitHub {
+    owner = "alexjp";
+    repo = "env-dedup";
+    rev = "9df9f75c47bef6957245b0bf6f32720a67dad3a0";
+    hash = "sha256-aOkhHOz84H0Sxsx2Rl7s0ZLMVio5BV9Ko7W0b3xVpxU=";
+  };
   buildPhase = ''
     runHook preBuild
 
@@ -24,6 +31,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Deduplicate the environment variables values";

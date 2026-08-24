@@ -1,15 +1,18 @@
 {
+  fetchurl,
   lib,
-  sources,
   buildPythonPackage,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.xstatic-font-awesome) pname version;
+  pname = "xstatic-font-awesome";
+  version = "6.2.1.2";
   pyproject = true;
 
-  inherit (sources.xstatic-font-awesome) src;
-
+  src = fetchurl {
+    url = "mirror://pypi/X/XStatic-Font-Awesome/XStatic-Font-Awesome-${version}";
+    hash = "sha256-4B+0gMqqfHlj3LMyikcA5jG+9gcNsOi2hYFtIg5oX2w=";
+  };
   build-system = [ setuptools ];
 
   postPatch = ''

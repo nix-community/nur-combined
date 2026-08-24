@@ -1,12 +1,19 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   kernel,
 }:
 stdenv.mkDerivation rec {
-  inherit (sources.nullfsvfs) pname version src;
-
+  pname = "nullfsvfs";
+  version = "0.27";
+  src = fetchFromGitHub {
+    owner = "abbbi";
+    repo = "nullfsvfs";
+    tag = "v0.27";
+    hash = "sha256-BvixSZN9GqFS4llaiKHfkLb21+qG74YtyNb8bUP0jdU=";
+  };
   hardeningDisable = [
     "pic"
     "format"
@@ -24,6 +31,7 @@ stdenv.mkDerivation rec {
   '';
   installTargets = [ "modules_install" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/abbbi/nullfsvfs/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

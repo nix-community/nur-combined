@@ -1,18 +1,22 @@
 {
+  fetchurl,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
+  nix-update-script,
   requests,
   drissionrecord,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.drissionget) pname version;
+  pname = "drissionget";
+  version = "1.2.1";
   pyproject = true;
 
-  inherit (sources.drissionget) src;
-
+  src = fetchurl {
+    url = "mirror://pypi/d/drissionget/drissionget-${version}";
+    hash = "sha256-oFUZvqWcx6WI8aWp7mhEKC5Zlj6sISuqQG2hwgvKmQg=";
+  };
   build-system = [ setuptools ];
   dependencies = [
     requests
@@ -21,6 +25,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "DrissionGet" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Multi-threaded file download toolkit";

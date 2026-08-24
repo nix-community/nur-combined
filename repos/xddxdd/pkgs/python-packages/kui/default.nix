@@ -1,19 +1,25 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
   baize,
+  nix-update-script,
   pdm-pep517,
   pydantic,
   typing-extensions,
 }:
 buildPythonPackage rec {
-  inherit (sources.kui) pname version;
+  pname = "kui";
+  version = "1.14.1";
   pyproject = true;
 
-  inherit (sources.kui) src;
-
+  src = fetchFromGitHub {
+    owner = "abersheeran";
+    repo = "kui";
+    tag = "v1.14.1";
+    hash = "sha256-PbE90v7y5qzyNJCCh8759BDPq2nFKO7A2FchIbHYWxk=";
+  };
   propagatedBuildInputs = [
     baize
     pdm-pep517
@@ -23,6 +29,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "kui" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Easy-to-use web framework";

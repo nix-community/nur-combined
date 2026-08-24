@@ -1,11 +1,18 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.vlmcsd) pname version src;
-
+  pname = "vlmcsd";
+  version = "svn1113-unstable-2023-07-28";
+  src = fetchFromGitHub {
+    owner = "Wind4";
+    repo = "vlmcsd";
+    rev = "70e03572b254688b8c3557f898e7ebd765d29ae1";
+    hash = "sha256-BEi47U0rdkO+AlQRpntsaTgm5A4CSwS6LuffAl2kIaw=";
+  };
   installPhase = ''
     runHook preInstall
 
@@ -15,6 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     mainProgram = "vlmcsd";
     maintainers = with lib.maintainers; [ xddxdd ];

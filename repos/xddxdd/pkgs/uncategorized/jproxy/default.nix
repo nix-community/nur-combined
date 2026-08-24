@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   stdenv,
   lib,
   jre_headless,
@@ -7,8 +7,12 @@
   unzip,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.jproxy) pname version src;
-
+  pname = "jproxy";
+  version = "3.4.1";
+  src = fetchurl {
+    url = "https://github.com/LuckyPuppy514/jproxy/releases/download/v3.4.1/windows-v3.4.1.zip";
+    hash = "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=";
+  };
   nativeBuildInputs = [
     makeWrapper
     unzip

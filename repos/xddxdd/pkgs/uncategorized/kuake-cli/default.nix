@@ -1,13 +1,20 @@
 {
+  fetchFromGitHub,
   lib,
   buildGoModule,
-  sources,
+  nix-update-script,
   versionCheckHook,
 }:
 
 buildGoModule (finalAttrs: {
-  inherit (sources.kuake-cli) pname version src;
-
+  pname = "kuake-cli";
+  version = "1.5.0";
+  src = fetchFromGitHub {
+    owner = "zhangjingwei";
+    repo = "kuake_cli";
+    tag = "v1.5.0";
+    hash = "sha256-89XMY1UggK5X9rGdLRmC5brF/xrfmBI+vhJNy+oiRk0=";
+  };
   vendorHash = "sha256-v/yHclHWgPWKNFEINmXc49aqYu1KBlKswdK61n3U2P8=";
 
   doCheck = false;
@@ -20,6 +27,7 @@ buildGoModule (finalAttrs: {
     mv $out/bin/cmd $out/bin/kuake-cli
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/zhangjingwei/kuake_cli/releases/tag/v${finalAttrs.version}";
     description = "CLI tool for Quark cloud storage management";

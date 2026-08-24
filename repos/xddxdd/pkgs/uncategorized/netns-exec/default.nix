@@ -1,11 +1,19 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.netns-exec) pname version src;
-
+  pname = "netns-exec";
+  version = "0-unstable-2016-07-30";
+  src = fetchFromGitHub {
+    owner = "pekman";
+    repo = "netns-exec";
+    rev = "aa346fd058d47b238ae1b86250f414bcab2e7927";
+    fetchSubmodules = true;
+    hash = "sha256-CnIgzRb58KIvdx7T9LpervSB2Ol6JMxmSM/Ti3K1+Dg=";
+  };
   postPatch = ''
     substituteInPlace Makefile \
       --replace-fail "-m4755" "-m755"
@@ -17,6 +25,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Run command in Linux network namespace as normal user";

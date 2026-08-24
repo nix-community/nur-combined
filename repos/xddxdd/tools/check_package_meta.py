@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3Packages.toml -p nixfmt
+#!nix-shell -i python3 -p python3 -p nixfmt
 import argparse
 import json
 import multiprocessing as mp
@@ -8,8 +8,6 @@ import random
 import re
 import subprocess
 from typing import List, Optional
-
-import toml
 
 SKIP_CHECK = [
     "_meta",
@@ -206,37 +204,9 @@ def autocorrect_package_meta(
     nvfetcher_config: Optional[dict] = None,
     nvfetcher_generated: Optional[dict] = None,
 ):
-    # Skip special packages
-    package_name = package_path.split(".")[2]
-    if package_name in SKIP_CHECK:
-        return
-
-    if not nvfetcher_config or not nvfetcher_generated:
-        return
-
-    github_release_src = nvfetcher_config.get("src", {}).get("github")
-    github_fetch_src = nvfetcher_config.get("fetch", {}).get("github")
-
-    nvfetcher_version = nvfetcher_generated.get("src", {}).get("rev", "")
-    if nvfetcher_version.startswith("v"):
-        version_prefix = "v"
-    elif nvfetcher_version.startswith("V"):
-        version_prefix = "V"
-    else:
-        version_prefix = ""
-
-    use_finalattrs = is_finalattrs(meta)
-
-    if github_release_src and not meta.get("changelog"):
-        if use_finalattrs:
-            statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{finalAttrs.version}}";'
-        else:
-            statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{version}}";'
-        apply_package_meta_change(meta, statement)
-
-    if github_fetch_src and not meta.get("homepage"):
-        statement = f'homepage = "https://github.com/{github_fetch_src}";'
-        apply_package_meta_change(meta, statement)
+    # nvfetcher has been fully removed; metadata autocorrection from its
+    # config is no longer possible, so this is a no-op kept for callers.
+    return
 
 
 def verify_package(
@@ -361,15 +331,16 @@ def get_package_meta(package_path: str) -> dict:
 
 
 def get_package_nvfetcher_config(package_path: str) -> Optional[dict]:
-    with open("nvfetcher.toml") as f:
-        data = toml.load(f)
-    return data.get(package_path.split(".")[-1])
+    # nvfetcher has been fully removed
+    return None
 
 
 def get_package_nvfetcher_generated(package_path: str) -> Optional[dict]:
-    with open("_sources/generated.json") as f:
-        data = json.load(f)
-    return data.get(package_path.split(".")[-1])
+    return None
+
+
+def get_package_nvfetcher_generated(package_path: str) -> Optional[dict]:
+    return None
 
 
 def check_package(args) -> bool:

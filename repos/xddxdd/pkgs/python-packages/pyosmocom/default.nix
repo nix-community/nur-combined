@@ -1,18 +1,24 @@
 {
+  fetchgit,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
+  nix-update-script,
   setuptools,
   construct,
   gsm0338,
 }:
 buildPythonPackage rec {
-  inherit (sources.pyosmocom) pname version;
+  pname = "pyosmocom";
+  version = "0.0.12-unstable-2026-08-23";
   pyproject = true;
 
-  inherit (sources.pyosmocom) src;
-
+  src = fetchgit {
+    url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
+    rev = "e1701b243335277b5214619e3edbbcb7099ccecf";
+    fetchSubmodules = false;
+    hash = "sha256-/QPEadNkCYvjXFW1DB5vKvxlxx6KTv2sYqJ09NhCY8Y=";
+  };
   build-system = [ setuptools ];
   dependencies = [
     construct
@@ -21,6 +27,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "osmocom" ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Python implementation of key Osmocom protocols/interfaces";

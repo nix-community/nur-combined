@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   meson,
   cmake,
@@ -11,7 +12,14 @@
   procps,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.uksmd) pname version src;
+  pname = "uksmd";
+  version = "1.3.0";
+  src = fetchFromGitHub {
+    owner = "CachyOS";
+    repo = "uksmd";
+    tag = "v1.3.0";
+    hash = "sha256-77Q0rF0xyhArP+8n0fXVUSVezzuwKAAABjA8W1dsI9w=";
+  };
   nativeBuildInputs = [
     meson
     cmake
@@ -32,6 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i "s#/usr/bin#$out/bin#g" uksmd.service
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Userspace KSM helper daemon";

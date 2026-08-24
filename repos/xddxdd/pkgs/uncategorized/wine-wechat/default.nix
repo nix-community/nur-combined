@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   stdenv,
   lib,
   p7zip,
@@ -23,8 +23,11 @@ let
 
   wechatFiles = stdenv.mkDerivation {
     pname = "wechat";
-    inherit (sources.wine-wechat-x64) version src;
-
+    version = "3.9.12.57";
+    src = fetchurl {
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.57/WeChatSetup-3.9.12.57.exe";
+      hash = "sha256-wp/AVjDPyV72SD9rW1Kqv+dCZbsmDiEOeK5DfTBdiZA=";
+    };
     nativeBuildInputs = [ p7zip ];
 
     unpackPhase = ''
@@ -83,7 +86,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "wine-wechat";
-  inherit (sources.wine-wechat-x64) version;
+  version = "3.9.12.57";
   dontUnpack = true;
 
   nativeBuildInputs = [ copyDesktopItems ];
@@ -140,6 +143,7 @@ stdenv.mkDerivation {
     })
   ];
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)";

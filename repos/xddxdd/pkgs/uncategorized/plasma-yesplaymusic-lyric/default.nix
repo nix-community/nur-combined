@@ -1,16 +1,29 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   stdenv,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.plasma-yesplaymusic-lyric) pname version src;
-
+  pname = "plasma-yesplaymusic-lyric";
+  version = "0.2.3-unstable-2025-01-07";
+  src = fetchFromGitHub {
+    owner = "zsiothsu";
+    repo = "org.kde.plasma.yesplaymusic-lyrics";
+    rev = "8f4bc05980195fef4b66474dccbfaa87912e3097";
+    hash = "sha256-5sb4RxF9tDK5Ha51W6vhC3V0hN/ANbKYY40iyzTJ0W0=";
+  };
   postInstall = ''
     mkdir -p $out/share/plasma/plasmoids/org.kde.plasma.yesplaymusic-lyrics
     cp -r * $out/share/plasma/plasmoids/org.kde.plasma.yesplaymusic-lyrics
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词";

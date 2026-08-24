@@ -1,14 +1,20 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   python3Packages,
 }:
 python3Packages.buildPythonPackage rec {
-  inherit (sources.email-oauth2-proxy) pname version;
+  pname = "email-oauth2-proxy";
+  version = "2026-07-03";
   pyproject = true;
 
-  inherit (sources.email-oauth2-proxy) src;
-
+  src = fetchFromGitHub {
+    owner = "simonrob";
+    repo = "email-oauth2-proxy";
+    tag = "2026-07-03";
+    hash = "sha256-cvd7XgSn213aR4BqrdBoQed7i2m4MCkQBkLcO9uB+bo=";
+  };
   dontCheckPythonMetadata = true;
 
   build-system = [ python3Packages.setuptools ];
@@ -27,6 +33,7 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "emailproxy" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/simonrob/email-oauth2-proxy/releases/tag/${version}";
     mainProgram = "emailproxy";

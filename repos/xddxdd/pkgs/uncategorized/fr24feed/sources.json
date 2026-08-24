@@ -1,0 +1,22 @@
+{
+  "fr24feed-amd64": {
+    "hash": "sha256-LbjSy+EUMGCqskpCqNQsCJ18JyG0f470TliKW6m8JDU=",
+    "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.57-1_amd64.deb",
+    "version": "1.0.57-1"
+  },
+  "fr24feed-arm64": {
+    "hash": "sha256-Z6t8mYpGdd5XL/dZ+AtD6MoLIs8ZhcGaiwmtEBWEljo=",
+    "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.57-1_arm64.deb",
+    "version": "1.0.57-1"
+  },
+  "fr24feed-armhf": {
+    "hash": "sha256-ExQoUac9GlA9OWPf6d8r0hpi7R1izdsgDsSJiPumqbU=",
+    "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.57-1_armhf.deb",
+    "version": "1.0.57-1"
+  },
+  "fr24feed-i386": {
+    "hash": "sha256-pF7GKqRREAxK8p0KaTUXzZ3CiYy5yaSvp3TMepi6NdE=",
+    "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.57-1_i386.deb",
+    "version": "1.0.57-1"
+  }
+}

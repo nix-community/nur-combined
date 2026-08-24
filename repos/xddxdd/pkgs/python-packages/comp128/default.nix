@@ -1,20 +1,27 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
+  nix-update-script,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.comp128) pname version;
+  pname = "comp128";
+  version = "1.0.0";
   pyproject = true;
 
-  inherit (sources.comp128) src;
-
+  src = fetchFromGitHub {
+    owner = "Takuto88";
+    repo = "comp128-python";
+    tag = "1.0.0";
+    hash = "sha256-0y36/J7l/PpiG5claCJF5oCCcFB7BPUQvba+73+Jwzc=";
+  };
   build-system = [ setuptools ];
 
   pythonImportsCheck = [ "comp128" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/Takuto88/comp128-python/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

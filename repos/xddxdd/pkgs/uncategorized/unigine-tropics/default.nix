@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   lib,
   stdenv,
   pkgsi686Linux,
@@ -31,8 +31,12 @@ let
   ];
 
   distPackage = pkgsi686Linux.stdenv.mkDerivation {
-    inherit (sources.unigine-tropics) pname version src;
-
+    pname = "unigine-tropics";
+    version = "1.3";
+    src = fetchurl {
+      url = "https://assets.unigine.com/d/Unigine_Tropics-1.3.run";
+      hash = "sha256-/eA1i42/PMcoBbUJIGS66j7QpZ13oPkOi1Y6Q27TikU=";
+    };
     nativeBuildInputs = [ pkgsi686Linux.autoPatchelfHook ];
     buildInputs = libraries;
 
@@ -59,7 +63,8 @@ let
   };
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.unigine-tropics) pname version;
+  pname = "unigine-tropics";
+  version = "1.3";
   dontUnpack = true;
 
   nativeBuildInputs = [
@@ -98,6 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Extreme performance and stability test for PC hardware: video card, power supply, cooling system";

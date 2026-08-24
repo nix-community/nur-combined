@@ -1,14 +1,29 @@
 {
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
-  sources,
   cmake,
   liboqs,
   openssl_3,
 }:
+let
+  qscKeyEncoderSrc = fetchFromGitHub {
+    owner = "Quantum-Safe-Collaboration";
+    repo = "qsc-key-encoder";
+    rev = "1b6289dac9f7caf89d26bad2f1cf3cd628507af2";
+    hash = "sha256-fslq2BlNtnUve7enWXzWGc8xUh8clmHs+QjPozjinHM=";
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.openssl-oqs-provider) pname version src;
-
+  pname = "openssl-oqs-provider";
+  version = "0.11.0-unstable-2026-08-21";
+  src = fetchFromGitHub {
+    owner = "open-quantum-safe";
+    repo = "oqs-provider";
+    rev = "72e7dae5aab022167aa7ae8f5afdb9667d848104";
+    hash = "sha256-1i2WUmjaLOFLmXvENYstsrh6UfolqN66TrDpltoz0YA=";
+  };
   enableParallelBuilding = true;
   dontFixCmake = true;
 
@@ -24,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
   postPatch = ''
-    cp -r ${sources.qsc-key-encoder.src} qsc-key-encoder
+    cp -r ${qscKeyEncoderSrc} qsc-key-encoder
     chmod -R 755 qsc-key-encoder
 
     sed -i "s|GIT_REPOSITORY .*|SOURCE_DIR $(pwd)/qsc-key-encoder|g" oqsprov/CMakeLists.txt
@@ -39,6 +54,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenSSL 3 provider containing post-quantum algorithms";

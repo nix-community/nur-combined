@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Run passthru.updateScript-based package updates (see helpers/update.nix).
+#
+# Usage:
+#   ./tools/update-package <attr-path> [<attr-path>...]
+#   ./tools/update-package --path <group-prefix>
+#   ./tools/update-package --all
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+if [ $# -eq 0 ]; then
+	echo "Usage: $0 <attr-path>... | --path <prefix> | --all" >&2
+	exit 1
+fi
+
+case "$1" in
+--all)
+	exec nix-shell helpers/update.nix --argstr packages ""
+	;;
+--path)
+	[ $# -ge 2 ] || { echo "Usage: $0 --path <prefix>" >&2; exit 1; }
+	shift
+	exec nix-shell helpers/update.nix --argstr path "$*"
+	;;
+*)
+	exec nix-shell helpers/update.nix --argstr packages "$*"
+	;;
+esac

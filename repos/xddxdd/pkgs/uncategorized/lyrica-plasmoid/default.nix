@@ -1,12 +1,19 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   stdenv,
   lyrica,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.lyrica) pname version src;
-
+  pname = "lyrica";
+  version = "0.24";
+  src = fetchFromGitHub {
+    owner = "chiyuki0325";
+    repo = "lyrica";
+    tag = "v0.24";
+    hash = "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=";
+  };
   postInstall = ''
     mkdir -p $out/share/plasma/plasmoids/ink.chyk.lyricakde
     cp -r frontend/kde/* $out/share/plasma/plasmoids/ink.chyk.lyricakde
@@ -15,6 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '$HOME/.local/share/plasma/plasmoids/ink.chyk.lyricakde/contents/bin/lyrica' '${lyrica}/bin/lyrica'
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)";

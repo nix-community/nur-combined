@@ -1,12 +1,21 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildGoModule,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.konnect) pname version src;
+  pname = "konnect";
+  version = "0.34.0";
+  src = fetchFromGitHub {
+    owner = "Kopano-dev";
+    repo = "konnect";
+    tag = "v0.34.0";
+    hash = "sha256-y7SD+czD/jK/m0LbFq7qGjwJgBIXfTNrdsA3pzgD2xE=";
+  };
   vendorHash = "sha256-ZrwFUZDTbJx5qvloVOa5qK1ykKNkUn1hjfz0xf+8sWk=";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     mainProgram = "konnectd";
     maintainers = with lib.maintainers; [ xddxdd ];

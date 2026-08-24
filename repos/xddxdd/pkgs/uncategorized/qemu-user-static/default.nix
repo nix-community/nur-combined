@@ -1,10 +1,12 @@
 {
-  sources,
-  stdenv,
-  lib,
   dpkg,
+  fetchurl,
+  lib,
+  stdenv,
 }:
 let
+  sources = builtins.fromJSON (builtins.readFile ./sources.json);
+
   mkPackage =
     source:
     stdenv.mkDerivation {
@@ -36,22 +38,44 @@ let
 
       dontFixup = true;
 
+      passthru.updateScript = [ (toString ./update.sh) ];
+
       meta = {
         mainProgram = "qemu-amd64-static";
         maintainers = with lib.maintainers; [ xddxdd ];
         homepage = "http://www.qemu.org/";
-        description = "Generic and open source machine emulator and virtualizer";
+        description = "Generic and open source machine emulator, virtualizer";
         license = lib.licenses.gpl2Plus;
       };
     };
 in
 if stdenv.hostPlatform.isx86_64 then
-  mkPackage sources.qemu-user-static-amd64
+  mkPackage {
+    inherit (sources.qemu-user-static-amd64) version;
+    src = fetchurl {
+      inherit (sources.qemu-user-static-amd64) url hash;
+    };
+  }
 else if stdenv.hostPlatform.isi686 then
-  mkPackage sources.qemu-user-static-i386
-else if stdenv.hostPlatform.isAarch64 then
-  mkPackage sources.qemu-user-static-arm64
+  mkPackage {
+    inherit (sources.qemu-user-static-i386) version;
+    src = fetchurl {
+      inherit (sources.qemu-user-static-i386) url hash;
+    };
+  }
 else if stdenv.hostPlatform.isAarch32 then
-  mkPackage sources.qemu-user-static-armhf
+  mkPackage {
+    inherit (sources.qemu-user-static-armhf) version;
+    src = fetchurl {
+      inherit (sources.qemu-user-static-armhf) url hash;
+    };
+  }
+else if stdenv.hostPlatform.isAarch64 then
+  mkPackage {
+    inherit (sources.qemu-user-static-arm64) version;
+    src = fetchurl {
+      inherit (sources.qemu-user-static-arm64) url hash;
+    };
+  }
 else
   throw "Unsupported architecture"

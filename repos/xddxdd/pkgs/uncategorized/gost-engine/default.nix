@@ -1,13 +1,21 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
   cmake,
   openssl,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.gost-engine) pname version src;
-
+  pname = "gost-engine";
+  version = "3.0.3";
+  src = fetchFromGitHub {
+    owner = "gost-engine";
+    repo = "engine";
+    tag = "v3.0.3";
+    fetchSubmodules = true;
+    hash = "sha256-52nt0TtPDpMjC0QCTrWYUhpHXZNCDrds0LrkQdDN1Mo=";
+  };
   nativeBuildInputs = [ cmake ];
   buildInputs = [ openssl ];
 
@@ -16,6 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/gost-engine/engine/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

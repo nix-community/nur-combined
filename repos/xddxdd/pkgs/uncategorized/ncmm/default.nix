@@ -1,11 +1,19 @@
 {
+  fetchFromGitHub,
   lib,
   buildGoModule,
-  sources,
+  nix-update-script,
   versionCheckHook,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.ncmm) pname version src;
+  pname = "ncmm";
+  version = "1.1.15";
+  src = fetchFromGitHub {
+    owner = "3899";
+    repo = "ncmm";
+    tag = "v1.1.15";
+    hash = "sha256-0QnSRMTAzxzCi05Wc52TwFdqo1KqrX59hxzbJk+zQ6o=";
+  };
   vendorHash = "sha256-dYGMbXaPARioUHlNcQCtCM8q79g66m9utnAS7Bdyrk4=";
 
   ldflags = [
@@ -19,6 +27,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/3899/ncmm/releases/tag/v${finalAttrs.version}";
     mainProgram = "ncmm";

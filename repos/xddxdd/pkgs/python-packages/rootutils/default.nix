@@ -1,17 +1,23 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
+  nix-update-script,
   setuptools,
   # Dependencies
   python-dotenv,
 }:
 buildPythonPackage rec {
-  inherit (sources.rootutils) pname version;
+  pname = "rootutils";
+  version = "1.0.7";
   pyproject = true;
 
-  inherit (sources.rootutils) src;
-
+  src = fetchFromGitHub {
+    owner = "ashleve";
+    repo = "rootutils";
+    tag = "v1.0.7";
+    hash = "sha256-MY6kYB3IhMvyLCVVC2kdpMvbwKY4XyTfq9cXxbqbnPI=";
+  };
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [
@@ -20,6 +26,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "rootutils" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/ashleve/rootutils/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -1,16 +1,18 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   rustPlatform,
 }:
 rustPlatform.buildRustPackage {
-  inherit (sources.vgpu-unlock-rs)
-    pname
-    version
-    rawVersion
-    src
-    ;
-
+  pname = "vgpu-unlock-rs";
+  version = "2.5.0";
+  rawVersion = "v2.5.0";
+  src = fetchFromGitHub {
+    owner = "mbilker";
+    repo = "vgpu_unlock-rs";
+    tag = "v2.5.0";
+    hash = "sha256-5/cFc8JWgwxYm0JQX6aBGhIn2cNvGB4kh/w96P+lTgw=";
+  };
   cargoLock.lockFile = ./Cargo.lock;
 
   postPatch = ''

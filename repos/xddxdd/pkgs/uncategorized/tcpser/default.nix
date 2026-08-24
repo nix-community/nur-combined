@@ -1,12 +1,19 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   versionCheckHook,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.tcpser) pname version src;
-
+  pname = "tcpser";
+  version = "1.1.4";
+  src = fetchFromGitHub {
+    owner = "go4retro";
+    repo = "tcpser";
+    tag = "v1.1.4";
+    hash = "sha256-Ir/tQde7hfqlgOVXE2HqJSzEXdceCTywptN8PRqylMI=";
+  };
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
   ];
@@ -25,6 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "-V";
   doInstallCheck = true;
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/go4retro/tcpser/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

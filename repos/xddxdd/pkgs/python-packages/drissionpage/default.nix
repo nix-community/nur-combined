@@ -1,8 +1,9 @@
 {
+  fetchurl,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
+  nix-update-script,
   requests,
   lxml,
   cssselect,
@@ -15,11 +16,14 @@
   drissionrecord,
 }:
 buildPythonPackage rec {
-  inherit (sources.drissionpage) pname version;
+  pname = "drissionpage";
+  version = "4.1.1.4";
   pyproject = true;
 
-  inherit (sources.drissionpage) src;
-
+  src = fetchurl {
+    url = "mirror://pypi/d/drissionpage/drissionpage-${version}";
+    hash = "sha256-TGJEhcvFduFHftt3zZKjGEcE99bQ/QGSjJRKXma6Rxk=";
+  };
   build-system = [ setuptools ];
   dependencies = [
     requests
@@ -37,6 +41,7 @@ buildPythonPackage rec {
     "DrissionPage"
   ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Python based web automation tool";

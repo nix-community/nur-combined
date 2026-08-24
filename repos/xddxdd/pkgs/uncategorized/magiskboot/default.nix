@@ -1,6 +1,7 @@
 {
-  sources,
+  fetchurl,
   lib,
+  nix-update-script,
   stdenv,
   unzip,
 }:
@@ -18,7 +19,12 @@ let
       throw "Unsupported architecture";
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.magiskboot) pname version src;
+  pname = "magiskboot";
+  version = "30.7";
+  src = fetchurl {
+    url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk";
+    hash = "sha256-4NMtISNTKGD5cSPZJ7G7hsTgjm/YpIv8a1vuCvrp69U=";
+  };
   dontUnpack = true;
 
   nativeBuildInputs = [ unzip ];
@@ -39,6 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/topjohnwu/Magisk/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

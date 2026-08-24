@@ -8,9 +8,6 @@ rec {
   ifNotCI = p: if mode == "ci" || mode == "hydra" then null else p;
   ifNotNUR = p: if mode == "nur" then null else p;
 
-  nvfetcherLoader = pkgs.callPackage ./nvfetcher-loader.nix { };
-  sources = nvfetcherLoader ../_sources/generated.nix;
-
   createCallPackage =
     _packages:
     lib.callPackageWith (
@@ -19,7 +16,6 @@ rec {
       // rec {
         inherit
           _packages
-          sources
           inputs
           ;
         kernel = pkgs.linux;
@@ -49,7 +45,6 @@ rec {
         loadPackages
         mode
         pkgs
-        sources
         # keep-sorted end
         ;
     };

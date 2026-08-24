@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   stdenv,
   openssl,
   python3,
@@ -24,8 +25,14 @@ let
   );
 in
 stdenv.mkDerivation {
-  inherit (sources.fastapi-dls) pname version src;
-
+  pname = "fastapi-dls";
+  version = "2.0.1-unstable-2025-05-13";
+  src = fetchFromGitHub {
+    owner = "GreenDamTan";
+    repo = "fastapi-dls_mirror";
+    rev = "52e9f2cae9e2ae791e810593a99d642763431806";
+    hash = "sha256-nTWvnoHIOt1jHv2m9JGPhFithu2/VZdl+Ju2n6woVHY=";
+  };
   nativeBuildInputs = [
     makeWrapper
     openssl
@@ -64,6 +71,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Minimal Delegated License Service (DLS)";

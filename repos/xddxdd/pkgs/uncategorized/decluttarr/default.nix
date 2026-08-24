@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   python3,
   makeWrapper,
@@ -17,8 +18,14 @@ let
   );
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.decluttarr) pname version src;
-
+  pname = "decluttarr";
+  version = "2.1.0";
+  src = fetchFromGitHub {
+    owner = "ManiMatter";
+    repo = "decluttarr";
+    tag = "v1.50.2";
+    hash = "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
@@ -31,6 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed";

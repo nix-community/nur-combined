@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   lib,
   stdenv,
   buildFHSEnv,
@@ -55,6 +55,11 @@
   xcbutilwm,
 }:
 let
+  adspowerSrc = fetchurl {
+    url = "https://version.adspower.net/software/linux-x64-global/8.7.23/AdsPower-Global-8.7.23-x64.deb";
+    hash = "sha256-ehbDWRqLZ9ekQGZt9SNJnIaAt9JQJIBudmOP+07jFSA=";
+  };
+
   libraries = [
     alsa-lib
     at-spi2-atk
@@ -114,12 +119,12 @@ let
       }
       ''
         mkdir -p $out
-        ar x ${sources.adspower.src}
+        ar x ${adspowerSrc}
         tar xf data.tar.xz -C $out
       '';
 
   fhs = buildFHSEnv {
-    name = sources.adspower.pname;
+    name = "adspower";
     targetPkgs = _pkgs: libraries;
     runScript = "${distPkg}/opt/AdsPower\\ Global/adspower_global";
 
@@ -132,8 +137,8 @@ let
   };
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.adspower) pname version;
-
+  pname = "adspower";
+  version = "8.7.23";
   dontUnpack = true;
 
   installPhase = ''
@@ -151,6 +156,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = { inherit (finalAttrs) distPkg; };
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Antidetect Browser for Multi-Accounts";

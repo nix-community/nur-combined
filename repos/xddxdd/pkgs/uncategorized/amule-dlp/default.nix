@@ -1,10 +1,17 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   amule,
 }:
 amule.overrideAttrs (old: {
-  inherit (sources.amule-dlp) pname version src;
+  pname = "amule-dlp";
+  version = "2.3.2-dlp";
+  src = fetchFromGitHub {
+    owner = "persmule";
+    repo = "amule-dlp";
+    rev = "7b3a07ab554d95267cca0c4a819b26d8474d6b3b";
+    hash = "sha256-aZ+BjBNKHbHP44L7iOK9t1n/4l4U+R/pZYfTSBjFOA4=";
+  };
   patches = [ ];
 
   cmakeFlags = (old.cmakeFlags or [ ]) ++ [

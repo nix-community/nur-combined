@@ -1,7 +1,8 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   makeWrapper,
   python3,
 }:
@@ -24,8 +25,14 @@ let
   );
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.douban-openapi-server) pname version src;
-
+  pname = "douban-openapi-server";
+  version = "0-unstable-2022-12-17";
+  src = fetchFromGitHub {
+    owner = "caryyu";
+    repo = "douban-openapi-server";
+    rev = "c7e2a0f59ba5cfb2d10a31013547686a4afab99d";
+    hash = "sha256-Ri56XBkGjLF8+Rv7lYDM83WfZ2rzwF0p5SZzBeC3ToI=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
@@ -43,6 +50,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Douban API server that provides unofficial APIs for media information gathering";

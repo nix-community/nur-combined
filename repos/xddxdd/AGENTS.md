@@ -29,7 +29,7 @@
 - **扁平打包的二进制压缩包**：当上游 tarball 不包含单一顶层目录（直接在 `./` 下展开文件）时，stdenv 默认 `unpackPhase` 会报 `unpacker produced multiple directories`。此时需设置 `sourceRoot = "."`，让构建在解压根目录进行。
 - **structuredAttrs 下修改 patches 列表**：当 `structuredAttrs is enabled` 时，不能在 `prePatch` 中通过修改 `patches` 变量来过滤补丁（`concatTo` 无法正确解析被修改后的字符串变量）。应改为完全覆盖 `patchPhase`，在其中用 `concatTo patchesArray patches` 读取补丁列表后自行过滤和应用。
 - **setuptools 82+ 移除了 `pkg_resources`**：老版本的 XStatic 等包在 `xstatic/__init__.py` 和 `xstatic/pkg/__init__.py` 中使用 `__import__('pkg_resources').declare_namespace(__name__)`，在 setuptools 82+ 中会报 `ModuleNotFoundError: No module named 'pkg_resources'`。修复方法：在 `postPatch` 中用 `substituteInPlace` 删除该调用，同时用 `sed` 从 `setup.py` 中删除 `namespace_packages` 行。
-- **pythonMetadataCheckPhase 与 pname 不一致**：新版 nixpkgs 的 `pythonMetadataCheckPhase` 钩子会用 `importlib.metadata.version($pname)` 校验已安装包元数据，要求派生 `pname` 与上游 PyPI 分发名（PEP 503 归一化）一致，且元数据 `Version` 与派生 `version` 均为合法 PEP 440 且相等。本仓库 `pname` 来自 nvfetcher 配置段名，常与上游包名不同（如 `data-recorder` vs `DataRecorder` 归一化为 `datarecorder`、`open-webui-kb-manager` vs `kb-manager`、`runpod-python` vs `runpod`），导致 `PackageNotFoundError`。优先修复方法：把 nvfetcher 配置段名、`_sources/generated.{nix,json}` 中的键与 `pname` 字段、以及 `pkgs/python-packages/` 下的包目录一并重命名为上游真实分发名，这样包定义可回到标准的 `inherit (sources.<name>) pname version;` 形式，检查自然通过；同时在 `pkgs/python-packages/default.nix` 的 `self = packages // { ... }` 中为旧名添加别名（如 `data-recorder = packages.datarecorder;`）以保持向后兼容。若不便重命名，可退而把派生 `pname` 改为真实分发名（如 `pname = "datarecorder"`）。仅当派生 `version` 本身不是合法 PEP 440 且与元数据版本无法对齐时（如 `email-oauth2-proxy` 的 `2026-07-03` vs 元数据 `2026.7.3`），才用 `dontCheckPythonMetadata = true;` 关闭检查。重命名 nvfetcher 段后不要运行无参数的 nvfetcher；若需重生成，用 `nvfetcher -f '<正则>'` 只刷新受影响包，并手动从 `_sources/generated.{nix,json}` 删除遗留旧键。
+- **pythonMetadataCheckPhase 与 pname 不一致**：新版 nixpkgs 的 `pythonMetadataCheckPhase` 钩子会用 `importlib.metadata.version($pname)` 校验已安装包元数据，要求派生 `pname` 与上游 PyPI 分发名（PEP 503 归一化）一致且版本合法相等。若派生 `pname` 与 PyPI 名不一致导致检查失败，把 `pname` 改为真实分发名；仅当 `version` 无法对齐时才用 `dontCheckPythonMetadata = true;` 关闭检查。
 - **nixpkgs 依赖被 setuptools 上界约束打破**：当 nixpkgs 的某个 Python 依赖（如 `mfusepy`）在 `[build-system] requires` 中钉死 `setuptools < 83`，而 nixpkgs 已升级到 setuptools 83，构建期会报 `Unmet dependencies`。应在直接引用该依赖的包内就地覆盖，而不要在 `pkgs/python-packages/default.nix` 的 `self` 集合中全局覆盖：在该包定义里用 `let <pkg>' = <pkg>.overridePythonAttrs (old: { postPatch = (old.postPatch or "") + ''\n        substituteInPlace pyproject.toml --replace-fail 'setuptools >= 61, < 83' 'setuptools >= 61'\n      ''; }); in` 得到放宽约束的版本，并在依赖列表中使用 `<pkg>'`（务必拼接原有 `postPatch`，避免丢失既有补丁）。
 - **上游补丁失效时的重新生成方法**：当上游源码结构变化（目录改名、CMakeLists 重构等）导致已有补丁 hunk 失败（`Hunk #N FAILED -- saving rejects`）时，不要手工改补丁上下文，而应在 `/tmp` 解包新源码，把同一套变换（sed/Python）应用到副本上，再用 `diff -u old new` 重新生成补丁（注意把 `--- old/`、`+++ new/` 前缀改回 `a/`、`b/`，并在副本上 `patch --dry-run` 验证）。同时必须检查上游是否新增了带有同类代码模式的文件：旧的 `qt6-qchar-fix.patch` 只覆盖了 `DeveloperComponents/` 下的文件，上游把该目录改名为 `Development` 并新增了多个文件后，同样的 `QChar(ElaIconType::X)` 编译错误出现在 `ElaIcon.cpp`（`QChar(awesome)`）、`ElaKeyBinder.cpp`、`ElaToolButton.cpp`（`QChar(icon)`）、`ElaText.cpp`（`QChar(d->_pElaIcon)`）、`ElaFooterDelegate.cpp`/`ElaNavigationStyle.cpp`（`QChar(node->getAwesome())`）等变量形式中，需一并覆盖（用 `static_cast<char16_t>(...)` 包住）；这些新增文件若未覆盖，patchPhase 过后会在编译期才报 `no matching function for call to 'QChar::QChar(ElaIconType::IconName&)'`。
 - **上游 go.mod 要求比 nixpkgs 更新的 Go 补丁版本**：当 go.mod 声明 `go 1.26.6` 而 nixpkgs 默认 `go` 仍为 1.26.5 时，构建报 `go.mod requires go >= 1.26.6 (running go 1.26.5; GOTOOLCHAIN=local)`。修复：直接用版本绑定的 `buildGo127Module`（nixpkgs 为各 Go 主版本提供 `buildGo12XModule`，等价于 `buildGoModule.override { go = go_1_27; }`，比 override 更简洁）作为构建器。仓库锁定的 nixpkgs 中 `go_1_27` 可能是 1.27rc3，仍满足 `>= 1.26.6` 即可用；用 `nix eval --raw .#packages.<system>.<pkg>.go.version` 可确认实际生效的 Go 版本。
@@ -63,16 +63,13 @@
 ### meta.homepage（主页）
 
 - **必须设置**：所有包都必须设置 `meta.homepage` 字段
-- **自动补全**：对于使用 nvfetcher 的 GitHub 项目（`fetch.github`），如果未设置 homepage，工具会自动添加
 
 ### meta.changelog（更新日志）
 
-- **自动补全**：对于使用 nvfetcher 的 GitHub Release（`src.github`），如果未设置 changelog，工具会自动添加指向 releases 页面的链接
 
 ### version（版本号）
 
 - **无 v 前缀**：版本号不应以 `v` 开头
-- **自动处理 v 前缀**：现有基础设施会自动从 nvfetcher 生成的版本号中移除 `v` 前缀，无需手动使用 `lib.removePrefix` 处理
 - **Git 提交哈希格式**：如果使用 Git 提交哈希作为版本，应使用类似 `unstable-2020-01-01` 的日期格式，而不是 40 位哈希值
 
 ### 构建阶段钩子
@@ -124,52 +121,53 @@ appimageTools.wrapType2 {
 - 现有基础设施会自动识别新包
 - 创建任何新文件后，必须运行 `git add` 将文件添加到 Git 暂存区，以便 Nix 可见
 
+## updateScript 包更新机制（nixpkgs 风格）
+
+### 概述
+
+全部包均使用 nixpkgs 原生的 `passthru.updateScript` 更新机制或独立更新脚本，nvfetcher 相关基础设施（`nvfetcher.toml`、`_sources/`、`helpers/nvfetcher-loader.nix`、`tools/update_sources.py`、devshell 的 `nvfetcher`/`update-sources` 命令）已完全移除。包定义把 fetcher 内联在文件中，由 `helpers/update.nix` 统一发现并执行更新脚本。
+
+### 多源包的 sources.json 模式
+
+消费多个上游源的包（如 fr24feed、dbip-lite、qemu-user-static、qq、lantianCustomized.nginx）不要把版本/哈希字面量写死在 default.nix 里，而是：
+
+1. 在包目录下维护 `sources.json`，每个条目含 `version`/`url`/`hash`（nginx 的 GitHub 模块条目为 `owner`/`repo`/`rev|tag`/`hash`/可选 `fetchSubmodules`）
+2. default.nix 通过 `builtins.fromJSON (builtins.readFile ./sources.json)` 读取并构造 fetcher
+3. 包目录下的 `update.sh` 负责探测新版本、用 `nix store prefetch-file --json [--unpack] <url>` 计算哈希（GitHub tarball 用 `--unpack`，其结果与 fetchFromGitHub 哈希一致），最后整体重写 `sources.json`
+4. 注意：nix-update 只支持单一 `version`/`src` 属性，因此多源包必须走本模式；`sort -V` 是字典序，纯数字版本比较需按 `.` 分段转整数排序
+
+### 版本约定
+
+- **普通 GitHub release/tag**：直接 `nix-update-script { }`；v 前缀 tag（如 tag 为 `v1.2.0`、version 为 `1.2.0`）会被 nix-update 自动识别处理，无需额外参数
+- **stable/unstable 双源约定**（原 `<stable>-unstable-<日期>` 格式、跟踪 git main 分支的包）：使用 `nix-update-script { extraArgs = [ "--version" "branch" ]; }`。nix-update 会取同仓库最新 tag 加上最新 commit 日期生成版本号，并同步更新 rev 与哈希（GitHub 与 Gitea 均支持）
+- **非 GitHub 源**（webpage 抓取、AUR 等）：手写自定义更新脚本。脚本必须作为独立文件放在包目录下（如 `pkgs/uncategorized/baidunetdisk/update.sh`），不要内联在 default.nix 中；在包定义里用 `passthru.updateScript = [ (toString ./update.sh) ];` 引用。运行器以仓库根目录为 cwd 执行脚本，并设置 `UPDATE_NIX_ATTR_PATH`/`UPDATE_NIX_PNAME`/`UPDATE_NIX_NAME`/`UPDATE_NIX_OLD_VERSION` 环境变量；脚本内部获取新版本号后调用 `nix-update "$UPDATE_NIX_ATTR_PATH" --version "$NEW_VERSION"`（参考 `pkgs/uncategorized/baidunetdisk/update.sh`）
+
+### 运行方式
+
+```bash
+./tools/update-package foo [bar ...]   # 更新指定包（接受裸名或带组前缀）
+./tools/update-package --path uncategorized  # 更新某组下所有包
+./tools/update-package --all           # 更新全部已迁移包
+```
+
+也可通过 flake app 调用：`nix run .#update-pkg -- <参数>`。顶层 `update` 命令会自动执行 `update-package --all`。
+
+### 脚本文件命名约定
+
+- 包目录下的 `update.*`（如 `update.sh`）：passthru.updateScript 机制的新式更新脚本，由 `helpers/update.nix` 运行器发现并执行，不会被 `update` 命令的 find 循环执行
+- 包目录下的 `update-standalone.*`：旧的独立脚本（lockfile 再生成等辅助流程），由顶层 `update` 命令的 find 循环直接执行，与 passthru 机制无关；不要用 `update.*` 命名这类脚本，避免被双重执行
+
+### 已知限制
+
+- 上游 git 子模块使用 SSH URL（如 `git@github.com:...`）的包无法被 nix-update 重新计算哈希；此类包应写独立 update.sh 自行计算哈希，或保持手动更新
+- 包装类包（override nixpkgs 包、无独立 src，如 lantianCustomized.materialgram/firefox-unwrapped/attic-telnyx-compatible、uncategorized.wechat-uos-sandboxed/nftables-fullcone/libnftnl-fullcone）继承自 nixpkgs 的 updateScript 在本仓库无法正确运行，已在 `helpers/update.nix` 的 `excludes` 列表中排除，它们跟随 nixpkgs flake 锁更新
+- python-packages 组的包因 nixpkgs `buildPythonPackage` 自动注入 `passthru.updateScript`，未迁移的包会被运行器的 `sources.` 过滤器跳过
+
 ## 源码管理
 
-### 源码更新工具
-
-- 本仓库使用 Python 版 `update-sources`（`tools/update_sources.py`）管理源码版本更新，它是 nvfetcher 的替代品
-- 配置文件位于 `nvfetcher.toml`（格式与 nvfetcher 完全兼容）
-- devshell 中通过 `update-sources` 命令调用，也可直接 `./tools/update_sources.py` 运行（带 nix-shell shebang，自动拉取 `nvchecker`/`nix`/`nix-prefetch-scripts`/`nix-prefetch-docker`/`git` 依赖）。CI 的 `auto-update` 流程通过 `nix run .#update` 调用它
-- 原版 Haskell `nvfetcher` 命令仍保留，供特殊场景使用
-
-### update-sources（Python 版 nvfetcher 替代品）
-
-- 与上游 nvfetcher 的区别：
-  - 版本检查复用同一套 `nvchecker`，且支持 **所有** nvchecker 源类型。nvfetcher 内置映射的源用 `src.<源名>` 形式；其余源在运行时从已安装的 `nvchecker_source` 包动态发现（新增源无需改代码），可直接写 `src.<源名> = ...`（当值的键名与源名一致时）或用显式形式 `src.source = "apt"; src.ppa = ...; src.suite = ...` 把 nvchecker 原生键原样透传
-  - 读写相同的 `nvfetcher.toml` 与 `_sources/generated.{nix,json}` 格式，输出按包名排序，**已内置** 原 `tools/postprocess_nvfetcher.py` 的处理（`hash`/`tag`、去除默认字段），因此 `update-sources` 命令后无需再跑 postprocess
-  - **任何单个包失败（nvchecker 报错或 prefetch 报错）时保留 `generated.json` 中的现有条目**，而不是整体失败或从输出中删除
-  - **keyfile 必须通过 `-k` 传给 nvchecker 命令行，不能写进生成配置的 `[__config__] keyfile`**：nvchecker 会把配置里的 keyfile 路径按配置文件所在目录（脚本生成的临时 `/tmp` 文件）解析，相对路径（如 CI 的 `secrets.toml`）永远找不到，`KeyManager` 直接抛 `FileLoadError` 导致 nvchecker 整体退出、零输出，全部包都报 `nvchecker failed, keeping existing`（包括非 GitHub 源）；而 `-k` 按当前工作目录解析，CI 在仓库根目录运行即可正常读取
-  - **nvchecker 整体退出（非零返回码）时要把其 stderr 打印出来**：`run_nvchecker` 用 `subprocess.PIPE` 捕获了 stderr 但原实现直接丢弃，全局失败（如 keyfile 加载失败）时日志里只有满屏 `[keep]`，看不到真正原因
-- CLI 选项与 nvfetcher 一致：`-c`（配置）、`-o`（输出目录，默认 `_sources`）、`-f`（正则过滤）、`-k`（keyfile）、`-j`（并行度）、`-t`（重试）、`--force`（强制重新拉取）
-
-### 更新源码
-
-- 修改 `nvfetcher.toml` 后运行 update-sources 时，必须指定包名：`update-sources -f package-name`
-- `-f` 参数接受的是正则表达式，不是多个独立参数。要匹配多个包，使用正则如 `update-sources -f 'package-one|package-two'`
-- 禁止运行不带包名的 `update-sources` 命令
-
-### stable/unstable 双源模式
-
-当一个包同时需要稳定版和跟踪上游 main 分支的 unstable 版时，使用以下命名约定：
-
-- `package-name`：**unstable 源**（`src.git`），跟踪 git 主分支
-- `package-name-stable`：**稳定源**（`src.github`），跟踪 GitHub Release
-
-`helpers/nvfetcher-loader.nix` 会自动处理版本号：当 unstable 源的版本是 40 位哈希时，会查找对应的 `package-name-stable` 源获取最近稳定版号，生成 `最近稳定版-unstable-日期` 格式的版本号（如 `0.11.0-unstable-2026-07-10`）。
-
-### GitHub 源码获取规则
-
-根据以下条件选择相应的 `src` 类型：
-
-1. **有最新发布版本**：使用 `src.github = "user/package"`
-2. **无最新发布版本但有最新标签**：使用 `src.github_tag = "user/package"`
-3. **既无发布版本也无标签**：使用 `src.git = "https://github.com/user/package.git"`
-
-### GitHub 获取格式
-
-- 从 GitHub 获取时，始终使用 `fetch.github = "user/package"` 格式
-- 当 `fetch.github` 因 GitHub tag/release 歧义（HTTP 300 Multiple Choices）失败时，改用 `fetch.url = "https://github.com/user/package/archive/refs/tags/$ver.tar.gz"`
+- 源码不再由集中式工具（nvfetcher）管理；每个包在自身目录内联 fetcher 并声明 `passthru.updateScript`
+- 多源包使用 `sources.json` + `importJSON`/`fromJSON`（如 fr24feed、qemu-user-static、lantianCustomized.nginx），由包内 `update.sh` 整体重写
+- 顶层 `update` 命令流程：`nix flake update` → 执行 `pkgs/**/update-standalone.*` → `./tools/update-package --all` → 重新生成 README
 
 ## 构建包
 
@@ -207,7 +205,7 @@ appimageTools.wrapType2 {
 
 - **何时需要**：当上游使用 nixpkgs 不直接支持的 lockfile（如 `bun.lock`）但构建需要 `package-lock.json` / `pnpm-lock.yaml` 等 lockfile 时，应在包目录下提交一个生成式 lockfile（如 `package-lock.json`），并在派生的 `postPatch` 中复制到源码中
 - **必须配套 update.sh**：每次提交生成式 lockfile 时，必须在其旁边创建 `update.sh` 脚本，用于在上游版本更新后重新生成 lockfile 及相关哈希（如 `npmDepsHash`），以便后续自动更新
-- **update.sh 职责**：脚本应从 nvfetcher 跟踪的源码（如 `nix eval --raw .#package.src`）获取源码，运行对应包管理器生成 lockfile，再计算并写回派生中的哈希
+- **update.sh 职责**：脚本应从包的内联 fetcher 源码（如 `nix eval --raw .#package.src`）获取源码，运行对应包管理器生成 lockfile，再计算并写回派生中的哈希
 
 ### update.sh 脚本规范
 

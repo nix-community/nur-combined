@@ -1,14 +1,21 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
   pkg-config,
   dbus,
   openssl,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
-  inherit (sources.lyrica) pname version src;
-
+  pname = "lyrica";
+  version = "0.24";
+  src = fetchFromGitHub {
+    owner = "chiyuki0325";
+    repo = "lyrica";
+    tag = "v0.24";
+    hash = "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=";
+  };
   cargoHash = "sha256-WvrEMl41MuFqCfCHCURv6ZsDiDJGeVByCYRVuDW+2BE=";
 
   nativeBuildInputs = [ pkg-config ];
@@ -18,6 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
   ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/chiyuki0325/lyrica/releases/tag/v${finalAttrs.version}";
     mainProgram = "lyrica";

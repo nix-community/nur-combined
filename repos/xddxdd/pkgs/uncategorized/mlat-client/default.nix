@@ -1,14 +1,20 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   python3Packages,
 }:
 python3Packages.buildPythonApplication rec {
-  inherit (sources.mlat-client) pname version;
+  pname = "mlat-client";
+  version = "0.4.2";
   pyproject = true;
 
-  inherit (sources.mlat-client) src;
-
+  src = fetchFromGitHub {
+    owner = "adsb-related-code";
+    repo = "mlat-client";
+    tag = "v0.4.2";
+    hash = "sha256-V//LpYmBXtT8haX1aZ4XldzzyUY2YN7x3lTpQ2csTmw=";
+  };
   build-system = [ python3Packages.setuptools ];
 
   propagatedBuildInputs = with python3Packages; [
@@ -22,6 +28,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/adsb-related-code/mlat-client/releases/tag/v${version}";
     mainProgram = "mlat-client";

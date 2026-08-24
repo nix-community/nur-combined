@@ -1,10 +1,18 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.sx1302-hal) pname version src;
+  pname = "sx1302-hal";
+  version = "DEV_USB_LBT_EARLY_ACCESS-unstable-2023-02-06";
+  src = fetchFromGitHub {
+    owner = "NebraLtd";
+    repo = "sx1302_hal";
+    rev = "3760434a18e6ba47b695c22786195e57cc6b4c1c";
+    hash = "sha256-8u4gQ1ifNrXzoOiXAZ535ZMZi8w6VRCljOC0u9xbJOg=";
+  };
   enableParallelBuilding = true;
 
   installPhase = ''
@@ -23,6 +31,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     mainProgram = "lora_pkt_fwd";
     maintainers = with lib.maintainers; [ xddxdd ];

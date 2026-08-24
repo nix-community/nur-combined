@@ -1,17 +1,23 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
+  nix-update-script,
   setuptools,
   # Dependencies
   numpy,
 }:
 buildPythonPackage rec {
-  inherit (sources.kaldiio) pname version;
+  pname = "kaldiio";
+  version = "2.18.1";
   pyproject = true;
 
-  inherit (sources.kaldiio) src;
-
+  src = fetchFromGitHub {
+    owner = "nttcslab-sp";
+    repo = "kaldiio";
+    tag = "v2.18.1";
+    hash = "sha256-CssVH+Oxsw+it1mHdBhGIEYxoZ3OSr09eoankSjcxR0=";
+  };
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [
@@ -25,6 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "kaldiio" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/nttcslab-sp/kaldiio/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

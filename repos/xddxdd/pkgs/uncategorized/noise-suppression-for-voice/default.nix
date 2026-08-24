@@ -1,12 +1,20 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   cmake,
   pkg-config,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.noise-suppression-for-voice) pname version src;
+  pname = "noise-suppression-for-voice";
+  version = "1.21";
+  src = fetchFromGitHub {
+    owner = "werman";
+    repo = "noise-suppression-for-voice";
+    tag = "v1.10";
+    hash = "sha256-sfwHd5Fl2DIoGuPDjELrPp5KpApZJKzQikCJmCzhtY8=";
+  };
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -23,6 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isx86_64 [ "-DBUILD_RTCD=ON" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/werman/noise-suppression-for-voice/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

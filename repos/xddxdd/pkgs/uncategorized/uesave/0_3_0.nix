@@ -1,12 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   rustPlatform,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uesave";
-  inherit (sources.uesave-0_3_0) version src;
+  version = "0.3.0";
+
+  src = fetchFromGitHub {
+    owner = "trumank";
+    repo = "uesave-rs";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-YRn14rF94zSTnFAIRuvw84GDRBaqmns9nvaHCTjhWQg=";
+  };
 
   cargoHash = "sha256-sdXr+z8wxEB3qqRB+d9uFbEyX6LEYoHANxrzfdfC3+0=";
 

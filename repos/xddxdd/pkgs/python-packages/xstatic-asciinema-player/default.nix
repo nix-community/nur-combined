@@ -1,15 +1,19 @@
 {
+  fetchurl,
   lib,
-  sources,
   buildPythonPackage,
+  nix-update-script,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.xstatic-asciinema-player) pname version;
+  pname = "xstatic-asciinema-player";
+  version = "2.6.1.1";
   pyproject = true;
 
-  inherit (sources.xstatic-asciinema-player) src;
-
+  src = fetchurl {
+    url = "mirror://pypi/X/XStatic-asciinema-player/XStatic-asciinema-player-${version}";
+    hash = "sha256-yA6WC067St82Dm6StaCKdWrRBhmNemswetIO8iodfcw=";
+  };
   build-system = [ setuptools ];
 
   postPatch = ''
@@ -20,6 +24,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "xstatic.pkg.asciinema_player" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Asciinema-player packaged for setuptools (easy_install) / pip";

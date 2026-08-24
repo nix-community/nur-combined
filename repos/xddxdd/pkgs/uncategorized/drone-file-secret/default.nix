@@ -1,12 +1,26 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildGoModule,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.drone-file-secret) pname version src;
+  pname = "drone-file-secret";
+  version = "0-unstable-2023-06-26";
+  src = fetchFromGitHub {
+    owner = "xddxdd";
+    repo = "drone-file-secret";
+    rev = "b69ba503becb41c72a1b724f38a26e7f2c34b110";
+    hash = "sha256-aLr286rV6Ch3T1/r8Ru5JmRH1zDU6cfizGYzPW01snU=";
+  };
   vendorHash = "sha256-5F831dsOw7BlqSJFLknp4lhsTPqv2suzWO+o3xX7Mnk=";
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Secret provider for Drone CI that reads secrets from a given folder";

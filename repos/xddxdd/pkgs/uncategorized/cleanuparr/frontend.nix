@@ -1,12 +1,19 @@
 {
-  sources,
-  lib,
   buildNpmPackage,
+  fetchFromGitHub,
+  lib,
   nodejs_26,
 }:
 buildNpmPackage (finalAttrs: {
-  pname = "${sources.cleanuparr.pname}-frontend";
-  inherit (sources.cleanuparr) version src;
+  pname = "cleanuparr-frontend";
+  version = "2.10.5";
+
+  src = fetchFromGitHub {
+    owner = "Cleanuparr";
+    repo = "Cleanuparr";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-jaBAT3DWbsE5upQD4rERUVW/sb5Hu8pyuY7RdvhVDMs=";
+  };
   sourceRoot = "source/code/frontend";
 
   nodejs = nodejs_26;

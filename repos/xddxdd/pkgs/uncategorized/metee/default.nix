@@ -1,17 +1,22 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   nix-update-script,
   stdenv,
   cmake,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.metee) pname version src;
-
+  pname = "metee";
+  version = "6.2.5";
+  src = fetchFromGitHub {
+    owner = "intel";
+    repo = "metee";
+    tag = "6.2.5";
+    hash = "sha256-ecI6XmIM3VK9+xcbvc5mB22Yg0f/mcUwNpFtJSoP4Gk=";
+  };
   nativeBuildInputs = [ cmake ];
 
   passthru.updateScript = nix-update-script { };
-
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "C library to access CSE/CSME/GSC firmware via a MEI interface";

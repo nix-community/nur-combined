@@ -1,11 +1,18 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.sgx-software-enable) pname version src;
-
+  pname = "sgx-software-enable";
+  version = "1.0-unstable-2023-01-07";
+  src = fetchFromGitHub {
+    owner = "intel";
+    repo = "sgx-software-enable";
+    rev = "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d";
+    hash = "sha256-xBmFCrnNQq0xKwv7irJFN8YRfBCLmSxtak5dtHFv/xk=";
+  };
   installPhase = ''
     runHook preInstall
 
@@ -15,6 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Application to enable Intel SGX on Linux systems";

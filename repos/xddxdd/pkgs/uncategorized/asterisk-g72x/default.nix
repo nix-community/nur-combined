@@ -1,14 +1,21 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   autoreconfHook,
   bcg729,
   asterisk,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.asterisk-g72x) pname version src;
-
+  pname = "asterisk-g72x";
+  version = "0-unstable-2025-12-13";
+  src = fetchFromGitHub {
+    owner = "arkadijs";
+    repo = "asterisk-g72x";
+    rev = "55a7b8246c8ad3f32e50a033529e5a52c11a5592";
+    hash = "sha256-P36O/BFkGDYvuvFKKA4t3a4hbLn+jy+s6/Bp134vDhE=";
+  };
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [
     asterisk
@@ -19,6 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   configureFlags = [ "--with-bcg729" ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)";

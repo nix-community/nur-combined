@@ -15,33 +15,12 @@ _: {
         ci = mkCICommand "ciPackages";
         ci-cuda = mkCICommand "ciPackagesWithCuda";
 
-        nvfetcher = ''
+        # Run passthru.updateScript-based updates (migrated packages).
+        # Accepts the same arguments as tools/update-package.
+        update-pkg = ''
           set -euo pipefail
-          KEY_FLAG=""
-          [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
-          [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-          export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
-          ${lib.getExe pkgs.nvfetcher} $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
-
-          python3 tools/postprocess_nvfetcher.py
-
-          ${readme}
-        '';
-
-        # Python reimplementation of nvfetcher (tools/update_sources.py).  Uses
-        # nvchecker for version checking, supports the same nvfetcher.toml /
-        # _sources/generated.{nix,json} format (postprocessing already built
-        # in, so no postprocess step needed), and keeps the existing entry on
-        # any per-package failure instead of aborting or dropping it.  Runtime
-        # deps are pulled in by the script's nix-shell shebang.
-        update-sources = ''
-          set -euo pipefail
-          KEY_FLAG=""
-          [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
-          [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-          ./tools/update_sources.py $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
-
-          ${readme}
+          ROOT=$(git rev-parse --show-toplevel 2>/dev/null || echo .)
+          "$ROOT"/tools/update-package "$@"
         '';
 
         nur-check = ''
@@ -84,12 +63,12 @@ _: {
           set -euo pipefail
           export LANG=en_US.UTF-8
           nix flake update
-          ${update-sources}
-          for S in $(find pkgs/ -name update.\*); do
+          for S in $(command find pkgs/ \( -name 'update-standalone.*' \) -type f); do
             echo "Executing $S"
             chmod +x "$S"
             "$S"
           done
+          ./tools/update-package --all
           ${readme}
         '';
 

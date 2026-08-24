@@ -1,13 +1,19 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   kernel,
 }:
 stdenv.mkDerivation rec {
   pname = "i915-sriov";
-  inherit (sources.i915-sriov-dkms) version src;
-
+  version = "2026.08.12.1-unstable-2026-08-12";
+  src = fetchFromGitHub {
+    owner = "strongtz";
+    repo = "i915-sriov-dkms";
+    rev = "d52b7023ce6eefc8c7128cdc7ea931a056703c1c";
+    hash = "sha256-pSah4/69DUCizibWlRJr7iXZIWg2y7hMs2fqWE3hsdk=";
+  };
   hardeningDisable = [
     "pic"
     "format"
@@ -25,6 +31,12 @@ stdenv.mkDerivation rec {
   '';
   installTargets = [ "modules_install" ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "DKMS module of Linux i915 driver with SR-IOV support";

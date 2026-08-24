@@ -1,0 +1,17 @@
+{
+  "dbip-asn-lite": {
+    "hash": "sha256-EraUoa7u7j2HR4aC+omhquQ4affDMmTHUV/R+SmSAT4=",
+    "url": "https://download.db-ip.com/free/dbip-asn-lite-2026-08.mmdb.gz",
+    "version": "2026-08"
+  },
+  "dbip-city-lite": {
+    "hash": "sha256-K1MgPsNql1BRqBidwSB9Yk47wwL77kdkiShHZTO+adE=",
+    "url": "https://download.db-ip.com/free/dbip-city-lite-2026-08.mmdb.gz",
+    "version": "2026-08"
+  },
+  "dbip-country-lite": {
+    "hash": "sha256-N0IPO6MRcRPQAFP56ddU7mvltKGefIHRGkmjBOFwRFE=",
+    "url": "https://download.db-ip.com/free/dbip-country-lite-2026-08.mmdb.gz",
+    "version": "2026-08"
+  }
+}

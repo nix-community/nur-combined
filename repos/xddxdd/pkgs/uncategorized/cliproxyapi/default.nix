@@ -1,11 +1,18 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildGoModule,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.cliproxyapi) pname version src;
-
+  pname = "cliproxyapi";
+  version = "7.2.140";
+  src = fetchFromGitHub {
+    owner = "router-for-me";
+    repo = "CLIProxyAPI";
+    tag = "v7.2.140";
+    hash = "sha256-XM5pW3a0Y1oYPVk1DjHTs0zBV7N+Hnw5lYMlORNypkQ=";
+  };
   vendorHash = "sha256-MmIrOmsPs/7IZsiSwMj4JKxP2wkgkfLINPEMtRxy3O8=";
 
   proxyVendor = true;
@@ -17,6 +24,7 @@ buildGoModule (finalAttrs: {
 
   doCheck = false;
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/router-for-me/CLIProxyAPI/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

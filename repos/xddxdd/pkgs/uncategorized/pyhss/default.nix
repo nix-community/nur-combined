@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   stdenv,
   python3,
   makeWrapper,
@@ -40,8 +41,14 @@ let
   );
 in
 stdenv.mkDerivation {
-  inherit (sources.pyhss) pname version src;
-
+  pname = "pyhss";
+  version = "2.0.0-unstable-2026-08-17";
+  src = fetchFromGitHub {
+    owner = "nickvsnetworking";
+    repo = "pyhss";
+    rev = "47a3a1699b30f508a51d831d827a9c71981deb1e";
+    hash = "sha256-IWAQFMtTHK5Hb2k4ps0FXKCFKjRDAK1lnx4zRU4lWYA=";
+  };
   nativeBuildInputs = [
     makeWrapper
     curl
@@ -71,6 +78,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Python HSS / Diameter Server";

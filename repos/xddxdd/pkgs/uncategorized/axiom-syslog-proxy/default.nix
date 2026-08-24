@@ -1,10 +1,19 @@
 {
   buildGoModule,
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.axiom-syslog-proxy) pname version src;
+  pname = "axiom-syslog-proxy";
+  version = "0.8.0";
+
+  src = fetchFromGitHub {
+    owner = "axiomhq";
+    repo = "axiom-syslog-proxy";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Dh0G3mFdUmbmPZc2qKPE8MnHOPN+k24CpSDeFb6cx7k=";
+  };
   vendorHash = "sha256-tueoQF9+G8ovAe1tIjZllks6zTAVp7La+A7vpdu5hzU=";
 
   meta = {
@@ -15,4 +24,6 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "axiom-syslog-proxy";
   };
+
+  passthru.updateScript = nix-update-script { };
 })

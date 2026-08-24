@@ -1,7 +1,8 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   buildPythonPackage,
+  nix-update-script,
   setuptools,
   numpy,
   cython,
@@ -44,11 +45,16 @@
   spacy,
 }:
 buildPythonPackage rec {
-  inherit (sources.coqui-tts) pname version;
+  pname = "coqui-tts";
+  version = "0.22.0";
   pyproject = true;
 
-  inherit (sources.coqui-tts) src;
-
+  src = fetchFromGitHub {
+    owner = "coqui-ai";
+    repo = "TTS";
+    tag = "v0.22.0";
+    hash = "sha256-RQVlPHYZ5X/6xbxwGNcgntcyAsBS8T2ketdk+OCIS3Q=";
+  };
   build-system = [ setuptools ];
 
   # From requirements.txt
@@ -125,6 +131,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "TTS" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";

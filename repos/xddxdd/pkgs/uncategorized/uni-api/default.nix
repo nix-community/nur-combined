@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   stdenv,
   python3,
   makeWrapper,
@@ -31,8 +32,15 @@ let
   );
 in
 stdenv.mkDerivation {
-  inherit (sources.uni-api) pname version src;
-
+  pname = "uni-api";
+  version = "1.7.252-unstable-2026-08-22";
+  src = fetchFromGitHub {
+    owner = "yym68686";
+    repo = "uni-api";
+    rev = "7abb50ab3ec127580a5f6e6736638fc8ea44d9f1";
+    fetchSubmodules = true;
+    hash = "sha256-r+3KrhtVbCcqTK6NDy26iuABbZWfUJXYnYpczd9ZbbA=";
+  };
   nativeBuildInputs = [
     makeWrapper
     curl
@@ -63,6 +71,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Unifies the management of LLM APIs across multiple backend services";

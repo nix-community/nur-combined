@@ -1,12 +1,18 @@
 {
+  fetchgit,
   stdenv,
   lib,
-  sources,
   kernel,
 }:
 stdenv.mkDerivation rec {
-  inherit (sources.dpdk-kmod) pname version src;
-
+  pname = "dpdk-kmod";
+  version = "0-unstable-2024-11-20";
+  src = fetchgit {
+    url = "git://dpdk.org/dpdk-kmods";
+    rev = "9b182be2ee4bf003c892e1312440e1e5d93eff2c";
+    fetchSubmodules = false;
+    hash = "sha256-8XXLJT18ivnTJcHaCefRpbsuG9K/yERaHbNMHH4l62A=";
+  };
   preConfigure = ''
     cd linux/igb_uio
   '';

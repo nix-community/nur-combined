@@ -1,6 +1,6 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
   addict,
@@ -8,6 +8,7 @@
   datasets,
   einops,
   modelscope-hub,
+  nix-update-script,
   oss2,
   pillow,
   python-dateutil,
@@ -21,11 +22,16 @@
   urllib3,
 }:
 buildPythonPackage rec {
-  inherit (sources.modelscope) pname version;
+  pname = "modelscope";
+  version = "1.39.1";
   pyproject = true;
 
-  inherit (sources.modelscope) src;
-
+  src = fetchFromGitHub {
+    owner = "modelscope";
+    repo = "modelscope";
+    tag = "v1.39.1";
+    hash = "sha256-jG0g7G2cXVNFUB1ItHcC0wJg6Zj0oGkKGLhgHji3sPQ=";
+  };
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [
@@ -48,6 +54,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "modelscope" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/modelscope/modelscope/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -1,12 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
-  inherit (sources.uesave) pname version src;
-
+  pname = "uesave";
+  version = "0.7.1";
+  src = fetchFromGitHub {
+    owner = "trumank";
+    repo = "uesave-rs";
+    tag = "v0.7.1";
+    hash = "sha256-lGtRe3AYJ59CwRaDznO6RNqVFCSKJPWVDhj0tnY5xcs=";
+  };
   cargoHash = "sha256-6VTy/KHk2mSDfRonxyen4kRMvwBS3uZjsZqMhBJ+boM=";
 
   doCheck = false;
@@ -17,6 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/trumank/uesave-rs/releases/tag/v${finalAttrs.version}";
     mainProgram = "uesave";

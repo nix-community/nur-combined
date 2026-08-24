@@ -1,17 +1,21 @@
 {
+  fetchurl,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
+  nix-update-script,
   openpyxl,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.datarecorder) pname version;
+  pname = "datarecorder";
+  version = "3.6.2";
   pyproject = true;
 
-  inherit (sources.datarecorder) src;
-
+  src = fetchurl {
+    url = "mirror://pypi/D/DataRecorder/DataRecorder-${version}";
+    hash = "sha256-jJAkc2aSr2i5R/2IRYnmhcTye8KdAxuBFkRXsJxg4eU=";
+  };
   build-system = [ setuptools ];
   dependencies = [
     openpyxl
@@ -21,6 +25,7 @@ buildPythonPackage rec {
     "DataRecorder"
   ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Python-based toolkit to record data into files";

@@ -1,7 +1,8 @@
 {
+  fetchurl,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   autoPatchelfHook,
   curl,
   versionCheckHook,
@@ -11,9 +12,25 @@ stdenv.mkDerivation (finalAttrs: {
   inherit
     (
       if stdenv.hostPlatform.isx86_64 then
-        sources.lightpanda-amd64
+        {
+          pname = "lightpanda-amd64";
+          version = "0.3.7";
+          rawVersion = "0.3.7";
+          src = fetchurl {
+            url = "https://github.com/lightpanda-io/browser/releases/download/0.3.7/lightpanda-x86_64-linux";
+            hash = "sha256-iVM5sCIFFxoYHd50OuAGi7RWSIQHb+rISCusqcISqlo=";
+          };
+        }
       else if stdenv.hostPlatform.isAarch64 then
-        sources.lightpanda-arm64
+        {
+          pname = "lightpanda-arm64";
+          version = "0.3.7";
+          rawVersion = "0.3.7";
+          src = fetchurl {
+            url = "https://github.com/lightpanda-io/browser/releases/download/0.3.7/lightpanda-aarch64-linux";
+            hash = "sha256-TA7LKLT8+21bzoLshuFfxs3onOoWjPOEBJTw7iZ1WFI=";
+          };
+        }
       else
         throw "Unsupported architecture"
     )
@@ -40,6 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgram = "${placeholder "out"}/bin/lightpanda";
   versionCheckProgramArg = "version";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Headless browser designed for AI and automation";

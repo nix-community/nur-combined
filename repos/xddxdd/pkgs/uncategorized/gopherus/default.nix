@@ -1,12 +1,16 @@
 {
+  fetchurl,
   stdenv,
-  sources,
   lib,
   ncurses,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.gopherus) pname version src;
-
+  pname = "gopherus";
+  version = "1.2.2";
+  src = fetchurl {
+    url = "https://gopherus.sourceforge.net/gopherus-1.2.2.tar.xz";
+    hash = "sha256-7l/7ZK5KQ/V2Ym02Sbc0qAGov36P4P0hVWzIzbQzipo=";
+  };
   buildInputs = [ ncurses ];
 
   buildPhase = ''

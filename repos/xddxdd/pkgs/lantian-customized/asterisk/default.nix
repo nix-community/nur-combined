@@ -1,6 +1,6 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   callPackage,
   asterisk,
   asteriskDigiumCodecs,
@@ -12,25 +12,44 @@
   vo-amrwbenc,
 }:
 let
+  asteriskAmrSrc = fetchFromGitHub {
+    owner = "traud";
+    repo = "asterisk-amr";
+    rev = "420ab33f236e15955351e45bf9fbb256228afe21";
+    hash = "sha256-Q8q2fF7MtMlyrVYABaM9V5C0FJj0g9oihE6TLsoe28E=";
+  };
+  asteriskEvsSrc = fetchFromGitHub {
+    owner = "traud";
+    repo = "asterisk-evs";
+    rev = "c31d342330ddb6e11cb4ac7b516ac5ea409c1fb8";
+    hash = "sha256-soayTFbl0FHkH4ZxaeL+ApDsJ2e3CDIIW0KX5rzAAAM=";
+  };
+  asteriskGsmEfrSrc = fetchFromGitHub {
+    owner = "traud";
+    repo = "asterisk-gsm-efr";
+    rev = "e91ef643a7ff341e1fdaa1c6ff63b3cdc52ac8b4";
+    hash = "sha256-EzQA+j2QBilNWgoPzcNEkf/3XO6XNl8ygDD6Q65tdFk=";
+  };
+
   codecs-actual = asteriskDigiumCodecs."${lib.versions.major asterisk.version}";
   asterisk-g72x-actual = asterisk-g72x.override { inherit asterisk; };
   _3gpp-evs = callPackage ./3gpp-evs.nix { };
 
   # Patches that use patch -p0
   myPatches = [
-    "${sources.asterisk-amr.src}/codec_amr.patch"
-    "${sources.asterisk-amr.src}/build_tools.patch"
+    "${asteriskAmrSrc}/codec_amr.patch"
+    "${asteriskAmrSrc}/build_tools.patch"
     ./codec_evs.patch
-    "${sources.asterisk-evs.src}/build_evs.patch"
-    "${sources.asterisk-evs.src}/force_limitations.patch"
-    "${sources.asterisk-gsm-efr.src}/codec_gsm_efr.patch"
+    "${asteriskEvsSrc}/build_evs.patch"
+    "${asteriskEvsSrc}/force_limitations.patch"
+    "${asteriskGsmEfrSrc}/codec_gsm_efr.patch"
   ];
 
   myExtraFiles = [
     # sources.asterisk-alaw16.src
-    sources.asterisk-amr.src
-    sources.asterisk-evs.src
-    sources.asterisk-gsm-efr.src
+    asteriskAmrSrc
+    asteriskEvsSrc
+    asteriskGsmEfrSrc
   ];
 in
 (asterisk.override { withOpus = false; }).overrideAttrs (old: {
@@ -75,6 +94,7 @@ in
     ln -s ${asterisk-g72x-actual}/lib/asterisk/modules/codec_g729.so $out/lib/asterisk/modules/codec_g729.so
   '';
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = old.meta // {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Asterisk with Lan Tian modifications";

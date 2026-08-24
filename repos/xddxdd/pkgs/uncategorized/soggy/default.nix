@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   cmake,
   protobuf3_21,
@@ -8,7 +9,14 @@
   lua5_3_compat,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.soggy) pname version src;
+  pname = "soggy";
+  version = "0-unstable-2022-12-14";
+  src = fetchFromGitHub {
+    owner = "LDAsuku";
+    repo = "soggy";
+    rev = "2736cb094a51d186dabf2204a7599e9b8118f8dd";
+    hash = "sha256-pv/5CxmojkfOwE/r1T2Ow96XkFw/FQvLcY49bWWiEwo=";
+  };
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ cmake ];
@@ -30,6 +38,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Experimental server emulator for a game I forgot its name";

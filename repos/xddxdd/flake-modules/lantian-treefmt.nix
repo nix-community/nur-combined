@@ -17,8 +17,8 @@
         settings = {
           formatter.deadnix.excludes = [ "**/composer2nix/**" ];
           global.excludes = [
-            "**/_sources/**"
-            "_sources/**"
+
+            ""
             "**/deps.nix"
             "*.age"
           ];

@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   stdenv,
   lib,
   p7zip,
@@ -23,8 +23,11 @@ let
 
   wechatFiles = stdenv.mkDerivation {
     pname = "wechat-x86";
-    inherit (sources.wine-wechat-x86) version src;
-
+    version = "3.9.12.56";
+    src = fetchurl {
+      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.12.56/WeChatSetupX86-3.9.12.56.exe";
+      hash = "sha256-luFiOhyEkCy/MxOKliV2xOjMxrq/kmWceiY/cDmo76k=";
+    };
     nativeBuildInputs = [ p7zip ];
 
     unpackPhase = ''
@@ -81,7 +84,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "wine-wechat-x86";
-  inherit (sources.wine-wechat-x86) version;
+  version = "3.9.12.56";
   dontUnpack = true;
 
   nativeBuildInputs = [ copyDesktopItems ];
@@ -138,6 +141,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     changelog = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

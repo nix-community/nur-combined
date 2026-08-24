@@ -2,10 +2,9 @@
   callPackage,
   lib,
   linuxKernel,
-  sources,
   ...
 }:
 let
-  kernels = callPackage ./default.nix { inherit sources; };
+  kernels = callPackage ./default.nix { };
 in
 lib.mapAttrs (n: v: linuxKernel.packagesFor v) kernels

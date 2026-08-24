@@ -1,7 +1,8 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
   python3,
   makeWrapper,
 }:
@@ -17,8 +18,14 @@ let
   );
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.openai-edge-tts) pname version src;
-
+  pname = "openai-edge-tts";
+  version = "2.0.0-unstable-2025-07-01";
+  src = fetchFromGitHub {
+    owner = "travisvn";
+    repo = "openai-edge-tts";
+    rev = "edaed2afd2cdedcc4648380185d8d7cf7a1eee97";
+    hash = "sha256-CAU48qeRffUZLpZXDFaPCK1muB3w38VpDD/yAaGBLes=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   doCheck = true;
@@ -46,6 +53,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     mainProgram = finalAttrs.pname;
     maintainers = with lib.maintainers; [ xddxdd ];

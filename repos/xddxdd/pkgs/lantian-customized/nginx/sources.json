@@ -1,0 +1,69 @@
+{
+  "ja4-nginx-module": {
+    "hash": "sha256-ndUslPhXArAlJTeLl/D62MIReKbUv9OR+KAvHu75jXQ=",
+    "owner": "FoxIO-LLC",
+    "repo": "ja4-nginx-module",
+    "rev": "6a104dc2be609cca61a875e1d97a73fbffd9f210"
+  },
+  "nginx-auth-jwt": {
+    "fetchSubmodules": true,
+    "hash": "sha256-XOIA1wjNyXFWDWwx9ZVDCn0SW8vrHbzFnGZWW81SRn8=",
+    "owner": "kjdev",
+    "repo": "nginx-auth-jwt",
+    "tag": "0.14.2"
+  },
+  "nginx-module-geoip2": {
+    "hash": "sha256-aO+ff+3fQ9FJgjkVdWUqsSS6ctHq/TXvyGRasW6fXcA=",
+    "owner": "leev",
+    "repo": "ngx_http_geoip2_module",
+    "rev": "445df24ef3781e488cee3dfe8a1e111997fc1dfe"
+  },
+  "nginx-module-stream-sts": {
+    "hash": "sha256-MsQD2wrmnwMycgC5nUhAiwoxNvwmeDUyivQS/2EMJ4o=",
+    "owner": "vozlt",
+    "repo": "nginx-module-stream-sts",
+    "rev": "a60cd2fc2bdd689b8b4e12abcf71f7cf5018424a"
+  },
+  "nginx-module-sts": {
+    "hash": "sha256-rAWQDBLW2gQjShC6G+w9tfeML4pFCBTHplcgiW9+Tsc=",
+    "owner": "vozlt",
+    "repo": "nginx-module-sts",
+    "rev": "3c10d42f8c3f78b6310906eab5c8e066ee753330"
+  },
+  "nginx-module-vts": {
+    "hash": "sha256-Qhl2lAtGopn8iNfqcf3s0+ZpEdsG5+wBXeyGYu/sMOI=",
+    "owner": "vozlt",
+    "repo": "nginx-module-vts",
+    "rev": "affcaf8e69bdc1c1b50522c1e77b16c218e990c8"
+  },
+  "nginx-oidc": {
+    "fetchSubmodules": true,
+    "hash": "sha256-/zvE28uVYOKNx7htlg5meiQegvFupbSkhhA6l+5KDHs=",
+    "owner": "kjdev",
+    "repo": "nginx-oidc",
+    "tag": "0.6.0"
+  },
+  "ngx_brotli": {
+    "hash": "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=",
+    "owner": "u5surf",
+    "repo": "ngx_brotli",
+    "rev": "6e975bcb015f62e1f303054897783355e2a877dc"
+  },
+  "openresty": {
+    "hash": "sha256-ZbeLqt0/CYQFXeib8T9KGTLlv+nDGTIDehNOorGgzkI=",
+    "url": "https://openresty.org/download/openresty-1.31.1.1.tar.gz",
+    "version": "1.31.1.1"
+  },
+  "stream-echo-nginx-module": {
+    "hash": "sha256-Q7Zv/e296zPcmB+lshBsEXEhtt7TAfRjGgy09uBGxHA=",
+    "owner": "openresty",
+    "repo": "stream-echo-nginx-module",
+    "rev": "b7b76b853131b6fa7579d20c2816b4b6abb16bea"
+  },
+  "zstd-nginx-module": {
+    "hash": "sha256-xGyiC9VuLgHs0rOWLIPbaOCfMG8AKpHThNrRt+9qlC0=",
+    "owner": "HanadaLee",
+    "repo": "ngx_http_zstd_module",
+    "rev": "5e01ec0890bcf59c214a63aef5e2ea374273bc67"
+  }
+}

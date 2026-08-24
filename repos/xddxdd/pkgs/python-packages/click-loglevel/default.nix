@@ -1,18 +1,24 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
   # Dependencies
   click,
   hatchling,
+  nix-update-script,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.click-loglevel) pname version;
+  pname = "click-loglevel";
+  version = "0.7.0";
   pyproject = true;
 
-  inherit (sources.click-loglevel) src;
-
+  src = fetchFromGitHub {
+    owner = "jwodder";
+    repo = "click-loglevel";
+    tag = "v0.7.0";
+    hash = "sha256-Z66xy8d9KAjni4AmwZwGdHTzJHkjgO/2D+vkOhh/te8=";
+  };
   propagatedBuildInputs = [
     click
     hatchling
@@ -21,6 +27,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "click_loglevel" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/jwodder/click-loglevel/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

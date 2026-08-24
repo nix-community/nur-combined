@@ -1,12 +1,20 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   qt6,
   ...
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.qtwebapp) pname version src;
+  pname = "qtwebapp";
+  version = "1.9.1";
+  src = fetchFromGitHub {
+    owner = "fffaraz";
+    repo = "QtWebApp";
+    tag = "v1.9.1";
+    hash = "sha256-RbFgz2ed1eEVy44LX+milP4hPSeiabakU3TMvHYR7TU=";
+  };
   sourceRoot = "source/QtWebApp";
 
   postPatch = ''
@@ -30,6 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   qmakeFlags = [ "QtWebApp.pro" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "HTTP server library in C++, inspired by Java Servlets";

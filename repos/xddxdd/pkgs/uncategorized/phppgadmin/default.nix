@@ -1,14 +1,21 @@
 {
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
-  sources,
 }:
 let
   configFile = ./config.inc.php;
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.phppgadmin) pname version src;
-
+  pname = "phppgadmin";
+  version = "7.14.8-mod";
+  src = fetchFromGitHub {
+    owner = "ReimuHakurei";
+    repo = "phppgadmin";
+    tag = "v7.14.8-mod";
+    hash = "sha256-rR4OVUa+K2qPjfgie+2+DSVySX+6gNZuRE0MVZV+Zgc=";
+  };
   installPhase = ''
     runHook preInstall
 
@@ -22,6 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/ReimuHakurei/phppgadmin/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

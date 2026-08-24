@@ -1,7 +1,8 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
+  nix-update-script,
   setuptools,
   # Dependencies
   filelock,
@@ -10,11 +11,16 @@
   urllib3,
 }:
 buildPythonPackage rec {
-  inherit (sources.modelscope-hub) pname version;
+  pname = "modelscope-hub";
+  version = "0.2.0";
   pyproject = true;
 
-  inherit (sources.modelscope-hub) src;
-
+  src = fetchFromGitHub {
+    owner = "modelscope";
+    repo = "modelscope_hub";
+    tag = "v0.2.0";
+    hash = "sha256-8q4Oz8WGVavrS1afolr8DYR7ATQSzssCgZpp+bdxbng=";
+  };
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [
@@ -26,6 +32,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "modelscope_hub" ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/modelscope/modelscope_hub/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];

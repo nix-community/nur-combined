@@ -1,19 +1,38 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   callPackage,
   buildDotnetModule,
   dotnetCorePackages,
+  nix-update-script,
 }:
 let
-  frontend = callPackage ./frontend.nix { inherit sources; };
-  flmQbittorrentSrc = sources.cleanuparr-flm-qbittorrent.src;
-  flmTransmissionSrc = sources.cleanuparr-flm-transmission.src;
+  cleanuparrFlmQbittorrentSrc = fetchFromGitHub {
+    owner = "Cleanuparr";
+    repo = "qbittorrent-net-client";
+    rev = "b36a3ca40c83776f9f1b86a56e46ae718e2cf96f";
+    hash = "sha256-33M+j8Phukwa5R7zo5Nuc/rSb2Dv2JYfTcXZMkFu7jw=";
+  };
+  cleanuparrFlmTransmissionSrc = fetchFromGitHub {
+    owner = "Cleanuparr";
+    repo = "Transmission.API.RPC";
+    rev = "1d2548c3c888a2d8b0a2bf4fbefe2f91e981e263";
+    hash = "sha256-JFmTyRzHN3fDdZOoeFz89fk7kroT33tceoUpVBoWS5g=";
+  };
+
+  frontend = callPackage ./frontend.nix { };
+  flmQbittorrentSrc = cleanuparrFlmQbittorrentSrc;
+  flmTransmissionSrc = cleanuparrFlmTransmissionSrc;
 in
 buildDotnetModule (finalAttrs: {
-  pname = sources.cleanuparr.pname;
-  inherit (sources.cleanuparr) version src;
-
+  pname = "cleanuparr";
+  version = "2.10.5";
+  src = fetchFromGitHub {
+    owner = "Cleanuparr";
+    repo = "Cleanuparr";
+    tag = "v2.10.5";
+    hash = "sha256-jaBAT3DWbsE5upQD4rERUVW/sb5Hu8pyuY7RdvhVDMs=";
+  };
   __structuredAttrs = true;
 
   sourceRoot = "source/code/backend";
@@ -64,6 +83,7 @@ buildDotnetModule (finalAttrs: {
     ''export CLEANUPARR_CONFIG_PATH="''${CLEANUPARR_CONFIG_PATH:-''${XDG_CONFIG_HOME:-$HOME/.config}/cleanuparr}"''
   ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Advanced download manager for the Servarr ecosystem";

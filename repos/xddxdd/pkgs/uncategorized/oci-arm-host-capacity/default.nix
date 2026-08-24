@@ -1,13 +1,21 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   callPackage,
+  nix-update-script,
 }:
 let
   composer2nixOutput = callPackage ./composer2nix { };
 in
 composer2nixOutput.overrideAttrs (old: rec {
-  inherit (sources.oci-arm-host-capacity) pname version src;
+  pname = "oci-arm-host-capacity";
+  version = "0-unstable-2024-08-13";
+  src = fetchFromGitHub {
+    owner = "hitrov";
+    repo = "oci-arm-host-capacity";
+    rev = "ea70acaf92bedcf0900a9209bdd8c31106b0df83";
+    hash = "sha256-aCo6UDqG+9YVNf3W6pxmx1ml+ApdyyRhtzcVTaPdG/o=";
+  };
   name = "${pname}-${version}";
 
   unpackPhase = ''
@@ -36,6 +44,12 @@ composer2nixOutput.overrideAttrs (old: rec {
         '$dotenv = Dotenv::createUnsafeImmutable(dirname($envFilename), basename($envFilename));'
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain";

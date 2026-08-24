@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   python3,
   buildPythonPackage,
   keystone,
@@ -23,11 +24,16 @@
   unicorn,
 }:
 buildPythonPackage rec {
-  inherit (sources.mtkclient) pname version;
+  pname = "mtkclient";
+  version = "2.1.4.1-unstable-2026-08-02";
   pyproject = true;
 
-  inherit (sources.mtkclient) src;
-
+  src = fetchFromGitHub {
+    owner = "bkerler";
+    repo = "mtkclient";
+    rev = "0542a8729993000661e2325e838217ee754d1632";
+    hash = "sha256-sl6u9HbJmUCuAeKhd1qwpceBqa88nekgpTVXvZ6Rd4o=";
+  };
   buildInputs = [ keystone ];
   propagatedBuildInputs = [
     capstone
@@ -62,6 +68,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mtkclient" ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     changelog = "https://github.com/bkerler/mtkclient/releases/tag/${version}";
     mainProgram = "mtk";

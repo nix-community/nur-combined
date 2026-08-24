@@ -1,0 +1,22 @@
+{
+  "qemu-user-static-amd64": {
+    "hash": "sha256-b2LMD0OF4Rz7wpVUi2Og8RbskmnO/zWuy088oqJbdtw=",
+    "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.1.0+ds-2_amd64.deb",
+    "version": "11.1.0+ds-2"
+  },
+  "qemu-user-static-arm64": {
+    "hash": "sha256-yDtfUCB1agcp42O2ADSoe31m9ARZoaJOuiq58+EsbxU=",
+    "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.1.0+ds-2_arm64.deb",
+    "version": "11.1.0+ds-2"
+  },
+  "qemu-user-static-armhf": {
+    "hash": "sha256-m982gZ9dFcEHqyUF5crCBIuoOQnxzqDI3ZvGBDIBeCg=",
+    "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_armhf.deb",
+    "version": "10.2.2+ds-1"
+  },
+  "qemu-user-static-i386": {
+    "hash": "sha256-HBeC9Npxpo896bY9O+mh6ieT9GSOoCp1YJ9OO53a3LI=",
+    "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_i386.deb",
+    "version": "10.2.2+ds-1"
+  }
+}

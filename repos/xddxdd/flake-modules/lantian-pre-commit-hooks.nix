@@ -7,7 +7,6 @@
       check.enable = true;
       settings = {
         excludes = [
-          "_sources/.*"
           "sources\\.json"
           ".*\\.patch"
           "README\\.md"

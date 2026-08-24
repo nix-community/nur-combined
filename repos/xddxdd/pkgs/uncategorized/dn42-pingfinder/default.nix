@@ -1,5 +1,6 @@
 {
-  sources,
+  fetchgit,
+  nix-update-script,
   stdenv,
   lib,
   makeWrapper,
@@ -16,8 +17,14 @@ let
   ];
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.dn42-pingfinder) pname version src;
-
+  pname = "dn42-pingfinder";
+  version = "0-unstable-2022-11-06";
+  src = fetchgit {
+    url = "https://git.lantian.pub/backup/dn42-pingfinder.git";
+    rev = "8fd1af682dd6fab6bee6a72f44b8157661b7b65b";
+    fetchSubmodules = false;
+    hash = "sha256-eDTiY1OSR1+5DUaieaepxMVFe1qBVSyKhSMWtXavKUI=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
@@ -30,6 +37,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "DN42 Pingfinder";

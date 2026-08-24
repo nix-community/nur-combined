@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   makeWrapper,
   cmake,
@@ -12,9 +13,29 @@
   ela-widget-tools,
   qtwebapp,
 }:
+let
+  kikoplayScriptSrc = fetchFromGitHub {
+    owner = "KikoPlayProject";
+    repo = "KikoPlayScript";
+    rev = "1a95aad693a50be230c15ebbc6e3aeeb4c4d9fbe";
+    hash = "sha256-kHglBw/hN9R90yk2lw0fFykrb3moUxIMLccKbXRbEGQ=";
+  };
+  kikoplayAppSrc = fetchFromGitHub {
+    owner = "KikoPlayProject";
+    repo = "KikoPlayApp";
+    rev = "62082956bbb0719c4a3a544be6d26e84162370de";
+    hash = "sha256-/BuEyOwZvm1LRU0UQ/xqxOqouGB06p72WYFcSSdjqiw=";
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.kikoplay) pname version src;
-
+  pname = "kikoplay";
+  version = "2.1.0";
+  src = fetchFromGitHub {
+    owner = "KikoPlayProject";
+    repo = "KikoPlay";
+    tag = "2.1.0";
+    hash = "sha256-iNBnH9GLKh3IXdhgnwrinoZqnIQgugtDcTAESldnAug=";
+  };
   nativeBuildInputs = [
     cmake
     makeWrapper
@@ -69,15 +90,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     mkdir -p $out/share/kikoplay/extension/script
-    cp -r ${sources.kikoplay-script.src}/{bgm_calendar,danmu,library,resource} $out/share/kikoplay/extension/script/
+    cp -r ${kikoplayScriptSrc}/{bgm_calendar,danmu,library,resource} $out/share/kikoplay/extension/script/
     mkdir -p $out/share/kikoplay/extension/app
-    cp -r ${sources.kikoplay-app.src}/app/* $out/share/kikoplay/extension/app/
+    cp -r ${kikoplayAppSrc}/app/* $out/share/kikoplay/extension/app/
   '';
 
   passthru = {
     inherit ela-widget-tools qtwebapp;
   };
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/KikoPlayProject/KikoPlay/releases/tag/${finalAttrs.version}";
     mainProgram = "KikoPlay";

@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
   meson,
   ninja,
@@ -12,7 +13,15 @@
   libX11,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.vk-hdr-layer) pname version src;
+  pname = "vk-hdr-layer";
+  version = "0-unstable-2026-08-05";
+  src = fetchFromGitHub {
+    owner = "Zamundaaa";
+    repo = "VK_hdr_layer";
+    rev = "8ec9b54d21f7474a9c406cf7366598a298d145f7";
+    fetchSubmodules = true;
+    hash = "sha256-gD+BOfM/2QN0UxhlVZNgsHCgIJkGZppHfM1ONsnMe2U=";
+  };
   nativeBuildInputs = [
     meson
     ninja
@@ -26,6 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
     libX11
   ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Vulkan layer utilizing a small color management / HDR protocol for experimentation";

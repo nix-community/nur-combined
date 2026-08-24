@@ -1,10 +1,18 @@
 {
   buildGoModule,
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.flapalerted) pname version src;
+  pname = "flapalerted";
+  version = "4.5.0";
+  src = fetchFromGitHub {
+    owner = "Kioubit";
+    repo = "FlapAlerted";
+    tag = "v4.5.0";
+    hash = "sha256-D4+FLAMt/cHXCks4GQI33ymbZIHzBajpvKU6QQntofk=";
+  };
   vendorHash = null;
 
   tags = [
@@ -19,6 +27,7 @@ buildGoModule (finalAttrs: {
     "-X main.Version=${finalAttrs.version}"
   ];
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/Kioubit/FlapAlerted/releases/tag/v${finalAttrs.version}";
     mainProgram = "FlapAlerted";

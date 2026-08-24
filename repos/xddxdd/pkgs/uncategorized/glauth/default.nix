@@ -1,12 +1,19 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildGoModule,
+  nix-update-script,
   versionCheckHook,
 }:
 buildGoModule (finalAttrs: {
-  inherit (sources.glauth) pname src;
-  version = lib.removePrefix "GLAuth-v" sources.glauth.version;
+  pname = "glauth";
+  src = fetchFromGitHub {
+    owner = "glauth";
+    repo = "glauth";
+    tag = "GLAuth-v2.5.2";
+    hash = "sha256-LrQmCkWiPSZIW2zxdqIWXL+w+hE3Duu2sM17TDcYmkk=";
+  };
+  version = lib.removePrefix "GLAuth-v" "GLAuth-v2.5.2";
   vendorHash = "sha256-Lijy0LFy0PgWogdzYRNPFOkLym6Gf9qG4R+Bm91eYJg=";
 
   postPatch = ''
@@ -30,6 +37,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/glauth/glauth/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

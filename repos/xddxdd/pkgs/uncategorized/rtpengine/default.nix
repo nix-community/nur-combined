@@ -1,6 +1,7 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
   pkg-config,
   glib,
@@ -27,8 +28,14 @@
   libjwt,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.rtpengine) pname version src;
-
+  pname = "rtpengine";
+  version = "mr26.2.1.1-unstable-2026-08-17";
+  src = fetchFromGitHub {
+    owner = "sipwise";
+    repo = "rtpengine";
+    rev = "e8b82121fa0bccc46923938db52ee96bcb535b3a";
+    hash = "sha256-VNj1fRO60t+uAcas2Y9aC8puBkM6JQSdg/LMPWMo+Oo=";
+  };
   enableParallelBuilding = true;
 
   nativeBuildInputs = [
@@ -70,6 +77,12 @@ stdenv.mkDerivation (finalAttrs: {
     rm -rf $out/usr
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     changelog = "https://github.com/sipwise/rtpengine/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

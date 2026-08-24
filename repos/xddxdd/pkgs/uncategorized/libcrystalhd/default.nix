@@ -1,11 +1,18 @@
 {
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
-  sources,
 }:
 stdenv.mkDerivation rec {
   pname = "libcrystalhd";
-  inherit (sources.crystalhd) version src;
+  version = "0-unstable-2021-01-26";
+  src = fetchFromGitHub {
+    owner = "dbason";
+    repo = "crystalhd";
+    rev = "af931d9ae5a63adfefe398defb99f225ae181c24";
+    hash = "sha256-5fsezV8OQjCKSr3m4jgEVMQhOfvfryBazWHeTcaUzUE=";
+  };
   sourceRoot = "source/linux_lib/libcrystalhd";
 
   postPatch = ''
@@ -29,6 +36,12 @@ stdenv.mkDerivation rec {
     mv $out/lib/firmware $firmware/lib/firmware
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library";

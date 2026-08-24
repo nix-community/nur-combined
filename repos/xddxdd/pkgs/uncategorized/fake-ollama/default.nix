@@ -1,12 +1,26 @@
 {
   buildGoModule,
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
 }:
 buildGoModule {
-  inherit (sources.fake-ollama) pname version src;
+  pname = "fake-ollama";
+  version = "0-unstable-2025-02-13";
+  src = fetchFromGitHub {
+    owner = "spoonnotfound";
+    repo = "fake-ollama";
+    rev = "4a788616cee7d0f3b39f7623d9f627b79acae405";
+    hash = "sha256-ChktqmEoZ2PN13XqynExyjYbX2uhbeAfubNKhTZ4cUY=";
+  };
   vendorHash = "sha256-Ef2XLxGq8TO3WVh9EvLE30Is2CBwH4pqXxkq1tcuR0Q=";
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Simulated server implementation of Ollama API";

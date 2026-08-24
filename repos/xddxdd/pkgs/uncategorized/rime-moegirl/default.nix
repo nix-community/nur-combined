@@ -1,11 +1,16 @@
 {
+  fetchurl,
+  nix-update-script,
   stdenv,
-  sources,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.rime-moegirl) pname version src;
-
+  pname = "rime-moegirl";
+  version = "20260812";
+  src = fetchurl {
+    url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260812/moegirl.dict.yaml";
+    hash = "sha256-WDbIdQdBX03NsPxFrs9N166CGDplDN15MOHmY+MuOiQ=";
+  };
   dontUnpack = true;
   installPhase = ''
     runHook preInstall
@@ -16,6 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/outloudvi/mw2fcitx/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

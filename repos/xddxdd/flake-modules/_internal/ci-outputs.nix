@@ -62,26 +62,21 @@ in
       inherit (pkgs.callPackage ../../helpers/flatten-pkgs.nix { })
         flattenPkgs
         ;
-      nvfetcherLoader = pkgs.callPackage ../../helpers/nvfetcher-loader.nix { };
-      sources = nvfetcherLoader ../../_sources/generated.nix;
     in
     rec {
       ciPackages = lib.filterAttrs (n: isBuildable) (
-        (flattenPkgs (import ../../pkgs "ci" { inherit inputs pkgs; }))
-        // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
+        flattenPkgs (import ../../pkgs "ci" { inherit inputs pkgs; })
       );
       ciPackagesWithCuda = lib.filterAttrs (n: isBuildable) (
-        (flattenPkgs (
+        flattenPkgs (
           import ../../pkgs "ci" {
             inherit inputs;
             pkgs = pkgsWithCuda;
           }
-        ))
-        // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
+        )
       );
       hydraPackages = lib.filterAttrs (n: isBuildable) (
-        (flattenPkgs (import ../../pkgs "hydra" { inherit inputs pkgs; }))
-        // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
+        flattenPkgs (import ../../pkgs "hydra" { inherit inputs pkgs; })
       );
     };
 }

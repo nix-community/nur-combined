@@ -1,5 +1,6 @@
 {
-  sources,
+  fetchFromGitHub,
+  nix-update-script,
   stdenv,
   lib,
   makeWrapper,
@@ -8,8 +9,14 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.cardpointers-cli) pname version src;
-
+  pname = "cardpointers-cli";
+  version = "1.0.7";
+  src = fetchFromGitHub {
+    owner = "cardpointers";
+    repo = "cli";
+    tag = "v1.0.7";
+    hash = "sha256-rK7CgcPmNt7uIQUG4Ek/4TU7bG1bSCyF3UddfTAJlo0=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
@@ -29,6 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = false;
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/cardpointers/cli/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -1,29 +1,44 @@
 {
-  sources,
+  fetchurl,
   lib,
   stdenv,
 }:
+let
+  geolite2AsnSrc = fetchurl {
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.22/GeoLite2-ASN.mmdb";
+    hash = "sha256-JdP0k33Qy2xyYeltV1YbJGzkhdoOy+1HJWJKI50jaBQ=";
+  };
+  geolite2CitySrc = fetchurl {
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.22/GeoLite2-City.mmdb";
+    hash = "sha256-tIHjS9++uTdDTQm0fYliLDYFFWDF9khTtU4IFnjH33Q=";
+  };
+  geolite2CountrySrc = fetchurl {
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.22/GeoLite2-Country.mmdb";
+    hash = "sha256-upoztW5MO2Go3wB1fpJarHxZr+dXU0zwoy0vnGOZyeM=";
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "geolite2";
-  inherit (sources.geolite2-asn) version;
+  version = "2026.08.22";
   dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 ${sources.geolite2-asn.src} $out/GeoLite2-ASN.mmdb
-    install -Dm755 ${sources.geolite2-city.src} $out/GeoLite2-City.mmdb
-    install -Dm755 ${sources.geolite2-country.src} $out/GeoLite2-Country.mmdb
+    install -Dm755 ${geolite2AsnSrc} $out/GeoLite2-ASN.mmdb
+    install -Dm755 ${geolite2CitySrc} $out/GeoLite2-City.mmdb
+    install -Dm755 ${geolite2CountrySrc} $out/GeoLite2-Country.mmdb
 
     runHook postInstall
   '';
 
   passthru = {
-    asn = sources.geolite2-asn.src;
-    city = sources.geolite2-city.src;
-    country = sources.geolite2-country.src;
+    asn = geolite2AsnSrc;
+    city = geolite2CitySrc;
+    country = geolite2CountrySrc;
   };
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases";

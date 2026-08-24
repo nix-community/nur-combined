@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   lib,
   stdenv,
   autoPatchelfHook,
@@ -27,8 +27,12 @@
   zlib,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.unigine-valley) pname version src;
-
+  pname = "unigine-valley";
+  version = "1.0";
+  src = fetchurl {
+    url = "https://assets.unigine.com/d/Unigine_Valley-1.0.run";
+    hash = "sha256-L7R6nEXQbLTEi76VUoUyhS2LFeTdgdaTaIQVWGn/1+8=";
+  };
   nativeBuildInputs = [
     autoPatchelfHook
     copyDesktopItems
@@ -98,6 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Extreme performance and stability test for PC hardware: video card, power supply, cooling system";

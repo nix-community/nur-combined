@@ -1,11 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   llvmPackages,
+  nix-update-script,
 }:
 llvmPackages.stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.dtbloader) pname version src;
-
+  pname = "dtbloader";
+  version = "1.5.4";
+  src = fetchFromGitHub {
+    owner = "TravMurav";
+    repo = "dtbloader";
+    tag = "1.5.4";
+    fetchSubmodules = true;
+    hash = "sha256-2M1S8cBsP/wX8ODAIR3iL7tRBhtpruWRIpBjK7bDku8=";
+  };
   nativeBuildInputs = with llvmPackages; [
     clang-unwrapped
     lld
@@ -30,6 +38,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/TravMurav/dtbloader/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];

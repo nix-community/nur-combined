@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   lib,
   appimageTools,
   cacert,
@@ -9,17 +9,25 @@
   webkitgtk_4_1,
 }:
 let
-  prNumber = builtins.match ".*_PR-([0-9]+)\\.AppImage" sources.bambu-studio-bin.version;
-  version = if prNumber != null then builtins.head prNumber else sources.bambu-studio-bin.version;
+  prNumber = builtins.match ".*_PR-([0-9]+)\\.AppImage" "02.05.02.51";
+  version = if prNumber != null then builtins.head prNumber else "02.05.02.51";
 
   contents = appimageTools.extract {
-    inherit (sources.bambu-studio-bin) pname src;
+    pname = "bambu-studio-bin";
+    src = fetchurl {
+      url = "https://github.com/bambulab/BambuStudio/releases/download/v02.05.02.51/BambuStudio_ubuntu-24.04_v02.05.02.51-20260327222803.AppImage";
+      hash = "sha256-tWda80M3cV5hztEoYkZVGabQMgg6pyc/OniPJfghN0Q=";
+    };
     inherit version;
   };
 in
 # https://github.com/NixOS/nixpkgs/issues/440951
 appimageTools.wrapType2 {
-  inherit (sources.bambu-studio-bin) pname src;
+  pname = "bambu-studio-bin";
+  src = fetchurl {
+    url = "https://github.com/bambulab/BambuStudio/releases/download/v02.05.02.51/BambuStudio_ubuntu-24.04_v02.05.02.51-20260327222803.AppImage";
+    hash = "sha256-tWda80M3cV5hztEoYkZVGabQMgg6pyc/OniPJfghN0Q=";
+  };
   inherit version;
 
   profile = ''

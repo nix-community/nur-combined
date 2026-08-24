@@ -1,7 +1,8 @@
 {
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
-  sources,
   makeWrapper,
   python3,
 }:
@@ -15,8 +16,14 @@ let
   );
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.lyrics-on-panel-backend) pname version src;
-
+  pname = "lyrics-on-panel-backend";
+  version = "2.0";
+  src = fetchFromGitHub {
+    owner = "KangweiZhu";
+    repo = "lyrics-on-panel";
+    tag = "v2.0";
+    hash = "sha256-r7eoDm92k1ZjnBOtIt09a6P2MMLItqva6aXgLmqk3no=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [ pythonEnv ];
@@ -37,6 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "MPRIS2 WebSocket backend for the Lyrics-on-Panel KDE Plasma widget";

@@ -1,7 +1,8 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildPythonPackage,
+  nix-update-script,
   stdenv,
   setuptools,
   # Dependencies
@@ -33,11 +34,16 @@
   websockets,
 }:
 buildPythonPackage rec {
-  inherit (sources.funasr) pname version;
+  pname = "funasr";
+  version = "1.4.3-unstable-2026-08-21";
   pyproject = true;
 
-  inherit (sources.funasr) src;
-
+  src = fetchFromGitHub {
+    owner = "modelscope";
+    repo = "FunASR";
+    rev = "3c58cb56a56598232c3efffa15d313d7e82a4307";
+    hash = "sha256-n74C+UUGetdix5l6UbHmz4oRma3Xqy/p54Ej44Ys46w=";
+  };
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [
@@ -76,6 +82,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "funasr" ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models";

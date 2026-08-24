@@ -1,6 +1,6 @@
 {
   lib,
-  sources,
+  fetchFromGitHub,
   stdenv,
   fetchurl,
   # nginx dependencies
@@ -27,6 +27,19 @@
   modules ? [ ],
 }:
 let
+  sources = builtins.fromJSON (builtins.readFile ./sources.json);
+
+  moduleSrcs = builtins.mapAttrs (
+    _: s:
+    fetchFromGitHub (
+      {
+        inherit (s) owner repo hash;
+      }
+      // (if s ? rev then { inherit (s) rev; } else { inherit (s) tag; })
+      // (if s.fetchSubmodules or false then { fetchSubmodules = true; } else { })
+    )
+  ) (builtins.removeAttrs sources [ "openresty" ]);
+
   oqs-lookup = import ./oqs-lookup.nix { inherit lib openssl-oqs-provider python3; };
 
   patchUseOpensslMd5Sha1 = fetchurl {
@@ -41,7 +54,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "nginx-lantian";
-  inherit (sources.openresty) version src;
+  version = sources.openresty.version;
+
+  src = fetchurl {
+    inherit (sources.openresty) url hash;
+  };
 
   enableParallelBuilding = true;
 
@@ -87,7 +104,7 @@ stdenv.mkDerivation rec {
       patch = p: "echo ${p} && patch -p1 < ${p}";
     in
     ''
-      ${lib.concatMapStringsSep "\n" (k: "cp -r ${sources."${k}".src} bundle/${k}") extraSrcs}
+      ${lib.concatMapStringsSep "\n" (k: "cp -r ${moduleSrcs.${k}} bundle/${k}") extraSrcs}
       chmod -R 755 .
       patchShebangs .
 

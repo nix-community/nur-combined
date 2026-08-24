@@ -1,13 +1,17 @@
 {
-  sources,
+  fetchurl,
   lib,
   buildNpmPackage,
   nodejs,
 }:
 
 buildNpmPackage (finalAttrs: {
-  inherit (sources.waline) pname version src;
-
+  pname = "waline";
+  version = "1.41.4";
+  src = fetchurl {
+    url = "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.4.tgz";
+    hash = "sha256-7zU5WOzvftX0gdok1eYgTQ/CuCIEEle/ZC2oxqvmUng=";
+  };
   sourceRoot = "package";
 
   npmDepsHash = "sha256-XZIi/cNdWjcmM4G1j19bPSbbhnL31wQa2SNr56ZBh2E=";

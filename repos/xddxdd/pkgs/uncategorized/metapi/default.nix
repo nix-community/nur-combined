@@ -1,11 +1,19 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
   buildNpmPackage,
+  nix-update-script,
   nodejs,
 }:
 buildNpmPackage (finalAttrs: {
-  inherit (sources.metapi) pname version src;
+  pname = "metapi";
+  version = "1.3.0";
+  src = fetchFromGitHub {
+    owner = "cita-777";
+    repo = "metapi";
+    tag = "v1.3.0";
+    hash = "sha256-OfS8iAjP1yU40RNlJeFEvih4jn9Ab4joTgLfRD6e1pQ=";
+  };
   npmDepsHash = "sha256-6C4SIoP0+HdIoODkWq6uEJppOOfzFiNf/5FEtTG/Eo0=";
 
   npmFlags = [ "--ignore-scripts" ];
@@ -26,6 +34,7 @@ buildNpmPackage (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/cita-777/metapi/releases/tag/v${finalAttrs.version}";
     mainProgram = "metapi";

@@ -1,14 +1,21 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
   makeWrapper,
   python3,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.buname) pname version src;
-
+  pname = "buname";
+  version = "0-unstable-2025-09-18";
+  src = fetchFromGitHub {
+    owner = "dramforever";
+    repo = "buname";
+    rev = "a62d3d214dafb92932f4e5478eebc212ae4cb57d";
+    hash = "sha256-5pzAhggb8BD/5uxMXdg53A/4DLXTdwP2iqx9iw6diA8=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
@@ -22,6 +29,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Uname wrapper that renumbers Linux versions as if 2.6 never ended";

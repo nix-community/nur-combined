@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchurl,
   stdenv,
   autoPatchelfHook,
   makeWrapper,
@@ -45,8 +45,13 @@
 # https://aur.archlinux.org/packages/qqmusic-bin
 ################################################################################
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.qqmusic) pname version src;
-
+  pname = "qqmusic";
+  version = "1.1.8";
+  src = fetchurl {
+    url = "https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile_plink%2Fmusic_clntupate%2Flinux%2Fother%2Fqqmusic_1.1.8_amd64.deb&sign=1-d1ca4d5c5a8369b26af88e881ba3ac544066a899dcaea29778b35c9f648e6fee-68cb7c1c";
+    name = "qqmusic.deb";
+    hash = "sha256-QtGNaow8F0FOW228DDrIk7slQMHFwJzpDSQYQ8xZN4g=";
+  };
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper

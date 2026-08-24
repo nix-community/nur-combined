@@ -1,6 +1,7 @@
 {
+  fetchFromGitHub,
   lib,
-  sources,
+  nix-update-script,
   python3,
   python3Packages,
   makeWrapper,
@@ -8,11 +9,17 @@
 }:
 let
   pyenet = python3Packages.buildPythonPackage {
-    inherit (sources.cockpy-pyenet) pname version;
+    pname = "cockpy-pyenet";
+    version = "0-unstable-2022-11-20";
     pyproject = true;
 
-    inherit (sources.cockpy-pyenet) src;
-
+    src = fetchFromGitHub {
+      owner = "lilmayofuksu";
+      repo = "pyenet";
+      rev = "1726b1d8e22ee1fa53c7560169d8814c7847a447";
+      fetchSubmodules = true;
+      hash = "sha256-YzFge0S5S6TwCVeCuNgDUmDpwha7Zi8+ZgJ4cdW4AzM=";
+    };
     build-system = [ python3Packages.setuptools ];
 
     propagatedBuildInputs = with python3Packages; [ cython ];
@@ -37,8 +44,14 @@ let
   );
 in
 stdenv.mkDerivation {
-  inherit (sources.cockpy) pname version src;
-
+  pname = "cockpy";
+  version = "0-unstable-2024-09-07";
+  src = fetchFromGitHub {
+    owner = "Hiro420";
+    repo = "CockPY";
+    rev = "4813219045224b39463cb619a852c298603b2a30";
+    hash = "sha256-1yvUD/aXX9ncj6StZQgz+PMqnelgcTyvhD8to0KKuXk=";
+  };
   nativeBuildInputs = [ makeWrapper ];
 
   postPatch = ''
@@ -60,6 +73,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Public and open source version of the cbt2 ps I'm working on";

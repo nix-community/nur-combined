@@ -1,13 +1,19 @@
 {
+  fetchFromGitHub,
   stdenv,
   lib,
-  sources,
   ...
 }:
 let
   package = stdenv.mkDerivation (finalAttrs: {
     pname = "plangothic-fonts";
-    inherit (sources.plangothic-fonts) version src;
+    version = "2.9.5795";
+    src = fetchFromGitHub {
+      owner = "Fitzgerald-Porthmouth-Koenigsegg";
+      repo = "Plangothic_Project";
+      tag = "V2.9.5795";
+      hash = "sha256-7Y18HcCvwWTX5CWguLuo6Z+l/tcTfKmblZ5st/TL6TI=";
+    };
     installPhase = ''
       runHook preInstall
 

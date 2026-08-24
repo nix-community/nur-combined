@@ -1,15 +1,20 @@
 {
+  fetchgit,
   stdenv,
   lib,
-  sources,
   pkg-config,
   libcrystalhd,
   gst_all_1,
 }:
 stdenv.mkDerivation rec {
   pname = "gst-plugin-crystalhd";
-  inherit (sources.crystalhd-ubuntu) version src;
-
+  version = "0-unstable-2020-03-22";
+  src = fetchgit {
+    url = "https://git.launchpad.net/ubuntu/+source/crystalhd";
+    rev = "72237253de7901c70aa666b3e022289f1ebae0ac";
+    fetchSubmodules = false;
+    hash = "sha256-84eztV9ExTP9a/L1qpp8uyQJgF6aFVRe52bCje18JOY=";
+  };
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     libcrystalhd

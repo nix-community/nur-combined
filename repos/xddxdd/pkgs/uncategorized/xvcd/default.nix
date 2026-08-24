@@ -1,11 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
   libftdi,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  inherit (sources.xvcd) pname version src;
+  pname = "xvcd";
+  version = "0-unstable-2019-11-20";
+  src = fetchFromGitHub {
+    owner = "RHSResearchLLC";
+    repo = "xvcd";
+    rev = "d42b07f70cffd9e53f41c33b3960e1474cfbfc04";
+    hash = "sha256-ke2Ct+ganBHh+Res0NHGfQiLhyacbXnczN6R8DIT3RA=";
+  };
   sourceRoot = "source/linux";
 
   buildInputs = [ libftdi ];
@@ -18,6 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
   meta = {
     mainProgram = "xvcd";
     maintainers = with lib.maintainers; [ xddxdd ];

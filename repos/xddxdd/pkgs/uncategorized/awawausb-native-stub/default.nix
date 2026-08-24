@@ -1,11 +1,18 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
-  inherit (sources.awawausb-native-stub) pname version src;
-
+  pname = "awawausb-native-stub";
+  version = "0.2";
+  src = fetchFromGitHub {
+    owner = "ArcaneNibble";
+    repo = "awawausb";
+    tag = "v0.2";
+    hash = "sha256-9lkQtItaU5xVMsStB2RJt+JP8TTdP4A8xMD0dIfeJH8=";
+  };
   cargoHash = "sha256-By8H8NcxB8cync1MZ+IggKUIb5+XtMIdK9zLcf7uQJg=";
 
   cargoRoot = "native-stub";
@@ -24,6 +31,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     EOF
   '';
 
+  passthru.updateScript = nix-update-script { };
   meta = {
     changelog = "https://github.com/ArcaneNibble/awawausb/releases/tag/v${finalAttrs.version}";
     homepage = "https://github.com/ArcaneNibble/awawausb";
