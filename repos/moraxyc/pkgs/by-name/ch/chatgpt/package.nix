@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  stdenvNoCC,
   callPackage,
   fetchurl,
 
@@ -55,13 +54,13 @@
   tectonic-unwrapped,
   vulkan-loader,
   xdg-utils,
-
-  codexPackage ? null,
+  # override to null to use bundled codex
+  codex,
 }:
 let
-  inherit (stdenvNoCC.hostPlatform) isLinux isDarwin system;
+  inherit (stdenv.hostPlatform) isLinux isDarwin system;
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "chatgpt";
   inherit (finalAttrs.passthru.source) version;
 
@@ -88,15 +87,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
 
   buildInputs = lib.optionals isLinux [
-    (lib.getLib stdenv.cc.cc)
     alsa-lib
     at-spi2-atk
     at-spi2-core
     atk
     cairo
     cups
-    dconf
     dbus
+    dconf
     expat
     gdk-pixbuf
     glib
@@ -116,7 +114,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     nss
     pango
     qt6.qtbase
+    stdenv.cc.cc.lib
     systemdLibs
+  ];
+
+  runtimeDependencies = lib.optionals isLinux [
+    libGL
+    libnotify
+    libpulseaudio
+    libsecret
+    pipewire
+    vulkan-loader
   ];
 
   dontWrapGApps = true;
@@ -144,7 +152,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     rm -f \
       "$out/lib/chatgpt/resources/app.asar.unpacked/node_modules/@worklouder/device-kit-oai/node_modules/@worklouder/wl-device-kit/node_modules/serialport/node_modules/@serialport/bindings-cpp/prebuilds/"{linux-*/node.napi.musl.node,android-*/node.napi.*.node} \
       "$out/lib/chatgpt/resources/app.asar.unpacked/node_modules/@worklouder/device-kit-oai/node_modules/@worklouder/wl-device-kit/node_modules/node-hid/prebuilds/"{HID,HID_hidraw}-linux-*-musl/node-napi-v4.node \
-      "$out/lib/chatgpt/resources/plugins/openai-bundled/plugins/"{browser,chrome}"/scripts/node_modules/classic-level/prebuilds/"{linux-*/classic-level.musl.node,android-*/classic-level.*.node}
+      "$out/lib/chatgpt/resources/plugins/openai-bundled/plugins/"{browser,chrome}"/node_modules/classic-level/prebuilds/"{linux-*/classic-level.musl.node,android-*/classic-level.*.node}
 
     ln -sf ${lib.getExe tectonic-unwrapped} "$out/lib/chatgpt/resources/plugins/openai-bundled/plugins/latex/bin/tectonic"
     ln -sf ${lib.getExe ripgrep} "$out/lib/chatgpt/resources/rg"
@@ -152,9 +160,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     install -Dm755 ${lib.getExe finalAttrs.passthru.launcher} "$out/bin/chatgpt"
   ''
-  + lib.optionalString (isLinux && codexPackage != null) ''
-    ln -sf ${lib.getExe codexPackage} "$out/lib/chatgpt/resources/codex"
-    ln -sf ${codexPackage}/bin/codex-code-mode-host "$out/lib/chatgpt/resources/codex-code-mode-host"
+  + lib.optionalString (isLinux && codex != null) ''
+    ln -sf ${lib.getExe codex} "$out/lib/chatgpt/resources/codex"
+    ln -sf ${lib.getExe' codex "codex-code-mode-host"} "$out/lib/chatgpt/resources/codex-code-mode-host"
   ''
   + ''
     runHook postInstall
@@ -166,7 +174,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "''${qtWrapperArgs[@]}" \
       --set CHATGPT_EXECUTABLE "$out/lib/chatgpt/ChatGPT" \
       --set CHATGPT_RESOURCES_SOURCE "$out/lib/chatgpt/resources" \
-      --set CHATGPT_RESOURCES_CACHE_KEY ${lib.escapeShellArg "${finalAttrs.version}-${system}"} \
+      --set CHATGPT_RESOURCES_CACHE_LABEL ${lib.escapeShellArg "${finalAttrs.version}-${system}"} \
       --prefix PATH : ${
         lib.makeBinPath [
           nodejs-slim
@@ -174,23 +182,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
           bubblewrap
         ]
       } \
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libGL
-          libnotify
-          libpulseaudio
-          libsecret
-          pipewire
-          vulkan-loader
-        ]
-      } \
       --set-default CODEX_BROWSER_USE_NODE_PATH ${lib.getExe nodejs-slim} \
       --set-default NODE_REPL_NODE_PATH ${lib.getExe nodejs-slim} \
       ${lib.escapeShellArgs (
-        lib.optionals (codexPackage != null) [
+        lib.optionals (codex != null) [
           "--set-default"
           "CODEX_CLI_PATH"
-          (lib.getExe codexPackage)
+          (lib.getExe codex)
         ]
       )}
   '';
