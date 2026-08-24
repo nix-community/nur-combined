@@ -407,11 +407,6 @@
         "codgician": {
             "url": "https://github.com/codgician/nur-packages"
         },
-        "colinsane": {
-            "file": "integrations/nur/default.nix",
-            "type": "gitea",
-            "url": "https://git.uninsane.org/colin/nix-files"
-        },
         "colorman": {
             "url": "https://github.com/TheColorman/nurpkgs"
         },
@@ -1397,10 +1392,6 @@
         },
         "shamilton": {
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
-        },
-        "shelvacu": {
-            "file": "nur.nix",
-            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "url": "https://github.com/shirok1/flakes"
