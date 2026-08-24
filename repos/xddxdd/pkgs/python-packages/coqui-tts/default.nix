@@ -44,7 +44,7 @@
   num2words,
   spacy,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "coqui-tts";
   version = "0.22.0";
   pyproject = true;
@@ -52,7 +52,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "coqui-ai";
     repo = "TTS";
-    tag = "v0.22.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-RQVlPHYZ5X/6xbxwGNcgntcyAsBS8T2ketdk+OCIS3Q=";
   };
   build-system = [ setuptools ];
@@ -140,4 +140,4 @@ buildPythonPackage rec {
     # Did not complete packaging due to broken triton dependency
     broken = true;
   };
-}
+})

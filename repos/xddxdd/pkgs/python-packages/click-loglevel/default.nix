@@ -8,7 +8,7 @@
   nix-update-script,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "click-loglevel";
   version = "0.7.0";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jwodder";
     repo = "click-loglevel";
-    tag = "v0.7.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Z66xy8d9KAjni4AmwZwGdHTzJHkjgO/2D+vkOhh/te8=";
   };
   propagatedBuildInputs = [
@@ -29,10 +29,10 @@ buildPythonPackage rec {
 
   passthru.updateScript = nix-update-script { };
   meta = {
-    changelog = "https://github.com/jwodder/click-loglevel/releases/tag/v${version}";
+    changelog = "https://github.com/jwodder/click-loglevel/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Log level parameter type for Click";
     homepage = "https://github.com/jwodder/click-loglevel";
     license = with lib.licenses; [ mit ];
   };
-}
+})

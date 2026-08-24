@@ -4,7 +4,7 @@
   stdenv,
   lib,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nbfc-linux-lantian";
   version = "0.1.6-unstable-2022-06-14";
   src = fetchFromGitHub {
@@ -28,4 +28,4 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3Only;
     mainProgram = "nbfc";
   };
-}
+})

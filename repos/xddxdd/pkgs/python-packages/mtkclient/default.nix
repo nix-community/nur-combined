@@ -23,7 +23,7 @@
   shiboken6,
   unicorn,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mtkclient";
   version = "2.1.4.1-unstable-2026-08-02";
   pyproject = true;
@@ -75,11 +75,11 @@ buildPythonPackage rec {
     ];
   };
   meta = {
-    changelog = "https://github.com/bkerler/mtkclient/releases/tag/${version}";
+    changelog = "https://github.com/bkerler/mtkclient/releases/tag/${finalAttrs.version}";
     mainProgram = "mtk";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "MTK reverse engineering and flash tool";
     homepage = "https://github.com/bkerler/mtkclient";
     license = with lib.licenses; [ gpl3Only ];
   };
-}
+})

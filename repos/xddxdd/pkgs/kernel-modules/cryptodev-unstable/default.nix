@@ -5,7 +5,7 @@
   stdenv,
   kernel ? false,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cryptodev-linux";
   version = "cryptodev-linux-1.14-unstable-2025-11-03";
   src = fetchFromGitHub {
@@ -36,4 +36,4 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
-}
+})

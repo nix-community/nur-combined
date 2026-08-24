@@ -5,7 +5,7 @@
   lib,
   kernel,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "i915-sriov";
   version = "2026.08.12.1-unstable-2026-08-12";
   src = fetchFromGitHub {
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
+    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
   '';
   installTargets = [ "modules_install" ];
 
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
   };
-}
+})

@@ -4,7 +4,7 @@
   buildGoModule,
   nix-update-script,
 }:
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "pterodactyl-wings";
   version = "1.13.3-unstable-2026-08-14";
   src = fetchFromGitHub {
@@ -30,4 +30,4 @@ buildGoModule {
     homepage = "https://pterodactyl.io";
     license = lib.licenses.mit;
   };
-}
+})

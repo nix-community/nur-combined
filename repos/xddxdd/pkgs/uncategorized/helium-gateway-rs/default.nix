@@ -5,7 +5,7 @@
   rustPlatform,
   protobuf,
 }:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "helium-gateway-rs";
   version = "1.3.0-unstable-2025-04-11";
   src = fetchFromGitHub {
@@ -31,4 +31,4 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/helium/gateway-rs";
     license = lib.licenses.asl20;
   };
-}
+})

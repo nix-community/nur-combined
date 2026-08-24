@@ -7,7 +7,7 @@
   poetry-core,
   tqdm,
 }:
-buildPythonPackage {
+buildPythonPackage (finalAttrs: {
   pname = "tqdm-loggable";
   version = "0-unstable-2026-03-16";
   pyproject = true;
@@ -38,4 +38,4 @@ buildPythonPackage {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ xddxdd ];
   };
-}
+})

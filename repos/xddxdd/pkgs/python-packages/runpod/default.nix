@@ -29,7 +29,7 @@
   watchdog,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "runpod";
   version = "1.12.0";
   pyproject = true;
@@ -37,7 +37,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "runpod";
     repo = "runpod-python";
-    tag = "v1.12.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-6PnTrP5q8jP089+InKNizsZIHmUlZv8XrS/eFk5xbrk=";
   };
   prePatch = ''
@@ -75,11 +75,11 @@ buildPythonPackage rec {
 
   passthru.updateScript = nix-update-script { };
   meta = {
-    changelog = "https://github.com/runpod/runpod-python/releases/tag/${version}";
+    changelog = "https://github.com/runpod/runpod-python/releases/tag/v${finalAttrs.version}";
     description = "Python library for RunPod API and serverless worker SDK";
     homepage = "https://github.com/runpod/runpod-python";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ xddxdd ];
     mainProgram = "runpod";
   };
-}
+})

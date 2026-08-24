@@ -40,7 +40,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pyhss";
   version = "2.0.0-unstable-2026-08-17";
   src = fetchFromGitHub {
@@ -90,4 +90,4 @@ stdenv.mkDerivation {
     homepage = "https://github.com/nickvsnetworking/pyhss";
     license = lib.licenses.agpl3Only;
   };
-}
+})

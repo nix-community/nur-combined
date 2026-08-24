@@ -4,13 +4,13 @@
   buildPythonPackage,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "xstatic-font-awesome";
   version = "6.2.1.2";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/X/XStatic-Font-Awesome/xstatic_font_awesome-${version}.tar.gz";
+    url = "mirror://pypi/X/XStatic-Font-Awesome/xstatic_font_awesome-${finalAttrs.version}.tar.gz";
     hash = "sha256-nzyy8Dj619NSciN10/Ja80banuCT7Z3CyMRr2RGrGXE=";
   };
   build-system = [ setuptools ];
@@ -23,4 +23,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/FortAwesome/Font-Awesome";
     license = with lib.licenses; [ ofl ];
   };
-}
+})

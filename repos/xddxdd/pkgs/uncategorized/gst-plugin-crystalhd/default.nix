@@ -6,7 +6,7 @@
   libcrystalhd,
   gst_all_1,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugin-crystalhd";
   version = "0-unstable-2020-03-22";
   src = fetchgit {
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfreeRedistributable;
     platforms = [ "x86_64-linux" ];
   };
-}
+})

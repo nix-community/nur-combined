@@ -5,13 +5,13 @@
   lib,
   kernel,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "r8168";
   version = "8.056.02";
   src = fetchFromGitHub {
     owner = "mtorromeo";
     repo = "r8168";
-    tag = "8.056.02";
+    tag = finalAttrs.version;
     hash = "sha256-KKfI03RrD+34+KSxwTwDkeB4sGFNY/tU/YbfrfVkTp8=";
   };
   postPatch = ''
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
   };
-}
+})

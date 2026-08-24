@@ -21,7 +21,7 @@
   transformers,
   urllib3,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "modelscope";
   version = "1.39.1";
   pyproject = true;
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "modelscope";
     repo = "modelscope";
-    tag = "v1.39.1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jG0g7G2cXVNFUB1ItHcC0wJg6Zj0oGkKGLhgHji3sPQ=";
   };
   build-system = [ setuptools ];
@@ -56,11 +56,11 @@ buildPythonPackage rec {
 
   passthru.updateScript = nix-update-script { };
   meta = {
-    changelog = "https://github.com/modelscope/modelscope/releases/tag/v${version}";
+    changelog = "https://github.com/modelscope/modelscope/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Bring the notion of Model-as-a-Service to life";
     homepage = "https://www.modelscope.cn/";
     license = with lib.licenses; [ asl20 ];
     mainProgram = "modelscope";
   };
-}
+})

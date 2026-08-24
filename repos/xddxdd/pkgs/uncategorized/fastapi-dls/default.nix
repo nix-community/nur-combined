@@ -24,7 +24,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fastapi-dls";
   version = "2.0.1-unstable-2025-05-13";
   src = fetchFromGitHub {
@@ -84,4 +84,4 @@ stdenv.mkDerivation {
     license = lib.licenses.unfree;
     mainProgram = "fastapi-dls";
   };
-}
+})

@@ -9,7 +9,7 @@
 let
   mkLibrary =
     asterisk_version: name: _bits: value:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "asterisk-${asterisk_version}-codec-${name}";
       inherit (value) version;
       src = fetchurl {
@@ -38,7 +38,7 @@ let
           "i686-linux"
         ];
       };
-    };
+    });
 
   mkAsteriskVersion =
     asterisk_version: v:

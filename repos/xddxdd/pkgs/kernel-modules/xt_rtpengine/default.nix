@@ -5,7 +5,7 @@
   lib,
   kernel,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xt_rtpengine";
   version = "mr26.2.1.1-unstable-2026-08-17";
   src = fetchFromGitHub {
@@ -42,11 +42,11 @@ stdenv.mkDerivation rec {
     ];
   };
   meta = {
-    changelog = "https://github.com/sipwise/rtpengine/releases/tag/v${version}";
+    changelog = "https://github.com/sipwise/rtpengine/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Sipwise media proxy for Kamailio (kernel module)";
     homepage = "https://github.com/sipwise/rtpengine";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -5,13 +5,13 @@
   lib,
   kernel,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "r8125";
   version = "9.018.00-1";
   src = fetchFromGitHub {
     owner = "awesometic";
     repo = "realtek-r8125-dkms";
-    tag = "9.018.00-1";
+    tag = finalAttrs.version;
     hash = "sha256-yeQsyraNrms1Txm7ZAKeiPfF0tfN6WSHUo5DnvfFosw=";
   };
   postPatch = ''
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
   };
-}
+})

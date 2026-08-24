@@ -9,7 +9,7 @@
   pydantic,
   typing-extensions,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "kui";
   version = "1.14.1";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "abersheeran";
     repo = "kui";
-    tag = "v1.14.1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-PbE90v7y5qzyNJCCh8759BDPq2nFKO7A2FchIbHYWxk=";
   };
   propagatedBuildInputs = [
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     # FIXME: dependency package baize is broken
     broken = true;
   };
-}
+})

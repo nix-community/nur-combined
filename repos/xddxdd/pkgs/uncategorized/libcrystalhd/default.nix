@@ -4,7 +4,7 @@
   stdenv,
   lib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libcrystalhd";
   version = "0-unstable-2021-01-26";
   src = fetchFromGitHub {
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfreeRedistributable;
     platforms = [ "x86_64-linux" ];
   };
-}
+})

@@ -3,11 +3,11 @@
   writeTextFile,
   gawk,
 }:
-writeTextFile rec {
+writeTextFile (finalAttrs: {
   name = "x86-arch-level";
   derivationArgs.version = "1.0";
   executable = true;
-  destination = "/bin/${name}";
+  destination = "/bin/${finalAttrs.name}";
   text = ''
     #!${lib.getExe gawk} -f
 
@@ -27,6 +27,6 @@ writeTextFile rec {
     description = "Check x86 architecture level";
     homepage = "https://unix.stackexchange.com/a/631226";
     license = lib.licenses.free;
-    mainProgram = name;
+    mainProgram = finalAttrs.name;
   };
-}
+})

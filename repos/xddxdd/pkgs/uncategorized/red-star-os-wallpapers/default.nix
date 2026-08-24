@@ -5,7 +5,7 @@
   p7zip,
   rpmextract,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "red-star-os-wallpapers";
   version = "3.0";
   src = fetchurl {
@@ -42,4 +42,4 @@ stdenv.mkDerivation {
     homepage = "https://archive.org/details/RedStarOS";
     license = lib.licenses.unfree;
   };
-}
+})

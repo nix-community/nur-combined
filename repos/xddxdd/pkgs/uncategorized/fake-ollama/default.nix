@@ -4,7 +4,7 @@
   lib,
   nix-update-script,
 }:
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "fake-ollama";
   version = "0-unstable-2025-02-13";
   src = fetchFromGitHub {
@@ -28,4 +28,4 @@ buildGoModule {
     license = lib.licenses.mit;
     mainProgram = "fake-ollama";
   };
-}
+})

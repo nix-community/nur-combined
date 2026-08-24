@@ -43,7 +43,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cockpy";
   version = "0-unstable-2024-09-07";
   src = fetchFromGitHub {
@@ -86,4 +86,4 @@ stdenv.mkDerivation {
     license = with lib.licenses; [ unfreeRedistributable ];
     mainProgram = "cockpy";
   };
-}
+})

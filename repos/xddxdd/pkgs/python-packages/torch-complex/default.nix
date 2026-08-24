@@ -9,13 +9,13 @@
   numpy,
   packaging,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "torch-complex";
   version = "0.4.4";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/t/torch_complex/torch_complex-${version}.tar.gz";
+    url = "mirror://pypi/t/torch_complex/torch_complex-${finalAttrs.version}.tar.gz";
     hash = "sha256-QVP9aySgutaJ5vGTv70A84KDsYkNgIvvaE3cbR9j/T8=";
   };
   build-system = [ setuptools ];
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/torch-complex";
     license = with lib.licenses; [ asl20 ];
   };
-}
+})

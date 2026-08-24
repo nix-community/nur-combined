@@ -4,7 +4,7 @@
   pkgs,
   kernel,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emperors-scepter";
   version = "0.1.0-${kernel.version}";
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
+    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
   '';
   installTargets = [ "modules_install" ];
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ xddxdd ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -4,7 +4,7 @@
   lib,
   kernel,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dpdk-kmod";
   version = "0-unstable-2024-11-20";
   src = fetchgit {
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
+    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
   '';
   installTargets = [ "modules_install" ];
 
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
   };
-}
+})

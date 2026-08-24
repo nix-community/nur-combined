@@ -4,13 +4,13 @@
   rustPlatform,
   nix-update-script,
 }:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "vgpu-unlock-rs";
   version = "2.5.0";
   src = fetchFromGitHub {
     owner = "mbilker";
     repo = "vgpu_unlock-rs";
-    tag = "v2.5.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-5/cFc8JWgwxYm0JQX6aBGhIn2cNvGB4kh/w96P+lTgw=";
   };
   cargoLock.lockFile = ./Cargo.lock;
@@ -29,4 +29,4 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/mbilker/vgpu_unlock-rs";
     license = lib.licenses.mit;
   };
-}
+})

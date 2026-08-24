@@ -43,7 +43,7 @@ let
     xorgserver
   ];
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "flaresolverr-21hsmw";
   version = "0-unstable-2025-03-04";
   src = fetchFromGitHub {
@@ -82,4 +82,4 @@ stdenv.mkDerivation {
     # Platform depends on chromedriver
     inherit (undetected-chromedriver.meta) platforms;
   };
-}
+})

@@ -9,7 +9,7 @@
   torch,
   torch-complex,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytorch-wpe";
   version = "0.0.1";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "nttcslab-sp";
     repo = "dnn_wpe";
-    tag = "v0.0.1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-DcT0NnnbcSYYyVpH7JqAnpjOANS2INBYQLV9Qx3BwZw=";
   };
   build-system = [ setuptools ];
@@ -32,10 +32,10 @@ buildPythonPackage rec {
 
   passthru.updateScript = nix-update-script { };
   meta = {
-    changelog = "https://github.com/nttcslab-sp/dnn_wpe/releases/tag/v${version}";
+    changelog = "https://github.com/nttcslab-sp/dnn_wpe/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "WPE implementation using PyTorch";
     homepage = "https://github.com/nttcslab-sp/dnn_wpe";
     license = with lib.licenses; [ unfreeRedistributable ];
   };
-}
+})

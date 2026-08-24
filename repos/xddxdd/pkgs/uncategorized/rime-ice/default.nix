@@ -4,7 +4,7 @@
   stdenv,
   lib,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rime-ice";
   version = "nightly-unstable-2026-08-22";
   src = fetchFromGitHub {
@@ -42,4 +42,4 @@ stdenv.mkDerivation {
     homepage = "https://dvel.me/posts/rime-ice/";
     license = lib.licenses.gpl3Only;
   };
-}
+})

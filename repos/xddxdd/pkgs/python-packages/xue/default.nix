@@ -8,13 +8,13 @@
   httpx,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "xue";
   version = "0.0.34";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/x/xue/xue-${version}.tar.gz";
+    url = "mirror://pypi/x/xue/xue-${finalAttrs.version}.tar.gz";
     hash = "sha256-1fTAmCuZYVOrNihGQZfGK0pwV910KD19KK+MYkuyA3w=";
   };
   build-system = [ setuptools ];
@@ -30,4 +30,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ xddxdd ];
   };
-}
+})

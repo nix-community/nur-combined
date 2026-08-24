@@ -4,7 +4,7 @@
   kernel,
   nvidia_x11,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nvidia-kernel-modules";
   version = "${nvidia_x11.version}-${kernel.version}";
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation {
     description = "${nvidia_x11.meta.description} - Kernel modules";
     outputsToInstall = [ "out" ];
   };
-}
+})

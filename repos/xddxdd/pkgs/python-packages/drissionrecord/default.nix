@@ -7,13 +7,13 @@
   openpyxl,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "drissionrecord";
   version = "2.0.1";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/d/drissionrecord/drissionrecord-${version}.tar.gz";
+    url = "mirror://pypi/d/drissionrecord/drissionrecord-${finalAttrs.version}.tar.gz";
     hash = "sha256-hjMFvAmuxYFYBF9F62k14VuprBXjWJIBBbIPSnMLLtc=";
   };
   build-system = [ setuptools ];
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     homepage = "https://gitcode.com/g1879/DrissionRecord";
     license = with lib.licenses; [ mit ];
   };
-}
+})

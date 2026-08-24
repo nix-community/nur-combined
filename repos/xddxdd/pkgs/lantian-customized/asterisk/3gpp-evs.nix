@@ -4,7 +4,7 @@
   fetchurl,
   unzip,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "3gpp-evs";
   version = "16.1.0";
   src = fetchurl {
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     homepage = "https://webapp.etsi.org/key/key.asp?GSMSpecPart1=26&GSMSpecPart2=443";
     license = lib.licenses.unfree;
   };
-}
+})

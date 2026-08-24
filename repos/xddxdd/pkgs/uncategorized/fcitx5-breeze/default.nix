@@ -6,11 +6,11 @@
   inkscape,
   writableTmpDirAsHomeHook,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-breeze";
   version = "3.1.0";
   src = fetchurl {
-    url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v3.1.0/fcitx5-breeze-v3.1.0.tar.gz";
+    url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v${finalAttrs.version}/fcitx5-breeze-v${finalAttrs.version}.tar.gz";
     hash = "sha256-rRVRUY69M5Nz8MwarePlqy2JIOX8MP0nz6Ia2pwmkTA=";
   };
   nativeBuildInputs = [
@@ -43,4 +43,4 @@ stdenv.mkDerivation {
     homepage = "https://github.com/scratch-er/fcitx5-breeze";
     license = lib.licenses.gpl3Only;
   };
-}
+})

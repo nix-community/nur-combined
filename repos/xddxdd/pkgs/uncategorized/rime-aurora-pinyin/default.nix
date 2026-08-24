@@ -4,7 +4,7 @@
   stdenv,
   lib,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rime-aurora-pinyin";
   version = "0-unstable-2022-08-27";
   src = fetchFromGitHub {
@@ -34,4 +34,4 @@ stdenv.mkDerivation {
     homepage = "https://github.com/hosxy/rime-aurora-pinyin";
     license = lib.licenses.asl20;
   };
-}
+})

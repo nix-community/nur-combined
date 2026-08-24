@@ -10,7 +10,7 @@
   tqdm,
   urllib3,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "modelscope-hub";
   version = "0.2.0";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "modelscope";
     repo = "modelscope_hub";
-    tag = "v0.2.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-8q4Oz8WGVavrS1afolr8DYR7ATQSzssCgZpp+bdxbng=";
   };
   build-system = [ setuptools ];
@@ -34,11 +34,11 @@ buildPythonPackage rec {
 
   passthru.updateScript = nix-update-script { };
   meta = {
-    changelog = "https://github.com/modelscope/modelscope_hub/releases/tag/${version}";
+    changelog = "https://github.com/modelscope/modelscope_hub/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Official Python client to connect with ModelScope Hub";
     homepage = "https://github.com/modelscope/modelscope_hub";
     license = with lib.licenses; [ asl20 ];
     mainProgram = "ms";
   };
-}
+})

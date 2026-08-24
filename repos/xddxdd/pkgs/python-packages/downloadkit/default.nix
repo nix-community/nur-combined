@@ -8,13 +8,13 @@
   datarecorder,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "downloadkit";
   version = "2.0.7";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/D/DownloadKit/DownloadKit-${version}";
+    url = "mirror://pypi/D/DownloadKit/DownloadKit-${finalAttrs.version}.tar.gz";
     hash = "sha256-YB5CPR1NC9PpM1JNBskT50RXfUVZkOwgr8P7H3muqac=";
   };
   build-system = [ setuptools ];
@@ -34,4 +34,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/g1879/DownloadKit";
     license = with lib.licenses; [ bsd3 ];
   };
-}
+})

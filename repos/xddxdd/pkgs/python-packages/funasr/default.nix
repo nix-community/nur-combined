@@ -33,7 +33,7 @@
   umap-learn,
   websockets,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "funasr";
   version = "1.4.3-unstable-2026-08-21";
   pyproject = true;
@@ -97,4 +97,4 @@ buildPythonPackage rec {
     # Dependency librosa doesn't work on ARM64
     broken = stdenv.hostPlatform.isAarch64;
   };
-}
+})

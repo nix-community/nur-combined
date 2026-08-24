@@ -7,7 +7,7 @@
   pkg-config,
   oniguruma,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qsp-lib";
   version = "5.9.5-unstable-2026-06-24";
   src = fetchFromGitHub {
@@ -42,4 +42,4 @@ stdenv.mkDerivation {
     homepage = "https://github.com/QSPFoundation/qsp";
     license = lib.licenses.gpl2Only;
   };
-}
+})

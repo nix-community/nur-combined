@@ -39,7 +39,7 @@ let
     ) old.configureFlags;
   });
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qsp";
   version = "5.9.5-unstable-2026-04-14";
   src = fetchFromGitHub {
@@ -73,4 +73,4 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2Only;
     mainProgram = "qspgui";
   };
-}
+})

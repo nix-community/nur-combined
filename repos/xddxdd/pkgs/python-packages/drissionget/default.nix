@@ -8,13 +8,13 @@
   drissionrecord,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "drissionget";
   version = "1.2.1";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/d/drissionget/drissionget-${version}.tar.gz";
+    url = "mirror://pypi/d/drissionget/drissionget-${finalAttrs.version}.tar.gz";
     hash = "sha256-oFUZvqWcx6WI8aWp7mhEKC5Zlj6sISuqQG2hwgvKmQg=";
   };
   build-system = [ setuptools ];
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     homepage = "https://DrissionPage.cn/DrissionGet";
     license = with lib.licenses; [ bsd3 ];
   };
-}
+})

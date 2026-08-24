@@ -31,7 +31,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "uni-api";
   version = "1.7.252-unstable-2026-08-22";
   src = fetchFromGitHub {
@@ -84,4 +84,4 @@ stdenv.mkDerivation {
     license = lib.licenses.unfree;
     mainProgram = "uni-api";
   };
-}
+})

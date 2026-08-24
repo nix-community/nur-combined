@@ -9,6 +9,7 @@ let
   unpack =
     args: version: source:
     stdenv.mkDerivation (
+      finalAttrs:
       {
         inherit version;
 

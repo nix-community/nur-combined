@@ -45,7 +45,7 @@ let
     xorgserver
   ];
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "flaresolverr-alexfozor";
   version = "0-unstable-2024-08-04";
   src = fetchFromGitHub {
@@ -76,4 +76,4 @@ stdenv.mkDerivation {
     homepage = "https://github.com/AlexFozor/FlareSolverr";
     license = licenses.mit;
   };
-}
+})

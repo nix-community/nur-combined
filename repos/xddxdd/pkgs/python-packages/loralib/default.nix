@@ -7,7 +7,7 @@
   # Dependencies
   torch,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "loralib";
   version = "RoBERTa-large-unstable-2024-12-17";
   pyproject = true;
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     homepage = "https://arxiv.org/abs/2106.09685";
     license = with lib.licenses; [ mit ];
   };
-}
+})

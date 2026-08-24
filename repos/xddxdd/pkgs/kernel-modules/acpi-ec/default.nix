@@ -5,13 +5,13 @@
   lib,
   kernel,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "acpi-ec";
   version = "1.0.4";
   src = fetchFromGitHub {
     owner = "musikid";
     repo = "acpi_ec";
-    tag = "v1.0.4";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-gDcEzZKtHMULtTtJSDTRH1W9otSB6IC0E6EBF9j6F7Q=";
   };
   sourceRoot = "source/src";
@@ -26,17 +26,17 @@ stdenv.mkDerivation rec {
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
+    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
   '';
   installTargets = [ "modules_install" ];
 
   passthru.updateScript = nix-update-script { };
   meta = {
-    changelog = "https://github.com/musikid/acpi_ec/releases/tag/v${version}";
+    changelog = "https://github.com/musikid/acpi_ec/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Kernel module to access directly to the ACPI EC";
     homepage = "https://github.com/musikid/acpi_ec";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
   };
-}
+})

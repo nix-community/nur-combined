@@ -7,13 +7,13 @@
   openpyxl,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "datarecorder";
   version = "3.6.2";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/D/DataRecorder/DataRecorder-${version}.tar.gz";
+    url = "mirror://pypi/D/DataRecorder/DataRecorder-${finalAttrs.version}.tar.gz";
     hash = "sha256-jJAkc2aSr2i5R/2IRYnmhcTye8KdAxuBFkRXsJxg4eU=";
   };
   build-system = [ setuptools ];
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/g1879/DataRecorder";
     license = with lib.licenses; [ mit ];
   };
-}
+})

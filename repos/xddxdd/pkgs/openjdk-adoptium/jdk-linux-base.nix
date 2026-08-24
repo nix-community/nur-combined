@@ -39,7 +39,7 @@ let
   ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
-  result = stdenv.mkDerivation rec {
+  result = stdenv.mkDerivation (finalAttrs: {
     pname = "openjdk-adoptium-${thisSource.type}-bin";
     inherit (thisSource) version;
     src = fetchurl { inherit (thisSource) url sha256; };
@@ -128,6 +128,6 @@ let
       platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sources; # some inherit jre.meta.platforms
       mainProgram = "java";
     };
-  };
+  });
 in
 if thisSource == null then null else result

@@ -5,7 +5,7 @@
   nix-update-script,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "opencc-python-reimplemented";
   version = "0-unstable-2023-02-11";
   pyproject = true;
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/yichen0831/opencc-python";
     license = with lib.licenses; [ asl20 ];
   };
-}
+})

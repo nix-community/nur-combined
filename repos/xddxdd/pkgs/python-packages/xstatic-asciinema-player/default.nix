@@ -5,13 +5,13 @@
   nix-update-script,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "xstatic-asciinema-player";
   version = "2.6.1.1";
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/X/XStatic-asciinema-player/XStatic-asciinema-player-${version}.tar.gz";
+    url = "mirror://pypi/X/XStatic-asciinema-player/XStatic-asciinema-player-${finalAttrs.version}.tar.gz";
     hash = "sha256-yA6WC067St82Dm6StaCKdWrRBhmNemswetIO8iodfcw=";
   };
   build-system = [ setuptools ];
@@ -31,4 +31,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/asciinema/asciinema-player";
     license = with lib.licenses; [ asl20 ];
   };
-}
+})

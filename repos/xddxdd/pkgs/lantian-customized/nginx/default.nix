@@ -52,7 +52,7 @@ let
     sha256 = "1cgpnhyd2kfqvh32yap651snvq1qvxc1cxvyrjc0vvxcw38d14p8";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nginx-lantian";
   version = sources.openresty.version;
 
@@ -226,4 +226,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd2;
     mainProgram = "nginx";
   };
-}
+})

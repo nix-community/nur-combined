@@ -8,7 +8,7 @@
   construct,
   gsm0338,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyosmocom";
   version = "0.0.12-unstable-2026-08-23";
   pyproject = true;
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     homepage = "https://gitea.osmocom.org/osmocom/pyosmocom";
     license = with lib.licenses; [ gpl2Only ];
   };
-}
+})

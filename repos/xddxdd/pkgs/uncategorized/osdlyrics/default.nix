@@ -16,7 +16,7 @@
   python3,
 }:
 let
-  osdlyricsPython = python3Packages.buildPythonPackage rec {
+  osdlyricsPython = python3Packages.buildPythonPackage (finalAttrs: {
     pname = "osdlyrics";
     version = "0.5.16";
     pyproject = true;
@@ -24,7 +24,7 @@ let
     src = fetchFromGitHub {
       owner = "osdlyrics";
       repo = "osdlyrics";
-      tag = "0.5.16";
+      tag = finalAttrs.version;
       hash = "sha256-GvvFtpiuWuHh1dxd7Hd9F9M0WyVOtN0LxZJzGGB0mVA=";
     };
     build-system = [ python3Packages.setuptools ];
@@ -34,15 +34,15 @@ let
         setupPy = writeText "setup.py" ''
           from setuptools import setup, find_packages
           setup(
-            name='${pname}',
-            version='${version}',
+            name='${finalAttrs.pname}',
+            version='${finalAttrs.version}',
             packages=['osdlyrics', 'osdlyrics/dbusext'],
           )
         '';
         initPy = writeText "__init__.py" ''
           PROGRAM_NAME = 'OSD Lyrics'
-          PACKAGE_NAME = '${pname}'
-          PACKAGE_VERSION = '${version}'
+          PACKAGE_NAME = '${finalAttrs.pname}'
+          PACKAGE_VERSION = '${finalAttrs.version}'
         '';
       in
       ''
@@ -52,7 +52,7 @@ let
       '';
 
     doCheck = false;
-  };
+  });
 
   python = python3.withPackages (
     p: with p; [

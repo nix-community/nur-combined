@@ -3,7 +3,7 @@
   stdenv,
   lib,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rime-zhwiki";
   version = "20240509";
   src = fetchurl {
@@ -30,4 +30,4 @@ stdenv.mkDerivation {
       lib.licenses.cc-by-sa-40
     ];
   };
-}
+})
