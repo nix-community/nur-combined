@@ -15,7 +15,7 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/t/torch_complex/torch_complex-${version}";
+    url = "mirror://pypi/t/torch_complex/torch_complex-${version}.tar.gz";
     hash = "sha256-QVP9aySgutaJ5vGTv70A84KDsYkNgIvvaE3cbR9j/T8=";
   };
   build-system = [ setuptools ];

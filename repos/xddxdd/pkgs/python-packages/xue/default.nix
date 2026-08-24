@@ -14,7 +14,7 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/x/xue/xue-${version}";
+    url = "mirror://pypi/x/xue/xue-${version}.tar.gz";
     hash = "sha256-1fTAmCuZYVOrNihGQZfGK0pwV910KD19KK+MYkuyA3w=";
   };
   build-system = [ setuptools ];

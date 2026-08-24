@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/X/XStatic-asciinema-player/XStatic-asciinema-player-${version}";
+    url = "mirror://pypi/X/XStatic-asciinema-player/XStatic-asciinema-player-${version}.tar.gz";
     hash = "sha256-yA6WC067St82Dm6StaCKdWrRBhmNemswetIO8iodfcw=";
   };
   build-system = [ setuptools ];

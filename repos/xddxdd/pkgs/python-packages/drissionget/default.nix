@@ -14,7 +14,7 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/d/drissionget/drissionget-${version}";
+    url = "mirror://pypi/d/drissionget/drissionget-${version}.tar.gz";
     hash = "sha256-oFUZvqWcx6WI8aWp7mhEKC5Zlj6sISuqQG2hwgvKmQg=";
   };
   build-system = [ setuptools ];

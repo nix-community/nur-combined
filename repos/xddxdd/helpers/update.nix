@@ -196,24 +196,67 @@ pkgs.stdenvNoCC.mkDerivation {
     ''}
 
     FAILED=""
+    LOGDIR=$(mktemp -d)
+    trap 'rm -rf "$LOGDIR"' EXIT
     cd "${toString ./.}/.."
-    while IFS= read -r PKG; do
+
+    MAX_JOBS="''${UPDATE_PACKAGE_JOBS:-$(nproc)}"
+    declare -A JOB_ATTR=() JOB_LOG=()
+    RUNNING=0
+
+    launch() {
+      local PKG="$1" ATTR_PATH OLD_VERSION LOG
       ATTR_PATH=$(jq -r .attrPath <<<"$PKG")
       OLD_VERSION=$(jq -r .oldVersion <<<"$PKG")
-      echo ""
+      LOG=$(mktemp "$LOGDIR/log.XXXXXX")
       echo ">>> $ATTR_PATH: updating ($OLD_VERSION)"
-      if env \
-          UPDATE_NIX_ATTR_PATH="$ATTR_PATH" \
-          UPDATE_NIX_PNAME="$(jq -r .pname <<<"$PKG")" \
-          UPDATE_NIX_NAME="$(jq -r .name <<<"$PKG")" \
-          UPDATE_NIX_OLD_VERSION="$OLD_VERSION" \
-          bash -c "$(jq -r '.updateScript | map(@sh) | join(" ")' <<<"$PKG")"; then
-        echo ">>> $ATTR_PATH: done"
-      else
-        echo ">>> $ATTR_PATH: FAILED" >&2
+      (
+        if env \
+            UPDATE_NIX_ATTR_PATH="$ATTR_PATH" \
+            UPDATE_NIX_PNAME="$(jq -r .pname <<<"$PKG")" \
+            UPDATE_NIX_NAME="$(jq -r .name <<<"$PKG")" \
+            UPDATE_NIX_OLD_VERSION="$OLD_VERSION" \
+            bash -c "$(jq -r '.updateScript | map(@sh) | join(" ")' <<<"$PKG")"; then
+          echo ">>> $ATTR_PATH: done"
+          exit 0
+        else
+          echo ">>> $ATTR_PATH: FAILED" >&2
+          exit 1
+        fi
+      ) >"$LOG" 2>&1 &
+      JOB_ATTR[$!]="$ATTR_PATH"
+      JOB_LOG[$!]="$LOG"
+      RUNNING=$((RUNNING + 1))
+    }
+
+    reap_one() {
+      local PID STATUS ATTR_PATH LOG
+      PID=""
+      STATUS=0
+      # Requires bash >= 5.1 for `wait -n -p`
+      wait -n -p PID || STATUS=$?
+      ATTR_PATH="''${JOB_ATTR[$PID]}"
+      LOG="''${JOB_LOG[$PID]}"
+      echo ""
+      cat "$LOG"
+      rm -f "$LOG"
+      if [ "$STATUS" -ne 0 ]; then
         FAILED="$FAILED $ATTR_PATH"
       fi
+      unset "JOB_ATTR[$PID]" "JOB_LOG[$PID]"
+      RUNNING=$((RUNNING - 1))
+    }
+
+    while IFS= read -r PKG; do
+      while [ "$RUNNING" -ge "$MAX_JOBS" ]; do
+        reap_one
+      done
+      launch "$PKG"
     done < <(jq -c '.[]' ${packagesJson})
+
+    while [ "$RUNNING" -gt 0 ]; do
+      reap_one
+    done
 
     echo ""
     if [ -n "$FAILED" ]; then

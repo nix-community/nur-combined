@@ -13,7 +13,7 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/d/drissionrecord/drissionrecord-${version}";
+    url = "mirror://pypi/d/drissionrecord/drissionrecord-${version}.tar.gz";
     hash = "sha256-hjMFvAmuxYFYBF9F62k14VuprBXjWJIBBbIPSnMLLtc=";
   };
   build-system = [ setuptools ];

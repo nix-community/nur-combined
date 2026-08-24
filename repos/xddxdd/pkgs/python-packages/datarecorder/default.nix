@@ -13,7 +13,7 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchurl {
-    url = "mirror://pypi/D/DataRecorder/DataRecorder-${version}";
+    url = "mirror://pypi/D/DataRecorder/DataRecorder-${version}.tar.gz";
     hash = "sha256-jJAkc2aSr2i5R/2IRYnmhcTye8KdAxuBFkRXsJxg4eU=";
   };
   build-system = [ setuptools ];
