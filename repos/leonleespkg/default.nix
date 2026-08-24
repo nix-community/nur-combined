@@ -11,6 +11,8 @@
 
   zcode = pkgs.callPackage ./pkgs/zcode { };
 
+  openlist-desktop = pkgs.callPackage ./pkgs/openlist-desktop { };
+
   vscode-extensions = {
     jetpack-io = {
       devbox = pkgs.callPackage ./pkgs/vscode-extensions/devbox { };
