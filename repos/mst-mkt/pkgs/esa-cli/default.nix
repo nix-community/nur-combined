@@ -6,16 +6,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "esa-cli";
-  version = "0.1.1";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "esaio";
     repo = "esa-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UZf9DvmjyxQ/95mbvemnuX/J9kcw8Wr3QBGOA4GdSlk=";
+    hash = "sha256-GB/l3C7RV7MJ/e/tyTow2wzeLS+sK5dDi+hEDXhhtKA=";
   };
 
-  npmDepsHash = "sha256-ZuJeoQefkONTmPT8fIr5XucnwkTsOrEzou/yaoWS6/E=";
+  npmDepsHash = "sha256-CNOTxlXxECKbl7OlMetDnrP5L/4VVKagkfDKHfJSpAs=";
 
   meta = {
     description = "Official CLI for esa.io";
