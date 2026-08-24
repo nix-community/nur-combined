@@ -1,15 +1,19 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   autoPatchelfHook,
   juceCmakeHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.peakeater-bin) pname src;
-  version = lib.removePrefix "v" sources.peakeater-bin.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "peakeater-bin";
+  version = "0.8.2";
+  src = fetchzip {
+    url = "https://github.com/vvvar/PeakEater/releases/download/v${finalAttrs.version}/peakeater-v${finalAttrs.version}-Linux-x86_64.zip";
+    sha256 = "sha256-jfs1T8bumU+9XALB+AY8cKHdMP72vQRSS8EapieCkrY=";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -31,6 +35,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "PeakEater is a free open-source cross-platform VST3/AU/LV2/CLAP wave shaper plugin";
     homepage = "https://github.com/vvvar/PeakEater";
@@ -39,4 +45,4 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

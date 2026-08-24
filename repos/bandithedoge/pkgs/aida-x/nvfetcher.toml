@@ -1,4 +1,0 @@
-[aida-x]
-src.github = "AidaDSP/AIDA-X"
-fetch.github = "AidaDSP/AIDA-X"
-git.fetchSubmodules = true

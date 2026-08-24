@@ -1,3 +1,0 @@
-[mxtune-bin]
-src.github = "liuanlin-mx/MXTune"
-fetch.tarball = "https://github.com/liuanlin-mx/MXTune/releases/download/$ver/ubuntu1804_x86_64_vst_$ver.zip"

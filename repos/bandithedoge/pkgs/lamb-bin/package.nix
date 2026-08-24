@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   alsa-lib,
@@ -12,10 +12,14 @@
   libxcb-wm,
   unzip,
 }:
-stdenv.mkDerivation {
-  inherit (sources.lamb-bin) pname src;
-  version = lib.removePrefix "v" sources.lamb-bin.version;
-  sourceRoot = ".";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "lamb-bin";
+  version = "2.1.0";
+  src = fetchzip {
+    url = "https://github.com/magnetophon/lamb-rs/releases/download/v${finalAttrs.version}/lamb-v${finalAttrs.version}-ubuntu-20.04.zip";
+    hash = "sha256-2xQBDxmCilO0sl1J9N6ue/rZC8OOvhp0/khiJ7bJz0o=";
+    stripRoot = false;
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -42,6 +46,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A lookahead compressor/limiter that's soft as a lamb";
     homepage = "https://github.com/magnetophon/lamb-rs";
@@ -51,4 +57,4 @@ stdenv.mkDerivation {
     mainProgram = "lamb";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

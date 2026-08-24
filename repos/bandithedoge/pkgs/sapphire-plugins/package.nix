@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   cmake,
@@ -11,12 +11,16 @@
   ninja,
   pkg-config,
 }:
-let
-  date = lib.splitString "-" sources.sapphire-plugins.date;
-in
-stdenv.mkDerivation {
-  inherit (sources.sapphire-plugins) pname src;
-  version = sources.sapphire-plugins.date;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "sapphire-plugins";
+  version = "Nightly-unstable-2025-01-27";
+  src = fetchFromGitHub {
+    owner = "baconpaul";
+    repo = "sapphire-plugins";
+    rev = "2aa07b6ffd6b92d3058efdb5ff7a57fb8d7f25e7";
+    hash = "sha256-zobZXe+yM1UFAg4T1GqG7oUk/phYpxivBrX2eJwk6TE=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     cmake
@@ -28,8 +32,16 @@ stdenv.mkDerivation {
   buildInputs = juceCmakeHook.commonBuildInputs;
 
   cmakeFlags = [
-    "-DVST3_SDK_ROOT=${sources.vst3sdk.src}"
-    "-DGIT_COMMIT_HASH=${sources.sapphire-plugins.src.rev}"
+    "-DVST3_SDK_ROOT=${
+      fetchFromGitHub {
+        owner = "steinbergmedia";
+        repo = "vst3sdk";
+        rev = "v3.7.6_build_18";
+        hash = "sha256-jfh+iP5rqov8q++IyG4FXlYKs4PQtFjCwCP6xou8N0E=";
+        fetchSubmodules = true;
+      }
+    }"
+    "-DGIT_COMMIT_HASH=${finalAttrs.src.rev}"
     "-DCOPY_AFTER_BUILD=FALSE"
   ];
 
@@ -43,15 +55,26 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace-fail "%j" ${builtins.toString ((lib.toIntBase10 (builtins.elemAt date 1)) * 2)} \
-      --replace-fail "%Y" ${builtins.toString ((lib.toInt (builtins.elemAt date 0)) + 2021)}
+  postPatch =
+    let
+      date = lib.splitString "-" finalAttrs.version;
+    in
+    ''
+      substituteInPlace CMakeLists.txt \
+        --replace-fail "%j" ${toString ((lib.toIntBase10 (builtins.elemAt date 3)) * 2)} \
+        --replace-fail "%Y" ${toString ((lib.toInt (builtins.elemAt date 2)) + 2021)}
 
-    ln -sf ${cpm-cmake}/share/cpm/CPM.cmake libs/clap-libs/clap-wrapper/cmake/external/CPM.cmake
-  '';
+      ln -sf ${cpm-cmake}/share/cpm/CPM.cmake libs/clap-libs/clap-wrapper/cmake/external/CPM.cmake
+    '';
 
   hardeningDisable = [ "format" ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Taking the wonders of Don Cross' Sapphire plugins into the clap-first/daw world";
@@ -60,4 +83,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

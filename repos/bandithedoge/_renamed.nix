@@ -1,3 +1,4 @@
+{ lib }:
 {
   # keep-sorted start block=yes
   astal-niri = [ "niri-gtk" ];
@@ -39,5 +40,8 @@
     "vimPlugins"
     "neodev-nvim"
   ];
+  white-elephant-audio = lib.genAttrs' [ "carve" "monstr" "richter" "songbird" ] (
+    name: lib.nameValuePair "${name}-bin" name
+  );
   # keep-sorted end
 }

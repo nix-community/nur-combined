@@ -1,8 +1,8 @@
 {
-  sources,
-
   lib,
   stdenv,
+  fetchFromGitHub,
+  nix-update-script,
 
   SDL2,
   SDL2_net,
@@ -17,9 +17,16 @@
   python3,
   yyjson,
 }:
-stdenv.mkDerivation {
-  inherit (sources.cherry-doom) pname src;
-  version = lib.removePrefix "cherry-doom-" sources.cherry-doom.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "cherry-doom";
+  version = "2.1.0";
+  src = fetchFromGitHub {
+    owner = "xemonix0";
+    repo = "Cherry-Doom";
+    rev = "cherry-doom-${finalAttrs.version}";
+    fetchSubmodules = false;
+    sha256 = "sha256-ixuYlr+X9xLC0xUqazuuj+ebflJf/GjSuWXK05kbtwA=";
+  };
 
   nativeBuildInputs = [
     cmake
@@ -39,6 +46,8 @@ stdenv.mkDerivation {
     yyjson
   ];
 
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex" "cherry-doom-(.*)"];};
+
   meta = {
     description = "Fork of Nugget Doom with more additional features";
     homepage = "https://github.com/xemonix0/Cherry-Doom";
@@ -47,4 +56,4 @@ stdenv.mkDerivation {
     mainProgram = "cherry-doom";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

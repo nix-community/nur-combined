@@ -1,14 +1,21 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   pkg-config,
 }:
-stdenv.mkDerivation {
-  inherit (sources.reverse-camel) pname src;
-  version = lib.removePrefix "v" sources.reverse-camel.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "reverse-camel";
+  version = "0.0.4";
+  src = fetchFromGitHub {
+    owner = "soerenbnoergaard";
+    repo = "reverse-camel";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-XALdDd+HszN0JqQEHCuHNxe0jpWXfavq7EyMINLxhuk=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     pkg-config
@@ -28,10 +35,12 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Cross-platform Camel Crusher Clone VST plug-in based on black-box analysis";
     homepage = "https://github.com/soerenbnoergaard/reverse-camel";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

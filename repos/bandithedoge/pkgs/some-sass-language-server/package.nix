@@ -1,23 +1,24 @@
 {
-  sources,
-
-  lib,
-
   buildNpmPackage,
-  importNpmLock,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+
   libsecret,
   pkg-config,
 }:
-buildNpmPackage {
-  inherit (sources.some-sass-language-server) pname src;
-  version = lib.removePrefix "some-sass-language-server@" sources.some-sass-language-server.version;
-
-  npmDeps = importNpmLock {
-    package = lib.importJSON sources.some-sass-language-server.extract."package.json";
-    packageLock = lib.importJSON sources.some-sass-language-server.extract."package-lock.json";
-    npmRoot = ".";
+buildNpmPackage (finalAttrs: {
+  pname = "some-sass-language-server";
+  version = "2.3.8";
+  src = fetchFromGitHub {
+    owner = "wkillerud";
+    repo = "some-sass";
+    rev = "some-sass-language-server@${finalAttrs.version}";
+    hash = "sha256-jmpkZReeVuf10juWMy7QO/q1Sm7kye3NTpMCeB8kG48=";
   };
-  inherit (importNpmLock) npmConfigHook;
+
+  npmDepsHash = "sha256-sSumbDqiztUuTs+amYv83I6odbrIOOawXeJxdF2xkA4=";
+
   npmBuildScript = "build:production";
   npmRebuildFlags = [ "--ignore-scripts" ];
 
@@ -34,6 +35,13 @@ buildNpmPackage {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "some-sass-language-server@(.*)"
+    ];
+  };
+
   meta = {
     description = "Language server with improved support for SCSS, Sass indented and SassDoc. Workspace awareness and full support for Sass modules";
     homepage = "https://wkillerud.github.io/some-sass/";
@@ -42,4 +50,4 @@ buildNpmPackage {
     mainProgram = "some-sass-language-server";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   cmake,
@@ -10,8 +10,16 @@
   ninja,
   python3,
 }:
-stdenv.mkDerivation {
-  inherit (sources.aida-x) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "aida-x";
+  version = "1.1.0";
+  src = fetchFromGitHub {
+    owner = "AidaDSP";
+    repo = "AIDA-X";
+    rev = finalAttrs.version;
+    hash = "sha256-qBoUojQDp7a5MrdIvbXmhcTuYIRPNwAaQ/ascTZ7NRI=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     cmake
@@ -43,6 +51,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "An Amp Model Player leveraging AI";
     homepage = "https://aida-x.cc/";
@@ -51,4 +61,4 @@ stdenv.mkDerivation {
     mainProgram = "AIDA-X";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

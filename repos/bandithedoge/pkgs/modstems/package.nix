@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   libopenmpt,
@@ -10,8 +10,14 @@
   pkg-config,
 }:
 stdenv.mkDerivation {
-  inherit (sources.modstems) pname src;
-  version = sources.modstems.date;
+  pname = "modstems";
+  version = "0-unstable-2024-08-20";
+  src = fetchFromGitHub {
+    owner = "bandithedoge";
+    repo = "modstems";
+    rev = "9a1b68176f4b10d1676723a36678788cf2790c1a";
+    hash = "sha256-Ffp6/CWNxf2L43cvTkZE9k35pScYsMF7UXh8IG721pw=";
+  };
 
   nativeBuildInputs = [
     meson
@@ -22,6 +28,13 @@ stdenv.mkDerivation {
   buildInputs = [
     libopenmpt.dev
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Dumps \"stems\" from module files using libopenmpt ";

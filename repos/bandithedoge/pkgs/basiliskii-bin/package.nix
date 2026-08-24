@@ -1,11 +1,16 @@
 {
-  sources,
-
   appimageTools,
+  fetchurl,
   lib,
+  nix-update-script,
 }:
-appimageTools.wrapType2 {
-  inherit (sources.basiliskii-bin) pname version src;
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "basiliskii-bin";
+  version = "2026-08-11";
+  src = fetchurl {
+    url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/${finalAttrs.version}/BasiliskII-x86_64.AppImage";
+    sha256 = "sha256-TkQX1BppFTX3FAOqBFSgqLGMlJn9fb5Wwub9Z6fTcbs=";
+  };
 
   extraPkgs =
     pkgs: with pkgs; [
@@ -13,8 +18,10 @@ appimageTools.wrapType2 {
     ];
 
   extraInstallCommands = ''
-    mv $out/bin/${sources.basiliskii-bin.pname} $out/bin/basiliskii
+    mv $out/bin/${finalAttrs.pname} $out/bin/basiliskii
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "68k Macintosh emulator";
@@ -24,4 +31,4 @@ appimageTools.wrapType2 {
     mainProgram = "basiliskii";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

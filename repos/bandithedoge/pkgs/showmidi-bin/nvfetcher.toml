@@ -1,3 +1,0 @@
-[showmidi-bin]
-src.github = "gbevin/ShowMIDI"
-fetch.tarball = "https://github.com/gbevin/ShowMIDI/releases/download/$ver/ShowMIDI-Linux-Ubuntu-23.10-x64-$ver.tar.bz2"

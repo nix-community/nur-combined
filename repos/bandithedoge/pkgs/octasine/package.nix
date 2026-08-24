@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
 
   libGL,
@@ -12,10 +12,17 @@
   pkg-config,
   python3,
 }:
-rustPlatform.buildRustPackage {
-  inherit (sources.octasine) pname src;
-  version = lib.removePrefix "v" sources.octasine.version;
-  cargoLock = sources.octasine.cargoLock."Cargo.lock";
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "octasine";
+  version = "0.9.1";
+  src = fetchFromGitHub {
+    owner = "greatest-ape";
+    repo = "OctaSine";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-Vr1L5B7dF0pJieE/Zww/T6XbZadWMK5Fdq66qRfQFF0=";
+  };
+
+  cargoHash = "sha256-I+iZxngM8o4BIzjpowjf8l2m6MSY/NSSOd4TcYFjrIc=";
 
   nativeBuildInputs = [
     pkg-config
@@ -41,6 +48,8 @@ rustPlatform.buildRustPackage {
     cp target/bundled/octasine.clap $out/lib/clap
   '';
 
+  passthru.updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
+
   meta = {
     description = "Frequency modulation synthesizer plugin (VST2, CLAP).";
     homepage = "https://www.octasine.com/";
@@ -49,4 +58,4 @@ rustPlatform.buildRustPackage {
     mainProgram = "octasine-cli";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

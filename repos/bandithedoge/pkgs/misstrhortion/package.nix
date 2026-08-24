@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   cmake,
@@ -11,8 +11,15 @@
   pkg-config,
 }:
 stdenv.mkDerivation {
-  inherit (sources.misstrhortion) pname src;
-  version = sources.misstrhortion.date;
+  pname = "misstrhortion";
+  version = "0-unstable-2025-04-02";
+  src = fetchFromGitHub {
+    owner = "bandithedoge";
+    repo = "misstrhortion";
+    rev = "85fdcf6e994e018778b0d55aa987bd94c9e09f9d";
+    hash = "sha256-iUo3zduI6TCqY8ju8Xs+Y0z7V26aXIfUYziakoDOeSg=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     cmake
@@ -24,6 +31,13 @@ stdenv.mkDerivation {
     libGL
     libx11
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "DPF port of Misstortion";

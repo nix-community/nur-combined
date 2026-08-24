@@ -8,21 +8,7 @@ let
   callPackage' =
     pkg: args:
     pkgs.lib.recurseIntoAttrs (
-      pkgs.lib.callPackageWith (
-        (pkgs.lib.recursiveUpdate pkgs all)
-        // {
-          inherit callPackage';
-          sources = pkgs.callPackage (
-            (
-              if pkgs.lib.pathIsDirectory pkg then
-                pkg
-              else
-                (pkgs.lib.join "/" (pkgs.lib.dropEnd 1 (pkgs.lib.splitString "/" pkg)))
-            )
-            + "/_sources/generated.nix"
-          ) { };
-        }
-      ) pkg args
+      pkgs.lib.callPackageWith ((pkgs.lib.recursiveUpdate pkgs all) // { inherit callPackage'; }) pkg args
     );
 in
 all

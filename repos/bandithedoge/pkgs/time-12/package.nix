@@ -1,16 +1,25 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   juceCmakeHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.time-12) pname src;
-  version = lib.removePrefix "v" sources.time-12.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "time-12";
+  version = "1.2.3";
+  src = fetchFromGitHub {
+    owner = "tiagolr";
+    repo = "time12";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-/siQGQRHPqIP17NE4e/IGEQIzLPnBAXXzU6ucL1y5os=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [ juceCmakeHook ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Envelope based delay modulator";
@@ -20,4 +29,4 @@ stdenv.mkDerivation {
     mainProgram = "TIME-12";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

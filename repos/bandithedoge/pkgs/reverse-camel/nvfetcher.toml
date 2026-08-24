@@ -1,4 +1,0 @@
-[reverse-camel]
-src.github = "soerenbnoergaard/reverse-camel"
-fetch.github = "soerenbnoergaard/reverse-camel"
-git.fetchSubmodules = true

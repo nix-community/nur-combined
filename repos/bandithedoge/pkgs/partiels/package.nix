@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   copyDesktopItems,
@@ -10,8 +10,16 @@
   libjack2,
   makeDesktopItem,
 }:
-stdenv.mkDerivation {
-  inherit (sources.partiels) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "partiels";
+  version = "2.5.0";
+  src = fetchFromGitHub {
+    owner = "Ircam-Partiels";
+    repo = "Partiels";
+    rev = finalAttrs.version;
+    hash = "sha256-6K96TOAC2g+79WP3OCkLDHApM/aMpZKiFoS/chUkh6E=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -50,6 +58,8 @@ stdenv.mkDerivation {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=format-security" ];
 
+  passthru.updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
+
   meta = {
     description = "Partiels is an audio analysis application that allow you to explore the content and characteristics of sounds";
     homepage = "https://github.com/Ircam-Partiels/Partiels";
@@ -58,4 +68,4 @@ stdenv.mkDerivation {
     mainProgram = "Partiels";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

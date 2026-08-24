@@ -1,4 +1,0 @@
-[musique]
-src.github = "flaviotordini/musique"
-fetch.github = "flaviotordini/musique"
-git.fetchSubmodules = true

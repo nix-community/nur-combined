@@ -1,3 +1,0 @@
-[crepe-vamp-plugin-bin]
-src.github = "Ircam-Partiels/crepe-vamp-plugin"
-fetch.tarball = "https://github.com/Ircam-Partiels/crepe-vamp-plugin/releases/download/$ver/Crepe-Linux.tar.gz"

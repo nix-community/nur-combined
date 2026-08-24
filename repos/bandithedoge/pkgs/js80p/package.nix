@@ -1,23 +1,29 @@
 {
-  sources,
+  instructionSet ? "avx", # sse2 or avx
 
-  stdenv,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
+  stdenv,
 
   cairo,
   cppcheck,
   libx11,
   libxcb,
   symlinkJoin,
-
-  instructionSet ? "avx", # sse2 or avx
 }:
 let
   arch = stdenv.targetPlatform.uname.processor;
 in
-stdenv.mkDerivation rec {
-  inherit (sources.js80p) pname src;
-  version = lib.removePrefix "v" sources.js80p.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "js80p";
+  version = "4.1.1";
+  src = fetchFromGitHub {
+    owner = "attilammagyar";
+    repo = "js80p";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-wFhkwRyxul+mr9GsL+coNFQWu6z4x+Cxm7BUpUujiwk=";
+  };
 
   buildInputs = [
     cairo
@@ -68,13 +74,15 @@ stdenv.mkDerivation rec {
   CPP_TARGET_PLATFORM = stdenv.cc + "/bin/c++";
   INSTRUCTION_SET = instructionSet;
   TARGET_PLATFORM = "${arch}-gpp";
-  VERSION_STR = version;
-  VERSION_INT = lib.concatStrings (lib.splitString "." (lib.removePrefix "v" version));
+  VERSION_STR = finalAttrs.version;
+  VERSION_INT = lib.concatStrings (lib.splitString "." finalAttrs.version);
 
   hardeningDisable = [ "format" ];
   NIX_CFLAGS_COMPILE = [ "-Wno-error" ];
 
   enableParallelBuilding = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A MIDI driven, performance oriented, versatile, free and open source synthesizer VST plugin";
@@ -83,4 +91,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

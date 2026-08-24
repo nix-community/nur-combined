@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   autoPatchelfHook,
@@ -27,9 +27,14 @@
   unzip,
   wayland,
 }:
-stdenv.mkDerivation {
-  inherit (sources.helion-bin) pname version src;
-  sourceRoot = ".";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "helion-bin";
+  version = "1.0.0.0";
+  src = fetchzip {
+    url = "https://github.com/Helion-Engine/Helion/releases/download/${finalAttrs.version}/Helion-${finalAttrs.version}-linux-x64_AOT.zip";
+    sha256 = "sha256-+ung0E60Vnep1SwLQhMRGDp9+6l26xel7fGVMWXA/p4=";
+    stripRoot = false;
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -79,6 +84,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A modern fast paced Doom FPS engine";
     homepage = "https://github.com/Helion-Engine/Helion";
@@ -88,4 +95,4 @@ stdenv.mkDerivation {
     mainProgram = "Helion";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

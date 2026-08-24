@@ -1,4 +1,0 @@
-[octasine]
-src.github = "greatest-ape/OctaSine"
-fetch.tarball = "https://github.com/greatest-ape/OctaSine/archive/$ver.tar.gz"
-cargo_lock = ["Cargo.lock"]

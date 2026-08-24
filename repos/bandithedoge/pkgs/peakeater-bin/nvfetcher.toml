@@ -1,3 +1,0 @@
-[peakeater-bin]
-src.github = "vvvar/PeakEater"
-fetch.tarball = "https://github.com/vvvar/PeakEater/releases/download/$ver/peakeater-$ver-Linux-x86_64.zip"

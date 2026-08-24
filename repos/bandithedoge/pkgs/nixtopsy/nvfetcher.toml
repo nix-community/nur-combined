@@ -1,4 +1,0 @@
-[nixtopsy]
-src.github = "manic-systems/nixtopsy"
-fetch.github = "manic-systems/nixtopsy"
-cargo_lock = ["Cargo.lock"]

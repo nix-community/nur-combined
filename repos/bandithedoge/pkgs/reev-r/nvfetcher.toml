@@ -1,4 +1,0 @@
-[reev-r]
-src.github = "tiagolr/reevr"
-fetch.github = "tiagolr/reevr"
-git.fetchSubmodules = true

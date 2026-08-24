@@ -1,8 +1,8 @@
 {
-  sources,
-
   lib,
   stdenv,
+  fetchzip,
+  nix-update-script,
 
   autoPatchelfHook,
   libGL,
@@ -10,10 +10,14 @@
   libxcb,
   unzip,
 }:
-stdenv.mkDerivation {
-  inherit (sources.chorusexmachina-bin) pname src;
-  version = lib.removePrefix "v" sources.chorusexmachina-bin.version;
-  sourceRoot = ".";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "chorusexmachina-bin";
+  version = "1.3";
+  src = fetchzip {
+    url = "https://github.com/peastman/ChorusExMachina/releases/download/v${finalAttrs.version}/chorus_ex_machina-linux-x86.zip";
+    sha256 = "sha256-8xDfLfCd6o1UBLrxw56ZUPE6Aa7ESCBZLfHoqOza3Ak=";
+    stripRoot = false;
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -37,6 +41,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Chorus synthesizer";
     homepage = "https://github.com/peastman/ChorusExMachina";
@@ -45,4 +51,4 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

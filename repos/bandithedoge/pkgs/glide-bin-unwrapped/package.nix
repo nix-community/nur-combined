@@ -1,10 +1,12 @@
 {
-  sources,
+  policies ? { },
 
+  config,
+  fetchzip,
+  formats,
   lib,
   stdenv,
-  config,
-  formats,
+  writeScript,
 
   adwaita-icon-theme,
   alsa-lib,
@@ -17,24 +19,26 @@
   pipewire,
   vulkan-loader,
   wrapGAppsHook3,
-
-  policies ? { },
 }:
 let
-  source =
-    if stdenv.targetPlatform.isAarch64 then
-      sources.glide-bin-unwrapped-aarch64-linux
-    else
-      sources.glide-bin-unwrapped-x86_64-linux;
-
-  inherit (source) version;
+  version = "0.1.63a";
+  sources = {
+    x86_64-linux = fetchzip {
+      url = "https://github.com/glide-browser/glide/releases/download/${version}/glide.linux-x86_64.tar.xz";
+      sha256 = "sha256-xB5xhmJ3gAlyxxhukQLUwPvgBjWSZktzRMJTblsU0lE=";
+    };
+    aarch64-linux = fetchzip {
+      url = "https://github.com/glide-browser/glide/releases/download/${version}/glide.linux-aarch64.tar.xz";
+      sha256 = "sha256-BgEqMObAFvIDNA2EmcuU6BlTJrOrbbZSxwV/toqHmI8=";
+    };
+  };
 
   libName = "glide-bin-${version}";
 in
 stdenv.mkDerivation {
   pname = "glide-bin-unwrapped";
   inherit version;
-  inherit (source) src;
+  src = sources.${stdenv.targetPlatform.system} or sources.x86_64-linux;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -78,7 +82,7 @@ stdenv.mkDerivation {
       runHook postBuild
     '';
 
-  passthru = {
+  passthru = sources // {
     applicationName = "Glide";
     binaryName = "glide";
     inherit libName;
@@ -86,6 +90,17 @@ stdenv.mkDerivation {
     ffmpegSupport = true;
     gssSupport = true;
     pipewireSupport = true;
+
+    updateScript = writeScript "update-glide-bin-unwrapped" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl common-updater-scripts jq
+
+      version="$(curl -s https://api.github.com/repos/glide-browser/glide/releases/latest | jq -r .name)"
+      ${lib.concatMapStringsSep "\n" (
+        system:
+        ''update-source-version "$UPDATE_NIX_ATTR_PATH" "$version" --source-key=${system} --ignore-same-version''
+      ) (builtins.attrNames sources)}
+    '';
   };
 
   meta = {

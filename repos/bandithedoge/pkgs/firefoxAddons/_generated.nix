@@ -7,10 +7,10 @@
 {
   "augmented-steam" = buildMozillaXpiAddon {
     pname = "augmented-steam";
-    version = "4.8.2";
+    version = "4.8.3";
     addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4946103/augmented_steam-4.8.2.xpi";
-    sha256 = "bb32df39e272add395835c41625ab23980e5f4dff245fa12eee2db7e9272ff10";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4966854/augmented_steam-4.8.3.xpi";
+    sha256 = "230b9fbda8501992e7f660837c59ae601ef0a0f5ed1e21c171bfdeecfae0a9ce";
     meta = with lib; {
       homepage = "https://augmentedsteam.com/";
       description = "Augments your Steam Experience";
@@ -21,15 +21,22 @@
         "webRequest"
         "*://store.steampowered.com/*"
         "*://steamcommunity.com/*"
+        "*://steamcommunity.com/id/*/friendsthatplay/*"
+        "*://steamcommunity.com/profiles/*/friendsthatplay/*"
         "*://steamcommunity.com/id/*/gamecards/*"
         "*://steamcommunity.com/profiles/*/gamecards/*"
-        "*://steamcommunity.com/tradingcards/boostercreator"
-        "*://steamcommunity.com/tradingcards/boostercreator/"
-        "*://steamcommunity.com/tradingcards/boostercreator/?*"
-        "*://steamcommunity.com/tradingcards/boostercreator?*"
-        "*://steamcommunity.com/market/search"
-        "*://steamcommunity.com/market/search/*"
-        "*://steamcommunity.com/market/search?*"
+        "*://steamcommunity.com/id/*/badges"
+        "*://steamcommunity.com/id/*/badges/"
+        "*://steamcommunity.com/id/*/badges/?*"
+        "*://steamcommunity.com/id/*/badges?*"
+        "*://steamcommunity.com/profiles/*/badges"
+        "*://steamcommunity.com/profiles/*/badges/"
+        "*://steamcommunity.com/profiles/*/badges/?*"
+        "*://steamcommunity.com/profiles/*/badges?*"
+        "*://steamcommunity.com/sharedfiles/editguide/?*"
+        "*://steamcommunity.com/sharedfiles/editguide?*"
+        "*://steamcommunity.com/workshop/editguide/?*"
+        "*://steamcommunity.com/workshop/editguide?*"
         "*://steamcommunity.com/id/*/games"
         "*://steamcommunity.com/id/*/games/"
         "*://steamcommunity.com/id/*/games/?*"
@@ -46,20 +53,7 @@
         "*://steamcommunity.com/profiles/*/followedgames/"
         "*://steamcommunity.com/profiles/*/followedgames/?*"
         "*://steamcommunity.com/profiles/*/followedgames?*"
-        "*://steamcommunity.com/sharedfiles/browse"
-        "*://steamcommunity.com/sharedfiles/browse/"
-        "*://steamcommunity.com/sharedfiles/browse/?*"
-        "*://steamcommunity.com/sharedfiles/browse?*"
-        "*://steamcommunity.com/workshop/browse"
-        "*://steamcommunity.com/workshop/browse/"
-        "*://steamcommunity.com/workshop/browse/?*"
-        "*://steamcommunity.com/workshop/browse?*"
-        "*://steamcommunity.com/app/*"
-        "*://steamcommunity.com/tradeoffer/*"
-        "*://steamcommunity.com/app/*/guides"
-        "*://steamcommunity.com/app/*/guides/"
-        "*://steamcommunity.com/app/*/guides/?*"
-        "*://steamcommunity.com/app/*/guides?*"
+        "*://steamcommunity.com/groups/*"
         "*://steamcommunity.com/id/*/friends"
         "*://steamcommunity.com/id/*/friends/*"
         "*://steamcommunity.com/id/*/friends?*"
@@ -78,58 +72,25 @@
         "*://steamcommunity.com/profiles/*/following"
         "*://steamcommunity.com/profiles/*/following/*"
         "*://steamcommunity.com/profiles/*/following?*"
-        "*://steamcommunity.com/sharedfiles"
-        "*://steamcommunity.com/sharedfiles/"
-        "*://steamcommunity.com/sharedfiles/?*"
-        "*://steamcommunity.com/sharedfiles?*"
-        "*://steamcommunity.com/workshop"
-        "*://steamcommunity.com/workshop/"
-        "*://steamcommunity.com/workshop/?*"
-        "*://steamcommunity.com/workshop?*"
-        "*://steamcommunity.com/id/*/stats/*"
-        "*://steamcommunity.com/profiles/*/stats/*"
-        "*://steamcommunity.com/id/*/friendsthatplay/*"
-        "*://steamcommunity.com/profiles/*/friendsthatplay/*"
-        "*://steamcommunity.com/id/*/recommended"
-        "*://steamcommunity.com/id/*/recommended/"
-        "*://steamcommunity.com/id/*/recommended/?*"
-        "*://steamcommunity.com/id/*/recommended?*"
-        "*://steamcommunity.com/profiles/*/recommended"
-        "*://steamcommunity.com/profiles/*/recommended/"
-        "*://steamcommunity.com/profiles/*/recommended/?*"
-        "*://steamcommunity.com/profiles/*/recommended?*"
-        "*://steamcommunity.com/id/*/reviews"
-        "*://steamcommunity.com/id/*/reviews/"
-        "*://steamcommunity.com/id/*/reviews/?*"
-        "*://steamcommunity.com/id/*/reviews?*"
-        "*://steamcommunity.com/profiles/*/reviews"
-        "*://steamcommunity.com/profiles/*/reviews/"
-        "*://steamcommunity.com/profiles/*/reviews/?*"
-        "*://steamcommunity.com/profiles/*/reviews?*"
-        "*://steamcommunity.com/id/*/edit/*"
-        "*://steamcommunity.com/profiles/*/edit/*"
-        "*://steamcommunity.com/id/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
-        "*://steamcommunity.com/id/*/myworkshopfiles?*browsefilter=mysubscriptions*"
-        "*://steamcommunity.com/profiles/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
-        "*://steamcommunity.com/profiles/*/myworkshopfiles?*browsefilter=mysubscriptions*"
-        "*://steamcommunity.com/sharedfiles/editguide/?*"
-        "*://steamcommunity.com/sharedfiles/editguide?*"
-        "*://steamcommunity.com/workshop/editguide/?*"
-        "*://steamcommunity.com/workshop/editguide?*"
-        "*://steamcommunity.com/groups/*"
-        "*://*.steampowered.com/agecheck/*"
-        "*://steamcommunity.com/market"
-        "*://steamcommunity.com/market/"
-        "*://steamcommunity.com/market/?*"
-        "*://steamcommunity.com/market?*"
-        "*://steamcommunity.com/sharedfiles/filedetails"
-        "*://steamcommunity.com/sharedfiles/filedetails/*"
-        "*://steamcommunity.com/sharedfiles/filedetails?*"
-        "*://steamcommunity.com/workshop/filedetails"
-        "*://steamcommunity.com/workshop/filedetails/*"
-        "*://steamcommunity.com/workshop/filedetails?*"
-        "*://steamcommunity.com/id/*"
-        "*://steamcommunity.com/profiles/*"
+        "*://steamcommunity.com/app/*/guides"
+        "*://steamcommunity.com/app/*/guides/"
+        "*://steamcommunity.com/app/*/guides/?*"
+        "*://steamcommunity.com/app/*/guides?*"
+        "*://steamcommunity.com/tradingcards/boostercreator"
+        "*://steamcommunity.com/tradingcards/boostercreator/"
+        "*://steamcommunity.com/tradingcards/boostercreator/?*"
+        "*://steamcommunity.com/tradingcards/boostercreator?*"
+        "*://steamcommunity.com/market/search"
+        "*://steamcommunity.com/market/search/*"
+        "*://steamcommunity.com/market/search?*"
+        "*://steamcommunity.com/id/*/inventory"
+        "*://steamcommunity.com/id/*/inventory/"
+        "*://steamcommunity.com/id/*/inventory/?*"
+        "*://steamcommunity.com/id/*/inventory?*"
+        "*://steamcommunity.com/profiles/*/inventory"
+        "*://steamcommunity.com/profiles/*/inventory/"
+        "*://steamcommunity.com/profiles/*/inventory/?*"
+        "*://steamcommunity.com/profiles/*/inventory?*"
         "*://steamcommunity.com/id/*/home"
         "*://steamcommunity.com/id/*/home/"
         "*://steamcommunity.com/id/*/home/?*"
@@ -150,30 +111,72 @@
         "*://steamcommunity.com/profiles/*/friendactivitydetail/*"
         "*://steamcommunity.com/id/*/status/*"
         "*://steamcommunity.com/profiles/*/status/*"
-        "*://store.steampowered.com/"
-        "*://store.steampowered.com/?*"
-        "*://*.steampowered.com/*"
-        "*://steamcommunity.com/id/*/inventory"
-        "*://steamcommunity.com/id/*/inventory/"
-        "*://steamcommunity.com/id/*/inventory/?*"
-        "*://steamcommunity.com/id/*/inventory?*"
-        "*://steamcommunity.com/profiles/*/inventory"
-        "*://steamcommunity.com/profiles/*/inventory/"
-        "*://steamcommunity.com/profiles/*/inventory/?*"
-        "*://steamcommunity.com/profiles/*/inventory?*"
-        "*://steamcommunity.com/id/*/badges"
-        "*://steamcommunity.com/id/*/badges/"
-        "*://steamcommunity.com/id/*/badges/?*"
-        "*://steamcommunity.com/id/*/badges?*"
-        "*://steamcommunity.com/profiles/*/badges"
-        "*://steamcommunity.com/profiles/*/badges/"
-        "*://steamcommunity.com/profiles/*/badges/?*"
-        "*://steamcommunity.com/profiles/*/badges?*"
+        "*://steamcommunity.com/id/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/id/*/myworkshopfiles?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/profiles/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/profiles/*/myworkshopfiles?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/market"
+        "*://steamcommunity.com/market/"
+        "*://steamcommunity.com/market/?*"
+        "*://steamcommunity.com/market?*"
+        "*://steamcommunity.com/app/*"
+        "*://steamcommunity.com/id/*"
+        "*://steamcommunity.com/profiles/*"
         "*://steamcommunity.com/market/listings/*"
+        "*://steamcommunity.com/id/*/edit/*"
+        "*://steamcommunity.com/profiles/*/edit/*"
+        "*://steamcommunity.com/id/*/stats/*"
+        "*://steamcommunity.com/profiles/*/stats/*"
+        "*://steamcommunity.com/id/*/recommended"
+        "*://steamcommunity.com/id/*/recommended/"
+        "*://steamcommunity.com/id/*/recommended/?*"
+        "*://steamcommunity.com/id/*/recommended?*"
+        "*://steamcommunity.com/profiles/*/recommended"
+        "*://steamcommunity.com/profiles/*/recommended/"
+        "*://steamcommunity.com/profiles/*/recommended/?*"
+        "*://steamcommunity.com/profiles/*/recommended?*"
+        "*://steamcommunity.com/id/*/reviews"
+        "*://steamcommunity.com/id/*/reviews/"
+        "*://steamcommunity.com/id/*/reviews/?*"
+        "*://steamcommunity.com/id/*/reviews?*"
+        "*://steamcommunity.com/profiles/*/reviews"
+        "*://steamcommunity.com/profiles/*/reviews/"
+        "*://steamcommunity.com/profiles/*/reviews/?*"
+        "*://steamcommunity.com/profiles/*/reviews?*"
+        "*://steamcommunity.com/tradeoffer/*"
+        "*://steamcommunity.com/sharedfiles/browse"
+        "*://steamcommunity.com/sharedfiles/browse/"
+        "*://steamcommunity.com/sharedfiles/browse/?*"
+        "*://steamcommunity.com/sharedfiles/browse?*"
+        "*://steamcommunity.com/workshop/browse"
+        "*://steamcommunity.com/workshop/browse/"
+        "*://steamcommunity.com/workshop/browse/?*"
+        "*://steamcommunity.com/workshop/browse?*"
+        "*://steamcommunity.com/sharedfiles"
+        "*://steamcommunity.com/sharedfiles/"
+        "*://steamcommunity.com/sharedfiles/?*"
+        "*://steamcommunity.com/sharedfiles?*"
+        "*://steamcommunity.com/workshop"
+        "*://steamcommunity.com/workshop/"
+        "*://steamcommunity.com/workshop/?*"
+        "*://steamcommunity.com/workshop?*"
+        "*://steamcommunity.com/sharedfiles/filedetails"
+        "*://steamcommunity.com/sharedfiles/filedetails/*"
+        "*://steamcommunity.com/sharedfiles/filedetails?*"
+        "*://steamcommunity.com/workshop/filedetails"
+        "*://steamcommunity.com/workshop/filedetails/*"
+        "*://steamcommunity.com/workshop/filedetails?*"
+        "*://*.steampowered.com/agecheck/*"
+        "*://*.steampowered.com/app/*"
         "*://store.steampowered.com/account/licenses"
         "*://store.steampowered.com/account/licenses/"
         "*://store.steampowered.com/account/licenses/?*"
         "*://store.steampowered.com/account/licenses?*"
+        "*://*.steampowered.com/*"
+        "*://*.steampowered.com/bundle/*"
+        "*://*.steampowered.com/cart"
+        "*://*.steampowered.com/cart/*"
+        "*://*.steampowered.com/cart?*"
         "*://*.steampowered.com/points"
         "*://*.steampowered.com/points/*"
         "*://*.steampowered.com/points?*"
@@ -189,10 +192,8 @@
         "*://*.steampowered.com/account/registerkey/"
         "*://*.steampowered.com/account/registerkey/?*"
         "*://*.steampowered.com/account/registerkey?*"
-        "*://*.steampowered.com/search"
-        "*://*.steampowered.com/search/*"
-        "*://*.steampowered.com/search?*"
-        "*://*.steampowered.com/app/*"
+        "*://store.steampowered.com/"
+        "*://store.steampowered.com/?*"
         "*://*.steampowered.com/wishlist"
         "*://*.steampowered.com/wishlist/"
         "*://*.steampowered.com/wishlist/?*"
@@ -205,25 +206,24 @@
         "*://*.steampowered.com//wishlist?*"
         "*://*.steampowered.com//wishlist/id/*"
         "*://*.steampowered.com//wishlist/profiles/*"
-        "*://*.steampowered.com/sub/*"
+        "*://*.steampowered.com/search"
+        "*://*.steampowered.com/search/*"
+        "*://*.steampowered.com/search?*"
         "*://*.steampowered.com/account"
         "*://*.steampowered.com/account/"
         "*://*.steampowered.com/account/?*"
         "*://*.steampowered.com/account?*"
-        "*://*.steampowered.com/bundle/*"
-        "*://*.steampowered.com/cart"
-        "*://*.steampowered.com/cart/*"
-        "*://*.steampowered.com/cart?*"
+        "*://*.steampowered.com/sub/*"
       ];
       platforms = platforms.all;
     };
   };
   "auto-tab-discard" = buildMozillaXpiAddon {
     pname = "auto-tab-discard";
-    version = "0.7.0";
+    version = "0.7.2";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4955895/auto_tab_discard-0.7.0.xpi";
-    sha256 = "8f6793097011a1e8b050eface3dd37eb9fd91a8e2deb4b83b828dd145fbfc46a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4962080/auto_tab_discard-0.7.2.xpi";
+    sha256 = "ff0ed41080d4596a3577e1751b6a5780ab4672114ca91b79accf024083a80d3b";
     meta = with lib; {
       homepage = "https://webextension.org/listing/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
@@ -545,10 +545,10 @@
   };
   "indie-wiki-buddy" = buildMozillaXpiAddon {
     pname = "indie-wiki-buddy";
-    version = "3.14.6";
+    version = "3.14.8";
     addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4815321/indie_wiki_buddy-3.14.6.xpi";
-    sha256 = "ed5e9bd34eb285a51205c149b963266e490c3742a2fe9ec50211b03492bc612b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4951001/indie_wiki_buddy-3.14.8.xpi";
+    sha256 = "69d0fb83217fa5b6921e711f73768e34562dbee15ca99261dd509cac9f9e8197";
     meta = with lib; {
       homepage = "https://getindie.wiki/";
       description = "Helping you discover quality, independent wikis!\n\nWhen visiting a Fandom wiki, Indie Wiki Buddy redirects or alerts you of independent alternatives. It also filters search engine results. BreezeWiki is also supported, to reduce clutter on Fandom.";
@@ -1468,10 +1468,10 @@
   };
   "skip-redirect" = buildMozillaXpiAddon {
     pname = "skip-redirect";
-    version = "3.0.1";
+    version = "3.0.2";
     addonId = "skipredirect@sblask";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4951882/skip_redirect-3.0.1.xpi";
-    sha256 = "e981580b23c1df9316f04fdb6921e67ddc801b8cbffc86fee6364331674a4253";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4968151/skip_redirect-3.0.2.xpi";
+    sha256 = "1ed9c4ca15fced2963dc001d95c4745eed9a1c5bb9d76d70a3140dbd5715b9d7";
     meta = with lib; {
       description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
       license = licenses.mit;
@@ -1529,10 +1529,10 @@
   };
   "steam-database" = buildMozillaXpiAddon {
     pname = "steam-database";
-    version = "4.35";
+    version = "4.37";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4891926/steam_database-4.35.xpi";
-    sha256 = "37c1cdc2eafa701e365eb8e0ef2a5051b956ea1e9941b399b5ab3fa4214fc123";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4967437/steam_database-4.37.xpi";
+    sha256 = "d280d9a8be7fe8bcdffd60697daf5903cb4da67912569510fb7a8bd68562d6cc";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
@@ -1586,10 +1586,10 @@
   };
   "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "2.4.10";
+    version = "2.4.11";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4947910/styl_us-2.4.10.xpi";
-    sha256 = "907c1ebcfeaaa78890ef82ebb1a004f8e607fe482095165cd1b8309373112129";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4970801/styl_us-2.4.11.xpi";
+    sha256 = "a1fb8025132ad77f3f81dcdf6ac6a31798048a95ea65b975d12b335116df0224";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
@@ -1741,10 +1741,10 @@
   };
   "violentmonkey" = buildMozillaXpiAddon {
     pname = "violentmonkey";
-    version = "2.47.0";
+    version = "2.48.0";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4941753/violentmonkey-2.47.0.xpi";
-    sha256 = "cce81b8ae7064e7d70a805f61e73190fbd546bdd3c78483d3b702be003b1316f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4963965/violentmonkey-2.48.0.xpi";
+    sha256 = "e73e3103697cbeee3335020c31c7e3c587946929740cd78f9bff1b50bf62be34";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Userscript support for browsers, open source.";

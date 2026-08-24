@@ -1,16 +1,22 @@
 {
-  sources,
-
-  stdenv,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
+  stdenv,
 
   curl,
   gtk3,
   pkg-config,
 }:
-stdenv.mkDerivation {
-  inherit (sources.sgdboop) pname src;
-  version = lib.removePrefix "v" sources.sgdboop.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "sgdboop";
+  version = "1.4.3";
+  src = fetchFromGitHub {
+    owner = "SteamGridDB";
+    repo = "SGDBoop";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-l4l5CWupL/V/qlnFZIgqUBagc5qg0DDv/zz2yc0mtng=";
+  };
 
   nativeBuildInputs = [
     pkg-config
@@ -34,6 +40,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Program used for applying custom artwork to Steam, using SteamGridDB";
     homepage = "https://www.steamgriddb.com/boop";
@@ -42,4 +50,4 @@ stdenv.mkDerivation {
     mainProgram = "SGDBoop";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

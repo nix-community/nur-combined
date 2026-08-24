@@ -1,15 +1,20 @@
 {
-  sources,
-
+  fetchurl,
   lib,
+  nix-update-script,
   stdenv,
 
   autoPatchelfHook,
   dpkg,
   juceCmakeHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.wavetable-bin) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "wavetable-bin";
+  version = "1.0.34";
+  src = fetchurl {
+    url = "https://github.com/FigBug/Wavetable/releases/download/v${finalAttrs.version}/Wavetable.deb";
+    sha256 = "sha256-9VRE9hsKO7qCH+Kk7sna/SGxnIdlsfo5VmajMHhRk5c=";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -30,6 +35,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Wavetable synth";
     homepage = "https://socalabs.com/synths/wavetable/";
@@ -37,4 +44,4 @@ stdenv.mkDerivation {
     platforms = [ "x86_64-linux" ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,0 +1,16 @@
+diff --git a/build_linux_common.sh b/build_linux_common.sh
+index 70c866929..7f835ee4d 100755
+--- a/build_linux_common.sh
++++ b/build_linux_common.sh
+@@ -327,11 +327,6 @@ else
+ 	fi
+ 	make radium $@ --stop # Can not use "exec make" here. Compilation stopped here I think, whether it succeeded or not.
+ 	#make ${T}Qt_instruments.o $@ --stop # Can not use "exec make" here. Compilation stopped here I think, whether it succeeded or not.
+-    
+-	if ldd -r $RADIUM_BIN | sed 's/0x.*//' |grep -i bfd |grep -v libfdk ; then
+-		printf "\033[1;31mError? Is bfd linked dynamically?\033[0m\n"
+-		exit -1
+-	fi
+ fi
+ 
+ if [[ $BUILDTYPE == RELEASE ]] ; then

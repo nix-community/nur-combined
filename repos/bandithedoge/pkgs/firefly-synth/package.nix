@@ -1,14 +1,21 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   juceCmakeHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.firefly-synth) pname src;
-  version = lib.removePrefix "v" sources.firefly-synth.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "firefly-synth";
+  version = "1.9.9";
+  src = fetchFromGitHub {
+    owner = "sjoerdvankreel";
+    repo = "firefly-synth";
+    rev = "v${finalAttrs.version}";
+    fetchSubmodules = true;
+    hash = "sha256-6HlezO89a9VecmbgWbYmq/ehs/iWxpFP029EQRKueb4=";
+  };
 
   nativeBuildInputs = [
     juceCmakeHook
@@ -27,6 +34,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Semi-modular synthesizer and FX plugin for Windows, Linux and Mac, VST3 and CLAP";
     homepage = "https://firefly-synth.com/";
@@ -34,4 +43,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,14 +1,21 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   projucer,
   unzip,
 }:
-stdenv.mkDerivation {
-  inherit (sources.hise) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "hise";
+  version = "4.1.0";
+  src = fetchFromGitHub {
+    owner = "christophhart";
+    repo = "HISE";
+    rev = finalAttrs.version;
+    hash = "sha256-SsreYLRuxv4eXieH0u/TOSvjBAKh820lQeacodKLu8Q=";
+  };
 
   nativeBuildInputs = [
     projucer
@@ -37,6 +44,8 @@ stdenv.mkDerivation {
 
   dontStrip = true;
 
+  passthru.updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
+
   meta = {
     description = "The open source toolkit for building virtual instruments and audio effects";
     homepage = "https://hise.dev";
@@ -45,4 +54,4 @@ stdenv.mkDerivation {
     mainProgram = "HISE";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

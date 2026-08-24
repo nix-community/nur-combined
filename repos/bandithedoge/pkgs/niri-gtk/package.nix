@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   astal,
@@ -14,9 +14,15 @@
   vala,
 }:
 stdenv.mkDerivation {
-  inherit (sources.niri-gtk) pname src;
-  sourceRoot = "${sources.niri-gtk.src.name}/src";
-  version = sources.niri-gtk.date;
+  pname = "niri-gtk";
+  version = "0-unstable-2026-08-22";
+  src = fetchFromGitHub {
+    owner = "sameoldlab";
+    repo = "niri-gtk";
+    rev = "249eb454468bab9720a11208ac2caac4c4a0f6a1";
+    hash = "sha256-/1Mz5Thei7MispevH8wz2+YFkG8FSK7Vu/pf8PlbfNo=";
+  };
+  sourceRoot = "source/src";
 
   nativeBuildInputs = [
     gobject-introspection
@@ -34,6 +40,13 @@ stdenv.mkDerivation {
   postUnpack = ''
     cp --remove-destination ${astal.source}/lib/gir.py gir.py
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "GTK Library and CLI tool for monitoring the Niri socket";

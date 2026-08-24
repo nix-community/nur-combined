@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   mpv,
@@ -9,8 +9,16 @@
   taglib,
   taglib_1,
 }:
-stdenv.mkDerivation {
-  inherit (sources.musique) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "musique";
+  version = "1.12";
+  src = fetchFromGitHub {
+    owner = "flaviotordini";
+    repo = "musique";
+    rev = finalAttrs.version;
+    hash = "sha256-KvvalelRWOwpOB6Hmr7WPTY4WjnAeBHXS+EhIEMqsus=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     qt6.qmake
@@ -27,6 +35,8 @@ stdenv.mkDerivation {
     substituteInPlace musique.pro --replace-fail /usr/include/taglib ${taglib}/include/taglib
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A finely crafted music player";
     homepage = "https://flavio.tordini.org/musique";
@@ -35,4 +45,4 @@ stdenv.mkDerivation {
     broken = true; # taglib version mismatch or something
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

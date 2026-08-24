@@ -1,16 +1,20 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   autoPatchelfHook,
   juceCmakeHook,
   unzip,
 }:
-stdenv.mkDerivation {
-  inherit (sources.mxtune-bin) pname src;
-  version = lib.removePrefix "v" sources.mxtune-bin.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "mxtune-bin";
+  version = "1.2.0";
+  src = fetchzip {
+    url = "https://github.com/liuanlin-mx/MXTune/releases/download/v${finalAttrs.version}/ubuntu1804_x86_64_vst_v${finalAttrs.version}.zip";
+    sha256 = "sha256-wdpX7JYBL5yr8sDvu9X4w1IOPmZPedw/a8xirpfwHTU=";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -28,6 +32,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Pitch correction plugin for VST";
     homepage = "https://github.com/liuanlin-mx/MXTune";
@@ -36,4 +42,4 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

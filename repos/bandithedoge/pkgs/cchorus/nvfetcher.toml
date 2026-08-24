@@ -1,4 +1,0 @@
-[cchorus]
-src.github = "SpotlightKid/cchorus"
-fetch.github = "SpotlightKid/cchorus"
-git.fetchSubmodules = true

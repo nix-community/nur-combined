@@ -1,4 +1,0 @@
-[fastcrw]
-src.github = "us/crw"
-fetch.github = "us/crw"
-cargo_lock = ["Cargo.lock"]

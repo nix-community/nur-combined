@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   git,
@@ -9,8 +9,16 @@
   libjack2,
 }:
 stdenv.mkDerivation {
-  inherit (sources.monique) pname src;
-  version = sources.monique.date;
+  pname = "monique";
+  version = "Nightly-unstable-2024-07-30";
+  src = fetchFromGitHub {
+    owner = "surge-synthesizer";
+    repo = "monique-monosynth";
+    rev = "df7d3395bce862847d40237350d0161a463dcc0d";
+    hash = "sha256-NhqcMXGKiMKEQt730aCmL+a5kiOjFH8gUUrS1cDX0ss=";
+    fetchSubmodules = true;
+    leaveDotGit = true;
+  };
 
   nativeBuildInputs = [
     juceCmakeHook
@@ -21,6 +29,13 @@ stdenv.mkDerivation {
     libjack2
   ];
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
+
   meta = {
     description = "Monique monosynth";
     homepage = "https://github.com/surge-synthesizer/monique-monosynth";
@@ -29,7 +44,7 @@ stdenv.mkDerivation {
       mit
     ];
     platforms = lib.platforms.linux;
-    broken = true; # hash shenanigans
     maintainers = [ lib.maintainers.bandithedoge ];
+    broken = true;
   };
 }

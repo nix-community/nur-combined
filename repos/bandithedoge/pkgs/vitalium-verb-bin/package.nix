@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   alsa-lib,
@@ -10,14 +10,17 @@
   libx11,
   libxcb,
   libxcb-wm,
-  unzip,
 }:
-stdenv.mkDerivation {
-  inherit (sources.vitalium-verb-bin) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "vitalium-verb-bin";
+  version = "1.3.0";
+  src = fetchzip {
+    url = "https://github.com/BillyDM/vitalium-verb/releases/download/v${finalAttrs.version}/vitaliumverb-${finalAttrs.version}-ubuntu-22.04.zip";
+    sha256 = "sha256-m01aagwJCFRmQTqaVCfrJwqjUjKV20y9aVRiHN1s10E=";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
-    unzip
   ];
 
   buildInputs = [
@@ -39,6 +42,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A Rust port of the reverb module from the Vital/Vitalium synthesizer";
     homepage = "https://github.com/BillyDM/vitalium-verb";
@@ -47,4 +52,4 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

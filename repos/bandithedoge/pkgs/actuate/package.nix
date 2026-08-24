@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
 
   libGL,
@@ -9,10 +9,17 @@
   libxcb,
   pkg-config,
 }:
-rustPlatform.buildRustPackage {
-  inherit (sources.actuate) pname src;
-  version = lib.removePrefix "v" sources.actuate.version;
-  cargoLock = sources.actuate.cargoLock."Cargo.lock";
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "actuate";
+  version = "1.4.5";
+  src = fetchFromGitHub {
+    owner = "ardura";
+    repo = "Actuate";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-TAabf0/Q2FwbNcW+KpJSNm5t4o7x8naNKdjiZURy4cg=";
+  };
+
+  cargoHash = "sha256-6yH7rYzxkTWC8eYp2FRQsF6TMYvoK6jiPCQOySn2RtQ=";
 
   nativeBuildInputs = [
     pkg-config
@@ -40,12 +47,13 @@ rustPlatform.buildRustPackage {
 
   doCheck = false;
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Synthesizer, Sampler, Granulizer written in Rust with Nih-Plug and egui";
     homepage = "https://github.com/ardura/Actuate";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    # broken = true; # weird rust dependency hash things happening
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

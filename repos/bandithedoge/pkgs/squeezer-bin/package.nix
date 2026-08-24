@@ -1,18 +1,29 @@
 {
-  sources,
-
+  fetchurl,
   lib,
   stdenv,
+  writeScript,
 
   autoPatchelfHook,
   juceCmakeHook,
 }:
+let
+  version = "2.5.4";
+  sources = {
+    standalone = fetchurl {
+      url = "https://github.com/mzuther/Squeezer/releases/download/v${version}/squeezer-linux64-standalone_${version}.tar.gz";
+      sha256 = "sha256-M0Q95PrL/91r9xA2T88yzV/EpmwIWdC+7JylBpPuDLs=";
+    };
+    vst2 = fetchurl {
+      url = "https://github.com/mzuther/Squeezer/releases/download/v${version}/squeezer-linux64-vst2_${version}.tar.gz";
+      sha256 = "sha256-o5b+jg27gyt6G3duatijdS/ZIObkQl/sMtZLHvt+vzs=";
+    };
+  };
+in
 stdenv.mkDerivation rec {
-  inherit (sources.squeezer-bin-standalone) pname version;
-  srcs = with sources; [
-    squeezer-bin-standalone.src
-    squeezer-bin-vst2.src
-  ];
+  pname = "squeezer-bin";
+  inherit version;
+  srcs = builtins.attrValues sources;
   sourceRoot = ".";
 
   nativeBuildInputs = [
@@ -37,6 +48,20 @@ stdenv.mkDerivation rec {
 
     runHook postBuild
   '';
+
+  passthru = sources // {
+    updateScript = writeScript "update-squeezer-bin" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl pcre2 common-updater-scripts jq
+
+      version="$(curl -s https://api.github.com/repos/mzuther/Squeezer/releases/latest \
+        | jq -r '.tag_name | scan("v(.*)") | .[0]')"
+      ${lib.concatMapStringsSep "\n" (
+        format:
+        ''update-source-version "$UPDATE_NIX_ATTR_PATH" "$version" --source-key=${format} --ignore-same-version''
+      ) (builtins.attrNames sources)}
+    '';
+  };
 
   meta = {
     description = "Flexible general-purpose audio compressor with a touch of citrus";

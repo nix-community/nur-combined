@@ -1,8 +1,11 @@
 {
-  sources,
-
+  common-updater-scripts,
+  curl,
+  fetchzip,
   lib,
+  pcre2,
   stdenv,
+  writeScript,
 
   autoPatchelfHook,
   cairo,
@@ -20,8 +23,13 @@
   libxkbcommon,
   pango,
 }:
-stdenv.mkDerivation {
-  inherit (sources.k-whooms) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "k-whooms";
+  version = "2025.03";
+  src = fetchzip {
+    url = "https://www.hansen-audio.org/download/K-Whooms-${finalAttrs.version}-Linux.tar.gz";
+    sha256 = "sha256-S/UTd6qJamvMycFmDqUjx9PDqVGbhqXSHgI48ggVuww=";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -55,6 +63,14 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = writeScript "update-k-whooms" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p curl common-updater-scripts pcre2
+
+    version="$(curl -s https://www.hansen-audio.org | pcre2grep -o1 'Current version: (\d+\.\d+)')"
+    update-source-version "$UPDATE_NIX_ATTR_PATH" "$version"
+  '';
+
   meta = {
     description = "Get K-Whooms and squeeze the fattest sounds out of it with just a few turns of the controls";
     homepage = "https://www.hansen-audio.org/";
@@ -63,4 +79,4 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

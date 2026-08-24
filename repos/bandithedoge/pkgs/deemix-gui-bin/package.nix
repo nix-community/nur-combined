@@ -1,14 +1,18 @@
 {
-  sources,
-
+  fetchurl,
   appimageTools,
   lib,
 }:
-appimageTools.wrapType2 {
-  inherit (sources.deemix-gui-bin) pname version src;
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "deemix-gui-bin";
+  version = "3.6.6";
+  src = fetchurl {
+    url = "https://archive.org/download/deemix/gui/linux-x64-latest.AppImage";
+    sha256 = "sha256-e2neemsAzGniBpXIPYbKk5LQHoYLvFj5/8QszCcoTYM=";
+  };
 
   extraInstallCommands = ''
-    mv $out/bin/${sources.deemix-gui-bin.pname} $out/bin/deemix-gui
+    mv $out/bin/${finalAttrs.pname} $out/bin/deemix-gui
   '';
 
   meta = {
@@ -19,4 +23,4 @@ appimageTools.wrapType2 {
     mainProgram = "deemix-gui";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

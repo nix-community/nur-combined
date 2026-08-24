@@ -1,19 +1,28 @@
 {
-  sources,
-
-  stdenv,
+  fetchFromGitHub,
   lib,
+  nix-update-script,
+  stdenv,
+
   projucer,
 }:
-stdenv.mkDerivation {
-  inherit (sources.microbiome) pname src;
-  version = lib.removePrefix "v" sources.microbiome.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "microbiome";
+  version = "1.0.0";
+  src = fetchFromGitHub {
+    owner = "dsmaugy";
+    repo = "microbiome";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-RUAkXKzIrIxaVeswCBkDhCnAMKlQxAYt5m9ho1nZRFs=";
+  };
 
   nativeBuildInputs = [
     projucer
   ];
 
   jucerFile = "Microbiome.jucer";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A delay-based audio effects plugin";
@@ -22,4 +31,4 @@ stdenv.mkDerivation {
     platforms = [ "x86_64-linux" ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,13 +1,20 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenvNoCC,
+
   installFonts,
 }:
 stdenvNoCC.mkDerivation {
-  inherit (sources.sofia-sans) pname src;
-  version = sources.sofia-sans.date;
+  pname = "sofia-sans";
+  version = "0-unstable-2023-01-12";
+  src = fetchFromGitHub {
+    owner = "lettersoup";
+    repo = "Sofia-Sans";
+    rev = "9a1f0ba30f0139b011f9e69c9c462728fa5ef725";
+    hash = "sha256-oh+gl9yhkFdrTMPh2jYjUy6bwrykMteE9BzmlakPfk0=";
+  };
 
   outputs = [
     "out"
@@ -15,6 +22,13 @@ stdenvNoCC.mkDerivation {
   ];
 
   nativeBuildInputs = [ installFonts ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Comprehensive type system in four widths with extended coverage of the Latin-, Greek- and Cyrillic Script";

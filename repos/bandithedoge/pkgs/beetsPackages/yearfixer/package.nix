@@ -1,12 +1,18 @@
 {
-  sources,
-
-  python3Packages,
   beets,
+  fetchFromGitHub,
   lib,
+  python3Packages,
 }:
-python3Packages.buildPythonApplication {
-  inherit (sources.beets-yearfixer) pname version src;
+python3Packages.buildPythonApplication (finalAttrs: {
+  pname = "beets-yearfixer";
+  version = "0.0.5";
+  src = fetchFromGitHub {
+    owner = "adamjakab";
+    repo = "BeetsPluginYearFixer";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-TDRkCihp+hB33e9LCBpUye+KobpTPrDMutMa4zHJQ68=";
+  };
 
   pyproject = true;
   build-system = [ python3Packages.setuptools ];
@@ -34,4 +40,4 @@ python3Packages.buildPythonApplication {
     inherit (beets.meta) platforms;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

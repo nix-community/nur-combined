@@ -1,15 +1,21 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   juce,
   juceCmakeHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.spectralsuite) pname src;
-  version = lib.removePrefix "v" sources.spectralsuite.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "spectralsuite";
+  version = "2.2.0";
+  src = fetchFromGitHub {
+    owner = "andrewreeman";
+    repo = "SpectralSuite";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-CqnmF+i7JoAaKQHVx9SwgA566TV0M5BdjibE8ik9AHk=";
+  };
 
   nativeBuildInputs = [ juceCmakeHook ];
 
@@ -26,10 +32,12 @@ stdenv.mkDerivation {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error" ];
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     homepage = "https://github.com/andrewreeman/SpectralSuite";
     license = lib.licenses.unlicense;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

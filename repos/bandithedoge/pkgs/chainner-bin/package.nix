@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   copyDesktopItems,
@@ -11,8 +11,13 @@
   makeDesktopItem,
   makeWrapper,
 }:
-stdenv.mkDerivation {
-  inherit (sources.chainner-bin) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "chainner-bin";
+  version = "0.25.1";
+  src = fetchzip {
+    url = "https://github.com/chaiNNer-org/chaiNNer/releases/download/v${finalAttrs.version}/chaiNNer-linux-x64-${finalAttrs.version}-portable.zip";
+    sha256 = "sha256-jvDudezyqZFdUWldk+3fCqVdbS81ymXW1tBSxDrEDTI=";
+  };
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -54,6 +59,8 @@ stdenv.mkDerivation {
     })
   ];
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A node-based image processing GUI aimed at making chaining image processing tasks easy and customizable.";
     homepage = "https://chainner.app/";
@@ -63,4 +70,4 @@ stdenv.mkDerivation {
     mainProgram = "chainner";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

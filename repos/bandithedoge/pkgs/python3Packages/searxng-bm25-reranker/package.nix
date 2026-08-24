@@ -1,14 +1,20 @@
 {
-  sources,
-
   lib,
   python3Packages,
+  fetchFromGitHub,
 
   searxng,
 }:
-python3Packages.buildPythonPackage {
-  inherit (sources.searxng-bm25-reranker) pname src;
-  version = lib.removePrefix "v" sources.searxng-bm25-reranker.version;
+python3Packages.buildPythonPackage (finalAttrs: {
+  pname = "searxng-bm25-reranker";
+  version = "0.1.0";
+  src = fetchFromGitHub {
+    owner = "Oaklight";
+    repo = "searxng-bm25-reranker";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-56tp7DMw8sZ6dSnKQ6DDeetWcOhOs6WS3bwlsbIAtxM=";
+  };
+
   pyproject = true;
   build-system = with python3Packages; [ setuptools ];
 
@@ -19,4 +25,4 @@ python3Packages.buildPythonPackage {
     inherit (searxng.meta) platforms;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

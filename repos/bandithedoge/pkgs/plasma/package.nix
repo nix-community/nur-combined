@@ -1,20 +1,28 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   projucer,
 }:
-stdenv.mkDerivation {
-  inherit (sources.plasma) pname src;
-  version = lib.removePrefix "v" sources.plasma.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "plasma";
+  version = "1.2.1";
+  src = fetchFromGitHub {
+    owner = "Dimethoxy";
+    repo = "Plasma";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-XfHYGZRgZ2fuVIasp4CSnwmO/MW254b6fgFAQmVug2Q=";
+  };
 
   nativeBuildInputs = [
     projucer
   ];
 
   jucerFile = "Plasma.jucer";
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
 
   meta = {
     description = "Asymmetrical Distortion Audio Plugin";
@@ -23,4 +31,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

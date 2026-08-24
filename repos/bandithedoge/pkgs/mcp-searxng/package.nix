@@ -1,21 +1,22 @@
 {
-  sources,
-
-  lib,
-
   buildNpmPackage,
-  importNpmLock,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
 }:
-buildNpmPackage {
-  inherit (sources.mcp-searxng) pname src;
-  version = lib.removePrefix "v" sources.mcp-searxng.version;
-
-  npmDeps = importNpmLock {
-    package = lib.importJSON sources.mcp-searxng.extract."package.json";
-    packageLock = lib.importJSON sources.mcp-searxng.extract."package-lock.json";
-    npmRoot = ".";
+buildNpmPackage (finalAttrs: {
+  pname = "mcp-searxng";
+  version = "2.0.0";
+  src = fetchFromGitHub {
+    owner = "ihor-sokoliuk";
+    repo = "mcp-searxng";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-zakEU/6eeYClbj8VsSU0T6OqG0rl5iXUPSdAife4Juo=";
   };
-  inherit (importNpmLock) npmConfigHook;
+
+  npmDepsHash = "sha256-4WUOJJU9fXLVPE8ryB1IMWKVg5OL743VjupctYpPH0Y=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "MCP Server for SearXNG";
@@ -25,4 +26,4 @@ buildNpmPackage {
     mainProgram = "mcp-searxng";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

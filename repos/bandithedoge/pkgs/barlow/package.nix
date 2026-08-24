@@ -1,12 +1,18 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
   stdenv,
+  nix-update-script,
 }:
 stdenv.mkDerivation {
-  inherit (sources.barlow) pname src;
-  version = sources.barlow.date;
+  pname = "barlow";
+  version = "1.422-unstable-2024-08-10";
+  src = fetchFromGitHub {
+    owner = "jpt";
+    repo = "barlow";
+    rev = "2ca33194d753691df200902b9073f917ad4d54d1";
+    hash = "sha256-X7bPcL6/KxpDSoa5YZkwoDGsEodw8hbgt6dxMh+VlaI=";
+  };
 
   buildPhase = ''
     mkdir -p $out/share/fonts/{truetype,opentype,woff2}
@@ -15,7 +21,15 @@ stdenv.mkDerivation {
     cp -r fonts/ttf/*.woff2 $out/share/fonts/woff2
   '';
 
-  passthru._ignoreDupe = true;
+  passthru = {
+    _ignoreDupe = true;
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "branch=1.5"
+      ];
+    };
+  };
 
   meta = {
     description = "Straight-sided sans-serif superfamily";

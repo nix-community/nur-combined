@@ -1,8 +1,11 @@
 {
-  sources,
-
+  common-updater-scripts,
+  curl,
+  fetchzip,
+  jq,
   lib,
   stdenv,
+  writeScript,
 
   alsa-lib,
   at-spi2-atk,
@@ -29,12 +32,22 @@
   commandLineArgs ? "",
 }:
 let
-  source =
-    if stdenv.targetPlatform.isAarch64 then sources.helium-bin-arm64 else sources.helium-bin-x86_64;
+  version = "0.15.6.1";
+  sources = {
+    x86_64-linux = fetchzip {
+      url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64_linux.tar.xz";
+      sha256 = "sha256-Nkd6SQGcVQYI/KIC62Gkpo/6gCUfiV4sQVPm85gwElU=";
+    };
+    aarch64-linux = fetchzip {
+      url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64_linux.tar.xz";
+      sha256 = "sha256-BJvoQmVYrlj/P0Iprb0kUktAficBOKB/d/HrQPGoWwo=";
+    };
+  };
 in
 stdenv.mkDerivation {
   pname = "helium-bin";
-  inherit (source) version src;
+  inherit version;
+  src = sources.${stdenv.targetPlatform.system} or sources.x86_64-linux;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -92,6 +105,19 @@ stdenv.mkDerivation {
 
     runHook postBuild
   '';
+
+  passthru = sources // {
+    updateScript = writeScript "update-helium-bin" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl common-updater-scripts jq
+
+      version="$(curl -s https://api.github.com/repos/imputnet/helium-linux/releases/latest | jq -r .name)"
+      ${lib.concatMapStringsSep "\n" (
+        system:
+        ''update-source-version "$UPDATE_NIX_ATTR_PATH" "$version" --source-key=${system} --ignore-same-version''
+      ) (builtins.attrNames sources)}
+    '';
+  };
 
   meta = {
     description = "Private, fast, and honest web browser";

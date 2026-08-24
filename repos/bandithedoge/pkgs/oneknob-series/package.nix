@@ -1,14 +1,21 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   pkg-config,
 }:
 stdenv.mkDerivation {
-  inherit (sources.oneknob-series) pname src;
-  version = sources.oneknob-series.date;
+  pname = "oneknob-series";
+  version = "0-unstable-2025-12-21";
+  src = fetchFromGitHub {
+    owner = "DISTRHO";
+    repo = "OneKnob-Series";
+    rev = "0a6ed4e54c0e7380abe9191c2b1b951a3bbc87c3";
+    hash = "sha256-8CCMkti8Y6SmbhD/apK0LHr41Fnn5qQ99SfzolGi82E=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     pkg-config
@@ -32,6 +39,13 @@ stdenv.mkDerivation {
   '';
 
   enableParallelBuilding = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Collection of stupidly simple but well-polished and visually pleasing audio plugins";

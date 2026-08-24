@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   SDL2,
@@ -19,10 +19,16 @@
   portmidi,
   zlib,
 }:
-stdenv.mkDerivation rec {
-  inherit (sources.nyan-doom) pname src;
-  version = lib.removePrefix "v" sources.nyan-doom.version;
-  sourceRoot = "${src.name}/prboom2";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "nyan-doom";
+  version = "1.5.4";
+  src = fetchFromGitHub {
+    owner = "andrikpowell";
+    repo = "nyan-doom";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-xo63dxtKNNyjAc7GXismXt2jtKcQgAIB5Sn1n311sJY=";
+  };
+  sourceRoot = "source/prboom2";
 
   nativeBuildInputs = [
     cmake
@@ -44,6 +50,8 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "The most cuddly Doom Source Port, with an emphasis on innovative and quality-of-life features";
     homepage = "https://github.com/andrikpowell/nyan-doom";
@@ -52,4 +60,4 @@ stdenv.mkDerivation rec {
     mainProgram = "nyan-doom";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

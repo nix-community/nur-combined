@@ -1,20 +1,24 @@
 {
-  sources,
-
+  fetchzip,
   lib,
   stdenv,
+  writeScript,
+
   autoPatchelfHook,
-  unzip,
   juceCmakeHook,
   webkitgtk_4_1,
 }:
-stdenv.mkDerivation {
-  inherit (sources.polarity-md) pname version src;
-  sourceRoot = ".";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "polarity-md";
+  version = "0.3.8";
+  src = fetchzip {
+    url = "https://polarity.productions/polarity-md/downloads/PolarityMD-v${finalAttrs.version}-Linux.zip";
+    hash = "sha256-3Lfxaliy7HTwpbWQuKYkFPM8RvSDlbwDhBYUeBAWuN4=";
+    stripRoot = false;
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
-    unzip
   ];
 
   buildInputs = juceCmakeHook.commonBuildInputs ++ [ webkitgtk_4_1 ];
@@ -31,6 +35,14 @@ stdenv.mkDerivation {
       $out/bin/Polarity-MD
   '';
 
+  passthru.updateScript = writeScript "update-polarity-md" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p curl pcre2 common-updater-scripts
+
+    version="$(curl -s https://polarity.productions/polarity-md/ | pcre2grep -o1 '[Vv](\d+\.\d+\.\d+)')"
+    update-source-version "$UPDATE_NIX_ATTR_PATH" "$version"
+  '';
+
   meta = {
     description = "Four-band dynamics with upward + downward compression, per-band clipping";
     homepage = "https://polarity.productions/polarity-md/";
@@ -40,4 +52,4 @@ stdenv.mkDerivation {
     mainProgram = "Polarity-MD";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,3 +1,0 @@
-[panacea-bin]
-src.github = "consint/Panacea"
-fetch.tarball = "https://github.com/consint/Panacea/releases/download/$ver/Panacea_v1.0.1_Linux_vst.zip"

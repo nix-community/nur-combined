@@ -16,9 +16,9 @@ See [LIST.md](LIST.md) for a full list of packages.
   {
     withFoo ? true, # package-specific configuration options
 
-    sources,
-
+    fetchFromGitHub, # and other fetchers
     lib,
+    nix-update-script, # and other update dependencies
     stdenv, # or platform sets like rustPlatform or buildNpmPackage
 
     # libraries, hooks, etc
@@ -26,11 +26,7 @@ See [LIST.md](LIST.md) for a full list of packages.
   ```
 
 - Dependency lists and the like are sorted alphabetically
-- `version` attribute must be a diffable version:
-  - `v` prefix stripped
-  - date instead of commit hash
 - `autoPatchelfHook` and `patchelf` preferred over wrappers
-- `fetchTarball` preferred over `fetchurl`
 - Packages that are available in nixpkgs are removed and added to [`_upstreamed.nix`](./_upstreamed.nix) except in cases where ours is significantly different (eg. tracking unstable versions)
 - Packages that are renamed are added to [`_renamed.nix`](./_renamed.nix), including when binary packages become source-built and vice versa
 - Packages that are dropped are added to [`_removed.nix`](./_removed.nix)

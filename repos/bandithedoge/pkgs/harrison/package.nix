@@ -1,8 +1,7 @@
 {
-  sources,
-
   lib,
   stdenv,
+  fetchzip,
 
   autoPatchelfHook,
   curl-gnutls3,
@@ -12,9 +11,13 @@
 }:
 let
   mkHarrison =
-    source:
+    {
+      pname,
+      version,
+      src,
+    }:
     stdenv.mkDerivation {
-      inherit (source) pname version src;
+      inherit pname version src;
 
       nativeBuildInputs = [
         autoPatchelfHook
@@ -46,6 +49,20 @@ let
     };
 in
 {
-  _32c = mkHarrison sources.harrison-32c;
-  ava = mkHarrison sources.harrison-ava;
+  _32c = mkHarrison rec {
+    pname = "harrison-32c";
+    version = "3-5-22";
+    src = fetchzip {
+      url = "https://rsrc.harrisonconsoles.com/ava/release/32C/${version}/Harrison_32C-linux-amd64.tar.gz";
+      sha256 = "sha256-2Bthoz/7RdVAGIXbAd0y/mIwWfcu2NNni95BWqNnCoI=";
+    };
+  };
+  ava = mkHarrison rec {
+    pname = "harrison-ava";
+    version = "10-27-22";
+    src = fetchzip {
+      url = "https://rsrc.harrisonconsoles.com/ava/release/AVA/${version}/Harrison_AVA-linux-amd64.tar.gz";
+      sha256 = "sha256-jkluEUfJjFfi3mOgx5FIDKr7E972UiKJNL/gEp5E5HU=";
+    };
+  };
 }

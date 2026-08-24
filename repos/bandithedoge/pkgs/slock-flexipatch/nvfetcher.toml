@@ -1,3 +1,0 @@
-[slock-flexipatch]
-src.git = "https://github.com/bakkeby/slock-flexipatch"
-fetch.github = "bakkeby/slock-flexipatch"

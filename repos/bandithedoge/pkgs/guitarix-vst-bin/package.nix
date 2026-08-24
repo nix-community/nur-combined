@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   autoPatchelfHook,
@@ -11,16 +11,20 @@
   libsigcxx,
   libsndfile,
   lilv,
-  unzip,
+  breakpointHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.guitarix-vst-bin) pname src;
-  version = lib.removePrefix "v" sources.guitarix-vst-bin.version;
-  sourceRoot = ".";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "guitarix-vst-bin";
+  version = "0.5";
+  src = fetchzip {
+    url = "https://github.com/brummer10/guitarix.vst/releases/download/v${finalAttrs.version}/Guitarix.vst3.zip";
+    sha256 = "sha256-yCUu3tOVsBJWWg8BmH2istpbfG0+ir0aY+VMTDmTAGc=";
+    stripRoot = false;
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
-    unzip
+    breakpointHook
   ];
 
   buildInputs = [
@@ -42,6 +46,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "guitarix vst3 wrapper for linux";
     homepage = "https://github.com/brummer10/guitarix.vst";
@@ -50,4 +56,4 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

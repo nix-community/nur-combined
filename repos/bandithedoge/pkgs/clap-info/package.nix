@@ -1,15 +1,22 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   cmake,
   ninja,
 }:
-stdenv.mkDerivation {
-  inherit (sources.clap-info) pname src;
-  version = lib.removePrefix "v" sources.clap-info.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "clap-info";
+  version = "1.2.2";
+  src = fetchFromGitHub {
+    owner = "free-audio";
+    repo = "clap-info";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-H2Nxx+p8uxm82qJbwfkKlAzyJkqC7c5tIexgghv38cY=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     cmake
@@ -30,6 +37,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A tool to show information about a CLAP plugin on the command line";
     homepage = "https://github.com/free-audio/clap-info";
@@ -38,4 +47,4 @@ stdenv.mkDerivation {
     mainProgram = "clap-info";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

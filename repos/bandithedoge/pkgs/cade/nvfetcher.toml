@@ -1,4 +1,0 @@
-[cade]
-src.git = "https://github.com/manic-systems/cade.git"
-fetch.github = "manic-systems/cade"
-cargo_lock = ["Cargo.lock"]

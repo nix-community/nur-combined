@@ -6,19 +6,25 @@
   withMultimodal ? true,
   withPdf ? true,
 
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
 
   mold,
   writableTmpDirAsHomeHook,
 }:
-rustPlatform.buildRustPackage {
-  inherit (sources.zerostack) pname src;
-  version = lib.removePrefix "v" sources.zerostack.version;
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "zerostack";
+  version = "1.7.2";
+  src = fetchFromGitHub {
+    owner = "gi-dellav";
+    repo = "zerostack";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-rBFgrZvSnLxLulJxxPeS/+uVk56ifdgDl6JZ0uqtlp8=";
+  };
 
-  cargoLock = sources.zerostack.cargoLock."Cargo.lock";
+  cargoHash = "sha256-4sHChlm9dt4vB+zAAWbP7vrUY66nUbRsWSRDg9G4RGo=";
   buildFeatures =
     lib.optional withAcp "acp"
     ++ lib.optional withAdvisor "advisor"
@@ -37,6 +43,8 @@ rustPlatform.buildRustPackage {
     "--skip=tests::provider_tests::anthropic_custom_base_appends_v1_messages"
   ];
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Minimalistic coding agent written in Rust, optimized for memory footprint and performance";
     homepage = "https://github.com/gi-dellav/zerostack";
@@ -45,4 +53,4 @@ rustPlatform.buildRustPackage {
     mainProgram = "zerostack";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

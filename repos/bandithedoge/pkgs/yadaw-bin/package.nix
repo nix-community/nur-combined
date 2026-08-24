@@ -1,8 +1,8 @@
 {
-  sources,
-
+  fetchzip,
   lib,
   stdenv,
+  writeScript,
 
   alsa-lib,
   autoPatchelfHook,
@@ -12,11 +12,22 @@
   wayland,
 }:
 let
-  source =
-    if stdenv.targetPlatform.isAarch64 then sources.yadaw-bin-aarch64 else sources.yadaw-bin-x86_64;
+  version = "0.10.3";
+  sources = {
+    aarch64 = fetchzip {
+      url = "https://github.com/mlm-games/yadaw/releases/download/v${version}/yadaw-${version}-aarch64-unknown-linux-gnu.tar.gz";
+      hash = "sha256-p2GuZAWNRueaEuzYvXbYT/qhGLnz97LEIGT+bKx2I6I=";
+    };
+    x86_64 = fetchzip {
+      url = "https://github.com/mlm-games/yadaw/releases/download/v${version}/yadaw-${version}-x86_64-unknown-linux-gnu.tar.gz";
+      hash = "sha256-uvDCVnfYbbG6C4ZZOPKFvkzHi7CPHOgm7nMinGLrGmI=";
+    };
+  };
 in
 stdenv.mkDerivation {
-  inherit (source) pname version src;
+  pname = "yadaw-bin";
+  inherit version;
+  src = if stdenv.targetPlatform.isAarch64 then sources.aarch64 else sources.x86_64;
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
@@ -42,6 +53,19 @@ stdenv.mkDerivation {
 
     runHook postBuild
   '';
+
+  passthru = sources // {
+    updateScript = writeScript "update-yadaw-bin" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl pcre2 common-updater-scripts jq
+
+      version="$(curl -s https://api.github.com/repos/mlm-games/yadaw/releases/latest | jq -r '.tag_name | scan("v(.*)") | .[0]')"
+      ${lib.concatMapStringsSep "\n" (
+        system:
+        ''update-source-version "$UPDATE_NIX_ATTR_PATH" "$version" --source-key=${system} --ignore-same-version''
+      ) (builtins.attrNames sources)}
+    '';
+  };
 
   meta = {
     description = "Sfx creation tool and midi player that doesn't crash often";

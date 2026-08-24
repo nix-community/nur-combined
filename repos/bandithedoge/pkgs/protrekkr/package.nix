@@ -1,8 +1,8 @@
 {
-  sources,
-
+  fetchFromGitHub,
   fetchurl,
   lib,
+  nix-update-script,
   stdenv,
 
   SDL,
@@ -19,9 +19,15 @@ let
     hash = "sha256-4IGInSZ4lBtETHi3pLu06m7TGpQiBgiLZM3QftA7ngk=";
   };
 in
-stdenv.mkDerivation {
-  inherit (sources.protrekkr) pname src;
-  version = lib.removePrefix "v" sources.protrekkr.version;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "protrekkr";
+  version = "2.8.3_PRE_2";
+  src = fetchFromGitHub {
+    owner = "hitchhikr";
+    repo = "protrekkr";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-5pQMoU0FXqniWlVdovxnvU0DXobg5LLKWyt6SlEDhxk=";
+  };
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -74,6 +80,8 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A fork of ProTrekkr, now with linux JACK Audio support";
     homepage = "https://github.com/falkTX/protrekkr";
@@ -82,4 +90,4 @@ stdenv.mkDerivation {
     mainProgram = "protrekkr";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

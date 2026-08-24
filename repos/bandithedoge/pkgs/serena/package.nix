@@ -1,12 +1,18 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
   python3Packages,
 }:
-python3Packages.buildPythonApplication {
-  inherit (sources.serena) pname src;
-  version = lib.removePrefix "v" sources.serena.version;
+python3Packages.buildPythonApplication (finalAttrs: {
+  pname = "serena";
+  version = "1.7.0";
+  src = fetchFromGitHub {
+    owner = "oraios";
+    repo = "serena";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-IrsD4pnu/47M/O9b8H9c7K8WENGv3FihlqzCB6szBXg=";
+  };
+
   pyproject = true;
 
   build-system = with python3Packages; [
@@ -57,4 +63,4 @@ python3Packages.buildPythonApplication {
     mainProgram = "serena";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

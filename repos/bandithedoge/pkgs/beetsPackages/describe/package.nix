@@ -1,12 +1,19 @@
 {
-  sources,
+  fetchFromGitHub,
 
   python3Packages,
   beets,
   lib,
 }:
-python3Packages.buildPythonApplication {
-  inherit (sources.beets-describe) pname version src;
+python3Packages.buildPythonApplication (finalAttrs: {
+  pname = "beets-describe";
+  version = "0.0.5";
+  src = fetchFromGitHub {
+    owner = "adamjakab";
+    repo = "BeetsPluginDescribe";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-+aAKQ0JKl8R4/5kmcAfCXNR77onlMoFkraE3JI5Quy4=";
+  };
 
   pyproject = true;
   build-system = [ python3Packages.setuptools ];
@@ -37,4 +44,4 @@ python3Packages.buildPythonApplication {
     inherit (beets.meta) platforms;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchFromGitHub,
 
   lib,
   stdenv,
@@ -11,7 +11,14 @@
   alsa-lib,
 }:
 stdenv.mkDerivation {
-  inherit (sources.csound6) pname version src;
+  pname = "csound6";
+  version = "6.18.1";
+  src = fetchFromGitHub {
+    owner = "csound";
+    repo = "csound";
+    rev = "6.18.1";
+    hash = "sha256-O7s92N54+zIl07eIdK/puoSve/qJ3O01fTh0TP+VdZA=";
+  };
 
   nativeBuildInputs = [
     cmake

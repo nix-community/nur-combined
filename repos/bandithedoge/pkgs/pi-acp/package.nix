@@ -1,22 +1,23 @@
 {
-  sources,
-
-  lib,
-
   buildNpmPackage,
-  importNpmLock,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
   pi-coding-agent,
 }:
-buildNpmPackage {
-  inherit (sources.pi-acp) pname src;
-  version = lib.removePrefix "v" sources.pi-acp.version;
-
-  npmDeps = importNpmLock {
-    package = lib.importJSON sources.pi-acp.extract."package.json";
-    packageLock = lib.importJSON sources.pi-acp.extract."package-lock.json";
+buildNpmPackage (finalAttrs: {
+  pname = "pi-acp";
+  version = "0.0.33";
+  src = fetchFromGitHub {
+    owner = "svkozak";
+    repo = "pi-acp";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-fENOOdooi4XbIDjcr02q8qzUCzdo2IW/Bca43SawZ44=";
   };
 
-  inherit (importNpmLock) npmConfigHook;
+  npmDepsHash = "sha256-/fX79XucKojL/6gZbK5eizEfrXso8rlTgiHfJffmDuY=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "ACP adapter for pi coding agent";
@@ -26,4 +27,4 @@ buildNpmPackage {
     mainProgram = "pi-acp";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

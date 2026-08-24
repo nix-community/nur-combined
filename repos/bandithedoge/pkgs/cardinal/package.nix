@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   SDL2,
@@ -28,8 +28,15 @@
   speexdsp,
 }:
 stdenv.mkDerivation {
-  inherit (sources.cardinal) src pname;
-  version = sources.cardinal.date;
+  pname = "cardinal";
+  version = "26.02-unstable-2026-07-28";
+  src = fetchFromGitHub {
+    owner = "DISTRHO";
+    repo = "Cardinal";
+    rev = "0a530b73273afc914ec71a78e9165cd28c53b599";
+    hash = "sha256-XaEIge/p/YP9lUABXb6cBvQlD2Sn21sObmmxjvT6Szw=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     cmake
@@ -94,7 +101,15 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  passthru._ignoreDupe = true;
+  passthru = {
+    _ignoreDupe = true;
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "branch"
+      ];
+    };
+  };
 
   meta = {
     description = "Virtual modular synthesizer plugin";

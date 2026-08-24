@@ -1,13 +1,18 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
   python3Packages,
 }:
 let
   wstd2daisy = python3Packages.buildPythonPackage {
-    inherit (sources.wstd2daisy) pname src;
+    pname = "wstd2daisy";
     version = "0.5.3";
+    src = fetchFromGitHub {
+      owner = "Wasted-Audio";
+      repo = "json2daisy";
+      rev = "71e2982454d3410c5e4479c2d0dfa575a9826d17";
+      hash = "sha256-1QKYx9gocAKKWCP9uEmuhtFWCptCd+vBlga5keBxkzY=";
+    };
 
     pyproject = true;
 
@@ -20,9 +25,15 @@ let
     ];
   };
 in
-python3Packages.buildPythonPackage {
-  inherit (sources.hvcc) pname src;
-  version = lib.removePrefix "v" sources.hvcc.version;
+python3Packages.buildPythonPackage (finalAttrs: {
+  pname = "hvcc";
+  version = "0.17.1";
+  src = fetchFromGitHub {
+    owner = "Wasted-Audio";
+    repo = "hvcc";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-pPpZYxjSCXvJ4p+65Rj292BT1KYJYYEFSp4f/UBmUnY=";
+  };
 
   pyproject = true;
 
@@ -45,4 +56,4 @@ python3Packages.buildPythonPackage {
     mainProgram = "hvcc";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

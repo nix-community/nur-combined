@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   copyDesktopItems,
@@ -10,8 +10,14 @@
   python3,
 }:
 stdenv.mkDerivation {
-  inherit (sources.propertree) pname src;
-  version = sources.propertree.date;
+  pname = "propertree";
+  version = "0-unstable-2026-06-20";
+  src = fetchFromGitHub {
+    owner = "corpnewt";
+    repo = "ProperTree";
+    rev = "51ed53dbe3c96a81686ae1fc47f6d2a92f668159";
+    hash = "sha256-yDkIALfDh8LcCStZGPaUDQbmDdei6nir8XSed2ZqOIs=";
+  };
 
   buildInputs = [
     (python3.withPackages (ps: with ps; [ tkinter ]))
@@ -38,6 +44,13 @@ stdenv.mkDerivation {
 
     runHook postBuild
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Cross platform GUI plist editor written in python.";

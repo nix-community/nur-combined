@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   libx11,
@@ -10,8 +10,14 @@
   libxrandr,
 }:
 stdenv.mkDerivation {
-  inherit (sources.slock-flexipatch) pname src;
-  version = sources.slock-flexipatch.date;
+  pname = "slock-flexipatch";
+  version = "0-unstable-2026-08-17";
+  src = fetchFromGitHub {
+    owner = "bakkeby";
+    repo = "slock-flexipatch";
+    rev = "f387ce4caf0cbde7707ba55da7cabd79c7e23c29";
+    hash = "sha256-mZLi7MoXnY7hUdIpQdlQV95DbFPVndSXSPXYi203a+w=";
+  };
 
   buildInputs = [
     libx11
@@ -27,6 +33,13 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   makeFlags = [ "CC:=$(CC)" ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "An slock build with preprocessor directives to decide which patches to include during build time";

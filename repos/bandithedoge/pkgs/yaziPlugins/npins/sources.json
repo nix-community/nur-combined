@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "73027118bb26ce290bebc9d38fe72a14469d9ec2",
-      "url": "https://github.com/AnirudhG07/archivemount.yazi/archive/73027118bb26ce290bebc9d38fe72a14469d9ec2.tar.gz",
-      "hash": "sha256-I5z7h5gm8zME4wKXbt1pFsDf6HzdJS+tkd6QqnVh2R8="
+      "revision": "f5c5c5c1a891b1c94372cdca44f3645d6f26bfe2",
+      "url": "https://github.com/AnirudhG07/archivemount.yazi/archive/f5c5c5c1a891b1c94372cdca44f3645d6f26bfe2.tar.gz",
+      "hash": "sha256-J+D4kmbtRcgYuLEOknAZ4pwWeJkxY3gpEDDfUTGUajA="
     },
     "augment-command.yazi": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "dd2d6cf07f81cef543e37883352e30b91634ec86",
-      "url": "https://github.com/hankertrix/augment-command.yazi/archive/dd2d6cf07f81cef543e37883352e30b91634ec86.tar.gz",
-      "hash": "sha256-sB2t3Gg+WdPG6OE8pD6VovD+x9nN21Jn8XydZZdTqCg="
+      "revision": "352dc37dd737792370e86b09099c1551162a5d43",
+      "url": "https://github.com/hankertrix/augment-command.yazi/archive/352dc37dd737792370e86b09099c1551162a5d43.tar.gz",
+      "hash": "sha256-PN8GE18MGYqpg8EdtCAH1cMRy1lFX9nA3y3lanmhY6E="
     },
     "exifaudio.yazi": {
       "type": "Git",
@@ -165,9 +165,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f46528243c458de3ffce38c44607d5a0cde67559",
-      "url": "https://github.com/kirasok/torrent-preview.yazi/archive/f46528243c458de3ffce38c44607d5a0cde67559.tar.gz",
-      "hash": "sha256-VhJvNRKHxVla4v2JJeSnP0MOMBFSm4k7gfqjrHOMVlo="
+      "revision": "d745df633a4a52f9621eeab46e74a54e8c056a56",
+      "url": "https://github.com/kirasok/torrent-preview.yazi/archive/d745df633a4a52f9621eeab46e74a54e8c056a56.tar.gz",
+      "hash": "sha256-nC8mIGB4wQftDMRXKprvF4SThNdvueCLQ8REiPs8HUY="
     },
     "video-ffmpeg.yazi": {
       "type": "Git",

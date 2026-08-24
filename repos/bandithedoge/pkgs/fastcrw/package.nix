@@ -1,18 +1,27 @@
 {
-  sources,
-
+  fetchFromGitHub,
+  nix-update-script,
   lib,
   rustPlatform,
 }:
-rustPlatform.buildRustPackage {
-  inherit (sources.fastcrw) pname src;
-  version = lib.removePrefix "v" sources.fastcrw.version;
-  cargoLock = sources.fastcrw.cargoLock."Cargo.lock";
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "fastcrw";
+  version = "0.31.0";
+  src = fetchFromGitHub {
+    owner = "us";
+    repo = "crw";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-xHB7LibVrWjM+X23ImIJC8yBDy5lBb8XR7wn7hXJ9aA=";
+  };
+
+  cargoHash = "sha256-SLXRifUKspCHfJ8jHUlTv9SvldtDgosOqLoxLhq7LU0=";
 
   checkFlags = [
     "--skip="
     "sitemap::tests::fetch_sitemap*"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Fast, lightweight Firecrawl alternative in Rust";
@@ -22,4 +31,4 @@ rustPlatform.buildRustPackage {
     mainProgram = "crw";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,14 +1,19 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   autoPatchelfHook,
   juceCmakeHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.showmidi-bin) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "showmidi-bin";
+  version = "1.0.1";
+  src = fetchzip {
+    url = "https://github.com/gbevin/ShowMIDI/releases/download/${finalAttrs.version}/ShowMIDI-Linux-Ubuntu-23.10-x64-${finalAttrs.version}.tar.bz2";
+    sha256 = "sha256-AcchQe2UAzDc9Ov3NswdpLzuZM+QVYI4AfmQSFdxDSM=";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -31,6 +36,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Multi-platform GUI application to effortlessly visualize MIDI activity";
     homepage = "https://github.com/gbevin/ShowMIDI";
@@ -40,4 +47,4 @@ stdenv.mkDerivation {
     mainProgram = "ShowMIDI";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -1,4 +1,0 @@
-[helion-bin]
-src.github_tag = "Helion-Engine/Helion"
-src.ignored = "0.9.9.2t"
-fetch.url = "https://github.com/Helion-Engine/Helion/releases/download/$ver/Helion-$ver-linux-x64_AOT.zip"

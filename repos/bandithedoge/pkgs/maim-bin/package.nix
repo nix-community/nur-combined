@@ -1,20 +1,23 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   autoPatchelfHook,
   juceCmakeHook,
-  unzip,
 }:
-stdenv.mkDerivation {
-  inherit (sources.maim-bin) pname version src;
-  sourceRoot = ".";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "maim-bin";
+  version = "1.1.1";
+  src = fetchzip {
+    url = "https://github.com/ArdenButterfield/Maim/releases/download/v${finalAttrs.version}/Maim-${finalAttrs.version}-Linux.zip";
+    sha256 = "sha256-2AoM5p9qP66bPceQEyWDFlLOOsH8e7dspyy3Lhz6EP8=";
+    stripRoot = false;
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
-    unzip
   ];
 
   buildInputs = juceCmakeHook.commonBuildInputs;
@@ -29,6 +32,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Audio plugin for custom MP3 distortion and digital glitches";
     homepage = "https://github.com/ArdenButterfield/Maim";
@@ -38,4 +43,4 @@ stdenv.mkDerivation {
     mainProgram = "Maim";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

@@ -11,7 +11,7 @@ builtins.foldl' pkgs.lib.recursiveUpdate all [
   (pkgs.lib.mapAttrsRecursive (
     old: new:
     pkgs.lib.warn "${concat old} has been renamed to ${concat new}" (pkgs.lib.attrByPath new null all)
-  ) (import ./_renamed.nix))
+  ) (pkgs.callPackage ./_renamed.nix { }))
 
   (pkgs.lib.mapAttrsRecursive (
     old: new:

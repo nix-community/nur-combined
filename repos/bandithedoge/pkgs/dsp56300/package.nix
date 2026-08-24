@@ -6,15 +6,23 @@
   enableVavra ? true,
   enableXenia ? true,
 
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   juceCmakeHook,
 }:
-stdenv.mkDerivation {
-  inherit (sources.dsp56300) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "dsp56300";
+  version = "2.2.9";
+  src = fetchFromGitHub {
+    owner = "dsp56300";
+    repo = "gearmulator";
+    rev = finalAttrs.version;
+    hash = "sha256-ro5g3458VrNtMBsuX1e2HK13OQfgB6wO3yHHnkGN0p4=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     juceCmakeHook
@@ -60,6 +68,8 @@ stdenv.mkDerivation {
 
   dontUseJuceInstall = true;
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Emulation of classic VA synths of the late 90s/2000s that are based on Motorola 56300 family DSPs";
     homepage = "https://dsp56300.wordpress.com/";
@@ -67,4 +77,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

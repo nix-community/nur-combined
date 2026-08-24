@@ -1,7 +1,7 @@
 {
-  sources,
-
+  fetchzip,
   lib,
+  nix-update-script,
   stdenv,
 
   alsa-lib,
@@ -11,8 +11,13 @@
   libuuid,
   qt5,
 }:
-stdenv.mkDerivation {
-  inherit (sources.mod-desktop-bin) pname version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "mod-desktop-bin";
+  version = "0.0.12";
+  src = fetchzip {
+    url = "https://github.com/mod-audio/mod-desktop/releases/download/${finalAttrs.version}/mod-desktop-${finalAttrs.version}-linux-x86_64.tar.xz";
+    sha256 = "sha256-MXGVgjjWuBy0bX528asX6pbR7ptQTHQy4Zd/GVgtQyo=";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -38,6 +43,8 @@ stdenv.mkDerivation {
 
   dontWrapQtApps = true;
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "MOD Audio for the desktop";
     homepage = "https://mod.audio/desktop/";
@@ -46,4 +53,4 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

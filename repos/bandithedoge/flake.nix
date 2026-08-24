@@ -53,6 +53,8 @@
               lib = import ./lib.nix { inherit (pkgs) lib; };
               allPackages = lib.flattenTree (import ./all.nix { inherit pkgs; });
 
+              sanitizeName = builtins.replaceStrings [ "/" ] [ "." ];
+
               isBuildable =
                 pkg:
                 (
@@ -74,6 +76,11 @@
               uncacheable = pkgs.lib.filterAttrs (
                 x: _: !builtins.elem x (builtins.attrNames cacheable)
               ) buildable;
+              updatable = map sanitizeName (
+                builtins.attrNames (
+                  pkgs.lib.filterAttrs (_: value: builtins.hasAttr "updateScript" value) buildable
+                )
+              );
             in
             import ./default.nix { inherit pkgs; }
             // {
@@ -81,6 +88,7 @@
               _CACHEABLE = cacheable;
               _UNCACHEABLE = uncacheable;
               _DUPES = import ./_dupes.nix { inherit pkgs; };
+              _UPDATABLE = updatable;
 
               _LIST = ''
                 - ✔️ - cached
@@ -95,7 +103,7 @@
                 let
                   name' =
                     let
-                      path = "`${builtins.replaceStrings [ "/" ] [ "." ] name}`";
+                      path = "`${sanitizeName name}`";
                       status =
                         if isCacheable value then
                           "✔️"

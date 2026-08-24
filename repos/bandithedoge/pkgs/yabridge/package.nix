@@ -1,31 +1,38 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
-  stdenv,
+  nix-update-script,
   rustPlatform,
+  stdenv,
   symlinkJoin,
 
+  asio,
+  dbus,
+  fetchpatch,
+  ghc_filesystem,
+  libxcb,
+  makeWrapper,
   meson,
   ninja,
   pkg-config,
-  wineWow64Packages,
-  libxcb,
-  asio,
-  dbus,
-  ghc_filesystem,
-  tomlplusplus,
-  breakpointHook,
-  fetchpatch,
   replaceVars,
-  makeWrapper,
+  tomlplusplus,
+  wineWow64Packages,
 }:
 let
   wine = wineWow64Packages.staging;
 
+  version = "5.1.1-unstable-2026-08-02";
+  src = fetchFromGitHub {
+    owner = "robbert-vdh";
+    repo = "yabridge";
+    rev = "b580a9f7fc46509767ca156d4f92872552b9e571";
+    hash = "sha256-TiKiyE3GZYCX1+vooHdD03fAhNQPAA1IzTfkG++I7TY=";
+  };
+
   yabridge = stdenv.mkDerivation {
-    inherit (sources.yabridge) pname src;
-    version = sources.yabridge.date;
+    pname = "yabridge";
+    inherit version src;
 
     patches = [
       (fetchpatch {
@@ -65,19 +72,48 @@ let
     ];
 
     postPatch = ''
-      cp -r --no-preserve=mode,ownership ${sources.bitsery.src} subprojects/bitsery
+      cp -r --no-preserve=mode,ownership ${
+        fetchFromGitHub {
+          owner = "fraillt";
+          repo = "bitsery";
+          rev = "v5.2.5";
+          hash = "sha256-f+qMhyUfQIqJC1r/rwtFV0+Sd04vCoOa7AkfgusDyG8=";
+        }
+      } subprojects/bitsery
       cp subprojects/packagefiles/bitsery/* subprojects/bitsery/
 
-      cp -r --no-preserve=mode,ownership ${sources.function2.src} subprojects/function2
+      cp -r --no-preserve=mode,ownership ${
+        fetchFromGitHub {
+          owner = "Naios";
+          repo = "function2";
+          rev = "4.2.5";
+          hash = "sha256-+a8+HHFmAUJouRlmoQyvluZcj3Ebpx2EWw6mMz8wx2o=";
+        }
+      } subprojects/function2
       cp subprojects/packagefiles/function2/* subprojects/function2/
 
       cp -r --no-preserve=mode,ownership ${ghc_filesystem.src} subprojects/ghc_filesystem
       cp subprojects/packagefiles/ghc_filesystem/* subprojects/ghc_filesystem/
 
-      cp -r --no-preserve=mode,ownership ${sources.clap.src} subprojects/clap
+      cp -r --no-preserve=mode,ownership ${
+        fetchFromGitHub {
+          owner = "free-audio";
+          repo = "clap";
+          rev = "1.1.9";
+          hash = "sha256-z2P0U2NkDK1/5oDV35jn/pTXCcspuM1y2RgZyYVVO3w=";
+        }
+      } subprojects/clap
       cp subprojects/packagefiles/clap/* subprojects/clap/
 
-      cp -r --no-preserve=mode,ownership ${sources.vst3.src} subprojects/vst3
+      cp -r --no-preserve=mode,ownership ${
+        fetchFromGitHub {
+          owner = "robbert-vdh";
+          repo = "vst3sdk";
+          rev = "v3.7.7_build_19-patched";
+          hash = "sha256-LsPHPoAL21XOKmF1Wl/tvLJGzjaCLjaDAcUtDvXdXSU=";
+          fetchSubmodules = true;
+        }
+      } subprojects/vst3
 
       patchShebangs .
     '';
@@ -100,9 +136,8 @@ let
 
   yabridgectl = rustPlatform.buildRustPackage {
     pname = "yabridgectl";
-    version = sources.yabridge.date;
-    inherit (sources.yabridge) src;
-    sourceRoot = "${sources.yabridge.src.name}/tools/yabridgectl";
+    inherit version src;
+    sourceRoot = "source/tools/yabridgectl";
 
     patches = [
       (fetchpatch {
@@ -115,9 +150,9 @@ let
       })
     ];
 
-    patchFlags = [ "-p3" ];
+    cargoHash = "sha256-VcBQxKjjs9ESJrE4F1kxEp4ah3j9jiNPq/Kdz/qPvro=";
 
-    cargoLock = sources.yabridge.cargoLock."tools/yabridgectl/Cargo.lock";
+    patchFlags = [ "-p3" ];
 
     nativeBuildInputs = [ makeWrapper ];
 
@@ -127,7 +162,8 @@ let
   };
 in
 symlinkJoin {
-  name = with sources.yabridge; "${pname}-${date}";
+  pname = "yabridge";
+  inherit version src;
 
   paths = [
     yabridge
@@ -137,6 +173,17 @@ symlinkJoin {
   passthru = {
     inherit yabridge yabridgectl wine;
     _ignoreDupe = true;
+
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "branch"
+        "--subpackage"
+        "yabridge"
+        "--subpackage"
+        "yabridgectl"
+      ];
+    };
   };
 
   meta = {

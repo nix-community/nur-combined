@@ -1,14 +1,23 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   nushell,
   rustPlatform,
 }:
-rustPlatform.buildRustPackage {
-  inherit (sources.nu-plugin-compress) pname version src;
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "nu-plugin-compress";
+  version = "0.2.5";
+  src = fetchFromGitHub {
+    owner = "yybit";
+    repo = "nu_plugin_compress";
+    rev = finalAttrs.version;
+    hash = "sha256-sm26bkBgZqPWaCUJxQqKiA8M/eROh6sCnIRrgxbJPTo=";
+  };
 
-  cargoLock = sources.nu-plugin-compress.cargoLock."Cargo.lock";
+  cargoHash = "sha256-HAnqF81WIDtrkpxlcXRgrp5qRl1PMj/dYBTjSaVpgkw=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Nushell plugin for compression and decompression, supporting zstd, gzip, bzip2, and xz";
@@ -18,4 +27,4 @@ rustPlatform.buildRustPackage {
     mainProgram = "nu_plugin_compress";
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})

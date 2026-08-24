@@ -1,16 +1,23 @@
 {
-  sources,
-
+  fetchFromGitHub,
   lib,
+  nix-update-script,
   stdenv,
 
   cargo,
   juceCmakeHook,
   rustPlatform,
 }:
-stdenv.mkDerivation {
-  inherit (sources.schrammel-ojd) pname src;
-  version = sources.schrammel-ojd.date;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "schrammel-ojd";
+  version = "0.9.8-unstable-2022-09-12";
+  src = fetchFromGitHub {
+    owner = "JanosGit";
+    repo = "Schrammel_OJD";
+    rev = "31de608759f3f03cadf8537f5330168977bae232";
+    sha256 = "sha256-lhPV/BmluHdRgJu/f9+qDfgbbqewIUIaAaYUTNp/m7c=";
+    fetchSubmodules = true;
+  };
 
   nativeBuildInputs = [
     cargo
@@ -19,9 +26,18 @@ stdenv.mkDerivation {
   ];
 
   cargoRoot = "Ext/Resvg4JUCE/Ext/resvg";
-  cargoDeps =
-    rustPlatform.importCargoLock
-      sources.schrammel-ojd.cargoLock."Ext/Resvg4JUCE/Ext/resvg/Cargo.lock";
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (finalAttrs) src;
+    sourceRoot = "source/" + finalAttrs.cargoRoot;
+    hash = "sha256-5xHs7SYiHzDPpONHgrzi0cKN+2UcHB9lh6SeswUIsa8=";
+  };
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch=develop"
+    ];
+  };
 
   meta = {
     description = "Audio plugin model of a modern classic guitar overdrive Pedal";
@@ -30,4 +46,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bandithedoge ];
   };
-}
+})
