@@ -12,4 +12,5 @@
   sheets = pkgs.callPackage ./pkgs/sheets {};
   fztea = pkgs.callPackage ./pkgs/fztea {};
   monitui = pkgs.callPackage ./pkgs/monitui {};
+  cheatmd = pkgs.callPackage ./pkgs/cheatmd {};
 }
