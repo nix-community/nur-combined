@@ -126,7 +126,10 @@ rec {
       '';
 
   mkRustScript =
-    { file }:
+    {
+      file,
+      withCompletions ? true,
+    }:
     let
       name = lib.removeSuffix ".rs" (lib.baseNameOf file);
 
@@ -159,6 +162,12 @@ rec {
       cargoLock = {
         lockFile = "${cargoDir}/Cargo.lock";
       };
+      nativeBuildInputs = [ pkgs.installShellFiles ];
+      postInstall = lib.optionalString withCompletions ''
+        installShellCompletion --cmd ${name} \
+          --bash <($out/bin/${name} completions bash) \
+          --zsh <($out/bin/${name} completions zsh)
+      '';
       doCheck = false;
       meta = {
         description = "${name} (rust-script)";
