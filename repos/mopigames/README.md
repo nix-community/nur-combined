@@ -184,6 +184,16 @@ The updater downloads the latest release ISO and a small Ed25519-signed
 manifest. It verifies the manifest, download size, and SHA-256 hash before it
 changes a partition; a bad or missing signature stops the update.
 
+The updater opens on a channel selector. **Stable** follows GitHub's latest
+normal release. **Beta** discovers the newest GitHub prerelease tag and then
+downloads that tag's signed manifest; drafts and ordinary releases are never
+selected by the Beta channel. The selected channel is saved in
+`moonlight-os.conf`, survives A/B updates and settings restore, and can be
+changed back at any time. Prerelease tags such as `v0.2.8-beta.1` are recorded
+inside the signed manifest while the installed version uses Debian ordering
+(`0.2.8~beta.1`), so the eventual `0.2.8` stable release correctly supersedes
+the beta.
+
 The running system is never rewritten. The new image goes into the inactive
 root slot, the machine settings are merged into it, and GRUB tries that slot
 once. A system that remains up for 90 seconds marks the new slot as the
@@ -197,9 +207,11 @@ network, Bluetooth, Tailscale, SSH identity, and the machine ID. Updates after
 that happen from the built-in menu.
 
 Tag releases produce `moonlight-os-update.txt` and its signature alongside the
-ISO. The repository secret `MLOS_UPDATE_SIGNING_KEY` holds the private Ed25519
-key; the matching public key is pinned in the image. Changing that key is a
-trust-root rotation and must be shipped in an already trusted image first.
+ISO. Tags containing a prerelease suffix are published as GitHub prereleases
+and remain invisible to Stable systems. The repository secret
+`MLOS_UPDATE_SIGNING_KEY` holds the private Ed25519 key; the matching public
+key is pinned in the image. Changing that key is a trust-root rotation and
+must be shipped in an already trusted image first.
 
 ## The menus
 

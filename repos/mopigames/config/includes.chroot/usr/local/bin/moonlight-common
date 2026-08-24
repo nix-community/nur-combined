@@ -36,6 +36,8 @@ mlos_load() {
 	NATURAL_SCROLL="no"
 	BATTERY_WARN="yes"
 	BATTERY_LEVELS="20 10 5"
+	# stable follows normal GitHub releases; beta follows signed prereleases.
+	UPDATE_CHANNEL="stable"
 	# USB passthrough through the active Selene/Helios session. The USB_HOST
 	# values are read only for one-release compatibility with the retired agent.
 	USB_AUTOSHARE="no"

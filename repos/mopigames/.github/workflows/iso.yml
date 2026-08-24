@@ -39,6 +39,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Resolve release version
+        id: release
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            tag="$GITHUB_REF_NAME"
+            version="${tag#v}"
+            version="${version/-alpha./~alpha.}"
+            version="${version/-beta./~beta.}"
+            version="${version/-rc./~rc.}"
+          else
+            tag=""
+            version="${{ inputs.os_version || '0~dev' }}"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
       # A stock runner has ~14 GB free on /, and the chroot plus squashfs
       # plus the ISO does not fit.  None of this is used by the build.
       - name: Free up disk space
@@ -92,7 +109,7 @@ jobs:
       - name: Build the ISO
         env:
           ISO_VERSION: ${{ inputs.iso_version || '6.2.1' }}
-          MLOS_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || inputs.os_version || '0~dev' }}
+          MLOS_VERSION: ${{ steps.release.outputs.version }}
           FIRMWARE: ${{ inputs.firmware || 'full' }}
           SSH_KEYS: ${{ steps.ssh.outputs.arg }}
           SELENE_SRC: ${{ github.workspace }}/selene
@@ -117,11 +134,12 @@ jobs:
         run: |
           [ -n "$SIGNING_KEY" ] || { echo "MLOS_UPDATE_SIGNING_KEY is not configured"; exit 1; }
           iso="${{ steps.iso.outputs.path }}"
-          version="${GITHUB_REF_NAME#v}"
+          version="${{ steps.release.outputs.version }}"
+          tag="${{ steps.release.outputs.tag }}"
           sha256="$(sha256sum "$iso" | awk '{ print $1 }')"
           size="$(wc -c < "$iso" | tr -d '[:space:]')"
-          printf 'format=1\nversion=%s\niso=%s\nsha256=%s\nsize=%s\n' \
-            "$version" "$(basename "$iso")" "$sha256" "$size" \
+          printf 'format=2\nversion=%s\ntag=%s\niso=%s\nsha256=%s\nsize=%s\n' \
+            "$version" "$tag" "$(basename "$iso")" "$sha256" "$size" \
             > out/moonlight-os-update.txt
           key="$RUNNER_TEMP/moonlight-os-update.pem"
           printf '%s\n' "$SIGNING_KEY" > "$key"
@@ -193,8 +211,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag="${GITHUB_REF_NAME}"
+          prerelease=""
+          case "$tag" in
+            *-alpha.*|*-beta.*|*-rc.*) prerelease="--prerelease" ;;
+          esac
           gh release view "$tag" >/dev/null 2>&1 \
-            || gh release create "$tag" --generate-notes --title "$tag"
+            || gh release create "$tag" --generate-notes --title "$tag" $prerelease
           gh release upload "$tag" \
             "${{ steps.iso.outputs.path }}" out/SHA256SUMS \
             out/moonlight-os-update.txt out/moonlight-os-update.txt.sig --clobber

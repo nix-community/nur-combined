@@ -22,6 +22,7 @@ jobs:
             python3 "$test"
           done
           python3 tools/test-updater-contract.py
+          python3 tools/test-updater-channel.py
           python3 tools/test-session-contract.py
       - name: Python syntax
         run: |

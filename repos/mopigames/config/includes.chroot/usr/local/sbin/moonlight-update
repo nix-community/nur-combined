@@ -7,8 +7,9 @@
 # consumed and the next boot returns to the previous slot.
 set -eu
 
-MANIFEST_URL=https://github.com/moonlight-os/moonlight-os/releases/latest/download/moonlight-os-update.txt
-SIGNATURE_URL=${MANIFEST_URL}.sig
+RELEASES_URL=https://github.com/moonlight-os/moonlight-os/releases
+RELEASES_API=https://api.github.com/repos/moonlight-os/moonlight-os/releases
+MANIFEST_NAME=moonlight-os-update.txt
 PUBLIC_KEY=/usr/share/moonlight-os/update.pub
 STATE_DIR=/var/lib/moonlight-os/update
 BOOT_DIR=/boot/moonlight
@@ -32,6 +33,8 @@ AVAILABLE_VERSION=""
 AVAILABLE_ISO=""
 AVAILABLE_SHA256=""
 AVAILABLE_SIZE=""
+AVAILABLE_TAG=""
+UPDATE_CHANNEL="stable"
 
 have_tty() { ( : > /dev/tty ) 2>/dev/null; }
 
@@ -114,6 +117,58 @@ release_version() {
 	sed -n 's/^VERSION=//p' /etc/moonlight-os/release 2>/dev/null | head -1
 }
 
+load_update_channel() {
+	channel=$(sed -n 's/^UPDATE_CHANNEL="\([^"]*\)"/\1/p' \
+		/etc/moonlight-os/moonlight-os.conf 2>/dev/null | tail -1)
+	case "$channel" in
+		beta) UPDATE_CHANNEL=beta ;;
+		*) UPDATE_CHANNEL=stable ;;
+	esac
+}
+
+save_update_channel() {
+	channel="$1"
+	case "$channel" in
+		stable|beta) ;;
+		*) die "The update channel must be stable or beta." ;;
+	esac
+	# shellcheck disable=SC1091
+	. /usr/local/bin/moonlight-common
+	mlos_set UPDATE_CHANNEL "$channel" \
+		|| die "The update channel could not be saved."
+	UPDATE_CHANNEL="$channel"
+}
+
+discover_release() {
+	load_update_channel
+	case "$UPDATE_CHANNEL" in
+		stable)
+			AVAILABLE_TAG=""
+			MANIFEST_URL="$RELEASES_URL/latest/download/$MANIFEST_NAME"
+			;;
+		beta)
+			json=$(curl --proto '=https' --tlsv1.2 -fsSL --retry 3 \
+				-H 'Accept: application/vnd.github+json' \
+				-H 'User-Agent: moonlight-os-updater' \
+				"$RELEASES_API?per_page=20") \
+				|| die "Could not check the Beta channel.\n\nCheck the network connection and try again."
+			AVAILABLE_TAG=$(printf '%s' "$json" | python3 -c \
+				'import json,sys; releases=json.load(sys.stdin); print(next((r["tag_name"] for r in releases if r.get("prerelease") and not r.get("draft")), ""))') \
+				|| die "GitHub returned an invalid release list. Nothing was changed."
+			case "$AVAILABLE_TAG" in
+				v[0-9]*-*) ;;
+				'') die "There is no Moonlight OS prerelease available right now." ;;
+				*) die "GitHub returned an invalid prerelease tag. Nothing was changed." ;;
+			esac
+			case "$AVAILABLE_TAG" in
+				v*[!0-9A-Za-z._-]*) die "GitHub returned an invalid prerelease tag. Nothing was changed." ;;
+			esac
+			MANIFEST_URL="$RELEASES_URL/download/$AVAILABLE_TAG/$MANIFEST_NAME"
+			;;
+	esac
+	SIGNATURE_URL=${MANIFEST_URL}.sig
+}
+
 manifest_value() {
 	key="$1"
 	sed -n "s/^${key}=//p" "$WORK/manifest" | head -1
@@ -124,6 +179,7 @@ fetch_release() {
 	chmod 0700 "$STATE_DIR"
 	WORK=$(mktemp -d "$STATE_DIR/work.XXXXXX")
 
+	discover_release
 	curl --proto '=https' --tlsv1.2 -fsSL --retry 3 \
 		-o "$WORK/manifest" "$MANIFEST_URL" \
 		|| die "Could not check for updates.\n\nCheck the network connection and try again."
@@ -137,13 +193,35 @@ fetch_release() {
 		|| die "The update metadata has an invalid signature.\n\nNothing was downloaded or installed."
 
 	[ "$(grep -c '^format=' "$WORK/manifest")" -eq 1 ] \
-		&& [ "$(manifest_value format)" = 1 ] \
 		|| die "The signed update metadata uses an unsupported format."
+	manifest_format=$(manifest_value format)
+	case "$manifest_format" in
+		1|2) ;;
+		*) die "The signed update metadata uses an unsupported format." ;;
+	esac
 
 	AVAILABLE_VERSION=$(manifest_value version)
 	AVAILABLE_ISO=$(manifest_value iso)
 	AVAILABLE_SHA256=$(manifest_value sha256)
 	AVAILABLE_SIZE=$(manifest_value size)
+	if [ "$manifest_format" -eq 2 ]; then
+		manifest_tag=$(manifest_value tag)
+		case "$manifest_tag" in
+			v[0-9]*) ;;
+			*) die "The signed update release tag is invalid." ;;
+		esac
+		case "$manifest_tag" in
+			v*[!0-9A-Za-z._-]*) die "The signed update release tag is invalid." ;;
+		esac
+		if [ -n "$AVAILABLE_TAG" ] && [ "$manifest_tag" != "$AVAILABLE_TAG" ]; then
+			die "The signed update metadata does not match the selected prerelease. Nothing was changed."
+		fi
+		AVAILABLE_TAG="$manifest_tag"
+	else
+		[ "$UPDATE_CHANNEL" = stable ] \
+			|| die "This prerelease uses obsolete update metadata. Nothing was changed."
+		AVAILABLE_TAG="v${AVAILABLE_VERSION}"
+	fi
 
 	case "$AVAILABLE_VERSION" in
 		[0-9]*[!0-9A-Za-z.+:~_-]*|[!0-9]*|'') die "The signed update version is invalid." ;;
@@ -176,7 +254,7 @@ download_iso() {
 			"Downloading Moonlight OS $AVAILABLE_VERSION...\n\nThis can take a few minutes." \
 			9 68 >/dev/tty 2>/dev/tty
 	fi
-	url="https://github.com/moonlight-os/moonlight-os/releases/download/v${AVAILABLE_VERSION}/${AVAILABLE_ISO}"
+	url="$RELEASES_URL/download/${AVAILABLE_TAG}/${AVAILABLE_ISO}"
 	curl --proto '=https' --tlsv1.2 -fL --retry 3 --progress-bar \
 		-o "$WORK/system.iso" "$url" \
 		|| die "The Moonlight OS image could not be downloaded. Nothing was changed."
@@ -349,10 +427,51 @@ confirm_boot() {
 
 show_status() {
 	detect_layout
+	load_update_channel
 	current=$(release_version)
-	printf 'version=%s\nslot=%s\nroot=%s\ninactive=%s\n' \
-		"${current:-unknown}" "$CURRENT_SLOT" "$ROOT_DEV" "$INACTIVE_DEV"
+	printf 'version=%s\nchannel=%s\nslot=%s\nroot=%s\ninactive=%s\n' \
+		"${current:-unknown}" "$UPDATE_CHANNEL" "$CURRENT_SLOT" "$ROOT_DEV" "$INACTIVE_DEV"
 	[ -r "$STATE_DIR/status" ] && cat "$STATE_DIR/status"
+}
+
+channel_menu() {
+	load_update_channel
+	stable_description="Stable releases"
+	beta_description="Beta prereleases"
+	if [ "$UPDATE_CHANNEL" = beta ]; then
+		beta_description="$beta_description (current)"
+	else
+		stable_description="$stable_description (current)"
+	fi
+	choice=$(whiptail --title "Moonlight OS update channel" --menu \
+		"Stable receives normal releases. Beta receives signed prereleases for on-device testing. You can switch back at any time." \
+		18 76 2 \
+		stable "$stable_description" \
+		beta "$beta_description" \
+		3>&1 1>&2 2>&3) || return 0
+	save_update_channel "$choice"
+	message "Update channel saved: $(printf '%s' "$UPDATE_CHANNEL" | awk '{ print toupper(substr($0,1,1)) substr($0,2) }')."
+}
+
+main_menu() {
+	require_root
+	have_tty || { update_menu; return; }
+	while :; do
+		load_update_channel
+		label=$(printf '%s' "$UPDATE_CHANNEL" | awk '{ print toupper(substr($0,1,1)) substr($0,2) }')
+		choice=$(whiptail --title "Moonlight OS update" --menu \
+			"Installed updates use the inactive A/B slot and keep the current system available for rollback." \
+			17 76 3 \
+			check "Check the $label channel for updates" \
+			channel "Update channel: $label" \
+			back "Back" \
+			3>&1 1>&2 2>&3) || return 0
+		case "$choice" in
+			check) update_menu; return ;;
+			channel) channel_menu ;;
+			*) return ;;
+		esac
+	done
 }
 
 update_menu() {
@@ -388,8 +507,9 @@ update_menu() {
 }
 
 case "${1:---menu}" in
-	--menu)         update_menu ;;
+	--menu)         main_menu ;;
 	--confirm-boot) confirm_boot ;;
 	--status)       require_root; show_status ;;
-	*) printf 'usage: moonlight-update [--menu|--status|--confirm-boot]\n' >&2; exit 2 ;;
+	--set-channel)  require_root; [ "$#" -eq 2 ] || die "Choose stable or beta."; save_update_channel "$2" ;;
+	*) printf 'usage: moonlight-update [--menu|--status|--confirm-boot|--set-channel stable|beta]\n' >&2; exit 2 ;;
 esac

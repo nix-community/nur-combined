@@ -60,9 +60,22 @@ for asset in ("moonlight-os-update.txt", "moonlight-os-update.txt.sig"):
     assert asset in workflow
 assert "moonlight-os-update.txt" in updater
 assert "SIGNATURE_URL=${MANIFEST_URL}.sig" in updater
+assert "UPDATE_CHANNEL" in updater
+assert "UPDATE_CHANNEL=\"stable\"" in text(
+    "config/includes.chroot/etc/moonlight-os/moonlight-os.conf"
+)
+assert "r.get(\"prerelease\") and not r.get(\"draft\")" in updater
+assert 'MANIFEST_URL="$RELEASES_URL/download/$AVAILABLE_TAG/$MANIFEST_NAME"' in updater
+assert 'url="$RELEASES_URL/download/${AVAILABLE_TAG}/${AVAILABLE_ISO}"' in updater
+assert 'manifest_tag=$(manifest_value tag)' in updater
+assert 'manifest_tag" != "$AVAILABLE_TAG' in updater
+assert "format=2\\nversion=%s\\ntag=%s" in workflow
+assert "${version/-beta./~beta.}" in workflow
+assert '--prerelease' in workflow
 
 assert "MLOS_UPDATE_SIGNING_KEY" in workflow
 assert os.stat(updater_path).st_mode & 0o111
+assert os.stat(ROOT / "tools/test-updater-channel.py").st_mode & 0o111
 assert os.stat(grub_path).st_mode & 0o111
 assert os.stat(slot_sync_path).st_mode & 0o111
 
