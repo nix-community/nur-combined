@@ -56,6 +56,9 @@
   "vfs-demo": {
     "description": "Plugin that demonstrates the new [custom VFS provider](https://github.com/sxyazi/yazi/pull/4118) (nightly only)"
   },
+  "visual-pivot": {
+    "description": "Vim-like `o` for Yazi visual selections"
+  },
   "zoom": {
     "description": "Enlarge or shrink the preview image of a file, which is useful for magnifying small files for viewing"
   }
