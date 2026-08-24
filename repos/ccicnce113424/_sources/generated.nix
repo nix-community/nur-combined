@@ -244,16 +244,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.8-beta.2";
+    version = "v3.9.8-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.8-beta.2";
+      rev = "v3.9.8-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-QWYf75u4dUpaOgIheiQgylF/UqmltS/cCb/XP0lMymI=";
+      sha256 = "sha256-L0gzYq96xgxNN+KLDz6A72yRvCTRRjv4iQ+rJakGmgk=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-QWYf75u4dUpaOgIheiQgylF_UqmltS_cCb_XP0lMymI=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-L0gzYq96xgxNN+KLDz6A72yRvCTRRjv4iQ+rJakGmgk=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
