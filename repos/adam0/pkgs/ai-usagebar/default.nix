@@ -8,16 +8,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "ai-usagebar";
-  version = "1.4.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "akitaonrails";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-K1Ch+13kFXzNZh5vm/fKMiQrCKFuPMFoIXCpK6DkHx8=";
+    hash = "sha256-QAgly1U8cZ5mVEWTlQXOxELxERlH2Ocw0Ud8aBsogsw=";
   };
 
-  cargoHash = "sha256-MoFkNt78SyzgZJwrI3+WTlimelK6AXhKSdTQTXMLH0o=";
+  cargoHash = "sha256-PfUOlXovUItOE1nTXZN0Hsu0l/7qTyHWtw7UZroa3Jk=";
 
   postPatch = ''
     substituteInPlace src/claude_desktop/app.rs \
