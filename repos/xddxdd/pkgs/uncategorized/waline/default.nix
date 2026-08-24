@@ -8,14 +8,14 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "waline";
-  version = "1.41.4";
+  version = "1.41.5";
   src = fetchurl {
     url = "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.4.tgz";
     hash = "sha256-7zU5WOzvftX0gdok1eYgTQ/CuCIEEle/ZC2oxqvmUng=";
   };
   sourceRoot = "package";
 
-  npmDepsHash = "sha256-eaxQHFtOssPTrQxlkbdWb0ds2Q5GVtz0kigD9RoxvXk=";
+  npmDepsHash = "sha256-O2Ralzuyt8AUJxhe1Gqlv2vRpSKtUGNTO3JFXmIg6QU=";
 
   patches = [ ./runtime-path.patch ];
 

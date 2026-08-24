@@ -74,7 +74,7 @@ Or, use variables from this repository in case I change them:
 |  | `axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
 |  | `axonhub` | [axonhub](https://github.com/looplj/axonhub) | 0.9.43 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
 | `x86_64-linux` | `baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.6.0 | Baidu Netdisk |
-|  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.2-unstable-2026-08-22 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
+|  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.2-unstable-2026-08-24 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
 |  | `bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.11 | High-performance AI gateway with unified OpenAI-compatible API |
 |  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.18.0-1 | Desktop client for Bilibili |
@@ -89,7 +89,7 @@ Or, use variables from this repository in case I change them:
 |  | `cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 | `x86_64-linux` | `cleanuparr` | [cleanuparr](https://github.com/Cleanuparr/Cleanuparr) | 2.10.5 | Advanced download manager for the Servarr ecosystem |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.140 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.141 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | cryptodev-linux-1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
@@ -129,7 +129,7 @@ Or, use variables from this repository in case I change them:
 |  | `flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.57-1 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `funasr` | [funasr](https://www.funasr.com/) | 1.4.3-unstable-2026-08-21 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `funasr` | [funasr](https://www.funasr.com/) | 1.4.3-unstable-2026-08-24 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.08.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.5.2 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1155 | World sphere viewer |
@@ -266,7 +266,7 @@ Or, use variables from this repository in case I change them:
 |  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-08-05 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `vlmcsd` | [vlmcsd](https://github.com/Wind4/vlmcsd) | svn1113-unstable-2023-07-28 | KMS Emulator in C |
 |  | `vuetorrent-backend` | [vuetorrent-backend](https://github.com/VueTorrent/vuetorrent-backend) | 2.7.3 | Simple backend service to store configuration server-side |
-|  | `waline` | [waline](https://github.com/walinejs/waline) | 1.41.4 | Server for the Waline comment system |
+|  | `waline` | [waline](https://github.com/walinejs/waline) | 1.41.5 | Server for the Waline comment system |
 |  | `wechat-uos-sandboxed` | [wechat-uos](https://weixin.qq.com/) | 4.1.1.7 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.57 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
@@ -1147,8 +1147,7 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `openjdk-adoptium.jdk-bin-11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jdk-bin-11_0_16_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.16.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.32.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_17_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.17_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_18_10` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.18_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_19_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.19_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1165,10 +1164,11 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-11_0_29_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.29_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_30_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.30_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_31_11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.31_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-11_0_32_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.32.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_32_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-16` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-16_0_2_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
-| `x86_64-linux` | `openjdk-adoptium.jdk-bin-17` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-17` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_10_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.10_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_11_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.11_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_12_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1179,7 +1179,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-17_0_17_10` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.17_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_18_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.18_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_19_10` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.19_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
-| `x86_64-linux` | `openjdk-adoptium.jdk-bin-17_0_20_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-17_0_20_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_20_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.20_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_4_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.4.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_5_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.5_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1212,8 +1212,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-8u482_b08` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u482-b08_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u492_b09` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u492-b09_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u502_b07` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u502-b07_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-11_0_16_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.16.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.32.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_17_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.17_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_18_10` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.18_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_19_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.19_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1230,8 +1229,9 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jre-bin-11_0_29_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.29_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_30_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.30_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_31_11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.31_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-11_0_32_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.32.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_32_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
-| `x86_64-linux` | `openjdk-adoptium.jre-bin-17` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-17` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_10_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.10_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_11_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.11_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_12_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1242,7 +1242,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jre-bin-17_0_17_10` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.17_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_18_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.18_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_19_10` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.19_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
-| `x86_64-linux` | `openjdk-adoptium.jre-bin-17_0_20_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-17_0_20_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.20.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_20_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.20_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_4_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.4.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_5_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.5_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1294,7 +1294,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.drissionpage` | [drissionpage](https://github.com/g1879/DrissionPage) | 4.1.1.4 | Python based web automation tool |
 |  | `python3Packages.drissionrecord` | [drissionrecord](https://gitcode.com/g1879/DrissionRecord) | 2.0.1 | Python data recording toolkit |
 |  | `python3Packages.edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.8 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 1.4.3-unstable-2026-08-21 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 1.4.3-unstable-2026-08-24 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.kb-manager` | [kb-manager](https://github.com/dubh3124/OpenWebUI-KB-Manager) | 0.2.0 | Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | RoBERTa-large-unstable-2024-12-17 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
@@ -1335,7 +1335,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
 |  | `uncategorized.axonhub` | [axonhub](https://github.com/looplj/axonhub) | 0.9.43 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.6.0 | Baidu Netdisk |
-|  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.2-unstable-2026-08-22 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
+|  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.2-unstable-2026-08-24 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
 |  | `uncategorized.bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.11 | High-performance AI gateway with unified OpenAI-compatible API |
 |  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.18.0-1 | Desktop client for Bilibili |
@@ -1349,7 +1349,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 | `x86_64-linux` | `uncategorized.cleanuparr` | [cleanuparr](https://github.com/Cleanuparr/Cleanuparr) | 2.10.5 | Advanced download manager for the Servarr ecosystem |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.140 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.141 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-08 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 2.1.0 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
@@ -1483,7 +1483,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-08-05 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `uncategorized.vlmcsd` | [vlmcsd](https://github.com/Wind4/vlmcsd) | svn1113-unstable-2023-07-28 | KMS Emulator in C |
 |  | `uncategorized.vuetorrent-backend` | [vuetorrent-backend](https://github.com/VueTorrent/vuetorrent-backend) | 2.7.3 | Simple backend service to store configuration server-side |
-|  | `uncategorized.waline` | [waline](https://github.com/walinejs/waline) | 1.41.4 | Server for the Waline comment system |
+|  | `uncategorized.waline` | [waline](https://github.com/walinejs/waline) | 1.41.5 | Server for the Waline comment system |
 |  | `uncategorized.wechat-uos-sandboxed` | [wechat-uos](https://weixin.qq.com/) | 4.1.1.7 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `uncategorized.wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.57 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `uncategorized.wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
