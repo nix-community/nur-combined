@@ -37,16 +37,16 @@
 
 let
   pname = "chatgpt";
-  version = "26.803.81509";
+  version = "26.818.61809";
 
   allArchives = {
     x86_64-linux = {
       url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb";
-      hash = "sha256-qb+Ro2j598Tuo4CCqfuPtGuNAFtxmm13FdLloZgsOOs=";
+      hash = "sha256-G7piptvS1Jl1xihQ2O3arWBdoZNVexlJgiJeVrGUGJE=";
     };
     aarch64-linux = {
       url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_arm64.deb";
-      hash = "sha256-84/MGU7KmrAyfcEMkjQGgernfF11Fk33ADhM4q2sy8E=";
+      hash = "sha256-pTjqsI/5y1DYyDRx07SR3TxEp5lTofioDsVKK9sloTo=";
     };
   };
 
