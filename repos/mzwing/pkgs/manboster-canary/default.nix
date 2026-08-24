@@ -1,9 +1,11 @@
 {
   lib,
   buildGoApplication,
+  libffi,
   source,
+  stdenv,
 }:
-import ../manboster/package.nix {inherit lib buildGoApplication;} {
+import ../manboster/package.nix {inherit lib buildGoApplication libffi stdenv;} {
   inherit source;
   modules = ./gomod2nix.toml;
   version = "0-unstable-${source.date}";

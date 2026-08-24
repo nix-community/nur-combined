@@ -3,6 +3,8 @@
 {
   lib,
   buildGoApplication,
+  libffi,
+  stdenv,
 }: {
   source,
   modules,
@@ -21,6 +23,9 @@
     else "stable",
 }: let
   ldflagPrefix = "-X github.com/manboster/manboster/${releasePkg}";
+
+  # nixpkgs keeps this unversioned symlink in libffi's default output; see pkgs/by-name/jf/jffi.
+  libffiPath = "${lib.getLib libffi}/lib/libffi${stdenv.hostPlatform.extensions.sharedLibrary}";
 in
   buildGoApplication {
     inherit (source) pname src;
@@ -34,6 +39,10 @@ in
     # Share the CGO setting with gomod2nix's dependency cache.
     CGO_ENABLED = "0";
 
+    # `jupiterrider/ffi` ships a libffi that its own init unpacks into the user cache directory,
+    # which both defeats the `-X` below and leaves an unmanaged copy outside the store.
+    tags = ["ffi_no_embed"];
+
     # `Version` is a const, so `-X` cannot reach it; rewrite the literal instead.
     # A silent no-op cannot slip through: installCheckPhase asserts the result.
     postPatch = lib.optionalString (versionFile != null) ''
@@ -46,6 +55,9 @@ in
       "-w"
       "${ldflagPrefix}.BuildCommit=${source.src.rev}"
       "${ldflagPrefix}.CurrentChannel=${channel}"
+      # `jupiterrider/ffi` dlopens libffi from a package init, so a bare soname would resolve only by luck.
+      # It looks the name up in a package-level var rather than a const, which is what lets `-X` reach it.
+      "-X github.com/jupiterrider/ffi.filename=${libffiPath}"
     ];
 
     doCheck = true;

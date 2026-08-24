@@ -16,5 +16,9 @@ EOF
 
 nix run .#update-sources
 nix run .#update-lockfiles
+# TEMPORARY: wsrx 0.6.1 was committed to _sources by hand without regenerating the Cargo.nix files.
+# update-lockfiles only compares _sources against HEAD, so it sees no change and skips them forever.
+# Remove this once a run has committed the regenerated Cargo.nix files.
+nix run .#update-lockfiles -- wsrx wsrx-desktop
 nix run .#update-pins
 nix run .#update-hashes
