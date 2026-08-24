@@ -5,7 +5,6 @@
   fetchFromGitHub,
 
   jq,
-  restic,
 
   nix-update-script,
   runCommand,
@@ -13,7 +12,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-restic-exporter";
-  version = "1.0.4";
+  version = "2.0.0";
 
   outputs = [
     "out"
@@ -24,22 +23,16 @@ buildGoModule (finalAttrs: {
     owner = "josh";
     repo = "restic-exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0SpaaBX+0osdq/zJJc6wBjqH9hIXCNQ8rGVstrX8bdM=";
+    hash = "sha256-OvEBCcLcXRcBv/qejgPn1/KsToiaOMCi6oT97qcuTno=";
   };
 
-  vendorHash = "sha256-YtsKf5Jq+heotIhCV219PzTx6z5TueU1U+9XAlL4Nt0=";
+  vendorHash = "sha256-HgB+zjf7V2VsEntyMOT6ZItnNXSRUc+wXgftV0LIb80=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
     "-s"
     "-w"
     "-X main.version=${finalAttrs.version}"
-    "-X main.resticBinary=${lib.meta.getExe restic}"
-    "-X main.resticVersion=${restic.version}"
-  ];
-
-  nativeCheckInputs = [
-    restic
   ];
 
   postInstall =
@@ -68,16 +61,6 @@ buildGoModule (finalAttrs: {
           restic-exporter --help
           touch $out
         '';
-
-    restic-path = runCommand "test-prometheus-restic-exporter-restic-path" { } ''
-      grep --text --quiet "${lib.meta.getExe restic}" "${lib.meta.getExe finalAttrs.finalPackage}"
-      touch $out
-    '';
-
-    restic-version = runCommand "test-prometheus-restic-exporter-restic-version" { } ''
-      grep --text --quiet "${restic.version}" "${lib.meta.getExe finalAttrs.finalPackage}"
-      touch $out
-    '';
 
     grafana-json =
       runCommand "test-prometheus-restic-exporter-grafana-json"
