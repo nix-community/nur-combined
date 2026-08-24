@@ -26,6 +26,7 @@ let
     meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
       description = "Firefox with anti fingerprinting modifications";
+      homepage = "https://github.com/feder-cr/firefox_antidetect_patch";
       platforms = lib.platforms.unix;
       broken = stdenv.buildPlatform.is32bit;
       maxSilent = 21600; # 6h for PGO build (c.f. #129212, #129115)
