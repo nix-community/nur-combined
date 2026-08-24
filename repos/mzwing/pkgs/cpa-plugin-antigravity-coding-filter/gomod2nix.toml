@@ -1,0 +1,22 @@
+schema = 4
+
+[mod]
+  [mod.'github.com/router-for-me/CLIProxyAPI/v7']
+    version = 'v7.2.16'
+    hash = 'sha256-WtVC6m7w8gRFq9WE0BKLJ2+qTO36lpntLXpLOsST0a4='
+
+  [mod.'gopkg.in/yaml.v3']
+    version = 'v3.0.1'
+    hash = 'sha256-FqL9TKYJ0XkNwJFnq9j0VvJ5ZUU1RvH/52h/f5bkYAU='
+
+[cacheModules]
+  [cacheModules.'github.com/router-for-me/CLIProxyAPI/v7']
+    packages = [
+      'github.com/router-for-me/CLIProxyAPI/v7/sdk/pluginabi',
+      'github.com/router-for-me/CLIProxyAPI/v7/sdk/pluginapi'
+    ]
+
+  [cacheModules.'gopkg.in/yaml.v3']
+    packages = [
+      'gopkg.in/yaml.v3'
+    ]

@@ -41,13 +41,13 @@
   };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
-    version = "v7.2.127-6";
+    version = "v7.2.127-7";
     src = fetchFromGitHub {
       owner = "kaitranntt";
       repo = "CLIProxyAPIPlus";
-      rev = "v7.2.127-6";
+      rev = "v7.2.127-7";
       fetchSubmodules = false;
-      sha256 = "sha256-QJdsh6n3QR/T9QEWduktLMLvIDvKxLPpqVuyPZzQ4pM=";
+      sha256 = "sha256-T4SmrOM98U4WoDM1U01OFEd9LvfVRf+dTa+Z+FQH2AM=";
     };
   };
   codegraph = {
@@ -59,6 +59,17 @@
       rev = "v1.5.0";
       fetchSubmodules = false;
       sha256 = "sha256-PPPOp4goz154esdUJYMu20Lby3QObsEt5z5k+9CSjwk=";
+    };
+  };
+  cpa-plugin-antigravity-coding-filter = {
+    pname = "cpa-plugin-antigravity-coding-filter";
+    version = "v0.2.0";
+    src = fetchFromGitHub {
+      owner = "jellyfish-p";
+      repo = "cpa-plugin-antigravity-coding-filter";
+      rev = "v0.2.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-loSHmRuAy6xSWPLY4xRuHMauF0b1GmEettvpGr8SdBE=";
     };
   };
   getopts-fish = {
@@ -132,17 +143,62 @@
       sha256 = "sha256-+IlqvShDNz5h4TllGZ9/+NeNy79AvUASE8eaqlKcZC4=";
     };
   };
+  manboster = {
+    pname = "manboster";
+    version = "v0.2.3";
+    src = fetchFromGitHub {
+      owner = "manboster";
+      repo = "manboster";
+      rev = "v0.2.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-zuz2DTIF2VOLRs0bK33pXhZlQsv6i10LLpkTI2HmLds=";
+    };
+  };
+  manboster-beta = {
+    pname = "manboster-beta";
+    version = "v0.2.3";
+    src = fetchFromGitHub {
+      owner = "manboster";
+      repo = "manboster";
+      rev = "v0.2.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-zuz2DTIF2VOLRs0bK33pXhZlQsv6i10LLpkTI2HmLds=";
+    };
+  };
+  manboster-canary = {
+    pname = "manboster-canary";
+    version = "8408e39ba8392ed10de24c14db89568899007092";
+    src = fetchFromGitHub {
+      owner = "manboster";
+      repo = "manboster";
+      rev = "8408e39ba8392ed10de24c14db89568899007092";
+      fetchSubmodules = false;
+      sha256 = "sha256-sXH49LA/WtT8R8Ht48XKhyKgPAJawWBzHYAOLt6xBeE=";
+    };
+    date = "2026-07-24";
+  };
+  manboster-rc = {
+    pname = "manboster-rc";
+    version = "v0.2.3";
+    src = fetchFromGitHub {
+      owner = "manboster";
+      repo = "manboster";
+      rev = "v0.2.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-zuz2DTIF2VOLRs0bK33pXhZlQsv6i10LLpkTI2HmLds=";
+    };
+  };
   pumpkin = {
     pname = "pumpkin";
-    version = "5fd0933c1cbb4e181db76d83c8d68788e34982c3";
+    version = "8be5ed1e58567b3fb443894c4e587393adce4550";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "5fd0933c1cbb4e181db76d83c8d68788e34982c3";
+      rev = "8be5ed1e58567b3fb443894c4e587393adce4550";
       fetchSubmodules = true;
-      sha256 = "sha256-+NfBtXNrsBVSOTMoF3BKT9R4VpB90NKhg2dh+qxJdzQ=";
+      sha256 = "sha256-HaNM4068nCAsJWBuXLx4ebFxnCToC+qQXx6pJFF3DHw=";
     };
-    date = "2026-08-23";
+    date = "2026-08-24";
   };
   replay-fish = {
     pname = "replay-fish";
@@ -204,24 +260,24 @@
   };
   wsrx = {
     pname = "wsrx";
-    version = "0.6.0";
+    version = "0.6.1";
     src = fetchFromGitHub {
       owner = "XDSEC";
       repo = "WebSocketReflectorX";
-      rev = "0.6.0";
+      rev = "0.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-faRMhSOEy6sX4P9NuHEgBkgcsBWwv+7X3gcQ3K9dCw4=";
+      sha256 = "sha256-hjFc0IC1faGOiwRxRTyuBZpl7jKAuNynHiAT143iR6U=";
     };
   };
   wsrx-desktop = {
     pname = "wsrx-desktop";
-    version = "0.6.0";
+    version = "0.6.1";
     src = fetchFromGitHub {
       owner = "XDSEC";
       repo = "WebSocketReflectorX";
-      rev = "0.6.0";
+      rev = "0.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-faRMhSOEy6sX4P9NuHEgBkgcsBWwv+7X3gcQ3K9dCw4=";
+      sha256 = "sha256-hjFc0IC1faGOiwRxRTyuBZpl7jKAuNynHiAT143iR6U=";
     };
   };
 }

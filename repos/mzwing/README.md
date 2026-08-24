@@ -14,11 +14,16 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `bakamusic` | [Usage](https://github.com/Zencok/BakaMusic) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
+| `cpa-plugin-antigravity-coding-filter` | [Usage](https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter) |
 | `getopts-fish` | [Usage](https://github.com/jorgebucaran/getopts.fish) |
 | `gryph` | [Usage](https://github.com/safedep/gryph) |
 | `haru` | [Usage](https://github.com/HyacinthHaru/haru) |
 | `hfd` | [Usage](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) |
 | `icalingua++` | [Usage](https://github.com/Icalingua-plus-plus/Icalingua-plus-plus) |
+| `manboster` | [Usage](https://github.com/manboster/manboster) |
+| `manboster-beta` | [Usage](https://github.com/manboster/manboster) |
+| `manboster-canary` | [Usage](https://github.com/manboster/manboster) |
+| `manboster-rc` | [Usage](https://github.com/manboster/manboster) |
 | `pumpkin` | [Usage](https://github.com/Pumpkin-MC/Pumpkin) |
 | `replay-fish` | [Usage](https://github.com/jorgebucaran/replay.fish) |
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |

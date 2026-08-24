@@ -110,7 +110,10 @@
             if [[ "$new_entry" == "null" ]]; then
               echo "Note: $attr has no source in _sources/generated.json; cannot detect changes, regenerating anyway" >&2
             elif ! source_changed "$attr"; then
-              continue
+              # Always replace placeholder locks lacking real module entries.
+              if grep --quiet '^\s*\[mod\.' "$toml"; then
+                continue
+              fi
             fi
           fi
           echo "Regenerating gomod2nix.toml for $attr"

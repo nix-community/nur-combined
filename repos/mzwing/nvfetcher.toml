@@ -23,6 +23,11 @@ fetch.github = "colbymchenry/codegraph"
 src.github_tag = "colbymchenry/codegraph"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[cpa-plugin-antigravity-coding-filter]
+fetch.github = "jellyfish-p/cpa-plugin-antigravity-coding-filter"
+src.github_tag = "jellyfish-p/cpa-plugin-antigravity-coding-filter"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
 [getopts-fish]
 src.git = "https://github.com/jorgebucaran/getopts.fish"
 src.branch = "main"
@@ -52,6 +57,29 @@ src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 fetch.github = "Icalingua-plus-plus/Icalingua-plus-plus"
 src.github_tag = "Icalingua-plus-plus/Icalingua-plus-plus"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
+[manboster]
+fetch.github = "manboster/manboster"
+src.github_tag = "manboster/manboster"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.sort_version_key = "parse_version"
+
+[manboster-beta]
+fetch.github = "manboster/manboster"
+src.github_tag = "manboster/manboster"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-(beta|rc)(\\.?[0-9]+)?)?$"
+src.sort_version_key = "parse_version"
+
+[manboster-canary]
+src.git = "https://github.com/manboster/manboster"
+src.branch = "dev"
+fetch.github = "manboster/manboster"
+
+[manboster-rc]
+fetch.github = "manboster/manboster"
+src.github_tag = "manboster/manboster"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-rc(\\.?[0-9]+)?)?$"
+src.sort_version_key = "parse_version"
 
 [pumpkin]
 src.git = "https://github.com/Pumpkin-MC/Pumpkin"
