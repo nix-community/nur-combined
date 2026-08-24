@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "rpiv-mono";
-  version = "2.7.0";
+  version = "2.7.1";
 
   __structuredAttrs = true;
 
@@ -14,13 +14,13 @@ buildNpmPackage (finalAttrs: {
     owner = "juicesharp";
     repo = "rpiv-mono";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xrKOzcyzHAcTy4OllkHLsK/HQ8S9UYT4rMfMysF4nlY=";
+    hash = "sha256-fS5+nOwJiQ7LOIGh/PE3R1+U6SPQEouFVxVnjYz3PVc=";
   };
 
   patches = [ ./package-lock.patch ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-6pEP9pKYrxAOA26lrfF3dpLQv6M9Q7tiF0a/rGS4nr0=";
+  npmDepsHash = "sha256-JBVlAVmqjW2y8KOeFaemdre4uJvXNujTT3ZZav81SVQ=";
 
   dontNpmBuild = true;
 

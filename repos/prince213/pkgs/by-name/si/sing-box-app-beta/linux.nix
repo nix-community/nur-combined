@@ -49,8 +49,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-for-desktop";
-    rev = "5536324bb2b2466a0817ad6e4a1313d0a6486910";
-    hash = "sha256-BeM6K2wVS5ProApVaMYxIBkDv6drMHxco7F/1E0+HXA=";
+    rev = "f02201df1415667e7e0e65116746c1989d958f7e";
+    hash = "sha256-rT9LL8KkKqKaa4mDWkpw+8zxTn1VfeVd6CuVEWP4SHk=";
   };
 
   postPatch = ''
@@ -76,7 +76,7 @@ buildNpmPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-45ejBGIQyMJsTG8Ul2eu/cAuormA2NpG3idgaLEJS8I=";
+    hash = "sha256-MJdf1+aTWCmS0l9XO7pAne3ErXhxGmT5xoriSLIUXEk=";
   };
 
   nativeBuildInputs = [
