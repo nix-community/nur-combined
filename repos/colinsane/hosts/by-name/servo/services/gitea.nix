@@ -131,6 +131,7 @@
     # DIFFICULTY=4 is default. DIFFICULTY=5 is 10x harder, etc.
     # <https://git.kernel.org/> uses 5.
     # difficulty 6 takes a good 30-60 seconds on my desktop
+    settings.DIFFICULTY = 5;
     # settings.DIFFICULTY = 7;
     policy.extraBots = [
       {
