@@ -10,7 +10,7 @@
   version = lib.removePrefix "v" source.version;
 
   # Refreshed by update-hashes via passthru.updateCustomDeps.
-  bunDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  bunDepsHash = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
 
   nodeModules = callPackage ./deps.nix {inherit source version bunDepsHash;};
 

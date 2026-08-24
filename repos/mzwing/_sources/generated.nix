@@ -156,13 +156,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.39.0";
+    version = "v0.40.0";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.39.0";
+      rev = "v0.40.0";
       fetchSubmodules = false;
-      sha256 = "sha256-42eamPU7+MXeQbAs+n6VSzKYSZyej/XYHk7RK5uDiuw=";
+      sha256 = "sha256-uQQbq6D6UPhiZT2funNo0D6OPW7O/9a5ginPZqCxMQA=";
     };
   };
   manboster = {
@@ -212,13 +212,13 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "4f7a517ce164fd47dc998e5e2ff317cbae4733ab";
+    version = "0d55aa54118956e459702394f2cf4609ab71db75";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "4f7a517ce164fd47dc998e5e2ff317cbae4733ab";
+      rev = "0d55aa54118956e459702394f2cf4609ab71db75";
       fetchSubmodules = true;
-      sha256 = "sha256-LyyZLutGjKZ8P81jMW43CDp9e9hk7XqRKB/Txewo4yw=";
+      sha256 = "sha256-FXkiZtHRVoTdcwLhur0/K232ue61RL5vE5Npu74cujQ=";
     };
     date = "2026-08-24";
   };
