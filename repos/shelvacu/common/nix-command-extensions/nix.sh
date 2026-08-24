@@ -45,7 +45,7 @@ while [[ -n $1 ]]; do
     if [[ $HOSTNAME == "prophecy" ]]; then
       echo "Warn: skipping --on-prop: already on prop" >&2
     else
-      passThruArgs+=("--builders" "ssh://prop x86_64-linux,aarch64-linux" "--max-jobs" "0" "--option" "builders-use-substitutes" "true")
+      passThruArgs+=("--builders" "ssh-ng://prop x86_64-linux,aarch64-linux" "--max-jobs" "0" "--option" "builders-use-substitutes" "true")
     fi
     ;;
   "--")

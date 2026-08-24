@@ -10,7 +10,7 @@ svl_exact_args $# 0
 declare -a flake_archive_cmd=(nix flake archive --json)
 declare -a prefix
 if [[ $HOSTNAME != "prophecy" ]]; then
-  flake_archive_cmd+=(--to "ssh://prophecy")
+  flake_archive_cmd+=(--to "ssh-ng://prophecy")
   prefix+=(ssh prophecy --)
 fi
 flake_path="$("${flake_archive_cmd[@]}" | jq .path -r)"

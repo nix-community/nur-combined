@@ -53,7 +53,7 @@ let
           default = false;
         };
         derivations = mkOption {
-          type = types.attrsOf types.package;
+          type = types.lazyAttrsOf types.package;
           default = lib.genAttrs buildConfig.allSystems (
             system: flakeConfig.flake.vacuBuildDerivations.${system}.${buildConfig.fullName}
           );
@@ -113,14 +113,14 @@ in
     flake-parts-lib.mkTransposedPerSystemModule {
       name = "vacuBuildDerivations";
       option = mkOption {
-        type = types.attrsOf types.package;
+        type = types.lazyAttrsOf types.package;
         default = { };
       };
       file = ./builds.nix;
     }
   );
   options.vacuBuilds = mkOption {
-    type = types.attrsOf (types.submodule buildModule);
+    type = types.lazyAttrsOf (types.submodule buildModule);
     default = { };
   };
   config.perSystem =

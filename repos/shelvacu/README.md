@@ -5,7 +5,7 @@ more just notes for now
 build flake on remote machine, including eval:
 
 ```sh
-git add . && ssh prop nix flake check $(nix flake archive --to ssh://prop --json | jq .path -r)
+git add . && ssh prop nix flake check $(nix flake archive --to ssh-ng://prop --json | jq .path -r)
 ```
 
 ---

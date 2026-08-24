@@ -83,6 +83,8 @@ in
       dino
       dissent # discord client
       element-desktop # matrix client
+      element-desktop-personal # matrix client, 'personal' profile
+      element-desktop-work # matrix client, 'work' profile
       evince
       filezilla
       fluffychat # matrix client
