@@ -1047,10 +1047,6 @@
         "moosingin3space": {
             "url": "https://github.com/moosingin3space/nur-packages"
         },
-        "mopigames": {
-            "file": "packaging/nix/nur.nix",
-            "url": "https://github.com/MopigamesYT/moonlight-os"
-        },
         "moraxyc": {
             "url": "https://github.com/moraxyc/nur-packages"
         },
