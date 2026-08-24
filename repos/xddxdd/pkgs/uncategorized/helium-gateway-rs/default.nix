@@ -8,7 +8,6 @@
 rustPlatform.buildRustPackage {
   pname = "helium-gateway-rs";
   version = "1.3.0-unstable-2025-04-11";
-  rawVersion = "b736b006af618d67433e0d4c19d626260fad6dcb";
   src = fetchFromGitHub {
     owner = "helium";
     repo = "gateway-rs";

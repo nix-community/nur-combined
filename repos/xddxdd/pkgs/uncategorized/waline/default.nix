@@ -3,6 +3,7 @@
   lib,
   buildNpmPackage,
   nodejs,
+  nix-update-script,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -40,4 +41,6 @@ buildNpmPackage (finalAttrs: {
     mainProgram = "waline";
     platforms = lib.platforms.linux;
   };
+
+  passthru.updateScript = nix-update-script { };
 })

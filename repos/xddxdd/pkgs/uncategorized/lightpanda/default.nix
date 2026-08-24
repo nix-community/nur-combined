@@ -15,7 +15,6 @@ stdenv.mkDerivation (finalAttrs: {
         {
           pname = "lightpanda-amd64";
           version = "0.3.7";
-          rawVersion = "0.3.7";
           src = fetchurl {
             url = "https://github.com/lightpanda-io/browser/releases/download/0.3.7/lightpanda-x86_64-linux";
             hash = "sha256-iVM5sCIFFxoYHd50OuAGi7RWSIQHb+rISCusqcISqlo=";
@@ -25,7 +24,6 @@ stdenv.mkDerivation (finalAttrs: {
         {
           pname = "lightpanda-arm64";
           version = "0.3.7";
-          rawVersion = "0.3.7";
           src = fetchurl {
             url = "https://github.com/lightpanda-io/browser/releases/download/0.3.7/lightpanda-aarch64-linux";
             hash = "sha256-TA7LKLT8+21bzoLshuFfxs3onOoWjPOEBJTw7iZ1WFI=";

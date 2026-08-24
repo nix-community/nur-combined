@@ -141,6 +141,9 @@ appimageTools.wrapType2 {
 - **普通 GitHub release/tag**：直接 `nix-update-script { }`；v 前缀 tag（如 tag 为 `v1.2.0`、version 为 `1.2.0`）会被 nix-update 自动识别处理，无需额外参数
 - **stable/unstable 双源约定**（原 `<stable>-unstable-<日期>` 格式、跟踪 git main 分支的包）：使用 `nix-update-script { extraArgs = [ "--version" "branch" ]; }`。nix-update 会取同仓库最新 tag 加上最新 commit 日期生成版本号，并同步更新 rev 与哈希（GitHub 与 Gitea 均支持）
 - **非 GitHub 源**（webpage 抓取、AUR 等）：手写自定义更新脚本。脚本必须作为独立文件放在包目录下（如 `pkgs/uncategorized/baidunetdisk/update.sh`），不要内联在 default.nix 中；在包定义里用 `passthru.updateScript = [ (toString ./update.sh) ];` 引用。运行器以仓库根目录为 cwd 执行脚本，并设置 `UPDATE_NIX_ATTR_PATH`/`UPDATE_NIX_PNAME`/`UPDATE_NIX_NAME`/`UPDATE_NIX_OLD_VERSION` 环境变量；脚本内部获取新版本号后调用 `nix-update "$UPDATE_NIX_ATTR_PATH" --version "$NEW_VERSION"`（参考 `pkgs/uncategorized/baidunetdisk/update.sh`）
+- **nix-update 可自动识别的 fetchurl 源**：除了 GitHub releases，`registry.npmjs.org` 的 npm tarball URL 也能被 nix-update 自动探测最新版本（含 scoped 包），可直接用 `nix-update-script { }`
+- **版本/src 在内层派生时需提升到顶层**：若 version 和 src 定义在 let 绑定的内层 `mkDerivation`（如 wine-wechat 的 wechatFiles），顶层求值结果没有 `src` 属性，nix-update 无法工作。重构方法：把 `version = "..."` 和字面量 URL 的 `src = fetchurl { ... }` 直接放在顶层 `stdenv.mkDerivation (finalAttrs: { ... })` 里（外层配 `dontUnpack = true` 即可，不影响构建）；内层派生通过 `inherit (finalAttrs) version src;` 引用同一份定义；原先依赖内层派生的 let 绑定（启动脚本等）移入使用它们的 phase（如 postInstall）内的局部 let。注意 URL 必须写死版本号字符串而非 `${finalAttrs.version}` 插值——nix-update 靠在源码文本中替换旧版本号来改 URL
+- **不要留孤儿 update.sh 副本**：只被 lockfile 再生成等辅助流程使用的脚本必须命名为 `update-standalone.*`；如果同时存在一份未被 `passthru.updateScript` 引用的同名 `update.sh`，它是死文件，应删除
 
 ### 运行方式
 

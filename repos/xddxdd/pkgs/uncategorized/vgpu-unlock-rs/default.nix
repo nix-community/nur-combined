@@ -2,11 +2,11 @@
   fetchFromGitHub,
   lib,
   rustPlatform,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage {
   pname = "vgpu-unlock-rs";
   version = "2.5.0";
-  rawVersion = "v2.5.0";
   src = fetchFromGitHub {
     owner = "mbilker";
     repo = "vgpu_unlock-rs";
@@ -16,8 +16,12 @@ rustPlatform.buildRustPackage {
   cargoLock.lockFile = ./Cargo.lock;
 
   postPatch = ''
-    install -Dm644 ${./Cargo.lock} Cargo.lock
+    cp ${./Cargo.lock} Cargo.lock
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--generate-lockfile" ];
+  };
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
