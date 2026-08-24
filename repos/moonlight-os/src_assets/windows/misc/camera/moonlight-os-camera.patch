@@ -1,0 +1,131 @@
+diff --git a/Samples/VirtualCamera/VirtualCameraMediaSource/VirtualCameraMediaSource.h b/Samples/VirtualCamera/VirtualCameraMediaSource/VirtualCameraMediaSource.h
+index f8adf8a..5c163f2 100644
+--- a/Samples/VirtualCamera/VirtualCameraMediaSource/VirtualCameraMediaSource.h
++++ b/Samples/VirtualCamera/VirtualCameraMediaSource/VirtualCameraMediaSource.h
+@@ -11 +11 @@
+-// {7B89B92E-FE71-42D0-8A41-E137D06EA184}
++// {B7A32F78-6B0D-4B0A-A9E5-9C8A53C79831}
+@@ -13 +13 @@
+-    0x7b89b92e, 0xfe71, 0x42d0, 0x8a, 0x41, 0xe1, 0x37, 0xd0, 0x6e, 0xa1, 0x84);
++    0xb7a32f78, 0x6b0d, 0x4b0a, 0xa9, 0xe5, 0x9c, 0x8a, 0x53, 0xc7, 0x98, 0x31);
+@@ -15,2 +15,2 @@
+-static LPCWSTR VIRTUALCAMERAMEDIASOURCE_CLSID = L"{7B89B92E-FE71-42D0-8A41-E137D06EA184}";
+-static LPCWSTR VIRTUALCAMERAMEDIASOURCE_FRIENDLYNAME = L"VirtualCameraMediaSource";
++static LPCWSTR VIRTUALCAMERAMEDIASOURCE_CLSID = L"{B7A32F78-6B0D-4B0A-A9E5-9C8A53C79831}";
++static LPCWSTR VIRTUALCAMERAMEDIASOURCE_FRIENDLYNAME = L"Moonlight OS Camera Source";
+diff --git a/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaStream.cpp b/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaStream.cpp
+index a1e356b..f372e97 100644
+--- a/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaStream.cpp
++++ b/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaStream.cpp
+@@ -4,8 +4,8 @@
+ 
+ #include "pch.h"
+ 
+-#define NUM_IMAGE_ROWS 480
+-#define NUM_IMAGE_COLS 640
++#define NUM_IMAGE_ROWS 720
++#define NUM_IMAGE_COLS 1280
+ #define BYTES_PER_PIXEL 4
+ #define IMAGE_BUFFER_SIZE_BYTES (NUM_IMAGE_ROWS * NUM_IMAGE_COLS * BYTES_PER_PIXEL)
+ #define IMAGE_ROW_SIZE_BYTES (NUM_IMAGE_COLS * BYTES_PER_PIXEL)
+diff --git a/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleFrameGenerator.cpp b/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleFrameGenerator.cpp
+index 289b8db..d02c8d9 100644
+--- a/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleFrameGenerator.cpp
++++ b/Samples/VirtualCamera/VirtualCameraMediaSource/SimpleFrameGenerator.cpp
+@@ -77,2 +77,45 @@
+-    LONGLONG curSysTimeInS = MFGetSystemTime() / (MFTIME)10000000;
+-    int offset = curSysTimeInS % height;
++    struct SharedFrame
++    {
++        uint32_t magic;
++        uint32_t version;
++        uint32_t width;
++        uint32_t height;
++        uint32_t stride;
++        uint32_t byteCount;
++        uint32_t timestampMs;
++        volatile LONG generation;
++        BYTE pixels[1280 * 720 * 4];
++    };
++    static HANDLE mapping = nullptr;
++    static HANDLE mutex = nullptr;
++    static SharedFrame* frame = nullptr;
++    if (!mapping)
++    {
++        mapping = OpenFileMappingW(FILE_MAP_READ, FALSE, L"Global\\MoonlightOSCameraFrame-v1");
++        if (mapping)
++        {
++            frame = static_cast<SharedFrame*>(MapViewOfFile(
++                mapping, FILE_MAP_READ, 0, 0, sizeof(SharedFrame)));
++        }
++        mutex = OpenMutexW(SYNCHRONIZE, FALSE, L"Global\\MoonlightOSCameraFrameMutex-v1");
++    }
++
++    if (!frame || !mutex || width != 1280 || height != 720)
++    {
++        ZeroMemory(pBuf, abs(pitch) * height);
++        return S_OK;
++    }
++
++    DWORD wait = WaitForSingleObject(mutex, 100);
++    if (wait != WAIT_OBJECT_0 && wait != WAIT_ABANDONED)
++    {
++        return S_OK;
++    }
++    if (frame->magic != 0x4D4C5643u || frame->version != 1 ||
++        frame->width != width || frame->height != height ||
++        frame->stride != width * 4 || frame->byteCount != width * height * 4)
++    {
++        ReleaseMutex(mutex);
++        ZeroMemory(pBuf, abs(pitch) * height);
++        return S_OK;
++    }
+@@ -80,10 +123,5 @@
+     for (unsigned int r = 0; r < height; r++)
+     {
+-        uint32_t* p = (uint32_t*)(pBuf + (r * pitch));
+-        for (unsigned int c = 0; c < width; c++)
+-        {
+-            BYTE gray = (BYTE)(r + offset);
+-            *p = ((uint32_t)gray << 16 | (uint32_t)gray << 8 | (uint32_t)gray) & rgbMask;
+-            p++;
+-        }
++        CopyMemory(pBuf + (r * pitch), frame->pixels + (r * frame->stride), width * 4);
+     }
++    ReleaseMutex(mutex);
+diff --git a/Samples/VirtualCamera/VirtualCameraTest/SimpleMediaSourceUT.cpp b/Samples/VirtualCamera/VirtualCameraTest/SimpleMediaSourceUT.cpp
+index 9aac7ee..7df6597 100644
+--- a/Samples/VirtualCamera/VirtualCameraTest/SimpleMediaSourceUT.cpp
++++ b/Samples/VirtualCamera/VirtualCameraTest/SimpleMediaSourceUT.cpp
+@@ -186,7 +186,7 @@ HRESULT SimpleMediaSourceUT::CreateVirtualCamera(MFVirtualCameraLifetime vcamLif
+         winrt::hstring physicalCamSymLink;
+         RETURN_IF_FAILED(VCamUtils::RegisterVirtualCamera(
+             VIRTUALCAMERAMEDIASOURCE_CLSID,
+-            L"SWVCamMediaSource",
++            L"Moonlight OS Camera",
+             physicalCamSymLink,
+             vcamLifetime,
+             vcamAccess,
+diff --git a/Samples/VirtualCamera/VirtualCamera_Installer/main.cpp b/Samples/VirtualCamera/VirtualCamera_Installer/main.cpp
+index 34ed95c..929bb2d 100644
+--- a/Samples/VirtualCamera/VirtualCamera_Installer/main.cpp
++++ b/Samples/VirtualCamera/VirtualCamera_Installer/main.cpp
+@@ -374,7 +374,17 @@ int wmain(int argc, wchar_t* argv[])
+ 
+     if (argc == 2)
+     {
+-        if (_wcsicmp(argv[1], L"/Uninstall") == 0)
++        if (_wcsicmp(argv[1], L"/Install") == 0)
++        {
++            wil::com_ptr_nothrow<IMFVirtualCamera> camera;
++            SimpleMediaSourceUT source;
++            RETURN_IF_FAILED(source.CreateVirtualCamera(
++                MFVirtualCameraLifetime_System,
++                MFVirtualCameraAccess_AllUsers,
++                &camera));
++            RETURN_IF_FAILED(camera->Shutdown());
++        }
++        else if (_wcsicmp(argv[1], L"/Uninstall") == 0)
+         {
+             // MSI Uninstall mode
+             VCamAppUnInstall();

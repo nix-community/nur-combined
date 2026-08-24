@@ -1,0 +1,596 @@
+---
+name: Build
+
+# Apollo shipped no workflows at all, so this is written from scratch rather
+# than inherited. Neither dependency list is hand-written: Linux takes its
+# packages from scripts/linux_build.sh (add_debian_based_deps + add_ubuntu_deps)
+# and Windows takes its MSYS2 packages from docs/building.md, so in both cases
+# there is one source of truth for what Helios needs to build. If you change
+# what a build needs, change it there first.
+#
+# Note Linux vendors Boost and FFmpeg via third-party/build-deps, so the system
+# -dev packages for those are deliberately absent. Windows vendors FFmpeg the
+# same way but does install Boost -- see the comment on that job.
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-linux:
+    name: Linux (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            gcc: 14
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Helios consumes the shared protocol library (moonlight-os/lunaris)
+          # as a submodule and builds the bundled ENet out of it, so a checkout
+          # without submodules does not even configure.
+          submodules: recursive
+          # cmake/prep/build_version.cmake shells out to git describe.
+          fetch-depth: 0
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            appstream appstream-util bison build-essential cmake \
+            desktop-file-utils doxygen flex \
+            gcc-${{ matrix.gcc }} g++-${{ matrix.gcc }} git graphviz \
+            libappindicator3-dev libcap-dev libcurl4-openssl-dev libdrm-dev \
+            libevdev-dev libgbm-dev libminiupnpc-dev libnotify-dev \
+            libnuma-dev libopus-dev libpulse-dev libssl-dev libva-dev \
+            libwayland-dev libx11-dev libxcb-shm0-dev libxcb-xfixes0-dev \
+            libxcb1-dev libxfixes-dev libxrandr-dev libxtst-dev \
+            ninja-build npm udev wget xvfb
+
+      - name: Install pinned MsQuic runtime
+        run: |
+          wget -q https://packages.microsoft.com/ubuntu/24.04/prod/pool/main/libm/libmsquic/libmsquic_2.5.9_amd64.deb -O /tmp/libmsquic.deb
+          echo "5f2107d3b682cc008ec248e93bc4c00dc4ac674f2e1d4bd5c830bf2d1f1b60a1  /tmp/libmsquic.deb" | sha256sum -c -
+          sudo apt-get install -y /tmp/libmsquic.deb
+
+      - name: Configure
+        env:
+          CC: gcc-${{ matrix.gcc }}
+          CXX: g++-${{ matrix.gcc }}
+        run: |
+          # CUDA_FAIL_ON_MISSING defaults to ON, so a runner without nvcc --
+          # which is every GitHub-hosted one -- fails at configure time rather
+          # than building without NVENC. Turning it off is not the same as
+          # SUNSHINE_ENABLE_CUDA=OFF: the CUDA sources still build wherever a
+          # toolkit is present, so adding one to this job later needs no
+          # change here.
+          #
+          # The cost is real and worth stating: src/platform/linux/cuda.{cu,cpp}
+          # are not compiled by CI. Installing the toolkit is a multi-GB
+          # download per run for code the fork does not touch, and a local
+          # build on a machine with CUDA does cover it.
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCUDA_FAIL_ON_MISSING=OFF \
+            -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build -j"$(nproc)"
+
+      - name: Test
+        working-directory: build/tests
+        # Headless runner: parts of the suite touch X, which is why
+        # linux_build.sh lists xvfb as a dependency.
+        run: xvfb-run -a ./test_helios --gtest_color=yes
+
+      - name: Upload the binary
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: helios-${{ matrix.os }}
+          path: build/helios
+          if-no-files-found: warn
+          retention-days: 7
+
+  build-windows:
+    name: Windows (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    # Longer than Linux on purpose: this job links everything statically and
+    # builds Boost from source (see the pacboy comment), then packages on top.
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+
+    defaults:
+      run:
+        # Every run step is MSYS2's UCRT64 shell, which is the same environment
+        # docs/building.md tells a human to build in, so CI and a local Windows
+        # build cannot quietly drift apart. Steps that are `uses:` are
+        # unaffected, which is why the two setup actions below still work.
+        shell: msys2 {0}
+
+    env:
+      # Tagged builds use the tag as the application/package version. Other
+      # builds keep the existing git-derived development version.
+      BUILD_VERSION: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '' }}
+      BRANCH: ${{ github.ref_name }}
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Same two reasons as the Linux job: lunaris is a submodule, and
+          # cmake/prep/build_version.cmake shells out to git describe.
+          submodules: recursive
+          fetch-depth: 0
+
+      # The official MSVC-built Node, deliberately *not* MSYS2's
+      # mingw-w64-ucrt-x86_64-nodejs: that one is linked against the MSYS2
+      # gcc-16 libstdc++, whose std::bad_weak_ptr regression crashes node
+      # during process init. docs/building.md spells this out for humans.
+      # It has to come before setup-msys2 so node.exe is on the PATH the
+      # MSYS2 shell inherits.
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: ucrt64
+          update: true
+          cache: true
+          # cmake/targets/common.cmake does find_program(NPM npm REQUIRED), and
+          # the only npm on this machine is the Windows one installed above, so
+          # the shell has to inherit the Windows PATH. MSYS2's own directories
+          # still come first, so the UCRT64 cmake/gcc/git win over whatever the
+          # runner image ships.
+          path-type: inherit
+          install: >-
+            git
+            unzip
+          # Mirrors the dependency list in docs/building.md, minus the ones it
+          # marks optional (doxygen and graphviz, which only build the docs)
+          # and minus boost. Two notes:
+          #
+          #   ninja  - the build command is `-G Ninja` and the toolchain group
+          #            does not ship it; the docs list omits it because a
+          #            developer machine usually already has one.
+          #   boost  - deliberately absent, not an oversight.
+          #            cmake/dependencies/Boost_Helios.cmake asks for EXACT
+          #            1.89.0 and MSYS2 is on 1.91.0, so the system package
+          #            cannot satisfy the find and FetchContent builds Boost
+          #            from source regardless. Installing it would cost a
+          #            large download for nothing. This is the same bargain
+          #            the Linux job makes. If the pin ever moves to whatever
+          #            MSYS2 ships, add boost:p here and the run gets faster.
+          pacboy: >-
+            cmake:p
+            cppwinrt:p
+            curl-winssl:p
+            MinHook:p
+            miniupnpc:p
+            ninja:p
+            nlohmann_json:p
+            nsis:p
+            onevpl:p
+            openssl:p
+            opus:p
+            toolchain:p
+
+      - name: Build Windows 11 virtual camera source
+        run: >-
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File
+          "$(cygpath -w src_assets/windows/misc/camera/build-camera-source.ps1)"
+
+      - name: Prepare pinned MsQuic runtime
+        run: |
+          curl -fL https://api.nuget.org/v3-flatcontainer/microsoft.native.quic.msquic.openssl/2.5.10/microsoft.native.quic.msquic.openssl.2.5.10.nupkg -o /tmp/msquic.zip
+          echo "893b1be02f2d965a24ce319b4acd6ff95294d33c819614c4125cdcf83bd33cd5  /tmp/msquic.zip" | sha256sum -c -
+          mkdir -p build-deps-msquic
+          unzip -q /tmp/msquic.zip -d build-deps-msquic
+
+      - name: Configure
+        # No CUDA_FAIL_ON_MISSING here, unlike the Linux job: the CUDA options
+        # are only declared under UNIX, and Windows reaches NVENC through the
+        # prebuilt FFmpeg in third-party/build-deps instead.
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTS=ON \
+            -DMSQUIC_LIBRARY="$PWD/build-deps-msquic/build/native/lib/x64/msquic.lib" \
+            -DMSQUIC_RUNTIME_LIBRARY="$PWD/build-deps-msquic/build/native/bin/x64/msquic.dll"
+
+      - name: Build
+        run: cmake --build build -j"$(nproc)"
+
+      - name: Test
+        working-directory: build/tests
+        run: ./test_helios.exe --gtest_color=yes
+
+      # The bare .exe is not much use on its own -- it needs the assets, the
+      # tools, the service and the drivers next to it -- so CI produces the
+      # same NSIS installer a release would. CPACK_PACKAGE_DIRECTORY puts the
+      # result in build/cpack_artifacts.
+      - name: Package
+        run: cpack -G NSIS --config ./build/CPackConfig.cmake
+
+      - name: Validate the Winget manifest
+        run: |
+          set -euo pipefail
+          installers=(build/cpack_artifacts/*.exe)
+          test "${#installers[@]}" -eq 1
+          tag="$GITHUB_REF_NAME"
+          if [[ "$tag" != v* ]]; then tag=v0.0.0; fi
+          installer_sha256="$(sha256sum "${installers[0]}" | cut -d' ' -f1)"
+          packaging/winget/render.sh \
+            "$tag" "$installer_sha256" "$(date -u +%Y-%m-%d)" \
+            build/winget
+          winget.exe validate --manifest build/winget
+
+      # The built-in updater consumes a complete install tree rather than the
+      # NSIS executable. This avoids running uninstall hooks during a service
+      # handoff and lets Helios keep the prior directory for rollback.
+      - name: Package the updater archive
+        run: |
+          cmake --install build --prefix "$PWD/build/update-payload"
+          cd build/update-payload
+          cmake -E tar cf ../helios-windows-x86_64.zip --format=zip .
+
+      - name: Upload the binary
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: helios-${{ matrix.os }}
+          path: build/helios.exe
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Upload the installer
+        uses: actions/upload-artifact@v7
+        with:
+          name: helios-${{ matrix.os }}-installer
+          path: build/cpack_artifacts/*.exe
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload the updater archive
+        uses: actions/upload-artifact@v7
+        with:
+          name: helios-${{ matrix.os }}-updater
+          path: build/helios-windows-x86_64.zip
+          if-no-files-found: error
+          retention-days: 7
+
+  validate-packaging:
+    name: Validate package metadata
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    steps:
+      - name: Install validators
+        run: |
+          pacman -Syu --noconfirm --needed git ruby shellcheck sudo
+          useradd --create-home builder
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Validate renderers and generated metadata
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          shellcheck packaging/aur/render.sh packaging/nix/update.sh packaging/winget/render.sh
+          commit="$(git rev-parse HEAD)"
+          git_version="$(git describe --long --tags --abbrev=7 | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g')"
+          mkdir -p "$RUNNER_TEMP/aur"
+          chown builder:builder "$RUNNER_TEMP/aur"
+          sudo -u builder \
+            "$GITHUB_WORKSPACE/packaging/aur/render.sh" \
+              v0.0.0 "$commit" \
+              0000000000000000000000000000000000000000000000000000000000000000 \
+              "$git_version" "$RUNNER_TEMP/aur"
+          packaging/winget/render.sh \
+            v0.0.0 \
+            0000000000000000000000000000000000000000000000000000000000000000 \
+            2000-01-01 "$RUNNER_TEMP/winget"
+          ruby -e 'require "psych"; Dir[ARGV[0] + "/*.yaml"].each { |file| Psych.parse_file(file) }' \
+            "$RUNNER_TEMP/winget"
+          git diff --check
+
+  build-nix-package:
+    name: Nix package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ github.token }}
+      - name: Check Nix formatting
+        run: nix run nixpkgs#nixfmt -- --check packaging/nix/*.nix
+      - name: Build the NUR package
+        run: |
+          nixpkgs_path="$(nix eval --raw nixpkgs#path)"
+          nix-build -I "nixpkgs=$nixpkgs_path" \
+            packaging/nix/nur.nix -A helios --no-out-link
+
+  build-arch-package:
+    name: Arch package
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    container: archlinux:base-devel
+    steps:
+      - name: Install runner and package dependencies
+        run: |
+          pacman -Syu --noconfirm --needed \
+            git github-cli namcap sudo \
+            appstream appstream-glib boost cmake desktop-file-utils ninja \
+            nlohmann-json nodejs npm \
+            avahi curl libayatana-appindicator libcap libdrm libevdev libmfx \
+            libnotify libpulse libva libx11 libxcb libxfixes libxrandr libxtst \
+            miniupnpc numactl open-iscsi openssl opus usbip wayland which
+
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Build the AUR MsQuic dependency
+        run: |
+          useradd --create-home builder
+          printf 'builder ALL=(ALL) NOPASSWD: ALL\n' > /etc/sudoers.d/builder
+          chmod 0440 /etc/sudoers.d/builder
+          git clone https://aur.archlinux.org/msquic.git /home/builder/msquic
+          chown -R builder:builder /home/builder/msquic
+          sudo -u builder bash -lc 'cd /home/builder/msquic && makepkg --syncdeps --noconfirm --needed'
+          pacman -U --noconfirm /home/builder/msquic/msquic-*.pkg.tar.zst
+
+      - name: Render and build the Helios package
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          tag="$GITHUB_REF_NAME"
+          if [[ "$tag" != v* ]]; then tag=v0.0.0; fi
+          commit="$(git rev-parse HEAD)"
+          git_version="$(git describe --long --tags --abbrev=7 | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g')"
+          mkdir -p "$GITHUB_WORKSPACE/arch-artifacts" "$RUNNER_TEMP/aur"
+          chown -R builder:builder "$GITHUB_WORKSPACE/arch-artifacts" "$RUNNER_TEMP/aur"
+          sudo -u builder \
+            "$GITHUB_WORKSPACE/packaging/aur/render.sh" \
+              "$tag" "$commit" \
+              0000000000000000000000000000000000000000000000000000000000000000 \
+              "$git_version" "$RUNNER_TEMP/aur"
+          sudo -u builder env \
+            PKGDEST="$GITHUB_WORKSPACE/arch-artifacts" \
+            _run_unit_tests=true \
+            bash -lc 'cd "$1" && makepkg --syncdeps --noconfirm --needed' bash \
+            "$RUNNER_TEMP/aur/helios"
+          namcap "$GITHUB_WORKSPACE"/arch-artifacts/*.pkg.tar.zst
+
+      - name: Upload Arch package
+        uses: actions/upload-artifact@v7
+        with:
+          name: helios-arch-x86_64
+          path: arch-artifacts/*.pkg.tar.zst
+          if-no-files-found: error
+          retention-days: 7
+
+  release:
+    name: Sign and publish release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build-windows, build-arch-package, build-nix-package, validate-packaging]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download updater archive
+        uses: actions/download-artifact@v8
+        with:
+          name: helios-windows-2025-updater
+          path: updater
+
+      - name: Download installer
+        uses: actions/download-artifact@v8
+        with:
+          name: helios-windows-2025-installer
+          path: installer
+
+      - name: Download Arch package
+        uses: actions/download-artifact@v8
+        with:
+          name: helios-arch-x86_64
+          path: arch
+
+      - name: Build and sign the update manifest
+        env:
+          HELIOS_UPDATE_SIGNING_KEY: ${{ secrets.HELIOS_UPDATE_SIGNING_KEY }}
+        run: |
+          set -euo pipefail
+          tag="$GITHUB_REF_NAME"
+          version="${tag#v}"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([+-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Release tag must be vMAJOR.MINOR.PATCH with an optional prerelease/build suffix." >&2
+            exit 1
+          fi
+          archive="updater/helios-windows-x86_64.zip"
+          sha256="$(sha256sum "$archive" | cut -d' ' -f1)"
+          size="$(stat -c '%s' "$archive")"
+          prerelease=false
+          if [[ "$version" == *-* ]]; then prerelease=true; fi
+          jq -cn \
+            --arg version "$version" \
+            --arg tag "$tag" \
+            --arg sha256 "$sha256" \
+            --argjson size "$size" \
+            --argjson prerelease "$prerelease" \
+            '{schema:1,version:$version,tag:$tag,prerelease:$prerelease,artifact:{name:"helios-windows-x86_64.zip",size:$size,sha256:$sha256}}' \
+            > helios-update.json
+
+          key_file="$RUNNER_TEMP/helios-update-signing-key.pem"
+          umask 077
+          printf '%s' "$HELIOS_UPDATE_SIGNING_KEY" > "$key_file"
+          trap 'shred -u "$key_file"' EXIT
+          openssl pkey -in "$key_file" -check -noout
+          openssl pkeyutl -sign -rawin -inkey "$key_file" \
+            -in helios-update.json -out helios-update.json.sig
+          test "$(stat -c '%s' helios-update.json.sig)" -eq 64
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          prerelease=()
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then prerelease=(--prerelease); fi
+          installers=(installer/*.exe)
+          test "${#installers[@]}" -eq 1
+          gh release create "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --title "Helios ${GITHUB_REF_NAME#v}" \
+            --generate-notes \
+            "${prerelease[@]}" \
+            updater/helios-windows-x86_64.zip \
+            helios-update.json \
+            helios-update.json.sig \
+            arch/*.pkg.tar.zst \
+            "${installers[0]}"
+
+  publish-aur:
+    name: Publish AUR packages
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: release
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    steps:
+      - name: Install publishing tools
+        run: |
+          pacman -Syu --noconfirm --needed git openssh sudo
+          useradd --create-home builder
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v8
+        with:
+          name: helios-arch-x86_64
+          path: arch
+      - name: Render AUR repositories
+        run: |
+          set -euo pipefail
+          package=(arch/*.pkg.tar.zst)
+          test "${#package[@]}" -eq 1
+          binary_sha256="$(sha256sum "${package[0]}" | cut -d' ' -f1)"
+          commit="$(git rev-parse "$GITHUB_SHA^{commit}")"
+          git_version="$(git describe --long --tags --abbrev=7 "$commit" | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g')"
+          mkdir -p aur
+          chown builder:builder aur
+          sudo -u builder \
+            "$GITHUB_WORKSPACE/packaging/aur/render.sh" \
+              "$GITHUB_REF_NAME" "$commit" "$binary_sha256" "$git_version" \
+              "$GITHUB_WORKSPACE/aur"
+      - name: Push AUR repositories
+        env:
+          AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$AUR_SSH_KEY"
+          install -d -m 0700 "$HOME/.ssh"
+          ssh-keyscan -H aur.archlinux.org >> "$HOME/.ssh/known_hosts"
+          eval "$(ssh-agent -s)"
+          trap 'ssh-agent -k' EXIT
+          ssh-add - <<<"$AUR_SSH_KEY"
+          git config --global user.name 'Moonlight OS release bot'
+          git config --global user.email 'mopigames@proton.me'
+          for package in helios helios-bin helios-git; do
+            git clone "ssh://aur@aur.archlinux.org/${package}.git" "$RUNNER_TEMP/$package"
+            cp "aur/$package/PKGBUILD" "aur/$package/.SRCINFO" \
+              "aur/$package/helios.install" "$RUNNER_TEMP/$package/"
+            git -C "$RUNNER_TEMP/$package" add PKGBUILD .SRCINFO helios.install
+            if git -C "$RUNNER_TEMP/$package" diff --cached --quiet; then continue; fi
+            git -C "$RUNNER_TEMP/$package" commit -m "${package} ${GITHUB_REF_NAME#v}"
+            git -C "$RUNNER_TEMP/$package" push origin master
+          done
+
+  publish-winget:
+    name: Submit Winget manifest
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: release
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: helios-windows-2025-installer
+          path: installer
+      - name: Render and validate manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          installers=(installer/*.exe)
+          test "${#installers[@]}" -eq 1
+          installer_sha256="$(sha256sum "${installers[0]}" | cut -d' ' -f1)"
+          packaging/winget/render.sh \
+            "$GITHUB_REF_NAME" "$installer_sha256" \
+            "$(date -u +%Y-%m-%d)" winget
+          winget validate --manifest winget
+      - name: Install WingetCreate
+        shell: pwsh
+        run: Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+      - name: Submit manifest
+        shell: pwsh
+        env:
+          WINGET_CREATE_GITHUB_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        run: |
+          if (-not $env:WINGET_CREATE_GITHUB_TOKEN) { throw 'WINGET_TOKEN is not configured' }
+          ./wingetcreate.exe submit --no-open --prtitle "New package: MoonlightOS.Helios $($env:GITHUB_REF_NAME.Substring(1))" winget
+
+  update-nur:
+    name: Update NUR package
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: release
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: main
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ github.token }}
+      - name: Update and validate fixed-output hashes
+        run: |
+          packaging/nix/update.sh "$GITHUB_REF_NAME"
+          nixpkgs_path="$(nix eval --raw nixpkgs#path)"
+          nix-build -I "nixpkgs=$nixpkgs_path" \
+            packaging/nix/nur.nix -A helios --no-out-link
+      - name: Commit the NUR release metadata
+        run: |
+          set -euo pipefail
+          git config user.name 'Moonlight OS release bot'
+          git config user.email 'mopigames@proton.me'
+          git add packaging/nix/package.nix
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "packaging(nur): update to ${GITHUB_REF_NAME#v}"
+          git push origin main

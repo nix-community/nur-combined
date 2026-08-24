@@ -1,0 +1,38 @@
+do_setcap() {
+  setcap cap_sys_admin+p $(readlink -f usr/bin/helios)
+}
+
+do_udev_reload() {
+  udevadm control --reload-rules
+  udevadm trigger --property-match=DEVNAME=/dev/uinput
+  udevadm trigger --property-match=DEVNAME=/dev/uhid
+  modprobe uinput || true
+  modprobe uhid || true
+}
+
+do_usb_setup() {
+  modprobe vhci-hcd 2>/dev/null || modprobe vhci_hcd 2>/dev/null || true
+  local legacy_unit
+  for legacy_unit in mlos-host-utils.service moonlight-os-host-utils.service; do
+    if systemctl list-unit-files "$legacy_unit" &>/dev/null; then
+      systemctl disable --now "$legacy_unit" &>/dev/null || true
+    fi
+  done
+  systemctl daemon-reload
+  systemctl enable helios-usb-helper.service &>/dev/null || true
+  systemctl restart helios-usb-helper.service || true
+}
+
+post_install() {
+  do_setcap
+  do_udev_reload
+  modprobe uhid
+  do_usb_setup
+}
+
+post_upgrade() {
+  do_setcap
+  do_udev_reload
+  modprobe uhid
+  do_usb_setup
+}

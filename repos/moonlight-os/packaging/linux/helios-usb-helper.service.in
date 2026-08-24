@@ -1,0 +1,22 @@
+[Unit]
+Description=Helios privileged peripheral and read-only disk helper
+Documentation=@PROJECT_HOMEPAGE_URL@
+Wants=iscsid.service
+After=network.target iscsid.service
+
+[Service]
+Type=simple
+ExecStart=@SUNSHINE_EXECUTABLE_PATH@ --usb-helper
+Restart=on-failure
+RestartSec=3s
+RuntimeDirectory=helios
+RuntimeDirectoryMode=0755
+StateDirectory=helios
+StateDirectoryMode=0700
+Environment=XDG_CONFIG_HOME=/var/lib/helios
+PrivateTmp=true
+ProtectHome=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
