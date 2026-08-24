@@ -1,4 +1,4 @@
-use crate::palette::{colorfgbg_for_palette, symbol_font_fallbacks, terminal_font_family};
+use crate::palette::{colorfgbg_for_palette, symbol_font_fallbacks};
 use crate::tabs::TerminalTabs;
 use gpui::prelude::*;
 use gpui::*;
@@ -197,7 +197,11 @@ fi"#;
         let config = TerminalConfig {
             cols: 80,
             rows: 24,
-            font_family: terminal_font_family().into(),
+            font_family: if cfg!(target_os = "macos") {
+                "Menlo".into()
+            } else {
+                "monospace".into()
+            },
             font_size,
             line_height_multiplier: 1.14,
             scrollback: 10000,
@@ -363,7 +367,7 @@ fi"#;
         let config = TerminalConfig {
             cols: 80,
             rows: 24,
-            font_family: terminal_font_family().into(),
+            font_family: "monospace".into(),
             font_size,
             line_height_multiplier: 1.14,
             scrollback: 1000,

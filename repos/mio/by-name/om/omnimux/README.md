@@ -59,5 +59,5 @@ Localhost / empty host runs a shell script that prefers `tmux` and falls back to
 
 ## Packaging
 
-- Linux packages ship FiraCode Nerd Font Mono for stable terminal metrics. All platforms ship Symbols Nerd Font and Noto Color Emoji under `$out/share/omnimux/fonts` (`OMNIMUX_FONTS_DIR`).
+- Ships Symbols Nerd Font + Noto Color Emoji under `$out/share/omnimux/fonts` (`OMNIMUX_FONTS_DIR`).
 - Desktop entry + icon; Darwin `.app` via `desktopToDarwinBundle`.

@@ -4,19 +4,6 @@ use gpui_terminal::ColorPalette;
 
 pub const DEFAULT_FONT_SIZE: f32 = 14.0;
 
-/// Primary terminal font. Linux packages bundle this exact family so GPUI does
-/// not depend on host fontconfig aliases for terminal cell metrics. Other
-/// platforms keep their native/generic terminal font path.
-pub fn terminal_font_family() -> &'static str {
-    if cfg!(target_os = "linux") {
-        "FiraCode Nerd Font Mono"
-    } else if cfg!(target_os = "macos") {
-        "Menlo"
-    } else {
-        "monospace"
-    }
-}
-
 /// Fallback families for glyphs missing from the primary monospace (Starship nerd
 /// icons, powerline separators, and default emoji like hostname `ssh_symbol` 🌐).
 pub fn symbol_font_fallbacks() -> Vec<String> {
