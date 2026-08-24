@@ -1682,6 +1682,11 @@
             "sha256": "1kcfg9yxijd1vwrzr2hcqqfa3zy9jagm1yv6g21g6wjkdhx76w55",
             "url": "https://github.com/moaxcp/nur"
         },
+        "moonlight-os": {
+            "rev": "93e825fb87ccf5e4748f22bdfd4e2b3dbb28c2b6",
+            "sha256": "1v13y2kxk00a206nqhls4knnm7j4ns8brbzzlhz26bg99h0843y0",
+            "url": "https://github.com/moonlight-os/helios"
+        },
         "moosingin3space": {
             "rev": "20a564911303581107235f768e79e82de43f1682",
             "sha256": "1zp55320ck1479sxqlcim1sqc76kdy0md73f796g3ixkwyfqqds7",

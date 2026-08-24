@@ -1044,6 +1044,10 @@
         "moaxcp": {
             "url": "https://github.com/moaxcp/nur"
         },
+        "moonlight-os": {
+            "file": "packaging/nix/nur.nix",
+            "url": "https://github.com/moonlight-os/helios"
+        },
         "moosingin3space": {
             "url": "https://github.com/moosingin3space/nur-packages"
         },
