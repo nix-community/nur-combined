@@ -7,13 +7,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "baidupcs-go";
-  version = "4.0.2-unstable-2026-08-24";
+  version = "4.0.2-unstable-2026-08-25";
 
   src = fetchFromGitHub {
     owner = "qjfoidnh";
     repo = "BaiduPCS-Go";
-    rev = "d4366a7b98e19068e0e1b8361be52ca545d2ffb6";
-    hash = "sha256-YxdjMmPa/LP/Rx8vO7/XOa704s6/kUD+Sf60Ku46JZc=";
+    rev = "ab0e7996f24a25a518a4f227af60052c12fc488c";
+    hash = "sha256-2ZhelDuOBl95RoP+lYZGXl4ct0N4ZXpE7lgKqrO4lHU=";
   };
   vendorHash = "sha256-3kvB5QxtWuElhDIFFr3Awf5myf6l2Hx0M2k53ltQYeQ=";
 
