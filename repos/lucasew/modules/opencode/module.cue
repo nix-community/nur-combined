@@ -1,0 +1,30 @@
+package module
+
+module: {
+	meta: {
+		requires: []
+		recommends: []
+	}
+	config: {}
+	file: {
+		".config/opencode/opencode.json": {
+			type: "json"
+			values: {
+				"$schema": "https://opencode.ai/config.json"
+				theme:     "workspaced"
+				plugin: ["opencode-gemini-auth"]
+				provider: {
+					ollama: {
+						npm:  "@ai-sdk/openai-compatible"
+						name: "Ollama"
+						options: {baseURL: "http://localhost:11434/v1"}
+						models: {
+							"llama3.2": {name: "llama3.2"}
+							phi4: {name: "phi4:14b"}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -201,6 +201,12 @@ workspaced: {
 		mise: {input: "self:modules/mise", enable: true}
 		hermes: {input: "self:modules/hermes", enable: true}
 		nix: {input: "self:modules/nix", enable: true}
+		gammastep: {input: "self:modules/gammastep", enable: true}
+		herdr: {input: "self:modules/herdr", enable: true}
+		helix: {input: "self:modules/helix", enable: true}
+		grok: {input: "self:modules/grok", enable: true}
+		codex: {input: "self:modules/codex", enable: true}
+		opencode: {input: "self:modules/opencode", enable: true}
 	}
 }
 
@@ -245,8 +251,9 @@ workspaced: {
 			}
 		}
 
-		"base16-shell":   {input: "self:modules/base16-shell", enable: true}
-		"base16-helix":   {input: "self:modules/base16-helix", enable: true}
+		"base16-shell":     {input: "self:modules/base16-shell", enable: true}
+		"base16-helix":     {input: "self:modules/base16-helix", enable: true}
+		"base16-alacritty": {input: "self:modules/base16-alacritty", enable: true}
 		"base16-vscode":  {input: "self:modules/base16-vscode", enable: true}
 		"base16-sway":    {input: "self:modules/base16-sway", enable: true}
 		"base16-gtk":     {input: "self:modules/base16-gtk", enable: true}

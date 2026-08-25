@@ -1,9 +1,52 @@
 package module
 
+#gtk: workspaced.modules["base16-gtk"].config
+
+#gtkSettingsShared: {
+	"gtk-theme-name":         #gtk.theme_name
+	"gtk-icon-theme-name":    #gtk.icon_theme
+	"gtk-font-name":          #gtk.font_name
+	"gtk-cursor-theme-name":  #gtk.cursor_theme
+	"gtk-cursor-theme-size":  #gtk.cursor_size
+	if workspaced.modules.base16.config.dark_mode {
+		"gtk-application-prefer-dark-theme": 1
+	}
+	if workspaced.modules.base16.config.dark_mode == false {
+		"gtk-application-prefer-dark-theme": 0
+	}
+	...
+}
+
 module: {
 	meta: {
 		requires: ["base16"]
 		recommends: []
+	}
+
+	file: {
+		".config/gtk-3.0/settings.ini": {
+			type: "ini"
+			values: {
+				Settings: #gtkSettingsShared & {
+					"gtk-toolbar-style":                "GTK_TOOLBAR_BOTH_HORIZ"
+					"gtk-toolbar-icon-size":            "GTK_ICON_SIZE_LARGE_TOOLBAR"
+					"gtk-button-images":                0
+					"gtk-menu-images":                  0
+					"gtk-enable-event-sounds":          1
+					"gtk-enable-input-feedback-sounds": 0
+					"gtk-xft-antialias":                1
+					"gtk-xft-hinting":                  1
+					"gtk-xft-hintstyle":                "hintslight"
+					"gtk-xft-rgba":                     "rgb"
+				}
+			}
+		}
+		".config/gtk-4.0/settings.ini": {
+			type: "ini"
+			values: {
+				Settings: #gtkSettingsShared
+			}
+		}
 	}
 
 	config: {

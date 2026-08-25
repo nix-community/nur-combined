@@ -27,6 +27,9 @@ module: {
 }
 ```
 
+Dest files can live in `module.file` (`docs/specs/file-spine.md` in workspaced)
+instead of templates. Enable the module in `workspaced.cue`.
+
 Enable in `workspaced.cue`:
 
 ```cue

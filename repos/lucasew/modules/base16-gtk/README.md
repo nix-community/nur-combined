@@ -9,8 +9,8 @@ keep the real theme engine, inject named colors into user CSS.
 
 Writes:
 
-- `~/.config/gtk-3.0/{gtk.css,settings.ini}`
-- `~/.config/gtk-4.0/{gtk.css,settings.ini}`
+- `~/.config/gtk-3.0/gtk.css` (template) and `settings.ini` (`module.file`)
+- `~/.config/gtk-4.0/gtk.css` (template) and `settings.ini` (`module.file`)
 - `~/.local/share/themes/base16/` (GTK2 legacy only)
 - `~/.config/qt{5,6}ct/colors/base16.conf`
 
