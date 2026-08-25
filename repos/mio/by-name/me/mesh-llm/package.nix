@@ -19,9 +19,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-RXjmM66u40cxnacbvTtCFJShMK4BM+MHOyJ2vQ7Gw60=";
   };
 
-  cargoLock = {
-    lockFile = "${src}/Cargo.lock";
-  };
+  cargoHash = "sha256-5O2R5IKlzmkmsWtWIKlnVLeK55balsqToh0cB7unFoY=";
 
   postPatch = ''
     substituteInPlace .cargo/config.toml \
@@ -34,7 +32,8 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     dbus
   ];
 
@@ -56,6 +55,7 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     mainProgram = "mesh-llm";
+    maintainers = with lib.maintainers; [ mio ];
     platforms = lib.platforms.unix;
   };
 }
