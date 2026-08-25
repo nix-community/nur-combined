@@ -46,7 +46,12 @@ stdenv.mkDerivation (finalAttrs: {
     yyjson
   ];
 
-  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex" "cherry-doom-(.*)"];};
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "cherry-doom-(.*)"
+    ];
+  };
 
   meta = {
     description = "Fork of Nugget Doom with more additional features";

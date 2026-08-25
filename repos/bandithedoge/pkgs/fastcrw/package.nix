@@ -6,15 +6,15 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fastcrw";
-  version = "0.31.0";
+  version = "0.32.0";
   src = fetchFromGitHub {
     owner = "us";
     repo = "crw";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-xHB7LibVrWjM+X23ImIJC8yBDy5lBb8XR7wn7hXJ9aA=";
+    hash = "sha256-zk8xjKPPifNiHqx/B01ZG3r9xgoG1p1D1M7LhQoHD5Y=";
   };
 
-  cargoHash = "sha256-SLXRifUKspCHfJ8jHUlTv9SvldtDgosOqLoxLhq7LU0=";
+  cargoHash = "sha256-yVh3B9Xl5yB9YWG0+lDOudnD1qi2VpAWBnItFZiRr3c=";
 
   checkFlags = [
     "--skip="

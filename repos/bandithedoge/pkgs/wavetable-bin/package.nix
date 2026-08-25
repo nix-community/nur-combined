@@ -10,10 +10,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wavetable-bin";
-  version = "1.0.34";
+  version = "1.0.36";
   src = fetchurl {
     url = "https://github.com/FigBug/Wavetable/releases/download/v${finalAttrs.version}/Wavetable.deb";
-    sha256 = "sha256-9VRE9hsKO7qCH+Kk7sna/SGxnIdlsfo5VmajMHhRk5c=";
+    sha256 = "sha256-SfhyapFadNSvOJfmlVlGPrwvVmM2qiUe2HQTiqpjIdQ=";
   };
 
   nativeBuildInputs = [

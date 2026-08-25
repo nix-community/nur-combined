@@ -16,7 +16,7 @@ luaPackages.buildLuarocksPackage {
     sha256 = "sha256-myGOgzqQOCWzL6bwqzRhfReRPdHrFKTb89H/bRmIZD8=";
   };
 
-  nativeBuildInputs = [breakpointHook];
+  nativeBuildInputs = [ breakpointHook ];
 
   knownRockspec = "specs/lua-resty-mpd-${version}-0.rockspec";
 

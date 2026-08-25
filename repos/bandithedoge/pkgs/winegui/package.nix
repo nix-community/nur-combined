@@ -12,12 +12,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "winegui";
-  version = "4.2.1";
+  version = "4.3.0";
   src = fetchFromGitHub {
     owner = "winegui";
     repo = "WineGUI";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-4Gisn2BOeg7aMfoC2UScIB1p3bdh2ojYWrufiuDZ9iI=";
+    hash = "sha256-JMd2Hy4k5hr1xze6CTIzSyTpqzqJtTm3oYYIbLGfMMg=";
   };
 
   nativeBuildInputs = [

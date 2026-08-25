@@ -220,10 +220,10 @@
   };
   "auto-tab-discard" = buildMozillaXpiAddon {
     pname = "auto-tab-discard";
-    version = "0.7.2";
+    version = "0.7.3";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4962080/auto_tab_discard-0.7.2.xpi";
-    sha256 = "ff0ed41080d4596a3577e1751b6a5780ab4672114ca91b79accf024083a80d3b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4978053/auto_tab_discard-0.7.3.xpi";
+    sha256 = "66a98738e69df9ad7c7aeb12a495c5880d1f56fb93610f51cd3207a9b73ee702";
     meta = with lib; {
       homepage = "https://webextension.org/listing/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
@@ -302,10 +302,10 @@
   };
   "csgofloat" = buildMozillaXpiAddon {
     pname = "csgofloat";
-    version = "5.16.0";
+    version = "5.17.0";
     addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4897673/csgofloat-5.16.0.xpi";
-    sha256 = "8fd6c0c0bab28ca779ee304fed7ab39ccb26cb0615077760cc7b6358950c8db1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4957680/csgofloat-5.17.0.xpi";
+    sha256 = "70c540b8b1df125596ef615fe37028542de4d92b3816ad81eb6ad5ce3d11798d";
     meta = with lib; {
       homepage = "https://csgofloat.com";
       description = "Shows the float value, paint seed, and screenshots of Counter-Strike (CS:GO &amp; CS2) items on the Steam Market or Inventories";
@@ -820,10 +820,10 @@
   };
   "material-icons-for-github" = buildMozillaXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.16.3";
+    version = "1.16.4";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4908635/material_icons_for_github-1.16.3.xpi";
-    sha256 = "ad6955b1808e35ce94703e648f8231c488aa342fbe3d037e59baafd35b6b9a7a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4978028/material_icons_for_github-1.16.4.xpi";
+    sha256 = "88246df1f6b54f8376ece3c9ed95724b9fb33550f44ef15f359879e4799b7740";
     meta = with lib; {
       homepage = "https://github.com/material-extensions/material-icons-browser-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
@@ -1703,10 +1703,10 @@
   };
   "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
-    version = "1.73.0";
+    version = "1.74.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4940584/ublock_origin-1.73.0.xpi";
-    sha256 = "bccc51a773150af4af6e1fd62c7bfdeb7238b79ff2381b998fa9f2e38f64786a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4981431/ublock_origin-1.74.0.xpi";
+    sha256 = "175756d74468c9ba45863f7fc333d3be670f82d5b066314e915814dd547d1652";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
