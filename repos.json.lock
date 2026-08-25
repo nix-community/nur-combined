@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "4e12ebcbe2d7fcc60c6c39ca234af53d4f71fb25",
-            "sha256": "1s5qcjn2fpaz7c7dhbldv85vaw5scgzkm7pcwqfxyajfl8089kiv",
+            "rev": "e4ebab9c126d5f1966bbaa3655d3035fd9277551",
+            "sha256": "1fsrjj6yskx5qhzxw7w2dnfy01ry5qfjv5hni68iv289fw57ay2i",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -651,6 +651,11 @@
             "rev": "8d3943f17a750c4673e9ad70e3d64c5d5f7e77c5",
             "sha256": "1fl42j3nya1z4578lckkdnhkdmljzb0v0vxq2bcx5gndnbhsahid",
             "url": "https://github.com/codgician/nur-packages"
+        },
+        "colinsane": {
+            "rev": "43e20636a7de401616a97da80e4a2ba73227fbab",
+            "sha256": "17ky053bagz5lzd17p7kaxjpqhic55y5jcv8xf5d9wqkryziyc5p",
+            "url": "https://git.uninsane.org/colin/nix-files"
         },
         "colorman": {
             "rev": "26215976a192e9f0e1366f414e801963951bfad1",
