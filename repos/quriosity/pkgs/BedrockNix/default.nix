@@ -2,11 +2,11 @@
 
 let
   pname = "BedrockOnLinux";
-  version = "2.2.2";
+  version = "2.2.4";
 
   src = fetchurl {
     url = "https://github.com/Wyze3306/BedrockOnLinux/releases/download/v${version}/BedrockOnLinux-${version}-x86_64.AppImage";
-    hash = "sha256-vWLQWzRIFyQxXjlocYshnybUryqGluYFewR5iLToT0E=";
+    hash = "sha256-Pmw9r1EYNbIKd8/YyK+0VZn+UsDMp3dBK71muGF4xt4=";
   };
 
   appimageContents = appimageTools.extract {
@@ -35,7 +35,6 @@ appimageTools.wrapType2 {
       libsoup_3
       glib-networking
       python3
-      zstd
 
       mesa
       libGL
