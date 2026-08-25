@@ -5,6 +5,7 @@ u-he.mkUhe {
 
   product = "TyrellN6";
   hash = "sha256-mg+5BJy9whksEx41lLdw8I9GuJ0JrJSjWwffJRdLpsY=";
+  versionRegex = ''TyrellN6_(\w+)_Linux'';
 
   meta = {
     homepage = "https://u-he.com/products/tyrelln6/";

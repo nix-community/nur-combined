@@ -25,6 +25,7 @@ lib.extendMkDerivation {
       nativeBuildInputs ? [ ],
       buildInputs ? [ ],
       meta ? { },
+      versionRegex ? ''${updateName}_(\d+_\d+)_Linux'',
       ...
     }:
     {
@@ -87,7 +88,7 @@ lib.extendMkDerivation {
           #!/usr/bin/env nix-shell
           #!nix-shell -i bash -p curl pcre2 common-updater-scripts
 
-          version="$(curl -s "https://uhe-dl.b-cdn.net/releases/" | pcre2grep -o1 '${updateName}_(\w+)_Linux' | head -1)"
+          version="$(curl -s "https://uhe-dl.b-cdn.net/releases/" | pcre2grep -o1 '${versionRegex}' | head -1)"
           update-source-version "$UPDATE_NIX_ATTR_PATH" "$version"
         '';
       };
