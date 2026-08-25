@@ -244,7 +244,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.arguments.APP__PORT ];
+      allowedTCPPorts = [ cfg.environment.APP__PORT ];
     };
   };
 }

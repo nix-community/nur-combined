@@ -13,6 +13,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    ndg = {
+      url = "github:feel-co/ndg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -23,6 +27,8 @@
         systems = lib.systems.flakeExposed;
 
         imports = lib.filesystem.listFilesRecursive ./flake-parts;
+
+        debug = true;
       }
     );
 }

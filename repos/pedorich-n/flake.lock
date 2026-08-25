@@ -18,6 +18,26 @@
         "type": "github"
       }
     },
+    "ndg": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787593177,
+        "narHash": "sha256-PZo0DAaDGOJslj4S4I/yZnAd6AkBNXpSsUxosDKNFRA=",
+        "owner": "feel-co",
+        "repo": "ndg",
+        "rev": "15e9f65b807645d7eb20aeaa87a592ac56d31bf4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "feel-co",
+        "repo": "ndg",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1787209939,
@@ -52,6 +72,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "ndg": "ndg",
         "nixpkgs": "nixpkgs"
       }
     }

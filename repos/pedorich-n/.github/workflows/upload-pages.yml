@@ -1,0 +1,49 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent concurrent deployments
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup job
+        uses: pedorich-n/github-workflows/.github/actions/setup-nix-job@37c055d3c6b1062846d5f9a45cf845f202e63b22 # main
+
+      - name: Build docs
+        id: build
+        run: |
+          out=$(nix build .#docs --print-out-paths)
+          echo "out=$out" >> $GITHUB_OUTPUT
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ steps.build.outputs.out }}
+          retention-days: 90
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

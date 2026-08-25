@@ -1,0 +1,9 @@
+.content {
+  /* The default is 800px and it's not enough */
+  max-width: 1200px;
+}
+
+.page-toc {
+  /* Hide the table of contents on the right side. Easier than modifying the template */
+  display: none !important;
+}
