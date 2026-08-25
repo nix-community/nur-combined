@@ -1,16 +1,17 @@
-{
-  pkgs ? import <nixpkgs> {
-    config.microsoftVisualStudioLicenseAccepted = true;
-    overlays = [
-      (import (builtins.fetchTarball "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
-    ];
-  },
-}:
+{ ... }@args:
 let
-  stable =
-    import
-      (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/release-25.11.tar.gz")
-      { };
+  pkgs =
+    args.pkgs or (import <nixpkgs> {
+      config.microsoftVisualStudioLicenseAccepted = true;
+      overlays = [
+        (import inputs.rust-overlay)
+        (import inputs.qmix).overlays.default
+      ];
+    });
+
+  inputs = import ./npins { };
+
+  stable = import inputs."nixos-25.11" { };
 in
 pkgs.lib.makeScope pkgs.newScope (
   self:
@@ -30,11 +31,7 @@ pkgs.lib.makeScope pkgs.newScope (
     c2rust =
       let
         # c2rust requires an old (2022) nightly
-        old-rust = pkgs.extend (
-          import (
-            builtins.fetchTarball "https://github.com/oxalica/rust-overlay/archive/snapshot/2024-08-01.tar.gz"
-          )
-        );
+        old-rust = pkgs.extend (import inputs.rust-overlay-2022);
       in
       old-rust.callPackage ./c2rust { };
 
@@ -43,6 +40,8 @@ pkgs.lib.makeScope pkgs.newScope (
     clang-cl = callPackage ./clang-cl { };
 
     jqjq = callPackage ./jqjq { };
+
+    lily58-firmware = callPackage ./lily58 { };
 
     microcad = callPackage ./microcad { };
 

@@ -1,0 +1,54 @@
+{
+  "pins": {
+    "nixos-25.11": {
+      "type": "Channel",
+      "name": "nixos-25.11",
+      "artifact": "nixexprs.tar.xz",
+      "url": "https://releases.nixos.org/nixos/25.11/nixos-25.11.12484.b6018f87da91/nixexprs.tar.xz",
+      "hash": "sha256-IWpaImuKa1YVOmnuPyyzbG6/Q6ZgKaOsP4sXmfTbkdQ="
+    },
+    "qmix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Tygo-van-den-Hurk",
+        "repo": "QMix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "257b01ef535a00f999a4d3b81c21ce06b9783ca3",
+      "url": "https://github.com/Tygo-van-den-Hurk/QMix/archive/257b01ef535a00f999a4d3b81c21ce06b9783ca3.tar.gz",
+      "hash": "sha256-3QtLhHpibp0jxeFRgQMVvWA66/DwQY3mk3Ag9JaE+1Y="
+    },
+    "rust-overlay": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "oxalica",
+        "repo": "rust-overlay"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "132a10336af9ae819bdf640c0dd1c789b12d7107",
+      "url": "https://github.com/oxalica/rust-overlay/archive/132a10336af9ae819bdf640c0dd1c789b12d7107.tar.gz",
+      "hash": "sha256-QdVaU2WSCKsxZ0sBDIRnaaukp6Z5IMUE0gDEDoSRJd0="
+    },
+    "rust-overlay-2022": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "oxalica",
+        "repo": "rust-overlay"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "snapshot/2024-08-01",
+      "revision": "53d7e8ada8780bb086997ccc1d74f546da6da425",
+      "url": "https://api.github.com/repos/oxalica/rust-overlay/tarball/refs/tags/snapshot/2024-08-01",
+      "hash": "sha256-MojqG0lyUINkEk0b3kM2drsU5vyaF8DFZe/FAlZVOGs="
+    }
+  },
+  "version": 8
+}
