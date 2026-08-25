@@ -1,0 +1,47 @@
+name: Update Packages' Sources
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 1 * *"
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Github App info
+        id: app_auth
+        uses: pedorich-n/github-workflows/.github/actions/app-token@37c055d3c6b1062846d5f9a45cf845f202e63b22 # main
+        with:
+          client_id: ${{ vars.APP_CLIENT_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Setup job
+        uses: pedorich-n/github-workflows/.github/actions/setup-nix-job@37c055d3c6b1062846d5f9a45cf845f202e63b22 # main
+        with:
+          git_https_token: ${{ steps.app_auth.outputs.token }}
+
+      - name: Get packages list
+        id: get_packages
+        run: |
+          {
+            echo 'packages<<EOF'
+            nix eval --json .#nixUpdatePackages | jq -r '.[]'
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Set NIX_PATH to this flake's nixpkgs input
+        shell: bash
+        run: |
+          nixpkgs_path="$(nix flake archive --json . | jq -r '.inputs.nixpkgs.path')"
+          echo "NIX_PATH=nixpkgs=$nixpkgs_path" >> "$GITHUB_ENV"
+
+      - name: Run nix-update
+        uses: pedorich-n/github-workflows/.github/actions/nix-update@37c055d3c6b1062846d5f9a45cf845f202e63b22 # main
+        with:
+          args: "--use-update-script --flake"
+          token: ${{ steps.app_auth.outputs.token }}
+          committer: ${{ steps.app_auth.outputs.committer }}
+          author: ${{ steps.app_auth.outputs.committer }}
+          packages: ${{ steps.get_packages.outputs.packages }}
