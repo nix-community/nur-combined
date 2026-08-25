@@ -1,7 +1,8 @@
 let
   packages = [
-    "safebucket"
+    "error-pages"
     "rustic-exporter"
+    "safebucket"
   ];
 in
 {
