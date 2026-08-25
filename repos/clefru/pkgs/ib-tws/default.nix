@@ -7,12 +7,12 @@ let
     openjfx_jdk = openjfx23;
   });
   ibDerivation = stdenv.mkDerivation rec {
-  version = "10.50.1d";
+  version = "10.50.1e";
   pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    sha256 = "03idwh81aasbh6102nkhg3fmnkd9m82jmn3wiyfdy92wj1lljmrd";
+    sha256 = "1wdy00gnypn3mh1p2f4qqd4crgxy7w6nbkiynrilamrs1mvwmqzd";
     executable = true;
   };
 
