@@ -24,10 +24,12 @@ stdenvNoCC.mkDerivation {
 
     # dashboard, docs and e2e-tests drag in Tauri, Astro and Cloudflare for nothing.
     # --ignore-scripts also skips onnxruntime-node's CUDA download.
+    # --filter alone switches bun to the isolated linker, which puts the real packages under node_modules/.bun and leaves symlink farms per workspace.
     bun install \
       --frozen-lockfile \
       --ignore-scripts \
       --no-progress \
+      --linker hoisted \
       --filter ./packages/cli \
       --filter ./packages/plugin \
       --filter ./packages/pi-plugin \
@@ -39,10 +41,15 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    bun ${./prune-platform-packages.mjs} node_modules
+    # Some dependencies cannot hoist and stay in their own workspace, so mirror the tree rather than copying one directory.
+    mapfile -t trees < <(find . -maxdepth 3 -type d -name node_modules -prune)
+    bun ${./prune-platform-packages.mjs} "''${trees[@]}"
 
-    # Workspace links are relative, so the tree survives being copied into a fresh checkout.
-    cp -R node_modules $out
+    mkdir -p $out
+    for tree in "''${trees[@]}"; do
+      mkdir -p "$out/$(dirname "$tree")"
+      cp -R "$tree" "$out/$tree"
+    done
 
     runHook postInstall
   '';

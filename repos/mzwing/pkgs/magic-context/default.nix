@@ -10,7 +10,7 @@
   version = lib.removePrefix "v" source.version;
 
   # Refreshed by update-hashes via passthru.updateCustomDeps.
-  bunDepsHash = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
+  bunDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
 
   nodeModules = callPackage ./deps.nix {inherit source version bunDepsHash;};
 
@@ -23,8 +23,8 @@ in
     nativeBuildInputs = [bun makeWrapper];
 
     postPatch = ''
-      cp -R ${nodeModules} node_modules
-      chmod -R u+w node_modules
+      cp -R ${nodeModules}/. .
+      find . -maxdepth 3 -type d -name node_modules -prune -exec chmod -R u+w {} +
     '';
 
     buildPhase = ''

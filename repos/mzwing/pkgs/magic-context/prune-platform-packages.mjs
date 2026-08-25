@@ -3,9 +3,9 @@
 import {readdirSync, readFileSync, rmSync} from "node:fs";
 import {join} from "node:path";
 
-const root = process.argv[2];
-if (!root) {
-  throw new Error("usage: prune-platform-packages.mjs <node_modules>");
+const roots = process.argv.slice(2);
+if (roots.length === 0) {
+  throw new Error("usage: prune-platform-packages.mjs <node_modules>...");
 }
 
 const isPlatformGated = (packageDir) => {
@@ -47,12 +47,16 @@ function visitTree(nodeModules) {
   }
   for (const entry of entries) {
     const path = join(nodeModules, entry.name);
-    // .bin holds the build tools; other dot dirs are install-local state.
-    if (entry.name === ".bin") continue;
-    if (entry.name.startsWith(".")) {
+    if (entry.name === ".cache") {
       rmSync(path, {recursive: true, force: true});
       continue;
     }
+    // .bun is the isolated linker's package store; anything else dotted is bun's own bookkeeping.
+    if (entry.name === ".bun") {
+      visitTree(join(path, "node_modules"));
+      continue;
+    }
+    if (entry.name.startsWith(".")) continue;
     if (entry.isSymbolicLink()) continue;
     if (entry.name.startsWith("@")) {
       visitScope(path);
@@ -62,4 +66,4 @@ function visitTree(nodeModules) {
   }
 }
 
-visitTree(root);
+for (const root of roots) visitTree(root);
