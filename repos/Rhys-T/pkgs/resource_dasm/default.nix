@@ -3,12 +3,12 @@
     needsFmt = fuzziqersoftwareFmtPatchHook.isNeeded;
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2026-08-23";
+    version = "0-unstable-2026-08-24";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "resource_dasm";
-        rev = "c4c5a2dea2bac4b915a24b1760cf439413dfadfb";
-        hash = "sha256-5yI9cV4TNLoTg7dCVO4pfE/c2DmiuYWbDxegykXUY9w=";
+        rev = "f2a40faa4ce0f9fd042c1501b5344c22c6975415";
+        hash = "sha256-eBzvEvOgdgoMvl5N+v1QOvh4u4DTuHvh+1S+xD3ludA=";
     };
     nativeBuildInputs =
         [cmake]
