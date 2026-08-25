@@ -1,23 +1,27 @@
 {
   fetchFromGitHub,
   buildDotnetModule,
+  dotnetCorePackages,
   stdenv,
   lib,
 }:
 
 buildDotnetModule rec {
   pname = "wheelwizard";
-  version = "2.4.11";
+  version = "2.5.1-unstable-2026-08-24";
 
   src = fetchFromGitHub {
     owner = "TeamWheelWizard";
     repo = "WheelWizard";
     tag = "v${version}";
-    hash = "sha256-8Dex2PDgwnxKguf0jtC1T0+jm7bA7jDfvspwkiqJgUg=";
+    hash = "sha256-lLGtzdE5MFfwwlGm5eA+MKYiY9oQhohtiVTqtmglols=";
   };
 
   projectFile = "WheelWizard/WheelWizard.csproj";
   nugetDeps = ./deps.json;
+
+  dotnet-runtime = dotnetCorePackages.aspnetcore_10_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
 
   postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     mkdir -p mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps

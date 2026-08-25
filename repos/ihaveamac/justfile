@@ -19,6 +19,7 @@ update:
 	nix-update --version=branch azahar-master
 	nix-update --version=branch yt-dlp-master
 	nix-update --version=branch noods
+	nix-update --version=branch discordwikibot
 	nix-update gmodpatchtool
 	nix-update vacuumtube
 	nix-update retro-aim-server

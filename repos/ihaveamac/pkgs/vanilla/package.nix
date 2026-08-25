@@ -26,22 +26,28 @@
 }:
 let
   hostap = fetchFromGitHub {
-    owner = "rolandoislas";
+    owner = "vanilla-wiiu";
     repo = "drc-hostap";
-    rev = "418e5e206786de2482864a0ec3a59742a33b6623";
-    hash = "sha256-kAv/PetD6Ia5NzmYMWWyWQll1P+N2bL/zaV9ATiGVV0=";
+    rev = "257096accc39f9c2750a7718ff5751108d15f668";
+    hash = "sha256-M0V8y+dkPSM4TY3D9HYTkFCuKp9FVczQ44wDh9qi3GY=";
     leaveDotGit = true;
+    passthru = {
+      # to allow nix-update to work
+      pname = "drc-hostap";
+      version = "2.6-unstable-2026-08-24";
+      src = hostap;
+    };
   };
 in
 stdenv.mkDerivation rec {
   pname = "vanilla";
-  version = "continuous-unstable-2026-08-07";
+  version = "continuous-unstable-2026-08-24";
 
   src = fetchFromGitHub {
     owner = "vanilla-wiiu";
     repo = pname;
-    rev = "066aefdfa57e13198ee6e39c1db17d758570d98a";
-    hash = "sha256-lX/MtgTrncCEX2jyInSQscDbcnXcKhRvCDBuc+kcmco=";
+    rev = "6bf468c39df79e5af1633f3e3768668c85fa707c";
+    hash = "sha256-imcLesB8wPUDcTTv5kbvnBFct8HAVguc7Rbdl0VACQ8=";
   };
 
   passthru = { inherit hostap; };
@@ -75,8 +81,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace pipe/linux/CMakeLists.txt \
-        --replace-fail "https://github.com/rolandoislas/drc-hostap.git" "${hostap}" \
-        --replace-fail "--branch master" "--branch fetchgit"
+        --replace-fail "https://github.com/vanilla-wiiu/drc-hostap.git" "${hostap}"
+    sed -i "s/checkout [0-9a-f]*$/checkout fetchgit/" pipe/linux/CMakeLists.txt
   '';
 
   postInstall = ''

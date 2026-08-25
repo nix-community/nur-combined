@@ -1,6 +1,7 @@
 {
   fetchFromGitHub,
   buildDotnetModule,
+  dotnetCorePackages,
   lib,
 }:
 
@@ -17,6 +18,9 @@ buildDotnetModule rec {
 
   projectFile = "DiscordWikiBot/DiscordWikiBot.csproj";
   nugetDeps = ./deps.json;
+
+  dotnet-runtime = dotnetCorePackages.aspnetcore_10_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
 
   meta = with lib; {
     description = "Discord bot for Wikimedia projects and MediaWiki wiki sites";
