@@ -11,10 +11,24 @@
   bootloader in the guest.
 - **Memory**: fixed base + `virtio-balloon` for reclaiming + `maxmem`/DIMM slots
   defined for future `virtio-mem` hotplug. No KSM.
-- **Networking**: dedicated bridge `vmbr0` (10.78.77.1/24) on prophecy; guests
-  get static IPs in that subnet. Prophecy routes (no NAT) — the upstream router
-  carries a static route for 10.78.77.0/24 via prophecy's LAN IP. Each VM's TAP
-  is created in the QEMU service's `preStart` and torn down in `postStop`.
+- **Networking**: routed, **not** bridged. Each VM gets its own TAP, created by
+  QEMU on start and torn down in `postStop`. The QEMU service's `postStart` puts
+  the gateway address 10.78.77.1 on the tap as a `/32` and adds a `/32` host
+  route back to the guest; the upstream router carries a static route for
+  10.78.77.0/24 via prophecy's LAN IP.
+
+  Because each tap is a point-to-point link with the host as the only neighbour,
+  **guests must hold a `/32`, not a `/24`** (see `modules/vacuvmGuest.nix`). A
+  `/24` makes the guest think its siblings in 10.78.77.0/24 are on-link, so it
+  ARPs for them directly and gets no answer — host↔guest works, guest↔guest
+  silently blackholes. With a `/32` plus an on-link route to the gateway,
+  everything but the gateway goes out the default route and prophecy forwards
+  it, siblings included.
+
+  For guests whose config lives outside this repo (e.g. `jv-shel`) and which
+  therefore keep a `/24`, `postStart` also enables `proxy_arp` on each tap, so
+  prophecy answers those ARP requests itself with the tap's MAC. In-tree guests
+  never rely on this.
 - **Persistence**: the btrfs subvolume `/vms/<name>/root` is outside prophecy's
   impermanence setup (separate subvolume, not under `/persistent`).
 

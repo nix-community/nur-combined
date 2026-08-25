@@ -161,6 +161,19 @@ let
               # a forged source IP. (Effective iff net.ipv4.conf.all.rp_filter is
               # 0 or 1; kernel default is 0.)
               echo 1 > /proc/sys/net/ipv4/conf/${tapName}/rp_filter
+              # Proxy ARP: answer the guest's ARP requests for addresses we have
+              # a route to, using this tap's own MAC. Needed because each tap is
+              # a point-to-point link — a guest that (reasonably) believes the
+              # whole VM subnet is on-link will ARP its siblings directly, and
+              # nothing is there to answer, so VM-to-VM traffic blackholes. With
+              # this the host answers and forwards it out the sibling's tap.
+              # Scope is naturally limited: we only reply for addresses we
+              # actually route (the per-VM /32s), and the guest only ARPs for
+              # its on-link prefix — everything else already goes to the
+              # gateway. In-tree guests hold a /32 (see modules/vacuvmGuest.nix)
+              # and never rely on this; it is what keeps externally-managed
+              # guests working.
+              echo 1 > /proc/sys/net/ipv4/conf/${tapName}/proxy_arp
             '';
 
             # Deleting the tap also drops its address and the /32 route.

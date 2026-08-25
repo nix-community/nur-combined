@@ -7,13 +7,37 @@
 }:
 let
   hostGatewayIP = "10.78.77.1";
-  guestIP = "10.78.77.2";
-  guestMac = "52:54:00:12:34:56";
+  guestIPs = {
+    test-vm = "10.78.77.2";
+    test-vm2 = "10.78.77.3";
+  };
+  # Each guest pings the other one, so guest<->guest traffic is exercised in
+  # both directions.
+  peerOf = vmName: guestIPs.${if vmName == "test-vm" then "test-vm2" else "test-vm"};
+
+  # The two guests deliberately number themselves differently, so one test run
+  # covers both of the things that make VM-to-VM traffic work over the routed
+  # (non-bridged, point-to-point-per-tap) host setup:
+  #
+  #   /32 — what in-tree guests do (modules/vacuvmGuest.nix). Nothing is on-link,
+  #         so even a sibling in the VM subnet goes out the default route and the
+  #         host forwards it.
+  #   /24 — what an externally-managed guest naturally does, and what every guest
+  #         used to do. It believes its siblings are on-link and ARPs for them
+  #         directly; only the host's proxy ARP on the tap (modules/qemu-vm.nix)
+  #         makes that resolve.
+  prefixLenOf = vmName: if vmName == "test-vm" then "32" else "24";
+
+  # Marker the peer-check service creates in the guest's rootfs once the peer
+  # answers. The rootfs is the virtiofs share, so the host can see it directly
+  # under <rootDir> without needing a login shell in the guest.
+  peerMarker = "/var/lib/peer-reachable";
 
   # Minimal NixOS guest that boots from a virtiofs rootfs.
   # Uses the same pkgs as the test to avoid redundant builds.
   # The inner VM runs under KVM (nested virtualization), so boot is fast.
-  guestSystem =
+  mkGuestSystem =
+    vmName:
     (inputs.nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -37,13 +61,48 @@ let
 
           networking.useNetworkd = true;
           systemd.network.enable = true;
+          # See prefixLenOf above for why the two guests differ. The explicit
+          # on-link route to the gateway is what modules/vacuvmGuest.nix does and
+          # is required for the /32 guest (which has nothing on-link at all); it
+          # is harmless for the /24 one.
           systemd.network.networks."10-eth" = {
             matchConfig.Type = "ether";
             networkConfig = {
               DHCP = "no";
-              Address = "${guestIP}/24";
-              Gateway = hostGatewayIP;
+              Address = "${guestIPs.${vmName}}/${prefixLenOf vmName}";
             };
+            routes = [
+              {
+                Destination = "${hostGatewayIP}/32";
+                Scope = "link";
+              }
+              {
+                Gateway = hostGatewayIP;
+                GatewayOnLink = true;
+              }
+            ];
+          };
+
+          # Ping the sibling VM until it answers, then drop a marker file the
+          # test can read from the host side of the virtiofs share.
+          systemd.services.peer-check = {
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network-online.target" ];
+            wants = [ "network-online.target" ];
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+            };
+            script = ''
+              rm -f ${peerMarker}
+              until ${pkgs.iputils}/bin/ping -c1 -W2 ${peerOf vmName}; do
+                sleep 1
+              done
+              mkdir -p "$(dirname ${peerMarker})"
+              echo ok > ${peerMarker}
+              # virtiofsd caches aggressively; make sure the host sees it.
+              ${pkgs.coreutils}/bin/sync
+            '';
           };
 
           users.users.root.initialPassword = "";
@@ -58,9 +117,15 @@ let
         })
       ];
     }).config.system.build.toplevel;
+
+  guestSystems = lib.mapAttrs (vmName: _: mkGuestSystem vmName) guestIPs;
 in
 {
   name = "qemu-vm";
+
+  # Two ~1.1 GiB rootfs bootstraps plus two nested-KVM guest boots do not fit in
+  # the 3600s default.
+  globalTimeout = 10800;
 
   nodes.host = { ... }: {
     imports = [ vacuModules.qemu-vm ];
@@ -78,56 +143,85 @@ in
       gateway = hostGatewayIP;
     };
 
-    vacu.qemuVMs.test-vm = {
-      rootDir = "/tmp/test-vm-root";
-      mac = guestMac;
-      address = guestIP;
+    # Two VMs, so the test covers guest<->guest traffic (which the host has to
+    # forward between the two taps) and not just host<->guest.
+    vacu.qemuVMs = lib.mapAttrs (vmName: address: {
+      rootDir = "/tmp/${vmName}-root";
+      inherit address;
       baseMem = 512;
       maxMem = 2048;
       cpus = 1;
       # KVM (nested virtualization) — the host node exposes /dev/kvm to the
-      # inner VM, so boot is fast.
+      # inner VM. Still slow when the builder is itself a VM, but far better
+      # than tcg.
       accel = "kvm";
       autoStart = false;
-    };
+    }) guestIPs;
 
-    # Register the guest system closure as valid in the host node's Nix DB so
-    # `vacuvm bootstrap test-vm` can query its requisites and copy it into the rootfs.
-    virtualisation.additionalPaths = [ guestSystem ];
+    # Register the guest system closures as valid in the host node's Nix DB so
+    # `vacuvm bootstrap <vm>` can query their requisites and copy them into the
+    # rootfs.
+    virtualisation.additionalPaths = lib.attrValues guestSystems;
 
-    # Give the host node enough RAM to run a 512 MiB QEMU guest
-    virtualisation.memorySize = 2048;
-    virtualisation.cores = 2;
-    # Room for the ~1.1 GiB guest closure copied into /tmp/test-vm-root.
-    virtualisation.diskSize = 4096;
+    # Enough RAM for the host node plus two 512 MiB QEMU guests
+    virtualisation.memorySize = 3072;
+    # The guests are nested KVM inside this node, which is itself a VM, so they
+    # are slow and CPU-bound — give them more than one core each to share.
+    virtualisation.cores = 4;
+    # Room for the ~1.1 GiB guest closure copied into each of the two rootfs
+    # dirs (separate directory trees, so it is not deduplicated).
+    virtualisation.diskSize = 8192;
   };
 
   testScript = ''
+    vms = {
+      ${lib.concatStringsSep "\n      " (
+        lib.mapAttrsToList (
+          vmName: address: ''"${vmName}": ("${address}", "${guestSystems.${vmName}}"),''
+        ) guestIPs
+      )}
+    }
+
     host.start()
     host.wait_for_unit("multi-user.target")
 
     # IPv4 forwarding must be enabled for routed VM networking
     host.succeed("test \"$(cat /proc/sys/net/ipv4/ip_forward)\" = 1")
 
-    # Populate the guest rootfs from the pre-built NixOS system closure.
-    host.succeed("vacuvm bootstrap test-vm ${guestSystem}", timeout=600)
+    for name, (address, toplevel) in vms.items():
+        # Populate the guest rootfs from the pre-built NixOS system closure.
+        host.succeed(f"vacuvm bootstrap {name} {toplevel}", timeout=1800)
+        # Verify the profile symlink was created
+        host.succeed(f"test -L /tmp/{name}-root/nix/var/nix/profiles/system")
 
-    # Verify the profile symlink was created
-    host.succeed("test -L /tmp/test-vm-root/nix/var/nix/profiles/system")
+    for name in vms:
+        host.systemctl(f"start vacuvm-{name}-qemu.service")
 
-    # Start virtiofsd and QEMU
-    host.systemctl("start vacuvm-test-vm-qemu.service")
+    for name, (address, _) in vms.items():
+        # postStart sets up the routed tap: gateway IP on the tap and a /32 host
+        # route back to the guest.
+        host.wait_until_succeeds(f"ip link show v-{name}", timeout=60)
+        host.succeed(f"ip route get {address} | grep -q 'dev v-{name}'")
 
-    # preStart sets up the routed tap: gateway IP on the tap and a /32 host
-    # route back to the guest.
-    host.wait_until_succeeds("ip link show tap-test-vm", timeout=30)
-    host.succeed("ip route get ${guestIP} | grep -q 'dev tap-test-vm'")
+        # The interactive console socket (hvc0) is created host-side by QEMU on start.
+        host.wait_until_succeeds(f"test -S /run/vacuvm-{name}-boot/console.sock", timeout=60)
 
-    # The interactive console socket (hvc0) is created host-side by QEMU on start.
-    host.wait_until_succeeds("test -S /run/vacuvm-test-vm-boot/console.sock", timeout=30)
+        # Wait for the guest to boot and come up on the routed network. Nested
+        # KVM under an already-virtualised builder is slow — a guest can spend
+        # several minutes just getting to initrd — so be generous here.
+        host.wait_until_succeeds(f"ping -c1 -W2 {address}", timeout=900)
 
-    # Wait for the guest to boot and come up on the routed network.
-    host.wait_until_succeeds("ping -c1 -W2 ${guestIP}", timeout=120)
+    # Proxy ARP must be on for the /24 guest to resolve its sibling at all.
+    for name in vms:
+        host.succeed(f"test \"$(cat /proc/sys/net/ipv4/conf/v-{name}/proxy_arp)\" = 1")
+
+    # Guest-to-guest. Each tap is a separate point-to-point link, so this only
+    # works if the host forwards between the taps *and* each guest can resolve
+    # the peer — via the default route (the /32 guest) or via the host's proxy
+    # ARP (the /24 guest). Each guest's peer-check service writes the marker into
+    # its own rootfs once the other answers, so both directions are covered.
+    for name in vms:
+        host.wait_until_succeeds(f"test -e /tmp/{name}-root${peerMarker}", timeout=600)
   '';
 
   skipTypeCheck = true;

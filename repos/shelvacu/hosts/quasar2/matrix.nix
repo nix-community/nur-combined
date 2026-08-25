@@ -75,17 +75,4 @@ in
   };
 
   vacu.systemKind = lib.mkDefault "minimal";
-
-  networking.useNetworkd = true;
-  systemd.network.enable = true;
-  # Match any ethernet interface (there is exactly one: the virtio-net NIC)
-  systemd.network.networks."10-eth" = {
-    matchConfig.Type = "ether";
-    networkConfig = {
-      DHCP = "no";
-      Address = "10.78.77.3/24";
-      Gateway = "10.78.77.1";
-      DNS = "10.78.79.1";
-    };
-  };
 }
