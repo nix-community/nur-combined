@@ -145,13 +145,13 @@
   };
   kelivo = {
     pname = "kelivo";
-    version = "v1.2.3";
+    version = "v1.2.4";
     src = fetchFromGitHub {
       owner = "Chevey339";
       repo = "kelivo";
-      rev = "v1.2.3";
+      rev = "v1.2.4";
       fetchSubmodules = false;
-      sha256 = "sha256-wTlHFJizR4aNm/TJbewKZPKwe01PYOGkXkM/Qsax71o=";
+      sha256 = "sha256-D2Si7LAzp7C+g13uCUov3o6fLeQ3gz0hxJ3enhipqsE=";
     };
   };
   magic-context = {
@@ -212,13 +212,13 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "85d635a42b928329d2ba8ffb09656a45976222b3";
+    version = "d8c7c23c0bd547a72dc3df84c5e2855aba975cf8";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "85d635a42b928329d2ba8ffb09656a45976222b3";
+      rev = "d8c7c23c0bd547a72dc3df84c5e2855aba975cf8";
       fetchSubmodules = true;
-      sha256 = "sha256-gKkErqBo9ReRulowlq8D8jgtETtJpvmX6N1/OtOVd4A=";
+      sha256 = "sha256-PGn81au98xo+0MSe7CJLpoDBm8S+WcnaVr2SdwQ1rv0=";
     };
     date = "2026-08-25";
   };
