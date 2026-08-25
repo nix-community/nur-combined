@@ -36,7 +36,7 @@ nix-prefetch-github <owner> <repo> --rev v<version>
 - Rust packages may need `Cargo.lock` handling (`waybar-vd`).
 - Flutter packages may need pub-lock refresh and native-asset validation (`LoveIwara`).
 - Python GUI apps may need wrapper/runtime checks (`JMComic-qt`, `picacg-qt`).
-- npm packages may need `npmDepsHash` refresh (`codegraph`).
+- npm packages may need `npmDepsHash` refresh (`wechatbot-mcp`).
 - bun-built packages may need dependency/output hash refresh (`mcp-cli`).
 
 ## Examples

@@ -69,10 +69,7 @@ in
   lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
   deskbrid = pkgs.callPackage ./pkgs/deskbrid.nix { };
   context-mode = pkgs.callPackage ./pkgs/context-mode.nix { };
-  codegraph = pkgs.callPackage ./pkgs/codegraph.nix { };
-  spec-kit = pkgs.callPackage ./pkgs/spec-kit.nix { };
   truenas-mcp = pkgs.callPackage ./pkgs/truenas-mcp.nix { };
   banguminet = pkgs.callPackage ./pkgs/banguminet { };
   pctx = pkgs.callPackage ./pkgs/pctx { };
-  deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
 }

@@ -79,7 +79,7 @@ buildGoModule rec {
 
 ### npm packages
 
-Example: `pkgs/codegraph.nix`
+Example: `pkgs/wechatbot-mcp.nix`
 
 ```nix
 buildNpmPackage rec {
