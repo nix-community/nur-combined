@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pi-caveman";
-  version = "1.2.4";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "vanillagreencom";
     repo = "vstack";
     tag = "pi-caveman-v${finalAttrs.version}";
-    hash = "sha256-+v7kj2EdGN/+spFbdfWBFplelxg+APCljQPubz+2N/c=";
+    hash = "sha256-kXYyL8dlROietumjzNZco33ZuLFGq4PzjxEvxPJhOLM=";
   };
 
   installPhase = ''

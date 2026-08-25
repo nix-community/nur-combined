@@ -1,6 +1,6 @@
 { mkVersionedHttpZim }: mkVersionedHttpZim {
   owner = "wikipedia";
   pname = "wikipedia_en_100";
-  version = "2026-07";
-  hash = "sha256-+62NXaghrlqJw8D3haRq5X2wr5/5EcuGAupcEZOneOw=";
+  version = "2026-08";
+  hash = "sha256-Lrf9EVv7hkSgipSC8B9StQdCixuKMBKf6tkve2cVRAs=";
 }

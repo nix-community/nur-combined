@@ -1,3 +1,19 @@
+# notes about qualcomm / sdm845 / Pocophone:
+# - it uses QMI and QRTR internally for communication between the application processor and "everyday" peripherals like WiFi.
+# - QRTR/QMI depends on a "protection domain mapper" service; this has two implementations:
+#   - userspace `pd-mapper` binary. largely considered "legacy", but used by postmarketOS.
+#   - kernel qcom_pd_mapper module, the upstream-native way to do this.
+#   - these read firmware files (e.g. /run/current-system/firmware/*), and historically had trouble with compressed firmware.
+#     and possibly have initialization order limitations for that same reason (firmware has to be available when they launch?)
+#
+## the bootloader responds to USB commands:
+# - plug the phone into USB. you MUST use a USB-2 adapter for reliable connection.
+# - boot the phone while holding power-down. it will enter android "fastboot".
+# - from PC, issue `fastboot` commands:
+#
+### powering down the phone
+# - `fastboot oem poweroff`
+#   then unplug USB
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.hal.xiaomi-pocophone;
@@ -16,11 +32,59 @@ in
 
     hardware.deviceTree.name = "qcom/sdm845-xiaomi-beryllium-tianma.dtb";
 
+    # N.B.: much of this section was derived via GPT-5.6 with the goal of enabling WiFi.
+    # it can probably be cleaned up with more experimentation.
     hardware.firmware = [
-      pkgs.firmware-xiaomi-beryllium
+      # pkgs.firmware-xiaomi-beryllium
+      pkgs.vanilla-mobile-nixos.pkgs.xiaomi-beryllium-firmware
+    ];
+    # pd-mapper and tqftpserv need to inspect/read the firmware tree too;
+    # unlike the kernel firmware loader, they do not understand zstd files.
+    # hardware.firmwareCompression = "none";
+
+    sane.programs.alsa-ucm-conf.suggestedPrograms = [
+      "alsa-ucm-conf-sdm845"
     ];
 
-    boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-postmarketos-qcom-sdm845;
+    # WCN3990's firmware is a Qualcomm protection-domain image. The
+    # ath10k_snoc driver requests it over QRTR/TFTP; loading ath10k_snoc alone
+    # is not sufficient to make wlan0 appear.
+    systemd.packages = [
+      # pkgs.pd-mapper
+      pkgs.qrtr
+      pkgs.rmtfs
+      pkgs.tqftpserv
+    ];
+    services.udev.packages = [ pkgs.rmtfs ];
+    # systemd.services.pd-mapper = {
+    #   wantedBy = [ "multi-user.target" ];
+    #   before = [ "rmtfs.service" ];
+    # };
+    systemd.services.tqftpserv = {
+      wantedBy = [ "multi-user.target" ];
+      before = [ "rmtfs.service" ];
+    };
+    # Match postmarketOS: use rmtfs' direct partition mode. The -s option
+    # starts the MPSS remoteproc; -P discovers the modem partitions by label,
+    # so no /var/lib/rmtfs/modem_fs* files are required.
+    systemd.services.rmtfs = {
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        # "pd-mapper.service"
+        "tqftpserv.service"
+      ];
+      requires = [
+        # "pd-mapper.service"
+        "tqftpserv.service"
+      ];
+    };
+    environment.systemPackages = [ pkgs.qrtr ];
+    # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-postmarketos-qcom-sdm845;
+    boot.kernelPackages = pkgs.linuxPackagesFor pkgs.vanilla-mobile-nixos.pkgs.linuxKernels.linux_sdm845;
+
+    # options imported from vanilla-mobile-nixos
+    # boot.initrd.includeDefaultModules = false;
+    boot.initrd.allowMissingModules = true;
 
     # TODO: enable systemd-boot, but needs linux-postmarketos-qcom-sdm845.features.efiBootStub == true.
     boot.loader.generic-extlinux-compatible.enable = true;
@@ -29,10 +93,13 @@ in
     boot.initrd.availableKernelModules = [
       "gpi"
       "i2c_qcom_geni"
+      # "qcom_pd_mapper"
       "qcom_smbx" # "qcom_pmi8998_charger"  # mentioned in postmarketos, but not present in `lsmod`
       "pmi8998_fg" # "qcom_fg"  # mentioned in postmarketos and present with `lsmod`. carried in pmos tree -- see device/testing/linux-xiaomi-pipa/0002-power-supply-Add-driver-for-Qualcomm-PMIC-fuel-gauge.patch
       # "nt36xxx"  # mentioned in postmarketos, but not upstreamed and not observed to be in `lsmod` on Pocophone
       "novatek_nvt_ts"
+      # "sd_mod"  # undo effects of `includeDefaultModules = false`
+      # "dm_mod"
     ];
 
     boot.initrd.extraFirmwarePaths = [
@@ -41,22 +108,25 @@ in
       "qcom/a630_gmu.bin"
       "qcom/sdm845/Xiaomi/beryllium/a630_zap.mbn"
 
-      # dunno if these are required in initrd
-      "qcom/sdm845/Xiaomi/beryllium/adsp.mbn"
-      "qcom/sdm845/Xiaomi/beryllium/cdsp.mbn"
-      "qcom/sdm845/Xiaomi/beryllium/ipa_fws.mbn"
-      "qcom/sdm845/Xiaomi/beryllium/slpi.mbn"
+      # # dunno if these are required in initrd
+      # "qcom/sdm845/Xiaomi/beryllium/adsp.mbn"
+      # "qcom/sdm845/Xiaomi/beryllium/cdsp.mbn"
+      # "qcom/sdm845/Xiaomi/beryllium/ipa_fws.mbn"
+      # "qcom/sdm845/Xiaomi/beryllium/slpi.mbn"
 
-      # dunno if these are required in initrd
-      "ath10k/WCN3990/hw1.0/board-2.bin"
-      "ath10k/WCN3990/hw1.0/firmware-5.bin"
+      # # dunno if these are required in initrd
+      # "ath10k/WCN3990/hw1.0/board-2.bin"
+      # "ath10k/WCN3990/hw1.0/firmware-5.bin"
 
-      # dunno if these are required in initrd
-      "qca/crbtfw21.tlv"
-      "qca/crnv21.bin"
+      # # dunno if these are required in initrd
+      # "qca/crbtfw21.tlv"
+      # "qca/crnv21.bin"
     ];
 
     boot.blacklistedKernelModules = [
+      # Use the postmarketOS user-space mapper instead of the kernel mapper;
+      # the two would compete for the same service-registry endpoint.
+      # "qcom_pd_mapper"
       # these are likely not *all* necessary
       "fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
       "qcom_fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`

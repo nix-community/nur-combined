@@ -16,6 +16,9 @@
 
   networking.hostName = "moby";
   sane.cpu = lib.mkDefault "aarch64";
+  # Pocophone WLAN generates a new mac each boot. might be the "Use per-connection randomized MAC" Android setting?
+  # Assign a static one for easier DHCP lease management, then.
+  networking.networkmanager.wifi.macAddress = "02:f0:87:f0:87:02";
 
   # sane.hal.pine64-pinephone-pro.enable = true;
   sane.hal.xiaomi-pocophone.enable = true;

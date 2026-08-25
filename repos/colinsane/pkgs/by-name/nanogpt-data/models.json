@@ -1,5 +1,137 @@
 [
   {
+    "id": "stealth/ox-alpha",
+    "name": "Ox Alpha",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.05,
+      "currency": "USD",
+      "prompt": 0.05,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-uncensored",
+    "name": "Gemma 4 26B A4B Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.8-27b-uncensored",
+    "name": "Qwen 3.8 27B Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.18,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.6-35b-a3b-uncensored",
+    "name": "Qwen 3.6 35B A3B Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 65536,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "ornith-ai/ornith-1.5-9b",
+    "name": "Ornith 1.5 9B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.1,
+      "currency": "USD",
+      "prompt": 0.05,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "Gemma-4-31B-MeroMero-v2",
+    "name": "Gemma 4 31B MeroMero v2",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 65536,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "ornith-ai/ornith-1.5-35b-a3b",
     "name": "Ornith 1.5 35B",
     "pricing": {
@@ -2764,13 +2896,13 @@
     "id": "google/gemini-flash-latest",
     "name": "Gemini Flash Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
-      "completion": 3.75,
+      "cacheReadInputPer1kTokens": 3.75e-05,
+      "completion": 1.875,
       "currency": "USD",
-      "prompt": 0.75,
+      "prompt": 0.375,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -2779,6 +2911,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -7003,6 +7136,28 @@
     }
   },
   {
+    "id": "deepseek/deepseek-v4-flash-vision-exp",
+    "name": "DeepSeek V4 Flash Vision Exp",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7e-06,
+      "completion": 0.66,
+      "currency": "USD",
+      "prompt": 0.22,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 384000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "deepseek/deepseek-v4-flash-0731",
     "name": "DeepSeek V4 Flash 0731",
     "pricing": {
@@ -7468,27 +7623,6 @@
       "unit": "per_million_tokens"
     },
     "context_length": 300000,
-    "max_output_tokens": 5120,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "amazon/nova-micro-v1",
-    "name": "Amazon Nova Micro 1.0",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 1.785e-05,
-      "completion": 0.1394,
-      "currency": "USD",
-      "prompt": 0.0357,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
     "max_output_tokens": 5120,
     "capabilities": {
       "reasoning": false
@@ -12156,14 +12290,14 @@
     "id": "venice-uncensored",
     "name": "Venice Uncensored",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002,
-      "completion": 0.4,
+      "cacheReadInputPer1kTokens": 0.0004,
+      "completion": 1.8,
       "currency": "USD",
       "prompt": 0.4,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 8192,
     "capabilities": {
       "reasoning": false
     },
@@ -12242,10 +12376,10 @@
     "id": "google/gemma-4-26b-a4b-it",
     "name": "Gemma 4 26B A4B",
     "pricing": {
-      "cacheReadInputPer1kTokens": 6.5e-05,
-      "completion": 0.4,
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
       "currency": "USD",
-      "prompt": 0.13,
+      "prompt": 0.08,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -12454,10 +12588,10 @@
     "id": "google/gemma-4-31b-it",
     "name": "Gemma 4 31B",
     "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.35,
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
       "currency": "USD",
-      "prompt": 0.1,
+      "prompt": 0.08,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,

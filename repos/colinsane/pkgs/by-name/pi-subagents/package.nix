@@ -6,18 +6,18 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-subagents";
-  version = "0.53.0";
+  version = "0.56.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-subagents";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WSsCgt/ZyG8KUaB7s0EBtOgdgEkqE+3bgRjOZhpHKbA=";
+    hash = "sha256-Dde5ctGHoV9Rnn3Blcy/7utF8FWOm37YvFZvpeVlPKk=";
   };
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-/7e301fFT7CcSnN3PWqjp4TBtO3oi1OY0Cb/8xEc6s0=";
+  npmDepsHash = "sha256-2j6AUjSNId432ZU1D5DX4yLqktjx01p/u7ICyip3vss=";
 
   dontNpmBuild = true;
 

@@ -9,6 +9,49 @@
   };
 
   config = lib.mkIf config.sane.roles.handheld {
+    # expose a ssh-capable network to the USB port.
+    # connect another computer to this handheld, and then ssh in like:
+    # ```
+    #   ip link  # to determine the interface, e.g. `usb0`
+    #   sudo ip addr add 172.16.42.2/24 dev <interface>
+    #   sudo ip link set <interface> up
+    #   ssh 172.16.42.1
+    # ```
+    boot.kernelModules = [ "libcomposite" "usb_f_ncm" ];
+    systemd.services.usb-gadget = {
+      unitConfig.DefaultDependencies = false;
+      requires = [ "sys-kernel-config.mount" ];
+      after = [ "systemd-modules-load.service" "sys-kernel-config.mount" ];
+      wantedBy = [ "basic.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      # TODO: how much of this can be removed/simplified? unsure if it's device-specific or not.
+      script = ''
+        gadget=/sys/kernel/config/usb_gadget/g1
+        mkdir -p "$gadget"
+        echo 0x1d6b > "$gadget/idVendor"
+        echo 0x0104 > "$gadget/idProduct"
+        mkdir -p "$gadget/strings/0x409"
+        echo Xiaomi > "$gadget/strings/0x409/manufacturer"
+        echo "NixOS handheld" > "$gadget/strings/0x409/product"
+        echo NixOS > "$gadget/strings/0x409/serialnumber"
+        mkdir -p "$gadget/functions/ncm.usb0"
+        mkdir -p "$gadget/configs/c.1/strings/0x409"
+        echo "USB network" > "$gadget/configs/c.1/strings/0x409/configuration"
+        ln -s "$gadget/functions/ncm.usb0" "$gadget/configs/c.1/"
+        echo "$(ls /sys/class/udc | head -1)" > "$gadget/UDC"
+      '';
+    };
+    networking.firewall.trustedInterfaces = [ "usb0" ];
+    systemd.network.networks."usb0" = {
+      matchConfig.Name = "usb0";
+      address = [ "172.16.42.1/24" ];
+      networkConfig.ConfigureWithoutCarrier = true;
+      linkConfig.RequiredForOnline = false;
+    };
+
     sane.programs.guiApps.suggestedPrograms = [
       "consoleMediaUtils"  # overbroad, but handy on very rare occasion
       "handheldGuiApps"

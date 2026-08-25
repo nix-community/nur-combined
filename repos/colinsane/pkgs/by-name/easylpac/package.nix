@@ -16,16 +16,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "easylpac";
-  version = "0.8.0.3";
+  version = "0.8.1.1";
 
   src = fetchFromGitHub {
     owner = "creamlike1024";
     repo = "EasyLPAC";
     rev = finalAttrs.version;
-    sha256 = "sha256-q76p0BqrG8opuTClYKLfmM5hdziJIrZCwQmg2NkzW/E=";
+    sha256 = "sha256-xMXi+AJjbKX7RlcUAutbL/Gfg+DoltSldQza7YMgUWU=";
   };
   proxyVendor = true;  #< ??
-  vendorHash = "sha256-Oo6RfltmWBBmLFWxt99VzNhO+QzmF62KtGblScEKoKc=";
+  vendorHash = "sha256-Vamrw5f8wm+0FY3Cd1ye6A5xQ5Tw5yvcEGvS55/7zus=";
 
   # XXX: starting with 21c4a125 (2026-02-27) easylpac vendors eum-registry.json and ci-registry.json.
   # this is likely in response to the euicc-manual changing its registry formats?

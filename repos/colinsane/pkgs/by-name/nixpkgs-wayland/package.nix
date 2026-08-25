@@ -4,12 +4,12 @@
   pkgs,
 }:
 let
-  version = "0-unstable-2026-08-21";
+  version = "0-unstable-2026-08-24";
   src = fetchFromGitHub {
     owner = "nix-community";
     repo = "nixpkgs-wayland";
-    rev = "2e7c77ced03ef1487fcb26d1db123c43afc98af6";
-    hash = "sha256-UA3hHkLj66MXeDRxBpYMk0sE8NgTBillyUkvuIJ1hoo=";
+    rev = "8fa0b4b3b35da8c19c07cdccc5317e2ffc9f07b2";
+    hash = "sha256-p4pgfaQR0Wh/HyJkdnTZqB0bdES0txIlikXIcz4a7Kw=";
   };
   overlay = import "${src}/overlay.nix";
 
