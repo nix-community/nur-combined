@@ -86,15 +86,15 @@
   };
   gomod2nix = {
     pname = "gomod2nix";
-    version = "3f112b481eed7f7a32e00fcd13c4186f003bf8b6";
+    version = "89b9a05a88f720ce9af82430e8f0b99cf4ddeee0";
     src = fetchFromGitHub {
       owner = "mzwing";
       repo = "gomod2nix";
-      rev = "3f112b481eed7f7a32e00fcd13c4186f003bf8b6";
+      rev = "89b9a05a88f720ce9af82430e8f0b99cf4ddeee0";
       fetchSubmodules = false;
-      sha256 = "sha256-LqiPeyQH0uNN4trNE9YmJnwUrZgW4UznFxl4ftkI4lo=";
+      sha256 = "sha256-2F7Da0CpU8F5Le8+U2fLpSx9NNji6A+P+l9pQbZ1eis=";
     };
-    date = "2026-08-24";
+    date = "2026-08-25";
   };
   gryph = {
     pname = "gryph";
@@ -212,13 +212,13 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "d8c7c23c0bd547a72dc3df84c5e2855aba975cf8";
+    version = "a2881a96fdae9ab9f1c21ddc23afa6d39960cb76";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "d8c7c23c0bd547a72dc3df84c5e2855aba975cf8";
+      rev = "a2881a96fdae9ab9f1c21ddc23afa6d39960cb76";
       fetchSubmodules = true;
-      sha256 = "sha256-PGn81au98xo+0MSe7CJLpoDBm8S+WcnaVr2SdwQ1rv0=";
+      sha256 = "sha256-5kfFqXRDsspi0oZ2kWdPvBvLV04BgXayj6F0JbNWMt4=";
     };
     date = "2026-08-25";
   };
