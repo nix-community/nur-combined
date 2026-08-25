@@ -95,7 +95,10 @@ in
       helix.enable = true;
       herdr = {
         enable = true;
-        settings.terminal.default_shell = lib.getExe pkgs.fish;
+        settings = {
+          terminal.default_shell = lib.getExe pkgs.fish;
+          ui.toast.delivery = "herdr";
+        };
       };
       hyper.enable = cfg.gui.enable;
       ideavim.enable = true;

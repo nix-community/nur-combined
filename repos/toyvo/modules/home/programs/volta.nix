@@ -24,10 +24,6 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    home.sessionVariables = {
-      VOLTA_HOME = cfg.voltaHome;
-      NODE_ENV = "development";
-      RUN_ENV = "local";
-    };
+    home.sessionVariables.VOLTA_HOME = cfg.voltaHome;
   };
 }
