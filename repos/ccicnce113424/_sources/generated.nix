@@ -54,13 +54,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.4.0-alpha.8";
+    version = "v0.4.1";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.4.0-alpha.8";
+      rev = "v0.4.1";
       fetchSubmodules = false;
-      sha256 = "sha256-YhpUiLeHm4w1ZWLFTYKFg5OnkDRVOZ7yFsZUK2TIqeE=";
+      sha256 = "sha256-xEFsxs9grYO+KKtXccOpVf/byq0I6ELM9NcXBeo8tpE=";
     };
   };
   fast-nix-gc = {
@@ -244,16 +244,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.8-beta.3";
+    version = "v3.9.8-beta.4";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.8-beta.3";
+      rev = "v3.9.8-beta.4";
       fetchSubmodules = false;
-      sha256 = "sha256-L0gzYq96xgxNN+KLDz6A72yRvCTRRjv4iQ+rJakGmgk=";
+      sha256 = "sha256-SJ6PVCIibpcWni57IFLJESLkCyLDRWKqoEXcVlAJMGs=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-L0gzYq96xgxNN+KLDz6A72yRvCTRRjv4iQ+rJakGmgk=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-SJ6PVCIibpcWni57IFLJESLkCyLDRWKqoEXcVlAJMGs=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -261,15 +261,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "8711fcb7ff3f6fcaf7f2bfda58c19634c619dae4";
+    version = "9e5b17e350f32a55a3c5db6d71e0f94918d5370f";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "8711fcb7ff3f6fcaf7f2bfda58c19634c619dae4";
+      rev = "9e5b17e350f32a55a3c5db6d71e0f94918d5370f";
       fetchSubmodules = false;
-      sha256 = "sha256-3fbtONIV8NJas9UPcklZB3W8xIya6o+ig28l4lhB4o4=";
+      sha256 = "sha256-mDjm6cxyBG47NaSKVIJDWrfdsqQ29qDdoTygyIUa70o=";
     };
-    date = "2026-08-17";
+    date = "2026-08-25";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -371,16 +371,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "75158c4d71c0d6863fc2867812996bd7e2966ebe";
+    version = "0f5a2fcbf81904ea4303929f4cb285a57c1d6eee";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "75158c4d71c0d6863fc2867812996bd7e2966ebe";
+      rev = "0f5a2fcbf81904ea4303929f4cb285a57c1d6eee";
       fetchSubmodules = false;
-      sha256 = "sha256-w/KMem/dElLi3GQs42g8PExjAf6ZXSC3KSD5FGpobMo=";
+      sha256 = "sha256-in+29uRSKTW4sjkIL1Lz+bpk/RXHQC8f+bCSV6Sg5PE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-w_KMem_dElLi3GQs42g8PExjAf6ZXSC3KSD5FGpobMo=/Cargo.lock";
+      lockFile = ./. + "/sha256-in+29uRSKTW4sjkIL1Lz+bpk_RXHQC8f+bCSV6Sg5PE=/Cargo.lock";
       outputHashes = {
         
       };
@@ -434,10 +434,10 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.3.6";
+    version = "0.3.7";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.6/waywallen-0.3.6-x86_64.AppImage";
-      sha256 = "sha256-qDn5g3COWGekVJUrr5Vngplga72w+kHSPnQduEZUz10=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.7/waywallen-0.3.7-x86_64.AppImage";
+      sha256 = "sha256-fahTqxeFOULyDva+4m0Oc6lTB3MPEm9p8MWT3XWcKYM=";
     };
   };
   waywallen-display-bin = {
