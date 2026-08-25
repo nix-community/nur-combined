@@ -925,8 +925,8 @@
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
         "falconprogrammer": {
-            "rev": "46f2b87ff49381bf057b0ef836a97793629ce5a6",
-            "sha256": "1x1mq1aq7v1c4axzbagmzmly2msxd6hb8r66vp30kmn5vajld5j6",
+            "rev": "b468ddca106e7eef7fb61530fb905ae43c9ff088",
+            "sha256": "0r8h9ji47yikw4vklp6vd62i846gy1m7p52rbzl3wcyk7fyqdixg",
             "url": "https://github.com/JonBoyleCoding/falconprogrammer-nur"
         },
         "fanbb2333": {
@@ -2200,8 +2200,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "3f3b777958a8aa9bd392d782e785b59b38d0548c",
-            "sha256": "0n7c77p3wzr9j6ipm0lgqrjkd1c0ampiwchbdqik0rzdzx1syyyx",
+            "rev": "25227969423d7ef599f70e16364ac550a0f713cd",
+            "sha256": "1s54lvnr1xpxqq490xcz4mlmp8ara6cz405fwi3s8n07g54ccwn3",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
