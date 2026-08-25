@@ -9,11 +9,11 @@
 
 let
   pname = "elio";
-  version = "1.11.2";
+  version = "1.12.0";
 
   src = fetchurl {
     url = "https://github.com/elio-fm/elio/releases/download/v${version}/elio-${version}-x86_64-unknown-linux-gnu.tar.gz";
-    hash = "sha256-9cW/xUA9p0LEYI3/j4MGPVZvcyJpV1JYKYBuHur4sTM=";
+    hash = "sha256-QLcp3MqW1P5uW8nh2njA2G+Fz3aIFrxx/rBT2jYeQPg=";
   };
 in
 stdenv.mkDerivation {
