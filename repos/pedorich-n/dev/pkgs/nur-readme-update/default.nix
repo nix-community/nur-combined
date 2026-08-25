@@ -8,7 +8,7 @@ let
   nur-readme-generator = pkgs.callPackage ./readme-generator.nix { };
 in
 pkgs.writeShellApplication {
-  name = "nur-readme-generator";
+  name = "nur-readme-update";
 
   runtimeInputs = [
     nur-readme-generator
