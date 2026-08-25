@@ -3,6 +3,7 @@
     { config, ... }:
     let
       dataDir = "/three/sea";
+      filerDir = "/var/lib/sea-filer";
     in
     {
       vaultix.secrets.weed-s3 = {
@@ -20,6 +21,7 @@
           "-s3.allowEmptyFolder=false"
           "-filer.port=8889"
           "-dir=${dataDir}"
+          "-filer.dir=${filerDir}"
           "-volume.max=0"
           "-volume.hasSlowRead=false"
           "-volume.readBufferSizeMB=16"
@@ -29,7 +31,10 @@
       };
 
       systemd.services.seaweedfs.serviceConfig = {
-        ReadWritePaths = [ dataDir ];
+        ReadWritePaths = [
+          dataDir
+          filerDir
+        ];
       };
     };
 }

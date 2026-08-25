@@ -65,6 +65,8 @@
             forgejo
             sept
             zeek
+
+            pxe
           ])
         )
         ++ [
@@ -83,6 +85,8 @@
         stateVersion = "24.11";
       };
       boot = {
+        supportedFilesystems = [ "zfs" ];
+
         loader = {
           efi = {
             canTouchEfiVariables = true;
@@ -123,7 +127,7 @@
           ];
         };
 
-        kernelPackages = pkgs.linuxPackages_latest;
+        kernelPackages = pkgs.linuxPackages;
       };
 
       zramSwap = {
