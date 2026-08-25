@@ -441,10 +441,10 @@
     };
     "are-na" = buildMozillaXpiAddon {
       pname = "are-na";
-      version = "2.13.4";
+      version = "2.13.5";
       addonId = "{4245110a-2f3e-4f78-8303-10cae12384cc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4876135/are_na-2.13.4.xpi";
-      sha256 = "11884dccffb4553cdd2309919b7a7b1767199de357e2c8f228e295ecdfa9ec4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979880/are_na-2.13.5.xpi";
+      sha256 = "afa3c1fd7e8c2cdba08b95c9f1c553d01c644a17c799fb233b6777325f7979c6";
       meta = with lib;
       {
         homepage = "https://www.are.na";
@@ -821,10 +821,10 @@
     };
     "auto-tab-discard" = buildMozillaXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.7.2";
+      version = "0.7.3";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4962080/auto_tab_discard-0.7.2.xpi";
-      sha256 = "ff0ed41080d4596a3577e1751b6a5780ab4672114ca91b79accf024083a80d3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4978053/auto_tab_discard-0.7.3.xpi";
+      sha256 = "66a98738e69df9ad7c7aeb12a495c5880d1f56fb93610f51cd3207a9b73ee702";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -1688,10 +1688,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "7.3.9";
+      version = "7.5.1";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4879753/cardpointers_x-7.3.9.xpi";
-      sha256 = "5cde5dc5f19444018cf5ddcb19518d37379aca2dd218f3c3b5d54ec3344b9a78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4980099/cardpointers_x-7.5.1.xpi";
+      sha256 = "14d763ba01baccdd6297b8ed8772c271eeffee3f953a7ff6b7a504c7951bc949";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -2915,10 +2915,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "155.0.20260821.90339";
+      version = "154.0.20260824.154132";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4972532/dansk_da_language_pack-155.0.20260821.90339.xpi";
-      sha256 = "d8eb5f98517b209b7b15dbd90772be074d0e7f4b5835484aa13ddf0169d03731";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979760/dansk_da_language_pack-154.0.20260824.154132.xpi";
+      sha256 = "3e9e7e7c434dc3831e89b16813d69b360b8eb837c2e3f52e8af86851b1132cd2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3132,10 +3132,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "155.0.20260821.90339";
+      version = "154.0.20260824.154132";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4972514/deutsch_de_language_pack-155.0.20260821.90339.xpi";
-      sha256 = "635d4a1c17a81119350b2cd972c9643f5aa0702a88aa05c6cb5f299d600c1d6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979759/deutsch_de_language_pack-154.0.20260824.154132.xpi";
+      sha256 = "40710873acdf8761c76f8647a1fcd62c165589380cad38fd82bda1e331466d17";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4631,10 +4631,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "155.0.20260821.90339";
+      version = "154.0.20260824.154132";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4972545/francais_language_pack-155.0.20260821.90339.xpi";
-      sha256 = "7d0a141ee0fc7ddbc907bd78b7e63f91b7167dfd53c846ce736ce76827f3acbb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979790/francais_language_pack-154.0.20260824.154132.xpi";
+      sha256 = "0f7602e61df91b5c2c3f511abda23edce617e7d2fd271250978de360c629de62";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4668,10 +4668,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "155.0.20260821.90339";
+      version = "154.0.20260824.154132";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4972596/gaidhlig_language_pack-155.0.20260821.90339.xpi";
-      sha256 = "339a844d2d7107303e18e4af10f9556b6d03d8baf1ebdd478c8bdd215cbd8d33";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979748/gaidhlig_language_pack-154.0.20260824.154132.xpi";
+      sha256 = "d13f7c5916bb7fd5f2407ecb79038d85bc310a68b07e19d63e938b092e35cd77";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8467,10 +8467,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.232";
+      version = "2.4.234";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4970144/lichess_tools_by_siderite-2.4.232.xpi";
-      sha256 = "926428238f394e24022d029a966204e6641664aef5151ba3c12968791b87c8d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4978328/lichess_tools_by_siderite-2.4.234.xpi";
+      sha256 = "f22005214f2427627b151fe2a09b90f7d9c2014b86d8a6244ce4e0b8977a44d6";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -9760,10 +9760,10 @@
     };
     "material-icons-for-github" = buildMozillaXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.16.3";
+      version = "1.16.4";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4908635/material_icons_for_github-1.16.3.xpi";
-      sha256 = "ad6955b1808e35ce94703e648f8231c488aa342fbe3d037e59baafd35b6b9a7a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4978028/material_icons_for_github-1.16.4.xpi";
+      sha256 = "88246df1f6b54f8376ece3c9ed95724b9fb33550f44ef15f359879e4799b7740";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -10194,10 +10194,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.12.7";
+      version = "1.12.8";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4916414/mtab-1.12.7.xpi";
-      sha256 = "b97ec21a34124e0b7661b909519c97da9d3a6b80ec24e1b614b31ed8bab52564";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4980317/mtab-1.12.8.xpi";
+      sha256 = "b017886875c83c6616d02308b964f99c1ac90f93328b0a13a29e4dfd6a1b2168";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -12640,10 +12640,10 @@
     };
     "readwise-highlighter" = buildMozillaXpiAddon {
       pname = "readwise-highlighter";
-      version = "0.17.3";
+      version = "0.18.0";
       addonId = "team@readwise.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4922006/readwise_highlighter-0.17.3.xpi";
-      sha256 = "70409108b6f2f30642fcbaddbf2eb6c4b00f70c69e206c2962170ec57235a00f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4978355/readwise_highlighter-0.18.0.xpi";
+      sha256 = "318eeb30245bba0ad3038735287daff37b14482498d2227ab769ba2c8de9e6f6";
       meta = with lib;
       {
         homepage = "https://read.readwise.io";
@@ -12655,14 +12655,13 @@
           free = false;
         };
         mozPermissions = [
-          "<all_urls>"
           "activeTab"
-          "background"
           "contextMenus"
           "notifications"
           "storage"
           "tabs"
           "unlimitedStorage"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -13434,10 +13433,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "155.0.20260821.90339";
+      version = "154.0.20260824.154132";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4972579/scots_language_pack-155.0.20260821.90339.xpi";
-      sha256 = "9ccbeac86b9f1128971ca01de7b94dabca541e55617341dbeb9ffbe0b05f2273";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979679/scots_language_pack-154.0.20260824.154132.xpi";
+      sha256 = "736efb2b8e64a60184c31c1842ef03841ba2ad3c1e26b46f15f40929e4150221";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13883,10 +13882,10 @@
     };
     "simple-translate" = buildMozillaXpiAddon {
       pname = "simple-translate";
-      version = "3.0.1";
+      version = "3.1.0";
       addonId = "simple-translate@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4674724/simple_translate-3.0.1.xpi";
-      sha256 = "f8442e973cba5f3400fd3af8741b8692a98b486240ad9eb7014b84620693c996";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979122/simple_translate-3.1.0.xpi";
+      sha256 = "c27591eae7363fb0635f21277ac4e0bc5709e6cff299d33bec4de8106c298951";
       meta = with lib;
       {
         homepage = "https://simple-translate.sienori.com";
@@ -15052,10 +15051,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.10";
+      version = "1.10.1";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4596710/time_zone_converter_savvy_time-1.10.xpi";
-      sha256 = "ccf05c8bbecb184fa56cdcdd12f3456e7f69e1327427fa3ef1d837dad16d3f1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979976/time_zone_converter_savvy_time-1.10.1.xpi";
+      sha256 = "1e1d91a3331859300f0d5927c1005f9276ee2f018bf5c6b5caa9f60190976bad";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
