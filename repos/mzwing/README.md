@@ -30,6 +30,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `replay-fish` | [Usage](https://github.com/jorgebucaran/replay.fish) |
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
 | `sing-box-beta` | [Usage](https://sing-box.sagernet.org/) |
+| `sing-box-rc` | [Usage](https://sing-box.sagernet.org/) |
 | `typenix` | [Usage](https://github.com/ryanrasti/typenix) |
 | `wsrx` | [Usage](https://github.com/xdsec/websocketreflectorx) |
 | `wsrx-desktop` | [Usage](https://github.com/xdsec/websocketreflectorx) |

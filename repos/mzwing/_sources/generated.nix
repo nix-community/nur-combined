@@ -236,24 +236,35 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.14.0-beta.17";
+    version = "v1.14.0-rc.1";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-beta.17";
+      rev = "v1.14.0-rc.1";
       fetchSubmodules = false;
-      sha256 = "sha256-7kn2UcCbea3v203U4knzbCKQECPCobIQXMy705RYucQ=";
+      sha256 = "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=";
     };
   };
   sing-box-beta = {
     pname = "sing-box-beta";
-    version = "v1.14.0-beta.17";
+    version = "v1.14.0-rc.1";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-beta.17";
+      rev = "v1.14.0-rc.1";
       fetchSubmodules = false;
-      sha256 = "sha256-7kn2UcCbea3v203U4knzbCKQECPCobIQXMy705RYucQ=";
+      sha256 = "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=";
+    };
+  };
+  sing-box-rc = {
+    pname = "sing-box-rc";
+    version = "v1.14.0-rc.1";
+    src = fetchFromGitHub {
+      owner = "SagerNet";
+      repo = "sing-box";
+      rev = "v1.14.0-rc.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=";
     };
   };
   tree-sitter-nix = {

@@ -432,12 +432,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.17",
-            "sha256": "sha256-7kn2UcCbea3v203U4knzbCKQECPCobIQXMy705RYucQ=",
+            "rev": "v1.14.0-rc.1",
+            "sha256": "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.17"
+        "version": "v1.14.0-rc.1"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -453,12 +453,33 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.17",
-            "sha256": "sha256-7kn2UcCbea3v203U4knzbCKQECPCobIQXMy705RYucQ=",
+            "rev": "v1.14.0-rc.1",
+            "sha256": "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.17"
+        "version": "v1.14.0-rc.1"
+    },
+    "sing-box-rc": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "sing-box-rc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SagerNet",
+            "repo": "sing-box",
+            "rev": "v1.14.0-rc.1",
+            "sha256": "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.14.0-rc.1"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
