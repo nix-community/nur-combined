@@ -1,10 +1,10 @@
 {
   lib,
-  python311Packages,
+  python3Packages,
   fetchFromGitHub,
 }:
 
-python311Packages.buildPythonApplication {
+python3Packages.buildPythonApplication {
   pname = "autoeq";
   version = "0-unstable-2025-07-20";
 
@@ -17,7 +17,7 @@ python311Packages.buildPythonApplication {
 
   pyproject = true;
 
-  nativeBuildInputs = with python311Packages; [
+  nativeBuildInputs = with python3Packages; [
     pythonRelaxDepsHook
   ];
 
@@ -31,9 +31,9 @@ python311Packages.buildPythonApplication {
     "tqdm"
   ];
 
-  build-system = with python311Packages; [ hatchling ];
+  build-system = with python3Packages; [ hatchling ];
 
-  dependencies = with python311Packages; [
+  dependencies = with python3Packages; [
     pillow
     matplotlib
     scipy
