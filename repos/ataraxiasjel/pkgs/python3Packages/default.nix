@@ -1,7 +1,6 @@
 {
   callPackage,
   lib,
-  pkgs,
 }:
 
 (lib.mapAttrs' (filename: _filetype: {

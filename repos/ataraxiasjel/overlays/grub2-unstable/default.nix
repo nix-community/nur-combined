@@ -33,6 +33,7 @@ _final: prev: {
         url = "https://aur.archlinux.org/cgit/aur.git/plain/grub-install_luks2.patch?h=grub-improved-luks2-git";
         hash = "sha256-I+1Yl0DVBDWFY3+EUPbE6FTdWsKH81DLP/2lGPVJtLI=";
       })
-    ] ++ attrs.patches;
+    ]
+    ++ attrs.patches;
   });
 }
