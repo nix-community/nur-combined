@@ -1,3 +1,1872 @@
 schema = 4
 
 [mod]
+  [mod.'filippo.io/age']
+    version = 'v1.3.1'
+    hash = 'sha256-Qs/q3zQYV0PukABBPf/aU5V1oOhw95NG6K301VYJk8A='
+
+  [mod.'filippo.io/edwards25519']
+    version = 'v1.2.0'
+    hash = 'sha256-VOgoreEdslftsR/MyEnZAlutqvph4T57NR1mT9+APfg='
+
+  [mod.'filippo.io/hpke']
+    version = 'v0.4.0'
+    hash = 'sha256-xKPT2hMzz/i3xdDK3NKn6FOmfQPxIMgxCOmm8U1heY4='
+
+  [mod.'github.com/RyuaNerin/go-krypto']
+    version = 'v1.3.0'
+    hash = 'sha256-45W4M2elRA7niZ9gxGWR3Sr9SmR7Oado1WRNlgpS6/c='
+
+  [mod.'github.com/ajg/form']
+    version = 'v1.5.1'
+    hash = 'sha256-wHKZnoL8gW3YL8frdMIbs703ZX/NruuW5dV13PhxlG8='
+
+  [mod.'github.com/akutz/memconn']
+    version = 'v0.1.0'
+    hash = 'sha256-WOs/RQYjQbn41ui8ztHgWSd4jxydE+fvIrl/0dmHD9Y='
+
+  [mod.'github.com/alexbrainman/sspi']
+    version = 'v0.0.0-20231016080023-1a75b4708caa'
+    hash = 'sha256-Joa/NfBofK7lRlknQ5LVYD4M/dpd9xaCqsvYUBhKW0I='
+
+  [mod.'github.com/anchore/go-lzo']
+    version = 'v0.1.0'
+    hash = 'sha256-HoJCLPXbKEdSbD9jz7OGNk1NsT33KXKM1sbJRSoclXw='
+
+  [mod.'github.com/andybalholm/brotli']
+    version = 'v1.1.0'
+    hash = 'sha256-njLViV4v++ZdgOWGWzlvkefuFvA/nkugl3Ta/h1nu/0='
+
+  [mod.'github.com/anmitsu/go-shlex']
+    version = 'v0.0.0-20200514113438-38f4b401e2be'
+    hash = 'sha256-L3Ak4X2z7WXq7vMKuiHCOJ29nlpajUQ08Sfb9T0yP54='
+
+  [mod.'github.com/anthropics/anthropic-sdk-go']
+    version = 'v1.26.0'
+    hash = 'sha256-umO0tqRJNdRDJojBDbYOXlGPpSBj2aoOt7oNu3z+dyk='
+
+  [mod.'github.com/anytls/sing-anytls']
+    version = 'v0.0.11'
+    hash = 'sha256-h4hlzewMHiSl+quM3kT84X/f0fCbjht066lySTYYMwE='
+
+  [mod.'github.com/axiomhq/hyperloglog']
+    version = 'v0.0.0-20240319100328-84253e514e02'
+    hash = 'sha256-yjnHtfBvGDR//6firPk0N/B+V4DutW+fD3hN8CljoCk='
+
+  [mod.'github.com/caddyserver/certmagic']
+    version = 'v0.25.3-0.20260421143802-60d9d8b415d6'
+    hash = 'sha256-kZ5fCzU8kOkEFOK5DTwYdcyoKoDA0zPYtvdTP7sR7VY='
+
+  [mod.'github.com/caddyserver/zerossl']
+    version = 'v0.1.5'
+    hash = 'sha256-raDOIHZ7y8GSFCYXMRUWyclajbBaCAyj6FHSE0QSNkM='
+
+  [mod.'github.com/cenkalti/backoff/v4']
+    version = 'v4.3.0'
+    hash = 'sha256-wfVjNZsGG1WoNC5aL+kdcy6QXPgZo4THAevZ1787md8='
+
+  [mod.'github.com/clipperhouse/uax29/v2']
+    version = 'v2.2.0'
+    hash = 'sha256-BtyMi0Ul1CGY8miZDbsUWT9iW81UAn7CH/vAR4/S5vE='
+
+  [mod.'github.com/coder/websocket']
+    version = 'v1.8.14'
+    hash = 'sha256-3lTpVWweJJ+VjIIwcK9Ca+mWrbAYPxi4tx7anP1sFYw='
+
+  [mod.'github.com/coreos/go-iptables']
+    version = 'v0.7.1-0.20240112124308-65c67c9f46e6'
+    hash = 'sha256-kjnry8ld5Keew5q+tX7GSdGVZaXlehs2Lt+z8Rokhns='
+
+  [mod.'github.com/coreos/go-oidc/v3']
+    version = 'v3.17.0'
+    hash = 'sha256-b9dCq5GN5ac64UG23Rijv1qcmUZNcxb8DJQycAa96EQ='
+
+  [mod.'github.com/creack/pty']
+    version = 'v1.1.24'
+    hash = 'sha256-6oSurN/ZYr/KHxKKU6Qbw9w8CDKmPa8yL00pZ24H0AM='
+
+  [mod.'github.com/cretz/bine']
+    version = 'v0.2.0'
+    hash = 'sha256-09sd7KxvuXUZeE1V+DgehJ1Oc5eIin8jfo4q3PBrcc4='
+
+  [mod.'github.com/database64128/netx-go']
+    version = 'v0.1.1'
+    hash = 'sha256-IDHJRFe/stX8k4dfxcByfC+qUOtPR9eTeIVpI8MMKzo='
+
+  [mod.'github.com/database64128/tfo-go/v2']
+    version = 'v2.3.2'
+    hash = 'sha256-va5vRnwqkNDwwdl+INIisSp1vuCT+Ngn8KAVIwQe9x8='
+
+  [mod.'github.com/dblohm7/wingoes']
+    version = 'v0.0.0-20240119213807-a09d6be7affa'
+    hash = 'sha256-zUj7jSZQiX53+4OyRq7LaQXp8nx8+JRpyT6IFdktyw0='
+
+  [mod.'github.com/dgrijalva/jwt-go/v4']
+    version = 'v4.0.0-preview1'
+    hash = 'sha256-q+0zNFxkjEk3aaDKHTu8xGUhgiHKOYWR1nSRvvMX6tc='
+
+  [mod.'github.com/dgryski/go-camellia']
+    version = 'v0.0.0-20191119043421-69a8a13fb23d'
+    hash = 'sha256-vyZ6a7OXtMs5BMZY8bEsjg+eXsYSngvE+D8EalQDfrU='
+
+  [mod.'github.com/dgryski/go-metro']
+    version = 'v0.0.0-20180109044635-280f6062b5bc'
+    hash = 'sha256-WdJuGgX7NKfocz6IhMcClfx30ZnxAPjfZTRAOr2eAqk='
+
+  [mod.'github.com/ebitengine/purego']
+    version = 'v0.10.0'
+    hash = 'sha256-NPS88SNvsm4QEAx1zVmNGzMwtR1EBhdQYywQU1JdRqM='
+
+  [mod.'github.com/florianl/go-nfqueue/v2']
+    version = 'v2.1.0'
+    hash = 'sha256-6YVjY7Sppu1AmG3yHIpz66NmwYfv23Ko3L48MHe8Mu4='
+
+  [mod.'github.com/fsnotify/fsnotify']
+    version = 'v1.9.0'
+    hash = 'sha256-WtpE1N6dpHwEvIub7Xp/CrWm0fd6PX7MKA4PV44rp2g='
+
+  [mod.'github.com/fxamacker/cbor/v2']
+    version = 'v2.9.0'
+    hash = 'sha256-/IZK76MRCrz9XCiilieH5tKaLnIWyPJhwxDoVKB8dFc='
+
+  [mod.'github.com/gaissmai/bart']
+    version = 'v0.26.1'
+    hash = 'sha256-XJ3XoxnJcd2vwwzWO+PVZVx1VUaDOcBdqDxLcrckoJQ='
+
+  [mod.'github.com/go-chi/chi/v5']
+    version = 'v5.2.5'
+    hash = 'sha256-Y1+17ky94849aqk3iKf30F1u+G6K3nzZzLOBSeqIUow='
+
+  [mod.'github.com/go-chi/render']
+    version = 'v1.0.3'
+    hash = 'sha256-BnnoCszIVvL2Y7+sD+jR4ZePlscAtQfvLTdbGRWvi1k='
+
+  [mod.'github.com/go-jose/go-jose/v4']
+    version = 'v4.1.3'
+    hash = 'sha256-WfogdTIRu4yDtCVX5fzz/+kKVPwX/hXBl+nY31XFHNc='
+
+  [mod.'github.com/go-ole/go-ole']
+    version = 'v1.3.0'
+    hash = 'sha256-tF8t3VcV71jQ4jbPL91BwR59AKDpUAFV1waIKzkXJu8='
+
+  [mod.'github.com/go4org/hashtriemap']
+    version = 'v0.0.0-20251130024219-545ba229f689'
+    hash = 'sha256-PKeI/N85YurN8qszKVVsw24CB08tSGduL9q/qgdFlVk='
+
+  [mod.'github.com/gobwas/httphead']
+    version = 'v0.1.0'
+    hash = 'sha256-6wFni/JkK2GqtVs3IW+GxHRNoSu4EJfzaBRGX2hF1IA='
+
+  [mod.'github.com/gobwas/pool']
+    version = 'v0.2.1'
+    hash = 'sha256-py8/+Wo5Q83EbYMUKK5U/4scRcyMo2MjOoxqi5y+sUY='
+
+  [mod.'github.com/godbus/dbus/v5']
+    version = 'v5.2.2'
+    hash = 'sha256-j+LicPlXcB1R3oVFPa8cd4yVJLpBx+ca5gXmHqOJSN8='
+
+  [mod.'github.com/gofrs/uuid/v5']
+    version = 'v5.5.1'
+    hash = 'sha256-wcOn9U8dpU97TjjSCzR5PJE0z4GUPp9IJw5FmyVQ2X4='
+
+  [mod.'github.com/golang/groupcache']
+    version = 'v0.0.0-20241129210726-2c02b8208cf8'
+    hash = 'sha256-AdLZ3dJLe/yduoNvZiXugZxNfmwJjNQyQGsIdzYzH74='
+
+  [mod.'github.com/google/btree']
+    version = 'v1.1.3'
+    hash = 'sha256-/6Us2eNRFi2IIp7p5uPUXLridilAdk4SmZhcTYR0csw='
+
+  [mod.'github.com/google/certificate-transparency-go']
+    version = 'v1.3.2'
+    hash = 'sha256-vLSg3gkLRZ3FuuK08ADRnhQ+0JO6JtqwsABrjfrHmaE='
+
+  [mod.'github.com/google/go-cmp']
+    version = 'v0.7.0'
+    hash = 'sha256-JbxZFBFGCh/Rj5XZ1vG94V2x7c18L8XKB0N9ZD5F2rM='
+
+  [mod.'github.com/google/go-querystring']
+    version = 'v1.1.0'
+    hash = 'sha256-itsKgKghuX26czU79cK6C2n+lc27jm5Dw1XbIRgwZJY='
+
+  [mod.'github.com/google/gopacket']
+    version = 'v1.1.19'
+    hash = 'sha256-EueA6b+c7SWJjII3HiFnMMKj3mIbAdzboJo6HBZnkkc='
+
+  [mod.'github.com/google/nftables']
+    version = 'v0.2.1-0.20240414091927-5e242ec57806'
+    hash = 'sha256-OXMzx4Exf++E4UzCUE1gw3TOrfyI187cFu3cDZ9ifKU='
+
+  [mod.'github.com/google/uuid']
+    version = 'v1.6.0'
+    hash = 'sha256-VWl9sqUzdOuhW0KzQlv0gwwUQClYkmZwSydHG2sALYw='
+
+  [mod.'github.com/hashicorp/yamux']
+    version = 'v0.1.2'
+    hash = 'sha256-JvpgwhqKAaS0PSlU/obe4tDJ2LcR1pyWRmJTkmT7hrA='
+
+  [mod.'github.com/hdevalence/ed25519consensus']
+    version = 'v0.2.0'
+    hash = 'sha256-KTbeKMOT/HCJjDHqyciQjJPPgpNk6H0VyQCCbeGgs7Y='
+
+  [mod.'github.com/huin/goupnp']
+    version = 'v1.3.0'
+    hash = 'sha256-/VTfjUhHLGuXymYBC1vQJv1N8O1AjYwC/xTGd6h3Uw0='
+
+  [mod.'github.com/inconshreveable/mousetrap']
+    version = 'v1.1.0'
+    hash = 'sha256-XWlYH0c8IcxAwQTnIi6WYqq44nOKUylSWxWO/vi+8pE='
+
+  [mod.'github.com/insomniacslk/dhcp']
+    version = 'v0.0.0-20260220084031-5adc3eb26f91'
+    hash = 'sha256-AzghV1wRf+38TntDEpy0+KUAjt5M+kP7d5PJosnrT2Y='
+
+  [mod.'github.com/jackpal/go-nat-pmp']
+    version = 'v1.0.2'
+    hash = 'sha256-L1D4Yoxnzihs795GZ+Q3AZsFP5c4iqyjTeyrudzPXtw='
+
+  [mod.'github.com/jsimonetti/rtnetlink']
+    version = 'v1.4.1'
+    hash = 'sha256-rxLKFESoIyZNJril34W93nDhqH0FUdlk2WRlLc1jCz0='
+
+  [mod.'github.com/keybase/go-keychain']
+    version = 'v0.0.1'
+    hash = 'sha256-sIR5kxwDi1dzhA2vaaqG29bgN83KWl5KJ1LRSTcmF/w='
+
+  [mod.'github.com/klauspost/compress']
+    version = 'v1.19.1'
+    hash = 'sha256-7aDl/b+nSvtpJDsi69itGEut75PiYekrkVxz1IqnzPk='
+
+  [mod.'github.com/klauspost/cpuid/v2']
+    version = 'v2.3.0'
+    hash = 'sha256-50JhbQyT67BK38HIdJihPtjV7orYp96HknI2VP7A9Yc='
+
+  [mod.'github.com/koron/go-ssdp']
+    version = 'v0.0.4'
+    hash = 'sha256-jjh1CnkjEgFju//kJwAFrsIX9sGS667N5A/azenv/yk='
+
+  [mod.'github.com/kr/fs']
+    version = 'v0.1.0'
+    hash = 'sha256-+Cjz0rGmdNIV1QL4z8h7JAjHATa5pKndwSnD1M0J74c='
+
+  [mod.'github.com/libdns/acmedns']
+    version = 'v0.5.0'
+    hash = 'sha256-9vGNdEJzaaYA26ZK7w1hsyaTujRllHy+fAlXTMU4DTs='
+
+  [mod.'github.com/libdns/alidns']
+    version = 'v1.0.6'
+    hash = 'sha256-O1udzMvzflaefZAwPlxYsVfGYHndHou/vH2mBDa2y78='
+
+  [mod.'github.com/libdns/cloudflare']
+    version = 'v0.2.2'
+    hash = 'sha256-S7CVVegBZuNYDNlhO3rhJSugYUhR7/TUdjdMBUlkGsw='
+
+  [mod.'github.com/libdns/libdns']
+    version = 'v1.1.1'
+    hash = 'sha256-U0RoxuE9xDkhbOCNUkep8JPuL15GolBzHR+ITaajSKU='
+
+  [mod.'github.com/libp2p/go-nat']
+    version = 'v1.0.1-0.20250821073202-01afc089f138'
+    hash = 'sha256-KUcsx7+sxtOFdWChOC1sUoyGNpLFhDwJpDwk2Suk0Lg='
+
+  [mod.'github.com/libp2p/go-netroute']
+    version = 'v0.2.1'
+    hash = 'sha256-D4mSx3t5l7Cg3Xddrss4u7aqp73iu+CecLY0N4xE5ho='
+
+  [mod.'github.com/logrusorgru/aurora']
+    version = 'v2.0.3+incompatible'
+    hash = 'sha256-7o5Fh4jscdYKgXfnNMbcD68Kjw8Z4LcPgHcr4ZyQYrI='
+
+  [mod.'github.com/mattn/go-runewidth']
+    version = 'v0.0.27'
+    hash = 'sha256-TQd0ek+jjvxgN9YA6N/ctOyrADIAg9bBcClJCDltIWc='
+
+  [mod.'github.com/mdlayher/netlink']
+    version = 'v1.11.2'
+    hash = 'sha256-I4Dnd0QJ0MPLEOSV2ly4CYkWpTu2W8gyjQevtJCxHys='
+
+  [mod.'github.com/mdlayher/socket']
+    version = 'v0.6.0'
+    hash = 'sha256-Qpwu6m0PqySAGxSkHfME00YLO+lhBc825EGqASDpob8='
+
+  [mod.'github.com/metacubex/utls']
+    version = 'v1.8.7'
+    hash = 'sha256-yS4+70KsGOFXR5V9zDXvCvna/P/14y5yODoYcUe9aWw='
+
+  [mod.'github.com/mholt/acmez/v3']
+    version = 'v3.1.6'
+    hash = 'sha256-9wLGXzdFww0vlmIEJnu0fb1SrhEzVglgZH8VfELYTRI='
+
+  [mod.'github.com/miekg/dns']
+    version = 'v1.1.72'
+    hash = 'sha256-i5TwAlGQjz6lF2SNc7MWuTLmxR/7f2Uomco3V0rKaRU='
+
+  [mod.'github.com/mitchellh/go-ps']
+    version = 'v1.0.0'
+    hash = 'sha256-HzxVHNLHZpnsBuPcub0G+9jjDcDOsxM/6wifbsxf7EY='
+
+  [mod.'github.com/openai/openai-go/v3']
+    version = 'v3.26.0'
+    hash = 'sha256-xrkyDHbIG7IL0JHPHoqRKS2eZ2XSawug62/aRtXWGh4='
+
+  [mod.'github.com/oschwald/maxminddb-golang']
+    version = 'v1.13.1'
+    hash = 'sha256-vvgJJJYUz5X7h2vjbh9vf2QiPKcStLUePKRQbKjlnok='
+
+  [mod.'github.com/philhofer/fwd']
+    version = 'v1.2.0'
+    hash = 'sha256-cGx2/0QQay46MYGZuamFmU0TzNaFyaO+J7Ddzlr/3dI='
+
+  [mod.'github.com/pierrec/lz4/v4']
+    version = 'v4.1.26'
+    hash = 'sha256-fAdBNvKrB6vc9eYjGijgY0AxTE8sx4KIr+zDxKsHOws='
+
+  [mod.'github.com/pion/dtls/v3']
+    version = 'v3.1.5'
+    hash = 'sha256-BMbA7sx4Aqve9sHqGO7MzB0JX72aWFSpmC+5PEb8vQM='
+
+  [mod.'github.com/pion/logging']
+    version = 'v0.2.4'
+    hash = 'sha256-S3bPblOkgYbRnbuC0YVTGUh3aCdaIHEQyoK+suhwYxk='
+
+  [mod.'github.com/pion/transport/v4']
+    version = 'v4.0.2'
+    hash = 'sha256-XOZrl9gY6H2+LtKwwhfFZ8f/FyHo+8no6f64lvcWizQ='
+
+  [mod.'github.com/pires/go-proxyproto']
+    version = 'v0.8.1'
+    hash = 'sha256-3CxfXpx9XGwov2Prq1q02l/WLLIy1g0dM58nb02U/yk='
+
+  [mod.'github.com/pkg/sftp']
+    version = 'v1.13.10'
+    hash = 'sha256-YKjTWim2Qa6z3FA1dUFaKXSRxB4fsHDAG0GL17ZDE4U='
+
+  [mod.'github.com/quic-go/qpack']
+    version = 'v0.6.0'
+    hash = 'sha256-xaxHnTKIZt1cHK5ZqTuSTOt5RNSjQB37GlrIgEGBskM='
+
+  [mod.'github.com/safchain/ethtool']
+    version = 'v0.3.0'
+    hash = 'sha256-q5bQGHB7cyEejA9tQkrhpvzpfYRvXcmClbWBgfs3Ymc='
+
+  [mod.'github.com/sagernet/asc-go']
+    version = 'v0.0.0-20241217030726-d563060fe4e1'
+    hash = 'sha256-rYUqB9uuyEgfxJbhiAp8o2SMrtxTPVFS3a9FWzmGpcU='
+
+  [mod.'github.com/sagernet/bbolt']
+    version = 'v0.0.0-20260823094646-e24805439c9c'
+    hash = 'sha256-xsNJ7JVqXt72Iz/PdrMoNIK8QhLAxUOW7TFqKgUQyRE='
+
+  [mod.'github.com/sagernet/cors']
+    version = 'v1.2.1'
+    hash = 'sha256-DcWWmHlCiZFv876Ay05UbcMZhQkiAmuChXcCrOd7pqQ='
+
+  [mod.'github.com/sagernet/cronet-go']
+    version = 'v0.0.0-20260807162344-ec9a39c5ba3b'
+    hash = 'sha256-SwVJpo4SGcjXb6d0zlVRaS1yFLBemlhw+L8dnmzGGTc='
+
+  [mod.'github.com/sagernet/cronet-go/all']
+    version = 'v0.0.0-20260807162344-ec9a39c5ba3b'
+    hash = 'sha256-uZVdvsaZ5mwN6ey0k5Qhqet7QJLiElsBDNNIW6b9QBQ='
+
+  [mod.'github.com/sagernet/cronet-go/lib/android_386']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-k0gipiTDvNZABQRU0xHN2NzXCtdFghHbklGYAm7akQQ='
+
+  [mod.'github.com/sagernet/cronet-go/lib/android_amd64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-AOHnNWZAe3f3XaDoaomDGImvZ8iNxL6sjmNoTn+fUX8='
+
+  [mod.'github.com/sagernet/cronet-go/lib/android_arm']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-evzRlqN5DSB2hHec4Ne5gfWEakCdYdRsyiA8cs8xs8s='
+
+  [mod.'github.com/sagernet/cronet-go/lib/android_arm64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-oUuq1f5cgOmW7w+8o2Fk/GiGqpABRlBmJE/8Frx5P4U='
+
+  [mod.'github.com/sagernet/cronet-go/lib/darwin_amd64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-Yx5t4lQtLxLvOaDAu51GqKEkBFhYylGxVcVDOjRRW6o='
+
+  [mod.'github.com/sagernet/cronet-go/lib/darwin_arm64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-+SwL2bx/qSrXLzmKUUOoAI4TVtmb78UOXqQo4puxpOM='
+
+  [mod.'github.com/sagernet/cronet-go/lib/ios_amd64_simulator']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-yc3Dc2fNmhFCH/x0FeguqCmfrkhLSihIHB34QQBhxXg='
+
+  [mod.'github.com/sagernet/cronet-go/lib/ios_arm64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-kU6teIvoO5T1eUsiYHXw6t7XpErCO+gZGB/qvSF8RJQ='
+
+  [mod.'github.com/sagernet/cronet-go/lib/ios_arm64_simulator']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-VIxBsvd5LDY2t5AaNC8Qzrdgklmx6Udc9BwYWcKAxu4='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_386']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-1bwfoOd1GmCkx4cphvfKOvqZ0IrkY0U7ulD2OFvWhho='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_386_musl']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-0+NkbWG/0d5AAmymazNZsOf+mOkP4LLoLEVX8bkf37A='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_amd64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-5hViKr+wRXgQxLPCPp0bJ1P/YgLnz5U6kxXMXMTronU='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_amd64_musl']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-yEcBYYLOJIGcRRxAFaY+bz+wPL5mQPz7tVIuOZ38b2M='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_arm']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-k1UuMzt1Gq2FQ/JZ6lgub2nzQ57qgl7sS3n6qKemUGc='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_arm64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-71kWEyMOGA3N7X5QupNERUydUNthDKfxIihe16uhYj8='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_arm64_musl']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-KhcqUZc7wx39c3DRlQSgvnc1oPPSa8jcNQSudcla3iQ='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_arm_musl']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-r7eTGSRdTo6wGGe5lsfxcXWt0HcGmhKdjeWPJ30XZ3g='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_loong64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-8/XJP3Y9bJj1wPZJI/HOdTfwyuCot3rQGP8cU25T3Bk='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_loong64_musl']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-7VWCf4lQzoYI0TVURuKB8thKOiD5c0kGCQEIfg7ny9g='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_mips64le']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-nkohT7h2dDmlxqbi3e0UVHuwVdaY0wYAMUO+GS5IrAE='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_mipsle']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-YKUGdEMe4o4d4bTLkgsSb0NA4XmTL4a9jsvfmxzSt1Y='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_mipsle_musl']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-WcH5hScFS8XhGyQyzc1XZPAuR+rvABnTFizf0FF4cik='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_riscv64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-mKb2GluU89+VcfqCr8xnJimn4m0pUzt4nsK1DFf3oR4='
+
+  [mod.'github.com/sagernet/cronet-go/lib/linux_riscv64_musl']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-iNAM3SZdp6piYDYrp2DAAgg6gRWkwXoUuPY+iXFxlnA='
+
+  [mod.'github.com/sagernet/cronet-go/lib/tvos_amd64_simulator']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-xOlLRJDlHv7hWFomR+auflRA561iK+vj1LkOzks11/g='
+
+  [mod.'github.com/sagernet/cronet-go/lib/tvos_arm64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-i/QtAgBcgBNxP8G2RVobT6PCRlacJ8+c15ZXH1PQhFU='
+
+  [mod.'github.com/sagernet/cronet-go/lib/tvos_arm64_simulator']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-xyqi1ekYG7N9nGBvJE+4gPstWP7QhalmTK4LtxT/o+w='
+
+  [mod.'github.com/sagernet/cronet-go/lib/windows_amd64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-wWrmaF3JjC+qhFqqJuMLVHrBWXJDxsuYMVm5NV5lc/Q='
+
+  [mod.'github.com/sagernet/cronet-go/lib/windows_arm64']
+    version = 'v0.0.0-20260807161529-8d42107dcdfc'
+    hash = 'sha256-b5IiFt+7VA5mhKgv2Brn0SJpBQv23OUEIYRpMWdpR0g='
+
+  [mod.'github.com/sagernet/fswatch']
+    version = 'v0.1.2'
+    hash = 'sha256-DgoXlpNtx7xBs3AMjRF/0+u8mK7eLXD6lwd4asaU8G4='
+
+  [mod.'github.com/sagernet/gliderssh']
+    version = 'v0.3.4-0.20260531100337-2194faca5648'
+    hash = 'sha256-tI9r3IbzD3zDyVbL2+Dm4u+ObGSQayInuWTTK/GnsTs='
+
+  [mod.'github.com/sagernet/gomobile']
+    version = 'v0.1.12'
+    hash = 'sha256-FkozGZ7pLSQbVa9kOXiiYfqdRaoYo27E6w0tOuh9Atw='
+
+  [mod.'github.com/sagernet/gvisor']
+    version = 'v0.0.0-20260727.0-sing-box-mod.1'
+    hash = 'sha256-pscfxGGV/Mh5ciLpgrE2xaakQSRACBKBOfTD5xXMnYk='
+
+  [mod.'github.com/sagernet/netlink']
+    version = 'v0.0.0-20260814022025-64455d367bbf'
+    hash = 'sha256-lTZxWYenngphfZPvW81V0yf++rDNCTzbKYMAmHgPSj4='
+
+  [mod.'github.com/sagernet/nftables']
+    version = 'v0.3.0-mod.4'
+    hash = 'sha256-AQLWANb2o7TWzqmARPo57FXzPbdIdyO297OAkF47KHQ='
+
+  [mod.'github.com/sagernet/quic-go']
+    version = 'v0.61.0-sing-box-mod.5'
+    hash = 'sha256-FTMhtQ0gQJ569p0YBESpaYQ+TDF4Qc2Q96Z+EuEXkHI='
+
+  [mod.'github.com/sagernet/sing']
+    version = 'v0.9.0-beta.4'
+    hash = 'sha256-x2/joeiOIdL0dStMRf9y76wbVdy/RG9mI5tzVLoJzbI='
+
+  [mod.'github.com/sagernet/sing-cloudflared']
+    version = 'v0.1.3-0.20260706062323-d9787e794aa3'
+    hash = 'sha256-4FvluFMWMFgm1rLkAdFwwr1PWAZ6i+dnEBWGp5p6HUQ='
+
+  [mod.'github.com/sagernet/sing-mux']
+    version = 'v0.3.5'
+    hash = 'sha256-WHPgGaEVV10jshaV5p1xooIn5GQUbaofsQvEq4vbvsY='
+
+  [mod.'github.com/sagernet/sing-openconnect']
+    version = 'v0.0.0-20260810065514-53aa8058f8df'
+    hash = 'sha256-YZa1G11KAmCdWwlVlrGcme2lkwSW91Wq/ylEFmhsD2w='
+
+  [mod.'github.com/sagernet/sing-openvpn']
+    version = 'v0.0.0-20260729104525-103eb5fe5eb6'
+    hash = 'sha256-rt+SE5IbDwkxR5wj22lH2hzCg0tFenZYtpk66HfiYQw='
+
+  [mod.'github.com/sagernet/sing-quic']
+    version = 'v0.7.0-beta.3'
+    hash = 'sha256-Sb1QI2cID6y6UxtUxe1pFu4hJou4T8SmGg3+Cw6k2WA='
+
+  [mod.'github.com/sagernet/sing-shadowsocks']
+    version = 'v0.2.8'
+    hash = 'sha256-of0LgLR/Jo+l28YFgTEhq3SoC+zaH1jossnHzea4sI0='
+
+  [mod.'github.com/sagernet/sing-shadowsocks2']
+    version = 'v0.2.1'
+    hash = 'sha256-d1mDGLSeaJFyGJSMfv/m8XvcSlRwEC3mmAcHj1YcojU='
+
+  [mod.'github.com/sagernet/sing-shadowtls']
+    version = 'v0.2.1'
+    hash = 'sha256-xIZiEWPpKI6qm/d3WbQepNqNRYbpw000FYmqCrypKfM='
+
+  [mod.'github.com/sagernet/sing-snell']
+    version = 'v0.0.0-20260824011554-f8ab8029469a'
+    hash = 'sha256-gEYXf/NWe19n15+fzF5VqAojCloUKiWY8aY6uTADO+E='
+
+  [mod.'github.com/sagernet/sing-tun']
+    version = 'v0.9.0-beta.2'
+    hash = 'sha256-eS8EXEnL55qKh+SE1Y1+Z/vl0oElwg1+Nx/n7DRgrCM='
+
+  [mod.'github.com/sagernet/sing-usbip']
+    version = 'v0.0.0-20260817040617-28bd42667eca'
+    hash = 'sha256-bCGkCOCWVvlQN8jz357YrmkNp1lrIUwrWGmQgWVUI+U='
+
+  [mod.'github.com/sagernet/sing-vmess']
+    version = 'v0.2.8-0.20250909125414-3aed155119a1'
+    hash = 'sha256-49e+672tsOoY9SxtJw7nrt97zQhXhvVNqBBFLlFULLY='
+
+  [mod.'github.com/sagernet/smux']
+    version = 'v1.5.50-sing-box-mod.1'
+    hash = 'sha256-8qcsBtXTuvDGuEbZmzqxDWEaNniBhstcZq2w8fRyISk='
+
+  [mod.'github.com/sagernet/tailscale']
+    version = 'v1.102.1-sing-box-1.14-mod.3'
+    hash = 'sha256-/h8Ie33vJdQyBB87rMl5ik7L6riYRVzG3c/GQkUAxao='
+
+  [mod.'github.com/sagernet/wireguard-go']
+    version = 'v0.0.5-0.20260823125007-8bd032a91a30'
+    hash = 'sha256-NacZq1n25RHAh/CZl0XtSzVJ939LsEIG8cDfYgEReto='
+
+  [mod.'github.com/sagernet/ws']
+    version = 'v0.0.0-20231204124109-acfe8907c854'
+    hash = 'sha256-uFHtIhqh1UYrf41xJjAtvQIQkqjWb7kc17Q5ghDR3WE='
+
+  [mod.'github.com/smallstep/pkcs7']
+    version = 'v0.1.1'
+    hash = 'sha256-dBPCGEVajpc/1EqFAaevOPT3PEtgHTkAJKl8OYGH9OE='
+
+  [mod.'github.com/spf13/cobra']
+    version = 'v1.10.2'
+    hash = 'sha256-nbRCTFiDCC2jKK7AHi79n7urYCMP5yDZnWtNVJrDi+k='
+
+  [mod.'github.com/spf13/pflag']
+    version = 'v1.0.10'
+    hash = 'sha256-uDPnWjHpSrzXr17KEYEA1yAbizfcsfo5AyztY2tS6ZU='
+
+  [mod.'github.com/stretchr/testify']
+    version = 'v1.12.0'
+    hash = 'sha256-4TTdUoXSGvvFIesZrd8naFcWn5nIwUIRsrt4McTSXl0='
+
+  [mod.'github.com/tailscale/certstore']
+    version = 'v0.1.1-0.20260409135935-3638fb84b77d'
+    hash = 'sha256-f7KVP0a/WmVgjSAcNnbSb8PfUkaRZ+EMksVrTHRADrY='
+
+  [mod.'github.com/tailscale/go-winio']
+    version = 'v0.0.0-20231025203758-c4f33415bf55'
+    hash = 'sha256-WFW20c02gIk2MhafeVVNydmSfszPZegshDd2Y5abGgY='
+
+  [mod.'github.com/tailscale/hujson']
+    version = 'v0.0.0-20260302212456-ecc657c15afd'
+    hash = 'sha256-oot7UxdkYH5Axwt0aPgbtxME5oUQkNfD4uYqIpTuYsw='
+
+  [mod.'github.com/tailscale/netlink']
+    version = 'v1.1.1-0.20240822203006-4d49adab4de7'
+    hash = 'sha256-ldPNC6TF8kY2OIHZvOPHcJLJrepTXZGP4wnxOq0rxH0='
+
+  [mod.'github.com/tailscale/peercred']
+    version = 'v0.0.0-20250107143737-35a0c7bd7edc'
+    hash = 'sha256-m8Avdt5Y0G9xSf68Bznzc+lV5VOrdACBQaYF17vRk1E='
+
+  [mod.'github.com/tailscale/web-client-prebuilt']
+    version = 'v0.0.0-20250124233751-d4cd19a26976'
+    hash = 'sha256-hcBR5fpJyukPgiDgRA9tItBAM/Y+iyRlrY2EW60kb3E='
+
+  [mod.'github.com/tidwall/gjson']
+    version = 'v1.18.0'
+    hash = 'sha256-CO6hqDu8Y58Po6A01e5iTpwiUBQ5khUZsw7czaJHw0I='
+
+  [mod.'github.com/tidwall/match']
+    version = 'v1.1.1'
+    hash = 'sha256-M2klhPId3Q3T3VGkSbOkYl/2nLHnsG+yMbXkPkyrRdg='
+
+  [mod.'github.com/tidwall/pretty']
+    version = 'v1.2.1'
+    hash = 'sha256-S0uTDDGD8qr415Ut7QinyXljCp0TkL4zOIrlJ+9OMl8='
+
+  [mod.'github.com/tidwall/sjson']
+    version = 'v1.2.5'
+    hash = 'sha256-OYGNolkmL7E1Qs2qrQ3IVpQp5gkcHNU/AB/z2O+Myps='
+
+  [mod.'github.com/tjfoc/gmsm']
+    version = 'v1.4.1'
+    hash = 'sha256-8cD7h2dGxgbTtrgBRDrcB8khDTSq0yxnNigOVUp5oaM='
+
+  [mod.'github.com/u-root/uio']
+    version = 'v0.0.0-20240224005618-d2acac8f3701'
+    hash = 'sha256-2Y+tlxJdQ1aIzvz69d6BqvkUFIYVJh+rq3I+ucnNPY4='
+
+  [mod.'github.com/vishvananda/netns']
+    version = 'v0.0.5'
+    hash = 'sha256-wYDmrmqdv9R8dAL5nuWJ+1Nh7fWWxdpd03UkLOtyJrk='
+
+  [mod.'github.com/x448/float16']
+    version = 'v0.8.4'
+    hash = 'sha256-VKzMTMS9pIB/cwe17xPftCSK9Mf4Y6EuBEJlB4by5mE='
+
+  [mod.'github.com/youmark/pkcs8']
+    version = 'v0.0.0-20240726163527-a2c0da244d78'
+    hash = 'sha256-7ETUt8onE9mdUlvHT5xxzfh8mK0qw15ZSYXQCtah9p4='
+
+  [mod.'github.com/zeebo/blake3']
+    version = 'v0.2.4'
+    hash = 'sha256-Q8KSVhnSR1cwfTp4LkPdfI1UWWkDDHa9fslNsa3Qfo8='
+
+  [mod.'go.uber.org/multierr']
+    version = 'v1.11.0'
+    hash = 'sha256-Lb6rHHfR62Ozg2j2JZy3MKOMKdsfzd1IYTR57r3Mhp0='
+
+  [mod.'go.uber.org/zap']
+    version = 'v1.27.1'
+    hash = 'sha256-bn/MMu7X3GkUuW12Xwn9JYbOJeEu9+yoQtkmO+36xlQ='
+
+  [mod.'go.uber.org/zap/exp']
+    version = 'v0.3.0'
+    hash = 'sha256-ZGCV0TCXUBxIqEOJL6LtQJJB36U4e6VMnZ2k0kY8r5g='
+
+  [mod.'go4.org/mem']
+    version = 'v0.0.0-20240501181205-ae6ca9944745'
+    hash = 'sha256-GuSI6u7KRA6zHr/ZnWA2a24k2naETKBTpyB2A0NVS8A='
+
+  [mod.'go4.org/netipx']
+    version = 'v0.0.0-20231129151722-fdeea329fbba'
+    hash = 'sha256-qFrVlacz5R3Lpkzqeg1/1MYew3DJzY9hG0Uh/ua+SOU='
+
+  [mod.'golang.org/x/crypto']
+    version = 'v0.54.0'
+    hash = 'sha256-m8jsqlPuoPxGDjClzcAVbXf1aiU07L+9j7vYcqJu/0Q='
+
+  [mod.'golang.org/x/exp']
+    version = 'v0.0.0-20260410095643-746e56fc9e2f'
+    hash = 'sha256-JaDJGLIRoJjjvsg3dgfFuo7XApEJO2V4kUDmd58qTLI='
+
+  [mod.'golang.org/x/mod']
+    version = 'v0.37.0'
+    hash = 'sha256-dspScRv3KO4nytvjavhNO2b03P4UtiJQyWVGuEy9OUk='
+
+  [mod.'golang.org/x/net']
+    version = 'v0.57.0'
+    hash = 'sha256-gKo8UMw4hfETBHm8N5GOfuNadse9TWEQXJo2YWq5bY4='
+
+  [mod.'golang.org/x/oauth2']
+    version = 'v0.36.0'
+    hash = 'sha256-evS7WkMrpgonmTcqtWFpC5rSKZN8O+vnAhNUs1MS9kw='
+
+  [mod.'golang.org/x/sync']
+    version = 'v0.22.0'
+    hash = 'sha256-VZjl0fAM0p/nI81zh+pdBjzxFupx0UcKYXBBpL2ZS7k='
+
+  [mod.'golang.org/x/sys']
+    version = 'v0.47.0'
+    hash = 'sha256-TpbRyWWqHjddP6QzUgAbaLd2EE0S+GYNRUIDJd18r98='
+
+  [mod.'golang.org/x/term']
+    version = 'v0.45.0'
+    hash = 'sha256-vPBeJkepEZ1D9k4oaV20IuQlVmfAFv15KQgnhl9MNgw='
+
+  [mod.'golang.org/x/text']
+    version = 'v0.40.0'
+    hash = 'sha256-LJfnki46XEreGbSgjl+DeqgcTsINTOu2owyXNvijMcA='
+
+  [mod.'golang.org/x/time']
+    version = 'v0.15.0'
+    hash = 'sha256-5D24A65wn7k93Jj3+918UKjB9ccmGHPBEqjD2XDB92E='
+
+  [mod.'golang.org/x/tools']
+    version = 'v0.47.0'
+    hash = 'sha256-LyCNqEb/Jm94O6gaM01vXSHP9Yw/Cw0qVWXGxhCgwzo='
+
+  [mod.'golang.zx2c4.com/wintun']
+    version = 'v0.0.0-20230126152724-0fa3db229ce2'
+    hash = 'sha256-cjMLNjKnnupVROWmeASORVieAL9ieYdzX3cFzG8bCpo='
+
+  [mod.'golang.zx2c4.com/wireguard/wgctrl']
+    version = 'v0.0.0-20241231184526-a9ab2273dd10'
+    hash = 'sha256-d1HXF2hP5phUImwA9LILzKr9IUJUx1r77S1xLJGNT0o='
+
+  [mod.'golang.zx2c4.com/wireguard/windows']
+    version = 'v0.5.3'
+    hash = 'sha256-wcJWS/4Fqbc+1RHSntex0zBdlHiZfzrea4QabYkNKvU='
+
+  [mod.'google.golang.org/genproto/googleapis/rpc']
+    version = 'v0.0.0-20251202230838-ff82c1b0f217'
+    hash = 'sha256-I3ZNpNjKKvTq4DVNw3wLKrCuORabZ0oYj0KKhOMI/MA='
+
+  [mod.'google.golang.org/grpc']
+    version = 'v1.79.1'
+    hash = 'sha256-qJzroXZYo57MBIswxVVlXQuK/ubK1k9dAkD5btKCa4Y='
+
+  [mod.'google.golang.org/protobuf']
+    version = 'v1.36.11'
+    hash = 'sha256-7W+6jntfI/awWL3JP6yQedxqP5S9o3XvPgJ2XxxsIeE='
+
+  [mod.'gopkg.in/yaml.v3']
+    version = 'v3.0.1'
+    hash = 'sha256-FqL9TKYJ0XkNwJFnq9j0VvJ5ZUU1RvH/52h/f5bkYAU='
+
+  [mod.'howett.net/plist']
+    version = 'v1.0.1'
+    hash = 'sha256-aXTwU+4m3JBjdX81Tw6MM8u4d39aoUICwP0g2ersmb0='
+
+  [mod.'lukechampine.com/blake3']
+    version = 'v1.3.0'
+    hash = 'sha256-H7ljr3coQkiNKPvn1fWm7wADu/n/PhBefTKn8UF1Wkg='
+
+  [mod.'zombiezen.com/go/capnproto2']
+    version = 'v2.18.2+incompatible'
+    hash = 'sha256-yIBRDKYF9lqp2akesdB6eE6Oo5iAlGAp0fjq7kKIUfM='
+
+[cacheModules]
+  [cacheModules.'filippo.io/age']
+    packages = [
+      'filippo.io/age'
+    ]
+    deps = [
+      'filippo.io/hpke',
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'filippo.io/hpke']
+    packages = [
+      'filippo.io/hpke',
+      'filippo.io/hpke/crypto',
+      'filippo.io/hpke/crypto/ecdh'
+    ]
+    deps = [
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/RyuaNerin/go-krypto']
+    packages = [
+      'github.com/RyuaNerin/go-krypto/aria',
+      'github.com/RyuaNerin/go-krypto/seed'
+    ]
+
+  [cacheModules.'github.com/ajg/form']
+    packages = [
+      'github.com/ajg/form'
+    ]
+
+  [cacheModules.'github.com/anchore/go-lzo']
+    packages = [
+      'github.com/anchore/go-lzo'
+    ]
+
+  [cacheModules.'github.com/andybalholm/brotli']
+    packages = [
+      'github.com/andybalholm/brotli',
+      'github.com/andybalholm/brotli/matchfinder'
+    ]
+
+  [cacheModules.'github.com/anthropics/anthropic-sdk-go']
+    packages = [
+      'github.com/anthropics/anthropic-sdk-go',
+      'github.com/anthropics/anthropic-sdk-go/option',
+      'github.com/anthropics/anthropic-sdk-go/packages/jsonl',
+      'github.com/anthropics/anthropic-sdk-go/packages/pagination',
+      'github.com/anthropics/anthropic-sdk-go/packages/param',
+      'github.com/anthropics/anthropic-sdk-go/packages/respjson',
+      'github.com/anthropics/anthropic-sdk-go/packages/ssestream',
+      'github.com/anthropics/anthropic-sdk-go/shared',
+      'github.com/anthropics/anthropic-sdk-go/shared/constant'
+    ]
+    deps = [
+      'github.com/tidwall/gjson',
+      'github.com/tidwall/sjson',
+      'golang.org/x/sync'
+    ]
+
+  [cacheModules.'github.com/anytls/sing-anytls']
+    packages = [
+      'github.com/anytls/sing-anytls',
+      'github.com/anytls/sing-anytls/padding',
+      'github.com/anytls/sing-anytls/pipe',
+      'github.com/anytls/sing-anytls/session',
+      'github.com/anytls/sing-anytls/skiplist',
+      'github.com/anytls/sing-anytls/util'
+    ]
+    deps = [
+      'github.com/sagernet/sing'
+    ]
+
+  [cacheModules.'github.com/caddyserver/certmagic']
+    packages = [
+      'github.com/caddyserver/certmagic'
+    ]
+    deps = [
+      'github.com/caddyserver/zerossl',
+      'github.com/klauspost/cpuid/v2',
+      'github.com/libdns/libdns',
+      'github.com/mholt/acmez/v3',
+      'github.com/miekg/dns',
+      'github.com/zeebo/blake3',
+      'go.uber.org/zap',
+      'go.uber.org/zap/exp',
+      'golang.org/x/crypto',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/caddyserver/zerossl']
+    packages = [
+      'github.com/caddyserver/zerossl'
+    ]
+
+  [cacheModules.'github.com/cenkalti/backoff/v4']
+    packages = [
+      'github.com/cenkalti/backoff/v4'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/uax29/v2']
+    packages = [
+      'github.com/clipperhouse/uax29/v2/graphemes'
+    ]
+
+  [cacheModules.'github.com/coder/websocket']
+    packages = [
+      'github.com/coder/websocket'
+    ]
+
+  [cacheModules.'github.com/creack/pty']
+    packages = [
+      'github.com/creack/pty'
+    ]
+
+  [cacheModules.'github.com/cretz/bine']
+    packages = [
+      'github.com/cretz/bine/control',
+      'github.com/cretz/bine/process',
+      'github.com/cretz/bine/tor',
+      'github.com/cretz/bine/torutil',
+      'github.com/cretz/bine/torutil/ed25519'
+    ]
+    deps = [
+      'golang.org/x/crypto',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/database64128/netx-go']
+    packages = [
+      'github.com/database64128/netx-go'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/database64128/tfo-go/v2']
+    packages = [
+      'github.com/database64128/tfo-go/v2'
+    ]
+    deps = [
+      'github.com/database64128/netx-go',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/dgrijalva/jwt-go/v4']
+    packages = [
+      'github.com/dgrijalva/jwt-go/v4'
+    ]
+
+  [cacheModules.'github.com/dgryski/go-camellia']
+    packages = [
+      'github.com/dgryski/go-camellia'
+    ]
+
+  [cacheModules.'github.com/florianl/go-nfqueue/v2']
+    packages = [
+      'github.com/florianl/go-nfqueue/v2'
+    ]
+    deps = [
+      'github.com/mdlayher/netlink'
+    ]
+
+  [cacheModules.'github.com/fsnotify/fsnotify']
+    packages = [
+      'github.com/fsnotify/fsnotify'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/go-chi/chi/v5']
+    packages = [
+      'github.com/go-chi/chi/v5',
+      'github.com/go-chi/chi/v5/middleware'
+    ]
+
+  [cacheModules.'github.com/go-chi/render']
+    packages = [
+      'github.com/go-chi/render'
+    ]
+    deps = [
+      'github.com/ajg/form'
+    ]
+
+  [cacheModules.'github.com/gobwas/httphead']
+    packages = [
+      'github.com/gobwas/httphead'
+    ]
+
+  [cacheModules.'github.com/gobwas/pool']
+    packages = [
+      'github.com/gobwas/pool',
+      'github.com/gobwas/pool/pbufio',
+      'github.com/gobwas/pool/pbytes'
+    ]
+
+  [cacheModules.'github.com/godbus/dbus/v5']
+    packages = [
+      'github.com/godbus/dbus/v5'
+    ]
+
+  [cacheModules.'github.com/gofrs/uuid/v5']
+    packages = [
+      'github.com/gofrs/uuid/v5'
+    ]
+
+  [cacheModules.'github.com/google/btree']
+    packages = [
+      'github.com/google/btree'
+    ]
+
+  [cacheModules.'github.com/google/certificate-transparency-go']
+    packages = [
+      'github.com/google/certificate-transparency-go/asn1',
+      'github.com/google/certificate-transparency-go/tls',
+      'github.com/google/certificate-transparency-go/x509',
+      'github.com/google/certificate-transparency-go/x509/pkix'
+    ]
+    deps = [
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/google/go-querystring']
+    packages = [
+      'github.com/google/go-querystring/query'
+    ]
+
+  [cacheModules.'github.com/google/gopacket']
+    packages = [
+      'github.com/google/gopacket/routing'
+    ]
+
+  [cacheModules.'github.com/hashicorp/yamux']
+    packages = [
+      'github.com/hashicorp/yamux'
+    ]
+
+  [cacheModules.'github.com/huin/goupnp']
+    packages = [
+      'github.com/huin/goupnp',
+      'github.com/huin/goupnp/dcps/internetgateway1',
+      'github.com/huin/goupnp/dcps/internetgateway2',
+      'github.com/huin/goupnp/httpu',
+      'github.com/huin/goupnp/scpd',
+      'github.com/huin/goupnp/soap',
+      'github.com/huin/goupnp/ssdp'
+    ]
+    deps = [
+      'golang.org/x/sync'
+    ]
+
+  [cacheModules.'github.com/insomniacslk/dhcp']
+    packages = [
+      'github.com/insomniacslk/dhcp/dhcpv4',
+      'github.com/insomniacslk/dhcp/iana',
+      'github.com/insomniacslk/dhcp/interfaces',
+      'github.com/insomniacslk/dhcp/rfc1035label'
+    ]
+    deps = [
+      'github.com/u-root/uio',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/jackpal/go-nat-pmp']
+    packages = [
+      'github.com/jackpal/go-nat-pmp'
+    ]
+
+  [cacheModules.'github.com/jsimonetti/rtnetlink']
+    packages = [
+      'github.com/jsimonetti/rtnetlink'
+    ]
+    deps = [
+      'github.com/mdlayher/netlink'
+    ]
+
+  [cacheModules.'github.com/klauspost/compress']
+    packages = [
+      'github.com/klauspost/compress',
+      'github.com/klauspost/compress/flate',
+      'github.com/klauspost/compress/fse',
+      'github.com/klauspost/compress/huff0',
+      'github.com/klauspost/compress/zstd'
+    ]
+
+  [cacheModules.'github.com/klauspost/cpuid/v2']
+    packages = [
+      'github.com/klauspost/cpuid/v2'
+    ]
+
+  [cacheModules.'github.com/koron/go-ssdp']
+    packages = [
+      'github.com/koron/go-ssdp'
+    ]
+
+  [cacheModules.'github.com/libdns/libdns']
+    packages = [
+      'github.com/libdns/libdns'
+    ]
+
+  [cacheModules.'github.com/libp2p/go-nat']
+    packages = [
+      'github.com/libp2p/go-nat'
+    ]
+    deps = [
+      'github.com/huin/goupnp',
+      'github.com/jackpal/go-nat-pmp',
+      'github.com/koron/go-ssdp',
+      'github.com/libp2p/go-netroute'
+    ]
+
+  [cacheModules.'github.com/libp2p/go-netroute']
+    packages = [
+      'github.com/libp2p/go-netroute'
+    ]
+    deps = [
+      'github.com/google/gopacket'
+    ]
+
+  [cacheModules.'github.com/logrusorgru/aurora']
+    packages = [
+      'github.com/logrusorgru/aurora'
+    ]
+
+  [cacheModules.'github.com/mattn/go-runewidth']
+    packages = [
+      'github.com/mattn/go-runewidth'
+    ]
+    deps = [
+      'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/mdlayher/netlink']
+    packages = [
+      'github.com/mdlayher/netlink',
+      'github.com/mdlayher/netlink/nlenc',
+      'github.com/mdlayher/netlink/nltest'
+    ]
+    deps = [
+      'github.com/mdlayher/socket',
+      'golang.org/x/net',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/mdlayher/socket']
+    packages = [
+      'github.com/mdlayher/socket'
+    ]
+    deps = [
+      'golang.org/x/net',
+      'golang.org/x/sync',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/metacubex/utls']
+    packages = [
+      'github.com/metacubex/utls',
+      'github.com/metacubex/utls/dicttls'
+    ]
+    deps = [
+      'github.com/andybalholm/brotli',
+      'github.com/klauspost/compress',
+      'golang.org/x/crypto',
+      'golang.org/x/exp'
+    ]
+
+  [cacheModules.'github.com/mholt/acmez/v3']
+    packages = [
+      'github.com/mholt/acmez/v3',
+      'github.com/mholt/acmez/v3/acme'
+    ]
+    deps = [
+      'golang.org/x/crypto',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/miekg/dns']
+    packages = [
+      'github.com/miekg/dns'
+    ]
+    deps = [
+      'golang.org/x/net',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/openai/openai-go/v3']
+    packages = [
+      'github.com/openai/openai-go/v3',
+      'github.com/openai/openai-go/v3/conversations',
+      'github.com/openai/openai-go/v3/option',
+      'github.com/openai/openai-go/v3/packages/pagination',
+      'github.com/openai/openai-go/v3/packages/param',
+      'github.com/openai/openai-go/v3/packages/respjson',
+      'github.com/openai/openai-go/v3/packages/ssestream',
+      'github.com/openai/openai-go/v3/realtime',
+      'github.com/openai/openai-go/v3/responses',
+      'github.com/openai/openai-go/v3/shared',
+      'github.com/openai/openai-go/v3/shared/constant',
+      'github.com/openai/openai-go/v3/webhooks'
+    ]
+    deps = [
+      'github.com/tidwall/gjson',
+      'github.com/tidwall/sjson'
+    ]
+
+  [cacheModules.'github.com/oschwald/maxminddb-golang']
+    packages = [
+      'github.com/oschwald/maxminddb-golang'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/pierrec/lz4/v4']
+    packages = [
+      'github.com/pierrec/lz4/v4'
+    ]
+
+  [cacheModules.'github.com/pion/dtls/v3']
+    packages = [
+      'github.com/pion/dtls/v3',
+      'github.com/pion/dtls/v3/pkg/crypto/ccm',
+      'github.com/pion/dtls/v3/pkg/crypto/ciphersuite',
+      'github.com/pion/dtls/v3/pkg/crypto/clientcertificate',
+      'github.com/pion/dtls/v3/pkg/crypto/elliptic',
+      'github.com/pion/dtls/v3/pkg/crypto/hash',
+      'github.com/pion/dtls/v3/pkg/crypto/prf',
+      'github.com/pion/dtls/v3/pkg/crypto/signature',
+      'github.com/pion/dtls/v3/pkg/crypto/signaturehash',
+      'github.com/pion/dtls/v3/pkg/net',
+      'github.com/pion/dtls/v3/pkg/protocol',
+      'github.com/pion/dtls/v3/pkg/protocol/alert',
+      'github.com/pion/dtls/v3/pkg/protocol/extension',
+      'github.com/pion/dtls/v3/pkg/protocol/handshake',
+      'github.com/pion/dtls/v3/pkg/protocol/recordlayer'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/pion/transport/v4',
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/pion/logging']
+    packages = [
+      'github.com/pion/logging'
+    ]
+
+  [cacheModules.'github.com/pion/transport/v4']
+    packages = [
+      'github.com/pion/transport/v4/deadline',
+      'github.com/pion/transport/v4/netctx',
+      'github.com/pion/transport/v4/replaydetector'
+    ]
+
+  [cacheModules.'github.com/quic-go/qpack']
+    packages = [
+      'github.com/quic-go/qpack'
+    ]
+    deps = [
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/sagernet/asc-go']
+    packages = [
+      'github.com/sagernet/asc-go/asc'
+    ]
+    deps = [
+      'github.com/cenkalti/backoff/v4',
+      'github.com/dgrijalva/jwt-go/v4',
+      'github.com/google/go-querystring'
+    ]
+
+  [cacheModules.'github.com/sagernet/bbolt']
+    packages = [
+      'github.com/sagernet/bbolt',
+      'github.com/sagernet/bbolt/errors'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/cors']
+    packages = [
+      'github.com/sagernet/cors'
+    ]
+
+  [cacheModules.'github.com/sagernet/fswatch']
+    packages = [
+      'github.com/sagernet/fswatch'
+    ]
+    deps = [
+      'github.com/fsnotify/fsnotify',
+      'github.com/sagernet/sing'
+    ]
+
+  [cacheModules.'github.com/sagernet/gomobile']
+    packages = [
+      'github.com/sagernet/gomobile'
+    ]
+
+  [cacheModules.'github.com/sagernet/netlink']
+    packages = [
+      'github.com/sagernet/netlink',
+      'github.com/sagernet/netlink/nl'
+    ]
+    deps = [
+      'github.com/vishvananda/netns',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/nftables']
+    packages = [
+      'github.com/sagernet/nftables',
+      'github.com/sagernet/nftables/alignedbuff',
+      'github.com/sagernet/nftables/binaryutil',
+      'github.com/sagernet/nftables/expr',
+      'github.com/sagernet/nftables/userdata',
+      'github.com/sagernet/nftables/xt'
+    ]
+    deps = [
+      'github.com/mdlayher/netlink',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/quic-go']
+    packages = [
+      'github.com/sagernet/quic-go',
+      'github.com/sagernet/quic-go/congestion',
+      'github.com/sagernet/quic-go/http3',
+      'github.com/sagernet/quic-go/http3/qlog',
+      'github.com/sagernet/quic-go/monotime',
+      'github.com/sagernet/quic-go/qlog',
+      'github.com/sagernet/quic-go/qlogwriter',
+      'github.com/sagernet/quic-go/qlogwriter/jsontext',
+      'github.com/sagernet/quic-go/quicvarint'
+    ]
+    deps = [
+      'github.com/quic-go/qpack',
+      'golang.org/x/net',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing']
+    packages = [
+      'github.com/sagernet/sing/common',
+      'github.com/sagernet/sing/common/atomic',
+      'github.com/sagernet/sing/common/auth',
+      'github.com/sagernet/sing/common/baderror',
+      'github.com/sagernet/sing/common/batch',
+      'github.com/sagernet/sing/common/binary',
+      'github.com/sagernet/sing/common/buf',
+      'github.com/sagernet/sing/common/bufio',
+      'github.com/sagernet/sing/common/bufio/deadline',
+      'github.com/sagernet/sing/common/byteformats',
+      'github.com/sagernet/sing/common/cache',
+      'github.com/sagernet/sing/common/canceler',
+      'github.com/sagernet/sing/common/cleanup',
+      'github.com/sagernet/sing/common/control',
+      'github.com/sagernet/sing/common/debug',
+      'github.com/sagernet/sing/common/domain',
+      'github.com/sagernet/sing/common/exceptions',
+      'github.com/sagernet/sing/common/format',
+      'github.com/sagernet/sing/common/json',
+      'github.com/sagernet/sing/common/json/badjson',
+      'github.com/sagernet/sing/common/json/badoption',
+      'github.com/sagernet/sing/common/logger',
+      'github.com/sagernet/sing/common/memory',
+      'github.com/sagernet/sing/common/metadata',
+      'github.com/sagernet/sing/common/network',
+      'github.com/sagernet/sing/common/ntp',
+      'github.com/sagernet/sing/common/observable',
+      'github.com/sagernet/sing/common/pipe',
+      'github.com/sagernet/sing/common/random',
+      'github.com/sagernet/sing/common/ranges',
+      'github.com/sagernet/sing/common/replay',
+      'github.com/sagernet/sing/common/rw',
+      'github.com/sagernet/sing/common/shell',
+      'github.com/sagernet/sing/common/task',
+      'github.com/sagernet/sing/common/tls',
+      'github.com/sagernet/sing/common/udpnat',
+      'github.com/sagernet/sing/common/udpnat2',
+      'github.com/sagernet/sing/common/uot',
+      'github.com/sagernet/sing/common/varbin',
+      'github.com/sagernet/sing/common/winpowrprof',
+      'github.com/sagernet/sing/common/x/collections',
+      'github.com/sagernet/sing/common/x/constraints',
+      'github.com/sagernet/sing/common/x/linkedhashmap',
+      'github.com/sagernet/sing/common/x/list',
+      'github.com/sagernet/sing/contrab/freelru',
+      'github.com/sagernet/sing/contrab/maphash',
+      'github.com/sagernet/sing/protocol/http',
+      'github.com/sagernet/sing/protocol/socks',
+      'github.com/sagernet/sing/protocol/socks/socks4',
+      'github.com/sagernet/sing/protocol/socks/socks5',
+      'github.com/sagernet/sing/service',
+      'github.com/sagernet/sing/service/filemanager',
+      'github.com/sagernet/sing/service/pause'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-mux']
+    packages = [
+      'github.com/sagernet/sing-mux'
+    ]
+    deps = [
+      'github.com/hashicorp/yamux',
+      'github.com/sagernet/sing',
+      'github.com/sagernet/smux',
+      'golang.org/x/net',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-openconnect']
+    packages = [
+      'github.com/sagernet/sing-openconnect'
+    ]
+    deps = [
+      'github.com/anchore/go-lzo',
+      'github.com/google/certificate-transparency-go',
+      'github.com/klauspost/compress',
+      'github.com/pierrec/lz4/v4',
+      'github.com/pion/dtls/v3',
+      'github.com/sagernet/sing',
+      'github.com/smallstep/pkcs7',
+      'github.com/youmark/pkcs8',
+      'golang.org/x/crypto',
+      'golang.org/x/net',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-openvpn']
+    packages = [
+      'github.com/sagernet/sing-openvpn',
+      'github.com/sagernet/sing-openvpn/proto'
+    ]
+    deps = [
+      'github.com/RyuaNerin/go-krypto',
+      'github.com/anchore/go-lzo',
+      'github.com/dgryski/go-camellia',
+      'github.com/google/certificate-transparency-go',
+      'github.com/pierrec/lz4/v4',
+      'github.com/sagernet/sing',
+      'github.com/tjfoc/gmsm',
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-quic']
+    packages = [
+      'github.com/sagernet/sing-quic',
+      'github.com/sagernet/sing-quic/congestion_bbr1',
+      'github.com/sagernet/sing-quic/congestion_bbr2',
+      'github.com/sagernet/sing-quic/congestion_meta1',
+      'github.com/sagernet/sing-quic/congestion_meta2',
+      'github.com/sagernet/sing-quic/hysteria',
+      'github.com/sagernet/sing-quic/hysteria/congestion',
+      'github.com/sagernet/sing-quic/hysteria2',
+      'github.com/sagernet/sing-quic/hysteria2/realm',
+      'github.com/sagernet/sing-quic/tuic'
+    ]
+    deps = [
+      'github.com/gofrs/uuid/v5',
+      'github.com/libp2p/go-nat',
+      'github.com/sagernet/quic-go',
+      'github.com/sagernet/sing',
+      'golang.org/x/crypto',
+      'golang.org/x/exp',
+      'golang.org/x/sync'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-shadowsocks']
+    packages = [
+      'github.com/sagernet/sing-shadowsocks',
+      'github.com/sagernet/sing-shadowsocks/shadowaead',
+      'github.com/sagernet/sing-shadowsocks/shadowaead_2022'
+    ]
+    deps = [
+      'github.com/sagernet/sing',
+      'golang.org/x/crypto',
+      'lukechampine.com/blake3'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-shadowsocks2']
+    packages = [
+      'github.com/sagernet/sing-shadowsocks2',
+      'github.com/sagernet/sing-shadowsocks2/cipher',
+      'github.com/sagernet/sing-shadowsocks2/shadowaead',
+      'github.com/sagernet/sing-shadowsocks2/shadowaead_2022',
+      'github.com/sagernet/sing-shadowsocks2/shadowstream'
+    ]
+    deps = [
+      'github.com/sagernet/sing',
+      'golang.org/x/crypto',
+      'lukechampine.com/blake3'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-shadowtls']
+    packages = [
+      'github.com/sagernet/sing-shadowtls'
+    ]
+    deps = [
+      'github.com/metacubex/utls',
+      'github.com/sagernet/sing'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-snell']
+    packages = [
+      'github.com/sagernet/sing-snell',
+      'github.com/sagernet/sing-snell/snellv4',
+      'github.com/sagernet/sing-snell/snellv5',
+      'github.com/sagernet/sing-snell/snellv6'
+    ]
+    deps = [
+      'github.com/sagernet/sing',
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-tun']
+    packages = [
+      'github.com/sagernet/sing-tun',
+      'github.com/sagernet/sing-tun/gtcpip',
+      'github.com/sagernet/sing-tun/gtcpip/checksum',
+      'github.com/sagernet/sing-tun/gtcpip/header',
+      'github.com/sagernet/sing-tun/gtcpip/seqnum',
+      'github.com/sagernet/sing-tun/ping'
+    ]
+    deps = [
+      'github.com/florianl/go-nfqueue/v2',
+      'github.com/google/btree',
+      'github.com/mdlayher/netlink',
+      'github.com/sagernet/netlink',
+      'github.com/sagernet/nftables',
+      'github.com/sagernet/sing',
+      'go4.org/netipx',
+      'golang.org/x/exp',
+      'golang.org/x/net',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-usbip']
+    packages = [
+      'github.com/sagernet/sing-usbip/driverassets'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-vmess']
+    packages = [
+      'github.com/sagernet/sing-vmess',
+      'github.com/sagernet/sing-vmess/packetaddr',
+      'github.com/sagernet/sing-vmess/vless'
+    ]
+    deps = [
+      'github.com/gofrs/uuid/v5',
+      'github.com/sagernet/sing',
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/sagernet/smux']
+    packages = [
+      'github.com/sagernet/smux'
+    ]
+    deps = [
+      'github.com/sagernet/sing'
+    ]
+
+  [cacheModules.'github.com/sagernet/tailscale']
+    packages = [
+      'github.com/sagernet/tailscale/atomicfile'
+    ]
+
+  [cacheModules.'github.com/sagernet/wireguard-go']
+    packages = [
+      'github.com/sagernet/wireguard-go/conn',
+      'github.com/sagernet/wireguard-go/device',
+      'github.com/sagernet/wireguard-go/ipc',
+      'github.com/sagernet/wireguard-go/ratelimiter',
+      'github.com/sagernet/wireguard-go/replay',
+      'github.com/sagernet/wireguard-go/rwcancel',
+      'github.com/sagernet/wireguard-go/tai64n',
+      'github.com/sagernet/wireguard-go/tun'
+    ]
+    deps = [
+      'github.com/sagernet/sing',
+      'golang.org/x/crypto',
+      'golang.org/x/net',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/ws']
+    packages = [
+      'github.com/sagernet/ws',
+      'github.com/sagernet/ws/wsutil'
+    ]
+    deps = [
+      'github.com/gobwas/httphead',
+      'github.com/gobwas/pool'
+    ]
+
+  [cacheModules.'github.com/smallstep/pkcs7']
+    packages = [
+      'github.com/smallstep/pkcs7'
+    ]
+
+  [cacheModules.'github.com/spf13/cobra']
+    packages = [
+      'github.com/spf13/cobra'
+    ]
+    deps = [
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/spf13/pflag']
+    packages = [
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/stretchr/testify']
+    packages = [
+      'github.com/stretchr/testify/assert',
+      'github.com/stretchr/testify/assert/yaml',
+      'github.com/stretchr/testify/require'
+    ]
+    deps = [
+      'gopkg.in/yaml.v3'
+    ]
+
+  [cacheModules.'github.com/tidwall/gjson']
+    packages = [
+      'github.com/tidwall/gjson'
+    ]
+    deps = [
+      'github.com/tidwall/match',
+      'github.com/tidwall/pretty'
+    ]
+
+  [cacheModules.'github.com/tidwall/match']
+    packages = [
+      'github.com/tidwall/match'
+    ]
+
+  [cacheModules.'github.com/tidwall/pretty']
+    packages = [
+      'github.com/tidwall/pretty'
+    ]
+
+  [cacheModules.'github.com/tidwall/sjson']
+    packages = [
+      'github.com/tidwall/sjson'
+    ]
+    deps = [
+      'github.com/tidwall/gjson'
+    ]
+
+  [cacheModules.'github.com/tjfoc/gmsm']
+    packages = [
+      'github.com/tjfoc/gmsm/sm4'
+    ]
+
+  [cacheModules.'github.com/u-root/uio']
+    packages = [
+      'github.com/u-root/uio/rand',
+      'github.com/u-root/uio/uio'
+    ]
+    deps = [
+      'github.com/pierrec/lz4/v4',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/vishvananda/netns']
+    packages = [
+      'github.com/vishvananda/netns'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/youmark/pkcs8']
+    packages = [
+      'github.com/youmark/pkcs8'
+    ]
+    deps = [
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/zeebo/blake3']
+    packages = [
+      'github.com/zeebo/blake3'
+    ]
+
+  [cacheModules.'go.uber.org/multierr']
+    packages = [
+      'go.uber.org/multierr'
+    ]
+
+  [cacheModules.'go.uber.org/zap']
+    packages = [
+      'go.uber.org/zap',
+      'go.uber.org/zap/buffer',
+      'go.uber.org/zap/zapcore'
+    ]
+    deps = [
+      'go.uber.org/multierr'
+    ]
+
+  [cacheModules.'go.uber.org/zap/exp']
+    packages = [
+      'go.uber.org/zap/exp/zapslog'
+    ]
+    deps = [
+      'go.uber.org/zap'
+    ]
+
+  [cacheModules.'go4.org/netipx']
+    packages = [
+      'go4.org/netipx'
+    ]
+
+  [cacheModules.'golang.org/x/crypto']
+    packages = [
+      'golang.org/x/crypto/argon2',
+      'golang.org/x/crypto/blake2b',
+      'golang.org/x/crypto/blake2s',
+      'golang.org/x/crypto/blowfish',
+      'golang.org/x/crypto/cast5',
+      'golang.org/x/crypto/chacha20',
+      'golang.org/x/crypto/chacha20poly1305',
+      'golang.org/x/crypto/cryptobyte',
+      'golang.org/x/crypto/cryptobyte/asn1',
+      'golang.org/x/crypto/curve25519',
+      'golang.org/x/crypto/ed25519',
+      'golang.org/x/crypto/hkdf',
+      'golang.org/x/crypto/ocsp',
+      'golang.org/x/crypto/pbkdf2',
+      'golang.org/x/crypto/poly1305',
+      'golang.org/x/crypto/ripemd160',
+      'golang.org/x/crypto/scrypt',
+      'golang.org/x/crypto/sha3',
+      'golang.org/x/crypto/ssh',
+      'golang.org/x/crypto/ssh/agent'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/exp']
+    packages = [
+      'golang.org/x/exp/constraints',
+      'golang.org/x/exp/slices'
+    ]
+
+  [cacheModules.'golang.org/x/mod']
+    packages = [
+      'golang.org/x/mod/semver'
+    ]
+
+  [cacheModules.'golang.org/x/net']
+    packages = [
+      'golang.org/x/net/bpf',
+      'golang.org/x/net/html',
+      'golang.org/x/net/html/atom',
+      'golang.org/x/net/http/httpguts',
+      'golang.org/x/net/http2',
+      'golang.org/x/net/http2/h2c',
+      'golang.org/x/net/http2/hpack',
+      'golang.org/x/net/idna',
+      'golang.org/x/net/ipv4',
+      'golang.org/x/net/ipv6',
+      'golang.org/x/net/proxy',
+      'golang.org/x/net/publicsuffix',
+      'golang.org/x/net/trace'
+    ]
+    deps = [
+      'golang.org/x/sys',
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'golang.org/x/sync']
+    packages = [
+      'golang.org/x/sync/errgroup',
+      'golang.org/x/sync/semaphore',
+      'golang.org/x/sync/singleflight'
+    ]
+
+  [cacheModules.'golang.org/x/sys']
+    packages = [
+      'golang.org/x/sys/cpu',
+      'golang.org/x/sys/unix'
+    ]
+
+  [cacheModules.'golang.org/x/term']
+    packages = [
+      'golang.org/x/term'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/text']
+    packages = [
+      'golang.org/x/text/language',
+      'golang.org/x/text/secure/bidirule',
+      'golang.org/x/text/transform',
+      'golang.org/x/text/unicode/bidi',
+      'golang.org/x/text/unicode/norm'
+    ]
+
+  [cacheModules.'golang.zx2c4.com/wireguard/wgctrl']
+    packages = [
+      'golang.zx2c4.com/wireguard/wgctrl/wgtypes'
+    ]
+    deps = [
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'google.golang.org/genproto/googleapis/rpc']
+    packages = [
+      'google.golang.org/genproto/googleapis/rpc/status'
+    ]
+    deps = [
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/grpc']
+    packages = [
+      'google.golang.org/grpc',
+      'google.golang.org/grpc/attributes',
+      'google.golang.org/grpc/backoff',
+      'google.golang.org/grpc/balancer',
+      'google.golang.org/grpc/balancer/base',
+      'google.golang.org/grpc/balancer/endpointsharding',
+      'google.golang.org/grpc/balancer/grpclb/state',
+      'google.golang.org/grpc/balancer/pickfirst',
+      'google.golang.org/grpc/balancer/roundrobin',
+      'google.golang.org/grpc/binarylog/grpc_binarylog_v1',
+      'google.golang.org/grpc/channelz',
+      'google.golang.org/grpc/codes',
+      'google.golang.org/grpc/connectivity',
+      'google.golang.org/grpc/credentials',
+      'google.golang.org/grpc/credentials/insecure',
+      'google.golang.org/grpc/encoding',
+      'google.golang.org/grpc/encoding/proto',
+      'google.golang.org/grpc/experimental/stats',
+      'google.golang.org/grpc/grpclog',
+      'google.golang.org/grpc/health',
+      'google.golang.org/grpc/health/grpc_health_v1',
+      'google.golang.org/grpc/keepalive',
+      'google.golang.org/grpc/mem',
+      'google.golang.org/grpc/metadata',
+      'google.golang.org/grpc/peer',
+      'google.golang.org/grpc/reflection',
+      'google.golang.org/grpc/reflection/grpc_reflection_v1',
+      'google.golang.org/grpc/reflection/grpc_reflection_v1alpha',
+      'google.golang.org/grpc/resolver',
+      'google.golang.org/grpc/resolver/dns',
+      'google.golang.org/grpc/serviceconfig',
+      'google.golang.org/grpc/stats',
+      'google.golang.org/grpc/status',
+      'google.golang.org/grpc/tap'
+    ]
+    deps = [
+      'golang.org/x/net',
+      'google.golang.org/genproto/googleapis/rpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/protobuf']
+    packages = [
+      'google.golang.org/protobuf/encoding/protojson',
+      'google.golang.org/protobuf/encoding/prototext',
+      'google.golang.org/protobuf/encoding/protowire',
+      'google.golang.org/protobuf/proto',
+      'google.golang.org/protobuf/protoadapt',
+      'google.golang.org/protobuf/reflect/protodesc',
+      'google.golang.org/protobuf/reflect/protoreflect',
+      'google.golang.org/protobuf/reflect/protoregistry',
+      'google.golang.org/protobuf/runtime/protoiface',
+      'google.golang.org/protobuf/runtime/protoimpl',
+      'google.golang.org/protobuf/types/descriptorpb',
+      'google.golang.org/protobuf/types/gofeaturespb',
+      'google.golang.org/protobuf/types/known/anypb',
+      'google.golang.org/protobuf/types/known/durationpb',
+      'google.golang.org/protobuf/types/known/emptypb',
+      'google.golang.org/protobuf/types/known/timestamppb'
+    ]
+
+  [cacheModules.'gopkg.in/yaml.v3']
+    packages = [
+      'gopkg.in/yaml.v3'
+    ]
+
+  [cacheModules.'howett.net/plist']
+    packages = [
+      'howett.net/plist'
+    ]
+
+  [cacheModules.'lukechampine.com/blake3']
+    packages = [
+      'lukechampine.com/blake3',
+      'lukechampine.com/blake3/bao',
+      'lukechampine.com/blake3/guts'
+    ]
+    deps = [
+      'github.com/klauspost/cpuid/v2'
+    ]

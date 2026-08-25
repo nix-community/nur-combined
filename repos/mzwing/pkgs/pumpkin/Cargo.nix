@@ -17442,37 +17442,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "component-model" "default" "std" ];
       };
-      "wasm-encoder 0.254.0" = rec {
-        crateName = "wasm-encoder";
-        version = "0.254.0";
-        edition = "2024";
-        sha256 = "14vkvvm7ns46viznkkf9vf8s38zr18nq2vmh5g8zvrbqc5j0sj09";
-        libName = "wasm_encoder";
-        authors = [
-          "Nick Fitzgerald <fitzgen@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "leb128fmt";
-            packageId = "leb128fmt";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "wasmparser";
-            packageId = "wasmparser 0.254.0";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "simd" "simd" ];
-          }
-        ];
-        features = {
-          "component-model" = [ "wasmparser?/component-model" ];
-          "default" = [ "std" "component-model" ];
-          "std" = [ "wasmparser?/std" ];
-          "wasmparser" = [ "dep:wasmparser" ];
-        };
-        resolvedDefaultFeatures = [ "component-model" "std" "wasmparser" ];
-      };
       "wasm-encoder 0.257.1" = rec {
         crateName = "wasm-encoder";
         version = "0.257.1";
@@ -17504,11 +17473,42 @@ rec {
         };
         resolvedDefaultFeatures = [ "component-model" "default" "std" ];
       };
+      "wasm-encoder 0.258.0" = rec {
+        crateName = "wasm-encoder";
+        version = "0.258.0";
+        edition = "2024";
+        sha256 = "0lfjw2g7zag8ki0ygbz9crxpxxy8waa23sjibmbn9kx845lgwx79";
+        libName = "wasm_encoder";
+        authors = [
+          "Nick Fitzgerald <fitzgen@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "leb128fmt";
+            packageId = "leb128fmt";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "wasmparser";
+            packageId = "wasmparser 0.258.0";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "simd" "simd" ];
+          }
+        ];
+        features = {
+          "component-model" = [ "wasmparser?/component-model" ];
+          "default" = [ "std" "component-model" ];
+          "std" = [ "wasmparser?/std" ];
+          "wasmparser" = [ "dep:wasmparser" ];
+        };
+        resolvedDefaultFeatures = [ "component-model" "std" "wasmparser" ];
+      };
       "wasm-metadata" = rec {
         crateName = "wasm-metadata";
-        version = "0.254.0";
+        version = "0.258.0";
         edition = "2024";
-        sha256 = "1dndbiq9irikiv5hs9cjhv37jpchlfw0zg7k8gl82y6ankrza7dh";
+        sha256 = "18lk8bapiw2pxn7cn0z3sbh8fpgvv3l61myibasyjbxrmn2ib88q";
         libName = "wasm_metadata";
         dependencies = [
           {
@@ -17524,13 +17524,13 @@ rec {
           }
           {
             name = "wasm-encoder";
-            packageId = "wasm-encoder 0.254.0";
+            packageId = "wasm-encoder 0.258.0";
             usesDefaultFeatures = false;
             features = [ "std" "component-model" ];
           }
           {
             name = "wasmparser";
-            packageId = "wasmparser 0.254.0";
+            packageId = "wasmparser 0.258.0";
             usesDefaultFeatures = false;
             features = [ "simd" "std" "component-model" "hash-collections" ];
           }
@@ -17591,11 +17591,46 @@ rec {
         };
         resolvedDefaultFeatures = [ "component-model" "features" "serde" "simd" "std" "validate" ];
       };
-      "wasmparser 0.254.0" = rec {
+      "wasmparser 0.257.1" = rec {
         crateName = "wasmparser";
-        version = "0.254.0";
+        version = "0.257.1";
         edition = "2024";
-        sha256 = "09vfy6hq50vcrc6vmjbgzs9pvkc4agzb8rdgd89spywrywlrlxnm";
+        sha256 = "0jibgqhnwgc36f1j0wijmhahqci8ksv2d2qxv9mz8j3dzcsw6byr";
+        authors = [
+          "Yury Delendik <ydelendik@mozilla.com>"
+        ];
+        dependencies = [
+          {
+            name = "bitflags";
+            packageId = "bitflags 2.13.1";
+          }
+          {
+            name = "indexmap";
+            packageId = "indexmap";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "semver";
+            packageId = "semver";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "component-model" = [ "dep:semver" ];
+          "default" = [ "std" "validate" "serde" "features" "component-model" "hash-collections" "simd" ];
+          "hash-collections" = [ "dep:hashbrown" "dep:indexmap" ];
+          "serde" = [ "dep:serde" "indexmap?/serde" "hashbrown?/serde" ];
+          "std" = [ "indexmap?/std" ];
+        };
+        resolvedDefaultFeatures = [ "component-model" "features" "simd" "std" "validate" ];
+      };
+      "wasmparser 0.258.0" = rec {
+        crateName = "wasmparser";
+        version = "0.258.0";
+        edition = "2024";
+        sha256 = "04v3118fsfp7glfa43xmzbw36j0ch18y48ar69nv31rsz4cig9nr";
         authors = [
           "Yury Delendik <ydelendik@mozilla.com>"
         ];
@@ -17632,41 +17667,6 @@ rec {
           "std" = [ "indexmap?/std" ];
         };
         resolvedDefaultFeatures = [ "component-model" "features" "hash-collections" "simd" "std" "validate" ];
-      };
-      "wasmparser 0.257.1" = rec {
-        crateName = "wasmparser";
-        version = "0.257.1";
-        edition = "2024";
-        sha256 = "0jibgqhnwgc36f1j0wijmhahqci8ksv2d2qxv9mz8j3dzcsw6byr";
-        authors = [
-          "Yury Delendik <ydelendik@mozilla.com>"
-        ];
-        dependencies = [
-          {
-            name = "bitflags";
-            packageId = "bitflags 2.13.1";
-          }
-          {
-            name = "indexmap";
-            packageId = "indexmap";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "semver";
-            packageId = "semver";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "component-model" = [ "dep:semver" ];
-          "default" = [ "std" "validate" "serde" "features" "component-model" "hash-collections" "simd" ];
-          "hash-collections" = [ "dep:hashbrown" "dep:indexmap" ];
-          "serde" = [ "dep:serde" "indexmap?/serde" "hashbrown?/serde" ];
-          "std" = [ "indexmap?/std" ];
-        };
-        resolvedDefaultFeatures = [ "component-model" "features" "simd" "std" "validate" ];
       };
       "wasmprinter" = rec {
         crateName = "wasmprinter";
@@ -21329,9 +21329,9 @@ rec {
       };
       "wit-bindgen" = rec {
         crateName = "wit-bindgen";
-        version = "0.60.0";
+        version = "0.61.0";
         edition = "2024";
-        sha256 = "03dq3gkwn0sg1fv5vdnm2qxkjpfhi59rx1ldfm63dmjpcr6r00d3";
+        sha256 = "0p9w34a6cshmzg3p3x5hwm10gxf0yiypia7z6pz6ns37650gkzpv";
         libName = "wit_bindgen";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -21358,9 +21358,9 @@ rec {
       };
       "wit-bindgen-core" = rec {
         crateName = "wit-bindgen-core";
-        version = "0.60.0";
+        version = "0.61.0";
         edition = "2024";
-        sha256 = "0pslrgxn0vz03rw05nlswilrxs10vj06qc5d67hbkjsndswinlj8";
+        sha256 = "0wppgphmsyfafw3hp4vzz2rrgh8g5vfqx1idz02vmxg19j8g6528";
         libName = "wit_bindgen_core";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -21376,7 +21376,7 @@ rec {
           }
           {
             name = "wit-parser";
-            packageId = "wit-parser 0.254.0";
+            packageId = "wit-parser 0.258.0";
           }
         ];
         features = {
@@ -21386,9 +21386,9 @@ rec {
       };
       "wit-bindgen-rust" = rec {
         crateName = "wit-bindgen-rust";
-        version = "0.60.0";
+        version = "0.61.0";
         edition = "2024";
-        sha256 = "0hlh8w92fwnq2s2rjpzsadfgih7zs1wpzw62s0pzhrh0kadzxwrx";
+        sha256 = "0lfm54pj7v8zvflra829ry1xj1vpqfjfnxk41qgjglyrcfy61ixl";
         libName = "wit_bindgen_rust";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -21436,9 +21436,9 @@ rec {
       };
       "wit-bindgen-rust-macro" = rec {
         crateName = "wit-bindgen-rust-macro";
-        version = "0.60.0";
+        version = "0.61.0";
         edition = "2024";
-        sha256 = "1w3s4w65rfgs5qgaspzivr5rlg1lcr3l9fnga736gw3aknyc92fn";
+        sha256 = "0xqhn0l5632w8dr2d0rvnji17kh8y3l39wfal6d2y9skif7l889m";
         procMacro = true;
         libName = "wit_bindgen_rust_macro";
         authors = [
@@ -21482,9 +21482,9 @@ rec {
       };
       "wit-component" = rec {
         crateName = "wit-component";
-        version = "0.254.0";
+        version = "0.258.0";
         edition = "2024";
-        sha256 = "1gmmxry7w28sa87dyh65nwywkzmi0hkisgff853kr6rn9jwmprmh";
+        sha256 = "1vy79ph7w0d8h243nxv1syf0q6bagmahb2p0nn4h7kpcn93mq6s8";
         libName = "wit_component";
         authors = [
           "Peter Huene <peter@huene.dev>"
@@ -21525,7 +21525,7 @@ rec {
           }
           {
             name = "wasm-encoder";
-            packageId = "wasm-encoder 0.254.0";
+            packageId = "wasm-encoder 0.258.0";
             usesDefaultFeatures = false;
             features = [ "std" "wasmparser" ];
           }
@@ -21536,13 +21536,13 @@ rec {
           }
           {
             name = "wasmparser";
-            packageId = "wasmparser 0.254.0";
+            packageId = "wasmparser 0.258.0";
             usesDefaultFeatures = false;
             features = [ "simd" "std" "component-model" "simd" ];
           }
           {
             name = "wit-parser";
-            packageId = "wit-parser 0.254.0";
+            packageId = "wit-parser 0.258.0";
             features = [ "decoding" "serde" ];
           }
         ];
@@ -21555,7 +21555,7 @@ rec {
           }
           {
             name = "wasmparser";
-            packageId = "wasmparser 0.254.0";
+            packageId = "wasmparser 0.258.0";
             usesDefaultFeatures = false;
             features = [ "simd" "std" "component-model" "features" ];
           }
@@ -21694,91 +21694,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "decoding" "default" "serde" "serde_json" "std" ];
       };
-      "wit-parser 0.254.0" = rec {
-        crateName = "wit-parser";
-        version = "0.254.0";
-        edition = "2024";
-        sha256 = "1d49ikfwxfl21bzprpnlygqfyh6a2l9sgv7n86qhqgvx9wg16m8n";
-        libName = "wit_parser";
-        authors = [
-          "Alex Crichton <alex@alexcrichton.com>"
-        ];
-        dependencies = [
-          {
-            name = "anyhow";
-            packageId = "anyhow";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "hashbrown";
-            packageId = "hashbrown 0.17.1";
-            usesDefaultFeatures = false;
-            features = [ "default-hasher" ];
-          }
-          {
-            name = "id-arena";
-            packageId = "id-arena";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "indexmap";
-            packageId = "indexmap";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "log";
-            packageId = "log";
-          }
-          {
-            name = "semver";
-            packageId = "semver";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "serde_derive";
-            packageId = "serde_derive";
-            optional = true;
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            optional = true;
-          }
-          {
-            name = "unicode-ident";
-            packageId = "unicode-ident";
-          }
-          {
-            name = "wasmparser";
-            packageId = "wasmparser 0.254.0";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "simd" "std" "validate" "component-model" "features" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-        ];
-        features = {
-          "decoding" = [ "std" "dep:wasmparser" ];
-          "default" = [ "std" "serde" "decoding" ];
-          "serde" = [ "dep:serde" "dep:serde_derive" "indexmap/serde" "serde_json" ];
-          "serde_json" = [ "dep:serde_json" ];
-          "std" = [ "semver/std" ];
-          "wat" = [ "decoding" "dep:wat" ];
-        };
-        resolvedDefaultFeatures = [ "decoding" "default" "serde" "serde_json" "std" ];
-      };
       "wit-parser 0.257.1" = rec {
         crateName = "wit-parser";
         version = "0.257.1";
@@ -21843,6 +21758,91 @@ rec {
           {
             name = "wasmparser";
             packageId = "wasmparser 0.257.1";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "simd" "std" "validate" "component-model" "features" ];
+          }
+        ];
+        devDependencies = [
+          {
+            name = "serde_json";
+            packageId = "serde_json";
+          }
+        ];
+        features = {
+          "decoding" = [ "std" "dep:wasmparser" ];
+          "default" = [ "std" "serde" "decoding" ];
+          "serde" = [ "dep:serde" "dep:serde_derive" "indexmap/serde" "serde_json" ];
+          "serde_json" = [ "dep:serde_json" ];
+          "std" = [ "semver/std" ];
+          "wat" = [ "decoding" "dep:wat" ];
+        };
+        resolvedDefaultFeatures = [ "decoding" "default" "serde" "serde_json" "std" ];
+      };
+      "wit-parser 0.258.0" = rec {
+        crateName = "wit-parser";
+        version = "0.258.0";
+        edition = "2024";
+        sha256 = "1b1p7slq6jpjq0wbxlrx107kxyaksh4w17d9s3n4kblprnislkgz";
+        libName = "wit_parser";
+        authors = [
+          "Alex Crichton <alex@alexcrichton.com>"
+        ];
+        dependencies = [
+          {
+            name = "anyhow";
+            packageId = "anyhow";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "hashbrown";
+            packageId = "hashbrown 0.17.1";
+            usesDefaultFeatures = false;
+            features = [ "default-hasher" ];
+          }
+          {
+            name = "id-arena";
+            packageId = "id-arena";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "indexmap";
+            packageId = "indexmap";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "log";
+            packageId = "log";
+          }
+          {
+            name = "semver";
+            packageId = "semver";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "serde_derive";
+            packageId = "serde_derive";
+            optional = true;
+          }
+          {
+            name = "serde_json";
+            packageId = "serde_json";
+            optional = true;
+          }
+          {
+            name = "unicode-ident";
+            packageId = "unicode-ident";
+          }
+          {
+            name = "wasmparser";
+            packageId = "wasmparser 0.258.0";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "simd" "std" "validate" "component-model" "features" ];
