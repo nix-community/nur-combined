@@ -256,8 +256,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "ba7a4b9528442fc01fc67e892c1b878a87ed4e22",
-            "sha256": "166sscj5krd8ridzypnzl8fy49drmxng818lrhqzd4bl9cgbw42x",
+            "rev": "31f6969ae66f43c91309c43bb4e2d492e44fc067",
+            "sha256": "1wlz9s8snc17n9n8ldd8rqsizjw1gps5i0dijag4yb2lgrzpyv1z",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -651,6 +651,11 @@
             "rev": "8d3943f17a750c4673e9ad70e3d64c5d5f7e77c5",
             "sha256": "1fl42j3nya1z4578lckkdnhkdmljzb0v0vxq2bcx5gndnbhsahid",
             "url": "https://github.com/codgician/nur-packages"
+        },
+        "colinsane": {
+            "rev": "c61e70f22563595844115078fb31e43bb66e366b",
+            "sha256": "18c5xj36wrz5hjqnwfj2k6l75cfp1xrwwv1b3my6dmq2qld7fi0f",
+            "url": "https://git.uninsane.org/colin/nix-files"
         },
         "colorman": {
             "rev": "26215976a192e9f0e1366f414e801963951bfad1",
