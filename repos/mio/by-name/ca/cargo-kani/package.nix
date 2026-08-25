@@ -87,6 +87,11 @@ rustPlatform.buildRustPackage rec {
     rm -f $out/bin/cargo-kani $out/bin/kani
     ln -s $out/bin/kani-driver $out/bin/cargo-kani
     ln -s $out/bin/kani-driver $out/bin/kani
+    mkdir -p $out/toolchain/bin $out/toolchain/lib
+    ln -s ${toolchain}/lib/* $out/toolchain/lib/
+    ln -s ${toolchain}/lib/*.so $out/lib/
+    ln -s ${toolchain}/bin/cargo $out/toolchain/bin/cargo
+    ln -s ${toolchain}/bin/rustc $out/toolchain/bin/rustc
     runHook postInstall
   '';
 

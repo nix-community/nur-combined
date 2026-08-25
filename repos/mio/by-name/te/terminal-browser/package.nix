@@ -1,0 +1,110 @@
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pnpm_10,
+  pnpmConfigHook,
+  fetchPnpmDeps,
+  nodejs,
+  makeWrapper,
+  electron,
+}:
+
+let
+  pname = "terminal-browser";
+  version = "0.1.0-unstable-2026-08-25";
+
+  src = fetchFromGitHub {
+    owner = "zenbu-labs";
+    repo = "terminal-browser";
+    rev = "950ce246b3096d96f15bd34fdc41787a116906eb";
+    hash = "sha256-KhNs2aRKwFedZWn5//9wzgUJgzU8NAX4Bmv0Bt+2w64=";
+  };
+
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit src;
+    sourceRoot = "${src.name}/engine";
+    hash = "sha256-PFJCbUzOWz6w7Offk3E2Io5ddMg3HFcU6MZdZx2Ud/w=";
+  };
+
+  pnpmDeps = fetchPnpmDeps {
+    inherit src;
+    inherit pname version;
+    pnpm = pnpm_10;
+    fetcherVersion = 4;
+    hash = "sha256-lyN0LoFV24539lziw4rE3x9MxC5zFcRcFlS25+fniOU=";
+  };
+
+in
+stdenv.mkDerivation {
+  inherit pname version src;
+
+  nativeBuildInputs = [
+    rustPlatform.cargoSetupHook
+    rustPlatform.rust.cargo
+    rustPlatform.rust.rustc
+    pnpm_10
+    pnpmConfigHook
+    nodejs
+    makeWrapper
+  ];
+
+  inherit cargoDeps pnpmDeps;
+
+  # Avoid fetch-electron.sh
+  postPatch = ''
+    sed -i '/fetch-electron.sh/d' browser/package.json
+  '';
+
+  cargoRoot = "engine";
+  ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+
+  buildPhase = ''
+    runHook preBuild
+
+    # build rust native module
+    (
+      cd engine
+      cargo build --release -p pixel-node
+    )
+
+    mkdir -p browser/native
+    cp engine/target/release/libpixel_node.so browser/native/pixel.node
+
+    # bundle js
+    mkdir -p browser/dist cli/dist
+    bash scripts/bundle.sh browser/src/main.tsx browser/dist/main.js
+    bash scripts/bundle.sh cli/src/main.ts cli/dist/main.js
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/share/terminal-browser/bin $out/share/terminal-browser/browser $out/share/terminal-browser/cli
+    cp -r browser/dist $out/share/terminal-browser/browser/
+    cp -r cli/dist $out/share/terminal-browser/cli/
+    cp -r browser/native $out/share/terminal-browser/browser/
+    
+    # copy fonts
+    mkdir -p $out/share/terminal-browser/assets/fonts
+    cp assets/fonts/JetBrainsMono-Regular.ttf $out/share/terminal-browser/assets/fonts/
+
+    makeWrapper ${electron}/bin/electron $out/bin/terminal-browser \
+      --add-flags "$out/share/terminal-browser/cli/dist/main.js" \
+      --set TERMINAL_BROWSER_DIST_ROOT "$out/share/terminal-browser" \
+      --set ELECTRON_RUN_AS_NODE "1"
+
+    runHook postInstall
+  '';
+
+  meta = with lib; {
+    description = "Terminal Browser";
+    homepage = "https://github.com/zenbu-labs/terminal-browser";
+    license = licenses.mit;
+    mainProgram = "terminal-browser";
+    platforms = platforms.linux;
+  };
+}

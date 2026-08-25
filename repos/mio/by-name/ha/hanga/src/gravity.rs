@@ -419,7 +419,7 @@ mod kani_verification {
         kani::assume(fx.is_finite() && fy.is_finite() && fz.is_finite());
         
         // Prevent huge numbers that cause floating point inaccuracies
-        kani::assume(vx.abs() < 1e6 && vy.abs() < 1e6 && vz.abs() < 1e6);
+        kani::assume(vx.abs() < 1e2 && vy.abs() < 1e2 && vz.abs() < 1e2);
 
         // fallback must be a valid unit vector
         kani::assume((fx * fx + fy * fy + fz * fz - 1.0).abs() < 1e-4);

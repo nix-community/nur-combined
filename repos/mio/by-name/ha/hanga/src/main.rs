@@ -4386,8 +4386,8 @@ mod verification {
         let mut ledger = TrustLedger::default();
         
         // Use non-deterministic values for the test
-        let raw_entity: u32 = kani::any();
-        let entity = Entity::from_raw(raw_entity);
+        let raw_entity: u64 = kani::any();
+        let entity = Entity::from_bits(raw_entity);
         
         let penalty: f32 = kani::any();
         // Constrain the penalty to valid bounds
