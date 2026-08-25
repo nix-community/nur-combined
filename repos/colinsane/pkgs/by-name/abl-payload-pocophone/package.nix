@@ -7,6 +7,7 @@
 # after building, boot/flash like:
 # > fastboot boot u-boot.img
 # ...
+# > fastboot erase boot
 # > fastboot flash boot u-boot.img
 # > fastboot erase dtbo
 # > fastboot reboot
@@ -20,18 +21,18 @@ runCommand "ablPayloadPocophone" {
 } ''
   cp ${ubootPocophone}/{u-boot-nodtb.bin,u-boot.dtb} .
 
-  gzip -9 u-boot-nodtb.bin
+  gzip -9 --stdout u-boot-nodtb.bin > u-boot-nodtb.bin.gz
+  cat u-boot-nodtb.bin.gz u-boot.dtb > u-boot.bin.gz
+  printf '\0' | gzip --stdout > empty.gz
 
-  # Boot image header v2, as supported by ABL on SDM845 (Pocophone F1).
-  # See doc/board/qualcomm/board.rst in U-Boot.
+  # this version is handles both `fastboot boot $IMG` and `fastboot flash boot $IMG`
   mkbootimg \
     --pagesize 4096 \
-    --header_version 2 \
-    --base 0x80000000 \
+    --base 0x0 \
     --kernel_offset 0x00008000 \
-    --kernel u-boot-nodtb.bin.gz \
-    --dtb_offset 0x01f00000 \
-    --dtb u-boot.dtb \
+    --os_patch_level 2028-09-21 \
+    --ramdisk empty.gz \
+    --kernel u-boot.bin.gz \
     --output boot.img
 
   install boot.img $out

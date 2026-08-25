@@ -31,6 +31,12 @@ in
     # ];
 
     hardware.deviceTree.name = "qcom/sdm845-xiaomi-beryllium-tianma.dtb";
+    hardware.deviceTree.overlays = [
+      {
+        name = "sdm845-xiaomi-beryllium-mbhc";
+        dtsFile = ./sdm845-xiaomi-beryllium-mbhc.dtso;
+      }
+    ];
 
     # N.B.: much of this section was derived via GPT-5.6 with the goal of enabling WiFi.
     # it can probably be cleaned up with more experimentation.

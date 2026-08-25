@@ -1,0 +1,39 @@
+// WCD9340 MBHC thresholds for Xiaomi Poco F1 headphone detection.
+//
+// XXX(2026-08-24): base DT leaves some qcom,mbhc-* properties unset, such that headphone detection
+// is unreliable. recognizable via `dmesg` logs like:
+// ```
+// wcd934x-codec wcd934x-codec.1.auto: wcd934x_mbhc_get_result_params: Impedance detect ramp error, c1=2, x1=0x0
+// wcd934x-codec wcd934x-codec.1.auto: wcd934x_mbhc_get_result_params: Impedance detect ramp error, c1=3, x1=0x0
+// wcd934x-codec wcd934x-codec.1.auto: wcd934x_wcd_mbhc_calc_impedance: impedance on HPH_L = 0(ohms)
+// wcd934x-codec wcd934x-codec.1.auto: wcd934x_mbhc_get_result_params: Impedance detect ramp error, c1=2, x1=0x0
+// wcd934x-codec wcd934x-codec.1.auto: wcd934x_wcd_mbhc_calc_impedance: impedance on HPH_R = 0(ohms)
+// wcd934x-codec wcd934x-codec.1.auto: wcd934x_mbhc_get_result_params: Impedance detect ramp error, c1=3, x1=0x0
+// wcd934x-codec wcd934x-codec.1.auto: wcd934x_wcd_mbhc_calc_impedance: MONO plug type detected
+// ```
+//
+// the error is also signaled by:
+// ```
+// amixer -c 0 cget numid=101
+// numid=101,iface=MIXER,name='Headphone Jack Switch'
+//   ; type=BOOLEAN,access=rw------,values=1
+//   : values=off
+// ```
+//
+// this DTSO *should* fix headphones to be recognized.
+
+/dts-v1/;
+/plugin/;
+
+/ {
+        /* ensure this overlay applies only to the correct board */
+        compatible = "xiaomi,beryllium";
+};
+
+&wcd9340 {
+        // Values derived from WCD934x device-tree examples in upstream Linux.
+        qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
+        qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
+        qcom,mbhc-buttons-vthreshold-microvolt =
+                <75000 150000 237000 500000 500000 500000 500000 500000>;
+};
