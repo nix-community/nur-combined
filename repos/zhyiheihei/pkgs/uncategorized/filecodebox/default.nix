@@ -30,7 +30,7 @@ let
           echo "https-proxy=$PROXY" >> .npmrc
         fi
       '';
-      hash = "sha256-+Z+MXHNPRw13B5mnJEm/axLe/AKRjJCJ4cnKmx3rswA=";
+      hash = "";
     };
 
     nativeBuildInputs = [
