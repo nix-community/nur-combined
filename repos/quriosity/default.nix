@@ -1,8 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 {
-  # The `lib`, `overlays`, `nixosModules`, `homeModules`,
-  # `darwinModules` and `flakeModules` names are special
+  # Modules/Overlays
   lib = import ./lib { inherit pkgs; }; # functions
   nixosModules = import ./nixos-modules; # NixOS modules
   # homeModules = { }; # Home Manager modules
@@ -10,16 +9,19 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  BedrockNix = pkgs.callPackage ./pkgs/BedrockNix {};
-  olauncher = pkgs.callPackage ./pkgs/olauncher {};
-  echo-sddm = pkgs.callPackage ./pkgs/echo-sddm {};
-  leshade = pkgs.callPackage ./pkgs/leshade {};
-  zen-browser = pkgs.callPackage ./pkgs/zen-browser {};
-  tabby = pkgs.callPackage ./pkgs/tabby {};
-  hyper = pkgs.callPackage ./pkgs/hyper {};
-  opennow = pkgs.callPackage ./pkgs/opennow {};
-  elio = pkgs.callPackage ./pkgs/elio {};
-  where-is-my-sddm-theme = pkgs.callPackage ./pkgs/where-is-my-sddm-theme {};
+  # Apps
+  BedrockNix = pkgs.callPackage ./pkgs/apps/BedrockNix {};
+  olauncher = pkgs.callPackage ./pkgs/apps/olauncher {};
+  leshade = pkgs.callPackage ./pkgs/apps/leshade {};
+  zen-browser = pkgs.callPackage ./pkgs/apps/zen-browser {};
+  tabby = pkgs.callPackage ./pkgs/apps/tabby {};
+  hyper = pkgs.callPackage ./pkgs/apps/hyper {};
+  opennow = pkgs.callPackage ./pkgs/apps/opennow {};
+  elio = pkgs.callPackage ./pkgs/apps/elio {};
+
+  # SDDM themes
+  echo-sddm = pkgs.callPackage ./pkgs/sddm-themes/echo-sddm {};
+  where-is-my-sddm-theme = pkgs.callPackage ./pkgs/sddm-themes/where-is-my-sddm-theme {};
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

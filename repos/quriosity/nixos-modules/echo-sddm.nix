@@ -2,7 +2,7 @@
 
 let
   cfg = config.quriosity.sddm-themes.echo;
-  echo-sddm = pkgs.callPackage ../pkgs/echo-sddm { };
+  echo-sddm = pkgs.callPackage ../pkgs/sddm-themes/echo-sddm { };
 in
 {
   options.quriosity.sddm-themes.echo = {
