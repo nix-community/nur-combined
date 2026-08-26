@@ -163,14 +163,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "044c3cc290a2b2ea931b54e65b9bdc83baa6f1c3";
+    version = "c591a36e7263e95497715d525e9c46c2f0a880ac";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "044c3cc290a2b2ea931b54e65b9bdc83baa6f1c3";
+      rev = "c591a36e7263e95497715d525e9c46c2f0a880ac";
       fetchSubmodules = false;
-      sha256 = "sha256-A5iWqkjbdXcuVOh0mLpA8Hlum3xaZJ8GgqBdxM4qfJY=";
+      sha256 = "sha256-mWT0yF2iG9+gYEuNiffpM93POlBqY+QKdFh5jSAxYls=";
     };
-    date = "2026-08-24";
+    date = "2026-08-25";
   };
 }
