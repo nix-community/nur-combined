@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "70506b651d320500bffaade3b25e74a804ea6e35",
-            "sha256": "16w3l6r6ag9xxqijwwd6d33c2qqc79x92mhxzlyjy9pkcqac4v8n",
+            "rev": "3b495158bbc2258027934d58e72a5ac66f952788",
+            "sha256": "1v82n33zlf9q38vfnjvns6bja6rfvc97bggxslyi7j0319qkyppp",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -2787,8 +2787,8 @@
             "url": "https://github.com/lz37/nur"
         },
         "zhyiheihei": {
-            "rev": "0bae613cee74c0cee51a25217b6b40cf18902818",
-            "sha256": "0xd1bnps5qnmh78f79gs5ram72md9a0iipc2my40bnc52alnwcy2",
+            "rev": "5d34fec65204303ab58934e88d47054534a91a36",
+            "sha256": "1pbhv1cddf9h918xarrn4d852d5bv63kz8lqvahsygc6vrp2vzj1",
             "url": "https://github.com/zhyiheihei/zhyi-packages"
         },
         "zimeg": {
