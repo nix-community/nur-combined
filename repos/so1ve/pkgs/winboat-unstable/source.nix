@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  date = "2026-08-05";
-  rev = "8cff1ac3e7b35fe41235856ab98800b2281cac57";
+  date = "2026-08-25";
+  rev = "9d9777193c499e578b35a2594ad6e9c607c27635";
   src = fetchzip {
-    url = "https://codeload.github.com/TibixDev/winboat/tar.gz/8cff1ac3e7b35fe41235856ab98800b2281cac57";
-    hash = "sha256-8Q4INSbmuNZxqTLLK2HpBc6/MatfmAg2rZ6xzSCpm1o=";
+    url = "https://codeload.github.com/TibixDev/winboat/tar.gz/9d9777193c499e578b35a2594ad6e9c607c27635";
+    hash = "sha256-68c8z0cVPtIjPWB4cbDIK9o+8Hh51BMY1jaxGHdFN9s=";
     extension = "tar.gz";
   };
 in
