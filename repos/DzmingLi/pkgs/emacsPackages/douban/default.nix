@@ -16,12 +16,13 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "douban.el";
-    rev = "0339947c263a7258e966602d03cf25c687d1f60a";
-    hash = "sha256-QWpVoKlXQ8nIIwLpctga0w/UDpIz9LMR5vR75wQXkgA=";
+    rev = "4ca57e248c30c4b0913749bc9bc8f154a6d390ed";
+    hash = "sha256-IZ4TNYoY2SVg04tFgVLjk1PNtjfUeatz1O8RVp0NGkc=";
   };
 
   packageRequires = [
     emacsPackages.elpaDevelPackages.plz
+    emacsPackages.markdown-mode
     emacsPackages.yaml
   ];
 
