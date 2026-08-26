@@ -10,12 +10,12 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitLab {
     owner = "MIAOresearch";
     repo = "software/VeriPB";
-    rev = "4f3361cc34473ae782b08920e0512a4067b9603a";
+    rev = "e4ffda3b7b68bf0ffb42bc14f4170836ba4656e2";
     # tag = version;
-    hash = "sha256-tG9wztQeb6erDVixnogkbPc3u47skBno+RF9/rmQa48=";
+    hash = "sha256-7TfKdH+Whk5Tn3nTNqvGSw22RkJlunhUfFvuI51X7FU=";
   };
 
-  cargoHash = "sha256-TDLssYJxL7M80nQmR7HTtOA4AZDeD7qr9aQ37ZDbgAE=";
+  cargoHash = "sha256-VlWDsVn0c3AWixazinF+8wAJgLPoceRzeYu0mzqlH9Y=";
 
   meta = {
     description = "VeriPB is a proof checker for verifying pseudo-Boolean certificates of satisfiability, unsatisfiability, and optimality bounds";
