@@ -18,7 +18,7 @@
       system:
         (packagesFor system)
         // {
-          default = (packagesFor system).toutatis;
+          default = (packagesFor system).revshell;
         }
     );
 

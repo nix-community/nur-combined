@@ -1,16 +1,11 @@
 {pkgs ? import <nixpkgs> {}}: {
-  toutatis = pkgs.python3Packages.callPackage ./pkgs/toutatis {};
-  ignorant = pkgs.python3Packages.callPackage ./pkgs/ignorant {};
-  ghunt = pkgs.python3Packages.callPackage ./pkgs/ghunt {};
-  user-scanner = pkgs.python3Packages.callPackage ./pkgs/user-scanner {};
   github-recon = pkgs.callPackage ./pkgs/github-recon {};
   gravatar-recon = pkgs.callPackage ./pkgs/gravatar-recon {};
   spilltea = pkgs.callPackage ./pkgs/spilltea {};
   settuings = pkgs.callPackage ./pkgs/settuings {};
   usbguard-tui = pkgs.callPackage ./pkgs/usbguard-tui {};
   jwt-tui = pkgs.callPackage ./pkgs/jwt-tui {};
-  sheets = pkgs.callPackage ./pkgs/sheets {};
   fztea = pkgs.callPackage ./pkgs/fztea {};
   monitui = pkgs.callPackage ./pkgs/monitui {};
-  cheatmd = pkgs.callPackage ./pkgs/cheatmd {};
+  revshell = pkgs.callPackage ./pkgs/revshell {};
 }
