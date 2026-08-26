@@ -9,16 +9,17 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  lib ? import ./lib { inherit pkgs; },
 }:
 
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = lib; # functions
   nixosModules = import ./nixos-modules; # NixOS modules
   # homeModules = { }; # Home Manager modules
   # darwinModules = { }; # nix-darwin modules
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 }
-// import ./pkgs { inherit pkgs; }
+// import ./pkgs { inherit pkgs lib; }
