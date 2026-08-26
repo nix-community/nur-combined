@@ -65,7 +65,7 @@ jobs:
           token: ${{ steps.app_auth.outputs.token }}
           committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
           author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
-          commit-message: "Updated ${{ steps.nix_update.outputs.packages }} package(s)"
+          commit-message: "Updated ${{ steps.nix_update.outputs.count }} package(s)"
           branch: "nix-update/${{ github.run_id }}"
           title: "Update package(s) using nix-update"
           body: ${{ steps.nix_update.outputs.summary }}
