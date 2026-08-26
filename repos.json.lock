@@ -282,8 +282,8 @@
             "url": "https://github.com/ahi6/nurpkgs"
         },
         "ahmet-cetinkaya": {
-            "rev": "96c6799628abe515efa3ce474e6699b80d549345",
-            "sha256": "10y90lb1am10xmlwcqjb6gqs34dnbscj4inwysmclg4z80022vks",
+            "rev": "b861b0321ad684ea19a890fe9c7f3ceb57a50f5b",
+            "sha256": "1pz0qa6pwsyw5w89i48275790n1kj91p8z980gmjl8kgyjm0k3wk",
             "url": "https://github.com/ahmet-cetinkaya/dotfiles"
         },
         "akinokaede": {
@@ -1693,8 +1693,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "1822e063969d6e0547defded1973ecef8a373b8c",
-            "sha256": "1pddw40071g3l2jw0fxhskqjbmd8qqnprwn0qq8vcsrmyl931jli",
+            "rev": "aebbbe7eb79e0a00d9a88d2ce07fd000fb7b9280",
+            "sha256": "0gzv9fgwckg0hmj8l8z9vdl20w5l4axcjvvmhhwb2brdg0d1x98p",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2200,8 +2200,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "25227969423d7ef599f70e16364ac550a0f713cd",
-            "sha256": "1s54lvnr1xpxqq490xcz4mlmp8ara6cz405fwi3s8n07g54ccwn3",
+            "rev": "529e243fc4261dd2be0cc8807f016f8f129c7e4a",
+            "sha256": "0my3k9s9yn2s9fikq3x76z7nr42ljm40xm5aagg318az8h6afi6i",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
