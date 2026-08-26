@@ -1042,7 +1042,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "full" "parsing" "printing" "proc-macro" "visit-mut" ];
           }
@@ -1541,7 +1541,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "derive" "full" "parsing" "printing" "proc-macro" ];
           }
@@ -2294,7 +2294,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             features = [ "full" ];
           }
         ];
@@ -4640,7 +4640,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
           }
         ];
         features = {
@@ -5726,7 +5726,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             features = [ "full" ];
           }
         ];
@@ -6133,9 +6133,9 @@ rec {
       };
       "h2" = rec {
         crateName = "h2";
-        version = "0.4.18";
+        version = "0.4.19";
         edition = "2021";
-        sha256 = "0a52hs8cakvg7xi3pxqi83vganyaasxn545ya8v74f8j3250x743";
+        sha256 = "05mw60jmsq97vjgj607nxjkx8dl6rxv6jj9i4r2z92056id5x3pg";
         authors = [
           "Carl Lerche <me@carllerche.com>"
           "Sean McArthur <sean@seanmonstar.com>"
@@ -8788,7 +8788,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
           }
         ];
 
@@ -10413,7 +10413,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "derive" "full" "parsing" "printing" "proc-macro" ];
           }
@@ -10871,7 +10871,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             usesDefaultFeatures = false;
             features = [ "full" "parsing" "printing" "proc-macro" "clone-impls" "derive" ];
           }
@@ -10967,7 +10967,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             features = [ "full" "extra-traits" ];
           }
           {
@@ -11203,7 +11203,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             usesDefaultFeatures = false;
             features = [ "full" "parsing" "printing" "proc-macro" "clone-impls" "derive" ];
           }
@@ -11585,7 +11585,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "full" "parsing" "printing" "proc-macro" "clone-impls" "derive" ];
@@ -12583,7 +12583,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "derive" "parsing" "printing" "proc-macro" ];
           }
@@ -14403,7 +14403,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "derive" "parsing" "printing" "proc-macro" ];
           }
@@ -14488,7 +14488,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
           }
         ];
 
@@ -15172,11 +15172,11 @@ rec {
         };
         resolvedDefaultFeatures = [ "clone-impls" "default" "derive" "extra-traits" "fold" "full" "parsing" "printing" "proc-macro" "visit" "visit-mut" ];
       };
-      "syn 3.0.3" = rec {
+      "syn 3.0.4" = rec {
         crateName = "syn";
-        version = "3.0.3";
+        version = "3.0.4";
         edition = "2021";
-        sha256 = "18srnql3cd39j9q6hf1az02p67rlr1rf6njx9zx4vxj9i3jvmsak";
+        sha256 = "17v4ac61x0hvj1879ywqzlwhyzg7n9lr9zniwrsif3b1ykfmq9z6";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -15467,7 +15467,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
           }
         ];
 
@@ -15851,7 +15851,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             features = [ "full" ];
           }
         ];
@@ -21329,9 +21329,9 @@ rec {
       };
       "wit-bindgen" = rec {
         crateName = "wit-bindgen";
-        version = "0.61.0";
+        version = "0.61.1";
         edition = "2024";
-        sha256 = "0p9w34a6cshmzg3p3x5hwm10gxf0yiypia7z6pz6ns37650gkzpv";
+        sha256 = "14rdslfaphgwilim1kisjwmvp5nc4z254akxmj4rd7s7jl0gswz4";
         libName = "wit_bindgen";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -21358,9 +21358,9 @@ rec {
       };
       "wit-bindgen-core" = rec {
         crateName = "wit-bindgen-core";
-        version = "0.61.0";
+        version = "0.61.1";
         edition = "2024";
-        sha256 = "0wppgphmsyfafw3hp4vzz2rrgh8g5vfqx1idz02vmxg19j8g6528";
+        sha256 = "03k3dblxrg7pqcpmndjmx1l54cx30cydcjw8kqvbbmp6vy05ci47";
         libName = "wit_bindgen_core";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -21386,9 +21386,9 @@ rec {
       };
       "wit-bindgen-rust" = rec {
         crateName = "wit-bindgen-rust";
-        version = "0.61.0";
+        version = "0.61.1";
         edition = "2024";
-        sha256 = "0lfm54pj7v8zvflra829ry1xj1vpqfjfnxk41qgjglyrcfy61ixl";
+        sha256 = "1y2cy9y56cb1nijz9x1zrczpaxdgfspd03xgdhhrin709m4zxwkj";
         libName = "wit_bindgen_rust";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -21436,9 +21436,9 @@ rec {
       };
       "wit-bindgen-rust-macro" = rec {
         crateName = "wit-bindgen-rust-macro";
-        version = "0.61.0";
+        version = "0.61.1";
         edition = "2024";
-        sha256 = "0xqhn0l5632w8dr2d0rvnji17kh8y3l39wfal6d2y9skif7l889m";
+        sha256 = "04jkylnxbs4dd2zf6fz4zjnaikm5hbhzy8ns5bwn0ky9mq0kla2r";
         procMacro = true;
         libName = "wit_bindgen_rust_macro";
         authors = [
@@ -22483,7 +22483,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 3.0.3";
+            packageId = "syn 3.0.4";
             features = [ "extra-traits" ];
           }
         ];
