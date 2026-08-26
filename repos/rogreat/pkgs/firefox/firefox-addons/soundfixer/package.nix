@@ -12,7 +12,7 @@ buildMozillaXpiAddon {
   meta = with lib; {
     homepage = "https://github.com/valpackett/soundfixer";
     description = "WebExtension that lets you fix sound problems in e.g. YouTube videos";
-    license = licenses.mit;
+    license = licenses.unlicense;
     mozPermissions = [
       "activeTab"
       "webNavigation"
