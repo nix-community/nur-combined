@@ -28,5 +28,6 @@ in
   lsfg-vk-git = pkgs.callPackage ./pkgs/lsfg-vk-git { inherit maintainer; };
   lunar-tear = pkgs.callPackage ./pkgs/lunar-tear { inherit maintainer; };
   rpcs3-git = pkgs.callPackage ./pkgs/rpcs3-git { inherit maintainer; };
+  t3code = pkgs.callPackage ./pkgs/t3code { inherit maintainer; };
   wondershaper = pkgs.callPackage ./pkgs/wondershaper { inherit maintainer; };
 }
