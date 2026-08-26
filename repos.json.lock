@@ -1994,8 +1994,8 @@
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "pedorich-n": {
-            "rev": "68658c3d6cc8fed19938e58aec14deb84d288855",
-            "sha256": "12fq9cmlp54if7ca67h7scwgxywrnwwa4cr76q2vv02w39nwfy1w",
+            "rev": "eec1384cc0d36bb9ff267e0c52cd2ef821d68a57",
+            "sha256": "0aa87a1dgy0hvngdxjl8qyag9p2r47vmnw4m2hl3nbqf3mm751l2",
             "url": "https://github.com/pedorich-n/nur-packages"
         },
         "peel": {
