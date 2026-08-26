@@ -350,10 +350,10 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.19.0";
+      version = "1.20.0";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4928315/angular_devtools-1.19.0.xpi";
-      sha256 = "947c1e45caf6c264d0fdb515cccafd9f2713dab5445944881e64eb6ad0fd585c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4969230/angular_devtools-1.20.0.xpi";
+      sha256 = "d0d9a52525de8288ceb0700c271b27d81a601c76e3b580a1c886286464c7e021";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -1233,10 +1233,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.13.0";
+      version = "0.13.1";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4826074/bilisponsorblock-0.13.0.xpi";
-      sha256 = "57622d2aa552884af6fe16f295c91eff22805adec4742a03e050d82f08d3471b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4981893/bilisponsorblock-0.13.1.xpi";
+      sha256 = "bb29cab4cd92d53c44addba644ae90764927a9835bb112a37e04021acf1ba5bf";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1845,10 +1845,10 @@
     };
     "chatgptbox" = buildMozillaXpiAddon {
       pname = "chatgptbox";
-      version = "2.6.1";
+      version = "2.7.0";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4873684/chatgptbox-2.6.1.xpi";
-      sha256 = "7eb1faf470f64ecadba1989b9441a2b23ab5e2b5f0a52cc9858866e96afb545d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982090/chatgptbox-2.7.0.xpi";
+      sha256 = "086f9e8c6385543bc74ef9a3bbbb3ad6f78c6a12ad748c0f2e3d36be813cdc8e";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -1866,7 +1866,6 @@
           "https://*.openai.com/"
           "https://*.bing.com/"
           "wss://*.bing.com/*"
-          "https://*.poe.com/"
           "https://*.google.com/"
           "https://claude.ai/"
           "https://*.moonshot.cn/*"
@@ -2143,10 +2142,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.5.3";
+      version = "4.5.4";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4914683/click_and_read-4.5.3.xpi";
-      sha256 = "e3fc2b2605f14930745b1d3c2e437023951a59e086e14d618886c26d7308ba90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4980831/click_and_read-4.5.4.xpi";
+      sha256 = "9ef0848cec2c14778072f2bf5f36ff5a88e940ac8124824be02abaea1387b12f";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2780,10 +2779,10 @@
     };
     "csgofloat" = buildMozillaXpiAddon {
       pname = "csgofloat";
-      version = "5.16.0";
+      version = "5.17.0";
       addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4897673/csgofloat-5.16.0.xpi";
-      sha256 = "8fd6c0c0bab28ca779ee304fed7ab39ccb26cb0615077760cc7b6358950c8db1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4957680/csgofloat-5.17.0.xpi";
+      sha256 = "70c540b8b1df125596ef615fe37028542de4d92b3816ad81eb6ad5ce3d11798d";
       meta = with lib;
       {
         homepage = "https://csgofloat.com";
@@ -3032,10 +3031,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2634.1";
+      version = "6.2635.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4963576/dashlane-6.2634.1.xpi";
-      sha256 = "d06526bc1b669742c04b9870c45392d409c992b705acaee6467bedfd036cad6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4978991/dashlane-6.2635.1.xpi";
+      sha256 = "14eecd0072010f798ec9f9da9a0a057a18f7b114d16af8b7322d6b3a8b9836e8";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -7483,10 +7482,10 @@
     };
     "keepa" = buildMozillaXpiAddon {
       pname = "keepa";
-      version = "5.64";
+      version = "5.65";
       addonId = "amptra@keepa.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4958790/keepa-5.64.xpi";
-      sha256 = "eb015a09444ecabd7e2567f36fe177cabf25892f7f70eff607233981e4f951e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4973392/keepa-5.65.xpi";
+      sha256 = "fd932b3504f59518f3e0ec5fdd858f15121383e5bd8c80d728d520445c81b219";
       meta = with lib;
       {
         homepage = "https://Keepa.com";
@@ -10111,10 +10110,10 @@
     };
     "momentumdash" = buildMozillaXpiAddon {
       pname = "momentumdash";
-      version = "2.26.8";
+      version = "2.27.4";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4844020/momentumdash-2.26.8.xpi";
-      sha256 = "63c5ef0c8c6f4757ca2c5fcf296c3f79754a4c9f9624dd457e86e2b09eff943e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4979215/momentumdash-2.27.4.xpi";
+      sha256 = "d0e09ae6b1f1c52eedd4ef3400f3fe8a378c00740790c7a7f95da7ca93952c4a";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -10238,10 +10237,10 @@
     };
     "multiple-tab-handler" = buildMozillaXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.2.3";
+      version = "3.2.4";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4879175/multiple_tab_handler-3.2.3.xpi";
-      sha256 = "7c5713b748cf5b13b93e1f36bd38290c43851e313a6eae40b527205ec40173ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982793/multiple_tab_handler-3.2.4.xpi";
+      sha256 = "8d95597b2283752fd4ad224e4b0364364b540ff7fc8d9fd17ca239c364cd9018";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -10249,6 +10248,7 @@
         license = licenses.mpl20;
         mozPermissions = [
           "activeTab"
+          "browserSettings"
           "contextualIdentities"
           "cookies"
           "menus"
@@ -10854,19 +10854,20 @@
     };
     "old-reddit-redirect" = buildMozillaXpiAddon {
       pname = "old-reddit-redirect";
-      version = "2.2.0";
+      version = "3.0.0";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4882083/old_reddit_redirect-2.2.0.xpi";
-      sha256 = "5b346ff8f7de84304a402432638efdbdac0a6174d62ac5c2845cce4998f33022";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4972805/old_reddit_redirect-3.0.0.xpi";
+      sha256 = "f498b2431d5b3a4da22ba243d1ccb043dffc1b79e93c8bf6afdffd8eb3b28caa";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
         description = "Ensure Reddit always loads the old design";
         license = licenses.mit;
         mozPermissions = [
+          "cookies"
           "declarativeNetRequestWithHostAccess"
-          "https://old.reddit.com/*"
           "https://www.reddit.com/*"
+          "https://old.reddit.com/*"
         ];
         platforms = platforms.all;
       };
@@ -11541,10 +11542,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "6.9.9";
+      version = "7.2.3";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4890817/print_friendly_pdf-6.9.9.xpi";
-      sha256 = "5820972eacfb3b8f41886bdd9ee53d42e9137cf5b6a081857c1fa186aa48af4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4971720/print_friendly_pdf-7.2.3.xpi";
+      sha256 = "a7df3564e27b1618248f50b6ab1a43d55b02a7035f8f203a85bcd919acf5a31a";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -15051,10 +15052,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.10.1";
+      version = "1.10.2";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4979976/time_zone_converter_savvy_time-1.10.1.xpi";
-      sha256 = "1e1d91a3331859300f0d5927c1005f9276ee2f018bf5c6b5caa9f60190976bad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982582/time_zone_converter_savvy_time-1.10.2.xpi";
+      sha256 = "c9126af3ebbc5d909e75123da78ede82293be0cba3a9eadd8838e2ea3c3539cd";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
@@ -15343,10 +15344,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.3.6";
+      version = "4.4.0";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4900467/tree_style_tab-4.3.6.xpi";
-      sha256 = "9489aeb0f014033a315b0fefc7ac0d7f98111fa960011d34686c668f11a2c5ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982740/tree_style_tab-4.4.0.xpi";
+      sha256 = "755ffee5e378113537d09513d4b66fd22f5769698a7d874fb4a1185145e3398e";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -15359,6 +15360,7 @@
         };
         mozPermissions = [
           "activeTab"
+          "browserSettings"
           "contextualIdentities"
           "cookies"
           "menus"
@@ -15458,10 +15460,10 @@
     };
     "tst-indent-line" = buildMozillaXpiAddon {
       pname = "tst-indent-line";
-      version = "1.3.3";
+      version = "1.3.4";
       addonId = "tst-indent-line@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402044/tst_indent_line-1.3.3.xpi";
-      sha256 = "8fb1c318460061d3729e12c230d2ed4419bcca24f5a4b25286c17689d9ba7396";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982755/tst_indent_line-1.3.4.xpi";
+      sha256 = "fa19e6a529accf27244e6c91df8e85c1bec43fd8e2190b8fb00b2508af0825e9";
       meta = with lib;
       {
         description = "Provides indent line for Tree Style Tab sidebar.";
@@ -15865,10 +15867,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.73.0";
+      version = "1.74.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4940584/ublock_origin-1.73.0.xpi";
-      sha256 = "bccc51a773150af4af6e1fd62c7bfdeb7238b79ff2381b998fa9f2e38f64786a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4981431/ublock_origin-1.74.0.xpi";
+      sha256 = "175756d74468c9ba45863f7fc333d3be670f82d5b066314e915814dd547d1652";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -17700,10 +17702,10 @@
     };
     "youtube-enhancer-vc" = buildMozillaXpiAddon {
       pname = "youtube-enhancer-vc";
-      version = "1.34.1";
+      version = "1.34.2";
       addonId = "{c49b13b1-5dee-4345-925e-0c793377e3fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4970193/youtube_enhancer_vc-1.34.1.xpi";
-      sha256 = "25aba82647b5fbc3949225cf3ed68a6e75fd6add694d02d5cd47df96128cc0ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4973377/youtube_enhancer_vc-1.34.2.xpi";
+      sha256 = "f4608396c65916f1f1c055da316fa817c7010b0799f098f996811daab915ec5d";
       meta = with lib;
       {
         homepage = "https://github.com/YouTube-Enhancer/extension";
