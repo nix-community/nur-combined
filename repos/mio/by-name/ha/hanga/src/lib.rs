@@ -14,6 +14,7 @@ pub mod i18n;
 pub mod palette;
 pub mod sign;
 pub mod vehicle;
+pub mod persistence;
 
 // ─── Anti-cheat / Trust ──────────────────────────────────────────────────────
 
@@ -172,6 +173,7 @@ pub fn overlay_get(x: i32, y: i32, z: i32) -> Option<VoxelOverlay> {
 }
 
 pub fn overlay_set(x: i32, y: i32, z: i32, voxel: VoxelOverlay) {
+    crate::persistence::persist_overlay_set(x, y, z, voxel.clone());
     if let Ok(mut map) = VOXEL_OVERLAY.write() {
         map.insert((x, y, z), voxel);
     }
@@ -290,7 +292,7 @@ pub fn overlay_name(x: i32, y: i32, z: i32) -> Option<String> {
 
 // ─── Connectivity (Teardown support) ──────────────────────────────────────────
 
-const FACE_NEIGHBORS: [(i32, i32, i32); 6] = [
+pub const FACE_NEIGHBORS: [(i32, i32, i32); 6] = [
     (1, 0, 0),
     (-1, 0, 0),
     (0, 1, 0),
@@ -301,6 +303,44 @@ const FACE_NEIGHBORS: [(i32, i32, i32); 6] = [
 
 /// 6-connected flood fill: can `start` walk through solid cells to bedrock (`y < 0`)
 /// within `max_hops`? Used so cantilevers stay up if they still touch the ground.
+pub fn find_floating_component(
+    start: (i32, i32, i32),
+    max_hops: u32,
+    mut is_solid: impl FnMut(i32, i32, i32) -> bool,
+) -> Option<std::collections::HashSet<(i32, i32, i32)>> {
+    if start.1 < 0 {
+        return None;
+    }
+    if !is_solid(start.0, start.1, start.2) {
+        return None;
+    }
+    let mut seen = std::collections::HashSet::new();
+    let mut queue = std::collections::VecDeque::new();
+    seen.insert(start);
+    queue.push_back((start, 0u32));
+    while let Some(((x, y, z), hops)) = queue.pop_front() {
+        if y < 0 {
+            return None;
+        }
+        if hops >= max_hops {
+            return None;
+        }
+        for (dx, dy, dz) in FACE_NEIGHBORS {
+            let n = (x + dx, y + dy, z + dz);
+            if !seen.insert(n) {
+                continue;
+            }
+            if n.1 < 0 {
+                return None;
+            }
+            if is_solid(n.0, n.1, n.2) {
+                queue.push_back((n, hops + 1));
+            }
+        }
+    }
+    Some(seen)
+}
+
 pub fn is_connected_to_ground(
     start: (i32, i32, i32),
     max_hops: u32,

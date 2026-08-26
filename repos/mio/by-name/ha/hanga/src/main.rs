@@ -27,7 +27,7 @@ use hanga::{
     overlay_get, overlay_set, take_voxel_writes, VoxelOverlay, PlayerSnap, set_player_snap,
     cycle_p2p_url, merge_name_catalogs, parse_p2p_url, p2p_room_name,
     resolve_wasm_path, should_skip_menu, unpack_economy_params,
-    verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
+    verify_action_signature, voxel_has_support, find_floating_component, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 use hanga::crash::{
     apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
@@ -1727,8 +1727,12 @@ fn teardown_fracture(
         );
     }
 
-    let max_hops = (spread.max(1) as u32).saturating_mul(4).saturating_add(4).min(32);
-    let mut collapse = Vec::new();
+    
+    let mut already_collapsed = std::collections::HashSet::new();
+    let mut components_to_fall = Vec::new();
+    let mut shattered = std::collections::HashSet::new();
+    shattered.insert(origin);
+
     for (dx, dy, dz) in fracture_offsets(spread) {
         let npos = origin + IVec3::new(dx, dy, dz);
         let Some(ntype) = voxel_type_of(voxel_world.get_voxel(npos)) else {
@@ -1750,19 +1754,7 @@ fn teardown_fracture(
         if !nkit.can {
             continue;
         }
-        let below_solid = voxel_type_of(voxel_world.get_voxel(npos - IVec3::Y)).is_some();
-        if voxel_has_support(npos.y, below_solid) {
-            continue;
-        }
-        let grounded = is_connected_to_ground((npos.x, npos.y, npos.z), max_hops, |x, y, z| {
-            voxel_type_of(voxel_world.get_voxel(IVec3::new(x, y, z))).is_some()
-        });
-        if grounded {
-            continue;
-        }
-        collapse.push((npos, dx, dy, dz));
-    }
-    for (npos, dx, dy, dz) in collapse {
+        shattered.insert(npos);
         voxel_world.set_voxel(npos, WorldVoxel::Unset);
         note_voxel_edit(edits, npos);
         overlay_set(npos.x, npos.y, npos.z, VoxelOverlay::Air);
@@ -1776,6 +1768,63 @@ fn teardown_fracture(
             Color::srgb(0.6, 0.45, 0.3),
         );
     }
+
+    let max_hops = 10000;
+    for &pos in &shattered {
+        for (dx, dy, dz) in hanga::FACE_NEIGHBORS {
+            let npos = pos + IVec3::new(dx, dy, dz);
+            if shattered.contains(&npos) || already_collapsed.contains(&npos) {
+                continue;
+            }
+            if let Some(island) = find_floating_component((npos.x, npos.y, npos.z), max_hops, |x, y, z| {
+                voxel_type_of(voxel_world.get_voxel(IVec3::new(x, y, z))).is_some()
+            }) {
+                let mut island_data = Vec::new();
+                for &(ix, iy, iz) in &island {
+                    let ipos = IVec3::new(ix, iy, iz);
+                    island_data.push(ipos);
+                    already_collapsed.insert(ipos);
+                    voxel_world.set_voxel(ipos, WorldVoxel::Unset);
+                    note_voxel_edit(edits, ipos);
+                    overlay_set(ix, iy, iz, VoxelOverlay::Air);
+                }
+                components_to_fall.push(island_data);
+            }
+        }
+    }
+
+    for island in components_to_fall {
+        let mut center = Vec3::ZERO;
+        for &ipos in &island {
+            center += Vec3::new(ipos.x as f32, ipos.y as f32, ipos.z as f32);
+        }
+        center /= island.len() as f32;
+
+        let mut colliders = Vec::new();
+        for &ipos in &island {
+            let offset = Vec3::new(ipos.x as f32, ipos.y as f32, ipos.z as f32) - center;
+            colliders.push((offset, Quat::IDENTITY, Collider::cuboid(1.0, 1.0, 1.0)));
+        }
+
+        commands.spawn((
+            PlayWorld,
+            Debris,
+            Transform::from_translation(center),
+            RigidBody::Dynamic,
+            Collider::compound(colliders),
+        )).with_children(|parent| {
+            for &ipos in &island {
+                let offset = Vec3::new(ipos.x as f32, ipos.y as f32, ipos.z as f32) - center;
+                let color = Color::srgb(0.5, 0.5, 0.5);
+                parent.spawn((
+                    Mesh3d(meshes.add(Cuboid::from_size(Vec3::splat(1.0)))),
+                    MeshMaterial3d(materials.add(color)),
+                    Transform::from_translation(offset),
+                ));
+            }
+        });
+    }
+
 }
 
 fn apply_mod_action(
@@ -3724,6 +3773,7 @@ fn sync_selected_game(
     let game = current_game(&catalog, &selected);
     selected_mod.0 = game.lead_mod().to_string();
     collection.0 = game.collection_key();
+    hanga::persistence::init_world_db(&collection.0);
     theme.0 = game.backdrop;
     hanga::palette::prepare_asset_dir(&game, &games.0);
     load_game_mods(&mut runtime, &game, &search);

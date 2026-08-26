@@ -32,6 +32,7 @@ notify = "6.1.1"
 ed25519-dalek = { version = "2.1", features = ["rand_core"] }
 rand = "0.8"
 wasmparser = "0.256.0"
+rusqlite = { version = "0.31", features = ["bundled"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
