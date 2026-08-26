@@ -19,6 +19,7 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  fabric-cli = pkgs.callPackage ./pkgs/fabric-cli { };
   shimelinux = pkgs.callPackage ./pkgs/shimelinux { };
   utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
   pvpn = pkgs.callPackage ./pkgs/pvpn { };
