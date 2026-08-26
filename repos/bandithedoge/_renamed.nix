@@ -16,9 +16,11 @@
     "eglot-inactive-regions"
   ];
   filtr = [ "filt-r" ];
+  git-pages-bin = [ "git-pages" ];
   lamb = [ "lamb-bin" ];
   microbiome-bin = [ "microbiome" ];
   nodePackages.some-sass-language-server = [ "some-sass-language-server" ];
+  open-mbc-bin = [ "open-mbc" ];
   osirus = [ "dsp56300" ];
   proton-cachyos-bin = [
     "proton"
