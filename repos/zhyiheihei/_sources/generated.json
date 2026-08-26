@@ -195,12 +195,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.8.3",
-            "sha256": "sha256-jtu/MZqYGjiMxIJW6CSjBz2bCqd7eu6iMXaO96+ClHo=",
+            "rev": "v4.9.0",
+            "sha256": "sha256-rz9uzcW1HFKZPYUUSoct+TSzXKrX/O3GBtlTs+QLvnc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.8.3"
+        "version": "v4.9.0"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -216,12 +216,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.8.3",
-            "sha256": "sha256-aGtCPudzNlfvzC1ShqcK+3CmiMKdMDOZdAoBDGA2BhU=",
+            "rev": "v4.9.0",
+            "sha256": "sha256-WxVAV2A32M8yp1lFfVFSiNfeLRmZe4L+oHRjrFxl+UE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.8.3"
+        "version": "v4.9.0"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -391,11 +391,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hbVBhBPrPsprjqUbhERLWVzdXUhwqvMhARFCieew+QM=",
+            "sha256": "sha256-CzeD21UDUagHt/38fy9a1rH/PV/db/YWUn30MOmejew=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.64/vaults3-linux-amd64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.66/vaults3-linux-amd64.tar.gz"
         },
-        "version": "4.4.64"
+        "version": "4.4.66"
     },
     "vaults3-linux-arm64": {
         "cargoLock": null,
@@ -406,11 +406,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JgU5AAg6hnVdnYbFxjPrxSu7D7pt8hAVVK5C5p/+Z5o=",
+            "sha256": "sha256-/22eFA9Z/1bSv6r0lkVtVnQiTTCy9ZI/fi6wqtAplcg=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.64/vaults3-linux-arm64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.66/vaults3-linux-arm64.tar.gz"
         },
-        "version": "4.4.64"
+        "version": "4.4.66"
     },
     "vertex": {
         "cargoLock": null,
