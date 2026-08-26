@@ -27,7 +27,7 @@ let
     postBuild = ''
       # Link the builtin extcap programs because wireshark doesn't look in its own lib directory 
       # if the env var is set
-      cp -vs ${wireshark}/lib/wireshark/extcap/* $out/bin
+      cp -vs ${wireshark}/libexec/wireshark/extcap/* $out/bin
 
       # Some programs might've been wrapped and have a hidden `.orig.wrapped` file that we don't want
       # wireshark calling into

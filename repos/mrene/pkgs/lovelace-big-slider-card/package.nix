@@ -33,7 +33,7 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  npmDepsHash = "sha256-vOKkh2gO/YeEyS3BDWDJdQWy1sZzXPAF4PEi7IJ8bE8=";
+  npmDepsHash = "sha256-dQvzhKsw7i4cYeiYgQ2hRKU7S0ax39+s8FerbVGM1F0=";
 
   meta = {
     description = "A card with a big slider for light entities in Home Assistant";

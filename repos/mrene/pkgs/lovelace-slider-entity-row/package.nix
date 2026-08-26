@@ -12,10 +12,10 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "thomasloven";
     repo = "lovelace-slider-entity-row";
-    rev = version;
-    hash = "sha256-/unrsfM2s9vZUIQOoMEOr1n01KBgidpGRZ+NDjNNweY=";
+    rev = "v${version}";
+    hash = "sha256-1lfYQRi/uW5gbH50yO3l9FUuUmn5mz5rHTPn/fi8fcE=";
   };
-  npmDepsHash = "sha256-McydFWHwu0eiyWxq+tpqDsfgz4M4rhLzj9xtAReq40k=";
+  npmDepsHash = "sha256-RIIg7xRO1gplYcLE0bjcOUT/8gRQpoVfA9vM+CsYbJw=";
 
   installPhase = ''
     runHook preInstall

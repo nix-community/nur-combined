@@ -23,7 +23,8 @@ buildNpmPackage rec {
 
     mkdir $out
     cp custom_components/browser_mod/browser_mod.js $out/
-    cp custom_components/browser_mod/browser_mod_panel.js $out/
+    cp custom_components/browser_mod/browser_mod_browser_panel.js $out/
+    cp custom_components/browser_mod/browser_mod_config_panel.js $out/
 
     runHook postInstall
   '';

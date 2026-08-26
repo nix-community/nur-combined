@@ -2,8 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchYarnDeps,
   nodejs,
-  yarn-berry_4,
+  yarnConfigHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,41 +18,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-lqJF4Hql2uZmVRldcfsHiykFVUiudjfr4xrnERwkI+s=";
   };
 
-  missingHashes = ./missing-hashes.json;
-
-  # 1. Upstream lockfile checksum for @formatjs/intl-utils@3.8.4 does not match the
-  #    zip produced from the current npm tarball, so we replace it with the actual
-  #    value computed by yarn-berry-fetcher.
-  # 2. Bump lockfile version 8 -> 9 so yarn 4.14 considers it current and skips
-  #    the resolution refresh that would otherwise hit the registry.
-  # 3. Pre-declare the v8 migration defaults so the patched offline yarn does not
-  #    error trying to apply pending migrations.
-  # All three fixes must apply in both derivations (yarnBerryConfigHook diffs lockfiles).
-  postPatch = ''
-    substituteInPlace yarn.lock \
-      --replace-fail \
-      '10c0/737d5e796c46da0efc956a31a73a754e4e368fa1d7d7190a6c5a10192f6bab93569437a3165669fb0d435f6f054e0651f30e511f3d14bab467fd79384d0e2062' \
-      '10c0/b6afae90723c109f52940b3740be4833441373596a17f73b34c6f681da0e688dbfc97513b3d0a1f22c568d3f08b29ff90e49244f18ff9d30c29999c319b1cec5'
-
-    substituteInPlace yarn.lock \
-      --replace-fail $'__metadata:\n  version: 8' $'__metadata:\n  version: 9'
-
-    cat >> .yarnrc.yml <<'EOF'
-    approvedGitRepositories:
-      - "**"
-    enableScripts: true
-    EOF
-  '';
-
-  offlineCache = yarn-berry_4.fetchYarnBerryDeps {
-    inherit (finalAttrs) src missingHashes postPatch;
-    hash = "sha256-BRRBCR5XNWZbs4ruukqOdp+MjLlxqya3WC3mWR4ltQw=";
+  yarnOfflineCache = fetchYarnDeps {
+    yarnLock = finalAttrs.src + "/yarn.lock";
+    hash = "sha256-nXgqGQfnTLYy24iqz6VnHTpys1RA9vYbpDzlCsj1OPg=";
   };
 
   nativeBuildInputs = [
     nodejs
-    yarn-berry_4
-    yarn-berry_4.yarnBerryConfigHook
+    yarnConfigHook
   ];
 
   buildPhase = ''

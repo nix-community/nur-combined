@@ -1,31 +1,36 @@
 {
   lib,
+  stdenvNoCC,
   fetchFromGitHub,
   fetchYarnDeps,
-  mkYarnPackage,
+  yarnConfigHook,
+  yarnBuildHook,
+  yarnInstallHook,
+  nodejs,
 }:
 
-mkYarnPackage rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "happy-cli";
   version = "0.11.2";
 
   src = fetchFromGitHub {
     owner = "slopus";
     repo = "happy-cli";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-WKzbpxHqE3Dxqy/PDj51tM9+Wl2Pallfrc5UU2MxNn8=";
   };
 
   offlineCache = fetchYarnDeps {
-    yarnLock = "${src}/yarn.lock";
+    yarnLock = "${finalAttrs.src}/yarn.lock";
     hash = "sha256-3/qcbCJ+Iwc+9zPCHKsCv05QZHPUp0it+QR3z7m+ssw=";
   };
 
-  buildPhase = ''
-    runHook preBuild
-    yarn --offline build
-    runHook postBuild
-  '';
+  nativeBuildInputs = [
+    yarnConfigHook
+    yarnBuildHook
+    yarnInstallHook
+    nodejs
+  ];
 
   meta = {
     description = "Happy Coder CLI to connect your local Claude Code to mobile device";
@@ -35,4 +40,4 @@ mkYarnPackage rec {
     mainProgram = "happy";
     platforms = lib.platforms.unix;
   };
-}
+})
