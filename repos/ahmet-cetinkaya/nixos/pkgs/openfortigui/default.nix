@@ -11,13 +11,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "openfortigui";
-  version = "0.9.12";
+  version = "0.9.13";
 
   src = fetchFromGitHub {
     owner = "theinvisible";
     repo = "openfortigui";
     rev = "v${version}-1";
-    hash = "sha256-AxXvO0PqiBgr/irlnnXwdl1XV9/4PiPylzlSbzlbGy0=";
+    hash = "sha256-ZghNurrk5VPyp3DHhOEssU5+18uuKmXgJkEp3TCJp/I=";
     fetchSubmodules = true;
   };
 
