@@ -4,6 +4,7 @@ pull_request_rules:
       - and:
           - label=dependencies
           - check-success=All
+          - base=main
     actions:
       update:
       merge:
