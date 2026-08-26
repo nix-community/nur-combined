@@ -2170,8 +2170,8 @@
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
-            "rev": "47485dae5f6a86ed6f4176bf88e24b2b6d4be63a",
-            "sha256": "05dq12qvhkrsl2l2z2415cb98yjl6hnxap1ax83mnrpqyjxa65jv",
+            "rev": "210320655986cdee6a2093aaea23a14b79d8c943",
+            "sha256": "0rd1mm1sd4vjnhm7zzslhrkplm8vf47sphvbqmhwivmdmgzg2354",
             "url": "https://github.com/RoGreat/nur-packages"
         },
         "rseops": {
