@@ -16,7 +16,10 @@ let
     version = "1.0-unstable-2026-04-30";
 
     dontUnpack = true;
-    nativeBuildInputs = [ racket cacert ];
+    nativeBuildInputs = [
+      racket
+      cacert
+    ];
 
     buildPhase = ''
       runHook preBuild
@@ -36,7 +39,16 @@ let
     installPhase = ''
       runHook preInstall
       mkdir -p "$out"
-      cp -r "$PLTADDONDIR/." "$out/"
+      addonDirs=("$PLTADDONDIR"/*)
+      if [[ "''${#addonDirs[@]}" -ne 1 || ! -d "''${addonDirs[0]}" ]]; then
+        echo "Expected exactly one version directory in $PLTADDONDIR" >&2
+        exit 1
+      fi
+      # PLTADDONDIR stores user packages below a Racket-version directory.
+      # Strip that directory so the fixed-output source tree can be reused by
+      # later compatible Racket releases; the normal derivation adds the
+      # current version directory back before running raco setup.
+      cp -r "''${addonDirs[0]}/." "$out/"
       # Drop any straggler compiled artifacts; FOD outputs cannot have
       # /nix/store references.
       find "$out" -type d -name compiled -exec rm -rf {} + 2>/dev/null || true
@@ -45,7 +57,7 @@ let
     '';
 
     outputHashMode = "recursive";
-    outputHash = "sha256-Eny0e55Lexm5gA2x8RWNOKb+EvQtD6i0LV84f8YQ4uI=";
+    outputHash = "sha256-HH/5HvKEgbh7pnnGSOdjJhN8h6UsxoFaYoLrhuzNSwM=";
   };
 in
 runCommand "racket-langserver"
@@ -66,7 +78,14 @@ runCommand "racket-langserver"
     mkdir -p $out/bin $out/share
 
     # Copy (not symlink) so raco setup can write bytecode into the tree.
-    cp -r --no-preserve=mode ${addon} $out/share/racket
+    addonDir="$(
+      PLTADDONDIR=$out/share/racket \
+        ${racket}/bin/racket \
+        -e '(require setup/dirs)' \
+        -e '(display (path-only (find-user-pkgs-dir)))'
+    )"
+    mkdir -p "$addonDir"
+    cp -r --no-preserve=mode ${addon}/. "$addonDir/"
     chmod -R u+w $out/share/racket
 
     # Pre-compile bytecode; baking /nix/store refs is fine in a normal

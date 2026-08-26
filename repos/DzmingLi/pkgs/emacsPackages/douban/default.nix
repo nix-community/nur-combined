@@ -16,8 +16,8 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "douban.el";
-    rev = "8fd7e79b72c8625589b80b3f3fd0aa06d259879c";
-    hash = "sha256-0Wfq1hbHKWMbuexVncvzJL6CKvu/8thgQfjJ5jpc0NE=";
+    rev = "0339947c263a7258e966602d03cf25c687d1f60a";
+    hash = "sha256-QWpVoKlXQ8nIIwLpctga0w/UDpIz9LMR5vR75wQXkgA=";
   };
 
   packageRequires = [
@@ -46,5 +46,6 @@ emacsPackages.trivialBuild {
     homepage = "https://github.com/DzmingLi/douban.el";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
+    broken = versionOlder emacsPackages.emacs.version "31";
   };
 }

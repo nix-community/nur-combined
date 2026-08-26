@@ -17,8 +17,8 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "89ec0467deffba50bfd30b46f78ace2dc81e13f5";
-    hash = "sha256-0qxZWsxqjv4cdREnDn7aCpnrEOqPs5lK3haf2fwMcF8=";
+    rev = "ca0f7b79ffe0b1a8e507c24baa10b4b681dc5832";
+    hash = "sha256-gXYcA1SgBz8p/IxusMZ/dPGl0+seslr2cAMaooNWEQA=";
   };
 
   packageRequires = [
@@ -49,5 +49,6 @@ emacsPackages.trivialBuild {
     homepage = "https://github.com/DzmingLi/zhihu.el";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
+    broken = versionOlder emacsPackages.emacs.version "31";
   };
 }
