@@ -17,8 +17,8 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "615cfd0ac74191f596af4ed40c15046a5011e043";
-    hash = "sha256-n5gsXhVEWQHxdiRlSz0fM4NFVMSA58DGWEO3e9kxXyQ=";
+    rev = "109106325caba33ce8761cc0444b7b2c0ee2bf89";
+    hash = "sha256-nMNcAGPOQWdd92Kqjs/zbZqBml3HPybZYA+mnQAgO7Q=";
   };
 
   packageRequires = [
