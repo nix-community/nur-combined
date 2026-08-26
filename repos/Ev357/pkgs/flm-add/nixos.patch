@@ -1,0 +1,19 @@
+diff --git a/flm_add/__init__.py b/flm_add/__init__.py
+index 9141ca4..3f0e72f 100755
+--- a/flm_add/__init__.py
++++ b/flm_add/__init__.py
+@@ -43,12 +43,14 @@ OPTIONAL_FILES = ["chat_template.jinja", "vision_weight.q4nx", "audio_weight.q4n
+ ALL_FILES = REQUIRED_FILES + OPTIONAL_FILES
+ 
+ SYSTEM_LIST_CANDIDATES = [
++    "/run/current-system/sw/share/flm/model_list.json",
+     "/opt/fastflowlm/share/flm/model_list.json",
+     "/usr/share/flm/model_list.json",
+     "/usr/local/share/flm/model_list.json",
+ ]
+ 
+ SYSTEM_XCLBIN_PREFIXES = [
++    Path("/run/current-system/sw/share/flm"),
+     Path("/opt/fastflowlm/share/flm"),
+     Path("/usr/share/flm"),
+     Path("/usr/local/share/flm"),

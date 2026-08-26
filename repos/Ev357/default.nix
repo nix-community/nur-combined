@@ -15,6 +15,7 @@
   raycast-bitwarden = pkgs.callPackage ./pkgs/raycast-bitwarden {};
   catppuccin-obsidian = pkgs.callPackage ./pkgs/catppuccin-obsidian {};
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
+  flm-add = pkgs.callPackage ./pkgs/flm-add {};
   folder-notes = pkgs.callPackage ./pkgs/folder-notes {};
   hayase = pkgs.callPackage ./pkgs/hayase {};
   helium = pkgs.callPackage ./pkgs/helium {};
