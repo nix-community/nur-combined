@@ -33,6 +33,11 @@ let
   # under <rootDir> without needing a login shell in the guest.
   peerMarker = "/var/lib/peer-reachable";
 
+  # Extra (non-rootfs) virtiofs shares, handed to test-vm only: one writable,
+  # one read-only. Host-side paths; the guest mounts them by tag under /mnt.
+  shareRwDir = "/tmp/share-rw";
+  shareRoDir = "/tmp/share-ro";
+
   # Minimal NixOS guest that boots from a virtiofs rootfs.
   # Uses the same pkgs as the test to avoid redundant builds.
   # The inner VM runs under KVM (nested virtualization), so boot is fast.
@@ -50,9 +55,23 @@ let
           boot.extraModulePackages = [ ];
           boot.loader.grub.enable = false;
 
-          fileSystems."/" = {
-            device = "rootfs";
-            fsType = "virtiofs";
+          fileSystems = {
+            "/" = {
+              device = "rootfs";
+              fsType = "virtiofs";
+            };
+          }
+          # The extra (non-rootfs) shares test-vm gets from the host, mounted by
+          # the tags given in vacu.qemuVMs.test-vm.shares.
+          // lib.optionalAttrs (vmName == "test-vm") {
+            "/mnt/data" = {
+              device = "data";
+              fsType = "virtiofs";
+            };
+            "/mnt/ro" = {
+              device = "ro";
+              fsType = "virtiofs";
+            };
           };
 
           hardware.enableAllFirmware = false;
@@ -81,6 +100,34 @@ let
                 GatewayOnLink = true;
               }
             ];
+          };
+
+          # Prove both extra shares behave: the read-only one hands over the
+          # file the host put there and rejects writes, and the writable one
+          # takes the guest's own writes (which the host then reads back).
+          systemd.services.share-check = lib.mkIf (vmName == "test-vm") {
+            wantedBy = [ "multi-user.target" ];
+            requires = [
+              "mnt-data.mount"
+              "mnt-ro.mount"
+            ];
+            after = [
+              "mnt-data.mount"
+              "mnt-ro.mount"
+            ];
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+            };
+            script = ''
+              cp /mnt/ro/from-host /mnt/data/read-from-ro
+              if echo nope > /mnt/ro/should-not-exist 2>/dev/null; then
+                echo "read-only share was writable" >&2
+                exit 1
+              fi
+              echo ok > /mnt/data/guest-wrote
+              ${pkgs.coreutils}/bin/sync
+            '';
           };
 
           # Ping the sibling VM until it answers, then drop a marker file the
@@ -156,7 +203,23 @@ in
       # than tcg.
       accel = "kvm";
       autoStart = false;
+      # Only test-vm gets extra storage; test-vm2 stays share-less so the
+      # no-shares path keeps being exercised too.
+      shares = lib.optionalAttrs (vmName == "test-vm") {
+        data.source = shareRwDir;
+        ro = {
+          source = shareRoDir;
+          readOnly = true;
+        };
+      };
     }) guestIPs;
+
+    # The share sources must exist before the VM starts (each share's virtiofsd
+    # asserts on its path).
+    systemd.tmpfiles.rules = [
+      "d ${shareRwDir} 0755 root root -"
+      "d ${shareRoDir} 0755 root root -"
+    ];
 
     # Register the guest system closures as valid in the host node's Nix DB so
     # `vacuvm bootstrap <vm>` can query their requisites and copy them into the
@@ -194,8 +257,15 @@ in
         # Verify the profile symlink was created
         host.succeed(f"test -L /tmp/{name}-root/nix/var/nix/profiles/system")
 
+    # Content for the read-only share, written before the guest boots.
+    host.succeed("echo hello-from-host > ${shareRoDir}/from-host")
+
     for name in vms:
         host.systemctl(f"start vacuvm-{name}-qemu.service")
+
+    # Each extra share is its own virtiofsd unit, pulled in by the qemu unit.
+    host.wait_for_unit("vacuvm-test-vm-share-data-virtiofsd.service")
+    host.wait_for_unit("vacuvm-test-vm-share-ro-virtiofsd.service")
 
     for name, (address, _) in vms.items():
         # postStart sets up the routed tap: gateway IP on the tap and a /32 host
@@ -222,6 +292,13 @@ in
     # its own rootfs once the other answers, so both directions are covered.
     for name in vms:
         host.wait_until_succeeds(f"test -e /tmp/{name}-root${peerMarker}", timeout=600)
+
+    # Extra storage: the guest's share-check service only gets this far if the
+    # read-only share was readable and rejected a write; the host reading these
+    # back proves the writable share reaches the host path.
+    host.wait_until_succeeds("test -e ${shareRwDir}/guest-wrote", timeout=600)
+    host.succeed("grep -q hello-from-host ${shareRwDir}/read-from-ro")
+    host.fail("test -e ${shareRoDir}/should-not-exist")
   '';
 
   skipTypeCheck = true;

@@ -24,6 +24,7 @@
     maxMem = 16 * 1024;
     dimmSlots = 4;
     cpus = 4;
+    shares.bigdata.source = "/propdata/vm-bigdata/savm";
   };
 
   vacu.qemuVMs.quasar2 = {

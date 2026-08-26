@@ -2,12 +2,60 @@
   config,
   pkgs,
   lib,
+  utils,
   ...
 }:
 let
   inherit (lib) mkOption types mkIf;
   netCfg = config.vacu.vmNet;
   cfg = config.vacu.qemuVMs;
+
+  shareSubmodule = types.submodule (
+    { name, ... }: {
+      options = {
+        source = mkOption {
+          type = types.str;
+          description = "Path on the host to export to the guest.";
+          example = "/srv/media";
+        };
+        tag = mkOption {
+          type = types.str;
+          default = name;
+          description = ''
+            virtiofs tag the guest mounts this share by. Defaults to the
+            attribute name. Must not be `rootfs`, which is taken by the guest's
+            root filesystem.
+          '';
+        };
+        readOnly = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Whether to prevent the guest from modifying the share.";
+        };
+        cache = mkOption {
+          type = types.enum [
+            "auto"
+            "always"
+            "never"
+            "metadata"
+          ];
+          default = "auto";
+          description = ''
+            virtiofsd caching policy. The default `auto` is safe when the host
+            (or another guest) also writes to `source`; `always` is faster but
+            assumes this guest effectively owns the tree, the way the rootfs
+            share does.
+          '';
+        };
+        extraArgs = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description = "Extra command-line arguments for this share's virtiofsd.";
+          example = [ "--xattr" ];
+        };
+      };
+    }
+  );
 
   vmSubmodule = types.submodule (
     { name, config, ... }: {
@@ -76,6 +124,31 @@ let
           default = true;
           description = "Whether to start the VM automatically at boot.";
         };
+        shares = mkOption {
+          type = types.attrsOf shareSubmodule;
+          default = { };
+          description = ''
+            Extra virtiofs shares to hand the guest, on top of its rootfs,
+            keyed by virtiofs tag (see `tag`). Each gets its own virtiofsd
+            process, required by the VM's qemu unit; the VM will not start if
+            a share's `source` is missing.
+
+            Nothing is mounted automatically — the guest mounts a share by tag:
+
+            ```
+            fileSystems."/srv/media" = {
+              device = "media";  # the tag
+              fsType = "virtiofs";
+            };
+            ```
+          '';
+          example = {
+            media = {
+              source = "/srv/media";
+              readOnly = true;
+            };
+          };
+        };
       };
     }
   );
@@ -89,8 +162,6 @@ let
       vmName: vmCfg:
       let
         tapName = "v-${vmName}";
-        runtimeDir = "vacuvm-${vmName}";
-        virtiofsdSocket = "/run/${runtimeDir}/virtiofsd.sock";
         # Host-only (RuntimeDirectory) dir the guest kernel/initrd are copied
         # into each boot; the guest has no access to it.
         bootRuntimeDir = "vacuvm-${vmName}-boot";
@@ -107,40 +178,109 @@ let
         consoleSocket = "${bootDir}/console.sock";
         slice = "vacuvm-${vmName}.slice";
         qemuUnit = "vacuvm-${vmName}-qemu.service";
-        virtiofsdUnit = "vacuvm-${vmName}-virtiofsd.service";
         useKvm = vmCfg.accel == "kvm";
         cpu = if useKvm then "host" else "max";
         netdevExtra = lib.optionalString useKvm ",vhost=on";
+
+        # Every virtiofs share this VM gets, the rootfs included: it is just a
+        # share with a fixed tag whose path comes from `rootDir`, so it goes
+        # through the same unit/QEMU-argument generation as the rest.
+        #
+        # Each share is its own virtiofsd process with its own RuntimeDirectory
+        # — sharing one dir would mean any single share restarting wipes the
+        # sockets of its siblings. attrNames is sorted and rootfs is pinned
+        # first, so unit names and QEMU chardev ids are stable.
+        allShares =
+          lib.imap0
+            (
+              idx: s:
+              let
+                shareRuntimeDir = "vacuvm-${vmName}${lib.optionalString (idx != 0) "-share-${s.name}"}";
+              in
+              s
+              // {
+                unitName = "${shareRuntimeDir}-virtiofsd";
+                runtimeDir = shareRuntimeDir;
+                socket = "/run/${shareRuntimeDir}/virtiofsd.sock";
+                chardevId = "virtiofs${toString idx}";
+              }
+            )
+            (
+              [
+                {
+                  name = "rootfs";
+                  description = "rootfs";
+                  tag = "rootfs";
+                  source = vmCfg.rootDir;
+                  # The guest effectively owns its rootfs, so the aggressive cache
+                  # mode is safe (and much faster) here.
+                  cache = "always";
+                  readOnly = false;
+                  extraArgs = [ ];
+                }
+              ]
+              ++ map (shareName: {
+                name = shareName;
+                description = "share ${shareName}";
+                inherit (vmCfg.shares.${shareName})
+                  tag
+                  source
+                  cache
+                  readOnly
+                  extraArgs
+                  ;
+              }) (lib.attrNames vmCfg.shares)
+            );
+
+        shareUnits = map (s: "${s.unitName}.service") allShares;
+
+        shareQemuArgs = lib.concatMap (s: [
+          "-chardev"
+          "socket,id=${s.chardevId},path=${s.socket}"
+          "-device"
+          "vhost-user-fs-pci,chardev=${s.chardevId},tag=${s.tag}"
+        ]) allShares;
       in
-      [
-        {
-          name = "vacuvm-${vmName}-virtiofsd";
-          value = {
-            description = "virtiofsd rootfs for ${vmName}";
-            before = [ qemuUnit ];
-            requiredBy = [ qemuUnit ];
-            unitConfig.AssertPathExists = vmCfg.rootDir;
-            serviceConfig = {
-              ExecStart = "${pkgs.virtiofsd}/bin/virtiofsd --socket-path ${virtiofsdSocket} --shared-dir ${vmCfg.rootDir} --cache always";
-              # virtiofsd has no sd_notify support, so Type=notify would hang
-              # forever. Type=simple + the socket wait in the qemu unit below.
-              Type = "simple";
-              RuntimeDirectory = runtimeDir;
-              Restart = "on-failure";
-              Slice = slice;
-            };
+      map (s: {
+        name = s.unitName;
+        value = {
+          description = "virtiofsd ${s.description} for ${vmName}";
+          before = [ qemuUnit ];
+          requiredBy = [ qemuUnit ];
+          unitConfig.AssertPathExists = s.source;
+          serviceConfig = {
+            # ExecStart is parsed by systemd, not a shell: escapeSystemdExecArgs
+            # is what also neutralises % specifiers and $ substitution.
+            ExecStart = utils.escapeSystemdExecArgs (
+              [
+                "${pkgs.virtiofsd}/bin/virtiofsd"
+                "--socket-path"
+                s.socket
+                "--shared-dir"
+                s.source
+                "--cache"
+                s.cache
+              ]
+              ++ lib.optional s.readOnly "--readonly"
+              ++ s.extraArgs
+            );
+            # virtiofsd has no sd_notify support, so Type=notify would hang
+            # forever. Type=simple + the socket wait in the qemu unit below.
+            Type = "simple";
+            RuntimeDirectory = s.runtimeDir;
+            Restart = "on-failure";
+            Slice = slice;
           };
-        }
+        };
+      }) allShares
+      ++ [
         {
           name = "vacuvm-${vmName}-qemu";
           value = {
             description = "QEMU VM ${vmName}";
             wantedBy = lib.optional vmCfg.autoStart "multi-user.target";
-            requires = [ virtiofsdUnit ];
-            after = [
-              virtiofsdUnit
-              "network.target"
-            ];
+            requires = shareUnits;
+            after = [ "network.target" ] ++ shareUnits;
 
             # Routed networking (no bridge): the tap gets the host-side gateway
             # address and a /32 host route back to the guest. The guest uses
@@ -196,10 +336,13 @@ let
               params=$(cat "${bootDir}/kernel-params")
 
               # virtiofsd (Type=simple) creates its listening socket
-              # asynchronously; wait for it before starting QEMU.
-              for _ in $(seq 1 100); do
-                [ -S "${virtiofsdSocket}" ] && break
-                sleep 0.1
+              # asynchronously; wait for each of them before starting QEMU.
+              # shellcheck disable=SC2043
+              for sock in ${lib.escapeShellArgs (map (s: s.socket) allShares)}; do
+                for _ in $(seq 1 100); do
+                  [ -S "$sock" ] && break
+                  sleep 0.1
+                done
               done
 
               # We boot the kernel directly (no boot loader), so init= — which a
@@ -218,8 +361,7 @@ let
                 -chardev socket,id=console0,path=${consoleSocket},server=on,wait=off \
                 -device virtio-serial-pci \
                 -device virtconsole,chardev=console0 \
-                -chardev socket,id=virtiofs0,path=${virtiofsdSocket} \
-                -device vhost-user-fs-pci,chardev=virtiofs0,tag=rootfs \
+                ${lib.escapeShellArgs shareQemuArgs} \
                 -netdev tap,id=net0,ifname=${tapName},script=no,downscript=no${netdevExtra} \
                 -device virtio-net-pci,netdev=net0,mac=${vmCfg.mac} \
                 -kernel "${bootDir}/kernel" \
@@ -438,6 +580,32 @@ in
         assertion = lib.bitAnd firstOctet 1 == 0 && lib.bitAnd firstOctet 2 == 2;
         message = "vacu.qemuVMs.${vmName}.mac (${vmCfg.mac}) must be a unicast, locally-administered address: the first octet must have the multicast bit (0x01) clear and the locally-administered bit (0x02) set (i.e. end in 2, 6, A, or E).";
       }
-    ) cfg;
+    ) cfg
+    ++ lib.concatLists (
+      lib.mapAttrsToList (
+        vmName: vmCfg:
+        let
+          tags = lib.mapAttrsToList (_: shareCfg: shareCfg.tag) vmCfg.shares;
+        in
+        [
+          {
+            assertion = (lib.length tags) == (lib.length (lib.uniqueStrings tags));
+            message = "vacu.qemuVMs.${vmName}.shares: virtiofs tags are not unique";
+          }
+          {
+            assertion = !(lib.elem "rootfs" tags);
+            message = "vacu.qemuVMs.${vmName}.shares: the virtiofs tag \"rootfs\" is taken by the guest's root filesystem";
+          }
+        ]
+        # The tag is passed inline in a QEMU -device argument and the attribute
+        # name ends up in unit / runtime-directory names, so keep both boring.
+        ++ lib.mapAttrsToList (shareName: shareCfg: {
+          assertion =
+            builtins.match "[A-Za-z0-9_.-]+" shareName != null
+            && builtins.match "[A-Za-z0-9_.-]+" shareCfg.tag != null;
+          message = "vacu.qemuVMs.${vmName}.shares.${shareName}: share name and tag (${shareCfg.tag}) must be non-empty and consist only of letters, digits, '_', '.' and '-'";
+        }) vmCfg.shares
+      ) cfg
+    );
   };
 }
