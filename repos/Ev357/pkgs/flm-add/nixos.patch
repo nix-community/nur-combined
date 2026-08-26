@@ -1,5 +1,5 @@
 diff --git a/flm_add/__init__.py b/flm_add/__init__.py
-index 9141ca4..3f0e72f 100755
+index 9141ca4..71f4d4f 100755
 --- a/flm_add/__init__.py
 +++ b/flm_add/__init__.py
 @@ -43,12 +43,14 @@ OPTIONAL_FILES = ["chat_template.jinja", "vision_weight.q4nx", "audio_weight.q4n
@@ -17,3 +17,12 @@ index 9141ca4..3f0e72f 100755
      Path("/opt/fastflowlm/share/flm"),
      Path("/usr/share/flm"),
      Path("/usr/local/share/flm"),
+@@ -132,7 +134,7 @@ def find_system_xclbin_root():
+     candidates = []
+     if exe:
+         candidates.append(Path(exe).parent)
+-        candidates.append((Path(exe).parent / ".." / "share" / "flm").resolve())
++        candidates.append((Path(exe).parent / ".." / "share" / "flm"))
+     candidates += SYSTEM_XCLBIN_PREFIXES
+     for c in candidates:
+         if (c / "xclbins").is_dir():
