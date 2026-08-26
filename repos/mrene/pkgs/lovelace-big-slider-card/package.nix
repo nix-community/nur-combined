@@ -7,13 +7,13 @@
 
 buildNpmPackage rec {
   pname = "lovelace-big-slider-card";
-  version = "1.1.5";
+  version = "1.2.9";
 
   src = fetchFromGitHub {
     owner = "nicufarmache";
     repo = "lovelace-big-slider-card";
     rev = version;
-    hash = "sha256-V0lYPI15uGakQhNDVhTy4sTTScn+PfaztRCb6lTAGh0=";
+    hash = "sha256-SY0QyPDr5ptbdDJ2l2/r+2wLndEzXZejOIxhgUTVvQ4=";
   };
 
   passthru = {

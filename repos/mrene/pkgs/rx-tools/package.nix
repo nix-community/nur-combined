@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "rx-tools";
-  version = "1.0.3";
+  version = "win32_with_tuner_bandwidth_2016-06-05";
 
   src = fetchFromGitHub {
     owner = "rxseger";

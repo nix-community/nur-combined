@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "clock-weather-card";
-  version = "2.9.3";
+  version = "2.9.4";
 
   src = fetchFromGitHub {
     owner = "pkissling";
     repo = "clock-weather-card";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-CeOrJFdvl9O6TF9E2W34mR6VmLnTzhXGmrBmbtsBLxA=";
+    hash = "sha256-lqJF4Hql2uZmVRldcfsHiykFVUiudjfr4xrnERwkI+s=";
   };
 
   missingHashes = ./missing-hashes.json;

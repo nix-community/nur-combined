@@ -6,7 +6,7 @@
 
 buildNpmPackage rec {
   pname = "mushroom";
-  version = "5.2.0";
+  version = "5.2.2";
 
   src = fetchFromGitHub {
     owner = "piitaya";
