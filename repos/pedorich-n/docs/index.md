@@ -67,7 +67,7 @@ Then apply the overlay in your NixOS configuration:
 }
 ```
 
-### NixOS modules (Using Flakes) {#index-usage-nixos-modules}
+### NixOS modules (Using Flakes) {#index-usage-modules-nixos}
 
 Include NUR in your `flake.nix`:
 
@@ -90,7 +90,7 @@ Pass the modules you want to use to the `nixosSystem` builder:
 nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
-    nur.packages.pedorich-n.nixosModules.<module-name>
+    nur.repos.pedorich-n.modules.nixos.<module-name>
   ];
   ...
 }

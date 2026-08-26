@@ -15,9 +15,9 @@ ndg-builder.override {
   optionsDepth = 2;
 
   rawModules = nixosModules;
-  moduleName = "pedorich-n/nur-packages/nixos-modules";
-  basePath = ../../../nixos-modules;
-  repoPath = "${repo}/blob/${rev}/nixos-modules";
+  moduleName = "pedorich-n/nur-packages/modules/nixos";
+  basePath = ../../../modules/nixos;
+  repoPath = "${repo}/blob/${rev}/modules/nixos";
 
   extraConfig = {
     footer_text = ''Generated with <a href="https://github.com/feel-co/ndg">ndg</a> | Source commit: <a href="${repo}/commit/${rev}">${rev}</a>'';
