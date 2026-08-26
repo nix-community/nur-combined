@@ -42,7 +42,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "bifrost";
-  version = "2.1.3";
+  version = "2.1.4";
 
   strictDeps = true;
 
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "zacharee";
     repo = "Bifrost";
     tag = finalAttrs.version;
-    hash = "sha256-0LnErYWnsLhFIrZujaVXWLgGRtGXladxfsI0uJ/Fv2c=";
+    hash = "sha256-acYcfz0t8Kk9Gv1JHwHi0sfzFS2fqBq/2GrORED/tkw=";
   };
 
   patches = [
@@ -67,6 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail 'org.gradle.jvmargs=-Xmx8192M -Dkotlin.daemon.jvm.options\="-Xmx2048M"' \
       'org.gradle.jvmargs=-Dfile.encoding=UTF-8'
     echo 'org.gradle.vfs.watch=false' >> gradle.properties
+    sed -i '/coreLibraryDesugaring/d' common/build.gradle.kts
   '';
 
   gradleBuildTask = ":desktop:createReleaseDistributable";

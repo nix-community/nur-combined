@@ -109,10 +109,10 @@ packages:
     dependency: "direct dev"
     description:
       name: ed25519_edwards
-      sha256: "6ce0112d131327ec6d42beede1e5dfd526069b18ad45dcf654f15074ad9276cd"
+      sha256: f3c3b109a0e470ee35f6346a155cab290578660852237fce10df6bbd92758534
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.2"
   fake_async:
     dependency: transitive
     description:
