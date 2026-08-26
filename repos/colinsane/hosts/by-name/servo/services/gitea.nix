@@ -138,13 +138,13 @@
         name = "high-load";
         expression = "load_1m >= 16.0";
         action = "WEIGH";
-        weight.adjust = 5;
+        weight.adjust = 10;
       }
       {
         name = "sustained-high-load";
         expression = "load_5m >= 18.0";
         action = "WEIGH";
-        weight.adjust = 10;
+        weight.adjust = 15;
       }
       {
         name = "low-load";
