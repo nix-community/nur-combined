@@ -16,7 +16,7 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "native-open-mod-manager";
-  version = "0.12.5";
+  version = "0.12.6";
   pyproject = false;
 
   src = fetchFromGitHub {

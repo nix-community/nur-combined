@@ -1,0 +1,12 @@
+[
+  {
+    "slug": "livemarks"
+  },
+  {
+    "slug": "soundfixer",
+    "license": {
+      "tag": "predefined",
+      "shortName": "unlicense"
+    }
+  }
+]

@@ -14,6 +14,9 @@ for pkg in ./pkgs/unstable/*; do
 	nix-update --version=unstable "$attribute" &
 done
 
+echo mozilla-addons-to-nix ./pkgs/firefox-addons/{addons.json,default.nix}
+mozilla-addons-to-nix ./pkgs/firefox-addons/{addons.json,default.nix}
+
 wait
 
 git status
