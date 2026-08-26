@@ -3,7 +3,7 @@
   stdenv,
   makeWrapper,
   nodejs,
-  pnpm_9,
+  pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
   python3,
@@ -19,7 +19,7 @@ let
 
     pnpmDeps = fetchPnpmDeps {
       inherit (finalWebAttrs) pname version src;
-      pnpm = pnpm_9;
+      pnpm = pnpm_10;
       fetcherVersion = 3;
       pnpmInstallFlags = [ "--registry=https://registry.npmmirror.com" ];
       prePnpmInstall = ''
@@ -36,7 +36,7 @@ let
     nativeBuildInputs = [
       nodejs
       pnpmConfigHook
-      pnpm_9
+      pnpm_10
     ];
 
     buildPhase = ''
