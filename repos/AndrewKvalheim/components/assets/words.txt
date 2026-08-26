@@ -587,6 +587,7 @@ GSLUG
 GSoC
 GStreamer
 GTK
+Guetzli
 Guix
 gz
 gzipped
@@ -869,6 +870,7 @@ mergeable
 Mergiraf
 Meshtastic
 mesophyll
+metacharacter
 metapopulation
 metaprogramming
 methylation

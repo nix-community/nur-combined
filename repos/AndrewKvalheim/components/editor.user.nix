@@ -465,11 +465,31 @@ in
       languageSnippets = rec {
         git-commit = {
           "Co-authored-by" = {
-            "prefix" = "co";
-            "body" = [ "Co-authored-by: $1 <$2>" ];
+            prefix = "co";
+            body = [ "Co-authored-by: $1 <$2>" ];
           };
         };
         jj-commit = git-commit;
+        shellscript = {
+          "Shebang: Bash" = {
+            prefix = "shebang-bash";
+            body = ''
+              #!/usr/bin/env bash
+              set -Eeuo pipefail
+
+            '';
+          };
+          "Shebang: Nix shell" = {
+            prefix = "shebang-nix";
+            body = ''
+              #!/usr/bin/env nix-shell
+              #!nix-shell -i bash --packages $1
+              # shellcheck shell=bash
+              set -Eeuo pipefail
+
+            '';
+          };
+        };
       };
     };
   };

@@ -36,7 +36,6 @@ specify {
   darktable.version = "≥5.6"; # color harmonizer module
   dawarich.patch = ./library/assets/dawarich_viridis.patch;
   decompiler-mc = any;
-  dmarc-report-converter = any;
   dmarc-report-notifier = any;
   doh = any;
   easy-timeline = any;

@@ -46,6 +46,7 @@ rec {
     hash = {
       "2.11.4@1.26.5" = "sha256-SIZvtm7T4aM5gySIYTaVGnqqtK3/HvElyLjEAvNFTfI=";
       "2.11.4@1.26.6" = "sha256-afY6udsdjSXgWgOPTkM+HSO8u8rO58psRUlS0WcvuKk=";
+      "2.11.4@1.26.7" = "sha256-VN5JfdW89wD7BqriEl04Uvh2mRNRMKfv8bR2hDJI0R4=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
   };
   cc-icons-unicode = callPackage ./library/cc-icons-unicode.pkg.nix { };
@@ -101,16 +102,6 @@ rec {
     meta.broken = pkgs.python3Packages.requests-ratelimiter.meta.broken; # NixOS/nixpkgs#497999
   });
   onlyBinMan = callPackage ./library/onlyBinMan.fn.nix { };
-  pdfalyzer = callPackage ./library/pdfalyzer.pkg.nix {
-    python3Packages = (pkgs.python3.override {
-      packageOverrides = _: pythonPackages: with pythonPackages; {
-        pypdf = pypdf.overridePythonAttrs (pypdf: rec {
-          version = "6.6.0";
-          src = pypdf.src.override { tag = version; hash = "sha256-C1ZFqqLFtxWOuLUT7KFSfWIE6a9xDPCFtOakzYP4NMY="; };
-        });
-      };
-    }).pkgs;
-  };
   pngquant-interactive = callPackage ./library/pngquant-interactive.pkg.nix { };
   sort-domains = callPackage ./library/sort-domains.pkg.nix { };
   spf-check = callPackage ./library/spf-check.pkg.nix { };
