@@ -8,14 +8,14 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "zju-connect";
-  version = "1.3.0";
+  version = "1.3.1";
   src = fetchFromGitHub {
     owner = "Mythologyli";
     repo = "zju-connect";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-DMT2XpgIOEYDxQqKR8xA/E6NFNvMV8RQX3pYbth3/RA=";
+    hash = "sha256-BPBdydGiKRmVwRY4Fn41uCU0R06qyN/FLw5C97Sdltw=";
   };
-  vendorHash = "sha256-+yGwoEn0d40/QYpsFLhGzJJpki8KANvRAHjdd5KSWtw=";
+  vendorHash = "sha256-6z7B8RC7hhZOGv+i5u/zap2qivoxRW6wHY4bCU4mLOI=";
 
   # TODO: remove once upstream merges the go.mod/go.sum fix:
   #   https://github.com/Mythologyli/zju-connect/pull/132
