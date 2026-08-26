@@ -8,12 +8,8 @@
 {pkgs ? import <nixpkgs> {}, ...}: let
   inherit (builtins) isAttrs;
 
-  localPkgs = pkgs.extend (final: _previous: {
-    fetchFromTangled = final.callPackage ./lib/fetch-from-tangled.nix {};
-  });
-
   inherit
-    (localPkgs)
+    (pkgs)
     # keep-sorted start
     callPackage
     lib
@@ -40,7 +36,7 @@
   recurseCallPackage = path: recurseIntoAttrs (callPackage path {});
 
   discoveredPackages = filesystem.packagesFromDirectoryRecursive {
-    inherit (localPkgs) callPackage newScope;
+    inherit (pkgs) callPackage newScope;
     directory = ./pkgs;
   };
 
