@@ -57,8 +57,8 @@ Available only through `yaziPlugins` overlay, as `yaziPlugins.<package>`.
 | [`enhance-piper`](https://github.com/boydaihungst/enhance-piper.yazi)             | Auto updated |
 | [`file-extra-metadata`](https://github.com/boydaihungst/file-extra-metadata.yazi) | Auto updated |
 | [`gvfs`](https://github.com/boydaihungst/gvfs.yazi)                               | Auto updated |
-| [`hover-after-moved`](https://github.com/boydaihungst/hover-after-moved.yazi)     | Auto updated |
 | [`office`](https://github.com/macydnah/office.yazi)                               | Auto updated |
+| [`starship`](https://github.com/Rolv-Apneseth/starship.yazi)                      | Auto updated |
 | [`what-size`](https://github.com/pirafrank/what-size.yazi)                        | Auto updated |
 
 ## Zotero addons
