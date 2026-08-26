@@ -1,8 +1,3 @@
 {
-  default =
-    _final: prev:
-    import ../packages.nix {
-      pkgs = prev;
-      lib = prev.lib;
-    };
+  default = _final: prev: import ../packages.nix { pkgs = prev; };
 }

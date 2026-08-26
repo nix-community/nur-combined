@@ -1,6 +1,6 @@
 {
   pkgs,
-  lib,
+  lib ? pkgs.lib,
 }:
 lib.filesystem.packagesFromDirectoryRecursive {
   inherit (pkgs) callPackage;

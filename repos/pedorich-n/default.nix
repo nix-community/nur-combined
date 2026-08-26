@@ -10,22 +10,14 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-let
-  packages = import ./packages.nix {
-    inherit pkgs;
-    inherit (pkgs) lib;
-  };
-in
-rec {
-  # The `lib`, `overlays`, `nixosModules`, `homeModules`,
-  # `darwinModules` and `flakeModules` names are special
-  lib = import ./lib { inherit (pkgs) lib; }; # functions
-  nixosModules = lib.modulesFromDirectoryRecursive {
-    directory = ./modules/nixos;
-  }; # NixOS modules
-  # homeModules = { }; # Home Manager modules
-  # darwinModules = { }; # nix-darwin modules
-  # flakeModules = { }; # flake-parts modules
+{
+  lib = import ./lib { inherit (pkgs) lib; };
   overlays = import ./overlays;
+  # Can't use `lib.modulesFromDirectoryRecursive` here because that would require `pkgs.lib`,
+  # and NUR doesn't provide `pkgs` when evaluating this file. So we have to manually list the modules here.
+  # See https://github.com/nix-community/NUR/blob/50b7a2/flake.nix#L46
+  nixosModules = {
+    safebucket = ./modules/nixos/safebucket/module.nix;
+    rustic-exporter = ./modules/nixos/rustic-exporter/module.nix;
+  };
 }
-// packages
