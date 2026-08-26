@@ -11,7 +11,7 @@
   electron,
 }:
 
-let
+stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
   version = "0.1.0-unstable-2026-08-25";
 
@@ -23,22 +23,17 @@ let
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit src;
-    sourceRoot = "${src.name}/engine";
+    src = finalAttrs.src;
+    sourceRoot = "${finalAttrs.src.name}/engine";
     hash = "sha256-PFJCbUzOWz6w7Offk3E2Io5ddMg3HFcU6MZdZx2Ud/w=";
   };
 
   pnpmDeps = fetchPnpmDeps {
-    inherit src;
-    inherit pname version;
+    inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
     hash = "sha256-lyN0LoFV24539lziw4rE3x9MxC5zFcRcFlS25+fniOU=";
   };
-
-in
-stdenv.mkDerivation {
-  inherit pname version src;
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
@@ -50,7 +45,7 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  inherit cargoDeps pnpmDeps;
+
 
   # Avoid fetch-electron.sh
   postPatch = ''
@@ -107,4 +102,4 @@ stdenv.mkDerivation {
     mainProgram = "terminal-browser";
     platforms = platforms.linux;
   };
-}
+})
