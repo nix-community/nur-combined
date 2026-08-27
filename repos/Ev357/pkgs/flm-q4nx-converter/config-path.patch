@@ -1,11 +1,13 @@
 diff --git a/q4nx/model_converter.py b/q4nx/model_converter.py
-index f12975e..82f957b 100644
+index f12975e..456d222 100644
 --- a/q4nx/model_converter.py
 +++ b/q4nx/model_converter.py
-@@ -97,6 +97,9 @@ class __Q4NX_Converter(ABC):
+@@ -96,7 +96,10 @@ class __Q4NX_Converter(ABC):
+                 self.num_layers = field.contents()
  
  
-     def _load_config(self, config_file_path: str = "configs"):
+-    def _load_config(self, config_file_path: str = "configs"):
++    def _load_config(self, config_file_path: str | None = None):
 +        if config_file_path is None:
 +            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 +            config_file_path = os.path.join(base_dir, "configs")
