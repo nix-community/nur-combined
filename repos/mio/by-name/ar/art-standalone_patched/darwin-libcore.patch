@@ -1,0 +1,148 @@
+--- a/libcore/luni/src/main/native/libcore_io_Linux.cpp
++++ b/libcore/luni/src/main/native/libcore_io_Linux.cpp
+@@ -65,7 +65,136 @@
+ #include "JniException.h"
+ #include "NetworkUtilities.h"
+ #include "Portability.h"
++
++#ifdef __APPLE__
++// Darwin compatibility shims for libcore_io_Linux.cpp
++#include <sys/types.h>
++#include <sys/socket.h>
++#include <sys/stat.h>
++#include <sys/mman.h>
++#include <sys/xattr.h>
++
++// stat64 is just stat on Darwin
++#define stat64 stat
++#define lstat64 lstat
++#define fstat64 fstat
++
++// Darwin uses st_atimespec instead of st_atim
++#define st_atim st_atimespec
++#define st_mtim st_mtimespec
++#define st_ctim st_ctimespec
++
++// flock64 is flock on Darwin
++#define flock64 flock
++
++// fdatasync -> fsync on Darwin
++static inline int fdatasync(int fd) { return fsync(fd); }
++
++// ftruncate64 -> ftruncate
++#define ftruncate64 ftruncate
++
++// lseek64 -> lseek
++#define lseek64 lseek
++
++// mmap64 -> mmap
++#define mmap64 mmap
++
++// posix_fallocate64 -> posix_fallocate
++static inline int posix_fallocate(int fd, off_t offset, off_t len) {
++    return 0;
++}
++#define posix_fallocate64 posix_fallocate
++
++// pread64/pwrite64 -> pread/pwrite
++#define pread64 pread
++#define pwrite64 pwrite
++
++// pipe2 emulation
++static inline int pipe2(int fds[2], int flags) {
++    int result = pipe(fds);
++    if (result == 0 && flags) {
++        fcntl(fds[0], F_SETFL, flags);
++        fcntl(fds[1], F_SETFL, flags);
++    }
++    return result;
++}
++
++// gettid via pthread
++#include <pthread.h>
++static inline int gettid() { return (int)pthread_mach_thread_np(pthread_self()); }
++#define __NR_gettid 0
++static inline long syscall_gettid(long nr, ...) { return gettid(); }
++// Override syscall for __NR_gettid only by wrapping the call site
++
++// Capability stubs (Linux-only, not available on Darwin)
++struct __user_cap_header_struct { unsigned int version; int pid; };
++struct __user_cap_data_struct { unsigned int effective, permitted, inheritable; };
++static inline int capget(struct __user_cap_header_struct* h, struct __user_cap_data_struct* d) { errno = EINVAL; return -1; }
++static inline int capset(struct __user_cap_header_struct* h, const struct __user_cap_data_struct* d) { errno = EINVAL; return -1; }
++
++// ucred stub
++struct ucred { pid_t pid; uid_t uid; gid_t gid; };
+ 
++// sockaddr_nl (netlink - Linux only)
++struct sockaddr_nl { sa_family_t nl_family; unsigned short nl_pad; unsigned int nl_pid; unsigned int nl_groups; };
++
++// sockaddr_ll (packet socket - Linux only)
++struct sockaddr_ll {
++    unsigned short sll_family, sll_protocol;
++    int sll_ifindex;
++    unsigned short sll_hatype;
++    unsigned char sll_pkttype, sll_halen;
++    unsigned char sll_addr[8];
++};
++
++// AF_NETLINK and AF_PACKET stubs
++#ifndef AF_NETLINK
++#define AF_NETLINK 16
++#endif
++#ifndef AF_PACKET
++#define AF_PACKET 17
++#endif
++
++// sendfile stub
++#include <sys/socket.h>
++static inline ssize_t sendfile(int out_fd, int in_fd, off_t* offset, size_t count) { errno = ENOSYS; return -1; }
++
++// prctl stub
++static inline int prctl(int option, ...) { errno = ENOSYS; return -1; }
++
++// mincore on Darwin has different signature (last arg is char* not unsigned char*)
++static inline int mincore_compat(void* addr, size_t length, unsigned char* vec) {
++    return mincore(addr, length, (char*)vec);
++}
++#undef mincore
++#define mincore(a,l,v) mincore_compat(a,l,v)
++
++// xattr on Darwin has extra options parameter - wrap to match Linux API
++static inline ssize_t linux_getxattr(const char* path, const char* name, void* value, size_t size) {
++    return getxattr(path, name, value, size, 0, 0);
++}
++static inline ssize_t linux_lgetxattr(const char* path, const char* name, void* value, size_t size) {
++    return getxattr(path, name, value, size, 0, XATTR_NOFOLLOW);
++}
++static inline ssize_t linux_listxattr(const char* path, char* list, size_t size) {
++    return listxattr(path, list, size, 0);
++}
++static inline int linux_removexattr(const char* path, const char* name) {
++    return removexattr(path, name, 0);
++}
++static inline int linux_setxattr(const char* path, const char* name, const void* value, size_t size, int flags) {
++    return setxattr(path, name, value, size, 0, flags);
++}
++#undef getxattr
++#undef listxattr
++#undef removexattr
++#undef setxattr
++#define getxattr linux_getxattr
++#define listxattr linux_listxattr
++#define removexattr linux_removexattr
++#define setxattr linux_setxattr
++#endif /* __APPLE__ */
++
+ #ifndef __unused
+ #define __unused __attribute__((__unused__))
+ #endif
+@@ -1459,7 +1585,7 @@
+ #if defined(__BIONIC__)
+   return TEMP_FAILURE_RETRY(gettid());
+ #else
+-  return syscall(__NR_gettid);
++  return gettid();
+ #endif
+ }
+ 

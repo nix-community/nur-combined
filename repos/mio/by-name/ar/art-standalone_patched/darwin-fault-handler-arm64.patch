@@ -1,0 +1,190 @@
+--- a/art/runtime/arch/arm64/fault_handler_arm64.cc
++++ b/art/runtime/arch/arm64/fault_handler_arm64.cc
+@@ -28,8 +28,65 @@
+ #include "runtime_globals.h"
+ #include "thread-current-inl.h"
+ 
+-#ifdef __GLIBC__
++#if defined(__APPLE__)
++#define ucontext __darwin_ucontext
++
++static inline uintptr_t DarwinCtxSp(ucontext* uc) {
++  return __darwin_arm_thread_state64_get_sp(uc->uc_mcontext->__ss);
++}
++static inline void DarwinCtxSetSp(ucontext* uc, uintptr_t v) {
++  __darwin_arm_thread_state64_set_sp(uc->uc_mcontext->__ss, v);
++}
++static inline uintptr_t DarwinCtxPc(ucontext* uc) {
++  return __darwin_arm_thread_state64_get_pc(uc->uc_mcontext->__ss);
++}
++static inline void DarwinCtxSetPcFn(ucontext* uc, void (*fn)()) {
++  __darwin_arm_thread_state64_set_pc_fptr(uc->uc_mcontext->__ss, fn);
++}
++static inline uintptr_t DarwinCtxX(ucontext* uc, unsigned n) {
++  if (n < 29) {
++    return uc->uc_mcontext->__ss.__x[n];
++  }
++  if (n == 29) {
++    return __darwin_arm_thread_state64_get_fp(uc->uc_mcontext->__ss);
++  }
++  if (n == 30) {
++    return __darwin_arm_thread_state64_get_lr(uc->uc_mcontext->__ss);
++  }
++  return DarwinCtxSp(uc);
++}
++static inline void DarwinCtxSetX(ucontext* uc, unsigned n, uintptr_t v) {
++  if (n < 29) {
++    uc->uc_mcontext->__ss.__x[n] = v;
++  } else if (n == 29) {
++    __darwin_arm_thread_state64_set_fp(uc->uc_mcontext->__ss, v);
++  } else if (n == 30) {
++    __darwin_arm_thread_state64_set_lr_fptr(
++        uc->uc_mcontext->__ss, reinterpret_cast<void (*)()>(v));
++  } else {
++    DarwinCtxSetSp(uc, v);
++  }
++}
++#define DarwinCtxFaultAddr(info, uc) reinterpret_cast<uintptr_t>((info)->si_addr)
++#elif defined(__GLIBC__)
+ #define ucontext ucontext_t
++#define DarwinCtxSp(uc) static_cast<uintptr_t>((uc)->uc_mcontext.sp)
++#define DarwinCtxSetSp(uc, v) ((uc)->uc_mcontext.sp = (v))
++#define DarwinCtxPc(uc) static_cast<uintptr_t>((uc)->uc_mcontext.pc)
++#define DarwinCtxSetPcFn(uc, fn) \
++  ((uc)->uc_mcontext.pc = reinterpret_cast<uintptr_t>(fn))
++#define DarwinCtxX(uc, n) static_cast<uintptr_t>((uc)->uc_mcontext.regs[(n)])
++#define DarwinCtxSetX(uc, n, v) ((uc)->uc_mcontext.regs[(n)] = (v))
++#define DarwinCtxFaultAddr(info, uc) static_cast<uintptr_t>((uc)->uc_mcontext.fault_address)
++#else
++#define DarwinCtxSp(uc) static_cast<uintptr_t>((uc)->uc_mcontext.sp)
++#define DarwinCtxSetSp(uc, v) ((uc)->uc_mcontext.sp = (v))
++#define DarwinCtxPc(uc) static_cast<uintptr_t>((uc)->uc_mcontext.pc)
++#define DarwinCtxSetPcFn(uc, fn) \
++  ((uc)->uc_mcontext.pc = reinterpret_cast<uintptr_t>(fn))
++#define DarwinCtxX(uc, n) static_cast<uintptr_t>((uc)->uc_mcontext.regs[(n)])
++#define DarwinCtxSetX(uc, n, v) ((uc)->uc_mcontext.regs[(n)] = (v))
++#define DarwinCtxFaultAddr(info, uc) static_cast<uintptr_t>((uc)->uc_mcontext.fault_address)
+ #endif
+ 
+ extern "C" void art_quick_throw_stack_overflow();
+@@ -42,12 +99,11 @@
+ 
+ namespace art {
+ 
+-void FaultManager::GetMethodAndReturnPcAndSp(siginfo_t* siginfo ATTRIBUTE_UNUSED, void* context,
++void FaultManager::GetMethodAndReturnPcAndSp(siginfo_t* siginfo, void* context,
+                                              ArtMethod** out_method,
+                                              uintptr_t* out_return_pc, uintptr_t* out_sp) {
+-  struct ucontext *uc = reinterpret_cast<struct ucontext *>(context);
+-  struct sigcontext *sc = reinterpret_cast<struct sigcontext*>(&uc->uc_mcontext);
+-  *out_sp = static_cast<uintptr_t>(sc->sp);
++  ucontext *uc = reinterpret_cast<ucontext *>(context);
++  *out_sp = DarwinCtxSp(uc);
+   VLOG(signals) << "sp: " << *out_sp;
+   if (*out_sp == 0) {
+     return;
+@@ -55,11 +111,11 @@
+ 
+   // In the case of a stack overflow, the stack is not valid and we can't
+   // get the method from the top of the stack.  However it's in x0.
+-  uintptr_t* fault_addr = reinterpret_cast<uintptr_t*>(sc->fault_address);
++  uintptr_t* fault_addr = reinterpret_cast<uintptr_t*>(DarwinCtxFaultAddr(siginfo, uc));
+   uintptr_t* overflow_addr = reinterpret_cast<uintptr_t*>(
+       reinterpret_cast<uint8_t*>(*out_sp) - GetStackOverflowReservedBytes(InstructionSet::kArm64));
+   if (overflow_addr == fault_addr) {
+-    *out_method = reinterpret_cast<ArtMethod*>(sc->regs[0]);
++    *out_method = reinterpret_cast<ArtMethod*>(DarwinCtxX(uc, 0));
+   } else {
+     // The method is at the top of the stack.
+     *out_method = *reinterpret_cast<ArtMethod**>(*out_sp);
+@@ -68,9 +124,9 @@
+   // Work out the return PC.  This will be the address of the instruction
+   // following the faulting ldr/str instruction.
+   VLOG(signals) << "pc: " << std::hex
+-      << static_cast<void*>(reinterpret_cast<uint8_t*>(sc->pc));
++      << static_cast<void*>(reinterpret_cast<uint8_t*>(DarwinCtxPc(uc)));
+ 
+-  *out_return_pc = sc->pc + 4;
++  *out_return_pc = DarwinCtxPc(uc) + 4;
+ }
+ 
+ bool NullPointerHandler::Action(int sig ATTRIBUTE_UNUSED, siginfo_t* info, void* context) {
+@@ -81,15 +137,13 @@
+   // PC at the point of call.  For Null checks we insert a GC map that is immediately after
+   // the load/store instruction that might cause the fault.
+ 
+-  struct ucontext *uc = reinterpret_cast<struct ucontext*>(context);
+-  struct sigcontext *sc = reinterpret_cast<struct sigcontext*>(&uc->uc_mcontext);
++  ucontext *uc = reinterpret_cast<ucontext*>(context);
+ 
+   // Push the gc map location to the stack and pass the fault address in LR.
+-  sc->sp -= sizeof(uintptr_t);
+-  *reinterpret_cast<uintptr_t*>(sc->sp) = sc->pc + 4;
+-  sc->regs[30] = reinterpret_cast<uintptr_t>(info->si_addr);
+-
+-  sc->pc = reinterpret_cast<uintptr_t>(art_quick_throw_null_pointer_exception_from_signal);
++  DarwinCtxSetSp(uc, DarwinCtxSp(uc) - sizeof(uintptr_t));
++  *reinterpret_cast<uintptr_t*>(DarwinCtxSp(uc)) = DarwinCtxPc(uc) + 4;
++  DarwinCtxSetX(uc, 30, reinterpret_cast<uintptr_t>(info->si_addr));
++  DarwinCtxSetPcFn(uc, art_quick_throw_null_pointer_exception_from_signal);
+   VLOG(signals) << "Generating null pointer exception";
+   return true;
+ }
+@@ -110,9 +164,8 @@
+       (Thread::ThreadSuspendTriggerOffset<PointerSize::k64>().Int32Value() << 7);
+   uint32_t checkinst2 = 0xf9400000;
+ 
+-  struct ucontext *uc = reinterpret_cast<struct ucontext *>(context);
+-  struct sigcontext *sc = reinterpret_cast<struct sigcontext*>(&uc->uc_mcontext);
+-  uint8_t* ptr2 = reinterpret_cast<uint8_t*>(sc->pc);
++  ucontext *uc = reinterpret_cast<ucontext *>(context);
++  uint8_t* ptr2 = reinterpret_cast<uint8_t*>(DarwinCtxPc(uc));
+   uint8_t* ptr1 = ptr2 - 4;
+   VLOG(signals) << "checking suspend";
+ 
+@@ -143,8 +196,8 @@
+     // will resume the instruction (current PC + 4).  PC points to the
+     // ldr x0,[x0,#0] instruction (r0 will be 0, set by the trigger).
+ 
+-    sc->regs[30] = sc->pc + 4;
+-    sc->pc = reinterpret_cast<uintptr_t>(art_quick_implicit_suspend);
++    DarwinCtxSetX(uc, 30, DarwinCtxPc(uc) + 4);
++    DarwinCtxSetPcFn(uc, art_quick_implicit_suspend);
+ 
+     // Now remove the suspend trigger that caused this fault.
+     Thread::Current()->RemoveSuspendTrigger();
+@@ -154,17 +207,16 @@
+   return false;
+ }
+ 
+-bool StackOverflowHandler::Action(int sig ATTRIBUTE_UNUSED, siginfo_t* info ATTRIBUTE_UNUSED,
++bool StackOverflowHandler::Action(int sig ATTRIBUTE_UNUSED, siginfo_t* info,
+                                   void* context) {
+-  struct ucontext *uc = reinterpret_cast<struct ucontext *>(context);
+-  struct sigcontext *sc = reinterpret_cast<struct sigcontext*>(&uc->uc_mcontext);
++  ucontext *uc = reinterpret_cast<ucontext *>(context);
+   VLOG(signals) << "stack overflow handler with sp at " << std::hex << &uc;
+-  VLOG(signals) << "sigcontext: " << std::hex << sc;
++  VLOG(signals) << "sigcontext: " << std::hex << uc->uc_mcontext;
+ 
+-  uintptr_t sp = sc->sp;
++  uintptr_t sp = DarwinCtxSp(uc);
+   VLOG(signals) << "sp: " << std::hex << sp;
+ 
+-  uintptr_t fault_addr = sc->fault_address;
++  uintptr_t fault_addr = DarwinCtxFaultAddr(info, uc);
+   VLOG(signals) << "fault_addr: " << std::hex << fault_addr;
+   VLOG(signals) << "checking for stack overflow, sp: " << std::hex << sp <<
+       ", fault_addr: " << fault_addr;
+@@ -183,10 +235,9 @@
+   // The value of LR must be the same as it was when we entered the code that
+   // caused this fault.  This will be inserted into a callee save frame by
+   // the function to which this handler returns (art_quick_throw_stack_overflow).
+-  sc->pc = reinterpret_cast<uintptr_t>(art_quick_throw_stack_overflow);
++  DarwinCtxSetPcFn(uc, art_quick_throw_stack_overflow);
+ 
+   // The kernel will now return to the address in sc->pc.
+   return true;
+ }
+ }       // namespace art
+-

@@ -1,6 +1,9 @@
 {
+  lib,
+  stdenv,
   android-translation-layer,
   art-standalone_patched,
+  bionic-translation_patched,
   cacert,
   webp-pixbuf-loader,
   gdk-pixbuf,
@@ -9,10 +12,24 @@
   wrapGAppsHook4,
 }:
 
-(android-translation-layer.override {
-  art-standalone = art-standalone_patched;
-}).overrideAttrs
+(android-translation-layer.override (
+  {
+    art-standalone = art-standalone_patched;
+    bionic-translation = bionic-translation_patched;
+  }
+  // lib.optionalAttrs (!stdenv.hostPlatform.isLinux) {
+    alsa-lib = null;
+    libdrm = null;
+    libgudev = null;
+    wayland = null;
+    wayland-protocols = null;
+    wayland-scanner = null;
+    libportal-gtk4 = null;
+    webkitgtk_6_0 = null;
+  }
+)).overrideAttrs
   (old: {
+    pname = "android-translation-layer-patched";
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
       wrapGAppsHook4
     ];
