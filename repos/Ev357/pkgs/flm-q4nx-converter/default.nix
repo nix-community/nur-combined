@@ -37,12 +37,12 @@ python3Packages.buildPythonApplication rec {
     ''
       runHook preInstall
 
-      mkdir -p $out/bin $out/libexec/${meta.mainProgram}
-      cp -r . "$out/libexec/${meta.mainProgram}"
+      mkdir -p $out/bin $out/libexec/${pname}
+      cp -r . "$out/libexec/${pname}"
 
       makeWrapper ${python3Packages.python.interpreter} $out/bin/${meta.mainProgram} \
         --prefix PYTHONPATH : "$PYTHONPATH" \
-        --add-flags "$out/libexec/${meta.mainProgram}/convert.py"
+        --add-flags "$out/libexec/${pname}/convert.py"
 
       runHook postInstall
     '';
