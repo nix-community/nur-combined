@@ -1,4 +1,4 @@
-# Defaulting to <nixpkgs> lets us use nix-build -A pkgname, but we need to take it as argument
+# Defaulting to <nixpkgs> lets us use nix-build -A pkgname, but we also need to take it as argument
 {
   pkgs ? import <nixpkgs> { },
 }:
@@ -23,4 +23,6 @@ rec {
   en-croissant = pkgs.callPackage ./pkgs/en-croissant { };
   objdiff = pkgs.callPackage ./pkgs/objdiff { };
   ghidra_rootcubed = pkgs.callPackage ./pkgs/ghidra_rootcubed { };
+  nbminer = pkgs.callPackage ./pkgs/nbminer { };
+  srbminer = pkgs.callPackage ./pkgs/srbminer { };
 }

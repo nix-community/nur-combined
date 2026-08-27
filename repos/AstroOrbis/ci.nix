@@ -58,6 +58,20 @@ let
     )
   );
 
+  # attrset for nix-eval-jobs & nix-fast-build
+  # names are index-prefixed to avoid collisions
+  toAttrs =
+    ps:
+    listToAttrs (
+      genList (
+        i:
+        let
+          p = elemAt ps i;
+        in
+        nameValuePair "${toString i}-${p.name or "drv"}" p
+      ) (length ps)
+    );
+
 in
 rec {
   buildPkgs = filter isBuildable nurPkgs;
@@ -65,4 +79,7 @@ rec {
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
+
+  buildOutputsAttrs = toAttrs buildOutputs;
+  cacheOutputsAttrs = toAttrs cacheOutputs;
 }

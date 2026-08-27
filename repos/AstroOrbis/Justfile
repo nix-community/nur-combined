@@ -12,3 +12,8 @@ baseflake := ".#legacyPackages.x86_64-linux."
 
 build pkg:
   nom build {{baseflake}}{{pkg}}
+
+# build every cacheable package, skipping those already in the binary cache
+ci:
+  nix shell -f '<nixpkgs>' nix-fast-build nix-output-monitor \
+    -c nix-fast-build --file ci.nix -A cacheOutputsAttrs --skip-cached
