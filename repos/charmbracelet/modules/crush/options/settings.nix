@@ -182,6 +182,12 @@ lib.mkOption {
                 description = "Pre-registered OAuth client secret paired with oauth_client_id";
               };
 
+              sessionless = lib.mkOption {
+                type = lib.types.nullOr lib.types.bool;
+                default = false;
+                description = "Mark a sessionless MCP server (no Mcp-Session-Id) so Crush skips the subscriptions/listen stream it would otherwise reject. Leave unset to auto-detect known sessionless servers (e.g. GitHub MCP)";
+              };
+
               timeout = lib.mkOption {
                 type = lib.types.nullOr lib.types.int;
                 default = 10;
