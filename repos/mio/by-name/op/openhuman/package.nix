@@ -8,19 +8,19 @@
   stdenv,
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   pname = "openhuman";
-  version = "unstable-2026-08-26";
+  version = "0.63.17";
 
   src = fetchFromGitHub {
     owner = "tinyhumansai";
     repo = "openhuman";
-    rev = "be6e7f6abbc3b5c79af277688767ea1597ede4fc";
-    hash = "sha256-dydhNsCSRBzpUE41RL4CFqziilW0wRrWaRhSoQir+SI=";
+    rev = "v${version}";
+    hash = "sha256-J0n2BAWrymldULyYCsqm9UivOnAzkXsfImn8F3rRf6c=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-l+p+r4hKuMoBPPJ4LXgGw7P6iQnEX8uf8Z1pwsEW3R4=";
+  cargoHash = "sha256-9PDYgvWbKQp92HVH1QxcSholmccsNp0uFzCKtfc9blw=";
 
   nativeBuildInputs = [
     pkg-config
