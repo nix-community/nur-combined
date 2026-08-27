@@ -1,0 +1,14 @@
+diff --git a/q4nx/model_converter.py b/q4nx/model_converter.py
+index f12975e..82f957b 100644
+--- a/q4nx/model_converter.py
++++ b/q4nx/model_converter.py
+@@ -97,6 +97,9 @@ class __Q4NX_Converter(ABC):
+ 
+ 
+     def _load_config(self, config_file_path: str = "configs"):
++        if config_file_path is None:
++            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
++            config_file_path = os.path.join(base_dir, "configs")
+         config_path = os.path.join(config_file_path, ModelArchConfigs[self.model_arch])
+         print(f"[INFO] Loading Q4NX config from {config_path}")
+         self.q4nx_config = json.load(open(config_path))
