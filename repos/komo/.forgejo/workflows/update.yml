@@ -1,0 +1,40 @@
+name: "Update packages"
+on:
+  schedule:
+    - cron:  '8 10 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Setup Lix
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf -L https://install.lix.systems/lix | sh -s -- install linux --no-confirm --init none
+        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    - name: Setup Git credentials
+      run: |
+        git config user.name git.gay-actions[bot]
+        git config user.email git.gay-actions[bot]@noreply.users.git.gay
+    - name: Pre-fetch required tools
+      run: |
+        nix build --no-link nixpkgs#nix-update nixpkgs#nushell
+    - name: Check evaluation
+      run: |
+        nix-env -f ./default.nix -qa \* --meta --json \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Update Nix packages
+      run: |
+        nix shell nixpkgs#nix-update nixpkgs#nushell -c nu ./update-packages.nu update
+    - name: Push changes
+      continue-on-error: true
+      run: |
+        git push
+  

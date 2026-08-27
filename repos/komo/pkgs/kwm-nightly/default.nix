@@ -1,0 +1,64 @@
+{
+  stdenv,
+  fetchFromGitHub,
+  callPackage,
+  writeShellScript,
+  nix-update-script,
+  zig_0_16,
+  pkg-config,
+  pixman,
+  fcft,
+  wayland,
+  wayland-scanner,
+  wayland-protocols,
+  libxkbcommon,
+}:
+
+stdenv.mkDerivation (final: {
+  pname = "kwm-nightly";
+  version = "0-unstable-2026-07-27";
+
+  src = fetchFromGitHub {
+    owner = "kewuaa";
+    repo = "kwm";
+    rev = "3f966c9c79d4e31f58ea8d012129cda38f8115cc";
+    hash = "sha256-k1NsihGCWnJVZXAi2y1F4QZ1GwHBijg6fW3mMq5eMgI=";
+  };
+
+  nativeBuildInputs = [
+    zig_0_16
+    pkg-config
+    pixman
+    fcft
+  ];
+
+  buildInputs = [
+    wayland
+    wayland-scanner
+    wayland-protocols
+    libxkbcommon
+  ];
+
+  deps = callPackage ./deps.nix { };
+
+  zigBuildFlags = [
+    "--system"
+    (toString final.deps)
+  ];
+
+  passthru.updateScript = writeShellScript "update-package-and-deps" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p jq
+    
+    set -euo pipefail
+
+    ${./update-deps.sh} ${./deps.nix}
+
+    ${nix-update-script {
+      extraArgs = [
+        "--version"
+        "branch"
+      ];
+    }} | jq -c '[.[0] as $root | $root + {file: $root.file + ["${./deps.nix}"]}]'
+  '';
+})

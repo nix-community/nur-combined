@@ -1,0 +1,70 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.nix'
+      - sign-upload-build.nu
+  schedule:
+    - cron:  '25 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        nurRepo:
+          - krom
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Setup Lix
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf -L https://install.lix.systems/lix | sh -s -- install linux --no-confirm --init none
+        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        mkdir -p ~/.config/nix
+        true > ~/.config/nix/nix.conf
+        echo "nix-path = ${{ matrix.nixPath }}" >> ~/.config/nix/nix.conf
+        echo "extra-substituters = https://den.krome-fin.deno.net" >> ~/.config/nix/nix.conf
+        echo "extra-trusted-public-keys = kromfin-nixcache:eb0zARxpXg9NaiR2g5TQFnj4z3DucJyj9PVMSZB02xA=" >> ~/.config/nix/nix.conf
+        # store a signing key into file
+        echo "$SIGNING_KEY" > ./signing-key.pem
+      env:
+        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+    - name: Pre-fetch required tools
+      run: |
+        nix build --no-link github:Mic92/nix-fast-build nixpkgs/nixos-unstable#nushell
+    - name: Check evaluation
+      run: |
+        nix-env -f ./default.nix -qa \* --meta --json \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build nix packages
+      run: |
+        nix run github:Mic92/nix-fast-build -- \
+          --skip-cached \
+          --result-file result.json \
+          --flake .#packages \
+          --select "import ./filter-packages.nix"
+    - name: Sign & Upload builds to binary cache
+      run: |
+        nix run nixpkgs/nixos-unstable#nushell -- ./sign-upload-build.nu \
+          --binary-cache s3://a-den-nixcache?endpoint=s3.us-east-005.backblazeb2.com
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    # - name: Trigger NUR update
+    #   if: ${{ matrix.nurRepo != 'krom' }}
+    #   run: |
+    #     curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
