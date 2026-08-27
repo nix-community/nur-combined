@@ -5,6 +5,10 @@ schema = 4
     version = 'v0.32.1-0.20250325101103-175b25e1c1b9'
     hash = 'sha256-Vz38qOoOO5kJaC3hyZXRHlw9T9Pd+j2PyikU6AZaTic='
 
+  [mod.'cel.dev/expr']
+    version = 'v0.25.1'
+    hash = 'sha256-TEdMxFUPK7IZuCXMufwCkbN+ZZIXSQclljIybFZcByo='
+
   [mod.'entgo.io/ent']
     version = 'v0.14.5'
     hash = 'sha256-Prxb7FeyLn53EgAZvIibtfGghT85VKaY804CUHDVAPk='
@@ -12,6 +16,10 @@ schema = 4
   [mod.'github.com/agext/levenshtein']
     version = 'v1.2.3'
     hash = 'sha256-d1lUB0kToOsPYfRmEh9SO+iVipgmsRs4xQkj1xlY9og='
+
+  [mod.'github.com/antlr4-go/antlr/v4']
+    version = 'v4.13.1'
+    hash = 'sha256-beAuxHNRUuhzcSJUh/8ztVf1zCUiaT72fg2Jvx0AuNQ='
 
   [mod.'github.com/apparentlymart/go-textseg/v15']
     version = 'v15.0.0'
@@ -24,6 +32,10 @@ schema = 4
   [mod.'github.com/bmatcuk/doublestar']
     version = 'v1.3.4'
     hash = 'sha256-QcHL9WGVAH3vIs4FZH+w1DJxdCHnXkkzODtOfhKR0X0='
+
+  [mod.'github.com/bmatcuk/doublestar/v4']
+    version = 'v4.10.0'
+    hash = 'sha256-DKSWTPjN1K3Aa0vtOYlptIGn0EQgiQDMg1KperYaHXs='
 
   [mod.'github.com/charmbracelet/bubbletea']
     version = 'v1.2.4'
@@ -76,6 +88,10 @@ schema = 4
   [mod.'github.com/go-viper/mapstructure/v2']
     version = 'v2.4.0'
     hash = 'sha256-lLfcV9z4n94hDhgyXJlde4bFB0hfzlbh+polqcJCwGE='
+
+  [mod.'github.com/google/cel-go']
+    version = 'v0.27.0'
+    hash = 'sha256-ECoJqNV108IURzaxtaznDajf1yw3jvQPjZi0dQHSIBY='
 
   [mod.'github.com/google/go-cmp']
     version = 'v0.7.0'
@@ -144,6 +160,10 @@ schema = 4
   [mod.'github.com/rivo/uniseg']
     version = 'v0.4.7'
     hash = 'sha256-rDcdNYH6ZD8KouyyiZCUEy8JrjOQoAkxHBhugrfHjFo='
+
+  [mod.'github.com/rogpeppe/go-internal']
+    version = 'v1.16.0'
+    hash = 'sha256-taz3iAUJayomgTV637S27ZkI4VD7ulkOVdMj68woTxE='
 
   [mod.'github.com/safedep/dry']
     version = 'v0.0.0-20260129144613-fb1274e99a19'
@@ -229,6 +249,22 @@ schema = 4
     version = 'v0.29.0'
     hash = 'sha256-2cWBtJje+Yc+AnSgCANqBlIwnOMZEGkpQ2cFI45VfLI='
 
+  [mod.'golang.org/x/tools']
+    version = 'v0.38.0'
+    hash = 'sha256-GeIkpuKtUfxxrOZLikNlZA3lMKhdyO++PVvXppBGmbw='
+
+  [mod.'google.golang.org/genproto/googleapis/api']
+    version = 'v0.0.0-20250825161204-c5933d9347a5'
+    hash = 'sha256-GpzwiqnK6YxHTplFjMuJ+f1JHbWBeFlj6L+kn1/pP68='
+
+  [mod.'google.golang.org/genproto/googleapis/rpc']
+    version = 'v0.0.0-20250825161204-c5933d9347a5'
+    hash = 'sha256-eeXJH7HJ98p6at4o+ucIiSkZSg1eGKH24MGNeFeb9lw='
+
+  [mod.'google.golang.org/protobuf']
+    version = 'v1.36.10'
+    hash = 'sha256-gUrj1qSpjcpRKCBnrYlKMm+P0OSh7B/8EBREstwhD1w='
+
   [mod.'gopkg.in/natefinch/lumberjack.v2']
     version = 'v2.2.1'
     hash = 'sha256-GaXWRDxhGy4Z4mgE+bJ8OE9SVvYUa9TnNiydnp2s1Ms='
@@ -274,6 +310,14 @@ schema = 4
       'github.com/zclconf/go-cty-yaml'
     ]
 
+  [cacheModules.'cel.dev/expr']
+    packages = [
+      'cel.dev/expr'
+    ]
+    deps = [
+      'google.golang.org/protobuf'
+    ]
+
   [cacheModules.'entgo.io/ent']
     packages = [
       'entgo.io/ent',
@@ -299,6 +343,14 @@ schema = 4
       'github.com/agext/levenshtein'
     ]
 
+  [cacheModules.'github.com/antlr4-go/antlr/v4']
+    packages = [
+      'github.com/antlr4-go/antlr/v4'
+    ]
+    deps = [
+      'golang.org/x/exp'
+    ]
+
   [cacheModules.'github.com/apparentlymart/go-textseg/v15']
     packages = [
       'github.com/apparentlymart/go-textseg/v15/textseg'
@@ -312,6 +364,11 @@ schema = 4
   [cacheModules.'github.com/bmatcuk/doublestar']
     packages = [
       'github.com/bmatcuk/doublestar'
+    ]
+
+  [cacheModules.'github.com/bmatcuk/doublestar/v4']
+    packages = [
+      'github.com/bmatcuk/doublestar/v4'
     ]
 
   [cacheModules.'github.com/charmbracelet/bubbletea']
@@ -405,6 +462,37 @@ schema = 4
   [cacheModules.'github.com/go-viper/mapstructure/v2']
     packages = [
       'github.com/go-viper/mapstructure/v2'
+    ]
+
+  [cacheModules.'github.com/google/cel-go']
+    packages = [
+      'github.com/google/cel-go/cel',
+      'github.com/google/cel-go/checker',
+      'github.com/google/cel-go/checker/decls',
+      'github.com/google/cel-go/common',
+      'github.com/google/cel-go/common/ast',
+      'github.com/google/cel-go/common/containers',
+      'github.com/google/cel-go/common/debug',
+      'github.com/google/cel-go/common/decls',
+      'github.com/google/cel-go/common/env',
+      'github.com/google/cel-go/common/functions',
+      'github.com/google/cel-go/common/operators',
+      'github.com/google/cel-go/common/overloads',
+      'github.com/google/cel-go/common/runes',
+      'github.com/google/cel-go/common/stdlib',
+      'github.com/google/cel-go/common/types',
+      'github.com/google/cel-go/common/types/pb',
+      'github.com/google/cel-go/common/types/ref',
+      'github.com/google/cel-go/common/types/traits',
+      'github.com/google/cel-go/interpreter',
+      'github.com/google/cel-go/parser',
+      'github.com/google/cel-go/parser/gen'
+    ]
+    deps = [
+      'cel.dev/expr',
+      'github.com/antlr4-go/antlr/v4',
+      'google.golang.org/genproto/googleapis/api',
+      'google.golang.org/protobuf'
     ]
 
   [cacheModules.'github.com/google/go-cmp']
@@ -643,7 +731,8 @@ schema = 4
 
   [cacheModules.'golang.org/x/exp']
     packages = [
-      'golang.org/x/exp/constraints'
+      'golang.org/x/exp/constraints',
+      'golang.org/x/exp/slices'
     ]
 
   [cacheModules.'golang.org/x/mod']
@@ -676,6 +765,45 @@ schema = 4
       'golang.org/x/text/runes',
       'golang.org/x/text/transform',
       'golang.org/x/text/unicode/norm'
+    ]
+
+  [cacheModules.'google.golang.org/genproto/googleapis/api']
+    packages = [
+      'google.golang.org/genproto/googleapis/api/expr/v1alpha1'
+    ]
+    deps = [
+      'google.golang.org/genproto/googleapis/rpc',
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/genproto/googleapis/rpc']
+    packages = [
+      'google.golang.org/genproto/googleapis/rpc/status'
+    ]
+    deps = [
+      'google.golang.org/protobuf'
+    ]
+
+  [cacheModules.'google.golang.org/protobuf']
+    packages = [
+      'google.golang.org/protobuf/encoding/protojson',
+      'google.golang.org/protobuf/encoding/prototext',
+      'google.golang.org/protobuf/encoding/protowire',
+      'google.golang.org/protobuf/proto',
+      'google.golang.org/protobuf/reflect/protodesc',
+      'google.golang.org/protobuf/reflect/protoreflect',
+      'google.golang.org/protobuf/reflect/protoregistry',
+      'google.golang.org/protobuf/runtime/protoiface',
+      'google.golang.org/protobuf/runtime/protoimpl',
+      'google.golang.org/protobuf/types/descriptorpb',
+      'google.golang.org/protobuf/types/dynamicpb',
+      'google.golang.org/protobuf/types/gofeaturespb',
+      'google.golang.org/protobuf/types/known/anypb',
+      'google.golang.org/protobuf/types/known/durationpb',
+      'google.golang.org/protobuf/types/known/emptypb',
+      'google.golang.org/protobuf/types/known/structpb',
+      'google.golang.org/protobuf/types/known/timestamppb',
+      'google.golang.org/protobuf/types/known/wrapperspb'
     ]
 
   [cacheModules.'gopkg.in/natefinch/lumberjack.v2']

@@ -109,13 +109,13 @@
   };
   gryph = {
     pname = "gryph";
-    version = "v0.7.0";
+    version = "v0.9.0";
     src = fetchFromGitHub {
       owner = "safedep";
       repo = "gryph";
-      rev = "v0.7.0";
+      rev = "v0.9.0";
       fetchSubmodules = false;
-      sha256 = "sha256-be4ybYX1BepEJ6T2ORHsC523jdzq6Oy/u6LD1zw6iNU=";
+      sha256 = "sha256-9vuoy4ccrYezT1h9ZJuCrx63IHY89TBhMB9ix0+TCj0=";
     };
   };
   haru = {
@@ -223,13 +223,13 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "7034b698d047b85175b7e79b47c75ff866732b38";
+    version = "37437ee0a013f3d8a776227516be151f5a490b4c";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "7034b698d047b85175b7e79b47c75ff866732b38";
+      rev = "37437ee0a013f3d8a776227516be151f5a490b4c";
       fetchSubmodules = true;
-      sha256 = "sha256-rrp5hh5A2Me856AtwSEr3NuLzFnnA31GPLg7TIVk++U=";
+      sha256 = "sha256-hXzWFxxFINaz57cGGrgG85Bxe4Xy+aEWdBL0fijKjhE=";
     };
     date = "2026-08-27";
   };
