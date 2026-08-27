@@ -1,13 +1,64 @@
 name: Ciborg Turbo
 
+# Enqueue dispatches N worker runs. Each worker takes one of 15 slots
+# (ciborg-turbo-0 .. ciborg-turbo-14). Extra runs sit pending (no runner)
+# and drain FIFO — same queue:max trick as fdroid-revanced/build-fdroid.yml.
+# Do not cancel a running worker: in-flight docker workers are not restart-safe.
 on:
   workflow_dispatch:
+    inputs:
+      jobs:
+        description: "How many worker jobs to dispatch"
+        type: number
+        default: 1
+      worker:
+        description: "Internal — run a worker (set by enqueue)"
+        type: boolean
+        default: false
+      slot:
+        description: "Internal — concurrency slot 0-14 (set by enqueue)"
+        type: number
+        default: 0
   schedule:
     - cron: '30 9 * * *'
+
 jobs:
+  enqueue:
+    name: Enqueue
+    if: github.event_name == 'workflow_dispatch' && !inputs.worker
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+    - name: Dispatch worker jobs
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        set -euo pipefail
+        REPO="${{ github.repository }}"
+        COUNT="${{ inputs.jobs }}"
+        if [ -z "${COUNT}" ] || [ "${COUNT}" = "null" ]; then
+          COUNT=1
+        fi
+        COUNT="$(printf '%.0f' "$COUNT")"
+        if [ "$COUNT" -lt 1 ]; then COUNT=1; fi
+        SLOTS=15
+        echo "Dispatching $COUNT worker(s) across $SLOTS slots"
+        for i in $(seq 0 $((COUNT - 1))); do
+          slot=$((i % SLOTS))
+          gh workflow run ciborg-turbo.yml -R "$REPO" -f worker=true -f slot="$slot"
+          echo "  kicked $((i + 1))/$COUNT slot=$slot"
+        done
+
   work:
     name: "Work"
+    if: github.event_name == 'schedule' || inputs.worker
     runs-on: ubuntu-latest
+    concurrency:
+      group: ciborg-turbo-${{ inputs.slot || 0 }}
+      cancel-in-progress: false
+      queue: max
 
     steps:
     - uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3
