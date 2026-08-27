@@ -22,6 +22,7 @@
 | `gravatar-recon` | Retrieve and aggregate public OSINT data from Gravatar. Given an email address, the tool queries the Gravatar API and extracts useful information such as profile metadata, avatar, social accounts, and contact info. | [anotherhadi/gravatar-recon](https://github.com/anotherhadi/gravatar-recon) | 2025-09-25 |
 | `jwt-tui` | A TUI for inspecting, editing, and signing JSON Web Tokens (JWTs). | [anotherhadi/jwt-tui](https://github.com/anotherhadi/jwt-tui) | 2026-05-26 |
 | `monitui` | Delightfully minimal TUI for wrangling Hyprland monitors | [nathaniel-fargo/monitui](https://github.com/nathaniel-fargo/monitui) | 2026-03-14 |
+| `proton-vpn-tui` | A minimal, TUI and keyboard friendly wrapper for proton-vpn-cli | [anotherhadi/proton-vpn-tui](https://github.com/anotherhadi/proton-vpn-tui) | 2026-08-27 |
 | `revshell` | CLI reverse shell generator | [Gubarz/revshell](https://github.com/Gubarz/revshell) | 2026-04-12 |
 | `settuings` | A TUI to manage your Linux system settings like wifi, bluetooth, and more, without leaving the terminal. | [anotherhadi/settuings](https://github.com/anotherhadi/settuings) | 2026-08-13 |
 | `spilltea` | A minimal, terminal-based HTTP(S) proxy for pentesters and CTF players. | [anotherhadi/spilltea](https://github.com/anotherhadi/spilltea) | 2026-05-30 |
