@@ -15,7 +15,7 @@
           "map to guest" = "bad user";
         };
         "public" = {
-          "path" = "/three/storage/public";
+          "path" = "/pool0/storage/public";
           "browseable" = "yes";
           "read only" = "yes";
           "guest ok" = "yes";
@@ -25,7 +25,7 @@
           "force group" = "users";
         };
         "private" = {
-          "path" = "/three/storage/";
+          "path" = "/pool0/storage/";
           "browseable" = "yes";
           "read only" = "no";
           "guest ok" = "no";

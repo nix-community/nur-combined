@@ -83,9 +83,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    atuin = {
-      url = "github:atuinsh/atuin";
-    };
     conduit = {
       url = "github:matrix-construct/tuwunel?rev=f2c531429622dcc2f6bf96937e8e1def963cab79";
     };

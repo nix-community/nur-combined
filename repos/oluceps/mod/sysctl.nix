@@ -3,21 +3,37 @@
     boot.kernel.sysctl = {
       "kernel.panic" = 10;
       "kernel.sysrq" = 183;
-      # max read buffer
-      # max write buffer
+
+      # max open files (kept generous)
       "fs.file-max" = 6553560;
-      # default read buffer
-      "net.core.rmem_default" = 65536;
-      # default write buffer
-      "net.core.wmem_default" = 65536;
-      "net.core.netdev_budget" = 600;
-      # max processor input queue
-      #"net.core.netdev_max_backlog" = 4096;
-      # max backlog
-      #
-      #
+
+      # decrease cache pressure to keep inodes and dentries in memory (was 200)
+      "vm.vfs_cache_pressure" = 50;
+
+      # default read buffer: expanded to 1mb for abundant memory
+      "net.core.rmem_default" = 1048576;
+      # default write buffer: expanded to 1mb
+      "net.core.wmem_default" = 1048576;
+
+      # max read buffer: expanded to 32mb
+      "net.core.rmem_max" = 33554432;
+      # max write buffer: expanded to 32mb
+      "net.core.wmem_max" = 33554432;
+
+      # scale tcp buffers (min, default, max) to match max buffers
+      "net.ipv4.tcp_rmem" = "4096 1048576 33554432";
+      "net.ipv4.tcp_wmem" = "4096 1048576 33554432";
+
+      # allow more packets to be processed in one softirq
+      "net.core.netdev_budget" = 1000;
+
+      # max processor input queue (uncommented and increased for heavy traffic)
+      "net.core.netdev_max_backlog" = 16384;
+
+      # max listen backlog
+      "net.core.somaxconn" = 16384;
+
       "net.ipv4.conf.all.arp_accept" = 1;
-      # "net.ipv4.fib_multipath_hash_policy" = 1;
 
       "net.ipv6.conf.all.accept_ra" = 2;
       "net.ipv6.conf.all.forwarding" = 1;
@@ -29,40 +45,37 @@
       "net.ipv6.conf.lo.rp_filter" = 0;
       "net.ipv4.ip_nonlocal_bind" = 1;
 
-      # Ignore ICMP broadcasts to avoid participating in Smurf attacks
+      # ignore icmp broadcasts to avoid participating in smurf attacks
       "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
-      # Ignore bad ICMP errors
+      # ignore bad icmp errors
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
-      # Reverse-path filter for spoof protection
-      # SYN flood protection
+
+      # syn flood protection
       "net.ipv4.tcp_syncookies" = 1;
       "net.ipv4.tcp_syn_retries" = 2;
-      # Do not accept ICMP redirects (prevent MITM attacks)
+
+      # do not accept icmp redirects (prevent mitm attacks)
       "net.ipv4.conf.all.secure_redirects" = 1;
       "net.ipv4.conf.default.secure_redirects" = 1;
-      # Protect against tcp time-wait assassination hazards
-      "net.ipv4.tcp_rfc1337" = 1;
-      # TCP Fast Open (TFO)
-      "net.ipv4.tcp_fastopen" = 0;
-      # Bufferbloat mitigations
-      # Requires >= 4.9 & kernel module
-      "net.ipv4.tcp_congestion_control" = "bbr";
-      # Requires >= 4.19
-      "net.core.default_qdisc" = "cake";
-
-      "net.ipv4.tcp_rmem" = "4096 87380 2500000";
-      "net.ipv4.tcp_wmem" = "4096 65536 2500000";
-      "net.core.rmem_max" = 16777216;
-      "net.core.wmem_max" = 16777216;
-      "net.ipv4.tcp_mtu_probing" = 1;
-      "net.core.somaxconn" = 4096;
       "net.ipv4.conf.all.send_redirects" = 0;
 
-      "net.ipv4.tcp_tw_recycle" = 0;
+      # protect against tcp time-wait assassination hazards
+      "net.ipv4.tcp_rfc1337" = 1;
+
+      # enable tcp fast open for both incoming and outgoing connections (was 0)
+      "net.ipv4.tcp_fastopen" = 3;
+
+      # bufferbloat mitigations
+      "net.ipv4.tcp_congestion_control" = "bbr";
+      "net.core.default_qdisc" = "cake";
+      "net.ipv4.tcp_mtu_probing" = 1;
+
+      # note: tcp_tw_recycle was removed in linux 4.12, safe to remove entirely
+      # "net.ipv4.tcp_tw_recycle" = 0;
       "net.ipv4.tcp_tw_reuse" = 1;
       "net.ipv4.tcp_no_metrics_save" = 1;
 
-      # hardend
+      # hardened
       "net.ipv4.tcp_sack" = 1;
       "net.ipv4.tcp_dsack" = 0;
       "net.ipv4.tcp_fack" = 0;
@@ -70,28 +83,31 @@
       "kernel.yama.ptrace_scope" = 2;
       "vm.mmap_rnd_bits" = 32;
       "vm.mmap_rnd_compat_bits" = 16;
-      "vm.vfs_cache_pressure" = 200;
 
       "fs.protected_symlinks" = 1;
       "fs.protected_hardlinks" = 1;
-
       "fs.protected_fifos" = 2;
       "fs.protected_regular" = 2;
 
       "net.ipv4.tcp_slow_start_after_idle" = 0;
 
-      # Balance Zswap compression and application responsiveness under heavy memory pressure
-      "vm.swappiness" = 30;
+      # reduce swappiness further since ram is abundant
+      "vm.swappiness" = 20;
+      "kernel.task_delayacct" = 1;
 
-      # Prevent kswapd0 CPU spikes by disabling aggressive watermark boosting
+      # prevent kswapd0 cpu spikes by disabling aggressive watermark boosting
       "vm.watermark_boost_factor" = 0;
 
-      # Optimize Zswap single-page access by disabling swap read-ahead
+      # optimize zswap single-page access by disabling swap read-ahead
       "vm.page-cluster" = 0;
 
-      # Trigger background disk writeback earlier to prevent I/O stalls on nearly full Btrfs disk
-      "vm.dirty_background_ratio" = 5;
-      "vm.dirty_ratio" = 10;
+      # trigger background disk writeback by absolute bytes (e.g., 128mb / 512mb) instead of ratio
+      # this effectively prevents i/o stalls on large memory systems with btrfs
+      "vm.dirty_background_bytes" = 134217728;
+      "vm.dirty_bytes" = 536870912;
+      # setting explicit bytes overrides ratio values, so ratio should be set to 0
+      "vm.dirty_background_ratio" = 0;
+      "vm.dirty_ratio" = 0;
 
       "vm.max_map_count" = 2147483642;
       "net.ipv4.tcp_ecn" = 1;

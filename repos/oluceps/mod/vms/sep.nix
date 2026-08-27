@@ -43,7 +43,7 @@
               { config, ... }:
               {
                 imports = [
-                  ../../nixosModules/hysteria.nix
+                  # ../../nixosModules/hysteria.nix
                 ];
                 networking.hostName = "sept";
                 networking.useNetworkd = true;
@@ -226,16 +226,16 @@
                   lsof
                   mimic-bpf
                 ];
-                services.hysteria.instances = {
-                  ext = {
-                    enable = true;
-                    package = pkgs.hysteria;
-                    configFile = "/var/lib/hy/config.yml";
-                  };
-                };
+                # services.hysteria.instances = {
+                #   ext = {
+                #     enable = false;
+                #     package = pkgs.hysteria;
+                #     configFile = "/var/lib/hy/config.yml";
+                #   };
+                # };
                 services.xray = {
                   enable = true;
-                  settingsFile = "/var/lib/hy/xray.json";
+                  settingsFile = "/var/lib/xray/config.json";
                 };
                 services.openssh = {
                   enable = true;

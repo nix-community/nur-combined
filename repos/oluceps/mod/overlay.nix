@@ -30,7 +30,7 @@
                 "nix-direnv"
                 # "radicle"
                 "xwayland-satellite"
-                "atuin"
+                # "atuin"
                 "vicinae"
               ] (n: inputs'.${n}.packages.default))
 

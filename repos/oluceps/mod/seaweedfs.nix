@@ -2,8 +2,8 @@
   flake.modules.nixos.seaweedfs =
     { config, ... }:
     let
-      dataDir = "/three/sea";
-      filerDir = "/var/lib/sea-filer";
+      # filerDir = "/var/lib/sea-filer";
+      dataDir = "/var/lib/sea-volume";
     in
     {
       vaultix.secrets.weed-s3 = {
@@ -19,9 +19,9 @@
           "-s3"
           "-s3.config=${config.vaultix.secrets.weed-s3.path}"
           "-s3.allowEmptyFolder=false"
+          "-filer"
           "-filer.port=8889"
           "-dir=${dataDir}"
-          "-filer.dir=${filerDir}"
           "-volume.max=0"
           "-volume.hasSlowRead=false"
           "-volume.readBufferSizeMB=16"
@@ -33,8 +33,12 @@
       systemd.services.seaweedfs.serviceConfig = {
         ReadWritePaths = [
           dataDir
-          filerDir
         ];
+        MemoryMax = "8G";
+        MemoryHigh = "6G";
+        Environment = [ "GOMEMLIMIT=6GiB" ];
       };
+
+      environment.etc."seaweedfs/filer.toml".source = ./filer.toml;
     };
 }

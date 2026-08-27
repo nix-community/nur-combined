@@ -66,6 +66,7 @@
         pkgs.mcp-grafana
         # pkgs.texlive.combined.scheme-full
       ];
+
       environment.etc."alloy/config.alloy".text = ''
         discovery.relabel "journal" {
         	targets = []
@@ -110,6 +111,9 @@
         stateVersion = "24.11";
       };
       boot = {
+        kernel.sysctl = {
+          "vm.vfs_cache_pressure" = lib.mkForce 200;
+        };
         lanzaboote.measuredBoot = {
           enable = true;
           pcrs = [
