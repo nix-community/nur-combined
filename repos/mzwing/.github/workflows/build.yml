@@ -171,13 +171,16 @@ jobs:
       uses: mzwing/nix-actions/store-cache/checkpoint@master
       with:
         timeout-minutes: '90'
-        stage: 'false'
 
+    # The staged snapshot, never the live directory: reconciliation keeps uploading into Attic for as long as this push runs.
+    # Insurance only, so continue-on-error keeps a failure here from skipping the finalizing push that carries the run's actual result.
     - name: Push builder store cache (mid-run)
       if: ${{ !cancelled() && steps.checkpoint.outputs.checkpoint-ready == 'true' }}
+      continue-on-error: true
       uses: mzwing/nix-actions/store-cache/push@master
       with:
         remote: ${{ env.STORE_CACHE_REMOTE }}
+        data-dir: /nix/attic-checkpoint
         prune: 'false'
 
     - name: Finalize Attic
