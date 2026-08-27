@@ -110,6 +110,7 @@ files are copied from following locations. some are modified in this repo and so
 
 + versionCheckHomeHook <https://github.com/numtide/llm-agents.nix/tree/main/packages/versionCheckHomeHook> commit 04df876de28f0684a0d7110444d7f64da5c14d17
 + ryubing - copied from nixpkgs commit [9b50d450945903abb6fb7933c6cfd8f483f0dc2d](https://github.com/NixOS/nixpkgs/tree/9b50d450945903abb6fb7933c6cfd8f483f0dc2d) and modified to copy the desktop/icon files on Darwin to allow `desktopToDarwinBundle` to generate a macOS application bundle.
++ celeste64 (`by-name/ce/celeste64/`) — copied from nixpkgs commit [ac6b2166e7a9375683b8e98f860f273222337b16](https://github.com/NixOS/nixpkgs/tree/ac6b2166e7a9375683b8e98f860f273222337b16/pkgs/by-name/ce/celeste64) (`nixpkgs-unstable` lock); Darwin: `desktopToDarwinBundle`, Linux-only `runtimeDeps`, platforms include `*-darwin`
 + telegram-desktop_682 nixpkgs 8dc49b8b206a683d1f6605e0fd993c0f5d49c98d
 + jetbrains_idea-oss — IntelliJ IDEA Community built from JetBrains `idea/2026.2.1`
 + qq_bwrap - adapted from linuxqq-nt-bwrap https://aur.archlinux.org/packages/linuxqq-nt-bwrap
