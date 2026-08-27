@@ -389,7 +389,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-SJ6PVCIibpcWni57IFLJESLkCyLDRWKqoEXcVlAJMGs=/src-tauri/Cargo.lock",
+                "sha256-vcykwewzPfMpEV+bXLbc4wDbYJVYInp6cBdZpJVwEt8=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -405,12 +405,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.8-beta.4",
-            "sha256": "sha256-SJ6PVCIibpcWni57IFLJESLkCyLDRWKqoEXcVlAJMGs=",
+            "rev": "v3.9.8-beta.5",
+            "sha256": "sha256-vcykwewzPfMpEV+bXLbc4wDbYJVYInp6cBdZpJVwEt8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.8-beta.4"
+        "version": "v3.9.8-beta.5"
     },
     "nix-auth": {
         "cargoLock": null,
@@ -457,11 +457,11 @@
     "open-orpheus-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Osk0BkloXcQSBV1hty5YM4_gF5LLIp1rlLluP3tE20k=/Cargo.lock",
+                "sha256-_NoGBCUIdcpbD5D5tKnBcqUpD2FBbdypuoaC4yOcfFc=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-23",
+        "date": "2026-08-27",
         "extract": null,
         "name": "open-orpheus-dev",
         "passthru": null,
@@ -473,12 +473,12 @@
             "name": null,
             "owner": "YUCLing",
             "repo": "open-orpheus",
-            "rev": "cc83f11a90b4f871b1fff4d8ce67000c47288bd2",
-            "sha256": "sha256-Osk0BkloXcQSBV1hty5YM4/gF5LLIp1rlLluP3tE20k=",
+            "rev": "364dc1363123421dc4967db1629a6399e235f39b",
+            "sha256": "sha256-/NoGBCUIdcpbD5D5tKnBcqUpD2FBbdypuoaC4yOcfFc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cc83f11a90b4f871b1fff4d8ce67000c47288bd2"
+        "version": "364dc1363123421dc4967db1629a6399e235f39b"
     },
     "piliplus": {
         "cargoLock": null,
@@ -596,7 +596,7 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-H5PP+vt4LT2cGlRBw3SiCWTRdXJbGEYESF5ODqIoN8I=/Cargo.lock",
+                "sha256-9nifrT_pT7v_hke1J3HTsptLBr_adwkcTlo_bQ9S1ls=/Cargo.lock",
                 {}
             ]
         },
@@ -612,12 +612,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "9046d2765ac45eaad510ee396716ebb53dcd8ed7",
-            "sha256": "sha256-H5PP+vt4LT2cGlRBw3SiCWTRdXJbGEYESF5ODqIoN8I=",
+            "rev": "2a3bbc4bef4cbfbaa3b07bbc08614bf4829b5d57",
+            "sha256": "sha256-9nifrT/pT7v/hke1J3HTsptLBr/adwkcTlo/bQ9S1ls=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9046d2765ac45eaad510ee396716ebb53dcd8ed7"
+        "version": "2a3bbc4bef4cbfbaa3b07bbc08614bf4829b5d57"
     },
     "svt-av1-essential": {
         "cargoLock": null,

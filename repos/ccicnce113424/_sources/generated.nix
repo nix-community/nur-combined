@@ -244,16 +244,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.8-beta.4";
+    version = "v3.9.8-beta.5";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.8-beta.4";
+      rev = "v3.9.8-beta.5";
       fetchSubmodules = false;
-      sha256 = "sha256-SJ6PVCIibpcWni57IFLJESLkCyLDRWKqoEXcVlAJMGs=";
+      sha256 = "sha256-vcykwewzPfMpEV+bXLbc4wDbYJVYInp6cBdZpJVwEt8=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-SJ6PVCIibpcWni57IFLJESLkCyLDRWKqoEXcVlAJMGs=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-vcykwewzPfMpEV+bXLbc4wDbYJVYInp6cBdZpJVwEt8=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -285,21 +285,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "cc83f11a90b4f871b1fff4d8ce67000c47288bd2";
+    version = "364dc1363123421dc4967db1629a6399e235f39b";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "cc83f11a90b4f871b1fff4d8ce67000c47288bd2";
+      rev = "364dc1363123421dc4967db1629a6399e235f39b";
       fetchSubmodules = false;
-      sha256 = "sha256-Osk0BkloXcQSBV1hty5YM4/gF5LLIp1rlLluP3tE20k=";
+      sha256 = "sha256-/NoGBCUIdcpbD5D5tKnBcqUpD2FBbdypuoaC4yOcfFc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Osk0BkloXcQSBV1hty5YM4_gF5LLIp1rlLluP3tE20k=/Cargo.lock";
+      lockFile = ./. + "/sha256-_NoGBCUIdcpbD5D5tKnBcqUpD2FBbdypuoaC4yOcfFc=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-08-23";
+    date = "2026-08-27";
   };
   piliplus = {
     pname = "piliplus";
@@ -371,16 +371,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "9046d2765ac45eaad510ee396716ebb53dcd8ed7";
+    version = "2a3bbc4bef4cbfbaa3b07bbc08614bf4829b5d57";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "9046d2765ac45eaad510ee396716ebb53dcd8ed7";
+      rev = "2a3bbc4bef4cbfbaa3b07bbc08614bf4829b5d57";
       fetchSubmodules = false;
-      sha256 = "sha256-H5PP+vt4LT2cGlRBw3SiCWTRdXJbGEYESF5ODqIoN8I=";
+      sha256 = "sha256-9nifrT/pT7v/hke1J3HTsptLBr/adwkcTlo/bQ9S1ls=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-H5PP+vt4LT2cGlRBw3SiCWTRdXJbGEYESF5ODqIoN8I=/Cargo.lock";
+      lockFile = ./. + "/sha256-9nifrT_pT7v_hke1J3HTsptLBr_adwkcTlo_bQ9S1ls=/Cargo.lock";
       outputHashes = {
         
       };
