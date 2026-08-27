@@ -17890,6 +17890,41 @@ rec {
         };
         resolvedDefaultFeatures = [ "event" "ioctl" "poll" "process" "signal" ];
       };
+      "noise" = rec {
+        crateName = "noise";
+        version = "0.9.0";
+        edition = "2018";
+        sha256 = "1k7hrwb958lcmkvwk94cmm7vh3h6ps0a6y2xcvy55qgj6f1mr93d";
+        authors = [
+          "The Noise-rs Developers."
+        ];
+        dependencies = [
+          {
+            name = "num-traits";
+            packageId = "num-traits";
+          }
+          {
+            name = "rand";
+            packageId = "rand 0.8.8";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "rand_xorshift";
+            packageId = "rand_xorshift 0.3.0";
+          }
+        ];
+        devDependencies = [
+          {
+            name = "rand";
+            packageId = "rand 0.8.8";
+          }
+        ];
+        features = {
+          "image" = [ "dep:image" ];
+          "images" = [ "image" "std" ];
+        };
+        resolvedDefaultFeatures = [ "default" ];
+      };
       "nom 7.1.3" = rec {
         crateName = "nom";
         version = "7.1.3";
@@ -23132,7 +23167,7 @@ rec {
           }
           {
             name = "rand_xorshift";
-            packageId = "rand_xorshift";
+            packageId = "rand_xorshift 0.4.0";
           }
           {
             name = "regex-syntax";
@@ -23686,7 +23721,27 @@ rec {
         };
         resolvedDefaultFeatures = [ "alloc" "default" "std" ];
       };
-      "rand_xorshift" = rec {
+      "rand_xorshift 0.3.0" = rec {
+        crateName = "rand_xorshift";
+        version = "0.3.0";
+        edition = "2018";
+        sha256 = "13vcag7gmqspzyabfl1gr9ykvxd2142q2agrj8dkyjmfqmgg4nyj";
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+        ];
+        dependencies = [
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.6.4";
+          }
+        ];
+        features = {
+          "serde" = [ "dep:serde" ];
+          "serde1" = [ "serde" ];
+        };
+      };
+      "rand_xorshift 0.4.0" = rec {
         crateName = "rand_xorshift";
         version = "0.4.0";
         edition = "2021";
@@ -28622,6 +28677,10 @@ rec {
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./mods/urban_chaos; };type = [ "rlib" ];
         dependencies = [
+          {
+            name = "noise";
+            packageId = "noise";
+          }
           {
             name = "wit-bindgen";
             packageId = "wit-bindgen 0.60.0";

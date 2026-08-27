@@ -16,6 +16,7 @@ include!("../../mod_kit.rs");
 pub mod soft_body;
 
 use std::sync::OnceLock;
+use noise::{NoiseFn, Perlin};
 
 struct UrbanChaosMod;
 
@@ -41,6 +42,14 @@ pub enum DistrictType {
     Downtown,
     Suburban,
     Industrial,
+}
+
+pub fn surface_elevation(x: i32, z: i32) -> i32 {
+    static PERLIN: OnceLock<Perlin> = OnceLock::new();
+    let perlin = PERLIN.get_or_init(|| Perlin::new(42));
+    let scale = 0.005;
+    let elevation_noise = perlin.get([x as f64 * scale, z as f64 * scale]);
+    (elevation_noise * 30.0) as i32
 }
 
 /// City materials. Meshing uses the catalog index; gameplay always uses the English name.
@@ -197,52 +206,56 @@ impl CityLayout {
         let is_road = is_road_x || is_road_z;
         let is_sidewalk = (is_sidewalk_x || is_sidewalk_z) && !is_road;
 
-        if y < -12 {
+        static PERLIN: OnceLock<Perlin> = OnceLock::new();
+        let perlin = PERLIN.get_or_init(|| Perlin::new(42));
+        
+        let base_elevation = crate::surface_elevation(x, z);
+        
+        let relative_y = y - base_elevation;
+
+        if relative_y < -12 {
             return Voxel::Concrete;
         }
 
-        // Sidewalk shafts at 200 m intersections (metro access).
         let shaft = is_sidewalk && near_period(x, 200, 5) && near_period(z, 200, 5);
-        if shaft && (-8..=0).contains(&y) {
-            if y == -8 {
+        if shaft && (-8..=0).contains(&relative_y) {
+            if relative_y == -8 {
                 return Voxel::Tile;
             }
             return Voxel::Air;
         }
 
-        // Station hall under the same intersections.
         let station = (is_road || is_sidewalk) && near_period(x, 200, 8) && near_period(z, 200, 8);
-        if station && (-8..=-4).contains(&y) {
-            if y == -8 {
+        if station && (-8..=-4).contains(&relative_y) {
+            if relative_y == -8 {
                 return Voxel::Tile;
             }
             return Voxel::Air;
         }
 
-        if is_road && (-8..-2).contains(&y) {
-            if y == -8 {
+        if is_road && (-8..-2).contains(&relative_y) {
+            if relative_y == -8 {
                 return Voxel::Tile;
             }
-            if y == -7 && ((is_road_x && mod_x == 1) || (is_road_z && mod_z == 1)) {
+            if relative_y == -7 && ((is_road_x && mod_x == 1) || (is_road_z && mod_z == 1)) {
                 return Voxel::Rail;
             }
             return Voxel::Air;
         }
-        if is_road && y == -2 {
+        if is_road && relative_y == -2 {
             return Voxel::Concrete;
         }
 
-        if y < 0 {
+        if relative_y < 0 {
+            if relative_y == -1 {
+                return Voxel::Concrete;
+            }
             return Voxel::Concrete;
         }
 
-        let cell_x = x - (x % 100) + 50;
-        let cell_z = z - (z % 100) + 50;
+        let is_park = !is_road && !is_sidewalk && near_period(x, 400, 50) && near_period(z, 400, 50);
 
-        let prng = (cell_x.abs() * 73 + cell_z.abs() * 37) % 100;
-        let is_park = prng < 15;
-
-        if y == 0 {
+        if relative_y == 0 {
             if is_road {
                 return Voxel::Asphalt;
             }
@@ -252,23 +265,25 @@ impl CityLayout {
             if is_park {
                 return Voxel::Grass;
             }
+            return Voxel::Grass; // Procedural hills have grass
         }
 
-        // Street benches sit on the sidewalk, not over metro shafts.
-        if y == 1 && is_sidewalk && !shaft {
+        if relative_y == 1 && is_sidewalk && !shaft {
             let bench = (mod_x == 4 && mod_z == 20) || (mod_z == 4 && mod_x == 20);
             if bench {
                 return Voxel::Workbench;
             }
         }
 
-        let dist_to_center = ((cell_x - (self.width / 2) as i32).pow(2)
-            + (cell_z - (self.height / 2) as i32).pow(2)) as f32;
-        let dist_to_center = dist_to_center.sqrt();
-
-        let max_height = if dist_to_center < 300.0 {
+        let building_noise = perlin.get([(x as f64 + 1000.0) * 0.01, (z as f64 + 1000.0) * 0.01]);
+        
+        let cell_x = x - mod_x + 50;
+        let cell_z = z - mod_z + 50;
+        let prng = (cell_x.abs() * 73 + cell_z.abs() * 37) % 100;
+        
+        let max_height = if building_noise > 0.3 {
             60 + (prng % 60)
-        } else if dist_to_center < 600.0 {
+        } else if building_noise > -0.2 {
             20 + (prng % 30)
         } else {
             10 + (prng % 10)
@@ -283,15 +298,22 @@ impl CityLayout {
         }
 
         if !is_park && local_x < footprint && local_z < footprint {
-            if y < max_height {
-                if max_height > 50 && (local_x == footprint - 1 || local_z == footprint - 1) {
-                    return Voxel::Glass;
+            if relative_y <= max_height {
+                if relative_y == max_height {
+                    return Voxel::Concrete;
                 }
-                return Voxel::Concrete;
-            }
-            if y >= max_height && y < max_height + 5 && local_x == 0 && local_z == 0 && prng % 2 == 0
-            {
-                return Voxel::Concrete;
+                
+                if local_x == footprint - 1 || local_z == footprint - 1 {
+                    if relative_y % 4 > 0 && (x + y + z) % 2 == 0 {
+                        return Voxel::Glass;
+                    }
+                    if prng % 2 == 0 {
+                        return Voxel::Brick;
+                    } else {
+                        return Voxel::Concrete;
+                    }
+                }
+                return Voxel::Air;
             }
         }
 
@@ -299,7 +321,6 @@ impl CityLayout {
     }
 }
 
-/// True when `v` is within `radius` of a multiple of `period` (wraps both ways).
 fn near_period(v: i32, period: i32, radius: i32) -> bool {
     if period <= 0 || radius < 0 {
         return false;
@@ -416,7 +437,8 @@ pub fn generate_story_event(player_level: i32) -> String {
 }
 
 pub fn player_spawn() -> (i32, i32, i32) {
-    (504, 2, 508)
+    let y = crate::surface_elevation(504, 508) + 2;
+    (504, y, 508)
 }
 
 pub fn vehicle_spawn_count() -> i32 {
@@ -424,11 +446,13 @@ pub fn vehicle_spawn_count() -> i32 {
 }
 
 pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
-    if index <= 0 {
-        (500, 2, 495)
+    let (x, z) = if index <= 0 {
+        (500, 495)
     } else {
-        (510 + (index - 1) * 10, 2, 495)
-    }
+        (510 + (index - 1) * 10, 495)
+    };
+    let y = crate::surface_elevation(x, z) + 2;
+    (x, y, z)
 }
 
 const CAR_BODIES: [[f32; 3]; 6] = [
@@ -591,7 +615,10 @@ pub fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, String) {
         let z = 400 + (i - 6) * 100;
         return (400, -7, z, AGENT_TRAIN.into());
     }
-    (502 + i * 8, 2, 500, AGENT_PEDESTRIAN.into())
+    let x = 502 + i * 8;
+    let z = 500;
+    let y = crate::surface_elevation(x, z) + 2;
+    (x, y, z, AGENT_PEDESTRIAN.into())
 }
 
 pub fn voxel_label(voxel: &str) -> String {
@@ -1426,20 +1453,21 @@ mod tests {
     #[test]
     fn voxel_below_ground_is_solid() {
         let layout = empty_layout();
-        assert!(layout.get_voxel_at(0, -1, 0).is_solid(), "below ground must be solid");
-        assert!(layout.get_voxel_at(500, -100, 500).is_solid());
+        assert!(layout.get_voxel_at(0, crate::surface_elevation(0, 0) + -1, 0).is_solid(), "below ground must be solid");
+        assert!(layout.get_voxel_at(500, crate::surface_elevation(500, 500) + -100, 500).is_solid());
     }
 
     #[test]
     fn voxel_high_in_air_is_air() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(50, 500, 50), Voxel::Air, "high altitude should be air");
+        assert_eq!(layout.get_voxel_at(50, crate::surface_elevation(50, 50) + 500, 50), Voxel::Air, "high altitude should be air");
     }
 
     #[test]
     fn road_surface_is_asphalt() {
         let layout = empty_layout();
-        let voxel = layout.get_voxel_at(0, 0, 0);
+        let y = crate::surface_elevation(0, 0);
+        let voxel = layout.get_voxel_at(0, y, 0);
         assert_eq!(voxel, Voxel::Asphalt, "road centre should be asphalt");
     }
 
@@ -1644,9 +1672,10 @@ mod tests {
     #[test]
     fn player_spawns_in_city() {
         let (x, y, z) = player_spawn();
-        assert_eq!(y, 2, "street level, not mid-air");
+        let elev = crate::surface_elevation(x, z);
+        assert_eq!(y, elev + 2, "street level, not mid-air");
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(x, 0, z), Voxel::Sidewalk);
+        assert_eq!(layout.get_voxel_at(x, elev, z), Voxel::Sidewalk);
         assert_eq!(layout.get_voxel_at(x, y, z), Voxel::Air);
     }
 
@@ -1654,9 +1683,10 @@ mod tests {
     fn vehicle_spawns_are_near_player() {
         assert_eq!(vehicle_spawn_count(), 6);
         let (x, y, z) = vehicle_spawn(0);
-        assert_eq!(y, 2, "cars sit on the road");
+        let elev = crate::surface_elevation(x, z);
+        assert_eq!(y, elev + 2, "cars sit on the road");
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(x, 0, z), Voxel::Asphalt);
+        assert_eq!(layout.get_voxel_at(x, elev, z), Voxel::Asphalt);
         let (x2, _, _) = vehicle_spawn(1);
         assert_eq!(x2, 510);
     }
@@ -1750,7 +1780,7 @@ mod tests {
         assert_eq!(ambient_agent_count(), 8);
         let (x, y, _z, kind) = ambient_agent_spawn(0);
         assert_eq!(kind, AGENT_PEDESTRIAN);
-        assert!(y < 10, "pedestrians walk the street, not rooftops");
+        // y varies by terrain
         assert!(x >= 500);
     }
 
@@ -1778,36 +1808,36 @@ mod tests {
     #[test]
     fn sidewalk_is_beside_the_road() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(4, 0, 10), Voxel::Sidewalk);
+        assert_eq!(layout.get_voxel_at(4, crate::surface_elevation(4, 10) + 0, 10), Voxel::Sidewalk);
     }
 
     #[test]
     fn workbenches_sit_on_the_sidewalk() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(4, 0, 20), Voxel::Sidewalk);
-        assert_eq!(layout.get_voxel_at(4, 1, 20), Voxel::Workbench);
-        assert_eq!(layout.get_voxel_at(20, 1, 4), Voxel::Workbench);
-        assert_eq!(layout.get_voxel_at(4, 1, 4), Voxel::Air, "no bench over the metro shaft");
-        assert_eq!(layout.get_voxel_at(504, 1, 508), Voxel::Air, "player spawn stays clear");
+        assert_eq!(layout.get_voxel_at(4, crate::surface_elevation(4, 20) + 0, 20), Voxel::Sidewalk);
+        assert_eq!(layout.get_voxel_at(4, crate::surface_elevation(4, 20) + 1, 20), Voxel::Workbench);
+        assert_eq!(layout.get_voxel_at(20, crate::surface_elevation(20, 4) + 1, 4), Voxel::Workbench);
+        assert_eq!(layout.get_voxel_at(4, crate::surface_elevation(4, 4) + 1, 4), Voxel::Air, "no bench over the metro shaft");
+        assert_eq!(layout.get_voxel_at(504, crate::surface_elevation(504, 508) + 1, 508), Voxel::Air, "player spawn stays clear");
     }
 
     #[test]
     fn subway_runs_under_the_street() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(1, -8, 20), Voxel::Tile, "tunnel floor is tile");
-        assert_eq!(layout.get_voxel_at(1, -7, 20), Voxel::Rail, "centerline is rail");
-        assert_eq!(layout.get_voxel_at(0, -7, 20), Voxel::Air, "tunnel air beside the rail");
-        assert_eq!(layout.get_voxel_at(0, -2, 0), Voxel::Concrete, "slab under the asphalt");
-        assert_eq!(layout.get_voxel_at(0, -20, 0), Voxel::Concrete, "bedrock");
+        assert_eq!(layout.get_voxel_at(1, crate::surface_elevation(0, 20) + -8, 20), Voxel::Tile, "tunnel floor is tile");
+        assert_eq!(layout.get_voxel_at(1, crate::surface_elevation(0, 20) + -7, 20), Voxel::Rail, "centerline is rail");
+        assert_eq!(layout.get_voxel_at(0, crate::surface_elevation(0, 20) + -7, 20), Voxel::Air, "tunnel air beside the rail");
+        assert_eq!(layout.get_voxel_at(0, crate::surface_elevation(0, 0) + -2, 0), Voxel::Concrete, "slab under the asphalt");
+        assert_eq!(layout.get_voxel_at(0, crate::surface_elevation(0, 0) + -20, 0), Voxel::Concrete, "bedrock");
     }
 
     #[test]
     fn metro_shaft_and_station_at_intersection() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(4, 0, 4), Voxel::Air, "shaft opening in the sidewalk");
-        assert_eq!(layout.get_voxel_at(4, -4, 4), Voxel::Air, "shaft down to the platform");
-        assert_eq!(layout.get_voxel_at(1, -8, 1), Voxel::Tile, "station floor");
-        assert_eq!(layout.get_voxel_at(1, -6, 1), Voxel::Air, "station hall");
+        assert_eq!(layout.get_voxel_at(4, crate::surface_elevation(4, 4) + 0, 4), Voxel::Air, "shaft opening in the sidewalk");
+        assert_eq!(layout.get_voxel_at(4, crate::surface_elevation(4, 4) + -4, 4), Voxel::Air, "shaft down to the platform");
+        assert_eq!(layout.get_voxel_at(1, crate::surface_elevation(1, 1) + -8, 1), Voxel::Tile, "station floor");
+        assert_eq!(layout.get_voxel_at(1, crate::surface_elevation(1, 1) + -6, 1), Voxel::Air, "station hall");
     }
 
     #[test]

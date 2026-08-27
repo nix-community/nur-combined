@@ -2547,7 +2547,7 @@ mod tests {
         };
         assert_eq!(
             ctx.bus_xyz("player-spawn", &wire_empty(), (0, 0, 0)),
-            (504, 2, 508)
+            (504, 12, 508)
         );
         assert_eq!(
             ctx.bus_i32("vehicle-spawn-count", &wire_empty(), 0),
@@ -2609,7 +2609,7 @@ mod tests {
                 &wire_int(0),
                 (0, 0, 0, String::new())
             ),
-            (502, 2, 500, "pedestrian".into())
+            (502, 12, 500, "pedestrian".into())
         );
         assert_eq!(
             ctx.bus_text_payload(
@@ -2747,7 +2747,7 @@ mod tests {
         );
         assert_eq!(
             ctx.bus_xyz("vehicle-spawn", &wire_int(0), (0, 0, 0)),
-            (500, 2, 495)
+            (500, 12, 495)
         );
         *slot.lock().unwrap() = Some(ctx);
     }
