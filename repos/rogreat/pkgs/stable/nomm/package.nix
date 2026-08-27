@@ -15,7 +15,7 @@
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
-  pname = "native-open-mod-manager";
+  pname = "nomm";
   version = "0.12.6";
   pyproject = false;
 
@@ -105,7 +105,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   __structuredAttrs = true;
 
   meta = {
-    description = "Native Open Mod Manager ";
+    description = "Native Open Mod Manager";
     homepage = "https://nomm.moe";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ RoGreat ];

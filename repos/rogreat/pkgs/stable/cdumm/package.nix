@@ -41,7 +41,7 @@ let
 in
 python3Packages.buildPythonApplication (finalAttrs: {
   inherit src version;
-  pname = "crimsondesert-ultimatemodsmanager";
+  pname = "cdumm";
   pyproject = true;
 
   build-system = with python3Packages; [
