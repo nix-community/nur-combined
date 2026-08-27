@@ -120,14 +120,17 @@ let
           allowSubstitutes = false;
         };
 
-        pi-coding-agent = super.pi-coding-agent.overrideAttrs {
+        pi-coding-agent = super.pi-coding-agent.overrideAttrs (old: {
           src = builtins.fetchGit {
             url = "https://github.com/dnouri/pi-coding-agent";
             ref = "master";
           };
+          packageRequires = old.packageRequires ++ [
+            super.magit-section
+          ];
           preferLocalBuild = true;
           allowSubstitutes = false;
-        };
+        });
 
       }
       // (builtins.mapAttrs (_name: f: f self super) cfg.extraOverrides)
