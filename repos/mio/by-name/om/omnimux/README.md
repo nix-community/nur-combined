@@ -60,4 +60,5 @@ Localhost / empty host runs a shell script that prefers `tmux` and falls back to
 ## Packaging
 
 - Ships Symbols Nerd Font + Noto Color Emoji under `$out/share/omnimux/fonts` (`OMNIMUX_FONTS_DIR`).
+- Linux also ships Hack as a **last-resort** terminal face: GPUI cannot resolve fontconfig's `monospace` alias and otherwise falls through to proportional sans (e.g. Noto Sans on KDE). Installed monos such as SF Mono / Fira Code / Noto Sans Mono are preferred when present.
 - Desktop entry + icon; Darwin `.app` via `desktopToDarwinBundle`.

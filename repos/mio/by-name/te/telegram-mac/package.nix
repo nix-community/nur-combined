@@ -4,6 +4,7 @@
   python3,
   git,
   cacert,
+  jq,
   cmake,
   ninja,
   openssl,
@@ -68,7 +69,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = stdenvNoCC.mkDerivation {
     name = "telegram-mac-source-${finalAttrs.version}";
     outputHashMode = "recursive";
-    outputHash = "sha256-jBDhtqNNN0/m5C3fmtAmiLG0dAPMU5uf9yn0IkpfqRk=";
+    outputHash = "sha256-GqpLd0prXqipJiVekTbyE6KnRkdhi4UHiScAp3EwU2U=";
 
     inherit (finalAttrs) srcRev;
     nativeBuildInputs = [
@@ -78,8 +79,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
 
     buildCommand = ''
-      git config --global url."https://github.com/".insteadOf "git@github.com:"
-      git config --global url."https://gitlab.com/".insteadOf "git@gitlab.com:"
+      # Keep checkout metadata out of the FOD (and stable across machines).
+      export GIT_CONFIG_COUNT=3
+      export GIT_CONFIG_KEY_0=url.https://github.com/.insteadof
+      export GIT_CONFIG_VALUE_0=git@github.com:
+      export GIT_CONFIG_KEY_1=url.https://gitlab.com/.insteadof
+      export GIT_CONFIG_VALUE_1=git@gitlab.com:
+      export GIT_CONFIG_KEY_2=core.autocrlf
+      export GIT_CONFIG_VALUE_2=false
 
       git clone https://github.com/overtake/TelegramSwift.git "$out"
       cd "$out"
@@ -91,7 +98,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         --replace-fail 'git@github.com:john-preston/tgcalls.git' 'https://github.com/overtake/tgcalls.git'
 
       git submodule update --init --recursive
-      rm -rf .git
+
+      # Top-level rm is not enough: nested submodule .git files/dirs remain and
+      # can differ across git versions / clone layouts.
+      find "$out" -name .git -print0 | xargs -0 rm -rf
+      find "$out" -type d -name xcuserdata -print0 | xargs -0 rm -rf
     '';
   };
 
@@ -123,16 +134,24 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   spmDeps = stdenvNoCC.mkDerivation {
     name = "telegram-mac-spm-${finalAttrs.version}";
     outputHashMode = "recursive";
-    outputHash = "sha256-IjmprMoczwB+Oigg3RuonTVdF70oBHhnQHWlAe9f5KQ=";
+    # Drop bare `repositories/` mirrors after resolve; full-ref packs were the
+    # cross-machine hash churn (`fetch = +refs/*` tracks remote tip noise).
+    outputHash = "sha256-N7G40yy9dvM3SaMvjGK+kx91SWK3iKyiaKcn3Z1zywg=";
 
     inherit (finalAttrs) src;
-    nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+    nativeBuildInputs = [
+      jq
+      writableTmpDirAsHomeHook
+    ];
     sandboxProfile = xcodeSandboxProfile;
 
     buildCommand = ''
       export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
       export PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"
       export CFFIXED_USER_HOME=$HOME
+      export GIT_CONFIG_COUNT=1
+      export GIT_CONFIG_KEY_0=core.autocrlf
+      export GIT_CONFIG_VALUE_0=false
 
       cp -a "$src" src
       chmod -R u+w src
@@ -153,11 +172,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       test -d "$out/checkouts/firebase-ios-sdk"
       test -f "$out/workspace-state.json"
 
+      # Bare mirrors are not needed for -disableAutomaticPackageResolution builds
+      # and are the main cross-machine hash instability (full-ref packs).
+      rm -rf "$out/repositories"
+
+      find "$out/checkouts" -name .git -print0 | xargs -0 rm -rf
+      find "$out" -type d -name xcuserdata -print0 | xargs -0 rm -rf
+
       substituteInPlace "$out/workspace-state.json" \
         --replace-fail "$out" '@SPM@' \
         --replace-fail "$NIX_BUILD_TOP/src" '@SRC@'
 
-      find "$out/checkouts" -name .git -print0 | xargs -0 rm -rf
+      # Stable serialization across xcodebuild pretty-printers.
+      jq -cS . "$out/workspace-state.json" > "$TMPDIR/workspace-state.json"
+      mv "$TMPDIR/workspace-state.json" "$out/workspace-state.json"
     '';
   };
 

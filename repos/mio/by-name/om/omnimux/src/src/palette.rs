@@ -1,8 +1,67 @@
-use gpui::WindowAppearance;
+use gpui::{App, WindowAppearance};
 use gpui_terminal::color_scheme::is_dark_rgb;
 use gpui_terminal::ColorPalette;
 
 pub const DEFAULT_FONT_SIZE: f32 = 14.0;
+
+/// Bundled last-resort face (`Hack-*.ttf` via `OMNIMUX_FONTS_DIR`) when Linux has
+/// no usable monospace family in GPUI/fontdb.
+pub const BUNDLED_TERMINAL_FONT_FAMILY: &str = "Hack";
+
+/// Real monospace family names (fontdb), never fontconfig's `monospace` alias.
+/// GPUI `resolve_font("monospace")` falls through to Noto Sans on many KDE hosts.
+/// Prefer SF Mono first (matches typical NixOS/ipc fontconfig); keep Nerd families
+/// after plain monos so Starship can still use Symbols Nerd Font fallbacks when
+/// the primary has no PUA glyphs.
+const PREFERRED_LINUX_TERMINAL_FONTS: &[&str] = &[
+    "SF Mono",
+    "SFMono",
+    "Menlo",
+    "Monaco",
+    "JetBrains Mono",
+    "Cascadia Code",
+    "Cascadia Mono",
+    "Fira Code",
+    "Fira Mono",
+    "Source Code Pro",
+    "Inconsolata",
+    "DejaVu Sans Mono",
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono",
+    "Roboto Mono",
+    "IBM Plex Mono",
+    "Lilex",
+    "Consolas",
+    "Courier New",
+    // Nerd-patched faces last among installed picks: full of PUA glyphs, but
+    // Mono vs non-Mono cell widths differ; prefer a plain mono + Symbols fallback.
+    "FiraCode Nerd Font",
+    "FiraCode Nerd Font Mono",
+    "Hack",
+];
+
+/// Primary terminal font family for new sessions.
+///
+/// - macOS: Menlo
+/// - Linux: first installed name from [`PREFERRED_LINUX_TERMINAL_FONTS`], else
+///   bundled Hack (GPUI does not honor fontconfig `monospace`)
+/// - other: generic monospace
+pub fn terminal_font_family(cx: &App) -> String {
+    if cfg!(target_os = "macos") {
+        return "Menlo".into();
+    }
+    if !cfg!(target_os = "linux") {
+        return "monospace".into();
+    }
+    let names = cx.text_system().all_font_names();
+    for candidate in PREFERRED_LINUX_TERMINAL_FONTS {
+        if let Some(found) = names.iter().find(|n| n.eq_ignore_ascii_case(candidate)) {
+            return found.clone();
+        }
+    }
+    BUNDLED_TERMINAL_FONT_FAMILY.to_string()
+}
 
 /// Fallback families for glyphs missing from the primary monospace (Starship nerd
 /// icons, powerline separators, and default emoji like hostname `ssh_symbol` 🌐).

@@ -45,8 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
   ];
 
-
-
   # Avoid fetch-electron.sh
   postPatch = ''
     sed -i '/fetch-electron.sh/d' browser/package.json
@@ -65,7 +63,9 @@ stdenv.mkDerivation (finalAttrs: {
     )
 
     mkdir -p browser/native
-    cp engine/target/release/libpixel_node.so browser/native/pixel.node
+    cp engine/target/release/libpixel_node.${
+      if stdenv.hostPlatform.isDarwin then "dylib" else "so"
+    } browser/native/pixel.node
 
     # bundle js
     mkdir -p browser/dist cli/dist
@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r browser/dist $out/share/terminal-browser/browser/
     cp -r cli/dist $out/share/terminal-browser/cli/
     cp -r browser/native $out/share/terminal-browser/browser/
-    
+
     # copy fonts
     mkdir -p $out/share/terminal-browser/assets/fonts
     cp assets/fonts/JetBrainsMono-Regular.ttf $out/share/terminal-browser/assets/fonts/
@@ -100,6 +100,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/zenbu-labs/terminal-browser";
     license = licenses.mit;
     mainProgram = "terminal-browser";
-    platforms = platforms.linux;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 })

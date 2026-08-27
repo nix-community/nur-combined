@@ -220,8 +220,9 @@ lib.overrideDerivation
 
       installPhase = ''
         runHook preInstall
-        mkdir -p $out/Applications
+        mkdir -p $out/Applications $out/bin
         cp -r build/macos/Build/Products/Release/uplink.app $out/Applications/
+        ln -s $out/Applications/uplink.app/Contents/MacOS/uplink $out/bin/uplink
         runHook postInstall
       '';
 
