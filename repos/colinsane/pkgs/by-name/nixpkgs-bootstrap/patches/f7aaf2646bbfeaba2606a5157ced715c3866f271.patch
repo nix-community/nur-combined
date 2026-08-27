@@ -1,0 +1,30 @@
+From f7aaf2646bbfeaba2606a5157ced715c3866f271 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Thu, 27 Aug 2026 15:02:18 +0000
+Subject: [PATCH] dbus-python: don't check when cross compiling
+
+fixes `nix-build -A pkgsCross.aarch64-multiplatform.buildPackages.python314Packages.dbus-python`
+---
+ pkgs/development/python-modules/dbus-python/default.nix | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/pkgs/development/python-modules/dbus-python/default.nix b/pkgs/development/python-modules/dbus-python/default.nix
+index fc648cdf7d1d..d5118d0d9606 100644
+--- a/pkgs/development/python-modules/dbus-python/default.nix
++++ b/pkgs/development/python-modules/dbus-python/default.nix
+@@ -1,5 +1,6 @@
+ {
+   lib,
++  stdenv,
+   fetchPypi,
+   buildPythonPackage,
+   fetchpatch,
+@@ -77,6 +78,8 @@ buildPythonPackage (finalAttrs: {
+     pygobject3
+   ];
+ 
++  doCheck = stdenv.buildPlatform == stdenv.targetPlatform;
++
+   mesonFlags = [
+     (lib.mesonEnable "tests" finalAttrs.finalPackage.doInstallCheck)
+   ];

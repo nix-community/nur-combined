@@ -1,23 +1,24 @@
 [
   {
-    "id": "stealth/ox-alpha",
-    "name": "Ox Alpha",
+    "id": "z-ai/glm-5.3-flash",
+    "name": "GLM 5.3 Flash",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.5e-05,
-      "completion": 0.05,
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 0.25,
       "currency": "USD",
-      "prompt": 0.05,
+      "prompt": 0.075,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
-    "max_output_tokens": 32768,
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -31,10 +32,32 @@
       "prompt": 0.08,
       "unit": "per_million_tokens"
     },
-    "context_length": 131072,
+    "context_length": 262144,
     "max_output_tokens": 32768,
     "capabilities": {
-      "reasoning": false
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-uncensored:thinking",
+    "name": "Gemma 4 26B A4B Uncensored Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -53,10 +76,120 @@
       "prompt": 0.18,
       "unit": "per_million_tokens"
     },
-    "context_length": 131072,
+    "context_length": 262144,
     "max_output_tokens": 32768,
     "capabilities": {
-      "reasoning": false
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.8-27b-uncensored:thinking",
+    "name": "Qwen 3.8 27B Uncensored Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.18,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.8-27b-obliterated",
+    "name": "Qwen 3.8 27B Obliterated",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.18,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.8-27b-obliterated:thinking",
+    "name": "Qwen 3.8 27B Obliterated Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.18,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "ornith-ai/ornith-1.5-397b",
+    "name": "Ornith 1.5 397B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4.5e-05,
+      "completion": 3.6,
+      "currency": "USD",
+      "prompt": 0.9,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "ornith-ai/ornith-1.5-397b:thinking",
+    "name": "Ornith 1.5 397B Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4.5e-05,
+      "completion": 3.6,
+      "currency": "USD",
+      "prompt": 0.9,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -75,10 +208,32 @@
       "prompt": 0.15,
       "unit": "per_million_tokens"
     },
-    "context_length": 65536,
+    "context_length": 262144,
     "max_output_tokens": 32768,
     "capabilities": {
-      "reasoning": false
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.6-35b-a3b-uncensored:thinking",
+    "name": "Qwen 3.6 35B A3B Uncensored Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -97,7 +252,29 @@
       "prompt": 0.05,
       "unit": "per_million_tokens"
     },
-    "context_length": 131072,
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "ornith-ai/ornith-1.5-9b:thinking",
+    "name": "Ornith 1.5 9B Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.1,
+      "currency": "USD",
+      "prompt": 0.05,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
     "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": true
@@ -119,7 +296,73 @@
       "prompt": 0.08,
       "unit": "per_million_tokens"
     },
-    "context_length": 65536,
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "Gemma-4-31B-MeroMero-v2:thinking",
+    "name": "Gemma 4 31B MeroMero v2 Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "Gemma-4-26B-A4B-MeroMero",
+    "name": "Gemma 4 26B A4B MeroMero",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "Gemma-4-26B-A4B-MeroMero:thinking",
+    "name": "Gemma 4 26B A4B MeroMero Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
     "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": true
@@ -135,7 +378,7 @@
     "id": "ornith-ai/ornith-1.5-35b-a3b",
     "name": "Ornith 1.5 35B",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1e-05,
+      "cacheReadInputPer1kTokens": 5e-05,
       "completion": 0.4,
       "currency": "USD",
       "prompt": 0.1,
@@ -157,7 +400,7 @@
     "id": "ornith-ai/ornith-1.5-35b-a3b:thinking",
     "name": "Ornith 1.5 35B Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1e-05,
+      "cacheReadInputPer1kTokens": 5e-05,
       "completion": 0.4,
       "currency": "USD",
       "prompt": 0.1,
@@ -522,6 +765,29 @@
     "architecture": {
       "input_modalities": [
         "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/qwen3.8-27b",
+    "name": "Qwen3.8 27B TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00015,
+      "completion": 3.0,
+      "currency": "USD",
+      "prompt": 0.4,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 262144,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
       ]
     }
   },
@@ -1695,10 +1961,10 @@
     "id": "openai/gpt-5.6-sol",
     "name": "GPT 5.6 Sol",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
-      "completion": 15.0,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.5,
+      "prompt": 2.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1050000,
@@ -1805,10 +2071,10 @@
     "id": "openai/gpt-5.6-sol-pro",
     "name": "GPT 5.6 Sol Pro",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
-      "completion": 15.0,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.5,
+      "prompt": 2.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1050000,
@@ -1915,10 +2181,10 @@
     "id": "openai/gpt-latest",
     "name": "GPT Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
-      "completion": 15.0,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.5,
+      "prompt": 2.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1050000,
@@ -1937,10 +2203,10 @@
     "id": "openai/gpt-chat-latest",
     "name": "GPT Chat Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
-      "completion": 15.0,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.5,
+      "prompt": 2.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1050000,
@@ -7483,6 +7749,29 @@
     }
   },
   {
+    "id": "qwen/qwen3.8-2.4t-a95b",
+    "name": "Qwen3.8 2.4T A95B (Max)",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00025,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 991000,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ]
+    }
+  },
+  {
     "id": "qwen3.8-max:thinking",
     "name": "Qwen3.8 Max Thinking",
     "pricing": {
@@ -12480,27 +12769,6 @@
     }
   },
   {
-    "id": "inclusionai/ling-2.6-flash",
-    "name": "Ling 2.6 Flash",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 2e-05,
-      "completion": 0.3,
-      "currency": "USD",
-      "prompt": 0.1,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "inclusionai/ling-3.0-flash",
     "name": "Ling 3.0 Flash",
     "pricing": {
@@ -12533,48 +12801,6 @@
     },
     "context_length": 262144,
     "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "inclusionai/ling-2.6-1t",
-    "name": "Ling 2.6 1T",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 6e-05,
-      "completion": 2.5,
-      "currency": "USD",
-      "prompt": 0.3,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "inclusionai/ring-2.6-1t",
-    "name": "Ring 2.6 1T",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 6e-05,
-      "completion": 2.5,
-      "currency": "USD",
-      "prompt": 0.3,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
     },

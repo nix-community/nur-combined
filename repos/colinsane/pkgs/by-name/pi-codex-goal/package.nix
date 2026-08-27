@@ -24,6 +24,10 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-Na6MzghB89ivCj2Mlcc2aLWwxc+eEgv3RiscQcxrFw0=";
 
+  patches = [
+    ./budget.patch
+  ];
+
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
   '';

@@ -1,0 +1,17 @@
+forbid token_budget < 500000
+
+gpt-5.6 frequently chooses 12000, which is always too small.
+---
+diff --git a/src/tools.ts b/src/tools.ts
+index 25807df..279347b 100644
+--- a/src/tools.ts
++++ b/src/tools.ts
+@@ -16,7 +16,7 @@ const CreateGoalParams = Type.Object({
+   token_budget: Type.Optional(
+     Type.Integer({
+       description: "Optional positive integer token budget.",
+-      minimum: 1,
++      minimum: 500000,
+     }),
+   ),
+   replace_existing: Type.Optional(

@@ -56,6 +56,7 @@ in
       alias.cp      = "cherry-pick";
       alias.dif     = "diff";  # common typo
       alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
+      alias.format-diff = "diff --no-color --no-ext-diff --src-prefix=a/ --dst-prefix=b/ --unified=3 --binary";  # `git format-diff > WIP.diff` to create standard .diff files from the working tree
       alias.pdiff   = "difftool";  # equivalent to `GIT_EXTERNAL_DIFF=difft git diff`
       alias.plog    = "!GIT_EXTERNAL_DIFF=difft DFT_IGNORE_COMMENTS=true git log --patch --ext-diff";
       # alias.pshow   = "!GIT_EXTERNAL_DIFF=difft DFT_IGNORE_COMMENTS=true git show --ext-diff";

@@ -380,6 +380,11 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
+    # 2026-08-27: the same HLS FATE tests segfault on musl in ffmpeg 9.
+    ffmpeg_9 = prev.ffmpeg_9.overrideAttrs {
+      doCheck = false;
+    };
+
     # 2026-08-13: Alpine disables checks because the HLS FATE tests fail on musl.
     # Its musl ioctl fix is also applied here for the libv4l2 build.
     ffmpeg = prev.ffmpeg.overrideAttrs (upstream: {
@@ -866,6 +871,14 @@ super.lib.composeManyExtensions [
       gst-plugins-rs = prev'.gst-plugins-rs.override {
         plugins = lib.remove "ffv1" prev'.gst-plugins-rs.selectedPlugins;
       };
+
+      # 2026-08-27: nixpkgs stopped linking gst-plugins-good with ncurses;
+      # aalib's static library still needs it when building on musl.
+      gst-plugins-good = prev'.gst-plugins-good.overrideAttrs (upstream: {
+        env = (upstream.env or {}) // {
+          NIX_LDFLAGS = "${upstream.env.NIX_LDFLAGS or ""} -lncurses";
+        };
+      });
     });
 
     # 2026-04-30: still required; **partial fix** out for PR: <https://github.com/NixOS/nixpkgs/pull/515642>
