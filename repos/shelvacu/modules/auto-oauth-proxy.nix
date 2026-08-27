@@ -152,7 +152,7 @@ let
     config.settings = {
       provider = "oidc";
       redirect_url = "https://${config.appDomain}/oauth2/callback";
-      scope = "openid email";
+      scope = "openid email groups";
       # oidc_issuer_url = "${config.out.kanidmUrl}/oauth2/openid/${config.name}";
       approval_prompt = "auto";
       client_id = config.name;
@@ -440,6 +440,7 @@ in
             "email"
             "openid"
             "profile"
+            "groups"
           ];
         };
       });
