@@ -16,6 +16,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-k5PHQBoyRvmR8RMq5p89x+OGZiNs/Xj/58/OrYSYpyQ=";
   };
 
+  patches = [
+    ./hardcoded-argv.patch
+  ];
+
   dontConfigure = true;
   dontBuild = true;
 
