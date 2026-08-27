@@ -22,13 +22,13 @@
 }:
 let
 
-  version = "v3.7.1";
-  cargoHash = "sha256-uAnCg/g9I6RAmTsOq2kWPQRrwI3NcSFtLZtF5aRvL44=";
+  version = "v3.8.0";
+  cargoHash = "sha256-ckF4N4GqdQxInLrmpTBgh2bdtMjFbmkjZzEZUUpxhbs=";
   src = fetchFromGitHub {
     owner = "encounter";
     repo = "objdiff";
     rev = version;
-    hash = "sha256-MBPZFQCddAvJ7Au7+Hl8dB/Nd7lfreCqIXDXdYmZUak=";
+    hash = "sha256-DuU7NJJSIPoePNrG6HH/IEmJtUEio7067jQNDOPX7nA=";
   };
 
 in
@@ -37,9 +37,10 @@ rustPlatform.buildRustPackage {
 
   pname = "objdiff";
 
-  cargoPatches = [./lock.patch];
-
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [ gtk3 ];
   postFixup = ''wrapProgram "$out/bin/objdiff" --prefix LD_LIBRARY_PATH : "${
     lib.makeLibraryPath [

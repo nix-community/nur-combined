@@ -1,0 +1,95 @@
+diff --git a/src/Ryujinx.Graphics.Gpu/Shader/DiskCache/ParallelDiskCacheLoader.cs b/src/Ryujinx.Graphics.Gpu/Shader/DiskCache/ParallelDiskCacheLoader.cs
+index a0d3e8c15..17ab5ec7d 100644
+--- a/src/Ryujinx.Graphics.Gpu/Shader/DiskCache/ParallelDiskCacheLoader.cs
++++ b/src/Ryujinx.Graphics.Gpu/Shader/DiskCache/ParallelDiskCacheLoader.cs
+@@ -13,7 +13,7 @@ namespace Ryujinx.Graphics.Gpu.Shader.DiskCache
+ {
+     class ParallelDiskCacheLoader
+     {
+-        private const int ThreadCount = 8;
++        private static readonly int ThreadCount = Math.Max(1, Environment.ProcessorCount - 1);
+ 
+         private readonly GpuContext _context;
+         private readonly ShaderCacheHashTable _graphicsCache;
+@@ -220,7 +220,9 @@ namespace Ryujinx.Graphics.Gpu.Shader.DiskCache
+             _compilationQueue = new ConcurrentQueue<ProgramCompilation>();
+             _asyncTranslationQueue = new BlockingCollection<AsyncProgramTranslation>(ThreadCount);
+             _programList = new SortedList<int, (CachedShaderProgram, byte[])>();
+-            _backendParallelCompileThreads = Math.Min(Environment.ProcessorCount, 8); // Must be kept in sync with the backend code.
++            _backendParallelCompileThreads = context.Capabilities.Api == TargetApi.OpenGL
++                ? Math.Min(Environment.ProcessorCount, 8)
++                : Environment.ProcessorCount;
+         }
+ 
+         /// <summary>
+diff --git a/src/Ryujinx.Graphics.Vulkan/PipelineBase.cs b/src/Ryujinx.Graphics.Vulkan/PipelineBase.cs
+index 0172b5b56..fa7d0c02b 100644
+--- a/src/Ryujinx.Graphics.Vulkan/PipelineBase.cs
++++ b/src/Ryujinx.Graphics.Vulkan/PipelineBase.cs
+@@ -711,7 +711,7 @@ namespace Ryujinx.Graphics.Vulkan
+         public void SetBlendState(AdvancedBlendDescriptor blend)
+         {
+             Span<PipelineColorBlendAttachmentState> colorBlendAttachmentStateSpan = _newState.Internal.ColorBlendAttachmentState.AsSpan();
+-            
++
+             for (int index = 0; index < Constants.MaxRenderTargets; index++)
+             {
+                 ref PipelineColorBlendAttachmentState vkBlend = ref colorBlendAttachmentStateSpan[index];
+@@ -987,7 +987,7 @@ namespace Ryujinx.Graphics.Vulkan
+         {
+             int count = Math.Min(Constants.MaxRenderTargets, componentMask.Length);
+             int writtenAttachments = 0;
+-            
++
+             Span<PipelineColorBlendAttachmentState> colorBlendAttachmentStateSpan = _newState.Internal.ColorBlendAttachmentState.AsSpan();
+ 
+             for (int i = 0; i < count; i++)
+@@ -1170,7 +1170,7 @@ namespace Ryujinx.Graphics.Vulkan
+ 
+             int count = Math.Min(Constants.MaxVertexAttributes, vertexAttribs.Length);
+             uint dirtyVbSizes = 0;
+-            
++
+             Span<VertexInputAttributeDescription> vertexAttributeDescriptionsSpan = _newState.Internal.VertexAttributeDescriptions.AsSpan();
+ 
+             for (int i = 0; i < count; i++)
+@@ -1221,7 +1221,7 @@ namespace Ryujinx.Graphics.Vulkan
+ 
+             BufferHandle lastHandle = default;
+             Auto<DisposableBuffer> lastBuffer = null;
+-            
++
+             Span<VertexInputBindingDescription> vertexBindingDescriptionsSpan = _newState.Internal.VertexBindingDescriptions.AsSpan();
+ 
+             for (int i = 0; i < count; i++)
+@@ -1688,7 +1688,16 @@ namespace Ryujinx.Graphics.Vulkan
+                     CreateRenderPass();
+                 }
+ 
+-                if (!_program.IsLinked)
++
++                if (pbp == PipelineBindPoint.Graphics)
++                {
++                    if (!_program.IsLinkedReady)
++                    {
++                        // Either failed or still compiling, drop the draw and try again
++                        return false;
++                    }
++                }
++                else if (!_program.IsLinked)
+                 {
+                     // Background compile failed, we likely can't create the pipeline because the shader is broken
+                     // or the driver failed to compile it.
+diff --git a/src/Ryujinx.Graphics.Vulkan/ShaderCollection.cs b/src/Ryujinx.Graphics.Vulkan/ShaderCollection.cs
+index 8504c4343..1fe724147 100644
+--- a/src/Ryujinx.Graphics.Vulkan/ShaderCollection.cs
++++ b/src/Ryujinx.Graphics.Vulkan/ShaderCollection.cs
+@@ -51,6 +51,8 @@ namespace Ryujinx.Graphics.Vulkan
+             }
+         }
+ 
++        public bool IsLinkedReady => LinkStatus == ProgramLinkStatus.Success;
++
+         private HashTableSlim<PipelineUid, Auto<DisposablePipeline>> _graphicsPipelineCache;
+         private HashTableSlim<SpecData, Auto<DisposablePipeline>> _computePipelineCache;
+ 

@@ -29,16 +29,17 @@
 
 buildDotnetModule rec {
   pname = "ryubing";
-  version = "1.3.333";
+  version = "1.3.351";
 
   src = fetchFromGitea {
     domain = "git.ryujinx.app";
     owner = "projects";
     repo = "Ryubing";
     tag = "Canary-${version}";
-    hash = "sha256-SlYai8WrtApmHfpOUmdpGzu26YjZr4KYIZgJGu3b50I=";
+    hash = "sha256-zaER6RTggNHMmuH2Z5KjC0Etvwg1ymn77ZpFLFQFoXI=";
   };
 
+  patches = [ ./0001-shader-threads-and-async-graphics-compile.patch ];
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin [
     cctools
     darwin.sigtool
