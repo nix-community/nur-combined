@@ -16,6 +16,7 @@
   catppuccin-obsidian = pkgs.callPackage ./pkgs/catppuccin-obsidian {};
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
   flm-add = pkgs.callPackage ./pkgs/flm-add {};
+  flm-q4nx-converter = pkgs.callPackage ./pkgs/flm-q4nx-converter {};
   folder-notes = pkgs.callPackage ./pkgs/folder-notes {};
   hayase = pkgs.callPackage ./pkgs/hayase {};
   helium = pkgs.callPackage ./pkgs/helium {};
