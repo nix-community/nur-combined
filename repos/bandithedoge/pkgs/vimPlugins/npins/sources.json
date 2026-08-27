@@ -139,9 +139,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "08eddc77b02415fe7480d84cfbc4f8a7bd1b3d82",
-      "url": "https://github.com/stonelasley/flare.nvim/archive/08eddc77b02415fe7480d84cfbc4f8a7bd1b3d82.tar.gz",
-      "hash": "sha256-GSNjPAfrbpWo3W1gLJBv04o3CGKfika/OHkHyRoQtcE="
+      "revision": "a7583f618d57d2902435801c88f33edfefc41e58",
+      "url": "https://github.com/stonelasley/flare.nvim/archive/a7583f618d57d2902435801c88f33edfefc41e58.tar.gz",
+      "hash": "sha256-XWU1z16laHgjvqonx9rsNu31ZSQyhN/ASI4X6SgAtmM="
     },
     "fm-nvim": {
       "type": "Git",

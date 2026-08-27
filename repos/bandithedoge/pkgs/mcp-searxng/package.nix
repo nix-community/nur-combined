@@ -6,15 +6,15 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "mcp-searxng";
-  version = "2.0.0";
+  version = "2.1.0";
   src = fetchFromGitHub {
     owner = "ihor-sokoliuk";
     repo = "mcp-searxng";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-zakEU/6eeYClbj8VsSU0T6OqG0rl5iXUPSdAife4Juo=";
+    hash = "sha256-Zq6oKXxmo+jaiSCGOsEB76y4xTEqU+WC1eQVFzsazXQ=";
   };
 
-  npmDepsHash = "sha256-4WUOJJU9fXLVPE8ryB1IMWKVg5OL743VjupctYpPH0Y=";
+  npmDepsHash = "sha256-YIH/5RIdF/iSnUT+rWFUCKiwn3oPr1GJsgYvriJt0co=";
 
   passthru.updateScript = nix-update-script { };
 

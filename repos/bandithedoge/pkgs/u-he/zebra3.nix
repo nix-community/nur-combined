@@ -5,10 +5,10 @@
 }:
 u-he.mkUhe {
   pname = "u-he-zebra3";
-  version = "301_22165";
+  version = "302_22175";
 
   product = "Zebra3";
-  hash = "sha256-u25uYcuf3q1b5hRipptWa8LdXk8JTlwlq6pgnLKaYLQ=";
+  hash = "sha256-9Mm9EjRAhYh1j+t0GB+hfRa0I0iN80+T3nY7Bue2R7I=";
 
   buildInputs = [ libxcb-cursor ];
 
