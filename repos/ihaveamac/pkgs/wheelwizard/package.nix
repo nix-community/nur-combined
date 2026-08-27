@@ -8,7 +8,7 @@
 
 buildDotnetModule rec {
   pname = "wheelwizard";
-  version = "2.5.1-unstable-2026-08-24";
+  version = "2.5.1";
 
   src = fetchFromGitHub {
     owner = "TeamWheelWizard";
