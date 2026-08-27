@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 # Shared selection and change-detection helpers for the package update apps.
-# Sourced through UPDATE_UTILS, which the Nix wrapper injects.
+# The Nix wrapper prepends this file to each script, so it defines no top-level commands.
 
 declare -A forced=()
 declare -A handled=()

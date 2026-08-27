@@ -1,8 +1,4 @@
 # shellcheck shell=bash
-# Shared helpers injected by the Nix wrapper.
-# shellcheck source=/dev/null
-source "$UPDATE_UTILS"
-
 # Optional package names force-refresh only those packages.
 parse_forced "$@"
 

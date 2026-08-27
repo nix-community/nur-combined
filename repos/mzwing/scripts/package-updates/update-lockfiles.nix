@@ -15,14 +15,10 @@
       pkgs.yq-go
       gomod2nix
     ];
-    runtimeEnv = {
-      SYSTEM = pkgs.stdenv.hostPlatform.system;
-      UPDATE_UTILS = ./lib/update-utils.sh;
-    };
-    excludeShellChecks = [
-      "SC1091" # UPDATE_UTILS is injected via runtimeEnv.
-    ];
-    text = builtins.readFile ./update-lockfiles.sh;
+    runtimeEnv.SYSTEM = pkgs.stdenv.hostPlatform.system;
+    # Prepend the shared helpers rather than sourcing them at runtime: a path inside
+    # the flake source is not reliably materialised when the worktree is dirty.
+    text = builtins.readFile ./lib/update-utils.sh + builtins.readFile ./update-lockfiles.sh;
   };
 in {
   update-lockfiles = {

@@ -1,10 +1,6 @@
 # shellcheck shell=bash
 export LANG=en_US.UTF-8
 
-# Shared helpers injected by the Nix wrapper.
-# shellcheck source=/dev/null
-source "$UPDATE_UTILS"
-
 # Optional package names force-regenerate only those lockfiles.
 parse_forced "$@"
 
