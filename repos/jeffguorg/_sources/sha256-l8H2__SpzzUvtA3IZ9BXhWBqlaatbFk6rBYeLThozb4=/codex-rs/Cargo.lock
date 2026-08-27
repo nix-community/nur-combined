@@ -1916,6 +1916,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "codex-agent-roles"
+version = "0.0.0"
+dependencies = [
+ "codex-config",
+ "codex-file-system",
+ "codex-utils-absolute-path",
+ "codex-utils-path-uri",
+ "serde",
+ "toml 0.9.11+spec-1.1.0",
+ "tracing",
+]
+
+[[package]]
 name = "codex-analytics"
 version = "0.0.0"
 dependencies = [
@@ -1995,6 +2008,7 @@ dependencies = [
  "codex-app-server-protocol",
  "codex-app-server-transport",
  "codex-arg0",
+ "codex-aws-auth",
  "codex-backend-client",
  "codex-chatgpt",
  "codex-cloud-config",
@@ -2015,6 +2029,7 @@ dependencies = [
  "codex-git-utils",
  "codex-goal-extension",
  "codex-guardian-v2",
+ "codex-history-notes-extension",
  "codex-home",
  "codex-hooks",
  "codex-http-client",
@@ -2144,6 +2159,7 @@ dependencies = [
  "codex-utils-absolute-path",
  "codex-utils-cargo-bin",
  "codex-utils-path-uri",
+ "codex-utils-redacted-string",
  "inventory",
  "pretty_assertions",
  "rmcp",
@@ -2264,6 +2280,7 @@ dependencies = [
  "codex-utils-home-dir",
  "codex-windows-sandbox",
  "dotenvy",
+ "pathdiff",
  "pretty_assertions",
  "tempfile",
  "tokio",
@@ -2653,6 +2670,7 @@ dependencies = [
  "codex-utils-absolute-path",
  "codex-utils-path",
  "codex-utils-path-uri",
+ "codex-utils-redacted-string",
  "core-foundation 0.9.4",
  "dns-lookup",
  "dunce",
@@ -2743,6 +2761,7 @@ dependencies = [
  "chrono",
  "clap",
  "codex-agent-graph-store",
+ "codex-agent-roles",
  "codex-analytics",
  "codex-api",
  "codex-app-server-protocol",
@@ -2806,6 +2825,7 @@ dependencies = [
  "codex-utils-path-uri",
  "codex-utils-plugins",
  "codex-utils-pty",
+ "codex-utils-redacted-string",
  "codex-utils-stream-parser",
  "codex-utils-string",
  "codex-web-search-extension",
@@ -3014,6 +3034,7 @@ dependencies = [
  "codex-otel",
  "codex-protocol",
  "codex-sandboxing",
+ "codex-shell-command",
  "codex-test-binary-support",
  "codex-utils-absolute-path",
  "codex-utils-home-dir",
@@ -3314,6 +3335,7 @@ dependencies = [
  "serde_json",
  "thiserror 2.0.18",
  "tokio",
+ "tracing",
 ]
 
 [[package]]
@@ -3326,6 +3348,29 @@ dependencies = [
  "schemars 0.8.22",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "codex-history-notes-extension"
+version = "0.0.0"
+dependencies = [
+ "codex-api",
+ "codex-client",
+ "codex-config",
+ "codex-core",
+ "codex-extension-api",
+ "codex-login",
+ "codex-model-provider",
+ "codex-model-provider-info",
+ "codex-protocol",
+ "codex-tools",
+ "codex-utils-output-truncation",
+ "http 1.4.0",
+ "pretty_assertions",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "wiremock",
 ]
 
 [[package]]
@@ -3351,6 +3396,7 @@ dependencies = [
  "codex-protocol",
  "codex-utils-absolute-path",
  "codex-utils-output-truncation",
+ "codex-utils-path-uri",
  "codex-utils-pty",
  "futures",
  "pretty_assertions",
@@ -3726,6 +3772,7 @@ dependencies = [
  "codex-otel",
  "codex-protocol",
  "codex-response-debug-context",
+ "codex-utils-redacted-string",
  "http 1.4.0",
  "pretty_assertions",
  "serde_json",
@@ -3741,6 +3788,7 @@ dependencies = [
  "codex-api",
  "codex-protocol",
  "codex-utils-absolute-path",
+ "codex-utils-redacted-string",
  "http 1.4.0",
  "maplit",
  "pretty_assertions",
@@ -3911,6 +3959,7 @@ dependencies = [
  "codex-utils-absolute-path",
  "codex-utils-image",
  "codex-utils-path-uri",
+ "codex-utils-redacted-string",
  "codex-utils-string",
  "encoding_rs",
  "globset",
@@ -4185,6 +4234,7 @@ dependencies = [
 name = "codex-skills-extension"
 version = "0.0.0"
 dependencies = [
+ "assert_matches",
  "codex-analytics",
  "codex-config",
  "codex-exec-server",
@@ -4324,7 +4374,6 @@ dependencies = [
  "codex-utils-absolute-path",
  "codex-utils-cargo-bin",
  "codex-utils-output-truncation",
- "codex-utils-pty",
  "codex-utils-string",
  "jsonptr",
  "pretty_assertions",
@@ -4344,6 +4393,7 @@ dependencies = [
  "app_test_support",
  "arboard",
  "assert_matches",
+ "axum",
  "base64 0.22.1",
  "chrono",
  "clap",
@@ -4648,6 +4698,14 @@ dependencies = [
  "thiserror 2.0.18",
  "time",
  "tokio",
+]
+
+[[package]]
+name = "codex-utils-redacted-string"
+version = "0.0.0"
+dependencies = [
+ "schemars 0.8.22",
+ "serde",
 ]
 
 [[package]]
@@ -11841,9 +11899,9 @@ dependencies = [
 
 [[package]]
 name = "rmcp"
-version = "3.1.2"
+version = "3.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c8dddc5b1924b9a59fba420166160ca2c4663a4e01803e52eda33070f56d63c8"
+checksum = "5f17072af977b0f86f714dbd64b3d37d0715bb63064f9d13483f0a1775813374"
 dependencies = [
  "async-trait",
  "base64 0.23.0",
@@ -11853,6 +11911,7 @@ dependencies = [
  "http 1.4.0",
  "http-body 1.0.1",
  "http-body-util",
+ "indexmap 2.14.0",
  "oauth2",
  "pastey",
  "pin-project-lite",
@@ -11876,9 +11935,9 @@ dependencies = [
 
 [[package]]
 name = "rmcp-macros"
-version = "3.1.2"
+version = "3.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6898e24cd16342b59bfa8a53c2c04b9cf62fc8a2cfea57b9c038b09984bfc521"
+checksum = "54817231d63a35330d5c3a5782a4a166fbe3b914a9faab440d3dd8bd37971890"
 dependencies = [
  "darling 0.24.0",
  "proc-macro2",
