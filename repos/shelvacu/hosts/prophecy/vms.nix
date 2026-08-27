@@ -24,6 +24,10 @@
     maxMem = 16 * 1024;
     dimmSlots = 4;
     cpus = 4;
+    shares.javadrive = {
+      source = "/propdata/trip/ffuts/stuff/java-scribbles-drives";
+      readOnly = true;
+    };
     shares.bigdata.source = "/propdata/vm-bigdata/savm";
   };
 

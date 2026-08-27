@@ -39,6 +39,11 @@ in
       isReadOnly = false;
     };
 
+    bindMounts."/recovered" = {
+      hostPath = "/propdata/vm-bigdata/savm/recovered";
+      isReadOnly = true;
+    };
+
     config = { ... }: {
       system.stateVersion = "26.11";
 
