@@ -212,6 +212,14 @@ pub fn fracture_kit(voxel: &str, action: &str) -> hanga::engine::host::Value {
     ])
 }
 
+pub fn sound_kit(action: &str) -> hanga::engine::host::Value {
+    let file = match action {
+        "break" | "place" | "explode" | "crash" | "fracture" => format!("{action}.wav"),
+        _ => return wire_empty(),
+    };
+    wire_dict(vec![field("file", atom_text(file))])
+}
+
 pub fn steer(payload: &hanga::engine::host::Value) -> hanga::engine::host::Value {
     let role = payload_str(payload, "role");
     if role == "traffic" {

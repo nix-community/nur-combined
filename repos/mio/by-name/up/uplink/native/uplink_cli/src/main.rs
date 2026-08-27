@@ -30,7 +30,7 @@ async fn main() {
 
     match &cli.command {
         Commands::Text { content } => {
-            match upload_text(content).await {
+            match upload_text(content, None).await {
                 Ok(url) => println!("Uploaded successfully: {}", url),
                 Err(e) => eprintln!("Failed to upload text: {}", e),
             }
@@ -53,7 +53,7 @@ async fn main() {
                 }
             };
             
-            match upload_file(filename, data).await {
+            match upload_file(filename, data, None).await {
                 Ok(url) => println!("Uploaded successfully: {}", url),
                 Err(e) => eprintln!("Failed to upload file: {}", e),
             }

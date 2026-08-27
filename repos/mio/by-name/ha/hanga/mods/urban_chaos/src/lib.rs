@@ -563,6 +563,19 @@ pub fn fracture_kit(voxel: &str, action: &str) -> hanga::engine::host::Value {
     ])
 }
 
+/// Filename under `assets/sounds/` for a gameplay action (host stages a beep if missing).
+pub fn sound_kit(action: &str) -> hanga::engine::host::Value {
+    let file = match action {
+        ACTION_BREAK => "break.wav",
+        ACTION_PLACE => "place.wav",
+        ACTION_EXPLODE => "explode.wav",
+        ACTION_CRASH => "crash.wav",
+        "fracture" => "fracture.wav",
+        _ => return wire_empty(),
+    };
+    wire_dict(vec![field("file", atom_text(file))])
+}
+
 pub fn steer(payload: &hanga::engine::host::Value) -> hanga::engine::host::Value {
     let role = payload_str(payload, "role");
     if role == "traffic" {
@@ -1750,6 +1763,13 @@ mod tests {
     #[test]
     fn explosion_impulse_stronger_than_melee() {
         assert!(debris_impulse(ACTION_EXPLODE) > debris_impulse(ACTION_BREAK));
+    }
+
+    #[test]
+    fn sound_kit_maps_actions_to_wav_files() {
+        assert_eq!(payload_str(&sound_kit(ACTION_BREAK), "file"), "break.wav");
+        assert_eq!(payload_str(&sound_kit(ACTION_CRASH), "file"), "crash.wav");
+        assert!(wire_is_null(&sound_kit("unknown")));
     }
 
     #[test]

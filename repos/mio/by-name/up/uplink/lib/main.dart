@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'src/bindings/bindings.dart';
@@ -49,23 +50,43 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final TextEditingController _textController = TextEditingController();
   String _status = '';
   bool _isUploading = false;
+  /// Null = indeterminate; 0.0–1.0 when Rust reports a known total.
+  double? _uploadProgress;
+  final List<StreamSubscription<dynamic>> _signalSubs = [];
 
   @override
   void initState() {
     super.initState();
-    UploadTextResponse.rustSignalStream.listen((event) {
-      setState(() {
-        _status = event.message.url ?? event.message.error ?? '';
-        _isUploading = false;
-      });
-    });
+    _signalSubs.add(
+      UploadTextResponse.rustSignalStream.listen((event) {
+        setState(() {
+          _status = event.message.url ?? event.message.error ?? '';
+          _isUploading = false;
+          _uploadProgress = null;
+        });
+      }),
+    );
 
-    UploadFileResponse.rustSignalStream.listen((event) {
-      setState(() {
-        _status = event.message.url ?? event.message.error ?? '';
-        _isUploading = false;
-      });
-    });
+    _signalSubs.add(
+      UploadFileResponse.rustSignalStream.listen((event) {
+        setState(() {
+          _status = event.message.url ?? event.message.error ?? '';
+          _isUploading = false;
+          _uploadProgress = null;
+        });
+      }),
+    );
+
+    _signalSubs.add(
+      UploadProgress.rustSignalStream.listen((event) {
+        final total = event.message.bytesTotal.toInt();
+        final sent = event.message.bytesSent.toInt();
+        if (!mounted || !_isUploading) return;
+        setState(() {
+          _uploadProgress = total > 0 ? (sent / total).clamp(0.0, 1.0) : null;
+        });
+      }),
+    );
 
     if (_isDesktop) {
       HardwareKeyboard.instance.addHandler(_handleKeyEvent);
@@ -93,6 +114,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    for (final sub in _signalSubs) {
+      sub.cancel();
+    }
     WidgetsBinding.instance.removeObserver(this);
     if (_isDesktop) {
       HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
@@ -135,6 +159,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     if (!fromShortcut) {
       setState(() {
         _isUploading = true;
+        _uploadProgress = null;
         _status = 'Reading clipboard...';
       });
     }
@@ -144,6 +169,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       if (imageBytes != null && imageBytes.isNotEmpty) {
         setState(() {
           _isUploading = true;
+          _uploadProgress = null;
           _status = 'Uploading pasted image...';
         });
         UploadFileRequest(
@@ -153,6 +179,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         setState(() {
           _status = 'No image found on clipboard!';
           _isUploading = false;
+          _uploadProgress = null;
         });
       }
     } catch (e) {
@@ -160,6 +187,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       setState(() {
         _status = 'Clipboard error: $e';
         _isUploading = false;
+        _uploadProgress = null;
       });
     }
   }
@@ -174,6 +202,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     }
     setState(() {
       _isUploading = true;
+      _uploadProgress = null;
       _status = 'Uploading text...';
     });
     UploadTextRequest(text: _textController.text).sendSignalToRust();
@@ -187,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     if (result != null && result.files.single.path != null) {
       setState(() {
         _isUploading = true;
+        _uploadProgress = null;
         _status = 'Uploading file...';
       });
       final file = File(result.files.single.path!);
@@ -286,7 +316,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           ),
                         ],
                       ),
-                      if (_status.isNotEmpty) ...[
+                      if (_isUploading || _status.isNotEmpty) ...[
                         const SizedBox(height: 32),
                         Container(
                           padding: const EdgeInsets.all(16),
@@ -294,52 +324,82 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                             color: Colors.blue.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Expanded(
-                                child: SelectableText(
-                                  _status,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w500,
+                              if (_isUploading) ...[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: LinearProgressIndicator(
+                                    value: _uploadProgress,
+                                    minHeight: 8,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
-                              ),
-                              if (_status.startsWith('http')) ...[
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.copy,
-                                    color: Colors.blue,
-                                  ),
-                                  tooltip: 'Copy link',
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                      ClipboardData(text: _status),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Link copied to clipboard!',
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                if (!kIsWeb &&
-                                    (Platform.isAndroid || Platform.isIOS))
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.share,
-                                      color: Colors.blue,
+                                if (_uploadProgress != null) ...[
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    '${(100 * _uploadProgress!).round()}%',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.blue.shade700,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    tooltip: 'Share link',
-                                    onPressed: () {
-                                      Share.share(_status);
-                                    },
                                   ),
+                                ],
+                                const SizedBox(height: 12),
                               ],
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: SelectableText(
+                                      _status,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  if (!_isUploading &&
+                                      _status.startsWith('http')) ...[
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.copy,
+                                        color: Colors.blue,
+                                      ),
+                                      tooltip: 'Copy link',
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                          ClipboardData(text: _status),
+                                        );
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Link copied to clipboard!',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    if (!kIsWeb &&
+                                        (Platform.isAndroid || Platform.isIOS))
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.share,
+                                          color: Colors.blue,
+                                        ),
+                                        tooltip: 'Share link',
+                                        onPressed: () {
+                                          Share.share(_status);
+                                        },
+                                      ),
+                                  ],
+                                ],
+                              ),
                             ],
                           ),
                         ),

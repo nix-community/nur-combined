@@ -22,3 +22,10 @@ pub struct UploadFileResponse {
   pub url: Option<String>,
   pub error: Option<String>,
 }
+
+/// Upload byte progress for the current provider attempt.
+#[derive(Serialize, RustSignal)]
+pub struct UploadProgress {
+  pub bytes_sent: u64,
+  pub bytes_total: u64,
+}

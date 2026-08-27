@@ -33,6 +33,9 @@ use hanga::crash::{
     apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
     parse_crash_kit_node, parse_fire_kit_node, parse_fracture_kit_node, parse_planar_node,
 };
+use hanga::audio::{
+    default_sound_file, ensure_sound_asset, parse_sound_kit_node, sound_search_dirs,
+};
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
     avian_accel, can_jump_from, jump_needs_floor, parse_gravity_node, point_accel, set_jump,
@@ -583,6 +586,7 @@ fn main() {
                 .run_if(in_state(GameMode::Playing)),
         )
         .add_message::<ProposedAction>()
+        .add_message::<SpatialSoundEvent>()
         .add_systems(
             Update,
             (
@@ -798,6 +802,13 @@ enum ProposedAction {
         extra: String,
         fingerprint: u64,
     },
+}
+
+/// One-shot spatial SFX at a world position (break / fracture / crash / explode).
+#[derive(Message, Clone, Debug)]
+struct SpatialSoundEvent {
+    position: Vec3,
+    action: String,
 }
 
 fn signed_break(player_entity: Entity, voxel_pos: IVec3) -> ProposedAction {
@@ -1324,6 +1335,7 @@ fn spawn_play_world(
                 Transform::from_xyz(0.0, 0.55, 0.0),
                 LookPitch(0.0),
                 play_fog(game),
+                SpatialListener::new(0.5),
             ));
         });
 
@@ -1690,6 +1702,8 @@ fn teardown_fracture(
     catalog: &VoxelCatalog,
     mod_runtime: &ModRuntime,
     edits: &mut VoxelEdits,
+    sounds: &mut Vec<SpatialSoundEvent>,
+    emit_origin_sound: bool,
 ) {
     let Some(origin_type) = voxel_type_of(voxel_world.get_voxel(origin)) else {
         return;
@@ -1716,6 +1730,12 @@ fn teardown_fracture(
     voxel_world.set_voxel(origin, WorldVoxel::Unset);
     note_voxel_edit(edits, origin);
     overlay_set(origin.x, origin.y, origin.z, VoxelOverlay::Air);
+    if emit_origin_sound {
+        sounds.push(SpatialSoundEvent {
+            position: Vec3::new(origin.x as f32, origin.y as f32, origin.z as f32),
+            action: action.to_string(),
+        });
+    }
     if origin_kit.can {
         spawn_debris(
             commands,
@@ -1805,6 +1825,11 @@ fn teardown_fracture(
             let offset = Vec3::new(ipos.x as f32, ipos.y as f32, ipos.z as f32) - center;
             colliders.push((offset, Quat::IDENTITY, Collider::cuboid(1.0, 1.0, 1.0)));
         }
+
+        sounds.push(SpatialSoundEvent {
+            position: center,
+            action: "fracture".into(),
+        });
 
         commands.spawn((
             PlayWorld,
@@ -1992,6 +2017,7 @@ fn consume_selected(inv: &mut ModInventory, voxel: &str) -> bool {
 fn validate_incoming_actions(
     mut commands: Commands,
     mut events: MessageReader<ProposedAction>,
+    mut sound_events: MessageWriter<SpatialSoundEvent>,
     mut player_query: Query<
         (
             &Transform,
@@ -2014,6 +2040,7 @@ fn validate_incoming_actions(
     mod_runtime: Res<ModRuntime>,
     mut edits: ResMut<VoxelEdits>,
 ) {
+    let mut pending_sounds = Vec::new();
     for action in events.read() {
         match action {
             ProposedAction::BreakBlock { player_entity, voxel_pos, fingerprint } => {
@@ -2079,6 +2106,8 @@ fn validate_incoming_actions(
                     &catalog,
                     &mod_runtime,
                     &mut edits,
+                    &mut pending_sounds,
+                    true,
                 );
                 mod_runtime.notify_all("on-dig", &voxel_event(voxel_pos, &name));
                 apply_mod_action(
@@ -2119,6 +2148,10 @@ fn validate_incoming_actions(
                 }
 
                 info!("Action Verified! MASSIVE EXPLOSION at {:?}", center_pos);
+                pending_sounds.push(SpatialSoundEvent {
+                    position: target_pos,
+                    action: ACTION_EXPLODE.into(),
+                });
                 let iradius = radius.ceil() as i32;
                 for x in -iradius..=iradius {
                     for y in -iradius..=iradius {
@@ -2136,6 +2169,8 @@ fn validate_incoming_actions(
                                     &catalog,
                                     &mod_runtime,
                                     &mut edits,
+                                    &mut pending_sounds,
+                                    false,
                                 );
                             }
                         }
@@ -2202,6 +2237,10 @@ fn validate_incoming_actions(
                     voxel_pos.z,
                     VoxelOverlay::Solid(voxel.clone()),
                 );
+                pending_sounds.push(SpatialSoundEvent {
+                    position: target_pos,
+                    action: ACTION_PLACE.into(),
+                });
                 mod_runtime.notify_all("on-place", &voxel_event(voxel_pos, voxel));
                 apply_mod_action(
                     &mut commands,
@@ -2395,12 +2434,48 @@ fn validate_incoming_actions(
             }
         }
     }
+    for sound in pending_sounds {
+        sound_events.write(sound);
+    }
 }
 
 fn grab_cursor(mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>) {
     if let Some(mut cursor) = windows.iter_mut().next() {
         cursor.grab_mode = CursorGrabMode::Locked;
         cursor.visible = false;
+    }
+}
+
+fn play_spatial_sounds(
+    mut commands: Commands,
+    mut events: MessageReader<SpatialSoundEvent>,
+    asset_server: Res<AssetServer>,
+    mod_runtime: Res<ModRuntime>,
+    search: Res<ModSearch>,
+) {
+    let asset_dir = hanga::palette::asset_dir();
+    let sound_roots = sound_search_dirs(search.env.as_deref(), &search.cwd);
+    for ev in events.read() {
+        let payload = wire_bag(vec![("action", Wire::Text(ev.action.clone()))]);
+        let file = mod_runtime
+            .ask_any_node_ok("sound-kit", &payload)
+            .and_then(|node| parse_sound_kit_node(&node))
+            .map(|kit| kit.file)
+            .or_else(|| default_sound_file(&ev.action).map(str::to_string));
+        let Some(file) = file else {
+            continue;
+        };
+        let Some(rel) = ensure_sound_asset(&asset_dir, &sound_roots, &file) else {
+            continue;
+        };
+        let handle: Handle<AudioSource> = asset_server.load(rel);
+        commands.spawn((
+            PlayWorld,
+            Transform::from_translation(ev.position),
+            GlobalTransform::default(),
+            AudioPlayer::new(handle),
+            PlaybackSettings::DESPAWN.with_spatial(true),
+        ));
     }
 }
 
@@ -2747,6 +2822,7 @@ impl Plugin for CitySimPlugin {
                 vehicle_traffic_system,
                 fire_spread_system,
                 flicker_ignition,
+                play_spatial_sounds,
             )
                 .chain()
                 .after(validate_incoming_actions)
@@ -2794,6 +2870,7 @@ fn vehicle_crash_system(
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
     mut events: MessageWriter<ProposedAction>,
+    mut sounds: MessageWriter<SpatialSoundEvent>,
 ) {
     for (entity, transform, velocity, mut angular, children, mut crash, owner, stiff, beams, wrecked, ignited) in
         vehicles.iter_mut()
@@ -2823,6 +2900,10 @@ fn vehicle_crash_system(
             continue;
         }
         crash.peak = severity;
+        sounds.write(SpatialSoundEvent {
+            position: transform.translation,
+            action: "crash".into(),
+        });
         let crumple = apply_stiffness(outcome.crumple, stiff.0);
         let dir = [velocity.x, velocity.y, velocity.z];
         let axes = crumple_axes(crumple, dir);

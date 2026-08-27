@@ -3,6 +3,7 @@
 /// All functions here are deterministic and independently testable.
 /// The ECS systems in main.rs call these; `cargo test --lib` exercises them.
 
+pub mod audio;
 pub mod bindings;
 pub mod crash;
 pub mod figure;

@@ -2526,6 +2526,11 @@ mod tests {
             fracture.get("spread").and_then(::hanga::kit::Node::as_i32),
             Some(3)
         );
+        let sound = ctx.bus_node("sound-kit", &wire_bag(vec![("action", wire_text("break"))]));
+        assert_eq!(
+            sound.get("file").map(::hanga::kit::Node::text).as_deref(),
+            Some("break.wav")
+        );
         assert_eq!(
             ctx.bus_i32(
                 "evaluate-action",

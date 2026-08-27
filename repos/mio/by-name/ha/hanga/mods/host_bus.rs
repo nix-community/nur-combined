@@ -1,4 +1,4 @@
-const BUS_TOPICS: &str = "ping,name,catalog,hello,voxel,probe,has,methods,gravity,supported-locales,player-spawn,vehicle-spawn-count,vehicle-spawn,vehicle-kit,ambient-agent-count,ambient-agent-spawn,fracture-kit,evaluate-action,should-spawn-agent,wallet-after,contract-mark,action-range,loot-item,craft-result,can-complete,crash-kit,steer,fire-kit,tick,should-despawn-agent,story-event,event-label,offer-contract,economy-params,economy-price,voxel-label,contract-label,item-label";
+const BUS_TOPICS: &str = "ping,name,catalog,hello,voxel,probe,has,methods,gravity,supported-locales,player-spawn,vehicle-spawn-count,vehicle-spawn,vehicle-kit,ambient-agent-count,ambient-agent-spawn,fracture-kit,sound-kit,evaluate-action,should-spawn-agent,wallet-after,contract-mark,action-range,loot-item,craft-result,can-complete,crash-kit,steer,fire-kit,tick,should-despawn-agent,story-event,event-label,offer-contract,economy-params,economy-price,voxel-label,contract-label,item-label";
 
 fn host_bus_reply(
     topic: &str,
@@ -26,6 +26,7 @@ fn host_bus_reply(
             payload_str(payload, "voxel"),
             payload_str(payload, "action"),
         ),
+        "sound-kit" => crate::sound_kit(payload_str(payload, "action")),
         "evaluate-action" => wire_int(crate::mod_evaluate_action(
             payload_str(payload, "action"),
             payload_i64(payload, "state") as i32,

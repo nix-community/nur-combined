@@ -46,6 +46,10 @@ rustPlatform.buildRustPackage {
       wasm-tools component new \
         "target/wasm32-unknown-unknown/release/$name.wasm" \
         -o "$out/share/hanga/mods/$name.wasm"
+      if [ -d "mods/$name/assets" ]; then
+        mkdir -p "$out/share/hanga/mods/$name"
+        cp -a "mods/$name/assets" "$out/share/hanga/mods/$name/"
+      fi
     done
     cp -a games/. $out/share/hanga/games/
     runHook postInstall

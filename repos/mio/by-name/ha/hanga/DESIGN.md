@@ -134,6 +134,8 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Economy / storyteller
 - Spawn positions
 - What can shatter (`fracture-kit`: can / spread / impulse)
+- Spatial SFX (`sound-kit`): action name in, `{file}` basename (`.wav`/`.ogg`) under
+  `assets/sounds/`. Host stages a procedural beep when the file is missing.
 - Rideable kit (`vehicle-kit`): kind, traffic, speed, stiffness 0–100, `tires` names, `beams` links, collider, named box parts.
   Urban Chaos ships a soft car with squashing wheels; Testbed ships a stiff platform (and a stiff cart when packed with Urban Chaos).
 - Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
