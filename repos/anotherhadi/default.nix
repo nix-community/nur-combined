@@ -8,4 +8,5 @@
   fztea = pkgs.callPackage ./pkgs/fztea {};
   monitui = pkgs.callPackage ./pkgs/monitui {};
   revshell = pkgs.callPackage ./pkgs/revshell {};
+  default-creds-tui = pkgs.callPackage ./pkgs/default-creds-tui {};
 }

@@ -23,18 +23,27 @@ jobs:
 
       - name: Update packages
         run: |
-          python_pkgs=(toutatis ignorant ghunt user-scanner)
-          go_pkgs=(github-recon gravatar-recon spilltea usbguard-tui jwt-tui settuings fztea)
+          for pkg_dir in pkgs/*/; do
+            pkg="$(basename "$pkg_dir")"
+            default_nix="${pkg_dir}default.nix"
+            [ -f "$default_nix" ] || continue
 
-          for pkg in "${python_pkgs[@]}"; do
-            echo "==> $pkg"
-            nix run nixpkgs#nix-update -- --flake "$pkg" || true
+            if grep -qE 'buildGoModule|buildGo[0-9]+Module' "$default_nix"; then
+              echo "==> $pkg (go)"
+              nix run nixpkgs#nix-update -- --flake --build "$pkg" || true
+            elif grep -qE 'buildPythonApplication|buildPythonPackage' "$default_nix"; then
+              echo "==> $pkg (python)"
+              nix run nixpkgs#nix-update -- --flake "$pkg" || true
+            fi
           done
 
-          for pkg in "${go_pkgs[@]}"; do
-            echo "==> $pkg"
-            nix run nixpkgs#nix-update -- --flake --build "$pkg" || true
-          done
+      - name: Update README package list
+        run: python3 scripts/update-readme.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean build results
+        run: rm -rf result result-*
 
       - uses: peter-evans/create-pull-request@v7
         with:
