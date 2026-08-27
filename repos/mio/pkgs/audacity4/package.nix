@@ -2,9 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  fetchurl,
   fetchzip,
-  p7zip,
   cmake,
   makeBinaryWrapper,
   pkg-config,
@@ -61,12 +59,14 @@
   libjpeg,
   harfbuzz,
   freetype,
+  zlib,
 }:
 let
   loop-tempo-estimator-src = fetchzip {
     url = "https://github.com/saintmatthieu/loop-tempo-estimator/releases/download/v0.0.4/loop-tempo-estimator-v0.0.4.tar.gz";
     hash = "sha256-UTLsnC0FIPuZY09wEKo8wxvDlFn8jtcvs2F13L9yvjM=";
   };
+  darwinArch = stdenv.hostPlatform.darwinArch or null;
   tft-src = fetchFromGitHub {
     owner = "kgramhans";
     repo = "tft";
@@ -115,22 +115,37 @@ let
     rev = "171f11701dd5813c8278cfc9fb72e2dfa0d54dab";
     hash = "sha256-le/aZ5cWyv7yT60TEY4xvM/GsVxaC6hSO+hIaCCAvV8=";
   };
+  vst3_base = fetchzip {
+    url = "https://github.com/steinbergmedia/vst3_base/archive/f0998e7b8424b32ba275cf4218aa56beef29821c.tar.gz";
+    hash = "sha256-sxc4KbO4J4rp2y0X+JQ/SgmQ+37BuaUEZmE9rchPTBk=";
+  };
+  vst3_pluginterfaces = fetchzip {
+    url = "https://github.com/steinbergmedia/vst3_pluginterfaces/archive/151ecde4d6ee1c457dcce848342b162461944fe6.tar.gz";
+    hash = "sha256-AtowQJuQugqIWL0N8oFF9x9fOSz6pJSUqzgghG3fRvA=";
+  };
+  vst3_public_sdk = fetchzip {
+    url = "https://github.com/steinbergmedia/vst3_public_sdk/archive/3fce096d6ee575479753f1aab23033d2e2ffdc6e.tar.gz";
+    hash = "sha256-SK4qb1f8wrULcx/2/Y1LoKC0SWdEKQo/0i0T/+TKlQE=";
+  };
   vst3sdk-src = stdenv.mkDerivation {
     name = "vst3sdk-src";
-    src = fetchurl {
-      url = "https://raw.githubusercontent.com/musescore/muse_deps/main/vst3sdk/v3.7.12_build_20/vst3sdk_v3.7.12_build_20_src.7z";
-      hash = "sha256-P5X2JChl5I/Glk8m+W82JN+84RgwSIrW7iZ9VsxC7SM=";
-    };
-    nativeBuildInputs = [ p7zip ];
-    sourceRoot = ".";
-    installPhase = "mkdir -p $out && cp -r * $out/";
+    dontUnpack = true;
+    dontBuild = true;
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out
+      cp -r ${vst3_base} $out/base
+      cp -r ${vst3_pluginterfaces} $out/pluginterfaces
+      cp -r ${vst3_public_sdk} $out/public.sdk
+      runHook postInstall
+    '';
   };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "audacity";
   version = "4.0.0-beta-2";
 
-  env.NIX_CFLAGS_COMPILE = "-std=gnu17 -Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration -Wno-error=strict-prototypes -Wno-error=implicit-int";
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration -Wno-error=strict-prototypes -Wno-error=implicit-int";
 
   src = fetchFromGitHub {
     owner = "audacity";
@@ -145,7 +160,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
             mkdir -p src/private
-            
+
+            # Disable unit tests unconditionally in CMakeLists.txt
+            sed -i 's/set(MUSE_ENABLE_UNIT_TESTS ON)/set(MUSE_ENABLE_UNIT_TESTS OFF)/g' CMakeLists.txt
+
             find . -type f \( -name "*.cmake" -o -name "CMakeLists.txt" \) -exec sed -i \
               -e 's/cmake_language[[:space:]]*(CALL[[:space:]]\+[^)]*_Populate[^)]*)/# &/' \
               -e 's/^[[:space:]]*populate[[:space:]]*(/# &/' {} +
@@ -184,6 +202,23 @@ stdenv.mkDerivation (finalAttrs: {
                 )
             endif()
             message(STATUS "Using system expat")
+        endif()
+
+        # Use system zlib
+        find_package(ZLIB REQUIRED)
+        if(ZLIB_FOUND)
+            if(NOT TARGET zlib::zlib)
+                if(TARGET ZLIB::ZLIB)
+                    add_library(zlib::zlib ALIAS ZLIB::ZLIB)
+                else()
+                    add_library(zlib::zlib INTERFACE IMPORTED)
+                    set_target_properties(zlib::zlib PROPERTIES
+                        INTERFACE_INCLUDE_DIRECTORIES "''${ZLIB_INCLUDE_DIRS}"
+                        INTERFACE_LINK_LIBRARIES "''${ZLIB_LIBRARIES}"
+                    )
+                endif()
+            endif()
+            message(STATUS "Using system zlib")
         endif()
 
         # Use system portaudio
@@ -322,8 +357,23 @@ stdenv.mkDerivation (finalAttrs: {
             message(STATUS "Created dummy SIMD32 target")
         endif()
     EOF
-            
 
+    # Upstream installs Qt translations from QT_INSTALL_PREFIX/translations, which
+    # does not exist on Nix (they live in the separate qttranslations output).
+    substituteInPlace share/locale/CMakeLists.txt \
+      --replace-fail 'install(DIRECTORY ''${QT_INSTALL_PREFIX}/translations/' \
+                     'install(DIRECTORY ''${QT_INSTALL_TRANSLATIONS}/'
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "macOS build architectures" FORCE)' \
+                     'set(CMAKE_OSX_ARCHITECTURES "${darwinArch}" CACHE STRING "macOS build architectures" FORCE)'
+
+    substituteInPlace buildscripts/cmake/SetupBuildEnvironment.cmake \
+      --replace-fail 'set(CMAKE_OSX_ARCHITECTURES ) # leave empty, use default' \
+                     'set(CMAKE_OSX_ARCHITECTURES ${darwinArch})' \
+      --replace-fail 'set(CMAKE_OSX_ARCHITECTURES x86_64)' \
+                     'set(CMAKE_OSX_ARCHITECTURES ${darwinArch})'
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace au3/libraries/au3-files/FileNames.cpp \
@@ -368,7 +418,6 @@ stdenv.mkDerivation (finalAttrs: {
     portmidi
     qt6.qtbase
     qt6.qtsvg
-    qt6.qtwayland
     qt6.qt5compat # Qt 5 Compatibility Module
     qt6.qtnetworkauth # Qt Network Authorization
     qt6.qtshadertools # Qt Shader Tools
@@ -387,8 +436,10 @@ stdenv.mkDerivation (finalAttrs: {
     portaudio
     wavpack
     wxwidgets_3_2
+    zlib
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
+    qt6.qtwayland
     alsa-lib # for portaudio
     at-spi2-core
     dbus
@@ -427,11 +478,10 @@ stdenv.mkDerivation (finalAttrs: {
     "-DFETCHCONTENT_SOURCE_DIR_SUIL=${suil-src}"
     "-DMUSE_MODULE_VST_VST3_SDK_PATH=${vst3sdk-src}"
 
-    # Fix linker issues with circular dependencies between static libraries
-    "-DCMAKE_EXE_LINKER_FLAGS=-Wl,--start-group"
-    "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--start-group"
-
     # Disable all tests since they depend on disabled libraries (portmixer, lv2sdk, vst3)
+    "-DMUSE_ENABLE_UNIT_TESTS=OFF"
+    "-DAU_BUILD_AUTOMATION_TESTS=OFF"
+    "-DAU_BUILD_APPSHELL_TESTS=OFF"
     "-DAU_BUILD_CONTEXT_TESTS=OFF"
     "-DAU_BUILD_EFFECTS_BUILTIN_TESTS=OFF"
     "-DAU_BUILD_EFFECTS_TESTS=OFF"
@@ -439,7 +489,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DAU_BUILD_PROJECT_TESTS=OFF"
     "-DAU_BUILD_PROJECTSCENE_TESTS=OFF"
     "-DAU_BUILD_RECORD_TESTS=OFF"
+    "-DAU_BUILD_SHARED_TESTS=OFF"
     "-DAU_BUILD_TRACKEDIT_TESTS=OFF"
+    "-DAU_BUILD_UICOMPONENTS_TESTS=OFF"
 
     # Use system libraries instead of downloading them
     "-DMUSE_USE_SYSTEM_HARFBUZZ=ON"
@@ -454,6 +506,17 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Fix duplicate store paths
     "-DCMAKE_INSTALL_LIBDIR=lib"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "-DCMAKE_OSX_ARCHITECTURES=${darwinArch}"
+    # Bundling Qt QML into the .app expects QT_INSTALL_QML under qtbase; on Nix
+    # QML lives in qtdeclarative and wrapQtAppsHook provides the import path.
+    "-DMU_COMPILE_INSTALL_QTQML_FILES=OFF"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    # Fix linker issues with circular dependencies between static libraries
+    "-DCMAKE_EXE_LINKER_FLAGS=-Wl,--start-group"
+    "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--start-group"
   ];
 
   preConfigure = ''
@@ -472,6 +535,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = false; # Test fails
 
+  # Move the app before wrapQtAppsHook (fixupPhase) so the Qt wrapper embeds
+  # the final Applications/Audacity.app path rather than $out/audacity.app.
+  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -p $out/{Applications,bin}
+    mv $out/audacity.app $out/Applications/Audacity.app
+  '';
+
   # Replace audacity's wrapper, to:
   # - Put it in the right place; it shouldn't be in "$out/audacity"
   # - Add the ffmpeg dynamic dependency
@@ -483,9 +553,8 @@ stdenv.mkDerivation (finalAttrs: {
         --suffix AUDACITY_PATH : "$out/share/audacity"
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      mkdir -p $out/{Applications,bin}
-      mv $out/Audacity.app $out/Applications/
-      makeWrapper $out/Applications/Audacity.app/Contents/MacOS/Audacity $out/bin/audacity
+      makeWrapper $out/Applications/Audacity.app/Contents/MacOS/audacity $out/bin/audacity \
+        --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath [ ffmpeg ]}
     '';
 
   meta = {
