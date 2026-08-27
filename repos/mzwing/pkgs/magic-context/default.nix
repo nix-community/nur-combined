@@ -74,7 +74,7 @@ in
     };
 
     meta = {
-      description = "Unbounded context and self-managing memory for coding agents";
+      description = "Unbounded context. Memory that manages itself. One session, for life. The hippocampus for coding agents, part of CortexKit";
       homepage = "https://github.com/cortexkit/magic-context";
       changelog = "https://github.com/cortexkit/magic-context/releases/tag/${source.version}";
       license = lib.licenses.mit;

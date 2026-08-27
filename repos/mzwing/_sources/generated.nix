@@ -30,13 +30,24 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.8.6";
+    version = "v1.8.7";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.8.6";
+      rev = "v1.8.7";
       fetchSubmodules = false;
-      sha256 = "sha256-egTJqfNW3gx+Aq+vjSrYriOPgHy6SR79LrxlQGDy510=";
+      sha256 = "sha256-oJ5J9Pqd1rlvmrTub/VIDqBiCCnzqThcR5GxdPL4jQQ=";
+    };
+  };
+  claude-hud = {
+    pname = "claude-hud";
+    version = "v0.8.0";
+    src = fetchFromGitHub {
+      owner = "jarrodwatts";
+      repo = "claude-hud";
+      rev = "v0.8.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-2Oo5cI8Xq0MgRkDshJ9Ls56n6++975R4+fqNJpF0ZCQ=";
     };
   };
   cliproxyapiplus = {
@@ -52,13 +63,13 @@
   };
   codegraph = {
     pname = "codegraph";
-    version = "v1.5.0";
+    version = "v1.6.0";
     src = fetchFromGitHub {
       owner = "colbymchenry";
       repo = "codegraph";
-      rev = "v1.5.0";
+      rev = "v1.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-PPPOp4goz154esdUJYMu20Lby3QObsEt5z5k+9CSjwk=";
+      sha256 = "sha256-Lr8J8/E/o4tECLe/uv0W2H6zD74+TH/431I2iIYZ2no=";
     };
   };
   cpa-plugin-antigravity-coding-filter = {
@@ -212,15 +223,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "e42c6d8794164e83d948d25a9bbb2068c8d187d9";
+    version = "3d69190a3766fd901adc6023f1c1c399d7e591bf";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "e42c6d8794164e83d948d25a9bbb2068c8d187d9";
+      rev = "3d69190a3766fd901adc6023f1c1c399d7e591bf";
       fetchSubmodules = true;
-      sha256 = "sha256-euJnqQeZinccQjTiSVrc4eIYuIHEF13e9sR8a67GvGk=";
+      sha256 = "sha256-xErEHMTIiB8ezbRgSzh+ir8xmCBVei3H98EuZSxsBd8=";
     };
-    date = "2026-08-25";
+    date = "2026-08-26";
   };
   replay-fish = {
     pname = "replay-fish";

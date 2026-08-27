@@ -194,6 +194,11 @@ rec {
         libName = "codegraph_kernel";type = [ "cdylib" ];
         dependencies = [
           {
+            name = "libc";
+            packageId = "libc";
+            target = { target, features }: (target."unix" or false);
+          }
+          {
             name = "napi";
             packageId = "napi";
             usesDefaultFeatures = false;
@@ -806,6 +811,7 @@ rec {
           "rustc-std-workspace-core" = [ "dep:rustc-std-workspace-core" ];
           "use_std" = [ "std" ];
         };
+        resolvedDefaultFeatures = [ "default" "std" ];
       };
       "libloading" = rec {
         crateName = "libloading";

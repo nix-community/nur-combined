@@ -107,7 +107,7 @@ in
       '';
 
     meta = {
-      description = "Personal AI assistant with a locally-run guard model, zero-trust tool gating, and Telegram/Feishu chat providers";
+      description = "Manboster: Your Personal Manbo Lobster";
       homepage = "https://github.com/manboster/manboster";
       changelog =
         if channel == "canary"

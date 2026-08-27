@@ -43,7 +43,7 @@ in
 
     nodejs = nodejs_22;
 
-    npmDepsHash = "sha256-7cGlc4q+9DoPsyPDos5BfE9n2Qmvlvl8QEDiD/y6+e0=";
+    npmDepsHash = "sha256-ZUiYPsVpMtlvaMIcEH5Wo7EDwTiEq1Sz64NKAiiLzR0=";
 
     nativeBuildInputs = [makeWrapper];
 

@@ -113,7 +113,7 @@ in
     meta =
       old.meta
       // {
-        description = "Desktop interface for WebSocketReflectorX";
+        description = "Controlled TCP-over-WebSocket forwarding tunnel (GUI version)";
         homepage = "https://github.com/XDSEC/WebSocketReflectorX";
         changelog = "https://github.com/XDSEC/WebSocketReflectorX/releases/tag/${version}";
         license = lib.licenses.mit;

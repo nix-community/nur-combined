@@ -76,7 +76,7 @@ in
     };
 
     meta = {
-      description = "CLIProxyAPI plugin that blocks or rewrites non-Antigravity coding client names in system prompts";
+      description = "CLIProxyAPI v7 dynamic plugin for blocking or rewriting non-Antigravity coding software signals";
       homepage = "https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter";
       changelog = "https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter/releases/tag/${source.version}";
       license = lib.licenses.mit;

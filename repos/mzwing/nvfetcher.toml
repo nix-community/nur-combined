@@ -13,6 +13,11 @@ fetch.github = "Zencok/BakaMusic"
 src.github_tag = "Zencok/BakaMusic"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[claude-hud]
+fetch.github = "jarrodwatts/claude-hud"
+src.github_tag = "jarrodwatts/claude-hud"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
 [cliproxyapiplus]
 fetch.github = "kaitranntt/CLIProxyAPIPlus"
 src.github_tag = "kaitranntt/CLIProxyAPIPlus"
