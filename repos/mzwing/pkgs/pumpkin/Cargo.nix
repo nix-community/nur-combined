@@ -3729,43 +3729,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "std" ];
       };
-      "crossfire" = rec {
-        crateName = "crossfire";
-        version = "3.1.19";
-        edition = "2021";
-        sha256 = "1v05pkdwjb1hky4wg41whx5h7a51vnia6cjgpjs3ib7vmgvyh70i";
-        authors = [
-          "plan <frostyplanet@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "crossbeam-utils";
-            packageId = "crossbeam-utils";
-          }
-          {
-            name = "futures-core";
-            packageId = "futures-core";
-          }
-          {
-            name = "parking_lot";
-            packageId = "parking_lot";
-          }
-          {
-            name = "pointers";
-            packageId = "pointers";
-          }
-          {
-            name = "smallvec";
-            packageId = "smallvec";
-          }
-        ];
-        features = {
-          "async_std" = [ "dep:async-std" ];
-          "tokio" = [ "dep:tokio" ];
-          "trace_log" = [ "dep:log" ];
-        };
-        resolvedDefaultFeatures = [ "compat" ];
-      };
       "crunchy" = rec {
         crateName = "crunchy";
         version = "0.2.4";
@@ -9853,16 +9816,6 @@ rec {
           "zlib-rs" = [ "flate2/zlib-rs" ];
         };
       };
-      "pointers" = rec {
-        crateName = "pointers";
-        version = "0.1.0";
-        edition = "2024";
-        sha256 = "1fnpssll6yfqmfjxm6azrgph7sb18f0f3rnc744rj95d8wwckkax";
-        features = {
-          "irc" = [ "dep:atomic-traits" ];
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
       "poly1305" = rec {
         crateName = "poly1305";
         version = "0.8.0";
@@ -10572,7 +10525,7 @@ rec {
             name = "futures";
             packageId = "futures";
             usesDefaultFeatures = false;
-            features = [ "executor" ];
+            features = [ "std" ];
           }
           {
             name = "hex";
@@ -11154,11 +11107,6 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "tokio";
-            packageId = "tokio";
-            usesDefaultFeatures = false;
-          }
-          {
             name = "tracing";
             packageId = "tracing";
             usesDefaultFeatures = false;
@@ -11652,12 +11600,6 @@ rec {
             features = [ "std" ];
           }
           {
-            name = "crossfire";
-            packageId = "crossfire";
-            usesDefaultFeatures = false;
-            features = [ "compat" ];
-          }
-          {
             name = "dashmap";
             packageId = "dashmap";
             usesDefaultFeatures = false;
@@ -11672,7 +11614,7 @@ rec {
             name = "futures";
             packageId = "futures";
             usesDefaultFeatures = false;
-            features = [ "executor" ];
+            features = [ "std" ];
           }
           {
             name = "itertools";
