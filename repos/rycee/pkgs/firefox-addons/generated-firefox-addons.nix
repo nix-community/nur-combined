@@ -3808,6 +3808,21 @@
         platforms = platforms.all;
       };
     };
+    "english-US-exteded-dictionary" = buildMozillaXpiAddon {
+      pname = "english-US-exteded-dictionary";
+      version = "1";
+      addonId = "en-US-Extended@averymiller.org;
+      url = "https://addons.mozilla.org/firefox/downloads/file/4563160/en_us_dictionary_extended-1.xpi";
+      sha256 = "1bafd0d7eec35962cd3033e4a7366177976eeb24bfb87bf35eb93fe8fb1b7f43";
+      meta = with lib;
+      {
+        homepage = "";
+        description = "English (US) spell check dictionary with a more extensive word list than the default en-US dictionary...";
+        license = licenses.mpl20;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "enhanced-github" = buildMozillaXpiAddon {
       pname = "enhanced-github";
       version = "6.1.0";
@@ -13187,6 +13202,21 @@
           "storage"
           "*://returnyoutubedislikeapi.com/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "romanian-dictionary" = buildMozillaXpiAddon {
+      pname = "romanian-dictionary";
+      version = "1.14.2resigned1";
+      addonId = "ro-RO@www.archeus.ro";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270203/romanian_spellchecking_diction-1.14.2resigned1.xpi";
+      sha256 = "8c5f6465b69c47f98a6a7d406069543056f1bc6a53ea8e109f30a448692160b2";
+      meta = with lib;
+      {
+        homepage = "https://www.archeus.ro/lingvistica/main";
+        description = "Romanian spellchecking dictionary...";
+        license = licenses.mpl20;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };
