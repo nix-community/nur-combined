@@ -7,6 +7,7 @@ use wasmtime::Store;
 use wasmtime::component::Linker;
 use bevy_voxel_world::prelude::*;
 use avian3d::prelude::*;
+use std::collections::HashMap;
 use std::io::{self, BufRead};
 use std::path::{Path, PathBuf};
 use std::sync::{mpsc::{channel, Receiver}, Mutex};
@@ -14,20 +15,23 @@ use serde::{Deserialize, Serialize};
 use matchbox_socket::WebRtcSocket;
 use hanga::bindings::{
     self, BindingSet, ACTION_ACCEPT, ACTION_BACK, ACTION_BREAK, ACTION_COMPLETE, ACTION_CRAFT,
-    ACTION_ENTER, ACTION_EXPLODE, ACTION_FENCE, ACTION_FORWARD, ACTION_JUMP, ACTION_LEFT,
-    ACTION_MENU_CONTROLS, ACTION_MENU_GAME, ACTION_MENU_LANG, ACTION_MENU_MULTI, ACTION_MENU_PLAY,
-    ACTION_MENU_QUIT, ACTION_MENU_ROOM, ACTION_PAUSE, ACTION_PLACE, ACTION_RIGHT, ALL_ACTIONS,
+    ACTION_ENTER, ACTION_EXPLODE, ACTION_FENCE, ACTION_FORWARD, ACTION_INVENTORY, ACTION_JUMP,
+    ACTION_LEFT, ACTION_MENU_CONTROLS, ACTION_MENU_GAME, ACTION_MENU_LANG, ACTION_MENU_MULTI,
+    ACTION_MENU_PLAY, ACTION_MENU_QUIT, ACTION_MENU_ROOM, ACTION_PAUSE, ACTION_PLACE, ACTION_RIGHT,
+    ALL_ACTIONS,
 };
 use hanga::i18n::{self, Locale, TextCommand};
 use hanga::{
     action_fingerprint, apply_mouse_look, catalog_index, catalog_name, clamp_hotbar_index,
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
-    inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
-    is_action_physically_possible, is_connected_to_ground,
-    overlay_get, overlay_set, take_voxel_writes, VoxelOverlay, PlayerSnap, set_player_snap,
-    cycle_p2p_url, merge_name_catalogs, parse_p2p_url, p2p_room_name,
-    resolve_wasm_path, should_skip_menu, unpack_economy_params,
-    verify_action_signature, voxel_has_support, find_floating_component, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
+    inventory_add, inventory_craft_pair, inventory_insert_stack, inventory_pick_stack,
+    inventory_place_stack, inventory_selected, inventory_take, is_action_physically_possible,
+    is_connected_to_ground,
+    overlay_get, overlay_set, parse_container_kit_node, take_voxel_writes, VoxelOverlay, PlayerSnap,
+    set_player_snap, cycle_p2p_url, merge_name_catalogs, parse_p2p_url, p2p_room_name,
+    resolve_wasm_path, should_skip_menu, unpack_economy_params, verify_action_signature,
+    voxel_has_support, find_floating_component, BAG_SLOTS, DEFAULT_P2P_URL, HOTBAR_SLOTS,
+    INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 use hanga::crash::{
     apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
@@ -339,10 +343,62 @@ struct HudRoot;
 struct HudStatus;
 
 #[derive(Component)]
-struct HudHotbar;
+struct HudHotbarRow;
 
 #[derive(Component)]
 struct HudHint;
+
+#[derive(Component)]
+struct InvPanelRoot;
+
+#[derive(Component)]
+struct InvSlotLabel;
+
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+enum InvSlotKind {
+    Hotbar,
+    Bag,
+    Container,
+}
+
+#[derive(Component, Clone, Copy, Debug)]
+struct InvSlot {
+    kind: InvSlotKind,
+    index: usize,
+}
+
+#[derive(Component)]
+struct InvDragGhost;
+
+#[derive(Clone, Debug)]
+struct InvDrag {
+    kind: InvSlotKind,
+    index: usize,
+    item: String,
+    count: u32,
+}
+
+#[derive(Resource, Default)]
+struct InventoryUi {
+    open: bool,
+    /// World cell currently linked as a container panel.
+    container_pos: Option<IVec3>,
+    drag: Option<InvDrag>,
+    /// Copied from UiLocale so open paths stay under the Bevy system-param limit.
+    locale: Locale,
+}
+
+#[derive(Clone, Debug)]
+struct StoredContainer {
+    kind: String,
+    items: Vec<String>,
+    counts: Vec<u32>,
+}
+
+#[derive(Resource, Default)]
+struct WorldContainers {
+    by_pos: HashMap<(i32, i32, i32), StoredContainer>,
+}
 
 impl TrustLedger {
     fn penalize(&mut self, peer: Entity, penalty: f32) {
@@ -532,6 +588,8 @@ fn main() {
         .insert_resource(KeyBindings(bindings))
         .insert_resource(BindingsPath(bindings_path))
         .init_resource::<BindCapture>()
+        .init_resource::<InventoryUi>()
+        .init_resource::<WorldContainers>()
         .add_systems(
             OnEnter(GameMode::Menu),
             (apply_menu_clear, spawn_menu_sky, order_menu_sky, spawn_main_menu).chain(),
@@ -553,7 +611,7 @@ fn main() {
         )
         .add_systems(
             OnExit(GameMode::Playing),
-            (deactivate_play_cameras, despawn_hud, release_cursor),
+            (deactivate_play_cameras, close_inventory_on_exit, despawn_hud, release_cursor),
         )
         .add_systems(
             Update,
@@ -582,7 +640,19 @@ fn main() {
         )
         .add_systems(
             Update,
-            (pause_to_menu, select_hotbar, player_look, update_hud, drift_clouds)
+            (
+                pause_to_menu,
+                toggle_inventory_ui,
+                select_hotbar,
+                player_look,
+                update_hud,
+                sync_inv_ui_locale,
+                sync_hud_hotbar_visibility,
+                update_inv_slot_labels,
+                inv_slot_clicks,
+                update_inv_drag_ghost,
+                drift_clouds,
+            )
                 .run_if(in_state(GameMode::Playing)),
         )
         .add_message::<ProposedAction>()
@@ -662,7 +732,8 @@ pub struct ModContract {
     pub danger: i32,
 }
 
-/// Generic hotbar. Item names are opaque to the engine; the mod owns them.
+/// Generic inventory. Item names are opaque to the engine; the mod owns them.
+/// Layout: indices `0..HOTBAR_SLOTS` are the hotbar; the rest are the bag.
 #[derive(Component, Clone)]
 pub struct ModInventory {
     pub items: [String; INVENTORY_SLOTS],
@@ -2488,9 +2559,13 @@ fn release_cursor(mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>) {
 
 fn player_look(
     motion: Res<AccumulatedMouseMotion>,
+    inv_ui: Res<InventoryUi>,
     mut bodies: Query<(&mut Transform, &mut LookYaw, &mut AngularVelocity), With<Player>>,
     mut cameras: Query<(&mut Transform, &mut LookPitch), (With<LookPitch>, Without<Player>)>,
 ) {
+    if inv_ui.open {
+        return;
+    }
     let Some((mut body, mut yaw, mut angular)) = bodies.iter_mut().next() else {
         return;
     };
@@ -2660,13 +2735,23 @@ fn player_interaction(
     mouse_input: Res<ButtonInput<MouseButton>>,
     keys: Res<ButtonInput<KeyCode>>,
     mut events: MessageWriter<ProposedAction>,
-    query: Query<(Entity, &Transform, &ModInventory), With<Player>>,
+    mut query: Query<(Entity, &Transform, &mut ModInventory), With<Player>>,
     cameras: Query<&GlobalTransform, With<VoxelWorldCamera<DefaultWorld>>>,
     vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
     cheat_mode: Res<CheatMode>,
     mod_runtime: Res<ModRuntime>,
     bindings: Res<KeyBindings>,
+    mut inv_ui: ResMut<InventoryUi>,
+    mut commands: Commands,
+    panels: Query<Entity, With<InvPanelRoot>>,
+    mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>,
+    mut containers: ResMut<WorldContainers>,
+    voxel_world: VoxelWorld<DefaultWorld>,
+    catalog: Res<VoxelCatalog>,
 ) {
+    if inv_ui.open {
+        return;
+    }
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_BREAK) {
         if let Some((player_entity, transform, _)) = query.iter().next() {
             let (origin, forward) = aim_from(&cameras, transform);
@@ -2704,16 +2789,31 @@ fn player_interaction(
     }
 
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_PLACE) {
-        if let Some((player_entity, transform, inventory)) = query.iter().next() {
-            if let Some(item) = inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
+        if let Some((player_entity, transform, mut inventory)) = query.iter_mut().next() {
+            let (origin, forward) = aim_from(&cameras, transform);
+            let forward_pos = origin + (*forward * 2.0);
+            let voxel_pos = IVec3::new(
+                forward_pos.x.round() as i32,
+                forward_pos.y.round() as i32,
+                forward_pos.z.round() as i32,
+            );
+            if try_open_container_at(
+                &mut commands,
+                &mut inv_ui,
+                &mut windows,
+                &panels,
+                &mut inventory,
+                &mut containers,
+                &mod_runtime,
+                &voxel_world,
+                &catalog,
+                voxel_pos,
+            ) {
+                return;
+            }
+            if let Some(item) =
+                inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
             {
-                let (origin, forward) = aim_from(&cameras, transform);
-                let forward_pos = origin + (*forward * 2.0);
-                let voxel_pos = IVec3::new(
-                    forward_pos.x.round() as i32,
-                    forward_pos.y.round() as i32,
-                    forward_pos.z.round() as i32,
-                );
                 events.write(signed_place(player_entity, voxel_pos, item));
                 info!("Player sent PlaceBlock request at {:?}", voxel_pos);
             }
@@ -2751,6 +2851,52 @@ fn player_interaction(
             events.write(signed_verb(player_entity, ACTION_FENCE, ""));
         }
     }
+}
+
+fn try_open_container_at(
+    commands: &mut Commands,
+    inv_ui: &mut InventoryUi,
+    windows: &mut Query<&mut CursorOptions, With<PrimaryWindow>>,
+    panels: &Query<Entity, With<InvPanelRoot>>,
+    inventory: &mut ModInventory,
+    containers: &mut WorldContainers,
+    mod_runtime: &ModRuntime,
+    voxel_world: &VoxelWorld<DefaultWorld>,
+    catalog: &VoxelCatalog,
+    pos: IVec3,
+) -> bool {
+    let Some(vtype) = voxel_type_of(voxel_world.get_voxel(pos)) else {
+        return false;
+    };
+    let Some(name) = catalog_name(&catalog.0, vtype) else {
+        return false;
+    };
+    let kit = mod_runtime
+        .ask_any_node_ok(
+            "container-kit",
+            &wire_bag(vec![("voxel", Wire::Text(name.to_string()))]),
+        )
+        .map(|node| parse_container_kit_node(&node))
+        .unwrap_or_default();
+    if kit.kind.is_empty() || kit.slots == 0 {
+        return false;
+    }
+    let key = (pos.x, pos.y, pos.z);
+    containers.by_pos.entry(key).or_insert_with(|| StoredContainer {
+        kind: kit.kind.clone(),
+        items: vec![String::new(); kit.slots],
+        counts: vec![0; kit.slots],
+    });
+    open_inventory_panel(
+        commands,
+        inv_ui,
+        windows,
+        inventory,
+        containers,
+        Some(pos),
+        panels,
+    );
+    true
 }
 
 fn pick_craft_pair(inventory: &ModInventory, mod_runtime: &ModRuntime) -> Option<(String, String)> {
@@ -3663,25 +3809,17 @@ fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>, mod_runtime: Res
     }
 }
 
-fn pause_to_menu(
-    keys: Res<ButtonInput<KeyCode>>,
-    mouse: Res<ButtonInput<MouseButton>>,
-    bindings: Res<KeyBindings>,
-    mut next: ResMut<NextState<GameMode>>,
-) {
-    if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_PAUSE) {
-        info!("Paused to menu");
-        next.set(GameMode::Menu);
-    }
-}
-
 fn select_hotbar(
     keys: Res<ButtonInput<KeyCode>>,
     mouse: Res<ButtonInput<MouseButton>>,
     bindings: Res<KeyBindings>,
+    inv_ui: Res<InventoryUi>,
     mut query: Query<&mut ModInventory, With<Player>>,
 ) {
-    let slot = (0..INVENTORY_SLOTS).find_map(|slot| {
+    if inv_ui.open {
+        return;
+    }
+    let slot = (0..HOTBAR_SLOTS).find_map(|slot| {
         let action = bindings::hotbar_action(slot)?;
         action_just_pressed(&keys, &mouse, &bindings.0, action).then_some(slot)
     });
@@ -3690,6 +3828,51 @@ fn select_hotbar(
             inventory.selected = clamp_hotbar_index(slot as i32);
         }
     }
+}
+
+fn slot_button_style(selected: bool) -> (BackgroundColor, BorderColor) {
+    let bg = if selected {
+        Color::srgb(0.42, 0.38, 0.22)
+    } else {
+        Color::srgb(0.16, 0.17, 0.2)
+    };
+    let border = if selected {
+        Color::srgb(0.95, 0.85, 0.35)
+    } else {
+        Color::srgb(0.45, 0.45, 0.5)
+    };
+    (BackgroundColor(bg), BorderColor::all(border))
+}
+
+fn spawn_slot(parent: &mut ChildSpawnerCommands, kind: InvSlotKind, index: usize, selected: bool) {
+    let (bg, border) = slot_button_style(selected);
+    parent
+        .spawn((
+            Button,
+            InvSlot { kind, index },
+            Node {
+                width: Val::Px(52.0),
+                height: Val::Px(52.0),
+                border: UiRect::all(Val::Px(2.0)),
+                justify_content: JustifyContent::Center,
+                align_items: AlignItems::Center,
+                padding: UiRect::all(Val::Px(2.0)),
+                ..default()
+            },
+            bg,
+            border,
+        ))
+        .with_children(|slot| {
+            slot.spawn((
+                InvSlotLabel,
+                Text::new(""),
+                TextFont {
+                    font_size: FontSize::Px(11.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.92, 0.9, 0.82)),
+            ));
+        });
 }
 
 fn spawn_hud(mut commands: Commands, locale: Res<UiLocale>) {
@@ -3703,7 +3886,7 @@ fn spawn_hud(mut commands: Commands, locale: Res<UiLocale>) {
                 justify_content: JustifyContent::FlexEnd,
                 align_items: AlignItems::Center,
                 padding: UiRect::all(Val::Px(14.0)),
-                row_gap: Val::Px(4.0),
+                row_gap: Val::Px(6.0),
                 ..default()
             },
         ))
@@ -3717,15 +3900,21 @@ fn spawn_hud(mut commands: Commands, locale: Res<UiLocale>) {
                 },
                 TextColor(Color::srgb(0.95, 0.93, 0.86)),
             ));
-            parent.spawn((
-                HudHotbar,
-                Text::new(""),
-                TextFont {
-                    font_size: FontSize::Px(16.0),
-                    ..default()
-                },
-                TextColor(Color::srgb(0.86, 0.8, 0.62)),
-            ));
+            parent
+                .spawn((
+                    HudHotbarRow,
+                    Node {
+                        flex_direction: FlexDirection::Row,
+                        column_gap: Val::Px(4.0),
+                        padding: UiRect::all(Val::Px(4.0)),
+                        ..default()
+                    },
+                ))
+                .with_children(|row| {
+                    for i in 0..HOTBAR_SLOTS {
+                        spawn_slot(row, InvSlotKind::Hotbar, i, i == 0);
+                    }
+                });
             parent.spawn((
                 HudHint,
                 Text::new(i18n::t(locale.0, "play_hint")),
@@ -3738,10 +3927,303 @@ fn spawn_hud(mut commands: Commands, locale: Res<UiLocale>) {
         });
 }
 
-fn despawn_hud(mut commands: Commands, roots: Query<Entity, With<HudRoot>>) {
+fn despawn_hud(
+    mut commands: Commands,
+    roots: Query<Entity, With<HudRoot>>,
+    panels: Query<Entity, With<InvPanelRoot>>,
+) {
     for entity in &roots {
         commands.entity(entity).despawn();
     }
+    for entity in &panels {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn close_inventory_on_exit(
+    mut inv_ui: ResMut<InventoryUi>,
+    mut players: Query<&mut ModInventory, With<Player>>,
+    mut containers: ResMut<WorldContainers>,
+) {
+    if let Some(mut inventory) = players.iter_mut().next() {
+        restore_inv_drag(&mut inv_ui, &mut inventory, &mut containers);
+    }
+    *inv_ui = InventoryUi::default();
+}
+
+fn pause_to_menu(
+    keys: Res<ButtonInput<KeyCode>>,
+    mouse: Res<ButtonInput<MouseButton>>,
+    bindings: Res<KeyBindings>,
+    mut inv_ui: ResMut<InventoryUi>,
+    mut next: ResMut<NextState<GameMode>>,
+    mut commands: Commands,
+    panels: Query<Entity, With<InvPanelRoot>>,
+    mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>,
+    mut players: Query<&mut ModInventory, With<Player>>,
+    mut containers: ResMut<WorldContainers>,
+) {
+    if !action_just_pressed(&keys, &mouse, &bindings.0, ACTION_PAUSE) {
+        return;
+    }
+    if inv_ui.open {
+        if let Some(mut inventory) = players.iter_mut().next() {
+            close_inventory_panel(
+                &mut commands,
+                &mut inv_ui,
+                &panels,
+                &mut windows,
+                &mut inventory,
+                &mut containers,
+                true,
+            );
+        }
+        return;
+    }
+    info!("Paused to menu");
+    next.set(GameMode::Menu);
+}
+
+fn toggle_inventory_ui(
+    keys: Res<ButtonInput<KeyCode>>,
+    mouse: Res<ButtonInput<MouseButton>>,
+    bindings: Res<KeyBindings>,
+    locale: Res<UiLocale>,
+    mut inv_ui: ResMut<InventoryUi>,
+    mut commands: Commands,
+    panels: Query<Entity, With<InvPanelRoot>>,
+    mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>,
+    mut players: Query<&mut ModInventory, With<Player>>,
+    mut containers: ResMut<WorldContainers>,
+) {
+    if !action_just_pressed(&keys, &mouse, &bindings.0, ACTION_INVENTORY) {
+        return;
+    }
+    inv_ui.locale = locale.0;
+    let Some(mut inventory) = players.iter_mut().next() else {
+        return;
+    };
+    if inv_ui.open {
+        close_inventory_panel(
+            &mut commands,
+            &mut inv_ui,
+            &panels,
+            &mut windows,
+            &mut inventory,
+            &mut containers,
+            true,
+        );
+    } else {
+        open_inventory_panel(
+            &mut commands,
+            &mut inv_ui,
+            &mut windows,
+            &mut inventory,
+            &mut containers,
+            None,
+            &panels,
+        );
+    }
+}
+
+fn restore_inv_drag(
+    inv_ui: &mut InventoryUi,
+    inventory: &mut ModInventory,
+    containers: &mut WorldContainers,
+) {
+    let Some(drag) = inv_ui.drag.take() else {
+        return;
+    };
+    match drag.kind {
+        InvSlotKind::Hotbar | InvSlotKind::Bag => {
+            let left = inventory_insert_stack(
+                &mut inventory.items,
+                &mut inventory.counts,
+                &drag.item,
+                drag.count,
+            );
+            if left > 0 {
+                warn!(
+                    "Inventory full while restoring drag stack ({} x{}); leftover {}",
+                    drag.item, drag.count, left
+                );
+            }
+        }
+        InvSlotKind::Container => {
+            let Some(pos) = inv_ui.container_pos else {
+                let left = inventory_insert_stack(
+                    &mut inventory.items,
+                    &mut inventory.counts,
+                    &drag.item,
+                    drag.count,
+                );
+                if left > 0 {
+                    warn!(
+                        "Lost container context; bag leftover {} x{}",
+                        drag.item, left
+                    );
+                }
+                return;
+            };
+            let Some(stored) = containers.by_pos.get_mut(&(pos.x, pos.y, pos.z)) else {
+                let _ = inventory_insert_stack(
+                    &mut inventory.items,
+                    &mut inventory.counts,
+                    &drag.item,
+                    drag.count,
+                );
+                return;
+            };
+            let left =
+                inventory_insert_stack(&mut stored.items, &mut stored.counts, &drag.item, drag.count);
+            if left > 0 {
+                let _ = inventory_insert_stack(
+                    &mut inventory.items,
+                    &mut inventory.counts,
+                    &drag.item,
+                    left,
+                );
+            }
+        }
+    }
+}
+
+fn close_inventory_panel(
+    commands: &mut Commands,
+    inv_ui: &mut InventoryUi,
+    panels: &Query<Entity, With<InvPanelRoot>>,
+    windows: &mut Query<&mut CursorOptions, With<PrimaryWindow>>,
+    inventory: &mut ModInventory,
+    containers: &mut WorldContainers,
+    grab: bool,
+) {
+    restore_inv_drag(inv_ui, inventory, containers);
+    for entity in panels.iter() {
+        commands.entity(entity).despawn();
+    }
+    *inv_ui = InventoryUi::default();
+    if grab {
+        if let Some(mut cursor) = windows.iter_mut().next() {
+            cursor.grab_mode = CursorGrabMode::Locked;
+            cursor.visible = false;
+        }
+    }
+}
+
+fn open_inventory_panel(
+    commands: &mut Commands,
+    inv_ui: &mut InventoryUi,
+    windows: &mut Query<&mut CursorOptions, With<PrimaryWindow>>,
+    inventory: &mut ModInventory,
+    containers: &mut WorldContainers,
+    container_pos: Option<IVec3>,
+    existing: &Query<Entity, With<InvPanelRoot>>,
+) {
+    restore_inv_drag(inv_ui, inventory, containers);
+    for entity in existing.iter() {
+        commands.entity(entity).despawn();
+    }
+    inv_ui.open = true;
+    inv_ui.container_pos = container_pos;
+    inv_ui.drag = None;
+    if let Some(mut cursor) = windows.iter_mut().next() {
+        cursor.grab_mode = CursorGrabMode::None;
+        cursor.visible = true;
+    }
+    let title = i18n::t(inv_ui.locale, "bind_inventory");
+
+    commands
+        .spawn((
+            InvPanelRoot,
+            Node {
+                width: Val::Percent(100.0),
+                height: Val::Percent(100.0),
+                position_type: PositionType::Absolute,
+                justify_content: JustifyContent::Center,
+                align_items: AlignItems::Center,
+                flex_direction: FlexDirection::Column,
+                row_gap: Val::Px(12.0),
+                ..default()
+            },
+            BackgroundColor(Color::srgba(0.02, 0.03, 0.05, 0.72)),
+            ZIndex(20),
+        ))
+        .with_children(|root| {
+            if let Some(pos) = container_pos {
+                if let Some(stored) = containers.by_pos.get(&(pos.x, pos.y, pos.z)) {
+                    root.spawn((
+                        Text::new(format!("{} @ {},{},{}", stored.kind, pos.x, pos.y, pos.z)),
+                        TextFont {
+                            font_size: FontSize::Px(16.0),
+                            ..default()
+                        },
+                        TextColor(Color::srgb(0.9, 0.88, 0.75)),
+                    ));
+                    root.spawn(Node {
+                        display: Display::Grid,
+                        grid_template_columns: vec![RepeatedGridTrack::px(9, 52.0)],
+                        column_gap: Val::Px(4.0),
+                        row_gap: Val::Px(4.0),
+                        padding: UiRect::all(Val::Px(8.0)),
+                        ..default()
+                    })
+                    .with_children(|grid| {
+                        for i in 0..stored.items.len() {
+                            spawn_slot(grid, InvSlotKind::Container, i, false);
+                        }
+                    });
+                }
+            }
+            root.spawn((
+                Text::new(title),
+                TextFont {
+                    font_size: FontSize::Px(18.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.95, 0.93, 0.86)),
+            ));
+            root.spawn(Node {
+                display: Display::Grid,
+                grid_template_columns: vec![RepeatedGridTrack::px(9, 52.0)],
+                column_gap: Val::Px(4.0),
+                row_gap: Val::Px(4.0),
+                padding: UiRect::all(Val::Px(8.0)),
+                ..default()
+            })
+            .with_children(|grid| {
+                for i in 0..BAG_SLOTS {
+                    spawn_slot(grid, InvSlotKind::Bag, HOTBAR_SLOTS + i, false);
+                }
+            });
+            root.spawn(Node {
+                flex_direction: FlexDirection::Row,
+                column_gap: Val::Px(4.0),
+                padding: UiRect::all(Val::Px(8.0)),
+                ..default()
+            })
+            .with_children(|row| {
+                for i in 0..HOTBAR_SLOTS {
+                    spawn_slot(row, InvSlotKind::Hotbar, i, i == inventory.selected);
+                }
+            });
+            root.spawn((
+                InvDragGhost,
+                Text::new(""),
+                TextFont {
+                    font_size: FontSize::Px(14.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(1.0, 0.95, 0.7)),
+                Node {
+                    position_type: PositionType::Absolute,
+                    left: Val::Px(0.0),
+                    top: Val::Px(0.0),
+                    ..default()
+                },
+                Visibility::Hidden,
+                ZIndex(30),
+            ));
+        });
 }
 
 fn update_hud(
@@ -3753,9 +4235,8 @@ fn update_hud(
     p2p: Res<P2pConfig>,
     socket: Option<Res<P2pSocket>>,
     dead: Option<Res<P2pDead>>,
-    mut status: Query<&mut Text, (With<HudStatus>, Without<HudHotbar>, Without<HudHint>)>,
-    mut hotbar: Query<&mut Text, (With<HudHotbar>, Without<HudStatus>, Without<HudHint>)>,
-    mut hint: Query<&mut Text, (With<HudHint>, Without<HudStatus>, Without<HudHotbar>)>,
+    mut status: Query<&mut Text, (With<HudStatus>, Without<HudHint>, Without<InvSlotLabel>)>,
+    mut hint: Query<&mut Text, (With<HudHint>, Without<HudStatus>, Without<InvSlotLabel>)>,
 ) {
     let Some((state, wallet, contract, inventory)) = players.iter().next() else {
         return;
@@ -3773,9 +4254,6 @@ fn update_hud(
             Some(&accept),
         ));
     }
-    if let Some(mut text) = hotbar.iter_mut().next() {
-        *text = Text::new(hotbar_line(locale.0, &mod_runtime, inventory));
-    }
     if let Some(mut text) = hint.iter_mut().next() {
         *text = Text::new(play_hint_line(
             locale.0,
@@ -3785,6 +4263,234 @@ fn update_hud(
             p2p_peer_count(socket.as_deref()),
             dead.is_some(),
         ));
+    }
+}
+
+fn item_label(mod_runtime: &ModRuntime, locale: Locale, item: &str) -> String {
+    if item.is_empty() {
+        return String::new();
+    }
+    let labeled = mod_runtime.ask_any_text(
+        "item-label",
+        &wire_bag(vec![
+            ("locale", Wire::Text(locale.code().to_string())),
+            ("item", Wire::Text(item.to_string())),
+        ]),
+    );
+    if labeled.is_empty() {
+        item.to_string()
+    } else {
+        labeled
+    }
+}
+
+fn update_inv_slot_labels(
+    locale: Res<UiLocale>,
+    players: Query<&ModInventory, With<Player>>,
+    inv_ui: Res<InventoryUi>,
+    containers: Res<WorldContainers>,
+    mod_runtime: Res<ModRuntime>,
+    mut slots: Query<(&InvSlot, &mut BackgroundColor, &mut BorderColor, &Children)>,
+    mut labels: Query<&mut Text, With<InvSlotLabel>>,
+) {
+    let Some(inventory) = players.iter().next() else {
+        return;
+    };
+    for (slot, mut bg, mut border, children) in &mut slots {
+        let (item, count, selected) = match slot.kind {
+            InvSlotKind::Hotbar | InvSlotKind::Bag => {
+                if slot.index >= INVENTORY_SLOTS {
+                    continue;
+                }
+                (
+                    inventory.items[slot.index].as_str(),
+                    inventory.counts[slot.index],
+                    slot.kind == InvSlotKind::Hotbar && slot.index == inventory.selected,
+                )
+            }
+            InvSlotKind::Container => {
+                let Some(pos) = inv_ui.container_pos else {
+                    continue;
+                };
+                let Some(stored) = containers.by_pos.get(&(pos.x, pos.y, pos.z)) else {
+                    continue;
+                };
+                if slot.index >= stored.items.len() {
+                    continue;
+                }
+                (
+                    stored.items[slot.index].as_str(),
+                    stored.counts[slot.index],
+                    false,
+                )
+            }
+        };
+        let (next_bg, next_border) = slot_button_style(selected);
+        *bg = next_bg;
+        *border = next_border;
+        let caption = if item.is_empty() || count == 0 {
+            String::new()
+        } else {
+            let name = item_label(&mod_runtime, locale.0, item);
+            if count > 1 {
+                format!("{name}\nx{count}")
+            } else {
+                name
+            }
+        };
+        for child in children.iter() {
+            if let Ok(mut text) = labels.get_mut(child) {
+                *text = Text::new(caption.clone());
+            }
+        }
+    }
+}
+
+fn inv_pick(inv: &mut ModInventory, index: usize) -> Option<(String, u32)> {
+    inventory_pick_stack(&mut inv.items, &mut inv.counts, index)
+}
+
+fn inv_place(inv: &mut ModInventory, index: usize, item: &str, count: u32) -> (String, u32) {
+    inventory_place_stack(&mut inv.items, &mut inv.counts, index, item, count)
+}
+
+fn container_pick(
+    stored: &mut StoredContainer,
+    index: usize,
+) -> Option<(String, u32)> {
+    inventory_pick_stack(&mut stored.items, &mut stored.counts, index)
+}
+
+fn container_place(
+    stored: &mut StoredContainer,
+    index: usize,
+    item: &str,
+    count: u32,
+) -> (String, u32) {
+    inventory_place_stack(&mut stored.items, &mut stored.counts, index, item, count)
+}
+
+fn sync_inv_ui_locale(locale: Res<UiLocale>, mut inv_ui: ResMut<InventoryUi>) {
+    inv_ui.locale = locale.0;
+}
+
+fn sync_hud_hotbar_visibility(
+    inv_ui: Res<InventoryUi>,
+    mut rows: Query<&mut Visibility, With<HudHotbarRow>>,
+) {
+    let next = if inv_ui.open {
+        Visibility::Hidden
+    } else {
+        Visibility::Visible
+    };
+    for mut vis in &mut rows {
+        *vis = next;
+    }
+}
+
+fn update_inv_drag_ghost(
+    inv_ui: Res<InventoryUi>,
+    locale: Res<UiLocale>,
+    mod_runtime: Res<ModRuntime>,
+    windows: Query<&Window, With<PrimaryWindow>>,
+    mut ghosts: Query<(&mut Node, &mut Text, &mut Visibility), With<InvDragGhost>>,
+) {
+    let cursor = windows
+        .iter()
+        .next()
+        .and_then(|window| window.cursor_position());
+    for (mut node, mut text, mut vis) in &mut ghosts {
+        match (inv_ui.drag.as_ref(), cursor) {
+            (Some(drag), Some(pos)) => {
+                *vis = Visibility::Visible;
+                node.left = Val::Px(pos.x + 14.0);
+                node.top = Val::Px(pos.y + 14.0);
+                let name = item_label(&mod_runtime, locale.0, &drag.item);
+                *text = Text::new(format!("{name} x{}", drag.count));
+            }
+            _ => {
+                *vis = Visibility::Hidden;
+                *text = Text::new("");
+            }
+        }
+    }
+}
+
+fn inv_slot_clicks(
+    mut inv_ui: ResMut<InventoryUi>,
+    mut players: Query<&mut ModInventory, With<Player>>,
+    mut containers: ResMut<WorldContainers>,
+    interactions: Query<(&Interaction, &InvSlot), (Changed<Interaction>, With<Button>)>,
+) {
+    let Some(mut inventory) = players.iter_mut().next() else {
+        return;
+    };
+    if !inv_ui.open {
+        for (interaction, slot) in &interactions {
+            if *interaction == Interaction::Pressed && slot.kind == InvSlotKind::Hotbar {
+                inventory.selected = clamp_hotbar_index(slot.index as i32);
+            }
+        }
+        return;
+    }
+    for (interaction, slot) in &interactions {
+        if *interaction != Interaction::Pressed {
+            continue;
+        }
+        match inv_ui.drag.take() {
+            None => {
+                let picked = match slot.kind {
+                    InvSlotKind::Hotbar | InvSlotKind::Bag => inv_pick(&mut inventory, slot.index),
+                    InvSlotKind::Container => {
+                        let Some(pos) = inv_ui.container_pos else {
+                            continue;
+                        };
+                        let Some(stored) =
+                            containers.by_pos.get_mut(&(pos.x, pos.y, pos.z))
+                        else {
+                            continue;
+                        };
+                        container_pick(stored, slot.index)
+                    }
+                };
+                if let Some((item, count)) = picked {
+                    inv_ui.drag = Some(InvDrag {
+                        kind: slot.kind,
+                        index: slot.index,
+                        item,
+                        count,
+                    });
+                }
+            }
+            Some(drag) => {
+                let (left_item, left_count) = match slot.kind {
+                    InvSlotKind::Hotbar | InvSlotKind::Bag => {
+                        inv_place(&mut inventory, slot.index, &drag.item, drag.count)
+                    }
+                    InvSlotKind::Container => {
+                        let Some(pos) = inv_ui.container_pos else {
+                            inv_ui.drag = Some(drag);
+                            continue;
+                        };
+                        let Some(stored) =
+                            containers.by_pos.get_mut(&(pos.x, pos.y, pos.z))
+                        else {
+                            inv_ui.drag = Some(drag);
+                            continue;
+                        };
+                        container_place(stored, slot.index, &drag.item, drag.count)
+                    }
+                };
+                if !left_item.is_empty() && left_count > 0 {
+                    inv_ui.drag = Some(InvDrag {
+                        kind: slot.kind,
+                        index: slot.index,
+                        item: left_item,
+                        count: left_count,
+                    });
+                }
+            }
+        }
     }
 }
 
@@ -4704,24 +5410,6 @@ fn held_status(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventor
         ),
         None => i18n::t(locale, "hands_empty").to_string(),
     }
-}
-
-fn hotbar_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventory) -> String {
-    let mut parts = Vec::with_capacity(INVENTORY_SLOTS);
-    for i in 0..INVENTORY_SLOTS {
-        let selected = i == inventory.selected;
-        let open = if selected { "[" } else { " " };
-        let close = if selected { "]" } else { " " };
-        let id = inventory.items[i].as_str();
-        let count = inventory.counts[i];
-        if !id.is_empty() && count > 0 {
-            let label = mod_item_label(mod_runtime, locale, id);
-            parts.push(format!("{open}{}:{label}×{count}{close}", i + 1));
-        } else {
-            parts.push(format!("{open}{}{close}", i + 1));
-        }
-    }
-    i18n::format_hotbar(locale, &parts.join(" "))
 }
 
 fn job_status_line(

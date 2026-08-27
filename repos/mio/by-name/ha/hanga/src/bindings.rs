@@ -20,6 +20,7 @@ pub const ACTION_CRAFT: &str = "craft";
 pub const ACTION_ACCEPT: &str = "accept_contract";
 pub const ACTION_COMPLETE: &str = "complete_contract";
 pub const ACTION_FENCE: &str = "fence";
+pub const ACTION_INVENTORY: &str = "inventory";
 pub const ACTION_PAUSE: &str = "pause";
 pub const ACTION_MENU_PLAY: &str = "menu_play";
 pub const ACTION_MENU_MULTI: &str = "menu_multiplayer";
@@ -43,6 +44,7 @@ pub const ALL_ACTIONS: &[&str] = &[
     ACTION_ACCEPT,
     ACTION_COMPLETE,
     ACTION_FENCE,
+    ACTION_INVENTORY,
     ACTION_PAUSE,
     "hotbar_1",
     "hotbar_2",
@@ -52,6 +54,7 @@ pub const ALL_ACTIONS: &[&str] = &[
     "hotbar_6",
     "hotbar_7",
     "hotbar_8",
+    "hotbar_9",
     ACTION_MENU_PLAY,
     ACTION_MENU_MULTI,
     ACTION_MENU_ROOM,
@@ -94,8 +97,9 @@ impl BindingSet {
         add(&mut map, ACTION_ACCEPT, &["KeyJ"]);
         add(&mut map, ACTION_COMPLETE, &["KeyK"]);
         add(&mut map, ACTION_FENCE, &["KeyL"]);
+        add(&mut map, ACTION_INVENTORY, &["KeyI"]);
         add(&mut map, ACTION_PAUSE, &["Escape"]);
-        for i in 1..=8 {
+        for i in 1..=9 {
             add(&mut map, &format!("hotbar_{i}"), &[&format!("Digit{i}")]);
         }
         add(&mut map, ACTION_MENU_PLAY, &["Digit1", "Enter"]);
@@ -311,6 +315,7 @@ pub fn hotbar_action(slot: usize) -> Option<&'static str> {
         5 => Some("hotbar_6"),
         6 => Some("hotbar_7"),
         7 => Some("hotbar_8"),
+        8 => Some("hotbar_9"),
         _ => None,
     }
 }

@@ -546,7 +546,12 @@ pub fn verify_action_signature(
     action_fingerprint(kind, x, y, z, extra) == claimed
 }
 
-pub const INVENTORY_SLOTS: usize = 8;
+/// Hotbar row (digits 1–9). Selected index always lives in `0..HOTBAR_SLOTS`.
+pub const HOTBAR_SLOTS: usize = 9;
+/// Main bag below the hotbar (3×9).
+pub const BAG_SLOTS: usize = 27;
+/// Total player inventory length (`HOTBAR_SLOTS + BAG_SLOTS`).
+pub const INVENTORY_SLOTS: usize = HOTBAR_SLOTS + BAG_SLOTS;
 
 /// Put `item` into the first matching or empty slot. Returns false if the bag is full.
 pub fn inventory_add(items: &mut [String], counts: &mut [u32], item: &str) -> bool {
@@ -586,7 +591,155 @@ pub fn inventory_take(items: &mut [String], counts: &mut [u32], selected: usize)
 }
 
 pub fn clamp_hotbar_index(index: i32) -> usize {
-    index.clamp(0, (INVENTORY_SLOTS as i32) - 1) as usize
+    index.clamp(0, (HOTBAR_SLOTS as i32) - 1) as usize
+}
+
+/// Swap two slots in place. No-op when indexes are equal or out of range.
+pub fn inventory_swap_slots(
+    items: &mut [String],
+    counts: &mut [u32],
+    a: usize,
+    b: usize,
+) -> bool {
+    if items.len() != counts.len() || a >= items.len() || b >= items.len() {
+        return false;
+    }
+    if a == b {
+        return true;
+    }
+    items.swap(a, b);
+    counts.swap(a, b);
+    true
+}
+
+/// Drop stack `(item, count)` onto `dest`. Merges when same id; otherwise swaps
+/// with whatever was in the destination. Returns the leftover cursor stack
+/// `(item, count)` (empty item / 0 when fully placed).
+pub fn inventory_place_stack(
+    items: &mut [String],
+    counts: &mut [u32],
+    dest: usize,
+    item: &str,
+    count: u32,
+) -> (String, u32) {
+    if item.is_empty() || count == 0 || items.len() != counts.len() || dest >= items.len() {
+        return (item.to_string(), count);
+    }
+    let dest_empty = items[dest].is_empty() || counts[dest] == 0;
+    if dest_empty {
+        items[dest] = item.to_string();
+        counts[dest] = count.min(999);
+        return (String::new(), 0);
+    }
+    if items[dest] == item {
+        let space = 999u32.saturating_sub(counts[dest]);
+        let moved = count.min(space);
+        counts[dest] += moved;
+        let left = count - moved;
+        if left == 0 {
+            (String::new(), 0)
+        } else {
+            (item.to_string(), left)
+        }
+    } else {
+        let prev_item = items[dest].clone();
+        let prev_count = counts[dest];
+        items[dest] = item.to_string();
+        counts[dest] = count.min(999);
+        (prev_item, prev_count)
+    }
+}
+
+/// Pull an entire stack out of `src` for drag-and-drop.
+pub fn inventory_pick_stack(
+    items: &mut [String],
+    counts: &mut [u32],
+    src: usize,
+) -> Option<(String, u32)> {
+    if items.len() != counts.len() || src >= items.len() {
+        return None;
+    }
+    if items[src].is_empty() || counts[src] == 0 {
+        return None;
+    }
+    let item = std::mem::take(&mut items[src]);
+    let count = counts[src];
+    counts[src] = 0;
+    Some((item, count))
+}
+
+/// Merge/insert a whole stack into matching or empty slots. Returns leftover count.
+pub fn inventory_insert_stack(
+    items: &mut [String],
+    counts: &mut [u32],
+    item: &str,
+    mut count: u32,
+) -> u32 {
+    if item.is_empty() || count == 0 || items.len() != counts.len() {
+        return count;
+    }
+    for i in 0..items.len() {
+        if items[i] == item && counts[i] > 0 && counts[i] < 999 {
+            let space = 999u32.saturating_sub(counts[i]);
+            let moved = count.min(space);
+            counts[i] += moved;
+            count -= moved;
+            if count == 0 {
+                return 0;
+            }
+        }
+    }
+    for i in 0..items.len() {
+        if items[i].is_empty() || counts[i] == 0 {
+            let moved = count.min(999);
+            items[i] = item.to_string();
+            counts[i] = moved;
+            count -= moved;
+            if count == 0 {
+                return 0;
+            }
+        }
+    }
+    count
+}
+
+/// Parsed `container-kit` reply. Empty `kind` / zero slots = not a container.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct ContainerKit {
+    pub kind: String,
+    pub slots: usize,
+}
+
+pub fn parse_container_kit_node(node: &crate::kit::Node) -> ContainerKit {
+    if node.is_empty() {
+        return ContainerKit::default();
+    }
+    let kind = match node {
+        crate::kit::Node::Text(text) => text.clone(),
+        _ => node.get("kind").map(crate::kit::Node::text).unwrap_or_default(),
+    };
+    let slots = match node {
+        crate::kit::Node::Text(_) => {
+            if kind.is_empty() {
+                0
+            } else {
+                27
+            }
+        }
+        _ => node
+            .get("slots")
+            .and_then(crate::kit::Node::as_i32)
+            .unwrap_or(0)
+            .max(0) as usize,
+    };
+    if kind.is_empty() || slots == 0 {
+        ContainerKit::default()
+    } else {
+        ContainerKit {
+            kind,
+            slots: slots.min(54),
+        }
+    }
 }
 
 pub const LOOK_SENSITIVITY: f32 = 0.0025;
@@ -1055,12 +1208,59 @@ mod tests {
     fn hotbar_index_stays_in_range() {
         assert_eq!(clamp_hotbar_index(-2), 0);
         assert_eq!(clamp_hotbar_index(3), 3);
-        assert_eq!(clamp_hotbar_index(99), 7);
+        assert_eq!(clamp_hotbar_index(99), HOTBAR_SLOTS - 1);
         let mut items: [String; INVENTORY_SLOTS] = std::array::from_fn(|_| String::new());
         items[0] = "glass".into();
-        let counts = [2, 0, 0, 0, 0, 0, 0, 0];
+        let mut counts = [0u32; INVENTORY_SLOTS];
+        counts[0] = 2;
         assert_eq!(inventory_selected(&items, &counts, 0), Some("glass"));
         assert_eq!(inventory_selected(&items, &counts, 1), None);
+    }
+
+    #[test]
+    fn drag_pick_place_swap_and_merge() {
+        let (mut items, mut counts) = empty_bag();
+        items[0] = "glass".into();
+        counts[0] = 3;
+        items[1] = "concrete".into();
+        counts[1] = 1;
+        assert!(inventory_swap_slots(&mut items, &mut counts, 0, 1));
+        assert_eq!((items[0].as_str(), counts[0]), ("concrete", 1));
+        assert_eq!((items[1].as_str(), counts[1]), ("glass", 3));
+        let (picked, n) = inventory_pick_stack(&mut items, &mut counts, 1).unwrap();
+        assert_eq!((picked.as_str(), n), ("glass", 3));
+        assert!(items[1].is_empty());
+        let (left_item, left_n) =
+            inventory_place_stack(&mut items, &mut counts, 0, &picked, n);
+        assert_eq!((left_item.as_str(), left_n), ("concrete", 1));
+        assert_eq!((items[0].as_str(), counts[0]), ("glass", 3));
+        let (merged, m) =
+            inventory_place_stack(&mut items, &mut counts, 0, "glass", 2);
+        assert!(merged.is_empty() && m == 0);
+        assert_eq!(counts[0], 5);
+        let left = inventory_insert_stack(&mut items, &mut counts, "brick", 4);
+        assert_eq!(left, 0);
+        assert_eq!((items[1].as_str(), counts[1]), ("brick", 4));
+    }
+
+    #[test]
+    fn container_kit_requires_kind_and_slots() {
+        use crate::kit::Node;
+        assert_eq!(
+            parse_container_kit_node(&Node::Empty),
+            ContainerKit::default()
+        );
+        let node = Node::Dict(vec![
+            ("kind".into(), Node::Text("chest".into())),
+            ("slots".into(), Node::Int(27)),
+        ]);
+        assert_eq!(
+            parse_container_kit_node(&node),
+            ContainerKit {
+                kind: "chest".into(),
+                slots: 27,
+            }
+        );
     }
 
     #[test]

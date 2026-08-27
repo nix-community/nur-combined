@@ -576,6 +576,17 @@ pub fn sound_kit(action: &str) -> hanga::engine::host::Value {
     wire_dict(vec![field("file", atom_text(file))])
 }
 
+/// World containers (chests / workbenches). Empty reply = not a container.
+pub fn container_kit(voxel: &str) -> hanga::engine::host::Value {
+    match voxel {
+        "workbench" => wire_dict(vec![
+            field("kind", atom_text("workbench")),
+            field("slots", atom_int(27)),
+        ]),
+        _ => wire_empty(),
+    }
+}
+
 pub fn steer(payload: &hanga::engine::host::Value) -> hanga::engine::host::Value {
     let role = payload_str(payload, "role");
     if role == "traffic" {
@@ -1770,6 +1781,14 @@ mod tests {
         assert_eq!(payload_str(&sound_kit(ACTION_BREAK), "file"), "break.wav");
         assert_eq!(payload_str(&sound_kit(ACTION_CRASH), "file"), "crash.wav");
         assert!(wire_is_null(&sound_kit("unknown")));
+    }
+
+    #[test]
+    fn workbench_is_a_container() {
+        let kit = container_kit("workbench");
+        assert_eq!(payload_str(&kit, "kind"), "workbench");
+        assert_eq!(payload_i64(&kit, "slots"), 27);
+        assert!(wire_is_null(&container_kit("asphalt")));
     }
 
     #[test]

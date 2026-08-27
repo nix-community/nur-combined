@@ -136,6 +136,8 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - What can shatter (`fracture-kit`: can / spread / impulse)
 - Spatial SFX (`sound-kit`): action name in, `{file}` basename (`.wav`/`.ogg`) under
   `assets/sounds/`. Host stages a procedural beep when the file is missing.
+- World containers (`container-kit`): voxel name in, `{kind, slots}` out. Host opens a
+  graphical grid (I = bag; use/place on a container voxel opens it).
 - Rideable kit (`vehicle-kit`): kind, traffic, speed, stiffness 0–100, `tires` names, `beams` links, collider, named box parts.
   Urban Chaos ships a soft car with squashing wheels; Testbed ships a stiff platform (and a stiff cart when packed with Urban Chaos).
 - Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
@@ -153,7 +155,7 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Wallet / contracts (`wallet-after`, `offer-contract`, `can-complete`)
 - English names for voxels, items, actions, agents, contracts, and story events
 - `voxel-catalog` is a list of names in meshing-index order; `query-voxel` still returns that index
-- Loot names (`loot-item`) that fill the host's generic 8-slot hotbar
+- Loot names (`loot-item`) that fill the host's generic hotbar + bag
 - Crafting recipes (`craft-result`); the host only spends two items and adds the product
 - Heist board (`offer-contract`, `contract-mark`, `can-complete` + context).
   The host paints a mark and reports held item / position / vehicle / near;

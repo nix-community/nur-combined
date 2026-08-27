@@ -220,6 +220,16 @@ pub fn sound_kit(action: &str) -> hanga::engine::host::Value {
     wire_dict(vec![field("file", atom_text(file))])
 }
 
+pub fn container_kit(voxel: &str) -> hanga::engine::host::Value {
+    match voxel {
+        "chest" | "platform" => wire_dict(vec![
+            field("kind", atom_text("chest")),
+            field("slots", atom_int(9)),
+        ]),
+        _ => wire_empty(),
+    }
+}
+
 pub fn steer(payload: &hanga::engine::host::Value) -> hanga::engine::host::Value {
     let role = payload_str(payload, "role");
     if role == "traffic" {
