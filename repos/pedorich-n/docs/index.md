@@ -67,6 +67,52 @@ Then apply the overlay in your NixOS configuration:
 }
 ```
 
+#### Binary cache {#index-usage-packages-cache}
+
+In order to improve the build time, this repository also provides a biniary cache for the custom packages.
+To use it, add the following to your `flake.nix`:
+
+```nix
+{
+  nixConfig = {
+    extra-substituters = [
+      "https://pedorich-n-nur.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "pedorich-n-nur.cachix.org-1:EisUgiRsKFmZ3LJN7r29oDae+Wxq9FQpkcydRx19N7Q="
+    ];
+  };
+
+  # The rest of flake.nix
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  }
+
+  outputs = ...
+}
+```
+
+Or, if using with NixOS:
+
+```nix
+{
+  config,
+  pkgs,
+  ...
+}:
+{
+  nix.settings = {
+    substituters = [
+      "https://pedorich-n-nur.cachix.org"
+    ];
+    trusted-public-keys = [
+      "pedorich-n-nur.cachix.org-1:EisUgiRsKFmZ3LJN7r29oDae+Wxq9FQpkcydRx19N7Q="
+    ];
+  };
+}
+
+```
+
 ### NixOS modules (Using Flakes) {#index-usage-modules-nixos}
 
 Include NUR in your `flake.nix`:
