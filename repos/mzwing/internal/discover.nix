@@ -1,15 +1,5 @@
-# Inject package arguments from sources, `pkgs`, local packages, injected values, then nixpkgs; `extraArgs` overrides per package.
-{lib ? null}: let
-  # Repository-relative default sources.
-  defaultSources = pkgs: pkgs.callPackage ../_sources/generated.nix {};
-
-  # Lazy repo-wide gomod2nix builder injection.
-  defaultInject = pkgs: let
-    overlaid = pkgs.extend (import ((import ./gomod2nix.nix) + "/overlay.nix"));
-  in {
-    buildGoApplication = overlaid.buildGoApplication;
-  };
-
+# Wire package arguments from sources, `pkgs` and sibling packages; callPackage supplies the rest.
+{lib}: let
   # Package directories.
   packageDirs = dir: let
     entries = builtins.readDir dir;
@@ -24,43 +14,51 @@
   packages = {
     pkgs,
     dir,
-    sources ? defaultSources pkgs,
-    inject ? defaultInject pkgs,
+    sources,
     extraArgs ? {},
   }: let
+    # Arguments this repository supplies; anything else falls through to callPackage.
     autoArgsFor = name: let
-      fargs = builtins.functionArgs (import (dir + "/${name}/default.nix"));
-      shouldInject = arg:
-        (arg == "source" && builtins.hasAttr name sources)
-        || arg == "pkgs"
-        || builtins.hasAttr arg result
-        || builtins.hasAttr arg sources
-        || builtins.hasAttr arg inject;
-      valueFor = arg:
-        if arg == "source" && builtins.hasAttr name sources
-        then builtins.getAttr name sources
+      file = dir + "/${name}/default.nix";
+      argFor = arg:
+        if arg == "source" && sources ? ${name}
+        then [
+          {
+            name = arg;
+            value = sources.${name};
+          }
+        ]
         else if arg == "pkgs"
-        then pkgs
-        else if builtins.hasAttr arg result
-        then builtins.getAttr arg result
-        else if builtins.hasAttr arg sources
-        then builtins.getAttr arg sources
-        else builtins.getAttr arg inject;
+        then [
+          {
+            name = arg;
+            value = pkgs;
+          }
+        ]
+        else if result ? ${arg}
+        then [
+          {
+            name = arg;
+            value = result.${arg};
+          }
+        ]
+        else if sources ? ${arg}
+        then [
+          {
+            name = arg;
+            value = sources.${arg};
+          }
+        ]
+        else [];
     in
-      builtins.listToAttrs (map (arg: {
-        name = arg;
-        value = valueFor arg;
-      }) (builtins.filter shouldInject (builtins.attrNames fargs)));
+      builtins.listToAttrs (
+        builtins.concatMap argFor (builtins.attrNames (builtins.functionArgs (import file)))
+      );
 
     result = builtins.listToAttrs (map (name: {
       inherit name;
       value = pkgs.callPackage (dir + "/${name}/default.nix") (
-        autoArgsFor name
-        // (
-          if builtins.hasAttr name extraArgs
-          then builtins.getAttr name extraArgs
-          else {}
-        )
+        autoArgsFor name // extraArgs.${name} or {}
       );
     }) (packageDirs dir));
   in
@@ -94,23 +92,5 @@ in {
   in
     lib.foldl' merge {} (map (path: import path args) (discover dir));
 
-  subdirs = dir: let
-    entries = builtins.readDir dir;
-  in
-    builtins.listToAttrs (map (name: {
-      inherit name;
-      value = dir + "/${name}";
-    }) (builtins.filter (name: entries.${name} == "directory") (builtins.attrNames entries)));
-
   inherit packages;
-
-  package = {
-    pkgs,
-    name,
-    sources ? defaultSources pkgs,
-  }:
-    builtins.getAttr name (packages {
-      inherit pkgs sources;
-      dir = ../pkgs;
-    });
 }

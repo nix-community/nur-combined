@@ -8,13 +8,6 @@
   jsonFormat = pkgs.formats.json {};
   yamlFormat = pkgs.formats.yaml {};
 
-  localPackages = {
-    gryph = (import ../../internal/discover.nix {inherit (pkgs) lib;}).package {
-      inherit pkgs;
-      name = "gryph";
-    };
-  };
-
   # Match the hook payloads written by `gryph install`.
 
   # Claude Code settings hooks.
@@ -183,7 +176,7 @@ in {
   options.programs.gryph = {
     enable = lib.mkEnableOption "gryph, the local-first audit trail and observability tool for AI coding agents";
 
-    package = lib.mkPackageOption localPackages "gryph" {
+    package = lib.mkPackageOption (import ../../internal/packages.nix {inherit pkgs;}) "gryph" {
       pkgsText = "inputs.nur.repos.mzwing";
       extraDescription = "It is added to `home.packages` and invoked by every generated agent hook.";
     };

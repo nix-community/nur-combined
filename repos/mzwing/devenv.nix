@@ -19,7 +19,6 @@
     ruff
     shellcheck
     shfmt
-    ty
     nur.repos.mzwing.typenix
   ];
 

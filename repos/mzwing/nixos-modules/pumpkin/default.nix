@@ -16,19 +16,11 @@ moduleArgs @ {
     nixos = {
       wants = ["network-online.target"];
       after = ["network-online.target"];
-      serviceConfig = {
-        CapabilityBoundingSet = [""];
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateTmp = true;
-        ProtectControlGroups = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectSystem = "strict";
-        ReadWritePaths = [cfg.dataDir];
-        RestrictSUIDSGID = true;
-      };
+      serviceConfig =
+        import ../../internal/system-service/systemd-hardening.nix
+        // {
+          ReadWritePaths = [cfg.dataDir];
+        };
     };
   };
 in {

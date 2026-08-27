@@ -6,7 +6,6 @@
   buildPackages,
   coreutils,
   installShellFiles,
-}: {
   source,
   modules,
   version,

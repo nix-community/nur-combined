@@ -8,10 +8,9 @@
     supportedSystems = import ./internal/systems.nix;
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in {
-    legacyPackages = forAllSystems (system: let
-      pkgs = import nixpkgs {inherit system;};
-    in
-      import ./default.nix {inherit pkgs;});
+    legacyPackages =
+      forAllSystems (system:
+        import ./default.nix {pkgs = nixpkgs.legacyPackages.${system};});
     packages = forAllSystems (system: let
       platform = nixpkgs.legacyPackages.${system}.stdenv.hostPlatform;
     in

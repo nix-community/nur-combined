@@ -1,3 +1,10 @@
+"""Merge schema-agnostic Nix module settings into a writable runtime config file.
+
+Paths written by the declarative settings are recorded in a state file so that
+removing a setting removes it from the runtime config on the next start, while
+values the service itself wrote are left alone.
+"""
+
 import argparse
 import copy
 import json
@@ -8,8 +15,6 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 STATE_VERSION = 1
 
 
@@ -17,7 +22,11 @@ class ConfigError(RuntimeError):
     pass
 
 
-def validate_mapping_keys(
+def program() -> str:
+    return Path(sys.argv[0]).name
+
+
+def validate_yaml_value(
     value: Any, description: str, active_containers: set[int] | None = None
 ) -> None:
     if not isinstance(value, (dict, list)):
@@ -37,17 +46,35 @@ def validate_mapping_keys(
                     raise ConfigError(
                         f"{description} contains a non-string mapping key"
                     )
-                validate_mapping_keys(child, description, active_containers)
+                validate_yaml_value(child, description, active_containers)
         else:
             for child in value:
-                validate_mapping_keys(child, description, active_containers)
+                validate_yaml_value(child, description, active_containers)
     finally:
         active_containers.remove(identity)
 
 
-def load_yaml_mapping(path: Path, description: str) -> dict[str, Any]:
-    if path.is_symlink() or not path.is_file():
+def load_mapping(
+    path: Path, description: str, fmt: str, *, allow_symlink: bool = False
+) -> dict[str, Any]:
+    # External secret overlays are symlinks under sops-nix and agenix, so they opt in.
+    if not allow_symlink and path.is_symlink():
+        raise ConfigError(f"{description} is not a regular file: {path}")
+    if not path.is_file():
         raise ConfigError(f"{description} is not a readable regular file: {path}")
+
+    if fmt == "toml":
+        import tomllib
+
+        try:
+            with path.open("rb") as file:
+                return tomllib.load(file)
+        except (OSError, tomllib.TOMLDecodeError) as error:
+            raise ConfigError(
+                f"could not read {description} {path}: {error}"
+            ) from error
+
+    import yaml
 
     try:
         with path.open("r", encoding="utf-8") as file:
@@ -57,11 +84,39 @@ def load_yaml_mapping(path: Path, description: str) -> dict[str, Any]:
 
     if not isinstance(value, dict):
         raise ConfigError(f"{description} must contain a YAML mapping: {path}")
-    validate_mapping_keys(value, description)
+    # Only YAML can produce non-string keys or self-referential values.
+    validate_yaml_value(value, description)
     return value
 
 
-def read_key_lines(path: Path, description: str) -> list[str]:
+def dump_mapping(config: dict[str, Any], fmt: str) -> bytes:
+    if fmt == "toml":
+        import tomli_w
+
+        try:
+            return tomli_w.dumps(config).encode()
+        except (TypeError, ValueError) as error:
+            raise ConfigError(
+                f"could not serialize merged configuration: {error}"
+            ) from error
+
+    import yaml
+
+    try:
+        return yaml.safe_dump(
+            config,
+            allow_unicode=True,
+            default_flow_style=False,
+            sort_keys=False,
+        ).encode()
+    except (TypeError, ValueError, yaml.YAMLError) as error:
+        raise ConfigError(
+            f"could not serialize merged configuration: {error}"
+        ) from error
+
+
+def read_secret_lines(path: Path, description: str) -> list[str]:
+    # Symlinks are followed so sops-nix and agenix secrets can be used.
     if not path.exists() or not path.is_file():
         raise ConfigError(f"{description} is not a readable regular file: {path}")
     lines: list[str] = []
@@ -77,28 +132,14 @@ def read_key_lines(path: Path, description: str) -> list[str]:
     return lines
 
 
-def load_api_keys(paths: list[Path]) -> list[str]:
-    keys: list[str] = []
-    for path in paths:
-        keys.extend(read_key_lines(path, "API key file"))
-    return keys
-
-
-def load_secret_key(path: Path) -> str:
-    lines = read_key_lines(path, "remote management secret key file")
-    if not lines:
-        raise ConfigError(f"remote management secret key file contains no key: {path}")
-    return lines[0]
-
-
-def load_runtime_config(path: Path) -> dict[str, Any]:
+def load_runtime_config(path: Path, fmt: str) -> dict[str, Any]:
     if path.is_symlink():
         raise ConfigError(f"runtime config is not a regular file: {path}")
     if not path.exists():
         return {}
     if not path.is_file():
         raise ConfigError(f"runtime config is not a regular file: {path}")
-    return load_yaml_mapping(path, "runtime config")
+    return load_mapping(path, "runtime config", fmt)
 
 
 def leaf_paths(value: Any, prefix: tuple[str, ...] = ()) -> list[tuple[str, ...]]:
@@ -134,6 +175,17 @@ def remove_path(root: dict[str, Any], path: tuple[str, ...]) -> None:
             parent.pop(key)
         else:
             break
+
+
+def set_path(root: dict[str, Any], path: tuple[str, ...], value: Any) -> None:
+    current = root
+    for key in path[:-1]:
+        child = current.get(key)
+        if not isinstance(child, dict):
+            child = {}
+            current[key] = child
+        current = child
+    current[path[-1]] = value
 
 
 def merge(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
@@ -213,18 +265,9 @@ def write_outputs(
     state_path: Path,
     config: dict[str, Any],
     managed_paths: list[tuple[str, ...]],
+    fmt: str,
 ) -> None:
-    try:
-        config_content = yaml.safe_dump(
-            config,
-            allow_unicode=True,
-            default_flow_style=False,
-            sort_keys=False,
-        ).encode()
-    except (TypeError, ValueError, yaml.YAMLError) as error:
-        raise ConfigError(
-            f"could not serialize merged configuration: {error}"
-        ) from error
+    config_content = dump_mapping(config, fmt)
 
     state_content = (
         json.dumps(
@@ -238,16 +281,19 @@ def write_outputs(
         + "\n"
     ).encode()
 
-    config_temp = temporary_file(config_path.parent, ".config.yaml.", config_content)
+    config_temp = temporary_file(
+        config_path.parent, f".{config_path.name}.", config_content
+    )
     try:
         state_temp = temporary_file(
-            state_path.parent, ".cliproxyapiplus-managed.", state_content
+            state_path.parent, f".{state_path.name}.", state_content
         )
     except BaseException:
         config_temp.unlink(missing_ok=True)
         raise
 
     try:
+        # Save managed paths first so a config write failure can be retried safely.
         replace_if_changed(state_temp, state_path)
         replace_if_changed(config_temp, config_path)
     finally:
@@ -277,34 +323,57 @@ def back_up_initial_config(
         ) from error
 
 
+def secret_argument(value: str) -> tuple[tuple[str, ...], Path]:
+    dotted, separator, filename = value.partition("=")
+    if not separator or not filename:
+        raise argparse.ArgumentTypeError(
+            f"expected <dotted.path>=<file>, got {value!r}"
+        )
+    parts = tuple(dotted.split("."))
+    if not all(parts):
+        raise argparse.ArgumentTypeError(f"invalid dotted path: {dotted!r}")
+    return parts, Path(filename)
+
+
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Merge schema-agnostic Nix module settings into CLIProxyAPIPlus YAML"
+        description="Merge schema-agnostic Nix module settings into a runtime config file"
     )
-    parser.add_argument("config", type=Path, help="Writable runtime config.yaml")
-    parser.add_argument("settings", type=Path, help="Declarative YAML settings")
+    parser.add_argument("--format", choices=("yaml", "toml"), required=True)
+    parser.add_argument("config", type=Path, help="Writable runtime config file")
+    parser.add_argument("settings", type=Path, help="Declarative settings")
     parser.add_argument("state", type=Path, help="Managed-path state file")
     parser.add_argument("backup", type=Path, help="One-time stateful backup")
     parser.add_argument(
-        "--api-key-file",
+        "--overlay",
         type=Path,
         action="append",
         default=[],
-        dest="api_key_files",
-        help="External file with one API key per line (repeatable, order preserved)",
+        dest="overlays",
+        help="External settings file merged after the declarative settings (repeatable)",
     )
     parser.add_argument(
-        "--secret-key-file",
-        type=Path,
-        default=None,
-        dest="secret_key_file",
-        help="External file containing the remote management secret key (first non-blank, non-comment line)",
+        "--secret-file",
+        type=secret_argument,
+        action="append",
+        default=[],
+        dest="secret_files",
+        help="<dotted.path>=<file>; the file's first non-blank, non-comment line (repeatable)",
+    )
+    parser.add_argument(
+        "--secret-lines-file",
+        type=secret_argument,
+        action="append",
+        default=[],
+        dest="secret_lines_files",
+        help="<dotted.path>=<file>; every non-blank, non-comment line, order preserved (repeatable)",
     )
     return parser.parse_args()
 
 
 def main() -> int:
     arguments = parse_arguments()
+    fmt: str = arguments.format
     config_path: Path = arguments.config
     state_path: Path = arguments.state
     backup_path: Path = arguments.backup
@@ -317,8 +386,12 @@ def main() -> int:
         ):
             raise ConfigError("config, state, and backup files must share a directory")
 
-        settings = load_yaml_mapping(arguments.settings, "declarative settings")
-        runtime = load_runtime_config(config_path)
+        settings = load_mapping(arguments.settings, "declarative settings", fmt)
+        overlays = [
+            load_mapping(path, "secret settings", fmt, allow_symlink=True)
+            for path in arguments.overlays
+        ]
+        runtime = load_runtime_config(config_path, fmt)
         old_paths = load_state(state_path)
 
         for old_path in old_paths:
@@ -326,27 +399,29 @@ def main() -> int:
 
         merge(runtime, settings)
         managed_paths = set(leaf_paths(settings))
+        for overlay in overlays:
+            merge(runtime, overlay)
+            managed_paths.update(leaf_paths(overlay))
 
-        if arguments.api_key_files:
-            api_keys = load_api_keys(arguments.api_key_files)
-            runtime["api-keys"] = api_keys
-            managed_paths.add(("api-keys",))
+        # Several files may contribute to one list, in the order they were given.
+        lines_at: dict[tuple[str, ...], list[str]] = {}
+        for path, file in arguments.secret_lines_files:
+            lines_at.setdefault(path, []).extend(read_secret_lines(file, "secret file"))
+        for path, lines in lines_at.items():
+            set_path(runtime, path, lines)
+            managed_paths.add(path)
 
-        if arguments.secret_key_file is not None:
-            secret_key = load_secret_key(arguments.secret_key_file)
-            remote_management = runtime.get("remote-management")
-            if not isinstance(remote_management, dict):
-                remote_management = {}
-                runtime["remote-management"] = remote_management
-            remote_management["secret-key"] = secret_key
-            managed_paths.add(("remote-management", "secret-key"))
-
-        managed_path_list = sorted(managed_paths)
+        for path, file in arguments.secret_files:
+            lines = read_secret_lines(file, "secret file")
+            if not lines:
+                raise ConfigError(f"secret file contains no value: {file}")
+            set_path(runtime, path, lines[0])
+            managed_paths.add(path)
 
         back_up_initial_config(config_path, state_path, backup_path)
-        write_outputs(config_path, state_path, runtime, managed_path_list)
+        write_outputs(config_path, state_path, runtime, sorted(managed_paths), fmt)
     except (ConfigError, OSError) as error:
-        print(f"cliproxyapiplus: {error}", file=sys.stderr)
+        print(f"{program()}: {error}", file=sys.stderr)
         return 1
 
     return 0

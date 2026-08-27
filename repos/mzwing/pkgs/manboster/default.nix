@@ -1,11 +1,9 @@
 {
+  callPackage,
   lib,
-  buildGoApplication,
-  libffi,
   source,
-  stdenv,
 }:
-import ./package.nix {inherit lib buildGoApplication libffi stdenv;} {
+callPackage ./package.nix {
   inherit source;
   modules = ./gomod2nix.toml;
   version = lib.removePrefix "v" source.version;

@@ -5,7 +5,6 @@
   buildGoApplication,
   libffi,
   stdenv,
-}: {
   source,
   modules,
   version,

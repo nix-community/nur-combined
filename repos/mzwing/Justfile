@@ -1,8 +1,7 @@
 # Format tracked Nix sources except generated files.
 nix_sources := "git ls-files '*.nix' ':!:_sources/generated.nix' ':!:pkgs/*/Cargo.nix'"
 
-# Format standalone CI scripts only; shfmt breaks updater array subscripts embedded in Nix.
-shell_sources := "git ls-files 'scripts/ci/*.sh'"
+shell_sources := "git ls-files '*.sh'"
 python_sources := "git ls-files '*.py'"
 
 default: lint

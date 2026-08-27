@@ -7,19 +7,7 @@
 # commands such as:
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}}: let
-  discover = import ./internal/discover.nix {inherit (pkgs) lib;};
-  sources = pkgs.callPackage ./_sources/generated.nix {};
-  # Keep npm lockfile repair scoped to packages in this repository.
-  packagePkgs = pkgs.extend (import ./internal/npm-lockfile-fix.nix);
-  # Auto-wire packages under pkgs/; `extraArgs` handles exceptions.
-  packages = discover.packages {
-    pkgs = packagePkgs;
-    inherit sources;
-    dir = ./pkgs;
-    extraArgs = {
-      typenix-vscode = {source = sources.typenix;};
-    };
-  };
+  packages = import ./internal/packages.nix {inherit pkgs;};
 in
   {
     # Reserved NUR exports.

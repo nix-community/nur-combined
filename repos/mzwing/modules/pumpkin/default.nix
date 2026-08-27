@@ -7,13 +7,18 @@
 }: let
   cfg = config.services.pumpkin;
   tomlFormat = pkgs.formats.toml {};
-  localPackages = {
-    pumpkin = (import ../../internal/discover.nix {inherit (pkgs) lib;}).package {
-      inherit pkgs;
-      name = "pumpkin";
-    };
+  mergeConfig = (import ../../internal/config-merge {inherit pkgs;}).mkMergeConfig {
+    name = "pumpkin-merge-config";
+    format = "toml";
   };
-  helpers = import ./helpers.nix {inherit pkgs;};
+  manageWhitelist =
+    pkgs.writers.writePython3Bin "pumpkin-manage-whitelist" {
+      flakeIgnore = [
+        "E501"
+        "W503"
+      ];
+    }
+    (builtins.readFile ./whitelist.py);
 
   settingsFile = tomlFormat.generate "pumpkin-settings.toml" cfg.settings;
   whitelistFile = pkgs.writeText "pumpkin-whitelist.json" (
@@ -29,8 +34,8 @@
     name = "pumpkin-start";
     runtimeInputs = [
       pkgs.coreutils
-      helpers.manageWhitelist
-      helpers.mergeConfig
+      manageWhitelist
+      mergeConfig
     ];
     text = ''
       umask 077
@@ -52,21 +57,21 @@
         "$config_backup"
       )
       ${lib.optionalString (cfg.secretSettingsFile != null) ''
-        merge_args+=(${lib.escapeShellArg cfg.secretSettingsFile})
+        merge_args+=(--overlay ${lib.escapeShellArg cfg.secretSettingsFile})
       ''}
-      ${lib.getExe helpers.mergeConfig} "''${merge_args[@]}"
+      ${lib.getExe mergeConfig} "''${merge_args[@]}"
 
       ${
         if cfg.whitelist == null
         then ''
-          ${lib.getExe helpers.manageWhitelist} \
+          ${lib.getExe manageWhitelist} \
             unmanaged \
             "$whitelist_file" \
             "$whitelist_state" \
             "$whitelist_backup"
         ''
         else ''
-          ${lib.getExe helpers.manageWhitelist} \
+          ${lib.getExe manageWhitelist} \
             managed \
             "$whitelist_file" \
             "$whitelist_state" \
@@ -89,7 +94,7 @@
   options = {
     enable = lib.mkEnableOption "Pumpkin Minecraft server system service";
 
-    package = lib.mkPackageOption localPackages "pumpkin" {
+    package = lib.mkPackageOption (import ../../internal/packages.nix {inherit pkgs;}) "pumpkin" {
       pkgsText = "inputs.nur.repos.mzwing";
       extraDescription = "It is installed system-wide and used by the system service.";
     };
@@ -164,8 +169,8 @@
   sharedConfig = {
     assertions = [
       {
-        assertion = !isInStore cfg.dataDir;
-        message = "services.pumpkin.dataDir must be outside the Nix store";
+        assertion = lib.hasPrefix "/" cfg.dataDir && !isInStore cfg.dataDir;
+        message = "services.pumpkin.dataDir must be an absolute path outside the Nix store";
       }
       {
         assertion =

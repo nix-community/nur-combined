@@ -24,10 +24,8 @@
   zip,
   writeText,
   writeShellApplication,
-  coreutils,
   curl,
   jq,
-  nix,
   xdg-utils,
   xprop,
   xwininfo,
@@ -341,21 +339,23 @@ in
       runHook postInstallCheck
     '';
 
-    passthru.pinUpdater = writeShellApplication {
-      name = "bakamusic-pin-updater";
-      runtimeInputs = [
-        coreutils
-        curl
-        jq
-        nix
-      ];
-      runtimeEnv.PIN_UTILS = ../../scripts/package-updates/lib/pin-utils.sh;
-      excludeShellChecks = [
-        "SC1090" # PIN_UTILS is injected via runtimeEnv.
-        "SC1091"
-        "SC2154"
-      ];
-      text = builtins.readFile ./update-pins.sh;
+    passthru.pins = {
+      # Prints the pin identity as JSON; update-pins fills in the hashes below.
+      resolve = writeShellApplication {
+        name = "bakamusic-resolve-pins";
+        runtimeInputs = [
+          curl
+          jq
+        ];
+        text = builtins.readFile ./resolve-pins.sh;
+      };
+
+      # Where each prefetched hash lands, and the URL it is computed from.
+      # `{a.b}` interpolates a dotted path from the resolved identity.
+      hashes = {
+        "koffi.hash" = "https://codeberg.org/Koromix/rygel/archive/{koffi.commit}.tar.gz";
+        "mpvRuntime.librempeg.hash" = "https://github.com/librempeg/librempeg/archive/{mpvRuntime.librempeg.commit}.tar.gz";
+      };
     };
 
     meta = {

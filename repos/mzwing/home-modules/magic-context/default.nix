@@ -7,13 +7,6 @@
   cfg = config.programs.magic-context;
   jsonFormat = pkgs.formats.json {};
 
-  localPackages = {
-    magic-context = (import ../../internal/discover.nix {inherit (pkgs) lib;}).package {
-      inherit pkgs;
-      name = "magic-context";
-    };
-  };
-
   # Per-harness blocks, plus the flat form upstream still migrates.
   historian = cfg.settings.historian or {};
   historianConfigured =
@@ -24,7 +17,7 @@ in {
   options.programs.magic-context = {
     enable = lib.mkEnableOption "Magic Context, self-managing context and cross-session memory for coding agents";
 
-    package = lib.mkPackageOption localPackages "magic-context" {
+    package = lib.mkPackageOption (import ../../internal/packages.nix {inherit pkgs;}) "magic-context" {
       pkgsText = "inputs.nur.repos.mzwing";
       extraDescription = "It is added to `home.packages`. Register the plugin with your harness using `magic-context setup`; this module only manages the shared configuration file.";
     };

@@ -7,13 +7,10 @@
 }: let
   cfg = config.services.cliproxyapiplus;
   yamlFormat = pkgs.formats.yaml {};
-  localPackages = {
-    cliproxyapiplus = (import ../../internal/discover.nix {inherit (pkgs) lib;}).package {
-      inherit pkgs;
-      name = "cliproxyapiplus";
-    };
+  mergeConfig = (import ../../internal/config-merge {inherit pkgs;}).mkMergeConfig {
+    name = "cliproxyapiplus-merge-config";
+    format = "yaml";
   };
-  helpers = import ./helpers.nix {inherit pkgs;};
 
   defaultSettings = {
     port = 8317;
@@ -31,11 +28,19 @@
     || lib.hasPrefix "-config=" arg
     || lib.hasPrefix "--config=" arg;
 
+  # External secret files, injected at the config paths this module owns.
+  secretArgs =
+    lib.concatMap (path: ["--secret-lines-file" "api-keys=${path}"]) cfg.apiKeysPaths
+    ++ lib.optionals (cfg.remoteSecretKeyPath != null) [
+      "--secret-file"
+      "remote-management.secret-key=${cfg.remoteSecretKeyPath}"
+    ];
+
   startScript = pkgs.writeShellApplication {
     name = "cliproxyapiplus-start";
     runtimeInputs = [
       pkgs.coreutils
-      helpers.mergeConfig
+      mergeConfig
     ];
     text = ''
       umask 077
@@ -47,13 +52,12 @@
       extra_args=(${lib.escapeShellArgs cfg.extraArgs})
 
       mkdir -p -- "$data_dir"
-      ${lib.getExe helpers.mergeConfig} \
+      ${lib.getExe mergeConfig} \
         "$config_file" \
         ${lib.escapeShellArg settingsFile} \
         "$config_state" \
-        "$config_backup"${lib.concatMapStrings (path: " \\
-        --api-key-file ${lib.escapeShellArg path}") cfg.apiKeysPaths}${lib.optionalString (cfg.remoteSecretKeyPath != null) " \\
-        --secret-key-file ${lib.escapeShellArg cfg.remoteSecretKeyPath}"}
+        "$config_backup" \
+        ${lib.escapeShellArgs secretArgs}
 
       cd -- "$data_dir"
       exec ${lib.escapeShellArg (lib.getExe cfg.package)} \
@@ -65,7 +69,7 @@
   options = {
     enable = lib.mkEnableOption "CLIProxyAPI Plus system service";
 
-    package = lib.mkPackageOption localPackages "cliproxyapiplus" {
+    package = lib.mkPackageOption (import ../../internal/packages.nix {inherit pkgs;}) "cliproxyapiplus" {
       pkgsText = "inputs.nur.repos.mzwing";
       extraDescription = "It is installed system-wide and used by the system service.";
     };

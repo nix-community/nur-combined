@@ -91,3 +91,5 @@ The lifecycle mapping is intentionally small:
 `ThrottleInterval` is launchd throttling rather than an exact equivalent of `RestartSec`. launchd restart management also implies an initial run, so the Darwin renderer rejects restart management when `autostart` is false.
 
 Network ordering, systemd hardening, launchd log paths, socket activation, timers, and other platform-specific behavior must remain in `nixos`, `darwin`, `serviceConfig`, or `extraConfig`. The abstraction must not pretend these have portable semantics.
+
+`systemd-hardening.nix` next to this file is a plain attribute set of hardening keys for a network daemon confined to one writable state directory. Modules opt into it explicitly (`serviceConfig = import ../../internal/system-service/systemd-hardening.nix // { ReadWritePaths = [cfg.dataDir]; }`); the renderers never apply it.
