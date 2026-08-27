@@ -1,61 +1,30 @@
 {
+  bionic-translation,
   lib,
   stdenv,
-  fetchFromGitLab,
-  wayland,
-  libglvnd,
-  libbsd,
-  libunwind,
-  libelf,
-  meson,
-  pkg-config,
-  ninja,
+  ...
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+bionic-translation.overrideAttrs (old: {
   pname = "bionic-translation-patched";
-  version = "0-unstable-2026-08-03";
-
-  src = fetchFromGitLab {
-    owner = "android_translation_layer";
-    repo = "bionic_translation";
-    rev = "484b1b05795784a5a57dbd4ffad21a3e680a33b2";
-    hash = "sha256-43VJPhN8/J/pJr8mdV9/n+hrVZLzh7aQhAJ8cT53BHc=";
-  };
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-DO_LARGEFILE=0 -DSIGRTMIN=32 -DSIGRTMAX=64 -Dsa_restorer=sa_mask";
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  postPatch =
+    (old.postPatch or "")
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      cat << 'EOF' > meson.build
+      project('bionic_translation', 'c')
+      shared_library('c_bio', 'dummy.c', install: true)
+      shared_library('m_bio', 'dummy.c', install: true)
+      shared_library('pthread_bio', 'dummy.c', install: true)
+      shared_library('dl_bio', 'dummy.c', install: true)
+      shared_library('stdc++_bio', 'dummy.c', install: true)
+      EOF
+      touch dummy.c
+    '';
 
-  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    cat << 'EOF' > meson.build
-    project('bionic_translation', 'c')
-    shared_library('c_bio', 'dummy.c', install: true)
-    shared_library('m_bio', 'dummy.c', install: true)
-    shared_library('pthread_bio', 'dummy.c', install: true)
-    shared_library('dl_bio', 'dummy.c', install: true)
-    shared_library('stdc++_bio', 'dummy.c', install: true)
-    EOF
-    touch dummy.c
-  '';
-
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ wayland ] ++ [
-    libbsd
-    libelf
-    libglvnd
-    libunwind
-  ];
-
-  meta = {
-    description = "Set of libraries for loading bionic-linked .so files on musl/glibc";
-    homepage = "https://gitlab.com/android_translation_layer/bionic_translation";
-    # No license specified yet
-    license = lib.licenses.unfree;
-    platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ onny ];
-  };
+  buildInputs = builtins.filter (
+    drv: !(stdenv.hostPlatform.isDarwin && lib.getName drv == "wayland")
+  ) (old.buildInputs or [ ]);
 })

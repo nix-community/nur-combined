@@ -5,14 +5,6 @@
   bionic-translation_patched,
   vixl,
   wolfssl,
-  expat,
-  icu,
-  libbsd,
-  libpng,
-  lz4,
-  openssl,
-  xz,
-  zlib,
   libcap,
   ...
 }:
@@ -29,33 +21,35 @@ art-standalone.overrideAttrs (old: {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-D_ALLBSD_SOURCE -DSIGRTMIN=32 -DSIGRTMAX=64";
 
-  patches = [
-    ./no-hardcode-path-addr2line.patch
-    ./dx-workaround.patch
-    ./art-datetime-formatter-lambda-crash.patch
-    ./dex2oat-path.patch
-    ./wolfssljni-freed-session-timeout.patch
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    ./darwin-libcore.patch
-    ./darwin-fault-handler-arm64.patch
-  ];
+  patches =
+    builtins.filter (p: baseNameOf (toString p) != "remove-wolfssljni.patch") (old.patches or [ ])
+    ++ [
+      ./dx-workaround.patch
+      ./art-datetime-formatter-lambda-crash.patch
+      ./dex2oat-path.patch
+      ./wolfssljni-freed-session-timeout.patch
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      ./darwin-libcore.patch
+      ./darwin-fault-handler-arm64.patch
+    ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libcap ] ++ [
-    bionic-translation_patched
-    ((wolfssl.override { enableJni = true; }).overrideAttrs (old: {
-      doCheck = false;
-    }))
-    expat
-    icu
-    libbsd
-    libpng
-    lz4
-    openssl
-    xz
-    zlib
-    vixl_patched
-  ];
+  buildInputs =
+    builtins.filter (
+      drv:
+      let
+        name = lib.getName drv;
+      in
+      name != "libcap" && name != "bionic-translation"
+    ) (old.buildInputs or [ ])
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ libcap ]
+    ++ [
+      bionic-translation_patched
+      ((wolfssl.override { enableJni = true; }).overrideAttrs (_: {
+        doCheck = false;
+      }))
+      vixl_patched
+    ];
 
   postPatch =
     (old.postPatch or "")
