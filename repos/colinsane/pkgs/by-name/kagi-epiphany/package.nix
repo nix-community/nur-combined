@@ -47,10 +47,19 @@ static-nix-shell.mkBash rec {
   passthru = {
     inherit appId;
     epiphany = epiphany.overrideAttrs (upstream: {
-      # 2026-06-25: when an Epiphany webapp is invoked a second time with a URL,
-      # it normally just presents the existing window and discards the URL.
-      # allow the remote instance to pass its URL through to the running app.
-      patches = (upstream.patches or []) ++ [ ./epiphany-appmode-remote-url.patch ];
+      patches = (upstream.patches or []) ++ [
+        # 2026-06-25: when an Epiphany webapp is invoked a second time with a URL,
+        # it normally just presents the existing window and discards the URL.
+        # allow the remote instance to pass its URL through to the running app.
+        ./epiphany-appmode-remote-url.patch
+      ];
+      postPatch = (upstream.postPatch or "") + ''
+        # pretend we're running under Flatpak so that we *always* dispatch non-webapp URIs through the portal.
+        # XXX(2026-08-28): function name changes to `xdp_portal_running_under_sandbox` in future versions
+        substituteInPlace lib/ephy-file-helpers.c --replace-fail \
+          'ephy_is_running_inside_sandbox ()' \
+          'true'
+      '';
       postInstall = (upstream.postInstall or "") + ''
         mv $out/bin/epiphany $out/bin/_kagi-epiphany
       '';

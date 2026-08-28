@@ -5,15 +5,14 @@ let
 in
 {
   sane.programs.kagi-epiphany = {
-    sandbox.method = null;  #< TODO: sandbox
     sandbox.net = "clearnet";
-    sandbox.whitelistDbus.user = true; #< TODO: finer-grain dbus sandboxing
-    # sandbox.whitelistPortal = [
-    #   "OpenURI"
-    # ];
-    # sandbox.whitelistDbus.user.own = [
-    #   "org.gnome.Epiphany.WebApp_Kagi"
-    # ];
+    sandbox.whitelistPortal = [
+      "DynamicLauncher"
+      "OpenURI"
+    ];
+    sandbox.whitelistDbus.user.own = [
+      "org.gnome.Epiphany.WebApp_Kagi"
+    ];
     sandbox.whitelistWayland = true;
 
     sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy";

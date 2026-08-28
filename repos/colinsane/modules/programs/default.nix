@@ -764,7 +764,8 @@ let
         "org.freedesktop.portal.Desktop" = [
           "org.freedesktop.portal.${p}.*"
           # "org.freedesktop.DBus.Peer"  #< seems to not be needed
-          # "org.freedesktop.DBus.Properties"
+          "org.freedesktop.DBus.Properties.Get"  #< REQUIRED, for e.g. `kagi-epiphany`
+          # "org.freedesktop.DBus.Properties.GetAll"
           "org.freedesktop.DBus.Introspectable.Introspect"  #< REQUIRED, for e.g. `sane-open`
         ];
       }));
