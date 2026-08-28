@@ -13,13 +13,13 @@
   _experimental-update-script-combinators,
 }:
 let
-  version = "1.1.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "Celechron";
     repo = "Celechron";
     tag = version;
-    hash = "sha256-+mjq/5da7BMqCoGyXXnFOvFOgDE/p60ik8jEKVrEokw=";
+    hash = "sha256-gbrilSg3QfG7W/QFePJB9voIaxVRN8ZYtI0kllirTA8=";
   };
 in
 flutter338.buildFlutterApplication {
