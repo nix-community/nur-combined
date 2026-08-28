@@ -466,6 +466,9 @@ pub struct TerminalView {
     /// True while Shift (or no mouse-mode) drag is building a local selection.
     selecting: bool,
 
+    /// Shift/Alt local selection kept across PTY redraws (alacritty clears on grid updates).
+    pinned_selection: Option<AlacSelection>,
+
     /// Last laid-out content hit-test geometry (window coords + cell metrics from paint).
     /// Kept in sync during canvas layout so mouse→cell mapping matches what was drawn —
     /// important under Wayland fractional scaling (e.g. Plasma 225%).
@@ -672,6 +675,7 @@ impl TerminalView {
             mouse_pressed: None,
             last_mouse_cell: None,
             selecting: false,
+            pinned_selection: None,
             hit_test: Arc::new(parking_lot::Mutex::new(TerminalHitTest::default())),
             color_scheme: ColorSchemeState::default(),
             ime_state: None,
@@ -683,9 +687,34 @@ impl TerminalView {
     /// Feed PTY output through alacritty and Contour color-scheme CSI side-channel.
     fn handle_pty_bytes(&mut self, batch: &[u8]) {
         self.state.process_bytes(batch);
+        self.apply_pinned_selection();
         for action in self.color_scheme.feed(batch) {
             self.apply_color_scheme_action(action);
         }
+    }
+
+    /// Re-apply the pinned Shift/Alt selection after alacritty grid mutations.
+    fn apply_pinned_selection(&self) {
+        if let Some(sel) = self.pinned_selection.clone() {
+            self.state.with_term_mut(|term| term.selection = Some(sel));
+        }
+    }
+
+    fn set_pinned_selection(&mut self, sel: AlacSelection) {
+        self.pinned_selection = Some(sel);
+        self.apply_pinned_selection();
+    }
+
+    fn update_pinned_selection_end(&mut self, point: AlacPoint, side: Side) {
+        if let Some(sel) = self.pinned_selection.as_mut() {
+            sel.update(point, side);
+            self.apply_pinned_selection();
+        }
+    }
+
+    fn clear_pinned_selection(&mut self) {
+        self.pinned_selection = None;
+        self.state.with_term_mut(|term| term.selection = None);
     }
 
     fn apply_color_scheme_action(&mut self, action: ColorSchemeAction) {
@@ -1025,14 +1054,12 @@ impl TerminalView {
                 2 => AlacSelectionType::Semantic,
                 _ => AlacSelectionType::Lines,
             };
-            self.state.with_term_mut(|term| {
-                let mut sel = AlacSelection::new(ty, grid_point, side);
-                if matches!(ty, AlacSelectionType::Semantic | AlacSelectionType::Lines) {
-                    sel.update(grid_point, side);
-                    sel.include_all();
-                }
-                term.selection = Some(sel);
-            });
+            let mut sel = AlacSelection::new(ty, grid_point, side);
+            if matches!(ty, AlacSelectionType::Semantic | AlacSelectionType::Lines) {
+                sel.update(grid_point, side);
+                sel.include_all();
+            }
+            self.set_pinned_selection(sel);
             self.selecting = true;
             self.mouse_pressed = None;
             self.last_mouse_cell = None;
@@ -1042,7 +1069,7 @@ impl TerminalView {
 
         // Clear local selection when interacting with the app/mouse mode.
         if event.button == MouseButton::Left {
-            self.state.with_term_mut(|term| term.selection = None);
+            self.clear_pinned_selection();
             self.selecting = false;
         }
 
@@ -1085,11 +1112,7 @@ impl TerminalView {
             let viewport = self.viewport_cell_at(position);
             let grid_point = self.viewport_to_grid(viewport);
             let side = self.selection_side_at(position);
-            self.state.with_term_mut(|term| {
-                if let Some(sel) = term.selection.as_mut() {
-                    sel.update(grid_point, side);
-                }
-            });
+            self.update_pinned_selection_end(grid_point, side);
             self.selecting = false;
             changed = true;
         }
@@ -1187,11 +1210,7 @@ impl TerminalView {
         if self.selecting {
             let grid_point = self.viewport_to_grid(viewport);
             let side = self.selection_side_at(event.position);
-            self.state.with_term_mut(|term| {
-                if let Some(sel) = term.selection.as_mut() {
-                    sel.update(grid_point, side);
-                }
-            });
+            self.update_pinned_selection_end(grid_point, side);
             cx.notify();
             return;
         }
@@ -1298,6 +1317,7 @@ impl TerminalView {
 
     /// True if there is a non-empty local text selection.
     pub fn has_selection(&self) -> bool {
+        self.apply_pinned_selection();
         self.state
             .with_term(|term| {
                 term.selection
@@ -1311,6 +1331,7 @@ impl TerminalView {
     ///
     /// Returns `true` if there was a non-empty selection to copy.
     pub fn copy_selection(&self) -> bool {
+        self.apply_pinned_selection();
         let text = self
             .state
             .with_term(|term| term.selection_to_string())
@@ -1505,6 +1526,9 @@ impl TerminalView {
     /// * `cols` - New number of columns
     /// * `rows` - New number of rows
     pub fn resize(&mut self, cols: usize, rows: usize) {
+        if cols != self.state.cols() {
+            self.clear_pinned_selection();
+        }
         self.state.resize(cols, rows);
     }
 
@@ -1821,6 +1845,13 @@ impl Render for TerminalView {
                         }
 
                         // Resize terminal if dimensions changed
+                        view_entity.update(cx, |view, _| {
+                            if cols != view.state.cols() {
+                                view.clear_pinned_selection();
+                            }
+                            view.apply_pinned_selection();
+                        });
+
                         let mut term = state_arc.lock();
                         let current_cols = term.columns();
                         let current_rows = term.screen_lines();

@@ -35,6 +35,7 @@ Rough chronological / thematic summary of edits under this vendor tree:
 ### Selection & clipboard
 
 - Local selection via alacritty `Term::selection` / `selection_to_string`, with selection highlight in `render.rs`.
+- **Pinned selection**: Shift/Alt anchors are stored on `TerminalView` and re-applied after PTY output so alacritty does not drop the highlight mid-drag or while copying from a live-updating screen (`top`, log tail, etc.).
 - Selection anchors use **cell half** (`Side::Left` / `Side::Right`) so Shift-drag works from empty space (including right→left), matching GNOME Terminal / Alacritty. Copy still omits trailing unused cells via alacritty `line_length` (spaces after content are not pasted).
 - Host **context menu** callback (`with_context_menu_callback`): right-click with Shift, no mouse mode, or a local selection opens host Copy/Paste instead of forwarding to tmux.
 - `TerminalView::copy_selection()` for host shortcuts.
