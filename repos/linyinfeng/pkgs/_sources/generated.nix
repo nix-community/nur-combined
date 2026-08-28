@@ -120,13 +120,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.18.44-linux-260817T015105Z";
+    version = "lts-v6.18.44-linux-260821T071903Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.18.44-linux-260817T015105Z";
+      rev = "lts-v6.18.44-linux-260821T071903Z";
       fetchSubmodules = false;
-      sha256 = "sha256-rfavtLHC0D9RltY096PsR22cU54IQNHWtV9p75FTCps=";
+      sha256 = "sha256-iB48kZHRqGXP8rYUtx/96rPIigkgpNcEnXkx517RPoE=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -188,10 +188,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.6.9";
+    version = "v1.7.0";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.9/MoeKoe_Music_v1.6.9-x86_64.AppImage";
-      sha256 = "sha256-R67YqEd1Tr8P+Zi9GbvExEWH2hBRltqO6FVYu2A0pLI=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.7.0/MoeKoe_Music_v1.7.0-x86_64.AppImage";
+      sha256 = "sha256-UYD2T8pqlqYNq5E2NCGrLhddah3h+U9872MBXALK6ek=";
     };
   };
   mstickereditor = {
@@ -485,17 +485,17 @@
   };
   rime-stroke = {
     pname = "rime-stroke";
-    version = "3a4b0f4013e2b4c14b1e80c92b1d4723eb65f39c";
+    version = "1e8fff9b9494ddec23b0cbc526bcfd8171a6fd48";
     src = fetchgit {
       url = "https://github.com/rime/rime-stroke.git";
-      rev = "3a4b0f4013e2b4c14b1e80c92b1d4723eb65f39c";
+      rev = "1e8fff9b9494ddec23b0cbc526bcfd8171a6fd48";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-l2YRET+aywThX+iBTYKqtBESs6ozJn5Du5IewwMhhmM=";
+      sha256 = "sha256-Tp0EOaM4uRkEGm9fV4o/lg7ddkj9z+FBn1PdX2o7fgQ=";
     };
-    date = "2025-09-23";
+    date = "2026-08-26";
   };
   rime-terra-pinyin = {
     pname = "rime-terra-pinyin";
@@ -603,17 +603,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "847e34d5499b17b90d2783d5342ddd243c753497";
+    version = "b0d8f2c9a7d90d84b8ecc5afff8f50b26cef3eef";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "847e34d5499b17b90d2783d5342ddd243c753497";
+      rev = "b0d8f2c9a7d90d84b8ecc5afff8f50b26cef3eef";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-MGJWfOmlpIfWakyr2uFGXtE/EzS8CMmqMa9iICXAx0E=";
+      sha256 = "sha256-cisrVryj+LV597bYoPg5PZwsuyotJRBLCnjlKf3reyk=";
     };
-    date = "2026-08-21";
+    date = "2026-08-26";
   };
   vlmcsd = {
     pname = "vlmcsd";
