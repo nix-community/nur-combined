@@ -92,8 +92,8 @@ let
   kotatsuSrc = fetchFromGitHub {
     owner = "clice-io";
     repo = "kotatsu";
-    rev = "5232e67c28fee3a85ad01341a675dd4b78b122b1";
-    hash = "sha256-c8WB0MXThN2wNgJcDx4E+msO6wbDf9LJAgkYQyprIW8=";
+    rev = "c3dd7357c6494b38b276e14f62281cc5178026e3";
+    hash = "sha256-NMzC1wD2yTSfIoTRwXxAtJgUXAOM4BMAo5Ri2YocJ0w=";
   };
 
   simdjsonSrc = fetchFromGitHub {
@@ -139,16 +139,23 @@ let
     rev = "5dfb2cd2aacf2bf473e5bfea79e41289f88b3a5f";
     hash = "sha256-K0vmGJhQgNV3mEShPoIMNnInTkttkj1LD7jByj+/RwA=";
   };
+
+  lmdbSrc = fetchFromGitHub {
+    owner = "LMDB";
+    repo = "lmdb";
+    tag = "LMDB_0.9.31";
+    hash = "sha256-gQdu0PNHd2y9LC6aUVl2Bm3j9XjlBI5oDY73ae5H9VU=";
+  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026081503";
+  version = "0.1.2026082712";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-fwWhWAliWlpgg0SHeLr14Sb9KjXqsVgU7yrlRPGsSv0=";
+    hash = "sha256-ScqJSgM2EC1l9nRpa828neH+I+DXJ88jXvHFMDhzlng=";
   };
 
   nativeBuildInputs = [
@@ -200,6 +207,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DFETCHCONTENT_SOURCE_DIR_CPPTRACE=${cpptraceSrc}"
     "-DFETCHCONTENT_SOURCE_DIR_ZSTD=${zstdSrc}"
     "-DFETCHCONTENT_SOURCE_DIR_LIBDWARF=${libdwarfSrc}"
+    "-DFETCHCONTENT_SOURCE_DIR_LMDB=${lmdbSrc}"
   ];
 
   # Linking static LLVM/Clang is memory-heavy.

@@ -15,12 +15,12 @@
 
 stdenv.mkDerivation rec {
   pname = "nlvm";
-  version = "3b5d2857fb8f554ecbebf98c954c53567c6f1b2e";
+  version = "3634699f4b8e159118bc9d878ea11cc7fccce664";
 
   src = fetchgit {
     url = "https://github.com/arnetheduck/nlvm.git";
     rev = version;
-    hash = "sha256-n8hcpXJvsRUafeIzUPZmGOKytX1fmNpvMqKM4c0NWLE=";
+    hash = "sha256-91G9z3wqs1ZJZC9+/aah55Rnm4Qcc62oDUuSgzsI06Y=";
     fetchSubmodules = true;
   };
 
