@@ -5,10 +5,6 @@
   ...
 }:
 {
-  imports = [
-    ./claude-code/home.nix
-  ];
-
   home.packages = with pkgs; [
     geminicommit
   ];
@@ -53,15 +49,6 @@
               "search_code"
             ])
           ];
-        };
-        nixos = {
-          enable = true;
-          command = lib.getExe pkgs.mcp-nixos;
-        };
-        excel = {
-          enable = true;
-          command = lib.getExe pkgs.excel-mcp-server;
-          args = [ "stdio" ];
         };
       };
   };

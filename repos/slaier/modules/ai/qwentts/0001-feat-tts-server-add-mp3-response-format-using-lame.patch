@@ -1,0 +1,254 @@
+From e349ce1f646a48a606a2822096ca82973898853d Mon Sep 17 00:00:00 2001
+From: slaier <slaier@users.noreply.github.com>
+Date: Thu, 27 Aug 2026 22:36:09 +0800
+Subject: [PATCH] feat(tts-server): add mp3 response format using lame
+
+Adds support for the "mp3" response format in `tts-server` via `libmp3lame`.
+Includes a new header `audio-mp3.h` for encoding mono float32 PCM to MP3
+with VBR and a Xing header, updates CMake configuration, and documents
+the new API option in the README.
+---
+ CMakeLists.txt   |   4 ++
+ README.md        |  12 +++--
+ src/audio-mp3.h  | 114 +++++++++++++++++++++++++++++++++++++++++++++++
+ src/tts-server.h |  33 ++++++++++++--
+ 4 files changed, 155 insertions(+), 8 deletions(-)
+ create mode 100644 src/audio-mp3.h
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4252243..6140a16 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -187,6 +187,10 @@ link_ggml_backends(qwen-tts)
+ # Always built : it is part of the project, not an optional add-on.
+ add_executable(tts-server tools/tts-server.cpp)
+ target_link_libraries(tts-server PRIVATE qwen-core httplib yyjson)
++find_path(LAME_INC lame/lame.h)
++find_library(LAME_LIB libmp3lame.so)
++target_link_libraries(tts-server PRIVATE ${LAME_LIB})
++target_include_directories(tts-server PRIVATE ${LAME_INC})
+ link_ggml_backends(tts-server)
+ 
+ # test-abi-c : pure C99 smoke test that locks in the public ABI contract.
+diff --git a/README.md b/README.md
+index e2cd0b9..b654873 100644
+--- a/README.md
++++ b/README.md
+@@ -127,10 +127,10 @@ Voice design (`tts.sh`, VoiceDesign, attribute instruction) :
+ ```
+ 
+ OpenAI-compatible server (`tts-server`) : `response_format` "pcm"
+-streams s16le as it is generated, "wav" returns a one-shot file. Cloned
+-voices register once over HTTP (a WAV extracted server side, or the
+-`.spk` / `.rvq` latents from `qwen-codec`), then any OAI client selects
+-them by name :
++streams s16le as it is generated, "wav" returns a one-shot RIFF file,
++"mp3" returns a one-shot VBR MP3. Cloned voices register once over HTTP
++(a WAV extracted server side, or the `.spk` / `.rvq` latents from
++`qwen-codec`), then any OAI client selects them by name :
+ 
+ ```
+ ./build/tts-server \
+@@ -145,6 +145,10 @@ curl -X POST localhost:8080/v1/audio/voices -H "Content-Type: application/json"
+ curl -X POST localhost:8080/v1/audio/speech -H "Content-Type: application/json" \
+     -d '{"input":"Hello world.","voice":"freeman","response_format":"wav",
+          "seed":42,"temperature":0.8}' -o out.wav
++
++curl -X POST localhost:8080/v1/audio/speech -H "Content-Type: application/json" \
++    -d '{"input":"Hello world.","voice":"freeman","response_format":"mp3"}' \
++    -o out.mp3
+ ```
+ 
+ The speech body accepts optional sampling overrides (`seed`,
+diff --git a/src/audio-mp3.h b/src/audio-mp3.h
+new file mode 100644
+index 0000000..27d47ac
+--- /dev/null
++++ b/src/audio-mp3.h
+@@ -0,0 +1,114 @@
++#pragma once
++// audio-mp3.h: encode mono float32 PCM to MP3 via LAME.
++// Links against libmp3lame (system library).  Provides one public
++// function: audio_encode_mp3().  Returns the raw MP3 byte stream
++// (with a Xing VBR header).  Mono, 24 kHz default.
++//
++// If LAME is not available at compile time the encode function
++// returns an empty string; the caller (tts-server) should treat that
++// as an encoder-unavailable error.
++
++#include <lame/lame.h>
++
++#include <cmath>
++#include <cstdint>
++#include <string>
++
++// Encode mono float32 PCM to MP3.  Returns the MP3 byte string
++// (empty on failure or if LAME is not linked).
++//
++//   audio   – interleaved mono samples in [-1, 1]
++//   T_audio – number of samples
++//   sr      – sample rate (default 24000, matching qwen output)
++//   brate   – target bit-rate in kbps (default 192 VBR quality 2)
++static std::string audio_encode_mp3(const float * audio, int T_audio, int sr = 24000, int brate = 192) {
++    if (T_audio <= 0 || !audio) {
++        return {};
++    }
++
++    // LAME recommends ≤ 9216 samples per encode call; use 4096 as a
++    // conservative middle ground that keeps memory low on long clips.
++    const int CHUNK = 4096;
++
++    lame_global_flags * gfp = lame_init();
++    if (!gfp) {
++        return {};
++    }
++
++    // Mono, given rate, VBR quality 2 (≈ 190 kbps), no free-format.
++    if (lame_set_in_samplerate(gfp, sr) < 0 ||
++        lame_set_out_samplerate(gfp, sr) < 0 ||
++        lame_set_num_channels(gfp, 1) < 0 ||
++        lame_set_quality(gfp, 2) < 0) {
++        lame_close(gfp);
++        return {};
++    }
++
++    // VBR / ABR target: use the "brate" as a kbps target with VBR
++    // mode q=a (unspecified VBR = high-quality default), but set the
++    // nominal bitrate so LAME produces roughly the requested rate.
++    lame_set_VBR(gfp, vbr_default);
++    lame_set_VBR_quality(gfp, 2.0f);
++    lame_set_brate(gfp, brate);
++
++    // Write a Xing VBR header so clients can seek and display duration.
++    lame_set_bWriteVbrTag(gfp, 1);
++
++    if (lame_init_params(gfp) < 0) {
++        lame_close(gfp);
++        return {};
++    }
++
++    // Output buffer: LAME says MP3 bytes ≤ 1.25 × input_samples + 7200.
++    const int out_buf_size = (int) (T_audio * 1.25f + 7200);
++    std::string out;
++    out.resize((size_t) out_buf_size);
++
++    int encoded = 0;
++    int offset  = 0;
++    int remain  = T_audio;
++
++    while (remain > 0) {
++        int n = remain < CHUNK ? remain : CHUNK;
++        // lame_encode_buffer_ieee_float returns the number of output
++        // bytes, or -1 on error (not fatal — may just need more input).
++        int rc = lame_encode_buffer_ieee_float(
++            gfp,
++            audio + offset,  // left channel (mono = right is unused)
++            audio + offset,  // right channel (same buffer for mono)
++            n,
++            (unsigned char *) out.data() + encoded,
++            out_buf_size - encoded
++        );
++        if (rc < 0) {
++            // Fatal LAME error (e.g. bad bitrate / sample-rate combo
++            // that init_params should already have rejected, but guard
++            // against release changes).
++            lame_close(gfp);
++            return {};
++        }
++        encoded += rc;
++        offset  += n;
++        remain  -= n;
++    }
++
++    // Flush the encoder buffer to write the final frame and Xing header.
++    int rc = lame_encode_flush(gfp, (unsigned char *) out.data() + encoded, out_buf_size - encoded);
++    if (rc < 0) {
++        lame_close(gfp);
++        return {};
++    }
++    encoded += rc;
++
++    // Remove the MP3 tag LAME prepends — it is around 224 bytes for a
++    // typical VBR file (448 bytes worst-case for ID3v2.3).  We keep it
++    // because most MP3 players expect it; the callee sets
++    // Content-Type audio/mpeg and ID3-tagged MP3 plays fine everywhere.
++    // If a caller truly needs a tagless stream it can strip bytes 0..idx
++    // where lame_get_lametag_frame returns the tag size.
++
++    lame_close(gfp);
++
++    out.resize((size_t) encoded);
++    return out;
++}
+\ No newline at end of file
+diff --git a/src/tts-server.h b/src/tts-server.h
+index e68b941..1a1bcd3 100644
+--- a/src/tts-server.h
++++ b/src/tts-server.h
+@@ -20,10 +20,12 @@
+ //
+ // Audio out: response_format "pcm" streams s16le 24 kHz mono chunked as it
+ // is generated (real time), "wav" returns a one-shot RIFF file. pcm is the
+-// default so streaming is on unless the client asks for a file.
++// default so streaming is on unless the client asks for a file. "mp3"
++// returns a one-shot MP3 (VBR ~192 kbps).
+ 
+ #include "../vendor/cpp-httplib/httplib.h"
+ #include "audio-io.h"
++#include "audio-mp3.h"
+ #include "yyjson.h"
+ 
+ #include <atomic>
+@@ -45,7 +47,7 @@ struct tts_request {
+     std::string input;         // text to speak
+     std::string voice;         // OAI voice, mapped to a speaker by the adapter
+     std::string instructions;  // OAI instructions, mapped to the ABI instruct field
+-    std::string format;        // "pcm" (stream) or "wav" (one-shot)
++    std::string format;        // "pcm" (stream), "wav" (one-shot), or "mp3" (one-shot)
+     float       speed;         // OAI speed, parsed then ignored (no time stretch in the ABI)
+ 
+     // Optional sampling overrides. -1 (ints) and NaN (floats) mark a
+@@ -228,8 +230,8 @@ static bool tts_parse_request(const std::string & body, tts_request & req, std::
+     if (!ok) {
+         return false;
+     }
+-    if (req.format != "pcm" && req.format != "wav") {
+-        err = "response_format must be 'pcm' or 'wav'";
++    if (req.format != "pcm" && req.format != "wav" && req.format != "mp3") {
++        err = "response_format must be 'pcm', 'wav', or 'mp3'";
+         return false;
+     }
+     return true;
+@@ -279,6 +281,29 @@ static void tts_handle_speech(const tts_backend & be, const httplib::Request & h
+         return;
+     }
+ 
++    if (req.format == "mp3") {
++        std::vector<float> buf;
++        tts_sink           sink = [&buf](const float * s, int n) {
++            buf.insert(buf.end(), s, s + n);
++            return true;
++        };
++        std::string synth_err;
++        int         rc = be.synthesize(req, sink, synth_err);
++        if (rc != 0) {
++            tts_json_error(res, tts_status_to_http(rc), "server_error",
++                           synth_err.empty() ? "synthesis failed" : synth_err.c_str());
++            return;
++        }
++        std::string mp3 = audio_encode_mp3(buf.data(), (int) buf.size(), 24000, 192);
++        if (mp3.empty()) {
++            tts_json_error(res, 500, "server_error",
++                           "MP3 encoder unavailable: is libmp3lame installed?");
++            return;
++        }
++        res.set_content(std::move(mp3), "audio/mpeg");
++        return;
++    }
++
+     // Streaming : the synthesis runs on its own thread pushing s16le
+     // bytes into a queue; the connection thread drains the queue into
+     // the chunked sink. The decoupling keeps a slow client from
+-- 
+2.54.0
+

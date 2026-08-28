@@ -119,6 +119,8 @@
         echo "c" > pp_od_clk_voltage
       ''} %S%p/device"''
     ]}
+    # 3554:fa09 - wireless keyboard receiver, disable autosuspend to avoid drops
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="3554", ATTR{idProduct}=="fa09", ATTR{power/autosuspend_delay_ms}="-1"
     SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", SYMLINK+="tty_nano_esp32c6", MODE="0666"
     SUBSYSTEM=="tty", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="1001", SYMLINK+="tty_xiao_esp32c6", MODE="0666"
   '';
