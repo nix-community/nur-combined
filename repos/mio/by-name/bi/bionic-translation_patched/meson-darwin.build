@@ -1,0 +1,6 @@
+project('bionic_translation', 'c')
+shared_library('c_bio', 'dummy.c', install: true)
+shared_library('m_bio', 'dummy.c', install: true)
+shared_library('pthread_bio', 'dummy.c', install: true)
+shared_library('dl_bio', 'dl_bio_stub.c', install: true)
+shared_library('stdc++_bio', 'dummy.c', install: true)
