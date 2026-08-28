@@ -2,7 +2,7 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
-  pandoc,
+  org-extra-emphasis,
 }:
 
 ## DzmingLi/douban.el: write and publish Douban content from Emacs.
@@ -16,27 +16,20 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "douban.el";
-    rev = "824b7e624a39afa0cb9d44768066be772c994c05";
-    hash = "sha256-6VLFOk0/wwd92WMwKCfiW71Wx+SiCS+sEgRwFP7Pt3M=";
+    rev = "11327d3972cf4296ed2c8f59b823709285e94e84";
+    hash = "sha256-0TGNFRIqoZY5gGwrpPwJAQd4N+BHqFHHPudFeB+4K3w=";
   };
 
   packageRequires = [
     emacsPackages.elpaDevelPackages.plz
-    emacsPackages.markdown-mode
-    emacsPackages.yaml
+    org-extra-emphasis
   ];
 
   turnCompilationWarningToError = true;
 
-  postPatch = ''
-    substituteInPlace douban.el \
-      --replace-fail '"pandoc"' '"${lib.getExe pandoc}"'
-  '';
-
   doCheck = true;
   checkPhase = ''
     runHook preCheck
-    grep -Fq '"${lib.getExe pandoc}"' douban.el
     emacs -l package -f package-initialize --batch -L . \
       --eval "(unless (require 'douban nil t) (error \"Failed to load douban\"))"
     runHook postCheck

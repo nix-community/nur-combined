@@ -8,14 +8,16 @@ let
   packagesFor =
     emacsPackages:
     let
+      packages = builtins.mapAttrs (name: _: callPackage (./. + "/${name}") { }) packageDirs;
       callPackage = pkgs.lib.callPackageWith (
         pkgs
         // {
           inherit emacsPackages;
         }
+        // packages
       );
     in
-    builtins.mapAttrs (name: _: callPackage (./. + "/${name}") { }) packageDirs;
+    packages;
   defaultPackages = packagesFor pkgs.emacsPackages;
   emacs31Packages = packagesFor (pkgs.emacsPackagesFor pkgs.emacs31);
 in

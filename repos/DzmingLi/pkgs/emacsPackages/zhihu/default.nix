@@ -17,15 +17,11 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "109106325caba33ce8761cc0444b7b2c0ee2bf89";
-    hash = "sha256-nMNcAGPOQWdd92Kqjs/zbZqBml3HPybZYA+mnQAgO7Q=";
+    rev = "72bb3b1770d38527edbe6e39ed6805c0c3e6a27c";
+    hash = "sha256-3Mmxh+d1T62Nvx74eg+aKz7RVr/X/mkar0UDKK/+Y7k=";
   };
 
-  packageRequires = [
-    emacsPackages.elpaDevelPackages.plz
-    emacsPackages.markdown-mode
-    emacsPackages.yaml
-  ];
+  packageRequires = [ emacsPackages.elpaDevelPackages.plz ];
 
   turnCompilationWarningToError = true;
 
