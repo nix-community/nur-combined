@@ -2,6 +2,7 @@
   art-standalone,
   lib,
   stdenv,
+  python3,
   bionic-translation_patched,
   vixl,
   wolfssl,
@@ -11,6 +12,7 @@
 
 let
   inherit (lib)
+    elem
     filter
     getName
     optionalString
@@ -27,7 +29,7 @@ let
     let
       name = getName drv;
     in
-    !(builtins.elem name removedBuildInputs);
+    !(elem name removedBuildInputs);
 
   vixl_patched = vixl.overrideAttrs (old: {
     postPatch = (old.postPatch or "") + ''
@@ -44,12 +46,13 @@ let
   });
 
   darwinPostPatch = ''
+    export PYTHON=${lib.getExe python3}
     export VIXL_INCLUDE=${vixl_patched}/include/vixl
     export ASM_UNDERSCORE_SCRIPT=${./darwin-asm-underscore.py}
     export ELF_HEADER=${./elf.h}
     export EPOLL_HEADER=${./darwin-sys-epoll.h}
     export LINK_HEADER=${./darwin-link.h}
-    bash ${./darwin-postPatch.sh}
+    bash ${./darwin-post-patch.sh}
   '';
 
   darwinHostBins = [
@@ -115,6 +118,7 @@ art-standalone.overrideAttrs (old: {
 
   meta = (old.meta or { }) // {
     description = "Android Runtime standalone with Linux and Darwin host support";
+    mainProgram = "dalvikvm";
     platforms = with lib.platforms; linux ++ darwin;
   };
 })

@@ -2,6 +2,7 @@
 # Darwin host build fixes for art-standalone (invoked from package.nix postPatch).
 set -euo pipefail
 
+: "${PYTHON:?}"
 : "${VIXL_INCLUDE:?}"
 : "${ASM_UNDERSCORE_SCRIPT:?}"
 : "${ELF_HEADER:?}"
@@ -109,7 +110,10 @@ find . -type f \( -name "Android.mk" -o -name "Android.*.mk" \) -exec sed -i -e 
 find art/runtime/arch art/runtime/interpreter/mterp -type f -name "*.S" -exec sed -i -E \
   -e 's/\.fnstart//g' -e 's/\.fnend//g' \
   -e '/\.size/d' -e '/\.type/d' -e '/\.hidden/d' -e '/\.cfi_/d' {} +
-python3 "$ASM_UNDERSCORE_SCRIPT"
+
+# Mach-O symbol naming for arm64 asm (ENTRY aliases, bl/b targets).
+"$PYTHON" "$ASM_UNDERSCORE_SCRIPT"
+
 find art -type f \( -name "*.mk" -o -name "*.bp" \) -exec sed -i -E -e 's/-latomic//g' {} +
 sed -i -E \
   -e 's/\.macro LOADREG counter size register return/.macro LOADREG counter, size, register, return/' \

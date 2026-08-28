@@ -1,3 +1,5 @@
+/* Thin POSIX dl* wrappers for Darwin host ART (-ldl_bio).
+ * The real bionic ELF linker is Linux-only; host builds only need these symbols. */
 #include <dlfcn.h>
 
 void *bionic_dlopen(const char *filename, int flag) {

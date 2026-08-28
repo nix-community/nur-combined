@@ -8,6 +8,7 @@
 let
   inherit (lib) filter getName optionalString;
 
+  # Real bionic linker is Linux-only; Darwin host ART only needs dl* symbol stubs.
   darwinPostPatch = ''
     cp ${./dl_bio_stub.c} dl_bio_stub.c
     touch dummy.c

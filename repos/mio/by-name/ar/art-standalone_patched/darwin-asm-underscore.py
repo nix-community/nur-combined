@@ -38,7 +38,7 @@ _C_TAIL_CALLS = {"MterpCheckBefore"}
 
 def should_underscore_c_call(name: str, *, is_bl: bool) -> bool:
     """Whether a branch/call target is a C/C++ symbol needing a Mach-O '_' prefix."""
-    if name.startswith(("_", ".")) or name[0].isdigit():
+    if not name or name.startswith(("_", ".")) or name[0].isdigit():
         return False
     # Template args ($helper) expand to C function names.
     if name.startswith("$"):
