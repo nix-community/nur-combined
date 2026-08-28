@@ -1,7 +1,7 @@
 {
   lib,
   neovim-unwrapped,
-  fetchFromGitHub,
+  fetchpatch,
 }:
 
 neovim-unwrapped.overrideAttrs (
@@ -10,16 +10,14 @@ neovim-unwrapped.overrideAttrs (
     versionSuffix = lib.removePrefix "0.12.4" finalAttrs.version;
   in
   {
-    version = "0.12.4+fold-improvement.2";
-
-    src = fetchFromGitHub {
-      owner = "wrvsrx";
-      repo = "neovim";
-      rev = finalAttrs.version;
-      hash = "sha256-ZhHv6tTdRw7VXQPw8ZMsvSNKgGkqOOxq9v0m0+uc3TQ=";
-    };
-
-    patches = oldAttrs.patches or [ ];
+    version = "0.12.4+fold-improvement.3";
+    __intentionallyOverridingVersion = true;
+    patches = (oldAttrs.patches or [ ]) ++ [
+      (fetchpatch {
+        url = "https://github.com/wrvsrx/neovim/compare/v0.12.4..${finalAttrs.version}.diff";
+        hash = "sha256-ibaz0Ciq3Br+11RylDR2gDs4xIycWIGhBEq7VyfeLVU=";
+      })
+    ];
 
     postPatch = (oldAttrs.postPatch or "") + ''
       substituteInPlace CMakeLists.txt \
