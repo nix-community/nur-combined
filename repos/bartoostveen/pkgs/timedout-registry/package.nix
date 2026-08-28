@@ -7,7 +7,7 @@
 
 buildGoModule (_finalAttrs: {
   pname = "timedout-registry";
-  version = "0-unstable-2025-12-09";
+  version = "0-unstable-2026-08-26";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -15,8 +15,8 @@ buildGoModule (_finalAttrs: {
   src = fetchgit {
     # no fetchFromForgejo because of the 'firewall'
     url = "https://git.nexy7574.co.uk/nex/go.timedout.uk.git";
-    rev = "f85f4de1c5220f09a6917ee1e312382773dabe84";
-    hash = "sha256-iyBXf4uHXx190uTakQvvmw1lhMb7eIbaAgEVjhDtKGI=";
+    rev = "2b11ac2d1860f62355eb853cb6848b940b087385";
+    hash = "sha256-hXwk3KdUbJNwAJmjHpAVPHBBgri0q4re/b3vYcu1wlU=";
   };
 
   vendorHash = null;
