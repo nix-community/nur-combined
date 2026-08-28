@@ -33,6 +33,12 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.repository.default_branch }}
       - uses: cachix/install-nix-action@v31
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: nix-${{ runner.os }}-update-${{ hashFiles('**/*.nix', '**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-update-
+          gc-max-store-size-linux: 2G
 
       - name: Update packages
         id: updates
@@ -122,6 +128,12 @@ jobs:
       - name: Apply package update
         run: git apply "$RUNNER_TEMP/package-updates/${{ matrix.package }}.patch"
       - uses: cachix/install-nix-action@v31
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: nix-${{ runner.os }}-update-${{ matrix.target.system }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-update-${{ matrix.target.system }}-
+          gc-max-store-size-linux: 2G
       - uses: cachix/cachix-action@v17
         with:
           name: so1ve
