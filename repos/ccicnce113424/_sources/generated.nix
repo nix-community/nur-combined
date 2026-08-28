@@ -54,13 +54,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.4.2";
+    version = "v0.5.0";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.4.2";
+      rev = "v0.5.0";
       fetchSubmodules = false;
-      sha256 = "sha256-pBrM4HiToRI1GNZCPc9OfGznIoukky4J2xFBByYOs5I=";
+      sha256 = "sha256-dnCFg3WsLmeBL9wg8EOBVueoj94blE5X2HuDDegBlRY=";
     };
   };
   fast-nix-gc = {
@@ -371,16 +371,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "d1eb9fc8fe4bffa5392ae01560dc0a98c69fe2bf";
+    version = "085bce5ccb821b8b348550e62c39c65b1ebc732a";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "d1eb9fc8fe4bffa5392ae01560dc0a98c69fe2bf";
+      rev = "085bce5ccb821b8b348550e62c39c65b1ebc732a";
       fetchSubmodules = false;
-      sha256 = "sha256-+MIRHWtL5xjDP91scScd10MSnQ+SCTxLLzhceEMofLM=";
+      sha256 = "sha256-fGI2xLeVLT/04UKwRjVHi3TN+5ImO4w2Qz9qUTn6aQ4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-+MIRHWtL5xjDP91scScd10MSnQ+SCTxLLzhceEMofLM=/Cargo.lock";
+      lockFile = ./. + "/sha256-fGI2xLeVLT_04UKwRjVHi3TN+5ImO4w2Qz9qUTn6aQ4=/Cargo.lock";
       outputHashes = {
         
       };
