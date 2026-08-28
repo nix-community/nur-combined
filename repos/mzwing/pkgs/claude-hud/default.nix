@@ -19,6 +19,14 @@ in
 
     nativeBuildInputs = [makeWrapper];
 
+    # 0.8.0 rejects symlinked config outright, which is the only shape home-manager can deliver.
+    # The size bound and the JSON shape check below it stay.
+    postPatch = ''
+      substituteInPlace src/config.ts \
+        --replace-fail 'const stat = fs.lstatSync(configPath);' 'const stat = fs.statSync(configPath);' \
+        --replace-fail 'if (stat.isSymbolicLink() || !stat.isFile()) {' 'if (!stat.isFile()) {'
+    '';
+
     # npm run build deletes the dist/ upstream CI commits and recompiles it from src/.
 
     installPhase = ''
@@ -48,8 +56,15 @@ in
       test -f $out/commands/configure.md
 
       # The statusline renders one frame per stdin payload; this is upstream's own smoke input.
-      echo '{"model":{"display_name":"Opus"},"context_window":{"current_usage":{"input_tokens":45000},"context_window_size":200000},"transcript_path":"/nonexistent/transcript.jsonl"}' |
-        $out/bin/claude-hud | grep -qF Opus
+      payload='{"model":{"display_name":"Opus"},"context_window":{"current_usage":{"input_tokens":45000},"context_window_size":200000},"transcript_path":"/nonexistent/transcript.jsonl"}'
+      echo "$payload" | $out/bin/claude-hud | grep -qF Opus
+
+      # A symlink is the only shape home-manager can deliver, so prove the config still lands.
+      hudHome=$(mktemp -d)
+      mkdir -p "$hudHome/.claude/plugins/claude-hud"
+      echo '{"language":"zh-Hans"}' >"$hudHome/config.json"
+      ln -s "$hudHome/config.json" "$hudHome/.claude/plugins/claude-hud/config.json"
+      echo "$payload" | HOME="$hudHome" $out/bin/claude-hud | grep -qF '上下文'
 
       test -f $out/share/doc/claude-hud/LICENSE
       test -f $out/share/doc/claude-hud/README.md
