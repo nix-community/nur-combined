@@ -56,7 +56,7 @@ art-standalone.overrideAttrs (old: {
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
           cp build/core/combo/HOST_darwin-x86.mk build/core/combo/HOST_darwin-arm.mk
           cp build/core/combo/HOST_darwin-x86.mk build/core/combo/HOST_darwin-arm64.mk
-          find . -type f \( -name "*.mk" -o -name "Makefile" \) -exec sed -i -E -e 's/-arch [a-zA-Z0-9_]+//g' -e 's/-m32//g' -e 's/-m64//g' {} +
+          find . -type f \( -name "*.mk" -o -name "Makefile" \) -exec sed -i -E -e 's/-arch [a-zA-Z0-9_]+//g' -e 's/-m32\b//g' -e 's/-m64\b//g' {} +
           sed -i 's/dladdr(art_sigsegv_fault/dladdr(reinterpret_cast<const void*>(art_sigsegv_fault)/g' \
             art/dex2oat/dex2oat.cc art/runtime/parsed_options.cc art/runtime/runtime.cc
           sed -i -E 's/char \*libart_so_full_path = malloc\((.*)\);/char *libart_so_full_path = static_cast<char*>(malloc(\1));/' \
@@ -142,14 +142,22 @@ art-standalone.overrideAttrs (old: {
           fi
           find build/core/combo -name "HOST_darwin-*.mk" -exec bash -c 'echo "HOST_GLOBAL_LDFLAGS += -Wl,-undefined,dynamic_lookup" >> "$1"' _ {} \;
           find . -type f \( -name "Android.mk" -o -name "Android.*.mk" \) -exec sed -i -e 's/-Wl,--export-dynamic//g' {} +
-          find art/runtime/arch -type f -name "*.S" -exec sed -i -E -e 's/\.fnstart//g' -e 's/\.fnend//g' -e '/\.size/d' -e '/\.type/d' -e '/\.hidden/d' -e '/\.cfi_/d' {} +
+          # Strip ELF/GNU CFI & symbol attrs; mterp has its own ENTRY/END (not only arch/).
+          find art/runtime/arch art/runtime/interpreter/mterp -type f -name "*.S" -exec sed -i -E \
+            -e 's/\.fnstart//g' -e 's/\.fnend//g' \
+            -e '/\.size/d' -e '/\.type/d' -e '/\.hidden/d' -e '/\.cfi_/d' {} +
+          # Mach-O C symbols need a leading '_'; mirror x86_64 SYMBOL() for arm64 ENTRY/calls.
+          # Darwin also forbids cbz/adr to non-local labels — rewrite those.
+          python3 ${./darwin-asm-underscore.py}
+          # Apple Clang has atomics built-in; GCC's -latomic is unavailable on Darwin.
+          find art -type f \( -name "*.mk" -o -name "*.bp" \) -exec sed -i -E -e 's/-latomic//g' {} +
           # Darwin's clang assembler requires comma-delimited .macro args (GNU as accepts spaces).
           sed -i -E \
             -e 's/\.macro LOADREG counter size register return/.macro LOADREG counter, size, register, return/' \
             -e 's/\.macro ALLOC_OBJECT_TLAB_FAST_PATH_RESOLVED slowPathLabel isInitialized/.macro ALLOC_OBJECT_TLAB_FAST_PATH_RESOLVED slowPathLabel, isInitialized/' \
             -e 's/LOADREG ([^ ,]+) ([^ ,]+) ([^ ,]+) ([^ ,]+)/LOADREG \1, \2, \3, \4/g' \
-            -e 's/:got:_ZN3art7Runtime9instance_E/_ZN3art7Runtime9instance_E@GOTPAGE/g' \
-            -e 's/#:got_lo12:_ZN3art7Runtime9instance_E/_ZN3art7Runtime9instance_E@GOTPAGEOFF/g' \
+            -e 's/:got:_ZN3art7Runtime9instance_E/__ZN3art7Runtime9instance_E@GOTPAGE/g' \
+            -e 's/#:got_lo12:_ZN3art7Runtime9instance_E/__ZN3art7Runtime9instance_E@GOTPAGEOFF/g' \
             art/runtime/arch/arm64/quick_entrypoints_arm64.S
           # Darwin LP64: uintptr_t is unsigned long, uint64_t is unsigned long long.
           sed -i \
@@ -158,9 +166,15 @@ art-standalone.overrideAttrs (old: {
             -e 's/fprs_\[fp_reg\] = CalleeSaveAddress(frame, spill_pos, frame_info.FrameSizeInBytes());/fprs_[fp_reg] = reinterpret_cast<uint64_t*>(CalleeSaveAddress(frame, spill_pos, frame_info.FrameSizeInBytes()));/' \
             -e 's/DCHECK_NE(fprs_\[reg\], \&gZero)/DCHECK_NE(fprs_[reg], reinterpret_cast<const uint64_t*>(\&gZero))/' \
             art/runtime/arch/arm64/context_arm64.cc
-          # Darwin has no execvpe(3); set environ then execvp in the forked child.
-          sed -i 's/execvpe(program, \&args\[0\], envp);/{ extern char **environ; environ = envp; execvp(program, \&args[0]); }/' \
+          # Darwin has no execvpe(3); set environ via _NSGetEnviron then execvp.
+          # Must not declare bare "extern char **environ" inside namespace art (→ art::environ).
+          sed -i 's|#include "runtime.h"|#include "runtime.h"\n#include <crt_externs.h>|' \
             art/runtime/exec_utils.cc
+          sed -i 's/execvpe(program, \&args\[0\], envp);/{ *_NSGetEnviron() = envp; execvp(program, \&args[0]); }/' \
+            art/runtime/exec_utils.cc
+          # bionic_dlerror() returns const char* (matches POSIX dlerror).
+          sed -i 's/char\* bionic_dlerror_msg = bionic_dlerror();/const char* bionic_dlerror_msg = bionic_dlerror();/' \
+            art/runtime/ti/agent.cc
           # Darwin has no <link.h>/dl_iterate_phdr; provide a no-op stub and skip CHECKs.
           cat > system/core/include/link.h <<'EOF_LINK_H'
       #ifndef ART_DARWIN_LINK_H_
@@ -202,10 +216,47 @@ art-standalone.overrideAttrs (old: {
           sed -i 's/ifeq ($(HOST_OS),linux)/ifneq ($(HOST_OS),windows)/' libcore/NativeCode.mk libcore/JavaLibrary.mk build/core/host_dalvik_java_library.mk
           sed -i 's/ -lrt//g' libcore/NativeCode.mk
           sed -i 's/ifeq ($(HOST_OS),linux)/ifneq ($(HOST_OS),windows)/' external/okhttp/Android.mk
+          sed -i 's/"libart\.so"/"libart.dylib"/' libnativehelper/JniInvocation.cpp
           echo "#!/bin/sh" > build/tools/check_radio_versions.py
           echo "exit 0" >> build/tools/check_radio_versions.py
           chmod +x build/tools/check_radio_versions.py
           echo -e "\nsystemimage:\n\t@echo Dummy systemimage\n" >> build/core/main.mk
+          # Top Makefile hardcodes Linux out/ paths and .so; Darwin uses darwin-x86 + .dylib.
+          # Broad s/libunwind// elsewhere leaves a bare "lib64/.so" install entry — drop it.
+          sed -i \
+            -e 's|out/host/linux-x86|out/host/darwin-x86|g' \
+            -e 's|lib64/lib\([A-Za-z0-9_-]*\)\.so|lib64/lib\1.dylib|g' \
+            -e '/lib64\/\.so/d' \
+            -e '/lib64\/\.dylib/d' \
+            Makefile
+    '';
+
+  # Host binaries use @loader_path/../lib64; install layout uses lib/art + natives.
+  postInstall =
+    (old.postInstall or "")
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p "$out/lib64"
+      for f in "$out"/lib/art/* "$out"/lib/java/dex/art/natives/*; do
+        [ -e "$f" ] || continue
+        ln -sfn "$f" "$out/lib64/$(basename "$f")"
+      done
+    '';
+
+  postFixup =
+    (old.postFixup or "")
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      for b in dalvikvm dex2oat; do
+        if [ -x "$out/bin/$b" ]; then
+          # libutils leaves native_handle_*/__android_log_* unbound (circular
+          # libcutils↔libutils deps in Android.mk); preload providers for flat dyld.
+          wrapProgram "$out/bin/$b" \
+            --prefix DYLD_LIBRARY_PATH : "$out/lib" \
+            --prefix DYLD_LIBRARY_PATH : "$out/lib/art" \
+            --prefix DYLD_LIBRARY_PATH : "$out/lib/java/dex/art/natives" \
+            --prefix DYLD_INSERT_LIBRARIES : "$out/lib/libcutils.dylib" \
+            --prefix DYLD_INSERT_LIBRARIES : "$out/lib/liblog.dylib"
+        fi
+      done
     '';
 
   meta = (old.meta or { }) // {
