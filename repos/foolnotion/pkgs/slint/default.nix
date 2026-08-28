@@ -49,6 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     fontconfig
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     libGL
     libx11
     libxcursor
