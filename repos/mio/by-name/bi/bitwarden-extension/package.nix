@@ -14,6 +14,8 @@ buildNpmPackage (finalAttrs: {
   pname = "bitwarden-extension";
   version = "2026.8.0";
 
+  extid = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
+
   src = fetchFromGitHub {
     owner = "bitwarden";
     repo = "clients";
@@ -59,12 +61,22 @@ buildNpmPackage (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/bitwarden-extension
-    cp -r apps/browser/build/* $out/share/bitwarden-extension/
+
+    pushd apps/browser/build > /dev/null
+    zip -qr "$TMPDIR/bitwarden.xpi" .
+    popd > /dev/null
+
+    install -Dm644 "$TMPDIR/bitwarden.xpi" "$out/${finalAttrs.extid}.xpi"
+    ln -s "${finalAttrs.extid}.xpi" "$out/bitwarden.xpi"
+
     runHook postInstall
   '';
 
   doCheck = false;
+
+  passthru = {
+    inherit (finalAttrs) extid;
+  };
 
   meta = {
     changelog = "https://github.com/bitwarden/clients/releases/tag/${finalAttrs.src.tag}";

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "YT Mirror",
+  "description": "YT Mirror adds a 'Mirror' button to the YouTube player, letting you flip videos and Shorts horizontally with one click.",
+  "version": "1.3.2",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "yt-mirror@nurpkgs.local"
+    }
+  },
+  "icons": {
+    "16": "icons/icon_16.png",
+    "32": "icons/icon_32.png",
+    "96": "icons/icon_96.png",
+    "128": "icons/icon_128.png"
+  },
+  "action": {
+    "default_title": "YT Mirror",
+    "default_icon": "icons/icon_32.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

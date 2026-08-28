@@ -3,11 +3,16 @@
   buildNpmPackage,
   fetchFromGitHub,
   nodejs,
+  zip,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "wayback-machine-extension";
   version = "3.2";
+
+  extid = "wayback_machine@mozilla.org";
+
+  nativeBuildInputs = [ zip ];
 
   src = fetchFromGitHub {
     owner = "internetarchive";
@@ -26,12 +31,22 @@ buildNpmPackage (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/wayback-machine-extension
-    cp -r webextension/* $out/share/wayback-machine-extension/
+
+    pushd webextension > /dev/null
+    zip -qr "$TMPDIR/wayback-machine.xpi" .
+    popd > /dev/null
+
+    install -Dm644 "$TMPDIR/wayback-machine.xpi" "$out/${finalAttrs.extid}.xpi"
+    ln -s "${finalAttrs.extid}.xpi" "$out/wayback-machine.xpi"
+
     runHook postInstall
   '';
 
   doCheck = false;
+
+  passthru = {
+    inherit (finalAttrs) extid;
+  };
 
   meta = {
     changelog = "https://github.com/internetarchive/wayback-machine-webextension/releases/tag/v${finalAttrs.version}";

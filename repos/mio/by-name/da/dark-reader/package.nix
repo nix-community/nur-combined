@@ -3,11 +3,16 @@
   buildNpmPackage,
   fetchFromGitHub,
   nodejs_22,
+  zip,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "dark-reader";
   version = "4.9.129";
+
+  extid = "addon@darkreader.org";
+
+  nativeBuildInputs = [ zip ];
 
   src = fetchFromGitHub {
     owner = "darkreader";
@@ -28,12 +33,22 @@ buildNpmPackage (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/dark-reader
-    cp -r build/release/firefox/. $out/share/dark-reader/
+
+    pushd build/release/firefox > /dev/null
+    zip -qr "$TMPDIR/dark-reader.xpi" .
+    popd > /dev/null
+
+    install -Dm644 "$TMPDIR/dark-reader.xpi" "$out/${finalAttrs.extid}.xpi"
+    ln -s "${finalAttrs.extid}.xpi" "$out/dark-reader.xpi"
+
     runHook postInstall
   '';
 
   doCheck = false;
+
+  passthru = {
+    inherit (finalAttrs) extid;
+  };
 
   meta = {
     changelog = "https://github.com/darkreader/darkreader/releases/tag/v${finalAttrs.version}";
