@@ -29,9 +29,18 @@ in
       # https://github.com/amtoine/nushell/blob/main/crates/nu-utils/src/sample_config/default_config.nu
       configFile.text = ''
         $env.config = {
-          use_kitty_protocol: true
           show_banner: false
+          edit_mode: helix
+          cursor_shape: {
+            helix_normal: block
+            helix_insert: blink_line
+            helix_select: block
+          }
+          use_kitty_protocol: true
         }
+
+        $env.PROMPT_INDICATOR_VI_NORMAL = ""
+        $env.PROMPT_INDICATOR_VI_INSERT = ""
       '';
 
       # Order of overrides of completer:

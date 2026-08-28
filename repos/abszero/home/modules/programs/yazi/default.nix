@@ -16,7 +16,6 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       ripgrep
-      trash-cli
     ];
     programs.yazi = {
       enable = true;
@@ -25,10 +24,6 @@ in
         inherit jjui kdeconnect-send sudo;
         git = {
           package = git;
-          setup = true;
-        };
-        recycle-bin = {
-          package = recycle-bin;
           setup = true;
         };
       };

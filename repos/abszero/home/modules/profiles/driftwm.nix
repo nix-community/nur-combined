@@ -24,8 +24,8 @@ in
           autostart = [ "vicinae server" ];
 
           keybindings = {
-            XF86MonBrightnessDown = "exec brillo -qu 200000 -U 5";
-            XF86MonBrightnessUp = "exec brillo -qu 200000 -A 5";
+            XF86MonBrightnessDown = "exec sudo brillo -qu 200000 -U 5";
+            XF86MonBrightnessUp = "exec sudo brillo -qu 200000 -A 5";
             Print = "exec driftwm msg screenshot --output - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/%Y-%m-%dT%H:%M:%S.png";
             "shift+Print" =
               "exec driftwm msg screenshot all --output - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/%Y-%m-%dT%H:%M:%S.png";

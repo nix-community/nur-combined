@@ -38,7 +38,6 @@ in
     };
 
     nixpkgs.config.permittedInsecurePackages = [
-      "idea-oss-2025.3.4"
       "ventoy-1.1.17" # Chronic
     ];
 
@@ -73,7 +72,7 @@ in
         hyperfine
         inkscape
         inotify-tools
-        jetbrains.idea-oss
+        jetbrains.idea
         kooha
         libreoffice-qt
         lutris

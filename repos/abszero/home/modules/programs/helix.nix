@@ -21,8 +21,9 @@ in
     settings = {
       editor = {
         # UI
+        line-number = "relative";
         bufferline = "multiple"; # Enable when there are multiple buffers
-        color-modes = true;
+        color-modes = true; # Color the mode indicator
         file-picker.hidden = false;
 
         # Text area
@@ -54,10 +55,9 @@ in
         trim-final-newlines = true;
         trim-trailing-whitespace = true;
         middle-click-paste = false;
-        smart-tab.supersede-menu = true; # Prioritize smart tab over tab menu naviguation
       };
 
-      keys = {
+      keys = rec {
         normal = {
           # Movement
           home = "goto_first_nonwhitespace";
@@ -66,7 +66,6 @@ in
 
           h = "no_op"; # move_char_left
           j = "no_op"; # move_visual_line_down
-          k = "no_op"; # move_visual_line_up
 
           # Selection
           A-e = "select_all_children";
@@ -74,6 +73,9 @@ in
           A-p = "no_op"; # select_prev_sibling
           A-o = "no_op"; # expand_selection
           A-S-i = "no_op"; # select_all_children
+
+          # Editing
+          S-g = ":diffg";
 
           # Space mode
           space = {
@@ -105,21 +107,42 @@ in
           # Window mode
           l = "@<C-w>";
           C-w = {
+            x = ":exit";
+            a = ":quit-all";
+            S-q = ":quit!";
+            S-x = ":exit!";
+            S-a = ":quit-all!";
+            h = "hsplit";
+
             S-left = "swap_view_left";
             S-down = "swap_view_down";
             S-up = "swap_view_up";
             S-right = "swap_view_right";
 
-            h = "hsplit";
-
+            s = "no_op"; # hsplit
             j = "no_op"; # jump_view_down
             k = "no_op"; # jump_view_up
             l = "no_op"; # jump_view_right
+            C-h = "no_op"; # jump_view_left
+            C-j = "no_op"; # jump_view_down
+            C-k = "no_op"; # jump_view_up
+            C-l = "no_op"; # jump_view_right
             S-h = "no_op"; # swap_view_left
             S-j = "no_op"; # swap_view_down
             S-k = "no_op"; # swap_view_up
             S-l = "no_op"; # swap_view_right
-            s = "no_op"; # hsplit
+          };
+
+          # Buffer mode
+          k = {
+            q = ":buffer-close";
+            x = ":write-buffer-close";
+            o = ":buffer-close-others";
+            a = ":buffer-close-all";
+            S-q = ":buffer-close!";
+            S-x = ":write-buffer-close!";
+            S-o = ":buffer-close-others!";
+            S-a = ":buffer-close-all!";
           };
         };
 
@@ -129,28 +152,7 @@ in
           C-del = "delete_word_forward";
         };
 
-        select = {
-          # Movement
-          home = "goto_first_nonwhitespace";
-          A-f = "find_till_char";
-          A-S-f = "till_prev_char";
-
-          h = "no_op"; # move_char_left
-          j = "no_op"; # move_visual_line_down
-          k = "no_op"; # move_visual_line_up
-
-          # Goto mode
-          g = {
-            s = "goto_line_start";
-
-            h = "no_op"; # goto_line_start
-            l = "no_op"; # goto_line_end
-            n = "no_op"; # goto_next_buffer
-            p = "no_op"; # goto_previous_buffer
-            j = "no_op"; # move_line_down
-            k = "no_op"; # move_line_up
-          };
-        };
+        select = normal;
       };
     };
 

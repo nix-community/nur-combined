@@ -14,8 +14,6 @@ prepend_keymap = [
 
   { on = "S",               run = "plugin kdeconnect-send",                 desc = "Send selected files via KDE Connect" },
 
-  { on = "T",               run = "plugin recycle-bin",                     desc = "Open recycle bin menu" },
-
   { on = [ "R", "a" ],      run = "plugin sudo -- create",                  desc = "sudo create" },
   { on = [ "R", "r" ],      run = "plugin sudo -- rename",                  desc = "sudo rename" },
   { on = [ "R", "d" ],      run = "plugin sudo -- remove",                  desc = "sudo trash" },
