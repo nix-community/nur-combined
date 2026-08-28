@@ -133,26 +133,42 @@ pub fn load_session() -> Vec<Option<String>> {
         .collect()
 }
 
+fn write_recent_hosts(recents: &[String]) {
+    let dir = config_dir();
+    let _ = std::fs::create_dir_all(&dir);
+    if let Ok(json) = serde_json::to_string_pretty(recents) {
+        let _ = std::fs::write(dir.join("recent_hosts.json"), json);
+    }
+}
+
 pub fn load_recent_hosts() -> Vec<String> {
     let path = config_dir().join("recent_hosts.json");
-    std::fs::read_to_string(path)
+    let recents: Vec<String> = std::fs::read_to_string(path)
         .ok()
         .and_then(|s| serde_json::from_str::<Vec<String>>(&s).ok())
-        .unwrap_or_default()
+        .unwrap_or_default();
+    let initial_len = recents.len();
+    let filtered: Vec<String> = recents
+        .into_iter()
+        .filter(|h| crate::hosts::is_valid_stored_host(h))
+        .collect();
+    if filtered.len() != initial_len {
+        write_recent_hosts(&filtered);
+    }
+    filtered
 }
 
 pub fn add_recent_host(host: &str) {
+    if !crate::hosts::is_valid_stored_host(host) {
+        return;
+    }
     let mut recents = load_recent_hosts();
     recents.retain(|h| h != host);
     recents.insert(0, host.to_string());
     if recents.len() > 20 {
         recents.truncate(20);
     }
-    let dir = config_dir();
-    let _ = std::fs::create_dir_all(&dir);
-    if let Ok(json) = serde_json::to_string_pretty(&recents) {
-        let _ = std::fs::write(dir.join("recent_hosts.json"), json);
-    }
+    write_recent_hosts(&recents);
 }
 
 pub fn remove_recent_host(host: &str) {
@@ -160,11 +176,7 @@ pub fn remove_recent_host(host: &str) {
     let initial_len = recents.len();
     recents.retain(|h| h != host);
     if recents.len() != initial_len {
-        let dir = config_dir();
-        let _ = std::fs::create_dir_all(&dir);
-        if let Ok(json) = serde_json::to_string_pretty(&recents) {
-            let _ = std::fs::write(dir.join("recent_hosts.json"), json);
-        }
+        write_recent_hosts(&recents);
     }
 }
 

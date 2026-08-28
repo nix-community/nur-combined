@@ -61,6 +61,11 @@ pub fn validate_host_option(final_host: &str) -> Result<Option<String>, InvalidS
     }
 }
 
+/// Whether a host string may be stored in recents or session files.
+pub fn is_valid_stored_host(host: &str) -> bool {
+    !host.trim().is_empty() && validate_host_option(host).is_ok()
+}
+
 /// Reject host strings that could confuse `ssh` argv or shell tooling.
 ///
 /// Allows `user@host`, DNS names, IPv4/IPv6-ish characters, and `:` / `%` for
@@ -125,6 +130,14 @@ mod tests {
         assert_eq!(validate_host_option(""), Ok(None));
         assert_eq!(validate_host_option("dev@mbp"), Ok(Some("dev@mbp".into())));
         assert_eq!(validate_host_option("dev@dev@mbp"), Err(InvalidSshDestination));
+    }
+
+    #[test]
+    fn is_valid_stored_host_rejects_malformed_user_host() {
+        assert!(is_valid_stored_host("localhost"));
+        assert!(is_valid_stored_host("dev@mbp"));
+        assert!(!is_valid_stored_host("dev@user@nixmac"));
+        assert!(!is_valid_stored_host(""));
     }
 
     #[test]
