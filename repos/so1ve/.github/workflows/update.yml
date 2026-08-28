@@ -243,10 +243,12 @@ jobs:
       - name: Commit package updates
         env:
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          PACKAGES: ${{ needs.collect.outputs.packages }}
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git commit --message "packages: update"
+          package_names="$(jq --raw-output 'join(", ")' <<<"$PACKAGES")"
+          git commit --message "packages: update $package_names"
           git push origin "HEAD:$DEFAULT_BRANCH"
 
   report:
