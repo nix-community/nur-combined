@@ -52,23 +52,16 @@ jobs:
             build-dir = /nix/tmpdir
             log-lines = 25
 
-      - name: Build nix packages
+      - name: Update packages
         run: |
-          cat > secrets.toml <<EOF
-          [keys]
-          github = "${{ secrets.GITHUB_TOKEN }}"
-          EOF
-
           sudo mkdir -p /nix/tmpdir2
           sudo chown "$(whoami)" /nix/tmpdir2
           export TMPDIR=/nix/tmpdir2
 
           nix run .#update
-          nix run .#update-hashes
-
-          rm -f secrets.toml
 
       - name: Commit back to repository
+        if: always()
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'auto: update packages'

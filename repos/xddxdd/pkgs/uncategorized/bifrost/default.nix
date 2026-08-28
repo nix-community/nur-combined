@@ -1,21 +1,21 @@
 {
   fetchurl,
   lib,
-  buildGoModule,
+  buildGo127Module,
   nix-update-script,
   sqlite,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "bifrost";
-  version = "1.6.11";
+  version = "2.0.0";
   src = fetchurl {
     url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v${finalAttrs.version}.tar.gz";
-    hash = "sha256-fvdQyfm+pNbFgJzrUcI+hte58T8FV19xe6TGRIRO+bk=";
+    hash = "sha256-58LlOFqV6+0PCGXiq7zbxY7UogNJCxDKqph0fy3uKv8=";
   };
   sourceRoot = "bifrost-transports-v${finalAttrs.version}/transports";
 
-  vendorHash = "sha256-DEWblNhMeIoxgmtnXhjApA/XllNF3TCX7fR5vmQfD54=";
+  vendorHash = "sha256-tartVUBOShmwY5n7WzbK+Kyc4EmfppfrccWX2NHkxXw=";
 
   env.CGO_ENABLED = 1;
   GOWORK = "off";

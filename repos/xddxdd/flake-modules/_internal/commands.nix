@@ -1,10 +1,6 @@
 _: {
   perSystem =
-    {
-      lib,
-      pkgs,
-      ...
-    }:
+    _:
     let
       mkCICommand = pkgsAttr: ''
         tools/auto_build.py ${pkgsAttr} "$@"
@@ -70,20 +66,6 @@ _: {
           done
           ./tools/update-package --all
           ${readme}
-        '';
-
-        update-hashes = ''
-          # Only check hashes that are not src hashes
-          ATTRS=$(grep --files-with-matches "Hash = \"sha256-" \
-            pkgs/kernel-modules/**/*.nix \
-            pkgs/python-packages/**/*.nix \
-            pkgs/uncategorized/**/*.nix \
-            | xargs dirname | sort | uniq | xargs -n1 basename)
-
-          for ATTR in $ATTRS; do
-            echo "Updating $ATTR"
-            ${lib.getExe pkgs.nix-update} --flake "$ATTR" --version skip
-          done
         '';
       };
     };
