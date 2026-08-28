@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.3.0";
+  version = "4.4.3.3";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.3.0.xpi";
-  sha256 = "b23c3df3823ef85e6a51da217186b2d6fb2cf0c28e74b801f654b7621e686f38";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.3.3.xpi";
+  sha256 = "5d0487c5ca29d33a123e8d7b638d89dc34bee3145a5eb2846d05501343b55cb1";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -33,6 +33,7 @@ buildFirefoxXpiAddon {
       "*://*.ad.nl/*"
       "*://*.adage.com/*"
       "*://*.adelaidenow.com.au/*"
+      "*://*.adn.com/*"
       "*://*.adweek.com/*"
       "*://*.aerokurier.de/*"
       "*://*.aerztezeitung.de/*"
@@ -71,6 +72,7 @@ buildFirefoxXpiAddon {
       "*://*.backpacker.com/*"
       "*://*.balkaninsight.com/*"
       "*://*.baltimoresun.com/*"
+      "*://*.bangkokpost.com/*"
       "*://*.barandbench.com/*"
       "*://*.barrons.com/*"
       "*://*.bazonline.ch/*"
@@ -133,6 +135,7 @@ buildFirefoxXpiAddon {
       "*://*.cen.acs.org/*"
       "*://*.centralwesterndaily.com.au/*"
       "*://*.centrepresseaveyron.fr/*"
+      "*://*.cerveauetpsycho.fr/*"
       "*://*.challenges.fr/*"
       "*://*.charentelibre.fr/*"
       "*://*.charliehebdo.fr/*"
@@ -352,6 +355,7 @@ buildFirefoxXpiAddon {
       "*://*.historytoday.com/*"
       "*://*.hln.be/*"
       "*://*.hola.com/*"
+      "*://*.hotnews.ro/*"
       "*://*.housebeautiful.com/*"
       "*://*.houstonchronicle.com/*"
       "*://*.hoy.es/*"
@@ -875,6 +879,7 @@ buildFirefoxXpiAddon {
       "*://*.valeursactuelles.com/*"
       "*://*.vancouversun.com/*"
       "*://*.vanityfair.com/*"
+      "*://*.vanityfair.it/*"
       "*://*.variety.com/*"
       "*://*.varmatin.com/*"
       "*://*.vegetariantimes.com/*"

@@ -2914,10 +2914,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "155.0.20260826.195058";
+      version = "156.0.20260827.145109";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985255/dansk_da_language_pack-155.0.20260826.195058.xpi";
-      sha256 = "2debfb6ecd9542e8eec6a73741f12d662b689414ec181eca2d285caebbc20127";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4987309/dansk_da_language_pack-156.0.20260827.145109.xpi";
+      sha256 = "e238826f345dd79a90c74ee0caa351c984eccafc4d357dfcdc523bd659b162cf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3131,10 +3131,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "155.0.20260826.195058";
+      version = "156.0.20260827.145109";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985256/deutsch_de_language_pack-155.0.20260826.195058.xpi";
-      sha256 = "a4946fae60f12f1b98c14e4dabf9354cea99da04778b6f4f4265864cb292088d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4987311/deutsch_de_language_pack-156.0.20260827.145109.xpi";
+      sha256 = "6e7ae165653f33dd6456c53d4d7a7b66baea57c69f15347e8c2770151c235391";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4630,10 +4630,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "155.0.20260826.195058";
+      version = "156.0.20260827.145109";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985295/francais_language_pack-155.0.20260826.195058.xpi";
-      sha256 = "114d99e96425c3d093e2ce151e0b65fb04e3e7b28b6516633feb797c24d639b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4987366/francais_language_pack-156.0.20260827.145109.xpi";
+      sha256 = "be570665f9830937785551e5a28bebccdf4bf6cff3a280b7a2dc39d5280a749a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4667,10 +4667,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "155.0.20260826.195058";
+      version = "156.0.20260827.145109";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985208/gaidhlig_language_pack-155.0.20260826.195058.xpi";
-      sha256 = "18492546468fc087a17a472c45f3cc957345d81e7fc1c00215b3243fdf6b592f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4987299/gaidhlig_language_pack-156.0.20260827.145109.xpi";
+      sha256 = "4992a6d8b2513bfc09bf41cc8ce240f26f6b5937b13a25b7f13cd5916a535e73";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6853,16 +6853,17 @@
     };
     "indie-wiki-buddy" = buildMozillaXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.14.8";
+      version = "4.0.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4951001/indie_wiki_buddy-3.14.8.xpi";
-      sha256 = "69d0fb83217fa5b6921e711f73768e34562dbee15ca99261dd509cac9f9e8197";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982796/indie_wiki_buddy-4.0.0.xpi";
+      sha256 = "2769ffe55ff3462eef9029f00d90bb2df7d3f2fa6521b90de47aa81152e25df8";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
         description = "Helping you discover quality, independent wikis!\n\nWhen visiting a Fandom wiki, Indie Wiki Buddy redirects or alerts you of independent alternatives. It also filters search engine results. BreezeWiki is also supported, to reduce clutter on Fandom.";
         license = licenses.mit;
         mozPermissions = [
+          "alarms"
           "storage"
           "webRequest"
           "notifications"
@@ -6871,241 +6872,7 @@
           "https://*.fextralife.com/*"
           "https://*.neoseeker.com/*"
           "https://breezewiki.com/*"
-          "https://antifandom.com/*"
-          "https://bw.artemislena.eu/*"
-          "https://breezewiki.catsarch.com/*"
-          "https://breezewiki.esmailelbob.xyz/*"
-          "https://breezewiki.frontendfriendly.xyz/*"
-          "https://bw.hamstro.dev/*"
-          "https://breeze.hostux.net/*"
-          "https://breezewiki.hyperreal.coffee/*"
-          "https://breeze.mint.lgbt/*"
-          "https://breezewiki.nadeko.net/*"
-          "https://nerd.whatever.social/*"
-          "https://breeze.nohost.network/*"
-          "https://z.opnxng.com/*"
-          "https://bw.projectsegfau.lt/*"
-          "https://breezewiki.pussthecat.org/*"
-          "https://bw.vern.cc/*"
-          "https://breeze.whateveritworks.org/*"
-          "https://breezewiki.woodland.cafe/*"
-          "https://*.bing.com/search*"
-          "https://search.brave.com/search*"
-          "https://*.duckduckgo.com/*"
-          "https://*.ecosia.org/*"
-          "https://kagi.com/search*"
-          "https://*.qwant.com/*"
-          "https://*.search.yahoo.com/*"
-          "https://*.startpage.com/*"
-          "https://*.ya.ru/*"
-          "https://*.yandex.az/*"
-          "https://*.yandex.by/*"
-          "https://*.yandex.co.il/*"
-          "https://*.yandex.com.am/*"
-          "https://*.yandex.com.ge/*"
-          "https://*.yandex.com.tr/*"
-          "https://*.yandex.com/*"
-          "https://*.yandex.ee/*"
-          "https://*.yandex.eu/*"
-          "https://*.yandex.fr/*"
-          "https://*.yandex.kz/*"
-          "https://*.yandex.lt/*"
-          "https://*.yandex.lv/*"
-          "https://*.yandex.md/*"
-          "https://*.yandex.ru/*"
-          "https://*.yandex.tj/*"
-          "https://*.yandex.tm/*"
-          "https://*.yandex.uz/*"
           "https://www.google.com/search*"
-          "https://www.google.ad/search*"
-          "https://www.google.ae/search*"
-          "https://www.google.com.af/search*"
-          "https://www.google.com.ag/search*"
-          "https://www.google.com.ai/search*"
-          "https://www.google.al/search*"
-          "https://www.google.am/search*"
-          "https://www.google.co.ao/search*"
-          "https://www.google.com.ar/search*"
-          "https://www.google.as/search*"
-          "https://www.google.at/search*"
-          "https://www.google.com.au/search*"
-          "https://www.google.az/search*"
-          "https://www.google.ba/search*"
-          "https://www.google.com.bd/search*"
-          "https://www.google.be/search*"
-          "https://www.google.bf/search*"
-          "https://www.google.bg/search*"
-          "https://www.google.com.bh/search*"
-          "https://www.google.bi/search*"
-          "https://www.google.bj/search*"
-          "https://www.google.com.bn/search*"
-          "https://www.google.com.bo/search*"
-          "https://www.google.com.br/search*"
-          "https://www.google.bs/search*"
-          "https://www.google.bt/search*"
-          "https://www.google.co.bw/search*"
-          "https://www.google.by/search*"
-          "https://www.google.com.bz/search*"
-          "https://www.google.ca/search*"
-          "https://www.google.cd/search*"
-          "https://www.google.cf/search*"
-          "https://www.google.cg/search*"
-          "https://www.google.ch/search*"
-          "https://www.google.ci/search*"
-          "https://www.google.co.ck/search*"
-          "https://www.google.cl/search*"
-          "https://www.google.cm/search*"
-          "https://www.google.cn/search*"
-          "https://www.google.com.co/search*"
-          "https://www.google.co.cr/search*"
-          "https://www.google.com.cu/search*"
-          "https://www.google.cv/search*"
-          "https://www.google.com.cy/search*"
-          "https://www.google.cz/search*"
-          "https://www.google.de/search*"
-          "https://www.google.dj/search*"
-          "https://www.google.dk/search*"
-          "https://www.google.dm/search*"
-          "https://www.google.com.do/search*"
-          "https://www.google.dz/search*"
-          "https://www.google.com.ec/search*"
-          "https://www.google.ee/search*"
-          "https://www.google.com.eg/search*"
-          "https://www.google.es/search*"
-          "https://www.google.com.et/search*"
-          "https://www.google.fi/search*"
-          "https://www.google.com.fj/search*"
-          "https://www.google.fm/search*"
-          "https://www.google.fr/search*"
-          "https://www.google.ga/search*"
-          "https://www.google.ge/search*"
-          "https://www.google.gg/search*"
-          "https://www.google.com.gh/search*"
-          "https://www.google.com.gi/search*"
-          "https://www.google.gl/search*"
-          "https://www.google.gm/search*"
-          "https://www.google.gr/search*"
-          "https://www.google.com.gt/search*"
-          "https://www.google.gy/search*"
-          "https://www.google.com.hk/search*"
-          "https://www.google.hn/search*"
-          "https://www.google.hr/search*"
-          "https://www.google.ht/search*"
-          "https://www.google.hu/search*"
-          "https://www.google.co.id/search*"
-          "https://www.google.ie/search*"
-          "https://www.google.co.il/search*"
-          "https://www.google.im/search*"
-          "https://www.google.co.in/search*"
-          "https://www.google.iq/search*"
-          "https://www.google.is/search*"
-          "https://www.google.it/search*"
-          "https://www.google.je/search*"
-          "https://www.google.com.jm/search*"
-          "https://www.google.jo/search*"
-          "https://www.google.co.jp/search*"
-          "https://www.google.co.ke/search*"
-          "https://www.google.com.kh/search*"
-          "https://www.google.ki/search*"
-          "https://www.google.kg/search*"
-          "https://www.google.co.kr/search*"
-          "https://www.google.com.kw/search*"
-          "https://www.google.kz/search*"
-          "https://www.google.la/search*"
-          "https://www.google.com.lb/search*"
-          "https://www.google.li/search*"
-          "https://www.google.lk/search*"
-          "https://www.google.co.ls/search*"
-          "https://www.google.lt/search*"
-          "https://www.google.lu/search*"
-          "https://www.google.lv/search*"
-          "https://www.google.com.ly/search*"
-          "https://www.google.co.ma/search*"
-          "https://www.google.md/search*"
-          "https://www.google.me/search*"
-          "https://www.google.mg/search*"
-          "https://www.google.mk/search*"
-          "https://www.google.ml/search*"
-          "https://www.google.com.mm/search*"
-          "https://www.google.mn/search*"
-          "https://www.google.ms/search*"
-          "https://www.google.com.mt/search*"
-          "https://www.google.mu/search*"
-          "https://www.google.mv/search*"
-          "https://www.google.mw/search*"
-          "https://www.google.com.mx/search*"
-          "https://www.google.com.my/search*"
-          "https://www.google.co.mz/search*"
-          "https://www.google.com.na/search*"
-          "https://www.google.com.ng/search*"
-          "https://www.google.com.ni/search*"
-          "https://www.google.ne/search*"
-          "https://www.google.nl/search*"
-          "https://www.google.no/search*"
-          "https://www.google.com.np/search*"
-          "https://www.google.nr/search*"
-          "https://www.google.nu/search*"
-          "https://www.google.co.nz/search*"
-          "https://www.google.com.om/search*"
-          "https://www.google.com.pa/search*"
-          "https://www.google.com.pe/search*"
-          "https://www.google.com.pg/search*"
-          "https://www.google.com.ph/search*"
-          "https://www.google.com.pk/search*"
-          "https://www.google.pl/search*"
-          "https://www.google.pn/search*"
-          "https://www.google.com.pr/search*"
-          "https://www.google.ps/search*"
-          "https://www.google.pt/search*"
-          "https://www.google.com.py/search*"
-          "https://www.google.com.qa/search*"
-          "https://www.google.ro/search*"
-          "https://www.google.ru/search*"
-          "https://www.google.rw/search*"
-          "https://www.google.com.sa/search*"
-          "https://www.google.com.sb/search*"
-          "https://www.google.sc/search*"
-          "https://www.google.se/search*"
-          "https://www.google.com.sg/search*"
-          "https://www.google.sh/search*"
-          "https://www.google.si/search*"
-          "https://www.google.sk/search*"
-          "https://www.google.com.sl/search*"
-          "https://www.google.sn/search*"
-          "https://www.google.so/search*"
-          "https://www.google.sm/search*"
-          "https://www.google.sr/search*"
-          "https://www.google.st/search*"
-          "https://www.google.com.sv/search*"
-          "https://www.google.td/search*"
-          "https://www.google.tg/search*"
-          "https://www.google.co.th/search*"
-          "https://www.google.com.tj/search*"
-          "https://www.google.tl/search*"
-          "https://www.google.tm/search*"
-          "https://www.google.tn/search*"
-          "https://www.google.to/search*"
-          "https://www.google.com.tr/search*"
-          "https://www.google.tt/search*"
-          "https://www.google.com.tw/search*"
-          "https://www.google.co.tz/search*"
-          "https://www.google.com.ua/search*"
-          "https://www.google.co.ug/search*"
-          "https://www.google.co.uk/search*"
-          "https://www.google.com.uy/search*"
-          "https://www.google.co.uz/search*"
-          "https://www.google.com.vc/search*"
-          "https://www.google.co.ve/search*"
-          "https://www.google.vg/search*"
-          "https://www.google.co.vi/search*"
-          "https://www.google.com.vn/search*"
-          "https://www.google.vu/search*"
-          "https://www.google.ws/search*"
-          "https://www.google.rs/search*"
-          "https://www.google.co.za/search*"
-          "https://www.google.co.zm/search*"
-          "https://www.google.co.zw/search*"
-          "https://www.google.cat/search*"
         ];
         platforms = platforms.all;
       };
@@ -8466,10 +8233,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.234";
+      version = "2.4.235";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4978328/lichess_tools_by_siderite-2.4.234.xpi";
-      sha256 = "f22005214f2427627b151fe2a09b90f7d9c2014b86d8a6244ce4e0b8977a44d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4985859/lichess_tools_by_siderite-2.4.235.xpi";
+      sha256 = "8490e294d402bceb9efcbec842dd3eaa55b3d8b1654a1b183d657a633532e26c";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10237,10 +10004,10 @@
     };
     "multiple-tab-handler" = buildMozillaXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.2.4";
+      version = "3.2.5";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4982793/multiple_tab_handler-3.2.4.xpi";
-      sha256 = "8d95597b2283752fd4ad224e4b0364364b540ff7fc8d9fd17ca239c364cd9018";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4985982/multiple_tab_handler-3.2.5.xpi";
+      sha256 = "52410ba97deaf4a4d4746ec8a0b4b615f9e30996f6f3d6f5b969a730f6a25202";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -10248,7 +10015,6 @@
         license = licenses.mpl20;
         mozPermissions = [
           "activeTab"
-          "browserSettings"
           "contextualIdentities"
           "cookies"
           "menus"
@@ -11243,10 +11009,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.15.0";
+      version = "5.15.1";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4969918/passbolt-5.15.0.xpi";
-      sha256 = "d88d0ddfc57f3dfbc1f63ee389fbd10dd5a384f997dacca47552c7eae23011ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982393/passbolt-5.15.1.xpi";
+      sha256 = "126188fb278721638a451e6a821afdb13c61b5eb7caafb3f687baf2a891f1fa6";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -11542,10 +11308,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.2.3";
+      version = "7.2.4";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4971720/print_friendly_pdf-7.2.3.xpi";
-      sha256 = "a7df3564e27b1618248f50b6ab1a43d55b02a7035f8f203a85bcd919acf5a31a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4981643/print_friendly_pdf-7.2.4.xpi";
+      sha256 = "f1f6d2bf95776cfddd0e64fa33ad95640c9963a8d14333b3792102e94c15ff85";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -13434,10 +13200,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "155.0.20260826.195058";
+      version = "156.0.20260827.145109";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985284/scots_language_pack-155.0.20260826.195058.xpi";
-      sha256 = "bb06f0cfcae065b834631725be3bb0e9784d11e1a89fd0025ca9d7d8a41a8aba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4987271/scots_language_pack-156.0.20260827.145109.xpi";
+      sha256 = "4a9ca523375fa1a8f6fce16e6d8dbff9e5d9615348124ec90905ed9aaa1a4039";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15344,10 +15110,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.1";
+      version = "4.4.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4983025/tree_style_tab-4.4.1.xpi";
-      sha256 = "00cc8932a930add69298d64551324be795622ae1c91c0da91deaf0f6f8d2b84f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4985978/tree_style_tab-4.4.3.xpi";
+      sha256 = "5d4d2a7ec7e3027d8e8e4e0b3d8a0355070267fbda8c927dfaeb0fd3b7cb09c8";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -15360,7 +15126,6 @@
         };
         mozPermissions = [
           "activeTab"
-          "browserSettings"
           "contextualIdentities"
           "cookies"
           "menus"
@@ -16799,10 +16564,10 @@
     };
     "wallabagger" = buildMozillaXpiAddon {
       pname = "wallabagger";
-      version = "1.23.4";
+      version = "1.24.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4857583/wallabagger-1.23.4.xpi";
-      sha256 = "420f4b14873482a4f630779bac419b69edbf275e787b8b55f21d0c407b501a94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4986294/wallabagger-1.24.0.xpi";
+      sha256 = "f6fd03bcbc4d2d0c9859602eb0e01d226c97d5b08a8bcf3806bc38b940f854a9";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
@@ -16814,10 +16579,10 @@
     };
     "wappalyzer" = buildMozillaXpiAddon {
       pname = "wappalyzer";
-      version = "6.12.5";
+      version = "6.12.6";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4950558/wappalyzer-6.12.5.xpi";
-      sha256 = "093c2205a5781df6c442967b4ebf6d4742e30071bca532d87c377d091c543912";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4982523/wappalyzer-6.12.6.xpi";
+      sha256 = "3a369e5580a1b4864001c021e0f5b524a7f08968b438fb7d5d7cbe887e8cee89";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
