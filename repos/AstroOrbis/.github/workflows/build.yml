@@ -13,19 +13,23 @@ jobs:
     strategy:
       matrix:
         nurRepo:
-          - astroorbis 
+          - astroorbis
         cachixName:
           - totallyccache
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/91e18d3c384a4c5998e720324425b88f53bbe6e4.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
+    - name: Resolve nixpkgs from flake.lock
+      id: nixpkgs
+      run: |
+        rev=$(jq -er '.nodes.nixpkgs.locked.rev' flake.lock)
+        echo "url=https://github.com/NixOS/nixpkgs/archive/$rev.tar.gz" >> "$GITHUB_OUTPUT"
+        echo "nixpkgs from flake.lock: $rev"
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
+        nix_path: "nixpkgs=${{ steps.nixpkgs.outputs.url }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
