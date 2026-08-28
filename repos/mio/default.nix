@@ -165,4 +165,6 @@ with (import ./private.nix { inherit pkgs; });
 // lib.optionalAttrs no-ifd {
   brave-origin = null;
   cargo-kani = null;
+  claude-desktop = null;
+  claude-desktop-fhs = null;
 }
