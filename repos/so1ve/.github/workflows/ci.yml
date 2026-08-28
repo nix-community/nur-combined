@@ -33,12 +33,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
-      - name: Restore and save Nix store
-        uses: nix-community/cache-nix-action@v7
-        with:
-          primary-key: nix-${{ runner.os }}-${{ matrix.system }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-${{ matrix.system }}-
-          gc-max-store-size-linux: 2G
       - uses: cachix/cachix-action@v17
         with:
           name: so1ve
