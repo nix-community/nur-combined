@@ -3,6 +3,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  makeDesktopItem,
+  river,
 
   zig_0_16,
   pkg-config,
@@ -58,6 +60,21 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   dontUseZigCheck = true;
+
+  postInstall =
+    let
+      desktopItem = makeDesktopItem {
+        name = "kwm";
+        desktopName = "KWM (River)";
+        comment = finalAttrs.meta.description;
+        exec = "${lib.getExe river} -c ${finalAttrs.meta.mainProgram}";
+      };
+    in
+    ''
+      install -Dm644 ${desktopItem}/share/applications/kwm.desktop -t $out/share/wayland-sessions/
+    '';
+
+  passthru.providedSessions = [ "kwm" ];
 
   meta = {
     changelog = "https://github.com/kewuaa/kwm/releases/tag/v${finalAttrs.version}";
