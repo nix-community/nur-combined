@@ -1180,8 +1180,8 @@
             "url": "https://git.immae.eu/perso/Immae/Config/Nix/NUR.git"
         },
         "infgotoinf": {
-            "rev": "5918aade64c176ba897ffebf0db0f211d0f20cc8",
-            "sha256": "0x0dv8mmqpr2aqdqm2ya410aapfc6fh7b00p1m2pbcf9ymm85zzn",
+            "rev": "bc5683be6d493c34f950ff422712816d2b0d31d9",
+            "sha256": "1glpgs7fnsrcf8xaz8sazf048352pwza3ga5l69j6cjlfpxjxdds",
             "url": "https://github.com/infgotoinf/nur-packages"
         },
         "inogai": {
@@ -1658,8 +1658,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "69edb1388e804bb33e72f5f3f25df40933f6e4d8",
-            "sha256": "1a6mdqh629p1lh9ycmv483zvswzf2yzwq574i5axafh7r1l4ykzs",
+            "rev": "b017a53cedfbd6a607bce423862f172829084947",
+            "sha256": "1bk5a9lrlnw9qgdkfkxyhs2wy3iy18flmir9ihhpbhfshs0zk8zg",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
