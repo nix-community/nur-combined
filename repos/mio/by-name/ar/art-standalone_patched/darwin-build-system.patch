@@ -19,7 +19,7 @@
 +renderscript_flags := -Wall 
  renderscript_flags += $(LOCAL_RENDERSCRIPT_FLAGS)
 -# -m32 or -m64
-+#  or 
++# -m32 or -m64
  renderscript_flags += -m$(my_32_64_bit_suffix)
  
  renderscript_includes := \
@@ -30,7 +30,7 @@
  # Help catch common 32/64-bit errors.
  CLANG_CONFIG_EXTRA_CFLAGS += \
 -  -Werror=int-conversion
-+  =int-conversion
++  -Wint-conversion
  
  # Disable overly aggressive warning for macros defined with a leading underscore
  # This happens in AndroidConfig.h, which is included nearly everywhere.
@@ -40,8 +40,8 @@
    -funswitch-loops \
 -  -Werror=unused-but-set-parameter \
 -  -Werror=unused-but-set-variable \
-+  =unused-but-set-parameter \
-+  =unused-but-set-variable \
++  -Wunused-but-set-parameter \
++  -Wunused-but-set-variable \
    -Wmaybe-uninitialized \
    -Wno-error=clobbered \
    -Wno-error=maybe-uninitialized \
@@ -391,7 +391,7 @@
  			-fstack-protector \
  			-Wa,--noexecstack \
 -			-Werror=format-security \
-+			=format-security \
++			-Wformat-security \
  			-D_FORTIFY_SOURCE=2 \
  			-fno-short-enums \
  			-no-canonical-prefixes \
@@ -411,7 +411,7 @@
  			-funwind-tables \
  			-Wa,--noexecstack \
 -			-Werror=format-security \
-+			=format-security \
++			-Wformat-security \
  			-D_FORTIFY_SOURCE=2 \
  			-fno-short-enums \
  			-no-canonical-prefixes \
@@ -422,9 +422,9 @@
 -    -Werror=pointer-to-int-cast \
 -    -Werror=int-to-pointer-cast \
 -    -Werror=implicit-function-declaration \
-+    =pointer-to-int-cast \
-+    =int-to-pointer-cast \
-+    =implicit-function-declaration \
++    -Wpointer-to-int-cast \
++    -Wint-to-pointer-cast \
++    -Wimplicit-function-declaration \
  
  TARGET_GLOBAL_CFLAGS += -fno-strict-volatile-bitfields
  
@@ -435,7 +435,7 @@
  			-funwind-tables \
  			-Wa,--noexecstack \
 -			-Werror=format-security \
-+			=format-security \
++			-Wformat-security \
  			-D_FORTIFY_SOURCE=2 \
  			-no-canonical-prefixes \
  			-fno-canonical-system-headers \
@@ -446,7 +446,7 @@
  			-funwind-tables \
  			-Wa,--noexecstack \
 -			-Werror=format-security \
-+			=format-security \
++			-Wformat-security \
  			-D_FORTIFY_SOURCE=2 \
  			-no-canonical-prefixes \
  			-fno-canonical-system-headers \
@@ -457,9 +457,9 @@
 -    -Werror=pointer-to-int-cast \
 -    -Werror=int-to-pointer-cast \
 -    -Werror=implicit-function-declaration \
-+    =pointer-to-int-cast \
-+    =int-to-pointer-cast \
-+    =implicit-function-declaration \
++    -Wpointer-to-int-cast \
++    -Wint-to-pointer-cast \
++    -Wimplicit-function-declaration \
  
  ifneq ($(ARCH_MIPS_PAGE_SHIFT),)
  TARGET_GLOBAL_CFLAGS += -DPAGE_SHIFT=$(ARCH_MIPS_PAGE_SHIFT)
@@ -485,7 +485,7 @@
  			-O2 \
  			-Wa,--noexecstack \
 -			-Werror=format-security \
-+			=format-security \
++			-Wformat-security \
  			-D_FORTIFY_SOURCE=2 \
  			-Wstrict-aliasing=2 \
  			-ffunction-sections \
@@ -503,9 +503,9 @@
 -    -Werror=pointer-to-int-cast \
 -    -Werror=int-to-pointer-cast \
 -    -Werror=implicit-function-declaration \
-+    =pointer-to-int-cast \
-+    =int-to-pointer-cast \
-+    =implicit-function-declaration \
++    -Wpointer-to-int-cast \
++    -Wint-to-pointer-cast \
++    -Wimplicit-function-declaration \
  
  android_config_h := $(call select-android-config-h,target_linux-x86)
  TARGET_ANDROID_CONFIG_CFLAGS := -include $(android_config_h) -I $(dir $(android_config_h))
@@ -540,7 +540,7 @@
  			-O2 \
  			-Wa,--noexecstack \
 -			-Werror=format-security \
-+			=format-security \
++			-Wformat-security \
  			-D_FORTIFY_SOURCE=2 \
  			-Wstrict-aliasing=2 \
  			-ffunction-sections \
@@ -570,8 +570,8 @@
  GLOBAL_CFLAGS_NO_OVERRIDE :=  \
 -    -Werror=int-to-pointer-cast \
 -    -Werror=pointer-to-int-cast \
-+    =int-to-pointer-cast \
-+    =pointer-to-int-cast \
++    -Wint-to-pointer-cast \
++    -Wpointer-to-int-cast \
  
  GLOBAL_CPPFLAGS_NO_OVERRIDE :=
  
@@ -580,7 +580,7 @@
  
  # list of flags to turn specific warnings in to errors
 -TARGET_ERROR_FLAGS := -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point
-+TARGET_ERROR_FLAGS := =return-type =non-virtual-dtor =address =sequence-point
++TARGET_ERROR_FLAGS := -Wreturn-type -Wnon-virtual-dtor -Waddress -Wsequence-point
  
  ifdef TMPDIR
  JAVA_TMPDIR_ARG := -Djava.io.tmpdir=$(TMPDIR)
