@@ -8,13 +8,13 @@
 }:
 
 let
-  version = "3.4f";
+  version = "3.4g";
   pname = "ibkr-desktop";
 
   src = fetchurl {
     # Always serves the latest version; no versioned URL available
     url = "https://download2.interactivebrokers.com/installers/ntws/latest-standalone/ntws-latest-standalone-linux-x64.sh";
-    hash = "sha256-ygruOy3xhvIRMOoyYC3G7TSqYt0HFpS2PlEWHFjsC5I=";
+    hash = "sha256-sV8PAXCFwZkwg3TkKasa3LjySWDe4wgee08Dh6DW694=";
     name = "${pname}-${version}-installer.sh";
   };
 
@@ -211,7 +211,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.etagHash = "8103ce6face7bdcb4bf05b7808357dde";
+  passthru.etagHash = "943baeaab14dfe79b864de8e887e1a54";
 
   meta = {
     description = "Interactive Brokers desktop trading platform (ibkr-desktop)";
