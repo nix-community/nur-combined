@@ -16,6 +16,8 @@ noblacklist ${HOME}/.cache/ChatGPT
 noblacklist ${HOME}/.cache/chatgpt
 noblacklist ${HOME}/.local/share/ChatGPT
 noblacklist ${HOME}/.local/share/chatgpt
+# ChatGPT desktop shares Codex auth with the CLI (~/.codex/auth.json or OS keyring).
+noblacklist ${HOME}/.codex
 
 mkdir ${HOME}/.config/ChatGPT
 mkdir ${HOME}/.config/chatgpt
@@ -23,12 +25,14 @@ mkdir ${HOME}/.cache/ChatGPT
 mkdir ${HOME}/.cache/chatgpt
 mkdir ${HOME}/.local/share/ChatGPT
 mkdir ${HOME}/.local/share/chatgpt
+mkdir ${HOME}/.codex
 whitelist ${HOME}/.config/ChatGPT
 whitelist ${HOME}/.config/chatgpt
 whitelist ${HOME}/.cache/ChatGPT
 whitelist ${HOME}/.cache/chatgpt
 whitelist ${HOME}/.local/share/ChatGPT
 whitelist ${HOME}/.local/share/chatgpt
+whitelist ${HOME}/.codex
 
 private-etc @tls-ca
 
@@ -45,4 +49,11 @@ dbus-user.talk org.freedesktop.Notifications
 dbus-user.talk org.freedesktop.portal.Desktop
 dbus-user.talk org.freedesktop.portal.Documents
 dbus-user.talk org.freedesktop.portal.OpenURI
+dbus-user.talk org.freedesktop.portal.Settings
+dbus-user.talk org.freedesktop.DBus
+# Codex auth: ~/.codex/auth.json or OS credential store (KWallet / Secret Service).
+dbus-user.talk org.freedesktop.secrets
+dbus-user.talk org.kde.KWallet
+dbus-user.talk org.kde.kwalletd5
+dbus-user.talk org.kde.kwalletd6
 dbus-system none
