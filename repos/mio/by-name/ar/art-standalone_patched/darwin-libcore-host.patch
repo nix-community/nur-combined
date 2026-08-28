@@ -1,0 +1,855 @@
+--- a/external/okhttp/Android.mk	1970-01-01 10:00:01
++++ b/external/okhttp/Android.mk	2026-08-29 00:30:01
+@@ -52,7 +52,6 @@
+ LOCAL_NO_STANDARD_LIBRARIES := true
+ LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+ LOCAL_JAVA_LANGUAGE_VERSION := 1.7
+-include $(BUILD_JAVA_LIBRARY)
+ 
+ # non-jarjar'd version of okhttp to compile the tests against
+ include $(CLEAR_VARS)
+@@ -63,7 +62,6 @@
+ LOCAL_NO_STANDARD_LIBRARIES := true
+ LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+ LOCAL_JAVA_LANGUAGE_VERSION := 1.7
+-include $(BUILD_STATIC_JAVA_LIBRARY)
+ 
+ include $(CLEAR_VARS)
+ LOCAL_MODULE := okhttp-tests-nojarjar
+@@ -73,9 +71,8 @@
+ LOCAL_NO_STANDARD_LIBRARIES := true
+ LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+ LOCAL_JAVA_LANGUAGE_VERSION := 1.7
+-include $(BUILD_STATIC_JAVA_LIBRARY)
+ 
+-ifeq ($(HOST_OS),linux)
++ifneq ($(HOST_OS),windows)
+ include $(CLEAR_VARS)
+ LOCAL_MODULE := okhttp-hostdex
+ LOCAL_MODULE_TAGS := optional
+--- a/libcore/JavaLibrary.mk	1970-01-01 10:00:01
++++ b/libcore/JavaLibrary.mk	2026-08-29 00:30:01
+@@ -94,7 +94,7 @@
+ # Build for the host.
+ #
+ 
+-ifeq ($(HOST_OS),linux)
++ifneq ($(HOST_OS),windows)
+ 
+ include $(CLEAR_VARS)
+ LOCAL_SRC_FILES := $(non_openjdk_java_files) $(openjdk_java_files) $(android_icu4j_src_files) $(openjdk_lambda_stub_files)
+--- a/libcore/luni/src/main/native/android_system_OsConstants.cpp	1970-01-01 10:00:01
++++ b/libcore/luni/src/main/native/android_system_OsConstants.cpp	2026-08-29 00:30:00
+@@ -32,7 +32,9 @@
+ #include <stdlib.h>
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>
++#ifndef __APPLE__
+ #include <sys/prctl.h>
++#endif
+ #include <sys/resource.h>
+ #include <sys/socket.h>
+ #include <sys/stat.h>
+@@ -42,19 +44,14 @@
+ #include <unistd.h>
+ 
+ #include <net/if_arp.h>
+-#include <linux/if_ether.h>
+ 
+ // After the others because these are not necessarily self-contained in glibc.
+-#include <linux/if_addr.h>
+-#include <linux/rtnetlink.h>
+ 
+ // Include linux socket constants for setting sockopts
+-#include <linux/udp.h>
+ 
+ #include <net/if.h> // After <sys/socket.h> to work around a Mac header file bug.
+ 
+ #if defined(__BIONIC__)
+-#include <linux/capability.h>
+ #endif
+ 
+ static void initConstant(JNIEnv* env, jclass c, const char* fieldName, int value) {
+@@ -65,8 +62,6 @@
+ static void OsConstants_initConstants(JNIEnv* env, jclass c) {
+     initConstant(env, c, "AF_INET", AF_INET);
+     initConstant(env, c, "AF_INET6", AF_INET6);
+-    initConstant(env, c, "AF_PACKET", AF_PACKET);
+-    initConstant(env, c, "AF_NETLINK", AF_NETLINK);
+     initConstant(env, c, "AF_UNIX", AF_UNIX);
+     initConstant(env, c, "AF_UNSPEC", AF_UNSPEC);
+     initConstant(env, c, "AI_ADDRCONFIG", AI_ADDRCONFIG);
+@@ -79,7 +74,6 @@
+     initConstant(env, c, "AI_PASSIVE", AI_PASSIVE);
+     initConstant(env, c, "AI_V4MAPPED", AI_V4MAPPED);
+     initConstant(env, c, "ARPHRD_ETHER", ARPHRD_ETHER);
+-    initConstant(env, c, "ARPHRD_LOOPBACK", ARPHRD_LOOPBACK);
+ #if defined(CAP_LAST_CAP)
+     initConstant(env, c, "CAP_AUDIT_CONTROL", CAP_AUDIT_CONTROL);
+     initConstant(env, c, "CAP_AUDIT_WRITE", CAP_AUDIT_WRITE);
+@@ -183,7 +177,6 @@
+     initConstant(env, c, "ENOLINK", ENOLINK);
+     initConstant(env, c, "ENOMEM", ENOMEM);
+     initConstant(env, c, "ENOMSG", ENOMSG);
+-    initConstant(env, c, "ENONET", ENONET);
+     initConstant(env, c, "ENOPROTOOPT", ENOPROTOOPT);
+     initConstant(env, c, "ENOSPC", ENOSPC);
+     initConstant(env, c, "ENOSR", ENOSR);
+@@ -208,10 +201,6 @@
+     initConstant(env, c, "ESPIPE", ESPIPE);
+     initConstant(env, c, "ESRCH", ESRCH);
+     initConstant(env, c, "ESTALE", ESTALE);
+-    initConstant(env, c, "ETH_P_ALL", ETH_P_ALL);
+-    initConstant(env, c, "ETH_P_ARP", ETH_P_ARP);
+-    initConstant(env, c, "ETH_P_IP", ETH_P_IP);
+-    initConstant(env, c, "ETH_P_IPV6", ETH_P_IPV6);
+     initConstant(env, c, "ETIME", ETIME);
+     initConstant(env, c, "ETIMEDOUT", ETIMEDOUT);
+     initConstant(env, c, "ETXTBSY", ETXTBSY);
+@@ -339,7 +328,6 @@
+ #endif
+     initConstant(env, c, "IPV6_UNICAST_HOPS", IPV6_UNICAST_HOPS);
+     initConstant(env, c, "IPV6_V6ONLY", IPV6_V6ONLY);
+-    initConstant(env, c, "IP_MULTICAST_ALL", IP_MULTICAST_ALL);
+     initConstant(env, c, "IP_MULTICAST_IF", IP_MULTICAST_IF);
+     initConstant(env, c, "IP_MULTICAST_LOOP", IP_MULTICAST_LOOP);
+     initConstant(env, c, "IP_MULTICAST_TTL", IP_MULTICAST_TTL);
+@@ -350,7 +338,6 @@
+     initConstant(env, c, "_LINUX_CAPABILITY_VERSION_3", _LINUX_CAPABILITY_VERSION_3);
+ #endif
+     initConstant(env, c, "MAP_FIXED", MAP_FIXED);
+-    initConstant(env, c, "MAP_POPULATE", MAP_POPULATE);
+     initConstant(env, c, "MAP_PRIVATE", MAP_PRIVATE);
+     initConstant(env, c, "MAP_SHARED", MAP_SHARED);
+ #if defined(MCAST_JOIN_GROUP)
+@@ -383,8 +370,6 @@
+     initConstant(env, c, "MS_ASYNC", MS_ASYNC);
+     initConstant(env, c, "MS_INVALIDATE", MS_INVALIDATE);
+     initConstant(env, c, "MS_SYNC", MS_SYNC);
+-    initConstant(env, c, "NETLINK_NETFILTER", NETLINK_NETFILTER);
+-    initConstant(env, c, "NETLINK_ROUTE", NETLINK_ROUTE);
+     initConstant(env, c, "NI_DGRAM", NI_DGRAM);
+     initConstant(env, c, "NI_NAMEREQD", NI_NAMEREQD);
+     initConstant(env, c, "NI_NOFQDN", NI_NOFQDN);
+@@ -439,24 +424,6 @@
+ // members. The best we can do (barring UAPI / kernel version checks) is
+ // to hope they exist on all host linuxes we're building on. These
+ // constants have been around since 2.6.35 at least, so we should be ok.
+-    initConstant(env, c, "RT_SCOPE_HOST", RT_SCOPE_HOST);
+-    initConstant(env, c, "RT_SCOPE_LINK", RT_SCOPE_LINK);
+-    initConstant(env, c, "RT_SCOPE_NOWHERE", RT_SCOPE_NOWHERE);
+-    initConstant(env, c, "RT_SCOPE_SITE", RT_SCOPE_SITE);
+-    initConstant(env, c, "RT_SCOPE_UNIVERSE", RT_SCOPE_UNIVERSE);
+-    initConstant(env, c, "RTMGRP_IPV4_IFADDR", RTMGRP_IPV4_IFADDR);
+-    initConstant(env, c, "RTMGRP_IPV4_MROUTE", RTMGRP_IPV4_MROUTE);
+-    initConstant(env, c, "RTMGRP_IPV4_ROUTE", RTMGRP_IPV4_ROUTE);
+-    initConstant(env, c, "RTMGRP_IPV4_RULE", RTMGRP_IPV4_RULE);
+-    initConstant(env, c, "RTMGRP_IPV6_IFADDR", RTMGRP_IPV6_IFADDR);
+-    initConstant(env, c, "RTMGRP_IPV6_IFINFO", RTMGRP_IPV6_IFINFO);
+-    initConstant(env, c, "RTMGRP_IPV6_MROUTE", RTMGRP_IPV6_MROUTE);
+-    initConstant(env, c, "RTMGRP_IPV6_PREFIX", RTMGRP_IPV6_PREFIX);
+-    initConstant(env, c, "RTMGRP_IPV6_ROUTE", RTMGRP_IPV6_ROUTE);
+-    initConstant(env, c, "RTMGRP_LINK", RTMGRP_LINK);
+-    initConstant(env, c, "RTMGRP_NEIGH", RTMGRP_NEIGH);
+-    initConstant(env, c, "RTMGRP_NOTIFY", RTMGRP_NOTIFY);
+-    initConstant(env, c, "RTMGRP_TC", RTMGRP_TC);
+     initConstant(env, c, "SEEK_CUR", SEEK_CUR);
+     initConstant(env, c, "SEEK_END", SEEK_END);
+     initConstant(env, c, "SEEK_SET", SEEK_SET);
+@@ -546,15 +513,8 @@
+     initConstant(env, c, "STDERR_FILENO", STDERR_FILENO);
+     initConstant(env, c, "STDIN_FILENO", STDIN_FILENO);
+     initConstant(env, c, "STDOUT_FILENO", STDOUT_FILENO);
+-    initConstant(env, c, "ST_MANDLOCK", ST_MANDLOCK);
+-    initConstant(env, c, "ST_NOATIME", ST_NOATIME);
+-    initConstant(env, c, "ST_NODEV", ST_NODEV);
+-    initConstant(env, c, "ST_NODIRATIME", ST_NODIRATIME);
+-    initConstant(env, c, "ST_NOEXEC", ST_NOEXEC);
+     initConstant(env, c, "ST_NOSUID", ST_NOSUID);
+     initConstant(env, c, "ST_RDONLY", ST_RDONLY);
+-    initConstant(env, c, "ST_RELATIME", ST_RELATIME);
+-    initConstant(env, c, "ST_SYNCHRONOUS", ST_SYNCHRONOUS);
+     initConstant(env, c, "S_IFBLK", S_IFBLK);
+     initConstant(env, c, "S_IFCHR", S_IFCHR);
+     initConstant(env, c, "S_IFDIR", S_IFDIR);
+@@ -583,9 +543,6 @@
+     initConstant(env, c, "TCP_USER_TIMEOUT", TCP_USER_TIMEOUT);
+ #endif
+     initConstant(env, c, "TIOCOUTQ", TIOCOUTQ);
+-    initConstant(env, c, "UDP_ENCAP", UDP_ENCAP);
+-    initConstant(env, c, "UDP_ENCAP_ESPINUDP_NON_IKE", UDP_ENCAP_ESPINUDP_NON_IKE);
+-    initConstant(env, c, "UDP_ENCAP_ESPINUDP", UDP_ENCAP_ESPINUDP);
+     // UNIX_PATH_MAX is mentioned in some versions of unix(7), but not actually declared.
+     initConstant(env, c, "UNIX_PATH_MAX", sizeof(sockaddr_un::sun_path));
+     initConstant(env, c, "WCONTINUED", WCONTINUED);
+--- a/libcore/luni/src/main/native/libcore_io_Linux.cpp	1970-01-01 10:00:01
++++ b/libcore/luni/src/main/native/libcore_io_Linux.cpp	2026-08-29 00:30:00
+@@ -20,19 +20,18 @@
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <ifaddrs.h>
+-#include <linux/rtnetlink.h>
+ #include <net/if.h>
+ #include <netdb.h>
+ #include <netinet/in.h>
+-#include <netpacket/packet.h>
+ #include <poll.h>
+ #include <pwd.h>
+ #include <signal.h>
+ #include <stdlib.h>
+-#include <sys/capability.h>
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>
++#ifndef __APPLE__
+ #include <sys/prctl.h>
++#endif
+ #include <sys/resource.h>
+ #include <sys/socket.h>
+ #include <sys/stat.h>
+--- a/libcore/luni/src/main/native/Portability.h	1970-01-01 10:00:01
++++ b/libcore/luni/src/main/native/Portability.h	2026-08-29 00:30:00
+@@ -17,8 +17,17 @@
+ #ifndef PORTABILITY_H_included
+ #define PORTABILITY_H_included
+ 
++#ifndef __APPLE__
+ #include <byteswap.h>
++#else
++#include <libkern/OSByteOrder.h>
++#define bswap_16 OSSwapInt16
++#define bswap_32 OSSwapInt32
++#define bswap_64 OSSwapInt64
++#endif
++#ifndef __APPLE__
+ #include <sys/sendfile.h>
++#endif
+ #include <sys/statvfs.h>
+ 
+ #include <netdb.h>
+--- a/libcore/NativeCode.mk	1970-01-01 10:00:01
++++ b/libcore/NativeCode.mk	2026-08-29 00:30:01
+@@ -102,7 +102,7 @@
+ # Build for the host.
+ #
+ 
+-ifeq ($(HOST_OS),linux)
++ifneq ($(HOST_OS),windows)
+ 
+ include $(CLEAR_VARS)
+ LOCAL_CLANG := true
+@@ -111,8 +111,8 @@
+ LOCAL_C_INCLUDES += $(core_c_includes)
+ LOCAL_CPPFLAGS += $(core_cppflags)
+ LOCAL_LDLIBS += -ldl -lpthread -lexpat -lz -licuuc -licui18n
+-ifeq ($(HOST_OS),linux)
+-LOCAL_LDLIBS += -lrt
++ifneq ($(HOST_OS),windows)
++LOCAL_LDLIBS +=
+ endif
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_MODULE := libjavacore
+@@ -132,7 +132,7 @@
+ LOCAL_SHARED_LIBRARIES += libopenjdkjvmd libnativehelper
+ LOCAL_STATIC_LIBRARIES := $(core_static_libraries) libfdlibm
+ LOCAL_MODULE_TAGS := optional
+-LOCAL_LDLIBS += -ldl -lpthread -lrt
++LOCAL_LDLIBS += -ldl -lpthread
+ LOCAL_MODULE := libopenjdkd
+ LOCAL_NOTICE_FILE := $(LOCAL_PATH)/ojluni/NOTICE
+ LOCAL_MULTILIB := both
+@@ -148,7 +148,7 @@
+ LOCAL_STATIC_LIBRARIES := libfdlibm
+ #LOCAL_STATIC_LIBRARIES := $(core_static_libraries) libfdlibm
+ LOCAL_MODULE_TAGS := optional
+-LOCAL_LDLIBS += -ldl -lpthread -lrt -licuuc -lcrypto -lz
++LOCAL_LDLIBS += -ldl -lpthread -licuuc -lcrypto -lz
+ LOCAL_MODULE := libopenjdk
+ LOCAL_NOTICE_FILE := $(LOCAL_PATH)/ojluni/NOTICE
+ LOCAL_MULTILIB := both
+--- a/libcore/ojluni/src/main/native/FileChannelImpl.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/FileChannelImpl.c	2026-08-29 00:30:00
+@@ -49,8 +49,8 @@
+ #include <sys/socket.h>
+ #include <sys/uio.h>
+ 
+-#define lseek64 lseek
+-#define mmap64 mmap
++#define lseek lseek
++#define mmap mmap
+ #endif
+ 
+ static jfieldID chan_fd;        /* jobject 'fd' in sun.io.FileChannelImpl */
+@@ -96,7 +96,7 @@
+         flags = MAP_PRIVATE;
+     }
+ 
+-    mapAddress = mmap64(
++    mapAddress = mmap(
+         0,                    /* Let OS decide location */
+         len,                  /* Number of bytes to map */
+         protections,          /* File permissions */
+@@ -135,9 +135,9 @@
+     jlong result = 0;
+ 
+     if (offset < 0) {
+-        result = lseek64(fd, 0, SEEK_CUR);
++        result = lseek(fd, 0, SEEK_CUR);
+     } else {
+-        result = lseek64(fd, offset, SEEK_SET);
++        result = lseek(fd, offset, SEEK_SET);
+     }
+     return handle(env, result, "Position failed");
+ }
+@@ -165,7 +165,7 @@
+     jint dstFD = fdval(env, dstFDO);
+ 
+ #if defined(__linux__)
+-    off64_t offset = (off64_t)position;
++    off_t offset = (off_t)position;
+     jlong n = sendfile64(dstFD, srcFD, &offset, (size_t)count);
+     if (n < 0) {
+         if (errno == EAGAIN)
+@@ -186,7 +186,7 @@
+ 
+     sfv.sfv_fd = srcFD;
+     sfv.sfv_flag = 0;
+-    sfv.sfv_off = (off64_t)position;
++    sfv.sfv_off = (off_t)position;
+     sfv.sfv_len = count;
+ 
+     result = sendfilev64(dstFD, &sfv, 1, &numBytes);
+--- a/libcore/ojluni/src/main/native/FileDispatcherImpl.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/FileDispatcherImpl.c	2026-08-29 00:30:00
+@@ -46,16 +46,14 @@
+ { #functionName, signature, (void*)(className ## _ ## functionName) }
+ 
+ #ifdef _ALLBSD_SOURCE
+-#define stat64 stat
+-#define flock64 flock
+-#define off64_t off_t
+-#define F_SETLKW64 F_SETLKW
+-#define F_SETLK64 F_SETLK
++#define stat stat
++#define flock flock
++#define off_t off_t
+ 
+-#define pread64 pread
+-#define pwrite64 pwrite
+-#define ftruncate64 ftruncate
+-#define fstat64 fstat
++#define pread pread
++#define pwrite pwrite
++#define ftruncate ftruncate
++#define fstat fstat
+ 
+ #define fdatasync fsync
+ #endif
+@@ -77,7 +75,7 @@
+     jint fd = fdval(env, fdo);
+     void *buf = (void *)jlong_to_ptr(address);
+ 
+-    return convertReturnVal(env, pread64(fd, buf, len, offset), JNI_TRUE);
++    return convertReturnVal(env, pread(fd, buf, len, offset), JNI_TRUE);
+ }
+ 
+ JNIEXPORT jlong JNICALL
+@@ -106,7 +104,7 @@
+     jint fd = fdval(env, fdo);
+     void *buf = (void *)jlong_to_ptr(address);
+ 
+-    return convertReturnVal(env, pwrite64(fd, buf, len, offset), JNI_FALSE);
++    return convertReturnVal(env, pwrite(fd, buf, len, offset), JNI_FALSE);
+ }
+ 
+ JNIEXPORT jlong JNICALL
+@@ -162,7 +160,7 @@
+                                              jobject fdo, jlong size)
+ {
+     return handle(env,
+-                  ftruncate64(fdval(env, fdo), size),
++                  ftruncate(fdval(env, fdo), size),
+                   "Truncation failed");
+ }
+ 
+@@ -170,9 +168,9 @@
+ FileDispatcherImpl_size0(JNIEnv *env, jobject this, jobject fdo)
+ {
+     jint fd = fdval(env, fdo);
+-    struct stat64 fbuf;
++    struct stat fbuf;
+ 
+-    if (fstat64(fd, &fbuf) < 0)
++    if (fstat(fd, &fbuf) < 0)
+         return handle(env, -1, "Size failed");
+ 
+ #ifdef BLKGETSIZE64
+@@ -195,28 +193,28 @@
+     jint fd = fdval(env, fdo);
+     jint lockResult = 0;
+     int cmd = 0;
+-    struct flock64 fl;
++    struct flock fl;
+ 
+     fl.l_whence = SEEK_SET;
+     if (size == (jlong)java_lang_Long_MAX_VALUE) {
+-        fl.l_len = (off64_t)0;
++        fl.l_len = (off_t)0;
+     } else {
+-        fl.l_len = (off64_t)size;
++        fl.l_len = (off_t)size;
+     }
+-    fl.l_start = (off64_t)pos;
++    fl.l_start = (off_t)pos;
+     if (shared == JNI_TRUE) {
+         fl.l_type = F_RDLCK;
+     } else {
+         fl.l_type = F_WRLCK;
+     }
+     if (block == JNI_TRUE) {
+-        cmd = F_SETLKW64;
++        cmd = F_SETLKW;
+     } else {
+-        cmd = F_SETLK64;
++        cmd = F_SETLK;
+     }
+     lockResult = fcntl(fd, cmd, &fl);
+     if (lockResult < 0) {
+-        if ((cmd == F_SETLK64) && (errno == EAGAIN || errno == EACCES))
++        if ((cmd == F_SETLK) && (errno == EAGAIN || errno == EACCES))
+             return sun_nio_ch_FileDispatcherImpl_NO_LOCK;
+         if (errno == EINTR)
+             return sun_nio_ch_FileDispatcherImpl_INTERRUPTED;
+@@ -231,16 +229,16 @@
+ {
+     jint fd = fdval(env, fdo);
+     jint lockResult = 0;
+-    struct flock64 fl;
+-    int cmd = F_SETLK64;
++    struct flock fl;
++    int cmd = F_SETLK;
+ 
+     fl.l_whence = SEEK_SET;
+     if (size == (jlong)java_lang_Long_MAX_VALUE) {
+-        fl.l_len = (off64_t)0;
++        fl.l_len = (off_t)0;
+     } else {
+-        fl.l_len = (off64_t)size;
++        fl.l_len = (off_t)size;
+     }
+-    fl.l_start = (off64_t)pos;
++    fl.l_start = (off_t)pos;
+     fl.l_type = F_UNLCK;
+     lockResult = fcntl(fd, cmd, &fl);
+     if (lockResult < 0) {
+--- a/libcore/ojluni/src/main/native/FileKey.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/FileKey.c	2026-08-29 00:30:00
+@@ -34,9 +34,9 @@
+ { #functionName, signature, (void*)(className ## _ ## functionName) }
+ 
+ #ifdef _ALLBSD_SOURCE
+-#define stat64 stat
++#define stat stat
+ 
+-#define fstat64 fstat
++#define fstat fstat
+ #endif
+ 
+ static jfieldID key_st_dev;    /* id for FileKey.st_dev */
+@@ -54,12 +54,12 @@
+ JNIEXPORT void JNICALL
+ FileKey_init(JNIEnv *env, jobject this, jobject fdo)
+ {
+-    struct stat64 fbuf;
++    struct stat fbuf;
+     int res;
+ 
+-    RESTARTABLE(fstat64(fdval(env, fdo), &fbuf), res);
++    RESTARTABLE(fstat(fdval(env, fdo), &fbuf), res);
+     if (res < 0) {
+-        JNU_ThrowIOExceptionWithLastError(env, "fstat64 failed");
++        JNU_ThrowIOExceptionWithLastError(env, "fstat failed");
+     } else {
+         (*env)->SetLongField(env, this, key_st_dev, (jlong)fbuf.st_dev);
+         (*env)->SetLongField(env, this, key_st_ino, (jlong)fbuf.st_ino);
+--- a/libcore/ojluni/src/main/native/FileSystemPreferences.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/FileSystemPreferences.c	2026-08-29 00:30:00
+@@ -55,7 +55,7 @@
+ #if defined(_ALLBSD_SOURCE)
+ typedef struct flock FLOCK;
+ #else
+-typedef struct flock64 FLOCK;
++typedef struct flock FLOCK;
+ #endif
+ 
+ /**
+@@ -97,7 +97,7 @@
+ #if defined(_ALLBSD_SOURCE)
+         rc = fcntl(fd, F_SETLK, &fl);
+ #else
+-        rc = fcntl(fd, F_SETLK64, &fl);
++        rc = fcntl(fd, F_SETLK, &fl);
+ #endif
+         result[1] = errno;
+         if (rc < 0) {
+@@ -131,7 +131,7 @@
+ #if defined(_ALLBSD_SOURCE)
+     rc = fcntl(fd, F_SETLK, &fl);
+ #else
+-    rc = fcntl(fd, F_SETLK64, &fl);
++    rc = fcntl(fd, F_SETLK, &fl);
+ #endif
+ 
+     if (rc < 0) {
+--- a/libcore/ojluni/src/main/native/io_util_md.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/io_util_md.c	2026-08-29 00:30:00
+@@ -65,11 +65,11 @@
+ FD
+ handleOpen(const char *path, int oflag, int mode) {
+     FD fd;
+-    RESTARTABLE(open64(path, oflag, mode), fd);
++    RESTARTABLE(open(path, oflag, mode), fd);
+     if (fd != -1) {
+-        struct stat64 buf64;
++        struct stat buf64;
+         int result;
+-        RESTARTABLE(fstat64(fd, &buf64), result);
++        RESTARTABLE(fstat(fd, &buf64), result);
+         if (result != -1) {
+             if (S_ISDIR(buf64.st_mode)) {
+                 close(fd);
+--- a/libcore/ojluni/src/main/native/openjdksub.mk	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/openjdksub.mk	2026-08-29 00:30:00
+@@ -38,8 +38,6 @@
+     ObjectStreamClass.c \
+     ObjectOutputStream.c \
+     ObjectInputStream.c \
+-    LinuxNativeDispatcher.c \
+-    LinuxWatchService.c \
+     UnixCopyFile.c \
+     UnixNativeDispatcher.c \
+     InetAddress.c \
+--- a/libcore/ojluni/src/main/native/UnixFileSystem_md.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/UnixFileSystem_md.c	2026-08-29 00:30:00
+@@ -45,10 +45,10 @@
+ #include <nativehelper/JNIHelp.h>
+ 
+ #if defined(_ALLBSD_SOURCE)
+-#define dirent64 dirent
+-#define readdir64_r readdir_r
+-#define stat64 stat
+-#define statvfs64 statvfs
++#define dirent dirent
++#define readdir_r readdir_r
++#define stat stat
++#define statvfs statvfs
+ #endif
+ 
+ /* -- Field IDs -- */
+@@ -103,8 +103,8 @@
+ static jboolean
+ statMode(const char *path, int *mode)
+ {
+-    struct stat64 sb;
+-    if (stat64(path, &sb) == 0) {
++    struct stat sb;
++    if (stat(path, &sb) == 0) {
+         *mode = sb.st_mode;
+         return JNI_TRUE;
+     }
+@@ -220,8 +220,8 @@
+     jlong rv = 0;
+ 
+     WITH_FIELD_PLATFORM_STRING(env, file, ids.path, path) {
+-        struct stat64 sb;
+-        if (stat64(path, &sb) == 0) {
++        struct stat sb;
++        if (stat(path, &sb) == 0) {
+             rv = 1000 * (jlong)sb.st_mtime;
+         }
+     } END_PLATFORM_STRING(env, path);
+@@ -236,8 +236,8 @@
+     jlong rv = 0;
+ 
+     WITH_FIELD_PLATFORM_STRING(env, file, ids.path, path) {
+-        struct stat64 sb;
+-        if (stat64(path, &sb) == 0) {
++        struct stat sb;
++        if (stat(path, &sb) == 0) {
+             rv = sb.st_size;
+         }
+     } END_PLATFORM_STRING(env, path);
+@@ -293,8 +293,8 @@
+                                   jobject file)
+ {
+     DIR *dir = NULL;
+-    struct dirent64 *ptr;
+-    struct dirent64 *result;
++    struct dirent *ptr;
++    struct dirent *result;
+     int len, maxlen;
+     jobjectArray rv, old;
+     jclass str_class;
+@@ -308,7 +308,7 @@
+     } END_PLATFORM_STRING(env, path);
+     if (dir == NULL) return NULL;
+ 
+-    ptr = malloc(sizeof(struct dirent64) + (PATH_MAX + 1));
++    ptr = malloc(sizeof(struct dirent) + (PATH_MAX + 1));
+     if (ptr == NULL) {
+         JNU_ThrowOutOfMemoryError(env, "heap allocation failed");
+         closedir(dir);
+@@ -322,7 +322,7 @@
+     if (rv == NULL) goto error;
+ 
+     /* Scan the directory */
+-    while ((readdir64_r(dir, ptr, &result) == 0)  && (result != NULL)) {
++    while ((readdir_r(dir, ptr, &result) == 0)  && (result != NULL)) {
+         jstring name;
+         if (!strcmp(ptr->d_name, ".") || !strcmp(ptr->d_name, ".."))
+             continue;
+@@ -402,9 +402,9 @@
+     jboolean rv = JNI_FALSE;
+ 
+     WITH_FIELD_PLATFORM_STRING(env, file, ids.path, path) {
+-        struct stat64 sb;
++        struct stat sb;
+ 
+-        if (stat64(path, &sb) == 0) {
++        if (stat(path, &sb) == 0) {
+             struct timeval tv[2];
+ 
+             /* Preserve access time */
+@@ -449,9 +449,9 @@
+     jlong rv = 0L;
+ 
+     WITH_FIELD_PLATFORM_STRING(env, file, ids.path, path) {
+-        struct statvfs64 fsstat;
++        struct statvfs fsstat;
+         memset(&fsstat, 0, sizeof(fsstat));
+-        if (statvfs64(path, &fsstat) == 0) {
++        if (statvfs(path, &fsstat) == 0) {
+             switch(t) {
+             case java_io_FileSystem_SPACE_TOTAL:
+                 rv = jlong_mul(long_to_jlong(fsstat.f_frsize),
+--- a/libcore/ojluni/src/main/native/UnixNativeDispatcher.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/UnixNativeDispatcher.c	2026-08-29 00:30:00
+@@ -49,14 +49,14 @@
+ #ifdef _ALLBSD_SOURCE
+ #include <string.h>
+ 
+-#define stat64 stat
+-#define statvfs64 statvfs
++#define stat stat
++#define statvfs statvfs
+ 
+-#define open64 open
+-#define fstat64 fstat
+-#define lstat64 lstat
+-#define dirent64 dirent
+-#define readdir64_r readdir_r
++#define open open
++#define fstat fstat
++#define lstat lstat
++#define dirent dirent
++#define readdir_r readdir_r
+ #endif
+ 
+ #include "jni.h"
+@@ -116,7 +116,7 @@
+  * System calls that may not be available at run time.
+  */
+ typedef int openat64_func(int, const char *, int, ...);
+-typedef int fstatat64_func(int, const char *, struct stat64 *, int);
++typedef int fstatat64_func(int, const char *, struct stat *, int);
+ typedef int unlinkat_func(int, const char*, int);
+ typedef int renameat_func(int, const char*, int, const char*);
+ typedef int futimesat_func(int, const char *, const struct timeval *);
+@@ -136,7 +136,7 @@
+ #if defined(__linux__) && defined(__i386)
+ #define FSTATAT64_SYSCALL_AVAILABLE
+ static int fstatat64_wrapper(int dfd, const char *path,
+-                             struct stat64 *statbuf, int flag)
++                             struct stat *statbuf, int flag)
+ {
+     #ifndef __NR_fstatat64
+     #define __NR_fstatat64  300
+@@ -148,7 +148,7 @@
+ #if defined(__linux__) && defined(__x86_64__)
+ #define FSTATAT64_SYSCALL_AVAILABLE
+ static int fstatat64_wrapper(int dfd, const char *path,
+-                             struct stat64 *statbuf, int flag)
++                             struct stat *statbuf, int flag)
+ {
+     #ifndef __NR_newfstatat
+     #define __NR_newfstatat  262
+@@ -380,7 +380,7 @@
+     jint fd;
+     const char* path = (const char*)jlong_to_ptr(pathAddress);
+ 
+-    RESTARTABLE(open64(path, (int)oflags, (mode_t)mode), fd);
++    RESTARTABLE(open(path, (int)oflags, (mode_t)mode), fd);
+     if (fd == -1) {
+         throwUnixException(env, errno);
+     }
+@@ -440,9 +440,9 @@
+ }
+ 
+ /**
+- * Copy stat64 members into sun.nio.fs.UnixFileAttributes
++ * Copy stat members into sun.nio.fs.UnixFileAttributes
+  */
+-static void prepAttributes(JNIEnv* env, struct stat64* buf, jobject attrs) {
++static void prepAttributes(JNIEnv* env, struct stat* buf, jobject attrs) {
+     (*env)->SetIntField(env, attrs, attrs_st_mode, (jint)buf->st_mode);
+     (*env)->SetLongField(env, attrs, attrs_st_ino, (jlong)buf->st_ino);
+     (*env)->SetLongField(env, attrs, attrs_st_dev, (jlong)buf->st_dev);
+@@ -471,10 +471,10 @@
+     jlong pathAddress, jobject attrs)
+ {
+     int err;
+-    struct stat64 buf;
++    struct stat buf;
+     const char* path = (const char*)jlong_to_ptr(pathAddress);
+ 
+-    RESTARTABLE(stat64(path, &buf), err);
++    RESTARTABLE(stat(path, &buf), err);
+     if (err == -1) {
+         throwUnixException(env, errno);
+     } else {
+@@ -487,10 +487,10 @@
+     jlong pathAddress, jobject attrs)
+ {
+     int err;
+-    struct stat64 buf;
++    struct stat buf;
+     const char* path = (const char*)jlong_to_ptr(pathAddress);
+ 
+-    RESTARTABLE(lstat64(path, &buf), err);
++    RESTARTABLE(lstat(path, &buf), err);
+     if (err == -1) {
+         throwUnixException(env, errno);
+     } else {
+@@ -503,9 +503,9 @@
+     jobject attrs)
+ {
+     int err;
+-    struct stat64 buf;
++    struct stat buf;
+ 
+-    RESTARTABLE(fstat64((int)fd, &buf), err);
++    RESTARTABLE(fstat((int)fd, &buf), err);
+     if (err == -1) {
+         throwUnixException(env, errno);
+     } else {
+@@ -518,7 +518,7 @@
+     jlong pathAddress, jint flag, jobject attrs)
+ {
+     int err;
+-    struct stat64 buf;
++    struct stat buf;
+     const char* path = (const char*)jlong_to_ptr(pathAddress);
+ 
+     if (my_fstatat64_func == NULL) {
+@@ -685,18 +685,18 @@
+ 
+ JNIEXPORT jbyteArray JNICALL
+ Java_sun_nio_fs_UnixNativeDispatcher_readdir(JNIEnv* env, jclass this, jlong value) {
+-    struct dirent64* result;
++    struct dirent* result;
+     struct {
+-        struct dirent64 buf;
++        struct dirent buf;
+         char name_extra[PATH_MAX + 1 - sizeof result->d_name];
+     } entry;
+-    struct dirent64* ptr = &entry.buf;
++    struct dirent* ptr = &entry.buf;
+     int res;
+     DIR* dirp = jlong_to_ptr(value);
+ 
+     /* EINTR not listed as a possible error */
+     /* TDB: reentrant version probably not required here */
+-    res = readdir64_r(dirp, ptr, &result);
++    res = readdir_r(dirp, ptr, &result);
+ 
+ #ifdef _AIX
+     /* On AIX, readdir_r() returns EBADF (i.e. '9') and sets 'result' to NULL for the */
+@@ -901,11 +901,11 @@
+     jlong pathAddress, jobject attrs)
+ {
+     int err;
+-    struct statvfs64 buf;
++    struct statvfs buf;
+     const char* path = (const char*)jlong_to_ptr(pathAddress);
+ 
+ 
+-    RESTARTABLE(statvfs64(path, &buf), err);
++    RESTARTABLE(statvfs(path, &buf), err);
+     if (err == -1) {
+         throwUnixException(env, errno);
+     } else {
+--- a/libcore/ojluni/src/main/native/UNIXProcess_md.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/UNIXProcess_md.c	2026-08-29 00:30:00
+@@ -45,7 +45,7 @@
+ #include <sys/types.h>
+ #include <ctype.h>
+ #ifdef _ALLBSD_SOURCE
+-#include <wait.h>
++#include <sys/wait.h>
+ #else
+ #include <sys/wait.h>
+ #endif
+@@ -400,8 +400,8 @@
+ 
+ #ifdef _ALLBSD_SOURCE
+ #define FD_DIR "/dev/fd"
+-#define dirent64 dirent
+-#define readdir64 readdir
++#define dirent dirent
++#define readdir readdir
+ #else
+ #define FD_DIR "/proc/self/fd"
+ #endif
+@@ -410,7 +410,7 @@
+ closeDescriptors(void)
+ {
+     DIR *dp;
+-    struct dirent64 *dirp;
++    struct dirent *dirp;
+     int from_fd = FAIL_FILENO + 1;
+ 
+     /* We're trying to close all file descriptors, but opendir() might
+@@ -426,10 +426,10 @@
+     if ((dp = opendir(FD_DIR)) == NULL)
+         return 0;
+ 
+-    /* We use readdir64 instead of readdir to work around Solaris bug
++    /* We use readdir instead of readdir to work around Solaris bug
+      * 6395699: /proc/self/fd fails to report file descriptors >= 1024 on Solaris 9
+      */
+-    while ((dirp = readdir64(dp)) != NULL) {
++    while ((dirp = readdir(dp)) != NULL) {
+         int fd;
+         if (isAsciiDigit(dirp->d_name[0]) &&
+             (fd = strtol(dirp->d_name, NULL, 10)) >= from_fd + 2)
+--- a/libcore/ojluni/src/main/native/zip_util.c	1970-01-01 10:00:01
++++ b/libcore/ojluni/src/main/native/zip_util.c	2026-08-29 00:30:00
+@@ -48,8 +48,8 @@
+ #include <zlib.h>
+ 
+ #ifdef _ALLBSD_SOURCE
+-#define off64_t off_t
+-#define mmap64 mmap
++#define off_t off_t
++#define mmap mmap
+ #endif
+ 
+ /* USE_MMAP means mmap the CEN & ENDHDR part of the zip file. */
+@@ -627,7 +627,7 @@
+             */
+             zip->mlen = cenpos - offset + cenlen + endhdrlen;
+             zip->offset = offset;
+-            mappedAddr = mmap64(0, zip->mlen, PROT_READ, MAP_SHARED, zip->zfd, (off64_t) offset);
++            mappedAddr = mmap(0, zip->mlen, PROT_READ, MAP_SHARED, zip->zfd, (off_t) offset);
+             zip->maddr = (mappedAddr == (void*) MAP_FAILED) ? NULL :
+                 (unsigned char*)mappedAddr;
+ 

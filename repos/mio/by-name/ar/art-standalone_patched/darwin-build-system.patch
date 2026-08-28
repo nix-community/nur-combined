@@ -1,0 +1,994 @@
+--- a/build/core/base_rules.mk	1970-01-01 10:00:01
++++ b/build/core/base_rules.mk	2026-08-29 00:30:00
+@@ -154,7 +154,7 @@
+ module_id := MODULE.$(if \
+     $(LOCAL_IS_HOST_MODULE),HOST,TARGET).$(LOCAL_MODULE_CLASS).$(my_register_name)
+ ifdef $(module_id)
+-$(error $(LOCAL_PATH): $(module_id) already defined by $($(module_id)))
++$(info Ignore redefined module)
+ endif
+ $(module_id) := $(LOCAL_PATH)
+ 
+--- a/build/core/binary.mk	1970-01-01 10:00:01
++++ b/build/core/binary.mk	2026-08-29 00:30:00
+@@ -448,9 +448,9 @@
+ 
+ # Turn on all warnings and warnings as errors for RS compiles.
+ # This can be disabled with LOCAL_RENDERSCRIPT_FLAGS := -Wno-error
+-renderscript_flags := -Wall -Werror
++renderscript_flags := -Wall 
+ renderscript_flags += $(LOCAL_RENDERSCRIPT_FLAGS)
+-# -m32 or -m64
++#  or 
+ renderscript_flags += -m$(my_32_64_bit_suffix)
+ 
+ renderscript_includes := \
+--- a/build/core/clang/config.mk	1970-01-01 10:00:01
++++ b/build/core/clang/config.mk	2026-08-29 00:30:00
+@@ -30,7 +30,7 @@
+ 
+ # Help catch common 32/64-bit errors.
+ CLANG_CONFIG_EXTRA_CFLAGS += \
+-  -Werror=int-conversion
++  =int-conversion
+ 
+ # Disable overly aggressive warning for macros defined with a leading underscore
+ # This happens in AndroidConfig.h, which is included nearly everywhere.
+@@ -61,8 +61,8 @@
+   -fno-tree-sra \
+   -fprefetch-loop-arrays \
+   -funswitch-loops \
+-  -Werror=unused-but-set-parameter \
+-  -Werror=unused-but-set-variable \
++  =unused-but-set-parameter \
++  =unused-but-set-variable \
+   -Wmaybe-uninitialized \
+   -Wno-error=clobbered \
+   -Wno-error=maybe-uninitialized \
+--- /dev/null	2026-08-29 00:31:27
++++ b/build/core/combo/HOST_darwin-arm.mk	2026-08-29 00:30:00
+@@ -0,0 +1,107 @@
++#
++# Copyright (C) 2006 The Android Open Source Project
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#      http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++#
++
++# Configuration for Darwin (Mac OS X) on x86.
++# Included by combo/select.mk
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += 
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += 
++
++ifneq ($(strip $(BUILD_HOST_static)),)
++# Statically-linked binaries are desirable for sandboxed environment
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += -static
++endif # BUILD_HOST_static
++
++# Workaround differences in inttypes.h between host and target.
++# See bug 12708004.
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -D__STDC_FORMAT_MACROS -D__STDC_CONSTANT_MACROS
++
++include $(BUILD_COMBOS)/mac_version.mk
++
++$(combo_2nd_arch_prefix)HOST_TOOLCHAIN_ROOT := prebuilts/gcc/darwin-x86/host/i686-apple-darwin-4.2.1
++$(combo_2nd_arch_prefix)HOST_TOOLCHAIN_PREFIX := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_ROOT)/bin/i686-apple-darwin$(gcc_darwin_version)
++$(combo_2nd_arch_prefix)HOST_CC  := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_PREFIX)-gcc
++$(combo_2nd_arch_prefix)HOST_CXX := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_PREFIX)-g++
++
++# gcc location for clang; to be updated when clang is updated
++# HOST_TOOLCHAIN_ROOT is a Darwin-specific define
++$(combo_2nd_arch_prefix)HOST_TOOLCHAIN_FOR_CLANG := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_ROOT)
++
++$(combo_2nd_arch_prefix)HOST_AR := $(AR)
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS +=   
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CPPFLAGS += -isystem $(mac_sdk_path)/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS +=  -Wl,-syslibroot,$(mac_sdk_root) 
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -fPIC -funwind-tables
++$(combo_2nd_arch_prefix)HOST_NO_UNDEFINED_LDFLAGS := -Wl,-undefined,error
++
++$(combo_2nd_arch_prefix)HOST_SHLIB_SUFFIX := .dylib
++$(combo_2nd_arch_prefix)HOST_JNILIB_SUFFIX := .jnilib
++
++# TODO: add AndroidConfig.h for darwin-x86_64
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += \
++    -include $(call select-android-config-h,darwin-x86)
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_ARFLAGS := cqs
++
++############################################################
++## Macros after this line are shared by the 64-bit config.
++
++HOST_CUSTOM_LD_COMMAND := true
++
++define transform-host-o-to-shared-lib-inner
++$(hide) $(PRIVATE_CXX) \
++        -dynamiclib -single_module -read_only_relocs suppress \
++        $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_GLOBAL_LD_DIRS) \
++        $(if $(PRIVATE_NO_DEFAULT_COMPILER_FLAGS),, \
++            $(PRIVATE_HOST_GLOBAL_LDFLAGS) \
++        ) \
++        $(PRIVATE_ALL_OBJECTS) \
++        $(addprefix -force_load , $(PRIVATE_ALL_WHOLE_STATIC_LIBRARIES)) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_SHARED_LIBRARIES)) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_STATIC_LIBRARIES)) \
++        $(PRIVATE_LDLIBS) \
++        -o $@ \
++        -install_name @rpath/$(notdir $@) \
++        -Wl,-rpath,@loader_path/../$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        -Wl,-rpath,@loader_path/$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        $(PRIVATE_LDFLAGS)
++endef
++
++define transform-host-o-to-executable-inner
++$(hide) $(PRIVATE_CXX) \
++        -Wl,-rpath,@loader_path/../$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        -Wl,-rpath,@loader_path/$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        -o $@ \
++        -Wl,-headerpad_max_install_names \
++        $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_GLOBAL_LD_DIRS) \
++        $(if $(PRIVATE_NO_DEFAULT_COMPILER_FLAGS),, \
++           $(PRIVATE_HOST_GLOBAL_LDFLAGS) \
++        ) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_SHARED_LIBRARIES)) \
++        $(PRIVATE_ALL_OBJECTS) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_WHOLE_STATIC_LIBRARIES)) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_STATIC_LIBRARIES)) \
++        $(PRIVATE_LDFLAGS) \
++        $(PRIVATE_LDLIBS)
++endef
++
++# $(1): The file to check
++define get-file-size
++stat -f "%z" $(1)
++endef
++HOST_GLOBAL_LDFLAGS += -Wl,-undefined,dynamic_lookup
+--- /dev/null	2026-08-29 00:31:27
++++ b/build/core/combo/HOST_darwin-arm64.mk	2026-08-29 00:30:00
+@@ -0,0 +1,107 @@
++#
++# Copyright (C) 2006 The Android Open Source Project
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#      http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++#
++
++# Configuration for Darwin (Mac OS X) on x86.
++# Included by combo/select.mk
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += 
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += 
++
++ifneq ($(strip $(BUILD_HOST_static)),)
++# Statically-linked binaries are desirable for sandboxed environment
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += -static
++endif # BUILD_HOST_static
++
++# Workaround differences in inttypes.h between host and target.
++# See bug 12708004.
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -D__STDC_FORMAT_MACROS -D__STDC_CONSTANT_MACROS
++
++include $(BUILD_COMBOS)/mac_version.mk
++
++$(combo_2nd_arch_prefix)HOST_TOOLCHAIN_ROOT := prebuilts/gcc/darwin-x86/host/i686-apple-darwin-4.2.1
++$(combo_2nd_arch_prefix)HOST_TOOLCHAIN_PREFIX := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_ROOT)/bin/i686-apple-darwin$(gcc_darwin_version)
++$(combo_2nd_arch_prefix)HOST_CC  := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_PREFIX)-gcc
++$(combo_2nd_arch_prefix)HOST_CXX := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_PREFIX)-g++
++
++# gcc location for clang; to be updated when clang is updated
++# HOST_TOOLCHAIN_ROOT is a Darwin-specific define
++$(combo_2nd_arch_prefix)HOST_TOOLCHAIN_FOR_CLANG := $($(combo_2nd_arch_prefix)HOST_TOOLCHAIN_ROOT)
++
++$(combo_2nd_arch_prefix)HOST_AR := $(AR)
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS +=   
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CPPFLAGS += -isystem $(mac_sdk_path)/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS +=  -Wl,-syslibroot,$(mac_sdk_root) 
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -fPIC -funwind-tables
++$(combo_2nd_arch_prefix)HOST_NO_UNDEFINED_LDFLAGS := -Wl,-undefined,error
++
++$(combo_2nd_arch_prefix)HOST_SHLIB_SUFFIX := .dylib
++$(combo_2nd_arch_prefix)HOST_JNILIB_SUFFIX := .jnilib
++
++# TODO: add AndroidConfig.h for darwin-x86_64
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += \
++    -include $(call select-android-config-h,darwin-x86)
++
++$(combo_2nd_arch_prefix)HOST_GLOBAL_ARFLAGS := cqs
++
++############################################################
++## Macros after this line are shared by the 64-bit config.
++
++HOST_CUSTOM_LD_COMMAND := true
++
++define transform-host-o-to-shared-lib-inner
++$(hide) $(PRIVATE_CXX) \
++        -dynamiclib -single_module -read_only_relocs suppress \
++        $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_GLOBAL_LD_DIRS) \
++        $(if $(PRIVATE_NO_DEFAULT_COMPILER_FLAGS),, \
++            $(PRIVATE_HOST_GLOBAL_LDFLAGS) \
++        ) \
++        $(PRIVATE_ALL_OBJECTS) \
++        $(addprefix -force_load , $(PRIVATE_ALL_WHOLE_STATIC_LIBRARIES)) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_SHARED_LIBRARIES)) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_STATIC_LIBRARIES)) \
++        $(PRIVATE_LDLIBS) \
++        -o $@ \
++        -install_name @rpath/$(notdir $@) \
++        -Wl,-rpath,@loader_path/../$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        -Wl,-rpath,@loader_path/$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        $(PRIVATE_LDFLAGS)
++endef
++
++define transform-host-o-to-executable-inner
++$(hide) $(PRIVATE_CXX) \
++        -Wl,-rpath,@loader_path/../$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        -Wl,-rpath,@loader_path/$(notdir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_OUT_SHARED_LIBRARIES)) \
++        -o $@ \
++        -Wl,-headerpad_max_install_names \
++        $($(PRIVATE_2ND_ARCH_VAR_PREFIX)HOST_GLOBAL_LD_DIRS) \
++        $(if $(PRIVATE_NO_DEFAULT_COMPILER_FLAGS),, \
++           $(PRIVATE_HOST_GLOBAL_LDFLAGS) \
++        ) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_SHARED_LIBRARIES)) \
++        $(PRIVATE_ALL_OBJECTS) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_WHOLE_STATIC_LIBRARIES)) \
++        $(call normalize-host-libraries,$(PRIVATE_ALL_STATIC_LIBRARIES)) \
++        $(PRIVATE_LDFLAGS) \
++        $(PRIVATE_LDLIBS)
++endef
++
++# $(1): The file to check
++define get-file-size
++stat -f "%z" $(1)
++endef
++HOST_GLOBAL_LDFLAGS += -Wl,-undefined,dynamic_lookup
+--- a/build/core/combo/HOST_darwin-x86_64.mk	1970-01-01 10:00:01
++++ b/build/core/combo/HOST_darwin-x86_64.mk	2026-08-29 00:30:00
+@@ -17,8 +17,8 @@
+ # Configuration for Darwin (Mac OS X) on x86_64.
+ # Included by combo/select.mk
+ 
+-HOST_GLOBAL_CFLAGS += -m64
+-HOST_GLOBAL_LDFLAGS += -m64
++HOST_GLOBAL_CFLAGS += 
++HOST_GLOBAL_LDFLAGS += 
+ 
+ ifneq ($(strip $(BUILD_HOST_static)),)
+ # Statically-linked binaries are desirable for sandboxed environment
+@@ -42,9 +42,9 @@
+ 
+ HOST_AR := $(AR)
+ 
+-HOST_GLOBAL_CFLAGS += -isysroot $(mac_sdk_root) -mmacosx-version-min=$(mac_sdk_version) -DMACOSX_DEPLOYMENT_TARGET=$(mac_sdk_version)
++HOST_GLOBAL_CFLAGS +=   
+ HOST_GLOBAL_CPPFLAGS += -isystem $(mac_sdk_path)/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
+-HOST_GLOBAL_LDFLAGS += -isysroot $(mac_sdk_root) -Wl,-syslibroot,$(mac_sdk_root) -mmacosx-version-min=$(mac_sdk_version)
++HOST_GLOBAL_LDFLAGS +=  -Wl,-syslibroot,$(mac_sdk_root) 
+ 
+ HOST_GLOBAL_CFLAGS += -fPIC -funwind-tables
+ HOST_NO_UNDEFINED_LDFLAGS := -Wl,-undefined,error
+@@ -61,3 +61,4 @@
+ # transform-host-o-to-shared-lib-inner
+ # transform-host-o-to-executable-inner
+ # get-file-size
++HOST_GLOBAL_LDFLAGS += -Wl,-undefined,dynamic_lookup
+--- a/build/core/combo/HOST_darwin-x86.mk	1970-01-01 10:00:01
++++ b/build/core/combo/HOST_darwin-x86.mk	2026-08-29 00:30:00
+@@ -17,8 +17,8 @@
+ # Configuration for Darwin (Mac OS X) on x86.
+ # Included by combo/select.mk
+ 
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -m32
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += -m32
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += 
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += 
+ 
+ ifneq ($(strip $(BUILD_HOST_static)),)
+ # Statically-linked binaries are desirable for sandboxed environment
+@@ -42,9 +42,9 @@
+ 
+ $(combo_2nd_arch_prefix)HOST_AR := $(AR)
+ 
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -isysroot $(mac_sdk_root) -mmacosx-version-min=$(mac_sdk_version) -DMACOSX_DEPLOYMENT_TARGET=$(mac_sdk_version)
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS +=   
+ $(combo_2nd_arch_prefix)HOST_GLOBAL_CPPFLAGS += -isystem $(mac_sdk_path)/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += -isysroot $(mac_sdk_root) -Wl,-syslibroot,$(mac_sdk_root) -mmacosx-version-min=$(mac_sdk_version)
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS +=  -Wl,-syslibroot,$(mac_sdk_root) 
+ 
+ $(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -fPIC -funwind-tables
+ $(combo_2nd_arch_prefix)HOST_NO_UNDEFINED_LDFLAGS := -Wl,-undefined,error
+@@ -104,3 +104,4 @@
+ define get-file-size
+ stat -f "%z" $(1)
+ endef
++HOST_GLOBAL_LDFLAGS += -Wl,-undefined,dynamic_lookup
+--- a/build/core/combo/HOST_linux-x86_64.mk	1970-01-01 10:00:01
++++ b/build/core/combo/HOST_linux-x86_64.mk	2026-08-29 00:30:00
+@@ -24,8 +24,8 @@
+ # gcc location for clang; to be updated when clang is updated
+ #HOST_TOOLCHAIN_FOR_CLANG := prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/
+ 
+-HOST_GLOBAL_CFLAGS += -m64 -Wa,--noexecstack -I/usr/include/valgrind/
+-HOST_GLOBAL_LDFLAGS += -m64 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now
++HOST_GLOBAL_CFLAGS +=  -Wa,--noexecstack -I/usr/include/valgrind/
++HOST_GLOBAL_LDFLAGS +=  -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now
+ 
+ ifneq ($(strip $(BUILD_HOST_static)),)
+ # Statically-linked binaries are desirable for sandboxed environment
+--- a/build/core/combo/HOST_linux-x86.mk	1970-01-01 10:00:01
++++ b/build/core/combo/HOST_linux-x86.mk	2026-08-29 00:30:00
+@@ -24,8 +24,8 @@
+ # gcc location for clang; to be updated when clang is updated
+ #$(combo_2nd_arch_prefix)HOST_TOOLCHAIN_FOR_CLANG := prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/
+ 
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -m32 -Wa,--noexecstack -I/usr/include/valgrind/
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += -m32 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS +=  -Wa,--noexecstack -I/usr/include/valgrind/
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS +=  -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now
+ 
+ ifneq ($(strip $(BUILD_HOST_static)),)
+ # Statically-linked binaries are desirable for sandboxed environment
+--- a/build/core/combo/HOST_windows-x86.mk	1970-01-01 10:00:01
++++ b/build/core/combo/HOST_windows-x86.mk	2026-08-29 00:30:00
+@@ -30,8 +30,8 @@
+ $(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -DUSE_MINGW -DWIN32_LEAN_AND_MEAN
+ $(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -Wno-unused-parameter
+ $(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += --sysroot=prebuilts/gcc/linux-x86/host/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += -m32
+-$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += -m32
++$(combo_2nd_arch_prefix)HOST_GLOBAL_CFLAGS += 
++$(combo_2nd_arch_prefix)HOST_GLOBAL_LDFLAGS += 
+ TOOLS_PREFIX := prebuilts/gcc/linux-x86/host/x86_64-w64-mingw32-4.8/bin/x86_64-w64-mingw32-
+ $(combo_2nd_arch_prefix)HOST_C_INCLUDES += prebuilts/gcc/linux-x86/host/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32/include
+ $(combo_2nd_arch_prefix)HOST_C_INCLUDES += prebuilts/gcc/linux-x86/host/x86_64-w64-mingw32-4.8/lib/gcc/x86_64-w64-mingw32/4.8.3/include
+--- a/build/core/combo/mac_version.mk	1970-01-01 10:00:01
++++ b/build/core/combo/mac_version.mk	2026-08-29 00:30:00
+@@ -16,7 +16,7 @@
+ $(warning ****************************************************************)
+ $(warning * MAC_SDK_VERSION $(MAC_SDK_VERSION) isn't one of the supported $(mac_sdk_versions_supported))
+ $(warning ****************************************************************)
+-$(error Stop.)
++$(info Stop.)
+ endif
+ else
+ mac_sdk_versions_installed := $(shell xcodebuild -showsdks | grep macosx | sort | sed -e "s/.*macosx//g")
+@@ -38,7 +38,7 @@
+ $(warning *****************************************************)
+ $(warning * Can not find SDK $(mac_sdk_version) at $(mac_sdk_root))
+ $(warning *****************************************************)
+-$(error Stop.)
++$(info Stop.)
+ endif
+ 
+ ifeq ($(mac_sdk_version),10.6)
+--- a/build/core/combo/TARGET_linux-arm.mk	1970-01-01 10:00:01
++++ b/build/core/combo/TARGET_linux-arm.mk	2026-08-29 00:30:00
+@@ -101,7 +101,7 @@
+ 			-funwind-tables \
+ 			-fstack-protector \
+ 			-Wa,--noexecstack \
+-			-Werror=format-security \
++			=format-security \
+ 			-D_FORTIFY_SOURCE=2 \
+ 			-fno-short-enums \
+ 			-no-canonical-prefixes \
+@@ -111,7 +111,7 @@
+ 			-I $(dir $(android_config_h))
+ 
+ # The "-Wunused-but-set-variable" option often breaks projects that enable
+-# "-Wall -Werror" due to a commom idiom "ALOGV(mesg)" where ALOGV is turned
++# "-Wall " due to a commom idiom "ALOGV(mesg)" where ALOGV is turned
+ # into no-op in some builds while mesg is defined earlier. So we explicitly
+ # disable "-Wunused-but-set-variable" here.
+ ifneq ($(filter 4.6 4.6.% 4.7 4.7.% 4.8 4.9, $($(combo_2nd_arch_prefix)TARGET_GCC_VERSION)),)
+--- a/build/core/combo/TARGET_linux-arm64.mk	1970-01-01 10:00:01
++++ b/build/core/combo/TARGET_linux-arm64.mk	2026-08-29 00:30:00
+@@ -78,7 +78,7 @@
+ 			-fdata-sections \
+ 			-funwind-tables \
+ 			-Wa,--noexecstack \
+-			-Werror=format-security \
++			=format-security \
+ 			-D_FORTIFY_SOURCE=2 \
+ 			-fno-short-enums \
+ 			-no-canonical-prefixes \
+@@ -89,9 +89,9 @@
+ 
+ # Help catch common 32/64-bit errors.
+ TARGET_GLOBAL_CFLAGS += \
+-    -Werror=pointer-to-int-cast \
+-    -Werror=int-to-pointer-cast \
+-    -Werror=implicit-function-declaration \
++    =pointer-to-int-cast \
++    =int-to-pointer-cast \
++    =implicit-function-declaration \
+ 
+ TARGET_GLOBAL_CFLAGS += -fno-strict-volatile-bitfields
+ 
+--- a/build/core/combo/TARGET_linux-mips.mk	1970-01-01 10:00:01
++++ b/build/core/combo/TARGET_linux-mips.mk	2026-08-29 00:30:00
+@@ -88,7 +88,7 @@
+ 			-fdata-sections \
+ 			-funwind-tables \
+ 			-Wa,--noexecstack \
+-			-Werror=format-security \
++			=format-security \
+ 			-D_FORTIFY_SOURCE=2 \
+ 			-no-canonical-prefixes \
+ 			-fno-canonical-system-headers \
+--- a/build/core/combo/TARGET_linux-mips64.mk	1970-01-01 10:00:01
++++ b/build/core/combo/TARGET_linux-mips64.mk	2026-08-29 00:30:00
+@@ -88,7 +88,7 @@
+ 			-fdata-sections \
+ 			-funwind-tables \
+ 			-Wa,--noexecstack \
+-			-Werror=format-security \
++			=format-security \
+ 			-D_FORTIFY_SOURCE=2 \
+ 			-no-canonical-prefixes \
+ 			-fno-canonical-system-headers \
+@@ -98,9 +98,9 @@
+ 
+ # Help catch common 32/64-bit errors.
+ TARGET_GLOBAL_CFLAGS += \
+-    -Werror=pointer-to-int-cast \
+-    -Werror=int-to-pointer-cast \
+-    -Werror=implicit-function-declaration \
++    =pointer-to-int-cast \
++    =int-to-pointer-cast \
++    =implicit-function-declaration \
+ 
+ ifneq ($(ARCH_MIPS_PAGE_SHIFT),)
+ TARGET_GLOBAL_CFLAGS += -DPAGE_SHIFT=$(ARCH_MIPS_PAGE_SHIFT)
+--- a/build/core/combo/TARGET_linux-x86_64.mk	1970-01-01 10:00:01
++++ b/build/core/combo/TARGET_linux-x86_64.mk	2026-08-29 00:30:00
+@@ -59,11 +59,11 @@
+ 
+ ifneq ($(wildcard $(TARGET_CC)),)
+ TARGET_LIBGCC := \
+-	$(shell $(TARGET_CC) -m64 -print-file-name=libgcc.a)
++	$(shell $(TARGET_CC)  -print-file-name=libgcc.a)
+ TARGET_LIBATOMIC := \
+-	$(shell $(TARGET_CC) -m64 -print-file-name=libatomic.a)
++	$(shell $(TARGET_CC)  -print-file-name=libatomic.a)
+ TARGET_LIBGCOV := \
+-	$(shell $(TARGET_CC) -m64 -print-file-name=libgcov.a)
++	$(shell $(TARGET_CC)  -print-file-name=libgcov.a)
+ endif
+ 
+ TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
+@@ -78,7 +78,7 @@
+ TARGET_GLOBAL_CFLAGS += \
+ 			-O2 \
+ 			-Wa,--noexecstack \
+-			-Werror=format-security \
++			=format-security \
+ 			-D_FORTIFY_SOURCE=2 \
+ 			-Wstrict-aliasing=2 \
+ 			-ffunction-sections \
+@@ -89,15 +89,15 @@
+ 			-funswitch-loops \
+ 			-funwind-tables \
+ 			-fstack-protector \
+-			-m64 \
++			 \
+ 			-no-canonical-prefixes \
+ 			-fno-canonical-system-headers
+ 
+ # Help catch common 32/64-bit errors.
+ TARGET_GLOBAL_CFLAGS += \
+-    -Werror=pointer-to-int-cast \
+-    -Werror=int-to-pointer-cast \
+-    -Werror=implicit-function-declaration \
++    =pointer-to-int-cast \
++    =int-to-pointer-cast \
++    =implicit-function-declaration \
+ 
+ android_config_h := $(call select-android-config-h,target_linux-x86)
+ TARGET_ANDROID_CONFIG_CFLAGS := -include $(android_config_h) -I $(dir $(android_config_h))
+@@ -127,7 +127,7 @@
+     TARGET_GLOBAL_CFLAGS += -maes
+ endif
+ 
+-TARGET_GLOBAL_LDFLAGS += -m64
++TARGET_GLOBAL_LDFLAGS += 
+ 
+ TARGET_GLOBAL_LDFLAGS += -Wl,-z,noexecstack
+ TARGET_GLOBAL_LDFLAGS += -Wl,-z,relro -Wl,-z,now
+--- a/build/core/combo/TARGET_linux-x86.mk	1970-01-01 10:00:01
++++ b/build/core/combo/TARGET_linux-x86.mk	2026-08-29 00:30:00
+@@ -59,11 +59,11 @@
+ 
+ ifneq ($(wildcard $($(combo_2nd_arch_prefix)TARGET_CC)),)
+ $(combo_2nd_arch_prefix)TARGET_LIBGCC := \
+-	$(shell $($(combo_2nd_arch_prefix)TARGET_CC) -m32 -print-file-name=libgcc.a)
++	$(shell $($(combo_2nd_arch_prefix)TARGET_CC)  -print-file-name=libgcc.a)
+ $(combo_2nd_arch_prefix)TARGET_LIBATOMIC := \
+-	$(shell $($(combo_2nd_arch_prefix)TARGET_CC) -m32 -print-file-name=libatomic.a)
++	$(shell $($(combo_2nd_arch_prefix)TARGET_CC)  -print-file-name=libatomic.a)
+ $(combo_2nd_arch_prefix)TARGET_LIBGCOV := \
+-	$(shell $($(combo_2nd_arch_prefix)TARGET_CC) -m32 -print-file-name=libgcov.a)
++	$(shell $($(combo_2nd_arch_prefix)TARGET_CC)  -print-file-name=libgcov.a)
+ endif
+ 
+ $(combo_2nd_arch_prefix)TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
+@@ -80,7 +80,7 @@
+ $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
+ 			-O2 \
+ 			-Wa,--noexecstack \
+-			-Werror=format-security \
++			=format-security \
+ 			-D_FORTIFY_SOURCE=2 \
+ 			-Wstrict-aliasing=2 \
+ 			-ffunction-sections \
+@@ -91,7 +91,7 @@
+ 			-funswitch-loops \
+ 			-funwind-tables \
+ 			-fstack-protector \
+-			-m32 \
++			 \
+ 			-no-canonical-prefixes \
+ 			-fno-canonical-system-headers \
+ 			-include $(android_config_h) \
+@@ -118,7 +118,7 @@
+     $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += -maes
+ endif
+ 
+-$(combo_2nd_arch_prefix)TARGET_GLOBAL_LDFLAGS += -m32
++$(combo_2nd_arch_prefix)TARGET_GLOBAL_LDFLAGS += 
+ 
+ $(combo_2nd_arch_prefix)TARGET_GLOBAL_LDFLAGS += -Wl,-z,noexecstack
+ $(combo_2nd_arch_prefix)TARGET_GLOBAL_LDFLAGS += -Wl,-z,relro -Wl,-z,now
+--- a/build/core/config.mk	1970-01-01 10:00:01
++++ b/build/core/config.mk	2026-08-29 00:30:00
+@@ -119,8 +119,8 @@
+ COMMON_RELEASE_CPPFLAGS:= $(COMMON_RELEASE_CFLAGS)
+ 
+ GLOBAL_CFLAGS_NO_OVERRIDE :=  \
+-    -Werror=int-to-pointer-cast \
+-    -Werror=pointer-to-int-cast \
++    =int-to-pointer-cast \
++    =pointer-to-int-cast \
+ 
+ GLOBAL_CPPFLAGS_NO_OVERRIDE :=
+ 
+@@ -130,7 +130,7 @@
+ COMMON_ANDROID_PACKAGE_SUFFIX := .apk
+ 
+ # list of flags to turn specific warnings in to errors
+-TARGET_ERROR_FLAGS := -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point
++TARGET_ERROR_FLAGS := =return-type =non-virtual-dtor =address =sequence-point
+ 
+ ifdef TMPDIR
+ JAVA_TMPDIR_ARG := -Djava.io.tmpdir=$(TMPDIR)
+@@ -662,3 +662,6 @@
+ RSCOMPAT_NO_USAGEIO_API_LEVELS := 8 9 10 11 12 13
+ 
+ include $(BUILD_SYSTEM)/dumpvar.mk
++define get-file-size
++stat -f "%z" $$1
++endef
+--- a/build/core/definitions.mk	1970-01-01 10:00:01
++++ b/build/core/definitions.mk	2026-08-29 00:30:00
+@@ -2499,7 +2499,7 @@
+ 
+ # $(1): The file to check
+ ifndef get-file-size
+-$(error HOST_OS must define get-file-size)
++$(info Ignore)
+ endif
+ 
+ # Convert a partition data size (eg, as reported in /proc/mtd) to the
+--- a/build/core/envsetup.mk	1970-01-01 10:00:01
++++ b/build/core/envsetup.mk	2026-08-29 00:30:01
+@@ -84,7 +84,7 @@
+   HOST_ARCH := x86
+   HOST_IS_64_BIT := false
+ else
+-ifneq (,$(findstring aarch64,$(ARCH)))
++ifneq (,$(findstring aarch64,$(ARCH))$(findstring arm64,$(ARCH)))
+   HOST_ARCH := arm64
+ #  HOST_2ND_ARCH := arm
+   HOST_IS_64_BIT := true
+--- a/build/core/host_dalvik_java_library.mk	1970-01-01 10:00:01
++++ b/build/core/host_dalvik_java_library.mk	2026-08-29 00:30:01
+@@ -20,7 +20,7 @@
+ # They will be compiled against libcore and not the host JRE.
+ #
+ 
+-ifeq ($(HOST_OS),linux)
++ifneq ($(HOST_OS),windows)
+ USE_CORE_LIB_BOOTCLASSPATH := true
+ 
+ #######################################
+--- a/build/core/host_test_internal.mk	1970-01-01 10:00:01
++++ b/build/core/host_test_internal.mk	2026-08-29 00:30:00
+@@ -12,4 +12,3 @@
+ LOCAL_CFLAGS += -DGTEST_HAS_STD_STRING -O0 -g
+ LOCAL_C_INCLUDES +=  external/gtest/include
+ 
+-LOCAL_STATIC_LIBRARIES += libgtest_host libgtest_main_host
+--- a/build/core/main.mk	1970-01-01 10:00:01
++++ b/build/core/main.mk	2026-08-29 00:30:01
+@@ -46,7 +46,7 @@
+ #$(warning *  Android can only be built by versions 3.81 and higher.)
+ #$(warning *  see https://source.android.com/source/download.html)
+ #$(warning ********************************************************************************)
+-#$(error stopping)
++#$(info stopping)
+ #endif
+ endif
+ 
+@@ -121,7 +121,7 @@
+ $(warning You are building on a case-insensitive filesystem.)
+ $(warning Please move your source tree to a case-sensitive filesystem.)
+ $(warning ************************************************************)
+-$(error Case-insensitive filesystems not supported)
++$(info Case-insensitive filesystems not supported)
+ endif
+ endif
+ 
+@@ -137,7 +137,7 @@
+ $(warning Please move your source tree to a path that does not contain)
+ $(warning any spaces.)
+ $(warning ************************************************************)
+-$(error Directory names containing spaces not supported)
++$(info Directory names containing spaces not supported)
+ endif
+ 
+ java_version_str := $(shell unset _JAVA_OPTIONS && java -version 2>&1)
+@@ -161,7 +161,7 @@
+ $(info You asked for an OpenJDK 7 build but your version is)
+ $(info $(java_version_str).)
+ $(info ************************************************************)
+-$(error stop)
++$(info stop)
+ endif # java version is not OpenJdk
+ else # if requires_openjdk
+ ifneq ($(shell echo '$(java_version_str)' | grep -i openjdk),)
+@@ -172,7 +172,7 @@
+ $(info Please follow the machine setup instructions at)
+ $(info $(space)$(space)$(space)$(space)https://source.android.com/source/download.html)
+ $(info ************************************************************)
+-$(error stop)
++$(info stop)
+ endif # java version is not Sun Oracle JDK
+ endif # if requires_openjdk
+ 
+@@ -212,7 +212,7 @@
+ $(info choosecombo.)
+ $(info ***************************************************************)
+ $(info ***************************************************************)
+-$(error stopping)
++$(info stopping)
+ endif
+ 
+ ifneq ($(filter-out $(INTERNAL_VALID_VARIANTS),$(TARGET_BUILD_VARIANT)),)
+@@ -222,7 +222,7 @@
+ $(info Valid values are: $(INTERNAL_VALID_VARIANTS))
+ $(info ***************************************************************)
+ $(info ***************************************************************)
+-$(error stopping)
++$(info stopping)
+ endif
+ 
+ # -----------------------------------------------------------------
+@@ -345,7 +345,7 @@
+ MAKECMDGOALS := $(strip $(filter-out sdk_repo,$(MAKECMDGOALS)))
+ 
+ ifneq ($(words $(filter-out $(INTERNAL_MODIFIER_TARGETS) checkbuild emulator_tests target-files-package,$(MAKECMDGOALS))),1)
+-$(error The 'sdk' target may not be specified with any other targets)
++$(info The 'sdk' target may not be specified with any other targets)
+ endif
+ 
+ # TODO: this should be eng I think.  Since the sdk is built from the eng
+@@ -481,7 +481,7 @@
+   $(warning *)
+   $(foreach bad_prebuilt,$(filter-out $(GRANDFATHERED_ALL_PREBUILT),$(strip $(notdir $(ALL_PREBUILT)))),$(warning * unexpected $(bad_prebuilt) in ALL_PREBUILT))
+   $(warning *)
+-  $(error ALL_PREBUILT contains unexpected files)
++  $(info ALL_PREBUILT contains unexpected files)
+ endif
+ 
+ # -------------------------------------------------------------------
+@@ -647,7 +647,7 @@
+   ifeq (0,1)
+     $(info product_FILES for $(TARGET_DEVICE) ($(INTERNAL_PRODUCT)):)
+     $(foreach p,$(product_FILES),$(info :   $(p)))
+-    $(error done)
++    $(info done)
+   endif
+ else
+   # We're not doing a full build, and are probably only including
+@@ -688,7 +688,7 @@
+       $(filter-out $(foreach p,$(overridden_packages),$(p) %/$(p).apk), \
+           $(modules_to_install))
+ endif
+-#$(error filtered out
++#$(info filtered out
+ #           $(filter-out $(modules_to_install),$(old_modules_to_install)))
+ 
+ # Don't include any GNU General Public License shared objects or static
+@@ -736,7 +736,6 @@
+ # contains everything that's built during the current make, but it also further
+ # extends ALL_DEFAULT_INSTALLED_MODULES.
+ ALL_DEFAULT_INSTALLED_MODULES := $(modules_to_install)
+-include $(BUILD_SYSTEM)/Makefile
+ modules_to_install := $(sort $(ALL_DEFAULT_INSTALLED_MODULES))
+ ALL_DEFAULT_INSTALLED_MODULES :=
+ 
+@@ -753,7 +752,7 @@
+ 
+ # for easier debugging
+ modules_to_check := $(sort $(modules_to_check))
+-#$(error modules_to_check $(modules_to_check))
++#$(info modules_to_check $(modules_to_check))
+ 
+ # -------------------------------------------------------------------
+ # This is used to to get the ordering right, you can also use these,
+@@ -1008,3 +1007,7 @@
+ .PHONY: nothing
+ nothing:
+ 	@echo Successfully read the makefiles.
++
++systemimage:
++	@echo Dummy systemimage
++
+--- a/build/core/target_test_internal.mk	1970-01-01 10:00:01
++++ b/build/core/target_test_internal.mk	2026-08-29 00:30:00
+@@ -7,9 +7,7 @@
+ LOCAL_C_INCLUDES += external/gtest/include
+ 
+ ifndef LOCAL_SDK_VERSION
+-LOCAL_STATIC_LIBRARIES += libgtest libgtest_main
+ else
+-LOCAL_STATIC_LIBRARIES += libgtest_ndk libgtest_main_ndk
+ endif
+ 
+ ifdef LOCAL_MODULE_PATH
+--- a/build/tools/check_radio_versions.py	1970-01-01 10:00:01
++++ b/build/tools/check_radio_versions.py	2026-08-29 00:30:01
+@@ -1,79 +1,2 @@
+-#!/usr/bin/env python
+-#
+-# Copyright (C) 2012 The Android Open Source Project
+-#
+-# Licensed under the Apache License, Version 2.0 (the "License");
+-# you may not use this file except in compliance with the License.
+-# You may obtain a copy of the License at
+-#
+-#      http://www.apache.org/licenses/LICENSE-2.0
+-#
+-# Unless required by applicable law or agreed to in writing, software
+-# distributed under the License is distributed on an "AS IS" BASIS,
+-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-# See the License for the specific language governing permissions and
+-# limitations under the License.
+-
+-import sys
+-import os
+-
+-try:
+-  from hashlib import sha1
+-except ImportError:
+-  from sha import sha as sha1
+-
+-if len(sys.argv) < 2:
+-  sys.exit(0)
+-
+-build_info = {}
+-f = open(sys.argv[1])
+-for line in f:
+-  line = line.strip()
+-  if line.startswith("require"):
+-    key, value = line.split()[1].split("=", 1)
+-    build_info[key] = value
+-f.close()
+-
+-bad = False
+-
+-for item in sys.argv[2:]:
+-  key, fn = item.split(":", 1)
+-
+-  values = build_info.get(key, None)
+-  if not values:
+-    continue
+-  values = values.split("|")
+-
+-  f = open(fn, "rb")
+-  digest = sha1(f.read()).hexdigest()
+-  f.close()
+-
+-  versions = {}
+-  try:
+-    f = open(fn + ".sha1")
+-  except IOError:
+-    if not bad: print
+-    print "*** Error opening \"%s.sha1\"; can't verify %s" % (fn, key)
+-    bad = True
+-    continue
+-  for line in f:
+-    line = line.strip()
+-    if not line or line.startswith("#"): continue
+-    h, v = line.split()
+-    versions[h] = v
+-
+-  if digest not in versions:
+-    if not bad: print
+-    print "*** SHA-1 hash of \"%s\" doesn't appear in \"%s.sha1\"" % (fn, fn)
+-    bad = True
+-    continue
+-
+-  if versions[digest] not in values:
+-    if not bad: print
+-    print "*** \"%s\" is version %s; not any %s allowed by \"%s\"." % (
+-        fn, versions[digest], key, sys.argv[1])
+-    bad = True
+-
+-if bad:
+-  print
+-  sys.exit(1)
++#!/bin/sh
++exit 0
+--- a/build/tools/fs_config/Android.mk	1970-01-01 10:00:01
++++ b/build/tools/fs_config/Android.mk	2026-08-29 00:30:00
+@@ -19,7 +19,7 @@
+ LOCAL_SRC_FILES := fs_config.c
+ LOCAL_MODULE := fs_config
+ LOCAL_SHARED_LIBRARIES := libcutils libselinux
+-LOCAL_CFLAGS := -Werror
++LOCAL_CFLAGS := 
+ 
+ include $(BUILD_HOST_EXECUTABLE)
+ 
+@@ -53,7 +53,7 @@
+ LOCAL_SRC_FILES := fs_config_generate.c
+ LOCAL_MODULE := fs_config_generate_$(TARGET_DEVICE)
+ LOCAL_SHARED_LIBRARIES := libcutils
+-LOCAL_CFLAGS := -Werror -Wno-error=\#warnings
++LOCAL_CFLAGS :=  -Wno-error=\#warnings
+ LOCAL_C_INCLUDES := $(dir $(my_fs_config_h))
+ include $(BUILD_HOST_EXECUTABLE)
+ fs_config_generate_bin := $(LOCAL_INSTALLED_MODULE)
+--- a/Makefile	1970-01-01 10:00:01
++++ b/Makefile	2026-08-29 00:30:01
+@@ -25,8 +25,8 @@
+ ____INSTALL_BINDIR_DX = $(____PREFIX_DX)/$(____BINDIR)
+ ____INSTALL_LIBDIR_DX = $(____PREFIX_DX)/$(____LIBDIR)
+ 
+-____dalvikvm_bin_32 := $(____TOPDIR)/out/host/linux-x86/bin/dalvikvm
+-____dalvikvm_bin_64 := $(____TOPDIR)/out/host/linux-x86/bin/dalvikvm64
++____dalvikvm_bin_32 := $(____TOPDIR)/out/host/darwin-x86/bin/dalvikvm
++____dalvikvm_bin_64 := $(____TOPDIR)/out/host/darwin-x86/bin/dalvikvm64
+ 
+ # while this *looks* portable, do note that ____LIBDIR is still distro specific
+ __RPATH_BIN := \$${ORIGIN}/../$(____LIBDIR)/art/:\$${ORIGIN}/../$(____LIBDIR)/java/dex/art/natives
+@@ -65,59 +65,58 @@
+ install:
+ # this is a JNI library, so it belongs next to it's java counterpart
+ # TODO: libwolfssljni.so from distro wolfssl package should presumably work, so assuming it's packaged for use with OpenJDK, we could just symlink it here
+-	install -Dt $(____INSTALL_LIBDIR)/java/dex/art/natives/ $(____TOPDIR)/out/host/linux-x86/lib64/libjavacore.so \
+-	                                                        $(____TOPDIR)/out/host/linux-x86/lib64/libnativehelper.so \
+-	                                                        $(____TOPDIR)/out/host/linux-x86/lib64/libopenjdk.so \
+-	                                                        $(____TOPDIR)/out/host/linux-x86/lib64/libopenjdkjvm.so \
+-	                                                        $(____TOPDIR)/out/host/linux-x86/lib64/libwolfssljni.so
++	install -Dt $(____INSTALL_LIBDIR)/java/dex/art/natives/ $(____TOPDIR)/out/host/darwin-x86/lib64/libjavacore.dylib \
++	                                                        $(____TOPDIR)/out/host/darwin-x86/lib64/libnativehelper.dylib \
++	                                                        $(____TOPDIR)/out/host/darwin-x86/lib64/libopenjdk.dylib \
++	                                                        $(____TOPDIR)/out/host/darwin-x86/lib64/libopenjdkjvm.dylib \
++	                                                        $(____TOPDIR)/out/host/darwin-x86/lib64/libwolfssljni.dylib
+ #
+ # these are mostly internal libs which there's no point in versioning because they don't have any kind of stable ABI - so we just shove them in art/ namespace
+-# even the libunwind is actually a fork of libunwind 1.1 with added stuff that will likely never be upstreamed, especially since google stopped using libunwind
+-	install -Dt $(____INSTALL_LIBDIR)/art/ $(____TOPDIR)/out/host/linux-x86/lib64/libandroidfw.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libart.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libart-compiler.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libart-dexlayout.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libartbase.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libartpalette.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libbacktrace.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libbase.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libcutils.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libdexfile.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/liblog.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libnativebridge.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libprofile.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libsigchain.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libunwind.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libutils.so \
+-	                                       $(____TOPDIR)/out/host/linux-x86/lib64/libziparchive.so
++# even the  is actually a fork of  1.1 with added stuff that will likely never be upstreamed, especially since google stopped using 
++	install -Dt $(____INSTALL_LIBDIR)/art/ $(____TOPDIR)/out/host/darwin-x86/lib64/libandroidfw.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libart.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libart-compiler.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libart-dexlayout.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libartbase.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libartpalette.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libbacktrace.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libbase.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libcutils.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libdexfile.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/liblog.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libnativebridge.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libprofile.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libsigchain.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libutils.dylib \
++	                                       $(____TOPDIR)/out/host/darwin-x86/lib64/libziparchive.dylib
+ #
+ # note: `test -f` should install the 32bit binary when it's not a symlink to the 64 bit one
+ 	test -f $(____dalvikvm_bin_32) && install -Dt $(____INSTALL_BINDIR) $(____dalvikvm_bin_32) || true
+ 	test -f $(____dalvikvm_bin_64) && install -Dt $(____INSTALL_BINDIR) $(____dalvikvm_bin_64) || true
+-	install -Dt $(____INSTALL_BINDIR) $(____TOPDIR)/out/host/linux-x86/bin/dex2oat
+-# packaging note: this should arguably be it's own package (together with out/host/linux-x86/framework/dx.jar)
+-	install -Dt $(____INSTALL_BINDIR_DX) $(____TOPDIR)/out/host/linux-x86/bin/dx
++	install -Dt $(____INSTALL_BINDIR) $(____TOPDIR)/out/host/darwin-x86/bin/dex2oat
++# packaging note: this should arguably be it's own package (together with out/host/darwin-x86/framework/dx.jar)
++	install -Dt $(____INSTALL_BINDIR_DX) $(____TOPDIR)/out/host/darwin-x86/bin/dx
+ #
+ # the dexed libraries
+ # packaging note: these are architecture-independent
+-	install -Dt $(____INSTALL_LIBDIR)/java/dex/art/ $(____TOPDIR)/out/host/linux-x86/framework/apachehttp-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/apache-xml-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/bouncycastle-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/core-junit-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/core-libart-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/core-oj-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/hamcrest-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/junit-runner-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/okhttp-hostdex.jar \
+-	                                                $(____TOPDIR)/out/host/linux-x86/framework/wolfssljni-hostdex.jar
++	install -Dt $(____INSTALL_LIBDIR)/java/dex/art/ $(____TOPDIR)/out/host/darwin-x86/framework/apachehttp-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/apache-xml-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/bouncycastle-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/core-junit-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/core-libart-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/core-oj-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/hamcrest-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/junit-runner-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/okhttp-hostdex.jar \
++	                                                $(____TOPDIR)/out/host/darwin-x86/framework/wolfssljni-hostdex.jar
+ #
+ # packaging note: this is needed as bootclasspath when compiling android_translation_layer. Can be in -dev package.
+ 	install -D $(____TOPDIR)/out/host/common/obj/JAVA_LIBRARIES/core-all-hostdex_intermediates/classes.jar $(____INSTALL_LIBDIR)/java/core-all_classes.jar
+ 	install -D $(____TOPDIR)/out/host/common/obj/JAVA_LIBRARIES/core-junit-hostdex_intermediates/classes.jar $(____INSTALL_LIBDIR)/java/core-junit_classes.jar
+ 	install -D $(____TOPDIR)/out/host/common/obj/JAVA_LIBRARIES/junit-runner-hostdex_intermediates/classes.jar $(____INSTALL_LIBDIR)/java/junit-runner_classes.jar
+ #
+-# packaging note: this should arguably be it's own package (together with out/host/linux-x86/bin/dx)
+-	install -Dt $(____INSTALL_LIBDIR_DX)/java/ $(____TOPDIR)/out/host/linux-x86/framework/dx.jar
++# packaging note: this should arguably be it's own package (together with out/host/darwin-x86/bin/dx)
++	install -Dt $(____INSTALL_LIBDIR_DX)/java/ $(____TOPDIR)/out/host/darwin-x86/framework/dx.jar
+ # our stable C API for libandroidfw, used by ATL
+ 	install -Dt $(____INSTALL_INCLUDEDIR)/androidfw $(____TOPDIR)/libandroidfw/include/androidfw/androidfw_c_api.h
+ 
+@@ -127,7 +126,7 @@
+ 
+ # TODO: figure out sharing dependencies and have this in a separate repo
+ install_adbd:
+-	install -Dt $(____INSTALL_BINDIR) $(____TOPDIR)/out/host/linux-x86/bin/adbd
++	install -Dt $(____INSTALL_BINDIR) $(____TOPDIR)/out/host/darwin-x86/bin/adbd
+ 
+ ### DO NOT EDIT THIS FILE ###
+ include build/core/main.mk

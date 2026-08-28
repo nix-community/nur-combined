@@ -2,7 +2,6 @@
   art-standalone,
   lib,
   stdenv,
-  python3,
   bionic-translation_patched,
   vixl,
   wolfssl,
@@ -45,14 +44,21 @@ let
     doCheck = false;
   });
 
+  darwinPatches = [
+    ./darwin-libcore.patch
+    ./darwin-fault-handler-arm64.patch
+    ./darwin-build-system.patch
+    ./darwin-system.patch
+    ./darwin-libcore-host.patch
+    ./darwin-art-runtime.patch
+    ./darwin-arm64-asm.patch
+    ./darwin-misc.patch
+  ];
+
   darwinPostPatch = ''
-    export PYTHON=${lib.getExe python3}
-    export VIXL_INCLUDE=${vixl_patched}/include/vixl
-    export ASM_UNDERSCORE_SCRIPT=${./darwin-asm-underscore.py}
-    export ELF_HEADER=${./elf.h}
-    export EPOLL_HEADER=${./darwin-sys-epoll.h}
-    export LINK_HEADER=${./darwin-link.h}
-    bash ${./darwin-post-patch.sh}
+    substituteInPlace art/build/Android.common_build.mk \
+      --replace-fail '@VIXL_INCLUDE@' '${vixl_patched}/include/vixl'
+    bash ${./darwin-setup-host.sh}
   '';
 
   darwinHostBins = [
@@ -74,10 +80,7 @@ art-standalone.overrideAttrs (old: {
       ./dex2oat-path.patch
       ./wolfssljni-freed-session-timeout.patch
     ]
-    ++ optionals stdenv.hostPlatform.isDarwin [
-      ./darwin-libcore.patch
-      ./darwin-fault-handler-arm64.patch
-    ];
+    ++ optionals stdenv.hostPlatform.isDarwin darwinPatches;
 
   buildInputs =
     filter filterBuildInputs (old.buildInputs or [ ])

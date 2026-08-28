@@ -1,0 +1,2011 @@
+--- a/external/apache-http/Android.mk	1970-01-01 10:00:01
++++ b/external/apache-http/Android.mk	2026-08-29 00:30:00
+@@ -16,7 +16,7 @@
+ LOCAL_PATH:= $(call my-dir)
+ # frameworks builds apache-http as part of ext.jar for the device, but
+ # here we just build apache-http alone for the host build
+-ifeq ($(WITH_HOST_DALVIK),true)
++ifneq ($(HOST_OS),windows)
+     include $(CLEAR_VARS)
+     LOCAL_MODULE := apachehttp-hostdex
+     LOCAL_MODULE_TAGS := optional
+--- a/external/apache-xml/Android.mk	1970-01-01 10:00:01
++++ b/external/apache-xml/Android.mk	2026-08-29 00:30:00
+@@ -25,9 +25,8 @@
+ LOCAL_JAVA_LIBRARIES := core
+ LOCAL_NO_STANDARD_LIBRARIES := true
+ LOCAL_JAVA_RESOURCE_DIRS := src/main/java
+-include $(BUILD_JAVA_LIBRARY)
+ 
+-ifeq ($(WITH_HOST_DALVIK),true)
++ifneq ($(HOST_OS),windows)
+     include $(CLEAR_VARS)
+     LOCAL_MODULE := apache-xml-hostdex
+     LOCAL_MODULE_TAGS := optional
+--- a/external/bouncycastle/Android.mk	1970-01-01 10:00:01
++++ b/external/bouncycastle/Android.mk	2026-08-29 00:30:00
+@@ -38,7 +38,6 @@
+ LOCAL_NO_STANDARD_LIBRARIES := true
+ LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
+ LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+-include $(BUILD_JAVA_LIBRARY)
+ 
+ # non-jarjar version to build okhttp-tests
+ include $(CLEAR_VARS)
+@@ -49,7 +48,6 @@
+ LOCAL_JAVA_LIBRARIES := conscrypt core
+ LOCAL_NO_STANDARD_LIBRARIES := true
+ LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+-include $(BUILD_STATIC_JAVA_LIBRARY)
+ 
+ # This is used to generate a list of what is unused so it can be removed when bouncycastle is updated.
+ # Based on "Finding dead code" example in ProGuard manual at http://proguard.sourceforge.net/
+@@ -91,7 +89,7 @@
+ 		    public java.lang.String getPaddingName(); \
+ 		}"
+ 
+-ifeq ($(WITH_HOST_DALVIK),true)
++ifneq ($(HOST_OS),windows)
+     include $(CLEAR_VARS)
+     LOCAL_MODULE := bouncycastle-hostdex
+     LOCAL_MODULE_TAGS := optional
+--- a/external/fdlibm/Android.mk	1970-01-01 10:00:01
++++ b/external/fdlibm/Android.mk	2026-08-29 00:30:00
+@@ -77,7 +77,7 @@
+ # Build for the host.
+ #
+ 
+-ifeq ($(WITH_HOST_DALVIK),true)
++ifneq ($(HOST_OS),windows)
+ 
+     include $(CLEAR_VARS)
+ 
+--- a/external/hamcrest/Android.mk	1970-01-01 10:00:01
++++ b/external/hamcrest/Android.mk	2026-08-29 00:30:00
+@@ -26,7 +26,7 @@
+ 
+ # build for the host dalvik
+ # -------------------------
+-ifeq ($(WITH_HOST_DALVIK),true)
++ifneq ($(HOST_OS),windows)
+ include $(CLEAR_VARS)
+ LOCAL_SRC_FILES := $(call all-java-files-under, src)
+ LOCAL_MODULE := hamcrest-hostdex
+@@ -50,4 +50,3 @@
+ 
+ LOCAL_MODULE_TAGS := optional
+ 
+-include $(BUILD_STATIC_JAVA_LIBRARY)
+--- a/external/junit/Android.mk	1970-01-01 10:00:01
++++ b/external/junit/Android.mk	2026-08-29 00:30:00
+@@ -44,13 +44,12 @@
+ LOCAL_JAVACFLAGS := $(local_javac_flags)
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_MODULE := core-junit
+-include $(BUILD_JAVA_LIBRARY)
+ 
+ # ----------------------------------
+ # build a core-junit-hostdex jar that contains exactly the same classes
+ # as core-junit.
+ 
+-ifeq ($(WITH_HOST_DALVIK),true)
++ifneq ($(HOST_OS),windows)
+ include $(CLEAR_VARS)
+ # TODO: remove extensions once apache-harmony/luni/ is no longer dependent
+ # on it
+@@ -71,13 +70,12 @@
+ LOCAL_SRC_FILES := $(junit-runner-files)
+ LOCAL_MODULE := junit-runner
+ LOCAL_MODULE_TAGS := optional
+-include $(BUILD_STATIC_JAVA_LIBRARY)
+ 
+ #-------------------------------------------------------
+ # build a junit-runner for the host dalvikvm
+ # (like the junit classes in the frameworks/base android.test.runner.jar)
+ 
+-ifeq ($(WITH_HOST_DALVIK),true)
++ifneq ($(HOST_OS),windows)
+ include $(CLEAR_VARS)
+ LOCAL_SRC_FILES := $(junit-runner-files)
+ LOCAL_MODULE := junit-runner-hostdex
+@@ -110,5 +108,4 @@
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_SDK_VERSION := 4
+ LOCAL_STATIC_JAVA_LIBRARIES := hamcrest
+-include $(BUILD_STATIC_JAVA_LIBRARY)
+ 
+--- a/external/libunwind/Android.build.mk	1970-01-01 10:00:01
++++ b/external/libunwind/Android.build.mk	2026-08-29 00:30:00
+@@ -16,19 +16,19 @@
+ 
+ include $(CLEAR_VARS)
+ 
+-LOCAL_MODULE := $(libunwind_module)
+-LOCAL_MODULE_TAGS := $(libunwind_module_tag)
+-ifeq ($(libunwind_build_type),host)
++LOCAL_MODULE := $(_module)
++LOCAL_MODULE_TAGS := $(_module_tag)
++ifeq ($(_build_type),host)
+ # Always make host multilib
+ LOCAL_MULTILIB := both
+ else
+-LOCAL_MULTILIB := $($(libunwind_module)_multilib)
++LOCAL_MULTILIB := $($(_module)_multilib)
+ endif
+ 
+-ifneq ($(findstring LIBRARY, $(libunwind_build_target)),LIBRARY)
++ifneq ($(findstring LIBRARY, $(_build_target)),LIBRARY)
+ ifeq ($(LOCAL_MULTILIB),both)
+-    LOCAL_MODULE_STEM_32 := $(libunwind_module)32
+-    LOCAL_MODULE_STEM_64 := $(libunwind_module)64
++    LOCAL_MODULE_STEM_32 := $(_module)32
++    LOCAL_MODULE_STEM_64 := $(_module)64
+ endif
+ endif
+ 
+@@ -37,68 +37,68 @@
+     $(LOCAL_PATH)/Android.build.mk \
+ 
+ LOCAL_CFLAGS += \
+-    $(libunwind_common_cflags) \
+-    $(libunwind_common_cflags_$(libunwind_build_type)) \
+-    $($(libunwind_module)_cflags) \
+-    $($(libunwind_module)_cflags_$(libunwind_build_type)) \
++    $(_common_cflags) \
++    $(_common_cflags_$(_build_type)) \
++    $($(_module)_cflags) \
++    $($(_module)_cflags_$(_build_type)) \
+ 
+ LOCAL_CLANG_CFLAGS += \
+-    $(libunwind_common_clang_cflags) \
+-    $(libunwind_common_clang_cflags_$(libunwind_build_type)) \
+-    $($(libunwind_module)_clang_cflags) \
+-    $($(libunwind_module)_clang_cflags_$(libunwind_build_type)) \
++    $(_common_clang_cflags) \
++    $(_common_clang_cflags_$(_build_type)) \
++    $($(_module)_clang_cflags) \
++    $($(_module)_clang_cflags_$(_build_type)) \
+ 
+ LOCAL_CONLYFLAGS += \
+-    $(libunwind_common_conlyflags) \
+-    $(libunwind_common_conlyflags_$(libunwind_build_type)) \
+-    $($(libunwind_module)_conlyflags) \
+-    $($(libunwind_module)_conlyflags_$(libunwind_build_type)) \
++    $(_common_conlyflags) \
++    $(_common_conlyflags_$(_build_type)) \
++    $($(_module)_conlyflags) \
++    $($(_module)_conlyflags_$(_build_type)) \
+ 
+ LOCAL_CPPFLAGS += \
+-    $(libunwind_common_cppflags) \
+-    $($(libunwind_module)_cppflags) \
+-    $($(libunwind_module)_cppflags_$(libunwind_build_type)) \
++    $(_common_cppflags) \
++    $($(_module)_cppflags) \
++    $($(_module)_cppflags_$(_build_type)) \
+ 
+ LOCAL_C_INCLUDES := \
+-    $(libunwind_common_c_includes) \
+-    $($(libunwind_module)_c_includes) \
+-    $($(libunwind_module)_c_includes_$(libunwind_build_type)) \
++    $(_common_c_includes) \
++    $($(_module)_c_includes) \
++    $($(_module)_c_includes_$(_build_type)) \
+ 
+ LOCAL_EXPORT_C_INCLUDE_DIRS := \
+-    $($(libunwind_module)_export_c_include_dirs)
++    $($(_module)_export_c_include_dirs)
+ 
+-$(foreach arch,$(libunwind_arches), \
+-    $(eval LOCAL_C_INCLUDES_$(arch) := $(libunwind_common_c_includes_$(arch))))
++$(foreach arch,$(_arches), \
++    $(eval LOCAL_C_INCLUDES_$(arch) := $(_common_c_includes_$(arch))))
+ 
+ LOCAL_SRC_FILES := \
+-    $($(libunwind_module)_src_files) \
+-    $($(libunwind_module)_src_files_$(build_type)) \
++    $($(_module)_src_files) \
++    $($(_module)_src_files_$(build_type)) \
+ 
+-$(foreach arch,$(libunwind_arches), \
+-    $(eval LOCAL_SRC_FILES_$(arch) := $($(libunwind_module)_src_files_$(arch))))
++$(foreach arch,$(_arches), \
++    $(eval LOCAL_SRC_FILES_$(arch) := $($(_module)_src_files_$(arch))))
+ 
+-LOCAL_SRC_FILES_32 := $($(libunwind_module)_src_files_32)
+-LOCAL_SRC_FILES_64 := $($(libunwind_module)_src_files_64)
++LOCAL_SRC_FILES_32 := $($(_module)_src_files_32)
++LOCAL_SRC_FILES_64 := $($(_module)_src_files_64)
+ 
+ LOCAL_STATIC_LIBRARIES := \
+-    $($(libunwind_module)_static_libraries) \
+-    $($(libunwind_module)_static_libraries_$(libunwind_build_type)) \
++    $($(_module)_static_libraries) \
++    $($(_module)_static_libraries_$(_build_type)) \
+ 
+ LOCAL_WHOLE_STATIC_LIBRARIES := \
+-    $($(libunwind_module)_whole_static_libraries) \
+-    $($(libunwind_module)_whole_static_libraries_$(libunwind_build_type)) \
++    $($(_module)_whole_static_libraries) \
++    $($(_module)_whole_static_libraries_$(_build_type)) \
+ 
+ LOCAL_SHARED_LIBRARIES := \
+-    $($(libunwind_module)_shared_libraries) \
+-    $($(libunwind_module)_shared_libraries_$(libunwind_build_type)) \
++    $($(_module)_shared_libraries) \
++    $($(_module)_shared_libraries_$(_build_type)) \
+ 
+ LOCAL_LDLIBS := \
+-    $($(libunwind_module)_ldlibs) \
+-    $($(libunwind_module)_ldlibs_$(libunwind_build_type)) \
++    $($(_module)_ldlibs) \
++    $($(_module)_ldlibs_$(_build_type)) \
+ 
+ LOCAL_LDFLAGS := \
+-    $($(libunwind_module)_ldflags) \
+-    $($(libunwind_module)_ldflags_$(libunwind_build_type)) \
++    $($(_module)_ldflags) \
++    $($(_module)_ldflags_$(_build_type)) \
+ 
+ # Translate arm64 to aarch64 in c includes and src files.
+ LOCAL_C_INCLUDES_arm64 := \
+@@ -109,13 +109,13 @@
+ 
+ LOCAL_ADDRESS_SANITIZER := false
+ 
+-ifeq ($(libunwind_build_type),target)
+-  include $(BUILD_$(libunwind_build_target))
++ifeq ($(_build_type),target)
++  include $(BUILD_$(_build_target))
+ endif
+ 
+-ifeq ($(libunwind_build_type),host)
++ifeq ($(_build_type),host)
+   # Only build if host builds are supported.
+-  ifeq ($(libunwind_build_host),true)
+-    include $(BUILD_HOST_$(libunwind_build_target))
++  ifeq ($(_build_host),true)
++    include $(BUILD_HOST_$(_build_target))
+   endif
+ endif
+--- a/external/libunwind/Android.mk	1970-01-01 10:00:01
++++ b/external/libunwind/Android.mk	2026-08-29 00:30:00
+@@ -16,47 +16,47 @@
+ 
+ LOCAL_PATH := $(call my-dir)
+ 
+-libunwind_build_host := false
++_build_host := false
+ ifeq ($(HOST_OS),linux)
+-libunwind_build_host := true
++_build_host := true
+ endif
+ 
+ # Set to true to enable a debug build of the libraries.
+ # To control what is logged, set the environment variable UNW_DEBUG_LEVEL=x,
+ # where x controls the verbosity (from 1 to 20).
+-libunwind_debug := false
++_debug := false
+ 
+-libunwind_common_cppflags := \
++_common_cppflags := \
+     -Wno-old-style-cast \
+ 
+-libunwind_common_cflags := \
++_common_cflags := \
+     -Wno-unused-parameter \
+ 
+ # gcc 4.8 appears to be overeager declaring that a variable is uninitialized,
+ # under certain circumstances. Turn off this warning only for target so that
+ # coverage is still present for the host code. When the entire build system
+ # is switched to 4.9, then this can be removed.
+-libunwind_common_cflags_target := \
++_common_cflags_target := \
+     -Wno-maybe-uninitialized \
+ 
+ # src/mi/backtrace.c is misdetected as a bogus header guard by clang 3.5
+ # src/x86_64/Gstash_frame.c has unnecessary calls to labs.
+-libunwind_common_clang_cflags += \
++_common_clang_cflags += \
+     -Wno-header-guard \
+     -Wno-absolute-value \
+ 
+ # The latest clang (r230699) does not allow SP/PC to be declared in inline asm lists.
+-libunwind_common_clang_cflags += \
++_common_clang_cflags += \
+     -Wno-inline-asm
+ 
+-ifneq ($(libunwind_debug),true)
+-libunwind_common_cflags += \
++ifneq ($(_debug),true)
++_common_cflags += \
+     -DHAVE_CONFIG_H \
+     -DNDEBUG \
+     -D_GNU_SOURCE \
+ 
+ else
+-libunwind_common_cflags += \
++_common_cflags += \
+     -DHAVE_CONFIG_H \
+     -DDEBUG \
+     -D_GNU_SOURCE \
+@@ -64,24 +64,24 @@
+ 
+ endif
+ 
+-libunwind_common_c_includes := \
++_common_c_includes := \
+     $(LOCAL_PATH)/src \
+     $(LOCAL_PATH)/include \
+ 
+ # Since mips and mips64 use the same source, only generate includes/srcs
+ # for the below set of arches.
+-libunwind_generate_arches := arm arm64 mips x86 x86_64
++_generate_arches := arm arm64 mips x86 x86_64
+ # The complete list of arches used by Android.build.mk to set arch
+ # variables.
+-libunwind_arches := $(libunwind_generate_arches) mips64
++_arches := $(_generate_arches) mips64
+ 
+-$(foreach arch,$(libunwind_generate_arches), \
+-  $(eval libunwind_common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(arch)))
++$(foreach arch,$(_generate_arches), \
++  $(eval _common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(arch)))
+ 
+ #-----------------------------------------------------------------------
+-# libunwind shared library
++#  shared library
+ #-----------------------------------------------------------------------
+-libunwind_src_files := \
++_src_files := \
+     src/mi/init.c \
+     src/mi/flush_cache.c \
+     src/mi/mempool.c \
+@@ -136,7 +136,7 @@
+     src/Los-common.c \
+ 
+ # ptrace files for remote unwinding.
+-libunwind_src_files += \
++_src_files += \
+     src/ptrace/_UPT_accessors.c \
+     src/ptrace/_UPT_access_fpreg.c \
+     src/ptrace/_UPT_access_mem.c \
+@@ -151,8 +151,8 @@
+     src/ptrace/_UPT_resume.c \
+ 
+ # Arch specific source files.
+-$(foreach arch,$(libunwind_generate_arches), \
+-  $(eval libunwind_src_files_$(arch) += \
++$(foreach arch,$(_generate_arches), \
++  $(eval _src_files_$(arch) += \
+     src/$(arch)/is_fpreg.c \
+     src/$(arch)/regname.c \
+     src/$(arch)/Gcreate_addr_space.c \
+@@ -177,28 +177,28 @@
+     src/$(arch)/Lstep.c \
+     ))
+ 
+-libunwind_src_files_arm += \
++_src_files_arm += \
+     src/arm/getcontext.S \
+     src/arm/Gis_signal_frame.c \
+     src/arm/Gex_tables.c \
+     src/arm/Lis_signal_frame.c \
+     src/arm/Lex_tables.c \
+ 
+-libunwind_src_files_arm64 += \
++_src_files_arm64 += \
+     src/aarch64/Gis_signal_frame.c \
+     src/aarch64/Lis_signal_frame.c \
+ 
+-libunwind_src_files_mips += \
++_src_files_mips += \
+     src/mips/getcontext-android.S \
+     src/mips/Gis_signal_frame.c \
+     src/mips/Lis_signal_frame.c \
+ 
+-libunwind_src_files_x86 += \
++_src_files_x86 += \
+     src/x86/getcontext-linux.S \
+     src/x86/Gos-linux.c \
+     src/x86/Los-linux.c \
+ 
+-libunwind_src_files_x86_64 += \
++_src_files_x86_64 += \
+     src/x86_64/getcontext.S \
+     src/x86_64/Gstash_frame.c \
+     src/x86_64/Gtrace.c \
+@@ -212,60 +212,60 @@
+ # to change the behavior.
+ #   mips uses o32 abi (_MIPS_SIM == _ABIO32).
+ #   mips64 uses n64 abi (_MIPS_SIM == _ABI64).
+-libunwind_common_c_includes_mips64 := $(LOCAL_PATH)/include/tdep-mips
+-libunwind_src_files_mips64 := $(libunwind_src_files_mips)
++_common_c_includes_mips64 := $(LOCAL_PATH)/include/tdep-mips
++_src_files_mips64 := $(_src_files_mips)
+ 
+ # 64-bit architectures
+-libunwind_src_files_arm64 += src/elf64.c
+-libunwind_src_files_mips64 += src/elf64.c
+-libunwind_src_files_x86_64 += src/elf64.c
++_src_files_arm64 += src/elf64.c
++_src_files_mips64 += src/elf64.c
++_src_files_x86_64 += src/elf64.c
+ 
+ # 32-bit architectures
+-libunwind_src_files_arm   += src/elf32.c
+-libunwind_src_files_mips  += src/elf32.c
+-libunwind_src_files_x86   += src/elf32.c
++_src_files_arm   += src/elf32.c
++_src_files_mips  += src/elf32.c
++_src_files_x86   += src/elf32.c
+ 
+-libunwind_shared_libraries_target := \
++_shared_libraries_target := \
+     libdl \
+ 
+-libunwind_ldflags_host := \
++_ldflags_host := \
+     -nostdlib
+ 
+-libunwind_ldlibs_host := \
++_ldlibs_host := \
+     -lc \
+     -lpthread \
+     -lgcc \
+ 
+ ifneq (,$(findstring musl,$(shell gcc -dumpmachine)))
+-  libunwind_ldlibs_host += \
++  _ldlibs_host += \
+     -lssp_nonshared \
+     -lucontext
+ endif
+ 
+-libunwind_export_c_include_dirs := \
++_export_c_include_dirs := \
+     $(LOCAL_PATH)/include
+ 
+-ifeq ($(libunwind_debug),true)
+-libunwind_shared_libraries += \
++ifeq ($(_debug),true)
++_shared_libraries += \
+     liblog \
+ 
+ endif
+ 
+-libunwind_module := libunwind
+-libunwind_module_tag := optional
+-libunwind_build_target := SHARED_LIBRARY
+-libunwind_build_type := host
++_module := 
++_module_tag := optional
++_build_target := SHARED_LIBRARY
++_build_type := host
+ include $(LOCAL_PATH)/Android.build.mk
+ # Make sure the static library functions do not interfere with shared version.
+-libunwind_cflags += -DUNW_ADDITIONAL_PREFIX
+-libunwind_build_target := STATIC_LIBRARY
+-libunwind_build_type := host
++_cflags += -DUNW_ADDITIONAL_PREFIX
++_build_target := STATIC_LIBRARY
++_build_type := host
+ include $(LOCAL_PATH)/Android.build.mk
+ 
+ #-----------------------------------------------------------------------
+-# libunwindbacktrace static library
++# backtrace static library
+ #-----------------------------------------------------------------------
+-libunwindbacktrace_src_files += \
++backtrace_src_files += \
+     src/unwind/BacktraceWrapper.c \
+     src/unwind/DeleteException.c \
+     src/unwind/FindEnclosingFunction.c \
+@@ -285,40 +285,40 @@
+     src/unwind/SetGR.c \
+     src/unwind/SetIP.c \
+ 
+-libunwindbacktrace_cflags += \
++backtrace_cflags += \
+     -Wno-old-style-declaration \
+     -fvisibility=hidden \
+     -DUNW_ADDITIONAL_PREFIX \
+ 
+-libunwind_module := libunwindbacktrace
+-libunwind_module_tag := optional
+-libunwind_build_target := STATIC_LIBRARY
+-libunwindbacktrace_whole_static_libraries := libunwind
+-libunwind_build_type := host
++_module := backtrace
++_module_tag := optional
++_build_target := STATIC_LIBRARY
++backtrace_whole_static_libraries := 
++_build_type := host
+ include $(LOCAL_PATH)/Android.build.mk
+ 
+ #-----------------------------------------------------------------------
+-# libunwind testing
++#  testing
+ #-----------------------------------------------------------------------
+-libunwind-unit-tests_cflags := \
++-unit-tests_cflags := \
+     -fno-builtin \
+     -O0 \
+     -g \
+ 
+-libunwind-unit-tests_c_includes := \
++-unit-tests_c_includes := \
+     $(LOCAL_PATH)/include \
+ 
+-libunwind-unit-tests_src_files := \
++-unit-tests_src_files := \
+     android/tests/local_test.cpp \
+ 
+-libunwind-unit-tests_shared_libraries := \
+-    libunwind \
++-unit-tests_shared_libraries := \
++     \
+ 
+-libunwind-unit-tests_multilib := both
+-libunwind_module := libunwind-unit-tests
+-libunwind_module_tag := optional
+-libunwind_build_target := NATIVE_TEST
+-libunwind_build_type := host
++-unit-tests_multilib := both
++_module := -unit-tests
++_module_tag := optional
++_build_target := NATIVE_TEST
++_build_type := host
+ include $(LOCAL_PATH)/Android.build.mk
+ 
+ # Run the unit tests built for x86 or x86_64.
+@@ -331,7 +331,7 @@
+ TEST_SUFFIX = 32
+ endif
+ 
+-libunwind-unit-tests-run-on-host: libunwind-unit-tests $(TARGET_OUT_EXECUTABLES)/$(LINKER) $(TARGET_OUT_EXECUTABLES)/sh
++-unit-tests-run-on-host: -unit-tests $(TARGET_OUT_EXECUTABLES)/$(LINKER) $(TARGET_OUT_EXECUTABLES)/sh
+ 	if [ ! -d /system -o ! -d /system/bin ]; then \
+ 	  echo "Attempting to create /system/bin"; \
+ 	  sudo mkdir -p -m 0777 /system/bin; \
+@@ -342,5 +342,5 @@
+ 	ANDROID_DATA=$(TARGET_OUT_DATA) \
+ 	ANDROID_ROOT=$(TARGET_OUT) \
+ 	LD_LIBRARY_PATH=$(TARGET_OUT_SHARED_LIBRARIES) \
+-		$(TARGET_OUT_DATA_NATIVE_TESTS)/libunwind-unit-tests/libunwind-unit-tests$(TEST_SUFFIX) $(LIBUNWIND_TEST_FLAGS)
++		$(TARGET_OUT_DATA_NATIVE_TESTS)/-unit-tests/-unit-tests$(TEST_SUFFIX) $(LIBUNWIND_TEST_FLAGS)
+ endif
+--- a/libandroidfw/Android.bp	1970-01-01 10:00:01
++++ b/libandroidfw/Android.bp	2026-08-29 00:30:00
+@@ -41,7 +41,7 @@
+     name: "libandroidfw_defaults",
+     cpp_std: "gnu++2b",
+     cflags: [
+-        "-Werror",
++        "",
+         "-Wunreachable-code",
+     ],
+     header_libs: [
+--- a/libandroidfw/androidfw_c_api.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/androidfw_c_api.cpp	2026-08-29 00:30:00
+@@ -234,7 +234,7 @@
+   return array;
+ }
+ 
+-extern "C" int Asset_openFileDescriptor(struct Asset *asset, off64_t* outStart, off64_t* outLength)
++extern "C" int Asset_openFileDescriptor(struct Asset *asset, off_t* outStart, off_t* outLength)
+ {
+   android::Asset *assetPtr = reinterpret_cast<android::Asset *>(asset);
+   return assetPtr->openFileDescriptor(outStart, outLength);
+@@ -252,7 +252,7 @@
+   return assetPtr->read(buf, count);
+ }
+ 
+-extern "C" off64_t Asset_seek(struct Asset *asset, off_t offset, int whence)
++extern "C" off_t Asset_seek(struct Asset *asset, off_t offset, int whence)
+ {
+   android::Asset *assetPtr = reinterpret_cast<android::Asset *>(asset);
+   return assetPtr->seek(offset, whence);
+--- a/libandroidfw/ApkAssets.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/ApkAssets.cpp	2026-08-29 00:30:00
+@@ -44,7 +44,7 @@
+ }
+ 
+ ApkAssetsPtr ApkAssets::LoadFromFd(base::unique_fd fd, const std::string& debug_name,
+-                                   package_property_t flags, off64_t offset, off64_t len) {
++                                   package_property_t flags, off_t offset, off_t len) {
+   return Load(ZipAssetsProvider::Create(std::move(fd), debug_name, offset, len), flags);
+ }
+ 
+--- a/libandroidfw/Asset.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/Asset.cpp	2026-08-29 00:30:00
+@@ -109,7 +109,7 @@
+         if (cur->isAllocated()) {
+             res.append("    ");
+             res.append(cur->getAssetSource());
+-            off64_t size = (cur->getLength()+512)/1024;
++            off_t size = (cur->getLength()+512)/1024;
+             char buf[64];
+             snprintf(buf, sizeof(buf), ": %dK\n", (int)size);
+             res.append(buf);
+@@ -150,7 +150,7 @@
+ 
+     _FileAsset* pAsset;
+     status_t result;
+-    off64_t length;
++    off_t length;
+ 
+     /*
+      * Under Linux, the lseek fails if we actually opened a directory.  To
+@@ -160,12 +160,12 @@
+      */
+     // TODO(kroot): replace this with fstat despite the plea above.
+ #if 1
+-    length = lseek64(fd, 0, SEEK_END);
++    length = lseek(fd, 0, SEEK_END);
+     if (length < 0) {
+         ::close(fd);
+         return NULL;
+     }
+-    (void) lseek64(fd, 0, SEEK_SET);
++    (void) lseek(fd, 0, SEEK_SET);
+ #else
+     struct stat st;
+     if (fstat(fd, &st) < 0) {
+@@ -202,7 +202,7 @@
+ {
+     _CompressedAsset* pAsset;
+     status_t result;
+-    off64_t fileLen;
++    off_t fileLen;
+     bool scanResult;
+     long offset;
+     int method;
+@@ -255,7 +255,7 @@
+ /*
+  * Create a new Asset from part of an open file.
+  */
+-/*static*/ Asset* Asset::createFromFileSegment(int fd, off64_t offset,
++/*static*/ Asset* Asset::createFromFileSegment(int fd, off_t offset,
+     size_t length, AccessMode mode)
+ {
+     _FileAsset* pAsset;
+@@ -275,7 +275,7 @@
+ /*
+  * Create a new Asset from compressed data in an open file.
+  */
+-/*static*/ Asset* Asset::createFromCompressedData(int fd, off64_t offset,
++/*static*/ Asset* Asset::createFromCompressedData(int fd, off_t offset,
+     int compressionMethod, size_t uncompressedLen, size_t compressedLen,
+     AccessMode mode)
+ {
+@@ -338,9 +338,9 @@
+  *
+  * Returns the new chunk offset, or -1 if the seek is illegal.
+  */
+-off64_t Asset::handleSeek(off64_t offset, int whence, off64_t curPosn, off64_t maxPosn)
++off_t Asset::handleSeek(off_t offset, int whence, off_t curPosn, off_t maxPosn)
+ {
+-    off64_t newOffset;
++    off_t newOffset;
+ 
+     switch (whence) {
+     case SEEK_SET:
+@@ -354,15 +354,15 @@
+         break;
+     default:
+         ALOGW("unexpected whence %d\n", whence);
+-        // this was happening due to an off64_t size mismatch
++        // this was happening due to an off_t size mismatch
+         assert(false);
+-        return (off64_t) -1;
++        return (off_t) -1;
+     }
+ 
+     if (newOffset < 0 || newOffset > maxPosn) {
+         ALOGW("seek out of range: want %ld, end=%ld\n",
+             (long) newOffset, (long) maxPosn);
+-        return (off64_t) -1;
++        return (off_t) -1;
+     }
+ 
+     return newOffset;
+@@ -403,7 +403,7 @@
+  *
+  * Zero-length chunks are allowed.
+  */
+-status_t _FileAsset::openChunk(const char* fileName, int fd, off64_t offset, size_t length)
++status_t _FileAsset::openChunk(const char* fileName, int fd, off_t offset, size_t length)
+ {
+     assert(mFp == NULL);    // no reopen
+     assert(!mMap.has_value());
+@@ -413,15 +413,15 @@
+     /*
+      * Seek to end to get file length.
+      */
+-    off64_t fileLength;
+-    fileLength = lseek64(fd, 0, SEEK_END);
+-    if (fileLength == (off64_t) -1) {
++    off_t fileLength;
++    fileLength = lseek(fd, 0, SEEK_END);
++    if (fileLength == (off_t) -1) {
+         // probably a bad file descriptor
+         ALOGD("failed lseek (errno=%d)\n", errno);
+         return UNKNOWN_ERROR;
+     }
+ 
+-    if ((off64_t) (offset + length) > fileLength) {
++    if ((off_t) (offset + length) > fileLength) {
+         ALOGD("start (%ld) + len (%ld) > end (%ld)\n",
+             (long) offset, (long) length, (long) fileLength);
+         return BAD_INDEX;
+@@ -538,21 +538,21 @@
+ /*
+  * Seek to a new position.
+  */
+-off64_t _FileAsset::seek(off64_t offset, int whence)
++off_t _FileAsset::seek(off_t offset, int whence)
+ {
+-    off64_t newPosn;
+-    off64_t actualOffset;
++    off_t newPosn;
++    off_t actualOffset;
+ 
+     // compute new position within chunk
+     newPosn = handleSeek(offset, whence, mOffset, mLength);
+-    if (newPosn == (off64_t) -1)
++    if (newPosn == (off_t) -1)
+         return newPosn;
+ 
+     actualOffset = mStart + newPosn;
+ 
+     if (mFp != NULL) {
+         if (fseek(mFp, (long) actualOffset, SEEK_SET) != 0)
+-            return (off64_t) -1;
++            return (off_t) -1;
+     }
+ 
+     mOffset = actualOffset - mStart;
+@@ -662,7 +662,7 @@
+     }
+ }
+ 
+-int _FileAsset::openFileDescriptor(off64_t* outStart, off64_t* outLength) const
++int _FileAsset::openFileDescriptor(off_t* outStart, off_t* outLength) const
+ {
+     if (mMap.has_value()) {
+         if (mFd.ok()) {
+@@ -673,7 +673,7 @@
+                 ALOGE("Unable to dup fd (%d).", mFd.get());
+                 return -1;
+             }
+-            lseek64(fd, 0, SEEK_SET);
++            lseek(fd, 0, SEEK_SET);
+             return fd;
+         }
+         const char* fname = mMap->file_name();
+@@ -761,7 +761,7 @@
+  * This currently just sets up some values and returns.  On the first
+  * read, we expand the entire file into a buffer and return data from it.
+  */
+-status_t _CompressedAsset::openChunk(int fd, off64_t offset,
++status_t _CompressedAsset::openChunk(int fd, off_t offset,
+     int compressionMethod, size_t uncompressedLen, size_t compressedLen)
+ {
+     assert(mFd < 0);        // no re-open
+@@ -859,13 +859,13 @@
+  * expensive, because it requires plowing through a bunch of compressed
+  * data.
+  */
+-off64_t _CompressedAsset::seek(off64_t offset, int whence)
++off_t _CompressedAsset::seek(off_t offset, int whence)
+ {
+-    off64_t newPosn;
++    off_t newPosn;
+ 
+     // compute new position within chunk
+     newPosn = handleSeek(offset, whence, mOffset, mUncompressedLen);
+-    if (newPosn == (off64_t) -1)
++    if (newPosn == (off_t) -1)
+         return newPosn;
+ 
+     if (mZipInflater) {
+--- a/libandroidfw/AssetsProvider.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/AssetsProvider.cpp	2026-08-29 00:30:00
+@@ -46,13 +46,13 @@
+ 
+ std::unique_ptr<Asset> AssetsProvider::CreateAssetFromFd(base::unique_fd fd,
+                                                          const char* path,
+-                                                         off64_t offset,
+-                                                         off64_t length) {
++                                                         off_t offset,
++                                                         off_t length) {
+   CHECK(length >= kUnknownLength) << "length must be greater than or equal to " << kUnknownLength;
+   CHECK(length != kUnknownLength || offset == 0) << "offset must be 0 if length is "
+                                                  << kUnknownLength;
+   if (length == kUnknownLength) {
+-    length = lseek64(fd, 0, SEEK_END);
++    length = lseek(fd, 0, SEEK_END);
+     if (length < 0) {
+       LOG(ERROR) << "Failed to get size of file '" << ((path) ? path : "anon") << "': "
+                  << base::SystemErrorCodeToString(errno);
+@@ -123,8 +123,8 @@
+ std::unique_ptr<ZipAssetsProvider> ZipAssetsProvider::Create(base::unique_fd fd,
+                                                              std::string friendly_name,
+                                                              package_property_t flags,
+-                                                             off64_t offset,
+-                                                             off64_t len) {
++                                                             off_t offset,
++                                                             off_t len) {
+   ZipArchiveHandle handle;
+   const int released_fd = fd.release();
+   const int32_t result = (len == AssetsProvider::kUnknownLength)
+@@ -171,7 +171,7 @@
+     }
+ 
+     const int fd = GetFileDescriptor(zip_handle_.get());
+-    const off64_t fd_offset = GetFileDescriptorOffset(zip_handle_.get());
++    const off_t fd_offset = GetFileDescriptorOffset(zip_handle_.get());
+     const bool incremental_hardening = (flags_ & PROPERTY_DISABLE_INCREMENTAL_HARDENING) == 0U;
+     incfs::IncFsFileMap asset_map;
+     if (entry.method == kCompressDeflated) {
+--- a/libandroidfw/BackupHelpers.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/BackupHelpers.cpp	2026-08-29 00:30:00
+@@ -483,7 +483,7 @@
+ }
+ 
+ int write_tarfile(const String8& packageName, const String8& domain,
+-        const String8& rootpath, const String8& filepath, off64_t* outSize,
++        const String8& rootpath, const String8& filepath, off_t* outSize,
+         BackupDataWriter* writer)
+ {
+     // In the output stream everything is stored relative to the root
+@@ -517,10 +517,10 @@
+     }
+ 
+     int err = 0;
+-    struct stat64 s;
+-    if (lstat64(filepath.c_str(), &s) != 0) {
++    struct stat s;
++    if (lstat(filepath.c_str(), &s) != 0) {
+         err = errno;
+-        ALOGE("Error %d (%s) from lstat64(%s)", err, strerror(err), filepath.c_str());
++        ALOGE("Error %d (%s) from lstat(%s)", err, strerror(err), filepath.c_str());
+         return err;
+     }
+ 
+@@ -687,7 +687,7 @@
+     // Now write the file data itself, for real files.  We honor tar's convention that
+     // only full 512-byte blocks are sent to write().
+     if (!isdir) {
+-        off64_t toWrite = s.st_size;
++        off_t toWrite = s.st_size;
+         while (toWrite > 0) {
+             size_t toRead = toWrite;
+             if (toRead > BUFSIZE) {
+@@ -1334,8 +1334,8 @@
+ get_mod_time(const char* filename, struct timeval times[2])
+ {
+     int err;
+-    struct stat64 st;
+-    err = stat64(filename, &st);
++    struct stat st;
++    err = stat(filename, &st);
+     if (err != 0) {
+         fprintf(stderr, "stat '%s' failed: %s\n", filename, strerror(errno));
+         return errno;
+--- a/libandroidfw/BigBufferStream.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/BigBufferStream.cpp	2026-08-29 00:30:00
+@@ -79,14 +79,14 @@
+   return buffer_->size();
+ }
+ 
+-bool BigBufferInputStream::ReadFullyAtOffset(void* data, size_t byte_count, off64_t offset) {
++bool BigBufferInputStream::ReadFullyAtOffset(void* data, size_t byte_count, off_t offset) {
+   if (byte_count == 0) {
+     return true;
+   }
+   if (offset < 0) {
+     return false;
+   }
+-  if (offset > std::numeric_limits<off64_t>::max() - byte_count) {
++  if (offset > std::numeric_limits<off_t>::max() - byte_count) {
+     return false;
+   }
+   if (offset + byte_count > buffer_->size()) {
+--- a/libandroidfw/FileStream.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/FileStream.cpp	2026-08-29 00:30:00
+@@ -124,7 +124,7 @@
+   return error_;
+ }
+ 
+-bool FileInputStream::ReadFullyAtOffset(void* data, size_t byte_count, off64_t offset) {
++bool FileInputStream::ReadFullyAtOffset(void* data, size_t byte_count, off_t offset) {
+   return base::ReadFullyAtOffset(fd_, data, byte_count, offset);
+ }
+ 
+--- a/libandroidfw/include/android/asset_manager.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/android/asset_manager.h	2026-08-29 00:30:00
+@@ -146,9 +146,9 @@
+  * Uses 64-bit data type for large files as opposed to the 32-bit type used
+  * by AAsset_seek.
+  *
+- * Returns the new position on success, or (off64_t) -1 on error.
++ * Returns the new position on success, or (off_t) -1 on error.
+  */
+-off64_t AAsset_seek64(AAsset* asset, off64_t offset, int whence);
++off_t AAsset_seek64(AAsset* asset, off_t offset, int whence);
+ 
+ /**
+  * Close the asset, freeing all associated resources.
+@@ -172,7 +172,7 @@
+  * Report the total size of the asset data. Reports the size using a 64-bit
+  * number insted of 32-bit as AAsset_getLength.
+  */
+-off64_t AAsset_getLength64(AAsset* asset);
++off_t AAsset_getLength64(AAsset* asset);
+ 
+ /**
+  * Report the total amount of asset data that can be read from the current position.
+@@ -185,7 +185,7 @@
+  *
+  * Uses a 64-bit number instead of a 32-bit number as AAsset_getRemainingLength does.
+  */
+-off64_t AAsset_getRemainingLength64(AAsset* asset);
++off_t AAsset_getRemainingLength64(AAsset* asset);
+ 
+ /**
+  * Open a new file descriptor that can be used to read the asset data. If the
+@@ -207,7 +207,7 @@
+  * Returns < 0 if direct fd access is not possible (for example, if the asset is
+  * compressed).
+  */
+-int AAsset_openFileDescriptor64(AAsset* asset, off64_t* outStart, off64_t* outLength);
++int AAsset_openFileDescriptor64(AAsset* asset, off_t* outStart, off_t* outLength);
+ 
+ /**
+  * Returns whether this asset's internal buffer is allocated in ordinary RAM (i.e. not
+--- a/libandroidfw/include/androidfw/androidfw_c_api.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/androidfw_c_api.h	2026-08-29 00:30:00
+@@ -524,10 +524,10 @@
+ struct AssetDir *AssetManager_openDir(struct AssetManager *asset_manager, const char* dirName);
+ char **AssetManager_getLocales(struct AssetManager *asset_manager, bool exclude_system, bool merge_equivalent_languages);
+ 
+-int Asset_openFileDescriptor(struct Asset *asset, off64_t* outStart, off64_t* outLength);
++int Asset_openFileDescriptor(struct Asset *asset, off_t* outStart, off_t* outLength);
+ const void *Asset_getBuffer(struct Asset *asset, bool wordAligned);
+ int Asset_read(struct Asset *asset, void *buf, size_t count);
+-off64_t Asset_seek(struct Asset *asset, off_t offset, int whence);
++off_t Asset_seek(struct Asset *asset, off_t offset, int whence);
+ size_t Asset_getLength(struct Asset *asset);
+ size_t Asset_getRemainingLength(struct Asset *asset);
+ void Asset_delete(struct Asset *asset);
+--- a/libandroidfw/include/androidfw/ApkAssets.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/ApkAssets.h	2026-08-29 00:30:00
+@@ -44,8 +44,8 @@
+ 
+   // Creates an ApkAssets from an open file descriptor.
+   static ApkAssetsPtr LoadFromFd(base::unique_fd fd, const std::string& debug_name,
+-                                 package_property_t flags = 0U, off64_t offset = 0,
+-                                 off64_t len = AssetsProvider::kUnknownLength);
++                                 package_property_t flags = 0U, off_t offset = 0,
++                                 off_t len = AssetsProvider::kUnknownLength);
+ 
+   // Creates an ApkAssets from an AssetProvider.
+   // The ApkAssets will take care of destroying the AssetsProvider when it is destroyed.
+--- a/libandroidfw/include/androidfw/Asset.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/Asset.h	2026-08-29 00:30:00
+@@ -77,10 +77,10 @@
+ 
+     /*
+      * Seek to the specified offset.  "whence" uses the same values as
+-     * lseek/fseek.  Returns the new position on success, or (off64_t) -1
++     * lseek/fseek.  Returns the new position on success, or (off_t) -1
+      * on failure.
+      */
+-    virtual off64_t seek(off64_t offset, int whence) = 0;
++    virtual off_t seek(off_t offset, int whence) = 0;
+ 
+     /*
+      * Close the asset, freeing all associated resources.
+@@ -108,19 +108,19 @@
+     /*
+      * Get the total amount of data that can be read.
+      */
+-    virtual off64_t getLength(void) const = 0;
++    virtual off_t getLength(void) const = 0;
+ 
+     /*
+      * Get the total amount of data that can be read from the current position.
+      */
+-    virtual off64_t getRemainingLength(void) const = 0;
++    virtual off_t getRemainingLength(void) const = 0;
+ 
+     /*
+      * Open a new file descriptor that can be used to read this asset.
+      * Returns -1 if you can not use the file descriptor (for example if the
+      * asset is compressed).
+      */
+-    virtual int openFileDescriptor(off64_t* outStart, off64_t* outLength) const = 0;
++    virtual int openFileDescriptor(off_t* outStart, off_t* outLength) const = 0;
+ 
+     /*
+      * Return whether this asset's buffer is allocated in RAM (not mmapped).
+@@ -159,7 +159,7 @@
+     Asset(void);        // constructor; only invoked indirectly
+ 
+     /* handle common seek() housekeeping */
+-    off64_t handleSeek(off64_t offset, int whence, off64_t curPosn, off64_t maxPosn);
++    off_t handleSeek(off_t offset, int whence, off_t curPosn, off_t maxPosn);
+ 
+     /* set the asset source string */
+     void setAssetSource(const String8& path) { mAssetSource = path; }
+@@ -189,7 +189,7 @@
+      *
+      * The asset takes ownership of the file descriptor.
+      */
+-    static Asset* createFromFileSegment(int fd, off64_t offset, size_t length,
++    static Asset* createFromFileSegment(int fd, off_t offset, size_t length,
+         AccessMode mode);
+ 
+     /*
+@@ -202,7 +202,7 @@
+      * This may not verify the validity of the compressed data until first
+      * use.
+      */
+-    static Asset* createFromCompressedData(int fd, off64_t offset,
++    static Asset* createFromCompressedData(int fd, off_t offset,
+         int compressionMethod, size_t compressedLength,
+         size_t uncompressedLength, AccessMode mode);
+ #endif
+@@ -259,7 +259,7 @@
+      *
+      * On success, the object takes ownership of "fd".
+      */
+-    status_t openChunk(const char* fileName, int fd, off64_t offset, size_t length);
++    status_t openChunk(const char* fileName, int fd, off_t offset, size_t length);
+ 
+     /*
+      * Use a memory-mapped region.
+@@ -272,21 +272,21 @@
+      * Standard Asset interfaces.
+      */
+     ssize_t read(void* buf, size_t count) override;
+-    off64_t seek(off64_t offset, int whence) override;
++    off_t seek(off_t offset, int whence) override;
+     void close(void) override;
+     const void* getBuffer(bool aligned) override;
+     incfs::map_ptr<void> getIncFsBuffer(bool aligned) override;
+-    off64_t getLength(void) const override { return mLength; }
+-    off64_t getRemainingLength(void) const override { return mLength-mOffset; }
+-    int openFileDescriptor(off64_t* outStart, off64_t* outLength) const override;
++    off_t getLength(void) const override { return mLength; }
++    off_t getRemainingLength(void) const override { return mLength-mOffset; }
++    int openFileDescriptor(off_t* outStart, off_t* outLength) const override;
+     bool isAllocated(void) const override { return mBuf != NULL; }
+ 
+ private:
+     incfs::map_ptr<void> ensureAlignment(const incfs::IncFsFileMap& map);
+ 
+-    off64_t         mStart;         // absolute file offset of start of chunk
+-    off64_t         mLength;        // length of the chunk
+-    off64_t         mOffset;        // current local offset, 0 == mStart
++    off_t         mStart;         // absolute file offset of start of chunk
++    off_t         mLength;        // length of the chunk
++    off_t         mOffset;        // current local offset, 0 == mStart
+     FILE*           mFp;            // for read/seek
+     char*           mFileName;      // for opening
+     base::unique_fd mFd;            // for opening file descriptors
+@@ -316,7 +316,7 @@
+      *
+      * On success, the object takes ownership of "fd".
+      */
+-    status_t openChunk(int fd, off64_t offset, int compressionMethod,
++    status_t openChunk(int fd, off_t offset, int compressionMethod,
+         size_t uncompressedLen, size_t compressedLen);
+ 
+     /*
+@@ -330,20 +330,20 @@
+      * Standard Asset interfaces.
+      */
+     virtual ssize_t read(void* buf, size_t count);
+-    virtual off64_t seek(off64_t offset, int whence);
++    virtual off_t seek(off_t offset, int whence);
+     virtual void close(void);
+     virtual const void* getBuffer(bool aligned);
+     virtual incfs::map_ptr<void> getIncFsBuffer(bool aligned);
+-    virtual off64_t getLength(void) const { return mUncompressedLen; }
+-    virtual off64_t getRemainingLength(void) const { return mUncompressedLen-mOffset; }
+-    virtual int openFileDescriptor(off64_t* /* outStart */, off64_t* /* outLength */) const { return -1; }
++    virtual off_t getLength(void) const { return mUncompressedLen; }
++    virtual off_t getRemainingLength(void) const { return mUncompressedLen-mOffset; }
++    virtual int openFileDescriptor(off_t* /* outStart */, off_t* /* outLength */) const { return -1; }
+     virtual bool isAllocated(void) const { return mBuf != NULL; }
+ 
+ private:
+-    off64_t mStart;           // offset to start of compressed data
+-    off64_t mCompressedLen;   // length of the compressed data
+-    off64_t mUncompressedLen; // length of the uncompressed data
+-    off64_t mOffset;          // current offset, 0 == start of uncomp data
++    off_t mStart;           // offset to start of compressed data
++    off_t mCompressedLen;   // length of the compressed data
++    off_t mUncompressedLen; // length of the uncompressed data
++    off_t mOffset;          // current offset, 0 == start of uncomp data
+     int     mFd;              // for file input
+ 
+     class StreamingZipInflater*         mZipInflater; // for streaming large compressed assets
+--- a/libandroidfw/include/androidfw/AssetsProvider.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/AssetsProvider.h	2026-08-29 00:30:00
+@@ -35,7 +35,7 @@
+ 
+ // Interface responsible for opening and iterating through asset files.
+ struct AssetsProvider {
+-  static constexpr off64_t kUnknownLength = -1;
++  static constexpr off_t kUnknownLength = -1;
+ 
+   // Opens a file for reading. If `file_exists` is not null, it will be set to `true` if the file
+   // exists. This is useful for determining if the file exists but was unable to be opened due to
+@@ -70,8 +70,8 @@
+   // descriptor and will be `length` bytes long.
+   static std::unique_ptr<Asset> CreateAssetFromFd(base::unique_fd fd,
+                                                   const char* path,
+-                                                  off64_t offset = 0,
+-                                                  off64_t length = AssetsProvider::kUnknownLength);
++                                                  off_t offset = 0,
++                                                  off_t length = AssetsProvider::kUnknownLength);
+ 
+   virtual ~AssetsProvider() = default;
+  protected:
+@@ -87,8 +87,8 @@
+   static std::unique_ptr<ZipAssetsProvider> Create(base::unique_fd fd,
+                                                    std::string friendly_name,
+                                                    package_property_t flags,
+-                                                   off64_t offset = 0,
+-                                                   off64_t len = kUnknownLength);
++                                                   off_t offset = 0,
++                                                   off_t len = kUnknownLength);
+ 
+   bool ForEachFile(const std::string& root_path,
+                    base::function_ref<void(StringPiece, FileType)> f) const override;
+--- a/libandroidfw/include/androidfw/BackupHelpers.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/BackupHelpers.h	2026-08-29 00:30:00
+@@ -137,7 +137,7 @@
+         char const* const* files, char const* const *keys, int fileCount);
+ 
+ int write_tarfile(const String8& packageName, const String8& domain,
+-        const String8& rootPath, const String8& filePath, off64_t* outSize,
++        const String8& rootPath, const String8& filePath, off_t* outSize,
+         BackupDataWriter* outputStream);
+ 
+ class RestoreHelperBase
+--- a/libandroidfw/include/androidfw/BigBufferStream.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/BigBufferStream.h	2026-08-29 00:30:00
+@@ -47,7 +47,7 @@
+ 
+   size_t TotalSize() const override;
+ 
+-  bool ReadFullyAtOffset(void* data, size_t byte_count, off64_t offset) override;
++  bool ReadFullyAtOffset(void* data, size_t byte_count, off_t offset) override;
+ 
+  private:
+   DISALLOW_COPY_AND_ASSIGN(BigBufferInputStream);
+--- a/libandroidfw/include/androidfw/FileStream.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/FileStream.h	2026-08-29 00:30:00
+@@ -57,7 +57,7 @@
+ 
+   std::string GetError() const override;
+ 
+-  bool ReadFullyAtOffset(void* data, size_t byte_count, off64_t offset) override;
++  bool ReadFullyAtOffset(void* data, size_t byte_count, off_t offset) override;
+ 
+  private:
+   DISALLOW_COPY_AND_ASSIGN(FileInputStream);
+--- a/libandroidfw/include/androidfw/ResourceTypes.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/ResourceTypes.h	2026-08-29 00:30:00
+@@ -1878,7 +1878,7 @@
+   DataValue data_value;
+   std::string data_string_value;
+   std::optional<android::base::borrowed_fd> data_binary_value;
+-  off64_t binary_data_offset;
++  off_t binary_data_offset;
+   size_t binary_data_size;
+   std::string configuration;
+   bool nine_patch;
+--- a/libandroidfw/include/androidfw/StreamingZipInflater.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/StreamingZipInflater.h	2026-08-29 00:30:00
+@@ -33,7 +33,7 @@
+     static const size_t OUTPUT_CHUNK_SIZE = 64 * 1024;
+ 
+     // Flavor that pages in the compressed data from a fd
+-    StreamingZipInflater(int fd, off64_t compDataStart, size_t uncompSize, size_t compSize);
++    StreamingZipInflater(int fd, off_t compDataStart, size_t uncompSize, size_t compSize);
+ 
+     // Flavor that gets the compressed data from an in-memory buffer
+     StreamingZipInflater(const incfs::IncFsFileMap* dataMap, size_t uncompSize);
+@@ -47,7 +47,7 @@
+     // seeking backwards requires uncompressing fom the beginning, so is very
+     // expensive.  seeking forwards only requires uncompressing from the current
+     // position to the destination.
+-    off64_t seekAbsolute(off64_t absoluteInputPosition);
++    off_t seekAbsolute(off_t absoluteInputPosition);
+ 
+ private:
+     void initInflateState();
+@@ -55,7 +55,7 @@
+ 
+     // where to find the uncompressed data
+     int mFd;
+-    off64_t mInFileStart;         // where the compressed data lives in the file
++    off_t mInFileStart;         // where the compressed data lives in the file
+     const incfs::IncFsFileMap* mDataMap;
+ 
+     z_stream mInflateState;
+@@ -67,7 +67,7 @@
+     size_t mOutTotalSize;       // total uncompressed size of the blob
+ 
+     // current output state bookkeeping
+-    off64_t mOutCurPosition;      // current position in total offset
++    off_t mOutCurPosition;      // current position in total offset
+     size_t mOutLastDecoded;     // last decoded byte + 1 in mOutbuf
+     size_t mOutDeliverable;     // next undelivered byte of decoded output in mOutBuf
+ 
+--- a/libandroidfw/include/androidfw/Streams.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/Streams.h	2026-08-29 00:30:00
+@@ -62,7 +62,7 @@
+   // Returns true if an error occurred. Errors are permanent.
+   virtual bool HadError() const = 0;
+ 
+-  virtual bool ReadFullyAtOffset(void* data, size_t byte_count, off64_t offset) {
++  virtual bool ReadFullyAtOffset(void* data, size_t byte_count, off_t offset) {
+     (void)data;
+     (void)byte_count;
+     (void)offset;
+--- a/libandroidfw/include/androidfw/ZipFileRO.h	1970-01-01 10:00:01
++++ b/libandroidfw/include/androidfw/ZipFileRO.h	2026-08-29 00:30:00
+@@ -148,7 +148,7 @@
+      * appears to be bad.
+      */
+     bool getEntryInfo(ZipEntryRO entry, uint16_t* pMethod,
+-        uint32_t* pUncompLen, uint32_t* pCompLen, off64_t* pOffset,
++        uint32_t* pUncompLen, uint32_t* pCompLen, off_t* pOffset,
+         uint32_t* pModWhen, uint32_t* pCrc32, uint16_t* pExtraFieldSize) const;
+ 
+     /*
+--- a/libandroidfw/ObbFile.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/ObbFile.cpp	2026-08-29 00:30:00
+@@ -116,7 +116,7 @@
+ 
+ bool ObbFile::parseObbFile(int fd)
+ {
+-    off64_t fileLength = lseek64(fd, 0, SEEK_END);
++    off_t fileLength = lseek(fd, 0, SEEK_END);
+ 
+     if (fileLength < kFooterMinSize) {
+         if (fileLength < 0) {
+@@ -131,7 +131,7 @@
+     size_t footerSize;
+ 
+     {
+-        lseek64(fd, fileLength - kFooterTagSize, SEEK_SET);
++        lseek(fd, fileLength - kFooterTagSize, SEEK_SET);
+ 
+         char footer[kFooterTagSize];
+         actual = TEMP_FAILURE_RETRY(read(fd, footer, kFooterTagSize));
+@@ -162,8 +162,8 @@
+         }
+     }
+ 
+-    off64_t fileOffset = fileLength - footerSize - kFooterTagSize;
+-    if (lseek64(fd, fileOffset, SEEK_SET) != fileOffset) {
++    off_t fileOffset = fileLength - footerSize - kFooterTagSize;
++    if (lseek(fd, fileOffset, SEEK_SET) != fileOffset) {
+         ALOGW("seek %lld failed: %s\n", (long long int)fileOffset, strerror(errno));
+         return false;
+     }
+@@ -248,7 +248,7 @@
+         return false;
+     }
+ 
+-    lseek64(fd, 0, SEEK_END);
++    lseek(fd, 0, SEEK_END);
+ 
+     if (mPackageName.size() == 0 || mVersion == -1) {
+         ALOGW("tried to write uninitialized ObbFile data\n");
+--- a/libandroidfw/StreamingZipInflater.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/StreamingZipInflater.cpp	2026-08-29 00:30:00
+@@ -50,7 +50,7 @@
+ /*
+  * Streaming access to compressed asset data in an open fd
+  */
+-StreamingZipInflater::StreamingZipInflater(int fd, off64_t compDataStart,
++StreamingZipInflater::StreamingZipInflater(int fd, off_t compDataStart,
+         size_t uncompSize, size_t compSize) {
+     mFd = fd;
+     mDataMap = NULL;
+@@ -230,7 +230,7 @@
+ // seeking backwards requires uncompressing fom the beginning, so is very
+ // expensive.  seeking forwards only requires uncompressing from the current
+ // position to the destination.
+-off64_t StreamingZipInflater::seekAbsolute(off64_t absoluteInputPosition) {
++off_t StreamingZipInflater::seekAbsolute(off_t absoluteInputPosition) {
+     if (absoluteInputPosition < mOutCurPosition) {
+         // rewind and reprocess the data from the beginning
+         if (!mStreamNeedsInit) {
+--- a/libandroidfw/tests/ApkAssets_test.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/tests/ApkAssets_test.cpp	2026-08-29 00:30:00
+@@ -95,11 +95,11 @@
+                                                      Asset::ACCESS_UNKNOWN);
+   ASSERT_THAT(asset, NotNull());
+ 
+-  off64_t start, length;
++  off_t start, length;
+   unique_fd fd(asset->openFileDescriptor(&start, &length));
+   ASSERT_THAT(fd.get(), Ge(0));
+ 
+-  lseek64(fd.get(), start, SEEK_SET);
++  lseek(fd.get(), start, SEEK_SET);
+ 
+   std::string buffer;
+   buffer.resize(length);
+--- a/libandroidfw/tests/BackupHelpers_test.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/tests/BackupHelpers_test.cpp	2026-08-29 00:30:00
+@@ -37,26 +37,26 @@
+ TEST_F(BackupHelpersTest, WriteTarFileWithSizeLessThan2GB) {
+   TemporaryFile tf;
+   // Allocate a 1 KB file.
+-  off64_t fileSize = 1024;
++  off_t fileSize = 1024;
+   ASSERT_EQ(0, posix_fallocate64(tf.fd, 0, fileSize));
+-  off64_t tarSize = 0;
++  off_t tarSize = 0;
+   int err = write_tarfile(/* packageName */ String8("test-pkg"), /* domain */ String8(""), /* rootpath */ String8(""), /* filePath */ String8(tf.path), /* outSize */ &tarSize, /* writer */ NULL);
+   ASSERT_EQ(err, 0);
+   // Returned tarSize includes 512 B for the header.
+-  off64_t expectedTarSize = fileSize + 512;
++  off_t expectedTarSize = fileSize + 512;
+   ASSERT_EQ(tarSize, expectedTarSize);
+ }
+ 
+ TEST_F(BackupHelpersTest, WriteTarFileWithSizeGreaterThan2GB) {
+   TemporaryFile tf;
+   // Allocate a 2 GB file.
+-  off64_t fileSize = 2LL * 1024LL * 1024LL * 1024LL + 512LL;
++  off_t fileSize = 2LL * 1024LL * 1024LL * 1024LL + 512LL;
+   ASSERT_EQ(0, posix_fallocate64(tf.fd, 0, fileSize));
+-  off64_t tarSize = 0;
++  off_t tarSize = 0;
+   int err = write_tarfile(/* packageName */ String8("test-pkg"), /* domain */ String8(""), /* rootpath */ String8(""), /* filePath */ String8(tf.path), /* outSize */ &tarSize, /* writer */ NULL);
+   ASSERT_EQ(err, 0);
+   // Returned tarSize includes 512 B for the header.
+-  off64_t expectedTarSize = fileSize + 512;
++  off_t expectedTarSize = fileSize + 512;
+   ASSERT_EQ(tarSize, expectedTarSize);
+ }
+ }
+--- a/libandroidfw/tests/FileStream_test.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/tests/FileStream_test.cpp	2026-08-29 00:30:00
+@@ -34,7 +34,7 @@
+   std::string input = "this is a cool string";
+   TemporaryFile file;
+   ASSERT_THAT(TEMP_FAILURE_RETRY(write(file.fd, input.c_str(), input.size())), Eq(21));
+-  lseek64(file.fd, 0, SEEK_SET);
++  lseek(file.fd, 0, SEEK_SET);
+ 
+   // Use a small buffer size so that we can call Next() a few times.
+   FileInputStream in(file.release(), 10u);
+@@ -117,7 +117,7 @@
+ 
+   ASSERT_TRUE(out.Flush());
+ 
+-  lseek64(file.fd, 0, SEEK_SET);
++  lseek(file.fd, 0, SEEK_SET);
+ 
+   std::string actual;
+   ASSERT_TRUE(android::base::ReadFdToString(file.fd, &actual));
+--- a/libandroidfw/ZipFileRO.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/ZipFileRO.cpp	2026-08-29 00:30:00
+@@ -119,7 +119,7 @@
+  * appear to be bogus.
+  */
+ bool ZipFileRO::getEntryInfo(ZipEntryRO entry, uint16_t* pMethod,
+-    uint32_t* pUncompLen, uint32_t* pCompLen, off64_t* pOffset,
++    uint32_t* pUncompLen, uint32_t* pCompLen, off_t* pOffset,
+     uint32_t* pModWhen, uint32_t* pCrc32, uint16_t* pExtraFieldSize) const
+ {
+     const _ZipEntryRO* zipEntry = reinterpret_cast<_ZipEntryRO*>(entry);
+--- a/libandroidfw/ZipUtils.cpp	1970-01-01 10:00:01
++++ b/libandroidfw/ZipUtils.cpp	2026-08-29 00:30:00
+@@ -40,7 +40,7 @@
+     explicit FileReader(FILE* fp) : Reader(), mFp(fp), mCurrentOffset(0) {
+     }
+ 
+-    bool ReadAtOffset(uint8_t* buf, size_t len, off64_t offset) const override {
++    bool ReadAtOffset(uint8_t* buf, size_t len, off_t offset) const override {
+         // Data is usually requested sequentially, so this helps avoid pointless
+         // fseeks every time we perform a read. There's an impedence mismatch
+         // here because the original API was designed around pread and pwrite.
+@@ -63,7 +63,7 @@
+ 
+   private:
+     FILE* mFp;
+-    mutable off64_t mCurrentOffset;
++    mutable off_t mCurrentOffset;
+ };
+ 
+ class FdReader final : public zip_archive::Reader {
+@@ -71,7 +71,7 @@
+     explicit FdReader(int fd) : mFd(fd) {
+     }
+ 
+-    bool ReadAtOffset(uint8_t* buf, size_t len, off64_t offset) const override {
++    bool ReadAtOffset(uint8_t* buf, size_t len, off_t offset) const override {
+       return android::base::ReadFullyAtOffset(mFd, buf, len, offset);
+     }
+ 
+@@ -86,7 +86,7 @@
+         mInputSize(inputSize) {
+     }
+ 
+-    bool ReadAtOffset(uint8_t* buf, size_t len, off64_t offset) const override {
++    bool ReadAtOffset(uint8_t* buf, size_t len, off_t offset) const override {
+         if (mInputSize < len || offset > mInputSize - len) {
+             return false;
+         }
+--- a/libbase/Android.bp	1970-01-01 10:00:01
++++ b/libbase/Android.bp	2026-08-29 00:30:00
+@@ -35,7 +35,7 @@
+     name: "libbase_cflags_defaults",
+     cflags: [
+         "-Wall",
+-        "-Werror",
++        "",
+         "-Wextra",
+     ],
+     target: {
+--- a/libziparchive/Android.bp	1970-01-01 10:00:01
++++ b/libziparchive/Android.bp	2026-08-29 00:30:00
+@@ -24,7 +24,7 @@
+     cflags: [
+         // ZLIB_CONST turns on const for input buffers, which is pretty standard.
+         "-DZLIB_CONST",
+-        "-Werror",
++        "",
+         "-D_FILE_OFFSET_BITS=64",
+     ],
+     cppflags: [
+--- a/libziparchive/include/ziparchive/zip_archive_stream_entry.h	1970-01-01 10:00:01
++++ b/libziparchive/include/ziparchive/zip_archive_stream_entry.h	2026-08-29 00:30:00
+@@ -41,6 +41,6 @@
+ 
+   ZipArchiveHandle handle_;
+ 
+-  off64_t offset_ = 0;
++  off_t offset_ = 0;
+   uint32_t crc32_ = 0u;
+ };
+--- a/libziparchive/include/ziparchive/zip_archive.h	1970-01-01 10:00:01
++++ b/libziparchive/include/ziparchive/zip_archive.h	2026-08-29 00:30:00
+@@ -76,7 +76,7 @@
+   bool zip64_format_size{false};
+ 
+   // The offset to the start of data for this ZipEntry.
+-  off64_t offset;
++  off_t offset;
+ 
+   // The version of zip and the host file system this came from (for zipinfo).
+   uint16_t version_made_by;
+@@ -174,7 +174,7 @@
+                       bool assume_ownership = true);
+ 
+ int32_t OpenArchiveFdRange(const int fd, const char* debugFileName, ZipArchiveHandle* handle,
+-                           off64_t length, off64_t offset, bool assume_ownership = true);
++                           off_t length, off_t offset, bool assume_ownership = true);
+ 
+ int32_t OpenArchiveFromMemory(const void* address, size_t length, const char* debugFileName,
+                               ZipArchiveHandle* handle);
+@@ -190,7 +190,7 @@
+ /** See GetArchiveInfo(). */
+ struct ZipArchiveInfo {
+   /** The size in bytes of the archive itself. Used by zipinfo. */
+-  off64_t archive_size;
++  off_t archive_size;
+   /** The number of entries in the archive. */
+   uint64_t entry_count;
+ };
+@@ -287,7 +287,7 @@
+  * Returns the offset of the zip archive in the backing file descriptor, or 0 if the zip archive is
+  * not backed by a file descriptor.
+  */
+-off64_t GetFileDescriptorOffset(const ZipArchiveHandle archive);
++off_t GetFileDescriptorOffset(const ZipArchiveHandle archive);
+ 
+ const char* ErrorCodeString(int32_t error_code);
+ 
+@@ -345,7 +345,7 @@
+   // Get |len| bytes of data starting at |offset|, either by copying them into the supplied |buf|,
+   // or returning an internal buffer directly.
+   // Returns a pointer to the data (which can be different from |buf|), or |nullptr| on error.
+-  virtual const uint8_t* AccessAtOffset(uint8_t* buf, size_t len, off64_t offset) const = 0;
++  virtual const uint8_t* AccessAtOffset(uint8_t* buf, size_t len, off_t offset) const = 0;
+ 
+   // Returns |true| if the reader doesn't need an external buffer but instead returns its own one.
+   virtual bool IsZeroCopy() const = 0;
+@@ -360,11 +360,11 @@
+ 
+ class Reader : public LowLevelReader {
+  public:
+-  virtual bool ReadAtOffset(uint8_t* buf, size_t len, off64_t offset) const = 0;
++  virtual bool ReadAtOffset(uint8_t* buf, size_t len, off_t offset) const = 0;
+ 
+   // Ensure the existing classes implementing Reader don't need to bother with
+   // the new method.
+-  const uint8_t* AccessAtOffset(uint8_t* buf, size_t len, off64_t offset) const override;
++  const uint8_t* AccessAtOffset(uint8_t* buf, size_t len, off_t offset) const override;
+   bool IsZeroCopy() const override;
+ 
+  protected:
+--- a/libziparchive/include/ziparchive/zip_writer.h	1970-01-01 10:00:01
++++ b/libziparchive/include/ziparchive/zip_writer.h	2026-08-29 00:30:00
+@@ -86,7 +86,7 @@
+     uint16_t last_mod_time;
+     uint16_t last_mod_date;
+     uint16_t padding_length;
+-    off64_t local_file_header_offset;
++    off_t local_file_header_offset;
+   };
+ 
+   static const char* ErrorCodeString(int32_t error_code);
+@@ -184,7 +184,7 @@
+ 
+   FILE* file_;
+   bool seekable_;
+-  off64_t current_offset_;
++  off_t current_offset_;
+   State state_;
+   std::vector<FileEntry> files_;
+   FileEntry current_file_entry_;
+--- a/libziparchive/zip_archive_private.h	1970-01-01 10:00:01
++++ b/libziparchive/zip_archive_private.h	2026-08-29 00:30:00
+@@ -34,29 +34,29 @@
+ 
+ class MappedZipFile {
+  public:
+-  explicit MappedZipFile(int fd, off64_t length = -1, off64_t offset = 0);
++  explicit MappedZipFile(int fd, off_t length = -1, off_t offset = 0);
+ 
+   explicit MappedZipFile(const void* address, size_t length)
+-      : base_ptr_(address), data_length_(static_cast<off64_t>(length)) {}
++      : base_ptr_(address), data_length_(static_cast<off_t>(length)) {}
+ 
+   int GetFileDescriptor() const;
+ 
+   const void* GetBasePtr() const;
+ 
+-  off64_t GetFileOffset() const;
++  off_t GetFileOffset() const;
+ 
+-  off64_t GetFileLength() const;
++  off_t GetFileLength() const;
+ 
+-  const uint8_t* ReadAtOffset(uint8_t* buf, size_t len, off64_t off) const;
++  const uint8_t* ReadAtOffset(uint8_t* buf, size_t len, off_t off) const;
+ 
+  private:
+   std::unique_ptr<android::base::MappedFile> mapped_file_;
+ 
+   const int fd_ = -1;
+-  const off64_t fd_offset_ = 0;
++  const off_t fd_offset_ = 0;
+ 
+   const void* base_ptr_ = nullptr;
+-  mutable off64_t data_length_ = -1;
++  mutable off_t data_length_ = -1;
+ };
+ 
+ class CentralDirectory {
+@@ -67,7 +67,7 @@
+ 
+   size_t GetMapLength() const { return length_; }
+ 
+-  void Initialize(const void* map_base_ptr, off64_t cd_start_offset, size_t cd_size);
++  void Initialize(const void* map_base_ptr, off_t cd_start_offset, size_t cd_size);
+ 
+  private:
+   const uint8_t* base_ptr_;
+@@ -80,7 +80,7 @@
+   const bool close_file;
+ 
+   // mapped central directory area
+-  off64_t directory_offset;
++  off_t directory_offset;
+   CentralDirectory central_directory;
+   std::unique_ptr<android::base::MappedFile> directory_map;
+ 
+@@ -92,7 +92,7 @@
+   ZipArchive(const void* address, size_t length);
+   ~ZipArchive();
+ 
+-  bool InitializeCentralDirectory(off64_t cd_start_offset, size_t cd_size);
++  bool InitializeCentralDirectory(off_t cd_start_offset, size_t cd_size);
+ };
+ 
+ // Reads the unaligned data of type |T| and auto increment the offset.
+--- a/libziparchive/zip_archive_test.cc	1970-01-01 10:00:01
++++ b/libziparchive/zip_archive_test.cc	2026-08-29 00:30:00
+@@ -197,7 +197,7 @@
+ TEST(ziparchive, OpenAssumeFdRangeOwnership) {
+   int fd = open((test_data_dir + "/" + kValidZip).c_str(), O_RDONLY | O_BINARY);
+   ASSERT_NE(-1, fd);
+-  const off64_t length = lseek64(fd, 0, SEEK_END);
++  const off_t length = lseek(fd, 0, SEEK_END);
+   ASSERT_NE(-1, length);
+   ZipArchiveHandle handle;
+   ASSERT_EQ(0, OpenArchiveFdRange(fd, "OpenWithAssumeFdOwnership", &handle,
+@@ -210,7 +210,7 @@
+ TEST(ziparchive, OpenDoNotAssumeFdRangeOwnership) {
+   int fd = open((test_data_dir + "/" + kValidZip).c_str(), O_RDONLY | O_BINARY);
+   ASSERT_NE(-1, fd);
+-  const off64_t length = lseek(fd, 0, SEEK_END);
++  const off_t length = lseek(fd, 0, SEEK_END);
+   ASSERT_NE(-1, length);
+   ZipArchiveHandle handle;
+   ASSERT_EQ(0, OpenArchiveFdRange(fd, "OpenWithAssumeFdOwnership", &handle,
+@@ -426,7 +426,7 @@
+   ASSERT_EQ(0, lseek(tmp_file.fd, 0, SEEK_SET));
+   ASSERT_EQ(0, OpenArchiveFdRange(tmp_file.fd, "OpenArchiveFdRange", &handle,
+                                   valid_content.size(),
+-                                  static_cast<off64_t>(leading_garbage.size())));
++                                  static_cast<off_t>(leading_garbage.size())));
+ 
+   // An entry that's deflated.
+   ZipEntry64 data;
+@@ -904,7 +904,7 @@
+  public:
+   VectorReader(const std::vector<uint8_t>& input) : Reader(), input_(input) {}
+ 
+-  bool ReadAtOffset(uint8_t* buf, size_t len, off64_t offset) const {
++  bool ReadAtOffset(uint8_t* buf, size_t len, off_t offset) const {
+     if ((offset + len) < input_.size()) {
+       return false;
+     }
+@@ -936,7 +936,7 @@
+  public:
+   BadReader() : Reader() {}
+ 
+-  bool ReadAtOffset(uint8_t*, size_t, off64_t) const { return false; }
++  bool ReadAtOffset(uint8_t*, size_t, off_t) const { return false; }
+ };
+ 
+ class BadWriter final : public zip_archive::Writer {
+--- a/libziparchive/zip_archive.cc	1970-01-01 10:00:01
++++ b/libziparchive/zip_archive.cc	2026-08-29 00:30:00
+@@ -43,7 +43,7 @@
+ #include <vector>
+ 
+ #if defined(__APPLE__)
+-#define lseek64 lseek
++#define lseek lseek
+ #endif
+ 
+ #if defined(__BIONIC__)
+@@ -211,7 +211,7 @@
+ }
+ 
+ static ZipError FindCentralDirectoryInfoForZip64(const char* debugFileName, ZipArchive* archive,
+-                                                 off64_t eocdOffset, CentralDirectoryInfo* cdInfo) {
++                                                 off_t eocdOffset, CentralDirectoryInfo* cdInfo) {
+   if (eocdOffset <= sizeof(Zip64EocdLocator)) {
+     ALOGW("Zip: %s: Not enough space for zip64 eocd locator", debugFileName);
+     return kInvalidFile;
+@@ -276,11 +276,11 @@
+ 
+ static ZipError FindCentralDirectoryInfo(const char* debug_file_name,
+                                          ZipArchive* archive,
+-                                         off64_t file_length,
++                                         off_t file_length,
+                                          std::span<uint8_t> scan_buffer,
+                                          CentralDirectoryInfo* cdInfo) {
+   const auto read_amount = static_cast<uint32_t>(scan_buffer.size());
+-  const off64_t search_start = file_length - read_amount;
++  const off_t search_start = file_length - read_amount;
+ 
+   const auto data = archive->mapped_zip.ReadAtOffset(scan_buffer.data(), read_amount, search_start);
+   if (!data) {
+@@ -311,13 +311,13 @@
+     return kInvalidFile;
+   }
+ 
+-  const off64_t eocd_offset = search_start + i;
++  const off_t eocd_offset = search_start + i;
+   auto eocd = reinterpret_cast<const EocdRecord*>(data + i);
+   /*
+    * Verify that there's no trailing space at the end of the central directory
+    * and its comment.
+    */
+-  const off64_t calculated_length = eocd_offset + sizeof(EocdRecord) + eocd->comment_length;
++  const off_t calculated_length = eocd_offset + sizeof(EocdRecord) + eocd->comment_length;
+   if (calculated_length != file_length) {
+     ALOGW("Zip: %" PRId64 " extraneous bytes at the end of the central directory",
+           static_cast<int64_t>(file_length - calculated_length));
+@@ -340,7 +340,7 @@
+    * Grab the CD offset and size, and the number of entries in the
+    * archive and verify that they look reasonable.
+    */
+-  if (static_cast<off64_t>(eocd->cd_start_offset) + eocd->cd_size > eocd_offset) {
++  if (static_cast<off_t>(eocd->cd_start_offset) + eocd->cd_size > eocd_offset) {
+     ALOGW("Zip: bad offsets (dir %" PRIu32 ", size %" PRIu32 ", eocd %" PRId64 ")",
+           eocd->cd_start_offset, eocd->cd_size, static_cast<int64_t>(eocd_offset));
+     return kInvalidOffset;
+@@ -363,7 +363,7 @@
+ static ZipError MapCentralDirectory(const char* debug_file_name, ZipArchive* archive) {
+   // Test file length. We want to make sure the file is small enough to be a zip
+   // file.
+-  off64_t file_length = archive->mapped_zip.GetFileLength();
++  off_t file_length = archive->mapped_zip.GetFileLength();
+   if (file_length == -1) {
+     return kInvalidFile;
+   }
+@@ -373,7 +373,7 @@
+     return kInvalidFile;
+   }
+ 
+-  if (file_length < static_cast<off64_t>(sizeof(EocdRecord))) {
++  if (file_length < static_cast<off_t>(sizeof(EocdRecord))) {
+     ALOGV("Zip: length %" PRId64 " is too small to be zip", static_cast<int64_t>(file_length));
+     return kInvalidFile;
+   }
+@@ -390,7 +390,7 @@
+    *
+    * We start by pulling in the last part of the file.
+    */
+-  const auto read_amount = uint32_t(std::min<off64_t>(file_length, kMaxEOCDSearch));
++  const auto read_amount = uint32_t(std::min<off_t>(file_length, kMaxEOCDSearch));
+ 
+   CentralDirectoryInfo cdInfo = {};
+   std::vector<uint8_t> scan_buffer(read_amount);
+@@ -425,7 +425,7 @@
+         cdInfo.cd_size, cdInfo.cd_start_offset);
+ 
+   // It all looks good.  Create a mapping for the CD, and set the fields in archive.
+-  if (!archive->InitializeCentralDirectory(static_cast<off64_t>(cdInfo.cd_start_offset),
++  if (!archive->InitializeCentralDirectory(static_cast<off_t>(cdInfo.cd_start_offset),
+                                            static_cast<size_t>(cdInfo.cd_size))) {
+     return kMmapFailed;
+   }
+@@ -594,7 +594,7 @@
+       return kInvalidFile;
+     }
+ 
+-    off64_t local_header_offset = cdr->local_file_header_offset;
++    off_t local_header_offset = cdr->local_file_header_offset;
+     if (local_header_offset == UINT32_MAX) {
+       Zip64ExtendedInfo zip64_info{};
+       if (auto status = ParseZip64ExtendedInfoInExtraField(
+@@ -680,7 +680,7 @@
+ }
+ 
+ int32_t OpenArchiveFdRange(int fd, const char* debug_file_name, ZipArchiveHandle* handle,
+-                           off64_t length, off64_t offset, bool assume_ownership) {
++                           off_t length, off_t offset, bool assume_ownership) {
+   ZipArchive* archive = new ZipArchive(MappedZipFile(fd, length, offset), assume_ownership);
+   *handle = archive;
+ 
+@@ -741,7 +741,7 @@
+   // larger than 24 bytes. And if the descriptor contains invalid data, we'll abort due to
+   // kInconsistentInformation.
+   uint8_t ddBuf[24];
+-  off64_t offset = entry->offset;
++  off_t offset = entry->offset;
+   if (entry->method != kCompressStored) {
+     offset += entry->compressed_length;
+   } else {
+@@ -812,7 +812,7 @@
+   // The offset of the start of the central directory in the zipfile.
+   // We keep this lying around so that we can check all our lengths
+   // and our per-file structures.
+-  const off64_t cd_offset = archive->directory_offset;
++  const off_t cd_offset = archive->directory_offset;
+ 
+   // Fill out the compression method, modification time, crc32
+   // and other interesting attributes from the central directory. These
+@@ -826,7 +826,7 @@
+   // Figure out the local header offset from the central directory. The
+   // actual file data will begin after the local header and the name /
+   // extra comments.
+-  off64_t local_header_offset = cdr->local_file_header_offset;
++  off_t local_header_offset = cdr->local_file_header_offset;
+   // One of the info field is UINT32_MAX, try to parse the real value in the zip64 extended info in
+   // the extra field.
+   if (cdr->uncompressed_size == UINT32_MAX || cdr->compressed_size == UINT32_MAX ||
+@@ -847,7 +847,7 @@
+         cdr->uncompressed_size == UINT32_MAX || cdr->compressed_size == UINT32_MAX;
+   }
+ 
+-  off64_t local_header_end;
++  off_t local_header_end;
+   if (__builtin_add_overflow(local_header_offset, sizeof(LocalFileHeader), &local_header_end) ||
+       local_header_end >= cd_offset) {
+     // We tested >= because the name that follows can't be zero length.
+@@ -878,12 +878,12 @@
+           std::string(entryName).c_str(), lfh->file_name_length, name_length);
+     return kInconsistentInformation;
+   }
+-  off64_t name_offset;
++  off_t name_offset;
+   if (__builtin_add_overflow(local_header_offset, sizeof(LocalFileHeader), &name_offset)) {
+     ALOGW("Zip: lfh name offset invalid");
+     return kInvalidOffset;
+   }
+-  off64_t name_end;
++  off_t name_end;
+   if (__builtin_add_overflow(name_offset, name_length, &name_end) || name_end > cd_offset) {
+     // We tested > cd_offset here because the file data that follows can be zero length.
+     ALOGW("Zip: lfh name length invalid");
+@@ -912,7 +912,7 @@
+   }
+ 
+   // Check the extra field length, regardless of whether it's used, or what it's used for.
+-  const off64_t lfh_extra_field_offset = name_offset + lfh->file_name_length;
++  const off_t lfh_extra_field_offset = name_offset + lfh->file_name_length;
+   const uint16_t lfh_extra_field_size = lfh->extra_field_length;
+   if (lfh_extra_field_offset > cd_offset - lfh_extra_field_size) {
+     ALOGW("Zip: extra field has a bad size for entry %s", std::string(entryName).c_str());
+@@ -1013,7 +1013,7 @@
+   // Currently only needed to implement zipinfo.
+   data->is_text = (cdr->internal_file_attributes & 1);
+ 
+-  const off64_t data_offset = local_header_offset + sizeof(LocalFileHeader) +
++  const off_t data_offset = local_header_offset + sizeof(LocalFileHeader) +
+                               lfh->file_name_length + lfh->extra_field_length;
+   if (data_offset > cd_offset) {
+     ALOGW("Zip: bad data offset %" PRId64 " in zip", static_cast<int64_t>(data_offset));
+@@ -1251,7 +1251,7 @@
+   // Returns a valid FileWriter on success, |nullopt| if an error occurred.
+   static std::optional<FileWriter> Create(int fd, const ZipEntry64* entry) {
+     const uint64_t declared_length = entry->uncompressed_length;
+-    const off64_t current_offset = lseek64(fd, 0, SEEK_CUR);
++    const off_t current_offset = lseek(fd, 0, SEEK_CUR);
+     if (current_offset == -1) {
+       ALOGE("Zip: unable to seek to current location on fd %d: %s", fd, strerror(errno));
+       return {};
+@@ -1338,7 +1338,7 @@
+   EntryReader(const MappedZipFile& zip_file, const ZipEntry64* entry)
+       : Reader(), zip_file_(zip_file), entry_(entry) {}
+ 
+-  bool ReadAtOffset(uint8_t* buf, size_t len, off64_t offset) const override {
++  bool ReadAtOffset(uint8_t* buf, size_t len, off_t offset) const override {
+     const auto res = zip_file_.ReadAtOffset(buf, len, entry_->offset + offset);
+     if (!res) return false;
+     if (res != buf) {
+@@ -1347,7 +1347,7 @@
+     return true;
+   }
+ 
+-  const uint8_t* AccessAtOffset(uint8_t* buf, size_t len, off64_t offset) const override {
++  const uint8_t* AccessAtOffset(uint8_t* buf, size_t len, off_t offset) const override {
+     return zip_file_.ReadAtOffset(buf, len, entry_->offset + offset);
+   }
+ 
+@@ -1373,7 +1373,7 @@
+   return {};
+ }
+ 
+-const uint8_t* Reader::AccessAtOffset(uint8_t* buf, size_t len, off64_t offset) const {
++const uint8_t* Reader::AccessAtOffset(uint8_t* buf, size_t len, off_t offset) const {
+   return ReadAtOffset(buf, len, offset) ? buf : nullptr;
+ }
+ 
+@@ -1467,7 +1467,7 @@
+     /* read as much as we can */
+     if (zstream.avail_in == 0) {
+       const auto read_size = static_cast<uint32_t>(std::min(remaining_bytes, max_read_size));
+-      const off64_t offset = (compressed_length - remaining_bytes);
++      const off_t offset = (compressed_length - remaining_bytes);
+       auto buf = reader.AccessAtOffset(read_buf.data(), read_size, offset);
+       if (!buf) {
+         ALOGW("Zip: inflate read failed, getSize = %u: %s", read_size, strerror(errno));
+@@ -1569,7 +1569,7 @@
+   uLong crc = 0;
+   while (count < length) {
+     uint64_t remaining = length - count;
+-    off64_t offset = entry->offset + count;
++    off_t offset = entry->offset + count;
+ 
+     // Safe conversion because even kBufSize is narrow enough for a 32 bit signed value.
+     const auto block_size = static_cast<uint32_t>(std::min(remaining, max_read_size));
+@@ -1664,7 +1664,7 @@
+   return archive->mapped_zip.GetFileDescriptor();
+ }
+ 
+-off64_t GetFileDescriptorOffset(const ZipArchiveHandle archive) {
++off_t GetFileDescriptorOffset(const ZipArchiveHandle archive) {
+   return archive->mapped_zip.GetFileOffset();
+ }
+ 
+@@ -1703,7 +1703,7 @@
+ 
+ #endif  // !ZIPARCHIVE_DISABLE_CALLBACK_API && !defined(_WIN32)
+ 
+-MappedZipFile::MappedZipFile(int fd, off64_t length, off64_t offset)
++MappedZipFile::MappedZipFile(int fd, off_t length, off_t offset)
+     : fd_(fd), fd_offset_(offset), data_length_(length) {
+   // TODO(b/287285733): restore mmap() when the cold cache regression is fixed.
+ #if 0
+@@ -1733,11 +1733,11 @@
+   return base_ptr_;
+ }
+ 
+-off64_t MappedZipFile::GetFileOffset() const {
++off_t MappedZipFile::GetFileOffset() const {
+   return fd_offset_;
+ }
+ 
+-off64_t MappedZipFile::GetFileLength() const {
++off_t MappedZipFile::GetFileLength() const {
+   if (data_length_ >= 0) {
+     return data_length_;
+   }
+@@ -1767,7 +1767,7 @@
+ }
+ 
+ // Attempts to read |len| bytes into |buf| at offset |off|.
+-const uint8_t* MappedZipFile::ReadAtOffset(uint8_t* buf, size_t len, off64_t off) const {
++const uint8_t* MappedZipFile::ReadAtOffset(uint8_t* buf, size_t len, off_t off) const {
+   if (base_ptr_) {
+     if (off < 0 || data_length_ < len || off > data_length_ - len) {
+       ALOGE("Zip: invalid offset: %" PRId64 ", read length: %zu, data length: %" PRId64, off, len,
+@@ -1787,24 +1787,24 @@
+     return nullptr;
+   }
+ 
+-  off64_t read_offset;
++  off_t read_offset;
+   if (__builtin_add_overflow(fd_offset_, off, &read_offset)) {
+     ALOGE("Zip: invalid read offset %" PRId64 " overflows, fd offset %" PRId64, off, fd_offset_);
+     return nullptr;
+   }
+ 
+   if (data_length_ != -1) {
+-    off64_t read_end;
+-    if (len > std::numeric_limits<off64_t>::max() ||
+-        __builtin_add_overflow(off, static_cast<off64_t>(len), &read_end)) {
++    off_t read_end;
++    if (len > std::numeric_limits<off_t>::max() ||
++        __builtin_add_overflow(off, static_cast<off_t>(len), &read_end)) {
+       ALOGE("Zip: invalid read length %" PRId64 " overflows, offset %" PRId64,
+-            static_cast<off64_t>(len), off);
++            static_cast<off_t>(len), off);
+       return nullptr;
+     }
+ 
+     if (read_end > data_length_) {
+       ALOGE("Zip: invalid read length %" PRId64 " exceeds data length %" PRId64 ", offset %" PRId64,
+-            static_cast<off64_t>(len), data_length_, off);
++            static_cast<off_t>(len), data_length_, off);
+       return nullptr;
+     }
+   }
+@@ -1817,13 +1817,13 @@
+   return buf;
+ }
+ 
+-void CentralDirectory::Initialize(const void* map_base_ptr, off64_t cd_start_offset,
++void CentralDirectory::Initialize(const void* map_base_ptr, off_t cd_start_offset,
+                                   size_t cd_size) {
+   base_ptr_ = static_cast<const uint8_t*>(map_base_ptr) + cd_start_offset;
+   length_ = cd_size;
+ }
+ 
+-bool ZipArchive::InitializeCentralDirectory(off64_t cd_start_offset, size_t cd_size) {
++bool ZipArchive::InitializeCentralDirectory(off_t cd_start_offset, size_t cd_size) {
+   if (!mapped_zip.GetBasePtr()) {
+     directory_map = android::base::MappedFile::FromFd(mapped_zip.GetFileDescriptor(),
+                                                       mapped_zip.GetFileOffset() + cd_start_offset,
+@@ -1843,7 +1843,7 @@
+           "pointer");
+       return false;
+     }
+-    if (static_cast<off64_t>(cd_start_offset) + static_cast<off64_t>(cd_size) >
++    if (static_cast<off_t>(cd_start_offset) + static_cast<off_t>(cd_size) >
+         mapped_zip.GetFileLength()) {
+       ALOGE(
+           "Zip: Failed to map central directory, offset exceeds mapped memory region (start_offset "

@@ -1,0 +1,638 @@
+--- a/art/build/Android.bp	1970-01-01 10:00:01
++++ b/art/build/Android.bp	2026-08-29 00:30:01
+@@ -63,7 +63,7 @@
+         "-fno-rtti",
+         "-ggdb3",
+         "-Wall",
+-        "-Werror",
++        "",
+         "-Wextra",
+         "-Wstrict-aliasing",
+         "-fstrict-aliasing",
+--- a/art/build/Android.common_build.mk	1970-01-01 10:00:01
++++ b/art/build/Android.common_build.mk	2026-08-29 00:30:01
+@@ -189,7 +189,7 @@
+   -DART_STACK_OVERFLOW_GAP_arm=8192 -DART_STACK_OVERFLOW_GAP_arm64=8192 -DART_STACK_OVERFLOW_GAP_mips=16384 -DART_STACK_OVERFLOW_GAP_mips64=16384 -DART_STACK_OVERFLOW_GAP_x86=8192 -DART_STACK_OVERFLOW_GAP_x86_64=8192 \
+   -DART_FRAME_SIZE_LIMIT=1736 \
+   -DART_DEFAULT_COMPACT_DEX_LEVEL=$(ART_DEFAULT_COMPACT_DEX_LEVEL) \
+-  -I/usr/local/include/vixl \
++  -I@VIXL_INCLUDE@ \
+   -I/usr/include/vixl
+ 
+ ifneq ($(C_INCLUDE_PATH),)
+@@ -311,7 +311,7 @@
+ ART_HOST_LDLIBS :=
+ ifneq ($(ART_HOST_CLANG),true)
+   # GCC lacks libc++ assumed atomic operations, grab via libatomic.
+-  ART_HOST_LDLIBS += -latomic
++  ART_HOST_LDLIBS += 
+ endif
+ 
+ # Support for disabling certain builds.
+--- a/art/build/Android.executable.mk	1970-01-01 10:00:01
++++ b/art/build/Android.executable.mk	2026-08-29 00:30:01
+@@ -75,7 +75,7 @@
+   LOCAL_CFLAGS := $(ART_EXECUTABLES_CFLAGS)
+   # Mac OS linker doesn't understand --export-dynamic.
+   ifneq ($$(HOST_OS)-$$(art_target_or_host),darwin-host)
+-    LOCAL_LDFLAGS := -Wl,--export-dynamic
++    LOCAL_LDFLAGS := 
+   endif
+ 
+   ifeq ($$(art_target_or_host),target)
+--- a/art/dalvikvm/Android.bp	1970-01-01 10:00:01
++++ b/art/dalvikvm/Android.bp	2026-08-29 00:30:01
+@@ -22,7 +22,7 @@
+     srcs: ["dalvikvm.cc"],
+     cflags: [
+         "-Wall",
+-        "-Werror",
++        "",
+         "-Wextra",
+     ],
+     shared_libs: [
+--- a/art/dalvikvm/Android.mk	1970-01-01 10:00:01
++++ b/art/dalvikvm/Android.mk	2026-08-29 00:30:01
+@@ -9,7 +9,7 @@
+         $(ART_HOST_CFLAGS) \
+         -Wall \
+         -Wextra
+-LOCAL_LDFLAGS  = -Wl,--export-dynamic
++LOCAL_LDFLAGS  = 
+ LOCAL_SRC_FILES = dalvikvm.cc
+ LOCAL_SHARED_LIBRARIES = libnativehelper
+ LOCAL_WHOLE_STATIC_LIBRARIES = libsigchain
+--- a/art/dex2oat/Android.bp	1970-01-01 10:00:01
++++ b/art/dex2oat/Android.bp	2026-08-29 00:30:01
+@@ -200,10 +200,10 @@
+ 
+     arch: {
+         arm: {
+-            host_ldlibs: ["-latomic"],
++            host_ldlibs: [""],
+         },
+         arm64: {
+-            host_ldlibs: ["-latomic"],
++            host_ldlibs: [""],
+         },
+     },
+ }
+--- a/art/dex2oat/Android.mk	1970-01-01 10:00:01
++++ b/art/dex2oat/Android.mk	2026-08-29 00:30:01
+@@ -140,8 +140,8 @@
+ libartd-dex2oat_static_defaults_EXPORT_INCLUDE_DIRS = $(libart-dex2oat_static_base_defaults_EXPORT_INCLUDE_DIRS)
+ libartd-dex2oat_static_defaults_GENERATED_SOURCES = $(libart-dex2oat_static_base_defaults_GENERATED_SOURCES)
+ 
+-dex2oat-defaults_arm_HOST_LDLIBS = -latomic
+-dex2oat-defaults_arm64_HOST_LDLIBS = -latomic
++dex2oat-defaults_arm_HOST_LDLIBS = 
++dex2oat-defaults_arm64_HOST_LDLIBS = 
+ dex2oat-defaults_LDLIBS   =  \
+         $(dex2oat-defaults_$(HOST_ARCH)_HOST_LDLIBS) \
+         -lcrypto \
+--- a/art/dex2oat/dex2oat.cc	1970-01-01 10:00:01
++++ b/art/dex2oat/dex2oat.cc	2026-08-29 00:29:59
+@@ -920,7 +920,7 @@
+       if(android_root_.empty()) {
+         Dl_info libart_so_dl_info;
+         // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+-        dladdr(art_sigsegv_fault, &libart_so_dl_info);
++        dladdr(reinterpret_cast<const void*>(art_sigsegv_fault), &libart_so_dl_info);
+         // make sure we didn't get NULL
+         if(libart_so_dl_info.dli_fname) {
+           // it's simpler if we can modify the string, so strdup it
+--- a/art/disassembler/Android.mk	1970-01-01 10:00:01
++++ b/art/disassembler/Android.mk	2026-08-29 00:30:01
+@@ -74,7 +74,7 @@
+ LOCAL_LDLIBS   = $(libart-disassembler-defaults_LDLIBS)
+ LOCAL_SRC_FILES = $(libart-disassembler-defaults_SRCS)
+ LOCAL_SHARED_LIBRARIES =  \
+-        libvixld \
++         \
+         $(libart-disassembler-defaults_SHARED_LIBS)
+ LOCAL_EXPORT_C_INCLUDE_DIRS = $(libart-disassembler-defaults_EXPORT_INCLUDE_DIRS)
+ LOCAL_C_INCLUDES =  \
+@@ -97,7 +97,7 @@
+ LOCAL_LDLIBS   = $(libart-disassembler-defaults_LDLIBS)
+ LOCAL_SRC_FILES = $(libart-disassembler-defaults_SRCS)
+ LOCAL_SHARED_LIBRARIES =  \
+-        libvixld \
++         \
+         $(libart-disassembler-defaults_SHARED_LIBS)
+ LOCAL_EXPORT_C_INCLUDE_DIRS = $(libart-disassembler-defaults_EXPORT_INCLUDE_DIRS)
+ LOCAL_C_INCLUDES =  \
+--- a/art/runtime/Android.bp	1970-01-01 10:00:01
++++ b/art/runtime/Android.bp	2026-08-29 00:30:01
+@@ -260,7 +260,7 @@
+                 "arch/arm/thread_arm.cc",
+                 "arch/arm/fault_handler_arm.cc",
+             ],
+-            host_ldlibs: ["-latomic"],
++            host_ldlibs: [""],
+         },
+         arm64: {
+             srcs: [
+@@ -275,7 +275,7 @@
+                 "monitor_pool.cc",
+                 "arch/arm64/fault_handler_arm64.cc",
+             ],
+-            host_ldlibs: ["-latomic"],
++            host_ldlibs: [""],
+         },
+         x86: {
+             srcs: [
+--- a/art/runtime/Android.mk	1970-01-01 10:00:01
++++ b/art/runtime/Android.mk	2026-08-29 00:30:01
+@@ -132,7 +132,7 @@
+         arch/arm/thread_arm.cc \
+         arch/arm/fault_handler_arm.cc
+ libart_defaults_arm_GENERATED_SOURCES = $(libart_mterp.arm_GENERATED_SOURCES)
+-libart_defaults_arm_HOST_LDLIBS = -latomic
++libart_defaults_arm_HOST_LDLIBS = 
+ libart_defaults_arm64_SRCS     =  \
+         interpreter/mterp/mterp.cc \
+         arch/arm64/context_arm64.cc \
+@@ -144,7 +144,7 @@
+         monitor_pool.cc \
+         arch/arm64/fault_handler_arm64.cc
+ libart_defaults_arm64_GENERATED_SOURCES = $(libart_mterp.arm64_GENERATED_SOURCES)
+-libart_defaults_arm64_HOST_LDLIBS = -latomic
++libart_defaults_arm64_HOST_LDLIBS = 
+ libart_defaults_x86_SRCS     =  \
+         interpreter/mterp/mterp.cc \
+         arch/x86/context_x86.cc \
+--- a/art/runtime/exec_utils.cc	1970-01-01 10:00:01
++++ b/art/runtime/exec_utils.cc	2026-08-29 00:30:01
+@@ -26,6 +26,7 @@
+ #include "android-base/strings.h"
+ 
+ #include "runtime.h"
++#include <crt_externs.h>
+ 
+ namespace art {
+ 
+@@ -60,7 +61,7 @@
+     if (envp == nullptr) {
+       execvp(program, &args[0]);
+     } else {
+-      execvpe(program, &args[0], envp);
++      { *_NSGetEnviron() = envp; execvp(program, &args[0]); }
+     }
+     PLOG(ERROR) << "Failed to execve(" << command_line << ")";
+     // _exit to avoid atexit handlers in child.
+--- a/art/runtime/jni/check_jni.cc	1970-01-01 10:00:01
++++ b/art/runtime/jni/check_jni.cc	2026-08-29 00:30:01
+@@ -2180,7 +2180,7 @@
+     return result;
+   }
+ 
+-  static jobject NewObjectA(JNIEnv* env, jclass c, jmethodID mid, const jvalue* vargs) {
++  static jobject NewObjectA(JNIEnv* env, jclass c, jmethodID mid, jvalue* vargs) {
+     CHECK_ATTACHED_THREAD(__FUNCTION__, nullptr);
+     ScopedObjectAccess soa(env);
+     ScopedCheck sc(kFlag_Default, __FUNCTION__);
+@@ -2275,16 +2275,16 @@
+   FIELD_ACCESSORS(jdouble, Double, Primitive::kPrimDouble, D, D)
+ #undef FIELD_ACCESSORS
+ 
+-  static void CallVoidMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* vargs) {
++  static void CallVoidMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* vargs) {
+     CallMethodA(__FUNCTION__, env, obj, nullptr, mid, vargs, Primitive::kPrimVoid, kVirtual);
+   }
+ 
+   static void CallNonvirtualVoidMethodA(JNIEnv* env, jobject obj, jclass c, jmethodID mid,
+-                                        const jvalue* vargs) {
++                                        jvalue* vargs) {
+     CallMethodA(__FUNCTION__, env, obj, c, mid, vargs, Primitive::kPrimVoid, kDirect);
+   }
+ 
+-  static void CallStaticVoidMethodA(JNIEnv* env, jclass c, jmethodID mid, const jvalue* vargs) {
++  static void CallStaticVoidMethodA(JNIEnv* env, jclass c, jmethodID mid, jvalue* vargs) {
+     CallMethodA(__FUNCTION__, env, nullptr, c, mid, vargs, Primitive::kPrimVoid, kStatic);
+   }
+ 
+@@ -2323,16 +2323,16 @@
+   }
+ 
+ #define CALL(rtype, name, ptype, shorty) \
+-  static rtype Call##name##MethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* vargs) { \
++  static rtype Call##name##MethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* vargs) { \
+     return CallMethodA(__FUNCTION__, env, obj, nullptr, mid, vargs, ptype, kVirtual).shorty; \
+   } \
+   \
+   static rtype CallNonvirtual##name##MethodA(JNIEnv* env, jobject obj, jclass c, jmethodID mid, \
+-                                             const jvalue* vargs) { \
++                                             jvalue* vargs) { \
+     return CallMethodA(__FUNCTION__, env, obj, c, mid, vargs, ptype, kDirect).shorty; \
+   } \
+   \
+-  static rtype CallStatic##name##MethodA(JNIEnv* env, jclass c, jmethodID mid, const jvalue* vargs) { \
++  static rtype CallStatic##name##MethodA(JNIEnv* env, jclass c, jmethodID mid, jvalue* vargs) { \
+     return CallMethodA(__FUNCTION__, env, nullptr, c, mid, vargs, ptype, kStatic).shorty; \
+   } \
+   \
+@@ -3077,7 +3077,7 @@
+   }
+ 
+   static JniValueType CallMethodA(const char* function_name, JNIEnv* env, jobject obj, jclass c,
+-                                  jmethodID mid, const jvalue* vargs, Primitive::Type type,
++                                  jmethodID mid, jvalue* vargs, Primitive::Type type,
+                                   InvokeType invoke) {
+     CHECK_ATTACHED_THREAD(function_name, JniValueType());
+     ScopedObjectAccess soa(env);
+--- a/art/runtime/jni/jni_internal.cc	1970-01-01 10:00:01
++++ b/art/runtime/jni/jni_internal.cc	2026-08-29 00:30:01
+@@ -254,9 +254,6 @@
+     memory_type_table_ = builder_->Build();
+ 
+     // Check expected libraries loaded when iterating headers.
+-    CHECK(libjavacore_loaded_);
+-    CHECK(libnativehelper_loaded_);
+-    CHECK(libopenjdk_loaded_);
+     builder_ = nullptr;
+   }
+ 
+@@ -1061,7 +1058,7 @@
+     return local_result;
+   }
+ 
+-  static jobject NewObjectA(JNIEnv* env, jclass java_class, jmethodID mid, const jvalue* args) {
++  static jobject NewObjectA(JNIEnv* env, jclass java_class, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT(java_class);
+     CHECK_NON_NULL_ARGUMENT(mid);
+     ScopedObjectAccess soa(env);
+@@ -1134,7 +1131,7 @@
+     return soa.AddLocalReference<jobject>(result.GetL());
+   }
+ 
+-  static jobject CallObjectMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jobject CallObjectMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT(obj);
+     CHECK_NON_NULL_ARGUMENT(mid);
+     ScopedObjectAccess soa(env);
+@@ -1160,7 +1157,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetZ();
+   }
+ 
+-  static jboolean CallBooleanMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jboolean CallBooleanMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1185,7 +1182,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetB();
+   }
+ 
+-  static jbyte CallByteMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jbyte CallByteMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1210,7 +1207,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetC();
+   }
+ 
+-  static jchar CallCharMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jchar CallCharMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1235,7 +1232,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetD();
+   }
+ 
+-  static jdouble CallDoubleMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jdouble CallDoubleMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1260,7 +1257,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetF();
+   }
+ 
+-  static jfloat CallFloatMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jfloat CallFloatMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1285,7 +1282,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetI();
+   }
+ 
+-  static jint CallIntMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jint CallIntMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1310,7 +1307,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetJ();
+   }
+ 
+-  static jlong CallLongMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jlong CallLongMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1335,7 +1332,7 @@
+     return InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args).GetS();
+   }
+ 
+-  static jshort CallShortMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static jshort CallShortMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1359,7 +1356,7 @@
+     InvokeVirtualOrInterfaceWithVarArgs(soa, obj, mid, args);
+   }
+ 
+-  static void CallVoidMethodA(JNIEnv* env, jobject obj, jmethodID mid, const jvalue* args) {
++  static void CallVoidMethodA(JNIEnv* env, jobject obj, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_VOID(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_VOID(mid);
+     ScopedObjectAccess soa(env);
+@@ -1388,7 +1385,7 @@
+   }
+ 
+   static jobject CallNonvirtualObjectMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                             const jvalue* args) {
++                                             jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT(obj);
+     CHECK_NON_NULL_ARGUMENT(mid);
+     ScopedObjectAccess soa(env);
+@@ -1417,7 +1414,7 @@
+   }
+ 
+   static jboolean CallNonvirtualBooleanMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                               const jvalue* args) {
++                                               jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1444,7 +1441,7 @@
+   }
+ 
+   static jbyte CallNonvirtualByteMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                         const jvalue* args) {
++                                         jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1471,7 +1468,7 @@
+   }
+ 
+   static jchar CallNonvirtualCharMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                         const jvalue* args) {
++                                         jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1498,7 +1495,7 @@
+   }
+ 
+   static jshort CallNonvirtualShortMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                           const jvalue* args) {
++                                           jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1525,7 +1522,7 @@
+   }
+ 
+   static jint CallNonvirtualIntMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                       const jvalue* args) {
++                                       jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1552,7 +1549,7 @@
+   }
+ 
+   static jlong CallNonvirtualLongMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                         const jvalue* args) {
++                                         jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1579,7 +1576,7 @@
+   }
+ 
+   static jfloat CallNonvirtualFloatMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                           const jvalue* args) {
++                                           jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1606,7 +1603,7 @@
+   }
+ 
+   static jdouble CallNonvirtualDoubleMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                             const jvalue* args) {
++                                             jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+@@ -1632,7 +1629,7 @@
+   }
+ 
+   static void CallNonvirtualVoidMethodA(JNIEnv* env, jobject obj, jclass, jmethodID mid,
+-                                        const jvalue* args) {
++                                        jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_VOID(obj);
+     CHECK_NON_NULL_ARGUMENT_RETURN_VOID(mid);
+     ScopedObjectAccess soa(env);
+@@ -1882,7 +1879,7 @@
+     return soa.AddLocalReference<jobject>(result.GetL());
+   }
+ 
+-  static jobject CallStaticObjectMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jobject CallStaticObjectMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT(mid);
+     ScopedObjectAccess soa(env);
+     JValue result(InvokeWithJValues(soa, nullptr, mid, args));
+@@ -1905,7 +1902,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetZ();
+   }
+ 
+-  static jboolean CallStaticBooleanMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jboolean CallStaticBooleanMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetZ();
+@@ -1927,7 +1924,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetB();
+   }
+ 
+-  static jbyte CallStaticByteMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jbyte CallStaticByteMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetB();
+@@ -1949,7 +1946,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetC();
+   }
+ 
+-  static jchar CallStaticCharMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jchar CallStaticCharMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetC();
+@@ -1971,7 +1968,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetS();
+   }
+ 
+-  static jshort CallStaticShortMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jshort CallStaticShortMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetS();
+@@ -1993,7 +1990,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetI();
+   }
+ 
+-  static jint CallStaticIntMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jint CallStaticIntMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetI();
+@@ -2015,7 +2012,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetJ();
+   }
+ 
+-  static jlong CallStaticLongMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jlong CallStaticLongMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetJ();
+@@ -2037,7 +2034,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetF();
+   }
+ 
+-  static jfloat CallStaticFloatMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jfloat CallStaticFloatMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetF();
+@@ -2059,7 +2056,7 @@
+     return InvokeWithVarArgs(soa, nullptr, mid, args).GetD();
+   }
+ 
+-  static jdouble CallStaticDoubleMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static jdouble CallStaticDoubleMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_ZERO(mid);
+     ScopedObjectAccess soa(env);
+     return InvokeWithJValues(soa, nullptr, mid, args).GetD();
+@@ -2080,7 +2077,7 @@
+     InvokeWithVarArgs(soa, nullptr, mid, args);
+   }
+ 
+-  static void CallStaticVoidMethodA(JNIEnv* env, jclass, jmethodID mid, const jvalue* args) {
++  static void CallStaticVoidMethodA(JNIEnv* env, jclass, jmethodID mid, jvalue* args) {
+     CHECK_NON_NULL_ARGUMENT_RETURN_VOID(mid);
+     ScopedObjectAccess soa(env);
+     InvokeWithJValues(soa, nullptr, mid, args);
+--- a/art/runtime/parsed_options.cc	1970-01-01 10:00:01
++++ b/art/runtime/parsed_options.cc	2026-08-29 00:29:59
+@@ -577,12 +577,12 @@
+   if(!args.Exists(M::BootClassPath)) {
+     Dl_info libart_so_dl_info;
+     // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+-    dladdr(art_sigsegv_fault, &libart_so_dl_info);
++    dladdr(reinterpret_cast<const void*>(art_sigsegv_fault), &libart_so_dl_info);
+     // make sure we didn't get NULL
+     if(libart_so_dl_info.dli_fname) {
+       // it's simpler if we can modify the string, so strdup it
+       char *path_to_jars = "/../java/dex/art/";
+-      char *libart_so_full_path = malloc(strlen(libart_so_dl_info.dli_fname) + strlen(path_to_jars) + 1); // overallocating but that's fine
++      char *libart_so_full_path = static_cast<char*>(malloc(strlen(libart_so_dl_info.dli_fname) + strlen(path_to_jars) + 1)); // overallocating but that's fine
+       strcpy(libart_so_full_path, libart_so_dl_info.dli_fname);
+       *strrchr(libart_so_full_path, '/') = '\0'; // now we should have something like /usr/lib64/art
+       strcat(libart_so_full_path, path_to_jars);
+@@ -692,7 +692,7 @@
+     if(!android_root) {
+       Dl_info libart_so_dl_info;
+       // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+-      dladdr(art_sigsegv_fault, &libart_so_dl_info);
++      dladdr(reinterpret_cast<const void*>(art_sigsegv_fault), &libart_so_dl_info);
+       // make sure we didn't get NULL
+       if(libart_so_dl_info.dli_fname) {
+         // it's simpler if we can modify the string, so strdup it
+--- a/art/runtime/runtime.cc	1970-01-01 10:00:01
++++ b/art/runtime/runtime.cc	2026-08-29 00:29:59
+@@ -1843,7 +1843,7 @@
+       // if the above didn't work, try loading from the install path
+       Dl_info libart_so_dl_info;
+       // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+-      dladdr(art_sigsegv_fault, &libart_so_dl_info);
++      dladdr(reinterpret_cast<const void*>(art_sigsegv_fault), &libart_so_dl_info);
+       // make sure we didn't get NULL
+       if(libart_so_dl_info.dli_fname) {
+         // it's simpler if we can modify the string, so strdup it
+@@ -1872,7 +1872,7 @@
+       // if the above didn't work, try loading from the install path
+       Dl_info libart_so_dl_info;
+       // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+-      dladdr(art_sigsegv_fault, &libart_so_dl_info);
++      dladdr(reinterpret_cast<const void*>(art_sigsegv_fault), &libart_so_dl_info);
+       // make sure we didn't get NULL
+       if(libart_so_dl_info.dli_fname) {
+         // it's simpler if we can modify the string, so strdup it
+--- a/art/runtime/runtime.h	1970-01-01 10:00:01
++++ b/art/runtime/runtime.h	2026-08-29 00:29:59
+@@ -427,7 +427,7 @@
+       REQUIRES_SHARED(Locks::mutator_lock_);
+ 
+   #define GetCalleeSaveMethodOffset(type) \
+-    OFFSETOF_MEMBER(art::Runtime, art::Runtime::callee_save_methods_[static_cast<size_t>(type)])
++    OFFSETOF_MEMBER(art::Runtime, callee_save_methods_[static_cast<size_t>(type)])
+ 
+   InstructionSet GetInstructionSet() const {
+     return instruction_set_;
+--- a/art/runtime/ti/agent.cc	1970-01-01 10:00:01
++++ b/art/runtime/ti/agent.cc	2026-08-29 00:30:01
+@@ -120,7 +120,7 @@
+   bool needs_native_bridge = false;
+   void *dlopen_handle = bionic_dlopen(name_.c_str(), RTLD_NOW);
+   if (dlopen_handle == nullptr) {
+-    char* bionic_dlerror_msg = bionic_dlerror();
++    const char* bionic_dlerror_msg = bionic_dlerror();
+     *error_msg = StringPrintf("Unable to bionic_dlopen %s: %s",
+                               name_.c_str(),
+                               bionic_dlerror_msg);
+--- a/art/sigchainlib/sigchain.h	1970-01-01 10:00:01
++++ b/art/sigchainlib/sigchain.h	2026-08-29 00:30:00
+@@ -1,3 +1,4 @@
++typedef void (*sighandler_t)(int);
+ /*
+  * Copyright (C) 2014 The Android Open Source Project
+  *
+--- a/art/tools/dmtracedump/Android.bp	1970-01-01 10:00:01
++++ b/art/tools/dmtracedump/Android.bp	2026-08-29 00:30:01
+@@ -23,7 +23,7 @@
+         "-O0",
+         "-g",
+         "-Wall",
+-        "-Werror",
++        "",
+     ],
+     target: {
+         windows: {
+@@ -41,6 +41,6 @@
+         "-O0",
+         "-g",
+         "-Wall",
+-        "-Werror",
++        "",
+     ],
+ }
+--- a/art/tools/veridex/Android.bp	1970-01-01 10:00:01
++++ b/art/tools/veridex/Android.bp	2026-08-29 00:30:01
+@@ -24,7 +24,7 @@
+         "resolver.cc",
+         "veridex.cc",
+     ],
+-    cflags: ["-Wall", "-Werror"],
++    cflags: ["-Wall", ""],
+     static_libs: [
+         "libdexfile",
+         "libartbase",
