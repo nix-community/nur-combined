@@ -23,14 +23,14 @@
 
 buildPythonPackage rec {
   pname = "modal";
-  version = "1.5.4";
+  version = "1.5.5";
 
   pyproject = true;
   pythonRelaxDeps = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-1hG7R/wHEX9dGU9/mpwKukU3VzoTY0m75FxWlOZLypI=";
+    sha256 = "sha256-MN82PtGJjMPZGgn/P5XDirBD9rYpQBGwEIUxLGoKx3c=";
   };
 
   build-system = [
