@@ -40,24 +40,43 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
 
+        # Snapshot every changed package, then stash so we branch off clean main.
+        changed=()
         for dir in pkgs/*/; do
+          git diff --quiet -- "$dir" || changed+=("$dir")
+        done
+        git stash push -m updater >/dev/null
+
+        failures=0
+        for dir in "${changed[@]}"; do
           pkg=$(basename "$dir")
-          if ! git diff --quiet -- "$dir"; then
-            version=$(grep 'version = ' "$dir/default.nix" | head -1 | sed 's/.*"\(.*\)".*/\1/')
-            branch="update/${pkg}-${version}"
-            git stash
-            git checkout -b "$branch"
-            git stash pop
+          version=$(grep 'version = ' "$dir/default.nix" | head -1 | sed 's/.*"\(.*\)".*/\1/')
+          branch="update/${pkg}-${version}"
+          echo "::group::PR for $pkg -> $version"
+          # Isolate each package: one failing update must not abort the rest.
+          if (
+            set -e
+            git checkout -B "$branch" main
+            git checkout "stash@{0}" -- "$dir"
             git add "$dir"
             git commit -m "$pkg: update to ${version}"
-            git push -u origin "$branch"
-            existing=$(gh pr list --head "$branch" --json number --jq length)
-            if [ "$existing" = "0" ]; then
+            git push -f -u origin "$branch"
+            if [ "$(gh pr list --head "$branch" --state open --json number --jq length)" = "0" ]; then
               gh pr create \
                 --title "$pkg: update to ${version}" \
                 --body "Automated update detected a new \`${pkg}\` release (\`${version}\`)." \
-                --base main
+                --base main --head "$branch"
             fi
-            git checkout main
+          ); then
+            echo "opened/updated PR for $pkg"
+          else
+            echo "::warning::failed to open PR for $pkg ($version)"
+            failures=$((failures + 1))
           fi
+          git checkout -f main
+          echo "::endgroup::"
         done
+
+        if [ "$failures" -gt 0 ]; then
+          echo "::warning::$failures package PR(s) failed; see logs above"
+        fi

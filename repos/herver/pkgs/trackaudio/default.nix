@@ -9,12 +9,12 @@
 }:
 
 let
-  version = "1.4.0-beta.10";
+  version = "1.4.0";
   pname = "trackaudio";
 
   src = fetchurl {
     url = "https://github.com/pierr3/TrackAudio/releases/download/${version}/${pname}_${version}_amd64.deb";
-    hash = "sha256-4wDPH3h3I9F2ADdW+PH0QwjA/vj1owFhADrf5MXSkf4=";
+    hash = "sha256-GjyGHtU5mE8HTOJLsJdJO5X8q9CkUpNrIOGX85M0mLY=";
   };
 in
 stdenv.mkDerivation {
