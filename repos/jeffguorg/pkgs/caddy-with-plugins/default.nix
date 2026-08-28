@@ -13,5 +13,5 @@ in
 pkgs.caddy.withPlugins {
   inherit plugins;
   # vendor output hash；插件/版本变更后跑 scripts/update-caddy-hash.sh 更新。
-  hash = "sha256-4aKRoUN8mmx1XtlmDuv5ylM5WGnzGhWV5O3sxkrZAns=";
+  hash = "sha256-P39NMUmZMchr3kjDu5qoHGE8ql8FvLp3zxY/XmnG+bs=";
 }
