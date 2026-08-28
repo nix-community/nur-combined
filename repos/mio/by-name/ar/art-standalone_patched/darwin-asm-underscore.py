@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Darwin arm64 asm adjustments for ART.
 
-Used when regenerating darwin-arm64-asm.patch from upstream (see darwin-setup-host.sh
-and darwin-post-patch.sh history). Not invoked at build time once the patch is applied.
+Used when regenerating darwin-arm64-asm.patch from upstream. Not invoked at
+build time once that patch is applied.
 
 1. ENTRY labels stay non-global so Darwin allows b.cond/cbz to same-file labels.
 2. C-callable ENTRY points get an explicit Mach-O alias `_name = name`.
