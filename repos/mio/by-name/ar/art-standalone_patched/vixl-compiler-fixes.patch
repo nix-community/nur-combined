@@ -1,0 +1,32 @@
+--- a/SConstruct
++++ b/SConstruct
+@@ -77,7 +77,6 @@
+ options = {
+     'all' : { # Unconditionally processed.
+       'CCFLAGS' : ['-Wall',
+-                   '-Werror',
+                    '-fdiagnostics-show-option',
+                    '-Wextra',
+                    '-Wredundant-decls',
+--- a/meson.build
++++ b/meson.build
+@@ -10,7 +10,7 @@
+     'cpp_std=c++17',
+     'buildtype=release',
+     'warning_level=3',
+-    'werror=true',
++    'werror=false',
+     'd_ndebug=if-release',
+     'b_lto=true'
+   ],
+--- a/src/utils-vixl.h
++++ b/src/utils-vixl.h
+@@ -1480,7 +1480,7 @@ constexpr uint32_t Hash(const char* str, uint32_t hash = 0) {
+   }
+ }
+ 
+-constexpr uint32_t operator"" _h(const char* x, size_t) { return Hash(x); }
++constexpr uint32_t operator""_h(const char* x, size_t) { return Hash(x); }
+ 
+ }  // namespace vixl
+ 

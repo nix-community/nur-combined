@@ -31,13 +31,7 @@ let
     !(elem name removedBuildInputs);
 
   vixl_patched = vixl.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      find . -type f -exec sed -i -E \
-        -e 's/-Werror//g' \
-        -e 's/werror=true/werror=false/g' \
-        -e 's/operator"" _h/operator""_h/g' \
-        {} + || true
-    '';
+    patches = (old.patches or [ ]) ++ [ ./vixl-compiler-fixes.patch ];
   });
 
   wolfssl-jni = (wolfssl.override { enableJni = true; }).overrideAttrs (_: {
