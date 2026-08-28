@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://grafana-community.github.io/helm-charts";
   chart = "grafana";
-  version = "13.0.0";
-  hash = "sha256-Gu/o7r/GUq0NFR+ilXAQdeQE5M1IdfQKbDNbgMof9hw=";
+  version = "13.0.1";
+  hash = "sha256-aTvYzCCXrqewJ8YIVZHrvkVHWm6/CiSVyYVs+DsLJmU=";
 
   meta = {
     description = "Helm chart for Grafana, a tool for querying and visualizing time series and metrics";
