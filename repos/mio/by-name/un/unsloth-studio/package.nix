@@ -10,13 +10,13 @@
 
 let
   pname = "unsloth";
-  version = "0.1.801-beta";
+  version = "0.1.804-beta";
 
   src = fetchFromGitHub {
     owner = "unslothai";
     repo = "unsloth";
     rev = "v${version}";
-    hash = "sha256-zKtI77YOnRCuC/1YhFiHnIPgwjN4kRJOijkoUtdKSG0=";
+    hash = "sha256-HPQu2gdFx5AMPkejUf5zIZqtx8FTwU+ZG7cxmm6tcp8=";
   };
 
   # Unsloth Studio frontend is built with npm/vite
@@ -28,7 +28,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/studio/frontend";
-      hash = "sha256-Xao29EqjkdcsEl3YUTRfJpigFWhscw/likjCfaE5ZFk=";
+      hash = "sha256-hKLFFfHCb4E0rXOvAl0u3JDMYmP/npFYfmXnjKNaJL0=";
     };
 
     nativeBuildInputs = [
@@ -70,6 +70,7 @@ python3.pkgs.buildPythonApplication {
     numpy
     protobuf
     structlog
+    huggingface-hub
   ];
 
   # Copy the prebuilt frontend into the python package source before building
