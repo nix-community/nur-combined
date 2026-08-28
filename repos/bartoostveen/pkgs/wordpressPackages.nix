@@ -35,9 +35,9 @@ makeScope newScope (
     plugins = {
       antispam-bee = self.callPackage self.mkWpPlugin {
         pname = "antispam-bee";
-        version = "2.11.12";
+        version = "2.11.13";
         id = "antispam-bee";
-        hash = "sha256-PsymEQIKhMNRS+Q/A/54G3vPlBwudlOVULKpH4q0fXg=";
+        hash = "sha256-kZ/I+alPro8v2Op1zuJCVrTiRkXQFJjMSySsPdvm2iY=";
       };
       contact-form-7 = self.callPackage self.mkWpPlugin {
         pname = "wp-contact-form-7";
