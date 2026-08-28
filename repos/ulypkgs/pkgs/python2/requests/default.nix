@@ -17,13 +17,13 @@
   trustme,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "requests";
   version = "2.26.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-uKpY+M95P/2HgtPYyxnmbvNverpDU+7IWedGeLAbB6c=";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-uKpY+M95P/2HgtPYyxnmbvNverpDU+7IWedGeLAbB6c=";
   };
 
   patches = [
@@ -84,4 +84,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };
-}
+})

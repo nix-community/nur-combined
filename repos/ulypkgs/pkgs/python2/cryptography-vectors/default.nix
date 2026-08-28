@@ -5,14 +5,14 @@
   cryptography,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cryptography_vectors";
   # The test vectors must have the same version as the cryptography package:
   version = cryptography.version;
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "1yhaps0f3h2yjb6lmz953z1l1d84y9swk4k3gj9nqyk4vbx5m7cc";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-jJ1a+tpkemyTfGOSyXXyBLVAwx8l/UrNkl7A4YC+Cvo=";
   };
 
   # No tests included
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     ];
     maintainers = with maintainers; [ primeos ];
   };
-}
+})

@@ -5,13 +5,13 @@
   pygments,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "alabaster";
   version = "0.7.12";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "a661d72d58e6ea8a57f7a86e37d86716863ee5e92788398526d58b26a4e4dc02";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-pmHXLVjm6opX96huN9hnFoY+5ekniDmFJtWLJqTk3AI=";
   };
 
   propagatedBuildInputs = [ pygments ];
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     description = "A Sphinx theme";
     license = licenses.bsd3;
   };
-}
+})

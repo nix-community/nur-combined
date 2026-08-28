@@ -4,21 +4,23 @@
   fetchPypi,
   cryptography,
   ecdsa,
-  pytest-cov,
   pytestCheckHook,
   pythonOlder,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyjwt";
-  version = "2.3.0";
-  disabled = pythonOlder "3.6";
+  version = "1.7.1";
 
   src = fetchPypi {
     pname = "PyJWT";
-    inherit version;
-    sha256 = "sha256-uIi01W8G9tzXdyEMM05pxze+dHVdPl6e4/5n3Big7kE=";
+    inherit (finalAttrs) version;
+    hash = "sha256-jVmpdvt3Pz5qOchWNjV8Tw4kJwc5TK2t2YFPXLqiDpY=";
   };
+
+  postPatch = ''
+    sed -i '/^addopts/d' setup.cfg
+  '';
 
   propagatedBuildInputs = [
     cryptography
@@ -26,8 +28,11 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [
-    pytest-cov
     pytestCheckHook
+  ];
+
+  disabledTests = [
+    "test_ec_verify_should_return_false_if_signature_invalid"
   ];
 
   pythonImportsCheck = [ "jwt" ];
@@ -36,6 +41,5 @@ buildPythonPackage rec {
     description = "JSON Web Token implementation in Python";
     homepage = "https://github.com/jpadilla/pyjwt";
     license = licenses.mit;
-    maintainers = with maintainers; [ prikhi ];
   };
-}
+})

@@ -1,6 +1,5 @@
 {
   lib,
-  pythonOlder,
   fetchFromGitHub,
   meson,
   ninja,
@@ -11,19 +10,17 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pycairo";
-  version = "1.20.1";
-
-  disabled = pythonOlder "3.6";
+  version = "1.18.2";
 
   format = "other";
 
   src = fetchFromGitHub {
     owner = "pygobject";
     repo = "pycairo";
-    rev = "v${version}";
-    sha256 = "09aisph7ycgb4xi2xglvrn59i3cyqms8jbb876cl9763g7yqbcr6";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-0igF4s8T8OvdAlL7y6+uP+Ml4nAryyhFmnRDLlQhQZA=";
   };
 
   nativeBuildInputs = [
@@ -48,7 +45,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Python 3 bindings for cairo";
+    description = "Python 2 bindings for cairo";
     homepage = "https://pycairo.readthedocs.io/";
     license = with licenses; [
       lgpl21Only
@@ -56,4 +53,4 @@ buildPythonPackage rec {
     ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
-}
+})

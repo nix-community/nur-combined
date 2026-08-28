@@ -2,47 +2,40 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  asgiref,
-  click,
   itsdangerous,
-  jinja2,
-  python-dotenv,
+  click,
   werkzeug,
-  pytestCheckHook,
+  jinja2,
+  pytest,
 }:
 
-buildPythonPackage rec {
-  version = "2.0.2";
+buildPythonPackage (finalAttrs: {
+  version = "1.1.2";
   pname = "Flask";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "7b2fb8e934ddd50731893bdcdb00fc8c0315916f9fcd50d22c7cc1a95ab634e2";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-Tvoa4tfJhlr0iYbeiuuFBL8yx/PW/ck1PTSyH0sScGA=";
   };
 
+  checkInputs = [ pytest ];
   propagatedBuildInputs = [
-    asgiref
-    python-dotenv
-    click
     itsdangerous
-    jinja2
+    click
     werkzeug
+    jinja2
   ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkPhase = ''
+    py.test
+  '';
+
+  # Tests require extra dependencies
+  doCheck = false;
 
   meta = with lib; {
     homepage = "http://flask.pocoo.org/";
-    description = "The Python micro framework for building web applications";
-    longDescription = ''
-      Flask is a lightweight WSGI web application framework. It is
-      designed to make getting started quick and easy, with the ability
-      to scale up to complex applications. It began as a simple wrapper
-      around Werkzeug and Jinja and has become one of the most popular
-      Python web application frameworks.
-    '';
+    description = "A microframework based on Werkzeug, Jinja 2, and good intentions";
     license = licenses.bsd3;
   };
-}
+})

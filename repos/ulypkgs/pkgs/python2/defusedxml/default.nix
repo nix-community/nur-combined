@@ -5,13 +5,13 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "defusedxml";
   version = "0.7.1";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-G7MDLbGFkVti18YgnFqHkr5qMqsv7azITgG1LFGqPmk=";
   };
 
   checkPhase = ''
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     license = licenses.psfl;
     maintainers = with maintainers; [ fab ];
   };
-}
+})

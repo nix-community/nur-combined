@@ -2,54 +2,64 @@
   lib,
   stdenv,
   fetchurl,
-  python,
   buildPythonPackage,
   pkg-config,
   glib,
+  gobject-introspection,
+  pycairo,
+  cairo,
+  which,
+  ncurses,
+  meson,
+  ninja,
   isPy3k,
-  pythonAtLeast,
+  gnome,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pygobject";
-  version = "2.28.7";
+  version = "3.36.1";
+
   format = "other";
-  disabled = pythonAtLeast "3.9";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/pygobject/2.28/${pname}-${version}.tar.xz";
-    sha256 = "0nkam61rsn7y3wik3vw46wk5q2cjfh2iph57hl9m39rc8jijb7dv";
+    url = "mirror://gnome/sources/${finalAttrs.pname}/${lib.versions.majorMinor finalAttrs.version}/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
+    hash = "sha256-0b9CgC0c7BE7Wtqg579/N0W0RSHcIWNYjSdtXNYdcY8=";
   };
 
   outputs = [
     "out"
-    "devdoc"
+    "dev"
   ];
 
-  patches = lib.optionals stdenv.isDarwin [
-    ./pygobject-2.0-fix-darwin.patch
+  mesonFlags = [
+    "-Dpython=python${if isPy3k then "3" else "2"}"
   ];
 
-  configureFlags = [ "--disable-introspection" ];
-
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib ];
-
-  # in a "normal" setup, pygobject and pygtk are installed into the
-  # same site-packages: we need a pth file for both. pygtk.py would be
-  # used to select a specific version, in our setup it should have no
-  # effect, but we leave it in case somebody expects and calls it.
-  postInstall = lib.optionalString (!isPy3k) ''
-    mv $out/lib/${python.libPrefix}/site-packages/{pygtk.pth,${pname}-${version}.pth}
-
-    # Prevent wrapping of codegen files as these are meant to be
-    # executed by the python program
-    chmod a-x $out/share/pygobject/*/codegen/*.py
-  '';
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    gobject-introspection
+  ];
+  buildInputs = [
+    glib
+    gobject-introspection
+  ]
+  ++ lib.optionals stdenv.isDarwin [
+    which
+    ncurses
+  ];
+  propagatedBuildInputs = [
+    pycairo
+    cairo
+  ];
 
   meta = with lib; {
     homepage = "https://pygobject.readthedocs.io/";
-    description = "Python bindings for GLib";
+    description = "Python bindings for Glib";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ orivej ];
     platforms = platforms.unix;
   };
-}
+})

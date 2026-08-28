@@ -10,14 +10,14 @@
   pythonRelaxDepsHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sphinx-rtd-theme";
   version = "1.3.0";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "sphinx_rtd_theme";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-WQsDDHq7nPA47AU7leU4C1xw1hWR6wtVIGP758QfCTE=";
   };
 
@@ -53,7 +53,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Sphinx theme for readthedocs.org";
     homepage = "https://github.com/readthedocs/sphinx_rtd_theme";
-    changelog = "https://github.com/readthedocs/sphinx_rtd_theme/blob/${version}/docs/changelog.rst";
+    changelog = "https://github.com/readthedocs/sphinx_rtd_theme/blob/${finalAttrs.version}/docs/changelog.rst";
     license = licenses.mit;
   };
-}
+})

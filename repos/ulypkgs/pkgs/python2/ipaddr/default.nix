@@ -5,14 +5,14 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ipaddr";
   version = "2.2.0";
   disabled = isPy3k;
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "1ml8r8z3f0mnn381qs1snbffa920i9ycp6mm2am1d3aqczkdz4j0";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-QJLf5mdYjRaqErWay3yKQCTl3LI6aBzQsLYCNz7KiNY=";
   };
 
   meta = with lib; {
@@ -21,4 +21,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
   };
 
-}
+})

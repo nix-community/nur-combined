@@ -6,14 +6,14 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytoml";
   version = "0.1.20";
 
   src = fetchFromGitHub {
     owner = "avakar";
     repo = "pytoml";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true; # ensure test submodule is available
     hash = "sha256-vxpC/596t3nDQzxLDRKLzmylyfgbjrq0A99A+AnBEgo=";
   };
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
   };
-}
+})

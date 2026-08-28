@@ -11,7 +11,7 @@
 
 let
   pname = "setuptools";
-  version = "57.2.0";
+  version = "44.0.0";
 
   # Create an sdist of setuptools
   sdist = stdenv.mkDerivation rec {
@@ -21,7 +21,7 @@ let
       owner = "pypa";
       repo = pname;
       rev = "v${version}";
-      sha256 = "sha256-zFmndVoATNxfvDsacY+gj5bzIbbd/8ldbsJj4qOawTA=";
+      hash = "sha256-wScA8h+reqNwdlOfWbCjGHa9rHHFDz67rTlcbyMGeHw=";
       name = "${pname}-${version}-source";
     };
 
@@ -30,13 +30,13 @@ let
     ];
 
     buildPhase = ''
-      ${python.pythonOnBuildForHost.interpreter} setup.py egg_info
+      ${python.pythonOnBuildForHost.interpreter} bootstrap.py
       ${python.pythonOnBuildForHost.interpreter} setup.py sdist --formats=gztar
 
       # Here we untar the sdist and retar it in order to control the timestamps
       # of all the files included
       tar -xzf dist/${pname}-${version}.post0.tar.gz -C dist/
-      tar -czf dist/${name} -C dist/ --mtime="@$SOURCE_DATE_EPOCH" --sort=name ${pname}-${version}.post0
+      tar -czf dist/${name} -C dist/ --mtime="@$SOURCE_DATE_EPOCH" ${pname}-${version}.post0
     '';
 
     installPhase = ''
@@ -45,7 +45,7 @@ let
     '';
   };
 in
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   inherit pname version;
   # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
   # Instead, we override it to remove setuptools to avoid a circular dependency.
@@ -85,4 +85,4 @@ buildPythonPackage rec {
     platforms = python.meta.platforms;
     priority = 10;
   };
-}
+})

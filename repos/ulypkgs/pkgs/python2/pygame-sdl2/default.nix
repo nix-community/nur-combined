@@ -12,14 +12,14 @@
   libpng,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pygame_sdl2";
   version = "7.8.7.25031702";
 
   src = fetchFromGitHub {
     owner = "renpy";
     repo = "pygame_sdl2";
-    tag = "renpy-${version}";
+    tag = "renpy-${finalAttrs.version}";
     hash = "sha256-7MoQpCkBd20qck7eycs/MX0sjj4XRIrZmYPkKhuct6w=";
   };
 
@@ -51,4 +51,4 @@ buildPythonPackage rec {
     license = licenses.lgpl2;
     maintainers = with maintainers; [ raskin ];
   };
-}
+})

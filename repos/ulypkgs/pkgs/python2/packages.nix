@@ -2,10 +2,55 @@
 pythonPackages: pythonPackagesSuper:
 let
   inherit (pythonPackages) callPackage;
+  toPythonModule =
+    drv:
+    drv
+    // {
+      pythonModule = pythonPackages.python;
+      pythonPath = [ ];
+      requiredPythonModules = pythonPackages.requiredPythonModules drv.propagatedBuildInputs;
+      passthru = (drv.passthru or { }) // {
+        pythonModule = pythonPackages.python;
+        pythonPath = [ ];
+        requiredPythonModules = pythonPackages.requiredPythonModules drv.propagatedBuildInputs;
+      };
+    };
 in
 {
+  isPy27 = true;
+  isPy2 = true;
+  isPy37 = false;
+
   buildPythonPackage = callPackage ./buildPythonPackage {
-    buildPythonPackageSuper = pythonPackagesSuper.buildPythonPackage;
+    buildPythonPackageSuper = import ./mk-python-derivation.nix {
+      inherit (pythonPackages)
+        lib
+        python
+        stdenv
+        wrapPython
+        setuptools
+        pipBuildHook
+        pipInstallHook
+        pythonCatchConflictsHook
+        pythonImportsCheckHook
+        pythonOutputDistHook
+        pythonRemoveBinBytecodeHook
+        pythonRemoveTestsDirHook
+        setuptoolsBuildHook
+        wheelUnpackHook
+        eggUnpackHook
+        eggBuildHook
+        eggInstallHook
+        ;
+      inherit (pythonPackages.pkgs)
+        config
+        ensureNewerSourcesForZipFilesHook
+        unzip
+        update-python-libraries
+        ;
+      inherit toPythonModule;
+      namePrefix = "${pythonPackages.python.libPrefix}-";
+    };
   };
 
   alabaster = callPackage ./alabaster { };
@@ -20,9 +65,9 @@ in
 
   backports-zoneinfo = callPackage ./backports-zoneinfo { };
 
-  boto3 = callPackage ./boto3/1_17.nix { };
+  boto3 = callPackage ./boto3 { };
 
-  botocore = callPackage ./botocore/1_20.nix { };
+  botocore = callPackage ./botocore { };
 
   brotli = callPackage ./brotli { };
 
@@ -30,9 +75,9 @@ in
 
   calver = callPackage ./calver { };
 
-  certifi = callPackage ./certifi/python2.nix { certifi = pythonPackagesSuper.certifi; };
+  certifi = callPackage ./certifi { };
 
-  chardet = callPackage ./chardet/2.nix { };
+  chardet = callPackage ./chardet { };
 
   charset-normalizer = callPackage ./charset-normalizer { };
 
@@ -40,23 +85,23 @@ in
 
   cffi = callPackage ./cffi { };
 
-  click = callPackage ./click/7.nix { };
+  click = callPackage ./click { };
 
-  configparser = callPackage ./configparser/4.nix { };
+  configparser = callPackage ./configparser { };
 
-  construct = callPackage ./construct/2.10.54.nix { };
+  construct = callPackage ./construct { };
 
-  contextlib2 = callPackage ./contextlib2/0.nix { };
+  contextlib2 = callPackage ./contextlib2 { };
 
   coverage = callPackage ./coverage { };
 
-  cryptography = callPackage ./cryptography/3.3.nix { };
+  cryptography = callPackage ./cryptography { };
 
   cryptography-vectors = callPackage ./cryptography-vectors { };
 
   cython = callPackage ./cython { };
 
-  decorator = callPackage ./decorator/4.nix { };
+  decorator = callPackage ./decorator { };
 
   defusedxml = callPackage ./defusedxml { };
 
@@ -70,15 +115,15 @@ in
 
   execnet = callPackage ./execnet { };
 
-  filelock = callPackage ./filelock/3.2.nix { };
+  filelock = callPackage ./filelock { };
 
   flaky = callPackage ./flaky { };
 
-  flask = callPackage ./flask/1.nix { };
+  flask = callPackage ./flask { };
 
   flit-core = callPackage ./flit-core { };
 
-  freezegun = callPackage ./freezegun/0.3.nix { };
+  freezegun = callPackage ./freezegun { };
 
   futures = callPackage ./futures { };
 
@@ -88,11 +133,11 @@ in
 
   html5lib = callPackage ./html5lib { };
 
-  httpretty = callPackage ./httpretty/0.nix { };
+  httpretty = callPackage ./httpretty { };
 
-  hypothesis = callPackage ./hypothesis/2.nix { };
+  hypothesis = callPackage ./hypothesis { };
 
-  idna = callPackage ./idna/2.nix { };
+  idna = callPackage ./idna { };
 
   importlib-metadata = callPackage ./importlib-metadata { };
 
@@ -104,35 +149,35 @@ in
 
   iso8601 = callPackage ./iso8601 { };
 
-  itsdangerous = callPackage ./itsdangerous/1.nix { };
+  itsdangerous = callPackage ./itsdangerous { };
 
   jaraco-classes = callPackage ./jaraco-classes { };
 
-  jinja2 = callPackage ./jinja2/2.nix { };
+  jinja2 = callPackage ./jinja2 { };
 
-  libcloud = callPackage ./libcloud/2.nix { };
+  libcloud = callPackage ./libcloud { };
 
   lpod = callPackage ./lpod { };
 
   marisa = callPackage ./marisa {
-    inherit (pythonPackagesSuper) marisa;
+    inherit (pythonPackages.pkgs) marisa;
   };
 
-  markdown = callPackage ./markdown/3_1.nix { };
+  markdown = callPackage ./markdown { };
 
-  markupsafe = callPackage ./markupsafe/1.nix { };
+  markupsafe = callPackage ./markupsafe { };
 
-  mock = callPackage ./mock/2.nix { };
+  mock = callPackage ./mock { };
 
   more-itertools = callPackage ./more-itertools { };
 
-  mutagen = callPackage ./mutagen/1.43.nix { };
+  mutagen = callPackage ./mutagen { };
 
   nose = callPackage ./nose { };
 
-  numpy = callPackage ./numpy/1.16.nix { };
+  numpy = callPackage ./numpy { };
 
-  packaging = callPackage ./packaging/2.nix { };
+  packaging = callPackage ./packaging { };
 
   pathlib2 = callPackage ./pathlib2 { };
 
@@ -142,25 +187,25 @@ in
 
   pillow = callPackage ./pillow { };
 
-  pip = callPackage ./pip/20.nix { };
+  pip = callPackage ./pip { };
 
-  pluggy = callPackage ./pluggy/0.nix { };
+  pluggy = callPackage ./pluggy { };
 
   poetry-core = callPackage ./poetry-core { };
 
-  prettytable = callPackage ./prettytable/1.nix { };
+  prettytable = callPackage ./prettytable { };
 
   protobuf = callPackage ./protobuf {
     disabled = pythonPackages.isPyPy;
-    protobuf = pythonPackagesSuper.protobuf3_17; # last version compatible with Python 2
+    protobuf = pythonPackages.pkgs.protobuf; # last version compatible with Python 2
   };
 
   psutil = callPackage ./psutil { };
 
   pyasn1 = callPackage ./pyasn1 { };
 
-  pycairo = callPackage ./pycairo/1.18.nix {
-    inherit (pythonPackagesSuper.buildPackages) meson;
+  pycairo = callPackage ./pycairo {
+    inherit (pythonPackages.pkgs.buildPackages) meson;
   };
 
   pycparser = callPackage ./pycparser { };
@@ -169,29 +214,29 @@ in
 
   pygments = callPackage ./pygments { };
 
-  pygobject3 = callPackage ./pygobject/3.36.nix {
-    inherit (pythonPackagesSuper) meson;
+  pygobject3 = callPackage ./pygobject {
+    inherit (pythonPackages.pkgs) meson;
   };
 
   pygtk = callPackage ./pygtk { };
 
   pyGtkGlade = pythonPackages.pygtk.override {
-    inherit (pythonPackagesSuper.gnome2) libglade;
+    inherit (pythonPackages.pkgs.gnome2) libglade;
   };
 
-  pyjwt = callPackage ./pyjwt/1.nix { };
+  pyjwt = callPackage ./pyjwt { };
 
   pyopenssl = callPackage ./pyopenssl { };
 
   pyparsing = callPackage ./pyparsing { };
 
-  pyroma = callPackage ./pyroma/2.nix { };
+  pyroma = callPackage ./pyroma { };
 
   pysqlite = callPackage ./pysqlite { };
 
   pytest = pythonPackages.pytest_4;
 
-  pytest_4 = callPackage ./pytest/4.nix { };
+  pytest_4 = callPackage ./pytest { };
 
   pytest-expect = callPackage ./pytest-expect { };
 
@@ -199,7 +244,7 @@ in
 
   pytest-mock = callPackage ./pytest-mock { };
 
-  pytest-runner = callPackage ./pytest-runner/2.nix { };
+  pytest-runner = callPackage ./pytest-runner { };
 
   pytest-xdist = callPackage ./pytest-xdist { };
 
@@ -207,7 +252,7 @@ in
 
   pytoml = callPackage ./pytoml { };
 
-  pyyaml = callPackage ./pyyaml/5.nix { };
+  pyyaml = callPackage ./pyyaml { };
 
   qpid-python = callPackage ./qpid-python { };
 
@@ -215,21 +260,21 @@ in
 
   requests = callPackage ./requests { };
 
-  s3transfer = callPackage ./s3transfer/0_4.nix { };
+  s3transfer = callPackage ./s3transfer { };
 
   scandir = callPackage ./scandir { };
 
   #sequoia = disabled super.sequoia;
 
-  setuptools = callPackage ./setuptools/44.0.nix { };
+  setuptools = callPackage ./setuptools { };
 
-  setuptools-scm = callPackage ./setuptools-scm/2.nix { };
+  setuptools-scm = callPackage ./setuptools-scm { };
 
   six = callPackage ./six { };
 
   snowballstemmer = callPackage ./snowballstemmer { };
 
-  sphinx = callPackage ./sphinx/2.nix { };
+  sphinx = callPackage ./sphinx { };
 
   sphinx-rtd-theme = callPackage ./sphinx-rtd-theme { };
 
@@ -249,19 +294,19 @@ in
 
   unittest2 = callPackage ./unittest2 { };
 
-  urllib3 = callPackage ./urllib3/2.nix { };
+  urllib3 = callPackage ./urllib3 { };
 
   wcwidth = callPackage ./wcwidth { };
 
-  werkzeug = callPackage ./werkzeug/1.nix { };
+  werkzeug = callPackage ./werkzeug { };
 
-  wxPython30 = callPackage ./wxPython/3.0.nix {
-    wxGTK = pythonPackagesSuper.wxGTK30;
+  wxPython30 = callPackage ./wxPython {
+    wxGTK = pythonPackages.pkgs.wxGTK30;
   };
 
   wxPython = pythonPackages.wxPython30;
 
-  vcrpy = callPackage ./vcrpy/3.nix { };
+  vcrpy = callPackage ./vcrpy { };
 
   virtualenv = callPackage ./virtualenv { };
 
@@ -271,7 +316,7 @@ in
 
   #zeek = disabled super.zeek;
 
-  zipp = callPackage ./zipp/1.nix { };
+  zipp = callPackage ./zipp { };
 
   zope-interface = callPackage ./zope-interface { };
 }

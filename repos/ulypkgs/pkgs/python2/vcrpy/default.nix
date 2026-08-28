@@ -1,7 +1,6 @@
 {
   buildPythonPackage,
   lib,
-  isPy27,
   six,
   fetchPypi,
   pyyaml,
@@ -15,15 +14,13 @@
   pythonAtLeast,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "vcrpy";
-  version = "4.1.1";
-
-  disabled = isPy27;
+  version = "3.0.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "57095bf22fc0a2d99ee9674cdafebed0f3ba763018582450706f7d3a74fff599";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-IRaNWuFCY6gz1Lcaz9gnjYhBEU8kvhtKtKVxnQx/B7w=";
   };
 
   checkInputs = [
@@ -51,4 +48,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/kevin1024/vcrpy";
     license = licenses.mit;
   };
-}
+})

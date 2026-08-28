@@ -9,13 +9,13 @@
 if (pythonAtLeast "3.3") then
   null
 else
-  buildPythonPackage rec {
+  buildPythonPackage (finalAttrs: {
     pname = "ipaddress";
     version = "1.0.23";
 
     src = fetchPypi {
-      inherit pname version;
-      sha256 = "b7f8e0369580bb4a24d5ba1d7cc29660a4a6987763faf1d8a8046830e020e7e2";
+      inherit (finalAttrs) pname version;
+      hash = "sha256-t/jgNpWAu0ok1bodfMKWYKSmmHdj+vHYqARoMOAg5+I=";
     };
 
     checkPhase = ''
@@ -28,4 +28,4 @@ else
       license = licenses.psfl;
     };
 
-  }
+  })

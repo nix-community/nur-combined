@@ -14,26 +14,26 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pygtk";
   version = "2.24.0";
 
   disabled = isPy3k;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
-    sha256 = "04k942gn8vl95kwf0qskkv6npclfm31d78ljkrkgyqxxcni1w76d";
+    url = "mirror://gnome/sources/${finalAttrs.pname}/${lib.versions.majorMinor finalAttrs.version}/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
+    hash = "sha256-zRweomW9Y/9mnpKi08KojrJrzZ5TY+D4LIluZJ8gaRI=";
   };
 
   patches = [
     # https://bugzilla.gnome.org/show_bug.cgi?id=660216 - fixes some memory leaks
     (fetchpatch {
       url = "https://gitlab.gnome.org/Archive/pygtk/commit/eca72baa5616fbe4dbebea43c7e5940847dc5ab8.diff";
-      sha256 = "031px4w5cshcx1sns430sdbr2i007b9zyb2carb3z65nzr77dpdd";
+      hash = "sha256-rd12Tv62mD9WVkws/9M6AESRV9NgEG116AxqVjjpNww=";
     })
     (fetchpatch {
       url = "https://gitlab.gnome.org/Archive/pygtk/commit/4aaa48eb80c6802aec6d03e5695d2a0ff20e0fc2.patch";
-      sha256 = "0z8cg7nr3qki8gg8alasdzzyxcihfjlxn518glq5ajglk3q5pzsn";
+      hash = "sha256-Vv9b8Jj0SVUwfSgU26l0MLLu/29aUYXeQ3Hike15DH0=";
     })
   ];
 
@@ -81,7 +81,7 @@ buildPythonPackage rec {
     rm $out/bin/pygtk-codegen-2.0
     ln -s ${pygobject2}/bin/pygobject-codegen-2.0  $out/bin/pygtk-codegen-2.0
     ln -s ${pygobject2}/lib/${python.libPrefix}/site-packages/pygobject-${pygobject2.version}.pth \
-                  $out/lib/${python.libPrefix}/site-packages/${pname}-${version}.pth
+                  $out/lib/${python.libPrefix}/site-packages/${finalAttrs.pname}-${finalAttrs.version}.pth
   '';
 
   meta = with lib; {
@@ -90,4 +90,4 @@ buildPythonPackage rec {
     platforms = platforms.all;
     license = with licenses; [ lgpl21Plus ];
   };
-}
+})

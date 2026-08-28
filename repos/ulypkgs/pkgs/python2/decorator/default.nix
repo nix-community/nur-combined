@@ -4,13 +4,13 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "decorator";
-  version = "5.1.0";
+  version = "4.4.2";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "e59913af105b9860aa2c8d3272d9de5a56a4e608db9a2f167a8480b323d529a7";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-46YvBSAXJEDKDcyCN0kxk4Ljd/N/FAoLme9F/suEv+c=";
   };
 
   meta = with lib; {
@@ -19,4 +19,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };
-}
+})

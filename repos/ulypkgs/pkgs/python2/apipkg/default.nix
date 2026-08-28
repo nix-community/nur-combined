@@ -7,13 +7,13 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "apipkg";
   version = "2.1.1";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-zKNAIkFKE5duM6HjjWoJBWfve2jQNy+SPGmaj4wIivw=";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-zKNAIkFKE5duM6HjjWoJBWfve2jQNy+SPGmaj4wIivw=";
   };
 
   nativeBuildInputs = [ setuptools-scm ];
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytest-dev/apipkg";
     license = licenses.mit;
   };
-}
+})

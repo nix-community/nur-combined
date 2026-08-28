@@ -7,13 +7,13 @@
   stdenv,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "futures";
   version = "3.3.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "7e033af76a5e35f58e56da7a91e687706faf4e7bdfb2cbc3f2cca6b9bcda9794";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-fgM692peNfWOVtp6keaHcG+vTnvfssvD8symubzal5Q=";
   };
 
   # This module is for backporting functionality to Python 2.x, it's builtin in py3k
@@ -31,4 +31,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };
-}
+})

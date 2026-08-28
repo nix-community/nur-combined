@@ -8,13 +8,13 @@
   sphinx,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "readthedocs-sphinx-ext";
   version = "2.2.5";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-7l/VuZ258MGAsjlsvOUoqjZnGVG5UmuwJy2/zlUXvSc=";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-7l/VuZ258MGAsjlsvOUoqjZnGVG5UmuwJy2/zlUXvSc=";
   };
 
   propagatedBuildInputs = [ requests ];
@@ -30,4 +30,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/rtfd/readthedocs-sphinx-ext";
     license = licenses.mit;
   };
-}
+})

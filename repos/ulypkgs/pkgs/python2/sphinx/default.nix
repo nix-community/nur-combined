@@ -1,122 +1,90 @@
 {
-  stdenv,
   lib,
   buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  # propagatedBuildInputs
-  babel,
-  alabaster,
-  docutils,
-  imagesize,
-  jinja2,
-  packaging,
-  pygments,
-  requests,
-  setuptools,
-  snowballstemmer,
-  sphinxcontrib-applehelp,
-  sphinxcontrib-devhelp,
-  sphinxcontrib-htmlhelp,
-  sphinxcontrib-jsmath,
-  sphinxcontrib-qthelp,
-  sphinxcontrib-serializinghtml,
-  sphinxcontrib-websupport,
-  # check phase
+  fetchPypi,
+  pytest,
+  simplejson,
+  mock,
+  glibcLocales,
   html5lib,
-  pytestCheckHook,
-  typed-ast,
+  pythonOlder,
+  enum34,
+  python,
+  docutils,
+  jinja2,
+  pygments,
+  alabaster,
+  babel,
+  snowballstemmer,
+  six,
+  sqlalchemy,
+  whoosh,
+  imagesize,
+  requests,
+  typing,
+  sphinxcontrib-websupport,
+  setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sphinx";
-  version = "4.3.1";
-  disabled = pythonOlder "3.5";
-
-  src = fetchFromGitHub {
-    owner = "sphinx-doc";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-8Yj6cPZFG8ycbbZtMR+fsIAOX0brxroi6nYjP+WhnxA=";
-    extraPostFetch = ''
-      cd $out
-      mv tests/roots/test-images/testimäge.png \
-        tests/roots/test-images/testimæge.png
-      patch -p1 < ${./0001-test-images-Use-normalization-equivalent-character.patch}
-    '';
+  version = "1.8.5";
+  src = fetchPypi {
+    pname = "Sphinx";
+    inherit (finalAttrs) version;
+    hash = "sha256-x2WKq3XJICiKjPbwnyRMbP2uMNgtgDrBY02fIjqAygg=";
   };
+  LC_ALL = "en_US.UTF-8";
 
+  checkInputs = [ pytest ];
+  buildInputs = [
+    simplejson
+    mock
+    glibcLocales
+    html5lib
+  ]
+  ++ lib.optional (pythonOlder "3.4") enum34;
+  # Disable two tests that require network access.
+  checkPhase = ''
+    cd tests; ${python.interpreter} run.py --ignore py35 -k 'not test_defaults and not test_anchors_ignored'
+  '';
   propagatedBuildInputs = [
-    babel
-    alabaster
     docutils
-    imagesize
     jinja2
-    packaging
     pygments
-    requests
+    alabaster
+    babel
     setuptools
     snowballstemmer
-    sphinxcontrib-applehelp
-    sphinxcontrib-devhelp
-    sphinxcontrib-htmlhelp
-    sphinxcontrib-jsmath
-    sphinxcontrib-qthelp
-    sphinxcontrib-serializinghtml
-    # extra[docs]
+    six
     sphinxcontrib-websupport
-  ];
-
-  checkInputs = [
-    html5lib
-    pytestCheckHook
+    sqlalchemy
+    whoosh
+    imagesize
+    requests
   ]
-  ++ lib.optionals (pythonOlder "3.8") [
-    typed-ast
+  ++ lib.optional (pythonOlder "3.5") typing;
+
+  # Lots of tests. Needs network as well at some point.
+  doCheck = false;
+
+  patches = [
+    # Since pygments 2.5, PythonLexer refers to python3. If we want to use
+    # python2, we need to explicitly specify Python2Lexer.
+    # Not upstreamed since there doesn't seem to be any upstream maintenance
+    # branch for 1.8 (and this patch doesn't make any sense for 2.x).
+    ./python2-lexer.patch
   ];
+  # https://github.com/NixOS/nixpkgs/issues/22501
+  # Do not run `python sphinx-build arguments` but `sphinx-build arguments`.
+  postPatch = ''
+    substituteInPlace sphinx/make_mode.py --replace "sys.executable, " ""
+  '';
 
-  disabledTests = [
-    # requires network access
-    "test_anchors_ignored"
-    "test_defaults"
-    "test_defaults_json"
-    "test_latex_images"
-
-    # requires imagemagick (increases build closure size), doesn't
-    # test anything substantial
-    "test_ext_imgconverter"
-  ]
-  ++ lib.optional stdenv.isDarwin [
-    # Due to lack of network sandboxing can't guarantee port 7777 isn't bound
-    "test_inspect_main_url"
-    "test_auth_header_uses_first_match"
-    "test_linkcheck_request_headers"
-    "test_linkcheck_request_headers_no_slash"
-    "test_follows_redirects_on_HEAD"
-    "test_invalid_ssl"
-    "test_connect_to_selfsigned_with_tls_verify_false"
-    "test_connect_to_selfsigned_with_tls_cacerts"
-    "test_connect_to_selfsigned_with_requests_env_var"
-    "test_connect_to_selfsigned_nonexistent_cert_file"
-    "test_TooManyRedirects_on_HEAD"
-    "test_too_many_requests_retry_after_int_del"
-    "test_too_many_requests_retry_after_HTTP_date"
-    "test_too_many_requests_retry_after_without_header"
-    "test_too_many_requests_user_timeout"
-    "test_raises_for_invalid_status"
-    "test_auth_header_no_match"
-    "test_follows_redirects_on_GET"
-    "test_connect_to_selfsigned_fails"
-  ];
-
-  meta = with lib; {
-    description = "Python documentation generator";
-    longDescription = ''
-      A tool that makes it easy to create intelligent and beautiful
-      documentation for Python projects
-    '';
-    homepage = "https://www.sphinx-doc.org";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+  meta = {
+    description = "A tool that makes it easy to create intelligent and beautiful documentation for Python projects";
+    homepage = "http://sphinx.pocoo.org/";
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [ ];
   };
-}
+})

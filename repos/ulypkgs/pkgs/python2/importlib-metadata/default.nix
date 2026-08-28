@@ -10,15 +10,15 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "importlib-metadata";
   version = "2.1.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "importlib_metadata";
-    inherit version;
-    sha256 = "1pdmsmwagimn0lsl4x7sg3skcr2fvzqpv2pjd1rh7yrm5gzrxpmq";
+    inherit (finalAttrs) version;
+    hash = "sha256-uN6e/ys1+wNzaPKKffHfTmQ29Xj6dEI1BbbGp3jVtd0=";
   };
 
   nativeBuildInputs = [ setuptools-scm ];
@@ -42,4 +42,4 @@ buildPythonPackage rec {
     homepage = "https://importlib-metadata.readthedocs.io/";
     license = lib.licenses.asl20;
   };
-}
+})

@@ -12,13 +12,13 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "boto3";
-  version = "1.20.21"; # N.B: if you change this, change botocore and awscli to a matching version
+  version = "1.17.97"; # N.B: if you change this, change botocore and awscli to a matching version
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "2fb05cbe81b9ce11d9394fc6c4ffa5fd1cceb114dc1d2887dc61081707e44522";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-CrWvxRRhww8nrr75RCEdFvR2l7mP+NLi9uSeWVhIU7s=";
   };
 
   propagatedBuildInputs = [
@@ -57,4 +57,4 @@ buildPythonPackage rec {
       services like Amazon S3 and Amazon EC2.
     '';
   };
-}
+})

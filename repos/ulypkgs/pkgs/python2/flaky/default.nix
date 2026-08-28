@@ -6,13 +6,13 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "flaky";
   version = "3.7.0";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-OtEAeAchoZEfV6FlgJt+omWnhjMFrLZnCCIIIMr4qg0=";
   };
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
   };
 
-}
+})

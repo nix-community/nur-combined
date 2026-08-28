@@ -7,13 +7,13 @@
   sqlite,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pysqlite";
   version = "2.8.3";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "17d3335863e8cf8392eea71add33dab3f96d060666fe68ab7382469d307f4490";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-F9MzWGPoz4OS7qca3TPas/ltBgZm/mirc4JGnTB/RJA=";
   };
 
   # Need to use the builtin sqlite3 on Python 3
@@ -59,4 +59,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
   };
 
-}
+})

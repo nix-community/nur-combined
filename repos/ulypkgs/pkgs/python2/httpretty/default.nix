@@ -13,21 +13,19 @@
   nose-randomly,
   six,
   mock,
-  pytest,
-  freezegun,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "httpretty";
-  version = "1.1.4";
+  version = "0.9.7";
 
   # drop this for version > 0.9.7
   # Flaky tests: https://github.com/gabrielfalcao/HTTPretty/pull/394
-  doCheck = lib.versionAtLeast version "0.9.8";
+  doCheck = lib.versionAtLeast finalAttrs.version "0.9.8";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "20de0e5dd5a18292d36d928cc3d6e52f8b2ac73daec40d41eb62dee154933b68";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-ZiFvJrnSxS6BgI8+Z0pvtl1L9xlyE5Shqb6SYXflX74=";
   };
 
   propagatedBuildInputs = [ six ];
@@ -38,19 +36,13 @@ buildPythonPackage rec {
     coverage
     mock
     rednose
-    pytest
     # Following not declared in setup.py
     nose-randomly
     requests
     tornado
     httplib2
     nose-exclude
-    freezegun
   ];
-
-  checkPhase = ''
-    nosetests tests/unit # functional tests cause trouble requiring /etc/protocol
-  '';
 
   __darwinAllowLocalNetworking = true;
 
@@ -67,4 +59,4 @@ buildPythonPackage rec {
     description = "HTTP client request mocking tool";
     license = licenses.mit;
   };
-}
+})

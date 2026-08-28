@@ -6,13 +6,13 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytest-runner";
-  version = "5.3.1";
+  version = "5.2";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0fce5b8dc68760f353979d99fdd6b3ad46330b6b1837e2077a89ebcf204aac91";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-lsfnPq17k+OIxdYUdw0rrmUm79mXdX01Q/4XtVeglCs=";
   };
 
   nativeBuildInputs = [
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytest-dev/pytest-runner";
     license = licenses.mit;
   };
-}
+})

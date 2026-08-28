@@ -8,13 +8,13 @@
   apipkg,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "execnet";
   version = "1.9.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "8f694f3ba9cc92cab508b152dcfe322153975c29bda272e2fd7f3f00f36e47c5";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-j2lPO6nMksq1CLFS3P4yIVOXXCm9onLi/X8/APNuR8U=";
   };
 
   checkInputs = [ pytestCheckHook ];
@@ -41,4 +41,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ ];
   };
 
-}
+})

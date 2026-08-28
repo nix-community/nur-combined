@@ -6,14 +6,14 @@
   cached-property,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "charset-normalizer";
   version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "Ousret";
     repo = "charset_normalizer";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-4suRZrt4wfoxYSx92tv8pF5+JRwBfV/aqnchyRF+dNA=";
   };
 
@@ -41,4 +41,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };
-}
+})

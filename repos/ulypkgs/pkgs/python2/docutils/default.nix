@@ -7,13 +7,13 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "docutils";
   version = "0.16";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "c2de3a60e9e7d07be26b7f2b00ca0309c207e06c100f9cc2a94931fc75a478fc";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-wt46YOnn0Hvia38rAMoDCcIH4GwQD5zCqUkx/HWkePw=";
   };
 
   # Only Darwin needs LANG, but we could set it in general.
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     homepage = "http://docutils.sourceforge.net/";
     maintainers = with lib.maintainers; [ AndersonTorres ];
   };
-}
+})

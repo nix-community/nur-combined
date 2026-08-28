@@ -1,34 +1,39 @@
 {
   lib,
-  buildPythonPackage,
-  isPy27,
   fetchFromGitHub,
-  pytestCheckHook,
+  fetchPypi,
+  buildPythonPackage,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "certifi";
-  version = "2021.10.08";
+  version = "2019.11.28";
 
-  disabled = isPy27;
-
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = "python-certifi";
-    rev = version;
-    sha256 = "sha256-SFb/spVHK15b53ZG1P147DcTjs1dqR0+MBXzpE+CWpo=";
+  src = fetchPypi {
+    inherit (finalAttrs) pname version;
+    hash = "sha256-JbZMfaTNdHlZTQNcCMLYCetKqzom5amQ6pjMRQwyDx8=";
   };
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  certifiSrc = fetchFromGitHub {
+    owner = "certifi";
+    repo = "python-certifi";
+    rev = "2021.10.08";
+    hash = "sha256-SFb/spVHK15b53ZG1P147DcTjs1dqR0+MBXzpE+CWpo=";
+  };
+
+  postPatch = ''
+    cp ${finalAttrs.certifiSrc}/certifi/cacert.pem certifi/cacert.pem
+  '';
 
   pythonImportsCheck = [ "certifi" ];
+
+  # no tests implemented
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/certifi/python-certifi";
     description = "Python package for providing Mozilla's CA Bundle";
     license = licenses.isc;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [ ]; # NixOps team
   };
-}
+})

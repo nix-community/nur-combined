@@ -14,14 +14,14 @@
   stdenv,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cython";
   version = "3.0.12";
 
   src = fetchFromGitHub {
     owner = "cython";
     repo = "cython";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-clJXjQb6rVECirKRUGX0vD5a6LILzPwNo7+6KKYs2pI=";
   };
 
@@ -118,10 +118,10 @@ buildPythonPackage rec {
       attributes. This allows the compiler to generate very efficient C code
       from Cython code.
     '';
-    changelog = "https://github.com/cython/cython/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/cython/cython/blob/${finalAttrs.version}/CHANGES.rst";
     license = lib.licenses.asl20;
     mainProgram = "cython";
     maintainers = with lib.maintainers; [ ];
   };
-}
+})
 # TODO: investigate recursive loop when doCheck is true

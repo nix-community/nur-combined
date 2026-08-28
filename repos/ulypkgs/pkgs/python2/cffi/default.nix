@@ -15,12 +15,12 @@
 if isPyPy then
   null
 else
-  buildPythonPackage rec {
+  buildPythonPackage (finalAttrs: {
     pname = "cffi";
     version = "1.15.1";
 
     src = fetchPypi {
-      inherit pname version;
+      inherit (finalAttrs) pname version;
       hash = "sha256-1AC/uaN7E1ElPLQCZxzqfom97MKU6AFqcH9tHYrJNPk=";
     };
 
@@ -144,4 +144,4 @@ else
       license = licenses.mit;
       description = "Foreign Function Interface for Python calling C code";
     };
-  }
+  })

@@ -12,14 +12,14 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytest-xdist";
   version = "1.34.0";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "1vh4ps32lp5ignch5adbl3pgchvigdfmrl6qpmhxih54wa1qw3il";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-NA6Og+KkwNhhvdjQXF17cUP27qCrqQKZfbFcKoa+BO4=";
   };
 
   nativeBuildInputs = [
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

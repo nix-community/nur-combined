@@ -6,13 +6,13 @@
   nose,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "TurboCheetah";
   version = "1.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "9e4c7ecb0d061bfb58281363ee1b09337083f013a8b4d0355326a5d8668f450c";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-nkx+yw0GG/tYKBNj7hsJM3CD8BOotNA1Uyal2GaPRQw=";
   };
 
   propagatedBuildInputs = [ cheetah ];
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     homepage = "http://docs.turbogears.org/TurboCheetah";
     license = lib.licenses.mit;
   };
-}
+})

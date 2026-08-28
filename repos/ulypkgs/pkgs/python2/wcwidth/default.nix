@@ -7,13 +7,13 @@
   backports-functools-lru-cache,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "wcwidth";
   version = "0.2.13";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-cuoMBjmesobZeP3ttpI6nrR+HEhs5j6bTmT8GDA5crU=";
   };
 
@@ -37,8 +37,8 @@ buildPythonPackage rec {
       no 3rd-party dependencies.
     '';
     homepage = "https://github.com/jquast/wcwidth";
-    changelog = "https://github.com/jquast/wcwidth/releases/tag/${version}";
+    changelog = "https://github.com/jquast/wcwidth/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bryango ];
   };
-}
+})

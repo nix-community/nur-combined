@@ -13,13 +13,13 @@ let
   testDir = if isPy3k then "src" else "python2";
 
 in
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "typing";
   version = "3.10.0.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "13b4ad211f54ddbf93e5901a9967b1e07720c1d1b78d596ac6a439641aa1b130";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-E7StIR9U3b+T5ZAamWex4HcgwdG3jVlqxqQ5ZBqhsTA=";
   };
 
   disabled = pythonAtLeast "3.5";
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     homepage = "https://docs.python.org/3/library/typing.html";
     license = licenses.psfl;
   };
-}
+})

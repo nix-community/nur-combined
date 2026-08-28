@@ -6,14 +6,14 @@
   setuptools-scm,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "backports-functools-lru-cache";
   version = "1.6.6";
   pyproject = true;
 
   src = fetchPypi {
     pname = "backports.functools_lru_cache";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-e3DnAbpNtYwO2GcanTORsKu5vRvCTU6Qw0gPS6r8wtw=";
   };
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/jaraco/backports.functools_lru_cache";
     license = lib.licenses.mit;
   };
-}
+})

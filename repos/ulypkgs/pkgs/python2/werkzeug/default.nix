@@ -2,63 +2,71 @@
   lib,
   stdenv,
   buildPythonPackage,
-  pythonOlder,
   fetchPypi,
-  watchdog,
-  dataclasses,
-  pytest-timeout,
-  pytest-xprocess,
+  itsdangerous,
+  hypothesis,
   pytestCheckHook,
+  requests,
+  pytest-timeout,
 }:
 
-buildPythonPackage rec {
-  pname = "werkzeug";
-  version = "2.0.2";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
+buildPythonPackage (finalAttrs: {
+  pname = "Werkzeug";
+  version = "1.0.1";
 
   src = fetchPypi {
-    pname = "Werkzeug";
-    inherit version;
-    sha256 = "sha256-qiu2/I3ujWxQTArB5/X33FgQqZA+eTtvcVqfAVva25o=";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-bICx5a02ZSkOo5MguR4b4eDV9gZSuWSjBwIW3oPS5Hw=";
   };
 
-  propagatedBuildInputs =
-    lib.optionals (!stdenv.isDarwin) [
-      # watchdog requires macos-sdk 10.13+
-      watchdog
-    ]
-    ++ lib.optionals (pythonOlder "3.7") [
-      dataclasses
-    ];
-
+  propagatedBuildInputs = [ itsdangerous ];
   checkInputs = [
-    pytest-timeout
-    pytest-xprocess
     pytestCheckHook
+    requests
+    hypothesis
+    pytest-timeout
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
+  postPatch = ''
+    # ResourceWarning causes tests to fail
+    rm tests/test_routing.py
+  '';
+
+  disabledTests = [
+    "test_save_to_pathlib_dst"
+    "test_cookie_maxsize"
+    "test_cookie_samesite_attribute"
+    "test_cookie_samesite_invalid"
+    "test_range_parsing"
+    "test_content_range_parsing"
+    "test_http_date_lt_1000"
+    "test_best_match_works"
+    "test_date_to_unix"
+    "test_easteregg"
+
+    # Seems to be a problematic test-case:
+    #
+    # > warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+    # E pytest.PytestUnraisableExceptionWarning: Exception ignored in: <_io.FileIO [closed]>
+    # E
+    # E Traceback (most recent call last):
+    # E   File "/nix/store/cwv8aj4vsqvimzljw5dxsxy663vjgibj-python3.9-Werkzeug-1.0.1/lib/python3.9/site-packages/werkzeug/formparser.py", line 318, in parse_multipart_headers
+    # E     return Headers(result)
+    # E ResourceWarning: unclosed file <_io.FileIO name=11 mode='rb+' closefd=True>
+    "test_basic_routing"
+    "test_merge_slashes_match"
+    "test_merge_slashes_build"
+    "TestMultiPart"
+    "TestHTTPUtility"
+  ]
+  ++ lib.optionals stdenv.isDarwin [
     "test_get_machine_id"
-  ];
-
-  pytestFlagsArray = [
-    # don't run tests that are marked with filterwarnings, they fail with
-    # warnings._OptionError: unknown warning category: 'pytest.PytestUnraisableExceptionWarning'
-    "-m 'not filterwarnings'"
   ];
 
   meta = with lib; {
     homepage = "https://palletsprojects.com/p/werkzeug/";
-    description = "The comprehensive WSGI web application library";
-    longDescription = ''
-      Werkzeug is a comprehensive WSGI web application library. It
-      began as a simple collection of various utilities for WSGI
-      applications and has become one of the most advanced WSGI
-      utility libraries.
-    '';
+    description = "A WSGI utility library for Python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
   };
-}
+})

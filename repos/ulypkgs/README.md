@@ -1,7 +1,5 @@
 # ulypkgs
 
-[![Garnix badge](https://img.shields.io/endpoint.svg?url=https://garnix.io/api/badges/UlyssesZh/ulypkgs)](https://garnix.io/repo/UlyssesZh/ulypkgs)
-
 The personal Nix packages collection of UlyssesZhan.
 
 ## Features
@@ -119,17 +117,6 @@ This package collection is also available on [NUR](https://github.com/nix-commun
 
 ```shll
 nix run github:nix-community/NUR#repos.ulypkgs.hello
-```
-
-## Binary caches
-
-Binary caches are available on Garnix's public caches,
-except for packages that require itch.io API keys to download sources.
-Add the following lines to your Nix configuration if you trust their build infrastructure:
-
-```ini
-substituters = https://cache.garnix.io
-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
 ```
 
 ## Contributing

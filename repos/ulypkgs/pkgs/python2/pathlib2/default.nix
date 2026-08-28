@@ -8,13 +8,13 @@
   typing,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pathlib2";
   version = "2.3.7.post1";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-n+DtrYmLg8DD4ZnIQrJ+0hZkXS4Xd1ey3Wc4TUETxkE=";
   };
 
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     license = with lib.licenses; [ mit ];
     maintainers = [ ];
   };
-}
+})

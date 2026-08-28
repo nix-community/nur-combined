@@ -8,7 +8,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jaraco.classes";
   version = "3.1.1";
   disabled = isPy27;
@@ -16,13 +16,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jaraco";
     repo = "jaraco.classes";
-    rev = "v${version}";
-    sha256 = "0wzrcsxi9gb65inayg0drm08iaw37jm1lqxhz3860i6pwjh503pr";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-+Q5QoOTXRGDQ+LBjGqo8g6uIQM0NPK9sLGa9FLtm+XM=";
   };
 
   pythonNamespaces = [ "jaraco" ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   nativeBuildInputs = [ setuptools-scm ];
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/jaraco/jaraco.classes";
     license = licenses.mit;
   };
-}
+})

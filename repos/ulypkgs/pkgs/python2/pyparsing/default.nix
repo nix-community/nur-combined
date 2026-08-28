@@ -10,16 +10,16 @@
 }:
 
 let
-  pyparsing = buildPythonPackage rec {
+  pyparsing = buildPythonPackage (finalAttrs: {
     pname = "pyparsing";
     version = "2.4.7";
     format = "setuptools";
 
     src = fetchFromGitHub {
       owner = "pyparsing";
-      repo = pname;
-      rev = "pyparsing_${version}";
-      sha256 = "14pfy80q2flgzjcx8jkracvnxxnr59kjzp3kdm5nh232gk1v6g6h";
+      repo = finalAttrs.pname;
+      rev = "pyparsing_${finalAttrs.version}";
+      hash = "sha256-0Dyzw3xiCGhLbXPcL2cq2fZuN1N5StSZ/I86gQHy7pI=";
     };
 
     # circular dependencies if enabled by default
@@ -44,6 +44,6 @@ let
       description = "Alternative approach to creating and executing simple grammars, vs. the traditional lex/yacc approach, or the use of regular expressions";
       license = lib.licenses.mit;
     };
-  };
+  });
 in
 pyparsing

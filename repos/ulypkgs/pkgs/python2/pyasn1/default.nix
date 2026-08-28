@@ -4,13 +4,13 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyasn1";
   version = "0.4.8";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "aef77c9fb94a3ac588e87841208bdec464471d9871bd5050a287cc9a475cd0ba";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-rvd8n7lKOsWI6HhBIIvexGRHHZhxvVBQoofMmkdc0Lo=";
   };
 
   meta = with lib; {
@@ -19,4 +19,4 @@ buildPythonPackage rec {
     license = "mBSD";
     platforms = platforms.unix; # arbitrary choice
   };
-}
+})

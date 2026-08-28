@@ -30,7 +30,7 @@ buildPythonPackage {
       (
         fetchpatch {
           url = "https://github.com/protocolbuffers/protobuf/commit/0a59054c30e4f0ba10f10acfc1d7f3814c63e1a7.patch";
-          sha256 = "09hw22y3423v8bbmc9xm07znwdxfbya6rp78d4zqw6fisdvjkqf1";
+          hash = "sha256-weEpd9PRGY4/aejcbJRfrjdu/wG1J1bXQnsIMrwQHCY=";
           stripLen = 1;
         }
       );

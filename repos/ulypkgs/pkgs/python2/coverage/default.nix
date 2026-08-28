@@ -5,14 +5,14 @@
   mock,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "coverage";
   version = "5.5";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "ebe78fe9a0e874362175b02371bdfbee64d8edc42a044253ddf4ee7d3c15212c";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-6+eP6aDodDYhdbAjcb377mTY7cQqBEJT3fTufTwVISw=";
   };
 
   # No tests in archive
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     homepage = "https://coverage.readthedocs.io/";
     license = lib.licenses.bsd3;
   };
-}
+})

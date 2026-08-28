@@ -1,18 +1,16 @@
 {
   lib,
   fetchPypi,
-  fetchpatch,
   python,
   buildPythonPackage,
   gfortran,
-  hypothesis,
   pytest,
   blas,
   lapack,
   writeTextFile,
+  isPyPy,
   cython,
   setuptoolsBuildHook,
-  pythonOlder,
 }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
@@ -42,27 +40,20 @@ let
     );
   };
 in
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "numpy";
-  version = "1.21.4";
+  version = "1.16.6";
   format = "pyproject.toml";
-  disabled = pythonOlder "3.7";
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     extension = "zip";
-    sha256 = "e6c76a87633aa3fa16614b61ccedfae45b91df2767cf097aa9c933932a7ed1e0";
+    hash = "sha256-5c8/3xNAGIXo7qgXBiTsliJeIXTrDGEcbybdM7SJ4/8=";
   };
-
-  patches = lib.optionals python.hasDistutilsCxxPatch [
-    # We patch cpython/distutils to fix https://bugs.python.org/issue1222585
-    # Patching of numpy.distutils is needed to prevent it from undoing the
-    # patch to distutils.
-    ./numpy-distutils-C++.patch
-  ];
 
   nativeBuildInputs = [
     gfortran
+    pytest
     cython
     setuptoolsBuildHook
   ];
@@ -71,9 +62,13 @@ buildPythonPackage rec {
     lapack
   ];
 
-  # we default openblas to build with 64 threads
-  # if a machine has more than 64 threads, it will segfault
-  # see https://github.com/xianyi/OpenBLAS/issues/2993
+  patches = lib.optionals python.hasDistutilsCxxPatch [
+    # We patch cpython/distutils to fix https://bugs.python.org/issue1222585
+    # Patching of numpy.distutils is needed to prevent it from undoing the
+    # patch to distutils.
+    ./numpy-distutils-C++_1.16.patch
+  ];
+
   preConfigure = ''
     sed -i 's/-faltivec//' numpy/distutils/system_info.py
     export NPY_NUM_BUILD_JOBS=$NIX_BUILD_CORES
@@ -86,10 +81,7 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  checkInputs = [
-    pytest
-    hypothesis
-  ];
+  doCheck = !isPyPy; # numpy 1.16+ hits a bug in pypy's ctypes, using either numpy or pypy HEAD fixes this (https://github.com/numpy/numpy/issues/13807)
 
   checkPhase = ''
     runHook preCheck
@@ -116,4 +108,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];
   };
-}
+})

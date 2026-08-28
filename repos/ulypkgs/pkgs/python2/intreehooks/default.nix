@@ -6,14 +6,14 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "intreehooks";
   version = "1.0";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "87e600d3b16b97ed219c078681260639e77ef5a17c0e0dbdd5a302f99b4e34e1";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-h+YA07Frl+0hnAeGgSYGOed+9aF8Dg291aMC+ZtONOE=";
   };
 
   propagatedBuildInputs = [ pytoml ];
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     maintainers = [ lib.maintainers.fridh ];
     homepage = "https://github.com/takluyver/intreehooks";
   };
-}
+})

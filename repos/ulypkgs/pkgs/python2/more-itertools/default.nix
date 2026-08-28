@@ -7,14 +7,14 @@
   stdenv,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "more-itertools";
   version = "5.0.0";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "38a936c0a6d98a38bcc2d03fdaaedaba9f412879461dd2ceff8d37564d6522e4";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-OKk2wKbZiji8wtA/2q7aup9BKHlGHdLO/403Vk1lIuQ=";
   };
 
   nativeCheckInputs = [ unittestCheckHook ];
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     description = "Expansion of the itertools module";
     license = lib.licenses.mit;
   };
-}
+})

@@ -3,17 +3,16 @@
   lib,
   fetchPypi,
   setuptools-scm,
-  pythonOlder,
   importlib-metadata,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pluggy";
-  version = "1.0.0";
+  version = "0.13.1";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-FbKs3mZlYeEpjXG1IwB+1zZN4HApIZtgTPgIv6HHZbA=";
   };
 
   checkPhase = ''
@@ -25,14 +24,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ importlib-metadata ];
 
   meta = {
     description = "Plugin and hook calling mechanisms for Python";
     homepage = "https://github.com/pytest-dev/pluggy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [ ];
   };
-}
+})

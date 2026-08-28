@@ -11,15 +11,15 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "backports-zoneinfo";
   version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "pganssle";
     repo = "zoneinfo";
-    rev = version;
-    sha256 = "sha256-00xdDOVdDanfsjQTd3yjMN2RFGel4cWRrAA3CvSnl24=";
+    rev = finalAttrs.version;
+    hash = "sha256-00xdDOVdDanfsjQTd3yjMN2RFGel4cWRrAA3CvSnl24=";
   };
 
   patches = [
@@ -59,4 +59,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ jonringer ];
   };
-}
+})

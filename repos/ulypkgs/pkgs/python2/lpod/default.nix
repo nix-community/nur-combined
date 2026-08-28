@@ -24,7 +24,7 @@ buildPythonPackage {
     owner = "lpod";
     repo = "lpod-python";
     rev = "dee32120ee582ff337b0c52a95a9a87cca71fd67";
-    sha256 = "1mikvzp27wxkzpr2lii4wg1hhx8h610agckqynvsrdc8v3nw9ciw";
+    hash = "sha256-PLLE7diItay39Xiyp0AwEHUIw+MkRiry/bPzI+7fM9Y=";
   };
 
   meta = with lib; {

@@ -22,13 +22,13 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "virtualenv";
   version = "20.10.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "576d05b46eace16a9c348085f7d0dc8ef28713a2cabaa1cf0aea41e8f12c9218";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-V20FtG6s4WqcNICF99DcjvKHE6LKuqHPCupB6PEskhg=";
   };
 
   nativeBuildInputs = [
@@ -92,4 +92,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ goibhniu ];
   };
-}
+})

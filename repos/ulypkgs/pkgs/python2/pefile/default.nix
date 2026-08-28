@@ -7,14 +7,14 @@
   pythonOlder,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pefile";
   version = "2019.4.18";
 
   src = fetchFromGitHub {
     owner = "erocarrera";
-    repo = pname;
-    tag = "v${version}";
+    repo = finalAttrs.pname;
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Sjd6S8K7224hlrKj9790neqwFVmgavFWkDZ6o0gGwTA=";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = [ maintainers.pamplemousse ];
   };
-}
+})

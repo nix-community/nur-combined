@@ -9,13 +9,13 @@
 if pythonAtLeast "3.4" then
   null
 else
-  buildPythonPackage rec {
+  buildPythonPackage (finalAttrs: {
     pname = "enum34";
     version = "1.1.10";
 
     src = fetchPypi {
-      inherit pname version;
-      sha256 = "cce6a7477ed816bd2542d03d53db9f0db935dd013b70f336a95c73979289f248";
+      inherit (finalAttrs) pname version;
+      hash = "sha256-zOanR37YFr0lQtA9U9ufDbk13QE7cPM2qVxzl5KJ8kg=";
     };
 
     checkPhase = ''
@@ -28,4 +28,4 @@ else
       license = licenses.bsd0;
     };
 
-  }
+  })

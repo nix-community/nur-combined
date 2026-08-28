@@ -10,13 +10,13 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mock";
-  version = "4.0.3";
+  version = "3.0.5";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "7d3fbbde18228f4ff2f1f119a45cdffa458b4c0dee32eb4d2bb2f82554bac7bc";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-g2V9iUyQ1WgdYhVcgr2pwRh4J1JYgO2o/1307IE0N8M=";
   };
 
   propagatedBuildInputs = [
@@ -46,4 +46,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
   };
 
-}
+})

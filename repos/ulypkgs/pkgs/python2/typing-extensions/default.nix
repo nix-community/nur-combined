@@ -11,13 +11,13 @@ let
   testDir = if isPy3k then "src_py3" else "src_py2";
 
 in
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "typing_extensions";
   version = "3.10.0.2";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "49f75d16ff11f1cd258e1b988ccff82a3ca5570217d7ad8c5f48205dd99a677e";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-SfddFv8R8c0ljhuYjM/4KjylVwIX162MX0ggXdmaZ34=";
   };
 
   checkInputs = lib.optional (pythonOlder "3.5") typing;
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = licenses.psfl;
     maintainers = with maintainers; [ pmiddend ];
   };
-}
+})

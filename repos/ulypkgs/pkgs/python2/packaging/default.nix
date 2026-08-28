@@ -6,22 +6,20 @@
   six,
   pytestCheckHook,
   pretend,
-  setuptools,
 }:
 
-buildPythonPackage rec {
+# We keep 20.4 because it uses setuptools instead of flit-core
+# which requires Python 3 to build a universal wheel.
+
+buildPythonPackage (finalAttrs: {
   pname = "packaging";
-  version = "20.9";
-  format = "pyproject";
+  version = "20.4";
+  format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-WzJ6wTINyGPcpy9FFOzAhvMRhnRLhKIwN0zB/Xdv6uU=";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-Q1f3T0e5wS25NiSoIVTpsSD6gpNpmUkVKyIGXVVgefg=";
   };
-
-  nativeBuildInputs = [
-    setuptools
-  ];
 
   propagatedBuildInputs = [
     pyparsing
@@ -45,4 +43,4 @@ buildPythonPackage rec {
     ];
     maintainers = with maintainers; [ bennofs ];
   };
-}
+})

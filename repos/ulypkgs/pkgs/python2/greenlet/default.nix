@@ -6,14 +6,14 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "greenlet";
   version = "1.1.2";
   disabled = isPyPy; # builtin for pypy
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "e30f5ea4ae2346e62cedde8794a56858a67b878dd79f7df76a0767e356b1744a";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-4w9epK4jRuYs7d6HlKVoWKZ7h43Xn333agdn41axdEo=";
   };
 
   checkPhase = ''
@@ -30,4 +30,4 @@ buildPythonPackage rec {
       mit
     ];
   };
-}
+})

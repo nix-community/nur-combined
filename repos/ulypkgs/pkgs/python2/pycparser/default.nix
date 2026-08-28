@@ -5,13 +5,13 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pycparser";
   version = "2.21";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-5kT97BL3hy+GxY/3kNpFYhixD4Y5cCSVFtYKXqyncgY=";
   };
 
   checkPhase = ''
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ domenkozar ];
   };
-}
+})

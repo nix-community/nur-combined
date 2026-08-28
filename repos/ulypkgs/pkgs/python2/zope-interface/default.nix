@@ -5,12 +5,12 @@
   zope-event,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zope.interface";
   version = "5.5.2";
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-v+4fP/YhQ4GUmeNI9bin86oCWfmspeDdrnOR0Fnc5nE=";
   };
 
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = [ maintainers.goibhniu ];
   };
-}
+})

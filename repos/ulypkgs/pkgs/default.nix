@@ -114,16 +114,7 @@ let
     godot_4_5-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_5-mono; };
     godot_4_6-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_6-mono; };
 
-    python2 =
-      (pkgsSuper.python2.override {
-        self = pkgs.python2;
-        packageOverrides = import ./python2/packages.nix;
-      }).overrideAttrs
-        (attrsSuper: {
-          meta = attrsSuper.meta // {
-            mainProgram = "python";
-          };
-        });
+    python2 = callPackage ./python2 { };
     python2Packages = pkgs.python2.pkgs;
 
     renpy_7 = callPackage ./renpy_7 { };

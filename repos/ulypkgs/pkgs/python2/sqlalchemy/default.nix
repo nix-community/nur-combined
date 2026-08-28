@@ -12,12 +12,12 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "SQLAlchemy";
   version = "1.4.36";
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-ZGeKwyHWSkWQHvLiRyXsXng/H0pYgwXhlkMUR+es4kM=";
   };
 
@@ -49,4 +49,4 @@ buildPythonPackage rec {
     description = "A Python SQL toolkit and Object Relational Mapper";
     license = licenses.mit;
   };
-}
+})

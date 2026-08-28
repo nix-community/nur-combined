@@ -5,16 +5,16 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "brotli";
   version = "1.0.9";
 
   # PyPI doesn't contain tests so let's use GitHub
   src = fetchFromGitHub {
     owner = "google";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "1rdp9rx197q467ixp53g4cgc3jbsdaxr62pz0a8ayv2lvm944azh";
+    repo = finalAttrs.pname;
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-8CtCUt1UbK+QAv8Kk7tqesnBHiNvlNvjMQSfFHpOt+U=";
     # for some reason, the test data isn't captured in releases, force a git checkout
     deepClone = true;
   };
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
-}
+})

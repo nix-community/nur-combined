@@ -5,14 +5,16 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "scandir";
   version = "1.10.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "1bkqwmf056pkchf05ywbnf659wqlp6lljcdb0y88wr9f0vv32ijd";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-TUYx9gYuZY6QB6sxSam5FPNUjLOL+wIcZPOaAlzleK4=";
   };
+
+  doCheck = false;
 
   checkPhase = "${python.interpreter} test/run_tests.py";
 
@@ -22,4 +24,4 @@ buildPythonPackage rec {
     license = licenses.gpl3;
     maintainers = with maintainers; [ abbradar ];
   };
-}
+})

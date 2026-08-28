@@ -1,37 +1,24 @@
 {
-  buildPythonPackage,
-  callPackage,
-  fetchPypi,
-  packaging,
-  tomli,
   lib,
+  buildPythonPackage,
+  fetchPypi,
+  toml,
 }:
 
-buildPythonPackage rec {
-  pname = "setuptools-scm";
-  version = "6.3.2";
+buildPythonPackage (finalAttrs: {
+  pname = "setuptools_scm";
+  version = "5.0.2";
 
   src = fetchPypi {
-    pname = "setuptools_scm";
-    inherit version;
-    sha256 = "1wm0i27siyy1yqr9rv7lqvb65agay9051yi8jzmi8dgb3q4ai6m4";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-g6DO3TRJ45RjB4EaTHudicS1/UZKL7XuzNCluxWK5cg=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-    tomli
-  ];
+  propagatedBuildInputs = [ toml ];
 
-  pythonImportsCheck = [
-    "setuptools_scm"
-  ];
-
-  # check in passhtru.tests.pytest to escape infinite recursion on pytest
+  # Requires pytest, circular dependency
   doCheck = false;
-
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  pythonImportsCheck = [ "setuptools_scm" ];
 
   setupHook = ./setup-hook.sh;
 
@@ -41,4 +28,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
-}
+})

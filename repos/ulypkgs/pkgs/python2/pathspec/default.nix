@@ -4,13 +4,13 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pathspec";
   version = "0.9.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "e564499435a2673d586f6b2130bb5b95f04a3ba06f81b8f895b651a3c76aabb1";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-5WRJlDWiZz1Yb2shMLtblfBKO6Bvgbj4lbZRo8dqq7E=";
   };
 
   meta = {
@@ -19,4 +19,4 @@ buildPythonPackage rec {
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ copumpkin ];
   };
-}
+})

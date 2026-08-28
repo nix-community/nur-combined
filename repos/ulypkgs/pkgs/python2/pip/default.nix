@@ -10,17 +10,17 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pip";
-  version = "21.3.1";
+  version = "20.3.4";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "pypa";
-    repo = pname;
-    rev = version;
-    sha256 = "sha256-A8oePI5VOKGJTY6ZuUhcOhRkz2I2FSdfsS2xIgktCVQ=";
-    name = "${pname}-${version}-source";
+    repo = finalAttrs.pname;
+    rev = finalAttrs.version;
+    hash = "sha256-lketnZ53yVL1wzCjiXABrBivR2N+8mRfkE2ywHzScEI=";
+    name = "${finalAttrs.pname}-${finalAttrs.version}-source";
   };
 
   nativeBuildInputs = [ bootstrapped-pip ];
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     homepage = "https://pip.pypa.io/";
     priority = 10;
   };
-}
+})

@@ -6,13 +6,13 @@
   traceback2,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   version = "1.1.0";
   pname = "unittest2";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0y855kmx7a8rnf81d3lh5lyxai1908xjp0laf4glwa4c8472m212";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-IogqDkGMKE4fcYqCKzsCKUTVPS2QjhaQsxmp0+ssBXk=";
   };
 
   propagatedBuildInputs = [
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = licenses.bsd0;
   };
 
-}
+})

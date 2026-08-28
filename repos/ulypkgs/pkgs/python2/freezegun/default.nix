@@ -1,34 +1,32 @@
 {
   lib,
   buildPythonPackage,
-  pythonOlder,
-  pythonAtLeast,
-  fetchpatch,
   fetchPypi,
   python-dateutil,
-  pytestCheckHook,
+  six,
+  mock,
+  nose,
+  pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "freezegun";
-  version = "1.1.0";
-  disabled = pythonOlder "3.5";
+  version = "0.3.15";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "177f9dd59861d871e27a484c3332f35a6e3f5d14626f2bf91be37891f18927f3";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-4gYvLH+VzCdqg0wi8aFxeUZxdrYkzG+TbovDvlU1rRs=";
   };
 
-  patches = lib.optionals (pythonAtLeast "3.10") [
-    # Staticmethods in 3.10+ are now callable, prevent freezegun to attempt to decorate them
-    (fetchpatch {
-      url = "https://github.com/spulec/freezegun/pull/397/commits/e63874ce75a74a1159390914045fe8e7955b24c4.patch";
-      sha256 = "sha256-FNABqVN5DFqVUR88lYzwbfsZj3xcB9/MvQtm+I2VjnI=";
-    })
+  propagatedBuildInputs = [
+    python-dateutil
+    six
   ];
-
-  propagatedBuildInputs = [ python-dateutil ];
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [
+    mock
+    nose
+    pytest
+  ];
 
   meta = with lib; {
     description = "FreezeGun: Let your Python tests travel through time";
@@ -36,4 +34,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
   };
 
-}
+})

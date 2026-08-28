@@ -8,13 +8,13 @@
   freezegun,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "Babel";
   version = "2.9.1";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "bc0c176f9f6a994582230df350aa6e05ba2ebe4b3ac317eab29d9be5d2768da0";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-vAwXb59qmUWCIw3zUKpuBbouvks6wxfqsp2b5dJ2jaA=";
   };
 
   propagatedBuildInputs = [ pytz ];
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };
-}
+})

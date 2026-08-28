@@ -43,14 +43,14 @@ let
 
 in
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyopenssl";
   version = "20.0.1";
 
   src = fetchPypi {
     pname = "pyOpenSSL";
-    inherit version;
-    sha256 = "4c231c759543ba02560fcd2480c48dcec4dae34c9da7d3747c508227e0624b51";
+    inherit (finalAttrs) version;
+    hash = "sha256-TCMcdZVDugJWD80kgMSNzsTa40ydp9N0fFCCJ+BiS1E=";
   };
 
   outputs = [
@@ -95,4 +95,4 @@ buildPythonPackage rec {
     flaky
     glibcLocales
   ];
-}
+})

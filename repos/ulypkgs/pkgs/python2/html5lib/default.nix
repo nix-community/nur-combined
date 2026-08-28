@@ -10,13 +10,13 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "html5lib";
   version = "1.1";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-suW0AmHiDzVNGY6ukq/BDXUK+0h+1eUPnE6vB8GEFG8=";
   };
 
   patches = [
@@ -24,7 +24,7 @@ buildPythonPackage rec {
     # Will be included in the next release after 1.1.
     (fetchpatch {
       url = "https://github.com/html5lib/html5lib-python/commit/2c19b9899ab3a3e8bd0ca35e5d78544334204169.patch";
-      sha256 = "sha256-VGCeB6o2QO/skeCZs8XLPfgEYVOSRL8cCpG7ajbZWEs=";
+      hash = "sha256-VGCeB6o2QO/skeCZs8XLPfgEYVOSRL8cCpG7ajbZWEs=";
     })
   ];
 
@@ -56,4 +56,4 @@ buildPythonPackage rec {
       prikhi
     ];
   };
-}
+})

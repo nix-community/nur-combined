@@ -3,21 +3,32 @@
   buildPythonPackage,
   fetchPypi,
   setuptools-scm,
+  pytest,
+  pytest-flake8,
   more-itertools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zipp";
-  version = "3.6.0";
+  version = "1.0.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "71c644c5369f4a6e07636f0aa966270449561fcea2e3d6747b8d23efaa9d7832";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-04++Abv3o1k6Mrw1qcRFPDK8QrmMN3+b/36fjaFXeGw=";
   };
 
   nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [ more-itertools ];
+
+  checkInputs = [
+    pytest
+    pytest-flake8
+  ];
+
+  checkPhase = ''
+    pytest
+  '';
 
   # Prevent infinite recursion with pytest
   doCheck = false;
@@ -26,6 +37,5 @@ buildPythonPackage rec {
     description = "Pathlib-compatible object wrapper for zip files";
     homepage = "https://github.com/jaraco/zipp";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
   };
-}
+})

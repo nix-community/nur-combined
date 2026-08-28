@@ -24,13 +24,13 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "Pillow";
   version = "6.2.2";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0l5rv8jkdrb5q846v60v03mcq64yrhklidjkgwv6s1pda71g17yv";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-25/wwlHtBm02f1O2SCfMnhjM6gAbmG0IwmXlNiXauVA=";
   };
 
   # Disable imagefont tests, because they don't work well with infinality:
@@ -52,7 +52,7 @@ buildPythonPackage rec {
       "test_roundtrip"
       "test_basic"
     ]
-    ++ lib.optionals (lib.versions.major version == "6") [
+    ++ lib.optionals (lib.versions.major finalAttrs.version == "6") [
       # RuntimeError: Error setting from dictionary
       "test_custom_metadata"
       "test_file_libtiff"
@@ -62,7 +62,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     olefile
   ]
-  ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ];
+  ++ lib.optionals (lib.versionAtLeast finalAttrs.version "8.2.0") [ defusedxml ];
 
   checkInputs = [
     pytestCheckHook
@@ -81,7 +81,7 @@ buildPythonPackage rec {
     tcl
     lcms2
   ]
-  ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
+  ++ lib.optionals (lib.versionAtLeast finalAttrs.version "7.1.0") [ libxcb ]
   ++ lib.optionals (isPyPy) [
     tk
     libx11
@@ -115,7 +115,7 @@ buildPythonPackage rec {
       export LDFLAGS="$LDFLAGS -L${libwebp}/lib"
       export CFLAGS="$CFLAGS -I${libwebp}/include"
     ''
-    + lib.optionalString (lib.versionAtLeast version "7.1.0") ''
+    + lib.optionalString (lib.versionAtLeast finalAttrs.version "7.1.0") ''
       export LDFLAGS="$LDFLAGS -L${libxcb}/lib"
       export CFLAGS="$CFLAGS -I${libxcb.dev}/include"
     ''
@@ -160,4 +160,4 @@ buildPythonPackage rec {
       "CVE-2021-27923"
     ];
   };
-}
+})

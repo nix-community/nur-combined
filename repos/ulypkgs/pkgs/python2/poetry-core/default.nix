@@ -16,16 +16,16 @@
   virtualenv,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "poetry-core";
   version = "1.0.7";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "python-poetry";
-    repo = pname;
-    rev = version;
-    sha256 = "0v86x8f8pcbviv2cdn7jjbgj3c994qasx0bqk1kr0mj8m6pjwy9z";
+    repo = finalAttrs.pname;
+    rev = finalAttrs.version;
+    hash = "sha256-P3kur6lIVpBnmHiBrhUmKbEh35Ly2MbEjnuxixzqBm0=";
   };
 
   postPatch = lib.optionalString (pythonOlder "3.8") ''
@@ -74,4 +74,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };
-}
+})

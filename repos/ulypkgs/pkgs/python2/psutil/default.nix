@@ -12,13 +12,13 @@
   unittest2,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "psutil";
   version = "5.8.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "1immnj532bnnrh1qmk5q3lsw3san8qfk9kxy1cpmy0knmfcwp70c";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-DJzLmat2Al8vC77PNB1GVunBNR24zIoDzNYuMYq0tcY=";
   };
 
   # We have many test failures on various parts of the package:
@@ -64,4 +64,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ jonringer ];
   };
-}
+})

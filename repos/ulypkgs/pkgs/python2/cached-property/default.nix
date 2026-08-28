@@ -6,16 +6,16 @@
   freezegun,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cached-property";
   version = "1.5.1";
 
   # conftest.py is missing in PyPI tarball
   src = fetchFromGitHub {
     owner = "pydanny";
-    repo = pname;
-    rev = version;
-    sha256 = "0xh0pwmiikx0il9nnfyf034ydmlw6992s0d209agd9j5d3s2k5q6";
+    repo = finalAttrs.pname;
+    rev = finalAttrs.version;
+    hash = "sha256-Bpcp9GhFpvZUAqIBLVIynNbmyQDOO2sTjaDPGCu/AHY=";
   };
 
   checkInputs = [ freezegun ];
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ ericsagnes ];
   };
-}
+})

@@ -2,13 +2,12 @@
   lib,
   brotli,
   buildPythonPackage,
-  cryptography,
+  certifi,
   python-dateutil,
+  fetchpatch,
   fetchPypi,
   idna,
-  isPy27,
   mock,
-  pyopenssl,
   pysocks,
   pytest-freezegun,
   pytest-timeout,
@@ -17,23 +16,28 @@
   trustme,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "urllib3";
-  version = "1.26.7";
+  version = "1.26.2";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-SYfGVVT3otvzDBj9SHeO8SSvb6t3GjdxA9oFheIzbs4=";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-GRiPlpI4c8ksy5hxIOxKyqEvBGH6nOXT0HcryWWjngg=";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "CVE-2021-28363.patch";
+      url = "https://github.com/urllib3/urllib3/commit/8d65ea1ecf6e2cdc27d42124e587c1b83a3118b0.patch";
+      hash = "sha256-OKk5Mm7MN3flyNtpXrkGADjrj4E5obtI2HGAG0LLENM=";
+    })
+  ];
 
   propagatedBuildInputs = [
     brotli
-    pysocks
-  ]
-  ++ lib.optionals isPy27 [
-    cryptography
+    certifi
     idna
-    pyopenssl
+    pysocks
   ];
 
   checkInputs = [
@@ -71,4 +75,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };
-}
+})
