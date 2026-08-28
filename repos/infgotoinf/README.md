@@ -14,7 +14,7 @@ A specialized PSF 1 console frame buffer font consisting of 512 glyphs for use w
 Add fonts:
 - `Unifont-pfs`
 
-### UnifontEX
+### UnifontExMono
 
 An extended fork of GNU Unifont with a focus on high compatibility. Can be found [here](https://github.com/stgiga/UnifontEX).
 Add fonts:
