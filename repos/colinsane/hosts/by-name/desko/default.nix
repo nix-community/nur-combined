@@ -39,6 +39,7 @@
 
   sane.programs.firefox.config.formFactor = "desktop";
 
+  sane.programs.pi-coding-agent.config.pi-offline-provider = true;
   sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
   sane.programs."sane-scripts.sync-from-iphone".enableFor.user.colin = true;

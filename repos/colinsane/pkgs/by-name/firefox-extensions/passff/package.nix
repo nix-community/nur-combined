@@ -7,13 +7,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "passff";
-  version = "1.23";
+  version = "1.24";
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "PassFF";
     repo = "passff";
     rev = finalAttrs.version;
-    hash = "sha256-CQD9QOCV0uZDPVtrT1QQgF65ghXh1BxkUy3diuuI0ng=";
+    hash = "sha256-beO2SldIEnzcCqRuiyafzVD1YQ4tHpIL11tsGIU6Vfw=";
   };
 
   nativeBuildInputs = [

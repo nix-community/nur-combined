@@ -1,6 +1,7 @@
 {
   buildNpmPackage,
   fetchFromGitHub,
+  fetchurl,
   lib,
   nix-update-script,
 }:
@@ -21,6 +22,14 @@ buildNpmPackage (finalAttrs: {
         -e '/"@earendil-works\/pi-tui": /d'
     '';
   };
+
+  # patches = [
+  #   (fetchurl {
+  #     url = "https://github.com/lajarre/pi-vim/commit/83921804e626945ba027ff373c975644dfc92083.patch?full_index=1";
+  #     name = "fix-startup-resolve-virtual-Pi-host-from-active-CLI";
+  #     hash = "sha256-xclQNIPBd+9HSSVAnrTi9PMoZPoc3aVoC4NXLaXfZRw=";
+  #   })
+  # ];
 
   npmDepsFetcherVersion = 2;
 

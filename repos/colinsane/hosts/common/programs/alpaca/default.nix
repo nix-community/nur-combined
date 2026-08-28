@@ -45,7 +45,7 @@ let
   ];
   llamaCppProperties = {
     api = "NOKEY";
-    default_model = lib.removeSuffix ".gguf" pkgs.mlModels.gemma-4-12b-it-ud-q3_k_xl;
+    default_model = lib.removeSuffix ".gguf" pkgs.mlModels.gemma-4-12b-it-ud-q3_k_xl.name;
     max_tokens = 32768.0;
     name = "deskoLlamaCpp";
     override_parameters = false;

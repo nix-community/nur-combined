@@ -31,9 +31,43 @@
 };
 
 &wcd9340 {
+        // CONFIG ATTEMPT 1: brf112r0pqcyg185sa2j8lpzdxpkdly0-nixos-system-moby-26.11pre-git
+        // - SW_HEADPHONE_INSERT  is 0 when no headset, 0 when headset
+        // - SW_MICROPHONE_INSERT is 0 when no headset, 0 when headset
         // Values derived from WCD934x device-tree examples in upstream Linux.
+        // qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
+        // qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
+        // qcom,mbhc-buttons-vthreshold-microvolt =
+        //         <75000 150000 237000 500000 500000 500000 500000 500000>;
+
+        // CONFIG ATTEMPT 2: 2niprgk6046500k9ikk2yijdydrlgk7w-nixos-system-moby-26.11pre-git
+        // - SW_HEADPHONE_INSERT  is 1 when no headset, 0 when headset
+        // - SW_MICROPHONE_INSERT is 1 when no headset, 0 when headset
+        // qcom,hphl-jack-type-normally-closed;
+
+        // CONFIG ATTEMPT 3: pl5nrjsyk2aq5lr6gggrhb0ym4m281ri-nixos-system-moby-26.11pre-git
+        // - SW_HEADPHONE_INSERT  is 0 when no headset, 0 when headset
+        // - SW_MICROPHONE_INSERT is 0 when no headset, 0 when headset
+        // qcom,ground-jack-type-normally-closed;
+
+        // CONFIG ATTEMPT 4: 5rigafyrjn8bcm76mz7nnkssr4p9yqbv-nixos-system-moby-26.11pre-git
+        // booted with headphones unplugged:
+        // - SW_HEADPHONE_INSERT  is 1 when no headset, 0 when headset
+        // - SW_MICROPHONE_INSERT is 1 when no headset, 0 when headset
+        // booted with headphones plugged:
+        // - SW_HEADPHONE_INSERT  is 1 when no headset, 0 when headset
+        // - SW_MICROPHONE_INSERT is 1 when no headset, 0 when headset
+        // qcom,hphl-jack-type-normally-closed;
+        // qcom,ground-jack-type-normally-closed;
+
+        // CONFIG ATTEMPT 5:
+        // booted with headphones plugged:
+        // - SW_HEADPHONE_INSERT  is 1 when no headset, 0 when headset
+        // - SW_MICROPHONE_INSERT is 1 when no headset, 0 when headset
+        qcom,hphl-jack-type-normally-closed;
         qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
         qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
         qcom,mbhc-buttons-vthreshold-microvolt =
-                <75000 150000 237000 500000 500000 500000 500000 500000>;
+            <75000 150000 237000 500000
+             500000 500000 500000 500000>;
 };

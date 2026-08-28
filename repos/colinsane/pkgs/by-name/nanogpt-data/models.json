@@ -1,5 +1,26 @@
 [
   {
+    "id": "tencent/hy4-preview",
+    "name": "Tencent Hy4 Preview",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4.2e-05,
+      "completion": 2.501,
+      "currency": "USD",
+      "prompt": 0.834,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 64000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "z-ai/glm-5.3-flash",
     "name": "GLM 5.3 Flash",
     "pricing": {
@@ -19,6 +40,27 @@
         "text",
         "image",
         "video"
+      ]
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3-flash-uncensored",
+    "name": "GLM 5.3 Flash Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 6.25e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.125,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
       ]
     }
   },
@@ -74,6 +116,28 @@
       "completion": 0.5,
       "currency": "USD",
       "prompt": 0.18,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.8-27b-fable",
+    "name": "Qwen 3.8 27B Fable",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 1.4,
+      "currency": "USD",
+      "prompt": 0.2,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -375,6 +439,292 @@
     }
   },
   {
+    "id": "google/gemma-4-26b-a4b-it-musica",
+    "name": "Musica",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-it-shadowsiren",
+    "name": "Shadow Siren",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-it-chimerax",
+    "name": "Chimera X",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-it-luminous",
+    "name": "Luminous Mirror",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-it-darksoul",
+    "name": "Dark Soul",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-it-moonlight",
+    "name": "Moonlight Dusk",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-26b-a4b-it-opusdistill",
+    "name": "Opus Distill",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-31b-it-fabled",
+    "name": "Fabled",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-31b-it-darkidol",
+    "name": "DarkIdol",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-31b-it-garnet",
+    "name": "Garnet",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-31b-it-novelist",
+    "name": "Novelist",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-31b-it-isometry",
+    "name": "Isometry",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "google/gemma-4-31b-it-gembrain",
+    "name": "Gembrain",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.33,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "ornith-ai/ornith-1.5-35b-a3b",
     "name": "Ornith 1.5 35B",
     "pricing": {
@@ -633,6 +983,49 @@
     },
     "context_length": 10000000,
     "max_output_tokens": 60000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "abliterated-model",
+    "name": "Abliterated Model",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0003,
+      "completion": 3.0,
+      "currency": "USD",
+      "prompt": 3.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 262134,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "abliterated-model-large",
+    "name": "Abliterated Model Large",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 5.0,
+      "currency": "USD",
+      "prompt": 5.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 999990,
     "capabilities": {
       "reasoning": true
     },
@@ -1362,21 +1755,20 @@
     "id": "claw-high",
     "name": "Claw High",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0025,
-      "completion": 25.0,
+      "cacheReadInputPer1kTokens": 0.00026,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 5.0,
+      "prompt": 1.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
-    "max_output_tokens": 128000,
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -1384,13 +1776,13 @@
     "id": "claw-medium",
     "name": "Claw Medium",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001575,
-      "completion": 1.26,
+      "cacheReadInputPer1kTokens": 0.00026,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 0.315,
+      "prompt": 1.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 204800,
+    "context_length": 1048576,
     "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
@@ -1405,22 +1797,20 @@
     "id": "claw-low",
     "name": "Claw Low",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.5e-05,
-      "completion": 1.5,
+      "cacheReadInputPer1kTokens": 0.00026,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 0.25,
+      "prompt": 1.4,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image",
-        "video"
+        "text"
       ]
     }
   },
@@ -1428,21 +1818,20 @@
     "id": "hermes-high",
     "name": "Hermes High",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0025,
-      "completion": 25.0,
+      "cacheReadInputPer1kTokens": 0.00026,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 5.0,
+      "prompt": 1.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
-    "max_output_tokens": 128000,
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -1450,13 +1839,13 @@
     "id": "hermes-medium",
     "name": "Hermes Medium",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001575,
-      "completion": 1.26,
+      "cacheReadInputPer1kTokens": 0.00026,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 0.315,
+      "prompt": 1.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 204800,
+    "context_length": 1048576,
     "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
@@ -1471,22 +1860,20 @@
     "id": "hermes-low",
     "name": "Hermes Low",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.5e-05,
-      "completion": 1.5,
+      "cacheReadInputPer1kTokens": 0.00026,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 0.25,
+      "prompt": 1.4,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image",
-        "video"
+        "text"
       ]
     }
   },
@@ -6933,6 +7320,29 @@
     }
   },
   {
+    "id": "alibaba/qwen3.8-flash",
+    "name": "Qwen3.8 Flash",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.6e-05,
+      "completion": 0.47,
+      "currency": "USD",
+      "prompt": 0.16,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 991808,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ]
+    }
+  },
+  {
     "id": "qwen3.6-max-preview",
     "name": "Qwen3.6 Max Preview",
     "pricing": {
@@ -9166,27 +9576,6 @@
     }
   },
   {
-    "id": "TEE/qwen3.5-122b-a10b",
-    "name": "Qwen3.5 122B A10B TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00023,
-      "completion": 3.68,
-      "currency": "USD",
-      "prompt": 0.46,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 262144,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "TEE/muse-glimmer-30b",
     "name": "Muse Glimmer 30B TEE",
     "pricing": {
@@ -9241,28 +9630,6 @@
     },
     "context_length": 65536,
     "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "TEE/gemma-3-27b-it",
-    "name": "Gemma 3 27B TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001,
-      "completion": 0.8,
-      "currency": "USD",
-      "prompt": 0.2,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 131072,
-    "max_output_tokens": 8192,
     "capabilities": {
       "reasoning": false
     },
@@ -10492,27 +10859,6 @@
     },
     "context_length": 128000,
     "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "poolside/laguna-m.1",
-    "name": "Laguna M.1",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001,
-      "completion": 0.4,
-      "currency": "USD",
-      "prompt": 0.2,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": false
     },
@@ -11815,27 +12161,6 @@
     }
   },
   {
-    "id": "Baichuan-M2",
-    "name": "Baichuan M2 32B Medical",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.007865,
-      "completion": 15.73,
-      "currency": "USD",
-      "prompt": 15.73,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 32768,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "Baichuan4-Air",
     "name": "Baichuan 4 Air",
     "pricing": {
@@ -12572,6 +12897,28 @@
     "architecture": {
       "input_modalities": [
         "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/glm-5.3-flash",
+    "name": "GLM 5.3 Flash TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 3e-05,
+      "completion": 0.5,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
       ]
     }
   },

@@ -25,6 +25,7 @@ let
   deskoHostname = config.sane.hosts.by-name.desko.wg-home.ip;
   llamaCppModels = pkgs.llama-cpp-models.models;
   llamaCppModelList = builtins.attrValues llamaCppModels;
+  offlineModels = pkgs.llama-cpp-models;
   llamaCppModelsJson = (pkgs.formats.json {}).generate "llama-cpp-models.json" {
     providers.llama-cpp = {
       baseUrl = "http://${deskoHostname}:11435";
@@ -204,6 +205,10 @@ in
             type = types.bool;
             default = false;
           };
+          pi-offline-provider = mkOption {
+            type = types.bool;
+            default = false;
+          };
         };
       };
     };
@@ -298,6 +303,9 @@ in
     fs.".config/pi/trust.json".symlink.target = "trust/trust.json";
 
     fs.".config/pi/mcp.json".symlink.target = mcpConfig;
+    fs.${if cfg.pi-offline-provider then ".config/pi/offline-provider/models" else null} = {
+      symlink.target = offlineModels;
+    };
 
     fs.".pi/agent/claude-bridge.json".symlink.target = "../../.config/pi/claude-bridge.json";
     fs.".config/pi/claude-bridge.json".symlink.target = (pkgs.formats.json {}).generate "pi-claude-bridge.json" {
@@ -420,6 +428,7 @@ in
         # pkgs.pi-caveman  #< adds `/caveman` slash command
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
+        pkgs.leohenon-pi-vim
         pkgs.pi-claude-bridge
         pkgs.pi-codex-goal
         pkgs.pi-cwd
@@ -433,10 +442,13 @@ in
         pkgs.pi-subagents
         pkgs.pi-tool-repair  #< repairs "Error: Upstream emitted malformed tool call data that could not be repaired"
         # pkgs.pi-simplify  #< adds `/simplify` slash command
-        pkgs.pi-vim  #< makes the input textarea behave like vim
+        # pkgs.pi-vim  #< makes the input textarea behave like vim
         # pkgs.pi-markdown-preview  #< renders $LaTeX$, etc, but needs more deps (puppeteer?)
+      ] ++ lib.optionals cfg.pi-offline-provider [
+        pkgs.pi-offline-provider  #< provides `offline/*` models
       ];
       enabledModels = lib.mapAttrsToList (_: m: m.id) llamaCppModels ++
+        (lib.optionals cfg.pi-offline-provider (lib.mapAttrsToList (_: m: "offline/${m.id}") offlineModels.models)) ++
         [
         # default set for Ctrl+P cycling
         # # "llama-cpp/${llamaCppModels.gemma-4-12b-it-qat-ud-q4_k_xl.id}"
