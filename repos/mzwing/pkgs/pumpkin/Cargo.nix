@@ -5384,9 +5384,9 @@ rec {
       };
       "flate2" = rec {
         crateName = "flate2";
-        version = "1.1.9";
+        version = "1.1.10";
         edition = "2018";
-        sha256 = "0g2pb7cxnzcbzrj8bw4v6gpqqp21aycmf6d84rzb6j748qkvlgw4";
+        sha256 = "1jvd2cl8j5hyf8imi62y1x7gwzz1hajirni0801yxhds1qp4wqvf";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
           "Josh Triplett <josh@joshtriplett.org>"
@@ -5396,33 +5396,33 @@ rec {
             name = "crc32fast";
             packageId = "crc32fast";
             optional = true;
+            usesDefaultFeatures = false;
           }
           {
             name = "miniz_oxide";
-            packageId = "miniz_oxide";
+            packageId = "miniz_oxide 0.9.1";
+            optional = true;
+            features = [ "simd" ];
+          }
+          {
+            name = "zlib-rs";
+            packageId = "zlib-rs";
             optional = true;
             usesDefaultFeatures = false;
-            features = [ "with-alloc" "simd" ];
-          }
-          {
-            name = "miniz_oxide";
-            packageId = "miniz_oxide";
-            usesDefaultFeatures = false;
-            target = { target, features }: (("wasm32" == target."arch" or null) && (!("emscripten" == target."os" or null)));
-            features = [ "with-alloc" "simd" ];
+            features = [ "rust-allocator" ];
           }
         ];
         features = {
           "any_c_zlib" = [ "any_zlib" ];
           "any_zlib" = [ "any_impl" ];
-          "cloudflare-zlib-sys" = [ "dep:cloudflare-zlib-sys" ];
-          "cloudflare_zlib" = [ "any_c_zlib" "cloudflare-zlib-sys" "dep:crc32fast" ];
-          "default" = [ "rust_backend" ];
+          "cloudflare_zlib" = [ "zlib" ];
+          "default" = [ "rust_backend" "runtime_detection" ];
           "document-features" = [ "dep:document-features" ];
           "libz-ng-sys" = [ "dep:libz-ng-sys" ];
           "libz-sys" = [ "dep:libz-sys" ];
           "miniz-sys" = [ "rust_backend" ];
           "miniz_oxide" = [ "any_impl" "dep:miniz_oxide" "dep:crc32fast" ];
+          "runtime_detection" = [ "zlib-rs?/std" "crc32fast?/std" ];
           "rust_backend" = [ "miniz_oxide" "any_impl" ];
           "zlib" = [ "any_c_zlib" "libz-sys" "dep:crc32fast" ];
           "zlib-default" = [ "any_c_zlib" "libz-sys/default" "dep:crc32fast" ];
@@ -5430,7 +5430,7 @@ rec {
           "zlib-ng-compat" = [ "zlib" "libz-sys/zlib-ng" "dep:crc32fast" ];
           "zlib-rs" = [ "any_zlib" "dep:zlib-rs" ];
         };
-        resolvedDefaultFeatures = [ "any_impl" "default" "miniz_oxide" "rust_backend" ];
+        resolvedDefaultFeatures = [ "any_impl" "default" "miniz_oxide" "runtime_detection" "rust_backend" ];
       };
       "fnv" = rec {
         crateName = "fnv";
@@ -8233,7 +8233,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "std" ];
       };
-      "miniz_oxide" = rec {
+      "miniz_oxide 0.8.9" = rec {
         crateName = "miniz_oxide";
         version = "0.8.9";
         edition = "2021";
@@ -8264,6 +8264,41 @@ rec {
           "serde" = [ "dep:serde" ];
           "simd" = [ "simd-adler32" ];
           "simd-adler32" = [ "dep:simd-adler32" ];
+        };
+        resolvedDefaultFeatures = [ "default" "simd" "simd-adler32" "with-alloc" ];
+      };
+      "miniz_oxide 0.9.1" = rec {
+        crateName = "miniz_oxide";
+        version = "0.9.1";
+        edition = "2021";
+        sha256 = "0k2bgjzk2sbsynpsv4wizwxbqp6vs7g08y5anbkrh3l6a15bqgxn";
+        authors = [
+          "Frommi <daniil.liferenko@gmail.com>"
+          "oyvindln <oyvindln@users.noreply.github.com>"
+          "Rich Geldreich richgel99@gmail.com"
+        ];
+        dependencies = [
+          {
+            name = "adler2";
+            packageId = "adler2";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "simd-adler32";
+            packageId = "simd-adler32";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "alloc" = [ "dep:alloc" ];
+          "core" = [ "dep:core" ];
+          "default" = [ "with-alloc" ];
+          "rustc-dep-of-std" = [ "core" "alloc" "adler2/rustc-dep-of-std" ];
+          "serde" = [ "dep:serde" ];
+          "simd" = [ "simd-adler32" ];
+          "simd-adler32" = [ "dep:simd-adler32" ];
+          "std" = [ "serde?/std" ];
         };
         resolvedDefaultFeatures = [ "default" "simd" "simd-adler32" "with-alloc" ];
       };
@@ -9807,7 +9842,7 @@ rec {
           }
           {
             name = "miniz_oxide";
-            packageId = "miniz_oxide";
+            packageId = "miniz_oxide 0.8.9";
             features = [ "simd" ];
           }
         ];
@@ -11338,6 +11373,11 @@ rec {
             packageId = "bytes";
             usesDefaultFeatures = false;
             features = [ "std" ];
+          }
+          {
+            name = "cesu8";
+            packageId = "cesu8";
+            usesDefaultFeatures = false;
           }
           {
             name = "cfb8";
@@ -17072,9 +17112,9 @@ rec {
       };
       "uuid" = rec {
         crateName = "uuid";
-        version = "1.25.0";
+        version = "1.26.0";
         edition = "2021";
-        sha256 = "1k5y394cmcrpl038i5szyxk96pa27nzgn89480d7cnph6ilmflzh";
+        sha256 = "04kqmzwdqbh1lgci3dhv4ir1nk12bff98z8iq9m8m2myr5qjsxxm";
         authors = [
           "Ashley Mannix<ashleymannix@live.com.au>"
           "Dylan DPC<dylan.dpc@gmail.com>"
@@ -22430,6 +22470,23 @@ rec {
           }
         ];
 
+      };
+      "zlib-rs" = rec {
+        crateName = "zlib-rs";
+        version = "0.6.7";
+        edition = "2021";
+        sha256 = "04mz6314vrfwg8k91qfgs9c71c1icvixcikvki7mls4xilc1vcrl";
+        libName = "zlib_rs";
+        features = {
+          "__internal-fuzz" = [ "arbitrary" ];
+          "__internal-test" = [ "quickcheck" ];
+          "arbitrary" = [ "dep:arbitrary" ];
+          "avx512" = [ "vpclmulqdq" ];
+          "default" = [ "std" "c-allocator" ];
+          "quickcheck" = [ "dep:quickcheck" ];
+          "std" = [ "rust-allocator" ];
+        };
+        resolvedDefaultFeatures = [ "rust-allocator" "std" ];
       };
       "zmij" = rec {
         crateName = "zmij";

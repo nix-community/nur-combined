@@ -223,15 +223,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "37437ee0a013f3d8a776227516be151f5a490b4c";
+    version = "d439d5e22edc0ce0e5f54f4b2da333a730cced42";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "37437ee0a013f3d8a776227516be151f5a490b4c";
+      rev = "d439d5e22edc0ce0e5f54f4b2da333a730cced42";
       fetchSubmodules = true;
-      sha256 = "sha256-hXzWFxxFINaz57cGGrgG85Bxe4Xy+aEWdBL0fijKjhE=";
+      sha256 = "sha256-q2QlLy7yKLLRUTecGFMk2Z1XAEmKQ8b8rkyFyT31TTY=";
     };
-    date = "2026-08-27";
+    date = "2026-08-28";
   };
   replay-fish = {
     pname = "replay-fish";
@@ -247,35 +247,35 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.14.0-rc.1";
+    version = "v1.14.0-rc.2";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-rc.1";
+      rev = "v1.14.0-rc.2";
       fetchSubmodules = false;
-      sha256 = "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=";
+      sha256 = "sha256-c4bEPaWKfElkSYgzFYvEx1YKH58Lz+jO5CQOsqTvxzU=";
     };
   };
   sing-box-beta = {
     pname = "sing-box-beta";
-    version = "v1.14.0-rc.1";
+    version = "v1.14.0-rc.2";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-rc.1";
+      rev = "v1.14.0-rc.2";
       fetchSubmodules = false;
-      sha256 = "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=";
+      sha256 = "sha256-c4bEPaWKfElkSYgzFYvEx1YKH58Lz+jO5CQOsqTvxzU=";
     };
   };
   sing-box-rc = {
     pname = "sing-box-rc";
-    version = "v1.14.0-rc.1";
+    version = "v1.14.0-rc.2";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-rc.1";
+      rev = "v1.14.0-rc.2";
       fetchSubmodules = false;
-      sha256 = "sha256-SMFPB3ab2Y/Aakbgnaz1iDp0ZF+iHE3BOvoRojII9Cc=";
+      sha256 = "sha256-c4bEPaWKfElkSYgzFYvEx1YKH58Lz+jO5CQOsqTvxzU=";
     };
   };
   tree-sitter-nix = {
