@@ -54,13 +54,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.5.0";
+    version = "v0.6.0";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.5.0";
+      rev = "v0.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-dnCFg3WsLmeBL9wg8EOBVueoj94blE5X2HuDDegBlRY=";
+      sha256 = "sha256-5p0ioUtwhkSfSAkPTOT14pSa6WjxzQykxTHl9szE7zQ=";
     };
   };
   fast-nix-gc = {
@@ -244,16 +244,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.8-beta.7";
+    version = "v3.9.8-beta.9";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.8-beta.7";
+      rev = "v3.9.8-beta.9";
       fetchSubmodules = false;
-      sha256 = "sha256-d3Yd9RKefNjT29SXZbe8lSjVHnLRgY7sAlMWbyvK1YI=";
+      sha256 = "sha256-6h+U1p9dVr6PmX1P8oGa5ODX/fR6XfdxPXqcrG386+c=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-d3Yd9RKefNjT29SXZbe8lSjVHnLRgY7sAlMWbyvK1YI=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-6h+U1p9dVr6PmX1P8oGa5ODX_fR6XfdxPXqcrG386+c=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -371,16 +371,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "085bce5ccb821b8b348550e62c39c65b1ebc732a";
+    version = "f4ee265de6539b688217b9fff75075f8c5964cee";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "085bce5ccb821b8b348550e62c39c65b1ebc732a";
+      rev = "f4ee265de6539b688217b9fff75075f8c5964cee";
       fetchSubmodules = false;
-      sha256 = "sha256-fGI2xLeVLT/04UKwRjVHi3TN+5ImO4w2Qz9qUTn6aQ4=";
+      sha256 = "sha256-03Pb/XIrw5G14ElGHyKkEx1Tri3gZAnXCeT7AZtw15k=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-fGI2xLeVLT_04UKwRjVHi3TN+5ImO4w2Qz9qUTn6aQ4=/Cargo.lock";
+      lockFile = ./. + "/sha256-03Pb_XIrw5G14ElGHyKkEx1Tri3gZAnXCeT7AZtw15k=/Cargo.lock";
       outputHashes = {
         
       };

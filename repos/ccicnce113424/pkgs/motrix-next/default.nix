@@ -22,5 +22,6 @@ motrix-next.overrideAttrs (
     };
     cargoHash = null;
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."src-tauri/Cargo.lock";
+    patches = [ ./fix-copy-path.patch ];
   }
 )
