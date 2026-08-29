@@ -46,7 +46,7 @@ stdenv.mkDerivation (final: {
     (toString final.deps)
   ];
 
-  passthru.updateScript = writeShellScript "update-package-and-deps" ''
+  passthru.updateScript = writeShellScript "update-my-package" ''
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p jq
     

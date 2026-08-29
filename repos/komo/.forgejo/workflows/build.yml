@@ -52,11 +52,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       run: |
-        nix run github:Mic92/nix-fast-build -- \
-          --skip-cached \
-          --result-file result.json \
-          --flake .#packages \
-          --select "import ./filter-packages.nix"
+        nix run github:Mic92/nix-fast-build -- --skip-cached --file ./default.nix --result-file result.json
     - name: Sign & Upload builds to binary cache
       run: |
         nix run nixpkgs/nixos-unstable#nushell -- ./sign-upload-build.nu \
