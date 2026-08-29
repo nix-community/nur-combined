@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   cix-noe-umd,
 }:
@@ -23,4 +24,12 @@ stdenv.mkDerivation {
     install -Dm755 cix-npu-status $out/bin/cix-npu-status
     runHook postInstall
   '';
+
+  meta = {
+    license = [
+      lib.licenses.mit
+      lib.licenses.unfreeRedistributable
+    ];
+    platforms = [ "aarch64-linux" ];
+  };
 }
