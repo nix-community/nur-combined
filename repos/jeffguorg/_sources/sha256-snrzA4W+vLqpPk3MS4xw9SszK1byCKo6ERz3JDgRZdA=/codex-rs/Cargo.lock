@@ -2572,8 +2572,8 @@ dependencies = [
  "codex-code-mode-protocol",
  "codex-http-client",
  "codex-install-context",
+ "codex-otel",
  "codex-protocol",
- "codex-websocket-client",
  "futures",
  "http-body-util",
  "pretty_assertions",
@@ -2581,7 +2581,6 @@ dependencies = [
  "reqwest 0.12.28",
  "serde_json",
  "tokio",
- "tokio-tungstenite",
  "tokio-util",
  "tonic",
  "tower",
@@ -2599,6 +2598,7 @@ dependencies = [
  "codex-code-mode",
  "codex-code-mode-protocol",
  "codex-code-mode-runtime",
+ "codex-otel",
  "codex-protocol",
  "codex-utils-cargo-bin",
  "futures",
@@ -2608,7 +2608,6 @@ dependencies = [
  "tempfile",
  "tokio",
  "tokio-stream",
- "tokio-tungstenite",
  "tokio-util",
  "tonic",
  "tracing",
@@ -3092,8 +3091,15 @@ dependencies = [
 name = "codex-exec-server-test-support"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "codex-exec-server",
  "codex-http-client",
+ "futures",
+ "prost",
+ "serde_json",
+ "tokio",
+ "tokio-tungstenite",
+ "wiremock",
 ]
 
 [[package]]
@@ -3324,12 +3330,16 @@ dependencies = [
  "codex-core",
  "codex-extension-api",
  "codex-features",
+ "codex-history",
  "codex-http-client",
  "codex-login",
  "codex-model-provider",
  "codex-model-provider-info",
+ "codex-models-manager",
+ "codex-network-proxy",
  "codex-protocol",
  "core_test_support",
+ "dirs",
  "http 1.4.0",
  "pretty_assertions",
  "serde_json",
@@ -3506,11 +3516,13 @@ dependencies = [
  "landlock",
  "libc",
  "pretty_assertions",
+ "rustix 1.1.4",
  "seccompiler",
  "serde",
  "serde_json",
  "sha2 0.10.9",
  "tempfile",
+ "test-case",
  "tokio",
  "url",
 ]
@@ -3578,6 +3590,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "arc-swap",
+ "assert_matches",
  "async-channel",
  "codex-api",
  "codex-async-utils",
@@ -3962,6 +3975,7 @@ dependencies = [
  "codex-utils-redacted-string",
  "codex-utils-string",
  "encoding_rs",
+ "gix-url",
  "globset",
  "http 1.4.0",
  "icu_decimal",
@@ -4842,6 +4856,20 @@ dependencies = [
  "tokio",
  "url",
  "wiremock",
+]
+
+[[package]]
+name = "codex-worktree"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "codex-git-utils",
+ "codex-protocol",
+ "dunce",
+ "pretty_assertions",
+ "serde",
+ "serde_json",
+ "tempfile",
 ]
 
 [[package]]
