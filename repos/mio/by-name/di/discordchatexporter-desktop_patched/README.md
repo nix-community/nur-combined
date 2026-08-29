@@ -1,27 +1,6 @@
 # discordchatexporter-desktop_patched
 
-Vendored copy of nixpkgs `discordchatexporter-desktop`, plus local HiDPI and Darwin patches.
-
-## Upstream (nixpkgs)
-
-Copied on **2026-08-14** from this flake’s `nixpkgs` lock:
-
-| Field | Value |
-| --- | --- |
-| nixpkgs rev | [`044bfe75bfe4c7bbe043dc17b5e42ea823b84a09`](https://github.com/NixOS/nixpkgs/commit/044bfe75bfe4c7bbe043dc17b5e42ea823b84a09) |
-| Channel snapshot | `nixpkgs-26.11pre1052792.044bfe75bfe4` |
-| Upstream path | `pkgs/by-name/di/discordchatexporter-desktop/` |
-| Package version | `2.47.3` |
-
-Files taken as-is from that commit:
-
-- `deps.json`
-- `settings-path.patch`
-- `updater.sh`
-
-`package.nix` started from the same file, then the local changes below were applied.
-
-To refresh: copy those four files from a newer nixpkgs commit, update this table, then re-apply the local changes.
+Thin wrapper around nixpkgs `discordchatexporter-desktop` via `overrideAttrs`, plus local HiDPI and Darwin packaging.
 
 ## Local changes
 
@@ -45,3 +24,4 @@ nixpkgs `meta.platforms` is Linux-only. We add `x86_64-darwin` / `aarch64-darwin
 - `pname` is `discordchatexporter-desktop_patched`
 - Desktop item for the launcher / Darwin `.app`
 - `XDG_CONFIG_HOME` only on Linux
+- Version bumps track nixpkgs `discordchatexporter-desktop` until upstream ships newer dotnet deps

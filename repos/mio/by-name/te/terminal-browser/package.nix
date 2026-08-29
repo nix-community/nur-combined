@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.7.2";
+  version = "0.7.4";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
     repo = "terminal-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-BCVdeRhmO31/QiCUTBKrxj+J7Dp0CKYIE1KYGWSJ7kY=";
+    hash = "sha256-4c4LfSK8Zn3iO0NMK3aTSXGKYu1X4EsqrIepcIhpxpo=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {

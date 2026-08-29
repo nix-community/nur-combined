@@ -7,7 +7,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "translate-web-pages-firefox";
-  version = "10.2.1.0";
+  version = "10.2.5.0";
 
   extid = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
 
@@ -15,10 +15,10 @@ buildNpmPackage (finalAttrs: {
     owner = "FilipePS";
     repo = "Traduzir-paginas-Web";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0AjyV5ETD883O8fCsb6cfp/EIFqSXIvg5iP/kIHdvKA=";
+    hash = "sha256-xjYRB4qFNZ0EorRQtysTZybYGppulfMrKAYbdznlGWg=";
   };
 
-  npmDepsHash = "sha256-1DHbAtiJRHLaSdhMPA84jpMLEqf0Xzpm5zZfeFxJk8E=";
+  npmDepsHash = "sha256-7u8pzIoRGTkhe1KhvtmlHabXGXS+L/g5NKKS337PEPA=";
 
   nativeBuildInputs = [ zip ];
 
