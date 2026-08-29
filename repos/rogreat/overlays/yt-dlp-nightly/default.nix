@@ -2,12 +2,12 @@ final: prev: {
   yt-dlp-nightly = prev.yt-dlp.overrideAttrs (
     finalAttrs: previousAttrs: {
       pname = "yt-dlp-nightly";
-      version = "2026.08.19-unstable-2026-08-19";
+      version = "2026.08.19-unstable-2026-08-27";
 
       src = prev.fetchFromGitHub {
         inherit (previousAttrs.src) owner repo;
-        rev = "3a08beaf031ab68f966401ead017ac81fe8486cf";
-        hash = "sha256-BM5ZeGTmHq+1xH6G/zsuCtjLgYgfRA11ya0zIHK5p4g=";
+        rev = "8377aa9555c308ca95630a28c1f91decd6c2235a";
+        hash = "sha256-VfLs6zHF6yLWG21vgvCz01AA8jJMLg+Ap9i4PH6nJic=";
       };
 
       postPatch = ''
