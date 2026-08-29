@@ -21,15 +21,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   uAssetsMain = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "7f3ce24fb1f0674a4d56e4b079437cade287eea5";
-    hash = "sha256-ye4ZuVCjrHxn1Orc1IVUNDYioQxZwxCYqFKpKVCLMuU=";
+    rev = "0cce6f0c5effc114a90cf2b675ce3331cb14422c";
+    hash = "sha256-Ooisl4tpctZAkdETWE5a9lBIYOjQyiQBrUhEQ+b2SgI=";
   };
 
   uAssetsProd = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "1914968199546cf2e3c37e464339b321cf6d2b02";
-    hash = "sha256-WYZrImKCd6i9E7BFBKbObDX4z9D1YRJnjRfCO4caX1s=";
+    rev = "8f0042e1f91a30ba1a9fdc7628908e047179b9f2";
+    hash = "sha256-F0MO/ovpfQUCRqMWl0d8DZdHlhcvBYzqW9tr7oRcacI=";
   };
 
   nativeBuildInputs = [
