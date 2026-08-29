@@ -1,0 +1,22 @@
+--- a/package.json
++++ b/package.json
+@@ -7,6 +7,9 @@
+ 	"workspaces": [
+ 		"packages/*"
+ 	],
++	"files": [
++		"packages"
++	],
+ 	"pi": {
+ 		"extensions": [
+ 			"./packages/pi-accounts/src/index.ts",
+@@ -34,7 +37,8 @@
+ 			"./packages/pi-worktree/src/index.ts"
+ 		],
+ 		"skills": [
+-			"./packages/pi-cbmem/skills"
++			"./packages/pi-cbmem/skills",
++			"./packages/pi-subagents/skills"
+ 		]
+ 	},
+ 	"scripts": {
