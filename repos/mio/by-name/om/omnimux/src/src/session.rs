@@ -281,9 +281,9 @@ fi"#;
                 tabs.request_open_url(url, window, cx);
             });
         })
-        .with_context_menu_callback(move |window, cx, position| {
+        .with_context_menu_callback(move |window, cx, position, has_selection| {
             let _ = tabs_for_menu.update(cx, |tabs, cx| {
-                tabs.show_terminal_context_menu(position, window, cx);
+                tabs.show_terminal_context_menu(position, has_selection, window, cx);
             });
         })
         .with_exit_callback(move |_window, cx| {

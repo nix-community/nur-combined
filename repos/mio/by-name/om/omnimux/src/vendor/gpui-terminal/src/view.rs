@@ -331,7 +331,7 @@ pub type LinkClickCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalView>,
 
 /// Callback for host context menu (right-click when not forwarding to the PTY).
 pub type ContextMenuCallback =
-    Box<dyn Fn(&mut Window, &mut Context<TerminalView>, Point<Pixels>)>;
+    Box<dyn Fn(&mut Window, &mut Context<TerminalView>, Point<Pixels>, bool)>;
 
 /// Callback for terminal exit events.
 ///
@@ -907,7 +907,7 @@ impl TerminalView {
     /// (local selection, Shift held, or mouse reporting off).
     pub fn with_context_menu_callback(
         mut self,
-        callback: impl Fn(&mut Window, &mut Context<TerminalView>, Point<Pixels>) + 'static,
+        callback: impl Fn(&mut Window, &mut Context<TerminalView>, Point<Pixels>, bool) + 'static,
     ) -> Self {
         self.context_menu_callback = Some(Box::new(callback));
         self
@@ -1035,7 +1035,8 @@ impl TerminalView {
             && (event.modifiers.shift || event.modifiers.alt || !mouse_reporting || self.has_selection())
         {
             if let Some(ref callback) = self.context_menu_callback {
-                callback(window, cx, event.position);
+                let has_selection = self.has_selection();
+                callback(window, cx, event.position, has_selection);
             }
             cx.stop_propagation();
             cx.notify();

@@ -150,16 +150,12 @@ impl TerminalTabs {
     pub(crate) fn show_terminal_context_menu(
         &mut self,
         position: Point<Pixels>,
+        has_selection: bool,
         window: &mut Window,
         cx: &mut Context<Self>,
     ) {
         // Replace any open menu (right-click again / new position).
         self.context_menu.take();
-
-        let has_selection = self
-            .tabs
-            .get(self.active_tab)
-            .is_some_and(|s| s.read(cx).terminal_view.read(cx).has_selection());
         let focus = self.focus_handle.clone();
         let tabs = cx.weak_entity();
         let menu = PopupMenu::build(window, cx, |menu, _, _| {
