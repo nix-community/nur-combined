@@ -13,7 +13,7 @@
 
 stdenv.mkDerivation {
   pname = "gallant";
-  version = "0-unstable-2025-12-06";
+  version = "0-unstable-2026-08-23";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -21,18 +21,13 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "NanoBillion";
     repo = "gallant";
-    rev = "a8bf79449bea4a17e577687c66b87df0444fbcf7";
-    hash = "sha256-UL6pcjRZbVh+dknAXQBuYw1NWFKDeXAShCFtHtHFoMU=";
+    rev = "4eebbf250f27c28c631bc667046803ca69337c90";
+    hash = "sha256-i3xCe9ICUct95ay/7kADutwPU7QbVZ7VVrBTwr8sYDE=";
   };
 
   patches = [
     ./GNUmakefile.patch
-    ./parse_font_line.patch
   ];
-
-  postPatch = ''
-    touch gallant.hex
-  '';
 
   nativeBuildInputs = [ fontforge ];
 

@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "tintinweb-pi-subagents";
-  version = "0.18.2";
+  version = "0.19.0";
 
   __structuredAttrs = true;
 
@@ -14,13 +14,13 @@ buildNpmPackage (finalAttrs: {
     owner = "tintinweb";
     repo = "pi-subagents";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/8lq+rBCzcmszfrgZemVNWIz+7mVX4XXharyOmuJ6Uw=";
+    hash = "sha256-1K6U5+2qLgOV7lUWbvqUne/Pf7oMRDf40GXLl8gv6Bk=";
   };
 
   patches = [ ./package-lock.patch ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-J4jmnsdGn2ZIv2U2bBZheCViLiFoS4SZTE/bJwv4hGA=";
+  npmDepsHash = "sha256-xy4e+c6sEuX9vmIlBcU6xUPlUex6pd0/NnZzEPhdorY=";
 
   npmInstallFlags = [ "--omit=dev" ];
 
