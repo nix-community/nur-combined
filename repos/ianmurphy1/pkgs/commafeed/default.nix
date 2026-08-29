@@ -6,6 +6,7 @@
   maven,
   nixosTests,
   writeText,
+  mandrel,
   graalvmPackages,
   removeReferencesTo,
   makeWrapper,
@@ -58,7 +59,7 @@ maven.buildMavenPackage {
 
   pname = "commafeed";
 
-  mvnJdk = graalVM;
+  mvnJdk = mandrel;
   mvnHash = "sha256-OOk8QtMje2VVx8DrLILr9IC2Qb6RvwVpQyNvRAdyJuo=";
 
   mvnParameters = lib.escapeShellArgs [
@@ -69,7 +70,6 @@ maven.buildMavenPackage {
     "-Dskip.npm"
     "-Dspotless.check.skip"
     "-Dmaven.gitcommitid.skip"
-    "-Dquarkus.native.additional-build-args=-H:Preserve=package=io.quarkus.runtime,-H:Preserve=package=io.quarkus.qute.runtime"
   ];
 
   mvnDepsParameters = lib.escapeShellArgs [
@@ -106,11 +106,12 @@ maven.buildMavenPackage {
 
   disallowedReferences = [
     graalVM
+    mandrel
     maven
   ];
 
   postInstall = ''
-    find "$out" -type f -exec ${lib.getExe removeReferencesTo} -t ${maven} -t ${graalVM} '{}' +
+    find "$out" -type f -exec ${lib.getExe removeReferencesTo} -t ${mandrel} -t ${maven} -t ${graalVM} '{}' +
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
     echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties

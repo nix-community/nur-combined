@@ -14,8 +14,12 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  commafeed = pkgs.callPackage ./pkgs/commafeed {};
   r2-sync = pkgs.callPackage ./pkgs/r2-sync {};
+  commafeed = 
+    let
+      mandrel = pkgs.callPackage ./pkgs/mandrel {};
+    in
+      pkgs.callPackage ./pkgs/commafeed {inherit mandrel;};
   # zot = pkgs.callPackage ./pkgs/zot {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
