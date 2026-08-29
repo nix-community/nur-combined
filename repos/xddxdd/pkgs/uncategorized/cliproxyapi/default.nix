@@ -6,7 +6,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "cliproxyapi";
-  version = "7.2.142";
+  version = "7.2.145";
   src = fetchFromGitHub {
     owner = "router-for-me";
     repo = "CLIProxyAPI";

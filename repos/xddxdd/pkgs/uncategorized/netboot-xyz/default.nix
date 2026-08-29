@@ -5,18 +5,18 @@
 }:
 let
   netbootXyzEfiSrc = fetchurl {
-    url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.2/netboot.xyz.efi";
-    hash = "sha256-4PbBxZPh2grQg/nXoOOjWAhR9gJqNgR53oriAUrv0i8=";
+    url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.3-RC/netboot.xyz.efi";
+    hash = "sha256-S0UrpWQR20RKdpoDWFnlf9kDJ+lX62wD5/KXHR1sNtU=";
   };
   netbootXyzLkrnSrc = fetchurl {
-    url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.2/netboot.xyz.lkrn";
-    hash = "sha256-XuynuqxT/TVo+1FmhGmzPcQF8mF2TN+wxwxlp6HCSOE=";
+    url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.3-RC/netboot.xyz.lkrn";
+    hash = "sha256-vg8A15ovXd/owk7vDCGQaZIaG2jD5NVvGcxKi2SAnDc=";
   };
 in
 assert ("3.0.2" == "3.0.2");
 stdenv.mkDerivation (finalAttrs: {
   pname = "netboot-xyz";
-  version = "3.0.2";
+  version = "3.0.3-RC";
   dontUnpack = true;
   postInstall = ''
     mkdir $out

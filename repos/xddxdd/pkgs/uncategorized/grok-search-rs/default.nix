@@ -7,7 +7,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "grok-search-rs";
-  version = "0.1.24";
+  version = "0.1.25";
   src = fetchFromGitHub {
     owner = "Episkey-G";
     repo = "GrokSearch-rs";

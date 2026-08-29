@@ -7,7 +7,7 @@
 
 buildGo127Module (finalAttrs: {
   pname = "runpodctl";
-  version = "2.11.0";
+  version = "2.12.0";
   src = fetchFromGitHub {
     owner = "runpod";
     repo = "runpodctl";

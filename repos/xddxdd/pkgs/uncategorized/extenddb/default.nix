@@ -7,7 +7,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "extenddb";
-  version = "0.1.8";
+  version = "0.1.10";
   src = fetchFromGitHub {
     owner = "ExtendDB";
     repo = "extenddb";
