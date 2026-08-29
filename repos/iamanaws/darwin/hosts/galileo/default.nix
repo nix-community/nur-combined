@@ -26,13 +26,13 @@ in
   fonts.packages = with pkgs.nerd-fonts; [ caskaydia-mono ];
 
   programs.mas.packages = {
-    "Bitwarden" = 1352778147;
-    "Command X" = 6448461551;
-    "CopyClip" = 595191960;
-    "Plain Text Editor" = 1572202501;
-    "Pixea" = 1507782672;
-    "Xcode" = 497799835;
-    "Grab2Text" = 6475956137;
+    Bitwarden = "com.bitwarden.desktop";
+    "Command X" = "com.sindresorhus.Command-X";
+    CopyClip = "com.fiplab.clipboard";
+    "Plain Text Editor" = "com.sindresorhus.Plain-Text-Editor";
+    Pixea = "imagetasks.Pixea";
+    Xcode = "com.apple.dt.Xcode";
+    Grab2Text = "com.softwarehow.grab2text";
   };
 
   environment.systemPackages = with pkgs; [
