@@ -3,7 +3,9 @@
   version,
   srcInfo,
   lib,
-  flutter344,
+  flutter347,
+  gitMinimal,
+  powershell,
   makeDesktopItem,
   copyDesktopItems,
   alsa-lib,
@@ -14,16 +16,22 @@
 }:
 let
   description = "Third-party Bilibili client developed in Flutter";
-  majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (builtins.splitVersion v));
+  # majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (builtins.splitVersion v));
+  flutter = flutter347;
 in
-flutter344.buildFlutterApplication {
+flutter.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version;
   inherit (srcInfo) pubspecLock gitHashes;
 
-  patches = [ ./disable-auto-update.patch ];
+  patches = [
+    ./disable-auto-update.patch
+    ./no-remove-before-patch.patch
+  ];
 
   nativeBuildInputs = [
+    gitMinimal # used extensively in lib/scripts/patch.ps1
+    powershell
     copyDesktopItems
   ];
 
@@ -36,15 +44,59 @@ flutter344.buildFlutterApplication {
   ];
 
   preBuild = ''
-    cat <<EOL > lib/build_config.dart
-    class BuildConfig {
-      static const int versionCode = ${toString srcInfo.revCount};
-      static const String versionName = '${majorMinorPatch version}';
-      static const int buildTime = ${toString srcInfo.time};
-      static const String commitHash = '${srcInfo.rev}';
+    # see lib/scripts/build.ps1
+    cat <<JSON > pili_release.json
+    {
+      "pili.hash": "${srcInfo.rev}",
+      "pili.name": "${version}",
+      "pili.code": ${toString srcInfo.revCount},
+      "pili.time": ${toString srcInfo.time}
     }
-    EOL
+    JSON
+
+    export FLUTTER_ROOT="$PWD/.flutter-sdk"
+    cp -aL '${flutter.sdk}' "$FLUTTER_ROOT"
+    chmod -R u+w "$FLUTTER_ROOT"
+    git -C "$FLUTTER_ROOT" reset --hard HEAD
+
+    export PUB_CACHE="$PWD/.pub-cache"
+    mkdir -p "$PUB_CACHE/hosted/pub.dev"
+
+    # build a writable pub cache with the packages that patch.ps1 patches
+    buildWritablePubCache() {
+      packageDir="$(jq --arg packageName "$1" -r '
+        .packages[]
+        | select(.name == $packageName)
+        | .rootUri
+        | ltrimstr("file://")
+        | rtrimstr("/.")
+      ' .dart_tool/package_config.json)"
+      cacheDir="$PUB_CACHE/hosted/pub.dev/$(basename "$packageDir" | sed 's/^[^-]*-pub-//')"
+      cp -a "$packageDir" "$cacheDir"
+      chmod -R u+w "$cacheDir"
+      echo "$cacheDir"
+    }
+    materialUiCacheDir="$(buildWritablePubCache material_ui)"
+    buildWritablePubCache cupertino_ui > /dev/null
+
+    HOME="$PWD" GITHUB_WORKSPACE="$PWD" pwsh lib/scripts/patch.ps1 Linux
+
+    # point package resolution at the patched Flutter SDK and material_ui.
+    jq --arg flutterRoot "file://$FLUTTER_ROOT" --arg materialRoot "file://$materialUiCacheDir/." '
+      .packages |= map(
+        if (.rootUri | contains("flutter-sdk-")) then
+          if .name == "sky_engine" then .rootUri = "\($flutterRoot)/bin/cache/pkg/sky_engine/."
+          else .rootUri = "\($flutterRoot)/packages/\(.name)/."
+          end
+        elif .name == "material_ui" then .rootUri = $materialRoot
+        else .
+        end
+      )
+    ' .dart_tool/package_config.json > .dart_tool/package_config.json.tmp
+    mv .dart_tool/package_config.json.tmp .dart_tool/package_config.json
   '';
+
+  flutterBuildFlags = [ "--dart-define-from-file=pili_release.json" ];
 
   postInstall = ''
     declare -A sizes=(
