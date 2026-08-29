@@ -69,7 +69,7 @@ maven.buildMavenPackage {
     "-Dskip.npm"
     "-Dspotless.check.skip"
     "-Dmaven.gitcommitid.skip"
-    "-Dquarkus.native.additional-build-args=-H:Preserve=package=io.quarkus.runtime"
+    "-Dquarkus.native.additional-build-args=-H:Preserve=package=io.quarkus.runtime,-H:Preserve=package=io.quarkus.qute.runtime"
   ];
 
   mvnDepsParameters = lib.escapeShellArgs [
