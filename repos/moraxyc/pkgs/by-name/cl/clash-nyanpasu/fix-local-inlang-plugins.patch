@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 27e6419..14ec471 100644
+index be9d378..3b038bb 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -27,7 +27,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index d360002..139445b 100644
+index 26f5d95..ce1cc4e 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -127,7 +127,7 @@ index d360002..139445b 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7739,6 +7783,14 @@ snapshots:
+@@ -7746,6 +7790,14 @@ snapshots:
        typescript: 7.0.2
        vite: 8.2.2(@types/node@24.13.3)(jiti@2.7.0)(less@4.9.0(supports-color@10.2.2))(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
@@ -142,7 +142,7 @@ index d360002..139445b 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7751,6 +7803,14 @@ snapshots:
+@@ -7758,6 +7810,14 @@ snapshots:
        sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
        uuid: 14.0.0
  
@@ -157,7 +157,7 @@ index d360002..139445b 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -7788,15 +7848,27 @@ snapshots:
+@@ -7795,15 +7855,27 @@ snapshots:
    '@lix-js/sdk-darwin-arm64@0.12.2':
      optional: true
  
@@ -185,7 +185,7 @@ index d360002..139445b 100644
    '@lix-js/sdk@0.12.2':
      dependencies:
        fflate: 0.8.3
-@@ -7806,6 +7878,15 @@ snapshots:
+@@ -7813,6 +7885,15 @@ snapshots:
        '@lix-js/sdk-linux-x64': 0.12.2
        '@lix-js/sdk-win32-x64': 0.12.2
  
@@ -201,7 +201,7 @@ index d360002..139445b 100644
    '@material/material-color-utilities@0.4.0': {}
  
    '@monaco-editor/loader@1.5.0':
-@@ -10781,6 +10862,8 @@ snapshots:
+@@ -10792,6 +10873,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
@@ -209,4 +209,4 @@ index d360002..139445b 100644
 +
    flatted@3.4.2: {}
  
-   formatly@0.3.0:
+   formatly@0.7.0:
