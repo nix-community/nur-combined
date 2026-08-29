@@ -12,6 +12,8 @@
   wayland-scanner,
   wayland-protocols,
   libxkbcommon,
+  jq,
+  lib,
 }:
 
 stdenv.mkDerivation (final: {
@@ -47,18 +49,16 @@ stdenv.mkDerivation (final: {
   ];
 
   passthru.updateScript = writeShellScript "update-my-package" ''
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i bash -p jq
-    
     set -euo pipefail
+    export DEPS_PATCH="${toString ./deps.sed-patch}"
 
     ${./update-deps.sh} ${./deps.nix}
-
+    
     ${nix-update-script {
       extraArgs = [
         "--version"
         "branch"
       ];
-    }} | jq -c '[.[0] as $root | $root + {file: $root.file + ["${./deps.nix}"]}]'
+    }} | ${lib.getExe jq} -c '[.[0] as $root | $root + {file: $root.file + ["${./deps.nix}"]}]'
   '';
 })
