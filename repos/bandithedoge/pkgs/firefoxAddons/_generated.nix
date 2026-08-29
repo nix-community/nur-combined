@@ -1432,10 +1432,10 @@
   };
   "tridactyl" = buildMozillaXpiAddon {
     pname = "tridactyl";
-    version = "1.24.6";
+    version = "1.25.0";
     addonId = "tridactyl.vim@cmcaine.co.uk";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4854935/tridactyl_vim-1.24.6.xpi";
-    sha256 = "13abd6fef2b5d13a2eca70addb5485a4fba0800436f6a12c57abb03f3cf99205";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4988638/tridactyl_vim-1.25.0.xpi";
+    sha256 = "46f4dec5b81c08a688c704a1b2ea7b45f44b3a4a1c4295f991cabffb670f1816";
     meta = with lib; {
       homepage = "https://tridactyl.xyz";
       description = "Vim, but in your browser. Replace Firefox's control mechanism with one modelled on Vim.\n\nThis addon is very usable, but is in an early stage of development. We intend to implement the majority of Vimperator's features.";
