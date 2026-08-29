@@ -647,11 +647,6 @@
             "sha256": "0r2kx3ahbriqhyd8qynjk6iw3g7baa17cgjh21pmrszz4cziqvxa",
             "url": "https://github.com/codgician/nur-packages"
         },
-        "colinsane": {
-            "rev": "ed53b274cd2b5a76fcbacfce492f3b8478bf0526",
-            "sha256": "1yffzj1kg8nsh3q7nx7lpw9gd1b13jfs1g7jwlg3ykv5xbxf54mh",
-            "url": "https://git.uninsane.org/colin/nix-files"
-        },
         "colorman": {
             "rev": "26215976a192e9f0e1366f414e801963951bfad1",
             "sha256": "0ppw5swkg0awp2vh439fp0msa4sf2p49fq9zrc47h93y90s2vihg",
