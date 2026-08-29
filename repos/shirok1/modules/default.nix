@@ -5,6 +5,7 @@
 }:
 
 {
+  cix-npu-driver = importApply ./cix-npu-driver.nix { inherit localFlake withSystem; };
   edk2-cix = importApply ./edk2-cix.nix { inherit localFlake withSystem; };
   futu-opend = importApply ./futu-opend.nix { inherit localFlake withSystem; };
   futu-opend-rs = importApply ./futu-opend-rs.nix { inherit localFlake withSystem; };

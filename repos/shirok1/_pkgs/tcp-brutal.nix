@@ -3,17 +3,16 @@
   lib,
   fetchFromGitHub,
   kernel,
-  kmod,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tcp-brutal";
   version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "apernet";
     repo = "tcp-brutal";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-rx8JgQtelssslJhFAEKq73LsiHGPoML9Gxvw0lsLacI=";
   };
 
@@ -34,6 +33,7 @@ stdenv.mkDerivation rec {
 
     make -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" \
         M="$PWD" \
+        -j$NIX_BUILD_CORES \
         INSTALL_MOD_PATH="$out" \
         INSTALL_MOD_DIR="extra" \
         modules_install
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
-}
+})

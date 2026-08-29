@@ -11,7 +11,7 @@
 }:
 let
   myPkgs = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
-    inherit (pkgs) callPackage;
+    callPackage = pkgs.lib.callPackageWith (pkgs // myPkgs);
     directory = ./pkgs;
   };
 in

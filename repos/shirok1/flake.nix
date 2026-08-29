@@ -119,6 +119,7 @@
                       };
                     };
                   }
+                  self.nixosModules.cix-npu-driver
                   self.nixosModules.edk2-cix
                   self.nixosModules.osmo-fl2k
                   self.nixosModules.peerbanhelper
@@ -159,17 +160,22 @@
 
             overlayAttrs.shirok1 = config.packages;
 
-            packages = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
-              inherit (pkgs) callPackage;
-              directory = ./pkgs;
-            };
-
-            # Expose tcp-brutal so users can manually build and test it against different kernels.
-            # Not placed in pkgs/ to avoid it being automatically discovered and breaking CI checks.
-            legacyPackages = {
-              tcp-brutal = pkgs.linuxPackages.callPackage ./_pkgs/tcp-brutal.nix { };
-              tcp-brutal-latest = pkgs.linuxPackages_latest.callPackage ./_pkgs/tcp-brutal.nix { };
-            };
+            packages =
+              let
+                regularPackages = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
+                  callPackage = pkgs.lib.callPackageWith (pkgs // regularPackages);
+                  directory = ./pkgs;
+                };
+                kmodPackagesLatest = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
+                  callPackage = pkgs.linuxPackages_latest.callPackage;
+                  directory = ./_pkgs;
+                };
+                kmodPackagesLTS = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
+                  callPackage = pkgs.linuxPackages.callPackage;
+                  directory = ./_pkgs;
+                };
+              in
+              regularPackages // kmodPackagesLatest // kmodPackagesLTS;
           };
       }
     );

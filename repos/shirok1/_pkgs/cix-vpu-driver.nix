@@ -6,7 +6,7 @@
   quilt,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cix-vpu-driver";
   version = "1.1.0";
 
@@ -66,4 +66,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
   };
-}
+})
