@@ -1773,8 +1773,6 @@ impl Render for TerminalView {
                 canvas(
                     move |bounds, _window, _cx| bounds,
                     move |bounds, _, window, cx| {
-                        use alacritty_terminal::grid::Dimensions;
-
                         // Measure actual cell dimensions from the font
                         let mut measured_renderer = renderer.clone();
                         measured_renderer.measure_cell(window);
@@ -1818,50 +1816,30 @@ impl Render for TerminalView {
                             rows,
                         };
 
-                        // Helper struct implementing Dimensions for resize
-                        struct TermSize {
-                            cols: usize,
-                            rows: usize,
-                        }
-                        impl Dimensions for TermSize {
-                            fn total_lines(&self) -> usize {
-                                self.rows
-                            }
-                            fn screen_lines(&self) -> usize {
-                                self.rows
-                            }
-                            fn columns(&self) -> usize {
-                                self.cols
-                            }
-                            fn last_column(&self) -> alacritty_terminal::index::Column {
-                                alacritty_terminal::index::Column(self.cols.saturating_sub(1))
-                            }
-                            fn bottommost_line(&self) -> alacritty_terminal::index::Line {
-                                alacritty_terminal::index::Line(self.rows as i32 - 1)
-                            }
-                            fn topmost_line(&self) -> alacritty_terminal::index::Line {
-                                alacritty_terminal::index::Line(0)
-                            }
-                        }
+                        // Resize terminal if dimensions changed. Compare against the
+                        // live grid, not `state.cols()` — paint used to resize the
+                        // term directly without updating cached dimensions.
+                        let (current_cols, current_rows) =
+                            view_entity.read(cx).state.with_term(|term| {
+                                (term.columns(), term.screen_lines())
+                            });
+                        let needs_resize = cols != current_cols || rows != current_rows;
+                        let cols_changed = cols != current_cols;
 
-                        // Resize terminal if dimensions changed
                         view_entity.update(cx, |view, _| {
-                            if cols != view.state.cols() {
+                            if cols_changed {
                                 view.clear_pinned_selection();
+                            }
+                            if needs_resize {
+                                if let Some(ref callback) = resize_callback {
+                                    callback(cols, rows);
+                                }
+                                view.state.resize(cols, rows);
                             }
                             view.apply_pinned_selection();
                         });
 
                         let mut term = state_arc.lock();
-                        let current_cols = term.columns();
-                        let current_rows = term.screen_lines();
-                        if cols != current_cols || rows != current_rows {
-                            // Notify the PTY about the resize
-                            if let Some(ref callback) = resize_callback {
-                                callback(cols, rows);
-                            }
-                            term.resize(TermSize { cols, rows });
-                        }
 
                         // Paint the terminal with measured dimensions
                         measured_renderer.paint(
