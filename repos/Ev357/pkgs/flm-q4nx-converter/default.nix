@@ -6,18 +6,17 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "flm-q4nx-converter";
-  version = "unstable-2026-08-27";
+  version = "0-unstable-2026-08-27";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "ROCm";
     repo = "FLM_Q4NX_Converter";
-    rev = "dd0993cc0801c6ef98fbd57d64b8895c0730517f";
-    sha256 = "sha256-k5PHQBoyRvmR8RMq5p89x+OGZiNs/Xj/58/OrYSYpyQ=";
+    rev = "d1d5232d0b82871bf5265e990fa2d26cdad22327";
+    sha256 = "sha256-GNGS+Ec4Js7o9BLsxLiptFqYlZ7+p9gniglEFcy34gw=";
   };
 
   patches = [
-    ./hardcoded-argv.patch
     ./config-path.patch
   ];
 
