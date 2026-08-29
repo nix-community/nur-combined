@@ -26,6 +26,6 @@ defaultPackages
   # These packages intentionally target Emacs 31 and newer.  Keep the generic
   # `for` package set below so overlay consumers still receive builds matching
   # their selected Emacs.
-  inherit (emacs31Packages) douban zhihu;
+  inherit (emacs31Packages) douban elfeed-adapters zhihu;
   for = packagesFor;
 }
