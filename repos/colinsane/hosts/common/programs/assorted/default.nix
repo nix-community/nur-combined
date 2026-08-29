@@ -349,6 +349,7 @@ in
       "dialect"  # language translation
       "dino"  # XMPP client
       "dissent"  # Discord client (formerly known as: gtkcord4)
+      "ebay-epiphany"
       # "emote"
       # "envelope"  # GTK4 email client (alpha)
       # "evince"  # PDF viewer

@@ -1,0 +1,23 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.epiphany ]'
+
+# ---- BEGIN: substituted constants ----
+appId=@appId@
+baseUrl=@baseUrl@
+epiphany=@epiphany@
+# ---- END:   substituted constants ----
+
+url=$baseUrl
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    url=$1
+    shift
+  done
+}
+
+parseArgs "$@"
+
+profile=${XDG_DATA_HOME:-$HOME/.local/share}/${appId}
+mkdir -p "$profile" && touch "$profile/.app"
+
+exec "$epiphany" --application-mode --profile "$profile" "$url"

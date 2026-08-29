@@ -1,12 +1,13 @@
 { lib, pkgs, ... }:
 let
-  inherit (pkgs.kagi-epiphany) appId;
+  inherit (pkgs.ebay-epiphany) appId;
   desktop = "${appId}.desktop";
 in
 {
-  sane.programs.kagi-epiphany = {
+  sane.programs.ebay-epiphany = {
     sandbox.net = "clearnet";
     sandbox.whitelistPortal = [
+      "Camera"  # otherwise it pegs the CPU and is unusable
       "DynamicLauncher"
       "OpenURI"
     ];
@@ -29,8 +30,7 @@ in
 
     buildCost = lib.mkDefault 2;
 
-    mime.urlAssociations."^https?://(www\\.)?kagi.com$" = desktop;
-    mime.urlAssociations."^https?://(www\\.)?kagi.com/.*$" = desktop;
+    mime.urlAssociations."^https?://([A-Za-z0-9-]+\\.)*ebay\\.com([/?].*)?$" = desktop;
 
     persist.byStore.private = [
       ".local/share/${appId}"

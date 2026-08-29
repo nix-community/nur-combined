@@ -147,6 +147,7 @@ in
       # this gets us a few things:
       # - file browser remembers its last directory
       # - caching of .desktop files (perf)
+      #   TODO: create the cache at nix build time (just needs ~/.local/share/applications)
       ".cache/rofi"
     ];
   };
