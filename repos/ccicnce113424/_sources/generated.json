@@ -484,7 +484,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-ZHVkmwuL8NvsPunB+ZT9eSFVssbu5uN9uq7J8+L1yFI=/pubspec.lock"
+            "pubspec.lock": "sha256-8axKAh5j4eYi+yGGfCfQc7ndZtVA4joRduco9ExL+uA=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -496,12 +496,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.1.2.1",
-            "sha256": "sha256-ZHVkmwuL8NvsPunB+ZT9eSFVssbu5uN9uq7J8+L1yFI=",
+            "rev": "2.1.2.2",
+            "sha256": "sha256-8axKAh5j4eYi+yGGfCfQc7ndZtVA4joRduco9ExL+uA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.1.2.1"
+        "version": "2.1.2.2"
     },
     "pixes": {
         "cargoLock": null,
