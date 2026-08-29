@@ -332,14 +332,14 @@ output $out_lappy_int {
 }
 
 ## MOBY
-# pinephone internal display (a.k.a. "Unknown Unknown Unknown")
+# map PinePhone touchscreen -> internal display (a.k.a. "Unknown Unknown Unknown")
 input "1046:4097:Goodix_Capacitive_TouchScreen" map_to_output $out_moby
-# pinephone pro internal display
+# map PinePhone Pro touchscreen -> internal display
 input "1046:1158:Goodix_Capacitive_TouchScreen" map_to_output $out_moby
+# map Pocophone touchscreen -> internal display
+input "0:0:nt36672a-ts" map_to_output $out_moby
 output $out_moby {
-  # scale defaults to 2 in portrait mode, 1 in landscape
-  scale 2
-  # scale 1.6
+  scale 3
 }
 
 # move the wayland socket that sway implicitly created to the place which other apps expect to find it

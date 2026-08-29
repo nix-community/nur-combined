@@ -89,12 +89,12 @@ let
       '';
     });
 
-    # does sway want `wlroots`? `wlroots_0_19`? detect it and patch as appropriate:
-    patchedWlroots = lib.concatMapAttrs
-      (k: overridden: lib.optionalAttrs (lib.hasPrefix "wlroots" k) {
-        ${k} = assert !overridden; patchWlroots pkgs'.${k};
-      })
-      pkgs'.sway-unwrapped;
+  # does sway want `wlroots`? `wlroots_0_19`? detect it and patch as appropriate:
+  patchedWlroots = lib.concatMapAttrs
+    (k: overridden: lib.optionalAttrs (lib.hasPrefix "wlroots" k) {
+      ${k} = assert !overridden; patchWlroots pkgs'.${k};
+    })
+    pkgs'.sway-unwrapped;
 
   swayPackage = wrapSway (
     (pkgs'.sway-unwrapped.override (patchedWlroots // {

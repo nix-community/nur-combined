@@ -1,0 +1,41 @@
+diff --git a/backend/drm/drm.c b/backend/drm/drm.c
+--- a/backend/drm/drm.c
++++ b/backend/drm/drm.c
+@@ -776,6 +776,25 @@
+ 	output_state_get_buffer_src_box(state->base, &state->primary_viewport.src_box);
+ 	output_state_get_buffer_dst_box(state->base, &state->primary_viewport.dst_box);
+ 
++	/*
++	 * Pocophone's panel has a camera cutout at the top and rounded corners at
++	 * both ends. Map the complete compositor buffer into the unobstructed
++	 * physical rectangle. In particular, do not crop src_box: framebuffer
++	 * row zero (where layer-shell panels are placed) must map to y=88.
++	 *
++	 * Match the connector and native scanout rectangle so no other output
++	 * or mode is affected. Do not constrain src_box dimensions because a
++	 * fullscreen client may be scanned out directly at a different size.
++	 */
++	if (strcmp(conn->output.name, "DSI-1") == 0 &&
++			state->primary_viewport.dst_box.x == 0 &&
++			state->primary_viewport.dst_box.y == 0 &&
++			state->primary_viewport.dst_box.width == 1080 &&
++			state->primary_viewport.dst_box.height == 2246) {
++		state->primary_viewport.dst_box.y = @displayMarginTop@;
++		state->primary_viewport.dst_box.height -= @displayMarginTop@ + @displayMarginBot@;
++	}
++
+ 	return true;
+ }
+ 
+@@ -1100,6 +1119,11 @@
+ static bool drm_connector_set_cursor(struct wlr_output *output,
+ 		struct wlr_buffer *buffer, int hotspot_x, int hotspot_y) {
+ 	struct wlr_drm_connector *conn = get_drm_connector_from_output(output);
++
++	/* The primary plane is inset on Pocophone. Keep cursors in that plane too. */
++	if (strcmp(conn->output.name, "DSI-1") == 0) {
++		return false;
++	}
+ 	struct wlr_drm_backend *drm = conn->backend;
+ 	struct wlr_drm_crtc *crtc = conn->crtc;
+ 

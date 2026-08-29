@@ -17,6 +17,17 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.hal.xiaomi-pocophone;
+  # margins for the camera cutout (top) and rounded corners in general (bot).
+  # the camera cutout is literally 86 px; the rounded corners are slightly more (96 px?).
+  # best scaling is likely achieved if these sum to one of:
+  # - 140 = 2246 * 1/16
+  # - 105 = 2246 * 3/64
+  # - 123 = 2246 * 7/128
+  # - 132 = 2246 * 15/256
+  # - 114 = 2246 * 13/256
+  # - 118 = 2246 * 27/512
+  displayMarginTop = 86;
+  displayMarginBot = 46;
 in
 {
   options = {
@@ -47,10 +58,6 @@ in
     # pd-mapper and tqftpserv need to inspect/read the firmware tree too;
     # unlike the kernel firmware loader, they do not understand zstd files.
     # hardware.firmwareCompression = "none";
-
-    sane.programs.alsa-ucm-conf.suggestedPrograms = [
-      "alsa-ucm-conf-sdm845"
-    ];
 
     # WCN3990's firmware is a Qualcomm protection-domain image. The
     # ath10k_snoc driver requests it over QRTR/TFTP; loading ath10k_snoc alone
@@ -134,5 +141,39 @@ in
       "qcom_fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
       "ipa"  #< vanilla-mobile-nixos claims this causes boot lockup
     ];
+
+    sane.programs.alsa-ucm-conf.suggestedPrograms = [
+      "alsa-ucm-conf-sdm845"
+    ];
+
+    nixpkgs.overlays = [
+      (self: super: let
+        maxVersion = 99;
+        versions = super.lib.range 0 maxVersion;
+        wlrootsName = v: if v == 0 then "wlroots" else "wlroots_0_${toString v}";
+      in
+        builtins.foldl' (acc: name: acc // {
+          "${name}" = super."${name}".overrideAttrs (prevAttrs: {
+            patches = (prevAttrs.patches or []) ++ [
+              (self.replaceVars ./wlroots-display-cutout.patch {
+                inherit displayMarginTop displayMarginBot;
+              })
+            ];
+          });
+        }) {} (map wlrootsName versions)
+      )
+    ];
+
+    sane.programs.sway.config.extra_lines = let
+      phyH = 2246.0;
+      logH = phyH - displayMarginTop - displayMarginBot;
+      scale = phyH / logH;
+      offset = -displayMarginTop / logH;
+    in lib.mkAfter ''
+      # XXX(2026-08-29): Pocophone has a camera cutout + rounded corners;
+      # we truncate & scale the display at a lower layer (wlroots) to avoid those:
+      # touchscreen needs that same transform.
+      input "0:0:nt36672a-ts" calibration_matrix 1 0 0 0 ${toString scale} ${toString offset}
+    '';
   };
 }
