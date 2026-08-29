@@ -739,6 +739,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
 
 
+      pdf-toc = callPackage ./pkgs/development/python-modules/pdf-toc { };
 
     #}))); # python3.pkgs
 
@@ -789,6 +790,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   kobo-book-downloader = python3Packages.kobo-book-downloader;
 
   epub-toc = python3Packages.epub-toc;
+
+  pdf-toc = python3Packages.pdf-toc;
 
   fsindex = python3Packages.fsindex;
 
