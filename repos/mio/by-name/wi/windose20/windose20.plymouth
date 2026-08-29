@@ -1,0 +1,63 @@
+[Plymouth Theme]
+Name=Windose20
+Description=Windose20 boot splash inspired by Needy Girl Overdose
+ModuleName=two-step
+
+[two-step]
+ImageDir=@IMAGES@
+DialogHorizontalAlignment=.5
+DialogVerticalAlignment=.5
+TitleHorizontalAlignment=.5
+TitleVerticalAlignment=.75
+HorizontalAlignment=.5
+VerticalAlignment=.5
+WatermarkHorizontalAlignment=.5
+WatermarkVerticalAlignment=.98
+Transition=none
+TransitionDuration=0.0
+BackgroundStartColor=0xFFC0E3
+BackgroundEndColor=0xFFC0E3
+ProgressBarHorizontalAlignment=.5
+ProgressBarVerticalAlignment=.65
+ProgressBarWidth=350
+ProgressBarHeight=5
+ProgressBarBackgroundColor=0xDB2FB3
+ProgressBarForegroundColor=0xFFFFFF
+DialogClearsFirmwareBackground=true
+MessageBelowAnimation=true
+
+[boot-up]
+UseEndAnimation=false
+UseFirmwareBackground=false
+
+[shutdown]
+UseEndAnimation=false
+UseFirmwareBackground=false
+
+[reboot]
+UseEndAnimation=false
+UseFirmwareBackground=false
+
+[updates]
+UseFirmwareBackground=false
+SuppressMessages=true
+ProgressBarShowPercentComplete=true
+UseProgressBar=true
+Title=Installing Updates...
+SubTitle=Please do not turn off your computer.
+
+[system-upgrade]
+UseFirmwareBackground=false
+SuppressMessages=true
+ProgressBarShowPercentComplete=true
+UseProgressBar=true
+Title=Installing Upgrades...
+SubTitle=Please do not turn off your computer.
+
+[firmware-upgrade]
+UseFirmwareBackground=false
+SuppressMessages=true
+ProgressBarShowPercentComplete=true
+UseProgressBar=true
+Title=Installing Firmware Updates...
+SubTitle=Please do not turn off your computer.

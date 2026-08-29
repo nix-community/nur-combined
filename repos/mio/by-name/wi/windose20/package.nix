@@ -4,6 +4,8 @@
   fetchFromGitHub,
   fetchurl,
   unzip,
+  imagemagick,
+  plymouth,
 }:
 
 let
@@ -20,7 +22,10 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-B272o5LcrE9yCK4c36gjVwW5utg/XVJpPEMVjeilSD0=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [
+    unzip
+    imagemagick
+  ];
 
   font = fetchurl {
     url = "https://github.com/TakWolf/fusion-pixel-font/releases/download/${fontVersion}/fusion-pixel-font-10px-proportional-ttf-v${fontVersion}.zip";
@@ -43,6 +48,21 @@ stdenvNoCC.mkDerivation {
     substituteInPlace "$out/share/windose20/configs/neofetch.conf" \
       --replace-fail 'image_source="/home/kangel/Рабочий стол/windose20/ame_neofetch1.png"' \
       "image_source=\"$out/share/windose20/pngs/logo.png\""
+
+    themeDir="$out/share/plymouth/themes/windose20"
+    imagesDir="$themeDir/images"
+    mkdir -p "$imagesDir"
+    magick "$src/pngs/logo_with_name.png" -resize 480x -background none \
+      "$imagesDir/logo.png"
+    for i in $(seq -f "%02g" 0 79); do
+      cp "$imagesDir/logo.png" "$imagesDir/animation-$i.png"
+    done
+    for asset in bullet.png capslock.png entry.png keyboard.png keymap-render.png lock.png; do
+      cp "${plymouth}/share/plymouth/themes/spinner/$asset" "$imagesDir/"
+    done
+    cp ${./windose20.plymouth} "$themeDir/windose20.plymouth"
+    substituteInPlace "$themeDir/windose20.plymouth" \
+      --replace-fail '@IMAGES@' "$imagesDir/"
 
     mkdir -p "$out/share/fonts/truetype"
     unzip -jo "$font" "fusion-pixel-10px-proportional-latin.ttf" -d "$out/share/fonts/truetype"
