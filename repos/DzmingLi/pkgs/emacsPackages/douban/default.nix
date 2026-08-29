@@ -2,6 +2,7 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
+  browser-cookies,
   org-extra-emphasis,
 }:
 
@@ -16,11 +17,12 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "douban.el";
-    rev = "11327d3972cf4296ed2c8f59b823709285e94e84";
-    hash = "sha256-0TGNFRIqoZY5gGwrpPwJAQd4N+BHqFHHPudFeB+4K3w=";
+    rev = "caf9ecb9ed03ac7f2a86d74d98ff9adc7438e700";
+    hash = "sha256-A8oP4+3W5hHPbaDtiOorM7j//jd550Q73Py9E/v9p/s=";
   };
 
   packageRequires = [
+    browser-cookies
     emacsPackages.elpaDevelPackages.plz
     org-extra-emphasis
   ];

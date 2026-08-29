@@ -2,6 +2,7 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
+  browser-cookies,
   pandoc,
   typst,
 }:
@@ -17,11 +18,14 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "72bb3b1770d38527edbe6e39ed6805c0c3e6a27c";
-    hash = "sha256-3Mmxh+d1T62Nvx74eg+aKz7RVr/X/mkar0UDKK/+Y7k=";
+    rev = "af038f2e11df2667ca07db61344fc14dce63579d";
+    hash = "sha256-4o16hTE0eLZouG8ISbjxrjiFMu1fKkKDsQdPJHSBKqc=";
   };
 
-  packageRequires = [ emacsPackages.elpaDevelPackages.plz ];
+  packageRequires = [
+    browser-cookies
+    emacsPackages.elpaDevelPackages.plz
+  ];
 
   turnCompilationWarningToError = true;
 
