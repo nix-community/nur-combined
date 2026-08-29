@@ -38,10 +38,12 @@ let
   # (src/common/spektra_fetch.c), but linking only the hashed leaf keeps
   # spektrafilm/ itself a normal writable dir, so darktable's own in-UI pack
   # download still works for other tables. The leaf is a read-only store symlink,
-  # which the resolver is happy to read.
+  # which the resolver is happy to read. Since 2026-08 the module resolves packs
+  # under g_get_user_data_dir() (~/.local/share), no longer the config dir —
+  # same base dir as the AI models below.
   wrapperArgs =
     lib.optionals wrapDataPack [
-      ''--run 'darktable_config_home="''${XDG_CONFIG_HOME:-''${HOME:+$HOME/.config}}"; spektrafilm_packs_dir="$darktable_config_home/darktable/spektrafilm/packs"; spektrafilm_pack_dir="$spektrafilm_packs_dir/${spektrafilmDataPack.lutHash}"; if [ -n "$darktable_config_home" ]; then mkdir -p "$spektrafilm_packs_dir"; if [ -L "$spektrafilm_pack_dir" ] || [ ! -e "$spektrafilm_pack_dir" ]; then ln -sfn ${spektrafilmDataPack} "$spektrafilm_pack_dir"; fi; fi' ''
+      ''--run 'darktable_data_home="''${XDG_DATA_HOME:-''${HOME:+$HOME/.local/share}}"; spektrafilm_packs_dir="$darktable_data_home/darktable/spektrafilm/packs"; spektrafilm_pack_dir="$spektrafilm_packs_dir/${spektrafilmDataPack.lutHash}"; if [ -n "$darktable_data_home" ]; then mkdir -p "$spektrafilm_packs_dir"; if [ -L "$spektrafilm_pack_dir" ] || [ ! -e "$spektrafilm_pack_dir" ]; then ln -sfn ${spektrafilmDataPack} "$spektrafilm_pack_dir"; fi; fi' ''
     ]
     ++ lib.optionals wrapAiModels [
       ''--run 'darktable_data_home="''${XDG_DATA_HOME:-''${HOME:+$HOME/.local/share}}"; darktable_models_dir="$darktable_data_home/darktable/models"; if [ -n "$darktable_data_home" ]; then mkdir -p "$darktable_data_home/darktable"; if [ -L "$darktable_models_dir" ] || [ ! -e "$darktable_models_dir" ]; then ln -sfn ${darktableAiModels} "$darktable_models_dir"; fi; fi' ''
@@ -50,17 +52,19 @@ let
     pname = "darktable-spektrafilm";
     # Tracks a moving PR branch head, not a tagged release, so
     # the datestamp keeps the store path honest. Bump it together with src.rev.
-    version = "5.8.0-unstable-2026-08-12";
+    version = "5.8.0-unstable-2026-08-29";
 
     src = fetchFromGitHub {
       owner = "piratenpanda";
       repo = "darktable";
-      # darktable-org/darktable#21534 head (== branch `spektrafilm`), rebased on
-      # master so it builds standalone. Verify with:
-      #   git ls-remote https://github.com/piratenpanda/darktable refs/pull/21534/head
-      rev = "0d2c57f7808a9992b5464652c0c2729092313396";
+      # darktable-org/darktable#21967 head (== branch `spektrafilm`), rebased on
+      # master so it builds standalone. This PR supersedes #21534, which the
+      # author closed by accident in 2026-08; same branch, new PR number.
+      # Verify with:
+      #   git ls-remote https://github.com/piratenpanda/darktable refs/pull/21967/head
+      rev = "d0b4e9cbc8847155655e9aeca9e0eb64757f2eb9";
       fetchSubmodules = true;
-      hash = "sha256-/ZgOFcFy3Dio7VtO4DXmdqva+Tk8uWnIX9GzrKrvRew=";
+      hash = "sha256-QgqsWruGAgnomV8RRylLoeXQkx3p99aJNxvrkrZCVww=";
     };
 
     # No local patches: the toggle-helper shim we used to carry is now obsolete —
@@ -85,8 +89,8 @@ let
 
     meta = (old.meta or { }) // {
       description =
-        "darktable with the native spektrafilm spectral film-simulation module (darktable PR 21534)";
-      homepage = "https://github.com/darktable-org/darktable/pull/21534";
+        "darktable with the native spektrafilm spectral film-simulation module (darktable PR 21967)";
+      homepage = "https://github.com/darktable-org/darktable/pull/21967";
       mainProgram = "darktable";
     };
   });

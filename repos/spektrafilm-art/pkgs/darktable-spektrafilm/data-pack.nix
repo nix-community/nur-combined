@@ -12,19 +12,23 @@
 # reads it from:
 #   https://raw.githubusercontent.com/<repo>/<ref>/manifest.json
 #   https://raw.githubusercontent.com/<repo>/<ref>/<base>/{pack.json,spectra_lut.f32,profiles/*}
-# (defaults: repo = piratenpanda/darktable-spektrafilm, ref = main). Fetching the
+# (defaults: repo = darktable-org/darktable-spektrafilm, ref = main — the pack
+# moved from piratenpanda's personal repo to the darktable.org-managed one in
+# 2026-08, and the module's SF_DEFAULT_REPOSITORY moved with it). Fetching the
 # same repo at a pinned commit guarantees the pack's LUT hash matches what edits
 # made against this darktable build record, which regenerating from a possibly
 # differently-versioned Python package would not.
 #
 # The manifest's single default pack, pinned below:
 #   lut_id  = irradiance_xy_tc@0.3.3
-#   lut_hash = 565f4ec4        (also the spectra_lut.f32 header hash, LE @ byte 28)
+#   lut_hash = 565f4ec4        (also the spectra_lut.f32 header hash, LE @ byte 24)
 #   base    = packs/0.3.3      (subdir in the repo holding the pack files)
 #   pack_format = 2            (SFS2 v2 raw float16 — matches the module's reader)
 #
 # `lutHash` is exposed via passthru so callers can place this at the exact path
-# the module scans, ~/.config/darktable/spektrafilm/packs/<lutHash>/ .
+# the module scans, ~/.local/share/darktable/spektrafilm/packs/<lutHash>/
+# (moved from ~/.config/darktable in 2026-08: spektra_fetch.c now resolves via
+# g_get_user_data_dir(), not the config dir).
 {
   lib,
   runCommand,
@@ -32,10 +36,10 @@
 
   # Pinned pack repo. Bump `rev`/`hash` together with `base`/`lutHash` when the
   # published manifest changes (see SPEKTRAFILM-UPGRADE-NOTES.md).
-  repoOwner ? "piratenpanda",
+  repoOwner ? "darktable-org",
   repoName ? "darktable-spektrafilm",
-  rev ? "d32583b041ac253226f334379758c9a5830df442",
-  hash ? "sha256-WVV/906VYPDoj77cjUVp6RWzuEhRWnuzGY6ypAdjjU4=",
+  rev ? "b15cfe18fb35ec15084f78c986b0ebc730338e6e",
+  hash ? "sha256-K4yWXFNtOdoAl6wFJZkDEZTDl6qZEVfaeXrwkj2tqBs=",
   base ? "packs/0.3.3",
   lutHash ? "565f4ec4",
   spektrafilmVersion ? "0.3.3",
