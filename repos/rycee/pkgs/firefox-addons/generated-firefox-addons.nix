@@ -9725,10 +9725,10 @@
     };
     "metager-suche" = buildMozillaXpiAddon {
       pname = "metager-suche";
-      version = "1.27";
+      version = "1.28";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4967809/metager_suche-1.27.xpi";
-      sha256 = "35ffdefa1bb1313af3191c5b892f7714495de35fb119f5a3758ff3165f440616";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4989137/metager_suche-1.28.xpi";
+      sha256 = "f8b1497795eb9b774db68f7f8af6a1c483772ae2b1ad0a741c6f0072c59e63a2";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
@@ -9754,10 +9754,6 @@
           "https://metager.org/*/meta/meta.ger3?*"
           "https://metager.de/meta/meta.ger3?*"
           "https://metager.de/*/meta/meta.ger3?*"
-          "https://metager.org/keys/*"
-          "https://metager.org/*/keys/*"
-          "https://metager.de/keys/*"
-          "https://metager.de/*/keys/*"
         ];
         platforms = platforms.all;
       };
@@ -13717,10 +13713,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.22.98";
+      version = "1.23.1";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4704412/single_file-1.22.98.xpi";
-      sha256 = "f4174d8aa43354f45f275326e0103660fee8121c25a43be84d7a05ac856ef3cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4990129/single_file-1.23.1.xpi";
+      sha256 = "17afe21ff0dba9c27c343a2be2247c05222490bc75d5f9d47b5a17a3f8b96a48";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14223,10 +14219,10 @@
     };
     "super-agent" = buildMozillaXpiAddon {
       pname = "super-agent";
-      version = "4.5";
+      version = "4.6.3";
       addonId = "{a9cc4ef5-1149-47a9-8b94-490f324fe157}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4922528/super_agent-4.5.xpi";
-      sha256 = "1cb97aedd4bed75b4de7fd80d571c5a51fa7407fc238760a52f39b842b7dc0f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4989364/super_agent-4.6.3.xpi";
+      sha256 = "93c58d39aec8ab024bbb2937ee1d481b4e650a71c3c5c9c268d081b8ea573972";
       meta = with lib;
       {
         description = "Super Agent automatically fills out website's cookie consent forms for you based on your preferences. Super Agent will save you a lot of clicks and let you take control of your privacy in a very easy way.";
@@ -14529,10 +14525,10 @@
     };
     "tabwrangler" = buildMozillaXpiAddon {
       pname = "tabwrangler";
-      version = "8.3.0";
+      version = "8.4.1";
       addonId = "{81b74d53-9416-4fb3-afa2-ab46684b253b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4785569/tabwrangler-8.3.0.xpi";
-      sha256 = "ae2d34c6afe09928ff0b0e68d2f8855805b39de0693ca61c123d35bf98478927";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4989975/tabwrangler-8.4.1.xpi";
+      sha256 = "0f049f66d4540e02795b833fd77960eeff7d34521657b33fa1033d63dcd7e113";
       meta = with lib;
       {
         homepage = "https://github.com/tabwrangler/tabwrangler/";
@@ -15143,10 +15139,10 @@
     };
     "tridactyl" = buildMozillaXpiAddon {
       pname = "tridactyl";
-      version = "1.24.6";
+      version = "1.25.0";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4854935/tridactyl_vim-1.24.6.xpi";
-      sha256 = "13abd6fef2b5d13a2eca70addb5485a4fba0800436f6a12c57abb03f3cf99205";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4988638/tridactyl_vim-1.25.0.xpi";
+      sha256 = "46f4dec5b81c08a688c704a1b2ea7b45f44b3a4a1c4295f991cabffb670f1816";
       meta = with lib;
       {
         homepage = "https://tridactyl.xyz";
