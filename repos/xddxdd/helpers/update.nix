@@ -264,5 +264,6 @@ pkgs.stdenvNoCC.mkDerivation {
       exit 1
     fi
     echo "All update scripts finished successfully."
+    exit 0
   '';
 }
