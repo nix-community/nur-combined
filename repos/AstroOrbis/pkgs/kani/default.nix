@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage rec {
 
     src = pkgs.fetchzip {
       url = "https://github.com/model-checking/kani/releases/download/${version}/${version}-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256-jQMm/hqN0X/Vd08supdd3ID7dHIYQTLcLddpWdcA0Xc=";
+      sha256 = "sha256-I+GKPEWYXPZimCN79IB9dKiY8+NhP4Y8JjAS7R00XMs=";
     };
 
     buildInputs = [
