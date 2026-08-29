@@ -1,27 +1,33 @@
 {
   lib,
   stdenvNoCC,
-  fetchurl,
+  fetchFromGitHub,
+  zip,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "audio-equalizer-firefox";
-  version = "0.2.1";
+  version = "0.2.3";
 
-  extid = "{63d150c4-394c-4275-bc32-c464e76a891c}";
+  extid = "{c9019a65-6808-45ca-938f-236e21cb866d}";
 
-  src = fetchurl {
-    url = "https://addons.mozilla.org/firefox/downloads/latest/audio-equalizer-wext/audio-equalizer-wext-latest.xpi";
-    hash = "sha256-U2gPdtEb3mhUM0W5FMV7PpYqluM80Gf0urWiLch7gxU=";
-    name = "audio-equalizer.xpi";
+  src = fetchFromGitHub {
+    owner = "lunu-bounir";
+    repo = "audio-equalizer";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-1INw57OTSMDH4nwvSIoIWjLBPAnGvHOiFf/WiSiOkCk=";
   };
 
-  dontUnpack = true;
+  nativeBuildInputs = [ zip ];
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm644 "$src" "$out/${finalAttrs.extid}.xpi"
+    pushd v3 > /dev/null
+    zip -qr "$TMPDIR/audio-equalizer.xpi" .
+    popd > /dev/null
+
+    install -Dm644 "$TMPDIR/audio-equalizer.xpi" "$out/${finalAttrs.extid}.xpi"
     ln -s "${finalAttrs.extid}.xpi" "$out/audio-equalizer.xpi"
 
     runHook postInstall
@@ -32,10 +38,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Audio Equalizer Firefox add-on (toolbar popup equalizer presets)";
-    homepage = "https://addons.mozilla.org/en-US/firefox/addon/audio-equalizer-wext/";
+    changelog = "https://github.com/lunu-bounir/audio-equalizer/releases/tag/v${finalAttrs.version}";
+    description = "Audio Equalizer and Amplifier Firefox add-on — global per-frequency EQ and volume";
+    homepage = "https://github.com/lunu-bounir/audio-equalizer";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 })
