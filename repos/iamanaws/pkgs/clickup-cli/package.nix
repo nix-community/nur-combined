@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "clickup-cli";
-  version = "0.16.0";
+  version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "nicholasbester";
     repo = "clickup-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-p2NTZOW5AOsuAxvtx41ZOvS7fFY2PB1Mw/smDdw3Q50=";
+    hash = "sha256-ITjn9/tltNgFRgjrREHLgC/guMhUuELeIjNrZjf9nZM=";
   };
 
-  cargoHash = "sha256-etQGFQWS5CrPvIP0TZVWoKx9R3MpKZWi0qdZ41i8Ib4=";
+  cargoHash = "sha256-dfGAIb21UpCD8bS7ftAd32jmDKRyFd8B5Lw5IBhG9CM=";
 
   nativeCheckInputs = [ gitMinimal ];
 
