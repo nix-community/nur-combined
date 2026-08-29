@@ -550,12 +550,12 @@ schema = 4
     hash = 'sha256-xIZiEWPpKI6qm/d3WbQepNqNRYbpw000FYmqCrypKfM='
 
   [mod.'github.com/sagernet/sing-snell']
-    version = 'v0.0.0-20260824011554-f8ab8029469a'
-    hash = 'sha256-gEYXf/NWe19n15+fzF5VqAojCloUKiWY8aY6uTADO+E='
+    version = 'v0.0.0-20260829071736-20f2eaec77c3'
+    hash = 'sha256-oUtbOICuJHvDo4PM72zmEQb6Gu7EV0CsSOdfntXrQmY='
 
   [mod.'github.com/sagernet/sing-tun']
-    version = 'v0.9.0-beta.2'
-    hash = 'sha256-eS8EXEnL55qKh+SE1Y1+Z/vl0oElwg1+Nx/n7DRgrCM='
+    version = 'v0.9.0-beta.3'
+    hash = 'sha256-/cnkfBftFgJj8G+zSK94vOt9Zw19/Ww4zBaf07S3ooc='
 
   [mod.'github.com/sagernet/sing-usbip']
     version = 'v0.0.0-20260817040617-28bd42667eca'
