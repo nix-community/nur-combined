@@ -64,7 +64,7 @@
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
-  if stdenv.isDarwin
+  if stdenv.hostPlatform.isDarwin
   then
     stdenv.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;

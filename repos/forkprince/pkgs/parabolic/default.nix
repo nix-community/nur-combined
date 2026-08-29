@@ -5,7 +5,7 @@
   unzip,
   lib,
 }:
-if stdenvNoCC.isDarwin
+if stdenvNoCC.hostPlatform.isDarwin
 then let
   ver = lib.helper.read ./version.json;
 in

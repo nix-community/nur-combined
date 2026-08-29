@@ -1,0 +1,15 @@
+{
+  "name": "Screendrop",
+  "source": {
+    "type": "github-release",
+    "repo": "fayazara/screendrop",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Screendrop.dmg",
+    "unpack": false
+  },
+  "version": "0.31.3",
+  "hash": "sha256-Sh8GRKu51Bo4UFvyaxMfqcPnQaE7FNTwTG54Tnkr9ls="
+}

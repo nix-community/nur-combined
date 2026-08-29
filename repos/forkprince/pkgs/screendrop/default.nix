@@ -1,16 +1,13 @@
 {
-  retroarch-full,
   stdenvNoCC,
   fetchurl,
   _7zz,
   lib,
-}:
-if stdenvNoCC.hostPlatform.isDarwin
-then let
+}: let
   ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
-    pname = "retroarch";
+    pname = "screendrop";
     inherit (ver) version;
 
     src = fetchurl (lib.helper.getSingle ver);
@@ -18,10 +15,9 @@ in
     nativeBuildInputs = [_7zz];
 
     meta = {
-      description = "Multi-platform emulator frontend for libretro cores";
-      homepage = "https://libretro.com";
+      description = "A beautiful screenshot, screen recording and loom alternative";
+      homepage = "https://github.com/fayazara/screendrop";
       maintainers = with lib.maintainers; [Prinky];
-      license = lib.licenses.gpl3Plus;
+      license = lib.licenses.cc0;
     };
   })
-else retroarch-full

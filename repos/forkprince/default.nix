@@ -40,6 +40,7 @@
   pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
   supercharge = lib.callPackage ./pkgs/supercharge {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
+  screendrop = lib.callPackage ./pkgs/screendrop {};
   vorssaint = lib.callPackage ./pkgs/vorssaint {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
@@ -49,8 +50,11 @@
   hyperkey = lib.callPackage ./pkgs/hyperkey {};
   finetune = lib.callPackage ./pkgs/finetune {};
   open-emu = lib.callPackage ./pkgs/open-emu {};
+  opendisk = lib.callPackage ./pkgs/opendisk {};
+  highball = lib.callPackage ./pkgs/highball {};
   openmtp = lib.callPackage ./pkgs/openmtp {};
   puremac = lib.callPackage ./pkgs/puremac {};
+  macusb = lib.callPackage ./pkgs/macusb {};
   armsx2 = lib.callPackage ./pkgs/armsx2 {};
   roblox = lib.callPackage ./pkgs/roblox {};
   figura = lib.callPackage ./pkgs/figura {};

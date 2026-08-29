@@ -4,6 +4,6 @@
   stdenvNoCC,
   ...
 }:
-if stdenvNoCC.isDarwin
+if stdenvNoCC.hostPlatform.isDarwin
 then zed-editor
 else zed-editor-fhs

@@ -1,16 +1,13 @@
 {
   stdenvNoCC,
-  sublime4,
   fetchurl,
   unzip,
   lib,
-}:
-if stdenvNoCC.hostPlatform.isDarwin
-then let
+}: let
   ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
-    pname = "sublime-text";
+    pname = "highball";
     inherit (ver) version;
 
     src = fetchurl (lib.helper.getSingle ver);
@@ -18,10 +15,9 @@ in
     nativeBuildInputs = [unzip];
 
     meta = {
-      description = "Sophisticated text editor for code, markup and prose";
-      homepage = "https://www.sublimetext.com/";
+      description = "Run Windows games on Apple Silicon";
+      homepage = "https://gauthierpiarrette.github.io/highball/";
       maintainers = with lib.maintainers; [Prinky];
-      license = lib.licenses.unfree;
+      license = lib.licenses.gpl3;
     };
   })
-else sublime4

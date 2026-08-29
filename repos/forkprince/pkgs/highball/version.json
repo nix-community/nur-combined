@@ -1,0 +1,15 @@
+{
+  "name": "Highball",
+  "source": {
+    "type": "github-release",
+    "repo": "gauthierpiarrette/highball",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Highball-{version}.zip",
+    "unpack": false
+  },
+  "version": "0.7.14",
+  "hash": "sha256-bROPWetcuEKmlCME1bSurRxdbmlJt3pM419Vpgh2Xeg="
+}

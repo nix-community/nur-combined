@@ -19,7 +19,7 @@
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
   };
 in
-  if stdenvNoCC.isDarwin
+  if stdenvNoCC.hostPlatform.isDarwin
   then
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;

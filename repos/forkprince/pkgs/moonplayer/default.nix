@@ -25,7 +25,7 @@
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 in
-  if stdenv.isDarwin
+  if stdenv.hostPlatform.isDarwin
   then
     stdenv.mkDerivation (lib.helper.mkDarwin {
       inherit pname;

@@ -1,0 +1,15 @@
+{
+  "name": "OpenDisk",
+  "source": {
+    "type": "github-release",
+    "repo": "137137137/OpenDisk",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "OpenDisk-{version}.zip",
+    "unpack": false
+  },
+  "version": "1.2.0",
+  "hash": "sha256-/rDt5Vw/FY//kKb8hMKYb7O+B7PvD0wRiqcTqGONULk="
+}

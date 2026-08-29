@@ -5,7 +5,7 @@
   lib,
   ...
 }:
-if stdenvNoCC.isDarwin
+if stdenvNoCC.hostPlatform.isDarwin
 then let
   ver = lib.helper.read ./version.json;
 in
@@ -14,6 +14,13 @@ in
     inherit (ver) version;
 
     src = fetchurl (lib.helper.getSingle ver);
+
+    unpackPhase = ''
+      runHook preUnpack
+      tar xf $src
+      for d in ./*; do [ -d "$d" ] && mv "$d" PCSX2.app && break; done
+      runHook postUnpack
+    '';
 
     meta = {
       description = "Playstation 2 emulator (precompiled binary, repacked from official website)";

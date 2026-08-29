@@ -19,7 +19,7 @@
     mainProgram = "note-block-studio";
   };
 in
-  if stdenvNoCC.isDarwin
+  if stdenvNoCC.hostPlatform.isDarwin
   then
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version meta;

@@ -4,6 +4,6 @@
   micro,
   ...
 }:
-if stdenvNoCC.isDarwin
+if stdenvNoCC.hostPlatform.isDarwin
 then micro
 else micro-full

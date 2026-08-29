@@ -4,6 +4,6 @@
   vscode,
   ...
 }:
-if stdenvNoCC.isDarwin
+if stdenvNoCC.hostPlatform.isDarwin
 then vscode
 else vscode-fhs

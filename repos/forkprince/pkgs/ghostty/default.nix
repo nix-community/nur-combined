@@ -4,6 +4,6 @@
   ghostty,
   ...
 }:
-if stdenvNoCC.isDarwin
+if stdenvNoCC.hostPlatform.isDarwin
 then ghostty-bin
 else ghostty
