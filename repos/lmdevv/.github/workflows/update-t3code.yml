@@ -88,3 +88,7 @@ jobs:
           git add pkgs/t3code/default.nix
           git commit -m "chore: update personal t3code version+hash"
           git push
+      - name: Notify NUR
+        run: >-
+          curl --retry 3 --request POST
+          "https://nur-update.nix-community.org/update?repo=lmdevv"
