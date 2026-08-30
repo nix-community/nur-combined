@@ -8,8 +8,11 @@
   makeDesktopItem,
   writeText,
   electron,
+  nodejs,
   nix-update-script,
   desktopToDarwinBundle,
+  xvfb-run,
+  curl,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -34,6 +37,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ++ lib.optionals stdenvNoCC.hostPlatform.isDarwin [ desktopToDarwinBundle ];
 
   dontConfigure = true;
+
+  nativeInstallCheckInputs = [
+    nodejs
+    xvfb-run
+    curl
+  ];
+
+  doInstallCheck = stdenvNoCC.hostPlatform.isLinux;
 
   buildPhase = ''
     runHook preBuild
@@ -102,6 +113,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       startupWMClass = "degrees-of-lewdity";
     })
   ];
+
+  installCheckPhase = ''
+    runHook preInstallCheck
+    bash ${./test-persistence.sh} "$out" "${lib.getExe xvfb-run}"
+    runHook postInstallCheck
+  '';
 
   passthru.updateScript = nix-update-script { };
 
