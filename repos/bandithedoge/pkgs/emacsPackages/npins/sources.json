@@ -13,19 +13,6 @@
       "url": "https://github.com/emacs-languagetool/eglot-ltex/archive/2ae2fad68ca2520f69b8d8174afc42ca271f6146.tar.gz",
       "hash": "sha256-uIbpyFcoaDoiUFo7/XeNJQFDUC+xhvOoG4/IcT9fLvM="
     },
-    "eglot-x": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nemethf",
-        "repo": "eglot-x"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "46bca93291727454dd92567e761a1e2ab5622590",
-      "url": "https://github.com/nemethf/eglot-x/archive/46bca93291727454dd92567e761a1e2ab5622590.tar.gz",
-      "hash": "sha256-c8NzzK7SOYYDB803Osp3TOymrmwC07+dcvbI4waAfco="
-    },
     "eglot-yaml": {
       "type": "Git",
       "repository": {

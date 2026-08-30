@@ -273,19 +273,6 @@
       "url": "https://github.com/mvllow/modes.nvim/archive/8022c7345e51423b4cc6333971f3cbfb7e6035bc.tar.gz",
       "hash": "sha256-17Rwm2QYMAgeavYFUTVy2gbCv3mgD89FKMKndqCbb3A="
     },
-    "neo-tree-diagnostics.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "mrbjarksen",
-        "repo": "neo-tree-diagnostics.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "e00434c3cf8637bcaf70f65c2b9d82b0cc9bd7dc",
-      "url": "https://github.com/mrbjarksen/neo-tree-diagnostics.nvim/archive/e00434c3cf8637bcaf70f65c2b9d82b0cc9bd7dc.tar.gz",
-      "hash": "sha256-HU7pFsICHK6bg03chgZ1oP6Wx2GQxk7ZJHGQnD0IMBA="
-    },
     "neodim": {
       "type": "Git",
       "repository": {

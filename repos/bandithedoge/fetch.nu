@@ -1,26 +1,29 @@
 #!/usr/bin/env nu
 
-def fetch-emacs [] {
-    ^npins -d pkgs/emacsPackages/npins update
+def maybe-commit [scope: string, path: string] {
+    if (git status --porcelain $path | is-not-empty) {
+        git add $path
+        git commit -m $"($scope): update"
+    }
 }
 
-def fetch-firefox [] {
-    ^mozilla-addons-to-nix pkgs/firefoxAddons/addons.json pkgs/firefoxAddons/_generated.nix
+def fetch-npins [scope: string, commit: bool] {
+    let path = $"pkgs/($scope)/npins"
+    ^npins -d $path update
+    if $commit {
+        maybe-commit $scope $path
+    }
 }
 
-def fetch-vim [] {
-    ^npins -d pkgs/vimPlugins/npins update
+def fetch-firefox [commit: bool] {
+    let generated_path = "pkgs/firefoxAddons/_generated.nix"
+    ^mozilla-addons-to-nix pkgs/firefoxAddons/addons.json $generated_path
+    if $commit {
+        maybe-commit "firefoxAddons" $generated_path
+    }
 }
 
-def fetch-xplr [] {
-    ^npins -d pkgs/xplrPlugins/npins update
-}
-
-def fetch-yazi [] {
-    ^npins -d pkgs/yaziPlugins/npins update
-}
-
-def fetch [package: string] {
+def fetch [package: string, commit: bool] {
     let update_script = nix eval $".#($package).updateScript" --json | from json
 
     if ($update_script | describe) == "string" {
@@ -36,26 +39,35 @@ def fetch [package: string] {
     } {
         run-external $update_script
     }
+
+    if $commit {
+        let base_path = "pkgs/" + ($package | str replace "." "/")
+        mut path = $base_path + ".nix"
+
+        if not ($path | path exists) {
+            $path = $base_path + "/package.nix"
+        }
+
+        maybe-commit $package $path
+    }
 }
 
-def main [...packages: string] {
+def main [--commit, ...packages: string] {
+    let npins_scopes = ["emacsPackages", "vimPlugins", "xplrPlugins", "yaziPlugins"]
     if ($packages | is-empty) {
-        fetch-emacs
-        fetch-firefox
-        fetch-vim
-        fetch-xplr
-        fetch-yazi
+        $npins_scopes | par-each {|scope| fetch-npins $scope $commit}
+        fetch-firefox $commit
         let update_scripts = nix eval .#_UPDATABLE --json | from json
-        $update_scripts | each {|package| fetch $package }
+        $update_scripts | each {|package| fetch $package $commit }
     } else {
         for $package in $packages {
-            match $package {
-                emacs => fetch-emacs
-                firefox => fetch-firefox
-                vim => fetch-vim
-                xplr => fetch-xplr
-                yazi => fetch-yazi
-                _ => { fetch $package }
+            if $package in $npins_scopes {
+                fetch-npins $package $commit
+            } else {
+                match $package {
+                    "firefoxAddons" => { fetch-firefox $commit }
+                    _ => { fetch $package $commit }
+                }
             }
         }
     }

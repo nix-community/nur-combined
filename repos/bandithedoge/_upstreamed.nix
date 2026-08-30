@@ -17,9 +17,11 @@
         on = "on";
         once = "once";
         smartparens = "smartparens";
+        eglot-x = "eglot-x";
       };
   geonkick = [ "geonkick" ];
   giada = [ "giada" ];
+  git-pages = [ "git-pages" ];
   haskellPackages =
     builtins.mapAttrs
       (_: name: [
@@ -49,6 +51,7 @@
   rnnoise-plugin = [ "rnnoise-plugin" ];
   satty = [ "satty" ];
   sg-323 = [ "sg-323" ];
+  sgdboop = [ "sgdboop" ];
   six-sines = [ "six-sines" ];
   sox-ng = [ "sox_ng" ];
   symbols-nerd-font = [
@@ -127,6 +130,7 @@
         "material-nvim"
         "mini-nvim"
         "mkdir-nvim"
+        "neo-tree-diagnostics-nvim"
         "neo-tree-nvim"
         "neoconf-nvim"
         "neodev-nvim"
@@ -226,6 +230,7 @@
         "rsync"
         "starship"
         "sudo"
+        "yamb"
         "yatline"
       ]
       (name: [

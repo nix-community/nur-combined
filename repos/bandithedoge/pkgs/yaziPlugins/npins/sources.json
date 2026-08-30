@@ -194,19 +194,6 @@
       "revision": "ec94d9a8496241d91dcfb2a864214871c326ddc5",
       "url": "https://github.com/pirafrank/what-size.yazi/archive/ec94d9a8496241d91dcfb2a864214871c326ddc5.tar.gz",
       "hash": "sha256-slM9qypEy8A4l3KodE7bmyixA+1c4X7hgoGcQP7R25k="
-    },
-    "yamb.yazi": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "h-hg",
-        "repo": "yamb.yazi"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "971b85862a1a2c5b8133da88b0dd4569adff296e",
-      "url": "https://github.com/h-hg/yamb.yazi/archive/971b85862a1a2c5b8133da88b0dd4569adff296e.tar.gz",
-      "hash": "sha256-pbwKj4NuIiBMyuRVtbOYWBREZbyg1mKLoCWIAkxrygc="
     }
   },
   "version": 8
