@@ -1,7 +1,7 @@
 From e349ce1f646a48a606a2822096ca82973898853d Mon Sep 17 00:00:00 2001
 From: slaier <slaier@users.noreply.github.com>
 Date: Thu, 27 Aug 2026 22:36:09 +0800
-Subject: [PATCH] feat(tts-server): add mp3 response format using lame
+Subject: [PATCH 1/2] feat(tts-server): add mp3 response format using lame
 
 Adds support for the "mp3" response format in `tts-server` via `libmp3lame`.
 Includes a new header `audio-mp3.h` for encoding mono float32 PCM to MP3

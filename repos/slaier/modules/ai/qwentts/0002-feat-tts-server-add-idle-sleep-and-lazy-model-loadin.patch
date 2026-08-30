@@ -1,0 +1,524 @@
+From 565e4c226d3d017d03c4f8163da2aac9a437bd76 Mon Sep 17 00:00:00 2001
+From: slaier <slaier@users.noreply.github.com>
+Date: Sat, 29 Aug 2026 07:55:20 +0800
+Subject: [PATCH 2/2] feat(tts-server): add idle sleep and lazy model loading
+
+Adds the `--sleep-idle-seconds` command-line option to automatically
+unload the TTS model after a period of inactivity to free VRAM, and
+reload it lazily on demand.
+---
+ src/audio-mp3.h      |  28 ++--
+ src/tts-server.h     |  23 +++-
+ tools/tts-server.cpp | 308 ++++++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 306 insertions(+), 53 deletions(-)
+
+diff --git a/src/audio-mp3.h b/src/audio-mp3.h
+index 27d47ac..224472d 100644
+--- a/src/audio-mp3.h
++++ b/src/audio-mp3.h
+@@ -36,10 +36,8 @@ static std::string audio_encode_mp3(const float * audio, int T_audio, int sr = 2
+     }
+ 
+     // Mono, given rate, VBR quality 2 (≈ 190 kbps), no free-format.
+-    if (lame_set_in_samplerate(gfp, sr) < 0 ||
+-        lame_set_out_samplerate(gfp, sr) < 0 ||
+-        lame_set_num_channels(gfp, 1) < 0 ||
+-        lame_set_quality(gfp, 2) < 0) {
++    if (lame_set_in_samplerate(gfp, sr) < 0 || lame_set_out_samplerate(gfp, sr) < 0 ||
++        lame_set_num_channels(gfp, 1) < 0 || lame_set_quality(gfp, 2) < 0) {
+         lame_close(gfp);
+         return {};
+     }
+@@ -60,7 +58,7 @@ static std::string audio_encode_mp3(const float * audio, int T_audio, int sr = 2
+     }
+ 
+     // Output buffer: LAME says MP3 bytes ≤ 1.25 × input_samples + 7200.
+-    const int out_buf_size = (int) (T_audio * 1.25f + 7200);
++    const int   out_buf_size = (int) (T_audio * 1.25f + 7200);
+     std::string out;
+     out.resize((size_t) out_buf_size);
+ 
+@@ -69,17 +67,13 @@ static std::string audio_encode_mp3(const float * audio, int T_audio, int sr = 2
+     int remain  = T_audio;
+ 
+     while (remain > 0) {
+-        int n = remain < CHUNK ? remain : CHUNK;
++        int n  = remain < CHUNK ? remain : CHUNK;
+         // lame_encode_buffer_ieee_float returns the number of output
+         // bytes, or -1 on error (not fatal — may just need more input).
+-        int rc = lame_encode_buffer_ieee_float(
+-            gfp,
+-            audio + offset,  // left channel (mono = right is unused)
+-            audio + offset,  // right channel (same buffer for mono)
+-            n,
+-            (unsigned char *) out.data() + encoded,
+-            out_buf_size - encoded
+-        );
++        int rc = lame_encode_buffer_ieee_float(gfp,
++                                               audio + offset,  // left channel (mono = right is unused)
++                                               audio + offset,  // right channel (same buffer for mono)
++                                               n, (unsigned char *) out.data() + encoded, out_buf_size - encoded);
+         if (rc < 0) {
+             // Fatal LAME error (e.g. bad bitrate / sample-rate combo
+             // that init_params should already have rejected, but guard
+@@ -88,8 +82,8 @@ static std::string audio_encode_mp3(const float * audio, int T_audio, int sr = 2
+             return {};
+         }
+         encoded += rc;
+-        offset  += n;
+-        remain  -= n;
++        offset += n;
++        remain -= n;
+     }
+ 
+     // Flush the encoder buffer to write the final frame and Xing header.
+@@ -111,4 +105,4 @@ static std::string audio_encode_mp3(const float * audio, int T_audio, int sr = 2
+ 
+     out.resize((size_t) encoded);
+     return out;
+-}
+\ No newline at end of file
++}
+diff --git a/src/tts-server.h b/src/tts-server.h
+index 1a1bcd3..36d9a2e 100644
+--- a/src/tts-server.h
++++ b/src/tts-server.h
+@@ -80,8 +80,14 @@ using tts_sink = std::function<bool(const float * samples, int n_samples)>;
+ 
+ // Adapter implemented by each project tool.
+ struct tts_backend {
+-    std::string              model_id;  // reported by GET /v1/models
+-    std::vector<std::string> voices;    // reported by GET /v1/audio/voices, may be empty
++    std::string                               model_id;  // reported by GET /v1/models
++    std::vector<std::string>                  voices;    // reported by GET /v1/audio/voices, may be empty
++    // Optional dynamic listing for built-in speakers. When set, GET
++    // /v1/audio/voices calls this instead of reading `voices`, which
++    // allows the sleep/lazy mode to report speakers that appear only
++    // after the model is (re)loaded without mutating `voices` under
++    // concurrent readers.
++    std::function<std::vector<std::string>()> list_builtin_voices;
+     // Run synthesis. When the request streams, the adapter routes the ABI
+     // on_chunk to sink ; otherwise it pushes the whole buffer once. Returns
+     // the ABI status (0 on success), and fills err with the ABI message on
+@@ -296,8 +302,7 @@ static void tts_handle_speech(const tts_backend & be, const httplib::Request & h
+         }
+         std::string mp3 = audio_encode_mp3(buf.data(), (int) buf.size(), 24000, 192);
+         if (mp3.empty()) {
+-            tts_json_error(res, 500, "server_error",
+-                           "MP3 encoder unavailable: is libmp3lame installed?");
++            tts_json_error(res, 500, "server_error", "MP3 encoder unavailable: is libmp3lame installed?");
+             return;
+         }
+         res.set_content(std::move(mp3), "audio/mpeg");
+@@ -520,8 +525,14 @@ static void tts_handle_voices(const tts_backend & be, const httplib::Request &,
+     yyjson_mut_doc * doc  = yyjson_mut_doc_new(NULL);
+     yyjson_mut_val * root = yyjson_mut_obj(doc);
+     yyjson_mut_doc_set_root(doc, root);
+-    yyjson_mut_val * arr = yyjson_mut_arr(doc);
+-    for (const std::string & v : be.voices) {
++    yyjson_mut_val *                 arr = yyjson_mut_arr(doc);
++    std::vector<std::string>         builtin;
++    const std::vector<std::string> * builtin_ptr = &be.voices;
++    if (be.list_builtin_voices) {
++        builtin     = be.list_builtin_voices();
++        builtin_ptr = &builtin;
++    }
++    for (const std::string & v : *builtin_ptr) {
+         yyjson_mut_val * one = yyjson_mut_obj(doc);
+         yyjson_mut_obj_add_str(doc, one, "name", v.c_str());
+         yyjson_mut_obj_add_str(doc, one, "kind", "speaker");
+diff --git a/tools/tts-server.cpp b/tools/tts-server.cpp
+index 2e0ccbd..5148b25 100644
+--- a/tools/tts-server.cpp
++++ b/tools/tts-server.cpp
+@@ -9,11 +9,17 @@
+ #include "rvq-file.h"
+ #include "version.h"
+ 
++#include <atomic>
++#include <chrono>
++#include <climits>
+ #include <cmath>
+ #include <cstdio>
+ #include <cstdlib>
+ #include <cstring>
++#include <ctime>
++#include <mutex>
+ #include <string>
++#include <thread>
+ #include <unordered_map>
+ #include <vector>
+ 
+@@ -37,23 +43,43 @@ struct voice_entry {
+ static std::mutex                                   g_voices_mutex;
+ static std::unordered_map<std::string, voice_entry> g_voices;
+ 
++// Sleep state: when --sleep-idle-seconds >=0 the model is loaded lazily
++// on the first synthesis/voice-extract request and unloaded after N
++// seconds of idleness (0 = unload as soon as inflight drops to 0).
++// -1 disables the feature (eager load, never sleep).
++struct ModelState {
++    std::mutex            mu;             // protects q existence
++    struct qt_context *   q = nullptr;    // guarded by mu
++    struct qt_init_params iparams{};      // deep copy for reload
++    std::string           talker_path_s;  // stable storage for iparams pointers
++    std::string           codec_path_s;
++    std::atomic<int>      inflight{ 0 };
++    std::atomic<time_t>   last_activity{ 0 };  // 0 = never loaded
++    std::atomic<bool>     stop{ false };
++    std::thread           monitor;
++    int                   sleep_idle_seconds = -1;
++};
++
+ static void print_usage(const char * prog) {
+     fprintf(stderr, "qwentts.cpp %s\n\n", QWEN_VERSION);
+-    fprintf(stderr,
+-            "Usage: %s --model <gguf> --codec <gguf> [options]\n\n"
+-            "Required:\n"
+-            "  --model <gguf>          Talker LM GGUF (qwen-talker-*.gguf)\n"
+-            "  --codec <gguf>          Codec GGUF (qwen-tokenizer-*.gguf)\n\n"
+-            "Optional:\n"
+-            "  --alias <name>          Report this model id instead of the GGUF file name\n"
+-            "  --host <ip>             Listen address (default: 127.0.0.1)\n"
+-            "  --port <n>              Listen port (default: 8080)\n"
+-            "  --lang <name>           Language label (default: auto)\n"
+-            "  --max-batch <n>         Concurrent requests batched on the GPU (default: 1)\n"
+-            "  --no-fa                 Disable flash attention\n"
+-            "  --clamp-fp16            Clamp hidden states to FP16 range\n"
+-            "  --codec-chunk-dur <f>   Codec decode chunk duration in seconds, wav responses (default: 24.0)\n",
+-            prog);
++    fprintf(
++        stderr,
++        "Usage: %s --model <gguf> --codec <gguf> [options]\n\n"
++        "Required:\n"
++        "  --model <gguf>          Talker LM GGUF (qwen-talker-*.gguf)\n"
++        "  --codec <gguf>          Codec GGUF (qwen-tokenizer-*.gguf)\n\n"
++        "Optional:\n"
++        "  --alias <name>          Report this model id instead of the GGUF file name\n"
++        "  --host <ip>             Listen address (default: 127.0.0.1)\n"
++        "  --port <n>              Listen port (default: 8080)\n"
++        "  --lang <name>           Language label (default: auto)\n"
++        "  --max-batch <n>         Concurrent requests batched on the GPU (default: 1)\n"
++        "  --no-fa                 Disable flash attention\n"
++        "  --clamp-fp16            Clamp hidden states to FP16 range\n"
++        "  --codec-chunk-dur <f>   Codec decode chunk duration in seconds, wav responses (default: 24.0)\n"
++        "  --sleep-idle-seconds SECONDS            number of seconds of idleness after which the server will sleep\n"
++        "                                        (default: -1; -1 = disabled)\n",
++        prog);
+ }
+ 
+ // Trim a path down to its file name for the reported model id.
+@@ -63,18 +89,127 @@ static std::string basename_of(const char * path) {
+     return p == std::string::npos ? s : s.substr(p + 1);
+ }
+ 
++// Ensure the model is loaded. When sleep is disabled this is a fast
++// check; when sleep is enabled the first call after idleness
++// transparently reloads the model. Returns the raw pointer on success
++// or nullptr on failure (err already set via qt_last_error). The
++// caller must not hold ModelState::mu across the qt_init call for
++// longer than the double-checked fast path.
++static struct qt_context * ensure_model_loaded(const std::shared_ptr<ModelState> & st, std::string & err) {
++    if (!st) {
++        err = "internal: missing model state";
++        return nullptr;
++    }
++    if (st->sleep_idle_seconds == -1) {
++        std::lock_guard<std::mutex> lk(st->mu);
++        if (!st->q) {
++            err = "model not loaded";
++            return nullptr;
++        }
++        return st->q;
++    }
++    // Sleep mode: fast path without blocking on reload.
++    {
++        std::lock_guard<std::mutex> lk(st->mu);
++        if (st->q) {
++            return st->q;
++        }
++    }
++    // Slow path: need to (re)load. Serialize concurrent wakers.
++    std::lock_guard<std::mutex> lk(st->mu);
++    if (st->q) {
++        return st->q;
++    }
++    fprintf(stderr, "[Server] waking up: loading model '%s' / '%s' ...\n", st->talker_path_s.c_str(),
++            st->codec_path_s.c_str());
++    auto                t0 = std::chrono::steady_clock::now();
++    struct qt_context * q2 = qt_init(&st->iparams);
++    if (!q2) {
++        err = qt_last_error();
++        if (err.empty()) {
++            err = "model reload failed";
++        }
++        fprintf(stderr, "[Server] reload failed: %s\n", err.c_str());
++        return nullptr;
++    }
++    st->q = q2;
++    st->last_activity.store(time(nullptr), std::memory_order_relaxed);
++    auto t1 = std::chrono::steady_clock::now();
++    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
++    fprintf(stderr, "[Server] model loaded in %lld ms (sleep idle=%ds)\n", (long long) ms, st->sleep_idle_seconds);
++    return st->q;
++}
++
++static void maybe_sleep(const std::shared_ptr<ModelState> & st) {
++    if (!st || st->sleep_idle_seconds < 0) {
++        return;
++    }
++    if (st->inflight.load(std::memory_order_relaxed) != 0) {
++        return;
++    }
++    time_t last = st->last_activity.load(std::memory_order_relaxed);
++    if (last == 0) {
++        return;  // never loaded, nothing to unload
++    }
++    time_t now = time(nullptr);
++    if (st->sleep_idle_seconds > 0 && now - last < st->sleep_idle_seconds) {
++        return;
++    }
++    // For sleep==0, any moment with inflight==0 qualifies.
++    std::lock_guard<std::mutex> lk(st->mu);
++    if (!st->q) {
++        return;
++    }
++    if (st->inflight.load(std::memory_order_relaxed) != 0) {
++        return;
++    }
++    time_t last2 = st->last_activity.load(std::memory_order_relaxed);
++    if (last2 == 0) {
++        return;
++    }
++    if (st->sleep_idle_seconds > 0 && time(nullptr) - last2 < st->sleep_idle_seconds) {
++        return;
++    }
++    if (st->sleep_idle_seconds == 0) {
++        fprintf(stderr, "[Server] no inflight requests, unloading model to free VRAM (sleep idle=0)...\n");
++    } else {
++        fprintf(stderr, "[Server] idle %ds, unloading model to free VRAM (sleep idle=%ds)...\n", st->sleep_idle_seconds,
++                st->sleep_idle_seconds);
++    }
++    qt_free(st->q);
++    st->q = nullptr;
++    fprintf(stderr, "[Server] model unloaded (sleeping), will reload on next request\n");
++}
++
++static void sleep_monitor_loop(std::shared_ptr<ModelState> st) {
++    if (!st || st->sleep_idle_seconds < 0) {
++        return;
++    }
++    // Poll interval: 1s normally, 200ms for idle==0 to make immediate
++    // sleep feel prompt without busy spinning.
++    auto interval = st->sleep_idle_seconds == 0 ? std::chrono::milliseconds(200) : std::chrono::seconds(1);
++    while (!st->stop.load(std::memory_order_relaxed)) {
++        std::this_thread::sleep_for(interval);
++        if (st->stop.load(std::memory_order_relaxed)) {
++            break;
++        }
++        maybe_sleep(st);
++    }
++}
++
+ int main(int argc, char ** argv) {
+     const char *  talker_path = NULL;
+     const char *  codec_path  = NULL;
+     std::string   model_alias;
+     std::string   lang = "auto";
+     server_config cfg;
+-    bool          use_fa          = true;
+-    bool          clamp_fp16      = false;
+-    int           max_batch       = 1;
++    bool          use_fa             = true;
++    bool          clamp_fp16         = false;
++    int           max_batch          = 1;
+     // Chunk sentinel : qt_init resolves a non positive value to the
+     // library default.
+-    float         codec_chunk_dur = 0.0f;
++    float         codec_chunk_dur    = 0.0f;
++    int           sleep_idle_seconds = -1;
+ 
+     for (int i = 1; i < argc; i++) {
+         const char * arg = argv[i];
+@@ -98,6 +233,15 @@ int main(int argc, char ** argv) {
+             max_batch = std::atoi(argv[++i]);
+         } else if (!std::strcmp(arg, "--codec-chunk-dur") && i + 1 < argc) {
+             codec_chunk_dur = (float) std::atof(argv[++i]);
++        } else if (!std::strcmp(arg, "--sleep-idle-seconds") && i + 1 < argc) {
++            const char * s   = argv[++i];
++            char *       end = nullptr;
++            long         v   = std::strtol(s, &end, 10);
++            if (end == s || *end != '\0' || v < -1 || v > INT32_MAX) {
++                fprintf(stderr, "[CLI] ERROR: --sleep-idle-seconds must be -1 or >=0 (got %s)\n", s);
++                return 1;
++            }
++            sleep_idle_seconds = (int) v;
+         } else if (!std::strcmp(arg, "--help") || !std::strcmp(arg, "-h")) {
+             print_usage(argv[0]);
+             return 0;
+@@ -122,24 +266,86 @@ int main(int argc, char ** argv) {
+     iparams.max_batch       = max_batch;
+     iparams.codec_chunk_sec = codec_chunk_dur;
+ 
+-    struct qt_context * q = qt_init(&iparams);
+-    if (!q) {
+-        fprintf(stderr, "[Server] FATAL: %s\n", qt_last_error());
+-        return 1;
++    auto st                 = std::make_shared<ModelState>();
++    st->sleep_idle_seconds  = sleep_idle_seconds;
++    st->talker_path_s       = talker_path;
++    st->codec_path_s        = codec_path;
++    st->iparams             = iparams;
++    st->iparams.talker_path = st->talker_path_s.c_str();
++    st->iparams.codec_path  = st->codec_path_s.c_str();
++
++    if (sleep_idle_seconds == -1) {
++        struct qt_context * q0 = qt_init(&st->iparams);
++        if (!q0) {
++            fprintf(stderr, "[Server] FATAL: %s\n", qt_last_error());
++            return 1;
++        }
++        {
++            std::lock_guard<std::mutex> lk(st->mu);
++            st->q = q0;
++        }
++        st->last_activity.store(time(nullptr), std::memory_order_relaxed);
++        fprintf(stderr, "[Server] model loaded (eager, sleep disabled)\n");
++    } else {
++        fprintf(stderr, "[Server] sleep mode enabled (idle=%ds), model load deferred until first request\n",
++                sleep_idle_seconds);
++        if (sleep_idle_seconds == 0) {
++            fprintf(stderr, "[Server] idle=0: model will unload as soon as no requests are in flight\n");
++        }
+     }
+ 
+     tts_backend be;
+-    be.model_id = model_alias.empty() ? basename_of(talker_path) : model_alias;
+-    int n       = qt_n_speakers(q);
+-    for (int i = 0; i < n; i++) {
+-        be.voices.push_back(qt_speaker_name(q, i));
++    be.model_id            = model_alias.empty() ? basename_of(talker_path) : model_alias;
++    // Dynamic listing keeps GET /v1/audio/voices correct both before and
++    // after (re)load without mutating be.voices under concurrent readers.
++    be.list_builtin_voices = [st]() -> std::vector<std::string> {
++        std::lock_guard<std::mutex> lk(st->mu);
++        std::vector<std::string>    out;
++        if (st->q) {
++            int n = qt_n_speakers(st->q);
++            for (int i = 0; i < n; i++) {
++                const char * name = qt_speaker_name(st->q, i);
++                if (name) {
++                    out.push_back(name);
++                }
++            }
++        }
++        return out;
++    };
++    // Keep be.voices as a snapshot for eager mode (used only when the
++    // callback is absent, e.g., older header). In lazy mode it stays
++    // empty and the callback above provides the live view.
++    {
++        std::lock_guard<std::mutex> lk(st->mu);
++        if (st->q) {
++            int n = qt_n_speakers(st->q);
++            for (int i = 0; i < n; i++) {
++                be.voices.push_back(qt_speaker_name(st->q, i));
++            }
++        }
+     }
+ 
+     // Voice registry: POST /v1/audio/voices stores a cloned voice either from a
+     // WAV (server side extraction through qt_extract_voice_ref) or from
+     // pre-extracted .spk / .rvq payloads. Re-registering a name replaces
+     // the previous entry.
+-    be.register_voice = [q](const tts_voice_upload & up, std::string & err) -> bool {
++    be.register_voice = [st](const tts_voice_upload & up, std::string & err) -> bool {
++        struct Guard {
++            std::shared_ptr<ModelState> s;
++            Guard(const std::shared_ptr<ModelState> & p) : s(p) { s->inflight.fetch_add(1, std::memory_order_relaxed); }
++            ~Guard() {
++                s->inflight.fetch_sub(1, std::memory_order_relaxed);
++                s->last_activity.store(time(nullptr), std::memory_order_relaxed);
++            }
++        } guard(st);
++
++        std::string         load_err;
++        struct qt_context * q = ensure_model_loaded(st, load_err);
++        if (!q) {
++            err = load_err.empty() ? "model not loaded" : load_err;
++            return false;
++        }
++
+         voice_entry entry;
+         entry.ref      = {};
+         entry.ref_text = up.ref_text;
+@@ -165,6 +371,10 @@ int main(int argc, char ** argv) {
+             std::vector<int32_t> codes;
+             int                  ref_T = 0;
+             const int            K     = qt_num_codebooks(q);
++            if (K <= 0) {
++                err = "model has no codebooks";
++                return false;
++            }
+             if (!rvq_read_buf((const uint8_t *) up.rvq.data(), up.rvq.size(), K, RVQ_CODE_BITS, codes, &ref_T)) {
+                 err = "'rvq_b64' does not decode to a valid packed code stream";
+                 return false;
+@@ -219,7 +429,23 @@ int main(int argc, char ** argv) {
+     // the same name and injects the pre-extracted reference latents. A
+     // name matching neither is rejected instead of silently generating
+     // voiceless.
+-    be.synthesize = [q, &lang](const tts_request & req, const tts_sink & sink, std::string & err) -> int {
++    be.synthesize = [st, &lang](const tts_request & req, const tts_sink & sink, std::string & err) -> int {
++        struct Guard {
++            std::shared_ptr<ModelState> s;
++            Guard(const std::shared_ptr<ModelState> & p) : s(p) { s->inflight.fetch_add(1, std::memory_order_relaxed); }
++            ~Guard() {
++                s->inflight.fetch_sub(1, std::memory_order_relaxed);
++                s->last_activity.store(time(nullptr), std::memory_order_relaxed);
++            }
++        } guard(st);
++
++        std::string         load_err;
++        struct qt_context * q = ensure_model_loaded(st, load_err);
++        if (!q) {
++            err = load_err.empty() ? "model not loaded" : load_err;
++            return (int) QT_STATUS_GENERATE_FAILED;
++        }
++
+         struct qt_tts_params p;
+         qt_tts_default_params(&p);
+         p.text = req.input.c_str();
+@@ -317,7 +543,29 @@ int main(int argc, char ** argv) {
+         return 0;
+     };
+ 
++    // Start sleep monitor if enabled. It runs until stop is set and
++    // server exits. The monitor is joined after tts_server_run
++    // returns (which happens when tts_on_signal stops the httplib
++    // server). No custom signal handler is needed: the post-run join
++    // handles the stop flag.
++    if (st->sleep_idle_seconds >= 0) {
++        st->monitor = std::thread(sleep_monitor_loop, st);
++    }
++
+     int rc = tts_server_run(be, cfg);
+-    qt_free(q);
++    // Shutdown monitor and free model. Setting stop before join
++    // ensures the 1s/200ms sleep in the monitor does not delay
++    // shutdown by more than one interval.
++    if (st->monitor.joinable()) {
++        st->stop.store(true, std::memory_order_relaxed);
++        st->monitor.join();
++    }
++    {
++        std::lock_guard<std::mutex> lk(st->mu);
++        if (st->q) {
++            qt_free(st->q);
++            st->q = nullptr;
++        }
++    }
+     return rc;
+ }
+-- 
+2.54.0
+

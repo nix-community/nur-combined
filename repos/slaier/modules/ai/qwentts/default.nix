@@ -23,6 +23,7 @@ in
       port = 8088;
       alias = "qwen3-tts";
       lang = "Chinese";
+      sleep-idle-seconds = 600;
     };
     openFirewall = false;
   };

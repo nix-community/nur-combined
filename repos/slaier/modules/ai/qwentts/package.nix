@@ -27,6 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./0001-feat-tts-server-add-mp3-response-format-using-lame.patch
+    ./0002-feat-tts-server-add-idle-sleep-and-lazy-model-loadin.patch
   ];
 
   nativeBuildInputs = [
@@ -53,9 +54,11 @@ stdenv.mkDerivation (finalAttrs: {
     for bin in qwen-tts qwen-codec tts-server quantize; do
       if [ -f "$bin" ]; then
         cp -v "$bin" $out/bin/
-        # Remove forbidden /build/ RPATH and ensure runtime libs are found
-        patchelf --remove-rpath $out/bin/$bin || true
-        patchelf --set-rpath "$out/lib:${stdenv.cc.cc.lib}/lib:${lame.lib}/lib" $out/bin/$bin || true
+        rpath=$(patchelf --print-rpath $out/bin/$bin 2>/dev/null || true)
+        if [[ "$rpath" == *"/build"* ]]; then
+          new_rpath=''${rpath//\/build/$out\/lib}
+          patchelf --set-rpath "$new_rpath" $out/bin/$bin
+        fi
       fi
     done
   '';
