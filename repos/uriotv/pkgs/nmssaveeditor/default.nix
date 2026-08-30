@@ -4,7 +4,6 @@
   fetchurl,
   jre8,
   coreutils,
-  icoutils,
   makeDesktopItem,
   makeWrapper,
 }:
@@ -35,29 +34,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-74mK9OHEwMJabGUp3+pSUgzaJDODVE2NNYrRCq46F4w=";
   };
 
-  iconSrc = fetchurl {
-    url = "https://github.com/goatfungus/NMSSaveEditor/raw/6047315f47321e2a8400d38bf8d904bcca88bb8d/NMSSaveEditor.exe";
-    hash = "sha256-WsKiV59AKg98ZU4XNP8euZ+RDF2woPfG6ygaqn+wymI=";
-  };
-
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    icoutils
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     install -Dm444 ${finalAttrs.src} $out/share/${finalAttrs.pname}/NMSSaveEditor.jar
 
-    mkdir icons
-    wrestool --extract --type=14 --output=icons ${finalAttrs.iconSrc}
-    icotool --extract --index=1 --output=icons icons/*.ico
-    install -Dm444 icons/*_32x32x4.png \
-      $out/share/icons/hicolor/32x32/apps/${finalAttrs.pname}.png
-    icotool --extract --index=2 --output=icons icons/*.ico
-    install -Dm444 icons/*_16x16x4.png \
-      $out/share/icons/hicolor/16x16/apps/${finalAttrs.pname}.png
+    install -Dm444 ${./logo.svg} \
+      $out/share/icons/hicolor/scalable/apps/${finalAttrs.pname}.svg
 
     install -Dm444 ${desktopItem}/share/applications/${finalAttrs.pname}.desktop \
       $out/share/applications/${finalAttrs.pname}.desktop

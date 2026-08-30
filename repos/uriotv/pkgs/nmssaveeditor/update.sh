@@ -42,11 +42,9 @@ if [[ ! "$version" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
 fi
 
 jar_url="https://github.com/$upstream/raw/$revision/NMSSaveEditor.jar"
-exe_url="https://github.com/$upstream/raw/$revision/NMSSaveEditor.exe"
 jar_hash="$(nix store prefetch-file --json "$jar_url" | jq --raw-output --exit-status '.hash')"
-exe_hash="$(nix store prefetch-file --json "$exe_url" | jq --raw-output --exit-status '.hash')"
 
-for hash in "$jar_hash" "$exe_hash"; do
+for hash in "$jar_hash"; do
   if [[ ! "$hash" =~ ^sha256-[A-Za-z0-9+/=]+$ ]]; then
     echo "Invalid NAR hash: $hash" >&2
     exit 1
@@ -56,7 +54,6 @@ done
 perl -0pi -e 's/(version = ")[^"]+(";)/${1}'"$version"'${2}/' "$nix_file"
 perl -0pi -e 's#(NMSSaveEditor/raw/)[0-9a-f]{40}(/NMSSaveEditor\.(?:jar|exe))#${1}'"$revision"'${2}#g' "$nix_file"
 perl -0pi -e 's|(NMSSaveEditor\.jar";\n    hash = ")[^"]+(";\n  };)|${1}'"$jar_hash"'${2}|' "$nix_file"
-perl -0pi -e 's|(NMSSaveEditor\.exe";\n    hash = ")[^"]+(";\n  };)|${1}'"$exe_hash"'${2}|' "$nix_file"
 
 if cmp -s "$original_nix_file" "$nix_file"; then
   echo "$pname is up to date ($version, $revision)"

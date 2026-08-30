@@ -4,6 +4,7 @@
   # Use the NixOS module or manual override instead
   default = final: prev: {
     cybergrub2077 = final.callPackage ../pkgs/cybergrub2077 { };
+    nmssaveeditor = final.callPackage ../pkgs/nmssaveeditor { };
     optipatcher-install = final.callPackage ../pkgs/optipatcher-install { };
     optiscaler-client = final.callPackage ../pkgs/optiscaler-client { };
     optiscaler-install = final.callPackage ../pkgs/optiscaler-install { };

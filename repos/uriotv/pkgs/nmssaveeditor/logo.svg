@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07131f"/>
+      <stop offset="0.55" stop-color="#0a1e2b"/>
+      <stop offset="1" stop-color="#160d2b"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#55f6ff"/>
+      <stop offset="0.48" stop-color="#71d9ff"/>
+      <stop offset="1" stop-color="#c05cff"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e7feff"/>
+      <stop offset="0.44" stop-color="#7af5ff"/>
+      <stop offset="1" stop-color="#6b7cff"/>
+    </linearGradient>
+    <linearGradient id="slot" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#183f56"/>
+      <stop offset="0.5" stop-color="#2d6d7f"/>
+      <stop offset="1" stop-color="#2a315b"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#6ff7ff" stop-opacity="0.32"/>
+      <stop offset="0.55" stop-color="#607cff" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="13" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="hexClip">
+      <path d="M512 54 L842 244 Q873 262 873 299 L873 725 Q873 762 842 780 L512 970 L182 780 Q151 762 151 725 L151 299 Q151 262 182 244 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- transparent exterior -->
+  <path d="M512 42 L853 239 Q889 260 889 301 L889 723 Q889 764 853 785 L512 982 L171 785 Q135 764 135 723 L135 301 Q135 260 171 239 Z" fill="#040811" opacity="0.96"/>
+  <path d="M512 55 L842 245 Q873 263 873 299 L873 725 Q873 761 842 779 L512 969 L182 779 Q151 761 151 725 L151 299 Q151 263 182 245 Z" fill="url(#bg)" stroke="url(#rim)" stroke-width="12"/>
+
+  <g clip-path="url(#hexClip)">
+    <ellipse cx="512" cy="500" rx="400" ry="390" fill="url(#halo)"/>
+
+    <!-- sparse star field -->
+    <g fill="#d9fcff">
+      <circle cx="248" cy="282" r="4" opacity=".85"/><circle cx="334" cy="202" r="2.5" opacity=".7"/>
+      <circle cx="720" cy="226" r="3.2" opacity=".75"/><circle cx="790" cy="362" r="2" opacity=".65"/>
+      <circle cx="205" cy="572" r="2.2" opacity=".65"/><circle cx="813" cy="601" r="3.5" opacity=".8"/>
+      <circle cx="282" cy="738" r="2.5" opacity=".65"/><circle cx="728" cy="777" r="2.7" opacity=".8"/>
+      <circle cx="593" cy="178" r="1.8" opacity=".6"/><circle cx="457" cy="826" r="1.8" opacity=".6"/>
+    </g>
+    <g stroke="#74eef7" stroke-width="3" opacity=".34">
+      <path d="M184 405 H288"/><path d="M736 421 H840"/><path d="M232 687 H336"/><path d="M692 670 H798"/>
+      <path d="M282 175 l46 46"/><path d="M741 183 l-49 49"/>
+    </g>
+
+    <!-- orbital / atlas ring -->
+    <circle cx="512" cy="479" r="247" fill="none" stroke="#66efff" stroke-width="5" opacity=".26" stroke-dasharray="22 17"/>
+    <circle cx="512" cy="479" r="214" fill="none" stroke="#a668ff" stroke-width="2.5" opacity=".25" stroke-dasharray="3 18"/>
+    <path d="M302 489 C363 322 661 260 740 472" fill="none" stroke="#7bf5ff" stroke-width="4" opacity=".28"/>
+    <circle cx="304" cy="490" r="8" fill="#8cf8ff" filter="url(#softGlow)"/>
+    <circle cx="741" cy="473" r="7" fill="#c287ff" filter="url(#softGlow)"/>
+
+    <!-- save-device body -->
+    <g filter="url(#softGlow)">
+      <path d="M355 310 Q355 286 379 286 H638 L705 353 V728 Q705 754 679 754 H379 Q355 754 355 728 Z"
+            fill="#0d2532" stroke="url(#rim)" stroke-width="9"/>
+      <!-- top clipped corner / data notch -->
+      <path d="M604 286 H638 L705 353 H621 Q604 353 604 336 Z" fill="#12294a" stroke="#8aefff" stroke-width="5"/>
+      <rect x="397" y="327" width="168" height="67" rx="12" fill="#07151f" stroke="#5aefff" stroke-width="4" opacity=".95"/>
+      <rect x="423" y="346" width="116" height="29" rx="7" fill="url(#slot)"/>
+
+      <!-- central atlas / navigation glyph: original geometry -->
+      <g transform="translate(512 514)">
+        <circle r="115" fill="#071b27" stroke="#4a9eb5" stroke-width="5"/>
+        <circle r="91" fill="none" stroke="#75f5ff" stroke-width="4" opacity=".7" stroke-dasharray="11 10"/>
+        <path d="M0 -78 L68 52 H26 L0 94 L-26 52 H-68 Z" fill="none" stroke="url(#core)" stroke-width="13" stroke-linejoin="round" filter="url(#glow)"/>
+        <path d="M0 -48 L37 41 H16 L0 64 L-16 41 H-37 Z" fill="#0c2430" stroke="#b9fbff" stroke-width="5"/>
+        <circle cx="0" cy="10" r="12" fill="#dffeff" filter="url(#glow)"/>
+        <path d="M-15 10 H-78 M15 10 H78" stroke="#76efff" stroke-width="5" opacity=".76"/>
+      </g>
+
+      <!-- edit affordance / three data bars -->
+      <rect x="413" y="664" width="198" height="16" rx="8" fill="#2b5970"/>
+      <rect x="413" y="664" width="132" height="16" rx="8" fill="#65efff"/>
+      <rect x="413" y="698" width="150" height="12" rx="6" fill="#314d6a"/>
+      <rect x="413" y="698" width="92" height="12" rx="6" fill="#a56cff"/>
+      <circle cx="645" cy="672" r="12" fill="#6af2ff" filter="url(#softGlow)"/>
+      <circle cx="594" cy="704" r="9" fill="#b06fff" filter="url(#softGlow)"/>
+    </g>
+
+    <!-- tiny corner traces -->
+    <g stroke="#7eeeff" stroke-width="5" stroke-linecap="round" opacity=".7">
+      <path d="M207 335 v-42 h42"/><path d="M817 335 v-42 h-42"/>
+      <path d="M207 688 v42 h42"/><path d="M817 688 v42 h-42"/>
+    </g>
+  </g>
+</svg>
