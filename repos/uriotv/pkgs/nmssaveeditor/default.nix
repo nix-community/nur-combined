@@ -4,6 +4,7 @@
   fetchurl,
   jre8,
   coreutils,
+  jdk8,
   makeDesktopItem,
   makeWrapper,
 }:
@@ -34,15 +35,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-74mK9OHEwMJabGUp3+pSUgzaJDODVE2NNYrRCq46F4w=";
   };
 
-  dontUnpack = true;
+  nativeBuildInputs = [
+    jdk8
+    makeWrapper
+  ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  unpackPhase = ''
+    runHook preUnpack
+    jar xf ${finalAttrs.src} nomanssave/icons/UI-FILEICON.PNG
+    runHook postUnpack
+  '';
 
   installPhase = ''
     install -Dm444 ${finalAttrs.src} $out/share/${finalAttrs.pname}/NMSSaveEditor.jar
 
-    install -Dm444 ${./logo.svg} \
-      $out/share/icons/hicolor/scalable/apps/${finalAttrs.pname}.svg
+    install -Dm444 nomanssave/icons/UI-FILEICON.PNG \
+      $out/share/icons/hicolor/32x32/apps/${finalAttrs.pname}.png
 
     install -Dm444 ${desktopItem}/share/applications/${finalAttrs.pname}.desktop \
       $out/share/applications/${finalAttrs.pname}.desktop
