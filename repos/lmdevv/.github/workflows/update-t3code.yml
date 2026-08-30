@@ -1,29 +1,90 @@
 name: Update t3code package
+
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "17 9 * * *"
   workflow_dispatch: {}
+
+concurrency:
+  group: update-t3code-package
+  cancel-in-progress: false
+
 jobs:
-  update:
+  prepare:
+    name: Discover personal release
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: DeterminateSystems/nix-installer-action@v19
+      - name: Update version and hashes
+        run: bash scripts/update-t3code.sh
+      - id: diff
+        name: Check for an update
+        shell: bash
+        run: |
+          if git diff --quiet -- pkgs/t3code/default.nix; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Upload updated package
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: updated-t3code-package
+          path: pkgs/t3code/default.nix
+          if-no-files-found: error
+
+  validate:
+    name: Validate ${{ matrix.system }}
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: x86_64-linux
+            runner: ubuntu-latest
+          - system: aarch64-darwin
+            runner: macos-26
+          - system: x86_64-darwin
+            runner: macos-26-intel
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v8
+        with:
+          name: updated-t3code-package
+          path: pkgs/t3code
+      - uses: DeterminateSystems/nix-installer-action@v19
+      - name: Build package
+        run: nix build .#t3code --print-build-logs
+
+  publish:
+    name: Publish NUR update
+    needs: [prepare, validate]
+    if: needs.prepare.outputs.changed == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-      - name: Set up Nix
-        uses: DeterminateSystems/nix-installer-action@v19
-      - name: Run updater
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Rebase onto latest NUR main
+        run: git pull --rebase origin main
+      - uses: actions/download-artifact@v8
+        with:
+          name: updated-t3code-package
+          path: pkgs/t3code
+      - name: Commit and push
+        shell: bash
         run: |
-          set -euxo pipefail
-          bash scripts/update-t3code.sh
-      - name: Commit and push if changed
-        run: |
-          set -euxo pipefail
-          if ! git diff --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A
-            git commit -m "chore: update t3code version+hash"
-            git push
-          fi
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs/t3code/default.nix
+          git commit -m "chore: update personal t3code version+hash"
+          git push

@@ -29,8 +29,9 @@ if you need more features.
 
 ### t3code
 
-Desktop GUI for coding agents (Codex, Claude, and similar). Packaged from upstream
-AppImage/DMG releases.
+Personal T3 Code build with Vim-style picker navigation and editable model-options and
+right-panel shortcuts. Packaged from unsigned AppImage/DMG releases built daily from the
+`lmdevv/t3code` fork after rebasing onto upstream `main`.
 
 ### linear-cli
 

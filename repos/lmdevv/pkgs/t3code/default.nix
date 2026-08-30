@@ -80,8 +80,8 @@ in
 
   meta = with lib; {
     description = "Desktop GUI for coding agents like Codex and Claude";
-    homepage = "https://github.com/pingdotgg/t3code";
-    changelog = "https://github.com/pingdotgg/t3code/releases/tag/v${version}";
+    homepage = "https://github.com/lmdevv/t3code";
+    changelog = "https://github.com/lmdevv/t3code/releases/tag/v${version}";
     license = licenses.mit;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = [ "lmdevv" ];

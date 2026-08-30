@@ -2,9 +2,10 @@
 set -euo pipefail
 
 # This script updates pkgs/t3code/default.nix with the latest version and SRI hashes
-# for all supported upstream desktop release artifacts.
+# for all supported personal-fork desktop release artifacts.
 
-API_URL="https://api.github.com/repos/pingdotgg/t3code/releases/latest"
+REPOSITORY="${T3CODE_REPOSITORY:-lmdevv/t3code}"
+API_URL="https://api.github.com/repos/${REPOSITORY}/releases/latest"
 NIX_FILE="pkgs/t3code/default.nix"
 
 die() {
@@ -43,7 +44,7 @@ current_version() {
 discover_release_json() {
   if [ -n "${FORCE_VERSION:-}" ]; then
     curl -fsSL -H 'Accept: application/vnd.github+json' \
-      "https://api.github.com/repos/pingdotgg/t3code/releases/tags/v${FORCE_VERSION}"
+      "https://api.github.com/repos/${REPOSITORY}/releases/tags/v${FORCE_VERSION}"
     return 0
   fi
 
