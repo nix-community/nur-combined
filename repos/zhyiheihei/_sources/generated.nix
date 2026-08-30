@@ -97,22 +97,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.11.3";
+    version = "v4.11.8";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.11.3";
-      hash = "sha256-ZIPo19rEA9cimepY8F5T4biyC93Qwi//gyITrr3inMU=";
+      tag = "v4.11.8";
+      hash = "sha256-wCPAK9j6Owdpr/kUZpQQ3mOAL/o3CCxAAe/wilGmfFk=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.11.3";
+    version = "v4.11.8";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.11.3";
-      hash = "sha256-pVDclfUkX58AP+50V33lee72qTJHPOXrYG6Chw5nhaU=";
+      tag = "v4.11.8";
+      hash = "sha256-IQaXhPnAiNd0JVJA8nHzQ6wKkiZZdlljeSH9wnXubfw=";
     };
   };
   pinyin2hanzi = {
