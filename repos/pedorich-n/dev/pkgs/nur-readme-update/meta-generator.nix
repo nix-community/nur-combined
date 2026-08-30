@@ -5,7 +5,7 @@
   lib,
 }:
 let
-  nurPackages = lib.removeAttrs flake.packages.${system} [ "nur-meta" ];
+  nurPackages = lib.removeAttrs flake.packages.${system} [ "docs" ];
 
   nurPackagesMetadata = lib.mapAttrsToList (_: p: {
     name = p.pname or (lib.getName p.name);
@@ -14,7 +14,7 @@ let
     description = (p.meta or { }).description or null;
   }) nurPackages;
 
-  nixosModulesMetadata = lib.attrNames flake.nixosModules;
+  nixosModulesMetadata = lib.attrNames flake.modules.nixos;
 in
 writers.writeJSON "nur-packages-meta.json" {
   packages = nurPackagesMetadata;

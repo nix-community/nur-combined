@@ -16,8 +16,9 @@
   # Can't use `lib.modulesFromDirectoryRecursive` here because that would require `pkgs.lib`,
   # and NUR doesn't provide `pkgs` when evaluating this file. So we have to manually list the modules here.
   # See https://github.com/nix-community/NUR/blob/50b7a2/flake.nix#L46
-  nixosModules = {
-    safebucket = ./modules/nixos/safebucket/module.nix;
-    rustic-exporter = ./modules/nixos/rustic-exporter/module.nix;
-  };
+    nixosModules = {
+      mcp-searxng = ./modules/nixos/mcp-searxng/module.nix;
+      safebucket = ./modules/nixos/safebucket/module.nix;
+      rustic-exporter = ./modules/nixos/rustic-exporter/module.nix;
+    };
 }
