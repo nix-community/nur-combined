@@ -151,6 +151,11 @@
       checks = forEachSystem (
         system: pkgs:
         self.libs."${system}".mkChecks {
+          script-only = {
+            packages = [ pkgs.patch ];
+            script = "patch --version > /dev/null";
+          };
+
           actions = {
             root = ./.github/workflows;
             packages = with pkgs; [

@@ -336,7 +336,7 @@ nix build .#appimages.x86_64-linux.default
 
 ### mkChecks
 
-Utility function to simplify creating flake [checks](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-flake-check.html). Can take either an `src` pointing to a derivation or a `root` pointing to a directory.
+Utility function to simplify creating flake [checks](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-flake-check.html). Can take an `src` pointing to a derivation, a `root` pointing to a directory, or neither for checks that do not need a source.
 
 Directories can be filtered with `files`, `filter`, `ignore` and `include`. The order is:
 `root`/`files` -> `filter` applied -> `ignore`'d file(s) removed -> `include` file(s) added

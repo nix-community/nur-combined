@@ -54,6 +54,47 @@ builtins.mapAttrs (
         "script"
         "forEach"
       ];
+
+      sourceAttrs =
+        if check ? root then
+          {
+            src = lib.fileset.toSource {
+              root = check.root;
+              fileset =
+                let
+                  start = check.files or check.fileset or check.root;
+
+                  files = if builtins.isList start then lib.fileset.unions start else start;
+
+                  filtered =
+                    if check ? filter then
+                      lib.fileset.intersection files (lib.fileset.fileFilter check.filter check.root)
+                    else
+                      files;
+
+                  ignored =
+                    if check ? ignore then
+                      lib.fileset.difference filtered (
+                        if builtins.isList check.ignore then lib.fileset.unions check.ignore else check.ignore
+                      )
+                    else
+                      filtered;
+
+                  included =
+                    if check ? include then
+                      lib.fileset.union ignored (
+                        if builtins.isList check.include then lib.fileset.unions check.include else check.include
+                      )
+                    else
+                      ignored;
+                in
+                included;
+            };
+          }
+        else if check ? src then
+          { inherit (check) src; }
+        else
+          { dontUnpack = true; };
     in
 
     if check ? src && lib.isDerivation check.src then
@@ -71,47 +112,11 @@ builtins.mapAttrs (
         // {
           inherit name checkPhase nativeCheckInputs;
 
-          src =
-            if check ? root then
-              lib.fileset.toSource {
-                root = check.root;
-                fileset =
-                  let
-                    start = check.files or check.fileset or check.root;
-
-                    files = if builtins.isList start then lib.fileset.unions start else start;
-
-                    filtered =
-                      if check ? filter then
-                        lib.fileset.intersection files (lib.fileset.fileFilter check.filter check.root)
-                      else
-                        files;
-
-                    ignored =
-                      if check ? ignore then
-                        lib.fileset.difference filtered (
-                          if builtins.isList check.ignore then lib.fileset.unions check.ignore else check.ignore
-                        )
-                      else
-                        filtered;
-
-                    included =
-                      if check ? include then
-                        lib.fileset.union ignored (
-                          if builtins.isList check.include then lib.fileset.unions check.include else check.include
-                        )
-                      else
-                        ignored;
-                  in
-                  included;
-              }
-            else
-              check.src;
-
           dontBuild = true;
           doCheck = true;
           installPhase = "touch $out";
           dontFixup = true;
         }
+        // sourceAttrs
       )
 )
