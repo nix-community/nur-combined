@@ -11,6 +11,7 @@
     ../../modules/core/locale.nix
     ../../modules/core/network.nix
     ../../modules/core/nvidia.nix
+    ../../modules/core/nix.nix
     ../../modules/core/plasma.nix
     ../../modules/core/printing.nix
     ../../modules/core/sound.nix
@@ -20,6 +21,9 @@
     # Apps
     # Development
     ../../modules/apps/development/default.nix
+    ../../modules/apps/development/git-signing.nix
+    ../../modules/apps/development/vscode.nix
+    ../../modules/apps/development/zed.nix
     ## Languages
     ../../modules/apps/development/c-cpp.nix
     ../../modules/apps/development/dotnet.nix
@@ -50,9 +54,10 @@
     ../../modules/apps/productivity.nix
     # Utilities
     ../../modules/apps/utilities/default.nix
-    ../../modules/apps/utilities/nixos-scripts.nix
     ../../modules/apps/utilities/konsave.nix
+    ../../modules/apps/utilities/nixos-scripts.nix
     ../../modules/apps/utilities/wine.nix
+    ../../modules/apps/utilities/zsh.nix
     # Virtualization
     ../../modules/apps/utilities/containers.nix
     ../../modules/apps/utilities/qemu.nix

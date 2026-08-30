@@ -1,0 +1,11 @@
+name: Dokploy
+description: "Dokploy platform — skills for cloud and self-hosted deployments, Docker Compose, databases, domains, and remote server management."
+tags:
+  - devops
+  - dokploy
+  - deployments
+  - self-hosted
+  - docker-compose
+  - databases
+  - domains
+  - remote-servers

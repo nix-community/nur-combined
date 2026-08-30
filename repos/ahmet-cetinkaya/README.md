@@ -59,7 +59,6 @@ Personal configuration files for my Linux and Windows machines — managed decla
 ├── zebar/            # Windows status bar
 ├── glaze-vm/         # GlazeWM tiling window manager
 │
-├── scripts/          # Shared helper scripts (format, lint)
 └── prettier/         # Formatting config
 ```
 
@@ -101,11 +100,11 @@ Windows-specific configs (Windows Terminal, PowerShell, Zebar, Glaze VM, Atlas O
 
 ## 🛠️ Maintenance
 
-Shared helper scripts live in `scripts/`:
+Run repository maintenance through `make`:
 
 ```bash
-./scripts/format.sh    # Format config files
-./scripts/lint.sh      # Lint config files
+make format             # Format config files
+make lint               # Lint shell and Nix configuration
 ```
 
 Agent and contribution guidelines are documented in [AGENTS.md](AGENTS.md).

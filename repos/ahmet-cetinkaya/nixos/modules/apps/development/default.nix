@@ -7,16 +7,10 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Editors
-    neovim
-    zed-preview-bin
-    vscode-fhs
-
     # Browsers
     firefox-devedition
 
     # Tools
-    git
     git-open
     gitui
     openssl

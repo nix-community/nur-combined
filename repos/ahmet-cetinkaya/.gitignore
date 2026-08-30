@@ -126,6 +126,12 @@ hs_err_pid*
 *.sqlite3
 
 # AI Agent files
+**/**/.codegraph/
+**/**/.omo/
+*AGENTS.md
+*CLAUDE.md
+*GEMINI.md
+*QWEN.md
 .ai/
 .claude/
 .gemini/
@@ -133,13 +139,8 @@ hs_err_pid*
 .qwen/
 .serena/
 .specify/
-*AGENTS.md
-*CLAUDE.md
-*GEMINI.md
-*QWEN.md
 graphify-out/
-**/**/.omo/
-**/**/.codegraph/
+opencode.json
 
 # Archives
 *.7z

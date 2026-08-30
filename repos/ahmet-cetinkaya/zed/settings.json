@@ -2,16 +2,18 @@
   "auto_update": false,
   "markdown_preview_code_font_family": "FiraCode Nerd Font Mono",
   "markdown_preview_font_family": ".SystemUIFont",
-  "markdown_preview_font_size": 24.0,
+  "markdown_preview_font_size": 20.0,
   "agent_servers": {
     "opencode": {
       "default_config_options": {
-        "mode": "Prometheus - Plan Builder"
+        "model": "omniroute/codex/gpt-5.6-luna",
+        "mode": "Sisyphus - ultraworker"
       },
       "type": "registry"
     }
   },
   "minimap": {
+    "display_in": "active_editor",
     "show": "always"
   },
   "edit_predictions": {
@@ -82,12 +84,51 @@
     }
   },
   "agent": {
+    "default_profile": "auto",
+    "profiles": {
+      "auto": {
+        "default_model": {
+          "provider": "OmniRoute",
+          "model": "combo/mid-models",
+          "enable_thinking": true,
+          "effort": "medium"
+        },
+        "name": "Auto",
+        "tools": {
+          "copy_path": true,
+          "create_directory": true,
+          "delete_path": true,
+          "diagnostics": true,
+          "edit_file": true,
+          "fetch": true,
+          "find_path": true,
+          "grep": true,
+          "terminal": false,
+          "move_path": true,
+          "list_directory": true,
+          "read_file": true,
+          "skill": true,
+          "spawn_agent": true,
+          "write_file": true,
+          "ask_user": true
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {
+          "mcp-server-context7": {
+            "tools": {
+              "resolve-library-id": true,
+              "query-docs": true
+            }
+          }
+        }
+      }
+    },
     "sidebar_side": "right",
     "play_sound_when_agent_done": "always",
     "default_model": {
       "effort": "medium",
       "provider": "OmniRoute",
-      "model": "combo/lite-models",
+      "model": "combo/mid-models",
       "enable_thinking": true
     },
     "dock": "right",

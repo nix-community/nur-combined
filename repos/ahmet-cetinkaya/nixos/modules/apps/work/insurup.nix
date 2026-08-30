@@ -19,7 +19,6 @@ in {
     openfortivpn
 
     # CLI Tools
-    git
     gh
 
     # Database

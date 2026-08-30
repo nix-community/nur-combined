@@ -11,26 +11,20 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Terminal
-    kitty
-
     # CLI Utilities
     btop
     direnv
-    eza
-    fastfetch
+    areofyl-fetch
     jq
     killall
     nano
     tree
-    zoxide
 
     # Download Tools
     curl
     wget
 
     # Version Control
-    git
     gh
 
     # Search Tools
@@ -75,39 +69,4 @@
   systemd.services.openrgb.serviceConfig.RestartSec = 5;
 
   programs.kdeconnect.enable = true;
-
-  environment.sessionVariables = {
-    TERMINAL = "kitty";
-  };
-
-  programs = {
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
-
-      ohMyZsh = {
-        enable = true;
-        plugins = [
-          "git"
-          "sudo"
-          "docker"
-          "kubectl"
-        ];
-        theme = "robbyrussell";
-      };
-
-      shellAliases = {
-        ll = "ls -l";
-        ls = "eza --icons=auto --hyperlink";
-      };
-    };
-    starship = {
-      enable = true;
-    };
-    zoxide = {
-      enable = true;
-    };
-  };
 }
