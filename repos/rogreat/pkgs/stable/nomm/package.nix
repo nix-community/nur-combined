@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "Allexio";
     repo = "nomm";
     tag = finalAttrs.version;
-    hash = "sha256-YFAOm69tXucg5mwc5NYGdSLe01UPGzTBF8kRN2xUJOw=";
+    hash = "sha256-83APCWOE+K3o5DpMmFkUZjMyli17ptnLhx3le1Juxic=";
   };
 
   nativeBuildInputs = [
