@@ -7,14 +7,14 @@
 
 (sing-box.override { cronet-go = cronet-go-beta; }).overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.14.0-rc.2";
+  version = "1.14.0-rc.4";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-c4bEPaWKfElkSYgzFYvEx1YKH58Lz+jO5CQOsqTvxzU=";
+    hash = "sha256-9ybFSCPCGCvanWgRjLFtb/tejz/gSlo/R9E754JDSDM=";
   };
 
-  vendorHash = "sha256-mVmqVVDFWH8sdqV9Zd5Y9hFQCk7nPtvRhJ20/me1Fuw=";
+  vendorHash = "sha256-RWCCScJVaKTmNrBiGips6QWz6EFTBXXMNsi+UqNvnjU=";
 
   tags = previousAttrs.tags ++ [
     "with_cloudflared"
