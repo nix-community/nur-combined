@@ -193,6 +193,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:lewtec/goftpd",
+      "depName": "lewtec/goftpd",
+      "currentValue": "0.0.1",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:lewtec/rod-mcp",
       "depName": "lewtec/rod-mcp",
       "currentValue": "0.2.2",

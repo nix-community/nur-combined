@@ -183,6 +183,11 @@ workspaced: {
 			global: true
 			bins: ["pixi"]
 		}
+		goftpd: {
+			ref: "github:lewtec/goftpd"
+			global: true
+			bins: ["goftpd"]
+		}
 	}
 
 	modules: {
