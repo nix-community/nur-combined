@@ -3,20 +3,20 @@
 let
   inherit (stdenv) hostPlatform;
   pname = "t3code";
-  version = "0.0.37-lmdevv.20260830.2";
+  version = "0.0.37-lmdevv.20260830.3";
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://github.com/lmdevv/t3code/releases/download/v0.0.37-lmdevv.20260830.2/T3-Code-0.0.37-lmdevv.20260830.2-x86_64.AppImage";
-      hash = "sha256-DYI00u4wA9CGf3QEWlgoEMnCwG3LM7N3G4w1fVZmznA=";
+      url = "https://github.com/lmdevv/t3code/releases/download/v0.0.37-lmdevv.20260830.3/T3-Code-0.0.37-lmdevv.20260830.3-x86_64.AppImage";
+      hash = "sha256-7ng4qME6QRKR1BTmApCgicqveBk04gzdPxkPif0JoDo=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://github.com/lmdevv/t3code/releases/download/v0.0.37-lmdevv.20260830.2/T3-Code-0.0.37-lmdevv.20260830.2-x64.dmg";
-      hash = "sha256-VhKeTtgYR/716so4PASdDh2ZC9I8Fb8IPK1z8qpFbkU=";
+      url = "https://github.com/lmdevv/t3code/releases/download/v0.0.37-lmdevv.20260830.3/T3-Code-0.0.37-lmdevv.20260830.3-x64.dmg";
+      hash = "sha256-mkYUDPuAmMaMa/YxEfibY0sx+BWgK5n3ik9bP13mZzU=";
     };
     aarch64-darwin = fetchurl {
-      url = "https://github.com/lmdevv/t3code/releases/download/v0.0.37-lmdevv.20260830.2/T3-Code-0.0.37-lmdevv.20260830.2-arm64.dmg";
-      hash = "sha256-WUlntL0ILZb+lY+n4A/5eF/arEtzY7oQPYef9rm96dc=";
+      url = "https://github.com/lmdevv/t3code/releases/download/v0.0.37-lmdevv.20260830.3/T3-Code-0.0.37-lmdevv.20260830.3-arm64.dmg";
+      hash = "sha256-T6jM5EunrdN8G2VEMtW/lpbT2DeX+JyxdgGxk9dwaJE=";
     };
   };
 
