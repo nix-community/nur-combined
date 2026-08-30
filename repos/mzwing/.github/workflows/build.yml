@@ -253,6 +253,15 @@ jobs:
         builders-json: ${{ needs.config.outputs.builders }}
         builder-prefix: ${{ env.BUILDER_PREFIX }}
 
+    # A builder that loses contact with GitHub never uploads its own log, so its last vitals have to be recorded from here.
+    - name: Sample builder vitals
+      if: needs.config.outputs.has_builds == 'true'
+      uses: mzwing/nix-actions/builders/vitals@master
+      with:
+        builders-json: ${{ needs.config.outputs.builders }}
+        builder-prefix: ${{ env.BUILDER_PREFIX }}
+        log-file: /tmp/builder-vitals.log
+
     # Reserve 300 minutes for builds and the remaining job time for publishing.
     - name: Build package outputs
       if: needs.config.outputs.targets != '[]'
@@ -261,13 +270,15 @@ jobs:
         targets: ${{ needs.config.outputs.targets }}
         timeout-minutes: '300'
 
-    # Preserve the complete build log outside the capped job log.
+    # Preserve the complete build log and the builder vitals outside the capped job log.
     - name: Upload build log
       if: '!cancelled()'
       uses: actions/upload-artifact@v7
       with:
         name: coordinator-build-log
-        path: /tmp/nix-build.log
+        path: |
+          /tmp/nix-build.log
+          /tmp/builder-vitals.log
         if-no-files-found: ignore
         retention-days: 14
 

@@ -17,7 +17,7 @@
     "system": "aarch64-darwin",
     "idPrefix": "darwin-arm64",
     "runner": "macos-latest",
-    "count": 3,
+    "count": 4,
     "maxJobs": 3
   }
 ]
