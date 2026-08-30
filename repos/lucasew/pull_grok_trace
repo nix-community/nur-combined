@@ -5,9 +5,10 @@
 """Export a grok session trace tarball into local /tmp.
 
 If --from HOST, run grok trace on HOST via ssh and rsync the tarball here.
+localhost / 127.0.0.1 / ::1 (or user@those) are local: no ssh.
 
 HOST can be user@host (e.g. janitor@ravenrock). Use --jump when you need a
-ProxyJump hop (e.g. Tailscale only reaches the bastion).
+ProxyJump hop (e.g. Tailscale only reaches the bastion). localhost jump is ignored.
 """
 
 import json
@@ -22,15 +23,19 @@ parser.add_argument(
     "--from",
     dest="from_host",
     metavar="HOST",
-    help="run on HOST via ssh (user@host ok) and rsync the tarball into local /tmp",
+    default="localhost",
+    help="run on HOST via ssh (user@host ok) and rsync the tarball into local /tmp; localhost is local",
 )
 parser.add_argument(
     "-J",
     "--jump",
     metavar="JUMP",
-    help="ssh ProxyJump hop (user@host ok); used for both ssh and rsync",
+    default="localhost",
+    help="ssh ProxyJump hop (user@host ok); used for both ssh and rsync; localhost is ignored",
 )
 args = parser.parse_args()
+
+_LOCAL_HOSTS = {"localhost", "127.0.0.1", "::1"}
 
 
 def ssh_host(spec: str | None) -> str | None:
@@ -39,6 +44,16 @@ def ssh_host(spec: str | None) -> str | None:
         return None
     return spec.rsplit("@", 1)[-1]
 
+
+def is_local(spec: str | None) -> bool:
+    host = ssh_host(spec)
+    return host is None or host.lower() in _LOCAL_HOSTS
+
+
+if is_local(args.from_host):
+    args.from_host = None
+if is_local(args.jump):
+    args.jump = None
 
 if (h := ssh_host(args.jump)) is not None and h == ssh_host(args.from_host):
     args.jump = None
