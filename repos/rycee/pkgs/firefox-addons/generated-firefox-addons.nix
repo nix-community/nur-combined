@@ -1233,10 +1233,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.13.1";
+      version = "0.14.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4981893/bilisponsorblock-0.13.1.xpi";
-      sha256 = "bb29cab4cd92d53c44addba644ae90764927a9835bb112a37e04021acf1ba5bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4991225/bilisponsorblock-0.14.0.xpi";
+      sha256 = "3ebe8fd92e1ac8cff04421d4b29127e20e3a6ab1f468bf1e872417bab849a13b";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1247,6 +1247,9 @@
           "scripting"
           "https://*.bilibili.com/*"
           "http://*.bsbsb.top/*"
+          "https://*.bsbsb.top/*"
+          "https://www.bsbsb.xyz/*"
+          "http://103.236.70.57/*"
         ];
         platforms = platforms.all;
       };
@@ -11854,10 +11857,10 @@
     };
     "privacy-settings" = buildMozillaXpiAddon {
       pname = "privacy-settings";
-      version = "0.3.8resigned1";
+      version = "0.4.1";
       addonId = "jid1-CKHySAadH4nL6Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4270684/privacy_settings-0.3.8resigned1.xpi";
-      sha256 = "23cbe4241a4feca21d33b615399916bafddc4b1fc9f92ecbfc7640208588daff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4990998/privacy_settings-0.4.1.xpi";
+      sha256 = "1f62265d1413e49d5c2abdd8b96d35468ce95fa427688456acaeff3180646b87";
       meta = with lib;
       {
         homepage = "http://add0n.com/privacy-settings.html";
@@ -15843,10 +15846,10 @@
     };
     "user-agent-string-switcher" = buildMozillaXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.6.8";
+      version = "0.7.0";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4948736/user_agent_string_switcher-0.6.8.xpi";
-      sha256 = "9f15a72db9a2ecef685186666765aeeed1c195b1caf0da79b624f466ba258e0d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4990404/user_agent_string_switcher-0.7.0.xpi";
+      sha256 = "abb6309324f933164a1c67be91fb2e4a04fdaedff2e8c16c7fad306b6ee1acf9";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/useragent-switcher.html";
