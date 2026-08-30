@@ -102,15 +102,20 @@ else
           # Compiler and tools
           # use clang.cc (unwrapped) when kernel-tools + useClang to avoid nixpkgs wrapper
           # injecting NIX_CFLAGS_COMPILE which conflicts with kernel's -nostdlibinc
-          (if useClang then (if kernel-tools then clang.cc else clang) else stdenv.cc)
+          # use lowPrio for clang.cc so wrapped clang (for hello) wins in /usr/bin
+          (if useClang then (if kernel-tools then pkgs.lowPrio clang.cc else clang) else stdenv.cc)
           pkg-config
           # Use clang instead of gcc
-          # make wrapper: kernel Makefile overrides CC=gcc (line 535),
-          # env var isn't enough — force CC=clang as command-line arg
+          # make wrapper: kernel Makefile overrides CC=gcc (line 535) and LD=ld (line 531)
+          # via `=` assignment, env var isn't enough — force as command-line arg
           (
             if useClang then
               pkgs.writeShellScriptBin "make" ''
-                exec ${gnumake}/bin/make CC=clang "$@"
+                exec ${gnumake}/bin/make CC=${if kernel-tools then "${clang.cc}/bin/clang" else "clang"} ${lib.optionalString kernel-tools "LD=ld.lld"} "$@"
+              ''
+            else if kernel-tools then
+              pkgs.writeShellScriptBin "make" ''
+                exec ${gnumake}/bin/make LD=${pkgs.binutils-unwrapped}/bin/ld "$@"
               ''
             else
               gnumake
@@ -190,6 +195,8 @@ else
           ]
           # include gcc for host tools (fixdep, etc.) that need proper include paths
           ++ lib.optionals kernel-tools [ stdenv.cc ]
+          # keep wrapped clang for hello when kernel-tools uses unwrapped clang.cc (hiPrio so it wins over lowPrio clang.cc)
+          ++ lib.optionals kernel-tools [ (pkgs.hiPrio clang) ]
         )
         ++ lib.optionals kernel-tools (
           [
@@ -264,6 +271,21 @@ else
         ### Variable used for compilation
         export CC="${if useClang then "clang" else "gcc"}"
         export CXX="${if useClang then "clang++" else "g++"}"
+        export NIX_LDFLAGS="-dynamic-linker /lib64/ld-linux-x86-64.so.2 -L/lib -L/lib64"
+        ${lib.optionalString (kernel-tools && !useClang) ''
+          # binutils 2.44+ is strict: orphan .interp -> "PHDR segment not covered by LOAD"
+          # The kernel's arch/x86/boot/compressed/vmlinux is built PIE with
+          # --no-dynamic-linker and has no LOAD for .interp. FHS's default
+          # NIX_LDFLAGS="-dynamic-linker /lib64/..." is injected *after* the
+          # kernel's --no-dynamic-linker (ld wrapper extraAfter via NIX_LDFLAGS),
+          # creating an orphan .interp and failing with:
+          #   ld: warning: orphan section `.interp' ...
+          #   ld: error: PHDR segment not covered by LOAD segment
+          # Use unwrapped ld for kernel so wrapper's NIX_LDFLAGS is bypassed
+          # (hello built via gcc wrapper still gets /lib64 interpreter).
+          export LD="${pkgs.binutils-unwrapped}/bin/ld"
+          export LD_BFD="${pkgs.binutils-unwrapped}/bin/ld.bfd"
+        ''}
         ${lib.optionalString useClang ''
           ### LLVM/Clang toolchain for kernel builds
           ### Use individual vars instead of LLVM=1 because LLVM=1 overrides
@@ -278,6 +300,12 @@ else
           export OBJCOPY=llvm-objcopy
           export OBJDUMP=llvm-objdump
           export STRIP=llvm-strip
+        ''}
+        ${lib.optionalString (useClang && kernel-tools) ''
+          # kernel needs unwrapped clang to avoid NIX_CFLAGS_COMPILE with -nostdlibinc
+          # keep wrapped clang in PATH for hello, but CC for kernel must be unwrapped
+          export CC=${clang.cc}/bin/clang
+          export CXX=${clang.cc}/bin/clang++
         ''}
 
         ${lib.optionalString kernel-tools ''
