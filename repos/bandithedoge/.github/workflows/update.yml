@@ -46,7 +46,7 @@ jobs:
           nix flake update --commit-lock-file
           nix flake update --commit-lock-file --flake ./dev
           chmod +x fetch.nu
-          nix develop .#update -c ./fetch.nu --update
+          nix develop .#update -c ./fetch.nu --commit
           git add -A
 
       - name: Generate package list
