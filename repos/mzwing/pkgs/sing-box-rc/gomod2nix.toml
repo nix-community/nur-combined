@@ -510,8 +510,8 @@ schema = 4
     hash = 'sha256-AQLWANb2o7TWzqmARPo57FXzPbdIdyO297OAkF47KHQ='
 
   [mod.'github.com/sagernet/quic-go']
-    version = 'v0.61.0-sing-box-mod.6'
-    hash = 'sha256-CTnVtwnkNEWbzhHY7AIDVQ69PV4LnBx9Z0xrKrHRPls='
+    version = 'v0.61.0-sing-box-mod.7'
+    hash = 'sha256-Wj/pBCB9OeL/WmxNEbaxixBry6zjJrSoH1IVmZM/CjU='
 
   [mod.'github.com/sagernet/sing']
     version = 'v0.9.0-beta.4'
@@ -554,8 +554,8 @@ schema = 4
     hash = 'sha256-oUtbOICuJHvDo4PM72zmEQb6Gu7EV0CsSOdfntXrQmY='
 
   [mod.'github.com/sagernet/sing-tun']
-    version = 'v0.9.0-beta.3'
-    hash = 'sha256-/cnkfBftFgJj8G+zSK94vOt9Zw19/Ww4zBaf07S3ooc='
+    version = 'v0.9.0-beta.4'
+    hash = 'sha256-6cktEe+dR+QlL2qjVtPPRa0KAeMRB8uxJVEiiZCVxCA='
 
   [mod.'github.com/sagernet/sing-usbip']
     version = 'v0.0.0-20260817040617-28bd42667eca'
@@ -570,8 +570,8 @@ schema = 4
     hash = 'sha256-8qcsBtXTuvDGuEbZmzqxDWEaNniBhstcZq2w8fRyISk='
 
   [mod.'github.com/sagernet/tailscale']
-    version = 'v1.102.1-sing-box-1.14-mod.3'
-    hash = 'sha256-/h8Ie33vJdQyBB87rMl5ik7L6riYRVzG3c/GQkUAxao='
+    version = 'v1.102.1-sing-box-1.14-mod.4'
+    hash = 'sha256-XXEIBOM32tlzVIxRDQMGaH0SKaivpYkX4Scih+vHhQ4='
 
   [mod.'github.com/sagernet/wireguard-go']
     version = 'v0.0.5-0.20260823125007-8bd032a91a30'
