@@ -13,14 +13,14 @@
 
 let
   pname = "sentry";
-  version = "0.43.0";
+  version = "0.44.1";
   pnpm = pnpm_10;
 
   src = fetchFromGitHub {
     owner = "getsentry";
     repo = "cli";
     rev = version;
-    hash = "sha256-CPcxl3uJU+SNNlOI1bMD+rFsZZP8sLBbFx8QexvaCJY=";
+    hash = "sha256-hRXzMJZk0rDJV6VWgE3sfuYv6Zcsy0uDoHANYGchN60=";
   };
 
   # @sentry/api version pinned in pnpm-lock.yaml; determines the OpenAPI spec tag
@@ -34,7 +34,7 @@ let
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src pnpm;
     fetcherVersion = 3;
-    hash = "sha256-dhfQzjbH6F3dhaVhwg0ZIaJ5mIKrAWy/8RAR1whHnOo=";
+    hash = "sha256-ms1GB9QTInxBvC+3uV421nXoysJZLQeDJZc+H5c5FrE=";
   };
 in
 stdenv.mkDerivation {
