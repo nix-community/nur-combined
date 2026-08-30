@@ -22,6 +22,7 @@ TESTS_SKIPPED=0
 PACKAGES=(
     "cybergrub2077"
     "optiscaler-client"
+    "nmssaveeditor"
     "rimsort-appimage"
     "scopebuddy"
     "vs-launcher"
@@ -96,17 +97,17 @@ test_script_structure() {
     return 0
 }
 
-# Test 3: Check if update.sh uses nix-update
-test_uses_nix_update() {
+# Test 3: Check if update.sh declares an update mechanism
+test_has_update_mechanism() {
     local pkg="$1"
     local script="$REPO_ROOT/pkgs/$pkg/update.sh"
 
-    if ! grep -q 'nix-update' "$script"; then
-        test_fail "$pkg: does not use nix-update" || return 0
+    if grep -q 'nix-update' "$script" || grep -q 'nix store prefetch-file' "$script"; then
+        test_pass "$pkg: declares an update mechanism" || return 0
         return 0
     fi
 
-    test_pass "$pkg: uses nix-update" || return 0
+    test_fail "$pkg: does not declare an update mechanism" || return 0
     return 0
 }
 
@@ -115,7 +116,7 @@ test_uses_flake() {
     local pkg="$1"
     local script="$REPO_ROOT/pkgs/$pkg/update.sh"
 
-    if ! grep -q '\-\-flake' "$script"; then
+    if ! grep -q -- '--flake' "$script"; then
         test_skip "$pkg: does not use --flake flag" || return 0
         return 0
     fi
@@ -181,7 +182,7 @@ main() {
         test_package_dir_exists "$pkg"
         test_script_exists "$pkg"
         test_script_structure "$pkg"
-        test_uses_nix_update "$pkg"
+        test_has_update_mechanism "$pkg"
         test_uses_flake "$pkg"
 
         # Special test for optiscaler-client

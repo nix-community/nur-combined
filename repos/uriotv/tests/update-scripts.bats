@@ -38,6 +38,10 @@ check_update_script() {
     check_update_script "optiscaler-client"
 }
 
+@test "nmssaveeditor: update.sh exists and is executable" {
+    check_update_script "nmssaveeditor"
+}
+
 @test "rimsort-appimage: update.sh exists and is executable" {
     check_update_script "rimsort-appimage"
 }

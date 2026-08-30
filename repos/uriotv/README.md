@@ -10,6 +10,7 @@
 | Package | Description | Update Policy |
 | :--- | :--- | :--- |
 | **`optiscaler-client`** | Modern manager for OptiScaler | **Auto** (Weekly) |
+| **`nmssaveeditor`** | Save editor for No Man's Sky | **Auto** (Weekly) |
 | **`optiscaler-install`** | Downloader and launcher for the official OptiScaler Linux setup script | Manual (runtime latest) |
 | **`optipatcher-install`** | Downloader for the latest OptiPatcher ASI plugin | Manual (runtime latest) |
 | **`rimsort-appimage`** | Open source mod manager for RimWorld (AppImage) | **Auto** (Weekly) |

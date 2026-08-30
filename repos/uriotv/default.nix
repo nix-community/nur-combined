@@ -22,6 +22,7 @@
   cybergrub2077 = pkgs.callPackage ./pkgs/cybergrub2077 { };
 
   # Applications
+  nmssaveeditor = pkgs.callPackage ./pkgs/nmssaveeditor { };
   optiscaler-client = pkgs.callPackage ./pkgs/optiscaler-client { };
   rimsort-appimage = pkgs.callPackage ./pkgs/rimsort-appimage { };
   wowup-cf = pkgs.callPackage ./pkgs/wowup-cf { };
