@@ -21,7 +21,7 @@ appimageTools.wrapType2 rec {
     url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.47.18/BrowserOS_v0.47.18_x64.AppImage";
     hash = "sha256-j17ERzRxTx/0OaKtSjp02DXi132Rfz9qse5uI7auu7s=";
   };
-  version = "agent-server/v0.0.145";
+  version = "agent-server/v0.0.147";
   extraInstallCommands = ''
     install -Dm644 ${contents}/browseros.desktop $out/share/applications/browseros.desktop
     substituteInPlace $out/share/applications/browseros.desktop \

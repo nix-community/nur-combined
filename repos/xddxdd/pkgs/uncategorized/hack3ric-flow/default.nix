@@ -6,12 +6,12 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hack3ric-flow";
-  version = "0.2.0-unstable-2026-04-05";
+  version = "0.2.0-unstable-2026-08-30";
   src = fetchFromGitHub {
     owner = "hack3ric";
     repo = "flow";
-    rev = "4a406621a71e806541c833181b9c2f5cf6fc759f";
-    hash = "sha256-4n7EU+F98dk3gHKEEof8cNa8WkOwxR17b4vPyHJ1rao=";
+    rev = "cd665d1ed1521f0e042ff8a5cf5e78ca992f090d";
+    hash = "sha256-dsWCaOuZBrRNHuy/dOxDKQWTQ2PgaOaPLK4nRFM9h48=";
   };
   cargoHash = "sha256-FEc5j2tMRCfU2nRYC/0gbdk4BkF99R88dWdJzgDUoVU=";
 
