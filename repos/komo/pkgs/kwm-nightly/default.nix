@@ -18,7 +18,7 @@
 
 stdenv.mkDerivation (final: {
   pname = "kwm-nightly";
-  version = "0-unstable-2026-07-27";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "kewuaa";
