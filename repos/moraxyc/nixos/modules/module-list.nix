@@ -9,6 +9,7 @@
   ./services/networking/gost.nix
   ./services/networking/mosdns.nix
   ./services/networking/udpxy.nix
+  ./services/web-apps/airtrail.nix
   ./services/web-apps/alist.nix
   ./services/web-apps/exloli-next.nix
   ./services/web-apps/flapalerted.nix
