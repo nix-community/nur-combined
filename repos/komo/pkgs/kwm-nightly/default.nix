@@ -53,8 +53,16 @@ stdenv.mkDerivation (final: {
     ${nix-update-script {
       extraArgs = [
         "--version"
-        "branch"
+        "branch=master"
       ];
     }} | ${lib.getExe jq} -c '[.[0] as $root | $root + {file: $root.file + ["${./deps.nix}"]}]'
   '';
+
+  meta = {
+    description = "A window manager based on River Wayland compositor
+Resources";
+    license = lib.licenses.gpl3;
+    homepage = "https://github.com/kewuaa/kwm#readme";
+    mainProgram = "kwm";
+  };
 })
