@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromGitHub,
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -21,10 +21,9 @@ stdenv.mkDerivation rec {
   pname = "autodesk-fusion-360";
   version = "8.0.0";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromGitHub {
     owner = "cryinkfly";
-    repo = "Autodesk-Fusion-360-on-Linux";
+    repo = "Autodesk-Fusion-360-for-Linux";
     rev = "v${version}";
     hash = "sha256-f9BvoDKZePn0uRdUEppfzyuO+xW2EW1PLvHN9PAo3QI=";
   };
@@ -48,9 +47,12 @@ stdenv.mkDerivation rec {
         "Engineering"
       ];
       startupNotify = true;
-      terminal = true;
+      terminal = false;
     })
   ];
+
+  dontBuild = true;
+  dontConfigure = true;
 
   installPhase = ''
         runHook preInstall
