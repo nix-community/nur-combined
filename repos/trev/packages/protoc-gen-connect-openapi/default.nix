@@ -7,16 +7,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "protoc-gen-connect-openapi";
-  version = "0.25.7";
+  version = "0.25.8";
 
   src = fetchFromGitHub {
     owner = "sudorandom";
     repo = "protoc-gen-connect-openapi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6n+CE98bDfv9NDP9W9R+ylMDKiKTyeTCTiGx8PAUDxw=";
+    hash = "sha256-l3HwSupBIq+opS0zPxQ2MTZtUgMylnSsCnDEkCKUWgc=";
   };
 
-  vendorHash = "sha256-5fFgCRk6/RnnxKzbuxPC9iR2kggmB0cUfWhyq0/qzsA=";
+  vendorHash = "sha256-IoZzOPDMNAM6ugxI5QNknt/rayyYTjoUNBNK9/t9s9M=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
