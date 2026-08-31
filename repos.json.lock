@@ -1698,8 +1698,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "7866737ceaec845d1033164945c09a37514dd4db",
-            "sha256": "0bkc60cxr947ahlz1lwla7c3s1qfj4wlfgk4hxi4yc37ai3nz97n",
+            "rev": "29d16cfe1f8f525f3cfbe2394a709c1c58f60433",
+            "sha256": "0kibb3rys7znc7gk9hq2pd11appxvqx08lw0amrpnfx16i0avi2y",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2682,8 +2682,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "a59f3026c7ba4703da16cec5537b84a81bcaed75",
-            "sha256": "0y4cy4570cfshy9m9c9p2zbvd8rq91nakns0lbqkkx5nwqb5yn6n",
+            "rev": "7c9d5c8e8dde32a459a1421997709b9c92e72536",
+            "sha256": "06jmbzaac8gbyxihhbvzv62nxlc2dhq45hfd3dgk1kmzx5m7aiig",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
