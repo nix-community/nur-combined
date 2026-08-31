@@ -29,5 +29,6 @@
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };
   roots = pkgs.callPackage ./pkgs/roots { };
   givy = pkgs.callPackage ./pkgs/givy { };
+  op-cached = pkgs.callPackage ./pkgs/op-cached { };
   symbol-desktop-wallet = pkgs.callPackage ./pkgs/symbol-desktop-wallet { };
 }
