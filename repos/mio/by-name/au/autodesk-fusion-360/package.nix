@@ -20,6 +20,7 @@
   xdg-utils,
   bc,
   xrandr,
+  xterm,
 }:
 
 stdenv.mkDerivation rec {
@@ -52,7 +53,7 @@ stdenv.mkDerivation rec {
         "Engineering"
       ];
       startupNotify = true;
-      terminal = true;
+      terminal = false;
     })
   ];
 
@@ -102,8 +103,8 @@ stdenv.mkDerivation rec {
         cat > $out/bin/autodesk-fusion-360 << EOF
     #!${runtimeShell}
     if [ ! -d "\$HOME/.autodesk_fusion/wineprefixes/default" ]; then
-        echo "First run detected, starting installer..."
-        exec $out/libexec/autodesk-fusion-installer --install
+        echo "First run detected, starting installer in a new terminal window..."
+        exec ${xterm}/bin/xterm -T "Autodesk Fusion 360 Setup" -e $out/libexec/autodesk-fusion-installer --install
     else
         echo "Starting Autodesk Fusion 360..."
         exec $out/libexec/autodesk-fusion-launcher

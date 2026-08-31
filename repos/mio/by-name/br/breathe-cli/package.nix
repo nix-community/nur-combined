@@ -6,13 +6,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "breathe-cli";
-  version = "1.11.1";
+  version = "1.13.0";
 
   src = fetchFromGitHub {
     owner = "marekkowalczyk";
     repo = "breathe-cli";
     rev = "v${version}";
-    hash = "sha256-kIVVh+XfLm1hpt65zUdWpyI3kJohP3UPwZX8NfvLX8Y=";
+    hash = "sha256-v4hFZVfvDgGWoSBPxdlwXJJZ/2TAUskpo6dQ//G0BJw=";
   };
 
   format = "other";
