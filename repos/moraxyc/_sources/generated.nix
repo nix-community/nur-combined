@@ -76,16 +76,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "74a4e3b1d786d625de493a78bc3a968899b9822f";
+    version = "2f184c84976f3089f1a89c253be9b282a5af7e72";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "74a4e3b1d786d625de493a78bc3a968899b9822f";
+      rev = "2f184c84976f3089f1a89c253be9b282a5af7e72";
       fetchSubmodules = false;
-      sha256 = "sha256-eE4ouk6aE5jHdof48B6iE89B85wRy371AWF1ty6K4LY=";
+      sha256 = "sha256-r+YoT/E+RClHpFPFDmdJImAbzFHzkMwUR0zCk76KZwI=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-eE4ouk6aE5jHdof48B6iE89B85wRy371AWF1ty6K4LY=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-r+YoT_E+RClHpFPFDmdJImAbzFHzkMwUR0zCk76KZwI=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -250,26 +250,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.08.28";
+    version = "2026.08.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.28/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-syDXfgArdFSwPRj8qANyilfP0SQoyjniG8MfqxsKXzI=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.31/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-Y5sZNewyirRLg8zw1ugHYCB6QT1o1B8+iz1dokjyinc=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.08.28";
+    version = "2026.08.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.28/GeoLite2-City.mmdb";
-      sha256 = "sha256-uLCKYo1HWISIvjgSthYLJG3L/q7LtwHPftXvwYXIaH8=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.31/GeoLite2-City.mmdb";
+      sha256 = "sha256-lShTcqwD69Cs0dP88IMv/RQujgxLbohWu1qpxHhE5Tk=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.08.28";
+    version = "2026.08.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.28/GeoLite2-Country.mmdb";
-      sha256 = "sha256-hhIivZ0osn/cQWMYlTDUTq4MqiHSe4eFnnnBY6nMzQk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.31/GeoLite2-Country.mmdb";
+      sha256 = "sha256-fl4G4Cn0Q4Tqmm8IayC2oJYUkiuRYd5puQolmM8UIls=";
     };
   };
   git-mcp-server = {
@@ -545,21 +545,21 @@
   };
   nyanpasu-service = {
     pname = "nyanpasu-service";
-    version = "b38e138a80c722706334e40253097f1795ae8176";
+    version = "6717e4458eb5e7688b09107fd2f2f40538a9ffe9";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "nyanpasu-service";
-      rev = "b38e138a80c722706334e40253097f1795ae8176";
+      rev = "6717e4458eb5e7688b09107fd2f2f40538a9ffe9";
       fetchSubmodules = false;
-      sha256 = "sha256-hhOWtdDAX0Qj/QwsYwWue6myCRetYP76JMbm9XSshaw=";
+      sha256 = "sha256-LA5P/Vb4zyb8CerPtIFnsFy0FceDDEhszgViMaHO8L8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-hhOWtdDAX0Qj_QwsYwWue6myCRetYP76JMbm9XSshaw=/Cargo.lock";
+      lockFile = ./. + "/sha256-LA5P_Vb4zyb8CerPtIFnsFy0FceDDEhszgViMaHO8L8=/Cargo.lock";
       outputHashes = {
         "processkit-2.2.5" = "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo=";
       };
     };
-    date = "2026-08-22";
+    date = "2026-08-31";
   };
   nyanpasu-service-stable = {
     pname = "nyanpasu-service-stable";
