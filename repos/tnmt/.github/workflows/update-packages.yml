@@ -23,8 +23,11 @@ jobs:
         include:
           # Upstream tags multiple components (windows/v*, bridge/v*, ...);
           # restrict to bridge tags so nix-update doesn't pick another component's version.
+          # --use-github-releases is required: the releases.atom feed only carries the
+          # most recent ~20 entries, and the other components now ship far more often
+          # than bridge, pushing bridge releases out of that window.
           - package: ccpocket-bridge
-            nix-update-extra-args: "--version-regex 'bridge/v(.+)'"
+            nix-update-extra-args: "--version-regex 'bridge/v(.+)' --use-github-releases"
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
