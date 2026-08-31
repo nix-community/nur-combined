@@ -12,18 +12,18 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pokeclicker";
-  version = "0.10.25";
+  version = "0.10.26";
 
   src = fetchFromGitHub {
     owner = "pokeclicker";
     repo = "pokeclicker";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UIQiCOIlwFh+JIzrOL12t34vCuERIcVRICgOqAyxT2o=";
+    hash = "sha256-iD2r0TpovKARKn3L3RCIr95jCjcApL4H4BI31Y5/Ej4=";
     # The bundled translation fallback is maintained as a pinned submodule.
     fetchSubmodules = true;
   };
 
-  npmDepsHash = "sha256-+zo+2Jz5LBRDoSJC+8ip49F9lALe87eRDum30ciLjY0=";
+  npmDepsHash = "sha256-HC3fmGclhvjA3tSTVndWN5z1K6nG7KX29tRwnC1DGyw=";
 
   nativeBuildInputs = [
     copyDesktopItems
