@@ -1,5 +1,6 @@
 {
   lib,
+  rustc,
   rustPlatform,
   fetchFromGitLab,
 }:
