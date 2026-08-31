@@ -6,8 +6,6 @@
   nix-update-script,
   zig_0_16,
   pkg-config,
-  pixman,
-  fcft,
   wayland,
   wayland-scanner,
   wayland-protocols,
@@ -29,8 +27,6 @@ stdenv.mkDerivation (final: {
   nativeBuildInputs = [
     zig_0_16
     pkg-config
-    pixman
-    fcft
   ];
 
   buildInputs = [

@@ -6,14 +6,14 @@
   nix-update-script,
   zig_0_16,
   pkg-config,
+  fcft,
+  pixman,
   wayland,
   wayland-scanner,
   wayland-protocols,
   libxkbcommon,
   jq,
   lib,
-  fcft,
-  pixman
 }:
 
 stdenv.mkDerivation (final: {
