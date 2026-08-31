@@ -362,127 +362,127 @@ schema = 4
     hash = 'sha256-DcWWmHlCiZFv876Ay05UbcMZhQkiAmuChXcCrOd7pqQ='
 
   [mod.'github.com/sagernet/cronet-go']
-    version = 'v0.0.0-20260824154604-9247da29c718'
-    hash = 'sha256-jn3XLmRRYetn/aeTaM496cwk3Wh9Abl92KrBAermy4I='
+    version = 'v0.0.0-20260831031307-45832ab07484'
+    hash = 'sha256-F+T2fx0ro32OsnSYk9s0jb+DnwJ8SXxL7lNC/ff7r1Y='
 
   [mod.'github.com/sagernet/cronet-go/all']
-    version = 'v0.0.0-20260824154604-9247da29c718'
-    hash = 'sha256-NrcwN7W6JgkIilL8trQoGWHLaHypUHDbZInEhYwCaxU='
+    version = 'v0.0.0-20260831031307-45832ab07484'
+    hash = 'sha256-WHDDpkRy1dyGLLY8R/iT2OqRp53/gk9RThLP872o2WQ='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_386']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-HQmw4QYF2UjzA50jMn5B+g4lcmr9ZO6arzA/vyJ+sXs='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_amd64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-+E4o/n7GTpocFMaeQBWt+714s0BymzhzPUqVOXnee+Q='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_arm']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-QGZx2rGcYv9psa8mkxlOjnH9Wrs/uIcPdPEpG56EPuM='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_arm64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-aSQiAopfj7AnOSUfw1cCZ7puu3UUhexirTzBsIHW29Y='
 
   [mod.'github.com/sagernet/cronet-go/lib/darwin_amd64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-8pVhgbFn4p0qRk2UFvp2qZ1NTmeXwYlRWbEUhKS6mXI='
 
   [mod.'github.com/sagernet/cronet-go/lib/darwin_arm64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-TEFHSNX/XKmdi4DAkkp6NSuAZs4XAslNVKAi2g40Xsw='
 
   [mod.'github.com/sagernet/cronet-go/lib/ios_amd64_simulator']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-oRpL2WCl0aqjCu32lyP+B7PyfH38v3mDrTUpx/J82qg='
 
   [mod.'github.com/sagernet/cronet-go/lib/ios_arm64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-KiY47q3MV8+KsNPQLBzKuPvbDY3ZR/f4+NIxEgKEVCg='
 
   [mod.'github.com/sagernet/cronet-go/lib/ios_arm64_simulator']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-cWc7CqP/htYsl2fm+9mF5EfAnXOUn2jzUZ6WBELHkmQ='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_386']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-kacR22xocRjOidl/MPgfs0oHsWG/JtAL6MuNE1nb2Ek='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_386_musl']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-ZuQjU9678SF3C/UHgu7AE0dQIRrNENPsAkZloJdCBIs='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_amd64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-7EThsYf4wBju1lgwiF0L9OmRG1r4Isqg7QTgtxqbhoc='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_amd64_musl']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-I1CdptemGwaa6Yl+ypMnSSIZWhufiYF1vqmYWDhneio='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-nBtmWovEOZD6uGEBmXNPl6WwFRrjm5+wfOf3DziFiqk='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-tQ8XeJIUhyDukM5Pm44dvugwAlsMBDykHB+/LtZnOVA='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm64_musl']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-kq8VoQ32Um32jHZqVudV7Eq4yYMPxqKCYRwhFy57FF8='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm_musl']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-Mn2mUuVLnz/asQV2Gqi/0BvhFyHaQ1qzgww3IqGPUpY='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_loong64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-fukjiK28NkwspnMFWWQxJxNhp+PWf7BPJ1NC8AEw7W4='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_loong64_musl']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-5wPQ7jBMaqi5d7OWr2sIHZ9Qy6Tcc+BrZxAlaUdNenk='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_mips64le']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-1cQfXXjU/4/2Dsen/d5ijndHwjXdq87ZjwNZgv/kekg='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_mipsle']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-ODGdJvY4ff4ojr/DF0EAnaBf/uzMnZhGQ+SZVYI1dJU='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_mipsle_musl']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-GVIV04foNr6XtiFgy3+lM8sM5GQa+D+jv0WpQaMNOTo='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_riscv64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-jDQjbI8BZvCOfr3TsOy67RMy0Prtm0Te+Sz0lChsHFI='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_riscv64_musl']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-HaCWu7ehHkL3qXUx26fzX27WwDIHzuzF01AvAc7NwPw='
 
   [mod.'github.com/sagernet/cronet-go/lib/tvos_amd64_simulator']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-3ZBGuY6+ypULSSWEh9j4maGCcLBwOQ+6zPil+pV3z28='
 
   [mod.'github.com/sagernet/cronet-go/lib/tvos_arm64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-Q+Gi78eaDez2llPvXwUj6Y9fc2zMB/5Ebh40Qxx21Zc='
 
   [mod.'github.com/sagernet/cronet-go/lib/tvos_arm64_simulator']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-J1N7wWhe06Veti5J2v9OCC42DZfrFa8ZWKnZDR1AidM='
 
   [mod.'github.com/sagernet/cronet-go/lib/windows_amd64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-3nY4CA83+FufEEhCycSY03K7e+KkE4AoOJgj0N/RO04='
 
   [mod.'github.com/sagernet/cronet-go/lib/windows_arm64']
-    version = 'v0.0.0-20260824154013-6e9ecc8f2a97'
+    version = 'v0.0.0-20260831030607-f80ef37265e5'
     hash = 'sha256-qOXXBO/9iNk3rqPRgEreP2QkAzSKIjbwak8rSDLaanw='
 
   [mod.'github.com/sagernet/fswatch']
