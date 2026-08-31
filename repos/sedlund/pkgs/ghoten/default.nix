@@ -5,16 +5,16 @@
 }:
 buildGo126Module (finalAttrs: {
   pname = "ghoten";
-  version = "1.13.3";
+  version = "1.13.4";
 
   src = fetchFromGitHub {
     owner = "vmvarela";
     repo = "ghoten";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-//4POTuv60EfUBh47LgIATZbDAfFf883dEYjzuxuInM=";
+    hash = "sha256-NYfAmGrv1JRNi0EZH4mVrnVMX1gt66zksgwPW639llA=";
   };
 
-  vendorHash = "sha256-rWhdjSbzghoz/DDehgA5O/RRlF8fHoX6hrB1NmIyFEE=";
+  vendorHash = "sha256-Ia71gEinMzPyLDiI1r6QKf2tLojUi0lqTbkM3uGzrx0=";
   subPackages = [ "cmd/ghoten" ];
 
   ldflags = [
