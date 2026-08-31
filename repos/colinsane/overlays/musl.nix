@@ -7,9 +7,18 @@
 #
 # - <https://wiki.gentoo.org/wiki/Musl_porting_notes#Patches_from_other_distros>
 #
+# distros known to have better-than-average musl support, in order:
 # - <https://gitlab.alpinelinux.org/alpine/aports>
 # - <https://github.com/void-linux/void-packages>
 # - <https://github.com/chimera-linux/cports>
+# - <https://git.adelielinux.org/adelie/packages.git>
+# - <https://github.com/sabotage-linux/sabotage>
+# - <https://github.com/wolfi-dev/os>
+# - <https://github.com/openwrt/openwrt>
+# - <https://github.com/gentoo/gentoo>
+# - <https://github.com/funtoo/meta-repo>
+# - <https://github.com/buildroot/buildroot>
+# - <https://git.openembedded.org/openembedded-core>
 final: super:
 let
   inherit (final)
@@ -1478,6 +1487,15 @@ super.lib.composeManyExtensions [
               hash = "sha256-5p5pwpV1GSyPHN0aA1J8plyB/NvAHb9hqWlepY1Mqpk=";
             })
           ];
+        });
+
+        # 2026-08-30: nixpkgs' ctypes patch assumes glibc's libc.so.6 name.
+        psycopg = pysuper.psycopg.overridePythonAttrs (upstream: {
+          postPatch = upstream.postPatch + ''
+            substituteInPlace psycopg/pq/_pq_ctypes.py --replace-fail \
+              "${stdenv.cc.libc}/lib/libc.so.6" \
+              "${stdenv.cc.libc}/lib/libc.so"
+          '';
         });
 
         # 2026-07-01: torch is an optional dependency, but used unconditionally in `nativeCheckInputs`.

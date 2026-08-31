@@ -1,0 +1,28 @@
+consolidate RX1/RX2 controls into one "HP Mix Digital Volume"
+
+this allows ALSA -- and thereby Pipewire -- to view this one control
+as the "hardware volume control". without this, we're stuck with software
+volume along a fixed amplifier path which has *either* (a) low max volume
+or (b) high max volume but high noise.
+
+---
+diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
+--- a/sound/soc/codecs/wcd934x.c
++++ b/sound/soc/codecs/wcd934x.c
+@@ -3946,12 +3946,10 @@ static const struct snd_kcontrol_new wcd934x_snd_controls[] = {
+ 	SOC_SINGLE_S8_TLV("RX0 Mix Digital Volume",
+ 			  WCD934X_CDC_RX0_RX_VOL_MIX_CTL,
+ 			  -84, 40, digital_gain),
+-	SOC_SINGLE_S8_TLV("RX1 Mix Digital Volume",
+-			  WCD934X_CDC_RX1_RX_VOL_MIX_CTL,
+-			  -84, 40, digital_gain),
+-	SOC_SINGLE_S8_TLV("RX2 Mix Digital Volume",
+-			  WCD934X_CDC_RX2_RX_VOL_MIX_CTL,
+-			  -84, 40, digital_gain),
++	SOC_DOUBLE_R_S_TLV("HP Mix Digital Volume",
++			   WCD934X_CDC_RX1_RX_VOL_MIX_CTL,
++			   WCD934X_CDC_RX2_RX_VOL_MIX_CTL,
++			   0, -84, 40, 7, 0, digital_gain),
+ 	SOC_SINGLE_S8_TLV("RX3 Mix Digital Volume",
+ 			  WCD934X_CDC_RX3_RX_VOL_MIX_CTL,
+ 			  -84, 40, digital_gain),

@@ -37,6 +37,15 @@ in
     env.ALSA_CONFIG_UCM2 = "/run/current-system/sw/share/alsa/ucm2";
 
     enableFor.system = lib.mkIf (builtins.any (en: en) (builtins.attrValues cfg.enableFor.user)) true;
+
+    services.alsa-ucm-conf = {
+      # wireplumber supports UCM profiles, but apparently doesn't execute the `BootSequence` or `FixedBootSequence` components.
+      description = "alsa-ucm-conf: execute the soundcard boot sequence";
+      partOf = [ "sound" ];
+      # AFAICT, `alsactl init` can be run before *or* after wireplumber loads, but i'd worry about latent bugs in the after case
+      dependencyOf = [ "wireplumber" ];
+      startCommand = "alsactl init";  # ALSA_DEBUG=1
+    };
   };
 
   environment.pathsToLink = lib.mkIf cfg.enabled [

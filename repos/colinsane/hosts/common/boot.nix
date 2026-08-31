@@ -66,6 +66,23 @@
   in
     lib.mkDefault (pkgs.linuxPackagesFor kernel);
 
+  # default nixos behavior is to error if a kernel module is provided by more than one package.
+  # in fact, some of my hosts (moby) *intentionally* overwrite the in-tree modules, so inline this buildEnv logic
+  # from <repo:nixos/nixpkgs:nixos/modules/system/boot/kernel.nix> AKA pkgs.aggregateModules
+  # but configured to **ignore collisions**
+  system.modulesTree = lib.mkForce [(
+    (pkgs.aggregateModules (
+      config.boot.extraModulePackages ++ [
+        (lib.getOutput "modules" config.boot.kernelPackages.kernel)
+      ]
+    )).overrideAttrs {
+      name = "kernel-modules-merged-sane";
+      # earlier items override the contents of later items
+      ignoreCollisions = true;
+      # checkCollisionContents = false;
+    }
+  )];
+
   # nixpkgs.hostPlatform.linux-kernel = (lib.systems.elaborate config.nixpkgs.hostPlatform.system).linux-kernel // {
   #   # explicitly ignore nixpkgs' extraConfig and preferBuiltin options
   #   autoModules = true;

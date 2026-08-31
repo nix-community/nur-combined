@@ -94,6 +94,7 @@ in
     environment.systemPackages = [ pkgs.qrtr ];
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-postmarketos-qcom-sdm845;
     boot.kernelPackages = pkgs.linuxPackagesFor pkgs.vanilla-mobile-nixos.pkgs.linuxKernels.linux_sdm845;
+    boot.extraModulePackages = [ config.boot.kernelPackages.pocophone-wcd934x ];
 
     # options imported from vanilla-mobile-nixos
     # boot.initrd.includeDefaultModules = false;
@@ -143,7 +144,7 @@ in
     ];
 
     sane.programs.alsa-ucm-conf.suggestedPrograms = [
-      "alsa-ucm-conf-sdm845"
+      "alsa-ucm-pocophone"
     ];
 
     nixpkgs.overlays = [

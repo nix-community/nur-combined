@@ -163,23 +163,6 @@ in
       # }
     ];
 
-    # default nixos behavior is to error if a kernel module is provided by more than one package.
-    # in fact, i'm _intentionally_ overwriting the in-tree modules, so inline this buildEnv logic
-    # from <repo:nixos/nixpkgs:nixos/modules/system/boot/kernel.nix> AKA pkgs.aggregateModules
-    # but configured to **ignore collisions**
-    system.modulesTree = lib.mkForce [(
-      (pkgs.aggregateModules (
-        config.boot.extraModulePackages ++ [
-          (lib.getOutput "modules" config.boot.kernelPackages.kernel)
-        ]
-      )).overrideAttrs {
-        name = "kernel-modules-merged-sane";
-        # earlier items override the contents of later items
-        ignoreCollisions = true;
-        # checkCollisionContents = false;
-      }
-    )];
-
     #v N.B.: deviceTree.name is plumbed through /boot/loader/entries/.
     #v if removed, systemd-boot will still (likely) boot, but DTB items known to the kernel
     #v and not to the platform firmware (u-boot) will be missing (e.g. rk818/battery monitoring).

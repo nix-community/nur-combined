@@ -6,16 +6,13 @@
 }:
 
 let
-  self = gpodder.overridePythonAttrs (upstream:
-  let
-    version = "3.11.5+1";
-  in {
+  self = gpodder.overridePythonAttrs (finalAttrs: prevAttrs: {
     pname = "gpodder-adaptive";
-    inherit version;
+    version = "3.11.5+1";
     src = fetchFromGitHub {
       owner = "gpodder";
       repo = "gpodder";
-      rev = "adaptive/${version}";
+      rev = "adaptive/${finalAttrs.version}";
       hash = "sha256-LLrgRGQB6F3AioUsgHWYBUinGQppfFdipK1rfxbsuAs=";
     };
 
@@ -36,7 +33,7 @@ let
         "share/dbus-1/services/org.gpodder.service"
     '';
 
-    buildInputs = upstream.buildInputs ++ [
+    buildInputs = prevAttrs.buildInputs ++ [
       libhandy
     ];
 
