@@ -22,13 +22,13 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "libkazv";
-  version = "0.8.0-unstable-2026-08-29";
+  version = "1.0.0-unstable-2026-08-30";
 
   src = fetchFromCodeberg {
     owner = "the-kazv-project";
     repo = "libkazv";
-    rev = "791eb967525b3699eca1008f242d55ae95765710";
-    hash = "sha256-CUMuAgokPgQJuqhG49kd5smiw1hU/0GfZfZnLZPZzoU=";
+    rev = "cbfdce3ab46ad5c65e13ed813772d1e2e9ed8641";
+    hash = "sha256-8IDJ//EbHKjzOfW09MNwhYbZcUDb8ENJanhy/csYtLA=";
   };
 
   nativeBuildInputs = [

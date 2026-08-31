@@ -42,8 +42,8 @@ stdenv.mkDerivation {
     owner = "the-kazv-project";
     repo = "kazv";
     fetchSubmodules = true;
-    rev = "e5561fbb5f2815099b22c725046d7d2e61440914";
-    hash = "sha256-w1Hr8pLgTfoPWrC/2rHQR1PnP/NASozsGnlpGDbp+n0=";
+    rev = "2b8dd0fea5815c0eb9b3184abbc7fca9809e3250";
+    hash = "sha256-MyitWkiCpn1lkVREwIdGDaF5ri2ijzc2J7f3TenXiko=";
   };
 
   nativeBuildInputs = [
