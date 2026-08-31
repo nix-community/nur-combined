@@ -401,17 +401,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "75e6572bebc05b49021e842949ce947882e3e4b2";
+    version = "fbb516b2786e4d5444383706d13c31c2e4d10c08";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "75e6572bebc05b49021e842949ce947882e3e4b2";
+      rev = "fbb516b2786e4d5444383706d13c31c2e4d10c08";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-AyHB67oFxEW0Y2gc8XaYbkkZ2uRtQMKwft31of5uR8I=";
+      sha256 = "sha256-SvWajOoaruuFAqmkz4odIzVR1wvG0KVlohQv0mJX2lY=";
     };
-    date = "2026-08-22";
+    date = "2026-08-31";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -603,17 +603,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "132da7b6549911c77d95cb895e772b69a2251b29";
+    version = "180830d539dcc87db1a191febf6c914f516d102f";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "132da7b6549911c77d95cb895e772b69a2251b29";
+      rev = "180830d539dcc87db1a191febf6c914f516d102f";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-X4KhEMy8TUDAAMTpVmNND3tjR0DEdhhga62hVUPan9Y=";
+      sha256 = "sha256-KBA0KycDUiX+tqURk0X4LIKPRDuR7RE9TTPUHQrVsp8=";
     };
-    date = "2026-08-30";
+    date = "2026-08-31";
   };
   vlmcsd = {
     pname = "vlmcsd";
