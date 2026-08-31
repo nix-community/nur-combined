@@ -13,8 +13,13 @@
   p7zip,
   curl,
   samba,
-  zenity,
-  yad,
+  wget,
+  polkit,
+  lsb-release,
+  mesa-demos,
+  xdg-utils,
+  bc,
+  xrandr,
 }:
 
 stdenv.mkDerivation rec {
@@ -47,7 +52,7 @@ stdenv.mkDerivation rec {
         "Engineering"
       ];
       startupNotify = true;
-      terminal = false;
+      terminal = true;
     })
   ];
 
@@ -74,8 +79,13 @@ stdenv.mkDerivation rec {
               p7zip
               curl
               samba
-              zenity
-              yad
+              wget
+              polkit
+              lsb-release
+              mesa-demos
+              xdg-utils
+              bc
+              xrandr
             ]
           }
 
@@ -106,7 +116,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Setup Wizard for Autodesk Fusion 360 on Linux";
-    homepage = "https://codeberg.org/cryinkfly/Autodesk-Fusion-360-on-Linux";
+    homepage = "https://github.com/cryinkfly/Autodesk-Fusion-360-for-Linux";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     mainProgram = "autodesk-fusion-360";
