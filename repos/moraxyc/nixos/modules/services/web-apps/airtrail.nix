@@ -8,6 +8,7 @@
 let
   cfg = config.services.airtrail;
   defaultDatabaseUrl = "postgresql://airtrail@localhost/airtrail?host=/run/postgresql";
+  toEnvValue = value: if lib.isBool value then lib.boolToString value else toString value;
 in
 {
   options.services.airtrail = {
@@ -186,7 +187,7 @@ in
       requires = lib.optional cfg.database.createLocally "postgresql.service";
 
       environment =
-        cfg.environment
+        (lib.mapAttrs (_: toEnvValue) cfg.environment)
         // {
           NODE_ENV = "production";
           HOST = cfg.host;
@@ -203,6 +204,10 @@ in
         // {
           DB_URL = cfg.database.url;
         };
+
+      preStart = ''
+        mkdir -p /var/lib/airtrail/uploads
+      '';
 
       serviceConfig = {
         Type = "simple";
