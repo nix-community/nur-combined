@@ -8,12 +8,12 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "altinn-repoctl";
-  version = "v1.1.0";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Altinn";
     repo = "altinn-authorization-utils";
-    tag = "tool/RepoCtl-${finalAttrs.version}";
+    tag = "tool/RepoCtl-v${finalAttrs.version}";
     hash = "sha256-nxYjXB+bbmAdpdYws1DTshhzihQB0IlLRB70bgByOrw=";
   };
 
