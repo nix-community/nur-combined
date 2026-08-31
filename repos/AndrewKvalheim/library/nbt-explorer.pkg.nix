@@ -5,7 +5,7 @@
 , makeDesktopItem
 , makeWrapper
 , nix-update-script
-, stdenv
+, stdenvNoCC
 , xdg-utils
 
   # Dependencies
@@ -17,7 +17,7 @@ let
   inherit (builtins) placeholder;
   inherit (lib) getExe licenses;
 in
-stdenv.mkDerivation (nbt-explorer: {
+stdenvNoCC.mkDerivation (nbt-explorer: {
   pname = "nbt-explorer";
   version = "2.8.0";
   meta = {

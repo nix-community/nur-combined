@@ -1,38 +1,33 @@
 #!/usr/bin/env bash
 # See https://discourse.nixos.org/t/25274
-set -Eeu
+set -Eeuo pipefail
 
-root="$(readlink --canonicalize -- "$(dirname -- "$0")/..")"; readonly root
-readonly pname="${1:-}"
+root="$(readlink --canonicalize "${0%/*}/..")"; readonly root
+readonly attr="${1:-}"
 
 # Mock nixpkgs
-trap 'rm -f "$root/default.nix" "$root/shell.nix"' EXIT
-cat > "$root/default.nix" << NIX
-{}: import <nixpkgs> { overlays = [ (import ./packages.nix) ]; }
-NIX
-cat > "$root/shell.nix" << NIX
-{ pkgs ? import <nixpkgs> { } }: pkgs.mkShell { }
-NIX
+trap 'rm --force "$root/default.nix" "$root/shell.nix"' EXIT
+echo '{}: import <nixpkgs> { overlays = [ (import ./packages.nix) ]; }' > "$root/default.nix"
+echo '{ pkgs ? import <nixpkgs> { } }: pkgs.mkShell { }' > "$root/shell.nix"
 
-# Run update scripts
-# unstable pending resolution to “nix_update.errors.VersionError: Please specify the version.” on `fetchCrate`
-nixpkgs="$(nix-instantiate --eval --expr '<unstable>')"
-nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
+# Run package update scripts
+path="$(nix-instantiate --eval --expr '<nixpkgs/maintainers/scripts/update.nix>')"
+args=(
+  --show-trace \
   --arg include-overlays "(import $root { }).overlays" \
   --arg keep-going 'true' \
   --argstr max-workers '8' \
-  --arg predicate "(
-    let pname = \"$pname\"; prefix = \"$root/library/\"; prefixLen = builtins.stringLength prefix;
-    in (_: p: p.meta ? position && (builtins.substring 0 prefixLen p.meta.position) == prefix && (pname == \"\" || p.pname == pname))
-  )" \
+  --argstr order 'topological' \
   --argstr skip-prompt 'true'
+)
+if [[ -n "$attr" ]]; then
+  args+=(--argstr package "$attr")
+else
+  args+=(--arg predicate '_: p: p.meta ? position && builtins.substring 0 5 p.meta.position != "/nix/"')
+fi
+NIXPKGS_ALLOW_UNFREE='1' nix-shell "$path" "${args[@]}"
 
-# Clean up
+# Discard unused artifacts
 if [[ -f "$root/update-git-commits.txt" ]]; then
   cat "$root/update-git-commits.txt" && rm "$root/update-git-commits.txt"
-fi
-
-# Run external update scripts
-if [[ -z "$pname" || "$pname" == 'buildJosmPlugin' ]]; then
-  "$root"/tasks/update-buildJosmPlugin
 fi

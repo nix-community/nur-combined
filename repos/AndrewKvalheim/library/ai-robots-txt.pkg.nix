@@ -1,15 +1,15 @@
 { fetchFromGitHub
 , gitUpdater
 , lib
-, stdenv
+, stdenvNoCC
 }:
 
 let
   inherit (lib) licenses;
 in
-stdenv.mkDerivation (ai-robots-txt: {
+stdenvNoCC.mkDerivation (ai-robots-txt: {
   pname = "ai-robots-txt";
-  version = "1.50";
+  version = "1.51";
   meta = {
     description = "List of AI agents and robots to block";
     homepage = "https://github.com/ai-robots-txt/ai.robots.txt";
@@ -22,7 +22,7 @@ stdenv.mkDerivation (ai-robots-txt: {
     owner = "ai-robots-txt";
     repo = "ai.robots.txt";
     rev = "refs/tags/v${ai-robots-txt.version}";
-    hash = "sha256-7/CK8bzoAg3W+LsDqZVKoBM68A7wKlQnGPYtFuFmUKE=";
+    hash = "sha256-X8pIqZgpSJUILptc1B4evccRM7vX2mWP5qCUovbIAj8=";
   };
 
   installPhase = ''

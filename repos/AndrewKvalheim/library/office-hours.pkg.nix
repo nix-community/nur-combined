@@ -1,6 +1,6 @@
 { fetchFromGitHub
 , lib
-, stdenv
+, stdenvNoCC
 
   # Dependencies
 , python3
@@ -10,7 +10,7 @@ let
   inherit (builtins) toFile;
   inherit (lib) licenses;
 in
-stdenv.mkDerivation (office-hours: {
+stdenvNoCC.mkDerivation (office-hours: {
   pname = "office-hours";
   version = "1.0.0";
   meta = {

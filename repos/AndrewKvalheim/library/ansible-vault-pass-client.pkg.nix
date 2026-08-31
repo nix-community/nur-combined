@@ -1,7 +1,7 @@
 { fetchFromGitHub
+, gitUpdater
 , lib
-, stdenv
-, unstableGitUpdater
+, stdenvNoCC
 
   # Dependencies
 , gopass
@@ -11,22 +11,22 @@
 let
   inherit (lib) getExe licenses;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation (ansible-vault-pass-client: {
   pname = "ansible-vault-pass-client";
-  version = "1.0.1-unstable-2026-03-01";
+  version = "1.0.2";
   meta = {
     description = "Script to integrate Ansible Vault and pass or gopass";
     homepage = "https://github.com/me-vlad/ansible-vault-pass-client";
     license = licenses.mit;
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = gitUpdater { };
 
   src = fetchFromGitHub {
     owner = "me-vlad";
     repo = "ansible-vault-pass-client";
-    rev = "e9240197612e4a328ffefd4b5cfb76cb900fa863";
-    hash = "sha256-Fz0+Xy63kdrN4XtneUetIStGAMd+Gu8eL/nkQNP53Yk=";
+    rev = "refs/tags/${ansible-vault-pass-client.version}";
+    hash = "sha256-0B70otGbW4iQ4h+okaDiepOOz0uZBUeTMnXOZvO3vYs=";
   };
 
   postPatch = ''
@@ -41,4 +41,4 @@ stdenv.mkDerivation {
   postInstall = ''
     install -D --target-directory "$out/bin" 'ansible-vault-pass-client'
   '';
-}
+})

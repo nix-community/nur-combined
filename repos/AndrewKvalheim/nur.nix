@@ -34,7 +34,7 @@ rec {
   ai-robots-txt = callPackage ./library/ai-robots-txt.pkg.nix { };
   apex = callPackage ./library/apex.pkg.nix { };
   blocky-ui = callPackage ./library/blocky-ui.pkg.nix { };
-  buildJosmPlugin = callPackage ./library/buildJosmPlugin.fn.nix { };
+  buildJosmPlugin = callPackage ./library/buildJosmPlugin.fn.nix { inherit josm-plugin-build-env; };
   busyserve = (callPackage ./library/busyserve.pkg.nix { }).overrideAttrs (o: recursiveUpdate o {
     meta.broken = versionOlder pkgs.python3Packages.busylight-for-humans.version "1.0.1" && versionAtLeast pkgs.python3Packages.fastapi.version "0.137"; # NixOS/nixpkgs#548189
   });
@@ -64,6 +64,7 @@ rec {
   incremental-compress = callPackage ./library/incremental-compress.pkg.nix { };
   iptables_exporter = callPackage ./library/iptables_exporter.pkg.nix { };
   josm-imagery-used = callPackage ./library/josm-imagery-used.pkg.nix { inherit buildJosmPlugin; };
+  josm-plugin-build-env = callPackage ./library/josm-plugin-build-env.pkg.nix { };
   journal-brief = callPackage ./library/journal-brief.pkg.nix { };
   little-a-map = callPackage ./library/little-a-map.pkg.nix { };
   mark-applier = callPackage ./library/mark-applier.pkg.nix { };

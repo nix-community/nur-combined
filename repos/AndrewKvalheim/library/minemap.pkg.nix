@@ -6,7 +6,7 @@
 , makeDesktopItem
 , makeWrapper
 , nix-update-script
-, stdenv
+, stdenvNoCC
 , xdg-utils
 
   # Dependencies
@@ -17,7 +17,7 @@ let
   inherit (builtins) placeholder;
   inherit (lib) getExe licenses;
 in
-stdenv.mkDerivation (minemap: {
+stdenvNoCC.mkDerivation (minemap: {
   pname = "minemap";
   version = "1.0.26";
   meta = {

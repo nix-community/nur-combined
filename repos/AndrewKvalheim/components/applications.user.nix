@@ -164,9 +164,10 @@ in
       gimp3-with-plugins
       gradia
       guetzli
-      identity
+      identity # FIXME: Unable to open AVIF
       imagemagickBig
       (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
+      (onlyBinMan libheif)
       (onlyBinMan libjxl)
       (onlyBinMan libwebp)
       mozjpeg-simple
@@ -241,12 +242,14 @@ in
 
     # Nautilus scripts
     nautilusScripts = with pkgs; {
+      "HEIF → PNG".each = ''nice ${getExe' libheif "heif-dec"} "$path" "$path.png"'';
+      "HEIF,PNG → JPEG (Guetzli) gradient".each = ''${getExe guetzli-gradient} "$path"'';
       "HEIF,PNG,TIFF → JPEG".xargs = "-n 1 -P 8 nice ${getExe mozjpeg-simple}";
+      "HEIF,JPEG: Strip geolocation".xargs = "nice ${getExe exiftool} -overwrite_original -gps:all= -xmp:geotag=";
       "JPEG → JPEG XL".each = ''
         ${getExe' libjxl "cjxl"} --effort '10' --lossless_jpeg '1' "$path" "''${path%.jpg}.jxl"
         touch --reference "$path" "''${path%.jpg}.jxl"
       '';
-      "JPEG: Strip geolocation".xargs = "nice ${getExe exiftool} -overwrite_original -gps:all= -xmp:geotag=";
       "PNG: Optimize".xargs = ''
         nice ${getExe efficient-compression-tool} -8 -keep -quiet --mt-file \
         2> >(${getExe zenity} --width 600 --progress --pulsate --auto-close --auto-kill)

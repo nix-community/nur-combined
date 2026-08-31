@@ -26,6 +26,7 @@ specify {
   apex = any;
   attachments.deps = { inherit (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/303bd8071377433a2d8f76e684ec773d70c5b642.tar.gz") { config.allowUnfree = true; overlays = [ ]; }) yarn2nix-moretea; }; # TODO: Migrate
   blocky-ui = any;
+  buildJosmPlugin = any;
   busyserve = any;
   caddy-with-cache-route53 = any;
   cc-icons-unicode = any;
@@ -58,13 +59,18 @@ specify {
   gopass-env = any;
   gopass-ydotool = any;
   gpx-reduce = any;
+  guetzli-gradient = any;
   htop = { patch = ./library/assets/htop_colors.patch; big = true; }; # htop-dev/htop#1416
   incremental-compress = any;
   inkscape = { patch = ./library/assets/inkscape_png-no-comment.patch; big = true; ccache = true; dontEval = true /* FIXME: infinite recursion */; }; # inkscape/inkscape!7193
   iosevka-custom = any;
   iptables_exporter = any;
   jj-dynamic-default-description = any;
+  josm.env.GSETTINGS_SCHEMA_DIR = "${resolved.gtk3}/share/gsettings-schemas/${resolved.gtk3.name}/glib-2.0/schemas"; # Workaround for NixOS/nixpkgs#557824
+  josm-hidpi = any;
   josm-imagery-used = any;
+  josm-plugin-build-env = any;
+  josm-select-sequential = any;
   journal-brief = any;
   jujutsu.version = "≥0.44"; # Tag tracking
   just-local = any;
@@ -79,6 +85,7 @@ specify {
   mozjpeg-simple = any;
   nbt-explorer = any;
   nix-preview = any;
+  nix-update.version = "≥1.16"; # Works around “nix_update.errors.VersionError: Please specify the version” on `fetchCrate`
   nom-wrappers = any;
   off = any;
   office-hours = any;

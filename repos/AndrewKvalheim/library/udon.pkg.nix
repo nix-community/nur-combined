@@ -2,7 +2,7 @@
 , fetchFromGitHub
 , lib
 , makeWrapper
-, stdenv
+, stdenvNoCC
 , testers
 , unstableGitUpdater
 , writeScriptBin
@@ -15,7 +15,7 @@
 let
   inherit (lib) getExe getExe' licenses makeBinPath;
 in
-stdenv.mkDerivation (udon: {
+stdenvNoCC.mkDerivation (udon: {
   pname = "udon";
   version = "0-unstable-2026-05-07";
   meta = {

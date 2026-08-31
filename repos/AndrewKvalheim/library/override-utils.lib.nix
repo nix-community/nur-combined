@@ -17,7 +17,11 @@ let
   isSet = repo: path: (tryEval (attrByPath (path ++ [ "recurseForDerivations" ]) false repo)).value;
   mkRepo = name: path: (import path { inherit (stable) config; overlays = [ ]; }) // { _name = name; };
   repoEq = a: b: repoName a == repoName b;
-  repoName = r: if isPath r then toString r else r._name or r.lib.trivial.version;
+  repoName = r:
+    if isPath r then toString r
+    else if r ? _name then r._name
+    else if r ? _type && r._type == "pkgs" then r.lib.trivial.version
+    else throw "Not implemented";
 
   # Repositories
   defaultExtra = genAttrs resolvedSearch.right (name: mkRepo name (findFile nixPath name));
@@ -153,7 +157,9 @@ let
         if doWrapper then
           symlinkJoin
             {
-              name = "${pname}-wrapper";
+              inherit (package_with_overlay_with_override) version;
+              pname = "${pname}-wrapper";
+              meta = { inherit (package_with_overlay_with_override.meta) license; };
               paths = [ package_with_overlay_with_override ];
               buildInputs = [ makeWrapper ];
               postBuild = ''

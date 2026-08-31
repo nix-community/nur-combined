@@ -3,7 +3,7 @@
 , lib
 , makeBinaryWrapper
 , nix-update-script
-, stdenv
+, stdenvNoCC
 , versionCheckHook
 , writeShellScriptBin
 
@@ -30,7 +30,7 @@ let
     exec cat ".git $*"
   '';
 in
-stdenv.mkDerivation (chunker: {
+stdenvNoCC.mkDerivation (chunker: {
   pname = "chunker";
   version = "1.19.1";
   meta = {

@@ -1,12 +1,12 @@
 { fetchFromGitHub
 , lib
-, stdenv
+, stdenvNoCC
 }:
 
 let
   inherit (lib) licenses;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "zsh-abbr";
   version = "4.5.0"; # Note: 4.6.0 introduces noncommercial license
   meta = {

@@ -58,6 +58,7 @@ in
     hugin
     jitsi-meet-electron
     josm
+    josm-hidpi
     karere
     kdePackages.kdenlive
     libreoffice
@@ -87,6 +88,7 @@ in
     yubikey-manager
   ];
   xdg.dataFile."JOSM/plugins/imagery_used.jar".source = "${pkgs.josm-imagery-used}/share/JOSM/plugins/imagery_used.jar";
+  xdg.dataFile."JOSM/plugins/select_sequential.jar".source = "${pkgs.josm-select-sequential}/share/JOSM/plugins/select_sequential.jar";
 
   # File type associations
   xdg.mimeApps.defaultApplications = {

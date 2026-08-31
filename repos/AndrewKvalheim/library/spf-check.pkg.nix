@@ -1,6 +1,6 @@
 { fetchFromGitHub
 , lib
-, stdenv
+, stdenvNoCC
 , unstableGitUpdater
 
   # Dependencies
@@ -10,7 +10,7 @@
 let
   inherit (lib) licenses;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "spf-check";
   version = "0-unstable-2023-11-20";
   meta = {

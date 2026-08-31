@@ -540,6 +540,7 @@ Gemfile
 gemset
 geocoding
 geolocation
+georeferencer
 geoscience
 geospatial
 GFI

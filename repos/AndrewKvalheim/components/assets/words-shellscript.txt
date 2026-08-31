@@ -10,6 +10,7 @@ EPOCHSECONDS
 eza
 getent
 getopts
+GLOBIGNORE
 killall
 lastpipe
 magick

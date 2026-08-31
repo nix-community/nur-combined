@@ -1,6 +1,6 @@
 { fetchFromCodeberg
 , lib
-, stdenv
+, stdenvNoCC
 , unstableGitUpdater
 
   # Dependencies
@@ -10,7 +10,7 @@
 let
   inherit (lib) licenses;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "affine-font";
   version = "0-unstable-2023-02-09";
   meta = {

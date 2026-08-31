@@ -2,7 +2,7 @@
 , fetchFromGitHub
 , lib
 , makeWrapper
-, stdenv
+, stdenvNoCC
 , unstableGitUpdater
 
   # Dependencies
@@ -45,7 +45,7 @@ let
     ];
   };
 in
-stdenv.mkDerivation (git-diff-image: {
+stdenvNoCC.mkDerivation (git-diff-image: {
   pname = "git-diff-image";
   version = "0-unstable-2023-09-04";
   meta = {

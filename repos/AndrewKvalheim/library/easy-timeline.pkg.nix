@@ -2,7 +2,7 @@
 , fetchgit
 , lib
 , makeWrapper
-, stdenv
+, stdenvNoCC
 
   # Dependencies
 , perl
@@ -12,7 +12,7 @@
 let
   inherit (lib) escapeShellArg licenses makeBinPath;
 in
-stdenv.mkDerivation (easy-timeline: {
+stdenvNoCC.mkDerivation (easy-timeline: {
   pname = "easy-timeline";
   version = "1.90-unstable-2024-08-02";
   meta = {

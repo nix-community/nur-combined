@@ -1,7 +1,7 @@
 { fetchFromGitHub
 , lib
 , makeWrapper
-, stdenv
+, stdenvNoCC
 , unstableGitUpdater
 
   # Dependencies
@@ -12,7 +12,7 @@
 let
   inherit (lib) licenses;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "decompiler-mc";
   version = "0.9-unstable-2026-01-17";
   meta = {

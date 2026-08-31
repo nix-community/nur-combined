@@ -1,6 +1,6 @@
 { lib
 , resholve
-, stdenv
+, stdenvNoCC
 
   # Dependencies
 , pipewire
@@ -11,7 +11,7 @@ let
   inherit (builtins) readFile replaceStrings;
   inherit (lib) getExe;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   name = "zsh-click";
 
   src = resholve.writeScript "click.plugin.zsh" {

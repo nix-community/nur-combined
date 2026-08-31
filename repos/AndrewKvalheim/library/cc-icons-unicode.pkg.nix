@@ -1,14 +1,14 @@
 { fetchFromGitHub
 , installFonts
 , lib
-, stdenv
+, stdenvNoCC
 , unstableGitUpdater
 }:
 
 let
   inherit (lib) licenses;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "cc-icons-unicode";
   version = "0-unstable-2020-09-29";
   meta = {
