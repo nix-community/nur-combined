@@ -31,8 +31,8 @@
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
-            "rev": "cc53352693845bb132fcad8bc45548e71433b374",
-            "sha256": "1m5ka8gmhqp00z965wx4652kz4pbbrnb7l92m8n2rvh23f860hhl",
+            "rev": "11a4de90b550aac03c7a1404ae244ee0efce8775",
+            "sha256": "0capgq0jcaibbq5cp8jyfcx6ghn26pwn69513b46r0hqcyf8lzi4",
             "url": "https://github.com/Alxandr/nur"
         },
         "AndrewKvalheim": {
@@ -1415,8 +1415,8 @@
             "url": "https://github.com/kolloch/nur-packages"
         },
         "komo": {
-            "rev": "f6915b0876a1bc2e65f4aa65f183cd5e81d79079",
-            "sha256": "1gh3rmnvk90g04n00039hdlak1mbcdmdxwqxasd0gww4a03yx98x",
+            "rev": "e960cd71eb111b1de939c6d3494a54dfec7beb7e",
+            "sha256": "19ypfsp17bn22n62pb675wrqa215i8s1fsz38c7mxap9qcr2i1c5",
             "url": "https://git.gay/kromfin/nur-pkgs"
         },
         "kongjian520": {
