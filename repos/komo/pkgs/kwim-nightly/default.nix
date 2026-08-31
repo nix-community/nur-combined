@@ -1,6 +1,6 @@
 {
   stdenv,
-  fetchFromGitHub,
+  fetchgit,
   callPackage,
   writeShellScript,
   nix-update-script,
@@ -20,10 +20,9 @@ stdenv.mkDerivation (final: {
   pname = "kwim-nightly";
   version = "0.3.0";
 
-  src = fetchFromGitHub {
-    owner = "kewuaa";
-    repo = "kwm";
-    rev = "3f966c9c79d4e31f58ea8d012129cda38f8115cc";
+  src = fetchgit {
+    url = "https://github.com/kewuaa/kwim.git";
+    rev = "becc1284ccc8c5abdfb8a117b561a97f4448e9dd";
     hash = "sha256-Ob59H1535EYReXMCERdlTNfhwv2GGBCSCmvfIeJzzzo=";
   };
 
@@ -53,12 +52,14 @@ stdenv.mkDerivation (final: {
     export DEPS_PATCH="${toString ./deps.sed-patch}"
 
     ${./update-deps.sh} ${./deps.nix}
-    
-    ${nix-update-script {
-      extraArgs = [
-        "--version"
-        "branch"
-      ];
-    }} | ${lib.getExe jq} -c '[.[0] as $root | $root + {file: $root.file + ["${./deps.nix}"]}]'
+
+    ${
+      nix-update-script {
+        extraArgs = [
+          "--version"
+          "branch"
+        ];
+      }
+    } | ${lib.getExe jq} -c '[.[0] as $root | $root + {file: $root.file + ["${./deps.nix}"]}]'
   '';
 })
