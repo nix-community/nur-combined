@@ -12,6 +12,8 @@
   libxkbcommon,
   jq,
   lib,
+  fcft,
+  pixman
 }:
 
 stdenv.mkDerivation (final: {
@@ -28,6 +30,8 @@ stdenv.mkDerivation (final: {
   nativeBuildInputs = [
     zig_0_16
     pkg-config
+    fcft
+    pixman
   ];
 
   buildInputs = [
