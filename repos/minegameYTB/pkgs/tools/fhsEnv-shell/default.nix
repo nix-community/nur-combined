@@ -24,6 +24,7 @@
   debian-tools ? false,
   # Add debian tools (to prepare debian package)
   redhat-tools ? false, # Add fedora and RHEL (and clone) tools (same as debian-tools option)
+  i686Support ? false, # Enable 32-bit glibc and multilib for /lib/ld-linux.so.2
 
   ### Extra packages to include in the FHS environment
   ### Can be a list `[ pkgs.hello ]` or a function `pkgs: [ pkgs.hello ]`
@@ -184,6 +185,16 @@ else
           ### Additional package
           autoconf
           automake
+
+          ### 32-bit glibc for /lib/ld-linux.so.2 (always, even without i686Support)
+          pkgs.pkgsi686Linux.glibc
+        ]
+        ++ lib.optionals i686Support [
+          pkgs.pkgsi686Linux.glibc.dev
+          pkgs.pkgsi686Linux.zlib
+          pkgs.pkgsi686Linux.zlib.dev
+          pkgs.pkgsCross.gnu32.stdenv.cc
+          elfutils
         ]
         ++ lib.optionals useClang (
           [
@@ -308,9 +319,16 @@ else
           export CXX=${clang.cc}/bin/clang++
         ''}
 
-        ${lib.optionalString kernel-tools ''
-          ### Special flags for kernel build (explicit path)
-          export QT_QPA_PLATFORM_PLUGIN_PATH="${libsForQt5.qt5.qtbase.bin}/lib/qt-${libsForQt5.qt5.qtbase.version}/plugins"
+         ${lib.optionalString i686Support ''
+           # 32-bit dynamic linker for i686 cross-compiler (FHS)
+           export NIX_DYNAMIC_LINKER="/lib/ld-linux.so.2"
+           export NIX_DYNAMIC_LINKER_i686_unknown_linux_gnu="/lib/ld-linux.so.2"
+           export NIX_DYNAMIC_LINKER_x86_64_unknown_linux_gnu="/lib64/ld-linux-x86-64.so.2"
+         ''}
+
+         ${lib.optionalString kernel-tools ''
+           ### Special flags for kernel build (explicit path)
+           export QT_QPA_PLATFORM_PLUGIN_PATH="${libsForQt5.qt5.qtbase.bin}/lib/qt-${libsForQt5.qt5.qtbase.version}/plugins"
 
           export PKG_CONFIG_PATH="${ncurses.dev}/lib/pkgconfig:${libsForQt5.qt5.qtbase.dev}/lib/pkgconfig:${zlib.dev}/lib/pkgconfig:${elfutils.dev}/lib/pkgconfig"
 

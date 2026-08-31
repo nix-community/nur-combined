@@ -63,6 +63,55 @@ rec {
       buildroot-tools = true;
       useClang = true;
     };
+
+    ### 32-bit mirror (i686) - strict mirror of dev.* with i686Support
+    i686 = rec {
+      fhsEnv-shell = dev.fhsEnv-shell.override { i686Support = true; };
+      fhsEnv-shell-clang = fhsEnv-shell.override { useClang = true; };
+      fhsEnv-shell-krnl = fhsEnv-shell.override { kernel-tools = true; };
+      fhsEnv-shell-buildroot = fhsEnv-shell.override { buildroot-tools = true; };
+      fhsEnv-shell-deb-tools = fhsEnv-shell.override { debian-tools = true; };
+      fhsEnv-shell-deb-tools-clang = fhsEnv-shell.override {
+        debian-tools = true;
+        useClang = true;
+      };
+      fhsEnv-shell-deb-tools-krnl = fhsEnv-shell.override {
+        debian-tools = true;
+        kernel-tools = true;
+      };
+      fhsEnv-shell-rh-tools = fhsEnv-shell.override { redhat-tools = true; };
+      fhsEnv-shell-rh-tools-clang = fhsEnv-shell.override {
+        redhat-tools = true;
+        useClang = true;
+      };
+      fhsEnv-shell-rh-tools-krnl = fhsEnv-shell.override {
+        redhat-tools = true;
+        kernel-tools = true;
+      };
+      fhsEnv-shell-all = fhsEnv-shell.override {
+        kernel-tools = true;
+        buildroot-tools = true;
+      };
+      fhsEnv-shell-all-specific = fhsEnv-shell.override {
+        kernel-tools = true;
+        buildroot-tools = true;
+        debian-tools = true;
+        redhat-tools = true;
+      };
+      fhsEnv-shell-all-specific-nokrnl = fhsEnv-shell.override {
+        buildroot-tools = true;
+        debian-tools = true;
+        redhat-tools = true;
+        useClang = true;
+      };
+      fhsEnv-shell-all-clang = fhsEnv-shell.override {
+        useClang = true;
+        kernel-tools = true;
+        buildroot-tools = true;
+        debian-tools = true;
+        redhat-tools = true;
+      };
+    };
   };
 
   ### Theme sets
