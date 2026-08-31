@@ -11,7 +11,7 @@ buildGo126Module rec {
     owner = "Chiloute";
     repo = "jwt-tui";
     rev = "v${version}";
-    hash = "sha256-l4wPrHA93Mp/D8eGyAI6nAZ/IQ/Z3yHtDURJWIsd47Y=";
+    hash = "sha256-zNCB1U8xd8KdlyElsyZXCM8p0yCaMaZlMk40MYNrnZc=";
   };
 
   vendorHash = "sha256-dgfH1uy2OK/EScmt+dsHwxO0bNObdKTDCMNN3MyPJ5k=";
