@@ -6,6 +6,8 @@
   nix-update-script,
   zig_0_16,
   pkg-config,
+  pixman,
+  fcft,
   wayland,
   wayland-scanner,
   wayland-protocols,
@@ -16,18 +18,20 @@
 
 stdenv.mkDerivation (final: {
   pname = "kwm-nightly";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "kewuaa";
-    repo = "kwim";
-    rev = "becc1284ccc8c5abdfb8a117b561a97f4448e9dd";
+    repo = "kwm";
+    rev = "3f966c9c79d4e31f58ea8d012129cda38f8115cc";
     hash = "sha256-k1NsihGCWnJVZXAi2y1F4QZ1GwHBijg6fW3mMq5eMgI=";
   };
 
   nativeBuildInputs = [
     zig_0_16
     pkg-config
+    pixman
+    fcft
   ];
 
   buildInputs = [

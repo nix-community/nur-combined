@@ -59,6 +59,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   update:
+    needs:
+      - build
     runs-on: ubuntu-latest
     steps:
     - name: Trigger NUR update

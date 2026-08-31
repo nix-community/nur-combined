@@ -1,0 +1,15 @@
+let
+  oldFetchzip = fetchzip;
+in
+let
+  fetchzip = inputs @ { url, ... }:
+    if builtins.match "https://codeload\\.github\\.com.*" url != null then
+      let
+        extension = builtins.elemAt (builtins.match ".*/(.+)/refs/.*" url) 0;
+      in
+      oldFetchzip (inputs // {
+        inherit extension;
+      })
+    else
+      oldFetchzip inputs;
+in

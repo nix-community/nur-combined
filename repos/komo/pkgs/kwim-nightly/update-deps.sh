@@ -1,0 +1,7 @@
+set -euo pipefail
+
+temp_zon="$(mktemp)"
+
+curl -Lo "$temp_zon" https://github.com/kewuaa/kwim/raw/refs/heads/master/build.zig.zon
+nix run nixpkgs#zon2nix -- "$temp_zon" > "$1"
+nix run nixpkgs#sd -- -F -n 1 "}:" "}:"$'\n'"$(< "$DEPS_PATCH")" "$1"
