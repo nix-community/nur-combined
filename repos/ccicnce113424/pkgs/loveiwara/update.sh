@@ -15,4 +15,6 @@ jaq --from yaml -n \
   --arg version "$version" \
   --arg sourceSha256 "$source_sha256" \
   --argjson gitHashes "$git_hashes_object" \
-  '{ version: $version, sourceSha256: $sourceSha256, pubspecLock: input, gitHashes: $gitHashes }' "_sources/$lock_path" >"$src_info"
+  '{ version: $version, sourceSha256: $sourceSha256,
+     pubspecLock: (input | walk(if . == "https://pub.flutter-io.cn"
+       then "https://pub.dev" else . end)), gitHashes: $gitHashes }' "_sources/$lock_path" >"$src_info"

@@ -3,7 +3,7 @@
   version,
   srcInfo,
   lib,
-  flutter341,
+  flutter347,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
@@ -11,10 +11,9 @@
   alsa-lib,
   mpv-unwrapped,
   libnotify,
-  fetchpatch2,
 }:
 let
-  flutter = flutter341;
+  flutter = flutter347;
 in
 flutter.buildFlutterApplication {
   inherit (sources) pname src;
@@ -58,22 +57,7 @@ flutter.buildFlutterApplication {
     libnotify
   ];
 
-  patches = [
-    (fetchpatch2 {
-      name = "revert-transform-timeout.patch";
-      url = "https://github.com/FoxSensei001/LoveIwara/commit/2634bc779de6a6de6ec6db10cceb28244d0cc8f9.patch?full_index=1";
-      hash = "sha256-IeAVaSHdgErH//5ZPviObDrzjVogGoN9MF+vC9zm1tY=";
-      revert = true;
-    })
-  ];
-
   postPatch = ''
-    # https://github.com/NixOS/nixpkgs/blob/7905606cfa51a1815787377b9cb04291e87ebcb4/pkgs/by-name/fl/fluffychat/package.nix#L120
-    substituteInPlace linux/CMakeLists.txt \
-      --replace-fail \
-      "PRIVATE -Wall -Werror" \
-      "PRIVATE -Wall -Werror -Wno-deprecated"
-
     # https://github.com/simolus3/sqlite3.dart/blob/f39d797adcb9ea9f7903982560d7076b596538f5/sqlite3/doc/hook.md#system-provided-sqlite
     cat <<EOL >> pubspec.yaml
     hooks:

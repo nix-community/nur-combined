@@ -1,9 +1,9 @@
 {
-  "version": "2.1.2.2",
-  "sourceSha256": "sha256-8axKAh5j4eYi+yGGfCfQc7ndZtVA4joRduco9ExL+uA=",
-  "rev": "9624c37255837412e8677a6b9d69fdfac720b68a",
-  "time": 1788007674,
-  "revCount": 5277,
+  "version": "2.1.2.3",
+  "sourceSha256": "sha256-VwO+phSbQ4Gumbx+f0zQ4cRRnSVFmtvJnXu4Y73X2wM=",
+  "rev": "44680b8a486a0518f366a2c9bff6242506cf8783",
+  "time": 1788058648,
+  "revCount": 5281,
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
@@ -305,7 +305,7 @@
         "description": {
           "path": ".",
           "ref": "dev",
-          "resolved-ref": "b0b1e0966fcee6f0ccba3f78fba5c16d0fafb366",
+          "resolved-ref": "80237f414770b74e660e7ff32d0157473ca182c9",
           "url": "https://github.com/My-Responsitories/catcher_2.git"
         },
         "source": "git",
@@ -2554,7 +2554,7 @@
     "cached_network_image_ce": "sha256-8zWPHQLiJgSWVYrN2W0lWO4McI31iGNFRPcYhbB5jPY=",
     "cached_network_image_platform_interface_ce": "sha256-8zWPHQLiJgSWVYrN2W0lWO4McI31iGNFRPcYhbB5jPY=",
     "canvas_danmaku": "sha256-IVIhIzK49yFqIT6MDo4KIzI3fEs8GfwvtiLcHd109ko=",
-    "catcher_2": "sha256-Ek/dSGRbUrZsmK8O8Ec5kOqIkzUo9lkwcVpdr+5kfvo=",
+    "catcher_2": "sha256-Z0nq9JcPI8C1FHW8YTsoPDLvG94fr8CL56BT375MOGQ=",
     "chat_bottom_container": "sha256-SUcPEb9eNCsllJ1O+wHXaUt2TuHbIGvxOMTk6GJgcSE=",
     "desktop_webview_window": "sha256-KWON5aTPlVVrLidmnfpV+syWPYEngChOvkN7miIFjvE=",
     "extended_nested_scroll_view": "sha256-iyKlDN0Mvp3O+AfJJIvTK9wJZymAW76DZwB2vIoEZ7Q=",

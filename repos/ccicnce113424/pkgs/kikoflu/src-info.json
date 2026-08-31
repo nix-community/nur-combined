@@ -1,6 +1,6 @@
 {
-  "version": "v3.8.1",
-  "sourceSha256": "sha256-R1x3rsgp0eI3V4r7mb8/fE3FUfcrej94TYwb5vqyPhg=",
+  "version": "v3.8.2",
+  "sourceSha256": "sha256-1Um+CDA2RSm/J61HytcCUX8VkM4tSO1VrhYFTHNKxLg=",
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
@@ -791,11 +791,10 @@
       "just_audio_media_kit": {
         "dependency": "direct main",
         "description": {
-          "name": "just_audio_media_kit",
-          "sha256": "f3cf04c3a50339709e87e90b4e841eef4364ab4be2bdbac0c54cc48679f84d23",
-          "url": "https://pub.dev"
+          "path": "third_party/just_audio_media_kit",
+          "relative": true
         },
-        "source": "hosted",
+        "source": "path",
         "version": "2.1.0"
       },
       "just_audio_platform_interface": {
