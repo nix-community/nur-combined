@@ -65,11 +65,6 @@
     "hash": "sha256-BTXWWyyP+6BdpOVMbaC5tgOpxncCdOHP1fCncahFHDk="
   },
   {
-    "pname": "Microsoft.Build.Tasks.Git",
-    "version": "8.0.0",
-    "hash": "sha256-vX6/kPij8vNAu8f7rrvHHhPrNph20IcufmrBgZNxpQA="
-  },
-  {
     "pname": "Microsoft.CodeCoverage",
     "version": "18.9.0",
     "hash": "sha256-fubaxGJ8F22BnbJGfx9B7DVZcKPqHopri6eD6gcvwz0="
@@ -276,8 +271,8 @@
   },
   {
     "pname": "Microsoft.Extensions.TimeProvider.Testing",
-    "version": "10.1.0",
-    "hash": "sha256-n1MobmSZa+q8TEL77ECw6upTvS0Ejevxfs0vGTsWjJo="
+    "version": "10.9.0",
+    "hash": "sha256-RZ2QBzlZAENdM8Wn5NlQRQ8hevtHcpsfRg2BzuEs6ko="
   },
   {
     "pname": "Microsoft.NET.StringTools",
@@ -295,19 +290,9 @@
     "hash": "sha256-QmeO7ZUX5i3PIcWkbDpm6rqZnDjNm65CQKCeKFEAeKM="
   },
   {
-    "pname": "Microsoft.SourceLink.Common",
-    "version": "8.0.0",
-    "hash": "sha256-AfUqleVEqWuHE7z2hNiwOLnquBJ3tuYtbkdGMppHOXc="
-  },
-  {
     "pname": "Microsoft.SourceLink.GitHub",
     "version": "10.0.400",
     "hash": "sha256-ASTFjGeWHJ0i2d7gBgVi+xqWDFQz8wZr1TPdiq2byyc="
-  },
-  {
-    "pname": "Microsoft.SourceLink.GitHub",
-    "version": "8.0.0",
-    "hash": "sha256-hNTkpKdCLY5kIuOmznD1mY+pRdJ0PKu2HypyXog9vb0="
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
@@ -376,8 +361,8 @@
   },
   {
     "pname": "Roslynator.Formatting.Analyzers",
-    "version": "4.16.1",
-    "hash": "sha256-RFAcyqaXztPhhjVGrEelx4chcjyOwtMKWtY9ywXeYeI="
+    "version": "5.0.0",
+    "hash": "sha256-FKmPoidwL5/zOKgi8yqxhWZYGxkcxS/G70LpDJj8qM4="
   },
   {
     "pname": "Semver",

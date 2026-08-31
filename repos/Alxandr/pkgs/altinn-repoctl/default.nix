@@ -8,13 +8,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "altinn-repoctl";
-  version = "v1.0.0";
+  version = "v1.1.0";
 
   src = fetchFromGitHub {
     owner = "Altinn";
     repo = "altinn-authorization-utils";
-    tag = "Altinn.Authorization.RepoCtl-${finalAttrs.version}";
-    hash = "sha256-BZS6DR02Id1BvVLrSQQvuTQZHT67fidBZuUVcob0ci4=";
+    tag = "tool/RepoCtl-${finalAttrs.version}";
+    hash = "sha256-nxYjXB+bbmAdpdYws1DTshhzihQB0IlLRB70bgByOrw=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
@@ -29,10 +29,10 @@ buildDotnetModule (finalAttrs: {
   ];
 
   projectFile = [
-    "src/Altinn.Authorization.RepoCtl/src/RepoCtl/Altinn.Authorization.RepoCtl.csproj"
+    "src/tools/Altinn.Authorization.RepoCtl/src/RepoCtl/Altinn.Authorization.RepoCtl.csproj"
   ];
   testProjectFile = [
-    "src/Altinn.Authorization.RepoCtl/test/RepoCtl.Tests/Altinn.Authorization.RepoCtl.Tests.csproj"
+    "src/tools/Altinn.Authorization.RepoCtl/test/RepoCtl.Tests/Altinn.Authorization.RepoCtl.Tests.csproj"
   ];
   nugetDeps = ./deps.json;
   dotnetFlags = [

@@ -3,6 +3,7 @@
   buildDotnetModule,
   fetchFromGitHub,
   dotnetCorePackages,
+  jq,
   nix-update-script,
 }:
 
@@ -25,6 +26,17 @@ buildDotnetModule (finalAttrs: {
   dotnetFlags = [
     "-p:TargetFramework=net10.0"
   ];
+
+  postPatch = ''
+    # Use the SDK selected by nixpkgs. This keeps dependency regeneration
+    # working when upstream pins a newer feature band in global.json.
+    jq --arg version "${dotnetCorePackages.sdk_10_0.version}" \
+      '.sdk.version = $version' \
+      global.json > global.json.tmp
+    mv global.json.tmp global.json
+  '';
+
+  nativeBuildInputs = [ jq ];
 
   postFixup = ''
     mv "$out/bin/Verify.Terminal" "$out/bin/dotnet-verify"
