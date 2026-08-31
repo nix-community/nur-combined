@@ -27,9 +27,14 @@ stdenv.mkDerivation (finalAttrs: {
     xcbuild # for plutil
   ];
 
-  postInstall = ''
-    install -Dm755 QTester104 -t $out/bin
-  '';
+  postInstall =
+    lib.optionalString stdenv.hostPlatform.isLinux ''
+      install -Dm755 QTester104 -t $out/bin
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p $out/Applications
+      mv QTester104.app $out/Applications
+    '';
 
   meta = {
     description = "Protocol tester for IEC60870-5-104 protocol";
