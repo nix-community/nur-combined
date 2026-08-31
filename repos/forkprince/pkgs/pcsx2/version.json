@@ -10,6 +10,6 @@
     "file": "pcsx2-v{version}-macos-Qt.tar.xz",
     "unpack": false
   },
-  "version": "2.8.0",
-  "hash": "sha256-N0elRS4DU8LPvpuDGbq88RH+B3/vA52A334wXj8KaEc="
+  "version": "2.8.1",
+  "hash": "sha256-oqWek07pBD6Ju430/WSdBvoJSu3JjOAA6p8j9ZfDGT0="
 }
