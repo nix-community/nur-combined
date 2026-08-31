@@ -4,13 +4,21 @@ name: "UpNote bump"
 # 않는다 → 아무 자동화도 없으면 영원히 뒤처진다. 그래서 별도 폴링 파이프라인이 필요하다.
 on:
   schedule:
-    # 월 01:00 UTC = 10:00 KST. nix-configurations 의 weekly flake update(화 06:30)보다 하루 앞서
-    # 돌려, 여기서 반영된 bump 가 다음 날 그쪽 `nix flake update` 에 자연히 실려가게 한다.
-    # ⚠ 그 하루 간격이 성립하려면 **반영까지 자동**이어야 한다(→ 아래 Commit & push). PR 만 열고
-    #   사람 손을 기다리면 그 사이 롤링 URL 이 갈려 다음 날 다운스트림 빌드가 해시 불일치로 깨진다.
-    # ⚠ 남는 레이스: UpNote 가 이 폴링(월 10:00 KST)과 다운스트림 잡(화 06:30 KST) **사이**에
-    #   릴리스하면 여전히 깨진다(약 20시간 창, 구조적). 그때는 다운스트림의 실패 알림이 잡는다.
-    - cron: '0 1 * * 1'
+    # 매일 01:00 UTC = 10:00 KST. 롤링 URL 이라 **폴링 간격이 그대로 다운스트림의 고장 노출 창**이다 —
+    # 업스트림이 파일을 갈아치우는 순간, 옛 해시에 묶인 소비자는 새로 빌드할 방법이 사라진다.
+    # 주 1회(월요일)였을 때 그 창이 최대 7일이었고 실제로 터졌다: UpNote 가 2026-08-27(목) 9.22.2 를
+    # 내놓았는데 봇은 08-31(월)에야 잡았고, 그 사이 9.22.0 에 묶여 있던 nix-configurations 의
+    # home-manager switch 가 hash mismatch 로 죽었다. 매일 돌리면 창이 24시간으로 줄어든다.
+    # 빈도를 올려도 비용은 거의 없다 — Check upstream version 스텝(update.sh)이 순수 셸이라
+    # 범프 없는 날은 nix 설치조차 하지 않고 no-op 으로 끝난다.
+    # nix-configurations 의 weekly flake update(화 06:30 KST)보다 앞서 도는 성질은 그대로다 —
+    # 월요일 10:00 KST 실행분이 다음 날 그쪽 `nix flake update` 에 자연히 실려간다.
+    # ⚠ 그게 성립하려면 **반영까지 자동**이어야 한다(→ 아래 Commit & push). PR 만 열고 사람 손을
+    #   기다리면 그 사이 롤링 URL 이 갈려 다운스트림 빌드가 깨진다(#4 에서 실제로 겪었다).
+    # ⚠ 남는 창(최대 24시간)은 구조적이라 주기로는 못 없앤다. 폴링 직후 릴리스가 나면, 그 사이
+    #   store 에 결과물이 없는 기기는 여전히 깨진다. 그쪽 대책은 이미 빌드된 store path 를 기기 간에
+    #   공유하는 것(다운스트림 substituter)이지 폴링을 더 조이는 게 아니다.
+    - cron: '0 1 * * *'
   workflow_dispatch:
 
 # 레포 기본값이 default_workflow_permissions=read 라 명시적 상향이 필요하다.
