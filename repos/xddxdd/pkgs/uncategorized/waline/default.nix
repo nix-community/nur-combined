@@ -10,12 +10,12 @@ buildNpmPackage (finalAttrs: {
   pname = "waline";
   version = "1.41.5";
   src = fetchurl {
-    url = "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.4.tgz";
-    hash = "sha256-7zU5WOzvftX0gdok1eYgTQ/CuCIEEle/ZC2oxqvmUng=";
+    url = "https://registry.npmjs.org/@waline/vercel/-/vercel-${finalAttrs.version}.tgz";
+    hash = "sha256-i7KsvZYMrOrSVEn9HQbWzSHj6mK7Aomgqmxs3NyupD8=";
   };
   sourceRoot = "package";
 
-  npmDepsHash = "sha256-3oy83IjuiUZ4chWPow6XdtJLizmzcwQYt7myQiN00m4=";
+  npmDepsHash = "sha256-Zb2jSuJnreU66va2hy2oecl0Tn3DCW+CRFAd+MzZ5MU=";
 
   patches = [ ./runtime-path.patch ];
 
@@ -42,5 +42,5 @@ buildNpmPackage (finalAttrs: {
     platforms = lib.platforms.linux;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
 })
