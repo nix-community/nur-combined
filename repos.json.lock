@@ -31,8 +31,8 @@
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
-            "rev": "0f39604f97263923d4354c355501b599bb4a6178",
-            "sha256": "0y6yb2mbsgxznpwnzc4wfqlr9b39abh51pgirdg6rv3zjw8a9w28",
+            "rev": "836f9b207b619164a2c301a19383e9fb16c50482",
+            "sha256": "0vwr7ghlb2c46kxwgnmbv9d0j37nh8y8714gbf0l9fkq3awjsr6q",
             "url": "https://github.com/Alxandr/nur"
         },
         "AndrewKvalheim": {
@@ -2114,8 +2114,8 @@
             "url": "https://github.com/raizyr/nur-packages"
         },
         "rapatao": {
-            "rev": "4edcac6f3875a3559bc59e94a099e6316a9bd2ad",
-            "sha256": "08w8r50r495sakv0dqs5w8bvm7c68nfl4bi55k4c7yjxlrjq6mw3",
+            "rev": "1032332990368a9493f69b354e6a3e1021a5f062",
+            "sha256": "0kfbvrrn9pj403ri4vpcqn1dv9ridqfijx508z2psdvv2v2vjxaq",
             "url": "https://github.com/rapatao/nur-packages"
         },
         "rconan": {
