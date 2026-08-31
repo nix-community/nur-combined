@@ -1,4 +1,8 @@
 # keep-sorted start group_start_regex=["^\\[[^\\]]+\\]"] by_regex=["^\\[([^\\]]+)\\]"] newline_separated=yes case=no
+[airtrail]
+src.github = "johanohly/AirTrail"
+fetch.github = "johanohly/AirTrail"
+
 [aliyundrive-webdav]
 src.git = "https://github.com/messense/aliyundrive-webdav.git"
 fetch.github = "messense/aliyundrive-webdav"
