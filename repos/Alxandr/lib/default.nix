@@ -68,6 +68,37 @@ rec {
       }
     );
 
+  mkAgentPlugins = pkgs.callPackage ./agent-plugins { inherit agentPluginsJoin; };
+  agentPluginsJoin =
+    fnOrAttrs:
+    let
+      flattenPlugins = lib.concatMap (
+        plugin: if plugin.__isAgentPluginsJoin or false then flattenPlugins plugin.plugins else [ plugin ]
+      );
+    in
+    pkgs.symlinkJoin (
+      finalAttrs:
+      let
+        args = if lib.isFunction fnOrAttrs then fnOrAttrs (args' // finalAttrs) else fnOrAttrs;
+        args' = args // {
+          plugins = flattenPlugins args.plugins;
+          paths = finalAttrs.plugins;
+          passthru = (args.passthru or { }) // {
+            pluginDir = "${finalAttrs.finalPackage}/share/agents/plugins";
+            __isAgentPluginsJoin = true;
+            filter =
+              fn:
+              finalAttrs.finalPackage.overrideAttrs (
+                finalAttrs: prevAttrs: {
+                  plugins = lib.filter fn prevAttrs.plugins;
+                }
+              );
+          };
+        };
+      in
+      args'
+    );
+
   crate2nix-package-update-script = {
     __functor =
       self:
