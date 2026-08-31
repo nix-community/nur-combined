@@ -27,5 +27,7 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
     mainProgram = "veripb";
+    # MSRV is 1.92
+    broken = !lib.versionAtLeast rustc.version "1.92";
   };
 }
