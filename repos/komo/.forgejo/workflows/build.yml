@@ -38,19 +38,18 @@ jobs:
         echo "$SIGNING_KEY" > ./signing-key.pem
       env:
         SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-    - name: Pre-fetch required tools
+    - name: Fetch required tools
       run: |
-        nix build --no-link github:Mic92/nix-fast-build nixpkgs/nixos-unstable#{nushell, attic-client}
+        nix profile install \
+          github:Mic92/nix-fast-build \
+          nixpkgs/nixos-unstable#{nushell,attic-client,as-tree}
     - name: Check evaluation
-      shell: nix shell nixpkgs/nixos-unstable#nushell -c bash -e {0}
       run: |
         nu ./tree-eval.nu
     - name: Build nix packages
-      shell: nix shell github:Mic92/nix-fast-build -c bash -e {0}
       run: |
         nix-fast-build --skip-cached --file ./default.nix --result-file result.json
     - name: Sign & Upload builds to binary cache
-      shell: nix shell nixpkgs/nixos-unstable#{nushell, attic-client} -c bash -e {0}
       run: |
         attic login --set-default default https://den.wuff.foo.ng "$ATTIC_TOKEN"
         nu ./sign-upload-build.nu --binary-cache default
