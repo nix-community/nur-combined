@@ -131,8 +131,8 @@
             "url": "https://github.com/MCSeekeri/NUR"
         },
         "MH0386": {
-            "rev": "108cd627ce0ebea19bcd031947ce794842c87321",
-            "sha256": "10qdqnni3cdawa93ss9xvnvqzvgp8641avs45yy3w8pq1243r0n9",
+            "rev": "d0a9fa2bb348fb4d75c6f4ccc6e41f63026bc9cf",
+            "sha256": "0as4h53zdd3dq4rirb13z5y5svns5yhq23y97w26l62vdx1l7pxw",
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
@@ -2205,8 +2205,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "b1ad358290dcf751d364b80f50bb706e30327f7b",
-            "sha256": "1pdi5bsxxbqxnigljdjfhpnh9kvfrx7j1f25rfa4n1w7lsdmbidd",
+            "rev": "a8b90bdf8c7680604c600965a13224c22dfc68da",
+            "sha256": "04s29pfng4628chhgfz96vs5dgw6jyy9cnb9f7k64acmx775f8yl",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
