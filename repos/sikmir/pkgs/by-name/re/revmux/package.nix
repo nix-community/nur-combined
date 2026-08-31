@@ -5,16 +5,16 @@
 }:
 
 buildGoModule (finalAttrs: {
-  pname = "revdiff";
-  version = "1.12.0";
+  pname = "revmux";
+  version = "0.2.0";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "umputun";
-    repo = "revdiff";
+    repo = "revmux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Yvwmj/37Uc0kWong64YEd1k/kmXKDDvZ9/hCDT5S1FM=";
+    hash = "sha256-577D77h0vIDd0+9632B9Tv1fD3gtVcIbJzExyE6Iwao=";
   };
 
   vendorHash = null;
@@ -27,14 +27,14 @@ buildGoModule (finalAttrs: {
   doCheck = false;
 
   postInstall = ''
-    mv $out/bin/{app,revdiff}
+    mv $out/bin/{app,revmux}
   '';
 
   meta = {
-    description = "TUI for reviewing git diffs with inline annotations";
-    homepage = "https://github.com/umputun/revdiff";
+    description = "Multi-agent code review, supervised and auditable";
+    homepage = "https://github.com/umputun/revmux";
     maintainers = with lib.maintainers; [ sikmir ];
     license = lib.licenses.mit;
-    mainProgram = "revdiff";
+    mainProgram = "revmux";
   };
 })
