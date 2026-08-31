@@ -4,31 +4,30 @@ let eval_result = (
     --option restrict-eval true
     --option allow-import-from-derivation true
     --drv-path --show-trace
-    -I nixpkgs=(nix-instantiate --find-file nixpkgs)
+    -I nixpkgs=flake:nixpkgs
     -I $env.PWD
   | from json
 )
 
-$env.paths = []
-
-def eval [parent: string, key: string, v: any] {
+def eval [paths: list, parent: string, key: string, v: any] {
   match ($v | describe) {
     $it if $it starts-with "list" => {
       $v | enumerate 
          | each {|e|
-           eval $"($parent)/($key)" ($e.index + 1 | into string) $e.item
-          }
+             eval $paths $"($parent)/($key)" ($e.index + 1 | into string) $e.item
+           }
+         | flatten
     },
     $it if $it starts-with "record" => {
       $v | items {|subkey, subv|
-        eval $"($parent)/($key)" $subkey $subv
-      }
+             eval $paths $"($parent)/($key)" $subkey $subv
+           }
+         | flatten
     },
     _ => {
-      $env.paths ++= [$"($parent)/($key): ($v | into string)"]
+      [$"($parent)/($key): ($v | default "<nothing>"| into string | str replace -a "/" "╱")"]
     },
   }
 }
 
-eval "eval" "/" $eval_result
-$env.paths | str join "\n" | as-tree
+eval [] "." "/" $eval_result | str join "\n" | as-tree

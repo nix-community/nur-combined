@@ -42,8 +42,7 @@ jobs:
     - name: Fetch required tools
       run: |
         nix profile install \
-          github:Mic92/nix-fast-build \
-          nixpkgs/nixos-unstable#{nushell,attic-client,as-tree}
+          nixpkgs/nixos-unstable#{nix-fast-build,nushell,attic-client,as-tree}
     - name: Check evaluation
       run: |
         nu ./tree-eval.nu
