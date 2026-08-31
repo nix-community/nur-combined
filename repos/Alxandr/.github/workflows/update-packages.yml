@@ -9,6 +9,16 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  # Set these to cache your build results in Attic for faster builds in CI and
+  # for everyone who uses your cache.
+  #
+  # For this to work, you also need to set the ATTIC_TOKEN secret in your
+  # repository secrets settings in GitHub, found at
+  # https://github.com/<your_githubname>/nur-packages/settings/secrets
+  atticServer: https://attic.alxandr.me/attic/
+  atticCacheName: alxandr
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -47,6 +57,14 @@ jobs:
           extra-conf: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup attic cache
+        uses: YoloDev/actions-attic@96d2553f0175f02f07dc86dc7fe67eba05c7470d # v0.1.1
+        id: attic
+        with:
+          server: ${{ env.atticServer }}
+          cacheName: ${{ env.atticCacheName }}
+          token: ${{ secrets.ATTIC_TOKEN }}
 
       - name: Update packages
         env:
