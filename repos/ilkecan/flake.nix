@@ -2,14 +2,14 @@
   description = "ilkecan's NUR repository";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs-unstable";
 
     flake-parts = {
-      url = "github:hercules-ci/flake-parts";
+      url = "flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     git-hooks-nix = {
-      url = "github:cachix/git-hooks.nix";
+      url = "git-hooks-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

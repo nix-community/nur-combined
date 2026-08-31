@@ -41,33 +41,16 @@ maven.buildMavenPackage (finalAttrs: {
     "-Dproject.build.outputTimestamp=1980-01-01T00:00:02Z"
   ];
 
-  mvnHash = "sha256-UuJgqHPrmSKETySUc21S3UVXIvg5Z2yqmmP6ewbdlwQ=";
+  mvnHash = "sha256-BwEK6ux8BPdpwy+d95HDT4MpV6ksvgdqqXS81yGayAE=";
 
-  # The Tycho/p2 dependency resolution performed while fetching mvnDeps is not
-  # reproducible out of the box:
-  # - buildMavenPackage's default installPhase deletes $out/.m2/.meta but
-  #   Tycho's offline resolver needs .meta/p2-artifacts.properties to know
-  #   which p2 artifacts are already present in the local repo. So .meta is
-  #   backed up in preInstall and restored in postInstall.
-  # - .meta/p2-artifacts.properties lists resolved p2 artifacts in hash-map
-  #   order, which differs from build to build. It is sorted for
-  #   reproducibility.
-  # - Tycho's local HTTP transport cache for p2 repositories records the HTTP
-  #   response "date" header and its own local fetch timestamp on every fetch.
-  #   These two volatile fields are stripped and the remaining fields are
-  #   stable. The files themselves are kept rather than deleted, because Tycho
-  #   only treats a URL as cached when its *.headers file is present.
   mvnFetchExtraArgs = {
-    preInstall = ''
-      metaBackup=$(mktemp -d)
-      cp -a $out/.m2/.meta "$metaBackup/meta"
-    '';
-
     postInstall = ''
-      cp -a "$metaBackup/meta" $out/.m2/.meta
-
+      # Tycho needs this metadata for offline dependency resolution.
+      # Sort it because entries are emitted in hash-map order.
       sort -o $out/.m2/.meta/p2-artifacts.properties $out/.m2/.meta/p2-artifacts.properties
 
+      # Remove volatile response and fetch timestamps.
+      # Keep the cache files because Tycho requires their *.headers files.
       find $out/.m2/.cache -type f -name '*.headers' \
         -exec sed -i -e '/^date=/d' -e '/^FILE-LAST_UPDATED=/d' {} +
     '';

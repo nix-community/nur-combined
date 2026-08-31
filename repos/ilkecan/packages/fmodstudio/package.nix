@@ -87,6 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://www.fmod.com/docs/${lib.versions.majorMinor finalAttrs.version}/studio/welcome-to-fmod-studio-revision-history.html";
     license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
+    hydraPlatforms = [ ];
     mainProgram = "fmodstudio";
     maintainers = with lib.maintainers; [ ilkecan ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];

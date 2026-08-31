@@ -4,6 +4,7 @@
 
 {
   imports = [
+    ./apps.nix
     ./args.nix
     ./checks.nix
     ./dev-shells.nix

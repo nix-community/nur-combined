@@ -1,0 +1,35 @@
+name: check the PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # required for `actions/checkout`
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: wimpysworld/nothing-but-nix@v10
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          install_url: https://releases.nixos.org/nix/nix-2.35.1/install
+          extra_nix_config: |
+            build-dir = /nix/build
+            experimental-features = ca-derivations flakes impure-derivations nix-command
+            extra-substituters = https://ilkecan.cachix.org?priority=41 https://nix-community.cachix.org?priority=42
+            extra-trusted-public-keys = ilkecan.cachix.org-1:hXb7Vo9EzaXiEb0elvG6Tt5TrP3zrcadyoX8c+lbeCY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+            http-connections = 128
+            lint-url-literals = fatal
+            max-substitution-jobs = 128
+
+      - run: nix run
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=ilkecan"

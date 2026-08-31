@@ -15,16 +15,18 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "eez-studio";
-  version = "0.29.0";
+  version = "0.29.0-unstable-2026-08-29";
 
   src = fetchFromGitHub {
     owner = "eez-open";
     repo = "studio";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-dYVIUBQ++hkyI6gzpwE2KTXo3tfKid4yfs8IZ+jm20w=";
+    # There isn't any release that include the fixes to support electron_43.
+    # Switch to using `tag` instead of `rev` after 0.29.1+.
+    rev = "453b39c13ea4ca5914c3901af5b518077fa75fde";
+    hash = "sha256-QB50e4aIb2O/gw5YBftvFLNs4snVoy3WHx4fd34xOkQ=";
   };
 
-  npmDepsHash = "sha256-vKyitP5xrUZMMZF8D+e5Z4rwc9Y2iS+S56oV62GHkz0=";
+  npmDepsHash = "sha256-bKVb41kpx/5J28pgsqpD1ET6yYxYAzPbTwFq2hhuhuo=";
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -120,12 +122,18 @@ buildNpmPackage (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  # TODO remove `extraArgs` after 0.29.1+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Cross-platform low-code GUI and automation tool for embedded systems and T&M equipment";
     homepage = "https://www.envox.eu/studio/studio-introduction/";
-    changelog = "https://github.com/eez-open/studio/releases/tag/${finalAttrs.src.tag}";
+    changelog = "https://github.com/eez-open/studio/releases/tag/v0.29.0"; # TODO use `finalAttrs.src.tag` after 0.29.1+
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ilkecan ];
     platforms = lib.platforms.linux;

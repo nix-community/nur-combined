@@ -4,6 +4,7 @@
 
 let
   inherit (pkgs.lib)
+    hasAttrByPath
     importTOML
     mapAttrs
     optionalString
@@ -31,11 +32,10 @@ let
     in
     if us.merged or false then
       let
+        replacementAttributePath = us.replacementAttributePath or [ name ];
         replacementMessage =
           us.replacementMessage or "Please replace `pkgs.nur.repos.ilkecan.${name}` with `pkgs.${name}`.";
-        msg = "${
-          optionalString (pkgs ? ${name}) "${replacementMessage}\n"
-        }`pkgs.nur.repos.ilkecan.${name}` has been upstreamed to nixpkgs and the NUR package will be removed after NixOS ${formatRelease us.removeAfter} is EOL.";
+        msg = "${optionalString (hasAttrByPath replacementAttributePath pkgs) "${replacementMessage}\n"}`pkgs.nur.repos.ilkecan.${name}` has been upstreamed to nixpkgs and the NUR package will be removed after NixOS ${formatRelease us.removeAfter} is EOL.";
       in
       warnOnInstantiate msg pkg
     else
