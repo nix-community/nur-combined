@@ -30,8 +30,6 @@ stdenv.mkDerivation (final: {
   nativeBuildInputs = [
     zig_0_16
     pkg-config
-    fcft
-    pixman
   ];
 
   buildInputs = [
@@ -39,6 +37,8 @@ stdenv.mkDerivation (final: {
     wayland-scanner
     wayland-protocols
     libxkbcommon
+    fcft
+    pixman
   ];
 
   deps = callPackage ./deps.nix { };
