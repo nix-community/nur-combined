@@ -18,7 +18,7 @@
 
 stdenv.mkDerivation (final: {
   pname = "kwim-nightly";
-  version = "0.3.0";
+  version = "0.2.0-unstable";
 
   src = fetchgit { # for some reason, fetchFromGitHub pulls older commit tree
     url = "https://github.com/kewuaa/kwim.git";

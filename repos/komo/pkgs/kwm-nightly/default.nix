@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation (final: {
   pname = "kwm-nightly";
-  version = "0.2.0";
+  version = "0.3.0-unstable";
 
   src = fetchFromGitHub {
     owner = "kewuaa";
@@ -59,8 +59,7 @@ stdenv.mkDerivation (final: {
   '';
 
   meta = {
-    description = "A window manager based on River Wayland compositor
-Resources";
+    description = "A window manager based on River Wayland compositor";
     license = lib.licenses.gpl3;
     homepage = "https://github.com/kewuaa/kwm#readme";
     mainProgram = "kwm";
