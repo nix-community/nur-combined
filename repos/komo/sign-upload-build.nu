@@ -19,5 +19,5 @@ if ($path_outputs | length) == 0 {
 
 def main [--binary-cache: string] {
   nix store sign --key-file $signing_pem_file ...$path_outputs
-  nix copy --to $binary_cache ...$path_outputs
+  attic push $binary_cache ...$path_outputs
 }
