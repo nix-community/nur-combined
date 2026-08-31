@@ -1,10 +1,10 @@
 let eval_result = (
-  nix-env -f ./default.nix -qa \* --meta --json \
-    --allowed-uris https://static.rust-lang.org \
-    --option restrict-eval true \
-    --option allow-import-from-derivation true \
-    --drv-path --show-trace \
-    -I nixpkgs=(nix-instantiate --find-file nixpkgs) \
+  nix-env -f ./default.nix -qa "*" --meta --json
+    --allowed-uris https://static.rust-lang.org
+    --option restrict-eval true
+    --option allow-import-from-derivation true
+    --drv-path --show-trace
+    -I nixpkgs=(nix-instantiate --find-file nixpkgs)
     -I $env.PWD
   | from json
 )

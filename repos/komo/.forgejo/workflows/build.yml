@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - '**/*.nix'
+      - tree-eval.nu
       - sign-upload-build.nu
   schedule:
     - cron:  '25 4 * * *'
