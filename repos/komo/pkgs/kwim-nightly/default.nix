@@ -17,14 +17,14 @@
 }:
 
 stdenv.mkDerivation (final: {
-  pname = "kwm-nightly";
+  pname = "kwim-nightly";
   version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "kewuaa";
     repo = "kwm";
     rev = "3f966c9c79d4e31f58ea8d012129cda38f8115cc";
-    hash = "sha256-k1NsihGCWnJVZXAi2y1F4QZ1GwHBijg6fW3mMq5eMgI=";
+    hash = "sha256-Ob59H1535EYReXMCERdlTNfhwv2GGBCSCmvfIeJzzzo=";
   };
 
   nativeBuildInputs = [
