@@ -1,0 +1,56 @@
+name: Update ChatGPT package
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
+
+      - name: Update package metadata
+        shell: bash
+        env:
+          PACKAGE_FILE: pkgs/chatgpt/default.nix
+          PACKAGE_URL: https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb
+        run: |
+          set -euo pipefail
+
+          prefetch_json="$(nix store prefetch-file --json "$PACKAGE_URL")"
+          store_path="$(jq -r '.storePath' <<<"$prefetch_json")"
+          hash="$(jq -r '.hash' <<<"$prefetch_json")"
+          version="$(nix shell nixpkgs#dpkg --command dpkg-deb -f "$store_path" Version)"
+
+          test -n "$version"
+          test -n "$hash"
+
+          sed -i "s/version = \"[^\"]*\";/version = \"$version\";/" "$PACKAGE_FILE"
+          sed -i "s|hash = \"sha256-[^\"]*\";|hash = \"$hash\";|" "$PACKAGE_FILE"
+
+      - name: Commit and push changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- pkgs/chatgpt/default.nix; then
+            echo "ChatGPT is already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs/chatgpt/default.nix
+          git commit -m "update: chatgpt"
+          git push
