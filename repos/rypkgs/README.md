@@ -50,8 +50,10 @@ Then use `nur.repos.rypkgs.<package-name>`.
 
 | Package | Description |
 |---------|-------------|
+| `aw-watcher-media-player` | ActivityWatch watcher for MPRIS media players |
 | `blink` | A modern Jellyfin desktop client |
 | `bluevein` | Bluetooth device synchronization service for dual-boot systems |
+| `pelagica` | A modern Jellyfin desktop client built on Wails |
 
 ## Modules
 

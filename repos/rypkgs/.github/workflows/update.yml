@@ -57,6 +57,15 @@ jobs:
         cd pkgs/aw-watcher-media-player
         ./update.sh
 
+    - name: Update pelagica
+      id: pelagica
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd pkgs/pelagica
+        ./update.sh
+
     - name: Push changes
       run: |
         # An update script that failed partway can leave the tree dirty; it only
@@ -69,9 +78,10 @@ jobs:
         BLINK: ${{ steps.blink.outcome }}
         BLUEVEIN: ${{ steps.bluevein.outcome }}
         AW_WATCHER_MEDIA_PLAYER: ${{ steps.aw_watcher_media_player.outcome }}
+        PELAGICA: ${{ steps.pelagica.outcome }}
       run: |
         failed=""
-        for pkg in blink bluevein aw-watcher-media-player; do
+        for pkg in blink bluevein aw-watcher-media-player pelagica; do
           var=$(echo "$pkg" | tr 'a-z-' 'A-Z_')
           if [ "${!var}" = "failure" ]; then
             failed="$failed $pkg"
