@@ -10,14 +10,14 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "zarumet";
-  version = "0-unstable-2026-08-02";
+  version = "0-unstable-2026-08-31";
 
   # https://github.com/Immelancholy/Zarumet
   src = fetchFromGitHub {
     owner = "Immelancholy";
     repo = "Zarumet";
-    rev = "88bebf2b00f0502725af5cdf9b59344ad1b51819";
-    hash = "sha256-PYRLxuuWjA6VsQsk2cCD9ugGQ4+pbo6l3X2ldAqmhTQ=";
+    rev = "30f21aeb97a98e1c4a1b5dc0b4f4a5b33b01617d";
+    hash = "sha256-azBlzjP8ZCPbxd+EYsgNuPFyFv63JXNx+nR5pUmhu1c=";
   };
 
   cargoHash = "sha256-nOPq46da5yIbhsbCkAbYdhubtM2WNo3E74JPUt84pvY=";
