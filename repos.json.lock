@@ -31,8 +31,8 @@
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
-            "rev": "60f963e1585921fec123cae8cae7d1da762d7da3",
-            "sha256": "0fgdx90jyagxwcx200dv5ha9jgmdcp0z4q7wmdpdhdicxcwrrnln",
+            "rev": "0f39604f97263923d4354c355501b599bb4a6178",
+            "sha256": "0y6yb2mbsgxznpwnzc4wfqlr9b39abh51pgirdg6rv3zjw8a9w28",
             "url": "https://github.com/Alxandr/nur"
         },
         "AndrewKvalheim": {
