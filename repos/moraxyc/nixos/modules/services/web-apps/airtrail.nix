@@ -30,7 +30,8 @@ in
 
     origin = lib.mkOption {
       type = lib.types.str;
-      default = "http://localhost:3000";
+      default = "https://${cfg.domain}";
+      defaultText = "https://\${cfg.domain}";
       example = "https://airtrail.example.org";
       description = ''
         The public URL used to access AirTrail. This value is used for
