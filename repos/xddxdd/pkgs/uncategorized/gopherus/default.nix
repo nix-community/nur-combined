@@ -8,7 +8,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gopherus";
   version = "1.2.2";
   src = fetchurl {
-    url = "https://gopherus.sourceforge.net/gopherus-1.2.2.tar.xz";
+    url = "https://gopherus.sourceforge.net/gopherus-${finalAttrs.version}.tar.xz";
     hash = "sha256-7l/7ZK5KQ/V2Ym02Sbc0qAGov36P4P0hVWzIzbQzipo=";
   };
   buildInputs = [ ncurses ];

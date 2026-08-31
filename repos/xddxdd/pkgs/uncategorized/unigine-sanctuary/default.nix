@@ -8,6 +8,8 @@
   makeWrapper,
 }:
 let
+  version = "2.3";
+
   libraries = with pkgsi686Linux; [
     fontconfig
     freetype
@@ -32,9 +34,9 @@ let
 
   distPackage = pkgsi686Linux.stdenv.mkDerivation {
     pname = "unigine-sanctuary";
-    version = "2.3";
+    inherit version;
     src = fetchurl {
-      url = "https://assets.unigine.com/d/Unigine_Sanctuary-2.3.run";
+      url = "https://assets.unigine.com/d/Unigine_Sanctuary-${version}.run";
       hash = "sha256-KKi70ctkEm+tx0kjBMWVKMLDrJ1TsPH+CKLDMXA6OdU=";
     };
     nativeBuildInputs = [ pkgsi686Linux.autoPatchelfHook ];
@@ -64,7 +66,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-sanctuary";
-  version = "2.3";
+  inherit version;
   dontUnpack = true;
 
   nativeBuildInputs = [

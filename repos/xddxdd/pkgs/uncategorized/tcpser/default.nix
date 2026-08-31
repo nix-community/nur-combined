@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "go4retro";
     repo = "tcpser";
-    tag = "v1.1.4";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Ir/tQde7hfqlgOVXE2HqJSzEXdceCTywptN8PRqylMI=";
   };
   makeFlags = [

@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "legoduded";
     repo = "palworld-worldoptions";
-    tag = "v1.11.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-U0PlWK5KPr6m9nIrD+qWRiKWb4zr2hBCEROVI5qBor0=";
   };
   nativeBuildInputs = [ makeWrapper ];

@@ -11,7 +11,7 @@ let
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic_Project";
-      tag = "V2.9.5795";
+      tag = "V${finalAttrs.version}";
       hash = "sha256-7Y18HcCvwWTX5CWguLuo6Z+l/tcTfKmblZ5st/TL6TI=";
     };
     installPhase = ''

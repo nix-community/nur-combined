@@ -1,12 +1,12 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nbfc-linux-lantian";
-  version = "0.1.6-unstable-2022-06-14";
+  version = "0.1.6-unstable-2022-06-13";
   src = fetchFromGitHub {
     owner = "xddxdd";
     repo = "nbfc-linux";
@@ -15,11 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/xddxdd/nbfc-linux";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

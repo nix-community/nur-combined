@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "cardpointers";
     repo = "cli";
-    tag = "v1.0.7";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-rK7CgcPmNt7uIQUG4Ek/4TU7bG1bSCyF3UddfTAJlo0=";
   };
   nativeBuildInputs = [ makeWrapper ];

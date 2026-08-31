@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   python3,
   buildPythonPackage,
   keystone,
@@ -68,11 +68,9 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "mtkclient" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/bkerler/mtkclient";
+    tagPrefix = "v";
   };
   meta = {
     changelog = "https://github.com/bkerler/mtkclient/releases/tag/${finalAttrs.version}";

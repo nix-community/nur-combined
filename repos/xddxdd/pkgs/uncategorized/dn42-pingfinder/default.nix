@@ -1,6 +1,6 @@
 {
   fetchgit,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
   makeWrapper,
@@ -37,11 +37,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://git.lantian.pub/backup/dn42-pingfinder.git";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

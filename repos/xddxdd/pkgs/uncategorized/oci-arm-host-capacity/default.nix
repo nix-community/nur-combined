@@ -2,7 +2,7 @@
   fetchFromGitHub,
   lib,
   callPackage,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 let
   composer2nixOutput = callPackage ./composer2nix { };
@@ -44,11 +44,9 @@ composer2nixOutput.overrideAttrs (old: rec {
         '$dotenv = Dotenv::createUnsafeImmutable(dirname($envFilename), basename($envFilename));'
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/hitrov/oci-arm-host-capacity";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

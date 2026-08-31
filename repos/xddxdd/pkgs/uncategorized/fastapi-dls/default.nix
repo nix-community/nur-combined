@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   openssl,
   python3,
@@ -71,11 +71,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/GreenDamTan/fastapi-dls_mirror";
+    tagFormat = "[0-9]*";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

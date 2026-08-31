@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   rustPlatform,
   buildArch ? null,
 }:
@@ -32,11 +32,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     [ -n "$d" ] && patch -p1 -d "$d" < ${./rten-gemm-avx512vnni.patch}
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/LinguaSpark/server";
+    hardcodeZeroVersion = true;
   };
   meta = {
     mainProgram = finalAttrs.pname;

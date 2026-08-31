@@ -1,5 +1,6 @@
 {
   fetchFromGitHub,
+  unstableGitUpdater,
   lib,
   stdenv,
   python3,
@@ -47,12 +48,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "flaresolverr-alexfozor";
-  version = "0-unstable-2024-08-04";
+  version = "0-unstable-2024-07-20";
   src = fetchFromGitHub {
     owner = "AlexFozor";
     repo = "FlareSolverr";
-    rev = "aa768039d92b37b34467ddca9ab72d7e19ef67b9";
-    hash = "sha256-OQgt1SUl3prc2FBVBerElRpKbYwJTPNa7ToSEgWhZyg=";
+    rev = "eb680efc9059ef08907aaec58340d73325048aeb";
+    hash = "sha256-6szzcqvDuJX8YIC5rhdpb7XbAjM6IMrivVtHpzIl5gc=";
   };
   nativeBuildInputs = [ makeWrapper ];
 
@@ -75,5 +76,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page";
     homepage = "https://github.com/AlexFozor/FlareSolverr";
     license = licenses.mit;
+  };
+
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/AlexFozor/FlareSolverr";
+    hardcodeZeroVersion = true;
   };
 })

@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "gost-engine";
     repo = "engine";
-    tag = "v3.0.3";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-52nt0TtPDpMjC0QCTrWYUhpHXZNCDrds0LrkQdDN1Mo=";
   };

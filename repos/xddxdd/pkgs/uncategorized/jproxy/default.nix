@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "jproxy";
   version = "3.4.1";
   src = fetchurl {
-    url = "https://github.com/LuckyPuppy514/jproxy/releases/download/v3.4.1/windows-v3.4.1.zip";
+    url = "https://github.com/LuckyPuppy514/jproxy/releases/download/v${finalAttrs.version}/windows-v${finalAttrs.version}.zip";
     hash = "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=";
   };
   nativeBuildInputs = [

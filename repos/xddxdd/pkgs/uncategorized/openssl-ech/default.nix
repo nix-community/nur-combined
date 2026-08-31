@@ -1,16 +1,17 @@
 {
   fetchFromGitHub,
+  unstableGitUpdater,
   lib,
   openssl_3_6,
 }:
 openssl_3_6.overrideAttrs (old: {
   pname = "openssl-ech";
-  version = "0-unstable-2025-11-18";
+  version = "0-unstable-2026-06-09";
   src = fetchFromGitHub {
     owner = "sftcd";
     repo = "openssl";
-    rev = "65f2fe12ef471783771fb8058329380b7158e963";
-    hash = "sha256-CwytIig/QaRpB/1sCb0i9DXPLDH0ZMY8CKn4DacYc6E=";
+    rev = "5191045371b4ae1383f0ae1a0f078117e9d9b1c4";
+    hash = "sha256-VrO3c0p2goejbgDLFK/0TH++oVKZxtdMC0+DXXS0y3s=";
   };
   patches =
     (builtins.filter (
@@ -22,5 +23,10 @@ openssl_3_6.overrideAttrs (old: {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenSSL with Encrypted Client Hello support";
     homepage = "https://github.com/sftcd/openssl/tree/ECH-draft-13c";
+  };
+
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/sftcd/openssl";
+    hardcodeZeroVersion = true;
   };
 })

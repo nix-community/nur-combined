@@ -16,9 +16,11 @@
   python3,
 }:
 let
+  version = "0.5.16";
+
   osdlyricsPython = python3Packages.buildPythonPackage (finalAttrs: {
     pname = "osdlyrics";
-    version = "0.5.16";
+    inherit version;
     pyproject = true;
 
     src = fetchFromGitHub {
@@ -67,11 +69,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "osdlyrics";
-  version = "0.5.16";
+  inherit version;
   src = fetchFromGitHub {
     owner = "osdlyrics";
     repo = "osdlyrics";
-    tag = "0.5.16";
+    tag = finalAttrs.version;
     hash = "sha256-GvvFtpiuWuHh1dxd7Hd9F9M0WyVOtN0LxZJzGGB0mVA=";
   };
   nativeBuildInputs = [

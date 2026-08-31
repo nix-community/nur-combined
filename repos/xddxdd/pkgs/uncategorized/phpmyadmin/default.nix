@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "phpmyadmin";
   version = "5.2.3";
   src = fetchurl {
-    url = "https://files.phpmyadmin.net/phpMyAdmin/5.2.3/phpMyAdmin-5.2.3-all-languages.tar.xz";
+    url = "https://files.phpmyadmin.net/phpMyAdmin/${finalAttrs.version}/phpMyAdmin-${finalAttrs.version}-all-languages.tar.xz";
     hash = "sha256-V4gTSCl8RBL4bEEFR892tNiiNldN0sa31qK+6+f8ROM=";
   };
   installPhase = ''

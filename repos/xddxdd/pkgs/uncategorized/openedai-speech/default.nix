@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "matatonic";
     repo = "openedai-speech";
-    tag = "0.18.2";
+    tag = finalAttrs.version;
     hash = "sha256-AC9fClFDUj8TV5W7sTZy+AjvNZgU6Vuvq9nP8Iy+WLY=";
   };
   nativeBuildInputs = [ makeWrapper ];

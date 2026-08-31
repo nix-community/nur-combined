@@ -1,5 +1,6 @@
 {
   fetchgit,
+  unstableGitUpdater,
   stdenv,
   lib,
   kernel,
@@ -32,6 +33,10 @@ stdenv.mkDerivation (finalAttrs: {
   '';
   installTargets = [ "modules_install" ];
 
+  passthru.updateScript = unstableGitUpdater {
+    url = "git://dpdk.org/dpdk-kmods";
+    hardcodeZeroVersion = true;
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "DPDK kernel modules or add-ons";

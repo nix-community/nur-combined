@@ -1,12 +1,12 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "route-chain";
-  version = "1.1.0-unstable-2026-01-09";
+  version = "1.1.0-unstable-2026-01-08";
   src = fetchFromGitHub {
     owner = "xddxdd";
     repo = "route-chain";
@@ -22,11 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/xddxdd/route-chain";
+    tagPrefix = "v";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

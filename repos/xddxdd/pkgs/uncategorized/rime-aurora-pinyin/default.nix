@@ -1,12 +1,12 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "rime-aurora-pinyin";
-  version = "0-unstable-2022-08-27";
+  version = "0-unstable-2022-08-28";
   src = fetchFromGitHub {
     owner = "hosxy";
     repo = "rime-aurora-pinyin";
@@ -22,11 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/hosxy/rime-aurora-pinyin";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

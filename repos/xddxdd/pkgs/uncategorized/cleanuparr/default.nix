@@ -30,7 +30,7 @@ buildDotnetModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Cleanuparr";
     repo = "Cleanuparr";
-    tag = "v2.10.5";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jaBAT3DWbsE5upQD4rERUVW/sb5Hu8pyuY7RdvhVDMs=";
   };
   __structuredAttrs = true;

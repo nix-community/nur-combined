@@ -1,6 +1,6 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
 }:
@@ -25,11 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/pekman/netns-exec";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

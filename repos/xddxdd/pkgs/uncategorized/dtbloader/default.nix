@@ -10,7 +10,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "TravMurav";
     repo = "dtbloader";
-    tag = "1.5.4";
+    tag = finalAttrs.version;
     fetchSubmodules = true;
     hash = "sha256-2M1S8cBsP/wX8ODAIR3iL7tRBhtpruWRIpBjK7bDku8=";
   };

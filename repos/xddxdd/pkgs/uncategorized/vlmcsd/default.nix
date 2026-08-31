@@ -1,12 +1,12 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "vlmcsd";
-  version = "svn1113-unstable-2023-07-28";
+  version = "1113-unstable-2023-07-28";
   src = fetchFromGitHub {
     owner = "Wind4";
     repo = "vlmcsd";
@@ -22,11 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/Wind4/vlmcsd";
+    tagConverter = "sed s/^svn//";
   };
   meta = {
     mainProgram = "vlmcsd";

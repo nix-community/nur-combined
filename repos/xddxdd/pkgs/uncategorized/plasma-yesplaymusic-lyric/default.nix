@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -18,11 +18,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r * $out/share/plasma/plasmoids/org.kde.plasma.yesplaymusic-lyrics
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics";
+    tagPrefix = "v";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

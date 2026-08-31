@@ -1,13 +1,13 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
   fuse,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nullfs";
-  version = "0-unstable-2016-01-27";
+  version = "0-unstable-2016-01-28";
   src = fetchFromGitHub {
     owner = "xrgtn";
     repo = "nullfs";
@@ -27,11 +27,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/xrgtn/nullfs";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -11,7 +11,7 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "cita-777";
     repo = "metapi";
-    tag = "v1.3.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-OfS8iAjP1yU40RNlJeFEvih4jn9Ab4joTgLfRD6e1pQ=";
   };
   npmDepsHash = "sha256-6C4SIoP0+HdIoODkWq6uEJppOOfzFiNf/5FEtTG/Eo0=";

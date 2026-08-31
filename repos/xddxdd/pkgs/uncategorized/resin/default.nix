@@ -7,13 +7,15 @@
 }:
 
 let
+  version = "1.2.0";
+
   frontendDist = buildNpmPackage (finalAttrs: {
-    pname = "${"resin"}-webui";
-    version = "1.2.0";
+    pname = "resin-webui";
+    inherit version;
     src = fetchFromGitHub {
       owner = "Resinat";
       repo = "Resin";
-      tag = "v1.2.0";
+      tag = "v${finalAttrs.version}";
       hash = "sha256-tqSuYZce0uq9gVSstNLPlSyJPGWwYrfvCEgAyXiek4c=";
     };
     sourceRoot = "source/webui";
@@ -30,11 +32,11 @@ let
 in
 buildGoModule (finalAttrs: {
   pname = "resin";
-  version = "1.2.0";
+  inherit version;
   src = fetchFromGitHub {
     owner = "Resinat";
     repo = "Resin";
-    tag = "v1.2.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-tqSuYZce0uq9gVSstNLPlSyJPGWwYrfvCEgAyXiek4c=";
   };
   vendorHash = "sha256-iLZRA3n3Rn5sGxDUNg9+C8XmGDVBLyn/ceZ84/NRyLg=";

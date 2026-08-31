@@ -1,12 +1,12 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "sgx-software-enable";
-  version = "1.0-unstable-2023-01-07";
+  version = "1.0-unstable-2023-01-06";
   src = fetchFromGitHub {
     owner = "intel";
     repo = "sgx-software-enable";
@@ -22,11 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/intel/sgx-software-enable";
+    tagPrefix = "v";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

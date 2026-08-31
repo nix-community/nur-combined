@@ -2,14 +2,14 @@
   fetchFromGitHub,
   lib,
   buildPythonPackage,
-  nix-update-script,
+  unstableGitUpdater,
   setuptools,
   # Dependencies
   torch,
 }:
 buildPythonPackage (finalAttrs: {
   pname = "loralib";
-  version = "RoBERTa-large-unstable-2024-12-17";
+  version = "0-unstable-2024-12-16";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -26,11 +26,9 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "loralib" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/microsoft/LoRA";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

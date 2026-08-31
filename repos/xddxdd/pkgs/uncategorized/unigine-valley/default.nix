@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-valley";
   version = "1.0";
   src = fetchurl {
-    url = "https://assets.unigine.com/d/Unigine_Valley-1.0.run";
+    url = "https://assets.unigine.com/d/Unigine_Valley-${finalAttrs.version}.run";
     hash = "sha256-L7R6nEXQbLTEi76VUoUyhS2LFeTdgdaTaIQVWGn/1+8=";
   };
   nativeBuildInputs = [

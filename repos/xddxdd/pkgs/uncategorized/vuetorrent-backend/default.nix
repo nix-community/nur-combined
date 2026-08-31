@@ -12,7 +12,7 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "VueTorrent";
     repo = "vuetorrent-backend";
-    tag = "v2.7.3";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-/zsv18BmpjhJ1UrXCtnynzvULWI8YqzhcUWNaCo84Ls=";
   };
   npmDepsHash = "sha256-TaXOQnyZizPA8/Rr5pBNMIQl5zIiPQJs54mFPT/18o8=";

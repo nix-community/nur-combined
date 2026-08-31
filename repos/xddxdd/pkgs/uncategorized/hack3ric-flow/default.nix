@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -22,11 +22,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rm -f $out/bin/DONTSHIPIT*
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/hack3ric/flow";
+    tagPrefix = "v";
   };
   meta = {
     changelog = "https://github.com/hack3ric/flow/releases/tag/v${finalAttrs.version}";

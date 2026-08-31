@@ -2,11 +2,11 @@
   fetchFromGitHub,
   lib,
   buildGoModule,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 buildGoModule (finalAttrs: {
   pname = "drone-file-secret";
-  version = "0-unstable-2023-06-26";
+  version = "0-unstable-2023-06-25";
   src = fetchFromGitHub {
     owner = "xddxdd";
     repo = "drone-file-secret";
@@ -15,11 +15,9 @@ buildGoModule (finalAttrs: {
   };
   vendorHash = "sha256-5F831dsOw7BlqSJFLknp4lhsTPqv2suzWO+o3xX7Mnk=";
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/xddxdd/drone-file-secret";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -1,6 +1,6 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
   cmake,
@@ -30,11 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [ "-DUSE_INSTALLED_ONIGURUMA=ON" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/QSPFoundation/qsp";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

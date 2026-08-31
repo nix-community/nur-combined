@@ -9,7 +9,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "hoyo-glyphs";
   version = "20250529";
   src = fetchurl {
-    url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20250529/HoYo-Glyphs-20250529.zip";
+    url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/${finalAttrs.version}/HoYo-Glyphs-${finalAttrs.version}.zip";
     hash = "sha256-MT+RrgsC2Y1EWFNdBuVyy23hAnHOy0TvARxl4Zy6A6k=";
   };
   sourceRoot = ".";

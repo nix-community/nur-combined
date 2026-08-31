@@ -1,6 +1,6 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
   kernel,
@@ -31,11 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
   installTargets = [ "modules_install" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/strongtz/i915-sriov-dkms";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

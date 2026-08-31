@@ -5,9 +5,9 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "rime-zhwiki";
-  version = "20240509";
+  version = "20250823";
   src = fetchurl {
-    url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20250823.dict.yaml";
+    url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-${finalAttrs.version}.dict.yaml";
     hash = "sha256-on8oYS/5K24R1wWhsz276B6hA7rHVd124uFHx2Ent70=";
   };
   dontUnpack = true;

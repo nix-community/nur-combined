@@ -7,21 +7,19 @@
   lib,
   makeWrapper,
 }:
-let
-  bilibiliSrcSrc = fetchFromGitHub {
-    owner = "msojocs";
-    repo = "bilibili-linux";
-    tag = "v1.18.0-1";
-    hash = "sha256-JRXf1C587OWC5aIUfaf8YPjYlnGxGC1KIvzAXZmCtMg=";
-  };
-
-  res = "${bilibiliSrcSrc}/res";
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
   version = "1.18.0-1";
+
+  bilibiliSrc = fetchFromGitHub {
+    owner = "msojocs";
+    repo = "bilibili-linux";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-JRXf1C587OWC5aIUfaf8YPjYlnGxGC1KIvzAXZmCtMg=";
+  };
+
   src = fetchurl {
-    url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.18.0-1/bilibili-asar-v1.18.0-1.tar.gz";
+    url = "https://github.com/msojocs/bilibili-linux/releases/download/v${finalAttrs.version}/bilibili-asar-v${finalAttrs.version}.tar.gz";
     hash = "sha256-t0l4R9toyvfZmKKIH/tZlQ5hln/BXR9hH9th1cmMJfk=";
   };
   buildInputs = [ makeWrapper ];
@@ -32,13 +30,13 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out
     cp -r app $out/opt
 
-    install -Dm644 ${res}/bilibili.desktop $out/share/applications/bilibili.desktop
+    install -Dm644 ${finalAttrs.bilibiliSrc}/res/bilibili.desktop $out/share/applications/bilibili.desktop
     sed -i "s|Exec=.*|Exec=$out/bin/bilibili|" $out/share/applications/bilibili.desktop
 
-    for FILE in ${res}/icons/*.png; do
+    for FILE in ${finalAttrs.bilibiliSrc}/res/icons/*.png; do
       BASENAME=$(basename $FILE)
       SIZE=''${BASENAME%.png}
-      install -Dm644 ${res}/icons/$SIZE.png $out/share/icons/hicolor/$SIZE/apps/bilibili.png
+      install -Dm644 ${finalAttrs.bilibiliSrc}/res/icons/$SIZE.png $out/share/icons/hicolor/$SIZE/apps/bilibili.png
     done
 
     mkdir -p $out/bin

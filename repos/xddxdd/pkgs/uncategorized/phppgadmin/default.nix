@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ReimuHakurei";
     repo = "phppgadmin";
-    tag = "v7.14.8-mod";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-rR4OVUa+K2qPjfgie+2+DSVySX+6gNZuRE0MVZV+Zgc=";
   };
   installPhase = ''

@@ -2,7 +2,7 @@
   buildGoModule,
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   versionCheckHook,
 }:
 buildGoModule (finalAttrs: {
@@ -35,11 +35,9 @@ buildGoModule (finalAttrs: {
     rm -f $out/bin/AndroidNDKBuild
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/qjfoidnh/BaiduPCS-Go";
+    tagPrefix = "v";
   };
 
   meta = {

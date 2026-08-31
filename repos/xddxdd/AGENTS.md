@@ -142,10 +142,35 @@ appimageTools.wrapType2 {
 ### 版本约定
 
 - **普通 GitHub release/tag**：直接 `nix-update-script { }`；v 前缀 tag（如 tag 为 `v1.2.0`、version 为 `1.2.0`）会被 nix-update 自动识别处理，无需额外参数
-- **stable/unstable 双源约定**（原 `<stable>-unstable-<日期>` 格式、跟踪 git main 分支的包）：使用 `nix-update-script { extraArgs = [ "--version" "branch" ]; }`。nix-update 会取同仓库最新 tag 加上最新 commit 日期生成版本号，并同步更新 rev 与哈希（GitHub 与 Gitea 均支持）
+- **release 全是 beta/prerelease 的仓库**（如 axonhub，tag 全为 `v1.0.0-betaN`）：nix-update 默认 STABLE 偏好会拒绝更新，需 `nix-update-script { extraArgs = [ "--version" "unstable" ]; }`
+- **GitHub releases 混入无关 tag 的仓库**（如 browseros，releases 里混着 `agent-server/v0.0.147`、`ext-*` 等扩展 tag）：加 `--version-regex` 过滤，如 `nix-update-script { extraArgs = [ "--version-regex" "^v([0-9.]+)$" ]; }`；nix-update 默认 regex 是 `(.*)`（整 tag 作为版本号）
+- **不稳定包（`<tag>-unstable-<日期>` / `0-unstable-<日期>` 版本格式，跟踪 git HEAD）**：一律使用 nixpkgs `unstableGitUpdater`，不再用 `nix-update-script --version branch`：
+
+  ```nix
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/owner/repo";
+    tagPrefix = "v";                # tag 为 vX.Y.Z 时剥离前缀，版本变 X.Y.Z-unstable-<日期>
+    hardcodeZeroVersion = true;     # 无可用 tag（或 tag 非数字开头）时用 0-unstable-<日期>
+    tagFormat = "[0-9]*";           # git describe --match 过滤无关 tag（如混入的 legacy/x86 tag）
+    tagConverter = "sed s/^svn//";  # 复杂 tag 格式转换（输出必须以数字开头）
+    shallowClone = false;           # 大仓库反复加深浅克隆会触发 git "shallow file has changed" 竞态（如 rtpengine）
+  };
+  ```
+
+  机制与硬性要求：
+  - **必须显式传 url**：省略时回退到 `nix-instantiate -E "with import ./. {}; $attr.src.gitRepoUrl"`，对根 `default.nix = import ./pkgs \"nur\"` 这种部分应用函数会直接报错，本仓库内不可用
+  - 最终通过 `update-source-version` 改写文件：它从仓库根用 `nix-instantiate -A <attr>` 求值（根 default.nix 会被自动调用），因此包文件里必须存在字面量 `version = "...";`（全文唯一）、`rev = "<40位哈希>";`、`hash = "...";`，且 `meta.position` 必须指向该文件——**共享 generic.nix 之类的包（如 liboqs-unstable）必须写成独立文件**，否则 position 指向共享文件导致找不到哈希
+  - 版本日期取 HEAD commit 的 committer date（`git show -s --pretty=format:%cs`），与 nix-update 用的 atom feed 日期可能相差一天
+  - 已知坑：**同 rev 但版本串变化**（如日期漂移、前缀格式切换）时，`update-source-version` 在 rev 替换的 cmp 检查处 die，文件会残留 tempHash `sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=` 与 `.nix.cmp` 备份——修复方法：版本行已是正确新值，把 hash 恢复为 git HEAD 里的原值（同 rev 同源同哈希），删掉 .cmp 后重跑（会以 same version 退出）
+  - 仅支持 git 可 clone 的 URL；dpdk-kmods 只能 `git://dpdk.org/dpdk-kmods`（https 路径 cgit 不提供 smart HTTP）
+  - 跟踪的 fork 分支可能比默认分支新（如 flaresolverr-alexfozor），首次运行版本回退属正常
+  - `helpers/update.nix` 运行器原生支持 unstableGitUpdater 返回的列表形式 updateScript；`nvlax`（同文件多哈希）与 `qsp`（自定义多步 update.sh）不适用，保持原状
+- **nix-update 的文件改写行为（源码已验证）**：`replace_version` 先定位 `version = "..."` 声明行；若该行包含旧版本字符串，则**只改写这一行**，其余行一律不动——因此 `url = ".../foo-1.2.3.tar.gz"` 这种内嵌版本字面量的 URL 永远不会被 nix-update 更新（版本号变了但 src 仍拉旧版，哈希不变，静默失败）。若 version 声明行不含旧版本字面量（如 `inherit version;`），则退化为全文件范围内把带引号的独立字符串 `"旧版本"` 整体替换成 `"新版本"`（仍只匹配独立带引号字符串，匹配不到 URL 内嵌片段）。rev/tag 则不同：nix-update 用求值出的旧 rev/tag 值在全文件做子串替换（release 模式与 `--version branch` 模式都携带新 rev/tag）。综上：**fetchurl 的 URL 必须用 `${finalAttrs.version}` 插值**；fetchFromGitHub 的 tag 也建议插值；rev 字面量可由 nix-update 自动维护，无需也无法插值
+- **例外：自维护 URL 的 update.sh**：geolite2、netboot-xyz 的 update.sh 自己 grep + sed 重写 URL 与哈希，字面量 URL 是脚本的工作前提，不要改成插值；改动这两个包时保持 update.sh 与 URL 字面量同步修改
 - **非 GitHub 源**（webpage 抓取、AUR 等）：手写自定义更新脚本。脚本必须作为独立文件放在包目录下（如 `pkgs/uncategorized/baidunetdisk/update.sh`），不要内联在 default.nix 中；在包定义里用 `passthru.updateScript = [ (toString ./update.sh) ];` 引用。运行器以仓库根目录为 cwd 执行脚本，并设置 `UPDATE_NIX_ATTR_PATH`/`UPDATE_NIX_PNAME`/`UPDATE_NIX_NAME`/`UPDATE_NIX_OLD_VERSION` 环境变量；脚本内部获取新版本号后调用 `nix-update "$UPDATE_NIX_ATTR_PATH" --version "$NEW_VERSION"`（参考 `pkgs/uncategorized/baidunetdisk/update.sh`）
 - **nix-update 可自动识别的 fetchurl 源**：除了 GitHub releases，`registry.npmjs.org` 的 npm tarball URL 也能被 nix-update 自动探测最新版本（含 scoped 包），可直接用 `nix-update-script { }`
-- **版本/src 在内层派生时需提升到顶层**：若 version 和 src 定义在 let 绑定的内层 `mkDerivation`（如 wine-wechat 的 wechatFiles），顶层求值结果没有 `src` 属性，nix-update 无法工作。重构方法：把 `version = "..."` 和字面量 URL 的 `src = fetchurl { ... }` 直接放在顶层 `stdenv.mkDerivation (finalAttrs: { ... })` 里（外层配 `dontUnpack = true` 即可，不影响构建）；内层派生通过 `inherit (finalAttrs) version src;` 引用同一份定义；原先依赖内层派生的 let 绑定（启动脚本等）移入使用它们的 phase（如 postInstall）内的局部 let。注意 URL 必须写死版本号字符串而非 `${finalAttrs.version}` 插值——nix-update 靠在源码文本中替换旧版本号来改 URL
+- **版本/src 在内层派生时需提升到顶层**：若 version 和 src 定义在 let 绑定的内层 `mkDerivation`（如 wine-wechat 的 wechatFiles），顶层求值结果没有 `src` 属性，nix-update 无法工作。重构方法：把 `version = "..."` 和 `src = fetchurl { ... }` 直接放在顶层 `stdenv.mkDerivation (finalAttrs: { ... })` 里（外层配 `dontUnpack = true` 即可，不影响构建）；内层派生通过 `inherit (finalAttrs) version src;` 引用同一份定义；原先依赖内层派生的 let 绑定（启动脚本等）移入使用它们的 phase（如 postInstall）内的局部 let。URL 用 `${finalAttrs.version}` 插值（见上条：字面量 URL 不会被 nix-update 改写）
+- **多源同版本的去重**：同一文件里多个派生共享同一 GitHub 源（如 axonhub 的 frontendPnpmDeps/frontendDist/主程序、it-tools 的 pnpmDeps）时，在 let 里定义 `version = "...";` 与 `src = fetchFromGitHub { tag = "v${version}"; ... }`，各派生 `inherit version src;`，保证 nix-update 只需改一处版本字面量（`inherit version;` 行不含字面量时走全文件独立带引号串替换路径，let 绑定会被正确更新）
 - **不要留孤儿 update.sh 副本**：只被 lockfile 再生成等辅助流程使用的脚本必须命名为 `update-standalone.*`；如果同时存在一份未被 `passthru.updateScript` 引用的同名 `update.sh`，它是死文件，应删除
 
 ### 运行方式

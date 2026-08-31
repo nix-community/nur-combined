@@ -10,7 +10,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Kioubit";
     repo = "FlapAlerted";
-    tag = "v4.5.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-D4+FLAMt/cHXCks4GQI33ymbZIHzBajpvKU6QQntofk=";
   };
   vendorHash = null;

@@ -8,6 +8,8 @@
   makeWrapper,
 }:
 let
+  version = "1.3";
+
   libraries = with pkgsi686Linux; [
     fontconfig
     freetype
@@ -32,9 +34,9 @@ let
 
   distPackage = pkgsi686Linux.stdenv.mkDerivation {
     pname = "unigine-tropics";
-    version = "1.3";
+    inherit version;
     src = fetchurl {
-      url = "https://assets.unigine.com/d/Unigine_Tropics-1.3.run";
+      url = "https://assets.unigine.com/d/Unigine_Tropics-${version}.run";
       hash = "sha256-/eA1i42/PMcoBbUJIGS66j7QpZ13oPkOi1Y6Q27TikU=";
     };
     nativeBuildInputs = [ pkgsi686Linux.autoPatchelfHook ];
@@ -64,7 +66,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-tropics";
-  version = "1.3";
+  inherit version;
   dontUnpack = true;
 
   nativeBuildInputs = [

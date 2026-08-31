@@ -2,7 +2,7 @@
   fetchFromGitHub,
   lib,
   buildGoModule,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 buildGoModule (finalAttrs: {
   pname = "pterodactyl-wings";
@@ -17,11 +17,9 @@ buildGoModule (finalAttrs: {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/pterodactyl/wings";
+    tagPrefix = "v";
   };
   meta = {
     mainProgram = "wings";

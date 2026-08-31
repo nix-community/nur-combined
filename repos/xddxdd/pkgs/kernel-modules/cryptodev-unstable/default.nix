@@ -1,13 +1,13 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   kernel ? false,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "cryptodev-linux";
-  version = "cryptodev-linux-1.14-unstable-2025-11-03";
+  version = "1.14-unstable-2025-11-03";
   src = fetchFromGitHub {
     owner = "cryptodev-linux";
     repo = "cryptodev-linux";
@@ -23,11 +23,9 @@ stdenv.mkDerivation (finalAttrs: {
     "prefix=$(out)"
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/cryptodev-linux/cryptodev-linux";
+    tagConverter = "sed s/^cryptodev-linux-//";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

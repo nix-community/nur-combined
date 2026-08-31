@@ -1,5 +1,6 @@
 {
   fetchgit,
+  unstableGitUpdater,
   stdenv,
   lib,
   pkg-config,
@@ -33,6 +34,10 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "/usr/include/libcrystalhd" "${libcrystalhd}/include/libcrystalhd"
   '';
 
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://git.launchpad.net/ubuntu/+source/crystalhd";
+    hardcodeZeroVersion = true;
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin";

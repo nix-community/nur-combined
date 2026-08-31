@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SamToki";
     repo = "Sam-Toki-Mouse-Cursors";
-    tag = "v10.00";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-juRUv7/9dd+bIDjbwzfznPyPUZpPyL9sYKcNgZXngro=";
   };
   nativeBuildInputs = [ py ];

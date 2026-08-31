@@ -1,6 +1,6 @@
 {
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   lib,
   kernel,
@@ -33,11 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
   installTargets = [ "modules_install" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/fullcone-nat-nftables/nft-fullcone";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

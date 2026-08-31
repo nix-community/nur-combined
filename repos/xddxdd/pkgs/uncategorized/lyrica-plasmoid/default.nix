@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "chiyuki0325";
     repo = "lyrica";
-    tag = "v0.24";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=";
   };
   postInstall = ''

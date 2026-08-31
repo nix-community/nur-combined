@@ -12,7 +12,7 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "eyalzh";
     repo = "browser-control-mcp";
-    tag = "v1.5.2";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-lC8/gQKK0nnJ5RC+ABmL5Pavq03ztFm9TiURONSbvtQ=";
   };
   sourceRoot = "${finalAttrs.src.name}/mcp-server";

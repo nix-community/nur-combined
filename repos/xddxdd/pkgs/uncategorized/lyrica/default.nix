@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "chiyuki0325";
     repo = "lyrica";
-    tag = "v0.24";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=";
   };
   cargoHash = "sha256-WvrEMl41MuFqCfCHCURv6ZsDiDJGeVByCYRVuDW+2BE=";

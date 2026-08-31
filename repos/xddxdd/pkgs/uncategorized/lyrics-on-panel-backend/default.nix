@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "KangweiZhu";
     repo = "lyrics-on-panel";
-    tag = "v2.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-r7eoDm92k1ZjnBOtIt09a6P2MMLItqva6aXgLmqk3no=";
   };
   nativeBuildInputs = [ makeWrapper ];

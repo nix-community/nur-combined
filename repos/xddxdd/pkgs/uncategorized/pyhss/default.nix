@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   python3,
   makeWrapper,
@@ -78,11 +78,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/nickvsnetworking/pyhss";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

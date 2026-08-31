@@ -10,7 +10,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "KusakabeShi";
     repo = "EtherGuard-VPN";
-    tag = "v0.3.5-f5";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=";
   };
   vendorHash = "sha256-9+zpQ/AhprMMfC4Om64GfQLgms6eluTOB6DdnSTNOlk=";

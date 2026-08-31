@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   cmake,
   qt6,
@@ -52,11 +52,9 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/Liniyous/ElaWidgetTools";
+    hardcodeZeroVersion = true;
   };
   meta = {
     mainProgram = "ElaWidgetToolsExample";

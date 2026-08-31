@@ -7,7 +7,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ftp-proxy";
   version = "1.2.3";
   src = fetchurl {
-    url = "http://www.ftpproxy.org/download/ftpproxy-1.2.3.tgz";
+    url = "http://www.ftpproxy.org/download/ftpproxy-${finalAttrs.version}.tgz";
     hash = "sha256-36r+iOaKEA9DMHBufEW+eoiRlEu1+VsYaWvK957l1uU=";
   };
   postPatch = ''

@@ -7,11 +7,11 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "grok-search-rs";
-  version = "0.1.25";
+  version = "0.1.24";
   src = fetchFromGitHub {
     owner = "Episkey-G";
     repo = "GrokSearch-rs";
-    tag = "v0.1.24";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-RbGspj/jQ/Z5VwUFFKegfJsRJn4AZcTQjczPngbDuUw=";
   };
   cargoHash = "sha256-zyIuQuYtiViv33VXIvMB3YQbacXIQdYaqjlBdHNYQUc=";

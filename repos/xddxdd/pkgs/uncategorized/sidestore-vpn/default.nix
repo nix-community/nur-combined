@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -15,11 +15,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
   cargoHash = "sha256-DU5UT8N7n+qkPX7Gf4ue8E7bZZbfBp8dIKTWHMmAqMk=";
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/xddxdd/sidestore-vpn";
+    hardcodeZeroVersion = true;
   };
   meta = {
     changelog = "https://github.com/xddxdd/sidestore-vpn/releases/tag/v${finalAttrs.version}";

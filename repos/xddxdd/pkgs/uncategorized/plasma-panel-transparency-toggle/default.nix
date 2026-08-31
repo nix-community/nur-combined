@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -18,11 +18,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r * $out/share/plasma/plasmoids/org.kde.panel.transparency.toggle
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

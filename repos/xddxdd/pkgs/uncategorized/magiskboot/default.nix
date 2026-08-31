@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "magiskboot";
   version = "30.7";
   src = fetchurl {
-    url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk";
+    url = "https://github.com/topjohnwu/Magisk/releases/download/v${finalAttrs.version}/Magisk-v${finalAttrs.version}.apk";
     hash = "sha256-4NMtISNTKGD5cSPZJ7G7hsTgjm/YpIv8a1vuCvrp69U=";
   };
   dontUnpack = true;

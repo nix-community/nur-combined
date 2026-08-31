@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "luisbocanegra";
     repo = "plasma-smart-video-wallpaper-reborn";
-    tag = "v2.14.1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-+w+Dj+Xcb5tsyX6ejVBfz7bhrtsWtfoLaVUUCN67QiI=";
   };
   postInstall = ''

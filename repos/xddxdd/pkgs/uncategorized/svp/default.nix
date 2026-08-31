@@ -62,7 +62,7 @@ let
     pname = "svp-dist";
     version = "4.7.305-1";
     src = fetchurl {
-      url = "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.7.305-1.tar.bz2";
+      url = "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.${finalAttrs.version}.tar.bz2";
       hash = "sha256-a9g6A6xDyx77DiUtErw3nLbotgN7S0lzAXzpd7Gykl4=";
     };
     nativeBuildInputs = [

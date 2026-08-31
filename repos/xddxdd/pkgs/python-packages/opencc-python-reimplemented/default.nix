@@ -2,7 +2,7 @@
   fetchFromGitHub,
   lib,
   buildPythonPackage,
-  nix-update-script,
+  unstableGitUpdater,
   setuptools,
 }:
 buildPythonPackage (finalAttrs: {
@@ -20,11 +20,9 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "opencc" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/yichen0831/opencc-python";
+    hardcodeZeroVersion = true;
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "KikoPlayProject";
     repo = "KikoPlay";
-    tag = "2.1.0";
+    tag = finalAttrs.version;
     hash = "sha256-iNBnH9GLKh3IXdhgnwrinoZqnIQgugtDcTAESldnAug=";
   };
   nativeBuildInputs = [

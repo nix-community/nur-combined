@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   cmake,
   liboqs,
@@ -17,7 +17,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openssl-oqs-provider";
-  version = "0.11.0-unstable-2026-08-28";
+  version = "0.10.0-unstable-2026-08-28";
   src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "oqs-provider";
@@ -54,11 +54,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/open-quantum-safe/oqs-provider";
+    tagPrefix = "v";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

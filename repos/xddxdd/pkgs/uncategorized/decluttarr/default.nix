@@ -19,11 +19,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "decluttarr";
-  version = "2.1.0";
+  version = "1.50.2";
   src = fetchFromGitHub {
     owner = "ManiMatter";
     repo = "decluttarr";
-    tag = "v1.50.2";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=";
   };
   nativeBuildInputs = [ makeWrapper ];

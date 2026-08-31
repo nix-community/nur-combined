@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "flightaware";
     repo = "dump978";
-    tag = "v11.1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-GErOwkO3dJBXOCI7RpXezNXa3hL6AOyl3KpMUmjfkTg=";
   };
   enableParallelBuilding = true;

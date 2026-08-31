@@ -12,7 +12,7 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "bigbag";
     repo = "epub-to-xtc-converter";
-    tag = "v0.8.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ox921Uk0YaKmCRL66ksbKj7YnCC0i1E3BMEChyZpS4U=";
   };
   sourceRoot = "${finalAttrs.src.name}/cli";

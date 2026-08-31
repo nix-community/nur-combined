@@ -2,13 +2,16 @@
   callPackage,
   fetchFromGitHub,
 }:
-(callPackage ./generic.nix {
-  pname = "liboqs";
+let
   version = "0.16.0";
+in
+callPackage ./generic.nix {
+  pname = "liboqs";
+  inherit version;
   src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "liboqs";
-    tag = "0.16.0";
+    tag = version;
     hash = "sha256-ys1ZqkcBFqblmYjTgDVYcdyK9PW2cvpPfaivbLTJZEU=";
   };
-})
+}

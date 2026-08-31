@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "3899";
     repo = "ncmm";
-    tag = "v1.1.15";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-0QnSRMTAzxzCi05Wc52TwFdqo1KqrX59hxzbJk+zQ6o=";
   };
   vendorHash = "sha256-dYGMbXaPARioUHlNcQCtCM8q79g66m9utnAS7Bdyrk4=";

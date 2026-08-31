@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "peerbanhelper";
   version = "9.5.0";
   src = fetchurl {
-    url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.5.0/PeerBanHelper_9.5.0.zip";
+    url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v${finalAttrs.version}/PeerBanHelper_${finalAttrs.version}.zip";
     hash = "sha256-wMb6ZSb+TcTR9LEacpHr9ts3vUH9vmZ+xJYbGwElzLQ=";
   };
   nativeBuildInputs = [

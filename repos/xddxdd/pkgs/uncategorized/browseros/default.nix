@@ -6,22 +6,22 @@
 }:
 
 let
-  contents = appimageTools.extractType2 {
-    pname = "browseros";
-    src = fetchurl {
-      url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.47.18/BrowserOS_v0.47.18_x64.AppImage";
-      hash = "sha256-j17ERzRxTx/0OaKtSjp02DXi132Rfz9qse5uI7auu7s=";
-    };
-    version = "0.47.18";
-  };
-in
-appimageTools.wrapType2 rec {
-  pname = "browseros";
+  version = "0.47.18";
+
   src = fetchurl {
-    url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.47.18/BrowserOS_v0.47.18_x64.AppImage";
+    url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
     hash = "sha256-j17ERzRxTx/0OaKtSjp02DXi132Rfz9qse5uI7auu7s=";
   };
-  version = "agent-server/v0.0.147";
+
+  contents = appimageTools.extractType2 {
+    pname = "browseros";
+    inherit version src;
+  };
+in
+appimageTools.wrapType2 {
+  pname = "browseros";
+  inherit version src;
+
   extraInstallCommands = ''
     install -Dm644 ${contents}/browseros.desktop $out/share/applications/browseros.desktop
     substituteInPlace $out/share/applications/browseros.desktop \
@@ -29,9 +29,14 @@ appimageTools.wrapType2 rec {
     install -Dm644 ${contents}/browseros.png $out/share/pixmaps/browseros.png
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "^v([0-9.]+)$"
+    ];
+  };
   meta = {
-    changelog = "https://github.com/browseros-ai/BrowserOS/releases/tag/${version}";
+    changelog = "https://github.com/browseros-ai/BrowserOS/releases/tag/v${version}";
     homepage = "https://www.browseros.com";
     description = "Open source agentic browser";
     license = lib.licenses.agpl3Only;

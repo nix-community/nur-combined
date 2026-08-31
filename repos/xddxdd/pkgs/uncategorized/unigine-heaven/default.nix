@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-heaven";
   version = "4.0";
   src = fetchurl {
-    url = "https://assets.unigine.com/d/Unigine_Heaven-4.0.run";
+    url = "https://assets.unigine.com/d/Unigine_Heaven-${finalAttrs.version}.run";
     hash = "sha256-UtsuXe3VYh18K/qTa0gsCnzGmzBhYnjvGZUT1JTY45c=";
   };
   nativeBuildInputs = [

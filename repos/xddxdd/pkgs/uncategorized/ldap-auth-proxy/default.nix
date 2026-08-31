@@ -2,7 +2,7 @@
   fetchFromGitHub,
   lib,
   buildGoModule,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 buildGoModule (finalAttrs: {
   pname = "ldap-auth-proxy";
@@ -20,11 +20,8 @@ buildGoModule (finalAttrs: {
     cp ${./go.sum} go.sum
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/pinepain/ldap-auth-proxy";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

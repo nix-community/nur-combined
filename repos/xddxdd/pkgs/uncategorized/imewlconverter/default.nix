@@ -13,7 +13,7 @@ buildDotnetModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "studyzy";
     repo = "imewlconverter";
-    tag = "v3.4.3";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-gnvq7yuevjL5vZLA4WdStWLE8kq5pBb4dvuWmqJ4+Lg=";
   };
   projectFile = "src/ImeWlConverterCmd/ImeWlConverterCmd.csproj";

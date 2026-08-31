@@ -2,7 +2,7 @@
   fetchFromGitHub,
   lib,
   buildPythonPackage,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   setuptools,
   # Dependencies
@@ -35,14 +35,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "funasr";
-  version = "1.4.11-unstable-2026-08-30";
+  version = "1.4.11-unstable-2026-08-31";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "modelscope";
     repo = "FunASR";
-    rev = "8cd758c0ced576516b05a749194e6a94cdd38f99";
-    hash = "sha256-SRfULBOMwiTsdRvma1bF/SRxaU04aRdlMHfpPhTB2Dw=";
+    rev = "78bb8cb18cf9c4b205fb3f0d42a5af4d06a82e3d";
+    hash = "sha256-VHcIq2MdkcHRwdvgMIrj9mb0hn4njn9xo+kmZQsjOZQ=";
   };
   build-system = [ setuptools ];
 
@@ -82,11 +82,9 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "funasr" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/modelscope/FunASR";
+    tagPrefix = "v";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

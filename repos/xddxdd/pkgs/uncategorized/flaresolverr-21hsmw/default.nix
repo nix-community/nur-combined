@@ -1,5 +1,6 @@
 {
   fetchFromGitHub,
+  unstableGitUpdater,
   lib,
   stdenv,
   python3,
@@ -81,5 +82,10 @@ stdenv.mkDerivation (finalAttrs: {
     # broken = true;
     # Platform depends on chromedriver
     inherit (undetected-chromedriver.meta) platforms;
+  };
+
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/21hsmw/FlareSolverr";
+    hardcodeZeroVersion = true;
   };
 })

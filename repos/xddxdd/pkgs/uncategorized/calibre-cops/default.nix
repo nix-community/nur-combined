@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "calibre-cops";
   version = "4.5.2";
   src = fetchurl {
-    url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.5.2/cops-4.5.2-php84.zip";
+    url = "https://github.com/mikespub-org/seblucas-cops/releases/download/${finalAttrs.version}/cops-${finalAttrs.version}-php84.zip";
     hash = "sha256-Z0uOwMXA/C8uvsM2xc3lYR840Qos41SOFMIPp4FJSSY=";
   };
   unpackPhase = ''

@@ -3,7 +3,7 @@
   lib,
   buildPythonPackage,
   # Dependencies
-  nix-update-script,
+  unstableGitUpdater,
   setuptools,
   construct,
   gsm0338,
@@ -27,11 +27,8 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "osmocom" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

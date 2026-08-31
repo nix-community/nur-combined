@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "libxzr";
     repo = "vbmeta-disable-verification";
-    tag = "v1.0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ml6RZkl2DT08sfJj9L1SGR6zNgRQ15ph0PPIPgxx7+M=";
   };
   buildPhase = ''

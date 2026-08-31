@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ArcaneNibble";
     repo = "awawausb";
-    tag = "v0.2";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-9lkQtItaU5xVMsStB2RJt+JP8TTdP4A8xMD0dIfeJH8=";
   };
   cargoHash = "sha256-By8H8NcxB8cync1MZ+IggKUIb5+XtMIdK9zLcf7uQJg=";

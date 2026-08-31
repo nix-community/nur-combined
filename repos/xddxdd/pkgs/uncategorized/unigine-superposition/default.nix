@@ -29,11 +29,13 @@
   zlib,
 }:
 let
+  version = "1.1";
+
   distPackage = stdenv.mkDerivation {
     pname = "unigine-superposition";
-    version = "1.1";
+    inherit version;
     src = fetchurl {
-      url = "https://assets.unigine.com/d/Unigine_Superposition-1.1.run";
+      url = "https://assets.unigine.com/d/Unigine_Superposition-${version}.run";
       hash = "sha256-dJThxzv1nvIWFRPV1cudm/+9hHmSnUl2rFO2lV3lgPg=";
     };
     nativeBuildInputs = [
@@ -114,7 +116,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-superposition";
-  version = "1.1";
+  inherit version;
   dontUnpack = true;
 
   nativeBuildInputs = [ copyDesktopItems ];

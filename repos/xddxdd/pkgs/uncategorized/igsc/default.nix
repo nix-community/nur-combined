@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "intel";
     repo = "igsc";
-    tag = "V1.3.1";
+    tag = "V${finalAttrs.version}";
     hash = "sha256-NSNLiUMJBGtnfWUDIPIukyjgcI1YX9cfDDWphW8uSWs=";
   };
   buildInputs = [

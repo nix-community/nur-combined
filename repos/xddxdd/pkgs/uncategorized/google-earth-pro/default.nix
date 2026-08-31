@@ -3,11 +3,14 @@
   lib,
   googleearth-pro,
 }:
+let
+  version = "7.3.7.1155";
+in
 googleearth-pro.overrideAttrs (old: {
   pname = "google-earth-pro";
-  version = "7.3.7.1155";
+  inherit version;
   src = fetchurl {
-    url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.7.1155-r0_amd64.deb";
+    url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_${version}-r0_amd64.deb";
     hash = "sha256-lWFGpO4fCywxK/najHzFQoftfCEFiYX/31nloJSzCyM=";
   };
   unpackPhase = ''
@@ -24,5 +27,6 @@ googleearth-pro.overrideAttrs (old: {
     mainProgram = "googleearth-pro";
     maintainers = with lib.maintainers; [ xddxdd ];
     platforms = [ "x86_64-linux" ];
+    description = "Google Earth Pro";
   };
 })

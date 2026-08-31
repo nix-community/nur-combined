@@ -3,7 +3,7 @@
   lib,
   buildPythonPackage,
   # Dependencies
-  nix-update-script,
+  unstableGitUpdater,
   poetry-core,
   tqdm,
 }:
@@ -25,11 +25,9 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "tqdm_loggable" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/tradingstrategy-ai/tqdm-loggable";
+    hardcodeZeroVersion = true;
   };
   meta = {
     mainProgram = "manual-tests";

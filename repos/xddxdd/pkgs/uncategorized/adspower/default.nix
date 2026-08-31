@@ -55,8 +55,10 @@
   xcbutilwm,
 }:
 let
+  version = "8.7.23";
+
   adspowerSrc = fetchurl {
-    url = "https://version.adspower.net/software/linux-x64-global/8.7.23/AdsPower-Global-8.7.23-x64.deb";
+    url = "https://version.adspower.net/software/linux-x64-global/${version}/AdsPower-Global-${version}-x64.deb";
     hash = "sha256-ehbDWRqLZ9ekQGZt9SNJnIaAt9JQJIBudmOP+07jFSA=";
   };
 
@@ -138,7 +140,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "adspower";
-  version = "8.7.23";
+  inherit version;
   dontUnpack = true;
 
   installPhase = ''
@@ -154,9 +156,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru = { inherit (finalAttrs) distPkg; };
-
-  passthru.updateScript = [ (toString ./update.sh) ];
+  passthru = {
+    inherit distPkg;
+    updateScript = [ (toString ./update.sh) ];
+  };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Antidetect Browser for Multi-Accounts";

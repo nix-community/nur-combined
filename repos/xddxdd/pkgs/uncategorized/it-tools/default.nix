@@ -16,18 +16,13 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "sharevb";
     repo = "it-tools";
-    tag = "v2026.7.11";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Jo2S/LE8Hg4M/TdoivGq4CaSnHfbm70E1cFMdsFDjnE=";
   };
   pnpmDeps = fetchPnpmDeps {
     pname = "it-tools";
-    version = "2026.7.11";
-    src = fetchFromGitHub {
-      owner = "sharevb";
-      repo = "it-tools";
-      tag = "v2026.7.11";
-      hash = "sha256-Jo2S/LE8Hg4M/TdoivGq4CaSnHfbm70E1cFMdsFDjnE=";
-    };
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     pnpm = pnpm_11;
     fetcherVersion = 4;
     hash = "sha256-5p/BNX+lEOAJlPlnKdjs1Zvk+Ty7hYeFU6pMzzShyog=";

@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  nix-update-script,
+  unstableGitUpdater,
   stdenv,
   pkg-config,
   glib,
@@ -29,7 +29,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtpengine";
-  version = "mr26.2.1.1-unstable-2026-08-17";
+  version = "0-unstable-2026-08-17";
   src = fetchFromGitHub {
     owner = "sipwise";
     repo = "rtpengine";
@@ -77,11 +77,10 @@ stdenv.mkDerivation (finalAttrs: {
     rm -rf $out/usr
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/sipwise/rtpengine";
+    tagPrefix = "mr";
+    shallowClone = false;
   };
   meta = {
     changelog = "https://github.com/sipwise/rtpengine/releases/tag/v${finalAttrs.version}";

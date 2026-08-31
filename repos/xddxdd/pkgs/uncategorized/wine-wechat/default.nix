@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = "3.9.12.57";
 
   src = fetchurl {
-    url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.57/WeChatSetup-3.9.12.57.exe";
+    url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v${finalAttrs.version}/WeChatSetup-${finalAttrs.version}.exe";
     hash = "sha256-wp/AVjDPyV72SD9rW1Kqv+dCZbsmDiEOeK5DfTBdiZA=";
   };
 

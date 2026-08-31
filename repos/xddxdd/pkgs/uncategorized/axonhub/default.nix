@@ -11,15 +11,18 @@
   stdenv,
 }:
 let
+  version = "1.0.0-beta7";
+
+  src = fetchFromGitHub {
+    owner = "looplj";
+    repo = "axonhub";
+    tag = "v${version}";
+    hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
+  };
+
   frontendPnpmDeps = fetchPnpmDeps {
-    pname = "${"axonhub"}-frontend-pnpm-deps";
-    version = "1.0.0-beta7";
-    src = fetchFromGitHub {
-      owner = "looplj";
-      repo = "axonhub";
-      tag = "v1.0.0-beta7";
-      hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
-    };
+    pname = "axonhub-frontend-pnpm-deps";
+    inherit version src;
     sourceRoot = "source/frontend";
     pnpm = pnpm_10;
     fetcherVersion = 3;
@@ -27,14 +30,8 @@ let
   };
 
   frontendDist = stdenv.mkDerivation {
-    pname = "${"axonhub"}-frontend-dist";
-    version = "1.0.0-beta7";
-    src = fetchFromGitHub {
-      owner = "looplj";
-      repo = "axonhub";
-      tag = "v1.0.0-beta7";
-      hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
-    };
+    pname = "axonhub-frontend-dist";
+    inherit version src;
     sourceRoot = "source/frontend";
     pnpmDeps = frontendPnpmDeps;
     nativeBuildInputs = [
@@ -59,13 +56,7 @@ let
 in
 buildGoModule (finalAttrs: {
   pname = "axonhub";
-  version = "0.9.43";
-  src = fetchFromGitHub {
-    owner = "looplj";
-    repo = "axonhub";
-    tag = "v1.0.0-beta7";
-    hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
-  };
+  inherit version src;
   vendorHash = "sha256-RyjXygorzbWzrMIeAVdjiF0wkHL9aZJFdpVnnbc693E=";
 
   tags = [ "nomsgpack" ];
@@ -73,6 +64,7 @@ buildGoModule (finalAttrs: {
   proxyVendor = true;
 
   preBuild = ''
+
     rm -rf internal/server/static/dist
     mkdir -p internal/server/static/dist
     cp -r ${frontendDist}/* internal/server/static/dist/
@@ -90,7 +82,12 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgramArg = "version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "unstable"
+    ];
+  };
   meta = {
     changelog = "https://github.com/looplj/axonhub/releases/tag/v${finalAttrs.version}";
     mainProgram = "axonhub";
