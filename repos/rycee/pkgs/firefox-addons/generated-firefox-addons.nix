@@ -4165,10 +4165,10 @@
     };
     "ficlab" = buildMozillaXpiAddon {
       pname = "ficlab";
-      version = "1.0.113";
+      version = "1.1.1";
       addonId = "ficlab-helper@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649968/ficlab-1.0.113.xpi";
-      sha256 = "aa1610d455b5b05802ca9f21961ff8b910fe42becf60e9adaca58e4c5bd81dc7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4992512/ficlab-1.1.1.xpi";
+      sha256 = "45a72a0fb161bc9c5197033ac9107c7517cfc33ccd1e8893c273663c3f4b92fc";
       meta = with lib;
       {
         homepage = "https://www.ficlab.com/";
@@ -4182,6 +4182,8 @@
         mozPermissions = [
           "downloads"
           "storage"
+          "scripting"
+          "alarms"
           "<all_urls>"
           "https://*.fanfiction.net/*"
           "https://*.fictionpress.com/*"
@@ -4314,10 +4316,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "6.2.3";
+      version = "6.2.4";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4966962/flagfox-6.2.3.xpi";
-      sha256 = "9d33f9cadbf208016d488504a362e9fbb5425e9fcc574ccdfed99ae44d580086";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4994240/flagfox-6.2.4.xpi";
+      sha256 = "7506d3488707885778b805359c39b888e1190f046bb85c8564da4e2fdd16cae6";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4361,10 +4363,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.10.2";
+      version = "5.10.3";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4905907/floccus-5.10.2.xpi";
-      sha256 = "e84bc56c4e1bfc3cc3aec2a74003c9955ab8f55a3f51394754d2c773afe4f483";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4993287/floccus-5.10.3.xpi";
+      sha256 = "3aaa6b65931c92be31fbd02b9f9a07531b53333dbd57cfe52f035e66a8b25d54";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -8236,10 +8238,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.235";
+      version = "2.4.237";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985859/lichess_tools_by_siderite-2.4.235.xpi";
-      sha256 = "8490e294d402bceb9efcbec842dd3eaa55b3d8b1654a1b183d657a633532e26c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4993797/lichess_tools_by_siderite-2.4.237.xpi";
+      sha256 = "1e17717c34958984cb83bec7b5e5fa3597ab8ec8d59b2380a7f9fea2d38980a5";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8381,10 +8383,10 @@
     };
     "linkding-injector" = buildMozillaXpiAddon {
       pname = "linkding-injector";
-      version = "1.3.10";
+      version = "1.3.11";
       addonId = "{19561335-5a63-4b4e-8182-1eced17f9b47}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4730150/linkding_injector-1.3.10.xpi";
-      sha256 = "631cc687e5e5152d0f8e4992295a397c2f99032a2ba0e95b2f69e8982a387c27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4993935/linkding_injector-1.3.11.xpi";
+      sha256 = "1c34355c9f55689c7d97bbb3394311c68fc1422b6584db267108457dab94dcef";
       meta = with lib;
       {
         homepage = "https://github.com/Fivefold/linkding-injector";
@@ -8393,6 +8395,7 @@
         mozPermissions = [
           "storage"
           "*://duckduckgo.com/*"
+          "*://*.duckduckgo.com/*"
           "*://search.brave.com/*"
           "*://kagi.com/*"
           "*://www.qwant.com/*"
