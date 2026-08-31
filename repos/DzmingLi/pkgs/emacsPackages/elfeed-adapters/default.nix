@@ -13,8 +13,8 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "elfeed-adapters";
-    rev = "6726774d40429203f63ee0df57574ef182de42ce";
-    hash = "sha256-ydZrM7u0n/k/F1LW8G5QlxopAkitYWFOBqZR5bcLUzs=";
+    rev = "f697cdaa1a9563c8f44ca997a07db2badb569626";
+    hash = "sha256-R+pc6EuAbC9LJ0WA7C+F4aWJySOL3jtMrb2zyfc9ohI=";
   };
 
   packageRequires = [
