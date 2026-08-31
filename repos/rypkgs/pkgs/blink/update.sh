@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq nix-prefetch-github git coreutils gnused nix
+#!nix-shell -i bash -p curl jq nix-prefetch-github git coreutils gnused nix gawk
 
 # shellcheck shell=bash
 set -euo pipefail
@@ -55,19 +55,42 @@ HASH_OUTPUT=$(nix-prefetch-github --rev "$LATEST_TAG" "$OWNER" "$REPO")
 NEW_SRC_HASH=$(echo "$HASH_OUTPUT" | jq -r '.hash')
 echo "New source hash: $NEW_SRC_HASH"
 
-# Update version and source hash
+# Update version and source hash. The sed is scoped to the `src` block so it
+# cannot clobber the pnpmDeps hash, which uses the same `hash = ` key.
 sed -i "s|version = \"$CURRENT_VERSION\"|version = \"$LATEST_VERSION\"|" default.nix
-sed -i "s|hash = \"sha256-[^\"]*\";|hash = \"$NEW_SRC_HASH\";|" default.nix
+sed -i "/src = fetchFromGitHub/,/};/s|hash = \"sha256-[^\"]*\";|hash = \"$NEW_SRC_HASH\";|" default.nix
+
+# Pull the `got:` hash out of the mismatch report for one specific derivation.
+# blink has two fixed-output derivations (pnpm deps and the cargo vendor dir),
+# and a single build can report a mismatch for both, so matching on the
+# derivation name is the only way to attribute a hash to the right attribute.
+extract_got_hash() {
+    local drv_suffix="$1"
+    awk -v suffix="$drv_suffix" '
+        /hash mismatch in fixed-output derivation/ {
+            in_block = index($0, suffix ".drv") > 0
+        }
+        in_block && match($0, /got:[[:space:]]+sha256-[^[:space:]]+/) {
+            hash = substr($0, RSTART, RLENGTH)
+            sub(/got:[[:space:]]+/, "", hash)
+            print hash
+            exit
+        }
+    '
+}
 
 # Function to extract hash from nix build error for a specific attribute
 get_hash_from_build_error() {
     local attr="$1"
     local fake_hash="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    local drv_suffix
 
     # Set a fake hash for the specific attribute
     if [ "$attr" = "cargoHash" ]; then
+        drv_suffix="-vendor"
         sed -i "s|cargoHash = \"sha256-[^\"]*\";|cargoHash = \"$fake_hash\";|" default.nix
     elif [ "$attr" = "pnpmDeps" ]; then
+        drv_suffix="-pnpm-deps"
         sed -i "/pnpmDeps = fetchPnpmDeps/,/};/s|hash = \"sha256-[^\"]*\";|hash = \"$fake_hash\";|" default.nix
     else
         echo "ERROR: Unknown attribute $attr" >&2
@@ -80,7 +103,7 @@ get_hash_from_build_error() {
 
     # Extract the correct hash from error message
     local correct_hash
-    correct_hash=$(echo "$error_output" | grep -oP "got:\s+\Ksha256-[^\s]+" | head -1)
+    correct_hash=$(echo "$error_output" | extract_got_hash "$drv_suffix")
 
     if [ -n "$correct_hash" ]; then
         # Write the correct hash back

@@ -29,6 +29,14 @@ jobs:
     - name: Update flake.lock
       run: nix flake update
 
+    # Gate the push on evaluation: forcing every package's drvPath against the
+    # freshly locked nixpkgs catches removed/renamed nixpkgs APIs before the
+    # broken lock lands on main. Building is left to build.yml.
+    - name: Check evaluation
+      run: |
+        nix eval --raw .#packages.x86_64-linux \
+          --apply 'ps: toString (map (p: p.drvPath) (builtins.attrValues ps))'
+
     - name: Commit and push if changed
       run: |
         git add flake.lock

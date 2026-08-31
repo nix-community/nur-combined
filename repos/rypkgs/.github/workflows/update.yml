@@ -27,7 +27,11 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
 
+    # Each package is updated independently: `continue-on-error` keeps one
+    # broken package from blocking the others, and the final step turns any
+    # failure back into a red run so it doesn't go unnoticed.
     - name: Update blink
+      id: blink
       continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -36,6 +40,7 @@ jobs:
         ./update.sh
 
     - name: Update bluevein
+      id: bluevein
       continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -44,6 +49,7 @@ jobs:
         ./update.sh
 
     - name: Update aw-watcher-media-player
+      id: aw_watcher_media_player
       continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,4 +59,26 @@ jobs:
 
     - name: Push changes
       run: |
+        # An update script that failed partway can leave the tree dirty; it only
+        # commits once it has a verified build, so drop anything uncommitted.
+        git checkout -- .
         git push
+
+    - name: Report update failures
+      env:
+        BLINK: ${{ steps.blink.outcome }}
+        BLUEVEIN: ${{ steps.bluevein.outcome }}
+        AW_WATCHER_MEDIA_PLAYER: ${{ steps.aw_watcher_media_player.outcome }}
+      run: |
+        failed=""
+        for pkg in blink bluevein aw-watcher-media-player; do
+          var=$(echo "$pkg" | tr 'a-z-' 'A-Z_')
+          if [ "${!var}" = "failure" ]; then
+            failed="$failed $pkg"
+          fi
+        done
+        if [ -n "$failed" ]; then
+          echo "::error::Update script failed for:$failed"
+          exit 1
+        fi
+        echo "All update scripts succeeded."
