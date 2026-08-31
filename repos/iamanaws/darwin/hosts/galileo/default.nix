@@ -32,7 +32,8 @@ in
     "Plain Text Editor" = "com.sindresorhus.Plain-Text-Editor";
     Pixea = "imagetasks.Pixea";
     Xcode = "com.apple.dt.Xcode";
-    Grab2Text = "com.softwarehow.grab2text";
+    # Delisted from the App Store; bundle ID lookup fails.
+    Grab2Text = 6475956137; # com.softwarehow.grab2text
   };
 
   environment.systemPackages = with pkgs; [
