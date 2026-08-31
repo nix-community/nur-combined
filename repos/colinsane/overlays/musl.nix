@@ -448,8 +448,8 @@ super.lib.composeManyExtensions [
         #   hash = "sha256-oD/UdVfvOtY+HR5mLExf7ARQfvjpaMd2rOf0EBQ5TyM=";
         # })
         (fetchAports {
+          # 2026-08-31: still required
           # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
-          # 2026-06-07: still required
           path = "community/firefox/musl-no-linux-prctl.patch";
           hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
         })
@@ -751,37 +751,6 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    # 2026-05-23: still required
-    # 2026-01-29: build fails against glycin 3.0.4
-    # >    Compiling glycin v3.0.4
-    # > error[E0425]: cannot find function `close_range` in crate `libc`
-    # >    --> /build/cargo-deps-vendor/glycin-3.0.4/src/sandbox.rs:250:23
-    # >     |
-    # > 250 |                 libc::close_range(3, libc::c_uint::MAX, libc::CLOSE_RANGE_CLOEXEC as i32);
-    # >     |                       ^^^^^^^^^^^ not found in `libc`
-    # >
-    # > For more information about this error, try `rustc --explain E0425`.
-    # > error: could not compile `glycin` (lib) due to 1 previous error
-    # > warning: build failed, waiting for other jobs to finish...
-    # > FAILED: [code=101] src/fractal
-    # > /nix/store/4lk00h8gz0qmlg6mf1hs1q8zbh95yn61-coreutils-9.9/bin/env CARGO_HOME=/build/source/build/cargo-home /nix/store/x22f9hd7qb1zpf44gl48ydg8invl2mbj-cargo-1.92.0/bin/cargo build --manifest-path /build/source/Cargo.toml --target-dir /build/source/build/cargo-target --release && cp /build/source/build/cargo-target/x86_64-unknown-linux-musl/release/fractal src/fractal
-    # > ninja: build stopped: subcommand failed.
-    # For full logs, run:
-    #         nix log /nix/store/6a9l2n5kv5sbrafar1jljh4qs5xkq5xg-fractal-13.drv
-    # fractal = prev.fractal.overrideAttrs (upstream: rec {
-    #   patches = (upstream.patches or []) ++ [
-    #     (fetchAports {
-    #       path = "community/fractal/cargo-update-glycin.patch";
-    #       hash = "sha256-qLPsV5lIJHK2BfUhajWB5sNbAXbQ8NVHKgKxx1cqDLc=";
-    #     })
-    #   ];
-    #   cargoDeps = final.rustPlatform.fetchCargoVendor {
-    #     inherit (upstream) src;
-    #     inherit patches;
-    #     hash = "sha256-W3fN4j408cPYfkn6oIPwD8E92CQ/GL2lZ9ygjg7tKJY=";
-    #   };
-    # });
-
     # 2026-08-30: still required
     # XXX(2026-01-29): taken from aports build flags; gcr probably has some conditional forward declaration of getpass?
     # > ../gcr/console-interaction.c: In function ‘console_interaction_ask_password’:
@@ -844,7 +813,7 @@ super.lib.composeManyExtensions [
     };
 
     gst_all_1 = prev.gst_all_1.overrideScope (_final': prev': {
-      # 2026-05-23: still required
+      # 2026-08-31: still required
       # XXX(2026-01-28): ffv1 tests timeout. it's some new codec, just disable it.
       # <https://github.com/FFmpeg/FFV1>
       #
@@ -895,15 +864,7 @@ super.lib.composeManyExtensions [
       });
     });
 
-    # 2026-04-30: still required; **partial fix** out for PR: <https://github.com/NixOS/nixpkgs/pull/515642>
-    # hare = prev.hare.override {
-    #   # hare-wrapper -> hare-hook attempts to build gnu toolchains
-    #   # (pkgsCross.gnu64, pkgsCross.aarch64-multiplatform, pkgsCross.riscv64).
-    #   # but glibc doesn't build with musl, so these fail.
-    #   enableCrossCompilation = false;
-    # };
-
-    # 2026-04-30: still required
+    # 2026-08-31: still required
     # 2026-01-27: fails hyprland -> hyprcursor -> tomlplusplus (locale tests fail)
     # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
     hyprland = null;
@@ -977,63 +938,6 @@ super.lib.composeManyExtensions [
       doCheck = false;
     });
 
-    # 2026-05-23: still required (for `pkgsMusl.appstream`)
-    # libfyaml = prev.libfyaml.overrideAttrs (prevAttrs: {
-    #   patches = prevAttrs.patches or [] ++ [
-    #     # 2026-04-26: required to fix `nix-build -A pkgsMusl.appstream`.
-    #     # > /nix/store/0cqdpmg3w6z3ccc3x6zzm7dvfdzirlp1-binutils-2.46/bin/ld.bfd: cannot find none: Invalid argument
-    #     # > /nix/store/0cqdpmg3w6z3ccc3x6zzm7dvfdzirlp1-binutils-2.46/bin/ld.bfd: cannot find required: Invalid argument
-    #     (fetchurl {
-    #       name = "dont-output-none-required-to-LIBM-if-no-linker-flags-needed-for-it";
-    #       url = "https://github.com/pantoniou/libfyaml/commit/24b18e7363b336962fe160c1dc05ca57ba95783c.patch?full_index=1";
-    #       hash = "sha256-QtGgcALHF7GnH3yJIgTrx+Rds0T+s/bJURoUDs0C8pk=";
-    #     })
-    #     (fetchurl {
-    #       name = "configure.ac-Fix-stray-fi";
-    #       url = "https://github.com/pantoniou/libfyaml/commit/9f2492ca27bb1fda64f2b12edc2da17406208b93.patch?full_index=1";
-    #       hash = "sha256-WyjVQa+O2MXK1UVCTSxeCHmLecEcsD1xgb4CyOLg/bA=";
-    #     })
-    #   ];
-    # });
-
-    # lixPackageSets = prev.lixPackageSets.extend (self: super: {
-    #   # makeLixScope = args: (super.makeLixScope args).overrideScope (self': super': {
-    #   #   lix = super'.lix.overrideAttrs { doInstallCheck = false; };
-    #   # });
-    #   lix_2_94 = super.lix_2_94.overrideScope (self': super': {
-    #     # XXX(2026-02-02): pkgsMusl.lixPackageSets.latest.lix just started failing installCheck?
-    #     # > lix:installcheck / functional-gc-auto                                       FAIL
-    #     # > lix:installcheck / functional-build                                         TIMEOUT
-    #     # lix = super'.lix.overrideAttrs { doInstallCheck = false; };
-    #     # boost = final.boost187;
-    #     lix = lib.pipe super'.lix [
-    #       (p: p.override {
-    #         # XXX(2026-02-28): segfaults building docs.
-    #         # i wonder how serious a failure that is...
-    #         enableDocumentation = false;  #< this actually does fix the build
-    #       })
-    #       (p: p.overrideAttrs (prevAttrs: {
-    #         # hack disable this test:
-    #         # > 1/5 check - lix:libcmd-unit-tests   FAIL            0.02s   killed by signal 11 SIGSEGV
-    #         # postPatch = (prevAttrs.postPatch or "") + ''
-    #         #   substituteInPlace tests/unit/libcmd/args.cc \
-    #         #     --replace-fail \
-    #         #       'TEST(Arguments, lookupFileArg) {' \
-    #         #       'TEST(Arguments, lookupFileArg) { return;'
-    #         # '';
-    #         doCheck = false;
-    #         # mesonBuildType = "release";
-    #         # mesonBuildType = "plain";
-    #         # mesonBuildType = "debug";
-    #         # mesonFlags = lib.remove "-Dinternal-api-docs=enabled" prevAttrs.mesonFlags;
-    #         # mesonFlags = lib.remove "-Db_lto=true" prevAttrs.mesonFlags;
-    #         # doInstallCheck = false;
-    #         # hardeningDisable = [ "all" ];
-    #       }))
-    #     ];
-    #   });
-    # });
-
     # 2026-08-30: still required
     # XXX(2026-01-22): fix broken 0122 test:
     # > FAIL: test-0112.sh
@@ -1052,30 +956,6 @@ super.lib.composeManyExtensions [
         })
       ];
     });
-
-    # 2026-04-30: still required
-    # 2026-01-29: build fails against glycin 3.0.4
-    # > error[E0425]: cannot find function `close_range` in crate `libc`
-    # >    --> /build/loupe-deps-49.2-vendor/glycin-3.0.4/src/sandbox.rs:250:23
-    # >     |
-    # > 250 |                 libc::close_range(3, libc::c_uint::MAX, libc::CLOSE_RANGE_CLOEXEC as i32);
-    # >     |                       ^^^^^^^^^^^ not found in `libc`
-    # >
-    # > For more information about this error, try `rustc --explain E0425`.
-    # > error: could not compile `glycin` (lib) due to 1 previous error
-    # loupe = prev.loupe.overrideAttrs (upstream: rec {
-    #   patches = (upstream.patches or []) ++ [
-    #     (fetchAports {
-    #       path = "community/loupe/glycin-2.0.5.patch";
-    #       hash = "sha256-XhsAZjU3LHdiQEYrCs7zsFVizOWYZIgrkfshl0EoOMA=";
-    #     })
-    #   ];
-    #   cargoDeps = final.rustPlatform.fetchCargoVendor {
-    #     inherit (upstream) src;
-    #     inherit patches;
-    #     hash = "sha256-ZTyLHfmMF8rMVT1RlZ2Nmgm4kPKYHdVqqshI/Fkj/f8=";
-    #   };
-    # });
 
     # XXX(2026-07-16): patch lttng-ust so that wireplumber (pipewire) doesn't crash on launch.
     lttng-ust = prev.lttng-ust.overrideAttrs (prevAttrs: {
@@ -1372,6 +1252,7 @@ super.lib.composeManyExtensions [
       '';
     });
 
+    # 2026-08-31: still required
     openscad-unstable = prev.openscad-unstable.overrideAttrs (prevAttrs: {
       disabledTests = prevAttrs.disabledTests ++ [
         # these might be legit test failures
@@ -1387,17 +1268,6 @@ super.lib.composeManyExtensions [
     #   level-zero = null;
     # };
 
-    # 2026-04-30: still required
-    # pipewire = prev.pipewire.overrideAttrs {
-    #   # 2026-02-19: fixes:
-    #   # > In function ‘array_test’:
-    #   # > cc1: note: source object is likely at address zero
-    #   # > /nix/store/h7x66rfwc6alim5gz0s2zjpwgavlfrz9-fortify-headers-3.0.1/include/string.h:69:1: note: in a call to function ‘__orig_memmove’ declared with attribute ‘access (read_only, 2, 3)’
-    #   # >    69 | _FORTIFY_FN(memmove) void *memmove(void * _FORTIFY_POS0 __d,
-    #   # >       | ^~~~~~~~~~~
-    #   hardeningDisable = [ "fortify" ];
-    # };
-
     # 2026-06-22: playwright-driver.passthru.browsers would appear to be **vendored** browsers, hence glibc-only.
     playwright-driver = final._pkgsGnu.playwright-driver;
     playwright-test = final._pkgsGnu.playwright-test;
@@ -1405,13 +1275,14 @@ super.lib.composeManyExtensions [
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (pyself: pysuper: {
         # XXX(2026-06-22): "Expected 12 exit code, got 14 on test/fixtures/templates/quickstart/openshift.yaml"
-        cfn-lint = pysuper.cfn-lint.overridePythonAttrs (prevAttrs: {
-          disabledTests = prevAttrs.disabledTests ++ [
-            "test_templates" # test_quickstart_templates and test_quickstart_templates_non_strict
-            "test_module_integration" # test_quickstart_templates_non_strict
-          ];
-        });
+        # cfn-lint = pysuper.cfn-lint.overridePythonAttrs (prevAttrs: {
+        #   disabledTests = prevAttrs.disabledTests ++ [
+        #     "test_templates" # test_quickstart_templates and test_quickstart_templates_non_strict
+        #     "test_module_integration" # test_quickstart_templates_non_strict
+        #   ];
+        # });
 
+        # 2026-08-31: still required
         ml-dtypes = pysuper.ml-dtypes.overridePythonAttrs (prevAttrs: {
           # musl's libm returns different NaN and infinity components for complex
           # functions than glibc, so these upstream comparisons are not portable.
@@ -1431,6 +1302,7 @@ super.lib.composeManyExtensions [
           ];
         });
 
+        # 2026-08-31: still required
         crawl4ai = (pysuper.crawl4ai.override {
           alphashape = null;
           shapely = null;
@@ -1450,34 +1322,37 @@ super.lib.composeManyExtensions [
           ];
         });
 
+        # 2026-08-31: still required
         cyclopts = pysuper.cyclopts.override {
           # XXX(2026-06-22): nativeCheckInputs; optional dep.
           fish = null;
         };
 
+        # 2026-08-31: still required
         # XXX(2026-06-22): timezone tests fail
         django = pysuper.django.overridePythonAttrs {
           doCheck = false;
         };
 
         # alternatively: `fastmcp = pyself.fastmcp-slim`
-        fastmcp = pysuper.fastmcp.overridePythonAttrs (prevAttrs: {
-          # XXX(2026-06-22): "TestSupabaseProviderIntegration::test_unauthorized_access - RuntimeError: Server failed to start after 30 attempts"
-          disabledTests = prevAttrs.disabledTests ++ [
-            "test_unauthorized_access"
-          ];
+        # fastmcp = pysuper.fastmcp.overridePythonAttrs (prevAttrs: {
+        #   # XXX(2026-06-22): "TestSupabaseProviderIntegration::test_unauthorized_access - RuntimeError: Server failed to start after 30 attempts"
+        #   disabledTests = prevAttrs.disabledTests ++ [
+        #     "test_unauthorized_access"
+        #   ];
 
-          # XXX(2026-07-01): some test hangs there's no way to know which one.
-          doCheck = false;
-        });
+        #   # XXX(2026-07-01): some test hangs there's no way to know which one.
+        #   doCheck = false;
+        # });
 
         # 2026-05-23: still required
         # XXX(2026-01-29): test_ellipse_arc fails, looks like a legitimate failure (numerical).
         # i use inkscape mostly at build time (for wallpapers), so just disable tests.
-        inkex = pysuper.inkex.overridePythonAttrs {
-          doCheck = false;
-        };
+        # inkex = pysuper.inkex.overridePythonAttrs {
+        #   doCheck = false;
+        # };
 
+        # 2026-08-31: still required
         joblib = pysuper.joblib.overridePythonAttrs {
           # XXX(2026-07-27): several test failures, unknown cause
           # > python3.14-joblib> FAILED joblib/test/test_parallel.py::test_threadpool_limitation_in_child_override[parallel_config-OPENBLAS_NUM_THREADS-2] - OSError: [Errno 24] No file descriptors available
@@ -1487,7 +1362,7 @@ super.lib.composeManyExtensions [
           # checkPhaseThreadLimitHook = null;
         };
 
-        # 2026-05-23: still required
+        # 2026-08-31: still required
         netifaces = pysuper.netifaces.overrideAttrs (upstream: {
           patches = (upstream.patches or []) ++ [
             (fetchAports {
@@ -1506,6 +1381,7 @@ super.lib.composeManyExtensions [
           '';
         });
 
+        # 2026-08-31: still required
         # 2026-07-01: torch is an optional dependency, but used unconditionally in `nativeCheckInputs`.
         pylance = pysuper.pylance.overridePythonAttrs (upstream: {
           nativeCheckInputs = (lib.remove pyself.torch upstream.nativeCheckInputs) ++ [
@@ -1514,18 +1390,20 @@ super.lib.composeManyExtensions [
           # optionalDependencies = [];
         });
 
+        # 2026-08-31: still required
         # 2026-07-27: curl-cffi tests hang/fail on musl. Disable all tests to ensure build completes.
         # The tests require network access and have issues with musl-specific behavior.
         curl-cffi = pysuper.curl-cffi.overridePythonAttrs (prevAttrs: {
           doCheck = false;
         });
 
+        # 2026-08-31: still required
         swagger-spec-validator = pysuper.swagger-spec-validator.overridePythonAttrs {
           # asserts on strerror strings?
           doCheck = false;
         };
 
-        # 2026-05-23: still required
+        # 2026-08-31: still required
         twisted = pysuper.twisted.overrideAttrs (upstream: {
           # 2026-01-22: no explanation; alpine just hard-disables this hanging test, quite intrusively.
           # the test *does* seem to be flakey? but builds (eventually?) w/o this.
@@ -1712,7 +1590,7 @@ super.lib.composeManyExtensions [
     #   });
     # };
     #
-    # 2026-04-30: still required
+    # 2026-08-31: still required
     signal-desktop = final._pkgsGnu.signal-desktop;
 
     # 2026-04-30: still required
@@ -1895,130 +1773,6 @@ super.lib.composeManyExtensions [
       '';
     });
 
-    # 2026-04-30: still required
-    # XXX(2026-01-22): v1.6.0 (nixpkgs default) fails to compile:
-    # >     CC       xdpsock.o
-    # > In file included from /nix/store/ci8sxhmyzz9pgqidk2z9zh6ycgcr72bd-musl-1.2.5-dev/include/net/ethernet.h:10,
-    # >                  from xdpsock.c:18:
-    # > /nix/store/ci8sxhmyzz9pgqidk2z9zh6ycgcr72bd-musl-1.2.5-dev/include/netinet/if_ether.h:115:8: error: redefinition of ‘struct ethhdr’
-    # >   115 | struct ethhdr {
-    # >       |        ^~
-    # > In file included from xdpsock.c:12:
-    # > /nix/store/ci8sxhmyzz9pgqidk2z9zh6ycgcr72bd-musl-1.2.5-dev/include/linux/if_ether.h:173:8: note: originally defined here
-    # >   173 | struct ethhdr {
-    # >       |        ^~
-    # > make[2]: * [Makefile:13: xdpsock.o] Error 1
-    # > make[1]: * [Makefile:13: util] Error 2
-    # > make: * [Makefile:31: lib] Error 2
-    # For full logs, run:
-    #     nix log /nix/store/h39j3mh137l8yqmnwr2vh6ijbgv28czf-xdp-tools-1.6.0.drv
-    # xdp-tools = prev.xdp-tools.overrideAttrs (upstream: rec {
-    #   # 1.6.0+ conflates `linux/if_ether.h` and `netinet/if_ether.h`
-    #   # in a way that's difficult to reconcile 100%
-    #   # NIX_CFLAGS_COMPILE = "-Wno-error=maybe-uninitialized";
-    #   # postPatch = (upstream.postPatch or "") + ''
-    #   #   find . -type f -exec sed -i 's:linux/if_ether.h:netinet/if_ether.h:g' '{}' ';'
-
-    #   #   substituteInPlace lib/libxdp/xsk.c \
-    #   #     --replace-fail 'netinet/if_ether.h' 'linux/if_ether.h'
-
-    #   #   substituteInPlace lib/util/xdp_sample.c \
-    #   #     --replace-fail 'netinet/if_ether.h' 'linux/if_ether.h'
-
-    #   #   # substituteInPlace lib/util/xdpsock.c \
-    #   #   #   --replace-fail 'linux/if_ether.h' 'netinet/if_ether.h'
-
-    #   #   # substituteInPlace lib/util/params.h \
-    #   #   #   --replace-fail 'linux/if_ether.h' 'netinet/if_ether.h'
-
-    #   #   # substituteInPlace lib/util/params.c \
-    #   #   #   --replace-fail 'linux/if_ether.h' 'netinet/if_ether.h'
-
-
-    #   #   # substituteInPlace lib/util/xdpsock.h --replace-fail \
-    #   #   #   "#include <netinet/ether.h>" "#include <linux/if_ether.h>"
-
-    #   #   # substituteInPlace lib/util/xdpsock.c \
-    #   #   #   --replace-fail "#include <netinet/ether.h>" "" \
-    #   #   #   --replace-fail "#include <net/ethernet.h>" ""
-    #   # '';
-    #   # nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-    #   #   final.clang
-    #   # ];
-    #   # preConfigure = (upstream.preConfigure or "") + ''
-    #   #   unset CLANG
-    #   # '';
-    #   # BPF_CFLAGS = "";
-    #   # version = "1.5.7";  #< builds
-    #   # src = fetchFromGitHub {
-    #   #   owner = "xdp-project";
-    #   #   repo = "xdp-tools";
-    #   #   rev = "v${version}";
-    #   #   hash = "sha256-dJMGBFFfEpKO+5ku5Xsc95hGSmTenHGRjBTL7s1cv0c=";
-    #   # };
-
-    #   version = "1.5.8";  #< builds
-    #   src = fetchFromGitHub {
-    #     owner = "xdp-project";
-    #     repo = "xdp-tools";
-    #     rev = "v${version}";
-    #     hash = "sha256-fW0If34PTGE36KoZYPeKOMuNjaFz1JmSCaWIaSjB0gk=";
-    #   };
-
-    #   # version = "1.5.8-unstable-20260106";  #< builds
-    #   # src = fetchFromGitHub {
-    #   #   owner = "xdp-project";
-    #   #   repo = "xdp-tools";
-    #   #   rev = "c109ab3175008ffc1c7bdcfc5376c54b5666faf2";
-    #   #   hash = "sha256-VRNFPPGtu+n3WBZTzC7ZIJePhY6VgaDXHYbzHkcM+EU=";
-    #   # };
-
-    #   #< this region not yet bisected
-
-    #   # version = "1.5.8-unstable-20250911";  #< fails, `make[1]: *** No rule to make target 'xdp_socket.bpf.c', needed by 'xdp_socket.bpf.o'.  Stop.`
-    #   # src = fetchFromGitHub {
-    #   #   owner = "xdp-project";
-    #   #   repo = "xdp-tools";
-    #   #   rev = "0a4cc7469abe4f9203598c46008000ee4bbbe10f";
-    #   #   hash = "sha256-vZzvFl3bfoGro3hTLnowHkFOI+9JuwO2/78QIOigcTs=";
-    #   # };
-
-    #   # version = "1.5.8-unstable-20250916";  #< fails, `make[1]: *** No rule to make target 'xdp_socket.bpf.c', needed by 'xdp_socket.bpf.o'.  Stop.`
-    #   # src = fetchFromGitHub {
-    #   #   owner = "xdp-project";
-    #   #   repo = "xdp-tools";
-    #   #   rev = "7028ccef1b62d6b546edd709fc00d7f6ad38a5f1";
-    #   #   hash = "sha256-x0IF24NJNdv6U91fAPazQ8HyX+yW5q29w966eOdzCJQ=";
-    #   # };
-
-    #   #< this region not yet bisected
-
-    #   # version = "1.5.8-unstable-20250916";  #< fails
-    #   # src = fetchFromGitHub {
-    #   #   owner = "xdp-project";
-    #   #   repo = "xdp-tools";
-    #   #   rev = "ec02d32f75431b7ed9857cb51c631bc4127f3fb2";
-    #   #   hash = "sha256-dtSHXQEHucZyU/IUIXu5zRee8EMTtfS6R6M2lniI7nE=";
-    #   # };
-
-    #   # version = "1.5.8-unstable-20251216";  #< fails
-    #   # src = fetchFromGitHub {
-    #   #   owner = "xdp-project";
-    #   #   repo = "xdp-tools";
-    #   #   rev = "bf9ddf088a082141abac3e393c97233c98a39e61";
-    #   #   hash = "sha256-qdGI3BgLiUckPJcz+3VERAA0C3N3ZB3/6lCEe6KkcH0=";
-    #   # };
-
-    #   # version = "1.6.0-unstable-20260115";  #< fails
-    #   # src = fetchFromGitHub {
-    #   #   owner = "xdp-project";
-    #   #   repo = "xdp-tools";
-    #   #   rev = "6754facf547ccf76c601911ba02c84c238d1748f";
-    #   #   hash = "sha256-qSEPw/UaH7H0A6hT8ipdlCBS+IG/gyErUa3UK9DOEfI=";
-    #   # };
-    # });
-
-
     # XXX(2026-06-17): nixpkgs adds absolute libEGL/libvulkan DT_NEEDED entries to
     # wezterm-gui in preFixup. that makes the dynamic linker load them at program
     # start, but wezterm later dlopen()s libEGL.so.1 by soname. glibc returns the
@@ -2081,20 +1835,6 @@ super.lib.composeManyExtensions [
     #     })
     #   ];
     # });
-
-    # yt-dlp = prev.yt-dlp.override {
-    #   # 2026-01-25: deno fails to build for musl.
-    #   # >    Compiling encoding_rs v0.8.35
-    #   # > error: couldn't read `/build/deno-2.6.5-vendor/v8-142.2.0/gen/src_binding_release_x86_64-unknown-linux-musl.rs`: No such file or directory (os error 2)
-    #   # >  --> /build/deno-2.6.5-vendor/v8-142.2.0/src/binding.rs:6:1
-    #   # >   |
-    #   # > 6 | include!(env!("RUSTY_V8_SRC_BINDING_PATH"));
-    #   # >   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    #   # >
-    #   # >    Compiling unicode-xid v0.2.6
-    #   # > error: could not compile `v8` (lib) due to 1 previous error
-    #   javascriptSupport = false;  # a.k.a.: `deno = null;`
-    # };
 
     # # XXX(2026-02-03): musl `buildFHSEnvBubblewrap`-based attempt failed at runtime:
     # # > /opt/zoom/ZoomLauncher: /lib/libstdc++.so.6: no version information available (required by /opt/zoom/ZoomLauncher)

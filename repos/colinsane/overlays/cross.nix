@@ -137,13 +137,15 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
+  # 2026-08-31: still required
   clapper-enhancers = prev.clapper-enhancers.overrideAttrs (prevAttrs: {
     nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
       buildPackages.mesonEmulatorHook
     ];
   });
 
-  # 2026/01/27: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
+  # 2026-08-31: still required
+  # 2026-01-27: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
   confy = prev.confy.overrideAttrs (upstream: {
     # meson's `python.find_installation` method somehow just doesn't support cross compilation.
     # - <https://mesonbuild.com/Python-module.html#find_installation>
@@ -161,15 +163,6 @@ in with final; {
     '';
   });
 
-  # 2025/07/27: upstreaming is unblocked
-  # dtrx = prev.dtrx.override {
-  #   # `binutils` is the nix wrapper, which reads nix-related env vars
-  #   # before passing on to e.g. `ld`.
-  #   # dtrx probably only needs `ar` at runtime, not even `ld`.
-  #   # this isn't required to fix the _build_, nor even runtime behavior (probably); it's a cleanliness fix (fewer build packages in runtime closure)
-  #   binutils = binutils-unwrapped;
-  # };
-
   # envelope = prev.envelope.override {
   #   cargo = crossCargo;
   # };
@@ -180,26 +173,6 @@ in with final; {
   #   # future: we can specify 'action-if-cross-compiling' to actually invoke the test programs:
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
-
-  # oof, each ffmpeg variant is a unique expression -- not an alias/override; have to override them all
-  ffmpeg_8 = prev.ffmpeg_8.override {
-    withCudaLLVM = false;
-  };
-  ffmpeg_8-full = prev.ffmpeg_8-full.override {
-    withCudaLLVM = false;
-  };
-  ffmpeg_8-headless = prev.ffmpeg_8-headless.override {
-    withCudaLLVM = false;
-  };
-  ffmpeg = prev.ffmpeg.override {
-    withCudaLLVM = false;
-  };
-  ffmpeg-full = prev.ffmpeg-full.override {
-    withCudaLLVM = false;
-  };
-  ffmpeg-headless = prev.ffmpeg-headless.override {
-    withCudaLLVM = false;
-  };
 
   # 2025/12/07: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
@@ -246,11 +219,13 @@ in with final; {
   #   ];
   # });
 
+  # 2026-08-31: still required
   # 2026-05-24: upstreaming is unblocked
   gnome-2048 = prev.gnome-2048.override {
     cargo = crossCargo;
   };
 
+  # 2026-08-31: still required
   # 2026-06-13: upstreaming is blocked by openblas.
   # rebase `pr-frog-zbar` and send for review once openblas is fixed.
   gnome-frog = prev.gnome-frog.override {
@@ -296,6 +271,7 @@ in with final; {
   #   buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
   # });
 
+  # 2026-08-31: still required
   gom = prev.gom.overrideAttrs (prevAttrs: {
     # 2026-05-22: fixes:
     # > bindings/python/meson.build:1:27: ERROR: python3 not found
@@ -571,6 +547,7 @@ in with final; {
     ];
   });
 
+  # 2026-08-31: still required
   onnxruntime = prev.onnxruntime.override {
     # openvino does not cross compile
     openvinoSupport = false;
@@ -648,13 +625,6 @@ in with final; {
   #   ;
   # });
 
-  opencv = prev.opencv.override {
-    # fails to link against reference blas implementation, only openblas (currently broken)
-    enableBlas = false;
-    # `pkgsCross.aarch64-multiplatform.openblas` fails, but the "reference" implementation does compile.
-    # blas = final.blas.override { blasProvider = final.lapack-reference; };
-  };
-
   # 2025/07/27: upstreaming is blocked on gnome-session (itself blocked on gnome-shell)
   # phosh = prev.phosh.overrideAttrs (upstream: {
   #   buildInputs = upstream.buildInputs ++ [
@@ -681,37 +651,28 @@ in with final; {
   #   ];
   # } prev.phosh-mobile-settings;
 
-  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-    (pyself: pysuper: {
-      numpy = pysuper.numpy.override {
-        # 2026-04-27: `pkgsCross.aarch64-multiplatform.openblas` fails, but the "reference" implementation does compile.
-        blas = final.blas.override { blasProvider = final.lapack-reference; };
-        lapack = final.lapack.override { lapackProvider = final.lapack-reference; };
-      };
-      pip = pysuper.pip.overridePythonAttrs (prevAttrs: {
-        # skip shell completions. could be re-enabled by using emulator.
-        postInstall = lib.replaceStrings [ "installShellCompletion" ] [ "true || installShellCompletion" ] prevAttrs.postInstall;
-      });
-      scipy = pysuper.scipy.override {
-        blas = final.blas.override { blasProvider = final.lapack-reference; };
-        lapack = final.lapack.override { lapackProvider = final.lapack-reference; };
-      };
-      # 2025/07/23: upstreaming is unblocked, but solution is untested.
-      # the references here are a result of the cython build process.
-      # cython is using the #include files from the build python, and leaving those paths in code comments.
-      # better solution is to get cython to use the HOST python??
-      #
-      # python3Packages.srsly is required by `newelle` program.
-      # srsly = pysuper.srsly.overridePythonAttrs (upstream: {
-      #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-      #     removeReferencesTo
-      #   ];
-      #   postFixup = (upstream.postFixup or "") + ''
-      #     remove-references-to -t ${pyself.python.pythonOnBuildForHost} $out/${pyself.python.sitePackages}/srsly/msgpack/*.cpp
-      #   '';
-      # });
-    })
-  ];
+  # pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+  #   (pyself: pysuper: {
+  #     pip = pysuper.pip.overridePythonAttrs (prevAttrs: {
+  #       # skip shell completions. could be re-enabled by using emulator.
+  #       postInstall = lib.replaceStrings [ "installShellCompletion" ] [ "true || installShellCompletion" ] prevAttrs.postInstall;
+  #     });
+  #     # 2025/07/23: upstreaming is unblocked, but solution is untested.
+  #     # the references here are a result of the cython build process.
+  #     # cython is using the #include files from the build python, and leaving those paths in code comments.
+  #     # better solution is to get cython to use the HOST python??
+  #     #
+  #     # python3Packages.srsly is required by `newelle` program.
+  #     # srsly = pysuper.srsly.overridePythonAttrs (upstream: {
+  #     #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+  #     #     removeReferencesTo
+  #     #   ];
+  #     #   postFixup = (upstream.postFixup or "") + ''
+  #     #     remove-references-to -t ${pyself.python.pythonOnBuildForHost} $out/${pyself.python.sitePackages}/srsly/msgpack/*.cpp
+  #     #   '';
+  #     # });
+  #   })
+  # ];
 
   # qt6 = prev.qt6.overrideScope (self: super: {
   #   # qtbase = super.qtbase.overrideAttrs (upstream: {
@@ -781,11 +742,6 @@ in with final; {
   #   ];
   # });
 
-  systemd = prev.systemd.overrideAttrs (prevAttrs: {
-    # implemented on my 2026-07-11-cross nixpkgs branch
-    postPatch = lib.replaceString "substituteInPlace meson.build" "substituteInPlace src/bpf/meson.build" prevAttrs.postPatch;
-  });
-
   # 2026/01/03: upstreaming is unblocked
   # tangram = prev.tangram.overrideAttrs (upstream: {
   #   # gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs.
@@ -820,7 +776,7 @@ in with final; {
   # > tree-sitter-aarch64-unknown-linux-gnu>   thread 'main' (4005) panicked at /build/tree-sitter-0.26.8-vendor/source-registry-0/rquickjs-sys-0.10.0/build.rs:352:39:
   # > tree-sitter-aarch64-unknown-linux-gnu>   Unable to generate bindings: ClangDiagnostic("/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:182:9: error: unknown type name '__SVFloat32_t'\n/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:183:9: error: unknown type name '__SVFloat64_t'\n/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:184:9: error: unknown type name '__SVBool_t'\n")
   tree-sitter = prev.tree-sitter.overrideAttrs (finalAttrs: prevAttrs: {
-    version = lib.warnIf (lib.versionOlder "0.26.9" prevAttrs.version) "tree-sitter is updated upstream: remove version override?" "0.25.10";
+    version = lib.warnIf (lib.versionOlder "0.26.11" prevAttrs.version) "tree-sitter is updated upstream: remove version override?" "0.25.10";
     src = prevAttrs.src.overrideAttrs {
       hash = "sha256-aHszbvLCLqCwAS4F4UmM3wbSb81QuG9FM7BDHTu1ZvM=";
     };
@@ -925,7 +881,8 @@ in with final; {
   #     upstream.postBuild;
   # });
 
-  # 2026/01/27: upstreaming is unblocked
+  # 2026-08-31: still required
+  # 2026-01-27: upstreaming is unblocked
   xdg-desktop-portal-phosh = prev.xdg-desktop-portal-phosh.overrideAttrs (orig: {
     postPatch = (orig.postPatch or "") + ''
       substituteInPlace src/meson.build --replace-fail \
