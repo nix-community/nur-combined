@@ -1,23 +1,23 @@
 name: "UpNote bump"
-# UpNote 는 버전 없는 롤링 URL 로만 배포돼 flake/dependabot 어느 쪽도 신버전을 알려주지 못한다.
-# 게다가 unfree 라 ci.nix 의 isBuildable 필터에서 빠져 build.yml 의 일일 cron 도 이 패키지를 건드리지
-# 않는다 → 아무 자동화도 없으면 영원히 뒤처진다. 그래서 별도 폴링 파이프라인이 필요하다.
+# UpNote 는 flake/dependabot 어느 쪽도 신버전을 알려주지 못하고, unfree 라 ci.nix 의 isBuildable
+# 필터에서 빠져 build.yml 의 일일 cron 도 이 패키지를 건드리지 않는다 → 아무 자동화도 없으면 영원히
+# 뒤처진다. 그래서 별도 폴링 파이프라인이 필요하다.
 on:
   schedule:
-    # 매일 01:00 UTC = 10:00 KST. 롤링 URL 이라 **폴링 간격이 그대로 다운스트림의 고장 노출 창**이다 —
-    # 업스트림이 파일을 갈아치우는 순간, 옛 해시에 묶인 소비자는 새로 빌드할 방법이 사라진다.
-    # 주 1회(월요일)였을 때 그 창이 최대 7일이었고 실제로 터졌다: UpNote 가 2026-08-27(목) 9.22.2 를
-    # 내놓았는데 봇은 08-31(월)에야 잡았고, 그 사이 9.22.0 에 묶여 있던 nix-configurations 의
-    # home-manager switch 가 hash mismatch 로 죽었다. 매일 돌리면 창이 24시간으로 줄어든다.
-    # 빈도를 올려도 비용은 거의 없다 — Check upstream version 스텝(update.sh)이 순수 셸이라
-    # 범프 없는 날은 nix 설치조차 하지 않고 no-op 으로 끝난다.
+    # 매일 01:00 UTC = 10:00 KST.
+    #
+    # ⚠️ 이 잡의 **성격이 2026-09-01 에 바뀌었다.** 소스를 롤링 deb URL 에서 snap 으로 옮기면서
+    #   (근거는 pkgs/upnote/default.nix 상단 주석) 갱신 지연이 더는 다운스트림 고장을 뜻하지 않게 됐다.
+    #   snap URL 에는 리비전이 박히고 과거 리비전이 스토어에 남으므로, 옛 해시에 묶인 소비자도 언제든
+    #   그 바이트열을 다시 받을 수 있다. 즉 **폴링 간격 = 고장 노출 창** 이라는 등식이 깨졌다.
+    #   (deb 시절엔 그 등식 때문에 주 1회 → 매일로 조였고, 2026-08-31 에 실제로 터졌었다.)
+    #   지금 이 잡은 고장 방지가 아니라 **단순 최신화**다. 매일 두는 이유는 비용이 사실상 0 이기
+    #   때문이지, 늦으면 깨지기 때문이 아니다.
+    #
     # nix-configurations 의 weekly flake update(화 06:30 KST)보다 앞서 도는 성질은 그대로다 —
     # 월요일 10:00 KST 실행분이 다음 날 그쪽 `nix flake update` 에 자연히 실려간다.
-    # ⚠ 그게 성립하려면 **반영까지 자동**이어야 한다(→ 아래 Commit & push). PR 만 열고 사람 손을
-    #   기다리면 그 사이 롤링 URL 이 갈려 다운스트림 빌드가 깨진다(#4 에서 실제로 겪었다).
-    # ⚠ 남는 창(최대 24시간)은 구조적이라 주기로는 못 없앤다. 폴링 직후 릴리스가 나면, 그 사이
-    #   store 에 결과물이 없는 기기는 여전히 깨진다. 그쪽 대책은 이미 빌드된 store path 를 기기 간에
-    #   공유하는 것(다운스트림 substituter)이지 폴링을 더 조이는 게 아니다.
+    # ⚠ 자동 반영(→ 아래 Commit & push)은 유지한다. 리뷰 창이 실익 없이 방치되는 문제는 소스 교체와
+    #   무관하게 그대로이기 때문이다(#4 에서 PR 이 일주일 방치됐다).
     - cron: '0 1 * * *'
   workflow_dispatch:
 
@@ -33,8 +33,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      # 버전 확인이 먼저다 — update.sh 는 순수 셸(sort -V)이라 nix 가 필요 없다. 덕분에 아래
-      #   nix 설치를 실제 범프가 있는 주로 미룰 수 있다(대부분의 주는 no-op).
+      # 버전 확인이 먼저다 — update.sh 는 nix 없이 돈다(curl/jq/openssl 만 쓰며 셋 다 러너 기본 제공).
+      #   덕분에 아래 nix 설치를 실제 범프가 있는 날로 미룰 수 있다(대부분의 날은 no-op).
+      #   범프가 있는 날에만 snap(≈113MB)을 받아 sha3-384 대조 후 sha256 SRI 를 만든다.
       - name: Check upstream version
         id: update
         run: ./pkgs/upnote/update.sh
@@ -49,8 +50,9 @@ jobs:
 
       # 검증을 여기서 하는 이유: bump PR 이 트리거하는 build.yml 은 ci.nix 의 unfree 필터 때문에
       #   upnote 를 빌드하지 않는다. 즉 이 스텝이 이 패키지의 유일한 CI 검증 지점이다.
-      #   해시는 업스트림 메타파일에서 왔으니 맞지만, 새 버전이 새 공유 라이브러리를 요구하거나
-      #   동봉 prebuild 경로가 바뀌면 autoPatchelf 가 깨진다 — PR 을 열기 전에 그걸 잡는다.
+      #   해시는 update.sh 가 받은 바이트에서 직접 만들었으니 맞지만, 새 버전이 새 공유 라이브러리를
+      #   요구하거나 snap 안의 경로 구성이 바뀌면(스캐폴딩 이름, prebuild 위치) unpack/autoPatchelf 가
+      #   깨진다 — 푸시 전에 그걸 잡는다. default.nix 의 snap.yaml 버전 대조 관문도 여기서 돈다.
       - name: Verify build
         if: steps.update.outputs.updated == 'true'
         run: |
@@ -69,6 +71,8 @@ jobs:
         env:
           OLD: ${{ steps.update.outputs.old_version }}
           NEW: ${{ steps.update.outputs.new_version }}
+          OLDREV: ${{ steps.update.outputs.old_revision }}
+          NEWREV: ${{ steps.update.outputs.new_revision }}
           BASE: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
@@ -80,19 +84,24 @@ jobs:
           #   본문에 백틱이 있어 비인용 heredoc 이면 명령치환으로 먹힌다. 값은 sed 로 주입.
           msg="$RUNNER_TEMP/commit-msg.txt"
           cat > "$msg" <<'EOF'
-          upnote: @OLD@ -> @NEW@
+          upnote: @OLD@ (rev @OLDREV@) -> @NEW@ (rev @NEWREV@)
 
-          업스트림 메타파일(<https://download.getupnote.com/app/latest-linux.yml>)의 version 과
-          .deb 아티팩트 sha512 를 그대로 SRI 로 옮겼다. 롤링 URL 이라 이 갱신이 늦으면 옛 해시가
-          그대로 깨지므로 자동 폴링·자동 푸시한다.
+          snap store API(stable/amd64)가 알려준 리비전으로 옮겼다. 리비전을 제목에 같이 적는 이유는
+          **버전이 같아도 리비전만 오르는 재빌드가 있기 때문**이다 — 그 경우 version 두 값이 같아
+          제목만으로는 무엇이 바뀌었는지 알 수 없다.
+
+          내려받은 바이트는 스토어가 준 sha3-384 와 대조한 뒤 sha256 SRI 로 환산했다(nix 가 sha3 을
+          모른다). 즉 해시는 메타파일을 믿고 옮겨 적은 값이 아니라 실제 파일에서 계산한 값이다.
 
           검증: `nix-build . -A upnote` (allowUnfree) 통과 — UpNote 는 unfree 라 build.yml 의
-          isBuildable 필터에서 빠져, 이 워크플로가 유일한 CI 검증 지점이다.
+          isBuildable 필터에서 빠져, 이 워크플로가 유일한 CI 검증 지점이다. 빌드에는 snap 안의
+          meta/snap.yaml 버전이 파생의 version 과 일치하는지 보는 관문도 포함된다.
 
           ⚠ 실행 확인은 사후다. Electron GPU 가속(libEGL dlopen)과 fcitx5 한글 입력은 빌드가
           잡지 못한다 — 이상이 있으면 이 커밋을 revert 할 것.
           EOF
-          sed -i -e "s|@OLD@|$OLD|g" -e "s|@NEW@|$NEW|g" "$msg"
+          sed -i -e "s|@OLD@|$OLD|g" -e "s|@NEW@|$NEW|g" \
+                 -e "s|@OLDREV@|$OLDREV|g" -e "s|@NEWREV@|$NEWREV|g" "$msg"
           git commit -aF "$msg"
 
           # 스케줄 실행 중 다른 커밋이 들어와 non-fast-forward 가 될 수 있다. 이 커밋은 default.nix
