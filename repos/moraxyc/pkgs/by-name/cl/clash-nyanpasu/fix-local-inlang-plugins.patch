@@ -1,13 +1,13 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 9c7d45a..55a3c66 100644
+index 9c7d45a..f90067a 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
      "@iconify/json": "2.2.522",
-+    "@inlang/plugin-m-function-matcher": "^2.2.12",
-+    "@inlang/plugin-message-format": "^4.4.3",
++    "@inlang/plugin-m-function-matcher": "^2.2.13",
++    "@inlang/plugin-message-format": "^4.4.4",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.3",
      "@tanstack/react-query": "5.102.8",
@@ -27,7 +27,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 7fc4e19..09aefec 100644
+index 7fc4e19..c81bff7 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -35,11 +35,11 @@ index 7fc4e19..09aefec 100644
          specifier: 2.2.522
          version: 2.2.522
 +      '@inlang/plugin-m-function-matcher':
-+        specifier: ^2.2.12
-+        version: 2.2.12
++        specifier: ^2.2.13
++        version: 2.2.13
 +      '@inlang/plugin-message-format':
-+        specifier: ^4.4.3
-+        version: 4.4.3
++        specifier: ^4.4.4
++        version: 4.4.4
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -47,11 +47,11 @@ index 7fc4e19..09aefec 100644
        vite:
          optional: true
  
-+  '@inlang/plugin-m-function-matcher@2.2.12':
-+    resolution: {integrity: sha512-iIF0bPoDlStI736ERkrx985MM7+WtYGYWm6Yomyu/VyYWO/WJTESkxrv9p9bEsYdEELDnctntAPYe5qAdESGDg==}
++  '@inlang/plugin-m-function-matcher@2.2.13':
++    resolution: {integrity: sha512-TO6v+nty8ntoeL/3rJ1wGazyfkOHnshmSy+biHdD5mJubopKIxG5Zrl563aEkXjAm/S4jMvenIrVJUPvMDlJfg==}
 +
-+  '@inlang/plugin-message-format@4.4.3':
-+    resolution: {integrity: sha512-jBOT0CKgG49mctJZZ3Ltz4o9xkxbCYM1xXhKXl+1dIRV+IedpS93q1jAdMKGSfexgGxcagFopdNbnLb7wq/OZg==}
++  '@inlang/plugin-message-format@4.4.4':
++    resolution: {integrity: sha512-50tkyH/qMFudcIOZSCRdi+BeCVuJQo3BWbvfRTVKr8pEslBiRaZDTKBC1NkCI3ivmkyqzK8k+ktBci3NtDu3Lg==}
 +
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
@@ -60,8 +60,8 @@ index 7fc4e19..09aefec 100644
      resolution: {integrity: sha512-QvyMYjCqF7CnrTp8ZaPiuwpmxsoQPIDgfqGeWfqi4FDxBREye4QdyaZS4DGwIlCZXybF/YMj0TtL2uBfbmajug==}
      engines: {node: '>=20.0.0'}
  
-+  '@inlang/sdk@3.0.2':
-+    resolution: {integrity: sha512-qBAzkOLRQ42hZBl2/AZFZD+/JkdjBAvwxWphdTs9UbikMsuLathOBOIl+rC/mzaq48ylD3zE8Je2nrx7tbm0pw==}
++  '@inlang/sdk@3.0.3':
++    resolution: {integrity: sha512-11aQcOw58oAcCtIOJ17XhQxfxaiGsg6XJi7coMul8wNJiW+Rzv2OfJU42NLwSuWXUNSASjegp5Z3uklTkY5GJw==}
 +    engines: {node: '>=20.0.0'}
 +
    '@jridgewell/gen-mapping@0.3.12':
@@ -131,33 +131,32 @@ index 7fc4e19..09aefec 100644
        typescript: 7.0.2
        vite: 8.2.2(@types/node@24.13.3)(jiti@2.7.0)(less@4.9.0(supports-color@10.2.2))(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
-+  '@inlang/plugin-m-function-matcher@2.2.12':
++  '@inlang/plugin-m-function-matcher@2.2.13':
 +    dependencies:
-+      '@inlang/sdk': 3.0.2
++      '@inlang/sdk': 3.0.3
 +
-+  '@inlang/plugin-message-format@4.4.3':
++  '@inlang/plugin-message-format@4.4.4':
 +    dependencies:
 +      flat: 6.0.1
 +
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7769,6 +7821,14 @@ snapshots:
+@@ -7769,6 +7821,13 @@ snapshots:
        sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
        uuid: 14.0.0
  
-+  '@inlang/sdk@3.0.2':
++  '@inlang/sdk@3.0.3':
 +    dependencies:
 +      '@lix-js/sdk': 0.12.3
 +      '@sinclair/typebox': 0.31.28
 +      kysely: 0.28.14
-+      sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
 +      uuid: 14.0.0
 +
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -7806,15 +7866,27 @@ snapshots:
+@@ -7806,15 +7865,27 @@ snapshots:
    '@lix-js/sdk-darwin-arm64@0.12.2':
      optional: true
  
@@ -185,7 +184,7 @@ index 7fc4e19..09aefec 100644
    '@lix-js/sdk@0.12.2':
      dependencies:
        fflate: 0.8.3
-@@ -7824,6 +7896,15 @@ snapshots:
+@@ -7824,6 +7895,15 @@ snapshots:
        '@lix-js/sdk-linux-x64': 0.12.2
        '@lix-js/sdk-win32-x64': 0.12.2
  
@@ -201,7 +200,7 @@ index 7fc4e19..09aefec 100644
    '@material/material-color-utilities@0.4.0': {}
  
    '@monaco-editor/loader@1.5.0':
-@@ -10803,6 +10884,8 @@ snapshots:
+@@ -10803,6 +10883,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
