@@ -7,17 +7,11 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update:
     name: Update lsfg-vk-git
     runs-on: ubuntu-latest
-
-    environment: Update CI
-
-    env:
-      PAT_TOKEN: ${{ secrets.PAT }}
 
     steps:
       - name: Checkout
@@ -36,14 +30,15 @@ jobs:
             fallback = true
         run: nix run nixpkgs#nix-update -- --flake --use-update-script lsfg-vk-git
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
-        with:
-          token: ${{ env.PAT_TOKEN }}
-          add-paths: pkgs/lsfg-vk-git/default.nix
-          branch: update/lsfg-vk-git
-          commit-message: Update lsfg-vk-git
-          delete-branch: true
-          title: Update lsfg-vk-git
-          body: |
-            Automated update for `lsfg-vk-git` from the upstream `develop` branch.
+      - name: Commit and push package update
+        run: |
+          if git diff --quiet pkgs/lsfg-vk-git/default.nix; then
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs/lsfg-vk-git/default.nix
+          git commit -m "Update lsfg-vk-git"
+          git push origin HEAD:main
