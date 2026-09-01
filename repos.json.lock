@@ -2527,8 +2527,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "a75d68ae54de78fe0475c2aa25a24630feba46cd",
-            "sha256": "0l2k734a42wqga3smwd3frhnhapkg2laff7b42f4wivxx8j2xvwk",
+            "rev": "06f590b62f3b0b2a23af98b953498e288e6a93b1",
+            "sha256": "0zk7q6qm4lzh0bw5j0pfmfldnlrr1w7acr7phw8pa0d7qlizw0q6",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
@@ -2792,8 +2792,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "76461e656118a524a11596f92f7e57cb28bcbf42",
-            "sha256": "12v453r5shvmm5v2ngdbwcqz4wz5x297mpg495hi365x2igk3fp7",
+            "rev": "865bf98f1286b9f166f4f4d8fdd6546b047d54b4",
+            "sha256": "1z55ih8xyz12ry69r7vyfvwh0a0lf48fzsl15arclc4bszizkxcq",
             "url": "https://github.com/lz37/nur"
         },
         "zhyiheihei": {
