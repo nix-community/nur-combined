@@ -32,45 +32,6 @@ in rec {
   # OneTrick-KEYS = p ./pkgs/audio/OneTrick-KEYS { };
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
 
-  vitalium-vst3 = (pkgs.distrho-ports.override {
-    buildVST2 = false;
-    buildLV2 = false;
-
-    plugins = [ "vitalium" ];
-  }).overrideAttrs { pname = "vitalium-vst3"; };
-
-  TAL-plugins-vst2 = (pkgs.distrho-ports.override {
-    buildLV2 = false;
-    plugins = [ "tal-reverb" "tal-reverb-2" "tal-reverb-3" "tal-filter-2" "tal-dub-3" "tal-vocoder-2" ];
-  }).overrideAttrs { pname = "TAL-plugins-vst2"; };
-
-  luftikus-vst2 = (pkgs.distrho-ports.override {
-    buildLV2 = false;
-    plugins = [ "luftikus" ];
-  }).overrideAttrs { pname = "luftikus-vst2"; };
-
-  LUFSMeter-vst2 = (pkgs.distrho-ports.override {
-    buildVST2 = false;
-    plugins = [ "LUFSMeter" ];
-  }).overrideAttrs { pname = "LUFSMeter-vst2"; };
-
-  surge-xt-vst3 = (pkgs.surge-xt.override {
-    buildLV2 = false;
-    buildCLAP = false;
-    buildStandalone = false;
-  }).overrideAttrs { pname = "surge-xt-vst3"; };
-
-  lsp-plugins-vst3 = (pkgs.lsp-plugins.override {
-    buildVST2 = false;
-    buildCLAP = false;
-    buildLV2 = false;
-    buildLADSPA = false;
-    buildJACK = false;
-    buildGStreamer = false;
-  }).overrideAttrs { pname = "lsp-plugins-vst3"; };
-
-  keepOnlyVST3 = p ./pkgs/audio/keepOnlyVST3.nix { };
-
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
 

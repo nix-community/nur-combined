@@ -27,15 +27,9 @@
 
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
 - [ANINA](https://crql.works/archive/anina/)
-- [vitalium-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
-- [TAL-plugins-vst2](https://github.com/DISTRHO/DISTRHO-Ports)
-- [luftikus-vst2](https://github.com/DISTRHO/DISTRHO-Ports)
-- [LUFSMeter-vst2](https://github.com/DISTRHO/DISTRHO-Ports)
-- [surge-XT-vst3](https://github.com/surge-synthesizer/surge)
 
 #### Utilities
 
-- [artworks](https://github.com/mrtnvgr/artworks)
 - [nam-trainer](https://github.com/sdatkinson/neural-amp-modeler)
 
 ### Media
