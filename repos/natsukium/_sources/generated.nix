@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "ddcd7cf82bdc9ceec0bad0beca52dd46ff14228d";
+    version = "a72f2dcea23591a3e4c833fa3e0afc1a0cdaf5ff";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "ddcd7cf82bdc9ceec0bad0beca52dd46ff14228d";
+      rev = "a72f2dcea23591a3e4c833fa3e0afc1a0cdaf5ff";
       fetchSubmodules = false;
-      sha256 = "sha256-3lpVdIOzxmoZsIIl38Gkqoj971jNN98QYdR3al5XBfA=";
+      sha256 = "sha256-HIBDA4b0I5+zkECsd08ieqrJT0eYQfQzxBDliw8CU5k=";
     };
-    date = "2026-08-31";
+    date = "2026-09-01";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -60,13 +60,13 @@
   };
   playwright-cli = {
     pname = "playwright-cli";
-    version = "v0.1.18";
+    version = "v0.1.19";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "playwright-cli";
-      rev = "v0.1.18";
+      rev = "v0.1.19";
       fetchSubmodules = false;
-      sha256 = "sha256-E/AzDJhD12PWSaA3iRY+hloPsSWnAw18gTa/ItVhr3E=";
+      sha256 = "sha256-pbv51ybubbjoIpKg0k7lfXfZ9Z+qdZI2lRhQeI+/mFA=";
     };
   };
   qmk-toolbox = {
