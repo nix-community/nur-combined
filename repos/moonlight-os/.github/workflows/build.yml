@@ -497,7 +497,7 @@ jobs:
       - name: Render AUR repositories
         run: |
           set -euo pipefail
-          package=(arch/*.pkg.tar.zst)
+          package=(arch/helios-[0-9]*-x86_64.pkg.tar.zst)
           test "${#package[@]}" -eq 1
           binary_sha256="$(sha256sum "${package[0]}" | cut -d' ' -f1)"
           commit="$(git rev-parse "$GITHUB_SHA^{commit}")"

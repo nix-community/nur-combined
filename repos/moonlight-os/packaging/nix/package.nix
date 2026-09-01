@@ -43,7 +43,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "helios";
-  version = "0.5.2";
+  version = "0.6.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -52,14 +52,14 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "moonlight-os";
     repo = "helios";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-CEDkQAI12VsLRmey9/UCCTtQCybJEByclUzSy2AlAXM=";
+    hash = "sha256-698dJAizT8lb9wmKTdI+9MgvU+KnD6EjixA1Asvhzok=";
     fetchSubmodules = true;
   };
 
   ui = buildNpmPackage {
     inherit (finalAttrs) src version;
     pname = "helios-ui";
-    npmDepsHash = "sha256-QF5t8wMBUXZ879B2HMWjtK/XmQlCjTl6FrF8XeQXmbQ=";
+    npmDepsHash = "sha256-RIorrxMPheZhYAemw9tZuyWieq1klLQ2gsh2ztiic6c=";
     installPhase = ''
       runHook preInstall
       mkdir -p "$out"
