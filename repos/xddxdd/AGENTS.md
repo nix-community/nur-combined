@@ -143,7 +143,7 @@ appimageTools.wrapType2 {
 
 - **普通 GitHub release/tag**：直接 `nix-update-script { }`；v 前缀 tag（如 tag 为 `v1.2.0`、version 为 `1.2.0`）会被 nix-update 自动识别处理，无需额外参数
 - **release 全是 beta/prerelease 的仓库**（如 axonhub，tag 全为 `v1.0.0-betaN`）：nix-update 默认 STABLE 偏好会拒绝更新，需 `nix-update-script { extraArgs = [ "--version" "unstable" ]; }`
-- **GitHub releases 混入无关 tag 的仓库**（如 browseros，releases 里混着 `agent-server/v0.0.147`、`ext-*` 等扩展 tag）：加 `--version-regex` 过滤，如 `nix-update-script { extraArgs = [ "--version-regex" "^v([0-9.]+)$" ]; }`；nix-update 默认 regex 是 `(.*)`（整 tag 作为版本号）
+- **GitHub releases 混入无关 tag 的仓库**（如 browseros，releases 里混着 `agent-server/v0.0.147`、`ext-*` 等扩展 tag）：加 `--version-regex` 过滤，如 `nix-update-script { extraArgs = [ "--version-regex" "^v([0-9.]+)$" ]; }`；nix-update 默认 regex 是 `(.*)`（整 tag 作为版本号）。**注意 atom feed 只列出最近约 10 个 release**：若无关 tag 频繁发布、把 feed 占满导致没有任何条目匹配 version-regex，nix-update 会直接抛 `VersionError: No version matched the regex` 使整个 CI 失败（而不是当作无更新跳过）——此时 regex 无法修复，必须改用自定义 `update.sh`：用 `git ls-remote --tags <url>` 获取完整 tag 列表，`sed -n 's#.*refs/tags/v\([0-9.]*\)$#\1#p'` 过滤（行尾锚定可自动排除 `^{}` peeled 引用），`sort -V | tail -1` 取最新，与 `$UPDATE_NIX_OLD_VERSION` 相等则 `exit 0`，否则 `nix-update "$UPDATE_NIX_ATTR_PATH" --version "$NEW_VERSION"`（参考 `pkgs/uncategorized/browseros/update.sh`）。注意验证时必须直接执行脚本（`bash -c /nix/store/...-update.sh`，与 CI 运行器一致）让 nix-shell shebang 生效，`bash script.sh` 会绕过 shebang 导致找不到 nix-update
 - **不稳定包（`<tag>-unstable-<日期>` / `0-unstable-<日期>` 版本格式，跟踪 git HEAD）**：一律使用 nixpkgs `unstableGitUpdater`，不再用 `nix-update-script --version branch`：
 
   ```nix

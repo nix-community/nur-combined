@@ -2,7 +2,6 @@
   appimageTools,
   fetchurl,
   lib,
-  nix-update-script,
 }:
 
 let
@@ -29,12 +28,7 @@ appimageTools.wrapType2 {
     install -Dm644 ${contents}/browseros.png $out/share/pixmaps/browseros.png
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "^v([0-9.]+)$"
-    ];
-  };
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     changelog = "https://github.com/browseros-ai/BrowserOS/releases/tag/v${version}";
     homepage = "https://www.browseros.com";
