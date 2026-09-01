@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://argoproj.github.io/argo-helm/";
   chart = "argo-cd";
-  version = "10.4.3";
-  hash = "sha256-lUn06KbMdXglYXt72GSLlUx/qAh2qQoLeaZuzM6w0Z8=";
+  version = "10.5.0";
+  hash = "sha256-eT5nfyHU9GPaNXLIlsvAB+CGx7VwdBk+kYwzdWmFPNc=";
 
   meta = {
     description = "Helm chart for Argo CD, a declarative GitOps continuous delivery tool for Kubernetes";
