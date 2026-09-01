@@ -9,15 +9,15 @@
 
 buildGoModule (finalAttrs: {
   pname = "panix";
-  version = "0.9.0-unstable-2026-08-09";
+  version = "0.9.0-unstable-2026-08-13";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
-    owner = "mihakrumpestar";
-    repo = "panix";
-    rev = "323a8f82a58c1347afc4cc45a4bd54ac2f2d9509";
-    hash = "sha256-vpdO5fBYQ+OhXiMMkjjWmF/dxhxa8D9ulAmsSA43k6Q=";
-  };
+  owner = "mihakrumpestar";
+  repo = "panix";
+  rev = "a402222da01f833f2bacf2dd436cdd2314512561";
+  hash = "sha256-qZBzjDY0G7kt+DGIX06Mr6ANEyrKIJS1BB/Fm4uhAgI=";
+};
 
   nativeBuildInputs = [ installShellFiles ];
 
