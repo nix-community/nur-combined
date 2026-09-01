@@ -7,12 +7,6 @@
   agentPluginsJoin,
 }:
 let
-  hook = makeSetupHook {
-    name = "agent-plugins-hook";
-    propagatedBuildInputs = [ jq ];
-    meta.license = lib.licenses.mit;
-  } ./agent-plugins-hook.sh;
-
   addMarketplace =
     {
       marketplaceFile,
