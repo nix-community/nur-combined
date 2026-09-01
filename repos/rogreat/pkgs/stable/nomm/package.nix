@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "NOMM-Team";
-    repo = "nomm";
+    repo = "nomm-app";
     tag = finalAttrs.version;
     hash = "sha256-dHAKDJDHuZAkC43s/qDCKmVu0cTIO7srpCivh2mbwWI=";
   };
