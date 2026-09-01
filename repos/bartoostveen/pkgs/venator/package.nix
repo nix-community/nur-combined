@@ -31,7 +31,7 @@ buildGo127Module (finalAttrs: {
 
   preBuild = lib.optionalString withDocs ''
     if [ -d vendor ]; then
-      go generate -tags "$VENATOR_BUILD_TAGS" ./internal/embedded_docs/
+      go generate -tags "$VENATOR_BUILD_TAGS" ./internal/venatord/api/static/
     fi
   '';
 

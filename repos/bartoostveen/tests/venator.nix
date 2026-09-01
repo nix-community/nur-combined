@@ -22,6 +22,7 @@ in
         settings = {
           server_name = serverName;
           registration.admin_pre_shared_secret = secret;
+          database.max_open_connections = 255;
           listeners = [
             {
               inherit port;
