@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup job
-        uses: pedorich-n/github-workflows/.github/actions/setup-nix-job@37c055d3c6b1062846d5f9a45cf845f202e63b22 # main
+        uses: pedorich-n/github-workflows/.github/actions/setup-nix-job@8dae1302115fad2af5d92f4e0368f727b17cd8ce # main
 
       - name: Build docs
         id: build
@@ -29,10 +29,10 @@ jobs:
           echo "out=$out" >> $GITHUB_OUTPUT
 
       - name: Configure Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: ${{ steps.build.outputs.out }}
           retention-days: 90
@@ -46,4 +46,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

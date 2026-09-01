@@ -6,4 +6,4 @@ permissions:
 
 jobs:
   nix-flake-check:
-    uses: pedorich-n/github-workflows/.github/workflows/flake-check.yaml@37c055d3c6b1062846d5f9a45cf845f202e63b22 # main
+    uses: pedorich-n/github-workflows/.github/workflows/flake-check.yaml@8dae1302115fad2af5d92f4e0368f727b17cd8ce # main
