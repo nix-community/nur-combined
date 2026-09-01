@@ -41,6 +41,9 @@ let
     };
     niri = callPackage ./niri { inherit (prev) niri; };
     neovim-unwrapped = callPackage ./neovim-unwrapped { inherit (prev) neovim-unwrapped; };
+    zellij = callPackage ./zellij {
+      inherit (prev) zellij zellij-unwrapped;
+    };
     iwe = callPackage ./iwe { };
     wl-uinput-proxy = callPackage ./wl-uinput-proxy { };
     djot-tools = callPackage ./djot-tools { };
