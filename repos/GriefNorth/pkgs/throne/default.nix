@@ -147,6 +147,7 @@ stdenv.mkDerivation (finalAttrs: {
       "badlinkname"
       "tfogo_checklinkname"
       "with_naive_outbound"
+      "with_openvpn"
       "with_purego" # prebuilt .a files inside cronet-go are annoying to fix
     ];
   };
