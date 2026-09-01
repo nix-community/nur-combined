@@ -14,6 +14,10 @@
     "x86_64-darwin": {
       "file": "Nuvio-macOS-x86_64-{version}.dmg",
       "hash": "sha256-70BL20i7gAk2XZ33/7tilGIhoQcm78QzW519hWiFHXc="
+    },
+    "x86_64-linux": {
+      "file": "Nuvio-Linux-x86_64-{version}.AppImage",
+      "hash": "sha256-IEv9BTKjnz88CwYKXGP5/5Qd+tUBn2IIPpUCd7rSmck="
     }
   }
 }
