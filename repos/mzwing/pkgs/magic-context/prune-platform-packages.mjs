@@ -1,5 +1,5 @@
-// Delete packages gated by `os`/`cpu`/`libc`: bun unpacks only the matching one, so an unpruned tree hashes differently per system.
-// None of them takes part in bundling.
+// Delete packages bun unpacks on only some of the targets, since an unpruned tree hashes differently per system.
+// A gate that admits every target unpacks identically everywhere and has to stay: `onnxruntime-node` names all three OSes and no CPU, and the CLI bundle resolves through it.
 import {readdirSync, readFileSync, rmSync} from "node:fs";
 import {join} from "node:path";
 
@@ -8,18 +8,36 @@ if (roots.length === 0) {
   throw new Error("usage: prune-platform-packages.mjs <node_modules>...");
 }
 
-const isPlatformGated = (packageDir) => {
+// meta.platforms, as node spells them.
+const TARGETS = [
+  ["linux", "x64"],
+  ["linux", "arm64"],
+  ["darwin", "arm64"],
+];
+
+// A gate lists the values it admits, except entries prefixed with `!`, which deny instead.
+const admits = (gate, value) => {
+  if (gate === undefined) return true;
+  const entries = Array.isArray(gate) ? gate : [gate];
+  if (entries.includes(`!${value}`)) return false;
+  const allowed = entries.filter((entry) => !entry.startsWith("!"));
+  return allowed.length === 0 || allowed.includes(value);
+};
+
+const isPlatformVarying = (packageDir) => {
   let manifest;
   try {
     manifest = JSON.parse(readFileSync(join(packageDir, "package.json"), "utf8"));
   } catch {
     return false;
   }
-  return manifest.os !== undefined || manifest.cpu !== undefined || manifest.libc !== undefined;
+  // `libc` is only evaluated on Linux, so gating on it already splits Linux from Darwin.
+  if (manifest.libc !== undefined) return true;
+  return !TARGETS.every(([os, cpu]) => admits(manifest.os, os) && admits(manifest.cpu, cpu));
 };
 
 const visitPackage = (packageDir) => {
-  if (isPlatformGated(packageDir)) {
+  if (isPlatformVarying(packageDir)) {
     rmSync(packageDir, {recursive: true, force: true});
     return;
   }

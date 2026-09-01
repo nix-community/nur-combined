@@ -20,7 +20,7 @@ in
   stdenv.mkDerivation {
     inherit pname src version;
 
-    # Package only app.asar for nixpkgs Electron; rebuild the N-API sqlite3 module against its headers.
+    # Package only app.asar for nixpkgs Electron; rebuild the native better-sqlite3 module against its headers.
     pnpmDeps = fetchPnpmDeps {
       inherit pname version src;
       pnpm = pnpm_10;
@@ -40,16 +40,16 @@ in
       # Prevent downloading Electron from npm.
       ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-      # Build sqlite3 offline as an Electron N-API module.
+      # Build better-sqlite3 offline against Electron's headers.
       npm_config_runtime = "electron";
       npm_config_target = electron.version;
       npm_config_nodedir = "${electron.headers}";
     };
 
     preBuild = ''
-      # Build sqlite3 through its hoisted node-pre-gyp so N-API artifacts land in the expected runtime path.
-      pushd node_modules/sqlite3
-      node ../@mapbox/node-pre-gyp/bin/node-pre-gyp rebuild
+      # pnpm skips install scripts, so drive the hoisted node-gyp the way upstream's own deps:* scripts do.
+      pushd node_modules/better-sqlite3
+      node ../node-gyp/bin/node-gyp.js rebuild --release
       popd
     '';
 
@@ -96,8 +96,8 @@ in
       test -f $out/share/applications/icalingua.desktop
       test -f $out/share/icons/hicolor/512x512/apps/icalingua.png
 
-      # Verify the unpacked sqlite3 module under headless Electron.
-      node_module="$(find $out/lib/icalingua/app.asar.unpacked -name 'node_sqlite3.node' | head -n1)"
+      # Verify the unpacked better-sqlite3 module under headless Electron.
+      node_module="$(find $out/lib/icalingua/app.asar.unpacked -name 'better_sqlite3.node' | head -n1)"
       test -n "$node_module"
       ELECTRON_RUN_AS_NODE=1 ${lib.getExe electron} -e "require('$node_module')"
 
