@@ -1,6 +1,8 @@
---- a/js/src/debugger/Debugger.cpp	2026-09-01 13:03:17.090540983 -0700
-+++ b/js/src/debugger/Debugger.cpp	2026-09-01 13:05:25.970356609 -0700
-@@ -5099,16 +5099,42 @@
+diff --git a/js/src/debugger/Debugger.cpp b/js/src/debugger/Debugger.cpp
+index 2a58ce4567..098b1b4616 100644
+--- a/js/src/debugger/Debugger.cpp
++++ b/js/src/debugger/Debugger.cpp
+@@ -5051,16 +5051,42 @@ bool Debugger::addDebuggeeGlobal(JSContext* cx, Handle<GlobalObject*> global) {
      return false;
    }
  
@@ -30,8 +32,6 @@
 -  if (!globalDebuggers.append(Realm::DebuggerVectorEntry(this, debuggeeLink))) {
 -    ReportOutOfMemory(cx);
 -    return false;
--  }
--  auto globalDebuggersGuard = MakeScopeExit([&] { globalDebuggers.popBack(); });
 +  // (1) — skip the Realm debuggers_ registration for an invisible (stealth) attach.
 +  bool appendedGlobalDebugger = false;
 +  if (!isStealth) {
@@ -41,7 +41,8 @@
 +      return false;
 +    }
 +    appendedGlobalDebugger = true;
-+  }
+   }
+-  auto globalDebuggersGuard = MakeScopeExit([&] { globalDebuggers.popBack(); });
 +  auto globalDebuggersGuard = MakeScopeExit([&] {
 +    if (appendedGlobalDebugger) {
 +      global->getDebuggers(nogc).popBack();
@@ -50,7 +51,7 @@
  
    // (2)
    if (!debuggees.put(global)) {
-@@ -5130,25 +5156,33 @@
+@@ -5082,26 +5108,34 @@ bool Debugger::addDebuggeeGlobal(JSContext* cx, Handle<GlobalObject*> global) {
      }
    });
  
@@ -77,6 +78,7 @@
 +  // from a never-debugged realm.
    AutoRestoreRealmDebugMode debugModeGuard(debuggeeRealm);
 -  debuggeeRealm->setIsDebuggee();
+-  debuggeeRealm->updateDebuggerObservesAsmJS();
 -  debuggeeRealm->updateDebuggerObservesWasm();
 -  debuggeeRealm->updateDebuggerObservesCoverage();
 -  if (observesAllExecution() &&
@@ -84,6 +86,7 @@
 -    return false;
 +  if (!isStealth) {
 +    debuggeeRealm->setIsDebuggee();
++    debuggeeRealm->updateDebuggerObservesAsmJS();
 +    debuggeeRealm->updateDebuggerObservesWasm();
 +    debuggeeRealm->updateDebuggerObservesCoverage();
 +    if (observesAllExecution() &&
@@ -93,7 +96,7 @@
    }
  
    globalDebuggersGuard.release();
-@@ -5232,8 +5266,13 @@
+@@ -5185,8 +5219,13 @@ void Debugger::removeDebuggeeGlobal(JS::GCContext* gcx, GlobalObject* global,
    // the same zone. If after recomputing the debuggee zone set, this global's
    // zone is not in the set, then we must remove ourselves from the zone's
    // vector of observing debuggers.
@@ -109,9 +112,11 @@
  
    if (debugIter) {
      debugIter->remove();
---- a/js/src/debugger/Debugger.h	2026-09-01 13:03:17.090496505 -0700
-+++ b/js/src/debugger/Debugger.h	2026-09-01 13:04:57.993285365 -0700
-@@ -683,6 +683,11 @@
+diff --git a/js/src/debugger/Debugger.h b/js/src/debugger/Debugger.h
+index 517dc5cc25..7d88d9b26f 100644
+--- a/js/src/debugger/Debugger.h
++++ b/js/src/debugger/Debugger.h
+@@ -684,6 +684,11 @@ class Debugger : private mozilla::LinkedListElement<Debugger> {
    using AllocationsLog = js::TraceableFifo<AllocationsLogEntry>;
  
    AllocationsLog allocationsLog;
@@ -123,9 +128,11 @@
    bool trackingAllocationSites;
    double allocationSamplingProbability;
    size_t maxAllocationsLogLength;
---- a/js/src/debugger/Frame.cpp	2026-09-01 13:03:17.090338590 -0700
-+++ b/js/src/debugger/Frame.cpp	2026-09-01 13:04:57.993404575 -0700
-@@ -1052,13 +1052,15 @@
+diff --git a/js/src/debugger/Frame.cpp b/js/src/debugger/Frame.cpp
+index 32271134d6..293f63aeb5 100644
+--- a/js/src/debugger/Frame.cpp
++++ b/js/src/debugger/Frame.cpp
+@@ -1055,13 +1055,15 @@ static bool EvaluateInEnv(
    AutoSetBypassCSPForDebugger setFlag(cx, evalOptions.bypassCSP());
  
    CompileOptions options(cx);
@@ -143,9 +150,11 @@
        /* Do not perform the Javascript filename validation security check for
         * javascript executions sent through the debugger. Besides making up
         * a filename for these codepaths, we must allow arbitrary JS execution
---- a/js/src/vm/DateTime.cpp	2026-09-01 13:03:17.083553020 -0700
-+++ b/js/src/vm/DateTime.cpp	2026-09-01 13:04:57.993500762 -0700
-@@ -817,6 +817,11 @@
+diff --git a/js/src/vm/DateTime.cpp b/js/src/vm/DateTime.cpp
+index 50657afb4a..ecd4716887 100644
+--- a/js/src/vm/DateTime.cpp
++++ b/js/src/vm/DateTime.cpp
+@@ -818,6 +818,11 @@ void js::DateTimeInfo::internalResyncICUDefaultTimeZone() {
      // identifier rules, update the ICU default time zone to use this value.
      if (IsOlsonCompatibleWindowsTimeZoneId(tz)) {
        tzid = mozilla::Span(tz.data(), tz.length());
@@ -157,9 +166,11 @@
      } else {
        // If |tz| isn't a supported time zone identifier, use the default Windows
        // time zone for ICU.
---- a/js/src/vm/SavedStacks.cpp	2026-09-01 13:03:17.083323872 -0700
-+++ b/js/src/vm/SavedStacks.cpp	2026-09-01 13:04:57.993594783 -0700
-@@ -1082,6 +1082,29 @@
+diff --git a/js/src/vm/SavedStacks.cpp b/js/src/vm/SavedStacks.cpp
+index 5b6573b2a0..b158e9e0a3 100644
+--- a/js/src/vm/SavedStacks.cpp
++++ b/js/src/vm/SavedStacks.cpp
+@@ -1081,6 +1081,29 @@ JS_PUBLIC_API bool BuildStackString(JSContext* cx, JSPrincipals* principals,
                                              SavedFrameSelfHosted::Exclude,
                                              skippedNextAsync);
  
@@ -189,9 +200,11 @@
        switch (format) {
          case js::StackFormat::SpiderMonkey:
            if (!FormatSpiderMonkeyStackFrame(cx, sb, frame, indent,
---- a/js/xpconnect/src/Sandbox.cpp	2026-09-01 13:03:17.588765975 -0700
-+++ b/js/xpconnect/src/Sandbox.cpp	2026-09-01 13:04:57.993737059 -0700
-@@ -1375,8 +1375,15 @@
+diff --git a/js/xpconnect/src/Sandbox.cpp b/js/xpconnect/src/Sandbox.cpp
+index 2ac90e3f4c..e6a9a2e322 100644
+--- a/js/xpconnect/src/Sandbox.cpp
++++ b/js/xpconnect/src/Sandbox.cpp
+@@ -1373,8 +1373,15 @@ nsresult xpc::CreateSandboxObject(JSContext* cx, MutableHandleValue vp,
        const nsCString& localeOverride =
            window->GetBrowsingContext()->Top()->GetLanguageOverride();
        if (!localeOverride.IsEmpty()) {
@@ -209,9 +222,11 @@
        }
  
        const nsAString& timezoneOverride =
---- a/js/xpconnect/src/nsXPConnect.cpp	2026-09-01 13:03:17.588584807 -0700
-+++ b/js/xpconnect/src/nsXPConnect.cpp	2026-09-01 13:04:57.993845845 -0700
-@@ -553,8 +553,16 @@
+diff --git a/js/xpconnect/src/nsXPConnect.cpp b/js/xpconnect/src/nsXPConnect.cpp
+index fc50c32600..ecfddb1909 100644
+--- a/js/xpconnect/src/nsXPConnect.cpp
++++ b/js/xpconnect/src/nsXPConnect.cpp
+@@ -556,8 +556,16 @@ void InitGlobalObjectOptions(JS::RealmOptions& aOptions,
      nsCString locale = nsRFPService::GetSpoofedJSLocale();
      aOptions.behaviors().setLocaleOverride(locale.get());
    } else if (!aLanguageOverride.IsEmpty()) {

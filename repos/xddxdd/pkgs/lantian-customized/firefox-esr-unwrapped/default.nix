@@ -1,11 +1,11 @@
 {
-  firefox-unwrapped,
+  firefox-esr-153-unwrapped,
   lib,
   stdenv,
   wrapFirefox,
 }:
 let
-  package = firefox-unwrapped.overrideAttrs (old: {
+  package = firefox-esr-153-unwrapped.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ./0001-juggler.patch
       ./0002-browser.patch

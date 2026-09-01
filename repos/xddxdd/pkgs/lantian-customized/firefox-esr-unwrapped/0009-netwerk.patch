@@ -1,6 +1,8 @@
---- a/netwerk/base/LoadInfo.cpp	2026-09-01 13:06:15.555100767 -0700
-+++ b/netwerk/base/LoadInfo.cpp	2026-09-01 13:05:52.565224088 -0700
-@@ -753,7 +753,8 @@
+diff --git a/netwerk/base/LoadInfo.cpp b/netwerk/base/LoadInfo.cpp
+index a468108e71..6b9fab4b6a 100644
+--- a/netwerk/base/LoadInfo.cpp
++++ b/netwerk/base/LoadInfo.cpp
+@@ -752,7 +752,8 @@ LoadInfo::LoadInfo(const LoadInfo& rhs)
        mInterceptionInfo(rhs.mInterceptionInfo),
        mSchemelessInput(rhs.mSchemelessInput),
        mUserNavigationInvolvement(rhs.mUserNavigationInvolvement),
@@ -10,7 +12,7 @@
  }
  
  LoadInfo::LoadInfo(
-@@ -2117,4 +2118,16 @@
+@@ -2116,4 +2117,16 @@ void LoadInfo::UpdateParentAddressSpaceInfo() {
    }
  }
  
@@ -27,9 +29,11 @@
 +}
 +
  }  // namespace mozilla::net
---- a/netwerk/base/LoadInfo.h	2026-09-01 13:06:15.555547443 -0700
-+++ b/netwerk/base/LoadInfo.h	2026-09-01 13:05:52.565528917 -0700
-@@ -546,6 +546,8 @@
+diff --git a/netwerk/base/LoadInfo.h b/netwerk/base/LoadInfo.h
+index 797517e695..93927bb84e 100644
+--- a/netwerk/base/LoadInfo.h
++++ b/netwerk/base/LoadInfo.h
+@@ -550,6 +550,8 @@ class LoadInfo final : public nsILoadInfo {
        dom::UserNavigationInvolvement::None;
  
    bool mSkipHTTPSUpgrade = false;
@@ -38,9 +42,11 @@
  };
  // This is exposed solely for testing purposes and should not be used outside of
  // LoadInfo
---- a/netwerk/base/TRRLoadInfo.cpp	2026-09-01 13:06:15.552964745 -0700
-+++ b/netwerk/base/TRRLoadInfo.cpp	2026-09-01 13:05:52.565608948 -0700
-@@ -556,5 +556,15 @@
+diff --git a/netwerk/base/TRRLoadInfo.cpp b/netwerk/base/TRRLoadInfo.cpp
+index 8acc7468ae..5cf23f8a39 100644
+--- a/netwerk/base/TRRLoadInfo.cpp
++++ b/netwerk/base/TRRLoadInfo.cpp
+@@ -555,5 +555,15 @@ TRRLoadInfo::GetFetchDestination(nsACString& aDestination) {
    return NS_ERROR_NOT_IMPLEMENTED;
  }
  
@@ -56,18 +62,22 @@
 +
  }  // namespace net
  }  // namespace mozilla
---- a/netwerk/base/nsILoadInfo.idl	2026-09-01 13:06:15.553732474 -0700
-+++ b/netwerk/base/nsILoadInfo.idl	2026-09-01 13:05:52.565682776 -0700
-@@ -1715,4 +1715,6 @@
+diff --git a/netwerk/base/nsILoadInfo.idl b/netwerk/base/nsILoadInfo.idl
+index f6a22a498d..cbc8f92fab 100644
+--- a/netwerk/base/nsILoadInfo.idl
++++ b/netwerk/base/nsILoadInfo.idl
+@@ -1720,4 +1720,6 @@ interface nsILoadInfo : nsISupports
        return static_cast<mozilla::dom::UserNavigationInvolvement>(userNavigationInvolvement);
      }
  %}
 +
 +  [infallible] attribute unsigned long long jugglerLoadIdentifier;
  };
---- a/netwerk/base/nsINetworkInterceptController.idl	2026-09-01 13:06:15.552996481 -0700
-+++ b/netwerk/base/nsINetworkInterceptController.idl	2026-09-01 13:05:52.565749828 -0700
-@@ -59,6 +59,16 @@
+diff --git a/netwerk/base/nsINetworkInterceptController.idl b/netwerk/base/nsINetworkInterceptController.idl
+index 3654f3ed20..f685e7668a 100644
+--- a/netwerk/base/nsINetworkInterceptController.idl
++++ b/netwerk/base/nsINetworkInterceptController.idl
+@@ -59,6 +59,16 @@ interface nsIInterceptedChannel : nsISupports
       */
      void resetInterception(in boolean bypass);
  
@@ -84,9 +94,11 @@
      /**
       * Set the status and reason for the forthcoming synthesized response.
       * Multiple calls overwrite existing values.
---- a/netwerk/base/nsProtocolProxyService.cpp	2026-09-01 13:06:15.553783931 -0700
-+++ b/netwerk/base/nsProtocolProxyService.cpp	2026-09-01 13:05:52.565836658 -0700
-@@ -1079,6 +1079,16 @@
+diff --git a/netwerk/base/nsProtocolProxyService.cpp b/netwerk/base/nsProtocolProxyService.cpp
+index c2e989f628..08c2cb4bbf 100644
+--- a/netwerk/base/nsProtocolProxyService.cpp
++++ b/netwerk/base/nsProtocolProxyService.cpp
+@@ -1079,6 +1079,16 @@ void nsProtocolProxyService::PrefsChanged(nsIPrefBranch* prefBranch,
      }
    }
  
@@ -103,7 +115,7 @@
    if (!pref || !strcmp(pref, PROXY_PREF("socks_remote_dns"))) {
      proxy_GetBoolPref(prefBranch, PROXY_PREF("socks_remote_dns"),
                        mSOCKS4ProxyRemoteDNS);
-@@ -2316,9 +2326,9 @@
+@@ -2316,9 +2326,9 @@ nsresult nsProtocolProxyService::Resolve_Internal(nsIChannel* channel,
    }
  
    if (type) {
@@ -116,9 +128,11 @@
      if (NS_FAILED(rv)) return rv;
    }
  
---- a/netwerk/base/nsProtocolProxyService.h	2026-09-01 13:06:15.554230478 -0700
-+++ b/netwerk/base/nsProtocolProxyService.h	2026-09-01 13:05:52.565928907 -0700
-@@ -399,6 +399,8 @@
+diff --git a/netwerk/base/nsProtocolProxyService.h b/netwerk/base/nsProtocolProxyService.h
+index 920636998c..cce5a95190 100644
+--- a/netwerk/base/nsProtocolProxyService.h
++++ b/netwerk/base/nsProtocolProxyService.h
+@@ -399,6 +399,8 @@ class nsProtocolProxyService final : public nsIProtocolProxyService2,
    nsCString mSOCKSProxyTarget;
    int32_t mSOCKSProxyPort{-1};
    int32_t mSOCKSProxyVersion{nsIProxyInfo::SOCKS_V4};
@@ -127,25 +141,21 @@
    bool mSOCKS4ProxyRemoteDNS{false};
    bool mSOCKS5ProxyRemoteDNS{false};
    bool mProxyOverTLS{true};
---- a/netwerk/base/nsUDPSocket.cpp	2026-09-01 13:06:15.553545578 -0700
-+++ b/netwerk/base/nsUDPSocket.cpp	2026-09-01 13:06:03.212104900 -0700
-@@ -7,6 +7,7 @@
- #include "HttpConnectionUDP.h"
+diff --git a/netwerk/base/nsUDPSocket.cpp b/netwerk/base/nsUDPSocket.cpp
+index 4881c458cd..7e6f3464b0 100644
+--- a/netwerk/base/nsUDPSocket.cpp
++++ b/netwerk/base/nsUDPSocket.cpp
+@@ -10,7 +10,9 @@
  #include "MockNetworkLayer.h"
- #include "mozilla/Components.h"
-+#include "mozilla/Preferences.h"
- #include "mozilla/HoldDropJSObjects.h"
- #include "mozilla/ProfilerBandwidthCounter.h"
- #include "mozilla/StaticPrefs_network.h"
-@@ -20,6 +21,7 @@
- #include "nsIPipe.h"
- #include "nsNetAddr.h"
- #include "nsNetCID.h"
+ #include "nsQueryObject.h"
+ #include "nsSocketTransport2.h"
 +#include "nsSOCKSUDPIOLayer.h"
- #include "nsNetSegmentUtils.h"
- #include "nsNetUtil.h"
+ #include "nsUDPSocket.h"
++#include "mozilla/Preferences.h"
  #include "nsProxyRelease.h"
-@@ -618,6 +620,43 @@
+ #include "nsError.h"
+ #include "nsNetCID.h"
+@@ -618,6 +620,43 @@ nsUDPSocket::InitWithAddress(const NetAddr* aAddr, nsIPrincipal* aPrincipal,
      return NS_ERROR_FAILURE;
    }
  
@@ -189,9 +199,11 @@
  #ifdef FUZZING
    if (StaticPrefs::fuzzing_necko_enabled()) {
      rv = AttachFuzzyIOLayer(mFD);
---- a/netwerk/ipc/DocumentLoadListener.cpp	2026-09-01 13:06:15.557424428 -0700
-+++ b/netwerk/ipc/DocumentLoadListener.cpp	2026-09-01 13:05:52.566227826 -0700
-@@ -196,6 +196,7 @@
+diff --git a/netwerk/ipc/DocumentLoadListener.cpp b/netwerk/ipc/DocumentLoadListener.cpp
+index 1df2115be3..6a8e39d7b3 100644
+--- a/netwerk/ipc/DocumentLoadListener.cpp
++++ b/netwerk/ipc/DocumentLoadListener.cpp
+@@ -196,6 +196,7 @@ static auto CreateDocumentLoadInfo(CanonicalBrowsingContext* aBrowsingContext,
        aLoadState->GetTextDirectiveUserActivation() ||
        aLoadState->HasLoadFlags(nsIWebNavigation::LOAD_FLAGS_FROM_EXTERNAL));
    loadInfo->SetIsMetaRefresh(aLoadState->IsMetaRefresh());
@@ -199,17 +211,19 @@
  
    return loadInfo.forget();
  }
---- a/netwerk/protocol/http/AlternateServices.cpp	2026-09-01 13:06:15.561411924 -0700
-+++ b/netwerk/protocol/http/AlternateServices.cpp	2026-09-01 13:06:03.212171458 -0700
-@@ -8,6 +8,7 @@
- 
- #include "HttpLog.h"
+diff --git a/netwerk/protocol/http/AlternateServices.cpp b/netwerk/protocol/http/AlternateServices.cpp
+index a5adf73c6a..6343c30a9c 100644
+--- a/netwerk/protocol/http/AlternateServices.cpp
++++ b/netwerk/protocol/http/AlternateServices.cpp
+@@ -7,6 +7,7 @@
+ #include "AlternateServices.h"
+ #include <algorithm>
  #include "mozilla/Atomics.h"
 +#include "mozilla/Preferences.h"
+ #include "mozilla/glean/NetwerkProtocolHttpMetrics.h"
  #include "mozilla/StaticPrefs_network.h"
  #include "mozilla/SyncRunnable.h"
- #include "mozilla/dom/PContent.h"
-@@ -899,7 +900,17 @@
+@@ -881,7 +882,17 @@ void AltSvcCache::UpdateAltServiceMapping(
    }
  
    if (map->IsHttp3()) {
@@ -228,23 +242,20 @@
      if (!isProxyAllowed) {
        LOG(
            ("AltSvcCache::UpdateAltServiceMapping %p map %p ignored h3 because "
---- a/netwerk/protocol/http/DnsAndConnectSocket.cpp	2026-09-01 13:06:15.560723918 -0700
-+++ b/netwerk/protocol/http/DnsAndConnectSocket.cpp	2026-09-01 13:06:03.212511454 -0700
-@@ -11,11 +11,13 @@
- #include "HttpLog.h"
- #include "NullHttpTransaction.h"
- #include "mozilla/Components.h"
+diff --git a/netwerk/protocol/http/DnsAndConnectSocket.cpp b/netwerk/protocol/http/DnsAndConnectSocket.cpp
+index 51efb02357..e6a61aa7ed 100644
+--- a/netwerk/protocol/http/DnsAndConnectSocket.cpp
++++ b/netwerk/protocol/http/DnsAndConnectSocket.cpp
+@@ -7,6 +7,8 @@
+ 
+ #include "ConnectionHandle.h"
+ #include "DnsAndConnectSocket.h"
 +#include "mozilla/Preferences.h"
- #include "mozilla/StaticPrefs_network.h"
- #include "mozilla/SyncRunnable.h"
- #include "mozilla/glean/NetwerkProtocolHttpMetrics.h"
- #include "mozilla/net/NeckoChannelParams.h"  // For HttpActivityArgs.
- #include "nsDNSService2.h"
 +#include "nsIProxyInfo.h"
  #include "nsHttpConnection.h"
- #include "nsHttpConnectionMgr.h"
- #include "nsHttpHandler.h"
-@@ -71,7 +73,19 @@
+ #include "nsIClassOfService.h"
+ #include "nsIDNSRecord.h"
+@@ -71,7 +73,19 @@ DnsAndConnectSocket::DnsAndConnectSocket(nsHttpConnectionInfo* ci,
         trans, mConnInfo->Origin(), mConnInfo->HashKey().get()));
  
    if (mConnInfo->UsingProxy()) {
@@ -265,7 +276,7 @@
    } else {
      mIsHttp3 = mConnInfo->IsHttp3();
    }
-@@ -136,16 +150,22 @@
+@@ -136,16 +150,22 @@ void DnsAndConnectSocket::CheckProxyConfig() {
      }
  
      if (mProxyTransparentResolvesHost) {
@@ -298,7 +309,7 @@
      }
  
      if (!proxyTransparent && !proxyInfo->Host().IsEmpty()) {
-@@ -561,7 +581,6 @@
+@@ -561,7 +581,6 @@ DnsAndConnectSocket::OnOutputStreamReady(nsIAsyncOutputStream* out) {
  
  nsresult DnsAndConnectSocket::SetupConn(bool isPrimary, nsresult status) {
    // assign the new socket to the http connection
@@ -306,17 +317,19 @@
    RefPtr<ConnectionEntry> ent =
        gHttpHandler->ConnMgr()->FindConnectionEntry(mConnInfo);
    MOZ_DIAGNOSTIC_ASSERT(ent);
---- a/netwerk/protocol/http/HttpBaseChannel.cpp	2026-09-01 13:06:15.560810662 -0700
-+++ b/netwerk/protocol/http/HttpBaseChannel.cpp	2026-09-01 13:06:03.213333409 -0700
-@@ -26,6 +26,7 @@
+diff --git a/netwerk/protocol/http/HttpBaseChannel.cpp b/netwerk/protocol/http/HttpBaseChannel.cpp
+index f338a4c002..7ac23f2372 100644
+--- a/netwerk/protocol/http/HttpBaseChannel.cpp
++++ b/netwerk/protocol/http/HttpBaseChannel.cpp
+@@ -25,6 +25,7 @@
  #include "mozilla/Mutex.h"
  #include "mozilla/NullPrincipal.h"
  #include "mozilla/PermissionManager.h"
 +#include "mozilla/Preferences.h"
- #include "mozilla/RemoteLazyInputStreamChild.h"
+ #include "mozilla/Components.h"
  #include "mozilla/StaticPrefs_browser.h"
  #include "mozilla/StaticPrefs_fission.h"
-@@ -6709,10 +6710,18 @@
+@@ -6703,10 +6704,18 @@ void HttpBaseChannel::MaybeFlushConsoleReports() {
  void HttpBaseChannel::DoDiagnosticAssertWhenOnStopNotCalledOnDestroy() {}
  
  bool HttpBaseChannel::Http3Allowed() const {
@@ -338,12 +351,15 @@
    // TODO: When mUpgradeProtocolCallback is not null, we should allow HTTP/3 for
    // connect-udp.
    return !mUpgradeProtocolCallback && allowedProxyInfo &&
---- a/netwerk/protocol/http/InterceptedHttpChannel.cpp	2026-09-01 13:06:15.559317255 -0700
-+++ b/netwerk/protocol/http/InterceptedHttpChannel.cpp	2026-09-01 13:05:52.567604250 -0700
-@@ -728,9 +728,32 @@
+diff --git a/netwerk/protocol/http/InterceptedHttpChannel.cpp b/netwerk/protocol/http/InterceptedHttpChannel.cpp
+index 60626cc9b3..99c85a483d 100644
+--- a/netwerk/protocol/http/InterceptedHttpChannel.cpp
++++ b/netwerk/protocol/http/InterceptedHttpChannel.cpp
+@@ -726,10 +726,33 @@ NS_IMPL_ISUPPORTS(ResetInterceptionHeaderVisitor, nsIHttpHeaderVisitor)
+ 
  }  // anonymous namespace
  
- NS_IMETHODIMP
++NS_IMETHODIMP
 +InterceptedHttpChannel::InterceptAfterServiceWorkerResets() {
 +  mInterceptAfterServiceWorkerResets = true;
 +  return NS_OK;
@@ -357,7 +373,7 @@
 +  return ResetInterception(true);
 +}
 +
-+NS_IMETHODIMP
+ NS_IMETHODIMP
  InterceptedHttpChannel::ResetInterception(bool aBypass) {
    INTERCEPTED_LOG(("InterceptedHttpChannel::ResetInterception [%p] bypass: %s",
                     this, aBypass ? "true" : "false"));
@@ -373,7 +389,7 @@
    if (mCanceled) {
      return mStatus;
    }
-@@ -1148,11 +1171,18 @@
+@@ -1143,11 +1166,18 @@ InterceptedHttpChannel::OnStartRequest(nsIRequest* aRequest) {
      GetCallback(mProgressSink);
    }
  
@@ -392,9 +408,11 @@
  
    if (mPump && mLoadFlags & LOAD_CALL_CONTENT_SNIFFERS) {
      RefPtr<nsInputStreamPump> pump(mPump);
---- a/netwerk/protocol/http/InterceptedHttpChannel.h	2026-09-01 13:06:15.559567864 -0700
-+++ b/netwerk/protocol/http/InterceptedHttpChannel.h	2026-09-01 13:05:52.567787423 -0700
-@@ -89,6 +89,11 @@
+diff --git a/netwerk/protocol/http/InterceptedHttpChannel.h b/netwerk/protocol/http/InterceptedHttpChannel.h
+index 430646881b..6b5bbb2a41 100644
+--- a/netwerk/protocol/http/InterceptedHttpChannel.h
++++ b/netwerk/protocol/http/InterceptedHttpChannel.h
+@@ -89,6 +89,11 @@ class InterceptedHttpChannel final
    Atomic<bool> mCallingStatusAndProgress;
    bool mInterceptionReset{false};
  
@@ -406,9 +424,11 @@
    /**
     *  InterceptionTimeStamps is used to record the time stamps of the
     *  interception.
---- a/netwerk/protocol/http/nsHttpChannel.cpp	2026-09-01 13:06:15.561569230 -0700
-+++ b/netwerk/protocol/http/nsHttpChannel.cpp	2026-09-01 13:05:52.568300984 -0700
-@@ -942,11 +942,9 @@
+diff --git a/netwerk/protocol/http/nsHttpChannel.cpp b/netwerk/protocol/http/nsHttpChannel.cpp
+index c6d926448e..7479aec577 100644
+--- a/netwerk/protocol/http/nsHttpChannel.cpp
++++ b/netwerk/protocol/http/nsHttpChannel.cpp
+@@ -942,11 +942,9 @@ nsresult nsHttpChannel::OnBeforeConnect() {
    // SecurityInfo.sys.mjs
    mLoadInfo->SetHstsStatus(isSecureURI);
  
@@ -421,7 +441,7 @@
        BYPASS_LOCAL_CACHE(mLoadFlags, LoadPreferCacheLoadOverBypass())) {
      return NS_ERROR_OFFLINE;
    }
-@@ -1066,9 +1064,7 @@
+@@ -1066,9 +1064,7 @@ nsresult nsHttpChannel::MaybeUseHTTPSRRForUpgrade(bool aShouldUpgrade,
      return aStatus;
    }
  
@@ -432,7 +452,7 @@
  
    if (mURI->SchemeIs("https") || aShouldUpgrade || !LoadUseHTTPSSVC() ||
        forceOffline) {
-@@ -1541,15 +1537,14 @@
+@@ -1531,15 +1527,14 @@ nsresult nsHttpChannel::ContinueConnect() {
                       "CORS preflight must have been finished by the time we "
                       "do the rest of ContinueConnect");
  
@@ -450,7 +470,7 @@
            BYPASS_LOCAL_CACHE(mLoadFlags, LoadPreferCacheLoadOverBypass())) {
          return NS_ERROR_OFFLINE;
        }
-@@ -1591,7 +1586,7 @@
+@@ -1581,7 +1576,7 @@ nsresult nsHttpChannel::ContinueConnect() {
    }
  
    // We're about to hit the network. Don't if we're forced offline.
@@ -459,7 +479,7 @@
      return NS_ERROR_OFFLINE;
    }
  
-@@ -1699,12 +1694,9 @@
+@@ -1689,12 +1684,9 @@ void nsHttpChannel::SpeculativeConnect() {
    // don't speculate if we are offline, when doing http upgrade (i.e.
    // websockets bootstrap), or if we can't do keep-alive (because then we
    // couldn't reuse the speculative connection anyhow).
@@ -473,7 +493,7 @@
      return;
    }
  
-@@ -5068,7 +5060,7 @@
+@@ -5007,7 +4999,7 @@ nsresult nsHttpChannel::OpenCacheEntryInternal(bool isHttps) {
      return NS_OK;
    }
  
@@ -482,7 +502,7 @@
    if (offline || (mLoadFlags & INHIBIT_CACHING) || forceOffline) {
      if (BYPASS_LOCAL_CACHE(mLoadFlags, LoadPreferCacheLoadOverBypass()) &&
          !offline && !forceOffline) {
-@@ -8432,6 +8424,20 @@
+@@ -8306,6 +8298,20 @@ void nsHttpChannel::MaybeStartDNSPrefetch() {
    }
  }
  
@@ -503,9 +523,11 @@
  NS_IMETHODIMP
  nsHttpChannel::GetEncodedBodySize(uint64_t* aEncodedBodySize) {
    if (mCacheEntry && !LoadCacheEntryIsWriteOnly()) {
---- a/netwerk/protocol/http/nsHttpChannel.h	2026-09-01 13:06:15.559134102 -0700
-+++ b/netwerk/protocol/http/nsHttpChannel.h	2026-09-01 13:05:52.568766589 -0700
-@@ -308,6 +308,10 @@
+diff --git a/netwerk/protocol/http/nsHttpChannel.h b/netwerk/protocol/http/nsHttpChannel.h
+index 602a3def6e..4b267ff485 100644
+--- a/netwerk/protocol/http/nsHttpChannel.h
++++ b/netwerk/protocol/http/nsHttpChannel.h
+@@ -306,6 +306,10 @@ class nsHttpChannel final : public HttpBaseChannel,
    void MaybeResolveProxyAndBeginConnect();
    void MaybeStartDNSPrefetch();
  
@@ -516,9 +538,11 @@
    // Based on the proxy configuration determine the strategy for resolving the
    // end server host name.
    nsIHttpChannelInternal::ProxyDNSStrategy ComputeProxyDNSStrategy();
---- a/netwerk/socket/moz.build	2026-09-01 13:06:15.548436335 -0700
-+++ b/netwerk/socket/moz.build	2026-09-01 13:05:52.568823709 -0700
-@@ -21,12 +21,14 @@
+diff --git a/netwerk/socket/moz.build b/netwerk/socket/moz.build
+index 97b6d04e2c..b33a509794 100644
+--- a/netwerk/socket/moz.build
++++ b/netwerk/socket/moz.build
+@@ -21,12 +21,14 @@ include("/ipc/chromium/chromium-config.mozbuild")
  
  EXPORTS += [
      "nsSocketProviderService.h",
@@ -533,7 +557,10 @@
      "nsUDPSocketProvider.cpp",
  ]
  
---- a/netwerk/socket/nsSOCKSUDPIOLayer.cpp
+diff --git a/netwerk/socket/nsSOCKSUDPIOLayer.cpp b/netwerk/socket/nsSOCKSUDPIOLayer.cpp
+new file mode 100644
+index 0000000000..44d29718da
+--- /dev/null
 +++ b/netwerk/socket/nsSOCKSUDPIOLayer.cpp
 @@ -0,0 +1,423 @@
 +/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
@@ -959,7 +986,10 @@
 +
 +}  // namespace net
 +}  // namespace mozilla
---- a/netwerk/socket/nsSOCKSUDPIOLayer.h
+diff --git a/netwerk/socket/nsSOCKSUDPIOLayer.h b/netwerk/socket/nsSOCKSUDPIOLayer.h
+new file mode 100644
+index 0000000000..2997c46929
+--- /dev/null
 +++ b/netwerk/socket/nsSOCKSUDPIOLayer.h
 @@ -0,0 +1,59 @@
 +/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-

@@ -1,6 +1,8 @@
---- a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs	2026-09-01 13:06:26.006225792 -0700
-+++ b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs	2026-09-01 13:06:50.969761456 -0700
-@@ -757,6 +757,19 @@
+diff --git a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
+index 217d51f4c7..b15f14983c 100644
+--- a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
++++ b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
+@@ -736,6 +736,19 @@ class JSONPoliciesProvider {
    }
  }
  
@@ -17,11 +19,13 @@
 +  }
 +}
 +
- class WindowsGPOPoliciesProvider extends PoliciesProvider {
+ class WindowsGPOPoliciesProvider {
    constructor() {
-     super();
---- a/toolkit/xre/nsWindowsWMain.cpp	2026-09-01 13:06:26.082354711 -0700
-+++ b/toolkit/xre/nsWindowsWMain.cpp	2026-09-01 13:06:42.053959269 -0700
+     this._policies = null;
+diff --git a/toolkit/xre/nsWindowsWMain.cpp b/toolkit/xre/nsWindowsWMain.cpp
+index b7c376eadc..81a843ed2a 100644
+--- a/toolkit/xre/nsWindowsWMain.cpp
++++ b/toolkit/xre/nsWindowsWMain.cpp
 @@ -14,9 +14,12 @@
  #endif
  
@@ -35,7 +39,7 @@
  
  #ifdef __MINGW32__
  
-@@ -114,6 +117,23 @@
+@@ -114,6 +117,23 @@ static void FreeAllocStrings(int argc, char** argv) {
  int wmain(int argc, WCHAR** argv) {
    SanitizeEnvironmentVariables();
    SetDllDirectoryW(L"");
