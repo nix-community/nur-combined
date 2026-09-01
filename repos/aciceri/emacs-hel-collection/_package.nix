@@ -15,13 +15,13 @@
 # so install it alongside the elisp instead of flattening like mcp-server.
 emacsPackages.trivialBuild {
   pname = "hel-collection";
-  version = "0-unstable-2026-08-07";
+  version = "0-unstable-2026-08-31";
 
   src = fetchFromGitHub {
     owner = "helheim-emacs";
     repo = "hel-collection";
-    rev = "60d59e70eee3f486756ecfba7d08df9807bfa4ca";
-    hash = "sha256-P6pOLZnFPUSSgpmG/5/phngWADMLzVvK3f3rTvfVDN0=";
+    rev = "7d0d050fd555b3ac187e2754c0b2d327256a58ab";
+    hash = "sha256-TeTyoWSeUur9LaTYWJ/w1CE1Ze+yuwVGBl1wzCICTd0=";
   };
 
   packageRequires = [
