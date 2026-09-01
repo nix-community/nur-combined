@@ -483,6 +483,18 @@ lib.mkOption {
                     description = "Diff mode for the TUI interface";
                   };
 
+                  exit_banner = lib.mkOption {
+                    type = lib.types.nullOr (
+                      lib.types.enum [
+                        "default"
+                        "compact"
+                        "none"
+                      ]
+                    );
+                    default = "default";
+                    description = "Exit banner style after quitting Crush";
+                  };
+
                   scrollbar = lib.mkOption {
                     type = lib.types.nullOr (
                       lib.types.enum [
