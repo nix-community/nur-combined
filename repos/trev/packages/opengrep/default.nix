@@ -58,7 +58,7 @@ let
       binaries."${stdenv.hostPlatform.system}"
         or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
-    nativeBuildInputs = lib.optionals (!stdenv.isDarwin) [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ autoPatchelfHook ];
 
     sourceRoot = ".";
 

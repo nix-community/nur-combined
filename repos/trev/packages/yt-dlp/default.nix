@@ -76,7 +76,7 @@ buildPythonApplication rec {
       yt-dlp-ejs
     ];
     curl-cffi = [ curl-cffi ];
-    secretstorage = lib.optionals (!stdenv.isDarwin) [
+    secretstorage = lib.optionals (!stdenv.hostPlatform.isDarwin) [
       cffi
       secretstorage
     ];
