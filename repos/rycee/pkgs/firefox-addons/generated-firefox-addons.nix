@@ -441,10 +441,10 @@
     };
     "are-na" = buildMozillaXpiAddon {
       pname = "are-na";
-      version = "2.13.5";
+      version = "2.14.0";
       addonId = "{4245110a-2f3e-4f78-8303-10cae12384cc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4979880/are_na-2.13.5.xpi";
-      sha256 = "afa3c1fd7e8c2cdba08b95c9f1c553d01c644a17c799fb233b6777325f7979c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4996275/are_na-2.14.0.xpi";
+      sha256 = "00b9ac9ed71d7a591510fe28ec4628151ccb7a04ce5c489f96790d724d7f0f0a";
       meta = with lib;
       {
         homepage = "https://www.are.na";
@@ -1481,10 +1481,10 @@
     };
     "british-english-dictionary-2" = buildMozillaXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "4.0.8";
+      version = "4.0.9";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4876537/british_english_dictionary_2-4.0.8.xpi";
-      sha256 = "7c242f214e961b228bed8ecb9b3903063842e7aaca734531d267394dc43d686d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4996967/british_english_dictionary_2-4.0.9.xpi";
+      sha256 = "5ed3c0e399a132a1e3b360ad62d2ffe001a6f12a2a53f862e7edb79760746e55";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
@@ -2917,10 +2917,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "156.0.20260827.145109";
+      version = "156.0.20260831.122253";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4987309/dansk_da_language_pack-156.0.20260827.145109.xpi";
-      sha256 = "e238826f345dd79a90c74ee0caa351c984eccafc4d357dfcdc523bd659b162cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4995736/dansk_da_language_pack-156.0.20260831.122253.xpi";
+      sha256 = "c2f010a35d2d5ee875aa1ea93e221f4dbef5b97c8307410a3e9889873520ecb5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3134,10 +3134,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "156.0.20260827.145109";
+      version = "156.0.20260831.122253";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4987311/deutsch_de_language_pack-156.0.20260827.145109.xpi";
-      sha256 = "6e7ae165653f33dd6456c53d4d7a7b66baea57c69f15347e8c2770151c235391";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4995735/deutsch_de_language_pack-156.0.20260831.122253.xpi";
+      sha256 = "5b1fd3907fa9f0abe7f792ab914cccf3f659546945427a4ceedfc8b8ca7ef117";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4165,10 +4165,10 @@
     };
     "ficlab" = buildMozillaXpiAddon {
       pname = "ficlab";
-      version = "1.1.1";
+      version = "1.1.2";
       addonId = "ficlab-helper@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4992512/ficlab-1.1.1.xpi";
-      sha256 = "45a72a0fb161bc9c5197033ac9107c7517cfc33ccd1e8893c273663c3f4b92fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4994602/ficlab-1.1.2.xpi";
+      sha256 = "9f87285bdfbdab3f8e9cbb8bb5e6f5b80913dd21f2077cce66993fd57f8a2b27";
       meta = with lib;
       {
         homepage = "https://www.ficlab.com/";
@@ -4635,10 +4635,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "156.0.20260827.145109";
+      version = "156.0.20260831.122253";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4987366/francais_language_pack-156.0.20260827.145109.xpi";
-      sha256 = "be570665f9830937785551e5a28bebccdf4bf6cff3a280b7a2dc39d5280a749a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4995837/francais_language_pack-156.0.20260831.122253.xpi";
+      sha256 = "c295fd5350ab3d25a721d3f37d60c3397f31220a9f463465bd26800f4b19c4b9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4672,10 +4672,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "156.0.20260827.145109";
+      version = "156.0.20260831.122253";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4987299/gaidhlig_language_pack-156.0.20260827.145109.xpi";
-      sha256 = "4992a6d8b2513bfc09bf41cc8ce240f26f6b5937b13a25b7f13cd5916a535e73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4995759/gaidhlig_language_pack-156.0.20260831.122253.xpi";
+      sha256 = "b488d66ffbc490cbfbf8702f4d01bc85d3212f559ce1b26f8415e1636dee7886";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8238,10 +8238,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.237";
+      version = "2.4.238";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4993797/lichess_tools_by_siderite-2.4.237.xpi";
-      sha256 = "1e17717c34958984cb83bec7b5e5fa3597ab8ec8d59b2380a7f9fea2d38980a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4995262/lichess_tools_by_siderite-2.4.238.xpi";
+      sha256 = "93731d7e02ef75a4854ca9748384bfe833bc79d7f7280b24798806f946e545b9";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10901,10 +10901,10 @@
     };
     "owasp-penetration-testing-kit" = buildMozillaXpiAddon {
       pname = "owasp-penetration-testing-kit";
-      version = "9.9.8";
+      version = "9.9.9";
       addonId = "pentestkit@DenisPodgurskii";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4924757/owasp_penetration_testing_kit-9.9.8.xpi";
-      sha256 = "4a1af2727926dc05e60242f847837b92c80176673e800615c050891c719aaee8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4996606/owasp_penetration_testing_kit-9.9.9.xpi";
+      sha256 = "6a48a84b540f6bb42e9df47acc3ad50507cb20e710d265dac9a13bd8f9bdac57";
       meta = with lib;
       {
         homepage = "https://pentestkit.co.uk/";
@@ -10981,10 +10981,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.127";
+      version = "1.0.128";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4967837/paperpile_addon-1.0.127.xpi";
-      sha256 = "009758112811a27aae26429a4da4b5b63a297ce0d1be229b47e4e479dd16766a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4994891/paperpile_addon-1.0.128.xpi";
+      sha256 = "558afb27371e7280f807c40d92183e4f2641d862cb4367975dae3c08d173941c";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -13202,10 +13202,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "156.0.20260827.145109";
+      version = "156.0.20260831.122253";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4987271/scots_language_pack-156.0.20260827.145109.xpi";
-      sha256 = "4a9ca523375fa1a8f6fce16e6d8dbff9e5d9615348124ec90905ed9aaa1a4039";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4995746/scots_language_pack-156.0.20260831.122253.xpi";
+      sha256 = "64174982acc527261b879561053c6a8acc05e5134bda224385bb9667a91709f2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13719,10 +13719,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.23.1";
+      version = "1.23.2";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4990129/single_file-1.23.1.xpi";
-      sha256 = "17afe21ff0dba9c27c343a2be2247c05222490bc75d5f9d47b5a17a3f8b96a48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4996084/single_file-1.23.2.xpi";
+      sha256 = "6398bf23f448010d6b619f3aefc9bdef2089ce8f09ce8874a3edbf4021da3e40";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -15029,13 +15029,13 @@
     };
     "toxcancel" = buildMozillaXpiAddon {
       pname = "toxcancel";
-      version = "1.3";
+      version = "1.4";
       addonId = "{135c3428-66bc-4b5b-9503-282dc00802e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4490783/toxcancel-1.3.xpi";
-      sha256 = "36b5623ca95357bf9fdaccb19fde9ab48609eff2b855ac48971139ee60108441";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4995504/toxcancel-1.4.xpi";
+      sha256 = "15f7ee9aef6d9bf0018f37be3808d8536c2697bb5ca0d31a190f8c17ae288242";
       meta = with lib;
       {
-        description = "Redirects to xcancel.com (a mirror of x) when the browser is about to load an x.com page";
+        description = "Redirects to a mirror of x (ie: an instance of Nitter) when the browser is about to load an x.com page";
         license = licenses.gpl3;
         mozPermissions = [ "webRequest" "webRequestBlocking" ];
         platforms = platforms.all;
@@ -17624,10 +17624,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.8.11";
+      version = "18.8.12";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4962417/youtube_subscription_groups-18.8.11.xpi";
-      sha256 = "e309ad674f169c847e4e31c8cd9b762f9f284f06767ff09eba047d5d71c5f8f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4994802/youtube_subscription_groups-18.8.12.xpi";
+      sha256 = "cb6fd1e665a04c7c9b86a8c3fa521c7090f68ed7a605ac482ec64f2d5ba0ac45";
       meta = with lib;
       {
         homepage = "https://pockettube.io";

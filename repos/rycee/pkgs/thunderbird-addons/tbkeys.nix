@@ -6,10 +6,10 @@
 
 buildMozillaXpiAddon {
   pname = "tbkeys";
-  version = "2.4.3";
+  version = "2.4.4";
   addonId = "tbkeys@addons.thunderbird.net";
-  url = "https://github.com/wshanks/tbkeys/releases/download/v2.4.3/tbkeys.xpi";
-  sha256 = "d9ef93e4daf991cdacf04ca417358a6896768cf5031e1f42aa7e210ae0c22da3";
+  url = "https://github.com/wshanks/tbkeys/releases/download/v2.4.4/tbkeys.xpi";
+  sha256 = "7330d76f4b6b56cc0eb27fff3f2c0bd4974acba6df8ab631114fc82b3bed0a98";
   meta = with lib; {
     homepage = "https://github.com/wshanks/tbkeys";
     description = "Custom keyboard shortcuts for Thunderbird";

@@ -246,10 +246,10 @@
     };
     "quickfilters" = buildMozillaXpiAddon {
       pname = "quickfilters";
-      version = "6.13.2";
+      version = "6.13.3";
       addonId = "quickFilters@axelg.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1049867/quickfilters-6.13.2-tb.xpi?src=";
-      sha256 = "3f226fa26088f024cdaaf530dba97ce96f415378590caac2c0cd30c6eec4f1d8";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1050816/quickfilters-6.13.3-tb.xpi?src=";
+      sha256 = "bb64d96aa0b01decd69eebb3979c3d5c86641ad710c4ba78dcc5c30f86c228e0";
       meta = with lib;
       {
         homepage = "https://quickfilters.quickfolders.org/";
@@ -307,10 +307,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "155.0.20260826.184332";
+      version = "156.0.20260831.202941";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1050699/deutsch_de_language_pack-155.0.20260826.184332-tb.xpi?src=";
-      sha256 = "8ce769d6f323e34e7bd4abdc7439811fc79b0b88313740ef5a67f3f616a1a7f4";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1050836/deutsch_de_language_pack-156.0.20260831.202941-tb.xpi?src=";
+      sha256 = "547ac8ab3fb216978ec2d97605bad06d5922db6a8181a64072a3d6c1ba566a0d";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
