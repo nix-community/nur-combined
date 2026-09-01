@@ -2,7 +2,6 @@
 set -euo pipefail
 shopt -s nullglob
 
-echo
 echo stable
 for pkg in ./pkgs/{python/,}stable/*; do
 	attribute=$(basename "$pkg")

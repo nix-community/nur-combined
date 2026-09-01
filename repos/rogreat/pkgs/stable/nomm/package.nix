@@ -16,15 +16,20 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "nomm";
-  version = "0.12.6";
-  pyproject = false;
+  version = "0.13.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "Allexio";
+    owner = "NOMM-Team";
     repo = "nomm";
     tag = finalAttrs.version;
-    hash = "sha256-83APCWOE+K3o5DpMmFkUZjMyli17ptnLhx3le1Juxic=";
+    hash = "sha256-dHAKDJDHuZAkC43s/qDCKmVu0cTIO7srpCivh2mbwWI=";
   };
+
+  build-system = with python3Packages; [
+    setuptools
+    setuptools-scm
+  ];
 
   nativeBuildInputs = [
     wrapGAppsHook4
@@ -37,42 +42,36 @@ python3Packages.buildPythonApplication (finalAttrs: {
     libnotify
   ];
 
-  # https://github.com/Allexio/nomm/blob/main/build/aur/PKGBUILD
   dependencies = with python3Packages; [
     pygobject3
     pyyaml
     rarfile
     requests
     vdf
+    dulwich
   ];
 
   postPatch = ''
-    substituteInPlace src/gui/application.py \
-        --replace-fail 'shutil.copy2' 'shutil.copyfile' \
-        --replace-fail 'gresource_path = "resources.gresource"' \
-           'gresource_path = os.path.join(os.path.join(GLib.get_user_data_dir(), "nomm"), "resources.gresource")'
-
-    substituteInPlace src/gui/dashboard.py src/core/archive_manager.py \
+    substituteInPlace src/nomm/gui/dashboard.py src/nomm/core/archive_manager.py \
         --replace-fail '/app/bin/unrar' "${lib.getExe unrar-free}"
   '';
 
-  # https://github.com/Allexio/nomm/blob/main/build/flatpak/com.nomm.Nomm.yaml
-  installPhase = ''
-    runHook preInstall
-
+  postInstall = ''
+    # https://github.com/NOMM-Team/nomm-app/blob/main/build/flatpak/moe.nomm.Nomm.yaml
     APP_ID=moe.nomm.Nomm
     install -D build/flatpak/$APP_ID.desktop $out/share/applications/$APP_ID.desktop
     install -D build/flatpak/$APP_ID.metainfo.xml $out/share/metainfo/$APP_ID.metainfo.xml
-    install -D assets/icons/nomm-logo.svg $out/share/icons/hicolor/scalable/apps/$APP_ID.png
+    install -D assets/icons/nomm-logo.svg $out/share/icons/hicolor/scalable/apps/$APP_ID.svg
+    cp src/nomm/*.yaml $out/${python3Packages.python.sitePackages}/..
+    cp release_bites.yaml $out/${python3Packages.python.sitePackages}/..
+    cp -r assets $out/${python3Packages.python.sitePackages}/..
+    find locale -name "*.po" | while read -r po; do
+      language_code=$(basename "$po" .po)
+      install -d "$out/share/locale/$language_code/LC_MESSAGES"
+      msgfmt "$po" -o "$out/share/locale/$language_code/LC_MESSAGES/$APP_ID.mo"
+    done
 
-    mkdir -p $out/${python3Packages.python.sitePackages}
-    cp -r src -T $out/${python3Packages.python.sitePackages}
-    cp -r assets $out/${python3Packages.python.sitePackages}
-    cp -r default_game_configs $out/${python3Packages.python.sitePackages}
-
-    mkdir -p $out/share/locale/fr/LC_MESSAGES
-    msgfmt locale/fr.po -o $out/share/locale/fr/LC_MESSAGES/$APP_ID.mo
-
+    # fix broken images
     export GDK_PIXBUF_MODULE_FILE="${
       gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
         extraLoaders = [
@@ -80,27 +79,21 @@ python3Packages.buildPythonApplication (finalAttrs: {
         ];
       }
     }"
-
-    runHook postInstall
   '';
 
   dontWrapGApps = true;
 
   preFixup = ''
-    makeWrapper ${python3Packages.python.interpreter} $out/bin/nomm \
-        --add-flags "-m main" \
-        ''${gappsWrapperArgs[@]} \
-        --set PYTHONPATH $out/${python3Packages.python.sitePackages}:$PYTHONPATH \
+    makeWrapperArgs+=(
+        "''${gappsWrapperArgs[@]}"
         --set PATH ${
           lib.makeBinPath [
             glib.dev # glib-compile-resources
             p7zip # 7z
           ]
         }
+    )
   '';
-
-  # no tests
-  doCheck = false;
 
   __structuredAttrs = true;
 
