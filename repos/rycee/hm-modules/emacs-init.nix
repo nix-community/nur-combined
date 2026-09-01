@@ -341,11 +341,6 @@ let
     }
   );
 
-  usePackageStr = name: pkgConfStr: ''
-    (use-package ${name}
-      ${pkgConfStr})
-  '';
-
   mkRecommendedOption =
     type: extraDescription:
     mkOption {
@@ -465,6 +460,11 @@ let
       (add-hook 'emacs-startup-hook #'hm/print-startup-stats)
     ''}
 
+    ${optionalString cfg.enableBenchmarkInit ''
+      (require 'benchmark-init)
+      (add-hook 'after-init-hook 'benchmark-init/deactivate)
+    ''}
+
     ${cfg.prelude}
 
     ${usePackageSetup}
@@ -493,6 +493,8 @@ in
     '';
 
     startupTimer = mkEnableOption "Emacs startup duration timer";
+
+    enableBenchmarkInit = mkEnableOption "integration with the benchmark-init package";
 
     earlyInit = mkOption {
       type = types.lines;
@@ -628,7 +630,8 @@ in
           ++ packages
           ++ optional hasBind epkgs.bind-key
           ++ optional hasDiminish epkgs.diminish
-          ++ optional hasChords epkgs.use-package-chords;
+          ++ optional hasChords epkgs.use-package-chords
+          ++ optional cfg.enableBenchmarkInit epkgs.benchmark-init;
           preferLocalBuild = true;
           allowSubstitutes = false;
           doCheck = cfg.checkGeneratedConfig;
