@@ -62,7 +62,7 @@ def main() -> int:
     old_rev = nix_eval("betterbird-unwrapped.betterbird-patches.rev")
 
     if old_rev not in valid_tags:
-        raise RuntimeError(f"Don't know how to update, current rev {old_rev!r} not in {valid_tags!r}")
+        print(f"Warning: current rev {old_rev!r} not in {valid_tags!r}", file=sys.stderr)
 
     new_rev = valid_tags[0]
 
