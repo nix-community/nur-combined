@@ -33,11 +33,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RCIdcqPzV3L6qFrZo2pngISlFvcg5ktF4m65AVMVUAs=",
+            "sha256": "sha256-y9Q4kyKdOXugn1pdceObRYMrK4a2Gj6aMrt56bSQGHg=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.251/darwin-x64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.252/darwin-x64/claude"
         },
-        "version": "2.1.251"
+        "version": "2.1.252"
     },
     "claude-code-bin-amd64-linux": {
         "cargoLock": null,
@@ -48,11 +48,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/V8Q/w61ja7ASQBGaxQ+qYqrUKvyCKQivACOrsE/Yfc=",
+            "sha256": "sha256-pxWkUQXlk/yYCNA113eB+ISAuYl5danfQYN/DFkb1LM=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.251/linux-x64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.252/linux-x64/claude"
         },
-        "version": "2.1.251"
+        "version": "2.1.252"
     },
     "claude-code-bin-arm64-darwin": {
         "cargoLock": null,
@@ -63,11 +63,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YlhpsB4AUPJgspgPrCSP2c755GJhK97U7J09Sf+JaaU=",
+            "sha256": "sha256-tmHGoJT8wyZWv3wAccW0W/kAs01PChqz14/Vmuuiwsc=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.251/darwin-arm64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.252/darwin-arm64/claude"
         },
-        "version": "2.1.251"
+        "version": "2.1.252"
     },
     "claude-code-bin-arm64-linux": {
         "cargoLock": null,
@@ -78,16 +78,16 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZURb1N0EIHnMP6Q3kbVhNwoFyFmejsR1gOJagQUKu90=",
+            "sha256": "sha256-bAsy6qk2lUoPTUrSWV+EFq8ojZs8uvGePN2aldfIhT4=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.251/linux-arm64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.252/linux-arm64/claude"
         },
-        "version": "2.1.251"
+        "version": "2.1.252"
     },
     "codex": {
         "cargoLock": {
             "codex-rs/Cargo.lock": [
-                "sha256-snrzA4W+vLqpPk3MS4xw9SszK1byCKo6ERz3JDgRZdA=/codex-rs/Cargo.lock",
+                "sha256-UmdecJhS8khsz8BZzIBgmvdj589dQ_gCrbJtRj9uoBg=/codex-rs/Cargo.lock",
                 {
                     "crossterm-0.29.0": "sha256-cQxQQuV+YEutuQiPurXVISq6F/99vCEk8qe5PU8BCSo=",
                     "nucleo-0.5.0": "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=",
@@ -109,12 +109,12 @@
             "name": null,
             "owner": "openai",
             "repo": "codex",
-            "rev": "rust-v0.151.0",
-            "sha256": "sha256-snrzA4W+vLqpPk3MS4xw9SszK1byCKo6ERz3JDgRZdA=",
+            "rev": "rust-v0.152.0",
+            "sha256": "sha256-UmdecJhS8khsz8BZzIBgmvdj589dQ/gCrbJtRj9uoBg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "rust-v0.151.0"
+        "version": "rust-v0.152.0"
     },
     "codex-bin-amd64-darwin": {
         "cargoLock": null,
@@ -125,11 +125,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fAa+n2zsMLZdVs+XBylY9ImTNfJ+sb7SHWunn1pjfIQ=",
+            "sha256": "sha256-AMc8nHS9n1P+Hyd15f8oNYKaX13zJaJpEhst7aM/Pqg=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-darwin-x64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.0-darwin-x64.tgz"
         },
-        "version": "0.151.0"
+        "version": "0.152.0"
     },
     "codex-bin-amd64-linux": {
         "cargoLock": null,
@@ -140,11 +140,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-s7zywRaT18gVXeY33WViuhnZFroTRxp8hzfeVeUyj8Y=",
+            "sha256": "sha256-nkxKJbiNnJPODuT2T7oj/FWUn2bZ7LeeQZxUG2S4CZc=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-linux-x64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.0-linux-x64.tgz"
         },
-        "version": "0.151.0"
+        "version": "0.152.0"
     },
     "codex-bin-arm64-darwin": {
         "cargoLock": null,
@@ -155,11 +155,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-k2Wbi9acTs0orgjilgxmj2TUdgSAvr6YhBkE1EcCZ0A=",
+            "sha256": "sha256-zCZkJTHLSQ3seej8GqzhdQZeSp5HQQYoyGmWXY2Y0g8=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-darwin-arm64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.0-darwin-arm64.tgz"
         },
-        "version": "0.151.0"
+        "version": "0.152.0"
     },
     "codex-bin-arm64-linux": {
         "cargoLock": null,
@@ -170,11 +170,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yfCmQV9Y3e+JCNNsOIgdJzusQX1Xtcd2jdn7/rkrai0=",
+            "sha256": "sha256-JF91yc2870vM8E0fd+OJqaZu7Ko5WR9ngyuSYeTtxbs=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-linux-arm64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.0-linux-arm64.tgz"
         },
-        "version": "0.151.0"
+        "version": "0.152.0"
     },
     "create-tauri-app": {
         "cargoLock": {
