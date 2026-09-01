@@ -7,16 +7,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "nats-static";
-  version = "0.0.4";
+  version = "0.0.5";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "nats-static";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QIFE0ZwFsvKS03uctABZMtUwLZu4g9jRW0MOQg/duZA=";
+    hash = "sha256-/DmwmR/ijXpuZHFssOaLSHJV0zskc94LEcy+zLRcd78=";
   };
 
-  vendorHash = "sha256-M3feEnza10nFmPC8w9rUHaaESDHZl5kI4p4IxJCpSNs=";
+  vendorHash = "sha256-UTfUDGOUKlxW84O3hN2pj+ti6eY25Yx93pXumDoXQaI=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
