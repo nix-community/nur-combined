@@ -43,7 +43,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "helios";
-  version = "0.6.0";
+  version = "0.6.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "moonlight-os";
     repo = "helios";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-698dJAizT8lb9wmKTdI+9MgvU+KnD6EjixA1Asvhzok=";
+    hash = "sha256-J6zYP91guzCvQ5iDPWGbuhHOdIuBpTeOgXRWvpC955I=";
     fetchSubmodules = true;
   };
 
