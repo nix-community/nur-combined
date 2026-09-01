@@ -3,6 +3,7 @@
   stdenv,
   fetchurl,
   squashfsTools,
+  asar,
   autoPatchelfHook,
   makeWrapper,
   wrapGAppsHook3,
@@ -54,6 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     squashfsTools
+    asar
     autoPatchelfHook
     makeWrapper
     wrapGAppsHook3
@@ -124,12 +126,45 @@ stdenv.mkDerivation (finalAttrs: {
     #   유지하는 쪽이 안전하다(동작 변화 없음이 이 소스 교체의 목표다).
     echo deb > $out/share/upnote/resources/package-type
 
+    # ─── 창을 닫으면 앱도 끝나게 한다 (겸 musl 프리빌드 제거) ───
+    # UpNote 는 리눅스에서 Electron 의 기본 동작(마지막 창이 닫히면 종료)을 덮어 백그라운드에 남는다.
+    #   그런데 트레이 아이콘을 만들지 않고(실측: libdbusmenu/libappindicator 를 주입해도 SNI 등록 없음)
+    #   앱 메뉴에도 Quit 이 없어서, 창을 닫으면 **GUI 로는 끝낼 방법이 사라진 프로세스**가 남는다.
+    #   NODE_OPTIONS=--require 주입은 packaged 앱에서 Electron 이 막는다("Most NODE_OPTIONs are not
+    #   supported in packaged apps") → 앱 진입점을 감싸는 수밖에 없다.
+    # ⚠️ 난독화된 앱 코드는 건드리지 않는다. package.json 의 main 만 우리 shim 으로 돌리고, shim 이
+    #   원래 main 을 그대로 require 한다 — 그래서 버전이 올라도 깨지지 않는다. 그 전제(main 경로)가
+    #   바뀌면 --replace-fail 이 빌드를 세운다(조용한 무력화 방지).
+    asar extract $out/share/upnote/resources/app.asar "$NIX_BUILD_TOP/app"
     # classic-level 은 glibc/musl 프리빌드를 둘 다 동봉한다. glibc 시스템에선 musl 쪽을 절대 로드하지
-    # 않지만, autoPatchelfHook 은 트리를 무차별 순회해 libc.musl-x86_64.so.1 을 못 찾고 빌드를 깬다.
-    # --ignore-missing 으로 덮기보다 애초에 안 쓰는 파일을 지우는 편이 낫다(잔재도 안 남음).
-    #   ⚠️ deb 는 asar 헤더에 등재만 하고 파일은 누락시켰지만 snap 은 실제로 담고 있다 — 즉 이 줄은
-    #     deb 시절보다 지금 더 필요하다.
-    rm -f $out/share/upnote/resources/app.asar.unpacked/node_modules/classic-level/prebuilds/*/node.napi.musl.node
+    #   않지만, autoPatchelfHook 은 트리를 무차별 순회해 libc.musl-x86_64.so.1 을 못 찾고 빌드를 깬다.
+    #   ⚠️ 지우는 시점이 중요하다 — **재포장 전, 추출된 트리에서** 지워야 한다. $out 의
+    #     app.asar.unpacked 에서 먼저 지우면 asar 헤더가 가리키는 파일이 사라져 위 extract 가 죽는다
+    #     (deb 시절엔 재포장이 없어서 그 순서가 통했다). 여기서 지우면 헤더 등재까지 같이 없어진다.
+    rm -f "$NIX_BUILD_TOP"/app/node_modules/classic-level/prebuilds/*/node.napi.musl.node
+    substituteInPlace "$NIX_BUILD_TOP/app/package.json" \
+      --replace-fail '"main": "./dist/electron/main.js"' '"main": "./nix-quit-on-close.js"'
+    cat > "$NIX_BUILD_TOP/app/nix-quit-on-close.js" <<'SHIM'
+    // 패키징 패치: 창이 닫히면 프로세스도 끝낸다.
+    //   ⚠️ 실효 훅은 아래 둘 중 **창별 close** 쪽이다. 진단 빌드로 실측한 결과, 창을 닫아도
+    //     'window-all-closed' 는 한 번도 발화하지 않았다(앱이 창을 3개 만들고 그중 일부를 살려두거나
+    //     닫기를 가로챈다). 그래도 둘 다 건다 — 앱이 그 구조를 바꾸면 반대쪽이 받는다.
+    //   app.quit() 이 앱의 before-quit 훅에 막힐 수 있어 2초 뒤 exit 로 확정한다(실측에선 quit 만으로
+    //     1초 안에 끝나 이 폴백은 발동하지 않았다).
+    const { app } = require('electron');
+    const quit = () => {
+      try { app.quit(); } catch (e) { /* ignore */ }
+      setTimeout(() => app.exit(0), 2000).unref?.();
+    };
+    app.on('window-all-closed', quit);
+    app.on('browser-window-created', (_e, win) => win.on('close', quit));
+    require('./dist/electron/main.js');
+SHIM
+    sed -i 's/^    //' "$NIX_BUILD_TOP/app/nix-quit-on-close.js"
+    rm -rf $out/share/upnote/resources/app.asar $out/share/upnote/resources/app.asar.unpacked
+    #   .node 는 asar 안에서 dlopen 이 안 되고 autoPatchelfHook 도 못 보므로 반드시 밖으로 풀어둔다.
+    asar pack "$NIX_BUILD_TOP/app" $out/share/upnote/resources/app.asar \
+      --unpack-dir "node_modules/classic-level"
 
     runHook postInstall
   '';
