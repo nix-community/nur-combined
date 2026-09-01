@@ -91,12 +91,12 @@
             "name": null,
             "owner": "vastsa",
             "repo": "FileCodeBox",
-            "rev": "v2.5.5",
-            "sha256": "sha256-O30nJGyhh0LHTGZ+QO/ggYr16QR7gGJPcxVa4bmoqmA=",
+            "rev": "v2.5.6",
+            "sha256": "sha256-3NBh+AIBoE3lvnlk2Zcg83ghWqVxSkkGfOBRn9MS6G8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.5.5"
+        "version": "v2.5.6"
     },
     "filecodebox-frontend": {
         "cargoLock": null,
@@ -195,12 +195,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.11.10",
-            "sha256": "sha256-7kSkfJyR5HsB+96UazxRMKDYVzgAXIEoaPbXsFCe8h4=",
+            "rev": "v4.12.2",
+            "sha256": "sha256-ECoPtX2StSeLdRKnC0Zogh63Cqmy+I7rOtpgI3n1JOo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.11.10"
+        "version": "v4.12.2"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -216,12 +216,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.11.10",
-            "sha256": "sha256-ctlSMMPgFsuhvZ+NsJHk5C8JIHA74zJTvSYVGEXsNRA=",
+            "rev": "v4.12.2",
+            "sha256": "sha256-jVjxuqWxgiq65ne1LcswgeFMsuMQYKZdlIz/QKLVslM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.11.10"
+        "version": "v4.12.2"
     },
     "pinyin2hanzi": {
         "cargoLock": null,

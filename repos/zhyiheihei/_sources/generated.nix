@@ -46,12 +46,12 @@
   };
   filecodebox = {
     pname = "filecodebox";
-    version = "v2.5.5";
+    version = "v2.5.6";
     src = fetchFromGitHub {
       owner = "vastsa";
       repo = "FileCodeBox";
-      tag = "v2.5.5";
-      hash = "sha256-O30nJGyhh0LHTGZ+QO/ggYr16QR7gGJPcxVa4bmoqmA=";
+      tag = "v2.5.6";
+      hash = "sha256-3NBh+AIBoE3lvnlk2Zcg83ghWqVxSkkGfOBRn9MS6G8=";
     };
   };
   filecodebox-frontend = {
@@ -97,22 +97,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.11.10";
+    version = "v4.12.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.11.10";
-      hash = "sha256-7kSkfJyR5HsB+96UazxRMKDYVzgAXIEoaPbXsFCe8h4=";
+      tag = "v4.12.2";
+      hash = "sha256-ECoPtX2StSeLdRKnC0Zogh63Cqmy+I7rOtpgI3n1JOo=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.11.10";
+    version = "v4.12.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.11.10";
-      hash = "sha256-ctlSMMPgFsuhvZ+NsJHk5C8JIHA74zJTvSYVGEXsNRA=";
+      tag = "v4.12.2";
+      hash = "sha256-jVjxuqWxgiq65ne1LcswgeFMsuMQYKZdlIz/QKLVslM=";
     };
   };
   pinyin2hanzi = {
