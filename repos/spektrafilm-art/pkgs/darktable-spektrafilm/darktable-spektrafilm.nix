@@ -52,7 +52,7 @@ let
     pname = "darktable-spektrafilm";
     # Tracks a moving PR branch head, not a tagged release, so
     # the datestamp keeps the store path honest. Bump it together with src.rev.
-    version = "5.8.0-unstable-2026-08-29";
+    version = "5.8.0-unstable-2026-09-01";
 
     src = fetchFromGitHub {
       owner = "piratenpanda";
@@ -62,9 +62,9 @@ let
       # author closed by accident in 2026-08; same branch, new PR number.
       # Verify with:
       #   git ls-remote https://github.com/piratenpanda/darktable refs/pull/21967/head
-      rev = "d0b4e9cbc8847155655e9aeca9e0eb64757f2eb9";
+      rev = "e88281a405679c06e1cfceebbbcd57182367fca0";
       fetchSubmodules = true;
-      hash = "sha256-QgqsWruGAgnomV8RRylLoeXQkx3p99aJNxvrkrZCVww=";
+      hash = "sha256-bjWEpKT2/SSbIZmd6dF4I4/2z0bWnB+wrYy8JHLXt7Y=";
     };
 
     # No local patches: the toggle-helper shim we used to carry is now obsolete —
