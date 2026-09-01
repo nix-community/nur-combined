@@ -7,7 +7,7 @@
   name = "ducklake";
   repo = "ducklake";
   branch = "v1.5-variegata";
-  rev = "2feb1a031c40b8b1fed3a48b14e0286ae37f67b2";
-  hash = "sha256-hbehL6e4wDSHMkPBgm7DVTGzQZw3M0f6HJmVR595dD4=";
+  rev = "47c21b5f03a9ea24eaf5365a6a418aa281295573";
+  hash = "sha256-pQMm5QW2ii6pzP53YJsNLUvBqctLDcDSdEdAbndvh4w=";
   duckdbBuildInputs = [ croaring ];
 }
