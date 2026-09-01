@@ -1,11 +1,11 @@
 {
-  buildNpmPackage,
   fetchFromGitHub,
   lib,
+  mkPiExtension,
   nix-update-script,
   pandoc,
 }:
-buildNpmPackage (finalAttrs: {
+mkPiExtension (finalAttrs: {
   pname = "pi-markdown-preview";
   version = "0.10.0";
 
@@ -17,34 +17,15 @@ buildNpmPackage (finalAttrs: {
   };
 
   npmDepsFetcherVersion = 2;
-
-  npmDepsHash = "sha256-PRrWHl2z8XP2zOE0MAp21c1XzwdcagItjvPDp1c1X+c=";
-
-  # build the lock file ourselves, otherwise buildNpmPackage fails:
-  # > non-git dependencies should have associated integrity
-  postPatch = ''
-    cp ${./package-lock.json} package-lock.json
-  '';
+  npmDepsHash = "sha256-eN72MfapupdoR0XlsJptZT/amst5MYdVKWKjTueHnVQ=";
 
   propagatedBuildInputs = [
     pandoc
   ];
 
-  dontNpmBuild = true;
+  dontNpmBuild = true;  # package.json defines no build script
 
-  postInstall = ''
-    mv $out/lib/node_modules/pi-markdown-preview/* $out
-    rmdir $out/lib/node_modules/pi-markdown-preview
-    rmdir $out/lib/node_modules
-    rmdir $out/lib
-  '';
-
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--generate-lockfile"
-    ];
-  };
-  passthru.skipBulkUpdate = true;  #< patched lockfile generation is not automated, breaks
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rendered markdown + LaTeX preview for pi, with terminal, browser, and PDF output";

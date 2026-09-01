@@ -428,7 +428,7 @@ in
         # pkgs.pi-caveman  #< adds `/caveman` slash command
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
-        pkgs.leohenon-pi-vim
+        # pkgs.leohenon-pi-vim
         pkgs.pi-claude-bridge
         pkgs.pi-codex-goal
         pkgs.pi-cwd
@@ -442,7 +442,7 @@ in
         pkgs.pi-subagents
         pkgs.pi-tool-repair  #< repairs "Error: Upstream emitted malformed tool call data that could not be repaired"
         # pkgs.pi-simplify  #< adds `/simplify` slash command
-        # pkgs.pi-vim  #< makes the input textarea behave like vim
+        pkgs.pi-vim  #< makes the input textarea behave like vim
         # pkgs.pi-markdown-preview  #< renders $LaTeX$, etc, but needs more deps (puppeteer?)
       ] ++ lib.optionals cfg.pi-offline-provider [
         pkgs.pi-offline-provider  #< provides `offline/*` models

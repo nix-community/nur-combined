@@ -1,11 +1,11 @@
 {
-  buildNpmPackage,
   fetchFromGitHub,
   lib,
+  mkPiExtension,
   nix-update-script,
 }:
 
-buildNpmPackage (finalAttrs: {
+mkPiExtension (finalAttrs: {
   pname = "pi-speeed";
   version = "0.4.0";
 
@@ -18,28 +18,14 @@ buildNpmPackage (finalAttrs: {
     owner = "somus";
     repo = "pi-speeed";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-kjFJ72Lgav3EXR6QCZ7fm/DsfiGwMYyt4GC8xQEihB0=";
-    postFetch = ''
-      sed -i $out/package.json \
-        -e '/"@earendil-works\/pi-ai": /d' \
-        -e '/"@earendil-works\/pi-tui": /d' \
-        -e '/"@earendil-works\/pi-coding-agent": /d'
-    '';
+    hash = "sha256-vOLJCu+1sHksVyRUdtrMovtG1LKJhWeYZNluWVOa68g=";
   };
 
   npmDepsFetcherVersion = 2;
+  npmDepsHash = "sha256-w35APZUoCsvLEnjY5hbQHKLpklp0+SCeebXM/c51xLo=";
 
-  npmDepsHash = "sha256-MdFKQ3xZPIIsFco2h9Zshlj/6eFB1c/4sqhG9DcF1TA=";
 
-  # lockfile generated in a pi-speeed checkout using
-  # `PATH=$(nix-build ~/nixos/master -A nodejs)/bin:$PATH npm install --package-lock-only`
   postPatch = ''
-    cp ${./package-lock.json} package-lock.json
-
-    substituteInPlace package.json --replace-fail \
-      '"prepack": "npm run check && npm run typecheck && npm test"' \
-      '"prepack": "true"'
-
     # save/load data to XDG paths, not ~/.pi
     substituteInPlace src/config.ts --replace-fail \
       '.pi/agent/pi-speeed.json' \
@@ -47,16 +33,19 @@ buildNpmPackage (finalAttrs: {
     substituteInPlace src/stats.ts --replace-fail \
       '.pi/agent/pi-speeed-stats.json' \
       '.config/pi/pi-speeed-stats.json'
+
+    substituteInPlace package.json \
+      --replace-fail \
+        '"check": "biome check ."' \
+        '"check": "true"' \
+      --replace-fail \
+        '"typecheck": "tsc --noEmit"' \
+        '"typecheck": "true"'
   '';
 
   dontNpmBuild = true;
 
   postInstall = ''
-    mv $out/lib/node_modules/pi-speeed/* $out
-    rmdir $out/lib/node_modules/pi-speeed
-    rmdir $out/lib/node_modules
-    rmdir $out/lib
-
     mkdir -p $out/share/fonts/truetype
     mv $out/assets/runcat.ttf $out/share/fonts/truetype/runcat.ttf
     rmdir $out/assets
@@ -66,11 +55,7 @@ buildNpmPackage (finalAttrs: {
     moveToOutput share/fonts/truetype/runcat.ttf $assets
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--generate-lockfile"
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Pi extension that shows assistant output speed with a configurable RunCat speed badge";

@@ -1,66 +1,35 @@
 {
-  buildNpmPackage,
   fetchFromGitHub,
-  jq,
   lib,
-  moreutils,
+  mkPiExtension,
   nix-update-script,
   update-guard,
   updater-tools,
 }:
-buildNpmPackage (finalAttrs: {
+mkPiExtension (finalAttrs: {
   pname = "pi-mcp-adapter";
-  version = "2.27.0";
+  version = "2.31.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-mcp-adapter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Nsx3ezWMcQPaRxFXaLmxrTkbRRCWwPF3RjD8I0V7dDg=";
-    # upstream omits the integrity hashes for pi-* dependencies, expecting pi to already be present.
-    # patch out the deps onto pi *here*, so that nix-update-script can generate a correct lockfile.
-    postFetch = ''
-      jq '
-        del(
-          .dependencies["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"],
-          .devDependencies["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"],
-          .peerDependencies["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"],
-          .peerDependenciesMeta["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"]
-        )
-      ' $out/package.json | sponge $out/package.json
-    '';
-    nativeBuildInputs = [
-      jq
-      moreutils
-    ];
+    hash = "sha256-6U856l2EmxcitE/MiiwgMd3YkMfAQVjbXJUdhgNrPMY=";
   };
 
   npmDepsFetcherVersion = 2;
+  npmDepsHash = "sha256-JlsCfpup/0Om60/Z+Tt87/+gNK681ZfsHVUXUK6Exsc=";
 
-  npmDepsHash = "sha256-ONuiMrkzJOeYWVckvYld4ARt/kRT9B3PxK9j3ypXfD4=";
+  dontNpmBuild = true;  # package.json defines no build script
 
-  # lockfile generated in a pi-mcp-adapter checkout using
-  # `npm install --package-lock-only`.
   postPatch = ''
-    cp ${./package-lock.json} package-lock.json
-  '';
-
-  dontNpmBuild = true;
-
-  postInstall = ''
-    mv $out/lib/node_modules/pi-mcp-adapter/* $out
-    rmdir $out/lib/node_modules/pi-mcp-adapter
-    rmdir $out/lib/node_modules
-    rmdir $out/lib
+    # needs to be executable to have its shebang patched
+    chmod +x cli.js
   '';
 
   passthru.updateScript = updater-tools.requireAll [
     (update-guard.days 3)
-    (nix-update-script {
-      extraArgs = [
-        "--generate-lockfile"
-      ];
-    })
+    (nix-update-script {})
   ];
 
   meta = {

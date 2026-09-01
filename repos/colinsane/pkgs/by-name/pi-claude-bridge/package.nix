@@ -1,10 +1,10 @@
 {
-  buildNpmPackage,
   fetchFromGitHub,
   lib,
+  mkPiExtension,
   nix-update-script,
 }:
-buildNpmPackage (finalAttrs: {
+mkPiExtension (finalAttrs: {
   pname = "pi-claude-bridge";
   version = "0.7.0";
 
@@ -12,37 +12,16 @@ buildNpmPackage (finalAttrs: {
     owner = "elidickinson";
     repo = "pi-claude-bridge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9ifyX+XOFFDq6X+UKwFxxvjrAYIyYv06K+VI3PeFaV4=";
-    postFetch = ''
-      sed -i $out/package.json \
-        -e '/"@earendil-works\/pi-ai": /d' \
-        -e '/"@earendil-works\/pi-coding-agent": /d' \
-        -e '/"@earendil-works\/pi-tui": /d'
-    '';
+    hash = "sha256-L9aczhKDeXbq5CKFLMb68Oa1J0RzjFtPzucma+NBlTk=";
   };
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-k+vr3PjKp1KFYjk35ui71PqftJ7vYfk9FLNN4vn7H2k=";
+  npmDepsHash = "sha256-1M2JUevreKP1Kn2ecbF4sEJilEQLa/4FESpCnpV3ik8=";
 
-  postPatch = ''
-    cp ${./package-lock.json} package-lock.json
-  '';
+  dontNpmBuild = true;  # package.json defines no build script
 
-  dontNpmBuild = true;
-
-  postInstall = ''
-    mv $out/lib/node_modules/pi-claude-bridge/* $out
-    rmdir $out/lib/node_modules/pi-claude-bridge
-    rmdir $out/lib/node_modules
-    rmdir $out/lib
-  '';
-
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--generate-lockfile"
-    ];
-  };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Pi extension that uses Claude Code (via Agent SDK) as a model provider and adds an AskClaude tool";

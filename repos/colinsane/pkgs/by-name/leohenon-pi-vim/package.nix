@@ -1,10 +1,10 @@
 {
-  buildNpmPackage,
   fetchFromGitHub,
   lib,
+  mkPiExtension,
   nix-update-script,
 }:
-buildNpmPackage (finalAttrs: {
+mkPiExtension (finalAttrs: {
   pname = "pi-vim";
   version = "0.1.4-unstable-2026-07-08";
 
@@ -12,29 +12,14 @@ buildNpmPackage (finalAttrs: {
     owner = "leohenon";
     repo = "pi-vim";
     rev = "819a8b0f0a1ec2171dffd9528636dcae7ce35e70";
-    hash = "sha256-RrYpmKsnUoEdCgVIubNs9l//wVBP36oU2TjN0NWlmAo=";
-    # upstream omits the integrity hashes for pi-* dependencies, expecting pi to already be present.
-    # patch out the deps onto pi *here*, so that nix-update-script can generate a correct lockfile.
-    postFetch = ''
-      sed -i $out/package.json \
-        -e '/"@earendil-works\/pi-coding-agent": /d' \
-        -e '/"@earendil-works\/pi-tui": /d'
-    '';
+    hash = "sha256-Jt5cRO/jVJepj58GOD3zpX/GILezS8jLnImiszOeA8s=";
   };
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-LY4C/JwNZZks/OcZr4Kb1TLRhEBbbeVY71ThO1Kdd4A=";
+  npmDepsHash = "sha256-MRpYRkvlRylEffz3fSSKROSNnxFniiO7YoYTGUc3c/Q=";
 
-  dontNpmBuild = true;
-
-  postInstall = ''
-    mv $out/lib/node_modules/@leohenon/pi-vim/* $out
-    rmdir $out/lib/node_modules/@leohenon/pi-vim
-    rmdir $out/lib/node_modules/@leohenon
-    rmdir $out/lib/node_modules
-    rmdir $out/lib
-  '';
+  dontNpmBuild = true;  # package.json defines no build script
 
   passthru.updateScript = nix-update-script { };
 
