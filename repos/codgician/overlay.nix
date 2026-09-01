@@ -4,8 +4,7 @@
 
 self: super:
 let
-  isReserved =
-    n: n == "lib" || n == "overlays" || n == "modules" || n == "tests";
+  isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "tests";
   nameValuePair = n: v: {
     name = n;
     value = v;
