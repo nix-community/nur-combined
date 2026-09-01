@@ -48,12 +48,12 @@ let
   # lncrawl-translator — Translation module for lightnovel-crawler
   lncrawl-translator = python3Packages.buildPythonPackage rec {
     pname = "lncrawl-translator";
-    version = "0.2.1";
+    version = "0.2.2";
     pyproject = true;
     src = fetchPypi {
       pname = "lncrawl_translator";
       inherit version;
-      hash = "sha256-LG6dYsYGYMVv7r4W+uPkryOP4UYT4K78QGQToeMtl0w=";
+      hash = "sha256-9SmKazEbqgC9SQKaXrgDcxRF809AqnC31VF0qRuJaEs=";
     };
     build-system = with python3Packages; [ hatchling ];
     propagatedBuildInputs = with python3Packages; [

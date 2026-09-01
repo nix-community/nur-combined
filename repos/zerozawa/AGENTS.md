@@ -68,7 +68,7 @@ This repo is not limited to one packaging style. Examples worth following:
 
 - `python3Packages.buildPythonApplication` / `buildPythonPackage`
   - Examples: `pkgs/JMComic-qt.nix`, `pkgs/picacg-qt.nix`, `pkgs/sr-vulkan.nix`
-- `flutter341.buildFlutterApplication`
+- `flutter347.buildFlutterApplication`
   - Example: `pkgs/LoveIwara/default.nix` — JSON pub lock, native source builders, desktop entry, and runtime FFI wrapping
 - `buildGoModule`
   - Example: `pkgs/mihomo-smart.nix`
@@ -114,7 +114,7 @@ the build against it succeeds.
 
 - `JMComic-qt` and `picacg-qt` rely on `sr-vulkan-with-models`, not plain `sr-vulkan`
 - The full SR Vulkan stack (`sr-vulkan`, models, `JMComic-qt`, and `picacg-qt`) is pinned to Python 3.13 because the upstream 2.0.1.1 `abi3` wheel segfaults in `initSet` under Python 3.14
-- `LoveIwara` source-builds with `flutter341`; its derivation uses system SQLite instead of the sandboxed native-asset download, treats `sqlite3_flutter_libs 0.6.0+eol` as an empty compatibility package, and removes enum cases absent from the locked Dio 5.9.1
+- `LoveIwara` source-builds with `flutter347` (0.5.1+ requires Flutter >= 3.47 per its pubspec SDK pin); its derivation patches the sqlite3 hook (`lib/src/hook/compile/description.dart`) to use system SQLite instead of the sandboxed native-asset download and treats `sqlite3_flutter_libs 0.6.0+eol` as an empty compatibility package. The Dio `transformTimeout` enum workaround was dropped when the lock moved to Dio 5.11.0, which provides it
 - `deskbrid` is a Rust package (edition 2024, rustls) that resolves compositor helper tools (hyprctl, grim, wl-clipboard, ydotool, ...) from PATH at runtime — intentionally not wrapped; it installs its systemd user service (store-path ExecStart) and polkit policy under `$out/share`
 - `context-mode` is a `bun` + `stdenvNoCC.mkDerivation` package with pre-built bundles; it uses `makeBinaryWrapper` and the built-in `node:sqlite` (Node.js >= 22.5) so `better-sqlite3` is not loaded at runtime
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL

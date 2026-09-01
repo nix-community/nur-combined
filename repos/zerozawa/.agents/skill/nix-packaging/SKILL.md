@@ -41,7 +41,7 @@ Common patterns:
 
 Example: `pkgs/LoveIwara/default.nix`
 
-Use `flutter341.buildFlutterApplication` for reproducible Linux desktop builds:
+Use the pinned Flutter SDK's `buildFlutterApplication` (currently `flutter347`) for reproducible Linux desktop builds:
 
 - convert and check in upstream `pubspec.lock` as `pubspec.lock.json`
 - use `customSourceBuilders` when Dart native-asset hooks attempt sandboxed downloads

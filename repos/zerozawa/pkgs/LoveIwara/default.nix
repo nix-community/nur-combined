@@ -1,6 +1,6 @@
 {
   lib,
-  flutter341,
+  flutter347,
   fetchFromGitHub,
   imagemagick,
   stdenvNoCC,
@@ -16,15 +16,15 @@
   sqlite,
 }:
 
-flutter341.buildFlutterApplication (finalAttrs: {
+flutter347.buildFlutterApplication (finalAttrs: {
   pname = "loveiwara";
-  version = "0.5.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "FoxSensei001";
     repo = "LoveIwara";
     tag = finalAttrs.version;
-    hash = "sha256-q+w0W7b8wmYmG80UJZo78s2+gQcYHABcF5Zc0aSiGAM=";
+    hash = "sha256-9LKPAnMn/3XK+rLng+Fy0OGYsp2F3EJt9ppm59VcrBk=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
@@ -44,9 +44,9 @@ flutter341.buildFlutterApplication (finalAttrs: {
       '';
 
       postPatch = ''
-        substituteInPlace lib/src/hook/description.dart \
+        substituteInPlace lib/src/hook/compile/description.dart \
           --replace-fail \
-          'return PrecompiledFromGithubAssets(LibraryType.sqlite3);' \
+          'return fromGitHub(LibraryType.sqlite3);' \
           "return LookupSystem('sqlite3');"
       '';
 
@@ -93,12 +93,8 @@ flutter341.buildFlutterApplication (finalAttrs: {
 
   postPatch = ''
     substituteInPlace pubspec.yaml \
-      --replace-fail 'version: 0.4.4+3' 'version: ${finalAttrs.version}+3' \
-      --replace-fail '  flutter: 3.41.2' '  flutter: ">=3.41.2 <4.0.0"'
-    sed -i '/case DioExceptionType\.transformTimeout:/d' \
-      lib/app/models/api_failure.model.dart
-    sed -i '/case DioExceptionType\.transformTimeout:/,+1d' \
-      lib/app/services/oreno3d_client.dart
+      --replace-fail 'version: 0.5.0+3' 'version: ${finalAttrs.version}+3' \
+      --replace-fail '  flutter: 3.47.0' '  flutter: ">=3.47.0 <4.0.0"'
   '';
 
   env.CXXFLAGS = toString [ "-Wno-deprecated-literal-operator" ];
@@ -124,7 +120,7 @@ flutter341.buildFlutterApplication (finalAttrs: {
   '';
 
   meta = {
-    description = "Love Iwara (also known as i_iwara or 2i) is a third-party client for Iwara built with Flutter. It aims to deliver a smooth, native-feeling experience across phones, tablets, and desktops — all from a single codebase covering Android, Windows, macOS, Linux, and iOS.";
+    description = "A fast, beautiful, cross-platform third-party Iwara client built with Flutter.";
     homepage = "https://github.com/FoxSensei001/LoveIwara";
     changelog = "https://github.com/FoxSensei001/LoveIwara/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
