@@ -49,12 +49,12 @@
             "name": null,
             "owner": "dqzboy",
             "repo": "Docker-Proxy",
-            "rev": "v5.1.5",
-            "sha256": "sha256-d4EobcL73M8uuGRtzlWTneoreGRS59Tayn18bBVnoYQ=",
+            "rev": "v5.1.6",
+            "sha256": "sha256-Iqoke61A+yuBSa3g6NZ4271A7BGvCdducjV8K60rqkg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.1.5"
+        "version": "v5.1.6"
     },
     "docker-proxy-hubcmdui": {
         "cargoLock": null,
@@ -70,12 +70,12 @@
             "name": null,
             "owner": "dqzboy",
             "repo": "Docker-Proxy",
-            "rev": "v5.1.5",
-            "sha256": "sha256-d4EobcL73M8uuGRtzlWTneoreGRS59Tayn18bBVnoYQ=",
+            "rev": "v5.1.6",
+            "sha256": "sha256-Iqoke61A+yuBSa3g6NZ4271A7BGvCdducjV8K60rqkg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.1.5"
+        "version": "v5.1.6"
     },
     "filecodebox": {
         "cargoLock": null,
@@ -195,12 +195,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.11.8",
-            "sha256": "sha256-wCPAK9j6Owdpr/kUZpQQ3mOAL/o3CCxAAe/wilGmfFk=",
+            "rev": "v4.11.10",
+            "sha256": "sha256-7kSkfJyR5HsB+96UazxRMKDYVzgAXIEoaPbXsFCe8h4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.11.8"
+        "version": "v4.11.10"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -216,12 +216,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.11.8",
-            "sha256": "sha256-IQaXhPnAiNd0JVJA8nHzQ6wKkiZZdlljeSH9wnXubfw=",
+            "rev": "v4.11.10",
+            "sha256": "sha256-ctlSMMPgFsuhvZ+NsJHk5C8JIHA74zJTvSYVGEXsNRA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.11.8"
+        "version": "v4.11.10"
     },
     "pinyin2hanzi": {
         "cargoLock": null,

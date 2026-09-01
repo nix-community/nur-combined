@@ -26,22 +26,22 @@
   };
   docker-proxy = {
     pname = "docker-proxy";
-    version = "v5.1.5";
+    version = "v5.1.6";
     src = fetchFromGitHub {
       owner = "dqzboy";
       repo = "Docker-Proxy";
-      tag = "v5.1.5";
-      hash = "sha256-d4EobcL73M8uuGRtzlWTneoreGRS59Tayn18bBVnoYQ=";
+      tag = "v5.1.6";
+      hash = "sha256-Iqoke61A+yuBSa3g6NZ4271A7BGvCdducjV8K60rqkg=";
     };
   };
   docker-proxy-hubcmdui = {
     pname = "docker-proxy-hubcmdui";
-    version = "v5.1.5";
+    version = "v5.1.6";
     src = fetchFromGitHub {
       owner = "dqzboy";
       repo = "Docker-Proxy";
-      tag = "v5.1.5";
-      hash = "sha256-d4EobcL73M8uuGRtzlWTneoreGRS59Tayn18bBVnoYQ=";
+      tag = "v5.1.6";
+      hash = "sha256-Iqoke61A+yuBSa3g6NZ4271A7BGvCdducjV8K60rqkg=";
     };
   };
   filecodebox = {
@@ -97,22 +97,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.11.8";
+    version = "v4.11.10";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.11.8";
-      hash = "sha256-wCPAK9j6Owdpr/kUZpQQ3mOAL/o3CCxAAe/wilGmfFk=";
+      tag = "v4.11.10";
+      hash = "sha256-7kSkfJyR5HsB+96UazxRMKDYVzgAXIEoaPbXsFCe8h4=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.11.8";
+    version = "v4.11.10";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.11.8";
-      hash = "sha256-IQaXhPnAiNd0JVJA8nHzQ6wKkiZZdlljeSH9wnXubfw=";
+      tag = "v4.11.10";
+      hash = "sha256-ctlSMMPgFsuhvZ+NsJHk5C8JIHA74zJTvSYVGEXsNRA=";
     };
   };
   pinyin2hanzi = {
