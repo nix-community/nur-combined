@@ -1,18 +1,21 @@
 {
   lib,
   callPackage,
-  buildGoModule,
+  buildGo127Module,
   fetchFromCodeberg,
   nix-update-script,
-  go,
+  go_1_27,
   mdbook,
   versionCheckHook,
   withDocs ? true,
 }:
 
-buildGoModule (finalAttrs: {
+let
+  go = go_1_27;
+in
+buildGo127Module (finalAttrs: {
   pname = "venator";
-  version = "0.1.0a3-unstable-2026-08-19";
+  version = "0.1.0a3-unstable-2026-09-01";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -20,11 +23,11 @@ buildGoModule (finalAttrs: {
   src = fetchFromCodeberg {
     owner = "matrix-venator";
     repo = "venator";
-    rev = "c3e1e5c4172072b7fecfef5414229ecd3f96f20c";
-    hash = "sha256-CTBrmss+A2CWFG4cWo3i913v+M5X9FzdWtOnglfIt80=";
+    rev = "c2ddf9c589dfd2382930f37281e6d27574838dc0";
+    hash = "sha256-G4c/+vvQ4LWaxg5WvgbHWyua0yMMCyljkmdnY3FZIb4=";
   };
 
-  vendorHash = "sha256-nbbhxHxupLrWcb2VaTNUVax6Kezi41RJ2UsJ+YhKvX4=";
+  vendorHash = "sha256-zRKRoWfSQ0cPquHyGOZSPusosZNZ709/uZDSDazuBEs=";
 
   preBuild = lib.optionalString withDocs ''
     if [ -d vendor ]; then
