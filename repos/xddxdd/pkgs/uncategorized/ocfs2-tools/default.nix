@@ -15,7 +15,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocfs2-tools";
-  version = "1.8.9";
+  version = "ocfs2-tools-1.8.9";
 
   src = fetchFromGitHub {
     owner = "markfasheh";
