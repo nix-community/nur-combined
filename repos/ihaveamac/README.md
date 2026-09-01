@@ -30,6 +30,8 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
 | [darctool-yls8-0-unstable-2015-11-21](https://github.com/yellows8/darctool) | darctool-yls8 | Tool for extracting and building 3DS darc archive files. |
 | [DiscordWikiBot-0-unstable-2026-08-20](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
+| [evi-original-v9.1.0-unstable-2026-08-28](https://codeberg.org/evi-editor/evi) | evi | EVi, a hard-fork of Vim v9.1.0 (Jan 2024) before AI was used in the project |
+| [evi-full-original-v9.1.0-unstable-2026-08-28](https://codeberg.org/evi-editor/evi) | evi-full | EVi, a hard-fork of Vim v9.1.0 (Jan 2024) before AI was used in the project |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
 | [gmodpatchtool-20260722](https://github.com/ticky/lnshot) | gmodpatchtool | Patches for Garry's Mod. Updates/Improves CEF and Fixes common launch/performance issues (esp. on Linux/Proton/macOS) |
 | [kame-editor-1.4.1-unstable-2025-06-04](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |

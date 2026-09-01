@@ -14,6 +14,7 @@ let
       "overlays"
       "modules"
       "hmModules"
+      "eviUtils"
     ];
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   hasKnownVulns = p: p.meta ? knownVulnerabilities && (length p.meta.knownVulnerabilities != 0);

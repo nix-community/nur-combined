@@ -20,6 +20,7 @@ update:
 	nix-update --version=branch yt-dlp-master
 	nix-update --version=branch noods
 	nix-update --version=branch discordwikibot
+	nix-update --version=branch evi --override-filename pkgs/evi/common.nix
 	nix-update gmodpatchtool
 	nix-update vacuumtube
 	nix-update retro-aim-server

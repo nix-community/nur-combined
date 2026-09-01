@@ -89,6 +89,10 @@ rec {
   ytdl-nfo = callPackage ./pkgs/ytdl-nfo/package.nix { };
   chlink = callPackage ./pkgs/chlink/package.nix { };
 
+  eviUtils = callPackage ./pkgs/evi/plugins/utils/vim-utils.nix { };
+  evi = eviUtils.makeCustomizable ( callPackage ./pkgs/evi {} );
+  evi-full = eviUtils.makeCustomizable ( callPackage ./pkgs/evi/full.nix {} );
+
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
   mediawiki_1_43 = callPackage ./pkgs/mediawiki/package.nix {
