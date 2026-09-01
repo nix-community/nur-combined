@@ -7,6 +7,7 @@
   deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
   firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
+  herdr = pkgs.callPackage ./pkgs/herdr { };
   niri = pkgs.callPackage ./pkgs/niri { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };
   yanhekt-autoslides = pkgs.callPackage ./pkgs/yanhekt-autoslides { };
