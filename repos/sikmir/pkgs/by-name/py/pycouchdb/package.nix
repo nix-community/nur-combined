@@ -6,23 +6,17 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pycouchdb";
-  version = "1.16.0";
+  version = "1.17.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "histrio";
     repo = "py-couchdb";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-jcDES8PC02F5eel2KThYZFXKzUm70UqktG521lt+Dj0=";
+    hash = "sha256-KaY/ZotUYpaU5eWe2HC44bC1thnZ3V9AjvzQ+XMxBug=";
   };
 
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace-fail "poetry.masonry" "poetry.core.masonry" \
-      --replace-fail "poetry>=" "poetry-core>="
-  '';
-
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [ hatchling ];
 
   pythonRelaxDeps = true;
 

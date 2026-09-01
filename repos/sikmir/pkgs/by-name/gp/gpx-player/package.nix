@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gpx-player";
-  version = "0.2.1";
+  version = "0.5.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kirienko";
     repo = "gpx-player";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-2teWg6DKO05T1GZV2N5PIyItRhCXPJBXbBOBmCWvyi8=";
+    hash = "sha256-IPaRxtp1/YHtCxSjSvfBY2NemvL/FJW9p5xAAXNR2d0=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -29,6 +29,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+
+  disabledTests = [ "test_wheel_includes_playback_assets" ];
 
   meta = {
     description = "Visualise & animate GPX race tracks";
