@@ -190,6 +190,13 @@
               };
             };
             pixel10a = {
+              hostname = "debian";
+              profiles.system = {
+                user = "droid";
+                path = deploy-rs.lib.aarch64-linux.activate.home-manager self.homeConfigurations."droid@debian";
+              };
+            };
+            pixel10a-nixos = {
               hostname = "pixel10a";
               profiles.system = {
                 user = "toyvo";

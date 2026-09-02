@@ -26,5 +26,6 @@ inputs: {
 
   homeConfigurations = {
     "deck@steamdeck" = import ./home/steamdeck inputs;
+    "droid@debian" = import ./home/pixel10a inputs;
   };
 }
