@@ -14,12 +14,19 @@ jobs:
     env:
       BASE_BRANCH: ${{ github.event.repository.default_branch }}
       UPDATE_BRANCH: auto-update
+      # GITHUB_TOKEN-created PRs leave pull_request workflows in "Approve workflows to run".
+      # A PAT (or GitHub App token) creates/updates the PR as a normal user so checks start immediately.
+      GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
           ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
+          token: ${{ secrets.GH_PAT || github.token }}
+      - name: Warn if GH_PAT is missing
+        if: ${{ secrets.GH_PAT == '' }}
+        run: echo '::warning::Set repository secret GH_PAT so auto-update PRs run checks without manual approval.'
       - name: Prepare update branch
         run: |
           git fetch origin "$BASE_BRANCH"
@@ -71,8 +78,6 @@ jobs:
           git log origin/$BASE_BRANCH..HEAD --pretty=format:'## %s%n%n%b' > /tmp/pr_body.md
       - name: Create Pull Request
         if: steps.changes.outputs.has_changes == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           git push origin HEAD:"$UPDATE_BRANCH" --force
           gh pr create --base "$BASE_BRANCH" --head "$UPDATE_BRANCH" \
