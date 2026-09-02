@@ -1,5 +1,4 @@
 { fetchFromGitHub
-, fetchpatch2
 , lib
 , makeBinaryWrapper
 , nix-update-script
@@ -32,7 +31,7 @@ let
 in
 stdenvNoCC.mkDerivation (chunker: {
   pname = "chunker";
-  version = "1.19.1";
+  version = "1.20.0";
   meta = {
     description = "Convert Minecraft worlds between game versions";
     homepage = "https://www.chunker.app/";
@@ -47,16 +46,8 @@ stdenvNoCC.mkDerivation (chunker: {
     repo = "Chunker";
     rev = "refs/tags/${chunker.version}";
     postCheckout = fakeGitInit;
-    hash = "sha256-dE79a5o+31hSRA+8G9RqqYKwXy3V7DycQ3Cd7PETLJw=";
+    hash = "sha256-FTPXicy58L3LrbM6pBqli1CMtEWc5C+mgnc/1yMq8GU=";
   });
-
-  patches = [
-    # Pending HiveGamesOSS/Chunker#2483 (resolves “Could not find com.android.tools:r8:9.1.31” via GradleUp/shadow#2101)
-    (fetchpatch2 {
-      url = "https://github.com/HiveGamesOSS/Chunker/commit/df3cbd4ecfdcfa55178a10b7cfd13c38b026947e.patch";
-      hash = "sha256-Y11lh/JEqxsIV8E0KLxeJXf7qmtrWQTA9L60qKXdgcQ=";
-    })
-  ];
 
   mitmCache =
     let tag = "gradle${concatStrings (match "([[:digit:]]+)\\.([[:digit:]]+).*" gradle_9.version)}"; in

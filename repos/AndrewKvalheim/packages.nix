@@ -81,6 +81,7 @@ specify {
   mark-applier = any;
   may-upgrade = any;
   meshtastic-url = any;
+  miller.version = "≥6.19"; # johnkerl/miller#2057
   minemap = any;
   mozjpeg-simple = any;
   nbt-explorer = any;

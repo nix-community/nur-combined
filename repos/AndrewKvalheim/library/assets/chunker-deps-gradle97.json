@@ -235,10 +235,10 @@
    "jar": "sha256-IzqqhMomjibW06mc4wQB5twRGnrhDgoLR5TOY1HXrcQ=",
    "pom": "sha256-aUkVuGhi29YGDGkjlpBZTx9S3yVDuxEKARZmJCpBBgs="
   },
-  "org/jetbrains/kotlin#kotlin-stdlib/2.3.20": {
-   "jar": "sha256-CuElBKUEDrrzdwOQhINCDRpWJN0dk/NXZl+Md8hIoB4=",
-   "module": "sha256-9Os0T8TR46KK4WwIbsPkL1I3O0ZtQwgYL7OG45LA76M=",
-   "pom": "sha256-yDwC2afi6VRzBJHDPC8dwDwnZi4ntWbsK0TS0Bhjm5g="
+  "org/jetbrains/kotlin#kotlin-stdlib/2.4.0": {
+   "jar": "sha256-zLFP+D+ryxFFi3mNvJgkdIzN/+7HnJq6eJ5u0c2oaxw=",
+   "module": "sha256-wkpH3L2Sldd29EO+Qdd6wkUwlgHtBTcR3uKwJUvgLbY=",
+   "pom": "sha256-gZT/eanuJKf6P3SmsXnAShhZ3ouYek8JgwVuWUUXId4="
   },
   "org/jspecify#jspecify/1.0.0": {
    "jar": "sha256-H61ua+dVd4Hk0zcp1Jrhzcj92m/kd7sMxozjUer9+6s=",
