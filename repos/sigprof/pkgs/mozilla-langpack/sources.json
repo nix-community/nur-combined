@@ -10703,532 +10703,532 @@
     "153esr": {
       "linux-x86_64": {
         "af": {
-          "hash": "sha512-YBx2ERUmE7ys02wW8nEZtQXJD0du/85wVwGe+g5ajw0C+9TeacSSAqk3oPxFE6GyQCDUp7yjVSqmFXJMr+AF7g==",
+          "hash": "sha512-kThNMadz3rLg2YbDaVgxheA33HpDRnN6V38fGhDNvrRWk72lcAB0OkaQOYY3hLWrttfFiyZDH3XhTpZPyzmk9g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-af@thunderbird.mozilla.org.xpi": "sha512-tq7JCtmNm/gPrUk1xlBwgxssRCUCf+rds/nbo5gXi9+C3A6cm9WEknDIdhwsgYAYpeJ3kuCbXhHzArr5T+A4mg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-af@thunderbird.mozilla.org.xpi": "sha512-y/M5D/SwAYpSTxh9uxNjVEXSTNDPNJGL51+g5mVn+yyYs1kJqEFz7XOybUxdpe7lY7opHo6TcXpMCMgCHt0ZNQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/af.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/af.xpi",
+          "version": "153.2.0esr"
         },
         "ar": {
-          "hash": "sha512-Wpv+dpH5+WpbhLHq5XeI3CLIrRLkISRSstyghJf6g+0mNy3mPgkAZWyEC3it23w/+FMcMEiedj9jwXEj8LYaBw==",
+          "hash": "sha512-D7Af/OF1j8IppEq9K4j1RGF9Ob2p6LZQmmTsZXWUGHuyJv9s2Wq/jCJl9gdHfc0VwEiG2WOjOuuQLkcKiyHeyA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ar@thunderbird.mozilla.org.xpi": "sha512-GLIbru8gC0ir7jPi18PNRPRA9nHHYJ93sLP6q2UHH5kJL0hJ94fKDXShUish/TvoJfGN/g5lnm+wWtq80lecMw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ar@thunderbird.mozilla.org.xpi": "sha512-2Jo192kPAbkSpgstLdIZGO5IO8VB/PL3MOw2cMP328LeavuGZnz5rIqBdTnBIQf+W85TGDrdFkLZkmq3CIo1mQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ar.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ar.xpi",
+          "version": "153.2.0esr"
         },
         "ast": {
-          "hash": "sha512-Kzb8TU40jFhZrblA7obqbh1x9Tb2HHHhnQpjDXZqBH1VGNhgPpgkiGyxz5wwDMZe23omNEH86mQrLpEWAjH8Ww==",
+          "hash": "sha512-yv+Wbzew8j4Lah+o/YViwyzmAB9FUENyaRPJF2fRhZXQM4GsUWh9mwOQjHi2pRC/z/YEC4EtECVU58x+TrUAXg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ast@thunderbird.mozilla.org.xpi": "sha512-JiplRtY5Rj1hgS8y3J4XwRnrL4MXPQb4H8VdALiDtkaw6hnUfx+omAnoYhlPKeidJG1w4znxUYvGaczA5e7avA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ast@thunderbird.mozilla.org.xpi": "sha512-cK+ONBCmAHHPs0a7w3MDq5pKX9UNneehABlbaUrDzjNxNzAYGIBE9BkgeCBmjOL56H2gNii2Y1lsC9wtAzsYFw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ast.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ast.xpi",
+          "version": "153.2.0esr"
         },
         "be": {
-          "hash": "sha512-C7gp6Z7sM2AT0ePOQNhIzm2Aifhi2uhbmbwQTc6uPvIAC6qVAaSpKP+epVPWMJqjGAAD9Z4D5L2Cj8eiCgFo2w==",
+          "hash": "sha512-NnPqGqvTTMGA4y6EuIGb5OSPZIdXtXbLObJ0aupEolLozJI3IjknH3LCW4Fsr4e0b5jtT/mrisc3xTMYngiSrw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-be@thunderbird.mozilla.org.xpi": "sha512-jYqMYmJyVav3Z8/f3EggGilvKnmU2K+oCuPbQ2B6QYpXdVInTNzDf2chohNWMOHU2xho0gzdyM+it8HL91R1wg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-be@thunderbird.mozilla.org.xpi": "sha512-Xq4jj1QuxNyAJGWga5rqhPYoMMoTM9DoI6+N4ErNUA6Hmh/gsuZot62xl6YlzZEZ9JZjLEJ9h5Zqn6dVdv2G8A=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/be.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/be.xpi",
+          "version": "153.2.0esr"
         },
         "bg": {
-          "hash": "sha512-8hn4thb+9HENQPA/BCH4Ly7PBtudlPBJNU2WznmiMYXjj6Z0nrVMh6TLB0H8PCg9egdGUlN3EfT68s++6GLJ4A==",
+          "hash": "sha512-1brv9cAtkX9LxNN9wMtkNes1wKcwK5tBMD5n7PHQ78/lo7/QvnmS5IlClAdcUsqtHKmVmuZ4KPJ3aslWOVbgrw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-bg@thunderbird.mozilla.org.xpi": "sha512-Lh6rqnUjUs5NFiDQfgnLn4zuKLGrWdBlGFzzGmG7Rvq9jqy8cj+XvNbRB5GxCgx5wQS3QhHo3X7CCe+ZRXg/zg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-bg@thunderbird.mozilla.org.xpi": "sha512-Y5tndfnY+Z8/YuPK2k3KpHQ2h8UapIEs12scrbfKrmFxcvL7Nvj3nx/rHQZ0NbV37xAUedCgfo20v4u9f9NwLw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/bg.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/bg.xpi",
+          "version": "153.2.0esr"
         },
         "br": {
-          "hash": "sha512-YEdV4imXQQA1T8YZPuZ+4AO+VsyXQYZDASZyRMD2zHHVDD4cnuxnXXGNSVlA6mzL/UjTnEDy3FWyhpufs5oEjA==",
+          "hash": "sha512-1rWQ6VAhaet9qmUQrpiV6D8nKbDbF7Lt/Dl82BiZ6plW3YF8dtYAHxW7ZxOBH0whGCyxxTgjXs4l+b6KagEp8Q==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-br@thunderbird.mozilla.org.xpi": "sha512-NmvGrJfraaI2KAeLM+8Npx7fcOWLADykJCrSYidEJyPlNfNpm6kMdm7hb5idlq3BOUGuPqn14wflzZ49kJqr5g=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-br@thunderbird.mozilla.org.xpi": "sha512-LlMzeCFJM3DCxrMS9IcS4znNA0Q9UF8HOKTzht+pkNBdB+vZFgFScuyDniNUXiKdQiWcU7HeTOXuTTTvUIPlJw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/br.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/br.xpi",
+          "version": "153.2.0esr"
         },
         "ca": {
-          "hash": "sha512-I7nu70BB7hzTXQjUCAWqdVdr4MA89c+F6rEaIfEcgHsBfbr0yIsKTUOt1Tic5QeWYj4CdlXcMXkRlALK8pC7sg==",
+          "hash": "sha512-gJ/Y8jHouCdVFcuZfnXL3SEMiK4WYlVNQryfvZs9WG5n+pSGos34elAIkYgqqiNHCPlOjq/p7zq4lj6zOHY4bg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ca@thunderbird.mozilla.org.xpi": "sha512-stkhgfrCX4tvT+fKDlBA1ENWD7uX8QuBASMKBFQ3ysxtOvDIEf/QW+pov6gOfXR0hfgSJDkubWGSWXd++0QWHg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ca@thunderbird.mozilla.org.xpi": "sha512-M/TV51OH+Xx2TmLXpEs9cirv/mJsiZuV3w896H+6l5PVyiuDJy9HHeG8jma2QY9NyoV6qIpHbq50A2P8I7SjCg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ca.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ca.xpi",
+          "version": "153.2.0esr"
         },
         "cak": {
-          "hash": "sha512-zB+qxMdqnr/msfaKlQLhzCvmVE1982jG2GfY5GMteOyVGlAHsLUuo057mq1ac8EGjlkIVuooVeFN0cOqpfwAxQ==",
+          "hash": "sha512-Ff0M1HXbyv6Z9MOpdC5bHkxTFLprQ/PtUt2h9mI6cYkazfS9gQRkQPL/vk69fyvMgrb9905MQ2MhAv4SZMH9+A==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cak@thunderbird.mozilla.org.xpi": "sha512-TlXYHeHoS6RWBXW0y9A+1O8EGUEdVMTZIyhinbv2RNGoHuswpQd+WrXI2msiRgX0Fng7gAuITTg9M87vuY65Bg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cak@thunderbird.mozilla.org.xpi": "sha512-2jrTmhYQ05NUtM5rSGKZKfo6fFgLPQcnxzi58sVUGebA+NIgyiJBeYkY4uKNFCfHp4eCqYlE+2F7kNVdZ/1CeQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/cak.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/cak.xpi",
+          "version": "153.2.0esr"
         },
         "cs": {
-          "hash": "sha512-ng2Ip1yL1JTkkAIkevyMDHXwZSplz6JW9q89A16uBHTFUwgDJtoD4JJwya2/M7zyxLl6rxhI7NoHmJgIyPsdqw==",
+          "hash": "sha512-S6567EhEdZ2i8+M5uLmV1GZHpijdxI27pXMYU8T+u68dC4jrgZ3jLPdfQjD/gGnd2PAkTjJiSF/BRvz4bZkO9g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cs@thunderbird.mozilla.org.xpi": "sha512-udk1sucEzry6hRy+mAh3mcL/FSlYfa8tIMO9HVd5jcouE0JooZVxffeFaqTB6hL94dIz+YBcclS3vEUhvXP1VA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cs@thunderbird.mozilla.org.xpi": "sha512-dDMtSxM/RXCD3Z24GbZ2utx3yv/ID3+3hBsSYE/WV5cML8Ty0NoHIoGu5Bhupxq7THUkyC0vl6hI7yu3r1PoFQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/cs.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/cs.xpi",
+          "version": "153.2.0esr"
         },
         "cy": {
-          "hash": "sha512-bdBzWNJfAT1lnhTK3tzJFzO/PO+/zqWMnQbxOroCLkKXqU+5rQgLS9dF6OwzpTeK5SHrY1eVlMe0L1qhpOcLSA==",
+          "hash": "sha512-+mGYlsmoGdizCW99JJ2E8BoE7aXFYHFySaxgjiO7FjtOtToiXQK0S2eoANxcJ5Q6MmqAZy4FH1Zs6qcl7Q3rMA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cy@thunderbird.mozilla.org.xpi": "sha512-OEOLmt7nVqondHEroHXWyWhUDZ06X2cK4cp0BKnqslxJIitvX2twXfL+S2fey7DlR6o/gBgpZglIokaAk8I8gw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cy@thunderbird.mozilla.org.xpi": "sha512-e1jVOYcPZGR/7PxdqKc0Eed2qNplMdXGib9Eoz0yS/g9bbpxoeBr5WqcaS5cESZ8mwpz7WlgJ8/3ThmLry1OUA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/cy.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/cy.xpi",
+          "version": "153.2.0esr"
         },
         "da": {
-          "hash": "sha512-Ww/u25N/PiYQD0lqc8XdYUoom0j2RttrMq+fj91n9fbo0d9ZkHcZj7U7AiL+Dz00TpCc9zWIioYcW5lXLhDYdg==",
+          "hash": "sha512-V5pneSloiY02jPkr7mNgJ+/MfMbb/1iZwyHPHE1b+YruZ09+z9A0IGvF/X/NFRqXq6ygbftlgFcODxeu7ylm3Q==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-da@thunderbird.mozilla.org.xpi": "sha512-/ENmZ21EGwxvuBCM/D8evaDZnv6XiKzC5pFLZMGz/90ONE8sQN1NYGCvq9PT6aUs4hwR/vLUke8Wjbyq2h/obA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-da@thunderbird.mozilla.org.xpi": "sha512-X3imXH6791Vg7I5jjMcnMWvYheFF8t1dkB+LvvaFHXPCG60pvuH87RKvyETtq6j95jFwxEXAursMIwXNXM3Rgg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/da.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/da.xpi",
+          "version": "153.2.0esr"
         },
         "de": {
-          "hash": "sha512-+j4/edpUfjzOCe35xhKp7Nrolc89yq1Zh8arEE2tn/nUpzV8tukChQTZqff8Vhb6bGuvNKudv6esIDoxM0iFWg==",
+          "hash": "sha512-0Eyv7SYj3v5hifug/U1b8tgJxgqaUpxURH5MKFFgE7z16Z9wXdS88GRPxzMProosIMLit+BwjAkH+H77Uy96tQ==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-de@thunderbird.mozilla.org.xpi": "sha512-vhSDqOpdPjf8qPP2PJ1BxXKDewbEZwjnuYXDYuFgtpayuA77WDw9LCPrfEEtPm63aVbTVfsZpV+L/z47o+J7XQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-de@thunderbird.mozilla.org.xpi": "sha512-71xKBXCZb5IurOpkaDEjUO1qSPNI5Jl5inhstW9F8RVhMLN4h+tBnhPJxTdpv+LhLgjxubzDdahs7rX62uCm1w=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/de.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/de.xpi",
+          "version": "153.2.0esr"
         },
         "dsb": {
-          "hash": "sha512-Rl6ww7I9YaJpnYEi9e4FPnwjLIxQzhmm/Xp+4StTR3McAEb6b8Usr1II0WB2+LIq6XCbF0NcXXAuJcE4FiLh5Q==",
+          "hash": "sha512-kpBnCu6cAGx0mPbLI9UKNCUYWeRAY5GWD2qa6/irwTNTtvxpX6R0P0hsxPeaUk3EqvzRLeIKQNfCv0kd1lyuGA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-dsb@thunderbird.mozilla.org.xpi": "sha512-FKj0C1pc1grvaIvRzJPNnk8pKikSZbHf5rPFZ8Bz7iCFuaqUcD9onmwc7dQ9Ap86wd724tGE/i4XxmV464sNAQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-dsb@thunderbird.mozilla.org.xpi": "sha512-96fy0DTl2my222CdGtsNQKABiMMqoxx4SsZi7Tu2OXvu7eWbKTq9boRcPsbAuNieT6wNt/XPH0LKr5bNIz4FHw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/dsb.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/dsb.xpi",
+          "version": "153.2.0esr"
         },
         "el": {
-          "hash": "sha512-jnayxBn1+N3MJS6n5kKcyW9U9YcF3pfR1kcDPE4ndxZ7rFXGyZ+59bjdswwymF4ybu0NqOa9cv3dBY7aA09L+A==",
+          "hash": "sha512-uGFeFhwnN9UwUlGYm4p6QIKrcyvCrWv7qQ3UMKV5sxybglNgbNZZcsGsrl8+qxAKJm7V5AYfNpuL0WjgNUhq2A==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-el@thunderbird.mozilla.org.xpi": "sha512-cydPe44SAPtLpHhCMyo5RUnxad8H8bNu3jtFHf/KclcSM7bIjX+nxzU5fUUdw9OzMFxsV4zP89Ku0nsTMV5e/g=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-el@thunderbird.mozilla.org.xpi": "sha512-QGiex1a+XAm/jB7UkjA4r28khXbezNXpvN6WANiQdT0Dsq25yIlDxLvWiJI5H+dz56rEgtHjpWwArpKnqiVNUA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/el.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/el.xpi",
+          "version": "153.2.0esr"
         },
         "en-CA": {
-          "hash": "sha512-v91aGWnZfJh8p+fcBg0yz2hDzQBFsX9hHw/iieFi01kk9xFPn1ptx17B1yUS/LXXRQgP2+MO8QFQcWfrFOyYAw==",
+          "hash": "sha512-/lDosjmPi4sws3O0DbUyJzxg/gaR7wGrXyWl2HDdWoCyAeZN7nTC2i/eZVWENyY9eRda1imJAHqL6/5OF9BlIA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-CA@thunderbird.mozilla.org.xpi": "sha512-/lREM9R06FkvAllB7fjTpuE7Bp5iUneF7y2I3+Zg0T9jwdJYg8nTGoix5hObgXMoFYxNYYnQSJ5MjMjX9bX5YQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-CA@thunderbird.mozilla.org.xpi": "sha512-xiiCkeH9s1Gr3HRcZtH4/pk0F+xD9CzYB95yuT2GNWxRmtultt7zfaldUPAbKBahrzaG7iwYjEGPA8d21LABVw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/en-CA.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/en-CA.xpi",
+          "version": "153.2.0esr"
         },
         "en-GB": {
-          "hash": "sha512-jTpKQbsW+l/bn2vz0T2TSb3Rw5XfnLwTVbacRuqshCNlfaOzKI11FA0QxFTZeX+m2I/nCozpdt+9jWacDQyraw==",
+          "hash": "sha512-dHF+8v4x53wb5jABnMkmBJnxYgi8pRzcExdb+up0hFfeUxQZ7WIUitZJdsgjoQZNcYvBS9xoUn860cYs+tcshw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-GB@thunderbird.mozilla.org.xpi": "sha512-KzG+oNUlWq8LoXRSn9jCP9XS/EhJ9bCelzlv1hLMAeQXRotqC6aD1O3vGiEfLVUbQ54l9MW8XOseovrpmN7sFg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-GB@thunderbird.mozilla.org.xpi": "sha512-8C0sSQkLsha9IFeWqCMSV/QVlycN8opUya1s2cDFLwcEJKpXdC7N0c+2fXQGbeFiVK2SUvj6xv2O+O0zFQZwSQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/en-GB.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/en-GB.xpi",
+          "version": "153.2.0esr"
         },
         "en-US": {
-          "hash": "sha512-xqyl4iQArnH1PAj/xMT8VPcB8T1u1cbxj7XxeV3CwAtOEqcvTfuyFcMDjEONf/Td0jbziSs29cGH6WMx5QIPUg==",
+          "hash": "sha512-02JFHWbzvYebI8scJQRXI5N4VqMPLhabqSzOiY+rs0hPpP9Po4+MQJGe8vP9CCfd8XZlEhs0ZH+8NKKwZkuyMg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-US@thunderbird.mozilla.org.xpi": "sha512-rO3ck+NtVHHv8AirSczmwEl2DCmwju++tCysdl7dUtljdjK+of5YGHSrMyRp6Ztp3DYy773CfYYad2rtwt2b5w=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-US@thunderbird.mozilla.org.xpi": "sha512-Hp6j3S/arCI1twZkYM7tD/JPHQh+FsTHm21hh5l4TIjW6RVaTr74/gBkKHMP2BexwSDkydHmhVZ2BmqiStLJhQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/en-US.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/en-US.xpi",
+          "version": "153.2.0esr"
         },
         "es-AR": {
-          "hash": "sha512-E8ohSgedAljAEjzBXU23kA42KS2rFoSVXRK+HvnzWSPODnkYxg90zpO8XVFUG26ZSoobkRtbq9H7S/jHyL64gQ==",
+          "hash": "sha512-usS8/ju+wqUOryM4tL9bjOzws6gvB+ilbAdu7mp2wcyGxfzG6N9ph0swv8T8jJvEmoyWCAa8nA+N/ECfU0U1mA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-AR@thunderbird.mozilla.org.xpi": "sha512-UPr/oEMGPY2wsDm0ymJ9yIUZrR1mzR52WYH50JFUBNxDYzPCD+U4unD/SR2/rpJ0UTukmuef7R3jDLXP2rUtqw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-AR@thunderbird.mozilla.org.xpi": "sha512-nxfjy1S7/Uai65jQrNAVRRCLJGQf6cLzy8fPo8DI0RWCa0bOS3di0ZOGTXQ48ZiE3levsdqGgtleWGJeqJdqTQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/es-AR.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/es-AR.xpi",
+          "version": "153.2.0esr"
         },
         "es-ES": {
-          "hash": "sha512-RfAxSdRLuOTGB8B4bJN78j/2eo5LJolk49jGnRhdOr+rJb5un7Ua8rWcZY4+u208NuhArSh7iiDQOCuEtZo4zw==",
+          "hash": "sha512-HMDG0U1DRpAWETleqf+edaMnLNlKC1/DNVI2xtHoOPvOofdxkr2q7bVZRBO/Ft/O3gTr62Oz/Qym9d9jAj6j0g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-ES@thunderbird.mozilla.org.xpi": "sha512-J3CBgqmUlLY0dZpKLrz//BVvzgbW/GkF3DmzgJwfUDYrdVeH/PS+Q1B63T1AScp8wiUVSAWMBv9FuM8L/ypJvw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-ES@thunderbird.mozilla.org.xpi": "sha512-YMSnE2WGabwmpSCir9IwR1iYm0zndsYQIQteqmP7Hwc/JwUa7wrQHUPTG41IwYNztDtP54AAkCt/HYy7fD5LrA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/es-ES.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/es-ES.xpi",
+          "version": "153.2.0esr"
         },
         "es-MX": {
-          "hash": "sha512-zpwTdqewA3aDA9ZGCRGddLqowOxgAt4waUmYeijDq6TVpu6pvyVxDjU9hjm0v3PBDcsrVGoPcshOPPdEpiaT8A==",
+          "hash": "sha512-8KXwsdLJK7huGin0M3JlfNS0KPJW2RfC4W0BxK9LYLDtNIqT78TOjndPiPoX9LN32ORlJuKQrwsLoU6oZh0ClA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-MX@thunderbird.mozilla.org.xpi": "sha512-gsQpqMNGRebdRwVdICpbeG3u/MrbK5P5HKmZGZo/gyeTOfMXJ33NuMS1TOEhztcjms+7zcGC6WtemuEfY4eZhA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-MX@thunderbird.mozilla.org.xpi": "sha512-vposqjCC7jC7Bk37i89IVqVXW9doHO1T5D6r4Bs0YwYE6olFwsp94vib+MKOlvsYiOxREIzcIj08A64hs3+Vpw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/es-MX.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/es-MX.xpi",
+          "version": "153.2.0esr"
         },
         "et": {
-          "hash": "sha512-0p4TxvRULF8qAFuu/Mc7WiCW0rVMIFb09aAWEezZJ4uQH6M0uzY2TW6Z0V0w13nD2bj7zyJ3P3oc6DT5/V4v5A==",
+          "hash": "sha512-IOiLDiNhreodbC1+Z/RHgLHscNFRrU76/sRUqTKjUg+FeO0iQCM3wNkk1N+bHNZNVr8gQB8qtZIB/YHemvd1+Q==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-et@thunderbird.mozilla.org.xpi": "sha512-+rek9hdjywImjKnxDxmQf9lLl9v/C/zhR0RKv8CfL+UArHOc2nfpmDLTJsTkAL8eguwfttScLsw2MRXW55Ye2Q=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-et@thunderbird.mozilla.org.xpi": "sha512-wuonVPy2hPhMQhkF3ZoH3JLkIgHR4e/WVCREjboMIdimZivKkrSbpQSf7Aw5ECdieFXtZRAhq2liGjAWMOTUvg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/et.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/et.xpi",
+          "version": "153.2.0esr"
         },
         "eu": {
-          "hash": "sha512-mQYAG8l3W721rrEJ3Cok6cLcPtIuXm9RjLwRKJ78nJj6+QYVHIuwudnD+m1WcOwFXnx/qDd5JprxF7h9t8k9Hg==",
+          "hash": "sha512-qyZq7bopWF5weG8IrbL/HJX23EHhAPANDLlFiWGRUjtisfPvQG5NQFob6eQ25t46KDW2qiitclL9/uv68t/MJA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-eu@thunderbird.mozilla.org.xpi": "sha512-VqMKZq5YLUDpUz6tOqdgbiixoDFyptRXNA+HmKYZWFFJ1oKnw8boXjgP1n5CIQF9rms5e12Yct3Z+V6CmuRYQg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-eu@thunderbird.mozilla.org.xpi": "sha512-NwRufeoq8JMW0CPhzrpRYL3JBS74fwy8C93hm3zIduUAGQQIGk6euTAsb1rfPR6kZexdNJU+axS3VT1KxlL29Q=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/eu.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/eu.xpi",
+          "version": "153.2.0esr"
         },
         "fi": {
-          "hash": "sha512-7YePBedNligGDTQzTOua5sndY1WMWteLuDgHoq7ev4We2OGYkv/+oXrl8XC297P3CBXdqPYDIFTdfcIMvZDawA==",
+          "hash": "sha512-CK1yNZJHVfowj8tYF8CmNcmK/PNBt0BckSqS3408D7jR/Mq92bZqRPxbWu0JN0SRE24rdgaUpI8r3h2ilFUPHw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fi@thunderbird.mozilla.org.xpi": "sha512-1THk8pqARh5mm/GRp2zVIkuCvedzWD8VSId+k/EuI35if7ai79kuIksOJlQdn3J0gkx6C8lAeYc4KcHL8Zv8Yg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fi@thunderbird.mozilla.org.xpi": "sha512-yg9NQPLONZdeUOfc5faaxwHhE7LS0QpxDoLkZh2XsEx77zTMENw7k//Jgz8PzIpQNDb5uZ722ZgYjaIiifUF0A=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/fi.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/fi.xpi",
+          "version": "153.2.0esr"
         },
         "fr": {
-          "hash": "sha512-RbWos1vUnXSF46iyrSekfiZM+Nc23IAuysHnVk5oKHZvsEN3QdSX0r41D8mqtP04rWIFPyd/9h4n4vsxqFatrw==",
+          "hash": "sha512-BDE5znB79r8lB4XDbEMPb6ZPP+qaUB/2vtdrttOeE7stIugYCP9LYM4WnqDh1TPm67+/l8E4rpyu3ee/lrHWxA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fr@thunderbird.mozilla.org.xpi": "sha512-fqUUBEuraH4Wl1WsLRg710Peoe4vqhAMyOaWfCa0xtlDsG4ijP3OgDXCbeyZ5MsNo2R7JlST1f5RnBgNBMkGuQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fr@thunderbird.mozilla.org.xpi": "sha512-W2FtyH5SI3rZjpKkRNClB+Dt1aQpxbfKsUCjZJ6QsU5iXqnXlX9He4JQaIAMtqhgVbCt9snh4wDFfA5k+bi+Iw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/fr.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/fr.xpi",
+          "version": "153.2.0esr"
         },
         "fy-NL": {
-          "hash": "sha512-S8/RoVc1lJqW7mVyG+/0aAr+kNjQL3DIGVV/y/aKwpHoyQnsNvlWkV38CtyF8qHjoye5U2XIOvUDC+NuVYpD9g==",
+          "hash": "sha512-a4UdM+/o9n5WbttOuXZ/rvyv2RN1u1tOTYp/ejxh/AVNNs7mAzGg1BGbi4bFnZb/AqnU4fgkkOcmKLG7W+wmyA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fy-NL@thunderbird.mozilla.org.xpi": "sha512-1UGeKiwICCtMl1AumzJFsAjS9DwA6w0PxHQYI730Iv0x6JQsALaI4BsauOXjzSSChWTVUwRwF3ouPifnE0MBYw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fy-NL@thunderbird.mozilla.org.xpi": "sha512-AezcoM5eLJXr+KIQCoRt17pDuKntYt3eV8mFoPuQvL7LFZEcr+HpYukk4cUsjh0ZbBgxFREGWh8xrs1QRsMilA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/fy-NL.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/fy-NL.xpi",
+          "version": "153.2.0esr"
         },
         "ga-IE": {
-          "hash": "sha512-mc36+6hoZA+BzdLF0eQdQLtmMP82FTl3bbc1p4tcE86DqOUWrlO2WMdbhCM2BP7RMwrdGVDOfk2AC7Juvbw3zw==",
+          "hash": "sha512-7MnX23eI5Dg5f5T+mysfSm0/4bRDsSEgD1eV9mI8UUFS6hNLUbLjWgZkFedpbgN2XWTjl2INusWV7kXo9r9wHg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ga-IE@thunderbird.mozilla.org.xpi": "sha512-09cVx2WqfyVKBch2hhquKUSTqDt2fPEFqcSVeqeFBOYqzrUojLysHFC8BrvUhAuSk2OpR7y8SjsisOfhKvsY1A=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ga-IE@thunderbird.mozilla.org.xpi": "sha512-bkQtxSyRUD1wG3mkYxvi+8p/SF+8VDrg38CgCt5ouEJSy7A3Y2nJAv0AACL/VH1GuAiD6uZOcbFfLF5GcjsBMA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ga-IE.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ga-IE.xpi",
+          "version": "153.2.0esr"
         },
         "gd": {
-          "hash": "sha512-wsJ5hDXR22+vkNzeRqJtFgVPY+1CyV9lKJLlPXJ1pXqKNDqekgRCbimB96mDzo4BxUkH0dtRR275Y7nIN+jN1g==",
+          "hash": "sha512-7ziz1DQoAXz80gGEQ3jMdnBY2A28i5cJgtrzOSNQOhLhi3DMZWt2touZurSljwhLG3yWz8A5EU+kjkmSySHr/Q==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-gd@thunderbird.mozilla.org.xpi": "sha512-l4OkbLVcQ45U6+W9GQL8Pbj8giaNBOryq8xJADLRPL3YVR8puqDZoflcYyOUIfK7LOsaAIV0rklUbdEtWioGkA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-gd@thunderbird.mozilla.org.xpi": "sha512-uZIniFiucDnxYfvDGzp5S+Vy3PiBHFPbA31XzrWEkgqCSrexKM7YDwSLOCTvJoTkqbEjWFu/sM4S+PNJFn/Wqg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/gd.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/gd.xpi",
+          "version": "153.2.0esr"
         },
         "gl": {
-          "hash": "sha512-gj87WwwbPB2Bx19Lp0gVHelbh/1I+ZcGEfkYpoV9jqAB96HlP1VJDjupcJeh+33d4t4W8I429JiL+h+klCjGzg==",
+          "hash": "sha512-vLP1uFCaGNBijXzsod/UtpqwYTsgnNmPYudNcdeWRWjED2eYx5jAgSkOBLjZ2aAAj9C20rmZjZxiwvhHOCsJ1g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-gl@thunderbird.mozilla.org.xpi": "sha512-50P+psqiVMnvJV3trolUFip5wtVpE1OWdI7okn4CgNM9t+symk1IYX1rDZjSpjn9fS27H/n3K6GzAam8qPUFJQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-gl@thunderbird.mozilla.org.xpi": "sha512-aceHyXx8FT1my50pZo8Dbv5cYyvIPctxKLPOGSDQoveCwUjuZbJ4wgpMeAYDzDX953U6W2pIDQnn2Au6nYgzqQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/gl.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/gl.xpi",
+          "version": "153.2.0esr"
         },
         "he": {
-          "hash": "sha512-s3KcwwWbwmoLezPj3UtUvw+ecJnMj1lJTmrCl+kFmd57T6fnvqACvzLdaR+4l4I6ZgcxtrK+Ye9aoPRVsCiNMg==",
+          "hash": "sha512-zjBBMmf1tN+i7TcYXkF2G2KMn71+mIwwg9Du3b2akUTYEmLtr0JF5Ku+55bBlp22RybHnTGbWv+ca+mUIZrjDA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-he@thunderbird.mozilla.org.xpi": "sha512-ie739riwNO62VMJRjC7ddya4IgpcZySQcWXU9S7g2Ri74jI8Owey70lJ0K3pCNmT9sKl92t2W3USeoh5oc564A=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-he@thunderbird.mozilla.org.xpi": "sha512-uSFCPXk5x0cDtVF8i5HuuDFR2pgjLo+yvZhEx6cuBBoHBC5glme0MfP9DpDLJL8gSBE+V9Eg7nU4pdim36SRZA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/he.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/he.xpi",
+          "version": "153.2.0esr"
         },
         "hr": {
-          "hash": "sha512-V1J45rlo4yPAmomY56UrYpcNLGHBv3aUsNUkzAqu21Bt5TGtLmdl/rKcr8l2Yo+KIshZXhjxFqv0BIplLGPm/w==",
+          "hash": "sha512-2m4RV4tJFi5qKcIskCJ+0Xt0oJOkrkQ1CYtnHdREFHhicL8y5TJ8QX1Exxk4AZoPTw2a8FWciX9SHUaq5j3h9Q==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hr@thunderbird.mozilla.org.xpi": "sha512-rFqx5xLYAalqc+hBXBadi+z1pIO2KLxaajNLoR/sbTIb7Y61yXhAO7qsxFrsBu+VezzDYKrRKVANw8ECvki5MQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hr@thunderbird.mozilla.org.xpi": "sha512-hoKXsG1Wj/VLKQv9Df2YQ02jIdPeHLIL7tuahDAUrvpBf3JRMLIszlpcdklZhBe03gC8QMCVwjvXeLYELMxcTw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/hr.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/hr.xpi",
+          "version": "153.2.0esr"
         },
         "hsb": {
-          "hash": "sha512-JHi5H7XpgnkFnJ39okuwhG2xJ2M09Duc1xCPgmadA+A3vO25NnlFh2IDV9nJlItVxbGx0rldFvM/i0R4QowJrQ==",
+          "hash": "sha512-y/V8ZPcehg5QICT+zIHGGJMv4f6eJvIifJfARGJthRn2JZsufo8jAMUAFbqrCKtz8l/foUHWrgDuI3XimnZliA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hsb@thunderbird.mozilla.org.xpi": "sha512-LID+zvis9rcNjiZeUIeRqHO0j6ax9s2dAAzF9wiI/Fi4xLthEpEilqzC/EfGSZCpsamou/9d6JddiKm0HYHc3A=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hsb@thunderbird.mozilla.org.xpi": "sha512-xtkwc8XpY7ARlOnah9T/V13O6NW3IYM/sVTceku6pKXhTq8aqNgeHusQ/A63zSM4HomCxh8T65DIAivMq0YD9w=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/hsb.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/hsb.xpi",
+          "version": "153.2.0esr"
         },
         "hu": {
-          "hash": "sha512-goommId/+T3DjG/kxFRyYUY2p4FH25dygZyA38vkAkvE0vld8hhtFPcnb6P836Yw5iVK/l4dNthe6PskjWtPdw==",
+          "hash": "sha512-46z3h5PyQ4/WBymkavhJokPAIzNMSPmVfjLju4TXkLdQ6IQvdKIP0Ki2B7neZUviE4FnMjbI8u1gm15UgHG7yQ==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hu@thunderbird.mozilla.org.xpi": "sha512-J+q/0U4ptiTptHf0EFhWJUoI5rQcMeMz3k4N3Sfe1i13kYXR++6fjdBzANtuGd7luyIHhMUbsV2CQrX/dBFnVA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hu@thunderbird.mozilla.org.xpi": "sha512-/gXkR/Z6TzNV31B7ilo/A+nfyNd/0B0WB4jyRADubEvmJQCLTYnhrYXBZUUp5fmTTvh+VoPTg1JRmq3SWqexNg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/hu.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/hu.xpi",
+          "version": "153.2.0esr"
         },
         "hy-AM": {
-          "hash": "sha512-uKoQfyxm/iuaeGKRf8zp5p9KntqYeNC3NxfBobx+EHNt/OBgEv9rFNQIq5PtvHiXl3529LwxFhr7AWVAdQ6zYA==",
+          "hash": "sha512-TQbtVLQTumkRL8HTvc3+57OZbF4L3hnEaLdY3uC3EKSOoE1AHqLzPysfQKxEoOcyoP5+35pBhaY3+iRx9Rtzbg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hy-AM@thunderbird.mozilla.org.xpi": "sha512-Ln4AioiffM/UAeD/2/ygxpJFQu4rF8999nd67Njrgl1rZ7V01Lmx8FJgFAk5vJS115zZWmaCAZfJNbsYDbuarw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hy-AM@thunderbird.mozilla.org.xpi": "sha512-9jgUA3ZZ6X5bGrzWz2gFI20VYgRAUxTS98/YrB8erejKxj6znwvG5UHTWa5CUbdl8jJLFtQw9ZQwLJNYfNutbA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/hy-AM.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/hy-AM.xpi",
+          "version": "153.2.0esr"
         },
         "id": {
-          "hash": "sha512-Aro5/yalDdVFY6Orwp2A0xR1R1ElLfhHpqLyBkGl6aTxfPWs9xsG2LINj9EjzqyHuQm+brFeJBXimqwN0qgX+w==",
+          "hash": "sha512-YH7Sw6/wPXtS8R3duhZAFpkJglXcIVPJ9J5sXe/e0/XQpXoonMZ/SbJ0BSkH+bw5Dixp9Aytj/fILX1A8JiArA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-id@thunderbird.mozilla.org.xpi": "sha512-1iw0CSPs+IHpafOMgXoWCsGHyDA1rdoNxZWIyitoaFs199Ip33qj9cn+ioSZnRE0BRqsRbDC7I8lJafql+t3+w=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-id@thunderbird.mozilla.org.xpi": "sha512-gUOxWKMXgjevtok3BZq0O6h/4tHYs11ze3gwZLEB5QkkMzGQ7fLaaGF5eAM89F8tj8alg2ghSM5KGqFmfHFS3g=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/id.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/id.xpi",
+          "version": "153.2.0esr"
         },
         "is": {
-          "hash": "sha512-IOBfU0lZugCWOb5PEnHseT3vo2yuTKbGVwcNtYYk/h0AyOLlTFMke06wEk9Yk4zx6+kddsIV/HebSvMH8SZ7yQ==",
+          "hash": "sha512-nnAXNkdeQYNxSBgn3Q9b781cpgyPE4LVB1hqFEFYNuYRbBHttfZwq4u/62d3aLAwysfShgVwAsuoNvMoCmBoTA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-is@thunderbird.mozilla.org.xpi": "sha512-tp5n6d2b8499s2trNqeJF9ndoQrDLALmu0Em0cLY2EOKKYUNopE/fLI1+XaRP5VacGittZE9UT/GS33+OpZ/5g=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-is@thunderbird.mozilla.org.xpi": "sha512-T7Qdz5vKhZt/502RcDfDiw61z2TXPpPBpjTRgTJeEilUT6mmABpycYUTphOBobje0OL3ziBy7Vo2u0CnNJo9VA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/is.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/is.xpi",
+          "version": "153.2.0esr"
         },
         "it": {
-          "hash": "sha512-EfrWesdkDs1vfoBVG8N5TzF5DdjFLvmL6BU7NowN7/GbZiVPNgAbWilripZneFQ4dspi6JvLEfaX5qF96z8cBA==",
+          "hash": "sha512-LVShKw7f2iY02wY8UdATSlLCMDqhvIkESYFtCZnUMdW6MSVRlrjyPuwehlrkzw1mQ+xN518BRP35z9dNmK/I+g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-it@thunderbird.mozilla.org.xpi": "sha512-/QdzqqOEDmpur3fZLUlh6011+PS1FSVH2dPWmDW+bvN24FP/hmXrDc2FrLpnc9H/ZO+URLfn+VIzSmYUTrwq8w=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-it@thunderbird.mozilla.org.xpi": "sha512-wfmjEdiNM5qQxKe4IS5QkLU1fjfWVzNsfD0zcrfvYDkS/MF+R273betllom65pvsLVoFI7kM/K9AH/rCII3YJQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/it.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/it.xpi",
+          "version": "153.2.0esr"
         },
         "ja": {
-          "hash": "sha512-nR+2HUyrRv3DFuOmHl1lAxTckyF3QNrFoFk9eD1jDBCylOxTvcz1cKdCvRdBi1hWe3W+b+qOu7Ma39d2KTHfCQ==",
+          "hash": "sha512-9NGtlQjO/hWTySfa9sCbQo/6r/MuCXWgxpTwrkZcb0S/KGJOZbaeXdHN1QjxSlxMwtVLBQLn6lqpV3fmJ6C0kQ==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ja@thunderbird.mozilla.org.xpi": "sha512-8COH99eggThlZC6aD3llAWZ3+55ZDO5yis46A8jZyLyHKoUNRfsrgfKo5sJv0zYKLTKSXPoScv9j9vjXWGmz4g=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ja@thunderbird.mozilla.org.xpi": "sha512-2eu7aRfmEkcUeLa2e2/TE5Q+GvQr//ZSOYNKhmmCrSzkX1GGbw230u4zrg2tAB1IQwU1o6W7gzgVhztKim7sYQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ja.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ja.xpi",
+          "version": "153.2.0esr"
         },
         "ka": {
-          "hash": "sha512-qdiSK9pxKv90ONZ4QBem4hp6VlVnEjaYuvglRylCCVfTKdb+r3c5lm1rV+6OjXUuiuzLkXCq1SAp6qZ80vPj/A==",
+          "hash": "sha512-bIl/+dDatlZrfIrNHqEEXivDCf5/GbnLf0aJfJ3xyQmgu5r5I3+Injd7nUOclb1r4uV7ZlqsJWQnvqrUrFL3DA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ka@thunderbird.mozilla.org.xpi": "sha512-2CkvJnlCG6kfurdGboYZmRZqv1IFjdIjJkVc7Sg1oncD2biAzp18rm2m1qLMiiJDKVsLjKy2oEAozOZNQ+Wsqg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ka@thunderbird.mozilla.org.xpi": "sha512-QtF2yqIlyN/YT1vs1HFLQFwz9FsdyOxlz8gwypHv9bom8xBeHJMi9+6lRQTHF5ShltjNmaLRJeIOvWdkAhJjkA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ka.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ka.xpi",
+          "version": "153.2.0esr"
         },
         "kab": {
-          "hash": "sha512-GYE8h9qNB8mlRVG5DpxTm8mCRbKuaknE+MLyQ5yPwPBBJzVvcBB7cpDe3LkLxjN3QeHGDJOlVFRQaEWXuESkUA==",
+          "hash": "sha512-DOg0FaR4XaRauJcdZFCui7426IuB0s3GmYzG3beYQ81q6IuAuANNmFyIop0G8lw0Mbk+EllRvTvO3TL22pD79A==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-kab@thunderbird.mozilla.org.xpi": "sha512-FOXguM+PFeEyGR3C0z493fyOKk1zSgWS+Pw/iKpvHoX8Tow/8G/yPyfSPDjRLcqFPlOQgx23LrHnPtXbIkhABg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-kab@thunderbird.mozilla.org.xpi": "sha512-1jA8IE1j+2xch0d8nV+Kssfx/I8s02flsX9mhfToKXwzRWi3FsdEvycRDmYzJcDV6NicT/RmhxTDiVv2cQFwfA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/kab.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/kab.xpi",
+          "version": "153.2.0esr"
         },
         "kk": {
-          "hash": "sha512-k+qtixEb+IgdBlx/5H4WRHvQgQLonjleXiNr6ViXGl3f2Q5t0ydd4LqzdLlYqUx5uMqTVjCPMzsXW//UDOdGVQ==",
+          "hash": "sha512-LkRMnq5Lv6tQ487ZS64DDwvZNUaNxRsJRN7Hsk70w1BUQZ7A/xq7s3nffv75h4iUb/INUne9zlIUk7C6hn5TTQ==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-kk@thunderbird.mozilla.org.xpi": "sha512-JZEdpwuG4W2Fndb6U25NSflULUmzYbcWpSXtAKXZhdQuXGkweshEsFcK+ifJRei1+WayhQyEKOz42AZHS2bt9Q=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-kk@thunderbird.mozilla.org.xpi": "sha512-FzBf6QC5poIgOry3HvcjV1wEJOKHV85qYtyLutmbLf/Ce5AGK4iyYbGWY3xfwQAcx314+A55L9lPxloqjA4RNA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/kk.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/kk.xpi",
+          "version": "153.2.0esr"
         },
         "ko": {
-          "hash": "sha512-bDsdBF78My6QwPnU2eCYTulG7/y2AiGtbmbGmrATufiV9sxCRMTnOoRYV5ytOwHNYo0JZ8AyAq0vDubjgcdT5w==",
+          "hash": "sha512-mvwTfOj6X4B5myKDKeknFO+sSnnsuBAGdM4ABHNDENhjoEDvjXaQOV+GL5XkLXSRalpM4JYmWbxFGJVNNaq+fQ==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ko@thunderbird.mozilla.org.xpi": "sha512-o+wApWg36MBqbYhRBjjMWP7tuT+fEvbW7fimcslvG2mN3NRImsnAbdWtaz+9qq7aBZXtP6+rysLzfk4kN/bvPw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ko@thunderbird.mozilla.org.xpi": "sha512-a/F7VckA+dxCReu/ux22plQs2Ra0/dcAWP3Xn/wSFg8be3GcxO4iB17qAohXwqgT6i2WLneD5mrEBW5CgrvsNg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ko.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ko.xpi",
+          "version": "153.2.0esr"
         },
         "lt": {
-          "hash": "sha512-lhk0eS3s+la9mKDGtau+rni/ofejWvvIDGGbAaz0Uy9qxS9uK/Av42MqXBt91ZavKkj92JeQz7TB9Z8/Mj2R9w==",
+          "hash": "sha512-QXIu4icBLOuAhG+hp9PAPap78UaCMseKMdjCrD1MGHnGKwTEHZiBts1CAbOyVAU+hTQNVboeolrKP/VlpeeR4g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-lt@thunderbird.mozilla.org.xpi": "sha512-+Y8/dUX2xkY4e4bScQBvrvdxXoTJE7vDIWeLvVjx5P+vah+G/lEBP/+eZ/896u5K+on5omoKlKfnm2a/R42Zdg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-lt@thunderbird.mozilla.org.xpi": "sha512-1rP8YtXo0u7r+CqoqPJdDRQjZNWKN31YvqyxTWqJgzPMjxJpzCPH5LxHbyB+1GD3ZYwY1jjiNjX3b0e1uU5OUQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/lt.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/lt.xpi",
+          "version": "153.2.0esr"
         },
         "lv": {
-          "hash": "sha512-wjYKY8PSrIwi+Am/SqG2vaazbqPme0IbRq+eq0pxqOGxAhFVJHuDjqAQS8cl6Mb44T1RkiP8R2XcCplGezP+Hw==",
+          "hash": "sha512-jDT7IC/6JzrlZL83A7oY3beyFTqKbcyiZlJvxewpt6QRK4LvC02spw4OgxWCWDF7wN+eKBNIT1d4HZosDiW4bA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-lv@thunderbird.mozilla.org.xpi": "sha512-8sdvOQKVNRoGS9GtiRnnlL2QSG81rzctmMhaSnUSYKPQScMH1fxOO3XbaH7RsvUsPEaYaD/gVJqmpHiCHSs4eQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-lv@thunderbird.mozilla.org.xpi": "sha512-SEQ7IfXzl4fdZtYV/NVDUfRdEz8i017GKl0OYoc/FIjm8AiFEHqKZT07eFzCFOzmyzGi+igk1UMfLL8+NoUvcA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/lv.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/lv.xpi",
+          "version": "153.2.0esr"
         },
         "ms": {
-          "hash": "sha512-nBa3a7lgsXWtgvNzY94rKsBLn2dNFX8qmbwpTiB3UI2Ds1AJoDf9dTamgvlc/fwpu6er+4DnmFsnHqBrM6c7Lw==",
+          "hash": "sha512-VuVQxjnDB513WsQynSbyadAxtjRzVeLmy4PeQ86OtdUN1OYIT3Xt7TsElaZEFDSHFcBWdU/AgtEt7B2pd/a+qg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ms@thunderbird.mozilla.org.xpi": "sha512-R2pODZ9N29JzjmHN0pRqArDslXn4s/n2AXOWUXFkkOTkdSVkJNlSbqryInbHohHtZ5a1kec1BIMA5yd0Y09OUA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ms@thunderbird.mozilla.org.xpi": "sha512-xyhQQ8Ws9dD/4Kkaw21nrqhqqS/kDV/PrJd/CaUEn7mQTtpSb0c8q5CrTah31NtaZIDtYM+2toepPjLnV+mWEw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ms.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ms.xpi",
+          "version": "153.2.0esr"
         },
         "nb-NO": {
-          "hash": "sha512-6reWhyZDyQMB+Q0SsM5hmX5fTwniNVDTtJAhLmLDtTLmuguo8RSuf2p2/O0kFA/6Zmka9lJ6zUexaeqtYLfx8Q==",
+          "hash": "sha512-5HrN5lwOg+fzcbxQWoroNY+say3AADAmt7p/BPQDHrmeylrjsBZbMbxUzTYYNdGws75boN1blQtXHRVtpvHI6w==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nb-NO@thunderbird.mozilla.org.xpi": "sha512-gjfMluu/vZu3CbrlVce2c8F9Tn6mCG8n6DybL+T6aMS2Y/gP2YD3PkrfIrdyRUlFjTzZwc2q6eNiY7V3hOFHOQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nb-NO@thunderbird.mozilla.org.xpi": "sha512-XjKkVLoo7m0UzwhZkHV4zlYW6EwNoyQJi7jfIYi9axo4HEaxd53KWlzOh6RSZFZRbsvPBeA/PsdguD0pWzc7Ag=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/nb-NO.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/nb-NO.xpi",
+          "version": "153.2.0esr"
         },
         "nl": {
-          "hash": "sha512-Iq6YMlYJwnW0HOXlJUfvASI2cqklob8fgKMB3sY8C8W/V3ZI1bmCDZyHJiHXZuFE+5AXp1uVg7rTZlGZ/O+8BQ==",
+          "hash": "sha512-U1SYDT92R+waMMqAYEYhfteE5D8UFOrRkz3L3nkg6K8HiEb0HpO6I+AfV8lkTpCM6aqIZm88rnzqj9MVBLj21g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nl@thunderbird.mozilla.org.xpi": "sha512-zid9wLFo/Lc4JoIEBo0ekJu33HqZe/4T3UaaChP//ArJmYcyY+Mwcuo/1RNxap8S3yoffuZijMb9DZSYslDFSQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nl@thunderbird.mozilla.org.xpi": "sha512-q5nCddijWqdnqL00yQ2h/UdACFXcu8hg84vzXsqMeQ4cGxsBF7omC8hZHLKQZ9cdojxtnDfXSOiR92wRyQfO9w=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/nl.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/nl.xpi",
+          "version": "153.2.0esr"
         },
         "nn-NO": {
-          "hash": "sha512-a5nkUaiQ8DRL0IQRfm5YJozdSpa4Lj6/X7gAYL1IWiOjBmju61oUvg9Qa21Ok/xpZX61GI6sPIznQXskRrPQKg==",
+          "hash": "sha512-IAZCY9hoaGYeB1CBXdiVIhkaA1+z8M7omCdSNJyC/zU0J4Kf+tmWH4QDo4PNPlcSGHTGVhcpD4cX2hir3kKq3A==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nn-NO@thunderbird.mozilla.org.xpi": "sha512-9/853TdjdV9F68pnepKaVrLQPOnAwFA68+DjNoLBCN2ZZXYwNS01P8P+8y3ts82CPzWjqZQe60QwEbKVBeMhvg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nn-NO@thunderbird.mozilla.org.xpi": "sha512-thuZ0iu+41ye6qLkeoC9l3eqoBKyOURtJJPo9OyMxUGj35VHYqXg0WOPoAMYbbddbOBzqMuW4u3iq+P6UEr7Lg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/nn-NO.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/nn-NO.xpi",
+          "version": "153.2.0esr"
         },
         "pa-IN": {
-          "hash": "sha512-BYDbiZ29SYb0by1YpsDfLsMu8/thkfRDTzZWbfEpQwxVGBjaoSVnRjrD3YiefaZwtQXq4GBKlCXpxRYudj1uZg==",
+          "hash": "sha512-IPLRL5zw3mHfH5wVRnE4gpPghijbAcnx2Jlc/9m9rdnjhcCsBHpZA902+47VsM7ONofi3+bDmACCEo6qIUzL4w==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pa-IN@thunderbird.mozilla.org.xpi": "sha512-fhdlnc8gJnKhBX+oPNk2FdT7DZxczTxqVWEAVb6A6BVlo5fnlrQu2tXd77yRcSgb0nIdCFif4D7DCKqFc6R0lA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pa-IN@thunderbird.mozilla.org.xpi": "sha512-JZVup9bt/vjviJKvx1/DILeYBHaT3sg3PVhMhq4TSkxjLKHdk37L4rMrfbjK/+ecBhR0kYw0oTVLvdfqy2ln/Q=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/pa-IN.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/pa-IN.xpi",
+          "version": "153.2.0esr"
         },
         "pl": {
-          "hash": "sha512-6fvED9yZpwRAruoDQPVy+oEYSceoLo0YOJdDRgOyy9W1IVW0p+OzuCtvoC+x9w71S9VsogjZwLKBYoJAAPvftg==",
+          "hash": "sha512-6ZEys78BH/1XKkTB80P3i2RXcdV6OMkGvCUKx725Wn+HAExE/WG1YkQis3DJx+hM6sjQIVXZgcreyxaCLjsm8g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pl@thunderbird.mozilla.org.xpi": "sha512-Q1aJTqFP+LxG2y9ToYNMHDveQ9y/xibTmy+jZKs15FM/S8crmS4QZXKTdyLqZZm1Sql4H4QBZES3spzm4JMpWw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pl@thunderbird.mozilla.org.xpi": "sha512-muxbNumfAPEWYkql2TKGTl0fS4B1XNIaYRhgO6wlM83JdGHSzk9X0fbLXoarVDNMR4tDXS29qGB1yDBPE+0ngw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/pl.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/pl.xpi",
+          "version": "153.2.0esr"
         },
         "pt-BR": {
-          "hash": "sha512-uF9m4+khXsYjgmV9aQzOJMYoGnNuB0QVroCuKqVBD/iz5gLGqRqUkqGveXEko+k5FFF0+uSAlduo03KL0Rwoxg==",
+          "hash": "sha512-tw7KfEMnW2IyjPc+ifdA5hUBOqywRiB/qnE75HkD2PYYmtkWob929Sc352SHdm2FHKSKQ1GJ03qAJKm04aPIYA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pt-BR@thunderbird.mozilla.org.xpi": "sha512-SSYhSChplxwhjvWOgPwQhSrlaXIMhfkkX9stHDY9GGbwUqR/2TS9PV3H5eB5fnnX98boxA5CcmjOPycSGoUrTQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pt-BR@thunderbird.mozilla.org.xpi": "sha512-S8ktccWptFaUyFQAVYfC2aMarfu0b/cmI4FUHgfIxOLWUZXLNPdlaK/IU6UqZ/rZfQ8eSClRJxFqyHnFs7IK9w=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/pt-BR.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/pt-BR.xpi",
+          "version": "153.2.0esr"
         },
         "pt-PT": {
-          "hash": "sha512-u/dW3t+RZpcwosAZEwBduyzeizVLYcDSFrvfIFsvx7jymLvwv5PbK/jDolVgyS5txL88oYAahJr4zwzMeciVdA==",
+          "hash": "sha512-hiicKs1M43fmhoPC/9IHXk4MyGElIKY2xCXcAaQ9Tr2/flSOt+01ftFr90q7EveYMsDuPxKdmL7yXONlddBsyA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pt-PT@thunderbird.mozilla.org.xpi": "sha512-/6uG5IAPPDUmumW1W70JDsy+dBHdG2JopBu70IEkPcZbhs6jihRue+1cqmnIPdBb/shvJVywjkqP1glkOUP5dw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pt-PT@thunderbird.mozilla.org.xpi": "sha512-/Ue9EBXvQmxYEFgXCjTc5M6I96JPA0/56k2e9yrOO3SZTbB2AijOE4vboEcDKyLAIwaxGISqNEc44YLe/hKnSw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/pt-PT.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/pt-PT.xpi",
+          "version": "153.2.0esr"
         },
         "rm": {
-          "hash": "sha512-W4UX7Ws2JW/TGowQdi8BJxTVOt3GtQyOt0ZvFwNg/OodHhrG0dx//r5Bkfs/xkHNjLkp7drKQ83bHCWDU6ySQg==",
+          "hash": "sha512-DMJsxcL0cA/0LLjQyhutDwQW6UwmqSZDThu0WuMK/begpbTQ3uWK6S1L6241bVk6G82ocaFkxM4rd4IXf9rCdA==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-rm@thunderbird.mozilla.org.xpi": "sha512-QT7Os7V9pY8S71lGDNk0RRcz/vjAzJmQHlY3gveX3V5ofCPjXiGOZUv8wh/5QiKTWBDkfpifRJ8hWH2ZGW87fw=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-rm@thunderbird.mozilla.org.xpi": "sha512-bEh5tW5+qs+nb93zXNe5H/HxqESbc8hVugAFGD6ad2OX0V1kx7ug6WcgTsnCeFkm5Uk5zzpyJL00+HztL6Gqlw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/rm.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/rm.xpi",
+          "version": "153.2.0esr"
         },
         "ro": {
-          "hash": "sha512-NgvLjQ8LwyinZYRYcnb82gITIo1mx7wjB6Z6fdIAuA2kdVBMUTQRvZZcknsle95TS1SCVIIMX0ppMbS0JYs1KQ==",
+          "hash": "sha512-dUXeS/7HIChCvWVA8hury7uoFtUW/kIJcBNTk9JS15MxdAfiwITGAFTJn+RQLWmHSDmmn+C1GYemRn1kAquA/Q==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ro@thunderbird.mozilla.org.xpi": "sha512-F2YBA+pV5sS5tcq3g32wYSovR1ZerTjPxHtZUPsumZ633hzqmzTD2Nt/4r6AehO88/9TVTWTiuNdx/pAbGkv5w=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ro@thunderbird.mozilla.org.xpi": "sha512-bP/vl+NgmsU+ADydX9ni1apD0ISbTPiJ5t502EHcEtaKQdjDsPtXhckc4v/z3LvD8zvxovsLy+3JjXk0DW2Mkg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ro.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ro.xpi",
+          "version": "153.2.0esr"
         },
         "ru": {
-          "hash": "sha512-oGBbLTrxJ+oL25HMUG70MnLrw/daOml+kumQXfHVUN9kUgnZRCIUoEZzVOrAAcLUnVAvx8VYJM09ZoGI2gA8tw==",
+          "hash": "sha512-PepxuO/VzZDvLgTrxvKS389WnVIcjNREvhEj8WZtQsiAHr5095lGbbGqexX14x9rg4X4kR0vcwIFyJBHk3+4Jw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ru@thunderbird.mozilla.org.xpi": "sha512-pbp+7BIYEo4mMRhT6U13d73UA/FRJSnTIdEOUwP66viGW5XYHPHN866g6Ij2fn+gX1nQZTJKPrNxatqKxiPyPQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ru@thunderbird.mozilla.org.xpi": "sha512-0rsWDr2/RlLVKLKrr8uK8I2DorHseRv2eQygQXpkwKOiRQ7SqIFrx6F33mlX2joGKv/P/rpKOfeP2KpNQuQVJQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/ru.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/ru.xpi",
+          "version": "153.2.0esr"
         },
         "sk": {
-          "hash": "sha512-T2WrM6bKFt2ZyDSLEN6xmuLg91Iwuxrzf2tU541BOKFA6o4AAP9NB0TRlw5U89QVmqMjXWtNiChHtGlkFMKS8Q==",
+          "hash": "sha512-rcyMXgnykbFNwWmy4ElDQMfjWF5X2TcnaDqsNBXD0pmkBvqNXCG3ItkQHkWdpj5P7J60wRblhAN8bD9Bfpm2Cw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sk@thunderbird.mozilla.org.xpi": "sha512-6Hjnz2H91JbTMSSjQvlDYgsIMuyIGFqhb9FUiuGR5o1+IO+fI3UTxK5KcvqRLZTfLDa7favr9Z4uF+sXy6GlnQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sk@thunderbird.mozilla.org.xpi": "sha512-n5myFw+cet7dl/jGpP/Hh7gLr63aXB/dnEGzP7FMGozRE+peU9tuF1hm2rJFp+y1goH1vYGM4rpGKrEsY/hYkg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/sk.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/sk.xpi",
+          "version": "153.2.0esr"
         },
         "sl": {
-          "hash": "sha512-Z4tZBCilTXjhIzdHnOsQbtcYdCdR+8Jyh0FnUluLrOs9c6eZiz0IyEthbfzblotxdRY1yeAEkYMToSn8frOkvw==",
+          "hash": "sha512-K/tgc1IMuy4S8irlx1saKkhcFUodyAUgwLcoxaZzhZNu2PIjNQbke3bO1JThuDOw2nJe48o3DVNU3TtwhlzY4Q==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sl@thunderbird.mozilla.org.xpi": "sha512-d4VWYCRBh9TgtJot5YRNtay7f8PJ7OSET+WiDR2JGs7vj/sqGt9BRhekw9HtihrbGLuipv9i0oiQucFczfCiYg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sl@thunderbird.mozilla.org.xpi": "sha512-JaYWM3eHHNgDBMkCPViMF+XXleS7tMv3xqhiv0zDqoTQK9hYZOO3nF1v3F5TkEZA1VjUnpuivaeVLKOUbhpXPQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/sl.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/sl.xpi",
+          "version": "153.2.0esr"
         },
         "sq": {
-          "hash": "sha512-yA+sBTPCkCwHwZIeapr/EBnnRySPvZn6DbivipSRIZcIaMULkes4J0QEeBwusN3cF6+Ea56W+HPWWt3cZ5Nygg==",
+          "hash": "sha512-sfN8eRzcu2gWTdPj2gN1cPUTCmAWRb+pSU6Yj985JKDTR2k57MWNBeBAANWtSiJOImCPYnjRdSjBC8zbM8SoNw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sq@thunderbird.mozilla.org.xpi": "sha512-hp0HR1gYZmiFR0jabAohWAUumpkzcXesP4aDL6TcmRMKTrGzbc/nqVIf8MTH0p9KrTnA7l0mvUeslYwe01iNRA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sq@thunderbird.mozilla.org.xpi": "sha512-3hjYyHvRtohtu3dlDbwJaiCQ7nJ4UqVY4W3VGyyoDn5mhP989IF82VASvxGNPWChOx+cy9djf3De9m46IZuGrw=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/sq.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/sq.xpi",
+          "version": "153.2.0esr"
         },
         "sr": {
-          "hash": "sha512-sNjOgsgPgmqIUHV67em4TVyyVXNUBXcxpYQ52ZVWo01W3I5GmRhb3KHlSqrzzuisIymqetJV/flQXj0eCBVuWg==",
+          "hash": "sha512-QOi4uTKarGnmHUD2ssp8ryVqT6vg8aGtJ3JCvyoOh2Yc0YzgLfwTQ+vQwZ/7Iw4oJIPk9l5Jo7oPPetE8CeiCg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sr@thunderbird.mozilla.org.xpi": "sha512-PFsTHxQ+kdXNUaeYbV2D0tII3OckDuU+0MZ7QMkTWbeKxQlPcxKFwVj+pXEOTG/33rUDKPF5d3QV3siOcvjUdQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sr@thunderbird.mozilla.org.xpi": "sha512-1XQSyZTCy3hlo02wvlzPpXn7qCJuglpvJuBmnOb7jU6XzkBnZp1RicN6Vx70toRR0jBHgWZ/L+nVJB2MOePQbA=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/sr.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/sr.xpi",
+          "version": "153.2.0esr"
         },
         "sv-SE": {
-          "hash": "sha512-pw+wzajIsB1t5ELJPR//OBCm8E0EI9YKOd4Vw2PfbY6D2xgYRnj5lnolotD+62mqxP5tOVqTr83GbOZAmNr51g==",
+          "hash": "sha512-1MvSdOG+91r3MGkbjS4bhHuR07IZzCXgGLvQRPdhtMqbxcyv8f7O8dgrmyE/I63wwGtwdcPsySe8C+3vcmkp9g==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sv-SE@thunderbird.mozilla.org.xpi": "sha512-x828X/IaHp/x8ERX/L82xZsTRXXSmtFYHicf1ICjM7V3jl2F+0CycEs4BdZF3SqqA8nrBQoOiLpSayw+ixqOIA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sv-SE@thunderbird.mozilla.org.xpi": "sha512-/OSs3Kgk2dNUpUoaBEL6r0QGAOCrA/zgFPDpwxR6S4UQM8vaSJt39fIgcmZBbyonAxdsLd8s0JCbDMLnyvq8dg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/sv-SE.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/sv-SE.xpi",
+          "version": "153.2.0esr"
         },
         "th": {
-          "hash": "sha512-DQBcoK4J/xWS+92AxbldoCsDT4EnlZYdOxZZ8QHylSpUJNaUWuPHtn7rbFzy7+d+p66Z8EvBgVO9ERJ1xFfO5g==",
+          "hash": "sha512-T7hafXJLD8VEBretryXsZCUuQ+5nCVE0M6Ny9MPCh0hu/SlASkZ/hZSxoUT6LHZkZPPxHFSbAdmDosZCnptGsg==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-th@thunderbird.mozilla.org.xpi": "sha512-MO1ENlpHKGrTHwgbyWIWX5f7b3o0xJfDpy11pWpYQAuX9oCYFBMg0oTwli9dwB6NiwbG5tRjLFj5RymXKZvTUg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-th@thunderbird.mozilla.org.xpi": "sha512-n4dq0kTr5wdwiYozOJBq+2deZM55HBEgs1dugTmitk3I+mLxjuTxv2Tkgt+t8TKwLHxDbzdweSu4vs5iQ0ivWQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/th.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/th.xpi",
+          "version": "153.2.0esr"
         },
         "tr": {
-          "hash": "sha512-UtC7WO7pVAisz5vdyfc6xkywZlrmuHqaWpn60INUqOEmf+AqzQk6HYDIibiF/c4k3HMVaoCsXcONjbUDdZWmVA==",
+          "hash": "sha512-NxEUKKulD99N9oqrfFCC/EgKRdzacAk6kIWGMaKB94Tftkcf4YsTVclns5YzI90N4vVryfSb1ooG+CAe7bpXUQ==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-tr@thunderbird.mozilla.org.xpi": "sha512-5d+k44YWKsLziq5/CHhx7XAqE59VIKt9JSXPavBZTtOgzWIs493QoAj/m8OjY9+GHJoa5PiNwW7aRYVhbqhZNg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-tr@thunderbird.mozilla.org.xpi": "sha512-coHs1FZ7cQWCHaee2tbd9R3suZtObUs46mLr2AQYHMFB+Eusz/WAYZ+iKRCxgLtfxoGYdUQ63TUAlBlL5T451g=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/tr.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/tr.xpi",
+          "version": "153.2.0esr"
         },
         "uk": {
-          "hash": "sha512-61W7NJ6dfgsWu0XycYwkeSlmo4cXhkbDBG10upRsEYVNLUntjM3Pg/vfwd1Np+SMi6p1gE9IBw+JH2gYC7Avww==",
+          "hash": "sha512-dMkXfJDC6AqWNqX03LsJw37r21pE0sJSBCeHkTOyTG/WzMfzs0f0Dz80oLHzVgD18W1Fj/dtqdRvdMtGkEeSWw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-uk@thunderbird.mozilla.org.xpi": "sha512-75/DC8TDlHDYfYuO3EASER+kjMESgfrOyAC8FXZYNqhHFlmbXhcQHkIUxhCWWt8EDpAiMPJ+d3nloU5uJm7dOQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-uk@thunderbird.mozilla.org.xpi": "sha512-7rp/qucTh8wO8YZEYUSCNdENMoo1dJROCZwHq+y1C9Ctg4NZo/oJDaKDgqImz5g0xvc8i9Q6YwR5xzuEesLS/A=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/uk.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/uk.xpi",
+          "version": "153.2.0esr"
         },
         "uz": {
-          "hash": "sha512-r287jh0Yq81Q1Tgac+WRbGLt5NlXaAvxZcErSF1WmYQOog5mGqjDL07A/aQ/W7gSK/Mv8teBrktZ+hXD9Ser9Q==",
+          "hash": "sha512-g/j+uGopAjGykx/LO3TXS28hRwvgOKl0twYvaOOc/tO7NJeZzRl13z27RlYAXUsanPyloxSUs6PH13fVrihxRQ==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-uz@thunderbird.mozilla.org.xpi": "sha512-g5bTkVftilEkK9c1BipncofzrGubl/RmXmqCw65yAqdB7Od/8d5xuwYYzVEvAZ/HX6U3v7+wH6mfxKW5R6rX8w=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-uz@thunderbird.mozilla.org.xpi": "sha512-fcrGjYf6mhFwC/0T1Unog+0OTRtshqKRSwRuX+iMzrqCa2OzYvK/F0kHEP7zf61RXATJb0RPkH38dNFtn52yFQ=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/uz.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/uz.xpi",
+          "version": "153.2.0esr"
         },
         "vi": {
-          "hash": "sha512-23QRBVsqLkbxUslVf8/2KD+aRrPHnobUWIh2KRD+5J3EXs6uyh/p2TcP7nIT7G/YoiILwJjTOMth754calSRBw==",
+          "hash": "sha512-qJmZrPEsgk91IIfHtSG5P0IXUgDsKEo9fJBtoIRIY2QpDTyVThoKkQOIq5jfCkSdx7uM/iNlx9X3kBlfCfSBzw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-vi@thunderbird.mozilla.org.xpi": "sha512-ICY4bpYptGVSCUP49qvSp59WrH+8sEBl4VBhhuhQ5MBB8ErFwQoACvh42uhm3qD+Md3gAqe9HB6UGeTUe5H3KQ=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-vi@thunderbird.mozilla.org.xpi": "sha512-OR32F7Er+WCeS1j3XL7oxnTAmWHW/b7jZBgoOhIn2P5QWaw08zKnZLpqxO7DL6FPMWqJmZmNeOkIT1bc4kOC8A=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/vi.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/vi.xpi",
+          "version": "153.2.0esr"
         },
         "zh-CN": {
-          "hash": "sha512-L+S9AtSa+Zhj7kIwU9hHuqeVOx5hftcsEmeigBK0G3SsVeOoad5zYrUF1gtSsoi0ds4jl8WYOeDtuKW2d2WQ0A==",
+          "hash": "sha512-gox+2rYb842UlPQRkQds1ncgvM/5Sbyy9OpCL+V2c05TJ6CujgKoH5vYkKGKkyIIOJfO+nzq7g2aESQOHT32Uw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-zh-CN@thunderbird.mozilla.org.xpi": "sha512-fdWdI0Sq7tqZ9uO2jMBfGRhNoEBpqn6J1KX8FsRUAjFC6Tt7MdJQYAflEKeH0w+CvfI5eJ8V4CN5YgnRdzvvEg=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-zh-CN@thunderbird.mozilla.org.xpi": "sha512-UoBEmx9j5I8ueuNnsKPO0EoStez2U36m9INDxf3Df+/7zWIO2g5fGdKGt3CdeiOnAn20nkfwep2V9xyeTlQ3ew=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/zh-CN.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/zh-CN.xpi",
+          "version": "153.2.0esr"
         },
         "zh-TW": {
-          "hash": "sha512-RLUjy3ILlcvwo/QFuNGRl7Thjy/2XNE3MzI762CdcVC8xqyPpZd9B1dd27YVFHOVj7s3LdHtT6kyKwmu/fdDnw==",
+          "hash": "sha512-scDIJ4mRWQvNZoeQ3E4yZzR93xQZurgKBYpBWWmiZO0NA7LmV49iv4yq06uNf+3PIKAOwa4YA5SfkdplSbT7hw==",
           "narHash": {
-            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-zh-TW@thunderbird.mozilla.org.xpi": "sha512-vxXlS0BhWZAT+vn2waOlKlyRDRsBW6qWCcTG5+ttufvqaadmhS3YzQ03IgG73YVX3Z7Ms/FEA0pT6wfZ1zwfbA=="
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-zh-TW@thunderbird.mozilla.org.xpi": "sha512-54qC0naMj1ilgw86j/I0aaJ8tpKXCAbUqqfn4z/2mD/+2L6XFMT7F9fLoNc/dzEmhHBQW3SQf7OR5rOYK1+4Yg=="
           },
-          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.1.1esr/linux-x86_64/xpi/zh-TW.xpi",
-          "version": "153.1.1esr"
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/153.2.0esr/linux-x86_64/xpi/zh-TW.xpi",
+          "version": "153.2.0esr"
         }
       }
     },
@@ -11761,6 +11761,538 @@
           },
           "url": "https://archive.mozilla.org/pub/thunderbird/releases/154.0/linux-x86_64/xpi/zh-TW.xpi",
           "version": "154.0"
+        }
+      }
+    },
+    "155": {
+      "linux-x86_64": {
+        "af": {
+          "hash": "sha512-dQm3P/cn+CsxhK1FeyLzrckf7ygYYkyqdAVsAkNr+kdcoxTZf2GQSj0A37jwulXSGX2QuUv3qtqos6GEVCxvrA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-af@thunderbird.mozilla.org.xpi": "sha512-udMxmJYl/S52gGIKko1jEEpvQK7w72rPcdtrdUpBc46VrfTOiCPqOUCjMQ6zS39w3IuNrmdp9xIeqgkXf+EVEQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/af.xpi",
+          "version": "155.0"
+        },
+        "ar": {
+          "hash": "sha512-8wRXg/pYYgfD5NRD3n3ZInBUwURAhPzNeirPDP0pafU2Kt1vx6OCjFdi5RDeK5shoulBYn82H+H9JM9tjm/SRQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ar@thunderbird.mozilla.org.xpi": "sha512-J8dLMJsm0CoPCwKSUHOXR3P2qKMOUMa3f/8LpYe1bd+K/NmclfDEKIckTdyKXQHMPcpyIlnGUWOqJKf47hZwGg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ar.xpi",
+          "version": "155.0"
+        },
+        "ast": {
+          "hash": "sha512-Rxhh7Vscc1wF68EVcB/SjR4428YVaIXjwZI0i5hbhu47CkPAcENChzYddLM7YCeO0CvNa839SR4OGVlV8clAqQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ast@thunderbird.mozilla.org.xpi": "sha512-MHhBzjWrpnotNgescs2clSjoaUp6v800Jkzh0tmxF/B+ErFeMD6rCIHrl9EAxBBiJ/WmRRtjip+871i0bTHYAg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ast.xpi",
+          "version": "155.0"
+        },
+        "be": {
+          "hash": "sha512-PzxeQIpLWK96dzcGHxfCGNSIQEYFsPQB27SG+dtJx555exwzTM1BURMgkhT75kgz1n7t61584XuSrcinm3/NbQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-be@thunderbird.mozilla.org.xpi": "sha512-wk3Pel5E7h3bCCWQm9cc16j0+eE1zThpLzHb3YFsqmBgOBhd2Jl+gPieK61G7kfFw4wmxgUt6U+i9UBxCFY79A=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/be.xpi",
+          "version": "155.0"
+        },
+        "bg": {
+          "hash": "sha512-FRNoqTY7JEB4yC3cS9KGFTyt85fsUPgmhcxvcOCkaSjrNIMT/WJ5RGB1BcIthD6Lnh/8acEegu3IzZ8qoWmuXA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-bg@thunderbird.mozilla.org.xpi": "sha512-ZA3EZXZ6Ap2WVgf1BOboBW4zqUjb7f9VXcmakbrLdAcXeUGH87/GvW5zZkbcMZZ2KVpW988BHqcrNeltdaEjfQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/bg.xpi",
+          "version": "155.0"
+        },
+        "br": {
+          "hash": "sha512-dWp4onZaMS2uCH1G6VytJJQn7sPXcCflBzWRrqJbtIVws+GKl0RBGrMG3BCAQOIZNxCKc4459CK5GJJ8b3dicQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-br@thunderbird.mozilla.org.xpi": "sha512-N/96+GiEPKDzHFvMTb5m6qhfV705/rmGyEdOwET0ZgR4wM/Rd1752qIgS6zDxASrriGVwrPKc6XVklwIB1sNQA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/br.xpi",
+          "version": "155.0"
+        },
+        "ca": {
+          "hash": "sha512-dTWJA272p5H9uLyJhQLQMO+Eb4T4QAQu4NNdwJcpNqfdGkfYHd9B/xgGhbekOZtqiVkmbLdLYj1msDRDNNvgHA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ca@thunderbird.mozilla.org.xpi": "sha512-RTp5OTPd6fZOhDeJGXrPEnywMRnEAMITmFm9RH/SC5wHMlvtZvd5QRystSQEgh3Xkyc94WXDBg0nbXEnhiQxlA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ca.xpi",
+          "version": "155.0"
+        },
+        "cak": {
+          "hash": "sha512-Y85ghH8h9wzJKC0EQ6V6ZR2YzrWeKebyE/Iwse7rQJSbsagKx6m8FEWiZnf/MUbEDZ5IB5Z50RBrshQGdKeitw==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cak@thunderbird.mozilla.org.xpi": "sha512-J7llmBjuv2y/HWZwPZeZkiFJ0Juf/dO9FCP10UZIWbymqaoyHJ3LyG4kEdzO899oQI51PyAxsaEXmA7QYCv1hw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/cak.xpi",
+          "version": "155.0"
+        },
+        "cs": {
+          "hash": "sha512-R5/GDj8KuWXJR80FHlZlLKAmG6QEp9Q3+FhcMbt1tjTnW5RscxsTVGaWbE5bMObVHN79qlQ5dZZDyfMEfEK/Vg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cs@thunderbird.mozilla.org.xpi": "sha512-+B9ZVOMzsqrh8wIFD7t4OkksFcnV72u8wMXlW0sA0Yofq7wKBv2yr3mzMhUAndvEOodL7eUYXv7uuZTttDrphw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/cs.xpi",
+          "version": "155.0"
+        },
+        "cy": {
+          "hash": "sha512-8gdhn91xdIsAWqCFilkSLK/goCH/RA3oXt6UO+TVhJ8SUfuiaiF0F1MskZg7VcGiJhxYTWNdPRzERe6Lu6wLOg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-cy@thunderbird.mozilla.org.xpi": "sha512-Q+b0oSAmrkOfClZ0a5xAKAjoRKBgrIHrkmpsxWLzsg1pNIDl8z/FrXjKNac+6aqB+W+9QveHTTCeVGTJ6W+IuQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/cy.xpi",
+          "version": "155.0"
+        },
+        "da": {
+          "hash": "sha512-HZOdf9j0+Px9famORGyoLQgPiCr/DvbEmUDdhWFiDdvlZNO4dKonRIGFCTQvtqsAsJMk44bcP7/DHRvGQHkPew==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-da@thunderbird.mozilla.org.xpi": "sha512-NpTFA8zMmFuSyjgVfIl+E7dBnoq/hqaG60BczAKArP54upXBDrmXSAcuGB46CiGV6OygYZURxGIDe90v5uZZrw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/da.xpi",
+          "version": "155.0"
+        },
+        "de": {
+          "hash": "sha512-Ts5me//q0up4RoRmB/oJti7JkF9MgEoIqYBgyJZrG0M9oy0Bfcv+/VHyRN8Lwn2YlDYLZ7cpoSdD+knvyffIew==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-de@thunderbird.mozilla.org.xpi": "sha512-+pRZCoAm5wS+MzKYVstQF0TDKDIu0OCl2xYDxjJuFE4MtRUW6B7CVQEZ4Fp9KLCyVn+4SJWqnKnoXR4DJS/mlg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/de.xpi",
+          "version": "155.0"
+        },
+        "dsb": {
+          "hash": "sha512-qHRyOGjOlCHbcaM60pElT8kg30EcUNXmwMhYtfw/EKkKK41QmF1cXoNL+L+bdo/9Ci4HBUUAcuB7Q+Fw5lwSng==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-dsb@thunderbird.mozilla.org.xpi": "sha512-5mVQ9a/+Dh58K+waC1Y9Wq/Wg8uxMU5H5NTcdT5tDA6WZ5Q5Z9uwiqZIk8767sXBVFXQU1VJz+YHV3ri8mkiBg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/dsb.xpi",
+          "version": "155.0"
+        },
+        "el": {
+          "hash": "sha512-6Q0JSH+6Xl2eXLy4KFRD2p3rZRuE+1IDFUWM81oMMF6jfdGteY+3ge02hbfOEzicfOg/qpjVDNp1WHR2S4C1xg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-el@thunderbird.mozilla.org.xpi": "sha512-9/hC33+iY3fjCy+vMnAiT8IKI2qIZ/+bEgPK/TBWIdz5vC6SgTVrmOoln5dPNdqEl9a5e03U12i1IPPKJpGUMw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/el.xpi",
+          "version": "155.0"
+        },
+        "en-CA": {
+          "hash": "sha512-S5JizD47j0hWxALPW6iwqN4+MduTZDlsQlz45qSiQ1/JrrwmK4xm1T3u6abZDf4hjJH8jhZ7s53k99DQNjeg3g==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-CA@thunderbird.mozilla.org.xpi": "sha512-6OKoVEKG7ErbGg8oQbXrnKukm77CfN3UvXmp0a93BDhJLwsBZpfLRCFthmE5aPVRk6GJO0MLJAmwphkfvtHNtA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/en-CA.xpi",
+          "version": "155.0"
+        },
+        "en-GB": {
+          "hash": "sha512-F/AjJLF/oVVWG/ZYdd6E4a4kFGxRuY+07svuSZxEbDM69YEPRDkY54RRYALia1IYAD+1IMMj9jaoTraQvOQQ9A==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-GB@thunderbird.mozilla.org.xpi": "sha512-iugD9xZlwYFbVsPC52wGgkKr9KLcF8S9iTdmgWvWOQfz2bvvA1dVHp+KZ1hicinPGIHOnZDDr0hjcLt77JRmjg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/en-GB.xpi",
+          "version": "155.0"
+        },
+        "en-US": {
+          "hash": "sha512-VdrCEcyvA+odZ/k0N+ujpzT4w/VDxJUav8vuROW5RprWBbmI6XaJUqNVgbI4He5kHS9wlSCCeVC51LOz9+JkBw==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-en-US@thunderbird.mozilla.org.xpi": "sha512-n47w4pqfQOpHcX/My/aVEBdM4X1H7uNA5IqoYoOUWkcQ6w7G39n+TanUOu7DUwPLW74WHH7bg8yLhwW2DUhuQA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/en-US.xpi",
+          "version": "155.0"
+        },
+        "es-AR": {
+          "hash": "sha512-ghXLFMsgG0+JnKnxvYnxHWlkTWfQebyFrqKUXOKs/3lhpN1oKAyTzIE0/rBCO2uPdke9WqJ+VaxPYNBJTrHtaw==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-AR@thunderbird.mozilla.org.xpi": "sha512-cVselrvtC0nyK7X8iTfN+35L3HzCO3gJMD1td9wssTf1S61REPCVlGVbPlYFmmNHgf2P6MziuzkE95TuaiZMqA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/es-AR.xpi",
+          "version": "155.0"
+        },
+        "es-ES": {
+          "hash": "sha512-f8m5S/YyT00DFi/1KQ04KAJkCv25qza7l87Hq8J0ip/ZYbp7gikbbZIlL0B9Fgu03GYFHzjEzmA1EaM/3fzlPA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-ES@thunderbird.mozilla.org.xpi": "sha512-MBGnuVX+dM+mWEjMtbcXo6KtYNCvd+Vy1ZOkKK7e8ig4+pIMppNCw7qtix+AlvhPuVwfq5SH/Rjme4zQw/RiZQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/es-ES.xpi",
+          "version": "155.0"
+        },
+        "es-MX": {
+          "hash": "sha512-E+tAo5q8hD8dmDLQIbu69KVfCBiHO6yGyx0hv6mLZs1mqNoAtmax/reQWxuKLcsr6ZfogwMKh+1kRoq8/UyIWQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-es-MX@thunderbird.mozilla.org.xpi": "sha512-AeQHEvXd8NX8vRuoLdg040fM45fxW7E7s07m90pgaACY/sFptf6fH1f4P5JFjWMr4EQYaSKDNsKP7wz1AafMlw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/es-MX.xpi",
+          "version": "155.0"
+        },
+        "et": {
+          "hash": "sha512-qRkI6KOvYZYtHHQrj6y/4islZrqJjjrSYdYFz379rFD7hBZW8WMhqAwPdlXIFRADTayvj/teBnhyr8rDGUSzEA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-et@thunderbird.mozilla.org.xpi": "sha512-LJZzYzY3mN6vHdYe6HTw2LkXbA+IbCuedA4kOvWJkzwCNjauEvceUdlj/A01fz5C96KvSH5rk9Ua3cs1dZSTnw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/et.xpi",
+          "version": "155.0"
+        },
+        "eu": {
+          "hash": "sha512-zwV1g3UR4nh+xXa0MsUt6FDrmcfQx5aypBcUtGQS3oWdpUdeJ9de8JdLMk2uUu0ajVCTaCKa7OevLPac6MvaKg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-eu@thunderbird.mozilla.org.xpi": "sha512-/LnV1V1TOuwieJFVna0+I9JfGaxU0aNNODp0OB6u3nYU7tYUZis6QY/wsMMgeDR2F5PzU5DCfB/2JhRRNSLpNQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/eu.xpi",
+          "version": "155.0"
+        },
+        "fi": {
+          "hash": "sha512-ylWcS11hjAEsc8v4nT1KV0HKSJRUnmV1l9qgHvYmVWcaYp2JlA/WiiipRmYywHSNpzPVXwy4zbtNXCa2mUxAFg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fi@thunderbird.mozilla.org.xpi": "sha512-gv/phRB2AJ9tvFW+uwnucOnPgBmYQ6mkLpSDdtHwu1vZJFDvJ+B4uCkIfG8EyPkXunhHq6IV9j+NtERRJl6fJw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/fi.xpi",
+          "version": "155.0"
+        },
+        "fr": {
+          "hash": "sha512-P3n+cJetxL0V3GdrifsgTng3qxvjfDDL6BFjEkBKdrF4aM8RPzQB0heXWDcDyyLc6HMBlUrDxDWP54+GGqjAcA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fr@thunderbird.mozilla.org.xpi": "sha512-dFjoVzkabofn7STKmD3HeB99sqCHrf+LDDTUQK5IHRPYhEdkGB5o5yF+FEuJ84T7H2LZDB+LQvERxtXM5zmzoQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/fr.xpi",
+          "version": "155.0"
+        },
+        "fy-NL": {
+          "hash": "sha512-rv08IdhCeXkdhGcakgfm4qZBeUlB54PW8frX5sHrq0jceBD4egZuNmzYtMM1tZnGx4q7e6wnPUDrPf4MKS/f2g==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-fy-NL@thunderbird.mozilla.org.xpi": "sha512-rwJSFiTCiqNwv3OpLUhUnKl5M463IwIj4cjc39t+lkCpVyJtkHjOGzlPHFkSfltv4lPXfTDOaU6+f4yV0Bd4rg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/fy-NL.xpi",
+          "version": "155.0"
+        },
+        "ga-IE": {
+          "hash": "sha512-hoaGj0JxOXmx/DI2JiCR20I7Mzt/dbjY2Squ9zCJpnLKKgqXarFuZ+AGqWjp8aLAuIsUhSBDuCLgEJ2K75zufA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ga-IE@thunderbird.mozilla.org.xpi": "sha512-3uSg1uJxsxk7vBNxqg5bd0ZD4aR2Xcajg8WxYwwSMjWpHzkV9dKX5q6fP+HoOdTQIWNllzWFcBfPuJXV1r+CtA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ga-IE.xpi",
+          "version": "155.0"
+        },
+        "gd": {
+          "hash": "sha512-IxTMPuwv1zmAYy9yIqq1GjiAhertvhlOmcZHcF60+CjXAV8g/nOTPbJuCA14hRUuAEEenlAYnuzCjmHPnjLHzw==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-gd@thunderbird.mozilla.org.xpi": "sha512-o1Om/PlbjBcIHp1osp55zfAw9SUAPdmxI0ZgHv7K87Q56aWrbx8B9P95nG0oSFdmNJSdn5lfKJI4n7+81TedNg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/gd.xpi",
+          "version": "155.0"
+        },
+        "gl": {
+          "hash": "sha512-7sjrzjBOhlvnwlVwEBBzOT1fReXSlLZtn+ZB3eBmRiSgn0v6LQ/VcqMnENB5FLbx0F1Dpn38waUyCFEWZM3UrA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-gl@thunderbird.mozilla.org.xpi": "sha512-tTtlTpmbYOdKh7yznY9LWYVQ9JziqGxjg7JIQR4RXpjNoZ84nYsWztWbaQD2F7wQ/fGDpDxidn2QMHc1Oi2pJQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/gl.xpi",
+          "version": "155.0"
+        },
+        "he": {
+          "hash": "sha512-NnnHeU0ayyigABOFgjz7qhKloVBUn5G+eqQzew8IBNWHH526f39JaIq1cT3Dy71UZpBsulZbVHRnSTpuOOiMaQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-he@thunderbird.mozilla.org.xpi": "sha512-9LzHF3VbT2ylQzui3PM6gxXIhrOR+ANJV6+NLyRT4eGRvOAjzOQo8oRo9OsuzKqWsZ5hmiX9CpwxXT6tE5JQVg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/he.xpi",
+          "version": "155.0"
+        },
+        "hr": {
+          "hash": "sha512-gdnMnJkZMFyZ+XBIUzplLgufjqrhkCTNCPS+t1li1nWtrR6fY1B7qK0oGvl0qTzWCelCv/v2mGj7BdaYUekkgA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hr@thunderbird.mozilla.org.xpi": "sha512-MS62iHo1a675BY3y0nQjABHGjC3ACGGbmeXMR3C7OrR0ycMZVHHYw2L8l8U9lUHWaUW8U8RkR/FWFIxKNpbLdA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/hr.xpi",
+          "version": "155.0"
+        },
+        "hsb": {
+          "hash": "sha512-ycdbW3jhs69TVIN+BquI1Szu3/C2WAUk5FEzJbwKe6T6gUk5Q1hHMQyVD/njfotrroXWQiBfa7Vd34JFLTi5AQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hsb@thunderbird.mozilla.org.xpi": "sha512-zlp4+wOLOwgiO0cZ311vf/PTJHvYfJsjLHWTV9CLJT4skVy1fCpQSdHPPwuXu9FkOKbzQu2Hzf3ev3m2vlLLWw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/hsb.xpi",
+          "version": "155.0"
+        },
+        "hu": {
+          "hash": "sha512-dip5ZrHHtzJrty4yR/mdMClDMbTSOnVC7c4+cgPJCIKEDxzOtkMh2ZRUgETqeTUFTLcLwz3HMS00YOjVE8Np4Q==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hu@thunderbird.mozilla.org.xpi": "sha512-3euubXRLAHuQA3qDUdJJwGNnyK0y2YSKBeUi1lodShrt8HRB4tHOB0Rkg8f2xs404ni/g1j/+Oa7+5+OoJZF3w=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/hu.xpi",
+          "version": "155.0"
+        },
+        "hy-AM": {
+          "hash": "sha512-4iJJj/zZ3QNdKJCl8Cd0QWEhhoM9Ohwze3T2/QblQ2e30bZ8PB9BAF2eWV8GVKMiG6RAVbDNsLgnf5JUBwtvWw==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-hy-AM@thunderbird.mozilla.org.xpi": "sha512-1A307YupzqIAbU3Zp7MCYiNIXapU2vjyj+jN2OSHL2CneoSSugKatMOaEBrnr8aJ8FcOEbJlnu9RrUb/bYbLAA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/hy-AM.xpi",
+          "version": "155.0"
+        },
+        "id": {
+          "hash": "sha512-FjTkrr4DbWkix949BrMVpO78WEaP13csiuC0il9xEld3RNIYFayhlU6kKhOQHKaKG67JTAWcy+gfb6uOVNbSmA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-id@thunderbird.mozilla.org.xpi": "sha512-9imbFgTSOwwrVas5n1N2SR3p/I2dHfI94h1ONF24qj2R3alqjMr96rRS/ERoMV4d8gVmXgN3Iy0DwBbqz47fJQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/id.xpi",
+          "version": "155.0"
+        },
+        "is": {
+          "hash": "sha512-khob7ku0OqoXnyAhNBZVxyLZqFVaemA+uTBcpjTcyxo1F+ehqiZDMAZirrQyk0M7HYcoYC5DLvHXJ+WhvVNXWg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-is@thunderbird.mozilla.org.xpi": "sha512-mx0DxHw2AHoQwKhpoZP5jFvveBu9DQje9ZESzL2DkG3vv17pI4QEMCvN4k0zLN0NNhqAX8HGvFrfyjlkQlNXVw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/is.xpi",
+          "version": "155.0"
+        },
+        "it": {
+          "hash": "sha512-8peV0LBmnIcqVeR9WtutKmXvK8fcPvTlWvGmWjtoL570WNoH9Z3czCpYxAlbVw63cFKHWpjx9rFPGXW66JQc8A==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-it@thunderbird.mozilla.org.xpi": "sha512-owPDXXSsr/JZlnwc9dondHHM0+AlfkqlvzTshyF/nPmRYr/DtmVjusVTgjnYxSj9+e+DsW5bZSMIx3Cx5tp4Mw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/it.xpi",
+          "version": "155.0"
+        },
+        "ja": {
+          "hash": "sha512-arJSXgXmJMQCH1i8MeM0qvWYPEpgJrwqpHfxavznT4L8xazQNsuwZZGgxMBa+1PiWsZHSqmVI01pb9ACRkJbng==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ja@thunderbird.mozilla.org.xpi": "sha512-AafwReBVOv8VkGEQsPOAVg1JM/ZOjYKcqPGLIeR9MPKUSMZjRUkt6Larq5JXKn4TFqnhCOmGKyMnYG99cADOiw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ja.xpi",
+          "version": "155.0"
+        },
+        "ka": {
+          "hash": "sha512-WqStwqQa5JTBmc6kaXTCmWqE5f6Olt9QMlr5IE14YlRonwvOQC5bP2cNBYdm6HkjMsganm2cHLhHllynI2KT2Q==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ka@thunderbird.mozilla.org.xpi": "sha512-WSxzl8jFJNgDqNE63Zx6oxVPlvF/CqLhdRMXNRPtXpFdzy5Pm2kbybFsxo3LLD5MwHtc4kR7bfDzRK9eTSkaKg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ka.xpi",
+          "version": "155.0"
+        },
+        "kab": {
+          "hash": "sha512-vHNM/uj2+FMlLJwf+IhhXX+tHKiGFhOmmeoYIjHtlHnpO+ZkExxTWoNQc4HEdngmrw4mFUiy67Y+FAkdH9muWg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-kab@thunderbird.mozilla.org.xpi": "sha512-bEsTaRIlFgNiJGGbWUWZjk3seLxN7npRCkOY8VUXYFynEbIc+iWX1LpnYPwA/6Vm5IDuMcPWIuvVkQCmutha1A=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/kab.xpi",
+          "version": "155.0"
+        },
+        "kk": {
+          "hash": "sha512-Dv6j4Rhj627Mu9IYkcSYGVWGJEu86SpzxKlTSltawffekz1IEQwi3SvsW40hHXrE19FFgMndcpDFennsQ+bSKg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-kk@thunderbird.mozilla.org.xpi": "sha512-LRgNxFl7RYd49mFneBNxyTCBug/tipMP/YJCtlmfXiUaSPvwrFxfV9WNPIkY+6BXsX075+93tU8gyVolnmVilQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/kk.xpi",
+          "version": "155.0"
+        },
+        "ko": {
+          "hash": "sha512-hkHDiSdI33vObhEsbeYvZYdCzvdAXfjKWo5bQ0Pm9iLeGEURgEQrI6L9UizZKOhq54NNEew2V5Fm7Ldop96DCA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ko@thunderbird.mozilla.org.xpi": "sha512-dzkKgePsLeycKg4X4bvFFQaPKzaLXw4Dn1vZY8758JkbCn04Sgx7PWWzHjoRr9+NxG8uq7lVVUrZ4oqvOn1wQg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ko.xpi",
+          "version": "155.0"
+        },
+        "lt": {
+          "hash": "sha512-Sn0fTEUAjpm652KfML4lFl+oNf40Cgg+77s/GsZaTIOZSdpdNXGKRTpD4tbz+8dZ6H0KCFT0Dox8HGa4AIDyIg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-lt@thunderbird.mozilla.org.xpi": "sha512-gEwcJuYFN9+PHIm0tD31i8aoNQFdwIa3gu+KcNB6MUzD/QKsvdRJHcoMH/RBdBnTx8R0Fi2tlpFK+zeSp6I6UA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/lt.xpi",
+          "version": "155.0"
+        },
+        "lv": {
+          "hash": "sha512-iUfGo7rreixdAulTkrknXNvrdS5oUVAFsaqe13ABS1JCa7QGfpRY8CmOphr50oBHsNpwd+dpItSW6eJhS1IxPQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-lv@thunderbird.mozilla.org.xpi": "sha512-TUFknyieSiz4oEpj0q+RRoRdAJaeVFHfHv5z2dcukSop0YB1WnLgeIsaw6d1R2fNESNhmzyhOSY+ZMtHsK5QCQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/lv.xpi",
+          "version": "155.0"
+        },
+        "ms": {
+          "hash": "sha512-K3qazOvyCmdl74qsa61bz+OEHVdukgcxNcBMaE7JIEnY40i6KYwi9GYCAHLFIojZWAYS0FDaW9+Z3hBwOfsJDA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ms@thunderbird.mozilla.org.xpi": "sha512-6d/vLQb3HzWeUcUrj32ETsu8kBQGJiDmn+vXPH7LLst/TEouqLcuar0X2RWgOZukJ13SqeXB5k4WsmdhAh+TqQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ms.xpi",
+          "version": "155.0"
+        },
+        "nb-NO": {
+          "hash": "sha512-QviFGcfD0og16WwIW6xLvRO4lw73Jak0EIQB+C0c1BPRKpVCJZVahnRVNXLQ9fWnD50yScarqTA2/ueGHCbQrg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nb-NO@thunderbird.mozilla.org.xpi": "sha512-Y1Km0JhIPfOMPLf/RhbKY/igHsjzUkDgFyw+38smIakFiQJWSK35nhVwokTGVRflQI86Rbrai9/AJXwXdcUEQg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/nb-NO.xpi",
+          "version": "155.0"
+        },
+        "nl": {
+          "hash": "sha512-kZ8Sr7TNPSjYMmVsIIzVbOEFNjza+gVvvHtGTzpzyic7jWTDWv/xyWj4yvrCnhRhmJkacfWt/Ao4i6Wb8PnJ5g==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nl@thunderbird.mozilla.org.xpi": "sha512-daJM+IxGoGo4snbXexjrtqhufosuSF/mU4+gnNqSc7oIQbZTC0i/urxmoUHwsDNQyDaiDFQV1Q48dfp65EC4wA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/nl.xpi",
+          "version": "155.0"
+        },
+        "nn-NO": {
+          "hash": "sha512-0Cy3hGxRaVEDX/Svnxbj679dcN4oVSBfwPg4ntp4HeiJI58/HYfuFoXFAx9afwctFYnE5hFK1IF6ZlmLTEkJTA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-nn-NO@thunderbird.mozilla.org.xpi": "sha512-zxvmfTLmhNJ/Pdlj0exWTgP2kxgjrQ90MvnLhZnaFBzjrNQ5bquy2cZrq5bXBN7IjPMXDRJbtdTw3Ihgg9FzNQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/nn-NO.xpi",
+          "version": "155.0"
+        },
+        "pa-IN": {
+          "hash": "sha512-9Is/kQes6911PGRazp/pfkUwEIxZB3SnH+X4HF4HnI7mQe4Bynr781YHwl+EFX4i3VnC4X8hCki4gNjk+sIWPg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pa-IN@thunderbird.mozilla.org.xpi": "sha512-qmyM/6L70RY/k0w6RzNhZEvhl2/qX2theEq3yHoEwFXxAQK/B5Xx+DqGNJFFvfnNenXYRb+PGEjCC30H4JUW2g=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/pa-IN.xpi",
+          "version": "155.0"
+        },
+        "pl": {
+          "hash": "sha512-zfrJxDYKHYBxh2CuSy7pZI+ZqLNZKhwtyGgQer5fkBQc7nmV1h5WGrWwm34AYrTV1bEwZU3J2X5CYVGcD5gmJQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pl@thunderbird.mozilla.org.xpi": "sha512-L2WMr7f+REbsE1G05KUZ8ytY9PfjYr2DaNHzMLYtkVuhAM6N/Xx6qOq/r1K0UbHKnM9tToS4ZSrqUQ6jLpFgug=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/pl.xpi",
+          "version": "155.0"
+        },
+        "pt-BR": {
+          "hash": "sha512-pqN0a4gpwkgCLQT4YvgrNfThN2j/APIBknn0PiVuqk5VOhvdOGDA5MwfRENiOaeACI535B4WE4fvFKCCAcjJ2Q==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pt-BR@thunderbird.mozilla.org.xpi": "sha512-CmMePzOrasYFZ49FJalLVc2rgOepFQBZ6UVt+k/raIxTk38YugHA/VNHQduIRAFllxXJwuw0o5pHEsY6F9vqNw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/pt-BR.xpi",
+          "version": "155.0"
+        },
+        "pt-PT": {
+          "hash": "sha512-92BcePABKpEqh68+CvEiMAbKeS2vaauP2aCK11sAy48M+ml6cPR+Zu6MXWyccoHP+ZZy9gCSlv0R8MCoTSUNig==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-pt-PT@thunderbird.mozilla.org.xpi": "sha512-KvAT8jgid4JhasoCIxIaM5xI/mpygTI+cekqIVhQ8/4BESPLvS0qkxFN/zJRIf4uUeIlT64P8B/y7yml5EpGGQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/pt-PT.xpi",
+          "version": "155.0"
+        },
+        "rm": {
+          "hash": "sha512-ZeA1LzOgHXATe46j6Fw3RyfTx3uuLswWlABO0q8fSb9+5yDIqNMT/JZ53HRarTV1g0ftvuciH5e1maGrxotiGg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-rm@thunderbird.mozilla.org.xpi": "sha512-kbwV9m0UQLVH04EBz7M0ZTw1ipta4Fa8UbmzIuK6h0yFySqVCbqtR7va9DRLgJkJRLaPY/7Ti3IWVxaESnhm0A=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/rm.xpi",
+          "version": "155.0"
+        },
+        "ro": {
+          "hash": "sha512-cZJaA5MUplfiBazxa/Ok7mLLd7oC7/kkO0Fv/gi0YvcXye7rQ8R8PX0WFxVEUg1wXcAQ9XVmKxbr0E2HYePokA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ro@thunderbird.mozilla.org.xpi": "sha512-VPS6EmI1ioNAle89kD6B5UsO2DltaX5XRgVTSbDgfGmic9GW3mDsF0VHJOBPYtN+jlgJj3x83E3/wNCIrHzYhg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ro.xpi",
+          "version": "155.0"
+        },
+        "ru": {
+          "hash": "sha512-FQ//E2QRyAaKrT9H0p4k0C7dzZuKPLzZVbcd3NjWLp7Y8eEIpxbwXtyFeq+McAJChP5oat+yGVbTd2X39Ok+mw==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-ru@thunderbird.mozilla.org.xpi": "sha512-zwnTAGl0QKKFVh9RzN5iQGh1piTFnqMGhNc2NCzXKZHRbGedqiQDfraTJ24H+rVhaziBp1Gdwm7JaMZr9pVAbQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/ru.xpi",
+          "version": "155.0"
+        },
+        "sk": {
+          "hash": "sha512-kQ1e6f8kjxpxjRmRor4srMPGsKcklDVni991BfVuOoMRq2tnVkw4QkYxH6Dv874PiZrYa6ljkiBIAms/SmLh0g==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sk@thunderbird.mozilla.org.xpi": "sha512-LhPNNw7V5DX0jATktU4PrlweNB5GT1QthX8gHz93k+flAUZ4pBCcZZx1SByUsAKeqCoTJn5B9TwtmXvP4Smc1w=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/sk.xpi",
+          "version": "155.0"
+        },
+        "sl": {
+          "hash": "sha512-tGCnV8RASGJHg86lopm+NVgtSMpKw2lLv6ag2fd3ruklZ3i8xxZWWPoOcO1yiTsiNehL1B1dt0m7oK2e9euP6A==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sl@thunderbird.mozilla.org.xpi": "sha512-w8uhOb1quVJ2uNrnlp+RzDRI1XjgdX1HL0J+GFHu7FeP/TErxl80VWDkJF20JLmGn8jSgWuxZl9JBvR7U87Iww=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/sl.xpi",
+          "version": "155.0"
+        },
+        "sq": {
+          "hash": "sha512-zerJ4Z1f3LmqjRvyu6/QnkpCWixNwBbO8hb0HR2jeYUFJOdB2530OrtiuwarnmLOe4btOH4p9QGU+JZF0sTNIQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sq@thunderbird.mozilla.org.xpi": "sha512-J9RtKNtw0UeHCtv2MH4vwv8qtoM+464SkQ70pGRQGOHlK3KA9iqtI+0cL9AbddIyk6TYVWvHZAJMAzK48TZSvw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/sq.xpi",
+          "version": "155.0"
+        },
+        "sr": {
+          "hash": "sha512-nJGaYk7bXhOYh4RIwzayN6hjb4yEtt8U85EBlDX14Dt2QtMx5WknXprctqmvkufc51Cvc0FWhmG7PQAaOA9PxA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sr@thunderbird.mozilla.org.xpi": "sha512-PK4uAcOZz1Dlu9s7fjBKRdxW/iLiOKs/pFEMAJmW0752YmR0oy0HdwQh6jNQ6c1QBcZALHUfTNhhOLJofOxI9w=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/sr.xpi",
+          "version": "155.0"
+        },
+        "sv-SE": {
+          "hash": "sha512-AhEEtmxxBHYxgX5JPkSo5pI8TJ3rNd4dYghNuPkfqYT7xK8afhVndXreD/u0FLbB+WjQVICjszeyRAY7UOyGuA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-sv-SE@thunderbird.mozilla.org.xpi": "sha512-9Duip4FaF6Yv4VwN8vVhdjicR3+ZFxbeDguaDXM9l0Eh5kDD7LAMXR7pBkyUKRljW3RKOmTqZgWTBQ9Bz6UPcw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/sv-SE.xpi",
+          "version": "155.0"
+        },
+        "th": {
+          "hash": "sha512-XdPHvJ4vGvTAgetf4J3NlQl8R4Olt96t0IsMODFm6WW1kEsO5u9kw/xus/Gni6oFu8G1s+dHVHUhByWhyAr0Lg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-th@thunderbird.mozilla.org.xpi": "sha512-6qDypYKljPLqUGE70qxB8W+0DynHmYvCX3QqsNG792A7wJPfoVoBiRigya/q0dNCIvLd08x6X9bIiksOJNrz+Q=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/th.xpi",
+          "version": "155.0"
+        },
+        "tr": {
+          "hash": "sha512-mZS1G4aW9iPKDYEoHaf+qBCyifnldEroBdzbRkD7rPAMJVuiZlg2U0GKRDl1ACZM5bp+8CYbzrUxEycTR3v5wQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-tr@thunderbird.mozilla.org.xpi": "sha512-DItdtrRcfSuFKDNFehKeFZM0hZEc57NU4Jv4XPnF8YMDYqJmd5nlI+ALZJLYydHIZRHLXlpbcW3VVUiMgwO30A=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/tr.xpi",
+          "version": "155.0"
+        },
+        "uk": {
+          "hash": "sha512-f4UVBTNs07RtpV5LJXPrEFna08aNebg9YaaI2aMiJDDFxC3yXx7XTzsQLv8f8u3XpSXz9tq5ZuwHu78WjULozg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-uk@thunderbird.mozilla.org.xpi": "sha512-xkLCm145BHj6K1lKmQy/B/7MbstSj5unvEoAfwEWnLMLZFebnreaGcA2OiN9bOWWF7/Hcpyk/5ZUnbvLCBitVg=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/uk.xpi",
+          "version": "155.0"
+        },
+        "uz": {
+          "hash": "sha512-caUgyeBzJnaphnWcBgZi4YbxeYR2Gu2sRnn2FsS6zH1ZkvWEOwt38cvMdEErSCrAwqLwN3kBGeNTwT2XWagKBg==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-uz@thunderbird.mozilla.org.xpi": "sha512-wOr3kKG0K5ikJNTvD5KLI4axdOghAQ+yXMhUv9BGBOPZbgBRMFBOuKZFeauTqMI9jfRRvdxQGDW1l7mAmH6SNA=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/uz.xpi",
+          "version": "155.0"
+        },
+        "vi": {
+          "hash": "sha512-n5hQgys//iIx4yW6xXz3mWE4nmAQUs60ipY6MiP3yuOi05NYEhJLRr3NF5CS5lOToIW+GqYt0YMhQALh0aEJtQ==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-vi@thunderbird.mozilla.org.xpi": "sha512-aPZAHsumwXIWaLcEy9UhrTgz2nW9rYFzZwT7jXQotBJc92xU0nSoyEToSJ2JZUm+nT50KYPLO2PpP6t0QEU4XQ=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/vi.xpi",
+          "version": "155.0"
+        },
+        "zh-CN": {
+          "hash": "sha512-2A1XNGLKmRUW8fP4aN37a3PT/9yGBQ5iHcA/up1JueJuz2Y0/tJwlLIAb0SKGWRg7uZAryvi2TYVEraclJr1zA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-zh-CN@thunderbird.mozilla.org.xpi": "sha512-MJ5kiXp2DdV+L7Zy7eBTdRtHPWHWaU3dAvzEzuVKJ62jh4SN1t7aM9a26C5n/OoaXUxPuqIDtaRQK0+UzVAlKw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/zh-CN.xpi",
+          "version": "155.0"
+        },
+        "zh-TW": {
+          "hash": "sha512-QQPm5KaO70SwNG6vTuUN4wbe+y6El4ntoJS2hrSnubZmQttyuaVpxZh6De2F1s5HrG6Kg6poLICiFMZBBUiwuA==",
+          "narHash": {
+            "share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}/langpack-zh-TW@thunderbird.mozilla.org.xpi": "sha512-HN7/PScUUhmkrG2fe8qPDS9MNAv5qu8HduP9yCN12d1KlquHomc8/oDsAWzNJODLtEomGSbafuFHUoo4OVzKGw=="
+          },
+          "url": "https://archive.mozilla.org/pub/thunderbird/releases/155.0/linux-x86_64/xpi/zh-TW.xpi",
+          "version": "155.0"
         }
       }
     }
