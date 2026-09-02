@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "deislabs";
     repo = "wagi";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Hy9IDAuLVD1PI6pPFwKTyoACQUOAuINPWgRoXOrYC7I=";
   };
 

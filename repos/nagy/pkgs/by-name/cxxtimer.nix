@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "andremaravilha";
     repo = "cxxtimer";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-+Q4ES5ZuSnq8+wddBuonAn6rDYNLYg5O+GFadaNyAyM=";
   };
 

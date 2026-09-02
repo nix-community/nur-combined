@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "outersky";
     repo = "har-tools";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-DRVO4zUdvb34T3st4+dhxxoORGncJsMD8XLWmzGdOs0=";
   };
 

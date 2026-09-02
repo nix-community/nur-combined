@@ -12,7 +12,7 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "svkozak";
     repo = "pi-acp";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-fENOOdooi4XbIDjcr02q8qzUCzdo2IW/Bca43SawZ44=";
   };
 

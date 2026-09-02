@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "yhirose";
     repo = "cpp-httplib";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-FRyc3CmJ8vnv2eSTOpypLXN6XpdzMbD6SEdzpZ2ns3A=";
   };
 

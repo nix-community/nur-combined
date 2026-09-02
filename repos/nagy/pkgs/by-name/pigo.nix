@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "esimov";
     repo = "pigo";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-0K1d/VCsUaYj/uQ2yUIsc8KdGOQVqAUSaIRnyRYdt+s=";
   };
 

@@ -12,7 +12,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "mroach";
     repo = "rom64";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-1HXDPPxrSVHN/Bggr1yeUxpZYT6vmU4XI09K0KkEsdg=";
   };
 

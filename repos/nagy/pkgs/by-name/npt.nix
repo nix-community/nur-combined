@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "nptcl";
     repo = "npt";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jDOdz5k2xWj8fkidNErNBT9oACnTwJWK5XasnMtGmQk=";
   };
 

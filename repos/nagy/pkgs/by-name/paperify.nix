@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "alisinabh";
     repo = "paperify";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-0E7wEg1K+9ccvj+ncz2a9nNZwlN8RxgpGBY/czy7WPw=";
   };
 

@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "phiresky";
     repo = "sqlite-zstd";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-mWkgU60fPQsh6N+T1nn3a0HZhKlF4HapDSg1aFNvKx8=";
   };
 

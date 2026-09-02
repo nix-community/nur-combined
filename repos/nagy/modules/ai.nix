@@ -8,9 +8,10 @@ in
 
   environment.systemPackages = [
     llmAgentsPkgs.pi
-    llmAgentsPkgs.omp
+    # llmAgentsPkgs.omp
+    # llmAgentsPkgs.dsh # deepseek harness
 
-    pkgs.llama-cpp-vulkan
+    pkgs.llama-cpp # -vulkan
     # pkgs.aichat
     self.llm-ttok
   ];

@@ -12,7 +12,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "pcasteran";
     repo = "terraform-graph-beautifier";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-+IuZOgnxYVR3X7RQbXbrOvfQVJ02+UYedvq+A3WaSS4=";
   };
 

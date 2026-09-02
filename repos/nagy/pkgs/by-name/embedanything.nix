@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "StarlightSearch";
     repo = "EmbedAnything";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-1wFHYSYiyc7oGEUEfTywvyLORbpCxLluC3BYT9Y0tCc=";
   };
 

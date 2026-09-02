@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "martinellimarco";
     repo = "libzstd-seek";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-cBq1n4X+9hxCqj3oieP5bAKBzVjuf3hBepX29bO9QI4=";
   };
 

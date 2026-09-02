@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "apertium";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-/NdXRr5ic1D3tP3NazXF5R3RkD1H0nuMF2RWxXBDa/I=";
   };
 

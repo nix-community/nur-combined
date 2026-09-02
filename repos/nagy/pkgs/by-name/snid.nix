@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "AGWA";
     repo = "snid";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-syKEtG/B1Yy0BAQqlR6o4uIRSwCnFOBsPpV4arqO/I4=";
   };
 

@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "f";
     repo = "mcptools";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-UFK57MzsxoLdtdFhhQ+x57LomyOBijxyHkOCgj6NuJI=";
   };
 

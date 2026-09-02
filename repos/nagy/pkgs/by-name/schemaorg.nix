@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "schemaorg";
     repo = "schemaorg";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-yWaej3mOxI0eBYnNFBs/4vYldxcooq91fDDdS5wfVHk=";
   };
 

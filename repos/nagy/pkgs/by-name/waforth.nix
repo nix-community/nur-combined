@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "remko";
     repo = "waforth";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-xcYnS7eVSME50b8obj7tIg0Nwx7sN2ndleucwAm/YXA=";
   };
 

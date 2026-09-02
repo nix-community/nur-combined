@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "segmentio";
     repo = "ksuid";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-50molk1vt8/n4Y+ruayW/EAn9NeeQ8ApmLJQVePhieE=";
   };
 

@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "cococonscious";
     repo = "koji";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-qKC4ayaNPSUh4wSElBWxk/P+Y2dFgCIFiMkI0/QztDY=";
   };
 
