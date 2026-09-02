@@ -70,6 +70,8 @@ buildNpmPackage (finalAttrs: {
 
     makeWrapper ${nodejs_22}/bin/node $out/bin/kicad-mcp-server \
       --set KICAD_PYTHON ${pythonEnv}/bin/python \
+      --set KICAD_CLI ${kicad.base}/bin/kicad-cli \
+      --prefix PATH : ${kicad.base}/bin \
       --prefix PYTHONPATH : ${kicadSite} \
       --prefix LD_LIBRARY_PATH : ${kicad.base}/lib \
       --add-flags "$installDir/dist/index.js"
