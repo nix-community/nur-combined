@@ -7,9 +7,9 @@ let
   pkg = terraform-providers.mkProvider {
     owner = "mikluko";
     repo = "terraform-provider-nsc";
-    rev = "v0.13.2";
-    hash = "sha256-mKhp9FtqbWYd0bUlwRtQz2dNr+C2wmBoXprwPkNjOuc=";
-    vendorHash = "sha256-Wig5xyCQ/K1B+oH3yhZ+uZdmTzTTiyefbDhtKO4uA/c=";
+    rev = "v0.14.0";
+    hash = "sha256-qDmnWtW/fzFwO8JP3ViDhBG5yVq51WHVgjTPUZAiepQ=";
+    vendorHash = "sha256-iaR/DysFwbsOGWGsOrc+yzT9QsaDpa+mBNU+GvgVNjA=";
     provider-source-address = "registry.terraform.io/mikluko/nsc";
     homepage = "https://github.com/mikluko/terraform-provider-nsc";
     spdx = "MIT";

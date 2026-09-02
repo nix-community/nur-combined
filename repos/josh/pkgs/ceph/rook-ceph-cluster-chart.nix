@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://charts.rook.io/release/";
   chart = "rook-ceph-cluster";
-  version = "1.20.6";
-  hash = "sha256-ZpXwHpZwMdyPG0/qMinT93iPlYS9BV758Uxr6+wxalo=";
+  version = "1.20.7";
+  hash = "sha256-Mhsi/yxaEfIHsVEZ5AzB+y4qDi7GnMNsg7gNey5VR+Q=";
 
   meta = {
     description = "Manages a single Ceph cluster namespace for Rook";
