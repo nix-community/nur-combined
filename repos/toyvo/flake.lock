@@ -570,24 +570,6 @@
         "type": "github"
       }
     },
-    "nh": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_13"
-      },
-      "locked": {
-        "lastModified": 1746970529,
-        "narHash": "sha256-wGvgdmfouiM3jdIdnRRgA8qySJra0DLcenwk2geM2Xc=",
-        "owner": "toyvo",
-        "repo": "nh",
-        "rev": "bf935c422a372edcd51e9c9e3dca9474dd1c6f97",
-        "type": "github"
-      },
-      "original": {
-        "owner": "toyvo",
-        "repo": "nh",
-        "type": "github"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -1353,7 +1335,6 @@
         "home-manager": "home-manager_2",
         "jovian": "jovian",
         "mac-app-util": "mac-app-util",
-        "nh": "nh",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
         "nixos-avf": "nixos-avf",

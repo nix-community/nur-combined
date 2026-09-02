@@ -21,7 +21,6 @@ in
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.default
-    inputs.nh.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nixos-unstable.nixosModules.notDetected
     inputs.nur.modules.nixos.default

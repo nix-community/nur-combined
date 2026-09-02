@@ -12,11 +12,6 @@ in
     programs = {
       zsh.enable = true;
       fish.enable = true;
-      nh = {
-        enable = true;
-        flake = "${config.users.users.${config.userPresets.toyvo.name}.home}/nixcfg";
-        clean.enable = true;
-      };
     };
     environment =
       let

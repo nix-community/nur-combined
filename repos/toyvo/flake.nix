@@ -26,7 +26,6 @@
     };
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     mac-app-util.url = "github:hraban/mac-app-util";
-    nh.url = "github:toyvo/nh";
     odysseus = {
       url = "github:odysseus-dev/odysseus/dev";
       flake = false;

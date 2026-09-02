@@ -12,7 +12,6 @@
     inputs.nixcfg.modules.darwin.default
     inputs.home-manager.darwinModules.default
     inputs.mac-app-util.darwinModules.default
-    inputs.nh.nixDarwinModules.prebuiltin
     inputs.nix-index-database.darwinModules.nix-index
     inputs.nur.modules.darwin.default
     inputs.sops-nix.darwinModules.sops

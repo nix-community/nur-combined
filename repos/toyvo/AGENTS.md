@@ -47,11 +47,9 @@ nix develop                      # Enter dev shell with tools and git hooks
 ```bash
 # NixOS
 nixos-rebuild switch --flake .#<hostname>
-nh os switch ~/nixcfg
 
 # nix-darwin (macOS)
 darwin-rebuild switch --flake .#<hostname>
-nh darwin switch ~/nixcfg
 
 # Home Manager
 home-manager switch --flake .#<hostname>
