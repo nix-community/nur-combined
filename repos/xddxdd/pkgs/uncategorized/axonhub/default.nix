@@ -11,13 +11,13 @@
   stdenv,
 }:
 let
-  version = "1.0.0-beta7";
+  version = "1.0.0-beta8";
 
   src = fetchFromGitHub {
     owner = "looplj";
     repo = "axonhub";
     tag = "v${version}";
-    hash = "sha256-I7ztVjNcTT7o4g5DBjrQU9tLjVUH2l7EbPvdqqYthTQ=";
+    hash = "sha256-fQY/yUoqCLXTsb3M3L+9GaXRDyQ/B0k4zY9fs480cIg=";
   };
 
   frontendPnpmDeps = fetchPnpmDeps {
@@ -57,7 +57,7 @@ in
 buildGoModule (finalAttrs: {
   pname = "axonhub";
   inherit version src;
-  vendorHash = "sha256-RyjXygorzbWzrMIeAVdjiF0wkHL9aZJFdpVnnbc693E=";
+  vendorHash = "sha256-K18rrVXTwiFlPFGjVyvTLQbuohOBT7N7igqw0mkoWPk=";
 
   tags = [ "nomsgpack" ];
 
