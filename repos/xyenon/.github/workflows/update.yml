@@ -87,4 +87,4 @@ jobs:
           gh pr edit "$UPDATE_BRANCH" --body-file /tmp/pr_body.md
       - name: Enable auto-merge
         if: steps.changes.outputs.has_changes == 'true'
-        run: gh pr merge "$UPDATE_BRANCH" --auto --squash
+        run: gh pr merge "$UPDATE_BRANCH" --auto --rebase --delete-branch
