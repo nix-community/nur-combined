@@ -201,7 +201,8 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.agpl3Only;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
-      binaryBytecode # resources/afp/afp.mjs
+      obfuscatedCode # resources/afp/afp.mjs
+      binaryBytecode # resources/afp/afp.wasm.mjs
     ];
     maintainers = with lib.maintainers; [ ccicnce113424 ];
     mainProgram = "SPlayer-Next";
