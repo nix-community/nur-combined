@@ -99,6 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
         "ja4-nginx-module"
         "nginx-auth-jwt"
         "nginx-oidc"
+        "ngx_http_js_challenge_module"
       ];
 
       patch = p: "echo ${p} && patch -p1 < ${p}";
@@ -188,6 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--add-module=bundle/ja4-nginx-module"
     "--add-module=bundle/nginx-auth-jwt"
     "--add-module=bundle/nginx-oidc"
+    "--add-module=bundle/ngx_http_js_challenge_module"
     # "--without-http_encrypted_session_module" # Conflict with quic stuff
 
     # NixOS paths

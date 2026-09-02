@@ -5,6 +5,12 @@
     "repo": "ja4-nginx-module",
     "rev": "6a104dc2be609cca61a875e1d97a73fbffd9f210"
   },
+  "ngx_http_js_challenge_module": {
+    "hash": "sha256-CaOO8naCyq26GFjlCf8s1xL9Nccwb/zVgnDZ0f+mKU8=",
+    "owner": "simon987",
+    "repo": "ngx_http_js_challenge_module",
+    "rev": "da6852df4103492f9136ef814cda0c7d402e0a90"
+  },
   "nginx-auth-jwt": {
     "fetchSubmodules": true,
     "hash": "sha256-XOIA1wjNyXFWDWwx9ZVDCn0SW8vrHbzFnGZWW81SRn8=",
