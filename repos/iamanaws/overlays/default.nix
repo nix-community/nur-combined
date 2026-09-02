@@ -12,7 +12,7 @@ let
     t3code = prev.t3code.override {
       t3code-unwrapped = final.callPackage "${
         final.applyPatches {
-          name = "t3code-0.0.37-source";
+          name = "t3code-0.0.38-source";
           src = "${prev.path}/pkgs/by-name/t3/t3code";
           patches = [
             (final.fetchpatch2 {
@@ -21,7 +21,7 @@ let
             })
             (final.fetchpatch2 {
               url = "https://github.com/NixOS/nixpkgs/pull/558233.patch?full_index=1";
-              hash = "sha256-JVwVJ6L7rBKDkyk6fUT3fZqp04MxPWV4bGx1B/CcBNQ=";
+              hash = "sha256-En2vohfsmz1JuzEuu5ZqAh+08sp6rK4l0E9+xQZaMtw=";
             })
           ];
           patchFlags = [ "-p5" ];
