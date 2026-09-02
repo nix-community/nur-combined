@@ -20,6 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru = {
     updateScript = nix-update-script {
       extraArgs = [
+        "--flake"
         "--version=unstable"
       ];
     };

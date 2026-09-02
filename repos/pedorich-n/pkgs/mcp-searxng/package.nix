@@ -20,7 +20,11 @@ buildNpmPackage (finalAttrs: {
   strictDeps = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--flake"
+      ];
+    };
   };
 
   meta = {

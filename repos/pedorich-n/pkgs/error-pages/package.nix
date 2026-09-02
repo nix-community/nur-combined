@@ -37,7 +37,11 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--flake"
+      ];
+    };
   };
 
   meta = {

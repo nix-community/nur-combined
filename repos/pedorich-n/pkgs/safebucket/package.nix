@@ -36,6 +36,7 @@ buildGoModule (finalAttrs: {
   passthru = {
     updateScript = nix-update-script {
       extraArgs = [
+        "--flake"
         "--subpackage"
         "frontend"
       ];
