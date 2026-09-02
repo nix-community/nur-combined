@@ -282,7 +282,11 @@
             };
           };
         };
-        systems = nixos-unstable.lib.systems.flakeExposed;
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+        ];
         imports = [
           devshell.flakeModule
           flake-parts.flakeModules.easyOverlay
