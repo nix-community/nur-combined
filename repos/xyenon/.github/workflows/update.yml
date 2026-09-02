@@ -17,6 +17,7 @@ jobs:
       # GITHUB_TOKEN-created PRs leave pull_request workflows in "Approve workflows to run".
       # A PAT (or GitHub App token) creates/updates the PR as a normal user so checks start immediately.
       GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+      HAS_GH_PAT: ${{ secrets.GH_PAT != '' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -25,7 +26,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT || github.token }}
       - name: Warn if GH_PAT is missing
-        if: ${{ secrets.GH_PAT == '' }}
+        if: env.HAS_GH_PAT != 'true'
         run: echo '::warning::Set repository secret GH_PAT so auto-update PRs run checks without manual approval.'
       - name: Prepare update branch
         run: |
@@ -84,3 +85,6 @@ jobs:
             --title "Automated package updates" \
             --body-file /tmp/pr_body.md || \
           gh pr edit "$UPDATE_BRANCH" --body-file /tmp/pr_body.md
+      - name: Enable auto-merge
+        if: steps.changes.outputs.has_changes == 'true'
+        run: gh pr merge "$UPDATE_BRANCH" --auto --squash
