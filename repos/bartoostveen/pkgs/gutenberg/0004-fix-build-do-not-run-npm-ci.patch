@@ -1,4 +1,4 @@
-From 119ea565c631e9a5dd309639058b04874099cf0f Mon Sep 17 00:00:00 2001
+From 8e6d9707be249a5aa35fbffa99e95221a08b1e76 Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Sun, 5 Jul 2026 21:27:35 +0200
 Subject: [PATCH 4/5] fix(build): do not run npm ci
@@ -8,7 +8,7 @@ Subject: [PATCH 4/5] fix(build): do not run npm ci
  1 file changed, 4 deletions(-)
 
 diff --git a/bin/build-plugin-zip.sh b/bin/build-plugin-zip.sh
-index 10f6edf8467..92e29ee3a11 100755
+index 7eacc823530..761ed2010b5 100755
 --- a/bin/build-plugin-zip.sh
 +++ b/bin/build-plugin-zip.sh
 @@ -73,10 +73,6 @@ if [ -z "$NO_CHECKS" ]; then
@@ -20,7 +20,7 @@ index 10f6edf8467..92e29ee3a11 100755
 -npm cache verify
 -npm ci
  status "Generating build... 👷‍♀️"
- npm run build -- --skip-types
+ npm run build
  
 -- 
 2.55.0

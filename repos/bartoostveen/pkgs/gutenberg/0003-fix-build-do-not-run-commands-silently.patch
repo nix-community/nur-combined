@@ -1,4 +1,4 @@
-From 5bcb3bd7bd2c5d7af4f04f3c22171fb19e62e2db Mon Sep 17 00:00:00 2001
+From 5512d5f3869bc5afa7703caf2fefc923724b6142 Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Mon, 6 Jul 2026 23:25:15 +0200
 Subject: [PATCH 3/5] fix(build): do not run commands silently
@@ -8,14 +8,13 @@ Subject: [PATCH 3/5] fix(build): do not run commands silently
  1 file changed, 43 insertions(+), 103 deletions(-)
 
 diff --git a/tools/build-scripts/build.mjs b/tools/build-scripts/build.mjs
-index 9df3264c5be..7e997ff898a 100644
+index 7d1f4f9d564..003113fcdd9 100644
 --- a/tools/build-scripts/build.mjs
 +++ b/tools/build-scripts/build.mjs
-@@ -1,73 +1,38 @@
+@@ -1,72 +1,37 @@
  #!/usr/bin/env node
 +
  import { fileURLToPath } from 'url';
- import { parseArgs } from 'util';
  import path from 'path';
 -import spawn from 'cross-spawn';
 +import { spawn } from 'child_process';
@@ -98,7 +97,7 @@ index 9df3264c5be..7e997ff898a 100644
  	} );
  }
  
-@@ -88,45 +53,8 @@ async function build() {
+@@ -79,45 +44,8 @@ async function build() {
  	const startTime = Date.now();
  
  	try {
@@ -145,11 +144,11 @@ index 9df3264c5be..7e997ff898a 100644
  
  		// This must happen before TypeScript compilation because some packages
  		// (like vips) have source files that import from generated worker-code.ts
-@@ -164,9 +92,20 @@ async function build() {
- 		const buildArgs = process.argv
- 			.slice( 2 )
- 			.filter( ( arg ) => arg !== '--skip-types' );
--		await exec( 'wp-build', buildArgs, {
+@@ -150,9 +78,20 @@ async function build() {
+ 		] );
+ 
+ 		console.log( '\n📦 Building packages (production mode)...' );
+-		await exec( 'wp-build', process.argv.slice( 2 ), {
 -			env: { ...process.env, NODE_ENV: 'production' },
 -		} );
 +		await exec(
@@ -159,7 +158,7 @@ index 9df3264c5be..7e997ff898a 100644
 +					ROOT_DIR,
 +					'node_modules/@wordpress/build/lib/build.mjs'
 +				),
-+				...buildArgs,
++				...process.argv.slice( 2 ),
 +			],
 +			{
 +				stdio: 'inherit',
@@ -169,7 +168,7 @@ index 9df3264c5be..7e997ff898a 100644
  
  		console.log( '\n📦 Building blocks manifests...' );
  		const blocksDirs = [
-@@ -184,23 +123,24 @@ async function build() {
+@@ -170,23 +109,24 @@ async function build() {
  			},
  		];
  		for ( const { input, output } of blocksDirs ) {

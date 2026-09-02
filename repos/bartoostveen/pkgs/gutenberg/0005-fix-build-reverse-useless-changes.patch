@@ -1,4 +1,4 @@
-From 881419dd7a57118ca33e5d951a358c371f92c983 Mon Sep 17 00:00:00 2001
+From f1f8fdbe10a1a6c424e51dc4e8cd5dd1704ae229 Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Wed, 5 Aug 2026 17:38:02 +0200
 Subject: [PATCH 5/5] fix(build): reverse useless changes
@@ -8,7 +8,7 @@ Subject: [PATCH 5/5] fix(build): reverse useless changes
  1 file changed, 28 deletions(-)
 
 diff --git a/bin/build-plugin-zip.sh b/bin/build-plugin-zip.sh
-index 92e29ee3a11..b0ff21c9093 100755
+index 761ed2010b5..cc3607d03a9 100755
 --- a/bin/build-plugin-zip.sh
 +++ b/bin/build-plugin-zip.sh
 @@ -63,35 +63,11 @@ if [ -z "$NO_CHECKS" ]; then
@@ -26,7 +26,7 @@ index 92e29ee3a11..b0ff21c9093 100755
  fi
  
  status "Generating build... 👷‍♀️"
- npm run build -- --skip-types
+ npm run build
  
 -# Only including public icons when building for WordPress Core.
 -#
