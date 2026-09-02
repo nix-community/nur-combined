@@ -10,15 +10,34 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
+let
+  # Poor man's `packagesFromDirectoryRecursive`. Due to NUR's limitations, we can't use `lib` here, so we have to reimplement it.
+  # We also assumed that all packages and modules are one level deep, and named accordingly.
+  pkgsDir = ./pkgs;
+  modulesDir = ./modules/nixos;
+
+  packagePathFor = name: pkgsDir + "/${name}/package.nix";
+  modulePathFor = name: modulesDir + "/${name}/module.nix";
+
+  pkgNames = builtins.filter (n: builtins.pathExists (packagePathFor n)) (builtins.attrNames (builtins.readDir pkgsDir));
+  moduleNames = builtins.filter (n: builtins.pathExists (modulePathFor n)) (builtins.attrNames (builtins.readDir modulesDir));
+
+  packages = builtins.listToAttrs (
+    map (n: {
+      name = n;
+      value = pkgs.callPackage (packagePathFor n) { };
+    }) pkgNames
+  );
+
+  nixosModules = builtins.listToAttrs (
+    map (n: {
+      name = n;
+      value = modulePathFor n;
+    }) moduleNames
+  );
+in
 {
-  lib = import ./lib { inherit (pkgs) lib; };
   overlays = import ./overlays;
-  # Can't use `lib.modulesFromDirectoryRecursive` here because that would require `pkgs.lib`,
-  # and NUR doesn't provide `pkgs` when evaluating this file. So we have to manually list the modules here.
-  # See https://github.com/nix-community/NUR/blob/50b7a2/flake.nix#L46
-    nixosModules = {
-      mcp-searxng = ./modules/nixos/mcp-searxng/module.nix;
-      safebucket = ./modules/nixos/safebucket/module.nix;
-      rustic-exporter = ./modules/nixos/rustic-exporter/module.nix;
-    };
+  inherit nixosModules;
 }
+// packages

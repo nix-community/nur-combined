@@ -1,3 +1,3 @@
 {
-  flake.overlays = import ../overlays;
+  flake.overlays = (import ../default.nix { pkgs = null; }).overlays;
 }

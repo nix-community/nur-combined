@@ -1,5 +1,4 @@
 {
-  self,
   inputs,
   ...
 }:
@@ -8,9 +7,5 @@
     inputs.flake-parts.flakeModules.modules
   ];
 
-  flake.modules = {
-    nixos = self.lib.modulesFromDirectoryRecursive {
-      directory = ../modules/nixos;
-    };
-  };
+  flake.modules.nixos = (import ../default.nix { pkgs = null; }).nixosModules;
 }

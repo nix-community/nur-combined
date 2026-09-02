@@ -11,12 +11,13 @@
       lib,
       ...
     }:
+    let
+      attrs = import ../default.nix { inherit pkgs; };
+      reserved = import ../reserved-names.nix;
+    in
     {
       packages = lib.mkMerge [
-        (import ../packages.nix {
-          inherit pkgs;
-          inherit lib;
-        })
+        (removeAttrs attrs reserved)
         {
           docs = pkgs.callPackage ../dev/pkgs/docs-generate {
             ndg-builder = inputs.ndg.packages.${system}.ndg-builder.override { inherit (pkgs) ndg; };

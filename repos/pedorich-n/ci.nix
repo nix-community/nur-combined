@@ -13,7 +13,9 @@
 
 with builtins;
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "nixosModules" || n == "homeModules" || n == "darwinModules" || n == "flakeModules";
+  reserved = import ./reserved-names.nix;
+  isReserved = n: builtins.elem n reserved;
+
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: let
     licenseFromMeta = p.meta.license or [];

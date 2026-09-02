@@ -1,10 +1,15 @@
 {
+  go,
+  go_1_27,
   fetchFromGitHub,
   buildGoModule,
   nix-update-script,
   lib,
 }:
-buildGoModule (finalAttrs: {
+let
+  buildGoModuleAtLeast127 = if (lib.versionAtLeast go.version "1.27") then buildGoModule else buildGoModule.override { go = go_1_27; };
+in
+buildGoModuleAtLeast127 (finalAttrs: {
   pname = "error-pages";
   version = "4.2.5";
 
