@@ -3,18 +3,13 @@
 let
   oneapiSupport = pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86_64;
 
-  intelComputeRuntime = pkgs.intel-compute-runtime.overrideAttrs (old: {
-    cmakeFlags = old.cmakeFlags ++ [
-      (pkgs.lib.cmakeBool "NEO_BUILD_UNVERSIONED_OCLOC" true)
-    ];
-  });
 in
 if oneapiSupport then
   pkgs.blender.overrideAttrs (oldAttrs: {
     buildInputs = oldAttrs.buildInputs ++ [
       pkgs.intel-llvm
       pkgs.level-zero
-      intelComputeRuntime
+      pkgs.intel-compute-runtime
     ];
 
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
@@ -29,7 +24,7 @@ if oneapiSupport then
         (pkgs.lib.cmakeFeature "SYCL_ROOT_DIR" "${pkgs.intel-llvm}")
         (pkgs.lib.cmakeFeature "LEVEL_ZERO_ROOT_DIR" "${pkgs.level-zero}")
         (pkgs.lib.cmakeBool "WITH_CYCLES_ONEAPI_BINARIES" true)
-        (pkgs.lib.cmakeFeature "OCLOC_INSTALL_DIR" "${intelComputeRuntime}")
+        (pkgs.lib.cmakeFeature "OCLOC_INSTALL_DIR" "${pkgs.intel-compute-runtime}")
         (pkgs.lib.cmakeFeature "IGC_INSTALL_DIR" "${pkgs.intel-graphics-compiler}")
       ];
 

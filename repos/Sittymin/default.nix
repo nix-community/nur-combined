@@ -23,6 +23,9 @@ in
   guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
   libmks = pkgs.callPackage ./pkgs/libmks { };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
+  muse-code = pkgs.callPackage ./pkgs/muse-code { };
+  qoder-cli = pkgs.callPackage ./pkgs/qoder-cli { };
+  zcode = pkgs.callPackage ./pkgs/zcode { };
 
   # Blender with Intel oneAPI (Intel Arc / integrated GPU) Cycles support.
   inherit blender;
