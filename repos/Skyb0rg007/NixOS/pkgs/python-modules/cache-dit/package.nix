@@ -13,14 +13,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "cache-dit";
-  version = "1.5.0";
+  version = "1.5.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "vipshop";
     repo = "cache-dit";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zOgB1mAgW7MKFjElIbHFDQBwQET6erAK1MBcyMHpXkg=";
+    hash = "sha256-djSIC/NUJ1rtpOhfqkPyohQaG1kHVKMKX5MNLcVNumE=";
   };
 
   build-system = [
