@@ -223,15 +223,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "1b87483949c6cd69b1fdf58a09f70cd0cf932507";
+    version = "1556b7289b6b7300c52bcce2634de992a1a02c50";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "1b87483949c6cd69b1fdf58a09f70cd0cf932507";
+      rev = "1556b7289b6b7300c52bcce2634de992a1a02c50";
       fetchSubmodules = true;
-      sha256 = "sha256-rJlR7KzQJiSTsXxr8e8CBR4qC0MrYDhWk3R0Dp944hA=";
+      sha256 = "sha256-ISl01PWXTMO5OFMV1zIjn3h5TyAOw3NgJmbPdc2FPck=";
     };
-    date = "2026-09-01";
+    date = "2026-09-02";
   };
   replay-fish = {
     pname = "replay-fish";
