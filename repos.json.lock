@@ -647,11 +647,6 @@
             "sha256": "1ks4djn4fvn21i2nfi8687mq2r3d8i0y0yimamzdg9ry4rffi427",
             "url": "https://github.com/codgician/nur-packages"
         },
-        "colinsane": {
-            "rev": "fa8842c755bc72b0ac48a94e65acef3b3b9e4c44",
-            "sha256": "0w7hx01l7adh7vx6vydd32fjd0jzifksnzwbhc2qani66083xkx3",
-            "url": "https://git.uninsane.org/colin/nix-files"
-        },
         "colorman": {
             "rev": "26215976a192e9f0e1366f414e801963951bfad1",
             "sha256": "0ppw5swkg0awp2vh439fp0msa4sf2p49fq9zrc47h93y90s2vihg",
@@ -2522,8 +2517,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "0aff036894da0e88710ed338b9ef2a0de818dbb9",
-            "sha256": "0d43g9hwma9ixyix3bi9b3l2p6mjmzakqf2jw0b9p7xjf9chl6p9",
+            "rev": "c0fd4dbac5595fc58ceb00f38f78292e7101b8b2",
+            "sha256": "0mh3f27fb9qn6cx5a2fpsbn0fgfbl9k942iffk7mdp2hznb6mmyx",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
