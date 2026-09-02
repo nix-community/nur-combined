@@ -19,7 +19,7 @@ tmuxPlugins.mkTmuxPlugin {
     hash = "sha256-A4PxrkUGZHjIt0np95848quUo42i+4CX9LwOJ5ek0/Y=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=main" ]; };
 
   meta = {
     description = "Tmux plugin that contains several themes for tmux status line";
