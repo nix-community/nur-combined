@@ -75,11 +75,15 @@ stdenv.mkDerivation {
 
     mkdir -p "$out/bin" "$out/share"
 
-    # Upstream's x86_64 archive is already laid out like an installation,
-    # while the aarch64 archive keeps its executables and data at its root.
+    # Older releases use either an installed x86_64 tree (bin/ + share/)
+    # or a flat aarch64 tree.  Since 0.0.16, both targets use the installed
+    # tree and keep the preloaded dump in libexec/neomacs/<version>/<target>.
     if [[ -d bin ]]; then
       cp -r bin/. "$out/bin/"
       cp -r share/neomacs "$out/share/neomacs"
+      if [[ -d libexec ]]; then
+        cp -r libexec "$out/"
+      fi
     else
       install -Dm755 neomacs neomacsclient -t "$out/bin"
       install -Dm444 neomacs.pdump "$out/bin/neomacs.pdump"
@@ -117,10 +121,11 @@ stdenv.mkDerivation {
       fi
     done
 
-    # Neomacs canonicalizes current_exe before looking for its sibling dump.
-    # makeWrapper renames that executable, so give the wrapped name the same
-    # prebuilt runtime image instead of falling back to a slow Lisp bootstrap.
-    ln -s neomacs.pdump "$out/bin/.neomacs-wrapped.pdump"
+    # The old flat layout keeps the dump beside the executable.  Newer
+    # releases place it in libexec, where the runtime resolver expects it.
+    if [[ -f "$out/bin/neomacs.pdump" ]]; then
+      ln -s neomacs.pdump "$out/bin/.neomacs-wrapped.pdump"
+    fi
   '';
 
   meta = {
