@@ -5,8 +5,6 @@
   fetchPnpmDeps,
   rustPlatform,
   callPackage,
-  libpulseaudio,
-  pipewire,
 }:
 let
   splayer-next = callPackage ./package.nix { };
@@ -22,13 +20,8 @@ splayer-next.overrideAttrs (
       fetcherVersion = 4;
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
-    buildInputs = prev.buildInputs ++ [
-      libpulseaudio
-      pipewire
-    ];
-    postPatch = prev.postPatch + ''
-      substituteInPlace electron/main/services/recognition/fingerprint.ts \
-        --replace-fail 'process.resourcesPath' "'$out/share/splayer-next/resources'"
+    prePatch = ''
+      echo ${sources.src.rev} > $out/COMMIT
     '';
   }
 )
