@@ -5,6 +5,7 @@
   nix-update-script,
   git,
   installShellFiles,
+  versionCheckHook,
   ...
 }:
 
@@ -38,6 +39,13 @@ buildGoModule (finalAttrs: {
   nativeCheckInputs = [
     git
   ];
+
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
+
+  versionCheckProgramArg = [ "version" ];
+  doInstallCheck = true;
 
   checkFlags =
     let
@@ -77,6 +85,7 @@ buildGoModule (finalAttrs: {
     description = "Dagger is an integrated platform to orchestrate the delivery of applications";
     homepage = "https://dagger.io";
     license = lib.licenses.asl20;
+    mainProgram = "dagger";
 
     platforms = [
       "aarch64-linux"
