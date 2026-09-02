@@ -11272,7 +11272,7 @@ rec {
           }
           {
             name = "wasm-encoder";
-            packageId = "wasm-encoder 0.257.1";
+            packageId = "wasm-encoder 0.258.0";
           }
           {
             name = "wasmparser";
@@ -11823,6 +11823,11 @@ rec {
             usesDefaultFeatures = false;
             features = [ "std" "attributes" ];
           }
+          {
+            name = "webpki-root-certs";
+            packageId = "webpki-root-certs";
+            usesDefaultFeatures = false;
+          }
         ];
         devDependencies = [
           {
@@ -12082,6 +12087,11 @@ rec {
             packageId = "uuid";
             usesDefaultFeatures = false;
             features = [ "serde" "v3" "v4" "std" ];
+          }
+          {
+            name = "webpki-root-certs";
+            packageId = "webpki-root-certs";
+            usesDefaultFeatures = false;
           }
         ];
         devDependencies = [
@@ -12518,7 +12528,7 @@ rec {
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.52.0";
+            packageId = "windows-sys 0.61.2";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_System_IO" "Win32_Networking_WinSock" ];
           }
@@ -15237,7 +15247,7 @@ rec {
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.52.0";
+            packageId = "windows-sys 0.61.2";
             usesDefaultFeatures = false;
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_Security_Cryptography" ];
@@ -18907,37 +18917,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "component-model" "default" "std" "wasmparser" ];
       };
-      "wasm-encoder 0.257.1" = rec {
-        crateName = "wasm-encoder";
-        version = "0.257.1";
-        edition = "2024";
-        sha256 = "11fh73vlp4rkqidls5a21b954bkf65n4iri2v9xqcl4hlgqdk2kx";
-        libName = "wasm_encoder";
-        authors = [
-          "Nick Fitzgerald <fitzgen@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "leb128fmt";
-            packageId = "leb128fmt";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "wasmparser";
-            packageId = "wasmparser 0.257.1";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "simd" "simd" ];
-          }
-        ];
-        features = {
-          "component-model" = [ "wasmparser?/component-model" ];
-          "default" = [ "std" "component-model" ];
-          "std" = [ "wasmparser?/std" ];
-          "wasmparser" = [ "dep:wasmparser" ];
-        };
-        resolvedDefaultFeatures = [ "component-model" "default" "std" ];
-      };
       "wasm-encoder 0.258.0" = rec {
         crateName = "wasm-encoder";
         version = "0.258.0";
@@ -18967,7 +18946,7 @@ rec {
           "std" = [ "wasmparser?/std" ];
           "wasmparser" = [ "dep:wasmparser" ];
         };
-        resolvedDefaultFeatures = [ "component-model" "std" "wasmparser" ];
+        resolvedDefaultFeatures = [ "component-model" "default" "std" "wasmparser" ];
       };
       "wasm-metadata 0.254.0" = rec {
         crateName = "wasm-metadata";
@@ -19093,41 +19072,6 @@ rec {
           "std" = [ "indexmap?/std" ];
         };
         resolvedDefaultFeatures = [ "component-model" "features" "hash-collections" "serde" "simd" "std" "validate" ];
-      };
-      "wasmparser 0.257.1" = rec {
-        crateName = "wasmparser";
-        version = "0.257.1";
-        edition = "2024";
-        sha256 = "0jibgqhnwgc36f1j0wijmhahqci8ksv2d2qxv9mz8j3dzcsw6byr";
-        authors = [
-          "Yury Delendik <ydelendik@mozilla.com>"
-        ];
-        dependencies = [
-          {
-            name = "bitflags";
-            packageId = "bitflags 2.13.1";
-          }
-          {
-            name = "indexmap";
-            packageId = "indexmap";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "semver";
-            packageId = "semver";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "component-model" = [ "dep:semver" ];
-          "default" = [ "std" "validate" "serde" "features" "component-model" "hash-collections" "simd" ];
-          "hash-collections" = [ "dep:hashbrown" "dep:indexmap" ];
-          "serde" = [ "dep:serde" "indexmap?/serde" "hashbrown?/serde" ];
-          "std" = [ "indexmap?/std" ];
-        };
-        resolvedDefaultFeatures = [ "component-model" "features" "simd" "std" "validate" ];
       };
       "wasmparser 0.258.0" = rec {
         crateName = "wasmparser";
@@ -22284,7 +22228,7 @@ rec {
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_Security" "Win32_Security_Cryptography" "Win32_System" "Win32_System_IO" "Win32_System_Threading" "default" ];
+        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_System" "Win32_System_Threading" "default" ];
       };
       "windows-sys 0.59.0" = rec {
         crateName = "windows-sys";
@@ -23731,9 +23675,9 @@ rec {
       };
       "wit-encoder" = rec {
         crateName = "wit-encoder";
-        version = "0.257.1";
+        version = "0.258.0";
         edition = "2024";
-        sha256 = "0s9y9p3sinspm67j4wlmzxcj3ra6ddmlpdaq17xckp58vp8rm0ay";
+        sha256 = "085j286282zdv8vcj109lbys3s8kkb27slsknmd1yiv740lp65n5";
         libName = "wit_encoder";
         dependencies = [
           {
@@ -23760,7 +23704,7 @@ rec {
           }
           {
             name = "wit-parser";
-            packageId = "wit-parser 0.257.1";
+            packageId = "wit-parser 0.258.0";
             optional = true;
           }
         ];
@@ -23837,91 +23781,6 @@ rec {
           {
             name = "wasmparser";
             packageId = "wasmparser 0.254.0";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "simd" "std" "validate" "component-model" "features" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-        ];
-        features = {
-          "decoding" = [ "std" "dep:wasmparser" ];
-          "default" = [ "std" "serde" "decoding" ];
-          "serde" = [ "dep:serde" "dep:serde_derive" "indexmap/serde" "serde_json" ];
-          "serde_json" = [ "dep:serde_json" ];
-          "std" = [ "semver/std" ];
-          "wat" = [ "decoding" "dep:wat" ];
-        };
-        resolvedDefaultFeatures = [ "decoding" "default" "serde" "serde_json" "std" ];
-      };
-      "wit-parser 0.257.1" = rec {
-        crateName = "wit-parser";
-        version = "0.257.1";
-        edition = "2024";
-        sha256 = "1bi4zcjnqxnjjnqjgdmrawsni5ml0fsmc7p2b9vxjrdvy10570bg";
-        libName = "wit_parser";
-        authors = [
-          "Alex Crichton <alex@alexcrichton.com>"
-        ];
-        dependencies = [
-          {
-            name = "anyhow";
-            packageId = "anyhow";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "hashbrown";
-            packageId = "hashbrown 0.17.1";
-            usesDefaultFeatures = false;
-            features = [ "default-hasher" ];
-          }
-          {
-            name = "id-arena";
-            packageId = "id-arena";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "indexmap";
-            packageId = "indexmap";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "log";
-            packageId = "log";
-          }
-          {
-            name = "semver";
-            packageId = "semver";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "serde_derive";
-            packageId = "serde_derive";
-            optional = true;
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            optional = true;
-          }
-          {
-            name = "unicode-ident";
-            packageId = "unicode-ident";
-          }
-          {
-            name = "wasmparser";
-            packageId = "wasmparser 0.257.1";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "simd" "std" "validate" "component-model" "features" ];
