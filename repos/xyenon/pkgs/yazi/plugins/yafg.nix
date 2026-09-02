@@ -9,12 +9,12 @@ stdenvNoCC.mkDerivation {
   __structuredAttrs = true;
 
   pname = "yafg";
-  version = "0-unstable-2026-05-06";
+  version = "0-unstable-2026-09-01";
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "yafg.yazi";
-    rev = "e6ba85125bfa4e3a60ef28b70949299712103b2a";
-    hash = "sha256-IKQscTTirtfbsXKzCmaokPDrQZqXa4MSY2+6DbEQluU=";
+    rev = "bd03a32e7de7c718c966e21f800c23bd26b717cb";
+    hash = "sha256-8LKyY0GpvcOlWavcaWKfvh/nQzcHMrnLeoStRGHCXrk=";
   };
 
   dontBuild = true;

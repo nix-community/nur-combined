@@ -164,11 +164,11 @@
     "nh": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-qNlWrVGN6bxibex1t98G4CKVQ7cnLMOXNhJ9sge7nbE=/Cargo.lock",
+                "sha256-+hhR7jMiayC3FKIv4iSa_z3JZpg7JFfv_mYA1K9_cV0=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-20",
+        "date": "2026-09-01",
         "extract": null,
         "name": "nh",
         "passthru": null,
@@ -180,12 +180,12 @@
             "name": null,
             "owner": "XYenon",
             "repo": "nh",
-            "rev": "6aee07815715a7148042e9251830a45d71ec7fa2",
-            "sha256": "sha256-qNlWrVGN6bxibex1t98G4CKVQ7cnLMOXNhJ9sge7nbE=",
+            "rev": "655459c5dc599c0bc5148b133200dd864a09fd67",
+            "sha256": "sha256-+hhR7jMiayC3FKIv4iSa/z3JZpg7JFfv/mYA1K9/cV0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6aee07815715a7148042e9251830a45d71ec7fa2"
+        "version": "655459c5dc599c0bc5148b133200dd864a09fd67"
     },
     "nix-package-versions": {
         "cargoLock": null,
@@ -267,7 +267,7 @@
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
-        "date": "2026-08-25",
+        "date": "2026-09-02",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -279,11 +279,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "c591a36e7263e95497715d525e9c46c2f0a880ac",
-            "sha256": "sha256-mWT0yF2iG9+gYEuNiffpM93POlBqY+QKdFh5jSAxYls=",
+            "rev": "4dc7f1b6458c2578f4494f10d468c68c1082214f",
+            "sha256": "sha256-BSAOkL4H4LVMbTRFv4kzGGRpLgtKkfNTEsDH2EQ219Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c591a36e7263e95497715d525e9c46c2f0a880ac"
+        "version": "4dc7f1b6458c2578f4494f10d468c68c1082214f"
     }
 }
