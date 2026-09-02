@@ -59,7 +59,7 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Update packages
         run: |
-          nix eval .#packages.x86_64-linux --apply builtins.attrNames --json \
+          nix eval .#packages --apply "ps: builtins.attrNames (builtins.foldl' (acc: s: acc // s) {} (builtins.attrValues ps))" --json \
             | jq -r '.[]' \
             | while read -r pkg; do
                 nix run nixpkgs#nix-update -- --flake "$pkg" --version=stable < /dev/null || echo "::warning::nix-update failed: $pkg"
