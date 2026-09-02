@@ -52,9 +52,8 @@ in
       pushd node_modules/better-sqlite3
       node ../node-gyp/bin/node-gyp.js rebuild --release --force_build=1
 
-      # lib/binding.js prefers prebuilds/ over build/Release, so the vendored binaries have to give way to the one built here.
+      # lib/binding.js prefers prebuilds/ over build/Release, so the vendored binaries have to go for the one built here to load.
       rm prebuilds/*.node
-      node -e 'require("fs").copyFileSync("build/Release/better_sqlite3.node", `prebuilds/''${process.platform}-''${process.arch}.node`)'
       popd
     '';
 
@@ -101,8 +100,8 @@ in
       test -f $out/share/applications/icalingua.desktop
       test -f $out/share/icons/hicolor/512x512/apps/icalingua.png
 
-      # Verify the unpacked better-sqlite3 module under headless Electron; electron-builder packs it as either the prebuild or the build/Release artifact.
-      node_module="$(find $out/lib/icalingua/app.asar.unpacked -path '*/better-sqlite3/*' -name '*.node' | head -n1)"
+      # Verify the unpacked better-sqlite3 module under headless Electron, by name: the same build also emits a test_extension.node that is a SQLite extension rather than an addon.
+      node_module="$(find $out/lib/icalingua/app.asar.unpacked -name 'better_sqlite3.node' | head -n1)"
       test -n "$node_module"
       ELECTRON_RUN_AS_NODE=1 ${lib.getExe electron} -e "require('$node_module')"
 
