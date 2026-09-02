@@ -24,17 +24,17 @@ let
 
   sha256 =
     {
-      x86_64-linux = "0cx8zy7y8j5r1v6b53q605gxral5l0n2n3rs02paalil47gnnkfz";
-      x86_64-darwin = "1ajycg4gvx3sjb0dxhfp9n0g7xmmf00lc758zgqaq9qfr91wgjma";
-      aarch64-linux = "1b5l54dlknnxwn52a6cn6rkr3h5g770gvyxrk5m3pydwmxs23n3y";
-      aarch64-darwin = "1kkic423yygsdj16rxxci5wxg9sy942a75l698xipqaji4r6737g";
-      armv7l-linux = "094ljjd90vxbbg6d03s9y19wixrgq5klripfnazfvdn4qn24ivbr";
+      x86_64-linux = "10ig7bwcj5n1ijgd6wy3s5gm0hsbmfqlnmyy4bkyc6xa2jbqgkns";
+      x86_64-darwin = "0zmia644b8qdfypi06p7njyayvrxv2fqz3b5gshrjvmsn1qyipd5";
+      aarch64-linux = "0ly05gb5mmdlq0wymghiyxf8lnpyhx1h3rpdp8rfvypha7q8kn8b";
+      aarch64-darwin = "119d2b8bn45a5dnq3gyrlpfzn9j6i45zsn9vxcbh266pfnws6mcj";
+      armv7l-linux = "0hi9qwdyqck18p92y7alh3qbdckcr3nj4pvkhjr4zzkx7xylz1lw";
     }
     .${system} or throwSystem;
 in
 
 buildVscode rec {
-  version = "1.136.0-insider";
+  version = "1.137.0-insider";
   pname = "vscode-insiders";
   updateScript = ./update.sh;
 
