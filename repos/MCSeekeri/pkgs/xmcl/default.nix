@@ -121,7 +121,10 @@ symlinkJoin {
     desktopItem
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+    inherit src pnpmDeps;
+  };
 
   meta = meta // {
     sourceProvenance = with lib.sourceTypes; [ fromSource ];

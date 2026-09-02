@@ -10,12 +10,12 @@
   stdenvNoCC,
 }:
 let
-  version = "0.1.179";
+  version = "0.2.0";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-lh0/x968G5T2sZyWRhJmEQsvx3eyn5QolTH7yelFpWA=";
+    hash = "sha256-KG7S5SPVh3sN8uH4TlSmRNZfBwt8D2/mQ5Njuo+Ge1Y=";
   };
 
   frontendPnpmDeps = fetchPnpmDeps {
@@ -87,7 +87,7 @@ buildGoModule {
 
   passthru = {
     updateScript = nix-update-script { };
-    inherit frontendPnpmDeps;
+    inherit frontendPnpmDeps src;
   };
 
   meta = {

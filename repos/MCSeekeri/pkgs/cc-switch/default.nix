@@ -22,13 +22,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cc-switch";
-  version = "3.20.0";
+  version = "3.20.1";
 
   src = fetchFromGitHub {
     owner = "farion1231";
     repo = "cc-switch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mZfXwOAUEtaKklQd5Ske4XCBvk+w9hQQITWNa/wSX0Q=";
+    hash = "sha256-JBD9zp2vPYSS39X3NLBEpFPuvDkESv66nHzVU8pJ4i0=";
   };
 
   pnpmDeps = fetchPnpmDeps {
