@@ -261,15 +261,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "9e5b17e350f32a55a3c5db6d71e0f94918d5370f";
+    version = "ed131d5f6fbad6c62b90d651ebcff276e68d65c9";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "9e5b17e350f32a55a3c5db6d71e0f94918d5370f";
+      rev = "ed131d5f6fbad6c62b90d651ebcff276e68d65c9";
       fetchSubmodules = false;
-      sha256 = "sha256-mDjm6cxyBG47NaSKVIJDWrfdsqQ29qDdoTygyIUa70o=";
+      sha256 = "sha256-kcailfYD+NfyNLehxZie8YgYnW6F/+f6kXzf6n5qtKs=";
     };
-    date = "2026-08-25";
+    date = "2026-09-02";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -371,21 +371,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "844ef486dd264c4858988293fd7af5dfbe07a92a";
+    version = "f6e2d7aed5b540751ce2ce00a242f233fcc1584a";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "844ef486dd264c4858988293fd7af5dfbe07a92a";
+      rev = "f6e2d7aed5b540751ce2ce00a242f233fcc1584a";
       fetchSubmodules = false;
-      sha256 = "sha256-cQ0t6wqoxA7p7d3zWH6Fa3B1T0WK6JzXpzIKKkX6+pM=";
+      sha256 = "sha256-uSK9VtPJEWgawW6gRlP9/PXhOr1jEBy0i6g3nASachU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-cQ0t6wqoxA7p7d3zWH6Fa3B1T0WK6JzXpzIKKkX6+pM=/Cargo.lock";
+      lockFile = ./. + "/sha256-uSK9VtPJEWgawW6gRlP9_PXhOr1jEBy0i6g3nASachU=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-09-01";
+    date = "2026-09-02";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
