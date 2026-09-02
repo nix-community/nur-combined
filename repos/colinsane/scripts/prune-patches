@@ -14,6 +14,7 @@ usage() {
   echo ""
   echo "options"
   echo "- --commit"
+  echo "- --dry-run"
   echo ""
   echo "check for vendored patches that we no longer need to carry."
   echo "assumes that $NIXPKGS_DIR is checked out to the same commit as this nixos repo."
@@ -22,6 +23,7 @@ usage() {
 }
 
 doCommit=
+dryRun=
 parseArgs() {
   while [ "$#" -ne 0 ]; do
     local arg=$1
@@ -32,6 +34,9 @@ parseArgs() {
         ;;
       (--commit)
         doCommit=1
+        ;;
+      (--dry-run)
+        dryRun=1
         ;;
       (*)
         echo "unrecognized argument: $arg" >&2
@@ -99,13 +104,20 @@ for p in "${upstreamed[@]}"; do
 done
 echo
 
-if [[ -n "$doCommit" ]]; then
-  echo "removing..."
-  # TODO: assert that the working tree is clean, first
-  set -x
-  git rm "${upstreamed[@]}" && git commit -m"nixpkgs: remove upstreamed patches"
-  set +x
-else
+if ! (( ${#upstreamed[@]} )); then
+  echo "nothing to do"
+elif [[ -n "$dryRun" ]]; then
   echo "to remove them, run:"
   echo "git rm ${upstreamed[*]}"
+elif [[ -n "$doCommit" ]]; then
+  echo "removing from git..."
+  set -x
+  git rm "${upstreamed[@]}" && git commit "${upstreamed[@]}" -m"nixpkgs: remove upstreamed patches"
+  set +x
+else
+  echo "removing..."
+  set -x
+  rm "${upstreamed[@]}"
+  set +x
+  echo "removed; uncommitted"
 fi

@@ -1,5 +1,47 @@
 [
   {
+    "id": "inception/mercury-2.5-preview",
+    "name": "Mercury 2.5 Preview",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-06,
+      "completion": 0.15,
+      "currency": "USD",
+      "prompt": 0.04,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 260000,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "ibm-granite/granite-4.2-8b",
+    "name": "Granite 4.2 8B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.15,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 117964,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "tencent/hy4-preview",
     "name": "Tencent Hy4 Preview",
     "pricing": {
@@ -861,10 +903,10 @@
     "id": "gemma-4-12b-it",
     "name": "Gemma 4 12B Instruct",
     "pricing": {
-      "cacheReadInputPer1kTokens": 3e-05,
-      "completion": 0.3,
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.25,
       "currency": "USD",
-      "prompt": 0.06,
+      "prompt": 0.05,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -996,6 +1038,27 @@
   {
     "id": "abliteration-ai/abliterated-model-large",
     "name": "Abliterated Model Large",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 5.0,
+      "currency": "USD",
+      "prompt": 5.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 999990,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "abliteration-ai/abliterated-model-large-v2",
+    "name": "Abliterated Model Large V2",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0005,
       "completion": 5.0,
@@ -6365,10 +6428,10 @@
     "id": "z-ai/glm-latest",
     "name": "GLM Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7.8e-05,
-      "completion": 1.32,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 3.2,
       "currency": "USD",
-      "prompt": 0.42,
+      "prompt": 1.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -12421,6 +12484,27 @@
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0005,
       "completion": 4.6,
+      "currency": "USD",
+      "prompt": 1.4,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/glm-5.3",
+    "name": "GLM 5.3 TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00026,
+      "completion": 4.4,
       "currency": "USD",
       "prompt": 1.4,
       "unit": "per_million_tokens"

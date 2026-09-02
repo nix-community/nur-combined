@@ -1,25 +1,25 @@
 {
   callPackage,
   fetchFromGitea,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 let
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "uninsane";
-    rev = "74312aeb7558d0acf0bdb2a432244c3ede6af6d8";
-    hash = "sha256-Swsbzq8stguSjVOcSvAV70onOfqWFMF9TGXZWB82oG0=";
+    rev = "760e3d6f08ee2b72dc21f73e99f483523de9cf62";
+    hash = "sha256-fb7Maqi5i8i/30dS4MPEd/7rOUF8JEe7kAGBQlzuRTc=";
   };
   pkg = callPackage "${src}/default.nix" { };
 in
   pkg.overrideAttrs (base: {
     inherit src;
     pname = "uninsane-dot-org";
-    version = "0-unstable-2026-06-11";
+    version = "0-unstable-2026-09-02";
     passthru = (base.passthru or {}) // {
-      updateScript = nix-update-script {
-        extraArgs = [ "--version" "branch" ];
+      updateScript = unstableGitUpdater {
+        shallowClone = false;  # shallowClone doesn't work with anubis
       };
     };
   })
