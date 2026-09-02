@@ -307,10 +307,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "156.0.20260831.202941";
+      version = "140.15.20260828.5046";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1050836/deutsch_de_language_pack-156.0.20260831.202941-tb.xpi?src=";
-      sha256 = "547ac8ab3fb216978ec2d97605bad06d5922db6a8181a64072a3d6c1ba566a0d";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1051108/deutsch_de_language_pack-140.15.20260828.5046-tb.xpi?src=";
+      sha256 = "d722e75ee4dd7a14e98c394bdf4ef534b46e46ee414bc647b9a3a491e3836211";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
@@ -321,10 +321,10 @@
     };
     "tbkeys-lite" = buildMozillaXpiAddon {
       pname = "tbkeys-lite";
-      version = "2.4.3";
+      version = "2.4.4";
       addonId = "tbkeys-lite@addons.thunderbird.net";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1044591/tbkeys_lite-2.4.3-tb.xpi?src=";
-      sha256 = "42cdfeae8e4e83725a4442881c0f00ff4759aa03dcd7d71d55a200058e2a1650";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1050828/tbkeys_lite-2.4.4-tb.xpi?src=";
+      sha256 = "74e49e29615489a16c45828deab104062a7b5e8d6d7634ff79aaf5c01ce05ab5";
       meta = with lib;
       {
         description = "Custom Thunderbird keybindings\n\nThis add-on is a follow on to Keyconfig which is no longer supported.\n\nIt is aimed at power users. Please look at the GitHub site before leaving a one star review about documentation or usability.";

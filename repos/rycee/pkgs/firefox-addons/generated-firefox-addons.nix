@@ -240,10 +240,10 @@
     };
     "ahrefs-seo-toolbar" = buildMozillaXpiAddon {
       pname = "ahrefs-seo-toolbar";
-      version = "3.2.10";
+      version = "3.2.11";
       addonId = "ahrefs@AhrefsPteLtd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4915508/ahrefs_seo_toolbar-3.2.10.xpi";
-      sha256 = "a7e0cb51717b60db6262ae31889b109d983b8eb41d6e0653e8a6ddd0de8701e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4997484/ahrefs_seo_toolbar-3.2.11.xpi";
+      sha256 = "ef2929fb734b8671dfdf9f0480b209827360679f4f64f3d964154439ef2f818a";
       meta = with lib;
       {
         homepage = "https://ahrefs.com/seo-toolbar";
@@ -1803,10 +1803,10 @@
     };
     "chameleon-ext" = buildMozillaXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.86.1";
+      version = "0.22.87.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4925564/chameleon_ext-0.22.86.1.xpi";
-      sha256 = "baa41af4faee509d5d2a941bbe177ca520f9103952f796dbc5b7e240dc044a75";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4999249/chameleon_ext-0.22.87.1.xpi";
+      sha256 = "b9ad24ce5085a136fa4cc141509580952e3e39224b3ede8cebbd5ce99bc93977";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -3012,10 +3012,10 @@
     };
     "darkreader" = buildMozillaXpiAddon {
       pname = "darkreader";
-      version = "4.9.129";
+      version = "4.9.130";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4899461/darkreader-4.9.129.xpi";
-      sha256 = "f4f047fe08e420b6d29617738ea00a7b784892b2262b7e6f38dd09b8ee958a44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4998573/darkreader-4.9.130.xpi";
+      sha256 = "075d5457316af21d62a39a290b31fbf71f514dfc8c3f6a87376fd50f54ef4c9c";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -3349,10 +3349,10 @@
     };
     "dont-track-me-google1" = buildMozillaXpiAddon {
       pname = "dont-track-me-google1";
-      version = "4.28";
+      version = "4.30";
       addonId = "dont-track-me-google@robwu.nl";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132891/dont_track_me_google1-4.28.xpi";
-      sha256 = "25bc90005d6f28d53182ef48c7efcbba72b198ce67cf1f0747dbd23d43078b26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4998037/dont_track_me_google1-4.30.xpi";
+      sha256 = "311a46a2f96a020cc2c5b1550cb2e41e0fb8308bdf6e72929a8e19be4a1371e9";
       meta = with lib;
       {
         homepage = "https://github.com/Rob--W/dont-track-me-google";
@@ -3360,6 +3360,7 @@
         license = licenses.mit;
         mozPermissions = [
           "storage"
+          "webRequest"
           "*://*.google.com/*"
           "*://*.google.ad/*"
           "*://*.google.ae/*"
@@ -8238,10 +8239,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.238";
+      version = "2.4.239";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4995262/lichess_tools_by_siderite-2.4.238.xpi";
-      sha256 = "93731d7e02ef75a4854ca9748384bfe833bc79d7f7280b24798806f946e545b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4997226/lichess_tools_by_siderite-2.4.239.xpi";
+      sha256 = "3b184a1d8ce9fa725fc7d54b7fa828545aeec9cd26e2a9445519f0681ab7115b";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -9962,10 +9963,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.12.8";
+      version = "1.12.9";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4980317/mtab-1.12.8.xpi";
-      sha256 = "b017886875c83c6616d02308b964f99c1ac90f93328b0a13a29e4dfd6a1b2168";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4997026/mtab-1.12.9.xpi";
+      sha256 = "954fa0dc837fcfdb14d75ca932fec1a8466e017e5aae7731f912f1ddcdd5e1ed";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -10060,10 +10061,10 @@
     };
     "muzli" = buildMozillaXpiAddon {
       pname = "muzli";
-      version = "33.1.2";
+      version = "33.1.7";
       addonId = "firefox@muz.li";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4900919/muzli-33.1.2.xpi";
-      sha256 = "750a02589d8de0d04dd312cc1883dbb51d0c4539258e0ea13592eece7c8037af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4998122/muzli-33.1.7.xpi";
+      sha256 = "cfa815c74f56b393895a3ba4642128f75c556c7d524853431e46e673f569512d";
       meta = with lib;
       {
         homepage = "https://muz.li";
@@ -10981,10 +10982,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.128";
+      version = "1.0.129";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4994891/paperpile_addon-1.0.128.xpi";
-      sha256 = "558afb27371e7280f807c40d92183e4f2641d862cb4367975dae3c08d173941c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4997422/paperpile_addon-1.0.129.xpi";
+      sha256 = "407a59a340599f6d949597d5d6a2e2a11bfcd0c2937d3c2f8f50b1917e0fde27";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -12882,10 +12883,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.8.8";
+      version = "26.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4945591/refined_github-26.8.8.xpi";
-      sha256 = "cfa6508a75193560a2623220a4e59c6bad7099fed16d65e04c28f0372775e4c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4998329/refined_github-26.9.xpi";
+      sha256 = "b4f20254ad5dce01d28d84bab77804272bd4e4c27028a4734cf9fd23214aba41";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -13719,10 +13720,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.23.2";
+      version = "1.23.3";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4996084/single_file-1.23.2.xpi";
-      sha256 = "6398bf23f448010d6b619f3aefc9bdef2089ce8f09ce8874a3edbf4021da3e40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4999426/single_file-1.23.3.xpi";
+      sha256 = "3c321dece69ef6894391cf6e373765afa89773cd800c1f3434d260e2435f0916";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -15849,10 +15850,10 @@
     };
     "user-agent-string-switcher" = buildMozillaXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.7.0";
+      version = "0.7.1";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4990404/user_agent_string_switcher-0.7.0.xpi";
-      sha256 = "abb6309324f933164a1c67be91fb2e4a04fdaedff2e8c16c7fad306b6ee1acf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4997127/user_agent_string_switcher-0.7.1.xpi";
+      sha256 = "73d57b46b1b56a909ad1ac9506dae56be31af242d2d3a99d6b0049f1ddf2793a";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/useragent-switcher.html";
