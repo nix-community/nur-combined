@@ -5,15 +5,12 @@
   fetchFromGitHub,
   nodejs_22,
   makeWrapper,
+  python3,
+  kicad,
 }:
 
 let
-  # Re-import this repo to reach the packages listed under python3Packages.
   self = import ../.. { inherit pkgs; };
-
-  # python3 is the interpreter KiCad's `pcbnew` bindings were built against.
-  python = pkgs.python3;
-  kicad = pkgs.kicad;
 
   # Locate `pcbnew` inside kicad.base (KiCad installs it under
   # lib/pythonX.Y/site-packages; the version dir must be discovered).
@@ -25,9 +22,10 @@ let
     "${kicad.base}/lib/${builtins.head pyVers}/site-packages";
 
   # Python interpreter carrying this server's non-pcbnew dependencies.
+  # python3 is the interpreter KiCad's `pcbnew` bindings were built against.
   # `skip` (kicad-skip) and `kipy` (kicad-python) come from this repo's
   # python3Packages scope; the rest from nixpkgs.
-  pythonEnv = python.withPackages (ps: [
+  pythonEnv = python3.withPackages (ps: [
     ps.sexpdata
     ps.cairosvg
     ps.pymupdf
@@ -74,6 +72,10 @@ buildNpmPackage (finalAttrs: {
       --prefix PATH : ${kicad.base}/bin \
       --prefix PYTHONPATH : ${kicadSite} \
       --prefix LD_LIBRARY_PATH : ${kicad.base}/lib \
+      --set-default KICAD10_SYMBOL_DIR ${kicad.libraries.symbols}/share/kicad/symbols \
+      --set-default KICAD10_FOOTPRINT_DIR ${kicad.libraries.footprints}/share/kicad/footprints \
+      --set-default KICAD10_3DMODEL_DIR ${kicad.libraries.packages3d}/share/kicad/3dmodels \
+      --set-default KICAD10_TEMPLATE_DIR ${kicad.libraries.templates}/share/kicad/template \
       --add-flags "$installDir/dist/index.js"
   '';
 
