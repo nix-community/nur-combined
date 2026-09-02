@@ -1441,7 +1441,7 @@ index 402eb887f5..1fc15d9049 100644
  
  static int next_automatic_preference = 127;
  
-@@ -944,6 +945,20 @@ static void nr_ice_srvrflx_stun_finished_cb(NR_SOCKET sock, int how, void *cb_ar
+@@ -944,6 +945,24 @@ static void nr_ice_srvrflx_stun_finished_cb(NR_SOCKET sock, int how, void *cb_ar
        case NR_STUN_CLIENT_STATE_DONE:
          /* Copy the address */
          nr_transport_addr_copy(&cand->addr, &cand->u.srvrflx.stun->results.stun_binding_response.mapped_addr);
@@ -1453,8 +1453,12 @@ index 402eb887f5..1fc15d9049 100644
 +        {
 +          char stealth_ip[64];
 +          if (nr_stealth_get_webrtc_public_ip(stealth_ip, sizeof(stealth_ip)) > 0) {
-+            int port_int = 0;
-+            if (nr_transport_addr_get_port(&cand->addr, &port_int) == 0 && port_int > 0) {
++            /* Read port directly instead of calling nr_transport_addr_get_port,
++             * whose signature changed from int* to uint16_t* in newer versions */
++            uint16_t port_int = ntohs(cand->addr.ip_version == NR_IPV6
++                                          ? cand->addr.u.addr6.sin6_port
++                                          : cand->addr.u.addr4.sin_port);
++            if (port_int > 0) {
 +              nr_str_port_to_transport_addr(stealth_ip, (UINT2)port_int, IPPROTO_UDP, &cand->addr);
 +            }
 +          }
