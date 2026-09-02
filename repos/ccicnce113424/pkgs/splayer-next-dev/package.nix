@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     substituteInPlace electron.vite.config.ts \
       --replace-fail 'import { execSync } from "child_process";' 'import { readFileSync } from "fs";' \
-      --replace-fail 'execSync("git rev-parse HEAD").toString()' 'readFileSync("COMMIT", "utf8").trim()' \
+      --replace-fail 'execSync("git rev-parse HEAD").toString()' 'readFileSync("COMMIT", "utf8")' \
       --replace-fail 'execSync("git log -1 --format=%cI").toString()' 'readFileSync("SOURCE_DATE_EPOCH", "utf8")'
 
     sed -i '/^[[:space:]]*\.atleast_version/d' "$cargoDepsCopy"/{.,*}/ffmpeg_audio_sys-*/build.rs
