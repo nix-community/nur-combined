@@ -21,7 +21,7 @@ splayer-next.overrideAttrs (
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
     prePatch = prev.prePatch + ''
-      echo ${sources.src.rev} > $out/COMMIT
+      echo ${sources.src.rev} > COMMIT
     '';
   }
 )
