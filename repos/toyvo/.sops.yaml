@@ -17,7 +17,7 @@ keys:
   - &server_router age1v5v7n0klvuusw7r55jg25fppw7u26pj85zffs0cpjajgeeuqadxqf40sgg
   - &server_steamdeck_nixos age1wlrat6ckl34359tnqrww8jc0tlyedy33puzw9uvhszralfzcpaaqesg4ts
   - &server_thinkpad age1xech2qev7kpnquuv88qtaygnqtp4972ke605puef5hj6mjvh6ypqg7ud7q
-  - &server_work age1hftc90y0377ekg80a6e2080fl7qtve6jqrx3wwzmtpm7fcucqu2sn7mema
+  - &server_work age1a5l7mjh63y3qkddp8zuu3j6p4fc9pfa9qvuyav66dvhd7w0kgcrqnkj4js
   - &server_pixel10a age1cxf324r7tpd5t7thzk583ufuqele566l4e0crjrpfneu6wvjncns8pgpsg
 creation_rules:
   - path_regex: secrets.yaml$
