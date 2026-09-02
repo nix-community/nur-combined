@@ -34,6 +34,8 @@ let
       { pgoSupport = false; }
     ).overrideAttrs
       (old: {
+        configureFlags = builtins.filter (f: f != "--disable-updater") (old.configureFlags or [ ]);
+
         patches = (old.patches or [ ]) ++ [
           ./153-cbindgen-0.29.4-compat.patch
         ];
