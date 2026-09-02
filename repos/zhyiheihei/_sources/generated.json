@@ -195,12 +195,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.12.2",
-            "sha256": "sha256-ECoPtX2StSeLdRKnC0Zogh63Cqmy+I7rOtpgI3n1JOo=",
+            "rev": "v4.13.0",
+            "sha256": "sha256-nkQWeD/7FtPwG6pdXU55alNNCr++XqEL/LLtV1+D2u0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.12.2"
+        "version": "v4.13.0"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -216,12 +216,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.12.2",
-            "sha256": "sha256-jVjxuqWxgiq65ne1LcswgeFMsuMQYKZdlIz/QKLVslM=",
+            "rev": "v4.13.0",
+            "sha256": "sha256-+nR/T9d7JmKMaSfGOhf+DBlFR1LpLL/Htt7mCXsFgyU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.12.2"
+        "version": "v4.13.0"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
