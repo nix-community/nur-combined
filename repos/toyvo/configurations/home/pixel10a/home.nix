@@ -24,10 +24,7 @@
     username = "droid";
     homeDirectory = "/home/droid";
   };
-  programs = {
-    nix-index-database.comma.enable = true;
-    man.package = pkgs.man;
-  };
+  programs.nix-index-database.comma.enable = true;
   nixcfg = {
     shells.enable = true;
     session.enable = true;
