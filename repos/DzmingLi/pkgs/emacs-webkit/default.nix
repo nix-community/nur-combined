@@ -62,6 +62,39 @@ emacsPackages.trivialBuild {
     substituteInPlace webkit.el \
       --replace-fail "(org-link-set-parameters \"webkit\" :store #'webkit-org-store-link)" \
                      "(with-eval-after-load 'ol (org-link-set-parameters \"webkit\" :store #'webkit-org-store-link))"
+
+    ## ---- mu4e/elfeed 预览内存封顶：webkit-module.c 两处 ----
+    ## 复用单个 webview 连续 load 几十封图片重的 newsletter，WebKitWebProcess
+    ## 只涨不收（实测 ~2h 到 545MB）。从 WebKit 源头两手：cache model 掐缓存、
+    ## 暴露 terminate-web-process 给 elisp 周期回收（见 webkit-html.el）。
+
+    ## A1. cache model 设 DOCUMENT_VIEWER：邮件预览器不需要持久缓存，从源头
+    ## 掐断页面/网络缓存随预览数无限增长。
+    substituteInPlace webkit-module.c \
+      --replace-fail 'WebKitWebContext *context = webkit_web_context_new ();' \
+                     'WebKitWebContext *context = webkit_web_context_new ();
+  webkit_web_context_set_cache_model (context, WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER);'
+
+    ## A2a. 新增 webkit_terminate_web_process（仿 webkit_reload）：杀掉 webview
+    ## 的 web process，下次 load 自动重起，透明释放累积内存、webview 不死。
+    substituteInPlace webkit-module.c \
+      --replace-fail 'webkit_reload (emacs_env *env, ptrdiff_t n, emacs_value *args, void *ptr)' \
+                     'webkit_terminate_web_process (emacs_env *env, ptrdiff_t n, emacs_value *args, void *ptr)
+{
+  Client *c = get_client (env, args[0]);
+  if (c != NULL)
+    webkit_web_view_terminate_web_process (c->view);
+  return Qnil;
+}
+
+static emacs_value
+webkit_reload (emacs_env *env, ptrdiff_t n, emacs_value *args, void *ptr)'
+
+    ## A2b. 注册到 elisp 名 webkit--terminate-web-process。
+    substituteInPlace webkit-module.c \
+      --replace-fail '  mkfn (env, 1, 1, webkit_reload, "webkit--reload", "", NULL);' \
+                     '  mkfn (env, 1, 1, webkit_reload, "webkit--reload", "", NULL);
+  mkfn (env, 1, 1, webkit_terminate_web_process, "webkit--terminate-web-process", "", NULL);'
   '';
 
   ## trivialBuild 默认 buildPhase 是 batch-byte-compile *.el，会跑两次（先它，

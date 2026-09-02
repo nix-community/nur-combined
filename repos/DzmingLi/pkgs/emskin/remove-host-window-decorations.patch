@@ -1,0 +1,12 @@
+diff --git a/crates/emskin/src/winit.rs b/crates/emskin/src/winit.rs
+index 0f41fd9..dbaee69 100644
+--- a/crates/emskin/src/winit.rs
++++ b/crates/emskin/src/winit.rs
+@@ -366,6 +366,7 @@ pub fn init_winit(
+     let attributes = winit_crate::window::Window::default_attributes()
+         .with_inner_size(winit_crate::dpi::LogicalSize::new(1280.0, 800.0))
+         .with_title("Emacs")
++        .with_decorations(false)
+         .with_visible(true)
+         .with_name("emskin", "emskin");
+     let (mut backend, winit) = winit::init_from_attributes(attributes)?;

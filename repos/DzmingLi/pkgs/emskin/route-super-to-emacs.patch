@@ -1,0 +1,29 @@
+diff --git a/crates/emskin/src/input.rs b/crates/emskin/src/input.rs
+index 3e4a8c4..60ef230 100644
+--- a/crates/emskin/src/input.rs
++++ b/crates/emskin/src/input.rs
+@@ -27,8 +27,9 @@ impl EmskinState {
+                 let serial = SERIAL_COUNTER.next_serial();
+                 let time = Event::time_msec(&event);
+ 
+-                // Peek at keysym: only Emacs prefix keys (C-x, C-c, M-x)
+-                // redirect focus to Emacs; everything else goes to the focused app.
++                // Peek at keysym: Emacs prefix keys (C-x, C-c, M-x) and every
++                // Super chord redirect focus to Emacs; everything else goes
++                // to the focused app.
+                 // Side-effect: push the chord into key_cast on press only —
+                 // releases would clutter the overlay with duplicate labels.
+                 let pressed = matches!(event.state(), KeyState::Pressed);
+@@ -48,7 +49,9 @@ impl EmskinState {
+                             }
+                         }
+ 
+-                        (modifiers.ctrl && matches!(key, keysyms::KEY_x | keysyms::KEY_c))
+-                            || (modifiers.alt && key == keysyms::KEY_x)
++                        modifiers.logo
++                            || (modifiers.ctrl
++                                && matches!(key, keysyms::KEY_x | keysyms::KEY_c))
++                            || (modifiers.alt && key == keysyms::KEY_x)
+                     },
+                 );
+ 
