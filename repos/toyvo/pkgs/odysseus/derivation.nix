@@ -133,7 +133,7 @@ stdenv.mkDerivation {
     description = "Odysseus AI assistant";
     homepage = "https://github.com/odysseus-dev/odysseus";
     license = lib.licenses.agpl3Only;
-    platforms = lib.platformsOf ([ pkgs.gts ]);
+    platforms = lib.platformsOf ([ pkgs.gts pkgs.python3Packages.chromadb ]);
     maintainers = with lib.maintainers; [ toyvo ];
   };
 
