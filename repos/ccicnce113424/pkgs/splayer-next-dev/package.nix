@@ -199,6 +199,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/SPlayer-Dev/SPlayer-Next";
     changelog = "https://github.com/SPlayer-Dev/SPlayer-Next/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryBytecode # resources/afp/afp.mjs
+    ];
     maintainers = with lib.maintainers; [ ccicnce113424 ];
     mainProgram = "SPlayer-Next";
     platforms = lib.platforms.linux;
