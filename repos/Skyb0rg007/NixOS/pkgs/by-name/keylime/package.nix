@@ -7,6 +7,7 @@
   installShellFiles,
   tpm2-tools,
   nixosTests,
+  nix-update-script,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "keylime";
@@ -93,6 +94,7 @@ python3.pkgs.buildPythonApplication rec {
     cp docs/_build/texinfo/*.info ''${!outputInfo}/share/info
   '';
 
+  passthru.updateScript = nix-update-script { };
   passthru.tests.nixos = nixosTests.keylime;
 
   meta = {

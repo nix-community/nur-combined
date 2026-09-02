@@ -5,6 +5,7 @@
   ninja,
   libxslt,
   lib,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "run0-wrappers";
@@ -24,6 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.mesonEnable "man" false)
     (lib.mesonOption "sysconfdir" "etc")
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Wrappers for systemd's run0 to replace pkexec, su, and sudo";

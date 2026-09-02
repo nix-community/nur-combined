@@ -7,6 +7,7 @@
   rustPlatform,
   tpm2-tss,
   nixosTests,
+  nix-update-script,
 }:
 let
   # Bug in tpm2-tss 4.2.0
@@ -43,6 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     tpm2-tss-keylime.dev
   ];
 
+  passthru.updateScript = nix-update-script { };
   passthru.tests.nixos = nixosTests.keylime;
 
   meta = {

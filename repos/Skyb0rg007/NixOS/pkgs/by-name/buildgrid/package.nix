@@ -2,6 +2,7 @@
   lib,
   fetchFromGitLab,
   python3,
+  nix-update-script,
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
@@ -51,6 +52,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     sentry-sdk
     sqlalchemy
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Python remote execution service";

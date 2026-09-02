@@ -3,6 +3,7 @@
   lib,
   rustPlatform,
   testers,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rsbinder-tools";
@@ -29,6 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=thread_state::tests::"
   ];
 
+  passthru.updateScript = nix-update-script { };
   passthru.tests.rsb_hub-version = testers.testVersion {
     package = finalAttrs.finalPackage;
     command = "rsb_hub --version";
