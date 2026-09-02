@@ -11600,6 +11600,11 @@ rec {
             features = [ "item" "screen" "data_component" "recipes" "tag" "fuels" "enchantment" "potion" "statistic" ];
           }
           {
+            name = "pumpkin-nbt";
+            packageId = "pumpkin-nbt";
+            usesDefaultFeatures = false;
+          }
+          {
             name = "pumpkin-protocol";
             packageId = "pumpkin-protocol";
             usesDefaultFeatures = false;

@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.8.8",
-            "sha256": "sha256-sdremsEyeLJKpJIK7CzbTmqnp2+vF6qC4uZJLuYJDAs=",
+            "rev": "v1.8.9",
+            "sha256": "sha256-cESucICGrCqtw+06DbdV4jguFhlwN8orlRcTH/o9BNg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.8"
+        "version": "v1.8.9"
     },
     "claude-hud": {
         "cargoLock": null,
@@ -411,12 +411,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "1556b7289b6b7300c52bcce2634de992a1a02c50",
-            "sha256": "sha256-ISl01PWXTMO5OFMV1zIjn3h5TyAOw3NgJmbPdc2FPck=",
+            "rev": "4e6d380bbc755e7ff3f403d446e1086648869ecf",
+            "sha256": "sha256-pZQMBU0GIpy9AKaYR3zovb/4gwIWPZbLujlUWdPM530=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1556b7289b6b7300c52bcce2634de992a1a02c50"
+        "version": "4e6d380bbc755e7ff3f403d446e1086648869ecf"
     },
     "replay-fish": {
         "cargoLock": null,
