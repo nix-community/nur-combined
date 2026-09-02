@@ -40,7 +40,7 @@ buildGoModule (finalAttrs: {
       --zsh <($out/bin/restish shell completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     description = "A CLI for interacting with REST-ish HTTP APIs with some nice features built-in";

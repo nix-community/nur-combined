@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=timeouts_are_respected"
   ];
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     description = "CLI for retrying fallible commands";

@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-qwwI2nUub0wkBwny0IsKXTDNrsq5WPR5x1v55nJwx1Y=";
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     description = "Npx for Rust — run any crate binary instantly without cargo install";

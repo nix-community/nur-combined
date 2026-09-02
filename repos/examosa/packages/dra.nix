@@ -10,7 +10,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dra";
-  version = "0.10.2";
+  version = "0.10.3";
 
   __structuredAttrs = true;
 
@@ -18,10 +18,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "devmatteini";
     repo = "dra";
     tag = finalAttrs.version;
-    hash = "sha256-wSJ+Ohd5YdoVBnpxFH4rzFu2rEI84nfKvpu+E+4ca6o=";
+    hash = "sha256-g5YIa4FcVRu/XSnjzQ/l0w0XCHVKlN90ONHfDHh9F7c=";
   };
 
-  cargoHash = "sha256-d9I0ychu5DsVMQlLQ+zzKkg8Xb6EAkM5+36qRwT2bJM=";
+  cargoHash = "sha256-eQgPHlIFC7m2ylbp9lshJM//Epwest/FR9xsG9dK+Z4=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --zsh <($out/bin/dra completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     description = "A command line tool to download release assets from GitHub";

@@ -9,7 +9,6 @@ buildGoModule (finalAttrs: {
   pname = "stew";
   version = "0.6.0";
 
-  strictDeps = true;
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
@@ -38,7 +37,7 @@ buildGoModule (finalAttrs: {
     ];
   in ["-skip=^(${lib.concatStringsSep "|" skippedTests})$"];
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     broken = stdenv.hostPlatform.isLinux;

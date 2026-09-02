@@ -12,7 +12,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ubi";
-  version = "0.10.0";
+  version = "0.12.0";
 
   __structuredAttrs = true;
 
@@ -20,10 +20,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "houseabsolute";
     repo = "ubi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mmDdb8XeRiC3lUIIvoS43Q6Jt0RY5YL+DbHtEYqw04E=";
+    hash = "sha256-rLrh+8onizKeM3azqO20X0QH0lFy2F3zPhFqQ+FpM3Y=";
   };
 
-  cargoHash = "sha256-5JplwYztnlGkZbvN+Ql5S+A9uPYUb6atCpxW8nOk2Ek=";
+  cargoHash = "sha256-+jWn5mM2jD99wdwgIx3CEl88T9aZP9HdHAWPI/dehEY=";
 
   nativeBuildInputs = [
     pkg-config
@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ZSTD_SYS_USE_PKG_CONFIG = true;
   };
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     description = "The Universal Binary Installer";

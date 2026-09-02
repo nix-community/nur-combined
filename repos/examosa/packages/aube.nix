@@ -15,7 +15,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aube";
-  version = "1.34.0";
+  version = "2.2.4";
 
   __structuredAttrs = true;
 
@@ -23,10 +23,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "endevco";
     repo = "aube";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PssbSDMHdDN1QVuwE4H2f5Hhy7yU6sv7EYjJmth/fQ8=";
+    hash = "sha256-kVkvVS3xNW/moeRtHxq+sXMrnYOUVn8evIQgGYR2LHc=";
   };
 
-  cargoHash = "sha256-e7fJRDqyJH9dF0nhJQJeISd2P1UheKKBm7A7bLlDhvg=";
+  cargoHash = "sha256-lIxTy9v3VZNr0sAdpjjWazlqBb0KFdGT4DUDI2mc8Fs=";
 
   nativeBuildInputs = [
     cmakeMinimal

@@ -13,7 +13,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fnox";
-  version = "1.31.1";
+  version = "1.34.1";
 
   __structuredAttrs = true;
 
@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "jdx";
     repo = "fnox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PAzXu+fltWJXn30RVRUfjCiUUFnt4mb/yeyxM5wCtG8=";
+    hash = "sha256-OZ9WVPsx6McCk6ONuUZ8Ws7f5WHlEMUOEYV457jexAs=";
   };
 
-  cargoHash = "sha256-ImD2PEtoTW1ktNpSzGO0ENyXQ/A4f0ydHqZhSIgNroE=";
+  cargoHash = "sha256-QRRIZOjqYdVsK04vjyLRhbI1jsV2oekfORswbDYQBIg=";
 
   nativeBuildInputs =
     [
