@@ -53,30 +53,25 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postUnpack
   '';
 
-  # All three binaries (septabee, septabee-sounds, septabee-watchdawg) live
-  # together in the upstream archive. The main binary discovers companions via
-  # /proc/self/exe and execlp, so they must be findable on PATH or alongside
-  # the launcher. We install everything into $out/libexec/septabee/ and expose
-  # only the main launcher via a makeWrapper wrapper that prepends the libexec
-  # dir to PATH.
   installPhase = ''
     runHook preInstall
 
     cd unpacked/linux
 
     libexec="$out/libexec/septabee"
-    share="$out/share/septabee"
 
+    # The main binary discovers its companions and data files via
+    # /proc/self/exe, so they must be findable alongside the launcher.
     install -Dm755 septabee            "$libexec/septabee"
     install -Dm755 septabee-sounds     "$libexec/septabee-sounds"
     install -Dm755 septabee-watchdawg  "$libexec/septabee-watchdawg"
 
-    install -Dm644 septabee.data       "$share/septabee.data"
-    install -Dm644 theme.bee           "$share/theme.bee"
+    install -Dm644 septabee.data       "$libexec/septabee.data"
+    install -Dm644 theme.bee           "$libexec/theme.bee"
     install -Dm644 "Inter-VariableFont_opsz,wght.ttf" \
-      "$share/Inter-VariableFont_opsz,wght.ttf"
+      "$libexec/Inter-VariableFont_opsz,wght.ttf"
     install -Dm644 LiberationSerif-Regular.ttf \
-      "$share/LiberationSerif-Regular.ttf"
+      "$libexec/LiberationSerif-Regular.ttf"
 
     makeWrapper "$libexec/septabee" "$out/bin/septabee" \
       --prefix PATH : "$libexec"
