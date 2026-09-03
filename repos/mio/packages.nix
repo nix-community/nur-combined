@@ -369,6 +369,12 @@ byName
       wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
     };
 
+    paint-net = callPackage ./pkgs/paint-net.nix {
+      inherit pkgs;
+      build = lib;
+      wine = pkgs.wineWow64Packages.full;
+    };
+
     insta360-studio = callPackage ./pkgs/insta360-studio.nix {
       inherit pkgs;
       build = lib;
