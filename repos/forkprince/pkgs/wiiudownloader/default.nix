@@ -8,17 +8,17 @@
 }: let
   ver = lib.helper.read ./version.json;
 
-  pname = "altersend";
-  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
+  pname = "wiiudownloader";
   inherit (ver) version;
+  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
   meta = {
-    description = "Send files directly between devices over the internet - no cloud storage, no size limits";
-    homepage = "https://altersend.com";
+    description = "Cross-platform Wii U NUS downloader for Windows, macOS & Linux";
+    homepage = "https://github.com/Xpl0itU/WiiUDownloader";
     maintainers = with lib.maintainers; [Prinky];
-    license = lib.licenses.asl20;
-    platforms = lib.platforms.darwin ++ lib.platforms.linux;
-    mainProgram = "altersend";
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    mainProgram = "WiiUDownloader";
   };
 in
   if stdenvNoCC.hostPlatform.isDarwin
@@ -30,15 +30,14 @@ in
     })
   else let
     contents = appimageTools.extractType2 {inherit pname version src;};
-
     desktopItem = makeDesktopItem {
-      name = "altersend";
-      desktopName = "AlterSend";
-      comment = meta.description;
-      exec = "altersend %U";
-      icon = "altersend";
+      name = "WiiUDownloader";
+      desktopName = "WiiUDownloader";
+      comment = "Cross-platform Wii U NUS downloader";
+      exec = "WiiUDownloader %U";
+      icon = "WiiUDownloader";
       terminal = false;
-      categories = ["Network" "FileTransfer"];
+      categories = ["Game"];
     };
   in
     appimageTools.wrapType2 {
@@ -46,13 +45,13 @@ in
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/altersend.desktop
+          $out/share/applications/WiiUDownloader.desktop
         if [ -d ${contents}/usr/share/icons ]; then
           cp -r ${contents}/usr/share/icons $out/share/ || true
         fi
         icon=$(find ${contents} -maxdepth 2 -name "*.png" | head -n1)
         if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/altersend.png || true
+          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/WiiUDownloader.png || true
         fi
       '';
     }

@@ -8,10 +8,12 @@
   hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
   syslock = lib.callPackage ./pkgs/syslock {};
 
+  tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
   note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
   re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
   beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
   app-librescore = lib.callPackage ./pkgs/app-librescore {};
+  wiiudownloader = lib.callPackage ./pkgs/wiiudownloader {};
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
@@ -22,10 +24,11 @@
   sonixd = lib.callPackage ./pkgs/sonixd {};
   hytale = lib.callPackage ./pkgs/hytale {};
   whisky = lib.callPackage ./pkgs/whisky {};
+  armsx2 = lib.callPackage ./pkgs/armsx2 {};
   mcman = lib.callPackage ./pkgs/mcman {};
+  nuvio = lib.callPackage ./pkgs/nuvio {};
   sfw = lib.callPackage ./pkgs/sfw {};
 
-  tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
   folder-preview-pro = lib.callPackage ./pkgs/folder-preview-pro {};
@@ -56,12 +59,10 @@
   openmtp = lib.callPackage ./pkgs/openmtp {};
   puremac = lib.callPackage ./pkgs/puremac {};
   macusb = lib.callPackage ./pkgs/macusb {};
-  armsx2 = lib.callPackage ./pkgs/armsx2 {};
   roblox = lib.callPackage ./pkgs/roblox {};
   figura = lib.callPackage ./pkgs/figura {};
   achico = lib.callPackage ./pkgs/achico {};
   macsai = lib.callPackage ./pkgs/macsai {};
-  nuvio = lib.callPackage ./pkgs/nuvio {};
   orca = lib.callPackage ./pkgs/orca {};
   muxy = lib.callPackage ./pkgs/muxy {};
   blip = lib.callPackage ./pkgs/blip {};

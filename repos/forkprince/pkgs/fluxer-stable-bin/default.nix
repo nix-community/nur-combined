@@ -30,7 +30,7 @@ in
       nativeBuildInputs = [unzip];
     })
   else let
-    appimageContents = appimageTools.extractType2 {inherit pname version src;};
+    contents = appimageTools.extractType2 {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
       name = "fluxer";
@@ -50,7 +50,7 @@ in
           $out/share/applications/fluxer.desktop
 
         install -Dm444 \
-          ${appimageContents}/usr/share/icons/hicolor/256x256/apps/fluxer.png \
+          ${contents}/usr/share/icons/hicolor/256x256/apps/fluxer.png \
           $out/share/icons/hicolor/256x256/apps/fluxer.png
       '';
     }

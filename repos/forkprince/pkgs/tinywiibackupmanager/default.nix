@@ -1,6 +1,6 @@
 {
-  appimageTools,
   makeDesktopItem,
+  appimageTools,
   stdenvNoCC,
   fetchurl,
   _7zz,

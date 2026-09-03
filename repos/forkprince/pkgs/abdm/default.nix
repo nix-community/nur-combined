@@ -49,6 +49,7 @@ in
         copyDesktopItems
         makeWrapper
       ];
+
       buildInputs = [
         libappindicator
         libXtst

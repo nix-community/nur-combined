@@ -41,7 +41,7 @@ in
       hash = "sha256-7cIv7CD0u95I3AvVV1N0OaTg18AzWRJm5sXm8n3cLrU=";
     };
 
-    appimageContents = appimageTools.extractType2 {inherit pname version src;};
+    contents = appimageTools.extractType2 {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
       name = "note-block-studio";
@@ -61,7 +61,7 @@ in
           $out/share/applications/note-block-studio.desktop
 
         install -Dm444 \
-          ${appimageContents}/usr/share/icons/hicolor/64x64/apps/Minecraft_Note_Block_Studio.png \
+          ${contents}/usr/share/icons/hicolor/64x64/apps/Minecraft_Note_Block_Studio.png \
           $out/share/icons/hicolor/64x64/apps/note-block-studio.png
       '';
     }

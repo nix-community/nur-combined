@@ -1,0 +1,28 @@
+{
+  "name": "WiiUDownloader",
+  "source": {
+    "type": "github-release",
+    "repo": "Xpl0itU/WiiUDownloader",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "2.103",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "WiiUDownloader-macOS-Universal.dmg",
+      "hash": "sha256-VW+/xahxW9H+ETcDaJi8+pY/U9iLneKajiRLxReftqI="
+    },
+    "x86_64-darwin": {
+      "file": "WiiUDownloader-macOS-Universal.dmg",
+      "hash": "sha256-VW+/xahxW9H+ETcDaJi8+pY/U9iLneKajiRLxReftqI="
+    },
+    "x86_64-linux": {
+      "file": "WiiUDownloader-Linux-x86_64.AppImage",
+      "hash": "sha256-A1rN6NHJP2n1MaszqCFBk07vPV+0KVey49WZmIeQbRc="
+    },
+    "aarch64-linux": {
+      "file": "WiiUDownloader-Linux-aarch64.AppImage",
+      "hash": "sha256-9EvHXqwp0A35Ds2PrdVTbnt5fiJJTTT/+oOnOsNoK40="
+    }
+  }
+}
