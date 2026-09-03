@@ -195,7 +195,7 @@
       "kind": "tool",
       "ref": "github:lewtec/goftpd",
       "depName": "lewtec/goftpd",
-      "currentValue": "0.0.1",
+      "currentValue": "0.0.3",
       "datasource": "github-releases"
     },
     {

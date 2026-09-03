@@ -652,3 +652,14 @@ workspaced: {
 	}
 }
 
+workspaced: {
+	file: {
+		".config/herdr/config.toml": {
+			values: {
+				if workspaced.runtime.goos == "darwin" {
+					terminal: default_shell: "/opt/homebrew/bin/bash"
+				}
+			}
+		}
+	}
+}
