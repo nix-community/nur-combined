@@ -10,11 +10,11 @@
 
 let
   pname = "oh-dsh";
-  version = "0.1.10";
+  version = "0.1.11";
 
   src = fetchurl {
     url = "https://github.com/hust-open-atom-club/oh-dsh/releases/download/v${version}/Oh-DSH-Desktop-${version}-x86_64.AppImage";
-    hash = "sha256-KjH7yGqO3HzCTHSWbyQQwkbgU+2tjQve+kU78a5gAXA=";
+    hash = "sha256-jBAQg7j1TWoHwBlwdIqV4PVFxH1kF02TNkTDP+Uw6Ak=";
   };
 
   contents = appimageTools.extract {
