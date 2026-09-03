@@ -21,9 +21,9 @@
   autoPatchelfHook,
   xrt ? null,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "openflowlm";
-  version = "0.1.0-dev";
+  version = "1.0.4";
 
   src = fetchFromGitHub {
     owner = "Atomic-Germ";
@@ -76,16 +76,14 @@ stdenv.mkDerivation {
 
   dontUseCmakeConfigure = true;
 
-  configurePhase = let
-    flmVersion = "1.0.4";
-  in
+  configurePhase =
     # bash
     ''
       runHook preConfigure
       cmake -S src -B src/build \
         -GNinja \
         -DCMAKE_BUILD_TYPE=Release \
-        -DFLM_VERSION="${flmVersion}" \
+        -DFLM_VERSION="${version}" \
         -DNPU_VERSION="32.0.203.304" \
         "-DXRT_INCLUDE_DIR=${xrt}/opt/xilinx/xrt/include" \
         "-DXRT_LIB_DIR=${xrt}/opt/xilinx/xrt/lib" \
