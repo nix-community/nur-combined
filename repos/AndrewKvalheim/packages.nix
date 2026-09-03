@@ -84,6 +84,7 @@ specify {
   miller.version = "≥6.19"; # johnkerl/miller#2057
   minemap = any;
   mozjpeg-simple = any;
+  nautilus.overlay = n: throwIf (builtins.any (p: p.pname == "glycin-loaders") n.buildInputs) "nautilus no longer requires an override" { buildInputs = n.buildInputs ++ [ stable.glycin-loaders ]; }; # Pending NixOS/nixpkgs#555938
   nbt-explorer = any;
   nix-preview = any;
   nix-update.version = "≥1.16"; # Works around “nix_update.errors.VersionError: Please specify the version” on `fetchCrate`
