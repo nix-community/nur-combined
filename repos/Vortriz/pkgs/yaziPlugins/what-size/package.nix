@@ -5,13 +5,13 @@
 }:
 mkYaziPlugin {
     pname = "what-size.yazi";
-    version = "unstable-2026-08-27";
+    version = "unstable-2026-09-02";
 
     src = fetchFromGitHub {
         owner = "pirafrank";
         repo = "what-size.yazi";
-        rev = "ec94d9a8496241d91dcfb2a864214871c326ddc5";
-        hash = "sha256-slM9qypEy8A4l3KodE7bmyixA+1c4X7hgoGcQP7R25k=";
+        rev = "1cb456f8c428a393a65708b45b8c56404d52f326";
+        hash = "sha256-lhanC44L4haM7cgqCOhfxk0Rpi/FueBgIdXDiXuzevc=";
     };
     meta = {
         description = "A plugin for yazi to calculate the size of current selection or current working directory";
