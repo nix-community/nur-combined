@@ -387,10 +387,10 @@
     };
     "anki-jpdb-reader" = buildMozillaXpiAddon {
       pname = "anki-jpdb-reader";
-      version = "0.7.1";
+      version = "0.8.0";
       addonId = "{67e602c3-7324-4b00-85cd-b652eb47b0f9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4554049/anki_jpdb_reader-0.7.1.xpi";
-      sha256 = "3022235a979953222c66a143153ea9cb0205fb63d44f6ee53d2416df4eab3054";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5001529/anki_jpdb_reader-0.8.0.xpi";
+      sha256 = "ee70f0bfd24e8f2529fb8b57685c322af1afb25942e86890fef174984fd2f6f1";
       meta = with lib;
       {
         homepage = "https://github.com/Kagu-chan/anki-jpdb.reader";
@@ -441,10 +441,10 @@
     };
     "are-na" = buildMozillaXpiAddon {
       pname = "are-na";
-      version = "2.14.0";
+      version = "2.14.1";
       addonId = "{4245110a-2f3e-4f78-8303-10cae12384cc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4996275/are_na-2.14.0.xpi";
-      sha256 = "00b9ac9ed71d7a591510fe28ec4628151ccb7a04ce5c489f96790d724d7f0f0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5001612/are_na-2.14.1.xpi";
+      sha256 = "01d2857ffd8add7b86f5f8fed5de4aa7e232105605e88f6765e00a3260118544";
       meta = with lib;
       {
         homepage = "https://www.are.na";
@@ -2917,10 +2917,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "156.0.20260831.122253";
+      version = "156.0.20260902.90331";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4995736/dansk_da_language_pack-156.0.20260831.122253.xpi";
-      sha256 = "c2f010a35d2d5ee875aa1ea93e221f4dbef5b97c8307410a3e9889873520ecb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5000474/dansk_da_language_pack-156.0.20260902.90331.xpi";
+      sha256 = "a689f4def928e8c18a1952e93d776fb2eae77398486b68353c44c4fd3a208366";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3134,10 +3134,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "156.0.20260831.122253";
+      version = "156.0.20260902.90331";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4995735/deutsch_de_language_pack-156.0.20260831.122253.xpi";
-      sha256 = "5b1fd3907fa9f0abe7f792ab914cccf3f659546945427a4ceedfc8b8ca7ef117";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5000471/deutsch_de_language_pack-156.0.20260902.90331.xpi";
+      sha256 = "f5dd048e6c0f1bc0f91f17f5e9f10a8a1ed111e949b0fed075b84885602e4f95";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3170,10 +3170,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "8.0.0";
+      version = "8.1.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4977278/dictionaries-8.0.0.xpi";
-      sha256 = "310be98a253dadcd772bc1b3a484b282eca4fa8dd312221616d52d3170b77228";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5001363/dictionaries-8.1.0.xpi";
+      sha256 = "a66dcfe88875b9ebc5abaedafbad9233bff683024528bf74a369f779c4b88e73";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4636,10 +4636,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "156.0.20260831.122253";
+      version = "156.0.20260902.90331";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4995837/francais_language_pack-156.0.20260831.122253.xpi";
-      sha256 = "c295fd5350ab3d25a721d3f37d60c3397f31220a9f463465bd26800f4b19c4b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5000445/francais_language_pack-156.0.20260902.90331.xpi";
+      sha256 = "bf67e87ab89d895bc6ff8229d6c3b505bad0d5e41d5b82559307d203892058ff";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4673,10 +4673,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "156.0.20260831.122253";
+      version = "156.0.20260902.90331";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4995759/gaidhlig_language_pack-156.0.20260831.122253.xpi";
-      sha256 = "b488d66ffbc490cbfbf8702f4d01bc85d3212f559ce1b26f8415e1636dee7886";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5000571/gaidhlig_language_pack-156.0.20260902.90331.xpi";
+      sha256 = "da3650f801183fd713f711efe178ec1f6769230a613e61e97cfb7b14f53ee0d1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4876,10 +4876,10 @@
     };
     "github-isometric-contributions" = buildMozillaXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.2.6";
+      version = "1.2.7";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4759677/github_isometric_contributions-1.2.6.xpi";
-      sha256 = "8f4bdf96d914df81b22be95e96426c48e2efeb5601b4393065216e45b11d8f4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5001889/github_isometric_contributions-1.2.7.xpi";
+      sha256 = "aac3842e00253583a1deff5502c1d0ee43e7e015800f9f9bcce1d412bee228be";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
@@ -10929,10 +10929,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.80";
+      version = "1.5.81";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4976902/page_assist-1.5.80.xpi";
-      sha256 = "1b6d861128f013a63c6c845149897196decbf1d16ad381c836dd2b3e5758b1ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4993386/page_assist-1.5.81.xpi";
+      sha256 = "3f5d261b1eeeeddbd5fab18c6888a8bdafe5a6734d2d63c2d4aec831d432cf12";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -13203,10 +13203,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "156.0.20260831.122253";
+      version = "156.0.20260902.90331";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4995746/scots_language_pack-156.0.20260831.122253.xpi";
-      sha256 = "64174982acc527261b879561053c6a8acc05e5134bda224385bb9667a91709f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5000450/scots_language_pack-156.0.20260902.90331.xpi";
+      sha256 = "4a518976a46a6094cbc772bd6d2ca687796e7abdd36da67047f71558f290b5bc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14979,10 +14979,10 @@
     };
     "torrent-control" = buildMozillaXpiAddon {
       pname = "torrent-control";
-      version = "0.2.50";
+      version = "0.2.51";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4897005/torrent_control-0.2.50.xpi";
-      sha256 = "7a08c73ef1df0033f623dc178e41dea15d591199e60920d40d0e081d05e23a25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5000837/torrent_control-0.2.51.xpi";
+      sha256 = "b14c2e9ff154fc3f6eead7b4a06baaa1e637319c8dd8661dd8394589a8e67297";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -15113,10 +15113,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.3";
+      version = "4.4.4";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985978/tree_style_tab-4.4.3.xpi";
-      sha256 = "5d4d2a7ec7e3027d8e8e4e0b3d8a0355070267fbda8c927dfaeb0fd3b7cb09c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5000082/tree_style_tab-4.4.4.xpi";
+      sha256 = "cc1eecb91204016d44def589e9322f89c4b8c70937e142c21b8e558da2206f78";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
