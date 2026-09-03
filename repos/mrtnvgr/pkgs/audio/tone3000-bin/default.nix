@@ -23,7 +23,7 @@
   libxscrnsaver,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "tone3000-vst3-bin";
+  pname = "tone3000-bin";
   version = "0.0.4";
 
   src = fetchzip {
@@ -60,9 +60,13 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/vst3 $out/share/tone3000/presets
+    mkdir -p $out/lib/lv2 $out/lib/clap $out/lib/vst3 $out/share/tone3000/presets
+    install -Dm755 TONE3000 $out/bin/TONE3000
+    install -Dm644 TONE3000.clap $out/lib/clap/TONE3000.clap
+    cp -r TONE3000.lv2 $out/lib/lv2/
     cp -r TONE3000.vst3 $out/lib/vst3/
     cp factory-presets/*.t3kpreset $out/share/tone3000/presets/
+    install -Dm644 tone3000.png $out/share/icons/hicolor/512x512/apps/tone3000.png
 
     runHook postInstall
   '';

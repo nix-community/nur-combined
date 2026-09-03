@@ -32,7 +32,7 @@ in rec {
   # OneTrick-KEYS = p ./pkgs/audio/OneTrick-KEYS { };
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
 
-  tone3000-vst3-bin = p ./pkgs/audio/tone3000-vst3-bin { };
+  tone3000-bin = p ./pkgs/audio/tone3000-bin { };
 
   nam-trainer = p ./pkgs/audio/nam-trainer { };
 
