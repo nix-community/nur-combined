@@ -88,7 +88,6 @@ let
         { };
     termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
 
-    xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
     sublime-syntax-language-server =
       callPackage ./pkgs/development/python-modules/sublime-syntax-language-server
         { };
