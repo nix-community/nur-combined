@@ -41,9 +41,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postPatch = ''
     substituteInPlace ./crates/aube-lockfile/src/io.rs ./crates/aube/src/commands/version.rs \
       --replace-fail '"git"' '"${lib.getExe gitMinimal}"'
-
-    substituteInPlace ./crates/aube/src/commands/completion.rs \
-      --replace-fail '"usage"' "\"$JDX_USAGE_BIN\""
   '';
 
   nativeCheckInputs = [

@@ -35,11 +35,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [dbus udev];
 
-  postPatch = ''
-    substituteInPlace ./src/commands/completion.rs \
-      --replace-fail '"usage"' "\"$JDX_USAGE_BIN\""
-  '';
-
   postInstall = ''
     completions=()
 
