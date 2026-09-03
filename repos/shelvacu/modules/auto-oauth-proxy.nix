@@ -60,12 +60,10 @@ let
           generate = mkOption { type = types.bool; };
           path = mkOption { type = types.path; };
           sops = mkOption {
-            type = types.submodule (
-              { ... }: {
-                options.sopsFile = mkOption { type = types.path; };
-                options.key = mkOption { type = types.str; };
-              }
-            );
+            type = types.submodule {
+              options.sopsFile = mkOption { type = types.path; };
+              options.key = mkOption { type = types.str; };
+            };
           };
         };
       };
@@ -78,6 +76,15 @@ let
       settings = mkOption {
         type = types.attrsOf types.anything;
         default = { };
+      };
+      scopes = mkOption {
+        type = types.listOf (types.strMatching ''[a-zA-Z0-9_-]+'');
+        default = [
+          "openid"
+          "email"
+          "profile"
+          "groups"
+        ];
       };
       out = {
         basicAuthEnabled = mkOption {
@@ -152,7 +159,7 @@ let
     config.settings = {
       provider = "oidc";
       redirect_url = "https://${config.appDomain}/oauth2/callback";
-      scope = "openid email groups";
+      scope = lib.concatStringsSep " " config.scopes;
       # oidc_issuer_url = "${config.out.kanidmUrl}/oauth2/openid/${config.name}";
       approval_prompt = "auto";
       client_id = config.name;
@@ -436,12 +443,7 @@ in
           originUrl = lib.mkIf cfg.enableProxy cfg.settings.redirect_url;
           originLanding = lib.mkIf cfg.enableProxy "https://${cfg.appDomain}/oauth2/start";
           displayName = cfg.displayName;
-          scopeMaps.${cfg.out.kanidmGroup} = [
-            "email"
-            "openid"
-            "profile"
-            "groups"
-          ];
+          scopeMaps.${cfg.out.kanidmGroup} = cfg.scopes;
         };
       });
       groups = mergeWhereEach (cfg: cfg.configureKanidm) (cfg: {

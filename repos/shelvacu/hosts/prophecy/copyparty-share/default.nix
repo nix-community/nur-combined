@@ -38,6 +38,7 @@ in
       name: 2e14
       shr: /s
       shr-adm: shelvacu
+      idp-gsep: ,
     '';
     extraConfig = ''
       [accounts]
@@ -50,7 +51,6 @@ in
       [groups]
         shelvacu-obsidian: shelvacu-fw-obsidian, shelvacu-pixel9pro-obsidian
         not-people: lan, shelvacu-fw-obsidian, shelvacu-pixel9pro-obsidian
-        general_access:
     '';
     volumes = {
       "/" = {
@@ -65,14 +65,14 @@ in
       "/chaosbox" = {
         hostPath = "${mainDir}/chaosbox";
         access = ''
-          rwm: @general_access,lan
+          rwm: @general_access@id.shelvacu.com,lan
           A: shelvacu
         '';
         flags.dots = true;
       };
       "/media" = {
         hostPath = "/propdata/media";
-        access = "r: @general_access,lan";
+        access = "r: @general_access@id.shelvacu.com,lan";
         flags.xdev = false;
         flags.xvol = true;
         bind.readOnly = true;
@@ -138,7 +138,6 @@ in
   };
   services.kanidm.provision.systems.oauth2.two_e14 = {
     imageFile = "${pkgs.srcOnly cfg.package}/docs/logo.svg";
-    supplementaryScopeMaps.general_access = [ "general_access" ];
   };
   services.caddy.virtualHosts."2e14.sv.mt".vacu.hsts = "preload";
   services.caddy.virtualHosts."copyparty.sv.mt" = {
