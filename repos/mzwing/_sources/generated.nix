@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.8.9";
+    version = "v1.9.0";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.8.9";
+      rev = "v1.9.0";
       fetchSubmodules = false;
-      sha256 = "sha256-cESucICGrCqtw+06DbdV4jguFhlwN8orlRcTH/o9BNg=";
+      sha256 = "sha256-uG+H9v+dAQQ+ZdUm0B26UP9upyI+8kaAcMP+r6IgQXY=";
     };
   };
   claude-hud = {
@@ -167,13 +167,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.41.1";
+    version = "v0.41.2";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.41.1";
+      rev = "v0.41.2";
       fetchSubmodules = false;
-      sha256 = "sha256-kfQhDdXPnsA3RfU2u/xjJTvdplTXrlMCf2xxCpotKqc=";
+      sha256 = "sha256-+WvY7r96XInlvxbtZ+M5pMd80mjp1mieMqAIhIFUtuI=";
     };
   };
   manboster = {
@@ -223,15 +223,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "4e6d380bbc755e7ff3f403d446e1086648869ecf";
+    version = "44bee88f81f197e2a4a6ff1f8cb10f5900ed6ef3";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "4e6d380bbc755e7ff3f403d446e1086648869ecf";
+      rev = "44bee88f81f197e2a4a6ff1f8cb10f5900ed6ef3";
       fetchSubmodules = true;
-      sha256 = "sha256-pZQMBU0GIpy9AKaYR3zovb/4gwIWPZbLujlUWdPM530=";
+      sha256 = "sha256-Td3xFrt1Ba7fPAeQFgnDA6g4hzhcyouUkGCB5DF6Nmg=";
     };
-    date = "2026-09-02";
+    date = "2026-09-03";
   };
   replay-fish = {
     pname = "replay-fish";

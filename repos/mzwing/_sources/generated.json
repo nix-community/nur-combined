@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.8.9",
-            "sha256": "sha256-cESucICGrCqtw+06DbdV4jguFhlwN8orlRcTH/o9BNg=",
+            "rev": "v1.9.0",
+            "sha256": "sha256-uG+H9v+dAQQ+ZdUm0B26UP9upyI+8kaAcMP+r6IgQXY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.9"
+        "version": "v1.9.0"
     },
     "claude-hud": {
         "cargoLock": null,
@@ -306,12 +306,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.41.1",
-            "sha256": "sha256-kfQhDdXPnsA3RfU2u/xjJTvdplTXrlMCf2xxCpotKqc=",
+            "rev": "v0.41.2",
+            "sha256": "sha256-+WvY7r96XInlvxbtZ+M5pMd80mjp1mieMqAIhIFUtuI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.41.1"
+        "version": "v0.41.2"
     },
     "manboster": {
         "cargoLock": null,
@@ -399,7 +399,7 @@
     },
     "pumpkin": {
         "cargoLock": null,
-        "date": "2026-09-02",
+        "date": "2026-09-03",
         "extract": null,
         "name": "pumpkin",
         "passthru": null,
@@ -411,12 +411,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "4e6d380bbc755e7ff3f403d446e1086648869ecf",
-            "sha256": "sha256-pZQMBU0GIpy9AKaYR3zovb/4gwIWPZbLujlUWdPM530=",
+            "rev": "44bee88f81f197e2a4a6ff1f8cb10f5900ed6ef3",
+            "sha256": "sha256-Td3xFrt1Ba7fPAeQFgnDA6g4hzhcyouUkGCB5DF6Nmg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4e6d380bbc755e7ff3f403d446e1086648869ecf"
+        "version": "44bee88f81f197e2a4a6ff1f8cb10f5900ed6ef3"
     },
     "replay-fish": {
         "cargoLock": null,
