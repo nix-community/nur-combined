@@ -51,7 +51,7 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Show nixpkgs version
-        run: nix eval --impure --raw --expr '(import <nixpkgs> {}).lib.version'
+        run: nix eval --raw --file '<nixpkgs>' lib.version
 
       - name: Setup cachix
         uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
@@ -73,11 +73,8 @@ jobs:
 
       - name: Build nix packages
         run: >
-          nix shell --file '<nixpkgs>' nix-fast-build --command
-          nix-fast-build --no-nom --skip-cached --file ci.nix --attr cacheOutputs
-        env:
-          # Avoids ANSI escape codes in job summaries
-          CARGO_TERM_COLOR: never
+          nix run --file '<nixpkgs>' nix-fast-build --
+          --no-nom --skip-cached --file ci.nix --attr cacheOutputs
 
       - name: Trigger NUR update
         if: ${{ false }}

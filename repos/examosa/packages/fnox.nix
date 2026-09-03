@@ -61,6 +61,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
+    broken = lib.versionOlder usage.version "6";
     description = "Encrypted/remote secret manager";
     homepage = "https://github.com/jdx/fnox";
     changelog = "https://github.com/jdx/fnox/blob/${finalAttrs.src.rev}/CHANGELOG.md";
