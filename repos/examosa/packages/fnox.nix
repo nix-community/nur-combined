@@ -5,6 +5,7 @@
   fetchFromGitHub,
   installShellFiles,
   nix-update-script,
+  cacert,
   perl,
   pkg-config,
   dbus,
@@ -34,6 +35,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ++ lib.optional stdenv.hostPlatform.isLinux perl;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [dbus udev];
+
+  nativeCheckInputs = [cacert];
 
   postInstall = ''
     completions=()
