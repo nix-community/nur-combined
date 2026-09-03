@@ -21,8 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "heather7283";
     repo = "cclip";
     tag = finalAttrs.version;
-    hash = "sha256-8djnknKQ29XeFYmJgNIdCXG2AQlaBcTbIJon2GYD24I=";
-    postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
+    hash = "sha256-rjDCYag0aG9mZuwzWNS5z/CzeEtpdjc9iMypKqIZK60=";
   };
 
   nativeBuildInputs = [
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
         echo "master (Nixpkgs)"
       fi
       if [ "$#" -eq 2 ] && [ "$1" = rev-parse ] && [ "$2" = HEAD ]; then
-        exec cat ''${src:?}/.gitrev
+        echo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       fi
     '')
   ];
