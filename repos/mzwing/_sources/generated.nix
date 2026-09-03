@@ -39,6 +39,17 @@
       sha256 = "sha256-uG+H9v+dAQQ+ZdUm0B26UP9upyI+8kaAcMP+r6IgQXY=";
     };
   };
+  claude-code-wakatime = {
+    pname = "claude-code-wakatime";
+    version = "v3.1.6";
+    src = fetchFromGitHub {
+      owner = "wakatime";
+      repo = "claude-code-wakatime";
+      rev = "v3.1.6";
+      fetchSubmodules = false;
+      sha256 = "sha256-dXnDCe3jqBu20bEd7q4qjhfZOFFhytesStNEKnGoHpM=";
+    };
+  };
   claude-hud = {
     pname = "claude-hud";
     version = "v0.8.0";

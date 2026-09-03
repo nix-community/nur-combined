@@ -62,6 +62,27 @@
         },
         "version": "v1.9.0"
     },
+    "claude-code-wakatime": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "claude-code-wakatime",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wakatime",
+            "repo": "claude-code-wakatime",
+            "rev": "v3.1.6",
+            "sha256": "sha256-dXnDCe3jqBu20bEd7q4qjhfZOFFhytesStNEKnGoHpM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.1.6"
+    },
     "claude-hud": {
         "cargoLock": null,
         "date": null,

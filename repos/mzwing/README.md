@@ -12,6 +12,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `ace-ctx` | [Usage](https://github.com/CodingOX/ace-ctx) |
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
 | `bakamusic` | [Usage](https://github.com/Zencok/BakaMusic) |
+| `claude-code-wakatime` | [Usage](https://github.com/wakatime/claude-code-wakatime) |
 | `claude-hud` | [Usage](https://github.com/jarrodwatts/claude-hud) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
