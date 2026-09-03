@@ -105,23 +105,6 @@
     };
     date = "2022-01-09";
   };
-  jaq = {
-    pname = "jaq";
-    version = "v3.1.1";
-    src = fetchFromGitHub {
-      owner = "01mf02";
-      repo = "jaq";
-      rev = "v3.1.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-/yAwLcPwfW5UH+PCCrsFaM0Nuk1S5QONLsNgvVCBLX8=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-_yAwLcPwfW5UH+PCCrsFaM0Nuk1S5QONLsNgvVCBLX8=/Cargo.lock";
-      outputHashes = {
-        
-      };
-    };
-  };
   jj-lsp = {
     pname = "jj-lsp";
     version = "0.1.0";
@@ -417,7 +400,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

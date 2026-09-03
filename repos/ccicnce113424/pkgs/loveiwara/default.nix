@@ -1,7 +1,8 @@
 {
   sources,
   version,
-  srcInfo,
+  pubspecLock,
+  gitHashes,
   lib,
   flutter347,
   makeDesktopItem,
@@ -17,9 +18,7 @@ let
 in
 flutter.buildFlutterApplication {
   inherit (sources) pname src;
-  inherit version;
-  inherit (srcInfo) pubspecLock;
-  inherit (srcInfo) gitHashes;
+  inherit version pubspecLock gitHashes;
 
   customSourceBuilders.sqlite3_flutter_libs = { src, ... }: src;
 

@@ -1,7 +1,8 @@
 {
   sources,
   version,
-  srcInfo,
+  pubspecLock,
+  gitHashes,
   lib,
   stdenv,
   flutter335,
@@ -34,9 +35,7 @@ let
 in
 flutter.buildFlutterApplication {
   inherit (sources) pname src;
-  inherit version;
-  inherit (srcInfo) pubspecLock;
-  inherit (srcInfo) gitHashes;
+  inherit version pubspecLock gitHashes;
 
   nativeBuildInputs = [
     copyDesktopItems

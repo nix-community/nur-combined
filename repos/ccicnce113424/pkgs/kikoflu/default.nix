@@ -1,7 +1,8 @@
 {
   sources,
   version,
-  srcInfo,
+  pubspecLock,
+  gitHashes,
   lib,
   flutter,
   mpv-unwrapped,
@@ -11,9 +12,7 @@
 }:
 flutter.buildFlutterApplication (finalAttrs: {
   inherit (sources) pname src;
-  inherit version;
-  inherit (srcInfo) pubspecLock;
-  inherit (srcInfo) gitHashes;
+  inherit version pubspecLock gitHashes;
 
   desktopItems = [
     (makeDesktopItem {

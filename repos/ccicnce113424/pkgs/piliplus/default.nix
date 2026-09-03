@@ -2,6 +2,8 @@
   sources,
   version,
   srcInfo,
+  pubspecLock,
+  gitHashes,
   lib,
   flutter347,
   gitMinimal,
@@ -21,8 +23,7 @@ let
 in
 flutter.buildFlutterApplication {
   inherit (sources) pname src;
-  inherit version;
-  inherit (srcInfo) pubspecLock gitHashes;
+  inherit version pubspecLock gitHashes;
 
   patches = [
     ./disable-auto-update.patch

@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nix shell -L nixpkgs#nix-prefetch-git .#jaq -c bash
+#!/usr/bin/env -S nix shell -L nixpkgs#nix-prefetch-git nixpkgs#yq-go nixpkgs#jq -c bash
 set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../../_scripts/update-lib.sh"
@@ -6,15 +6,20 @@ package_name=loveiwara
 
 parse_args "$@"
 setup_paths
-lock_path=$(jaq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
-read_source_info "jaq"
-check_stale "jaq"
-fetch_git_hashes "$lock_path"
+lock_path=$(jq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
+read_source_info
+check_stale
 
-jaq --from yaml -n \
+convert_pubspec_lock "$lock_path"
+
+# 将国内镜像源替换为官方源
+jq 'walk(if . == "https://pub.flutter-io.cn" then "https://pub.dev" else . end)' \
+  "$pubspec_lock_json" >"$pubspec_lock_json.new"
+mv "$pubspec_lock_json.new" "$pubspec_lock_json"
+
+fetch_git_hashes
+
+jq -n \
   --arg version "$version" \
   --arg sourceSha256 "$source_sha256" \
-  --argjson gitHashes "$git_hashes_object" \
-  '{ version: $version, sourceSha256: $sourceSha256,
-     pubspecLock: (input | walk(if . == "https://pub.flutter-io.cn"
-       then "https://pub.dev" else . end)), gitHashes: $gitHashes }' "_sources/$lock_path" >"$src_info"
+  '{ version: $version, sourceSha256: $sourceSha256 }' >"$src_info"

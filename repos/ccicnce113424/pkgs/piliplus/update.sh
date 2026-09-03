@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nix shell -L nixpkgs#nix-prefetch-git .#jaq -c bash
+#!/usr/bin/env -S nix shell -L nixpkgs#nix-prefetch-git nixpkgs#yq-go nixpkgs#jq -c bash
 set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../../_scripts/update-lib.sh"
@@ -6,17 +6,17 @@ package_name=piliplus
 
 parse_args "$@"
 setup_paths
-lock_path=$(jaq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
-read_source_info "jaq"
-check_stale "jaq"
+lock_path=$(jq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
+read_source_info
+check_stale
 
-owner=$(jaq -r ".\"$package_name\".src.owner" _sources/generated.json)
-repo=$(jaq -r ".\"$package_name\".src.repo" _sources/generated.json)
+owner=$(jq -r ".\"$package_name\".src.owner" _sources/generated.json)
+repo=$(jq -r ".\"$package_name\".src.repo" _sources/generated.json)
 
 info_json=$(nix-prefetch-git --quiet --url "https://github.com/$owner/$repo" --rev "$version")
 
-rev=$(jaq -r .rev <<<"$info_json")
-date_iso=$(jaq -r .date <<<"$info_json")
+rev=$(jq -r .rev <<<"$info_json")
+date_iso=$(jq -r .date <<<"$info_json")
 
 # 将 ISO8601 时间转换为时间戳，失败则回退为 0，避免 --argjson 报错
 if [[ -n $date_iso ]] && time_val=$(date -d "$date_iso" +%s 2>/dev/null); then
@@ -34,14 +34,13 @@ if [[ -z $rev_count ]]; then
   rev_count=1
 fi
 
-fetch_git_hashes "$lock_path"
+convert_pubspec_lock "$lock_path"
+fetch_git_hashes
 
-jaq --from yaml -n \
+jq -n \
   --arg version "$version" \
   --arg sourceSha256 "$source_sha256" \
   --arg rev "$rev" \
   --argjson time "$time_val" \
   --argjson revCount "$rev_count" \
-  --argjson gitHashes "$git_hashes_object" \
-  '{ version: $version, sourceSha256: $sourceSha256, rev: $rev, time: $time, revCount: $revCount,
-     pubspecLock: input, gitHashes: $gitHashes }' "_sources/$lock_path" >"$src_info"
+  '{ version: $version, sourceSha256: $sourceSha256, rev: $rev, time: $time, revCount: $revCount }' >"$src_info"

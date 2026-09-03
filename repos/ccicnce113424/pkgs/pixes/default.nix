@@ -1,7 +1,8 @@
 {
   sources,
   version,
-  srcInfo,
+  pubspecLock,
+  gitHashes,
   lib,
   flutter344,
   webkitgtk_4_1,
@@ -10,9 +11,7 @@
 }:
 flutter344.buildFlutterApplication {
   inherit (sources) pname src;
-  inherit version;
-  inherit (srcInfo) pubspecLock;
-  inherit (srcInfo) gitHashes;
+  inherit version pubspecLock gitHashes;
 
   buildInputs = [ webkitgtk_4_1 ];
 

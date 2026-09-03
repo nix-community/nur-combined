@@ -36,11 +36,6 @@ src.git = "https://github.com/Mic92/flake-linter"
 fetch.github = "conor42/fxz"
 src.git = "https://github.com/conor42/fxz"
 
-[jaq]
-cargo_lock = ["Cargo.lock"]
-fetch.github = "01mf02/jaq"
-src.github_tag = "01mf02/jaq"
-
 [jj-lsp]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "nilskch/jj-lsp"
