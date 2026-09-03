@@ -49,12 +49,12 @@
             "name": null,
             "owner": "dqzboy",
             "repo": "Docker-Proxy",
-            "rev": "v5.1.6",
-            "sha256": "sha256-Iqoke61A+yuBSa3g6NZ4271A7BGvCdducjV8K60rqkg=",
+            "rev": "v5.1.7",
+            "sha256": "sha256-e38rYMWr5lzHIMJeLuTA7sg1WYSQeSC8zJKJAFcsIas=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.1.6"
+        "version": "v5.1.7"
     },
     "docker-proxy-hubcmdui": {
         "cargoLock": null,
@@ -70,12 +70,12 @@
             "name": null,
             "owner": "dqzboy",
             "repo": "Docker-Proxy",
-            "rev": "v5.1.6",
-            "sha256": "sha256-Iqoke61A+yuBSa3g6NZ4271A7BGvCdducjV8K60rqkg=",
+            "rev": "v5.1.7",
+            "sha256": "sha256-e38rYMWr5lzHIMJeLuTA7sg1WYSQeSC8zJKJAFcsIas=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.1.6"
+        "version": "v5.1.7"
     },
     "filecodebox": {
         "cargoLock": null,
@@ -195,12 +195,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.13.0",
-            "sha256": "sha256-nkQWeD/7FtPwG6pdXU55alNNCr++XqEL/LLtV1+D2u0=",
+            "rev": "v4.15.2",
+            "sha256": "sha256-9PEUdAVM+C/T4eYrvwyUn9fBxnncrJQAq7buUiQNhTo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.13.0"
+        "version": "v4.15.2"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -216,12 +216,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.13.0",
-            "sha256": "sha256-+nR/T9d7JmKMaSfGOhf+DBlFR1LpLL/Htt7mCXsFgyU=",
+            "rev": "v4.15.2",
+            "sha256": "sha256-kq2FpMieC7+I6w5yqy1uE20ZmEmq0dZNK9dSE8p2ixw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.13.0"
+        "version": "v4.15.2"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -391,11 +391,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CzeD21UDUagHt/38fy9a1rH/PV/db/YWUn30MOmejew=",
+            "sha256": "sha256-BGNU6Z9mtOZBzNsSIaxHNOPbZ9TmwIptYBMqsqsJSEY=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.66/vaults3-linux-amd64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.67/vaults3-linux-amd64.tar.gz"
         },
-        "version": "4.4.66"
+        "version": "4.4.67"
     },
     "vaults3-linux-arm64": {
         "cargoLock": null,
@@ -406,11 +406,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/22eFA9Z/1bSv6r0lkVtVnQiTTCy9ZI/fi6wqtAplcg=",
+            "sha256": "sha256-A1Ouhoi2YwAwYwZ/RwqIao30Al3zDH1uSo5r2/55ZHc=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.66/vaults3-linux-arm64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.67/vaults3-linux-arm64.tar.gz"
         },
-        "version": "4.4.66"
+        "version": "4.4.67"
     },
     "vertex": {
         "cargoLock": null,
