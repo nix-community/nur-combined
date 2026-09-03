@@ -14,9 +14,22 @@ mkWindowsAppNoCC rec {
   pname = "paint-net";
   version = "5.1.12";
 
-  src = fetchurl {
-    url = "https://github.com/paintdotnet/release/releases/download/v${version}/paint.net.${version}.portable.x64.zip";
-    hash = "sha256-1a5wQ/L7nTZbSN/iQ6KsocdJJN6ZsEtkRZFslTVK76M=";
+  src = pkgs.stdenv.mkDerivation {
+    pname = "${pname}-src";
+    inherit version;
+    src = fetchurl {
+      url = "https://github.com/paintdotnet/release/releases/download/v${version}/paint.net.${version}.portable.x64.zip";
+      hash = "sha256-1a5wQ/L7nTZbSN/iQ6KsocdJJN6ZsEtkRZFslTVK76M=";
+    };
+    nativeBuildInputs = [ pkgs.libarchive ];
+    unpackPhase = ''
+      mkdir -p source
+      bsdtar -xf $src -C source
+    '';
+    installPhase = ''
+      mkdir -p $out
+      cp -r source/* $out/
+    '';
   };
 
   dontUnpack = true;
@@ -32,12 +45,11 @@ mkWindowsAppNoCC rec {
 
   nativeBuildInputs = [
     copyDesktopItems
-    pkgs.unzip
   ];
 
   winAppInstall = ''
     mkdir -p "$WINEPREFIX/drive_c/Program Files/paint.net"
-    unzip ${src} -d "$WINEPREFIX/drive_c/Program Files/paint.net/" || true
+    cp -r ${src}/* "$WINEPREFIX/drive_c/Program Files/paint.net/"
     wineserver -w
   '';
 
@@ -58,7 +70,11 @@ mkWindowsAppNoCC rec {
       icon = pname;
       desktopName = "paint.net";
       genericName = "Image Editor";
-      mimeTypes = [ "image/png" "image/jpeg" "image/bmp" ];
+      mimeTypes = [
+        "image/png"
+        "image/jpeg"
+        "image/bmp"
+      ];
       categories = [
         "Graphics"
         "2DGraphics"
