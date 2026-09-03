@@ -15,6 +15,7 @@
   raycast-bitwarden = pkgs.callPackage ./pkgs/raycast-bitwarden {};
   catppuccin-obsidian = pkgs.callPackage ./pkgs/catppuccin-obsidian {};
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
+  openflowlm = pkgs.callPackage ./pkgs/openflowlm {};
   flm-add = pkgs.callPackage ./pkgs/flm-add {};
   flm-q4nx-converter = pkgs.callPackage ./pkgs/flm-q4nx-converter {};
   folder-notes = pkgs.callPackage ./pkgs/folder-notes {};

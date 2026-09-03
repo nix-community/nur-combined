@@ -1,0 +1,11 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -888,8 +888,3 @@
+ # relative to the executable, so we install them relative to the binary.
+ install(DIRECTORY xclbins DESTINATION "${FLM_SHARE_DESTINATION}")
+ 
+-# Install the flm-test E-suite validation tool.
+-if(NOT WIN32)
+-    install(PROGRAMS "${CMAKE_SOURCE_DIR}/../utilities/flm-test/flm_test.py"
+-            DESTINATION "${FLM_BIN_DESTINATION}" RENAME flm-test)
+-endif()
