@@ -121,6 +121,7 @@ in
     # pkgs for development-ish
     (lib.mkIf config.vacu.isDev ''
       # keep-sorted start
+      cachix
       cargo
       clippy
       diffoscope
