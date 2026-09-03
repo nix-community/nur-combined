@@ -2,13 +2,12 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-  nur,
   nix-update-script,
   runCommand,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "overcast-data";
-  version = "0.1.1";
+  version = "0.1.2";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "overcast-data";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-y8fzxqE1SAK2bmIamMnTKACme1rcW8olzQLF38Uzl3A=";
+    hash = "sha256-Unc6t7MNRF4TcUAraYJjKjTD+pprPszK8CD9QPvZPLQ=";
   };
 
   build-system = with python3Packages; [
@@ -28,7 +27,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     beautifulsoup4
     click
     cryptography
-    nur.repos.josh.python3-lru-cache
     lxml
     mutagen
     prometheus-client

@@ -9,13 +9,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "aperture-cli";
-  version = "0.0.8";
+  version = "0.0.9";
 
   src = fetchFromGitHub {
     owner = "tailscale";
     repo = "aperture-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-s+slAWcv6IJtfCJK8wORGsl7X0KoVXnxajYSD/AvbcI=";
+    hash = "sha256-AIIqrDexPGWtFBTVvbiOagpvKR+HKoiKM3JhQcSWB4k=";
   };
 
   vendorHash = "sha256-LXkf5l52+7JflU39MY4aNwiLa9rYaB4G1mPTRhm+l/8=";

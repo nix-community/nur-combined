@@ -2,13 +2,12 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-  nur,
   nix-update-script,
   runCommand,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-plex-sync";
-  version = "0.3.0";
+  version = "0.3.1";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "trakt-plex-sync";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BFDdGhJOYsP8svU6ukp0HeDpv6eVGsQWZBdbhtjilSM=";
+    hash = "sha256-KKkwMDQtFWhEkSZS4mUcQRUQZfQX40R6PiDkmrZEekQ=";
   };
 
   build-system = with python3Packages; [
@@ -25,7 +24,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   dependencies = with python3Packages; [
-    nur.repos.josh.python3-lru-cache
     plexapi
   ];
 
