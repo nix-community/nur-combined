@@ -6,7 +6,7 @@
 }:
 
 let
-  version = "0.8.0";
+  version = "0.9.1";
   pname = "tunnet";
 
   # Prebuilt "headless" release tarballs (tunnet + tunnetd), keyed by Nix system.
@@ -14,11 +14,11 @@ let
   sources = {
     "x86_64-linux" = {
       target = "x86_64-unknown-linux-gnu";
-      hash = "sha256-d549aCdmFs6og8bFbjxfN5tvuP/5k6TRc0G85ZVqUq4=";
+      hash = "sha256-qLZLesmkGZAXb6bdkGHUkQ8p4DFPDu1YOJAiYRmkces=";
     };
     "aarch64-linux" = {
       target = "aarch64-unknown-linux-gnu";
-      hash = "sha256-clh4p+RgoSeEpIrkIIraawqLv7XuhaxzaRz44ci/BBk=";
+      hash = "sha256-HYr0wB6MBmli7zseG++QVhkdLM1x8YBjTN2mhwl5krg=";
     };
   };
 
