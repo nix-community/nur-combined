@@ -558,13 +558,13 @@
   };
   secureboot_objects = {
     pname = "secureboot_objects";
-    version = "v1.6.5";
+    version = "v1.7.0-signed";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "secureboot_objects";
-      rev = "v1.6.5";
+      rev = "v1.7.0-signed";
       fetchSubmodules = false;
-      sha256 = "sha256-JEcZw7IhHo02OiKf5LrQaUW3cQyvHSDMcFljgbRLDlo=";
+      sha256 = "sha256-GXi7RMGPH8X6S6qyjfn6yAYwDpJDmGwltNscjkMXLRQ=";
     };
   };
   telegram-send = {

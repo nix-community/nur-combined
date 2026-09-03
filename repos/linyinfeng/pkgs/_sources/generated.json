@@ -857,12 +857,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "secureboot_objects",
-            "rev": "v1.6.5",
-            "sha256": "sha256-JEcZw7IhHo02OiKf5LrQaUW3cQyvHSDMcFljgbRLDlo=",
+            "rev": "v1.7.0-signed",
+            "sha256": "sha256-GXi7RMGPH8X6S6qyjfn6yAYwDpJDmGwltNscjkMXLRQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.6.5"
+        "version": "v1.7.0-signed"
     },
     "telegram-send": {
         "cargoLock": null,
