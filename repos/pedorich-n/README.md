@@ -17,7 +17,7 @@
 - **[error-pages](https://tarampampam.github.io/error-pages)** `4.2.5` — Static error pages generator for HTTP servers
 - **[mcp-searxng](https://github.com/ihor-sokoliuk/mcp-searxng)** `2.1.0` — MCP Server for SearXNG
 - **[rustic-exporter](https://github.com/timtorChen/rustic-exporter)** `0.1.0-rc.12` — Prometheus exporter for rustic/restic backup
-- **[safebucket](https://github.com/safebucket/safebucket)** `0.7.4` — On-prem file sharing made simple, fast and safe.
+- **[safebucket](https://github.com/safebucket/safebucket)** `0.7.5` — On-prem file sharing made simple, fast and safe.
 
 ### NixOS Modules
 
