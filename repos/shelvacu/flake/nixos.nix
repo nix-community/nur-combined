@@ -10,6 +10,7 @@ let
   hosts = {
     # keep-sorted start block=yes
     compute-deck = {
+      aliases = [ "cd" ];
       inp = [
         "jovian"
         "home-manager"
@@ -26,13 +27,16 @@ let
       "tf2-nix"
     ];
     liam.inp = [ "sops-nix" ];
-    prophecy.inp = [
-      "impermanence"
-      "sops-nix"
-      "disko"
-      "declarative-jellyfin"
-      "nix-minecraft"
-    ];
+    prophecy = {
+      inp = [
+        "impermanence"
+        "sops-nix"
+        "disko"
+        "declarative-jellyfin"
+        "nix-minecraft"
+      ];
+      aliases = [ "prop" ];
+    };
     quasar2.inp = [ "sops-nix" ];
     ripper = { };
     savm = { };
@@ -43,13 +47,25 @@ let
     shel-installer-pxe = {
       module = /${vacuRoot}/hosts/installer/pxe.nix;
       readOnlyPkgs = false;
+      aliases = [
+        "pxe"
+        "pxe-build"
+        "pxe-toplevel"
+      ];
     };
     solis.inp = [
       "disko"
       "impermanence"
       "sops-nix"
     ];
-    vacu-agent-vm = { };
+    vacu-agent-vm = {
+      aliases = [
+        "vavm"
+        "agent-vm"
+        "agent"
+      ];
+    };
+
     # keep-sorted end
   };
 
@@ -69,6 +85,7 @@ in
       system ? "x86_64-linux",
       inp ? [ ],
       readOnlyPkgs ? true,
+      aliases ? [ ],
     }:
     let
       whichPkgs = if unstable then allInputs.nixpkgs-unstable else allInputs.nixpkgs;
@@ -93,27 +110,17 @@ in
       name:
       {
         system ? "x86_64-linux",
+        aliases ? [ ],
         ...
       }:
       {
         primarySystem = system;
         multiSystem = false;
         derivations.${system} = topLevelOf name;
+        inherit aliases;
       }
     ) hosts)
     {
-      compute-deck.aliases = [ "cd" ];
-      prophecy.aliases = [ "prop" ];
-      shel-installer-pxe.aliases = [
-        "pxe"
-        "pxe-build"
-        "pxe-toplevel"
-      ];
-      vacu-agent-vm.aliases = [
-        "agent-vm"
-        "agent"
-      ];
-
       iso = {
         primarySystem = "x86_64-linux";
         multiSystem = false;

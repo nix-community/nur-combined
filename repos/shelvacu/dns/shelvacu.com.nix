@@ -78,6 +78,12 @@ in
     mail.A = doA;
     matrix-rtc.A = propA;
     matrix.A = propA;
+    matrix-test.NS = [
+      "pns51.cloudns.net."
+      "pns52.cloudns.net."
+      "pns53.cloudns.net."
+      "pns54.cloudns.net."
+    ];
     mc.SRV = [
       {
         service = "minecraft";
