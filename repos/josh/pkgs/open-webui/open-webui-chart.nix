@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://open-webui.github.io/helm-charts";
   chart = "open-webui";
-  version = "16.3.2";
-  hash = "sha256-dHcsHtdUzK/8gzGQgNqQLd3NzvMqrSoIuHhPv78QCMA=";
+  version = "16.5.0";
+  hash = "sha256-vpjM+MPi2j3fTdVxmqYi28UGrQvNFWT/hrxMbHeN4F4=";
 
   meta = {
     description = "Helm chart for Open WebUI, a self-hosted AI chat interface";
