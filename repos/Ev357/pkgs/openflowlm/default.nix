@@ -76,14 +76,16 @@ stdenv.mkDerivation {
 
   dontUseCmakeConfigure = true;
 
-  configurePhase =
+  configurePhase = let
+    flmVersion = "1.0.4";
+  in
     # bash
     ''
       runHook preConfigure
       cmake -S src -B src/build \
         -GNinja \
         -DCMAKE_BUILD_TYPE=Release \
-        -DFLM_VERSION="0.1.0-dev" \
+        -DFLM_VERSION="${flmVersion}" \
         -DNPU_VERSION="32.0.203.304" \
         "-DXRT_INCLUDE_DIR=${xrt}/opt/xilinx/xrt/include" \
         "-DXRT_LIB_DIR=${xrt}/opt/xilinx/xrt/lib" \
