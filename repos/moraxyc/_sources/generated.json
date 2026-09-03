@@ -121,7 +121,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-JbWoRF1EJO02QRBG+0MxzwVx6XPjwhqs_H8Lj35CE0w=/backend/Cargo.lock",
+                "sha256-kHNpRTflsNXKfZ2sg4kz2ZcUHK3ebU4P1D8wV6CB1Cs=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -135,7 +135,7 @@
                 }
             ]
         },
-        "date": "2026-08-31",
+        "date": "2026-09-02",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -147,12 +147,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "78a8e23d9bd228846e9cbd0303871cff1af3f3ae",
-            "sha256": "sha256-JbWoRF1EJO02QRBG+0MxzwVx6XPjwhqs/H8Lj35CE0w=",
+            "rev": "4d4c35ea461b897a151436007b7a0136b296cefb",
+            "sha256": "sha256-kHNpRTflsNXKfZ2sg4kz2ZcUHK3ebU4P1D8wV6CB1Cs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "78a8e23d9bd228846e9cbd0303871cff1af3f3ae"
+        "version": "4d4c35ea461b897a151436007b7a0136b296cefb"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -171,10 +171,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-09-02",
+        "date": "2026-09-03",
         "extract": {
-            "web/package-lock.json": "sha256-HT6gZFzqCMPGkLlRJSwFxPsRn1lur4PyBYfngE81IKQ=/web/package-lock.json",
-            "web/package.json": "sha256-HT6gZFzqCMPGkLlRJSwFxPsRn1lur4PyBYfngE81IKQ=/web/package.json"
+            "web/package-lock.json": "sha256-H+5ZX2reBIOl0RFUIWQBilrFxWbsq9oKcN2GUoXMObM=/web/package-lock.json",
+            "web/package.json": "sha256-H+5ZX2reBIOl0RFUIWQBilrFxWbsq9oKcN2GUoXMObM=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -186,12 +186,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "bf57761269c7112922a9cc3795b6b1c4ca92f724",
-            "sha256": "sha256-HT6gZFzqCMPGkLlRJSwFxPsRn1lur4PyBYfngE81IKQ=",
+            "rev": "8747af594861309bd4b382a62ea78e96b37e043e",
+            "sha256": "sha256-H+5ZX2reBIOl0RFUIWQBilrFxWbsq9oKcN2GUoXMObM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bf57761269c7112922a9cc3795b6b1c4ca92f724"
+        "version": "8747af594861309bd4b382a62ea78e96b37e043e"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -362,11 +362,11 @@
     "gaze": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-mC3HEC1LwPFAmS8kG9uB5V5ulhSlmGmGYhb4QBOFXk4=/Cargo.lock",
+                "sha256-hiKxLH7q99m5ZR9qozaV4qCVmKFwA_JsA4VBVl01P2c=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-09-01",
+        "date": "2026-09-02",
         "extract": null,
         "name": "gaze",
         "passthru": null,
@@ -378,12 +378,12 @@
             "name": null,
             "owner": "GunduLabs",
             "repo": "gaze",
-            "rev": "89630203c42434707200e239ebf109aa74f9cce1",
-            "sha256": "sha256-mC3HEC1LwPFAmS8kG9uB5V5ulhSlmGmGYhb4QBOFXk4=",
+            "rev": "39f9b7a2420278a344d1385332dc9a6a7db6daae",
+            "sha256": "sha256-hiKxLH7q99m5ZR9qozaV4qCVmKFwA/JsA4VBVl01P2c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "89630203c42434707200e239ebf109aa74f9cce1"
+        "version": "39f9b7a2420278a344d1385332dc9a6a7db6daae"
     },
     "gaze-stable": {
         "cargoLock": null,
@@ -594,7 +594,7 @@
     },
     "loyalsoldier-geoip": {
         "cargoLock": null,
-        "date": "2026-08-27",
+        "date": "2026-09-03",
         "extract": null,
         "name": "loyalsoldier-geoip",
         "passthru": null,
@@ -606,12 +606,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "geoip",
-            "rev": "fb496a0470a66ba8401589b5e9fb35630f85f0b0",
-            "sha256": "sha256-eenVlcrlCwslF/11uyEHmYlaQnj0HiGU+QcwpWqgKPo=",
+            "rev": "c14effb6114daf8a9ac478a0f74a2782d39c56e3",
+            "sha256": "sha256-le+sBqWyUwbv1lNBJZfX3cIj3ugfwx78NuczIkph8vY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fb496a0470a66ba8401589b5e9fb35630f85f0b0"
+        "version": "c14effb6114daf8a9ac478a0f74a2782d39c56e3"
     },
     "manpage-zh": {
         "cargoLock": null,
@@ -678,7 +678,7 @@
     },
     "meta-rules-dat": {
         "cargoLock": null,
-        "date": "2026-09-02",
+        "date": "2026-09-03",
         "extract": null,
         "name": "meta-rules-dat",
         "passthru": null,
@@ -690,12 +690,12 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "meta-rules-dat",
-            "rev": "a2ea2a297b990203c15453198982f60e4a93ecef",
-            "sha256": "sha256-FARZULe+uLj6CP/t0cprxtTnixobnHKc1lvPfY8t3nM=",
+            "rev": "9df278b0de11db1901452bd4de846a54e7219ca1",
+            "sha256": "sha256-ou8c94Ia2J6KMZLGi2aIr4VEOxB5q94gMYqI7R8KJms=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a2ea2a297b990203c15453198982f60e4a93ecef"
+        "version": "9df278b0de11db1901452bd4de846a54e7219ca1"
     },
     "metacubex-geo": {
         "cargoLock": null,
@@ -820,12 +820,12 @@
             "name": null,
             "owner": "nezhahq",
             "repo": "nezha",
-            "rev": "v2.3.7",
-            "sha256": "sha256-RK6eRKqZtyBDGRfrapAOwpnrEM9cq5qa0Ev958SOcII=",
+            "rev": "v2.3.8",
+            "sha256": "sha256-MW3DgW9bdWiucwiVQdVojlZ0Sl4Pd+l8SWkMGf929pQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.3.7"
+        "version": "v2.3.8"
     },
     "nezha-agent": {
         "cargoLock": null,
@@ -841,19 +841,19 @@
             "name": null,
             "owner": "nezhahq",
             "repo": "agent",
-            "rev": "v2.3.3",
-            "sha256": "sha256-cSjioxBFbokyPwFhPhzpMUUIHAOaJtVsbyBrUiAt99Y=",
+            "rev": "v2.3.4",
+            "sha256": "sha256-xYeLTrSmz9k3dDjZfgyrLFf0mi45zbJbXNmhH/CD7EE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.3.3"
+        "version": "v2.3.4"
     },
     "nezha-theme-admin": {
         "cargoLock": null,
         "date": null,
         "extract": {
-            "package-lock.json": "sha256-cjq0dwIUsT4iNcatzwxOaMMJ9dpjNmSShjHBBXW6neA=/package-lock.json",
-            "package.json": "sha256-cjq0dwIUsT4iNcatzwxOaMMJ9dpjNmSShjHBBXW6neA=/package.json"
+            "package-lock.json": "sha256-Jrj+qMd4aRnXm27ILEVI_FkVTNLTnlD29nO1TcA0q0c=/package-lock.json",
+            "package.json": "sha256-Jrj+qMd4aRnXm27ILEVI_FkVTNLTnlD29nO1TcA0q0c=/package.json"
         },
         "name": "nezha-theme-admin",
         "passthru": null,
@@ -865,12 +865,12 @@
             "name": null,
             "owner": "nezhahq",
             "repo": "admin-frontend",
-            "rev": "v2.3.4",
-            "sha256": "sha256-cjq0dwIUsT4iNcatzwxOaMMJ9dpjNmSShjHBBXW6neA=",
+            "rev": "v2.3.5",
+            "sha256": "sha256-Jrj+qMd4aRnXm27ILEVI/FkVTNLTnlD29nO1TcA0q0c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.3.4"
+        "version": "v2.3.5"
     },
     "nezha-theme-user": {
         "cargoLock": null,
@@ -1162,7 +1162,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-09-01",
+        "date": "2026-09-02",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -1174,12 +1174,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "11e7609a299a1153d43e34b50ae64b96ace20400",
-            "sha256": "sha256-F6lqb7Maf44GeWxVIGYQgsNb8ug6NQvh2XPdLnVglKE=",
+            "rev": "6b6725875f15d9448a7f4d5fea963466798b6a6d",
+            "sha256": "sha256-/NCe9oJOHabENPCzgwWKb4SS6sCZRp9MUXlyMwkSfHc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "11e7609a299a1153d43e34b50ae64b96ace20400"
+        "version": "6b6725875f15d9448a7f4d5fea963466798b6a6d"
     },
     "whois42d-ng": {
         "cargoLock": {
