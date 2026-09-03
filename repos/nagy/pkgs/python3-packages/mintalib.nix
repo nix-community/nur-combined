@@ -8,16 +8,16 @@
   polars,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mintalib";
-  version = "0-unstable-2026-07-31";
+  version = "0.1.11";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "furechan";
     repo = "mintalib";
-    rev = "f19f7b531c08169e4f1fa42d9f40d461da650dd3";
-    hash = "sha256-vYfmm8q8DzifkRHcCOVDuBLhNpNK5o09lvunhphcBqs=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-8u9l8vIoq2FFeJVbm0ZRWSFtEfTL4Gw6za7gNYpjSbA=";
   };
 
   build-system = [
@@ -44,8 +44,8 @@ buildPythonPackage rec {
   meta = {
     description = "Minimal Technical Analysis Library for Python";
     homepage = "https://github.com/furechan/mintalib";
-    changelog = "https://github.com/furechan/mintalib/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/furechan/mintalib/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

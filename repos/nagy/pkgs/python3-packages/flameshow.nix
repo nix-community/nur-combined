@@ -44,11 +44,12 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "flameshow" ];
 
-  meta = with lib; {
+  meta = {
     description = "A terminal Flamegraph viewer";
     homepage = "https://github.com/laixintao/flameshow";
-    license = licenses.gpl3Only;
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "flameshow";
   };
 }

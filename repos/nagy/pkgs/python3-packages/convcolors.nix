@@ -2,12 +2,13 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-  setuptools-scm,
+  setuptools,
 }:
 
 buildPythonPackage rec {
   pname = "convcolors";
   version = "2.2.0";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
@@ -16,12 +17,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "convcolors" ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  build-system = [ setuptools ];
 
-  meta = with lib; {
+  meta = {
     description = "Python package for converting colors between different color spaces";
     homepage = "https://pypi.org/project/convcolors/";
-    license = licenses.mit;
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

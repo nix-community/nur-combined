@@ -27,7 +27,7 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Go package for reading GGUF files";
     longDescription = ''
       A Go package for reading GGUF (GPT-Generated Unified Format) files.
@@ -36,7 +36,7 @@ buildGoModule (finalAttrs: {
       GGUF versions 1, 2 and 3 are supported.
     '';
     homepage = "https://github.com/abrander/gguf";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "ggufmeta";
   };

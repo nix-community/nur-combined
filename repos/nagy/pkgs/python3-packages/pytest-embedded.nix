@@ -3,19 +3,20 @@
   fetchPypi,
   buildPythonPackage,
   flit-core,
+  filelock,
   pexpect,
   pytest,
 }:
 
 buildPythonPackage rec {
   pname = "pytest-embedded";
-  version = "1.16.0";
+  version = "1.18.2";
   pyproject = true;
 
   src = fetchPypi {
     pname = "pytest_embedded";
     inherit version;
-    hash = "sha256-Fz2PqjSwG43MrcAD4IPf01pV9nD+oBLqIcyzCZa5blY=";
+    hash = "sha256-qz2kEqZW0GJb4W+c3b6z9Bap6MXmmz5Z2uHu4jPfwBU=";
   };
 
   build-system = [
@@ -23,6 +24,7 @@ buildPythonPackage rec {
   ];
 
   dependencies = [
+    filelock
     pexpect
     pytest
   ];

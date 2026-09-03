@@ -2,21 +2,28 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-  requests,
+
+  # build-system
+  hatchling,
+  uv-dynamic-versioning,
+
+  # dependencies
   click,
-  pillow,
-  python-dotenv,
-  pyperclip,
   httpx,
   loguru,
+  pillow,
+  pyperclip,
+  python-dotenv,
   rich,
-  uv-dynamic-versioning,
+
+  # tests
+  versionCheckHook,
 }:
 
 buildPythonPackage rec {
   pname = "images-upload-cli";
   version = "3.0.6";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchPypi {
     pname = "images_upload_cli";
@@ -24,25 +31,32 @@ buildPythonPackage rec {
     hash = "sha256-vydsMVVBFrr0kEnNx6ZazdhNvHgdMn1xQcVz9DoHems=";
   };
 
-  pythonImportsCheck = [ "images_upload_cli" ];
-
-  propagatedBuildInputs = [
-    requests
-    click
-    pillow
-    python-dotenv
-    pyperclip
+  build-system = [
+    hatchling
     uv-dynamic-versioning
+  ];
+
+  dependencies = [
+    click
     httpx
     loguru
+    pillow
+    pyperclip
+    python-dotenv
     rich
   ];
 
-  meta = with lib; {
+  pythonImportsCheck = [ "images_upload_cli" ];
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
+
+  meta = {
     description = "Upload images via APIs";
     homepage = "https://github.com/DeadNews/images-upload-cli";
-    license = licenses.mit;
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ nagy ];
+    mainProgram = "images-upload-cli";
   };
 }

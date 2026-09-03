@@ -23,10 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  meta = with lib; {
+  meta = {
     description = "ANSI Common Lisp implementation";
     homepage = "https://github.com/nptcl/npt";
-    license = licenses.unlicense;
-    platforms = platforms.all;
+    license = lib.licenses.unlicense;
+    platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

@@ -18,7 +18,7 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "captn3m0";
     repo = "pystitcher";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-JI0gQh05zrrJSUnlDt0e3mG/VoFrzJzvL7JJzSD+2Q8=";
   };
 
@@ -33,11 +33,11 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "pystitcher" ];
 
-  meta = with lib; {
+  meta = {
     description = "Stitches your PDF files together, generating nice customizable bookmarks for you using a declarative markdown file as input";
     homepage = "https://github.com/captn3m0/pystitcher";
     changelog = "https://github.com/captn3m0/pystitcher/blob/${src.rev}/CHANGELOG.rst";
-    license = licenses.mit;
-    maintainers = with maintainers; [ nagy ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

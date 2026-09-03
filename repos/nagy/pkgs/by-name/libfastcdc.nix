@@ -42,10 +42,11 @@ stdenv.mkDerivation {
     $CXX -I $out/include ${program} -O3 -o $out/bin/fastcdc
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Tools for synching and streaming files from Windows to Linux";
     homepage = "https://github.com/google/cdc-file-transfer";
-    license = with licenses; [ asl20 ];
+    license = lib.licenses.asl20;
     mainProgram = "fastcdc";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

@@ -2,9 +2,15 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+
+  # build-system
   setuptools,
   wheel,
+
+  # dependencies
   rich,
+
+  # optional dependencies
   rich-click,
   click,
   websockets,
@@ -13,27 +19,29 @@
 
 buildPythonPackage rec {
   pname = "esp-pylib";
-  version = "1.1.2";
+  version = "1.1.4";
   pyproject = true;
 
   src = fetchPypi {
     pname = "esp_pylib";
     inherit version;
-    hash = "sha256-sl8kjrnpIm0JCzOCyL5dGIQ1kHjD6UwaMExkd6NKESM=";
+    hash = "sha256-3L1xfooNcTnRjCg1K2N/DucPyOQPDbHAkHlsn60WyJo=";
   };
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools
     wheel
   ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     rich
-    rich-click
-    click
-    websockets
-    pyserial
   ];
+
+  passthru.optional-dependencies = {
+    ide = [ websockets ];
+    serial = [ pyserial ];
+    cli = [ rich-click click ];
+  };
 
   pythonImportsCheck = [ "esp_pylib" ];
 

@@ -25,9 +25,10 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Git filter for friendly handling of ZIP-based files";
     homepage = "https://bitbucket.org/sippey/zippey/";
-    license = licenses.free;
+    license = lib.licenses.free;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

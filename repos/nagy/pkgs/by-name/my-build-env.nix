@@ -82,6 +82,7 @@ let
             pkgs.ron-lsp
 
             self.pngattach
+            self.pi-acp
 
             pkgs.disko
           ];

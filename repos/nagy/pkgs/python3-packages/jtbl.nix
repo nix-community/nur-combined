@@ -28,5 +28,7 @@ buildPythonApplication rec {
     homepage = "https://github.com/kellyjonbrazil/jtbl";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ nagy ];
+    mainProgram = "jtbl";
   };
 }
