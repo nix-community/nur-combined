@@ -32,12 +32,15 @@ mkWindowsAppNoCC rec {
 
   nativeBuildInputs = [
     copyDesktopItems
-    pkgs.unzip
+  ];
+
+  buildInputs = [
+    pkgs.libarchive
   ];
 
   winAppInstall = ''
     mkdir -p "$WINEPREFIX/drive_c/Program Files/paint.net"
-    unzip ${src} -d "$WINEPREFIX/drive_c/Program Files/paint.net/" || true
+    bsdtar -xf ${src} -C "$WINEPREFIX/drive_c/Program Files/paint.net/" || true
     wineserver -w
   '';
 

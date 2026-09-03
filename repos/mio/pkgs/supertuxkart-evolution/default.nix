@@ -30,7 +30,7 @@ let
     owner = "Pttn";
     repo = "stk-assets";
     rev = "94a957db16f16d82409f6bfe9c1961d07d8a90e6";
-    sha256 = "sha256-BGhriCSGDg8n7MnYvzklJgB60VGBzqQGzYpWV76eKho=";
+    hash = "sha256-BGhriCSGDg8n7MnYvzklJgB60VGBzqQGzYpWV76eKho=";
   };
 
   # List of bundled libraries in stk-code/lib to keep
@@ -56,8 +56,8 @@ stdenv.mkDerivation {
     owner = "supertuxkart";
     repo = "stk-code";
     # BalanceSTK2 branch commit
-    rev = "c6b1277";
-    hash = "sha256-EvD5J/DJilceevn1XjXukAa8MXMNGdZt6oJ/zrvknZk=";
+    rev = "d27b64e";
+    hash = "sha256-radwWKFswdpoux2m38g67+DJD2x7vIK5u+kMbWVNq9o=";
   };
 
   postPatch = ''

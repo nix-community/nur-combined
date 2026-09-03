@@ -8,7 +8,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "dark-reader";
-  version = "4.9.129";
+  version = "4.9.130";
 
   extid = "addon@darkreader.org";
 
@@ -18,12 +18,12 @@ buildNpmPackage (finalAttrs: {
     owner = "darkreader";
     repo = "darkreader";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0zb3vdi1IrATmseWvmH4sEQUOYsLVtN3LCt3QN1HPmw=";
+    hash = "sha256-Q2xr5H3IeeijadSKsuRWmCfF6mhTibNmNPffnRNc1N0=";
   };
 
   nodejs = nodejs_22;
 
-  npmDepsHash = "sha256-IunCGcXU1+gcdywtxc1hmzM+8AXSEU3nfdTOb8TZ6gI=";
+  npmDepsHash = "sha256-S3RpHJagK2XamrP6G2DY+SJhGiud5mTh2ctXwfiJf/A=";
 
   buildPhase = ''
     runHook preBuild
