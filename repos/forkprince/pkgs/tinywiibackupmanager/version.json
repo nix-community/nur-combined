@@ -1,0 +1,28 @@
+{
+  "name": "TinyWiiBackupManager",
+  "source": {
+    "type": "github-release",
+    "repo": "mq1/TinyWiiBackupManager",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "6.0.8",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "TinyWiiBackupManager-v{version}-macos-universal.dmg",
+      "hash": "sha256-MciPrT4xsJd718S2SX33aZJTOOqidJHMccjhmrm/Y3k="
+    },
+    "x86_64-darwin": {
+      "file": "TinyWiiBackupManager-v{version}-macos-universal.dmg",
+      "hash": "sha256-MciPrT4xsJd718S2SX33aZJTOOqidJHMccjhmrm/Y3k="
+    },
+    "x86_64-linux": {
+      "file": "TinyWiiBackupManager-v{version}-linux-x86_64.AppImage",
+      "hash": "sha256-vwsghjm2r8FhKjSyxBg//AN12O7qwLZ5uNu/ndl0WCo="
+    },
+    "aarch64-linux": {
+      "file": "TinyWiiBackupManager-v{version}-linux-aarch64.AppImage",
+      "hash": "sha256-BQivHX/PnEI6nsgvCD2vnfAX+Mxz1Py4ahJFmrBfLGs="
+    }
+  }
+}

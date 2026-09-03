@@ -25,6 +25,7 @@
   mcman = lib.callPackage ./pkgs/mcman {};
   sfw = lib.callPackage ./pkgs/sfw {};
 
+  tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
   folder-preview-pro = lib.callPackage ./pkgs/folder-preview-pro {};
