@@ -7,25 +7,27 @@
   openssl,
   hdf5,
   cmake,
+  perl,
   nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "runmat";
-  version = "0.6.1";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "runmat-org";
     repo = "runmat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8oKRWjLaMotTUr6uERsoGj3WF8e3dKTsN1sQkCRQLmo=";
+    hash = "sha256-j4YXQwPvnSRzYvJEMROLrN2nIYcl1A0eC0nwpeAHbrE=";
   };
 
-  cargoHash = "sha256-IuMEYnAqdz6h65OnVaeprqaqqI83OIQgCgzvsTE/N80=";
+  cargoHash = "sha256-mM5lmYbpbatvaUNciKRNxkuF1xcZpBk/YIIayUnk7O8=";
 
   nativeBuildInputs = [
     pkg-config
     cmake
+    perl
   ];
 
   buildInputs = [
