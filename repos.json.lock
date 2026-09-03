@@ -794,8 +794,8 @@
             "url": "https://github.com/dmfrpro/nur-packages"
         },
         "doomhammer": {
-            "rev": "93058a2cb1292f6f67e4d47509099c89aa2b8835",
-            "sha256": "01qmdkws5ab62vr0q9hm8rw7yngl1flirnk45qpgs87r1f6naa32",
+            "rev": "2a8f5d77377e19b1634febf244eec9822cafc5de",
+            "sha256": "1n00al45idvcqcyx74zvhbzdia78r5yrnqqqvx53v9g3a5s5a1z1",
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
@@ -2295,8 +2295,8 @@
             "url": "https://github.com/signalridge/nur-packages"
         },
         "sigprof": {
-            "rev": "8c9f86b744b2327582511b668fe74ed7dadc0ba3",
-            "sha256": "177cbhbgd4yy6mj18vhpj93fnn3i7shn9n00i5n3qzrrz83hmc6n",
+            "rev": "0a1ec0c355db10b420c2a268d4988dfd7164b279",
+            "sha256": "0gl6v52kd948l7sbf1wbyvxbzj7hnjs0mh8sw8j0s059by8mqsby",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
