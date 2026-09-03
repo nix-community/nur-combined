@@ -6,14 +6,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "esp32knife";
   version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "BlackVS";
     repo = "esp32knife";
-    rev = "v2.0.1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-uXZugqhGFZwCYyqnjiuWLsg33bsYrEzBZtpuX4mP4HI=";
   };
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation {
     mainProgram = "esp32knife";
     platforms = lib.platforms.all;
   };
-}
+})

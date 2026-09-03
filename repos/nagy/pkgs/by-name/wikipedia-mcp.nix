@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "wikipedia-mcp";
   version = "2.0.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Rudra-ravi";
     repo = "wikipedia-mcp";
-    rev = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Jm+WGUBRiDX88vcDnDOcevWHuksTamu8IWXO5ajccR0=";
   };
 
@@ -47,9 +47,9 @@ python3.pkgs.buildPythonApplication rec {
   meta = {
     description = "Model Context Protocol (MCP) server that retrieves information from Wikipedia to provide context to LLMs";
     homepage = "https://github.com/Rudra-ravi/wikipedia-mcp";
-    changelog = "https://github.com/Rudra-ravi/wikipedia-mcp/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/Rudra-ravi/wikipedia-mcp/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "wikipedia-mcp";
   };
-}
+})

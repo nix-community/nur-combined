@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "LibVNC";
     repo = "vncterm";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-6Lk9b4qi3jpJOxX578Jkq/zZ9N4Xmu2XL1Vsbs2goig=";
   };
 

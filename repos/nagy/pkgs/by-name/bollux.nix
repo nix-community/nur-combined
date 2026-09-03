@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromSourcehut {
     owner = "~acdw";
     repo = "bollux";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-BpbxgqIC1s6ur5UTE2TBKMLV62FFDYBMHGY3FuDB/A8=";
   };
 

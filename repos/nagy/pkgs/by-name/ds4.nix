@@ -4,9 +4,9 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ds4";
-  version = "0-unstable-2026-08-09";
+  version = "0-unstable-2026-09-02";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -14,8 +14,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "ds4";
-    rev = "84cc882352757baf628a1776badf7cc54d584e28";
-    hash = "sha256-mdvKxI+/vDQcrpHepvXPmYcTjPTRnqJWWU0UFFnLJJk=";
+    rev = "b0a147a7fba6d1a104d047d5a140e9bb4bfc13cd";
+    hash = "sha256-sHpV49J+3EPHAKFO/aKolTZ16uCfaiX+WKgsDKNLNTU=";
   };
 
   enableParallelBuilding = true;
@@ -27,9 +27,11 @@ stdenv.mkDerivation {
 
   checkPhase = ''
     runHook preCheck
-    make q4k-dot-test mxfp4-dot-test tests/test_layer_pack tests/test_gpu_args
+    make q4k-dot-test mxfp4-dot-test \
+      tests/test_layer_pack tests/test_gpu_args tests/test_prompt_prefix
     ./tests/test_layer_pack
     ./tests/test_gpu_args
+    ./tests/test_prompt_prefix
     ./ds4-eval --self-test-extractors
     runHook postCheck
   '';
@@ -48,4 +50,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

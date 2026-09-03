@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "sane-fmt";
     repo = "sane-fmt";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-DJBphNc9fMdmnD9k12YLCpJI1IUjVyH94XBu2LChWJQ=";
   };
 
