@@ -5,23 +5,23 @@
     "url": "https://api.fluxer.app/dl/desktop/canary/darwin/x64/RELEASES.json",
     "version_path": ".currentRelease"
   },
-  "version": "2026.901.185447",
+  "version": "2026.902.161542",
   "platforms": {
     "x86_64-darwin": {
       "url": "https://api.fluxer.app/dl/desktop/canary/darwin/x64/Fluxer-Canary-{version}-mac-universal.zip",
-      "hash": "sha256-QZqxQSS3qz+nhjEyFrTfmOEIcYussrlLNZMJnvgSIDw="
+      "hash": "sha256-qag2Nqdo/XGWOoqds45aHdOf8EzZ6I9Oeqx1uthL7DM="
     },
     "aarch64-darwin": {
       "url": "https://api.fluxer.app/dl/desktop/canary/darwin/arm64/Fluxer-Canary-{version}-mac-universal.zip",
-      "hash": "sha256-QZqxQSS3qz+nhjEyFrTfmOEIcYussrlLNZMJnvgSIDw="
+      "hash": "sha256-qag2Nqdo/XGWOoqds45aHdOf8EzZ6I9Oeqx1uthL7DM="
     },
     "x86_64-linux": {
       "url": "https://api.fluxer.app/dl/desktop/canary/linux/x64/Fluxer-Canary-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-/f8Ya0jqqpt44h2BBtHHmwOe6FxG/nQ4xcLjQ3cUREc="
+      "hash": "sha256-WSLfVONn9yell5VPkRETmjrfAFxoM4FM2Mmj57CubJM="
     },
     "aarch64-linux": {
       "url": "https://api.fluxer.app/dl/desktop/canary/linux/arm64/Fluxer-Canary-{version}-linux-arm64.AppImage",
-      "hash": "sha256-DtNSrKNbcEli9IreorOxepYZkYu6bAK/VjdOrMYR6vk="
+      "hash": "sha256-L5E/XweXah4G0Kz+I9wE/FgzmMmARGZickPY/ixtZXw="
     }
   }
 }
