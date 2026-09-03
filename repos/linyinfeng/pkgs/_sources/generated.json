@@ -189,12 +189,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.18.44-linux-260821T071903Z",
-            "sha256": "sha256-iB48kZHRqGXP8rYUtx/96rPIigkgpNcEnXkx517RPoE=",
+            "rev": "lts-v6.18.44-linux-260831T053154Z",
+            "sha256": "sha256-G+Durilo0fFiMxZsfufOMWjMJqxmvXYYu9jNhhYgO2Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.18.44-linux-260821T071903Z"
+        "version": "lts-v6.18.44-linux-260831T053154Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
@@ -911,7 +911,7 @@
     },
     "v86": {
         "cargoLock": null,
-        "date": "2026-09-02",
+        "date": "2026-09-03",
         "extract": null,
         "name": "v86",
         "passthru": null,
@@ -921,13 +921,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e02816a97c866f576ac10c79e6d03c26462698f9",
-            "sha256": "sha256-pE0oLYgg2GtwMBsfDPhQuFwssmIYf+GCHHhiwyDV2d4=",
+            "rev": "d96be774e549a83371b038b86e819804c96b921f",
+            "sha256": "sha256-NzGkEK7OCZt7tCk1/3zXFUuLd2bdkYwZDMk1QQ8ITPI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "e02816a97c866f576ac10c79e6d03c26462698f9"
+        "version": "d96be774e549a83371b038b86e819804c96b921f"
     },
     "vlmcsd": {
         "cargoLock": null,
