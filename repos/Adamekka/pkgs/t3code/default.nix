@@ -10,10 +10,10 @@
 }:
 
 let
-  version = "0.0.39-nightly.20260902.73";
+  version = "0.0.39-nightly.20260902.74";
 
   src = fetchFromGitHub {
-    hash = "sha256-LsSV2150ZmPYMfVjpgBeMKffy3KFdVvIEyHu/DfxsVM=";
+    hash = "sha256-wk4nnof6hTOL/5DYMWfm1IC/Lc6qLP9mK8qOYGX2/Tk=";
     owner = "Adamekka";
     repo = "t3code";
     tag = "v${version}";
