@@ -43,13 +43,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "ds4";
-  version = "0-unstable-2026-09-01";
+  version = "0-unstable-2026-09-02";
 
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "ds4";
-    rev = "b0982a1b4ee9d0f157e600bfd102fbeac951a829";
-    hash = "sha256-UP2ZgjFZkmrucMG9dLTidr1nPq3pAnGQ6+9LgKOWvrU=";
+    rev = "b0a147a7fba6d1a104d047d5a140e9bb4bfc13cd";
+    hash = "sha256-sHpV49J+3EPHAKFO/aKolTZ16uCfaiX+WKgsDKNLNTU=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

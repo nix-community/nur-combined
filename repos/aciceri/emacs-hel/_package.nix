@@ -11,13 +11,13 @@
 # is compiled against (the emacs module passes its own `epkgs`).
 emacsPackages.trivialBuild {
   pname = "hel";
-  version = "new_undo_system-unstable-2026-09-01";
+  version = "new_undo_system-unstable-2026-09-02";
 
   src = fetchFromGitHub {
     owner = "anuvyklack";
     repo = "hel";
-    rev = "fa057cbe9abf98cf2c68a6c5cb775cb896e18ac4";
-    hash = "sha256-ibc7aeYNEcGaCuieTcJiDrbksI+72AlT/CycqlSLAd8=";
+    rev = "7c133defda8c0e3c6c791cde05450c3d43616f06";
+    hash = "sha256-Ei2WbCNEl2AzfYj7yGY2rMtJayARkC7nPhVsepDalE0=";
   };
 
   packageRequires = with emacsPackages; [
