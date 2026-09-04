@@ -18,8 +18,10 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  aiot-ide = pkgs.callPackage ./pkgs/aiot-ide { };
   astral = pkgs.callPackage ./pkgs/astral { };
   astral-bin = pkgs.callPackage ./pkgs/astral-bin { };
+  astrobox = pkgs.callPackage ./pkgs/astrobox { };
   chatgpt = chatgpt;
   chatgpt-wayland = pkgs.callPackage ./pkgs/chatgpt-wayland { inherit chatgpt; };
   classin = pkgs.callPackage ./pkgs/classin { };

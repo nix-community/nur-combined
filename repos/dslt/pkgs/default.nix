@@ -1,7 +1,9 @@
 { pkgs, bun2nix ? pkgs.callPackage ./bun2nix-shim { }, ... }:
 {
+  aiot-ide = pkgs.callPackage ./aiot-ide { };
   astral = pkgs.callPackage ./astral { };
   astral-bin = pkgs.callPackage ./astral-bin { };
+  astrobox = pkgs.callPackage ./astrobox { };
   classin = pkgs.callPackage ./classin { };
   hhsh = pkgs.callPackage ./hhsh { };
   linuxqq-clipsync = pkgs.callPackage ./linuxqq-clipsync { };
