@@ -96,6 +96,10 @@
 
           nixosModules = {
             setupOverlay = _: { nixpkgs.overlays = [ self.overlays.default ]; };
+
+            # ZCode 桌面应用（包在 pkgs/uncategorized/zcode）。上层仓库只
+            # import 本模块并设 lantian.zcode.enable，不再重复逻辑。
+            zcode = import ./nixos-modules/zcode.nix { inherit self; };
           };
 
           hydraJobs.packages.x86_64-linux = self.hydraPackages.x86_64-linux;
