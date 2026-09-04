@@ -34,9 +34,9 @@ let
             nur.repos.nagy.modules.go
             nur.repos.nagy.modules.gtk
             nur.repos.nagy.modules.hledger
-            nur.repos.nagy.modules.hmmodule-mpv
-            nur.repos.nagy.modules.hmmodule-readline
-            nur.repos.nagy.modules.hmmodule-zathura
+            # nur.repos.nagy.modules.hmmodule-mpv
+            # nur.repos.nagy.modules.hmmodule-readline
+            # nur.repos.nagy.modules.hmmodule-zathura
             nur.repos.nagy.modules.htop
             nur.repos.nagy.modules.javascript
             nur.repos.nagy.modules.keyboard_layout
@@ -131,7 +131,7 @@ let
     else
       null;
 in
-pkgs.writeText "my-build-env-script" ''
+(pkgs.writeText "my-build-env-script" ''
   export PATH="${buildEnv}/bin:$PATH"
   export MANPATH="${buildEnv}/share/man:$MANPATH"
   export INFOPATH="${buildEnv}/share/info:$INFOPATH"
@@ -144,4 +144,4 @@ pkgs.writeText "my-build-env-script" ''
 
   # TODO make this dynamic
   export TERMINFO_DIRS="${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo:$TERMINFO_DIRS"
-''
+'').overrideAttrs {passthru.buildEnv = buildEnv;}

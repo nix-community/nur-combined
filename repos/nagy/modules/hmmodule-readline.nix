@@ -104,15 +104,14 @@
        "\eG": "\C-a\C-kfd -j 1 -L\C-m"
 
        # nix stuff
+       "\eo\ed": "exec nix develop\C-m"
+       "\eo\es": "exec nix shell\C-m"
        "\eo\eh": "https://"
        "\eo\en": "/nix/store/"
        "\eo\eN": "/nixfs/"
 
        # misc
        "\C-xs": "\C-asudo \C-e\C-m"
-       "\epp": "\C-a\C-kpython\C-m"
-       "\eop": "\C-a\C-kpython "
-       "\eo\es": "\C-a\C-kssh "
        "\eod": "\C-a\C-kmkdir -p "
        "\em\em": "\C-a\C-kmake\C-m"
        "\em\eM": "\C-a\C-kmake -B\C-m"

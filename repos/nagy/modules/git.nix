@@ -16,13 +16,14 @@ in
     GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
   };
 
-  programs.ssh.extraConfig = ''
-    Host github.com gitlab.com git.sr.ht codeberg.org
-      User git
-      IdentitiesOnly yes
-      IdentityFile ~/.ssh/id_nagy
-      # IdentityFile ''${XDG_RUNTIME_DIR}/ssh_id_nagy
-  '';
+  # currently in ~/.ssh/config because of uncertainty where this config should be
+  # programs.ssh.extraConfig = ''
+  #   Host github.com gitlab.com git.sr.ht codeberg.org
+  #     User git
+  #     IdentitiesOnly yes
+  #     IdentityFile ~/.ssh/id_nagy
+  #     # IdentityFile ''${XDG_RUNTIME_DIR}/ssh_id_nagy
+  # '';
 
   programs.git = {
     enable = true;

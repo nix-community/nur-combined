@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   self = import ../. { inherit pkgs; };
@@ -21,6 +21,16 @@ in
     PI_OFFLINE = "1";
     PI_SKIP_VERSION_CHECK = "1";
     PONYTAIL_DEFAULT_MODE = "off";
+
+    # Custom tool ../bin/aiagent.rs
+    AIAGENT_ENVS = lib.concatStringsSep "," [
+      "PI_TELEMETRY"
+      "PI_OFFLINE"
+      "PI_SKIP_VERSION_CHECK"
+
+      "DEEPSEEK_API_KEY"
+      "CARGO_TARGET_DIR=/tmp/cargo-target"
+    ];
   };
 
 }

@@ -17,6 +17,8 @@
         }
       ];
       vendorHash = "sha256-NBk5cLvsc7IMsuiAIfKx/xh/+RiPzH1DIDLUPzCQGGg="; # for 26.05-unstable
+      # vendorHash = "sha256-pBwBGUNvShc6CsB1pn2GnG7eQ2PWXauaag4DN4pxXNU="; # for 26.11-unstable
+
     };
     config = ''
       . {
