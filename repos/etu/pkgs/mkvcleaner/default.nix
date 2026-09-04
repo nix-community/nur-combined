@@ -5,7 +5,7 @@
   ...
 }: let
   pname = "mkvcleaner";
-  version = "1.1.0";
+  version = "1.2.0";
 in
   buildGoModule {
     inherit pname version;
@@ -14,10 +14,12 @@ in
       owner = "etu";
       repo = pname;
       rev = version;
-      hash = "sha256-0jVw1nneP8k0v1VSCnnQnX61o8wjtOw1QnTwnuYr5k8=";
+      hash = "sha256-B3+NhxSDlDujC97GgqJjQdY4bl4/+iFqyNO63LkuLyg=";
     };
 
     vendorHash = "sha256-UO6qcgd39PRXSnfE8kTuyug8o7VRhnyfTjLGVWGYxfc=";
+
+    ldflags = ["-X main.version=${version}"];
 
     meta = with lib; {
       description = "bulk-remux mkv-files from tracks of unwanted languages";
