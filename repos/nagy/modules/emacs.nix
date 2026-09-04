@@ -132,6 +132,17 @@ let
           allowSubstitutes = false;
         });
 
+        naysayer-theme = super.naysayer-theme.overrideAttrs {
+          # prevent warnings
+          postPatch = ''
+            substituteInPlace naysayer-theme.el \
+              --replace-fail '--- The naysayer color theme' \
+              '--- The naysayer color theme -*- lexical-binding: t; -*-'
+          '';
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        };
+
       }
       // (builtins.mapAttrs (_name: f: f self super) cfg.extraOverrides)
     )
@@ -203,9 +214,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-08-22
+          # updated 2026-09-04
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/63cad05958ad638c0423b922f23db06d6edcc1a8.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/4b10a0f910b9fd4d6f923a271fc1a04d71fcbf0e.tar.gz";
         }
       ))
     ];

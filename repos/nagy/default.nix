@@ -35,13 +35,6 @@
     }
   );
 
-  lispPackages = lib.recurseIntoAttrs (
-    lib.packagesFromDirectoryRecursive {
-      directory = ./pkgs/lisp-packages;
-      callPackage = callPackage;
-    }
-  );
-
   emacsPackages = lib.recurseIntoAttrs (
     lib.packagesFromDirectoryRecursive {
       directory = ./pkgs/emacs-packages;

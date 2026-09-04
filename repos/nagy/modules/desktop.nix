@@ -143,6 +143,13 @@ in
     *.foreground: #ffffff
     Xcursor.size: 48
     Xcursor.theme: whiteglass
+    ! naysayer color scheme for nsxiv (https://github.com/nickav/naysayer-theme.el):
+    ! specific Nsxiv.* resources override the *.background / *.foreground wildcards
+    Nsxiv.window.background: #062329
+    Nsxiv.window.foreground: #d1b897
+    Nsxiv.mark.foreground:   #0000ff
+    Nsxiv.bar.background:    #0b3335
+    Nsxiv.bar.foreground:    #d1b897
   '';
 
   environment.extraOutputsToInstall = [

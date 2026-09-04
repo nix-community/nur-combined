@@ -127,7 +127,7 @@ in
     laH = "ls --human-readable --all -l --dereference-command-line";
     ltH = "ls --human-readable --size -1 -S --classify --dereference-command-line";
     path = "echo -e \${PATH//:/\\\\n}";
-    nixpath = "echo -e \${NIX_PATH//:/\\\\n} | column -s= -t";
+    nixpath = "echo \"\${NIX_PATH}\" | sed 's|://|__SCHEME__|g; s|:|\\n|g; s|__SCHEME__|://|g' | column -s= -t";
     manpath = "echo -e \${MANPATH//:/\\\\n}";
     fastping = "ping -c 20 -i.2";
     reset = "tput reset";

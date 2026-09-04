@@ -30,6 +30,9 @@
       # https://news.ycombinator.com/item?id=32140083
       video-sync = "display-resample";
       screenshot-template = "%F - [%P] (%#01n)";
+
+      # Naysayer background
+      background = "#062329";
     };
     profiles = {
       "extension.webm" = {
