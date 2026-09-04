@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.3.3";
+  version = "4.4.3.7";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.3.3.xpi";
-  sha256 = "5d0487c5ca29d33a123e8d7b638d89dc34bee3145a5eb2846d05501343b55cb1";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.3.7.xpi";
+  sha256 = "8b56bbefc6463f88b9fb7fbdf3b360024ff800481ea40aa48cd9bbe45614de58";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -23,7 +23,6 @@ buildFirefoxXpiAddon {
       "*://*.24heures.ch/*"
       "*://*.360dx.com/*"
       "*://*.60millions-mag.com/*"
-      "*://*.aachener-zeitung.de/*"
       "*://*.abc.es/*"
       "*://*.abcmais.com/*"
       "*://*.abendblatt.de/*"
@@ -49,6 +48,7 @@ buildFirefoxXpiAddon {
       "*://*.americanbanker.com/*"
       "*://*.americanpurpose.com/*"
       "*://*.americastestkitchen.com/*"
+      "*://*.anandabazar.com/*"
       "*://*.aoc.media/*"
       "*://*.apollo-magazine.com/*"
       "*://*.ara.cat/*"
@@ -59,6 +59,7 @@ buildFirefoxXpiAddon {
       "*://*.artnet.com/*"
       "*://*.atavist.com/*"
       "*://*.atlantico.fr/*"
+      "*://*.augsburger-allgemeine.de/*"
       "*://*.auto-motor-und-sport.de/*"
       "*://*.auto-swiat.pl/*"
       "*://*.autocar.co.uk/*"
@@ -74,7 +75,6 @@ buildFirefoxXpiAddon {
       "*://*.baltimoresun.com/*"
       "*://*.bangkokpost.com/*"
       "*://*.barandbench.com/*"
-      "*://*.barrons.com/*"
       "*://*.bazonline.ch/*"
       "*://*.bbc.com/*"
       "*://*.bd.nl/*"
@@ -453,6 +453,7 @@ buildFirefoxXpiAddon {
       "*://*.lasegunda.com/*"
       "*://*.lasprovincias.es/*"
       "*://*.lastampa.it/*"
+      "*://*.lasvegassun.com/*"
       "*://*.latercera.com/*"
       "*://*.latimes.com/*"
       "*://*.lavanguardia.com/*"
@@ -604,6 +605,7 @@ buildFirefoxXpiAddon {
       "*://*.nysun.com/*"
       "*://*.nyteknik.se/*"
       "*://*.nytimes.com/*"
+      "*://*.nzgeo.com/*"
       "*://*.nzherald.co.nz/*"
       "*://*.nzz.ch/*"
       "*://*.observador.pt/*"
@@ -760,7 +762,6 @@ buildFirefoxXpiAddon {
       "*://*.sudinfo.be/*"
       "*://*.sudouest.fr/*"
       "*://*.sueddeutsche.de/*"
-      "*://*.suedkurier.de/*"
       "*://*.sun-sentinel.com/*"
       "*://*.suomensotilas.fi/*"
       "*://*.superdeporte.es/*"
@@ -975,6 +976,7 @@ buildFirefoxXpiAddon {
       "*://*.nhst.tech/*"
       "*://*.nyt.com/*"
       "*://*.prisa.com/*"
+      "*://*.q0losid.com/*"
       "*://*.thebaltimorebanner.com/*"
       "*://*.townnews.com/*"
       "*://*.wgchrrammzv.com/*"
