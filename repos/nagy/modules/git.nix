@@ -179,6 +179,9 @@ in
             xfuncname = "^(\\(.*)$";
           };
         };
+        # lfs = {
+        #   fetchexclude = "*";
+        # };
       }
       {
         # url."git@github.com:".insteadOf = "https://github.com/";
