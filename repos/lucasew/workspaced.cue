@@ -188,6 +188,11 @@ workspaced: {
 			global: true
 			bins: ["goftpd"]
 		}
+		direnv: {
+			ref: "github:direnv/direnv"
+			global: true
+			bins: ["direnv"]
+		}
 	}
 
 	modules: {

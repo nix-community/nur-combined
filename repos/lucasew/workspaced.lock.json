@@ -88,6 +88,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:direnv/direnv",
+      "depName": "direnv/direnv",
+      "currentValue": "v2.37.1",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:docker/compose",
       "depName": "docker/compose",
       "currentValue": "v5.3.0",
