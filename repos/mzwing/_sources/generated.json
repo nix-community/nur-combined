@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.9.0",
-            "sha256": "sha256-uG+H9v+dAQQ+ZdUm0B26UP9upyI+8kaAcMP+r6IgQXY=",
+            "rev": "v1.9.1",
+            "sha256": "sha256-xf6ypbpRUIhNECoYG1Q+Q+wuwk/xR02cvwN2TrNsfcg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.0"
+        "version": "v1.9.1"
     },
     "claude-code-wakatime": {
         "cargoLock": null,
@@ -420,7 +420,7 @@
     },
     "pumpkin": {
         "cargoLock": null,
-        "date": "2026-09-03",
+        "date": "2026-09-04",
         "extract": null,
         "name": "pumpkin",
         "passthru": null,
@@ -432,12 +432,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "feba9acb2522a91810f1c07e0cc1d957e7aa4fb5",
-            "sha256": "sha256-EG58dlaS1JtiWYl6jQFPbwh1uR5gmoLQDBpX4Ik3b8U=",
+            "rev": "12b5a537b8dfd900a225abe95b3b33987272f838",
+            "sha256": "sha256-ncNYIuGWwPidfwLcsa7LEMx+VZaJ494Ims3KKCUbNDQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "feba9acb2522a91810f1c07e0cc1d957e7aa4fb5"
+        "version": "12b5a537b8dfd900a225abe95b3b33987272f838"
     },
     "replay-fish": {
         "cargoLock": null,
@@ -474,12 +474,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0",
-            "sha256": "sha256-1v9bgM2H439ZoSkomv5dmT5SNrkuyOJ1iFFPlYPsW/k=",
+            "rev": "v1.15.0-alpha.1",
+            "sha256": "sha256-Qrb8+9DZZvVjdvDj01vmbNw+3N5aMGB2q+WV9+t5fAw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0"
+        "version": "v1.15.0-alpha.1"
     },
     "sing-box-beta": {
         "cargoLock": null,

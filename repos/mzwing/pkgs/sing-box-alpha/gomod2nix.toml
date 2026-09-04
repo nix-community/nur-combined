@@ -45,10 +45,6 @@ schema = 4
     version = 'v1.26.0'
     hash = 'sha256-umO0tqRJNdRDJojBDbYOXlGPpSBj2aoOt7oNu3z+dyk='
 
-  [mod.'github.com/anytls/sing-anytls']
-    version = 'v0.0.11'
-    hash = 'sha256-h4hlzewMHiSl+quM3kT84X/f0fCbjht066lySTYYMwE='
-
   [mod.'github.com/axiomhq/hyperloglog']
     version = 'v0.0.0-20240319100328-84253e514e02'
     hash = 'sha256-yjnHtfBvGDR//6firPk0N/B+V4DutW+fD3hN8CljoCk='
@@ -514,28 +510,32 @@ schema = 4
     hash = 'sha256-Wj/pBCB9OeL/WmxNEbaxixBry6zjJrSoH1IVmZM/CjU='
 
   [mod.'github.com/sagernet/sing']
-    version = 'v0.9.0-beta.4'
-    hash = 'sha256-x2/joeiOIdL0dStMRf9y76wbVdy/RG9mI5tzVLoJzbI='
+    version = 'v0.9.1-0.20260902140658-8bb71f553f8d'
+    hash = 'sha256-2eQ699ZnOWoC9i2NQWT2ZuWTRbU0BNFj+XHD4qhwK/8='
+
+  [mod.'github.com/sagernet/sing-anytls']
+    version = 'v0.0.0-20260904043735-a2775a3fbcad'
+    hash = 'sha256-qLosbT1Cee20U00PLB7tWH09Y0aZM/4y8QFCu3PVCyA='
 
   [mod.'github.com/sagernet/sing-cloudflared']
     version = 'v0.1.3-0.20260706062323-d9787e794aa3'
     hash = 'sha256-4FvluFMWMFgm1rLkAdFwwr1PWAZ6i+dnEBWGp5p6HUQ='
 
   [mod.'github.com/sagernet/sing-mux']
-    version = 'v0.3.5'
-    hash = 'sha256-WHPgGaEVV10jshaV5p1xooIn5GQUbaofsQvEq4vbvsY='
+    version = 'v0.3.6-0.20260904043737-7e4c81a2011c'
+    hash = 'sha256-0Z5zKsnf6Igoh5y8QgQp7ajRAhUwrg0durlyr5fSWSM='
 
   [mod.'github.com/sagernet/sing-openconnect']
-    version = 'v0.0.0-20260810065514-53aa8058f8df'
-    hash = 'sha256-YZa1G11KAmCdWwlVlrGcme2lkwSW91Wq/ylEFmhsD2w='
+    version = 'v0.0.0-20260903200519-8b89c968949d'
+    hash = 'sha256-Y95cCCpzXQ57G+H0U+fglYb72ewFu9fjz/1Hl6Hlxak='
 
   [mod.'github.com/sagernet/sing-openvpn']
-    version = 'v0.0.0-20260729104525-103eb5fe5eb6'
-    hash = 'sha256-rt+SE5IbDwkxR5wj22lH2hzCg0tFenZYtpk66HfiYQw='
+    version = 'v0.0.0-20260903200517-e060dda5b1f1'
+    hash = 'sha256-TgK52552Ts+g4/3wwT9/uQJ0sWQP+xCB48gg/ZLfoQw='
 
   [mod.'github.com/sagernet/sing-quic']
-    version = 'v0.7.0-beta.4'
-    hash = 'sha256-BJuB2eRJwcoNObQugPypho3Y+8lkpneO/xobMH37CXg='
+    version = 'v0.7.1-0.20260904043739-344d4a543cbf'
+    hash = 'sha256-qNqTR6b9n8HuFJPQSHcbYs/8/fx1nJvmi1KkTlpLOOE='
 
   [mod.'github.com/sagernet/sing-shadowsocks']
     version = 'v0.2.8'
@@ -550,20 +550,20 @@ schema = 4
     hash = 'sha256-xIZiEWPpKI6qm/d3WbQepNqNRYbpw000FYmqCrypKfM='
 
   [mod.'github.com/sagernet/sing-snell']
-    version = 'v0.0.0-20260829071736-20f2eaec77c3'
-    hash = 'sha256-oUtbOICuJHvDo4PM72zmEQb6Gu7EV0CsSOdfntXrQmY='
+    version = 'v0.0.0-20260904043742-138588f1fa53'
+    hash = 'sha256-p16A2K1r2jIyC7cQAM8Gh4MoEx0S4HJ2j56KwEVwqe8='
 
   [mod.'github.com/sagernet/sing-tun']
-    version = 'v0.9.0-beta.4'
-    hash = 'sha256-6cktEe+dR+QlL2qjVtPPRa0KAeMRB8uxJVEiiZCVxCA='
+    version = 'v0.9.1-0.20260902150540-98e457e39c90'
+    hash = 'sha256-WaR1/YocHhzZseDiA76LIqkp0Tdy4uyYrZBcLrLvRfc='
 
   [mod.'github.com/sagernet/sing-usbip']
     version = 'v0.0.0-20260817040617-28bd42667eca'
     hash = 'sha256-bCGkCOCWVvlQN8jz357YrmkNp1lrIUwrWGmQgWVUI+U='
 
   [mod.'github.com/sagernet/sing-vmess']
-    version = 'v0.2.8-0.20250909125414-3aed155119a1'
-    hash = 'sha256-49e+672tsOoY9SxtJw7nrt97zQhXhvVNqBBFLlFULLY='
+    version = 'v0.2.8'
+    hash = 'sha256-YKVvbqk2YzI+ipKqVDg/I6UYNe/lkWnenHP/+taNRzY='
 
   [mod.'github.com/sagernet/smux']
     version = 'v1.5.50-sing-box-mod.1'
@@ -574,7 +574,7 @@ schema = 4
     hash = 'sha256-XXEIBOM32tlzVIxRDQMGaH0SKaivpYkX4Scih+vHhQ4='
 
   [mod.'github.com/sagernet/wireguard-go']
-    version = 'v0.0.5-0.20260823125007-8bd032a91a30'
+    version = 'v0.0.5'
     hash = 'sha256-NacZq1n25RHAh/CZl0XtSzVJ939LsEIG8cDfYgEReto='
 
   [mod.'github.com/sagernet/ws']
@@ -823,19 +823,6 @@ schema = 4
       'github.com/tidwall/gjson',
       'github.com/tidwall/sjson',
       'golang.org/x/sync'
-    ]
-
-  [cacheModules.'github.com/anytls/sing-anytls']
-    packages = [
-      'github.com/anytls/sing-anytls',
-      'github.com/anytls/sing-anytls/padding',
-      'github.com/anytls/sing-anytls/pipe',
-      'github.com/anytls/sing-anytls/session',
-      'github.com/anytls/sing-anytls/skiplist',
-      'github.com/anytls/sing-anytls/util'
-    ]
-    deps = [
-      'github.com/sagernet/sing'
     ]
 
   [cacheModules.'github.com/caddyserver/certmagic']
@@ -1366,6 +1353,14 @@ schema = 4
     ]
     deps = [
       'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/sagernet/sing-anytls']
+    packages = [
+      'github.com/sagernet/sing-anytls'
+    ]
+    deps = [
+      'github.com/sagernet/sing'
     ]
 
   [cacheModules.'github.com/sagernet/sing-mux']

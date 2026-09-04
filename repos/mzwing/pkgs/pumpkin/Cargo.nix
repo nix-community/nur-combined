@@ -113,6 +113,16 @@ rec {
       # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
+    "pumpkin-gametest" = rec {
+      packageId = "pumpkin-gametest";
+      build = internal.buildRustCrateWithFeatures {
+        packageId = "pumpkin-gametest";
+      };
+
+      # Debug support which might change between releases.
+      # File a bug if you depend on any for non-debug work!
+      debug = internal.debugCrate { inherit packageId; };
+    };
     "pumpkin-inventory" = rec {
       packageId = "pumpkin-inventory";
       build = internal.buildRustCrateWithFeatures {
@@ -1089,85 +1099,6 @@ rec {
           "Josh Stone <cuviper@gmail.com>"
         ];
 
-      };
-      "aws-lc-rs" = rec {
-        crateName = "aws-lc-rs";
-        version = "1.18.0";
-        edition = "2021";
-        links = "aws_lc_rs_1_18_0_sys";
-        sha256 = "17nx79a6wyx6xx5kj0f09vr0wh1q4agwjxqy6w6swfwwhz62sayf";
-        libName = "aws_lc_rs";
-        authors = [
-          "AWS-LibCrypto"
-        ];
-        dependencies = [
-          {
-            name = "aws-lc-sys";
-            packageId = "aws-lc-sys";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-          }
-        ];
-        features = {
-          "asan" = [ "aws-lc-sys?/asan" "aws-lc-fips-sys?/asan" ];
-          "aws-lc-sys" = [ "dep:aws-lc-sys" ];
-          "bindgen" = [ "aws-lc-sys?/bindgen" "aws-lc-fips-sys?/bindgen" ];
-          "default" = [ "aws-lc-sys" "alloc" "ring-io" "ring-sig-verify" ];
-          "fips" = [ "dep:aws-lc-fips-sys" ];
-          "legacy-des" = [ "aws-lc-sys?/all-bindings" ];
-          "non-fips" = [ "aws-lc-sys" ];
-          "prebuilt-nasm" = [ "aws-lc-sys?/prebuilt-nasm" ];
-          "ring-io" = [ "dep:untrusted" ];
-          "ring-sig-verify" = [ "dep:untrusted" ];
-        };
-        resolvedDefaultFeatures = [ "aws-lc-sys" "prebuilt-nasm" ];
-      };
-      "aws-lc-sys" = rec {
-        crateName = "aws-lc-sys";
-        version = "0.44.0";
-        edition = "2021";
-        links = "aws_lc_0_44_0";
-        sha256 = "10vlwayxyylnn4vs57xs0iy0rp76k50v7zbabkh78cdvx1xsx7zh";
-        build = "builder/main.rs";
-        libName = "aws_lc_sys";
-        authors = [
-          "AWS-LC"
-        ];
-        buildDependencies = [
-          {
-            name = "cc";
-            packageId = "cc";
-            features = [ "parallel" ];
-          }
-          {
-            name = "cmake";
-            packageId = "cmake";
-          }
-          {
-            name = "dunce";
-            packageId = "dunce";
-          }
-          {
-            name = "fs_extra";
-            packageId = "fs_extra";
-          }
-          {
-            name = "pkg-config";
-            packageId = "pkg-config";
-            target = { target, features }: (target."unix" or false);
-          }
-        ];
-        features = {
-          "bindgen" = [ "dep:bindgen" ];
-          "default" = [ "all-bindings" ];
-          "fips" = [ "dep:bindgen" ];
-          "ssl" = [ "bindgen" "all-bindings" ];
-        };
-        resolvedDefaultFeatures = [ "prebuilt-nasm" ];
       };
       "axum" = rec {
         crateName = "axum";
@@ -2422,22 +2353,6 @@ rec {
           "windows-win" = [ "dep:windows-win" ];
         };
       };
-      "cmake" = rec {
-        crateName = "cmake";
-        version = "0.1.58";
-        edition = "2021";
-        sha256 = "0y06zxw5sv1p5vvpp5rz1qwbrq7ccawrl09nqy5ahx1a5418mxy0";
-        authors = [
-          "Alex Crichton <alex@alexcrichton.com>"
-        ];
-        dependencies = [
-          {
-            name = "cc";
-            packageId = "cc";
-          }
-        ];
-
-      };
       "cmov" = rec {
         crateName = "cmov";
         version = "0.5.4";
@@ -2803,7 +2718,7 @@ rec {
           "arbitrary" = [ "dep:arbitrary" ];
         };
       };
-      "core-foundation 0.10.1" = rec {
+      "core-foundation" = rec {
         crateName = "core-foundation";
         version = "0.10.1";
         edition = "2021";
@@ -2829,38 +2744,6 @@ rec {
           "mac_os_10_7_support" = [ "core-foundation-sys/mac_os_10_7_support" ];
           "mac_os_10_8_features" = [ "core-foundation-sys/mac_os_10_8_features" ];
           "with-uuid" = [ "dep:uuid" ];
-        };
-        resolvedDefaultFeatures = [ "default" "link" ];
-      };
-      "core-foundation 0.9.4" = rec {
-        crateName = "core-foundation";
-        version = "0.9.4";
-        edition = "2018";
-        sha256 = "13zvbbj07yk3b61b8fhwfzhy35535a583irf23vlcg59j7h9bqci";
-        libName = "core_foundation";
-        authors = [
-          "The Servo Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "core-foundation-sys";
-            packageId = "core-foundation-sys";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-          }
-        ];
-        features = {
-          "chrono" = [ "dep:chrono" ];
-          "default" = [ "link" ];
-          "link" = [ "core-foundation-sys/link" ];
-          "mac_os_10_7_support" = [ "core-foundation-sys/mac_os_10_7_support" ];
-          "mac_os_10_8_features" = [ "core-foundation-sys/mac_os_10_8_features" ];
-          "uuid" = [ "dep:uuid" ];
-          "with-chrono" = [ "chrono" ];
-          "with-uuid" = [ "uuid" ];
         };
         resolvedDefaultFeatures = [ "default" "link" ];
       };
@@ -4727,16 +4610,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "std" ];
       };
-      "dunce" = rec {
-        crateName = "dunce";
-        version = "1.0.5";
-        edition = "2021";
-        sha256 = "04y8wwv3vvcqaqmqzssi6k0ii9gs6fpz96j5w9nky2ccsl23axwj";
-        authors = [
-          "Kornel <kornel@geekhood.net>"
-        ];
-
-      };
       "ecdsa 0.16.9" = rec {
         crateName = "ecdsa";
         version = "0.16.9";
@@ -5615,16 +5488,6 @@ rec {
         ];
 
       };
-      "fs_extra" = rec {
-        crateName = "fs_extra";
-        version = "1.3.0";
-        edition = "2018";
-        sha256 = "075i25z70j2mz9r7i9p9r521y8xdj81q7skslyb7zhqnnw33fw22";
-        authors = [
-          "Denis Kurilenko <webdesus@gmail.com>"
-        ];
-
-      };
       "fsevent-sys" = rec {
         crateName = "fsevent-sys";
         version = "4.1.0";
@@ -5970,12 +5833,6 @@ rec {
             packageId = "cfg-if";
           }
           {
-            name = "js-sys";
-            packageId = "js-sys";
-            optional = true;
-            target = { target, features }: ((("wasm32" == target."arch" or null) || ("wasm64" == target."arch" or null)) && ("unknown" == target."os" or null));
-          }
-          {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
@@ -5987,13 +5844,6 @@ rec {
             usesDefaultFeatures = false;
             target = { target, features }: ("wasi" == target."os" or null);
           }
-          {
-            name = "wasm-bindgen";
-            packageId = "wasm-bindgen";
-            optional = true;
-            usesDefaultFeatures = false;
-            target = { target, features }: ((("wasm32" == target."arch" or null) || ("wasm64" == target."arch" or null)) && ("unknown" == target."os" or null));
-          }
         ];
         features = {
           "compiler_builtins" = [ "dep:compiler_builtins" ];
@@ -6003,100 +5853,7 @@ rec {
           "rustc-dep-of-std" = [ "compiler_builtins" "core" "libc/rustc-dep-of-std" "wasi/rustc-dep-of-std" ];
           "wasm-bindgen" = [ "dep:wasm-bindgen" ];
         };
-        resolvedDefaultFeatures = [ "js" "js-sys" "std" "wasm-bindgen" ];
-      };
-      "getrandom 0.3.4" = rec {
-        crateName = "getrandom";
-        version = "0.3.4";
-        edition = "2021";
-        sha256 = "1zbpvpicry9lrbjmkd4msgj3ihff1q92i334chk7pzf46xffz7c9";
-        authors = [
-          "The Rand Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "cfg-if";
-            packageId = "cfg-if";
-          }
-          {
-            name = "js-sys";
-            packageId = "js-sys";
-            optional = true;
-            usesDefaultFeatures = false;
-            target = { target, features }: (("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null)) && (builtins.elem "atomics" targetFeatures));
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: ((("linux" == target."os" or null) || ("android" == target."os" or null)) && (!((("linux" == target."os" or null) && ("" == target."env" or null)) || ("custom" == target."getrandom_backend" or null) || ("linux_raw" == target."getrandom_backend" or null) || ("rdrand" == target."getrandom_backend" or null) || ("rndr" == target."getrandom_backend" or null))));
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: (("dragonfly" == target."os" or null) || ("freebsd" == target."os" or null) || ("hurd" == target."os" or null) || ("illumos" == target."os" or null) || ("cygwin" == target."os" or null) || (("horizon" == target."os" or null) && ("arm" == target."arch" or null)));
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: (("haiku" == target."os" or null) || ("redox" == target."os" or null) || ("nto" == target."os" or null) || ("aix" == target."os" or null));
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: (("ios" == target."os" or null) || ("visionos" == target."os" or null) || ("watchos" == target."os" or null) || ("tvos" == target."os" or null));
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: (("macos" == target."os" or null) || ("openbsd" == target."os" or null) || ("vita" == target."os" or null) || ("emscripten" == target."os" or null));
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: ("netbsd" == target."os" or null);
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: ("solaris" == target."os" or null);
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: ("vxworks" == target."os" or null);
-          }
-          {
-            name = "r-efi";
-            packageId = "r-efi 5.3.0";
-            usesDefaultFeatures = false;
-            target = { target, features }: (("uefi" == target."os" or null) && ("efi_rng" == target."getrandom_backend" or null));
-          }
-          {
-            name = "wasip2";
-            packageId = "wasip2";
-            usesDefaultFeatures = false;
-            target = { target, features }: (("wasm32" == target."arch" or null) && ("wasi" == target."os" or null) && ("p2" == target."env" or null));
-          }
-          {
-            name = "wasm-bindgen";
-            packageId = "wasm-bindgen";
-            optional = true;
-            usesDefaultFeatures = false;
-            target = { target, features }: (("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null)));
-          }
-        ];
-        features = {
-          "wasm_js" = [ "dep:wasm-bindgen" "dep:js-sys" ];
-        };
-        resolvedDefaultFeatures = [ "std" "wasm_js" ];
+        resolvedDefaultFeatures = [ "std" ];
       };
       "getrandom 0.4.3" = rec {
         crateName = "getrandom";
@@ -6161,7 +5918,7 @@ rec {
           }
           {
             name = "r-efi";
-            packageId = "r-efi 6.0.0";
+            packageId = "r-efi";
             usesDefaultFeatures = false;
             target = { target, features }: (("uefi" == target."os" or null) && ("efi_rng" == target."getrandom_backend" or null));
           }
@@ -7082,7 +6839,7 @@ rec {
           "webpki-roots" = [ "dep:webpki-roots" ];
           "webpki-tokio" = [ "webpki-roots" ];
         };
-        resolvedDefaultFeatures = [ "aws-lc-rs" "http1" "http2" "tls12" ];
+        resolvedDefaultFeatures = [ "http1" "http2" "tls12" ];
       };
       "hyper-timeout" = rec {
         crateName = "hyper-timeout";
@@ -7203,12 +6960,6 @@ rec {
             features = [ "all" ];
           }
           {
-            name = "system-configuration";
-            packageId = "system-configuration";
-            optional = true;
-            target = { target, features }: ("macos" == target."os" or null);
-          }
-          {
             name = "tokio";
             packageId = "tokio";
             optional = true;
@@ -7225,12 +6976,6 @@ rec {
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
-          }
-          {
-            name = "windows-registry";
-            packageId = "windows-registry";
-            optional = true;
-            target = { target, features }: (target."windows" or false);
           }
         ];
         devDependencies = [
@@ -7271,7 +7016,7 @@ rec {
           "tokio" = [ "dep:tokio" "tokio/rt" "tokio/time" ];
           "tracing" = [ "dep:tracing" ];
         };
-        resolvedDefaultFeatures = [ "client" "client-legacy" "client-proxy" "client-proxy-system" "default" "http1" "http2" "server" "server-auto" "service" "tokio" ];
+        resolvedDefaultFeatures = [ "client" "client-legacy" "client-proxy" "default" "http1" "http2" "server" "server-auto" "service" "tokio" ];
       };
       "icu_collections" = rec {
         crateName = "icu_collections";
@@ -8429,17 +8174,6 @@ rec {
           "sval_ref" = [ "dep:sval_ref" ];
           "value-bag" = [ "dep:value-bag" ];
         };
-      };
-      "lru-slab" = rec {
-        crateName = "lru-slab";
-        version = "0.1.2";
-        edition = "2021";
-        sha256 = "0m2139k466qj3bnpk66bwivgcx3z88qkxvlzk70vd65jq373jaqi";
-        libName = "lru_slab";
-        authors = [
-          "Benjamin Saunders <ben.e.saunders@gmail.com>"
-        ];
-
       };
       "lz4-java-wrc" = rec {
         crateName = "lz4-java-wrc";
@@ -10468,27 +10202,6 @@ rec {
           "std" = [ "alloc" ];
         };
       };
-      "ppv-lite86" = rec {
-        crateName = "ppv-lite86";
-        version = "0.2.21";
-        edition = "2021";
-        sha256 = "1abxx6qz5qnd43br1dd9b2savpihzjza8gb4fbzdql1gxp2f7sl5";
-        libName = "ppv_lite86";
-        authors = [
-          "The CryptoCorrosion Contributors"
-        ];
-        dependencies = [
-          {
-            name = "zerocopy";
-            packageId = "zerocopy";
-            features = [ "simd" ];
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-        };
-        resolvedDefaultFeatures = [ "simd" "std" ];
-      };
       "pretty_assertions" = rec {
         crateName = "pretty_assertions";
         version = "1.4.1";
@@ -10956,7 +10669,7 @@ rec {
       };
       "pumpkin" = rec {
         crateName = "pumpkin";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         crateBin = [
           {
@@ -11074,6 +10787,11 @@ rec {
             features = [ "std" ];
           }
           {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+          }
+          {
             name = "libloading";
             packageId = "libloading";
             usesDefaultFeatures = false;
@@ -11120,6 +10838,10 @@ rec {
             features = [ "default" ];
           }
           {
+            name = "pumpkin-gametest";
+            packageId = "pumpkin-gametest";
+          }
+          {
             name = "pumpkin-inventory";
             packageId = "pumpkin-inventory";
             usesDefaultFeatures = false;
@@ -11152,7 +10874,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
             usesDefaultFeatures = false;
             features = [ "std" "std_rng" "thread_rng" ];
           }
@@ -11164,7 +10886,8 @@ rec {
           {
             name = "reqwest";
             packageId = "reqwest";
-            features = [ "json" "json" ];
+            usesDefaultFeatures = false;
+            features = [ "rustls-no-provider" "json" "http2" "json" ];
           }
           {
             name = "rsa";
@@ -11182,6 +10905,12 @@ rec {
             name = "rustc_version_runtime";
             packageId = "rustc_version_runtime";
             usesDefaultFeatures = false;
+          }
+          {
+            name = "rustls";
+            packageId = "rustls";
+            usesDefaultFeatures = false;
+            features = [ "ring" "std" "tls12" "logging" ];
           }
           {
             name = "rustyline";
@@ -11316,7 +11045,7 @@ rec {
       };
       "pumpkin-api-macros" = rec {
         crateName = "pumpkin-api-macros";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-api-macros; };
         procMacro = true;
@@ -11350,7 +11079,7 @@ rec {
       };
       "pumpkin-codecs" = rec {
         crateName = "pumpkin-codecs";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-codecs; };
         libName = "pumpkin_codecs";
@@ -11449,7 +11178,7 @@ rec {
       };
       "pumpkin-config" = rec {
         crateName = "pumpkin-config";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-config; };
         libName = "pumpkin_config";
@@ -11488,7 +11217,7 @@ rec {
       };
       "pumpkin-data" = rec {
         crateName = "pumpkin-data";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-data; };
         libName = "pumpkin_data";
@@ -11517,7 +11246,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
             usesDefaultFeatures = false;
             features = [ "std" "std_rng" "thread_rng" ];
           }
@@ -11550,7 +11279,7 @@ rec {
       };
       "pumpkin-fuzzer" = rec {
         crateName = "pumpkin-fuzzer";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         crateBin = [
           {
@@ -11573,7 +11302,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
             usesDefaultFeatures = false;
             features = [ "std" "std_rng" "thread_rng" ];
           }
@@ -11586,9 +11315,66 @@ rec {
         ];
 
       };
+      "pumpkin-gametest" = rec {
+        crateName = "pumpkin-gametest";
+        version = "0.1.0-dev+26.2-26.45";
+        edition = "2024";
+        src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-gametest; };
+        libName = "pumpkin_gametest";
+        dependencies = [
+          {
+            name = "async-trait";
+            packageId = "async-trait";
+          }
+          {
+            name = "pumpkin-data";
+            packageId = "pumpkin-data";
+            usesDefaultFeatures = false;
+            features = [ "block" ];
+          }
+          {
+            name = "pumpkin-macros";
+            packageId = "pumpkin-macros";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "pumpkin-nbt";
+            packageId = "pumpkin-nbt";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "pumpkin-util";
+            packageId = "pumpkin-util";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "pumpkin-world";
+            packageId = "pumpkin-world";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            usesDefaultFeatures = false;
+            features = [ "derive" "std" ];
+          }
+          {
+            name = "serde_json";
+            packageId = "serde_json";
+            usesDefaultFeatures = false;
+            features = [ "std" ];
+          }
+          {
+            name = "thiserror";
+            packageId = "thiserror 2.0.20";
+            usesDefaultFeatures = false;
+          }
+        ];
+
+      };
       "pumpkin-inventory" = rec {
         crateName = "pumpkin-inventory";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-inventory; };
         libName = "pumpkin_inventory";
@@ -11621,7 +11407,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
             usesDefaultFeatures = false;
             features = [ "std" "std_rng" "thread_rng" ];
           }
@@ -11647,7 +11433,7 @@ rec {
       };
       "pumpkin-macros" = rec {
         crateName = "pumpkin-macros";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-macros; };
         procMacro = true;
@@ -11690,7 +11476,7 @@ rec {
       };
       "pumpkin-nbt" = rec {
         crateName = "pumpkin-nbt";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-nbt; };
         libName = "pumpkin_nbt";
@@ -11781,7 +11567,7 @@ rec {
           }
           {
             name = "wit-bindgen";
-            packageId = "wit-bindgen 0.61.1";
+            packageId = "wit-bindgen";
             usesDefaultFeatures = false;
             features = [ "macros" ];
           }
@@ -11803,7 +11589,14 @@ rec {
           {
             name = "reqwest";
             packageId = "reqwest";
-            features = [ "json" "blocking" "json" ];
+            usesDefaultFeatures = false;
+            features = [ "rustls-no-provider" "json" "http2" "blocking" "json" ];
+          }
+          {
+            name = "rustls";
+            packageId = "rustls";
+            usesDefaultFeatures = false;
+            features = [ "ring" "std" "tls12" "logging" ];
           }
           {
             name = "serde";
@@ -11845,7 +11638,7 @@ rec {
       };
       "pumpkin-protocol" = rec {
         crateName = "pumpkin-protocol";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-protocol; };
         libName = "pumpkin_protocol";
@@ -11962,7 +11755,7 @@ rec {
       };
       "pumpkin-util" = rec {
         crateName = "pumpkin-util";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-util; };
         libName = "pumpkin_util";
@@ -12049,13 +11842,20 @@ rec {
           {
             name = "reqwest";
             packageId = "reqwest";
-            features = [ "json" ];
+            usesDefaultFeatures = false;
+            features = [ "rustls-no-provider" "json" "http2" ];
           }
           {
             name = "rsa";
             packageId = "rsa";
             usesDefaultFeatures = false;
             features = [ "std" "encoding" ];
+          }
+          {
+            name = "rustls";
+            packageId = "rustls";
+            usesDefaultFeatures = false;
+            features = [ "ring" "std" "tls12" "logging" ];
           }
           {
             name = "serde";
@@ -12114,7 +11914,7 @@ rec {
       };
       "pumpkin-world" = rec {
         crateName = "pumpkin-world";
-        version = "0.1.0-dev+26.2-26.40";
+        version = "0.1.0-dev+26.2-26.45";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin-world; };
         libName = "pumpkin_world";
@@ -12194,7 +11994,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
             usesDefaultFeatures = false;
             features = [ "std" "std_rng" "thread_rng" ];
           }
@@ -12299,260 +12099,7 @@ rec {
         ];
 
       };
-      "quinn" = rec {
-        crateName = "quinn";
-        version = "0.11.9";
-        edition = "2021";
-        sha256 = "086gzj666dr3slmlynkvxlndy28hahgl361d6bf93hk3i6ahmqmr";
-        dependencies = [
-          {
-            name = "bytes";
-            packageId = "bytes";
-          }
-          {
-            name = "pin-project-lite";
-            packageId = "pin-project-lite";
-          }
-          {
-            name = "quinn-proto";
-            packageId = "quinn-proto";
-            rename = "proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "quinn-udp";
-            packageId = "quinn-udp 0.5.15";
-            rename = "udp";
-            usesDefaultFeatures = false;
-            features = [ "tracing" ];
-          }
-          {
-            name = "rustc-hash";
-            packageId = "rustc-hash";
-          }
-          {
-            name = "rustls";
-            packageId = "rustls";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "socket2";
-            packageId = "socket2";
-            target = { target, features }: (!((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null)));
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 2.0.20";
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            features = [ "sync" ];
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "web-time";
-            packageId = "web-time";
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "cfg_aliases";
-            packageId = "cfg_aliases";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "tokio";
-            packageId = "tokio";
-            features = [ "sync" "rt" "rt-multi-thread" "time" "macros" ];
-          }
-        ];
-        features = {
-          "async-io" = [ "dep:async-io" ];
-          "async-std" = [ "dep:async-std" ];
-          "aws-lc-rs" = [ "proto/aws-lc-rs" ];
-          "aws-lc-rs-fips" = [ "proto/aws-lc-rs-fips" ];
-          "bloom" = [ "proto/bloom" ];
-          "default" = [ "log" "platform-verifier" "runtime-tokio" "rustls-ring" "bloom" ];
-          "futures-io" = [ "dep:futures-io" ];
-          "log" = [ "tracing/log" "proto/log" "udp/log" ];
-          "platform-verifier" = [ "proto/platform-verifier" ];
-          "qlog" = [ "proto/qlog" ];
-          "ring" = [ "proto/ring" ];
-          "runtime-async-std" = [ "async-io" "async-std" ];
-          "runtime-smol" = [ "async-io" "smol" ];
-          "runtime-tokio" = [ "tokio/time" "tokio/rt" "tokio/net" ];
-          "rustls" = [ "rustls-ring" ];
-          "rustls-aws-lc-rs" = [ "dep:rustls" "aws-lc-rs" "proto/rustls-aws-lc-rs" "proto/aws-lc-rs" ];
-          "rustls-aws-lc-rs-fips" = [ "dep:rustls" "aws-lc-rs-fips" "proto/rustls-aws-lc-rs-fips" "proto/aws-lc-rs-fips" ];
-          "rustls-log" = [ "rustls?/logging" ];
-          "rustls-ring" = [ "dep:rustls" "ring" "proto/rustls-ring" "proto/ring" ];
-          "smol" = [ "dep:smol" ];
-        };
-        resolvedDefaultFeatures = [ "aws-lc-rs" "runtime-tokio" "rustls-aws-lc-rs" ];
-      };
-      "quinn-proto" = rec {
-        crateName = "quinn-proto";
-        version = "0.11.13";
-        edition = "2021";
-        sha256 = "0cca3mgja9p4w66f6sl1kfhj8rdf4mwsg1jxzssh9g63n14np47i";
-        libName = "quinn_proto";
-        dependencies = [
-          {
-            name = "aws-lc-rs";
-            packageId = "aws-lc-rs";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-          }
-          {
-            name = "getrandom";
-            packageId = "getrandom 0.3.4";
-            usesDefaultFeatures = false;
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-            features = [ "wasm_js" ];
-          }
-          {
-            name = "lru-slab";
-            packageId = "lru-slab";
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.9.5";
-          }
-          {
-            name = "ring";
-            packageId = "ring";
-            optional = true;
-          }
-          {
-            name = "ring";
-            packageId = "ring";
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-            features = [ "wasm32_unknown_unknown_js" ];
-          }
-          {
-            name = "rustc-hash";
-            packageId = "rustc-hash";
-          }
-          {
-            name = "rustls";
-            packageId = "rustls";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "rustls-pki-types";
-            packageId = "rustls-pki-types";
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-            features = [ "web" ];
-          }
-          {
-            name = "slab";
-            packageId = "slab";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 2.0.20";
-          }
-          {
-            name = "tinyvec";
-            packageId = "tinyvec";
-            features = [ "alloc" "alloc" ];
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "web-time";
-            packageId = "web-time";
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" ];
-          "aws-lc-rs" = [ "dep:aws-lc-rs" "aws-lc-rs?/aws-lc-sys" "aws-lc-rs?/prebuilt-nasm" ];
-          "aws-lc-rs-fips" = [ "aws-lc-rs" "aws-lc-rs?/fips" ];
-          "bloom" = [ "dep:fastbloom" ];
-          "default" = [ "rustls-ring" "log" "bloom" ];
-          "log" = [ "tracing/log" ];
-          "platform-verifier" = [ "dep:rustls-platform-verifier" ];
-          "qlog" = [ "dep:qlog" ];
-          "ring" = [ "dep:ring" ];
-          "rustls" = [ "rustls-ring" ];
-          "rustls-aws-lc-rs" = [ "dep:rustls" "rustls?/aws-lc-rs" "aws-lc-rs" ];
-          "rustls-aws-lc-rs-fips" = [ "rustls-aws-lc-rs" "aws-lc-rs-fips" ];
-          "rustls-log" = [ "rustls?/logging" ];
-          "rustls-ring" = [ "dep:rustls" "rustls?/ring" "ring" ];
-        };
-        resolvedDefaultFeatures = [ "aws-lc-rs" "rustls-aws-lc-rs" ];
-      };
-      "quinn-udp 0.5.15" = rec {
-        crateName = "quinn-udp";
-        version = "0.5.15";
-        edition = "2021";
-        sha256 = "15063ji7443y4z8i4pdxlid2vn0kkxjc51d6c6dfiaysavwk789m";
-        libName = "quinn_udp";
-        dependencies = [
-          {
-            name = "libc";
-            packageId = "libc";
-          }
-          {
-            name = "once_cell";
-            packageId = "once_cell";
-            target = { target, features }: (target."windows" or false);
-          }
-          {
-            name = "socket2";
-            packageId = "socket2";
-            target = { target, features }: (!((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null)));
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "windows-sys";
-            packageId = "windows-sys 0.61.2";
-            target = { target, features }: (target."windows" or false);
-            features = [ "Win32_Foundation" "Win32_System_IO" "Win32_Networking_WinSock" ];
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "cfg_aliases";
-            packageId = "cfg_aliases";
-          }
-        ];
-        features = {
-          "default" = [ "tracing" "log" ];
-          "direct-log" = [ "dep:log" ];
-          "log" = [ "tracing/log" ];
-          "tracing" = [ "dep:tracing" ];
-        };
-        resolvedDefaultFeatures = [ "tracing" ];
-      };
-      "quinn-udp 0.6.1" = rec {
+      "quinn-udp" = rec {
         crateName = "quinn-udp";
         version = "0.6.1";
         edition = "2021";
@@ -12615,19 +12162,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "proc-macro" ];
       };
-      "r-efi 5.3.0" = rec {
-        crateName = "r-efi";
-        version = "5.3.0";
-        edition = "2018";
-        sha256 = "03sbfm3g7myvzyylff6qaxk4z6fy76yv860yy66jiswc2m6b7kb9";
-        libName = "r_efi";
-        features = {
-          "core" = [ "dep:core" ];
-          "examples" = [ "native" ];
-          "rustc-dep-of-std" = [ "core" ];
-        };
-      };
-      "r-efi 6.0.0" = rec {
+      "r-efi" = rec {
         crateName = "r-efi";
         version = "6.0.0";
         edition = "2018";
@@ -12659,7 +12194,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "alloc" ];
       };
-      "rand 0.10.2" = rec {
+      "rand" = rec {
         crateName = "rand";
         version = "0.10.2";
         edition = "2024";
@@ -12698,75 +12233,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "alloc" "default" "std" "std_rng" "sys_rng" "thread_rng" ];
       };
-      "rand 0.9.5" = rec {
-        crateName = "rand";
-        version = "0.9.5";
-        edition = "2021";
-        sha256 = "0hbvllk8g28mqjld6hqmckk69w296qpzg95whm3didsyg46ivvxr";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "rand_chacha";
-            packageId = "rand_chacha";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.9.5";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "std" "std_rng" "os_rng" "small_rng" "thread_rng" ];
-          "os_rng" = [ "rand_core/os_rng" ];
-          "serde" = [ "dep:serde" "rand_core/serde" ];
-          "std" = [ "rand_core/std" "rand_chacha?/std" "alloc" ];
-          "std_rng" = [ "dep:rand_chacha" ];
-          "thread_rng" = [ "std" "std_rng" "os_rng" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "default" "os_rng" "small_rng" "std" "std_rng" "thread_rng" ];
-      };
-      "rand_chacha" = rec {
-        crateName = "rand_chacha";
-        version = "0.9.0";
-        edition = "2021";
-        sha256 = "1jr5ygix7r60pz0s1cv3ms1f6pd1i9pcdmnxzzhjc3zn3mgjn0nk";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-          "The CryptoCorrosion Contributors"
-        ];
-        dependencies = [
-          {
-            name = "ppv-lite86";
-            packageId = "ppv-lite86";
-            usesDefaultFeatures = false;
-            features = [ "simd" ];
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.9.5";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.9.5";
-            features = [ "os_rng" ];
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "os_rng" = [ "rand_core/os_rng" ];
-          "serde" = [ "dep:serde" ];
-          "std" = [ "ppv-lite86/std" "rand_core/std" ];
-        };
-        resolvedDefaultFeatures = [ "std" ];
-      };
       "rand_core 0.10.1" = rec {
         crateName = "rand_core";
         version = "0.10.1";
@@ -12800,29 +12266,6 @@ rec {
           "std" = [ "alloc" "getrandom" "getrandom/std" ];
         };
         resolvedDefaultFeatures = [ "alloc" "getrandom" "std" ];
-      };
-      "rand_core 0.9.5" = rec {
-        crateName = "rand_core";
-        version = "0.9.5";
-        edition = "2021";
-        sha256 = "0g6qc5r3f0hdmz9b11nripyp9qqrzb0xqk9piip8w8qlvqkcibvn";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "getrandom";
-            packageId = "getrandom 0.3.4";
-            optional = true;
-          }
-        ];
-        features = {
-          "os_rng" = [ "dep:getrandom" ];
-          "serde" = [ "dep:serde" ];
-          "std" = [ "getrandom?/std" ];
-        };
-        resolvedDefaultFeatures = [ "os_rng" "std" ];
       };
       "rayon" = rec {
         crateName = "rayon";
@@ -13205,12 +12648,6 @@ rec {
             packageId = "bytes";
           }
           {
-            name = "encoding_rs";
-            packageId = "encoding_rs";
-            optional = true;
-            target = { target, features }: (!(("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null))));
-          }
-          {
             name = "futures-channel";
             packageId = "futures-channel";
             optional = true;
@@ -13278,12 +12715,6 @@ rec {
             target = { target, features }: (!(("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null))));
           }
           {
-            name = "mime";
-            packageId = "mime";
-            optional = true;
-            target = { target, features }: (!(("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null))));
-          }
-          {
             name = "percent-encoding";
             packageId = "percent-encoding";
             target = { target, features }: (!(("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null))));
@@ -13292,14 +12723,6 @@ rec {
             name = "pin-project-lite";
             packageId = "pin-project-lite";
             target = { target, features }: (!(("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null))));
-          }
-          {
-            name = "quinn";
-            packageId = "quinn";
-            optional = true;
-            usesDefaultFeatures = false;
-            target = { target, features }: (!(("wasm32" == target."arch" or null) && (("unknown" == target."os" or null) || ("none" == target."os" or null))));
-            features = [ "runtime-tokio" ];
           }
           {
             name = "rustls";
@@ -13470,7 +12893,7 @@ rec {
           "system-proxy" = [ "hyper-util/client-proxy-system" ];
           "zstd" = [ "tower-http/decompression-zstd" ];
         };
-        resolvedDefaultFeatures = [ "__rustls" "__rustls-aws-lc-rs" "__tls" "blocking" "charset" "default" "default-tls" "http2" "json" "rustls" "system-proxy" ];
+        resolvedDefaultFeatures = [ "__rustls" "__tls" "blocking" "http2" "json" "rustls-no-provider" ];
       };
       "rfc6979 0.4.0" = rec {
         crateName = "rfc6979";
@@ -13586,7 +13009,7 @@ rec {
           "std" = [ "alloc" ];
           "wasm32_unknown_unknown_js" = [ "getrandom/js" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "dev_urandom_fallback" "wasm32_unknown_unknown_js" ];
+        resolvedDefaultFeatures = [ "alloc" "default" "dev_urandom_fallback" ];
       };
       "rkyv" = rec {
         crateName = "rkyv";
@@ -13832,7 +13255,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rcgen";
@@ -13964,7 +13387,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rtc-ice";
@@ -14101,7 +13524,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rand_core";
@@ -14194,7 +13617,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rtc-mdns";
@@ -14255,7 +13678,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rtc-interceptor-derive";
@@ -14369,7 +13792,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rtc-rtp";
@@ -14433,7 +13856,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rtc-shared";
@@ -14474,7 +13897,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rtc-shared";
@@ -14510,7 +13933,7 @@ rec {
         dependencies = [
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rtc-shared";
@@ -14567,7 +13990,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "rcgen";
@@ -14712,7 +14135,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
           }
           {
             name = "ring";
@@ -15028,12 +14451,6 @@ rec {
         sha256 = "01nsagj78r88pifaz55ln1rw31py5n00h7bnw58h3g1aw1n3i0q2";
         dependencies = [
           {
-            name = "aws-lc-rs";
-            packageId = "aws-lc-rs";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "log";
             packageId = "log";
             optional = true;
@@ -15094,7 +14511,7 @@ rec {
           "std" = [ "webpki/std" "pki-types/std" "once_cell/std" ];
           "zlib" = [ "dep:zlib-rs" ];
         };
-        resolvedDefaultFeatures = [ "aws-lc-rs" "aws_lc_rs" "log" "logging" "ring" "std" "tls12" ];
+        resolvedDefaultFeatures = [ "log" "logging" "ring" "std" "tls12" ];
       };
       "rustls-native-certs" = rec {
         crateName = "rustls-native-certs";
@@ -15135,12 +14552,6 @@ rec {
         libName = "rustls_pki_types";
         dependencies = [
           {
-            name = "web-time";
-            packageId = "web-time";
-            optional = true;
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-          }
-          {
             name = "zeroize";
             packageId = "zeroize";
             optional = true;
@@ -15153,7 +14564,7 @@ rec {
           "web" = [ "web-time" ];
           "web-time" = [ "dep:web-time" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "std" "web" "web-time" ];
+        resolvedDefaultFeatures = [ "alloc" "default" "std" ];
       };
       "rustls-platform-verifier" = rec {
         crateName = "rustls-platform-verifier";
@@ -15164,7 +14575,7 @@ rec {
         dependencies = [
           {
             name = "core-foundation";
-            packageId = "core-foundation 0.10.1";
+            packageId = "core-foundation";
             target = { target, features }: (("apple" == target."vendor" or null));
           }
           {
@@ -15296,12 +14707,6 @@ rec {
         libName = "webpki";
         dependencies = [
           {
-            name = "aws-lc-rs";
-            packageId = "aws-lc-rs";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "ring";
             packageId = "ring";
             optional = true;
@@ -15327,7 +14732,7 @@ rec {
           "ring" = [ "dep:ring" ];
           "std" = [ "alloc" "pki-types/std" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "aws-lc-rs" "ring" "std" ];
+        resolvedDefaultFeatures = [ "alloc" "ring" "std" ];
       };
       "rustversion" = rec {
         crateName = "rustversion";
@@ -15639,7 +15044,7 @@ rec {
           }
           {
             name = "core-foundation";
-            packageId = "core-foundation 0.10.1";
+            packageId = "core-foundation";
           }
           {
             name = "core-foundation-sys";
@@ -16751,52 +16156,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "system" ];
       };
-      "system-configuration" = rec {
-        crateName = "system-configuration";
-        version = "0.7.0";
-        edition = "2021";
-        sha256 = "12rwilylzc625qnxl30h5kf8wj5ka61zjrwpmb034cd0mc6ksgx1";
-        libName = "system_configuration";
-        authors = [
-          "Mullvad VPN"
-        ];
-        dependencies = [
-          {
-            name = "bitflags";
-            packageId = "bitflags 2.13.1";
-          }
-          {
-            name = "core-foundation";
-            packageId = "core-foundation 0.9.4";
-          }
-          {
-            name = "system-configuration-sys";
-            packageId = "system-configuration-sys";
-          }
-        ];
-
-      };
-      "system-configuration-sys" = rec {
-        crateName = "system-configuration-sys";
-        version = "0.6.0";
-        edition = "2021";
-        sha256 = "1i5sqrmgy58l4704hibjbl36hclddglh73fb3wx95jnmrq81n7cf";
-        libName = "system_configuration_sys";
-        authors = [
-          "Mullvad VPN"
-        ];
-        dependencies = [
-          {
-            name = "core-foundation-sys";
-            packageId = "core-foundation-sys";
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-          }
-        ];
-
-      };
       "target-lexicon" = rec {
         crateName = "target-lexicon";
         version = "0.13.5";
@@ -17173,7 +16532,7 @@ rec {
           "std" = [ "alloc" ];
           "tinyvec_macros" = [ "dep:tinyvec_macros" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "tinyvec_macros" ];
+        resolvedDefaultFeatures = [ "alloc" "tinyvec_macros" ];
       };
       "tinyvec_macros" = rec {
         crateName = "tinyvec_macros";
@@ -17377,7 +16736,7 @@ rec {
           "tls12" = [ "rustls/tls12" ];
           "zlib" = [ "rustls/zlib" ];
         };
-        resolvedDefaultFeatures = [ "aws-lc-rs" "aws_lc_rs" "logging" "ring" "tls12" ];
+        resolvedDefaultFeatures = [ "logging" "ring" "tls12" ];
       };
       "tokio-stream" = rec {
         crateName = "tokio-stream";
@@ -18713,26 +18072,6 @@ rec {
           "rustc-std-workspace-alloc" = [ "dep:rustc-std-workspace-alloc" ];
         };
         resolvedDefaultFeatures = [ "default" "std" ];
-      };
-      "wasip2" = rec {
-        crateName = "wasip2";
-        version = "1.0.4+wasi-0.2.12";
-        edition = "2021";
-        sha256 = "11wl7lqwq4pbmlmzr6n7bwz0hzy1z6sxc4554bkmrr86w4vznzmn";
-        dependencies = [
-          {
-            name = "wit-bindgen";
-            packageId = "wit-bindgen 0.57.1";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "alloc" = [ "dep:alloc" ];
-          "bitflags" = [ "wit-bindgen/bitflags" ];
-          "core" = [ "dep:core" ];
-          "default" = [ "std" "bitflags" ];
-          "rustc-dep-of-std" = [ "core" "alloc" "wit-bindgen/rustc-dep-of-std" ];
-        };
       };
       "wasm-bindgen" = rec {
         crateName = "wasm-bindgen";
@@ -20121,7 +19460,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.10.2";
+            packageId = "rand";
             usesDefaultFeatures = false;
             features = [ "std_rng" "thread_rng" ];
           }
@@ -20864,29 +20203,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "AbortController" "AbortSignal" "Blob" "BlobPropertyBag" "EventTarget" "File" "FormData" "Headers" "ReadableStream" "Request" "RequestCache" "RequestCredentials" "RequestInit" "RequestMode" "Response" "ServiceWorkerGlobalScope" "Window" "WorkerGlobalScope" "default" "std" ];
       };
-      "web-time" = rec {
-        crateName = "web-time";
-        version = "1.1.0";
-        edition = "2021";
-        sha256 = "1fx05yqx83dhx628wb70fyy10yjfq1jpl20qfqhdkymi13rq0ras";
-        libName = "web_time";
-        dependencies = [
-          {
-            name = "js-sys";
-            packageId = "js-sys";
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-          }
-          {
-            name = "wasm-bindgen";
-            packageId = "wasm-bindgen";
-            usesDefaultFeatures = false;
-            target = { target, features }: ((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null));
-          }
-        ];
-        features = {
-          "serde" = [ "dep:serde" ];
-        };
-      };
       "webpki-root-certs" = rec {
         crateName = "webpki-root-certs";
         version = "1.0.8";
@@ -20958,7 +20274,7 @@ rec {
           }
           {
             name = "quinn-udp";
-            packageId = "quinn-udp 0.6.1";
+            packageId = "quinn-udp";
             usesDefaultFeatures = false;
             features = [ "log" ];
           }
@@ -21921,35 +21237,6 @@ rec {
           "std" = [ "windows-core/std" ];
         };
         resolvedDefaultFeatures = [ "std" ];
-      };
-      "windows-registry" = rec {
-        crateName = "windows-registry";
-        version = "0.6.1";
-        edition = "2021";
-        sha256 = "082p7l615qk8a4g8g15yipc5lghga6cgfhm74wm7zknwzgvjnx82";
-        libName = "windows_registry";
-        dependencies = [
-          {
-            name = "windows-link";
-            packageId = "windows-link";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "windows-result";
-            packageId = "windows-result";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "windows-strings";
-            packageId = "windows-strings";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "windows-result/std" "windows-strings/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
       };
       "windows-result" = rec {
         crateName = "windows-result";
@@ -23333,27 +22620,7 @@ rec {
         ];
 
       };
-      "wit-bindgen 0.57.1" = rec {
-        crateName = "wit-bindgen";
-        version = "0.57.1";
-        edition = "2024";
-        sha256 = "0vjk2jb593ri9k1aq4iqs2si9mrw5q46wxnn78im7hm7hx799gqy";
-        libName = "wit_bindgen";
-        authors = [
-          "Alex Crichton <alex@alexcrichton.com>"
-        ];
-        features = {
-          "async-spawn" = [ "async" "dep:futures" "std" ];
-          "bitflags" = [ "dep:bitflags" ];
-          "default" = [ "macros" "realloc" "async" "std" "bitflags" "macro-string" ];
-          "futures-stream" = [ "async" "dep:futures" ];
-          "inter-task-wakeup" = [ "async" ];
-          "macro-string" = [ "wit-bindgen-rust-macro?/macro-string" ];
-          "macros" = [ "dep:wit-bindgen-rust-macro" ];
-          "rustc-dep-of-std" = [ "dep:core" "dep:alloc" ];
-        };
-      };
-      "wit-bindgen 0.61.1" = rec {
+      "wit-bindgen" = rec {
         crateName = "wit-bindgen";
         version = "0.61.1";
         edition = "2024";

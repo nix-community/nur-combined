@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.9.0";
+    version = "v1.9.1";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.9.0";
+      rev = "v1.9.1";
       fetchSubmodules = false;
-      sha256 = "sha256-uG+H9v+dAQQ+ZdUm0B26UP9upyI+8kaAcMP+r6IgQXY=";
+      sha256 = "sha256-xf6ypbpRUIhNECoYG1Q+Q+wuwk/xR02cvwN2TrNsfcg=";
     };
   };
   claude-code-wakatime = {
@@ -234,15 +234,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "feba9acb2522a91810f1c07e0cc1d957e7aa4fb5";
+    version = "12b5a537b8dfd900a225abe95b3b33987272f838";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "feba9acb2522a91810f1c07e0cc1d957e7aa4fb5";
+      rev = "12b5a537b8dfd900a225abe95b3b33987272f838";
       fetchSubmodules = true;
-      sha256 = "sha256-EG58dlaS1JtiWYl6jQFPbwh1uR5gmoLQDBpX4Ik3b8U=";
+      sha256 = "sha256-ncNYIuGWwPidfwLcsa7LEMx+VZaJ494Ims3KKCUbNDQ=";
     };
-    date = "2026-09-03";
+    date = "2026-09-04";
   };
   replay-fish = {
     pname = "replay-fish";
@@ -258,13 +258,13 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.14.0";
+    version = "v1.15.0-alpha.1";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0";
+      rev = "v1.15.0-alpha.1";
       fetchSubmodules = false;
-      sha256 = "sha256-1v9bgM2H439ZoSkomv5dmT5SNrkuyOJ1iFFPlYPsW/k=";
+      sha256 = "sha256-Qrb8+9DZZvVjdvDj01vmbNw+3N5aMGB2q+WV9+t5fAw=";
     };
   };
   sing-box-beta = {
