@@ -39,32 +39,39 @@ asset_url() {
   ' <<< "$releases"
 }
 
-signed_url="$(asset_url "edk2-2011-signed-secureboot-binaries.tar.gz")"
+signed2011_url="$(asset_url "edk2-2011-signed-secureboot-binaries.tar.gz")"
+signed2023_url="$(asset_url "edk2-2023-signed-secureboot-binaries.tar.gz")"
 optional_url="$(asset_url "edk2-2011-optional-signed-secureboot-binaries.tar.gz")"
 
-if [[ -z "$signed_url" || -z "$optional_url" ]]; then
+if [[ -z "$signed2011_url" || -z "$signed2023_url" || -z "$optional_url" ]]; then
   echo "Signed release $tag is missing a required tarball" >&2
   exit 1
 fi
 
 prefetch() {
-  env -u DENDRO_API_KEY nix store prefetch-file --json "$1" | jq -r '.hash'
+  nix store prefetch-file --json "$1" | jq -r '.hash'
 }
 
-signed_hash="$(prefetch "$signed_url")"
+signed2011_hash="$(prefetch "$signed2011_url")"
+signed2023_hash="$(prefetch "$signed2023_url")"
 optional_hash="$(prefetch "$optional_url")"
 old_version="$(sed -nE 's/^[[:space:]]*version = "([^"]+)";$/\1/p' "$path")"
-old_signed_hash="$(sed -nE '/signed = \{/,/\};/s/^[[:space:]]*hash = "([^"]+)";$/\1/p' "$path")"
+old_signed2011_hash="$(sed -nE '/signed2011 = \{/,/\};/s/^[[:space:]]*hash = "([^"]+)";$/\1/p' "$path")"
+old_signed2023_hash="$(sed -nE '/signed2023 = \{/,/\};/s/^[[:space:]]*hash = "([^"]+)";$/\1/p' "$path")"
 old_optional_hash="$(sed -nE '/optional = \{/,/\};/s/^[[:space:]]*hash = "([^"]+)";$/\1/p' "$path")"
 
-if [[ "$version" == "$old_version" && "$signed_hash" == "$old_signed_hash" && "$optional_hash" == "$old_optional_hash" ]]; then
+if [[ "$version" == "$old_version" \
+   && "$signed2011_hash" == "$old_signed2011_hash" \
+   && "$signed2023_hash" == "$old_signed2023_hash" \
+   && "$optional_hash" == "$old_optional_hash" ]]; then
   echo "secureboot-objects is up to date at $version"
   exit 0
 fi
 
 sed -i -E \
   -e "s|version = \"$old_version\";|version = \"$version\";|" \
-  -e "/signed = \{/,/\};/s|hash = \"sha256-[^\"]+\";|hash = \"$signed_hash\";|" \
+  -e "/signed2011 = \{/,/\};/s|hash = \"sha256-[^\"]+\";|hash = \"$signed2011_hash\";|" \
+  -e "/signed2023 = \{/,/\};/s|hash = \"sha256-[^\"]+\";|hash = \"$signed2023_hash\";|" \
   -e "/optional = \{/,/\};/s|hash = \"sha256-[^\"]+\";|hash = \"$optional_hash\";|" \
   "$path"
 
