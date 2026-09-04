@@ -21,7 +21,30 @@
   libxinerama,
   libxrandr,
   libxscrnsaver,
+  makeSetupHook,
+  patchelf,
+  writeText,
 }:
+let
+  # auto-patchelf only adds its --runtime-dependencies to *executables*; the
+  # plugin bundles are .so/.clap and would never get the WebKitGTK / GTK /
+  # curl lib dirs. This hook runs after auto-patchelf in the postFixup pass
+  # (hooks appended later in postFixupHooks run later) and appends the dlopen
+  # lib dirs to every ELF artefact's rpath. Without them the WebView silently
+  # renders blank on NixOS.
+  dlopenRpathHook = makeSetupHook {
+    name = "tone3000-dlopen-rpath-hook";
+    propagatedBuildInputs = [ patchelf ];
+  } (writeText "tone3000-dlopen-rpath-hook.sh" ''
+    extendTone3000Rpath() {
+      local rpath="${lib.makeSearchPathOutput "lib" "lib" [ gtk3 webkitgtk_4_1 alsa-lib curl freetype fontconfig libGL ]}"
+      find "$out" -type f \
+        \( -name '*.so' -o -name '*.clap' -o -name 'TONE3000' \) \
+        -exec patchelf --add-rpath "$rpath" {} \; 2>/dev/null || true
+    }
+    postFixupHooks+=(extendTone3000Rpath)
+  '');
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "tone3000-bin";
   version = "0.0.4";
@@ -31,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-EvvK/3gCV6mCVtW8tWGAZZdF1BLDXDRe5lcZveD2jdw=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [ autoPatchelfHook dlopenRpathHook ];
 
   buildInputs = [
     alsa-lib
@@ -39,23 +62,15 @@ stdenv.mkDerivation (finalAttrs: {
     freetype
     stdenv.cc.cc
     libx11
+    gtk3
+    webkitgtk_4_1
+    curl
   ];
 
-  appendRunpaths =
-    (map (p: "${lib.getLib p}/lib") [
-      webkitgtk_4_1
-      libsoup_3
-      glib
-      gtk3
-      curl
-      libGL
-      libxcursor
-      libxext
-      libxinerama
-      libxrandr
-      libxscrnsaver
-    ])
-    ++ ["/run/opengl-driver/lib"];
+  dontConfigure = true;
+  dontBuild = true;
+  doCheck = false;
+  dontStrip = true;
 
   installPhase = ''
     runHook preInstall
@@ -66,8 +81,17 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r TONE3000.lv2 $out/lib/lv2/
     cp -r TONE3000.vst3 $out/lib/vst3/
     cp factory-presets/*.t3kpreset $out/share/tone3000/presets/
-    install -Dm644 tone3000.png $out/share/icons/hicolor/512x512/apps/tone3000.png
 
     runHook postInstall
   '';
+
+  # meta = with lib; {
+  #   description = "JUCE-based audio plugin that loads Neural Amp Modeler captures and IRs from TONE3000";
+  #   homepage = "https://www.tone3000.com/plugin";
+  #   license = licenses.mit;
+  #   platforms = [ "x86_64-linux" ];
+  #   mainProgram = "TONE3000";
+  #   sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+  #   maintainers = [ ];
+  # };
 })
