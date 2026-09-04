@@ -120,13 +120,19 @@ let
           allowSubstitutes = false;
         };
 
-        pi-coding-agent = super.pi-coding-agent.overrideAttrs (old: {
+        pilish = super.pi-coding-agent.overrideAttrs (old: {
+          pname = "pilish";
+          ename = "pilish";
+          version = "3.0.0";
+          recipe = "";
           src = builtins.fetchGit {
-            url = "https://github.com/dnouri/pi-coding-agent";
+            url = "https://github.com/dnouri/pilish";
             ref = "master";
           };
-          packageRequires = old.packageRequires ++ [
+          packageRequires = [
             super.magit-section
+            super.md-ts-mode
+            super.markdown-table-wrap
           ];
           preferLocalBuild = true;
           allowSubstitutes = false;
