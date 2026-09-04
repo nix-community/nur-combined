@@ -1,8 +1,6 @@
-diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
-index 656301e..2bf1ebb 100644
 --- a/util/grub.d/30_os-prober.in
 +++ b/util/grub.d/30_os-prober.in
-@@ -55,7 +55,7 @@ osx_entry() {
+@@ -55,7 +55,7 @@
      # TRANSLATORS: it refers on the OS residing on device %s
      onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
          cat << EOF
@@ -11,25 +9,25 @@ index 656301e..2bf1ebb 100644
  EOF
  	save_default_entry | grub_add_tab
  	prepare_grub_to_access_device ${DEVICE} | grub_add_tab
-@@ -155,7 +155,7 @@ for OS in ${OSPROBED} ; do
- 
- 	  onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
+@@ -164,7 +164,7 @@
        cat << EOF
+ # This menu entry is supported only on PC BIOS platforms.
+ if [ "\$grub_platform" = "pc" ]; then
 -menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-chain-$(grub_get_device_id "${DEVICE}")' {
 +menuentry '$(echo "${LONGNAME}" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-chain-$(grub_get_device_id "${DEVICE}")' {
  EOF
        save_default_entry | grub_add_tab
        prepare_grub_to_access_device ${DEVICE} | grub_add_tab
-@@ -187,7 +187,7 @@ EOF
- 	DEVICE=${DEVICE%@*}
- 	onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
+@@ -199,7 +199,7 @@
        cat << EOF
+ # This menu entry is supported only on EFI platforms.
+ if [ "\$grub_platform" = "efi" ]; then
 -menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-efi-$(grub_get_device_id "${DEVICE}")' {
 +menuentry '$(echo "${LONGNAME}" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-efi-$(grub_get_device_id "${DEVICE}")' {
  EOF
        save_default_entry | sed -e "s/^/\t/"
        prepare_grub_to_access_device ${DEVICE} | sed -e "s/^/\t/"
-@@ -251,7 +251,7 @@ EOF
+@@ -264,7 +264,7 @@
  
  	if [ "x$is_top_level" = xtrue ] && [ "x${GRUB_DISABLE_SUBMENU}" != xtrue ]; then
              cat << EOF
@@ -38,7 +36,7 @@ index 656301e..2bf1ebb 100644
  EOF
  	    save_default_entry | grub_add_tab
  	    printf '%s\n' "${prepare_boot_cache}"
-@@ -266,10 +266,10 @@ EOF
+@@ -279,10 +279,10 @@
          cat << EOF
  }
  EOF
@@ -51,7 +49,7 @@ index 656301e..2bf1ebb 100644
          cat << EOF
  	menuentry '$(echo "$title" | grub_quote)' --class gnu-linux --class gnu --class os \$menuentry_id_option 'osprober-gnulinux-$LKERNEL-${recovery_params}-$boot_device_id' {
  EOF
-@@ -287,7 +287,7 @@ EOF
+@@ -300,7 +300,7 @@
  	}
  EOF
  	if [ x"$title" = x"$GRUB_ACTUAL_DEFAULT" ] || [ x"Previous Linux versions>$title" = x"$GRUB_ACTUAL_DEFAULT" ]; then
@@ -60,7 +58,7 @@ index 656301e..2bf1ebb 100644
  	    quoted="$(echo "$GRUB_ACTUAL_DEFAULT" | grub_quote)"
  	    title_correction_code="${title_correction_code}if [ \"x\$default\" = '$quoted' ]; then default='$(echo "$replacement_title" | grub_quote)'; fi;"
  	    grub_warn "$(gettext_printf "Please don't use old title \`%s' for GRUB_DEFAULT, use \`%s' (for versions before 2.00) or \`%s' (for 2.00 or later)" "$GRUB_ACTUAL_DEFAULT" "$replacement_title" "gnulinux-advanced-$boot_device_id>gnulinux-$version-$type-$boot_device_id")"
-@@ -308,7 +308,7 @@ EOF
+@@ -321,7 +321,7 @@
      hurd)
        onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
        cat << EOF
