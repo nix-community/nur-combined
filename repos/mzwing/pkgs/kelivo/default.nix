@@ -117,9 +117,11 @@ in
           name = "mzwing";
         }
       ];
+      # aarch64-linux is buildable, but nixpkgs' flutter wrapper unconditionally
+      # references `aapt`, which upstream only ships for x86_64-linux and darwin.
+      # Restore aarch64-linux once NixOS/nixpkgs#558879 lands.
       platforms = [
         "x86_64-linux"
-        "aarch64-linux"
       ];
     };
   }
