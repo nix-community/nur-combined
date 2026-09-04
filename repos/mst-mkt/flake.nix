@@ -25,8 +25,6 @@
 
       overlays.default = final: _prev: import ./. { pkgs = final; };
 
-      homeModules.omniwm = import ./modules/omniwm.nix;
-
       formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.nixfmt-tree);
     };
 
