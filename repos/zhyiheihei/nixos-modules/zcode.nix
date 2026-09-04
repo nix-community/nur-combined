@@ -2,8 +2,9 @@
 # 本模块随 zhyi-packages 发布，由上层 flake（nixos-config 的
 # nixos/client-apps/zcode.nix 薄壳）导入后启用；包定义在
 # ../pkgs/uncategorized/zcode，逻辑不重复落在上层仓库。
+self:
 {
-  self,
+  config,
   lib,
   pkgs,
   ...
