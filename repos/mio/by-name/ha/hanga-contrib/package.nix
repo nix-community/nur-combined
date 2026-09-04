@@ -77,7 +77,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "hanga-contrib";
-  version = "0.1.0";
+  version = "700f2db";
 
   src = ./.;
 

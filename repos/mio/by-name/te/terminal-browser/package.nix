@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.7.6";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
     repo = "terminal-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-HcylH0C8pWIeeU28Tb7R/76QlpU8lkdLXCUBYMND2y4=";
+    hash = "sha256-T/0KDMVBJ1eBh128H+nuwSY0Xh+wvtVIJc5FVWU2Vb0=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
-    hash = "sha256-DZdpUyGHqkNNaGcRWJpXpjNWyXLq6fEeV0efb6uQMB0=";
+    hash = "sha256-CLoX6axparzIxyUZVyScC3h4sa+G7lr680jjbXIrW9Q=";
   };
 
   nativeBuildInputs = [

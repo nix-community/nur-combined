@@ -18,7 +18,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cider";
-  version = "1.6.3-unstable-2026-05-12";
+  version = "6ac396e";
 
   src = fetchFromGitHub {
     owner = "taoky";

@@ -52,7 +52,7 @@ let
   headers = fetchzip {
     name = "electron-${version}-headers";
     url = "https://artifacts.electronjs.org/headers/dist/v38.8.6/node-v38.8.6-headers.tar.gz";
-    sha256 = "sha256-R+lk96eZi6ujPfUx+TCVe0tQYjdQ43DKyZsIEqI/DeA=";
+    sha256 = "sha256-EDv9Llkxml2Zd2oN0G8R2kiqMV1PkWxd7c8udVByFjc=";
     stripRoot = false;
   };
 
