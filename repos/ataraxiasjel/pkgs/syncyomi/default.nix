@@ -7,7 +7,6 @@
   nodejs,
   pnpm_11,
   pnpmConfigHook,
-  esbuild,
   nix-update-script,
 }:
 let
@@ -40,7 +39,7 @@ buildGoModule rec {
         ;
       inherit pnpm;
       fetcherVersion = 4;
-      hash = "sha256-8grlBi//dO+mgU5HKYHwNtlCbNbYV4VrptbSgg+ntvQ=";
+      hash = "sha256-vs6lJcYjo3b8fWEpivwA3YeEkrJ+NHPuCLs4TiIYkHY=";
     };
 
     nativeBuildInputs = [
@@ -48,26 +47,6 @@ buildGoModule rec {
       pnpm
       pnpmConfigHook
     ];
-
-    env.ESBUILD_BINARY_PATH = lib.getExe (
-      esbuild.override {
-        buildGoModule =
-          args:
-          buildGoModule (
-            args
-            // rec {
-              version = "0.21.5";
-              src = fetchFromGitHub {
-                owner = "evanw";
-                repo = "esbuild";
-                rev = "v${version}";
-                hash = "sha256-FpvXWIlt67G8w3pBKZo/mcp57LunxDmRUaCU/Ne89B8=";
-              };
-              vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-            }
-          );
-      }
-    );
 
     buildPhase = ''
       runHook preBuild
