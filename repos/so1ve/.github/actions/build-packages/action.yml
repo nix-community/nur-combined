@@ -12,10 +12,11 @@ runs:
     - name: Build packages
       shell: bash
       env:
+        NIXPKGS_ALLOW_UNFREE: "1"
         SYSTEM: ${{ inputs.system }}
       run: |
         package_names="$(
-          nix eval --raw ".#packages.$SYSTEM" \
+          nix eval --impure --raw ".#packages.$SYSTEM" \
             --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)'
         )"
 
@@ -26,5 +27,5 @@ runs:
 
         while IFS= read -r package; do
           echo "Building $package for $SYSTEM"
-          nix build ".#packages.$SYSTEM.$package" --print-build-logs
+          nix build --impure ".#packages.$SYSTEM.$package" --print-build-logs
         done <<<"$package_names"

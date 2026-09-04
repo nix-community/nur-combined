@@ -133,16 +133,17 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build package
         env:
+          NIXPKGS_ALLOW_UNFREE: "1"
           PACKAGE: ${{ matrix.package }}
           SYSTEM: ${{ matrix.target.system }}
         run: |
           package_names="$(
-            nix eval --raw ".#packages.$SYSTEM" \
+            nix eval --impure --raw ".#packages.$SYSTEM" \
               --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)'
           )"
 
           if grep --fixed-strings --line-regexp --quiet "$PACKAGE" <<<"$package_names"; then
-            nix build ".#packages.$SYSTEM.$PACKAGE" --print-build-logs
+            nix build --impure ".#packages.$SYSTEM.$PACKAGE" --print-build-logs
           else
             echo "$PACKAGE is not available on $SYSTEM; skipping"
           fi
