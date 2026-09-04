@@ -959,11 +959,6 @@
             "sha256": "0c1bs83mg7qznv550vznx095lk7lrqsyb7q29wpimqpasri3y8xa",
             "url": "https://github.com/fooker/nur-packages"
         },
-        "foolnotion": {
-            "rev": "8a14375435d6d2af4ad2f2a2a76d126f7d2db8f2",
-            "sha256": "1r9jkcb4h5lijqdc0dzilqqkj1ga8qapw2xy5qw6wvji33cdgp57",
-            "url": "https://github.com/foolnotion/nur-pkg"
-        },
         "foresense": {
             "rev": "af832ac9bbe2213339c3c6d8e6d8f4adf4ae2d4a",
             "sha256": "15ajrzp1bfjhr2iha8jy2izbmpb174y4fk1jw0x8znbpasfwjjcr",
