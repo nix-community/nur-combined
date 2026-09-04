@@ -433,6 +433,21 @@
         },
         "version": "v0.17.0"
     },
+    "zcode": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "zcode",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-thjPpwyPfIoabilQVlzEQcKYuAG7I4nCkusNOt1r8MA=",
+            "type": "url",
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.10.2/linux-x64/ZCode-3.10.2-linux-x64.deb"
+        },
+        "version": "3.10.2"
+    },
     "zhconv-rs": {
         "cargoLock": null,
         "date": null,

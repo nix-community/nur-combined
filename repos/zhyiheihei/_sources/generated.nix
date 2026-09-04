@@ -221,6 +221,14 @@
       hash = "sha256-QCk96rmZwWK91V05rcd36OGCPbbKYvP68GvRllwkKlA=";
     };
   };
+  zcode = {
+    pname = "zcode";
+    version = "3.10.2";
+    src = fetchurl {
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.10.2/linux-x64/ZCode-3.10.2-linux-x64.deb";
+      hash = "sha256-thjPpwyPfIoabilQVlzEQcKYuAG7I4nCkusNOt1r8MA=";
+    };
+  };
   zhconv-rs = {
     pname = "zhconv-rs";
     version = "v0.4.1";

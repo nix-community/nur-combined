@@ -95,6 +95,11 @@ src.prefix = "v"
 fetch.github = "vertex-center/vertex"
 src.github = "vertex-center/vertex"
 
+[zcode]
+fetch.url = "https://cdn-zcode.z.ai/zcode/electron/releases/$ver/linux-x64/ZCode-$ver-linux-x64.deb"
+src.webpage = "https://zcode.z.ai/en/docs/install"
+src.regex = "releases/([0-9.]+)/linux-x64"
+
 [zhconv-rs]
 fetch.github = "Gowee/zhconv-rs"
 src.github = "Gowee/zhconv-rs"
