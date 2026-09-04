@@ -1,5 +1,4 @@
-{ electron
-, fetchFromGitHub
+{ fetchFromGitHub
 , fetchPnpmDeps
 , lib
 , maintainer
@@ -19,9 +18,7 @@ let
     tag = "v${version}";
   };
 
-  t3code-unwrapped = (t3code.unwrapped.override {
-    electron_41 = electron;
-  }).overrideAttrs (oldAttrs: {
+  t3code-unwrapped = t3code.unwrapped.overrideAttrs (oldAttrs: {
     inherit src version;
 
     pnpmDeps = fetchPnpmDeps {
