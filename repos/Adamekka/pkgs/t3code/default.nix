@@ -10,10 +10,10 @@
 }:
 
 let
-  version = "0.0.39-nightly.20260902.74";
+  version = "0.0.39-nightly.20260904.82";
 
   src = fetchFromGitHub {
-    hash = "sha256-wk4nnof6hTOL/5DYMWfm1IC/Lc6qLP9mK8qOYGX2/Tk=";
+    hash = "sha256-FFiZgzBnDo2/8EHGfEYTkvYtnLtqOHSI3ReEegtXsmw=";
     owner = "Adamekka";
     repo = "t3code";
     tag = "v${version}";
@@ -28,7 +28,7 @@ let
       inherit src version;
       inherit (oldAttrs) pname pnpmWorkspaces;
       fetcherVersion = 4;
-      hash = "sha256-t/hmpXdYPnBFx18A6NrSL4zSvVnUDIjIPtLjGOzoaDk=";
+      hash = "sha256-H1wn6RohCREpPISkBhGVci+bR5BreqNPOkICLhtAk+o=";
       pnpm = pnpm_11;
       # The lockfile includes many optional platform archives, and the registry can take over a minute to serve them.
       prePnpmInstall = ''
