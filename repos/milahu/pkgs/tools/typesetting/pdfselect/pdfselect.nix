@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, poppler_utils
+, poppler-utils
 , texlive
 }:
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
     chmod +x pdfselect
     sed -i 's|^pdflatex=pdflatex$|pdflatex=${texlive.combined.scheme-small}/bin/pdflatex|' pdfselect
-    sed -i 's|^pdfinfo=pdfinfo$|pdfinfo=${poppler_utils}/bin/pdfinfo|' pdfselect
+    sed -i 's|^pdfinfo=pdfinfo$|pdfinfo=${poppler-utils}/bin/pdfinfo|' pdfselect
     sed -i "s|pdfselect_i|$out/bin/.pdfselect_i|" pdfselect
   '';
 

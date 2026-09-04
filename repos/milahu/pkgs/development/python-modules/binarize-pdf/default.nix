@@ -16,7 +16,9 @@
 
 buildPythonPackage rec {
   pname = "binarize-pdf";
-  version = "0.1.0-5a9ca49";
+  # packaging.version.InvalidVersion: Invalid version: '0.1.0-5a9ca49'
+  # version = "0.1.0-5a9ca49";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "rahimnathwani";
