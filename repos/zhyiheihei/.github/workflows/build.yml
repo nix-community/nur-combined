@@ -120,6 +120,26 @@ jobs:
           printf '%s' "$ATTIC_UPLOAD_KEY" > /tmp/attic-key
           nix shell nixpkgs#attic-client -c attic login --set-default lantian \
             https://attic.zhyi.xin "$(cat /tmp/attic-key)"
-          mapfile -t pkg_out_paths < /tmp/pkg-out-paths
-          nix shell nixpkgs#attic-client -c attic push lantian "${pkg_out_paths[@]}"
+
+          # Push one output path at a time so a single bad upload (oversized
+          # NAR, flaky network) cannot abort the rest of the cache update.
+          # The step only fails when nothing at all could be pushed, which
+          # means the attic server is unreachable or the key is invalid.
+          pushed=0
+          failed=0
+          while read -r out_path; do
+            [ -n "$out_path" ] || continue
+            if nix shell nixpkgs#attic-client -c attic push lantian "$out_path"; then
+              echo "pushed $out_path"
+              pushed=$((pushed + 1))
+            else
+              echo "PUSH-FAIL $out_path"
+              failed=$((failed + 1))
+            fi
+          done < /tmp/pkg-out-paths
           rm -f /tmp/attic-key
+
+          echo "push summary: $pushed ok, $failed failed"
+          if [ "$pushed" -eq 0 ] && [ "$failed" -gt 0 ]; then
+            exit 1
+          fi
