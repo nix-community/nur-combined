@@ -7,7 +7,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "npiperelay";
-  version = "1.12.0";
+  version = "1.12.1";
 
   src = fetchFromGitHub {
     owner = "albertony";
