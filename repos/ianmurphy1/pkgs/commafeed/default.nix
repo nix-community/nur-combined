@@ -7,7 +7,6 @@
   nixosTests,
   writeText,
   mandrel,
-  graalvmPackages,
   removeReferencesTo,
   makeWrapper,
   glibc,
@@ -17,8 +16,6 @@ let
   version = "a06a0e893c468529d5cae3b04e389c3072fcce72";
   # version = binaryVersion;
   db = "h2";
-
-  graalVM = graalvmPackages.graalvm-ce;
 
   src = fetchFromGitHub {
     owner = "Athou";
@@ -105,13 +102,12 @@ maven.buildMavenPackage {
   '';
 
   disallowedReferences = [
-    graalVM
     mandrel
     maven
   ];
 
   postInstall = ''
-    find "$out" -type f -exec ${lib.getExe removeReferencesTo} -t ${mandrel} -t ${maven} -t ${graalVM} '{}' +
+    find "$out" -type f -exec ${lib.getExe removeReferencesTo} -t ${mandrel} -t ${maven} '{}' +
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
     echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties
