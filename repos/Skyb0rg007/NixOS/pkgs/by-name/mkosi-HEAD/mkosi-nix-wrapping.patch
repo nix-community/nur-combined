@@ -1,7 +1,4 @@
-# Single file handling nixpkgs' three mkosi patches.
-# The at-VAR-at references are substituted at build time with nix store paths.
 diff --git a/mkosi/__init__.py b/mkosi/__init__.py
-index 6f7fc90..706092d 100644
 --- a/mkosi/__init__.py
 +++ b/mkosi/__init__.py
 @@ -639,7 +639,7 @@ def finalize_host_scripts(
@@ -26,7 +23,7 @@ index 6f7fc90..706092d 100644
              "--bind", "/buildroot", "/",
              "--bind", "/var/tmp", "/var/tmp",
              *apivfs_options(root=Path("/")),
-@@ -1610,7 +1614,7 @@ def run_ukify(
+@@ -1617,7 +1621,7 @@ def run_ukify(
      sign: bool = True,
      json_out: bool = False,
  ) -> dict[str, Any]:
@@ -35,7 +32,7 @@ index 6f7fc90..706092d 100644
      if not ukify:
          die("Could not find ukify")
  
-@@ -1622,7 +1626,6 @@ def run_ukify(
+@@ -1629,7 +1633,6 @@ def run_ukify(
      (context.workspace / "cmdline").write_text(f"{' '.join(cmdline)}\x00")
  
      cmd = [
@@ -43,7 +40,7 @@ index 6f7fc90..706092d 100644
          ukify,
          "build",
          *arguments,
-@@ -1717,7 +1720,7 @@ def build_uki(
+@@ -1724,11 +1727,11 @@ def build_uki(
      profiles: Sequence[Path],
      output: Path,
  ) -> dict[str, Any]:
@@ -52,16 +49,12 @@ index 6f7fc90..706092d 100644
          die("Could not find ukify")
  
      json_out = False
-@@ -1776,7 +1779,7 @@ def build_uki(
-             "--pcr-banks", "sha256",
-         ]  # fmt: skip
+-    ukify_version = systemd_tool_version(python_binary(context.config), ukify, sandbox=context.sandbox)
++    ukify_version = systemd_tool_version(ukify, sandbox=context.sandbox)
  
--        ukify_version = systemd_tool_version(python_binary(context.config), ukify, sandbox=context.sandbox)
-+        ukify_version = systemd_tool_version(ukify, sandbox=context.sandbox)
- 
-         if ukify_version >= "258":
-             cert_parameter = "--pcr-certificate"
-@@ -1838,7 +1841,6 @@ def build_uki(
+     arguments: list[PathString] = [
+         "--os-release", f"@{workdir(context.root / 'usr/lib/os-release')}",
+@@ -1848,7 +1851,6 @@ def build_uki(
          # new .ucode section support?
          if (
              systemd_tool_version(
@@ -69,7 +62,7 @@ index 6f7fc90..706092d 100644
                  ukify,
                  sandbox=context.sandbox,
              )
-@@ -1906,7 +1908,7 @@ def want_uki(context: Context) -> bool:
+@@ -1916,7 +1918,7 @@ def want_uki(context: Context) -> bool:
          or (
              context.config.unified_kernel_images == UnifiedKernelImage.auto
              and systemd_stub_binary(context).exists()
@@ -78,7 +71,7 @@ index 6f7fc90..706092d 100644
          )
      )
  
-@@ -2844,9 +2846,9 @@ def check_ukify(
+@@ -2856,9 +2858,9 @@ def check_ukify(
      reason: str,
      hint: Optional[str] = None,
  ) -> None:
@@ -91,7 +84,6 @@ index 6f7fc90..706092d 100644
          die(
              f"Found '{ukify}' with version {v} but version {version} or newer is required to {reason}.",
 diff --git a/mkosi/bootloader.py b/mkosi/bootloader.py
-index 3260de1..f499e67 100644
 --- a/mkosi/bootloader.py
 +++ b/mkosi/bootloader.py
 @@ -315,8 +315,7 @@ def find_signed_grub_image(context: Context) -> Optional[Path]:
@@ -105,7 +97,6 @@ index 3260de1..f499e67 100644
  
  def extract_pe_section(context: Context, binary: Path, section: str, output: Path) -> Path:
 diff --git a/mkosi/qemu.py b/mkosi/qemu.py
-index 3c4e6bd..1f745b2 100644
 --- a/mkosi/qemu.py
 +++ b/mkosi/qemu.py
 @@ -192,7 +192,7 @@ def find_ovmf_firmware(config: Config, firmware: Firmware) -> Optional[OvmfConfi
@@ -118,7 +109,6 @@ index 3c4e6bd..1f745b2 100644
          desc += list((config.tools() / "etc/qemu/firmware").glob("*"))
  
 diff --git a/mkosi/run.py b/mkosi/run.py
-index 3e94c5a..f8ad948 100644
 --- a/mkosi/run.py
 +++ b/mkosi/run.py
 @@ -352,7 +352,11 @@ def spawn(
@@ -144,7 +134,6 @@ index 3e94c5a..f8ad948 100644
      ]  # fmt: skip
  
 diff --git a/mkosi/sandbox.py b/mkosi/sandbox.py
-index 76a5af8..651c1fb 100755
 --- a/mkosi/sandbox.py
 +++ b/mkosi/sandbox.py
 @@ -158,7 +158,7 @@ class cap_user_data_t(ctypes.Structure):
