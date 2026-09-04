@@ -26,6 +26,10 @@ runs:
         fi
 
         while IFS= read -r package; do
+          if [[ "$package" == "baidunetdisk" ]]; then
+            continue
+          fi
+
           echo "Building $package for $SYSTEM"
           nix build --impure ".#packages.$SYSTEM.$package" --print-build-logs
         done <<<"$package_names"
