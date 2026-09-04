@@ -197,18 +197,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "4.4.67";
+    version = "4.4.68";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.67/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-BGNU6Z9mtOZBzNsSIaxHNOPbZ9TmwIptYBMqsqsJSEY=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.68/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-paFcewhejtwA+Abj0x3jk/vcJ98xzRF1siesDSkeb6s=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "4.4.67";
+    version = "4.4.68";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.67/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-A1Ouhoi2YwAwYwZ/RwqIao30Al3zDH1uSo5r2/55ZHc=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.68/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-+S6BGjylj2MbeMBpjQGLXLctyd9+CVFuSmdzZDIl2rs=";
     };
   };
   vertex = {
@@ -223,10 +223,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.10.2";
+    version = "3.11.2";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.10.2/linux-x64/ZCode-3.10.2-linux-x64.deb";
-      hash = "sha256-thjPpwyPfIoabilQVlzEQcKYuAG7I4nCkusNOt1r8MA=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.11.2/linux-x64/ZCode-3.11.2-linux-x64.deb";
+      hash = "sha256-fRO4OGMTAs9h4bgEDLZ/NJ7CNWZ5WJfxdGQyxcXXfVs=";
     };
   };
   zhconv-rs = {
