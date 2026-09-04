@@ -1,12 +1,12 @@
 { fetchFromGitHub, igorski }:
 igorski.mkVst3 (finalAttrs: {
   pname = "transformant";
-  version = "1.0.4";
+  version = "1.1.0";
   src = fetchFromGitHub {
     owner = "igorski";
     repo = "transformant";
     rev = finalAttrs.version;
-    hash = "sha256-GSZ98Q2tjpbVzkyxasX1lQiTfqZ7eOiAJCNFbpLvsCo=";
+    hash = "sha256-lLsFiJDcgq+opTAILW4dpa41ZCQgiJFpd4CFJCTSmNI=";
   };
 
   meta = {

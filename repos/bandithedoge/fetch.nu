@@ -57,8 +57,22 @@ def main [--commit, ...packages: string] {
     if ($packages | is-empty) {
         $npins_scopes | par-each {|scope| fetch-npins $scope $commit}
         fetch-firefox $commit
+
         let update_scripts = nix eval .#_UPDATABLE --json | from json
-        $update_scripts | each {|package| fetch $package $commit }
+        let failures = $update_scripts | each {|package|
+            try {
+                fetch $package $commit
+                null
+            } catch {
+                $package
+            }
+        } | compact
+        if "GITHUB_STEP_SUMMARY" in $env and ($failures | is-not-empty) {
+            "# Failed" | save --append $env.GITHUB_STEP_SUMMARY
+            $failures | each {|package|
+                $"\n- `($package)`" | save --append $env.GITHUB_STEP_SUMMARY
+            }
+        }
     } else {
         for $package in $packages {
             if $package in $npins_scopes {

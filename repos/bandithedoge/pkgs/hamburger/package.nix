@@ -10,12 +10,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "hamburger";
-  version = "0.8";
+  version = "0.9";
   src = fetchFromGitHub {
     owner = "Davit-G";
     repo = "Hamburger";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-aZb1sy2ymZDhMuHpsUKTH2c8uABBvShliJMGbMTTcdo=";
+    hash = "sha256-+CK3q6/q6m4c4IXbXDnGOFF+jxVmOShakq6UqjQ5HTg=";
   };
 
   nativeBuildInputs = [ juceCmakeHook ];

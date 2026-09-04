@@ -8,12 +8,12 @@
 }:
 stdenv.mkDerivation {
   pname = "xen";
-  version = "st3-unstable-2026-01-12";
+  version = "st3-unstable-2026-08-30";
   src = fetchFromGitHub {
     owner = "Mrugalla";
     repo = "Xen";
-    rev = "4f15fc030d2687dd0c4ae499125e27bdec7e54bf";
-    hash = "sha256-qyudHZf7GrhtS499KCij41uvfGVq00hQc3YXesw7SvI=";
+    rev = "5b89d89324ab46865e4fa1af23f401a61c0ae6c4";
+    hash = "sha256-zY5ZQBo9MrYI/NR05mJwfIBQA65oMjlT5WEnc8HRjM0=";
   };
 
   nativeBuildInputs = [

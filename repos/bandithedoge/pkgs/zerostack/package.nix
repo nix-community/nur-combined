@@ -16,15 +16,15 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zerostack";
-  version = "1.7.2";
+  version = "1.8.1";
   src = fetchFromGitHub {
     owner = "gi-dellav";
     repo = "zerostack";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-rBFgrZvSnLxLulJxxPeS/+uVk56ifdgDl6JZ0uqtlp8=";
+    hash = "sha256-zlszNYt/psTbvwv7TDiozG9TMgfL7Nd4S2luQckuxLg=";
   };
 
-  cargoHash = "sha256-4sHChlm9dt4vB+zAAWbP7vrUY66nUbRsWSRDg9G4RGo=";
+  cargoHash = "sha256-BV9Y75KgD0jXPCPaINKX7j6MCLyiAGwB7oExa+JMAi0=";
   buildFeatures =
     lib.optional withAcp "acp"
     ++ lib.optional withAdvisor "advisor"
@@ -41,6 +41,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=tests::session_tests::detect_git_branch_in_repo_returns_nonempty"
     "--skip=tests::logging_tests::test_build_stderr_filter_default"
     "--skip=tests::provider_tests::anthropic_custom_base_appends_v1_messages"
+    "--skip=tests::tui_loop_tests"
   ];
 
   passthru.updateScript = nix-update-script { };

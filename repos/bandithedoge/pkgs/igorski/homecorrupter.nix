@@ -1,12 +1,12 @@
 { fetchFromGitHub, igorski }:
 igorski.mkVst3 (finalAttrs: {
   pname = "homecorrupter";
-  version = "1.1.3";
+  version = "1.2.0";
   src = fetchFromGitHub {
     owner = "igorski";
     repo = "homecorrupter";
     rev = finalAttrs.version;
-    hash = "sha256-jFD0orWRELJE5CKAxqNF8KKtS9kMnAzrqZTPX8FoRUQ=";
+    hash = "sha256-oGKhPtiv+HO7IPoZCmaaDErwF9sig8y+1B/iSZOL7iU=";
   };
 
   meta = {

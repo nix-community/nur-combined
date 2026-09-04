@@ -3,11 +3,11 @@
     "cache-nix-action": {
       "flake": false,
       "locked": {
-        "lastModified": 1779356042,
-        "narHash": "sha256-hoD8sdbhBfziv8KTB84g0Rbz38GkmYZLtqxBAOg8Mfw=",
+        "lastModified": 1788439625,
+        "narHash": "sha256-KpUPWoBJJxMU8jwBKcbNi85EG6CUkchwL03lnzhxfnA=",
         "owner": "nix-community",
         "repo": "cache-nix-action",
-        "rev": "42506e270a07908a6cb6f5ab7ba9b2e60056d6be",
+        "rev": "099b5eda36d156fcdd6477de3db9e7fa4caf800f",
         "type": "github"
       },
       "original": {
