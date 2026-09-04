@@ -26,7 +26,7 @@ json_data=$(nix flake metadata --json -- "$flake_uri_unlocked")
 declare flake_uri=
 flake_uri=$(jq -r .url <<<"$json_data")
 declare git_revision=
-git_revision=$(jq -r .revision)
+git_revision=$(jq -r .revision <<<"$json_data")
 
 declare flake_packages="$flake_uri#.packages.$system"
 
@@ -42,4 +42,5 @@ declare drv_name=""
 drv_name="$(nix eval --raw -- "$flake_packages.betterbird.name")"
 declare pin_name="$drv_name:nurpkgs-$git_revision"
 
+svl_verbose_run cachix push mio ./result-bb*
 svl_verbose_run cachix pin mio "$pin_name" ./result-bb*
