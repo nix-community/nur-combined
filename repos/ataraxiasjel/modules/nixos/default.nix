@@ -10,6 +10,7 @@
   prometheus-exporters = import ./prometheus-exporters;
   rinetd = ./rinetd.nix;
   rustic = ./rustic.nix;
+  suwayomi-server = ./suwayomi-server.nix;
   syncyomi = ./syncyomi.nix;
   telemt = ./telemt.nix;
   whoogle = ./whoogle.nix;

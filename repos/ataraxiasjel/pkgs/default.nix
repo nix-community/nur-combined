@@ -44,6 +44,8 @@ let
       sing-box-beta = final.callPackage ./sing-box/beta.nix { };
       sing-box-extended = final.callPackage ./sing-box/extended.nix { };
       stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
+      suwayomi-server = final.callPackage ./suwayomi-server { };
+      suwayomi-webui = final.callPackage ./suwayomi-webui { };
       syncyomi = final.callPackage ./syncyomi { };
       telemt = final.callPackage ./telemt { };
       voidrun = final.callPackage ./voidrun { };
@@ -60,7 +62,6 @@ let
           import ./python3Packages {
             inherit (pyFinal) callPackage;
             inherit lib;
-            pkgs = final;
           }
         )
       ];

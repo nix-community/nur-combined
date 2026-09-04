@@ -33,6 +33,8 @@ Package [ocis-bin](pkgs/ocis-bin/) included in this repo. Until [#230190](https:
 * [rustic](https://github.com/rustic-rs/rustic), rustic - fast, encrypted, and deduplicated backups powered by Rust. Available as [services.rustic](modules/nixos/rustic.nix).
 Usage [example](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor/backups.nix)
 
+* [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server), a free and open source manga reader server that runs extensions built for Tachiyomi. Available as [services.suwayomi-server](modules/nixos/suwayomi-server.nix).
+
 * [syncyomi](https://github.com/syncyomi/syncyomi/), an open-source project crafted to provide a seamless synchronization experience for TachiyomiSY. Available as [services.syncyomi](modules/nixos/syncyomi.nix).
 
 * [telemt](https://github.com/telemt/lelemt/), MTProxy for Telegram on Rust + Tokio. Available as [services.telemt](modules/nixos/telemt.nix).
