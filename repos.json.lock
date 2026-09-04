@@ -392,8 +392,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "b3877088fee468401b0c697bc2d6585fe9d309da",
-            "sha256": "19ir32kc4ib68dgi41cvsi439nb9kcg4yhnq6jp3qm65khi4mh3c",
+            "rev": "83f3a0f72729db3ad2ef3d38074f47d874adaedb",
+            "sha256": "045j0cjb6hgzfakpdyw8f88wg2qry1pxjbj98slibnl17vcq7a12",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -558,8 +558,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "cb54a6c54f23e28abd7a68141f2eadd7aad1a5e8",
-            "sha256": "1m6q1qn92gqfspnmgmrly9k3i93irl1xvc9rfbmrr0pnjw143yna",
+            "rev": "a39055b504e2ffcab7cbab3c600a403b4071ec45",
+            "sha256": "1f7c247v1ds78afg1ary590vqcj5bv71d630q1kha8qmn1ml0104",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -2274,6 +2274,11 @@
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "rev": "3028202297328ed1a43cb4cf0f5f140165847225",
+            "sha256": "1xs9k21zw7vyfggaigg6xlxvy9839lbvlyc8cwdnvx084817rli8",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "rev": "f4e7bd40fcf0e2629f3aca21f38ba6ab3e30f091",
             "sha256": "0ah17anydhgrm4y0lbphr8ascyjh63ridijln9z59jq1q2s8i733",
@@ -2330,8 +2335,8 @@
             "url": "https://github.com/sn0wm1x/ur"
         },
         "so1ve": {
-            "rev": "a077b352c008a247ca3741e0a08656a7f7226500",
-            "sha256": "0sbrfcr5nijbwjhl68rzfvlgzap8p7gslc59nm2ijva1zr00pq5m",
+            "rev": "b88c45261369a91527c722b4a482f82a37b05972",
+            "sha256": "1dwrrgy2dac5d74wxn9dijghq6lqgsc8pwf3hknimkh1ajksmpc0",
             "url": "https://github.com/so1ve/nur-packages"
         },
         "some-pkgs": {
