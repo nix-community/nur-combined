@@ -523,6 +523,27 @@
         },
         "version": "v1.14.0"
     },
+    "subs-check-pro": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "subs-check-pro",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sinspired",
+            "repo": "subs-check-pro",
+            "rev": "v2.7.2",
+            "sha256": "sha256-bHqToHsGAzsFpGBc56nEiatHj6j4yKQY/pYYRr2A1LY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.7.2"
+    },
     "tree-sitter-nix": {
         "cargoLock": null,
         "date": "2026-06-25",

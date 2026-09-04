@@ -289,6 +289,17 @@
       sha256 = "sha256-1v9bgM2H439ZoSkomv5dmT5SNrkuyOJ1iFFPlYPsW/k=";
     };
   };
+  subs-check-pro = {
+    pname = "subs-check-pro";
+    version = "v2.7.2";
+    src = fetchFromGitHub {
+      owner = "sinspired";
+      repo = "subs-check-pro";
+      rev = "v2.7.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-bHqToHsGAzsFpGBc56nEiatHj6j4yKQY/pYYRr2A1LY=";
+    };
+  };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
     version = "3d0173d903e630b6e14d17f1cf79488791379ded";
