@@ -131,6 +131,11 @@ src.github_tag = "SagerNet/sing-box"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-rc\\.[0-9]+)?$"
 src.sort_version_key = "parse_version"
 
+[subs-check-pro]
+fetch.github = "sinspired/subs-check-pro"
+src.github_tag = "sinspired/subs-check-pro"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
 [tree-sitter-nix]
 src.git = "https://github.com/nix-community/tree-sitter-nix"
 src.branch = "master"
