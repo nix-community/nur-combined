@@ -17,7 +17,7 @@ let
     inherit mask;
     wrapInterpreterInShell = false;
     # A translation of "${pkgs.fex}/share/binfmts/FEX-*".
-    interpreter = "${cfg.package}/bin/FEXInterpreter";
+    interpreter = "${cfg.package}/bin/FEX";
     offset = 0;
     matchCredentials = true;
     fixBinary = true;
@@ -44,8 +44,8 @@ in
     };
     nix.settings.extra-sandbox-paths = [
       "/run/binfmt"
-      "${pkgs.bash}"
       "${cfg.package}"
+      # "${pkgs.bash}" # wrapInterpreterInShell
     ];
     nix.settings.extra-platforms = [
       "i686-linux"

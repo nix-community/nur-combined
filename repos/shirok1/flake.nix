@@ -44,9 +44,20 @@
           # Put your original flake attributes here.
           let
             inherit (inputs.flake-parts.lib) importApply;
+            fexAutoPatchelfOverlay = final: prev: {
+              auto-patchelf = prev.auto-patchelf.overrideAttrs (old: {
+                nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
+                postFixup = (old.postFixup or "") + ''
+                  wrapProgram "$out/bin/auto-patchelf" \
+                    --prefix PYTHONPATH : \
+                    "${final.python3Packages.pyelftools}/${final.python3.sitePackages}"
+                '';
+              });
+            };
             pkgs64 = import nixpkgs {
               system = "x86_64-linux";
               config.allowUnfree = true;
+              overlays = [ fexAutoPatchelfOverlay ];
             };
             pkgsOverlays = {
               nixpkgs.overlays = [

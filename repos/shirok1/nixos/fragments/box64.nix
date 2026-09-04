@@ -21,20 +21,6 @@ let
   # system/box64.conf.cmake
   x86_64Magic = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
   x86_64Mask = ''\xff\xff\xff\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
-
-  interpreterWrapper = lib.getExe cfg.package;
-  # 生成一个实际的 interpreter（放到 store），然后交给内置模块去 symlink 到 /run/binfmt/<name>
-  # interpreterWrapper =
-  #   pkgs.writeShellScript "box64-binfmt-interpreter" ''
-  #     #!${pkgs.bash}/bin/sh
-  #     # set -euo pipefail
-
-  #     # binfmt_misc 默认行为（无 P）：$1 是被执行的目标二进制路径，后续为原始参数
-  #     # 这里将其转交给 box64
-  #     ${concatStringsSep "\n" (map (k: "export ${k}=${lib.escapeShellArg cfg.environment.${k}}") (builtins.attrNames cfg.environment))}
-
-  #     exec -- ${cfg.package}/bin/box64 ${escapeShellArgs cfg.extraArgs} "$@"
-  #   '';
 in
 {
   options.boot.binfmt.box64 = {
@@ -133,7 +119,7 @@ in
       magicOrExtension = cfg.magicOrExtension;
       mask = cfg.mask;
 
-      interpreter = interpreterWrapper;
+      interpreter = lib.getExe cfg.package;
 
       preserveArgvZero = cfg.preserveArgvZero;
       openBinary = cfg.openBinary;
@@ -150,10 +136,8 @@ in
 
     nix.settings.extra-sandbox-paths = [
       "/run/binfmt"
-      "${pkgs.bash}"
       "${cfg.package}"
-      # "${pkgs.x86_64.bash}"
-      # "/nix/store/lw117lsr8d585xs63kx5k233impyrq7q-bash-5.3p3"
+      # "${pkgs.bash}" # wrapInterpreterInShell
     ];
 
     # 只有你确认需要 Nix 认为 x86_64 可执行时才加
