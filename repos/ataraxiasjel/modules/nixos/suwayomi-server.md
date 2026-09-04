@@ -113,11 +113,17 @@ Not all the configuration options are available directly in this module, but you
 
 ## Migrating the data directory {#module-services-suwayomi-migrating-data-directory}
 
-The app's data directory has changed to reflect `services.suwayomi-server.dataDir` accurately.
-Previously, Suwayomi-Server would store it's files under `${dataDir}/.local/share/Tachidesk`.
+The module always starts Suwayomi-Server with
+`-Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}`,
+so the app stores its files (including `server.conf`) directly in
+`services.suwayomi-server.dataDir`.
+Previously, Suwayomi-Server would store its files under `${dataDir}/.local/share/Tachidesk`.
 
-Migrating the data is done in two simple steps:
+Migrating the data is done in one simple step:
 - Move the contents of `${dataDir}/.local/share/Tachidesk` into `${dataDir}`.
-- Set `systemd.services.suwayomi-server.environment.JAVA_TOOL_OPTIONS` to
-  `"-Dsuwayomi.tachidesk.config.server.rootDir=${config.services.suwayomi-server.dataDir}"`
-  in your NixOS configuration.
+
+The `server.conf` itself is Nix-managed: on each start the module copies the
+generated config to `${dataDir}/server.conf` as a writable file (the server
+rewrites it on startup, so a symlink into `/nix/store` does not work).
+A stale symlink left at `${dataDir}/.local/share/Tachidesk/server.conf` is
+removed automatically.

@@ -29,12 +29,7 @@ let
       }
     )
   );
-  isAtLeast2605 = lib.versionAtLeast config.system.stateVersion "26.05";
-  serverConf =
-    if isAtLeast2605 then
-      "${cfg.dataDir}/server.conf"
-    else
-      "${cfg.dataDir}/.local/share/Tachidesk/server.conf";
+  serverConf = "${cfg.dataDir}/server.conf";
 in
 {
   imports = [
@@ -238,8 +233,8 @@ in
       };
     };
 
-    systemd.tmpfiles.settings = mkIf (!isAtLeast2605) {
-      "10-suwayomi-server"."${cfg.dataDir}/.local/share/Tachidesk".d = {
+    systemd.tmpfiles.settings = {
+      "10-suwayomi-server"."${cfg.dataDir}".d = {
         mode = "0700";
         inherit (cfg) user group;
       };
@@ -252,13 +247,21 @@ in
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
 
-      environment = mkIf isAtLeast2605 {
+      environment = {
         JAVA_TOOL_OPTIONS = "-Dsuwayomi.tachidesk.config.server.rootDir=${cfg.dataDir}";
       };
 
       preStart = ''
-        [[ -f ${serverConf} ]] && rm ${serverConf}
-        ln -sf ${configFile} ${serverConf}
+        # Suwayomi-Server rewrites server.conf on startup (updateUserConfig),
+        # so it must be a writable copy, not a symlink into /nix/store.
+        mkdir -p "${cfg.dataDir}"
+        chown "${cfg.user}:${cfg.group}" "${cfg.dataDir}"
+        chmod 0700 "${cfg.dataDir}"
+        rm -f "${serverConf}"
+        # Clean up the pre-rootDir symlink location so a stale link
+        # is never mistaken for the real config.
+        rm -f "${cfg.dataDir}/.local/share/Tachidesk/server.conf"
+        install -Dm600 -o "${cfg.user}" -g "${cfg.group}" "${configFile}" "${serverConf}"
       '';
 
       script =
@@ -285,7 +288,6 @@ in
         CapabilityBoundingSet = "";
         SystemCallFilter = [ "@system-service" ];
 
-        ReadOnlyPaths = [ configFile ];
         ReadWritePaths = [ cfg.dataDir ];
         NoNewPrivileges = true;
         ProtectClock = true;
