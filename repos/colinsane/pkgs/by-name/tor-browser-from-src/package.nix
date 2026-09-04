@@ -261,8 +261,11 @@ let
       # Match the upstream base-browser configuration: no crash reporter,
       # no geolocation, no WebRTC and no EME (Widevine/Adobe CDMs).
       configured = mach.override {
-        privacySupport = true;
-        drmSupport = false;
+        enableDataReporting = false;
+        enableLocation = false;
+        enableWebRTC = false;
+        enableNeckoWiFi = false;
+        enableEMENagbar = false;
         # PGO is disabled: the PGO profile server (build/pgo/profileserver.py)
         # hangs with the Tor Browser browser configuration - the profiling
         # run never loads the pages it serves locally, most likely because
@@ -270,7 +273,7 @@ let
         # with direct (non-tor) connections. This was still reproducible with
         # network.proxy.type=0 and network.dns.disabled=false injected into
         # the profile server's test profile.
-        pgoSupport = false;
+        enablePGO = false;
       };
     in
     # The tor-browser source tree carries patches to the bundled

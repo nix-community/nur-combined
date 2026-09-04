@@ -1,8 +1,13 @@
 {
   buildPackages,
   buildNpmPackage,
+  cacert,
+  curl,
+  fetchNpmDeps,
+  jq,
   lib,
-  pi-coding-agent,
+  openssl,
+  moreutils,
 }:
 lib.extendMkDerivation {
   constructDrv = buildNpmPackage;
@@ -10,41 +15,74 @@ lib.extendMkDerivation {
   extendDrvArgs =
     finalAttrs:
     {
-      postPatch ? "",
+      npmDepsHash ? lib.fakeHash,
+      npmDepsFetcherVersion ? 2,
       postInstall ? "",
       ...
     }:
-    {
-      # N.B: postPatch, not patchPhase, otherwise it won't apply to npmDeps.
-      postPatch = ''
-        ${lib.getExe' buildPackages.nodejs "npm"} uninstall --offline --save-dev --package-lock-only @earendil-works/pi-coding-agent \
-          --ignore-scripts $npmInstallFlags "''${npmInstallFlagsArray[@]}" $npmFlags "''${npmFlagsArray[@]}"
-        ${postPatch}
-      '';
+    let
+      npmDeps = fetchNpmDeps {
+        inherit (finalAttrs) src;
+        nativeBuildInputs = [
+          cacert  # else `nix-update-script` fails to update the npmDepsHash
+          curl
+          moreutils
+          openssl
+          jq
+        ];
+        prePatch = finalAttrs.prePatch or "";
+        patches = finalAttrs.patches or [];
+        # the pi-monorepo shrinkwrap doesn't specify integrity hashes for its @earendil-works/* dependencies;
+        # probably because they're all built together, so they can't specify those without circularity.
+        # the effect is that any package which places `pi-coding-assistant` into `peerDependencies`
+        # gets additional unhashed peerDependencies, which `fetchNpmDeps` complains about.
+        #
+        # locate all missing `integrity` fields and pre-populate them. it seems to me that these
+        # integrity fields are redundant with `fetchNpmDeps` own `hash` value anyway.
+        postPatch = ''
+          echo '{}' > extra-integrities.json
+          while IFS=$'\t' read -r package_name resolved; do
+            [[ -n $package_name ]] || continue
 
-      # link the pi-coding-agent dependency because it's frequently depended on by build scripts (e.g. tsc).
-      # unless the caller has passed `dontNpmPrune`, it will only be available during build -- not in the installed modules.
-      # preferably we would install this "properly", e.g.
-      #
-      # > npm install \
-      # >   --no-save \
-      # >   --bin-links=false \
-      # >   "file:${pi-coding-agent}/lib/node_modules/pi-monorepo"
-      #
-      # -- but that produces relative symlinks, or --
-      #
-      # > npm install \
-      # >   --install-links=true \
-      # >   --no-save \
-      # >   --bin-links=false \
-      # >   "file:${pi-coding-agent}/lib/node_modules/pi-monorepo"
-      #
-      # -- but that copies the entire closure in and effects npmDepsHash (?)
-      configurePhase = ''
-        runHook preConfigure
-        mkdir -p node_modules/@earendil-works
-        ln -s "${pi-coding-agent}/lib/node_modules/pi-monorepo" node_modules/@earendil-works/pi-coding-agent
-        runHook postConfigure
+            printf 'calculating integrity for %s\n' "$package_name" >&2
+            integrity=$(
+              curl --fail --location --silent --show-error --retry 3 "$resolved" \
+                | openssl dgst -sha512 -binary \
+                | base64 --wrap=0
+            )
+            integrity="sha512-$integrity"
+
+            jq --arg name "$package_name" --arg integrity "$integrity" \
+              '.packages[$name].integrity = $integrity' \
+              "extra-integrities.json" | sponge extra-integrities.json
+          done < <(
+            jq -r '
+              .packages
+              | to_entries[]
+              | select((.value.integrity? | not) and (.value.resolved? // "" | startswith("http")))
+              | [.key, .value.resolved]
+              | @tsv
+            ' "package-lock.json"
+          )
+          jq --slurp '.[0] * .[1]' package-lock.json extra-integrities.json \
+            | sponge package-lock.json
+          ${finalAttrs.postPatch or ""}
+        '';
+        preFixup = ''
+          cp extra-integrities.json $out/extra-integrities.json
+        '';
+        sourceRoot = finalAttrs.sourceRoot or null;
+        hash = npmDepsHash;
+        fetcherVersion = npmDepsFetcherVersion;
+      };
+    in
+    {
+      inherit npmDeps;
+      patchPhase = ''
+        runHook prePatch
+        ${lib.getExe buildPackages.jq} --slurp '.[0] * .[1]' package-lock.json "$npmDeps/extra-integrities.json" \
+          | ${lib.getExe' buildPackages.moreutils "sponge"} package-lock.json
+        runHook postPatch
       '';
 
       # N.B.: postInstall, not installPhase so that npmInstallHook runs

@@ -847,6 +847,7 @@ in
     jq.sandbox.autodetectCliPaths = "existingFile";
 
     killall.sandbox.keepPidsAndProc = true;
+    killall.sandbox.tryKeepUsers = true;
 
     landlock-sandboxer.sandbox.enable = false;  #< sandbox helper
 
@@ -941,10 +942,6 @@ in
     nix-check-deps.sandbox.whitelistPwd = true;
     nix-check-deps.sandbox.net = "all";
     nix-check-deps.sandbox.extraPaths = [
-      "/nix/var"
-    ];
-
-    nix-tree.sandbox.extraPaths = [
       "/nix/var"
     ];
 

@@ -3,14 +3,14 @@
   lib,
   rustPlatform,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "elfcat";
   version = "0.1.8";
 
   src = fetchFromGitHub {
     owner = "ruslashev";
     repo = "elfcat";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-NzFKNCCPWBj/fhaEJF34nyeyvLMeQwIcQgTlYc6mgYo=";
   };
 
@@ -22,7 +22,6 @@ rustPlatform.buildRustPackage rec {
       TODO: FILLME
     '';
     homepage = "https://github.com/ruslashev/elfcat";
-    # license = lib.licenses.zlib;
     maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})

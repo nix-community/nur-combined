@@ -16,11 +16,7 @@ mkPiExtension (finalAttrs: {
   };
 
   npmDepsFetcherVersion = 2;
-
-  npmDepsHash = "sha256-hspKtoH4nHM/sYQzgPavuMh5qYdKvJ0bj5ZGpNfF+BY=";
-
-  # required until <https://github.com/lajarre/pi-vim/issues/46> is fixed
-  dontNpmPrune = true;
+  npmDepsHash = "sha256-FyyGcyo2cIDhV3MQCeB353Knf75HAh/Z54VekEF/H/c=";
 
   passthru.updateScript = nix-update-script { };
 

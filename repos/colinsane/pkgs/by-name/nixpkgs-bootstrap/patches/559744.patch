@@ -1,0 +1,32 @@
+From 6eba51904a0c09acce95ce647f91223d6a53e331 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Fri, 4 Sep 2026 03:53:36 +0000
+Subject: [PATCH] wezterm: use system openssl
+
+fixes `nix-build -A pkgsMusl.wezterm`, regressed by
+https://github.com/wezterm/wezterm/pull/8028
+
+before pull/8028, all linux targets used the system openssl.
+this is known to work on nixpkgs. the vendored openssl, on the other
+hand, introduced an implicit build-time dependency on `perl` which we
+don't provide. this new dependency went undetected precisely because it
+was specific only to one platform. only by not special-casing platforms
+can we generalize over them, which is the actual way to support every
+platform.
+---
+ pkgs/by-name/we/wezterm/package.nix | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/pkgs/by-name/we/wezterm/package.nix b/pkgs/by-name/we/wezterm/package.nix
+index 1d4e86d868940fd4586c64655f5d6ce06ed19af1..11286250eb45988c835d249b6f014d116b74a35f 100644
+--- a/pkgs/by-name/we/wezterm/package.nix
++++ b/pkgs/by-name/we/wezterm/package.nix
+@@ -134,6 +134,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
+   # notifications require that the app bundle be codesigned (beyond the linker-signing that happens automatically for the executable)
+   postFixup = lib.optionalString stdenv.hostPlatform.isDarwin "rcodesign sign $out/Applications/WezTerm.app";
+ 
++  env.OPENSSL_NO_VENDOR = 1;
++
+   passthru = {
+     # the headless variant is useful when deploying wezterm's mux server on remote severs
+     headless = import ./headless.nix {

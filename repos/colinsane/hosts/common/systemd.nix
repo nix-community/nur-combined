@@ -105,13 +105,10 @@ in
     ];
   };
 
-  services.journald.extraConfig = ''
-    # docs: `man journald.conf`
-    # merged journald config is deployed to /etc/systemd/journald.conf
-    [Journal]
-    # disable journal compression for better debugging (besides, my fs is already compressed)
-    Compress=no
-  '';
+  # docs: `man journald.conf`
+  # merged journald config is deployed to /etc/systemd/journald.conf
+  # Compress=no to disable journal compression for better debugging (besides, my fs is already compressed)
+  services.journald.settings.Journal.Compress = false;
 
   # see: `man logind.conf`
   # don’t shutdown when power button is short-pressed (commonly done an accident, or by cats).

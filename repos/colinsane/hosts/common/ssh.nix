@@ -22,6 +22,9 @@ in
       "root@uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
       "root@git.uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
 
+      # documented: <https://codeberg.org/Codeberg/org/src/branch/main/Imprint.md#ssh-fingerprints>
+      "root@codeberg.org" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
+
       # documented here: <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints>
       # Github actually uses multiple keys -- one per format
       "root@github.com" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";

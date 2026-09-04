@@ -431,8 +431,8 @@ super.lib.composeManyExtensions [
 
     firefox-unwrapped = (prev.firefox-unwrapped.override {
       # nothing wrong with lto/pgo, except that it's slow to build/iterate
-      ltoSupport = false;
-      pgoSupport = false;
+      enableLTO = false;
+      enablePGO = false;
     }).overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
         # (fetchVoid {

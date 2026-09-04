@@ -1,5 +1,53 @@
 [
   {
+    "id": "meta/muse-spark-1.3",
+    "name": "Muse Spark 1.3",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00015,
+      "completion": 4.25,
+      "currency": "USD",
+      "prompt": 1.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 943718,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video",
+        "audio"
+      ]
+    }
+  },
+  {
+    "id": "meta/muse-spark-1.3-contributor",
+    "name": "Muse Spark 1.3 Contributor",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2e-06,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 943718,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video",
+        "audio"
+      ]
+    }
+  },
+  {
     "id": "inception/mercury-2.5-preview",
     "name": "Mercury 2.5 Preview",
     "pricing": {
@@ -95,7 +143,7 @@
       "prompt": 0.35,
       "unit": "per_million_tokens"
     },
-    "context_length": 262144,
+    "context_length": 1048576,
     "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": true
@@ -247,94 +295,6 @@
       "completion": 1.5,
       "currency": "USD",
       "prompt": 0.25,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "qwen/qwen3.6-35b-a3b-uncensored",
-    "name": "Qwen 3.6 35B A3B Uncensored",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
-      "completion": 0.95,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "qwen/qwen3.6-35b-a3b-uncensored:thinking",
-    "name": "Qwen 3.6 35B A3B Uncensored Thinking",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
-      "completion": 0.95,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "ornith-ai/ornith-1.5-9b",
-    "name": "Ornith 1.5 9B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.2,
-      "currency": "USD",
-      "prompt": 0.1,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "ornith-ai/ornith-1.5-9b:thinking",
-    "name": "Ornith 1.5 9B Thinking",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.2,
-      "currency": "USD",
-      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -1315,7 +1275,7 @@
   },
   {
     "id": "meta/muse-spark-1.2-contributor",
-    "name": "Muse Spark 1.2 Contributor (Data Used for Training)",
+    "name": "Muse Spark 1.2 Contributor",
     "pricing": {
       "cacheReadInputPer1kTokens": 2e-06,
       "completion": 0.2,
@@ -3591,10 +3551,10 @@
     "id": "google/gemini-flash-latest",
     "name": "Gemini Flash Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 3.75e-05,
-      "completion": 1.875,
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 3.75,
       "currency": "USD",
-      "prompt": 0.375,
+      "prompt": 0.75,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -3916,10 +3876,34 @@
     "id": "google/gemini-3.7-flash",
     "name": "Gemini 3.7 Flash",
     "pricing": {
-      "cacheReadInputPer1kTokens": 3.75e-05,
-      "completion": 1.875,
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 3.75,
       "currency": "USD",
-      "prompt": 0.375,
+      "prompt": 0.75,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video",
+        "audio"
+      ]
+    }
+  },
+  {
+    "id": "google/gemini-3.8-flash",
+    "name": "Gemini 3.8 Flash",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 3.75,
+      "currency": "USD",
+      "prompt": 0.75,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -5658,69 +5642,6 @@
     }
   },
   {
-    "id": "kwaipilot/kat-coder-pro-v2",
-    "name": "KAT Coder Pro V2",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015,
-      "completion": 1.2,
-      "currency": "USD",
-      "prompt": 0.3,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 80000,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "kwaipilot/kat-coder-air-v2.5",
-    "name": "KAT Coder Air V2.5",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 3e-05,
-      "completion": 0.6,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 80000,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "kwaipilot/kat-coder-pro-v2.5",
-    "name": "KAT Coder Pro V2.5",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015,
-      "completion": 2.96,
-      "currency": "USD",
-      "prompt": 0.74,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 80000,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
     "name": "Qwen 3 235b A22B 2507",
     "pricing": {
@@ -6272,28 +6193,6 @@
     "architecture": {
       "input_modalities": [
         "text"
-      ]
-    }
-  },
-  {
-    "id": "z-ai/glm-4.6v-flash-original",
-    "name": "GLM 4.6V Flash",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.4,
-      "currency": "USD",
-      "prompt": 0.1,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 24000,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },
@@ -7257,6 +7156,29 @@
     }
   },
   {
+    "id": "alibaba/qwen3.8-max-0902",
+    "name": "Qwen3.8 Max 0902",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00017,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 991808,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ]
+    }
+  },
+  {
     "id": "alibaba/qwen3.8-flash",
     "name": "Qwen3.8 Flash",
     "pricing": {
@@ -7752,10 +7674,10 @@
     "id": "deepseek/deepseek-v4-flash-vision-exp",
     "name": "DeepSeek V4 Flash Vision Exp",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7e-06,
-      "completion": 0.66,
+      "cacheReadInputPer1kTokens": 1.4e-05,
+      "completion": 1.32,
       "currency": "USD",
-      "prompt": 0.22,
+      "prompt": 0.44,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -9790,49 +9712,6 @@
     }
   },
   {
-    "id": "command-a-plus-05-2026",
-    "name": "Cohere Command A+ (05/2026)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00125,
-      "completion": 10.0,
-      "currency": "USD",
-      "prompt": 2.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 64000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "cohere/north-mini-code",
-    "name": "Cohere North Mini Code 1.0",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001,
-      "completion": 0.8,
-      "currency": "USD",
-      "prompt": 0.2,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 64000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "command-a-reasoning-08-2025",
     "name": "Cohere Command A (08/2025)",
     "pricing": {
@@ -10344,6 +10223,28 @@
       "completion": 25.0,
       "currency": "USD",
       "prompt": 5.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "anthropic/claude-fable-5.1",
+    "name": "Claude Fable 5.1",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00025,
+      "completion": 50.0,
+      "currency": "USD",
+      "prompt": 10.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -11739,69 +11640,6 @@
     }
   },
   {
-    "id": "Tongyi-Zhiwen/QwenLong-L1-32B",
-    "name": "QwenLong L1 32B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7e-05,
-      "completion": 0.6,
-      "currency": "USD",
-      "prompt": 0.14,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 40960,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "Baichuan4-Air",
-    "name": "Baichuan 4 Air",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7.85e-05,
-      "completion": 0.157,
-      "currency": "USD",
-      "prompt": 0.157,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 32768,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "Baichuan4-Turbo",
-    "name": "Baichuan 4 Turbo",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00121,
-      "completion": 2.42,
-      "currency": "USD",
-      "prompt": 2.42,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "Qwen3.5-27B-Blossom-V6.4-Derestricted",
     "name": "Qwen3.5 27B Blossom V6.4 Derestricted",
     "pricing": {
@@ -12395,27 +12233,6 @@
     }
   },
   {
-    "id": "TEE/glm-4.7",
-    "name": "GLM 4.7 TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000425,
-      "completion": 3.3,
-      "currency": "USD",
-      "prompt": 0.85,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 131000,
-    "max_output_tokens": 65535,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "TEE/glm-5.1",
     "name": "GLM 5.1 TEE",
     "pricing": {
@@ -12694,27 +12511,6 @@
     }
   },
   {
-    "id": "deepseek/deepseek-prover-v2-671b",
-    "name": "DeepSeek Prover v2 671B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 2.5,
-      "currency": "USD",
-      "prompt": 1.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 160000,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "qwen/qwen3-coder-next",
     "name": "Qwen3 Coder Next",
     "pricing": {
@@ -12925,27 +12721,6 @@
       "input_modalities": [
         "text",
         "image"
-      ]
-    }
-  },
-  {
-    "id": "tencent/Hunyuan-MT-7B",
-    "name": "Hunyuan MT 7B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.005,
-      "completion": 20.0,
-      "currency": "USD",
-      "prompt": 10.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 8192,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
       ]
     }
   },
@@ -13185,27 +12960,6 @@
     }
   },
   {
-    "id": "openai/gpt-4-turbo-preview",
-    "name": "GPT-4 Turbo Preview",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 30.0,
-      "currency": "USD",
-      "prompt": 10.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "openai/gpt-4-turbo",
     "name": "GPT-4 Turbo",
     "pricing": {
@@ -13241,27 +12995,6 @@
     "max_output_tokens": 4096,
     "capabilities": {
       "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "openai/o1-preview",
-    "name": "OpenAI o1-preview",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0075,
-      "completion": 60.0,
-      "currency": "USD",
-      "prompt": 15.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -13354,48 +13087,6 @@
     }
   },
   {
-    "id": "openai/o4-mini-deep-research",
-    "name": "OpenAI o4-mini Deep Research",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0011,
-      "completion": 8.8,
-      "currency": "USD",
-      "prompt": 2.2,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 100000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "openai/o3-deep-research",
-    "name": "OpenAI o3 Deep Research",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0055,
-      "completion": 44.0,
-      "currency": "USD",
-      "prompt": 11.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 100000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "openai/o3-pro-2025-06-10",
     "name": "OpenAI o3-pro (2025-06-10)",
     "pricing": {
@@ -13407,27 +13098,6 @@
     },
     "context_length": 200000,
     "max_output_tokens": 100000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "openai/gpt-5-codex",
-    "name": "GPT-5 Codex",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000125,
-      "completion": 10.0,
-      "currency": "USD",
-      "prompt": 1.25,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": true
     },
@@ -13455,49 +13125,6 @@
     "architecture": {
       "input_modalities": [
         "text"
-      ]
-    }
-  },
-  {
-    "id": "openai/gpt-4o-mini-search-preview",
-    "name": "GPT-4o mini Search Preview",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
-      "completion": 0.6,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "openai/gpt-4o-search-preview",
-    "name": "GPT-4o Search Preview",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00125,
-      "completion": 10.0,
-      "currency": "USD",
-      "prompt": 2.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },
@@ -13584,27 +13211,6 @@
       "input_modalities": [
         "text",
         "image"
-      ]
-    }
-  },
-  {
-    "id": "sarvam-30b",
-    "name": "Sarvam 30B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 1.7e-05,
-      "completion": 0.111,
-      "currency": "USD",
-      "prompt": 0.028,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 65536,
-    "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
       ]
     }
   },

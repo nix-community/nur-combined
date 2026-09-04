@@ -16,8 +16,7 @@ mkPiExtension (finalAttrs: {
   };
 
   npmDepsFetcherVersion = 2;
-
-  npmDepsHash = "sha256-MRpYRkvlRylEffz3fSSKROSNnxFniiO7YoYTGUc3c/Q=";
+  npmDepsHash = "sha256-OnqJOisa+0Sz0ls7JTxeGcTjU9diXXoABLcTpZqbzLI=";
 
   dontNpmBuild = true;  # package.json defines no build script
 

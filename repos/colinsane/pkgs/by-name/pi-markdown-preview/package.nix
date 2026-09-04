@@ -17,7 +17,7 @@ mkPiExtension (finalAttrs: {
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-yqbBBjG0wH7ykESwq35CvrpCeYe4kqrRC8eSF4W9fg4=";
+  npmDepsHash = "sha256-OoxMTkzDh9felmD/0UtourUxNulG4vYMVFW4wbrrYHY=";
 
   propagatedBuildInputs = [
     pandoc

@@ -16,7 +16,7 @@ mkPiExtension (finalAttrs: {
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-NE9kKnGs7bue67skFwZTFcRjdPd0VGNCirtXesZvYZM=";
+  npmDepsHash = "sha256-3nouonEO1qhiQzdwuuvHXUzL6ARKWWwSy7UAc8dbs5U=";
 
   patches = [
     ./budget.patch

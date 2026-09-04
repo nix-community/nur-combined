@@ -22,8 +22,7 @@ mkPiExtension (finalAttrs: {
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-w35APZUoCsvLEnjY5hbQHKLpklp0+SCeebXM/c51xLo=";
-
+  npmDepsHash = "sha256-ovtEE+JC/m36LFXb7rEWImL+nmApycwZUFYUGYl1AJo=";
 
   postPatch = ''
     # save/load data to XDG paths, not ~/.pi

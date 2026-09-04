@@ -3,6 +3,18 @@ let
   inherit (pkgs) vimPlugins;
 in
 [
+  # {
+  #   # <https://github.com/nvim-tree/nvim-tree.lua>
+  #   # XXX(2026-09-03): cool idea, but very poor default config
+  #   plugin = vimPlugins.nvim-tree-lua;
+  #   config = ''
+  #     -- disable Neovim's builtin file browser; replace the binding with nvim-tree.
+  #     vim.g.loaded_netrw = 1
+  #     vim.g.loaded_netrwPlugin = 1
+  #     require("nvim-tree").setup {}
+  #     vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "toggle file tree" })
+  #   '';
+  # }
   {
     # <https://github.com/folke/which-key.nvim>
     # shows which keybindings trigger which actions.
@@ -361,15 +373,15 @@ in
   #     }
   #   '';
   # })
-  # TODO: enable pi-nvim once i figure out sandboxing...
-  # i don't want to give all of neovim net access!
-  # {
-  #   # docs: <https://github.com/pablopunk/pi.nvim>
-  #   plugin = vimPlugins.pi-nvim;
-  #   config = ''
-  #     require("pi").setup()
-  #   '';
-  # }
+  {
+    # docs: <https://github.com/pablopunk/pi.nvim>
+    # XXX(2026-09-03): this only work with `BUNPEN_DISABLE=1` for now.
+    # TODO: give it a Pi which works offline (e.g. just change the default model).
+    plugin = vimPlugins.pi-nvim;
+    config = ''
+      require("pi").setup()
+    '';
+  }
   {
     # docs: tex-conceal-vim: https://github.com/KeitaNakamura/tex-conceal.vim/
     plugin = vimPlugins.tex-conceal-vim;

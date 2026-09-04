@@ -24,8 +24,8 @@ let
     unwrapped = pkgs.firefox-unwrapped // {
       # i configure these post wrapping (below), but the wrapper errors if it thinks the browser was built
       # with a different config
-      allowAddonSideload = true;
-      requireSigning = false;
+      enableAddonSideload = true;
+      enableAddonSigning = false;
     };
   in (pkgs.wrapFirefox unwrapped {
     # inherit the default librewolf.cfg

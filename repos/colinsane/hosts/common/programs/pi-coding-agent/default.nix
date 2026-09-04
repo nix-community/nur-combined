@@ -438,6 +438,7 @@ in
         pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
         # pkgs.pi-md-export  #< adds `/md` slash command
         # pkgs.pi-move-session  #< adds `/move-session` slash command
+        pkgs.pi-sane
         pkgs.pi-speeed
         pkgs.pi-subagents
         pkgs.pi-tool-repair  #< repairs "Error: Upstream emitted malformed tool call data that could not be repaired"

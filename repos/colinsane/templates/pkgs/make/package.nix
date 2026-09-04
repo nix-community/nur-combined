@@ -5,14 +5,14 @@
   stdenv,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "TODO";
   version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "TODO";
     repo = "TODO";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-TODO";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ colinsane ];
     platforms = platforms.linux;
   };
-}
+})

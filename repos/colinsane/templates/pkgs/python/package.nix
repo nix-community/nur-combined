@@ -14,6 +14,7 @@
     # hash = "";
   };
 
+  # populate `makeWrapperArgs = [ ... ]` to customize wrapPythonPrograms
   postFixup = ''
     wrapPythonPrograms
   '';
@@ -32,6 +33,7 @@
     # python3.pkgs.pypaBuildHook
     # python3.pkgs.pypaInstallHook  # pretty much always want this (even if using setuptoolsBuildHook)
     # python3.pkgs.setuptoolsBuildHook  # if project has `setup.py`
+    # python3.pkgs.wheelUnpackHook  # if building from .whl
     python3.pkgs.wrapPython
   ];
 
