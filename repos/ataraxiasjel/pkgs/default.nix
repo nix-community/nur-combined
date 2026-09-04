@@ -57,6 +57,19 @@ let
       inherit (final.callPackage ./tokyonight-gtk { }) tokyonight-gtk-theme tokyonight-gtk-icons;
 
       pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        # nixpkgs marks paste broken with setuptools>=82 (pkg_resources is gone),
+        # but paste only needs pkg_resources for the egg-resource-serving
+        # feature (guarded imports, NotImplementedError when used); the WSGI
+        # core used by cygrpc works without it. Unmark + skip its test suite,
+        # which unconditionally `import pkg_resources` in tests/__init__.py.
+        (_pyFinal: pyPrev: {
+          paste = pyPrev.paste.overridePythonAttrs (oa: {
+            meta = oa.meta // {
+              broken = false;
+            };
+            doCheck = false;
+          });
+        })
         (
           pyFinal: _pyPrev:
           import ./python3Packages {

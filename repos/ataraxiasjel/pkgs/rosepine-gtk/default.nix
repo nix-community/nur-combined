@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  gtk-engine-murrine,
   jdupes,
   nix-update-script,
 }:
@@ -27,8 +26,6 @@ builtins.mapAttrs
         dontBuild = true;
 
         nativeBuildInputs = [ jdupes ];
-
-        propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
         passthru.updateScript = nix-update-script {
           extraArgs = [ "--version=branch" ];

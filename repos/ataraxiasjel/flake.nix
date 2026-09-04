@@ -5,6 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     devenv.url = "github:cachix/devenv";
+    devenv.inputs.flake-parts.follows = "flake-parts";
     devenv-root = {
       url = "file+file:///dev/null";
       flake = false;
@@ -52,9 +53,14 @@
               )
             ];
           };
-          # packages = lib.filterAttrs (_: v: lib.isDerivation v) legacyPackages;
-          # Get all packages from ci.nix
-          packages = (import ./ci.nix { inherit pkgs lib system; }).buildPkgs;
+          # Get all packages from ci.nix, without devenv's shell plumbing
+          # (devenv-up/devenv-test): contributor-environment helpers, not
+          # distributable packages, and the *-test outputs require
+          # import-from-derivation, which the eval gate disables.
+          packages = lib.mkForce (
+            lib.filterAttrs (n: _: !(lib.hasPrefix "devenv-" n || lib.hasInfix "-devenv-" n))
+              (import ./ci.nix { inherit pkgs lib system; }).buildPkgs
+          );
           checks = (import ./ci.nix { inherit pkgs lib system; }).cachePkgs;
           devenv.shells = rec {
             dev = {

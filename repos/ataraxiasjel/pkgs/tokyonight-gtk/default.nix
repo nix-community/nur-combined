@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  gtk-engine-murrine,
   jdupes,
   nix-update-script,
 }:
@@ -11,7 +10,6 @@ let
     dontBuild = true;
     dontConfigure = true;
     nativeBuildInputs = [ jdupes ];
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
     meta = with lib; {
       description = "A GTK theme based on the Tokyo Night colour palette";
       homepage = "https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme";
