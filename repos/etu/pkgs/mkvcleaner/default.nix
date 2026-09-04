@@ -5,7 +5,7 @@
   ...
 }: let
   pname = "mkvcleaner";
-  version = "1.2.0";
+  version = "1.3.0";
 in
   buildGoModule {
     inherit pname version;
@@ -14,7 +14,7 @@ in
       owner = "etu";
       repo = pname;
       rev = version;
-      hash = "sha256-B3+NhxSDlDujC97GgqJjQdY4bl4/+iFqyNO63LkuLyg=";
+      hash = "sha256-9FL+c/P18UODQL2fTEUA0YMgh30PvW92Y0ijTYeONrk=";
     };
 
     vendorHash = "sha256-UO6qcgd39PRXSnfE8kTuyug8o7VRhnyfTjLGVWGYxfc=";
