@@ -21,6 +21,10 @@ rec {
   ppf = pkgs.callPackage ./packages/ppf { };
   tilemolester = pkgs.callPackage ./packages/tilemolester { };
 
+  # Redot Engine
+  redot-engine = pkgs.callPackage ./packages/redot-engine { };
+  redot-engine-lts = pkgs.callPackage ./packages/redot-engine-lts { };
+
   # glitch-in-the-herring projects
   bof3-text-extractor = pkgs.callPackage ./packages/bof3-text-extractor { };
   bof4-text-extractor = pkgs.callPackage ./packages/bof4-text-extractor { };
