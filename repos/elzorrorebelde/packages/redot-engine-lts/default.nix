@@ -10,12 +10,13 @@
 
 {
   callPackage,
+  withMono ? true
 }:
 
 callPackage ../redot-engine/common.nix {
   version = "26.2-stable";
   tag = "redot-26.2-stable";
   hash = "sha256-G8BKrgNwOMjuOxrL57VncZqMHqxl0/am3XjdaJjBOgw=";
-  withMono = true;
+  inherit withMono;
   nugetDeps = ../redot-engine/deps.json;
 }

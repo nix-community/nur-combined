@@ -10,12 +10,13 @@
 
 {
   callPackage,
+  withMono ? true
 }:
 
 callPackage ./common.nix {
   version = "26.3-beta.1";
   tag = "redot-26.3-beta.1";
   hash = "sha256-6RJ4uXMk9ipwxd3N8J1AYNRPnBkteCpaq2dxquPfSgs=";
-  withMono = true;
+  inherit withMono;
   nugetDeps = ./deps.json;
 }
