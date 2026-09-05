@@ -18,7 +18,7 @@ on:
     - cron: "26 8 * * *"
   workflow_dispatch:
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ forgejo.workflow }}
   cancel-in-progress: false
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,10 +30,10 @@ jobs:
       pr_number: ${{ steps.update.outputs.pr_number }}
     steps:
       - name: Checkout repository
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        if: forgejo.ref_name == 'main' && (forgejo.event_name == 'schedule' || forgejo.event_name == 'workflow_dispatch')
         uses: actions/checkout@v4
       - name: Update flake.lock and format code
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        if: forgejo.ref_name == 'main' && (forgejo.event_name == 'schedule' || forgejo.event_name == 'workflow_dispatch')
         id: update
         run: |
           set -euo pipefail
@@ -247,5 +247,5 @@ jobs:
       - name: Build nix packages
         run: NIX_PATH="${{ matrix.nixPath }}" nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Trigger NUR update
-        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+        if: ${{ forgejo.event_name == 'push' || forgejo.event_name == 'workflow_dispatch' }}
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=https://github.com/ToyVo/nixcfg"

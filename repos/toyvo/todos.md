@@ -12,6 +12,8 @@ Outstanding work and follow-up items for this repository.
 
 ## Forgejo (git.toyvo.dev) Enhancements
 
+## Forgejo Actions Enhancements (CI runner on the nas) (git.toyvo.dev)
+
 - [ ] Authentik OIDC login for Forgejo
 - [ ] Periodic backups via `services.forgejo.dump.enable`
 - [ ] Homepage widget (`type: gitea`) with an API key stored in sops as `HOMEPAGE_VAR_FORGEJO_API_KEY`

@@ -208,29 +208,32 @@ in
     };
     # Forgejo Actions runner (act runner works with both gitea and forgejo).
     # Jobs run directly on the host so builds share the system nix store.
-    gitea-actions-runner.instances.nas = {
-      enable = true;
-      name = "nas";
-      url = "https://git.toyvo.dev";
-      tokenFile = config.sops.templates."forgejo-runner-token-nas.env".path;
-      labels = [
-        "native:host"
-        "nix-latest:docker://nixos/nix"
-      ];
-      hostPackages = with pkgs; [
-        bash
-        cachix
-        config.nix.package
-        coreutils
-        curl
-        gawk
-        git
-        gnugrep
-        gnused
-        jq
-        nodejs
-        wget
-      ];
+    gitea-actions-runner = {
+      package = pkgs.forgejo-runner;
+      instances.nas = {
+        enable = true;
+        name = "nas";
+        url = "https://git.toyvo.dev";
+        tokenFile = config.sops.templates."forgejo-runner-token-nas.env".path;
+        labels = [
+          "native:host"
+          "nix-latest:docker://nixos/nix"
+        ];
+        hostPackages = with pkgs; [
+          bash
+          cachix
+          config.nix.package
+          coreutils
+          curl
+          gawk
+          git
+          gnugrep
+          gnused
+          jq
+          nodejs
+          wget
+        ];
+      };
     };
     homepage-dashboard.enable = true;
     nix-serve = {
@@ -541,7 +544,7 @@ in
     settings = {
       model = {
         # see https://models.dev/?search=opencode&sort=output-costper&order=asc if considering different models, same api key, but url is different https://opencode.ai/zen/v1 vs https://opencode.ai/zen/go/v1
-        default = "kimi-k2.6";
+        default = "kimi-k3";
         provider = "opencode-go";
         base_url = "https://opencode.ai/zen/go/v1";
         api_mode = "chat_completions";
