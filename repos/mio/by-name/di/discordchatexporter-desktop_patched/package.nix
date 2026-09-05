@@ -18,9 +18,6 @@
 discordchatexporter-desktop.overrideAttrs (old: {
   pname = "discordchatexporter-desktop_patched";
 
-  dotnetBuildFlags = [
-    "-p:FirstTargetFrameworks=workaround-for-csharpier-pr-1696"
-  ];
 
   # Avoid wrapping Avalonia native dylibs as if they were CLI entry points.
   executables = [ "DiscordChatExporter" ];
