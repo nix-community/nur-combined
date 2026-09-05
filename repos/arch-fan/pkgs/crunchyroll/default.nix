@@ -17,6 +17,7 @@ let
 
   launchArgs = [
     "--app=${url}"
+    "--class=${name}"
     "--no-first-run"
     "--no-default-browser-check"
   ]
@@ -49,6 +50,7 @@ makeDesktopItem {
   terminal = false;
 
   extraConfig = {
+    StartupWMClass = name;
     "Comment[es]" = "Ver anime en Crunchyroll";
   };
 }
