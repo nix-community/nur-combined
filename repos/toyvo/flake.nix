@@ -4,7 +4,10 @@
   inputs = {
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
     catppuccin.url = "github:catppuccin/nix";
-    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixos-unstable";
