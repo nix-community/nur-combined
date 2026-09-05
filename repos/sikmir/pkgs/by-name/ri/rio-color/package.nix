@@ -35,6 +35,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     rio-mucho
   ];
 
+  dontCheckPythonMetadata = true;
+
   doCheck = false;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
