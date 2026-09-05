@@ -183,16 +183,21 @@ let
       });
 
 in
-jetbrains.idea-oss.overrideAttrs (old: {
-  inherit src;
-  inherit (src)
-    version
-    buildNumber
-    libdbm
-    fsnotifier
-    ;
-  # nixpkgs marks the older idea-oss as vulnerable; this is a newer source build.
-  meta = (old.meta or { }) // {
-    knownVulnerabilities = [ ];
-  };
-})
+jetbrains.idea-oss.overrideAttrs (
+  old:
+  {
+    inherit src;
+    inherit (src)
+      version
+      buildNumber
+      libdbm
+      ;
+    # nixpkgs marks the older idea-oss as vulnerable; this is a newer source build.
+    meta = (old.meta or { }) // {
+      knownVulnerabilities = [ ];
+    };
+  }
+  // lib.optionalAttrs (src ? fsnotifier) {
+    inherit (src) fsnotifier;
+  }
+)
