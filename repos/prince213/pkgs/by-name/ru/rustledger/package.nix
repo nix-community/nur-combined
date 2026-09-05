@@ -9,7 +9,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustledger";
-  version = "0.22.0";
+  version = "0.23.0";
 
   __structuredAttrs = true;
 
@@ -17,10 +17,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "rustledger";
     repo = "rustledger";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-KNInYM3pVhVxTyP94FJJFOKMy25u+NFOqO1ZR+NXc6A=";
+    hash = "sha256-zY4yv1RPPMO1J6OHQEMPIdEPivsfMKXr+1/UrTnZJ7s=";
   };
 
-  cargoHash = "sha256-q6cUezD2VJICm2dfp8kYV4TvUbkBEY3Xfs0EBErRa60=";
+  cargoHash = "sha256-XdRBFdK4ozf/Ti5mmb/i6LXUsK27HgI8aCZnkFkM2AU=";
 
   # Disable cargo-auditable until https://github.com/rust-secure-code/cargo-auditable/issues/124 is solved.
   auditable = false;

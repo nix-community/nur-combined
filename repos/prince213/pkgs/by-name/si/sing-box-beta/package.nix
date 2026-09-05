@@ -7,19 +7,12 @@
 
 (sing-box.override { cronet-go = cronet-go-beta; }).overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.14.0-rc.4";
+  version = "1.15.0-alpha.2";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-9ybFSCPCGCvanWgRjLFtb/tejz/gSlo/R9E754JDSDM=";
+    hash = "sha256-KICV5xh9bOcdBkGAklIzSMXNYY/LxpbukgkW2vzYFuA=";
   };
 
-  vendorHash = "sha256-RWCCScJVaKTmNrBiGips6QWz6EFTBXXMNsi+UqNvnjU=";
-
-  tags = previousAttrs.tags ++ [
-    "with_cloudflared"
-    "with_usbip"
-    "with_openvpn"
-    "with_openconnect"
-  ];
+  vendorHash = "sha256-c6dOQ5jLq/3k3P8cA3r8aq4oVa1lXovURQ9Izno7cgM=";
 })
