@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   version = "unstable";
 
   src = fetchFromGitHub {
-    owner = "thestaccato";
+    owner = "yashsio";
     repo = "mozart";
     rev = "98290e088f633e04eafde97e8225865be3b5838c";
     hash = "sha256-i1SLttBpVLFufX5DcPV2QlQGvshdFJCUWOB10O8zREw=";
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Minimal and suckless TUI music player";
-    homepage = "https://github.com/thestaccato/mozart";
+    homepage = "https://github.com/yashsio/mozart";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
     mainProgram = "mozart";
