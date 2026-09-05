@@ -32,7 +32,7 @@
       screenshot-template = "%F - [%P] (%#01n)";
 
       # Naysayer background
-      background = "#062329";
+      background-color = "#062329";
     };
     profiles = {
       "extension.webm" = {
