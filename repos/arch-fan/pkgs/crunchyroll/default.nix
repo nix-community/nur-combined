@@ -4,11 +4,9 @@
   lib,
   makeDesktopItem,
   writeShellScript,
-
   disableGpu ? true,
   extraLaunchArgs ? [ ],
 }:
-
 let
   name = "crunchyroll";
   url = "https://www.crunchyroll.com/";
@@ -27,11 +25,11 @@ let
   ]
   ++ extraLaunchArgs;
 in
-
 makeDesktopItem {
   inherit name;
 
   desktopName = "Crunchyroll";
+  comment = "Stream anime on Crunchyroll";
 
   icon = fetchurl {
     url = "https://www.crunchyroll.com/build/assets/img/favicons/apple-touch-icon-v2-114x114.png";
@@ -49,4 +47,8 @@ makeDesktopItem {
   '';
 
   terminal = false;
+
+  extraConfig = {
+    "Comment[es]" = "Ver anime en Crunchyroll";
+  };
 }
