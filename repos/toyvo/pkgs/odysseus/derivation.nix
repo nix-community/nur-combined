@@ -137,6 +137,11 @@ stdenv.mkDerivation {
       pkgs.gts
       pkgs.python3Packages.chromadb
     ]);
+    badPlatforms = [
+      "armv6l-linux"
+      "armv7l-linux"
+      "powerpc64le-linux"
+    ];
     maintainers = with lib.maintainers; [ toyvo ];
   };
 

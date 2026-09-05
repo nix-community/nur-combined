@@ -5,19 +5,26 @@
 let
   shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
 
-  flattenPkgs =
+  flattenPkgsWithPaths =
     s:
     let
       f =
-        p:
+        path: p:
         if shouldRecurseForDerivations p then
-          flattenPkgs p
+          builtins.concatMap (n: f (path ++ [ n ]) p.${n}) (builtins.attrNames p)
         else if lib.isDerivation p then
-          [ p ]
+          [
+            {
+              inherit path;
+              drv = p;
+            }
+          ]
         else
           [ ];
     in
-    builtins.concatMap f (builtins.attrValues s);
+    builtins.concatMap (n: f [ n ] s.${n}) (builtins.attrNames s);
+
+  flattenPkgs = s: map (e: e.drv) (flattenPkgsWithPaths s);
   platformsOf =
     ps:
     (
@@ -60,7 +67,12 @@ in
     !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
 
-  inherit shouldRecurseForDerivations flattenPkgs platformsOf;
+  inherit
+    shouldRecurseForDerivations
+    flattenPkgs
+    flattenPkgsWithPaths
+    platformsOf
+    ;
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 

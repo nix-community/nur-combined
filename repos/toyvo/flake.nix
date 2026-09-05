@@ -284,11 +284,7 @@
             };
           };
         };
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-          "aarch64-darwin"
-        ];
+        systems = nixos-unstable.lib.systems.flakeExposed;
         imports = [
           devshell.flakeModule
           flake-parts.flakeModules.easyOverlay
@@ -349,13 +345,25 @@
 
             checks =
               builtins.listToAttrs (
-                map
-                  (n: lib.nameValuePair (lib.removePrefix "/nix/store/" (lib.strings.unsafeDiscardStringContext n)) n)
-                  (
-                    builtins.filter (
-                      p: self.lib.isBuildable p && self.lib.isCacheable p && self.lib.forSystem system p
-                    ) (builtins.concatMap self.lib.outputsOf (self.lib.flattenPkgs self'.packages))
-                  )
+                builtins.concatMap (
+                  { path, drv }:
+                  map
+                    (
+                      o:
+                      lib.nameValuePair "${lib.concatStringsSep "-" path}${
+                        lib.optionalString (o != "out") "-${o}"
+                      }" drv.${o}
+                    )
+                    (
+                      builtins.filter (
+                        o:
+                        let
+                          p = drv.${o};
+                        in
+                        self.lib.isBuildable p && self.lib.isCacheable p && self.lib.forSystem system p
+                      ) drv.outputs
+                    )
+                ) (self.lib.flattenPkgsWithPaths self'.packages)
               )
               // lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") (
                 lib.filterAttrs (n: v: self.lib.isCacheable v) self'.devShells
