@@ -3,15 +3,10 @@
 #+HTML_HEAD: <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
 * Packages
-My personal [[https://github.com/nix-community/NUR][NUR]] repository. You can see an overview site here:
+My personal [[https://github.com/nix-community/NUR][NUR]] repository.
+You can see an overview site here:
 
  - https://nur.nix-community.org/repos/nagy/
-
-* Mirrors of this repo
- - https://github.com/nagy/nur-packages
- - https://gitlab.com/nagy/nur-packages
- - https://git.sr.ht/~nagy/nur-packages
- - https://codeberg.org/nagy/nur-packages
 
 * License
 MIT License
