@@ -3,15 +3,15 @@
 { fetchurl, stdenv }:
 
 let
-  version = "2.13.0";
+  version = "2.14.0-beta.1";
   sources = {
     "aarch64-linux" = {
-      url = "https://github.com/fzyzcjy/flutter_rust_bridge/releases/download/v2.13.0/flutter_rust_bridge_codegen-aarch64-unknown-linux-musl-v2.13.0.tgz";
-      hash = "sha256-iDP3xZuvWtCXhS8SdkpfD9sxobmzaHMQxeFZ0Ezh5o0=";
+      url = "https://github.com/fzyzcjy/flutter_rust_bridge/releases/download/v2.14.0-beta.1/flutter_rust_bridge_codegen-aarch64-unknown-linux-musl-v2.14.0-beta.1.tgz";
+      hash = "sha256-unn6Wl/96wd2VKpMHGcHrH168pqdfa9XM/M7qZauzJw=";
     };
     "x86_64-linux" = {
-      url = "https://github.com/fzyzcjy/flutter_rust_bridge/releases/download/v2.13.0/flutter_rust_bridge_codegen-x86_64-unknown-linux-musl-v2.13.0.tgz";
-      hash = "sha256-WN4A6anMYPzpigUpF/aKxhiJgl+QziXrGFzJ0y3B/0g=";
+      url = "https://github.com/fzyzcjy/flutter_rust_bridge/releases/download/v2.14.0-beta.1/flutter_rust_bridge_codegen-x86_64-unknown-linux-musl-v2.14.0-beta.1.tgz";
+      hash = "sha256-Rcox7Z9ZnrsH6NjRqqbhZqHeKAJoIwJOFhqkxkWOIO0=";
     };
   };
   source =
