@@ -8,18 +8,6 @@
 {
   services.coredns = {
     enable = true;
-    package = pkgs.coredns.override {
-      externalPlugins = [
-        {
-          name = "meship";
-          repo = "github.com/zhoreeq/coredns-meship";
-          version = "ba2685d1803672262638f752edb0ae97932b58fa";
-        }
-      ];
-      vendorHash = "sha256-NBk5cLvsc7IMsuiAIfKx/xh/+RiPzH1DIDLUPzCQGGg="; # for 26.05-unstable
-      # vendorHash = "sha256-pBwBGUNvShc6CsB1pn2GnG7eQ2PWXauaag4DN4pxXNU="; # for 26.11-unstable
-
-    };
     config = ''
       . {
         bind 127.0.0.1
@@ -30,12 +18,6 @@
           success 5000 3600 3600
           disable denial
         }
-        log
-      }
-
-      meship. {
-        bind 127.0.0.1
-        meship
         log
       }
 
