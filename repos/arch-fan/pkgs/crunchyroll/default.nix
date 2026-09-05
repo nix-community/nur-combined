@@ -7,6 +7,7 @@
   disableGpu ? true,
   extraLaunchArgs ? [ ],
 }:
+
 let
   name = "crunchyroll";
   url = "https://www.crunchyroll.com/";
@@ -21,9 +22,7 @@ let
     "--no-first-run"
     "--no-default-browser-check"
   ]
-  ++ lib.optionals disableGpu [
-    "--disable-gpu"
-  ]
+  ++ lib.optionals disableGpu [ "--disable-gpu" ]
   ++ extraLaunchArgs;
 in
 makeDesktopItem {
@@ -42,6 +41,9 @@ makeDesktopItem {
     "AudioVideo"
   ];
 
+  # Important:
+  startupWMClass = name;
+
   exec = writeShellScript name ''
     exec ${chromiumWidevine}/bin/chromium \
       ${lib.escapeShellArgs launchArgs}
@@ -50,7 +52,6 @@ makeDesktopItem {
   terminal = false;
 
   extraConfig = {
-    StartupWMClass = name;
     "Comment[es]" = "Ver anime en Crunchyroll";
   };
 }
