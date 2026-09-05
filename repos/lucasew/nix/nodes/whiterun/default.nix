@@ -22,6 +22,7 @@ in
     ./nvidia.nix
 
     ./dlna.nix
+    ./llama.nix
     ./zfs.nix
     # ./container-inet-rdp.nix
     ./container-nat.nix
