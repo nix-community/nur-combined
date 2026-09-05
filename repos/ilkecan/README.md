@@ -6,4 +6,4 @@ https://nur.nix-community.org/repos/ilkecan
 
 ## nixpkgs compatibility
 
-Only unstable/master is supported. CI builds against the input pinned in `flake.lock`, which shouldn't be that old. If you detect that one of the derivations is failing on a newer revision/master, please open an issue.
+Only unstable/master is supported. CI builds against the input pinned in `flake.lock`, which should be fairly recent. If you detect that one of the derivations is failing on a newer revision/master, please open an issue.

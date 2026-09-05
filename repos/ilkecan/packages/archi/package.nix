@@ -7,28 +7,41 @@
   fetchFromGitHub,
   glib,
   gtk3,
+  gtk4,
   jdk21,
   libsecret,
   makeDesktopItem,
   makeWrapper,
   maven,
   nix-update-script,
+  stdenv,
   stripJavaArchivesHook,
   testers,
   unzip,
   webkitgtk_4_1,
   wrapGAppsHook3,
 }:
+let
+  platform =
+    {
+      "x86_64-linux" = {
+        jna = "linux-x86-64";
+        product = "linux/gtk/x86_64";
+        swt = "linux.x86_64";
+      };
+    }
+    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+in
 
 maven.buildMavenPackage (finalAttrs: {
   pname = "archi";
-  version = "5.9.0";
+  version = "5.10.0";
 
   src = fetchFromGitHub {
     owner = "archimatetool";
     repo = "archi";
     tag = "release_${finalAttrs.version}";
-    hash = "sha256-d8fpxZhp1hVbjzVGjitc7WKiD8nijMv+1/ZlUOYzmbE=";
+    hash = "sha256-tm41GKf7QFLTyZQkLhSuSs0XELcrlEUYfcya2nNHv5g=";
   };
 
   strictDeps = true;
@@ -37,11 +50,12 @@ maven.buildMavenPackage (finalAttrs: {
   mvnJdk = jdk21;
 
   mvnParameters = lib.escapeShellArgs [
+    "-Dbuild.timestamp=198001010000" # application build timestamp
+    "-Dproject.build.outputTimestamp=1980-01-01T00:00:02Z" # JAR/ZIP archive timestamps
     "-Pproduct"
-    "-Dproject.build.outputTimestamp=1980-01-01T00:00:02Z"
   ];
 
-  mvnHash = "sha256-BwEK6ux8BPdpwy+d95HDT4MpV6ksvgdqqXS81yGayAE=";
+  mvnHash = "sha256-f/qnIpkHDdnVYraTlOucgb1tehUBlTUSfN/Yck0jxeo=";
 
   mvnFetchExtraArgs = {
     postInstall = ''
@@ -70,6 +84,7 @@ maven.buildMavenPackage (finalAttrs: {
     cairo
     glib
     gtk3
+    gtk4
   ];
 
   # These are dlopen'd rather than being DT_NEEDED entries, so autoPatchelfHook
@@ -78,6 +93,12 @@ maven.buildMavenPackage (finalAttrs: {
     "${lib.getLib libsecret}/lib" # reached through JNA by Equinox's keyring provider
     "${lib.getLib webkitgtk_4_1}/lib" # dlopen'd by libswt-webkit-gtk for the browser widget
   ];
+
+  postPatch = ''
+    # Source tarballs lack the Git history required by the jgit timestamp provider.
+    substituteInPlace pom.xml \
+      --replace-fail '<timestampProvider>jgit</timestampProvider>' '<timestampProvider>default</timestampProvider>'
+  '';
 
   # Upstream's tests would need extra work to run at all and still fail in the
   # build environment.
@@ -101,20 +122,31 @@ maven.buildMavenPackage (finalAttrs: {
 
     install -Dm444 ${./mime-info.xml} $out/share/mime/packages/archi.xml
 
-    pushd com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/x86_64/Archi
+    pushd com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/${platform.product}/Archi
 
     # Copy everything except what is not needed:
     # - icon.xpm, superseded by the PNGs installed above
     # - artifacts.xml, p2's index for provisioning and self-update
+    # - p2/, provisioning metadata for unsupported self-update; the profile
+    # snapshots also contain wall-clock times and unordered entries
     cp -r . $out/libexec
     rm $out/libexec/{artifacts.xml,icon.xpm}
+    rm -r $out/libexec/p2/
+
+    # Tycho writes the wall clock into otherwise stable generated metadata.
+    sed -i '/^#.* UTC [0-9]\{4\}$/d' $out/libexec/configuration/config.ini
+    sed -i 's/<config date="[0-9]\+"/<config date="0"/' $out/libexec/configuration/org.eclipse.update/platform.xml
+
+    # Keep only the JNA native for the target platform.
+    find $out/libexec/plugins/com.sun.jna_* -type f -name libjnidispatch.so \
+      ! -path "*/com/sun/jna/${platform.jna}/*" -delete
     chmod 755 $out/libexec/Archi
 
     # SWT would otherwise unpack its JNI natives at runtime, bypassing
     # autoPatchelfHook. Unpack them here and point swt.library.path at them
     # instead. The glx and awt natives are excluded because Archi uses neither.
     mkdir -p $out/lib/swt
-    unzip -q -o -d $out/lib/swt plugins/org.eclipse.swt.gtk.linux.x86_64_*.jar '*.so' \
+    unzip -q -o -d $out/lib/swt plugins/org.eclipse.swt.gtk.${platform.swt}_*.jar '*.so' \
       -x '*-glx-*' '*-awt-*'
     substituteInPlace $out/libexec/Archi.ini \
       --replace-fail '-vmargs' "-vmargs
