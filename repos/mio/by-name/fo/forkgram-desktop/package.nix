@@ -14,9 +14,9 @@ telegram-desktop.override {
     src = fetchFromGitHub {
       owner = "forkgram";
       repo = "tdesktop";
-      rev = "v7.1.3";
+      rev = "v7.1.4";
       fetchSubmodules = true;
-      hash = "sha256-jXJdz4xl8eq9QyJ6iVlE2HiBwy97XQOvQupmPRaEGqQ=";
+      hash = "sha256-vRQ+03IH/g2IVxq8GMQUs87qinSPeeGPLHz92XW1K4I=";
     };
 
     buildInputs = old.buildInputs ++ [ zbar ];

@@ -39,8 +39,8 @@ let
     src = fetchFromGitHub {
       owner = "Kotlin";
       repo = "wit-bindgen";
-      rev = "83f4e42";
-      hash = "sha256-AAAA1015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      rev = "700f2db";
+      hash = "sha256-Hfhy+b+MFspQMPMeVycSaltxsl7PV8ZJtxRs1AN/ins=";
     };
     cargoHash = "sha256-UrwzUcAJWGNo68d8toYgJbvOB5p5iABARwNpubh7n40=";
     doCheck = false;
