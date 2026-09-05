@@ -9,7 +9,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -23,5 +23,7 @@
   shimelinux = pkgs.callPackage ./pkgs/shimelinux { };
   utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
   pvpn = pkgs.callPackage ./pkgs/pvpn { };
+  twintaillauncher = pkgs.callPackage ./pkgs/twintaillauncher/twintaillauncher { inherit twintaillauncher-unwrapped; };
+  twintaillauncher-unwrapped = pkgs.callPackage ./pkgs/twintaillauncher/twintaillauncher-unwrapped { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }
