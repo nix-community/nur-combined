@@ -51,5 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
     mainProgram = "bitwise-harmony";
+    broken = true;
   };
 })
