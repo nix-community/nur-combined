@@ -24,6 +24,8 @@ buildGoModule (finalAttrs: {
     "-X github.com/jsiebens/brink/internal/version.Version=${finalAttrs.version}"
   ];
 
+  __darwinAllowLocalNetworking = true;
+
   meta = {
     description = "A lightweight Identity-Aware Proxy (IAP) for TCP forwarding";
     homepage = "https://github.com/jsiebens/brink";
