@@ -1,19 +1,19 @@
-name: "Publish every Git push to master to FlakeHub"
+name: Publish every Git push to master to FlakeHub
 on:
   push:
     branches:
-      - "master"
+      - master
 jobs:
   flakehub-publish:
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     permissions:
-      id-token: "write"
-      contents: "read"
+      id-token: write
+      contents: read
     steps:
-      - uses: "actions/checkout@v5"
-      - uses: "DeterminateSystems/nix-installer-action@main"
-      - uses: "DeterminateSystems/flakehub-push@main"
+      - uses: actions/checkout@v5
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/flakehub-push@main
         with:
-          name: "sikmir/nur-packages"
+          name: sikmir/nur-packages
           rolling: true
-          visibility: "public"
+          visibility: public
