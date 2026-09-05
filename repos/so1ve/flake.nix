@@ -39,10 +39,10 @@
     in
     {
       overlays.default =
-        final: _:
+        _: prev:
         builtins.removeAttrs
           (import ./default.nix {
-            pkgs = final;
+            pkgs = prev;
           })
           [ "homeModules" ];
 
