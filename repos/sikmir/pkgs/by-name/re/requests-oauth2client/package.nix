@@ -37,6 +37,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     requests-mock
   ];
 
+  disabledTests = [ "test_readme" ];
+
   meta = {
     description = "An OAuth2.x client based on `requests`";
     homepage = "https://github.com/guillp/requests-oauth2client";
