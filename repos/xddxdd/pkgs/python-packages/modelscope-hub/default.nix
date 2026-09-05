@@ -5,6 +5,7 @@
   nix-update-script,
   setuptools,
   # Dependencies
+  cryptography,
   filelock,
   requests,
   tqdm,
@@ -24,6 +25,7 @@ buildPythonPackage (finalAttrs: {
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [
+    cryptography
     filelock
     requests
     tqdm

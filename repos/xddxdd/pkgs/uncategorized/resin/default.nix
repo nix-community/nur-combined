@@ -64,7 +64,12 @@ buildGoModule (finalAttrs: {
     cp -r ${frontendDist}/* webui/dist/
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+    # nix-update reads pkg.npmDeps.outputHash; without this the frontend's
+    # npmDepsHash in the let-bound frontendDist goes stale on version bumps
+    inherit (frontendDist) npmDeps;
+  };
   meta = {
     mainProgram = "resin";
     maintainers = with lib.maintainers; [ xddxdd ];

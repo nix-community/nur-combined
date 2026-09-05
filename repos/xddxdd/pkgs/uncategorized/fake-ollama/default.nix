@@ -2,11 +2,11 @@
   buildGoModule,
   fetchFromGitHub,
   lib,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "fake-ollama";
-  version = "0-unstable-2025-02-14";
+  version = "0-unstable-2025-02-13";
   src = fetchFromGitHub {
     owner = "spoonnotfound";
     repo = "fake-ollama";
@@ -15,9 +15,11 @@ buildGoModule (finalAttrs: {
   };
   vendorHash = "sha256-Ef2XLxGq8TO3WVh9EvLE30Is2CBwH4pqXxkq1tcuR0Q=";
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/spoonnotfound/fake-ollama";
-    hardcodeZeroVersion = true;
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

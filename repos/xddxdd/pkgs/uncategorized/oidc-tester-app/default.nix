@@ -2,7 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "oidc-tester-app";
@@ -13,11 +13,13 @@ buildGoModule (finalAttrs: {
     rev = "8a9d3baefbb626c4f5c8e48a89fc4d09aa4b22e0";
     hash = "sha256-1wbGsQmYmuVClZCy48A5jXCjqMfO6azGaw80qKvpSBc=";
   };
-  vendorHash = "sha256-RPeUvZ2KJOmdnmg5K4qWD8tGxiHC7lZrhDS2cn/ufOo=";
+  vendorHash = "sha256-LCB6A02MYDf8V5pPRRnh1DHCg8B738D+vdB5IAznbZw=";
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/authelia/oidc-tester-app";
-    hardcodeZeroVersion = true;
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

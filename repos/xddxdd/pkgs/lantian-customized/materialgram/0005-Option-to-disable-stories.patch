@@ -1,8 +1,7 @@
-diff --git a/Telegram/SourceFiles/data/data_stories.cpp b/Telegram/SourceFiles/data/data_stories.cpp
-index 6744234..1d78f57 100644
---- a/Telegram/SourceFiles/data/data_stories.cpp
-+++ b/Telegram/SourceFiles/data/data_stories.cpp
-@@ -7,6 +7,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+diff -ru a/Telegram/SourceFiles/data/data_stories.cpp b/Telegram/SourceFiles/data/data_stories.cpp
+--- a/Telegram/SourceFiles/data/data_stories.cpp	2026-09-05 12:12:09.890231721 -0700
++++ b/Telegram/SourceFiles/data/data_stories.cpp	2026-09-05 12:12:10.553536361 -0700
+@@ -7,6 +7,7 @@
  */
  #include "data/data_stories.h"
  
@@ -10,7 +9,7 @@ index 6744234..1d78f57 100644
  #include "base/unixtime.h"
  #include "apiwrap.h"
  #include "core/application.h"
-@@ -144,6 +145,15 @@ bool RemoveUnsorted(std::vector<StoryId> &list, StoryId id) {
+@@ -144,6 +145,15 @@
  
  } // namespace
  
@@ -26,7 +25,7 @@ index 6744234..1d78f57 100644
  std::vector<StoryId> RespectingPinned(const StoriesIds &ids) {
  	if (ids.pinnedToTop.empty()) {
  		return ids.list;
-@@ -426,6 +436,9 @@ void Stories::clearArchive(not_null<PeerData*> peer) {
+@@ -433,6 +443,9 @@
  void Stories::parseAndApply(
  		const MTPPeerStories &stories,
  		ParseSource source) {
@@ -36,7 +35,7 @@ index 6744234..1d78f57 100644
  	const auto &data = stories.data();
  	const auto peerId = peerFromMTP(data.vpeer());
  	const auto already = _readTill.find(peerId);
-@@ -711,6 +724,9 @@ void Stories::savedStateChanged(not_null<Story*> story) {
+@@ -718,6 +731,9 @@
  }
  
  void Stories::loadMore(StorySourcesList list) {
@@ -46,11 +45,11 @@ index 6744234..1d78f57 100644
  	const auto index = static_cast<int>(list);
  	if (_loadMoreRequestId[index] || _sourcesLoaded[index]) {
  		return;
-diff --git a/Telegram/SourceFiles/data/data_stories.h b/Telegram/SourceFiles/data/data_stories.h
-index e6648fa..5e019fc 100644
---- a/Telegram/SourceFiles/data/data_stories.h
-+++ b/Telegram/SourceFiles/data/data_stories.h
-@@ -38,6 +38,8 @@ class Story;
+只在 b/Telegram/SourceFiles/data 中存在：data_stories.cpp.orig
+diff -ru a/Telegram/SourceFiles/data/data_stories.h b/Telegram/SourceFiles/data/data_stories.h
+--- a/Telegram/SourceFiles/data/data_stories.h	2026-09-05 12:12:09.890268189 -0700
++++ b/Telegram/SourceFiles/data/data_stories.h	2026-09-05 12:12:10.553834831 -0700
+@@ -38,6 +38,8 @@
  struct StoryAlbum;
  class StoryPreload;
  
@@ -59,23 +58,23 @@ index e6648fa..5e019fc 100644
  struct StoriesIds {
  	std::vector<StoryId> list; // flat_set<int, greater> for saved/archive.
  	std::vector<StoryId> pinnedToTop;
-diff --git a/Telegram/SourceFiles/settings/settings_experimental.cpp b/Telegram/SourceFiles/settings/settings_experimental.cpp
-index 31315bd..6055d75 100644
---- a/Telegram/SourceFiles/settings/settings_experimental.cpp
-+++ b/Telegram/SourceFiles/settings/settings_experimental.cpp
-@@ -26,6 +26,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+diff -ru a/Telegram/SourceFiles/settings/settings_experimental.cpp b/Telegram/SourceFiles/settings/settings_experimental.cpp
+--- a/Telegram/SourceFiles/settings/settings_experimental.cpp	2026-09-05 12:12:09.928880220 -0700
++++ b/Telegram/SourceFiles/settings/settings_experimental.cpp	2026-09-05 12:12:12.886030051 -0700
+@@ -33,6 +33,7 @@
  #include "core/launcher.h"
  #include "core/sandbox.h"
  #include "chat_helpers/tabbed_panel.h"
 +#include "data/data_stories.h"
+ #include "dialogs/dialogs_entry.h"
  #include "dialogs/dialogs_widget.h"
  #include "dialogs/ui/dialogs_layout.h"
- #include "history/history_item_components.h"
-@@ -204,6 +205,7 @@ void SetupExperimental(
- 			rpl::duplicate(reloadOptionsRequests));
+@@ -336,6 +337,7 @@
+ 			registerHighlight);
  	};
  
 +	addToggle(Data::kOptionDisableStories);
  	addToggle(ChatHelpers::kOptionTabbedPanelShowOnClick);
  	addToggle(Dialogs::kOptionForumHideChatsList);
- 	addToggle(Dialogs::Ui::kOptionDialogsMuteIcon);
+ 	addToggle(Dialogs::kOptionDialogsUnreadOnTop);
+只在 b/Telegram/SourceFiles/settings 中存在：settings_experimental.cpp.orig

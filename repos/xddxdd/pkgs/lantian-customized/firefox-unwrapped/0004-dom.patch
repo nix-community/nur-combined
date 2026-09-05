@@ -3945,10 +3945,7 @@ index c5aefb69c9..fce60c3434 100644
    DebugOnly<nsresult> rv =
        nsSynthVoiceRegistry::GetInstance()->IsDefaultVoice(mUri, &isDefault);
 diff --git a/dom/quota/ActorsParent.cpp b/dom/quota/ActorsParent.cpp
-index f4489480fb..51d82a6a11 100644
---- a/dom/quota/ActorsParent.cpp
-+++ b/dom/quota/ActorsParent.cpp
-@@ -74,6 +74,7 @@
+@@ -79,6 +79,7 @@
  #include "mozilla/ScopeExit.h"
  #include "mozilla/SpinEventLoopUntil.h"
  #include "mozilla/StaticPrefs_dom.h"
@@ -3956,7 +3953,7 @@ index f4489480fb..51d82a6a11 100644
  #include "mozilla/StaticPtr.h"
  #include "mozilla/StorageOriginAttributes.h"
  #include "mozilla/SystemPrincipal.h"
-@@ -7663,6 +7664,17 @@ std::pair<uint64_t, uint64_t> QuotaManager::GetUsageAndLimitForEstimate(
+@@ -8266,6 +8267,17 @@
      const OriginMetadata& aOriginMetadata) {
    AssertIsOnIOThread();
  
@@ -3974,20 +3971,21 @@ index f4489480fb..51d82a6a11 100644
    uint64_t totalGroupUsage = 0;
  
    {
-@@ -7678,7 +7690,11 @@ std::pair<uint64_t, uint64_t> QuotaManager::GetUsageAndLimitForEstimate(
-                 groupInfo->LockedGetOriginInfo(aOriginMetadata.mOrigin);
- 
+@@ -8284,8 +8296,11 @@
+             // bound by the global temporary storage limit instead, so it
+             // reports its own origin usage against that limit.
              if (originInfo && originInfo->LockedPersisted()) {
--              return std::pair(mTemporaryStorageUsage, mTemporaryStorageLimit);
+-              return std::pair(originInfo->LockedUsage(),
+-                               static_cast<uint64_t>(mTemporaryStorageLimit));
 +              const uint64_t limit =
 +                  stealthOverride
 +                      ? (uint64_t(stealthQuotaMb) * 1024 * 1024)
-+                      : mTemporaryStorageLimit;
-+              return std::pair(mTemporaryStorageUsage, limit);
++                      : static_cast<uint64_t>(mTemporaryStorageLimit);
++              return std::pair(originInfo->LockedUsage(), limit);
              }
            }
  
-@@ -7689,7 +7705,10 @@ std::pair<uint64_t, uint64_t> QuotaManager::GetUsageAndLimitForEstimate(
+@@ -8296,7 +8311,10 @@
      }
    }
  

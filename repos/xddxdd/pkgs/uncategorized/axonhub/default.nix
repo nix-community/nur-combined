@@ -26,7 +26,7 @@ let
     sourceRoot = "source/frontend";
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-upGbYP9oRsGaMjgWsVnoWxdm2EO4pqZEr5cFyE+MYSg=";
+    hash = "sha256-Juge/qz/+5ImNJBpK5tT/uNkKmhftjesnnaBfUpnJYM=";
   };
 
   frontendDist = stdenv.mkDerivation {
@@ -57,7 +57,7 @@ in
 buildGoModule (finalAttrs: {
   pname = "axonhub";
   inherit version src;
-  vendorHash = "sha256-Juge/qz/+5ImNJBpK5tT/uNkKmhftjesnnaBfUpnJYM=";
+  vendorHash = "sha256-K18rrVXTwiFlPFGjVyvTLQbuohOBT7N7igqw0mkoWPk=";
 
   tags = [ "nomsgpack" ];
 
@@ -82,11 +82,18 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
   versionCheckProgramArg = "version";
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "unstable"
-    ];
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "unstable"
+      ];
+    };
+    # nix-update reads dependency hashes from attributes of the top-level
+    # package (pkg.pnpmDeps.outputHash); without this passthru the pnpm
+    # fetcher hash in the let binding is invisible to nix-update and goes
+    # stale on version bumps.
+    pnpmDeps = frontendPnpmDeps;
   };
   meta = {
     changelog = "https://github.com/looplj/axonhub/releases/tag/v${finalAttrs.version}";

@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  unstableGitUpdater,
+  nix-update-script,
   rustPlatform,
   protobuf,
 }:
@@ -18,10 +18,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-CvjbgGfphDk61BnKkKWOUXL8pbofz/EDsABaW+QUWec=";
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/helium/gateway-rs";
-    tagFormat = "v*";
-    tagPrefix = "v";
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
   };
   meta = {
     mainProgram = "helium_gateway";
