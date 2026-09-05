@@ -32,26 +32,6 @@ let
   serverConf = "${cfg.dataDir}/server.conf";
 in
 {
-  imports = [
-    (lib.mkChangedOptionModule
-      [ "services" "suwayomi-server" "settings" "server" "basicAuthEnabled" ]
-      [ "services" "suwayomi-server" "settings" "server" "authMode" ]
-      (
-        config:
-        let
-          isEnabled = lib.getAttrFromPath [
-            "services"
-            "suwayomi-server"
-            "settings"
-            "server"
-            "basicAuthEnabled"
-          ] config;
-        in
-        if isEnabled then "basic_auth" else "none"
-      )
-    )
-  ];
-
   options = {
     services.suwayomi-server = {
       enable = mkEnableOption "Suwayomi, a free and open source manga reader server that runs extensions built for Tachiyomi";
@@ -95,11 +75,6 @@ in
 
       settings = mkOption {
         type = types.submodule {
-          imports = [
-            (lib.mkRenamedOptionModule [ "server" "basicAuthUsername" ] [ "server" "authUsername" ])
-            (lib.mkRenamedOptionModule [ "server" "basicAuthPasswordFile" ] [ "server" "authPasswordFile" ])
-          ];
-
           freeformType = format.type;
           options.server = {
             ip = mkOption {
@@ -321,7 +296,7 @@ in
     maintainers = with lib.maintainers; [
       ratcornu
       nanoyaki
+      ataraxiasjel
     ];
-    doc = ./suwayomi-server.md;
   };
 }
