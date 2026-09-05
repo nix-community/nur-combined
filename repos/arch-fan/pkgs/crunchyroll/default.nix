@@ -35,7 +35,7 @@ makeDesktopItem {
 
   icon = fetchurl {
     url = "https://www.crunchyroll.com/build/assets/img/favicons/apple-touch-icon-v2-114x114.png";
-    hash = lib.fakeHash;
+    hash = "sha256-oVUyQEu4giQybuFHgFN0BkolUIfuWMKvWvL1Rv9Ayi8=";
   };
 
   categories = [
