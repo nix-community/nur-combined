@@ -68,6 +68,10 @@
         };
       };
 
+      systemd.services.podman-misskey = {
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+      };
       virtualisation.oci-containers = {
         containers.misskey = {
           volumes =

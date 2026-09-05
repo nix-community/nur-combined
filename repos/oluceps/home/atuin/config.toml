@@ -5,7 +5,7 @@ filter_mode_shell_up_key_binding = "directory"
 key_path = "/run/vaultix/atuin_key"
 sync_address = "https://api.atuin.nyaw.xyz"
 sync_frequency = "10m"
-search_mode = "skim"
+search_mode = "daemon-fuzzy"
 
 [sync]
 record = true

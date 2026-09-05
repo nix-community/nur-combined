@@ -8,18 +8,18 @@
 {
   GeoLite2-ASN = {
     pname = "GeoLite2-ASN";
-    version = "2026.08.19";
+    version = "2026.08.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.19/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-8ZWDtVm7Lx7g3tdE/4DTn8NcpDQll3qhZQBaBc0FwfE=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.28/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-syDXfgArdFSwPRj8qANyilfP0SQoyjniG8MfqxsKXzI=";
     };
   };
   GeoLite2-City = {
     pname = "GeoLite2-City";
-    version = "2026.08.19";
+    version = "2026.08.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.19/GeoLite2-City.mmdb";
-      sha256 = "sha256-g5qQASLprttRzBUGUE44JP1mhbvofLoWmbPRlmkJSrg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.28/GeoLite2-City.mmdb";
+      sha256 = "sha256-uLCKYo1HWISIvjgSthYLJG3L/q7LtwHPftXvwYXIaH8=";
     };
   };
   alist = {
@@ -46,10 +46,10 @@
   };
   lxgw-neo-xihei = {
     pname = "lxgw-neo-xihei";
-    version = "v1.304";
+    version = "v1.305";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v1.304/LXGWNeoXiHei.ttf";
-      sha256 = "sha256-WWXdmSKQhhxtYihQmNxcp/bGaZMHZf0R1dD9SRLYFuc=";
+      url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v1.305/LXGWNeoXiHei.ttf";
+      sha256 = "sha256-iTz77GBHaPA3hatPNpUI3mjCdCczWaXK3uF+KFKXXVw=";
     };
   };
   metacubexd = {
@@ -90,16 +90,16 @@
   };
   realm = {
     pname = "realm";
-    version = "v2.9.4";
+    version = "v2.9.6";
     src = fetchFromGitHub {
       owner = "zhboner";
       repo = "realm";
-      rev = "v2.9.4";
+      rev = "v2.9.6";
       fetchSubmodules = false;
-      sha256 = "sha256-gnsFqWhJOMKUaSWfRmHBksw3uWFP0smRhEbPLriEmlk=";
+      sha256 = "sha256-P7jyVe6KNe1evan2qRtpA99ZKbgF1Zz7DiRxi1+h7WI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-gnsFqWhJOMKUaSWfRmHBksw3uWFP0smRhEbPLriEmlk=/Cargo.lock";
+      lockFile = ./. + "/sha256-P7jyVe6KNe1evan2qRtpA99ZKbgF1Zz7DiRxi1+h7WI=/Cargo.lock";
       outputHashes = {
 
       };

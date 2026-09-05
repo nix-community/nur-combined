@@ -27,13 +27,13 @@
             };
 
             root = {
-              initialHashedPassword = lib.mkForce config.data.keys.hashedPasswd;
+              hashedPassword = lib.mkForce config.data.keys.hashedPasswd;
               openssh.authorizedKeys.keys = authSSHKeys;
             };
 
             ${config.identity.user} = {
               linger = true;
-              initialHashedPassword = lib.mkDefault config.data.keys.hashedPasswd;
+              hashedPassword = lib.mkDefault config.data.keys.hashedPasswd;
               subUidRanges = [
                 {
                   startUid = 100000;

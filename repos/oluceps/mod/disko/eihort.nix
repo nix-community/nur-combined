@@ -125,6 +125,11 @@
         fsType = "zfs";
       };
     };
+    swapDevices = [
+      {
+        device = "/dev/disk/by-id/ata-SanDisk_SD8SBAT032G_153873411000";
+      }
+    ];
     # fileSystems."/three" = {
     #   device = "/dev/disk/by-uuid/134975b6-4ccc-4201-b479-105eb2382945";
     #   fsType = "btrfs";

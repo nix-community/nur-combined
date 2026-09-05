@@ -63,7 +63,8 @@
         stateVersion = "25.05";
       };
       boot = {
-        supportedFilesystems = [ "tcp_bbr" ];
+        supportedFilesystems = [ ];
+        kernelModules = [ "tcp_bbr" ];
         loader = {
           timeout = 3;
           grub.enable = false;

@@ -22,7 +22,9 @@
                   type = "EF02";
                 };
                 ESP = {
+                  name = "ESP";
                   size = "256M";
+                  type = "EF00";
                   content = {
                     type = "filesystem";
                     format = "vfat";
@@ -36,19 +38,13 @@
                   content = {
                     type = "btrfs";
                     extraArgs = [
+                      "--label nixos"
                       "-f"
                       "--csum xxhash64"
+                      "--features"
+                      "block-group-tree"
                     ];
                     subvolumes = {
-                      # "root" = {
-                      #   mountpoint = "/";
-                      #   mountOptions = [
-                      #     "compress=zstd"
-                      #     "noatime"
-                      #     "nodev"
-                      #     "nosuid"
-                      #   ];
-                      # };
                       "nix" = {
                         mountpoint = "/nix";
                         mountOptions = [

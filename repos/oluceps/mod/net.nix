@@ -189,6 +189,7 @@ in
             allowedTCPPorts = [
               21027
               443
+              3260
             ];
             allowedUDPPorts = [ ];
           };
@@ -318,29 +319,33 @@ in
           };
 
           links."10-eth0" = {
-            matchConfig.MACAddress = "fa:51:33:18:0a:00";
+            matchConfig.MACAddress = "bc:24:11:cd:2f:35";
             linkConfig.Name = "eth0";
           };
 
           networks."8-eth0" = {
             matchConfig.Name = "eth0";
             networkConfig = {
-              DHCP = "ipv4";
+              DHCP = "no";
               IPv4Forwarding = true;
               IPv6Forwarding = true;
               IPv6AcceptRA = true;
             };
 
             address = [
-              "2404:c140:2005::b:a72a/64"
-            ];
-            routes = [
-              {
-                Gateway = "2404:c140:2005::1";
-                GatewayOnLink = true;
-              }
+              "216.195.195.184/24"
+              "2a0f:1cc6:b225:0:c744:d4a4:9364:2971/64"
             ];
             linkConfig.RequiredForOnline = "routable";
+            routes = [
+              {
+                Gateway = "2a0f:1cc6:b225::1";
+                GatewayOnLink = true;
+              }
+              {
+                Gateway = "216.195.195.254";
+              }
+            ];
           };
         };
 

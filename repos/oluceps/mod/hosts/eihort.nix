@@ -78,6 +78,10 @@
       identity.user = "elen";
       incus.bridgeAddr = "fdcc:3::1/64";
 
+      hardware.facter = {
+        reportPath = ../eihort_facter.json;
+        detected.dhcp.enable = false;
+      };
       system = {
         # This headless machine uses to perform heavy task.
         # Running database and web services.
@@ -85,7 +89,10 @@
         stateVersion = "24.11";
       };
       boot = {
-        supportedFilesystems = [ "zfs" ];
+        supportedFilesystems = [
+          "zfs"
+          "ntfs"
+        ];
         zfs = {
           devNodes = "/dev/disk/by-id";
           extraPools = [ "pool0" ];
@@ -114,8 +121,10 @@
           # "net.ifnames=0"
           "ia32_emulation=0"
           "zswap.enabled=1"
-          "zswap.compressor=zstd"
+          "zswap.compressor=lz4"
           "zswap.zpool=zsmalloc"
+          "zswap.accept_threshold_percent=70"
+          "zswap.shrinker_enabled=1"
         ];
 
         initrd = {
@@ -149,7 +158,15 @@
         };
       };
       services = {
-        zfs.autoScrub.enable = true;
+        zfs = {
+          autoScrub.enable = true;
+          optimization = {
+            enable = true;
+            arcMinGiB = 8;
+            aggressiveL2ARC = true;
+            disablePrefetch = true;
+          };
+        };
         rsyncd = {
           enable = true;
           socketActivated = true;
@@ -226,7 +243,6 @@
           interval = "weekly";
           fileSystems = [
             "/persist"
-            "/three"
           ];
         };
 

@@ -33,7 +33,7 @@
           time.timeZone = "Asia/Hong_Kong";
           networking = {
             nameservers = [ "8.8.8.8" ];
-            usePredictableInterfaceNames = true;
+            usePredictableInterfaceNames = false;
             firewall.enable = false;
 
             useNetworkd = true;
@@ -41,7 +41,7 @@
 
             hostName = "bootstrap";
           };
-          boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+          # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
           users.mutableUsers = false;
           users.users.root = {
@@ -206,7 +206,7 @@
               #   enable = true;
               #   efiSupport = true;
               #   biosSupport = true;
-              # biosDevice = "/dev/sda";
+              #   biosDevice = "/dev/sda";
               # };
               grub = {
                 enable = true;
@@ -329,7 +329,7 @@
             enable = true;
 
             links."10-eno1" = {
-              matchConfig.MACAddress = "bc:24:11:21:c7:2c";
+              matchConfig.MACAddress = "bc:24:11:cd:2f:35";
               linkConfig.Name = "eno1";
             };
 
@@ -346,16 +346,20 @@
                 DHCPv6Client = false;
                 # UseDNS = false;
               };
-              domains = [ "PVE" ];
+              # domains = [ "PVE" ];
 
               address = [
-                "2401:b60:e0fe:3e::2/64"
+                "216.195.195.184/24"
+                "2a0f:1cc6:b225:0:c744:d4a4:9364:2971/64"
               ];
               linkConfig.RequiredForOnline = "routable";
               routes = [
                 {
-                  Gateway = "2401:b60:e0fe:3e::1";
-                  # GatewayOnLink = true;
+                  Gateway = "2a0f:1cc6:b225::1";
+                  GatewayOnLink = true;
+                }
+                {
+                  Gateway = "216.195.195.254";
                 }
               ];
             };
@@ -368,6 +372,15 @@
             overlays = with inputs; [
               fenix.overlays.default
               self.overlays.default
+              (final: prev: {
+                aggregateModules =
+                  args:
+                  (prev.aggregateModules args).overrideAttrs (old: {
+                    passthru = (old.passthru or { }) // {
+                      target = "bzImage";
+                    };
+                  });
+              })
             ];
           };
         }

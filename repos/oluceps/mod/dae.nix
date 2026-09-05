@@ -86,9 +86,12 @@
                        juicity, mosproxy, yggdrasil,
                        zerotier-one, xray, rqbit) -> must_direct
 
+
                  pname(prometheus, ssh) -> direct
 
-                 pname(Misskey, conduit, tuwunel, conduwuit,
+                 
+
+                 pname(pasta, Misskey, conduit, tuwunel, conduwuit,
                        .mautrix-telegr, arti, .synapse_homese, cloudflared) -> all
 
                  dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
