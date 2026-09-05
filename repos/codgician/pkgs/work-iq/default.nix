@@ -5,8 +5,13 @@
   fetchFromGitHub,
   autoPatchelfHook,
   makeWrapper,
+  dbus,
   icu,
+  libsecret,
+  libx11,
+  libcxx,
   openssl,
+  webkitgtk_4_1,
   zlib,
   runCommand,
 }:
@@ -32,12 +37,18 @@ let
     "microsoft-365-agents-toolkit"
   ];
 
-  # .NET single-file host links libstdc++ at load time; ICU/OpenSSL/zlib are
-  # dlopened for globalization and TLS and must be on the loader path (Linux).
+  # .NET single-file host links libstdc++ at load time. MSAL's Linux broker
+  # runtime is dlopened during `auth login` and links against D-Bus, X11,
+  # libsecret, WebKitGTK, and libc++; keep all of those on the loader path.
   runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc.lib
+    dbus
     icu
+    libcxx
+    libsecret
+    libx11
     openssl
+    webkitgtk_4_1
     zlib
   ];
 in
