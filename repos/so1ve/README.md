@@ -42,23 +42,6 @@ imports = [
 
 ## Flake
 
-### Overlay
-
-The default overlay exports every package in this repository through the consuming Nixpkgs instance.
-
-```nix
-{
-  inputs.so1ve = {
-    url = "github:so1ve/nur-packages";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
-  nixpkgs.overlays = [ inputs.so1ve.overlays.default ];
-
-  environment.systemPackages = [ pkgs.peazip-rar ];
-}
-```
-
 ### Run or install
 
 ```bash

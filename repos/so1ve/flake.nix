@@ -38,14 +38,6 @@
         };
     in
     {
-      overlays.default =
-        _: prev:
-        builtins.removeAttrs
-          (import ./default.nix {
-            pkgs = prev;
-          })
-          [ "homeModules" ];
-
       homeModules = import ./home-modules;
 
       legacyPackages = forAllSystems repositoryFor;
