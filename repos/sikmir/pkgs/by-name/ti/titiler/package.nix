@@ -12,13 +12,13 @@
 }:
 let
   pname = "titiler";
-  version = "2.0.4";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     tag = version;
-    hash = "sha256-E/i7OT5xWJLQbuIOCGyCj9pGU6cdpykT6/EgyeG0iPk=";
+    hash = "sha256-n/sCN+9KgNpsTGEVaU0ViiVRVOyDoxU00mLvoHTUYvg=";
   };
 
   meta = {
@@ -40,6 +40,7 @@ let
 
     dependencies = with python3Packages; [
       fastapi
+      starlette
       geojson-pydantic
       jinja2
       numpy
@@ -48,7 +49,6 @@ let
       rio-tiler
       morecantile
       simplejson
-      typing-extensions
     ];
 
     optional-dependencies = {
@@ -61,10 +61,15 @@ let
       ];
     };
 
-    nativeCheckInputs = [
-      python3Packages.pytestCheckHook
+    nativeCheckInputs = with python3Packages; [
+      pytestCheckHook
+      pytest-cov-stub
+      pytest-asyncio
+      httpx2
     ]
     ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
+
+    pytestFlags = [ "-pno:cacheprovider" ];
   });
 
   titiler-extensions = python3Packages.buildPythonPackage (finalAttrs: {
@@ -85,9 +90,12 @@ let
     nativeCheckInputs =
       with python3Packages;
       [
-        jsonschema
+        httpx2
         owslib
+        pystac
         pytestCheckHook
+        pytest-asyncio
+        pytest-cov-stub
       ]
       ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
 
@@ -105,7 +113,6 @@ let
     build-system = with python3Packages; [ hatchling ];
 
     dependencies = [
-      cogeo-mosaic
       titiler-core
     ];
 
@@ -116,8 +123,11 @@ let
     nativeCheckInputs =
       with python3Packages;
       [
+        httpx2
         owslib
         pytestCheckHook
+        pytest-asyncio
+        pytest-cov-stub
       ]
       ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
   });
@@ -138,6 +148,7 @@ let
       zarr
       starlette-cramjam
       pydantic-settings
+      httpx2
     ];
 
     optional-dependencies = {
@@ -195,12 +206,17 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   nativeCheckInputs = with python3Packages; [
     boto3
+    brotlipy
     pytestCheckHook
+    pytest-asyncio
+    pytest-cov-stub
   ];
 
   disabledTests = [
     "test_mosaic_auth_error" # requires network
   ];
+
+  dontCheckPythonMetadata = true;
 
   postInstall =
     let
