@@ -298,5 +298,6 @@ in
       nanoyaki
       ataraxiasjel
     ];
+    doc = ./suwayomi-server.md;
   };
 }
