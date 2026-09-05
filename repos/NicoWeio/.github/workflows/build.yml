@@ -1,0 +1,54 @@
+name: Build packages
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # Weekly check whether upstream broke our packages
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    name: Evaluate and build packages (${{ matrix.channel }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        channel:
+          - nixos-26.05
+          - nixos-unstable
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:${{ matrix.channel }}
+
+      - name: Cache Nix store paths
+        uses: DeterminateSystems/magic-nix-cache-action@v14
+
+      - name: Evaluate package set
+        run: |
+          nix-env -f . -qaP \
+            --arg pkgs 'import <nixpkgs> { config.allowUnfree = true; }' \
+            --json | jq -r 'keys[]'
+
+      - name: Build all packages
+        run: |
+          nix-env -f . -qaP \
+            --arg pkgs 'import <nixpkgs> { config.allowUnfree = true; }' \
+            --json \
+          | jq -r 'keys[]' \
+          | while IFS= read -r attribute; do
+              echo "Building $attribute"
+              nix-build --no-out-link \
+                -A "$attribute" \
+                --arg pkgs 'import <nixpkgs> { config.allowUnfree = true; }'
+            done
