@@ -20,6 +20,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   build-system = with python3Packages; [ setuptools ];
 
+  pythonRelaxDeps = true;
+
   dependencies = with python3Packages; [
     geopy
     gpxpy

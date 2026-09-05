@@ -39,5 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = stdenv.hostPlatform.isDarwin; # mpich is broken
   };
 })
