@@ -1,0 +1,356 @@
+HTTP/2 fingerprinting extracted from https://github.com/Xetera/nginx-http2-fingerprint
+(commit b44c3803b5b34431dc3c61078f30d8be5bcab3e9, based on nginx 1.21.2).
+Ported to OpenResty 1.31.1.1's bundled nginx-1.31.1: only the fingerprint
+collection points (SETTINGS / PRIORITY / WINDOW_UPDATE frames, pseudo-header
+names in ngx_http_v2.c) and the $http2_fingerprint variable in
+ngx_http_v2_module.c were kept; the upstream fork's other changes (request
+body rework reverts, ssl_ciphers reordering) are unrelated to nginx 1.21.2
+and were dropped. Differences from the original fork: fp allocation moved
+before the c->buffer early-handler loop in ngx_http_v2_init (the buffer loop
+invokes state handlers before the old insertion point, which would deref
+fp == NULL on connections with a pre-read preface), and priority frames
+record h2c->state.sid directly (state_priority no longer holds a stream).
+Applied with patch -p1 inside bundle/nginx-1.*.
+
+diff -ru a/src/http/v2/ngx_http_v2.c b/src/http/v2/ngx_http_v2.c
+--- a/src/http/v2/ngx_http_v2.c	2026-05-24 21:27:09.000000000 -0700
++++ b/src/http/v2/ngx_http_v2.c	2026-09-04 20:48:15.114526700 -0700
+@@ -272,6 +272,20 @@
+         return;
+     }
+ 
++    h2c->fp = ngx_palloc(c->pool, sizeof(ngx_http_v2_fingerprint_t));
++    // This is probably not something worth closing the connection over
++    if (h2c->fp == NULL) {
++        ngx_http_close_connection(c);
++        return;
++    }
++    // connections are reused and this needs to be toggled to prevent duplicate parsing
++    h2c->fp->fingerprinted = 0;
++    h2c->fp->settings = ngx_list_create(c->pool, 1, sizeof(ngx_http_v2_setting_t));
++    // there's usually at least one priority frame
++    h2c->fp->priorities = ngx_list_create(c->pool, 1, sizeof(ngx_http_v2_fingerprint_priority_t));
++    // Any legitimate request will have 3-4 headers
++    h2c->fp->pseudo_headers = ngx_list_create(c->pool, 1, sizeof(ngx_str_t));
++
+     if (ngx_http_v2_send_settings(h2c) == NGX_ERROR) {
+         ngx_http_close_connection(c);
+         return;
+@@ -1788,6 +1802,11 @@
+                            "http2 header: \":%V: %V\"",
+                            &header->name, &header->value);
+ 
++            if (!h2c->fp->fingerprinted) {
++                ngx_str_t* header_name = ngx_list_push(h2c->fp->pseudo_headers);
++                header_name->data = header->name.data;
++                header_name->len = header->name.len;
++            }
+             return ngx_http_v2_state_header_complete(h2c, pos, end);
+         }
+ 
+@@ -2058,6 +2077,18 @@
+ 
+     ngx_http_v2_set_dependency(h2c, node, depend, excl);
+ 
++    // not sure if priority frames should be getting accumulated across
++    // reuses of the same connection. Akamai's whitepaper had examples of
++    // clients connecting with multiple priority frames which I think means
++    // they collect priority frames over time
++    if (!h2c->fp->fingerprinted) {
++        ngx_http_v2_fingerprint_priority_t* fp_priority = ngx_list_push(h2c->fp->priorities);
++        fp_priority->stream_id = h2c->state.sid;
++        fp_priority->exclusivity = excl;
++        fp_priority->dependent_stream_id = depend;
++        fp_priority->weight = weight;
++    }
++
+     return ngx_http_v2_state_complete(h2c, pos, end);
+ }
+ 
+@@ -2209,6 +2240,10 @@
+         ngx_log_debug2(NGX_LOG_DEBUG_HTTP, h2c->connection->log, 0,
+                        "http2 setting %ui:%ui", id, value);
+ 
++        ngx_http_v2_setting_t* setting = ngx_list_push(h2c->fp->settings);
++        setting->name = id;
++        setting->value = value;
++
+         switch (id) {
+ 
+         case NGX_HTTP_V2_INIT_WINDOW_SIZE_SETTING:
+@@ -2517,6 +2552,7 @@
+         }
+     }
+ 
++    h2c->fp->window_update = window;
+     return ngx_http_v2_state_complete(h2c, pos, end);
+ }
+ 
+diff -ru a/src/http/v2/ngx_http_v2.h b/src/http/v2/ngx_http_v2.h
+--- a/src/http/v2/ngx_http_v2.h	2026-05-24 21:27:09.000000000 -0700
++++ b/src/http/v2/ngx_http_v2.h	2026-09-04 20:48:15.113712725 -0700
+@@ -121,7 +121,33 @@
+ } ngx_http_v2_hpack_t;
+ 
+ 
++typedef struct {
++    size_t stream_id;
++    ngx_uint_t exclusivity;
++    ngx_uint_t dependent_stream_id;
++    ngx_uint_t weight;
++} ngx_http_v2_fingerprint_priority_t;
++
++typedef struct {
++    ngx_uint_t                        name;
++    ngx_uint_t                        value;
++} ngx_http_v2_setting_t;
++
++typedef struct {
++    size_t window_update;
++
++    /* ngx_http_v2_header_t */
++    ngx_list_t* settings;
++    /* ngx_http_v2_fingerprint_priority_t */
++    ngx_list_t* priorities;
++    /* ngx_str_t */
++    ngx_list_t* pseudo_headers;
++    unsigned enable_push:1;
++    unsigned fingerprinted:1;
++} ngx_http_v2_fingerprint_t ;
++
+ struct ngx_http_v2_connection_s {
++    ngx_http_v2_fingerprint_t       *fp;
+     ngx_connection_t                *connection;
+     ngx_http_connection_t           *http_connection;
+ 
+@@ -293,6 +319,19 @@
+ }
+ 
+ 
++static ngx_inline size_t
++num_of_digits(int n)
++{
++    int c = 0;
++    if (n < 9) {
++        return 1;
++    }
++    for (; n; n /= 10) {
++        ++c;
++    }
++    return c;
++}
++
+ void ngx_http_v2_init(ngx_event_t *rev);
+ 
+ ngx_int_t ngx_http_v2_read_request_body(ngx_http_request_t *r);
+diff -ru a/src/http/v2/ngx_http_v2_module.c b/src/http/v2/ngx_http_v2_module.c
+--- a/src/http/v2/ngx_http_v2_module.c	2026-05-24 21:27:09.000000000 -0700
++++ b/src/http/v2/ngx_http_v2_module.c	2026-09-04 20:48:23.358678068 -0700
+@@ -13,6 +13,9 @@
+ 
+ static ngx_int_t ngx_http_v2_add_variables(ngx_conf_t *cf);
+ 
++static ngx_int_t ngx_http_v2_fingerprint_variable(ngx_http_request_t *r,
++    ngx_http_variable_value_t *v, uintptr_t data);
++
+ static ngx_int_t ngx_http_v2_variable(ngx_http_request_t *r,
+     ngx_http_variable_value_t *v, uintptr_t data);
+ 
+@@ -217,8 +220,9 @@
+ 
+     { ngx_string("http2"), NULL,
+       ngx_http_v2_variable, 0, 0, 0 },
+-
+-      ngx_http_null_variable
++    { ngx_string("http2_fingerprint"), NULL,
++      ngx_http_v2_fingerprint_variable, 0, 0, 0 },
++      ngx_http_null_variable,
+ };
+ 
+ 
+@@ -241,6 +245,185 @@
+ }
+ 
+ 
++void
++calculate_fingerprint(ngx_http_request_t *r, ngx_str_t* out)
++{
++    size_t cur = 0;
++    ngx_list_part_t *part;
++    ngx_http_v2_setting_t* setting;
++    ngx_http_v2_fingerprint_priority_t* priority;
++
++    ngx_http_v2_fingerprint_t* fp = r->stream->connection->fp;
++    ngx_list_part_t* setting_start = &fp->settings->part;
++    ngx_list_part_t* prio_start = &fp->priorities->part;
++
++    size_t setting_count = 0;
++    size_t priority_count = 0;
++    size_t header_count = 0;
++
++    part = &fp->settings->part;
++    setting = part->elts;
++
++    // the amount of semicolons and colons in between kv pairs - 1 at the end
++    size_t len = 0;
++    while (part) {
++        setting_count++;
++        setting = part->elts;
++        len += num_of_digits(setting->name)
++            + 1
++            + num_of_digits(setting->value) +
++            (part->next != NULL ? 1 : 0);
++        part = part->next;
++    }
++    // |12345| <- plus 2 pipes
++    // |00| if there's no window_update
++    size_t window_update_length = (fp->window_update == 0 ? 2 : num_of_digits(fp->window_update)) + 2;
++    len += window_update_length;
++
++    part = &fp->priorities->part;
++
++    // not counting pipes here, it's handled by header order
++    while (part) {
++        priority = part->elts;
++        priority_count++;
++        // 3 = num of colons
++        len += 3
++            + num_of_digits(priority->stream_id)
++            + num_of_digits(priority->exclusivity)
++            + num_of_digits(priority->dependent_stream_id)
++            + num_of_digits(priority->weight)
++            + (part->next != NULL ? 1 : 0 );
++
++        if (part->next == NULL) {
++            break;
++        }
++        part = part->next;
++    }
++    if (priority_count == 0) {
++        len+= 1;
++    }
++    // each header is one character separated by commas plus a pipe
++    part = &fp->pseudo_headers->part;
++    while (part) {
++        header_count++;
++        part = part->next;
++    }
++
++    len += (2 * header_count) + 1 ;
++
++    out->data = ngx_pnalloc(r->pool, len);
++    out->len = len;
++
++    part = setting_start;
++    while (part) {
++        setting = part->elts;
++        size_t part_len = num_of_digits(setting->name) + 1 + num_of_digits(setting->value);
++        if (part->next != NULL) {
++            // semicolon
++            part_len += 1;
++            ngx_snprintf(out->data + cur, part_len, "%ui:%ui;", setting->name, setting->value);
++        } else {
++            ngx_snprintf(out->data + cur, part_len, "%ui:%ui", setting->name, setting->value);
++        }
++        cur += part_len;
++        part = part->next;
++    }
++
++    /// Window Update
++    if (fp->window_update != 0) {
++        size_t part_len = num_of_digits(fp->window_update) + 2;
++        ngx_snprintf(out->data + cur, part_len, "|%ui|", fp->window_update);
++    } else {
++        ngx_snprintf(out->data + cur, window_update_length, "|00|");
++    }
++    cur += window_update_length;
++
++    /// Priority
++    if (priority_count == 0) {
++        ngx_snprintf(out->data + (cur++), 1, "0");
++    } else {
++        part = prio_start;
++        while (part) {
++            ngx_http_v2_fingerprint_priority_t* p = part->elts;
++            // 3 = num of colons
++            size_t part_len = 3
++                + num_of_digits(p->stream_id)
++                + num_of_digits(p->exclusivity)
++                + num_of_digits(p->dependent_stream_id)
++                + num_of_digits(p->weight);
++            if (part->next != NULL) {
++                // extra comma
++                part_len += 1;
++                ngx_snprintf(out->data + cur, part_len, "%ui:%ui:%ui:%ui,",
++                    p->stream_id,
++                    p->exclusivity,
++                    p->dependent_stream_id,
++                    p->weight
++                );
++            } else {
++                ngx_snprintf(out->data + cur, part_len, "%ui:%ui:%ui:%ui",
++                    p->stream_id,
++                    p->exclusivity,
++                    p->dependent_stream_id,
++                    p->weight
++                );
++            }
++            cur += part_len;
++
++            if (part->next == NULL) {
++                break;
++            }
++            part = part->next;
++        }
++    }
++    // Pseudo headers
++    ngx_list_part_t* headers = &fp->pseudo_headers->part;
++    if (header_count > 0) {
++        ngx_snprintf(out->data + (cur++), 1, "|");
++        while (headers) {
++            ngx_str_t* header = headers->elts;
++            // nginx already strips out the leading colon of pseudo headers
++            int header_prefix = (header->data)[0];
++            len = 1;
++            if (headers->next != NULL) {
++                // extra comma
++                len += 1;
++                ngx_snprintf(out->data + cur, len, "%c,", header_prefix);
++            } else {
++                ngx_snprintf(out->data + cur, len, "%c", header_prefix);
++            }
++            cur += len;
++            headers = headers->next;
++        }
++    }
++
++    out->len = cur;
++}
++
++static ngx_int_t
++ngx_http_v2_fingerprint_variable(ngx_http_request_t *r,
++    ngx_http_variable_value_t *v, uintptr_t data)
++{
++    ngx_str_t fp = ngx_null_string;
++    if (r->connection == NULL) {
++        return NGX_OK;
++    }
++    if (r->stream) {
++        // prevent data from being collected form the same connection again
++        r->stream->connection->fp->fingerprinted = 1;
++        calculate_fingerprint(r, &fp);
++
++        v->data = fp.data;
++        v->len = fp.len;
++        v->valid = 1;
++        v->no_cacheable = 1;
++        v->not_found = 0;
++        return NGX_OK;
++    }
++    *v = ngx_http_variable_null_value;
++    return NGX_OK;
++}
++
+ static ngx_int_t
+ ngx_http_v2_variable(ngx_http_request_t *r,
+     ngx_http_variable_value_t *v, uintptr_t data)

@@ -119,6 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
       ${patch ./patches/nginx-oqs-curves.patch}
       ${patch ./patches/nginx-binary-remote-network.patch}
       ${patch ./patches/nginx-ja4.patch}
+      ${patch ./patches/nginx-http2-fingerprint.patch}
       ${patch patchUring}
 
       install -Dm644 ${oqs-lookup}/oqs_lookup.c src/event/ngx_event_openssl_oqs_lookup.c
