@@ -3,5 +3,5 @@
 }:
 
 {
-  chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
+  crunchyroll = pkgs.callPackage ./pkgs/crunchyroll { };
 }
