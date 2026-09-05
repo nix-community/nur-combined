@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
   qt5,
@@ -46,6 +45,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/Absolute-Tinkerer/map-stylizer";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = stdenv.hostPlatform.isDarwin;
+    broken = true;
   };
 }
