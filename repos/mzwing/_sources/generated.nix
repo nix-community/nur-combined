@@ -178,13 +178,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.41.2";
+    version = "v0.41.3";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.41.2";
+      rev = "v0.41.3";
       fetchSubmodules = false;
-      sha256 = "sha256-+WvY7r96XInlvxbtZ+M5pMd80mjp1mieMqAIhIFUtuI=";
+      sha256 = "sha256-3sFPheY1HByo+Yr/8WDimJHQvs2aCz+y4TBuqjCcU48=";
     };
   };
   manboster = {
@@ -234,15 +234,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "8d0d0d311778cb0aecb5fc957d571a38f286fda0";
+    version = "55762a50d21ecaff480c95f1ac4017342b017d02";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "8d0d0d311778cb0aecb5fc957d571a38f286fda0";
+      rev = "55762a50d21ecaff480c95f1ac4017342b017d02";
       fetchSubmodules = true;
-      sha256 = "sha256-Q5v8vxkDjRPXEKgVg7K1/FFO8jgK0e56V8VMBAK9Vbs=";
+      sha256 = "sha256-jzGMXkp73idvNxIYUT/X6suFvnQ08G+fONpKxoTlHEQ=";
     };
-    date = "2026-09-04";
+    date = "2026-09-05";
   };
   replay-fish = {
     pname = "replay-fish";
@@ -258,13 +258,13 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.1";
+    version = "v1.15.0-alpha.2";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.1";
+      rev = "v1.15.0-alpha.2";
       fetchSubmodules = false;
-      sha256 = "sha256-Qrb8+9DZZvVjdvDj01vmbNw+3N5aMGB2q+WV9+t5fAw=";
+      sha256 = "sha256-KICV5xh9bOcdBkGAklIzSMXNYY/LxpbukgkW2vzYFuA=";
     };
   };
   sing-box-beta = {

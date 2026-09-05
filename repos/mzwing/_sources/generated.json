@@ -327,12 +327,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.41.2",
-            "sha256": "sha256-+WvY7r96XInlvxbtZ+M5pMd80mjp1mieMqAIhIFUtuI=",
+            "rev": "v0.41.3",
+            "sha256": "sha256-3sFPheY1HByo+Yr/8WDimJHQvs2aCz+y4TBuqjCcU48=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.41.2"
+        "version": "v0.41.3"
     },
     "manboster": {
         "cargoLock": null,
@@ -420,7 +420,7 @@
     },
     "pumpkin": {
         "cargoLock": null,
-        "date": "2026-09-04",
+        "date": "2026-09-05",
         "extract": null,
         "name": "pumpkin",
         "passthru": null,
@@ -432,12 +432,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "8d0d0d311778cb0aecb5fc957d571a38f286fda0",
-            "sha256": "sha256-Q5v8vxkDjRPXEKgVg7K1/FFO8jgK0e56V8VMBAK9Vbs=",
+            "rev": "55762a50d21ecaff480c95f1ac4017342b017d02",
+            "sha256": "sha256-jzGMXkp73idvNxIYUT/X6suFvnQ08G+fONpKxoTlHEQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8d0d0d311778cb0aecb5fc957d571a38f286fda0"
+        "version": "55762a50d21ecaff480c95f1ac4017342b017d02"
     },
     "replay-fish": {
         "cargoLock": null,
@@ -474,12 +474,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.15.0-alpha.1",
-            "sha256": "sha256-Qrb8+9DZZvVjdvDj01vmbNw+3N5aMGB2q+WV9+t5fAw=",
+            "rev": "v1.15.0-alpha.2",
+            "sha256": "sha256-KICV5xh9bOcdBkGAklIzSMXNYY/LxpbukgkW2vzYFuA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.0-alpha.1"
+        "version": "v1.15.0-alpha.2"
     },
     "sing-box-beta": {
         "cargoLock": null,
