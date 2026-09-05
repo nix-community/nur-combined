@@ -15,8 +15,8 @@ amule.overrideAttrs (old: {
   patches = [ ];
 
   cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
-    "-DENABLE_BOOST=FALSE"
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
+    (lib.cmakeBool "ENABLE_BOOST" false)
   ];
 
   postPatch = (old.postPatch or "") + ''

@@ -14,14 +14,16 @@ let
   # CMAKE_OSX_ARCHITECTURES is set to x86_64 by Nix, but it confuses boringssl on aarch64-linux.
   cmakeFlags = [
     "-GNinja"
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DLIBOQS_DIR=${liboqs-unstable}"
-    "-DLIBOQS_SHARED=ON"
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    "-DCMAKE_SKIP_INSTALL_RPATH=ON"
+    (lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release")
+    (lib.cmakeFeature "LIBOQS_DIR" "${liboqs-unstable}")
+    (lib.cmakeBool "LIBOQS_SHARED" true)
+    (lib.cmakeBool "BUILD_SHARED_LIBS" true)
+    (lib.cmakeBool "CMAKE_SKIP_BUILD_RPATH" true)
+    (lib.cmakeBool "CMAKE_SKIP_INSTALL_RPATH" true)
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ "-DCMAKE_OSX_ARCHITECTURES=" ];
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    (lib.cmakeFeature "CMAKE_OSX_ARCHITECTURES" "")
+  ];
 in
 buildGoModule (finalAttrs: {
   pname = "boringssl-oqs";

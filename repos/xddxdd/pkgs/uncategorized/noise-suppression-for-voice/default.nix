@@ -21,15 +21,15 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DUSE_SYSTEM_JUCE=ON"
-    "-DBUILD_FOR_RELEASE=ON"
-    "-DBUILD_VST_PLUGIN=OFF"
-    "-DBUILD_VST3_PLUGIN=OFF"
-    "-DBUILD_LV2_PLUGIN=OFF"
-    "-DBUILD_AU_PLUGIN=OFF"
-    "-DBUILD_AUV3_PLUGIN=OFF"
+    (lib.cmakeBool "USE_SYSTEM_JUCE" true)
+    (lib.cmakeBool "BUILD_FOR_RELEASE" true)
+    (lib.cmakeBool "BUILD_VST_PLUGIN" false)
+    (lib.cmakeBool "BUILD_VST3_PLUGIN" false)
+    (lib.cmakeBool "BUILD_LV2_PLUGIN" false)
+    (lib.cmakeBool "BUILD_AU_PLUGIN" false)
+    (lib.cmakeBool "BUILD_AUV3_PLUGIN" false)
   ]
-  ++ lib.optionals stdenv.hostPlatform.isx86_64 [ "-DBUILD_RTCD=ON" ];
+  ++ lib.optionals stdenv.hostPlatform.isx86_64 [ (lib.cmakeBool "BUILD_RTCD" true) ];
 
   passthru.updateScript = nix-update-script { };
   meta = {

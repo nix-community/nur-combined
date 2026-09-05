@@ -15,18 +15,18 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DOQS_BUILD_ONLY_LIB=1"
-    "-DOQS_USE_OPENSSL=OFF"
+    (lib.cmakeBool "BUILD_SHARED_LIBS" true)
+    (lib.cmakeBool "OQS_BUILD_ONLY_LIB" true)
+    (lib.cmakeBool "OQS_USE_OPENSSL" false)
   ]
   ++ (
     if stdenv.hostPlatform.isx86_64 then
-      [ "-DOQS_DIST_BUILD=ON" ]
+      [ (lib.cmakeBool "OQS_DIST_BUILD" true) ]
     else
       [
         # Disable OQS_DIST_BUILD or it fails with some "target specific option mismatch" error
-        "-DOQS_DIST_BUILD=OFF"
-        "-DOQS_OPT_TARGET=generic"
+        (lib.cmakeBool "OQS_DIST_BUILD" false)
+        (lib.cmakeFeature "OQS_OPT_TARGET" "generic")
       ]
   );
 

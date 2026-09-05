@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   buildInputs = [ oniguruma ];
 
-  cmakeFlags = [ "-DUSE_INSTALLED_ONIGURUMA=ON" ];
+  cmakeFlags = [ (lib.cmakeBool "USE_INSTALLED_ONIGURUMA" true) ];
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/QSPFoundation/qsp";

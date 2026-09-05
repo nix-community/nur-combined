@@ -23,8 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DMETEE_LIB_PATH=${metee}/lib"
-    "-DMETEE_HEADER_PATH=${metee}/include"
+    (lib.cmakeFeature "ETEE_LIB_PATH" "${metee}/lib")
+    (lib.cmakeFeature "ETEE_HEADER_PATH" "${metee}/include")
   ];
 
   passthru.updateScript = nix-update-script { };

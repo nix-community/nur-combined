@@ -20,8 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [ openssl ];
 
   cmakeFlags = [
-    "-DOPENSSL_ENGINES_DIR=${placeholder "out"}/lib/ossl-engine"
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+    (lib.cmakeFeature "OPENSSL_ENGINES_DIR" "${placeholder "out"}/lib/ossl-engine")
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
   ];
 
   passthru.updateScript = nix-update-script { };

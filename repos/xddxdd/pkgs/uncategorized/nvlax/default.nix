@@ -19,7 +19,7 @@ let
     };
 
     nativeBuildInputs = [ cmake ];
-    cmakeFlags = [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
+    cmakeFlags = [ (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5") ];
 
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zycore-config.cmake.in
@@ -40,8 +40,8 @@ let
     buildInputs = [ zycoreOld ];
 
     cmakeFlags = [
-      "-DZYDIS_SYSTEM_ZYCORE=ON"
-      "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+      (lib.cmakeBool "ZYDIS_SYSTEM_ZYCORE" true)
+      (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
     ];
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zydis-config.cmake.in
@@ -66,9 +66,9 @@ let
     env.CXXFLAGS = "-include cstdint";
 
     cmakeFlags = [
-      "-DLIEF_PYTHON_API=OFF"
-      "-DLIEF_EXAMPLES=OFF"
-      "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+      (lib.cmakeBool "LIEF_PYTHON_API" false)
+      (lib.cmakeBool "LIEF_EXAMPLES" false)
+      (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
     ];
 
     # https://github.com/lief-project/LIEF/issues/770
@@ -106,10 +106,10 @@ stdenv.mkDerivation (finalAttrs: {
     liefOld
   ];
   cmakeFlags = [
-    "-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}"
-    "-DLIEF_INCLUDE_DIRS=${liefOld}/include"
-    "-DLIEF_LIBRARIES=${liefOld}/lib/libLIEF.a"
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+    (lib.cmakeFeature "PPK_ASSERT_SOURCE_DIR" "${ppkAssertOld}")
+    (lib.cmakeFeature "LIEF_INCLUDE_DIRS" "${liefOld}/include")
+    (lib.cmakeFeature "LIEF_LIBRARIES" "${liefOld}/lib/libLIEF.a")
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
   ];
 
   meta = {

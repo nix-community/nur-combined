@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     openssl_3
   ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = [ (lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release") ];
 
   postPatch = ''
     cp -r ${qscKeyEncoderSrc} qsc-key-encoder

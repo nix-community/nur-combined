@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     qsp-wx
   ];
 
-  cmakeFlags = [ "-DUSE_INSTALLED_WX=ON" ];
+  cmakeFlags = [ (lib.cmakeBool "USE_INSTALLED_WX" true) ];
 
   passthru = {
     inherit qsp-lib qsp-wx;
