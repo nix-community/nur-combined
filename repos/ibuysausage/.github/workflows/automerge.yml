@@ -1,0 +1,29 @@
+name: automerge
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "Build and populate cache"
+    types:
+      - completed
+
+jobs:
+  automerge:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: automerge
+        uses: pascalgn/automerge-action@v0.16.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.FLAKE_LOCK_PAT }}
+          MERGE_COMMIT_MESSAGE: "pull-request-title"
+          MERGE_FORKS: "false"
+          MERGE_DELETE_BRANCH: "true"
+          MERGE_METHOD: "squash"
+          MERGE_LABELS: ""
