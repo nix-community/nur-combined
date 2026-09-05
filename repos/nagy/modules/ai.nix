@@ -22,8 +22,8 @@ in
     PI_SKIP_VERSION_CHECK = "1";
     PONYTAIL_DEFAULT_MODE = "off";
 
-    # Custom tool ../bin/aiagent.rs
-    AIAGENT_ENVS = lib.concatStringsSep "," [
+    # Custom tool ../bin/agent.rs
+    AGENT_ENVS = lib.concatStringsSep "," [
       "PI_TELEMETRY"
       "PI_OFFLINE"
       "PI_SKIP_VERSION_CHECK"
