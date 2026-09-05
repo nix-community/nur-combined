@@ -1764,8 +1764,8 @@
             "url": "https://github.com/mzntori/nur-packages"
         },
         "mzwing": {
-            "rev": "f997f477318a4a52d16b1042fd4ec713c2157581",
-            "sha256": "0hk0kbyh2vfj6jpy5xqmrmfv2bcchxmnsbiccs0n68a7552fyhqs",
+            "rev": "ff57e7948c1ab7216dab09b7c306628ab5a0d921",
+            "sha256": "0yfn9w0pff5p9r9qkml6ifwyihcj08prwmgfhz1dkr7r4lnjys1b",
             "url": "https://github.com/mzwing/nur-packages"
         },
         "n1kolasM": {
@@ -1944,8 +1944,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "b560c8f20d10636e790627e7b5cddcc7e13dfb4c",
-            "sha256": "1zh25jcrljc4mclm8fx7vlzixrq2rya8w3blfiwa489i1djnfpvc",
+            "rev": "2eb8a1144cb559175b1a92fcce268f731f6b40e3",
+            "sha256": "1cgja7zkyyy80gwk6av7slxmdyzma42421lsr3ajyk7hg1n2h82i",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
@@ -2447,8 +2447,8 @@
             "url": "https://github.com/therobot2105/nur-packages"
         },
         "thestaccato": {
-            "rev": "d7496c1c630473e3ca68bc5bf832b09d8be06b7c",
-            "sha256": "0aks04vb11wgly4x3lp7ng3as7b7kj6189ay6x10dcwn80w5cdiy",
+            "rev": "37ffdd240481ad13325eb8a5337356bd1659e1c3",
+            "sha256": "18i8571ymhw95mihp7nd179q23fkbplky0gpqap9nj25hw7p2x8g",
             "url": "https://github.com/thestaccato/nur-packages"
         },
         "theutz": {
