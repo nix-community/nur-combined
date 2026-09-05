@@ -2,32 +2,54 @@ name: "Build and populate cache"
 on:
   pull_request:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
   schedule:
     - cron: "45 11 * * *"
   workflow_dispatch:
+
 permissions:
   contents: read
   id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     strategy:
+      fail-fast: false
       matrix:
-        nurRepo:
-          - MCSeekeri
         nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+      - name: Backup Node toolchain for niks3
+        shell: bash
+        run: |
+          echo "Backing up hostedtoolcache (mv, not cp, ~1s)..."
+          # 用 mv 硬改名，比 cp -a 快 100倍，/opt 和 /tmp 同在根盘，mv 只是改 inode
+          sudo mv /opt/hostedtoolcache /tmp/hostedtoolcache-backup 2>&1 | tail -n 5 || true
+          ls /opt/hostedtoolcache 2>&1 | head -n 5 || echo "backup: /opt/hostedtoolcache moved away"
+          ls /tmp/hostedtoolcache-backup 2>&1 | head -n 5 || true
       - uses: wimpysworld/nothing-but-nix@main
         with:
-          hatchet-protocol: 'carve'
+          hatchet-protocol: "rampage"
+          witness-carnage: true
+          root-safe-haven: "512"
+          mnt-safe-haven: "100"
+      - name: Restore Node toolchain for JS Actions
+        shell: bash
+        run: |
+          echo "Restoring hostedtoolcache (mv, ~1s)..."
+          sudo mkdir -p /opt
+          sudo rm -rf /opt/hostedtoolcache 2>&1 | tail -n 5 || true
+          sudo mv /tmp/hostedtoolcache-backup /opt/hostedtoolcache 2>&1 | tail -n 5 || true
+          ls /opt/hostedtoolcache 2>&1 | head -n 10 || true
+          node --version 2>&1 | head -n 5 || true; which node 2>&1 | head -n 5 || true
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -60,18 +82,49 @@ jobs:
       - name: Build nix packages
         shell: bash
         run: |
-          heartbeat() {
-            while sleep 5m; do
-              echo "::notice::Nix build is still running at $(date --iso-8601=seconds)"
+          heartbeat() { while sleep 5m; do echo "::notice::Nix build still running at $(date -Iseconds)"; done; }
+          sysinfo() {
+            while sleep 3m; do
+              echo "::group::📊 System Info $(date -Iseconds)"
+              echo "--- CPU / Load ---"
+              cat /proc/loadavg 2>&1 || true; uptime 2>&1 || true; nproc 2>&1 | xargs echo "nproc:" || true
+              lscpu 2>&1 | head -n 25 || true; cat /proc/cpuinfo 2>&1 | grep -E "model name|cpu cores" | head -n 5 || true
+              if command -v mpstat >/dev/null 2>&1; then mpstat -P ALL 1 1 2>&1 | tail -n 20 || true; else echo "mpstat not found (sysstat not purged by rampage)"; fi
+              echo "--- PSI Pressure (if available) ---"
+              cat /proc/pressure/cpu 2>&1 | head -n 10 || echo "no cpu pressure"; cat /proc/pressure/memory 2>&1 | head -n 10 || echo "no memory pressure"; cat /proc/pressure/io 2>&1 | head -n 10 || echo "no io pressure"
+              echo "--- Memory ---"
+              free -h 2>&1 || true; cat /proc/meminfo 2>&1 | head -n 30 || true
+              echo "--- vmstat 1 2 ---"; vmstat -w 1 2 2>&1 | tail -n 15 || vmstat 1 2 2>&1 | tail -n 15 || true
+              if command -v vmstat >/dev/null; then echo "vmstat OK (procps, survives rampage)"; fi
+              echo "--- Disk / Inode ---"
+              df -h 2>&1 || true; df -i 2>&1 || true; lsblk -f 2>&1 | head -n 20 || true; mount 2>&1 | grep -E "btrfs|/nix|/mnt" | head -n 20 || true
+              echo "--- Swap ---"; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true
+              echo "--- /nix BTRFS (btrfs-progs survives rampage) ---"
+              sudo btrfs filesystem usage /nix 2>&1 | head -n 50 || sudo btrfs filesystem show /nix 2>&1 | head -n 50 || sudo btrfs filesystem df /nix 2>&1 | head -n 50 || true
+              echo "--- /nix Store Size (coreutils, survives) ---"
+              du -sh /nix 2>&1 | head -n 5 || true; du -sh /nix/store 2>&1 | head -n 5 || true; du -sh /nix/build 2>&1 | head -n 5 || true; du -sh /mnt 2>&1 | head -n 5 || true; du -sh / 2>&1 | head -n 5 || true
+              echo "--- Top CPU/MEM (procps, survives) ---"
+              ps aux --sort=-%cpu 2>&1 | head -n 30 || true; echo "--- Top MEM ---"; ps aux --sort=-%mem 2>&1 | head -n 15 || true
+              if command -v pidstat >/dev/null 2>&1; then echo "--- pidstat ---"; pidstat -rud 1 1 2>&1 | tail -n 20 || true; fi
+              echo "--- Network / Sockets (iproute2, survives) ---"
+              ss -s 2>&1 | head -n 20 || ss -tuln 2>&1 | head -n 20 || true; cat /proc/net/dev 2>&1 | head -n 20 || true
+              echo "--- Open Files / FD ---"
+              lsof 2>&1 | wc -l | xargs echo "lsof count:" || echo "lsof not found"; ls -l /proc/self/fd 2>&1 | head -n 20 || true; cat /proc/sys/fs/file-nr 2>&1 || true
+              echo "--- dmesg OOM Killer (util-linux, survives) ---"
+              dmesg 2>&1 | tail -n 30 | grep -i -E "oom|killed|error|fail" | head -n 30 || dmesg 2>&1 | tail -n 30 || true
+              echo "--- journalctl errors (systemd, survives) ---"
+              journalctl -p 3 -n 20 --no-pager 2>&1 | head -n 30 || journalctl --no-pager -n 30 2>&1 | head -n 30 || true
+              echo "--- I/O Stat (sysstat, survives rampage) ---"
+              if command -v iostat >/dev/null 2>&1; then iostat -x 1 2 2>&1 | tail -n 30 || true; else echo "iostat not found"; vmstat -D 2>&1 | head -n 20 || true; fi
+              if command -v sar >/dev/null 2>&1; then sar -u 1 1 2>&1 | tail -n 20 || true; fi
+              echo "::endgroup::"
             done
           }
-
-          heartbeat &
-          heartbeat_pid=$!
-          trap 'kill "$heartbeat_pid" 2>/dev/null || true; wait "$heartbeat_pid" 2>/dev/null || true' EXIT
-
+          heartbeat & heartbeat_pid=$!
+          sysinfo & sysinfo_pid=$!
+          trap 'kill "$heartbeat_pid" "$sysinfo_pid" 2>/dev/null || true; wait "$heartbeat_pid" 2>/dev/null || true; wait "$sysinfo_pid" 2>/dev/null || true' EXIT
           nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached \
-            --show-trace --option log-lines 0 \
-            ci.nix -A cacheOutputs
+            --show-trace --option log-lines 0 ci.nix -A cacheOutputs
       - name: Trigger NUR update
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=MCSeekeri"
