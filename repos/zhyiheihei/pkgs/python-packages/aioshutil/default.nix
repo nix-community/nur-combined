@@ -8,7 +8,9 @@
 buildPythonPackage rec {
   pname = "aioshutil";
   inherit (sources.aioshutil) version src;
-  format = "setuptools";
+  # 1.7a1 起上游移除 setup.py，仅保留 pyproject.toml（setuptools backend），
+  # format 须用 pyproject 走 PEP 517，setuptools 旧格式会去找 setup.py。
+  format = "pyproject";
 
   build-system = [
     setuptools
