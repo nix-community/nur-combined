@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 51 packages.
+Generated from 54 packages.
 
 ## `ambient-build-vm`
 
@@ -13,7 +13,7 @@ Generated from 51 packages.
 ## `ambient-ci`
 
 - **Package name:** ambient-ci
-- **Version:** 0.17.0
+- **Version:** 0.19.0
 - **Description:** Ambient continuous integration engine
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** AGPL-3.0-or-later
@@ -45,7 +45,7 @@ Generated from 51 packages.
 ## `blueferry`
 
 - **Package name:** blueferry
-- **Version:** 0.7.0
+- **Version:** 0.7.7
 - **Description:** iPhone iMessage/SMS and notifications bridge to Linux over Bluetooth
 - **Homepage:** [https://github.com/erikwb/blueferry](https://github.com/erikwb/blueferry)
 - **License:** GPL-2.0-only
@@ -61,7 +61,7 @@ Generated from 51 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-08-10
+- **Version:** 0.4.0-unstable-2026-09-04
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -69,9 +69,17 @@ Generated from 51 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.8.8
+- **Version:** 0.8.10
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
+- **License:** Apache-2.0
+
+## `buildstream-sbom`
+
+- **Package name:** buildstream-sbom
+- **Version:** 1.1
+- **Description:** Produce SBOMs describing BuildStream elements and dependencies
+- **Homepage:** [https://gitlab.com/BuildStream/buildstream-sbom/](https://gitlab.com/BuildStream/buildstream-sbom/)
 - **License:** Apache-2.0
 
 ## `cascade`
@@ -89,6 +97,14 @@ Generated from 51 packages.
 - **Description:** KMIP to PKCS#11 bridge for Cascade
 - **Homepage:** [https://github.com/NLnetLabs/cascade-hsm-bridge](https://github.com/NLnetLabs/cascade-hsm-bridge)
 - **License:** BSD-3-Clause
+
+## `claude-desktop`
+
+- **Package name:** claude-desktop
+- **Version:** 1.26832.0
+- **Description:** Desktop application for Claude.ai
+- **Homepage:** [https://claude.ai/download](https://claude.ai/download)
+- **License:** LicenseRef-nixos-unfree
 
 ## `credentialsd`
 
@@ -124,7 +140,7 @@ Generated from 51 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 78.0.0
+- **Version:** 81.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -172,7 +188,7 @@ Generated from 51 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.18.27
+- **Version:** 0.18.42
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-2.1-or-later
@@ -193,10 +209,26 @@ Generated from 51 packages.
 - **Homepage:** [https://gitlab.com/freedesktop-sdk/mkbstosi](https://gitlab.com/freedesktop-sdk/mkbstosi)
 - **License:** LGPL-2.1-or-later
 
+## `mkosi-HEAD`
+
+- **Package name:** mkosi-HEAD
+- **Version:** 27-unstable-2026-09-03
+- **Description:** Build legacy-free OS images, built from git master
+- **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
+- **License:** LGPL-2.1-only
+
+## `mmdebstrap`
+
+- **Package name:** mmdebstrap
+- **Version:** 1.5.7
+- **Description:** Alternative to debootstrap which uses apt internally
+- **Homepage:** [https://gitlab.mister-muffin.de/josch/mmdebstrap/](https://gitlab.mister-muffin.de/josch/mmdebstrap/)
+- **License:** MIT
+
 ## `mxc`
 
 - **Package name:** mxc
-- **Version:** 0.7.0-unstable-2026-07-08
+- **Version:** 0.8.0
 - **Description:** Sandboxed code execution system for running untrusted code
 - **Homepage:** [https://github.com/microsoft/mxc](https://github.com/microsoft/mxc)
 - **License:** MIT
@@ -251,7 +283,7 @@ Generated from 51 packages.
 ## `python3Packages.cache-dit`
 
 - **Package name:** cache-dit
-- **Version:** 1.5.0
+- **Version:** 1.5.1
 - **Description:** Cache-DiT: Accelerating Diffusion Transformers with Dynamic Feature Caching
 - **Homepage:** [https://github.com/vipshop/cache-dit](https://github.com/vipshop/cache-dit)
 - **License:** Apache-2.0
@@ -304,10 +336,18 @@ Generated from 51 packages.
 - **Homepage:** [https://keylime.dev](https://keylime.dev)
 - **License:** Apache-2.0
 
+## `sbuild`
+
+- **Package name:** sbuild
+- **Version:** 0.91.10
+- **Description:** Tool for building Debian binary packages from Debian sources
+- **Homepage:** [https://salsa.debian.org/debian/sbuild](https://salsa.debian.org/debian/sbuild)
+- **License:** GPL-2.0-or-later
+
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-08-09
+- **Version:** 0-unstable-2026-08-14
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -363,9 +403,9 @@ Generated from 51 packages.
 ## `tpm2sh`
 
 - **Package name:** tpm2sh
-- **Version:** 1.0.0
+- **Version:** 1.2.0
 - **Description:** CLI for accessing TPM 2.0 chips on Linux.
-- **Homepage:** [https://gitlab.com/tpm-protocol/tpm2sh](https://gitlab.com/tpm-protocol/tpm2sh)
+- **Homepage:** [https://github.com/jarkkojs/tpm2-library](https://github.com/jarkkojs/tpm2-library)
 - **License:** GPL-3.0-or-later
 
 ## `vmdb2`
@@ -381,28 +421,10 @@ Generated from 51 packages.
 ## `cdash`
 
 - **Package name:** cdash
-- **Version:** 5.2.0
+- **Version:** 5.3.0
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause
-- **Status:** Broken
-
-## `mmdebstrap`
-
-- **Package name:** mmdebstrap
-- **Version:** 1.5.7
-- **Description:** Alternative to debootstrap which uses apt internally
-- **Homepage:** [https://gitlab.mister-muffin.de/josch/mmdebstrap/](https://gitlab.mister-muffin.de/josch/mmdebstrap/)
-- **License:** MIT
-- **Status:** Broken
-
-## `sbuild`
-
-- **Package name:** sbuild
-- **Version:** 0.91.10
-- **Description:** Tool for building Debian binary packages from Debian sources
-- **Homepage:** [https://salsa.debian.org/debian/sbuild](https://salsa.debian.org/debian/sbuild)
-- **License:** GPL-2.0-or-later
 - **Status:** Broken
 
 ## `tubearchivist`
