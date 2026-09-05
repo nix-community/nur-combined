@@ -41,4 +41,5 @@
   quien = pkgs.callPackage ./pkgs/quien { };
   seekey = pkgs.callPackage ./pkgs/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/uipro-cli { };
+  winpodx-bin = pkgs.callPackage ./pkgs/winpodx/binary.nix { };
 }

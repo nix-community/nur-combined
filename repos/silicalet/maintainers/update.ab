@@ -17,6 +17,7 @@ main (args) {
         "quien",
         "seekey",
         "uipro-cli",
+        "winpodx-bin",
     ]
     if len(args) == 1 {
         echo("Usage: nur-packages-update [--arch <system>] <package>...")
