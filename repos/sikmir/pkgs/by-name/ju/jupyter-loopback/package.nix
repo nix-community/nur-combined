@@ -30,6 +30,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     pytest-asyncio
   ];
 
+  __darwinAllowLocalNetworking = true;
+
   meta = {
     description = "Make kernel-local HTTP/WS servers reachable from the notebook browser with zero user config";
     homepage = "https://github.com/banesullivan/jupyter-loopback";
