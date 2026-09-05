@@ -1,0 +1,15 @@
+diff --git a/repos.json b/repos.json
+index 055e67a0f..067842f32 100644
+--- a/repos.json
++++ b/repos.json
+@@ -2090,6 +2090,10 @@
+             "github-contact": "TwIStOy",
+             "url": "https://github.com/TwIStOy/nur-packages"
+         },
++        "tylerstyle": {
++            "github-contact": "tylerstyle",
++            "url": "https://github.com/tylerstyle/nur-packages"
++        },
+         "uleenucks": {
+             "github-contact": "uleenucks",
+             "url": "https://github.com/uleenucks/nurpkgs"
