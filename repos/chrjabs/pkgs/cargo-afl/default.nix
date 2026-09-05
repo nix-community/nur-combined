@@ -2,7 +2,6 @@
 # version you want to use this with
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   rustPlatform,
   aflplusplus,

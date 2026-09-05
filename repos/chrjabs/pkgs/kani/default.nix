@@ -6,7 +6,6 @@
   fetchFromGitHub,
   glibc,
   extend,
-  system,
   rsync,
   makeWrapper,
   stdenv,

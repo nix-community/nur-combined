@@ -52,6 +52,9 @@ rec {
 
   # Solver execution tool
   runsolver = pkgs.callPackage ./pkgs/runsolver { };
+
+  # Cargo minimal versions
+  cargo-minimal-versions = pkgs.callPackage ./pkgs/cargo-minimal-versions { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker

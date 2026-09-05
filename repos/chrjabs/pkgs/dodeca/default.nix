@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   rustc,
   fetchFromGitHub,
@@ -28,30 +27,6 @@ let
       hash = "sha256-iqQiWbsKlLBiJFeqIYiXo3cqxGLSjNM8SOWXGM9u43E=";
     };
   };
-
-  cells = [
-    "code-execution"
-    "css"
-    "data"
-    "dialoguer"
-    "fonts"
-    "gingembre"
-    "html"
-    "html-diff"
-    "http"
-    "image"
-    "js"
-    "jxl"
-    "linkcheck"
-    "markdown"
-    "minify"
-    "sass"
-    "svgo"
-    "term"
-    "tui"
-    "vite"
-    "webp"
-  ];
 in
 rustPlatform.buildRustPackage rec {
   pname = "dodeca";

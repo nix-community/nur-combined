@@ -56,21 +56,24 @@
           # For some reason this doesn't work by setting `overlayAttrs = config.packages`
           overlayAttrs = {
             inherit (config.packages)
+              # keep-sorted start
+              cargo-afl
+              cargo-fake-rustup
+              cargo-minimal-versions
+              coveralls
               dblp-tools
+              dodeca
               gbd
               gbdc
               gbdc-tool
+              gimsatul
+              gungraun-runner
+              janus-swi
               kani
               python-mip
-              veripb
-              gimsatul
-              coveralls
-              cargo-afl
-              janus-swi
-              dodeca
-              cargo-fake-rustup
-              gungraun-runner
               runsolver
+              veripb
+              # keep-sorted end
               ;
           };
 
@@ -100,6 +103,8 @@
               # Github actions
               actionlint.enable = true;
               yamlfmt.enable = true;
+              # Sorting
+              keep-sorted.enable = true;
             };
           };
         };
