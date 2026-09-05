@@ -14,10 +14,6 @@ nixpkgs.microfetch.overrideAttrs (
 
     cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
 
-    patches =
-      (prevAttrs.patches or [ ])
-      ++ lib.optional stdenv.hostPlatform.isLoongArch64 ./0001-fix-desktop-avoid-LoongArch-crash-from-manual-String.patch;
-
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;
     };
