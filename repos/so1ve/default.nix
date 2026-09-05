@@ -11,6 +11,7 @@
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
   niri = pkgs.callPackage ./pkgs/niri { };
+  peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };
   yanhekt-autoslides = pkgs.callPackage ./pkgs/yanhekt-autoslides { };
   winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable { };
