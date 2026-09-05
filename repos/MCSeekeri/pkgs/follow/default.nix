@@ -7,10 +7,10 @@
 
 let
   pname = "follow";
-  version = "1.12.0";
+  version = "1.13.0";
   src = fetchurl {
     url = "https://github.com/RSSNext/Folo/releases/download/desktop/v${version}/Folo-${version}-linux-x64.AppImage";
-    hash = "sha256-rH5rWskNDvse3bO28dMzuhkdbEI/MtYDBNdC+EVP97I=";
+    hash = "sha256-DVUtehVQrp3CoXzGmMlCaWcfs8vm8mO3aoELZpjbvHI=";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 in

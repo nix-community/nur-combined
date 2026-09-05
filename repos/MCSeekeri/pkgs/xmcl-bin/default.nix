@@ -28,9 +28,9 @@ let
     url = "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v${version}/app-${version}-${asarSuffix}.asar";
     hash =
       if stdenv.isDarwin then
-        "sha256-X8KASFYaxXymn+cM1VTJAlBZl1w4kYXJBgjjG9oeRGg="
+        "sha256-CgqJBOiSg4qUvSr2GvVHTXEwU00KoaKIa445lZSXrKM="
       else
-        "sha256-CN3Bc86WkXCa726yVBl9xvObOclUquXQibIOj3xtP7k=";
+        "sha256-z53WhH5l4m1w1Ha5uYm07t7t7gIyFQuudeimMMIdD/8=";
     # 这个逻辑迟早得大改
     # 等 Nix 终于支持 Windows 的时候再说……
   };
@@ -39,7 +39,7 @@ let
     srcArgs
     // {
       sparseCheckout = [ "xmcl-electron-app/icons" ];
-      hash = "sha256-uUfuX1jJfeJGyBREJ9HZ1FZ9PGGApkAKDpowxGB/Lvk=";
+      hash = "sha256-vsIeB704bJSQNWMcpflNw2+WNYgzObOsOdrUh18215Y=";
     }
   );
 

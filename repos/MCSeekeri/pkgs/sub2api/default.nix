@@ -10,12 +10,12 @@
   stdenvNoCC,
 }:
 let
-  version = "0.2.0";
+  version = "0.2.1";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-KG7S5SPVh3sN8uH4TlSmRNZfBwt8D2/mQ5Njuo+Ge1Y=";
+    hash = "sha256-8zI6VgooflH+M3ibbKLNDutsfkAUKLAz9d4/CbV4IcI=";
   };
 
   frontendPnpmDeps = fetchPnpmDeps {
@@ -24,7 +24,7 @@ let
     pnpm = pnpm_10;
     fetcherVersion = 4;
     sourceRoot = "source/frontend";
-    hash = "sha256-rKIpDY0O3Q8FX0OWFqqPJNT5RLsdvxbSgQBpf2BlNV0=";
+    hash = "sha256-D6lEnYH90wrum1mYHWYJZ2vGOghADxKnNcYxgKz2/10=";
   };
 
   frontend = stdenvNoCC.mkDerivation {
@@ -65,9 +65,9 @@ buildGoModule {
   inherit version src;
 
   modRoot = "backend";
-  vendorHash = "sha256-kmtkj9L1qMupQpc2E0Gbx9a3xPZ9o9bFrtwrbLoAB3w=";
+  vendorHash = "sha256-Bnvqp698BPhBYqSlBZ5p7bw+zkA1B/lo58iDAi2Q0nY=";
   postPatch = ''
-    sed -i 's/^go 1\.26\.[0-9]*$/go 1.26/' backend/go.mod
+    sed -i -E 's/^go 1\.(26|27).*/go 1.26/' backend/go.mod
     rm -rf backend/internal/web/dist
     mkdir -p backend/internal/web/dist
     cp -r ${frontend}/. backend/internal/web/dist/

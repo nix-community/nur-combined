@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoRoot = "src-tauri";
-  cargoHash = "sha256-Tv8oab2y1AnifK8EjGFXtMBiuELcDaKp7NKrGGWhC/o=";
+  cargoHash = "sha256-nLDi1jEWEhVm4h/1H3KRE5ClAfKzxaAgGrxA2/lshJ0=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   checkFlags = [
