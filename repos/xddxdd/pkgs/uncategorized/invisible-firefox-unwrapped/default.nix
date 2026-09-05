@@ -31,7 +31,7 @@ let
           mainProgram = "firefox";
         };
       }).override
-      { pgoSupport = false; }
+      { enablePGO = false; }
     ).overrideAttrs
       (old: {
         configureFlags = builtins.filter (f: f != "--disable-updater") (old.configureFlags or [ ]);
