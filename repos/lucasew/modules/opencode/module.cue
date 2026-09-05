@@ -14,13 +14,12 @@ module: {
 				theme:     "workspaced"
 				plugin: ["opencode-gemini-auth"]
 				provider: {
-					ollama: {
+					llamacpp: {
 						npm:  "@ai-sdk/openai-compatible"
-						name: "Ollama"
-						options: {baseURL: "http://localhost:11434/v1"}
+						name: "llama.cpp"
+						options: {baseURL: "http://whiterun:38286/v1"}
 						models: {
-							"llama3.2": {name: "llama3.2"}
-							phi4: {name: "phi4:14b"}
+							"qwen3.5-9b": {name: "qwen3.5-9b"}
 						}
 					}
 				}
