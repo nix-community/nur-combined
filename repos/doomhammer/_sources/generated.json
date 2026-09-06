@@ -44,7 +44,7 @@
     "gitpane": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-97bGx19H1Kabx5dhVmJg6byKwdWaBhhqHfCQmX+D4lI=/Cargo.lock",
+                "sha256-nMXyS2zfwkeLt1Czcp3VCu5luzNbvRROGAetxs2Vet4=/Cargo.lock",
                 {}
             ]
         },
@@ -60,12 +60,12 @@
             "name": null,
             "owner": "affromero",
             "repo": "gitpane",
-            "rev": "v0.15.0",
-            "sha256": "sha256-97bGx19H1Kabx5dhVmJg6byKwdWaBhhqHfCQmX+D4lI=",
+            "rev": "v0.15.1",
+            "sha256": "sha256-nMXyS2zfwkeLt1Czcp3VCu5luzNbvRROGAetxs2Vet4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.15.0"
+        "version": "v0.15.1"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -91,11 +91,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9eQxUVJ0V1WwutJpprMal9qbv6UqKXBzR9dnPeLpHo0=",
+            "sha256": "sha256-eMVcefmZ/mGH/LhQgKSAwVsMT+cUFuRIIlisWSDQTNs=",
             "type": "url",
-            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.5/OmniWM-v0.6.5.zip"
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.6/OmniWM-v0.6.6.zip"
         },
-        "version": "v0.6.5"
+        "version": "v0.6.6"
     },
     "paperwm-spoon": {
         "cargoLock": null,
