@@ -32,6 +32,10 @@ in
         user.name = "Daniel Nagy";
         user.email = "danielnagy@posteo.de";
         user.signingkey = "/home/user/.ssh/id_nagy";
+        credential = {
+          # token kept outside the Nix store (world-readable);
+          helper = "store";
+        };
         gpg = {
           format = "ssh";
           ssh.allowedSignersFile = pkgs.writeText "allowed_signers" ''

@@ -50,8 +50,8 @@ melpaBuild {
   src = fetchFromGitHub {
     owner = "nagy";
     repo = "nixos.el";
-    rev = "10a7578cb5af9b41a9a17bd2bbeaf3ac856148d1";
-    hash = "sha256-qNQILCittb6miAvGZtjIpDyq2JbIkRkKPSUB3/SuXWY=";
+    rev = "c20ba3c7abb98bf1b4c85227920087a036051c76";
+    hash = "sha256-p+nrkFN7evkQDHQYk8llV8g1nah/XzBxHxjun5rhdB8=";
   };
 
   packageRequires = [ nix-mode ];
