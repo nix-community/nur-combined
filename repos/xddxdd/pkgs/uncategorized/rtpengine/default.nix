@@ -29,12 +29,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtpengine";
-  version = "0-unstable-2026-09-01";
+  version = "0-unstable-2026-09-04";
   src = fetchFromGitHub {
     owner = "sipwise";
     repo = "rtpengine";
-    rev = "5b499def7b9d50aead1ee6776b28d3c6f2164a82";
-    hash = "sha256-bHLNNBubc1ZKQPkr8h0VHLyA6kWa3mLDdrDnM34rxEE=";
+    rev = "0986dd191c927020bfed6c301ff166ec37736d67";
+    hash = "sha256-OVPqI60jHLc8mkwOCwiM+7/jhhHOudiWQ8LLWCpjJKQ=";
   };
   enableParallelBuilding = true;
 

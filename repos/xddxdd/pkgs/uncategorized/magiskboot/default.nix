@@ -20,10 +20,10 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "magiskboot";
-  version = "30.7";
+  version = "31.0";
   src = fetchurl {
     url = "https://github.com/topjohnwu/Magisk/releases/download/v${finalAttrs.version}/Magisk-v${finalAttrs.version}.apk";
-    hash = "sha256-4NMtISNTKGD5cSPZJ7G7hsTgjm/YpIv8a1vuCvrp69U=";
+    hash = "sha256-LIpIi5pSk+V46Vrk8H48V6uk/uxKUspN2FKiaS1t1Og=";
   };
   dontUnpack = true;
 

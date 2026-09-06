@@ -9,12 +9,12 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "drissionrecord";
-  version = "2.0.1";
+  version = "2.0.2";
   pyproject = true;
 
   src = fetchurl {
     url = "mirror://pypi/d/drissionrecord/drissionrecord-${finalAttrs.version}.tar.gz";
-    hash = "sha256-hjMFvAmuxYFYBF9F62k14VuprBXjWJIBBbIPSnMLLtc=";
+    hash = "sha256-N+M35g5FGHbw98tjXtor7h9SfL3odFDQPsKcjfdWje0=";
   };
   build-system = [ setuptools ];
   dependencies = [ openpyxl ];
