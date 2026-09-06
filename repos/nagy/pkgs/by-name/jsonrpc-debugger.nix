@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "jsonrpc-debugger";
-  version = "0.1.9";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "shanejonas";
     repo = "jsonrpc-debugger";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zFEhw14bHHuSzU9S5FDxS9lZBvJ/IfGyAKHLHsh1ScE=";
+    hash = "sha256-trkrcI3zgTSkDEdXfPjRMYOij296YkSZtTxJEocrcPI=";
   };
 
-  cargoHash = "sha256-GhEq+mazRTfGa08Sps5O+sacGXsIdF2cOkppLVylq2E=";
+  cargoHash = "sha256-R//RlcwlE0ombrQSgZSFKHruZU5PsYzbuNT2Tp7hcs4=";
 
   nativeBuildInputs = [ pkg-config ];
 
