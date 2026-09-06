@@ -39,18 +39,15 @@
                 inherit pkgs;
               }
               // {
-                wd = wd.packages.${pkgs.stdenv.hostPlatform.system}.default;
-              }
-              // {
                 envar = envar.packages.${pkgs.stdenv.hostPlatform.system}.default;
+                vscode-cli = pkgs.callPackage ./pkgs/vscode-cli { };
+                wd = wd.packages.${pkgs.stdenv.hostPlatform.system}.default;
               };
             packages = nixpkgs.lib.filterAttrs (
               _: v: nixpkgs.lib.isDerivation v
             ) self.legacyPackages.${pkgs.stdenv.hostPlatform.system};
             devShells.default = pkgs.mkShell { };
-            treefmt = {
-              programs.nixfmt.enable = true;
-            };
+            treefmt.programs.nixfmt.enable = true;
           };
       }
     );
