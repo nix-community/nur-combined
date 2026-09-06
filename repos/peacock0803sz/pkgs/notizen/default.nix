@@ -1,6 +1,6 @@
 { lib, buildGo125Module, fetchFromGitHub }:
 let
-  version = "0.1.0";
+  version = "0.4.0";
 in
 buildGo125Module {
   pname = "notizen";
@@ -10,7 +10,7 @@ buildGo125Module {
     owner = "peacock0803sz";
     repo = "notizen";
     tag = "v${version}";
-    hash = "sha256-Ocz+m5LZRzhHOBJ3bkjlkHDbQQZZfYfCP0sWx+QPvaE=";
+    hash = "sha256-hHWU8cqxrvB4A/1ZqbFSY38zhShiGe4dsFYbAI0R12w=";
   };
 
   vendorHash = "sha256-n58Qmiv3gik1qkuXQFbQ+soeOQtUz1dUocEAJepqp/E=";
