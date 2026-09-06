@@ -1,4 +1,5 @@
 {
+  cacert,
   lib,
   fetchFromGitHub,
   gitMinimal,
@@ -20,6 +21,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-dfGAIb21UpCD8bS7ftAd32jmDKRyFd8B5Lw5IBhG9CM=";
 
   nativeCheckInputs = [ gitMinimal ];
+
+  SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

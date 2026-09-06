@@ -8,26 +8,6 @@ let
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-
-    t3code = prev.t3code.override {
-      t3code-unwrapped = final.callPackage "${
-        final.applyPatches {
-          name = "t3code-0.0.38-source";
-          src = "${prev.path}/pkgs/by-name/t3/t3code";
-          patches = [
-            (final.fetchpatch2 {
-              url = "https://github.com/NixOS/nixpkgs/pull/556674.patch?full_index=1";
-              hash = "sha256-hx0FoNHX0TntnvyuJCXFlmqmTjBXNz+SkrLOo50aZKc=";
-            })
-            (final.fetchpatch2 {
-              url = "https://github.com/NixOS/nixpkgs/pull/558233.patch?full_index=1";
-              hash = "sha256-En2vohfsmz1JuzEuu5ZqAh+08sp6rK4l0E9+xQZaMtw=";
-            })
-          ];
-          patchFlags = [ "-p5" ];
-        }
-      }/unwrapped.nix" { };
-    };
   };
 
   # This one brings our custom packages from the 'pkgs' directory and makes
