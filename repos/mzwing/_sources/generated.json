@@ -348,12 +348,12 @@
             "name": null,
             "owner": "Chevey339",
             "repo": "kelivo",
-            "rev": "v1.2.5",
-            "sha256": "sha256-SZ8EbO00zkQpTOzvsfsV8KskajgDERzNyeWspHo5LIs=",
+            "rev": "v1.2.6",
+            "sha256": "sha256-Xdh21OmhQsxD1+bPE+bMud0GEHrq5WcDOyNYnBBG9Gw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.2.5"
+        "version": "v1.2.6"
     },
     "magic-context": {
         "cargoLock": null,
@@ -369,12 +369,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.41.3",
-            "sha256": "sha256-3sFPheY1HByo+Yr/8WDimJHQvs2aCz+y4TBuqjCcU48=",
+            "rev": "v0.41.4",
+            "sha256": "sha256-+cezeaAMmdEXF3sCtkVXGZItwwZhpIjSO0WLTkdtCSQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.41.3"
+        "version": "v0.41.4"
     },
     "manboster": {
         "cargoLock": null,
