@@ -1426,6 +1426,26 @@
         "type": "github"
       }
     },
+    "flyline": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788706166,
+        "narHash": "sha256-xkxkfvbj7Ix5t9xaBpaG/9NOp7zeNxUvgDlM3TgakK4=",
+        "owner": "HalFrgrd",
+        "repo": "flyline",
+        "rev": "07a1a1df51b4543ecb5d77080ad8d2085c5963f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "HalFrgrd",
+        "repo": "flyline",
+        "type": "github"
+      }
+    },
     "ghostty": {
       "flake": false,
       "locked": {
@@ -3641,6 +3661,7 @@
         "fenix": "fenix_2",
         "flake-parts": "flake-parts_7",
         "flake-root": "flake-root",
+        "flyline": "flyline",
         "hermes-agent": "hermes-agent",
         "hjem": "hjem",
         "import-tree": "import-tree",

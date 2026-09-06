@@ -163,6 +163,8 @@
     ranet-discover.url = "/home/riro/Src/ranet-discover";
     hjem.url = "github:feel-co/hjem";
     import-tree.url = "github:vic/import-tree";
+    flyline.url = "github:HalFrgrd/flyline";
+    flyline.inputs.nixpkgs.follows = "nixpkgs";
     self.submodules = true;
 
   };

@@ -14,6 +14,7 @@
           "nix-topology"
           "self"
           "hjem"
+          "flyline"
         ];
   };
 }
