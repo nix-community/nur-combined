@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   buildGoModule,
   fetchFromGitHub,
 
@@ -9,16 +10,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "aperture-cli";
-  version = "0.0.9";
+  version = "0.0.10";
 
   src = fetchFromGitHub {
     owner = "tailscale";
     repo = "aperture-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AIIqrDexPGWtFBTVvbiOagpvKR+HKoiKM3JhQcSWB4k=";
+    hash = "sha256-E8sQWtpWI+1aDFvUHlJnwlh9FUPQ9sDdnmvVdC0R9Hs=";
   };
 
-  vendorHash = "sha256-LXkf5l52+7JflU39MY4aNwiLa9rYaB4G1mPTRhm+l/8=";
+  vendorHash = "sha256-iM4z1fVNm9vSyyNcGf/rPCHJph6laiSos2AWwJJtOfU=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
@@ -30,6 +31,10 @@ buildGoModule (finalAttrs: {
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
+
+  checkFlags = lib.lists.optionals stdenv.hostPlatform.isDarwin [
+    "-skip=^TestSettings_InvalidJSONReturnsErrorWithoutReplacingFile$"
+  ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
