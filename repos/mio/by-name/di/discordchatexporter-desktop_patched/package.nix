@@ -18,7 +18,6 @@
 discordchatexporter-desktop.overrideAttrs (old: {
   pname = "discordchatexporter-desktop_patched";
 
-
   # Avoid wrapping Avalonia native dylibs as if they were CLI entry points.
   executables = [ "DiscordChatExporter" ];
 
