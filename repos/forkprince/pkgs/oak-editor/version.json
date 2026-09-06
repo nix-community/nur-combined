@@ -1,0 +1,23 @@
+{
+  "name": "Oak Video Editor",
+  "source": {
+    "type": "github-release",
+    "repo": "OakVideoEditorCommunity/oak",
+    "tag_prefix": "v"
+  },
+  "version": "0.4.2-alpha",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "Oak_Video_Editor-x86_64.AppImage",
+      "hash": "sha256-9wnoYP/TGoKs488fAyzBqM6T+sXeRNVWvM3D5xxF0mg="
+    },
+    "x86_64-darwin": {
+      "file": "Oak-Video-Editor-macOS.dmg",
+      "hash": "sha256-ugwJ05GvCo5ERtMwAzZ4oVhZY7u0INMKkdL2l3Q1ogo="
+    },
+    "aarch64-darwin": {
+      "file": "Oak-Video-Editor-macOS.dmg",
+      "hash": "sha256-ugwJ05GvCo5ERtMwAzZ4oVhZY7u0INMKkdL2l3Q1ogo="
+    }
+  }
+}
