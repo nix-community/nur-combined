@@ -50,6 +50,21 @@ jobs:
           sudo mv /tmp/hostedtoolcache-backup /opt/hostedtoolcache 2>&1 | tail -n 5 || true
           ls /opt/hostedtoolcache 2>&1 | head -n 10 || true
           node --version 2>&1 | head -n 5 || true; which node 2>&1 | head -n 5 || true
+      - name: Enlarge swap for Rust LTO
+        shell: bash
+        run: |
+          echo "--- Before enlarge ---"
+          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true; df -h 2>&1 | head -n 20 || true
+          # / 根盘已 100% (361M)，别在 / 上建，放 /mnt (还有 80G+)
+          echo "Creating 8G swap on /mnt..."
+          sudo swapoff -a 2>&1 || true
+          sudo rm -f /swapfile /mnt/swapfile 2>&1 || true
+          if ! sudo fallocate -l 8G /mnt/swapfile 2>&1; then sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=8192 status=progress 2>&1 || true; fi
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile 2>&1 | tail -n 5 || true
+          sudo swapon /mnt/swapfile 2>&1 || true
+          echo "--- After enlarge ---"
+          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -61,8 +76,9 @@ jobs:
             extra-substituters = https://nix.mcseekeri.com?priority=51
             extra-trusted-public-keys = nix.mcseekeri.com-1:3gd0/2u7IOF7YooxEiBbWTvRCYGC53S2UoqFdnCUYHc=
             build-dir = /nix/build
-            max-jobs = 2
-            max-substitution-jobs = 8
+            max-jobs = 1
+            max-substitution-jobs = 4
+            cores = 4
       - name: Setup niks3
         uses: Mic92/niks3-action@v1
         with:
