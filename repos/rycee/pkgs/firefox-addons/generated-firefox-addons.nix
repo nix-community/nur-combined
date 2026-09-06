@@ -1057,6 +1057,21 @@
         platforms = platforms.all;
       };
     };
+    "better-history-ng" = buildMozillaXpiAddon {
+      pname = "better-history-ng";
+      version = "2.3.0";
+      addonId = "{058af685-fc17-47a4-991a-bab91a89533d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4937864/better_history_ng-2.3.0.xpi";
+      sha256 = "aeb122e934873fa207a841412f69f3bb7cdfdffe49cb383e1a51d7033205ca62";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Christoph-Wagner/firefox-better-history-ng";
+        description = "A Better History page for Firefox, inspired by Vivaldi. \n\nIssues and suggestions on Github: https://github.com/Christoph-Wagner/firefox-better-history-ng";
+        license = licenses.unlicense;
+        mozPermissions = [ "history" "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "better-saml-account-chooser" = buildMozillaXpiAddon {
       pname = "better-saml-account-chooser";
       version = "1.2";
@@ -2892,6 +2907,21 @@
           "downloads"
           "https://*.jinteki.net/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "d004c62a8aed4f3b8ddd" = buildMozillaXpiAddon {
+      pname = "d004c62a8aed4f3b8ddd";
+      version = "1.6.2";
+      addonId = "re-start@refact0r.dev";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4977858/d004c62a8aed4f3b8ddd-1.6.2.xpi";
+      sha256 = "53da197fe3265f23df244ecddf92a3721aff2792c2dca750564a7c3624ef29ac";
+      meta = with lib;
+      {
+        homepage = "https://github.com/refact0r/re-start";
+        description = "a tui-style startpage/new tab page.";
+        license = licenses.mit;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };
@@ -6939,6 +6969,21 @@
         description = "InlineDisposition Reloaded changes the disposition type of \"Content-Disposition\" response headers from \"attachment\" and \"file\" to \"inline\"";
         license = licenses.mpl20;
         mozPermissions = [ "webRequest" "webRequestBlocking" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
+    "instagram-video-control" = buildMozillaXpiAddon {
+      pname = "instagram-video-control";
+      version = "1.9.2";
+      addonId = "{a831defa-a6c9-4ca9-9593-9ccaf98462d9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4952327/instagram_video_control-1.9.2.xpi";
+      sha256 = "cb425a81d008036b33a590e6b4a3592d1831e9b80b5539982a5971013f8449c4";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Arcus92/instagram-video-control/";
+        description = "Adds volume and play controls to Instagram videos.";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "*://*.instagram.com/*" ];
         platforms = platforms.all;
       };
     };
@@ -14639,6 +14684,51 @@
         platforms = platforms.all;
       };
     };
+    "tft-trade-extension" = buildMozillaXpiAddon {
+      pname = "tft-trade-extension";
+      version = "3.0.60";
+      addonId = "{3df9c1b1-fddd-4c8f-9b79-13d23f33aa48}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4916082/tft_trade_extension-3.0.60.xpi";
+      sha256 = "d86de9d4e412b2e898f5b9b8ba23f2c49c56e39ecf89255ce3f2ac891bf05232";
+      meta = with lib;
+      {
+        description = "An extension which integrates Discord branded tools into your browser. It provides safer and easier trading in Path of Exile.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "sidePanel"
+          "storage"
+          "tabs"
+          "notifications"
+          "https://poe.ninja/*"
+          "https://raw.githubusercontent.com/The-Forbidden-Trove/*"
+          "https://forbiddentrove.com/*"
+          "https://*.pathofexile.com/account/view-profile/*"
+          "https://poe.game.daum.net/account/view-profile/*"
+          "https://poe.game.qq.com/account/view-profile/*"
+          "https://www.pathofexile.com/account/view-profile/*"
+          "https://*.pathofexile.com/guild/*"
+          "https://*.pathofexile.com/my-guild/*"
+          "https://poe.game.daum.net/guild/*"
+          "https://poe.game.daum.net/my-guild/*"
+          "https://poe.game.qq.com/guild/*"
+          "https://poe.game.qq.com/my-guild/*"
+          "https://www.pathofexile.com/guild/*"
+          "https://www.pathofexile.com/my-guild/*"
+          "https://*.pathofexile.com/trade*"
+          "https://pathofexile2.kakaogames.com/trade*"
+          "https://poe.game.daum.net/trade*"
+          "https://poe.game.qq.com/trade*"
+          "https://poe.kakaogames.com/trade*"
+          "https://www.pathofexile.com/trade*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "the-camelizer-price-history-ch" = buildMozillaXpiAddon {
       pname = "the-camelizer-price-history-ch";
       version = "3.0.15";
@@ -14883,6 +14973,36 @@
           "scripting"
           "webNavigation"
           "webRequest"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "topicus-keyhub" = buildMozillaXpiAddon {
+      pname = "topicus-keyhub";
+      version = "9.0.1";
+      addonId = "keyhub@topicus.nl";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4953882/topicus_keyhub-9.0.1.xpi";
+      sha256 = "7c39b0c21f015e13ce628ce325303df8c4901bc18658c0e614c9345a27289b72";
+      meta = with lib;
+      {
+        homepage = "https://www.topicus-keyhub.com";
+        description = "Topicus KeyHub lifts Identity &amp; Access Management to the next level with a new revolutionary security structure: central authentication and decentral autorisation.\n\nWith this add-you can easily access all your passwords stored in Topicus KeyHub.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "clipboardWrite"
+          "contextMenus"
+          "scripting"
+          "storage"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+          "https://*/console*"
           "<all_urls>"
         ];
         platforms = platforms.all;
@@ -17166,6 +17286,21 @@
           "file://*/*"
           "https://windscribe.com/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "woordenboek-nederlands" = buildMozillaXpiAddon {
+      pname = "woordenboek-nederlands";
+      version = "4.20.19";
+      addonId = "nl-NL@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3776797/woordenboek_nederlands-4.20.19.xpi";
+      sha256 = "ad1cd9588b4864d22310f78675e931db97691ab5fb92a5f52175bf477ebe7afc";
+      meta = with lib;
+      {
+        homepage = "http://www.mozilla-nl.org";
+        description = "Dutch dictionary with wordslist from OpenTaal.";
+        license = licenses.gpl3;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };

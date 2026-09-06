@@ -141,6 +141,13 @@
     "slug": "better-darker-docs"
   },
   {
+    "slug": "better-history-ng",
+    "license": {
+      "tag": "predefined",
+      "shortName": "unlicense"
+    }
+  },
+  {
     "slug": "better-saml-account-chooser"
   },
   {
@@ -423,6 +430,9 @@
   },
   {
     "slug": "cyberfeeder"
+  },
+  {
+    "slug": "d004c62a8aed4f3b8ddd"
   },
   {
     "slug": "dansk-da-language-pack",
@@ -1002,6 +1012,9 @@
   },
   {
     "slug": "inlinedisposition-reloaded"
+  },
+  {
+    "slug": "instagram-video-control"
   },
   {
     "slug": "instapaper-official",
@@ -2076,6 +2089,16 @@
     "slug": "textern"
   },
   {
+    "slug": "tft-trade-extension",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "the-camelizer-price-history-ch",
     "license": {
       "tag": "custom",
@@ -2121,6 +2144,16 @@
   },
   {
     "slug": "topcashback-cashback-coupons"
+  },
+  {
+    "slug": "topicus-keyhub",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "torproject-snowflake",
@@ -2435,6 +2468,9 @@
   },
   {
     "slug": "windscribe"
+  },
+  {
+    "slug": "woordenboek-nederlands"
   },
   {
     "slug": "xbs",
