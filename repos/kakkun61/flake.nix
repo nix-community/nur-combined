@@ -28,25 +28,23 @@
     flake-parts.lib.mkFlake { inherit inputs; } (
       { ... }:
       {
-        imports = [ treefmt-nix.flakeModule ];
+        imports = [
+          # https://flake.parts/options/flake-parts-easyoverlay
+          flake-parts.flakeModules.easyOverlay
+          treefmt-nix.flakeModule
+        ];
         flake = { };
         systems = nixpkgs.lib.systems.flakeExposed;
         perSystem =
           { config, pkgs, ... }:
           {
-            legacyPackages =
-              import ./default.nix {
-                inherit pkgs;
-              }
-              // {
-                envar = envar.packages.${pkgs.stdenv.hostPlatform.system}.default;
-                vscode-cli = pkgs.callPackage ./pkgs/vscode-cli { };
-                wd = wd.packages.${pkgs.stdenv.hostPlatform.system}.default;
-              };
-            packages = nixpkgs.lib.filterAttrs (
-              _: v: nixpkgs.lib.isDerivation v
-            ) self.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+            packages = {
+              envar = envar.packages.${pkgs.stdenv.hostPlatform.system}.default;
+              vscode-cli = pkgs.callPackage ./pkgs/vscode-cli { };
+              wd = wd.packages.${pkgs.stdenv.hostPlatform.system}.default;
+            };
             devShells.default = pkgs.mkShell { };
+            overlayAttrs = config.packages;
             treefmt.programs.nixfmt.enable = true;
           };
       }
