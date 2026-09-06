@@ -6,6 +6,11 @@ fetch.github = "anywherelan/awl"
 src.github_tag = "anywherelan/awl-flutter"
 fetch.github = "anywherelan/awl-flutter"
 
+[discovery-rs]
+src.github_tag = "JustPretender/discovery-rs"
+fetch.github = "JustPretender/discovery-rs"
+cargo_lock = ["Cargo.lock"]
+
 [gitpane]
 src.github_tag = "affromero/gitpane"
 fetch.github = "affromero/gitpane"

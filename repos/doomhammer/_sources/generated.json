@@ -41,6 +41,32 @@
         },
         "version": "v0.19.0"
     },
+    "discovery-rs": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-XXDX0oyagLh411EZk2ZtF968DzYEthnFtZY4NvXjF98=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "discovery-rs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "JustPretender",
+            "repo": "discovery-rs",
+            "rev": "v0.1.3",
+            "sha256": "sha256-XXDX0oyagLh411EZk2ZtF968DzYEthnFtZY4NvXjF98=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.3"
+    },
     "gitpane": {
         "cargoLock": {
             "Cargo.lock": [
@@ -91,11 +117,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-eMVcefmZ/mGH/LhQgKSAwVsMT+cUFuRIIlisWSDQTNs=",
+            "sha256": "sha256-sg5vshasrk4uv5P2YkSIt1VTlE6rHV4vdv+hirT26Gg=",
             "type": "url",
-            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.6/OmniWM-v0.6.6.zip"
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.7/OmniWM-v0.6.7.zip"
         },
-        "version": "v0.6.6"
+        "version": "v0.6.7"
     },
     "paperwm-spoon": {
         "cargoLock": null,
