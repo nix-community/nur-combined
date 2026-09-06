@@ -23,8 +23,8 @@ buildGo127Module (finalAttrs: {
   src = fetchFromCodeberg {
     owner = "matrix-venator";
     repo = "venator";
-    rev = "7686b24cd1a7f726189c654909d69f130196b9a7";
-    hash = "sha256-/50+dOiC/yoZ9PpEVUoeGAFgdGUHw41F9/MeGIwbIG4=";
+    rev = "980e017751beddeedb0b9a79167b9e8faf95b2d4";
+    hash = "sha256-ZgiGINo43QgKQVLY70BoH9MSkrR9ncLlgGxCvvk479E=";
   };
 
   vendorHash = "sha256-1/znvlE2AxEmYITU8FoNTK1T/5tz7s4+AiWnz88vHvA=";
