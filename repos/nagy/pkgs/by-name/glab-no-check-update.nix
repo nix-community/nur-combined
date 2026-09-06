@@ -45,5 +45,6 @@ glab.overrideAttrs (finalAttrs: previous: {
 
   meta = (previous.meta or { }) // {
     description = "${previous.meta.description}: update checking permanently disabled";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

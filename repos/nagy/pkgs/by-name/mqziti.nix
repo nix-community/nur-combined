@@ -27,5 +27,6 @@ buildGoModule {
     homepage = "https://github.com/ekoby/mqziti";
     license = lib.licenses.asl20;
     mainProgram = "mqziti_client";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

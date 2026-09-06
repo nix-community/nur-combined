@@ -55,5 +55,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = with lib.licenses; asl20;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "embedanything";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

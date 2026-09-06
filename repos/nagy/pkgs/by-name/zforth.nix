@@ -35,5 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/zevv/zForth";
     license = with lib.licenses; [ mit ];
     mainProgram = "zforth";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

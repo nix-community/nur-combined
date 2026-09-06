@@ -26,5 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/yhirose/cpp-httplib";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

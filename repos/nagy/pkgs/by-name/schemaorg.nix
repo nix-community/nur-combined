@@ -29,5 +29,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://schema.org/";
     license = lib.licenses.asl20;
     changelog = "https://schema.org/docs/releases.html";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

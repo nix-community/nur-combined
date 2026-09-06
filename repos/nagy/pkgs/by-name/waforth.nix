@@ -65,5 +65,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Small but complete dynamic Forth Interpreter/Compiler for and in WebAssembly";
     homepage = "https://github.com/remko/waforth";
     license = with lib.licenses; [ mit ];
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

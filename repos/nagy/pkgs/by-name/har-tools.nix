@@ -27,5 +27,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/outersky/har-tools";
     license = lib.licenses.gpl2Only;
     mainProgram = "harx";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

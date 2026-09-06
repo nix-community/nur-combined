@@ -34,6 +34,7 @@ rustPlatform.buildRustPackage {
     description = "U2F security token emulator written in Rust";
     homepage = "https://github.com/danstiner/rust-u2f";
     license = with lib.licenses; [ asl20 ];
+    maintainers = with lib.maintainers; [ nagy ];
   };
 
 }

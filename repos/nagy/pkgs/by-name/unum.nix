@@ -33,5 +33,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Fourmilab/unum";
     license = lib.licenses.cc-by-sa-40;
     mainProgram = "unum";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

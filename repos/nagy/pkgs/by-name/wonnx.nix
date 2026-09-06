@@ -30,5 +30,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "GPU-accelerated ONNX inference run-time written 100% in Rust, ready for the web";
     homepage = "https://github.com/webonnx/wonnx";
     license = with lib.licenses; [ mit ];
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

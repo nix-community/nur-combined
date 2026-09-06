@@ -40,5 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/martinellimarco/libzstd-seek";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

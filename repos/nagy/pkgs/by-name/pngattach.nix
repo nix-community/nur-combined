@@ -32,5 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/skeeto/scratch/tree/master/pngattach";
     description = "Attach files to a PNG image as metadata";
     license = lib.licenses.unlicense;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

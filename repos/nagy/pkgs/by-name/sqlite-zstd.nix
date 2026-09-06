@@ -24,5 +24,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Transparent dictionary-based row-level compression for SQLite";
     homepage = "https://github.com/phiresky/sqlite-zstd";
     license = lib.licenses.lgpl3Plus;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

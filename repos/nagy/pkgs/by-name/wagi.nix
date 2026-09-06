@@ -30,5 +30,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/deislabs/wagi";
     description = "Write HTTP handlers in WebAssembly with a minimal amount of work";
     license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

@@ -1,4 +1,4 @@
-{ fetchzip }:
+{ lib, fetchzip }:
 
 fetchzip {
   pname = "hyperspec";
@@ -18,5 +18,6 @@ fetchzip {
   meta = {
     description = "The Common Lisp HyperSpec";
     homepage = "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

@@ -30,5 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "https://ordiluc.net/fs/libetc/";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

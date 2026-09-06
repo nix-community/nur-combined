@@ -33,5 +33,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/esimov/pigo";
     license = lib.licenses.mit;
     mainProgram = "pigo";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

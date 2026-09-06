@@ -31,5 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     homepage = "https://github.com/aaronNGi/jj";
     mainProgram = "jjd";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

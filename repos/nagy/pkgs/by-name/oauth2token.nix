@@ -30,5 +30,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://github.com/VannTen/oauth2token";
     license = lib.licenses.gpl3;
     mainProgram = "oauth2get";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

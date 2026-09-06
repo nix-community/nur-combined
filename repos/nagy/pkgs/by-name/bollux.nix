@@ -26,5 +26,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "gemini browser in like, bash?";
     homepage = "https://git.sr.ht/~acdw/bollux";
     license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

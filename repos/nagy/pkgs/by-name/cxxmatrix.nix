@@ -28,5 +28,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
     mainProgram = "cxxmatrix";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

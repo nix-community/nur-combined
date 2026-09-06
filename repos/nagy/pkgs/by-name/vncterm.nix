@@ -34,5 +34,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
     mainProgram = "linuxvnc";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

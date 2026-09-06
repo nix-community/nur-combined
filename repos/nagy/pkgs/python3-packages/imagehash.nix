@@ -34,5 +34,6 @@ buildPythonPackage rec {
     description = "Python Perceptual Image Hashing Module";
     homepage = "https://github.com/JohannesBuchner/imagehash";
     license = lib.licenses.bsd2;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

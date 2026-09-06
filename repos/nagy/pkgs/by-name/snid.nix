@@ -22,5 +22,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/AGWA/snid";
     license = lib.licenses.mit;
     mainProgram = "snid";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

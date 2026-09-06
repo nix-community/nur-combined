@@ -22,6 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://jwilk.net/software/u8strings";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 
 })

@@ -26,5 +26,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/aome510/hackernews-TUI";
     license = with lib.licenses; [ mit ];
     mainProgram = "hackernews_tui";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })
