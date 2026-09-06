@@ -433,6 +433,26 @@
         },
         "version": "v0.17.0"
     },
+    "ws-scrcpy": {
+        "cargoLock": null,
+        "date": "2026-08-24",
+        "extract": null,
+        "name": "ws-scrcpy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "8855ad1184ec7b41f1b28d1b899856f828e09c3e",
+            "sha256": "sha256-bhzVkVDWdpmaMYtf8APcgwCjo9KffzhL+3UTNOzFMEs=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/NetrisTV/ws-scrcpy.git"
+        },
+        "version": "8855ad1184ec7b41f1b28d1b899856f828e09c3e"
+    },
     "zcode": {
         "cargoLock": null,
         "date": null,

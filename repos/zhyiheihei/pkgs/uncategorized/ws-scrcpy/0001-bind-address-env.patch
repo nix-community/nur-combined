@@ -1,0 +1,16 @@
+diff --git a/src/server/services/HttpServer.ts b/src/server/services/HttpServer.ts
+index f941dfc..b9d383f 100644
+--- a/src/server/services/HttpServer.ts
++++ b/src/server/services/HttpServer.ts
+@@ -127,7 +127,10 @@ export class HttpServer extends TypedEmitter<HttpServerEvents> implements Servic
+                 server = http.createServer(options, currentApp);
+             }
+             this.servers.push({ server, port });
+-            server.listen(port, () => {
++            // Bind to WS_SCRCPY_BIND_HOST when set (e.g. 127.0.0.1) so the raw
++            // port stays out of reach of non-localhost clients; undefined keeps
++            // upstream wildcard behavior.
++            server.listen(port, process.env.WS_SCRCPY_BIND_HOST, () => {
+                 Utils.printListeningMsg(proto, port, PATHNAME);
+             });
+         });

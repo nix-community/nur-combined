@@ -221,6 +221,17 @@
       hash = "sha256-QCk96rmZwWK91V05rcd36OGCPbbKYvP68GvRllwkKlA=";
     };
   };
+  ws-scrcpy = {
+    pname = "ws-scrcpy";
+    version = "8855ad1184ec7b41f1b28d1b899856f828e09c3e";
+    src = fetchgit {
+      url = "https://github.com/NetrisTV/ws-scrcpy.git";
+      rev = "8855ad1184ec7b41f1b28d1b899856f828e09c3e";
+      fetchSubmodules = false;
+      hash = "sha256-bhzVkVDWdpmaMYtf8APcgwCjo9KffzhL+3UTNOzFMEs=";
+    };
+    date = "2026-08-24";
+  };
   zcode = {
     pname = "zcode";
     version = "3.11.2";

@@ -103,3 +103,7 @@ src.regex = "releases/([0-9.]+)/linux-x64"
 [zhconv-rs]
 fetch.github = "Gowee/zhconv-rs"
 src.github = "Gowee/zhconv-rs"
+
+[ws-scrcpy]
+fetch.git = "https://github.com/NetrisTV/ws-scrcpy.git"
+src.git = "https://github.com/NetrisTV/ws-scrcpy.git"
