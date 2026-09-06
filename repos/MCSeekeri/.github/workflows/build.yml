@@ -35,12 +35,28 @@ jobs:
           sudo mv /opt/hostedtoolcache /tmp/hostedtoolcache-backup 2>&1 | tail -n 5 || true
           ls /opt/hostedtoolcache 2>&1 | head -n 5 || echo "backup: /opt/hostedtoolcache moved away"
           ls /tmp/hostedtoolcache-backup 2>&1 | head -n 5 || true
+      - name: Enlarge swap for Rust LTO
+        shell: bash
+        run: |
+          echo "--- Before enlarge (must be BEFORE nothing-but-nix, /mnt 还空) ---"
+          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true; df -h 2>&1 | head -n 20 || true
+          echo "Creating 4G swap on /mnt (before /nix fills it)..."
+          sudo swapoff -a 2>&1 || true
+          sudo rm -f /swapfile /mnt/swapfile 2>&1 || true
+          if ! sudo fallocate -l 4G /mnt/swapfile 2>&1; then sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096 status=progress 2>&1 || true; fi
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile 2>&1 | tail -n 5 || true
+          sudo swapon /mnt/swapfile 2>&1 || true
+          # 保留原 3G /swapfile 再加 4G = 7G 总
+          sudo swapon /swapfile 2>&1 || true
+          echo "--- After enlarge ---"
+          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true; df -h 2>&1 | head -n 20 || true
       - uses: wimpysworld/nothing-but-nix@main
         with:
           hatchet-protocol: "rampage"
           witness-carnage: true
-          root-safe-haven: "512"
-          mnt-safe-haven: "100"
+          root-safe-haven: "1024"
+          mnt-safe-haven: "2048"
       - name: Restore Node toolchain for JS Actions
         shell: bash
         run: |
@@ -50,21 +66,6 @@ jobs:
           sudo mv /tmp/hostedtoolcache-backup /opt/hostedtoolcache 2>&1 | tail -n 5 || true
           ls /opt/hostedtoolcache 2>&1 | head -n 10 || true
           node --version 2>&1 | head -n 5 || true; which node 2>&1 | head -n 5 || true
-      - name: Enlarge swap for Rust LTO
-        shell: bash
-        run: |
-          echo "--- Before enlarge ---"
-          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true; df -h 2>&1 | head -n 20 || true
-          # / 根盘已 100% (361M)，别在 / 上建，放 /mnt (还有 80G+)
-          echo "Creating 8G swap on /mnt..."
-          sudo swapoff -a 2>&1 || true
-          sudo rm -f /swapfile /mnt/swapfile 2>&1 || true
-          if ! sudo fallocate -l 8G /mnt/swapfile 2>&1; then sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=8192 status=progress 2>&1 || true; fi
-          sudo chmod 600 /mnt/swapfile
-          sudo mkswap /mnt/swapfile 2>&1 | tail -n 5 || true
-          sudo swapon /mnt/swapfile 2>&1 || true
-          echo "--- After enlarge ---"
-          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
