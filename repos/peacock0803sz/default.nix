@@ -20,6 +20,7 @@
   notizen = pkgs.callPackage ./pkgs/notizen { };
   tfcmt = pkgs.callPackage ./pkgs/tfcmt { };
   vde-layout = pkgs.callPackage ./pkgs/vde-layout { };
+  vde-monitor = pkgs.callPackage ./pkgs/vde-monitor { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
