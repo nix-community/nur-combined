@@ -54,6 +54,7 @@ jobs:
 
       - name: Check for nixpkgs dupes
         run: |
+          echo "# Dupes" >> $GITHUB_STEP_SUMMARY
           nix eval .#_DUPES --json | jq 'map("- `\(. | join("."))`") | .[]' -r >> $GITHUB_STEP_SUMMARY
 
       - name: Push commits

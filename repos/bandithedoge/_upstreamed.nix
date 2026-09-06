@@ -19,6 +19,7 @@
         smartparens = "smartparens";
         eglot-x = "eglot-x";
       };
+  fastcrw = [ "fastcrw" ];
   geonkick = [ "geonkick" ];
   giada = [ "giada" ];
   git-pages = [ "git-pages" ];
@@ -34,6 +35,7 @@
         xmonad-entryhelper = "xmonad-entryhelper";
       };
   luakit = [ "luakit" ];
+  mcp-searxng = [ "mcp-searxng" ];
   mesonlsp-bin = [ "mesonlsp" ];
   molot-lite = [ "molot-lite" ];
   nimlangserver = [ "nimlangserver" ];
