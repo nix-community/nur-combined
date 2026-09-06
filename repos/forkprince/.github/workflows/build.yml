@@ -20,6 +20,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
+      - name: Bypass Cloudflare
+        uses: xiaotianxt/bypass-cloudflare-for-github-action@0c44a8bb3b1c9d370e48be2becf88ef33de8d57e  # v2.1.0
+        with:
+          cf_account_id: ${{ secrets.CF_ACCOUNT_ID }}
+          cf_zone_id: ${{ secrets.CF_ZONE_ID }}
+          cf_api_token: ${{ secrets.CF_API_TOKEN }}
+
       - name: Install Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
@@ -194,7 +201,14 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Bypass Cloudflare
+        uses: xiaotianxt/bypass-cloudflare-for-github-action@0c44a8bb3b1c9d370e48be2becf88ef33de8d57e  # v2.1.0
+        with:
+          cf_account_id: ${{ secrets.CF_ACCOUNT_ID }}
+          cf_zone_id: ${{ secrets.CF_ZONE_ID }}
+          cf_api_token: ${{ secrets.CF_API_TOKEN }}
 
       - name: Maximize Space
         if: runner.os == 'Linux'
