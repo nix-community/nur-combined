@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "hitokoto-osc";
     repo = "sentences-bundle";
     rev = "v${version}";
-    hash = "sha256-0DVbpqdUCjaaSMsra2orcmacEepWQFgpiNyxUtcqnO0=";
+    hash = "sha256-iSEfnxVfLNTWhmFB7VCrP6lZ3IM8eLxt8jJkesNeh2c=";
   };
   nativeBuildInputs = [
     fortune

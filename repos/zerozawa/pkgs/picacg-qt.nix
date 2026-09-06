@@ -37,7 +37,7 @@ python313Packages.buildPythonApplication rec {
     owner = "tonquer";
     repo = "picacg-qt";
     rev = "v${version}";
-    hash = "sha256-wPwQlNgF8Dw9OZNIz8vUDbVDYy4e6mTHXkPqe3zmgFM=";
+    hash = "sha256-yBIzz5WBzsbklmvR/nPzGl3o8c7Cq6l9vL44FJZws0o=";
   };
 
   format = "other";

@@ -14,9 +14,9 @@ buildGoModule rec {
     owner = "vernesong";
     repo = "mihomo";
     inherit rev;
-    hash = "sha256-YU7gIXQqzIXWQoZUdkunVDML6XgbSePReiWvnK+GWy8=";
+    hash = "sha256-nLuyGGmm6KqZr1J3Rk05NlMou5qrlNGmglofVZWxxp0=";
   };
-  vendorHash = "sha256-Lmb7RITHWc63+a7LTHRnVECCJhFcmeAtfSIwUiO+0oY=";
+  vendorHash = "sha256-E5rEF3w5Lihv4gBKLl95iM9PGECTJto0fIpXp4SbGyw=";
   excludedPackages = [ "./test" ];
 
   ldflags = [
