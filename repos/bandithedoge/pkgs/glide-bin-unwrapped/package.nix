@@ -21,15 +21,15 @@
   wrapGAppsHook3,
 }:
 let
-  version = "0.1.63a";
+  version = "0.1.64a";
   sources = {
     x86_64-linux = fetchzip {
       url = "https://github.com/glide-browser/glide/releases/download/${version}/glide.linux-x86_64.tar.xz";
-      sha256 = "sha256-xB5xhmJ3gAlyxxhukQLUwPvgBjWSZktzRMJTblsU0lE=";
+      sha256 = "sha256-5ZkXl43yhkuOdtK2Ue1BynbEeBaGM+NNVrD72yE9T10=";
     };
     aarch64-linux = fetchzip {
       url = "https://github.com/glide-browser/glide/releases/download/${version}/glide.linux-aarch64.tar.xz";
-      sha256 = "sha256-BgEqMObAFvIDNA2EmcuU6BlTJrOrbbZSxwV/toqHmI8=";
+      sha256 = "sha256-j9sI8DmGmOFxMF5pCqQnUr1H3kzYHSu5Awfm2jU5q0g=";
     };
   };
 

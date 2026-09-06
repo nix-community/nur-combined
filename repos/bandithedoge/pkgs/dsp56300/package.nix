@@ -15,12 +15,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "dsp56300";
-  version = "2.2.9";
+  version = "2.2.16";
   src = fetchFromGitHub {
     owner = "dsp56300";
     repo = "gearmulator";
     rev = finalAttrs.version;
-    hash = "sha256-ro5g3458VrNtMBsuX1e2HK13OQfgB6wO3yHHnkGN0p4=";
+    hash = "sha256-gkN13tCVHyl0mO0Qo7aRn+XwvScXz62JjiM9f4IKpIs=";
     fetchSubmodules = true;
   };
 
@@ -30,6 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteAll CMakeLists.txt --replace-fail "/usr/local" "${placeholder "out"}"
+    substituteInPlace source/CMakeLists.txt --replace-fail "add_subdirectory(framework/tools/midiLearnTest)" ""
   '';
 
   installPhase = ''
@@ -39,16 +40,16 @@ stdenv.mkDerivation (finalAttrs: {
     cp source/ronaldo/je8086/jeTestConsole/JE8086TestConsole $out/bin
   ''
   + lib.optionalString enableNodalRed2x ''
-    cp source/nord/n2x/n2xTestConsole/n2xTestConsole $out/bin
+    cp source/claudia/n2x/n2xTestConsole/n2xTestConsole $out/bin
   ''
   + lib.optionalString (enableOsirus || enableOsTIrus) ''
-    cp source/virusTestConsole/virusTestConsole $out/bin
+    cp source/axel/virusTestConsole/virusTestConsole $out/bin
   ''
   + lib.optionalString enableVavra ''
-    cp source/mqTestConsole/mqTestConsole $out/bin
+    cp source/waldi/microq/mqTestConsole/mqTestConsole $out/bin
   ''
   + lib.optionalString enableXenia ''
-    cp source/xtTestConsole/xtTestConsole $out/bin
+    cp source/waldi/xt/xtTestConsole/xtTestConsole $out/bin
   ''
   + ''
     cd ../bin/plugins/Release

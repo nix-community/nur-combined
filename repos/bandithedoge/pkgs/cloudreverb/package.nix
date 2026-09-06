@@ -8,12 +8,12 @@
 }:
 stdenv.mkDerivation {
   pname = "cloudreverb";
-  version = "0.5-unstable-2026-04-13";
+  version = "0.5-unstable-2026-09-05";
   src = fetchFromGitHub {
     owner = "xunil-cloud";
     repo = "CloudReverb";
-    rev = "92804eda8439d058a018dad606ebd1c403c37b90";
-    hash = "sha256-erpJlS9VYvYyqYyKjyDuob7Jup+zLuj93j+BRAjPtl4=";
+    rev = "9b913eab82255f4e52da56109d92c2910a291e8a";
+    hash = "sha256-qiK9TiKk4+rq2e2JfwPYUqM24fwVqGScvtzzYt7mKoA=";
     fetchSubmodules = true;
   };
 

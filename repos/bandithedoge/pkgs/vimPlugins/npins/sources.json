@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "093ffd8c995802b8952e03bedafc01696195f2f6",
-      "url": "https://github.com/AstroNvim/AstroLSP/archive/093ffd8c995802b8952e03bedafc01696195f2f6.tar.gz",
-      "hash": "sha256-u3pEFqnddh+JgRhD5lautrQBhHb094zTfSGHPi6I/cg="
+      "revision": "80ceeeadd780fa3d0e8cae8b2b1b7e85839e51a0",
+      "url": "https://github.com/AstroNvim/AstroLSP/archive/80ceeeadd780fa3d0e8cae8b2b1b7e85839e51a0.tar.gz",
+      "hash": "sha256-E1uHxA5rS+hcJ/+1hCd58Qxu4YVAXjRpf+wou8HsA7s="
     },
     "Comment.nvim": {
       "type": "Git",
@@ -399,9 +399,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "9fd9094434840dec227df0fb25649a4000be44b7",
-      "url": "https://github.com/sudo-tee/opencode.nvim/archive/9fd9094434840dec227df0fb25649a4000be44b7.tar.gz",
-      "hash": "sha256-A0HZP3/bIJvtcY3Hrroh/cyJ8EemERbP3U9MC1/ZQF4="
+      "revision": "893ec646d918f7bbf4ec9d5510768b87298ff588",
+      "url": "https://github.com/sudo-tee/opencode.nvim/archive/893ec646d918f7bbf4ec9d5510768b87298ff588.tar.gz",
+      "hash": "sha256-BEEqsYmXOvsTz9xO/L7AB3a/xMMrLlEBIu4t5YU3Kog="
     },
     "org-bullets.nvim": {
       "type": "Git",

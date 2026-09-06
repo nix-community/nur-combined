@@ -113,9 +113,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "eba191d9915cdca48333740290bb604400392ef6",
-      "url": "https://github.com/Ape/open-with-cmd.yazi/archive/eba191d9915cdca48333740290bb604400392ef6.tar.gz",
-      "hash": "sha256-5Etw2bKTfhWHBXkIR6VZsbEbCN079QfIGLnQEYiR7Lw="
+      "revision": "56705e2d378f8ab6c898981d90bddeb65ed4b748",
+      "url": "https://github.com/Ape/open-with-cmd.yazi/archive/56705e2d378f8ab6c898981d90bddeb65ed4b748.tar.gz",
+      "hash": "sha256-VClpoa3T4uVrJzdGlWHpCnaWLY1Kdk5xIIDksibScpM="
     },
     "reflink.yazi": {
       "type": "Git",
