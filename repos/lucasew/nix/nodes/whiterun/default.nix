@@ -27,6 +27,7 @@ in
     # ./container-inet-rdp.nix
     ./container-nat.nix
     ./plymouth.nix
+    ./nut.nix
   ];
 
 
