@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "iamanaws";
     repo = "dmenu-wpctl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-kkcw69xV7boX/b+gvkiSWnSde9VsyAJoGxGMUD5yBOc=";
+    hash = "sha256-vPJXH2Lqnw/wJkOZCQ0u3o6O4tOjF0oEDV7TfQLzNwU=";
   };
 
   postPatch = ''
