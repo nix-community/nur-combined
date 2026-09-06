@@ -15,12 +15,12 @@
 
 stdenv.mkDerivation rec {
   pname = "nlvm";
-  version = "e688d0e";
+  version = "a9c3397";
 
   src = fetchgit {
     url = "https://github.com/arnetheduck/nlvm.git";
     rev = version;
-    hash = "sha256-XwFiJYkropgoX6RkOZxhG0yj60RKgW98FRsK6mBXCdY=";
+    hash = "sha256-K+N+vn8sQ6uS4iQrZxbU4gsWAZUp9hHlio27oY/Rcxo=";
     fetchSubmodules = true;
   };
 
@@ -32,7 +32,6 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./0002-Fix-genMain-nil-sym-dereference.patch
   ];
 
   dontUseCmakeConfigure = true;
