@@ -5,13 +5,14 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   rustPlatform,
-  nodejs_22,
+  nodejs,
   pnpm_11,
   pnpmConfigHook,
   geist-font,
   nix-update-script,
   which,
   writableTmpDirAsHomeHook,
+  makeWrapper,
 }:
 
 let
@@ -20,14 +21,6 @@ let
   # attribute. The upstream lockfile is `lockfileVersion: '9.0'`, which is
   # produced by pnpm 9/10/11; pinning to 11 keeps us aligned with what
   # contributors run locally.
-  #
-  # Pin Node.js 22 for the JS toolchain. Node.js 24 crashes on macOS with
-  # `EXC_GUARD` (`GUARD_TYPE_FD`) during `pnpm install`/`pnpm build`: pnpm's
-  # reflink worker (APFS clonefile) closes a file descriptor that Node 24's
-  # new BSD file-descriptor guard treats as managed, so the kernel kills the
-  # process. This only affects the build-time dashboard tooling, not the
-  # runtime CLI, and the FOD `pnpmDeps.hash` is unaffected by the Node major.
-  nodejs = nodejs_22;
   pnpm = pnpm_11.override { nodejs-slim = nodejs; };
 
   version = "0.36.0";
@@ -123,13 +116,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
 
+  nativeBuildInputs = [ makeWrapper ];
+
   __darwinAllowLocalNetworking = true;
 
-  # The `skills` subcommand looks for `skills/` and `skill-data/` next to
-  # `bin/`, relative to the canonical exe path. See cli/src/skills.rs.
+  # Expose bundled skills through the community-standard XDG data path while
+  # keeping the CLI's built-in skill commands functional via its env override.
   postInstall = ''
-    cp -r ../skills $out/skills
-    cp -r ../skill-data $out/skill-data
+    mkdir -p $out/share/skills/agent-browser
+    cp -r ../skills/. $out/share/skills/agent-browser/
+    cp -r ../skill-data/. $out/share/skills/agent-browser/
+    wrapProgram $out/bin/agent-browser \
+      --set AGENT_BROWSER_SKILLS_DIR $out/share/skills/agent-browser
   '';
 
   passthru = {
