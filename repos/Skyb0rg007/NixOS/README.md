@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 54 packages.
+Generated from 55 packages.
 
 ## `ambient-build-vm`
 
@@ -136,6 +136,14 @@ Generated from 54 packages.
 - **Description:** Fil-C toolchain (Pizfix)
 - **Homepage:** [https://fil-c.org/pizfix](https://fil-c.org/pizfix)
 - **License:** (Apache-2.0 WITH LLVM-exception) AND (BSD-2-Clause AND BSD-3-Clause)
+
+## `grant`
+
+- **Package name:** grant
+- **Version:** 0.6.8
+- **Description:** CLI tool for checking licenses
+- **Homepage:** [https://github.com/anchore/grant](https://github.com/anchore/grant)
+- **License:** Apache-2.0
 
 ## `image-builder`
 
