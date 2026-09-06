@@ -59,8 +59,8 @@ specify {
   gopass-env = any;
   gopass-ydotool = any;
   gpx-reduce = any;
-  guetzli-gradient = any;
   htop = { patch = ./library/assets/htop_colors.patch; big = true; }; # htop-dev/htop#1416
+  image-quality-gradient = any;
   incremental-compress = any;
   inkscape = { patch = ./library/assets/inkscape_png-no-comment.patch; big = true; ccache = true; dontEval = true /* FIXME: infinite recursion */; }; # inkscape/inkscape!7193
   iosevka-custom = any;

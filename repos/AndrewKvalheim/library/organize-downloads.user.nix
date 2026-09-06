@@ -4,7 +4,7 @@ let
   inherit (builtins) readFile replaceStrings;
   inherit (config.home) homeDirectory;
   inherit (lib) concatStringsSep getExe getExe';
-  inherit (pkgs) bash efficient-compression-tool findutils libjxl resholve unzip uutils-coreutils;
+  inherit (pkgs) bash efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof resholve unzip uutils-coreutils;
 
   uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 
@@ -20,13 +20,15 @@ let
   handler = resholve.writeScriptBin "organize-downloads"
     {
       interpreter = getExe bash;
-      inputs = [ efficient-compression-tool findutils libjxl unzip uutils-coreutils' ];
+      inputs = [ efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof unzip uutils-coreutils' ];
       execer = [
         "cannot:${getExe' libjxl "cjxl"}"
         "cannot:${getExe' uutils-coreutils' "date"}"
+        "cannot:${getExe' uutils-coreutils' "ls"}"
         "cannot:${getExe' uutils-coreutils' "mkdir"}"
         "cannot:${getExe' uutils-coreutils' "mv"}"
         "cannot:${getExe' uutils-coreutils' "rm"}"
+        "cannot:${getExe' uutils-coreutils' "rmdir"}"
         "cannot:${getExe' uutils-coreutils' "sleep"}"
         "cannot:${getExe' uutils-coreutils' "stat"}"
         "cannot:${getExe' uutils-coreutils' "touch"}"

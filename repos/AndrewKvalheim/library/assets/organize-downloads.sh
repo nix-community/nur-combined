@@ -40,7 +40,20 @@ intake() { local path="$1"
   [[ "$path" != *'⏳️ '* ]] || exit 1
   local intaken_path="${path%/*}/⏳️ ${path##*/}"
 
-  while [[ -e "$path.part" || -n "$(find "$path" -newermt '1 second ago')" ]]; do sleep '1s'; done
+  if [[ -e "$path.part" ]]; then
+    echo "Awaiting $path.part" >&2
+    inotifywait --quiet --event 'moved_to' --format '%f' "${path%/*}" \
+      | grep --fixed-strings --line-regexp --max-count '1' --quiet "${path##*/}"
+  elif [[ "$(lsof -F 'a' "$path" ||:)" == *'aw' ]]; then
+    echo "Awaiting writes to $path" >&2
+    inotifywait --quiet --event 'close_write' "$path"
+  fi
+
+  local l; while [[ -n "$(find "$path" -newermt '3 seconds ago')" ]]; do
+    [[ "${l:-}" ]] || { l='✓'; echo "Awaiting maturity of $path" >&2; }
+    sleep '1s'
+  done
+
   strict_mv "$path" "$intaken_path"
   process "$intaken_path" & disown
 }
@@ -108,8 +121,15 @@ strict_mv() {
 }
 
 unpack_zip() { local path="$1"
+  local directory="${path%.zip}"
+  local wrapper="${directory##*/⏳️ }"
   {
-    unzip "$path" -d "${path%.zip}"
+    unzip "$path" -d "$directory"
+    if [[ "$(ls -1 --literal "$directory")" == "$wrapper" ]]; then
+      echo 'Collapsing redundantly nested directories' >&2
+      mv --target-directory "$directory" "$directory/$wrapper/"*
+      rmdir "$directory/$wrapper"
+    fi
     rm "$path"
   } >&2
   echo "${path%.zip}"

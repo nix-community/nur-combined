@@ -471,6 +471,15 @@ in
         };
         jj-commit = git-commit;
         shellscript = {
+          "Case dispatch" = {
+            prefix = "case";
+            body = ''
+              case "\$$1" in
+                '$2') $3;;
+                *) echo "Not implemented for: \''${$1@A}" >&2; exit 1;;
+              esac
+            '';
+          };
           "Shebang: Bash" = {
             prefix = "shebang-bash";
             body = ''

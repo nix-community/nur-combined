@@ -3,6 +3,7 @@
 
   # Dependencies
 , bash
+, cavif
 , exiftool
 , file
 , gnused
@@ -10,6 +11,7 @@
 , identity
 , imagemagick
 , libheif
+, mozjpeg
 , uutils-coreutils
 , zenity
 }:
@@ -20,10 +22,10 @@ let
 
   uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 in
-resholve.writeScriptBin "guetzli-gradient"
+resholve.writeScriptBin "image-quality-gradient"
 {
   interpreter = getExe bash;
-  inputs = [ exiftool file gnused guetzli identity imagemagick libheif uutils-coreutils' zenity ];
+  inputs = [ cavif exiftool file gnused guetzli identity imagemagick libheif mozjpeg uutils-coreutils' zenity ];
   execer = [
     "cannot:${getExe exiftool}"
     "cannot:${getExe identity}"
@@ -33,4 +35,4 @@ resholve.writeScriptBin "guetzli-gradient"
     "cannot:${getExe zenity}"
   ];
 }
-  (readFile ./assets/guetzli-gradient.sh)
+  (readFile ./assets/image-quality-gradient.sh)

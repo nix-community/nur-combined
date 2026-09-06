@@ -1,23 +1,23 @@
 { expect
 , fetchFromGitHub
+, gitUpdater
 , lib
-, makeWrapper
-, stdenvNoCC
+, python3Packages
 , testers
-, unstableGitUpdater
 , writeScriptBin
 
   # Dependencies
 , openssl
-, python3
 }:
 
 let
-  inherit (lib) getExe getExe' licenses makeBinPath;
+  inherit (builtins) toFile;
+  inherit (lib) getExe licenses;
+  inherit (python3Packages.python) sitePackages;
 in
-stdenvNoCC.mkDerivation (udon: {
+python3Packages.buildPythonApplication (udon: {
   pname = "udon";
-  version = "0-unstable-2026-05-07";
+  version = "0.01";
   meta = {
     description = "Network messaging library and tools";
     homepage = "https://github.com/treedavies/udon";
@@ -25,29 +25,58 @@ stdenvNoCC.mkDerivation (udon: {
     mainProgram = "udon";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = gitUpdater { };
 
   src = fetchFromGitHub {
     owner = "treedavies";
     repo = "udon";
-    rev = "bf054c1c89e8bd60011a6b1b2d128474dbfd69cc";
-    hash = "sha256-guOsgFHT6gWDZISBDvHbhqwCIAhUfcglY17vdBkH7c4=";
+    rev = "refs/tags/v${udon.version}";
+    hash = "sha256-6/bcwbuNHX7Fiy1vle3v+nWJFkEGLMFWFrpiSJcXGKk=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
+  patches = [
+    (toFile "modules-path.patch" ''
+      Allow configuration of path of user-provided modules
+
+      --- a/src/libudon.py
+      +++ b/src/libudon.py
+      @@ -1027 +1027 @@
+      -		self.modules_path = f"/usr/bin/udon.d/modules/"
+      +		self.modules_path = os.environ.get("UDON_MODULES_PATH", "/usr/bin/udon.d/modules/")
+    '')
+    (toFile "process-name.patch" ''
+      Stabilize identity of process for detection by self test
+
+      --- a/src/udon
+      +++ b/src/udon
+      @@ -463,2 +463,4 @@
+       if __name__ == '__main__':
+      +	import setproctitle
+      +	setproctitle.setproctitle("udon") # Referenced by `is_udon_server_running`
+       
+    '')
   ];
-  buildInputs = [
-    (python3.withPackages (ps: with ps; [
-      config
-      cryptography
-      grpcio
-    ]))
+
+  dependencies = with python3Packages; [
+    config
+    cryptography
+    grpcio
+    psutil
+    python-daemon
+    setproctitle
+  ];
+
+  format = "other";
+  nativeBuildInputs = with python3Packages; [
+    grpcio-tools
+  ];
+  propagatedBuildInputs = [
+    openssl
   ];
   buildPhase = ''
     runHook preBuild
 
-    ${getExe' python3.pkgs.grpcio-tools "python-grpc-tools-protoc"} \
+    python-grpc-tools-protoc \
       --proto_path='src' \
       --python_out='src' \
       --grpc_python_out='src' \
@@ -59,51 +88,45 @@ stdenvNoCC.mkDerivation (udon: {
   installPhase = ''
     runHook preInstall
 
-    mkdir --parents "$out/share/udon"
-    cp --target-directory "$out/share/udon" \
-      'src/libudon.py' \
-      'src/test_libudon.py' \
-      'src/udon' \
-      'src/udon_init.py' \
-      'src/udon_pb2_grpc.py' \
-      'src/udon_pb2.py' \
-      'src/udon-server'
-
-    makeWrapper "$out/share/udon/udon" "$out/bin/udon"
-    makeWrapper "$out/share/udon/udon_init.py" "$out/bin/udon-init" \
-      --prefix PATH : ${makeBinPath [ openssl ]}
-    makeWrapper "$out/share/udon/udon-server" "$out/bin/udon-server"
+    install -D --target-directory "$out/bin" \
+      'src/udon'
+    install -D --target-directory "$out/${sitePackages}" --mode '644' \
+      'src/'*'.py'
+    cp --recursive --target-directory "$out/${sitePackages}" \
+      'src/modules/'*
 
     runHook postInstall
   '';
 
+  pythonImportsCheck = [ "hello" "libudon" "udon_init" "test_libudon" ];
+
   passthru.tests = {
     libudon = testers.nixosTest {
-      name = "libudon";
-      nodes.server = {
+      name = "udon";
+      nodes.a = {
         imports = [ <nixpkgs/nixos/tests/common/user-account.nix> ];
 
         environment.systemPackages = [
           udon.finalPackage
           (writeScriptBin "udon-init-noninteractive" ''
             #!${getExe expect} -f
-            spawn udon-init
-            expect "Create TEST keys A and B? (y/n): "; send "y\r"
+            spawn udon --init
             expect "Create new TLS Certs? (y/n): "; send "y\r"
             expect "Use this hostname for cert? (y/n): "; send "y\r"
+            expect "Create TEST keys A and B? (y/n): "; send "y\r"
             expect "Create a user key? (y/n): "; send "y\r"
             expect "Name of key: "; send "Example\r"
-            expect "Desired Key size? (default=4096): "; send "\r"
+            expect "Desired Key size? (default=4096): "; send "512\r"
           '')
         ];
       };
 
       testScript = ''
-        server.wait_for_unit("multi-user.target")
-        server.succeed("su - alice -c udon-init-noninteractive")
-        server.execute("su - alice -c udon-server >&2 &")
-        server.wait_for_open_port(50051)
-        server.succeed("su - alice -c ${udon.finalPackage}/share/udon/test_libudon.py")
+        a.wait_for_unit("multi-user.target")
+        a.succeed("su - alice -c 'udon-init-noninteractive'")
+        a.execute("su - alice -c 'udon --daemon'")
+        a.wait_for_open_port(50051)
+        a.succeed("su - alice -c 'udon --test'")
       '';
     };
   };

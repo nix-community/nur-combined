@@ -4,7 +4,7 @@ let
   inherit (builtins) listToAttrs;
   inherit (config) system;
   inherit (config.programs) kitty;
-  inherit (lib) foldlAttrs getExe getExe' imap0 mkOption nameValuePair throwIfNot;
+  inherit (lib) concatMapAttrs escapeShellArg foldlAttrs genAttrs' getExe getExe' imap0 mkOption nameValuePair replaceString splitString throwIfNot;
   inherit (lib.generators) toINI toKeyValue toYAML;
   inherit (lib.hm.gvariant) mkTuple mkUint32;
   inherit (pkgs) formats makeAutostartItem onlyBinMan;
@@ -164,7 +164,7 @@ in
       gimp3-with-plugins
       gradia
       guetzli
-      identity # FIXME: Unable to open AVIF
+      identity
       imagemagickBig
       (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
       (onlyBinMan libheif)
@@ -241,25 +241,42 @@ in
     ];
 
     # Nautilus scripts
-    nautilusScripts = with pkgs; {
-      "HEIF → PNG".each = ''nice ${getExe' libheif "heif-dec"} "$path" "$path.png"'';
-      "HEIF,PNG → JPEG (Guetzli) gradient".each = ''${getExe guetzli-gradient} "$path"'';
-      "HEIF,PNG,TIFF → JPEG".xargs = "-n 1 -P 8 nice ${getExe mozjpeg-simple}";
-      "HEIF,JPEG: Strip geolocation".xargs = "nice ${getExe exiftool} -overwrite_original -gps:all= -xmp:geotag=";
-      "JPEG → JPEG XL".each = ''
-        ${getExe' libjxl "cjxl"} --effort '10' --lossless_jpeg '1' "$path" "''${path%.jpg}.jxl"
-        touch --reference "$path" "''${path%.jpg}.jxl"
-      '';
-      "PNG: Optimize".xargs = ''
-        nice ${getExe efficient-compression-tool} -8 -keep -quiet --mt-file \
-        2> >(${getExe zenity} --width 600 --progress --pulsate --auto-close --auto-kill)
-      '';
-      "PNG: Quantize".each = ''
-        ${getExe pngquant-interactive} --suffix '.qnt' "$path"
-        nice ${getExe efficient-compression-tool} -8 -keep -quiet "''${path%.png}.qnt.png"
-      '';
-      "PNG: Trim".xargs = "-n 1 -P 8 nice ${getExe' imagemagick "mogrify"} -trim";
-    };
+    nautilusScripts = with pkgs; let
+      by-type = {
+        "HEIF/JPEG" = {
+          "✏️ Strip geolocation".xargs = "nice ${getExe exiftool} -overwrite_original -gps:all= -xmp:geotag=";
+        };
+        "HEIF/PNG" = {
+          "➡️ AVIF/JPEG…".each = ''${getExe image-quality-gradient} "$path"'';
+        };
+        "JPEG" = {
+          "➡️ JPEG XL".each = ''
+            nice ${getExe' libjxl "cjxl"} --effort '10' --lossless_jpeg '1' "$path" "''${path%.jpg}.jxl"
+            touch --reference "$path" "''${path%.jpg}.jxl"
+          '';
+        };
+        "PNG" = {
+          "➡️ Quantized PNG…".each = ''
+            ${getExe pngquant-interactive} --suffix '.qnt' "$path"
+            nice ${getExe efficient-compression-tool} -8 -keep -quiet "''${path%.png}.qnt.png"
+          '';
+          "➡️ WebP".each = ''
+            nice ${getExe' libwebp "cwebp"} -quiet -lossless -q '100' "$path" -o "''${path%.png}.webp"
+            touch --reference "$path" "''${path%.png}.webp"
+          '';
+          "✏️ Optimize".xargs = ''
+            nice ${getExe efficient-compression-tool} -8 -keep -quiet --mt-file \
+            2> >(${getExe zenity} --width 600 --progress --pulsate --auto-close --auto-kill)
+          '';
+          "✏️ Trim".xargs = "-n 1 -P ${escapeShellArg system.host.metrics.cpuCores} nice ${getExe' imagemagick "mogrify"} -trim";
+        };
+      };
+    in
+    concatMapAttrs
+      (types: concatMapAttrs
+        (name: script: genAttrs' (splitString "/" types)
+          (type: nameValuePair "${type}…/${replaceString "/" "⧸" name}" script)))
+      by-type;
 
     # GNOME Shell launcher scripts
     launcherScripts = with pkgs; {

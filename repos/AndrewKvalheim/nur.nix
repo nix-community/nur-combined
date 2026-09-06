@@ -110,7 +110,7 @@ rec {
   stretch-break = callPackage ./library/stretch-break.pkg.nix { };
   tile-stitch = callPackage ./library/tile-stitch.pkg.nix { };
   udon = callPackage ./library/udon.pkg.nix {
-    python3 = pkgs.python3.override {
+    python3Packages = (pkgs.python3.override {
       packageOverrides = _: pythonPackages: with pythonPackages; {
         config = buildPythonPackage rec {
           pname = "config";
@@ -120,7 +120,7 @@ rec {
           nativeBuildInputs = [ setuptools ];
         };
       };
-    };
+    }).pkgs;
   };
   wireguard-vanity-address = callPackage ./library/wireguard-vanity-address.pkg.nix { };
 }
