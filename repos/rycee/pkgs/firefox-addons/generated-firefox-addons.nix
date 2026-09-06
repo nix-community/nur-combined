@@ -387,10 +387,10 @@
     };
     "anki-jpdb-reader" = buildMozillaXpiAddon {
       pname = "anki-jpdb-reader";
-      version = "0.8.0";
+      version = "0.8.1";
       addonId = "{67e602c3-7324-4b00-85cd-b652eb47b0f9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5001529/anki_jpdb_reader-0.8.0.xpi";
-      sha256 = "ee70f0bfd24e8f2529fb8b57685c322af1afb25942e86890fef174984fd2f6f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5008424/anki_jpdb_reader-0.8.1.xpi";
+      sha256 = "20a5ae2c50d4facd795f5acd184fbb71d5e589e5befdf7a91aeefed147dc9f92";
       meta = with lib;
       {
         homepage = "https://github.com/Kagu-chan/anki-jpdb.reader";
@@ -1931,7 +1931,7 @@
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
-        description = "Removes tracking elements from URLs";
+        description = "Automatically removes tracking parameters from URLs";
         license = licenses.lgpl3;
         mozPermissions = [
           "<all_urls>"
@@ -2422,10 +2422,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.24.0";
+      version = "4.24.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4963137/control_panel_for_twitter-4.24.0.xpi";
-      sha256 = "7345582690b64ddd994dd4962b8ce36a0039546021f1336ca3c9d34ac1789015";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5007691/control_panel_for_twitter-4.24.1.xpi";
+      sha256 = "8b5407ca43c8b30135caea2c8369f9e2fee15f9889c45dd4d13f40d4372c99ce";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -6558,10 +6558,10 @@
     };
     "hyperchat" = buildMozillaXpiAddon {
       pname = "hyperchat";
-      version = "3.3.2";
+      version = "4.0.0";
       addonId = "{14a15c41-13f4-498e-986c-7f00435c4d00}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4881026/hyperchat-3.3.2.xpi";
-      sha256 = "1c6d33bc7f89f2ab7ebc3c801c07f23d693822b714d765793942f3851f6f0f0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5007853/hyperchat-4.0.0.xpi";
+      sha256 = "c841ce2cbbdb0f078bdae43cf24eb054f138e2854fe5f8420a18fa75cbbd617e";
       meta = with lib;
       {
         homepage = "https://livetl.app/hyperchat/";
@@ -8634,10 +8634,10 @@
     };
     "livetl" = buildMozillaXpiAddon {
       pname = "livetl";
-      version = "9.2.2";
+      version = "10.0.0";
       addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4881029/livetl-9.2.2.xpi";
-      sha256 = "c4134753a4032033e5c1ddea424697c654d0bbcab98d4409d9843cc6b4f7d84e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5007848/livetl-10.0.0.xpi";
+      sha256 = "22900ac62ab013fc67f3f8b849307f62d27850031faa91860a95e3dae1fa0adf";
       meta = with lib;
       {
         homepage = "https://livetl.app/";
@@ -12832,10 +12832,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.82";
+      version = "4.3.83";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4934617/remove_youtube_s_suggestions-4.3.82.xpi";
-      sha256 = "64aea3fefb5246a0ccaf0c8c5fdf60bf76010352100513dbd88cb03d759a5337";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5008757/remove_youtube_s_suggestions-4.3.83.xpi";
+      sha256 = "0aabbf8ab874790d1bc762707e13ae126539dfad565cdacccd1352aeb84bc5ac";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -13631,10 +13631,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.24.0";
+      version = "1.24.1";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5003373/single_file-1.24.0.xpi";
-      sha256 = "9591325f353258006f7a3846e25560ab641e1c9d768c7521971142b23e4e3448";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5008547/single_file-1.24.1.xpi";
+      sha256 = "49299e02e3286a971eed30219c0af92021f217f7520588af24f954abb26c6fc9";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -17544,7 +17544,6 @@
       {
         homepage = "https://pockettube.io";
         description = "The best way to group your subscriptions\r\nUsing this simple extension you can create collections that seamlessly fit into YouTube's layout.";
-        license = licenses.mpl20;
         mozPermissions = [
           "alarms"
           "storage"
@@ -17578,10 +17577,10 @@
     };
     "ytcfilter" = buildMozillaXpiAddon {
       pname = "ytcfilter";
-      version = "3.1.3";
+      version = "4.0.0";
       addonId = "{20f2dcdf-6f8d-4aeb-862b-b13174475d9c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4892792/ytcfilter-3.1.3.xpi";
-      sha256 = "dfe04ce329bae41349e880723a0452e626aa1d85bf11e05a7070739154f0c5fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5007852/ytcfilter-4.0.0.xpi";
+      sha256 = "f4d1b566fa8dbfb3ddb4e9bbfaa45e1fa720bc094511c1d198f7599bca18e814";
       meta = with lib;
       {
         description = "The most powerful and intuitive YouTube chat filter extension.";
