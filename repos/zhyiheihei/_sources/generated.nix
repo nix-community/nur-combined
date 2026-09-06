@@ -97,22 +97,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.16.0";
+    version = "v4.16.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.16.0";
-      hash = "sha256-OXogYzqU7CqK6Yspi7GfcULh8P3ePS3pPVeUQBTVo3g=";
+      tag = "v4.16.1";
+      hash = "sha256-TWlOjPBdQTLAWiWj2WHrOSNkacvRNCpa2v0PsGdPRYE=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.16.0";
+    version = "v4.16.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.16.0";
-      hash = "sha256-FN1lNpvCNkHDX2Wy2deZXqxbjAnjYoKu4aUDuCd8ceo=";
+      tag = "v4.16.1";
+      hash = "sha256-rTHelw92ctMXy6tO+ZFE5OF5lj5l5PAKBj1T6ZBaoJ4=";
     };
   };
   pinyin2hanzi = {
@@ -197,18 +197,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "4.4.68";
+    version = "4.4.70";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.68/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-paFcewhejtwA+Abj0x3jk/vcJ98xzRF1siesDSkeb6s=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.70/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-DLbo5jjmUQSDM06ByNj7C87rp5qeV3Xni3ra4ME7v20=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "4.4.68";
+    version = "4.4.70";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.68/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-+S6BGjylj2MbeMBpjQGLXLctyd9+CVFuSmdzZDIl2rs=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.70/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-iV4qwC9BcQXgzGnmmt54pCs9ywd/7Xlsy4NrBCc/oac=";
     };
   };
   vertex = {
