@@ -1,9 +1,7 @@
 diff --git a/src/core/main.ts b/src/core/main.ts
-index abcdef1..abcdef2 100644
 --- a/src/core/main.ts
 +++ b/src/core/main.ts
-@@ -835,12 +835,11 @@
-     if (!path) {
+@@ -834,14 +834,15 @@ export default class ExcalidrawPlugin extends Plugin {
        new Notice(t("STARTUP_SCRIPT_JS_DISABLED"));
        return;
      }
@@ -13,8 +11,12 @@ index abcdef1..abcdef2 100644
        new Notice(`Startup script not found: ${path}`);
        return;
      }
--    const script = await this.app.vault.read(f);
 +    const script = await this.app.vault.adapter.read(path);
-     const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
++    const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
      try {
-       await new AsyncFunction("ea", script)(this.ea);
+-      await this.scriptEngine.executeStartupScript(f, this.ea);
++      await new AsyncFunction("ea", script)(this.ea);
+     } catch (e) {
+       new Notice(`Error running startup script: ${e}`);
+     }
+   }
