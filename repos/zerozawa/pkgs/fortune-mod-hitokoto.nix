@@ -7,7 +7,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  version = "1.0.1287";
+  version = "1.0.1289";
   pname = "fortune-mod-hitokoto";
   src = fetchFromGitHub {
     owner = "hitokoto-osc";

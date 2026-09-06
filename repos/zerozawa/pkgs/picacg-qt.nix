@@ -31,7 +31,7 @@ let
 in
 python313Packages.buildPythonApplication rec {
   pname = "picacg-qt";
-  version = "1.5.4";
+  version = "1.5.5";
 
   src = fetchFromGitHub {
     owner = "tonquer";

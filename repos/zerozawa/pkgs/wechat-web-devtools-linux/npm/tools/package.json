@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "dependencies": {
-    "node-gyp": "^11"
+    "node-gyp": "^11",
+    "asar": "0.12.1"
   }
 }

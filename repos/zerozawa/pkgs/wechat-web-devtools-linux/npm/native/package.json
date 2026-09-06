@@ -9,7 +9,6 @@
     "native-keymap": "*",
     "native-watchdog": "*",
     "node-pty": "1.0.0",
-    "nodegit": "0.27.0",
-    "oniguruma": "*"
+    "nodegit": "0.28.0-alpha.36"
   }
 }
