@@ -1,7 +1,9 @@
 {
   lib,
   source,
-  flutter344,
+  # Upstream's pubspec floor is Flutter >=3.44.9, and nixpkgs' 3.44 series stops
+  # at 3.44.4, so 3.47 is the lowest series here that resolves the lock at all.
+  flutter347,
   autoPatchelfHook,
   copyDesktopItems,
   makeDesktopItem,
@@ -23,14 +25,14 @@
   # The same narrowing `buildFlutterApplication` applies internally, named here so
   # resolving the lock reuses the build's SDK closure instead of realizing a second
   # one that also carries the unused Android and Web engine artifacts.
-  flutterForPub = flutter344.override {
+  flutterForPub = flutter347.override {
     supportedTargetFlutterPlatforms = [
       "universal"
       "linux"
     ];
   };
 in
-  flutter344.buildFlutterApplication {
+  flutter347.buildFlutterApplication {
     inherit pname src version;
 
     # Upstream gitignores pubspec.lock; update-lockfiles resolves and commits this.
