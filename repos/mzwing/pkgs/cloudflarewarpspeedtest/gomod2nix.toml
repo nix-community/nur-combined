@@ -1,0 +1,253 @@
+schema = 4
+go = '1.22'
+
+[mod]
+  [mod.'github.com/BurntSushi/toml']
+    version = 'v1.4.0'
+    hash = 'sha256-3cr8hfVA4th/AfveHDxigmj8Eiiae0ZBnxAgy+7RYO4='
+
+  [mod.'github.com/VividCortex/ewma']
+    version = 'v1.2.0'
+    hash = 'sha256-mHprIVRUOgs1qyYpiMO3bh6fCzDrqasDsaTaRE0oHXI='
+
+  [mod.'github.com/cheggaaa/pb/v3']
+    version = 'v3.1.4'
+    hash = 'sha256-Fl0bM8ag8sKr8C/hj5qaxN+VjmRA403xXcQoTdQ19LU='
+
+  [mod.'github.com/fatih/color']
+    version = 'v1.15.0'
+    hash = 'sha256-7b+scFVQeEUoXfeCDd8X2gS8GMoWA+HxjK8wfbypa5s='
+
+  [mod.'github.com/google/btree']
+    version = 'v1.0.1'
+    hash = 'sha256-1PIeFGgUL4BK/StL/D12pg9bEQ5HfMT/fMLdus4pZTs='
+
+  [mod.'github.com/mattn/go-colorable']
+    version = 'v0.1.13'
+    hash = 'sha256-qb3Qbo0CELGRIzvw7NVM1g/aayaz4Tguppk9MD2/OI8='
+
+  [mod.'github.com/mattn/go-isatty']
+    version = 'v0.0.19'
+    hash = 'sha256-wYQqGxeqV3Elkmn26Md8mKZ/viw598R4Ych3vtt72YE='
+
+  [mod.'github.com/mattn/go-runewidth']
+    version = 'v0.0.14'
+    hash = 'sha256-O3QdxqAcJgQ+HL1v8oBA4iKBwJ2AlDN+F464027hWMU='
+
+  [mod.'github.com/nicksnyder/go-i18n/v2']
+    version = 'v2.4.0'
+    hash = 'sha256-PbArcDPZ5yPNq9/hsc5l6d9IWyjSHbn4X7q/S+Dc0V0='
+
+  [mod.'github.com/rivo/uniseg']
+    version = 'v0.2.0'
+    hash = 'sha256-GLj0jiGrT03Ept4V6FXCN1yeZ/b6PpS3MEXK6rYQ8Eg='
+
+  [mod.'golang.org/x/crypto']
+    version = 'v0.13.0'
+    hash = 'sha256-4ThyrEJI4i9XBwx/q/R4jR41VJBZ/TSR0+UCkjTH95A='
+
+  [mod.'golang.org/x/net']
+    version = 'v0.15.0'
+    hash = 'sha256-k0hgSwNmZz9nN9cqqACNHdnejV50AAwzxnoyTs9liXw='
+
+  [mod.'golang.org/x/sys']
+    version = 'v0.12.0'
+    hash = 'sha256-Ht/PhBJGWNBg4ksmdUu4+7hJjFypSwoUN/8DJricd+0='
+
+  [mod.'golang.org/x/text']
+    version = 'v0.14.0'
+    hash = 'sha256-yh3B0tom1RfzQBf1RNmfdNWF1PtiqxV41jW1GVS6JAg='
+
+  [mod.'golang.org/x/time']
+    version = 'v0.0.0-20220210224613-90d013bbcef8'
+    hash = 'sha256-pg5k2aqln5KoTOK/vya61T7DALmcs0CFVH9MPUj62v0='
+
+  [mod.'golang.zx2c4.com/wintun']
+    version = 'v0.0.0-20230126152724-0fa3db229ce2'
+    hash = 'sha256-cjMLNjKnnupVROWmeASORVieAL9ieYdzX3cFzG8bCpo='
+
+  [mod.'golang.zx2c4.com/wireguard']
+    version = 'v0.0.0-20231211153847-12269c276173'
+    hash = 'sha256-EHNJ9VBRNP17guQTfeqqG0TmtPmjyNz6cR2HskF6nZI='
+
+  [mod.'gvisor.dev/gvisor']
+    version = 'v0.0.0-20230927004350-cbd86285d259'
+    hash = 'sha256-8JseYGAKE7CJOBadducKZzDdcCMHcoMydRiVMiFqn5M='
+
+[cacheModules]
+  [cacheModules.'github.com/BurntSushi/toml']
+    packages = [
+      'github.com/BurntSushi/toml'
+    ]
+
+  [cacheModules.'github.com/VividCortex/ewma']
+    packages = [
+      'github.com/VividCortex/ewma'
+    ]
+
+  [cacheModules.'github.com/cheggaaa/pb/v3']
+    packages = [
+      'github.com/cheggaaa/pb/v3',
+      'github.com/cheggaaa/pb/v3/termutil'
+    ]
+    deps = [
+      'github.com/VividCortex/ewma',
+      'github.com/fatih/color',
+      'github.com/mattn/go-colorable',
+      'github.com/mattn/go-isatty',
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/fatih/color']
+    packages = [
+      'github.com/fatih/color'
+    ]
+    deps = [
+      'github.com/mattn/go-colorable',
+      'github.com/mattn/go-isatty'
+    ]
+
+  [cacheModules.'github.com/google/btree']
+    packages = [
+      'github.com/google/btree'
+    ]
+
+  [cacheModules.'github.com/mattn/go-colorable']
+    packages = [
+      'github.com/mattn/go-colorable'
+    ]
+    deps = [
+      'github.com/mattn/go-isatty'
+    ]
+
+  [cacheModules.'github.com/mattn/go-isatty']
+    packages = [
+      'github.com/mattn/go-isatty'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/mattn/go-runewidth']
+    packages = [
+      'github.com/mattn/go-runewidth'
+    ]
+    deps = [
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/nicksnyder/go-i18n/v2']
+    packages = [
+      'github.com/nicksnyder/go-i18n/v2/i18n',
+      'github.com/nicksnyder/go-i18n/v2/i18n/template'
+    ]
+    deps = [
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/rivo/uniseg']
+    packages = [
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'golang.org/x/crypto']
+    packages = [
+      'golang.org/x/crypto/blake2s',
+      'golang.org/x/crypto/chacha20',
+      'golang.org/x/crypto/chacha20poly1305',
+      'golang.org/x/crypto/curve25519',
+      'golang.org/x/crypto/poly1305'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/net']
+    packages = [
+      'golang.org/x/net/bpf',
+      'golang.org/x/net/dns/dnsmessage',
+      'golang.org/x/net/ipv4',
+      'golang.org/x/net/ipv6'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/sys']
+    packages = [
+      'golang.org/x/sys/cpu',
+      'golang.org/x/sys/unix'
+    ]
+
+  [cacheModules.'golang.org/x/text']
+    packages = [
+      'golang.org/x/text/language'
+    ]
+
+  [cacheModules.'golang.org/x/time']
+    packages = [
+      'golang.org/x/time/rate'
+    ]
+
+  [cacheModules.'golang.zx2c4.com/wireguard']
+    packages = [
+      'golang.zx2c4.com/wireguard/conn',
+      'golang.zx2c4.com/wireguard/device',
+      'golang.zx2c4.com/wireguard/ipc',
+      'golang.zx2c4.com/wireguard/ratelimiter',
+      'golang.zx2c4.com/wireguard/replay',
+      'golang.zx2c4.com/wireguard/rwcancel',
+      'golang.zx2c4.com/wireguard/tai64n',
+      'golang.zx2c4.com/wireguard/tun',
+      'golang.zx2c4.com/wireguard/tun/netstack'
+    ]
+    deps = [
+      'golang.org/x/crypto',
+      'golang.org/x/net',
+      'golang.org/x/sys',
+      'gvisor.dev/gvisor'
+    ]
+
+  [cacheModules.'gvisor.dev/gvisor']
+    packages = [
+      'gvisor.dev/gvisor/pkg/atomicbitops',
+      'gvisor.dev/gvisor/pkg/bits',
+      'gvisor.dev/gvisor/pkg/buffer',
+      'gvisor.dev/gvisor/pkg/context',
+      'gvisor.dev/gvisor/pkg/gohacks',
+      'gvisor.dev/gvisor/pkg/linewriter',
+      'gvisor.dev/gvisor/pkg/log',
+      'gvisor.dev/gvisor/pkg/rand',
+      'gvisor.dev/gvisor/pkg/refs',
+      'gvisor.dev/gvisor/pkg/sleep',
+      'gvisor.dev/gvisor/pkg/state',
+      'gvisor.dev/gvisor/pkg/state/wire',
+      'gvisor.dev/gvisor/pkg/sync',
+      'gvisor.dev/gvisor/pkg/sync/locking',
+      'gvisor.dev/gvisor/pkg/tcpip',
+      'gvisor.dev/gvisor/pkg/tcpip/adapters/gonet',
+      'gvisor.dev/gvisor/pkg/tcpip/checksum',
+      'gvisor.dev/gvisor/pkg/tcpip/hash/jenkins',
+      'gvisor.dev/gvisor/pkg/tcpip/header',
+      'gvisor.dev/gvisor/pkg/tcpip/header/parse',
+      'gvisor.dev/gvisor/pkg/tcpip/link/channel',
+      'gvisor.dev/gvisor/pkg/tcpip/network/hash',
+      'gvisor.dev/gvisor/pkg/tcpip/network/ipv4',
+      'gvisor.dev/gvisor/pkg/tcpip/network/ipv6',
+      'gvisor.dev/gvisor/pkg/tcpip/ports',
+      'gvisor.dev/gvisor/pkg/tcpip/seqnum',
+      'gvisor.dev/gvisor/pkg/tcpip/stack',
+      'gvisor.dev/gvisor/pkg/tcpip/transport',
+      'gvisor.dev/gvisor/pkg/tcpip/transport/icmp',
+      'gvisor.dev/gvisor/pkg/tcpip/transport/packet',
+      'gvisor.dev/gvisor/pkg/tcpip/transport/raw',
+      'gvisor.dev/gvisor/pkg/tcpip/transport/tcp',
+      'gvisor.dev/gvisor/pkg/tcpip/transport/tcpconntrack',
+      'gvisor.dev/gvisor/pkg/tcpip/transport/udp',
+      'gvisor.dev/gvisor/pkg/waiter'
+    ]
+    deps = [
+      'github.com/google/btree',
+      'golang.org/x/sys',
+      'golang.org/x/time'
+    ]

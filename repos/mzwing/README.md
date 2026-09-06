@@ -16,6 +16,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `claude-hud` | [Usage](https://github.com/jarrodwatts/claude-hud) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `cloudflarespeedtest` | [Usage](https://github.com/XIU2/CloudflareSpeedTest) |
+| `cloudflarewarpspeedtest` | [Usage](https://github.com/puzige/CloudflareWarpSpeedTest) |
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
 | `cpa-plugin-antigravity-coding-filter` | [Usage](https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter) |
 | `getopts-fish` | [Usage](https://github.com/jorgebucaran/getopts.fish) |
