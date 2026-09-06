@@ -52,6 +52,14 @@ in
     rulesetFile = secrets."nftables.nft".path;
   };
   sops.secrets."nftables.nft".restartUnits = [ "nftables.service" ];
+  systemd.services.nftables = {
+    wants = lib.mkForce [ "network-online.target" ];
+    before = lib.mkForce [ ];
+    after = [ 
+      "network-online.target" 
+      "sops-install-secrets.service"
+    ];
+  };
 
   networking.useNetworkd = true;
   networking.useDHCP = true;
@@ -60,7 +68,7 @@ in
     "1.1.1.1"
     "1.0.0.1"
   ];
-  systemd.network.networks.enp1s0.dhcpV4Config = {
+  systemd.network.networks."40-enp1s0".dhcpV4Config = {
     UseDNS = false;
   };
   services.resolved.settings.Resolve = {

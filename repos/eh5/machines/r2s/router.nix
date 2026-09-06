@@ -13,7 +13,10 @@
   systemd.services.nftables = {
     wants = lib.mkForce [ "network-online.target" ];
     before = lib.mkForce [ ];
-    after = [ "network-online.target" ];
+    after = [ 
+      "network-online.target" 
+      "sops-install-secrets.service"
+    ];
   };
 
   services.einat = {

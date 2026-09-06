@@ -40,7 +40,7 @@ in
       device = "/dev/disk/by-label/NIXOS_SD${fsLabelSuffix}";
       fsType = "f2fs";
       options = [
-        "compress_algorithm=zstd:6"
+        "compress_algorithm=lz4:3"
         "compress_chksum"
         "atgc"
         "gc_merge"
