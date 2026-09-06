@@ -37,7 +37,7 @@ in
       desktopName = "Fluxer Canary";
       comment = "Fluxer desktop client (canary)";
       exec = "fluxer-canary-bin %U";
-      icon = "fluxer";
+      icon = "fluxer-canary";
       terminal = false;
       categories = ["InstantMessaging"];
     };
@@ -50,7 +50,7 @@ in
           $out/share/applications/fluxer-canary.desktop
 
         install -Dm444 \
-          ${contents}/usr/share/icons/hicolor/256x256/apps/fluxer.png \
-          $out/share/icons/hicolor/256x256/apps/fluxer.png
+          ${contents}/usr/share/icons/hicolor/512x512/apps/fluxer-canary.png \
+          $out/share/icons/hicolor/512x512/apps/fluxer-canary.png
       '';
     }
