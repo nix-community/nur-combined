@@ -36,6 +36,11 @@ let
         description = "Predicate to check if insecure package is allowed";
         default = null;
       };
+      localSystem = lib.mkOption {
+        type = lib.types.attrs;
+        description = "Extra attributes to pass to nixpkgs.localSystem";
+        default = { };
+      };
       settings = lib.mkOption {
         type = lib.types.attrs;
         description = "Extra attributes to pass to nixpkgs.config";
@@ -63,7 +68,7 @@ in
           n: v:
           lib.mkForce (
             import packages."${n}-patched" {
-              inherit system;
+              localSystem = if v.localSystem == { } then { inherit system; } else v.localSystem;
               config = {
                 inherit (v) allowUnfree permittedInsecurePackages;
               }
