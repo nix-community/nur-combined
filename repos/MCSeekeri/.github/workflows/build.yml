@@ -27,45 +27,30 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      - name: Backup Node toolchain for niks3
-        shell: bash
-        run: |
-          echo "Backing up hostedtoolcache (mv, not cp, ~1s)..."
-          # 用 mv 硬改名，比 cp -a 快 100倍，/opt 和 /tmp 同在根盘，mv 只是改 inode
-          sudo mv /opt/hostedtoolcache /tmp/hostedtoolcache-backup 2>&1 | tail -n 5 || true
-          ls /opt/hostedtoolcache 2>&1 | head -n 5 || echo "backup: /opt/hostedtoolcache moved away"
-          ls /tmp/hostedtoolcache-backup 2>&1 | head -n 5 || true
+      - name: Backup Node toolchain
+        run: sudo mv /opt/hostedtoolcache/node /tmp/hostedtoolcache-node 2>&1 | grep -v "Permission denied" || true
       - name: Enlarge swap for Rust LTO
         shell: bash
         run: |
-          echo "--- Before enlarge (must be BEFORE nothing-but-nix, /mnt 还空) ---"
-          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true; df -h 2>&1 | head -n 20 || true
-          echo "Creating 4G swap on /mnt (before /nix fills it)..."
-          sudo swapoff -a 2>&1 || true
-          sudo rm -f /swapfile /mnt/swapfile 2>&1 || true
-          if ! sudo fallocate -l 4G /mnt/swapfile 2>&1; then sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096 status=progress 2>&1 || true; fi
+          sudo swapoff -a 2>&1 | grep -v "Permission denied" || true
+          sudo rm -f /swapfile /mnt/swapfile 2>&1 | grep -v "Permission denied" || true
+          if ! sudo fallocate -l 4G /mnt/swapfile 2>&1 | grep -v "Permission denied"; then sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096 status=progress 2>&1 | grep -v "Permission denied" || true; fi
           sudo chmod 600 /mnt/swapfile
           sudo mkswap /mnt/swapfile 2>&1 | tail -n 5 || true
-          sudo swapon /mnt/swapfile 2>&1 || true
-          # 保留原 3G /swapfile 再加 4G = 7G 总
-          sudo swapon /swapfile 2>&1 || true
-          echo "--- After enlarge ---"
-          free -h || true; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true; df -h 2>&1 | head -n 20 || true
+          sudo swapon /mnt/swapfile 2>&1 | grep -v "Permission denied" || true
+          sudo swapon /swapfile 2>&1 | grep -v "Permission denied" || true
+          free -h 2>&1 | grep -v "Permission denied" || true; swapon --show 2>&1 | grep -v "Permission denied" || cat /proc/swaps 2>&1 | grep -v "Permission denied" || true; df -h 2>&1 | grep -v "Permission denied" | head -n 20 || true
       - uses: wimpysworld/nothing-but-nix@main
         with:
           hatchet-protocol: "rampage"
           witness-carnage: true
           root-safe-haven: "1024"
           mnt-safe-haven: "2048"
-      - name: Restore Node toolchain for JS Actions
-        shell: bash
+      - name: Restore Node toolchain
         run: |
-          echo "Restoring hostedtoolcache (mv, ~1s)..."
-          sudo mkdir -p /opt
-          sudo rm -rf /opt/hostedtoolcache 2>&1 | tail -n 5 || true
-          sudo mv /tmp/hostedtoolcache-backup /opt/hostedtoolcache 2>&1 | tail -n 5 || true
-          ls /opt/hostedtoolcache 2>&1 | head -n 10 || true
-          node --version 2>&1 | head -n 5 || true; which node 2>&1 | head -n 5 || true
+          sudo mkdir -p /opt/hostedtoolcache
+          sudo mv /tmp/hostedtoolcache-node /opt/hostedtoolcache/node 2>&1 | grep -v "Permission denied" || true
+          node --version 2>&1 | grep -v "Permission denied" | head -n 5 || true
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -103,37 +88,25 @@ jobs:
           sysinfo() {
             while sleep 3m; do
               echo "::group::📊 System Info $(date -Iseconds)"
-              echo "--- CPU / Load ---"
-              cat /proc/loadavg 2>&1 || true; uptime 2>&1 || true; nproc 2>&1 | xargs echo "nproc:" || true
-              lscpu 2>&1 | head -n 25 || true; cat /proc/cpuinfo 2>&1 | grep -E "model name|cpu cores" | head -n 5 || true
-              if command -v mpstat >/dev/null 2>&1; then mpstat -P ALL 1 1 2>&1 | tail -n 20 || true; else echo "mpstat not found (sysstat not purged by rampage)"; fi
+              cat /proc/loadavg 2>&1 | grep -v "Permission denied" || true; uptime 2>&1 | grep -v "Permission denied" || true
+              lscpu 2>&1 | grep -v "Permission denied" | head -n 15 || true
+              if command -v mpstat >/dev/null 2>&1; then mpstat -P ALL 1 1 2>&1 | grep -v "Permission denied" | tail -n 15 || true; fi
               echo "--- PSI Pressure (if available) ---"
-              cat /proc/pressure/cpu 2>&1 | head -n 10 || echo "no cpu pressure"; cat /proc/pressure/memory 2>&1 | head -n 10 || echo "no memory pressure"; cat /proc/pressure/io 2>&1 | head -n 10 || echo "no io pressure"
-              echo "--- Memory ---"
-              free -h 2>&1 || true; cat /proc/meminfo 2>&1 | head -n 30 || true
-              echo "--- vmstat 1 2 ---"; vmstat -w 1 2 2>&1 | tail -n 15 || vmstat 1 2 2>&1 | tail -n 15 || true
-              if command -v vmstat >/dev/null; then echo "vmstat OK (procps, survives rampage)"; fi
-              echo "--- Disk / Inode ---"
-              df -h 2>&1 || true; df -i 2>&1 || true; lsblk -f 2>&1 | head -n 20 || true; mount 2>&1 | grep -E "btrfs|/nix|/mnt" | head -n 20 || true
-              echo "--- Swap ---"; swapon --show 2>&1 || cat /proc/swaps 2>&1 || true
-              echo "--- /nix BTRFS (btrfs-progs survives rampage) ---"
-              sudo btrfs filesystem usage /nix 2>&1 | head -n 50 || sudo btrfs filesystem show /nix 2>&1 | head -n 50 || sudo btrfs filesystem df /nix 2>&1 | head -n 50 || true
-              echo "--- /nix Store Size (coreutils, survives) ---"
-              du -sh /nix 2>&1 | head -n 5 || true; du -sh /nix/store 2>&1 | head -n 5 || true; du -sh /nix/build 2>&1 | head -n 5 || true; du -sh /mnt 2>&1 | head -n 5 || true; du -sh / 2>&1 | head -n 5 || true
-              echo "--- Top CPU/MEM (procps, survives) ---"
-              ps aux --sort=-%cpu 2>&1 | head -n 30 || true; echo "--- Top MEM ---"; ps aux --sort=-%mem 2>&1 | head -n 15 || true
-              if command -v pidstat >/dev/null 2>&1; then echo "--- pidstat ---"; pidstat -rud 1 1 2>&1 | tail -n 20 || true; fi
-              echo "--- Network / Sockets (iproute2, survives) ---"
-              ss -s 2>&1 | head -n 20 || ss -tuln 2>&1 | head -n 20 || true; cat /proc/net/dev 2>&1 | head -n 20 || true
-              echo "--- Open Files / FD ---"
-              lsof 2>&1 | wc -l | xargs echo "lsof count:" || echo "lsof not found"; ls -l /proc/self/fd 2>&1 | head -n 20 || true; cat /proc/sys/fs/file-nr 2>&1 || true
-              echo "--- dmesg OOM Killer (util-linux, survives) ---"
-              dmesg 2>&1 | tail -n 30 | grep -i -E "oom|killed|error|fail" | head -n 30 || dmesg 2>&1 | tail -n 30 || true
-              echo "--- journalctl errors (systemd, survives) ---"
-              journalctl -p 3 -n 20 --no-pager 2>&1 | head -n 30 || journalctl --no-pager -n 30 2>&1 | head -n 30 || true
-              echo "--- I/O Stat (sysstat, survives rampage) ---"
-              if command -v iostat >/dev/null 2>&1; then iostat -x 1 2 2>&1 | tail -n 30 || true; else echo "iostat not found"; vmstat -D 2>&1 | head -n 20 || true; fi
-              if command -v sar >/dev/null 2>&1; then sar -u 1 1 2>&1 | tail -n 20 || true; fi
+              cat /proc/pressure/cpu 2>&1 | grep -v "Permission denied" | head -n 10 || echo "no cpu pressure"; cat /proc/pressure/memory 2>&1 | grep -v "Permission denied" | head -n 10 || echo "no memory pressure"; cat /proc/pressure/io 2>&1 | grep -v "Permission denied" | head -n 10 || echo "no io pressure"
+              free -h 2>&1 | grep -v "Permission denied" || true; cat /proc/meminfo 2>&1 | grep -v "Permission denied" | head -n 30 || true
+              vmstat -w 1 2 2>&1 | grep -v "Permission denied" | tail -n 10 || true
+              df -h 2>&1 | grep -v "Permission denied" || true; df -i 2>&1 | grep -v "Permission denied" | head -n 10 || true; lsblk -f 2>&1 | grep -v "Permission denied" | head -n 15 || true
+              swapon --show 2>&1 | grep -v "Permission denied" || cat /proc/swaps 2>&1 | grep -v "Permission denied" || true
+              sudo btrfs filesystem usage /nix 2>&1 | grep -v "Permission denied" | head -n 50 || sudo btrfs filesystem show /nix 2>&1 | grep -v "Permission denied" | head -n 50 || sudo btrfs filesystem df /nix 2>&1 | grep -v "Permission denied" | head -n 50 || true
+              df -h /nix 2>&1 | grep -v "Permission denied" || true
+              ps aux --sort=-%cpu 2>&1 | grep -v "Permission denied" | head -n 30 || true; echo "--- Top MEM ---"; ps aux --sort=-%mem 2>&1 | grep -v "Permission denied" | head -n 15 || true
+              if command -v pidstat >/dev/null 2>&1; then echo "--- pidstat ---"; pidstat -rud 1 1 2>&1 | grep -v "Permission denied" | tail -n 20 || true; fi
+              ss -s 2>&1 | grep -v "Permission denied" | head -n 20 || ss -tuln 2>&1 | grep -v "Permission denied" | head -n 20 || true; cat /proc/net/dev 2>&1 | grep -v "Permission denied" | head -n 20 || true
+              cat /proc/sys/fs/file-nr 2>&1 | grep -v "Permission denied" | head -n 20 || true; ls -l /proc/self/fd 2>&1 | grep -v "Permission denied" | head -n 20 || true
+              sudo dmesg 2>&1 | grep -v "Permission denied" | grep -v "Operation not permitted" | tail -n 30 | grep -i -E "oom|killed|error|fail" | head -n 30 || sudo dmesg 2>&1 | grep -v "Permission denied" | grep -v "Operation not permitted" | tail -n 30 || true
+              journalctl -p 3 -n 20 --no-pager 2>&1 | grep -v "Permission denied" | head -n 30 || journalctl --no-pager -n 30 2>&1 | grep -v "Permission denied" | head -n 30 || true
+              if command -v iostat >/dev/null 2>&1; then iostat -x 1 2 2>&1 | grep -v "Permission denied" | tail -n 30 || true; else echo "iostat not found"; vmstat -D 2>&1 | grep -v "Permission denied" | head -n 20 || true; fi
+              if command -v sar >/dev/null 2>&1; then sar -u 1 1 2>&1 | grep -v "Permission denied" | tail -n 20 || true; fi
               echo "::endgroup::"
             done
           }
