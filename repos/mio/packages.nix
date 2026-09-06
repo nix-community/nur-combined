@@ -258,6 +258,12 @@ byName
   vscode1135 = pkgs.callPackage ./pkgs/vscode/vscode.nix {
     buildVscode = pkgs.callPackage ./pkgs/vscode/generic.nix { };
   };
+  vscode-fhs1135 = vscode1135.fhs;
+  vscode-fhsWithPackages1135 = vscode1135.fhsWithPackages;
+  vscode-utils1135 = pkgs.callPackage ./pkgs/vscode/extensions/vscode-utils.nix { };
+  vscode-extensions1135 = pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/vscode/extensions {
+    vscode-utils = vscode-utils1135;
+  });
 
 })
 // (lib.optionalAttrs (!no-ifd) (
