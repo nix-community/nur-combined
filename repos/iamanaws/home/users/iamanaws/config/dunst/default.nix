@@ -5,30 +5,39 @@
   ...
 }:
 let
-  dunst-scripts = pkgs.symlinkJoin {
-    name = "dunst-scripts";
-    paths = [
-      (pkgs.writeShellScriptBin "audio.sh" ''
-        ${builtins.readFile ./scripts/audio.sh}
-      '')
-      (pkgs.writeShellScriptBin "brightness.sh" ''
-        ${builtins.readFile ./scripts/brightness.sh}
-      '')
-      (pkgs.writeShellScriptBin "date.sh" ''
-        ${builtins.readFile ./scripts/date.sh}
-      '')
-      (pkgs.writeShellScriptBin "battery.sh" ''
-        ${builtins.readFile ./scripts/battery.sh}
-      '')
-      (pkgs.writeShellScriptBin "cpu-mem.sh" ''
-        ${builtins.readFile ./scripts/cpu-mem.sh}
-      '')
-    ];
-  };
+  mkDunstScript =
+    name: runtimeInputs:
+    pkgs.writeShellApplication {
+      inherit name runtimeInputs;
+      text = builtins.readFile (./scripts + "/${name}");
+    };
+
+  dunstScripts = [
+    (mkDunstScript "audio.sh" [
+      pkgs.dunst
+      pkgs.wireplumber
+    ])
+    (mkDunstScript "brightness.sh" [
+      pkgs.brightnessctl
+      pkgs.dunst
+    ])
+    (mkDunstScript "date.sh" [
+      pkgs.coreutils
+      pkgs.dunst
+    ])
+    (mkDunstScript "battery.sh" [
+      pkgs.dunst
+    ])
+    (mkDunstScript "cpu-mem.sh" [
+      pkgs.coreutils
+      pkgs.dunst
+      pkgs.procps
+    ])
+  ];
 in
 {
   config = lib.optionalAttrs (hostConfig.isGraphical && hostConfig.isLinux) {
-    home.packages = [ dunst-scripts ];
+    home.packages = dunstScripts;
 
     services.dunst = {
       enable = true;

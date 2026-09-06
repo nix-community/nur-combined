@@ -31,7 +31,7 @@ let
     user: mode:
     hostUtils.mkHmModulePath {
       inherit homeUsersRoot user;
-      os = "darwin";
+      backend = "darwin";
       hmModuleMode = mode;
     };
 

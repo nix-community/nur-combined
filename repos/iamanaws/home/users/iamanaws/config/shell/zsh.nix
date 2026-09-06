@@ -19,10 +19,12 @@
     completionInit = "autoload -Uz compinit";
     defaultKeymap = "emacs";
     dotDir = "${config.home.homeDirectory}/.config/zsh";
-    history.expireDuplicatesFirst = true;
-    history.path = "$ZDOTDIR/.zsh_history";
-    history.save = 10000;
-    history.size = 10000;
+    history = {
+      expireDuplicatesFirst = true;
+      path = "$ZDOTDIR/.zsh_history";
+      save = 10000;
+      size = 10000;
+    };
 
     shellAliases = {
     };
@@ -48,17 +50,17 @@
         # Deny overwriting
         set -o noclobber
 
-        fet.sh
+        if [ -t 1 ] \\
+          && [ \"\${SHLVL:-1}\" -eq 1 ] \\
+          && command -v fet.sh >/dev/null 2>&1; then
+          fet.sh
+        fi
 
-        function parse_git_branch() {
-          git branch 2> /dev/null | sed -n -e 's/^\\* \\(.*\\)/(\\1) /p'
-        }
+        autoload -Uz vcs_info
+        zstyle ':vcs_info:git:*' formats '(%b) '
+        precmd_functions+=(vcs_info)
 
-        function parse_nix_shell() {
-          if [[ -n \"\$IN_NIX_SHELL\" ]]; then
-            echo \" \"
-          fi
-        }
+        NIX_SHELL_PROMPT=\${IN_NIX_SHELL:+ }
 
         COLOR_USR=\$'%F{15}'   # User color set to white
         COLOR_DIR=\$'%F{12}'   # Directory color set to blue
@@ -68,7 +70,7 @@
 
         setopt PROMPT_SUBST
 
-        export PROMPT='%B\${COLOR_DIR}%2~ \${COLOR_GIT}$(parse_git_branch)\${COLOR_NIX}$(parse_nix_shell)%b'$'\\n''\${COLOR_DEF}$ '
+        export PROMPT='%B\${COLOR_DIR}%2~ \${COLOR_GIT}\${vcs_info_msg_0_}\${COLOR_NIX}\${NIX_SHELL_PROMPT}%b'$'\\n''\${COLOR_DEF}$ '
       ";
 
       in

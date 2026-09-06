@@ -2,24 +2,79 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  coreutils,
+  findutils,
+  gawk,
+  gnugrep,
+  gnused,
+  makeWrapper,
+  wireplumber,
+  writeShellScriptBin,
 }:
 
+let
+  testWpctl = writeShellScriptBin "wpctl" ''
+    case "$*" in
+      "get-volume @DEFAULT_AUDIO_SINK@")
+        printf 'Volume: 0.50\n'
+        ;;
+      "get-volume @DEFAULT_AUDIO_SOURCE@")
+        printf 'Volume: 0.25 [MUTED]\n'
+        ;;
+      *)
+        exit 1
+        ;;
+    esac
+  '';
+in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "dmenu-wpctl";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "iamanaws";
     repo = "dmenu-wpctl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-D0KtmaqTgWajustGI4QrLOj0G9GgMmMGtCShaLJu7lI=";
+    hash = "sha256-kkcw69xV7boX/b+gvkiSWnSde9VsyAJoGxGMUD5yBOc=";
   };
+
+  postPatch = ''
+    patchShebangs ./dmenu-wpctl
+  '';
+
+  nativeBuildInputs = [ makeWrapper ];
+  nativeCheckInputs = [
+    gawk
+    gnugrep
+    testWpctl
+  ];
+
+  doCheck = true;
+
+  checkPhase = ''
+    runHook preCheck
+
+    status=$(MENU_PROGRAM=rofi ./dmenu-wpctl --status)
+    test "$status" = "󰕾 50% 󰍭"
+
+    runHook postCheck
+  '';
 
   installPhase = ''
     runHook preInstall
 
-    install -D --target-directory=$out/bin/ ./dmenu-wpctl
-    chmod +x $out/bin/dmenu-wpctl
+    install -Dm755 ./dmenu-wpctl $out/bin/dmenu-wpctl
+    wrapProgram $out/bin/dmenu-wpctl \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          findutils
+          gawk
+          gnugrep
+          gnused
+          wireplumber
+        ]
+      }
 
     runHook postInstall
   '';

@@ -23,16 +23,16 @@ in
       export GPG_TTY=$(tty)
       
       parse_git_branch() {
-        git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/ (\\1)/'
+        local branch
+        branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) \\
+          || branch=$(git rev-parse --short HEAD 2>/dev/null) \\
+          || return
+        printf ' (%s)' \"$branch\"
       }
       
-      function parse_nix_shell() {
-        if [[ -n \"\$IN_NIX_SHELL\" ]]; then
-          echo \"  \"
-        fi
-      }
+      nix_shell_prompt=\${IN_NIX_SHELL:+  }
 
-      PS1='\\n\\[\\033[01;34m\\]\\w\\[\\033[1;35m\\]$(parse_git_branch)\\[\\033[1;36m\\]$(parse_nix_shell)\\[\\033[00m\\]\\n\\$ '
+      PS1='\\n\\[\\033[01;34m\\]\\w\\[\\033[1;35m\\]$(parse_git_branch)\\[\\033[1;36m\\]\${nix_shell_prompt}\\[\\033[00m\\]\\n\\$ '
       
       PROMPT_DIRTRIM=2
       
@@ -62,7 +62,11 @@ in
         clear #for background artifacting
       fi
       
-      fet.sh
+      if [ -t 1 ] \\
+        && [ \"\${SHLVL:-1}\" -eq 1 ] \\
+        && command -v fet.sh >/dev/null 2>&1; then
+        fet.sh
+      fi
       
       ${
             lib.optionalString

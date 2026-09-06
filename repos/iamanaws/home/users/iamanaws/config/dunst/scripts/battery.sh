@@ -1,8 +1,31 @@
-#!/usr/bin/env bash
+power_supply_root=${POWER_SUPPLY_ROOT:-/sys/class/power_supply}
+battery=
 
-IFS=',' read -r header percent _ <<<"$(acpi -b)"
-state=${header#*: }
-pct=${percent//[^0-9]/}
+for candidate in "$power_supply_root"/*; do
+  [[ -r $candidate/type && -r $candidate/capacity && -r $candidate/status ]] || continue
+
+  read -r type <"$candidate/type"
+  [[ $type == "Battery" ]] || continue
+
+  if [[ -r $candidate/scope ]]; then
+    read -r scope <"$candidate/scope"
+    [[ $scope == "System" ]] || continue
+  fi
+
+  battery=$candidate
+  break
+done
+
+# Desktops may expose mice and other peripherals as Device-scoped batteries.
+[[ -n $battery ]] || exit 0
+
+read -r pct <"$battery/capacity"
+read -r state <"$battery/status"
+
+if [[ ! $pct =~ ^[0-9]+$ ]]; then
+  printf 'Unexpected battery capacity: %s\n' "$pct" >&2
+  exit 1
+fi
 
 dis_icons=(󰁺 󰁻 󰁼 󰁽 󰁾 󰁿 󰂀 󰂁 󰂂 󰁹)
 chg_icons=(󰢜 󰂆 󰂇 󰂈 󰢝 󰂉 󰢞 󰂊 󰂋 󰂅)

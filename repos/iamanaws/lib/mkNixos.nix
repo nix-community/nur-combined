@@ -33,14 +33,14 @@ let
       directDir = if profile == null then null else base + "/${profile}";
       directFile = if profile == null then null else base + "/${profile}.nix";
     in
-    if deviceConfig ? profileModulePath then
-      deviceConfig.profileModulePath
-    else if profile != null && builtins.pathExists directFile then
-      directFile
-    else if profile != null && builtins.pathExists directDir then
-      directDir
-    else
-      null;
+    deviceConfig.profileModulePath or (
+      if profile != null && builtins.pathExists directFile then
+        directFile
+      else if profile != null && builtins.pathExists directDir then
+        directDir
+      else
+        null
+    );
 
   userSpecs = map hostUtils.normalizeUser (deviceConfig.users or [ ]);
   hostConfig = {
@@ -52,7 +52,7 @@ let
     user: mode:
     hostUtils.mkHmModulePath {
       inherit homeUsersRoot user;
-      os = "nixos";
+      backend = "nixos";
       hmModuleMode = mode;
     };
 

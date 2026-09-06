@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # --- CPU usage (sample /proc/stat twice over 0.2s) ---
 read -r _ u1 n1 s1 i1 w1 x1 y1 z1 _ </proc/stat
 sleep 0.2
@@ -15,6 +13,11 @@ tot2=$((idle2 + busy2))
 dtot=$((tot2 - tot1))
 didle=$((idle2 - idle1))
 
+if ((dtot <= 0)); then
+    printf 'Unable to calculate CPU usage.\n' >&2
+    exit 1
+fi
+
 # add dtot/2 for rounding
 cpu_usage=$((((dtot - didle) * 100 + dtot / 2) / dtot))
 
@@ -24,6 +27,11 @@ cpu_usage=$((((dtot - didle) * 100 + dtot / 2) / dtot))
     read -r _header
     read -r _ mem_total mem_used _
 } < <(free -m)
+
+if [[ ! $mem_total =~ ^[0-9]+$ || ! $mem_used =~ ^[0-9]+$ ]] || ((mem_total <= 0)); then
+    printf 'Unable to calculate memory usage.\n' >&2
+    exit 1
+fi
 
 mem_usage=$((mem_used * 100 / mem_total))
 

@@ -70,12 +70,15 @@
     let
       inherit (self) outputs;
 
-      lib = nixpkgs.lib;
+      inherit (nixpkgs) lib;
+      hostUtils = import ./lib/hostUtils.nix { inherit lib; };
+      hostRegistry = hostUtils.discoverHostRegistry inputs.self;
 
       mkNixos = import ./lib/mkNixos.nix { inherit inputs outputs; };
       mkDarwin = import ./lib/mkDarwin.nix { inherit inputs outputs; };
       mkHome = import ./lib/mkHome.nix {
         inherit
+          hostRegistry
           inputs
           outputs
           nixpkgs
@@ -83,13 +86,7 @@
           ;
       };
 
-      nixosHosts = lib.attrNames (
-        lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./nixos/hosts)
-      );
-
-      darwinHosts = lib.attrNames (
-        lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./darwin/hosts)
-      );
+      hostsFor = backend: hostRegistry.byBackend.${backend} or { };
 
       forAllSystems =
         f:
@@ -115,22 +112,22 @@
       overlays = import ./overlays { inherit (inputs) nur; };
 
       ### NixOS Configurations ###
-      nixosConfigurations = lib.genAttrs nixosHosts (
-        hostName:
+      nixosConfigurations = lib.mapAttrs (
+        hostName: host:
         mkNixos {
           name = hostName;
-          path = ./nixos/hosts + "/${hostName}";
+          inherit (host) path;
         }
-      );
+      ) (hostsFor "nixos");
 
       ### Darwin Configurations ###
-      darwinConfigurations = lib.genAttrs darwinHosts (
-        hostName:
+      darwinConfigurations = lib.mapAttrs (
+        hostName: host:
         mkDarwin {
           name = hostName;
-          path = ./darwin/hosts + "/${hostName}";
+          inherit (host) path;
         }
-      );
+      ) (hostsFor "darwin");
 
       ### Home-Manager standalone configurations ###
       homeConfigurations = mkHome;

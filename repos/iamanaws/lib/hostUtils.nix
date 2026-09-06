@@ -15,6 +15,47 @@ let
   loadHostDevices =
     hostsDir: lib.genAttrs (dirNames hostsDir) (name: loadDeviceConfig (hostsDir + "/${name}"));
 
+  # Discover `<backend>/hosts/<hostname>` trees and normalize their host data.
+  # The directory layout and each host's options.nix remain the source of truth;
+  # adding a backend-specific system builder is handled separately in flake.nix.
+  discoverHostRegistry =
+    flakeRoot:
+    let
+      rootEntries = builtins.readDir flakeRoot;
+      backends = lib.attrNames (
+        lib.filterAttrs (
+          name: kind: kind == "directory" && builtins.pathExists (flakeRoot + "/${name}/hosts")
+        ) rootEntries
+      );
+
+      mkHost =
+        backend: name:
+        let
+          path = flakeRoot + "/${backend}/hosts/${name}";
+          loadedDevice = loadDeviceConfig path;
+          device = loadedDevice // {
+            hostname = loadedDevice.hostname or name;
+          };
+        in
+        {
+          inherit
+            backend
+            device
+            name
+            path
+            ;
+          users = map normalizeUser (device.users or [ ]);
+        };
+
+      byBackend = lib.genAttrs backends (
+        backend: lib.genAttrs (dirNames (flakeRoot + "/${backend}/hosts")) (mkHost backend)
+      );
+    in
+    {
+      inherit backends byBackend;
+      all = lib.concatMap (backend: lib.attrValues byBackend.${backend}) backends;
+    };
+
   # Build a nested attrset of **module paths** from a directory tree.
   mkModuleTree =
     base:
@@ -51,7 +92,7 @@ let
 
       dirs = lib.filterAttrs (_: v: v != null) (
         lib.mapAttrs' (name: kind: {
-          name = name;
+          inherit name;
           value = if kind == "directory" then mkDirTree (base + "/${name}") else null;
         }) entries
       );
@@ -96,15 +137,15 @@ let
       }
     else
       {
-        name = u.name;
+        inherit (u) name;
         groups = u.groups or u.extraGroups or [ ];
         packages = u.packages or [ ];
         sshKey = u.sshKey or "";
-        homeManager =
-          u.homeManager or {
-            enable = true;
-            module = "auto";
-          };
+        homeManager = {
+          enable = true;
+          module = "auto";
+        }
+        // (u.homeManager or { });
       };
 
   # Convert a user list into an attrset keyed by user name.
@@ -136,42 +177,49 @@ let
 
   # Resolve a home-manager module path for a user.
   #
-  # `os` is "nixos" or "darwin"; determines which OS-specific subdir to prefer.
+  # `backend` determines which backend-specific subdir to prefer.
   # `homeUsersRoot` is the path to `home/users`.
-  # `hmModuleMode` is the value of `homeManager.module` (e.g. "auto", "nixos", "darwin", "nixos/pwnbox").
+  # `hmModuleMode` is the value of `homeManager.module` (e.g. "auto", "nixos", "nixos/pwnbox").
   mkHmModulePath =
     {
+      backend,
       homeUsersRoot,
-      os,
+      knownBackends ? [
+        "nixos"
+        "darwin"
+      ],
       user,
       hmModuleMode,
     }:
     let
-      osPath = homeUsersRoot + "/${user}/${os}";
+      backendPath = homeUsersRoot + "/${user}/${backend}";
       defaultPath = homeUsersRoot + "/${user}";
       relPathFor = rel: homeUsersRoot + "/${user}/${rel}";
-      otherOs = if os == "nixos" then "darwin" else "nixos";
+      isForeignBackendMode = lib.any (
+        candidate:
+        candidate != backend && (hmModuleMode == candidate || lib.hasPrefix "${candidate}/" hmModuleMode)
+      ) knownBackends;
 
       pickAuto =
-        if builtins.pathExists osPath then
-          osPath
+        if builtins.pathExists backendPath then
+          backendPath
         else if builtins.pathExists defaultPath then
           defaultPath
         else
-          throw "No home-manager module found for user '${user}'. Expected ${toString osPath} or ${toString defaultPath}.";
+          throw "No home-manager module found for user '${user}'. Expected ${toString backendPath} or ${toString defaultPath}.";
 
       requirePath = p: msg: if builtins.pathExists p then p else throw msg;
     in
     if hmModuleMode == "auto" then
       pickAuto
-    else if hmModuleMode == os then
-      requirePath osPath "Missing ${toString osPath} for user '${user}'."
+    else if hmModuleMode == backend then
+      requirePath backendPath "Missing ${toString backendPath} for user '${user}'."
     else if hmModuleMode == "default" then
       requirePath defaultPath "Missing ${toString defaultPath} for user '${user}'."
-    else if hmModuleMode == otherOs then
-      throw "homeManager.module = \"${otherOs}\" is not valid for ${os} hosts (user '${user}')."
-    else if lib.hasPrefix "${os}/" hmModuleMode then
+    else if lib.hasPrefix "${backend}/" hmModuleMode then
       requirePath (relPathFor hmModuleMode) "Missing ${toString (relPathFor hmModuleMode)} for user '${user}' (requested homeManager.module = \"${hmModuleMode}\")."
+    else if isForeignBackendMode then
+      throw "homeManager.module = \"${hmModuleMode}\" is not valid for ${backend} hosts (user '${user}')."
     else
       throw "Invalid homeManager.module '${hmModuleMode}' for user '${user}'.";
 
@@ -202,6 +250,7 @@ in
 {
   inherit
     dirNames
+    discoverHostRegistry
     loadDeviceConfig
     loadHostDevices
     mkModuleTree
