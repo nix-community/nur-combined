@@ -426,9 +426,6 @@ stdenv.mkDerivation (
         + ''
           ln -rs "$unpacked" "$packed"
         ''
-        + ''
-          rm -rf "resources/app/node_modules.asar.unpacked"
-        ''
       )
       + (
         let
