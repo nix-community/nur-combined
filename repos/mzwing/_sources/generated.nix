@@ -72,6 +72,17 @@
       sha256 = "sha256-T4SmrOM98U4WoDM1U01OFEd9LvfVRf+dTa+Z+FQH2AM=";
     };
   };
+  cloudflarespeedtest = {
+    pname = "cloudflarespeedtest";
+    version = "v2.3.5";
+    src = fetchFromGitHub {
+      owner = "XIU2";
+      repo = "CloudflareSpeedTest";
+      rev = "v2.3.5";
+      fetchSubmodules = false;
+      sha256 = "sha256-C/LvXIC2ng5FtEDMhoxilTayKVplJfzD27QLT7pbSVY=";
+    };
+  };
   codegraph = {
     pname = "codegraph";
     version = "v1.6.0";
@@ -234,13 +245,13 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "55762a50d21ecaff480c95f1ac4017342b017d02";
+    version = "41943ce9114ff0a9b8d0cb6361a352e1fa657842";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "55762a50d21ecaff480c95f1ac4017342b017d02";
+      rev = "41943ce9114ff0a9b8d0cb6361a352e1fa657842";
       fetchSubmodules = true;
-      sha256 = "sha256-jzGMXkp73idvNxIYUT/X6suFvnQ08G+fONpKxoTlHEQ=";
+      sha256 = "sha256-EYE5SrtXEkn1GZ7qAdAblQ99Q0dwTqlrw8sf63E15PY=";
     };
     date = "2026-09-05";
   };

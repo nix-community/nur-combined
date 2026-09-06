@@ -28,6 +28,11 @@ fetch.github = "kaitranntt/CLIProxyAPIPlus"
 src.github_tag = "kaitranntt/CLIProxyAPIPlus"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+-[0-9]+$"
 
+[cloudflarespeedtest]
+fetch.github = "XIU2/CloudflareSpeedTest"
+src.github_tag = "XIU2/CloudflareSpeedTest"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
 [codegraph]
 fetch.github = "colbymchenry/codegraph"
 src.github_tag = "colbymchenry/codegraph"

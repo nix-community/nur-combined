@@ -1,0 +1,97 @@
+schema = 4
+go = '1.18'
+
+[mod]
+  [mod.'github.com/VividCortex/ewma']
+    version = 'v1.2.0'
+    hash = 'sha256-mHprIVRUOgs1qyYpiMO3bh6fCzDrqasDsaTaRE0oHXI='
+
+  [mod.'github.com/cheggaaa/pb/v3']
+    version = 'v3.1.7'
+    hash = 'sha256-UoqoyEmtrkf3mFWxtoMY2DM6S6AaQM6QJ9xYJdol3gA='
+
+  [mod.'github.com/fatih/color']
+    version = 'v1.18.0'
+    hash = 'sha256-pP5y72FSbi4j/BjyVq/XbAOFjzNjMxZt2R/lFFxGWvY='
+
+  [mod.'github.com/mattn/go-colorable']
+    version = 'v0.1.14'
+    hash = 'sha256-JC60PjKj7MvhZmUHTZ9p372FV72I9Mxvli3fivTbxuA='
+
+  [mod.'github.com/mattn/go-isatty']
+    version = 'v0.0.20'
+    hash = 'sha256-qhw9hWtU5wnyFyuMbKx+7RB8ckQaFQ8D+8GKPkN3HHQ='
+
+  [mod.'github.com/mattn/go-runewidth']
+    version = 'v0.0.16'
+    hash = 'sha256-NC+ntvwIpqDNmXb7aixcg09il80ygq6JAnW0Gb5b/DQ='
+
+  [mod.'github.com/rivo/uniseg']
+    version = 'v0.4.7'
+    hash = 'sha256-rDcdNYH6ZD8KouyyiZCUEy8JrjOQoAkxHBhugrfHjFo='
+
+  [mod.'golang.org/x/sys']
+    version = 'v0.30.0'
+    hash = 'sha256-BuhWtwDkciVioc03rxty6G2vcZVnPX85lI7tgQOFVP8='
+
+[cacheModules]
+  [cacheModules.'github.com/VividCortex/ewma']
+    packages = [
+      'github.com/VividCortex/ewma'
+    ]
+
+  [cacheModules.'github.com/cheggaaa/pb/v3']
+    packages = [
+      'github.com/cheggaaa/pb/v3',
+      'github.com/cheggaaa/pb/v3/termutil'
+    ]
+    deps = [
+      'github.com/VividCortex/ewma',
+      'github.com/fatih/color',
+      'github.com/mattn/go-colorable',
+      'github.com/mattn/go-isatty',
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/fatih/color']
+    packages = [
+      'github.com/fatih/color'
+    ]
+    deps = [
+      'github.com/mattn/go-colorable',
+      'github.com/mattn/go-isatty'
+    ]
+
+  [cacheModules.'github.com/mattn/go-colorable']
+    packages = [
+      'github.com/mattn/go-colorable'
+    ]
+    deps = [
+      'github.com/mattn/go-isatty'
+    ]
+
+  [cacheModules.'github.com/mattn/go-isatty']
+    packages = [
+      'github.com/mattn/go-isatty'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/mattn/go-runewidth']
+    packages = [
+      'github.com/mattn/go-runewidth'
+    ]
+    deps = [
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/rivo/uniseg']
+    packages = [
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'golang.org/x/sys']
+    packages = [
+      'golang.org/x/sys/unix'
+    ]

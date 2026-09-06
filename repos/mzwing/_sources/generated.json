@@ -125,6 +125,27 @@
         },
         "version": "v7.2.127-7"
     },
+    "cloudflarespeedtest": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "cloudflarespeedtest",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "XIU2",
+            "repo": "CloudflareSpeedTest",
+            "rev": "v2.3.5",
+            "sha256": "sha256-C/LvXIC2ng5FtEDMhoxilTayKVplJfzD27QLT7pbSVY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.3.5"
+    },
     "codegraph": {
         "cargoLock": null,
         "date": null,
@@ -432,12 +453,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "55762a50d21ecaff480c95f1ac4017342b017d02",
-            "sha256": "sha256-jzGMXkp73idvNxIYUT/X6suFvnQ08G+fONpKxoTlHEQ=",
+            "rev": "41943ce9114ff0a9b8d0cb6361a352e1fa657842",
+            "sha256": "sha256-EYE5SrtXEkn1GZ7qAdAblQ99Q0dwTqlrw8sf63E15PY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "55762a50d21ecaff480c95f1ac4017342b017d02"
+        "version": "41943ce9114ff0a9b8d0cb6361a352e1fa657842"
     },
     "replay-fish": {
         "cargoLock": null,
