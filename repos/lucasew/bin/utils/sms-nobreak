@@ -1,0 +1,202 @@
+#!/usr/bin/env -S sd shim python3
+
+# /**
+#  * Read telemetry from an SMS Brazil nobreak on a serial port.
+#  *
+#  * Protocol is the SMS monofasico frame used by NUT sms_ser: 2400 8N1,
+#  * command + four 0xFF pads + checksum + CR. Verified on POWER VISION 2.0.
+#  *
+#  * @param device Serial device (default /dev/ttyUSB0).
+#  * @param --watch [seconds] Repeat every N seconds (default 5).
+#  */
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import select
+import sys
+import termios
+import time
+
+BAUD = termios.B2400
+FRAME = 18
+TIMEOUT = 2.0
+
+# Q / I / F: CMD + 0xFF*4 + (sum*255)&0xFF + CR
+QUERY_Q = bytes([0x51, 0xFF, 0xFF, 0xFF, 0xFF, 0xB3, 0x0D])
+QUERY_I = bytes([0x49, 0xFF, 0xFF, 0xFF, 0xFF, 0xBB, 0x0D])
+QUERY_F = bytes([0x46, 0xFF, 0xFF, 0xFF, 0xFF, 0xBE, 0x0D])
+
+FLAG_BITS = (
+    ("beep", 0),
+    ("shutdown", 1),
+    ("test", 2),
+    ("ups_ok", 3),
+    ("boost", 4),
+    ("bypass", 5),
+    ("low_battery", 6),
+    ("on_battery", 7),
+)
+
+
+def u16be(hi: int, lo: int) -> float:
+    return ((hi << 8) | lo) / 10.0
+
+
+def checksum(data: bytes) -> int:
+    return (sum(data) * 255) & 0xFF
+
+
+def open_port(path: str) -> int:
+    fd = os.open(path, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
+    attrs = termios.tcgetattr(fd)
+    attrs[0] = 0
+    attrs[1] = 0
+    attrs[2] = termios.CS8 | termios.CLOCAL | termios.CREAD
+    attrs[3] = 0
+    attrs[4] = BAUD
+    attrs[5] = BAUD
+    attrs[6][termios.VMIN] = 0
+    attrs[6][termios.VTIME] = 0
+    termios.tcsetattr(fd, termios.TCSANOW, attrs)
+    termios.tcflush(fd, termios.TCIOFLUSH)
+    time.sleep(0.1)
+    return fd
+
+
+def read_frame(fd: int, n: int = FRAME, timeout: float = TIMEOUT) -> bytes:
+    deadline = time.monotonic() + timeout
+    buf = bytearray()
+    while len(buf) < n and time.monotonic() < deadline:
+        ready, _, _ = select.select([fd], [], [], 0.1)
+        if not ready:
+            continue
+        chunk = os.read(fd, n - len(buf))
+        if chunk:
+            buf.extend(chunk)
+    return bytes(buf)
+
+
+def query(fd: int, payload: bytes, tries: int = 3) -> bytes:
+    last = b""
+    for _ in range(tries):
+        termios.tcflush(fd, termios.TCIFLUSH)
+        os.write(fd, payload)
+        last = read_frame(fd)
+        if len(last) == FRAME and last[-1] == 0x0D and checksum(last[:16]) == last[16]:
+            return last
+        time.sleep(0.2)
+    raise RuntimeError(f"no valid {payload[:1]!r} frame (got {last.hex() or 'empty'})")
+
+
+def parse_identity(frame: bytes) -> dict:
+    if frame[0] not in (ord(":"), ord(";"), ord("?")):
+        raise RuntimeError(f"bad I header: {frame[:1]!r}")
+    return {
+        "model": frame[1:13].decode("ascii", "replace").strip(),
+        "firmware": frame[13:16].decode("ascii", "replace").strip(),
+    }
+
+
+def parse_features(frame: bytes) -> dict:
+    if frame[0] not in (ord(":"), ord(";")):
+        raise RuntimeError(f"bad F header: {frame[:1]!r}")
+    battery = frame[11:14].decode("ascii", "replace").strip()
+    freq = frame[14:16].decode("ascii", "replace").strip()
+    return {
+        "voltage_range": frame[1:8].decode("ascii", "replace").strip(),
+        "current_range": frame[8:11].decode("ascii", "replace").strip(),
+        "battery_voltage_nominal": int(battery) if battery.isdigit() else battery,
+        "frequency_nominal": int(freq) if freq.isdigit() else freq,
+    }
+
+
+def parse_status(frame: bytes) -> dict:
+    if frame[0] not in (ord("="), ord("<"), ord(">")):
+        raise RuntimeError(f"bad Q header: {frame[:1]!r}")
+    flags = {name: bool(frame[15] & (1 << bit)) for name, bit in FLAG_BITS}
+    if flags["bypass"]:
+        status = "BYPASS"
+    elif flags["on_battery"]:
+        status = "OB"
+    elif flags["low_battery"]:
+        status = "LB"
+    elif not flags["ups_ok"]:
+        status = "RB"
+    elif flags["boost"]:
+        status = "BOOST"
+    else:
+        status = "OL"
+    return {
+        "last_input_voltage": u16be(frame[1], frame[2]),
+        "input_voltage": u16be(frame[3], frame[4]),
+        "output_voltage": u16be(frame[5], frame[6]),
+        "load_percent": u16be(frame[7], frame[8]),
+        "output_frequency": u16be(frame[9], frame[10]),
+        "battery_percent": u16be(frame[11], frame[12]),
+        "temperature_c": u16be(frame[13], frame[14]),
+        "status": status,
+        "flags": flags,
+    }
+
+
+def read_status(fd: int) -> dict:
+    # First Q after I/F is often a dummy frame (checksum ok, flags=0,
+    # implausible load/battery/temp). Keep asking until flags are set.
+    last = None
+    for _ in range(4):
+        frame = query(fd, QUERY_Q)
+        last = parse_status(frame)
+        if frame[15] != 0:
+            return last
+        time.sleep(0.15)
+    return last
+
+
+def read_telemetry(fd: int) -> dict:
+    identity = parse_identity(query(fd, QUERY_I))
+    features = parse_features(query(fd, QUERY_F))
+    return {**identity, **features, **read_status(fd)}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="SMS nobreak serial telemetry")
+    parser.add_argument("device", nargs="?", default="/dev/ttyUSB0")
+    parser.add_argument(
+        "-w",
+        "--watch",
+        nargs="?",
+        const=5.0,
+        type=float,
+        metavar="SEC",
+        help="repeat every SEC seconds (default 5)",
+    )
+    args = parser.parse_args()
+
+    try:
+        fd = open_port(args.device)
+    except OSError as exc:
+        print(f"{args.device}: {exc}", file=sys.stderr)
+        return 1
+
+    try:
+        while True:
+            try:
+                data = read_telemetry(fd)
+            except RuntimeError as exc:
+                print(f"{args.device}: {exc}", file=sys.stderr)
+                return 1
+            data["device"] = args.device
+            print(json.dumps(data, indent=None if args.watch is not None else 2))
+            if args.watch is None:
+                return 0
+            sys.stdout.flush()
+            time.sleep(args.watch)
+    finally:
+        os.close(fd)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
