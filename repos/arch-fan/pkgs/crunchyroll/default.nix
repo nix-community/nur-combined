@@ -10,15 +10,16 @@
 
 let
   name = "crunchyroll";
+  # Chromium uses this as the Wayland app_id for --app with the default profile.
+  xdgAppId = "chrome-www.crunchyroll.com__-Default";
   url = "https://www.crunchyroll.com/";
-
   chromiumWidevine = chromium.override {
     enableWideVine = true;
   };
 
   launchArgs = [
     "--app=${url}"
-    "--class=${name}"
+    "--class=${xdgAppId}"
     "--no-first-run"
     "--no-default-browser-check"
   ]
@@ -26,7 +27,7 @@ let
   ++ extraLaunchArgs;
 in
 makeDesktopItem {
-  inherit name;
+  name = xdgAppId;
 
   desktopName = "Crunchyroll";
   comment = "Stream anime on Crunchyroll";
@@ -41,9 +42,8 @@ makeDesktopItem {
     "AudioVideo"
   ];
 
-  # Important:
-  startupWMClass = name;
-
+  # Keep X11 WM_CLASS and the Wayland app_id aligned with the desktop entry.
+  startupWMClass = xdgAppId;
   exec = writeShellScript name ''
     exec ${chromiumWidevine}/bin/chromium \
       ${lib.escapeShellArgs launchArgs}
