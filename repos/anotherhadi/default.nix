@@ -10,4 +10,5 @@
   revshell = pkgs.callPackage ./pkgs/revshell {};
   default-creds-tui = pkgs.callPackage ./pkgs/default-creds-tui {};
   proton-vpn-tui = pkgs.callPackage ./pkgs/proton-vpn-tui {};
+  myx = pkgs.callPackage ./pkgs/myx {};
 }
