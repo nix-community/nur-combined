@@ -3399,7 +3399,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.9.8-beta.13"
+version = "3.9.8"
 dependencies = [
  "anstream",
  "anstyle",
@@ -3426,7 +3426,6 @@ dependencies = [
  "os_info",
  "reqwest 0.12.28",
  "rfc2047-decoder",
- "rfd",
  "rusqlite",
  "rust-i18n",
  "sanitize-filename",
