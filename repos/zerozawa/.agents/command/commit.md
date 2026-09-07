@@ -8,9 +8,9 @@ Commit changes using the semantic style already present in this repository.
 
 Current history trends strongly toward semantic messages such as:
 
-- `feat(pkgs): add computer-use-linux package`
+- `feat(pkgs): add pctx package`
 - `fix(pkgs): correct grub-theme-yorha license metadata`
-- `docs(readme): add computer-use-linux package entry`
+- `docs(readme): add pctx package entry`
 - `feat(lib): add configurable fetchPixiv helper`
 
 ## Common prefixes in this repo

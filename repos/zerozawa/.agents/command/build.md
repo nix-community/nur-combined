@@ -13,7 +13,6 @@ Current examples:
 
 - `JMComic-qt`
 - `LoveIwara`
-- `computer-use-linux`
 - `mcp-cli`
 - `grub-theme-yorha`
 - `waybar-vd`
@@ -49,6 +48,5 @@ nix-build ci.nix -A cacheOutputs
 
 - `LoveIwara` has Flutter pub-lock, native-asset, SQLite, and libmpv runtime handling.
 - `JMComic-qt` and `picacg-qt` expect the model-linked `sr-vulkan` composition.
-- `computer-use-linux` installs a binary pair (`computer-use-linux` + `computer-use-linux-cosmic`) and resolves desktop helper tools (hyprctl, wtype, ydotool, xdotool, ...) from PATH at runtime; it is intentionally not wrapped. Smoke-test with `result/bin/computer-use-linux doctor`.
 
 !`nix-build -A "$ARGUMENTS"`

@@ -128,7 +128,6 @@ some-package = pkgs.callPackage ./pkgs/some-package.nix { };
 - `JMComic-qt` / `picacg-qt`: Python GUI packaging plus runtime wrapping
 - `LoveIwara`: source-built Flutter GUI with offline pub dependencies, system SQLite, libmpv runtime wrapping, and upstream desktop integration
 - `sr-vulkan`: model composition through `sr-vulkan-models`
-- `computer-use-linux`: Rust package installing a binary pair (`computer-use-linux` + `computer-use-linux-cosmic`) whose desktop helper tools stay on PATH at runtime — no wrapper
 - `truenas-mcp`: `buildGoModule` MCP server with a single main binary
 - `fetchPixiv`: helper-style library export using `fetchurl` fallback URLs
 

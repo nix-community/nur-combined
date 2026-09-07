@@ -43,4 +43,4 @@ nix-prefetch-github <owner> <repo> --rev v<version>
 
 - `nix-build -A mihomo-smart`
 - `nix-build -A LoveIwara`
-- `nix-build -A computer-use-linux`
+- `nix-build -A pctx`

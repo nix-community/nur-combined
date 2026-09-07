@@ -24,7 +24,7 @@ nur/
 ├── default.nix              # main export surface
 ├── flake.nix                # flake outputs and cache config
 ├── ci.nix                   # CI package/output filtering
-├── pkgs/                    # 26 exported package definitions
+├── pkgs/                    # 25 exported package definitions
 ├── lib/                     # library helpers (currently fetchPixiv)
 ├── modules/                 # placeholder NixOS modules namespace
 ├── overlays/                # placeholder overlays namespace
@@ -52,12 +52,12 @@ Do not document modules or overlays as active features unless they have been imp
 
 ## Package Inventory Summary
 
-The repo currently exports 26 packages from `default.nix`, grouped roughly as:
+The repo currently exports 25 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`
 - Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
-- MCP and developer tools: `agentic-contract`, `computer-use-linux`, `context-mode`, `mcp-cli`, `pctx`, `truenas-mcp`, `wechat-web-devtools-linux`
+- MCP and developer tools: `agentic-contract`, `context-mode`, `mcp-cli`, `pctx`, `truenas-mcp`, `wechat-web-devtools-linux`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
 Always derive exact package names from `default.nix`, not from README snippets or memory files.
@@ -75,7 +75,7 @@ This repo is not limited to one packaging style. Examples worth following:
 - `buildDotnetModule`
   - Example: `pkgs/banguminet/default.nix` — read `pkgs/banguminet/AGENTS.md` for deps.json regeneration
 - `rustPlatform.buildRustPackage`
-  - Examples: `pkgs/computer-use-linux.nix` (binary pair + embedded GNOME extension), `pkgs/pctx/default.nix` — read `pkgs/pctx/AGENTS.md` before updating its fixed V8 and Swagger UI inputs
+  - Example: `pkgs/pctx/default.nix` — read `pkgs/pctx/AGENTS.md` before updating its fixed V8 and Swagger UI inputs
 
 ## Repo-Specific Packaging Notes
 
@@ -114,7 +114,6 @@ the build against it succeeds.
 - `JMComic-qt` and `picacg-qt` rely on `sr-vulkan-with-models`, not plain `sr-vulkan`
 - The full SR Vulkan stack (`sr-vulkan`, models, `JMComic-qt`, and `picacg-qt`) is pinned to Python 3.13 because the upstream 2.0.1.1 `abi3` wheel segfaults in `initSet` under Python 3.14
 - `LoveIwara` source-builds with `flutter347` (0.5.1+ requires Flutter >= 3.47 per its pubspec SDK pin); its derivation patches the sqlite3 hook (`lib/src/hook/compile/description.dart`) to use system SQLite instead of the sandboxed native-asset download and treats `sqlite3_flutter_libs 0.6.0+eol` as an empty compatibility package. The Dio `transformTimeout` enum workaround was dropped when the lock moved to Dio 5.11.0, which provides it
-- `computer-use-linux` is a Rust package (edition 2021, `buildRustPackage`) that installs both `computer-use-linux` and the companion `computer-use-linux-cosmic` binary; the GNOME Shell extension is embedded via `include_str!`. It resolves desktop helper tools (hyprctl, wtype, ydotool, xdotool, wmctrl, gdbus, ...) from PATH at runtime — intentionally not wrapped and with no services or permissions installed. The MCP server is `computer-use-linux mcp`, readiness is checked with `computer-use-linux doctor`. Upstream tests run during the build (dbus in `nativeCheckInputs`; `/bin/sh` pinned to `runtimeShell`)
 - `context-mode` is a `bun` + `stdenvNoCC.mkDerivation` package with pre-built bundles; it uses `makeBinaryWrapper` and the built-in `node:sqlite` (Node.js >= 22.5) so `better-sqlite3` is not loaded at runtime
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL
 - `banguminet` uses `buildDotnetModule` with a hand-generated `deps.json`; read `pkgs/banguminet/AGENTS.md` before updating
