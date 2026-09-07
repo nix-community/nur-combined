@@ -9,12 +9,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "asterisk-g72x";
-  version = "0-unstable-2025-12-13";
+  version = "0-unstable-2026-09-07";
   src = fetchFromGitHub {
     owner = "arkadijs";
     repo = "asterisk-g72x";
-    rev = "55a7b8246c8ad3f32e50a033529e5a52c11a5592";
-    hash = "sha256-P36O/BFkGDYvuvFKKA4t3a4hbLn+jy+s6/Bp134vDhE=";
+    rev = "5106838f3aabf8fe09fa3780a8e9d3ed4c2a0063";
+    hash = "sha256-6NF5ISpaXrEZUfFilWVeRAJnCb1b+Qaaq7p4AJHqjf0=";
   };
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [

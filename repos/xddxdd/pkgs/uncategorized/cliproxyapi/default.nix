@@ -6,12 +6,12 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "cliproxyapi";
-  version = "7.2.152";
+  version = "7.2.154";
   src = fetchFromGitHub {
     owner = "router-for-me";
     repo = "CLIProxyAPI";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vw90wcPsmU7sbp4k1XJ4mqdoQD1dWY58PYq163ZqmeQ=";
+    hash = "sha256-/jD2oDlVQTc6pZ2GJess3uLhmr+/A/1yDxf0b2Zvh9Q=";
   };
   vendorHash = "sha256-MmIrOmsPs/7IZsiSwMj4JKxP2wkgkfLINPEMtRxy3O8=";
 
