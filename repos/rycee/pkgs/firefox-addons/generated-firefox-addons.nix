@@ -1863,10 +1863,10 @@
     };
     "chatgptbox" = buildMozillaXpiAddon {
       pname = "chatgptbox";
-      version = "2.7.0";
+      version = "2.7.1";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4982090/chatgptbox-2.7.0.xpi";
-      sha256 = "086f9e8c6385543bc74ef9a3bbbb3ad6f78c6a12ad748c0f2e3d36be813cdc8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5010280/chatgptbox-2.7.1.xpi";
+      sha256 = "cd6028d56ba9a18f22c7565a2825c06c7c289254f77cbe58abaf6c837ff55884";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -8284,10 +8284,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.239";
+      version = "2.4.241";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4997226/lichess_tools_by_siderite-2.4.239.xpi";
-      sha256 = "3b184a1d8ce9fa725fc7d54b7fa828545aeec9cd26e2a9445519f0681ab7115b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5009775/lichess_tools_by_siderite-2.4.241.xpi";
+      sha256 = "5e7636e4736af0826719895c0e305bcabc2d9dac93538dd6748362b60bdc4fbe";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -14686,10 +14686,10 @@
     };
     "tft-trade-extension" = buildMozillaXpiAddon {
       pname = "tft-trade-extension";
-      version = "3.0.60";
+      version = "3.0.62";
       addonId = "{3df9c1b1-fddd-4c8f-9b79-13d23f33aa48}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4916082/tft_trade_extension-3.0.60.xpi";
-      sha256 = "d86de9d4e412b2e898f5b9b8ba23f2c49c56e39ecf89255ce3f2ac891bf05232";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5009450/tft_trade_extension-3.0.62.xpi";
+      sha256 = "2f3636e9a599de5d8479bb7fad98291d56f1856051ad9ba7fd7b06e970d6942b";
       meta = with lib;
       {
         description = "An extension which integrates Discord branded tools into your browser. It provides safer and easier trading in Path of Exile.";
