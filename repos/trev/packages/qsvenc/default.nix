@@ -31,7 +31,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qsvenc";
-  version = "8.28";
+  version = "8.29";
 
   hardeningDisable = [ "all" ];
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "rigaya";
     repo = "QSVEnc";
     tag = finalAttrs.version;
-    hash = "sha256-cFm4+nvN0JTLM05eoJ8uSLVjznBwlw+aaWQ9EO2O8fw=";
+    hash = "sha256-XQ9gEO81ijEwMDYeLCdcS8DoaxhXnY6ECW2gHfg4xUc=";
     fetchSubmodules = true;
   };
 
@@ -83,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace meson.build \
       --replace-fail \
-        "run_command('git', 'describe', '--tags', '--abbrev=0', check: true).stdout().strip()" \
+        "run_command('sh', 'scripts/get-version.sh', check: true).stdout().strip()" \
         "'${finalAttrs.version}'"
   '';
 
