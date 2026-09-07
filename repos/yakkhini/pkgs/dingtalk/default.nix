@@ -52,7 +52,6 @@
   nss,
   opencv,
   openldap,
-  openssl_1_1,
   pango,
   pcre2,
   pipewire,
@@ -89,11 +88,11 @@
 ################################################################################
 let
   pname = "dingtalk";
-  version = "8.1.0.6021101";
+  version = "8.2.8.260818002";
 
   src = fetchurl {
     url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb";
-    hash = "sha256-7EkvEv6r7ONHAupH48/BoWSuLo2r3umwXnSjpeTeIdU=";
+    hash = "sha256-iNrWB7u3pykYOZORydU67fz6Om2rAffQZZ5iwcoyZ48=";
   };
 
   dingtalk-wayland-screenshare = callPackage ./wayland-screenshare.nix {};
@@ -142,7 +141,6 @@ let
     nss
     opencv
     openldap
-    openssl_1_1
     pango
     pcre2
     pipewire
@@ -201,11 +199,13 @@ in
       mv opt/apps/com.alibabainc.dingtalk/files/*-Release.* release
 
       # Cleanup
-      rm -f release/{*.a,*.la,*.prl,dingtalk_crash_report,dingtalk_updater,libapr*,libcrypto.so.*,libcurl.so.*}
+      # Keep the bundled OpenSSL 1.1 libraries: DingTalk still requires their ABI,
+      # which is no longer provided by nixpkgs.
+      rm -f release/{*.a,*.la,*.prl,dingtalk_crash_report,dingtalk_updater,libapr*,libcurl.so.*}
       rm -f release/{libdouble-conversion.so.*,libEGL*,libfontconfig*,libfreetype*,libfribidi*,libgbm.*,libgdk*,libGLES*}
       rm -f release/{libgtk*,libgtk-x11-2.0.so.*,libharfbuzz*,libicu*,libidn2*,libjpeg*,libm.so.*,libnghttp2*}
       rm -f release/{libpango-1.0.*,libpangocairo-1.0.*,libpangoft2-1.0.*,libpcre2*,libpng*,libpsl*,libQt5*,libssh2*}
-      rm -f release/{libssl.*,libstdc++.so.6,libstdc++*,libunistring*,libvk*,libvulkan*,libxcb*,libz*}
+      rm -f release/{libstdc++.so.6,libstdc++*,libunistring*,libvk*,libvulkan*,libxcb*,libz*}
       rm -rf release/{engines-1_1,imageformats,platform*,swiftshader,xcbglintegrations}
       rm -rf release/Resources/{i18n/tool/*.exe,qss/mac}
 
@@ -283,6 +283,9 @@ in
       homepage = "https://www.dingtalk.com/";
       platforms = ["x86_64-linux"];
       license = lib.licenses.unfreeRedistributable;
+      knownVulnerabilities = [
+        "Bundles OpenSSL 1.1, which reached end of life on 2023-09-11 and no longer receives security updates."
+      ];
       sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       mainProgram = "dingtalk";
     };
