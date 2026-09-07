@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "revdiff";
-  version = "1.12.0";
+  version = "1.13.0";
 
   __structuredAttrs = true;
 
@@ -14,7 +14,7 @@ buildGoModule (finalAttrs: {
     owner = "umputun";
     repo = "revdiff";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Yvwmj/37Uc0kWong64YEd1k/kmXKDDvZ9/hCDT5S1FM=";
+    hash = "sha256-qcah2Fx4u9AXEfb22R9BW3Rv9oYx+H8+KPGQVRjOr98=";
   };
 
   vendorHash = null;
