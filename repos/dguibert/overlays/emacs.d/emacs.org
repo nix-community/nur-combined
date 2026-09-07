@@ -57,6 +57,7 @@
 Configure use-package to use system (nix) packages
 inspired from https://www.srid.ca/vanilla-emacs-nixos.html
 #+begin_src emacs-lisp
+;; -*- lexical-binding: nil; -*-
 (require 'package)
 (setq package-archives nil)
 (require 'use-package)
