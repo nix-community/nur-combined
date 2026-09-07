@@ -8,6 +8,7 @@
 }:
 let
   dorion = callPackage ./package.nix {
+    pnpm_10 = pnpm_11;
   };
 in
 dorion.overrideAttrs (
