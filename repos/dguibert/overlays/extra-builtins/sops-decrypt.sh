@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+#set -x
 encFile="$1"
 key="${2:-data}"
 
@@ -15,6 +15,6 @@ key="${2:-data}"
         ;;
     esac
   else
-    echo "{ sopsDecrypted=false; }"
+    echo "{ success=false; }"
   fi
 )
