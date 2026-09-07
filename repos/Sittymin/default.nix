@@ -26,6 +26,7 @@ in
   muse-code = pkgs.callPackage ./pkgs/muse-code { };
   qoder-cli = pkgs.callPackage ./pkgs/qoder-cli { };
   zcode = pkgs.callPackage ./pkgs/zcode { };
+  wechat = pkgs.callPackage ./pkgs/wechat { };
 
   # Blender with Intel oneAPI (Intel Arc / integrated GPU) Cycles support.
   inherit blender;
