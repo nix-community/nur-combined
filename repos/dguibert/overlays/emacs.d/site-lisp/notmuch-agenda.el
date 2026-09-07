@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 ;; curl -O https://raw.githubusercontent.com/larkery/emacs/master/site-lisp/notmuch-agenda.el
 ;; integrate notmuch messages with org-mode agenda, by:
 ;; - showing agenda in message body where there's an invitation

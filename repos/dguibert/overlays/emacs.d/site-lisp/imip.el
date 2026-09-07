@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 ;; curl -O https://raw.githubusercontent.com/larkery/emacs/master/site-lisp/imip.el
 ;; provides icalendar message-based interoperability protocol
 ;; like rfc6047 but probably full of bugs

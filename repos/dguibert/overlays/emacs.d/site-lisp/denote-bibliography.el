@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 ;; https://www.scss.tcd.ie/~sulimanm/posts/denote-bibliography.html
 (defun namilus-denote-org-capture-biblio ()
   "Ask the user for a bibtex entry, title, and keywords, and creates a denote note template with:

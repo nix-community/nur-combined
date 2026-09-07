@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 ;; curl -O https://raw.githubusercontent.com/larkery/emacs/master/site-lisp/org-notmuch-invite.el
 (require 'org)
 (require 'notmuch)

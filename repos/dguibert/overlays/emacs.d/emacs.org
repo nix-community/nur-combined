@@ -659,7 +659,6 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
     ;;; Look & Feel
 
-  ;(setq org-agenda-files '("~/Documents/denotes"))
   (defun dg/org-mode/agenda-files ()
     "Return a list of note files containing 'agenda' tag.
 
@@ -699,7 +698,8 @@ otherwise."
             "-r '$1' | tr '\n' '#'"))
         "#")))
 
-  (setq org-agenda-files (dg/org-mode/agenda-files))
+  (setq org-agenda-files '("~/Documents/denotes"))
+  ;(setq org-agenda-files (dg/org-mode/agenda-files))
 
   (custom-set-faces '(org-ellipsis ((t (:foreground "gray40" :underline nil)))))
 

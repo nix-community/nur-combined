@@ -1,3 +1,4 @@
+;; -*- lexical-binding: nil; -*-
 ;; curl -O https://raw.githubusercontent.com/larkery/emacs/master/site-lisp/notmuch-switch-identity.el
 (defun notmuch-update-fcc ()
   (save-mark-and-excursion
