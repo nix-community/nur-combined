@@ -170,12 +170,12 @@ lib.makeScope pkgs.newScope (
     scx_pandemonium = pkgs.scx.rustscheds.overrideAttrs (
       final: prev: {
         pname = "scx_pandemonium";
-        version = "5.19.0";
+        version = "5.20.0";
         src = pkgs.fetchFromGitHub {
           owner = "wllclngn";
           repo = "scx";
-          rev = "18dbe236217a907a4f165bb89e8f75a3fda9ab46";
-          hash = "sha256-Wqe8qFYwKiX0HcMTbKcFojaBQ9woeDC9M6lKDJPCfcc=";
+          rev = "276a093e4100f7cadf06a7c41bb530b51eeed0c8";
+          hash = "sha256-4PNdo/l8Bua4Ckb40ratvxOUanCPlzDh6Ci79UdJbAc=";
         };
         cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
           inherit (final)
@@ -183,7 +183,7 @@ lib.makeScope pkgs.newScope (
             version
             src
             ;
-          hash = "sha256-lyS6IWxiNLKST5aykiPg/blCbGfPSnm+6VvzmUwULVo=";
+          hash = "sha256-gKHn48A0ZPT0bHz5AITtBNa16ZGU0W81GZtW506QJD8=";
         };
         cargoBuildFlags = [
           "--package"
