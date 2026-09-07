@@ -227,16 +227,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.8-beta.12";
+    version = "v3.9.8-beta.13";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.8-beta.12";
+      rev = "v3.9.8-beta.13";
       fetchSubmodules = false;
-      sha256 = "sha256-+r+bbMGVFA5Ln4abtHoPtLdWMPDnZGrdSxXlR2RWg/o=";
+      sha256 = "sha256-ZXxx6fZ8zEeQJPGhQnjWH2aVX0EZMkLp4KI4P62PoDM=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-+r+bbMGVFA5Ln4abtHoPtLdWMPDnZGrdSxXlR2RWg_o=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-ZXxx6fZ8zEeQJPGhQnjWH2aVX0EZMkLp4KI4P62PoDM=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -268,21 +268,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "364dc1363123421dc4967db1629a6399e235f39b";
+    version = "3698a20f9aad1fcf562e764f8f995e994038dc95";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "364dc1363123421dc4967db1629a6399e235f39b";
+      rev = "3698a20f9aad1fcf562e764f8f995e994038dc95";
       fetchSubmodules = false;
-      sha256 = "sha256-/NoGBCUIdcpbD5D5tKnBcqUpD2FBbdypuoaC4yOcfFc=";
+      sha256 = "sha256-X0GE6RrGDriJxKtv1VFSGfcYPqal9BNqq4R5rjn+8L8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-_NoGBCUIdcpbD5D5tKnBcqUpD2FBbdypuoaC4yOcfFc=/Cargo.lock";
+      lockFile = ./. + "/sha256-X0GE6RrGDriJxKtv1VFSGfcYPqal9BNqq4R5rjn+8L8=/Cargo.lock";
       outputHashes = {
-        
+        "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-08-27";
+    date = "2026-09-07";
   };
   piliplus = {
     pname = "piliplus";
@@ -405,15 +405,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "7e8ffe525f725eda4cfdb333fcb12eda8ea40fcb";
+    version = "55f3aea77fb9d9357baa86eebd104eab95248699";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "7e8ffe525f725eda4cfdb333fcb12eda8ea40fcb";
+      rev = "55f3aea77fb9d9357baa86eebd104eab95248699";
       fetchSubmodules = false;
-      sha256 = "sha256-W4b2CGQVGAd+N4FFgGnqbaKr90eiqMpyVYNOg2UhyhQ=";
+      sha256 = "sha256-8ihBDgdUdMJc5/M2+yFf8LWqPkBFtYcrPPpYqky6AME=";
     };
-    date = "2026-08-26";
+    date = "2026-09-06";
   };
   waywallen-bin = {
     pname = "waywallen-bin";
