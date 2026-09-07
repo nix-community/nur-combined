@@ -67,9 +67,9 @@ makeScope newScope (
       };
       modify-profile-fields = self.callPackage self.mkWpPlugin {
         pname = "wp-modify-profile-fields";
-        version = "1.2.0";
+        version = "1.3.0";
         id = "user-profile-dashboard-fields-control";
-        hash = "sha256-hsUXAah7EFRKwB6Z/HzkBLCVH0kZl3oohHUXN1mWn2g=";
+        hash = "sha256-sEAGsJs2RF0tAVO+vP2pt7ini1Sqa62eHJg7bgszXkc=";
       };
       view-transitions = self.callPackage self.mkWpPlugin {
         pname = "wp-view-transitions";
