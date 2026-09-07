@@ -2,7 +2,7 @@
   sources,
   version,
   hash,
-  pnpm_10,
+  pnpm_11,
   fetchPnpmDeps,
   rustPlatform,
   callPackage,
@@ -17,7 +17,7 @@ motrix-next.overrideAttrs (
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
       inherit hash;
-      pnpm = pnpm_10;
+      pnpm = pnpm_11;
       fetcherVersion = 4;
     };
     cargoHash = null;

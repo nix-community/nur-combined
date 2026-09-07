@@ -25,5 +25,8 @@ dorion.overrideAttrs (
       ./dont-disable-dma.patch
       ./notification-icon.patch
     ];
+    postPatch =
+      builtins.replaceStrings [ ''"$cargoDepsCopy"/*'' ] [ ''"$cargoDepsCopy"/{.,*}'' ]
+        prev.postPatch;
   }
 )
