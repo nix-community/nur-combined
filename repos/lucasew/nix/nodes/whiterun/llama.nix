@@ -32,7 +32,7 @@ in
   services.llama-cpp = {
     enable = true;
     package = llamaCpp;
-    # 0.0.0.0 so MagicDNS "whiterun" works here (127.0.0.2) and on the tailnet.
+    # 0.0.0.0 so MagicDNS "whiterun" reaches this process on the tailnet.
     # LAN stays closed; tailscale0 is already a trusted interface.
     host = "0.0.0.0";
     inherit (config.networking.ports.llama-cpp) port;

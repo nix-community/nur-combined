@@ -225,7 +225,7 @@
       "kind": "tool",
       "ref": "github:lucasew/refactree",
       "depName": "lucasew/refactree",
-      "currentValue": "0.10.2",
+      "currentValue": "0.11.0",
       "datasource": "github-releases"
     },
     {

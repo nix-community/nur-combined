@@ -7,6 +7,11 @@
 {
   services.tailscale.enable = lib.mkDefault true;
 
+  # NixOS maps hostname/FQDN to 127.0.0.2 so `hostname -f` works. nsswitch
+  # consults files before dns, so IPv4 "whiterun" becomes loopback instead of
+  # the tailnet address. Empty the mapping when Tailscale is on.
+  networking.hosts."127.0.0.2" = lib.mkIf config.services.tailscale.enable (lib.mkForce [ ]);
+
   networking.firewall = lib.mkIf config.services.tailscale.enable {
     trustedInterfaces = [ "tailscale0" ];
 
