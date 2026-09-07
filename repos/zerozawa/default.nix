@@ -64,10 +64,9 @@ in
   StartLive = pkgs.callPackage ./pkgs/StartLive.nix { };
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix { };
   mcp-cli = pkgs.callPackage ./pkgs/mcp-cli.nix { };
-  wechatbot-mcp = pkgs.callPackage ./pkgs/wechatbot-mcp.nix { };
   agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix { };
   lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
-  deskbrid = pkgs.callPackage ./pkgs/deskbrid.nix { };
+  computer-use-linux = pkgs.callPackage ./pkgs/computer-use-linux.nix { };
   context-mode = pkgs.callPackage ./pkgs/context-mode.nix { };
   truenas-mcp = pkgs.callPackage ./pkgs/truenas-mcp.nix { };
   banguminet = pkgs.callPackage ./pkgs/banguminet { };

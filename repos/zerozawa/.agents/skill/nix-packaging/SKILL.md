@@ -77,18 +77,16 @@ buildGoModule rec {
 }
 ```
 
-### npm packages
+### npm dependencies
 
-Example: `pkgs/wechatbot-mcp.nix`
+No exported package currently uses `buildNpmPackage` directly. npm usage here is limited to
+offline dependency rebuilds inside other derivations:
 
-```nix
-buildNpmPackage rec {
-  pname = "...";
-  version = "...";
-  npmDepsHash = "sha256-...";
-  npmBuildScript = "build";
-}
-```
+Example: `pkgs/wechat-web-devtools-linux`
+
+- `pkgs/wechat-web-devtools-linux/npm/native` and `npm/tools` hold hand-written manifests
+  plus lockfiles; the derivation runs `npm ci --offline --ignore-scripts` with a FOD cache
+  to rebuild native npm modules (nodegit, node-pty, ...) with Electron headers.
 
 ### bun + `stdenvNoCC` packages
 
@@ -130,7 +128,8 @@ some-package = pkgs.callPackage ./pkgs/some-package.nix { };
 - `JMComic-qt` / `picacg-qt`: Python GUI packaging plus runtime wrapping
 - `LoveIwara`: source-built Flutter GUI with offline pub dependencies, system SQLite, libmpv runtime wrapping, and upstream desktop integration
 - `sr-vulkan`: model composition through `sr-vulkan-models`
-- `deskbrid`: Rust package whose compositor helper tools stay on PATH at runtime — no wrapper
+- `computer-use-linux`: Rust package installing a binary pair (`computer-use-linux` + `computer-use-linux-cosmic`) whose desktop helper tools stay on PATH at runtime — no wrapper
+- `truenas-mcp`: `buildGoModule` MCP server with a single main binary
 - `fetchPixiv`: helper-style library export using `fetchurl` fallback URLs
 
 ## Hash techniques

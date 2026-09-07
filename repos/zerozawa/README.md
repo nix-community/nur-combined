@@ -5,7 +5,7 @@
 ![Build and populate cache](https://github.com/lz37/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-zerozawa-blue.svg)](https://zerozawa.cachix.org)
 
-This repository currently exports **27 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
+This repository currently exports **26 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
 
 ## Current Exports
 
@@ -29,11 +29,11 @@ This repository currently exports **27 packages**, **1 library helper**, and pla
 | `mihomo-smart` | Mihomo fork with LightGBM smart routing |
 | `wechat-web-devtools-linux` | Linux build of the WeChat Mini Program DevTools |
 | `agentic-contract` | Policy engine CLI for AI agents |
-| `deskbrid` | Linux desktop HAL for AI agents — JSON socket daemon, CLI, and MCP server (GNOME, Hyprland, KDE, wlroots, X11) |
+| `computer-use-linux` | Control a real Linux desktop from any MCP host |
 | `mcp-cli` | Lightweight CLI for interacting with MCP servers |
-| `wechatbot-mcp` | OpenCode / MCP server wrapping the official WeChat iLink Bot SDK |
 | `context-mode` | MCP server for context window optimization — sandboxed code execution, FTS5 knowledge base |
 | `pctx` | Source-built Code Mode execution CLI; its Python SDK is available as `pctx.passthru.py` |
+| `truenas-mcp` | An MCP server for TrueNAS that enables AI models to interact with the TrueNAS API using natural language queries |
 #### Desktop customization and utilities
 
 | Package | Description |
@@ -86,7 +86,7 @@ This repository currently exports **27 packages**, **1 library helper**, and pla
   environment.systemPackages = with pkgs.nur.repos.zerozawa; [
     JMComic-qt
     picacg-qt
-    deskbrid
+    computer-use-linux
   ];
 }
 ```
@@ -109,7 +109,7 @@ This repository currently exports **27 packages**, **1 library helper**, and pla
         name = "example";
         paths = [
           zerozawa-nur.packages.${system}.mcp-cli
-          zerozawa-nur.packages.${system}.deskbrid
+          zerozawa-nur.packages.${system}.computer-use-linux
         ];
       };
     };
@@ -140,7 +140,7 @@ nix-build -A JMComic-qt
 
 # Build context-mode (requires NIXPKGS_ALLOW_UNFREE=1 for Elastic-2.0 license)
 NIXPKGS_ALLOW_UNFREE=1 nix-build -A context-mode
-nix-build -A deskbrid
+nix-build -A computer-use-linux
 
 # Build through flake outputs
 nix build .#mcp-cli
