@@ -163,6 +163,13 @@
                 path = deploy-rs.lib.aarch64-darwin.activate.darwin self.darwinConfigurations.MacMini-M1;
               };
             };
+            MacMini-Intel-NixOS = {
+              hostname = "MacMini-Intel-NixOS";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.MacMini-Intel-NixOS;
+              };
+            };
             MacBook-Pro-NixOS = {
               hostname = "MacBook-Pro-NixOS";
               profiles.system = {

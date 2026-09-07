@@ -3,6 +3,7 @@ inputs: {
     HP-Envy = import ./nixos/HP-Envy inputs;
     HP-ZBook = import ./nixos/HP-ZBook inputs;
     MacBook-Pro-NixOS = import ./nixos/MacBook-Pro inputs;
+    MacMini-Intel-NixOS = import ./nixos/MacMini-Intel inputs;
     nas = import ./nixos/nas inputs;
     oracle-cloud-nixos = import ./nixos/oracle-cloud inputs;
     PineBook-Pro = import ./nixos/PineBook-Pro inputs;
