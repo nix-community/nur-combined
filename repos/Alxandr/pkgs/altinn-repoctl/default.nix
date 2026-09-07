@@ -8,13 +8,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "altinn-repoctl";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "Altinn";
     repo = "altinn-authorization-utils";
     tag = "tool/RepoCtl-v${finalAttrs.version}";
-    hash = "sha256-nxYjXB+bbmAdpdYws1DTshhzihQB0IlLRB70bgByOrw=";
+    hash = "sha256-XDG7a0bl9EnYJ6lo2we7sV1QXGPab3JQ6WW7O4FzDpI=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
