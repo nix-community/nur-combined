@@ -3,6 +3,7 @@
   telegram-desktop,
   fetchFromGitHub,
   zbar,
+  pango,
 }:
 
 telegram-desktop.override {
@@ -14,12 +15,15 @@ telegram-desktop.override {
     src = fetchFromGitHub {
       owner = "forkgram";
       repo = "tdesktop";
-      rev = "v7.1.4";
+      rev = "v7.2.6";
       fetchSubmodules = true;
-      hash = "sha256-vRQ+03IH/g2IVxq8GMQUs87qinSPeeGPLHz92XW1K4I=";
+      hash = "sha256-2cHuYdaZU4aO203fb6dylZPOfqJ7Ql7IwPmrxlz4VpM=";
     };
 
-    buildInputs = old.buildInputs ++ [ zbar ];
+    buildInputs = old.buildInputs ++ [
+      zbar
+      pango
+    ];
 
     postPatch = (old.postPatch or "") + ''
       pushd cmake
