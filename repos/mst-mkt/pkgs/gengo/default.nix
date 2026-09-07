@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gengo";
-  version = "0.14.3";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "spenserblack";
     repo = "gengo";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/1HUfYltG4WE3HKU5MxW+t4TL63ntAfb8dcs1yTPeoo=";
+    hash = "sha256-BqlXLwDTTP3o28MzKOLv0OWoJpZqEK+dIzD1bn2M57g=";
   };
 
-  cargoHash = "sha256-gjSEkcJyw5bD5z/8Om5R32++KXEP/nUjRpgShfi0xVo=";
+  cargoHash = "sha256-SI5uEIBiYURPIUA0NG3P3hHSnRczoC+jsWTlBzMrzt4=";
 
   buildAndTestSubdir = "gengo-bin";
 
