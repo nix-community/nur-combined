@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pnpm_10,
+  pnpm_11,
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
@@ -25,7 +25,7 @@
 }:
 let
   electron = electron_43;
-  pnpm = pnpm_10;
+  pnpm = pnpm_11;
   shareDir = "$out/share/SPlayer-Next";
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-ra2FmSgK/FJg6Y8GY2blyWKYST2BT69bTgBzcYL4Z3g=";
+    hash = "sha256-Ll+nfLfKQapsBc/vGabmd4xuSvYg/XnyLBg9w9hYlhY=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {

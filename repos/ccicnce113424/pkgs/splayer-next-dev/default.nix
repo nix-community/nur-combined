@@ -1,7 +1,7 @@
 {
   sources,
   hash,
-  pnpm_10,
+  pnpm_11,
   fetchPnpmDeps,
   rustPlatform,
   callPackage,
@@ -16,7 +16,7 @@ splayer-next.overrideAttrs (
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
       inherit hash;
-      pnpm = pnpm_10;
+      pnpm = pnpm_11;
       fetcherVersion = 4;
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
