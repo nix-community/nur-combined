@@ -92,8 +92,10 @@ src.github = "Kodiqa-Solutions/VaultS3"
 src.prefix = "v"
 
 [vertex]
+# 上游 vertex-center/vertex 已 404，pinned 固定现有 entry，不再检查上游
 fetch.github = "vertex-center/vertex"
 src.github = "vertex-center/vertex"
+pinned = true
 
 [zcode]
 fetch.url = "https://cdn-zcode.z.ai/zcode/electron/releases/$ver/linux-x64/ZCode-$ver-linux-x64.deb"
@@ -107,3 +109,8 @@ src.github = "Gowee/zhconv-rs"
 [ws-scrcpy]
 fetch.git = "https://github.com/NetrisTV/ws-scrcpy.git"
 src.git = "https://github.com/NetrisTV/ws-scrcpy.git"
+
+[epd-food-server]
+fetch.git = "https://github.com/zhyiheihei/EPD-Dashboard.git"
+src.git = "https://github.com/zhyiheihei/EPD-Dashboard.git"
+src.branch = "main"

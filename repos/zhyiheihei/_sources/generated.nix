@@ -44,6 +44,17 @@
       hash = "sha256-e38rYMWr5lzHIMJeLuTA7sg1WYSQeSC8zJKJAFcsIas=";
     };
   };
+  epd-food-server = {
+    pname = "epd-food-server";
+    version = "a8ec99acff5aa9f9535257df37685baca207532e";
+    src = fetchgit {
+      url = "https://github.com/zhyiheihei/EPD-Dashboard.git";
+      rev = "a8ec99acff5aa9f9535257df37685baca207532e";
+      fetchSubmodules = false;
+      hash = "sha256-dXvv1TMBpQHF8o1ZAnAcHm8zSh/qehTZoqIL5JjS5bA=";
+    };
+    date = "2026-09-08";
+  };
   filecodebox = {
     pname = "filecodebox";
     version = "v2.5.6";
