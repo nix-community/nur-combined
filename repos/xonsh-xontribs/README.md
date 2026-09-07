@@ -28,6 +28,7 @@ The following xontribs are available in this NUR repo:
 - [xontrib-prompt-starship](https://github.com/anki-code/xontrib-prompt-starship)
 - [xontrib-readable-traceback](https://github.com/vaaaaanquish/xontrib-readable-traceback)
 - [xontrib-sh](https://github.com/anki-code/xontrib-sh)
+- [xontrib-superfile](https://github.com/TechnoStrife/xontrib-superfile)
 - [xontrib-term-integrations](https://github.com/jnoortheen/xontrib-term-integrations)
 - [xontrib-vox](https://github.com/xonsh/xontrib-vox)
 - [xontrib-zoxide](https://github.com/dyuri/xontrib-zoxide)

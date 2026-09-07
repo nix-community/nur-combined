@@ -36,6 +36,7 @@ in {
   xontrib-prompt-starship = pkgs.python3Packages.callPackage ./pkgs/xontrib-prompt-starship {};
   xontrib-readable-traceback = pkgs.python3Packages.callPackage ./pkgs/xontrib-readable-traceback {inherit backtrace;};
   xontrib-sh = pkgs.python3Packages.callPackage ./pkgs/xontrib-sh {};
+  xontrib-superfile = pkgs.python3Packages.callPackage ./pkgs/xontrib-superfile {};
   xontrib-term-integrations = pkgs.python3Packages.callPackage ./pkgs/xontrib-term-integrations {};
   xontrib-vox = pkgs.python3Packages.callPackage ./pkgs/xontrib-vox {};
   xontrib-whole-word-jumping = pkgs.python3Packages.callPackage ./pkgs/xontrib-whole-word-jumping {};
