@@ -117,11 +117,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-sg5vshasrk4uv5P2YkSIt1VTlE6rHV4vdv+hirT26Gg=",
+            "sha256": "sha256-CCOWPIpcO96FT3/dA82MJcRCGkC9b3SETyyPfBaiZ2U=",
             "type": "url",
-            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.7/OmniWM-v0.6.7.zip"
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.8/OmniWM-v0.6.8.zip"
         },
-        "version": "v0.6.7"
+        "version": "v0.6.8"
     },
     "paperwm-spoon": {
         "cargoLock": null,
