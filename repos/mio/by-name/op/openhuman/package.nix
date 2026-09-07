@@ -6,21 +6,34 @@
   openssl,
   sqlite,
   stdenv,
+  pkgs,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "openhuman";
-  version = "0.63.17";
+  version = "0.63.21";
 
-  src = fetchFromGitHub {
-    owner = "tinyhumansai";
-    repo = "openhuman";
-    rev = "v${version}";
-    hash = "sha256-J0n2BAWrymldULyYCsqm9UivOnAzkXsfImn8F3rRf6c=";
-    fetchSubmodules = true;
+  src = stdenv.mkDerivation {
+    name = "openhuman-source-${version}";
+    outputHashMode = "recursive";
+    outputHashAlgo = "sha256";
+    outputHash = "sha256-Ee72Ai6usJaWlU2PPJG25ncjUdGzbIu7CEd2Ze7UgSw=";
+    nativeBuildInputs = [
+      pkgs.git
+      pkgs.cacert
+    ];
+    buildCommand = ''
+      export HOME=$(pwd)
+      git config --global url."https://github.com/".insteadOf git@github.com:
+      git clone --depth 1 --branch v${version} https://github.com/tinyhumansai/openhuman.git $out
+      cd $out
+      git submodule update --init --recursive
+      find $out -name .git -type d -exec rm -rf {} +
+      find $out -name .git -type f -exec rm -f {} +
+    '';
   };
 
-  cargoHash = "sha256-9PDYgvWbKQp92HVH1QxcSholmccsNp0uFzCKtfc9blw=";
+  cargoHash = "sha256-+CUglRw09mHoSDRtME8QxOTeMMmXdolnYN+yeilfUx8=";
 
   nativeBuildInputs = [
     pkg-config

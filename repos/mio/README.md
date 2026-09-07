@@ -77,7 +77,7 @@ binary cache is provided as best effort. binary cache is frequently *NOT* up to 
 --option 'extra-substituters' 'https://mio.cachix.org/' --option extra-trusted-public-keys "mio.cachix.org-1:FlupyyLPURqwdRqtPT/LBWKsXY7JKsDkzZQo2K6LeMM="
 ```
 
-## sources - where files were copied from
+## sources - where files were copied from / Vendored Packages
 
 files are copied from following locations. some are modified in this repo and some are not.
 
@@ -118,6 +118,13 @@ files are copied from following locations. some are modified in this repo and so
 + gcenx-wine-staging / gcenx-wine-devel / gcenx-wine-stable — packaging adapted from [nobbmaestro/wine-stable-nix](https://github.com/nobbmaestro/wine-stable-nix); prebuilt Wine.app binaries from [Gcenx/macOS_Wine_builds](https://github.com/Gcenx/macOS_Wine_builds). Prefixed `gcenx-` to distinguish from nixpkgs `wine*` (Linux source builds; Darwin unsupported on nixpkgs-unstable).
 + swift6-jen20 (Swift 6.2.4) — base from [reckenrode/nixpkgs `swift-update-mk2`](https://github.com/reckenrode/nixpkgs/tree/swift-update-mk2) commit [9bd6cfed336853908d93c95c21f39e0255ac409c](https://github.com/reckenrode/nixpkgs/commit/9bd6cfed336853908d93c95c21f39e0255ac409c) (`pkgs/development/compilers/swiftPackages`, `pkgs/top-level/swift-packages.nix`, plus `hostPlatform.swift` from `lib/systems/default.nix`); Linux REPL/cxx/sysroot fixes from [jen20 gist](https://gist.github.com/jen20/3b797f020ee81dc564e768f1670ced90); C++ interop / `swiftrt.o` `llc -relocation-model=pic` from Randy Eckenrode’s Matrix/`swift-update-mk2` approach (local PIC + `swiftrt` conversion for Linux PIE links); related REPL test notes from [booxter/nixpkgs `fix-swift-repl`](https://github.com/booxter/nixpkgs/commits/fix-swift-repl/). Linux ICU: vendored reckenrode mk2 `pkgs/os-specific/darwin/by-name/ic/ICU` (`by-name/sw/swift6-jen20/ICU`). Local `0011-link-clangBasic-from-swiftBasic.patch` for external-Clang `DarwinSDKInfo` link. Details: `by-name/sw/swift6-jen20/README.md`
 
+* `wolfssl`: Copied from Nixpkgs commit `3040774c2f99756cc03c28dd78bbcb2bbd4e73f9` (the revision immediately before it was dropped from the tree), to support JNI for `art-standalone_patched`.
+* `python27`: Copied from Nixpkgs commit `55280fa56481cd71b53545171eb9ec5ab44c3795` (the revision immediately before cpython 2.7 and its helpers were moved to resholve and subsequently removed from the top-level). It was removed in commit `e6871d9800efed3395535a879e323b546d96feab` (PR #516241). Details: `by-name/py/python27/README.md`.
+* `pianotrans`: Copied from Nixpkgs commit `f1e9650b64f293a7accfc69508c1e649b7e6a43a` (the revision immediately before it was dropped in `83e6090d1801915f1845f6faa994e5f00a3f9f00`).
+* `piano-transcription-inference`: Copied from Nixpkgs commit `83e6090d1801915f1845f6faa994e5f00a3f9f00` (the revision immediately before it was dropped in `bf55b4a6ed1577b567c8b6fb5c8a2eda8c31b869`).
+* `electron_36-bin`: Copied from Nixpkgs commit [`4fb0462eccd53802e61d6b0dc70e7d98cc06d167`](https://github.com/NixOS/nixpkgs/tree/4fb0462eccd53802e61d6b0dc70e7d98cc06d167/pkgs/development/tools/electron/binary) (the revision immediately before it was removed by ["electron_36-bin, electron-chromedriver_36: remove"](https://github.com/NixOS/nixpkgs/commit/a5e221693999) on 2026-01-29, aliased to `throw` in nixpkgs on 2026-02-02). Preserved because `easyeda-pro` ships Electron 36.9.5 and its bundled `node_modules` native add-ons are compiled against Electron 36's Node ABI. Marked `knownVulnerabilities` (EOL); allow with `NIXPKGS_ALLOW_INSECURE=1` or `nixpkgs.config.permittedInsecurePackages`.
+* `vscode`: Copied from Nixpkgs commit `0968519e14f7`
+
 ## todo - reading
 
 + <https://github.com/NixOS/nixpkgs/issues/171182#issuecomment-2467081726>
@@ -125,16 +132,3 @@ files are copied from following locations. some are modified in this repo and so
 ## llm policy
 
 headache. use LLM for boring no brain task
-
-## Python 3.8
-
-While Python 3.8 reached End-Of-Life in October 2024 and is removed from modern NixOS releases, we dynamically fetch the `nixos-23.05` legacy channel inside `beam-studio`'s backend build (`by-name/beam-studio/backend.nix`). This provides a complete Python 3.8 environment and old `opencv-python` wheels necessary to correctly execute the proprietary, decompiled PyInstaller `.pyc` bytecode blobs (`beamify`, `fluxclient`, `fluxsvg`) that `beam-studio` relies on without needing to maintain the outdated Python version globally.
-
-## Vendored Packages
-
-* `wolfssl`: Copied from Nixpkgs commit `3040774c2f99756cc03c28dd78bbcb2bbd4e73f9` (the revision immediately before it was dropped from the tree), to support JNI for `art-standalone_patched`.
-* `python27`: Copied from Nixpkgs commit `55280fa56481cd71b53545171eb9ec5ab44c3795` (the revision immediately before cpython 2.7 and its helpers were moved to resholve and subsequently removed from the top-level). It was removed in commit `e6871d9800efed3395535a879e323b546d96feab` (PR #516241). Details: `by-name/py/python27/README.md`.
-* `pianotrans`: Copied from Nixpkgs commit `f1e9650b64f293a7accfc69508c1e649b7e6a43a` (the revision immediately before it was dropped in `83e6090d1801915f1845f6faa994e5f00a3f9f00`).
-* `piano-transcription-inference`: Copied from Nixpkgs commit `83e6090d1801915f1845f6faa994e5f00a3f9f00` (the revision immediately before it was dropped in `bf55b4a6ed1577b567c8b6fb5c8a2eda8c31b869`).
-* `electron_36-bin`: Copied from Nixpkgs commit [`4fb0462eccd53802e61d6b0dc70e7d98cc06d167`](https://github.com/NixOS/nixpkgs/tree/4fb0462eccd53802e61d6b0dc70e7d98cc06d167/pkgs/development/tools/electron/binary) (the revision immediately before it was removed by ["electron_36-bin, electron-chromedriver_36: remove"](https://github.com/NixOS/nixpkgs/commit/a5e221693999) on 2026-01-29, aliased to `throw` in nixpkgs on 2026-02-02). Preserved because `easyeda-pro` ships Electron 36.9.5 and its bundled `node_modules` native add-ons are compiled against Electron 36's Node ABI. Marked `knownVulnerabilities` (EOL); allow with `NIXPKGS_ALLOW_INSECURE=1` or `nixpkgs.config.permittedInsecurePackages`.
-* `vscode`: Copied from Nixpkgs commit `0968519e14f7`
