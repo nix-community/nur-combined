@@ -37,7 +37,6 @@
   nspr,
   nss,
   pango,
-  pciutils,
   pipewire,
   systemd,
   wayland,

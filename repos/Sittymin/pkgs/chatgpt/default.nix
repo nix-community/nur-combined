@@ -142,7 +142,7 @@ stdenv.mkDerivation {
 
     makeWrapper $out/lib/chatgpt/ChatGPT $out/bin/chatgpt \
       --prefix LD_LIBRARY_PATH : "${libPath}" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
+      --add-flags "\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}"
 
     runHook postInstall
   '';
