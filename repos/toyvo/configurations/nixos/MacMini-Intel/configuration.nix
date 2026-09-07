@@ -12,12 +12,10 @@
   imports = [
     inputs.nixcfg.modules.nixos.default
     inputs.nixos-hardware.nixosModules.apple-t2
-    inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.default
-    inputs.nh.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nixpkgs-unstable.nixosModules.notDetected
     inputs.nur.modules.nixos.default
@@ -62,8 +60,6 @@
     ];
     kernelModules = [ "kvm-intel" ];
   };
-  profiles.defaults.enable = true;
-  profiles.dev.enable = true;
   userPresets.toyvo.enable = true;
   services.openssh.enable = true;
   environment.systemPackages = with pkgs; [
