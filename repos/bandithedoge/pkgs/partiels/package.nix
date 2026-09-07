@@ -13,12 +13,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "partiels";
-  version = "2.5.1";
+  version = "2.5.2";
   src = fetchFromGitHub {
     owner = "Ircam-Partiels";
     repo = "Partiels";
     rev = finalAttrs.version;
-    hash = "sha256-6dUmG64rhRylwLhy/PcEGwHHxU4jeXhEuag/npw5OJI=";
+    hash = "sha256-sEQHyxawaeCuuwYULz5+FQjXDXn34Btuiylr55Hdb8Y=";
     fetchSubmodules = true;
   };
 
