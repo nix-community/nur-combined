@@ -156,8 +156,9 @@ in
     users.groups.epd-dashboard = { };
 
     # 数据库：沿用仓库 ensureDatabases 模式；使用方主机需已启用 services.postgresql。
+    # 数据库/角色统一用连字符名（ensureUsers 要求 ensureDatabases 含同名库）
     services.postgresql = {
-      ensureDatabases = [ "epd_dashboard" ];
+      ensureDatabases = [ "epd-dashboard" ];
       ensureUsers = [
         {
           name = "epd-dashboard";
