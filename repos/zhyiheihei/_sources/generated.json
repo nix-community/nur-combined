@@ -120,7 +120,7 @@
     },
     "filecodebox-frontend": {
         "cargoLock": null,
-        "date": "2026-07-11",
+        "date": "2026-09-08",
         "extract": null,
         "name": "filecodebox-frontend",
         "passthru": null,
@@ -130,13 +130,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "19a208b6a24b173f9ced1aaf6d120aa36758e9e5",
-            "sha256": "sha256-51oCYsObk3HFBH2fbwZAz7rJRjKVyrnClxqjLTyEONU=",
+            "rev": "2f0a04d2a5c136976357bd2b18ab0d1a5d87ef5f",
+            "sha256": "sha256-ypR9Thnpl/jcKuilqq0kVn0pM/uv0MuxvoWThqaR1SU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/vastsa/FileCodeBoxFronted.git"
         },
-        "version": "19a208b6a24b173f9ced1aaf6d120aa36758e9e5"
+        "version": "2f0a04d2a5c136976357bd2b18ab0d1a5d87ef5f"
     },
     "hubproxy": {
         "cargoLock": null,
@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.16.1",
-            "sha256": "sha256-TWlOjPBdQTLAWiWj2WHrOSNkacvRNCpa2v0PsGdPRYE=",
+            "rev": "v4.18.0",
+            "sha256": "sha256-2haJNq9YkV9lmJGcU4tFjek7v1ssQxpmDCmKP63+Pb8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.16.1"
+        "version": "v4.18.0"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.16.1",
-            "sha256": "sha256-rTHelw92ctMXy6tO+ZFE5OF5lj5l5PAKBj1T6ZBaoJ4=",
+            "rev": "v4.18.0",
+            "sha256": "sha256-0SY1G7AomuF5DZroc9dq3vNRarxpBDnSutzvvDRHl5I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.16.1"
+        "version": "v4.18.0"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -411,11 +411,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DLbo5jjmUQSDM06ByNj7C87rp5qeV3Xni3ra4ME7v20=",
+            "sha256": "sha256-ORjOzaX2iHN7H6zQjhexBv8w3tBntsZ0vlMeY9LW96o=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.70/vaults3-linux-amd64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.71/vaults3-linux-amd64.tar.gz"
         },
-        "version": "4.4.70"
+        "version": "4.4.71"
     },
     "vaults3-linux-arm64": {
         "cargoLock": null,
@@ -426,11 +426,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iV4qwC9BcQXgzGnmmt54pCs9ywd/7Xlsy4NrBCc/oac=",
+            "sha256": "sha256-4xUi2Oc8ebDBcKxyX/37AV6aMmRLQfSsY8rsz2JAWgg=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.70/vaults3-linux-arm64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.71/vaults3-linux-arm64.tar.gz"
         },
-        "version": "4.4.70"
+        "version": "4.4.71"
     },
     "vertex": {
         "cargoLock": null,
