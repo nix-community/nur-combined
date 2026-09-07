@@ -44,15 +44,44 @@ let
     EPD_FOOD_PUSH_ON_CHANGE = if cfg.pushOnChange then "true" else "false";
   };
 
-  # BLE 走 BlueZ D-Bus：不需要 /dev 设备节点，但要放开 PrivateDevices 并允许网链
-  bleHarden = LT.serviceHarden // {
-    PrivateDevices = lib.mkForce false;
+  # systemd 服务加固基线（与上层仓库 LT.serviceHarden 同源；本模块不依赖上层
+  # helpers。BLE 走 BlueZ D-Bus：不需要 /dev 设备节点（PrivateDevices=false），
+  # 并允许 AF_NETLINK/AF_BLUETOOTH。
+  serviceHarden = {
+    AmbientCapabilities = "";
+    CapabilityBoundingSet = "";
+    LockPersonality = true;
+    MemoryDenyWriteExecute = true;
+    NoNewPrivileges = true;
+    PrivateDevices = false;
+    PrivateMounts = true;
+    PrivateTmp = true;
+    ProcSubset = "pid";
+    ProtectClock = false;
+    ProtectControlGroups = false;
+    ProtectHome = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    ProtectProc = "invisible";
+    ProtectSystem = "strict";
+    RemoveIPC = true;
     RestrictAddressFamilies = [
       "AF_UNIX"
       "AF_INET"
       "AF_INET6"
       "AF_NETLINK"
       "AF_BLUETOOTH"
+    ];
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+    SystemCallArchitectures = "native";
+    SystemCallErrorNumber = "EPERM";
+    SystemCallFilter = [
+      "@system-service"
+      "~@clock @cpu-emulation @debug @module @obsolete @privileged @raw-io @reboot @swap"
     ];
   };
 in
@@ -103,8 +132,8 @@ in
 
     port = lib.mkOption {
       type = lib.types.port;
-      default = LT.port.EpdFoodDashboard;
-      description = "API 监听端口（端口常量登记于上层仓库 ports.nix）";
+      default = 13836;
+      description = "API 监听端口（与上层仓库端口表 EpdFoodDashboard 保持一致）";
     };
 
     vhost = lib.mkOption {
@@ -163,7 +192,7 @@ in
             exec ${package}/bin/epd-food-server serve --host ${cfg.bindAddress} --port ${toString cfg.port}
           '';
 
-      serviceConfig = bleHarden // {
+      serviceConfig = serviceHarden // {
         Type = "simple";
         Restart = "on-failure";
         RestartSec = "5s";
@@ -192,7 +221,7 @@ in
         exec ${package}/bin/epd-food-server push-now
       '';
 
-      serviceConfig = bleHarden // {
+      serviceConfig = serviceHarden // {
         Type = "oneshot";
         User = "epd-dashboard";
         Group = "epd-dashboard";
