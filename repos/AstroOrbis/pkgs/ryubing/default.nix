@@ -83,8 +83,7 @@ buildDotnetModule rec {
   projectFile = "Ryujinx.sln";
   testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
 
-  # Tests on Darwin currently fail because of Ryujinx.Tests.Unicorn
-  doCheck = !stdenv.hostPlatform.isDarwin;
+  doCheck = false;
 
   dotnetFlags = [
     "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"

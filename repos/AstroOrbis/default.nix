@@ -24,5 +24,6 @@ rec {
   objdiff = pkgs.callPackage ./pkgs/objdiff { };
   ghidra_rootcubed = pkgs.callPackage ./pkgs/ghidra_rootcubed { };
   nbminer = pkgs.callPackage ./pkgs/nbminer { };
+  orca = pkgs.callPackage ./pkgs/orca { };
   srbminer = pkgs.callPackage ./pkgs/srbminer { };
 }
