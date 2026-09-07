@@ -21,6 +21,7 @@ rec {
   ez4connect = pkgs.callPackage ./pkgs/ez4connect { zju-connect = zju-connect; };
   fiz = pkgs.callPackage ./pkgs/fiz { };
   loko = pkgs.callPackage ./pkgs/loko { };
+  nattypetester = pkgs.callPackage ./pkgs/nattypetester { };
   q5go = pkgs.callPackage ./pkgs/q5go { };
   qbittorrent-dual-boot = pkgs.callPackage ./pkgs/qbittorrent-dual-boot { };
   qbittorrent-dual-boot-py = pkgs.callPackage ./pkgs/qbittorrent-dual-boot-py { };
