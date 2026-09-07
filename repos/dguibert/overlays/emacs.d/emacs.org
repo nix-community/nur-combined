@@ -1055,6 +1055,11 @@ from https://lists.sr.ht/~protesilaos/denote/%3C87ilfj3ns6.fsf%40marcfargas.com%
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+;; https://github.com/doomemacs/themes/issues/875
+(after! doom-themes
+  (setcdr (assoc 'gnus-group-news-low-empty doom-themes-base-faces)
+          '(:inherit 'gnus-group-mail-1-empty :weight 'normal)))
+
 
 (use-package nerd-icons)
 (use-package shrink-path)
