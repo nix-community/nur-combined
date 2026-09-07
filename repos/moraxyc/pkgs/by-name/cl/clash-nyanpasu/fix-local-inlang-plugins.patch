@@ -1,7 +1,19 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 8432dcf..b946f47 100644
+index 8de75f8..b947b16 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
+@@ -35,10 +35,10 @@
+     "country-emoji": "2.0.1",
+     "d3": "7.9.0",
+     "dayjs": "1.11.23",
+-    "motion": "13.2.0",
+     "less": "4.9.1",
+     "lodash-es": "4.18.1",
+     "monaco-editor": "0.56.0",
++    "motion": "13.2.0",
+     "radix-ui": "1.6.7",
+     "react": "19.2.8",
+     "react-dom": "19.2.8",
 @@ -52,6 +52,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
@@ -27,10 +39,10 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 663ce2c..968ab91 100644
+index bb8ab2e..5edf00a 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -239,6 +239,12 @@ importers:
+@@ -340,6 +340,12 @@ importers:
        '@iconify/json':
          specifier: 2.2.525
          version: 2.2.525
@@ -42,8 +54,8 @@ index 663ce2c..968ab91 100644
 +        version: 4.4.4
        '@monaco-editor/react':
          specifier: 4.7.0
-         version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-@@ -1260,6 +1266,12 @@ packages:
+         version: 4.7.0(monaco-editor@0.56.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+@@ -1377,6 +1383,12 @@ packages:
        vite:
          optional: true
  
@@ -56,7 +68,7 @@ index 663ce2c..968ab91 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -1267,6 +1279,10 @@ packages:
+@@ -1384,6 +1396,10 @@ packages:
      resolution: {integrity: sha512-QvyMYjCqF7CnrTp8ZaPiuwpmxsoQPIDgfqGeWfqi4FDxBREye4QdyaZS4DGwIlCZXybF/YMj0TtL2uBfbmajug==}
      engines: {node: '>=20.0.0'}
  
@@ -67,7 +79,7 @@ index 663ce2c..968ab91 100644
    '@jridgewell/gen-mapping@0.3.12':
      resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
  
-@@ -1303,24 +1319,47 @@ packages:
+@@ -1420,24 +1436,47 @@ packages:
      cpu: [arm64]
      os: [darwin]
  
@@ -115,9 +127,9 @@ index 663ce2c..968ab91 100644
    '@material/material-color-utilities@0.4.0':
      resolution: {integrity: sha512-dlq6VExJReb8dhjj3a/yTigr3ncNwoFmL5Iy2ENtbDX03EmNeOEdZ+vsaGrj7RTuO+mB7L58II4LCsl4NpM8uw==}
  
-@@ -4595,6 +4634,11 @@ packages:
-   flat-cache@6.1.22:
-     resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
+@@ -4677,6 +4716,11 @@ packages:
+   flat-cache@6.1.23:
+     resolution: {integrity: sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA==}
  
 +  flat@6.0.1:
 +    resolution: {integrity: sha512-/3FfIa8mbrg3xE7+wAhWeV+bd7L2Mof+xtZb5dRDKZ+wDvYJK4WDYeIOuOhre5Yv5aQObZrlbRmk3RTSiuQBtw==}
@@ -127,9 +139,9 @@ index 663ce2c..968ab91 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7757,6 +7801,14 @@ snapshots:
+@@ -7818,6 +7862,14 @@ snapshots:
        typescript: 7.0.2
-       vite: 8.2.2(@types/node@24.13.3)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
+       vite: 8.2.2(@types/node@24.13.3)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.104.0)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
 +  '@inlang/plugin-m-function-matcher@2.2.13':
 +    dependencies:
@@ -142,7 +154,7 @@ index 663ce2c..968ab91 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7769,6 +7821,13 @@ snapshots:
+@@ -7830,6 +7882,13 @@ snapshots:
        sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
        uuid: 14.0.0
  
@@ -156,7 +168,7 @@ index 663ce2c..968ab91 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -7806,15 +7865,27 @@ snapshots:
+@@ -7867,15 +7926,27 @@ snapshots:
    '@lix-js/sdk-darwin-arm64@0.12.2':
      optional: true
  
@@ -184,7 +196,7 @@ index 663ce2c..968ab91 100644
    '@lix-js/sdk@0.12.2':
      dependencies:
        fflate: 0.8.3
-@@ -7824,6 +7895,15 @@ snapshots:
+@@ -7885,6 +7956,15 @@ snapshots:
        '@lix-js/sdk-linux-x64': 0.12.2
        '@lix-js/sdk-win32-x64': 0.12.2
  
@@ -200,7 +212,7 @@ index 663ce2c..968ab91 100644
    '@material/material-color-utilities@0.4.0': {}
  
    '@monaco-editor/loader@1.5.0':
-@@ -10803,6 +10883,8 @@ snapshots:
+@@ -10833,6 +10913,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
