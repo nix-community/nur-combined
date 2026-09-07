@@ -553,7 +553,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
                                         ; https://emacs.stackexchange.com/a/63562
 (defun ek/babel-ansi ()
-  (when-let ((beg (org-babel-where-is-src-block-result nil nil)))
+  (when-let* ((beg (org-babel-where-is-src-block-result nil nil)))
     (save-excursion
       (goto-char beg)
       (when (looking-at org-babel-result-regexp)
@@ -1392,7 +1392,7 @@ Delete the original subtree."
   (interactive
    (list (when current-prefix-arg
            (completing-read "Select a silo: " my-denote-silo-directories nil t))))
-  (if-let ((text (org-get-entry))
+  (if-let* ((text (org-get-entry))
            (heading (org-get-heading :no-tags :no-todo :no-priority :no-comment)))
       (let ((element (org-element-at-point))
             (tags (org-get-tags))
@@ -1525,12 +1525,12 @@ RMSbolt tries to make it easy to see what your compiler is doing. It does this b
 
 RMSbolt is primarily configured with Emacs local variables. This lets you change compiler and rmsbolt options simply by editing a local variable block. The starter files have this block with some common settings:
 
-#+begin_example
+#begin_example
 // Local Variables:
 // rmsbolt-command: "gcc -O0"
 // rmsbolt-disassemble: nil
 // End:
-#+end_example
+#end_example
 
 Note: the Local Variable block must be 3000 characters from the end of the file to work. Any method of setting buffer-local variables will work though.
 

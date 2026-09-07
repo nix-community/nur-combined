@@ -39,7 +39,7 @@
                                  (list 'shr-url (my-decode-safelink url)
                                        'help-echo (my-decode-safelink url)))
             ;; edit text URLs
-            (when-let ((link (thing-at-point 'url))
+            (when-let* ((link (thing-at-point 'url))
                        (bounds (thing-at-point-bounds-of-url-at-point)))
               (delete-region (car bounds) (cdr bounds))
               (insert (my-decode-safelink url)))
