@@ -30,5 +30,5 @@ parseArgs() {
 
 parseArgs "$@"
 
-git worktree add "$dir" 2>&1
+git worktree add "$dir" >&2
 echo "$PWD/$dir"

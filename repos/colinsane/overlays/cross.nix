@@ -769,36 +769,6 @@ in with final; {
   #   # '';
   # });
 
-  # 2026-04-27: upstreaming is unblocked
-  # fixes:
-  # > error: failed to run custom build command for `rquickjs-sys v0.10.0`
-  # > tree-sitter-aarch64-unknown-linux-gnu>   /nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:184:9: error: unknown type name '__SVBool_t'
-  # > tree-sitter-aarch64-unknown-linux-gnu>   thread 'main' (4005) panicked at /build/tree-sitter-0.26.8-vendor/source-registry-0/rquickjs-sys-0.10.0/build.rs:352:39:
-  # > tree-sitter-aarch64-unknown-linux-gnu>   Unable to generate bindings: ClangDiagnostic("/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:182:9: error: unknown type name '__SVFloat32_t'\n/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:183:9: error: unknown type name '__SVFloat64_t'\n/nix/store/mlwvry8xga608jlh4q4pgsfwkhzh0vdw-glibc-aarch64-unknown-linux-gnu-2.42-61-dev/include/bits/math-vector.h:184:9: error: unknown type name '__SVBool_t'\n")
-  tree-sitter = prev.tree-sitter.overrideAttrs (finalAttrs: prevAttrs: {
-    version = lib.warnIf (lib.versionOlder "0.26.11" prevAttrs.version) "tree-sitter is updated upstream: remove version override?" "0.25.10";
-    src = prevAttrs.src.overrideAttrs {
-      hash = "sha256-aHszbvLCLqCwAS4F4UmM3wbSb81QuG9FM7BDHTu1ZvM=";
-    };
-    cargoHash = "sha256-4R5Y9yancbg/w3PhACtsWq0+gieUd2j8YnmEj/5eqkg=";
-    # patches = [
-    #   (fetchurl {
-    #     url = "https://github.com/NixOS/nixpkgs/raw/e881e15c004f6716b8464a0a56566ca3a5ce37a8/pkgs/development/tools/parsing/tree-sitter/remove-web-interface.patch";
-    #     hash = "sha256-4iVLr0jRJgmnkFGe35GQBjF/AoB/55VxbEu+YIYHT1A=";
-    #   })
-    # ];
-    patches = lib.map
-      (p: if p.url or null == null then
-        (fetchurl {
-          url = "https://github.com/NixOS/nixpkgs/raw/e881e15c004f6716b8464a0a56566ca3a5ce37a8/pkgs/development/tools/parsing/tree-sitter/remove-web-interface.patch";
-          hash = "sha256-4iVLr0jRJgmnkFGe35GQBjF/AoB/55VxbEu+YIYHT1A=";
-        })
-      else
-        p
-      )
-      prevAttrs.patches;
-  });
-
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
   # 2026/01/27: upstreaming is blocked on gnustep-base cross compilation

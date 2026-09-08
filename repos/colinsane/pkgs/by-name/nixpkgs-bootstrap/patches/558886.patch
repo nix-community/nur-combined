@@ -1,0 +1,81 @@
+From 44869a3612a4adb4af64ad982d5c642b6c34132e Mon Sep 17 00:00:00 2001
+From: Jamie Magee <jamie.magee@gmail.com>
+Date: Tue, 1 Sep 2026 11:49:17 -0700
+Subject: [PATCH] rust-bindgen: pass target triple when cross-compiling
+
+---
+ pkgs/build-support/rust/hooks/default.nix          | 3 +++
+ pkgs/build-support/rust/hooks/rust-bindgen-hook.sh | 2 +-
+ pkgs/development/tools/rust/bindgen/default.nix    | 7 +++++++
+ pkgs/development/tools/rust/bindgen/wrapper.sh     | 4 ++--
+ 4 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/pkgs/build-support/rust/hooks/default.nix b/pkgs/build-support/rust/hooks/default.nix
+index d57f1b09c40a409d8b11fb2e342120c582048c51..7c8c846e31094f8392336b80b9d68fe716bdbc78 100644
+--- a/pkgs/build-support/rust/hooks/default.nix
++++ b/pkgs/build-support/rust/hooks/default.nix
+@@ -132,6 +132,9 @@
+     substitutions = {
+       libclang = (lib.getLib clang.cc);
+       inherit clang;
++      targetFlag = lib.optionalString (
++        stdenv.targetPlatform != stdenv.hostPlatform
++      ) "--target=${stdenv.targetPlatform.config}";
+     };
+     meta.license = lib.licenses.mit;
+   } ./rust-bindgen-hook.sh;
+diff --git a/pkgs/build-support/rust/hooks/rust-bindgen-hook.sh b/pkgs/build-support/rust/hooks/rust-bindgen-hook.sh
+index 53624b124f2b14ad144afcd7f06253bb41629647..ba39686d3a1b574470743e35726f3cffb4988469 100644
+--- a/pkgs/build-support/rust/hooks/rust-bindgen-hook.sh
++++ b/pkgs/build-support/rust/hooks/rust-bindgen-hook.sh
+@@ -6,7 +6,7 @@
+ 
+ populateBindgenEnv () {
+     export LIBCLANG_PATH=@libclang@/lib
+-    BINDGEN_EXTRA_CLANG_ARGS="$(< @clang@/nix-support/cc-cflags) $(< @clang@/nix-support/libc-cflags) $(< @clang@/nix-support/libcxx-cxxflags) $NIX_CFLAGS_COMPILE"
++    BINDGEN_EXTRA_CLANG_ARGS="@targetFlag@ $(< @clang@/nix-support/cc-cflags) $(< @clang@/nix-support/libc-cflags) $(< @clang@/nix-support/libcxx-cxxflags) $NIX_CFLAGS_COMPILE"
+     export BINDGEN_EXTRA_CLANG_ARGS
+ }
+ 
+diff --git a/pkgs/development/tools/rust/bindgen/default.nix b/pkgs/development/tools/rust/bindgen/default.nix
+index 393b89a4acb496e9a4acbe4d2eb3a6e0b874aa6d..fcd26a41c0a94ac418c4994c20628de9695c2901 100644
+--- a/pkgs/development/tools/rust/bindgen/default.nix
++++ b/pkgs/development/tools/rust/bindgen/default.nix
+@@ -4,9 +4,15 @@
+   bash,
+   runCommand,
+   runCommandCC,
++  stdenv,
+ }:
+ let
+   clang = rust-bindgen-unwrapped.clang;
++  targetFlag =
++    if stdenv.targetPlatform != stdenv.hostPlatform then
++      "--target=${stdenv.targetPlatform.config}"
++    else
++      "";
+   self =
+     runCommand "rust-bindgen-${rust-bindgen-unwrapped.version}"
+       {
+@@ -49,6 +55,7 @@ let
+           --replace-fail "@bash@" "${bash}" \
+           --replace-fail "@cxxincludes@" "$cxxincludes" \
+           --replace-fail "@cincludes@" "$cincludes" \
++          --replace-fail "@targetFlag@" "${targetFlag}" \
+           --replace-fail "@unwrapped@" "${rust-bindgen-unwrapped}"
+         chmod +x $out/bin/bindgen
+       '';
+diff --git a/pkgs/development/tools/rust/bindgen/wrapper.sh b/pkgs/development/tools/rust/bindgen/wrapper.sh
+index 4311b9720aa8a5076938d7b3b54fba15083715de..cd4eff556cc130fcc0f6e326ebd11b75e91186bf 100755
+--- a/pkgs/development/tools/rust/bindgen/wrapper.sh
++++ b/pkgs/development/tools/rust/bindgen/wrapper.sh
+@@ -28,7 +28,7 @@ if [[ -n "$NIX_DEBUG" ]]; then
+   set -x;
+ fi;
+ # shellcheck disable=SC2086
+-# cxxflags and NIX_CFLAGS_COMPILE should be word-split
+-exec -a "$0" @unwrapped@/bin/bindgen "$@" $sep $cxxflags @cincludes@ $NIX_CFLAGS_COMPILE
++# targetFlag, cxxflags and NIX_CFLAGS_COMPILE should be word-split
++exec -a "$0" @unwrapped@/bin/bindgen "$@" $sep @targetFlag@ $cxxflags @cincludes@ $NIX_CFLAGS_COMPILE
+ # note that we add the flags after $@ which is incorrect. This is only for the sake
+ # of simplicity.
