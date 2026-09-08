@@ -18,6 +18,7 @@ main (args) {
         "seekey",
         "uipro-cli",
         "winpodx-bin",
+        "zlib-cli",
     ]
     if len(args) == 1 {
         echo("Usage: nur-packages-update [--arch <system>] <package>...")
