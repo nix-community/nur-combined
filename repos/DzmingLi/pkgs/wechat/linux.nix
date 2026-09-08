@@ -28,6 +28,22 @@ appimageTools.wrapAppImage {
 
   src = appimageContents;
 
+  # WeChat 4.1.13 supports native Wayland, but its bundled Fcitx plugin
+  # still uses the legacy X11 input context. Let Qt use Wayland text-input
+  # instead, so the candidate popup stays attached to the WeChat window.
+  # Put this in the shared launcher for both desktop and terminal starts.
+  profile = ''
+    if [ -n "''${WAYLAND_DISPLAY:-}" ]; then
+      export QT_QPA_PLATFORM=wayland
+      unset QT_IM_MODULE QT_IM_MODULES
+    else
+      export QT_QPA_PLATFORM=xcb
+      export QT_IM_MODULE="''${QT_IM_MODULE:-fcitx}"
+      export GTK_IM_MODULE="''${GTK_IM_MODULE:-fcitx}"
+      export XMODIFIERS="''${XMODIFIERS:-@im=fcitx}"
+    fi
+  '';
+
   extraInstallCommands = ''
     mkdir -p $out/share/applications
     cp ${appimageContents}/wechat.desktop $out/share/applications/
@@ -35,7 +51,7 @@ appimageTools.wrapAppImage {
     cp ${appimageContents}/wechat.png $out/share/icons/hicolor/256x256/apps/
 
     substituteInPlace $out/share/applications/wechat.desktop \
-      --replace-fail 'Exec=AppRun %U' 'Exec=env GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U'
+      --replace-fail 'Exec=AppRun %U' 'Exec=wechat %U'
   '';
 
   meta = {
