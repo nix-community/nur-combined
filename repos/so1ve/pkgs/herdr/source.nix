@@ -3,15 +3,15 @@
 { fetchurl, stdenv }:
 
 let
-  version = "0.8.2";
+  version = "0.9.0";
   sources = {
     "aarch64-linux" = {
-      url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-linux-aarch64";
-      hash = "sha256-9VYQZY4cLg0qrvcwtLKriF9/i6AChas3K/sU8uPVtA0=";
+      url = "https://github.com/herdrdev/herdr/releases/download/v0.9.0/herdr-linux-aarch64";
+      hash = "sha256-nI2yD7fnQnsTjVNnET8WIf/TGfL2XW8AniWUApEV8NI=";
     };
     "x86_64-linux" = {
-      url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-linux-x86_64";
-      hash = "sha256-l2FQoU1JDJSyQ+ouGn6y37Z/EuNrGC25CTb2co5q7PQ=";
+      url = "https://github.com/herdrdev/herdr/releases/download/v0.9.0/herdr-linux-x86_64";
+      hash = "sha256-T6GgEVjdgEPaktMbJweAsNzBBgMDjZthysTYGrY/tx8=";
     };
   };
   source =
