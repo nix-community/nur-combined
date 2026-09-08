@@ -47,9 +47,9 @@
       "description": "Forgejo flakes",
       "managerFilePatterns": ["/^packages/.*.nix$/"],
       "matchStrings": [
-        "builtins\\.getFlake\\s+\"git\\+(?<registryUrl>https?://[^/]+)/(?<depName>[^?\"\\s]+)\\?rev=(?<currentDigest>[a-f0-9]{40})\"\\s+#\\s+(?<currentValue>\\S+)"
+        "builtins\\.getFlake\\s+\"git\\+(?<registryUrl>https?://[^/]+)/(?<depName>[^?\"\\s]+)\\?(?<shallow>shallow=1&)?rev=(?<currentDigest>[a-f0-9]{40})\"\\s+#\\s+(?<currentValue>\\S+)"
       ],
-      "autoReplaceStringTemplate": "builtins.getFlake\n  \"git+{{{registryUrl}}}/{{{depName}}}?rev={{{newDigest}}}\" # {{{newValue}}}",
+      "autoReplaceStringTemplate": "builtins.getFlake\n  \"git+{{{registryUrl}}}/{{{depName}}}?{{#if shallow}}{{{shallow}}}{{/if}}rev={{{newDigest}}}\" # {{{newValue}}}",
       "depTypeTemplate": "flake",
       "datasourceTemplate": "forgejo-tags"
     }
