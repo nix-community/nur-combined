@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./bookorbit.nix
     ./fail2ban.nix
     ./fava.nix
     ./forgejo

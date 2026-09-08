@@ -59,6 +59,11 @@ in {
   my.services = {
     fail2ban.enable = true;
 
+    bookorbit = {
+      enable = true;
+      port = 8092;
+    };
+
     forgejo = {
       enable = true;
       privatePort = 8082;
