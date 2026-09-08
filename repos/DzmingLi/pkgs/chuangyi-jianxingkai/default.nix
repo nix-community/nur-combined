@@ -6,11 +6,11 @@
 
 stdenvNoCC.mkDerivation {
   pname = "chuangyi-jianxingkai";
-  version = "1.0";
+  version = "1.0.1";
 
   src = fetchurl {
-    url = "https://github.com/DzmingLi/nur-packages/releases/download/chuangyi-jianxingkai-1.0/CTXingKaiSJ.ttf";
-    hash = "sha256-fuZk2XTn+WGX8MiegcJ78FXI+R/5cFTbdJ53GMr25pY=";
+    url = "https://github.com/DzmingLi/nur-packages/releases/download/chuangyi-jianxingkai-1.0.1/CTXingKaiSJ.ttf";
+    hash = "sha256-fIXL+0j/pb9QA9wBhiYPuYDiPWFK7c2AhvhvX46cbDE=";
   };
 
   dontUnpack = true;
