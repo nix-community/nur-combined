@@ -12,7 +12,7 @@
     pkgs.kubernetes-helm
     pkgs.argocd
     pkgs.k9s
-    pkgs.crane
+    pkgs.go-containerregistry
     # pkgs.calicoctl
     pkgs.nerdctl
     # pkgs.cri-tools
