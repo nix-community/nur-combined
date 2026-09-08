@@ -36,7 +36,8 @@ let
   '';
 
   commonEnvironment = {
-    EPD_FOOD_DSN = "host=/run/postgresql dbname=epd_dashboard";
+    # 数据库/角色统一连字符名（ensureUsers 断言要求同名）；DSN 里引号包裹
+    EPD_FOOD_DSN = 'host=/run/postgresql dbname="epd-dashboard"';
     EPD_FOOD_FONT_PATH = "${fontFile}";
     EPD_FOOD_STATE_DIR = "/var/lib/epd-dashboard";
     EPD_FOOD_DEVICE_NAME_PREFIX = cfg.deviceNamePrefix;
