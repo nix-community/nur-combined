@@ -6,10 +6,10 @@
 
 let
   pname = "winpodx-bin";
-  version = "0.10.4";
+  version = "0.11.0";
   src = fetchurl {
     url = "https://github.com/kernalix7/winpodx/releases/download/v${version}/winpodx-x86_64.AppImage";
-    hash = "sha256-Ce5SLIBudyZavA8Q1ww2oiCxuY+W03D8sCYWYZhuy60=";
+    hash = "sha256-x7NTyTjAlxFSqK3eSBJQYsNXXX8U7d7NQorOEfrGhJI=";
   };
   contents = appimageTools.extract { inherit pname version src; };
 in
