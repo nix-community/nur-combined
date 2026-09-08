@@ -4,16 +4,12 @@
   stdenv,
 
   # nativeBuildInputs
-  fontforge,
-
-  # buildInputs
-  libuninameslist,
-  libunistring,
+  python3,
 }:
 
 stdenv.mkDerivation {
   pname = "gallant";
-  version = "0-unstable-2026-08-23";
+  version = "0.1-unstable-2026-09-07";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -21,25 +17,24 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "NanoBillion";
     repo = "gallant";
-    rev = "4eebbf250f27c28c631bc667046803ca69337c90";
-    hash = "sha256-i3xCe9ICUct95ay/7kADutwPU7QbVZ7VVrBTwr8sYDE=";
+    rev = "4e4ab90c4f435ea20177c43e01b0a9a305751394";
+    hash = "sha256-vXKXUmJfH5LuOaKX/MXJbKkPrmeWNChK6A4sESD3kLI=";
   };
 
   patches = [
     ./GNUmakefile.patch
   ];
 
-  nativeBuildInputs = [ fontforge ];
-
-  buildInputs = [
-    libuninameslist
-    libunistring
+  nativeBuildInputs = [
+    (python3.withPackages (ps: [
+      ps.brotli
+      ps.fonttools
+    ]))
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.concatStringsSep " " [
-    "-D_XOPEN_SOURCE"
-    "-Wno-error=sign-conversion"
-  ];
+  preBuild = ''
+    mkdir -p svg
+  '';
 
   buildFlags = [ "gallant.ttf" ];
 

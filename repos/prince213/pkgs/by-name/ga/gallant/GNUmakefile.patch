@@ -1,6 +1,6 @@
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -37,9 +37,6 @@
+@@ -39,9 +39,6 @@
  gallant.bdf: gallant.hex hextobdf
  	./hextobdf < $< > $@
  
@@ -9,4 +9,14 @@
 -
  gallant.fnt: gallant.hex
  	vtfontcvt -v -o $@ $^
+ 
+@@ -51,9 +48,6 @@
+ gallant.pcf.gz: gallant.pcf
+ 	gzip -cnv9 $^ > $@
+ 
+-gallant.src: hextosrc
+-	./hextosrc < gallant.hex > $@
+-
+ gallant.ttf gallant.woff gallant.woff2: gallant.src srctottf.py
+ 	python srctottf.py
  
