@@ -106,13 +106,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.25",
-    "hash": "sha256-m3jqBclvHNYgoFH5UDk+POSkqTMaiJMS24M8CiJIBY4="
+    "version": "10.0.26",
+    "hash": "sha256-yu5bwraN6gJVlvHyp2D7P6NtBVjvR3bh6VZ9aUfGwL4="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.15",
-    "hash": "sha256-1+hiQZ7+IBLqE2NVPi4tlKR/Rl7Yh1TtoEMujK2IRGY="
+    "version": "10.0.16",
+    "hash": "sha256-9LoaZ8QNRasRAeglPpZxAWU8R2XWrehMTHKLbAyH6QM="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
@@ -576,8 +576,8 @@
   },
   {
     "pname": "Net.Codecrete.QrCodeGenerator",
-    "version": "3.1.0",
-    "hash": "sha256-OPcViDQepk3wOHLebwWsnLtvXDOORVhG/FjaXiGWdjI="
+    "version": "3.2.1",
+    "hash": "sha256-Kjw+5QfhDs24gylIE5SC+a81UjmQNo9w1vNbEwRDWcw="
   },
   {
     "pname": "Newtonsoft.Json",
