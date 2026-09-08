@@ -29,13 +29,15 @@ appimageTools.wrapAppImage {
   src = appimageContents;
 
   # WeChat 4.1.13 supports native Wayland, but its bundled Fcitx plugin
-  # still uses the legacy X11 input context. Let Qt use Wayland text-input
-  # instead, so the candidate popup stays attached to the WeChat window.
+  # still uses the legacy X11 input context. Explicitly select its bundled
+  # text-input-v3 plugin: Qt 5's default Wayland input context uses v2,
+  # which compositors such as Niri do not support.
   # Put this in the shared launcher for both desktop and terminal starts.
   profile = ''
     if [ -n "''${WAYLAND_DISPLAY:-}" ]; then
       export QT_QPA_PLATFORM=wayland
-      unset QT_IM_MODULE QT_IM_MODULES
+      export QT_IM_MODULE=text-input-unstable-v3
+      unset QT_IM_MODULES
     else
       export QT_QPA_PLATFORM=xcb
       export QT_IM_MODULE="''${QT_IM_MODULE:-fcitx}"
