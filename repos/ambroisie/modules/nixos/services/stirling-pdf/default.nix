@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.my.services.pdf-edit;
+  cfg = config.my.services.stirling-pdf;
 in
 {
-  options.my.services.pdf-edit = with lib; {
-    enable = mkEnableOption "PDF edition service";
+  options.my.services.stirling-pdf = with lib; {
+    enable = mkEnableOption "Stirling PDF service";
 
     port = mkOption {
       type = types.port;
@@ -15,7 +15,7 @@ in
 
     loginFile = mkOption {
       type = types.str;
-      example = "/run/secrets/pdf-edit/login.env";
+      example = "/run/secrets/stirling-pdf/login.env";
       description = ''
         `SECURITY_INITIALLOGIN_USERNAME` and `SECURITY_INITIALLOGIN_PASSWORD`
         defined in the format of 'EnvironmentFile' (see `systemd.exec(5)`).
@@ -42,7 +42,7 @@ in
     };
 
     my.services.nginx.virtualHosts = {
-      pdf-edit = {
+      stirling-pdf = {
         inherit (cfg) port;
 
         extraConfig = {

@@ -6,6 +6,7 @@
     ./aria
     ./audiobookshelf
     ./backup
+    ./bentopdf
     ./blog
     ./calibre-web
     ./drone
@@ -27,7 +28,6 @@
     ./nginx
     ./nix-cache
     ./paperless
-    ./pdf-edit
     ./podgrab
     ./postgresql
     ./postgresql-backup
@@ -36,6 +36,7 @@
     ./sabnzbd
     ./servarr
     ./ssh-server
+    ./stirling-pdf
     ./tandoor-recipes
     ./thelounge
     ./tlp

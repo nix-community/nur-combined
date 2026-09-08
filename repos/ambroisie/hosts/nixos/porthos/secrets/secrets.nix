@@ -74,8 +74,6 @@ in
   "paperless/password.age".publicKeys = all;
   "paperless/secret-key.age".publicKeys = all;
 
-  "pdf-edit/login.age".publicKeys = all;
-
   "podgrab/password.age".publicKeys = all;
 
   "servarr/autobrr/session-secret.age".publicKeys = all;
@@ -84,6 +82,8 @@ in
   "sso/auth-key.age".publicKeys = all;
   "sso/ambroisie/password-hash.age".publicKeys = all;
   "sso/ambroisie/totp-secret.age".publicKeys = all;
+
+  "stirling-pdf/login.age".publicKeys = all;
 
   "tandoor-recipes/secret-key.age".publicKeys = all;
 

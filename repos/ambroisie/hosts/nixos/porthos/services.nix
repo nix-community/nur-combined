@@ -23,6 +23,10 @@ in
       passwordFile = secrets."backup/password".path;
       credentialsFile = secrets."backup/credentials".path;
     };
+    # Sometimes, editing PDFs is useful
+    bentopdf = {
+      enable = true;
+    };
     # My blog and related hosts
     blog.enable = true;
     calibre-web = {
@@ -122,11 +126,6 @@ in
       documentPath = "/data/media/paperless";
       passwordFile = secrets."paperless/password".path;
       secretKeyFile = secrets."paperless/secret-key".path;
-    };
-    # Sometimes, editing PDFs is useful
-    pdf-edit = {
-      enable = true;
-      loginFile = secrets."pdf-edit/login".path;
     };
     # Regular backups
     postgresql-backup.enable = true;
