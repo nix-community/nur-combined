@@ -1,0 +1,85 @@
+name: Test ChatGPT
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_call:
+    inputs:
+      base_sha:
+        description: Main commit on which the update was prepared
+        required: true
+        type: string
+      source:
+        description: Base64-encoded candidate source.json bytes
+        required: true
+        type: string
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: chatgpt-${{ matrix.architecture }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - architecture: amd64
+            runner: ubuntu-24.04
+            system: x86_64-linux
+          - architecture: arm64
+            runner: ubuntu-24.04-arm
+            system: aarch64-linux
+    steps:
+      - name: Checkout
+        if: inputs.base_sha == ''
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Checkout update base
+        if: inputs.base_sha != ''
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.base_sha }}
+
+      - name: Apply candidate update
+        if: inputs.base_sha != ''
+        env:
+          BASE_SHA: ${{ inputs.base_sha }}
+          SOURCE: ${{ inputs.source }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$BASE_SHA"
+          printf '%s' "$SOURCE" | base64 --decode > pkgs/chatgpt/source.json
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+
+      - name: Test updater
+        run: python3 -B -m unittest discover -s pkgs/chatgpt -p 'test_*.py'
+
+      - name: Allow application namespaces on the disposable runner
+        run: |
+          # Ubuntu restricts Nix-store binaries by default. Allow user namespaces
+          # on this CI VM rather than disabling Chromium's sandbox.
+          sysctl kernel.apparmor_restrict_unprivileged_userns
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      # The generic repository build excludes unfree packages. Build this one explicitly,
+      # without uploading the proprietary application to the public binary cache.
+      - name: Build and smoke-test package
+        env:
+          NIXPKGS_ALLOW_UNFREE: "1"
+          NIX_SYSTEM: ${{ matrix.system }}
+        run: |
+          package=$(nix build --impure --no-link --print-out-paths --print-build-logs ".#packages.${NIX_SYSTEM}.chatgpt")
+          version=$(nix eval --impure --raw ".#packages.${NIX_SYSTEM}.chatgpt.version")
+          # FHS launches need user namespaces, so exercise them outside the Nix build sandbox.
+          nix shell --inputs-from . nixpkgs#python3 nixpkgs#xdotool nixpkgs#xvfb-run \
+            -c xvfb-run -a python3 pkgs/chatgpt/smoke-test.py "$package/bin/chatgpt" "$version"

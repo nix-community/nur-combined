@@ -22,6 +22,7 @@ in
 
   # MARK: Packages
 
+  chatgpt = pkgs.callPackage ./pkgs/chatgpt { inherit maintainer; };
   gdstash = pkgs.callPackage ./pkgs/gdstash { inherit maintainer; };
   github-desktop = pkgs.callPackage ./pkgs/github-desktop { inherit maintainer; };
   linux-wallpaperengine-git = pkgs.callPackage ./pkgs/linux-wallpaperengine-git { inherit maintainer; };

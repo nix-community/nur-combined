@@ -1,0 +1,91 @@
+name: Update ChatGPT
+
+on:
+  schedule:
+    - cron: "30 9 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: update-chatgpt
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      base_sha: ${{ steps.update.outputs.base_sha }}
+      changed: ${{ steps.update.outputs.changed }}
+      source: ${{ steps.update.outputs.source }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: main
+
+      - name: Test updater
+        run: python3 -B -m unittest discover -s pkgs/chatgpt -p 'test_*.py'
+
+      - name: Update package
+        id: update
+        run: |
+          # Local reusable workflows come from the triggering commit, so code and checks must share that base.
+          if [ "$(git rev-parse HEAD)" != "$GITHUB_SHA" ]; then
+            printf '%s\n' 'Start a new updater run on main; main moved or another ref was selected.' >&2
+            exit 1
+          fi
+          printf 'base_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          python3 pkgs/chatgpt/update.py
+          if git diff --quiet -- pkgs/chatgpt/source.json; then
+            printf 'changed=false\n' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          printf 'changed=true\n' >> "$GITHUB_OUTPUT"
+          # Pass exact file bytes between jobs without multiline output parsing.
+          printf 'source=%s\n' "$(base64 --wrap=0 pkgs/chatgpt/source.json)" >> "$GITHUB_OUTPUT"
+
+  validate:
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true'
+    uses: ./.github/workflows/test-chatgpt.yml
+    with:
+      base_sha: ${{ needs.prepare.outputs.base_sha }}
+      source: ${{ needs.prepare.outputs.source }}
+
+  push:
+    needs: [prepare, validate]
+    if: needs.prepare.outputs.changed == 'true'
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout tested base
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.prepare.outputs.base_sha }}
+
+      - name: Commit and push tested update
+        env:
+          BASE_SHA: ${{ needs.prepare.outputs.base_sha }}
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          SOURCE: ${{ needs.prepare.outputs.source }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$BASE_SHA"
+          printf '%s' "$SOURCE" | base64 --decode > pkgs/chatgpt/source.json
+          git add -- pkgs/chatgpt/source.json
+          git commit -m "deps: update chatgpt"
+          git fetch origin refs/heads/main
+          if [ "$(git rev-parse FETCH_HEAD)" != "$BASE_SHA" ]; then
+            printf '%s\n' 'main changed during validation; start a new updater run on main, not a rerun of this job.' >&2
+            exit 1
+          fi
+          # A concurrent advance after the fetch is rejected by this non-force push.
+          git push origin HEAD:refs/heads/main
