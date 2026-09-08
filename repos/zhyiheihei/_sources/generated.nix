@@ -46,12 +46,12 @@
   };
   epd-food-server = {
     pname = "epd-food-server";
-    version = "a8ec99acff5aa9f9535257df37685baca207532e";
+    version = "93d1d203fca6e36b7c3b693e7f6f83ed2e1cf6c2";
     src = fetchgit {
       url = "https://github.com/zhyiheihei/EPD-Dashboard.git";
-      rev = "a8ec99acff5aa9f9535257df37685baca207532e";
+      rev = "93d1d203fca6e36b7c3b693e7f6f83ed2e1cf6c2";
       fetchSubmodules = false;
-      hash = "sha256-dXvv1TMBpQHF8o1ZAnAcHm8zSh/qehTZoqIL5JjS5bA=";
+      hash = "sha256-LLc++9PkyCKkl9u4guKPK3kCR4THMGy9PQ3uuZFWDXA=";
     };
     date = "2026-09-08";
   };
@@ -67,14 +67,14 @@
   };
   filecodebox-frontend = {
     pname = "filecodebox-frontend";
-    version = "19a208b6a24b173f9ced1aaf6d120aa36758e9e5";
+    version = "2f0a04d2a5c136976357bd2b18ab0d1a5d87ef5f";
     src = fetchgit {
       url = "https://github.com/vastsa/FileCodeBoxFronted.git";
-      rev = "19a208b6a24b173f9ced1aaf6d120aa36758e9e5";
+      rev = "2f0a04d2a5c136976357bd2b18ab0d1a5d87ef5f";
       fetchSubmodules = false;
-      hash = "sha256-51oCYsObk3HFBH2fbwZAz7rJRjKVyrnClxqjLTyEONU=";
+      hash = "sha256-ypR9Thnpl/jcKuilqq0kVn0pM/uv0MuxvoWThqaR1SU=";
     };
-    date = "2026-07-11";
+    date = "2026-09-08";
   };
   hubproxy = {
     pname = "hubproxy";
@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.16.1";
+    version = "v4.19.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.16.1";
-      hash = "sha256-TWlOjPBdQTLAWiWj2WHrOSNkacvRNCpa2v0PsGdPRYE=";
+      tag = "v4.19.2";
+      hash = "sha256-dUKAuTOc3JHQeG/4Mx5x/jZXg4wR9S7jgK7OaQbjTXM=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.16.1";
+    version = "v4.19.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.16.1";
-      hash = "sha256-rTHelw92ctMXy6tO+ZFE5OF5lj5l5PAKBj1T6ZBaoJ4=";
+      tag = "v4.19.2";
+      hash = "sha256-jsiw2zHs/w/VsBwrG26ASSgKszi3qOqxQSXHDYFsROE=";
     };
   };
   pinyin2hanzi = {
@@ -208,18 +208,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "4.4.70";
+    version = "4.4.71";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.70/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-DLbo5jjmUQSDM06ByNj7C87rp5qeV3Xni3ra4ME7v20=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.71/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-ORjOzaX2iHN7H6zQjhexBv8w3tBntsZ0vlMeY9LW96o=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "4.4.70";
+    version = "4.4.71";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.70/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-iV4qwC9BcQXgzGnmmt54pCs9ywd/7Xlsy4NrBCc/oac=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.71/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-4xUi2Oc8ebDBcKxyX/37AV6aMmRLQfSsY8rsz2JAWgg=";
     };
   };
   vertex = {
@@ -253,12 +253,12 @@
   };
   zhconv-rs = {
     pname = "zhconv-rs";
-    version = "v0.4.1";
+    version = "v0.4.2-1";
     src = fetchFromGitHub {
       owner = "Gowee";
       repo = "zhconv-rs";
-      tag = "v0.4.1";
-      hash = "sha256-uzw8iC02nPVVYhw4QHgEYRRmkI85/Hq3xaEaOtDygwo=";
+      tag = "v0.4.2-1";
+      hash = "sha256-p+9jvdFJ67VL2xviwin3Lzk81pQjusFlc2R8ytmIlmw=";
     };
   };
 }
