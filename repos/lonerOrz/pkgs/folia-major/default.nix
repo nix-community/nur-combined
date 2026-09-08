@@ -81,6 +81,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = runtimeDependencies;
 
+  autoPatchelfIgnoreMissingDeps = [
+    "libc.musl-x86_64.so.1"
+  ];
+
   desktopItems = [
     (makeDesktopItem {
       name = "folia-major";

@@ -7,20 +7,20 @@
 
 buildGoModule (finalAttrs: {
   pname = "sonar";
-  version = "0.6.1";
+  version = "0.6.5";
 
   src = fetchFromGitHub {
     owner = "raskrebs";
     repo = "sonar";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-0uFN0C+r6BO4sqfC+A5BxeTZhOeHQvYmnD/BxsFCbbE=";
+    hash = "sha256-JUb5oTpFynCjys66uEgrqUoQtqNnI1EM6+GFh/4jpKU=";
   };
 
   nativeBuildInputs = [
     iproute2
   ];
 
-  vendorHash = "sha256-ojAqeq3SjUgLUsK7t1C+ryWokt1A/6g11UXSX3zKVH4=";
+  vendorHash = "sha256-umFMWI3j1KVzEYnBTiq8ulMLRnxM6i0s7zYEBAjnKfc=";
 
   ldflags = [
     "-s"

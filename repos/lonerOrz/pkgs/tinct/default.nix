@@ -6,17 +6,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tinct";
-  version = "0.1.0-unstable-2026-07-06";
+  version = "0.1.2-unstable-2026-09-07";
 
   # https://github.com/lonerOrz/tinct
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "tinct";
-    rev = "2a00189ff8b896b3e6656143361318a71dcd4dd8";
-    hash = "sha256-dm/2YdNlPCJx8cBkoJ+SIcttCqWRU4zDwgmPq16vY8w=";
+    rev = "a5469570706b9ead1ad6c3892ce1f81d6c726290";
+    hash = "sha256-ChiLCqZA4497naNhXdUpV8qEmwOR77mA+CdVRzHSViA=";
   };
 
-  cargoHash = "sha256-7lNzZ8gMcYOsWVEVwdFnFINYZv08oeNh0HxdzyarUVA=";
+  cargoHash = "sha256-ExuKv+RUIqIxEhxV/083poPZOa2q7deYQ5IeyiRtKhk=";
 
   passthru.updateArgs = [ "--version=branch" ];
 
