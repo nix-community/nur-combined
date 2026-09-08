@@ -16,7 +16,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "github-readme-stats-extended-unwrapped";
-  version = "2.2.0";
+  version = "2.1.5";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "stats-organization";
     repo = "github-stats-extended";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-M7vfMIWDE3bUCTdSPu/qs8E6H3M/ZRHdh1eI3a0EjXo=";
+    hash = "sha256-FltDnh+4wjZlWZMSBNlm8bexdR6FUFb8ibqEpUfEVic=";
   };
 
   nativeBuildInputs = [
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-ETg3gUyLQ7HeiopmWY+BLEevC1ij8EWDbKu+DRrMGcM=";
+    hash = "sha256-Q8yp5Dnlk/E1T63+su6EqcUNlRnA1eHd4zx6Ndrb1DM=";
   };
 
   pnpmInstallFlags = [
