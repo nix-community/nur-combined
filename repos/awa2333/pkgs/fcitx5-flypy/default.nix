@@ -6,12 +6,12 @@
 }:
 stdenvNoCC.mkDerivation rec {
   name = "fcitx5-flypy";
-  version = "20240827";
+  version = "20251211";
   src = fetchFromGitHub {
     owner = "cubercsl";
     repo = "rime-flypy";
     tag = "v${version}";
-    hash = "sha256-shXcDjAaClemaOsE9ajZBedUzYKLw+ZATDTuyAu+zUc=";
+    hash = "sha256-Lw54pNXUzsVv9OFp7c5Bf+pCCA0DWTslSTrN/raX9CM=";
   };
   makeFlags = [
     "PREFIX=$(out)"

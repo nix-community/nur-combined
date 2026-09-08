@@ -3,7 +3,6 @@
   lib,
   stdenvNoCC,
   fetchFromGitLab,
-  libsForQt5,
   themeConfig ? null,
 }:
 stdenvNoCC.mkDerivation rec {
@@ -15,9 +14,6 @@ stdenvNoCC.mkDerivation rec {
     tag = "v${version}";
     hash = "sha256-wq6V3UOHteT6CsHyc7+KqclRMgyDXjajcQrX/y+rkA0=";
   };
-  buildInputs = [
-    libsForQt5.qt5.qtgraphicaleffects
-  ];
   dontWrapQtApps = true;
   installPhase =
     let
