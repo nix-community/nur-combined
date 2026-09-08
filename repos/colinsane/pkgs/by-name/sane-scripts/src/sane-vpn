@@ -35,6 +35,8 @@ idioms:
   - run the command using only those interfaces which are unmetered (i.e. ethernet/wifi)
 - sane-vpn --dns 1.1.1.1 do none -- COMMAND
   - run the command in a default networking environment except for custom DNS
+- sane-vpn do
+  - launch an interactive shell inside the default VPN environment
 """
 
 from dataclasses import dataclass, field

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.curl ps.jq ps.nix-prefetch-git ps.nix-prefetch-github ps.update-source-version ]'
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.curl ps.gnused ps.jq ps.nix-prefetch-git ps.nix-prefetch-github ]'
 
 set -eu
 
@@ -41,6 +41,18 @@ jsonGetField() {
 
 main() {
   local branch=$1
+  local attrPos=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH.meta.position")
+  local nixFile=${attrPos%:[0-9]*}
+
+  local oldVersion=$UPDATE_NIX_OLD_VERSION
+  if [[ -z "$oldVersion" ]]; then
+    oldVersion=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH.version")
+  fi
+  local oldRev=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH.src.rev")
+  local oldHash=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH.src.hash")
+
+  test -n "$oldVersion" -a -n "$oldRev" -a -n "$oldHash"
+
   local prefetchData=$(nix-prefetch-github --json --meta --rev "$branch" NixOS nixpkgs)
 
   local rev=$(jsonGetField "$prefetchData" src.rev)
@@ -48,10 +60,11 @@ main() {
   local commitDate=$(jsonGetField "$prefetchData" meta.commitDate)
 
   test -n "$rev" -a -n "$nixHash" -a -n "$commitDate"
-  update-source-version "sane.nixpkgs-bootstrap.$branch" "unstable-$commitDate" "$nixHash" \
-    --rev="$rev" \
-    --ignore-same-version \
-    --print-changes
+  sed \
+    -e "s|\"$oldHash\"|\"$nixHash\"|" \
+    -e "s|\"$oldVersion\"|\"unstable-$commitDate\"|" \
+    -e "s|\"$oldRev\"|\"$rev\"|" \
+    -i "$nixFile"
 }
 
 args=("$@")

@@ -28,6 +28,8 @@ in
     sane.programs.rustc.enableFor = { system = false; user.colin = false; };  #< does not cross compile (2026-05-31 - 2026-09-02)
 
     sane.programs.pi-coding-agent.config.coderag = false;  #< does not cross compile (2026-07-01)
+    sane.programs.pi-coding-agent.config.semble = false;  #< does not cross compile (2026-09-04)
+    sane.programs.pi-coding-agent.config.auto-zoekt = true;
 
     # boot.kernelPatches = lib.mkIf (!(config.boot.kernelPackages.kernel.configfile.preferBuiltin or true)) [
     #   {

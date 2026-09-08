@@ -61,5 +61,8 @@ in
     sane.programs.steam.enableFor.user.colin = false;
     sane.programs.supertux.enableFor.user.colin = false;  #< 2026-03-17: `error_handler.cpp:53:10: fatal error: execinfo.h: No such file or directory`
     sane.programs.zelda64recomp.enableFor.user.colin = false;  #< 2026-01-28: blocked on directx-shader-compiler
+
+    sane.programs.pi-coding-agent.config.semble = false;  #< 2026-09-04: blocked on pytorch
+    sane.programs.pi-coding-agent.config.auto-zoekt = true;
   };
 }

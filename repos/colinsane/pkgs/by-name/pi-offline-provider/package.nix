@@ -1,26 +1,24 @@
 {
   lib,
-  llama-cpp,
-  stdenvNoCC,
+  llama-cpp-vulkan,
+  mkPiExtension,
 }:
-stdenvNoCC.mkDerivation {
+mkPiExtension {
   pname = "pi-offline-provider";
   version = "0.1.0";
 
+  # N.B.: update lockfiles with:
+  # `$(nix-build -A nodejs)/bin/npm update`
   src = ./.;
 
+  forceEmptyCache = true;
+  npmDepsFetcherVersion = 2;
+  npmDepsHash = "sha256-57HhnO49cCMfOAgpjeEsutNJvWhFAuHgbvIlhlRPN3Q=";
+
   postPatch = ''
-    substituteInPlace ./index.ts \
-      --replace-fail '@llama_server@' ${lib.getExe' llama-cpp "llama-server"}
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out
-    cp -R package.json index.ts $out/
-
-    runHook postInstall
+    substituteInPlace ./src/index.ts \
+      --replace-fail '@llama_server@' ${lib.getExe' llama-cpp-vulkan "llama-server"}
+    mkdir -p node_modules
   '';
 
   meta = {

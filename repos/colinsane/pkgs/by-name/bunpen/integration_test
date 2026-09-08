@@ -170,12 +170,12 @@ test_06_keep_12_path_symlink_2_layers() {
 }
 
 test_06_keep_13_net() {
-  # new namespaces get a loopback device, however bunpen doesn't auto-up the loopback.
-  # most containers (e.g. nix build environment) do up the lo.
-  # it wouldn't necessarily be _bad_ if bunpen changed behavior here,
-  # but in the meantime this is the easiest way to see that --bunpen-keep-net *does something*
+  # new namespaces get a loopback device, however bunpen doesn't auto-up the loopback unless asked.
+  # most containers (e.g. nix build environment) do up the lo; maybe bunpen should too if we can optimize that path?
+  # we're actually just testing that lo quirk -- not the more meaningful part of networking.
   # (better would be to try communicating between test runner and bunpen program, e.g. netcat?)
   test -n "$(bunpen --bunpen-path / --bunpen-keep-net ip link show lo up)"
+  test -n "$(bunpen --bunpen-path / --bunpen-private-lo ip link show lo up)"
   test -z "$(bunpen --bunpen-path / ip link show lo up)"
 }
 

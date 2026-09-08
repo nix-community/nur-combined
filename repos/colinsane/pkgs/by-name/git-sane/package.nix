@@ -24,11 +24,19 @@ let
         ;
     };
   };
+  git-work = static-nix-shell.mkBash {
+    pname = "git-work";
+    srcRoot = ./.;
+    pkgs = {
+      inherit git;
+    };
+  };
 in
 symlinkJoin {
   name = "git-sane";
   paths = [
     git-pr
     git-pshow
+    git-work
   ];
 }

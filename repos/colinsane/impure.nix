@@ -153,20 +153,10 @@ let
     )
     attrs;
 
-  # update only packages maintained by me:
-  # shouldUpdate = pkg: let
-  #   maintainers = ((pkg.meta or {}).maintainers or []);
-  # in
-  #   pkg ? updateScript &&
-  #   (lib.elem lib.maintainers.colinsane maintainers || maintainers == [])
-  # ;
-
   # update any package possible, and just rely on good namespacing:
   shouldUpdate = pkg: pkg ? updateScript;
 
   shouldRecurse = attrs: attrs.recurseForDerivations or false;
-  # shouldRecurse = attrs: attrs ? callPackage;
-  # shouldRecurse = _attrs: true;
 
   # given the path to a package, and that package, returns a list of all attr-paths (stringified)
   # which should be updated as part of that package (including the package in question).

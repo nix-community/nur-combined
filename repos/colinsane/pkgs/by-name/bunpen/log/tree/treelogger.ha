@@ -48,6 +48,10 @@ export fn set_level(me: *logger, level: uint) void = {
   me.level = level;
 };
 
+export fn get_level(me: *logger) uint = {
+  return me.level;
+};
+
 export fn set_forward(me: *logger, forward: *log::logger) void = {
   me.forward = forward;
 };

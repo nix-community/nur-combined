@@ -1,0 +1,30 @@
+From 987f40430ca389d78287c24299cc865fedc2556d Mon Sep 17 00:00:00 2001
+From: "R. Ryantm" <ryantm-bot@ryantm.com>
+Date: Mon, 7 Sep 2026 17:47:58 +0000
+Subject: [PATCH] syshud: 0-unstable-2026-05-28 -> 0-unstable-2026-09-07
+
+---
+ pkgs/by-name/sy/syshud/package.nix | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pkgs/by-name/sy/syshud/package.nix b/pkgs/by-name/sy/syshud/package.nix
+index 270ea691bc23048f98880e9225607035d794fc64..0e3b3b852e0eee35caba1abdb7b7818a1cc3c3df 100644
+--- a/pkgs/by-name/sy/syshud/package.nix
++++ b/pkgs/by-name/sy/syshud/package.nix
+@@ -14,13 +14,13 @@
+ 
+ stdenv.mkDerivation (finalAttrs: {
+   pname = "syshud";
+-  version = "0-unstable-2026-05-28";
++  version = "0-unstable-2026-09-07";
+ 
+   src = fetchFromGitHub {
+     owner = "System64fumo";
+     repo = "syshud";
+-    rev = "4d0c4775fe38a14bd68fc654f8cc4ad624eed92a";
+-    hash = "sha256-3DqBg3RUaEJCG5o/pt2B/+m/8X+Ifu9uHLJpjzLo9t8=";
++    rev = "ef3fb52ea37f57170a5e91b266ed9a449de9d2e9";
++    hash = "sha256-tTY4DP9F3Mi5fylnaAPsipnOhMj/9MBbg4/+qZ+AGFo=";
+   };
+ 
+   postPatch = ''

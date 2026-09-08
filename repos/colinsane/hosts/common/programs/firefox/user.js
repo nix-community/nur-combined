@@ -93,22 +93,25 @@ defaultPref("findbar.highlightAll", true);
 // enable vertical tab view, like Sidebery (but loses the top-window horizontal tabs)
 // defaultPref("browser.toolbarbuttons.introduced.sidebar-button", true);
 defaultPref("sidebar.animation.enabled", false);
-defaultPref("sidebar.backupState", `{"width":"","command":"","expanded":true,"hidden":false}`);
+// defaultPref("sidebar.backupState", `{"width":"","command":"","expanded":true,"hidden":false}`);
 defaultPref("sidebar.main.tools", "history");
 defaultPref("sidebar.revamp", true);
 defaultPref("sidebar.verticalTabs", true);
 defaultPref("sidebar.verticalTabs.dragToPinPromo.dismissed", true);
 // vvv default is for tabs button to toggle tab icons v.s. tab icons + description.
 //    "hide-sidebar"  => toggle between tab icons + description and NO visibility at all.
-defaultPref("sidebar.visibility", "hide-sidebar");
+// defaultPref("sidebar.visibility", "hide-sidebar");
+defaultPref("sidebar.visibility", "always-show");
 
 // configure topbar:
 // placing an item in "seen" marks it as handled; items omitted from "seen" are placed in their default location.
 // XXX(2024-12-01): the first "sidebar-button" placement is eaten. you MUST specify it at least twice for FF to respect it.
+// other nav-bar entities:
+// - "firefox-view-button"
 defaultPref("browser.uiCustomization.state", `{
   "placements":{
     "unified-extensions-area": ["browserpass_maximbaz_com-browser-action","ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","magnolia_12_34-browser-action"],
-    "nav-bar":["firefox-view-button","sidebar-button","sidebar-button","stop-reload-button","back-button","forward-button","urlbar-container","unified-extensions-button","downloads-button"]
+    "nav-bar":["sidebar-button","sidebar-button","stop-reload-button","back-button","forward-button","urlbar-container","unified-extensions-button","downloads-button"]
   },
   "currentVersion":20
 }`);
@@ -149,6 +152,9 @@ defaultPref("browser.startup.homepage", "https://uninsane.org/places");
 
 // silence the first-run "welcome to firefox"
 defaultPref("trailhead.firstrun.didSeeAboutWelcome", true);
+
+// silence the "Sign in to sync" nag
+defaultPref("identity.fxaccounts.enabled", false);
 
 defaultPref("browser.aboutConfig.showWarning", false);
 defaultPref("browser.shell.checkDefaultBrowser", false);

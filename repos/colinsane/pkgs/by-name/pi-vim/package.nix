@@ -6,17 +6,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-vim";
-  version = "0.14.1";
+  version = "0.14.2";
 
   src = fetchFromGitHub {
     owner = "lajarre";
     repo = "pi-vim";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VorcGMt3H4hGnbGTGUgTmJuXRK2ud+3ozT4glGX29Do=";
+    hash = "sha256-y8qsUKdzAM2yQyNDKWqGBHA139tDDYJlefvT+nVhGKQ=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-FyyGcyo2cIDhV3MQCeB353Knf75HAh/Z54VekEF/H/c=";
+  npmDepsHash = "sha256-C9AkJhwlh4muj+AselbSpSHcYSMZWAeaS2Mon9NVvcY=";
 
   passthru.updateScript = nix-update-script { };
 

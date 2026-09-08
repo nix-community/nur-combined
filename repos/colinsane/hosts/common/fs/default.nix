@@ -19,14 +19,15 @@
   };
 
   # do nix builds in-memory, otherwise disk I/O becomes a bottleneck
-  fileSystems."/nix/var/nix/b" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = [
-      "mode=755"
-      "size=100%"
-    ];
-  };
+  # XXX(2026-09-05): this OOMs too many builds though. maybe re-enable once i have more RAM?
+  # fileSystems."/nix/var/nix/b" = {
+  #   device = "none";
+  #   fsType = "tmpfs";
+  #   options = [
+  #     "mode=755"
+  #     "size=100%"
+  #   ];
+  # };
 
   # in-memory compressed RAM
   # defaults to compressing at most 50% size of RAM

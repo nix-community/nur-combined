@@ -36,6 +36,7 @@ let
     path.unqualified = p: [ "--bunpen-path" p ];
     path.home = p: [ "--bunpen-path" "$HOME/${p}" ];
     path.run = p: [ "--bunpen-path" "$XDG_RUNTIME_DIR/${p}" ];
+    privateLo = [ "--bunpen-private-lo" ];
     tryKeepUsers = [ "--bunpen-try-keep-users" ];
     whitelistPwd = [ "--bunpen-path" "." ];
   };
@@ -56,6 +57,7 @@ in
   tryKeepUsers ? false,
   netDev ? null,
   netGateway ? null,
+  privateLo ? false,
   whitelistPwd ? false,
   extraConfig ? [],
 }:
@@ -92,6 +94,7 @@ in
   ++ lib.optionals (autodetectCliPaths != null) (gen.autodetectCliPaths autodetectCliPaths)
   ++ lib.optionals keepIpc gen.keepIpc
   ++ lib.optionals keepPids gen.keepPids
+  ++ lib.optionals privateLo gen.privateLo
   ++ lib.optionals tryKeepUsers gen.tryKeepUsers
   ++ lib.optionals whitelistPwd gen.whitelistPwd
   ++ extraConfig

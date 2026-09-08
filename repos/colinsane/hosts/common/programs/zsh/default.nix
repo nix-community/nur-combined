@@ -120,6 +120,10 @@ in
 
       HISTORY_IGNORE='(sane-shutdown *|sane-reboot *|rm *|nixos-rebuild.* switch|switch)'
 
+      # enable tab-completion for user git subcommands
+      zstyle ':completion:*:*:git:*' user-commands \
+        ''${''${(M)''${(k)commands}:#git-*}/git-/}
+
       ### aliases
       # aliases can be defined in any order, regardless of how they reference eachother.
       # but they must be defined before any functions which use them.
@@ -155,16 +159,22 @@ in
       # alias expansion appears to happen at definition time, not call time.
       function c() {
         # list a dir after entering it
+        emulate -L zsh
+        setopt err_return nounset pipefail
         cd "$@"
         ll
       }
       function ct() {
         # list a dir after entering it, based on time
+        emulate -L zsh
+        setopt err_return nounset pipefail
         cd "$@"
         lrt
       }
       function deref() {
         # convert a symlink into a plain file of the same content
+        emulate -L zsh
+        setopt err_return nounset pipefail
         if [ -L "$1" ] && [ -f "$1" ]; then
           cp --dereference "$1" "$1.deref"
           mv -f "$1.deref" "$1"
@@ -172,8 +182,10 @@ in
         chmod u+w "$1"
       }
 
-      # edit a file, creating leading directories if necessary.
       function edit() {
+        # edit a file, creating leading directories if necessary.
+        emulate -L zsh
+        setopt err_return nounset pipefail
         local file=$1
         local dir=$(dirname $file)
         [[ -n "$dir" ]] && mkdir -p "$dir"
@@ -182,6 +194,8 @@ in
 
       function nd() {
         # enter a directory, creating it if necessary
+        emulate -L zsh
+        setopt err_return nounset pipefail
         mkdir -p "$1"
         pushd "$1"
       }
@@ -192,6 +206,8 @@ in
       };
 
       function switch() {
+        emulate -L zsh
+        setopt err_return nounset pipefail
         local dir="$PWD"
         while [[ "$dir" != $(dirname "$dir") ]] && ! [[ -x "$dir/scripts/deploy" ]]; do
           dir=$(dirname "$dir")
@@ -204,6 +220,8 @@ in
       }
 
       function tmp() {
+        emulate -L zsh
+        setopt err_return nounset pipefail
         local today=$(date '+%Y-%m-%d')
         if [[ -d ~/tmp/$today ]]; then
           c ~/tmp/$today
@@ -214,12 +232,20 @@ in
         fi
       }
 
-      # HACK to support `git work NEW_DIR`: in order for this to `cd` into NEW_DIR, it has to run
-      # as a shell function -- not a subprocess.
+      # HACK to support `git work NEW_DIR`, `git pr FOO`, ...: in order for this to `cd` into NEW_DIR,
+      # it has to run as a shell function -- not a subprocess.
+      # TODO: this should live in the `git-sane` package itself.
       function git() {
-        if [[ "$1" == "work" ]]; then
-          local name="$2"
-          command git worktree add "$name" && cd "$name"
+        emulate -L zsh
+        setopt err_return nounset pipefail
+        if [[ "$1" == "pr" ]]; then
+          shift
+          local dir=$(command git pr "$@")
+          cd "$dir"
+        elif [[ "$1" == "work" ]]; then
+          shift
+          local dir=$(command git work "$@")
+          cd "$dir"
         else
           command git "$@"
         fi

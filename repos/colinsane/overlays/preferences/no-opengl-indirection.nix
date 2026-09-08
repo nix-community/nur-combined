@@ -92,6 +92,7 @@ let
     lib
     runCommand
     writeSymlink
+    writeTextFile
   ;
 
   removeFromList = item: list:
@@ -171,9 +172,7 @@ in
           self.pkgsBuildBuild.gnused
         ];
         rawAttrs = vulkan-loader-for-inline.inputDerivation;
-        # TODO: remove the set -x & dead code here once i can tolerate a mass-rebuild
       } ''
-        set -x
         cp "$rawAttrs" exports
 
         # inherit $out from the caller
@@ -186,8 +185,6 @@ in
         sed -i 's/declare -r /# declare -r /g' exports
         sed -i 's/declare -ar /# declare -ar /g' exports
         sed -i 's/declare -ir /# declare -ir /g' exports
-
-        # echo 'set -x' >> exports
 
         cp exports $out
       '';
@@ -252,11 +249,6 @@ in
         libglvnd = self.libglvnd.override {
           inherit (super) addDriverRunpath;
         };
-        libdisplay-info = self.libdisplay-info.override {
-          v4l-utils = self.v4l-utils.override {
-            withGUI = false;
-          };
-        };
       };
     })
 
@@ -288,7 +280,7 @@ in
       # });
 
       xvfb-run = super.xvfb-run.overrideAttrs (upstream: {
-        # nix consumers of xvfb-run, such as `libadwaita`'s checkPhase, would error if they find hardware drivers but can't open /dev/dri:
+        # nix consumers of xvfb-run, such as `calls`'s checkPhase, would error if they find hardware drivers but can't open /dev/dri:
         # > libEGL warning: DRI3 error: Could not get DRI3 device
         # > libEGL warning: Ensure your X server supports DRI3 to get accelerated rendering
         # >
@@ -300,11 +292,18 @@ in
         # xvfb-run is the tool most of these use to run their tests; we can assume the virtualized x11 server doesn't support accelerated graphics,
         # so patch it to always disable acceleration.
         # this is arguably not the right place for it, especially the GDK options. but it works for at least `calls` and `libadwaita`.
-        installPhase = replaceInString
-          "wrapProgram $out/bin/xvfb-run "
-          "wrapProgram $out/bin/xvfb-run --set-default LIBGL_ALWAYS_SOFTWARE true --set-default GDK_DISABLE vulkan "
-          upstream.installPhase
-          ;
+        # installPhase = replaceInString
+        #   "wrapProgram $out/bin/xvfb-run "
+        #   "wrapProgram $out/bin/xvfb-run --set-default LIBGL_ALWAYS_SOFTWARE true --set-default GDK_DISABLE vulkan "
+        #   upstream.installPhase
+        #   ;
+        setupHook = writeTextFile {
+          name = "xvfb-setupHook";
+          text = ''
+            export LIBGL_ALWAYS_SOFTWARE=true
+            export GDK_DISABLE=vulkan
+          '';
+        };
       });
     })
   ]

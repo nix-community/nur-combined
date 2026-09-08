@@ -6,6 +6,7 @@ use errors::ext;
 use fmt;
 use io;
 use log;
+use log::tree;
 use os;
 use os::exec;
 use path;
@@ -138,10 +139,8 @@ fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::f
   io::close(notify_fd)!;
   let notify_fd_path = "/proc/self/fd/1";
 
-  let pasta_args = [
+  let pasta_args: []str = [
     "pasta",
-    "--quiet",  //< don't print MAC/DHCP/DNS values  (TODO: enable these for BUNPEN_DEBUG>=1)
-    // "--debug",  //< log all traffic
     "--ipv4-only",
     // pasta `up`s `lo` regardless of this flag; `--config-net` just tells
     // it to assign an IP and routes to the new device it creates
@@ -164,6 +163,14 @@ fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::f
     // i'm managing that here though, so we can have it not fork.
     "--foreground",
   ];
+  defer free(pasta_args);
+
+  switch (tree::get_level(tree::global)) {
+    case 0 => append(pasta_args, "--quiet")!;  //< don't print MAC/DHCP/DNS values
+    case 1 => void;
+    case 2 => append(pasta_args, "--debug")!;  //< log all traffic
+    case   => append(pasta_args, "--trace")!;
+  };
 
   log::printfln("[namespace/pasta]: invoking pasta: {}", strings::join(" ", pasta_args...)!);
   return rt::ext::execvpe_or_default(

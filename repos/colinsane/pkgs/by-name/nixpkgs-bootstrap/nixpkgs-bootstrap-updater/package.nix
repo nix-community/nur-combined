@@ -1,11 +1,11 @@
 {
   curl,
+  gnused,
   jq,
   lib,
   nix-prefetch-git,
   nix-prefetch-github,
   static-nix-shell,
-  update-source-version,
 }:
 let
   self = static-nix-shell.mkBash {
@@ -16,10 +16,10 @@ let
     pkgs = {
       inherit
         curl
+        gnused
         jq
         nix-prefetch-git
         nix-prefetch-github
-        update-source-version
       ;
     };
     passthru.makeUpdateScript = { branch }: [

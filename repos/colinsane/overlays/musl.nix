@@ -19,6 +19,14 @@
 # - <https://github.com/funtoo/meta-repo>
 # - <https://github.com/buildroot/buildroot>
 # - <https://git.openembedded.org/openembedded-core>
+#
+# preference stack for fixing musl-specific failures:
+# 1. `overrideAttrs` for most everything outside of patching the source code.
+#    e.g. adding env vars, missing nativeBuildInputs/buildInputs, configuring checkPhase, etc.
+# 2. `override { withFeature = false; }` or `override { feature-specific-dependency = null; }` if build is fixed by removing some feature.
+# 3. `overrideAttrs (prevAttrs: { patches = (prevAttrs.patches or []) ++ [(fetchAports { ...})]; })`.
+# 4. fetchCports; fetchVoid; fetch${distro}  (create the fetcher if it doesn't exist yet).
+# 5. `postPatch = (prevAttrs.postPatch or "") + ''...'';` ONLY as a last resort.
 final: super:
 let
   inherit (final)
@@ -756,7 +764,7 @@ super.lib.composeManyExtensions [
     # > ../gcr/console-interaction.c: In function ‘console_interaction_ask_password’:
     # > ../gcr/console-interaction.c:100:11: error: implicit declaration of function ‘getpass’ [-Wimplicit-function-declaration]
     # >   100 |   value = getpass (prompt);
-    gcr = prev.gcr.overrideAttrs (upstream: {
+    gcr_3 = prev.gcr_3.overrideAttrs (upstream: {
       NIX_CFLAGS_COMPILE = (upstream.NIX_CFLAGS_COMPILE or "") + " -D_BSD_SOURCE";
     });
 

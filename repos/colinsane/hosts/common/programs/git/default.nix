@@ -68,7 +68,6 @@ in
       alias.stat    = "status";
       alias.uncommit = "reset HEAD~1";
       alias.unstage = "restore --staged :/";
-      alias.work    = "!f() { git worktree add \"$1\" && cd \"$1\"; }; f";
 
       cinnabar.check = "no-version-check";  #< git-cinnabar: don't check for new release every invocation :(
 

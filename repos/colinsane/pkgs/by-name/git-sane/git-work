@@ -1,12 +1,13 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.git ]'
+
 set -euo pipefail
 
 usage() {
-  echo "git-pr PR_NUMBER: pull and switch into the PR branch"
+  echo "git-work DIRECTORY: create a worktree in DIRECTORY and cd into it"
 }
 
-pr_num=
+dir=
 parseArgs() {
   while [ "$#" -ne 0 ]; do
     local arg=$1
@@ -17,11 +18,11 @@ parseArgs() {
         exit 0
         ;;
       (*)
-        if [ -n "$pr_num" ]; then
+        if [ -n "$dir" ]; then
           usage
           exit 1
         fi;
-        pr_num="$arg"
+        dir="$arg"
         ;;
     esac
   done
@@ -29,14 +30,5 @@ parseArgs() {
 
 parseArgs "$@"
 
-git fetch upstream "pull/$pr_num/head:pr-$pr_num" >&2
-
-if git rev-parse --show-toplevel 2>/dev/null; then
-  # switch the current checkout
-  git switch "pr-$pr_num" >&2
-  echo "$PWD"
-else
-  # checkout into a worktree
-  git worktree add "pr-$pr_num" >&2
-  echo "$PWD/pr-$pr_num"
-fi
+git worktree add "$dir" 2>&1
+echo "$PWD/$dir"

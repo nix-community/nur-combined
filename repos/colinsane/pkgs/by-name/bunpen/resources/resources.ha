@@ -38,5 +38,6 @@ export type net_subset = struct {
   gateway: str,
 };
 export type net_none = void;
+export type net_private_lo = void;
 export type net_all = void;
-export type net_resources = (net_none | net_subset | net_all);
+export type net_resources = (net_none | net_private_lo | net_subset | net_all);

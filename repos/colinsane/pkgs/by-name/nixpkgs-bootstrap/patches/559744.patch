@@ -1,4 +1,4 @@
-From 6eba51904a0c09acce95ce647f91223d6a53e331 Mon Sep 17 00:00:00 2001
+From 63666b164abbea550e076b7be9fa3c6063028260 Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Fri, 4 Sep 2026 03:53:36 +0000
 Subject: [PATCH] wezterm: use system openssl
@@ -14,9 +14,21 @@ was specific only to one platform. only by not special-casing platforms
 can we generalize over them, which is the actual way to support every
 platform.
 ---
- pkgs/by-name/we/wezterm/package.nix | 2 ++
- 1 file changed, 2 insertions(+)
+ pkgs/by-name/we/wezterm/headless.nix | 2 ++
+ pkgs/by-name/we/wezterm/package.nix  | 2 ++
+ 2 files changed, 4 insertions(+)
 
+diff --git a/pkgs/by-name/we/wezterm/headless.nix b/pkgs/by-name/we/wezterm/headless.nix
+index 96d0f6fcaf4687b09dad182a2485041d9f03ea84..efe74044e36773358848d39f4a30d07768e17390 100644
+--- a/pkgs/by-name/we/wezterm/headless.nix
++++ b/pkgs/by-name/we/wezterm/headless.nix
+@@ -32,4 +32,6 @@ rustPlatform.buildRustPackage {
+     install -Dm644 assets/shell-integration/wezterm.sh -t $out/etc/profile.d
+     install -Dm644 ${wezterm.passthru.terminfo}/share/terminfo/w/wezterm -t $out/share/terminfo/w
+   '';
++
++  env.OPENSSL_NO_VENDOR = 1;
+ }
 diff --git a/pkgs/by-name/we/wezterm/package.nix b/pkgs/by-name/we/wezterm/package.nix
 index 1d4e86d868940fd4586c64655f5d6ce06ed19af1..11286250eb45988c835d249b6f014d116b74a35f 100644
 --- a/pkgs/by-name/we/wezterm/package.nix

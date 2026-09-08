@@ -10,15 +10,17 @@ use rt;
 
 export fn restrict(what: *resources::resources) void = {
   // map the user-requested networking into internal mechanisms:
-  let (any_net, pasta_net): (bool, (void | resources::net_subset))
+  let (any_net, do_set_lo_up, pasta_net): (bool, bool, (void | resources::net_subset))
     = match (what.net)
   {
     case resources::net_none =>
-      yield (false, void);
+      yield (false, false, void);
+    case resources::net_private_lo =>
+      yield (false, true, void);
     case let subset: resources::net_subset =>
-      yield (true, subset);
+      yield (true, false, subset);
     case resources::net_all =>
-      yield (true, void);
+      yield (true, false, void);
   };
 
   // map the user-requested dbus settings into internal mechanisms:
@@ -105,6 +107,9 @@ export fn restrict(what: *resources::resources) void = {
     try_users = what.try_users,
   };
   ns::namespace_restrict(&user_ns_resources);
+  if (do_set_lo_up) {
+    errors::ext::swallow("[restrict] ip link set lo up", set_lo_up());
+  };
   capability_restrict(what.caps);
 };
 

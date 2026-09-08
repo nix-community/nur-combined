@@ -28,6 +28,7 @@ export type cli_opts = struct {
   dbus_call: []str,
   dbus_own: []str,
 
+  private_lo: bool,
   net_dev: str,
   net_gateway: str,
   dns: str,
@@ -75,13 +76,15 @@ export fn usage() void = {
   fmt::println("")!;
   fmt::println("dbus proxy settings (applies to session bus only):")!;
   fmt::println("  --bunpen-dbus-call <name>=<method-spec>")!;
-  fmt::println("    method-spec: [*|org.the.interface.[method|*]]|[@/obj/path[/*]]")!;
-  fmt::println("    e.g. org.gnome.Calls=*")!;
-  fmt::println("    e.g. org.gnome.Calls=org.gtk.Application.Activate")!;
-  fmt::println("    e.g. org.gnome.Calls=org.freedesktop.DBus.Introspectable.*")!;
-  fmt::println("    e.g. org.gnome.Calls=org.gtk.Application.Activate@/org/gnome/Calls")!;
+  fmt::println("      method-spec: [*|org.the.interface.[method|*]]|[@/obj/path[/*]]")!;
+  fmt::println("      e.g. org.gnome.Calls=*")!;
+  fmt::println("      e.g. org.gnome.Calls=org.gtk.Application.Activate")!;
+  fmt::println("      e.g. org.gnome.Calls=org.freedesktop.DBus.Introspectable.*")!;
+  fmt::println("      e.g. org.gnome.Calls=org.gtk.Application.Activate@/org/gnome/Calls")!;
   fmt::println("  --bunpen-dbus-own <name>")!;
   fmt::println("")!;
+  fmt::println("  --bunpen-private-lo")!;
+  fmt::println("      give the sandbox its own private loopback interface")!;
   fmt::println("net proxy settings (typical invocation specifies either ALL or NONE of these):")!;
   fmt::println("  --bunpen-net-dev <iface>")!;
   fmt::println("  --bunpen-net-gateway <ip-address>")!;
@@ -198,6 +201,7 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
         case "--bunpen-keep-pid"        =>  parsed.keep_pid = true;
         case "--bunpen-net-dev"         =>  idx += 1; parsed.net_dev = expect_arg("--bunpen-net-dev", next)?;
         case "--bunpen-net-gateway"     =>  idx += 1; parsed.net_gateway = expect_arg("--bunpen-net-gateway", next)?;
+        case "--bunpen-private-lo"      =>  parsed.private_lo = true;
         case "--bunpen-path"            =>  idx += 1; append(parsed.paths, expect_arg("--bunpen-path", next)?)!;
         case "--bunpen-seal"            =>  parsing_bunpen = false;  // remaining arguments are not to be interpreted by us
         case "--bunpen-try-keep-users"  =>  parsed.try_keep_users = true;

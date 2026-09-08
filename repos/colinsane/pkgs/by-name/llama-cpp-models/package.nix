@@ -67,7 +67,7 @@ let
       # qwopus3_6-35b-a3b-coder-mtp-q4_k_m
       # qwythos-9b-claude-mythos-5-1m-q4_k_m
       qwythos-9b-v2-q4_k_m
-      step3_7-flash-iq4_xs
+      # step3_7-flash-iq4_xs
     ;
   };
 in

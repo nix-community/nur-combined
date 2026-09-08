@@ -7,13 +7,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pi-md-export";
-  version = "0.5.5";
+  version = "0.5.6";
 
   src = fetchFromGitHub {
     owner = "w-winter";
     repo = "dot314";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-zYuUlnsPeRDV6LJyyU9qh2ATQhTtZyZoRT89twOdbok=";
+    hash = "sha256-Is7PB8RMdAsoHJ6+XgfwqNX3M/yBQHLfCAOe+QPUjHw=";
   };
 
   nativeBuildInputs = [

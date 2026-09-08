@@ -47,6 +47,7 @@ let
         else
           null
         ;
+        privateLo = sandbox.net == "private-lo";
 
         allowedHomePaths = builtins.attrNames fs
           ++ builtins.attrNames persist.byPath
@@ -97,10 +98,13 @@ let
             whitelistPwd
             wrapperType
           ;
+          inherit privateLo;
           netDev = if vpn != null then
             vpn.name
+          else if !privateLo then
+            sandbox.net
           else
-            sandbox.net;
+            null;
           netGateway = if vpn != null then
             vpn.addrV4
           else
@@ -327,7 +331,7 @@ let
         type = types.coercedTo
           types.str
           (s: if s == "clearnet" || s == "localhost" then "all" else s)
-          (types.enum [ null "all" "vpn" "vpn.wg-home" ]);
+          (types.enum [ null "all" "vpn" "vpn.wg-home" "private-lo" ]);
         default = null;
         description = ''
           how this app should have its network traffic routed.
@@ -338,6 +342,7 @@ let
             currently, just an alias for "all".
           - "vpn": to route all traffic over the default VPN.
           - "vpn.wg-home": to route all traffic over the wg-home VPN.
+          - "private-lo": isolated from the parent network, but setup a `lo` private to the application
           - null: to maximally isolate from the network.
         '';
       };

@@ -2,10 +2,16 @@
   "name": "pi-offline-provider",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "build": "true"
+  },
+  "files": [
+    "src"
+  ],
   "type": "module",
   "pi": {
     "extensions": [
-      "./index.ts"
+      "./src/index.ts"
     ]
   }
 }

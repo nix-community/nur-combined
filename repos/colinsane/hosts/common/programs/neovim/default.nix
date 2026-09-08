@@ -109,6 +109,10 @@ in
     sandbox.whitelistWayland = true;  # for system clipboard integration
     # sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
+      ".cache/semble"
+      ".config/nanogpt/nanogpt_api_key"
+      ".config/pi"
+      # ^ required by nvim-pi
       ".local/share/dasht/docsets"
       # directories where i'm liable to `:e ../...`
       # "archive"
@@ -121,6 +125,7 @@ in
       # "use"
     ];
     sandbox.tryKeepUsers = true;
+    sandbox.net = "private-lo";  #< for pi-offline-provider
     sandbox.capabilities = [ "dac_override" ];
 
     packageUnwrapped = let

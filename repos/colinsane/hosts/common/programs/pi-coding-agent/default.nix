@@ -183,6 +183,10 @@ let
           "kagi_summarize" # Summarize a URL or text (requires KAGI_API_KEY)
         ];
       };
+      ${if cfg.semble then "semble" else null} = {
+        command = "semble";
+        directTools = true;
+      };
       # serena = {
       #   # memory system, code search, but in practice not that helpful
       #   command = "serena";
@@ -199,7 +203,7 @@ in
         options = {
           auto-zoekt = mkOption {
             type = types.bool;
-            default = true;
+            default = false;
           };
           coderag = mkOption {
             type = types.bool;
@@ -208,6 +212,10 @@ in
           pi-offline-provider = mkOption {
             type = types.bool;
             default = false;
+          };
+          semble = mkOption {
+            type = types.bool;
+            default = true;
           };
         };
       };
@@ -266,6 +274,8 @@ in
       "auto-zoekt"
     ] ++ lib.optionals cfg.coderag [
       "coderag"
+    ] ++ lib.optionals cfg.semble [
+      "semble"
     ];
 
     sandbox.net = "clearnet";
@@ -273,6 +283,7 @@ in
     sandbox.extraHomePaths = [
       # ".cache/ck"
       ".cache/coderag"
+      ".cache/semble"
       ".cache/zoekt"
       # ".cocoindex_code"
       ".config/ha-mcp/ha-mcp.env"
@@ -324,75 +335,6 @@ in
       };
     };
 
-    # adds a `/claude-usage` slash command which renders `claude -p "/usage"` output
-    # as a durable chat entry (not sent to the LLM)
-    fs.".config/pi/extensions/claude-usage.ts".symlink.text = ''
-      /**
-       * /claude-usage — show Claude subscription usage inside pi.
-       *
-       * Shells out to `claude -p "/usage"` (Claude Code's built-in usage report)
-       * and renders the output as a durable chat entry that is not sent to the LLM.
-       */
-
-      import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-      import { Box, Text } from "@earendil-works/pi-tui";
-
-      interface UsageData {
-      	output: string;
-      	timestamp: number;
-      }
-
-      // strip ANSI escapes, in case claude ever emits them in print mode
-      const ANSI_RE = /\x1b\[[0-9;]*m/g;
-
-      export default function (pi: ExtensionAPI) {
-      	pi.registerEntryRenderer<UsageData>("claude-usage", (entry, { expanded }, theme) => {
-      		const data = entry.data ?? { output: "(no output)", timestamp: Date.now() };
-      		const box = new Box(1, 1, (text) => theme.bg("customMessageBg", text));
-      		box.addChild(new Text(theme.fg("accent", "[claude usage]"), 0, 0));
-      		for (const line of data.output.replace(ANSI_RE, "").split("\n")) {
-      			box.addChild(new Text(line, 0, 0));
-      		}
-      		if (expanded) {
-      			box.addChild(new Text(theme.fg("dim", new Date(data.timestamp).toLocaleString()), 0, 0));
-      		}
-      		return box;
-      	});
-
-      	pi.registerCommand("claude-usage", {
-      		description: 'Show Claude subscription usage (via `claude -p "/usage"`)',
-      		handler: async (_args, ctx) => {
-      			ctx.ui.notify("Fetching Claude usage…", "info");
-
-      			let result;
-      			try {
-      				result = await pi.exec("claude", ["-p", "/usage"], { timeout: 60_000 });
-      			} catch (err) {
-      				ctx.ui.notify("claude-usage: failed to run claude: " + String(err), "error");
-      				return;
-      			}
-
-      			if (result.killed) {
-      				ctx.ui.notify('claude-usage: `claude -p "/usage"` timed out after 60s', "error");
-      				return;
-      			}
-
-      			const output = result.stdout.trim() || result.stderr.trim();
-      			if (result.code !== 0) {
-      				ctx.ui.notify("claude-usage: claude exited " + result.code + ": " + output, "error");
-      				return;
-      			}
-
-      			// print mode has no entry rendering: emit to stdout instead
-      			if (!ctx.hasUI) {
-      				process.stdout.write(output + "\n");
-      			}
-      			pi.appendEntry<UsageData>("claude-usage", { output, timestamp: Date.now() });
-      		},
-      	});
-      }
-    '';
-
     fs.".config/pi/auth.json".symlink.target = (pkgs.formats.json {}).generate "pi-auth.json" {
       # this lets me manually load/unload models
       "llama.cpp" = {
@@ -430,6 +372,7 @@ in
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
         # pkgs.leohenon-pi-vim
         pkgs.pi-claude-bridge
+        pkgs.pi-claude-usage
         pkgs.pi-codex-goal
         pkgs.pi-cwd
         # pkgs.pi-goal  #< adds `/goal` slash command

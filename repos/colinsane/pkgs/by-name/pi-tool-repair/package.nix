@@ -1,22 +1,21 @@
 {
-  buildNpmPackage,
   fetchFromGitHub,
   fetchPnpmDeps,
   lib,
+  mkPiExtension,
   nix-update-script,
-  nodejs,
   pnpm,
   pnpmConfigHook,
 }:
-buildNpmPackage (finalAttrs: {
+mkPiExtension (finalAttrs: {
   pname = "pi-tool-repair";
-  version = "0.2.0";
+  version = "0.2.5";
 
   src = fetchFromGitHub {
     owner = "monotykamary";
     repo = "pi-tool-repair";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hMCpKj+OZa+fig/j/1Zlj2jpWh+zDkSdAr6ZV9RrIHk=";
+    hash = "sha256-+Xz7QsU2K/r7ePk9EW7hR550Qr75G9JbvmZWiJ37RPM=";
   };
 
   npmDeps = null;
@@ -24,24 +23,16 @@ buildNpmPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-K/ojYhl1tRJJxMyFoETbipKNZBJit/WS7URk+My+tFk=";
+    hash = "sha256-9NQOj+xuMEItc9LlBv85Z49bvIz2FQYBs9bLJJ6Gti8=";
   };
   npmConfigHook = pnpmConfigHook;
 
   nativeBuildInputs = [
-    nodejs
     pnpm
-    # pnpmConfigHook
   ];
 
   dontNpmBuild = true;  # no build action in package.json
-
-  postInstall = ''
-    mv $out/lib/node_modules/pi-tool-repair/* $out
-    rmdir $out/lib/node_modules/pi-tool-repair
-    rmdir $out/lib/node_modules
-    rmdir $out/lib
-  '';
+  dontNpmPrune = true;
 
   passthru.updateScript = nix-update-script { };
 

@@ -17,12 +17,14 @@ lib.extendMkDerivation {
     {
       npmDepsHash ? lib.fakeHash,
       npmDepsFetcherVersion ? 2,
+      forceEmptyCache ? false,
       postInstall ? "",
       ...
-    }:
+    }@args:
     let
       npmDeps = fetchNpmDeps {
         inherit (finalAttrs) src;
+        inherit forceEmptyCache;
         nativeBuildInputs = [
           cacert  # else `nix-update-script` fails to update the npmDepsHash
           curl
@@ -77,11 +79,13 @@ lib.extendMkDerivation {
       };
     in
     {
-      inherit npmDeps;
+      npmDeps = args.npmDeps or npmDeps;
       patchPhase = ''
         runHook prePatch
-        ${lib.getExe buildPackages.jq} --slurp '.[0] * .[1]' package-lock.json "$npmDeps/extra-integrities.json" \
-          | ${lib.getExe' buildPackages.moreutils "sponge"} package-lock.json
+        if [ -e package-lock.json -a -e "$npmDeps/extra-integrities.json" ]; then
+          ${lib.getExe buildPackages.jq} --slurp '.[0] * .[1]' package-lock.json "$npmDeps/extra-integrities.json" \
+            | ${lib.getExe' buildPackages.moreutils "sponge"} package-lock.json
+        fi
         runHook postPatch
       '';
 

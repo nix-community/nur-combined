@@ -125,6 +125,10 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   //---- ingest `keep_ipc` ----//
   req.resources.ipc = opts.keep_ipc;
 
+  //---- ingest `private_lo` ----//
+  if (opts.private_lo)
+      req.resources.net = resources::net_private_lo;
+
   //---- ingest `net_dev`, `net_gateway`, `dns` ----//
   let net_subset = resources::net_subset {
     dev = opts.net_dev,

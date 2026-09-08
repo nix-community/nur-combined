@@ -10,7 +10,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -34,7 +34,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -79,7 +79,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 131072,
-    "max_output_tokens": 117964,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -130,6 +130,50 @@
         "text",
         "image",
         "video"
+      ]
+    }
+  },
+  {
+    "id": "TheDrummer/Artemis-v1.1",
+    "name": "TheDrummer/Artemis v1.1",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.45,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "deepseek/deepseek-v4-flash-vision-exp-uncensored",
+    "name": "DeepSeek V4 Flash Vision Exp Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00022,
+      "completion": 1.6,
+      "currency": "USD",
+      "prompt": 0.44,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 524288,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
       ]
     }
   },
@@ -295,6 +339,94 @@
       "completion": 1.5,
       "currency": "USD",
       "prompt": 0.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.6-35b-a3b-uncensored",
+    "name": "Qwen 3.6 35B A3B Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.95,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.6-35b-a3b-uncensored:thinking",
+    "name": "Qwen 3.6 35B A3B Uncensored Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.95,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "ornith-ai/ornith-1.5-9b",
+    "name": "Ornith 1.5 9B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "ornith-ai/ornith-1.5-9b:thinking",
+    "name": "Ornith 1.5 9B Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -1209,28 +1341,6 @@
     }
   },
   {
-    "id": "dots-studio/dots-3-note-preview",
-    "name": "Dots3-Note Preview",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.2,
-      "currency": "USD",
-      "prompt": 0.1,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 393216,
-    "max_output_tokens": 393216,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "liquid/lfm-2.5-2.6b",
     "name": "LFM2.5 2.6B",
     "pricing": {
@@ -1262,7 +1372,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -2479,6 +2589,50 @@
     }
   },
   {
+    "id": "openai/gpt-6-astra",
+    "name": "GPT 6 Astra",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 50.0,
+      "currency": "USD",
+      "prompt": 10.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-6-astra-pro",
+    "name": "GPT 6 Astra Pro",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 50.0,
+      "currency": "USD",
+      "prompt": 10.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "openai/gpt-5.5",
     "name": "GPT 5.5",
     "pricing": {
@@ -2488,7 +2642,7 @@
       "prompt": 5.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
+    "context_length": 1050000,
     "max_output_tokens": 128000,
     "capabilities": {
       "reasoning": true
@@ -2510,7 +2664,7 @@
       "prompt": 2.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 922000,
+    "context_length": 1050000,
     "max_output_tokens": 128000,
     "capabilities": {
       "reasoning": true
@@ -2570,10 +2724,10 @@
     "id": "openai/gpt-latest",
     "name": "GPT Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002,
-      "completion": 10.0,
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 50.0,
       "currency": "USD",
-      "prompt": 2.0,
+      "prompt": 10.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1050000,
@@ -2862,8 +3016,8 @@
       "prompt": 0.6,
       "unit": "per_million_tokens"
     },
-    "context_length": 64000,
-    "max_output_tokens": 96000,
+    "context_length": 65536,
+    "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": true
     },
@@ -2884,8 +3038,8 @@
       "prompt": 0.6,
       "unit": "per_million_tokens"
     },
-    "context_length": 64000,
-    "max_output_tokens": 96000,
+    "context_length": 65536,
+    "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": true
     },
@@ -3061,8 +3215,8 @@
       "prompt": 3.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 60000,
-    "max_output_tokens": 128000,
+    "context_length": 128000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -3148,7 +3302,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 1048576,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -3170,8 +3324,8 @@
       "prompt": 0.1,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
-    "max_output_tokens": 256000,
+    "context_length": 262144,
+    "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
     },
@@ -3191,8 +3345,8 @@
       "prompt": 0.1,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
-    "max_output_tokens": 256000,
+    "context_length": 262144,
+    "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
     },
@@ -3212,7 +3366,7 @@
       "prompt": 0.15,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3235,7 +3389,7 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3258,7 +3412,7 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3281,7 +3435,7 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3304,7 +3458,7 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3327,7 +3481,7 @@
       "prompt": 0.15,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3350,7 +3504,7 @@
       "prompt": 2.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3373,7 +3527,7 @@
       "prompt": 2.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3396,7 +3550,7 @@
       "prompt": 2.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3419,7 +3573,7 @@
       "prompt": 2.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3442,7 +3596,7 @@
       "prompt": 1.25,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3465,7 +3619,7 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3488,7 +3642,7 @@
       "prompt": 0.1,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3511,7 +3665,7 @@
       "prompt": 0.15,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3534,7 +3688,7 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": false
@@ -3581,7 +3735,7 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3604,8 +3758,8 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
-    "max_output_tokens": 65536,
+    "context_length": 65536,
+    "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": false
     },
@@ -3626,7 +3780,7 @@
       "prompt": 0.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3649,7 +3803,7 @@
       "prompt": 0.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3718,7 +3872,7 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3741,7 +3895,7 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3764,7 +3918,7 @@
       "prompt": 0.1,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3787,7 +3941,7 @@
       "prompt": 0.1,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
+    "context_length": 1048576,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -3931,7 +4085,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -4084,7 +4238,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
-    "max_output_tokens": 1000000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -4106,7 +4260,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 500000,
-    "max_output_tokens": 500000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -4128,7 +4282,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 500000,
-    "max_output_tokens": 500000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -4150,7 +4304,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 256000,
-    "max_output_tokens": 256000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -4172,7 +4326,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 500000,
-    "max_output_tokens": 500000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -4452,8 +4606,8 @@
       "prompt": 0.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 128000,
-    "max_output_tokens": 163840,
+    "context_length": 163840,
+    "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": true
     },
@@ -4473,8 +4627,8 @@
       "prompt": 0.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
-    "max_output_tokens": 262144,
+    "context_length": 262144,
+    "max_output_tokens": 100352,
     "capabilities": {
       "reasoning": false
     },
@@ -4582,7 +4736,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 1048576,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -4822,28 +4976,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 65536,
-    "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "NousResearch/Hermes-4-70B:thinking",
-    "name": "Hermes 4 (Thinking)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001003,
-      "completion": 0.3995,
-      "currency": "USD",
-      "prompt": 0.2006,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 8192,
+    "max_output_tokens": 52428,
     "capabilities": {
       "reasoning": false
     },
@@ -5120,7 +5253,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 32768,
-    "max_output_tokens": 65536,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -5311,7 +5444,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -5345,27 +5478,6 @@
     }
   },
   {
-    "id": "ibm-granite/granite-4.1-8b",
-    "name": "Granite 4.1 8B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.1,
-      "currency": "USD",
-      "prompt": 0.05,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 131072,
-    "max_output_tokens": 131072,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "upstage/solar-pro-3",
     "name": "Solar Pro 3",
     "pricing": {
@@ -5375,8 +5487,8 @@
       "prompt": 0.15,
       "unit": "per_million_tokens"
     },
-    "context_length": 128000,
-    "max_output_tokens": 128000,
+    "context_length": 131072,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -5438,8 +5550,8 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 41000,
-    "max_output_tokens": 32768,
+    "context_length": 262144,
+    "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": false
     },
@@ -5651,8 +5763,8 @@
       "prompt": 0.13,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
-    "max_output_tokens": 262144,
+    "context_length": 262144,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -5672,8 +5784,8 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
-    "max_output_tokens": 262144,
+    "context_length": 131072,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -5693,8 +5805,8 @@
       "prompt": 0.15,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
-    "max_output_tokens": 262144,
+    "context_length": 262144,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -6059,27 +6171,6 @@
     },
     "context_length": 128000,
     "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "glm-z1-air",
-    "name": "GLM Z1 Air",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 3.5e-05,
-      "completion": 0.07,
-      "currency": "USD",
-      "prompt": 0.07,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 32000,
-    "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": false
     },
@@ -6797,8 +6888,8 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 32768,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -6903,27 +6994,6 @@
       "completion": 1.2,
       "currency": "USD",
       "prompt": 0.3,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "nousresearch/hermes-4-70b",
-    "name": "Hermes 4 Medium",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001003,
-      "completion": 0.3995,
-      "currency": "USD",
-      "prompt": 0.2006,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -7674,10 +7744,10 @@
     "id": "deepseek/deepseek-v4-flash-vision-exp",
     "name": "DeepSeek V4 Flash Vision Exp",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1.4e-05,
-      "completion": 1.32,
+      "cacheReadInputPer1kTokens": 7e-06,
+      "completion": 0.66,
       "currency": "USD",
-      "prompt": 0.44,
+      "prompt": 0.22,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -8264,8 +8334,8 @@
       "prompt": 0.1003,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 32768,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8285,8 +8355,8 @@
       "prompt": 0.2006,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 32768,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8307,7 +8377,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8328,7 +8398,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 32768,
-    "max_output_tokens": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8349,7 +8419,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 32768,
-    "max_output_tokens": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8369,8 +8439,8 @@
       "prompt": 0.493,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 32768,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8390,8 +8460,8 @@
       "prompt": 0.5,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 32768,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8411,8 +8481,8 @@
       "prompt": 2.006,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8432,8 +8502,8 @@
       "prompt": 0.493,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8453,8 +8523,8 @@
       "prompt": 0.493,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8474,8 +8544,8 @@
       "prompt": 0.69989,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8517,7 +8587,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
-    "max_output_tokens": 256000,
+    "max_output_tokens": 102400,
     "capabilities": {
       "reasoning": false
     },
@@ -8600,8 +8670,8 @@
       "prompt": 0.7,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8642,8 +8712,8 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 127000,
-    "max_output_tokens": 128000,
+    "context_length": 128000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -8663,8 +8733,8 @@
       "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 127000,
-    "max_output_tokens": 128000,
+    "context_length": 128000,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -8684,8 +8754,8 @@
       "prompt": 1.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 127000,
-    "max_output_tokens": 128000,
+    "context_length": 127072,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8705,8 +8775,8 @@
       "prompt": 0.1003,
       "unit": "per_million_tokens"
     },
-    "context_length": 4000,
-    "max_output_tokens": 4096,
+    "context_length": 4096,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -8873,8 +8943,8 @@
       "prompt": 0.55,
       "unit": "per_million_tokens"
     },
-    "context_length": 32000,
-    "max_output_tokens": 32768,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -9041,8 +9111,8 @@
       "prompt": 0.4,
       "unit": "per_million_tokens"
     },
-    "context_length": 128000,
-    "max_output_tokens": 131072,
+    "context_length": 131072,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -9125,8 +9195,8 @@
       "prompt": 1.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 200000,
-    "max_output_tokens": 204800,
+    "context_length": 204800,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": false
     },
@@ -9146,8 +9216,8 @@
       "prompt": 1.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 200000,
-    "max_output_tokens": 204800,
+    "context_length": 204800,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },
@@ -9253,7 +9323,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 1048576,
+    "max_output_tokens": 393216,
     "capabilities": {
       "reasoning": true
     },
@@ -9511,7 +9581,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
-    "max_output_tokens": 1048576,
+    "max_output_tokens": 65535,
     "capabilities": {
       "reasoning": true
     },
@@ -9574,8 +9644,8 @@
       "prompt": 2.006,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -9637,8 +9707,8 @@
       "prompt": 0.1989,
       "unit": "per_million_tokens"
     },
-    "context_length": 32000,
-    "max_output_tokens": 32768,
+    "context_length": 32768,
+    "max_output_tokens": 26214,
     "capabilities": {
       "reasoning": false
     },
@@ -9743,7 +9813,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 8192,
-    "max_output_tokens": 8192,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -9764,7 +9834,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 8192,
-    "max_output_tokens": 8192,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -9827,7 +9897,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 64000,
-    "max_output_tokens": 65536,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -9901,27 +9971,6 @@
     }
   },
   {
-    "id": "Steelskull/L3.3-MS-Evayale-70B",
-    "name": "Llama 3.3 70B Evayale",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002465,
-      "completion": 0.493,
-      "currency": "USD",
-      "prompt": 0.493,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "featherless-ai/Qwerky-72B",
     "name": "Qwerky 72B",
     "pricing": {
@@ -9973,7 +10022,7 @@
       "prompt": 0.31,
       "unit": "per_million_tokens"
     },
-    "context_length": 131072,
+    "context_length": 32000,
     "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": false
@@ -10036,8 +10085,8 @@
       "prompt": 0.493,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -10120,8 +10169,8 @@
       "prompt": 0.493,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -10142,7 +10191,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 8192,
-    "max_output_tokens": 8192,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -10204,8 +10253,8 @@
       "prompt": 0.493,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -10329,7 +10378,7 @@
     "id": "anthropic/claude-fable-latest",
     "name": "Claude Fable Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.001,
+      "cacheReadInputPer1kTokens": 0.00025,
       "completion": 50.0,
       "currency": "USD",
       "prompt": 10.0,
@@ -10590,8 +10639,8 @@
       "prompt": 0.700000007,
       "unit": "per_million_tokens"
     },
-    "context_length": 16384,
-    "max_output_tokens": 16384,
+    "context_length": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -10986,7 +11035,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
-    "max_output_tokens": 32000,
+    "max_output_tokens": 64000,
     "capabilities": {
       "reasoning": true
     },
@@ -11008,7 +11057,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
-    "max_output_tokens": 32000,
+    "max_output_tokens": 64000,
     "capabilities": {
       "reasoning": true
     },
@@ -11287,8 +11336,8 @@
       "prompt": 0.272,
       "unit": "per_million_tokens"
     },
-    "context_length": 128000,
-    "max_output_tokens": 131072,
+    "context_length": 131072,
+    "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": false
     },
@@ -11330,7 +11379,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 32000,
-    "max_output_tokens": 32768,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -11352,7 +11401,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 65536,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 8192,
     "capabilities": {
       "reasoning": true
     },
@@ -11374,7 +11423,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 65536,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 8192,
     "capabilities": {
       "reasoning": true
     },
@@ -11438,7 +11487,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 102400,
     "capabilities": {
       "reasoning": false
     },
@@ -11460,7 +11509,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": false
     },
@@ -11522,8 +11571,8 @@
       "prompt": 0.3,
       "unit": "per_million_tokens"
     },
-    "context_length": 128000,
-    "max_output_tokens": 262144,
+    "context_length": 131072,
+    "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": false
     },
@@ -12278,8 +12327,8 @@
     "id": "TEE/glm-5.2",
     "name": "GLM 5.2 TEE",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 4.6,
+      "cacheReadInputPer1kTokens": 0.0007,
+      "completion": 4.4,
       "currency": "USD",
       "prompt": 1.4,
       "unit": "per_million_tokens"
@@ -12299,8 +12348,8 @@
     "id": "TEE/glm-5.2:thinking",
     "name": "GLM 5.2 Thinking TEE",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 4.6,
+      "cacheReadInputPer1kTokens": 0.0007,
+      "completion": 4.4,
       "currency": "USD",
       "prompt": 1.4,
       "unit": "per_million_tokens"
@@ -12500,7 +12549,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 128000,
     "capabilities": {
       "reasoning": true
     },
@@ -12627,8 +12676,8 @@
       "prompt": 0.17,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
-    "max_output_tokens": 262144,
+    "context_length": 262144,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -12713,7 +12762,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": true
     },
@@ -12735,7 +12784,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 8192,
-    "max_output_tokens": 8192,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -12756,7 +12805,7 @@
       "unit": "per_million_tokens"
     },
     "context_length": 16384,
-    "max_output_tokens": 16384,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -12776,8 +12825,8 @@
       "prompt": 0.06,
       "unit": "per_million_tokens"
     },
-    "context_length": 32768,
-    "max_output_tokens": 32768,
+    "context_length": 65536,
+    "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
     },
@@ -13117,8 +13166,8 @@
       "prompt": 1.25,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
-    "max_output_tokens": 32768,
+    "context_length": 400000,
+    "max_output_tokens": 128000,
     "capabilities": {
       "reasoning": true
     },
@@ -13211,6 +13260,48 @@
       "input_modalities": [
         "text",
         "image"
+      ]
+    }
+  },
+  {
+    "id": "synth-2.5-flash",
+    "name": "Synth 2.5 Flash Preview",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 0.1,
+      "currency": "USD",
+      "prompt": 0.03,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 30000,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "synth-2.5-pro",
+    "name": "Synth 2.5 Pro Preview",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 30000,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
       ]
     }
   },

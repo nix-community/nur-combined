@@ -375,11 +375,40 @@ in
   # })
   {
     # docs: <https://github.com/pablopunk/pi.nvim>
-    # XXX(2026-09-03): this only work with `BUNPEN_DISABLE=1` for now.
-    # TODO: give it a Pi which works offline (e.g. just change the default model).
+    # commands:
+    # - `:PiAsk`
+    # - `:PiAskSelection`
+    # - `:PiCancel`
+    # - `:PiLog`  (view the session log)
+    # optionally integrates with nvim-notify or mini.notify
     plugin = vimPlugins.pi-nvim;
     config = ''
-      require("pi").setup()
+      local pi = require("pi")
+      pi.setup {
+        provider = "offline",
+        -- -- Pi ignores "provider" if not also specifying "model"
+        model = "Qwen-AgentWorld-35B-A3B-UD-IQ3_S",
+        thinking = "off",
+        -- other knobs:
+        -- tools = { "bash" },
+        -- system_prompt = "You are a helpful assistant.",
+        -- append_system_prompt = "Always respond concisely.",
+        -- skills = false,
+        -- extensions = false,
+        -- TODO: probably want to decrease these `surrounding_lines`?
+        -- context = {
+        --   max_bytes = 24000,
+        --   ask = {
+        --     surrounding_lines = 80,
+        --   },
+        --   selection = {
+        --     surrounding_lines = 40,
+        --   },
+        --   diagnostics = {
+        --     enabled = false,
+        --   },
+        -- },
+      }
     '';
   }
   {
