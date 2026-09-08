@@ -227,16 +227,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.9-beta.1";
+    version = "v3.9.9-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.9-beta.1";
+      rev = "v3.9.9-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-wyj49casVxJ+flfoFXbqh8Yl6sQy+gaqE4txjxafjjs=";
+      sha256 = "sha256-ofnBJp+AZvlcBk50R/goIKDb5OkRvpAUhrNcHfTLAMk=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-wyj49casVxJ+flfoFXbqh8Yl6sQy+gaqE4txjxafjjs=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-ofnBJp+AZvlcBk50R_goIKDb5OkRvpAUhrNcHfTLAMk=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -268,21 +268,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "e0d9079be29b5503958db3a0938099d9bc0be048";
+    version = "12383c0572975d7b6f33006c12b1cd86cd5ce327";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "e0d9079be29b5503958db3a0938099d9bc0be048";
+      rev = "12383c0572975d7b6f33006c12b1cd86cd5ce327";
       fetchSubmodules = false;
-      sha256 = "sha256-3t7iKtUKRUn/gSASoOVJz6sKynLAu74PUVNehu97tgE=";
+      sha256 = "sha256-RqZpP49xmRTCAcb2R+RP0Cs/7PkS20uonnjIP0PZYh8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-3t7iKtUKRUn_gSASoOVJz6sKynLAu74PUVNehu97tgE=/Cargo.lock";
+      lockFile = ./. + "/sha256-RqZpP49xmRTCAcb2R+RP0Cs_7PkS20uonnjIP0PZYh8=/Cargo.lock";
       outputHashes = {
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-07";
+    date = "2026-09-08";
   };
   piliplus = {
     pname = "piliplus";
