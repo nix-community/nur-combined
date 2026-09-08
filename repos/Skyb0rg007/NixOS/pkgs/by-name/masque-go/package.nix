@@ -6,16 +6,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "masque-go";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "quic-go";
     repo = "masque-go";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-OvY+/3PtqmFNNwgMSOPSoqZAhHcpYDAJRyJDy/oIrgg=";
+    hash = "sha256-BN0Ax0B99ne5LU1oTR+ZvHe/1cPLraaS+UjIruuJfB8=";
   };
 
-  vendorHash = "sha256-UypofpTr5F1QvuJHhmy7SxKDUHljWeXYC4lUDB0kiMI=";
+  vendorHash = "sha256-5h80xax5swp8t2P6NDnK85AxdMlFugegGiOj5gYKnMQ=";
 
   # This test requires a working DNS server
   checkFlags = [ "-skip=^TestProxyNXDOMAIN$" ];
