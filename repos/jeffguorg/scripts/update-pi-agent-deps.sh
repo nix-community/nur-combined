@@ -70,7 +70,7 @@ done < <(jq -r '
   .packages | to_entries[]
   | select(.key != "" and (.value.integrity == null)
       and ((.value.resolved // "") | startswith("https://registry.npmjs.org/@earendil-works/")))
-  | [.key, (.key | capture("(?<p>pi-[a-z-]+)$").p), .value.version]
+  | [.key, (.key | capture("@earendil-works/(?<n>[^/]+)$").n), .value.version]
   | @tsv
 ' "$tmp/package-lock.json")
 
