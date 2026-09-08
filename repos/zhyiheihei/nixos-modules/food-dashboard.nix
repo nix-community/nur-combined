@@ -36,10 +36,10 @@ let
   '';
 
   commonEnvironment = {
-    # 数据库/角色统一连字符名（ensureUsers 断言要求同名）；DSN 里引号包裹
-    EPD_FOOD_DSN = 'host=/run/postgresql dbname="epd-dashboard"';
+    # 数据库/角色统一下划线名（psycopg DSN 免引号；ensureUsers 断言要求 db 与 role 同名）
+    EPD_FOOD_DSN = "host=/run/postgresql dbname=epd_dashboard";
     EPD_FOOD_FONT_PATH = "${fontFile}";
-    EPD_FOOD_STATE_DIR = "/var/lib/epd-dashboard";
+    EPD_FOOD_STATE_DIR = "/var/lib/epd_dashboard";
     EPD_FOOD_DEVICE_NAME_PREFIX = cfg.deviceNamePrefix;
     EPD_FOOD_MAX_CHUNK = toString cfg.maxChunk;
     EPD_FOOD_PUSH_ON_CHANGE = if cfg.pushOnChange then "true" else "false";
@@ -150,19 +150,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.epd-dashboard = {
-      group = "epd-dashboard";
+    users.users.epd_dashboard = {
+      group = "epd_dashboard";
       isSystemUser = true;
     };
-    users.groups.epd-dashboard = { };
+    users.groups.epd_dashboard = { };
 
     # 数据库：沿用仓库 ensureDatabases 模式；使用方主机需已启用 services.postgresql。
-    # 数据库/角色统一用连字符名（ensureUsers 要求 ensureDatabases 含同名库）
+    # 数据库/角色统一下划线名（ensureUsers 断言要求 db 与 role 同名）
     services.postgresql = {
-      ensureDatabases = [ "epd-dashboard" ];
+      ensureDatabases = [ "epd_dashboard" ];
       ensureUsers = [
         {
-          name = "epd-dashboard";
+          name = "epd_dashboard";
           ensureDBOwnership = true;
         }
       ];
@@ -198,10 +198,10 @@ in
         Type = "simple";
         Restart = "on-failure";
         RestartSec = "5s";
-        User = "epd-dashboard";
-        Group = "epd-dashboard";
-        StateDirectory = "epd-dashboard";
-        WorkingDirectory = "/var/lib/epd-dashboard";
+        User = "epd_dashboard";
+        Group = "epd_dashboard";
+        StateDirectory = "epd_dashboard";
+        WorkingDirectory = "/var/lib/epd_dashboard";
       };
     };
 
@@ -225,10 +225,10 @@ in
 
       serviceConfig = serviceHarden // {
         Type = "oneshot";
-        User = "epd-dashboard";
-        Group = "epd-dashboard";
-        StateDirectory = "epd-dashboard";
-        WorkingDirectory = "/var/lib/epd-dashboard";
+        User = "epd_dashboard";
+        Group = "epd_dashboard";
+        StateDirectory = "epd_dashboard";
+        WorkingDirectory = "/var/lib/epd_dashboard";
         # 物理刷新 + 锁等待，上限放宽
         TimeoutStartSec = "10min";
       };
