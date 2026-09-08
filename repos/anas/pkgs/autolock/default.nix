@@ -8,7 +8,7 @@
 
 let
   pname = "autolock";
-  version = "0.5";
+  version = "1.0";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -22,6 +22,7 @@ stdenv.mkDerivation {
 
   patches = [
     ./systemd-libs.patch
+    ./0001-chore-config.mk-bump-ver-to-1.0.patch
   ];
 
   buildInputs = [
@@ -38,7 +39,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "A minimal X11 idle-watcher";
+    description = "A minimal X11 autolocker.";
     homepage = "https://codeberg.org/ayari/autolock";
     license = lib.licenses.cc0;
     mainProgram = "autolock";
