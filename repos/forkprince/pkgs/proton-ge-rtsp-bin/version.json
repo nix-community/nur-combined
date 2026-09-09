@@ -10,6 +10,6 @@
     "unpack": true
   },
   "force": true,
-  "version": "proton-rtsp-11.0-20260609-3",
-  "hash": "sha256-Toj9kApuJmmZahBjNWJjE/YfiWEXGi2Oq8PYm3Ub+nI="
+  "version": "proton-rtsp-11.0-20260609-4",
+  "hash": "sha256-ENLAPkz6PhqBpGibwjnWJE8NEnUnmoM81IuPQB9Ufoc="
 }
