@@ -8,6 +8,8 @@
   glib,
   jdk21,
   callPackage,
+  bash,
+  writeShellScript,
   nix-update-script,  
 }:
 
@@ -28,6 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     gradle
     makeWrapper
+    bash
   ];
 
   mitmCache = gradle.fetchDeps {
@@ -40,9 +43,11 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
   gradleFlags = [ "-Dfile.encoding=utf-8" ];
 
+  dontPatchShebangs = true;
+
   prePatch = ''
-    substituteInPlace ./shimelinux.sh \
-      --replace-fail '/usr' $out
+    # substituteInPlace ./shimelinux.sh \
+    #   --replace-fail '/usr' $out 
 
     substituteInPlace ./build.gradle.kts \
       --replace-fail 'dependsOn("buildWaylandLib")' "" \
@@ -50,15 +55,19 @@ stdenv.mkDerivation (finalAttrs: {
 
     substituteInPlace ./shimelinux.desktop \
       --replace-fail "/usr/bin/" ""
-  ''; 
+  '';
 
   installPhase = ''
     install -Dm644 build/libs/shimelinux-${finalAttrs.version}.jar $out/share/java/shimelinux.jar
-    install -Dm755 ./shimelinux.sh $out/bin/shimelinux
+    # install -Dm755 ./shimelinux.sh $out/bin/shimelinux
 
     install -Dm644 ./icon.svg $out/share/icons/hicolor/scalable/apps/shimelinux.svg
     install -Dm644 ./shimelinux.desktop -t $out/share/applications
-  
+
+    echo '#!${lib.getExe bash}' > ./shimelinux
+    echo "exec ${lib.getExe jdk21} -jar $out/share/java/shimelinux.jar" >> ./shimelinux
+    install -Dm755 ./shimelinux $out/bin/shimelinux
+    
     wrapProgram $out/bin/shimelinux \
       --prefix PATH : ${lib.makeBinPath [ jdk21 ]} \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libappindicator glib ]}
@@ -74,6 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ claymorwan ];
     mainProgram = "shimelinux";
+    platforms = lib.platforms.linux;
     sourceProvenance =  with lib.sourceTypes; [
       fromSource
       binaryBytecode # mitm cache
