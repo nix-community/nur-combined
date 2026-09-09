@@ -4,7 +4,6 @@
   rustPlatform,
   fetchPypi,
   fetchFromGitHub,
-  nur,
 
   nix-update-script,
   runCommand,
@@ -26,7 +25,7 @@ let
 in
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyproject-fmt";
-  version = "2.29.3";
+  version = "2.29.4";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -34,16 +33,19 @@ python3Packages.buildPythonPackage (finalAttrs: {
   src = fetchPypi {
     pname = "pyproject_fmt";
     inherit (finalAttrs) version;
-    hash = "sha256-bEWS7KhL1Gc0+SF1KJSeIepIsDdAXzPqTsLEstEa0sU=";
+    hash = "sha256-/B/dD1qxsHrGpPTg8wREotfI8pZdLldGQdC+vHhPAbA=";
   };
 
   postPatch = ''
     cp -r ${tombiSchemas}/www.schemastore.org ${tombiSchemas}/www.schemastore.tombi "$cargoDepsCopy/"
+
+    substituteInPlace src/pyproject_fmt/__main__.py src/pyproject_fmt/_lib.pyi \
+      --replace-fail "from toml_fmt_common import" "from pyproject_fmt._vendor.toml_fmt_common import"
   '';
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-S5O1KTT16W7gK0aYqLk6lILfkrqv82ErD7yIPFSku4Y=";
+    hash = "sha256-IB0cJr1ODsL4qadGluqrNzf3tyEOxXrbj0Uub4tQtFQ=";
   };
 
   nativeBuildInputs = [
@@ -51,9 +53,12 @@ python3Packages.buildPythonPackage (finalAttrs: {
     rustPlatform.maturinBuildHook
   ];
 
-  dependencies = [
-    nur.repos.josh.python3-toml-fmt-common
-  ];
+  postInstall = ''
+    vendor="$out/${python3Packages.python.sitePackages}/pyproject_fmt/_vendor"
+    mkdir -p "$vendor"
+    touch "$vendor/__init__.py"
+    cp -r toml-fmt-common/src/toml_fmt_common "$vendor/"
+  '';
 
   pythonImportsCheck = [ "pyproject_fmt" ];
 

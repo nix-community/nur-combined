@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
   nur,
-  nix-update-script,
   runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -21,8 +20,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir $out
     cp -R $src/charts/litestream-restic-backup/. $out/
   '';
-
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     files =
