@@ -9,17 +9,17 @@
 
 buildGoModule (final: {
   pname = "flake-release";
-  version = "0.24.3";
+  version = "0.24.4";
 
   src = fetchFromGitea {
     domain = "trev.zip";
     owner = "llc";
     repo = "flake-release";
     rev = "v${final.version}";
-    hash = "sha256-3H8LvsIw+0agW/19Yp3SrPLkBwSU7X2rQem8/BvzMoA=";
+    hash = "sha256-eUGLn1Hf59N67Sw/T3wJBg/FZjhR941eHn9NZfCQ6Ws=";
   };
 
-  vendorHash = "sha256-W9ATiBRlEV71DiHbUL4hirBG2LItnQfG6kKSNktJEv8=";
+  vendorHash = "sha256-mQUYHs7eApM3K7bd1//AbL8cXoyshj+rfG0F4tlPR5s=";
 
   tags = [ "containers_image_openpgp" ];
 
