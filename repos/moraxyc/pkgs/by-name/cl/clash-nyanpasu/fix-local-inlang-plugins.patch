@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 598293e..c5a5878 100644
+index edbcd4b..5ae3ca3 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -35,10 +35,10 @@
@@ -39,7 +39,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 64df2cb..a5ed08a 100644
+index 1c029cf..2b88d86 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -340,6 +340,12 @@ importers:
@@ -68,66 +68,7 @@ index 64df2cb..a5ed08a 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -1384,6 +1396,10 @@ packages:
-     resolution: {integrity: sha512-QvyMYjCqF7CnrTp8ZaPiuwpmxsoQPIDgfqGeWfqi4FDxBREye4QdyaZS4DGwIlCZXybF/YMj0TtL2uBfbmajug==}
-     engines: {node: '>=20.0.0'}
- 
-+  '@inlang/sdk@3.0.4':
-+    resolution: {integrity: sha512-1daid3Z/c3Qb9z2zgmbc/p2wnDvuq5l5pD2EhFnNA4JOQcFmbOqst/FTlpxDpdTcGGPYlDOaka5K11Ifp/eshg==}
-+    engines: {node: '>=20.0.0'}
-+
-   '@jridgewell/gen-mapping@0.3.12':
-     resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
- 
-@@ -1420,24 +1436,47 @@ packages:
-     cpu: [arm64]
-     os: [darwin]
- 
-+  '@lix-js/sdk-darwin-arm64@0.15.1':
-+    resolution: {integrity: sha512-RTe5hNe8lkF4uZ/ktKQFaXbFtowf617XTLs8Q/lPbAvCN/87A7KkmGyWV2mO8uZyposn/UO8q2NnD2yns8bPPA==}
-+    cpu: [arm64]
-+    os: [darwin]
-+
-   '@lix-js/sdk-linux-arm64@0.12.2':
-     resolution: {integrity: sha512-817uJlC2KTIKDaqQvALTu03hEJpNxEA+9d33FNs8sOm9pAguOWiAK1zGA2SD0IgS9Q8NqQeABLb84OesW5/NCA==}
-     cpu: [arm64]
-     os: [linux]
- 
-+  '@lix-js/sdk-linux-arm64@0.15.1':
-+    resolution: {integrity: sha512-uxyc4NzNGDVyytz8CZblVW++X1JtP9qin28CVyqLKV3iM0CQ/VcUog0WwyEWL7OogvjXilZLJdu1pskDzsRm1A==}
-+    cpu: [arm64]
-+    os: [linux]
-+
-   '@lix-js/sdk-linux-x64@0.12.2':
-     resolution: {integrity: sha512-rA7lw1jBr6azBHR5Sh/RzOKSAlRcmVea7VeI4VQqpy0PZs+5tWoK9iVC41V4oCIKssRv2wrkbvyP3CqInhoknQ==}
-     cpu: [x64]
-     os: [linux]
- 
-+  '@lix-js/sdk-linux-x64@0.15.1':
-+    resolution: {integrity: sha512-gCEN5Ql2JvQn4MpwiILpmFxxO3AHAfmoa4mMvBWFwdKUICaJf5Yzr0zUfHEeLYtvcKpXbpu6dxyZ+AOc8I18ng==}
-+    cpu: [x64]
-+    os: [linux]
-+
-   '@lix-js/sdk-win32-x64@0.12.2':
-     resolution: {integrity: sha512-y9IikCdrYx6cFnfqeUvYKPw6KBY016U2F2wYDILYZDZndccK2xw7lJChX163w9PewMwY3GsC/UqRBi5yqFAJ2w==}
-     cpu: [x64]
-     os: [win32]
- 
-+  '@lix-js/sdk-win32-x64@0.15.1':
-+    resolution: {integrity: sha512-hyo2Sj67mBwhMZ2DFO1UgN4barByYiHojUnVQI9WGue5Slva5vBusbecQG1XSXrYv6HkVxLpS2zwUrr7DTjWQg==}
-+    cpu: [x64]
-+    os: [win32]
-+
-   '@lix-js/sdk@0.12.2':
-     resolution: {integrity: sha512-sKGOPdVKdChS5q60F4VQE4ZTcf0B7ZJM3KGCVQFN2suVNKhHcllbsCiwRYuM5WL7Yu1ql7YexltJ2FCsDqKePg==}
- 
-+  '@lix-js/sdk@0.15.1':
-+    resolution: {integrity: sha512-mgtPwKg1Etx4NLGADesa+0DNkwVYOrSsIFVhv+VaBGJTisFYMVMucgzYXZQ1XHRpA1jxdFaKhheK3x3tArvv8Q==}
-+
-   '@material/material-color-utilities@0.4.0':
-     resolution: {integrity: sha512-dlq6VExJReb8dhjj3a/yTigr3ncNwoFmL5Iy2ENtbDX03EmNeOEdZ+vsaGrj7RTuO+mB7L58II4LCsl4NpM8uw==}
- 
-@@ -4677,6 +4716,11 @@ packages:
+@@ -4798,6 +4810,11 @@ packages:
    flat-cache@6.1.23:
      resolution: {integrity: sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA==}
  
@@ -139,7 +80,7 @@ index 64df2cb..a5ed08a 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7825,6 +7869,14 @@ snapshots:
+@@ -7945,6 +7962,14 @@ snapshots:
        typescript: 7.0.2
        vite: 8.2.2(@types/node@24.13.3)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.104.0)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
@@ -154,65 +95,7 @@ index 64df2cb..a5ed08a 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7837,6 +7889,13 @@ snapshots:
-       sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
-       uuid: 14.0.0
- 
-+  '@inlang/sdk@3.0.4':
-+    dependencies:
-+      '@lix-js/sdk': 0.15.1
-+      '@sinclair/typebox': 0.31.28
-+      kysely: 0.28.14
-+      uuid: 14.0.0
-+
-   '@jridgewell/gen-mapping@0.3.12':
-     dependencies:
-       '@jridgewell/sourcemap-codec': 1.5.5
-@@ -7874,15 +7933,27 @@ snapshots:
-   '@lix-js/sdk-darwin-arm64@0.12.2':
-     optional: true
- 
-+  '@lix-js/sdk-darwin-arm64@0.15.1':
-+    optional: true
-+
-   '@lix-js/sdk-linux-arm64@0.12.2':
-     optional: true
- 
-+  '@lix-js/sdk-linux-arm64@0.15.1':
-+    optional: true
-+
-   '@lix-js/sdk-linux-x64@0.12.2':
-     optional: true
- 
-+  '@lix-js/sdk-linux-x64@0.15.1':
-+    optional: true
-+
-   '@lix-js/sdk-win32-x64@0.12.2':
-     optional: true
- 
-+  '@lix-js/sdk-win32-x64@0.15.1':
-+    optional: true
-+
-   '@lix-js/sdk@0.12.2':
-     dependencies:
-       fflate: 0.8.3
-@@ -7892,6 +7963,15 @@ snapshots:
-       '@lix-js/sdk-linux-x64': 0.12.2
-       '@lix-js/sdk-win32-x64': 0.12.2
- 
-+  '@lix-js/sdk@0.15.1':
-+    dependencies:
-+      fflate: 0.8.3
-+    optionalDependencies:
-+      '@lix-js/sdk-darwin-arm64': 0.15.1
-+      '@lix-js/sdk-linux-arm64': 0.15.1
-+      '@lix-js/sdk-linux-x64': 0.15.1
-+      '@lix-js/sdk-win32-x64': 0.15.1
-+
-   '@material/material-color-utilities@0.4.0': {}
- 
-   '@monaco-editor/loader@1.5.0':
-@@ -10840,6 +10920,8 @@ snapshots:
+@@ -11017,6 +11042,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
