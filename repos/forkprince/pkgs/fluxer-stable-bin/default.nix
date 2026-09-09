@@ -18,6 +18,7 @@
     description = "Fluxer desktop client";
     homepage = "https://fluxer.app";
     license = lib.licenses.agpl3Only;
+    platforms = lib.platforms.darwin ++ lib.platforms.linux;
     mainProgram = "fluxer-stable-bin";
     maintainers = with lib.maintainers; [WoutFontaine Prinky];
   };

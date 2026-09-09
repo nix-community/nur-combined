@@ -13,11 +13,11 @@
   src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
   meta = {
-    description = "Take notes with AI assistance";
+    description = "A local, open-source Markdown note-taking app.";
     homepage = "https://helixnotes.com";
     maintainers = with lib.maintainers; [Prinky];
-    license = lib.licenses.gpl3;
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    license = lib.licenses.agpl3Plus;
+    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
     mainProgram = "helixnotes";
   };
 in

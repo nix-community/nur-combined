@@ -17,7 +17,7 @@
     homepage = "https://nuvio.tv/";
     maintainers = with lib.maintainers; [Prinky];
     license = lib.licenses.gpl3;
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
     mainProgram = "nuvio";
   };
 in
