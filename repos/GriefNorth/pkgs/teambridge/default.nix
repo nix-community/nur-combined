@@ -5,13 +5,13 @@
 }:
 
 let
-  version = "6.1.7";
+  version = "6.1.8";
   pname = "teambridge";
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://teambridge.pro/teambridge-builds/release/desktop/${version}/teambridge-desktop-${version}-linux-x86_64.AppImage";
-    hash = "sha256-cftUPNCX6SrIWv5OKkWqLSYXZ69Ff42mc97naQ7rvfs=";
+    hash = "sha256-wTq7+oVIgf1TeEDWMqNDrUVlJeKPCgdAt3L+6K47C1E=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
