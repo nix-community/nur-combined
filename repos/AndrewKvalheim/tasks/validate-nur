@@ -17,7 +17,7 @@ for channel in 'unstable-small' 'nixpkgs'; do
   )
 
   nix-env "${nix_args[@]}" --file 'nur.nix' --query '*' --available --meta --json \
-  | jq --raw-output 'to_entries[] | "\(.key)\(.value.meta.broken)"' \
+  | jq --raw-output 'to_entries[] | "\(.key)\(.value.meta.problems.broken != null)"' \
   | while IFS='' read -r name broken; do
      [[ -z "$attr" || "$name" == "$attr" ]] || continue
 
