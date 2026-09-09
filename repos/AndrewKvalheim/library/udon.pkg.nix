@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication (udon: {
     mainProgram = "udon";
   };
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   src = fetchFromGitHub {
     owner = "treedavies";
