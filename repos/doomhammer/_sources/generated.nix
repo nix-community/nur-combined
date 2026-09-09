@@ -70,12 +70,29 @@
       sha256 = "sha256-EbsckPr1Qn83x71P5+q5d0rkPh1csCDFswiNrDKEnvo=";
     };
   };
+  matui = {
+    pname = "matui";
+    version = "v1.0.0";
+    src = fetchFromGitHub {
+      owner = "pkulak";
+      repo = "matui";
+      rev = "v1.0.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-LnpqZgw5jfKKlrqn0CIM/ActRKUdMYWVIM29dA47aw8=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-LnpqZgw5jfKKlrqn0CIM_ActRKUdMYWVIM29dA47aw8=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+  };
   omniwm = {
     pname = "omniwm";
-    version = "v0.6.8";
+    version = "v0.6.6";
     src = fetchurl {
-      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.8/OmniWM-v0.6.8.zip";
-      sha256 = "sha256-CCOWPIpcO96FT3/dA82MJcRCGkC9b3SETyyPfBaiZ2U=";
+      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.6/OmniWM-v0.6.6.zip";
+      sha256 = "sha256-eMVcefmZ/mGH/LhQgKSAwVsMT+cUFuRIIlisWSDQTNs=";
     };
   };
   paperwm-spoon = {

@@ -24,6 +24,7 @@ in
   discovery-rs = pkgs.callPackage ./pkgs/discovery-rs { source = sources.discovery-rs; };
   gitpane = pkgs.callPackage ./pkgs/gitpane { source = sources.gitpane; };
   hammerspoon = pkgs.callPackage ./pkgs/hammerspoon { source = sources.hammerspoon; };
+  matui = pkgs.callPackage ./pkgs/matui { source = sources.matui; };
   omniwm = pkgs.callPackage ./pkgs/omniwm { source = sources.omniwm; };
   paperwm-spoon = pkgs.callPackage ./pkgs/paperwm-spoon { source = sources.paperwm-spoon; };
   powershell-beautifier = pkgs.callPackage ./pkgs/powershell-beautifier {

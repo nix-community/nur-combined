@@ -108,6 +108,32 @@
         },
         "version": "1.1.1"
     },
+    "matui": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-LnpqZgw5jfKKlrqn0CIM_ActRKUdMYWVIM29dA47aw8=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "matui",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "pkulak",
+            "repo": "matui",
+            "rev": "v1.0.0",
+            "sha256": "sha256-LnpqZgw5jfKKlrqn0CIM/ActRKUdMYWVIM29dA47aw8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.0"
+    },
     "omniwm": {
         "cargoLock": null,
         "date": null,
@@ -117,11 +143,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CCOWPIpcO96FT3/dA82MJcRCGkC9b3SETyyPfBaiZ2U=",
+            "sha256": "sha256-eMVcefmZ/mGH/LhQgKSAwVsMT+cUFuRIIlisWSDQTNs=",
             "type": "url",
-            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.8/OmniWM-v0.6.8.zip"
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.6.6/OmniWM-v0.6.6.zip"
         },
-        "version": "v0.6.8"
+        "version": "v0.6.6"
     },
     "paperwm-spoon": {
         "cargoLock": null,
