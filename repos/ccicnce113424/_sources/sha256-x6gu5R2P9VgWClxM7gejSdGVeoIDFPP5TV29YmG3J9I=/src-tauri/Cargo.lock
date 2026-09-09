@@ -3399,7 +3399,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.9.9-beta.2"
+version = "3.9.9-beta.3"
 dependencies = [
  "anstream",
  "anstyle",

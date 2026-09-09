@@ -363,7 +363,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-ofnBJp+AZvlcBk50R_goIKDb5OkRvpAUhrNcHfTLAMk=/src-tauri/Cargo.lock",
+                "sha256-x6gu5R2P9VgWClxM7gejSdGVeoIDFPP5TV29YmG3J9I=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -379,12 +379,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.9-beta.2",
-            "sha256": "sha256-ofnBJp+AZvlcBk50R/goIKDb5OkRvpAUhrNcHfTLAMk=",
+            "rev": "v3.9.9-beta.3",
+            "sha256": "sha256-x6gu5R2P9VgWClxM7gejSdGVeoIDFPP5TV29YmG3J9I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.9-beta.2"
+        "version": "v3.9.9-beta.3"
     },
     "nix-auth": {
         "cargoLock": null,
@@ -688,11 +688,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nPyH0kdlNNIZTZW6QxrcdDv0ydekj1i8FrRcmMoDgW4=",
+            "sha256": "sha256-499tPXymKD0Owftj/Asgu08ZmHBMuFKPHdsR+ribmt8=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.8/waywallen-0.3.8-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.9/waywallen-0.3.9-x86_64.AppImage"
         },
-        "version": "0.3.8"
+        "version": "0.3.9"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
