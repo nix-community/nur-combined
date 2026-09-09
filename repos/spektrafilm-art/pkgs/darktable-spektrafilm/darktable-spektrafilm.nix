@@ -1,7 +1,7 @@
 # darktable with the native spektrafilm spectral film-simulation module.
 #
-# This builds the spektrafilm PR branch (a dev snapshot of darktable 5.8.0)
-# which adds the spektrafilm IOP as native C:
+# This builds darktable master (a dev snapshot of the unreleased 5.8.0), which
+# since 2026-09-05 carries the spektrafilm IOP natively as C:
 #   src/iop/spektrafilm.c, src/common/spektra_{core,sim}.{c,h},
 #   data/kernels/spektrafilm.cl (OpenCL path).
 # Unlike the ART spektrafilm integration in this repo, this module is
@@ -14,7 +14,7 @@
 # without rebuilding darktable itself. No release channel ships 5.8.0 yet, so the
 # caller bases this on nixpkgs-unstable (darktable 5.6.0) for the closest
 # dependency match. LibRaw/RawSpeed come in as git submodules (fetchSubmodules)
-# so they self-match the fork.
+# so they self-match the pinned master revision.
 {
   lib,
   darktable,
@@ -24,8 +24,7 @@
   spektrafilmDataPack ? null,
   darktableAiModels ? null,
   # Enable darktable's ONNX-based AI features (pulls in onnxruntime + libarchive
-  # and the USE_AI cmake path). The spektrafilm PR branch keeps darktable's
-  # USE_AI option (src/CMakeLists.txt), so it composes normally. Off by default
+  # and the USE_AI cmake path). Off by default
   # to match nixpkgs; flip with `.override { withAi = true; }`.
   withAi ? false,
 }:
@@ -50,27 +49,37 @@ let
     ];
   base = (darktable.override { inherit withAi; }).overrideAttrs (old: {
     pname = "darktable-spektrafilm";
-    # Tracks a moving PR branch head, not a tagged release, so
+    # Tracks a moving master head, not a tagged release, so
     # the datestamp keeps the store path honest. Bump it together with src.rev.
-    version = "5.8.0-unstable-2026-09-01";
+    version = "5.8.0-unstable-2026-09-09";
 
     src = fetchFromGitHub {
-      owner = "piratenpanda";
+      owner = "darktable-org";
       repo = "darktable";
-      # darktable-org/darktable#21967 head (== branch `spektrafilm`), rebased on
-      # master so it builds standalone. This PR supersedes #21534, which the
-      # author closed by accident in 2026-08; same branch, new PR number.
-      # Verify with:
-      #   git ls-remote https://github.com/piratenpanda/darktable refs/pull/21967/head
-      rev = "e88281a405679c06e1cfceebbbcd57182367fca0";
+      # Upstream master. PR #21967 (the spektrafilm module) was MERGED into
+      # darktable master on 2026-09-05 as d81ccfe23b, so there is no longer a
+      # fork to track: src/iop/spektrafilm.c, src/common/spektra_*.{c,h} and
+      # data/kernels/spektrafilm.cl all live upstream now.
+      #
+      # Following master rather than a tag is deliberate — 5.8.0 is unreleased,
+      # and the piratenpanda snapshot we used to pin (merge-base 2026-09-01) sits
+      # inside the performance regression window of darktable issue #22104.
+      # Master carries the fixes for it: #22201 (per-module rendered mask cache,
+      # ~75.5ms -> ~12ms; the "showing a mask hangs" bug), #22187 (keep the scharr
+      # detail mask across synch_all), #22148 + #22171 (pipe responsiveness).
+      #
+      # Bump `rev`, `hash` and `version` together. Verify with:
+      #   git ls-remote https://github.com/darktable-org/darktable refs/heads/master
+      rev = "a1257a7c559b74059e55263a58d63a8085cf4f01";
       fetchSubmodules = true;
-      hash = "sha256-bjWEpKT2/SSbIZmd6dF4I4/2z0bWnB+wrYy8JHLXt7Y=";
+      hash = "sha256-m77vrG/VnW8UkgEZfT+kgIsfDlxlrADr5ZFcNxoU0kc=";
     };
 
-    # No local patches: the toggle-helper shim we used to carry is now obsolete —
-    # dt_bauhaus_toggle_set{,_default} are declared in src/bauhaus/bauhaus.h
-    # upstream and spektrafilm.c includes it, so a local static-inline redefinition
-    # would fail to compile.
+    # No local patches here: the toggle-helper shim we used to carry is now
+    # obsolete — dt_bauhaus_toggle_set{,_default} are declared in
+    # src/bauhaus/bauhaus.h upstream and spektrafilm.c includes it, so a local
+    # static-inline redefinition would fail to compile. (Consumers may still add
+    # their own via overrideAttrs; nix-configs layers two on top of basePackage.)
     patches = (old.patches or [ ]);
 
     # fetchFromGitHub strips .git, so darktable's `git describe` version detection
@@ -89,8 +98,8 @@ let
 
     meta = (old.meta or { }) // {
       description =
-        "darktable with the native spektrafilm spectral film-simulation module (darktable PR 21967)";
-      homepage = "https://github.com/darktable-org/darktable/pull/21967";
+        "darktable (master snapshot) with the native spektrafilm spectral film-simulation module";
+      homepage = "https://github.com/darktable-org/darktable";
       mainProgram = "darktable";
     };
   });
