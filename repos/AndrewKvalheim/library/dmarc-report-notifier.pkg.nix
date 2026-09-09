@@ -6,19 +6,19 @@
 
 let
   inherit (lib) licenses;
-  inherit (import ../library/utilities.lib.nix { inherit lib; }) versionsSatisfied;
+  inherit (import ../library/utilities.lib.nix { inherit lib; }) versionsProblems;
 in
 python3Packages.buildPythonApplication (dmarc-report-notifier: {
   pname = "dmarc-report-notifier";
-  version = "1.1.16";
+  version = "1.1.17";
   meta = {
     description = "Headless periodic DMARC report handler";
     homepage = "https://codeberg.org/AndrewKvalheim/dmarc-report-notifier";
     license = licenses.gpl3;
     mainProgram = "dmarc-report-notifier";
-    broken = with python3Packages; ! versionsSatisfied [
+    problems = with python3Packages; versionsProblems [
       [ matrix-nio "≥0.24,<0.27" ]
-      [ parsedmarc "≥10.2.0,<11" ]
+      [ parsedmarc "≥10.2.0,<12" ]
     ];
   };
 
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication (dmarc-report-notifier: {
     owner = "AndrewKvalheim";
     repo = "dmarc-report-notifier";
     rev = "refs/tags/v${dmarc-report-notifier.version}";
-    hash = "sha256-NTss/KIiK1LnH4TImMdE5FziUcK8xqf7pItmDc6yRhE=";
+    hash = "sha256-wcdSqQ2ijW1KavChB1HNr9ojSUdC4fxkr6lUV6q3iGU=";
   };
 
   format = "pyproject";

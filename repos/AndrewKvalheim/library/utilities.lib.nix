@@ -1,8 +1,8 @@
 { lib }:
 
 let
-  inherit (builtins) add all attrValues ceil concatLists elem elemAt filter foldl' getAttr hasAttr head isFunction isString length listToAttrs mapAttrs match split stringLength tail toJSON;
-  inherit (lib) concatLines concatImapStringsSep concatMapStrings concatMapStringsSep escapeShellArg fixedWidthNumber flip foldr id ifilter0 imap0 isList max min mod nameValuePair pipe range removeSuffix splitString stringToCharacters throwIf throwIfNot toCamelCase toHexString versionAtLeast versionOlder zipAttrsWith;
+  inherit (builtins) add all attrValues ceil concatLists concatStringsSep elem elemAt filter foldl' getAttr hasAttr head isFunction isString length listToAttrs mapAttrs match split stringLength tail toJSON;
+  inherit (lib) concatLines concatImapStringsSep concatMapStrings concatMapStringsSep escapeShellArg fixedWidthNumber flip foldr id ifilter0 imap0 isList max min mod nameValuePair optionalAttrs pipe range removeSuffix splitString stringToCharacters throwIf throwIfNot toCamelCase toHexString versionAtLeast versionOlder zipAttrsWith;
   inherit (lib.strings) replicate;
   inherit (import <nix-math> { inherit lib; }) cos pi pow round sin;
 
@@ -185,23 +185,36 @@ rec {
     { xs = [ ]; xs' = [ ]; }
     xs).xs;
 
-  versionSatisfied = v: spec:
+  versionMessage = actual: expectation:
     let
-      v' = if isString v then v else v.version;
+      name = if isString actual then actual else actual.name;
+      version = if isString actual then actual else actual.version;
 
-      satisfied = expr:
-        let parts = match "^([^[:alnum:]]+)?(.+)?$" expr; operator = head parts; reference = elemAt parts 1; in
-        if operator == null then v' == reference
+      expectations = map
+        (s: let m = match "^([^[:alnum:]]+)?(.+)?$" s; in { operator = head m; reference = elemAt m 1; })
+        (filter isString (split ",[[:space:]]*" expectation));
+
+      satisfied = { operator, reference }:
+        if operator == null then version == reference
         else if operator == "∞" then true
-        else if operator == "≠" then v' != reference
-        else if operator == "<" then versionOlder v' reference
-        else if operator == ">" then versionOlder reference v'
-        else if operator == "≥" then versionAtLeast v' reference
+        else if operator == "≠" then version != reference
+        else if operator == "<" then versionOlder version reference
+        else if operator == ">" then versionOlder reference version
+        else if operator == "≥" then versionAtLeast version reference
         else throw "version operator not implemented: ${toJSON operator}";
     in
-    all satisfied (filter isString (split ",[[:space:]]*" spec));
+    foldl'
+      (ms: e:
+        let m = if satisfied e then null else "expected ${name} to be “${expectation}”";
+        in if m == null then ms else (if ms == null then m else "${ms}, ${m}"))
+      null
+      expectations;
 
-  versionsSatisfied = all (pr: let v = head pr; rs = elemAt pr 1; in versionSatisfied v rs);
+  versionSatisfied = actual: expectation: versionMessage actual expectation == null;
+
+  versionsProblems = pairs:
+    let messages = filter (ne null) (map (pair: let v = head pair; s = elemAt pair 1; in versionMessage v s) pairs); in
+    optionalAttrs (messages != [ ]) { broken.message = concatStringsSep ", " messages; };
 
   zipAttrsFlat = zipAttrsWith (_: concatLists);
 }
