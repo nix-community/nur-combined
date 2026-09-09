@@ -23,9 +23,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   mozlz4 = pkgs.callPackage ./pkgs/mozlz4 { };
-  arangodb = pkgs.callPackage ./pkgs/arangodb/package.nix {
-    stdenv = pkgs.overrideCC pkgs.stdenv pkgs.gcc13;
-  };
   avm = pkgs.callPackage ./pkgs/avm/package.nix {
     stdenv = pkgs.gcc14Stdenv;
   };

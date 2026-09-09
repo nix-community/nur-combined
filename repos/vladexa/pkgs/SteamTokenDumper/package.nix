@@ -7,13 +7,13 @@
 }:
 buildDotnetModule (finalAttrs: {
   pname = "SteamTokenDumper";
-  version = "2025.12.17";
+  version = "2026.08.20";
 
   src = fetchFromGitHub {
     owner = "SteamDatabase";
     repo = "SteamTokenDumper";
     rev = finalAttrs.version;
-    hash = "sha256-LKUrATMbmJYwukJYO4Y1DkD2gPj06B8R7pLRiy+4Gr8=";
+    hash = "sha256-dpdH05kYjz3FFVfPWDuzox3kfnv69qFfHYjSb2Bywkk=";
   };
 
   projectFile = "SteamTokenDumper.csproj";

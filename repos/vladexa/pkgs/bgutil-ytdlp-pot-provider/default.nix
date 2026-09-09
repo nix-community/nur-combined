@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  version = "1.3.1";
+  version = "2.0.0";
   meta = {
     description = "Proof-of-origin token provider plugin for yt-dlp";
     homepage = "https://github.com/Brainicism/bgutil-ytdlp-pot-provider";

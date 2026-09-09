@@ -30,7 +30,7 @@ buildNpmPackage (finalAttrs: {
     owner = "Brainicism";
     repo = "bgutil-ytdlp-pot-provider";
     rev = version;
-    hash = "sha256-dhpataQ1HSCRPnm4k3K/NMaQPQdNrx8C4q855l7kbbQ=";
+    hash = "sha256-mmcRzTLzdjI/zHArUMPkhQ4uKmYhabiG7RpvH4IBxjc=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/server";
@@ -50,7 +50,7 @@ buildNpmPackage (finalAttrs: {
   ];
 
   makeCacheWritable = true;
-  npmDepsHash = "sha256-Qwwi6W+Oeu6ZeLmZP5vEfAKOJyivbULR5mlk7tcVIE8=";
+  npmDepsHash = "sha256-1yrRJQ53v4LxzEsc6VODrKgzCdELyMCVfwyCLZSzWek=";
 
   buildPhase = ''
     runHook preBuild
