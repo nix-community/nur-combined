@@ -35,7 +35,22 @@ Run a package's tests directly with e.g. `nix build .#packages.x86_64-linux.<pkg
 
 ## Automated updates
 
-`.github/workflows/update-packages.yml` runs daily (and via manual `workflow_dispatch`): for each package, it runs `nix-update`, and — only if that finds a newer version — builds the package and runs its full `passthru.tests` suite against the new version before opening a PR. **It never auto-merges**; every version bump lands as a PR for manual review, by design (that's a deliberate choice, not a limitation — revisit only if explicitly asked to change it).
+`.github/workflows/update-packages.yml` runs daily (and via manual `workflow_dispatch`): for each package, it runs `nix-update`, and — only if that finds a newer version — lints the tree and builds the package and runs its full `passthru.tests` suite against the new version before opening a PR.
+
+**Only patch-level bumps merge themselves**, and only with every check green. The bump is classified in the update step by comparing the `version` attribute evaluated off the derivation before and after `nix-update` runs; `patch` means both versions are plain three-component versions, they differ, and major and minor are unchanged. Everything else — a major or minor bump, a prerelease suffix, a version that couldn't be evaluated, or a hash change with *no* version change (a retagged upstream release, which deserves a human every time) — is classified `other` and waits for manual review. The conservative default is deliberate: keep new cases falling into `other` rather than widening what merges unattended.
+
+Note what "patch" means for a 0.x package like `yamtrack`: `0.26.1 → 0.26.3` auto-merges, `0.26.x → 0.27.0` does not. That matches the convention that 0.x upstreams put breaking changes in the minor slot, but it is a weaker guarantee than the same rule post-1.0.
+
+Auto-merge uses a merge commit (matching how PRs #1 and #2 were merged by hand) and then pings NUR's re-sync endpoint *inline*. That `curl` is not redundant with `nur-notify.yml` — see the `GITHUB_TOKEN` consequences below.
+
+Two consequences of PRs being opened with the default `GITHUB_TOKEN`, both non-obvious and both already worked around — don't "simplify" either back out:
+
+- **Update PRs get no checks of their own.** GitHub deliberately doesn't start workflow runs for events caused by `GITHUB_TOKEN`, so `lint.yml`'s `pull_request` trigger never fires on an update PR — the run is recorded as `action_required` with zero jobs and the PR sits with no checks at all. That's why the lint gate (`nixfmt --check`, `statix`, `deadnix`) is duplicated *inside* `update-packages.yml`'s verify step, against the working tree that is byte-for-byte what the PR will contain. A `schedule:` trigger on `lint.yml` would not fix this — scheduled runs only ever run on the default branch. Getting real PR checks instead would require creating the PR with a PAT or GitHub App token.
+- **A merge pushed by the workflow does not trigger `nur-notify.yml`** for the same reason, which is why the auto-merge step pings the NUR endpoint itself. Delete that `curl` as a duplicate and auto-merged updates silently stop reaching NUR consumers until NUR's own poll catches up.
+
+Relatedly, **GitHub sends no notification when a PR branch is force-pushed** — which is how two fully-verified PRs sat unnoticed for a fortnight. The workflow therefore posts an `@`-mention comment when (and only when) `create-pull-request` reports the PR was `created` or `updated`; a mention is the one native signal that reaches the notification inbox, and so GitHub Mobile push, regardless of repo watch settings. A run that finds no new version stays silent.
+
+`nix-update`'s `--use-github-releases` path calls the GitHub REST API, which unauthenticated shares a 60-request/hour per-IP budget that runners routinely exhaust — this failed the update step outright (`HTTP Error 403: rate limit exceeded`) on 2026-08-31 and 2026-09-02, silently skipping those days. The step now passes `GITHUB_TOKEN` in `env:`, which `nix-update` picks up on its own and sends as a bearer token for the 5000/hour limit. Only the `--use-github-releases` packages need it; `scrobblex`'s tag detection reads the atom feed and never touches the API.
 
 Each package needs the *correct* `nix-update` release-detection flag — get this wrong and you'll get a silently-wrong proposed version, not an error:
 

@@ -51,46 +51,130 @@ jobs:
 
       - name: Check for a new release
         id: update
+        # nix-update's --use-github-releases path talks to the GitHub REST
+        # API, and unauthenticated it gets the shared 60-requests/hour
+        # per-IP budget -- which runners routinely exhaust, failing this
+        # step with "HTTP Error 403: rate limit exceeded" and skipping a
+        # day's update entirely. nix-update picks GITHUB_TOKEN up on its
+        # own and sends it as a bearer token, which raises the limit to
+        # 5000/hour. Harmless for scrobblex, whose default tag detection
+        # reads the atom feed and never hits the API.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Read the version straight off the derivation rather than
+          # grepping the file, so this doesn't care how each package
+          # happens to spell its version attribute. A failed eval leaves
+          # the variable empty, which classifies the bump as "other"
+          # below -- i.e. it falls back to manual review, never to an
+          # unattended merge.
+          old_version=$(nix eval --raw ".#packages.x86_64-linux.${{ matrix.package }}.version" || echo "")
+
           nix run nixpkgs#nix-update -- --flake --version=stable ${{ matrix.releaseFlag }} ${{ matrix.package }}
+
           if git diff --quiet -- "pkgs/${{ matrix.package }}"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            git diff -- "pkgs/${{ matrix.package }}"
+            exit 0
           fi
 
-      # Runs the full build plus every NixOS VM test the package defines
-      # (passthru.tests) against the *new* version before anything reaches
-      # a PR. Deliberately doesn't fail the step itself (set +e / exit 0)
-      # so the PR still gets opened either way -- see the next two steps.
-      - name: Build and test the update
+          new_version=$(nix eval --raw ".#packages.x86_64-linux.${{ matrix.package }}.version" || echo "")
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "old-version=$old_version" >> "$GITHUB_OUTPUT"
+          echo "new-version=$new_version" >> "$GITHUB_OUTPUT"
+          git diff -- "pkgs/${{ matrix.package }}"
+
+          # Classify the bump, which decides whether it may merge itself
+          # later. Only a patch-level move between two plain
+          # three-component versions qualifies; a major or minor bump, a
+          # prerelease suffix, an unreadable version or any other shape
+          # falls through to "other" and waits for a human.
+          #
+          # Note what this means for a 0.x package like yamtrack:
+          # 0.26.1 -> 0.26.3 counts as a patch bump and will auto-merge,
+          # while 0.26.x -> 0.27.0 will not. That matches how 0.x
+          # upstreams conventionally use the minor slot for breaking
+          # changes, but it is a weaker guarantee than it is post-1.0.
+          # The version-inequality test matters: nix-update rewriting the
+          # hash while the version stands still means the upstream tarball
+          # changed under an existing tag. That is a retagged release, and
+          # it always wants a human to look at it.
+          semver='^[0-9]+\.[0-9]+\.[0-9]+$'
+          bump=other
+          if [ -n "$old_version" ] && [ "$old_version" != "$new_version" ] \
+            && [[ $old_version =~ $semver && $new_version =~ $semver ]]; then
+            IFS=. read -r old_major old_minor _ <<< "$old_version"
+            IFS=. read -r new_major new_minor _ <<< "$new_version"
+            if [ "$old_major" = "$new_major" ] && [ "$old_minor" = "$new_minor" ]; then
+              bump=patch
+            fi
+          fi
+          echo "bump=$bump" >> "$GITHUB_OUTPUT"
+          echo "Classified ${old_version:-?} -> ${new_version:-?} as a '$bump' bump."
+
+      # Runs the same lint gate as lint.yml, plus the full build and every
+      # NixOS VM test the package defines (passthru.tests), against the
+      # *new* version before anything reaches a PR.
+      #
+      # The lint half has to live here rather than in lint.yml: GitHub
+      # never starts a workflow run for a PR opened with the default
+      # GITHUB_TOKEN, so lint.yml's own pull_request trigger silently does
+      # nothing on these PRs -- every such run is recorded as
+      # "action_required" with zero jobs, and the PR sits with no checks at
+      # all. A schedule: trigger wouldn't help either, since scheduled runs
+      # only ever run on the default branch. Linting the working tree here
+      # is the check that actually executes, and this tree is byte-for-byte
+      # what the PR will contain. Lint runs before the builds so the
+      # ./result symlink they create can't end up in its way.
+      #
+      # Deliberately doesn't fail the step itself (set +e / exit 0) so the
+      # PR still gets opened either way -- see the next two steps.
+      - name: Lint, build and test the update
         if: steps.update.outputs.changed == 'true'
         id: verify
         run: |
           set +e
-          failed=0
+          lint_failed=0
+          build_failed=0
+
+          echo "::group::lint (nixfmt, statix, deadnix)"
+          mapfile -t nix_files < <(find . -name "*.nix" -not -path "./.git/*")
+          nix run nixpkgs#nixfmt -- --check "${nix_files[@]}" || lint_failed=1
+          nix run nixpkgs#statix -- check . || lint_failed=1
+          nix run nixpkgs#deadnix -- --fail . || lint_failed=1
+          echo "::endgroup::"
 
           echo "::group::nix build .#packages.x86_64-linux.${{ matrix.package }}"
-          nix build -L ".#packages.x86_64-linux.${{ matrix.package }}" || failed=1
+          nix build -L ".#packages.x86_64-linux.${{ matrix.package }}" || build_failed=1
           echo "::endgroup::"
 
           for test in ${{ matrix.tests }}; do
             echo "::group::nix build .#packages.x86_64-linux.${{ matrix.package }}.tests.$test"
-            nix build -L ".#packages.x86_64-linux.${{ matrix.package }}.tests.$test" || failed=1
+            nix build -L ".#packages.x86_64-linux.${{ matrix.package }}.tests.$test" || build_failed=1
             echo "::endgroup::"
           done
 
-          echo "failed=$failed" >> "$GITHUB_OUTPUT"
-          if [ "$failed" = "1" ]; then
-            echo "status=❌ FAILED -- do not merge without investigating" >> "$GITHUB_OUTPUT"
+          if [ "$lint_failed" = "1" ]; then
+            echo "lint=❌ FAILED" >> "$GITHUB_OUTPUT"
+          else
+            echo "lint=✅ passed" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [ "$build_failed" = "1" ]; then
+            echo "status=❌ FAILED" >> "$GITHUB_OUTPUT"
           else
             echo "status=✅ passed" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [ "$lint_failed" = "1" ] || [ "$build_failed" = "1" ]; then
+            echo "failed=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "failed=0" >> "$GITHUB_OUTPUT"
           fi
           exit 0
 
       - name: Open pull request
         if: steps.update.outputs.changed == 'true'
+        id: pr
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "${{ matrix.package }}: automated update"
@@ -98,14 +182,108 @@ jobs:
           body: |
             Automated version bump proposed by [`nix-update`](https://github.com/Mic92/nix-update).
 
+            **Lint (nixfmt / statix / deadnix):** ${{ steps.verify.outputs.lint }}
             **Build + NixOS VM test result:** ${{ steps.verify.outputs.status }}
+            ${{ steps.verify.outputs.failed == '1' && '⚠️ Something above failed -- do not merge without investigating.' || '' }}
 
             Full logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             Review the version/hash diff below (GitHub's own diff view), then merge if it looks right.
+
+            A patch-level bump with every check green merges itself; anything
+            larger — a major or minor bump, a prerelease, or a hash change
+            with no version change — waits here for you.
+
+            These checks run inside the update workflow rather than as PR
+            checks -- GitHub doesn't start workflow runs for PRs opened with
+            the default GITHUB_TOKEN, so this PR will show no checks of its
+            own. The results above are the real gate.
           branch: nix-update/${{ matrix.package }}
           delete-branch: true
           add-paths: pkgs/${{ matrix.package }}
+
+      # Patch-level bumps that passed every check above merge themselves;
+      # anything larger waits for a human. Uses a merge commit rather than
+      # a squash to match how PRs #1 and #2 were merged by hand.
+      #
+      # Mergeability is computed asynchronously by GitHub, so a merge
+      # attempted immediately after the branch is pushed can legitimately
+      # be refused for a few seconds -- hence the retry. Exhausting it
+      # fails the job rather than passing quietly, so a bump that could
+      # not merge is never mistaken for one that did.
+      - name: Merge the update
+        id: merge
+        if: >-
+          steps.update.outputs.changed == 'true'
+          && steps.update.outputs.bump == 'patch'
+          && steps.verify.outputs.failed == '0'
+          && steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.pr.outputs.pull-request-number }}
+        run: |
+          merged=false
+          for attempt in 1 2 3 4 5; do
+            if gh pr merge "$PR" --merge --delete-branch; then
+              merged=true
+              break
+            fi
+            echo "Merge attempt $attempt failed; GitHub may still be computing mergeability. Retrying in 10s."
+            sleep 10
+          done
+
+          if [ "$merged" != "true" ]; then
+            echo "::error::Could not merge PR #$PR after 5 attempts."
+            exit 1
+          fi
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+          # nur-notify.yml cannot do this for us here: it triggers on push
+          # to main, and GitHub doesn't start workflow runs for pushes made
+          # with the default GITHUB_TOKEN. Without this line an auto-merge
+          # would silently skip NUR's re-sync ping and leave consumers
+          # waiting on NUR's own poll interval.
+          curl -sS --fail -X POST "https://nur-update.nix-community.org/update?repo=msaxena"
+
+      # GitHub sends no notification when a PR branch is force-pushed, which
+      # is why two fully-verified PRs sat unnoticed for a fortnight. An
+      # @mention comment is the one native signal that always reaches the
+      # notification inbox -- and so GitHub Mobile's push notifications --
+      # regardless of repo watch settings. Posted only when the PR actually
+      # changed, so an unchanged PR being re-verified stays silent.
+      - name: Notify about the new or refreshed PR
+        if: >-
+          steps.update.outputs.changed == 'true'
+          && (steps.pr.outputs.pull-request-operation == 'created'
+          || steps.pr.outputs.pull-request-operation == 'updated'
+          || steps.merge.outputs.merged == 'true')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.pr.outputs.pull-request-number }}
+          OWNER: ${{ github.repository_owner }}
+          PACKAGE: ${{ matrix.package }}
+          OLD_VERSION: ${{ steps.update.outputs.old-version }}
+          NEW_VERSION: ${{ steps.update.outputs.new-version }}
+          BUMP: ${{ steps.update.outputs.bump }}
+          MERGED: ${{ steps.merge.outputs.merged }}
+          LINT: ${{ steps.verify.outputs.lint }}
+          TESTS: ${{ steps.verify.outputs.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "$MERGED" = "true" ]; then
+            outcome="✅ **Merged automatically** — patch-level bump with every check green. NUR has been pinged to re-sync."
+          elif [ "$BUMP" = "patch" ]; then
+            outcome="⚠️ **Needs you** — a patch bump that would normally merge itself, but a check failed. See the run log."
+          else
+            outcome="🔎 **Waiting on your review** — not a patch-level bump, so it will not merge itself."
+          fi
+
+          body=$(printf '%s\n\n%s\n\n%s\n' \
+            "@${OWNER} \`${PACKAGE}\` \`${OLD_VERSION}\` → \`${NEW_VERSION}\`" \
+            "$outcome" \
+            "Lint: ${LINT} · Build + VM tests: ${TESTS} · [run log](${RUN_URL})")
+
+          gh pr comment "$PR" --body "$body"
 
       # Separate from PR creation: fails the job (and so notifies you the
       # normal Actions-failure way) whenever verification failed, without
