@@ -3,20 +3,23 @@
   stdenv,
   fetchFromGitHub,
   nix-update-script,
-  pnpm_10,
+  pnpm_11,
   nodejs_24,
   pnpmConfigHook,
   fetchPnpmDeps,
   makeWrapper,
+  jq,
+  yq,
+  moreutils,
 }:
 
 let
-  pnpm = pnpm_10;
+  pnpm = pnpm_11;
   nodejs = nodejs_24;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "github-readme-stats-extended-unwrapped";
-  version = "2.1.5";
+  version = "2.2.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -25,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "stats-organization";
     repo = "github-stats-extended";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-FltDnh+4wjZlWZMSBNlm8bexdR6FUFb8ibqEpUfEVic=";
+    hash = "sha256-M7vfMIWDE3bUCTdSPu/qs8E6H3M/ZRHdh1eI3a0EjXo=";
   };
 
   nativeBuildInputs = [
@@ -33,6 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
     pnpmConfigHook
     pnpm
     makeWrapper
+    jq
+    yq
+    moreutils
   ];
 
   pnpmDeps = fetchPnpmDeps {
@@ -40,23 +46,28 @@ stdenv.mkDerivation (finalAttrs: {
       pname
       version
       src
-      pnpmInstallFlags
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-Q8yp5Dnlk/E1T63+su6EqcUNlRnA1eHd4zx6Ndrb1DM=";
+    hash = "sha256-Wl4ttmOB457oRY0+X5PTgGZf5a7AgIaJuF7Oj7saYF8=";
   };
 
-  pnpmInstallFlags = [
-    "--shamefully-hoist"
-    "--node-linker=hoisted"
-  ];
+  # Otherwise pnpm prune complains about not being able to ask for confirmation
+  env.CI = true;
 
   buildPhase = ''
     runHook preBuild
 
-    pnpm run build:packages
-    pnpm run build:frontend
+    # Avoid calling pnpm install before pnpm run, dependencies are guaranteed to be valid anyway
+    pnpm config set verifyDepsBeforeRun false
+
+    # Relax nodejs/pnpm version
+    jq 'del(.packageManager) | del(.devEngines) | .engines.node = "${nodejs.version}"' package.json | sponge package.json
+    yq '.engineStrict = false' pnpm-workspace.yaml | sponge pnpm-workspace.yaml
+
+    # Deliberately bypass Turborepo because the build is broken on pnpm 11
+    pnpm run --filter=./packages/core/ build
+    pnpm run --filter=./apps/frontend/ build
 
     runHook postBuild
   '';
@@ -64,13 +75,19 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    pnpm prune --prod --ignore-scripts --config.confirmModulesPurge=false # TODO: remove at pnpm 11
+    # cannot pnpm prune because installing with hoist won't actually hoist if not hoisted already, and the build requires non-hoisted dependencies, otherwise cjs breaks
+    rm -rf **/*/node_modules .node_modules
+    pnpm install --prod --offline --ignore-scripts --frozen-lockfile --shamefully-hoist --node-linker=hoisted
+
+    # express is a devDependency as upstream assumes vercel
+    pnpm --filter=./apps/backend/ install --offline --ignore-scripts --frozen-lockfile --shamefully-hoist --node-linker=hoisted
 
     mkdir -p $out
     cp -r apps/frontend/build $out/frontend
     cp -r apps/backend $out/backend
     cp -r node_modules $out/backend/
     mkdir -p $out/backend/node_modules/@stats-organization
+    rm $out/backend/node_modules/@stats-organization/github-readme-stats-core
     cp -r packages/core $out/backend/node_modules/@stats-organization/github-readme-stats-core
 
     makeWrapper ${lib.getExe nodejs} \
