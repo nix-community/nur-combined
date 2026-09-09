@@ -7,14 +7,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "grok-search-rs";
-  version = "0.1.25";
+  version = "0.1.26";
   src = fetchFromGitHub {
     owner = "Episkey-G";
     repo = "GrokSearch-rs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-U8/6mhsVtwnLaGvoCmIQmosK3SCyjRrF/uBgdyTg9n8=";
+    hash = "sha256-1DiBg0P7iV+gbcNjrhayFMPRpJay/wQVnYi9lqrYJ+c=";
   };
-  cargoHash = "sha256-sZXdVcgolsonHa0u0zZ0Cs0wVWofwZt9vCSe1o1Lk7c=";
+  cargoHash = "sha256-4TIhpR6GFNKRd1O7Y8qJoj472d7Wbz2y37z3Y++bv/E=";
 
   postPatch = ''
     sed -i -E 's/^version = ".*"/version = "${finalAttrs.version}"/' Cargo.toml

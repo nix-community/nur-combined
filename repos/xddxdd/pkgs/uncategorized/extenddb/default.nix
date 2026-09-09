@@ -7,14 +7,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "extenddb";
-  version = "0.1.10";
+  version = "0.1.11";
   src = fetchFromGitHub {
     owner = "ExtendDB";
     repo = "extenddb";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-NzHgwvZJBbJjG385yHsK2b0ZrlGEx7GULqfs1m4sEEo=";
+    hash = "sha256-3EF8iModRtt2XmrQl6Q+kefwipGOZru1BOjjBaDTJCo=";
   };
-  cargoHash = "sha256-6vobiyz+TViWTHdkKd+qm9fK+3RIHXu6DFpYrJOWnQY=";
+  cargoHash = "sha256-xDHwICEKy0+mv6TA0+id5ekR8lGwb15oCHTx+FtxabE=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

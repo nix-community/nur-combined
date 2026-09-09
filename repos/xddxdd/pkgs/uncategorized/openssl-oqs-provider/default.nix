@@ -17,7 +17,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openssl-oqs-provider";
-  version = "0.12.0-rc1-unstable-2026-08-28";
+  version = "0.12.0-rc1-unstable-2026-09-09";
   src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "oqs-provider";
