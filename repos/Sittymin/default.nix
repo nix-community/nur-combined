@@ -25,8 +25,10 @@ in
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
   muse-code = pkgs.callPackage ./pkgs/muse-code { };
   qoder-cli = pkgs.callPackage ./pkgs/qoder-cli { };
+  qoder-cn = pkgs.callPackage ./pkgs/qoder-cn { };
   zcode = pkgs.callPackage ./pkgs/zcode { };
   wechat = pkgs.callPackage ./pkgs/wechat { };
+  tencent-docs = pkgs.callPackage ./pkgs/tencent-docs { };
 
   # Blender with Intel oneAPI (Intel Arc / integrated GPU) Cycles support.
   inherit blender;

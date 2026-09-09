@@ -165,6 +165,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --set XLOCALEDIR "${libx11}/share/X11/locale" \
       --set-default QT_AUTO_SCREEN_SCALE_FACTOR "1" \
       --run '
+        # Ensure WeChat storage path matches Tencent Docs lookup path
+        if [ -d "$HOME/.xwechat/config" ]; then
+          for cfg in "$HOME/.xwechat/config"/*.ini; do
+            [ -f "$cfg" ] || continue
+            if grep -q "^MyDocument:" "$cfg" && ! grep -q "^MyDocument:.local/share/wechat" "$cfg"; then
+              sed -i "s|^MyDocument:.*|MyDocument:.local/share/wechat|" "$cfg"
+            fi
+          done
+        fi
+
         if [ -z "''${QT_IM_MODULE:-}" ]; then
           case "''${XMODIFIERS:-}" in
             *fcitx*)
