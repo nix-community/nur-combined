@@ -16,6 +16,7 @@
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
+  spec-kit = pkgs.callPackage ./pkgs/spec-kit { };
   yaskkserv2 = pkgs.callPackage ./pkgs/yaskkserv2 { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

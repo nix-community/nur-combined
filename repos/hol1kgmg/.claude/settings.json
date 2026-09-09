@@ -17,7 +17,7 @@
     "allow": [
       "Bash(git *)",
       "Bash(gh *)",
-      "Bash(mise *)",
+      "Bash(just *)",
       "Bash(which *)",
       "Bash(type *)",
       "Bash(tree *)",

@@ -17,8 +17,8 @@ let
   src = fetchFromGitHub {
     owner = "ogulcancelik";
     repo = "herdr";
-    rev = "v0.8.2";
-    hash = "sha256-sEGIN3dLZasaHob3EHscWBCIQHflMQVchYmzgsETDk4=";
+    rev = "v0.9.0";
+    hash = "sha256-SUYF4bbaYwNgoe498VoCUzuLPcjBLQXR0o0DWjjoSnI=";
   };
 
   zigDeps = callPackage "${src}/vendor/libghostty-vt/build.zig.zon.nix" {
@@ -36,7 +36,7 @@ let
 in
 rustPlatform.buildRustPackage {
   pname = "herdr";
-  version = "0.8.2";
+  version = "0.9.0";
   inherit src;
 
   cargoLock = {
