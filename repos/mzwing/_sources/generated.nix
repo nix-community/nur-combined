@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.9.1";
+    version = "v1.9.2";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.9.1";
+      rev = "v1.9.2";
       fetchSubmodules = false;
-      sha256 = "sha256-xf6ypbpRUIhNECoYG1Q+Q+wuwk/xR02cvwN2TrNsfcg=";
+      sha256 = "sha256-720ermjl7/lw8UrTNV0rojrv0rc8hiqZ6zktOcXpUHs=";
     };
   };
   claude-code-wakatime = {

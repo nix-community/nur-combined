@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.9.1",
-            "sha256": "sha256-xf6ypbpRUIhNECoYG1Q+Q+wuwk/xR02cvwN2TrNsfcg=",
+            "rev": "v1.9.2",
+            "sha256": "sha256-720ermjl7/lw8UrTNV0rojrv0rc8hiqZ6zktOcXpUHs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.1"
+        "version": "v1.9.2"
     },
     "claude-code-wakatime": {
         "cargoLock": null,
