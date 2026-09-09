@@ -17,6 +17,7 @@
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   oak-editor = lib.callPackage ./pkgs/oak-editor {};
+  helixnotes = lib.callPackage ./pkgs/helixnotes {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   noisetorch = lib.callPackage ./pkgs/noisetorch {};
   altersend = lib.callPackage ./pkgs/altersend {};

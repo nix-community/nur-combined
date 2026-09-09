@@ -89,6 +89,19 @@ switch (config.source.type) {
     }
     break;
   }
+  case "gitlab-release": {
+    if (config.platforms) {
+      console.log(`Updating platforms for ${file}...`);
+      await update.gitlab.platforms(resolved, { config, force });
+    } else if (config.variants) {
+      console.log(`Updating variants for ${file}...`);
+      await update.gitlab.variants(resolved, { config, force });
+    } else {
+      console.log(`Updating single version for ${file}...`);
+      await update.gitlab.single(resolved, { config, force });
+    }
+    break;
+  }
   case "redirect": {
     if (config.platforms) {
       console.log(`Updating platforms for ${file}...`);

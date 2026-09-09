@@ -3,6 +3,8 @@
 
   forgejoUrl = instance: repo: tagPrefix: version: file: sanitizeUrl "${instance}/${repo}/releases/download/${tagPrefix}${version}/${file}";
 
+  gitlabUrl = instance: repo: tagPrefix: version: file: sanitizeUrl "${instance}/${repo}/releases/download/${tagPrefix}${version}/${file}";
+
   sanitizeName = name:
     builtins.replaceStrings
     [" " "%20"]
@@ -87,6 +89,18 @@
             inherit (ver) version;
             template = ver.asset.file;
           })
+        # GitLab release
+        else if sourceType == "gitlab-release" && ver.asset ? file
+        then
+          gitlabUrl
+          ver.source.instance
+          ver.source.repo
+          tagPrefix
+          ver.version
+          (substitute {
+            inherit (ver) version;
+            template = ver.asset.file;
+          })
         # Custom URL
         else
           sanitizeUrl (substitute {
@@ -118,6 +132,18 @@
       else if sourceType == "forgejo-release"
       then
         forgejoUrl
+        (settings.instance or ver.source.instance)
+        (settings.repo or ver.source.repo)
+        (settings.tag_prefix or ver.source.tag_prefix or "")
+        version
+        (substitute {
+          inherit version;
+          template = settings.file;
+        })
+      # GitLab release
+      else if sourceType == "gitlab-release"
+      then
+        gitlabUrl
         (settings.instance or ver.source.instance)
         (settings.repo or ver.source.repo)
         (settings.tag_prefix or ver.source.tag_prefix or "")
@@ -163,6 +189,18 @@
       else if sourceType == "forgejo-release" && ver.asset ? file
       then
         forgejoUrl
+        ver.source.instance
+        ver.source.repo
+        tagPrefix
+        ver.version
+        (substitute {
+          inherit (ver) version;
+          template = ver.asset.file;
+        })
+      # GitLab release
+      else if sourceType == "gitlab-release" && ver.asset ? file
+      then
+        gitlabUrl
         ver.source.instance
         ver.source.repo
         tagPrefix

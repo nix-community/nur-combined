@@ -1,0 +1,25 @@
+{
+  "name": "HelixNotes",
+  "source": {
+    "type": "gitlab-release",
+    "instance": "https://gitlab.com",
+    "repo": "ArkHost/HelixNotes",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.3.5",
+  "platforms": {
+    "x86_64-linux": {
+      "url": "https://download.helixnotes.com/releases/v1.3.5/HelixNotes_1.3.5_amd64.AppImage",
+      "hash": "sha256-Rvpe2zGVkjkditfAC5z2tPHsoBI2U0Cv2a7sVwxWZek="
+    },
+    "x86_64-darwin": {
+      "url": "https://download.helixnotes.com/releases/v1.3.5/HelixNotes_1.3.5_x64.app.tar.gz",
+      "hash": "sha256-FxC0ijnH11avIaVyNCmNtAMLAbesUYejRBAxRJdFsMg="
+    },
+    "aarch64-darwin": {
+      "url": "https://download.helixnotes.com/releases/v1.3.5/HelixNotes_1.3.5.app.tar.gz",
+      "hash": "sha256-i6QiKXkQg6zCgJKSN06gSR2Bo+EjQ1jIBtmH0xpEi8Y="
+    }
+  }
+}
