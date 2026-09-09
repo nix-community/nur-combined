@@ -89,7 +89,10 @@ in
         ServerAliveInterval 60
         ServerAliveCountMax 2
         SendEnv COLORTERM
+        IdentitiesOnly yes
     '';
+    startAgent = true;
+    # agentTimeout = "1h";
   };
 
   services.openssh = {
