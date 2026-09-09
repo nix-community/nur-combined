@@ -10,16 +10,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "trek";
-  version = "3.4.1";
+  version = "4.2.1";
 
   src = fetchFromGitHub {
     owner = "liketrek";
     repo = "TREK";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-r7Y6vxksX+V4bKCz4MF7K8Ar5UgKIzHoJmjukgR+9Cw=";
+    hash = "sha256-qIuJOAzqYNIH9JdKe/YkInh+qQjOJigcZQD4/6r66AM=";
   };
 
-  npmDepsHash = "sha256-m+2OFN8EbyCv+sc5T3TcNxjR5tl9qKMzqyLIqrTrews=";
+  npmDepsHash = "sha256-2iTyYCgOycMoBkUs0PwBNihscvF9EjNvVF3uwtWSqME=";
 
   nativeBuildInputs = [ makeWrapper ];
 
