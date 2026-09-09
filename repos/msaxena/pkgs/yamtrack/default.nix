@@ -55,13 +55,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "yamtrack";
-  version = "0.26.1";
+  version = "0.26.3";
 
   src = fetchFromGitHub {
     owner = "FuzzyGrim";
     repo = "Yamtrack";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9eJHlW+s+9VIKicPCrgHyUtlOqbEDm/LFm0p9iOPc8w=";
+    hash = "sha256-laDjja0JOWByZCl6/oRonmSLK3i56gjsrKleQA5b9ec=";
   };
 
   nativeBuildInputs = [
