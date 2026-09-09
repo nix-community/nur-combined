@@ -62,7 +62,7 @@ jobs:
           nix eval .#packages --apply "ps: builtins.attrNames (builtins.foldl' (acc: s: acc // s) {} (builtins.attrValues ps))" --json \
             | jq -r '.[]' \
             | while read -r pkg; do
-                nix run nixpkgs#nix-update -- --flake "$pkg" --version=stable < /dev/null || echo "::warning::nix-update failed: $pkg"
+                nix run nixpkgs#nix-update -- --flake "$pkg" --version=stable --use-update-script < /dev/null || echo "::warning::nix-update failed: $pkg"
               done
       - run: nix flake check --print-build-logs
       - run: |

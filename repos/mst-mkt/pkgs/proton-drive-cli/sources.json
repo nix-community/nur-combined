@@ -1,0 +1,8 @@
+{
+  "version": "0.8.0",
+  "hashes": {
+    "darwin-arm64": "1483a2fa6afe7a49abdc34f66420b87e0a5d48d236f6f4a79eae7f7d76dc3a6beebedcde5e229ce5fdef42450ada41bbcc02161a64afb473bcaa4fda938c7329",
+    "linux-arm64": "27a1aec1d2095fd4a1a81e1d47cd1f9fd4901bd579ffe50342d15e2e52078d6e8b2dddcf58a4a386438dc7562017778be26c1ba62399f901ae82c7430e2140a3",
+    "linux-x64": "cf61c2688c45e1055d8add6221d9471a5a5b64bf3bcdb86460f5cb18414596cc4df3cdb6627c9097c94bec32a3c9915ada3211ef2ae5be33c46ebbc996ccaa28"
+  }
+}
