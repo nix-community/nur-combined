@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "106.2";
+      version = "106.3";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1049108/cardbook-106.2-tb.xpi?src=";
-      sha256 = "9027f7d7e211771569c38346640947c68a5ecb28f34180482ba3da5f682e0720";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1051286/cardbook-106.3-tb.xpi?src=";
+      sha256 = "ae16cd6534ad2f5c5432d461681c5d8f35f834b0a14ae171e4146d869738103d";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";
@@ -99,10 +99,10 @@
     };
     "filtaquilla" = buildMozillaXpiAddon {
       pname = "filtaquilla";
-      version = "6.2.2";
+      version = "6.3";
       addonId = "filtaquilla@mesquilla.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1048356/filtaquilla-6.2.2-tb.xpi?src=";
-      sha256 = "3c36a5ca528000f83572214b6720642de8083359e9722dbf4fa438e2f95cd872";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1050904/filtaquilla-6.3-tb.xpi?src=";
+      sha256 = "2c84a84838a5913e34376f39e0584c2308f3af66ffc762eb7724fb8ff6d79399";
       meta = with lib;
       {
         homepage = "http://quickfilters.mozdev.org/filtaquilla.html";
@@ -110,11 +110,11 @@
         license = licenses.gpl3;
         mozPermissions = [
           "messagesRead"
-          "messagesModifyPermanent"
           "menus"
           "notifications"
           "storage"
           "tabs"
+          "accountsRead"
         ];
         platforms = platforms.all;
       };

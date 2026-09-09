@@ -865,10 +865,10 @@
     };
     "aw-watcher-web" = buildMozillaXpiAddon {
       pname = "aw-watcher-web";
-      version = "0.5.2";
+      version = "0.6.0";
       addonId = "{ef87d84c-2127-493f-b952-5b4e744245bc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4452349/aw_watcher_web-0.5.2.xpi";
-      sha256 = "d5ef6cfd0764296a9ab2342499fbaac368bfffc13dd3d0c6ac5f2dbfdb942470";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5014296/aw_watcher_web-0.6.0.xpi";
+      sha256 = "dc0979bb513a251c607ee0721b87d4c9d914a4f2ac2bf02ff6b39056f65a8568";
       meta = with lib;
       {
         homepage = "https://github.com/ActivityWatch/aw-watcher-web";
@@ -2748,10 +2748,10 @@
     };
     "csgo-trader-steam-trading" = buildMozillaXpiAddon {
       pname = "csgo-trader-steam-trading";
-      version = "3.6.1";
+      version = "3.7";
       addonId = "{988dd4f5-e8d5-49bf-a766-ff75b0e19fe2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4870989/csgo_trader_steam_trading-3.6.1.xpi";
-      sha256 = "91d8e6673cf0bdf1e573e46bcd903ac233f2fcb053b232010e1ec40d59ca224b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5010806/csgo_trader_steam_trading-3.7.xpi";
+      sha256 = "fa9d57802b3dfb31b23fe8a21659e0f636b16b10884bb7ec8673820f77a22cb4";
       meta = with lib;
       {
         homepage = "https://csgotrader.app/";
@@ -2961,10 +2961,10 @@
     };
     "dark-background-light-text" = buildMozillaXpiAddon {
       pname = "dark-background-light-text";
-      version = "0.7.6";
+      version = "0.7.7";
       addonId = "jid1-QoFqdK4qzUfGWQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3722915/dark_background_light_text-0.7.6.xpi";
-      sha256 = "1821db8eb7fb7910ca3e2ef7da283a2300e05a398c0e8c58763e0226da7dcd5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5013743/dark_background_light_text-0.7.7.xpi";
+      sha256 = "a2094b43e77b81aa156327f7e7201211f8770e7da4e55124de5b581ef90c425b";
       meta = with lib;
       {
         homepage = "https://github.com/m-khvoinitsky/dark-background-light-text-extension";
@@ -2975,6 +2975,7 @@
           "tabs"
           "storage"
           "browserSettings"
+          "publicSuffix"
           "webRequest"
           "webRequestBlocking"
         ];
@@ -3064,10 +3065,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2635.1";
+      version = "6.2637.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4978991/dashlane-6.2635.1.xpi";
-      sha256 = "14eecd0072010f798ec9f9da9a0a057a18f7b114d16af8b7322d6b3a8b9836e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5011558/dashlane-6.2637.0.xpi";
+      sha256 = "820e892fa62dba8de3d6acda326d88b84ac31420eecd8cb166ebfb85c1d69cc2";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -6974,10 +6975,10 @@
     };
     "instagram-video-control" = buildMozillaXpiAddon {
       pname = "instagram-video-control";
-      version = "1.9.2";
+      version = "1.9.3";
       addonId = "{a831defa-a6c9-4ca9-9593-9ccaf98462d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4952327/instagram_video_control-1.9.2.xpi";
-      sha256 = "cb425a81d008036b33a590e6b4a3592d1831e9b80b5539982a5971013f8449c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5003924/instagram_video_control-1.9.3.xpi";
+      sha256 = "96b66b5c7ed5cd4bbdf745141d13f3d7955d9e49afccc309eb651b97f4d5844a";
       meta = with lib;
       {
         homepage = "https://github.com/Arcus92/instagram-video-control/";
@@ -7247,10 +7248,10 @@
     };
     "kagi-translate" = buildMozillaXpiAddon {
       pname = "kagi-translate";
-      version = "0.1.8";
+      version = "0.1.9";
       addonId = "{bd6be57d-91d7-41d2-b61d-3ba20f7942e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4720796/kagi_translate-0.1.8.xpi";
-      sha256 = "f5d8134298383687ad75b7c67519ddf4c3e8a6de779a8c5bb788c5ded6590684";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5015708/kagi_translate-0.1.9.xpi";
+      sha256 = "5a32317b953dde0f12145c037e57afa415b118f1eb91953b48f9691a859c211e";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -7263,6 +7264,7 @@
         };
         mozPermissions = [
           "storage"
+          "alarms"
           "contextMenus"
           "cookies"
           "scripting"
@@ -8284,10 +8286,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.242";
+      version = "2.4.243";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5012618/lichess_tools_by_siderite-2.4.242.xpi";
-      sha256 = "3547f8b2a1fe28ad90c873a5bd1e89955cb02003aaed52b8140596823aa6ab71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5013915/lichess_tools_by_siderite-2.4.243.xpi";
+      sha256 = "8e90d4d5621e3802860c50564d54a38ac5881cb3de30e44fdb3dfd40a3d19adf";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8658,10 +8660,10 @@
     };
     "linkwarden" = buildMozillaXpiAddon {
       pname = "linkwarden";
-      version = "1.5.5";
+      version = "1.5.6";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5006901/linkwarden-1.5.5.xpi";
-      sha256 = "b32ac834dc279ec27b9f41793e99b1d293a9f6f7c873679324f50ab17646376d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5015765/linkwarden-1.5.6.xpi";
+      sha256 = "511363ed9e1ced240abea75d0886ec83c91bc20167ff87d1514b7c1a65dfcb16";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -8731,10 +8733,10 @@
     };
     "localcdn" = buildMozillaXpiAddon {
       pname = "localcdn";
-      version = "2.6.85";
+      version = "2.6.86";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4838011/localcdn_fork_of_decentraleyes-2.6.85.xpi";
-      sha256 = "628fcad19950ca5a3005e3e9b54de73842cf9bf87a5c3b543452b10c1647fa60";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5010046/localcdn_fork_of_decentraleyes-2.6.86.xpi";
+      sha256 = "2fcca5f9fd9d0de3b2b4e3b0260d1ca3645f46d6467b09a6d0c039262f425674";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -10577,10 +10579,10 @@
     };
     "old-reddit-redirect" = buildMozillaXpiAddon {
       pname = "old-reddit-redirect";
-      version = "3.0.0";
+      version = "3.0.3";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4972805/old_reddit_redirect-3.0.0.xpi";
-      sha256 = "f498b2431d5b3a4da22ba243d1ccb043dffc1b79e93c8bf6afdffd8eb3b28caa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4989791/old_reddit_redirect-3.0.3.xpi";
+      sha256 = "0419a6e97a7644f34478529e67fd3d9c138fe64ab7d7e84442c6c5f962ae5f76";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -10589,8 +10591,7 @@
         mozPermissions = [
           "cookies"
           "declarativeNetRequestWithHostAccess"
-          "https://www.reddit.com/*"
-          "https://old.reddit.com/*"
+          "*://*.reddit.com/*"
         ];
         platforms = platforms.all;
       };
@@ -12896,10 +12897,10 @@
     };
     "return-youtube-dislikes" = buildMozillaXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.18";
+      version = "4.0.6";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4371820/return_youtube_dislikes-3.0.0.18.xpi";
-      sha256 = "2d33977ce93276537543161f8e05c3612f71556840ae1eb98239284b8f8ba19e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5012638/return_youtube_dislikes-4.0.6.xpi";
+      sha256 = "59719749f6df38c1601ca5f39c02158d5f005c43e9eeea1f19527f468c941217";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -12909,6 +12910,7 @@
           "*://*.youtube.com/*"
           "storage"
           "*://returnyoutubedislikeapi.com/*"
+          "identity"
         ];
         platforms = platforms.all;
       };
@@ -15177,10 +15179,10 @@
     };
     "tridactyl" = buildMozillaXpiAddon {
       pname = "tridactyl";
-      version = "1.25.0";
+      version = "1.25.1";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4988638/tridactyl_vim-1.25.0.xpi";
-      sha256 = "46f4dec5b81c08a688c704a1b2ea7b45f44b3a4a1c4295f991cabffb670f1816";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5014416/tridactyl_vim-1.25.1.xpi";
+      sha256 = "722c2c6dfc03d80e48faeb4c3113d330203940483e3fcfc6c1d410e1cc58563e";
       meta = with lib;
       {
         homepage = "https://tridactyl.xyz";
@@ -15352,10 +15354,10 @@
     };
     "tunnelbear-vpn-firefox" = buildMozillaXpiAddon {
       pname = "tunnelbear-vpn-firefox";
-      version = "3.6.1";
+      version = "4.5.0";
       addonId = "browser@tunnelbear.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138239/tunnelbear_vpn_firefox-3.6.1.xpi";
-      sha256 = "f237925eb375c8efc95185e41dbeac5eec4a0355b5d7b09e1c82cc6cd0270bf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4970889/tunnelbear_vpn_firefox-4.5.0.xpi";
+      sha256 = "bfa5ee24dba2549ab8b3c07bf7e00471e406bcdca330711a4f7fb48091796efa";
       meta = with lib;
       {
         homepage = "https://tunnelbear.com";
@@ -15368,22 +15370,21 @@
         };
         mozPermissions = [
           "proxy"
-          "tabs"
           "storage"
+          "declarativeNetRequest"
           "webRequest"
           "privacy"
           "webRequestBlocking"
-          "https://*.tunnelbear.com/*"
         ];
         platforms = platforms.all;
       };
     };
     "tweaks-for-youtube" = buildMozillaXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.91.0";
+      version = "3.92.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4884071/tweaks_for_youtube-3.91.0.xpi";
-      sha256 = "61d123ebb62a969f93f661b90f524500b7fad388334a131be69597020d4b1699";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5015494/tweaks_for_youtube-3.92.0.xpi";
+      sha256 = "90129a669786be63c0454e142e5b214c1261a1cc8872ec24a5ccc78b100db200";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
@@ -15450,10 +15451,10 @@
     };
     "ublacklist" = buildMozillaXpiAddon {
       pname = "ublacklist";
-      version = "10.0.3";
+      version = "10.0.4";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4988248/ublacklist-10.0.3.xpi";
-      sha256 = "c117d26c2ae347f33459d0d18efd79a004939b6016a205d6e29d456d7a17415a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5009818/ublacklist-10.0.4.xpi";
+      sha256 = "ac2314416d356183e9a209d86ae15b8a7f0106e32c3cd4b60e268384f1200286";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
@@ -15824,10 +15825,10 @@
     };
     "untrap-for-youtube" = buildMozillaXpiAddon {
       pname = "untrap-for-youtube";
-      version = "11.0";
+      version = "12.0";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4947494/untrap_for_youtube-11.0.xpi";
-      sha256 = "29bb830a0a0e60a9b03125edd88a0859cf46e7b64a7039ab6d05807056e3644c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5013713/untrap_for_youtube-12.0.xpi";
+      sha256 = "57ae2e973d1bdff39545f6ad136f95bab4505aae1ccf606c486fc56306c9584e";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -16104,10 +16105,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.5.35.2";
+      version = "10.5.49.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4963802/video_downloadhelper-10.5.35.2.xpi";
-      sha256 = "f29ff5649c3e7eb4c27854160e4ee0312f432253f456b0ca00be6d46ed5ccd55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5014115/video_downloadhelper-10.5.49.2.xpi";
+      sha256 = "6b2a2f953da4d52c5057872e6dc13926d3ce05e76883dcf0fb5bac40f66d7465";
       meta = with lib;
       {
         homepage = "https://www.downloadhelper.net/";
@@ -16152,6 +16153,7 @@
           "*://*.chaturbate.global/*"
           "*://*.91porna.com/*"
           "*://*.9n6gyt.umydsfs.cc/*"
+          "*://*.javrank.com/*"
           "https://downloadhelper.net/activate*"
           "https://app.downloadhelper.net/activate*"
           "https://v10.downloadhelper.net/activate*"
@@ -16487,10 +16489,10 @@
     };
     "violentmonkey" = buildMozillaXpiAddon {
       pname = "violentmonkey";
-      version = "2.48.0";
+      version = "2.49.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4963965/violentmonkey-2.48.0.xpi";
-      sha256 = "e73e3103697cbeee3335020c31c7e3c587946929740cd78f9bff1b50bf62be34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5009389/violentmonkey-2.49.0.xpi";
+      sha256 = "761ea6a32cee78c3263d19bbd821eafd4ea0722f10ff358ecba2739c5bff76fb";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -17516,10 +17518,10 @@
     };
     "youtube-enhancer-vc" = buildMozillaXpiAddon {
       pname = "youtube-enhancer-vc";
-      version = "1.34.2";
+      version = "1.35.0";
       addonId = "{c49b13b1-5dee-4345-925e-0c793377e3fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4973377/youtube_enhancer_vc-1.34.2.xpi";
-      sha256 = "f4608396c65916f1f1c055da316fa817c7010b0799f098f996811daab915ec5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5008750/youtube_enhancer_vc-1.35.0.xpi";
+      sha256 = "9431590c2615a844b9506060f25725f9d347d93bfd75636ab1afa6e8d0598a2c";
       meta = with lib;
       {
         homepage = "https://github.com/YouTube-Enhancer/extension";
@@ -17559,10 +17561,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.24.5";
+      version = "2.24.6";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4966116/youtube_no_translation-2.24.5.xpi";
-      sha256 = "904f39f228e4663c1e61f43cad01e75d7079da51c6de9416156aff9a2a31ba39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5006014/youtube_no_translation-2.24.6.xpi";
+      sha256 = "585c82cf962e0c2c8d6540ad6a81211eef6a133fbcd269cd3fcc2f0aa2dacf92";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
@@ -17771,10 +17773,10 @@
     };
     "zeroomega" = buildMozillaXpiAddon {
       pname = "zeroomega";
-      version = "3.5.0";
+      version = "3.5.1";
       addonId = "suziwen1@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4810434/zeroomega-3.5.0.xpi";
-      sha256 = "f388ede2621aca8fff922fbe81bb4f6be7734a986d10023b57ab452bd083c892";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4973909/zeroomega-3.5.1.xpi";
+      sha256 = "e62823e137eb60b35f2b4f3c11c1c39aa98b62dfd1a1ed23266d0c06863b0baf";
       meta = with lib;
       {
         description = "Manage and switch between multiple proxies quickly &amp; easily.";
