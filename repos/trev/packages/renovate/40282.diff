@@ -127,7 +127,7 @@ index 6404e030a8e..84f384c6b75 100644
  
    if (!rootInputs) {
      logger.debug(
--      { flakeLockFile, error: flakeLockParsed.error },
+-      { flakeLockFile, err: flakeLockParsed.error },
 -      `flake.lock is missing "root" node`,
 +      { flakeLockFile },
 +      `root node in flake.lock does not contain inputs, skipping`,
