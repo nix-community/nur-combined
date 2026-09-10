@@ -12,6 +12,7 @@ xwayland-satellite.overrideAttrs (previousAttrs: {
   cargoDeps = rustPlatform.importCargoLock (import ./cargo-lock.nix);
 
   meta = previousAttrs.meta // {
-    homepage = "https://github.com/so1ve/xwayland-satellite";
+    homepage = "https://github.com/Supreeeme/xwayland-satellite";
+    changelog = "https://github.com/Supreeeme/xwayland-satellite/commits/${source.rev}";
   };
 })

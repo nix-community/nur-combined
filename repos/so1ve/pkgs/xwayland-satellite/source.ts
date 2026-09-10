@@ -1,7 +1,7 @@
 import { github } from "nix-repin";
 
 export default github.branch({
-  branch: "fix/issue-301",
+  branch: "main",
   cargoLock: "Cargo.lock",
-  repository: "so1ve/xwayland-satellite",
+  repository: "Supreeeme/xwayland-satellite",
 });
