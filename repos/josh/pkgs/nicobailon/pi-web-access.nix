@@ -8,13 +8,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-web-access";
-  version = "0.28.0";
+  version = "0.29.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-web-access";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oPUUqlxPUUxOmt9ZrM1RnXynGwFi0hkHhug/jC4ZbVk=";
+    hash = "sha256-5YMwE44pyMmCapGt9kFLxT61Qg3OCzuJCIATRhMBv6M=";
   };
 
   # Pi provides these peers at runtime, but their nested lock entries have no
@@ -33,7 +33,7 @@ buildNpmPackage (finalAttrs: {
     mv package-lock.patched.json package-lock.json
   '';
 
-  npmDepsHash = "sha256-b8mIGnMsD3zDfgdmqWiGKeBYXj49h76/coeaW3cAwlM=";
+  npmDepsHash = "sha256-5608KNXEb+TxN/ATWi00pkR0175ulop4n+ZQEByGlZ8=";
 
   npmFlags = [
     "--ignore-scripts"
