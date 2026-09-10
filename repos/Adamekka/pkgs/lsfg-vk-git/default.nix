@@ -1,5 +1,5 @@
 { cmake
-, fetchFromGitHub
+, fetchgit
 , lib
 , llvmPackages
 , maintainer
@@ -12,13 +12,12 @@
 
 llvmPackages.stdenv.mkDerivation {
   pname = "lsfg-vk-git";
-  version = "0-unstable-2026-08-28";
+  version = "0-unstable-2026-09-08";
 
-  src = fetchFromGitHub {
-    hash = "sha256-1HfVRaExIhtD+yRgu0y1x02VVIT/lW1xm1oL7bxwoMA=";
-    owner = "PancakeTAS";
-    repo = "lsfg-vk";
-    rev = "0213be9ff93121283ad46a27119f40ece0e6f301";
+  src = fetchgit {
+    hash = "sha256-pqPzNmdGAAzTmPc7Shr+PCRDtIIR4/KOu6RgO/W8iHQ=";
+    rev = "0e7a3898c1285b13df8596f2bd2cbb8f85b4383b";
+    url = "https://git.lsfg-vk.dev/lsfg-vk.git";
   };
 
   nativeBuildInputs = [
@@ -35,13 +34,12 @@ llvmPackages.stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DLSFGVK_BUILD_UI=ON"
-    "-DLSFGVK_INSTALL_XDG_FILES=ON"
     "-DLSFGVK_LAYER_LIBRARY_PATH=${builtins.placeholder "out"}/lib/liblsfg-vk-layer.so"
   ];
 
   # The Qt Quick UI does not inherit the system dark theme consistently.
   postPatch = ''
-    substituteInPlace lsfg-vk-ui/rsc/UI.qml \
+    substituteInPlace lsfg-vk-ui/resources/UI.qml \
       --replace-fail '    visible: true' '    visible: true
 
     color: palette.window
@@ -62,15 +60,15 @@ llvmPackages.stdenv.mkDerivation {
   '';
 
   passthru.updateScript = unstableGitUpdater {
-    branch = "develop";
-    # Upstream's stable tags are still 1.x; this package follows 2.0 development.
+    branch = "master";
+    # Keep the existing unstable version scheme while following upstream Git.
     hardcodeZeroVersion = true;
-    url = "https://github.com/PancakeTAS/lsfg-vk.git";
+    url = "https://git.lsfg-vk.dev/lsfg-vk.git";
   };
 
   meta = {
     description = "Vulkan layer for Lossless Scaling frame generation";
-    homepage = "https://github.com/PancakeTAS/lsfg-vk";
+    homepage = "https://git.lsfg-vk.dev/lsfg-vk";
     license = lib.licenses.gpl3Only;
     mainProgram = "lsfg-vk-ui";
     maintainers = [ maintainer ];

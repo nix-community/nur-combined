@@ -81,7 +81,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$BASE_SHA"
           printf '%s' "$SOURCE" | base64 --decode > pkgs/chatgpt/source.json
           git add -- pkgs/chatgpt/source.json
-          git commit -m "deps: update chatgpt"
+          git commit -m "Update chatgpt"
           git fetch origin refs/heads/main
           if [ "$(git rev-parse FETCH_HEAD)" != "$BASE_SHA" ]; then
             printf '%s\n' 'main changed during validation; start a new updater run on main, not a rerun of this job.' >&2

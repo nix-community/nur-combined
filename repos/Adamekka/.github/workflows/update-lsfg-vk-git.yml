@@ -22,6 +22,9 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
 
+      - name: Record update base
+        run: echo "UPDATE_BASE=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
       - name: Update package
         env:
           # nix-update starts nested Nix commands, so this must be inherited rather
@@ -29,6 +32,9 @@ jobs:
           NIX_CONFIG: |
             fallback = true
         run: nix run nixpkgs#nix-update -- --flake --use-update-script lsfg-vk-git
+
+      - name: Build updated package
+        run: nix build .#lsfg-vk-git --no-link
 
       - name: Commit and push package update
         run: |
@@ -41,4 +47,9 @@ jobs:
             "41898282+github-actions[bot]@users.noreply.github.com"
           git add pkgs/lsfg-vk-git/default.nix
           git commit -m "Update lsfg-vk-git"
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$UPDATE_BASE" ]; then
+            echo "main changed during validation; start a new updater run to validate against the new base." >&2
+            exit 1
+          fi
           git push origin HEAD:main
