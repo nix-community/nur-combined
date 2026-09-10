@@ -63,13 +63,13 @@
   };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
-    version = "v7.2.127-7";
+    version = "v7.2.127-11";
     src = fetchFromGitHub {
       owner = "kaitranntt";
       repo = "CLIProxyAPIPlus";
-      rev = "v7.2.127-7";
+      rev = "v7.2.127-11";
       fetchSubmodules = false;
-      sha256 = "sha256-T4SmrOM98U4WoDM1U01OFEd9LvfVRf+dTa+Z+FQH2AM=";
+      sha256 = "sha256-0Yg1xuBxjo8/g1SAKIoAuWm9VWNVQ1FTfQ11avzE0bg=";
     };
   };
   cloudflarespeedtest = {
@@ -301,13 +301,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v2.7.2";
+    version = "v2.8.0";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v2.7.2";
+      rev = "v2.8.0";
       fetchSubmodules = false;
-      sha256 = "sha256-bHqToHsGAzsFpGBc56nEiatHj6j4yKQY/pYYRr2A1LY=";
+      sha256 = "sha256-WxCvIe6oufFFxU2TKuweaODCWB7rhYEK06ZsShI8UEg=";
     };
   };
   tree-sitter-nix = {

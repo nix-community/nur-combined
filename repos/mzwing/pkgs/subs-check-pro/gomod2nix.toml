@@ -563,12 +563,12 @@ go = '1.27.0'
     hash = 'sha256-UZABlJVkOP4bvNv2TKTLMRneaC6BykU8ccYPgPzo9so='
 
   [mod.'github.com/sinspired/checkip']
-    version = 'v0.5.1'
-    hash = 'sha256-Kueio3f2hrqD3ofe41UD48fdiRQi5/QwM+jb7/ctD+w='
+    version = 'v0.5.3'
+    hash = 'sha256-/6VIsBoXMskxdKKacx8wgS4GdHyU1dCl9wVYYcRDXio='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.2.1'
-    hash = 'sha256-7j+8h1feYis1f/K+b03hn4gfPULSBh/umkitmZcvVUY='
+    version = 'v1.2.6'
+    hash = 'sha256-vuOSgz+hpdKZTuhA+3UfuYu3BX6zTk0oIXGnXTTj5Cw='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'
@@ -683,8 +683,8 @@ go = '1.27.0'
     hash = 'sha256-od8lOmP+IOtiO7s1VaFVMBCQfRmtXT8jqe7Yo077xDs='
 
   [mod.'golang.org/x/crypto']
-    version = 'v0.55.0'
-    hash = 'sha256-99uV/ESeqhaDEwqbXxDpePuwzO0JoEHGhqZXZVHq/H4='
+    version = 'v0.56.0'
+    hash = 'sha256-B4el+S5mIq9f5uvCjMQ4Fh3EAxxo7Cb0yeXoxJXuyF8='
 
   [mod.'golang.org/x/exp']
     version = 'v0.0.0-20260824195058-e88cd73687aa'

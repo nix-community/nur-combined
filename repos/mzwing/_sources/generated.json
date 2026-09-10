@@ -118,12 +118,12 @@
             "name": null,
             "owner": "kaitranntt",
             "repo": "CLIProxyAPIPlus",
-            "rev": "v7.2.127-7",
-            "sha256": "sha256-T4SmrOM98U4WoDM1U01OFEd9LvfVRf+dTa+Z+FQH2AM=",
+            "rev": "v7.2.127-11",
+            "sha256": "sha256-0Yg1xuBxjo8/g1SAKIoAuWm9VWNVQ1FTfQ11avzE0bg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.127-7"
+        "version": "v7.2.127-11"
     },
     "cloudflarespeedtest": {
         "cargoLock": null,
@@ -558,12 +558,12 @@
             "name": null,
             "owner": "sinspired",
             "repo": "subs-check-pro",
-            "rev": "v2.7.2",
-            "sha256": "sha256-bHqToHsGAzsFpGBc56nEiatHj6j4yKQY/pYYRr2A1LY=",
+            "rev": "v2.8.0",
+            "sha256": "sha256-WxCvIe6oufFFxU2TKuweaODCWB7rhYEK06ZsShI8UEg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.7.2"
+        "version": "v2.8.0"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
