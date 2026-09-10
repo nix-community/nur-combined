@@ -19,10 +19,6 @@ src.github_tag = "Digger1955/dxvk-gplasync-lowlatency"
 src.include_regex = "^DXVK-GPLALL-.+"
 src.prefix = "DXVK-GPLALL-"
 
-[enimul]
-fetch.github = "lzpls/enimul"
-src.github_tag = "lzpls/enimul"
-
 [fast-nix-gc]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "Mic92/fast-nix-gc"

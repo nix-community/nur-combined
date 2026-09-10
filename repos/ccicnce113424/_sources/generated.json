@@ -76,27 +76,6 @@
         },
         "version": "2.7.1-4"
     },
-    "enimul": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "enimul",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "lzpls",
-            "repo": "enimul",
-            "rev": "v0.6.0",
-            "sha256": "sha256-5p0ioUtwhkSfSAkPTOT14pSa6WjxzQykxTHl9szE7zQ=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.6.0"
-    },
     "fast-nix-gc": {
         "cargoLock": {
             "Cargo.lock": [

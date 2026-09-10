@@ -52,17 +52,6 @@
       sha256 = "sha256-GB+GHCLSgfv6HQxjEQACzZVK5kUtGKPzBCm+M5z6nIA=";
     };
   };
-  enimul = {
-    pname = "enimul";
-    version = "v0.6.0";
-    src = fetchFromGitHub {
-      owner = "lzpls";
-      repo = "enimul";
-      rev = "v0.6.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-5p0ioUtwhkSfSAkPTOT14pSa6WjxzQykxTHl9szE7zQ=";
-    };
-  };
   fast-nix-gc = {
     pname = "fast-nix-gc";
     version = "18d82a8ce3e938ff97b5e11c7d2033f0333af5bb";

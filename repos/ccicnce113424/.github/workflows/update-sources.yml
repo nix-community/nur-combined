@@ -41,6 +41,7 @@ jobs:
           pkgs/dav2d/update.sh
           pkgs/dorion-git/update.sh
           pkgs/kanzi-cpp/update.sh
+          pkgs/kanzi-go/update.sh
           pkgs/kikoflu/update.sh
           pkgs/loveiwara/update.sh
           pkgs/enimul/update.sh

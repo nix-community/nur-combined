@@ -36,11 +36,7 @@ lib.makeScope pkgs.newScope (
       sourceRoot = "x64";
     };
 
-    enimul = self.callPackage ./enimul rec {
-      inherit (lib.importJSON ./enimul/src-info.json) hash;
-      sources = fetchedSrc.enimul;
-      version = stableVersion sources;
-    };
+    enimul = self.callPackage ./enimul/package.nix { };
 
     fast-nix-gc = self.callPackage ./fast-nix-gc rec {
       sources = fetchedSrc.fast-nix-gc;
@@ -75,6 +71,7 @@ lib.makeScope pkgs.newScope (
     };
 
     kanzi-cpp = self.callPackage ./kanzi-cpp/package.nix { };
+    kanzi-go = self.callPackage ./kanzi-go/package.nix { };
 
     kikoflu = self.callPackage ./kikoflu rec {
       sources = fetchedSrc.kikoflu;
