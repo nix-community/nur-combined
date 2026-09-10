@@ -7,17 +7,18 @@
   ...
 }:
 let
-  nixpkgs2605OrLater = vaculib.versionCompare pkgs.lib.version ">" "26.00";
+  isStable = vaculib.versionCompare pkgs.lib.version "<" "26.11pre0";
+  # new name => old name
+  renames = {
+    vazirmatn = "vazir-fonts";
+  };
 in
 lib.optionalAttrs (vacuModuleType == "nixos") {
   imports = [
     {
-      config.vacu.fontPackages = {
-        charis.package = if nixpkgs2605OrLater then pkgs.charis else pkgs.charis-sil;
-        et-book.package = if nixpkgs2605OrLater then pkgs.et-book else pkgs.etBook;
-        font-encodings.package = if nixpkgs2605OrLater then pkgs.font-encodings else pkgs.xorg.encodings;
-        linux-libertine-g.package = if nixpkgs2605OrLater then pkgs.linux-libertine-g else pkgs.libertine-g;
-      };
+      config.vacu.fontPackages = lib.optionalAttrs isStable (lib.mapAttrs (_: oldName:
+        { package = pkgs.${oldName}; }
+      ) renames);
     }
   ];
   # result of `nix-locate --at-root --minimal /share/fonts | sed -e 's/\.out//'`
@@ -525,7 +526,7 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     unscii.extra
     uw-ttyp0
     vazir-code-font
-    vazir-fonts
+    vazirmatn
     vdrsymbols
     vegur
     victor-mono

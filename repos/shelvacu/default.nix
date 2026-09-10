@@ -22,17 +22,15 @@ let
       }
   );
   flake = flakeCompat.outputs;
-  inherit (flake) inputs;
-  lib = import "${inputs.nixpkgs}/lib";
-  vaculib = import ./vaculib { inherit lib; };
-  overlays = import ./overlays { inherit lib vaculib; };
-  pkgs = import flake.inputs.nixpkgs { inherit system overlays; };
+  overlays = flake.vacuOverlays;
+  pkgs = flake.legacyPackages.${system}.stable;
 in
 pkgs
 // {
   nixpkgs-update =
     { ... }@args:
-    import "${flake.inputs.nixpkgs}/maintainers/scripts/update.nix" (
+    import "${pkgs.path}/maintainers/scripts/update.nix" (
       { include-overlays = overlays; } // args
     );
+  inherit flake;
 }

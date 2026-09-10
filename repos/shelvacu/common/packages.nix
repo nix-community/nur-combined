@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  vaculib,
   vacuModuleType,
   ...
 }:
@@ -39,6 +40,7 @@ in
           withBDplus = true;
         };
       };
+      libreoffice.package = if (vaculib.versionCompare pkgs.lib.version ">=" "26.11pre0") then pkgs.libreoffice-qt-stable else pkgs.libreoffice-qt6-fresh;
       inkscape-all = {
         enable = false;
         package = pkgs.inkscape-with-extensions;
@@ -97,7 +99,7 @@ in
       josm
       kdePackages.elisa
       kdePackages.kdenlive
-      libreoffice-qt6-fresh
+      libreoffice
       merkaartor
       monero-gui
       obsidian

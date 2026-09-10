@@ -354,5 +354,8 @@
             ];
           };
     in
-    lib.attrsets.unionOfDisjoint flakePartsEval.config.flake { inherit flakePartsEval; };
+    lib.attrsets.unionOfDisjoint flakePartsEval.config.flake {
+      inherit flakePartsEval;
+      vacuOverlays = overlays;
+    };
 }
