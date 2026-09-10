@@ -2,13 +2,9 @@
   lib,
   fetchFromGitHub,
   flutter344,
-  stdenv,
-  keybinder3,
   libayatana-appindicator,
   buildGoModule,
   rustPlatform,
-  writeText,
-  writeScript,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
@@ -18,7 +14,7 @@
 
 let
   pname = "flclash";
-  version = "0.8.96";
+  version = "0.8.97";
 
   src = fetchFromGitHub {
     owner = "chen08209";
@@ -29,7 +25,7 @@ let
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
     '';
-    hash = "sha256-RtBt24GqG6RtIZR+ZXCqTOM4BXHMuE+QRNZ+OJ1U3qY=";
+    hash = "sha256-1xEirGMhGZd8kiH+ikuzxkp7EGFCTAExvg3gAkpXFdY=";
     fetchSubmodules = true;
   };
 
@@ -46,7 +42,7 @@ let
 
     modRoot = "core";
 
-    vendorHash = "sha256-7OqFIaxIyhu5bOY5i7hzNO1D6QJxMUc2kNieMuCI4gw=";
+    vendorHash = "sha256-m+VO6GJyaJmF/4SE/6PzlPI5EvP1XNlEl7gUoQ9c/FI=";
 
     env.CGO_ENABLED = 0;
 
@@ -66,13 +62,39 @@ let
 
     sourceRoot = "${src.name}/plugins/rust_api/rust";
 
-    cargoHash = "sha256-Os8N7HGQvpm6VQ9ZnVZ6xp0xyZSGP+E2m9hR5tzxYqo=";
+    cargoHash = "sha256-Nbj+KNgQO8UeUnmURqLu7h7WZp+ipECCyqNQFfjtiVY=";
 
     installPhase = ''
       runHook preInstall
 
       mkdir --parents $out/lib
       cp target/*/release/librust_api.so $out/lib/
+
+      runHook postInstall
+    '';
+  };
+
+  # The Helper verifies the digest of the Core binary it is allowed to launch
+  # against the value embedded at compile time via `env!("CORE_SHA256")`, which
+  # must match the manifest.json shipped next to it.
+  helper = rustPlatform.buildRustPackage {
+    pname = "helper";
+    inherit version src meta;
+
+    sourceRoot = "${src.name}/services/helper";
+
+    cargoHash = "sha256-G2c59JGaO/pLBKRCIUT1F5EE6pmSlUoNEMFaeFVdgzk=";
+
+    preBuild = ''
+      export CORE_SHA256="$(sha256sum ${core}/bin/FlClashCore | cut --delimiter=' ' --fields=1)"
+      export CORE_NAME=FlClashCore
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir --parents $out/bin
+      install -m555 target/*/release/helper $out/bin/FlClashHelperService
 
       runHook postInstall
     '';
@@ -85,18 +107,40 @@ flutter344.buildFlutterApplication {
 
   gitHashes = lib.importJSON ./git-hashes.json;
 
+  # Neutralize nixpkgs' stale built-in source builders for these packages:
+  # the "+eol" stubs no longer ship the files they patch, and package:sqlite3
+  # is pointed at the system library via the `source: system` user define
+  # (see postPatch) instead of a patch of its hook sources.
+  customSourceBuilders = {
+    sqlite3 = { src, ... }: src;
+    sqlite3_flutter_libs = { src, ... }: src;
+    sqlcipher_flutter_libs = { src, ... }: src;
+  };
+
+  # sqlite3 is resolved with a system lookup (see postPatch), which is
+  # performed with dlopen() at runtime and therefore needs to be on
+  # LD_LIBRARY_PATH.
+  runtimeDependencies = [ sqlite ];
+
   nativeBuildInputs = [
     copyDesktopItems
     autoPatchelfHook
     imagemagick
   ];
 
-  buildInputs = [
-    keybinder3
-    libayatana-appindicator
-  ];
+  buildInputs = [ libayatana-appindicator ];
 
   flutterBuildFlags = [ "--dart-define=APP_ENV=stable" ];
+
+  postPatch = ''
+    # The Core, the Helper service and the Rust API library are built
+    # separately and staged into the bundle in preBuild/postInstall, so tell
+    # the build hooks not to run `go` and `cargo` during `flutter build`.
+    # Use the system SQLite instead of downloading a prebuilt library.
+    sed --in-place '/^  user_defines:$/a\    sqlite3:\n      source: system' pubspec.yaml
+    substituteInPlace pubspec.yaml \
+      --replace-fail "build_assets: true" "build_assets: false"
+  '';
 
   # RustLib.init() loads librust_api.so with dlopen(), which ignores
   # RUNPATH and only consults LD_LIBRARY_PATH
@@ -120,147 +164,31 @@ flutter344.buildFlutterApplication {
     })
   ];
 
-  customSourceBuilders = {
-    setup =
-      { version, src, ... }:
-      stdenv.mkDerivation {
-        pname = "setup";
-        inherit version src;
-        inherit (src) passthru;
-
-        postPatch =
-          let
-            cmakeLists = writeText "CMakeLists.txt" ''
-              cmake_minimum_required(VERSION 3.10)
-              set(PROJECT_NAME "setup")
-              project(''${PROJECT_NAME} LANGUAGES CXX)
-              get_filename_component(PROJECT_ROOT "''${CMAKE_SOURCE_DIR}" DIRECTORY)
-              install(PROGRAMS "''${PROJECT_ROOT}/libclash/linux/FlClashCore"
-                DESTINATION "''${CMAKE_BINARY_DIR}/bundle"
-                COMPONENT Runtime
-              )
-            '';
-          in
-          ''
-            cp ${cmakeLists} plugins/setup/linux/CMakeLists.txt
-          '';
-
-        installPhase = ''
-          runHook preInstall
-
-          mkdir --parents $out/plugins
-          cp --recursive plugins/setup $out/plugins/
-
-          runHook postInstall
-        '';
-      };
-
-    rust_api =
-      { version, src, ... }:
-      stdenv.mkDerivation {
-        pname = "rust_api";
-        inherit version src;
-        inherit (src) passthru;
-
-        postPatch =
-          let
-            fakeCargokitCmake = writeText "FakeCargokit.cmake" ''
-              function(apply_cargokit target manifest_dir lib_name any_symbol_name)
-                set("''${target}_cargokit_lib" ${rustApi}/lib/librust_api.so PARENT_SCOPE)
-              endfunction()
-            '';
-          in
-          ''
-            cp ${fakeCargokitCmake} plugins/rust_api/cargokit/cmake/cargokit.cmake
-          '';
-
-        installPhase = ''
-          runHook preInstall
-
-          mkdir --parents $out/plugins
-          cp --recursive plugins/rust_api $out/plugins/
-
-          runHook postInstall
-        '';
-      };
-
-    sqlite3 =
-      { version, src, ... }:
-      stdenv.mkDerivation {
-        pname = "sqlite3";
-        inherit version src;
-        inherit (src) passthru;
-
-        setupHook = writeScript "sqlite3-setup-hook" ''
-          sqliteFixupHook() {
-            # addToSearchPath (rather than runtimeDependencies+=(...)) so an
-            # empty runtimeDependencies env (default for flutter apps) does not
-            # create an empty element, which auto-patchelf turns into a /lib
-            # RUNPATH entry.
-            addToSearchPath runtimeDependencies '${lib.getLib sqlite}'
-          }
-
-          preFixupHooks+=(sqliteFixupHook)
-        '';
-
-        postPatch = ''
-          if [[ -f lib/src/hook/compile/description.dart ]]; then
-            substituteInPlace lib/src/hook/compile/description.dart \
-              --replace-fail "return fromGitHub(LibraryType.sqlite3);" "return LookupSystem('sqlite3');"
-          else
-            substituteInPlace lib/src/hook/description.dart \
-              --replace-fail "return PrecompiledFromGithubAssets(LibraryType.sqlite3);" "return LookupSystem('sqlite3');"
-          fi
-        '';
-
-        installPhase = ''
-          runHook preInstall
-
-          cp --recursive . "$out"
-
-          runHook postInstall
-        '';
-      };
-
-    sqlite3_flutter_libs =
-      { version, src, ... }:
-      stdenv.mkDerivation {
-        pname = "sqlite3_flutter_libs";
-        inherit version src;
-        inherit (src) passthru;
-
-        installPhase = ''
-          runHook preInstall
-
-          cp --recursive . "$out"
-
-          runHook postInstall
-        '';
-      };
-
-    sqlcipher_flutter_libs =
-      { version, src, ... }:
-      stdenv.mkDerivation {
-        pname = "sqlcipher_flutter_libs";
-        inherit version src;
-        inherit (src) passthru;
-
-        installPhase = ''
-          runHook preInstall
-
-          cp --recursive . "$out"
-
-          runHook postInstall
-        '';
-      };
-  };
-
   preBuild = ''
+    # pubspec.lock aggregates the Dart >=3.13 constraint of freezed (a
+    # development-only code generator) into sdks.dart, which would give the
+    # root package a language version too high for the Dart toolchain shipped
+    # with flutter344. The app itself only declares Dart >=3.10.
+    tmp=$(mktemp)
+    jq '(.packages[] | select(.rootUri == "../") | .languageVersion) = "3.10"' \
+      .dart_tool/package_config.json >"$tmp"
+    mv "$tmp" .dart_tool/package_config.json
+
     mkdir --parents libclash/linux
     cp ${core}/bin/FlClashCore libclash/linux/FlClashCore
+    cp ${helper}/bin/FlClashHelperService libclash/linux/FlClashHelperService
+    printf '{"coreSha256":"%s"}\n' \
+      "$(sha256sum ${core}/bin/FlClashCore | cut --delimiter=' ' --fields=1)" \
+      > libclash/linux/manifest.json
   '';
 
   postInstall = ''
+    cp ${rustApi}/lib/librust_api.so $out/app/$pname/lib/
+
+    # The install phase symlinks every top-level bundle file into $out/bin,
+    # but manifest.json is data, not a program to wrap.
+    rm $out/bin/manifest.json
+
     mkdir --parents $out/share/icons/hicolor/512x512/apps
     magick assets/images/icon.png -resize 512x512 $out/share/icons/hicolor/512x512/apps/flclash.png
 
@@ -275,7 +203,7 @@ flutter344.buildFlutterApplication {
   '';
 
   passthru = {
-    inherit core rustApi;
+    inherit core rustApi helper;
     updateScript = ./update.sh;
   };
 
