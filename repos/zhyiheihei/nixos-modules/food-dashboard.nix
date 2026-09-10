@@ -43,7 +43,18 @@ let
     EPD_FOOD_DEVICE_NAME_PREFIX = cfg.deviceNamePrefix;
     EPD_FOOD_MAX_CHUNK = toString cfg.maxChunk;
     EPD_FOOD_PUSH_ON_CHANGE = if cfg.pushOnChange then "true" else "false";
-  };
+  } // (
+    # 日程栏（标准 CalDAV 只读）：caldavUrl 非空才注入相关变量
+    if cfg.caldavUrl != "" then
+      {
+        EPD_FOOD_CALDAV_URL = cfg.caldavUrl;
+        EPD_FOOD_CALDAV_USER = cfg.caldavUser;
+        EPD_FOOD_CALDAV_CALENDAR = cfg.caldavCalendar;
+        EPD_FOOD_SCHEDULE_DAYS = toString cfg.scheduleDays;
+      }
+    else
+      { }
+  );
 
   # systemd 服务加固基线（与上层仓库 LT.serviceHarden 同源；本模块不依赖上层
   # helpers。BLE 走 BlueZ D-Bus：不需要 /dev 设备节点（PrivateDevices=false），
@@ -126,6 +137,35 @@ in
       description = "数据变更后防抖即时推送墨水屏";
     };
 
+    caldavUrl = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "CalDAV 服务器地址（日程栏，标准 RFC 4791 只读）；空 = 不启用日程栏";
+    };
+
+    caldavUser = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+    };
+
+    caldavPasswordFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+      description = "CalDAV 密码文件（建议 sops-nix 管理）";
+    };
+
+    caldavCalendar = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "日历集合路径（如 /zhyi/calendar/）；空 = PROPFIND 自动发现";
+    };
+
+    scheduleDays = lib.mkOption {
+      type = lib.types.ints.unsigned;
+      default = 7;
+      description = "日程栏向后取几天的日程";
+    };
+
     bindAddress = lib.mkOption {
       type = lib.types.str;
       default = "127.0.0.1";
@@ -184,13 +224,20 @@ in
 
       environment = commonEnvironment;
       script =
+        let
+          caldavPasswordExport = lib.optionalString (cfg.caldavPasswordFile != null) ''
+            export EPD_FOOD_CALDAV_PASSWORD="$(cat ${cfg.caldavPasswordFile})"
+          '';
+        in
         if cfg.tokenFile != null then
           ''
             export EPD_FOOD_API_TOKEN="$(cat ${cfg.tokenFile})"
+            ${caldavPasswordExport}
             exec ${package}/bin/epd-food-server serve --host ${cfg.bindAddress} --port ${toString cfg.port}
           ''
         else
           ''
+            ${caldavPasswordExport}
             exec ${package}/bin/epd-food-server serve --host ${cfg.bindAddress} --port ${toString cfg.port}
           '';
 
@@ -219,9 +266,16 @@ in
       ];
 
       environment = commonEnvironment;
-      script = ''
-        exec ${package}/bin/epd-food-server push-now
-      '';
+      script =
+        let
+          caldavPasswordExport = lib.optionalString (cfg.caldavPasswordFile != null) ''
+            export EPD_FOOD_CALDAV_PASSWORD="$(cat ${cfg.caldavPasswordFile})"
+          '';
+        in
+        ''
+          ${caldavPasswordExport}
+          exec ${package}/bin/epd-food-server push-now
+        '';
 
       serviceConfig = serviceHarden // {
         Type = "oneshot";
