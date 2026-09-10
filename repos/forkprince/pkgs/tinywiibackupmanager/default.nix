@@ -29,6 +29,8 @@ in
       nativeBuildInputs = [_7zz];
     })
   else let
+    contents = appimageTools.extractType2 {inherit pname version src;};
+
     desktopItem = makeDesktopItem {
       name = "TinyWiiBackupManager";
       desktopName = "TinyWiiBackupManager";
@@ -45,5 +47,13 @@ in
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
           $out/share/applications/TinyWiiBackupManager.desktop
+
+        icon=$(find ${contents} -maxdepth 3 -name "*.png" -path "*TinyWiiBackupManager*" | head -n1)
+        if [ -z "$icon" ]; then
+          icon=$(find ${contents} -maxdepth 3 -name "*.png" | head -n1)
+        fi
+        if [ -n "$icon" ]; then
+          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/TinyWiiBackupManager.png || true
+        fi
       '';
     }

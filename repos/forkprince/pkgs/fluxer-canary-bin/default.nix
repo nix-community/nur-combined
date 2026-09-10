@@ -46,6 +46,10 @@ in
     appimageTools.wrapType2 {
       inherit pname version src meta;
 
+      profile = ''
+        export FLUXER_DISABLE_DESKTOP_FILE=1
+      '';
+
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
           $out/share/applications/fluxer-canary.desktop
