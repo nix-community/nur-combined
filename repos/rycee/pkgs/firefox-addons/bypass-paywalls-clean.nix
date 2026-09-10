@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.3.7";
+  version = "4.4.4.1";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.3.7.xpi";
-  sha256 = "8b56bbefc6463f88b9fb7fbdf3b360024ff800481ea40aa48cd9bbe45614de58";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.4.1.xpi";
+  sha256 = "2ba5eaa2a56343c1b8d049b8befb102964d20566629227379b4d0474be655611";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -59,7 +59,6 @@ buildFirefoxXpiAddon {
       "*://*.artnet.com/*"
       "*://*.atavist.com/*"
       "*://*.atlantico.fr/*"
-      "*://*.augsburger-allgemeine.de/*"
       "*://*.auto-motor-und-sport.de/*"
       "*://*.auto-swiat.pl/*"
       "*://*.autocar.co.uk/*"
@@ -421,7 +420,6 @@ buildFirefoxXpiAddon {
       "*://*.kansascity.com/*"
       "*://*.kathimerini.gr/*"
       "*://*.kentucky.com/*"
-      "*://*.kleinezeitung.at/*"
       "*://*.kn-online.de/*"
       "*://*.knack.be/*"
       "*://*.knoxnews.com/*"
@@ -564,6 +562,7 @@ buildFirefoxXpiAddon {
       "*://*.nature.com/*"
       "*://*.nautil.us/*"
       "*://*.nbcnews.com/*"
+      "*://*.nd.nl/*"
       "*://*.ndtvprofit.com/*"
       "*://*.neuepresse.de/*"
       "*://*.newcastleherald.com.au/*"
@@ -754,7 +753,6 @@ buildFirefoxXpiAddon {
       "*://*.stltoday.com/*"
       "*://*.stocknews.com/*"
       "*://*.straitstimes.com/*"
-      "*://*.stratfor.com/*"
       "*://*.study.com/*"
       "*://*.stuttgarter-nachrichten.de/*"
       "*://*.stuttgarter-zeitung.de/*"
@@ -921,6 +919,7 @@ buildFirefoxXpiAddon {
       "*://*.womensrunning.com/*"
       "*://*.wonderzine.com/*"
       "*://*.worldeconomics.com/*"
+      "*://*.worldview.ranenetwork.com/*"
       "*://*.wp.de/*"
       "*://*.wr.de/*"
       "*://*.wsj.com/*"
@@ -990,7 +989,6 @@ buildFirefoxXpiAddon {
       "*://*.fnetcore-api-prod.azurewebsites.net/*"
       "*://*.funkemedien.de/*"
       "*://*.mediafin.be/*"
-      "*://*.styria.com/*"
       "*://codebeautify.org/*"
       "*://gitflic.ru/*"
       "*://*/*"

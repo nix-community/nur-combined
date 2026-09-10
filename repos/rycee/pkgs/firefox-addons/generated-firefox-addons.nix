@@ -2947,10 +2947,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "156.0.20260907.90530";
+      version = "156.0.20260909.172920";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5012113/dansk_da_language_pack-156.0.20260907.90530.xpi";
-      sha256 = "26d336f4fbb4545612a19a0c9ec722df8f40e995cd9f81c7c34c2baa1ba172d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018447/dansk_da_language_pack-156.0.20260909.172920.xpi";
+      sha256 = "f06c2801be833f44baf8b4ed373260c0cdfab2fce0b3d961ec2d6423994a66d4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3165,10 +3165,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "156.0.20260907.90530";
+      version = "156.0.20260909.172920";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5012115/deutsch_de_language_pack-156.0.20260907.90530.xpi";
-      sha256 = "b940abce71a6ab275fac648b8f27d9cce3f521d2e6f09013c7c4bf19f8e2e09a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018458/deutsch_de_language_pack-156.0.20260909.172920.xpi";
+      sha256 = "1fcd59b4e28885cead12a2b6c3c6eee4f88bed3305dbc07e037592ac0c0fd2fc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4667,10 +4667,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "156.0.20260907.90530";
+      version = "156.0.20260909.172920";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5012068/francais_language_pack-156.0.20260907.90530.xpi";
-      sha256 = "22a775d5e5c75e16db6fc8ac0b31fcd95adc09684b09b35db76cbc85bf7f874e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018503/francais_language_pack-156.0.20260909.172920.xpi";
+      sha256 = "db17a1387cf48103607d10bab6e375ffa4971b3dc337282615a720785c6ac0eb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4704,10 +4704,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "156.0.20260907.90530";
+      version = "156.0.20260909.172920";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5012077/gaidhlig_language_pack-156.0.20260907.90530.xpi";
-      sha256 = "3949ffc8f96366cacc01028fb5872cbb81010b457ef7ea73b57d630afb0552da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018531/gaidhlig_language_pack-156.0.20260909.172920.xpi";
+      sha256 = "96e6e64143d73be2548aa1d59fcea526e19baa5763d9fa29e06214adbfa4c3aa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4810,10 +4810,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.0";
+      version = "10.6.1";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5002409/ghostery-10.6.0.xpi";
-      sha256 = "7360d07d197c94d8f8464997bbd79a9ecc359b9b3f0a6ca5c550170ec240ab03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5016559/ghostery-10.6.1.xpi";
+      sha256 = "420d620133a9aa49c50f7129507b0295fa831f060e266da7d2c60ea7384f2f7c";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -9919,10 +9919,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.12.9";
+      version = "1.13.0";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4997026/mtab-1.12.9.xpi";
-      sha256 = "954fa0dc837fcfdb14d75ca932fec1a8466e017e5aae7731f912f1ddcdd5e1ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5019013/mtab-1.13.0.xpi";
+      sha256 = "811651feb436946bc53d980de2306a67198a3d51f6bc7db38517cb4f4bdcf994";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -10884,10 +10884,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.81";
+      version = "1.5.82";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4993386/page_assist-1.5.81.xpi";
-      sha256 = "3f5d261b1eeeeddbd5fab18c6888a8bdafe5a6734d2d63c2d4aec831d432cf12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5010083/page_assist-1.5.82.xpi";
+      sha256 = "b04869843f750ef5a48c347911a5c7e6f6148f0e94516615b46757ecfc104fa5";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -11831,10 +11831,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "2.8.0";
+      version = "2.10.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4957307/private_grammar_checker_harper-2.8.0.xpi";
-      sha256 = "89b924ea7a260eb98f2ab69aa50ff77ac3750b3c1f8aaca7b674b829ff1a71ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018605/private_grammar_checker_harper-2.10.0.xpi";
+      sha256 = "8af1d4f5d6627a0b03665828eaff5b649de72be727511e0b1443510fa2e653e9";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -13161,10 +13161,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "156.0.20260907.90530";
+      version = "156.0.20260909.172920";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5011988/scots_language_pack-156.0.20260907.90530.xpi";
-      sha256 = "1d883382ee33c10991910df6d90c2f773b78f5245af2fbb5ced293f1d06a08cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018538/scots_language_pack-156.0.20260909.172920.xpi";
+      sha256 = "bf0193ab56ff3bb72b218cb581aa26bab9910b81cf9ffe70d7bba1e0dba6922e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13678,10 +13678,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.24.2";
+      version = "1.24.3";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5012485/single_file-1.24.2.xpi";
-      sha256 = "f75580a57abc48b009d4748078a687f9a3b975f02a629bf0c96105c6a70aa3e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018731/single_file-1.24.3.xpi";
+      sha256 = "90139dd057f75379d87fa48e53bb8f1bc5fd708d00d2926b70de57769619c947";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14934,10 +14934,10 @@
     };
     "toolkit-for-ynab" = buildMozillaXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.22.5";
+      version = "3.23.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4936959/toolkit_for_ynab-3.22.5.xpi";
-      sha256 = "448dce1635103e00a5dd23988856c9437b9fc3b04aa3d7302f407d8fc64fa66f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018640/toolkit_for_ynab-3.23.0.xpi";
+      sha256 = "87db5bbd5d21f92172521ee69c1cb5ad6f7e1b28fb90f315a76add0959e2203f";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -15018,7 +15018,7 @@
       sha256 = "b14c2e9ff154fc3f6eead7b4a06baaa1e637319c8dd8661dd8394589a8e67297";
       meta = with lib;
       {
-        homepage = "https://github.com/Mika-/torrent-control";
+        homepage = "https://github.com/mika-si/torrent-control";
         description = "Send torrent and magnet links to your Bittorrent client's web interface. Supports BiglyBT, Cloud Torrent, Deluge, Flood, ruTorrent, Synology Download Station, Tixati, Transmission, tTorrent, µTorrent, Vuze and qBittorrent.";
         license = licenses.mit;
         mozPermissions = [
