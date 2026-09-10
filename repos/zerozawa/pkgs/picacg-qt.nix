@@ -46,6 +46,7 @@ python313Packages.buildPythonApplication rec {
     copyDesktopItems
     makeWrapper
     addDriverRunpath
+    qt6.qtbase
   ];
 
   buildInputs = [
@@ -65,15 +66,21 @@ python313Packages.buildPythonApplication rec {
     pysmb
     lxml
     setuptools
-    (httpx.overridePythonAttrs (finalAttrs: {
-      dependencies = finalAttrs.dependencies ++ (with finalAttrs.optional-dependencies; http2 ++ socks);
-    }))
+    smbprotocol
+    curl-cffi
     sr-vulkan # This now includes models
   ];
 
-  dontBuild = true;
   dontConfigure = true;
   dontWrapQtApps = true;
+
+  buildPhase = ''
+    runHook preBuild
+
+    ${qt6.qtbase}/libexec/rcc -g python res/images.qrc -o src/images_rc.py
+
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -107,13 +114,12 @@ python313Packages.buildPythonApplication rec {
     sys.path.insert(0, install_dir)
     os.chdir(install_dir)
 
-    picacg_dir = os.path.expanduser("~/.picacg")
-    db_dir = os.path.join(picacg_dir, "db")
-    data_dir = os.path.join(picacg_dir, "data")
-    version_file = os.path.join(picacg_dir, "db", "version")
+    from config.setting import Setting
+
+    db_dir = Setting.GetDBPath()
+    version_file = os.path.join(db_dir, "version")
 
     os.makedirs(db_dir, exist_ok=True)
-    os.makedirs(data_dir, exist_ok=True)
 
     db_src = "${picacg-database}/share/picacg-database/book.db"
     db_dest = os.path.join(db_dir, "book.db")
@@ -165,7 +171,19 @@ python313Packages.buildPythonApplication rec {
     })
   ];
 
-  doCheck = false;
+  doCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    PYTHONPATH="$out/share/picacg-qt:$PYTHONPATH" ${python313Packages.python.interpreter} - <<'PY'
+    import images_rc
+    from PySide6.QtGui import QImage
+
+    assert not QImage(":/png/icon/logo_round.png").isNull(), "Bundled application icon is unavailable"
+    PY
+
+    runHook postInstallCheck
+  '';
 
   meta = with lib; {
     description = "哔咔漫画PC客户端（支持window、Linux和macOS），界面使用QT";

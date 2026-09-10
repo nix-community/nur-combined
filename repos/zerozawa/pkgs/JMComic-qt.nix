@@ -26,11 +26,11 @@ let
 
   jmcomic = python313Packages.buildPythonPackage rec {
     pname = "jmcomic";
-    version = "2.7.5";
+    version = "2.7.6";
     pyproject = true;
     src = fetchPypi {
       inherit pname version;
-      hash = "sha256-TJWb7Mt6KGoWb7CghK7Hsx8Xl+AkeWY86WJ0UphRTGU=";
+      hash = "sha256-CTI/LpcG/gScBD/YuWBcIC6X6JAVLlahHIj7vJMfsw0=";
     };
     build-system = with python313Packages; [ setuptools ];
     dependencies = with python313Packages; [
@@ -80,11 +80,9 @@ python313Packages.buildPythonApplication rec {
     webdavclient3
     tqdm
     pysmb
+    smbprotocol
     beautifulsoup4
     setuptools
-    (httpx.overridePythonAttrs (finalAttrs: {
-      dependencies = finalAttrs.dependencies ++ (with finalAttrs.optional-dependencies; http2 ++ socks);
-    }))
     jmcomic
     sr-vulkan # This now includes models
   ];
