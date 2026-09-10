@@ -191,8 +191,8 @@
             "url": "https://github.com/Samuel-Martineau/nur-packages"
         },
         "Sittymin": {
-            "rev": "01b4272a2144a9bc8d9f1095d1e0fb4de70b8ced",
-            "sha256": "1i13wvl2mg4n53xxg4y1z9h4p57qlcqnm5155cdvby54ngqh6kgs",
+            "rev": "73deb3df6ae3239eb6d6da7646c70764385d5da2",
+            "sha256": "1sfh3li1d7l4gfdg1mm4yy1s1gnd030gfss0qrlf4vlbpg3dvrhr",
             "url": "https://github.com/Sittymin/NUR"
         },
         "Skyb0rg007": {
@@ -563,8 +563,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "303b492aca54c881aa3527b9c590ec94933397a9",
-            "sha256": "1hlv0vcjcca23phg9392ynlhmgzb37rbv53pyw6n04nll247i4fp",
+            "rev": "7a095fe28285a8b0feb2dbd05892ad9abf8d1e93",
+            "sha256": "13kvfirvd4fvb8hg4iysjxnxlqf8nf3lh3syrb0fcmlbmz97ibki",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1708,8 +1708,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "8f2dfcc90daec2c2eec2d934ce44904f3e2bd22c",
-            "sha256": "0hqwgjpayvbwsdimh5m7gcsc6x1f3drsjgjjxx66cqydigciq2c0",
+            "rev": "291c05bec1d9633c3c4c3964de8820ee28382187",
+            "sha256": "09l8chi0njnq6dqlchfwnj9592rvj4vwscp9sgzakqhd6hz6ggny",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
