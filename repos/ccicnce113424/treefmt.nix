@@ -5,7 +5,7 @@
     { pkgs, ... }:
     {
       treefmt = {
-        projectRootFile = "flake.nix";
+        projectRootFile = ".git/config";
         settings.excludes = [ "*_sources/*" ];
         programs.nixfmt = {
           enable = true;
