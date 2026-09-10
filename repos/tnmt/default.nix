@@ -27,6 +27,7 @@
   oneaws = pkgs.callPackage ./pkgs/oneaws { };
   kagiana = pkgs.callPackage ./pkgs/kagiana { };
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };
+  mdhq = pkgs.callPackage ./pkgs/mdhq { };
   roots = pkgs.callPackage ./pkgs/roots { };
   givy = pkgs.callPackage ./pkgs/givy { };
   op-cached = pkgs.callPackage ./pkgs/op-cached { };
