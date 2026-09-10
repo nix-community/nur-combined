@@ -24,5 +24,9 @@ in
     ];
     www.A = propA;
     # keep-sorted end
+    subdomains = {
+      # this points to javi public IP, and makes it so java does not have to type a long domain.
+      js.CNAME = "ssh.javamurray.com"; 
+    }
   };
 }
