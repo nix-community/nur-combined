@@ -26,8 +26,8 @@
             "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
         "Adamekka": {
-            "rev": "11f9faebcc270c6d0536c17eaf1dd816c2cb1d65",
-            "sha256": "0rsfsvv9n7d3xmgfq3vpklgzbpv1s6zb2i6gdy8whyr5py7lalzn",
+            "rev": "3414e5181b68ff7450afe3088a1fd9bb4815c3ef",
+            "sha256": "098pjvx9rg306fbnrvhdb8a6cpazby4i7x06q4zk7cnicw9vyzvc",
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
@@ -648,8 +648,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "2c8f6709eb7df24aab1d6f3ef5d098f133b07f35",
-            "sha256": "1lic6bi59kcml820844448rvn1dja79hn43wiix1mnq4lwdbic8h",
+            "rev": "4ce2625f07b2f73fccab009bb4a8f4131aea870b",
+            "sha256": "0gr0bk2pc0sdk50cr77v0r2pvsqxpydha16vawlrjmsvx46fbwyg",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -2532,8 +2532,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "45905bf8e10c8a45f5a8aeb7ebadbe74ea551e84",
-            "sha256": "01ya2brwry5jy3flphpn6zgbwsafpnda6gh3yfdl7pgw7gi9anmf",
+            "rev": "d037baa5eb07dd5c6ec270a6868c9d74cadc591b",
+            "sha256": "05a94shygvhcprwrg92mayh6a3qzxk2hxs584g74njna0hvl19xy",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
@@ -2812,8 +2812,8 @@
             "url": "https://github.com/lz37/nur"
         },
         "zhyiheihei": {
-            "rev": "ad1cc9306f7ed06324fda9f9385d512476d082cd",
-            "sha256": "0f27gbbaqmdnm5i6gzajikp2dc6ssp54gpxn7xr6b6cqhwzad0gk",
+            "rev": "b986fe9f32104953e1b2d57a6d34f351920e1392",
+            "sha256": "12jrjs764pxgb2fywsy4zk2h0jx47vnwipx2aqw35yfd9m3bnnrp",
             "url": "https://github.com/zhyiheihei/zhyi-packages"
         },
         "zimeg": {
