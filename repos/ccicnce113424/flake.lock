@@ -22,14 +22,15 @@
       "locked": {
         "lastModified": 1788450739,
         "narHash": "sha256-glZLQlzIn1fXH6PazR2iUmTo7kzzyYSshrWhLS9TqCU=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
         "rev": "31729ca8cbdb4fa927b34e5f4353e6a83f39e993",
-        "revCount": 494,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/hercules-ci/flake-parts/0.1.494%2Brev-31729ca8cbdb4fa927b34e5f4353e6a83f39e993/01a06859-cb2a-7ef3-93da-70cc1b6dd761/source.tar.gz"
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/hercules-ci/flake-parts/%2A"
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
       }
     },
     "flake-utils": {
@@ -140,14 +141,15 @@
       "locked": {
         "lastModified": 1786901030,
         "narHash": "sha256-WSFCsDSE5ffgD2MqzkM2CYjeFiKhRF/dJUN8uedb6YE=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "rev": "27b3b12a8e6375f28ebe122f07d230ca5459bbfa",
-        "revCount": 557,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/numtide/treefmt-nix/0.1.557%2Brev-27b3b12a8e6375f28ebe122f07d230ca5459bbfa/01a00ba7-ea6f-7822-ab05-cbad971fc7ca/source.tar.gz"
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/numtide/treefmt-nix/%2A"
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
       }
     }
   },
