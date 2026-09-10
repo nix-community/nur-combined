@@ -6,13 +6,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "drift";
-  version = "1.2.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "phlx0";
     repo = "drift";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-zYk8pC355/FL5F2Vlt3BjP2HNCVR954fK/cuzDTACWE=";
+    hash = "sha256-PEKVwtJGYgyaV31OUMDHbYqS948GqBZ1/gb/n12D3Fo=";
   };
 
   vendorHash = "sha256-xcSoDytK7cQrECa5PVoLunCG5im2YbOd8/0bclvTaq0=";
