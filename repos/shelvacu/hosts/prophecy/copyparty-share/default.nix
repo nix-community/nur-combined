@@ -78,6 +78,12 @@ in
         bind.readOnly = true;
         bind.rbind = true;
       };
+      "/music-v2" = {
+        hostPath = "/propdata/music-v2";
+        access = "r: shelvacu";
+        flags.dots = true;
+        bind.readOnly = true;
+      };
       "/ppl" = {
         hostPath = vaculib.path ./ppl-folder;
         access = "r: @acct";
