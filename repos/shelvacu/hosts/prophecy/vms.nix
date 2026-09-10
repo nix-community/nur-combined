@@ -12,16 +12,16 @@
 
   vacu.qemuVMs.vavm = {
     address = "10.78.77.2";
-    baseMem = 8 * 1024;
-    maxMem = 16 * 1024;
+    baseMem = 16 * 1024;
+    maxMem = 128 * 1024;
     dimmSlots = 4;
     cpus = 4;
   };
 
   vacu.qemuVMs.savm = {
     address = "10.78.77.4";
-    baseMem = 4 * 1024;
-    maxMem = 16 * 1024;
+    baseMem = 16 * 1024;
+    maxMem = 128 * 1024;
     dimmSlots = 4;
     cpus = 4;
     shares.javadrive = {
