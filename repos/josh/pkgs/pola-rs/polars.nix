@@ -4,39 +4,41 @@
   python3Packages,
   jemalloc,
   rust-jemalloc-sys,
+
   runCommand,
 }:
 let
-  # cache.nixos.org builds polars' vendored jemalloc on 4K-page machines,
-  # baking that page size in; the import then aborts with "Unsupported system
-  # page size" on 16K-page aarch64-linux kernels (Asahi). nixpkgs' jemalloc
-  # configures --with-lg-page=16 (64K) on aarch64, which is safe for any
-  # smaller page size, and rust-jemalloc-sys' JEMALLOC_OVERRIDE setup hook
-  # makes the vendored build link it instead. Mirrors upstream's unused
-  # polarsJemalloc argument.
-  needsPageSizeSafeJemalloc = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
+  # polars' vendored jemalloc bakes in the 4K page size of the machine that
+  # built it, so imports abort with "Unsupported system page size" on 16K-page
+  # aarch64-linux kernels (Asahi). nixpkgs' jemalloc configures
+  # --with-lg-page=16, which is safe for any smaller page size. Fixed upstream
+  # in 1.42.1; drop this, the four arguments above, and every needsJemalloc
+  # reference once nixpkgs-stable ships that.
+  needsJemalloc =
+    stdenv.hostPlatform.isLinux
+    && stdenv.hostPlatform.isAarch64
+    && lib.strings.versionOlder python3Packages.polars.version "1.42.1";
+
   polarsJemalloc = rust-jemalloc-sys.override {
     jemalloc = jemalloc.override { disableInitExecTls = true; };
   };
-  polars' =
-    if needsPageSizeSafeJemalloc then
+
+  polars =
+    if needsJemalloc then
       python3Packages.polars.override { polarsMemoryAllocator = polarsJemalloc; }
     else
       python3Packages.polars;
 in
-polars'.overrideAttrs (
+polars.overrideAttrs (
   finalAttrs: prevAttrs: {
     passthru = builtins.removeAttrs prevAttrs.passthru [ "updateScript" ] // {
-      # Keep upstream's tests except pytest (the full polars test suite is too
-      # heavy for three-system CI). The dynloading tests load extra polars
-      # runtime wheels (e.g. _polars_runtime_32) that are separate nixpkgs
-      # derivations still carrying the vendored 4K-page jemalloc, which this
-      # override cannot reach; they abort on 16K-page kernels, so drop them
-      # where the override is active.
+      # The full polars test suite is too heavy for three-system CI, and the
+      # dynloading tests load runtime wheels that keep their own vendored
+      # jemalloc, which the override cannot reach.
       tests =
         builtins.removeAttrs prevAttrs.passthru.tests (
           [ "pytest" ]
-          ++ lib.lists.optionals needsPageSizeSafeJemalloc [
+          ++ lib.lists.optionals needsJemalloc [
             "dynloading-1"
             "dynloading-2"
           ]
@@ -51,7 +53,7 @@ polars'.overrideAttrs (
               touch $out
             '';
         }
-        // lib.attrsets.optionalAttrs needsPageSizeSafeJemalloc {
+        // lib.attrsets.optionalAttrs needsJemalloc {
           jemalloc-linkage =
             runCommand "polars-jemalloc-linkage"
               {
