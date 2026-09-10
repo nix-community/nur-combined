@@ -70,6 +70,4 @@ Order attributes by the build lifecycle:
 
 ### Exceptions
 
-Files vendored verbatim from nixpkgs keep upstream's ordering so they stay easy to rebase — `pkgs/helm/kubernetes-helm_3.nix` is a copy of `pkgs/applications/networking/cluster/helm/default.nix`.
-
 `internal/*.nix` mix nixpkgs dependencies with caller-supplied derivation parameters (`src`, `pname`, `chartName`, `helmValues`). Keep nixpkgs dependencies first, then the parameters, then the `?`-defaulted ones; do not interleave them.
