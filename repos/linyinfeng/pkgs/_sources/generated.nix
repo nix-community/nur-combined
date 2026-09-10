@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.25.0";
+    version = "v1.26.0";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.25.0";
+      rev = "v1.26.0";
       fetchSubmodules = false;
-      sha256 = "sha256-VS/e1yKCUif6AMUQ1aMOdQc3j+cHNb5VM4851IDhWgs=";
+      sha256 = "sha256-B1YTNtPff+MDLwnV/wspxyCpUvPc/gwdsCLHiVZ6icY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-VS_e1yKCUif6AMUQ1aMOdQc3j+cHNb5VM4851IDhWgs=/Cargo.lock";
+      lockFile = ./. + "/sha256-B1YTNtPff+MDLwnV_wspxyCpUvPc_gwdsCLHiVZ6icY=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-I7mpWrolVy1SkLa2ovy2TXAHFnVFABXnxaA8uKzRGuw=";
       };
@@ -401,17 +401,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fbb516b2786e4d5444383706d13c31c2e4d10c08";
+    version = "859e3b5300e0ea01334a627b15db101e94312a75";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "fbb516b2786e4d5444383706d13c31c2e4d10c08";
+      rev = "859e3b5300e0ea01334a627b15db101e94312a75";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-SvWajOoaruuFAqmkz4odIzVR1wvG0KVlohQv0mJX2lY=";
+      sha256 = "sha256-ZPIeDMgbe/syIDLR0gVkKbBKbq4QHaEDlqHp+Voc518=";
     };
-    date = "2026-08-31";
+    date = "2026-09-10";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
