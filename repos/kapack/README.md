@@ -1,6 +1,11 @@
 [![CI build status](https://github.com/oar-team/nur-kapack/actions/workflows/build-packages.yml/badge.svg?branch=master)](https://github.com/oar-team/nur-kapack/actions?query=branch%3Amaster)
 [![Cachix Cache](https://img.shields.io/badge/cachix-capack-blue.svg)](https://capack.cachix.org)
 
+
+!!! NUR-Kapack is replaced by (nur-less) [Kapack](https://gricad-gitlab.univ-grenoble-alpes.fr/kairns/kapack) !!!
+==================================================================================================================
+
+
 NUR-Kapack repository
 =====================
 
