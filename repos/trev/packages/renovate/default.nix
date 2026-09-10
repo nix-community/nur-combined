@@ -2,6 +2,7 @@
   cctools,
   fetchFromGitHub,
   fetchPnpmDeps,
+  git,
   lib,
   makeWrapper,
   nix-update-script,
@@ -46,6 +47,8 @@ stdenv.mkDerivation (finalAttrs: {
     xcbuild
     cctools.libtool
   ];
+
+  nativeInstallCheckInputs = [ git ];
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
@@ -95,6 +98,26 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "$out/lib/node_modules/renovate/dist/config-validator.js"
 
     runHook postInstall
+  '';
+
+  doInstallCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    testDir="$(mktemp -d)"
+    printf '%s\n' '{"dependencies":{"left-pad":"1.3.0"}}' > "$testDir/package.json"
+    printf '%s\n' '{}' > "$testDir/renovate.json"
+
+    export HOME="$(mktemp -d)"
+    pushd "$testDir"
+    "$out/bin/renovate" \
+      --platform=local \
+      --dry-run=extract \
+      --repository-cache=disabled \
+      --enabled-managers=npm
+    popd
+
+    runHook postInstallCheck
   '';
 
   passthru.updateScript = [
