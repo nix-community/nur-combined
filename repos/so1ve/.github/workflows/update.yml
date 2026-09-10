@@ -55,9 +55,7 @@ jobs:
 
             if nix run .#update -- "$package"; then
               git add -- "$directory"
-              if git diff --cached --quiet HEAD -- "$directory"; then
-                echo "$package is already up to date"
-              else
+              if ! git diff --cached --quiet HEAD -- "$directory"; then
                 git diff --cached HEAD --binary --full-index -- "$directory" \
                   >"$RUNNER_TEMP/per-package/$package.patch"
                 changed+=("$package")
