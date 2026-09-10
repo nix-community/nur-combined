@@ -39,7 +39,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 1c029cf..2b88d86 100644
+index 7a66b4d..baf8e63 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -340,6 +340,12 @@ importers:

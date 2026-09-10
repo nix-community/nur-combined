@@ -2005,7 +2005,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service"
-version = "2.0.0-rc.3"
+version = "2.0.0-rc.4"
 dependencies = [
  "nyanpasu-service-runtime",
  "nyanpasu-utils",
@@ -2017,7 +2017,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service-runtime"
-version = "2.0.0-rc.3"
+version = "2.0.0-rc.4"
 dependencies = [
  "ansi-str",
  "anyhow",
@@ -2034,6 +2034,7 @@ dependencies = [
  "ctrlc",
  "dunce",
  "futures-util",
+ "libc",
  "nyanpasu-core-manager",
  "nyanpasu-ipc",
  "nyanpasu-utils",
@@ -2043,6 +2044,7 @@ dependencies = [
  "semver",
  "serde",
  "serde_json",
+ "serde_yaml_ng",
  "service-manager",
  "simd-json",
  "supports-color",
