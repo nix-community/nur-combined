@@ -22,10 +22,15 @@ let
     v2ray-rules-dat = callPackage ./v2ray-rules-dat {
       inherit (sources) v2ray-rules-dat-geoip v2ray-rules-dat-geosite;
     };
+    iwe = callPackage ./iwe { };
+    wl-uinput-proxy = callPackage ./wl-uinput-proxy { };
 
     # my packages
     giraffe-wallpaper = callPackage ./giraffe-wallpaper { source = sources.giraffe-wallpaper; };
     ptrace-time-hook = callPackage ./ptrace-time-hook { source = sources.ptrace-time-hook; };
+    plumb = callPackage ./plumb { };
+    djot-tools = callPackage ./djot-tools { };
+    pandoc-to-anki = callPackage ./pandoc-to-anki { };
 
     # override packages
     fcitx5 = callPackage ./fcitx5 { inherit (prev) fcitx5; };
@@ -41,14 +46,7 @@ let
     };
     niri = callPackage ./niri { inherit (prev) niri; };
     neovim-unwrapped = callPackage ./neovim-unwrapped { inherit (prev) neovim-unwrapped; };
-    zellij = callPackage ./zellij {
-      inherit (prev) zellij zellij-unwrapped;
-    };
-    iwe = callPackage ./iwe { };
-    wl-uinput-proxy = callPackage ./wl-uinput-proxy { };
-    djot-tools = callPackage ./djot-tools { };
-    plumb = callPackage ./plumb { };
-    pandoc-to-anki = callPackage ./pandoc-to-anki { };
+    zellij-unwrapped = callPackage ./zellij-unwrapped { inherit (prev) zellij-unwrapped; };
   };
   python-overlay = import ./python-overlay { inherit sources; };
   haskell-overlay = import ./haskell-overlay {
