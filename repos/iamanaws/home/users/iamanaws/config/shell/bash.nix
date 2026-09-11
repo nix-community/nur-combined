@@ -30,9 +30,9 @@ in
         printf ' (%s)' \"$branch\"
       }
       
-      nix_shell_prompt=\${IN_NIX_SHELL:+  }
-
-      PS1='\\n\\[\\033[01;34m\\]\\w\\[\\033[1;35m\\]$(parse_git_branch)\\[\\033[1;36m\\]\${nix_shell_prompt}\\[\\033[00m\\]\\n\\$ '
+      # Expand IN_NIX_SHELL at prompt time. `nix develop` sources ~/.bashrc
+      # before it exports that variable, so a one-shot snapshot stays empty.
+      PS1='\\n\\[\\033[01;34m\\]\\w\\[\\033[1;35m\\]$(parse_git_branch)\\[\\033[1;36m\\]\${IN_NIX_SHELL:+  }\\[\\033[00m\\]\\n\\$ '
       
       PROMPT_DIRTRIM=2
       
