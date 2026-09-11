@@ -22,6 +22,7 @@ in
       homepage = "https://www.gimp.org/";
       maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl3Plus;
+      broken = true;
     };
   })
 else gimp-with-plugins
