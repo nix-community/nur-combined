@@ -33,23 +33,23 @@
    "browser_specific_settings": {
 --- a/unhook.js
 +++ b/unhook.js
-@@ -3,33 +3,92 @@
+@@ -1,35 +1,134 @@
+ // Chrome/Firefox compatibility
+ const browserAPI = globalThis.browser || globalThis.chrome;
  
++const EARLY_HIDE_CACHE_KEY = 'unhook-ng-early-hide-cache';
++
  // Single stylesheet for all hiding rules
  let styleElement = null;
 +let earlyHideElement = null;
 +let redirecting = false;
 +let runId = 0;
++let lastHref = window.location.href;
  
 -function applyStyles(settings) {
 -  const path = window.location.pathname;
 +function isHomeOrTrending(path = window.location.pathname) {
 +  return path === '/' || path === '/feed/trending';
-+}
-+
-+function styleParent() {
-+  // document.head may be missing at document_start
-+  return document.head || document.documentElement;
 +}
  
 -  // Redirect homepage to subscriptions
@@ -57,6 +57,37 @@
 -    if (path === '/' || path === '/feed/trending') {
 -      window.location.replace('https://www.youtube.com/feed/subscriptions');
 -      return;
++function styleParent() {
++  // document.head may be missing at document_start
++  return document.head || document.documentElement;
++}
++
++function readEarlyHideCache() {
++  try {
++    return JSON.parse(localStorage.getItem(EARLY_HIDE_CACHE_KEY) || 'null');
++  } catch {
++    return null;
++  }
++}
++
++function writeEarlyHideCache(settings) {
++  try {
++    localStorage.setItem(
++      EARLY_HIDE_CACHE_KEY,
++      JSON.stringify({
++        hideHomeFeed: settings.hideHomeFeed === true,
++        redirectToSubscriptions: settings.redirectToSubscriptions === true,
++      })
++    );
++  } catch {
++    // Ignore quota / private-mode failures.
++  }
++}
++
++function cacheWantsEarlyHide(cache) {
++  return !!(cache && (cache.hideHomeFeed || cache.redirectToSubscriptions));
++}
++
 +function setEarlyHide(enabled) {
 +  if (enabled) {
 +    document.documentElement.classList.add('unhook-hide-home');
@@ -64,7 +95,6 @@
 +      earlyHideElement = document.createElement('style');
 +      earlyHideElement.id = 'unhook-early-hide';
 +      // Gate on html class so SPA navigations away from home cannot blank other feeds.
-+      // Include ghost/skeleton grids used while YouTube paints the home feed.
 +      earlyHideElement.textContent = [
 +        'html.unhook-hide-home ytd-rich-grid-renderer,',
 +        'html.unhook-hide-home ytd-ghost-grid-renderer,',
@@ -96,9 +126,19 @@
 +  return true;
 +}
 +
-+// Sync only: hide home/trending until live storage decides. Never redirect here.
++// Sync early-hide from last-known settings only — never redirect from cache
++// (stale cache must not wrong-redirect after the user turns redirect off).
 +function prepareHomePath() {
-+  if (isHomeOrTrending()) {
++  if (!isHomeOrTrending()) {
++    setEarlyHide(false);
++    return;
++  }
++  const cache = readEarlyHideCache();
++  if (cache === null) {
++    // First visit / cleared site data: hide until live settings arrive (usually
++    // before paint). After that we persist an explicit true/false cache.
++    setEarlyHide(true);
++  } else if (cacheWantsEarlyHide(cache)) {
 +    setEarlyHide(true);
 +  } else {
 +    setEarlyHide(false);
@@ -108,6 +148,8 @@
 +prepareHomePath();
 +
 +function applyStyles(settings) {
++  writeEarlyHideCache(settings);
++
 +  if (redirectHomeIfNeeded(settings)) {
 +    return;
    }
@@ -137,7 +179,7 @@
    if (settings.hideEndScreenCards) rules.push('.ytp-fullscreen-grid, .ytp-ce-element { display: none !important; }');
    if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
  
-@@ -65,22 +124,55 @@
+@@ -65,22 +164,80 @@
    }
  
    styleElement.textContent = rules.join('\n');
@@ -176,6 +218,7 @@
  
 -document.body.addEventListener("yt-navigate-start", function(event) {
 +function onNavigate() {
++  lastHref = window.location.href;
 +  // Only clear the redirect guard after leaving home/trending so overlapping
 +  // navigate events cannot issue a second replace() mid-redirect.
 +  if (!isHomeOrTrending()) {
@@ -190,7 +233,6 @@
 +// YouTube SPA events (document fires before window). Back often skips these.
 +document.addEventListener('yt-navigate-start', onNavigate);
 +document.addEventListener('yt-navigate-finish', onNavigate);
-+document.addEventListener('yt-page-data-fetched', onNavigate);
 +
 +// Browser Back/Forward: yt-navigate-start often does not fire (known YT quirk).
 +window.addEventListener('popstate', onNavigate);
@@ -199,3 +241,28 @@
 +    onNavigate();
 +  }
 +});
++
++// Fallback when YouTube updates the URL without firing yt-navigate-* (some History API paths).
++function onPossibleUrlChange() {
++  if (window.location.href === lastHref) {
++    return;
++  }
++  onNavigate();
++}
++
++function startUrlObserver() {
++  const root = document.documentElement;
++  if (!root) {
++    return;
++  }
++  new MutationObserver(onPossibleUrlChange).observe(root, {
++    childList: true,
++    subtree: true,
++  });
++}
++
++if (document.documentElement) {
++  startUrlObserver();
++} else {
++  document.addEventListener('DOMContentLoaded', startUrlObserver, { once: true });
++}

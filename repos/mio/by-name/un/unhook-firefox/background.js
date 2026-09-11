@@ -1,16 +1,17 @@
 // Chrome/Firefox compatibility
 const browserAPI = globalThis.browser || globalThis.chrome;
 
-// Keep redirect decision in-memory so the blocking webRequest listener can
-// answer synchronously (awaiting storage in a blocking listener is too late).
+// In-memory flag for the common case (sync blocking response).
 let redirectToSubscriptions = false;
+let settingsReady = false;
 
 function syncRedirectSetting(value) {
   redirectToSubscriptions = value === true;
 }
 
-browserAPI.storage.local.get(null).then((settings) => {
+const settingsReadyPromise = browserAPI.storage.local.get(null).then((settings) => {
   syncRedirectSetting(settings.redirectToSubscriptions);
+  settingsReady = true;
 });
 
 browserAPI.storage.onChanged.addListener((changes, area) => {
@@ -18,6 +19,7 @@ browserAPI.storage.onChanged.addListener((changes, area) => {
     return;
   }
   syncRedirectSetting(changes.redirectToSubscriptions.newValue);
+  settingsReady = true;
 });
 
 function shouldRedirectHome(urlString) {
@@ -36,15 +38,25 @@ function shouldRedirectHome(urlString) {
   }
 }
 
+function redirectResult(urlString) {
+  if (!shouldRedirectHome(urlString)) {
+    return {};
+  }
+  return { redirectUrl: 'https://www.youtube.com/feed/subscriptions' };
+}
+
 function onBeforeRequest(details) {
   // Only main-frame navigations; never touch XHR/fetch/images.
   if (details.type && details.type !== 'main_frame') {
     return {};
   }
-  if (!shouldRedirectHome(details.url)) {
-    return {};
+  // Fast path once settings are known.
+  if (settingsReady) {
+    return redirectResult(details.url);
   }
-  return { redirectUrl: 'https://www.youtube.com/feed/subscriptions' };
+  // Cold start: Firefox allows a Promise from a blocking listener so the first
+  // navigation still redirects before the home document is delivered.
+  return settingsReadyPromise.then(() => redirectResult(details.url));
 }
 
 browserAPI.webRequest.onBeforeRequest.addListener(
