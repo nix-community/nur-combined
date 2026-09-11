@@ -14,19 +14,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "futo-notes";
-  version = "1.7.1";
+  version = "1.7.2-milkdown.3";
 
   src = fetchFromGitLab {
     domain = "gitlab.futo.org";
     owner = "futo-notes";
     repo = "futo-notes";
     rev = "v${version}";
-    hash = "sha256-GKnOoVytZ8xnpxJv99eAvgBKGoq9MN5+Mw59JZeuthY=";
+    hash = "sha256-6smNAV7xQMpfNHH2sJhbOryVpPCbLUBIB0F54VSyViU=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit pname version src;
-    hash = "sha256-tJtI2BQBzoAwKHZErkd+cn0V+ZD/uOcJFUaYhdy2JIY=";
+    hash = "sha256-btsF8UNVw/zDqx1edG+cbytD4egq6cy1iXoSLfpT9QQ=";
     fetcherVersion = 4;
   };
 

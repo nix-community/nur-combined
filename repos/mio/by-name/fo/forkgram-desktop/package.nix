@@ -4,25 +4,27 @@
   fetchFromGitHub,
   zbar,
   pango,
+  tlottie,
 }:
 
 telegram-desktop.override {
   pname = "forkgram-desktop";
   unwrapped = telegram-desktop.unwrapped.overrideAttrs (old: {
     pname = "forkgram-desktop-unwrapped";
-    version = "7.2.6";
+    version = "7.2.8";
 
     src = fetchFromGitHub {
       owner = "forkgram";
       repo = "tdesktop";
-      rev = "v7.2.6";
+      rev = "v7.2.8";
       fetchSubmodules = true;
-      hash = "sha256-2cHuYdaZU4aO203fb6dylZPOfqJ7Ql7IwPmrxlz4VpM=";
+      hash = "sha256-0XMJakvqJKGiL6ig3zCAVVTlERQY1pZvhy135D+fiLM=";
     };
 
     buildInputs = old.buildInputs ++ [
       zbar
       pango
+      tlottie
     ];
 
     postPatch = (old.postPatch or "") + ''

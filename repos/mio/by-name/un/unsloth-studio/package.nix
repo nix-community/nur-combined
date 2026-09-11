@@ -10,13 +10,13 @@
 
 let
   pname = "unsloth";
-  version = "0.1.806-beta";
+  version = "0.1.808-beta";
 
   src = fetchFromGitHub {
     owner = "unslothai";
     repo = "unsloth";
     rev = "v${version}";
-    hash = "sha256-oREdZTK1qdkJGhgTwIrQqKpmP3CRjUDsCx13oq6HDpY=";
+    hash = "sha256-ekHXXadEnnNhBuGgTSLhu2rXsb/Ft32UMYmMUeDUGNE=";
   };
 
   # Unsloth Studio frontend is built with npm/vite
@@ -28,7 +28,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/studio/frontend";
-      hash = "sha256-Yh1PtHSavfq3B/UaibO2biM73+F1XCRZgntQEpcYoqM=";
+      hash = "sha256-c8BZAKaciOIFWQPo0LJLRQ9/JPb4J7Rz67lYR8sspsA=";
     };
 
     nativeBuildInputs = [
@@ -82,8 +82,8 @@ python3.pkgs.buildPythonApplication {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail 'setuptools==80.9.0' 'setuptools' \
-      --replace-fail 'setuptools-scm==9.2.0' 'setuptools-scm'
+      --replace-fail 'setuptools==82.0.1' 'setuptools' \
+      --replace-fail 'setuptools-scm==9.2.2' 'setuptools-scm'
   '';
 
   meta = {
