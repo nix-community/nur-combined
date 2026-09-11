@@ -1,13 +1,12 @@
 {
   lib,
-  stdenv,
   stdenvAdapters,
   clangStdenv,
   callPackage,
 }:
 let
-  adapters = lib.optionals (!stdenv.targetPlatform.isDarwin) [
-    stdenvAdapters.useWildLinker
+  adapters = [
+    stdenvAdapters.useMoldLinker
   ];
   customStdenv = lib.pipe clangStdenv adapters;
 in
