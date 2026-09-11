@@ -3,12 +3,12 @@
   pkgs,
   fetchFromGitHub,
 }: let
-  version = "0.3.1";
+  version = "0.4.6";
   src = fetchFromGitHub {
     owner = "levinion";
     repo = "fzfmenu";
-    rev = "8c5e0584f0b4d864a3354f6dc174d587ab2ebecc";
-    hash = "sha256-LgBv2F/zObmzSrO0rbGOUFjnRfcr0iZkXWI21ioZ9UM=";
+    rev = "cd1079164c18dc4715879a24b04035472c351367";
+    hash = "sha256-+P4OGRQrstw57X0/HKfRdrCzjnAajBZkJkMFK04SR64=";
   };
 
   cargoNix = pkgs.callPackage ./Cargo.nix {inherit pkgs;};
