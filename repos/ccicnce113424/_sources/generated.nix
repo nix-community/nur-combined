@@ -24,16 +24,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "241a49283c9382fc5ccb93efde9b81711087e930";
+    version = "caefb88953e359e603c530b73212e3712bfa06c8";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "241a49283c9382fc5ccb93efde9b81711087e930";
+      rev = "caefb88953e359e603c530b73212e3712bfa06c8";
       fetchSubmodules = false;
-      sha256 = "sha256-DOGxYvuTTho2QOiGtrYCQEWuJTjjLQk7ZfSQtW5dp+c=";
+      sha256 = "sha256-YyNDzxr+cHC3PL47mblhGH/syCUfxhVUB92rb1GsEbU=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-DOGxYvuTTho2QOiGtrYCQEWuJTjjLQk7ZfSQtW5dp+c=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-YyNDzxr+cHC3PL47mblhGH_syCUfxhVUB92rb1GsEbU=/src-tauri/Cargo.lock";
       outputHashes = {
         "rsrpc-0.28.0" = "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=";
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
@@ -42,7 +42,7 @@
         "window_titles-0.1.0" = "sha256-lk2T+6curAwqOUuQ8RtYCjX2ygGBgzt4ILBAMV+ql0w=";
       };
     };
-    date = "2026-08-14";
+    date = "2026-09-11";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
@@ -257,21 +257,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "bc8dc59281f56de3eb4f9367486be457a70adf3d";
+    version = "b4508e945955dc89a3ade24fe66b578303ec5c73";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "bc8dc59281f56de3eb4f9367486be457a70adf3d";
+      rev = "b4508e945955dc89a3ade24fe66b578303ec5c73";
       fetchSubmodules = false;
-      sha256 = "sha256-b6tQZoFOm9duxzSfpcgaCtN9NqIWfx+azwz6Ka9No1g=";
+      sha256 = "sha256-52yqP4R6rSQEOVvs7PytqFChgqfqFMKXZiqlzV1MaZE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-b6tQZoFOm9duxzSfpcgaCtN9NqIWfx+azwz6Ka9No1g=/Cargo.lock";
+      lockFile = ./. + "/sha256-52yqP4R6rSQEOVvs7PytqFChgqfqFMKXZiqlzV1MaZE=/Cargo.lock";
       outputHashes = {
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-10";
+    date = "2026-09-11";
   };
   piliplus = {
     pname = "piliplus";
