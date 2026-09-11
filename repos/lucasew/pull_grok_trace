@@ -4,7 +4,8 @@
 # ///
 """Export a grok session trace tarball into local /tmp.
 
-If --from HOST, run grok trace on HOST via ssh and rsync the tarball here.
+If --from HOST, wait until HOST answers ping, then run grok trace on HOST
+via ssh and rsync the tarball here.
 localhost / 127.0.0.1 / ::1 (or user@those) are local: no ssh.
 
 HOST can be user@host (e.g. janitor@ravenrock). Use --jump when you need a
@@ -14,6 +15,7 @@ ProxyJump hop (e.g. Tailscale only reaches the bastion). localhost jump is ignor
 import json
 import subprocess
 import sys
+import time
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -80,6 +82,31 @@ def die(msg: str, code: int = 1) -> None:
     raise SystemExit(code)
 
 
+def wait_reachable(host: str, tries: int = 6) -> None:
+    """Ping HOST until it answers. Shortcuts flips Tailscale first; the
+    first SSH often loses the race with MagicDNS / the peer coming online."""
+    for i in range(1, tries + 1):
+        try:
+            ok = (
+                subprocess.run(
+                    ["ping", "-c", "1", host],
+                    capture_output=True,
+                    timeout=2,
+                ).returncode
+                == 0
+            )
+        except subprocess.TimeoutExpired:
+            ok = False
+        if ok:
+            if i > 1:
+                print(f"{host} reachable after {i} pings", file=sys.stderr)
+            return
+        print(f"waiting for {host} ({i}/{tries})…", file=sys.stderr)
+        if i < tries:
+            time.sleep(1)
+    die(f"{host} not reachable after {tries} pings")
+
+
 def ssh_base(from_host: str) -> list[str]:
     cmd = ["ssh"]
     if args.jump:
@@ -133,6 +160,9 @@ def run_trace(from_host: str | None) -> Path:
         die(f"json missing local_path: {payload!r}")
     return Path(local_path)
 
+
+if args.from_host:
+    wait_reachable(ssh_host(args.from_host))
 
 src = run_trace(args.from_host)
 dest = Path("/tmp") / src.name
