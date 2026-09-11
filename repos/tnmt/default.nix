@@ -9,6 +9,9 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  # Only required for msgvault (bun2nix's fetchBunDeps + hook). Callers that
+  # don't need msgvault can omit this.
+  bun2nix ? null,
 }:
 
 {
@@ -28,6 +31,7 @@
   kagiana = pkgs.callPackage ./pkgs/kagiana { };
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };
   mdhq = pkgs.callPackage ./pkgs/mdhq { };
+  msgvault = pkgs.callPackage ./pkgs/msgvault { inherit bun2nix; };
   roots = pkgs.callPackage ./pkgs/roots { };
   givy = pkgs.callPackage ./pkgs/givy { };
   op-cached = pkgs.callPackage ./pkgs/op-cached { };
