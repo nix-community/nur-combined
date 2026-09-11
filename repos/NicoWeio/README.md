@@ -27,6 +27,12 @@ packages:
 nixpkgs.config.allowUnfree = true;
 ```
 
+To run Rainlendar directly without installing it:
+
+```sh
+nix run github:NicoWeio/nur-packages#rainlendar2
+```
+
 ## Development
 
 Build all packages exported by the top-level `default.nix`:
