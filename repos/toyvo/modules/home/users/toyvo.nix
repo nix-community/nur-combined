@@ -29,8 +29,11 @@ in
     programs = {
       alacritty.enable = cfg.gui.enable;
       bash.initExtra = ''
-        source ${config.sops.templates."shell-secrets.env".path}
-        export OPENCODE_API_KEY
+        if [ -e ${config.sops.templates."shell-secrets.env".path} ]; then
+          set -a
+          source ${config.sops.templates."shell-secrets.env".path}
+          set +a
+        fi
       '';
       beets = {
         enable = pkgs.stdenv.hostPlatform.isLinux;
@@ -79,7 +82,9 @@ in
         nix-direnv.enable = true;
       };
       fish.interactiveShellInit = ''
-        sourceenv ${config.sops.templates."shell-secrets.env".path} > /dev/null 2>&1
+        if test -e ${config.sops.templates."shell-secrets.env".path}
+          sourceenv ${config.sops.templates."shell-secrets.env".path} > /dev/null 2>&1
+        end
       '';
       git = {
         enable = true;
@@ -215,8 +220,11 @@ in
         package = pkgs.zed-editor;
       };
       zsh.initContent = ''
-        source ${config.sops.templates."shell-secrets.env".path}
-        export OPENCODE_API_KEY
+        if [ -e ${config.sops.templates."shell-secrets.env".path} ]; then
+          set -a
+          source ${config.sops.templates."shell-secrets.env".path}
+          set +a
+        fi
       '';
     };
     services.easyeffects.enable = pkgs.stdenv.hostPlatform.isLinux && cfg.gui.enable;
@@ -234,10 +242,12 @@ in
         "yubikey_usbc_ed25519_sk.pub".mode = "0644";
         yubikey_usbc_ed25519_sk.mode = "0600";
         opencode_api_key = { };
+        openrouter_api_key = { };
       };
       templates = {
         "shell-secrets.env".content = ''
           OPENCODE_API_KEY=${config.sops.placeholder.opencode_api_key}
+          OPENROUTER_API_KEY=${config.sops.placeholder.openrouter_api_key}
           ZED_OPEN_AI_COMPATIBLE_EDIT_PREDICTION_API_KEY=${config.sops.placeholder.opencode_api_key}
         '';
       };

@@ -257,7 +257,7 @@ in
     # Immich doesn't support postgresql_17 yet;
     postgresql = {
       enable = true;
-      package = pkgs.postgresql_16;
+      package = pkgs.postgresql_17;
       enableTCPIP = true;
       authentication = lib.mkOverride 10 ''
         local all postgres         peer map=postgres
@@ -326,7 +326,7 @@ in
 
   # Set authentik user password from sops secret at activation time
   systemd.services.postgresql.postStart = ''
-    ${pkgs.postgresql_16}/bin/psql -tAc "ALTER ROLE authentik PASSWORD '$(cat ${
+    ${pkgs.postgresql_17}/bin/psql -tAc "ALTER ROLE authentik PASSWORD '$(cat ${
       config.sops.secrets."authentik-db-password".path
     })';"
   '';
@@ -352,7 +352,6 @@ in
       enable = true;
       natInterface = "eno1";
       stateDir = "/mnt/POOL/immich";
-      package = stablePkgs.immich;
     };
     jellyfin = {
       enable = true;

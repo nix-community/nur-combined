@@ -222,7 +222,7 @@ in
 
           # Pin postgres to version 16 — nextcloud's createLocally enables postgresql
           # and we match the major version used by the host's shared postgres instance.
-          services.postgresql.package = pkgs.postgresql_16;
+          services.postgresql.package = pkgs.postgresql_17;
 
           services.collabora-online = {
             enable = true;

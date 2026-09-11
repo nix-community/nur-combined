@@ -96,9 +96,9 @@ in
             isSystemUser = true;
           };
 
-          # Immich requires postgresql_16 with pgvecto-rs; the immich module
+          # Immich requires postgresql_17 with pgvecto-rs; the immich module
           # configures extensions and shared_preload_libraries automatically.
-          services.postgresql.package = pkgs.postgresql_16;
+          services.postgresql.package = pkgs.postgresql_17;
 
           services.immich = {
             enable = true;
