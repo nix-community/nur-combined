@@ -45,7 +45,7 @@
   hardware.cpu.intel.updateMicrocode = true;
   # WiFi/Bluetooth firmware extracted from macOS (kernel-independent files
   # under /lib/firmware/brcm); the drivers (brcmfmac/btusb) are mainline.
-  hardware.apple-t2.firmware.enable = true;
+  # hardware.apple-t2.firmware.enable = true;
   networking = {
     hostName = "MacMini-Intel-NixOS";
   };
