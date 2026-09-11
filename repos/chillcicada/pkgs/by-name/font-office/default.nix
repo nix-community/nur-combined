@@ -11,8 +11,8 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "chillcicada";
     repo = "fonts";
-    rev = "faa446035b205dcf229f6834c1e6895b9da05d95";
-    sha256 = "sha256-OLEQFdwJhv10wrWIURtW7ll97gQUJg0dkPJUpVSeeKs=";
+    rev = "e6e7c412f1a9aaa3718a2b031dff7ef585d6ada6";
+    sha256 = "sha256-mn9rIM7AO2+8sxhF3+eciB1qYdnt7+oyScmmevGMCVM=";
   };
 
   installPhase = ''
