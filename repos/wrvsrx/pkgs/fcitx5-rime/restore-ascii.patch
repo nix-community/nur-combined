@@ -1,0 +1,43 @@
+diff --git a/src/rimestate.cpp b/src/rimestate.cpp
+index f986e50..b55a04f 100644
+--- a/src/rimestate.cpp
++++ b/src/rimestate.cpp
+@@ -144,12 +144,14 @@ void RimeState::setLatinMode(bool latin) {
+     api->set_option(session(), RIME_ASCII_MODE, latin);
+ }
+ 
+-void RimeState::selectSchema(const std::string &schema) {
++void RimeState::selectSchema(const std::string &schema, bool is_restore) {
+     auto *api = engine_->api();
+     if (api->is_maintenance_mode()) {
+         return;
+     }
+-    api->set_option(session(), RIME_ASCII_MODE, false);
++    if (!is_restore) {
++        api->set_option(session(), RIME_ASCII_MODE, false);
++    }
+     api->select_schema(session(), schema.data());
+ }
+ 
+@@ -523,7 +525,7 @@ void RimeState::restore() {
+         return;
+     }
+ 
+-    selectSchema(savedCurrentSchema_);
++    selectSchema(savedCurrentSchema_, true);
+     for (const auto &option : savedOptions_) {
+         if (stringutils::startsWith(option, "!")) {
+             engine_->api()->set_option(session(), option.c_str() + 1, false);
+diff --git a/src/rimestate.h b/src/rimestate.h
+index 6b2a1dc..1506050 100644
+--- a/src/rimestate.h
++++ b/src/rimestate.h
+@@ -50,7 +50,7 @@ public:
+     std::string subModeLabel();
+     void toggleLatinMode();
+     void setLatinMode(bool latin);
+-    void selectSchema(const std::string &schemaId);
++    void selectSchema(const std::string &schemaId, bool is_restore = false);
+     RimeSessionId session(bool requestNewSession = true);
+ 
+     void snapshot();
