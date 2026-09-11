@@ -29,24 +29,18 @@
   libayatana-appindicator,
 }:
 let
-  version = "0.32.0";
+  version = "0.37.0";
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "artcraft";
     tag = "artcraft-v${version}";
-    hash = "sha256-xtKgGbHopP4BYqbdmcAhiJu+E0cME+NLqriRIEQo308=";
+    hash = "sha256-o5Q5dVrULPK924xdC0jhKbM/wj3EXyXOmCEaqqyMlSw=";
   };
   frontendSrc = runCommand "artcraft-frontend-src-${version}" { } ''
     cp -r ${src}/frontend $out
     chmod -R +w $out
 
-    substituteInPlace $out/package.json $out/apps/artcraft/package.json \
-      --replace-fail "@fortawesome/pro-solid-svg-icons" "@fortawesome/free-solid-svg-icons" \
-      --replace-fail "@fortawesome/pro-regular-svg-icons" "@fortawesome/free-solid-svg-icons"
-
     substituteInPlace $out/apps/artcraft/package.json \
-      --replace-fail '"update:icons": "npm update @awesome.me/kit-fde2be5eb0",' "" \
-      --replace-fail '"@awesome.me/kit-fde2be5eb0": "^1.0.7",' "" \
       --replace-fail '"prepare": "husky",' ""
 
     cp ${./frontend-package-lock.json} $out/package-lock.json
@@ -61,7 +55,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   npmRoot = "frontend";
   npmDeps = fetchNpmDeps {
     src = frontendSrc;
-    hash = "sha256-fZnA6PggchqTNv7Zb7glz3ALfPQnbgZgzKmThoaSvO4=";
+    hash = "sha256-vlO67fvPqxNA/++DGR46VqPnvkSs/fPUnqEeKMJFlrw=";
   };
   npmDepsFetcherVersion = 2;
   makeCacheWritable = true;
@@ -71,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildAndTestSubdir = "crates/desktop/artcraft";
-  cargoHash = "sha256-ZJSgBpgPqeoRriFldE2IemAk0pnXFJZe/38fDTxOL9g=";
+  cargoHash = "sha256-0Oi8sf6jmEy5rQFjqg/8kqCDZC/1DtA5pMj6QSl1c6s=";
 
   nativeBuildInputs = [
     cargo-tauri.hook
@@ -103,13 +97,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postPatch = ''
-    substituteInPlace frontend/package.json frontend/apps/artcraft/package.json \
-      --replace-fail "@fortawesome/pro-solid-svg-icons" "@fortawesome/free-solid-svg-icons" \
-      --replace-fail "@fortawesome/pro-regular-svg-icons" "@fortawesome/free-solid-svg-icons"
-
     substituteInPlace frontend/apps/artcraft/package.json \
-      --replace-fail '"update:icons": "npm update @awesome.me/kit-fde2be5eb0",' "" \
-      --replace-fail '"@awesome.me/kit-fde2be5eb0": "^1.0.7",' "" \
       --replace-fail '"prepare": "husky",' ""
 
     cp ${./frontend-package-lock.json} frontend/package-lock.json
@@ -193,9 +181,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     vendorDir="$(find /build -maxdepth 1 -type d -name '*-vendor' | head -n1)"
     cqFile="$(find "$vendorDir" -maxdepth 2 -type d -name 'concurrent-queue-*' | head -n1)/src/lib.rs"
 
-    perl -0pi -e 's#\n    /// Attempts to pop an item from the queue\.\n#\n    /// Forcefully pushes an item into the queue.\n    ///\n    /// If the queue is full, this method removes and returns an existing item.\n    /// If the queue is closed, the pushed item is returned as an error.\n    pub fn force_push(&self, value: T) -> Result<Option<T>, ForcePushError<T>> {\n        match self.push(value) {\n            Ok(()) => Ok(None),\n            Err(PushError::Closed(value)) => Err(ForcePushError(value)),\n            Err(PushError::Full(value)) => match self.pop() {\n                Ok(oldest) => match self.push(value) {\n                    Ok(()) => Ok(Some(oldest)),\n                    Err(PushError::Closed(value)) | Err(PushError::Full(value)) => {\n                        Err(ForcePushError(value))\n                    }\n                },\n                Err(PopError::Empty) | Err(PopError::Closed) => Err(ForcePushError(value)),\n            },\n        }\n    }\n\n    /// Attempts to pop an item from the queue.\n#s' "$cqFile"
+    # Older concurrent-queue lacked force_push; 2.5+ already has it.
+    if ! grep -q 'fn force_push' "$cqFile"; then
+      perl -0pi -e 's#\n    /// Attempts to pop an item from the queue\.\n#\n    /// Forcefully pushes an item into the queue.\n    ///\n    /// If the queue is full, this method removes and returns an existing item.\n    /// If the queue is closed, the pushed item is returned as an error.\n    pub fn force_push(&self, value: T) -> Result<Option<T>, ForcePushError<T>> {\n        match self.push(value) {\n            Ok(()) => Ok(None),\n            Err(PushError::Closed(value)) => Err(ForcePushError(value)),\n            Err(PushError::Full(value)) => match self.pop() {\n                Ok(oldest) => match self.push(value) {\n                    Ok(()) => Ok(Some(oldest)),\n                    Err(PushError::Closed(value)) | Err(PushError::Full(value)) => {\n                        Err(ForcePushError(value))\n                    }\n                },\n                Err(PopError::Empty) | Err(PopError::Closed) => Err(ForcePushError(value)),\n            },\n        }\n    }\n\n    /// Attempts to pop an item from the queue.\n#s' "$cqFile"
 
-    perl -0pi -e 's#\n/// Error which occurs when popping from an empty queue\.\n#\n/// Error returned by [`ConcurrentQueue::force_push`].\npub struct ForcePushError<T>(pub T);\n\n/// Error which occurs when popping from an empty queue.\n#s' "$cqFile"
+      perl -0pi -e 's#\n/// Error which occurs when popping from an empty queue\.\n#\n/// Error returned by [`ConcurrentQueue::force_push`].\npub struct ForcePushError<T>(pub T);\n\n/// Error which occurs when popping from an empty queue.\n#s' "$cqFile"
+    fi
 
     patchShebangs frontend/node_modules
     patchShebangs frontend/apps/artcraft/node_modules

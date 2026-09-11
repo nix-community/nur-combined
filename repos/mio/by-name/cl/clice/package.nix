@@ -92,8 +92,8 @@ let
   kotatsuSrc = fetchFromGitHub {
     owner = "clice-io";
     repo = "kotatsu";
-    rev = "c3dd7357c6494b38b276e14f62281cc5178026e3";
-    hash = "sha256-NMzC1wD2yTSfIoTRwXxAtJgUXAOM4BMAo5Ri2YocJ0w=";
+    rev = "0cbb8d4f19a87fb0737cacf5306d351dd3fd45bd";
+    hash = "sha256-f8pdwyBQDpnkzugdzUMwGSP+8dkiDAc6TQxAm51JOx8=";
   };
 
   simdjsonSrc = fetchFromGitHub {
@@ -149,13 +149,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026090616";
+  version = "0.1.2026090907";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GEvm0O7w26ttPT3LTDxmBeSAeKg6hP9H8ssS2c8qCCk=";
+    hash = "sha256-by0Kiyelnp6bOrAY0C22b3r6xNHQgBZBYUT9+WO3wCk=";
   };
 
   nativeBuildInputs = [
@@ -196,19 +196,27 @@ stdenv.mkDerivation (finalAttrs: {
     "-DROARING_USE_CPM=OFF"
     "-DLLVM_INSTALL_PATH=${clice-llvm}"
     "-DFETCHCONTENT_FULLY_DISCONNECTED=ON"
-    # Inject prefetched FetchContent sources (clice + kotatsu transitive).
-    "-DFETCHCONTENT_SOURCE_DIR_SPDLOG=${spdlogSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_CROARING=${croaringSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_FLATBUFFERS=${flatbuffersSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_KOTATSU=${kotatsuSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_SIMDJSON=${simdjsonSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_TOMLPLUSPLUS=${tomlplusplusSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_LIBUV=${libuvSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_CPPTRACE=${cpptraceSrc}"
+    # Upstream moved deps to CPMAddPackage; override via CPM_<name>_SOURCE.
+    "-DCPM_kotatsu_SOURCE=${kotatsuSrc}"
+    "-DCPM_spdlog_SOURCE=${spdlogSrc}"
+    "-DCPM_croaring_SOURCE=${croaringSrc}"
+    "-DCPM_lmdb_SOURCE=${lmdbSrc}"
+    # kotatsu nested deps (also added through CPM when the parent loaded CPM).
+    "-DCPM_simdjson_SOURCE=${simdjsonSrc}"
+    "-DCPM_flatbuffers_SOURCE=${flatbuffersSrc}"
+    "-DCPM_tomlplusplus_SOURCE=${tomlplusplusSrc}"
+    "-DCPM_libuv_SOURCE=${libuvSrc}"
+    "-DCPM_cpptrace_SOURCE=${cpptraceSrc}"
+    # cpptrace still uses FetchContent for these.
     "-DFETCHCONTENT_SOURCE_DIR_ZSTD=${zstdSrc}"
     "-DFETCHCONTENT_SOURCE_DIR_LIBDWARF=${libdwarfSrc}"
-    "-DFETCHCONTENT_SOURCE_DIR_LMDB=${lmdbSrc}"
   ];
+
+  # CPM defaults to $HOME/.cache; keep the cache under the build tree.
+  preConfigure = ''
+    export CPM_SOURCE_CACHE="$TMPDIR/cpm-cache"
+    mkdir -p "$CPM_SOURCE_CACHE"
+  '';
 
   # Linking static LLVM/Clang is memory-heavy.
   enableParallelBuilding = true;

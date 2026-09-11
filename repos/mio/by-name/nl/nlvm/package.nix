@@ -11,16 +11,17 @@
   llvmPackages,
   zlib,
   zstd,
+  autoPatchelfHook,
 }:
 
 stdenv.mkDerivation rec {
   pname = "nlvm";
-  version = "a9c3397";
+  version = "4a8f488";
 
   src = fetchgit {
     url = "https://github.com/arnetheduck/nlvm.git";
-    rev = version;
-    hash = "sha256-K+N+vn8sQ6uS4iQrZxbU4gsWAZUp9hHlio27oY/Rcxo=";
+    rev = "4a8f488b3d6ff12da9ad3787638a12be82f6a45f";
+    hash = "sha256-vvSvdjGD/Kz1hSZbXzCtoWmWjZiPg3/M1qUUzj/z6+U=";
     fetchSubmodules = true;
   };
 
@@ -44,6 +45,7 @@ stdenv.mkDerivation rec {
     git
     llvmPackages.clang
     llvmPackages.lld
+    autoPatchelfHook
   ];
 
   # zlib/zstd are needed by the static LLVM link; system llvm_18 is NOT listed
@@ -51,6 +53,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     zlib
     zstd
+    stdenv.cc.cc.lib
   ];
 
   buildPhase = ''

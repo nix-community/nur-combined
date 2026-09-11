@@ -22,13 +22,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "chatbox";
-  version = "1.23.1";
+  version = "1.23.2";
 
   src = fetchFromGitHub {
     owner = "chatboxai";
     repo = "chatbox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-yh+xkqeEAQUZG1RT+bpQhBxZZq3LJjjZKv5uBNDgD+o=";
+    hash = "sha256-OR8Np75c0RcyJaFXboyIAKj9hrGXeqK1+FPeMbu1uxk=";
   };
 
   pnpmDeps = fetchPnpmDeps {
