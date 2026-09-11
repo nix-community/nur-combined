@@ -10,7 +10,7 @@
   rustPlatform,
   cargo,
   rustc,
-  wasm-bindgen-cli_0_2_126,
+  callPackage,
   zip,
   makeWrapper,
   copyDesktopItems,
@@ -21,16 +21,36 @@
 let
   pnpm = pnpm_11;
   electron = electron_43;
-  wasm-bindgen-cli = wasm-bindgen-cli_0_2_126;
+  wasm-bindgen-cli = callPackage (
+    {
+      buildWasmBindgenCli,
+      fetchCrate,
+      rustPlatform,
+    }:
+
+    buildWasmBindgenCli rec {
+      src = fetchCrate {
+        pname = "wasm-bindgen-cli";
+        version = "0.2.128";
+        hash = "sha256-a7lcXJnnZkYReja+iUO7NqqrWyv3toxnUgQb8s4IS5s=";
+      };
+
+      cargoDeps = rustPlatform.fetchCargoVendor {
+        inherit src;
+        inherit (src) pname version;
+        hash = "sha256-R1Tas33Ursy8kqsxguAkG0ZhNed2n5uFTAhw1l2qlLY=";
+      };
+    }
+  ) { };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-orpheus";
-  version = "0.16.2";
+  version = "0.17.0";
   src = fetchFromGitHub {
     owner = "YUCLing";
     repo = "open-orpheus";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mijFHclTLj/we40qKAze3fiI06srnqWFA91VzXXPz38=";
+    hash = "sha256-qK7oR4EeH8Mio+etR79ZT62nj0LzKeXlWs1UYyl9SxU=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -41,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-GED10qC/bhcvO6L+y5B04nC2uhAwk3VTJWnMJ3x2IdQ=";
+    hash = "sha256-7orpYRbYxMRzKQyCY8WLfrLU/8vyGGX3pJUdpwH9c2U=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -50,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-3cfN+EKFVk4jaXTyn8MkO3l3mQiNzXBdGO7+OaFp5Uw=";
+    hash = "sha256-ym7BsQ5ln3Xi6tY5TtA83D49oYEO1AEVJ62b0ndJcec=";
   };
 
   nativeBuildInputs = [
