@@ -31,7 +31,12 @@
   kagiana = pkgs.callPackage ./pkgs/kagiana { };
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };
   mdhq = pkgs.callPackage ./pkgs/mdhq { };
-  msgvault = pkgs.callPackage ./pkgs/msgvault { inherit bun2nix; };
+  # bun2nix is only available when this file is evaluated through the flake
+  # (flake.nix passes bun2nix.packages.${system}.default). The legacy
+  # nix-env/nix-build CI path used by build.yml has no way to supply a flake
+  # input, so skip msgvault there instead of crashing the whole evaluation.
+  msgvault =
+    if bun2nix == null then null else pkgs.callPackage ./pkgs/msgvault { inherit bun2nix; };
   roots = pkgs.callPackage ./pkgs/roots { };
   givy = pkgs.callPackage ./pkgs/givy { };
   op-cached = pkgs.callPackage ./pkgs/op-cached { };

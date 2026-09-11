@@ -2,7 +2,8 @@
   lib,
   fetchFromGitHub,
   buildGoModule,
-  go_1_27,
+  go_1_27 ? null,
+  go_1_25,
   bun2nix,
   nodejs,
   runCommand,
@@ -10,8 +11,11 @@
 }:
 let
   version = "0.19.3";
+  # go.mod requires go 1.27.0. Nixpkgs stable channels (e.g. nixos-25.11)
+  # don't package it yet, so fall back to the newest available toolchain.
+  go = if go_1_27 != null then go_1_27 else go_1_25;
 in
-(buildGoModule.override { go = go_1_27; }) {
+(buildGoModule.override { inherit go; }) {
   pname = "msgvault";
   inherit version;
 
