@@ -15,6 +15,7 @@
 
 let
   lib = nixpkgs.lib;
+  darwinCross = import ./darwin-cross.nix { inherit lib; };
 
   # Flake output attributes that are not per-system
   globalAttrs = [
@@ -93,7 +94,7 @@ let
 
   nixpkgsConfig = {
     allowUnfree = true;
-    allowDeprecatedx86_64Darwin = true;
+    allowDeprecatedx86_64Darwin = "force";
     android_sdk.accept_license = true;
   };
 
@@ -107,10 +108,16 @@ let
 
   mkCrossPackages =
     localSystem: crossSystem:
+    let
+      localPlatform = lib.systems.elaborate localSystem;
+      configuredCrossSystem = darwinCross.configureCrossSystem localPlatform crossSystem;
+      isLinuxToDarwin = darwinCross.isLinuxToDarwin localPlatform configuredCrossSystem;
+    in
     import nixpkgs {
-      inherit localSystem crossSystem;
-      overlays = nixpkgsOverlays;
-      config = nixpkgsConfig;
+      localSystem = localPlatform;
+      crossSystem = configuredCrossSystem;
+      overlays = lib.optional isLinuxToDarwin darwinCross.overlay ++ nixpkgsOverlays;
+      config = nixpkgsConfig // lib.optionalAttrs isLinuxToDarwin darwinCross.config;
     };
 
   # fixes the mainProgram attribute for windows packages
@@ -133,11 +140,6 @@ let
       )
     else
       package;
-
-  # cross-compilation from linux to darwin doesn't work yet
-  # https://nixos.org/manual/nixpkgs/stable/#sec-platform-breakdown
-  isUnsupportedDarwinCross =
-    buildPlatform: hostPlatform: hostPlatform.isDarwin && buildPlatform.isLinux;
 
   # add dev otherwise the result will have the entire buildInputs closure
   # https://github.com/NixOS/nixpkgs/issues/83667
@@ -190,10 +192,16 @@ eachSystemOp (
     }
     // (f system packages);
 
-    crosses = map (platform: {
-      inherit platform;
-      flake = f system (mkCrossPackages system platform);
-    }) platforms;
+    crosses = map (
+      platform:
+      let
+        packages = mkCrossPackages system platform;
+      in
+      {
+        inherit packages platform;
+        flake = f system packages;
+      }
+    ) platforms;
   in
 
   builtins.foldl' (
@@ -224,20 +232,24 @@ eachSystemOp (
                           map (cross: {
                             name = cross.platform.config;
                             value =
-                              if isUnsupportedDarwinCross packages.stdenv.buildPlatform cross.platform then
-                                null
-                              else if
-                                let
-                                  res = builtins.tryEval (lib.meta.availableOn cross.platform package);
-                                in
-                                if res.success then
-                                  res.value
+                              let
+                                crossPackage = builtins.tryEval cross.flake.${key}.${name};
+                                available =
+                                  if crossPackage.success then
+                                    builtins.tryEval (lib.meta.availableOn cross.platform crossPackage.value)
+                                  else
+                                    {
+                                      success = true;
+                                      value = false;
+                                    };
+                              in
+                              if available.success then
+                                if available.value then
+                                  tryEval (darwinCross.fixPackage cross.packages (fixWindows (fixStatic crossPackage.value)))
                                 else
-                                  builtins.warn "Failed to evaluate availability of ${key}.${name} for ${cross.platform.config}" false
-                              then
-                                tryEval (fixWindows (fixStatic (cross.flake.${key}.${name})))
+                                  null
                               else
-                                null;
+                                builtins.warn "Failed to evaluate availability of ${key}.${name} for ${cross.platform.config}" null;
                           }) crosses
                         )
                       );

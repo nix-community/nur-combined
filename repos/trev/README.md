@@ -298,6 +298,14 @@ To build `rust-example` into a different architecture:
 nix build .#default.aarch64-unknown-linux-gnu
 ```
 
+Linux builders also automatically attempt macOS cross-compilation using the Apple SDK packaged by nixpkgs:
+
+```sh
+nix build .#default.arm64-apple-darwin
+```
+
+Darwin cross-compilation is best-effort per package. Target binaries cannot run on the Linux builder, so builds and checks must inspect them without executing them. For target-specific package logic, use `pkgs.stdenv.hostPlatform`; the `system` callback argument remains the build system.
+
 View all possible cross-compilation targets with:
 
 ```sh

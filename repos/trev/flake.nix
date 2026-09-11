@@ -212,6 +212,7 @@
             '';
           };
         }
+        // pkgs.lib.optionalAttrs (system == "x86_64-linux") (import ./tests/mkFlake { inherit pkgs self; })
         // import ./packages/duckdb/checks.nix { inherit (pkgs) lib callPackage; }
         // pkgs.lib.mapAttrs' (
           name: value: pkgs.lib.nameValuePair ("package_" + name) value
