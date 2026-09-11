@@ -39,10 +39,9 @@ let
       inherit (prev) xclip;
       source = sources.xclip;
     };
-    librime = callPackage ./librime { inherit (prev) librime; };
     fcitx5-rime = callPackage ./fcitx5-rime {
       inherit (prev) fcitx5-rime;
-      inherit (final) fcitx5 librime;
+      inherit (final) fcitx5;
     };
     niri = callPackage ./niri { inherit (prev) niri; };
     neovim-unwrapped = callPackage ./neovim-unwrapped { inherit (prev) neovim-unwrapped; };
