@@ -8,6 +8,7 @@ builtins.mapAttrs (
   if lib.isDerivation check then
     check.overrideAttrs {
       doCheck = true;
+      doInstallCheck = true;
     }
   else
     let
@@ -104,6 +105,7 @@ builtins.mapAttrs (
 
           nativeCheckInputs = (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
           doCheck = true;
+          doInstallCheck = true;
         }
       )
     else
