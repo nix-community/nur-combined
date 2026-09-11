@@ -22,15 +22,13 @@
     inputs.sops-nix.nixosModules.sops
   ];
 
-  # Override T2 kernel to use stablePkgs.linux_6_12 (6.12.76) because
-  # unstablePkgs.linux_6_12 (6.12.77) has a patch failure in nixos-hardware.
-  boot.kernelPackages = lib.mkForce (
-    pkgs.linuxPackagesFor (
-      pkgs.callPackage (inputs.nixos-hardware + "/apple/t2/pkgs/linux-t2") {
-        linux_6_12 = stablePkgs.linux_6_12;
-      }
-    )
-  );
+  # Use the mainline kernel instead of the T2-patched one: the pinned
+  # t2linux patchset no longer applies to linux_6_18
+  # (4001-asahi-trackpad.patch fails on drivers/hid/hid-magicmouse.c), and a
+  # headless Mac Mini doesn't need apple-bce (internal keyboard/trackpad and
+  # audio) — USB peripherals use the stock drivers. WiFi/Bluetooth firmware
+  # still comes from hardware.apple-t2.firmware below.
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
 
   home-manager = {
     extraSpecialArgs = {
@@ -45,6 +43,9 @@
     sharedModules = [ ./home.nix ];
   };
   hardware.cpu.intel.updateMicrocode = true;
+  # WiFi/Bluetooth firmware extracted from macOS (kernel-independent files
+  # under /lib/firmware/brcm); the drivers (brcmfmac/btusb) are mainline.
+  hardware.apple-t2.firmware.enable = true;
   networking = {
     hostName = "MacMini-Intel-NixOS";
   };
@@ -61,6 +62,18 @@
     kernelModules = [ "kvm-intel" ];
   };
   userPresets.toyvo.enable = true;
+  nixcfg = {
+    nix.enable = true;
+    security.enable = true;
+    home-manager.enable = true;
+    networking.enable = true;
+    system.enable = true;
+    boot.enable = true;
+  };
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   services.openssh.enable = true;
   environment.systemPackages = with pkgs; [
     signal-cli
