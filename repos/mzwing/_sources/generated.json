@@ -567,7 +567,7 @@
     },
     "tree-sitter-nix": {
         "cargoLock": null,
-        "date": "2026-06-25",
+        "date": "2026-09-11",
         "extract": null,
         "name": "tree-sitter-nix",
         "passthru": null,
@@ -579,12 +579,12 @@
             "name": null,
             "owner": "nix-community",
             "repo": "tree-sitter-nix",
-            "rev": "3d0173d903e630b6e14d17f1cf79488791379ded",
-            "sha256": "sha256-DFmFRZ47TPr8mgmRyXuHLfkQRmO58m4QyN9OBISb7IE=",
+            "rev": "5a64e75fc1ee54f9e14e3a23918e057d43b2de2b",
+            "sha256": "sha256-gwiOJzi+t3g4PXmh+i6P/k0DLqY/ALjJr1wCb0FpbDA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3d0173d903e630b6e14d17f1cf79488791379ded"
+        "version": "5a64e75fc1ee54f9e14e3a23918e057d43b2de2b"
     },
     "typenix": {
         "cargoLock": null,
