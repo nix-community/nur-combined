@@ -373,6 +373,13 @@
     },
     {
       "kind": "tool",
+      "ref": "registry:resvg",
+      "depName": "linebender/resvg",
+      "currentValue": "0.48.1",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "registry:tirith",
       "depName": "sheeki03/tirith",
       "currentValue": "v0.3.3",
