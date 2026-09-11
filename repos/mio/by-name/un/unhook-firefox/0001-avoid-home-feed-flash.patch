@@ -1,6 +1,27 @@
 --- a/manifest.json
 +++ b/manifest.json
-@@ -22,7 +22,8 @@
+@@ -10,9 +10,19 @@
+   },
+ 
+   "permissions": [
+-    "storage"
++    "storage",
++    "webRequest",
++    "webRequestBlocking"
+   ],
+ 
++  "host_permissions": [
++    "*://www.youtube.com/*"
++  ],
++
++  "background": {
++    "scripts": ["background.js"]
++  },
++
+   "action": {
+     "default_icon": "icons/unhook.png",
+     "default_title": "Unhook NG",
+@@ -22,7 +32,8 @@
    "content_scripts": [
      {
        "matches": ["*://www.youtube.com/*"],
@@ -12,12 +33,13 @@
    "browser_specific_settings": {
 --- a/unhook.js
 +++ b/unhook.js
-@@ -3,33 +3,83 @@
+@@ -3,33 +3,92 @@
  
  // Single stylesheet for all hiding rules
  let styleElement = null;
 +let earlyHideElement = null;
 +let redirecting = false;
++let runId = 0;
  
 -function applyStyles(settings) {
 -  const path = window.location.pathname;
@@ -42,10 +64,15 @@
 +      earlyHideElement = document.createElement('style');
 +      earlyHideElement.id = 'unhook-early-hide';
 +      // Gate on html class so SPA navigations away from home cannot blank other feeds.
-+      earlyHideElement.textContent =
-+        'html.unhook-hide-home ytd-rich-grid-renderer,' +
-+        'html.unhook-hide-home #contents.ytd-rich-grid-renderer {' +
-+        'visibility:hidden!important;}';
++      // Include ghost/skeleton grids used while YouTube paints the home feed.
++      earlyHideElement.textContent = [
++        'html.unhook-hide-home ytd-rich-grid-renderer,',
++        'html.unhook-hide-home ytd-ghost-grid-renderer,',
++        'html.unhook-hide-home #contents.ytd-rich-grid-renderer,',
++        'html.unhook-hide-home ytd-browse[page-subtype="home"] #primary {',
++        '  visibility: hidden !important;',
++        '}',
++      ].join('');
 +      styleParent().appendChild(earlyHideElement);
      }
 +    return;
@@ -61,14 +88,15 @@
 +  if (!settings.redirectToSubscriptions || !isHomeOrTrending()) {
 +    return false;
 +  }
++  // Full document loads are handled by background webRequest when possible.
++  // This path covers SPA navigations (logo/Home) where webRequest does not run.
 +  redirecting = true;
 +  setEarlyHide(true);
 +  window.location.replace('https://www.youtube.com/feed/subscriptions');
 +  return true;
 +}
 +
-+// Sync only: hide home/trending until live storage decides.
-+// Never redirect here — cached guesses can be stale after toggling settings.
++// Sync only: hide home/trending until live storage decides. Never redirect here.
 +function prepareHomePath() {
 +  if (isHomeOrTrending()) {
 +    setEarlyHide(true);
@@ -94,8 +122,11 @@
 +  const path = window.location.pathname;
    const rules = [];
 -  
+-  if (settings.hideHomeFeed && path === '/') rules.push('ytd-rich-grid-renderer { display: none !important; }');
 +
-   if (settings.hideHomeFeed && path === '/') rules.push('ytd-rich-grid-renderer { display: none !important; }');
++  if (settings.hideHomeFeed && path === '/') {
++    rules.push('ytd-rich-grid-renderer, ytd-ghost-grid-renderer { display: none !important; }');
++  }
    if (settings.hideVideoSidebar) rules.push('#secondary { display: none !important; }');
    if (settings.hideRecommended) rules.push('#related { display: none !important; }');
    if (settings.hideLiveChat) rules.push('#chat-container { display: none !important; }');
@@ -106,7 +137,7 @@
    if (settings.hideEndScreenCards) rules.push('.ytp-fullscreen-grid, .ytp-ce-element { display: none !important; }');
    if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
  
-@@ -65,15 +115,34 @@
+@@ -65,22 +124,55 @@
    }
  
    styleElement.textContent = rules.join('\n');
@@ -117,46 +148,54 @@
 +  } else {
 +    setEarlyHide(false);
 +  }
-+}
-+
-+let settingsPromise = null;
-+
-+function getSettings() {
-+  if (!settingsPromise) {
-+    settingsPromise = browserAPI.storage.local.get(null).finally(() => {
-+      settingsPromise = null;
-+    });
-+  }
-+  return settingsPromise;
  }
  
  async function main() {
 -  // Chrome/Firefox compatibility
--  const settings = await browserAPI.storage.local.get(null);
++  const id = ++runId;
 +  prepareHomePath();
-+  const settings = await getSettings();
-+  // Path may have changed while storage was in flight (SPA).
+   const settings = await browserAPI.storage.local.get(null);
++  if (id !== runId) {
++    return;
++  }
++  // Path may have changed while storage was in flight (SPA / Back).
 +  prepareHomePath();
++  if (id !== runId) {
++    return;
++  }
    applyStyles(settings);
  }
  
 -// Content scripts run after DOM is ready by default, so call main directly
  main();
  
- // Listen for storage changes and reapply all settings
-@@ -81,6 +150,12 @@
+-// Listen for storage changes and reapply all settings
+ browserAPI.storage.onChanged.addListener(() => {
    main();
  });
  
 -document.body.addEventListener("yt-navigate-start", function(event) {
-+// document.body is null at document_start; YouTube SPA events bubble on document.
 +function onNavigate() {
-+  redirecting = false;
++  // Only clear the redirect guard after leaving home/trending so overlapping
++  // navigate events cannot issue a second replace() mid-redirect.
++  if (!isHomeOrTrending()) {
++    redirecting = false;
++  }
 +  prepareHomePath();
    main();
 -});
 \ No newline at end of file
 +}
 +
++// YouTube SPA events (document fires before window). Back often skips these.
 +document.addEventListener('yt-navigate-start', onNavigate);
 +document.addEventListener('yt-navigate-finish', onNavigate);
++document.addEventListener('yt-page-data-fetched', onNavigate);
++
++// Browser Back/Forward: yt-navigate-start often does not fire (known YT quirk).
++window.addEventListener('popstate', onNavigate);
++window.addEventListener('pageshow', (event) => {
++  if (event.persisted) {
++    onNavigate();
++  }
++});

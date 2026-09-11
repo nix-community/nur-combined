@@ -2,16 +2,22 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
+  jq,
   zip,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "wayback-machine-extension";
+  # Manifest version at pinned commit; package.json still says 3.0.0.
   version = "3.4.8-unstable-2026-08-12";
 
-  extid = "wayback_machine@mozilla.org";
+  # Official AMO listing for 3.4.x (legacy 3.2 used wayback_machine@mozilla.org).
+  extid = "wayback_machine@archive.org";
 
-  nativeBuildInputs = [ zip ];
+  nativeBuildInputs = [
+    jq
+    zip
+  ];
 
   src = fetchFromGitHub {
     owner = "internetarchive";
@@ -31,8 +37,16 @@ buildNpmPackage (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
+    # Upstream omits gecko id; AMO injects it when publishing.
+    jq --arg id "${finalAttrs.extid}" \
+      '.browser_specific_settings.gecko.id = $id
+       | .browser_specific_settings.gecko.strict_min_version = "109.0"' \
+      webextension/manifest.json > "$TMPDIR/manifest.json"
+    mv "$TMPDIR/manifest.json" webextension/manifest.json
+
     pushd webextension > /dev/null
-    zip -qr "$TMPDIR/wayback-machine.xpi" .
+    # Omit webpack source maps (AMO shipping does not include them).
+    zip -qr "$TMPDIR/wayback-machine.xpi" . -x '*.map'
     popd > /dev/null
 
     install -Dm644 "$TMPDIR/wayback-machine.xpi" "$out/${finalAttrs.extid}.xpi"

@@ -22,6 +22,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ./0001-avoid-home-feed-flash.patch
   ];
 
+  # Network-level home/trending redirect (upstream #8 approach, sync in-memory).
+  postPatch = ''
+    cp ${./background.js} background.js
+  '';
+
   nativeBuildInputs = [ zip ];
 
   installPhase = ''
@@ -33,6 +38,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       popup.html \
       popup.js \
       unhook.js \
+      background.js \
       icons
     popd > /dev/null
 
