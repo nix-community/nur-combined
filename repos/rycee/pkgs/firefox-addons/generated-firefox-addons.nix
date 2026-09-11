@@ -2947,10 +2947,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "156.0.20260909.172920";
+      version = "157.0.20260910.113359";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018447/dansk_da_language_pack-156.0.20260909.172920.xpi";
-      sha256 = "f06c2801be833f44baf8b4ed373260c0cdfab2fce0b3d961ec2d6423994a66d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5020356/dansk_da_language_pack-157.0.20260910.113359.xpi";
+      sha256 = "a3cf45ae9e6b52823877ed3738a5340bbf7e4def4cb99ca061fc718c19aa676d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3165,10 +3165,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "156.0.20260909.172920";
+      version = "157.0.20260910.113359";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018458/deutsch_de_language_pack-156.0.20260909.172920.xpi";
-      sha256 = "1fcd59b4e28885cead12a2b6c3c6eee4f88bed3305dbc07e037592ac0c0fd2fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5020357/deutsch_de_language_pack-157.0.20260910.113359.xpi";
+      sha256 = "254dab4937edd21ad2d62cea47bf9d523821f1ea91529c1d46fd41230e5ce4a9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4667,10 +4667,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "156.0.20260909.172920";
+      version = "157.0.20260910.113359";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018503/francais_language_pack-156.0.20260909.172920.xpi";
-      sha256 = "db17a1387cf48103607d10bab6e375ffa4971b3dc337282615a720785c6ac0eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5020189/francais_language_pack-157.0.20260910.113359.xpi";
+      sha256 = "ebda7ec8c95882b051736f8c89f6ea265ca971ba1a171d722de388acae5dd5fe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4704,10 +4704,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "156.0.20260909.172920";
+      version = "157.0.20260910.113359";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018531/gaidhlig_language_pack-156.0.20260909.172920.xpi";
-      sha256 = "96e6e64143d73be2548aa1d59fcea526e19baa5763d9fa29e06214adbfa4c3aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5020176/gaidhlig_language_pack-157.0.20260910.113359.xpi";
+      sha256 = "1b9211a0a32b24c83ed3fd488f0ea99bbe1a4b7b5f68f920175ca6d476f3b7ab";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -13161,10 +13161,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "156.0.20260909.172920";
+      version = "157.0.20260910.113359";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018538/scots_language_pack-156.0.20260909.172920.xpi";
-      sha256 = "bf0193ab56ff3bb72b218cb581aa26bab9910b81cf9ffe70d7bba1e0dba6922e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5020171/scots_language_pack-157.0.20260910.113359.xpi";
+      sha256 = "f65d69b7fa52cc283ecc7fc4a52c174e159f2cb2d23ac375926c6e9795fd7dd9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15931,10 +15931,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.4.46";
+      version = "2.4.47";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4974828/v2ex_polish-2.4.46.xpi";
-      sha256 = "9a939d0eda7c8dd25aa4fa01cde5ac81d8c36c2a9c0d3c76864dad287d06b7d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5020144/v2ex_polish-2.4.47.xpi";
+      sha256 = "595bb5d4c2ee77d603b50bcd46a2cc051e85c1fa6b0b936bb0b8fd1379062961";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
