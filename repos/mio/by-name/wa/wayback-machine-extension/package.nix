@@ -2,13 +2,12 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-  nodejs,
   zip,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "wayback-machine-extension";
-  version = "3.2";
+  version = "3.4.8-unstable-2026-08-12";
 
   extid = "wayback_machine@mozilla.org";
 
@@ -17,11 +16,11 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "internetarchive";
     repo = "wayback-machine-webextension";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-lEcKEpchqfvPWH+VMz/qnD4I89XBPyj/DgvOLe/8ygM=";
+    rev = "baee59f01f55975e143d90f6920af1dc4d613fcc";
+    hash = "sha256-8GodVeFH9w/SSQV++W18lCjPd1Jbv4gf9fua7tEHOCE=";
   };
 
-  npmDepsHash = "sha256-CQS3B03w3N3Nd67Q4Yvnsy/J5bCdgJC7jAeVYeCNEnI=";
+  npmDepsHash = "sha256-9y4LFrt0NC+hotXed3ZEbCN2noKj5It/qhessk9j/pM=";
 
   buildPhase = ''
     runHook preBuild
@@ -49,7 +48,6 @@ buildNpmPackage (finalAttrs: {
   };
 
   meta = {
-    changelog = "https://github.com/internetarchive/wayback-machine-webextension/releases/tag/v${finalAttrs.version}";
     description = "Official Wayback Machine browser extension by the Internet Archive";
     homepage = "https://github.com/internetarchive/wayback-machine-webextension";
     license = lib.licenses.agpl3Only;

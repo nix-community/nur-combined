@@ -12,15 +12,12 @@
    "browser_specific_settings": {
 --- a/unhook.js
 +++ b/unhook.js
-@@ -1,35 +1,111 @@
- // Chrome/Firefox compatibility
- const browserAPI = globalThis.browser || globalThis.chrome;
+@@ -3,33 +3,83 @@
  
-+const SETTINGS_CACHE_KEY = 'unhook-ng-settings-cache';
-+
  // Single stylesheet for all hiding rules
  let styleElement = null;
 +let earlyHideElement = null;
++let redirecting = false;
  
 -function applyStyles(settings) {
 -  const path = window.location.pathname;
@@ -32,34 +29,12 @@
 +  // document.head may be missing at document_start
 +  return document.head || document.documentElement;
 +}
-+
-+function readCachedSettings() {
-+  try {
-+    return JSON.parse(localStorage.getItem(SETTINGS_CACHE_KEY) || '{}');
-+  } catch {
-+    return {};
-+  }
-+}
  
 -  // Redirect homepage to subscriptions
 -  if (settings.redirectToSubscriptions) {
 -    if (path === '/' || path === '/feed/trending') {
 -      window.location.replace('https://www.youtube.com/feed/subscriptions');
 -      return;
-+function writeCachedSettings(settings) {
-+  try {
-+    localStorage.setItem(
-+      SETTINGS_CACHE_KEY,
-+      JSON.stringify({
-+        hideHomeFeed: settings.hideHomeFeed === true,
-+        redirectToSubscriptions: settings.redirectToSubscriptions === true,
-+      })
-+    );
-+  } catch {
-+    // Ignore quota / private-mode failures; async path still works.
-+  }
-+}
-+
 +function setEarlyHide(enabled) {
 +  if (enabled) {
 +    document.documentElement.classList.add('unhook-hide-home');
@@ -80,34 +55,31 @@
 +}
 +
 +function redirectHomeIfNeeded(settings) {
++  if (redirecting) {
++    return true;
++  }
 +  if (!settings.redirectToSubscriptions || !isHomeOrTrending()) {
 +    return false;
 +  }
++  redirecting = true;
 +  setEarlyHide(true);
 +  window.location.replace('https://www.youtube.com/feed/subscriptions');
 +  return true;
 +}
 +
++// Sync only: hide home/trending until live storage decides.
++// Never redirect here — cached guesses can be stale after toggling settings.
 +function prepareHomePath() {
-+  const cached = readCachedSettings();
-+  if (redirectHomeIfNeeded(cached)) {
-+    return true;
-+  }
-+  // Hide home/trending until storage resolves so the feed cannot paint first.
 +  if (isHomeOrTrending()) {
 +    setEarlyHide(true);
 +  } else {
 +    setEarlyHide(false);
 +  }
-+  return false;
 +}
 +
-+// Sync path at document_start (before first paint when possible).
 +prepareHomePath();
 +
 +function applyStyles(settings) {
-+  writeCachedSettings(settings);
-+
 +  if (redirectHomeIfNeeded(settings)) {
 +    return;
    }
@@ -134,7 +106,7 @@
    if (settings.hideEndScreenCards) rules.push('.ytp-fullscreen-grid, .ytp-ce-element { display: none !important; }');
    if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
  
-@@ -65,15 +141,20 @@
+@@ -65,15 +115,34 @@
    }
  
    styleElement.textContent = rules.join('\n');
@@ -145,11 +117,26 @@
 +  } else {
 +    setEarlyHide(false);
 +  }
++}
++
++let settingsPromise = null;
++
++function getSettings() {
++  if (!settingsPromise) {
++    settingsPromise = browserAPI.storage.local.get(null).finally(() => {
++      settingsPromise = null;
++    });
++  }
++  return settingsPromise;
  }
  
  async function main() {
 -  // Chrome/Firefox compatibility
-   const settings = await browserAPI.storage.local.get(null);
+-  const settings = await browserAPI.storage.local.get(null);
++  prepareHomePath();
++  const settings = await getSettings();
++  // Path may have changed while storage was in flight (SPA).
++  prepareHomePath();
    applyStyles(settings);
  }
  
@@ -157,16 +144,15 @@
  main();
  
  // Listen for storage changes and reapply all settings
-@@ -81,6 +162,13 @@
+@@ -81,6 +150,12 @@
    main();
  });
  
 -document.body.addEventListener("yt-navigate-start", function(event) {
 +// document.body is null at document_start; YouTube SPA events bubble on document.
 +function onNavigate() {
-+  if (prepareHomePath()) {
-+    return;
-+  }
++  redirecting = false;
++  prepareHomePath();
    main();
 -});
 \ No newline at end of file
