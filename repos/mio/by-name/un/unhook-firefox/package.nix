@@ -18,6 +18,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-GjhOEEy3HJKa2y25pg5Go3V63nufXrSWF/KOsCTPEek=";
   };
 
+  patches = [
+    ./0001-avoid-home-feed-flash.patch
+  ];
+
   nativeBuildInputs = [ zip ];
 
   installPhase = ''

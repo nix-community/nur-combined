@@ -1,0 +1,176 @@
+--- a/manifest.json
++++ b/manifest.json
+@@ -22,7 +22,8 @@
+   "content_scripts": [
+     {
+       "matches": ["*://www.youtube.com/*"],
+-      "js": ["unhook.js"]
++      "js": ["unhook.js"],
++      "run_at": "document_start"
+     }
+   ],
+   "browser_specific_settings": {
+--- a/unhook.js
++++ b/unhook.js
+@@ -1,35 +1,111 @@
+ // Chrome/Firefox compatibility
+ const browserAPI = globalThis.browser || globalThis.chrome;
+ 
++const SETTINGS_CACHE_KEY = 'unhook-ng-settings-cache';
++
+ // Single stylesheet for all hiding rules
+ let styleElement = null;
++let earlyHideElement = null;
+ 
+-function applyStyles(settings) {
+-  const path = window.location.pathname;
++function isHomeOrTrending(path = window.location.pathname) {
++  return path === '/' || path === '/feed/trending';
++}
++
++function styleParent() {
++  // document.head may be missing at document_start
++  return document.head || document.documentElement;
++}
++
++function readCachedSettings() {
++  try {
++    return JSON.parse(localStorage.getItem(SETTINGS_CACHE_KEY) || '{}');
++  } catch {
++    return {};
++  }
++}
+ 
+-  // Redirect homepage to subscriptions
+-  if (settings.redirectToSubscriptions) {
+-    if (path === '/' || path === '/feed/trending') {
+-      window.location.replace('https://www.youtube.com/feed/subscriptions');
+-      return;
++function writeCachedSettings(settings) {
++  try {
++    localStorage.setItem(
++      SETTINGS_CACHE_KEY,
++      JSON.stringify({
++        hideHomeFeed: settings.hideHomeFeed === true,
++        redirectToSubscriptions: settings.redirectToSubscriptions === true,
++      })
++    );
++  } catch {
++    // Ignore quota / private-mode failures; async path still works.
++  }
++}
++
++function setEarlyHide(enabled) {
++  if (enabled) {
++    document.documentElement.classList.add('unhook-hide-home');
++    if (!earlyHideElement) {
++      earlyHideElement = document.createElement('style');
++      earlyHideElement.id = 'unhook-early-hide';
++      // Gate on html class so SPA navigations away from home cannot blank other feeds.
++      earlyHideElement.textContent =
++        'html.unhook-hide-home ytd-rich-grid-renderer,' +
++        'html.unhook-hide-home #contents.ytd-rich-grid-renderer {' +
++        'visibility:hidden!important;}';
++      styleParent().appendChild(earlyHideElement);
+     }
++    return;
++  }
++
++  document.documentElement.classList.remove('unhook-hide-home');
++}
++
++function redirectHomeIfNeeded(settings) {
++  if (!settings.redirectToSubscriptions || !isHomeOrTrending()) {
++    return false;
++  }
++  setEarlyHide(true);
++  window.location.replace('https://www.youtube.com/feed/subscriptions');
++  return true;
++}
++
++function prepareHomePath() {
++  const cached = readCachedSettings();
++  if (redirectHomeIfNeeded(cached)) {
++    return true;
++  }
++  // Hide home/trending until storage resolves so the feed cannot paint first.
++  if (isHomeOrTrending()) {
++    setEarlyHide(true);
++  } else {
++    setEarlyHide(false);
++  }
++  return false;
++}
++
++// Sync path at document_start (before first paint when possible).
++prepareHomePath();
++
++function applyStyles(settings) {
++  writeCachedSettings(settings);
++
++  if (redirectHomeIfNeeded(settings)) {
++    return;
+   }
+ 
+   if (!styleElement) {
+     styleElement = document.createElement('style');
+     styleElement.id = 'unhook-styles';
+-    document.head.appendChild(styleElement);
++    styleParent().appendChild(styleElement);
+   }
+ 
++  const path = window.location.pathname;
+   const rules = [];
+-  
++
+   if (settings.hideHomeFeed && path === '/') rules.push('ytd-rich-grid-renderer { display: none !important; }');
+   if (settings.hideVideoSidebar) rules.push('#secondary { display: none !important; }');
+   if (settings.hideRecommended) rules.push('#related { display: none !important; }');
+   if (settings.hideLiveChat) rules.push('#chat-container { display: none !important; }');
+   if (settings.hidePlaylist) rules.push('#playlist { display: none !important; }');
+   if (settings.hideFundraiser) rules.push('#donation-shelf { display: none !important; }');
+-  
++
+   if (settings.hideEndScreenCards) rules.push('.ytp-fullscreen-grid, .ytp-ce-element { display: none !important; }');
+   if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
+ 
+@@ -65,15 +141,20 @@
+   }
+ 
+   styleElement.textContent = rules.join('\n');
++
++  // Keep early hide only while home feed should stay hidden; otherwise reveal.
++  if (settings.hideHomeFeed && path === '/') {
++    setEarlyHide(true);
++  } else {
++    setEarlyHide(false);
++  }
+ }
+ 
+ async function main() {
+-  // Chrome/Firefox compatibility
+   const settings = await browserAPI.storage.local.get(null);
+   applyStyles(settings);
+ }
+ 
+-// Content scripts run after DOM is ready by default, so call main directly
+ main();
+ 
+ // Listen for storage changes and reapply all settings
+@@ -81,6 +162,13 @@
+   main();
+ });
+ 
+-document.body.addEventListener("yt-navigate-start", function(event) {
++// document.body is null at document_start; YouTube SPA events bubble on document.
++function onNavigate() {
++  if (prepareHomePath()) {
++    return;
++  }
+   main();
+-});
+\ No newline at end of file
++}
++
++document.addEventListener('yt-navigate-start', onNavigate);
++document.addEventListener('yt-navigate-finish', onNavigate);
