@@ -161,9 +161,14 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Wayland 会话下强制走原生 Wayland 而非 XWayland（参考 pkgs/chatgpt）。
     # WAYLAND_DISPLAY 判断写在内层 bash wrapper，运行时展开。
+    # --password-store=gnome-libsecret: Electron 的 safeStorage API 需要密码存储后端来
+    # 加解密登录凭证。Electron 通过 XDG_CURRENT_DESKTOP 猜测后端，但 niri 不在其列表中，
+    # 导致每次启动都无法读取已存储的 token，表现为每次都需要重新登录。
+    # 显式指定 gnome-libsecret 强制使用 Secret Service API（GNOME Keyring）。
     makeWrapper $out/lib/qoder-cn/qoder-cn $out/bin/qoder-cn \
       --prefix LD_LIBRARY_PATH : "${libPath}" \
-      --add-flags "\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}"
+      --add-flags "\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}" \
+      --add-flags "--password-store=gnome-libsecret"
 
     runHook postInstall
   '';
