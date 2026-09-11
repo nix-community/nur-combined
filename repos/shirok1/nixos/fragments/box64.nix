@@ -11,9 +11,6 @@ let
     mkIf
     mkDefault
     types
-    optionalString
-    concatStringsSep
-    escapeShellArgs
     ;
 
   cfg = config.boot.binfmt.box64;
@@ -131,7 +128,7 @@ in
 
       # 给内置模块用于 nix sandbox 的可选路径暴露（它只在 emulatedSystems 分支里用到）。
       # 这里仍填一个合理默认，不会有副作用。
-      interpreterSandboxPath = mkDefault (dirOf (dirOf interpreterWrapper));
+      interpreterSandboxPath = mkDefault (dirOf (dirOf (lib.getExe cfg.package)));
     };
 
     nix.settings.extra-sandbox-paths = [
