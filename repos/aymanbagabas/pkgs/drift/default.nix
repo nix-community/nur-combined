@@ -5,30 +5,28 @@
   fetchurl,
   installShellFiles,
   stdenvNoCC,
-  stdenv,
-  autoPatchelfHook,
   git,
   makeWrapper,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "047024z6xhpkgvp4ywfs8j78qyhzs29lb7mrzkba5lscg16xmnn8";
-    aarch64-linux = "1a31pq4f9bs8kydlk2xh64q0y3hvng92wfyfrfxr1v5pq0s1b8c8";
-    x86_64-darwin = "1f8r2pf2psfmbv0p8lcyfvzbwggr0vjlr6jw120vv2cnlcbjrx95";
-    aarch64-darwin = "1lq4nxz2gxwzvqsgy6pri2am7wnis1hnaxg1ji3ghky1zv8b1gci";
+    x86_64-linux = "0n72fmxvf7bd7nbnynki14ljq250k1bji4c7idykai6gjsaj4s37";
+    aarch64-linux = "1gkmjsm87yksrmya3q3hwvryc8qf57gdsmmnj1vn90a13kw3y1bn";
+    x86_64-darwin = "0pz6a43slz4fz4a9iaxcjlii01kkwhkdrsqzws01xnpy54cdr0x0";
+    aarch64-darwin = "0zqskjwrrs2na744vaj3x9f1jc9kvhm6n0gbk5mmw9wh0wwzca6l";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.8/drift_0.0.8_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.8/drift_0.0.8_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.8/drift_0.0.8_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.8/drift_0.0.8_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "drift";
-  version = "0.0.8";
+  version = "0.0.9";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -36,11 +34,7 @@ stdenvNoCC.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ] ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ];
-
-  buildInputs = lib.optionals stdenvNoCC.isLinux [
-    stdenv.cc.cc.lib
-  ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin
