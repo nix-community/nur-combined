@@ -30,14 +30,14 @@ let
     ;
 
   src = fetchFromGitHub (
-    srcArgs // { hash = "sha256-6PizvCarfjzSx5EctFFI9ZxOM/Ok7rq7WqrbbLJQ9BQ="; }
+    srcArgs // { hash = "sha256-FuI7RCxZW8Nmxe9042FRduGXiKw9yrWoZFRbq+n/2Yo="; }
   );
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
     pnpm = pnpm_11;
     fetcherVersion = 4;
-    hash = "sha256-cFsB0ZKVtYANCZIb+03dV9mqX8vwU0XzYeRke5DWnWU=";
+    hash = "sha256-+3ad4LMtiGoSX+bohtSaVEhQ4wtd1DVgiQHGG8VhHiM=";
   };
 
   patches = [
