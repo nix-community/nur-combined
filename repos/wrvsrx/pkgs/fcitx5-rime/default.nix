@@ -11,7 +11,9 @@ let
         url = "https://github.com/wrvsrx/fcitx5-rime/compare/tag_support-set-data-dir-via-xdg-3^..tag_support-set-data-dir-via-xdg-3.patch";
         hash = "sha256-awUPuj64gu58MyjpXoxmnJX9FiQE5t+dCh3kwDXVgBc=";
       })
-      ./restore-ascii.patch
+      # Snapshot schema switches independently from the status area actions,
+      # so e.g. ascii_mode survives deploy/reload instead of being reset.
+      ./snapshot-schema-options.patch
     ];
   });
 in
