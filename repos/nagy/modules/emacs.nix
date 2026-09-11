@@ -24,6 +24,43 @@ let
       nur.repos.nagy.emacsPackages # add all packages from this repository
       // {
 
+        bruvtab =
+          (builtins.getFlake "github:nagy/emacs-bruvtab").packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
+
+        org-jxl-images =
+          (builtins.getFlake "github:nagy/org-jxl-images.el").packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
+
+        yublin =
+          (builtins.getFlake "github:nagy/yublin.el").packages.${pkgs.stdenv.hostPlatform.system}.yublin;
+
+        go-mod-ts-extras-mode =
+          (builtins.getFlake "github:nagy/go-mod-ts-extras-mode").packages.${pkgs.stdenv.hostPlatform.system}.go-mod-ts-extras-mode;
+
+        gguf =
+          (builtins.getFlake "github:nagy/gguf.el").packages.${pkgs.stdenv.hostPlatform.system}.gguf;
+
+        crate =
+          (builtins.getFlake "github:nagy/crate.el").packages.${pkgs.stdenv.hostPlatform.system}.crate;
+
+        derivation =
+          (builtins.getFlake "github:nagy/derivation.el").packages.${pkgs.stdenv.hostPlatform.system}.derivation;
+
+        toml-ts-cargo-mode =
+          (builtins.getFlake "github:nagy/toml-ts-cargo-mode").packages.${pkgs.stdenv.hostPlatform.system}.toml-ts-cargo-mode;
+
+        ron-ts-mode =
+          (builtins.getFlake "github:nagy/emacs-ron-ts-mode").packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
+
+        openrpc-mode =
+          (builtins.getFlake "github:nagy/emacs-openrpc-mode").packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
+
+        cid-mode =
+          (
+            builtins.getFlake "github:nagy/emacs-ipfs-modes"
+          ).packages.${pkgs.stdenv.hostPlatform.system}.cid-mode.overrideAttrs {
+            packageRequires = [ self.magit-section ];
+          };
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
@@ -53,13 +90,12 @@ let
           magit = self.magit;
         };
 
-        cid-mode = super.cid-mode.override {
-          magit-section = self.magit-section;
-        };
-
-        ctags-mode = super.ctags-mode.override {
-          magit-section = self.magit-section;
-        };
+        ctags-mode =
+          (
+            builtins.getFlake "github:nagy/emacs-ctags-mode"
+          ).packages.${pkgs.stdenv.hostPlatform.system}.ctags-mode.overrideAttrs {
+            packageRequires = [ self.magit-section ];
+          };
 
         memoize = super.memoize.overrideAttrs {
           src = pkgs.fetchFromGitHub {
@@ -101,9 +137,12 @@ let
           }
         );
 
-        nixos = nur.repos.nagy.emacsPackages.nixos.override {
-          nix-mode = self.nix-mode;
-        };
+        nixos =
+          (
+            builtins.getFlake "github:nagy/nixos.el"
+          ).packages.${pkgs.stdenv.hostPlatform.system}.nixos.overrideAttrs {
+            packageRequires = [ self.nix-mode ];
+          };
 
         lua = super.lua.override {
           lua = pkgs.lua5_4;
@@ -220,9 +259,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-09-04
+          # updated 2026-09-11
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/4b10a0f910b9fd4d6f923a271fc1a04d71fcbf0e.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/daa28e6ecfebfe97d3c9d4ea8d451541b920aeca.tar.gz";
         }
       ))
     ];
