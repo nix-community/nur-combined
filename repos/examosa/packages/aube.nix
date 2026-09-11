@@ -40,6 +40,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postPatch = ''
+    substituteInPlace crates/aube/src/commands/exec.rs \
+      --replace-fail '"/bin/echo"' "\"$(type -P echo)\""
+
     substituteInPlace crates/aube-lockfile/src/io.rs crates/aube/src/commands/version.rs \
       --replace-fail '"git"' '"${lib.getExe gitMinimal}"'
 

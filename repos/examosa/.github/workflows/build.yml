@@ -23,6 +23,8 @@ jobs:
     timeout-minutes: 90
 
     strategy:
+      fail-fast: false
+
       matrix:
         nixPath:
           - nixpkgs=channel:nixpkgs-unstable
