@@ -6,14 +6,14 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-web";
-  version = "0.9.0";
+  version = "0.9.1";
   src = fetchurl {
     url = "https://registry.npmjs.org/@agegr/pi-web/-/pi-web-${finalAttrs.version}.tgz";
-    hash = "sha256-QYFHVjri38Jsu+1e5UckwW9h7ynu5sVWLXmFmyS8ka4=";
+    hash = "sha256-5AY/SswQwJjZGi8zmVOLWpOPmXVZU4SonHWtYeK+LNc=";
   };
   sourceRoot = "package";
 
-  npmDepsHash = "sha256-8i8Pmo7uBtBa0ipt1WS92CUcBEBuWEN7da1A1GyDVF8=";
+  npmDepsHash = "sha256-ZUI4IMS6loVQB8YPeUB1N/6IP2XbY4V6dvBHm8V4EcU=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json

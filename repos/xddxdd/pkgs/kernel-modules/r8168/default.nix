@@ -7,12 +7,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "r8168";
-  version = "8.056.02";
+  version = "8.057.00";
   src = fetchFromGitHub {
     owner = "mtorromeo";
     repo = "r8168";
     tag = finalAttrs.version;
-    hash = "sha256-KKfI03RrD+34+KSxwTwDkeB4sGFNY/tU/YbfrfVkTp8=";
+    hash = "sha256-KymQThzYKpcgCjKX3ZQ2RAWNga2d0EaWXVQmHzw8hmA=";
   };
   postPatch = ''
     sed -i 's/$(KERNELDIR)/''${KSRC}/g' src/Makefile
