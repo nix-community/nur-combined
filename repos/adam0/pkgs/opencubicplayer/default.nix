@@ -27,6 +27,7 @@
   stdenv,
   texinfo,
   unifont,
+  unifont_upper ? null,
   util-linux,
   wavpack,
   xa,
@@ -55,6 +56,10 @@
     if withSDL3
     then "devpSDL3"
     else "devpALSA";
+
+  # Unifont moved its OTF variants into a subdirectory in 17.0.05, and nixpkgs
+  # ships unifont_upper separately in older releases.
+  unifontRoots = [unifont] ++ optionals (unifont_upper != null) [unifont_upper];
 
   wrapperArgs =
     [
@@ -148,13 +153,15 @@ in
         zlib
         # keep-sorted end
       ]
-      ++ optionals withSDL3 [
+      ++ optionals withSDL3
+      [
         # keep-sorted start
         freetype
         sdl3
         unifont
         # keep-sorted end
-      ];
+      ]
+      ++ optionals (withSDL3 && unifont_upper != null) [unifont_upper];
 
     postPatch = ''
       patchShebangs .
@@ -163,6 +170,40 @@ in
       substituteInPlace playopl/adplug-git/src/composer.h \
         --replace-fail $'#ifdef __x86_64__\n    typedef signed   int      int32;\n#else\n    typedef signed long int   int32;\n#endif' \
                          'typedef int32_t int32;'
+    '';
+
+    # Upstream requires unifont.otf and unifont_upper.otf, and treats CSUR as optional.
+    preConfigure = optionalString withSDL3 ''
+      unifontRoots=(${escapeShellArgs unifontRoots})
+
+      findFont() {
+        for root in "''${unifontRoots[@]}"; do
+          found=$(find "$root/share/fonts" -name "$1" -print -quit)
+          if [ -n "$found" ]; then
+            printf '%s\n' "$found"
+            return 0
+          fi
+        done
+        return 1
+      }
+
+      unifontOtf=$(findFont unifont.otf) || {
+        echo "unable to locate unifont.otf" >&2
+        exit 1
+      }
+      configureFlagsArray+=("--with-unifont-otf=$unifontOtf")
+
+      upperOtf=$(findFont unifont_upper.otf) || {
+        echo "unable to locate unifont_upper.otf" >&2
+        exit 1
+      }
+      configureFlagsArray+=("--with-unifont-upper-otf=$upperOtf")
+
+      if csurOtf=$(findFont unifont_csur.otf); then
+        configureFlagsArray+=("--with-unifont-csur-otf=$csurOtf")
+      else
+        configureFlagsArray+=(--without-unifont-csur-otf --without-unifont-csur-ttf)
+      fi
     '';
 
     configureFlags =
@@ -183,12 +224,7 @@ in
         "--without-x11"
         # keep-sorted end
       ]
-      ++ optionals withSDL3 [
-        "--with-sdl3"
-        "--with-unifont-csur-otf=${unifont}/share/fonts/opentype/unifont/unifont_csur.otf"
-        "--with-unifont-otf=${unifont}/share/fonts/opentype/unifont/unifont.otf"
-        "--with-unifont-upper-otf=${unifont}/share/fonts/opentype/unifont/unifont_upper.otf"
-      ]
+      ++ optionals withSDL3 ["--with-sdl3"]
       ++ optionals (!withSDL3) ["--without-sdl3"];
 
     enableParallelBuilding = true;
