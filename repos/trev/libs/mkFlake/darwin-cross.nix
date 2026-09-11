@@ -3,7 +3,7 @@
 let
   isLinuxToDarwin = localSystem: crossSystem: localSystem.isLinux && crossSystem.isDarwin;
 
-  overlay =
+  platformOverlay =
     final: prev:
     let
       bootstrapAppleSdk = prev.apple-sdk.override { enableBootstrap = true; };
@@ -147,6 +147,59 @@ let
       llvmPackages_21 = overrideBintools prev.llvmPackages_21;
     };
 
+  goOverlay =
+    final: prev:
+    let
+      isLinuxToDarwinTarget = prev.stdenv.buildPlatform.isLinux && prev.stdenv.targetPlatform.isDarwin;
+      isLinuxToDarwinHost = prev.stdenv.buildPlatform.isLinux && prev.stdenv.hostPlatform.isDarwin;
+      targetLibresolv = final.pkgsBuildTarget.targetPackages.darwin.libresolv;
+      targetSuffix = lib.replaceStrings [ "-" ] [ "_" ] prev.stdenv.targetPlatform.config;
+
+      # The bootstrap SDK omits libresolv, but Go builds its target standard
+      # library with cgo and invokes the target compiler outside stdenv hooks.
+      fixGo =
+        goCompiler:
+        goCompiler.overrideAttrs (old: {
+          depsBuildTarget = (old.depsBuildTarget or [ ]) ++ [ targetLibresolv ];
+          env = (old.env or { }) // {
+            "NIX_CFLAGS_COMPILE_${targetSuffix}" = "-isystem ${lib.getDev targetLibresolv}/include";
+            "NIX_LDFLAGS_${targetSuffix}" = "-L${lib.getLib targetLibresolv}/lib";
+          };
+        });
+
+      parseGoName = name: builtins.match "go_([0-9]+)_([0-9]+)" name;
+      builderNameFor =
+        name:
+        let
+          version = parseGoName name;
+        in
+        "buildGo${builtins.elemAt version 0}${builtins.elemAt version 1}Module";
+      goVersionNames = builtins.filter (name: parseGoName name != null) (builtins.attrNames prev);
+      goBuilderPairs = builtins.filter (pair: builtins.hasAttr pair.builder prev) (
+        map (goName: {
+          inherit goName;
+          builder = builderNameFor goName;
+        }) goVersionNames
+      );
+
+      goCompilerOverrides = lib.optionalAttrs isLinuxToDarwinTarget (
+        lib.genAttrs goVersionNames (name: fixGo prev.${name})
+      );
+      goBuilderOverrides = lib.optionalAttrs isLinuxToDarwinHost (
+        builtins.listToAttrs (
+          map (pair: {
+            name = pair.builder;
+            value = prev.${pair.builder}.override {
+              go = final.buildPackages.${pair.goName};
+            };
+          }) goBuilderPairs
+        )
+      );
+    in
+    goCompilerOverrides // goBuilderOverrides;
+
+  overlay = lib.composeExtensions platformOverlay goOverlay;
+
   fixPackage =
     packages: package:
     if package == null then
@@ -155,9 +208,13 @@ let
       lib.isDerivation package
       && isLinuxToDarwin package.stdenv.buildPlatform package.stdenv.hostPlatform
       && lib.getName package != lib.getName packages.libiconv
+      && lib.getName package != lib.getName packages.darwin.libresolv
     then
       package.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ packages.libiconv ];
+        buildInputs = (old.buildInputs or [ ]) ++ [
+          packages.libiconv
+          packages.darwin.libresolv
+        ];
       })
     else
       package;
