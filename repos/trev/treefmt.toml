@@ -4,6 +4,11 @@
 command = "nixfmt"
 includes = ["*.nix"]
 
+[formatter.ruff]
+command = "ruff"
+options = ["format"]
+includes = ["*.py"]
+
 [formatter.oxfmt]
 command = "oxfmt"
 options = ["--write"]

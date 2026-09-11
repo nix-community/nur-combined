@@ -7,6 +7,7 @@ import struct
 import subprocess
 import sys
 import tempfile
+from typing import NoReturn
 
 LLVM_INSTALL_NAME_TOOL = os.environ["LLVM_INSTALL_NAME_TOOL"]
 LDID = os.environ["LDID"]
@@ -28,7 +29,7 @@ DYLIB_TYPES = DEPENDENCY_TYPES | {LC_ID_DYLIB}
 NAMED_TYPES = DYLIB_TYPES | {LC_RPATH}
 
 
-def llvm_install_name_tool():
+def llvm_install_name_tool() -> NoReturn:
     os.execv(LLVM_INSTALL_NAME_TOOL, [LLVM_INSTALL_NAME_TOOL, *sys.argv[1:]])
 
 
@@ -196,11 +197,7 @@ def main():
     if set(added_rpaths) & (changed_rpaths | set(deleted_rpaths)):
         raise RuntimeError("conflicting rpath add, change, or delete operations")
 
-    rpaths = [
-        name
-        for command, _raw, _offset, name in commands
-        if command == LC_RPATH
-    ]
+    rpaths = [name for command, _raw, _offset, name in commands if command == LC_RPATH]
     for old, new in rpath_changes:
         if old not in rpaths:
             raise RuntimeError(f"no LC_RPATH load command with path: {old}")
@@ -244,7 +241,9 @@ def main():
             replacement = bytearray(command_size)
             replacement[:name_offset] = raw[:name_offset]
             struct.pack_into("<I", replacement, 4, command_size)
-            replacement[name_offset : name_offset + len(replacement_bytes)] = replacement_bytes
+            replacement[name_offset : name_offset + len(replacement_bytes)] = (
+                replacement_bytes
+            )
             raw = bytes(replacement)
             name = replacement_name
 

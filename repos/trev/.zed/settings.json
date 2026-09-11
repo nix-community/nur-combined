@@ -38,6 +38,17 @@
         }
       ]
     },
+    "Python": {
+      "format_on_save": "on",
+      "language_servers": ["pyright", "ruff"],
+      "formatter": [
+        {
+          "language_server": {
+            "name": "ruff"
+          }
+        }
+      ]
+    },
     "JSON": {
       "format_on_save": "on",
       "language_servers": ["json-language-server", "oxfmt"],

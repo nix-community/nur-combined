@@ -105,6 +105,10 @@
               nixd
               nixfmt
 
+              # python
+              ruff
+              pyright
+
               # shell
               shellcheck
 
@@ -154,6 +158,19 @@
           script-only = {
             packages = [ pkgs.patch ];
             script = "patch --version > /dev/null";
+          };
+
+          python = {
+            root = ./.;
+            filter = file: file.hasExt "py";
+            packages = with pkgs; [
+              ruff
+              pyright
+            ];
+            script = ''
+              ruff check
+              pyright
+            '';
           };
 
           actions = {
@@ -228,6 +245,7 @@
           configFile = ./treefmt.toml;
           runtimeInputs = with pkgs; [
             nixfmt
+            ruff
             oxfmt
           ];
         }
