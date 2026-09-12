@@ -21,8 +21,22 @@ if [ "$NEW_REV" = "$OLD_REV" ]; then
   exit 0
 fi
 
-URL="https://github.com/wxWidgets/wxWidgets/archive/$NEW_REV.tar.gz"
-NEW_HASH=$(nix store prefetch-file --json "$URL" | jq -r .hash)
+# qsp-wx fetches wxWidgets with fetchSubmodules, so the hash must be computed
+# with the package's own fetcher (tarball prefetch would miss submodules):
+# build the FOD with a dummy hash and parse the "got:" line
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+NEW_HASH=$(nix build --no-link --impure --expr "
+  (builtins.getFlake \"$REPO_ROOT\").inputs.nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub {
+    owner = \"wxWidgets\";
+    repo = \"wxWidgets\";
+    rev = \"$NEW_REV\";
+    fetchSubmodules = true;
+    hash = \"sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\";
+  }" 2>&1 | sed -n 's/.*got: *\(sha256-[A-Za-z0-9+/=]*\).*/\1/p' | head -n1)
+[ -n "$NEW_HASH" ] || {
+  echo "Failed to prefetch qsp-wx $NEW_REV"
+  exit 1
+}
 
 python3 - "$FILE" "$OLD_REV" "$NEW_REV" "$NEW_HASH" <<'PYEOF'
 import re

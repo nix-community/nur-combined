@@ -1,7 +1,6 @@
 {
   fetchFromGitHub,
   lib,
-  unstableGitUpdater,
   stdenv,
   cmake,
   liboqs,
@@ -17,12 +16,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openssl-oqs-provider";
-  version = "0.12.0-rc1-unstable-2026-09-09";
+  version = "0.12.0-rc1-unstable-2026-09-12";
   src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "oqs-provider";
-    rev = "dfefe2db4bca998e497bbaa132340b4a5d50e80e";
-    hash = "sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=";
+    rev = "c174ed7050a32e720d40e59d79564b3646faf56a";
+    hash = "sha256-eNfgXq5wxp/I3IpCfR0LfNZuv2KJYJS3yHxx3f8BXzg=";
   };
   enableParallelBuilding = true;
   dontFixCmake = true;
@@ -54,10 +53,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/open-quantum-safe/oqs-provider";
-    tagPrefix = "v";
-  };
+  passthru.updateScript = [
+    (toString ./update.sh)
+  ];
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenSSL 3 provider containing post-quantum algorithms";

@@ -7,7 +7,7 @@
   },
   "nginx-auth-jwt": {
     "fetchSubmodules": true,
-    "hash": "sha256-ykuNVsHC1bT6dclQwQPnyoVg6s3Jzu23JJH9zmVbN4A=",
+    "hash": "sha256-OfrdokFqHhHCpWVtatK91DWgiWzAgn+5CPSPeJVjJuE=",
     "owner": "kjdev",
     "repo": "nginx-auth-jwt",
     "tag": "0.15.0"
@@ -31,14 +31,14 @@
     "rev": "3c10d42f8c3f78b6310906eab5c8e066ee753330"
   },
   "nginx-module-vts": {
-    "hash": "sha256-bvbY3d1JfoyOb0tfn07Cxe4cjSHBWGMiaeKWLY4Q//0=",
+    "hash": "sha256-SfHOUsi1c85oPW2yWoalVjsUc10tgMOJSLuq4CU1RHE=",
     "owner": "vozlt",
     "repo": "nginx-module-vts",
-    "rev": "a8e02154553739bd94a81f989f8fa97f2773cd48"
+    "rev": "c47ddaa4809f91c99eb537247614ca0cb8e2fe56"
   },
   "nginx-oidc": {
     "fetchSubmodules": true,
-    "hash": "sha256-B2wwIvpLDsOCSEhse2WO6tcf85RF+Y0pPs46sWbR3XE=",
+    "hash": "sha256-d1be3U7ybfYDCoLYdIDp9JEs29+NMFTr16SRj5vOX0w=",
     "owner": "kjdev",
     "repo": "nginx-oidc",
     "tag": "0.8.0"
