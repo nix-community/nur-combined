@@ -1,40 +1,23 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  callPackage,
   autoPatchelfHook,
   makeWrapper,
   jdk25,
+  source ? callPackage ./source.nix { },
+  unzip,
 }:
 
-let
-  # Pinned manually: GitHub's latest release still points at an expired EAP.
-  # https://github.com/Kotlin/kotlin-lsp/issues/270#issuecomment-5551783635
-  version = "263.4421.0";
-  sources = {
-    x86_64-linux = {
-      suffix = "";
-      hash = "sha256-0dq073s5qI93zPaNXloWXJ88Xg+bG7mSPmJaVL08Zz8=";
-    };
-    aarch64-linux = {
-      suffix = "-aarch64";
-      hash = "sha256-hScJin/mYUkzwGqJuPG/ANAP4e5ghe62fMCXgmAiwr0=";
-    };
-  };
-  source = sources.${stdenv.hostPlatform.system};
-in
 stdenv.mkDerivation {
   pname = "kotlin-lsp";
-  inherit version;
-
-  src = fetchurl {
-    url = "https://download.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}${source.suffix}.tar.gz";
-    inherit (source) hash;
-  };
+  inherit (source) version src;
+  sourceRoot = "extension/server";
 
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
+    unzip
   ];
   buildInputs = [ stdenv.cc.cc.lib ];
 
@@ -63,7 +46,10 @@ stdenv.mkDerivation {
       binaryNativeCode
       binaryBytecode
     ];
-    platforms = builtins.attrNames sources;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "intellij-server";
   };
 }
