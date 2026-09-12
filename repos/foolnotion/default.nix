@@ -21,6 +21,8 @@ rec {
 
   asmjit = pkgs.callPackage ./pkgs/asmjit { };
 
+  betterbird = pkgs.callPackage ./pkgs/betterbird { };
+
   autodiff = pkgs.callPackage ./pkgs/autodiff { };
 
   berserk = pkgs.callPackage ./pkgs/berserk {
@@ -127,7 +129,7 @@ rec {
 
   linasm = pkgs.callPackage ./pkgs/linasm { };
 
-  lc0-sycl-hip = pkgs.callPackage ./pkgs/lc0-sycl-hip { inherit pkgs; };
+  lc0-hip = pkgs.callPackage ./pkgs/lc0-hip { };
 
   llama-cpp-prism = pkgs.callPackage ./pkgs/llama-cpp-prism {
     # rocmPackages doesn't exist on Darwin's pkgs set - the derivation itself
