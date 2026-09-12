@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3Packages.requests -p nix-prefetch-git
+#!nix-shell -i python3 -p python3 -p python3Packages.requests -p nix
 import functools
 import json
 import os
@@ -94,21 +94,30 @@ def get_available_versions() -> List[str]:
 
 @functools.lru_cache(maxsize=None)
 def nix_prefetch_url(url: str):
-    result = subprocess.run(["nix-prefetch-url", url], stdout=subprocess.PIPE)
+    result = subprocess.run(
+        ["nix", "store", "prefetch-file", "--json", url], stdout=subprocess.PIPE
+    )
     if result.returncode != 0:
-        raise RuntimeError(f"nix-prefetch-url exited with error {result.returncode}")
-    return result.stdout.decode("utf-8").strip()
+        raise RuntimeError(
+            f"nix store prefetch-file exited with error {result.returncode}"
+        )
+    return json.loads(result.stdout.decode("utf-8").strip())["hash"]
 
 
 @functools.lru_cache(maxsize=None)
 def nix_prefetch_git(url: str, rev: str):
+    # GitHub archive tarball's unpacked hash matches fetchFromGitHub's
+    archive_url = url.removeprefix("https://github.com/").removesuffix(".git")
+    archive_url = f"https://github.com/{archive_url}/archive/{rev}.tar.gz"
     result = subprocess.run(
-        ["nix-prefetch-git", "--url", url, "--rev", rev], stdout=subprocess.PIPE
+        ["nix", "store", "prefetch-file", "--json", "--unpack", archive_url],
+        stdout=subprocess.PIPE,
     )
     if result.returncode != 0:
-        raise RuntimeError(f"nix-prefetch-git exited with error {result.returncode}")
-    result = json.loads(result.stdout.decode("utf-8").strip())
-    return result["hash"]
+        raise RuntimeError(
+            f"nix store prefetch-file exited with error {result.returncode}"
+        )
+    return json.loads(result.stdout.decode("utf-8").strip())["hash"]
 
 
 NvidiaVersion = Tuple[int, int, int, str]
@@ -125,29 +134,36 @@ def parse_nvidia_version(version: str) -> NvidiaVersion:
     )
 
 
+def get_git_tags(repo: str) -> List[str]:
+    result = subprocess.run(
+        ["git", "ls-remote", "--tags", f"https://github.com/{repo}.git"],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"git ls-remote exited with error {result.returncode}")
+    return sorted(
+        {
+            line.split("\t", 1)[1].removeprefix("refs/tags/").removesuffix("^{}")
+            for line in result.stdout.splitlines()
+            if "\trefs/tags/" in line
+        }
+    )
+
+
 def get_nvidia_persistenced_versions() -> List[NvidiaVersion]:
-    token = os.getenv("GITHUB_TOKEN")
-    data = requests.get(
-        "https://api.github.com/repos/NVIDIA/nvidia-persistenced/git/refs/tags",
-        headers={
-            **({"Authorization": f"Bearer {token}"} if token else {}),
-        },
-    ).json()
-    return sorted([parse_nvidia_version(d["ref"][len("refs/tags/") :]) for d in data])
+    return sorted(
+        [parse_nvidia_version(t) for t in get_git_tags("NVIDIA/nvidia-persistenced")]
+    )
 
 
 nvidia_persistenced_versions = get_nvidia_persistenced_versions()
 
 
 def get_nvidia_settings_versions() -> List[NvidiaVersion]:
-    token = os.getenv("GITHUB_TOKEN")
-    data = requests.get(
-        "https://api.github.com/repos/NVIDIA/nvidia-settings/git/refs/tags",
-        headers={
-            **({"Authorization": f"Bearer {token}"} if token else {}),
-        },
-    ).json()
-    return sorted([parse_nvidia_version(d["ref"][len("refs/tags/") :]) for d in data])
+    return sorted(
+        [parse_nvidia_version(t) for t in get_git_tags("NVIDIA/nvidia-settings")]
+    )
 
 
 nvidia_settings_versions = get_nvidia_settings_versions()

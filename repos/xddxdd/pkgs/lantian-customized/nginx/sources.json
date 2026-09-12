@@ -1,22 +1,16 @@
 {
   "ja4-nginx-module": {
-    "hash": "sha256-ndUslPhXArAlJTeLl/D62MIReKbUv9OR+KAvHu75jXQ=",
+    "hash": "sha256-rxsqITj6xfkRDX/mAa7ZMebzLsiMigS7evvFv1Ijvu0=",
     "owner": "FoxIO-LLC",
     "repo": "ja4-nginx-module",
-    "rev": "6a104dc2be609cca61a875e1d97a73fbffd9f210"
-  },
-  "ngx_http_js_challenge_module": {
-    "hash": "sha256-CaOO8naCyq26GFjlCf8s1xL9Nccwb/zVgnDZ0f+mKU8=",
-    "owner": "simon987",
-    "repo": "ngx_http_js_challenge_module",
-    "rev": "da6852df4103492f9136ef814cda0c7d402e0a90"
+    "rev": "714772b67ed39278b74edd5869f239684702d423"
   },
   "nginx-auth-jwt": {
     "fetchSubmodules": true,
-    "hash": "sha256-XOIA1wjNyXFWDWwx9ZVDCn0SW8vrHbzFnGZWW81SRn8=",
+    "hash": "sha256-ykuNVsHC1bT6dclQwQPnyoVg6s3Jzu23JJH9zmVbN4A=",
     "owner": "kjdev",
     "repo": "nginx-auth-jwt",
-    "tag": "0.14.2"
+    "tag": "0.15.0"
   },
   "nginx-module-geoip2": {
     "hash": "sha256-aO+ff+3fQ9FJgjkVdWUqsSS6ctHq/TXvyGRasW6fXcA=",
@@ -37,23 +31,29 @@
     "rev": "3c10d42f8c3f78b6310906eab5c8e066ee753330"
   },
   "nginx-module-vts": {
-    "hash": "sha256-Qhl2lAtGopn8iNfqcf3s0+ZpEdsG5+wBXeyGYu/sMOI=",
+    "hash": "sha256-bvbY3d1JfoyOb0tfn07Cxe4cjSHBWGMiaeKWLY4Q//0=",
     "owner": "vozlt",
     "repo": "nginx-module-vts",
-    "rev": "affcaf8e69bdc1c1b50522c1e77b16c218e990c8"
+    "rev": "a8e02154553739bd94a81f989f8fa97f2773cd48"
   },
   "nginx-oidc": {
     "fetchSubmodules": true,
-    "hash": "sha256-/zvE28uVYOKNx7htlg5meiQegvFupbSkhhA6l+5KDHs=",
+    "hash": "sha256-B2wwIvpLDsOCSEhse2WO6tcf85RF+Y0pPs46sWbR3XE=",
     "owner": "kjdev",
     "repo": "nginx-oidc",
-    "tag": "0.6.0"
+    "tag": "0.8.0"
   },
   "ngx_brotli": {
     "hash": "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=",
     "owner": "u5surf",
     "repo": "ngx_brotli",
     "rev": "6e975bcb015f62e1f303054897783355e2a877dc"
+  },
+  "ngx_http_js_challenge_module": {
+    "hash": "sha256-CaOO8naCyq26GFjlCf8s1xL9Nccwb/zVgnDZ0f+mKU8=",
+    "owner": "simon987",
+    "repo": "ngx_http_js_challenge_module",
+    "rev": "da6852df4103492f9136ef814cda0c7d402e0a90"
   },
   "openresty": {
     "hash": "sha256-ZbeLqt0/CYQFXeib8T9KGTLlv+nDGTIDehNOorGgzkI=",

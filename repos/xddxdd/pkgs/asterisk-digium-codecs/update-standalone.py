@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3Packages.requests
+#!nix-shell -i python3 -p python3 -p python3Packages.requests -p nix
 import json
 import os
 import re
@@ -74,10 +74,14 @@ def get_versions(name: str) -> Dict[str, Dict[str, str]]:
 
 
 def nix_prefetch_url(url: str):
-    result = subprocess.run(["nix-prefetch-url", url], stdout=subprocess.PIPE)
+    result = subprocess.run(
+        ["nix", "store", "prefetch-file", "--json", url], stdout=subprocess.PIPE
+    )
     if result.returncode != 0:
-        raise RuntimeError(f"nix-prefetch-url exited with error {result.returncode}")
-    return result.stdout.decode("utf-8").strip()
+        raise RuntimeError(
+            f"nix store prefetch-file exited with error {result.returncode}"
+        )
+    return json.loads(result.stdout.decode("utf-8").strip())["hash"]
 
 
 def add_versions(name: str, result: dict):

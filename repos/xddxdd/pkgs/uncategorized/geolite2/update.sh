@@ -4,8 +4,8 @@
 set -euo pipefail
 
 FILE="$(dirname "$(readlink -f "$0")")/default.nix"
-NEW_VERSION=$(curl -fsSL 'https://api.github.com/repos/P3TERX/GeoLite.mmdb/releases?per_page=20' |
-  jq -r '.[].tag_name' | sort -V | tail -n1 || true)
+NEW_VERSION=$(curl -fsSL 'https://github.com/P3TERX/GeoLite.mmdb/releases.atom' |
+  grep -oP 'releases/tag/\K[^"<>]+' | sort -V | tail -n1 || true)
 [ -n "$NEW_VERSION" ] || {
   echo "Failed to detect new version"
   exit 1

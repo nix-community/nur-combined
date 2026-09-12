@@ -70,15 +70,17 @@ for name, s in sources.items():
         s['rev'] = new_rev
         s['hash'] = h
     else:  # tag-based
-        releases = subprocess.run(
-            ['curl', '-fsSL', f'https://api.github.com/repos/{repo}/releases?per_page=10'],
+        feed = subprocess.run(
+            ['curl', '-fsSL', f'https://github.com/{repo}/releases.atom'],
             capture_output=True, text=True)
-        tags = json.loads(releases.stdout) if releases.returncode == 0 else []
-        tags = [t['tag_name'] for t in tags]
+        tags = re.findall(r'releases/tag/([^"<>]+)', feed.stdout) \
+            if feed.returncode == 0 else []
         if not tags:
             print(f"WARN: failed to detect new tag for {name}")
             continue
-        new_tag = sorted(tags)[-1]
+        # releases feed is newest-first; lexicographic sort would pick wrong
+        # versions (e.g. 0.9.0 over 0.15.0)
+        new_tag = tags[0]
         if new_tag == s['tag']:
             print(f"{name} already at {new_tag}")
             continue

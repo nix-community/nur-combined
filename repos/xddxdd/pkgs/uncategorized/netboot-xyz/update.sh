@@ -4,8 +4,11 @@
 set -euo pipefail
 
 FILE="$(dirname "$(readlink -f "$0")")/default.nix"
-NEW_VERSION=$(curl -fsSL 'https://api.github.com/repos/netbootxyz/netboot.xyz/releases?per_page=20' |
-  jq -r '.[].tag_name' | grep -v '^v' | sort -V | tail -n1 || true)
+# tags.atom only exposes tags with release notes, and sort -V ranks "3.0.3-RC"
+# after "3.0.3", so -RC tags must be filtered explicitly
+NEW_VERSION=$(curl -fsSL 'https://github.com/netbootxyz/netboot.xyz/releases.atom' |
+  grep -oP 'releases/tag/\K[^"<>]+' | grep -v '^v' | grep -v -- '-RC' |
+  sort -V | tail -n1 || true)
 [ -n "$NEW_VERSION" ] || {
   echo "Failed to detect new version"
   exit 1

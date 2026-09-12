@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p curl -p jq -p gnused -p nix -p python3
+#!nix-shell -i bash -p bash -p curl -p gnused -p nix -p python3
 # shellcheck shell=bash
 set -euo pipefail
 
@@ -14,8 +14,9 @@ TABLE=(
 for ROW in "${TABLE[@]}"; do
   MARKER="${ROW%%|*}"
   REPO="${ROW##*|}"
-  NEW_VER=$(curl -fsSL "https://api.github.com/repos/$REPO/tags?per_page=10" |
-    jq -r '.[].name' | sort -V | tail -n1 || true)
+  NEW_VER=$(curl -fsSL "https://github.com/$REPO/tags.atom" |
+    grep -oP '<id>tag:github\.com,2008:Repository/[0-9]+/\K[^<]+' |
+    sort -V | tail -n1 || true)
   [ -n "$NEW_VER" ] || NEW_VER=$(curl -fsSL "https://github.com/$REPO/commits.atom" |
     grep -oP '<id>[^<]*/\K[0-9a-f]{40}' | head -n1 || true)
   [ -n "$NEW_VER" ] || {
@@ -28,17 +29,23 @@ import sys
 
 path, marker, new_ver = sys.argv[1:]
 content = open(path).read()
-needle = marker + '"'
-idx = content.find(needle)
+idx = content.find(marker)
 if idx < 0:
     print(f"WARN: pin not found for {marker}")
     sys.exit(0)
-tail = content[idx + len(needle):]
-old = tail[:tail.index('"')]
+# pins are written as Nix interpolation: alias@${"1.0.6"}
+prefix = '${"'
+tail = content[idx + len(marker):]
+if not tail.startswith(prefix):
+    print(f"WARN: unexpected pin format for {marker}")
+    sys.exit(0)
+body = tail[len(prefix):]
+end = body.index('\"}')
+old = body[:end]
 if old == new_ver:
     print(f"{marker} already at {old}")
     sys.exit(0)
-content = content[:idx + len(needle)] + new_ver + tail[len(old):]
+content = content[:idx + len(marker) + len(prefix)] + new_ver + body[end:]
 open(path, 'w').write(content)
 print(f"{marker}: {old} -> {new_ver}")
 PYEOF
