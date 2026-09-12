@@ -3,19 +3,14 @@
 let
   inherit (builtins) readFile replaceStrings;
   inherit (config.home) homeDirectory;
-  inherit (lib) concatStringsSep getExe getExe';
+  inherit (config.services) organize-downloads;
+  inherit (lib) concatStringsSep getExe getExe' mkOption replaceString;
+  inherit (lib.types) listOf str;
   inherit (pkgs) bash efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof resholve unzip uutils-coreutils;
 
   uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 
-  globs = [
-    "${homeDirectory}/.local/share/PrismLauncher/instances/*/.minecraft/screenshots/*.png"
-    "${homeDirectory}/Downloads/iCloud\\ Photos.zip"
-    "${homeDirectory}/Downloads/iKVM_capture.jpg"
-    "${homeDirectory}/Downloads/Screen\\ Shot\\ *.png"
-    "${homeDirectory}/Downloads/Screenshot\\ *.png"
-    "${homeDirectory}/VirtualBox\\ VMs/*/VirtualBox_*.png" # Related: https://www.virtualbox.org/ticket/22135
-  ];
+  globs = map (g: "${homeDirectory}/${replaceString " " "\\ " g}") organize-downloads.globs;
 
   handler = resholve.writeScriptBin "organize-downloads"
     {
@@ -38,7 +33,20 @@ let
     (replaceStrings [ "@GLOBS@" ] [ (concatStringsSep " " globs) ] (readFile ./assets/organize-downloads.sh));
 in
 {
+  options.services.organize-downloads = {
+    globs = mkOption { type = listOf str; default = [ ]; };
+  };
+
   config = {
+    services.organize-downloads.globs = [
+      ".local/share/PrismLauncher/instances/*/.minecraft/screenshots/*.png"
+      "Downloads/iCloud Photos.zip"
+      "Downloads/iKVM_capture.jpg"
+      "Downloads/Screen Shot *.png"
+      "Downloads/Screenshot *.png"
+      "VirtualBox VMs/*/VirtualBox_*.png" # Related: https://www.virtualbox.org/ticket/22135
+    ];
+
     systemd.user.paths.organize-downloads = {
       Unit.Description = "Watch downloads";
       Path.PathExistsGlob = globs;

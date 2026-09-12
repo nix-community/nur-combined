@@ -754,6 +754,7 @@ Keebio
 kegerator
 Kelowna
 kerning
+kexec
 Keybase
 keybind
 keybinds
