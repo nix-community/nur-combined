@@ -436,6 +436,12 @@ lib.mkOption {
               description = "Show indeterminate progress updates during long operations";
             };
 
+            request_timeout = lib.mkOption {
+              type = lib.types.nullOr lib.types.int;
+              default = 60;
+              description = "Timeout in seconds for each LLM API request. Streaming responses are aborted only after this much inactivity, so slow but active streams are never killed. 0 disables it, negative values are invalid.";
+            };
+
             skills_paths = lib.mkOption {
               type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
@@ -493,6 +499,12 @@ lib.mkOption {
                     );
                     default = "default";
                     description = "Exit banner style after quitting Crush";
+                  };
+
+                  mouse = lib.mkOption {
+                    type = lib.types.nullOr lib.types.bool;
+                    default = true;
+                    description = "Enable terminal mouse capture for selection, clicks, and scrolling in the TUI. Disable to let the terminal emulator or tmux handle text selection and copy/paste";
                   };
 
                   scrollbar = lib.mkOption {
@@ -741,6 +753,12 @@ lib.mkOption {
                       description = "Access token";
                     };
 
+                    account_id = lib.mkOption {
+                      type = lib.types.nullOr lib.types.str;
+                      default = null;
+                      description = "Account id";
+                    };
+
                     client = lib.mkOption {
                       type = lib.types.submodule {
                         options = {
@@ -790,6 +808,12 @@ lib.mkOption {
                       type = lib.types.nullOr lib.types.int;
                       default = null;
                       description = "Expires in";
+                    };
+
+                    id_token = lib.mkOption {
+                      type = lib.types.nullOr lib.types.str;
+                      default = null;
+                      description = "Id token";
                     };
 
                     refresh_token = lib.mkOption {
