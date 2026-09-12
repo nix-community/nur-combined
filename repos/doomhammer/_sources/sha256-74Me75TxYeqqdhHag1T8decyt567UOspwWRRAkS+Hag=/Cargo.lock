@@ -759,6 +759,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
 
 [[package]]
+name = "fs2"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9564fc758e15025b46aa6643b1b77d047d1a56a1aea6e01002ac0c7026876213"
+dependencies = [
+ "libc",
+ "winapi",
+]
+
+[[package]]
 name = "fsevent-sys"
 version = "4.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -930,7 +940,7 @@ dependencies = [
 
 [[package]]
 name = "gitpane"
-version = "0.15.1"
+version = "0.16.1"
 dependencies = [
  "arboard",
  "clap",
@@ -938,6 +948,7 @@ dependencies = [
  "crossterm 0.29.0",
  "directories",
  "dirs",
+ "fs2",
  "futures",
  "git2",
  "ignore",
@@ -957,6 +968,7 @@ dependencies = [
  "ureq",
  "wait-timeout",
  "walkdir",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2582,9 +2594,9 @@ dependencies = [
 
 [[package]]
 name = "toml"
-version = "1.1.4+spec-1.1.0"
+version = "1.1.5+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3aace63f4bbcdfc2c965b059de67119c89c4017a70d633be6c104910f67056f5"
+checksum = "12c0ba9680044b4ce98d391a62094047eada0d64860b80166c39f4a6b5640785"
 dependencies = [
  "indexmap",
  "serde_core",
