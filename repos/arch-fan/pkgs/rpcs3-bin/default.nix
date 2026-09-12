@@ -46,6 +46,12 @@ in
 appimageTools.wrapAppImage {
   inherit pname version contents;
 
+  # RPCS3 vendors Qt; system plugin paths (e.g. from Plasma) mix
+  # Qt versions and abort in createPlatformIntegration.
+  profile = ''
+    unset QT_PLUGIN_PATH QT_QPA_PLATFORM_PLUGIN_PATH
+  '';
+
   extraInstallCommands = ''
     install -Dm444 \
       ${contents}/usr/share/applications/rpcs3.desktop \
