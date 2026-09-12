@@ -25,4 +25,5 @@
   virtualgamepad-pc = pkgs.libsForQt5.callPackage ./pkgs/virtualgamepad-pc { };
   kwm = pkgs.callPackage ./pkgs/kwm { };
   canoe = pkgs.callPackage ./pkgs/canoe { };
+  kwim = pkgs.callPackage ./pkgs/kwim { };
 }

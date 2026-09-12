@@ -1,48 +1,39 @@
-# Refer: https://github.com/srcres258/nur-packages/blob/main/pkgs/kwm/default.nix
 {
   lib,
   stdenv,
   fetchFromGitHub,
   makeDesktopItem,
+  nix-update-script,
   river,
 
-  zig_0_16,
   pkg-config,
-  wayland-scanner,
+  zig_0_16,
 
-  wayland,
-  wayland-protocols,
+  fcft,
   libxkbcommon,
   pixman,
-  fcft,
+  wayland,
+  wayland-scanner,
+  wayland-protocols,
 }:
+let
+  zig = zig_0_16;
+in
 stdenv.mkDerivation (finalAttrs: {
 
   pname = "kwm";
   version = "0.3.0";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "kewuaa";
     repo = "kwm";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-hX76wTHPTgg5RAHILfd3CjRKPlgAwGSK3lG82IFoUUs=";
   };
 
-  nativeBuildInputs = [
-    zig_0_16
-    pkg-config
-    wayland-scanner
-  ];
-
-  buildInputs = [
-    wayland
-    wayland-protocols
-    libxkbcommon
-    pixman
-    fcft
-  ];
-
-  zigDeps = zig_0_16.fetchDeps {
+  zigDeps = zig.fetchDeps {
     inherit (finalAttrs) src pname version;
     fetchAll = true;
     hash = "sha256-Lz/Wcy40rxN81n/mBj4YJVbyGOolHzSFZMs93T1h0oQ=";
@@ -52,14 +43,27 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ${finalAttrs.zigDeps} "$ZIG_GLOBAL_CACHE_DIR/p"
   '';
 
+  nativeBuildInputs = [
+    pkg-config
+    wayland-scanner
+    zig
+  ];
+
+  buildInputs = [
+    fcft
+    libxkbcommon
+    pixman
+    wayland
+    wayland-scanner
+    wayland-protocols
+  ];
+
   zigBuildFlags = [
     "-Doptimize=ReleaseSafe"
     "-Dbackground=false"
     "-Dbar=true"
     "-Dkwim=true"
   ];
-
-  dontUseZigCheck = true;
 
   postInstall =
     let
@@ -74,14 +78,17 @@ stdenv.mkDerivation (finalAttrs: {
       install -Dm644 ${desktopItem}/share/applications/kwm.desktop -t $out/share/wayland-sessions/
     '';
 
-  passthru.providedSessions = [ "kwm" ];
+  passthru = {
+    providedSessions = [ "kwm" ];
+    updateScript = nix-update-script { };
+  };
 
   meta = {
-    changelog = "https://github.com/kewuaa/kwm/releases/tag/v${finalAttrs.version}";
     description = "DWM-like dynamic tiling window manager implementing the river-window-management-v1 protocol";
+    changelog = "https://github.com/kewuaa/kwm/releases/tag/v${finalAttrs.src.tag}";
     homepage = "https://github.com/kewuaa/kwm";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.linux;
     mainProgram = "kwm";
+    inherit (zig.meta) platforms;
   };
 })
