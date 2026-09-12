@@ -9,12 +9,12 @@
 
 pkgs.stdenv.mkDerivation rec {
   pname = "torrserver";
-  version = "MatriX.144.2";
+  version = "MatriX.144.3";
 
   src = pkgs.fetchgit {
     url = "https://github.com/YouROK/TorrServer.git";
     rev = "${version}";
-    hash = "sha256-WEMxpqvDOu33GBMfg5T3sSaJIcCh0rQ1nWqQQ1IePQg=";
+    hash = "sha256-W3t14OJXznWfJbBPUEGqgmyiWBZ+y1jljFANTOUCazk=";
   };
 
   yarnOfflineCache = pkgs.fetchYarnDeps {
@@ -26,7 +26,7 @@ pkgs.stdenv.mkDerivation rec {
     pname = "torrserver-go-deps";
     version = version;
     src = "${src}/server";
-    vendorHash = "sha256-pbwYZ6IhtZcTYc5Z2ZMIDzH0xLxHlNtvLJ5RbGihFrU=";
+    vendorHash = "sha256-71Vul/2HxNjhTI9Ajz0kfm6ON2A7uqSSqHQFNh1B5PM=";
 
     modBuildPhase = ''
       go mod download
