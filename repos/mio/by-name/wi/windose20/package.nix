@@ -66,6 +66,13 @@ stdenvNoCC.mkDerivation {
     imagesDir="$themeDir/images"
     mkdir -p "$imagesDir"
 
+    mkdir -p "$out/share/fonts/truetype"
+    # Prop for UI; Mono for terminals (kgx/Konsole). Family names are
+    # "Fusion Pixel 10px Prop latin" / "Fusion Pixel 10px Mono latin".
+    unzip -jo "$font" "fusion-pixel-10px-proportional-latin.ttf" -d "$out/share/fonts/truetype"
+    unzip -jo "$fontMono" "fusion-pixel-10px-monospaced-latin.ttf" -d "$out/share/fonts/truetype"
+    fontProp="$out/share/fonts/truetype/fusion-pixel-10px-proportional-latin.ttf"
+
     splashDir="${plasma-overdose-kde-theme}/share/plasma/look-and-feel/Plasma-Overdose/contents/splash/images"
     # Match the NGO KSplash sequence: BIOS "booting" + progressive dots, then Windose welcome.
     # Keep frames modest so initrd stays reasonable; plymouth centers them on a black field.
@@ -85,7 +92,7 @@ stdenvNoCC.mkDerivation {
     dotY=$((frameH - (28 * frameH / 1080) - 14))
     dotStep=11
 
-    # progress-*/throbber-*: boot activity (BIOS screen, dots lighting up)
+    # progress-*: boot activity (BIOS screen, dots lighting up)
     for i in $(seq 0 39); do
       idx=$(printf '%02d' "$i")
       cmd=(magick "$imagesDir/boot-base.png")
@@ -96,24 +103,100 @@ stdenvNoCC.mkDerivation {
       done
       cmd+=("$imagesDir/progress-$idx.png")
       "''${cmd[@]}"
-      # Compat name some two-step builds still probe during boot.
-      ln "$imagesDir/progress-$idx.png" "$imagesDir/throbber-$idx.png"
     done
 
-    # animation-*: end sequence — hold full dots, then fade to Windose welcome
+    # startup-animation-* / animation-*: boot end sequence — hold full dots, then fade to Windose welcome
     cp "$imagesDir/progress-39.png" "$imagesDir/animation-00.png"
+    ln "$imagesDir/animation-00.png" "$imagesDir/startup-animation-00.png"
     for i in $(seq 1 19); do
       idx=$(printf '%02d' "$i")
       pct=$((i * 100 / 19))
       magick "$imagesDir/progress-39.png" "$imagesDir/welcome-base.png" \
         -alpha on -compose blend -define "compose:args=''${pct}" -composite \
         "$imagesDir/animation-$idx.png"
+      ln "$imagesDir/animation-$idx.png" "$imagesDir/startup-animation-$idx.png"
     done
     cp "$imagesDir/welcome-base.png" "$imagesDir/animation-20.png"
+    ln "$imagesDir/animation-20.png" "$imagesDir/startup-animation-20.png"
     for i in $(seq 21 39); do
       idx=$(printf '%02d' "$i")
       ln "$imagesDir/animation-20.png" "$imagesDir/animation-$idx.png"
+      ln "$imagesDir/animation-20.png" "$imagesDir/startup-animation-$idx.png"
     done
+
+    # shutdown-animation-*: dedicated retro shutdown sequence for Needy Girl Overdose
+    # Phase 1 (frames 0..19): Windose20 shutting down with animated dots
+    # Phase 2 (frames 20..39): Needy Girl Overdose retro safe-to-turn-off farewell screen
+    magick "$src/pngs/logo_with_name.png" -resize 420x "$imagesDir/shutdown-logo.png"
+
+    magick -size "''${frameW}x''${frameH}" xc:black \
+      "$imagesDir/shutdown-logo.png" -gravity center -geometry +0-70 -composite \
+      -font "$fontProp" \
+      -pointsize 26 -fill '#FF70A6' -gravity center -annotate +0+130 "Windose20 is shutting down." \
+      -pointsize 18 -fill '#A0A0A0' -gravity center -annotate +0+175 "Please wait while your computer turns off." \
+      "$imagesDir/shut-p1-0.png"
+
+    magick -size "''${frameW}x''${frameH}" xc:black \
+      "$imagesDir/shutdown-logo.png" -gravity center -geometry +0-70 -composite \
+      -font "$fontProp" \
+      -pointsize 26 -fill '#FF70A6' -gravity center -annotate +0+130 "Windose20 is shutting down.." \
+      -pointsize 18 -fill '#A0A0A0' -gravity center -annotate +0+175 "Please wait while your computer turns off." \
+      "$imagesDir/shut-p1-1.png"
+
+    magick -size "''${frameW}x''${frameH}" xc:black \
+      "$imagesDir/shutdown-logo.png" -gravity center -geometry +0-70 -composite \
+      -font "$fontProp" \
+      -pointsize 26 -fill '#FF70A6' -gravity center -annotate +0+130 "Windose20 is shutting down..." \
+      -pointsize 18 -fill '#A0A0A0' -gravity center -annotate +0+175 "Please wait while your computer turns off." \
+      "$imagesDir/shut-p1-2.png"
+
+    magick -size "''${frameW}x''${frameH}" xc:black \
+      "$imagesDir/shutdown-logo.png" -gravity center -geometry +0-70 -composite \
+      -font "$fontProp" \
+      -pointsize 26 -fill '#FF70A6' -gravity center -annotate +0+130 "Windose20 is shutting down...." \
+      -pointsize 18 -fill '#A0A0A0' -gravity center -annotate +0+175 "Please wait while your computer turns off." \
+      "$imagesDir/shut-p1-3.png"
+
+    magick -size "''${frameW}x''${frameH}" xc:black \
+      "$imagesDir/shutdown-logo.png" -gravity center -geometry +0-70 -composite \
+      -font "$fontProp" \
+      -pointsize 26 -fill '#FF70A6' -gravity center -annotate +0+125 "† Ame has logged off †" \
+      -pointsize 22 -fill '#FFA500' -gravity center -annotate +0+170 "It is now safe to turn off your computer." \
+      -pointsize 18 -fill '#888888' -gravity center -annotate +0+210 "† BLESS †" \
+      "$imagesDir/shut-safe.png"
+
+    for i in $(seq 0 4); do
+      idx=$(printf '%02d' "$i")
+      ln "$imagesDir/shut-p1-0.png" "$imagesDir/shutdown-animation-$idx.png"
+    done
+    for i in $(seq 5 9); do
+      idx=$(printf '%02d' "$i")
+      ln "$imagesDir/shut-p1-1.png" "$imagesDir/shutdown-animation-$idx.png"
+    done
+    for i in $(seq 10 14); do
+      idx=$(printf '%02d' "$i")
+      ln "$imagesDir/shut-p1-2.png" "$imagesDir/shutdown-animation-$idx.png"
+    done
+    for i in $(seq 15 19); do
+      idx=$(printf '%02d' "$i")
+      ln "$imagesDir/shut-p1-3.png" "$imagesDir/shutdown-animation-$idx.png"
+    done
+
+    for i in $(seq 20 24); do
+      idx=$(printf '%02d' "$i")
+      pct=$(((i - 19) * 100 / 5))
+      magick "$imagesDir/shut-p1-3.png" "$imagesDir/shut-safe.png" \
+        -alpha on -compose blend -define "compose:args=''${pct}" -composite \
+        "$imagesDir/shutdown-animation-$idx.png"
+    done
+
+    for i in $(seq 25 39); do
+      idx=$(printf '%02d' "$i")
+      ln "$imagesDir/shut-safe.png" "$imagesDir/shutdown-animation-$idx.png"
+    done
+
+    rm -f "$imagesDir/shut-p1-0.png" "$imagesDir/shut-p1-1.png" "$imagesDir/shut-p1-2.png" \
+          "$imagesDir/shut-p1-3.png" "$imagesDir/shut-safe.png" "$imagesDir/shutdown-logo.png"
 
     # Password / message dialogs still need a compact logo watermark.
     magick "$src/pngs/logo_with_name.png" -resize 480x -background none \
@@ -127,12 +210,6 @@ stdenvNoCC.mkDerivation {
     cp ${./windose20.plymouth} "$themeDir/windose20.plymouth"
     substituteInPlace "$themeDir/windose20.plymouth" \
       --replace-fail '@IMAGES@' "$imagesDir/"
-
-    mkdir -p "$out/share/fonts/truetype"
-    # Prop for UI; Mono for terminals (kgx/Konsole). Family names are
-    # "Fusion Pixel 10px Prop latin" / "Fusion Pixel 10px Mono latin".
-    unzip -jo "$font" "fusion-pixel-10px-proportional-latin.ttf" -d "$out/share/fonts/truetype"
-    unzip -jo "$fontMono" "fusion-pixel-10px-monospaced-latin.ttf" -d "$out/share/fonts/truetype"
 
     runHook postInstall
   '';
