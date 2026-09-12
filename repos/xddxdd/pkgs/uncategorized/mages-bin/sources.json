@@ -1,0 +1,12 @@
+{
+  "aarch64-linux": {
+    "hash": "sha256-KGJYrRm5FdK4Dr7dTje/x5Gbn+BmDICmeZZ+O0nBUSU=",
+    "url": "https://github.com/mlm-games/Mages/releases/download/4.10.4/mages-4.10.4-aarch64.AppImage",
+    "version": "4.10.4"
+  },
+  "x86_64-linux": {
+    "hash": "sha256-xRyULWrHv2AjZvB03w4dAmL5i1atQiaKNRCaB6vDmsA=",
+    "url": "https://github.com/mlm-games/Mages/releases/download/4.10.4/mages-4.10.4-x86_64.AppImage",
+    "version": "4.10.4"
+  }
+}

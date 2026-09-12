@@ -137,8 +137,8 @@ appimageTools.wrapType2 {
 
 1. 在包目录下维护 `sources.json`，每个条目含 `version`/`url`/`hash`（nginx 的 GitHub 模块条目为 `owner`/`repo`/`rev|tag`/`hash`/可选 `fetchSubmodules`）
 2. default.nix 通过 `builtins.fromJSON (builtins.readFile ./sources.json)` 读取并构造 fetcher
-3. 包目录下的 `update.sh` 负责探测新版本、用 `nix store prefetch-file --json [--unpack] <url>` 计算哈希（GitHub tarball 用 `--unpack`，其结果与 fetchFromGitHub 哈希一致），最后整体重写 `sources.json`
-4. 注意：nix-update 只支持单一 `version`/`src` 属性，因此多源包必须走本模式；`sort -V` 是字典序，纯数字版本比较需按 `.` 分段转整数排序
+3. 包目录下的 `update-standalone.*` 负责探测新版本、用 `nix store prefetch-file --json [--unpack] <url>` 计算哈希（GitHub tarball 用 `--unpack`，其结果与 fetchFromGitHub 哈希一致），最后整体重写 `sources.json`
+4. 注意：nix-update 只支持单一 `version`/`src` 属性，且 `helpers/update.nix` 运行器会跳过含 `sources.` 引用的包，因此多源包必须走本模式；`sort -V` 是字典序，纯数字版本比较需按 `.` 分段转整数排序
 
 ### 版本约定
 
@@ -190,7 +190,7 @@ appimageTools.wrapType2 {
 ### 脚本文件命名约定
 
 - 包目录下的 `update.*`（如 `update.sh`）：passthru.updateScript 机制的新式更新脚本，由 `helpers/update.nix` 运行器发现并执行，不会被 `update` 命令的 find 循环执行。生成式 lockfile 包（如 pi-web）的更新脚本属于此类：脚本自身负责版本、src 哈希、lockfile 重生成与 `npmDepsHash` 的完整闭环（版本步用 `nix-update --src-only`），不要拆成 passthru + `update-standalone` 双机制（顶层 `update` 先跑 standalone 后跑 passthru，顺序会导致 lockfile 与版本失步）
-- 包目录下的 `update-standalone.*`：旧的独立脚本（与版本更新无关的辅助流程），由顶层 `update` 命令的 find 循环直接执行，与 passthru 机制无关；不要用 `update.*` 命名这类脚本，避免被双重执行
+- 包目录下的 `update-standalone.*`：需要 `passthru.updateScript` 机制无法支持的复杂更新逻辑的包（如多源 sources.json 包：`helpers/update.nix` 运行器的 `usesSources` 检查会跳过 default.nix 中含 `sources.` 引用的包，nix-update 也只支持单一 version/src），由顶层 `update` 命令的 find 循环直接执行。脚本必须自包含：不依赖 `UPDATE_NIX_*` 环境变量（find 循环不注入），自行从上游探测新旧版本（如 GitHub releases atom feed），无更新时静默退出
 
 ### 已知限制
 
