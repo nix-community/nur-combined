@@ -3,11 +3,11 @@
 { fetchurl, stdenv }:
 
 let
-  version = "0.2.1";
+  version = "0.3.0";
   sources = {
     "x86_64-linux" = {
-      url = "https://github.com/romancitodev/cargo-pretty/releases/download/v0.2.1/cargo-pretty-x86_64-unknown-linux-gnu.tar.gz";
-      hash = "sha256-kG93wD7jFsusRV5HHkm/3nLdrtemJ1WmXcNG/SRTZZI=";
+      url = "https://github.com/romancitodev/cargo-pretty/releases/download/v0.3.0/cargo-pretty-x86_64-unknown-linux-gnu.tar.gz";
+      hash = "sha256-O/MXWPYIuI8g0ZGINiTRqaykkNTSUgGzK3c941FPPGA=";
     };
   };
   source =
