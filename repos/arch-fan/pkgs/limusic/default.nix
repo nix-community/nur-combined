@@ -4,7 +4,7 @@
   lib,
 }:
 
-appimageTools.wrapType2 rec {
+let
   pname = "limusic";
   version = "0.7.0";
 
@@ -13,21 +13,29 @@ appimageTools.wrapType2 rec {
     hash = "sha256-/Z8Kk3mZhmf0kbJkxWcXpeuS+FYtPkHeHMF+9kODp+8=";
   };
 
-  extraInstallCommands =
-    let
-      contents = appimageTools.extractType2 {
-        inherit pname version src;
-      };
-    in
-    ''
-      install -Dm444 ${contents}/limusic.desktop \
-        $out/share/applications/limusic.desktop
+  contents = appimageTools.extract {
+    inherit pname version src;
 
-      substituteInPlace $out/share/applications/limusic.desktop \
-        --replace-fail 'Exec=limusic-app' 'Exec=limusic'
-
-      cp -r ${contents}/usr/share/icons $out/share/
+    postExtract = ''
+      substituteInPlace $out/AppRun \
+        --replace-fail 'export GDK_BACKEND=x11' \
+                       'export GDK_BACKEND=wayland'
     '';
+  };
+in
+
+appimageTools.wrapAppImage {
+  inherit pname version contents;
+
+  extraInstallCommands = ''
+    install -Dm444 ${contents}/limusic.desktop \
+      $out/share/applications/limusic.desktop
+
+    substituteInPlace $out/share/applications/limusic.desktop \
+      --replace-fail 'Exec=limusic-app' 'Exec=limusic'
+
+    cp -r ${contents}/usr/share/icons $out/share/
+  '';
 
   meta = {
     description = "Native desktop YouTube Music client";
