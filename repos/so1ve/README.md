@@ -16,7 +16,9 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `deepseek-harness` | [Usage](pkgs/deepseek-harness/README.md) |
 | `firefoxpwa-xwayland` | [Usage](pkgs/firefoxpwa-xwayland/README.md) |
 | `flutter-rust-bridge-codegen` | [Upstream](https://github.com/fzyzcjy/flutter_rust_bridge) |
+| `gradle-language-server` | [Usage](pkgs/gradle-language-server/README.md) |
 | `herdr` | [Upstream](https://github.com/herdrdev/herdr) |
+| `kotlin-lsp` | [Usage](pkgs/kotlin-lsp/README.md) |
 | `peazip-rar` | [Usage](pkgs/peazip-rar/README.md) |
 | `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
 | `xwayland-satellite` | [Upstream](https://github.com/Supreeeme/xwayland-satellite) |

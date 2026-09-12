@@ -10,7 +10,9 @@
   deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
   firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
+  gradle-language-server = pkgs.callPackage ./pkgs/gradle-language-server { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
+  kotlin-lsp = pkgs.callPackage ./pkgs/kotlin-lsp { };
   niri = pkgs.callPackage ./pkgs/niri { };
   peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };
