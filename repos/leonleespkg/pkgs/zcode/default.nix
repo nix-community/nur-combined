@@ -29,11 +29,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zcode";
-  version = "3.6.5";
+  version = "3.11.2";
 
   src = fetchurl {
-    url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.6.5/linux-x64/ZCode-3.6.5-linux-x64.deb";
-    sha256 = "sha256-5JgDzYxGzcCy7WHiet39H6fMFy/x7ht66yqOtdhFMgQ=";
+    url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.11.2/linux-x64/ZCode-3.11.2-linux-x64.deb";
+    sha256 = "sha256-fRO4OGMTAs9h4bgEDLZ/NJ7CNWZ5WJfxdGQyxcXXfVs=";
   };
 
   nativeBuildInputs = [
