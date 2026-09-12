@@ -25,6 +25,8 @@ in stdenv.mkDerivation rec {
         homepage = "https://mefrp.com";
         sourceProvenance = [ sourceTypes.binaryNativeCode ];
         license = licenses.unfree;
+        # MCSL file distribution (drive.mcsl.com.cn) is down; remove once it recovers.
+        broken = true;
         platforms = builtins.attrNames sources.platforms;
         maintainers = [ ];
         mainProgram = "mefrpc";
