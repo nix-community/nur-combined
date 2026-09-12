@@ -24,17 +24,13 @@
       "version": "1.3.1",
       "sha256": "1ab3x96ax5jsb4zayfw3akppqp3mg42p2d847p3ahrj1zmn3hid9"
     },
-    "sdlang-d": {
-      "version": "0.10.6",
-      "sha256": "1qm3ba7xgml570ajbdz72bvrgmq9yhw2ird5pr54c4zz0cywl2r4"
+    "sdlite": {
+      "version": "1.3.4",
+      "sha256": "0x6z7zrr2f8y024fzqinpplmj0b24yi1vv645m5rg3wv969g4xmf"
     },
     "taggedalgebraic": {
-      "version": "0.11.24",
-      "sha256": "03gxqa8faj4nb87pf5irqrzfmc1q5ag73gqapcqr4g9j0b7drigj"
-    },
-    "unit-threaded": {
-      "version": "0.7.55",
-      "sha256": "07wk8jj4dlhddc8k42mn8s5wdkgvqrl9kqdbh8yblyx52igmq5hy"
+      "version": "1.0.1",
+      "sha256": "1xwczhidhb4d6lw342fwx8da4vdwryv9gq8p41bh7184300aafl9"
     }
   }
 }
