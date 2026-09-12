@@ -100,13 +100,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.15.6";
+  version = "3.16.3";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-PIxKNc3PRN7k5Uii+Wc8s/PFX6d/hnFYyre0d5j3qzg=";
+    hash = "sha256-ipc8ti+ge6mb0cvLat3mIuzsgWyvRhFEcYl7n4o/YoE=";
   };
 
   patches = [
@@ -133,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-81wwc4yTKhj5OEJ1YtNwlLWaj2z9FhUkpUsPyRQ8tU0=";
+    hash = "sha256-0I5S6Y9opeVxkiZMRYcmeKVbv9sWrbqgHTHJZ0Wh6PE=";
   };
 
   env = {
@@ -247,7 +247,7 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "pake";
       inherit (finalAttrs) version src;
       cargoRoot = "src-tauri";
-      hash = "sha256-DxKxiggSsPArNgK+BCm6JHzDpGUp8fiNOp4O7wqoYs4=";
+      hash = "sha256-iiuiAyy/dusc2eaUKGoXv9GB+DaePdTRBuCykmDRbeM=";
     };
   };
 

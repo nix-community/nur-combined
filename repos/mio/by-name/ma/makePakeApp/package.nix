@@ -154,14 +154,17 @@ stdenv.mkDerivation (finalAttrs: {
     export PAKE_RUNTIME_DIR="$TMPDIR/pake-runtime"
     export CI="true"
     export CARGO_HOME="$TMPDIR/cargo-home"
+    export CARGO_TARGET_DIR="$TMPDIR/cargo-target"
     export CARGO_NET_OFFLINE="true"
 
     vendor_dir="$TMPDIR/cargo-vendor"
     cp -Lr --reflink=auto "${pake.cargoDeps}" "$vendor_dir"
     chmod -R u+w "$vendor_dir"
 
-    mkdir -p "$PAKE_RUNTIME_DIR/.cargo"
-    sed "s|@vendor@|$vendor_dir|g" "${pake.cargoDeps}/.cargo/config.toml" > "$PAKE_RUNTIME_DIR/.cargo/config.toml"
+    mkdir -p "$CARGO_HOME" "$CARGO_TARGET_DIR" "$PAKE_RUNTIME_DIR/.cargo"
+    # Prefer CARGO_HOME so vendor config survives the temp build workspace.
+    sed "s|@vendor@|$vendor_dir|g" "${pake.cargoDeps}/.cargo/config.toml" > "$CARGO_HOME/config.toml"
+    cp "$CARGO_HOME/config.toml" "$PAKE_RUNTIME_DIR/.cargo/config.toml"
 
     icon_rgba="$TMPDIR/pake-icon.png"
     magick "${icon}" -alpha on -background none -define png:color-type=6 "$icon_rgba"
