@@ -48,9 +48,52 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPDATE_PACKAGE: ${{ inputs.package }}
         run: |
-          # Collect all summary lines into a single string
+          # markdown_escape FILE: render log as ONE physical line safe for a
+          # Markdown table cell: escape backslash/pipe/backtick/angle brackets
+          # (so raw logs can never break table structure or inject HTML), then
+          # join lines with <br> (GitHub ignores raw newlines inside cells)
+          markdown_escape() {
+            awk '
+              BEGIN { ORS = "" }
+              NR > 1 { print "<br>" }
+              {
+                gsub(/\\/, "\\\\")
+                gsub(/\|/, "\\|")
+                gsub(/`/, "\\`")
+                gsub(/</, "\\<")
+                gsub(/>/, "\\>")
+                gsub(/\r/, "")
+                print
+              }
+            ' "$1"
+            echo
+          }
+
+          # truncate FILE MAX_LINES: keep first MAX_LINES lines and add
+          # an explicit "truncated" marker; also cap total characters as a
+          # second guard
+          truncate_log() {
+            local file=$1
+            local max_lines=$2
+            local max_chars=4000
+            local lines chars
+            lines=$(wc -l < "$file")
+            chars=$(wc -c < "$file")
+            if [ "$lines" -gt "$max_lines" ]; then
+              head -n "$max_lines" "$file" > "$file.tmp"
+              echo "... (truncated, $((lines - max_lines)) more lines; see full log in the Build Log)" >> "$file.tmp"
+              mv "$file.tmp" "$file"
+            fi
+            if [ "$(wc -c < "$file")" -gt $max_chars ]; then
+              head -c $max_chars "$file" > "$file.tmp"
+              echo "" >> "$file.tmp"
+              echo "... (truncated at ${max_chars} chars; see full log in the Build Log)" >> "$file.tmp"
+              mv "$file.tmp" "$file"
+            fi
+          }
+
           summary="## Package Update Status"
-          summary+=$'\n'"| Package | Status | Message |"
+          summary+=$'\n'"| Package | Status | Details |"
           summary+=$'\n'"| --- | --- | --- |"
 
           FAILED=0
@@ -66,13 +109,19 @@ jobs:
 
             local output
             if output=$(./"$script" 2>&1); then
-              local escaped="${output//$'\n'/<br>}"
+              echo "$output" > /tmp/last_output.txt
               echo "✅ Success"
-              summary+=$'\n'"| $pkg_name | ✅ Success | <pre>$escaped</pre> |"
+              truncate_log /tmp/last_output.txt 15
+              local escaped
+              escaped=$(markdown_escape /tmp/last_output.txt)
+              summary+=$'\n'"| $pkg_name | ✅ Success | $escaped |"
             else
-              local escaped="${output//$'\n'/<br>}"
+              echo "$output" > /tmp/last_output.txt
               echo "❌ Failed"
-              summary+=$'\n'"| $pkg_name | ❌ Failed | <pre>$escaped</pre> |"
+              truncate_log /tmp/last_output.txt 50
+              local escaped
+              escaped=$(markdown_escape /tmp/last_output.txt)
+              summary+=$'\n'"| $pkg_name | ❌ Failed | $escaped |"
               FAILED=1
             fi
 
@@ -101,15 +150,25 @@ jobs:
             done
           fi
 
-          # Write summary to step summary and step output
+          # Write summary to the job step summary and the full PR body to a
+          # file. Using body-path (not a workflow output) avoids heredoc
+          # breakage when a log line is literally "EOF" and YAML/markdown
+          # mangling of very long lines.
+          BUILD_LOG_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           {
-            echo "$summary" >> "$GITHUB_STEP_SUMMARY"
-          }
-          {
-            echo "summary<<EOF"
             echo "$summary"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          } >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "This PR was automatically created by the update workflow."
+            echo ""
+            echo "See the [Build Log](${BUILD_LOG_URL}) for details."
+            echo ""
+            echo "<details><summary>Package Update Status</summary>"
+            echo ""
+            echo "$summary"
+            echo ""
+            echo "</details>"
+          } > /tmp/pr-body.md
 
           if [ "$FAILED" -ne 0 ]; then
             echo "::error::Some packages failed to update"
@@ -132,12 +191,7 @@ jobs:
           token: ${{ secrets.PAT_FOR_UPDATES || secrets.GITHUB_TOKEN }}
           commit-message: "chore: auto-update packages"
           title: "chore: Auto-update packages"
-          body: |
-            This PR was automatically created by the update workflow.
-
-            See the [Build Log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
-
-            ${{ steps.update.outputs.summary }}
+          body-path: /tmp/pr-body.md
           branch: auto-update-packages
           delete-branch: true
 
