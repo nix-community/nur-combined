@@ -1,0 +1,28 @@
+name: "Update packages"
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: Update packages
+        run: nix run .#update
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "Automated package updates"
+          title: "Automated package updates"
+          body: "Scheduled nix-update run via `./scripts/update.sh`."
+          branch: "updates/packages"
+          delete-branch: true
+          labels: |
+            automated
+            dependencies

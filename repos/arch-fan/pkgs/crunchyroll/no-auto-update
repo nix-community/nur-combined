@@ -1,0 +1,3 @@
+Static desktop entry wrapping nixpkgs' chromium: no version/src of its own,
+so there is nothing for nix-update to bump. Presence of this file opts the
+package out of the automated update loop (the icon hash stays pinned).

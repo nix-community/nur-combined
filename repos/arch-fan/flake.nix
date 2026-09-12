@@ -19,5 +19,18 @@
     in
     {
       packages.${system} = packages;
+
+      apps.${system}.update =
+        let
+          update = pkgs.writeShellApplication {
+            name = "update";
+            runtimeInputs = [ pkgs.nix-update ];
+            text = builtins.readFile ./scripts/update.sh;
+          };
+        in
+        {
+          type = "app";
+          program = pkgs.lib.getExe update;
+        };
     };
 }
