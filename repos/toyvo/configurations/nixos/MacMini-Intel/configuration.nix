@@ -11,7 +11,6 @@
 {
   imports = [
     inputs.nixcfg.modules.nixos.default
-    inputs.nixos-hardware.nixosModules.apple-t2
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
@@ -22,13 +21,21 @@
     inputs.sops-nix.nixosModules.sops
   ];
 
-  # Use the mainline kernel instead of the T2-patched one: the pinned
-  # t2linux patchset no longer applies to linux_6_18
+  # Mainline kernel, and the nixos-hardware apple-t2 module is deliberately
+  # not imported: its pinned t2linux patchset no longer applies to linux_6_18
   # (4001-asahi-trackpad.patch fails on drivers/hid/hid-magicmouse.c), and a
   # headless Mac Mini doesn't need apple-bce (internal keyboard/trackpad and
-  # audio) — USB peripherals use the stock drivers. WiFi/Bluetooth firmware
-  # still comes from hardware.apple-t2.firmware below.
+  # audio) — USB peripherals use the stock drivers. Re-importing the module
+  # would also be required to use hardware.apple-t2.firmware (WiFi/BT
+  # firmware; the drivers themselves, brcmfmac/btusb, are mainline).
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+  # Kernel parameters previously contributed by the apple-t2 module,
+  # kept so boot behavior is unchanged.
+  boot.kernelParams = [
+    "intel_iommu=on"
+    "iommu=pt"
+    "pm_async=off"
+  ];
 
   home-manager = {
     extraSpecialArgs = {
@@ -43,9 +50,6 @@
     sharedModules = [ ./home.nix ];
   };
   hardware.cpu.intel.updateMicrocode = true;
-  # WiFi/Bluetooth firmware extracted from macOS (kernel-independent files
-  # under /lib/firmware/brcm); the drivers (brcmfmac/btusb) are mainline.
-  # hardware.apple-t2.firmware.enable = true;
   networking = {
     hostName = "MacMini-Intel-NixOS";
   };
