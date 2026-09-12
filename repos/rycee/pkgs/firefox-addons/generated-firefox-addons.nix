@@ -441,10 +441,10 @@
     };
     "are-na" = buildMozillaXpiAddon {
       pname = "are-na";
-      version = "2.14.2";
+      version = "2.14.3";
       addonId = "{4245110a-2f3e-4f78-8303-10cae12384cc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5006215/are_na-2.14.2.xpi";
-      sha256 = "10ccacd4bea4b655b1bac1d70416974f252138c532c148646ae69a4d9eeca414";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5022925/are_na-2.14.3.xpi";
+      sha256 = "8552f63937faae795628a5b5994e44ec663f9638b61982fc9dabf1eb68589527";
       meta = with lib;
       {
         homepage = "https://www.are.na";
@@ -7248,10 +7248,10 @@
     };
     "kagi-translate" = buildMozillaXpiAddon {
       pname = "kagi-translate";
-      version = "0.1.9";
+      version = "0.1.10";
       addonId = "{bd6be57d-91d7-41d2-b61d-3ba20f7942e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5015708/kagi_translate-0.1.9.xpi";
-      sha256 = "5a32317b953dde0f12145c037e57afa415b118f1eb91953b48f9691a859c211e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5022926/kagi_translate-0.1.10.xpi";
+      sha256 = "be5f4d7ad7b8125e81068e01e955f16ee73ee65986dc63c6e28c6db7736bcb70";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -8286,10 +8286,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.243";
+      version = "2.4.244";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5013915/lichess_tools_by_siderite-2.4.243.xpi";
-      sha256 = "8e90d4d5621e3802860c50564d54a38ac5881cb3de30e44fdb3dfd40a3d19adf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5022115/lichess_tools_by_siderite-2.4.244.xpi";
+      sha256 = "e10a0c1714ccc94eb41bd969efa47fd2dcd8b70431336064b275e0205dacbff2";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10937,10 +10937,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.129";
+      version = "1.0.130";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4997422/paperpile_addon-1.0.129.xpi";
-      sha256 = "407a59a340599f6d949597d5d6a2e2a11bfcd0c2937d3c2f8f50b1917e0fde27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5022298/paperpile_addon-1.0.130.xpi";
+      sha256 = "7d70861ca507c6b04c97fa5dcf18839b3edf7552ef70189a6a411ea4e3fa3f65";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -10959,6 +10959,7 @@
           "storage"
           "unlimitedStorage"
           "declarativeNetRequestWithHostAccess"
+          "cookies"
           "alarms"
           "*://app.paperpile.com/*"
         ];
