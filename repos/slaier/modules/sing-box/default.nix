@@ -16,9 +16,8 @@
       dns = {
         servers = [
           {
-            type = "udp";
-            tag = "google";
-            server = "8.8.8.8";
+            type = "local";
+            tag = "local";
           }
         ];
         strategy = "ipv4_only";

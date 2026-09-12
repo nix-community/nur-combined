@@ -23,7 +23,7 @@
   networking = {
     firewall.enable = false;
     proxy = {
-      default = "http://local.lan:7890";
+      default = "http://127.0.0.1:7890";
       noProxy = lib.strings.concatStringsSep "," [
         "127.0.0.1"
         "localhost"

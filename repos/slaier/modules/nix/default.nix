@@ -8,7 +8,11 @@
 {
   nix.settings = {
     auto-optimise-store = true;
-    experimental-features = "cgroups nix-command flakes";
+    experimental-features = [
+      "cgroups"
+      "nix-command"
+      "flakes"
+    ];
     flake-registry = "/etc/nix/registry.json";
     substituters = [
       "https://mirrors.ustc.edu.cn/nix-channels/store"

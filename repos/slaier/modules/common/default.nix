@@ -23,9 +23,9 @@
     DefaultTimeoutStopSec = "10s";
   };
 
-  services.journald.extraConfig = ''
-    SystemMaxUse=100M
-  '';
+  services.journald.settings.Journal = {
+    SystemMaxUse = "100M";
+  };
 
   documentation.doc.enable = false;
 }
