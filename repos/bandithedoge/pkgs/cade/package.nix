@@ -9,15 +9,15 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "cade";
-  version = "0.1.0-unstable-2026-08-15";
+  version = "0.1.0-unstable-2026-09-09";
   src = fetchFromGitHub {
     owner = "manic-systems";
     repo = "cade";
-    rev = "d119b4f3d1199209f571b7bfdeebc0cf20c04ae6";
-    hash = "sha256-7PKZV/3rH0SYioQUBWBVE2f4pJoqe4hbyrSLFRaH/e8=";
+    rev = "3211f782a53f94842bbb8782de03a2c5d85c793d";
+    hash = "sha256-Xrwc9hgghoOp2ySoBY1Mbyyi8mkR/HBHdFQ+5ATfikU=";
   };
 
-  cargoHash = "sha256-xcUCJ2ZtxpUu1MIoWV8yVWXsDQY/UAWkZCBy+beCdWQ=";
+  cargoHash = "sha256-Hpmge+YRDUhovt55NoBDd9GSV15cp184nDuMJZDnOX8=";
 
   nativeBuildInputs = [ pkg-config ];
 

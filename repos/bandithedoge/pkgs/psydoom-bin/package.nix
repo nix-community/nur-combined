@@ -18,7 +18,7 @@ let
     };
     aarch64 = fetchurl {
       url = "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F${version}/PsyDoom_${version}_Linux_AArch64.AppImage";
-      sha256 = "sha256-tB2kLokDxlNNjCozW9wtw9cJkKOR6aEN+B+c4olxTew=";
+      sha256 = "sha256-q43TIlbvhvO4XKrkxL2BiaH7y6+yKGnYLih4H+TpAdk=";
     };
     armhf = fetchurl {
       url = "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F${version}/PsyDoom_${version}_Linux_ArmHF.AppImage";

@@ -9,15 +9,15 @@
   unzip,
 }:
 let
-  version = "0.1.0";
+  version = "0.1.1";
   sources = {
     instrument = fetchurl {
       url = "https://github.com/gabrielsoule/resonarium/releases/download/v${version}/Resonarium-Instrument-${version}-Linux.zip";
-      sha256 = "sha256-qDJU90fEShT4LCrgEn/etCwy8mPgCjxXn8+CB1Hxuc0=";
+      sha256 = "sha256-Sb5nkmLHQh743dYR/azDWQ5aesOBs88g19OnoXEl1GQ=";
     };
     effect = fetchurl {
       url = "https://github.com/gabrielsoule/resonarium/releases/download/v${version}/Resonarium-Effect-${version}-Linux.zip";
-      sha256 = "sha256-GFos0HLM6CTU99DLB6e4OuySgODcZDdxheM+K2VHOUY=";
+      sha256 = "sha256-13ws0wdssT0dDOEey2YCv82Ph1qiBRTc+4WORSZUH9M=";
     };
   };
 in

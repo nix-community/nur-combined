@@ -6,10 +6,10 @@
 }:
 appimageTools.wrapType2 (finalAttrs: {
   pname = "basiliskii-bin";
-  version = "2026-08-11";
+  version = "2026-09-11";
   src = fetchurl {
     url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/${finalAttrs.version}/BasiliskII-x86_64.AppImage";
-    sha256 = "sha256-TkQX1BppFTX3FAOqBFSgqLGMlJn9fb5Wwub9Z6fTcbs=";
+    sha256 = "sha256-kRfnbg8S8gWh28nMymi6vsXFGP+8kIN8bS5rDCH0lNA=";
   };
 
   extraPkgs =
