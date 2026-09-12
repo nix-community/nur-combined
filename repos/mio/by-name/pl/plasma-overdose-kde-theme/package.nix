@@ -22,8 +22,11 @@ stdenvNoCC.mkDerivation {
     runHook preInstall
 
     mkdir -p "$out/share/color-schemes"
+    # LaF defaults and the colors file itself use ColorScheme=PlasmaOverdose.
+    # Install under that id so plasma-apply-colorscheme / look-and-feel resolve it.
     cp "$src/plasma/desktoptheme/Plasma-Overdose/colors" \
-      "$out/share/color-schemes/Plasma-Overdose.colors"
+      "$out/share/color-schemes/PlasmaOverdose.colors"
+    ln -s PlasmaOverdose.colors "$out/share/color-schemes/Plasma-Overdose.colors"
 
     mkdir -p "$out/share/plasma/desktoptheme"
     cp -r "$src/plasma/desktoptheme/Plasma-Overdose" \
@@ -32,12 +35,22 @@ stdenvNoCC.mkDerivation {
     mkdir -p "$out/share/plasma/look-and-feel"
     cp -r "$src/plasma/look-and-feel/Plasma-Overdose" \
       "$out/share/plasma/look-and-feel/"
+    # Keep Icons on breeze (directory name); capital-B "Breeze" misses on case-sensitive FS.
+    substituteInPlace \
+      "$out/share/plasma/look-and-feel/Plasma-Overdose/contents/defaults" \
+      --replace-fail 'Theme=Breeze' 'Theme=breeze'
 
     mkdir -p "$out/share/aurorae/themes"
     cp -r "$src/aurorae/Plasma-Overdose"* "$out/share/aurorae/themes/"
 
+    # Cursor-only theme under icons/; inherit breeze so a mistaken iconTheme
+    # selection still has System Settings / app icons.
     mkdir -p "$out/share/icons/Plasma-Overdose"
     cp "$src/cursors/index.theme" "$out/share/icons/Plasma-Overdose/index.theme"
+    chmod u+w "$out/share/icons/Plasma-Overdose/index.theme"
+    if ! grep -q '^Inherits=' "$out/share/icons/Plasma-Overdose/index.theme"; then
+      printf '\nInherits=breeze\n' >> "$out/share/icons/Plasma-Overdose/index.theme"
+    fi
     cp -r "$src/cursors/cursors" "$out/share/icons/Plasma-Overdose/cursors"
 
     mkdir -p "$out/share/sounds/PlasmaOverdose"
