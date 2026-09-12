@@ -114,6 +114,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     platforms = ["x86_64-linux"];
     mainProgram = "flm";
-    broken = xrt == null;
+    # broken = xrt == null;
+    broken = true; # Repo was deleted, need to switch to OpenFlowLM-Next
   };
 }

@@ -57,5 +57,6 @@ python3Packages.buildPythonApplication rec {
     platforms = lib.systems.flakeExposed;
     license = lib.licenses.asl20;
     mainProgram = "flm-q4nx-converter";
+    broken = true; # I think its broken, not sure, need to switch to q4nx-build anyways
   };
 }

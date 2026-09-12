@@ -11,7 +11,7 @@
   repo = "https://github.com/imputnet/helium-linux";
 in
   appimageTools.wrapAppImage rec {
-    version = "0.16.5.1";
+    version = "0.17.0.1";
     pname = "helium";
 
     src = appimageTools.extract {
@@ -21,11 +21,11 @@ in
         sourceMap = {
           x86_64-linux = fetchurl {
             url = "${repo}/releases/download/${version}/helium-${version}-x86_64.AppImage";
-            hash = "sha256-N6+wwg46ufsbCqEJv/WpTWDCnI3tnFt58cG6TsGxXew=";
+            hash = "sha256-JmqdEwoXP/2GGAMS2gjAq7G2oWFuyUTr5ouMDhSOcHY=";
           };
           aarch64-linux = fetchurl {
             url = "${repo}/releases/download/${version}/helium-${version}-arm64.AppImage";
-            hash = "sha256-zCZFBLbG/3pdeBx6qBrVWy4deNNtbu4EK9RTL9wgTQQ=";
+            hash = "sha256-9jdvqMmsbwB/ZCdiNSPTfOIUv3NiwVCiIZD8LxzuszQ=";
           };
         };
       in
