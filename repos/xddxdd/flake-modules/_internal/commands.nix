@@ -67,7 +67,7 @@ _: {
           done
           ./tools/update-package --all || STATUS=1
           # Regenerate README even when individual updates failed
-          ${readme} || STATUS=1
+          ${readme}
           exit $STATUS
         '';
       };
