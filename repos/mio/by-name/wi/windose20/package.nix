@@ -61,8 +61,12 @@ stdenvNoCC.mkDerivation {
     frameH=720
     magick "$splashDir/booting.png" -resize "''${frameW}x''${frameH}!" "$imagesDir/boot-base.png"
     magick "$splashDir/welcome.png" -resize "''${frameW}x''${frameH}!" "$imagesDir/welcome-base.png"
-    # Upstream dots.jpg is near-black grey-on-black; lift it so the row reads on plymouth.
-    magick "$splashDir/dots.jpg" -brightness-contrast 35x50 -resize 11x14 "$imagesDir/dot.png"
+    # Upstream dots.jpg is a grey glyph on black. Punch out the black so we don't
+    # paint a grey tile (brightness lifts used to turn that backdrop into a box).
+    magick "$splashDir/dots.jpg" -alpha set \
+      \( +clone -colorspace gray -threshold 8% \) \
+      -compose CopyOpacity -composite \
+      -resize 11x14 PNG32:"$imagesDir/dot.png"
 
     # Dot row placement mirrors Splash.qml (690/1920 x, 28/1080 from bottom).
     dotX0=$((690 * frameW / 1920))
