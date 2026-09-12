@@ -47,11 +47,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "workbuddy";
-  version = "5.4.5";
+  version = "5.5.6.38337834";
 
   src = fetchurl {
-    url = "https://software.openkylin.top/openkylin/yangtze/pool/main/deb/workbuddy/workbuddy_${finalAttrs.version}_amd64.deb";
-    hash = "sha256-eHGOSZNf64IVfHr8roZs+6Bt7sNLLbNlxjarazft+fQ=";
+    url = "https://download.codebuddy.cn/workbuddy/saas/linux-x64-deb/WorkBuddy-linux-x64-deb-${finalAttrs.version}-5f969292.deb";
+    hash = "sha256-LvG8ohfSnZwrqYjIIHmqbqAHfp8f+ILGq13XmYvd9yE=";
   };
 
   nativeBuildInputs = [
@@ -122,10 +122,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/opt $out/bin
-    cp -r opt/apps/workbuddy $out/opt/workbuddy
+    cp -r opt/WorkBuddy $out/opt/WorkBuddy
 
-    makeWrapper ${lib.placeholder "out"}/opt/workbuddy/workbuddy $out/bin/workbuddy \
-      --prefix LD_LIBRARY_PATH : "${lib.placeholder "out"}/opt/workbuddy" \
+    makeWrapper ${lib.placeholder "out"}/opt/WorkBuddy/workbuddy $out/bin/workbuddy \
+      --prefix LD_LIBRARY_PATH : "${lib.placeholder "out"}/opt/WorkBuddy" \
       --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
       --add-flags "--no-sandbox" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
@@ -133,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/share/applications
     install -Dm644 usr/share/applications/workbuddy.desktop $out/share/applications/workbuddy.desktop
     substituteInPlace $out/share/applications/workbuddy.desktop \
-      --replace "/opt/apps/workbuddy/workbuddy" "${lib.placeholder "out"}/bin/workbuddy"
+      --replace "/opt/WorkBuddy/workbuddy" "${lib.placeholder "out"}/bin/workbuddy"
 
     cp -r usr/share/icons $out/share/icons
 
@@ -143,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Tencent WorkBuddy desktop client (腾讯 WorkBuddy Linux 桌面端)";
     homepage = "https://copilot.tencent.com/work/";
-    downloadPage = "https://software.openkylin.top/openkylin/yangtze/pool/main/deb/workbuddy/";
+    downloadPage = "https://www.workbuddy.cn/app";
     license = lib.licenses.unfree;
     mainProgram = "workbuddy";
     platforms = [ "x86_64-linux" ];
