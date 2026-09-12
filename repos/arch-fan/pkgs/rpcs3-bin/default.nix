@@ -2,6 +2,7 @@
   lib,
   appimageTools,
   fetchurl,
+  runCommand,
   writeShellApplication,
   curl,
   jq,
@@ -21,9 +22,13 @@ let
     hash = "sha256-IpJaH5NbqVFyMJ7YuSU773P+7boDVEqy4tW/3AtaW0c=";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit pname version src;
-  };
+  contents = runCommand "${pname}-${version}-extracted" { } ''
+    cp ${src} rpcs3.AppImage
+    chmod +x rpcs3.AppImage
+
+    ./rpcs3.AppImage --appimage-extract
+    mv AppDir "$out"
+  '';
 
   updateScript = writeShellApplication {
     name = "update-rpcs3-bin";
@@ -38,13 +43,21 @@ let
     text = builtins.readFile ./update.sh;
   };
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+appimageTools.wrapAppImage {
+  inherit pname version contents;
 
   extraInstallCommands = ''
     install -Dm444 \
-      ${appimageContents}/rpcs3.desktop \
+      ${contents}/usr/share/applications/rpcs3.desktop \
       $out/share/applications/rpcs3.desktop
+
+    cp -r \
+      ${contents}/usr/share/icons \
+      $out/share/
+
+    install -Dm444 \
+      ${contents}/usr/share/metainfo/rpcs3.metainfo.xml \
+      $out/share/metainfo/rpcs3.metainfo.xml
   '';
 
   passthru.updateScript = [
