@@ -12,6 +12,7 @@
   [ "venn" ]
   [ "vkdoom" ]
   [ "waterfox-bin" ]
+  [ "blender-radeon-prorender" ]
   [
     "vimPlugins"
     "null-ls-nvim"
