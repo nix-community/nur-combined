@@ -5,6 +5,7 @@
 let
   version = "8.7.0";
   src = fetchurl {
+    curlOptsList = [ "--compressed" ];
     url = "https://pkg-ant.baidu.com/issue/netdisk/LinuxGuanjia/8.7.0/baidunetdisk_8.7.0_amd64.deb";
     hash = "sha256-7HHCrRFRYJ/Q2LhtlRhMC0V9bbWqGIYeCxX8I8z+Afc=";
   };

@@ -5,6 +5,7 @@
 let
   version = "1783947872";
   src = fetchurl {
+    curlOptsList = [ "--compressed" ];
     url = "https://github.com/so1ve/maple-font/releases/download/v1783947872/RMapleMono-NF-CN.zip";
     hash = "sha256-3tVLkchBXk82MDQFCWlkA3Y2+gxPIl8HBfvljW3DJvw=";
   };

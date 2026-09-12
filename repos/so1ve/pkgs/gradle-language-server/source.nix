@@ -5,6 +5,7 @@
 let
   version = "3.18.0";
   src = fetchurl {
+    curlOptsList = [ "--compressed" ];
     url = "https://open-vsx.org/api/vscjava/vscode-gradle/3.18.0/file/vscjava.vscode-gradle-3.18.0.vsix";
     hash = "sha256-oEZtjkS4c9Kk6DFV1Le2jU/32YmmGPL1RROunXxobfo=";
   };
