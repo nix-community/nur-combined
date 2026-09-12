@@ -28,6 +28,7 @@ in {
     callPackage ./pkgs/pi-web-jmfederico {}
   );
   ray-raycast = callPackage ./pkgs/ray-raycast {};
+  web-terminal-go = callPackage ./pkgs/web-terminal-go {};
   winterm-rs = callPackage ./pkgs/winterm-rs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
