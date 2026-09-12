@@ -202,7 +202,7 @@ appimageTools.wrapType2 {
 
 - 源码不再由集中式工具（nvfetcher）管理；每个包在自身目录内联 fetcher 并声明 `passthru.updateScript`
 - 多源包使用 `sources.json` + `importJSON`/`fromJSON`（如 fr24feed、qemu-user-static、lantianCustomized.nginx），由包内 `update.sh` 整体重写
-- 顶层 `update` 命令流程：`nix flake update` → 执行 `pkgs/**/update-standalone.*` → `./tools/update-package --all` → 重新生成 README
+- 顶层 `update` 命令流程：`nix flake update` → 执行 `pkgs/**/update-standalone.*` → `./tools/update-package --all` → 重新生成 README。单个包更新失败（update-standalone 脚本或 update-package 内的个别包）不会中断流程，README 仍会在最后重新生成；命令退出码保留失败状态供 CI 报警
 
 ## 构建包
 

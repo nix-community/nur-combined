@@ -85,6 +85,7 @@ buildPythonPackage (finalAttrs: {
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/modelscope/FunASR";
     tagPrefix = "v";
+    tagFormat = "v[0-9]*";
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

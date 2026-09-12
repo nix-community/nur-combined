@@ -15,7 +15,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocfs2-tools";
-  version = "ocfs2-tools-1.8.9";
+  version = "1.8.9";
 
   src = fetchFromGitHub {
     owner = "markfasheh";
@@ -49,7 +49,12 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "^ocfs2-tools-(.*)$"
+    ];
+  };
 
   # upstream predates -Werror=format-security hardening; old code calls
   # printf-like functions with non-literal format strings

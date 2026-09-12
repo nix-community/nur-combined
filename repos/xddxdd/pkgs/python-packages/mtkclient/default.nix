@@ -71,6 +71,7 @@ buildPythonPackage (finalAttrs: {
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/bkerler/mtkclient";
     tagPrefix = "v";
+    shallowClone = false;
   };
   meta = {
     changelog = "https://github.com/bkerler/mtkclient/releases/tag/${finalAttrs.version}";

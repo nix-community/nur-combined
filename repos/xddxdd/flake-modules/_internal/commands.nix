@@ -45,7 +45,7 @@ _: {
         '';
 
         readme = ''
-          set -euo pipefail
+          set -uo pipefail
           nix build --show-trace .#_meta.readme
           cat result > README.md
         '';
@@ -56,16 +56,19 @@ _: {
         '';
 
         update = ''
-          set -euo pipefail
+          set -uo pipefail
           export LANG=en_US.UTF-8
           nix flake update
+          STATUS=0
           for S in $(command find pkgs/ \( -name 'update-standalone.*' \) -type f); do
             echo "Executing $S"
             chmod +x "$S"
-            "$S"
+            "$S" || STATUS=1
           done
-          ./tools/update-package --all
-          ${readme}
+          ./tools/update-package --all || STATUS=1
+          # Regenerate README even when individual updates failed
+          ${readme} || STATUS=1
+          exit $STATUS
         '';
       };
     };
