@@ -19,7 +19,12 @@ let
   source =
     sources.${stdenv.hostPlatform.system}
       or (throw ("unsupported system " + stdenv.hostPlatform.system));
-  src = fetchurl source;
+  src = fetchurl (
+    source
+    // {
+      curlOptsList = [ "--compressed" ];
+    }
+  );
 in
 {
   inherit version src;
