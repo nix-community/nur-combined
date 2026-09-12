@@ -100,6 +100,7 @@ in
       helix.enable = true;
       herdr = {
         enable = true;
+        package = inputs.herdr.packages.${system}.herdr;
         settings = {
           terminal.default_shell = lib.getExe pkgs.fish;
           ui.toast.delivery = "herdr";

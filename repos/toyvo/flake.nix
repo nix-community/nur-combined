@@ -17,7 +17,9 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
+    ekapkgs.url = "github:ekala-project/ekapkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    herdr.url = "github:herdrdev/herdr";
     hermes-agent.url = "github:NousResearch/hermes-agent";
     hermes-webui = {
       url = "github:nesquena/hermes-webui";
@@ -302,6 +304,7 @@
             config,
             lib,
             pkgs,
+            ekaPkgs,
             system,
             self',
             ...
@@ -320,6 +323,10 @@
                   allowUnfree = true;
                   android_sdk.accept_license = true;
                 };
+              };
+              ekaPkgs = import inputs.ekapkgs {
+                inherit system;
+                config.allowUnfree = true;
               };
             };
 

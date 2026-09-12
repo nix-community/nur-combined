@@ -1,12 +1,13 @@
 {
-  pkgs,
   config,
-  inputs,
-  system,
+  ekaPkgs,
   homelab,
-  stablePkgs,
-  unstablePkgs,
+  inputs,
   lib,
+  pkgs,
+  stablePkgs,
+  system,
+  unstablePkgs,
   ...
 }:
 let
@@ -30,6 +31,7 @@ in
   home-manager = {
     extraSpecialArgs = {
       inherit
+        ekaPkgs
         inputs
         system
         homelab
@@ -254,10 +256,8 @@ in
       enable = true;
       settings.PasswordAuthentication = false;
     };
-    # Immich doesn't support postgresql_17 yet;
     postgresql = {
       enable = true;
-      package = pkgs.postgresql_17;
       enableTCPIP = true;
       authentication = lib.mkOverride 10 ''
         local all postgres         peer map=postgres
@@ -326,7 +326,7 @@ in
 
   # Set authentik user password from sops secret at activation time
   systemd.services.postgresql.postStart = ''
-    ${pkgs.postgresql_17}/bin/psql -tAc "ALTER ROLE authentik PASSWORD '$(cat ${
+    ${config.services.postgresql.package}/bin/psql -tAc "ALTER ROLE authentik PASSWORD '$(cat ${
       config.sops.secrets."authentik-db-password".path
     })';"
   '';
@@ -543,7 +543,7 @@ in
     settings = {
       model = {
         # see https://models.dev/?search=opencode&sort=output-costper&order=asc if considering different models, same api key, but url is different https://opencode.ai/zen/v1 vs https://opencode.ai/zen/go/v1
-        default = "kimi-k3";
+        default = "muse-spark-1.3-contributor";
         provider = "opencode-go";
         base_url = "https://opencode.ai/zen/go/v1";
         api_mode = "chat_completions";

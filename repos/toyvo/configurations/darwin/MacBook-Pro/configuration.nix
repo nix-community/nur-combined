@@ -1,9 +1,10 @@
 {
-  pkgs,
-  inputs,
-  system,
+  ekaPkgs,
   homelab,
+  inputs,
+  pkgs,
   stablePkgs,
+  system,
   unstablePkgs,
   ...
 }:
@@ -19,6 +20,7 @@
   home-manager = {
     extraSpecialArgs = {
       inherit
+        ekaPkgs
         inputs
         system
         homelab
