@@ -41,11 +41,11 @@
     "linyinfeng": {
       "flake": false,
       "locked": {
-        "lastModified": 1789056779,
-        "narHash": "sha256-BWNAY9gdJFcudScj5+dE8Xg2sMjKiHMn7EXpwfZyrWQ=",
+        "lastModified": 1789124087,
+        "narHash": "sha256-/fs00RsUQ4ApMqDsX/27CZF8+eMBbexOMo07S5spUb4=",
         "owner": "linyinfeng",
         "repo": "nur-packages",
-        "rev": "84bb7910299a81138472624370ab8f73cb921178",
+        "rev": "19a6620fd76e17dad128ffa173624120c89cc34e",
         "type": "github"
       },
       "original": {
@@ -56,11 +56,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1789091676,
-        "narHash": "sha256-nztay8uiyJpLDHTi8qI8BEeKRWqMMrtjpfet1WrqUt0=",
+        "lastModified": 1789205647,
+        "narHash": "sha256-cwe0k9pcRFmMgY5ZiI55HcQ8/qkW0FmUYhPzEtp0neE=",
         "owner": "wrvsrx",
         "repo": "nixpkgs",
-        "rev": "7000b189e35d53750d539b13e8a0eb7cdd52608a",
+        "rev": "de07080bbaa1cbc8c65281734d448e1206b33bea",
         "type": "github"
       },
       "original": {
