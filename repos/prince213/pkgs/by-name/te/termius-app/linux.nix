@@ -10,7 +10,7 @@
   # nativeBuildInputs
   autoPatchelfHook,
   dpkg,
-  makeBinaryWrapper,
+  makeWrapper,
 
   # buildInputs
   alsa-lib,
@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg
-    makeBinaryWrapper
+    makeWrapper
   ];
 
   buildInputs = [
@@ -64,7 +64,10 @@ stdenvNoCC.mkDerivation {
   '';
 
   postFixup = ''
-    wrapProgram $out/opt/Termius/termius-app \
+    # https://github.com/NixOS/nixpkgs/issues/551645
+    wrapProgramShell $out/opt/Termius/termius-app \
+      --run 'case ":''${XDG_CURRENT_DESKTOP:-}:" in *:KDE:*) termiusKdeWayland=1 ;; *) unset termiusKdeWayland ;; esac' \
+      --add-flags "\''${WAYLAND_DISPLAY:+\''${termiusKdeWayland:+--force-device-scale-factor=1}}" \
       --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
           libGL

@@ -1,22 +1,18 @@
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -39,9 +39,6 @@
+@@ -39,7 +39,4 @@
  gallant.bdf: gallant.hex hextobdf
- 	./hextobdf < $< > $@
+ 	./hextobdf < $< > $@.tmp && mv $@.tmp $@
  
 -gallant.hex: gallant.src srctohex
--	./srctohex < $< > $@
+-	./srctohex < $< > $@.tmp && mv $@.tmp $@
 -
  gallant.fnt: gallant.hex
- 	vtfontcvt -v -o $@ $^
- 
-@@ -51,9 +48,6 @@
+@@ -54,7 +51,4 @@
  gallant.pcf.gz: gallant.pcf
  	gzip -cnv9 $^ > $@
  
 -gallant.src: hextosrc
--	./hextosrc < gallant.hex > $@
+-	./hextosrc < gallant.hex > $@.tmp && mv $@.tmp $@
 -
- gallant.ttf gallant.woff gallant.woff2: gallant.src srctottf.py
- 	python srctottf.py
- 
+ gallant.ttf gallant.woff gallant.woff2 &: gallant.src srctottf.py

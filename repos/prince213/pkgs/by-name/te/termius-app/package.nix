@@ -6,7 +6,7 @@
   # nativeBuildInputs
   autoPatchelfHook,
   dpkg,
-  makeBinaryWrapper,
+  makeWrapper,
   unzip,
 
   # buildInputs
@@ -66,7 +66,7 @@ else
       libGL
       libgbm
       libsecret
-      makeBinaryWrapper
+      makeWrapper
       nss
       stdenvNoCC
       udev
