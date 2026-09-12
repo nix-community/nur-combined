@@ -13,11 +13,17 @@
   frozendict,
   pymatgen,
   einops,
-  source,
+  fetchurl,
 }:
 
-buildPythonPackage {
-  inherit (source) pname version src;
+buildPythonPackage rec {
+  pname = "jax-md";
+  version = "0.2.8";
+
+  src = fetchurl {
+    url = "https://pypi.org/packages/source/j/jax-md/jax-md-${version}.tar.gz";
+    hash = "sha256-rXTkQ8jomTPjiw4mVLUvf1rqu9gaCTTHZfCUF+qi6Vs=";
+  };
   pyproject = true;
   build-system = [ "setuptools" ];
   buildInputs = [ jaxlib ];

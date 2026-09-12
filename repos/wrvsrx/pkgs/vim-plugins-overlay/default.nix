@@ -1,5 +1,4 @@
 {
-  sources,
   callPackage,
   lib,
   plumb,
@@ -16,9 +15,7 @@ in
       inherit (prev) blink-cmp;
     };
 
-    iwe-nvim = callPackage ./iwe-nvim {
-      source = sources.iwe-nvim;
-    };
+    iwe-nvim = callPackage ./iwe-nvim { };
 
     plumb-nvim = plumb-plugin;
 

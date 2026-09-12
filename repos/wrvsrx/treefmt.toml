@@ -55,7 +55,7 @@ options = []
 includes = ["*.nix"]
 # Glob patterns of files to exclude
 # Avoids formatting generated files
-excludes = ["pkgs/_sources/generated.nix", "externals/**"]
+excludes = ["externals/**"]
 # Controls the order of application when multiple formatters match the same file
 # Lower the number, the higher the precedence
 # Default is 0

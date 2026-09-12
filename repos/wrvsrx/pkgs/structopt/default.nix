@@ -1,11 +1,17 @@
 {
   stdenv,
   cmake,
-  source,
-  lib,
+  fetchFromGitHub,
 }:
-stdenv.mkDerivation {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+stdenv.mkDerivation rec {
+  pname = "structopt";
+  version = "0.1.3";
+
+  src = fetchFromGitHub {
+    owner = "p-ranav";
+    repo = "structopt";
+    rev = "v${version}";
+    hash = "sha256-AyWtJ+EyTN2LEXLM5OSQB3ITzqLLRoirzkWnjwLHOIA=";
+  };
   nativeBuildInputs = [ cmake ];
 }

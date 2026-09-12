@@ -1,14 +1,20 @@
 {
   stdenv,
   cmake,
-  source,
+  fetchFromGitHub,
   utfcpp,
-  lib,
   seal_lake,
 }:
-stdenv.mkDerivation {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+stdenv.mkDerivation rec {
+  pname = "sfun";
+  version = "5.1.0";
+
+  src = fetchFromGitHub {
+    owner = "kamchatka-volcano";
+    repo = "sfun";
+    rev = "v${version}";
+    hash = "sha256-/8HCmoKFyLrFPADzFRCUnx4bvGjrUx9IsdAit6uZhkg=";
+  };
   patches = [ ./seal.patch ];
   prePatch = ''
     mkdir -p include/sfun/detail

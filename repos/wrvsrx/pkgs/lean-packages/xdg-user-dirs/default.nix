@@ -2,12 +2,19 @@
   buildLakePackage,
   xdg,
   writeText,
-  source,
+  fetchFromGitHub,
 }:
 let
-  self = buildLakePackage {
-    pname = "lean4-${source.pname}";
-    inherit (source) src version;
+  self = buildLakePackage rec {
+    pname = "lean4-xdg-user-dirs";
+    version = "0.3.0";
+
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "xdg-user-dirs";
+      rev = version;
+      hash = "sha256-s62/B5MUn5Dk6gjYbE6UN3H1+bnEF3iwjQxsPkm/me8=";
+    };
     leanPackageName = "«xdg-user-dirs»";
     leanDeps = [ xdg ];
 

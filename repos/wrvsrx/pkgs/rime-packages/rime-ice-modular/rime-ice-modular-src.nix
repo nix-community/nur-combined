@@ -1,10 +1,19 @@
 {
   stdenvNoCC,
   haskellPackages,
-  source,
+  fetchFromGitHub,
 }:
-stdenvNoCC.mkDerivation {
-  inherit (source) pname src version;
+stdenvNoCC.mkDerivation rec {
+  pname = "rime-ice-modular";
+  version = "2026.06.30-01";
+
+  src = fetchFromGitHub {
+    owner = "wrvsrx";
+    repo = "rime-ice-modular";
+    rev = version;
+    fetchSubmodules = true;
+    hash = "sha256-6a85fs0Y5O55ZO7DC0onoPS9/QKFnAUmd6KNzLOkSs0=";
+  };
   env.LANG = "C.UTF-8";
   nativeBuildInputs = [
     (haskellPackages.ghcWithPackages (

@@ -5,7 +5,7 @@
   eigen,
   catch2_3,
   python3 ? null,
-  source,
+  fetchFromGitHub,
 }:
 let
   python =
@@ -21,9 +21,16 @@ let
 in
 
 stdenv.mkDerivation rec {
-  inherit (source) pname src;
+  pname = "autodiff";
+  version = "1.1.2";
+
+  src = fetchFromGitHub {
+    owner = "autodiff";
+    repo = "autodiff";
+    rev = "v${version}";
+    hash = "sha256-hKIufS5o5tfsbVchwTJxms1n5Im1iTfY3KGWD1s5g9M=";
+  };
   patches = [ ./pc.patch ];
-  version = lib.removePrefix "v" source.version;
 
   nativeBuildInputs = [
     cmake

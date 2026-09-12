@@ -36,7 +36,6 @@
             packages = inputs.flake-utils.lib.flattenTree (import ./. { inherit inputs; } { inherit pkgs; });
             devShells.default = pkgs.mkShell {
               nativeBuildInputs = with pkgs; [
-                nvfetcher
                 nix-update
 
                 treefmt

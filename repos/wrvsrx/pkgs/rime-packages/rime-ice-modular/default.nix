@@ -1,6 +1,6 @@
-{ callPackage, source }:
+{ callPackage }:
 let
-  rime-ice-modular-src = callPackage ./rime-ice-modular-src.nix { inherit source; };
+  rime-ice-modular-src = callPackage ./rime-ice-modular-src.nix { };
   components = import ./components.nix { inherit rime-ice-modular-src callPackage; };
 in
 components

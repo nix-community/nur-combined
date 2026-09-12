@@ -1,11 +1,19 @@
 {
   stdenv,
   lib,
-  source,
+  fetchFromGitHub,
 }:
 
-stdenv.mkDerivation {
-  inherit (source) pname version src;
+stdenv.mkDerivation rec {
+  pname = "ptrace-time-hook";
+  version = "0.1.0";
+
+  src = fetchFromGitHub {
+    owner = "wrvsrx";
+    repo = "ptrace-time-hook";
+    rev = version;
+    hash = "sha256-NGf+t8OU4dkznxSGU6bRsPKRffhR9Dyb3ygjNqxWYQI=";
+  };
 
   buildPhase = ''
     runHook preBuild

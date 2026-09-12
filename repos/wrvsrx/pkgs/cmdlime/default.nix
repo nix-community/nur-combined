@@ -1,14 +1,20 @@
 {
   stdenv,
   cmake,
-  source,
+  fetchFromGitHub,
   sfun,
-  lib,
   seal_lake,
 }:
-stdenv.mkDerivation {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+stdenv.mkDerivation rec {
+  pname = "cmdlime";
+  version = "2.7.0";
+
+  src = fetchFromGitHub {
+    owner = "kamchatka-volcano";
+    repo = "cmdlime";
+    rev = "v${version}";
+    hash = "sha256-D29j9AfAL9y7YEZYqiAIAcB2BPlHxLUUZHy0ied8OTk=";
+  };
   patches = [ ./seal.patch ];
   prePatch = ''
     mkdir -p include/cmdlime/detail/external

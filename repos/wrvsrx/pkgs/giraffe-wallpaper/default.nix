@@ -4,14 +4,21 @@
   stdenvNoCC,
   width ? 3840,
   height ? 2160,
-  source,
+  fetchFromGitHub,
 }:
 let
   scale = x: x * 2 / 3;
 in
 stdenvNoCC.mkDerivation {
-  inherit (source) pname src;
-  version = "0-unstable-" + source.date;
+  pname = "giraffe-wallpaper";
+  version = "0-unstable-2025-04-06";
+
+  src = fetchFromGitHub {
+    owner = "wrvsrx";
+    repo = "giraffe-wallpaper";
+    rev = "65a3b96f959d9ee95ee3e8333bbc4b9bbc510a40";
+    hash = "sha256-etkKf1xljpuICl+znz9QXbJHxtk7XTVD1UAEEkhEx5w=";
+  };
   buildInputs = [
     inkscape
     imagemagick

@@ -2,12 +2,18 @@
   buildPythonPackage,
   autobean-refactor,
   pdm-pep517,
-  source,
-  lib,
+  fetchFromGitHub,
 }:
-buildPythonPackage {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+buildPythonPackage rec {
+  pname = "autobean-format";
+  version = "0.1.6";
+
+  src = fetchFromGitHub {
+    owner = "SEIAROTg";
+    repo = "autobean-format";
+    rev = "v${version}";
+    hash = "sha256-ecB2biqKqBOay1xc4O36WsdyZkKdQcdb8cfMQKSP/A8=";
+  };
   format = "pyproject";
 
   propagatedBuildInputs = [

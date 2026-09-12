@@ -1,5 +1,4 @@
 {
-  sources,
   librime,
   hooksPath,
   lib,
@@ -17,10 +16,9 @@ lib.makeScope newScope (
     withRimeDeps' = callPackage ./with-rime-deps-prime { };
     inherit (hooks) rimeDataBuildHook;
     rime-fcitx5 = callPackage ./rime-fcitx5 { };
-    rime-prelude = callPackage ./rime-prelude { source = sources.rime-prelude; };
+    rime-prelude = callPackage ./rime-prelude { };
   }
   // (import ./rime-ice-modular {
-    source = sources.rime-ice-modular;
     inherit (self) callPackage;
   })
 )
