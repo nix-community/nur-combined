@@ -189,24 +189,24 @@
   };
   kelivo = {
     pname = "kelivo";
-    version = "v1.2.6";
+    version = "v1.2.7";
     src = fetchFromGitHub {
       owner = "Chevey339";
       repo = "kelivo";
-      rev = "v1.2.6";
+      rev = "v1.2.7";
       fetchSubmodules = false;
-      sha256 = "sha256-Xdh21OmhQsxD1+bPE+bMud0GEHrq5WcDOyNYnBBG9Gw=";
+      sha256 = "sha256-Y6S29ms0rOE45SrXZIPl3AYEzU3ojFpEn/o8hB+K/a0=";
     };
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.41.4";
+    version = "v0.42.0";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.41.4";
+      rev = "v0.42.0";
       fetchSubmodules = false;
-      sha256 = "sha256-+cezeaAMmdEXF3sCtkVXGZItwwZhpIjSO0WLTkdtCSQ=";
+      sha256 = "sha256-aJyaBb80UH2wMSI6SXbR+frBJ3YM3gHgbP/5Pv1zhXs=";
     };
   };
   manboster = {
