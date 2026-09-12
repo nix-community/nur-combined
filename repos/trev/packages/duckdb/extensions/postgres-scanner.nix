@@ -7,8 +7,8 @@
   name = "postgres_scanner";
   repo = "duckdb-postgres";
   branch = "v1.5-variegata";
-  rev = "4053b617c863dfb435c9be9dacf1ec0e3dacde80";
-  hash = "sha256-4l4e9sqmmMuNI0RLhXeskicJmz35PYIYt43olUQsr/s=";
+  rev = "5d215e93d4d95df409d89e85e19b9fa9993b0611";
+  hash = "sha256-ACkcASReMxuD9RV7ge/YFg8TFYw7qd1wJ84DFf75hrM=";
   fetchSubmodules = true;
   loadOptions = [ "DONT_LINK" ];
   duckdbBuildInputs = [ libpq ];
