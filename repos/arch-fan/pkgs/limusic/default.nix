@@ -17,24 +17,30 @@ let
     inherit pname version src;
 
     postExtract = ''
-      substituteInPlace $out/AppRun \
-        --replace-fail 'export GDK_BACKEND=x11' \
-                       'export GDK_BACKEND=wayland'
+      sed -i \
+        's|^export GDK_BACKEND=.*$|export GDK_BACKEND="''${GDK_BACKEND:-wayland,x11}"|' \
+        $out/apprun-hooks/linuxdeploy-plugin-gtk.sh
     '';
   };
 in
-
 appimageTools.wrapAppImage {
   inherit pname version contents;
 
   extraInstallCommands = ''
-    install -Dm444 ${contents}/limusic.desktop \
+    install -Dm444 \
+      ${contents}/limusic.desktop \
       $out/share/applications/limusic.desktop
 
     substituteInPlace $out/share/applications/limusic.desktop \
-      --replace-fail 'Exec=limusic-app' 'Exec=limusic'
+      --replace-fail 'Exec=limusic-app' 'Exec=limusic' \
+      --replace-fail 'Icon=limusic-app' 'Icon=limusic'
 
     cp -r ${contents}/usr/share/icons $out/share/
+    chmod -R u+w $out/share/icons
+
+    install -Dm444 \
+      ${contents}/limusic.png \
+      $out/share/icons/hicolor/512x512/apps/limusic.png
   '';
 
   meta = {
