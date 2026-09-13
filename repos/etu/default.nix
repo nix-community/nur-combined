@@ -1,5 +1,6 @@
 {pkgs ? import <nixpkgs> {}, ...}: {
   chalet = pkgs.callPackage ./pkgs/chalet {};
+  dmsShellPlugins = pkgs.callPackage ./pkgs/dms-shell-plugins {};
   font-etuvetica = pkgs.callPackage ./pkgs/font-etuvetica {};
   font-talyznewroman = pkgs.callPackage ./pkgs/font-talyznewroman {};
   g90updatefw = pkgs.callPackage ./pkgs/g90updatefw {};

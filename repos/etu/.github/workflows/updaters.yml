@@ -14,11 +14,16 @@ jobs:
 
     strategy:
       matrix:
-        package:
-          - llr
-          - mkvcleaner
-          - goprocmgr
-          # - g90updatefw
+        include:
+          - package: llr
+          - package: mkvcleaner
+          - package: goprocmgr
+          # - package: g90updatefw
+          - package: dmsShellPlugins.emojiLauncher
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.nixPackageRunner
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.quickCapture
 
     steps:
       - uses: actions/checkout@v7
@@ -31,7 +36,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: 'Update ${{ matrix.package }}'
-        run: 'nix shell nixpkgs#nix-update -c nix-update ${{ matrix.package }}'
+        run: 'nix shell nixpkgs#nix-update -c nix-update ${{ matrix.package }} ${{ matrix.extraArgs }}'
 
       - name: 'Build ${{ matrix.package }}'
         run: 'nix build .#${{ matrix.package }}'
