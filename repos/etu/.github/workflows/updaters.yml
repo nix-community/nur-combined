@@ -13,6 +13,7 @@ jobs:
       contents: write
 
     strategy:
+      max-parallel: 1
       matrix:
         include:
           - package: llr
@@ -27,6 +28,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: main
       - uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
