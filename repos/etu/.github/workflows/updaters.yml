@@ -20,48 +20,148 @@ jobs:
           - package: mkvcleaner
           - package: goprocmgr
           # - package: g90updatefw
-          - package: dmsShellPlugins.emojiLauncher
-            extraArgs: '--version=branch=main'
-          - package: dmsShellPlugins.nixPackageRunner
-            extraArgs: '--version=branch=main'
-          - package: dmsShellPlugins.quickCapture
           - package: dmsShellPlugins.activateLinux
             extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.animeCalendar
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.audioInhibit
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.calculator
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.catWidget
             extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.commandRunner
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.converter
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.cpuCoreLoad
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.customRunningApps
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dankActions
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dankAlbumWidget
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dankDesktopWeather
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dankHooks
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dankHyprlandWindows
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dankLauncherKeys
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dankPomodoroTimer
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dankSchedPicker
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dankStopwatch
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dankTodo
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.desktopWidgetToggle
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.developerUtilities
+            extraArgs: '--version=branch=master'
           - package: dmsShellPlugins.dgpuStatus
             extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.displayProfileManager
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.displaySettings
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dmsDesktopCountdown
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.dmsScreenshot
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dmsconky
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dmsfilemanager
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dnsSwitcher
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.emojiLauncher
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.fullscreenPowerMenu
             extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.githubHeatmapRevive
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.hamqslPropagation
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.handMirror
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.hiddenBar
             extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.hostnameWidget
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.hydrate
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.intervalCommand
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.lyricsOnPanel
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.mediaControlPlus
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.mediaFrame
+            extraArgs: '--version=branch=master'
           - package: dmsShellPlugins.modernClock
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.nepaliCalendar
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.networkIndicator
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.niriWindows
             extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.niriWorkspaces
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.nixPackageRunner
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.pkgUpdate
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.powerOptions
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.prayerTimes
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.quickCapture
+          - package: dmsShellPlugins.quickTote
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.quranWidget
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.recentFiles
             extraArgs: '--version=branch=master'
           - package: dmsShellPlugins.resourceMonitor
             extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.sathiAi
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.sessionPower
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.simpleAudioControl
             extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.steamFlagsPlugin
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.stopwatch
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.systemMonitorPlus
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.takeABreak
             extraArgs: '--version=branch=master'
           - package: dmsShellPlugins.timeUntil
             extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.todoLauncher
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.trashBin
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.unifiedTaskbar
             extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.uptimeBar
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.volumeMixer
+            extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.vscodeLauncher
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.wallpaperCarousel
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.warpToggle
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.weatherArt
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.webSearch
             extraArgs: '--version=branch=main'
@@ -69,7 +169,8 @@ jobs:
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.worldClock
             extraArgs: '--version=branch=main'
-
+          - package: dmsShellPlugins.worldClockMulti
+            extraArgs: '--version=branch=main'
     steps:
       - uses: actions/checkout@v7
         with:
