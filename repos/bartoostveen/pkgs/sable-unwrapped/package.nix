@@ -15,7 +15,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-unwrapped";
-  version = "nightly-unstable-2026-09-11";
+  version = "nightly-unstable-2026-09-12";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -23,8 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SableClient";
     repo = "Sable";
-    rev = "26a74caf117902708dabb3ab0450201de0d538f3";
-    hash = "sha256-7uzdjelYH/+7IJyBoeJROO3BUK7j1pdcbnVrwOArLU4=";
+    rev = "4c9e3a72bea95b98c2c3664fad9ff3ce8428d3c3";
+    hash = "sha256-I4vlAKhfnNMuZWj9hUD5JXZHVN6D26nJchhArWa+wJo=";
   };
 
   nativeBuildInputs = [
