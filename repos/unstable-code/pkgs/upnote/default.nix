@@ -23,14 +23,14 @@
 let
   # snap-id 는 패키지 불변값(리비전이 올라도 안 바뀐다). 갱신 대상은 version/revision/hash 셋.
   snapId = "QulQD1qbrCvkV9QD4YLF1ZZczAXSi8Fy";
-  revision = "263";
+  revision = "264";
   # snap 의 .desktop 이 Icon 에 박아둔 런타임 경로. 리터럴 `${SNAP}` 을 indented string 안에서 쓰면
   #   이스케이프가 지저분해지므로("'''${" 는 `''` + 보간으로 파싱된다) 여기서 한 번만 만든다.
   snapIconPath = "\${SNAP}/meta/gui/icon.png";
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "upnote";
-  version = "9.22.2";
+  version = "9.22.4";
 
   # ⚠️ deb 가 아니라 **snap** 을 쓴다. 이유는 재현성이다.
   #   deb 는 버전 없는 롤링 URL(https://download.getupnote.com/app/upnote_amd64.deb) 하나뿐이라,
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
   #   갱신 절차: ./update.sh (snap API 의 stable/amd64 채널을 폴링해 아래 세 값을 교체).
   src = fetchurl {
     url = "https://api.snapcraft.io/api/v1/snaps/download/${snapId}_${revision}.snap";
-    hash = "sha256-KucmJp3gDmYYkdq4xn8oFyojhjB6V1s99ZY2WSwxKX4=";
+    hash = "sha256-lpBCXJfxRWPyO+M3nF8CXx9iV3ISvoEo8PEiEUBCwSc=";
   };
 
   nativeBuildInputs = [
