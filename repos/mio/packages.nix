@@ -40,7 +40,21 @@ let
           acc
       ) { } (builtins.attrNames readDir);
     in
-    flattened
+    flattened // { 
+      ocamlPackages = pkgs.ocaml-ng.ocamlPackages_5_4.overrideScope (oself: osuper: {
+        grace = osuper.grace.overrideAttrs (old: {
+          version = "0.4.1";
+          src = pkgs.fetchFromGitHub {
+            owner = "johnyob";
+            repo = "grace";
+            rev = "0.4.1";
+            hash = "sha256-LYy10L2JZr4juy6she888bqX8YyBe2R4WseYnyupWrQ=";
+          };
+          propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [ osuper.yojson ];
+          doCheck = false;
+        });
+      });
+    }
   );
 in
 byName

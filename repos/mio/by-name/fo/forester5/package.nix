@@ -11,16 +11,18 @@
 
 ocamlPackages.buildDunePackage rec {
   pname = "forester";
-  version = "39b920d624233c1aa39402cad69ad17c3895581d";
+  version = "5ab7277c8f8528fd8825dfccd5583c64b8751e5e";
 
   src = fetchurl {
     url = "https://git.sr.ht/~jonsterling/ocaml-forester/archive/${version}.tar.gz";
-    hash = "sha256-V4ORZtm0OxaoEF5CT6oNQtLctmtsrWRilBSHGOacaPc=";
+    hash = "sha256-ungXrJFgoSRrZoQCmIN2MrotpNVGz3YlA5tsQ4AgDyE=";
   };
 
   strictDeps = true;
 
-
+  patches = [
+    ./cmdliner-env-shadow.patch
+  ];
 
   nativeBuildInputs =
     with ocamlPackages;
@@ -45,9 +47,7 @@ ocamlPackages.buildDunePackage rec {
     dune-build-info
     dune-site
     eio_main
-    grace
     jsonrpc
-    jsont
     logs
     lsp
     ocaml-index
@@ -55,7 +55,6 @@ ocamlPackages.buildDunePackage rec {
     ppx_deriving
     ppx_repr
     ppx_yojson_conv
-    progress
     ptime
     pure-html
     repr
@@ -67,10 +66,6 @@ ocamlPackages.buildDunePackage rec {
     yojson
     yuujinchou
   ];
-
-  preBuild = ''
-    rm -rf docs
-  '';
 
   meta = {
     description = "Tool for tending mathematical forests";
