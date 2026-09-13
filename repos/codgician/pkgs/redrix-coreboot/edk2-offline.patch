@@ -1,0 +1,29 @@
+--- a/payloads/external/edk2/Makefile
++++ b/payloads/external/edk2/Makefile
+@@ -282,25 +282,7 @@
+ 		git submodule update --init --checkout
+ 
+ $(EDK2_PATH): $(WORKSPACE)
+-	if [ ! -d "$(EDK2_PATH)" ]; then \
+-		git clone --recurse-submodules $(CONFIG_EDK2_REPOSITORY) $(EDK2_PATH) -j5; \
+-	fi
+-	cd $(EDK2_PATH); \
+-		git checkout MdeModulePkg/Logo/Logo.bmp > /dev/null 2>&1 || true; \
+-		echo "    Fetching new commits from $(CONFIG_EDK2_REPOSITORY)"; \
+-		git fetch origin 2>/dev/null; \
+-		if ! git rev-parse --verify -q $(CONFIG_EDK2_TAG_OR_REV)^{object} >/dev/null; then \
+-			echo "    $(CONFIG_EDK2_TAG_OR_REV) is not a valid git reference"; \
+-			exit 1; \
+-		fi; \
+-		if git status --ignore-submodules=dirty | grep -q -e clean -e "nothing added"; then \
+-			echo "    Checking out $(project_name) revision $(CONFIG_EDK2_TAG_OR_REV)"; \
+-			git checkout --detach $(CONFIG_EDK2_TAG_OR_REV) -f; \
+-			git submodule update --checkout --recursive; \
+-		else \
+-			echo "    Working directory not clean; will not overwrite"; \
+-		fi; \
+-		git submodule update --init --checkout --recursive
++	test -f $(EDK2_PATH)/edksetup.sh
+ 
+ logo: $(EDK2_PATH)
+ 	case "$(CONFIG_EDK2_BOOTSPLASH_FILE)" in \

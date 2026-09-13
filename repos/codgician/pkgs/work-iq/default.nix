@@ -5,12 +5,25 @@
   fetchFromGitHub,
   autoPatchelfHook,
   makeWrapper,
+  atk,
+  cairo,
+  curlMinimal,
   dbus,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  harfbuzz,
   icu,
-  libsecret,
-  libx11,
   libcxx,
+  libsecret,
+  libuuid,
+  libx11,
+  libsoup_3,
   openssl,
+  p11-kit,
+  pango,
   webkitgtk_4_1,
   zlib,
   runCommand,
@@ -36,18 +49,31 @@ let
     "workiq-productivity"
     "microsoft-365-agents-toolkit"
   ];
-
   # .NET single-file host links libstdc++ at load time. MSAL's Linux broker
-  # runtime is dlopened during `auth login` and links against D-Bus, X11,
-  # libsecret, WebKitGTK, and libc++; keep all of those on the loader path.
+  # runtime is dlopened during `auth login` and links against D-Bus, GTK/X11,
+  # libsecret, libuuid, libcurl, WebKitGTK, and libc++; keep all of those on
+  # the loader path.
   runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc.lib
+    atk
+    cairo
+    curlMinimal
     dbus
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk3
+    harfbuzz
     icu
     libcxx
     libsecret
+    libuuid
     libx11
+    libsoup_3
     openssl
+    p11-kit
+    pango
     webkitgtk_4_1
     zlib
   ];
