@@ -34,7 +34,7 @@ let
 in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "redrix-coreboot";
-  version = "MrChromebox-2606.1-unstable-2026-09-12";
+  version = "26.06-unstable.1246-ge317bd232e1d";
 
   src = fetchFromGitHub {
     owner = "codgician";
@@ -67,6 +67,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   hardeningDisable = [ "all" ];
   dontStrip = true;
   enableParallelBuilding = true;
+  firmwareIdentity = finalAttrs.version;
 
   # Resolve through PATH: Nix puts gcc and its gcc-ar helper in separate outputs.
   GCC_BIN = payloadCC.targetPrefix;
@@ -91,7 +92,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     "UPDATED_SUBMODULES=1"
     "CPUS=$(NIX_BUILD_CORES)"
     "BUILD_TIMELESS=1"
-    "KERNELVERSION=nur-${builtins.substring 0 12 finalAttrs.src.rev}"
+    "KERNELVERSION=${finalAttrs.firmwareIdentity}"
   ];
 
   configurePhase = ''
@@ -112,6 +113,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     test "$(stat -c %s build/coreboot.rom)" = 33554432
     grep -qx CONFIG_BOARD_GOOGLE_REDRIX=y .config
     grep -qx CONFIG_PAYLOAD_EDK2=y .config
+    grep -Fx '#define COREBOOT_VERSION "${finalAttrs.firmwareIdentity}"' build/build.h
     build/cbfstool build/coreboot.rom print > cbfs.txt
     build/cbfstool build/coreboot.rom extract -n ecrw -f ecrw.extracted
     cmp redrix-ec.RW.flat ecrw.extracted
@@ -130,8 +132,11 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     cp .config "$firmwareDir/coreboot.config"
     cp cbfs.txt "$firmwareDir/"
     printf '%s\n' '${finalAttrs.src.rev}' > "$firmwareDir/source-revision"
+    printf '%s\n' "$version" > "$firmwareDir/package-version"
+    printf '%s\n' "$firmwareIdentity" > "$firmwareDir/firmware-version"
     printf '%s\n' '${edk2.tag}' > "$firmwareDir/edk2-version"
     cp ${redrix-ec}/share/firmware/redrix-ec/source-revision "$firmwareDir/ec-source-revision"
+    cp ${redrix-ec}/share/firmware/redrix-ec/firmware-version "$firmwareDir/ec-firmware-version"
     (cd "$firmwareDir"; sha256sum coreboot.rom UEFIPAYLOAD.fd > SHA256SUMS)
     runHook postInstall
   '';

@@ -8,12 +8,11 @@
   pkg-config,
   openssl,
   ncurses,
-  nix-update-script,
 }:
 
 gcc13Stdenv.mkDerivation (finalAttrs: {
   pname = "redrix-ec";
-  version = "0-unstable-2026-09-09";
+  version = "2.0.30037-g2fe5c32e";
 
   src = fetchFromGitHub {
     owner = "codgician";
@@ -44,12 +43,20 @@ gcc13Stdenv.mkDerivation (finalAttrs: {
   dontPatchELF = true;
   enableParallelBuilding = true;
 
-  # Upstream's packaging interface generates the firmware version without Git.
+  # Keep upstream's board prefix, with the package version as the source of truth.
   VCSID = finalAttrs.src.rev;
   REPRODUCIBLE_BUILD = "1";
-  firmwareIdentity = "redrix_v2.1.9999-${builtins.substring 0 8 finalAttrs.src.rev}";
+  firmwareIdentity = "redrix_${finalAttrs.version}";
 
   postPatch = ''
+    if [[ ! "$version" =~ ^[0-9A-Za-z.+-]+$ ]] || (( ''${#firmwareIdentity} > 31 )); then
+      echo "EC firmware identity must be ASCII and fit in 31 bytes: $firmwareIdentity" >&2
+      exit 1
+    fi
+    # Upstream's Gitless VCSID fallback hardcodes v2.1.9999. Retain its
+    # generator (including the board prefix) but supply our package version.
+    substituteInPlace util/getversion.sh \
+      --replace-fail 'vbase="v2.1.9999-''${ghash:0:8}"' 'vbase="${finalAttrs.version}"'
     patchShebangs util
   '';
 
@@ -74,6 +81,8 @@ gcc13Stdenv.mkDerivation (finalAttrs: {
       EXTRA_CFLAGS='-Wno-array-bounds -Wno-address -Wno-stringop-truncation'
     python3 util/run_host_test.py lid_sw
     python3 util/run_host_test.py kb_mkbp
+    grep -Fx '#define CROS_EC_VERSION32 "${finalAttrs.firmwareIdentity}"' build/redrix/ec_version.h
+    grep -Fx '#define VERSION "${finalAttrs.firmwareIdentity}"' build/redrix/ec_version.h
     test "$(stat -c %s build/redrix/ec.bin)" = 524288
     for section in RO RW; do
       image="build/redrix/$section/ec.$section.flat"
@@ -95,11 +104,13 @@ gcc13Stdenv.mkDerivation (finalAttrs: {
     cp build/redrix/{RO,RW}/ec.*.{flat,elf} build/redrix/RW/ec.RW.bin "$firmwareDir/"
     cp build/redrix/ec_version.h "$firmwareDir/"
     printf '%s\n' '${finalAttrs.src.rev}' > "$firmwareDir/source-revision"
+    printf '%s\n' "$version" > "$firmwareDir/package-version"
+    printf '%s\n' "$firmwareIdentity" > "$firmwareDir/firmware-version"
     (cd "$firmwareDir"; sha256sum *.bin *.flat > SHA256SUMS)
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=my" ]; };
+  passthru.updateScript = ./update.sh;
 
   meta = {
     description = "Redrix embedded-controller firmware with codgician's downstream patches";

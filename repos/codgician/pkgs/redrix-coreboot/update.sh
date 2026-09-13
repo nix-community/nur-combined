@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p git nix nix-update gnused coreutils
+#!nix-shell -i bash -p git nix nix-update gnused gawk coreutils
 # shellcheck shell=bash
 
 set -euo pipefail
@@ -25,6 +25,10 @@ trap 'exit 130' INT
 trap 'exit 143' TERM
 
 nix-update --flake --version=branch=my --src-only "$package"
+revision=$(nix eval --raw ".#$package.src.rev")
+version=$(bash tasks/firmware-version.sh "$package" "$revision")
+sed -i -E "s/^  version = \"[^\"]+\";/  version = \"$version\";/" "$path"
+echo "Updated $package to $version"
 source=$(nix build --no-link --print-out-paths ".#$package.src")
 
 # Redrix normally inherits MrChromebox's default. Honor an explicit board pin

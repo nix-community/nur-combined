@@ -7,16 +7,24 @@ nix build .#redrix-coreboot
 ```
 
 The package uses upstream's `configs/adl/config.redrix.uefi`, its MrChromebox
-EDK2 UEFI payload, and the pinned coreboot toolchain from Nixpkgs. The sole
-firmware-content override is to embed `redrix-ec`'s `ec.RW.flat` instead of
-the EC image in MrChromebox's blob repository. Firmware version strings also
-identify the pinned NUR source revision.
+EDK2 UEFI payload, and the pinned coreboot toolchain from Nixpkgs. It embeds
+`redrix-ec`'s `ec.RW.flat` instead of the EC image in MrChromebox's blob
+repository. Firmware version strings
+follow the Nix package version exactly through upstream's
+`KERNELVERSION` build option. Package versions use
+`<coreboot release>-unstable.<distance>-g<commit12>`, omitting
+`-unstable.<distance>` at an exact release. The release is the nearest reachable
+numeric coreboot tag from upstream, and the hash identifies the exact fork pin.
+MrChromebox's `next` branch does not descend from its `MrChromebox-*` release
+tags, so those releases cannot describe this branch's ancestry.
 
 `result/share/firmware/redrix-coreboot/` contains `coreboot.rom`,
 `UEFIPAYLOAD.fd`, the resolved `coreboot.config`, the CBFS listing, exact source
-pins, the embedded EC source revision, and SHA-256 checksums. The build checks
+pins, package and firmware versions, the embedded EC source revision and firmware
+version, and SHA-256 checksums. The build checks
 the 32 MiB ROM size, Redrix/UEFI configuration, payload presence, and embedded
-EC bytes and hash. It does not establish that the firmware boots on hardware.
+EC bytes and hash, and the generated coreboot version. It does not establish
+that the firmware boots on hardware.
 
 The ROM includes the descriptor, Intel ME, FSP, and microcode selected by
 upstream. This is a generic build, not a backup of a particular machine's
@@ -30,9 +38,10 @@ nix develop -c .github/scripts/run_updater.sh redrix-coreboot
 ```
 
 The shell updater uses `nix-update` to follow `codgician/coreboot:my`, including
-all submodules through `fetchFromGitHub`. It then reads that source's selected
-EDK2 release and updates the payload tag and hash using `nix-update`. If either
-step fails, it restores the original pins. The build also checks that the pinned
+all submodules through `fetchFromGitHub`. It resolves the package version from
+that exact commit and upstream release tags, then reads that source's selected
+EDK2 release and updates the payload tag and hash using `nix-update`. If any
+step fails, it restores the original pins and version. The build also checks that the pinned
 EDK2 release matches the resolved coreboot configuration.
 
 All build inputs are pinned; the firmware build does not fetch moving branches
