@@ -6,12 +6,12 @@ NewPipe's ExoPlayer calls AudioManager.getDevices(GET_DEVICES_OUTPUTS)
 (API 23) while probing Bluetooth audio. ATL had no such method, so
 initPlayback failed with NoSuchMethodError.
 
---- /dev/null
-+++ b/src/api-impl/android/media/AudioDeviceInfo.java
-@@ -0,0 +1,25 @@
-+package android.media;
-+
-+public class AudioDeviceInfo {
+--- a/src/api-impl/android/media/AudioDeviceInfo.java	2026-09-13 17:56:26.889103052 +1000
++++ b/src/api-impl/android/media/AudioDeviceInfo.java	2026-09-13 17:56:26.893103062 +1000
+@@ -1,4 +1,25 @@
+ package android.media;
+ 
+ public class AudioDeviceInfo {
 +	public static final int TYPE_UNKNOWN = 0;
 +	public static final int TYPE_BUILTIN_SPEAKER = 2;
 +	public static final int TYPE_BLUETOOTH_SCO = 7;
@@ -33,10 +33,10 @@ initPlayback failed with NoSuchMethodError.
 +	public int getType() {
 +		return type;
 +	}
-+}
---- a/src/api-impl/android/media/AudioManager.java
-+++ b/src/api-impl/android/media/AudioManager.java
-@@ -5,6 +5,9 @@
+ }
+--- a/src/api-impl/android/media/AudioManager.java	2026-09-13 17:56:26.901103083 +1000
++++ b/src/api-impl/android/media/AudioManager.java	2026-09-13 17:56:26.905103094 +1000
+@@ -7,5 +7,8 @@
  	public static final String PROPERTY_OUTPUT_SAMPLE_RATE = "android.media.property.OUTPUT_SAMPLE_RATE";
  
  	public static final int STREAM_MUSIC = 0x3;
@@ -45,23 +45,3 @@ initPlayback failed with NoSuchMethodError.
 +	public static final int GET_DEVICES_ALL = GET_DEVICES_INPUTS | GET_DEVICES_OUTPUTS;
  
  	private native void nativeSetStreamVolume(int volume);
- 
-@@ -95,4 +98,8 @@
- 	public int generateAudioSessionId() {
- 		return 0;
- 	}
-+
-+	public AudioDeviceInfo[] getDevices(int flags) {
-+		return new AudioDeviceInfo[0];
-+	}
- }
---- a/src/api-impl/meson.build
-+++ b/src/api-impl/meson.build
-@@ -325,6 +325,7 @@
- 	'android/media/AudioAttributes.java',
- 	'android/media/AudioFormat.java',
- 	'android/media/AudioManager.java',
-+	'android/media/AudioDeviceInfo.java',
- 	'android/media/AudioRecord.java',
- 	'android/media/AudioTimestamp.java',
- 	'android/media/AudioTrack.java',
