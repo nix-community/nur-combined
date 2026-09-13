@@ -3,9 +3,13 @@
   flake.modules.nixos."bird/yidhra" =
     { config, ... }:
     {
-      imports = [ self.modules.nixos.bird ];
-      vaultix.secrets.babel-auth = {
-        owner = "bird";
+      imports = [
+        self.modules.nixos.bird
+      ];
+      vaultix.secrets = {
+        babel-auth = {
+          owner = "bird";
+        };
       };
       bird = {
         config = ''

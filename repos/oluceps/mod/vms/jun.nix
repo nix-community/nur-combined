@@ -20,6 +20,16 @@
       networking.firewall.extraInputRules = ''
         iifname "vm2" ip saddr 10.255.0.2 ip daddr 10.255.0.0 tcp dport { 3030, 53, 9222 } accept
       '';
+      systemd.network.networks."90-vm2" = {
+        routes = [
+          {
+            routeConfig = {
+              Destination = "fd00:89:1::/64";
+              Gateway = "fec0::2";
+            };
+          }
+        ];
+      };
       # systemd.sockets.forward-9222 = {
       #   description = "socket for port 9222 forwarding";
       #   wantedBy = [ "sockets.target" ];

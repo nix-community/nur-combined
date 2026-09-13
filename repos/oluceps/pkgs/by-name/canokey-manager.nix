@@ -9,7 +9,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "canokey-manager";
-  version = "4.1.0a1-unstable";
+  version = "5.4.0";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -39,6 +39,7 @@ python3Packages.buildPythonPackage rec {
 
   pythonRelaxDeps = [
     "keyring"
+    "cryptography"
   ];
 
   nativeCheckInputs = with python3Packages; [

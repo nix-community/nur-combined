@@ -61,7 +61,9 @@
                 if (directConnect v) then
                   "tcp://" + addr + ":1234"
                 else
-                  "sockstls://127.0.0.1:1900/" + addr + ":12344"
+                  "sockstls://127.0.0.1:1900/"
+                  + (if (builtins.match ".*:.*" addr != null) then ("[" + addr + "]") else addr)
+                  + ":12344"
               )
               (
                 lib.filterAttrs (

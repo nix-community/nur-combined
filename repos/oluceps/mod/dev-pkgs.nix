@@ -120,6 +120,7 @@
               kotlin
               inotify-tools
               tmux
+              herdr
 
               trunk
               cargo-expand
@@ -134,6 +135,7 @@
               codex
 
               opencode
+              pi-coding-agent
               # claude-code
             ];
 
@@ -219,7 +221,10 @@
             #   # simple-net-speed
             #   paperwm
             # ];
-            term = [ foot ]; # for spawn new
+            term = [
+              foot
+              kitty
+            ]; # for spawn new
 
             virt = [
               # virt-manager

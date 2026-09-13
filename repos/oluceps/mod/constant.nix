@@ -90,7 +90,7 @@ let
         sshPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEv3S53gBU3Hqvr5o5g+yrn1B7eiaE5Y/OIFlTwU+NEG"; # rotated Sat  9 May 04:42:32 +08 2026
         sshPubKey2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMDcYqby4TnhKV6xGyuZUtxOmTtXjKYp8r+uCxbGph65"; # sept
         skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
-        skSshPubKey2 = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIEPx+g4PE7PvUHVHf4LdHvcv4Lb2oEl4isyIQxRJAoApAAAADnNzaDoxNzMzODEwOTE5";
+        skSshPubKey2 = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKzRx/a3GL2GZCTo/xU54m5eaRruWYErCAXnttg+YJFzAAAADnNzaDoxNzg5MDg4ODQz";
         sshCAPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIkPoZURmlL2Awbgp8dL2N29EDa/2BS2dYsYb6EeFLp3";
       };
       node = node-data;

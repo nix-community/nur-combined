@@ -8,40 +8,40 @@
 {
   GeoLite2-ASN = {
     pname = "GeoLite2-ASN";
-    version = "2026.08.28";
+    version = "2026.09.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.28/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-syDXfgArdFSwPRj8qANyilfP0SQoyjniG8MfqxsKXzI=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.10/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-fELNwhwI7NzuMxwjH8JgGgMaQgh3+L633wuam5LZl8k=";
     };
   };
   GeoLite2-City = {
     pname = "GeoLite2-City";
-    version = "2026.08.28";
+    version = "2026.09.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.28/GeoLite2-City.mmdb";
-      sha256 = "sha256-uLCKYo1HWISIvjgSthYLJG3L/q7LtwHPftXvwYXIaH8=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.10/GeoLite2-City.mmdb";
+      sha256 = "sha256-4+Uk8OIoFbD30LSZIc/+QPiJI8nk/ip4UY8T0pc1XH0=";
     };
   };
   alist = {
     pname = "alist";
-    version = "v3.63.0";
+    version = "v3.64.0";
     src = fetchFromGitHub {
       owner = "AlistGo";
       repo = "alist";
-      rev = "v3.63.0";
+      rev = "v3.64.0";
       fetchSubmodules = false;
-      sha256 = "sha256-43RMRWvMPMkQaeIDYIYAcd46MV9WTlt0xaGolZVdmoc=";
+      sha256 = "sha256-k9omzxl7m0WCo52dRhUpHdi/lY1UG3kdbw0cWEpPrCo=";
     };
   };
   dnsproxy = {
     pname = "dnsproxy";
-    version = "v0.84.1";
+    version = "v0.84.2";
     src = fetchFromGitHub {
       owner = "AdguardTeam";
       repo = "dnsproxy";
-      rev = "v0.84.1";
+      rev = "v0.84.2";
       fetchSubmodules = false;
-      sha256 = "sha256-cBbboorz7r+C9BAE8gFQP38WYp5r4Rs4xqR2xdNBLMw=";
+      sha256 = "sha256-koDlXBjF3fWgbyT7H0+fN/uCWNf0HioD/00yNd9bYpI=";
     };
   };
   lxgw-neo-xihei = {
@@ -54,10 +54,10 @@
   };
   metacubexd = {
     pname = "metacubexd";
-    version = "v1.273.0";
+    version = "v1.273.1";
     src = fetchurl {
-      url = "https://github.com/MetaCubeX/metacubexd/releases/download/v1.273.0/compressed-dist.tgz";
-      sha256 = "sha256-B24F0uPcZkGg7CgapLl6GBk/vMN50Tl2LDLZCtsieTw=";
+      url = "https://github.com/MetaCubeX/metacubexd/releases/download/v1.273.1/compressed-dist.tgz";
+      sha256 = "sha256-oXjgC2esq82i3O8Ar6kL5qe7Jh5Gamfa1YyEeNlVNgM=";
     };
   };
   mosdns = {

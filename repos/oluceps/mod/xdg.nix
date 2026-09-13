@@ -82,6 +82,7 @@
             "text/x-c"
             "text/x-c++"
             "text/x-typst"
+            "text/x-python"
           ] (_: "helix-foot.desktop")
           // lib.genAttrs [
             "video/mp4"

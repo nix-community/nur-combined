@@ -236,7 +236,15 @@
           ExecStop = "podman network rm -f bub_internal_net";
         };
         script = ''
-          podman network inspect bub_internal_net || podman network create bub_internal_net --driver=bridge
+          # recreate network if it does not exist or lacks ipv6
+          if ! podman network inspect bub_internal_net 2>/dev/null | grep -q '"ipv6_enabled": true'; then
+            podman network rm -f bub_internal_net 2>/dev/null || true
+            podman network create bub_internal_net \
+              --driver=bridge \
+              --ipv6 \
+              --subnet 10.89.1.0/24 \
+              --subnet fd00:89:1::/64
+          fi
         '';
         partOf = [ "podman-compose-bub-root.target" ];
         wantedBy = [ "podman-compose-bub-root.target" ];

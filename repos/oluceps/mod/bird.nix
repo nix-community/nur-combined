@@ -20,6 +20,7 @@
             define DN42_ASN = 4242420291;
             define DN42_PREFIX = fdda:1965:1d5f::/48;
             define DN42_FIELD = [ fdda:1965:1d5f::/48+ ];
+            define DN42_OWNIP = fdda:1965:1d5f::${toString ((config.fn.getThisNode).id + 1)};
 
             protocol device {
               scan time 20;
@@ -63,6 +64,11 @@
                   krt_metric = 64;
                   accept;
                 }
+                RTS_BGP: {
+                  krt_prefsrc = DN42_OWNIP; 
+                  krt_metric = 256;
+                  accept;
+                }                
                 else: reject;
               }
             };

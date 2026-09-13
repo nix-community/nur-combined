@@ -1,0 +1,24 @@
+onboarding = false
+
+[keys]
+focus_agent = "prefix+alt+1..9"        # optional indexed binding, e.g. "prefix+alt+1..9"
+
+[theme]
+name = "rose-pine"
+auto_switch = false
+
+[ui.toast]
+delivery = "system"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+agent_panel_sort = "priority"
+
+[experimental]
+# Allow launching herdr from inside a herdr-managed pane.
+# allow_nested = false
+# Experimental local Kitty graphics rendering for attached clients.
+# Requires a Kitty graphics-compatible outer terminal.
+kitty_graphics = true
+# Save recent pane screen history across full server restarts.
+pane_history = true

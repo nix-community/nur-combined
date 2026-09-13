@@ -15,11 +15,12 @@
         # git-absorb
       ];
       programs = {
-        bash.interactiveShellInit = ''
-          eval "$(${lib.getExe pkgs.atuin} init bash)"
-        '';
+        # bash.interactiveShellInit = ''
+        #   eval "$(${lib.getExe pkgs.mcfly} init bash)"
+        # '';
+
         fish.interactiveShellInit = ''
-          ${lib.getExe pkgs.atuin} init fish | source
+          ${lib.getExe pkgs.mcfly} init fish | source
           ${lib.getExe pkgs.zoxide} init fish | source
         '';
         nh = {

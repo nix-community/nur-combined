@@ -20,6 +20,7 @@
     nixpkgs-fix-mautrix.url = "github:NixOS/nixpkgs?rev=f6c9cba6ba89bd2d2f64c4a9e70e19b234784154";
     nixpkgs-origin-vaul.url = "github:NixOS/nixpkgs?rev=ccfbb9cd5859cc51c9d720b47b08e48d1aff633f";
     hermes-agent.url = "github:NousResearch/hermes-agent";
+    autopeer.url = "/home/riro/Src/nyaw-dn42-autopeer";
 
     nix-topology.url = "github:oddlama/nix-topology";
     limes.url = "/home/riro/Src/limes-project/limes";

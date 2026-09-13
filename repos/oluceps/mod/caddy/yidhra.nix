@@ -49,44 +49,7 @@
                   {
                     handler = "subroute";
                     routes = import ../../caddy/nyaw-xyz.nix { inherit pkgs; } ++ [
-                      {
-                        handle = [
-                          {
-                            handler = "subroute";
-                            routes = [
-                              {
-                                handle = [
-                                  {
-                                    handler = "static_response";
-                                    headers = {
-                                      Location = [ "https://{http.request.host}{http.request.uri}" ];
-                                    };
-                                    status_code = 302;
-                                  }
-                                ];
-                                match = [
-                                  {
-                                    method = [ "GET" ];
-                                    path_regexp = {
-                                      pattern = "^/([-_a-z0-9]{0,64}$|docs/|static/)";
-                                    };
-                                    protocol = "http";
-                                  }
-                                ];
-                              }
-                              {
-                                handle = [
-                                  {
-                                    handler = "reverse_proxy";
-                                    upstreams = [ { dial = "127.0.0.1:2586"; } ];
-                                  }
-                                ];
-                              }
-                            ];
-                          }
-                        ];
-                        match = [ { host = [ "ntfy.nyaw.xyz" ]; } ];
-                      }
+
                       {
                         handle = [
                           {

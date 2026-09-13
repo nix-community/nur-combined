@@ -101,7 +101,6 @@
                  pname(claude) -> anthropic
 
                  domain(suffix:migadu.com) -> all
-                 dport(465) -> v6
 
                  domain(geosite:google-gemini,google,openai,geosite:category-ai-chat-!cn,cloudflare) -> ai
                  domain(suffix: copilot.microsoft.com,

@@ -43,7 +43,6 @@
             #--base
             vxlan-mesh
             yggdrasil
-            chrony
             xray
             perlless
             space-opt
@@ -146,7 +145,7 @@
         };
         services = {
           metrics.enable = true;
-          qemuGuest.enable = true;
+          qemuGuest.enable = false;
         };
 
         nixpkgs = {

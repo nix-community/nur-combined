@@ -83,6 +83,7 @@ in
   // Enable blur behind the foot terminal.
   window-rule {
       match app-id="^foot$"
+      match app-id="^kitty$"
 
       background-effect {
           xray true
@@ -101,6 +102,7 @@ in
   window-rule {
       match app-id="Alacritty"
       match app-id="foot"
+      match app-id="kitty"
       match app-id="rio"
       match is-active=true
       match is-focused=true
@@ -110,6 +112,7 @@ in
 
   window-rule {
       match at-startup=true app-id=r#"^foot$"#
+      match at-startup=true app-id=r#"^kitty$"#
       match at-startup=true app-id=r#"^rio$"#
       open-on-workspace "term"
   }
@@ -266,7 +269,7 @@ in
   // which may be more convenient to use.
   spawn-at-startup ${
     execApp [
-      (lib.getExe pkgs.foot)
+      (lib.getExe pkgs.kitty)
     ]
   }
   spawn-at-startup ${execDesktop "chromium-browser"}
@@ -314,7 +317,7 @@ in
       // Suggested binds for running programs: terminal, app launcher, screen locker.
       Mod+Return { spawn ${
         execApp [
-          (lib.getExe pkgs.foot)
+          (lib.getExe pkgs.kitty)
         ]
       }; }
       Mod+D repeat=false { spawn "${lib.getExe pkgs.vicinae}" "toggle"; }

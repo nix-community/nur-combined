@@ -114,6 +114,16 @@
                   match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
+
+                {
+                  handle = [
+                    {
+                      handler = "reverse_proxy";
+                      upstreams = [ { dial = "localhost:${toString config.services.autopeer.port}"; } ];
+                    }
+                  ];
+                  match = [ { host = [ "dn42.nyaw.xyz" ]; } ];
+                }
                 (import ../../caddy/nyaw-xyz-zone-apex.nix)
               ];
 

@@ -92,7 +92,15 @@ in
                   iifname "eno1" oifname "vm2" accept
 
                   ct state { established, related } accept
+
+                  iifname "vm2" oifname "vxlan-mesh" icmpv6 type echo-request counter accept
+                  iifname "vm2" oifname "vxlan-mesh" ip6 daddr fdcc::3 tcp dport { 8123 } counter accept
+                  iifname "vxlan-mesh" oifname "vm2" ct state { established, related } counter accept
                 }
+                chain postrouting {
+                  type nat hook postrouting priority srcnat; policy accept;
+                  iifname "vm2" oifname "vxlan-mesh" counter masquerade
+                }                
               '';
             };
           };
