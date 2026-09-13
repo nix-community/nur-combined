@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# Runs in CI via `nix run .#update` from the repository root. Assumes a
-# predictable environment: nix-update is on PATH (flake app runtimeInputs)
-# and the working directory is the repo checkout.
 set -euo pipefail
 
 failed=0

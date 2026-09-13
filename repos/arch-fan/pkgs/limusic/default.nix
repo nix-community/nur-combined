@@ -17,30 +17,35 @@ let
     inherit pname version src;
 
     postExtract = ''
-      sed -i \
-        's|^export GDK_BACKEND=.*$|export GDK_BACKEND="''${GDK_BACKEND:-wayland,x11}"|' \
-        $out/apprun-hooks/linuxdeploy-plugin-gtk.sh
+      substituteInPlace $out/apprun-hooks/linuxdeploy-plugin-gtk.sh \
+        --replace-fail 'export GDK_BACKEND=x11' \
+          'export GDK_BACKEND="''${GDK_BACKEND:-wayland,x11}"'
     '';
   };
 in
 appimageTools.wrapAppImage {
-  inherit pname version contents;
+  # Keep `src` (fetchurl) on the final derivation so nix-update can find
+  # `pkg.src.url`; `contents` is what actually runs.
+  inherit
+    pname
+    version
+    src
+    contents
+    ;
 
   extraInstallCommands = ''
     install -Dm444 \
       ${contents}/limusic.desktop \
-      $out/share/applications/limusic.desktop
+      $out/share/applications/limusic-app.desktop
 
-    substituteInPlace $out/share/applications/limusic.desktop \
+    substituteInPlace $out/share/applications/limusic-app.desktop \
       --replace-fail 'Exec=limusic-app' 'Exec=limusic' \
-      --replace-fail 'Icon=limusic-app' 'Icon=limusic'
+      --replace-fail 'Categories=' 'Categories=AudioVideo;Audio;Player;Music;'
 
     cp -r ${contents}/usr/share/icons $out/share/
     chmod -R u+w $out/share/icons
-
-    install -Dm444 \
-      ${contents}/limusic.png \
-      $out/share/icons/hicolor/512x512/apps/limusic.png
+    # Upstream ships empty 16x16, 256x256 and scalable dirs; don't ship them.
+    find $out/share/icons -type d -empty -delete
   '';
 
   meta = {
