@@ -55,8 +55,10 @@ gcc13Stdenv.mkDerivation (finalAttrs: {
     fi
     # Upstream's Gitless VCSID fallback hardcodes v2.1.9999. Retain its
     # generator (including the board prefix) but supply our package version.
+    # Standalone builds also use that identity for the ChromeOS FWID field.
     substituteInPlace util/getversion.sh \
-      --replace-fail 'vbase="v2.1.9999-''${ghash:0:8}"' 'vbase="${finalAttrs.version}"'
+      --replace-fail 'vbase="v2.1.9999-''${ghash:0:8}"' 'vbase="${finalAttrs.version}"' \
+      --replace-fail '#define CROS_FWID32 CROS_FWID_MISSING_STR' '#define CROS_FWID32 CROS_EC_VERSION32'
     patchShebangs util
   '';
 

@@ -16,8 +16,10 @@ The distance includes downstream patches. Both firmware regions embed exactly
 `redrix_${version}`, retaining upstream's board-name prefix. The build rejects
 identities longer than 31 bytes rather than silently truncating them. The
 Gitless version generator's placeholder is replaced with the package version;
-the rest of upstream's header generation is retained. ChromeOS FWID remains
-`CROS_FWID_MISSING`, since this standalone build has no ChromeOS release ID.
+the rest of upstream's header generation is retained. For this standalone build,
+the ChromeOS FWID field also uses `redrix_${version}` instead of
+`CROS_FWID_MISSING`, so `ectool version` reports the same identity for both
+fields. This identifies the Nix build, rather than a ChromeOS release.
 
 The build uses ARM GNU Toolchain 13.3.Rel1 and host GCC 13. The package runs
 the native lid-switch and MKBP tests and checks both firmware regions' sizes,
