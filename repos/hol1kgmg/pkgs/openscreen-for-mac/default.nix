@@ -54,6 +54,8 @@ stdenvNoCC.mkDerivation {
   # permission to.
   dontFixup = true;
 
+  passthru.updateScript = ./update.sh;
+
   meta = {
     description = "Desktop screen recorder with a built-in editor (prebuilt macOS app)";
     homepage = "https://getopenscreen.com/";
