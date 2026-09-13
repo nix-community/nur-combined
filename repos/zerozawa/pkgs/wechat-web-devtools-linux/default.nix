@@ -1,8 +1,10 @@
 # Source build of msojocs/wechat-web-devtools-linux, mirroring the upstream CI
 # (.github/workflows/build-src.yml -> tools/setup-wechat-devtools.sh) on the
-# continuous branch, which upstream now uses instead of versioned releases.
+# commit the rolling `continuous` release points at (upstream retires the
+# continuous branch between Electron milestones; the release tag is the stable
+# reference).
 # Upstream moved from NW.js to Electron (conf/config.json: electron 36.6.0,
-# node 22.16.0, devtools 2.02.2608060); this derivation mirrors the Electron
+# node 22.16.0, devtools 2.02.2608070); this derivation mirrors the Electron
 # pipeline: 7z-extract resources from the Windows installer, asar unpack,
 # rebuild native modules with node-gyp (electron headers for electron-side
 # modules, node headers for node-side ones), asar pack with upstream's unpack
@@ -68,8 +70,8 @@ let
   # conf/config.json on the continuous branch
   nodeVersion = "22.16.0";
   electronVersion = "36.6.0";
-  compilerVersion = "0.1.7";
-  devtoolsVersion = "2.02.2608060";
+  compilerVersion = "0.2.0";
+  devtoolsVersion = "2.02.2608070";
 
   nodeTarball = fetchurl {
     url = "https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-linux-x64.tar.gz";
@@ -89,7 +91,7 @@ let
   };
   devtoolsExe = fetchurl {
     url = "https://dldir1.qq.com/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe";
-    hash = "sha256-aDGkmNQbL+cWwcVMc2zEqEEiOK7t1cl8grbQ7L6q9H0=";
+    hash = "sha256-pQLerS5PttywteFX4fK5rADBCiDxlAkXESofhIHtXtk=";
   };
   ripgrepTarball = fetchurl {
     url = "https://github.com/microsoft/ripgrep-prebuilt/releases/download/v15.0.0/ripgrep-v15.0.0-x86_64-unknown-linux-musl.tar.gz";
@@ -97,19 +99,19 @@ let
   };
   wccBin = fetchurl {
     url = "https://github.com/msojocs/wx-compiler/releases/download/v${compilerVersion}/wcc-x86_64";
-    hash = "sha256-yR2YN4WfxWIFjxxCOgVs3iBnwB+drU50eB2mCc+YgV0=";
+    hash = "sha256-b/ayhhEbEzEIDrbbOE4J7FD8wcqdjzGCGbrPrm3z9tY=";
   };
   wcscBin = fetchurl {
     url = "https://github.com/msojocs/wx-compiler/releases/download/v${compilerVersion}/wcsc-x86_64";
-    hash = "sha256-fKcvuC3yG2xrzF+6zIgJzjDciFK2/jvcXjNxbKUegao=";
+    hash = "sha256-RblFu1hBsdfJWwH6al77L/JVTt5Y8A0aB8g79YSQExs=";
   };
   wccNode = fetchurl {
     url = "https://github.com/msojocs/wx-compiler/releases/download/v${compilerVersion}/wcc-x86_64.node";
-    hash = "sha256-creU26/ACSaeb+m4rPh+1CrxD6tP4iAHwKUAoU6MPxM=";
+    hash = "sha256-bV3gKfcMIXHaUf6JwgV6VWSyqAJM4DbfIZV2A8rdfz4=";
   };
   wcscNode = fetchurl {
     url = "https://github.com/msojocs/wx-compiler/releases/download/v${compilerVersion}/wcsc-x86_64.node";
-    hash = "sha256-2/7X/tB2TRjbW8gvYP6gdDc+bsjopb0IwXXXNOJMzFY=";
+    hash = "sha256-xSks4zTQV97V8WnVL+XNjX5h8OXuqFngZcA+K1dpUW0=";
   };
   floatPigmentNode = fetchurl {
     url = "https://github.com/msojocs/float-pigment-rust/releases/download/continuous/float-pigment.linux-x64-gnu.node";
@@ -127,13 +129,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "wechat-web-devtools-linux";
-  version = "0-unstable-117cfae";
+  version = "0-unstable-fdc31cf";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "wechat-web-devtools-linux";
-    rev = "117cfaece70fd53f3e3633e4ef3faaf61b18d092";
-    hash = "sha256-lK1yjuXSOYE2CUftcbcUSFWcpB9L+ZY1oI7l4SwDWNY=";
+    rev = "fdc31cf04f793f3a102dfebd74aaf72e2d30807b";
+    hash = "sha256-sTIf418mRye3ePZCC7UryHiCL+1oK6bFnouyEHEFXxo=";
   };
 
   nativeBuildInputs = [
