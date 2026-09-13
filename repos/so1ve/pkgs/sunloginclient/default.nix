@@ -9,6 +9,7 @@
   fontconfig,
   gdk-pixbuf,
   glib,
+  glib-networking,
   gtk3,
   lib,
   libappindicator-gtk3,
@@ -168,6 +169,8 @@ buildFHSEnv {
       shift
       exec /usr/local/awesun/bin/awesun_daemon -m server -name awesun "$@"
     fi
+    # WebKit loads its HTTPS backend through GIO modules.
+    export GIO_EXTRA_MODULES="${glib-networking}/lib/gio/modules''${GIO_EXTRA_MODULES:+:$GIO_EXTRA_MODULES}"
     ${lib.optionalString (uiScale != null) ''
       export GDK_SCALE=${toString uiScale}
     ''}
