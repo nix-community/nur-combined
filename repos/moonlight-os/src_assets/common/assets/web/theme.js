@@ -1,80 +1,36 @@
-const getStoredTheme = () => localStorage.getItem('theme')
-const setStoredTheme = theme => localStorage.setItem('theme', theme)
+/**
+ * Colour scheme preference.
+ *
+ * Three states: an explicit light/dark choice stamps `data-theme` on the root
+ * element, and "auto" removes it so the tokens fall through to the
+ * prefers-color-scheme block in styles/tokens.css.
+ */
 
-export const getPreferredTheme = () => {
-    const storedTheme = getStoredTheme()
-    if (storedTheme) {
-        return storedTheme
-    }
+const STORAGE_KEY = 'theme'
 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+export const THEMES = ['light', 'dark', 'auto']
+
+export function getStoredTheme() {
+  const stored = localStorage.getItem(STORAGE_KEY)
+  return THEMES.includes(stored) ? stored : 'auto'
 }
 
-const setTheme = theme => {
-    if (theme === 'auto') {
-        document.documentElement.setAttribute(
-            'data-bs-theme',
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-        )
-    } else {
-        document.documentElement.setAttribute('data-bs-theme', theme)
-    }
+export function setStoredTheme(theme) {
+  localStorage.setItem(STORAGE_KEY, theme)
 }
 
-export const showActiveTheme = (theme, focus = false) => {
-    const themeSwitcher = document.querySelector('#bd-theme')
-
-    if (!themeSwitcher) {
-        return
-    }
-
-    const themeSwitcherText = document.querySelector('#bd-theme-text')
-    const activeThemeIcon = document.querySelector('.theme-icon-active i')
-    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-    const classListOfActiveBtn = btnToActive.querySelector('i').classList
-
-    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-        element.classList.remove('active')
-        element.setAttribute('aria-pressed', 'false')
-    })
-
-    btnToActive.classList.add('active')
-    btnToActive.setAttribute('aria-pressed', 'true')
-    activeThemeIcon.classList.remove(...activeThemeIcon.classList.values())
-    activeThemeIcon.classList.add(...classListOfActiveBtn)
-    const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.textContent.trim()})`
-    themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
-
-    if (focus) {
-        themeSwitcher.focus()
-    }
+export function applyTheme(theme) {
+  if (theme === 'light' || theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', theme)
+  } else {
+    document.documentElement.removeAttribute('data-theme')
+  }
 }
 
-export function setupThemeToggleListener() {
-    document.querySelectorAll('[data-bs-theme-value]')
-        .forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const theme = toggle.getAttribute('data-bs-theme-value')
-                setStoredTheme(theme)
-                setTheme(theme)
-                showActiveTheme(theme, true)
-            })
-        })
-
-    showActiveTheme(getPreferredTheme(), false)
-}
-
+/**
+ * Applies the stored preference and keeps "auto" tracking the OS.
+ * Safe to call more than once per page.
+ */
 export function loadAutoTheme() {
-    setTheme(getPreferredTheme())
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        const storedTheme = getStoredTheme()
-        if (storedTheme !== 'light' && storedTheme !== 'dark') {
-            setTheme(getPreferredTheme())
-        }
-    })
-
-    window.addEventListener('DOMContentLoaded', () => {
-        showActiveTheme(getPreferredTheme())
-    })
+  applyTheme(getStoredTheme())
 }

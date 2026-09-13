@@ -37,8 +37,12 @@ staging, health checks, and rollback behaviour.
 
 Helios gives each paired client a stable display identity so its layout can be
 restored on the next session. Windows uses SudoVDA. Linux uses the available
-compositor or display-topology provider. If duplicate displays appear, remove
-conflicting virtual-display drivers before troubleshooting Helios itself.
+Sway compositor's wlroots headless outputs when available. When Helios is not
+already running inside Sway, it can start a private headless Sway session for
+streamed applications; install the optional `sway` package to enable that
+fallback. The private compositor leaves the host's physical desktop untouched.
+If duplicate displays appear, remove conflicting virtual-display drivers before
+troubleshooting Helios itself.
 
 On dual-GPU systems, select the GPU that should encode the stream in the web
 interface. Headless mode can render directly on a supported GPU without a

@@ -1,7 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import PlatformLayout from '../../../PlatformLayout.vue'
+import Banner from "../../../Banner.vue";
 import Checkbox from "../../../Checkbox.vue";
+import Expander from "../../../Expander.vue";
+import SelectField from "../../../SelectField.vue";
+import TextField from "../../../TextField.vue";
 
 const props = defineProps({
   platform: String,
@@ -50,199 +54,170 @@ function addRemappingEntry() {
 <template>
   <PlatformLayout :platform="platform">
     <template #windows>
-      <div class="mb-3 accordion">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne">
-              {{ $t('config.dd_options_header') }}
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
-               aria-labelledby="panelsStayOpen-headingOne">
-            <div class="accordion-body">
-              <div class="alert alert-info" v-if="platform === 'windows'">
-                <i class="fa-solid fa-xl fa-circle-info"></i> {{ $t('config.dd_resolution_option_vdisplay_desc') }} {{ $t('config.dd_resolution_option_multi_instance_desc') }}
-              </div>
+      <Expander icon="display_settings" :title="$t('config.dd_options_header')" :open="false">
+        <div class="md-settings-group">
+          <Banner variant="info">
+            {{ $t('config.dd_resolution_option_vdisplay_desc') }} {{ $t('config.dd_resolution_option_multi_instance_desc') }}
+          </Banner>
 
-              <!-- Configuration option -->
-              <div class="mb-3">
-                <label for="dd_configuration_option" class="form-label">
-                  {{ $t('config.dd_configuration_option') }}
-                </label>
-                <select id="dd_configuration_option" class="form-select" v-model="config.dd_configuration_option">
-                  <option value="disabled">{{ $t('_common.disabled_def') }}</option>
-                  <option value="verify_only">{{ $t('config.dd_config_verify_only') }}</option>
-                  <option value="ensure_active">{{ $t('config.dd_config_ensure_active') }}</option>
-                  <option value="ensure_primary">{{ $t('config.dd_config_ensure_primary') }}</option>
-                  <option value="ensure_only_display">{{ $t('config.dd_config_ensure_only_display') }}</option>
-                </select>
-              </div>
+          <!-- Configuration option -->
+          <SelectField
+            id="dd_configuration_option"
+            :label="$t('config.dd_configuration_option')"
+            v-model="config.dd_configuration_option"
+          >
+            <option value="disabled">{{ $t('_common.disabled_def') }}</option>
+            <option value="verify_only">{{ $t('config.dd_config_verify_only') }}</option>
+            <option value="ensure_active">{{ $t('config.dd_config_ensure_active') }}</option>
+            <option value="ensure_primary">{{ $t('config.dd_config_ensure_primary') }}</option>
+            <option value="ensure_only_display">{{ $t('config.dd_config_ensure_only_display') }}</option>
+          </SelectField>
 
-              <!-- Resolution option -->
-              <div class="mb-3" v-if="config.dd_configuration_option !== 'disabled'">
-                <label for="dd_resolution_option" class="form-label">
-                  {{ $t('config.dd_resolution_option') }}
-                </label>
-                <select id="dd_resolution_option" class="form-select" v-model="config.dd_resolution_option">
-                  <option value="disabled">{{ $t('config.dd_resolution_option_disabled') }}</option>
-                  <option value="auto">{{ $t('config.dd_resolution_option_auto') }}</option>
-                  <option value="manual">{{ $t('config.dd_resolution_option_manual') }}</option>
-                </select>
-                <div class="form-text"
-                     v-if="config.dd_resolution_option === 'auto' || config.dd_resolution_option === 'manual'">
-                  {{ $t('config.dd_resolution_option_ogs_desc') }}
-                </div>
+          <!-- Resolution option -->
+          <div class="stack-sm" v-if="config.dd_configuration_option !== 'disabled'">
+            <SelectField
+              id="dd_resolution_option"
+              :label="$t('config.dd_resolution_option')"
+              :supporting="(config.dd_resolution_option === 'auto' || config.dd_resolution_option === 'manual') ? $t('config.dd_resolution_option_ogs_desc') : null"
+              v-model="config.dd_resolution_option"
+            >
+              <option value="disabled">{{ $t('config.dd_resolution_option_disabled') }}</option>
+              <option value="auto">{{ $t('config.dd_resolution_option_auto') }}</option>
+              <option value="manual">{{ $t('config.dd_resolution_option_manual') }}</option>
+            </SelectField>
 
-                <!-- Manual resolution -->
-                <div class="mt-2 ps-4" v-if="config.dd_resolution_option === 'manual'">
-                  <div class="form-text">
-                    {{ $t('config.dd_manual_resolution') }}
-                  </div>
-                  <input type="text" class="form-control" id="dd_manual_resolution" placeholder="2560x1440"
-                         v-model="config.dd_manual_resolution" />
-                </div>
-              </div>
+            <!-- Manual resolution -->
+            <TextField
+              v-if="config.dd_resolution_option === 'manual'"
+              class="helios-nested-field"
+              id="dd_manual_resolution"
+              placeholder="2560x1440"
+              :label="$t('config.dd_manual_resolution')"
+              v-model="config.dd_manual_resolution"
+            />
+          </div>
 
-              <!-- Refresh rate option -->
-              <div class="mb-3" v-if="config.dd_configuration_option !== 'disabled'">
-                <label for="dd_refresh_rate_option" class="form-label">
-                  {{ $t('config.dd_refresh_rate_option') }}
-                </label>
-                <select id="dd_refresh_rate_option" class="form-select" v-model="config.dd_refresh_rate_option">
-                  <option value="disabled">{{ $t('config.dd_refresh_rate_option_disabled') }}</option>
-                  <option value="auto">{{ $t('config.dd_refresh_rate_option_auto') }}</option>
-                  <option value="manual">{{ $t('config.dd_refresh_rate_option_manual') }}</option>
-                </select>
+          <!-- Refresh rate option -->
+          <div class="stack-sm" v-if="config.dd_configuration_option !== 'disabled'">
+            <SelectField
+              id="dd_refresh_rate_option"
+              :label="$t('config.dd_refresh_rate_option')"
+              v-model="config.dd_refresh_rate_option"
+            >
+              <option value="disabled">{{ $t('config.dd_refresh_rate_option_disabled') }}</option>
+              <option value="auto">{{ $t('config.dd_refresh_rate_option_auto') }}</option>
+              <option value="manual">{{ $t('config.dd_refresh_rate_option_manual') }}</option>
+            </SelectField>
 
-                <!-- Manual refresh rate -->
-                <div class="mt-2 ps-4" v-if="config.dd_refresh_rate_option === 'manual'">
-                  <div class="form-text">
-                    {{ $t('config.dd_manual_refresh_rate') }}
-                  </div>
-                  <input type="text" class="form-control" id="dd_manual_refresh_rate" placeholder="59.9558"
-                         v-model="config.dd_manual_refresh_rate" />
-                </div>
-              </div>
+            <!-- Manual refresh rate -->
+            <TextField
+              v-if="config.dd_refresh_rate_option === 'manual'"
+              class="helios-nested-field"
+              id="dd_manual_refresh_rate"
+              placeholder="59.9558"
+              :label="$t('config.dd_manual_refresh_rate')"
+              v-model="config.dd_manual_refresh_rate"
+            />
+          </div>
 
-              <!-- Config revert delay -->
-              <div class="mb-3" v-if="config.dd_configuration_option !== 'disabled'">
-                <label for="dd_config_revert_delay" class="form-label">
-                  {{ $t('config.dd_config_revert_delay') }}
-                </label>
-                <input type="number" class="form-control" id="dd_config_revert_delay" placeholder="3000" min="0"
-                       v-model="config.dd_config_revert_delay" />
-                <div class="form-text">
-                  {{ $t('config.dd_config_revert_delay_desc') }}
-                </div>
-              </div>
+          <!-- Config revert delay -->
+          <TextField
+            v-if="config.dd_configuration_option !== 'disabled'"
+            id="dd_config_revert_delay"
+            type="number"
+            min="0"
+            placeholder="3000"
+            :label="$t('config.dd_config_revert_delay')"
+            :supporting="$t('config.dd_config_revert_delay_desc')"
+            v-model="config.dd_config_revert_delay"
+          />
 
-              <!-- Config revert on disconnect -->
-              <div class="mb-3" v-if="config.dd_configuration_option !== 'disabled'">
-                <Checkbox id="dd_config_revert_on_disconnect"
-                  locale-prefix="config"
-                  v-model="config.dd_config_revert_on_disconnect"
-                  default="false"
-                ></Checkbox>
-              </div>
+          <!-- Config revert on disconnect -->
+          <Checkbox
+            v-if="config.dd_configuration_option !== 'disabled'"
+            id="dd_config_revert_on_disconnect"
+            locale-prefix="config"
+            v-model="config.dd_config_revert_on_disconnect"
+            default="false"
+          ></Checkbox>
 
-              <!-- Display mode remapping -->
-              <div class="mb-3" v-if="canBeRemapped()">
-                <label for="dd_mode_remapping" class="form-label">
-                  {{ $t('config.dd_mode_remapping') }}
-                </label>
-                <div id="dd_mode_remapping" class="d-flex flex-column">
-                  <div class="form-text">
-                    {{ $t('config.dd_mode_remapping_desc_1') }}<br>
-                    {{ $t('config.dd_mode_remapping_desc_2') }}<br>
-                    {{ $t('config.dd_mode_remapping_desc_3') }}<br>
-                    {{ $t(getRemappingType() === MIXED ? 'config.dd_mode_remapping_desc_4_final_values_mixed' : 'config.dd_mode_remapping_desc_4_final_values_non_mixed') }}<br>
-                    <template v-if="getRemappingType() === MIXED">
-                      {{ $t('config.dd_mode_remapping_desc_5_sops_mixed_only') }}<br>
-                    </template>
-                    <template v-if="getRemappingType() === RESOLUTION_ONLY">
-                      {{ $t('config.dd_mode_remapping_desc_5_sops_resolution_only') }}<br>
-                    </template>
-                  </div>
-                </div>
-
-                <table class="table" v-if="config.dd_mode_remapping[getRemappingType()].length > 0">
-                  <thead>
-                    <tr>
-                      <th scope="col" v-if="getRemappingType() !== REFRESH_RATE_ONLY">
-                        {{ $t('config.dd_mode_remapping_requested_resolution') }}
-                      </th>
-                      <th scope="col" v-if="getRemappingType() !== RESOLUTION_ONLY">
-                        {{ $t('config.dd_mode_remapping_requested_fps') }}
-                      </th>
-                      <th scope="col" v-if="getRemappingType() !== REFRESH_RATE_ONLY">
-                        {{ $t('config.dd_mode_remapping_final_resolution') }}
-                      </th>
-                      <th scope="col" v-if="getRemappingType() !== RESOLUTION_ONLY">
-                        {{ $t('config.dd_mode_remapping_final_refresh_rate') }}
-                      </th>
-                      <!-- Additional columns for buttons-->
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(value, idx) in config.dd_mode_remapping[getRemappingType()]">
-                      <td v-if="getRemappingType() !== REFRESH_RATE_ONLY">
-                        <input type="text" class="form-control monospace" v-model="value.requested_resolution"
-                               :placeholder="'1920x1080'" />
-                      </td>
-                      <td v-if="getRemappingType() !== RESOLUTION_ONLY">
-                        <input type="text" class="form-control monospace" v-model="value.requested_fps"
-                               :placeholder="'60'" />
-                      </td>
-                      <td v-if="getRemappingType() !== REFRESH_RATE_ONLY">
-                        <input type="text" class="form-control monospace" v-model="value.final_resolution"
-                               :placeholder="'2560x1440'" />
-                      </td>
-                      <td v-if="getRemappingType() !== RESOLUTION_ONLY">
-                        <input type="text" class="form-control monospace" v-model="value.final_refresh_rate"
-                               :placeholder="'119.95'" />
-                      </td>
-                      <td>
-                        <button class="btn btn-danger" @click="config.dd_mode_remapping[getRemappingType()].splice(idx, 1)">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <button class="ms-0 mt-2 btn btn-success" style="margin: 0 auto" @click="addRemappingEntry()">
-                  &plus; {{ $t('config.dd_mode_remapping_add') }}
-                </button>
-              </div>
+          <!-- Display mode remapping -->
+          <div class="stack-sm" v-if="canBeRemapped()" id="dd_mode_remapping">
+            <div class="md-title-small">{{ $t('config.dd_mode_remapping') }}</div>
+            <div class="md-body-small text-muted">
+              {{ $t('config.dd_mode_remapping_desc_1') }}<br>
+              {{ $t('config.dd_mode_remapping_desc_2') }}<br>
+              {{ $t('config.dd_mode_remapping_desc_3') }}<br>
+              {{ $t(getRemappingType() === MIXED ? 'config.dd_mode_remapping_desc_4_final_values_mixed' : 'config.dd_mode_remapping_desc_4_final_values_non_mixed') }}<br>
+              <template v-if="getRemappingType() === MIXED">
+                {{ $t('config.dd_mode_remapping_desc_5_sops_mixed_only') }}<br>
+              </template>
+              <template v-if="getRemappingType() === RESOLUTION_ONLY">
+                {{ $t('config.dd_mode_remapping_desc_5_sops_resolution_only') }}<br>
+              </template>
             </div>
+
+            <div class="md-table-scroll" v-if="config.dd_mode_remapping[getRemappingType()].length > 0">
+              <table class="md-table">
+                <thead>
+                  <tr>
+                    <th v-if="getRemappingType() !== REFRESH_RATE_ONLY">
+                      {{ $t('config.dd_mode_remapping_requested_resolution') }}
+                    </th>
+                    <th v-if="getRemappingType() !== RESOLUTION_ONLY">
+                      {{ $t('config.dd_mode_remapping_requested_fps') }}
+                    </th>
+                    <th v-if="getRemappingType() !== REFRESH_RATE_ONLY">
+                      {{ $t('config.dd_mode_remapping_final_resolution') }}
+                    </th>
+                    <th v-if="getRemappingType() !== RESOLUTION_ONLY">
+                      {{ $t('config.dd_mode_remapping_final_refresh_rate') }}
+                    </th>
+                    <!-- Additional columns for buttons-->
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(value, idx) in config.dd_mode_remapping[getRemappingType()]" :key="idx">
+                    <td v-if="getRemappingType() !== REFRESH_RATE_ONLY">
+                      <TextField dense monospace :id="`remap-req-res-${idx}`" placeholder="1920x1080" v-model="value.requested_resolution" />
+                    </td>
+                    <td v-if="getRemappingType() !== RESOLUTION_ONLY">
+                      <TextField dense monospace :id="`remap-req-fps-${idx}`" placeholder="60" v-model="value.requested_fps" />
+                    </td>
+                    <td v-if="getRemappingType() !== REFRESH_RATE_ONLY">
+                      <TextField dense monospace :id="`remap-final-res-${idx}`" placeholder="2560x1440" v-model="value.final_resolution" />
+                    </td>
+                    <td v-if="getRemappingType() !== RESOLUTION_ONLY">
+                      <TextField dense monospace :id="`remap-final-fps-${idx}`" placeholder="119.95" v-model="value.final_refresh_rate" />
+                    </td>
+                    <td>
+                      <div class="md-table__actions">
+                        <button
+                          class="md-icon-button md-icon-button--danger"
+                          :aria-label="$t('_common.remove')"
+                          @click="config.dd_mode_remapping[getRemappingType()].splice(idx, 1)"
+                        >
+                          <Icon name="delete" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="md-button md-button--tonal self-start" @click="addRemappingEntry()">
+              <Icon name="add" />{{ $t('config.dd_mode_remapping_add') }}
+            </button>
           </div>
         </div>
-      </div>
+      </Expander>
 
       <!-- HDR option -->
-      <div class="mb-3">
-        <label for="dd_hdr_option" class="form-label">
-          {{ $t('config.dd_hdr_option') }}
-        </label>
-        <select id="dd_hdr_option" class="mb-3 form-select" v-model="config.dd_hdr_option">
-          <option value="disabled">{{ $t('config.dd_hdr_option_disabled') }}</option>
-          <option value="auto">{{ $t('config.dd_hdr_option_auto') }}</option>
-        </select>
-        <!-- HDR toggle -->
-        <!-- <label for="dd_wa_hdr_toggle_delay" class="form-label">
-          {{ $t('config.dd_wa_hdr_toggle_delay') }}
-        </label>
-        <input type="number" class="form-control" id="dd_wa_hdr_toggle_delay" placeholder="0" min="0" max="3000"
-              v-model="config.dd_wa_hdr_toggle_delay" />
-        <div class="form-text">
-          {{ $t('config.dd_wa_hdr_toggle_delay_desc_1') }}
-          <br>
-          {{ $t('config.dd_wa_hdr_toggle_delay_desc_2') }}
-          <br>
-          {{ $t('config.dd_wa_hdr_toggle_delay_desc_3') }}
-        </div> -->
-      </div>
+      <SelectField id="dd_hdr_option" :label="$t('config.dd_hdr_option')" v-model="config.dd_hdr_option">
+        <option value="disabled">{{ $t('config.dd_hdr_option_disabled') }}</option>
+        <option value="auto">{{ $t('config.dd_hdr_option_auto') }}</option>
+      </SelectField>
     </template>
     <template #linux>
     </template>

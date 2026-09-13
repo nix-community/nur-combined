@@ -1,0 +1,2045 @@
+/*
+ * Material 3 Expressive components.
+ *
+ * Everything here is hand-rolled against the tokens in tokens.css -- there is
+ * no CSS framework underneath. Interactive surfaces share one state-layer
+ * mechanism (a currentColor ::before that fades in on hover/focus/press) so
+ * hover feedback stays consistent no matter which container a control sits in.
+ */
+
+/* ---------------------------------------------------------- state layer base */
+
+.md-state-layer {
+  position: relative;
+  isolation: isolate;
+}
+
+.md-state-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-state-layer:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-state-layer:focus-visible::before {
+  opacity: var(--md-sys-state-focus-opacity);
+}
+
+.md-state-layer:active::before {
+  opacity: var(--md-sys-state-pressed-opacity);
+}
+
+.md-state-layer:disabled::before,
+.md-state-layer[disabled]::before,
+.md-state-layer[aria-disabled='true']::before {
+  opacity: 0;
+}
+
+/* -------------------------------------------------------------------- button */
+
+.md-button {
+  --_container: transparent;
+  --_label: var(--md-sys-color-primary);
+  --_height: 2.5rem;
+  --_padding: 1.5rem;
+  --_radius: var(--md-sys-shape-corner-full);
+  --_pressed-radius: var(--md-sys-shape-corner-md);
+  --_elevation: none;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: var(--_height);
+  padding: 0 var(--_padding);
+  border: none;
+  border-radius: var(--_radius);
+  background-color: var(--_container);
+  box-shadow: var(--_elevation);
+  color: var(--_label);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.00625rem;
+  font-variation-settings: 'wght' 600;
+  padding-block: 0.5rem;
+  max-width: 100%;
+  text-align: center;
+  text-decoration: none;
+  text-wrap: balance;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-radius var(--md-sys-motion-spring-fast-spatial),
+    box-shadow var(--md-sys-motion-spring-default-effects),
+    background-color var(--md-sys-motion-spring-default-effects),
+    color var(--md-sys-motion-spring-default-effects);
+}
+
+.md-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-button:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-button:focus-visible::before {
+  opacity: var(--md-sys-state-focus-opacity);
+}
+
+.md-button:active::before {
+  opacity: var(--md-sys-state-pressed-opacity);
+}
+
+/* Expressive shape morph: round at rest, squarer while held. */
+.md-button:active {
+  border-radius: var(--_pressed-radius);
+}
+
+.md-button > .md-icon {
+  margin-inline-start: -0.375rem;
+  font-size: 1.125rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+}
+
+.md-button > .md-icon:last-child:not(:only-child) {
+  margin-inline: 0 -0.375rem;
+}
+
+.md-button:disabled,
+.md-button[disabled],
+.md-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  box-shadow: none;
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 10%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
+
+.md-button:disabled::before,
+.md-button[disabled]::before,
+.md-button[aria-disabled='true']::before {
+  opacity: 0;
+}
+
+.md-button--filled {
+  --_container: var(--md-sys-color-primary);
+  --_label: var(--md-sys-color-on-primary);
+}
+
+.md-button--tonal {
+  --_container: var(--md-sys-color-secondary-container);
+  --_label: var(--md-sys-color-on-secondary-container);
+}
+
+.md-button--brand {
+  --_container: var(--md-sys-color-primary-container);
+  --_label: var(--md-sys-color-on-primary-container);
+}
+
+.md-button--elevated {
+  --_container: var(--md-sys-color-surface-container-low);
+  --_label: var(--md-sys-color-primary);
+  --_elevation: var(--md-sys-elevation-1);
+}
+
+.md-button--elevated:hover {
+  --_elevation: var(--md-sys-elevation-2);
+}
+
+.md-button--outlined {
+  --_container: transparent;
+  --_label: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.md-button--outlined:disabled,
+.md-button--outlined[disabled] {
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+}
+
+.md-button--text {
+  --_padding: 0.75rem;
+  --_container: transparent;
+  --_label: var(--md-sys-color-primary);
+}
+
+.md-button--text:disabled,
+.md-button--text[disabled] {
+  background-color: transparent;
+}
+
+/* Semantic recolours. */
+.md-button--danger.md-button--filled {
+  --_container: var(--md-sys-color-error);
+  --_label: var(--md-sys-color-on-error);
+}
+
+.md-button--danger.md-button--tonal {
+  --_container: var(--md-sys-color-error-container);
+  --_label: var(--md-sys-color-on-error-container);
+}
+
+.md-button--danger.md-button--text,
+.md-button--danger.md-button--outlined {
+  --_label: var(--md-sys-color-error);
+}
+
+.md-button--success.md-button--filled {
+  --_container: var(--md-sys-color-success);
+  --_label: var(--md-sys-color-on-success);
+}
+
+.md-button--success.md-button--tonal {
+  --_container: var(--md-sys-color-success-container);
+  --_label: var(--md-sys-color-on-success-container);
+}
+
+/* Sizes follow the expressive five-step ramp; the UI uses the lower three. */
+.md-button--xs {
+  --_height: 2rem;
+  --_padding: 0.75rem;
+  --_pressed-radius: var(--md-sys-shape-corner-sm);
+  font-size: 0.8125rem;
+}
+
+.md-button--md {
+  --_height: 3.5rem;
+  --_padding: 1.5rem;
+  --_pressed-radius: var(--md-sys-shape-corner-lg);
+  font-size: 1rem;
+}
+
+.md-button--md > .md-icon {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.md-button--block {
+  display: flex;
+  width: 100%;
+}
+
+/* Connected group: outer corners round, inner corners tight. */
+.md-button-group {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.md-button-group > .md-button {
+  --_radius: var(--md-sys-shape-corner-sm);
+}
+
+.md-button-group > .md-button:first-child {
+  border-start-start-radius: var(--md-sys-shape-corner-full);
+  border-end-start-radius: var(--md-sys-shape-corner-full);
+}
+
+.md-button-group > .md-button:last-child {
+  border-start-end-radius: var(--md-sys-shape-corner-full);
+  border-end-end-radius: var(--md-sys-shape-corner-full);
+}
+
+/* --------------------------------------------------------------- icon button */
+
+.md-icon-button {
+  --_container: transparent;
+  --_label: var(--md-sys-color-on-surface-variant);
+  --_size: 2.5rem;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--_size);
+  height: var(--_size);
+  padding: 0;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--_container);
+  color: var(--_label);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-radius var(--md-sys-motion-spring-fast-spatial),
+    background-color var(--md-sys-motion-spring-default-effects),
+    color var(--md-sys-motion-spring-default-effects);
+}
+
+.md-icon-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-icon-button:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-icon-button:focus-visible::before {
+  opacity: var(--md-sys-state-focus-opacity);
+}
+
+.md-icon-button:active::before {
+  opacity: var(--md-sys-state-pressed-opacity);
+}
+
+.md-icon-button:active {
+  border-radius: var(--md-sys-shape-corner-md);
+}
+
+.md-icon-button--filled {
+  --_container: var(--md-sys-color-primary);
+  --_label: var(--md-sys-color-on-primary);
+}
+
+.md-icon-button--tonal {
+  --_container: var(--md-sys-color-secondary-container);
+  --_label: var(--md-sys-color-on-secondary-container);
+}
+
+.md-icon-button--outlined {
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.md-icon-button--danger {
+  --_label: var(--md-sys-color-error);
+}
+
+.md-icon-button--danger.md-icon-button--tonal {
+  --_container: var(--md-sys-color-error-container);
+  --_label: var(--md-sys-color-on-error-container);
+}
+
+.md-icon-button--success.md-icon-button--tonal {
+  --_container: var(--md-sys-color-success-container);
+  --_label: var(--md-sys-color-on-success-container);
+}
+
+.md-icon-button--sm {
+  --_size: 2rem;
+}
+
+.md-icon-button--sm > .md-icon {
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.md-icon-button:disabled,
+.md-icon-button[disabled] {
+  cursor: not-allowed;
+  background-color: transparent;
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
+
+.md-icon-button:disabled::before,
+.md-icon-button[disabled]::before {
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------------------- card */
+
+.md-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--md-sys-shape-corner-lg);
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-card--elevated {
+  background-color: var(--md-sys-color-surface-container-low);
+  box-shadow: var(--md-sys-elevation-1);
+}
+
+.md-card--filled {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.md-card--outlined {
+  background-color: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+/* The one card per page that gets to be loud. */
+.md-card--hero {
+  border-radius: var(--md-sys-shape-corner-xl-increased);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.md-card__body {
+  padding: 1.5rem;
+}
+
+.md-card__body--tight {
+  padding: 1rem;
+}
+
+.md-card__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.md-card__header + .md-card__body {
+  padding-top: 1rem;
+}
+
+.md-card__title {
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  font-variation-settings: 'wght' 600;
+  margin: 0;
+}
+
+.md-card__supporting {
+  margin: 0.5rem 0 0;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.md-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 1.5rem 1.5rem;
+}
+
+/* Actions that follow a list need their own breathing room and a hairline. */
+.md-list + .md-card__actions {
+  padding-top: 1rem;
+  box-shadow: inset 0 1px 0 var(--md-sys-color-outline-variant);
+}
+
+/* Leading icon puck used on section headers. */
+.md-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--md-sys-shape-corner-md);
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+/* --------------------------------------------------------------- text fields */
+
+.md-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.md-field__box {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 3.5rem;
+  border-radius: var(--md-sys-shape-corner-sm) var(--md-sys-shape-corner-sm) 0 0;
+  background-color: var(--md-sys-color-surface-container-highest);
+  transition: background-color var(--md-sys-motion-spring-default-effects);
+}
+
+.md-field__box:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, var(--md-sys-color-surface-container-highest));
+}
+
+/* The active indicator: hairline at rest, a confident 3px stroke on focus. */
+.md-field__box::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--md-sys-color-on-surface-variant);
+  transition:
+    height var(--md-sys-motion-spring-fast-effects),
+    background-color var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-field__box:focus-within::after {
+  height: 3px;
+  background-color: var(--md-sys-color-primary);
+}
+
+.md-field__input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  padding: 1.5rem 1rem 0.5rem;
+  border: none;
+  border-radius: inherit;
+  background: none;
+  color: var(--md-sys-color-on-surface);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.03125rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.md-field__input:focus {
+  outline: none;
+}
+
+.md-field__input::placeholder {
+  color: var(--md-sys-color-on-surface-variant);
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-field__box:focus-within .md-field__input::placeholder,
+.md-field--bare .md-field__input::placeholder {
+  opacity: 0.6;
+}
+
+.md-field__input.monospace {
+  font-size: 0.875rem;
+}
+
+/* No-label variant keeps the text vertically centred. */
+.md-field--bare .md-field__input {
+  padding-block: 1rem;
+}
+
+.md-field__label {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: 1rem;
+  max-width: calc(100% - 2rem);
+  overflow: hidden;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform var(--md-sys-motion-spring-fast-spatial), color var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-field__box:focus-within .md-field__label,
+.md-field__input:not(:placeholder-shown) ~ .md-field__label,
+.md-field--populated .md-field__label {
+  transform: translateY(-0.625rem) scale(0.75);
+}
+
+.md-field__box:focus-within .md-field__label {
+  color: var(--md-sys-color-primary);
+}
+
+.md-field__supporting {
+  padding-inline: 1rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.025rem;
+}
+
+.md-field__supporting a {
+  color: var(--md-sys-color-tertiary);
+}
+
+.md-field__supporting pre {
+  font-size: 0.75rem;
+}
+
+.md-field--error .md-field__box::after {
+  background-color: var(--md-sys-color-error);
+}
+
+.md-field--error .md-field__label,
+.md-field--error .md-field__supporting {
+  color: var(--md-sys-color-error);
+}
+
+.md-field__trailing {
+  display: flex;
+  align-items: center;
+  padding-inline-end: 0.5rem;
+}
+
+.md-field__input:disabled {
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  cursor: not-allowed;
+}
+
+/* Compact field for dense table rows. */
+.md-field--dense .md-field__box {
+  min-height: 2.75rem;
+  border-radius: var(--md-sys-shape-corner-sm);
+}
+
+.md-field--dense .md-field__input {
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* Select reuses the field shell around a native control. */
+.md-field__select {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  padding: 1.5rem 3rem 0.5rem 1rem;
+  border: none;
+  border-radius: inherit;
+  background: none;
+  color: var(--md-sys-color-on-surface);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.md-field__select:focus {
+  outline: none;
+}
+
+.md-field__select option {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-field__arrow {
+  position: absolute;
+  inset-inline-end: 0.75rem;
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--md-sys-color-on-surface-variant);
+  pointer-events: none;
+  transition: rotate var(--md-sys-motion-spring-fast-spatial);
+}
+
+.md-field__box:focus-within .md-field__arrow {
+  rotate: 180deg;
+  color: var(--md-sys-color-primary);
+}
+
+/* -------------------------------------------------------------------- switch */
+
+.md-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  width: 3.25rem;
+  height: 2rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-surface-container-highest);
+  border: 2px solid var(--md-sys-color-outline);
+  cursor: pointer;
+  transition:
+    background-color var(--md-sys-motion-spring-default-effects),
+    border-color var(--md-sys-motion-spring-default-effects);
+}
+
+.md-switch__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.md-switch__thumb {
+  position: absolute;
+  inset-inline-start: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-outline);
+  color: transparent;
+  pointer-events: none;
+  transition:
+    inset-inline-start var(--md-sys-motion-spring-fast-spatial),
+    width var(--md-sys-motion-spring-fast-spatial),
+    height var(--md-sys-motion-spring-fast-spatial),
+    background-color var(--md-sys-motion-spring-default-effects),
+    color var(--md-sys-motion-spring-default-effects);
+}
+
+.md-switch__thumb > .md-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 20;
+}
+
+.md-switch:hover .md-switch__thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  inset-inline-start: 0.25rem;
+}
+
+/* Expressive: the thumb stretches while held, then springs into place. */
+.md-switch:active .md-switch__thumb {
+  width: 1.75rem;
+  height: 1.75rem;
+  inset-inline-start: 0;
+}
+
+.md-switch:has(.md-switch__input:checked) {
+  background-color: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-primary);
+}
+
+.md-switch:has(.md-switch__input:checked) .md-switch__thumb {
+  inset-inline-start: 1.375rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--md-sys-color-on-primary);
+  color: var(--md-sys-color-primary);
+}
+
+.md-switch:has(.md-switch__input:checked):active .md-switch__thumb {
+  width: 1.75rem;
+  height: 1.75rem;
+  inset-inline-start: 1.25rem;
+}
+
+.md-switch:has(.md-switch__input:focus-visible) {
+  outline: 3px solid var(--md-sys-color-secondary);
+  outline-offset: 2px;
+}
+
+.md-switch:has(.md-switch__input:disabled) {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* Settings row: text on the left, switch on the right, whole row is the target. */
+.md-switch-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: var(--md-sys-shape-corner-md);
+  transition: background-color var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-switch-row:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent);
+}
+
+.md-switch-row__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.md-switch-row__label {
+  display: block;
+  color: var(--md-sys-color-on-surface);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-variation-settings: 'wght' 500;
+  cursor: pointer;
+}
+
+.md-switch-row__desc {
+  margin-top: 0.125rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+}
+
+.md-switch-row__default {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.025rem;
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------------ checkbox */
+
+.md-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-checkbox input[type='checkbox'] {
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  accent-color: var(--md-sys-color-primary);
+  cursor: pointer;
+}
+
+/* -------------------------------------------------------------------- slider */
+
+.md-slider {
+  width: 100%;
+  height: 2.5rem;
+  margin: 0;
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.md-slider:focus {
+  outline: none;
+}
+
+.md-slider::-webkit-slider-runnable-track {
+  height: 1rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-secondary-container);
+}
+
+.md-slider::-moz-range-track {
+  height: 1rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-secondary-container);
+}
+
+.md-slider::-webkit-slider-thumb {
+  width: 0.25rem;
+  height: 2.75rem;
+  margin-top: -0.875rem;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 6px var(--md-sys-color-surface);
+  -webkit-appearance: none;
+  appearance: none;
+  transition: width var(--md-sys-motion-spring-fast-spatial);
+}
+
+.md-slider::-moz-range-thumb {
+  width: 0.25rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 6px var(--md-sys-color-surface);
+}
+
+.md-slider:active::-webkit-slider-thumb {
+  width: 0.125rem;
+}
+
+/* --------------------------------------------------------------------- chips */
+
+.md-chip {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  padding: 0 0.875rem;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-sm);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.03125rem;
+  font-variation-settings: 'wght' 500;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    background-color var(--md-sys-motion-spring-default-effects),
+    border-color var(--md-sys-motion-spring-default-effects),
+    color var(--md-sys-motion-spring-default-effects);
+}
+
+.md-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-chip:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-chip > .md-icon {
+  font-size: 1.125rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-inline-start: -0.25rem;
+}
+
+.md-chip--selected {
+  border-color: transparent;
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.md-chip--static {
+  cursor: default;
+}
+
+.md-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.md-chip-set {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ------------------------------------------------------------- app shell */
+
+.helios-shell {
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.helios-rail {
+  position: sticky;
+  top: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex: none;
+  width: var(--helios-rail-width);
+  height: 100vh;
+  padding: 1rem 0.5rem;
+  background-color: var(--md-sys-color-surface);
+}
+
+/*
+ * The brand mark is a solid white glyph -- it only ever worked because the old
+ * navbar was brand gold behind it. Keep it on gold wherever it appears so it
+ * survives both schemes, and the mark doubles as the one fixed brand anchor.
+ */
+.helios-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  background-color: var(--md-sys-color-primary-container);
+  border-radius: var(--md-sys-shape-corner-md);
+}
+
+.helios-mark img {
+  width: 68%;
+  height: 68%;
+}
+
+.helios-mark--lg {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--md-sys-shape-corner-lg);
+}
+
+.helios-mark--sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.helios-rail__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--md-sys-shape-corner-lg);
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.helios-rail__brand img {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.helios-rail__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.helios-rail__spacer {
+  flex: 1 1 auto;
+}
+
+.md-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.25rem 0;
+  border-radius: var(--md-sys-shape-corner-md);
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.md-nav-item__indicator {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 2rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: transparent;
+  transition:
+    background-color var(--md-sys-motion-spring-default-effects),
+    width var(--md-sys-motion-spring-fast-spatial);
+}
+
+.md-nav-item__indicator::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-nav-item:hover .md-nav-item__indicator::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-nav-item:active .md-nav-item__indicator::before {
+  opacity: var(--md-sys-state-pressed-opacity);
+}
+
+.md-nav-item__label {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.03125rem;
+  font-variation-settings: 'wght' 500;
+  text-align: center;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.md-nav-item--active {
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.md-nav-item--active .md-nav-item__indicator {
+  background-color: var(--md-sys-color-secondary-container);
+}
+
+.md-nav-item--active .md-nav-item__label {
+  font-variation-settings: 'wght' 700;
+}
+
+.md-nav-item--active .md-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+.helios-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  border-start-start-radius: var(--md-sys-shape-corner-lg);
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.helios-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--helios-top-bar-height);
+  padding: 0.5rem 1rem;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  border-start-start-radius: inherit;
+  transition: background-color var(--md-sys-motion-spring-default-effects),
+    box-shadow var(--md-sys-motion-spring-default-effects);
+}
+
+/* Raised state once the page scrolls, so the bar separates from the content. */
+.helios-topbar--raised {
+  background-color: var(--md-sys-color-surface-container);
+  box-shadow: var(--md-sys-elevation-1);
+}
+
+.helios-topbar__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  font-variation-settings: 'wght' 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.helios-topbar__brand {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.helios-content {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: var(--helios-content-max);
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem 5rem;
+}
+
+/* Modal navigation drawer, used below the rail breakpoint. */
+.helios-drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: var(--helios-drawer-width);
+  max-width: 85vw;
+  padding: 1rem 0.75rem;
+  background-color: var(--md-sys-color-surface-container-low);
+  border-start-end-radius: var(--md-sys-shape-corner-lg);
+  border-end-end-radius: var(--md-sys-shape-corner-lg);
+  box-shadow: var(--md-sys-elevation-2);
+  overflow-y: auto;
+}
+
+.helios-drawer__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem 1.25rem;
+}
+
+.helios-drawer__title {
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  font-variation-settings: 'wght' 600;
+}
+
+.md-drawer-item {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  padding: 0 1.5rem 0 1rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-variation-settings: 'wght' 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.md-drawer-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-drawer-item:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-drawer-item--active {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.md-drawer-item--active .md-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+@media (min-width: 905px) {
+  .helios-rail {
+    display: flex;
+  }
+
+  .helios-content {
+    padding-inline: 2rem;
+  }
+}
+
+@media (max-width: 904px) {
+  .helios-topbar__brand {
+    display: inline-flex;
+  }
+}
+
+/* --------------------------------------------------------------------- scrim */
+
+.md-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: rgb(var(--md-sys-color-scrim) / 0.4);
+}
+
+/* ---------------------------------------------------------------------- menu */
+
+.md-menu-anchor {
+  position: relative;
+}
+
+.md-menu {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 40;
+  min-width: 12rem;
+  padding: 0.5rem;
+  border-radius: var(--md-sys-shape-corner-md);
+  background-color: var(--md-sys-color-surface-container-high);
+  box-shadow: var(--md-sys-elevation-2);
+  transform-origin: top right;
+}
+
+.md-menu-item {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0 0.75rem;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-sm);
+  background: none;
+  color: var(--md-sys-color-on-surface);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: start;
+  cursor: pointer;
+}
+
+.md-menu-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-menu-item:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-menu-item--active {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+/* ---------------------------------------------------------------------- tabs */
+
+.md-tabs {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+  box-shadow: inset 0 -1px 0 var(--md-sys-color-outline-variant);
+}
+
+.md-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.md-tab {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: none;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-sm) var(--md-sys-shape-corner-sm) 0 0;
+  background: none;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.00625rem;
+  font-variation-settings: 'wght' 500;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--md-sys-motion-spring-default-effects);
+}
+
+.md-tab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-tab:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+/* Active indicator: a rounded stroke that grows from the centre. */
+.md-tab::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0.5rem;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background-color: var(--md-sys-color-primary);
+  scale: 0 1;
+  transition: scale var(--md-sys-motion-spring-default-spatial);
+}
+
+.md-tab--active {
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'wght' 700;
+}
+
+.md-tab--active::after {
+  scale: 1 1;
+}
+
+/* Pill-shaped tabs, used where the choice is a mode rather than a section. */
+.md-tabs--pills {
+  gap: 0.5rem;
+  box-shadow: none;
+  padding: 0.25rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.md-tabs--pills .md-tab {
+  border-radius: var(--md-sys-shape-corner-full);
+}
+
+.md-tabs--pills .md-tab::after {
+  display: none;
+}
+
+.md-tabs--pills .md-tab--active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* ---------------------------------------------------------------- expander */
+
+.md-expander {
+  border-radius: var(--md-sys-shape-corner-md);
+  background-color: var(--md-sys-color-surface-container);
+  overflow: hidden;
+}
+
+.md-expander__header {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  color: var(--md-sys-color-on-surface);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-variation-settings: 'wght' 600;
+  text-align: start;
+  cursor: pointer;
+}
+
+.md-expander__header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.md-expander__header:hover::before {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-expander__header .md-icon {
+  transition: rotate var(--md-sys-motion-spring-default-spatial);
+}
+
+.md-expander--open .md-expander__header .md-expander__chevron {
+  rotate: 180deg;
+}
+
+.md-expander__body {
+  padding: 0 1rem 1rem;
+}
+
+/* ---------------------------------------------------------------------- list */
+
+.md-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.5rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.md-list-item + .md-list-item {
+  box-shadow: inset 0 1px 0 var(--md-sys-color-outline-variant);
+}
+
+.md-list-item__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.md-list-item__headline {
+  display: block;
+  color: var(--md-sys-color-on-surface);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-variation-settings: 'wght' 500;
+  overflow-wrap: anywhere;
+}
+
+.md-list-item__supporting {
+  display: block;
+  margin-top: 0.125rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+}
+
+.md-list-item__trailing {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------- table */
+
+.md-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.md-table th {
+  padding: 0.5rem 0.75rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.03125rem;
+  font-variation-settings: 'wght' 600;
+  text-align: start;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.md-table th .md-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  margin-inline-end: 0.25rem;
+  vertical-align: -0.2em;
+}
+
+.md-table td {
+  padding: 0.375rem 0.75rem;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  vertical-align: middle;
+}
+
+.md-table tbody tr:first-child td {
+  border-top-color: transparent;
+}
+
+.md-table__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.md-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* ------------------------------------------------------------------- banners */
+
+.md-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--md-sys-shape-corner-md);
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+}
+
+.md-banner__icon {
+  flex: none;
+  margin-top: 0.0625rem;
+}
+
+.md-banner__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.md-banner__text > :first-child {
+  margin-top: 0;
+}
+
+.md-banner__text > :last-child {
+  margin-bottom: 0;
+}
+
+.md-banner--info {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.md-banner--success {
+  background-color: var(--md-sys-color-success-container);
+  color: var(--md-sys-color-on-success-container);
+}
+
+.md-banner--warning {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.md-banner--error {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.md-banner a {
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------- badge */
+
+.md-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.6875rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.03125rem;
+  font-variation-settings: 'wght' 700;
+  white-space: nowrap;
+}
+
+.md-badge--primary {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.md-badge--tertiary {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.md-badge--error {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.md-badge--success {
+  background-color: var(--md-sys-color-success-container);
+  color: var(--md-sys-color-on-success-container);
+}
+
+.md-badge--mono {
+  font-family: var(--md-sys-typeface-mono);
+  letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------------- dialog */
+
+.md-dialog {
+  position: fixed;
+  z-index: 70;
+  inset: 50% auto auto 50%;
+  translate: -50% -50%;
+  display: flex;
+  flex-direction: column;
+  width: min(40rem, calc(100vw - 3rem));
+  max-height: min(42rem, calc(100vh - 3rem));
+  border-radius: var(--md-sys-shape-corner-xl);
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  box-shadow: var(--md-sys-elevation-3);
+  overflow: hidden;
+}
+
+.md-dialog__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.md-dialog__title {
+  flex: 1 1 auto;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-variation-settings: 'wght' 600;
+}
+
+.md-dialog__body {
+  flex: 1 1 auto;
+  padding: 0.5rem 1.5rem 1.5rem;
+  overflow-y: auto;
+}
+
+.md-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+/* ------------------------------------------------------------------ progress */
+
+.md-spinner {
+  display: inline-block;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 3px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-top-color: currentColor;
+  border-radius: var(--md-sys-shape-corner-full);
+  animation: md-spin 900ms linear infinite;
+}
+
+.md-spinner--lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 4px;
+}
+
+@keyframes md-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-spinner {
+    animation-duration: 2s;
+  }
+}
+
+/* ---------------------------------------------------------------- empty state */
+
+.md-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 3rem 1.5rem;
+  color: var(--md-sys-color-on-surface-variant);
+  text-align: center;
+}
+
+.md-empty .md-icon {
+  color: var(--md-sys-color-outline-variant);
+}
+
+/* ------------------------------------------------------------------ sections */
+
+.md-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.md-section__title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  font-variation-settings: 'wght' 600;
+}
+
+.md-settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.md-divider {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background-color: var(--md-sys-color-outline-variant);
+}
+
+/* ------------------------------------------------------- page-level helpers */
+
+.helios-spin {
+  animation: md-spin 1200ms linear infinite;
+}
+
+.helios-version {
+  overflow-wrap: anywhere;
+}
+
+/* QR code canvas needs a light quiet zone regardless of the active scheme. */
+.helios-qr {
+  display: inline-flex;
+  padding: 0.75rem;
+  border-radius: var(--md-sys-shape-corner-md);
+  background-color: #ffffff;
+}
+
+.helios-logs {
+  position: relative;
+  max-height: 32rem;
+  min-height: 24rem;
+  overflow: auto;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: var(--md-sys-shape-corner-md);
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typeface-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.helios-logs__copy {
+  position: sticky;
+  top: 0;
+  float: inline-end;
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+/* Drop target while reordering the application list. */
+.helios-dragover > td {
+  box-shadow: inset 0 2px 0 var(--md-sys-color-primary);
+}
+
+.helios-cover {
+  position: relative;
+  padding-top: 133.33%;
+  border-radius: var(--md-sys-shape-corner-md);
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.helios-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.helios-cover-option {
+  border: none;
+  padding: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+}
+
+.helios-cover-option:hover .helios-cover {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+.helios-cover-results--busy {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.helios-cover-spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.helios-env-table td {
+  padding: 0.375rem 0.75rem;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  vertical-align: top;
+}
+
+.helios-auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+}
+
+.helios-auth-card {
+  width: 100%;
+  max-width: 27rem;
+}
+
+.helios-auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.helios-welcome-page {
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+}
+
+.helios-welcome-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 905px) {
+  .helios-welcome-grid {
+    grid-template-columns: 27rem 1fr;
+  }
+}
+
+.helios-password-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .helios-password-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.helios-actions-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+}
+
+.helios-log-filter {
+  width: min(18rem, 100%);
+}
+
+.helios-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.helios-otp {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.15em;
+}
+
+.helios-client-editor {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding-block: 1.5rem;
+}
+
+.helios-perm-groups {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  padding: 1rem;
+  border-radius: var(--md-sys-shape-corner-md);
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.helios-drag-handle {
+  color: var(--md-sys-color-outline);
+  cursor: grab;
+}
+
+.helios-app-row--dragover {
+  box-shadow: inset 0 2px 0 var(--md-sys-color-primary);
+}
+
+.helios-name-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.helios-name-row .md-button {
+  margin-top: 0.5rem;
+}
+
+.helios-cover-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+}
+
+/* Sticky action bar for the configuration page. */
+.helios-save-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 15;
+  margin: 1.5rem -1.5rem -5rem;
+  padding: 1rem 1.5rem 1.5rem;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--md-sys-color-surface-container-lowest) 35%
+  );
+}
+
+.helios-save-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+  border-radius: var(--md-sys-shape-corner-xl);
+  background-color: var(--md-sys-color-surface-container);
+  box-shadow: var(--md-sys-elevation-2);
+}
+
+@media (min-width: 905px) {
+  .helios-save-bar {
+    margin-inline: -2rem;
+    padding-inline: 2rem;
+  }
+}
+
+/* A field that belongs to the option above it. */
+.helios-nested-field {
+  margin-inline-start: 1.5rem;
+}

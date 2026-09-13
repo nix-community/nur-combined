@@ -1,0 +1,19 @@
+/*
+ * Helios web UI stylesheet.
+ *
+ * Material 3 Expressive, built from tokens rather than a CSS framework. Fonts
+ * are self-hosted: the host has to work on a LAN with no internet, so nothing
+ * here may reach for a CDN.
+ *
+ * Roboto Flex ships as the weight-axis-only variable cut (~110 KB across all
+ * unicode subsets, and browsers fetch only the ranges a locale actually uses).
+ * Material Symbols is subset to the icons this UI names; see
+ * scripts/build-material-symbols.py.
+ */
+
+@import '@fontsource-variable/roboto-flex/wght.css';
+
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './utilities.css';

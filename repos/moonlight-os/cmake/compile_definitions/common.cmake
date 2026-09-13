@@ -78,6 +78,8 @@ set(SUNSHINE_TARGET_FILES
         "${CMAKE_SOURCE_DIR}/src/logging.h"
         "${CMAKE_SOURCE_DIR}/src/main.cpp"
         "${CMAKE_SOURCE_DIR}/src/main.h"
+        "${CMAKE_SOURCE_DIR}/src/telemetry.cpp"
+        "${CMAKE_SOURCE_DIR}/src/telemetry.h"
         "${CMAKE_SOURCE_DIR}/src/crypto.cpp"
         "${CMAKE_SOURCE_DIR}/src/crypto.h"
         "${CMAKE_SOURCE_DIR}/src/nvhttp.cpp"
@@ -131,6 +133,7 @@ endif()
 list(APPEND SUNSHINE_DEFINITIONS SUNSHINE_ASSETS_DIR="${SUNSHINE_ASSETS_DIR_DEF}")
 
 list(APPEND SUNSHINE_DEFINITIONS SUNSHINE_TRAY=${SUNSHINE_TRAY})
+list(APPEND SUNSHINE_DEFINITIONS TELEMETRY_URL="${TELEMETRY_URL}")
 
 # Publisher metadata
 list(APPEND SUNSHINE_DEFINITIONS SUNSHINE_PUBLISHER_NAME="${SUNSHINE_PUBLISHER_NAME}")

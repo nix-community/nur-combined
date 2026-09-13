@@ -1,111 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
   <%- header %>
-    <style>
-      .config-page {
-        padding: 1em;
-        border: 1px solid #dee2e6;
-        border-top: none;
-      }
-
-      .pre-wrap {
-        white-space: pre-wrap;
-      }
-
-      .buttons {
-        padding: 1em 0;
-      }
-    </style>
 </head>
 
 <body id="app" v-cloak>
-  <Navbar></Navbar>
-  <div class="container">
-    <h1 class="my-4">{{ $t('config.configuration') }}</h1>
-    <div class="form" v-if="config">
-      <!-- Header -->
-      <ul class="nav nav-tabs">
-        <li class="nav-item" v-for="tab in tabs" :key="tab.id">
-          <a class="nav-link" :class="{'active': tab.id === currentTab}" href="#"
-            @click="currentTab = tab.id">{{tab.name}}</a>
-        </li>
-      </ul>
+  <app-frame page="config" :title="$t('config.configuration')">
+    <div class="stack-lg" v-if="config">
+      <div class="md-tabs" role="tablist">
+        <button
+          v-for="tab in tabs"
+          :key="tab.id"
+          type="button"
+          role="tab"
+          class="md-tab"
+          :class="{ 'md-tab--active': tab.id === currentTab }"
+          :aria-selected="tab.id === currentTab"
+          @click="currentTab = tab.id"
+        >
+          <icon :name="tab.icon"></icon>{{tab.name}}
+        </button>
+      </div>
 
-      <!-- General Tab -->
-      <general
-        v-if="currentTab === 'general'"
-        :config="config"
-        :global-prep-cmd="global_prep_cmd"
-        :global-state-cmd="global_state_cmd"
-        :server-cmd="server_cmd"
-        :platform="platform">
-      </general>
+      <section class="md-card md-card--elevated">
+        <div class="md-card__body">
+          <!-- General Tab -->
+          <general
+            v-if="currentTab === 'general'"
+            :config="config"
+            :global-prep-cmd="global_prep_cmd"
+            :global-state-cmd="global_state_cmd"
+            :server-cmd="server_cmd"
+            :platform="platform">
+          </general>
 
-      <!-- Input Tab -->
-      <inputs
-        v-if="currentTab === 'input'"
-        :config="config"
-        :platform="platform">
-      </inputs>
+          <!-- Input Tab -->
+          <inputs
+            v-if="currentTab === 'input'"
+            :config="config"
+            :platform="platform">
+          </inputs>
 
-      <!-- Audio/Video Tab -->
-      <audio-video
-        v-if="currentTab === 'av'"
-        :config="config"
-        :platform="platform"
-        :vdisplay="vdisplayStatus"
-      >
-      </audio-video>
+          <!-- Audio/Video Tab -->
+          <audio-video
+            v-if="currentTab === 'av'"
+            :config="config"
+            :platform="platform"
+            :vdisplay="vdisplayStatus"
+          >
+          </audio-video>
 
-      <!-- Network Tab -->
-      <network
-        v-if="currentTab === 'network'"
-        :config="config"
-        :platform="platform">
-      </network>
+          <!-- Network Tab -->
+          <network
+            v-if="currentTab === 'network'"
+            :config="config"
+            :platform="platform">
+          </network>
 
-      <!-- Files Tab -->
-      <files
-        v-if="currentTab === 'files'"
-        :config="config"
-        :platform="platform">
-      </files>
+          <!-- Files Tab -->
+          <files
+            v-if="currentTab === 'files'"
+            :config="config"
+            :platform="platform">
+          </files>
 
-      <!-- Advanced Tab -->
-      <advanced
-        v-if="currentTab === 'advanced'"
-        :config="config"
-        :platform="platform">
-      </advanced>
+          <!-- Advanced Tab -->
+          <advanced
+            v-if="currentTab === 'advanced'"
+            :config="config"
+            :platform="platform">
+          </advanced>
 
-      <container-encoders
-        :current-tab="currentTab"
-        :config="config"
-        :platform="platform">
-      </container-encoders>
+          <container-encoders
+            :current-tab="currentTab"
+            :config="config"
+            :platform="platform">
+          </container-encoders>
+        </div>
+      </section>
     </div>
 
-    <!-- Save and Apply buttons -->
-    <div class="alert alert-success my-4" v-if="saved && !restarted">
-      <b>{{ $t('_common.success') }}</b> {{ $t('config.apply_note') }}
+    <div v-else class="md-empty">
+      <span class="md-spinner md-spinner--lg"></span>
     </div>
-    <div class="alert alert-success my-4" v-if="restarted">
-      <b>{{ $t('_common.success') }}</b> {{ $t('config.restart_note') }}
+
+    <!-- Save and Apply. Pinned to the bottom of the viewport: the tabs are long
+         and the buttons should never be a scroll away. -->
+    <div class="helios-save-bar">
+      <div class="helios-save-bar__inner">
+        <banner variant="success" class="flex-1" v-if="saved && !restarted">
+          <b>{{ $t('_common.success') }}</b> {{ $t('config.apply_note') }}
+        </banner>
+        <banner variant="success" class="flex-1" v-if="restarted">
+          <b>{{ $t('_common.success') }}</b> {{ $t('config.restart_note') }}
+        </banner>
+        <div class="flex gap-2 ms-auto">
+          <button class="md-button md-button--tonal md-button--md" v-if="saved && !restarted" @click="apply">
+            <icon name="restart_alt"></icon>{{ $t('_common.apply') }}
+          </button>
+          <button class="md-button md-button--filled md-button--md" @click="save">
+            <icon name="save"></icon>{{ $t('_common.save') }}
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="mb-3 buttons">
-      <button class="btn btn-primary" @click="save">{{ $t('_common.save') }}</button>
-      <button class="btn btn-success mx-2" @click="apply" v-if="saved && !restarted">{{ $t('_common.apply') }}</button>
-    </div>
-  </div>
+  </app-frame>
 </body>
-
 
 <script type="module">
   import { computed, createApp } from 'vue'
   import { initApp } from './init'
-  import Navbar from './Navbar.vue'
+  import AppFrame from './AppFrame.vue'
+  import Banner from './Banner.vue'
   import General from './configs/tabs/General.vue'
   import Inputs from './configs/tabs/Inputs.vue'
   import Network from './configs/tabs/Network.vue'
@@ -119,7 +126,8 @@
 
   const app = createApp({
     components: {
-      Navbar,
+      AppFrame,
+      Banner,
       General,
       Inputs,
       Network,
@@ -143,6 +151,7 @@
         tabs: [ // TODO: Move the options to each Component instead, encapsulate.
           {
             id: "general",
+            icon: "tune",
             name: "General",
             options: {
               "locale": "en",
@@ -153,6 +162,8 @@
               "server_cmd": [],
               "notify_pre_releases": "disabled",
               "system_tray": "enabled",
+              "telemetry_enabled": "enabled",
+              "crash_reporting_enabled": "enabled",
               "hide_tray_controls": "disabled",
               "enable_pairing": "enabled",
               "enable_discovery": "enabled",
@@ -160,6 +171,7 @@
           },
           {
             id: "input",
+            icon: "sports_esports",
             name: "Input",
             options: {
               "controller": "enabled",
@@ -184,6 +196,7 @@
           },
           {
             id: "av",
+            icon: "videocam",
             name: "Audio/Video",
             options: {
               "audio_sink": "",
@@ -215,6 +228,7 @@
           },
           {
             id: "network",
+            icon: "lan",
             name: "Network",
             options: {
               "upnp": "disabled",
@@ -225,10 +239,12 @@
               "lan_encryption_mode": 0,
               "wan_encryption_mode": 1,
               "ping_timeout": 10000,
+              "enable_quic": "disabled",
             },
           },
           {
             id: "files",
+            icon: "folder",
             name: "Config Files",
             options: {
               "file_apps": "",
@@ -241,6 +257,7 @@
           },
           {
             id: "advanced",
+            icon: "science",
             name: "Advanced",
             options: {
               "fec_percentage": 20,
@@ -258,6 +275,7 @@
           },
           {
             id: "nv",
+            icon: "memory",
             name: "NVIDIA NVENC Encoder",
             options: {
               "nvenc_preset": 1,
@@ -273,6 +291,7 @@
           },
           {
             id: "qsv",
+            icon: "memory",
             name: "Intel QuickSync Encoder",
             options: {
               "qsv_preset": "medium",
@@ -282,6 +301,7 @@
           },
           {
             id: "amd",
+            icon: "memory",
             name: "AMD AMF Encoder",
             options: {
               "amd_usage": "ultralowlatency",
@@ -295,6 +315,7 @@
           },
           {
             id: "vt",
+            icon: "memory",
             name: "VideoToolbox Encoder",
             options: {
               "vt_coder": "auto",
@@ -304,6 +325,7 @@
           },
           {
             id: "vaapi",
+            icon: "memory",
             name: "VA-API Encoder",
             options: {
               "vaapi_strict_rc_buffer": "disabled",
@@ -311,6 +333,7 @@
           },
           {
             id: "sw",
+            icon: "memory",
             name: "Software Encoder",
             options: {
               "sw_preset": "superfast",

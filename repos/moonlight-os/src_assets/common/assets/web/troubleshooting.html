@@ -1,145 +1,137 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
-      <%- header %>
-      <style>
-        .troubleshooting-logs {
-          white-space: pre;
-          font-family: monospace;
-          overflow: auto;
-          max-height: 500px;
-          min-height: 500px;
-          font-size: 16px;
-          position: relative;
-        }
-
-        .copy-icon {
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          padding: 8px;
-          cursor: pointer;
-          color: rgba(0, 0, 0, 1);
-          appearance: none;
-          border: none;
-          background: none;
-        }
-
-        .copy-icon:hover {
-          color: rgba(0, 0, 0, 0.75);
-        }
-
-        .copy-icon:active {
-          color: rgba(0, 0, 0, 1);
-        }
-      </style>
+  <%- header %>
 </head>
 
 <body id="app" v-cloak>
-  <Navbar></Navbar>
-  <div class="container">
-    <h1 class="my-4">{{ $t('troubleshooting.troubleshooting') }}</h1>
-    <!-- Force Close App -->
-    <div class="card p-2 my-4">
-      <div class="card-body">
-        <h2 id="close_apps">{{ $t('troubleshooting.force_close') }}</h2>
-        <br>
-        <p>{{ $t('troubleshooting.force_close_desc') }}</p>
-        <div class="alert alert-success" v-if="closeAppStatus === true">
-          {{ $t('troubleshooting.force_close_success') }}
-        </div>
-        <div class="alert alert-danger" v-if="closeAppStatus === false">
-          {{ $t('troubleshooting.force_close_error') }}
-        </div>
-        <div>
-          <button class="btn btn-warning" :disabled="closeAppPressed" @click="closeApp">
-            {{ $t('troubleshooting.force_close') }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Restart Helios -->
-    <div class="card p-2 my-4">
-      <div class="card-body">
-        <h2 id="restart">{{ $t('troubleshooting.restart_apollo') }}</h2>
-        <br>
-        <p>{{ $t('troubleshooting.restart_apollo_desc') }}</p>
-        <div class="alert alert-success" v-if="serverRestarting">
-          {{ $t('troubleshooting.restart_apollo_success') }}
-        </div>
-        <div>
-          <button class="btn btn-warning" :disabled="serverQuitting || serverRestarting" @click="restart">
-            {{ $t('troubleshooting.restart_apollo') }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Quit Helios -->
-    <div class="card p-2 my-4">
-      <div class="card-body">
-        <h2 id="quit">{{ $t('troubleshooting.quit_apollo') }}</h2>
-        <br>
-        <p>{{ $t('troubleshooting.quit_apollo_desc') }}</p>
-        <div class="alert alert-success" v-if="serverQuit">
-          {{ $t('troubleshooting.quit_apollo_success') }}
-        </div>
-        <div class="alert alert-success" v-if="serverQuitting">
-          {{ $t('troubleshooting.quit_apollo_success_ongoing') }}
-        </div>
-        <div>
-          <button class="btn btn-warning" :disabled="serverQuitting || serverRestarting" @click="quit">
-            {{ $t('troubleshooting.quit_apollo') }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Reset persistent display device settings -->
-    <div class="card p-2 my-4" v-if="platform === 'windows'">
-      <div class="card-body">
-        <h2 id="dd_reset">{{ $t('troubleshooting.dd_reset') }}</h2>
-        <br>
-        <p style="white-space: pre-line">{{ $t('troubleshooting.dd_reset_desc') }}</p>
-        <div class="alert alert-success" v-if="ddResetStatus === true">
-          {{ $t('troubleshooting.dd_reset_success') }}
-        </div>
-        <div class="alert alert-danger" v-if="ddResetStatus === false">
-          {{ $t('troubleshooting.dd_reset_error') }}
-        </div>
-        <div>
-          <button class="btn btn-warning" :disabled="ddResetPressed" @click="ddResetPersistence">
-            {{ $t('troubleshooting.dd_reset') }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Logs -->
-    <div class="card p-2 my-4">
-      <div class="card-body">
-        <h2 id="logs">{{ $t('troubleshooting.logs') }}</h2>
-        <br>
-        <div class="d-flex justify-content-between align-items-baseline py-2">
-          <p>{{ $t('troubleshooting.logs_desc') }}</p>
-          <input type="text" class="form-control" v-model="logFilter" :placeholder="$t('troubleshooting.logs_find')" style="width: 300px">
-        </div>
-        <div>
-          <div class="troubleshooting-logs">
-            <button class="copy-icon"><i class="fas fa-copy " @click="copyLogs"></i></button>{{actualLogs}}
+  <app-frame page="troubleshooting" :title="$t('troubleshooting.troubleshooting')">
+    <div class="stack-lg">
+      <div class="helios-actions-grid">
+        <!-- Force Close App -->
+        <section class="md-card md-card--elevated" id="close_apps">
+          <div class="md-card__body">
+            <span class="md-card__badge"><icon name="stop" filled ></icon></span>
+            <h2 class="md-card__title mt-4">{{ $t('troubleshooting.force_close') }}</h2>
+            <p class="md-card__supporting">{{ $t('troubleshooting.force_close_desc') }}</p>
+            <button class="md-button md-button--tonal mt-4" :disabled="closeAppPressed" @click="closeApp">
+              <icon name="stop"></icon>{{ $t('troubleshooting.force_close') }}
+            </button>
+            <banner variant="success" class="mt-4" v-if="closeAppStatus === true">
+              {{ $t('troubleshooting.force_close_success') }}
+            </banner>
+            <banner variant="error" class="mt-4" v-if="closeAppStatus === false">
+              {{ $t('troubleshooting.force_close_error') }}
+            </banner>
           </div>
-        </div>
+        </section>
+
+        <!-- Restart Helios -->
+        <section class="md-card md-card--elevated" id="restart">
+          <div class="md-card__body">
+            <span class="md-card__badge"><icon name="restart_alt" filled ></icon></span>
+            <h2 class="md-card__title mt-4">{{ $t('troubleshooting.restart_apollo') }}</h2>
+            <p class="md-card__supporting">{{ $t('troubleshooting.restart_apollo_desc') }}</p>
+            <button
+              class="md-button md-button--tonal mt-4"
+              :disabled="serverQuitting || serverRestarting"
+              @click="restart"
+            >
+              <icon name="restart_alt"></icon>{{ $t('troubleshooting.restart_apollo') }}
+            </button>
+            <banner variant="success" class="mt-4" v-if="serverRestarting">
+              {{ $t('troubleshooting.restart_apollo_success') }}
+            </banner>
+          </div>
+        </section>
+
+        <!-- Quit Helios -->
+        <section class="md-card md-card--elevated" id="quit">
+          <div class="md-card__body">
+            <span class="md-card__badge"><icon name="power_settings_new" filled ></icon></span>
+            <h2 class="md-card__title mt-4">{{ $t('troubleshooting.quit_apollo') }}</h2>
+            <p class="md-card__supporting">{{ $t('troubleshooting.quit_apollo_desc') }}</p>
+            <button
+              class="md-button md-button--tonal md-button--danger mt-4"
+              :disabled="serverQuitting || serverRestarting"
+              @click="quit"
+            >
+              <icon name="power_settings_new"></icon>{{ $t('troubleshooting.quit_apollo') }}
+            </button>
+            <banner variant="success" class="mt-4" v-if="serverQuit">
+              {{ $t('troubleshooting.quit_apollo_success') }}
+            </banner>
+            <banner variant="success" class="mt-4" v-if="serverQuitting">
+              {{ $t('troubleshooting.quit_apollo_success_ongoing') }}
+            </banner>
+          </div>
+        </section>
+
+        <!-- Reset persistent display device settings -->
+        <section class="md-card md-card--elevated" id="dd_reset" v-if="platform === 'windows'">
+          <div class="md-card__body">
+            <span class="md-card__badge"><icon name="display_settings" filled ></icon></span>
+            <h2 class="md-card__title mt-4">{{ $t('troubleshooting.dd_reset') }}</h2>
+            <p class="md-card__supporting pre-wrap">{{ $t('troubleshooting.dd_reset_desc') }}</p>
+            <button class="md-button md-button--tonal mt-4" :disabled="ddResetPressed" @click="ddResetPersistence">
+              <icon name="restart_alt"></icon>{{ $t('troubleshooting.dd_reset') }}
+            </button>
+            <banner variant="success" class="mt-4" v-if="ddResetStatus === true">
+              {{ $t('troubleshooting.dd_reset_success') }}
+            </banner>
+            <banner variant="error" class="mt-4" v-if="ddResetStatus === false">
+              {{ $t('troubleshooting.dd_reset_error') }}
+            </banner>
+          </div>
+        </section>
       </div>
+
+      <!-- Logs -->
+      <section class="md-card md-card--elevated" id="logs">
+        <div class="md-card__body">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="md-card__badge"><icon name="description" filled ></icon></span>
+              <div>
+                <h2 class="md-card__title">{{ $t('troubleshooting.logs') }}</h2>
+                <p class="md-card__supporting">{{ $t('troubleshooting.logs_desc') }}</p>
+              </div>
+            </div>
+            <text-field
+              class="helios-log-filter"
+              id="logFilter"
+              dense
+              :placeholder="$t('troubleshooting.logs_find')"
+              v-model="logFilter"
+            >
+              <template #trailing><icon name="search"></icon></template>
+            </text-field>
+          </div>
+
+          <div class="helios-logs mt-4">
+            <button
+              type="button"
+              class="md-icon-button helios-logs__copy"
+              :aria-label="$t('_common.copy')"
+              @click="copyLogs"
+            >
+              <icon name="content_copy"></icon>
+            </button>{{actualLogs}}</div>
+        </div>
+      </section>
     </div>
-  </div>
+  </app-frame>
 
   <script type="module">
     import { createApp } from 'vue'
     import { initApp } from './init'
-    import Navbar from './Navbar.vue'
+    import AppFrame from './AppFrame.vue'
+    import Banner from './Banner.vue'
+    import TextField from './TextField.vue'
 
     const app = createApp({
-      components: {
-        Navbar
-      },
+      components: { AppFrame, Banner, TextField },
       inject: ['i18n'],
       data() {
         return {
@@ -299,3 +291,4 @@
   </script>
 
 </body>
+</html>

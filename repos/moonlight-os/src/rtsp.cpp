@@ -511,6 +511,8 @@ namespace rtsp_stream {
       std::lock_guard lock(_pending_mutex);
       prune_pending_locked(now);
       const auto id = launch_session->id;
+      BOOST_LOG(debug) << "Queued pending RTSP launch session ["sv << id
+                       << "] QUIC ["sv << static_cast<bool>(launch_session->quic_ticket) << ']';
       _pending_sessions.insert_or_assign(id, pending_session_t {
         std::move(launch_session), now + config::stream.ping_timeout, _next_pending_order++
       });
@@ -536,6 +538,7 @@ namespace rtsp_stream {
       const auto now = std::chrono::steady_clock::now();
       std::lock_guard lock(_pending_mutex);
       prune_pending_locked(now);
+
       const auto session = _pending_sessions.find(launch_session_id);
       if (session == _pending_sessions.end() || !session->second.session->quic_ticket) {
         return false;
@@ -719,6 +722,10 @@ namespace rtsp_stream {
       std::lock_guard lock(_pending_mutex);
       prune_pending_locked(now);
 
+      BOOST_LOG(debug) << "Claiming pending RTSP launch session; requested ID ["sv
+                       << (launch_session_id ? std::to_string(*launch_session_id) : "legacy"s)
+                       << "] available ["sv << _pending_sessions.size() << ']';
+
       auto selected = _pending_sessions.end();
       if (launch_session_id) {
         selected = _pending_sessions.find(*launch_session_id);
@@ -736,17 +743,12 @@ namespace rtsp_stream {
       if (selected == _pending_sessions.end()) {
         return nullptr;
       }
-      if (launch_session_id) {
-        // QUIC authenticates every short-lived RTSP proxy against one launch
-        // ticket. Keep that launch state until the handshake finishes so the
-        // subsequent SETUP, ANNOUNCE, and PLAY streams can claim the same
-        // session, matching the legacy launch-event behaviour.
-        selected->second.expires = now + config::stream.ping_timeout;
-        return selected->second.session;
-      }
-      auto session = std::move(selected->second.session);
-      _pending_sessions.erase(selected);
-      return session;
+      // Both vanilla Moonlight and the QUIC proxy can use a fresh TCP
+      // connection for each RTSP phase. Keep the launch state available until
+      // the control stream establishes and clears it, matching the original
+      // launch-event behaviour.
+      selected->second.expires = now + config::stream.ping_timeout;
+      return selected->second.session;
     }
 
     void arm_pending_cleanup() {

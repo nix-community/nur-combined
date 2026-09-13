@@ -5,6 +5,7 @@
 // standard includes
 #include <codecvt>
 #include <csignal>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
@@ -20,6 +21,7 @@
 #include "process.h"
 #include "quic_transport.h"
 #include "system_tray.h"
+#include "telemetry.h"
 #include "upnp.h"
 #include "usb_compat.h"
 #include "usb_backend.h"
@@ -38,6 +40,32 @@ extern "C" {
 }
 
 using namespace std::literals;
+
+#ifdef _WIN32
+namespace {
+  bool set_working_directory_to_executable() {
+    std::wstring executable_path(32768, L'\0');
+    const auto length = GetModuleFileNameW(
+      nullptr,
+      executable_path.data(),
+      static_cast<DWORD>(executable_path.size())
+    );
+    if (length == 0 || length >= executable_path.size()) {
+      std::cerr << "Failed to determine the Helios executable directory: " << GetLastError() << std::endl;
+      return false;
+    }
+
+    executable_path.resize(length);
+    const auto executable_directory = std::filesystem::path {executable_path}.parent_path();
+    if (!SetCurrentDirectoryW(executable_directory.c_str())) {
+      std::cerr << "Failed to use the Helios executable directory: " << GetLastError() << std::endl;
+      return false;
+    }
+
+    return true;
+  }
+}  // namespace
+#endif
 
 std::map<int, std::function<void()>> signal_handlers;
 
@@ -151,6 +179,13 @@ int main(int argc, char *argv[]) {
   // Avoid searching the PATH in case a user has configured their system insecurely
   // by placing a user-writable directory in the system-wide PATH variable.
   SetDefaultDllDirectories(LOAD_LIBRARY_SEARCH_APPLICATION_DIR | LOAD_LIBRARY_SEARCH_SYSTEM32);
+
+  // Packaged Windows assets use paths relative to helios.exe. Service and
+  // Start Menu launches already start in the install directory, but direct
+  // invocations from PATH inherit the caller's working directory.
+  if (!set_working_directory_to_executable()) {
+    return 1;
+  }
 
   setlocale(LC_ALL, "C");
 #endif
@@ -340,8 +375,6 @@ int main(int argc, char *argv[]) {
   SetConsoleCtrlHandler(ConsoleCtrlHandler, TRUE);
 #endif
 
-  proc::refresh(config::stream.file_apps);
-
   // If any of the following fail, we log an error and continue event though helios will not function correctly.
   // This allows access to the UI to fix configuration problems or view the logs.
 
@@ -349,6 +382,16 @@ int main(int argc, char *argv[]) {
   if (!platf_deinit_guard) {
     BOOST_LOG(error) << "Platform failed to initialize"sv;
   }
+
+#ifdef __linux__
+  // Prepare an isolated headless compositor before application definitions
+  // capture their launch environment. Existing Sway sessions are reused;
+  // other desktops keep running untouched while streamed apps use the private
+  // Wayland display.
+  (void) platf::virtual_display_topology_available();
+#endif
+
+  proc::refresh(config::stream.file_apps);
 
   auto proc_deinit_guard = proc::init();
   if (!proc_deinit_guard) {
@@ -416,6 +459,7 @@ int main(int argc, char *argv[]) {
 
     return -1;
   }
+  auto telemetry_deinit_guard = telemetry::start();
   auto usb_compat_deinit_guard = usb_compat::start();
 
   std::unique_ptr<platf::deinit_t> mDNS;
@@ -436,13 +480,18 @@ int main(int argc, char *argv[]) {
   }
 
 #ifdef HAVE_MSQUIC
-  if (quic_transport::start_server(config::nvhttp.cert, config::nvhttp.pkey,
-                                   net::map_port(quic_transport::PORT),
-                                   static_cast<std::uint16_t>(config::helios.port))) {
-    BOOST_LOG(info) << "Moonlight OS QUIC listening on UDP "sv
-                    << net::map_port(quic_transport::PORT);
+  if (config::helios.enable_quic) {
+    BOOST_LOG(warning) << "Highly experimental Moonlight OS QUIC transport is enabled"sv;
+    if (quic_transport::start_server(config::nvhttp.cert, config::nvhttp.pkey,
+                                     net::map_port(quic_transport::PORT),
+                                     static_cast<std::uint16_t>(config::helios.port))) {
+      BOOST_LOG(info) << "Moonlight OS QUIC listening on UDP "sv
+                      << net::map_port(quic_transport::PORT);
+    } else {
+      BOOST_LOG(warning) << "Moonlight OS QUIC failed to initialize; using standard transports"sv;
+    }
   } else {
-    BOOST_LOG(warning) << "Moonlight OS QUIC failed to initialize; using vanilla transports"sv;
+    BOOST_LOG(info) << "Moonlight OS QUIC is disabled; using standard transports"sv;
   }
 #endif
 

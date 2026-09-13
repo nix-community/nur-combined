@@ -73,9 +73,6 @@ namespace upnp {
       auto microphone = std::to_string(net::map_port(stream::MICROPHONE_STREAM_PORT));
       auto camera = std::to_string(net::map_port(stream::CAMERA_STREAM_PORT));
       auto control = std::to_string(net::map_port(stream::CONTROL_PORT));
-#ifdef HAVE_MSQUIC
-      auto quic = std::to_string(net::map_port(quic_transport::PORT));
-#endif
       auto gs_http = std::to_string(net::map_port(nvhttp::PORT_HTTP));
       auto gs_https = std::to_string(net::map_port(nvhttp::PORT_HTTPS));
       auto wm_http = std::to_string(net::map_port(confighttp::PORT_HTTPS));
@@ -87,12 +84,17 @@ namespace upnp {
         {{microphone, microphone, "UDP"s}, "Helios - Microphone"s},
         {{camera, camera, "UDP"s}, "Helios - Camera"s},
         {{control, control, "UDP"s}, "Helios - Control"s},
-#ifdef HAVE_MSQUIC
-        {{quic, quic, "UDP"s}, "Helios - Moonlight OS QUIC"s},
-#endif
         {{gs_http, gs_http, "TCP"s}, "Helios - Client HTTP"s},
         {{gs_https, gs_https, "TCP"s}, "Helios - Client HTTPS"s},
       });
+
+#ifdef HAVE_MSQUIC
+      if (config::helios.enable_quic) {
+        auto quic = std::to_string(net::map_port(quic_transport::PORT));
+        mappings.emplace_back(mapping_t {{quic, quic, "UDP"s},
+                                         "Helios - Moonlight OS QUIC (experimental)"s});
+      }
+#endif
 
       // Only map port for the Web Manager if it is configured to accept connection from WAN
       if (net::from_enum_string(config::nvhttp.origin_web_ui_allowed) > net::LAN) {

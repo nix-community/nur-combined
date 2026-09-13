@@ -88,6 +88,7 @@ Requires: openssl >= 3.0.2
 Requires: pulseaudio-libs >= 10.0
 Requires: usbip
 Requires: which >= 2.21
+Recommends: sway
 
 %description
 Self-hosted game stream host for Moonlight.

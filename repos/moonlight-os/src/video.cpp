@@ -325,10 +325,18 @@ namespace video {
     avcodec_encode_session_t(avcodec_encode_session_t &&other) noexcept = default;
 
     ~avcodec_encode_session_t() {
-      // Flush any remaining frames in the encoder
-      if (avcodec_send_frame(avcodec_ctx.get(), nullptr) == 0) {
-        packet_raw_avcodec pkt;
-        while (avcodec_receive_packet(avcodec_ctx.get(), pkt.av_packet) == 0);
+      // Flushing an AMF encoder during teardown may block indefinitely in the
+      // AMD runtime. We discard teardown packets anyway, and freeing the codec
+      // context still releases the encoder normally.
+      const char *codec_name = avcodec_ctx && avcodec_ctx->codec ? avcodec_ctx->codec->name : nullptr;
+      const bool is_amf = codec_name && std::string_view {codec_name}.ends_with("_amf");
+
+      if (!is_amf) {
+        // Flush any remaining frames in the encoder
+        if (avcodec_send_frame(avcodec_ctx.get(), nullptr) == 0) {
+          packet_raw_avcodec pkt;
+          while (avcodec_receive_packet(avcodec_ctx.get(), pkt.av_packet) == 0);
+        }
       }
 
       // Order matters here because the context relies on the hwdevice still being valid

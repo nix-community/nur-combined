@@ -1,222 +1,356 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
   <%- header %>
-
   <script type="text/javascript" src="/assets/js/qrcode.min.js"></script>
-  <style scoped type="text/css">
-    .content-container {
-      padding-top: 2em;
-    }
-
-    .pin-tab-bar {
-      margin-bottom: 2em !important;
-    }
-  </style>
 </head>
 
 <body id="app" v-cloak>
-  <Navbar></Navbar>
-  <div id="content" class="container content-container d-flex flex-column align-items-center">
-    <ul class="nav nav-pills pin-tab-bar justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link" :class="{active: currentTab !== '#PIN'}" href="#OTP" @click.prevent="switchTab('OTP')">{{ $t('pin.otp_pairing') }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" :class="{active: currentTab === '#PIN'}" href="#PIN" @click.prevent="switchTab('PIN')">{{ $t('pin.pin_pairing') }}</a>
-      </li>
-    </ul>
-    <form v-if="currentTab === '#PIN'" class="form d-flex flex-column align-items-center" id="form" @submit.prevent="registerDevice">
-      <div class="card flex-column d-flex p-4 mb-4">
-        <input type="text" pattern="\d*" :placeholder="`${$t('navbar.pin')}`" autofocus id="pin-input" class="form-control mt-2" required />
-        <input type="text" :placeholder="`${$t('pin.device_name')}`" id="name-input" class="form-control my-4" />
-        <button class="btn btn-primary">{{ $t('pin.send') }}</button>
-      </div>
-      <div id="status"></div>
-    </form>
-    <form v-else class="form d-flex flex-column align-items-center" @submit.prevent="requestOTP">
-      <div class="card flex-column d-flex p-4 mb-4">
-        <div v-show="editingHost || (otp && hostAddr)" id="qrRef"></div>
-        <p v-if="editingHost || (otp && hostAddr)" class="text-center text-secondary"><a class="text-secondary" :href="deepLink">art://{{ hostAddr }}:{{ hostPort }}</a> <i class="fas fa-fw fa-pen-to-square" @click="editHost"></i></p>
-        <h1 class="mb-4 text-center">{{ otp && otp || '????' }}</h1>
-        <div v-if="editingHost" class="d-flex flex-column align-items-stretch">
-          <input type="text" placeholder="HOST" v-model="hostAddr" autofocus class="form-control mt-2" />
-          <input type="text" placeholder="PORT" v-model="hostPort" class="form-control my-4" />
-          <button class="btn btn-primary" :disabled="!this.canSaveHost" @click.prevent="saveHost">{{ $t('_common.save') }}</button>
+  <app-frame page="pin" :title="$t('navbar.pin')">
+    <div class="stack-lg">
+      <div class="helios-pair">
+        <div class="md-tabs md-tabs--pills self-start mx-auto" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            class="md-tab"
+            :class="{ 'md-tab--active': currentTab !== '#PIN' }"
+            :aria-selected="currentTab !== '#PIN'"
+            @click="switchTab('OTP')"
+          >
+            <icon name="qr_code_2"></icon>{{ $t('pin.otp_pairing') }}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            class="md-tab"
+            :class="{ 'md-tab--active': currentTab === '#PIN' }"
+            :aria-selected="currentTab === '#PIN'"
+            @click="switchTab('PIN')"
+          >
+            <icon name="vpn_key"></icon>{{ $t('pin.pin_pairing') }}
+          </button>
         </div>
-        <div v-else class="d-flex flex-column align-items-stretch">
-          <input type="text" pattern="[0-9a-zA-Z]{4,}" :placeholder="`${$t('pin.otp_passphrase')}`" v-model="passphrase" required autofocus class="form-control mt-2" />
-          <input type="text" :placeholder="`${$t('pin.device_name')}`" v-model="deviceName" class="form-control my-4" />
-          <button class="btn btn-primary">{{ $t('pin.generate_pin') }}</button>
-        </div>
-      </div>
-      <div v-if="otpMessage" class="alert" :class="['alert-' + otpStatus]">{{ otpMessage }}</div>
-      <div class="alert alert-info">{{ $t('pin.otp_msg') }}</div>
-    </form>
-    <div class="alert alert-warning">
-      <b>{{ $t('_common.warning') }}</b> {{ $t('pin.warning_msg') }}
-    </div>
-    <!-- Manage Clients -->
-    <div class="card my-4 align-self-stretch">
-      <div class="card-body">
-        <div class="p-2">
-          <div class="d-flex justify-content-end align-items-center">
-            <h2 id="unpair" class="me-auto">{{ $t('pin.device_management') }}</h2>
-            <button class="btn btn-danger" :disabled="unpairAllPressed" @click="unpairAll">
-              {{ $t('pin.unpair_all') }}
-            </button>
-          </div>
-          <br />
-          <p class="mb-0">{{ $t('pin.device_management_desc') }}</p>
-          <p class="mb-0">{{ $t('pin.device_management_warning') }} <a href="https://github.com/ClassicOldSong/Apollo/wiki/Permission-System" target="_blank">{{ $t('_common.learn_more') }}</a></p>
-          <div id="apply-alert" class="alert alert-success d-flex align-items-center mt-3" :style="{ 'display': (showApplyMessage ? 'flex !important': 'none !important') }">
-            <div class="me-2"><b>{{ $t('_common.success') }}</b> {{ $t('pin.unpair_single_success') }}</div>
-            <button class="btn btn-success ms-auto apply" @click="clickedApplyBanner">{{ $t('_common.dismiss') }}</button>
-          </div>
-          <div class="alert alert-success mt-3" v-if="unpairAllStatus === true">
-            {{ $t('pin.unpair_all_success') }}
-          </div>
-          <div class="alert alert-danger mt-3" v-if="unpairAllStatus === false">
-            {{ $t('pin.unpair_all_error') }}
-          </div>
-        </div>
-      </div>
-      <ul id="client-list" class="list-group list-group-flush list-group-item-light" v-if="clients && clients.length > 0">
-        <template v-for="client in clients" class="list-group-item d-flex align-items-center">
-          <div v-if="client.editing" class="list-group-item d-flex align-items-stretch flex-column">
-            <div class="d-flex align-items-center">
-              <div class="p-2 flex-grow-1 d-flex align-items-center">
-                <span class="badge" :class="client.editPerm >= 0x04000000 ? 'bg-danger' : 'bg-primary'">
-                  [ {{permToStr(client.editPerm)}} ]
-                </span>
-                &nbsp;
-                <input v-model="client.editName" @keyup.enter="saveClient(client)" class="form-control flex-grow-1" type="text" :placeholder="$t('pin.device_name')">
-              </div>
-              <div class="me-2 btn btn-success" @click="saveClient(client)"><i class="fas fa-check"></i></div>
-              <div class="me-2 btn btn-secondary" @click="cancelEdit(client)"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="align-items-top d-flex flex-row justify-content-center">
-              <div v-for="group in permissionGroups" class="d-flex flex-column mx-2">
-                <div class="mx-2">{{ group.name }}:</div>
-                <button v-for="perm in group.permissions" class="my-1 btn btn-sm" :disabled="isSuppressed(client.editPerm, perm.name, perm.suppressed_by)" :class="(isSuppressed(client.editPerm, perm.name, perm.suppressed_by) || checkPermission(client.editPerm, perm.name)) ? 'btn-success' : 'btn-outline-secondary'" @click="togglePermission(client, perm.name)">
-                  {{ $t(`permissions.${perm.name}`) }}
-                </button>
-              </div>
-            </div>
 
-            <!-- Enable legacy ordering -->
-            <Checkbox class="mb-3"
-                      id="enable_legacy_ordering"
-                      label="pin.enable_legacy_ordering"
-                      desc="pin.enable_legacy_ordering_desc"
-                      v-model="client.editEnableLegacyOrdering"
-                      default="true"
-            ></Checkbox>
-
-            <!-- Always Use Virtual Display -->
-            <Checkbox class="mb-3"
-                      id="always_use_virtual_display"
-                      label="pin.always_use_virtual_display"
-                      desc="pin.always_use_virtual_display_desc"
-                      v-model="client.editAlwaysUseVirtualDisplay"
-                      default="false"
-                      v-if="platform === 'windows'"
-            ></Checkbox>
-            <!-- Display Mode Override -->
-            <div class="mb-3 mt-2">
-              <label for="display_mode_override" class="form-label">{{ $t('pin.display_mode_override') }}</label>
-              <input
-                type="text"
-                class="form-control"
-                id="display_mode_override"
-                v-model="client.editDisplayMode"
-                placeholder="1920x1080x59.94"
-                @input="validateModeOverride"
-              />
-              <div class="form-text">{{ $t('pin.display_mode_override_desc') }} <a href="https://github.com/ClassicOldSong/Apollo/wiki/Display-Mode-Override" target="_blank">{{ $t('_common.learn_more') }}</a></div>
-            </div>
-
-            <!-- Allow client commands -->
-            <Checkbox class="mb-3"
-                      id="allow_client_commands"
-                      label="pin.allow_client_commands"
-                      desc="pin.allow_client_commands_desc"
-                      v-model="client.editAllowClientCommands"
-                      default="true"
-            ></Checkbox>
-
-            <!-- connect/disconnect commands -->
-            <div class="mb-3 mt-2 d-flex flex-column" v-for="cmdType in ['do', 'undo']" v-if="client.editAllowClientCommands">
-              <label class="mb-0 orm-label">{{ $t(`pin.client_${cmdType}_cmd`) }}</label>
-              <div class="form-text">{{ $t(`pin.client_${cmdType}_cmd_desc`) }} <a href="https://github.com/ClassicOldSong/Apollo/wiki/Client-Commands" target="_blank">{{ $t('_common.learn_more') }}</a></div>
-              <table class="mt-2 table" v-if="client[`edit_${cmdType}`].length > 0">
-                <thead>
-                  <tr>
-                    <th style="width: 80%"><i class="fas fa-terminal"></i> {{ $t('_common.cmd_val') }}</th>
-                    <th style="min-width: 10em; max-width: 12em;" v-if="platform === 'windows'">
-                      <i class="fas fa-shield-alt"></i> {{ $t('_common.run_as') }}
-                    </th>
-                    <th style="min-width: 110px;"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(c, i) in client[`edit_${cmdType}`]">
-                  <td>
-                    <input type="text" class="form-control monospace" v-model="c.cmd" />
-                  </td>
-                  <td v-if="platform === 'windows'">
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" :id="`client-${cmdType}-cmd-admin-${i}`" v-model="c.elevated"/>
-                      <label :for="`client-${cmdType}-cmd-admin-${i}`" class="form-check-label">{{ $t('_common.elevated') }}</label>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-danger me-2" @click="removeCmd(client[`edit_${cmdType}`], i)">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                    <button class="btn btn-success" @click="addCmd(client[`edit_${cmdType}`], i)">
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <button class="ms-0 mt-2 btn btn-success" style="margin: 0 auto" @click="addCmd(client[`edit_${cmdType}`], -1)">
-                &plus; {{ $t('config.add') }}
+        <!-- Classic PIN pairing -->
+        <form v-if="currentTab === '#PIN'" class="stack" @submit.prevent="registerDevice">
+          <section class="md-card md-card--elevated">
+            <div class="md-card__body stack">
+              <text-field
+                id="pin-input"
+                inputmode="numeric"
+                pattern="\d*"
+                :label="$t('navbar.pin')"
+                required
+                autofocus
+                v-model="pinCode"
+              ></text-field>
+              <text-field id="name-input" :label="$t('pin.device_name')" v-model="pinDeviceName"></text-field>
+              <button class="md-button md-button--filled md-button--md md-button--block">
+                <icon name="check"></icon>{{ $t('pin.send') }}
               </button>
             </div>
-          </div>
-          <div v-else class="list-group-item d-flex align-items-center">
-            <div class="p-2 flex-grow-1 d-flex align-items-center">
-              <span class="badge" :class="client.perm >= 0x04000000 ? 'bg-danger' : 'bg-primary'">
-                [ {{permToStr(client.perm)}} ]
-              </span>
-              &nbsp;
-              <span class="me-2">{{client.name != "" ? client.name : $t('pin.unpair_single_unknown')}}</span>
+          </section>
+          <banner v-if="pinStatus" :variant="pinStatus.variant">{{ pinStatus.message }}</banner>
+        </form>
+
+        <!-- One-time passphrase pairing -->
+        <form v-else class="stack" @submit.prevent="requestOTP">
+          <section class="md-card md-card--hero">
+            <div class="md-card__body flex flex-col items-center gap-4">
+              <div v-show="editingHost || (otp && hostAddr)" id="qrRef"></div>
+              <p v-if="editingHost || (otp && hostAddr)" class="md-body-small m-0">
+                <a :href="deepLink">art://{{ hostAddr }}:{{ hostPort }}</a>
+                <button
+                  type="button"
+                  class="md-icon-button md-icon-button--sm"
+                  :aria-label="$t('apps.edit')"
+                  @click="editHost"
+                >
+                  <icon name="edit"></icon>
+                </button>
+              </p>
+              <div class="helios-otp md-display-medium md-emphasized">{{ otp && otp || '????' }}</div>
             </div>
-            <div v-if="client.connected" class="me-2 btn btn-warning" @click="disconnectClient(client.uuid)"><i class="fas fa-link-slash"></i></div>
-            <div class="me-2 btn btn-primary" @click="editClient(client)"><i class="fas fa-edit"></i></div>
-            <div class="me-2 btn btn-danger" @click="unpairSingle(client.uuid)"><i class="fas fa-trash"></i></div>
+          </section>
+
+          <section class="md-card md-card--elevated">
+            <div class="md-card__body stack">
+              <template v-if="editingHost">
+                <text-field id="host-addr" label="HOST" autofocus v-model="hostAddr"></text-field>
+                <text-field id="host-port" label="PORT" v-model="hostPort"></text-field>
+                <button
+                  class="md-button md-button--filled md-button--md md-button--block"
+                  :disabled="!canSaveHost"
+                  @click.prevent="saveHost"
+                >
+                  <icon name="save"></icon>{{ $t('_common.save') }}
+                </button>
+              </template>
+              <template v-else>
+                <text-field
+                  id="otp-passphrase"
+                  pattern="[0-9a-zA-Z]{4,}"
+                  :label="$t('pin.otp_passphrase')"
+                  required
+                  autofocus
+                  v-model="passphrase"
+                ></text-field>
+                <text-field id="otp-device-name" :label="$t('pin.device_name')" v-model="deviceName"></text-field>
+                <button class="md-button md-button--filled md-button--md md-button--block">
+                  <icon name="qr_code_2"></icon>{{ $t('pin.generate_pin') }}
+                </button>
+              </template>
+            </div>
+          </section>
+
+          <banner v-if="otpMessage" :variant="otpStatus">{{ otpMessage }}</banner>
+          <banner variant="info">{{ $t('pin.otp_msg') }}</banner>
+        </form>
+
+        <banner variant="warning">
+          <b>{{ $t('_common.warning') }}</b> {{ $t('pin.warning_msg') }}
+        </banner>
+      </div>
+
+      <!-- Manage Clients -->
+      <section class="md-card md-card--elevated" id="unpair">
+        <div class="md-card__body">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="md-card__badge"><icon name="devices" filled ></icon></span>
+              <h2 class="md-card__title">{{ $t('pin.device_management') }}</h2>
+            </div>
+            <button
+              class="md-button md-button--outlined md-button--danger"
+              :disabled="unpairAllPressed"
+              @click="unpairAll"
+            >
+              <icon name="link_off"></icon>{{ $t('pin.unpair_all') }}
+            </button>
           </div>
-        </template>
-      </ul>
-      <ul v-else class="list-group list-group-flush list-group-item-light">
-        <div class="list-group-item p-3 text-center"><em>{{ $t('pin.unpair_single_no_devices') }}</em></div>
-      </ul>
+
+          <p class="md-card__supporting">{{ $t('pin.device_management_desc') }}</p>
+          <p class="md-card__supporting">
+            {{ $t('pin.device_management_warning') }}
+            <a href="https://github.com/ClassicOldSong/Apollo/wiki/Permission-System" target="_blank">
+              {{ $t('_common.learn_more') }}
+            </a>
+          </p>
+
+          <banner variant="success" class="mt-4" v-if="showApplyMessage">
+            <b>{{ $t('_common.success') }}</b> {{ $t('pin.unpair_single_success') }}
+            <template #action>
+              <button class="md-button md-button--text" @click="clickedApplyBanner">
+                {{ $t('_common.dismiss') }}
+              </button>
+            </template>
+          </banner>
+          <banner variant="success" class="mt-4" v-if="unpairAllStatus === true">
+            {{ $t('pin.unpair_all_success') }}
+          </banner>
+          <banner variant="error" class="mt-4" v-if="unpairAllStatus === false">
+            {{ $t('pin.unpair_all_error') }}
+          </banner>
+        </div>
+
+        <ul class="md-list" v-if="clients && clients.length > 0">
+          <template v-for="client in clients" :key="client.uuid">
+            <!-- Editing: the row expands into the full permission editor. -->
+            <li v-if="client.editing" class="md-list-item helios-client-editor">
+              <div class="flex items-center gap-3 w-full">
+                <span class="md-badge md-badge--mono" :class="client.editPerm >= 0x04000000 ? 'md-badge--error' : 'md-badge--primary'">
+                  {{permToStr(client.editPerm)}}
+                </span>
+                <text-field
+                  class="flex-1"
+                  :id="'client-name-' + client.uuid"
+                  dense
+                  :placeholder="$t('pin.device_name')"
+                  v-model="client.editName"
+                  @keyup.enter="saveClient(client)"
+                ></text-field>
+                <button class="md-icon-button md-icon-button--tonal md-icon-button--success" :aria-label="$t('_common.save')" @click="saveClient(client)">
+                  <icon name="check"></icon>
+                </button>
+                <button class="md-icon-button" :aria-label="$t('_common.cancel')" @click="cancelEdit(client)">
+                  <icon name="close"></icon>
+                </button>
+              </div>
+
+              <div class="helios-perm-groups">
+                <div v-for="group in permissionGroups" :key="group.name" class="stack-sm">
+                  <div class="md-label-medium text-muted">{{ group.name }}</div>
+                  <div class="md-chip-set">
+                    <button
+                      v-for="perm in group.permissions"
+                      :key="perm.name"
+                      type="button"
+                      class="md-chip"
+                      :disabled="isSuppressed(client.editPerm, perm.name, perm.suppressed_by)"
+                      :class="{ 'md-chip--selected': isSuppressed(client.editPerm, perm.name, perm.suppressed_by) || checkPermission(client.editPerm, perm.name) }"
+                      @click="togglePermission(client, perm.name)"
+                    >
+                      <icon
+                        v-if="isSuppressed(client.editPerm, perm.name, perm.suppressed_by) || checkPermission(client.editPerm, perm.name)"
+                        name="check"
+                      ></icon>
+                      {{ $t(`permissions.${perm.name}`) }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-full stack">
+                <!-- Enable legacy ordering -->
+                <checkbox
+                  id="enable_legacy_ordering"
+                  label="pin.enable_legacy_ordering"
+                  desc="pin.enable_legacy_ordering_desc"
+                  v-model="client.editEnableLegacyOrdering"
+                  default="true"
+                ></checkbox>
+
+                <!-- Always Use Virtual Display -->
+                <checkbox
+                  id="always_use_virtual_display"
+                  label="pin.always_use_virtual_display"
+                  desc="pin.always_use_virtual_display_desc"
+                  v-model="client.editAlwaysUseVirtualDisplay"
+                  default="false"
+                  v-if="platform === 'windows'"
+                ></checkbox>
+
+                <!-- Display Mode Override -->
+                <text-field
+                  id="display_mode_override"
+                  :label="$t('pin.display_mode_override')"
+                  placeholder="1920x1080x59.94"
+                  v-model="client.editDisplayMode"
+                  @input="validateModeOverride"
+                >
+                  <template #supporting>
+                    {{ $t('pin.display_mode_override_desc') }}
+                    <a href="https://github.com/ClassicOldSong/Apollo/wiki/Display-Mode-Override" target="_blank">
+                      {{ $t('_common.learn_more') }}
+                    </a>
+                  </template>
+                </text-field>
+
+                <!-- Allow client commands -->
+                <checkbox
+                  id="allow_client_commands"
+                  label="pin.allow_client_commands"
+                  desc="pin.allow_client_commands_desc"
+                  v-model="client.editAllowClientCommands"
+                  default="true"
+                ></checkbox>
+
+                <!-- connect/disconnect commands -->
+                <template v-if="client.editAllowClientCommands">
+                  <div class="stack-sm" v-for="cmdType in ['do', 'undo']" :key="cmdType">
+                    <div class="md-title-small">{{ $t(`pin.client_${cmdType}_cmd`) }}</div>
+                    <div class="md-body-small text-muted">
+                      {{ $t(`pin.client_${cmdType}_cmd_desc`) }}
+                      <a href="https://github.com/ClassicOldSong/Apollo/wiki/Client-Commands" target="_blank">
+                        {{ $t('_common.learn_more') }}
+                      </a>
+                    </div>
+                    <div class="md-table-scroll" v-if="client[`edit_${cmdType}`].length > 0">
+                      <table class="md-table">
+                        <thead>
+                          <tr>
+                            <th style="width: 100%"><icon name="terminal"></icon>{{ $t('_common.cmd_val') }}</th>
+                            <th v-if="platform === 'windows'"><icon name="shield"></icon>{{ $t('_common.run_as') }}</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(c, i) in client[`edit_${cmdType}`]" :key="i">
+                            <td>
+                              <text-field dense monospace :id="`client-${cmdType}-cmd-${i}`" v-model="c.cmd"></text-field>
+                            </td>
+                            <td v-if="platform === 'windows'">
+                              <label class="md-checkbox">
+                                <input type="checkbox" :id="`client-${cmdType}-cmd-admin-${i}`" v-model="c.elevated" />
+                                {{ $t('_common.elevated') }}
+                              </label>
+                            </td>
+                            <td>
+                              <div class="md-table__actions">
+                                <button class="md-icon-button md-icon-button--danger" :aria-label="$t('_common.remove')" @click="removeCmd(client[`edit_${cmdType}`], i)">
+                                  <icon name="delete"></icon>
+                                </button>
+                                <button class="md-icon-button md-icon-button--tonal" :aria-label="$t('config.add')" @click="addCmd(client[`edit_${cmdType}`], i)">
+                                  <icon name="add"></icon>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <button class="md-button md-button--tonal self-start" @click="addCmd(client[`edit_${cmdType}`], -1)">
+                      <icon name="add"></icon>{{ $t('config.add') }}
+                    </button>
+                  </div>
+                </template>
+              </div>
+            </li>
+
+            <!-- Resting state -->
+            <li v-else class="md-list-item">
+              <span class="md-badge md-badge--mono" :class="client.perm >= 0x04000000 ? 'md-badge--error' : 'md-badge--primary'">
+                {{permToStr(client.perm)}}
+              </span>
+              <div class="md-list-item__text">
+                <span class="md-list-item__headline">
+                  {{client.name != "" ? client.name : $t('pin.unpair_single_unknown')}}
+                </span>
+              </div>
+              <div class="md-list-item__trailing">
+                <span v-if="client.connected" class="md-badge md-badge--success">
+                  <icon name="wifi" size="sm"></icon>
+                </span>
+                <button
+                  v-if="client.connected"
+                  class="md-icon-button md-icon-button--tonal"
+                  :aria-label="$t('_common.disconnect')"
+                  @click="disconnectClient(client.uuid)"
+                >
+                  <icon name="link_off"></icon>
+                </button>
+                <button class="md-icon-button md-icon-button--tonal" :aria-label="$t('apps.edit')" @click="editClient(client)">
+                  <icon name="edit"></icon>
+                </button>
+                <button class="md-icon-button md-icon-button--danger" :aria-label="$t('pin.unpair_single')" @click="unpairSingle(client.uuid)">
+                  <icon name="delete"></icon>
+                </button>
+              </div>
+            </li>
+          </template>
+        </ul>
+        <div v-else class="md-empty">
+          <icon name="devices" size="xl"></icon>
+          <span>{{ $t('pin.unpair_single_no_devices') }}</span>
+        </div>
+      </section>
     </div>
-  </div>
+  </app-frame>
 </body>
 
 <script type="module">
   import { createApp } from 'vue'
   import { initApp } from './init'
-  import Navbar from './Navbar.vue'
+  import AppFrame from './AppFrame.vue'
+  import Banner from './Banner.vue'
   import Checkbox from './Checkbox.vue'
+  import TextField from './TextField.vue'
 
   let resetOTPTimeout = null;
   const qrContainer = document.createElement('div');
-  qrContainer.className = "mb-2 p-2 bg-white"
+  qrContainer.className = "helios-qr"
   const qrCode = new QRCode(qrContainer);
 
   const updateQR = (url) => {
@@ -363,6 +497,9 @@
       otpMessage: '',
       otpStatus: 'warning',
       deviceName: '',
+      pinCode: '',
+      pinDeviceName: '',
+      pinStatus: null,
       hostAddr: '',
       hostPort: '',
       hostName: '',
@@ -381,8 +518,10 @@
 
   let app = createApp({
     components: {
-      Navbar,
-      Checkbox
+      AppFrame,
+      Banner,
+      Checkbox,
+      TextField
     },
     inject: ['i18n'],
     data,
@@ -415,35 +554,28 @@
         this.editingHost = false;
         saveHostCache(this, true);
       },
-      registerDevice(e) {
-        let pin = document.querySelector("#pin-input").value;
-        let name = document.querySelector("#name-input").value;
-        document.querySelector("#status").innerHTML = "";
-        let b = JSON.stringify({pin: pin, name: name});
+      registerDevice() {
+        this.pinStatus = null;
         fetch("./api/pin", {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
           },
           method: 'POST',
-          body: b
+          body: JSON.stringify({ pin: this.pinCode, name: this.pinDeviceName })
         })
           .then((response) => response.json())
           .then((response) => {
             if (response.status === true) {
-              document.querySelector(
-                "#status"
-              ).innerHTML = `<div class="alert alert-success" role="alert">${this.i18n.t('pin.pair_success')}</div>`;
-              document.querySelector("#pin-input").value = "";
-              document.querySelector("#name-input").value = "";
+              this.pinStatus = { variant: 'success', message: this.i18n.t('pin.pair_success') };
+              this.pinCode = "";
+              this.pinDeviceName = "";
 
               setTimeout(() => this.refreshClients(), 1000);
 
               alert(this.i18n.t('pin.pair_success_check_perm'));
             } else {
-              document.querySelector(
-                "#status"
-              ).innerHTML = `<div class="alert alert-danger" role="alert">${this.i18n.t('pin.pair_failure')}</div>`;
+              this.pinStatus = { variant: 'error', message: this.i18n.t('pin.pair_failure') };
             }
           });
       },
@@ -462,7 +594,7 @@
         .then(resp => {
           if (!resp.status) {
             this.otpMessage = resp.message
-            this.otpStatus = 'danger'
+            this.otpStatus = 'error'
             return
           }
 
@@ -536,8 +668,6 @@
         client.edit_do = JSON.parse(JSON.stringify(client.do || []));
         client.edit_undo = JSON.parse(JSON.stringify(client.undo || []));
         currentEditingClient = client;
-
-        console.log(client.do, client.undo)
       },
       cancelEdit(client) {
         currentEditingClient = null;

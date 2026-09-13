@@ -1,0 +1,263 @@
+/*
+ * Material 3 Expressive design tokens for Helios.
+ *
+ * The colour roles are generated from the Helios brand gold (#FFC400) with
+ * material-color-utilities using the 2025 (expressive) colour spec; see
+ * scripts/generate-theme.mjs. The seed survives as `primary-container`, so the
+ * brand colour still carries the interface while every pairing stays on the
+ * M3 contrast curve. Tertiary is a deliberate cool teal -- the counterpoint to
+ * all that sun -- and doubles as the informational accent.
+ */
+
+:root {
+  color-scheme: light;
+
+  --md-sys-color-primary: #745700;
+  --md-sys-color-on-primary: #fff1d9;
+  --md-sys-color-primary-container: #fec300;
+  --md-sys-color-on-primary-container: #564100;
+  --md-sys-color-primary-fixed: #fec300;
+  --md-sys-color-primary-fixed-dim: #edb600;
+  --md-sys-color-on-primary-fixed: #3e2e00;
+  --md-sys-color-on-primary-fixed-variant: #624900;
+
+  --md-sys-color-secondary: #854e1b;
+  --md-sys-color-on-secondary: #fff0e7;
+  --md-sys-color-secondary-container: #ffc69a;
+  --md-sys-color-on-secondary-container: #6d3b07;
+  --md-sys-color-secondary-fixed: #ffc69a;
+  --md-sys-color-secondary-fixed-dim: #feb478;
+  --md-sys-color-on-secondary-fixed: #532900;
+  --md-sys-color-on-secondary-fixed-variant: #784411;
+
+  --md-sys-color-tertiary: #006577;
+  --md-sys-color-on-tertiary: #dff7ff;
+  --md-sys-color-tertiary-container: #68cbe6;
+  --md-sys-color-on-tertiary-container: #00414d;
+  --md-sys-color-tertiary-fixed: #68cbe6;
+  --md-sys-color-tertiary-fixed-dim: #59bed7;
+  --md-sys-color-on-tertiary-fixed: #002a33;
+  --md-sys-color-on-tertiary-fixed-variant: #004a59;
+
+  --md-sys-color-error: #b02500;
+  --md-sys-color-on-error: #ffefec;
+  --md-sys-color-error-container: #f95630;
+  --md-sys-color-on-error-container: #520c00;
+
+  --md-sys-color-success: #386a00;
+  --md-sys-color-on-success: #ffffff;
+  --md-sys-color-success-container: #b4f579;
+  --md-sys-color-on-success-container: #0d2000;
+
+  --md-sys-color-background: #fef5ea;
+  --md-sys-color-on-background: #322e27;
+  --md-sys-color-surface: #fef5ea;
+  --md-sys-color-on-surface: #322e27;
+  --md-sys-color-surface-variant: #e5dccd;
+  --md-sys-color-on-surface-variant: #605b52;
+  --md-sys-color-surface-dim: #ddd3c4;
+  --md-sys-color-surface-bright: #fef5ea;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f9efe3;
+  --md-sys-color-surface-container: #f0e7da;
+  --md-sys-color-surface-container-high: #ebe1d4;
+  --md-sys-color-surface-container-highest: #e5dccd;
+  --md-sys-color-surface-tint: #745700;
+
+  --md-sys-color-outline: #7c766d;
+  --md-sys-color-outline-variant: #b3aca2;
+  /*
+   * The two inverse surface roles are the one hand-set pair: the generated
+   * values pitch near-black text furniture against a near-black inverse
+   * surface, which fails contrast on snackbars. These keep the same hue and
+   * simply widen the gap.
+   */
+  --md-sys-color-inverse-surface: #37332b;
+  --md-sys-color-inverse-on-surface: #faf1e5;
+  --md-sys-color-inverse-primary: #fec300;
+  --md-sys-color-shadow: 0 0 0;
+  --md-sys-color-scrim: 0 0 0;
+}
+
+/*
+ * Dark palette. Declared twice on purpose: once for viewers who let the OS
+ * decide (guarded so an explicit light choice still wins) and once for the
+ * in-app toggle, so switching works in both directions.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --md-sys-color-primary: #ffd572;
+    --md-sys-color-on-primary: #614900;
+    --md-sys-color-primary-container: #fec300;
+    --md-sys-color-on-primary-container: #564100;
+
+    --md-sys-color-secondary: #feb478;
+    --md-sys-color-on-secondary: #623200;
+    --md-sys-color-secondary-container: #6c3a07;
+    --md-sys-color-on-secondary-container: #ffc497;
+
+    --md-sys-color-tertiary: #77d9f4;
+    --md-sys-color-on-tertiary: #004b59;
+    --md-sys-color-tertiary-container: #68cbe6;
+    --md-sys-color-on-tertiary-container: #00414d;
+
+    --md-sys-color-error: #ff7351;
+    --md-sys-color-on-error: #450900;
+    --md-sys-color-error-container: #b92902;
+    --md-sys-color-on-error-container: #ffd2c8;
+
+    --md-sys-color-success: #99d860;
+    --md-sys-color-on-success: #1b3700;
+    --md-sys-color-success-container: #295000;
+    --md-sys-color-on-success-container: #b4f579;
+
+    --md-sys-color-background: #110e08;
+    --md-sys-color-on-background: #f5ede1;
+    --md-sys-color-surface: #110e08;
+    --md-sys-color-on-surface: #f5ede1;
+    --md-sys-color-surface-variant: #2a251c;
+    --md-sys-color-on-surface-variant: #b1aaa0;
+    --md-sys-color-surface-dim: #110e08;
+    --md-sys-color-surface-bright: #312b21;
+    --md-sys-color-surface-container-lowest: #000000;
+    --md-sys-color-surface-container-low: #16130c;
+    --md-sys-color-surface-container: #1d1911;
+    --md-sys-color-surface-container-high: #231f17;
+    --md-sys-color-surface-container-highest: #2a251c;
+    --md-sys-color-surface-tint: #ffd572;
+
+    --md-sys-color-outline: #7a756b;
+    --md-sys-color-outline-variant: #4c473f;
+    --md-sys-color-inverse-surface: #f5ede1;
+    --md-sys-color-inverse-on-surface: #37332b;
+    --md-sys-color-inverse-primary: #785b00;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --md-sys-color-primary: #ffd572;
+  --md-sys-color-on-primary: #614900;
+  --md-sys-color-primary-container: #fec300;
+  --md-sys-color-on-primary-container: #564100;
+
+  --md-sys-color-secondary: #feb478;
+  --md-sys-color-on-secondary: #623200;
+  --md-sys-color-secondary-container: #6c3a07;
+  --md-sys-color-on-secondary-container: #ffc497;
+
+  --md-sys-color-tertiary: #77d9f4;
+  --md-sys-color-on-tertiary: #004b59;
+  --md-sys-color-tertiary-container: #68cbe6;
+  --md-sys-color-on-tertiary-container: #00414d;
+
+  --md-sys-color-error: #ff7351;
+  --md-sys-color-on-error: #450900;
+  --md-sys-color-error-container: #b92902;
+  --md-sys-color-on-error-container: #ffd2c8;
+
+  --md-sys-color-success: #99d860;
+  --md-sys-color-on-success: #1b3700;
+  --md-sys-color-success-container: #295000;
+  --md-sys-color-on-success-container: #b4f579;
+
+  --md-sys-color-background: #110e08;
+  --md-sys-color-on-background: #f5ede1;
+  --md-sys-color-surface: #110e08;
+  --md-sys-color-on-surface: #f5ede1;
+  --md-sys-color-surface-variant: #2a251c;
+  --md-sys-color-on-surface-variant: #b1aaa0;
+  --md-sys-color-surface-dim: #110e08;
+  --md-sys-color-surface-bright: #312b21;
+  --md-sys-color-surface-container-lowest: #000000;
+  --md-sys-color-surface-container-low: #16130c;
+  --md-sys-color-surface-container: #1d1911;
+  --md-sys-color-surface-container-high: #231f17;
+  --md-sys-color-surface-container-highest: #2a251c;
+  --md-sys-color-surface-tint: #ffd572;
+
+  --md-sys-color-outline: #7a756b;
+  --md-sys-color-outline-variant: #4c473f;
+  --md-sys-color-inverse-surface: #f5ede1;
+  --md-sys-color-inverse-on-surface: #37332b;
+  --md-sys-color-inverse-primary: #785b00;
+}
+
+:root {
+  /* Shape scale. Expressive leans on the larger end of this ramp. */
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-xs: 4px;
+  --md-sys-shape-corner-sm: 8px;
+  --md-sys-shape-corner-md: 12px;
+  --md-sys-shape-corner-lg: 16px;
+  --md-sys-shape-corner-lg-increased: 20px;
+  --md-sys-shape-corner-xl: 28px;
+  --md-sys-shape-corner-xl-increased: 32px;
+  --md-sys-shape-corner-xxl: 48px;
+  --md-sys-shape-corner-full: 999px;
+
+  /* Elevation. Two-layer shadows, tinted by the surface tint where used. */
+  --md-sys-elevation-0: none;
+  --md-sys-elevation-1:
+    0 1px 2px 0 rgb(var(--md-sys-color-shadow) / 0.3),
+    0 1px 3px 1px rgb(var(--md-sys-color-shadow) / 0.15);
+  --md-sys-elevation-2:
+    0 1px 2px 0 rgb(var(--md-sys-color-shadow) / 0.3),
+    0 2px 6px 2px rgb(var(--md-sys-color-shadow) / 0.15);
+  --md-sys-elevation-3:
+    0 1px 3px 0 rgb(var(--md-sys-color-shadow) / 0.3),
+    0 4px 8px 3px rgb(var(--md-sys-color-shadow) / 0.15);
+  --md-sys-elevation-4:
+    0 2px 3px 0 rgb(var(--md-sys-color-shadow) / 0.3),
+    0 6px 10px 4px rgb(var(--md-sys-color-shadow) / 0.15);
+  --md-sys-elevation-5:
+    0 4px 4px 0 rgb(var(--md-sys-color-shadow) / 0.3),
+    0 8px 12px 6px rgb(var(--md-sys-color-shadow) / 0.15);
+
+  /* State layer opacities. */
+  --md-sys-state-hover-opacity: 0.08;
+  --md-sys-state-focus-opacity: 0.10;
+  --md-sys-state-pressed-opacity: 0.10;
+  --md-sys-state-dragged-opacity: 0.16;
+
+  /*
+   * Motion. Expressive specifies springs; these are the published
+   * cubic-bezier stand-ins, including the overshoot that gives spatial
+   * transitions their bounce. Effects tracks never overshoot -- colour and
+   * opacity should not wobble.
+   */
+  --md-sys-motion-spring-fast-spatial: 350ms cubic-bezier(0.42, 1.67, 0.21, 0.90);
+  --md-sys-motion-spring-default-spatial: 500ms cubic-bezier(0.38, 1.21, 0.22, 1.00);
+  --md-sys-motion-spring-slow-spatial: 750ms cubic-bezier(0.39, 1.29, 0.35, 0.98);
+  --md-sys-motion-spring-fast-effects: 150ms cubic-bezier(0.31, 0.94, 0.34, 1.00);
+  --md-sys-motion-spring-default-effects: 200ms cubic-bezier(0.34, 0.80, 0.34, 1.00);
+  --md-sys-motion-spring-slow-effects: 300ms cubic-bezier(0.34, 0.88, 0.34, 1.00);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0.0, 1.0);
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0.0, 0.0, 1.0);
+
+  /* Type. Roboto Flex carries the whole scale on its weight axis. */
+  --md-sys-typeface-plain: 'Roboto Flex Variable', 'Roboto Flex', 'Roboto',
+    system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --md-sys-typeface-mono: 'Roboto Mono', ui-monospace, 'SFMono-Regular',
+    'Cascadia Mono', 'Liberation Mono', monospace;
+
+  /* Layout rhythm. */
+  --helios-rail-width: 112px;
+  --helios-drawer-width: 300px;
+  --helios-top-bar-height: 64px;
+  --helios-content-max: 1120px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --md-sys-motion-spring-fast-spatial: 1ms linear;
+    --md-sys-motion-spring-default-spatial: 1ms linear;
+    --md-sys-motion-spring-slow-spatial: 1ms linear;
+    --md-sys-motion-spring-fast-effects: 1ms linear;
+    --md-sys-motion-spring-default-effects: 1ms linear;
+    --md-sys-motion-spring-slow-effects: 1ms linear;
+  }
+}

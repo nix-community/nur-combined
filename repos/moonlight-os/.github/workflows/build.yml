@@ -65,8 +65,8 @@ jobs:
 
       - name: Install pinned MsQuic runtime
         run: |
-          wget -q https://packages.microsoft.com/ubuntu/24.04/prod/pool/main/libm/libmsquic/libmsquic_2.5.9_amd64.deb -O /tmp/libmsquic.deb
-          echo "5f2107d3b682cc008ec248e93bc4c00dc4ac674f2e1d4bd5c830bf2d1f1b60a1  /tmp/libmsquic.deb" | sha256sum -c -
+          wget -q https://packages.microsoft.com/ubuntu/24.04/prod/pool/main/libm/libmsquic/libmsquic_2.5.10_amd64.deb -O /tmp/libmsquic.deb
+          echo "3b98ced3af4a681d567c8710692fc43d208c427e227684f2224f1f6d5ef23089  /tmp/libmsquic.deb" | sha256sum -c -
           sudo apt-get install -y /tmp/libmsquic.deb
 
       - name: Configure
@@ -88,6 +88,7 @@ jobs:
           cmake -S . -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
             -DCUDA_FAIL_ON_MISSING=OFF \
+            -DTELEMETRY_URL="${{ vars.TELEMETRY_URL }}" \
             -DBUILD_TESTS=ON
 
       - name: Build
@@ -217,6 +218,7 @@ jobs:
           cmake -S . -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
             -DBUILD_TESTS=ON \
+            -DTELEMETRY_URL="${{ vars.TELEMETRY_URL }}" \
             -DMSQUIC_LIBRARY="$PWD/build-deps-msquic/build/native/lib/x64/msquic.lib" \
             -DMSQUIC_RUNTIME_LIBRARY="$PWD/build-deps-msquic/build/native/bin/x64/msquic.dll"
 
@@ -308,6 +310,16 @@ jobs:
               v0.0.0 "$commit" \
               0000000000000000000000000000000000000000000000000000000000000000 \
               "$git_version" "$RUNNER_TEMP/aur"
+          mkdir -p "$RUNNER_TEMP/aur-beta"
+          chown builder:builder "$RUNNER_TEMP/aur-beta"
+          sudo -u builder \
+            "$GITHUB_WORKSPACE/packaging/aur/render.sh" \
+              v0.6.0-beta.1 "$commit" \
+              0000000000000000000000000000000000000000000000000000000000000000 \
+              "$git_version" "$RUNNER_TEMP/aur-beta"
+          grep -qx 'pkgver=0.6.0beta1' "$RUNNER_TEMP/aur-beta/helios/PKGBUILD"
+          grep -q '/releases/download/v0.6.0-beta.1/' \
+            "$RUNNER_TEMP/aur-beta/helios-bin/PKGBUILD"
           packaging/winget/render.sh \
             v0.0.0 \
             0000000000000000000000000000000000000000000000000000000000000000 \
@@ -478,7 +490,7 @@ jobs:
 
   publish-aur:
     name: Publish AUR packages
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     needs: release
     runs-on: ubuntu-24.04
     container: archlinux:base-devel
@@ -497,6 +509,7 @@ jobs:
       - name: Render AUR repositories
         run: |
           set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           package=(arch/helios-[0-9]*-x86_64.pkg.tar.zst)
           test "${#package[@]}" -eq 1
           binary_sha256="$(sha256sum "${package[0]}" | cut -d' ' -f1)"
@@ -533,7 +546,7 @@ jobs:
 
   publish-winget:
     name: Submit Winget manifest
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     needs: release
     runs-on: windows-2025
     steps:
@@ -566,7 +579,7 @@ jobs:
 
   update-nur:
     name: Update NUR package
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     needs: release
     runs-on: ubuntu-24.04
     permissions:

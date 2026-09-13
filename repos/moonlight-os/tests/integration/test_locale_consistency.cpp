@@ -53,7 +53,21 @@ protected:
     std::map<std::string, std::string, std::less<>> locales;
     const std::string content = file_handler::read_file("src_assets/common/assets/web/configs/tabs/General.vue");
 
-    // Find the locale select section specifically
+    // The Material UI keeps locale data in a script array and renders it with
+    // v-for. Accept that representation first, while retaining support for
+    // upstream's literal <option> list.
+    const std::regex localeArrayPattern(R"(const\s+LOCALES\s*=\s*\[([\s\S]*?)\n\])");
+    if (std::smatch arrayMatch; std::regex_search(content, arrayMatch, localeArrayPattern)) {
+      const std::string localeSection = arrayMatch[1].str();
+      const std::regex entryPattern(R"delimiter(\[\s*'([^']+)'\s*,\s*'([^']+)'\s*\])delimiter");
+      for (std::sregex_iterator iter(localeSection.begin(), localeSection.end(), entryPattern), end;
+           iter != end; ++iter) {
+        locales[(*iter)[1].str()] = (*iter)[2].str();
+      }
+      if (!locales.empty()) return locales;
+    }
+
+    // Find the legacy locale select section specifically.
     const std::regex localeSelectPattern("id=\"locale\"[^>]*>([^<]*(?:<option[^>]*>[^<]*</option>[^<]*)*)</select>");
 
     if (std::smatch selectMatch; std::regex_search(content, selectMatch, localeSelectPattern)) {

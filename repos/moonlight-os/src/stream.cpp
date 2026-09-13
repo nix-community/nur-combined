@@ -79,6 +79,7 @@ extern "C" {
 #define IDX_DISK_TUNNEL_OPEN 30
 #define IDX_DISK_TUNNEL_DATA 31
 #define IDX_DISK_TUNNEL_CLOSE 32
+#define IDX_SYSTEM_DISK_STATUS 33
 
 static const short packetTypes[] = {
   0x0305,  // Start A
@@ -114,6 +115,7 @@ static const short packetTypes[] = {
   0x600b,  // System disk tunnel open (Moonlight OS protocol extension)
   0x600c,  // System disk tunnel data (Moonlight OS protocol extension)
   0x600d,  // System disk tunnel close (Moonlight OS protocol extension)
+  0x600e,  // System disk host attachment status (Moonlight OS protocol extension)
 };
 
 namespace asio = boost::asio;
@@ -211,15 +213,19 @@ namespace stream {
 
   bool parse_system_disk_offer(std::string_view payload,
                                system_disk_offer_t &offer) {
-    constexpr std::size_t header_size = 20;
+    constexpr std::size_t header_size = 24;
     constexpr std::size_t max_iqn_size = 223;
     if (payload.size() < header_size) return false;
 
     auto bytes = reinterpret_cast<const std::uint8_t *>(payload.data());
     auto flags = bytes[1];
     auto iqn_size = read_le16(bytes + 2);
-    if (bytes[0] != 1 || iqn_size > max_iqn_size ||
-        payload.size() != header_size + iqn_size) {
+    auto username_size = bytes[20];
+    auto password_size = bytes[21];
+    auto reserved = read_le16(bytes + 22);
+    if (bytes[0] != 2 || iqn_size > max_iqn_size || username_size > 64 ||
+        password_size > 64 || reserved != 0 ||
+        payload.size() != header_size + iqn_size + username_size + password_size) {
       return false;
     }
 
@@ -229,9 +235,10 @@ namespace stream {
     parsed.sector_size = read_le32(bytes + 16);
 
     if (iqn_size == 0) {
-      if (flags != 0 || parsed.size != 0 || parsed.sector_size != 0) return false;
+      if (flags != 0 || parsed.size != 0 || parsed.sector_size != 0 ||
+          username_size != 0 || password_size != 0) return false;
     } else {
-      if (flags != 0x01 || parsed.size == 0 ||
+      if (flags != 0x07 || parsed.size == 0 || username_size < 12 || password_size < 12 ||
           (parsed.sector_size != 512 && parsed.sector_size != 4096) ||
           parsed.size % parsed.sector_size != 0) {
         return false;
@@ -244,10 +251,39 @@ namespace stream {
           })) {
         return false;
       }
+      auto credentials_offset = header_size + iqn_size;
+      parsed.chap_username.assign(payload.data() + credentials_offset, username_size);
+      parsed.chap_password.assign(payload.data() + credentials_offset + username_size, password_size);
+      auto valid_credential = [](const std::string &value) {
+        return std::all_of(value.begin(), value.end(), [](unsigned char ch) {
+          return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') ||
+                 (ch >= '0' && ch <= '9');
+        });
+      };
+      if (!valid_credential(parsed.chap_username) || !valid_credential(parsed.chap_password)) {
+        return false;
+      }
     }
 
     offer = std::move(parsed);
     return true;
+  }
+
+  std::string encode_system_disk_status(std::uint32_t generation,
+                                        std::uint8_t state,
+                                        std::string_view message) {
+    if (state > 4) return {};
+    message = message.substr(0, 512);
+    std::string payload(8 + message.size(), '\0');
+    payload[0] = static_cast<char>(state);
+    payload[2] = static_cast<char>(message.size());
+    payload[3] = static_cast<char>(message.size() >> 8);
+    payload[4] = static_cast<char>(generation);
+    payload[5] = static_cast<char>(generation >> 8);
+    payload[6] = static_cast<char>(generation >> 16);
+    payload[7] = static_cast<char>(generation >> 24);
+    std::memcpy(payload.data() + 8, message.data(), message.size());
+    return payload;
   }
 
   std::optional<std::string> select_display_output(
@@ -304,7 +340,7 @@ namespace stream {
       {ML_FEATURE_KEYBOARD_LAYOUT, 1},
       {ML_FEATURE_USB_PASSTHROUGH, 1},
       {ML_FEATURE_MICROPHONE, 1},
-      {ML_FEATURE_SYSTEM_DISK, 1},
+      {ML_FEATURE_SYSTEM_DISK, 2},
     };
     if (virtual_camera_available) {
       features.emplace(ML_FEATURE_CAMERA, 1);
@@ -801,7 +837,7 @@ namespace stream {
     std::unique_ptr<struct usb_tunnel_server_t> usb_tunnel;
     std::unique_ptr<usb_backend_t> usb_backend;
 
-    std::uint32_t system_disk_offer_generation = 0;
+    std::atomic_uint32_t system_disk_offer_generation {0};
     system_disk_offer_t system_disk_offer;
     std::unique_ptr<struct usb_tunnel_server_t> system_disk_tunnel;
     std::unique_ptr<system_disk_backend_t> system_disk_backend;
@@ -1015,6 +1051,28 @@ namespace stream {
     body[4] = (std::uint8_t) reason;
     body[5] = (std::uint8_t) (reason >> 8);
     return send_usb_tunnel_packet(server, session, type, body.data(), body.size());
+  }
+
+  static bool send_system_disk_status(control_server_t *server, session_t *session,
+                                      std::uint32_t generation,
+                                      system_disk_backend_t::state_e state,
+                                      std::string_view message) {
+    auto body = encode_system_disk_status(generation, static_cast<std::uint8_t>(state), message);
+    constexpr std::size_t plaintext_capacity = sizeof(control_header_v2) + 8 + 512;
+    if (body.empty() || !session->control.peer) return false;
+    std::array<std::uint8_t, plaintext_capacity> plaintext {};
+    auto header = reinterpret_cast<control_header_v2 *>(plaintext.data());
+    header->type = packetTypes[IDX_SYSTEM_DISK_STATUS];
+    header->payloadLength = static_cast<std::uint16_t>(body.size());
+    std::memcpy(plaintext.data() + sizeof(control_header_v2), body.data(), body.size());
+    std::array<std::uint8_t,
+      sizeof(control_encrypted_t) + crypto::cipher::round_to_pkcs7_padded(plaintext_capacity) + crypto::cipher::tag_size>
+      encrypted_payload;
+    auto encoded = encode_control(session,
+      std::string_view {(const char *) plaintext.data(), sizeof(control_header_v2) + body.size()},
+      encrypted_payload);
+    return !encoded.empty() &&
+           server->send(encoded, session->control.peer, CTRL_CHANNEL_FEATURE) == 0;
   }
 
   struct usb_tunnel_server_t {
@@ -2496,6 +2554,7 @@ namespace stream {
       }
       auto topology = session->display_topology;
       std::lock_guard topology_lock {topology->mutex};
+      topology->ready = false;
       if (!topology->provider) {
         topology->provider = platf::virtual_display_topology();
       }
@@ -2511,6 +2570,9 @@ namespace stream {
         }
         if (!topology->provider->apply(platform_displays)) {
           BOOST_LOG(warning) << "Could not materialise client display topology on this host"sv;
+          topology->output_names.clear();
+          topology->ready = true;
+          topology->ready_cv.notify_all();
         } else {
           topology->output_names = topology->provider->display_names();
           topology->ready = true;
@@ -2518,6 +2580,7 @@ namespace stream {
         }
       } else {
         BOOST_LOG(info) << "No virtual display topology provider is available on this host"sv;
+        topology->output_names.clear();
         topology->ready = true;
         topology->ready_cv.notify_all();
       }
@@ -2537,14 +2600,15 @@ namespace stream {
                            << session->device_name << ']';
         return;
       }
-      if (session->system_disk_offer_generation != 0 &&
-          (std::int32_t) (offer.generation - session->system_disk_offer_generation) <= 0) {
+      const auto current_generation = session->system_disk_offer_generation.load();
+      if (current_generation != 0 &&
+          (std::int32_t) (offer.generation - current_generation) <= 0) {
         BOOST_LOG(debug) << "Ignoring stale system disk generation "sv << offer.generation;
         return;
       }
 
       const auto previous_offer = session->system_disk_offer;
-      session->system_disk_offer_generation = offer.generation;
+      session->system_disk_offer_generation.store(offer.generation);
       if (!offer.present()) {
         session->system_disk_offer = offer;
         session::detach_slow_cleanup(session->self.lock());
@@ -2554,13 +2618,18 @@ namespace stream {
 
 
       if (session->system_disk_backend) {
-        if (previous_offer.target_iqn == offer.target_iqn) {
+        if (previous_offer.target_iqn == offer.target_iqn &&
+            previous_offer.chap_username == offer.chap_username &&
+            previous_offer.chap_password == offer.chap_password) {
           session->system_disk_offer = offer;
           BOOST_LOG(debug) << "Keeping the existing system disk attachment for generation "sv
                            << offer.generation;
         } else {
           BOOST_LOG(warning) << "Ignoring an in-place system disk target change; withdraw the old "sv
                                 "target before offering a new one"sv;
+          send_system_disk_status(server, session, offer.generation,
+                                  system_disk_backend_t::state_e::failed,
+                                  "the client changed the target without withdrawing the old disk");
         }
         return;
       }
@@ -2576,11 +2645,23 @@ namespace stream {
           BOOST_LOG(error) << "Unable to start the system disk tunnel for ["sv
                            << session->device_name << "]: "sv << e.what();
           session->system_disk_tunnel.reset();
+          send_system_disk_status(server, session, offer.generation,
+                                  system_disk_backend_t::state_e::failed,
+                                  "the loopback system-disk tunnel could not start");
           return;
         }
       }
       session->system_disk_backend = std::make_unique<system_disk_backend_t>(
-        session->system_disk_tunnel->port(), offer.target_iqn);
+        session->system_disk_tunnel->port(), offer.target_iqn,
+        offer.chap_username, offer.chap_password,
+        [server, weak = std::weak_ptr<session_t>(session->self.lock())]
+        (system_disk_backend_t::state_e state, std::string message) {
+          if (auto owner = weak.lock()) {
+            send_system_disk_status(server, owner.get(),
+                                    owner->system_disk_offer_generation.load(),
+                                    state, message);
+          }
+        });
       BOOST_LOG(info) << "Client ["sv << session->device_name << "] offered read-only disk ["sv
                       << offer.target_iqn << "], "sv << offer.size << " bytes; loopback proxy port "sv
                       << session->system_disk_tunnel->port();
@@ -3728,7 +3809,8 @@ namespace stream {
       auto topology = session->display_topology;
       std::unique_lock topology_lock {topology->mutex};
       topology->ready_cv.wait_for(topology_lock, 5s, [session, &topology] {
-        return topology->ready ||
+        return (topology->ready &&
+                topology->output_names.size() > session->config.display_index) ||
                session->state.load(std::memory_order_relaxed) != stream::session::state_e::RUNNING;
       });
       auto selected_output = select_display_output(topology->output_names,

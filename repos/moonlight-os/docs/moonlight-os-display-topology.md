@@ -32,6 +32,10 @@ the prior topology intact.
 This is deliberately topology state rather than a command. Platform providers
 materialise it as virtual outputs, and video stream indices select those
 outputs. The wire message can never name a host device, executable, or path.
+On Linux, Helios first uses an existing Sway IPC session and creates wlroots
+headless outputs there. If none exists and the optional Sway runtime is
+installed, Helios starts a private headless compositor before it loads the app
+environment, then launches streamed applications into that isolated desktop.
 
 Selene keeps display index 0 as the topology owner and starts one auxiliary
 video session for every other client output. Keyboard, pointer, and touch input
@@ -39,4 +43,6 @@ belong to whichever display window has focus; Helios maps that session through
 the selected virtual output's offset in the host desktop. Gamepads remain owned
 by display index 0 because SDL controller events are process-global and would
 otherwise be duplicated by every auxiliary process. A display hotplug sends a
-new complete generation and reconciles the auxiliary session set.
+new complete generation and reconciles the auxiliary session set. An indexed
+video thread waits until its specific output exists, so a newly connected
+monitor cannot race topology creation and silently capture another display.

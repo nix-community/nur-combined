@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { $tp } from '../../../platform-i18n'
-import PlatformLayout from '../../../PlatformLayout.vue'
+import TextField from '../../../TextField.vue'
 
 const props = defineProps([
   'platform',
@@ -12,24 +11,24 @@ const config = ref(props.config)
 
 <template>
   <!--max_bitrate-->
-  <div class="mb-3">
-    <label for="max_bitrate" class="form-label">{{ $t("config.max_bitrate") }}</label>
-    <input type="number" class="form-control" id="max_bitrate" placeholder="0" v-model="config.max_bitrate" />
-    <div class="form-text">{{ $t("config.max_bitrate_desc") }}</div>
-  </div>
+  <TextField
+    id="max_bitrate"
+    type="number"
+    placeholder="0"
+    :label="$t('config.max_bitrate')"
+    :supporting="$t('config.max_bitrate_desc')"
+    v-model="config.max_bitrate"
+  />
 
   <!--minimum_fps_target-->
-  <div class="mb-3">
-    <label for="minimum_fps_target" class="form-label">{{ $t("config.minimum_fps_target") }}</label>
-    <input type="number" min="0" max="1000" class="form-control" id="minimum_fps_target" placeholder="0" v-model="config.minimum_fps_target" />
-    <div class="form-text">{{ $t("config.minimum_fps_target_desc") }}</div>
-  </div>
+  <TextField
+    id="minimum_fps_target"
+    type="number"
+    min="0"
+    max="1000"
+    placeholder="0"
+    :label="$t('config.minimum_fps_target')"
+    :supporting="$t('config.minimum_fps_target_desc')"
+    v-model="config.minimum_fps_target"
+  />
 </template>
-
-<style scoped>
-.ms-item {
-  background-color: var(--bs-dark-bg-subtle);
-  font-size: 12px;
-  font-weight: bold;
-}
-</style>

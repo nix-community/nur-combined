@@ -1,123 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
-      <%- header %>
-      <style>
-        .precmd-head {
-          width: 200px;
-        }
-
-        .monospace {
-          font-family: monospace;
-        }
-
-        .cover-finder {}
-
-        .cover-finder .cover-results {
-          max-height: 400px;
-          overflow-x: hidden;
-          overflow-y: auto;
-        }
-
-        .cover-finder .cover-results.busy * {
-          cursor: wait !important;
-          pointer-events: none;
-        }
-
-        .cover-container {
-          padding-top: 133.33%;
-          position: relative;
-        }
-
-        .cover-container.result {
-          cursor: pointer;
-        }
-
-        .spinner-border {
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          margin: auto;
-        }
-
-        .cover-container img {
-          display: block;
-          position: absolute;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .config-page {
-          padding: 1em;
-          border: 1px solid #dee2e6;
-          border-top: none;
-        }
-
-        td {
-          padding: 0 0.5em;
-        }
-
-        .env-table td {
-          padding: 0.25em;
-          border-bottom: rgba(0, 0, 0, 0.25) 1px solid;
-          vertical-align: top;
-        }
-
-        .actions-col {
-          min-width: 150px;
-        }
-
-        .pre-wrap {
-          white-space: pre-wrap;
-        }
-
-        .dragover {
-          border-top: 2px solid #ffc400;
-        }
-      </style>
+  <%- header %>
 </head>
 
 <body id="app" v-cloak>
-  <Navbar></Navbar>
-  <div class="container">
-    <div class="my-4" v-if="!showEditForm">
-        <h1>{{ $t('apps.applications_title') }}</h1>
-        <div>{{ $t('apps.applications_desc') }}</div>
-        <div>{{ $t('apps.applications_reorder_desc') }}</div>
-        <div class="pre-wrap">{{ $t('apps.applications_tips') }}</div>
-    </div>
-    <div class="my-4" v-else>
-        <h1>{{ editForm.name || "&lt; NO NAME &gt;"}}</h1>
-        <div>
-          <button @click="showEditForm = false" class="btn btn-secondary me-2 mt-2">
-            <i class="fas fa-xmark"></i> {{ $t('_common.cancel') }}
-          </button>
-          <button class="btn btn-primary me-2 mt-2" :disabled="actionDisabled || !editForm.name.trim()" @click="save">
-            <i class="fas fa-floppy-disk"></i> {{ $t('_common.save') }}
-          </button>
-          <button class="btn btn-success mt-2" @click="exportLauncherFile(editForm)" :disabled="!editForm.uuid">
-            <i class="fas fa-arrow-up-from-bracket"></i> {{ $t('apps.export_launcher_file') }}
-          </button>
-        </div>
-    </div>
-    <div class="card p-4" v-if="!showEditForm">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">{{ $t('apps.name') }}</th>
-            <th scope="col" class="text-end actions-col">{{ $t('apps.actions') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
+  <app-frame page="apps" :title="showEditForm ? (editForm.name || $t('apps.add_new')) : $t('apps.applications_title')">
+    <template #actions v-if="showEditForm">
+      <button class="md-button md-button--text" @click="showEditForm = false">
+        <icon name="close"></icon>{{ $t('_common.cancel') }}
+      </button>
+      <button
+        class="md-button md-button--filled"
+        :disabled="actionDisabled || !editForm.name.trim()"
+        @click="save"
+      >
+        <icon name="save"></icon>{{ $t('_common.save') }}
+      </button>
+    </template>
+
+    <!-- ------------------------------------------------------------- list -->
+    <div v-if="!showEditForm" class="stack-lg">
+      <div>
+        <p class="md-body-large m-0">{{ $t('apps.applications_desc') }}</p>
+        <p class="md-body-medium text-muted mt-2 m-0">{{ $t('apps.applications_reorder_desc') }}</p>
+        <p class="md-body-medium text-muted mt-2 m-0 pre-wrap">{{ $t('apps.applications_tips') }}</p>
+      </div>
+
+      <section class="md-card md-card--elevated">
+        <ul class="md-list" v-if="apps.length">
+          <li
             v-for="(app,i) in apps"
             :key="app.uuid"
-            :class="{dragover: app.dragover}"
+            class="md-list-item"
+            :class="{ 'helios-app-row--dragover': app.dragover }"
             draggable="true"
             @dragstart="onDragStart($event, i)"
             @dragenter="onDragEnter($event, app)"
@@ -126,407 +43,419 @@
             @dragend="onDragEnd()"
             @drop="onDrop($event, app, i)"
           >
-            <td @dblclick="exportLauncherFile(app)">{{app.name || ' '}}</td>
-            <td v-if="app.uuid" class="text-end">
-              <button class="btn btn-primary me-1" :disabled="actionDisabled" @click="editApp(app)">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn btn-danger me-1" :disabled="actionDisabled" @click="showDeleteForm(app)">
-                <i class="fas fa-trash"></i>
-              </button>
-              <button class="btn btn-warning" :disabled="actionDisabled" @click="closeApp()" v-if="currentApp === app.uuid">
-                <i class="fas fa-stop"></i>
-              </button>
-              <a class="btn btn-success" :disabled="actionDisabled" @click.prevent="launchApp(event, app)" :href="'art://launch?host_uuid=' + hostUUID + '&host_name=' + hostName + '&app_uuid=' + app.uuid + '&app_name=' + app.name" v-else>
-                <i class="fas fa-play"></i>
-              </a>
-            </td>
-            <td v-else></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="mt-2">
-        <button class="btn btn-primary" @click="newApp" :disabled="actionDisabled">
-          <i class="fas fa-plus"></i> {{ $t('apps.add_new') }}
-        </button>
-        <button class="btn btn-secondary float-end" @click="alphabetizeApps" :disabled="actionDisabled" v-if="!listReordered">
-          <i class="fas fa-sort-alpha-up"></i> {{ $t('apps.alphabetize') }}
-        </button>
-        <button class="btn btn-warning float-end" @click="saveOrder" :disabled="actionDisabled" v-if="listReordered">
-          <i class="fas fa-floppy-disk"></i> {{ $t('apps.save_order') }}
-        </button>
-      </div>
-    </div>
-    <div class="edit-form card mt-2" v-else>
-      <div class="p-4">
-        <!-- Application Name -->
-        <div class="mb-3">
-          <label for="appName" class="form-label">{{ $t('apps.app_name') }}</label>
-          <div class="input-group dropup">
-            <input type="text" class="form-control" id="appName" aria-describedby="appNameHelp" v-model="editForm.name" />
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="findCoverToggle"
-              aria-expanded="false" @click="showCoverFinder" ref="coverFinderDropdown">
-              {{ $t('apps.find_cover') }} (Online)
-            </button>
-            <div class="dropdown-menu dropdown-menu-end w-50 cover-finder overflow-hidden"
-              aria-labelledby="findCoverToggle">
-              <div class="modal-header px-2">
-                <h4 class="modal-title">{{ $t('apps.covers_found') }}</h4>
-                <button type="button" class="btn-close mr-2" aria-label="Close" @click="closeCoverFinder"></button>
-              </div>
-              <div class="modal-body cover-results px-3 pt-3" :class="{ busy: coverFinderBusy }">
-                <div class="row">
-                  <div v-if="coverSearching" class="col-12 col-sm-6 col-lg-4 mb-3">
-                    <div class="cover-container">
-                      <div class="spinner-border" role="status">
-                        <span class="visually-hidden">{{ $t('apps.loading') }}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div v-for="(cover,i) in coverCandidates" :key="'i'" class="col-12 col-sm-6 col-lg-4 mb-3"
-                    @click="useCover(cover)">
-                    <div class="cover-container result">
-                      <img class="rounded" :src="cover.url" />
-                    </div>
-                    <label class="d-block text-nowrap text-center text-truncate">
-                      {{cover.name}}
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <icon class="helios-drag-handle" name="drag_indicator"></icon>
+            <div class="md-list-item__text" @dblclick="exportLauncherFile(app)">
+              <span class="md-list-item__headline">{{app.name || ' '}}</span>
             </div>
+            <div class="md-list-item__trailing" v-if="app.uuid">
+              <span v-if="currentApp === app.uuid" class="md-badge md-badge--success">
+                {{ $t('apps.running') }}
+              </span>
+              <button class="md-icon-button md-icon-button--tonal" :disabled="actionDisabled" :aria-label="$t('apps.edit')" @click="editApp(app)">
+                <icon name="edit"></icon>
+              </button>
+              <button class="md-icon-button md-icon-button--danger" :disabled="actionDisabled" :aria-label="$t('apps.delete')" @click="showDeleteForm(app)">
+                <icon name="delete"></icon>
+              </button>
+              <button
+                v-if="currentApp === app.uuid"
+                class="md-icon-button md-icon-button--tonal"
+                :disabled="actionDisabled"
+                :aria-label="$t('apps.close')"
+                @click="closeApp()"
+              >
+                <icon name="stop"></icon>
+              </button>
+              <a
+                v-else
+                class="md-icon-button md-icon-button--filled"
+                :aria-label="$t('apps.launch')"
+                @click.prevent="launchApp($event, app)"
+                :href="'art://launch?host_uuid=' + hostUUID + '&host_name=' + hostName + '&app_uuid=' + app.uuid + '&app_name=' + app.name"
+              >
+                <icon name="play_arrow" filled ></icon>
+              </a>
+            </div>
+          </li>
+        </ul>
+        <div v-else class="md-empty">
+          <icon name="widgets" size="xl"></icon>
+          <span>{{ $t('apps.applications_desc') }}</span>
+        </div>
+
+        <div class="md-card__actions justify-between">
+          <button class="md-button md-button--filled" @click="newApp" :disabled="actionDisabled">
+            <icon name="add"></icon>{{ $t('apps.add_new') }}
+          </button>
+          <button
+            class="md-button md-button--outlined"
+            @click="alphabetizeApps"
+            :disabled="actionDisabled"
+            v-if="!listReordered"
+          >
+            <icon name="sort_by_alpha"></icon>{{ $t('apps.alphabetize') }}
+          </button>
+          <button
+            class="md-button md-button--tonal"
+            @click="saveOrder"
+            :disabled="actionDisabled"
+            v-if="listReordered"
+          >
+            <icon name="save"></icon>{{ $t('apps.save_order') }}
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- -------------------------------------------------------- edit form -->
+    <div v-else class="stack-lg">
+      <section class="md-card md-card--elevated">
+        <div class="md-card__body stack">
+          <!-- Application Name -->
+          <div class="helios-name-row">
+            <text-field
+              class="flex-1"
+              id="appName"
+              :label="$t('apps.app_name')"
+              :supporting="$t('apps.app_name_desc')"
+              v-model="editForm.name"
+            ></text-field>
+            <button type="button" class="md-button md-button--tonal" @click="showCoverFinder">
+              <icon name="image_search"></icon>{{ $t('apps.find_cover') }}
+            </button>
           </div>
-          <div id="appNameHelp" class="form-text">{{ $t('apps.app_name_desc') }}</div>
-        </div>
-        <!-- Application Image -->
-        <div class="mb-3">
-          <label for="appImagePath" class="form-label">{{ $t('apps.image') }}</label>
-          <input type="text" class="form-control monospace" id="appImagePath" aria-describedby="appImagePathHelp"
-            v-model="editForm['image-path']" />
-          <div id="appImagePathHelp" class="form-text">{{ $t('apps.image_desc') }}</div>
-        </div>
-        <!-- gamepad override -->
-        <div class="mb-3" v-if="platform !== 'macos'">
-          <label for="gamepad" class="form-label">{{ $t('config.gamepad') }}</label>
-          <select id="gamepad" class="form-select" v-model="editForm.gamepad">
+
+          <!-- Application Image -->
+          <text-field
+            id="appImagePath"
+            monospace
+            :label="$t('apps.image')"
+            :supporting="$t('apps.image_desc')"
+            v-model="editForm['image-path']"
+          ></text-field>
+
+          <!-- gamepad override -->
+          <select-field
+            v-if="platform !== 'macos'"
+            id="gamepad"
+            :label="$t('config.gamepad')"
+            :supporting="$t('config.gamepad_desc')"
+            v-model="editForm.gamepad"
+          >
             <option value="">{{ $t('_common.default_global') }}</option>
             <option value="disabled">{{ $t('_common.disabled') }}</option>
             <option value="auto">{{ $t('_common.auto') }}</option>
-
             <template v-if="platform === 'linux'">
               <option value="ds5">{{ $t("config.gamepad_ds5") }}</option>
               <option value="switch">{{ $t("config.gamepad_switch") }}</option>
               <option value="xone">{{ $t("config.gamepad_xone") }}</option>
             </template>
-
             <template v-if="platform === 'windows'">
               <option value="ds4">{{ $t('config.gamepad_ds4') }}</option>
               <option value="x360">{{ $t('config.gamepad_x360') }}</option>
             </template>
+          </select-field>
 
-          </select>
-          <div class="form-text">{{ $t('config.gamepad_desc') }}</div>
-        </div>
-        <!-- command -->
-        <div class="mb-3">
-          <label for="appCmd" class="form-label">{{ $t('apps.cmd') }}</label>
-          <input type="text" class="form-control monospace" id="appCmd" aria-describedby="appCmdHelp"
-            v-model="editForm.cmd" />
-          <div id="appCmdHelp" class="form-text">
-            {{ $t('apps.cmd_desc') }}<br>
-            <b>{{ $t('_common.note') }}</b> {{ $t('apps.cmd_note') }}
-          </div>
-        </div>
-        <!-- elevation -->
-        <Checkbox v-if="platform === 'windows'"
-                  class="mb-3"
-                  id="appElevation"
-                  label="_common.run_as"
-                  desc="apps.run_as_desc"
-                  v-model="editForm.elevated"
-                  default="false"
-        ></Checkbox>
-        <!-- detached -->
-        <div class="mb-3">
-          <label class="form-label">{{ $t('apps.detached_cmds') }}</label>
-          <div v-for="(c,i) in editForm.detached" class="d-flex justify-content-between my-2">
-            <input type="text" v-model="editForm.detached[i]" class="form-control monospace">
-            <button class="btn btn-danger mx-2" @click="editForm.detached.splice(i,1)">
-              <i class="fas fa-trash"></i>
-            </button>
-            <button class="btn btn-success" @click="editForm.detached.splice(i, 0, '')">
-              <i class="fas fa-plus"></i>
-            </button>
-          </div>
-          <div class="d-flex justify-content-between">
-            <button class="btn btn-success" @click="editForm.detached.push('');">
-              <i class="fas fa-plus mr-1"></i> {{ $t('apps.detached_cmds_add') }}
-            </button>
-          </div>
-          <div class="form-text">
-            {{ $t('apps.detached_cmds_desc') }}<br>
-            <b>{{ $t('_common.note') }}</b> {{ $t('apps.detached_cmds_note') }}
-          </div>
-        </div>
-        <!-- allow client commands -->
-        <Checkbox class="mb-3"
-                  id="clientCommands"
-                  label="apps.allow_client_commands"
-                  desc="apps.allow_client_commands_desc"
-                  v-model="editForm['allow-client-commands']"
-                  default="true"
-        ></Checkbox>
-        <!-- prep and state-cmd -->
-        <template v-for="type in ['prep', 'state']">
-          <Checkbox class="mb-3"
-                    :id="'excludeGlobal_' + type"
-                    :label="'apps.global_' + type + '_name'"
-                    :desc="'apps.global_' + type + '_desc'"
-                    v-model="editForm['exclude-global-' + type + '-cmd']"
-                    default="true"
-                    inverse-values
-          ></Checkbox>
-          <div class="mb-3">
-            <label class="form-label">{{ $t('apps.cmd_' + type + '_name') }}</label>
-            <div class="form-text pre-wrap">{{ $t('apps.cmd_' + type + '_desc') }}</div>
-            <table class="table" v-if="editForm[type + '-cmd'].length > 0">
-              <thead>
-                <tr>
-                  <th scope="col"><i class="fas fa-play"></i> {{ $t('_common.do_cmd') }}</th>
-                  <th scope="col"><i class="fas fa-undo"></i> {{ $t('_common.undo_cmd') }}</th>
-                  <th scope="col" v-if="platform === 'windows'">
-                    <i class="fas fa-shield-alt"></i> {{ $t('_common.run_as') }}
-                  </th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(c, i) in editForm[type + '-cmd']">
-                  <td>
-                    <input type="text" class="form-control monospace" v-model="c.do" />
-                  </td>
-                  <td>
-                    <input type="text" class="form-control monospace" v-model="c.undo" />
-                  </td>
-                  <td v-if="platform === 'windows'" class="align-middle">
-                    <Checkbox :id="type + '-cmd-admin-' + i"
-                              label="_common.elevated"
-                              desc=""
-                              v-model="c.elevated"
-                    ></Checkbox>
-                  </td>
-                  <td class="text-end">
-                    <button class="btn btn-danger mx-2" @click="editForm[type + '-cmd'].splice(i,1)">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                    <button class="btn btn-success" @click="addCmd(editForm[type + '-cmd'], i)">
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-flex justify-content-start mb-3 mt-3">
-              <button class="btn btn-success" @click="addCmd(editForm[type + '-cmd'], -1)">
-                <i class="fas fa-plus mr-1"></i> {{ $t('apps.add_cmds') }}
+          <!-- command -->
+          <text-field id="appCmd" monospace :label="$t('apps.cmd')" v-model="editForm.cmd">
+            <template #supporting>
+              {{ $t('apps.cmd_desc') }}<br />
+              <b>{{ $t('_common.note') }}</b> {{ $t('apps.cmd_note') }}
+            </template>
+          </text-field>
+
+          <!-- elevation -->
+          <checkbox
+            v-if="platform === 'windows'"
+            id="appElevation"
+            label="_common.run_as"
+            desc="apps.run_as_desc"
+            v-model="editForm.elevated"
+            default="false"
+          ></checkbox>
+
+          <!-- detached -->
+          <div class="stack-sm">
+            <div class="md-title-small">{{ $t('apps.detached_cmds') }}</div>
+            <div class="flex gap-2" v-for="(c,i) in editForm.detached" :key="i">
+              <text-field class="flex-1" dense monospace :id="'detached-' + i" v-model="editForm.detached[i]"></text-field>
+              <button class="md-icon-button md-icon-button--danger" :aria-label="$t('_common.remove')" @click="editForm.detached.splice(i,1)">
+                <icon name="delete"></icon>
+              </button>
+              <button class="md-icon-button md-icon-button--tonal" :aria-label="$t('config.add')" @click="editForm.detached.splice(i, 0, '')">
+                <icon name="add"></icon>
               </button>
             </div>
+            <button class="md-button md-button--tonal self-start" @click="editForm.detached.push('');">
+              <icon name="add"></icon>{{ $t('apps.detached_cmds_add') }}
+            </button>
+            <div class="md-body-small text-muted">
+              {{ $t('apps.detached_cmds_desc') }}<br />
+              <b>{{ $t('_common.note') }}</b> {{ $t('apps.detached_cmds_note') }}
+            </div>
           </div>
-        </template>
-        <!-- working dir -->
-        <div class="mb-3">
-          <label for="appWorkingDir" class="form-label">{{ $t('apps.working_dir') }}</label>
-          <input type="text" class="form-control monospace" id="appWorkingDir" aria-describedby="appWorkingDirHelp"
-            v-model="editForm['working-dir']" />
-          <div id="appWorkingDirHelp" class="form-text">{{ $t('apps.working_dir_desc') }}</div>
-        </div>
-        <!-- output -->
-        <div class="mb-3">
-          <label for="appOutput" class="form-label">{{ $t('apps.output_name') }}</label>
-          <input type="text" class="form-control monospace" id="appOutput" aria-describedby="appOutputHelp"
-            v-model="editForm.output" />
-          <div id="appOutputHelp" class="form-text">{{ $t('apps.output_desc') }}</div>
-        </div>
-        <!-- auto-detach -->
-        <Checkbox class="mb-3"
-                  id="autoDetach"
-                  label="apps.auto_detach"
-                  desc="apps.auto_detach_desc"
-                  v-model="editForm['auto-detach']"
-                  default="true"
-        ></Checkbox>
-        <!-- wait for all processes -->
-        <Checkbox class="mb-3"
-                  id="waitAll"
-                  label="apps.wait_all"
-                  desc="apps.wait_all_desc"
-                  v-model="editForm['wait-all']"
-                  default="true"
-        ></Checkbox>
-        <!-- terminate on pause -->
-        <Checkbox class="mb-3"
-                  id="terminateOnPause"
-                  label="apps.terminate_on_pause"
-                  desc="apps.terminate_on_pause_desc"
-                  v-model="editForm['terminate-on-pause']"
-                  default="false"
-        ></Checkbox>
-        <!-- exit timeout -->
-        <div class="mb-3">
-          <label for="exitTimeout" class="form-label">{{ $t('apps.exit_timeout') }}</label>
-          <input type="number" class="form-control monospace" id="exitTimeout" aria-describedby="exitTimeoutHelp"
-                 v-model="editForm['exit-timeout']" min="0" placeholder="5" />
-          <div id="exitTimeoutHelp" class="form-text">{{ $t('apps.exit_timeout_desc') }}</div>
-        </div>
-        <!-- use virtual display -->
-        <Checkbox class="mb-3"
-                  id="virtualDisplay"
-                  label="apps.virtual_display"
-                  desc="apps.virtual_display_desc"
-                  v-model="editForm['virtual-display']"
-                  default="false"
-        ></Checkbox>
-        <!-- use app identity -->
-        <Checkbox class="mb-3"
-                  id="useAppIdentity"
-                  label="apps.use_app_identity"
-                  desc="apps.use_app_identity_desc"
-                  v-model="editForm['use-app-identity']"
-                  default="false"
-        ></Checkbox>
-        <!-- per-client app identity -->
-        <Checkbox class="mb-3"
-                  v-if="editForm['use-app-identity']"
-                  id="perClientAppIdentity"
-                  label="apps.per_client_app_identity"
-                  desc="apps.per_client_app_identity_desc"
-                  v-model="editForm['per-client-app-identity']"
-                  default="false"
-        ></Checkbox>
-        <!-- resolution scale factor -->
-        <div class="mb-3" v-if="platform === 'windows'">
-          <label for="resolutionScaleFactor" class="form-label">{{ $t('apps.resolution_scale_factor') }}: {{editForm['scale-factor']}}%</label>
-          <input type="range" step="1" min="20" max="200" class="form-range" id="resolutionScaleFactor" v-model="editForm['scale-factor']"/>
-          <div class="form-text">{{ $t('apps.resolution_scale_factor_desc') }}</div>
-        </div>
-        <div class="env-hint alert alert-info overflow-auto">
-          <div class="form-text">
-            <h4>{{ $t('apps.env_vars_about') }}</h4>
-            {{ $t('apps.env_vars_desc') }}
+
+          <!-- allow client commands -->
+          <checkbox
+            id="clientCommands"
+            label="apps.allow_client_commands"
+            desc="apps.allow_client_commands_desc"
+            v-model="editForm['allow-client-commands']"
+            default="true"
+          ></checkbox>
+
+          <!-- prep and state-cmd -->
+          <template v-for="type in ['prep', 'state']" :key="type">
+            <checkbox
+              :id="'excludeGlobal_' + type"
+              :label="'apps.global_' + type + '_name'"
+              :desc="'apps.global_' + type + '_desc'"
+              v-model="editForm['exclude-global-' + type + '-cmd']"
+              default="true"
+              inverse-values
+            ></checkbox>
+            <div class="stack-sm">
+              <div class="md-title-small">{{ $t('apps.cmd_' + type + '_name') }}</div>
+              <div class="md-body-small text-muted pre-wrap">{{ $t('apps.cmd_' + type + '_desc') }}</div>
+              <div class="md-table-scroll" v-if="editForm[type + '-cmd'].length > 0">
+                <table class="md-table">
+                  <thead>
+                    <tr>
+                      <th><icon name="play_arrow"></icon>{{ $t('_common.do_cmd') }}</th>
+                      <th><icon name="undo"></icon>{{ $t('_common.undo_cmd') }}</th>
+                      <th v-if="platform === 'windows'"><icon name="shield"></icon>{{ $t('_common.run_as') }}</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(c, i) in editForm[type + '-cmd']" :key="i">
+                      <td><text-field dense monospace :id="type + '-do-' + i" v-model="c.do"></text-field></td>
+                      <td><text-field dense monospace :id="type + '-undo-' + i" v-model="c.undo"></text-field></td>
+                      <td v-if="platform === 'windows'">
+                        <label class="md-checkbox">
+                          <input type="checkbox" :id="type + '-cmd-admin-' + i" v-model="c.elevated" />
+                          {{ $t('_common.elevated') }}
+                        </label>
+                      </td>
+                      <td>
+                        <div class="md-table__actions">
+                          <button class="md-icon-button md-icon-button--danger" :aria-label="$t('_common.remove')" @click="editForm[type + '-cmd'].splice(i,1)">
+                            <icon name="delete"></icon>
+                          </button>
+                          <button class="md-icon-button md-icon-button--tonal" :aria-label="$t('config.add')" @click="addCmd(editForm[type + '-cmd'], i)">
+                            <icon name="add"></icon>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <button class="md-button md-button--tonal self-start" @click="addCmd(editForm[type + '-cmd'], -1)">
+                <icon name="add"></icon>{{ $t('apps.add_cmds') }}
+              </button>
+            </div>
+          </template>
+
+          <!-- working dir -->
+          <text-field
+            id="appWorkingDir"
+            monospace
+            :label="$t('apps.working_dir')"
+            :supporting="$t('apps.working_dir_desc')"
+            v-model="editForm['working-dir']"
+          ></text-field>
+
+          <!-- output -->
+          <text-field
+            id="appOutput"
+            monospace
+            :label="$t('apps.output_name')"
+            :supporting="$t('apps.output_desc')"
+            v-model="editForm.output"
+          ></text-field>
+
+          <!-- auto-detach -->
+          <checkbox
+            id="autoDetach"
+            label="apps.auto_detach"
+            desc="apps.auto_detach_desc"
+            v-model="editForm['auto-detach']"
+            default="true"
+          ></checkbox>
+          <!-- wait for all processes -->
+          <checkbox
+            id="waitAll"
+            label="apps.wait_all"
+            desc="apps.wait_all_desc"
+            v-model="editForm['wait-all']"
+            default="true"
+          ></checkbox>
+          <!-- terminate on pause -->
+          <checkbox
+            id="terminateOnPause"
+            label="apps.terminate_on_pause"
+            desc="apps.terminate_on_pause_desc"
+            v-model="editForm['terminate-on-pause']"
+            default="false"
+          ></checkbox>
+
+          <!-- exit timeout -->
+          <text-field
+            id="exitTimeout"
+            type="number"
+            min="0"
+            placeholder="5"
+            monospace
+            :label="$t('apps.exit_timeout')"
+            :supporting="$t('apps.exit_timeout_desc')"
+            v-model="editForm['exit-timeout']"
+          ></text-field>
+
+          <!-- use virtual display -->
+          <checkbox
+            id="virtualDisplay"
+            label="apps.virtual_display"
+            desc="apps.virtual_display_desc"
+            v-model="editForm['virtual-display']"
+            default="false"
+          ></checkbox>
+          <!-- use app identity -->
+          <checkbox
+            id="useAppIdentity"
+            label="apps.use_app_identity"
+            desc="apps.use_app_identity_desc"
+            v-model="editForm['use-app-identity']"
+            default="false"
+          ></checkbox>
+          <!-- per-client app identity -->
+          <checkbox
+            v-if="editForm['use-app-identity']"
+            id="perClientAppIdentity"
+            label="apps.per_client_app_identity"
+            desc="apps.per_client_app_identity_desc"
+            v-model="editForm['per-client-app-identity']"
+            default="false"
+          ></checkbox>
+
+          <!-- resolution scale factor -->
+          <div class="stack-sm" v-if="platform === 'windows'">
+            <label for="resolutionScaleFactor" class="md-title-small">
+              {{ $t('apps.resolution_scale_factor') }}: {{editForm['scale-factor']}}%
+            </label>
+            <input
+              type="range"
+              step="1"
+              min="20"
+              max="200"
+              class="md-slider"
+              id="resolutionScaleFactor"
+              v-model="editForm['scale-factor']"
+            />
+            <div class="md-body-small text-muted">{{ $t('apps.resolution_scale_factor_desc') }}</div>
           </div>
-          <table class="env-table">
-            <tr>
-              <td><b>{{ $t('apps.env_var_name') }}</b></td>
-              <td><b></b></td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_APP_ID</td>
-              <td>{{ $t('apps.env_app_id') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_APP_NAME</td>
-              <td>{{ $t('apps.env_app_name') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_APP_UUID</td>
-              <td>{{ $t('apps.env_app_uuid') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_APP_STATUS</td>
-              <td>{{ $t('apps.env_app_status') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_UUID</td>
-              <td>{{ $t('apps.env_client_uuid') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_NAME</td>
-              <td>{{ $t('apps.env_client_name') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_WIDTH</td>
-              <td>{{ $t('apps.env_client_width') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_HEIGHT</td>
-              <td>{{ $t('apps.env_client_height') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_FPS</td>
-              <td>{{ $t('apps.env_client_fps') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_HDR</td>
-              <td>{{ $t('apps.env_client_hdr') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_GCMAP</td>
-              <td>{{ $t('apps.env_client_gcmap') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_HOST_AUDIO</td>
-              <td>{{ $t('apps.env_client_host_audio') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_ENABLE_SOPS</td>
-              <td>{{ $t('apps.env_client_enable_sops') }}</td>
-            </tr>
-            <tr>
-              <td style="font-family: monospace">HELIOS_CLIENT_AUDIO_CONFIGURATION</td>
-              <td>{{ $t('apps.env_client_audio_config') }}</td>
-            </tr>
+        </div>
+      </section>
+
+      <!-- Environment variable reference -->
+      <expander :title="$t('apps.env_vars_about')" icon="code" :open="false">
+        <p class="md-body-medium text-muted mt-0">{{ $t('apps.env_vars_desc') }}</p>
+        <div class="md-table-scroll">
+          <table class="md-table helios-env-table">
+            <thead>
+              <tr>
+                <th>{{ $t('apps.env_var_name') }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="v in envVars" :key="v.name">
+                <td class="monospace">{{v.name}}</td>
+                <td>{{ $t(v.key) }}</td>
+              </tr>
+            </tbody>
           </table>
-
-          <template v-if="platform === 'windows'">
-            <div class="form-text"><b>{{ $t('apps.env_rtss_cli_example') }}</b>
-              <pre>cmd /C \path\to\rtss-cli.exe limit:set %HELIOS_CLIENT_FPS%</pre>
-            </div>
-          </template>
-          <template v-if="platform === 'linux'">
-            <div class="form-text"><b>{{ $t('apps.env_xrandr_example') }}</b>
-              <pre>sh -c "xrandr --output HDMI-1 --mode \"${HELIOS_CLIENT_WIDTH}x${HELIOS_CLIENT_HEIGHT}\" --rate ${HELIOS_CLIENT_FPS}"</pre>
-            </div>
-          </template>
-          <template v-if="platform === 'macos'">
-            <div class="form-text"><b>{{ $t('apps.env_displayplacer_example') }}</b>
-              <pre>sh -c "displayplacer "id:&lt;screenId&gt; res:${HELIOS_CLIENT_WIDTH}x${HELIOS_CLIENT_HEIGHT} hz:${HELIOS_CLIENT_FPS} scaling:on origin:(0,0) degree:0""</pre>
-            </div>
-          </template>
-
-          <div class="form-text">
-            <a
-              href="https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2app__examples.html"
-              target="_blank"
-              class="text-decoration-none"
-            >
-              {{ $t('_common.see_more') }}
-            </a>
-          </div>
         </div>
 
-        <div class="alert alert-info">
-          <i class="fa-solid fa-xl fa-circle-info"></i> {{ $t('apps.env_sunshine_compatibility') }}
-        </div>
+        <template v-if="platform === 'windows'">
+          <div class="md-body-small text-muted mt-4"><b>{{ $t('apps.env_rtss_cli_example') }}</b></div>
+          <pre>cmd /C \path\to\rtss-cli.exe limit:set %HELIOS_CLIENT_FPS%</pre>
+        </template>
+        <template v-if="platform === 'linux'">
+          <div class="md-body-small text-muted mt-4"><b>{{ $t('apps.env_xrandr_example') }}</b></div>
+          <pre>sh -c "xrandr --output HDMI-1 --mode \"${HELIOS_CLIENT_WIDTH}x${HELIOS_CLIENT_HEIGHT}\" --rate ${HELIOS_CLIENT_FPS}"</pre>
+        </template>
+        <template v-if="platform === 'macos'">
+          <div class="md-body-small text-muted mt-4"><b>{{ $t('apps.env_displayplacer_example') }}</b></div>
+          <pre>sh -c "displayplacer "id:&lt;screenId&gt; res:${HELIOS_CLIENT_WIDTH}x${HELIOS_CLIENT_HEIGHT} hz:${HELIOS_CLIENT_FPS} scaling:on origin:(0,0) degree:0""</pre>
+        </template>
 
-        <!-- Save buttons -->
-        <div class="d-flex">
-          <button @click="showEditForm = false" class="btn btn-secondary me-2">
-            <i class="fas fa-xmark"></i> {{ $t('_common.cancel') }}
-          </button>
-          <button class="btn btn-primary" :disabled="actionDisabled || !editForm.name.trim()" @click="save">
-            <i class="fas fa-floppy-disk"></i> {{ $t('_common.save') }}
-          </button>
+        <div class="md-body-small mt-4">
+          <a href="https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2app__examples.html" target="_blank">
+            {{ $t('_common.see_more') }}
+          </a>
         </div>
+      </expander>
+
+      <banner variant="info">{{ $t('apps.env_sunshine_compatibility') }}</banner>
+
+      <div class="flex gap-2">
+        <button @click="showEditForm = false" class="md-button md-button--text md-button--md">
+          <icon name="close"></icon>{{ $t('_common.cancel') }}
+        </button>
+        <button
+          class="md-button md-button--filled md-button--md"
+          :disabled="actionDisabled || !editForm.name.trim()"
+          @click="save"
+        >
+          <icon name="save"></icon>{{ $t('_common.save') }}
+        </button>
+        <button
+          class="md-button md-button--tonal md-button--md"
+          @click="exportLauncherFile(editForm)"
+          :disabled="!editForm.uuid"
+        >
+          <icon name="upload"></icon>{{ $t('apps.export_launcher_file') }}
+        </button>
       </div>
     </div>
-  </div>
+
+    <!-- ----------------------------------------------------- cover finder -->
+    <md-dialog :open="coverFinderOpen" :title="$t('apps.covers_found')" @close="closeCoverFinder">
+      <div class="helios-cover-grid" :class="{ 'helios-cover-results--busy': coverFinderBusy }">
+        <div v-if="coverSearching" class="helios-cover">
+          <div class="helios-cover-spinner">
+            <span class="md-spinner md-spinner--lg"></span>
+          </div>
+        </div>
+        <button
+          type="button"
+          v-for="cover in coverCandidates"
+          :key="cover.key"
+          class="helios-cover-option"
+          @click="useCover(cover)"
+        >
+          <div class="helios-cover"><img :src="cover.url" alt="" /></div>
+          <span class="md-body-small truncate block mt-2">{{cover.name}}</span>
+        </button>
+        <div class="md-empty" v-if="!coverSearching && !coverCandidates.length">
+          <icon name="image_search" size="xl"></icon>
+        </div>
+      </div>
+    </md-dialog>
+  </app-frame>
 </body>
+
 <script type="module">
   import { createApp } from 'vue'
   import { initApp } from './init'
-  import Navbar from './Navbar.vue'
+  import AppFrame from './AppFrame.vue'
+  import Banner from './Banner.vue'
   import Checkbox from './Checkbox.vue'
-  import { Dropdown } from 'bootstrap/dist/js/bootstrap'
+  import MdDialog from './Dialog.vue'
+  import Expander from './Expander.vue'
+  import SelectField from './SelectField.vue'
+  import TextField from './TextField.vue'
 
   const newApp = {
     "name": "New App",
@@ -551,19 +480,43 @@
     "gamepad": ""
   }
 
+  const envVars = [
+    { name: 'HELIOS_APP_ID', key: 'apps.env_app_id' },
+    { name: 'HELIOS_APP_NAME', key: 'apps.env_app_name' },
+    { name: 'HELIOS_APP_UUID', key: 'apps.env_app_uuid' },
+    { name: 'HELIOS_APP_STATUS', key: 'apps.env_app_status' },
+    { name: 'HELIOS_CLIENT_UUID', key: 'apps.env_client_uuid' },
+    { name: 'HELIOS_CLIENT_NAME', key: 'apps.env_client_name' },
+    { name: 'HELIOS_CLIENT_WIDTH', key: 'apps.env_client_width' },
+    { name: 'HELIOS_CLIENT_HEIGHT', key: 'apps.env_client_height' },
+    { name: 'HELIOS_CLIENT_FPS', key: 'apps.env_client_fps' },
+    { name: 'HELIOS_CLIENT_HDR', key: 'apps.env_client_hdr' },
+    { name: 'HELIOS_CLIENT_GCMAP', key: 'apps.env_client_gcmap' },
+    { name: 'HELIOS_CLIENT_HOST_AUDIO', key: 'apps.env_client_host_audio' },
+    { name: 'HELIOS_CLIENT_ENABLE_SOPS', key: 'apps.env_client_enable_sops' },
+    { name: 'HELIOS_CLIENT_AUDIO_CONFIGURATION', key: 'apps.env_client_audio_config' },
+  ]
+
   const app = createApp({
     components: {
-      Navbar,
-      Checkbox
+      AppFrame,
+      Banner,
+      Checkbox,
+      MdDialog,
+      Expander,
+      SelectField,
+      TextField
     },
     data() {
       return {
         apps: [],
+        envVars,
         showEditForm: false,
         actionDisabled: false,
         editForm: null,
         detachedCmd: "",
         coverSearching: false,
+        coverFinderOpen: false,
         coverFinderBusy: false,
         coverCandidates: [],
         platform: "",
@@ -703,7 +656,7 @@
 
         if (!isLocalHost && confirm(this.$t('apps.launch_local_client'))) {
           const link = document.createElement('a');
-          link.href = event.target.href;
+          link.href = event.currentTarget.href;
           link.click();
           return;
         }
@@ -812,22 +765,11 @@
           cmdArr.splice(idx, 0, template);
         }
       },
-      showCoverFinder($event) {
+      showCoverFinder() {
         this.coverCandidates = [];
         this.coverSearching = true;
-        const ref = this.$refs.coverFinderDropdown;
-        if (!ref) {
-          console.error("Ref not found!");
-          return;
-        }
-        this.coverFinderDropdown = Dropdown.getInstance(ref);
-        if (!this.coverFinderDropdown) {
-          this.coverFinderDropdown = new Dropdown(ref);
-          if (!this.coverFinderDropdown) {
-            return;
-          }
-        }
-        this.coverFinderDropdown.show();
+        this.coverFinderOpen = true;
+
         function getSearchBucket(name) {
           let bucket = name.substring(0, Math.min(name.length, 2)).toLowerCase().replaceAll(/[^a-z\d]/g, '');
           if (!bucket) {
@@ -881,15 +823,7 @@
           .finally(() => this.coverSearching = false);
       },
       closeCoverFinder() {
-        const ref = this.$refs.coverFinderDropdown;
-        if (!ref) {
-          return;
-        }
-        const dropdown = this.coverFinderDropdown = Dropdown.getInstance(ref);
-        if (!dropdown) {
-          return;
-        }
-        dropdown.hide();
+        this.coverFinderOpen = false;
       },
       useCover(cover) {
         this.coverFinderBusy = true;
@@ -941,12 +875,6 @@
         });
       },
     },
-  });
-
-  app.directive('dropdown-show', {
-    mounted: function (el, binding) {
-      el.addEventListener('show.bs.dropdown', binding.value);
-    }
   });
 
   initApp(app);

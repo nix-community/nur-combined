@@ -12,6 +12,7 @@
 #include <opus/opus.h>
 
 #include "../../src/stream.h"
+#include "../../src/config.h"
 #include "../../src/network.h"
 #include "../../src/quic_transport.h"
 #include "../../src/usb_backend.h"
@@ -152,15 +153,22 @@ TEST(DisplayTopologyTests, SelectsIndependentOutputByStreamIndex) {
 }
 
 TEST(SystemDiskOfferTests, ParsesReadOnlyOfferAndWithdrawal) {
-  const std::string iqn = "iqn.2026-08.os.moonlight:system";
+  const std::string iqn = "iqn.2026-08.os.moonlight:system.0123456789abcdef";
+  const std::string username = "mlos0123456789ab";
+  const std::string password = "0123456789abcdef";
   std::string payload;
-  payload.push_back(1);
-  payload.push_back(1);
+  payload.push_back(2);
+  payload.push_back(7);
   put16(payload, (std::uint16_t) iqn.size());
   put32(payload, 7);
   put64(payload, 64ull * 1024 * 1024);
   put32(payload, 512);
+  payload.push_back((char) username.size());
+  payload.push_back((char) password.size());
+  put16(payload, 0);
   payload += iqn;
+  payload += username;
+  payload += password;
 
   stream::system_disk_offer_t offer;
   ASSERT_TRUE(stream::parse_system_disk_offer(payload, offer));
@@ -168,13 +176,16 @@ TEST(SystemDiskOfferTests, ParsesReadOnlyOfferAndWithdrawal) {
   EXPECT_EQ(offer.size, 64ull * 1024 * 1024);
   EXPECT_EQ(offer.sector_size, 512u);
   EXPECT_EQ(offer.target_iqn, iqn);
+  EXPECT_EQ(offer.chap_username, username);
+  EXPECT_EQ(offer.chap_password, password);
 
   payload.assign(2, '\0');
-  payload[0] = 1;
+  payload[0] = 2;
   put16(payload, 0);
   put32(payload, 8);
   put64(payload, 0);
   put32(payload, 0);
+  payload.append(4, '\0');
   ASSERT_TRUE(stream::parse_system_disk_offer(payload, offer));
   EXPECT_EQ(offer.generation, 8u);
   EXPECT_FALSE(offer.present());
@@ -183,23 +194,46 @@ TEST(SystemDiskOfferTests, ParsesReadOnlyOfferAndWithdrawal) {
 TEST(SystemDiskOfferTests, RejectsWritableOrMalformedWithoutReplacingState) {
   const std::string iqn = "iqn.2026-08.os.moonlight:system";
   std::string payload;
-  payload.push_back(1);
+  payload.push_back(2);
   payload.push_back(0);  // A present disk must be kernel-enforced read-only.
   put16(payload, (std::uint16_t) iqn.size());
   put32(payload, 9);
   put64(payload, 4096);
   put32(payload, 512);
+  payload.push_back(16);
+  payload.push_back(16);
+  put16(payload, 0);
   payload += iqn;
+  payload += "mlos0123456789ab";
+  payload += "0123456789abcdef";
 
-  stream::system_disk_offer_t offer {3, 8192, 4096, "iqn.keep"};
+  stream::system_disk_offer_t offer;
+  offer.generation = 3;
+  offer.size = 8192;
+  offer.sector_size = 4096;
+  offer.target_iqn = "iqn.keep";
   EXPECT_FALSE(stream::parse_system_disk_offer(payload, offer));
   EXPECT_EQ(offer.generation, 3u);
   EXPECT_EQ(offer.target_iqn, "iqn.keep");
 
-  payload[1] = 1;
+  payload[1] = 7;
   payload.pop_back();
   EXPECT_FALSE(stream::parse_system_disk_offer(payload, offer));
   EXPECT_EQ(offer.target_iqn, "iqn.keep");
+}
+
+TEST(SystemDiskOfferTests, EncodesBoundedHostAttachmentStatus) {
+  auto payload = stream::encode_system_disk_status(0x44332211, 3, "attach failed");
+  ASSERT_EQ(payload.size(), 21u);
+  EXPECT_EQ(static_cast<unsigned char>(payload[0]), 3u);
+  EXPECT_EQ(static_cast<unsigned char>(payload[1]), 0u);
+  EXPECT_EQ(static_cast<unsigned char>(payload[2]), 13u);
+  EXPECT_EQ(static_cast<unsigned char>(payload[3]), 0u);
+  EXPECT_EQ(static_cast<unsigned char>(payload[4]), 0x11u);
+  EXPECT_EQ(static_cast<unsigned char>(payload[7]), 0x44u);
+  EXPECT_EQ(payload.substr(8), "attach failed");
+  EXPECT_TRUE(stream::encode_system_disk_status(1, 5, "invalid").empty());
+  EXPECT_EQ(stream::encode_system_disk_status(1, 3, std::string(600, 'x')).size(), 520u);
 }
 
 TEST(FeatureAdvertisementTests, EmptyAdvertisementMeansVanillaCompatible) {
@@ -454,12 +488,17 @@ Port 04: <Port in Use>
 }
 
 TEST(SystemDiskBackendTests, BuildsExactLoopbackIscsiPlans) {
-  auto attach = stream::iscsiadm_attach_plan(49152, "iqn.2026-08.os.moonlight:system");
-  ASSERT_EQ(attach.size(), 3u);
+  auto attach = stream::iscsiadm_attach_plan(
+    49152, "iqn.2026-08.os.moonlight:system", "mlos0123456789ab", "0123456789abcdef");
+  ASSERT_EQ(attach.size(), 6u);
   EXPECT_EQ(attach[0], (std::vector<std::string> {
     "-m", "node", "-T", "iqn.2026-08.os.moonlight:system",
     "-p", "127.0.0.1:49152", "--op", "new"}));
-  EXPECT_EQ(attach[2].back(), "--login");
+  EXPECT_EQ(attach[2][attach[2].size() - 2], "-v");
+  EXPECT_EQ(attach[2].back(), "CHAP");
+  EXPECT_EQ(attach[3].back(), "mlos0123456789ab");
+  EXPECT_EQ(attach[4].back(), "0123456789abcdef");
+  EXPECT_EQ(attach[5].back(), "--login");
 
   auto detach = stream::iscsiadm_detach_plan(49152, "iqn.2026-08.os.moonlight:system");
   ASSERT_EQ(detach.size(), 2u);
@@ -469,13 +508,17 @@ TEST(SystemDiskBackendTests, BuildsExactLoopbackIscsiPlans) {
 
 TEST(SystemDiskBackendTests, BuildsSafeWindowsPowerShellPlans) {
   const std::string iqn = "iqn.2026-08.os.moonlight:system";
-  auto attach = stream::windows_iscsi_attach_script(49152, iqn);
+  auto attach = stream::windows_iscsi_attach_script(
+    49152, iqn, "mlos0123456789ab", "0123456789abcdef");
   EXPECT_NE(attach.find("Get-IscsiTargetPortal"), std::string::npos);
   EXPECT_NE(attach.find("New-IscsiTargetPortal"), std::string::npos);
   EXPECT_NE(attach.find("Connect-IscsiTarget"), std::string::npos);
   EXPECT_NE(attach.find("-TargetPortalPortNumber 49152"), std::string::npos);
   EXPECT_NE(attach.find("-IsPersistent $false"), std::string::npos);
   EXPECT_NE(attach.find("-ReportToPnP $true"), std::string::npos);
+  EXPECT_NE(attach.find("-AuthenticationType ONEWAYCHAP"), std::string::npos);
+  EXPECT_NE(attach.find("-ChapUsername 'mlos0123456789ab'"), std::string::npos);
+  EXPECT_NE(attach.find("-ChapSecret '0123456789abcdef'"), std::string::npos);
 
   auto detach = stream::windows_iscsi_detach_script(49152, iqn);
   EXPECT_NE(detach.find("iscsicli.exe"), std::string::npos);
@@ -501,7 +544,8 @@ TEST(SystemDiskBackendTests, BuildsSafeWindowsPowerShellPlans) {
   EXPECT_NE(detached.find("iSCSI target portal remains"), std::string::npos);
 
   EXPECT_TRUE(stream::windows_iscsi_attach_script(
-    49152, "iqn.good:disk;Restart-Computer").empty());
+    49152, "iqn.good:disk;Restart-Computer", "mlos0123456789ab",
+    "0123456789abcdef").empty());
   EXPECT_TRUE(stream::windows_iscsi_detach_script(80, iqn).empty());
 }
 
@@ -509,17 +553,23 @@ TEST(SystemDiskBackendTests, BuildsSafeWindowsPowerShellPlans) {
 TEST(SystemDiskBackendTests, PrivilegedHelperParserIsStrictAndStatePreserving) {
   std::uint16_t port = 40000;
   std::string iqn = "iqn.keep";
+  std::string username = "usernamekeep";
+  std::string password = "passwordkeep";
   bool attach = false;
   const std::string valid =
-    R"({"v":1,"kind":"system_disk","port":49152,"iqn":"iqn.2026-08.os.moonlight:system","attach":true})";
-  ASSERT_TRUE(stream::parse_system_disk_helper_request(valid, port, iqn, attach));
+    R"({"v":1,"kind":"system_disk","port":49152,"iqn":"iqn.2026-08.os.moonlight:system","username":"mlos0123456789ab","password":"0123456789abcdef","attach":true})";
+  ASSERT_TRUE(stream::parse_system_disk_helper_request(
+    valid, port, iqn, username, password, attach));
   EXPECT_EQ(port, 49152);
   EXPECT_EQ(iqn, "iqn.2026-08.os.moonlight:system");
+  EXPECT_EQ(username, "mlos0123456789ab");
+  EXPECT_EQ(password, "0123456789abcdef");
   EXPECT_TRUE(attach);
 
   const std::string injected =
-    R"({"v":1,"kind":"system_disk","port":49152,"iqn":"iqn.good:disk;reboot","attach":false})";
-  EXPECT_FALSE(stream::parse_system_disk_helper_request(injected, port, iqn, attach));
+    R"({"v":1,"kind":"system_disk","port":49152,"iqn":"iqn.good:disk;reboot","username":"mlos0123456789ab","password":"0123456789abcdef","attach":false})";
+  EXPECT_FALSE(stream::parse_system_disk_helper_request(
+    injected, port, iqn, username, password, attach));
   EXPECT_EQ(port, 49152);
   EXPECT_EQ(iqn, "iqn.2026-08.os.moonlight:system");
   EXPECT_TRUE(attach);
@@ -865,6 +915,10 @@ TEST(QuicNegotiationTests, AcceptsOnlyCanonicalOptInAndToken) {
   EXPECT_FALSE(quic_transport::parse_token(uppercase));
   EXPECT_EQ(quic_transport::session_url("[::1]", 48003, token),
             "quic://[::1]:48003/" + encoded);
+}
+
+TEST(QuicNegotiationTests, TransportIsDisabledByDefault) {
+  EXPECT_FALSE(config::helios.enable_quic);
 }
 
 #ifdef HAVE_MSQUIC

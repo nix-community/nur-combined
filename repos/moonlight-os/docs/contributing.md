@@ -15,7 +15,17 @@ Open issues and pull requests in the
 * The HTML pages used by the Web UI are found in `./src_assets/common/assets/web`.
 * [EJS](https://www.npmjs.com/package/vite-plugin-ejs) is used as a templating system for the pages
   (check `template_header.html` and `template_header_main.html`).
-* The Style System is provided by [Bootstrap](https://getbootstrap.com).
+* The style system is a self-contained [Material 3 Expressive](https://m3.material.io) implementation
+  in `./src_assets/common/assets/web/styles` -- there is no CSS framework underneath. `tokens.css`
+  holds the design tokens (colour roles, type scale, shape, elevation, motion), `components.css` the
+  components, and `utilities.css` a small layout helper set.
+  * The colour roles are generated from the Helios brand gold; re-run `scripts/generate-theme.mjs`
+    if the brand colour changes.
+  * Icons come from a subset of Material Symbols Rounded. After using a new icon, add its name to
+    `scripts/build-material-symbols.py` and re-run it to regenerate the font and `icons.js`.
+  * Pages are mounted as in-DOM templates, so component tags in `.html` files must be kebab-case and
+    explicitly closed (`<text-field ...></text-field>`); the browser's parser lowercases tag names and
+    ignores self-closing slashes. `.vue` files have no such restriction.
 * The JS framework used by the more interactive pages is [Vue.js](https://vuejs.org).
 
 #### Building

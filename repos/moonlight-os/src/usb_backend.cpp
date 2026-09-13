@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cctype>
 #include <condition_variable>
 #include <cstdlib>
 #include <filesystem>
@@ -117,6 +118,13 @@ namespace stream {
     return iqn.size() <= 223 && std::regex_match(iqn.begin(), iqn.end(), iqn_re);
   }
 
+  static bool valid_chap_credential(std::string_view value) {
+    return value.size() >= 12 && value.size() <= 64 &&
+           std::all_of(value.begin(), value.end(), [](unsigned char ch) {
+             return std::isalnum(ch) != 0;
+           });
+  }
+
   std::vector<std::vector<std::string>> iscsiadm_detach_plan(
     std::uint16_t proxy_port, std::string_view target_iqn) {
     auto portal = "127.0.0.1:" + std::to_string(proxy_port);
@@ -129,29 +137,47 @@ namespace stream {
   }
 
   std::vector<std::vector<std::string>> iscsiadm_attach_plan(
-    std::uint16_t proxy_port, std::string_view target_iqn) {
+    std::uint16_t proxy_port, std::string_view target_iqn,
+    std::string_view chap_username, std::string_view chap_password) {
+    if (!valid_chap_credential(chap_username) || !valid_chap_credential(chap_password)) return {};
     auto portal = "127.0.0.1:" + std::to_string(proxy_port);
     auto base = std::vector<std::string> {"-m", "node", "-T", std::string(target_iqn), "-p", portal};
     auto create = base;
     create.insert(create.end(), {"--op", "new"});
     auto manual = base;
     manual.insert(manual.end(), {"--op", "update", "-n", "node.startup", "-v", "manual"});
+    auto auth_method = base;
+    auth_method.insert(auth_method.end(), {"--op", "update", "-n",
+                                           "node.session.auth.authmethod", "-v", "CHAP"});
+    auto username = base;
+    username.insert(username.end(), {"--op", "update", "-n",
+                                     "node.session.auth.username", "-v", std::string(chap_username)});
+    auto password = base;
+    password.insert(password.end(), {"--op", "update", "-n",
+                                     "node.session.auth.password", "-v", std::string(chap_password)});
     auto login = base;
     login.push_back("--login");
-    return {std::move(create), std::move(manual), std::move(login)};
+    return {std::move(create), std::move(manual), std::move(auth_method),
+            std::move(username), std::move(password), std::move(login)};
   }
 
   std::string windows_iscsi_attach_script(
-    std::uint16_t proxy_port, std::string_view target_iqn) {
-    if (proxy_port < 1024 || !valid_target_iqn(target_iqn)) return {};
+    std::uint16_t proxy_port, std::string_view target_iqn,
+    std::string_view chap_username, std::string_view chap_password) {
+    if (proxy_port < 1024 || !valid_target_iqn(target_iqn) ||
+        !valid_chap_credential(chap_username) || !valid_chap_credential(chap_password)) return {};
     auto port = std::to_string(proxy_port);
     auto iqn = std::string(target_iqn);
+    auto username = std::string(chap_username);
+    auto password = std::string(chap_password);
     return "$portal = Get-IscsiTargetPortal -TargetPortalAddress '127.0.0.1' "
            "-TargetPortalPortNumber " + port + " -ErrorAction SilentlyContinue; "
            "if (-not $portal) { New-IscsiTargetPortal -TargetPortalAddress '127.0.0.1' "
            "-TargetPortalPortNumber " + port + " -ErrorAction Stop | Out-Null }; "
            "Connect-IscsiTarget -NodeAddress '" + iqn + "' "
            "-TargetPortalAddress '127.0.0.1' -TargetPortalPortNumber " + port + " "
+           "-AuthenticationType ONEWAYCHAP -ChapUsername '" + username + "' "
+           "-ChapSecret '" + password + "' "
            "-IsPersistent $false -ReportToPnP $true -ErrorAction Stop | Out-Null";
   }
 
@@ -384,9 +410,13 @@ namespace stream {
 
   static std::vector<std::string> reconcile_system_disk(std::uint16_t proxy_port,
                                                          std::string_view target_iqn,
+                                                         std::string_view chap_username,
+                                                         std::string_view chap_password,
                                                          bool attach) {
     std::vector<std::string> failures;
-    if (proxy_port < 1024 || !valid_target_iqn(target_iqn)) {
+    if (proxy_port < 1024 || !valid_target_iqn(target_iqn) ||
+        (attach && (!valid_chap_credential(chap_username) ||
+                    !valid_chap_credential(chap_password)))) {
       return {"invalid system disk target"};
     }
 #ifdef _WIN32
@@ -409,7 +439,8 @@ namespace stream {
     // The legacy AddTargetPortal CLI requires a brittle 14-argument tail.
     // Native cmdlets accept the ephemeral portal socket directly, keep the
     // login non-persistent, and let withdrawal remove the exact portal only.
-    auto script = attach ? windows_iscsi_attach_script(proxy_port, target_iqn) :
+    auto script = attach ? windows_iscsi_attach_script(proxy_port, target_iqn,
+                                                        chap_username, chap_password) :
                            windows_iscsi_detach_script(proxy_port, target_iqn);
     auto [rc, output] = run_usbip(
       powershell_path,
@@ -429,7 +460,8 @@ namespace stream {
         run_usbip(tool_path, args);
       }
     }
-    const auto plan = attach ? iscsiadm_attach_plan(proxy_port, target_iqn) :
+    const auto plan = attach ? iscsiadm_attach_plan(proxy_port, target_iqn,
+                                                     chap_username, chap_password) :
                                iscsiadm_detach_plan(proxy_port, target_iqn);
     for (const auto &args : plan) {
       auto [rc, output] = run_usbip(tool_path, args);
@@ -518,19 +550,28 @@ namespace stream {
   bool parse_system_disk_helper_request(std::string_view body,
                                         std::uint16_t &proxy_port,
                                         std::string &target_iqn,
+                                        std::string &chap_username,
+                                        std::string &chap_password,
                                         bool &attach) {
     try {
       auto request = nlohmann::json::parse(body);
-      if (!request.is_object() || request.size() != 5 || request.value("v", 0) != 1 ||
+      if (!request.is_object() || request.size() != 7 || request.value("v", 0) != 1 ||
           request.value("kind", "") != "system_disk" ||
           !request.contains("port") || !request["port"].is_number_unsigned() ||
           !request.contains("iqn") || !request["iqn"].is_string() ||
+          !request.contains("username") || !request["username"].is_string() ||
+          !request.contains("password") || !request["password"].is_string() ||
           !request.contains("attach") || !request["attach"].is_boolean()) return false;
       auto port = request["port"].get<std::uint64_t>();
       auto iqn = request["iqn"].get<std::string>();
-      if (port < 1024 || port > 65535 || !valid_target_iqn(iqn)) return false;
+      auto username = request["username"].get<std::string>();
+      auto password = request["password"].get<std::string>();
+      if (port < 1024 || port > 65535 || !valid_target_iqn(iqn) ||
+          !valid_chap_credential(username) || !valid_chap_credential(password)) return false;
       proxy_port = static_cast<std::uint16_t>(port);
       target_iqn = std::move(iqn);
+      chap_username = std::move(username);
+      chap_password = std::move(password);
       attach = request["attach"].get<bool>();
       return true;
     } catch (...) {
@@ -569,7 +610,8 @@ namespace stream {
   }
 
   static std::optional<std::string> request_system_disk_helper(
-    std::uint16_t proxy_port, std::string_view target_iqn, bool attach) {
+    std::uint16_t proxy_port, std::string_view target_iqn,
+    std::string_view chap_username, std::string_view chap_password, bool attach) {
     int fd = ::socket(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0);
     if (fd < 0) return "could not create the helper socket: " + std::string(std::strerror(errno));
     socklen_t address_length;
@@ -581,7 +623,8 @@ namespace stream {
     }
     nlohmann::json request {
       {"v", 1}, {"kind", "system_disk"}, {"port", proxy_port},
-      {"iqn", target_iqn}, {"attach", attach},
+      {"iqn", target_iqn}, {"username", chap_username}, {"password", chap_password},
+      {"attach", attach},
     };
     auto sent = write_all(fd, request.dump() + "\n");
     ::shutdown(fd, SHUT_WR);
@@ -635,12 +678,15 @@ namespace stream {
       auto body = authorized ? read_request(client) : std::nullopt;
       std::vector<usb_device_t> devices;
       std::string target_iqn;
+      std::string chap_username;
+      std::string chap_password;
       bool attach_disk = false;
       bool valid_disk = body && parse_system_disk_helper_request(
-        *body, proxy_port, target_iqn, attach_disk);
+        *body, proxy_port, target_iqn, chap_username, chap_password, attach_disk);
       bool valid_usb = !valid_disk && body && parse_usb_helper_request(*body, proxy_port, devices);
       if (valid_disk) {
-        auto failures = reconcile_system_disk(proxy_port, target_iqn, attach_disk);
+        auto failures = reconcile_system_disk(proxy_port, target_iqn,
+                                               chap_username, chap_password, attach_disk);
         nlohmann::json response {{"ok", failures.empty()}};
         if (!failures.empty()) response["error"] = failures.front();
         write_all(client, response.dump() + "\n");
@@ -734,10 +780,15 @@ namespace stream {
   struct system_disk_backend_t::impl_t {
     std::uint16_t proxy_port;
     std::string target_iqn;
+    std::string chap_username;
+    std::string chap_password;
+    status_callback_t status_callback;
     std::thread attach_worker;
 
-    impl_t(std::uint16_t port, std::string iqn)
-      : proxy_port(port), target_iqn(std::move(iqn)),
+    impl_t(std::uint16_t port, std::string iqn, std::string username, std::string password,
+           status_callback_t callback)
+      : proxy_port(port), target_iqn(std::move(iqn)), chap_username(std::move(username)),
+        chap_password(std::move(password)), status_callback(std::move(callback)),
         attach_worker([this] { reconcile(true); }) {}
 
     ~impl_t() {
@@ -746,13 +797,18 @@ namespace stream {
     }
 
     void reconcile(bool attach) {
+      if (status_callback) {
+        status_callback(attach ? state_e::attaching : state_e::detaching, {});
+      }
+      std::vector<std::string> failures;
 #ifdef __linux__
-      if (auto helper_error = request_system_disk_helper(proxy_port, target_iqn, attach)) {
-        BOOST_LOG(error) << "System disk "sv << (attach ? "attachment" : "detach")
-                         << " failed: "sv << *helper_error;
+      if (auto helper_error = request_system_disk_helper(proxy_port, target_iqn,
+                                                          chap_username, chap_password, attach)) {
+        failures.push_back(std::move(*helper_error));
       }
 #else
-      auto failures = reconcile_system_disk(proxy_port, target_iqn, attach);
+      failures = reconcile_system_disk(proxy_port, target_iqn,
+                                        chap_username, chap_password, attach);
 #ifdef _WIN32
       // When a client disappears abruptly, Windows may wedge the first native
       // logout until our bounded subprocess guard terminates it. That action
@@ -762,7 +818,8 @@ namespace stream {
       // until our guard fires, so finish the bounded action passes first.
       for (int retry = 0; !attach && !failures.empty() && retry < 4; ++retry) {
         std::this_thread::sleep_for(500ms);
-        failures = reconcile_system_disk(proxy_port, target_iqn, false);
+        failures = reconcile_system_disk(proxy_port, target_iqn,
+                                         chap_username, chap_password, false);
       }
       // Windows publishes removal asynchronously after iscsicli exits. Do not
       // issue more mutations here: poll only the exact session and portal
@@ -772,17 +829,25 @@ namespace stream {
         failures = verify_system_disk_detached(proxy_port, target_iqn);
       }
 #endif
+#endif
       if (!failures.empty()) {
         BOOST_LOG(error) << "System disk "sv << (attach ? "attachment" : "detach")
                          << " failed: "sv << failures.front();
+        if (status_callback) status_callback(state_e::failed, failures.front());
+      } else if (status_callback) {
+        status_callback(attach ? state_e::attached : state_e::detached, {});
       }
-#endif
     }
   };
 
   system_disk_backend_t::system_disk_backend_t(std::uint16_t proxy_port,
-                                               std::string target_iqn)
-    : impl(std::make_unique<impl_t>(proxy_port, std::move(target_iqn))) {}
+                                               std::string target_iqn,
+                                               std::string chap_username,
+                                               std::string chap_password,
+                                               status_callback_t status_callback)
+    : impl(std::make_unique<impl_t>(proxy_port, std::move(target_iqn),
+                                    std::move(chap_username), std::move(chap_password),
+                                    std::move(status_callback))) {}
 
   system_disk_backend_t::~system_disk_backend_t() = default;
 }

@@ -110,15 +110,21 @@ namespace stream {
     std::uint64_t size = 0;
     std::uint32_t sector_size = 0;
     std::string target_iqn;
+    std::string chap_username;
+    std::string chap_password;
 
     bool present() const { return !target_iqn.empty(); }
   };
 
   // Parses a complete declarative snapshot. An empty IQN is a withdrawal;
-  // a present disk must explicitly carry the kernel-enforced read-only flag.
+  // a present disk must explicitly be a stable, read-only, CHAP-protected snapshot.
   // Outputs are replaced only after the entire packet has validated.
   bool parse_system_disk_offer(std::string_view payload,
                                system_disk_offer_t &offer);
+
+  std::string encode_system_disk_status(std::uint32_t generation,
+                                        std::uint8_t state,
+                                        std::string_view message);
 
   std::optional<std::string> select_display_output(
     const std::vector<std::string> &output_names,

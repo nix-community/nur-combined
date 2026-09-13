@@ -59,6 +59,7 @@ makedepends=(
 
 optdepends=(
   'libva-mesa-driver: AMD GPU encoding support'
+  'sway: Isolated virtual displays on Linux hosts without an existing Sway session'
 )
 
 provides=()

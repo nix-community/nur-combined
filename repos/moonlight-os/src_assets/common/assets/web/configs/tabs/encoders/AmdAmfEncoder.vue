@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import Checkbox from "../../../Checkbox.vue";
+import Expander from "../../../Expander.vue";
+import SelectField from "../../../SelectField.vue";
 
 const props = defineProps([
   'platform',
@@ -11,112 +13,74 @@ const config = ref(props.config)
 </script>
 
 <template>
-  <div id="amd-amf-encoder" class="config-page">
+  <div id="amd-amf-encoder" class="md-settings-group">
     <!-- AMF Usage -->
-    <div class="mb-3">
-      <label for="amd_usage" class="form-label">{{ $t('config.amd_usage') }}</label>
-      <select id="amd_usage" class="form-select" v-model="config.amd_usage">
-        <option value="transcoding">{{ $t('config.amd_usage_transcoding') }}</option>
-        <option value="webcam">{{ $t('config.amd_usage_webcam') }}</option>
-        <option value="lowlatency_high_quality">{{ $t('config.amd_usage_lowlatency_high_quality') }}</option>
-        <option value="lowlatency">{{ $t('config.amd_usage_lowlatency') }}</option>
-        <option value="ultralowlatency">{{ $t('config.amd_usage_ultralowlatency') }}</option>
-      </select>
-      <div class="form-text">{{ $t('config.amd_usage_desc') }}</div>
-    </div>
+    <SelectField
+      id="amd_usage"
+      :label="$t('config.amd_usage')"
+      :supporting="$t('config.amd_usage_desc')"
+      v-model="config.amd_usage"
+    >
+      <option value="transcoding">{{ $t('config.amd_usage_transcoding') }}</option>
+      <option value="webcam">{{ $t('config.amd_usage_webcam') }}</option>
+      <option value="lowlatency_high_quality">{{ $t('config.amd_usage_lowlatency_high_quality') }}</option>
+      <option value="lowlatency">{{ $t('config.amd_usage_lowlatency') }}</option>
+      <option value="ultralowlatency">{{ $t('config.amd_usage_ultralowlatency') }}</option>
+    </SelectField>
 
     <!-- AMD Rate Control group options -->
-    <div class="mb-3 accordion">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#panelsStayOpen-collapseOne">
-            {{ $t('config.amd_rc_group') }}
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-             aria-labelledby="panelsStayOpen-headingOne">
-          <div class="accordion-body">
-            <!-- AMF Rate Control -->
-            <div class="mb-3">
-              <label for="amd_rc" class="form-label">{{ $t('config.amd_rc') }}</label>
-              <select id="amd_rc" class="form-select" v-model="config.amd_rc">
-                <option value="cbr">{{ $t('config.amd_rc_cbr') }}</option>
-                <option value="cqp">{{ $t('config.amd_rc_cqp') }}</option>
-                <option value="vbr_latency">{{ $t('config.amd_rc_vbr_latency') }}</option>
-                <option value="vbr_peak">{{ $t('config.amd_rc_vbr_peak') }}</option>
-              </select>
-              <div class="form-text">{{ $t('config.amd_rc_desc') }}</div>
-            </div>
+    <Expander icon="speed" :title="$t('config.amd_rc_group')">
+      <div class="md-settings-group">
+        <!-- AMF Rate Control -->
+        <SelectField
+          id="amd_rc"
+          :label="$t('config.amd_rc')"
+          :supporting="$t('config.amd_rc_desc')"
+          v-model="config.amd_rc"
+        >
+          <option value="cbr">{{ $t('config.amd_rc_cbr') }}</option>
+          <option value="cqp">{{ $t('config.amd_rc_cqp') }}</option>
+          <option value="vbr_latency">{{ $t('config.amd_rc_vbr_latency') }}</option>
+          <option value="vbr_peak">{{ $t('config.amd_rc_vbr_peak') }}</option>
+        </SelectField>
 
-            <!-- AMF HRD Enforcement -->
-            <Checkbox class="mb-3"
-                      id="amd_enforce_hrd"
-                      locale-prefix="config"
-                      v-model="config.amd_enforce_hrd"
-                      default="false"
-            ></Checkbox>
-          </div>
-        </div>
+        <!-- AMF HRD Enforcement -->
+        <Checkbox id="amd_enforce_hrd" locale-prefix="config" v-model="config.amd_enforce_hrd" default="false"></Checkbox>
       </div>
-    </div>
+    </Expander>
 
     <!-- AMF Quality group options -->
-    <div class="mb-3 accordion">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#panelsStayOpen-collapseTwo">
-            {{ $t('config.amd_quality_group') }}
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
-             aria-labelledby="panelsStayOpen-headingTwo">
-          <div class="accordion-body">
-            <!-- AMF Quality -->
-            <div class="mb-3">
-              <label for="amd_quality" class="form-label">{{ $t('config.amd_quality') }}</label>
-              <select id="amd_quality" class="form-select" v-model="config.amd_quality">
-                <option value="speed">{{ $t('config.amd_quality_speed') }}</option>
-                <option value="balanced">{{ $t('config.amd_quality_balanced') }}</option>
-                <option value="quality">{{ $t('config.amd_quality_quality') }}</option>
-              </select>
-              <div class="form-text">{{ $t('config.amd_quality_desc') }}</div>
-            </div>
+    <Expander icon="high_quality" :title="$t('config.amd_quality_group')">
+      <div class="md-settings-group">
+        <!-- AMF Quality -->
+        <SelectField
+          id="amd_quality"
+          :label="$t('config.amd_quality')"
+          :supporting="$t('config.amd_quality_desc')"
+          v-model="config.amd_quality"
+        >
+          <option value="speed">{{ $t('config.amd_quality_speed') }}</option>
+          <option value="balanced">{{ $t('config.amd_quality_balanced') }}</option>
+          <option value="quality">{{ $t('config.amd_quality_quality') }}</option>
+        </SelectField>
 
-            <!-- AMD Preanalysis -->
-            <Checkbox class="mb-3"
-                      id="amd_preanalysis"
-                      locale-prefix="config"
-                      v-model="config.amd_preanalysis"
-                      default="false"
-            ></Checkbox>
+        <!-- AMD Preanalysis -->
+        <Checkbox id="amd_preanalysis" locale-prefix="config" v-model="config.amd_preanalysis" default="false"></Checkbox>
+        <!-- AMD VBAQ -->
+        <Checkbox id="amd_vbaq" locale-prefix="config" v-model="config.amd_vbaq" default="true"></Checkbox>
 
-            <!-- AMD VBAQ -->
-            <Checkbox class="mb-3"
-                      id="amd_vbaq"
-                      locale-prefix="config"
-                      v-model="config.amd_vbaq"
-                      default="true"
-            ></Checkbox>
-
-            <!-- AMF Coder (H264) -->
-            <div class="mb-3">
-              <label for="amd_coder" class="form-label">{{ $t('config.amd_coder') }}</label>
-              <select id="amd_coder" class="form-select" v-model="config.amd_coder">
-                <option value="auto">{{ $t('config.ffmpeg_auto') }}</option>
-                <option value="cabac">{{ $t('config.coder_cabac') }}</option>
-                <option value="cavlc">{{ $t('config.coder_cavlc') }}</option>
-              </select>
-              <div class="form-text">{{ $t('config.amd_coder_desc') }}</div>
-            </div>
-          </div>
-        </div>
+        <!-- AMF Coder (H264) -->
+        <SelectField
+          id="amd_coder"
+          :label="$t('config.amd_coder')"
+          :supporting="$t('config.amd_coder_desc')"
+          v-model="config.amd_coder"
+        >
+          <option value="auto">{{ $t('config.ffmpeg_auto') }}</option>
+          <option value="cabac">{{ $t('config.coder_cabac') }}</option>
+          <option value="cavlc">{{ $t('config.coder_cavlc') }}</option>
+        </SelectField>
       </div>
-    </div>
+    </Expander>
   </div>
 </template>
-
-<style scoped>
-
-</style>

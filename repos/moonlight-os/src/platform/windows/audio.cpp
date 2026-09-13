@@ -701,10 +701,23 @@ namespace platf::audio {
       if (!initialized || stopping) {
         return false;
       }
-      constexpr std::size_t max_queued_frames = SAMPLE_RATE;
+      // This queue is a jitter buffer, not a backlog. The render thread below
+      // never drains faster than real time, so whatever sits here is added to
+      // uplink latency until the client stops talking. A client that bursts
+      // (its own capture backlog, a stall, a recovered network hiccup) would
+      // otherwise pin the delay at the cap for the rest of the session.
+      // 100 ms absorbs the packet bunching a jittery link produces without
+      // trimming, and still caps the worst case at a usable delay.
+      constexpr std::size_t max_queued_frames = SAMPLE_RATE / 1000 * 100;  // 100 ms
       if (frames.size() + frame_count > max_queued_frames) {
-        frames.erase(frames.begin(), frames.begin() +
-                     std::min(frames.size(), frames.size() + frame_count - max_queued_frames));
+        auto stale = std::min(frames.size(), frames.size() + frame_count - max_queued_frames);
+        frames.erase(frames.begin(), frames.begin() + stale);
+        dropped_frames += stale;
+        if (dropped_frames - last_reported_drop >= SAMPLE_RATE) {
+          last_reported_drop = dropped_frames;
+          BOOST_LOG(warning) << "Dropped "sv << dropped_frames / (SAMPLE_RATE / 1000)
+                             << " ms of backlogged microphone audio to hold uplink latency down"sv;
+        }
       }
       frames.insert(frames.end(), samples, samples + frame_count);
       data_cv.notify_one();
@@ -787,7 +800,20 @@ namespace platf::audio {
 
       audio_client_t client;
       status = device->Activate(IID_IAudioClient, CLSCTX_ALL, nullptr, (void **) &client);
-      auto format = create_waveformat(sample_format_e::f32, 2, waveformat_mask_stereo);
+
+      // Write the endpoint's own channel count rather than assuming stereo.
+      // The Steam driver publishes this device as mono, and handing it two
+      // identical channels leaves the audio engine to fold them back together:
+      // that costs gain headroom, can clip, and is pure wasted conversion.
+      // Anything wider than stereo is still fed as front left/right.
+      if (SUCCEEDED(status)) {
+        wave_format_t mix;
+        if (SUCCEEDED(client->GetMixFormat(&mix)) && mix) {
+          render_channels = mix->nChannels >= 2 ? 2 : 1;
+        }
+      }
+      auto format = create_waveformat(sample_format_e::f32, static_cast<WORD>(render_channels),
+                                      render_channels == 1 ? SPEAKER_FRONT_CENTER : waveformat_mask_stereo);
       if (SUCCEEDED(status)) {
         status = client->Initialize(AUDCLNT_SHAREMODE_SHARED,
                                     AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM | AUDCLNT_STREAMFLAGS_SRC_DEFAULT_QUALITY,
@@ -806,7 +832,8 @@ namespace platf::audio {
         return;
       }
 
-      BOOST_LOG(info) << "Steam Streaming Microphone is ready for client microphone audio"sv;
+      BOOST_LOG(info) << "Steam Streaming Microphone is ready for client microphone audio ("sv
+                      << render_channels << (render_channels == 1 ? " channel)"sv : " channels)"sv);
       signal_ready(true);
       while (true) {
         std::unique_lock<std::mutex> lock(mutex);
@@ -829,9 +856,13 @@ namespace platf::audio {
           break;
         }
         auto *output = reinterpret_cast<float *>(raw);
-        for (std::size_t i = 0; i < count; ++i) {
-          output[i * 2] = frames[i];
-          output[i * 2 + 1] = frames[i];
+        if (render_channels == 1) {
+          std::copy_n(frames.begin(), count, output);
+        } else {
+          for (std::size_t i = 0; i < count; ++i) {
+            output[i * 2] = frames[i];
+            output[i * 2 + 1] = frames[i];
+          }
         }
         frames.erase(frames.begin(), frames.begin() + count);
         lock.unlock();
@@ -850,6 +881,9 @@ namespace platf::audio {
     std::condition_variable data_cv;
     std::deque<float> frames;
     std::thread worker;
+    std::size_t dropped_frames = 0;
+    std::size_t last_reported_drop = 0;
+    int render_channels = 2;
     bool ready = false;
     bool initialized = false;
     bool stopping = false;

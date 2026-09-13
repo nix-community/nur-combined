@@ -6,6 +6,7 @@
   autoPatchelfHook,
   buildNpmPackage,
   cmake,
+  makeWrapper,
   pkg-config,
   python3,
   wayland-scanner,
@@ -32,6 +33,7 @@
   nlohmann_json,
   numactl,
   openssl,
+  sway,
   udevCheckHook,
   wayland,
 }:
@@ -107,6 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     cmake
+    makeWrapper
     pkg-config
     (python3.withPackages (ps: [
       ps.jinja2
@@ -187,6 +190,11 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
     cmake --install .
     runHook postInstall
+  '';
+
+  postFixup = ''
+    wrapProgram "$out/bin/helios" \
+      --prefix PATH : ${lib.makeBinPath [ sway ]}
   '';
 
   doInstallCheck = true;

@@ -11,6 +11,8 @@ option(BUILD_DOCS "Build documentation" OFF)
 option(BUILD_TESTS "Build tests" OFF)
 option(NPM_OFFLINE "Use offline npm packages. You must ensure packages are in your npm cache." OFF)
 
+set(TELEMETRY_URL "" CACHE STRING "HTTPS base URL for anonymous Moonlight OS telemetry.")
+
 option(BUILD_WERROR "Enable -Werror flag." OFF)
 
 # if this option is set, the build will exit after configuring special package configuration files

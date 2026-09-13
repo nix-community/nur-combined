@@ -1,0 +1,147 @@
+/*
+ * Layout utilities.
+ *
+ * Deliberately small: enough to place components without hand-written CSS on
+ * every page, not a general-purpose framework. The spacing scale is 4px-based
+ * (1 = 4px ... 6 = 32px) to match the Material grid.
+ */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stack-lg {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-baseline {
+  align-items: baseline;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-5 { gap: 1.5rem; }
+.gap-6 { gap: 2rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-5 { margin-top: 1.5rem; }
+.mt-6 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-5 { margin-bottom: 1.5rem; }
+.mb-6 { margin-bottom: 2rem; }
+
+.m-0 { margin: 0; }
+.ms-auto { margin-inline-start: auto; }
+.me-auto { margin-inline-end: auto; }
+.mx-auto { margin-inline: auto; }
+
+.p-0 { padding: 0; }
+.p-4 { padding: 1rem; }
+.p-5 { padding: 1.5rem; }
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid-auto {
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.grid-auto-sm {
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+.w-full { width: 100%; }
+.block { display: block; }
+.hidden { display: none; }
+.relative { position: relative; }
+
+.text-center { text-align: center; }
+.text-end { text-align: end; }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.text-muted {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.text-error {
+  color: var(--md-sys-color-error);
+}
+
+.overflow-auto {
+  overflow: auto;
+}

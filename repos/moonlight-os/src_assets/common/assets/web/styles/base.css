@@ -1,0 +1,308 @@
+/* Reset, page frame and the Material 3 type scale. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: var(--md-sys-typeface-plain);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.0156rem;
+  font-variation-settings: 'wght' 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Pages stay hidden until vue-i18n has resolved, so labels never flash raw keys. */
+[v-cloak] {
+  display: none !important;
+}
+
+img,
+svg {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+hr {
+  height: 1px;
+  margin: 1.5rem 0;
+  border: 0;
+  background-color: var(--md-sys-color-outline-variant);
+}
+
+a {
+  color: var(--md-sys-color-tertiary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  border-radius: var(--md-sys-shape-corner-xs);
+}
+
+a:hover {
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+pre,
+code,
+kbd,
+samp,
+.monospace {
+  font-family: var(--md-sys-typeface-mono);
+  font-size: 0.8125rem;
+}
+
+pre {
+  margin: 0.5rem 0;
+  padding: 0.625rem 0.75rem;
+  overflow-x: auto;
+  border-radius: var(--md-sys-shape-corner-sm);
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.4;
+}
+
+::selection {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+:focus-visible {
+  outline: 3px solid var(--md-sys-color-secondary);
+  outline-offset: 2px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-sys-color-outline-variant) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-clip: content-box;
+  background-color: var(--md-sys-color-outline-variant);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-sys-color-outline);
+}
+
+/* ---------------------------------------------------------------- type scale */
+
+.md-display-large,
+.md-display-medium,
+.md-display-small,
+.md-headline-large,
+.md-headline-medium,
+.md-headline-small,
+.md-title-large,
+.md-title-medium,
+.md-title-small,
+.md-body-large,
+.md-body-medium,
+.md-body-small,
+.md-label-large,
+.md-label-medium,
+.md-label-small {
+  margin: 0;
+  font-family: var(--md-sys-typeface-plain);
+}
+
+.md-display-large {
+  font-size: 3.5625rem;
+  line-height: 4rem;
+  letter-spacing: -0.015625rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-display-medium {
+  font-size: 2.8125rem;
+  line-height: 3.25rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-display-small {
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-headline-large {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-headline-medium {
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-headline-small {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-title-large {
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-title-medium {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.009375rem;
+  font-variation-settings: 'wght' 500;
+}
+
+.md-title-small {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.00625rem;
+  font-variation-settings: 'wght' 500;
+}
+
+.md-body-large {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.03125rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-body-medium {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.015625rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-body-small {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.025rem;
+  font-variation-settings: 'wght' 400;
+}
+
+.md-label-large {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.00625rem;
+  font-variation-settings: 'wght' 500;
+}
+
+.md-label-medium {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.03125rem;
+  font-variation-settings: 'wght' 500;
+}
+
+.md-label-small {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.03125rem;
+  font-variation-settings: 'wght' 500;
+}
+
+/*
+ * Expressive emphasis. The scale above is the calm register; these push the
+ * weight axis so headings and page titles carry real presence without needing
+ * a second typeface.
+ */
+.md-emphasized {
+  font-variation-settings: 'wght' 700;
+}
+
+.md-display-large.md-emphasized,
+.md-display-medium.md-emphasized,
+.md-display-small.md-emphasized {
+  font-variation-settings: 'wght' 600;
+  letter-spacing: -0.02em;
+}
+
+.md-headline-large.md-emphasized,
+.md-headline-medium.md-emphasized,
+.md-headline-small.md-emphasized {
+  font-variation-settings: 'wght' 650;
+  letter-spacing: -0.01em;
+}
+
+.md-on-surface-variant {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* --------------------------------------------------------------------- icons */
+
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url('./fonts/material-symbols-rounded-subset.woff2') format('woff2');
+}
+
+.md-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-family: 'Material Symbols Rounded';
+  font-size: 1.5rem;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  white-space: nowrap;
+  direction: ltr;
+  user-select: none;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  transition: font-variation-settings var(--md-sys-motion-spring-default-effects);
+}
+
+.md-icon--filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.md-icon--sm {
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 1.25rem;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+}
+
+.md-icon--lg {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+}
+
+.md-icon--xl {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 2.5rem;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+}

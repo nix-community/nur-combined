@@ -26,6 +26,7 @@ checkdepends=('xorg-server-xvfb')
 optdepends=(
   'cuda: Nvidia GPU encoding support'
   'libva-mesa-driver: AMD GPU encoding support'
+  'sway: Isolated virtual displays on Linux hosts without an existing Sway session'
 )
 provides=('helios')
 conflicts=('helios-bin' 'helios-git')

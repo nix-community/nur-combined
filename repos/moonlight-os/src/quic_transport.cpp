@@ -161,18 +161,26 @@ namespace quic_transport {
     constexpr QUIC_UINT62 APP_ERROR_PROTOCOL = 0x100;
     constexpr QUIC_UINT62 APP_ERROR_AUTH = 0x101;
     constexpr std::size_t MAX_DATAGRAM = 1450;
+    constexpr std::size_t MAX_PENDING_DATAGRAM_SENDS = 32;
+    constexpr std::size_t MAX_PENDING_BULK_DATAGRAM_SENDS = 24;
+    constexpr int UDP_RECEIVE_BUFFER_BYTES = 4 * 1024 * 1024;
+
+    struct server_t;
+    struct connection_t;
 
     struct send_buffer_t {
+      connection_t* connection;
+      std::uint8_t channel;
+      std::atomic_bool pending {true};
       QUIC_BUFFER buffer;
       std::vector<std::uint8_t> bytes;
-      explicit send_buffer_t(std::vector<std::uint8_t> data): bytes(std::move(data)) {
+      send_buffer_t(connection_t* owner, std::uint8_t channel_,
+                    std::vector<std::uint8_t> data):
+          connection(owner), channel(channel_), bytes(std::move(data)) {
         buffer.Length = static_cast<std::uint32_t>(bytes.size());
         buffer.Buffer = bytes.data();
       }
     };
-
-    struct server_t;
-    struct connection_t;
 
     struct udp_bridge_t {
       connection_t* connection;
@@ -217,6 +225,10 @@ namespace quic_transport {
       std::atomic_uint64_t next_stream_ordinal {0};
       std::mutex stream_channels_mutex;
       bool auth_stream_claimed = false;
+      std::mutex datagram_mutex;
+      std::condition_variable datagram_slot_available;
+      std::size_t pending_datagram_sends = 0;
+      std::atomic_uint64_t discarded_datagrams {0};
       crypto::sha256_t peer_certificate_sha256 {};
       std::uint32_t launch_session_id = 0;
       std::array<std::unique_ptr<udp_bridge_t>, MLOS_QUIC_DATAGRAM_CAMERA + 1> udp;
@@ -225,6 +237,7 @@ namespace quic_transport {
       ~connection_t();
       void shutdown(QUIC_UINT62 error);
       bool send_datagram(std::uint8_t channel, const std::uint8_t* data, std::size_t size);
+      void datagram_state_changed(send_buffer_t* context, QUIC_DATAGRAM_SEND_STATE state);
       bool authenticate(const std::uint8_t* data, std::size_t size);
       bool claim_stream_channel(std::uint64_t ordinal, std::uint8_t channel);
       void start_udp();
@@ -347,6 +360,9 @@ namespace quic_transport {
           break;
         }
         case QUIC_CONNECTION_EVENT_DATAGRAM_SEND_STATE_CHANGED:
+          state->datagram_state_changed(
+            static_cast<send_buffer_t*>(event->DATAGRAM_SEND_STATE_CHANGED.ClientContext),
+            event->DATAGRAM_SEND_STATE_CHANGED.State);
           if (QUIC_DATAGRAM_SEND_STATE_IS_FINAL(event->DATAGRAM_SEND_STATE_CHANGED.State)) {
             free_send_context(event->DATAGRAM_SEND_STATE_CHANGED.ClientContext);
           }
@@ -389,6 +405,13 @@ namespace quic_transport {
       if (error) return;
       socket.bind(udp::endpoint(boost::asio::ip::address_v4::loopback(), 0), error);
       if (error) return;
+      socket.set_option(boost::asio::socket_base::receive_buffer_size(UDP_RECEIVE_BUFFER_BYTES),
+                        error);
+      if (error) {
+        BOOST_LOG(::warning) << "Moonlight OS QUIC: could not enlarge UDP receive buffer ["sv
+                             << error.message() << ']';
+        error.clear();
+      }
       socket.connect(udp::endpoint(boost::asio::ip::address_v4::loopback(), target_port), error);
       if (error) return;
       socket.non_blocking(true, error);
@@ -429,7 +452,7 @@ namespace quic_transport {
     stream_t::~stream_t() { stop(); }
 
     bool stream_t::send_quic(const std::uint8_t* data, std::size_t size) {
-      auto context = new (std::nothrow) send_buffer_t(
+      auto context = new (std::nothrow) send_buffer_t(connection, channel,
         std::vector<std::uint8_t>(data, data + size));
       if (!context) return false;
       const auto status = connection->server->api->StreamSend(
@@ -566,12 +589,54 @@ namespace quic_transport {
       if (!MlosQuicEncodeDatagramHeader(packet.data(), MLOS_QUIC_DATAGRAM_HEADER_SIZE,
                                        channel, 0, static_cast<std::uint16_t>(size))) return false;
       std::copy(data, data + size, packet.begin() + MLOS_QUIC_DATAGRAM_HEADER_SIZE);
-      auto context = new (std::nothrow) send_buffer_t(std::move(packet));
+      auto context = new (std::nothrow) send_buffer_t(this, channel, std::move(packet));
       if (!context) return false;
+
+      const bool bulk = channel == MLOS_QUIC_DATAGRAM_VIDEO ||
+                        channel == MLOS_QUIC_DATAGRAM_CAMERA;
+      const auto pending_limit = bulk ? MAX_PENDING_BULK_DATAGRAM_SENDS :
+                                        MAX_PENDING_DATAGRAM_SENDS;
+      {
+        std::unique_lock lock(datagram_mutex);
+        datagram_slot_available.wait(lock, [this, pending_limit] {
+          return stopping || pending_datagram_sends < pending_limit;
+        });
+        if (stopping) {
+          delete context;
+          return false;
+        }
+        ++pending_datagram_sends;
+      }
+
+      const auto flags = bulk ? QUIC_SEND_FLAG_NONE : QUIC_SEND_FLAG_DGRAM_PRIORITY;
       const auto status = server->api->DatagramSend(handle, &context->buffer, 1,
-                                                     QUIC_SEND_FLAG_NONE, context);
-      if (QUIC_FAILED(status)) delete context;
+                                                     flags, context);
+      if (QUIC_FAILED(status)) {
+        datagram_state_changed(context, QUIC_DATAGRAM_SEND_CANCELED);
+        delete context;
+      }
       return QUIC_SUCCEEDED(status);
+    }
+
+    void connection_t::datagram_state_changed(send_buffer_t* context,
+                                               QUIC_DATAGRAM_SEND_STATE state) {
+      if (!context) return;
+      if ((state == QUIC_DATAGRAM_SEND_SENT || QUIC_DATAGRAM_SEND_STATE_IS_FINAL(state)) &&
+          context->pending.exchange(false)) {
+        {
+          std::lock_guard lock(datagram_mutex);
+          if (pending_datagram_sends != 0) --pending_datagram_sends;
+        }
+        datagram_slot_available.notify_all();
+      }
+      if (state == QUIC_DATAGRAM_SEND_LOST_DISCARDED || state == QUIC_DATAGRAM_SEND_CANCELED) {
+        const auto count = discarded_datagrams.fetch_add(1) + 1;
+        if (count == 1 || count % 128 == 0) {
+          BOOST_LOG(::warning) << "Moonlight OS QUIC: "sv << count
+                               << " datagram(s) discarded or canceled; latest channel "sv
+                               << static_cast<unsigned>(context->channel);
+        }
+      }
     }
 
     bool connection_t::authenticate(const std::uint8_t* data, std::size_t size) {
@@ -620,6 +685,14 @@ namespace quic_transport {
 
     void connection_t::stop() {
       if (stopping.exchange(true)) return;
+      // Wake datagram senders while holding the lock. Notifying without it
+      // lets a sender evaluate the wait predicate, miss this notification, and
+      // then sleep with nothing left to wake it -- stranding the bridge reader
+      // thread and deadlocking the bridge.reset() join below.
+      {
+        std::lock_guard lock(datagram_mutex);
+        datagram_slot_available.notify_all();
+      }
       for (auto& bridge : udp) bridge.reset();
       if (launch_session_id != 0) {
         rtsp_stream::stop_session_by_launch_id(launch_session_id);

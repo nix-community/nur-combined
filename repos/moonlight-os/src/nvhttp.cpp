@@ -409,7 +409,7 @@ namespace nvhttp {
       }
       launch_session->rtsp_url_scheme = launch_session->rtsp_cipher ? "rtspenc://"s : "rtsp://"s;
 
-      if (quic_transport::available() &&
+      if (config::helios.enable_quic && quic_transport::available() &&
           quic_transport::requested(get_arg(args, "mlosQuic", "0"))) {
         launch_session->quic_ticket = quic_transport::issue_ticket(
           named_cert_p->cert, launch_session->id);
@@ -813,6 +813,7 @@ namespace nvhttp {
           std::getline(std::cin, pin);
 
           getservercert(ptr->second, tree, pin);
+          return;
         } else {
 #if defined SUNSHINE_TRAY && SUNSHINE_TRAY >= 1
           system_tray::update_tray_require_pin();

@@ -5,6 +5,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <string>
 #include <string_view>
@@ -27,7 +28,8 @@ namespace stream {
   // Native iSCSI initiator commands for the loopback disk proxy. Kept pure so
   // Linux command construction can be regression-tested without privileges.
   std::vector<std::vector<std::string>> iscsiadm_attach_plan(
-    std::uint16_t proxy_port, std::string_view target_iqn);
+    std::uint16_t proxy_port, std::string_view target_iqn,
+    std::string_view chap_username, std::string_view chap_password);
   std::vector<std::vector<std::string>> iscsiadm_detach_plan(
     std::uint16_t proxy_port, std::string_view target_iqn);
 
@@ -35,7 +37,8 @@ namespace stream {
   // PowerShell cmdlets. These builders stay pure so quoting, non-persistence,
   // and exact portal cleanup can be regression-tested on every platform.
   std::string windows_iscsi_attach_script(
-    std::uint16_t proxy_port, std::string_view target_iqn);
+    std::uint16_t proxy_port, std::string_view target_iqn,
+    std::string_view chap_username, std::string_view chap_password);
   std::string windows_iscsi_detach_script(
     std::uint16_t proxy_port, std::string_view target_iqn);
   std::string windows_iscsi_detached_script(
@@ -58,7 +61,12 @@ namespace stream {
 
   class system_disk_backend_t {
   public:
-    system_disk_backend_t(std::uint16_t proxy_port, std::string target_iqn);
+    enum class state_e : std::uint8_t { detached, attaching, attached, failed, detaching };
+    using status_callback_t = std::function<void(state_e, std::string)>;
+
+    system_disk_backend_t(std::uint16_t proxy_port, std::string target_iqn,
+                          std::string chap_username, std::string chap_password,
+                          status_callback_t status_callback = {});
     ~system_disk_backend_t();
     system_disk_backend_t(const system_disk_backend_t &) = delete;
     system_disk_backend_t &operator=(const system_disk_backend_t &) = delete;
@@ -74,6 +82,8 @@ namespace stream {
   bool parse_system_disk_helper_request(std::string_view body,
                                         std::uint16_t &proxy_port,
                                         std::string &target_iqn,
+                                        std::string &chap_username,
+                                        std::string &chap_password,
                                         bool &attach);
 
   // Root-only, package-managed companion mode. The helper accepts a bounded

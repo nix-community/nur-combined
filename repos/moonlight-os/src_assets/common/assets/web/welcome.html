@@ -1,65 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
   <%- header %>
 </head>
 
 <body id="app" v-cloak>
-  <main role="main" style="max-width: 1200px; margin: 1em auto">
-    <div class="d-flex gap-4">
-      <div class="card p-2">
-        <header>
-          <h1 class="mb-0">
-            <img src="./images/logo-helios-45.png" height="45" alt="">
-            {{ $t('welcome.greeting') }}
-          </h1>
-        </header>
-        <p class="my-2 align-self-start">{{ $t('welcome.create_creds') }}</p>
-        <div class="alert alert-warning">
-          {{ $t('welcome.create_creds_alert') }}
-        </div>
-        <form @submit.prevent="save">
-          <div class="mb-2">
-            <label for="usernameInput" class="form-label">{{ $t('_common.username') }}</label>
-            <input type="text" class="form-control" id="usernameInput" autocomplete="username"
-              v-model="passwordData.newUsername" />
-          </div>
-          <div class="mb-2">
-            <label for="passwordInput" class="form-label">{{ $t('_common.password') }}</label>
-            <input type="password" class="form-control" id="passwordInput" autocomplete="new-password"
-              v-model="passwordData.newPassword" required />
-          </div>
-          <div class="mb-2">
-            <label for="confirmPasswordInput" class="form-label">{{ $t('welcome.confirm_password') }}</label>
-            <input type="password" class="form-control" id="confirmPasswordInput" autocomplete="new-password"
-              v-model="passwordData.confirmNewPassword" required />
-          </div>
-          <button type="submit" class="btn btn-primary w-100 mb-2" v-bind:disabled="loading">
-            {{ $t('welcome.login') }}
-          </button>
-          <div class="alert alert-danger" v-if="error"><b>{{ $t('_common.error') }}</b> {{error}}</div>
-          <div class="alert alert-success" v-if="success">
-            <b>{{ $t('_common.success') }}</b> {{ $t('welcome.welcome_success') }}
-          </div>
-        </form>
-      </div>
+  <main class="helios-welcome-page">
+    <div class="helios-welcome-grid">
       <div>
-        <Resource-Card></Resource-Card>
+        <div class="flex items-center justify-between mb-4">
+          <span class="helios-auth-brand">
+            <span class="helios-mark helios-mark--lg"><img src="./images/logo-helios-45.png" alt="" /></span>
+            <span class="md-title-large md-emphasized">Helios</span>
+          </span>
+          <theme-toggle ></theme-toggle>
+        </div>
+
+        <section class="md-card md-card--elevated">
+          <div class="md-card__body">
+            <h1 class="md-headline-small md-emphasized">{{ $t('welcome.greeting') }}</h1>
+            <p class="md-body-large text-muted mt-2">{{ $t('welcome.create_creds') }}</p>
+
+            <banner variant="warning" class="mt-4">{{ $t('welcome.create_creds_alert') }}</banner>
+
+            <form @submit.prevent="save" class="stack mt-5">
+              <text-field
+                id="usernameInput"
+                :label="$t('_common.username')"
+                autocomplete="username"
+                v-model="passwordData.newUsername"
+              ></text-field>
+              <text-field
+                id="passwordInput"
+                type="password"
+                :label="$t('_common.password')"
+                autocomplete="new-password"
+                required
+                v-model="passwordData.newPassword"
+              ></text-field>
+              <text-field
+                id="confirmPasswordInput"
+                type="password"
+                :label="$t('welcome.confirm_password')"
+                autocomplete="new-password"
+                required
+                v-model="passwordData.confirmNewPassword"
+              ></text-field>
+
+              <button type="submit" class="md-button md-button--filled md-button--md md-button--block" :disabled="loading">
+                <span v-if="loading" class="md-spinner"></span>
+                {{ $t('welcome.login') }}
+              </button>
+
+              <banner variant="error" v-if="error"><b>{{ $t('_common.error') }}</b> {{error}}</banner>
+              <banner variant="success" v-if="success">
+                <b>{{ $t('_common.success') }}</b> {{ $t('welcome.welcome_success') }}
+              </banner>
+            </form>
+          </div>
+        </section>
       </div>
+
+      <resource-card ></resource-card>
     </div>
   </main>
 </body>
 
 <script type="module">
   import { createApp } from "vue"
-  import ResourceCard from './ResourceCard.vue'
   import { initApp } from './init'
+  import Banner from './Banner.vue'
+  import ResourceCard from './ResourceCard.vue'
+  import TextField from './TextField.vue'
+  import ThemeToggle from './ThemeToggle.vue'
 
   let app = createApp({
-    components: {
-      ResourceCard
-    },
+    components: { Banner, ResourceCard, TextField, ThemeToggle },
     data() {
       return {
         error: null,

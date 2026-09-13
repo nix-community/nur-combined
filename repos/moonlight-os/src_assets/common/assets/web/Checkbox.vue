@@ -1,4 +1,15 @@
 <script setup>
+import { computed } from 'vue'
+import MdSwitch from './MdSwitch.vue'
+
+/**
+ * A boolean setting rendered as a Material switch row.
+ *
+ * Config values arrive in a handful of spellings ("enabled"/"disabled",
+ * "true"/"false", 1/0, ...) and must be written back in whatever spelling they
+ * came in, so the switch's boolean state is mapped onto the pair detected from
+ * the initial value.
+ */
 const model = defineModel({ required: true });
 const slots = defineSlots();
 const props = defineProps({
@@ -31,15 +42,6 @@ const props = defineProps({
     default: null,
   }
 });
-
-// Add the mandatory class values
-const extendedClassStr = (() => {
-  let values = props.class.split(" ");
-  if (!values.includes("form-check")) {
-    values.push("form-check");
-  }
-  return values.join(" ");
-})();
 
 // Map the value to boolean representation if possible, otherwise return null.
 const mapToBoolRepresentation = (value) => {
@@ -87,6 +89,7 @@ const checkboxValues = (() => {
   const falsyIndex = props.inverseValues ? 0 : 1;
   return { truthy: mappedValues[truthyIndex], falsy: mappedValues[falsyIndex] };
 })();
+
 const parsedDefaultPropValue = (() => {
   const boolValues = mapToBoolRepresentation(props.default);
   if (boolValues !== null) {
@@ -97,6 +100,11 @@ const parsedDefaultPropValue = (() => {
   return null;
 })();
 
+const checked = computed({
+  get: () => `${model.value}`.toLowerCase().trim() === `${checkboxValues.truthy}`.toLowerCase().trim(),
+  set: (value) => { model.value = value ? checkboxValues.truthy : checkboxValues.falsy },
+});
+
 const labelField = props.label ?? `${props.localePrefix}.${props.id}`;
 const descField = props.desc ?? `${props.localePrefix}.${props.id}_desc`;
 const showDesc = props.desc !== "" || Object.entries(slots).length > 0;
@@ -105,22 +113,15 @@ const defValue = parsedDefaultPropValue ? "_common.enabled_def_cbox" : "_common.
 </script>
 
 <template>
-  <div :class="extendedClassStr">
-    <label :for="props.id" :class="`form-check-label${showDesc ? ' mb-2' : ''}`">
-      {{ $t(labelField) }}
-      <div class="mt-0 form-text" v-if="showDefValue">
-        {{ $t(defValue) }}
+  <div class="md-switch-row" :class="props.class">
+    <div class="md-switch-row__text">
+      <label class="md-switch-row__label" :for="props.id">{{ $t(labelField) }}</label>
+      <div class="md-switch-row__desc" v-if="showDesc">
+        {{ $t(descField) }}
+        <slot></slot>
       </div>
-    </label>
-    <input type="checkbox"
-           class="form-check-input"
-           :id="props.id"
-           v-model="model"
-           :true-value="checkboxValues.truthy"
-           :false-value="checkboxValues.falsy" />
-    <div class="form-text" v-if="showDesc">
-      {{ $t(descField) }}
-      <slot></slot>
+      <span class="md-switch-row__default" v-if="showDefValue">{{ $t(defValue) }}</span>
     </div>
+    <MdSwitch :id="props.id" v-model="checked" />
   </div>
 </template>

@@ -18,11 +18,12 @@ depends=(
 optdepends=(
   'cuda: Nvidia GPU encoding support'
   'libva-mesa-driver: AMD GPU encoding support'
+  'sway: Isolated virtual displays on Linux hosts without an existing Sway session'
 )
 provides=('helios')
 conflicts=('helios' 'helios-git')
 
-source=("helios-${pkgver}-1-${CARCH}.pkg.tar.zst::https://github.com/moonlight-os/helios/releases/download/v${pkgver}/helios-${pkgver}-1-${CARCH}.pkg.tar.zst")
+source=("helios-${pkgver}-1-${CARCH}.pkg.tar.zst::https://github.com/moonlight-os/helios/releases/download/@TAG@/helios-${pkgver}-1-${CARCH}.pkg.tar.zst")
 sha256sums=('@BINARY_SHA256@')
 
 package() {

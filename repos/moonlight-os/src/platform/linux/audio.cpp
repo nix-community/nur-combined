@@ -4,8 +4,12 @@
  */
 // standard includes
 #include <bitset>
+#include <condition_variable>
+#include <deque>
+#include <mutex>
 #include <sstream>
 #include <thread>
+#include <vector>
 
 // lib includes
 #include <boost/regex.hpp>
@@ -70,16 +74,84 @@ namespace platf {
   };
 
   struct virtual_microphone_attr_t: public virtual_microphone_t {
+    // pa_simple_write() blocks until PulseAudio accepts the samples, and
+    // microphone datagrams are decoded on the receive thread that also serves
+    // video, audio, and camera. Writing from a worker keeps that thread free
+    // and, more importantly, keeps the backlog out of the kernel's receive
+    // buffer, where it would survive as permanent uplink latency instead of
+    // being dropped.
+    // 100 ms absorbs the packet bunching a jittery link produces without
+    // trimming, and still caps the worst case at a usable delay.
+    static constexpr std::size_t max_queued_frames = 48000 / 1000 * 100;  // 100 ms
+
     util::safe_ptr<pa_simple, pa_simple_free> playback;
 
+    void start() {
+      worker = std::thread {[this]() { run(); }};
+    }
+
     bool write(const float *samples, std::size_t frame_count) override {
-      int status;
-      if (pa_simple_write(playback.get(), samples, frame_count * sizeof(float), &status)) {
-        BOOST_LOG(error) << "pa_simple_write() failed for virtual microphone: "sv << pa_strerror(status);
+      std::lock_guard<std::mutex> lock(mutex);
+      if (failed || stopping) {
         return false;
       }
+      if (frames.size() + frame_count > max_queued_frames) {
+        auto stale = std::min(frames.size(), frames.size() + frame_count - max_queued_frames);
+        frames.erase(frames.begin(), frames.begin() + stale);
+        dropped_frames += stale;
+        if (dropped_frames - last_reported_drop >= 48000) {
+          last_reported_drop = dropped_frames;
+          BOOST_LOG(warning) << "Dropped "sv << dropped_frames / 48
+                             << " ms of backlogged microphone audio to hold uplink latency down"sv;
+        }
+      }
+      frames.insert(frames.end(), samples, samples + frame_count);
+      data_cv.notify_one();
       return true;
     }
+
+    ~virtual_microphone_attr_t() override {
+      {
+        std::lock_guard<std::mutex> lock(mutex);
+        stopping = true;
+        data_cv.notify_one();
+      }
+      if (worker.joinable()) {
+        worker.join();
+      }
+    }
+
+  private:
+    void run() {
+      std::vector<float> batch;
+      while (true) {
+        std::unique_lock<std::mutex> lock(mutex);
+        data_cv.wait(lock, [this]() { return stopping || !frames.empty(); });
+        if (stopping) {
+          return;
+        }
+        batch.assign(frames.begin(), frames.end());
+        frames.clear();
+        lock.unlock();
+
+        int status;
+        if (pa_simple_write(playback.get(), batch.data(), batch.size() * sizeof(float), &status)) {
+          BOOST_LOG(error) << "pa_simple_write() failed for virtual microphone: "sv << pa_strerror(status);
+          std::lock_guard<std::mutex> failure_lock(mutex);
+          failed = true;
+          return;
+        }
+      }
+    }
+
+    std::mutex mutex;
+    std::condition_variable data_cv;
+    std::deque<float> frames;
+    std::thread worker;
+    std::size_t dropped_frames = 0;
+    std::size_t last_reported_drop = 0;
+    bool stopping = false;
+    bool failed = false;
   };
 
   std::unique_ptr<mic_t> microphone(const std::uint8_t *mapping, int channels, std::uint32_t sample_rate, std::uint32_t frame_size, std::string source_name) {
@@ -325,7 +397,7 @@ namespace platf {
         pa_sample_spec spec {PA_SAMPLE_FLOAT32, 48000, 1};
         pa_buffer_attr attr {
           .maxlength = uint32_t(-1),
-          .tlength = 960 * sizeof(float) * 4,
+          .tlength = 960 * sizeof(float) * 2,
           .prebuf = 960 * sizeof(float),
           .minreq = 960 * sizeof(float),
           .fragsize = uint32_t(-1),
@@ -338,6 +410,7 @@ namespace platf {
           BOOST_LOG(error) << "Couldn't open the Helios virtual microphone sink: "sv << pa_strerror(status);
           return nullptr;
         }
+        microphone->start();
 
         BOOST_LOG(info) << "Helios virtual microphone is available as ["sv << source_name << ']';
         return microphone;

@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Checkbox from '../../Checkbox.vue'
+import SelectField from '../../SelectField.vue'
+import TextField from '../../TextField.vue'
 
 const props = defineProps({
   platform: String,
@@ -30,6 +32,31 @@ const serverCmdTemplate = {
   cmd: ""
 }
 
+const LOCALES = [
+  ['bg', 'Български (Bulgarian)'],
+  ['cs', 'Čeština (Czech)'],
+  ['de', 'Deutsch (German)'],
+  ['en', 'English'],
+  ['en_GB', 'English, UK'],
+  ['en_US', 'English, US'],
+  ['es', 'Español (Spanish)'],
+  ['fr', 'Français (French)'],
+  ['hu', 'Magyar (Hungarian)'],
+  ['it', 'Italiano (Italian)'],
+  ['ja', '日本語 (Japanese)'],
+  ['ko', '한국어 (Korean)'],
+  ['pl', 'Polski (Polish)'],
+  ['pt', 'Português (Portuguese)'],
+  ['pt_BR', 'Português, Brasileiro (Portuguese, Brazilian)'],
+  ['ru', 'Русский (Russian)'],
+  ['sv', 'svenska (Swedish)'],
+  ['tr', 'Türkçe (Turkish)'],
+  ['uk', 'Українська (Ukranian)'],
+  ['vi', 'Tiếng Việt (Vietnamese)'],
+  ['zh', '简体中文 (Chinese Simplified)'],
+  ['zh_TW', '繁體中文 (Chinese Traditional)'],
+]
+
 function addCmd(cmdArr, template, idx) {
   const _tpl = Object.assign({}, template);
 
@@ -56,197 +83,142 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="general" class="config-page">
+  <div id="general" class="md-settings-group">
     <!-- Locale -->
-    <div class="mb-3">
-      <label for="locale" class="form-label">{{ $t('config.locale') }}</label>
-      <select id="locale" class="form-select" v-model="config.locale">
-        <option value="bg">Български (Bulgarian)</option>
-        <option value="cs">Čeština (Czech)</option>
-        <option value="de">Deutsch (German)</option>
-        <option value="en">English</option>
-        <option value="en_GB">English, UK</option>
-        <option value="en_US">English, US</option>
-        <option value="es">Español (Spanish)</option>
-        <option value="fr">Français (French)</option>
-        <option value="hu">Magyar (Hungarian)</option>
-        <option value="it">Italiano (Italian)</option>
-        <option value="ja">日本語 (Japanese)</option>
-        <option value="ko">한국어 (Korean)</option>
-        <option value="pl">Polski (Polish)</option>
-        <option value="pt">Português (Portuguese)</option>
-        <option value="pt_BR">Português, Brasileiro (Portuguese, Brazilian)</option>
-        <option value="ru">Русский (Russian)</option>
-        <option value="sv">svenska (Swedish)</option>
-        <option value="tr">Türkçe (Turkish)</option>
-        <option value="uk">Українська (Ukranian)</option>
-        <option value="vi">Tiếng Việt (Vietnamese)</option>
-        <option value="zh">简体中文 (Chinese Simplified)</option>
-        <option value="zh_TW">繁體中文 (Chinese Traditional)</option>
-      </select>
-      <div class="form-text">{{ $t('config.locale_desc') }}</div>
-    </div>
+    <SelectField
+      id="locale"
+      :label="$t('config.locale')"
+      :supporting="$t('config.locale_desc')"
+      v-model="config.locale"
+    >
+      <option v-for="[code, name] in LOCALES" :key="code" :value="code">{{ name }}</option>
+    </SelectField>
 
     <!-- Helios Name -->
-    <div class="mb-3">
-      <label for="sunshine_name" class="form-label">{{ $t('config.sunshine_name') }}</label>
-      <input type="text" class="form-control" id="sunshine_name" placeholder="Helios"
-             v-model="config.sunshine_name" />
-      <div class="form-text">{{ $t('config.sunshine_name_desc') }}</div>
-    </div>
+    <TextField
+      id="sunshine_name"
+      placeholder="Helios"
+      :label="$t('config.sunshine_name')"
+      :supporting="$t('config.sunshine_name_desc')"
+      v-model="config.sunshine_name"
+    />
 
     <!-- Log Level -->
-    <div class="mb-3">
-      <label for="min_log_level" class="form-label">{{ $t('config.min_log_level') }}</label>
-      <select id="min_log_level" class="form-select" v-model="config.min_log_level">
-        <option value="0">{{ $t('config.min_log_level_0') }}</option>
-        <option value="1">{{ $t('config.min_log_level_1') }}</option>
-        <option value="2">{{ $t('config.min_log_level_2') }}</option>
-        <option value="3">{{ $t('config.min_log_level_3') }}</option>
-        <option value="4">{{ $t('config.min_log_level_4') }}</option>
-        <option value="5">{{ $t('config.min_log_level_5') }}</option>
-        <option value="6">{{ $t('config.min_log_level_6') }}</option>
-      </select>
-      <div class="form-text">{{ $t('config.min_log_level_desc') }}</div>
-    </div>
+    <SelectField
+      id="min_log_level"
+      :label="$t('config.min_log_level')"
+      :supporting="$t('config.min_log_level_desc')"
+      v-model="config.min_log_level"
+    >
+      <option v-for="n in 7" :key="n" :value="String(n - 1)">{{ $t(`config.min_log_level_${n - 1}`) }}</option>
+    </SelectField>
 
     <!-- Global Prep/State Commands -->
-    <div v-for="type in ['prep', 'state']" :id="`global_${type}_cmd`" class="mb-3 d-flex flex-column">
-      <label class="form-label">{{ $t(`config.global_${type}_cmd`) }}</label>
-      <div class="form-text pre-wrap">{{ $t(`config.global_${type}_cmd_desc`) }}</div>
-      <table class="table" v-if="cmds[type].length > 0">
-        <thead>
-        <tr>
-          <th scope="col"><i class="fas fa-play"></i> {{ $t('_common.do_cmd') }}</th>
-          <th scope="col"><i class="fas fa-undo"></i> {{ $t('_common.undo_cmd') }}</th>
-          <th scope="col" v-if="platform === 'windows'">
-            <i class="fas fa-shield-alt"></i> {{ $t('_common.run_as') }}
-          </th>
-          <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(c, i) in cmds[type]">
-          <td>
-            <input type="text" class="form-control monospace" v-model="c.do" />
-          </td>
-          <td>
-            <input type="text" class="form-control monospace" v-model="c.undo" />
-          </td>
-          <td v-if="platform === 'windows'" class="align-middle">
-            <Checkbox :id="type + '-cmd-admin-' + i"
-                      label="_common.elevated"
-                      desc=""
-                      default="false"
-                      v-model="c.elevated"
-            ></Checkbox>
-          </td>
-          <td class="text-end">
-            <button class="btn btn-danger me-2" @click="removeCmd(cmds[type], i)">
-              <i class="fas fa-trash"></i>
-            </button>
-            <button class="btn btn-success" @click="addCmd(cmds[type], prepCmdTemplate, i)">
-              <i class="fas fa-plus"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <button class="ms-0 mt-2 btn btn-success" style="margin: 0 auto" @click="addCmd(cmds[type], prepCmdTemplate, -1)">
-        &plus; {{ $t('config.add') }}
+    <div v-for="type in ['prep', 'state']" :key="type" :id="`global_${type}_cmd`" class="stack-sm">
+      <div class="md-title-small">{{ $t(`config.global_${type}_cmd`) }}</div>
+      <div class="md-body-small text-muted pre-wrap">{{ $t(`config.global_${type}_cmd_desc`) }}</div>
+      <div class="md-table-scroll" v-if="cmds[type].length > 0">
+        <table class="md-table">
+          <thead>
+            <tr>
+              <th><Icon name="play_arrow" />{{ $t('_common.do_cmd') }}</th>
+              <th><Icon name="undo" />{{ $t('_common.undo_cmd') }}</th>
+              <th v-if="platform === 'windows'"><Icon name="shield" />{{ $t('_common.run_as') }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(c, i) in cmds[type]" :key="i">
+              <td><TextField dense monospace :id="`${type}-do-${i}`" v-model="c.do" /></td>
+              <td><TextField dense monospace :id="`${type}-undo-${i}`" v-model="c.undo" /></td>
+              <td v-if="platform === 'windows'">
+                <label class="md-checkbox">
+                  <input type="checkbox" :id="`${type}-cmd-admin-${i}`" v-model="c.elevated" />
+                  {{ $t('_common.elevated') }}
+                </label>
+              </td>
+              <td>
+                <div class="md-table__actions">
+                  <button class="md-icon-button md-icon-button--danger" :aria-label="$t('_common.remove')" @click="removeCmd(cmds[type], i)">
+                    <Icon name="delete" />
+                  </button>
+                  <button class="md-icon-button md-icon-button--tonal" :aria-label="$t('config.add')" @click="addCmd(cmds[type], prepCmdTemplate, i)">
+                    <Icon name="add" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="md-button md-button--tonal self-start" @click="addCmd(cmds[type], prepCmdTemplate, -1)">
+        <Icon name="add" />{{ $t('config.add') }}
       </button>
     </div>
 
     <!-- Server Commands -->
-    <div id="server_cmd" class="mb-3 d-flex flex-column">
-      <label class="form-label">{{ $t('config.server_cmd') }}</label>
-      <div class="form-text">{{ $t('config.server_cmd_desc') }}</div>
-      <div class="form-text">
-        <a href="https://github.com/ClassicOldSong/Apollo/wiki/Server-Commands" target="_blank">{{ $t('_common.learn_more') }}</a>
+    <div id="server_cmd" class="stack-sm">
+      <div class="md-title-small">{{ $t('config.server_cmd') }}</div>
+      <div class="md-body-small text-muted">
+        {{ $t('config.server_cmd_desc') }}
+        <a href="https://github.com/ClassicOldSong/Apollo/wiki/Server-Commands" target="_blank">
+          {{ $t('_common.learn_more') }}
+        </a>
       </div>
-      <table class="table" v-if="serverCmd.length > 0">
-        <thead>
-        <tr>
-          <th scope="col"><i class="fas fa-tag"></i> {{ $t('_common.cmd_name') }}</th>
-          <th scope="col"><i class="fas fa-terminal"></i> {{ $t('_common.cmd_val') }}</th>
-          <th scope="col" v-if="platform === 'windows'">
-            <i class="fas fa-shield-alt"></i> {{ $t('_common.run_as') }}
-          </th>
-          <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(c, i) in serverCmd">
-          <td>
-            <input type="text" class="form-control" v-model="c.name" />
-          </td>
-          <td>
-            <input type="text" class="form-control monospace" v-model="c.cmd" />
-          </td>
-          <td v-if="platform === 'windows'">
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" :id="'server-cmd-admin-' + i" v-model="c.elevated"/>
-              <label :for="'server-cmd-admin-' + i" class="form-check-label">{{ $t('_common.elevated') }}</label>
-            </div>
-          </td>
-          <td class="text-end">
-            <button class="btn btn-danger me-2" @click="removeCmd(serverCmd, i)">
-              <i class="fas fa-trash"></i>
-            </button>
-            <button class="btn btn-success" @click="addCmd(serverCmd, serverCmdTemplate, i)">
-              <i class="fas fa-plus"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <button class="ms-0 mt-2 btn btn-success" style="margin: 0 auto" @click="addCmd(serverCmd, serverCmdTemplate, -1)">
-        &plus; {{ $t('config.add') }}
+      <div class="md-table-scroll" v-if="serverCmd.length > 0">
+        <table class="md-table">
+          <thead>
+            <tr>
+              <th><Icon name="key" />{{ $t('_common.cmd_name') }}</th>
+              <th><Icon name="terminal" />{{ $t('_common.cmd_val') }}</th>
+              <th v-if="platform === 'windows'"><Icon name="shield" />{{ $t('_common.run_as') }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(c, i) in serverCmd" :key="i">
+              <td><TextField dense :id="`server-cmd-name-${i}`" v-model="c.name" /></td>
+              <td><TextField dense monospace :id="`server-cmd-val-${i}`" v-model="c.cmd" /></td>
+              <td v-if="platform === 'windows'">
+                <label class="md-checkbox">
+                  <input type="checkbox" :id="'server-cmd-admin-' + i" v-model="c.elevated" />
+                  {{ $t('_common.elevated') }}
+                </label>
+              </td>
+              <td>
+                <div class="md-table__actions">
+                  <button class="md-icon-button md-icon-button--danger" :aria-label="$t('_common.remove')" @click="removeCmd(serverCmd, i)">
+                    <Icon name="delete" />
+                  </button>
+                  <button class="md-icon-button md-icon-button--tonal" :aria-label="$t('config.add')" @click="addCmd(serverCmd, serverCmdTemplate, i)">
+                    <Icon name="add" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="md-button md-button--tonal self-start" @click="addCmd(serverCmd, serverCmdTemplate, -1)">
+        <Icon name="add" />{{ $t('config.add') }}
       </button>
     </div>
 
-    <!-- Enable Pairing -->
-    <Checkbox class="mb-3"
-              id="enable_pairing"
-              locale-prefix="config"
-              v-model="config.enable_pairing"
-              default="true"
-    ></Checkbox>
-
-    <!-- Enable Discovery -->
-    <Checkbox class="mb-3"
-              id="enable_discovery"
-              locale-prefix="config"
-              v-model="config.enable_discovery"
-              default="true"
-    ></Checkbox>
-
-    <!-- Notify Pre-Releases -->
-    <Checkbox class="mb-3"
-              id="notify_pre_releases"
-              locale-prefix="config"
-              v-model="config.notify_pre_releases"
-              default="false"
-    ></Checkbox>
-
-    <!-- Enable system tray -->
-    <Checkbox class="mb-3"
-              id="system_tray"
-              locale-prefix="config"
-              v-model="config.system_tray"
-              default="true"
-    ></Checkbox>
-
-    <!-- Hide Tray Controls -->
-    <Checkbox class="mb-3"
-              id="hide_tray_controls"
-              locale-prefix="config"
-              v-model="config.hide_tray_controls"
-              default="false"
-    ></Checkbox>
+    <div class="stack-sm">
+      <!-- Enable Pairing -->
+      <Checkbox id="enable_pairing" locale-prefix="config" v-model="config.enable_pairing" default="true"></Checkbox>
+      <!-- Enable Discovery -->
+      <Checkbox id="enable_discovery" locale-prefix="config" v-model="config.enable_discovery" default="true"></Checkbox>
+      <!-- Notify Pre-Releases -->
+      <Checkbox id="notify_pre_releases" locale-prefix="config" v-model="config.notify_pre_releases" default="false"></Checkbox>
+      <!-- Enable system tray -->
+      <Checkbox id="system_tray" locale-prefix="config" v-model="config.system_tray" default="true"></Checkbox>
+      <!-- Anonymous telemetry -->
+      <Checkbox id="telemetry_enabled" locale-prefix="config" v-model="config.telemetry_enabled" default="true"></Checkbox>
+      <!-- Anonymous crash reporting -->
+      <Checkbox id="crash_reporting_enabled" locale-prefix="config" v-model="config.crash_reporting_enabled" default="true"></Checkbox>
+      <!-- Hide Tray Controls -->
+      <Checkbox id="hide_tray_controls" locale-prefix="config" v-model="config.hide_tray_controls" default="false"></Checkbox>
+    </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

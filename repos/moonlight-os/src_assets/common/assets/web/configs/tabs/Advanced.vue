@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import PlatformLayout from '../../PlatformLayout.vue'
 import Checkbox from "../../Checkbox.vue";
+import SelectField from "../../SelectField.vue";
+import TextField from "../../TextField.vue";
 
 const props = defineProps([
   'platform',
@@ -12,132 +14,112 @@ const config = ref(props.config)
 </script>
 
 <template>
-  <div class="config-page">
+  <div class="md-settings-group">
     <!-- FEC Percentage -->
-    <div class="mb-3">
-      <label for="fec_percentage" class="form-label">{{ $t('config.fec_percentage') }}</label>
-      <input type="text" class="form-control" id="fec_percentage" placeholder="20" v-model="config.fec_percentage" />
-      <div class="form-text">{{ $t('config.fec_percentage_desc') }}</div>
-    </div>
+    <TextField
+      id="fec_percentage"
+      placeholder="20"
+      :label="$t('config.fec_percentage')"
+      :supporting="$t('config.fec_percentage_desc')"
+      v-model="config.fec_percentage"
+    />
 
     <!-- Quantization Parameter -->
-    <div class="mb-3">
-      <label for="qp" class="form-label">{{ $t('config.qp') }}</label>
-      <input type="number" class="form-control" id="qp" placeholder="28" v-model="config.qp" />
-      <div class="form-text">{{ $t('config.qp_desc') }}</div>
-    </div>
+    <TextField
+      id="qp"
+      type="number"
+      placeholder="28"
+      :label="$t('config.qp')"
+      :supporting="$t('config.qp_desc')"
+      v-model="config.qp"
+    />
 
     <!-- Min Threads -->
-    <div class="mb-3">
-      <label for="min_threads" class="form-label">{{ $t('config.min_threads') }}</label>
-      <input type="number" class="form-control" id="min_threads" placeholder="2" min="1" v-model="config.min_threads" />
-      <div class="form-text">{{ $t('config.min_threads_desc') }}</div>
-    </div>
+    <TextField
+      id="min_threads"
+      type="number"
+      min="1"
+      placeholder="2"
+      :label="$t('config.min_threads')"
+      :supporting="$t('config.min_threads_desc')"
+      v-model="config.min_threads"
+    />
 
     <!-- Limit Framerate -->
-    <Checkbox class="mb-3"
-              id="limit_framerate"
-              locale-prefix="config"
-              v-model="config.limit_framerate"
-              default="true"
-    ></Checkbox>
-
+    <Checkbox id="limit_framerate" locale-prefix="config" v-model="config.limit_framerate" default="true"></Checkbox>
     <!-- ENVVAR compatibility mode -->
-    <Checkbox class="mb-3"
-              id="envvar_compatibility_mode"
-              locale-prefix="config"
-              v-model="config.envvar_compatibility_mode"
-              default="false"
-    ></Checkbox>
-
+    <Checkbox id="envvar_compatibility_mode" locale-prefix="config" v-model="config.envvar_compatibility_mode" default="false"></Checkbox>
     <!-- Legacy ordering -->
-    <Checkbox class="mb-3"
-              id="legacy_ordering"
-              locale-prefix="config"
-              v-model="config.legacy_ordering"
-              default="false"
-    ></Checkbox>
-
+    <Checkbox id="legacy_ordering" locale-prefix="config" v-model="config.legacy_ordering" default="false"></Checkbox>
     <!-- Ignore Encoder Probe Failure -->
-    <Checkbox class="mb-3"
-              id="ignore_encoder_probe_failure"
-              locale-prefix="config"
-              v-model="config.ignore_encoder_probe_failure"
-              default="false"
-    ></Checkbox>
+    <Checkbox id="ignore_encoder_probe_failure" locale-prefix="config" v-model="config.ignore_encoder_probe_failure" default="false"></Checkbox>
 
     <!-- HEVC Support -->
-    <div class="mb-3">
-      <label for="hevc_mode" class="form-label">{{ $t('config.hevc_mode') }}</label>
-      <select id="hevc_mode" class="form-select" v-model="config.hevc_mode">
-        <option value="0">{{ $t('config.hevc_mode_0') }}</option>
-        <option value="1">{{ $t('config.hevc_mode_1') }}</option>
-        <option value="2">{{ $t('config.hevc_mode_2') }}</option>
-        <option value="3">{{ $t('config.hevc_mode_3') }}</option>
-      </select>
-      <div class="form-text">{{ $t('config.hevc_mode_desc') }}</div>
-    </div>
+    <SelectField
+      id="hevc_mode"
+      :label="$t('config.hevc_mode')"
+      :supporting="$t('config.hevc_mode_desc')"
+      v-model="config.hevc_mode"
+    >
+      <option v-for="n in 4" :key="n" :value="String(n - 1)">{{ $t(`config.hevc_mode_${n - 1}`) }}</option>
+    </SelectField>
 
     <!-- AV1 Support -->
-    <div class="mb-3">
-      <label for="av1_mode" class="form-label">{{ $t('config.av1_mode') }}</label>
-      <select id="av1_mode" class="form-select" v-model="config.av1_mode">
-        <option value="0">{{ $t('config.av1_mode_0') }}</option>
-        <option value="1">{{ $t('config.av1_mode_1') }}</option>
-        <option value="2">{{ $t('config.av1_mode_2') }}</option>
-        <option value="3">{{ $t('config.av1_mode_3') }}</option>
-      </select>
-      <div class="form-text">{{ $t('config.av1_mode_desc') }}</div>
-    </div>
+    <SelectField
+      id="av1_mode"
+      :label="$t('config.av1_mode')"
+      :supporting="$t('config.av1_mode_desc')"
+      v-model="config.av1_mode"
+    >
+      <option v-for="n in 4" :key="n" :value="String(n - 1)">{{ $t(`config.av1_mode_${n - 1}`) }}</option>
+    </SelectField>
 
     <!-- Capture -->
-    <div class="mb-3" v-if="platform !== 'macos'">
-      <label for="capture" class="form-label">{{ $t('config.capture') }}</label>
-      <select id="capture" class="form-select" v-model="config.capture">
-        <option value="">{{ $t('_common.autodetect') }}</option>
-        <PlatformLayout :platform="platform">
-          <template #linux>
-            <option value="nvfbc">NvFBC</option>
-            <option value="wlr">wlroots</option>
-            <option value="kms">KMS</option>
-            <option value="x11">X11</option>
-          </template>
-          <template #windows>
-            <option value="ddx">Desktop Duplication API</option>
-            <option value="wgc">Windows.Graphics.Capture {{ $t('_common.beta') }}</option>
-          </template>
-        </PlatformLayout>
-      </select>
-      <div class="form-text">{{ $t('config.capture_desc') }}</div>
-    </div>
+    <SelectField
+      v-if="platform !== 'macos'"
+      id="capture"
+      :label="$t('config.capture')"
+      :supporting="$t('config.capture_desc')"
+      v-model="config.capture"
+    >
+      <option value="">{{ $t('_common.autodetect') }}</option>
+      <PlatformLayout :platform="platform">
+        <template #linux>
+          <option value="nvfbc">NvFBC</option>
+          <option value="wlr">wlroots</option>
+          <option value="kms">KMS</option>
+          <option value="x11">X11</option>
+        </template>
+        <template #windows>
+          <option value="ddx">Desktop Duplication API</option>
+          <option value="wgc">Windows.Graphics.Capture {{ $t('_common.beta') }}</option>
+        </template>
+      </PlatformLayout>
+    </SelectField>
 
     <!-- Encoder -->
-    <div class="mb-3">
-      <label for="encoder" class="form-label">{{ $t('config.encoder') }}</label>
-      <select id="encoder" class="form-select" v-model="config.encoder">
-        <option value="">{{ $t('_common.autodetect') }}</option>
-        <PlatformLayout :platform="platform">
-          <template #windows>
-            <option value="nvenc">NVIDIA NVENC</option>
-            <option value="quicksync">Intel QuickSync</option>
-            <option value="amdvce">AMD AMF/VCE</option>
-          </template>
-          <template #linux>
-            <option value="nvenc">NVIDIA NVENC</option>
-            <option value="vaapi">VA-API</option>
-          </template>
-          <template #macos>
-            <option value="videotoolbox">VideoToolbox</option>
-          </template>
-        </PlatformLayout>
-        <option value="software">{{ $t('config.encoder_software') }}</option>
-      </select>
-      <div class="form-text">{{ $t('config.encoder_desc') }}</div>
-    </div>
-
+    <SelectField
+      id="encoder"
+      :label="$t('config.encoder')"
+      :supporting="$t('config.encoder_desc')"
+      v-model="config.encoder"
+    >
+      <option value="">{{ $t('_common.autodetect') }}</option>
+      <PlatformLayout :platform="platform">
+        <template #windows>
+          <option value="nvenc">NVIDIA NVENC</option>
+          <option value="quicksync">Intel QuickSync</option>
+          <option value="amdvce">AMD AMF/VCE</option>
+        </template>
+        <template #linux>
+          <option value="nvenc">NVIDIA NVENC</option>
+          <option value="vaapi">VA-API</option>
+        </template>
+        <template #macos>
+          <option value="videotoolbox">VideoToolbox</option>
+        </template>
+      </PlatformLayout>
+      <option value="software">{{ $t('config.encoder_software') }}</option>
+    </SelectField>
   </div>
 </template>
-
-<style scoped>
-
-</style>

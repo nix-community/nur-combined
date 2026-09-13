@@ -12,6 +12,11 @@ binary_sha256="$3"
 git_version="$4"
 output="$5"
 version="${tag#v}"
+# Arch pkgver cannot contain a hyphen. Keeping the prerelease word attached
+# to the patch component also makes vercmp order 0.6.0beta1 below 0.6.0.
+version="${version/-alpha./alpha}"
+version="${version/-beta./beta}"
+version="${version/-rc./rc}"
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([+-][0-9A-Za-z.-]+)?$ ]]; then
@@ -38,6 +43,7 @@ sed \
   "$here/PKGBUILD.source.in" > "$output/helios/PKGBUILD"
 sed \
   -e "s/@VERSION@/$version/g" \
+  -e "s/@TAG@/$tag/g" \
   -e "s/@BINARY_SHA256@/$binary_sha256/g" \
   "$here/PKGBUILD.bin.in" > "$output/helios-bin/PKGBUILD"
 sed \

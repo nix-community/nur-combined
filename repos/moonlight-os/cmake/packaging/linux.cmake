@@ -63,10 +63,10 @@ set(CPACK_DEBIAN_PACKAGE_DEPENDS "\
             libx11-6, \
             miniupnpc, \
             openssl | libssl3")
-set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "open-iscsi, usbip | linux-tools-generic")
+set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "open-iscsi, sway, usbip | linux-tools-generic")
 if(MLOS_QUIC_ENABLED)
     set(CPACK_DEBIAN_PACKAGE_DEPENDS
-        "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libmsquic (>= 2.5.9)")
+        "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libmsquic (>= 2.5.10)")
 endif()
 set(CPACK_RPM_PACKAGE_REQUIRES "\
             ${CPACK_RPM_PLATFORM_PACKAGE_REQUIRES} \

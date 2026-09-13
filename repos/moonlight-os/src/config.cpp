@@ -596,7 +596,10 @@ namespace config {
     "ipv4",  // Address family
     platf::appdata().string() + "/helios.log",  // log file
     false,  // notify_pre_releases
+    true,  // telemetry_enabled
+    true,  // crash_reporting_enabled
     false,  // legacy_ordering
+    false,  // enable_quic (highly experimental)
     true,  // system_tray
     {},  // prep commands
     {},  // state commands
@@ -1299,7 +1302,10 @@ namespace config {
     bool_f(vars, "enable_discovery", helios.enable_discovery);
     bool_f(vars, "envvar_compatibility_mode", helios.envvar_compatibility_mode);
     bool_f(vars, "notify_pre_releases", helios.notify_pre_releases);
+    bool_f(vars, "telemetry_enabled", helios.telemetry_enabled);
+    bool_f(vars, "crash_reporting_enabled", helios.crash_reporting_enabled);
     bool_f(vars, "legacy_ordering", helios.legacy_ordering);
+    bool_f(vars, "enable_quic", helios.enable_quic);
     bool_f(vars, "forward_rumble", input.forward_rumble);
 
     int port = helios.port;
