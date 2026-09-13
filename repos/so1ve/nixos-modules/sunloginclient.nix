@@ -18,6 +18,7 @@ in
 {
   options.services.sunloginclient = {
     enable = lib.mkEnableOption "Sunlogin remote control";
+    autoStart = lib.mkEnableOption "starting the Sunlogin desktop client with the graphical session";
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.callPackage ../pkgs/sunloginclient { };
@@ -39,6 +40,10 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ package ];
     users.groups.sunloginclient = { };
+
+    environment.etc."xdg/autostart/awesun.desktop" = lib.mkIf cfg.autoStart {
+      source = "${package}/share/applications/awesun.desktop";
+    };
 
     systemd.services.sunloginclient = {
       description = "Sunlogin remote control service";

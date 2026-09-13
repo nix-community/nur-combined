@@ -29,3 +29,15 @@ services.sunloginclient.uiScale = 2; # 200%
 ```
 
 Fractional scaling is not supported.
+
+## Autostart
+
+The system daemon starts at boot when `services.sunloginclient.enable` is set.
+
+```nix
+services.sunloginclient.autoStart = true;
+```
+
+The package makes `/etc/xdg/autostart` read-only inside its FHS environment, so
+the application's own setting cannot create or remove the host's autostart entry.
+NixOS manages that entry using the package's desktop launcher.

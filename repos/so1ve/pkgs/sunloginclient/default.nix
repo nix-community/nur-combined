@@ -153,6 +153,8 @@ buildFHSEnv {
   extraBuildCommands = ''
     mkdir -p "$out/usr/local"
     ln -s ${unwrapped}/libexec/awesun "$out/usr/local/awesun"
+    # Keep the application's autostart writer inside the read-only FHS root.
+    mkdir -p "$out/etc/xdg/autostart"
     # Let buildFHSEnv forward the host's PAM rules for the daemon's runuser.
     rm -rf "$out/etc/pam.d"
   '';
