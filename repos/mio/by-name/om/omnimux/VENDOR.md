@@ -51,6 +51,7 @@ Rough chronological / thematic summary of edits under this vendor tree:
 - Cursor painted with **`display_offset`** (viewport-correct), so the caret tracks content in scrollback / agent UIs inside tmux.
 - **Reverse-video** cells painted so soft cursors stay visible.
 - Cell **width** measured with ASCII `'M'` (avoid Nerd-font `│` advance skew); height still prefers box-drawing when available.
+- **Wide-char slot centering** (`render.rs` paint loop): emoji and CJK glyphs are marked `WIDE_CHAR` by alacritty (2 grid columns) but NotoColorEmoji reports 1em advance per glyph. The paint loop now detects `Flags::WIDE_CHAR`, computes a 2-cell slot, and centres the shaped glyph within it — preventing the 1-cell visual gap that appeared after scroll/repaint (broken Starship `via 🐍` icon). `WIDE_CHAR_SPACER` cells are also explicitly skipped in the glyph paint pass (they were already filtered by the `ch==' '` guard, but the flag check makes intent clear).
 - View background uses **`ColorPalette` background** (not a hard-coded dark `#1e1e1e`).
 - Configurable **`scrollback`** via `TerminalState::new_with_scrollback` / `TerminalConfig.scrollback`.
 - Optional **font fallbacks** list on `TerminalConfig`.

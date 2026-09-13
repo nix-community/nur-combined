@@ -651,12 +651,30 @@ impl TerminalRenderer {
             for (col_idx, cell) in cells {
                 let ch = cell.c;
 
-                // Skip empty cells (space or null)
+                // Skip empty cells (space or null) and wide-char spacers.
+                // (Spacers always have ch=' ' but guard on the flag too so
+                // any future alacritty change can't accidentally repaint them.)
                 if ch == ' ' || ch == '\0' {
                     continue;
                 }
+                if cell.flags.contains(Flags::WIDE_CHAR_SPACER) {
+                    continue;
+                }
 
-                let x = origin.x + self.cell_width * (col_idx as f32);
+                // Wide chars (emoji, CJK, …) occupy 2 grid columns.
+                // NotoColorEmoji (and most CJK fonts) report 1em advance so
+                // the shaped glyph is ~1×cell_width wide even though alacritty
+                // reserved 2 columns. Centre the glyph in its 2-cell slot so it
+                // always lines up correctly regardless of the font's advance width.
+                let cell_cols = if cell.flags.contains(Flags::WIDE_CHAR) {
+                    2.0_f32
+                } else {
+                    1.0_f32
+                };
+                let slot_width = self.cell_width * cell_cols;
+
+                // Centre glyph horizontally within the slot
+                let x_slot = origin.x + self.cell_width * (col_idx as f32);
                 let y = origin.y + self.cell_height * (line_idx as f32) + vertical_offset;
 
                 // Reverse video (soft cursors / selections in TUIs)
@@ -715,7 +733,17 @@ impl TerminalRenderer {
                         .text_system()
                         .shape_line(text, self.font_size, &[text_run], None);
 
-                // Paint at exact cell position (ignore errors)
+                // For narrow chars paint left-aligned at x_slot (same as before).
+                // For wide chars (emoji, CJK) NotoColorEmoji reports 1em advance
+                // even though alacritty reserved 2 columns — centre the glyph in
+                // its 2-cell slot so it never bleeds into adjacent cells.
+                let x = if cell.flags.contains(Flags::WIDE_CHAR) {
+                    x_slot + (slot_width - shaped_line.width) / 2.0
+                } else {
+                    x_slot
+                };
+
+                // Paint at computed position (ignore errors)
                 let _ = shaped_line.paint(Point { x, y }, self.cell_height, window, _cx);
             }
         }
