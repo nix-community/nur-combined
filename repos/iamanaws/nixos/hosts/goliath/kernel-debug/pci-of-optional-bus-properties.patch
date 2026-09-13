@@ -1,0 +1,25 @@
+diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+--- a/drivers/pci/of_property.c
++++ b/drivers/pci/of_property.c
+@@ -361,13 +361,15 @@ int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = of_pci_prop_bus_range(pdev, ocs, np);
+-		if (ret)
+-			return ret;
++		if (pdev->subordinate) {
++			ret = of_pci_prop_bus_range(pdev, ocs, np);
++			if (ret)
++				return ret;
+ 
+-		ret = of_pci_prop_intr_map(pdev, ocs, np);
+-		if (ret)
+-			return ret;
++			ret = of_pci_prop_intr_map(pdev, ocs, np);
++			if (ret)
++				return ret;
++		}
+ 	} else {
+ 		ret = of_pci_prop_intr_ctrl(pdev, ocs, np);
+ 		if (ret)

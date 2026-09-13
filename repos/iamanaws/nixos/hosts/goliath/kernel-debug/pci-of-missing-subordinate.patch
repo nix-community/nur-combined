@@ -1,0 +1,14 @@
+diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+--- a/drivers/pci/of.c
++++ b/drivers/pci/of.c
+@@ -681,6 +681,10 @@
+ 	else
+ 		ppnode = pdev->bus->self->dev.of_node;
+ 	if (!ppnode)
++		return;
++
++	/* Bridge properties require a subordinate bus. */
++	if (pci_is_bridge(pdev) && !pdev->subordinate)
+ 		return;
+ 
+ 	if (pci_is_bridge(pdev))
