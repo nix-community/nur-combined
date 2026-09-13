@@ -14,13 +14,54 @@
 }:
 
 let
-  glideVersion = "0.1.63a";
+  glideVersion = "0.1.64a";
   glideRevision = "e89e9a621993";
-  firefoxVersion = "153.0b5";
+  firefoxVersion = "156.0b3";
 
   firefoxSrc = fetchurl {
     url = "mirror://mozilla/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
-    hash = "sha256-ieLG6g0xK/pRdDaj+/iXn/ajlHWCbNwfoKnlsF0fiFw=";
+    hash = "sha256-9WRZZH1ccXfm3FqxDq/ksG/EKZPa9RPVYZ2VCSqw/eQ=";
+  };
+
+  patchedGlideSrc = stdenv.mkDerivation {
+    pname = "glide-browser-fix-overrides";
+    version = glideVersion;
+
+    src = fetchFromGitHub {
+      owner = "glide-browser";
+      repo = "glide";
+      tag = glideVersion;
+      hash = "sha256-T/Sw6HxbCY9qbpa7ALtOQiDkFcsgIZcPXgU5dLE444o=";
+    };
+
+    nativeBuildInputs = [ nodejs ];
+
+    postPatch = ''
+      # pnpm is a fuck 
+      # moves package overrides somewhere else as required by pnpm 11
+      node -e "
+        const fs = require('fs');
+        const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+        if (pkg.pnpm && pkg.pnpm.overrides) {
+          pkg.overrides = { ...(pkg.overrides || {}), ...pkg.pnpm.overrides };
+          delete pkg.pnpm.overrides;
+          if (Object.keys(pkg.pnpm).length === 0) delete pkg.pnpm;
+        }
+        delete pkg.packageManager;
+        fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+      "
+      # remove old pnpm overrides section
+      sed -i '/^overrides:/,/^$/d' pnpm-lock.yaml
+    '';
+
+    dontBuild = true;
+    dontFixup = true;
+
+    installPhase = ''
+      runHook preInstall
+      cp -r . $out
+      runHook postInstall
+    '';
   };
 
   patchedSrc = stdenv.mkDerivation (finalAttrs: {
@@ -28,17 +69,16 @@ let
     version = glideVersion;
     GLIDE_REVISION = glideRevision;
 
-    src = fetchFromGitHub {
-      owner = "glide-browser";
-      repo = "glide";
-      tag = glideVersion;
-      hash = "sha256-m4LApx/yphBDUyWqLwOi16vjrtVVyTafiHvJQDBFpns=";
-    };
+    src = patchedGlideSrc;
 
     postUnpack = ''
-      mkdir -p source/engine
-      # note: the firefox tar unpacks to firefox-$version/
-      tar xf ${firefoxSrc} --strip-components=1 -C source/engine
+      mkdir -p engine
+      tar xf ${firefoxSrc} --strip-components=1 -C engine
+    '';
+
+    postPatch = ''
+      mkdir -p engine
+      tar xf ${firefoxSrc} --strip-components=1 -C engine
     '';
 
     nativeBuildInputs = [
@@ -48,12 +88,13 @@ let
       pkg-config
       pnpm
       pnpmConfigHook
+
     ];
 
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
       fetcherVersion = 4;
-      hash = "sha256-30p+Sn7UcO4UJPEh9NIvP3opyR/M2c4kp2lWa6e0o2k=";
+      hash = "sha256-qczgipxw2lU3qIaIn9xgJATVQV/1ZjWnPmYXNd6jq44=";
     };
 
     buildPhase = ''
@@ -101,9 +142,6 @@ in
     binaryName = "glide";
     branding = "browser/branding/glide";
 
-    requireSigning = false;
-    allowAddonSideload = true;
-
     src = patchedSrc;
 
     extraConfigureFlags = [
@@ -122,8 +160,10 @@ in
     };
   }).override
   {
-    pgoSupport = false;
-    crashreporterSupport = false;
+    enablePGO = false;
+    enableCrashReporter = false;
+    enableAddonSigning = false;
+    enableAddonSideload = true;
     enableOfficialBranding = false;
   }
 ).overrideAttrs
