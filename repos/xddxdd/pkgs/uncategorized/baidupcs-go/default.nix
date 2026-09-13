@@ -4,6 +4,7 @@
   lib,
   nix-update-script,
   versionCheckHook,
+  writableTmpDirAsHomeHook,
 }:
 buildGoModule (finalAttrs: {
   pname = "baidupcs-go";
@@ -17,6 +18,8 @@ buildGoModule (finalAttrs: {
   };
   vendorHash = "sha256-3kvB5QxtWuElhDIFFr3Awf5myf6l2Hx0M2k53ltQYeQ=";
 
+  patches = [ ./fix-config-dir.patch ];
+
   doCheck = false;
 
   ldflags = [
@@ -26,13 +29,19 @@ buildGoModule (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [
+    writableTmpDirAsHomeHook
     versionCheckHook
   ];
   doInstallCheck = true;
+  versionCheckKeepEnvironment = "HOME";
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
   postInstall = ''
     rm -f $out/bin/AndroidNDKBuild
+  '';
+
+  postInstallCheck = ''
+    rm -f $out/bin/pcs_config.json
   '';
 
   passthru.updateScript = nix-update-script {
