@@ -1,3 +1,8 @@
 inputs:
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
+  js-toolchain-overlay:
+    url: github:so1ve/js-toolchain-overlay
+    inputs:
+      nixpkgs:
+        follows: nixpkgs

@@ -17,6 +17,26 @@
         "type": "github"
       }
     },
+    "js-toolchain-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789143415,
+        "narHash": "sha256-l5hgBcW3kdSJ3gj7KMvXmCk1f0Ryuiq+aEXWX8Az3Wk=",
+        "owner": "so1ve",
+        "repo": "js-toolchain-overlay",
+        "rev": "bf8d7ff4657af8f2ec868748e04b9c73c82e0c4d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "so1ve",
+        "repo": "js-toolchain-overlay",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "inputs": {
         "nixpkgs-src": "nixpkgs-src"
@@ -56,6 +76,7 @@
     "root": {
       "inputs": {
         "devenv": "devenv",
+        "js-toolchain-overlay": "js-toolchain-overlay",
         "nixpkgs": "nixpkgs"
       }
     }

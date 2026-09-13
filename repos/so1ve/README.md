@@ -21,6 +21,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `kotlin-lsp` | [Usage](pkgs/kotlin-lsp/README.md) |
 | `peazip-rar` | [Usage](pkgs/peazip-rar/README.md) |
 | `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
+| `sunloginclient` | [Usage](pkgs/sunloginclient/README.md) |
 | `xwayland-satellite` | [Upstream](https://github.com/Supreeeme/xwayland-satellite) |
 | `yanhekt-autoslides` | [Upstream](https://github.com/BIT-Admin/Yanhekt-AutoSlides) |
 | `winboat-unstable` | [Usage](pkgs/winboat-unstable/README.md) |

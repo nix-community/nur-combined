@@ -1,0 +1,3 @@
+{
+  sunloginclient = ./sunloginclient.nix;
+}

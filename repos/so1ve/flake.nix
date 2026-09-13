@@ -39,6 +39,7 @@
     in
     {
       homeModules = import ./home-modules;
+      nixosModules = import ./nixos-modules;
 
       legacyPackages = forAllSystems repositoryFor;
 
