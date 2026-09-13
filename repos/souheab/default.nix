@@ -21,6 +21,7 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  anything-llm = pkgs.callPackage ./pkgs/anything-llm { };
   open-pencil = pkgs.callPackage ./pkgs/open-pencil { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
