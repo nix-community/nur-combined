@@ -95,6 +95,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
     )
   '';
 
+  # has no tests
+  doCheck = false;
+
+  pythonImportsCheck = [ "nomm" ];
+
   __structuredAttrs = true;
 
   meta = {
