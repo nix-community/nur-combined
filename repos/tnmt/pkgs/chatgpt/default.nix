@@ -37,7 +37,7 @@
 
 let
   pname = "chatgpt";
-  version = "26.908.40401";
+  version = "26.908.40834";
 
   allArchives = {
     x86_64-linux = {
@@ -46,7 +46,7 @@ let
     };
     aarch64-linux = {
       url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_arm64.deb";
-      hash = "sha256-5WWfuBWALJHsELrZNBEwUY4M3z2cuBeEwSk1ie2q4KE=";
+      hash = "sha256-uuXFylhWJaEWqId97cRV5MJ8oCBj6pPb1qBQbtahLTE=";
     };
   };
 

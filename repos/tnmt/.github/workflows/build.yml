@@ -34,10 +34,23 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - tnmt
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
+        # channel is used only to build a short, stable job/check name below;
+        # nixPath (matched by include) carries the actual full tarball URL.
+        # GitHub truncates check run names at 100 chars, and required status
+        # checks require an exact match, so the job name must stay short or
+        # branch protection can never be satisfied.
+        channel:
+          - nixpkgs-unstable
+          - nixos-unstable
+          - nixos-25.11
+        include:
+          - channel: nixpkgs-unstable
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - channel: nixos-unstable
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - channel: nixos-25.11
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
+    name: tests (${{ matrix.channel }})
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

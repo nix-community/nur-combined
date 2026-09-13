@@ -8,16 +8,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "mdhq";
-  version = "0.0.3";
+  version = "0.0.6";
 
   src = fetchFromGitHub {
     owner = "Songmu";
     repo = "mdhq";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-hocmeIqf66OVWzpCT331qTuy7aowz+a79jIkJrYmCjk=";
+    hash = "sha256-lofq2bUxGDoS001zOkS4XG6tXIcsfBaX4bAgT0OmN38=";
   };
 
-  npmDepsHash = "sha256-YSSCvwv2iR8dX2ss9joBWPlGVWc6xNwgZoypdm321G4=";
+  npmDepsHash = "sha256-Rs3jkv6ZwmCRZdt1oK3gksyQEYGRI77xwheixpodHOE=";
 
   nodejs = nodejs_22;
 
