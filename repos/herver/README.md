@@ -10,6 +10,7 @@
 ## Packages
  * [IB Gateway](https://www.interactivebrokers.com/en/trading/ibgateway-latest.php)
  * [IBKR Desktop](https://www.interactivebrokers.com/en/trading/ibkr-desktop.php)
+ * [IBKR Trader Workstation (TWS)](https://www.interactivebrokers.com/en/trading/download-tws.php)
  * [powerctl](https://git.sr.ht/~sircmpwn/powerctl)
  * [Proton Meet](https://proton.me/meet)
  * [TrackAudio](https://github.com/pierr3/TrackAudio)

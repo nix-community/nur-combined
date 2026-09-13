@@ -12,6 +12,8 @@
 
   ibkr-desktop = pkgs.callPackage ./pkgs/ibkr-desktop { };
 
+  ibkr-tws = pkgs.callPackage ./pkgs/ibkr-tws { };
+
   powerctl = pkgs.callPackage ./pkgs/powerctl { };
 
   proton-meet = pkgs.callPackage ./pkgs/proton-meet { };
