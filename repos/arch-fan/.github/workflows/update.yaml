@@ -19,6 +19,7 @@ jobs:
       - name: Update packages
         run: nix run .#update
       - uses: peter-evans/create-pull-request@v8
+        id: cpr
         with:
           commit-message: "Automated package updates"
           title: "Automated package updates"
@@ -28,3 +29,6 @@ jobs:
           labels: |
             automated
             dependencies
+      - name: Auto-merge update PR
+        if: steps.cpr.outputs.pull-request-number != ''
+        run: gh pr merge --auto --squash --delete-branch ${{ steps.cpr.outputs.pull-request-number }}
