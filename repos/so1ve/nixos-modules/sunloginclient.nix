@@ -7,6 +7,13 @@
 
 let
   cfg = config.services.sunloginclient;
+  package =
+    if cfg.uiScale == null then
+      cfg.package
+    else
+      cfg.package.override {
+        inherit (cfg) uiScale;
+      };
 in
 {
   options.services.sunloginclient = {
@@ -17,10 +24,20 @@ in
       defaultText = lib.literalExpression "pkgs.nur.repos.so1ve.sunloginclient";
       description = "Sunlogin package to use for the desktop client and service.";
     };
+    uiScale = lib.mkOption {
+      type = lib.types.nullOr lib.types.ints.positive;
+      default = null;
+      example = 2;
+      description = ''
+        Desktop UI scale factor: 1 is 100%, 2 is 200%, and so on.
+        The GTK/Flutter client supports integer factors only. Leave null
+        to keep automatic scaling. This does not affect the system daemon.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [ package ];
     users.groups.sunloginclient = { };
 
     systemd.services.sunloginclient = {
@@ -35,7 +52,7 @@ in
       serviceConfig = {
         Type = "simple";
         Group = "sunloginclient";
-        ExecStart = "${lib.getExe cfg.package} --service";
+        ExecStart = "${lib.getExe package} --service";
         Restart = "always";
         RestartSec = 5;
         StateDirectory = "sunloginclient";

@@ -42,6 +42,7 @@
   source ? callPackage ./source.nix { },
   stdenvNoCC,
   systemd,
+  uiScale ? null,
   util-linux,
   vulkan-loader,
   wayland,
@@ -52,6 +53,10 @@
   zenity,
   zlib,
 }:
+
+assert lib.assertMsg (
+  uiScale == null || (builtins.isInt uiScale && uiScale > 0)
+) "sunloginclient: uiScale must be null or a positive integer";
 
 let
   unwrapped = stdenvNoCC.mkDerivation {
@@ -163,6 +168,9 @@ buildFHSEnv {
       shift
       exec /usr/local/awesun/bin/awesun_daemon -m server -name awesun "$@"
     fi
+    ${lib.optionalString (uiScale != null) ''
+      export GDK_SCALE=${toString uiScale}
+    ''}
     exec /usr/local/awesun/awesun "$@"
   '';
 

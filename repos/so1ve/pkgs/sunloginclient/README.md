@@ -19,3 +19,13 @@ service, and allow your desktop user to read its shared configuration:
   users.users.your-user.extraGroups = [ "sunloginclient" ];
 }
 ```
+
+## UI scaling
+
+Set the desktop interface scale independently of the system daemon:
+
+```nix
+services.sunloginclient.uiScale = 2; # 200%
+```
+
+Fractional scaling is not supported.
