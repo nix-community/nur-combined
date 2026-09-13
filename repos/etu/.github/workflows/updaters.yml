@@ -25,6 +25,50 @@ jobs:
           - package: dmsShellPlugins.nixPackageRunner
             extraArgs: '--version=branch=main'
           - package: dmsShellPlugins.quickCapture
+          - package: dmsShellPlugins.activateLinux
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.calculator
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.catWidget
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.dgpuStatus
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.dmsScreenshot
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.fullscreenPowerMenu
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.hiddenBar
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.modernClock
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.networkIndicator
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.niriWindows
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.powerOptions
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.recentFiles
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.resourceMonitor
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.simpleAudioControl
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.systemMonitorPlus
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.timeUntil
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.unifiedTaskbar
+            extraArgs: '--version=branch=master'
+          - package: dmsShellPlugins.vscodeLauncher
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.wallpaperCarousel
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.webSearch
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.wienerLinien
+            extraArgs: '--version=branch=main'
+          - package: dmsShellPlugins.worldClock
+            extraArgs: '--version=branch=main'
 
     steps:
       - uses: actions/checkout@v7
