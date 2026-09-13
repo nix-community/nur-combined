@@ -13,6 +13,8 @@
 
 ### 最佳实践
 
+- **上游源码为 CRLF 行尾时先转 LF 再打补丁**：上游仓库的文本文件可能带 CRLF 行尾（如 FlashBrowser 的 index.js），直接对原文件生成的补丁会整文件重写（diff 把每行都视为修改）。正确做法：补丁一律以 LF 内容生成，并在派生的 `prePatch` 中用 `sed -i 's/\r$//' <文件>` 把上游源码转为 LF——转换必须放在 `prePatch`，因为 patchPhase 在 prePatch 之后、postPatch 之前执行。本仓库内所有文件（补丁、脚本等）一律保持 LF 行尾
+- **预臭氧（pre-ozone）Electron（< 12）在 Wayland 会话下必须强制 GDK_BACKEND=x11**：nixpkgs 的 gtk3 含 Wayland 后端，`WAYLAND_DISPLAY` 存在时 GTK 优先走 Wayland，旧版 Electron（Chromium 无 ozone）初始化显示失败报 `Gtk-WARNING **: cannot open display`。在包装器的 makeWrapper 里加 `--set GDK_BACKEND x11`（用 `--set` 而非 `--set-default`：用户会话可能全局设了 `GDK_BACKEND=wayland`，而旧 Electron 根本无 Wayland 支持，保留用户值只会失败）。配套注意旧 Electron 的 rpath：新版 Electron 把大部分 X 库静态打包进二进制，旧版（如 Electron 9）动态链接 `libXcursor`/`libXi`/`libXrender`/`libXtst`，且新版 nixpkgs 已把 `libgbm` 从 `mesa` 拆出为独立包，`electronLibPath` 需按版本条件补齐，否则报 `error while loading shared libraries`
 - **cmakeFlags 使用 lib.cmakeBool / lib.cmakeFeature**：布尔型选项用 `lib.cmakeBool "OPTION" true|false`（产出 `-DOPTION:BOOL=TRUE/FALSE`），字符串/路径型选项用 `lib.cmakeFeature "OPTION" "value"`（产出 `-DOPTION:STRING=value`），不用 `-DX=ON/OFF` 字面量；生成器开关（如 `-GNinja`）与设为空字符串的特例（如 `-DCMAKE_OSX_ARCHITECTURES=""` 可用 `cmakeFeature` 传空串）除外
 - **优先使用 finalAttrs 而非 rec**：新包一律写成 `stdenv.mkDerivation (finalAttrs: { ... })`（或 `buildPythonPackage (finalAttrs: { ... })` 等 mkDerivation 风格构建器的等价形式），不用 `rec`；包内自引用统一用 `finalAttrs.<attr>`。src 的 URL/tag 中出现版本号字面量时改用 `${finalAttrs.version}` 插值——nix-update 只对 `version = "..."` 行做文本替换，插值 URL 会随 version 属性自动更新。注意：`writeShellApplication`、`appimageTools.wrapType2/extract` 等不接受 functor 参数的构建器不能这样转换；纯 `.overrideAttrs` 包装文件与 sources.json 多源包无版本字面量可引用，保持原样
 - **保持二进制文件名与源码一致**：安装二进制文件时，使用与源码中相同的文件名，不要重命名

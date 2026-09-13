@@ -1,0 +1,36 @@
+--- a/index.js
++++ b/index.js
+@@ -83,13 +83,17 @@
+     let { width, height, isMax } = store.get('windowBounds');
+     let filePath = 'filePath';
+ 	console.log("inti param" + process.argv);
+-	if(process.argv.length >= 2 && process.argv[1].indexOf(".swf") > 1) {
+-		if(process.argv[1].indexOf("http") > 0) {
+-			console.log(998 + process.argv[1] );
+-			filePath = process.argv[1].replace("FlashBrowser:", "");
++	const fileArg = process.argv.slice(1).find(arg => {
++		if(/^[a-z]+:\/\//.test(arg)) { return true; }
++		try { return require('fs').statSync(arg).isFile(); } catch(e) { return false; }
++	});
++	if(fileArg) {
++		if(/^[a-z]+:\/\//.test(fileArg)) {
++			console.log(998 + fileArg );
++			filePath = fileArg.replace("FlashBrowser:", "");
+ 		}
+ 		else {
+-			filePath = process.argv[1];
++			filePath = fileArg;
+ 			filePath = filePath.replace(/\\/g, "/");
+ 			filePath =  'file:///' + filePath;
+ 			//open, read, handle file
+--- a/browser.html
++++ b/browser.html
+@@ -110,7 +110,7 @@
+ let clipboardStr = clipboard.readText();
+ var length = window.process.argv.length;
+ var lastArgument = window.process.argv[length-1]
+-	if(lastArgument && lastArgument.indexOf("file:///") == 0) {		
++	if(lastArgument && (lastArgument.indexOf("file:///") == 0 || /^(https?):\/\//.test(lastArgument))) {		
+ 		console.log(lastArgument);
+ 		//lastArgument = 'file:///D:/FlashPM/FlashBrowser-master/AS3.html';
+ 		//lastArgument = 'file:///D:/FlashPM/FlashBrowser-master/noimage.swf';

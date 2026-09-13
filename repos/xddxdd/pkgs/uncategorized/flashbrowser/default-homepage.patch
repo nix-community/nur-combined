@@ -1,0 +1,22 @@
+--- a/browser.html
++++ b/browser.html
+@@ -129,7 +129,7 @@
+ 		console.log("WE HAGE CUSTOM HOMEPAGE" + home);
+ 		enav.newTab(home, {icon: "icons/restore-w-24.png"})}
+ 	else{
+-		enav.newTab('https://search.flash.pm/', {icon: "clear"});
++		enav.newTab('https://www.google.com/', {icon: "clear"});
+ 		}
+ 		
+ 	
+--- a/settings.html
++++ b/settings.html
+@@ -74,7 +74,7 @@
+ 		console.log("WE HAGE CUSTOM HOMEPAGE" + home);
+ 		enav.newTab(home, {icon: "icons/restore-w-24.png"})}
+ 	else{
+-		enav.newTab('https://search.flash.pm/', {icon: "clear"});
++		enav.newTab('https://www.google.com/', {icon: "clear"});
+ 		}
+ 		
+ 	
