@@ -24,6 +24,7 @@ python3Packages.buildPythonApplication {
     dependencies = with python3Packages; [
         bibtexparser
         requests
+        pylatexenc
     ];
 
     pythonImportsCheck = [
