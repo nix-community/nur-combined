@@ -17,20 +17,11 @@ Make the picture fill the button and map FIT_CENTER to CONTAIN.
 Do not zero GTK min-size: NewPipe uses layout_width=0dp, and a 0 min
 lets the play/pause control collapse to an invisible 0x0 allocation.
 
-diff -ur a/src/api-impl/android/widget/ImageButton.java b/src/api-impl/android/widget/ImageButton.java
---- a/src/api-impl/android/widget/ImageButton.java	2026-08-13 11:45:27.955581302 +1000
-+++ b/src/api-impl/android/widget/ImageButton.java	2026-08-13 11:45:32.272502277 +1000
-@@ -24,5 +24,5 @@
- 	@Override
- 	protected native void nativeSetOnClickListener(long widget);
- 	@Override
--	protected void native_setScaleType(long widget, int scale_type) {}
-+	protected native void native_setScaleType(long widget, int scale_type);
- }
-diff -ur a/src/api-impl-jni/widgets/android_widget_ImageButton.c b/src/api-impl-jni/widgets/android_widget_ImageButton.c
---- a/src/api-impl-jni/widgets/android_widget_ImageButton.c	2026-08-13 11:45:27.964581137 +1000
-+++ b/src/api-impl-jni/widgets/android_widget_ImageButton.c	2026-08-13 11:45:42.484315352 +1000
-@@ -7,11 +7,52 @@
+diff --git a/src/api-impl-jni/widgets/android_widget_ImageButton.c b/src/api-impl-jni/widgets/android_widget_ImageButton.c
+index 3c3324d..7ed68fe 100644
+--- a/src/api-impl-jni/widgets/android_widget_ImageButton.c
++++ b/src/api-impl-jni/widgets/android_widget_ImageButton.c
+@@ -7,11 +7,54 @@
  
  #include "../generated_headers/android_widget_ImageButton.h"
  
@@ -58,9 +49,11 @@ diff -ur a/src/api-impl-jni/widgets/android_widget_ImageButton.c b/src/api-impl-
 +		case SCALE_TYPE_FIT_START:
 +		case SCALE_TYPE_FIT_CENTER:
 +		case SCALE_TYPE_FIT_END:
++			gtk_picture_set_content_fit(picture, GTK_CONTENT_FIT_CONTAIN);
++			break;
 +		case SCALE_TYPE_CENTER_INSIDE:
 +		default:
-+			gtk_picture_set_content_fit(picture, GTK_CONTENT_FIT_CONTAIN);
++			gtk_picture_set_content_fit(picture, GTK_CONTENT_FIT_SCALE_DOWN);
 +			break;
 +	}
 +}
@@ -84,7 +77,7 @@ diff -ur a/src/api-impl-jni/widgets/android_widget_ImageButton.c b/src/api-impl-
  	gtk_button_set_child(GTK_BUTTON(button), image);
  	wrapper_widget_set_child(WRAPPER_WIDGET(wrapper), button);
  	wrapper_widget_consume_touch_events(WRAPPER_WIDGET(wrapper)); // Android button consumes touch events
-@@ -48,4 +89,12 @@
+@@ -48,4 +91,12 @@ JNIEXPORT void JNICALL Java_android_widget_ImageButton_native_1setDrawable(JNIEn
  	gtk_picture_set_paintable(picture, paintable);
  
  	gtk_widget_add_css_class(GTK_WIDGET(button), "ATL-no-border");
@@ -97,10 +90,11 @@ diff -ur a/src/api-impl-jni/widgets/android_widget_ImageButton.c b/src/api-impl-
 +	if (GTK_IS_PICTURE(child))
 +		picture_apply_scale_type(GTK_PICTURE(child), scale_type);
  }
-diff -ur a/src/api-impl-jni/widgets/android_widget_ImageView.c b/src/api-impl-jni/widgets/android_widget_ImageView.c
---- a/src/api-impl-jni/widgets/android_widget_ImageView.c	2026-08-13 11:45:27.973580972 +1000
-+++ b/src/api-impl-jni/widgets/android_widget_ImageView.c	2026-08-13 11:45:47.768218630 +1000
-@@ -20,6 +20,8 @@
+diff --git a/src/api-impl-jni/widgets/android_widget_ImageView.c b/src/api-impl-jni/widgets/android_widget_ImageView.c
+index 93753b9..7e78f1f 100644
+--- a/src/api-impl-jni/widgets/android_widget_ImageView.c
++++ b/src/api-impl-jni/widgets/android_widget_ImageView.c
+@@ -20,6 +20,8 @@ JNIEXPORT jlong JNICALL Java_android_widget_ImageView_native_1constructor(JNIEnv
  {
  	GtkWidget *wrapper = g_object_ref(wrapper_widget_new());
  	GtkWidget *image = gtk_picture_new();
@@ -109,21 +103,37 @@ diff -ur a/src/api-impl-jni/widgets/android_widget_ImageView.c b/src/api-impl-jn
  	wrapper_widget_set_child(WRAPPER_WIDGET(wrapper), image);
  	wrapper_widget_set_jobject(WRAPPER_WIDGET(wrapper), env, this);
  	return _INTPTR(image);
-@@ -47,7 +49,11 @@
+@@ -47,8 +49,14 @@ JNIEXPORT void JNICALL Java_android_widget_ImageView_native_1setScaleType(JNIEnv
  		case SCALE_TYPE_CENTER_CROP:
  			gtk_picture_set_content_fit(picture, GTK_CONTENT_FIT_COVER);
  			break;
+-		case SCALE_TYPE_CENTER_INSIDE:
 +		case SCALE_TYPE_FIT_START:
 +		case SCALE_TYPE_FIT_CENTER:
 +		case SCALE_TYPE_FIT_END:
- 		case SCALE_TYPE_CENTER_INSIDE:
-+		default:
  			gtk_picture_set_content_fit(picture, GTK_CONTENT_FIT_CONTAIN);
  			break;
++		case SCALE_TYPE_CENTER_INSIDE:
++		default:
++			gtk_picture_set_content_fit(picture, GTK_CONTENT_FIT_SCALE_DOWN);
++			break;
  	}
-diff -ur a/src/main-executable/css/default-stylesheet.css b/src/main-executable/css/default-stylesheet.css
---- a/src/main-executable/css/default-stylesheet.css	2026-08-13 11:45:27.981580826 +1000
-+++ b/src/main-executable/css/default-stylesheet.css	2026-08-13 11:45:52.597130229 +1000
+ }
+diff --git a/src/api-impl/android/widget/ImageButton.java b/src/api-impl/android/widget/ImageButton.java
+index 6156f4d..7e52a49 100644
+--- a/src/api-impl/android/widget/ImageButton.java
++++ b/src/api-impl/android/widget/ImageButton.java
+@@ -24,5 +24,5 @@ public class ImageButton extends ImageView {
+ 	@Override
+ 	protected native void nativeSetOnClickListener(long widget);
+ 	@Override
+-	protected void native_setScaleType(long widget, int scale_type) {}
++	protected native void native_setScaleType(long widget, int scale_type);
+ }
+diff --git a/src/main-executable/css/default-stylesheet.css b/src/main-executable/css/default-stylesheet.css
+index c1a5d29..93ae2aa 100644
+--- a/src/main-executable/css/default-stylesheet.css
++++ b/src/main-executable/css/default-stylesheet.css
 @@ -3,6 +3,10 @@
  	border: unset;
  }

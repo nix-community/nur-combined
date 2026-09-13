@@ -16,7 +16,7 @@ return the stored color from getStatusBarColor().
  
  	private Window.Callback callback;
  	private Context context;
-+	private int statusBarColor = 0x00000000; // Default transparent
++	private int statusBarColor = 0xFF000000; // Default black
  
  	public Window(Context context, Window.Callback callback) {
  		this.callback = callback;

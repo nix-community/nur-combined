@@ -16,34 +16,3 @@ ATL stubbed both, which prevented circular crops even after a bitmap loads.
  	}
  
  	public void transform(Matrix matrix) {
-@@ -200,13 +200,26 @@
- 	}
- 
- 	public boolean op(Path path, Op op) {
--		Log.w("Path", "STUB: op");
--		return false;
-+		switch (op) {
-+			case UNION:
-+			case XOR:
-+				addPath(path);
-+				return true;
-+			case INTERSECT:
-+				set(path);
-+				return true;
-+			case DIFFERENCE:
-+			case REVERSE_DIFFERENCE:
-+				return true;
-+			default:
-+				return false;
-+		}
- 	}
- 
- 	public boolean op(Path path, Path dst, Op op) {
--		Log.w("Path", "STUB: op");
--		return false;
-+		if (dst != this)
-+			dst.set(this);
-+		return dst.op(path, op);
- 	}
- 
- 	public boolean isEmpty() {
