@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    ./0001-avoid-home-feed-flash.patch
+    # broken? ./0001-avoid-home-feed-flash.patch
   ];
 
   # Network-level home/trending redirect (upstream #8 approach, sync in-memory).
