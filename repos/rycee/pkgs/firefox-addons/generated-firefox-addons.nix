@@ -3201,10 +3201,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "8.1.0";
+      version = "8.1.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5001363/dictionaries-8.1.0.xpi";
-      sha256 = "a66dcfe88875b9ebc5abaedafbad9233bff683024528bf74a369f779c4b88e73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5024683/dictionaries-8.1.1.xpi";
+      sha256 = "2965748ac5858cd15d035bf5ef6df9eabc9bf0f8bee072dddae4e7994a761b5f";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -10052,10 +10052,10 @@
     };
     "nekocap" = buildMozillaXpiAddon {
       pname = "nekocap";
-      version = "1.23.2";
+      version = "1.24.0";
       addonId = "nekocaption@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4809223/nekocap-1.23.2.xpi";
-      sha256 = "2e5e5c2ef0837d0a5278e4d67270fecf0813d32dae81df8653f6b38fcccdfd40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5025837/nekocap-1.24.0.xpi";
+      sha256 = "4dde7d98a7db7532f47143fcef585d07733c77aeb62985eb34af1ae03781fcaa";
       meta = with lib;
       {
         homepage = "https://nekocap.com";
@@ -12839,10 +12839,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.9";
+      version = "26.9.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4998329/refined_github-26.9.xpi";
-      sha256 = "b4f20254ad5dce01d28d84bab77804272bd4e4c27028a4734cf9fd23214aba41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5024350/refined_github-26.9.12.xpi";
+      sha256 = "eff601153ab28f19ac3bcda4b5d8f3f8c8f4eb47ac45dddaa3a49a67b734138d";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
