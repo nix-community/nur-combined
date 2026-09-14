@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-sathi-ai";
-  version = "0-unstable-2026-08-04";
+  version = "2025.01.07-unstable-2026-08-05";
 
   src = fetchFromGitHub {
     owner = "ss44";
