@@ -183,6 +183,11 @@ jobs:
           name: etu
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: 'Fetch latest changes from origin/main'
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
       - name: 'Update ${{ matrix.package }}'
         run: 'nix shell nixpkgs#nix-update -c nix-update ${{ matrix.package }} ${{ matrix.extraArgs }}'
 
