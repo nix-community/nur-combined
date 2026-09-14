@@ -1522,8 +1522,8 @@
             "url": "https://github.com/ltpie123/nur-packages"
         },
         "lucasew": {
-            "rev": "c6603d83af7b490519edb90fc9db4777eaccc1e1",
-            "sha256": "1irxq4z00wa4lrxnpxcqs4ly36h67lc10zaywxly96c720plw09f",
+            "rev": "2f54dc4638ac3ae07075fc4e170fef5805aa77d6",
+            "sha256": "1ss36nai75585q5k8mwsjwalzsq18imsyaill173y83i0rmp50nv",
             "url": "https://github.com/lucasew/nixcfg"
         },
         "lucasfa": {
@@ -2288,6 +2288,11 @@
             "rev": "b8ea2432f6751e8f86390fcc91fda72b4a9fd2e6",
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
+        },
+        "shelvacu": {
+            "rev": "3a145ddab38254d88a78b188aa93cd8ea63eb27b",
+            "sha256": "0r6zqqqbf5lmfb5552hlgr256nzmmhd7nf3h3ykr0pwgp5da1k1l",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "0993aa16bfda4f29b37271ce6ae7fb092125682a",
