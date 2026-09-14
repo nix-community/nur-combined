@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-prayer-times";
-  version = "0-unstable-2026-09-12";
+  version = "0-unstable-2026-09-11";
 
   src = fetchFromGitHub {
     owner = "muadzmo";

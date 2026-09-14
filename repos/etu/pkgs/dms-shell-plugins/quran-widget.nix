@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-quran-widget";
-  version = "0-unstable-2026-05-11";
+  version = "1.0.0-unstable-2026-05-11";
 
   src = fetchFromCodeberg {
     owner = "MezoAhmedII";

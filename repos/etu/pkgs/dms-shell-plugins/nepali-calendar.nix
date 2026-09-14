@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-nepali-calendar";
-  version = "0-unstable-2026-03-27";
+  version = "1.1.0-unstable-2026-03-27";
 
   src = fetchFromGitHub {
     owner = "AC17dollars";

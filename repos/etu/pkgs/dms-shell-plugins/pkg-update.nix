@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-pkg-update";
-  version = "0-unstable-2026-05-16";
+  version = "0-unstable-2026-05-17";
 
   src = fetchFromGitHub {
     owner = "rahulmysore23";
