@@ -1874,7 +1874,7 @@ checksum = "c8d4a3bb8b1e0c1050499d1815f5ab16d04f0959b233085fb31653fbfc9d98f9"
 
 [[package]]
 name = "clash-api"
-version = "1.0.0-rc.5"
+version = "1.0.0-rc.6"
 dependencies = [
  "backon",
  "chrono",
@@ -1882,6 +1882,7 @@ dependencies = [
  "futures-util",
  "indexmap 2.14.2",
  "ipnet",
+ "nyanpasu-utils",
  "reqwest 0.13.4",
  "reqwest-websocket",
  "serde",
@@ -6574,7 +6575,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-manager"
-version = "1.0.0-rc.5"
+version = "1.0.0-rc.6"
 dependencies = [
  "camino",
  "chrono",
@@ -6593,12 +6594,13 @@ dependencies = [
  "tokio-util",
  "tracing",
  "uuid",
+ "windows 0.62.2",
  "zerocopy",
 ]
 
 [[package]]
 name = "nyanpasu-core-metadata"
-version = "1.0.0-rc.5"
+version = "1.0.0-rc.6"
 dependencies = [
  "constcat",
  "enumset",
@@ -6641,7 +6643,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-ipc"
-version = "2.0.0-rc.5"
+version = "2.0.0-rc.6"
 dependencies = [
  "anyhow",
  "derive_builder",
@@ -6652,6 +6654,7 @@ dependencies = [
  "nyanpasu-core-metadata",
  "nyanpasu-logging",
  "nyanpasu-utils",
+ "nyanpasu-windows-security",
  "reqwest 0.13.4",
  "reqwest-websocket",
  "serde",
@@ -6661,12 +6664,11 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-attributes",
- "windows 0.62.2",
 ]
 
 [[package]]
 name = "nyanpasu-logging"
-version = "0.1.1-rc.1"
+version = "0.1.1-rc.2"
 dependencies = [
  "chrono",
  "file-id",
@@ -6694,6 +6696,7 @@ dependencies = [
 name = "nyanpasu-utils"
 version = "0.1.0"
 dependencies = [
+ "backon",
  "camino",
  "constcat",
  "derive_builder",
@@ -6707,6 +6710,8 @@ dependencies = [
  "os_pipe",
  "parking_lot",
  "processkit",
+ "reqwest 0.13.4",
+ "reqwest-websocket",
  "serde",
  "shared_child",
  "specta",
@@ -6717,6 +6722,14 @@ dependencies = [
  "tokio-util",
  "tracing",
  "tracing-attributes",
+ "windows 0.62.2",
+]
+
+[[package]]
+name = "nyanpasu-windows-security"
+version = "0.1.1-rc.1"
+dependencies = [
+ "anyhow",
  "windows 0.62.2",
 ]
 
@@ -11217,9 +11230,9 @@ dependencies = [
 
 [[package]]
 name = "textwrap"
-version = "0.16.3"
+version = "0.16.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b81c0cb5fce14f53e49c1d4da0c508334ff12040221bb8ab01b2dabd91d04b6e"
+checksum = "6ecfad6c3abc80a577f2b91c1e412ee57e7a060d430b553c1b0c940974ebcd49"
 dependencies = [
  "icu_segmenter",
  "smawk",

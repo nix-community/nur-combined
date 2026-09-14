@@ -1,8 +1,8 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 9e2cd11..5e2ed41 100644
+index f0479b9..0a87fd1 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
-@@ -36,10 +36,10 @@
+@@ -37,10 +37,10 @@
      "country-emoji": "2.0.1",
      "d3": "7.9.0",
      "dayjs": "1.11.23",
@@ -14,10 +14,10 @@ index 9e2cd11..5e2ed41 100644
      "radix-ui": "1.6.7",
      "react": "19.3.0",
      "react-aria-components": "1.21.1",
-@@ -54,6 +54,8 @@
+@@ -55,6 +55,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.527",
+     "@iconify/json": "2.2.528",
 +    "@inlang/plugin-m-function-matcher": "^2.2.15",
 +    "@inlang/plugin-message-format": "^4.4.4",
      "@monaco-editor/react": "4.7.0",
@@ -39,13 +39,13 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index ee59743..111ede7 100644
+index e27aa99..6aaf232 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -403,6 +403,12 @@ importers:
+@@ -406,6 +406,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.527
-         version: 2.2.527
+         specifier: 2.2.528
+         version: 2.2.528
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.15
 +        version: 2.2.15
@@ -55,7 +55,7 @@ index ee59743..111ede7 100644
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.56.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-@@ -1443,6 +1449,12 @@ packages:
+@@ -1449,6 +1455,12 @@ packages:
        vite:
          optional: true
  
@@ -68,7 +68,7 @@ index ee59743..111ede7 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -4983,6 +4995,11 @@ packages:
+@@ -4989,6 +5001,11 @@ packages:
    flat-cache@6.1.23:
      resolution: {integrity: sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA==}
  
@@ -80,7 +80,7 @@ index ee59743..111ede7 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -8157,6 +8174,14 @@ snapshots:
+@@ -8165,6 +8182,14 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.0(@types/node@24.13.4)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.104.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
@@ -95,7 +95,7 @@ index ee59743..111ede7 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -11299,6 +11324,8 @@ snapshots:
+@@ -11307,6 +11332,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  

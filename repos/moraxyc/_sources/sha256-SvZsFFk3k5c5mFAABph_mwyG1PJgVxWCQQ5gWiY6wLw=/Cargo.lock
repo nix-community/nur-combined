@@ -555,7 +555,7 @@ checksum = "c8d4a3bb8b1e0c1050499d1815f5ab16d04f0959b233085fb31653fbfc9d98f9"
 
 [[package]]
 name = "clash-api"
-version = "1.0.0-rc.5"
+version = "1.0.0-rc.6"
 dependencies = [
  "axum",
  "backon",
@@ -566,6 +566,7 @@ dependencies = [
  "hyper-util",
  "indexmap",
  "ipnet",
+ "nyanpasu-utils",
  "reqwest",
  "reqwest-websocket",
  "serde",
@@ -2086,15 +2087,17 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-manager"
-version = "1.0.0-rc.5"
+version = "1.0.0-rc.6"
 dependencies = [
  "camino",
  "chrono",
  "clash-api",
  "enumset",
+ "futures-util",
  "nyanpasu-core-manager",
  "nyanpasu-core-metadata",
  "nyanpasu-utils",
+ "nyanpasu-windows-security",
  "parking_lot",
  "schemars",
  "serde",
@@ -2107,12 +2110,13 @@ dependencies = [
  "tokio-util",
  "tracing",
  "uuid",
+ "windows 0.62.2",
  "zerocopy",
 ]
 
 [[package]]
 name = "nyanpasu-core-metadata"
-version = "1.0.0-rc.5"
+version = "1.0.0-rc.6"
 dependencies = [
  "constcat",
  "enumset",
@@ -2125,7 +2129,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-ipc"
-version = "2.0.0-rc.5"
+version = "2.0.0-rc.6"
 dependencies = [
  "anyhow",
  "axum",
@@ -2138,6 +2142,7 @@ dependencies = [
  "nyanpasu-core-metadata",
  "nyanpasu-logging",
  "nyanpasu-utils",
+ "nyanpasu-windows-security",
  "reqwest",
  "reqwest-websocket",
  "serde",
@@ -2154,7 +2159,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-logging"
-version = "0.1.1-rc.1"
+version = "0.1.1-rc.2"
 dependencies = [
  "chrono",
  "file-id",
@@ -2172,7 +2177,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service"
-version = "2.0.0-rc.7"
+version = "2.0.0-rc.8"
 dependencies = [
  "nyanpasu-service-runtime",
  "nyanpasu-utils",
@@ -2184,7 +2189,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service-runtime"
-version = "2.0.0-rc.7"
+version = "2.0.0-rc.8"
 dependencies = [
  "ansi-str",
  "anyhow",
@@ -2206,6 +2211,7 @@ dependencies = [
  "nyanpasu-ipc",
  "nyanpasu-logging",
  "nyanpasu-utils",
+ "nyanpasu-windows-security",
  "oneshot",
  "parking_lot",
  "rustc_version",
@@ -2239,11 +2245,13 @@ dependencies = [
 name = "nyanpasu-utils"
 version = "0.1.0"
 dependencies = [
+ "backon",
  "camino",
  "constcat",
  "derive_builder",
  "dirs 6.0.0",
  "encoding_rs",
+ "futures-util",
  "kill_tree",
  "libc",
  "log",
@@ -2252,6 +2260,8 @@ dependencies = [
  "os_pipe",
  "parking_lot",
  "processkit",
+ "reqwest",
+ "reqwest-websocket",
  "serde",
  "shared_child",
  "specta",
@@ -2263,6 +2273,15 @@ dependencies = [
  "tokio-util",
  "tracing",
  "tracing-attributes",
+ "windows 0.62.2",
+]
+
+[[package]]
+name = "nyanpasu-windows-security"
+version = "0.1.1-rc.1"
+dependencies = [
+ "anyhow",
+ "tokio",
  "windows 0.62.2",
 ]
 
