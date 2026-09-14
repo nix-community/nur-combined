@@ -36,7 +36,11 @@ say() {
 
 report_error() {
 	CHECK_ERRORS=true
-	say "$@"
+	if $JSON_OUTPUT; then
+		printf '%s\n' "$@" >&2
+	else
+		echo -e "$@"
+	fi
 }
 
 # Function to extract current version from nix file
@@ -46,18 +50,36 @@ get_current_version() {
 	grep -oP "$pattern" "$file" | head -1 | grep -oP '[0-9]+\.[0-9]+\.[0-9]+'
 }
 
+# Fetch upstream data with retries. The Actions token is only sent to GitHub,
+# avoiding both GitHub's low unauthenticated API rate limit and token leakage.
+fetch_url() {
+	local url="$1"
+	shift
+	curl -fsSL --retry 3 --retry-delay 2 --retry-all-errors \
+		--connect-timeout 10 --max-time 30 "$@" "$url"
+}
+
+fetch_github_url() {
+	local url="$1"
+	if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+		fetch_url "$url" -H "Authorization: Bearer ${GITHUB_TOKEN}"
+	else
+		fetch_url "$url"
+	fi
+}
+
 # Function to get latest GitHub release
 get_github_latest_release() {
 	local owner="$1"
 	local repo="$2"
-	curl -fsSL "https://api.github.com/repos/${owner}/${repo}/releases/latest" 2>/dev/null | jq -r '.tag_name // empty' | sed 's/^v//' || true
+	fetch_github_url "https://api.github.com/repos/${owner}/${repo}/releases/latest" | jq -r '.tag_name // empty' | sed 's/^v//' || true
 }
 
 # Function to get latest GitHub tag
 get_github_latest_tag() {
 	local owner="$1"
 	local repo="$2"
-	curl -fsSL "https://api.github.com/repos/${owner}/${repo}/tags?per_page=1" 2>/dev/null | jq -r '.[0].name // empty' | sed 's/^v//' || true
+	fetch_github_url "https://api.github.com/repos/${owner}/${repo}/tags?per_page=1" | jq -r '.[0].name // empty' | sed 's/^v//' || true
 }
 
 # Function to compare versions
@@ -113,7 +135,7 @@ if [[ -f "$LEMMINX_FILE" ]]; then
 
 		# Fallback: check Maven metadata if GitHub fails
 		if [[ -z "$LATEST_LEMMINX" ]]; then
-			LATEST_LEMMINX=$(curl -sL "https://repo.eclipse.org/content/repositories/lemminx-releases/org/eclipse/lemminx/lemminx-maven/maven-metadata.xml" | grep -oP '<latest>\K[0-9]+\.[0-9]+\.[0-9]+' || true)
+			LATEST_LEMMINX=$(fetch_url "https://repo.eclipse.org/content/repositories/lemminx-releases/org/eclipse/lemminx/lemminx-maven/maven-metadata.xml" | grep -oP '<latest>\K[0-9]+\.[0-9]+\.[0-9]+' || true)
 		fi
 
 		if [[ -n "$LATEST_LEMMINX" ]]; then

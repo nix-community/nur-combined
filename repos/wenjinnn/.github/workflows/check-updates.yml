@@ -21,6 +21,8 @@ jobs:
 
     - name: Check for upstream updates
       id: check
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         chmod +x ./scripts/check-updates.sh
         set +e
