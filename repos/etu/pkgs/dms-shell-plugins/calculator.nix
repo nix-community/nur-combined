@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-calculator";
-  version = "0-unstable-2026-06-22";
+  version = "0.3.3-unstable-2026-06-22";
 
   src = fetchFromGitHub {
     owner = "rochacbruno";

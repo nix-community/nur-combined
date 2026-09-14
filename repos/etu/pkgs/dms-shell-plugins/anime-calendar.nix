@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-anime-calendar";
-  version = "0-unstable-2026-05-02";
+  version = "1.0.1-unstable-2026-05-02";
 
   src = fetchFromGitHub {
     owner = "RiceaRaul";
