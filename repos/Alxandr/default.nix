@@ -13,49 +13,47 @@
 
 let
   inherit (pkgs) lib;
-  hostSystem = pkgs.stdenv.hostPlatform.system;
   nurLib = import ./lib {
     inherit pkgs;
     packages = discoveredPackages;
   };
 
-  packageDirs = lib.filterAttrs (
-    dirName: type: type == "directory" && builtins.pathExists (./pkgs + "/${dirName}/default.nix")
-  ) (builtins.readDir ./pkgs);
+  packageCallArgs = {
+    inherit nurLib;
+    inherit (nurLib) crate2nix-package-update-script nuget-global-tool-update-script;
+  };
 
-  supportsHostPlatform = pkg: !(pkg.meta ? platforms) || builtins.elem hostSystem pkg.meta.platforms;
+  newScope = extra: lib.callPackageWith (pkgs // packageCallArgs // extra);
 
-  candidatePackages = lib.mapAttrs' (
-    dirName: _:
-    let
-      pkg = lib.callPackageWith (
-        pkgs
-        // scopedPackages
-        // {
-          inherit nurLib;
-          inherit (nurLib) crate2nix-package-update-script nuget-global-tool-update-script;
-        }
-      ) (./pkgs + "/${dirName}") { };
-    in
-    lib.nameValuePair dirName pkg
-  ) packageDirs;
+  packageScope = lib.packagesFromDirectoryRecursive {
+    directory = ./pkgs;
+    callPackage = newScope { };
+    inherit newScope;
+  };
 
-  scopedPackages = lib.mapAttrs (
-    dirName: pkg:
-    if supportsHostPlatform pkg then
-      pkg
-    else
-      throw "Package '${dirName}' is not supported on ${hostSystem}"
-  ) candidatePackages;
+  scopeImplementationAttrs = [
+    "callPackage"
+    "newScope"
+    "overrideScope"
+    "packages"
+  ];
 
-  discoveredPackages = lib.filterAttrs (_: supportsHostPlatform) candidatePackages;
+  isPackageSet = value: builtins.isAttrs value && value.recurseForDerivations or false;
+
+  cleanPackageSet =
+    packageSet:
+    lib.mapAttrs (_: value: if isPackageSet value then cleanPackageSet value else value) (
+      removeAttrs packageSet scopeImplementationAttrs
+    );
+
+  discoveredPackages = removeAttrs (cleanPackageSet packageScope) [ "recurseForDerivations" ];
 
   specialAttrs = {
     # The `lib`, `overlays`, `nixosModules`, `homeModules`,
     # `darwinModules` and `flakeModules` names are special
     lib = nurLib; # functions
     nixosModules = import ./nixos-modules; # NixOS modules
-    # homeModules = { }; # Home Manager modules
+    homeModules = import ./home-modules; # Home Manager modules
     # darwinModules = { }; # nix-darwin modules
     # flakeModules = { }; # flake-parts modules
     overlays = import ./overlays; # nixpkgs overlays

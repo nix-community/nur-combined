@@ -19,7 +19,7 @@ let
       "--version"
       "branch"
       "--override-filename"
-      "pkgs/fira-code/default.nix"
+      "pkgs/fira-code/package.nix"
     ];
   };
 

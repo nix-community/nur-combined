@@ -9,7 +9,6 @@
   nix-prefetch-git,
   nixVersions,
   fetchFromGitHub,
-  crate2nix-package-update-script,
 }:
 
 let

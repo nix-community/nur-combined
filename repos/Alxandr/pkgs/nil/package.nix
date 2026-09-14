@@ -3,7 +3,6 @@
   nurLib,
   nixVersions,
   fetchFromGitHub,
-  crate2nix-package-update-script,
 }:
 
 let

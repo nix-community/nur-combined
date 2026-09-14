@@ -3,6 +3,7 @@
 # so if you correctly mark packages as
 #
 # - broken (using `meta.broken`),
+# - unsupported (using `meta.platforms`),
 # - redistributable (using `meta.license.redistributable`), and
 # - locally built (using `preferLocalBuild`)
 #
@@ -32,7 +33,8 @@ let
       licenseFromMeta = p.meta.license or [ ];
       licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
     in
-    !(p.meta.broken or false)
+    pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
+    && !(p.meta.broken or false)
     && builtins.all (license: license.redistributable or license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
