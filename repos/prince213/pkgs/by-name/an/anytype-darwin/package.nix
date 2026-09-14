@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = anytype.meta // {
+  meta = (builtins.removeAttrs anytype.meta [ "problems" ]) // {
     maintainers = with lib.maintainers; [ prince213 ];
     platforms = lib.platforms.darwin;
     broken = false;

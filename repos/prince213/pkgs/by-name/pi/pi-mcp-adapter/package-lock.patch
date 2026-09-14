@@ -96,3 +96,12 @@
      "node_modules/@earendil-works/pi-coding-agent/node_modules/@google/genai": {
        "version": "1.52.0",
        "resolved": "https://registry.npmjs.org/@google/genai/-/genai-1.52.0.tgz",
+@@ -3130,7 +3041,7 @@
+       "integrity": "sha512-ZlibxQrqxSzt9L2FWO5PM22zhpdcLOaAdHJCZxHL+3vrZzJrvD49LwsLlt+l7YVt+9S3vYMOZwi9Vc96odBfhw==",
+       "license": "MIT",
+       "dependencies": {
+-        "@modelcontextprotocol/core": "https://pkg.pr.new/modelcontextprotocol/typescript-sdk/@modelcontextprotocol/core@3b205e7",
++        "@modelcontextprotocol/core": "2.0.0",
+         "cross-spawn": "^7.0.5",
+         "eventsource": "^3.0.2",
+         "eventsource-parser": "^3.0.0",
