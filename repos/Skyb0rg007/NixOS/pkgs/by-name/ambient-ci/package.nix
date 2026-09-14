@@ -10,17 +10,17 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
-  version = "0.19.0";
+  version = "0.20.0";
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "zwPaQSTBX8hktn22F6tHAZSFH2Fh"; # ambient-ci
     node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rCaW59CN13OinTq+bm0Cfrzfe50tkLo0wE7Z7M+1EHg=";
+    hash = "sha256-DAVmhf9Zq51JJdnuzgiUQhZ/dfJ9YtT5qujzBoYjlY4=";
   };
 
-  cargoHash = "sha256-OHzOxMB/hsmvCWD06uYTyPqx596pRR3PD5ZNGs+4jvQ=";
+  cargoHash = "sha256-+7C53mM+42iV9U3zu61v4AqMKqTju51+kmycECP85iE=";
 
   nativeBuildInputs = [ installShellFiles ];
   nativeCheckInputs = [ libisoburn ];
