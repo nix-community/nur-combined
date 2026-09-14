@@ -19,7 +19,8 @@ module: {
 						name: "llama.cpp"
 						options: {baseURL: "http://whiterun:38286/v1"}
 						models: {
-							"qwen3.5-9b": {name: "qwen3.5-9b"}
+							"qwen3.5-9b":           {name: "qwen3.5-9b"}
+							"cyber-tiel-coder-35b": {name: "cyber-tiel-coder-35b"}
 						}
 					}
 				}
