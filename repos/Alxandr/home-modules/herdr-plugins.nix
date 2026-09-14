@@ -12,7 +12,7 @@ let
       id = plugin.meta.herdr.plugin.id;
     in
     ''
-      ${lib.getBin cfg.package} plugin link "${plugin}/libexec/herdr/plugins/${id}/"
+      ${lib.getExe cfg.package} plugin link "${plugin}/libexec/herdr/plugins/${id}/"
     '';
   activationScript = lib.concatStringsSep "\n" (lib.map activatePlugin cfg.plugins);
 
