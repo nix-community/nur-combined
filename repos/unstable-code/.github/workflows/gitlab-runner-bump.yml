@@ -1,0 +1,100 @@
+name: "GitLab Runner bump"
+# gitlab-runner-bin 은 upstream 공식 바이너리를 버전·해시로 고정한 패키지라, 아무 자동화가 없으면
+# 영원히 그 버전에 머문다. 이 패키지를 만든 이유 자체가 nixpkgs 의 갱신 지연이므로(근거는
+# pkgs/gitlab-runner-bin/default.nix 상단 주석) 폴링이 빠지면 존재 이유가 사라진다.
+on:
+  schedule:
+    # 매일 01:30 UTC = 10:30 KST. upnote-bump(01:00 UTC)와 30분 어긋나게 둬서 두 잡의 master 푸시가
+    #   겹칠 확률을 낮춘다(겹쳐도 아래 push 재시도가 rebase 로 흡수한다).
+    #
+    # nix-configurations 의 weekly flake update(화 06:30 KST)보다 앞서 돈다 — 월요일 실행분이 다음 날
+    # 그쪽 `nix flake update` 에 자연히 실려간다.
+    #
+    # ⚠ 갱신이 늦어도 다운스트림이 깨지지는 않는다. 과거 버전 바이너리는 S3 에 버전 경로로 계속 남으므로
+    #   옛 해시에 묶인 소비자도 언제든 재빌드할 수 있다(upnote 의 deb 시절과 달리 노출 창이 없다).
+    #   즉 이 잡은 고장 방지가 아니라 단순 최신화다.
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+# 레포 기본값이 default_workflow_permissions=read 라 명시적 상향이 필요하다.
+#   master 직접 푸시라 contents 만 있으면 된다(PR 을 안 만드므로 pull-requests 불요).
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      # 버전 확인이 먼저다 — update.sh 는 nix 없이 돈다(curl/jq/openssl 만 쓰며 셋 다 러너 기본 제공).
+      #   덕분에 아래 nix 설치를 실제 범프가 있는 날로 미룰 수 있다(대부분의 날은 no-op).
+      #   범프가 있는 날에만 바이너리(≈125MB)를 받아 release.sha256 과 대조한 뒤 SRI 를 만든다.
+      - name: Check upstream version
+        id: update
+        run: ./pkgs/gitlab-runner-bin/update.sh
+
+      - name: Install nix
+        if: steps.update.outputs.updated == 'true'
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # 푸시 전에 빌드로 확인한다. 해시는 update.sh 가 받은 바이트에서 만들었으니 fetchurl 은 맞지만,
+      #   default.nix 의 installCheck 가 `gitlab-runner --version` 에 새 version 이 찍히는지 본다 —
+      #   S3 경로의 버전과 실제 바이너리가 어긋나는 업로드 사고를 여기서 잡는다.
+      #   (build.yml 도 이 패키지를 빌드하지만 푸시 **후**라 master 가 이미 깨진 뒤다.)
+      - name: Verify build
+        if: steps.update.outputs.updated == 'true'
+        run: nix-build . -A gitlab-runner-bin --no-out-link
+
+      # PR 을 거치지 않고 기본 브랜치에 직접 커밋한다 — upnote-bump.yml 과 같은 판단이다
+      #   (리뷰 창을 실제로 아무도 쓰지 않아 PR 이 방치됐던 이력, #4). 검증은 위 Verify build 가
+      #   담당하고, 회귀 시 대응은 revert 다.
+      - name: Commit & push
+        if: steps.update.outputs.updated == 'true'
+        env:
+          OLD: ${{ steps.update.outputs.old_version }}
+          NEW: ${{ steps.update.outputs.new_version }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # 커밋 메시지는 파일로 넘긴다(-F). heredoc 을 <<'EOF' 로 **인용**해 셸 해석을 전부 끈다 —
+          #   본문에 백틱이 있어 비인용 heredoc 이면 명령치환으로 먹힌다. 값은 sed 로 주입.
+          msg="$RUNNER_TEMP/commit-msg.txt"
+          cat > "$msg" <<'EOF'
+          gitlab-runner-bin: @OLD@ -> @NEW@
+
+          GitLab releases API 의 안정판 태그 중 최고 semver 로 옮겼다(API 의 첫 항목은 released_at 순이라
+          구 minor 패치가 앞에 올 수 있어 쓰지 않는다).
+
+          내려받은 바이트를 upstream release.sha256 과 대조한 뒤 sha256 SRI 로 환산했다. 즉 해시는
+          메타파일을 옮겨 적은 값이 아니라 실제 파일에서 계산해 공식 체크섬과 일치를 확인한 값이다.
+
+          검증: `nix-build . -A gitlab-runner-bin` 통과 — installCheck 가 `gitlab-runner --version` 에
+          새 버전이 찍히는지 확인한다.
+
+          ⚠ 러너 동작 확인은 사후다(register/verify 와 잡 실행은 빌드가 잡지 못한다). 다운스트림
+          nix-configurations 의 주간 빌드·push 파이프라인에서 이상이 보이면 이 커밋을 revert 할 것.
+          EOF
+          sed -i -e "s|@OLD@|$OLD|g" -e "s|@NEW@|$NEW|g" "$msg"
+          git commit -aF "$msg"
+
+          # 스케줄 실행 중 다른 커밋(upnote-bump 등)이 들어와 non-fast-forward 가 될 수 있다. 이 커밋은
+          #   default.nix 두 줄만 건드리므로 rebase 로 얹으면 그만이다(강제 푸시는 쓰지 않는다).
+          for i in 1 2 3; do
+            if git push origin "HEAD:$BASE"; then
+              exit 0
+            fi
+            echo "푸시 재시도 $i/3 — 원격이 앞서 있어 rebase 후 재시도"
+            git pull --rebase origin "$BASE"
+          done
+          echo "error: 푸시 실패 — 수동 확인 필요" >&2
+          exit 1
