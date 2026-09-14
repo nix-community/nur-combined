@@ -13,8 +13,8 @@ let
           "program"
           "meta"
         ] == { };
-    what = app.meta.script or "App";
-    shortDescription = app.meta.description or "";
+    what = "App";
+    shortDescription = app.meta.script or "";
   };
 in
 {
