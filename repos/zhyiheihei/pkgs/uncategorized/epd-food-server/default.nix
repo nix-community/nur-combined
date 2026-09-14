@@ -12,14 +12,15 @@
   sources,
 }:
 let
-  pythonEnv = python3.withPackages (ps:
-    with ps; [
+  pythonEnv = python3.withPackages (
+    ps: with ps; [
       fastapi
       uvicorn
       psycopg
       pillow
       bleak
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "epd-food-server";
@@ -49,7 +50,12 @@ stdenv.mkDerivation (finalAttrs: {
     description = "家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送）";
     homepage = "https://github.com/zhyiheihei/EPD-Dashboard";
     license = lib.licenses.unfree;
-    maintainers = [ ];
+    maintainers = [
+      {
+        github = "zhyiheihei";
+        name = "zhyiheihei";
+      }
+    ];
     mainProgram = "epd-food-server";
     platforms = lib.platforms.linux;
   };
