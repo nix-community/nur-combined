@@ -257,21 +257,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "b4508e945955dc89a3ade24fe66b578303ec5c73";
+    version = "0666c4b50a49f23a979ee82f2b26c8e88ee1914a";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "b4508e945955dc89a3ade24fe66b578303ec5c73";
+      rev = "0666c4b50a49f23a979ee82f2b26c8e88ee1914a";
       fetchSubmodules = false;
-      sha256 = "sha256-52yqP4R6rSQEOVvs7PytqFChgqfqFMKXZiqlzV1MaZE=";
+      sha256 = "sha256-DsJiGY+bqTUoimXcmRlN7tdgOHDNmqGEjQOM6ClFb9A=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-52yqP4R6rSQEOVvs7PytqFChgqfqFMKXZiqlzV1MaZE=/Cargo.lock";
+      lockFile = ./. + "/sha256-DsJiGY+bqTUoimXcmRlN7tdgOHDNmqGEjQOM6ClFb9A=/Cargo.lock";
       outputHashes = {
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-11";
+    date = "2026-09-14";
   };
   piliplus = {
     pname = "piliplus";
@@ -343,16 +343,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "a5b19d66acaa58b2059ad6607121ccf953f1c82b";
+    version = "5e638d422e534c57440fff66fd9fda672c90b054";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "a5b19d66acaa58b2059ad6607121ccf953f1c82b";
+      rev = "5e638d422e534c57440fff66fd9fda672c90b054";
       fetchSubmodules = false;
-      sha256 = "sha256-Xa395CzMVymwNxeL3oBoTVFfe+8fs8SgZJHHq59Nk7Q=";
+      sha256 = "sha256-ltWH54eQH8DyOxX0eIo8EcUxfz31g0PEbHzw66m0h9w=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Xa395CzMVymwNxeL3oBoTVFfe+8fs8SgZJHHq59Nk7Q=/Cargo.lock";
+      lockFile = ./. + "/sha256-ltWH54eQH8DyOxX0eIo8EcUxfz31g0PEbHzw66m0h9w=/Cargo.lock";
       outputHashes = {
         
       };
