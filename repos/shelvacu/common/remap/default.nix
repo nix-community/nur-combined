@@ -268,19 +268,19 @@ let
         (lib.getExe museDashDeviceScript)
       ];
       DEVICE = {
-        PRODUCT = 1;
         VENDOR = 5050;
+        PRODUCT = 1;
       };
     }
     {
       JOB = [
         ''echo "$DEVNODE: running job for footpad"''
-        ''intercept -g "$DEVNODE" | ${mappers.footpad} | mux -o main''
+        ''intercept -g "$DEVNODE" | ${lib.getExe mappers.footpad} | mux -o main''
       ];
       DEVICE = {
         # 1a86:e026
-        PRODUCT = 6790;
-        VENDOR = 57382;
+        VENDOR = 6790;
+        PRODUCT = 57382;
       };
     }
     {

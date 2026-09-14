@@ -7,7 +7,7 @@ const int32_t numpad_keys[KEY_COUNT] = {
 };
 
 const int32_t replacement_keys[KEY_COUNT] = {
-  KEY_LEFTSHIFT, KEY_LEFTALT, KEY_LEFTCTRL,
+  KEY_ENTER, KEY_LEFTALT, KEY_LEFTCTRL,
 };
 
 bool process_event(struct input_event& event) {
