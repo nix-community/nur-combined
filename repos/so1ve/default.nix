@@ -12,6 +12,7 @@
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
   gradle-language-server = pkgs.callPackage ./pkgs/gradle-language-server { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
+  kelivo = pkgs.callPackage ./pkgs/kelivo { };
   kotlin-lsp = pkgs.callPackage ./pkgs/kotlin-lsp { };
   niri = pkgs.callPackage ./pkgs/niri { };
   peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
