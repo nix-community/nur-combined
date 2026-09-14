@@ -20,12 +20,11 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "yanhekt-autoslides";
-  inherit (source) version src;
+  inherit (source) npmDepsHash src version;
 
   sourceRoot = "${finalAttrs.src.name}/autoslides";
 
   nodejs = nodejs_22;
-  npmDepsHash = "sha256-Xk0+O8xlsvO3AXlPk/WV0rESt+KwiwUCK869l9SzHLk=";
   makeCacheWritable = true;
   npmRebuildFlags = [ "--ignore-scripts" ];
   npmBuildScript = "package";

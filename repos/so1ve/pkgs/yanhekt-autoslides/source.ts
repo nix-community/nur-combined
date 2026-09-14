@@ -1,6 +1,9 @@
-import { github } from "nix-repin";
+import { defineSource, github, npm } from "nix-repin";
 
-export default github.release({
-  repository: "BIT-Admin/Yanhekt-AutoSlides",
-  stripPrefix: "v",
-});
+export default defineSource(
+  github.release({
+    repository: "BIT-Admin/Yanhekt-AutoSlides",
+    stripPrefix: "v",
+  }),
+  npm.lock("autoslides/package-lock.json"),
+);

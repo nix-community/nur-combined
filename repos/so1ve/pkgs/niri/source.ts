@@ -1,7 +1,9 @@
-import { github } from "nix-repin";
+import { cargo, defineSource, github } from "nix-repin";
 
-export default github.branch({
-  branch: "feat/latchshot-support",
-  cargoLock: "Cargo.lock",
-  repository: "so1ve/niri",
-});
+export default defineSource(
+  github.branch({
+    branch: "feat/latchshot-support",
+    repository: "so1ve/niri",
+  }),
+  cargo.lock("Cargo.lock"),
+);
