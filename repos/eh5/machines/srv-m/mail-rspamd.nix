@@ -41,9 +41,9 @@ in
           type = "from";
           filter = "email:domain";
           map = "${secrets.blocklistDomainsMap.path}";
+          regexp = true;
           prefilter = true;
           action = "reject";
-          score = 15;
         }
       '';
       "dmarc.conf".text = ''
@@ -65,7 +65,7 @@ in
 
           QUARANTINE_BAD_SPF {
             action = "add header";
-            expression = "R_SPF_SOFTFAIL | R_SPF_DNSFAIL | R_SPF_NA | DMARC_POLICY_SOFTFAIL | DMARC_DNSFAIL";
+            expression = "R_SPF_SOFTFAIL | R_SPF_DNSFAIL | R_SPF_NA | DMARC_POLICY_SOFTFAIL | DMARC_DNSFAIL | RDNS_DNSFAIL | RDNS_NONE";
             require_action = ["no action", "greylist"];
           }
 
