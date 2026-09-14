@@ -1660,6 +1660,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   untrunc = callPackage ./pkgs/by-name/untrunc/package.nix { };
 
+  gopro-chaptered-video-assembler = callPackage ./pkgs/by-name/gopro-chaptered-video-assembler/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
