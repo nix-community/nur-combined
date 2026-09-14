@@ -1658,6 +1658,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
 
 
+  untrunc = callPackage ./pkgs/by-name/untrunc/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
