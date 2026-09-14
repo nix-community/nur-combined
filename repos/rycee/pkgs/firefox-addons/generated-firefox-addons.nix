@@ -6589,10 +6589,10 @@
     };
     "hyperchat" = buildMozillaXpiAddon {
       pname = "hyperchat";
-      version = "4.0.0";
+      version = "4.0.1";
       addonId = "{14a15c41-13f4-498e-986c-7f00435c4d00}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5007853/hyperchat-4.0.0.xpi";
-      sha256 = "c841ce2cbbdb0f078bdae43cf24eb054f138e2854fe5f8420a18fa75cbbd617e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5027367/hyperchat-4.0.1.xpi";
+      sha256 = "87629458ad1519f6149c664d7444ef35d7bc60ec2cd3e99eb8ba00900388e30b";
       meta = with lib;
       {
         homepage = "https://livetl.app/hyperchat/";
@@ -8681,10 +8681,10 @@
     };
     "livetl" = buildMozillaXpiAddon {
       pname = "livetl";
-      version = "10.0.0";
+      version = "10.0.1";
       addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5007848/livetl-10.0.0.xpi";
-      sha256 = "22900ac62ab013fc67f3f8b849307f62d27850031faa91860a95e3dae1fa0adf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5027366/livetl-10.0.1.xpi";
+      sha256 = "2a81e826e2531a5ff173748e7a9fa0ca0ab2ce038937f512501da43e99952e3d";
       meta = with lib;
       {
         homepage = "https://livetl.app/";
@@ -14689,10 +14689,10 @@
     };
     "tft-trade-extension" = buildMozillaXpiAddon {
       pname = "tft-trade-extension";
-      version = "3.0.62";
+      version = "3.0.63";
       addonId = "{3df9c1b1-fddd-4c8f-9b79-13d23f33aa48}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5009450/tft_trade_extension-3.0.62.xpi";
-      sha256 = "2f3636e9a599de5d8479bb7fad98291d56f1856051ad9ba7fd7b06e970d6942b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5026664/tft_trade_extension-3.0.63.xpi";
+      sha256 = "fa4fa92769765ba2ee9055b4ada5f11a3f206bed70f6d26c22de8e36e34f1a2a";
       meta = with lib;
       {
         description = "An extension which integrates Discord branded tools into your browser. It provides safer and easier trading in Path of Exile.";
@@ -17715,10 +17715,10 @@
     };
     "ytcfilter" = buildMozillaXpiAddon {
       pname = "ytcfilter";
-      version = "4.0.0";
+      version = "4.0.1";
       addonId = "{20f2dcdf-6f8d-4aeb-862b-b13174475d9c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5007852/ytcfilter-4.0.0.xpi";
-      sha256 = "f4d1b566fa8dbfb3ddb4e9bbfaa45e1fa720bc094511c1d198f7599bca18e814";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5027371/ytcfilter-4.0.1.xpi";
+      sha256 = "b088225e3679741a52bb6b8a757720bffb5a27142208f872533674bdd522a2bc";
       meta = with lib;
       {
         description = "The most powerful and intuitive YouTube chat filter extension.";
