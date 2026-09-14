@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-wallpaper-carousel";
-  version = "0-unstable-2026-08-20";
+  version = "0.8.4-unstable-2026-08-20";
 
   src = fetchFromGitHub {
     owner = "motor-dev";
