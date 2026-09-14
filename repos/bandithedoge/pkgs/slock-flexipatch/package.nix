@@ -11,12 +11,12 @@
 }:
 stdenv.mkDerivation {
   pname = "slock-flexipatch";
-  version = "0-unstable-2026-08-17";
+  version = "0-unstable-2026-09-14";
   src = fetchFromGitHub {
     owner = "bakkeby";
     repo = "slock-flexipatch";
-    rev = "f387ce4caf0cbde7707ba55da7cabd79c7e23c29";
-    hash = "sha256-mZLi7MoXnY7hUdIpQdlQV95DbFPVndSXSPXYi203a+w=";
+    rev = "3c89626a09a543de104bd766d471f9e16e4e4002";
+    hash = "sha256-l1tfnYkBHch0b0dUOE9LoX4P9iJdHXwlVL6JH7Sq7As=";
   };
 
   buildInputs = [

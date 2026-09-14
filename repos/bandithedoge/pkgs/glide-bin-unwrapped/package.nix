@@ -63,6 +63,8 @@ stdenv.mkDerivation {
     vulkan-loader
   ];
 
+  appendRunpaths = [ "${pipewire}/lib" ];
+
   buildPhase =
     let
       policies' = (formats.json { }).generate "glide-policies" {

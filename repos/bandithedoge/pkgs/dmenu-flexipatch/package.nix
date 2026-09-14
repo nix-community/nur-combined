@@ -11,12 +11,12 @@
 }:
 stdenv.mkDerivation {
   pname = "dmenu-flexipatch";
-  version = "0-unstable-2026-03-10";
+  version = "0-unstable-2026-09-14";
   src = fetchFromGitHub {
     owner = "bakkeby";
     repo = "dmenu-flexipatch";
-    rev = "c59af646f2d8ccbc31f799111b0ff7a1282efa63";
-    hash = "sha256-eQp1HJ64GJ1Xm6cIAWnaO39A2doL8RAEL4m09paTMjw=";
+    rev = "c9a0958b71a55a1b3cad475d535ad99286ead454";
+    hash = "sha256-a2nx/mooE4cAKqc/fSt1hs2taVsCK+vBEwoXWFcCr20=";
   };
 
   buildInputs = [
