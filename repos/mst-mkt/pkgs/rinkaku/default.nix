@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rinkaku";
-  version = "0.6.26";
+  version = "0.6.27";
 
   src = fetchFromGitHub {
     owner = "hiro-o918";
     repo = "rinkaku";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pqrpdf16lRcm5GIuVUAU8Yi2uHKafXp1kz/xsuncc/I=";
+    hash = "sha256-HxRhNPly4COdjbk8GM56yYRutUzQFV5nH2uuPJnL5qU=";
   };
 
-  cargoHash = "sha256-1CbtMB4APe9FXZWQXbfLdbrFgEOTJUE4byma5og4Jb4=";
+  cargoHash = "sha256-LodmF+gCZMbM4/eOkMWs6pUa+9+l0IpLCpP8Cc5iPVA=";
 
   # the git/github/pipeline tests spawn real `git` processes in tempdir repos
   nativeCheckInputs = [ git ];
