@@ -11,6 +11,6 @@
     "file": "PureMac-{version}.zip",
     "unpack": false
   },
-  "version": "2.9.8",
-  "hash": "sha256-ODzToswfacOiwAMisDEdRLiCeuZ09X9TAQakEqro0BU="
+  "version": "3.0.0",
+  "hash": "sha256-NQGUdSFqdJijHsoQeCEu5RB8tLUiAhEZeWylJNtyeYw="
 }
