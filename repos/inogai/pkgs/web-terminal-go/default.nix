@@ -19,14 +19,14 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "web-terminal-go";
-  version = "0.1.0-unstable-2026-09-12";
+  version = "0.1.0-unstable-2026-09-14";
 
   src = fetchFromGitHub {
     owner = "4weaver";
     repo = "web-terminal";
-    # main: Go server (2 commits over upstream 1351723)
-    rev = "ffc641e115e48c03953d57f3f46608f4fc0d95e0";
-    hash = "sha256-DEIaDxziDTxvzhBdQ9y4b8oPf1zMiOM0wfKy97frJCE=";
+    # main: Go server, plus the client-side IME/mouse input modules
+    rev = "7639f730e4afa68d1cf71d12484ed9b1cae1835f";
+    hash = "sha256-IVdHHWCiGpRWgk6U0RtaI0XIwumFbH3vtXW9EcGwaTo=";
   };
 
   vendorHash = "sha256-LjM5B6PRL6rNAJ43+RBzKmRsPTNgE+TMeLkUfOVidqs=";
