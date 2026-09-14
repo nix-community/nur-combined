@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dms-filemanager";
-  version = "0-unstable-2026-09-14";
+  version = "1.0.6-unstable-2026-09-14";
 
   src = fetchFromGitHub {
     owner = "suruibin";
     repo = "dms-filemanager";
-    rev = "c7439d44a04dab6161b4a5889bd7a0da107d500f";
-    hash = "sha256-oWSjTEwFI+wtOQFPyDSJnHyG0JgXGjgj/wX7Fp9PY3E=";
+    rev = "712154f3eb5dae789ce03f0700488163928395fa";
+    hash = "sha256-zZo626so60kUB2RMwD5FKBXzK59kyUtUn7NXQblB6OU=";
   };
 
   dontBuild = true;

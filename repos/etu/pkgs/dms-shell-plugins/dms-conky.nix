@@ -11,8 +11,8 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "suruibin";
     repo = "dms-conky";
-    rev = "9eaefc9077cddc5b260159b1ccbb73e2037573b6";
-    hash = "sha256-wH8EpC2J1M0oTUIVwHZriT99Xs1HjjWIOO6a3sgP0ms=";
+    rev = "493e4d9191df0ef0c0e03fb7319d4ff19697f3f7";
+    hash = "sha256-QBuIKnq3Lbjk6+kJnIhjInrn1RUi91UneJl3Q6b6xMY=";
   };
 
   dontBuild = true;
