@@ -14,7 +14,7 @@
 
 let
   pname = "flclash";
-  version = "0.8.97";
+  version = "0.8.98";
 
   src = fetchFromGitHub {
     owner = "chen08209";
@@ -25,7 +25,7 @@ let
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
     '';
-    hash = "sha256-1xEirGMhGZd8kiH+ikuzxkp7EGFCTAExvg3gAkpXFdY=";
+    hash = "sha256-GCNp5bC/1qBjPLNc4Rd3aJG+gJcPMe+jVnYrz4biP5o=";
     fetchSubmodules = true;
   };
 
