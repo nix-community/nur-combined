@@ -12,16 +12,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cascade";
-  version = "0.1.0-beta6";
+  version = "0.1.0-beta7";
 
   src = fetchFromGitHub {
     owner = "NLnetLabs";
     repo = "cascade";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-B/ZbM9xcjpXsFoQP55wrlNcK2bdS4Ucj2OpAaYldMvM=";
+    hash = "sha256-lpfx2WS+7Vxa4Pax23qkjyrIen5kZZZAiJvtfLBHYzo=";
   };
 
-  cargoHash = "sha256-GDjah0lNZKMcf2OSpH6AiLxP/kNNuDpYqZaCHuKpb5g=";
+  cargoHash = "sha256-8hMCyPi/3sBY1Fz+xRVZNsc2qFwGoAM3tROuMmDz+dk=";
 
   nativeBuildInputs = [
     pkg-config
