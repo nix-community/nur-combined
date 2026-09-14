@@ -94,6 +94,7 @@ stdenv.mkDerivation rec {
     cd $XDG_CACHE_HOME/json-rpc/guile
     # configure will create file
     chmod -R +w $XDG_CACHE_HOME/json-rpc/guile
+    autoreconf -fi
     ./configure --prefix=$build_dir
     make
     make install
