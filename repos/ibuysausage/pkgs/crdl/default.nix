@@ -7,16 +7,16 @@
 }:
 buildGoModule rec {
   pname = "crunchyroll-downloader";
-  version = "9861a9b";
+  version = "1832f65";
 
   src = fetchFromGitHub {
     owner = "CuteTenshii";
     repo = "crunchyroll-downloader";
     rev = "${version}";
-    sha256 = "sha256-yAebPwukzfBZKirnEP73w7/IGnUYa8/QOBJUCT/WsHA=";
+    sha256 = "sha256-TPBX9yhq18BIcH9Y4cb+GwiyOTgJcLMG5BNelv3gkpU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorHash = "sha256-lNWzylzk/VT3/vpSlsxCnVCmUY24dn9zdOp+8TFo0yE=";
 
@@ -25,7 +25,7 @@ buildGoModule rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/crdl --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+    wrapProgram $out/bin/crdl --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = with lib; {
