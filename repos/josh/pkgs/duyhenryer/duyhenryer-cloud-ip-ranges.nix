@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "duyhenryer-cloud-ip-ranges";
-  version = "0-unstable-2026-09-13";
+  version = "0-unstable-2026-09-14";
 
   src = fetchFromGitHub {
     owner = "duyhenryer";
     repo = "cloud-ip-ranges";
-    rev = "2c21226b97656e2d4a9ee3bc274c256375614210";
-    hash = "sha256-yD5CteWec/Eb6UkqifRYEEyRGS7plXrxbm4T1hCGtGc=";
+    rev = "5a17e441422e263d454c6289090d6e1139897eb0";
+    hash = "sha256-AIbFzFhCP5BzQKojPOO8fyV5a9hfVE1AcFP3IN7ILq0=";
   };
 
   installPhase = ''

@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://prometheus-community.github.io/helm-charts";
   chart = "kube-prometheus-stack";
-  version = "91.2.0";
-  hash = "sha256-YNXWF7D681Ao9mhYgZpDgUWCuiC+40XToREzBBzkfhg=";
+  version = "91.4.0";
+  hash = "sha256-+/Gx490xsC32L8Eshndm4h5Z/ZEj8RUNyaIhYPKva6Y=";
 
   meta = {
     description = "Helm chart for end-to-end Kubernetes cluster monitoring with Prometheus, Grafana, and the Prometheus Operator";
