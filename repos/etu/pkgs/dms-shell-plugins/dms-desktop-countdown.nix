@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dms-desktop-countdown";
-  version = "0-unstable-2026-05-31";
+  version = "1.0.1-unstable-2026-05-31";
 
   src = fetchFromGitHub {
     owner = "nfoert";
