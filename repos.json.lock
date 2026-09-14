@@ -1155,8 +1155,8 @@
             "url": "https://github.com/ianmurphy1/nurpkgs"
         },
         "ibuysausage": {
-            "rev": "f8da750219e32ef7ca00d421832649c04380d2fd",
-            "sha256": "1n49ns1n6zxvky36zdd000ljz0z1fx6fd9d9981rpprr9zch9k1c",
+            "rev": "f8b7b29a949b3a16edb403638b4f2bdef50be678",
+            "sha256": "178j39faa11vfffjnhvz1maw3mg6ifqyml4l5r539ccdslinfwzq",
             "url": "https://github.com/ibuysausage/nur-packages"
         },
         "ifd3f": {
@@ -2288,11 +2288,6 @@
             "rev": "b8ea2432f6751e8f86390fcc91fda72b4a9fd2e6",
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
-        },
-        "shelvacu": {
-            "rev": "7e7f77294709187e9d1210d515010a002daeaffa",
-            "sha256": "1v7lb3n7aa3jwwp6mf7q8mi7g8zxdipsa8qwcrlpm0dak8b6ag5v",
-            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "0993aa16bfda4f29b37271ce6ae7fb092125682a",
