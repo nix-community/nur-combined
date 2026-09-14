@@ -6,6 +6,7 @@ Personal NUR-style package set (flake, `x86_64-linux`).
 
 | Package | Description |
 | --- | --- |
+| `chat-on-steroids` | [Chat On Steroids](https://github.com/totec448-spec/chat-on-steroids): local coding bridge for ChatGPT (MCP, Chrome integration, multi-agent workflows), wrapped from the upstream AppImage |
 | `crunchyroll` | Desktop entry launching Crunchyroll as a Chromium `--app` window (WideVine enabled) |
 | `limusic` | [Limusic](https://github.com/SimoHypers/limusic): native desktop YouTube Music client (Tauri, ad-free playback via libmpv), wrapped from the upstream AppImage |
 
