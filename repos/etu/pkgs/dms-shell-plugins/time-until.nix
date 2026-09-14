@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-time-until";
-  version = "0-unstable-2026-02-28";
+  version = "1.0.1-unstable-2026-02-28";
 
   src = fetchFromGitHub {
     owner = "fdmarcin";

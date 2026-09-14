@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-unified-taskbar";
-  version = "0-unstable-2026-09-07";
+  version = "1.2.0-unstable-2026-09-07";
 
   src = fetchFromGitHub {
     owner = "jslandau";

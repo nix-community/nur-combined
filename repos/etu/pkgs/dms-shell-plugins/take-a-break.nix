@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-take-a-break";
-  version = "0-unstable-2026-08-23";
+  version = "1.4.4-unstable-2026-08-23";
 
   src = fetchFromGitHub {
     owner = "hthienloc";
