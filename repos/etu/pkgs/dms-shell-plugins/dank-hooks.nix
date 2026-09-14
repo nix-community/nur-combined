@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dank-hooks";
-  version = "0-unstable-2026-09-07";
+  version = "0-unstable-2026-09-08";
 
   src = fetchFromGitHub {
     owner = "AvengeMedia";
