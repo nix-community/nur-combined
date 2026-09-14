@@ -82,12 +82,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v3.0.13",
-            "sha256": "sha256-SC9avwIYzGuPKgtmY2dAhGKUZy/GYnsKnHg0+yRekCg=",
+            "rev": "v3.0.14",
+            "sha256": "sha256-WO/Lhtdo/nZ89gbi7xxozZQtNgfn+46h2EnNkkAZa84=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.0.13"
+        "version": "v3.0.14"
     },
     "dot-tar": {
         "cargoLock": {
@@ -911,7 +911,7 @@
     },
     "v86": {
         "cargoLock": null,
-        "date": "2026-09-13",
+        "date": "2026-09-12",
         "extract": null,
         "name": "v86",
         "passthru": null,
@@ -921,13 +921,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "73077e92bf0d6079f59303fcd20387c01fe2daaf",
-            "sha256": "sha256-BmyzoUy2snA7JKA0O7rwjZ/l1aqhKvDmGRi6OGwzvVY=",
+            "rev": "589487c7758a2775f606ec631bd78609497f6e05",
+            "sha256": "sha256-+obQA2BJQrltEUbkfBEnf98hquT1LnyfNIg+EE9N89A=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "73077e92bf0d6079f59303fcd20387c01fe2daaf"
+        "version": "589487c7758a2775f606ec631bd78609497f6e05"
     },
     "vlmcsd": {
         "cargoLock": null,
