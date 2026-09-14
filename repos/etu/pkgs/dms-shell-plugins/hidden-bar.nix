@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-hidden-bar";
-  version = "0-unstable-2026-07-02";
+  version = "2.5.0-unstable-2026-07-02";
 
   src = fetchFromGitHub {
     owner = "hthienloc";
