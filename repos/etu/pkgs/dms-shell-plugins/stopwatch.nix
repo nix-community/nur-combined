@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-stopwatch";
-  version = "0-unstable-2026-06-21";
+  version = "1.0.0-unstable-2026-06-21";
 
   src = fetchFromGitHub {
     owner = "hthienloc";
