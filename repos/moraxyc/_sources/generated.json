@@ -430,6 +430,21 @@
         },
         "version": "2026.09.13"
     },
+    "geolite2-country": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "geolite2-country",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-eWPtA52CI+G2j+b0vpBN5YSPoQaEVeH2WPZ3qsLEdZg=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.13/GeoLite2-Country.mmdb"
+        },
+        "version": "2026.09.13"
+    },
     "git-mcp-server": {
         "cargoLock": null,
         "date": null,
@@ -706,11 +721,11 @@
     "microfetch": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Ug+ZtW3xN2Rf3tTvFy8tBb4dlcXEp_j0PXDW2QOc3jM=/Cargo.lock",
+                "sha256-GI2Yy+ldwdFTCy4pwoA2bvVy+JFx6yb4PBAlxcrx_Ho=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-09-07",
+        "date": "2026-09-14",
         "extract": null,
         "name": "microfetch",
         "passthru": null,
@@ -722,12 +737,12 @@
             "name": null,
             "owner": "NotAShelf",
             "repo": "microfetch",
-            "rev": "d46fd4f31b00018363b2fc11d47a6d2a4cc9b05e",
-            "sha256": "sha256-Ug+ZtW3xN2Rf3tTvFy8tBb4dlcXEp/j0PXDW2QOc3jM=",
+            "rev": "ef98caf3c85a7be916d52bc6afef1c9e0b5b2257",
+            "sha256": "sha256-GI2Yy+ldwdFTCy4pwoA2bvVy+JFx6yb4PBAlxcrx/Ho=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d46fd4f31b00018363b2fc11d47a6d2a4cc9b05e"
+        "version": "ef98caf3c85a7be916d52bc6afef1c9e0b5b2257"
     },
     "mm-geofeed-verifier": {
         "cargoLock": null,

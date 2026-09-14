@@ -263,6 +263,14 @@
       sha256 = "sha256-BPKsiArV8lzQrvGFA4FW/9h1hXffE8ntOOP06QaONeM=";
     };
   };
+  geolite2-country = {
+    pname = "geolite2-country";
+    version = "2026.09.13";
+    src = fetchurl {
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.13/GeoLite2-Country.mmdb";
+      sha256 = "sha256-eWPtA52CI+G2j+b0vpBN5YSPoQaEVeH2WPZ3qsLEdZg=";
+    };
+  };
   git-mcp-server = {
     pname = "git-mcp-server";
     version = "v2.15.3";
@@ -417,21 +425,21 @@
   };
   microfetch = {
     pname = "microfetch";
-    version = "d46fd4f31b00018363b2fc11d47a6d2a4cc9b05e";
+    version = "ef98caf3c85a7be916d52bc6afef1c9e0b5b2257";
     src = fetchFromGitHub {
       owner = "NotAShelf";
       repo = "microfetch";
-      rev = "d46fd4f31b00018363b2fc11d47a6d2a4cc9b05e";
+      rev = "ef98caf3c85a7be916d52bc6afef1c9e0b5b2257";
       fetchSubmodules = false;
-      sha256 = "sha256-Ug+ZtW3xN2Rf3tTvFy8tBb4dlcXEp/j0PXDW2QOc3jM=";
+      sha256 = "sha256-GI2Yy+ldwdFTCy4pwoA2bvVy+JFx6yb4PBAlxcrx/Ho=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Ug+ZtW3xN2Rf3tTvFy8tBb4dlcXEp_j0PXDW2QOc3jM=/Cargo.lock";
+      lockFile = ./. + "/sha256-GI2Yy+ldwdFTCy4pwoA2bvVy+JFx6yb4PBAlxcrx_Ho=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-09-07";
+    date = "2026-09-14";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
