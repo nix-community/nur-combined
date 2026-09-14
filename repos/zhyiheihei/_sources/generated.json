@@ -79,7 +79,7 @@
     },
     "epd-food-server": {
         "cargoLock": null,
-        "date": "2026-09-13",
+        "date": "2026-09-14",
         "extract": null,
         "name": "epd-food-server",
         "passthru": null,
@@ -89,13 +89,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f1e81bf594248ebde0f77926f2a74a431bb4b0a8",
-            "sha256": "sha256-WZopQnFZbqVhvbVzhrWjs0oXz5EGDVRTxEEJSBM36Ns=",
+            "rev": "325af7dab1dd7d65f24a3598e3abd88868dedd8e",
+            "sha256": "sha256-5Sla1hvq70O4vkZMo3SSz//Z59I2gICnSziUA4YckuE=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/zhyiheihei/EPD-Dashboard.git"
         },
-        "version": "f1e81bf594248ebde0f77926f2a74a431bb4b0a8"
+        "version": "325af7dab1dd7d65f24a3598e3abd88868dedd8e"
     },
     "filecodebox": {
         "cargoLock": null,
@@ -111,16 +111,16 @@
             "name": null,
             "owner": "vastsa",
             "repo": "FileCodeBox",
-            "rev": "v2.5.6",
-            "sha256": "sha256-3NBh+AIBoE3lvnlk2Zcg83ghWqVxSkkGfOBRn9MS6G8=",
+            "rev": "v2.6.1",
+            "sha256": "sha256-PElZNdSpeXVx+B7VqQWJtYv581dvuh/Tfj7QiYrrF6w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.5.6"
+        "version": "v2.6.1"
     },
     "filecodebox-frontend": {
         "cargoLock": null,
-        "date": "2026-09-08",
+        "date": "2026-09-14",
         "extract": null,
         "name": "filecodebox-frontend",
         "passthru": null,
@@ -130,13 +130,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "2f0a04d2a5c136976357bd2b18ab0d1a5d87ef5f",
-            "sha256": "sha256-ypR9Thnpl/jcKuilqq0kVn0pM/uv0MuxvoWThqaR1SU=",
+            "rev": "c32466a20ae104eae9e2d8561965378e1c1b5325",
+            "sha256": "sha256-DX3vHtuk0pI7daIScZ/s1vTzbDtwRKO8/sgVWxTpPM0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/vastsa/FileCodeBoxFronted.git"
         },
-        "version": "2f0a04d2a5c136976357bd2b18ab0d1a5d87ef5f"
+        "version": "c32466a20ae104eae9e2d8561965378e1c1b5325"
     },
     "hubproxy": {
         "cargoLock": null,
@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.20.16",
-            "sha256": "sha256-3KJpe3j+0rg3Uo21SkXr1aIpJwrJ0RvNF0OIDbzW224=",
+            "rev": "v4.20.18",
+            "sha256": "sha256-z6rNe6D8snX8NG35Ff0E157Q4zcUGWh4X/B+RWctaKA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.20.16"
+        "version": "v4.20.18"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.20.16",
-            "sha256": "sha256-HDf0qNQW8ryv7XHliu1mbbnRsk6Q+KsNxJ3cVqZDlfs=",
+            "rev": "v4.20.18",
+            "sha256": "sha256-HWJVEPHpZX+qWF0MJ/ZDmks1FL5ZKznvU2h6h1/Igrw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.20.16"
+        "version": "v4.20.18"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
