@@ -3,24 +3,27 @@
   pkgs,
   ...
 }: {
-  overlays = [inputs.nur.overlays.default];
-
   languages.nix = {
     enable = true;
     lsp.enable = true;
   };
 
-  packages = with pkgs; [
-    act
-    actionlint
-    alejandra
-    just
-    nixd
-    ruff
-    shellcheck
-    shfmt
-    nur.repos.mzwing.typenix
-  ];
+  packages =
+    (with pkgs; [
+      act
+      actionlint
+      alejandra
+      just
+      nixd
+      ruff
+      shellcheck
+      shfmt
+    ])
+    ++ (with inputs.nur-packages.packages.${pkgs.stdenv.hostPlatform.system}; [
+      typenix
+    ]);
+
+  cachix.pull = ["mzwing"];
 
   enterTest = ''
     act --version

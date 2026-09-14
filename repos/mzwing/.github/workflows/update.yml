@@ -68,13 +68,8 @@ jobs:
     - name: Update devenv inputs
       run: devenv update
 
-    # Update flake inputs weekly or manually to avoid daily full rebuilds.
-    - name: Update flake inputs (weekly)
-      run: |
-        if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]] || \
-          [[ "$(date -u +%u)" == '1' ]]; then
-          nix flake update
-        fi
+    - name: Update flake inputs
+      run: nix flake update
 
     - name: Update sources, lockfiles, pins and dependency hashes
       shell: bash

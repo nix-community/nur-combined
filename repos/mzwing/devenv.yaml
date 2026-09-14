@@ -2,11 +2,8 @@
 inputs:
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
-  nur:
-    url: github:nix-community/NUR
-    inputs:
-      nixpkgs:
-        follows: nixpkgs
+  nur-packages:
+    url: github:mzwing/nur-packages
 
 # Allow unfree packages.
 allow_unfree: true
