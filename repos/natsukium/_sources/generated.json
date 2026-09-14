@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-09-13",
+        "date": "2026-09-14",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "321b91cd313cd417a3605bbd99681e9a37616744",
-            "sha256": "sha256-VQfCLn549qweS6H4icLKZGMPIzWDA7r6osNOyFmeDt4=",
+            "rev": "fc581fe2a7e87d1d3dec3247fc199dd3b661a286",
+            "sha256": "sha256-qgs/QH3P8AXWTOwzIBEajDHGntZm4kSFGoUKFAEw6II=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "321b91cd313cd417a3605bbd99681e9a37616744"
+        "version": "fc581fe2a7e87d1d3dec3247fc199dd3b661a286"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "playwright-cli",
-            "rev": "v0.1.19",
-            "sha256": "sha256-pbv51ybubbjoIpKg0k7lfXfZ9Z+qdZI2lRhQeI+/mFA=",
+            "rev": "v0.1.20",
+            "sha256": "sha256-MSBXygESmOlZi8qryAsUN6jb30RbysdEZRBXocrXZ14=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.19"
+        "version": "v0.1.20"
     },
     "qmk-toolbox": {
         "cargoLock": null,
@@ -166,7 +166,7 @@
     },
     "skkeleton": {
         "cargoLock": null,
-        "date": "2026-09-11",
+        "date": "2026-09-14",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -178,12 +178,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "5fd94f5912ceffc4d6ea167d78e45949a9e2f18c",
-            "sha256": "sha256-Z/3hQTt4uHj8FsunQzX3btyxuzMhTkKBTQ0UMx8Usn0=",
+            "rev": "156338265a33ca94baa227329e65fee7d6a0addc",
+            "sha256": "sha256-YEkPIgP5KwK7FvoyDb0j+XeTsn3aDDH4L0l4tk/YiPo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5fd94f5912ceffc4d6ea167d78e45949a9e2f18c"
+        "version": "156338265a33ca94baa227329e65fee7d6a0addc"
     },
     "vivaldi-darwin": {
         "cargoLock": null,

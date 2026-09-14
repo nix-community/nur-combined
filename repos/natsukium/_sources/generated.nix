@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "321b91cd313cd417a3605bbd99681e9a37616744";
+    version = "fc581fe2a7e87d1d3dec3247fc199dd3b661a286";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "321b91cd313cd417a3605bbd99681e9a37616744";
+      rev = "fc581fe2a7e87d1d3dec3247fc199dd3b661a286";
       fetchSubmodules = false;
-      sha256 = "sha256-VQfCLn549qweS6H4icLKZGMPIzWDA7r6osNOyFmeDt4=";
+      sha256 = "sha256-qgs/QH3P8AXWTOwzIBEajDHGntZm4kSFGoUKFAEw6II=";
     };
-    date = "2026-09-13";
+    date = "2026-09-14";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -60,13 +60,13 @@
   };
   playwright-cli = {
     pname = "playwright-cli";
-    version = "v0.1.19";
+    version = "v0.1.20";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "playwright-cli";
-      rev = "v0.1.19";
+      rev = "v0.1.20";
       fetchSubmodules = false;
-      sha256 = "sha256-pbv51ybubbjoIpKg0k7lfXfZ9Z+qdZI2lRhQeI+/mFA=";
+      sha256 = "sha256-MSBXygESmOlZi8qryAsUN6jb30RbysdEZRBXocrXZ14=";
     };
   };
   qmk-toolbox = {
@@ -99,15 +99,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "5fd94f5912ceffc4d6ea167d78e45949a9e2f18c";
+    version = "156338265a33ca94baa227329e65fee7d6a0addc";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "5fd94f5912ceffc4d6ea167d78e45949a9e2f18c";
+      rev = "156338265a33ca94baa227329e65fee7d6a0addc";
       fetchSubmodules = false;
-      sha256 = "sha256-Z/3hQTt4uHj8FsunQzX3btyxuzMhTkKBTQ0UMx8Usn0=";
+      sha256 = "sha256-YEkPIgP5KwK7FvoyDb0j+XeTsn3aDDH4L0l4tk/YiPo=";
     };
-    date = "2026-09-11";
+    date = "2026-09-14";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
