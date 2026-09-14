@@ -1662,6 +1662,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gopro-chaptered-video-assembler = callPackage ./pkgs/by-name/gopro-chaptered-video-assembler/package.nix { };
 
+  gopro-labs-udtacopy = callPackage ./pkgs/by-name/gopro-labs-udtacopy/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
