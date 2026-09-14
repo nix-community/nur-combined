@@ -191,6 +191,19 @@ jobs:
       - name: 'Update ${{ matrix.package }}'
         run: 'nix shell nixpkgs#nix-update -c nix-update ${{ matrix.package }} ${{ matrix.extraArgs }}'
 
+      - name: 'Drop version-only updates'
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+
+          if ! git diff --unified=0 --no-color |
+            grep -E '^[+-]' |
+            grep -Ev '^(\+\+\+|---|[+-][[:space:]]*("version"|version)[[:space:]]*[:=])' >/dev/null; then
+            echo "Dropping version-only update"
+            git restore .
+          fi
+
       - name: 'Build ${{ matrix.package }}'
         run: 'nix build .#${{ matrix.package }}'
 
