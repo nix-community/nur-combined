@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-hostname-widget";
-  version = "0-unstable-2026-05-14";
+  version = "1.0.0-unstable-2026-05-14";
 
   src = fetchFromGitHub {
     owner = "irunatbullets";

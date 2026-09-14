@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-lyrics-on-panel";
-  version = "0-unstable-2026-07-20";
+  version = "2.0-unstable-2026-07-21";
 
   src = fetchFromGitHub {
     owner = "KangweiZhu";
