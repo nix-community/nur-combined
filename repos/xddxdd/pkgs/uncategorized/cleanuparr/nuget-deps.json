@@ -30,109 +30,9 @@
     "hash": "sha256-Jo8vRAh6YY64eu8O8SzRSTw8OjE07Ilk1nUj4jrMWsc="
   },
   {
-    "pname": "Microsoft.AspNetCore.Authentication.Abstractions",
-    "version": "2.3.0",
-    "hash": "sha256-UwMVhuE3TBEO7G0QJrghhYrgkYw2p9WR87yHQ1ty2RI="
-  },
-  {
     "pname": "Microsoft.AspNetCore.Authentication.JwtBearer",
     "version": "10.0.1",
     "hash": "sha256-x30FL5t31tGtbgTTHZlIEIky+J2Slba5YuLqytt56l4="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Authorization",
-    "version": "2.3.0",
-    "hash": "sha256-UbxzeOIh76eCOMgC8A92KwfgOAljyT0k8En+l4PZDtA="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Authorization.Policy",
-    "version": "2.3.0",
-    "hash": "sha256-nMV4Yt6810pXITTxMysPIpfenu+3AnY7jq2LkPrkV00="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Connections.Abstractions",
-    "version": "2.3.0",
-    "hash": "sha256-qvA9LDr8vOLaERoxia/KRnVmf2q15n7OHKNsBY6t6xw="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Hosting.Abstractions",
-    "version": "2.3.0",
-    "hash": "sha256-gtiRMQA5kO1biIVaBLjSq0/jVVpiI8WzS136z/Ex1zs="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Hosting.Server.Abstractions",
-    "version": "2.3.0",
-    "hash": "sha256-ltKZ02L3cXu2dCx1JGEt1X8gQgwTABn45QkBsREYxaw="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Http",
-    "version": "2.3.0",
-    "hash": "sha256-ubPGvFwMjXbydY1gzo/m31pWq5/SsS/tGRtOotHFfBU="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Http.Abstractions",
-    "version": "2.3.0",
-    "hash": "sha256-NrAFzk5IcxmeRk3Zu+rLcq0+KKiAYfygJbAdIt2Zpfk="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Http.Connections",
-    "version": "1.2.0",
-    "hash": "sha256-uev0FzYG2Ppl09h//B3BFxooD0uRm0ENO2jgOsABedM="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Http.Connections.Common",
-    "version": "1.2.0",
-    "hash": "sha256-eXIg7vJSl1x0xWcxTKmgUiGRJnEfnp/TEe0xqL0629w="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Http.Extensions",
-    "version": "2.3.0",
-    "hash": "sha256-sOVwC5wK5w85R+HbYkBlfPpmknyAEig3g0uVnTSGwhI="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Http.Features",
-    "version": "2.3.0",
-    "hash": "sha256-QkNFS3ScDLyt0XppATSogbF1raSQJN+wStcnAsSoUJw="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Routing",
-    "version": "2.3.0",
-    "hash": "sha256-bXrYeVgI+sm2e5eOCwOkdWyCf5b7dQ8kv+pJRaeLiHI="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.Routing.Abstractions",
-    "version": "2.3.0",
-    "hash": "sha256-pSPpwAU/zEidmBcRjSuz71fs5CIBRWF8yp/ujsIBXok="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.SignalR",
-    "version": "1.2.0",
-    "hash": "sha256-83ogiJwoHL0XBOnGFQYopGTlzEyen1ep4aXesWSl/sg="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.SignalR.Common",
-    "version": "1.2.0",
-    "hash": "sha256-ULMhoU12HCOE6BMAjdZpsbgIPGjtHeggnn7RkyPHmag="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.SignalR.Core",
-    "version": "1.2.0",
-    "hash": "sha256-FbLZ4BbD5wYOoEyfqZ9C7Y5hJldXlbm1q3QJlkxgp68="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.SignalR.Protocols.Json",
-    "version": "1.2.0",
-    "hash": "sha256-j2oYNJEX9r4owDiHMI83cglxkyP5Gty0Y0aFzA7avBo="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.WebSockets",
-    "version": "2.3.0",
-    "hash": "sha256-D3h1Im37SQlDnIl3LiKb7Roje34qPeaRoeP3nEm0p3Y="
-  },
-  {
-    "pname": "Microsoft.AspNetCore.WebUtilities",
-    "version": "2.3.0",
-    "hash": "sha256-oJMEP44Q9ClhbyZUPtSb9jqQyJJ/dD4DHElRvkYpIOo="
   },
   {
     "pname": "Microsoft.Build",
@@ -440,11 +340,6 @@
     "hash": "sha256-NRk0feNE1fgi/hyO0AVDbSGJQRT+9yte6Lpm4Hz/2Bs="
   },
   {
-    "pname": "Microsoft.Extensions.ObjectPool",
-    "version": "8.0.11",
-    "hash": "sha256-xutYzUA86hOg0NfLcs/NPylKvNcNohucY1LpSEkkaps="
-  },
-  {
     "pname": "Microsoft.Extensions.Options",
     "version": "10.0.0",
     "hash": "sha256-j5MOqZSKeUtxxzmZjzZMGy0vELHdvPraqwTQQQNVsYA="
@@ -518,11 +413,6 @@
     "pname": "Microsoft.IdentityModel.Tokens",
     "version": "8.7.0",
     "hash": "sha256-l4jl4mU3bG433xSKDdCAkEqD0uUGKTOmbthhYAogcRI="
-  },
-  {
-    "pname": "Microsoft.Net.Http.Headers",
-    "version": "2.3.0",
-    "hash": "sha256-XY3OyhKTzUVbmMnegp0IxApg8cw97RD9eXC2XenrOqE="
   },
   {
     "pname": "Microsoft.NET.StringTools",
@@ -1018,11 +908,6 @@
     "pname": "System.Net.WebHeaderCollection",
     "version": "4.3.0",
     "hash": "sha256-wpRP3D/2YjpFmqU7Q42L/+/hChEVMlwU1sjysGVrQ1c="
-  },
-  {
-    "pname": "System.Net.WebSockets.WebSocketProtocol",
-    "version": "5.1.0",
-    "hash": "sha256-TCcPu94+/BpZ94sTdBA20RgD+qJvMsaTOqYKN+HxZBc="
   },
   {
     "pname": "System.Private.Uri",

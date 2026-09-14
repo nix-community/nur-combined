@@ -6,12 +6,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "rime-ice";
-  version = "0-unstable-2026-09-10";
+  version = "0-unstable-2026-09-14";
   src = fetchFromGitHub {
     owner = "iDvel";
     repo = "rime-ice";
-    rev = "859e3b5300e0ea01334a627b15db101e94312a75";
-    hash = "sha256-ZPIeDMgbe/syIDLR0gVkKbBKbq4QHaEDlqHp+Voc518=";
+    rev = "59fcb4a6bfa71e6ba4fc83af07ee55f0c5b76081";
+    hash = "sha256-7GkVzzQaZBhglp3rPqYtyElWwZKABKnfmG/79NEWMK0=";
   };
   buildPhase = ''
     runHook preBuild
