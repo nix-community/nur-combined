@@ -312,13 +312,13 @@
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "842b17212f27b6ec013da0250384103309dbfde2";
+    version = "1369da96020f14d0a1c58200464901fb40c47997";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "842b17212f27b6ec013da0250384103309dbfde2";
+      rev = "1369da96020f14d0a1c58200464901fb40c47997";
       fetchSubmodules = false;
-      sha256 = "sha256-BkRoGj7WVQUx6Y6jU5Vzpg0m8exv/G2gfaktPr5/20o=";
+      sha256 = "sha256-SbpYyC9/lyZ3PFkJEY84rX0wu3c29K36d3STfUbTg6s=";
     };
     date = "2026-09-14";
   };
