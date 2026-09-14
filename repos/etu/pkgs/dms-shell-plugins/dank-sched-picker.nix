@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dank-sched-picker";
-  version = "0-unstable-2026-06-30";
+  version = "1.5.0-unstable-2026-06-30";
 
   src = fetchFromGitHub {
     owner = "SK-DEV-AI";
