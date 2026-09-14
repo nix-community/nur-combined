@@ -24,9 +24,11 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "4weaver";
     repo = "web-terminal";
-    # main: Go server, plus the client-side IME/mouse input modules
-    rev = "7639f730e4afa68d1cf71d12484ed9b1cae1835f";
-    hash = "sha256-IVdHHWCiGpRWgk6U0RtaI0XIwumFbH3vtXW9EcGwaTo=";
+    # main: the appearance work (WT_FONT / WT_FONT_SIZE / WT_THEME / WT_ALPHA,
+    # self-hosted Nerd Fonts) merged on top of the session-reaping and
+    # WT_NO_CACHE fixes. Go deps are unchanged, so vendorHash still holds.
+    rev = "e73cdc00579a5e1a7f03ffe552a63329c27ca0f4";
+    hash = "sha256-/LW10AydpOxc1OapC2RVQaDrOwHvf22d6I+VvLInJMc=";
   };
 
   vendorHash = "sha256-LjM5B6PRL6rNAJ43+RBzKmRsPTNgE+TMeLkUfOVidqs=";
