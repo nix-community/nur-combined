@@ -4,6 +4,8 @@ args@{
   sources,
   source-src ? sources.hmcl-dev-src,
   source-bin ? sources.hmcl-dev-bin,
+
+  sdl,
   ...
 }:
 (nixpkgs.hmcl.override (
@@ -22,5 +24,7 @@ args@{
 
       terracottaBundleJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaBundle.java";
       macOSProviderJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/provider/MacOSProvider.java";
+
+      runtimeDeps = prevAttrs.runtimeDeps ++ [ sdl ];
     }
   )
