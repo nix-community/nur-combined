@@ -50,7 +50,7 @@ let
         EPD_FOOD_CALDAV_URL = cfg.caldavUrl;
         EPD_FOOD_CALDAV_USER = cfg.caldavUser;
         EPD_FOOD_CALDAV_CALENDAR = cfg.caldavCalendar;
-        EPD_FOOD_SCHEDULE_DAYS = toString cfg.scheduleDays;
+        EPD_FOOD_SCHEDULE_HORIZON_DAYS = toString cfg.scheduleHorizonDays;
       }
     else
       { }
@@ -160,10 +160,10 @@ in
       description = "日历集合路径（如 /zhyi/calendar/）；空 = PROPFIND 自动发现";
     };
 
-    scheduleDays = lib.mkOption {
+    scheduleHorizonDays = lib.mkOption {
       type = lib.types.ints.unsigned;
-      default = 7;
-      description = "日程栏向后取几天的日程";
+      default = 365;
+      description = "日程栏拉取窗口天数；展示的是窗口内最近几条，而非最近几天内";
     };
 
     bindAddress = lib.mkOption {
@@ -187,6 +187,15 @@ in
       type = lib.types.str;
       default = "zerossl-zhyi.xin";
     };
+
+    # 独立 journald 命名空间：宿主机全局 journal 被其他服务（如 redroid）的
+    # 日志洪流灌满轮转，推送失败日志早上就查不到了；命名空间单独限容量、
+    # 保留久，用 journalctl --namespace=epd 查看。空字符串退回默认 journal。
+    logNamespace = lib.mkOption {
+      type = lib.types.str;
+      default = "epd";
+      description = "专属 journald 命名空间名；空字符串退回默认 journal";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -195,6 +204,16 @@ in
       isSystemUser = true;
     };
     users.groups.epd_dashboard = { };
+
+    # 命名空间独立保留策略：容量小、保留久
+    environment.etc."systemd/journald@${cfg.logNamespace}.conf" =
+      lib.mkIf (cfg.logNamespace != "") { text = ''
+        [Journal]
+        Storage=persistent
+        SystemMaxUse=64M
+        MaxRetentionSec=180day
+      '';
+      };
 
     # 数据库：沿用仓库 ensureDatabases 模式；使用方主机需已启用 services.postgresql。
     # 数据库/角色统一下划线名（ensureUsers 断言要求 db 与 role 同名）
@@ -249,6 +268,8 @@ in
         Group = "epd_dashboard";
         StateDirectory = "epd_dashboard";
         WorkingDirectory = "/var/lib/epd_dashboard";
+      } // lib.optionalAttrs (cfg.logNamespace != "") {
+        LogNamespace = cfg.logNamespace;
       };
     };
 
@@ -285,6 +306,8 @@ in
         WorkingDirectory = "/var/lib/epd_dashboard";
         # 物理刷新 + 锁等待，上限放宽
         TimeoutStartSec = "10min";
+      } // lib.optionalAttrs (cfg.logNamespace != "") {
+        LogNamespace = cfg.logNamespace;
       };
     };
 
