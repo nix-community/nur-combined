@@ -369,12 +369,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.42.2",
-            "sha256": "sha256-0TBwqt004NWk481R7v/JefF6Jnn/vtbYofiSS0HGg6c=",
+            "rev": "v0.42.3",
+            "sha256": "sha256-YKizQvvOl6fWMjtQxhhBfCfK0dA4Zosb0wvQ871zX5k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.42.2"
+        "version": "v0.42.3"
     },
     "manboster": {
         "cargoLock": null,
@@ -567,7 +567,7 @@
     },
     "tree-sitter-nix": {
         "cargoLock": null,
-        "date": "2026-09-13",
+        "date": "2026-09-14",
         "extract": null,
         "name": "tree-sitter-nix",
         "passthru": null,
@@ -579,12 +579,12 @@
             "name": null,
             "owner": "nix-community",
             "repo": "tree-sitter-nix",
-            "rev": "c688ab22826442c8c489dafac5e912002dd9a8a2",
-            "sha256": "sha256-EoKiZuiszH+c1x2To37vxkhNAnBU48nyJI0UY1K1LmM=",
+            "rev": "842b17212f27b6ec013da0250384103309dbfde2",
+            "sha256": "sha256-BkRoGj7WVQUx6Y6jU5Vzpg0m8exv/G2gfaktPr5/20o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c688ab22826442c8c489dafac5e912002dd9a8a2"
+        "version": "842b17212f27b6ec013da0250384103309dbfde2"
     },
     "typenix": {
         "cargoLock": null,
