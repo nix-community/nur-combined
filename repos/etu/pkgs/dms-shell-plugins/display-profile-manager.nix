@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-display-profile-manager";
-  version = "0-unstable-2026-07-15";
+  version = "0.1.8-unstable-2026-07-15";
 
   src = fetchFromGitHub {
     owner = "jankelemen";
