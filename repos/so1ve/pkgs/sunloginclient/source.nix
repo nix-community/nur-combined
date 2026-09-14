@@ -6,11 +6,11 @@ let
   version = "16.6.0.32198";
   sources = {
     "x86_64-linux" = {
-      url = "https://dw.oray.com/sl/linux/awesun_16.6.0.32198_amd64.deb";
+      url = "https://d-cdn.oray.com/sl/linux/awesun_16.6.0.32198_amd64.deb";
       hash = "sha256-dtLVNEE6WKi79cV3teYXjj6vimhTBMAnrwL6TpItVjk=";
     };
     "aarch64-linux" = {
-      url = "https://d-cdn.oray.com/sl/linux/awesun_16.6.0.32198_arm64.deb";
+      url = "https://dw.oray.com/sl/linux/awesun_16.6.0.32198_arm64.deb";
       hash = "sha256-t21KmdsZTQwoFBH9cbIUdsDHFCvthud/mwXI40k6ekc=";
     };
   };

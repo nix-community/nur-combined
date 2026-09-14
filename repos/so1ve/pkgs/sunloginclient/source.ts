@@ -16,8 +16,10 @@ async function release(software: string, architecture: string) {
   const download = metadata.downloadurlmultiple.find((download) =>
     download.url.endsWith(`_${architecture}.deb`)
   )!;
+  const url = new URL(download.url);
+  url.hostname = "dw.oray.com";
 
-  return { version: metadata.versionno, url: download.url };
+  return { version: metadata.versionno, url: url.toString() };
 }
 
 export default defineSource(async () => {

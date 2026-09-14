@@ -54,9 +54,7 @@ buildNpmPackage (finalAttrs: {
       src/main/infra/ffmpegService.ts \
       src/main/infra/onnxModelService.ts \
       src/main/infra/sharpService.ts \
-      src/main/extraction/qtExtractorService.ts \
-      src/main/ipc/menuIpc.ts \
-      src/main/platform/windowManager.ts
+      src/main/extraction/qtExtractorService.ts
     do
       substituteInPlace "$file" \
         --replace-fail \
