@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cider";
-  version = "6ac396e";
+  version = "82525a3";
 
   src = fetchFromGitHub {
     owner = "taoky";
     repo = "Cider";
-    rev = "6ac396eb924adc33ec323c0454cab57846a3bce5";
-    hash = "sha256-sGG12ekDXecIP+Wn9iQFEo4ZAJke4aFDFMtT8tlEeMs=";
+    rev = "82525a3";
+    hash = "sha256-sPtaFLBB8yYRNvlWdQ5v0FPViH9W9MaAe5XFS3ik2IY=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-aDgkcui1nUkg1yTy8Zt1o+JcgebeoJ6nLtOXwHxy5Q8=";
+    hash = "sha256-YfAez76scKLCiDg8C1wfSpy6+0rOWZJ44jtnPymzorg=";
   };
 
   nativeBuildInputs = [
