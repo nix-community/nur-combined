@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index f0479b9..0a87fd1 100644
+index d1798c5..715ebe9 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -37,10 +37,10 @@
@@ -39,7 +39,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index e27aa99..6aaf232 100644
+index aa88f7c..dd108c7 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -406,6 +406,12 @@ importers:
