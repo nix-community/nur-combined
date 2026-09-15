@@ -304,45 +304,6 @@ let
             requires = shareUnits;
             after = [ "network.target" ] ++ shareUnits;
 
-            # Routed networking (no bridge): the tap gets the host-side gateway
-            # address and a /32 host route back to the guest. The guest uses
-            # vacu.vmNet.gateway as its default gateway.
-            postStart = ''
-              # ${pkgs.iproute2}/bin/ip link del ${tapName} 2>/dev/null || true
-              # ${pkgs.iproute2}/bin/ip tuntap add ${tapName} mode tap
-              while ! [[ -d /proc/sys/net/ipv4/conf/${tapName} ]]; do
-                sleep 1
-              done
-              ${pkgs.iproute2}/bin/ip addr add ${netCfg.gateway}/32 dev ${tapName}
-              ${pkgs.iproute2}/bin/ip link set ${tapName} up
-              ${pkgs.iproute2}/bin/ip route replace ${vmCfg.address}/32 dev ${tapName}
-              # Strict reverse-path filtering = anti-spoofing: the kernel drops
-              # any packet arriving on this tap whose source IP does not route
-              # back out this same tap (i.e. anything other than ${vmCfg.address}).
-              # VMs can still reach each other and the LAN freely — just not with
-              # a forged source IP. (Effective iff net.ipv4.conf.all.rp_filter is
-              # 0 or 1; kernel default is 0.)
-              echo 1 > /proc/sys/net/ipv4/conf/${tapName}/rp_filter
-              # Proxy ARP: answer the guest's ARP requests for addresses we have
-              # a route to, using this tap's own MAC. Needed because each tap is
-              # a point-to-point link — a guest that (reasonably) believes the
-              # whole VM subnet is on-link will ARP its siblings directly, and
-              # nothing is there to answer, so VM-to-VM traffic blackholes. With
-              # this the host answers and forwards it out the sibling's tap.
-              # Scope is naturally limited: we only reply for addresses we
-              # actually route (the per-VM /32s), and the guest only ARPs for
-              # its on-link prefix — everything else already goes to the
-              # gateway. In-tree guests hold a /32 (see modules/vacuvmGuest.nix)
-              # and never rely on this; it is what keeps externally-managed
-              # guests working.
-              echo 1 > /proc/sys/net/ipv4/conf/${tapName}/proxy_arp
-            '';
-
-            # Deleting the tap also drops its address and the /32 route.
-            postStop = ''
-              ${pkgs.iproute2}/bin/ip link del ${tapName} 2>/dev/null || true
-            '';
-
             script = ''
               set -euo pipefail
 
@@ -390,7 +351,7 @@ let
                 -device virtio-serial-pci
                 -device virtconsole,chardev=console0
                 ${shareQemuArgLines}
-                # Routed networking; the tap itself is set up in postStart.
+                # QEMU owns the tap lifecycle; networkd configures it when it appears.
                 -netdev tap,id=net0,ifname=${tapName},script=no,downscript=no${netdevExtra}
                 -device virtio-net-pci,netdev=net0,mac=${vmCfg.mac}
                 # We boot the kernel directly (no boot loader), so init= —
@@ -470,6 +431,28 @@ let
   }
   // lib.mapAttrs' (
     vmName: _vmCfg: lib.nameValuePair "vacuvm-${vmName}" { description = "vacu QEMU VM ${vmName}"; }
+  ) cfg;
+
+  # QEMU creates each tap when its VM starts and removes it when it exits.
+  # networkd notices the new link and declaratively supplies all host-side
+  # addressing, routing, and per-link policy.
+  vmNetworks = lib.mapAttrs' (
+    vmName: vmCfg:
+    lib.nameValuePair "40-vacuvm-${vmName}" {
+      matchConfig.Name = "v-${vmName}";
+      networkConfig = {
+        Address = "${netCfg.gateway}/32";
+        LinkLocalAddressing = "no";
+        IPv4ReversePathFilter = "strict";
+        IPv4ProxyARP = true;
+      };
+      routes = [
+        {
+          Destination = "${vmCfg.address}/32";
+          Scope = "link";
+        }
+      ];
+    }
   ) cfg;
 
   # Shell-quoted `[name]=value` pairs for bash associative arrays baked into the
@@ -616,10 +599,14 @@ in
   # This lets the module system see which options we contribute to
   # without forcing any values, avoiding a fixed-point cycle.
   config = {
-    # Routed networking needs IPv4 forwarding between the taps (and out to the
-    # LAN). The upstream router carries a static route for the VM subnet to this
-    # host; per-guest /32 routes are added by each VM's qemu service.
-    boot.kernel.sysctl."net.ipv4.ip_forward" = mkIf netCfg.enable (lib.mkDefault 1);
+    systemd.network = mkIf netCfg.enable {
+      enable = true;
+      # Routed networking needs forwarding between the taps (and out to the
+      # LAN). The upstream router carries a static route for the VM subnet to
+      # this host.
+      config.networkConfig.IPv4Forwarding = true;
+      networks = vmNetworks;
+    };
 
     systemd.slices = vmSlices;
 

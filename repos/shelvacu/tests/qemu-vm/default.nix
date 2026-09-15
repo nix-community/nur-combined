@@ -304,9 +304,10 @@ in
     host.wait_for_unit("vacuvm-test-vm-share-ro-virtiofsd.service")
 
     for name, (address, _) in vms.items():
-        # postStart sets up the routed tap: gateway IP on the tap and a /32 host
+        # networkd sets up the routed tap: gateway IP on the tap and a /32 host
         # route back to the guest.
         host.wait_until_succeeds(f"ip link show v-{name}", timeout=60)
+        host.wait_until_succeeds(f"networkctl status v-{name} | grep -q configured", timeout=60)
         host.succeed(f"ip route get {address} | grep -q 'dev v-{name}'")
 
         # The interactive console socket (hvc0) is created host-side by QEMU on start.

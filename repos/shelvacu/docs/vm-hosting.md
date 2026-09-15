@@ -34,7 +34,7 @@
   it, siblings included.
 
   For guests whose config lives outside this repo (e.g. `jv-shel`) and which
-  therefore keep a `/24`, `postStart` also enables `proxy_arp` on each tap, so
+  therefore keep a `/24`, networkd also enables `proxy_arp` on each tap, so
   prophecy answers those ARP requests itself with the tap's MAC. In-tree guests
   never rely on this.
 - **Persistence**: the btrfs subvolume `/vms/<name>/root` is outside prophecy's
