@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Restore truncated MP4 and MOV video files";
     homepage = "https://github.com/anthwlock/untrunc";
-    changelog = "https://github.com/anthwlock/untrunc/releases/tag/${finalAttrs.src.tag}";
+    # changelog = "https://github.com/anthwlock/untrunc/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "untrunc";
