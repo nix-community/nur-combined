@@ -2,7 +2,6 @@
   config,
   lib,
   vaculib,
-  vacuModuleType,
   ...
 }:
 let
@@ -18,23 +17,30 @@ let
   set_inverted_color = colornum: ''\[\e[1;37;${toString (colornum + 10)}m\]'';
   reset_color = ''\[\e[0m\]'';
   colornum = colors.${cfg.color};
-  root_text = root: lib.optionalString root "ROOT@";
-  final = root: if root then (set_inverted_color colors.red) + "!!" else "$";
+  user_text = user:
+    {
+      root = "ROOT@";
+      notMe = "$USER@";
+      unknown = "?@";
+      me = "";
+    }.${user};
+  final = user: if user == "root" then (set_inverted_color colors.red) + "!!" else "$";
   hostName = if config.vacu.shortHostName == null then ''\h'' else config.vacu.shortHostName;
   default_ps1 =
-    root:
+    user:
+    assert builtins.elem user [ "root" "me" "notMe" "unknown" ];
     ""
     + ''\n''
     # + ''\[${reset_without_clear}\]''
     + (set_color colornum)
-    + "${root_text root}${hostName}:\\w"
+    + "${user_text user}${hostName}:\\w"
     + " "
     + "$(vacu_shell_show_return_code)"
     + ''\n''
     + reset_color
     + "$(vacu_shell_level_indicator)"
     + (set_color colornum)
-    + (final root)
+    + (final user)
     + reset_color
     + " ";
 in
@@ -65,10 +71,14 @@ in
         printf '? '
       fi
     }
-    if [[ $EUID == 0 ]]; then
-      PS1=${lib.escapeShellArg (default_ps1 true)}
+    if [[ -z ''${EUID+x} ]] || [[ -z ''${USER+x} ]]; then
+      PS1=${lib.escapeShellArg (default_ps1 "unknown")}
+    elif [[ $EUID == 0 ]]; then
+      PS1=${lib.escapeShellArg (default_ps1 "root")}
+    elif [[ $USER == "shelvacu" ]] || [[ $USER == "nix-on-droid" ]]; then
+      PS1=${lib.escapeShellArg (default_ps1 "me")}
     else
-      PS1=${lib.escapeShellArg (default_ps1 false)}
+      PS1=${lib.escapeShellArg (default_ps1 "notMe")}
     fi
   '';
 }
