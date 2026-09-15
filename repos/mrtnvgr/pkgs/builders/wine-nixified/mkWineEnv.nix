@@ -1,4 +1,4 @@
-{ stdenv, lib, writeShellApplication, writeText, cabextract, winetricks, wine-staging }:
+{ stdenv, lib, writeShellApplication, writeShellScript, cabextract, winetricks, wine-staging }:
 { name
 , is64bits ? stdenv.hostPlatform.system == "x86_64-linux"
 
@@ -42,7 +42,7 @@ let
     popd
   '';
 
-  activateScript = writeText "activate-${name}" /* bash */ ''
+  activateScript = writeShellScript "activate-${name}" /* bash */ ''
     # Source this file to enter the "${name}" wine environment:
     #   source "$HOME/.wine-nix/${name}/activate"
     # Leave it with: deactivate
