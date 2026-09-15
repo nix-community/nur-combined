@@ -111,12 +111,9 @@ in
   '';
 
   mkAppImage-no-desktop = pkgs.runCommand "mkAppImage-no-desktop" { } ''
-    if ${pkgs.runtimeShell} ${script} ${noDesktop}/bin/example 2>error; then
-      echo "expected a missing desktop entry to fail" >&2
-      exit 1
-    fi
+    ${pkgs.runtimeShell} ${script} ${noDesktop}/bin/example
 
-    grep --fixed-strings "no .desktop found; giving up" error
+    test -z "$(find extras -mindepth 1 -print -quit)"
     touch $out
   '';
 

@@ -41,8 +41,8 @@ for d in "$drv/share/applications/"*.desktop; do
 done
 
 if [ -z "$desktop" ]; then
-	echo "no .desktop found; giving up" >&2
-	exit 1
+	# desktop integration is optional
+	exit 0
 fi
 
 # copy desktop file and icons
