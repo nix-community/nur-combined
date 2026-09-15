@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  aqua = pkgs.callPackage ./pkgs/aqua { };
   deck = pkgs.callPackage ./pkgs/deck { };
   gwq = pkgs.callPackage ./pkgs/gwq { };
   mado = pkgs.callPackage ./pkgs/mado { };
