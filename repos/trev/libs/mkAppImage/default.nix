@@ -69,7 +69,7 @@ stdenvNoCC.mkDerivation {
     runHook preBuild
 
     # finds extra files in derivation and copy to extras dir
-    ${./extra-files.sh} ${package}
+    ${./extra-files.sh} ${lib.getExe package}
 
     image=$(mktemp -u)
 
