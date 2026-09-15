@@ -48,12 +48,10 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         install-devenv: 'true'
 
-    # Sole writer for the lock-keyed update store cache; prune older entries and stale root locks.
+    # Sole writer for the lock-keyed store cache; prune older entries and stale root locks.
     - name: Restore Nix store
       uses: mzwing/nix-actions/nix/restore-store@master
       with:
-        primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
-        restore-prefix: nix-ci-
         gc-max-store-size-linux: 4G
         purge-last-accessed: 0
 

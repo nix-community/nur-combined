@@ -130,15 +130,15 @@
   };
   gomod2nix = {
     pname = "gomod2nix";
-    version = "34f9843ee68e679804fe25a0bf1f3e0c8bf8188a";
+    version = "6d77e78cd95ad43dc8c6317c43791e6f6b88651d";
     src = fetchFromGitHub {
       owner = "mzwing";
       repo = "gomod2nix";
-      rev = "34f9843ee68e679804fe25a0bf1f3e0c8bf8188a";
+      rev = "6d77e78cd95ad43dc8c6317c43791e6f6b88651d";
       fetchSubmodules = false;
-      sha256 = "sha256-mqD6J9jXZhfnspchY5kmumHJZSN+FjaGjoSMbg70gt0=";
+      sha256 = "sha256-VBlBE2kv8GZVv9ER9R854iwKunnUccR0MLeidjaYysw=";
     };
-    date = "2026-09-05";
+    date = "2026-09-15";
   };
   gryph = {
     pname = "gryph";
@@ -200,13 +200,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.42.3";
+    version = "v0.42.4";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.42.3";
+      rev = "v0.42.4";
       fetchSubmodules = false;
-      sha256 = "sha256-YKizQvvOl6fWMjtQxhhBfCfK0dA4Zosb0wvQ871zX5k=";
+      sha256 = "sha256-JBHvLlMlpLl+EssYcKXTPT4Er/XEk1OdB/h1ajwYhnk=";
     };
   };
   manboster = {
@@ -268,35 +268,35 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.3";
+    version = "v1.15.0-alpha.4";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.3";
+      rev = "v1.15.0-alpha.4";
       fetchSubmodules = false;
-      sha256 = "sha256-7Mq+F8zN22Io9nyWokXa0G+qGxyUYbgbImtPzuyig8o=";
+      sha256 = "sha256-dFMxkJ8PNPctMS/E5L3G/pOM8jOtPPRACaGG7R3wT8g=";
     };
   };
   sing-box-beta = {
     pname = "sing-box-beta";
-    version = "v1.14.0";
+    version = "v1.14.1";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0";
+      rev = "v1.14.1";
       fetchSubmodules = false;
-      sha256 = "sha256-1v9bgM2H439ZoSkomv5dmT5SNrkuyOJ1iFFPlYPsW/k=";
+      sha256 = "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=";
     };
   };
   sing-box-rc = {
     pname = "sing-box-rc";
-    version = "v1.14.0";
+    version = "v1.14.1";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0";
+      rev = "v1.14.1";
       fetchSubmodules = false;
-      sha256 = "sha256-1v9bgM2H439ZoSkomv5dmT5SNrkuyOJ1iFFPlYPsW/k=";
+      sha256 = "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=";
     };
   };
   subs-check-pro = {

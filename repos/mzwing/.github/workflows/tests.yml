@@ -29,12 +29,11 @@ jobs:
           cachix-pull: 'false'
           install-devenv: 'true'
 
-      # Restore the latest read-only update cache.
+      # A reader: update.yml is the sole writer of this cache family.
       - name: Restore Nix store
-        uses: nix-community/cache-nix-action/restore@v7
+        uses: mzwing/nix-actions/nix/restore-store@master
         with:
-          primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
-          restore-prefixes-first-match: nix-ci-
+          save: 'false'
 
       # Allow source realization because gomod2nix evaluates fetched paths.
       - name: Check flake

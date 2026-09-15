@@ -232,7 +232,7 @@
     },
     "gomod2nix": {
         "cargoLock": null,
-        "date": "2026-09-05",
+        "date": "2026-09-15",
         "extract": null,
         "name": "gomod2nix",
         "passthru": null,
@@ -244,12 +244,12 @@
             "name": null,
             "owner": "mzwing",
             "repo": "gomod2nix",
-            "rev": "34f9843ee68e679804fe25a0bf1f3e0c8bf8188a",
-            "sha256": "sha256-mqD6J9jXZhfnspchY5kmumHJZSN+FjaGjoSMbg70gt0=",
+            "rev": "6d77e78cd95ad43dc8c6317c43791e6f6b88651d",
+            "sha256": "sha256-VBlBE2kv8GZVv9ER9R854iwKunnUccR0MLeidjaYysw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "34f9843ee68e679804fe25a0bf1f3e0c8bf8188a"
+        "version": "6d77e78cd95ad43dc8c6317c43791e6f6b88651d"
     },
     "gryph": {
         "cargoLock": null,
@@ -369,12 +369,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.42.3",
-            "sha256": "sha256-YKizQvvOl6fWMjtQxhhBfCfK0dA4Zosb0wvQ871zX5k=",
+            "rev": "v0.42.4",
+            "sha256": "sha256-JBHvLlMlpLl+EssYcKXTPT4Er/XEk1OdB/h1ajwYhnk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.42.3"
+        "version": "v0.42.4"
     },
     "manboster": {
         "cargoLock": null,
@@ -495,12 +495,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.15.0-alpha.3",
-            "sha256": "sha256-7Mq+F8zN22Io9nyWokXa0G+qGxyUYbgbImtPzuyig8o=",
+            "rev": "v1.15.0-alpha.4",
+            "sha256": "sha256-dFMxkJ8PNPctMS/E5L3G/pOM8jOtPPRACaGG7R3wT8g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.0-alpha.3"
+        "version": "v1.15.0-alpha.4"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -516,12 +516,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0",
-            "sha256": "sha256-1v9bgM2H439ZoSkomv5dmT5SNrkuyOJ1iFFPlYPsW/k=",
+            "rev": "v1.14.1",
+            "sha256": "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0"
+        "version": "v1.14.1"
     },
     "sing-box-rc": {
         "cargoLock": null,
@@ -537,12 +537,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0",
-            "sha256": "sha256-1v9bgM2H439ZoSkomv5dmT5SNrkuyOJ1iFFPlYPsW/k=",
+            "rev": "v1.14.1",
+            "sha256": "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0"
+        "version": "v1.14.1"
     },
     "subs-check-pro": {
         "cargoLock": null,

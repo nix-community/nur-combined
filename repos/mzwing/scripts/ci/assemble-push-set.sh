@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Publish realized `out` outputs only; auxiliary crate outputs retain the full build graph.
+# /tmp/built-outputs.txt comes from mzwing/nix-actions' nix/build-targets.
 set -euo pipefail
 
 jq -r '.[].drvPath' <<<"${TARGETS}" | sort --unique >/tmp/active-drvs.txt
