@@ -106,7 +106,7 @@ makeScope newScope (
     languages = {
       nl = self.callPackage self.mkLanguage {
         language = "nl_NL";
-        hash = "sha256-CipLLCxHSMhMjFYMCTUAZbGA3iAWWfzM13DXzR17wB8=";
+        hash = "sha256-iM33JAGx6zogyn2EFIdJ7ADM61+FP2Eq28Ib9hujTUg=";
       };
     };
   }
