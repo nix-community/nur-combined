@@ -10,8 +10,9 @@ niri.overrideAttrs (
         hash = "sha256-EDZZdFpbgPcIBJYU/L9tqXctGk1dboZbErEt0GIKhVw=";
       })
       (fetchpatch {
-        url = "https://github.com/wrvsrx/niri/compare/tag_support-shm-sharing_4~19..tag_support-shm-sharing_4.patch";
-        hash = "sha256-mfX0CVJWSFb/Hr1lDvlggphpXc2PI6C5CBa+aGwkVIM=";
+        # https://github.com/niri-wm/niri/pull/1791
+        url = "https://github.com/niri-wm/niri/compare/3871a3cd76a4168b2dc7c3da880fbe2702bd8900~11..3871a3cd76a4168b2dc7c3da880fbe2702bd8900.diff";
+        hash = "sha256-4L4PS4HenyXlYkuWG8n6L5nKOCiw06ts1gD+tGBqy5Y=";
       })
       (fetchpatch {
         # Squashed .diff (not per-commit .patch): the series creates

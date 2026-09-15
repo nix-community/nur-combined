@@ -1,12 +1,14 @@
 {
   fcitx5,
-  fetchpatch,
+  fetchFromGitHub,
 }:
-fcitx5.overrideAttrs (old: {
-  patches = (old.patches or [ ]) ++ [
-    (fetchpatch {
-      url = "https://github.com/wrvsrx/fcitx5/compare/wayland-flush-5.1.21-v2^..wayland-flush-5.1.21-v2.diff";
-      hash = "sha256-IOZFEhHVGTDe7Ut7NlrZEwbxzY7a5IBlgMsTu/8JUT0=";
-    })
-  ];
-})
+fcitx5.overrideAttrs (
+  finalAttrs: oldAttrs: {
+    version = "5.1.12+unstable-2026-09-12";
+    src = fetchFromGitHub {
+      inherit (oldAttrs.src) owner repo;
+      rev = "d6552a5b52b4ff75cae3fb6dc949ef379171b2b9";
+      hash = "sha256-wN3FSFp3qqxtoPXVvc342caPCbYBfgD61ilEmbYgQCk=";
+    };
+  }
+)
