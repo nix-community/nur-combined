@@ -11,7 +11,7 @@
 }:
 buildPythonPackage {
   pname = "scriptipy";
-  version = "whatever";
+  version = "0.0.1";
   pyproject = true;
 
   src = ./.;

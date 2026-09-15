@@ -9,6 +9,14 @@
 - **Kernel**: passed directly via QEMU `-kernel`/`-initrd` flags, read from the
   guest's own `/nix/var/nix/profiles/system` inside the virtiofs share. No
   bootloader in the guest.
+- **Reboot**: with no bootloader, a guest reset would re-run the kernel image
+  QEMU loaded at startup, ignoring in-guest kernel updates — so QEMU runs with
+  `-no-reboot` and _exits_ instead. QEMU exits 0 for both a reboot and a
+  poweroff, so the run script watches the QMP `SHUTDOWN` event: on
+  `reason: guest-reset` it exits 133, which `RestartForceExitStatus` turns into
+  a restart of the unit (re-copying kernel/initrd/params on the way up). A
+  poweroff, a `systemctl stop`, or a killed QEMU keeps QEMU's own exit status
+  and leaves the VM down.
 - **Memory**: fixed base + `virtio-balloon` for reclaiming + `maxmem`/DIMM slots
   defined for future `virtio-mem` hotplug. No KSM.
 - **Networking**: routed, **not** bridged. Each VM gets its own TAP, created by

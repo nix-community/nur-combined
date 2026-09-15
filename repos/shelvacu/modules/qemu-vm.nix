@@ -10,6 +10,17 @@ let
   netCfg = config.vacu.vmNet;
   cfg = config.vacu.qemuVMs;
 
+  # Exit status the VM's run script uses to tell systemd "the guest asked to
+  # reboot, start me again". Picked out of the 126-255 range systemd treats as
+  # a plain exit code; the value itself is arbitrary.
+  rebootExitStatus = 133;
+
+  # QEMU runs with -no-reboot (see the run script), so a guest reboot makes it
+  # *exit* — with status 0, exactly like a guest poweroff does. The only thing
+  # that tells the two apart is the QMP SHUTDOWN event's `reason`, which this
+  # helper collects alongside the running QEMU.
+  qmpShutdownReason = lib.getExe pkgs.vacuvm-qmp-shutdown-reason;
+
   shareSubmodule = types.submodule (
     { name, ... }: {
       options = {
@@ -234,12 +245,23 @@ let
 
         shareUnits = map (s: "${s.unitName}.service") allShares;
 
-        shareQemuArgs = lib.concatMap (s: [
-          "-chardev"
-          "socket,id=${s.chardevId},path=${s.socket}"
-          "-device"
-          "vhost-user-fs-pci,chardev=${s.chardevId},tag=${s.tag}"
-        ]) allShares;
+        # Lines for the qemu_args array below: a commented chardev/device pair
+        # per share. Every line but the first carries its own indentation —
+        # nix only strips the indentation of the *literal* parts of the string
+        # this lands in.
+        shareQemuArgLines = lib.concatStringsSep "\n  " (
+          lib.concatMap (s: [
+            "# ${s.description}"
+            (lib.escapeShellArgs [
+              "-chardev"
+              "socket,id=${s.chardevId},path=${s.socket}"
+            ])
+            (lib.escapeShellArgs [
+              "-device"
+              "vhost-user-fs-pci,chardev=${s.chardevId},tag=${s.tag}"
+            ])
+          ]) allShares
+        );
       in
       map (s: {
         name = s.unitName;
@@ -345,30 +367,70 @@ let
                 done
               done
 
-              # We boot the kernel directly (no boot loader), so init= — which a
-              # boot loader would normally supply — must be on the command line;
-              # the guest's stage-1 refuses to boot without it. The profile path
-              # tracks in-guest system updates.
-              exec ${pkgs.qemu_kvm}/bin/qemu-system-x86_64 \
-                -machine q35,accel=${vmCfg.accel} \
-                -cpu ${cpu} \
-                -smp ${toString vmCfg.cpus} \
-                -m ${toString vmCfg.baseMem}M,slots=${toString vmCfg.dimmSlots},maxmem=${toString vmCfg.maxMem}M \
-                -object memory-backend-memfd,id=mem0,size=${toString vmCfg.baseMem}M,share=on \
-                -numa node,memdev=mem0 \
-                -device virtio-balloon-pci \
-                -qmp unix:${qmpSocket},server=on,wait=off \
-                -chardev socket,id=console0,path=${consoleSocket},server=on,wait=off \
-                -device virtio-serial-pci \
-                -device virtconsole,chardev=console0 \
-                ${lib.escapeShellArgs shareQemuArgs} \
-                -netdev tap,id=net0,ifname=${tapName},script=no,downscript=no${netdevExtra} \
-                -device virtio-net-pci,netdev=net0,mac=${vmCfg.mac} \
-                -kernel "${bootDir}/kernel" \
-                -initrd "${bootDir}/initrd" \
-                -append "init=/nix/var/nix/profiles/system/init root=rootfs rootfstype=virtiofs rw $params" \
-                -nographic \
+              # QEMU option values are comma-separated lists, which is what
+              # SC2054 (commas in an array literal) is warning about.
+              # shellcheck disable=SC2054
+              qemu_args=(
+                -machine q35,accel=${vmCfg.accel}
+                -cpu ${cpu}
+                -smp ${toString vmCfg.cpus}
+                # Base memory, plus slots/maxmem for hotplug and a balloon for
+                # giving memory back. memfd + share=on because virtiofs needs
+                # the guest's RAM to be shareable with virtiofsd.
+                -m ${toString vmCfg.baseMem}M,slots=${toString vmCfg.dimmSlots},maxmem=${toString vmCfg.maxMem}M
+                -object memory-backend-memfd,id=mem0,size=${toString vmCfg.baseMem}M,share=on
+                -numa node,memdev=mem0
+                -device virtio-balloon-pci
+                # Host-only control socket: memory hotplug, and the
+                # shutdown-reason helper below.
+                -qmp unix:${qmpSocket},server=on,wait=off
+                # hvc0: the interactive console, on a host-only unix socket
+                # (`vacuvm console ${vmName}`).
+                -chardev socket,id=console0,path=${consoleSocket},server=on,wait=off
+                -device virtio-serial-pci
+                -device virtconsole,chardev=console0
+                ${shareQemuArgLines}
+                # Routed networking; the tap itself is set up in postStart.
+                -netdev tap,id=net0,ifname=${tapName},script=no,downscript=no${netdevExtra}
+                -device virtio-net-pci,netdev=net0,mac=${vmCfg.mac}
+                # We boot the kernel directly (no boot loader), so init= —
+                # which a boot loader would normally supply — must be on the
+                # command line; the guest's stage-1 refuses to boot without it.
+                # The profile path tracks in-guest system updates.
+                -kernel "${bootDir}/kernel"
+                -initrd "${bootDir}/initrd"
+                -append "init=/nix/var/nix/profiles/system/init root=rootfs rootfstype=virtiofs rw $params"
+                # ttyS0 on our stdio, i.e. passively logged to the host journal.
+                -nographic
+                # There is no boot loader, so a guest reset would re-run
+                # whatever kernel image QEMU loaded at startup, silently
+                # ignoring an in-guest kernel update. Instead QEMU exits and
+                # systemd restarts this unit, which re-copies
+                # kernel/initrd/params above — see the reboot handling below.
                 -no-reboot
+              )
+
+              ${pkgs.qemu_kvm}/bin/qemu-system-x86_64 "''${qemu_args[@]}" &
+              qemu_pid=$!
+
+              # Blocks until QEMU reports why it is going down (or until it is
+              # gone). Must run while QEMU lives: once it has exited, its exit
+              # status alone (0 for both reboot and poweroff) cannot tell us.
+              reason=$(${qmpShutdownReason} ${qmpSocket} "$qemu_pid" || true)
+
+              status=0
+              wait "$qemu_pid" || status=$?
+
+              # A guest reboot: exit with the status systemd is configured to
+              # restart us on, so the VM comes back with a freshly copied
+              # kernel/initrd. Everything else (poweroff, being killed, QEMU
+              # failing) keeps QEMU's own status, so a `systemctl stop` or an
+              # in-guest `poweroff` leaves the VM down.
+              if [[ $status -eq 0 && $reason == guest-reset ]]; then
+                echo "guest rebooted; exiting ${toString rebootExitStatus} so systemd restarts the VM" >&2
+                exit ${toString rebootExitStatus}
+              fi
+              exit "$status"
             '';
 
             unitConfig.AssertPathExists = [ "${vmCfg.rootDir}/nix/var/nix/profiles" ];
@@ -376,8 +438,17 @@ let
             serviceConfig = {
               Type = "simple";
               Restart = "on-failure";
+              # A guest reboot comes back as ${toString rebootExitStatus} from the run script.
+              # RestartForceExitStatus restarts on it regardless of Restart=,
+              # and SuccessExitStatus keeps a normal reboot from parading as a
+              # unit failure.
+              RestartForceExitStatus = [ rebootExitStatus ];
+              SuccessExitStatus = [ rebootExitStatus ];
               RestartSec = "5s";
-              KillMode = "mixed";
+              # The main process is the run script, with QEMU as its child, so
+              # the stop signal has to reach the whole cgroup (KillMode=mixed
+              # would only signal the script and then SIGKILL QEMU).
+              KillMode = "control-group";
               KillSignal = "SIGTERM";
               TimeoutStopSec = "30s";
               Slice = slice;

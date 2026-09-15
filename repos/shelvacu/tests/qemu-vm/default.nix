@@ -130,6 +130,42 @@ let
             '';
           };
 
+          # One line per boot, into the writable share, so the host can count
+          # boots without a login shell in the guest.
+          systemd.services.boot-count = lib.mkIf (vmName == "test-vm") {
+            wantedBy = [ "multi-user.target" ];
+            requires = [ "mnt-data.mount" ];
+            after = [ "mnt-data.mount" ];
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+            };
+            script = ''
+              echo boot >> /mnt/data/boots
+              # The host counts these lines while the guest keeps running, so
+              # there is no unmount to flush them — same reason peer-check syncs.
+              ${pkgs.coreutils}/bin/sync
+            '';
+          };
+
+          # The host asks for a reboot by dropping a flag file in the writable
+          # share (there is no login/ssh into the guest in this test).
+          systemd.services.reboot-on-request = lib.mkIf (vmName == "test-vm") {
+            wantedBy = [ "multi-user.target" ];
+            requires = [ "mnt-data.mount" ];
+            after = [
+              "mnt-data.mount"
+              "boot-count.service"
+            ];
+            script = ''
+              until [ -e /mnt/data/please-reboot ]; do sleep 2; done
+              # Clear the flag first, so the guest reboots once and not forever.
+              # No sync needed: the reboot stops mnt-data.mount on the way down.
+              rm -f /mnt/data/please-reboot
+              systemctl reboot
+            '';
+          };
+
           # Ping the sibling VM until it answers, then drop a marker file the
           # test can read from the host side of the virtiofs share.
           systemd.services.peer-check = {
@@ -299,6 +335,24 @@ in
     host.wait_until_succeeds("test -e ${shareRwDir}/guest-wrote", timeout=600)
     host.succeed("grep -q hello-from-host ${shareRwDir}/read-from-ro")
     host.fail("test -e ${shareRoDir}/should-not-exist")
+
+    # Reboot. QEMU runs with -no-reboot (so an updated in-guest kernel is
+    # actually picked up), meaning a guest reset makes it exit — with status 0,
+    # same as a poweroff. The unit has to tell those apart via QMP and restart
+    # itself, otherwise the VM just stays down.
+    host.succeed("test \"$(wc -l < ${shareRwDir}/boots)\" = 1")
+    host.succeed("touch ${shareRwDir}/please-reboot")
+    host.wait_until_succeeds("test \"$(wc -l < ${shareRwDir}/boots)\" = 2", timeout=900)
+    host.wait_until_succeeds("ping -c1 -W2 ${guestIPs.test-vm}", timeout=900)
+    # A reboot is not a failure, and the guest is running again, not stuck in
+    # some restart loop.
+    host.succeed("systemctl is-active vacuvm-test-vm-qemu.service")
+    host.succeed("test -S /run/vacuvm-test-vm-boot/console.sock")
+
+    # ...while a host-side stop still stops the VM for good: QEMU is now a child
+    # of the run script, so the stop signal has to reach it through the cgroup.
+    host.systemctl("stop vacuvm-test-vm2-qemu.service")
+    host.fail("systemctl is-active vacuvm-test-vm2-qemu.service")
   '';
 
   skipTypeCheck = true;
