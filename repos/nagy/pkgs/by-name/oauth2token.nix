@@ -1,19 +1,17 @@
 {
   lib,
   python3,
-  fetchFromGitHub,
+  fetchPypi,
 }:
 
-python3.pkgs.buildPythonApplication {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "oauth2token";
   version = "0.0.3";
   format = "setuptools";
 
-  src = fetchFromGitHub {
-    owner = "VannTen";
-    repo = "oauth2token";
-    rev = "9f99aaeb82d9fb53174ff96e58e9a097cce76617";
-    hash = "sha256-40wBZzgj+qpj6hABT1zEjdtOx5v6CZWr8cFIFa7DPVo=";
+  src = fetchPypi {
+    inherit (finalAttrs) pname version;
+    hash = "sha256-3wJHPYP74rTdqAfVKZ7LrzwP4tCeV+VRasoqs1uw/vg=";
   };
 
   build-system = [ python3.pkgs.setuptools ];
@@ -32,4 +30,4 @@ python3.pkgs.buildPythonApplication {
     mainProgram = "oauth2get";
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

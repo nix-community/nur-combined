@@ -1,20 +1,19 @@
 {
   lib,
-  fetchFromGitHub,
+  fetchPypi,
   python3,
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "freecad-mcp";
-  version = "0.1.22";
+  version = "0.1.23";
 
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "neka-nat";
-    repo = "freecad-mcp";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-ilz2ZFn3gTF0JY+YnV7MrIHkt/Cjk0K5iYc8DFcGZLo=";
+  src = fetchPypi {
+    pname = "freecad_mcp";
+    inherit (finalAttrs) version;
+    hash = "sha256-c0qSLLVZvEbaHFDqEX/ME/XHJgFxoxx1rFzcPTgLj1M=";
   };
 
   build-system = [
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Model Context Protocol server that lets AI assistants control FreeCAD";
     homepage = "https://github.com/neka-nat/freecad-mcp";
-    changelog = "https://github.com/neka-nat/freecad-mcp/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/neka-nat/freecad-mcp/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "freecad-mcp";

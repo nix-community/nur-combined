@@ -1,6 +1,6 @@
 {
   lib,
-  fetchFromGitHub,
+  fetchPypi,
   python3,
   nix-update-script,
 }:
@@ -11,11 +11,10 @@ python3.pkgs.buildPythonApplication rec {
   version = "0.3";
   format = "pyproject";
 
-  src = fetchFromGitHub {
-    owner = "simonw";
-    repo = "ttok";
-    tag = version;
-    hash = "sha256-I6EPE6GDAiDM+FbxYzRW4Pml0wDA2wNP1y3pD3dg7Gg=";
+  src = fetchPypi {
+    pname = "ttok";
+    inherit version;
+    hash = "sha256-BHSgCldHYNsiTSSur6UOG56t9qV056bBMkZYvZuCSbg=";
   };
 
   build-system = [

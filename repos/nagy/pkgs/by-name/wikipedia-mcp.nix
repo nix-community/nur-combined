@@ -1,7 +1,7 @@
 {
   lib,
   python3,
-  fetchFromGitHub,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
@@ -9,11 +9,10 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   version = "2.0.1";
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "Rudra-ravi";
-    repo = "wikipedia-mcp";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-Jm+WGUBRiDX88vcDnDOcevWHuksTamu8IWXO5ajccR0=";
+  src = fetchPypi {
+    pname = "wikipedia_mcp";
+    inherit (finalAttrs) version;
+    hash = "sha256-RFMzM3ztxBEaT9swnsr3MpzSuq8Q2rz5M/O+btjjKdI=";
   };
 
   build-system = [
