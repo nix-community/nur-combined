@@ -1,0 +1,183 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+
+tone_instructions: >-
+  Expert Nixpkgs and NUR reviewer: direct, technically precise, and actionable.
+  Prioritize pure evaluation under restricted mode, build reproducibility, Cachix
+  cacheability, and security over minor style.
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  collapse_walkthrough: true
+  poem: false
+  review_status: true
+  changed_files_summary: true
+  sequence_diagrams: false
+  estimate_code_review_effort: true
+  suggested_labels: true
+  auto_apply_labels: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+
+  pre_merge_checks:
+    title:
+      mode: "warning"
+      requirements: "PR titles should follow Conventional Commits (e.g. feat:, fix:, chore:, docs:, pkgs:) or provide a clear description."
+    description:
+      mode: "warning"
+    custom_checks:
+      - name: "Pure Evaluation & SRI Hashes"
+        mode: "warning"
+        instructions: |-
+          Verify that:
+          1. Files under pkgs/**/*.nix do not import <nixpkgs> or reference host paths (/home, /etc, ~).
+          2. Top-level default.nix and ci.nix only reference <nixpkgs> as a default argument: { pkgs ? import <nixpkgs> { } }.
+          3. All fetchers (fetchFromGitHub, fetchurl, fetchzip, fetchgit) use SRI hash format (hash = "sha256-...").
+          4. No placeholder, empty (""), or lib.fakeHash values exist.
+          5. Git fetchers pin exact commit revs or tags (no unpinned branch names like rev = "main").
+          6. No expressions use builtins.currentTime or unpinned builtins.fetchGit.
+
+      - name: "NUR Reserved Names Check"
+        mode: "error"
+        instructions: |-
+          Verify that no package attribute in default.nix or packages in flake.nix collides with
+          reserved NUR attributes: lib, overlays, nixosModules, homeModules, darwinModules, flakeModules.
+
+      - name: "Package Metadata & CI Buildability"
+        mode: "warning"
+        instructions: |-
+          1. Every package derivation in pkgs/**/*.nix must define a meta block containing description, homepage, and license (from lib.licenses).
+          2. To mark a package as broken or skip CI building, meta.broken = true MUST be set. (Setting meta.platforms alone does NOT exclude packages from ci.nix).
+          3. Packages providing CLI executables should define meta.mainProgram.
+
+      - name: "CI Workflow Security & Webhook Safety"
+        mode: "error"
+        instructions: |-
+          In .github/workflows/*.yml:
+          1. Workflows should declare explicit minimal permissions (e.g. permissions: contents: read).
+          2. Webhooks that trigger external services (such as the NUR update endpoint) must NEVER run on pull_request events and must run in a separate job outside the build matrix (exactly once per workflow run).
+          3. Cachix actions must use repository secrets and pinned action versions.
+
+  tools:
+    actionlint:
+      enabled: true
+    zizmor:
+      enabled: true
+    shellcheck:
+      enabled: true
+    yamllint:
+      enabled: true
+    markdownlint:
+      enabled: true
+    gitleaks:
+      enabled: true
+    trufflehog:
+      enabled: false
+
+  path_filters:
+    - "!**/*.lock"
+    - "!result*"
+    - "!result/**"
+    - "!.git/**"
+    - "!.direnv/**"
+    - "!.devenv/**"
+
+  path_instructions:
+    - path: "pkgs/**/*.nix"
+      instructions: |-
+        Nix Packaging & Derivation Guidelines:
+        1. Pure Inputs: Derivations must be pure functions called via pkgs.callPackage {}. Accept minimal explicit arguments ({ lib, stdenv, fetchFromGitHub, ... }:), never import <nixpkgs> directly, and avoid hardcoded host paths (/home/..., /etc/...).
+        2. SRI Hashes: Always use Subresource Integrity hashes (hash = "sha256-...") rather than legacy sha256 or base32 strings. Pinned git revisions must use exact commit hashes or release tags.
+        3. Metadata: Every package derivation must define meta with: description (single line, capitalized, no trailing period, no leading articles), homepage, license (from lib.licenses, never a raw string), platforms (from lib.platforms, or specific system strings like "x86_64-linux" when appropriate, unless inherited by builders like buildVimPlugin), and mainProgram (if producing executables in $out/bin).
+        4. Cachix CI Integration: Be aware that symlinkJoin, writeTextFile, and writeShellScriptBin set preferLocalBuild = true by default. Top-level packages wrapping these builders must explicitly set preferLocalBuild = false; to be cached by ci.nix cacheOutputs.
+        5. Broken Packages: Mark unbuildable or unsupported packages with meta.broken = true. Note that setting meta.platforms alone does NOT exclude packages from ci.nix and will break CI.
+        6. Embedded Shell Code: Inline shell scripts and writeShellScriptBin derivations should use strict error checking where appropriate and interpolate package paths directly (${lib.getExe pkgs.foo} or ${pkgs.coreutils}/bin/...) instead of relying on host PATH. In Nix multiline strings (''...''), bash expansions must be escaped as ''${VAR} to avoid Nix evaluation errors.
+        7. Neovim Plugins: For vimUtils.buildVimPlugin derivations, specify nvimRequireCheck = [ "module" ]; when feasible to verify Lua runtime imports at build time. Note that vim plugins default to all platforms.
+
+    - path: "default.nix"
+      instructions: |-
+        Top-Level NUR Entrypoint:
+        1. Reserved Attributes: Never expose package derivations under reserved NUR attribute names: lib, overlays, nixosModules, homeModules, darwinModules, flakeModules.
+        2. Function Signature: Must accept { pkgs ? import <nixpkgs> { } } to allow standalone evaluation, NUR aggregator evaluation, and pure Flake imports.
+        3. Scope & Packaging: Instantiate packages via pkgs.callPackage ./pkgs/<name> { }. If introducing nested package sets (e.g. category = { ... };), add recurseForDerivations = true; so ci.nix can discover them.
+
+    - path: "ci.nix"
+      instructions: |-
+        CI Evaluation & Cachix Filtering:
+        1. Restricted Evaluation: Ensure expressions remain compatible with restricted evaluation (no paths outside repo root, no impure builtins).
+        2. Filter Synchronization: Ensure any new reserved component attribute added to default.nix is accounted for in ci.nix isReserved.
+        3. Cachix Outputs: Remember that cacheOutputs filters buildPkgs by !(p.preferLocalBuild or false), and outputsOf evaluates all outputs for every derivation.
+
+    - path: "overlay.nix"
+      instructions: |-
+        Nixpkgs Overlay Entrypoint:
+        1. Overlay Signature: Must follow the standard overlay signature (final: prev:).
+        2. Reserved Attributes: Synchronize isReserved with default.nix and ci.nix so non-package attributes are filtered out.
+        3. Package Scope: Evaluate packages using the overlay scope without introducing infinite recursion.
+
+    - path: "flake.nix"
+      instructions: |-
+        Flake Entrypoint:
+        1. Outputs: Expose packages and legacyPackages for all systems via nixpkgs.lib.systems.flakeExposed.
+        2. Derivation Filter: packages must filter for derivations using nixpkgs.lib.isDerivation.
+        3. Module Exports: Export nixosModules, homeModules, darwinModules, and flakeModules matching default.nix.
+
+    - path: ".github/workflows/*.yml"
+      instructions: |-
+        GitHub Actions & CI Workflows:
+        1. Static Security: Adhere to actionlint and zizmor findings. Declare top-level permissions: contents: read.
+        2. Webhook Guard: The "Trigger NUR update" curl command must be guarded with if: github.event_name != 'pull_request' so it never fires on PRs or forks, and should run once outside the build matrix.
+        3. Cachix & Nix Setup: Use pinned versions (cachix/install-nix-action, cachix/cachix-action). Ensure install-nix-action sets extra_nix_config: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} to avoid GitHub API rate limits.
+        4. Secrets: Cachix signing requires secrets.CACHIX_SIGNING_KEY or secrets.CACHIX_AUTH_TOKEN.
+        5. Cron: Use valid 5-field UTC cron syntax.
+
+    - path: "README.md"
+      instructions: |-
+        Documentation & Nix Instructions:
+        1. Binary Cache: Verify that Cachix instructions provide both substituters and extra-trusted-public-keys (hetav21.cachix.org-1:O5O3aE7/wLp4F0uMLu4vJEr/Rn5UUWu97clxBxFALzc=).
+        2. Package Links: Ensure all links to ./pkgs/<name> match existing package folders.
+        3. Code Formatting: Ensure fenced code blocks specify correct syntax tags (nix, bash, yaml).
+
+    - path: "lib/**/*.nix"
+      instructions: |-
+        Shared Library Functions:
+        1. Pure Functions: Library functions must be pure and side-effect free. Do not import <nixpkgs> or reference host paths.
+        2. Interface: The top-level lib entry should accept { pkgs } and be callable independently via import ./lib { inherit pkgs; }.
+
+    - path: "nixos-modules/**/*.nix"
+      instructions: |-
+        NixOS Module Definitions:
+        1. Module Signature: Modules must follow the standard NixOS module interface ({ config, lib, pkgs, ... }:) with options and config sections.
+        2. No Hardcoded Paths: Avoid hardcoded host paths (/home/..., /etc/...). Use option values or package store paths.
+        3. Module Exports: Ensure new modules are registered in nixos-modules/default.nix and synchronized with flake.nix nixosModules output.
+
+    - path: "overlays/**/*.nix"
+      instructions: |-
+        Nixpkgs Overlay Definitions:
+        1. Overlay Signature: Each overlay must follow the standard overlay signature (final: prev:).
+        2. No Infinite Recursion: Use prev.callPackage (not final.callPackage) to avoid infinite recursion when overriding packages.
+        3. Overlay Exports: Ensure new overlays are registered in overlays/default.nix and synchronized with default.nix overlays export.
+
+knowledge_base:
+  opt_out: false
+  web_search:
+    enabled: true
+  code_guidelines:
+    enabled: true
+  learnings:
+    scope: "local"
+  issues:
+    scope: "local"
+  pull_requests:
+    scope: "local"
+
+chat:
+  auto_reply: true
+  art: false
