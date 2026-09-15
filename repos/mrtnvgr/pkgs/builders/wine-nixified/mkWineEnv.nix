@@ -9,7 +9,7 @@ in
 , tricks ? [ ]
 , silent ? true
 
-, setupScript ? ""
+, initScript ? ""
 
 , postScript ? ""
 
@@ -52,7 +52,7 @@ in (writeShellApplication {
       ${tricksHook}
       wineserver -w
 
-      ${setupScript}
+      ${initScript}
     fi
 
     ${postScript}

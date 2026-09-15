@@ -33,7 +33,7 @@ in mkWineApp {
   workdir = "$WINEPREFIX/drive_c/celeste";
   executable = "./Celeste.exe";
 
-  setupScript = /* bash */ ''
+  initScript = /* bash */ ''
     pushd "$WINEPREFIX/drive_c"
       mkdir celeste
       cd celeste
