@@ -262,7 +262,7 @@ in
       WORDCHARS = "_.~;!#$%^";
     };
 
-    initContent = with pkgs; let completions = mkOrder 550; main = mkOrder 1000; in mkMerge [
+    initContent = with pkgs; let completions = mkOrder 550; main = mkOrder 1000; display = mkOrder 1500; in mkMerge [
       # Completions
       (completions "fpath+=(${zsh-completions}/src)")
       (completions "source ${zsh-complete-git-commit-message}")
@@ -310,6 +310,9 @@ in
         forward-word = "\\e[1;5C"; # Ctrl+Right
         undo = "^Z"; # Ctrl+Z
       }))
+
+      # Display
+      (display "maintenance-notice")
     ];
 
     shellAliases =
@@ -348,6 +351,11 @@ in
     siteFunctions = with pkgs; {
       extract-pdf-images = "mkdir \"\${1%.pdf}\" && ${getExe' poppler-utils "pdfimages"} -all -p \"$1\" \"\${1%.pdf}/\${1%.pdf}\"";
       idiff = "${getExe' imagemagick "compare"} \"$@\" png:- | kitty +kitten icat";
+      maintenance-notice = ''
+        [[ "$(< /sys/class/power_supply/AC/online)" == '1' ]] || return
+        local flag="$XDG_RUNTIME_DIR/maintenance-notice-ran"; [[ ! -e "$flag" ]] || return; touch "$flag"
+        ${getExe audit-nix-roots}
+      '';
       mkcd = "mkdir --parents \"$@\" && cd \"\${@:$#}\"";
       nest = "mv --no-target-directory --update=none-fail --verbose \"$1\" \"$1.original\" && mkdir \"$1\" && mv --no-target-directory --update=none-fail --verbose \"$1.original\" \"$1/\${1##*/}\"";
       psnr = ''

@@ -25,6 +25,7 @@ specify {
   ansible-vault-pass-client = any;
   apex = any;
   attachments.deps = { inherit (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/303bd8071377433a2d8f76e684ec773d70c5b642.tar.gz") { config.allowUnfree = true; overlays = [ ]; }) yarn2nix-moretea; }; # TODO: Migrate
+  audit-nix-roots = any;
   blocky-ui = any;
   buildJosmPlugin = any;
   busyserve = any;

@@ -471,6 +471,16 @@ in
         };
         jj-commit = git-commit;
         shellscript = {
+          "Argument parse (getopts)" = {
+            prefix = "args";
+            body = ''
+              ''${1:verbose}='''
+              while getopts ''\'''${2:v}' opt; do case "\$opt" in
+                '$2') $1='✓';;
+                *) echo "Not implemented for option: \$opt" >&2; exit 1;;
+              esac; done; shift "$(( OPTIND - 1 ))"
+            '';
+          };
           "Case dispatch" = {
             prefix = "case";
             body = ''

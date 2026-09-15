@@ -42,11 +42,10 @@ rec {
     plugins = [
       "github.com/caddy-dns/route53@v1.6.2"
       "github.com/caddyserver/cache-handler@v0.16.0"
+      "github.com/darkweak/storages/badger/caddy@v0.0.19"
     ];
     hash = {
-      "2.11.4@1.26.5" = "sha256-SIZvtm7T4aM5gySIYTaVGnqqtK3/HvElyLjEAvNFTfI=";
-      "2.11.4@1.26.6" = "sha256-afY6udsdjSXgWgOPTkM+HSO8u8rO58psRUlS0WcvuKk=";
-      "2.11.4@1.26.7" = "sha256-VN5JfdW89wD7BqriEl04Uvh2mRNRMKfv8bR2hDJI0R4=";
+      "2.11.4@1.26.7" = "sha256-V67dSVkQc2pe0+dk0t9qjLzax7nQ6AmjnC9yyEfBhsI=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
   };
   cc-icons-unicode = callPackage ./library/cc-icons-unicode.pkg.nix { };

@@ -192,6 +192,7 @@ in
 
       # Nix
       add-words
+      audit-nix-roots
       bubblewrap # Dependency of nixpkgs-review --sandbox
       hydra-check
       nix-output-monitor

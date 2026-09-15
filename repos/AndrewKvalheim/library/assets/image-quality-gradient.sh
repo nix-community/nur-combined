@@ -150,7 +150,7 @@ encode() { local quality="$1" output="$2"
 }
 
 progress_start() {
-  exec 3> >(
+  exec {progress}> >(
     zenity \
       --width '600' \
       --progress \
@@ -163,7 +163,7 @@ progress_start() {
 }
 
 progress_stop() {
-  exec 3>&-
+  exec $progress>&-
 }
 
 progress_update() { local action="$1" jid="$2"
@@ -173,8 +173,8 @@ progress_update() { local action="$1" jid="$2"
     *) echo "Not implemented for: ${action@A}" >&2; exit 1;;
   esac
 
-  echo "# Encoding: ${status[*]}" >&3;
-  echo "$(( completed * 100 / ${#qualities[@]} ))%" >&3;
+  echo "# Encoding: ${status[*]}" >&$progress;
+  echo "$(( completed * 100 / ${#qualities[@]} ))%" >&$progress;
 }
 
 stop_jobs() {
