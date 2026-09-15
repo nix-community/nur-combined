@@ -1,7 +1,10 @@
 {
+  getForgejoFlake,
   system,
   pkgs,
 }:
 {
-  trev-mono = pkgs.callPackage ./trev-mono { inherit system; };
+  trev-mono = pkgs.callPackage ./trev-mono {
+    inherit getForgejoFlake system;
+  };
 }

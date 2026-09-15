@@ -9,19 +9,27 @@ import stat
 import subprocess
 import sys
 import tempfile
+from dataclasses import dataclass
 from pathlib import Path
-from urllib.parse import quote
-
-REGISTRY_URL = "https://trev.zip"
+from urllib.parse import urlsplit
 
 
 class RefreshError(Exception):
     pass
 
 
+@dataclass(frozen=True)
+class ForgejoFlake:
+    content: str
+    archive_url: str
+    hash_start: int
+    hash_end: int
+    current_hash: str
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Refresh the narHash in a Forgejo tarball flake URL."
+        description="Refresh the hash in a getForgejoFlake call."
     )
     parser.add_argument("--file", required=True, type=Path)
     parser.add_argument("--dep-name", required=True)
@@ -58,20 +66,79 @@ def validate_dep_name(dep_name: str) -> None:
         raise RefreshError("dependency name contains an unsafe path component")
 
 
-def find_archive_url(path: Path, dep_name: str) -> str:
+def validate_hash(nar_hash: str) -> None:
+    if not nar_hash.startswith("sha256-"):
+        raise RefreshError("invalid SHA-256 SRI hash")
+
+    try:
+        digest = base64.b64decode(nar_hash.removeprefix("sha256-"), validate=True)
+    except ValueError as error:
+        raise RefreshError("invalid SHA-256 SRI hash") from error
+
+    if len(digest) != 32:
+        raise RefreshError("invalid SHA-256 SRI hash")
+
+
+def validate_url(url: str, dep_name: str) -> None:
+    try:
+        parsed = urlsplit(url)
+        port = parsed.port
+    except ValueError as error:
+        raise RefreshError("invalid Forgejo repository URL") from error
+
+    if (
+        parsed.scheme not in {"http", "https"}
+        or parsed.hostname is None
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.path != f"/{dep_name}"
+        or parsed.query
+        or parsed.fragment
+        or url.endswith("/")
+        or any(character.isspace() for character in url)
+        or (port is not None and not 1 <= port <= 65535)
+    ):
+        raise RefreshError("invalid Forgejo repository URL")
+
+
+def find_flake(path: Path, dep_name: str) -> ForgejoFlake:
     content = path.read_bytes().decode("utf-8")
     pattern = re.compile(
-        rf"(?P<archive>{re.escape(REGISTRY_URL)}/{re.escape(dep_name)}/archive/"
-        rf"[a-f0-9]{{40}}\.tar\.gz)\?narHash=[^\"&\s]+(?=\")"
+        r"getForgejoFlake\s*\{\s*"
+        r'url\s*=\s*"(?P<url>[^\"]+)"\s*;\s*'
+        r'rev\s*=\s*"(?P<rev>[^\"]+)"\s*;'
+        r"[ \t]*(?:#[^\r\n]*)?\s*"
+        r'hash\s*=\s*"(?P<hash>[^\"]+)"\s*;\s*'
+        r"\}"
     )
-    matches = list(pattern.finditer(content))
+    matches = [
+        match
+        for match in pattern.finditer(content)
+        if urlsplit(match.group("url")).path == f"/{dep_name}"
+    ]
 
     if len(matches) != 1:
         raise RefreshError(
-            f"expected exactly one matching Forgejo flake URL, found {len(matches)}"
+            f"expected exactly one matching getForgejoFlake call, found {len(matches)}"
         )
 
-    return matches[0].group("archive")
+    match = matches[0]
+    url = match.group("url")
+    rev = match.group("rev")
+    current_hash = match.group("hash")
+
+    validate_url(url, dep_name)
+    if re.fullmatch(r"[a-f0-9]{40}", rev) is None:
+        raise RefreshError("revision must be 40 lowercase hexadecimal characters")
+    validate_hash(current_hash)
+
+    return ForgejoFlake(
+        content=content,
+        archive_url=f"{url}/archive/{rev}.tar.gz",
+        hash_start=match.start("hash"),
+        hash_end=match.end("hash"),
+        current_hash=current_hash,
+    )
 
 
 def prefetch_hash(archive_url: str) -> str:
@@ -91,46 +158,21 @@ def prefetch_hash(archive_url: str) -> str:
     except json.JSONDecodeError as error:
         raise RefreshError("nix flake prefetch returned invalid JSON") from error
 
-    if not isinstance(metadata, dict):
+    if not isinstance(metadata, dict) or not isinstance(metadata.get("hash"), str):
         raise RefreshError("nix flake prefetch returned invalid JSON")
 
-    nar_hash = metadata.get("hash")
-    if not isinstance(nar_hash, str) or not nar_hash.startswith("sha256-"):
-        raise RefreshError("nix flake prefetch returned an invalid SHA-256 SRI hash")
-
-    try:
-        digest = base64.b64decode(nar_hash.removeprefix("sha256-"), validate=True)
-    except ValueError as error:
-        raise RefreshError(
-            "nix flake prefetch returned an invalid SHA-256 SRI hash"
-        ) from error
-
-    if len(digest) != 32:
-        raise RefreshError("nix flake prefetch returned an invalid SHA-256 SRI hash")
-
+    nar_hash = metadata["hash"]
+    validate_hash(nar_hash)
     return nar_hash
 
 
-def replace_hash(path: Path, archive_url: str, nar_hash: str) -> bool:
-    content = path.read_bytes().decode("utf-8")
-    pattern = re.compile(
-        rf"(?P<prefix>{re.escape(archive_url)}\?narHash=)(?P<hash>[^\"&\s]+)(?=\")"
-    )
-    matches = list(pattern.finditer(content))
-
-    if len(matches) != 1:
-        raise RefreshError(
-            f"expected exactly one matching Forgejo flake URL, found {len(matches)}"
-        )
-
-    encoded_hash = quote(nar_hash, safe="-._~")
-    current_hash = matches[0].group("hash")
-    if current_hash == encoded_hash:
+def replace_hash(path: Path, flake: ForgejoFlake, nar_hash: str) -> bool:
+    if flake.current_hash == nar_hash:
         return False
 
-    updated = pattern.sub(rf"\g<prefix>{encoded_hash}", content, count=1).encode(
-        "utf-8"
-    )
+    updated = (
+        flake.content[: flake.hash_start] + nar_hash + flake.content[flake.hash_end :]
+    ).encode("utf-8")
     mode = stat.S_IMODE(path.stat().st_mode)
     descriptor, temporary_name = tempfile.mkstemp(
         dir=path.parent, prefix=f".{path.name}.", suffix=".tmp"
@@ -153,9 +195,9 @@ def refresh(file: Path, dep_name: str, root: Path | None = None) -> bool:
     root = (root or Path.cwd()).resolve()
     path = validate_file(root, file)
     validate_dep_name(dep_name)
-    archive_url = find_archive_url(path, dep_name)
-    nar_hash = prefetch_hash(archive_url)
-    return replace_hash(path, archive_url, nar_hash)
+    flake = find_flake(path, dep_name)
+    nar_hash = prefetch_hash(flake.archive_url)
+    return replace_hash(path, flake, nar_hash)
 
 
 def main() -> int:
@@ -167,7 +209,7 @@ def main() -> int:
         print(f"error: {error}", file=sys.stderr)
         return 1
 
-    print("updated narHash" if changed else "narHash is already current")
+    print("updated hash" if changed else "hash is already current")
     return 0
 
 

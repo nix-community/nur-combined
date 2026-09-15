@@ -50,7 +50,7 @@
       "description": "Forgejo flakes",
       "managerFilePatterns": ["/^packages/.*.nix$/"],
       "matchStrings": [
-        "builtins\\.getFlake\\s+\"(?<registryUrl>https?://[^/]+)/(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz\\?narHash=[^\"&\\s]+\"\\s+#\\s+(?<currentValue>\\S+)"
+        "getForgejoFlake\\s*\\{\\s*url\\s*=\\s*\"(?<registryUrl>https?://[^/\"\\s]+)/(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)\"\\s*;\\s*rev\\s*=\\s*\"(?<currentDigest>[a-f0-9]{40})\"\\s*;\\s*#\\s*(?<currentValue>\\S+)\\s*hash\\s*=\\s*\"sha256-[A-Za-z0-9+/]{43}=\"\\s*;\\s*\\}"
       ],
       "depTypeTemplate": "flake",
       "datasourceTemplate": "forgejo-tags"

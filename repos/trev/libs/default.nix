@@ -9,6 +9,7 @@
   gleamErlangHook = pkgs.callPackage ./gleamErlangHook { };
   gleamFetchDeps = pkgs.callPackage ./gleamFetchDeps { };
   gleamJavascriptHook = pkgs.callPackage ./gleamJavascriptHook { };
+  getForgejoFlake = pkgs.callPackage ./getForgejoFlake { };
   mkAppImage = pkgs.callPackage ./mkAppImage { };
   mkApps = pkgs.callPackage ./mkApps { };
   mkChecks = pkgs.callPackage ./mkChecks { };
