@@ -41,6 +41,7 @@ let
     }
   );
   packages = fixture.packages.x86_64-linux;
+  nativeDarwinPackages = fixture.packages.aarch64-darwin;
   target = "arm64-apple-darwin";
 
   checkMachO =
@@ -65,6 +66,12 @@ in
   mkFlake-darwin-structure =
     assert builtins.hasAttr target packages.hello;
     pkgs.runCommand "mkFlake-darwin-structure" { } ''
+      touch $out
+    '';
+
+  mkFlake-darwin-native-structure =
+    assert !(builtins.hasAttr target nativeDarwinPackages.hello);
+    pkgs.runCommand "mkFlake-darwin-native-structure" { } ''
       touch $out
     '';
 

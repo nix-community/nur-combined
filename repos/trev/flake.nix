@@ -249,8 +249,15 @@
           name: value: pkgs.lib.nameValuePair ("package_" + name) value
         ) self.packages."${system}"
         //
-          pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("image_" + name) value)
-            self.images."${system}"
+          pkgs.lib.optionalAttrs
+            (builtins.elem system [
+              "x86_64-linux"
+              "aarch64-linux"
+            ])
+            (
+              pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("image_" + name) value)
+                self.images."${system}"
+            )
       );
 
       formatter = forEachSystem (

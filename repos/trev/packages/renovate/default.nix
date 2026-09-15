@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     pnpmConfigHook
     python3
   ]
-  ++ lib.optional stdenv.hostPlatform.isDarwin [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
     xcbuild
     cctools.libtool
   ];

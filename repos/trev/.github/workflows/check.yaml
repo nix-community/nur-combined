@@ -30,6 +30,8 @@ jobs:
         uses: spotdemo4/nix-init@c7537bc73ce11ca01e53bd9d119d6e46363f9888 # v1.65.0
 
       - name: Check flake
+        env:
+          NIX_ABORT_ON_WARN: 1
         run: nix flake check --max-jobs 1
 
       - name: Check evaluation
@@ -43,6 +45,7 @@ jobs:
 
   build:
     needs: check
+    if: github.event_name == 'push'
     strategy:
       matrix:
         nix:

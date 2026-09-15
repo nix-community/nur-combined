@@ -192,6 +192,12 @@ eachSystemOp (
     }
     // (f system packages);
 
+    crossPlatforms =
+      if system == "aarch64-darwin" then
+        lib.filter (platform: platform.system != system) platforms
+      else
+        platforms;
+
     crosses = map (
       platform:
       let
@@ -201,7 +207,7 @@ eachSystemOp (
         inherit packages platform;
         flake = f system packages;
       }
-    ) platforms;
+    ) crossPlatforms;
   in
 
   builtins.foldl' (
