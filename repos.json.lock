@@ -964,11 +964,6 @@
             "sha256": "1h44kpx9y62h7bdxr7ad7ra4pg9rl2wrcdm15rjx4s3mqymh805s",
             "url": "https://github.com/fooker/nur-packages"
         },
-        "foolnotion": {
-            "rev": "26a925fbf520ddd3acb6251eb761e302dc20bf15",
-            "sha256": "1ik93835jxsd46yjs06b421jji3dka5k917y5q42icx72pgqpvq3",
-            "url": "https://github.com/foolnotion/nur-pkg"
-        },
         "foresense": {
             "rev": "af832ac9bbe2213339c3c6d8e6d8f4adf4ae2d4a",
             "sha256": "15ajrzp1bfjhr2iha8jy2izbmpb174y4fk1jw0x8znbpasfwjjcr",
@@ -1754,8 +1749,8 @@
             "url": "https://github.com/mrene/nur-packages"
         },
         "mrtnvgr": {
-            "rev": "9fdd51d8e7a104127bf4c6e008980ad7ff97386b",
-            "sha256": "0kfm82ipnfa3fc6al7qcj6ra017ncydmw788lmwwrjlss1nxz7rk",
+            "rev": "f1cdf7e78addba67db1188f8a0971fb86f997a0f",
+            "sha256": "15j60asf6waw6jnb2f3da0h6d83wpxjy2cm2ikiirjqb97r5crp8",
             "url": "https://github.com/mrtnvgr/nurpkgs"
         },
         "msaxena": {
