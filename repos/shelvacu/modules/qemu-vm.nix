@@ -444,7 +444,6 @@ let
         Address = "${netCfg.gateway}/32";
         LinkLocalAddressing = "no";
         IPv4ReversePathFilter = "strict";
-        IPv4ProxyARP = true;
       };
       routes = [
         {

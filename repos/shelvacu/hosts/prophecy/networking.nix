@@ -38,8 +38,6 @@ in
     networking.useNetworkd = true;
     systemd.network.enable = true;
 
-    boot.kernel.sysctl."net.ipv4.conf.br-main.proxy_arp" = 1;
-
     systemd.network.networks."00-lan" = {
       bridge = [ bridge ];
       name = lan_port;
@@ -71,6 +69,7 @@ in
         }
       ]) cfg.ips.t2dSubnets);
       dns = [ cfg.ips.t2dRouter ];
+      networkConfig.IPv4ProxyARP = true;
     };
 
     systemd.network.networks."10-containers" = {
