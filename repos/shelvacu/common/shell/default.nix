@@ -43,7 +43,7 @@ in
       vacu.shell.functionsDir = "/run/current-system/sw/share/vacufuncs";
       environment.pathsToLink = [ "/share/vacufuncs" ];
       programs.bash = {
-        interactiveShellInit = config.vacu.shell.interactiveLines;
+        interactiveShellInit = lib.mkAfter config.vacu.shell.interactiveLines;
         promptInit = lib.mkForce "";
       };
       environment.shellAliases = {
