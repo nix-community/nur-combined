@@ -21,4 +21,5 @@
   t3code = pkgs.callPackage ./pkgs/t3code { };
   hunk = pkgs.callPackage ./pkgs/hunk { };
   plannotator = pkgs.callPackage ./pkgs/plannotator { };
+  varlock = pkgs.callPackage ./pkgs/varlock { };
 }
