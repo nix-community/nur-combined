@@ -24,16 +24,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "b245152642886d3af7c5428fec46def848e65a47";
+    version = "a745343776a4a18b30e4cc0ba55ad484ed1c62f5";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "b245152642886d3af7c5428fec46def848e65a47";
+      rev = "a745343776a4a18b30e4cc0ba55ad484ed1c62f5";
       fetchSubmodules = false;
-      sha256 = "sha256-eROYVPP51oVAveDpyTLR7btwSYot4noJiWBZ1KW+GnQ=";
+      sha256 = "sha256-dYGtZncJqnjEBqEeALqryG3iI72n6DmREobFhFHCpcE=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-eROYVPP51oVAveDpyTLR7btwSYot4noJiWBZ1KW+GnQ=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-dYGtZncJqnjEBqEeALqryG3iI72n6DmREobFhFHCpcE=/src-tauri/Cargo.lock";
       outputHashes = {
         "rsrpc-0.28.0" = "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=";
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
@@ -257,21 +257,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "0666c4b50a49f23a979ee82f2b26c8e88ee1914a";
+    version = "776743a8c09313bad21ff9301daab65c0be12fd3";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "0666c4b50a49f23a979ee82f2b26c8e88ee1914a";
+      rev = "776743a8c09313bad21ff9301daab65c0be12fd3";
       fetchSubmodules = false;
-      sha256 = "sha256-DsJiGY+bqTUoimXcmRlN7tdgOHDNmqGEjQOM6ClFb9A=";
+      sha256 = "sha256-F48mFUOHD2r0w+U+hC0wgx3/ivtt82F4EZ+D7f+ywhI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-DsJiGY+bqTUoimXcmRlN7tdgOHDNmqGEjQOM6ClFb9A=/Cargo.lock";
+      lockFile = ./. + "/sha256-F48mFUOHD2r0w+U+hC0wgx3_ivtt82F4EZ+D7f+ywhI=/Cargo.lock";
       outputHashes = {
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-14";
+    date = "2026-09-15";
   };
   piliplus = {
     pname = "piliplus";
@@ -343,21 +343,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "e2f0ce2261299e599a544f4f332336b258980346";
+    version = "97cfc88243d7469b57cbd6c3571edd4bd8580ea1";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "e2f0ce2261299e599a544f4f332336b258980346";
+      rev = "97cfc88243d7469b57cbd6c3571edd4bd8580ea1";
       fetchSubmodules = false;
-      sha256 = "sha256-6iatOqKSiVW9inPyY99Uen55gZmaa9NCbXW8n0FBfzE=";
+      sha256 = "sha256-ib5K8LikQSCyIN0X56lnUAXAVCP0rGzyKqX4hIagb6c=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-6iatOqKSiVW9inPyY99Uen55gZmaa9NCbXW8n0FBfzE=/Cargo.lock";
+      lockFile = ./. + "/sha256-ib5K8LikQSCyIN0X56lnUAXAVCP0rGzyKqX4hIagb6c=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-09-14";
+    date = "2026-09-15";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
