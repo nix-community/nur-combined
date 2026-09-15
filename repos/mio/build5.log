@@ -1,0 +1,13 @@
+warning: Git tree '/home/dev/Documents/nurpkgs6' is dirty
+these 10 derivations will be built:
+  /nix/store/d9glik7ird2pf8275lqrmrjmd71xk4my-source.drv
+  /nix/store/35lxa3msh0qfmmd4jaq15m55fdfbydyp-source.drv
+  /nix/store/1nmv4gsma4cfgzwbpcbp9zsqj9qids8d-jetbrains-libdbm-2026.2.2.drv
+  /nix/store/gwajs8n9mg0c6im48magjq5srnfzvgvd-restarter-262.10315.125-vendor-staging.drv
+  /nix/store/rgrq5w2gg60bs86jp2vfs14z2kbninlr-restarter-262.10315.125-vendor.drv
+  /nix/store/ihzsy491apnn752fzr67ygy9ffndzj8m-restarter-262.10315.125.drv
+  /nix/store/zy1anjab1zmfpdn95k7sqdyfrh6hai7l-jps-bootstrap-repository.drv
+  /nix/store/svigwkbdlpkqpdyqnrlk5lbcghifpx2z-jps-bootstrap-262.10315.125.drv
+  /nix/store/y8axq2g3y3ini29200g3z20nj38xzsrs-idea-oss-2026.2.2.tar.gz.drv
+  /nix/store/01br370n8mqzqa6gfg018mpcmc5yf297-idea-oss-2026.2.2.drv
+building '/nix/store/35lxa3msh0qfmmd4jaq15m55fdfbydyp-source.drv'...

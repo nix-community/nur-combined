@@ -1,0 +1,47 @@
+warning: Git tree '/home/dev/Documents/nurpkgs6' is dirty
+these 5 derivations will be built:
+  /nix/store/viabla1rkx26fdhzjs4j3p2j9whg1rp8-restarter-262.10315.125-vendor.drv
+  /nix/store/2jcwbh4c2jwbiqbjh1yryn9ahmmwwyaj-restarter-262.10315.125.drv
+  /nix/store/zqqwlpgdgbav4dbic29wf1jj0alpj6hr-jps-bootstrap-262.10315.125.drv
+  /nix/store/0sclyp9i0b0qsh469b4l7i11cyazwacm-idea-oss-2026.2.2.tar.gz.drv
+  /nix/store/gvc9h0apsz61cysfsvcg9f2ajpgcm4rk-idea-oss-2026.2.2.drv
+building '/nix/store/zqqwlpgdgbav4dbic29wf1jj0alpj6hr-jps-bootstrap-262.10315.125.drv'...
+building '/nix/store/viabla1rkx26fdhzjs4j3p2j9whg1rp8-restarter-262.10315.125-vendor.drv'...
+building '/nix/store/2jcwbh4c2jwbiqbjh1yryn9ahmmwwyaj-restarter-262.10315.125.drv'...
+building '/nix/store/0sclyp9i0b0qsh469b4l7i11cyazwacm-idea-oss-2026.2.2.tar.gz.drv'...
+error: Cannot build '/nix/store/0sclyp9i0b0qsh469b4l7i11cyazwacm-idea-oss-2026.2.2.tar.gz.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/rmnflp4k3px2mrhryr3n95hak5n93bvg-idea-oss-2026.2.2.tar.gz
+       Last 25 log lines:
+       >     intellij.color.scheme.blackboard (time=14:47:39.8094)
+       >     intellij.color.scheme.blackboard (time=14:47:39.8094)
+       >     intellij.color.scheme.cobalt (time=14:47:39.8094)
+       >     intellij.color.scheme.cobalt (time=14:47:39.8094)
+       >     intellij.color.scheme.github (time=14:47:39.8094)
+       >     intellij.color.scheme.github (time=14:47:39.8094)
+       >     intellij.color.scheme.monokai (time=14:47:39.8095)
+       >     intellij.color.scheme.monokai (time=14:47:39.8095)
+       >     intellij.color.scheme.rails_casts (time=14:47:39.8095)
+       >     intellij.color.scheme.rails_casts (time=14:47:39.8096)
+       >     intellij.color.scheme.twilight (time=14:47:39.8096)
+       >     intellij.color.scheme.twilight (time=14:47:39.8096)
+       >     intellij.color.scheme.vibrant_ink (time=14:47:39.8096)
+       >     intellij.color.scheme.vibrant_ink (time=14:47:39.8099)
+       >     intellij.color.scheme.warmNeon (time=14:47:39.8099)
+       >     intellij.color.scheme.warmNeon (time=14:47:39.8099)
+       >     intellij.compose.ide.plugin (time=14:47:39.81)
+       >     intellij.compose.ide.plugin (time=14:47:39.81)
+       >     intellij.debugger.streams.plugin (time=14:47:39.8102)
+       >     intellij.debugger.streams.plugin (time=14:47:39.8102)
+       >     intellij.dev (time=14:47:39.8103)
+       >     intellij.dev (time=14:47:39.8103)
+       >     intellij.dev.noJava.plugin.main (time=14:47:39.8103)
+       > resolve project dependencies (duration=11 m 1 s 192 ms, end=14:47:40.5676)
+       > resolve dependencies and compile modules (duration=11 m 1 s 198 ms, end=14:47:40.5685)
+       For full logs, run:
+         nix log /nix/store/0sclyp9i0b0qsh469b4l7i11cyazwacm-idea-oss-2026.2.2.tar.gz.drv
+error: Cannot build '/nix/store/gvc9h0apsz61cysfsvcg9f2ajpgcm4rk-idea-oss-2026.2.2.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/nnmv94mi4b14n0705xhb92jgsj5skgc9-idea-oss-2026.2.2

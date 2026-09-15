@@ -1,0 +1,49 @@
+warning: Git tree '/home/dev/Documents/nurpkgs6' is dirty
+these 11 derivations will be built:
+  /nix/store/byzxaw1pnq16sgxprra49hns2khg3sf0-source.drv
+  /nix/store/2hxawxn6pzqcykmdxc747gcsbsvvx02j-jetbrains-libdbm-2025.3.4.drv
+  /nix/store/j924fwl24jaczgba3w0s9waf7avh49q2-source.drv
+  /nix/store/5ypxb10jj3c9n9xyxl30mjg9drx126s6-restarter-262.10315.125-vendor-staging.drv
+  /nix/store/r4f86z3sdb9r5w1qyh9zg37kriz92y6b-jps-bootstrap-repository.drv
+  /nix/store/8p9wwvwcqh49y5wci43hvz9pynfhl70j-jps-bootstrap-262.10315.125.drv
+  /nix/store/9d5f3xv7qg1y8skyqn9arpp6c98cpzhw-jetbrains-libdbm-2026.2.2.drv
+  /nix/store/fy45ybympsv97amr20hn2f5wdip5vbls-restarter-262.10315.125-vendor.drv
+  /nix/store/hj89a3yhfzfnc8zzyg6p0zpdajvcpv5d-restarter-262.10315.125.drv
+  /nix/store/8y9xs2k6s9pvsxq80zaiwggspchgi9js-idea-oss-2026.2.2.tar.gz.drv
+  /nix/store/p6s9kqcqp9wpxd5xqrffxlgq0p3gk71c-idea-oss-2026.2.2.drv
+building '/nix/store/j924fwl24jaczgba3w0s9waf7avh49q2-source.drv'...
+building '/nix/store/9d5f3xv7qg1y8skyqn9arpp6c98cpzhw-jetbrains-libdbm-2026.2.2.drv'...
+building '/nix/store/r4f86z3sdb9r5w1qyh9zg37kriz92y6b-jps-bootstrap-repository.drv'...
+building '/nix/store/5ypxb10jj3c9n9xyxl30mjg9drx126s6-restarter-262.10315.125-vendor-staging.drv'...
+error: Cannot build '/nix/store/r4f86z3sdb9r5w1qyh9zg37kriz92y6b-jps-bootstrap-repository.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/09lfaljlwifm5pp3p4a2ig292anj53cr-jps-bootstrap-repository
+       Last 2 log lines:
+       > Buildfile: /nix/store/ayr2nxjb617zkjww7gb38r2lifiqhq07-source/platform/jps-bootstrap/jps-bootstrap-classpath.xml does not exist!
+       > Build failed
+       For full logs, run:
+         nix log /nix/store/r4f86z3sdb9r5w1qyh9zg37kriz92y6b-jps-bootstrap-repository.drv
+error: Cannot build '/nix/store/8p9wwvwcqh49y5wci43hvz9pynfhl70j-jps-bootstrap-262.10315.125.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/as7f8djscbzb1fydci1adyss568hcc50-jps-bootstrap-262.10315.125
+error: Cannot build '/nix/store/5ypxb10jj3c9n9xyxl30mjg9drx126s6-restarter-262.10315.125-vendor-staging.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/lc6hfdz2hjhbz16092mzgg383l3iziax-restarter-262.10315.125-vendor-staging
+       Last 4 log lines:
+       > Running phase: unpackPhase
+       > unpacking source archive /nix/store/ayr2nxjb617zkjww7gb38r2lifiqhq07-source
+       > source root is source/native/restarter
+       > chmod: cannot access 'source/native/restarter': No such file or directory
+       For full logs, run:
+         nix log /nix/store/5ypxb10jj3c9n9xyxl30mjg9drx126s6-restarter-262.10315.125-vendor-staging.drv
+error: Cannot build '/nix/store/fy45ybympsv97amr20hn2f5wdip5vbls-restarter-262.10315.125-vendor.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/6ndmcns2v82prsf4adsc9vmq6z0mbgxv-restarter-262.10315.125-vendor
+error: Cannot build '/nix/store/hj89a3yhfzfnc8zzyg6p0zpdajvcpv5d-restarter-262.10315.125.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/dfskzpbiy53908k5agl68gixdljmv9wh-restarter-262.10315.125

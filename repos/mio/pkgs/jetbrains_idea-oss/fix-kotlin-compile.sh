@@ -6,15 +6,12 @@ set -euo pipefail
 : "${KOTLIN_IDE_NEW:?KOTLIN_IDE_NEW is required}"
 : "${COMPOSE_COMPILER_PLUGIN:?COMPOSE_COMPILER_PLUGIN is required}"
 
-# Nixpkgs Kotlin 2.2.20 does not support JVM 25.
-find . -type f -name '*.iml' -exec sed -i \
+# The compose-compiler-plugin-for-ide triggers IrGenerationExtensionException on JVM 25 target
+# in-process mode. Downgrade Jewel modules to JVM 24 to work around this.
+find platform/jewel -type f -name '*.iml' -exec sed -i \
   -e 's/arg="25"/arg="24"/g' \
   -e 's/JVM 25/JVM 24/g' \
-  -e 's/JVM \[25\]/JVM \[24\]/g' \
-  {} +
-find . -type f -name '*.xml' -exec sed -i \
-  -e 's/jvmTarget="25"/jvmTarget="24"/g' \
-  -e 's/value="25"/value="24"/g' \
+  -e 's/JVM \[25\]/JVM [24]/g' \
   {} +
 
 # Kotlin 2.2.20 compiler crash on 0.toUShort().
@@ -85,20 +82,6 @@ substituteInPlace platform/util/base/src/com/intellij/diagnostic/coroutineDumper
 # KotlinBinaries.loadKotlinJpsPluginToClassPath checks this against the jar version.
 substituteInPlace .idea/kotlinc.xml \
   --replace-fail 'value="2.4.0"' "value=\"${KOTLIN_IDE_NEW}\""
-
-# Library XML still has sha256 of the 2.3.20 artefacts after the version bump.
-substituteInPlace .idea/libraries/kotlinc_kotlin_jps_plugin_classpath.xml \
-  --replace-fail \
-  '0d6103ec6a0eb9c36e856c04d3478099ab86437dd5f19a22a69d9e80b4cff2cb' \
-  'a39474812cda48e90ae28981c4d7fd02c9c3e9b3ac0124b8d7a7dbaaa3803e61'
-substituteInPlace .idea/libraries/kotlinc_kotlin_jps_plugin_tests.xml \
-  --replace-fail \
-  'fb351eeb8e11fae3096c43241611f686e8d1940d0f3b6ba6befe71ef908426ce' \
-  '12192a1db3fc2f452b7aaa458fe8e7f92121d78fe19ba3741d557276a46206b6'
-substituteInPlace .idea/libraries/kotlinc_kotlin_dist.xml \
-  --replace-fail \
-  '74eabb16163c4575b5dc4b2038268026f389849200f466870714342ccc3792d3' \
-  '8334ecdb6a6cd849bd4a9d25f3910c8ee16b2f3e40bb15c2c5707925031c44e2'
 
 # Bypass expects compiler plugin: bind common expect functions to JVM actuals.
 sed -i 's/.*fun <K, V> MultiplatformConcurrentHashMap().*/fun <K, V> MultiplatformConcurrentHashMap(): MultiplatformConcurrentHashMap<K, V> = MultiplatformConcurrentHashMapJvm()/' \
