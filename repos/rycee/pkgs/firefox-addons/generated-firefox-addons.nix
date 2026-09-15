@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildMozillaXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.8.4";
+      version = "1.9.0";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4964586/2fas_two_factor_authentication-1.8.4.xpi";
-      sha256 = "a7f444066874ce44ca61dc2cfa2aece8aedc8b2d31ce457e45d27849b77156cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5029061/2fas_two_factor_authentication-1.9.0.xpi";
+      sha256 = "cc2469da18fb9f3dd6c99de019c8c476b3c19f87bbdf7267f2401034130ab930";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -97,10 +97,10 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "4.1.0";
+      version = "4.2.0";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4933754/adaptive_tab_bar_colour-4.1.0.xpi";
-      sha256 = "800fe1b4296a5b29b7224e587795bce150e5b79745c159fe9c98ff71d8883c9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5029534/adaptive_tab_bar_colour-4.2.0.xpi";
+      sha256 = "4c83fa7322261e59a5f97bb51a10cd6ba6958e840ff75eec8cd27f153be1e0c6";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -1706,10 +1706,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "7.5.1";
+      version = "8.0.1";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4980099/cardpointers_x-7.5.1.xpi";
-      sha256 = "14d763ba01baccdd6297b8ed8772c271eeffee3f953a7ff6b7a504c7951bc949";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5029608/cardpointers_x-8.0.1.xpi";
+      sha256 = "9f15601e2f1d9994d271b6814b4920d23b69ea69b6747e6025b4b5983b7b4c4f";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -2947,10 +2947,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "157.0.20260910.113359";
+      version = "157.0.20260914.90352";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5020356/dansk_da_language_pack-157.0.20260910.113359.xpi";
-      sha256 = "a3cf45ae9e6b52823877ed3738a5340bbf7e4def4cb99ca061fc718c19aa676d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028781/dansk_da_language_pack-157.0.20260914.90352.xpi";
+      sha256 = "11643cb66d0e47f0f5b2c69a66fdfb7514d0217f8bff621cf5ddcb2b8a18598c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3043,10 +3043,10 @@
     };
     "darkreader" = buildMozillaXpiAddon {
       pname = "darkreader";
-      version = "4.9.130";
+      version = "4.9.131";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4998573/darkreader-4.9.130.xpi";
-      sha256 = "075d5457316af21d62a39a290b31fbf71f514dfc8c3f6a87376fd50f54ef4c9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5029993/darkreader-4.9.131.xpi";
+      sha256 = "8be2371a105c298d159180c623c1fc133ed10aef56ae2bf2c98e899bd0e39d20";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -3165,10 +3165,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "157.0.20260910.113359";
+      version = "157.0.20260914.90352";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5020357/deutsch_de_language_pack-157.0.20260910.113359.xpi";
-      sha256 = "254dab4937edd21ad2d62cea47bf9d523821f1ea91529c1d46fd41230e5ce4a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028782/deutsch_de_language_pack-157.0.20260914.90352.xpi";
+      sha256 = "ac0ea050416fa6fedeb30d481b9709a953cf9ab2aabcb1d136a2b825e2ab24de";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4495,10 +4495,10 @@
     };
     "foxyproxy-standard" = buildMozillaXpiAddon {
       pname = "foxyproxy-standard";
-      version = "9.7";
+      version = "9.8";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4955558/foxyproxy_standard-9.7.xpi";
-      sha256 = "3ab91ca2a6cac925bc7097c46948573fefe4e3fddcbc27dda755401419c4e5d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5029813/foxyproxy_standard-9.8.xpi";
+      sha256 = "37350f3f57ea0f88ed12513fa233c4486c006ff352129d444a12da4e22280403";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org/";
@@ -4667,10 +4667,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "157.0.20260910.113359";
+      version = "157.0.20260914.90352";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5020189/francais_language_pack-157.0.20260910.113359.xpi";
-      sha256 = "ebda7ec8c95882b051736f8c89f6ea265ca971ba1a171d722de388acae5dd5fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028748/francais_language_pack-157.0.20260914.90352.xpi";
+      sha256 = "812813c2fed491e66c6100003a53dc802f567da214626366288e79e6927d7cc7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4704,10 +4704,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "157.0.20260910.113359";
+      version = "157.0.20260914.90352";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5020176/gaidhlig_language_pack-157.0.20260910.113359.xpi";
-      sha256 = "1b9211a0a32b24c83ed3fd488f0ea99bbe1a4b7b5f68f920175ca6d476f3b7ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028760/gaidhlig_language_pack-157.0.20260914.90352.xpi";
+      sha256 = "81a63887afb7aa1fbe2f9d32f3d3fcaf20156b3e888914d49b7d5f40e0a542d5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4748,10 +4748,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.1.6";
+      version = "2.2.0";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5011307/geo_spoof-2.1.6.xpi";
-      sha256 = "6d778c22652c08cd994eb0918e8857fa385b4f3975f890b0f288f25a6f7c3652";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5029975/geo_spoof-2.2.0.xpi";
+      sha256 = "75b7b7e5bbc8d41160e83b366d37f9e9e87cf2bf94ae74fc04da45cbed881cae";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -10393,10 +10393,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.32";
+      version = "13.6.33";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4968026/noscript-13.6.32.xpi";
-      sha256 = "8bee81bff1974d8b867e973d130dc3a48b1e1df646364adbddebc1df1530b3e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028324/noscript-13.6.33.xpi";
+      sha256 = "23181d2c5062e07ae887e914d7e06951d51cc1e3b6473db84c22e8a0ca6fddfc";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -13162,10 +13162,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "157.0.20260910.113359";
+      version = "157.0.20260914.90352";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5020171/scots_language_pack-157.0.20260910.113359.xpi";
-      sha256 = "f65d69b7fa52cc283ecc7fc4a52c174e159f2cb2d23ac375926c6e9795fd7dd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028820/scots_language_pack-157.0.20260914.90352.xpi";
+      sha256 = "9e0de0bf7b71e73d86345ca9d9b788430f5ee8b013f311b1931863598a3ccad2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13679,10 +13679,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.24.3";
+      version = "1.25.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018731/single_file-1.24.3.xpi";
-      sha256 = "90139dd057f75379d87fa48e53bb8f1bc5fd708d00d2926b70de57769619c947";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5030455/single_file-1.25.0.xpi";
+      sha256 = "bdc8a6a7000f6f76e5d4097e05b65c07b130eaf50989c304a081454c4f493330";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14144,10 +14144,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.11";
+      version = "2.4.13";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4970801/styl_us-2.4.11.xpi";
-      sha256 = "a1fb8025132ad77f3f81dcdf6ac6a31798048a95ea65b975d12b335116df0224";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028285/styl_us-2.4.13.xpi";
+      sha256 = "2d969b7514acbfa7b77b4e4c6341b9e1e8bcd4c3b9bc63d8b06e5d853dd1cbdd";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -14392,10 +14392,10 @@
     };
     "tab-stash" = buildMozillaXpiAddon {
       pname = "tab-stash";
-      version = "3.4";
+      version = "3.5";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4640621/tab_stash-3.4_H1fOxyH.xpi";
-      sha256 = "fd484d47f7195ae8ae99a9790524d88be568ac4bc0f39e0b5e9382d3783791c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5028003/tab_stash-3.5.xpi";
+      sha256 = "27471446d599cdc626f91fedf6b572fb4b1c4964e9b2c2b47169d7537c3c9524";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
@@ -14405,6 +14405,7 @@
           "sessions"
           "tabs"
           "tabHide"
+          "tabGroups"
           "bookmarks"
           "contextMenus"
           "browserSettings"
