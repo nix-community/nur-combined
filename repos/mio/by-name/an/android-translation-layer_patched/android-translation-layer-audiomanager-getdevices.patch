@@ -1,13 +1,9 @@
 From: Developer
 Date: Wed, 12 Aug 2026
-Subject: [PATCH] stub AudioManager.getDevices() for ExoPlayer / NewPipe
+Subject: [PATCH] stub AudioDeviceInfo for ExoPlayer / NewPipe
 
-NewPipe's ExoPlayer calls AudioManager.getDevices(GET_DEVICES_OUTPUTS)
-(API 23) while probing Bluetooth audio. ATL had no such method, so
-initPlayback failed with NoSuchMethodError.
-
---- a/src/api-impl/android/media/AudioDeviceInfo.java	2026-09-13 17:56:26.889103052 +1000
-+++ b/src/api-impl/android/media/AudioDeviceInfo.java	2026-09-13 17:56:26.893103062 +1000
+--- a/src/api-impl/android/media/AudioDeviceInfo.java
++++ b/src/api-impl/android/media/AudioDeviceInfo.java
 @@ -1,4 +1,25 @@
  package android.media;
  
@@ -34,14 +30,3 @@ initPlayback failed with NoSuchMethodError.
 +		return type;
 +	}
  }
---- a/src/api-impl/android/media/AudioManager.java	2026-09-13 17:56:26.901103083 +1000
-+++ b/src/api-impl/android/media/AudioManager.java	2026-09-13 17:56:26.905103094 +1000
-@@ -7,5 +7,8 @@
- 	public static final String PROPERTY_OUTPUT_SAMPLE_RATE = "android.media.property.OUTPUT_SAMPLE_RATE";
- 
- 	public static final int STREAM_MUSIC = 0x3;
-+	public static final int GET_DEVICES_INPUTS = 0x1;
-+	public static final int GET_DEVICES_OUTPUTS = 0x2;
-+	public static final int GET_DEVICES_ALL = GET_DEVICES_INPUTS | GET_DEVICES_OUTPUTS;
- 
- 	private native void nativeSetStreamVolume(int volume);

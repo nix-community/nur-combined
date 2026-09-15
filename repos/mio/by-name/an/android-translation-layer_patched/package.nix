@@ -65,7 +65,6 @@
       ./android-translation-layer-drawlines-bounds.patch
       ./android-translation-layer-concat-2d.patch
       ./android-translation-layer-audiomanager-getdevices.patch
-      ./android-translation-layer-audiodevicecallback.patch
       ./android-translation-layer-networkcapabilities.patch
       ./android-translation-layer-path-op.patch
       ./android-translation-layer-bitmap-pixels-fix.patch
