@@ -382,22 +382,36 @@ checks = pkgs.lib.mkChecks {
 
 ### mkApps
 
-Utility function to simplify creating flake [apps](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-run.html)
+Utility function to simplify creating flake [apps](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-run.html).
+Strings are shorthand for an app script. Structured entries accept `script`, optional `packages`, and optional
+`inputsFrom`. Like `pkgs.mkShell`, `inputsFrom` collects and flattens each derivation's `buildInputs`,
+`nativeBuildInputs`, `propagatedBuildInputs`, and `propagatedNativeBuildInputs` into the app's runtime `PATH`.
 
 ```nix
-apps = pkgs.mkApps {
-  default = "cargo run";
-  test = "cargo test";
-  lint = {
-    packages = with pkgs; [ shellcheck ];
-    script = "shellcheck scripts/*.sh";
+let
+  devShell = pkgs.mkShell {
+    packages = with pkgs; [
+      go
+      buf
+    ];
   };
-};
+in
+{
+  devShells.default = devShell;
+
+  apps = pkgs.mkApps {
+    default = "go run .";
+    configure = {
+      inputsFrom = [ devShell ];
+      script = "buf generate";
+    };
+  };
+}
 ```
 
 ```sh
 nix run
-nix run .#test
+nix run .#configure
 ```
 
 ### bufFetchDeps & bufHook

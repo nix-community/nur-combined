@@ -13,9 +13,10 @@ builtins.mapAttrs (
           {
             script,
             packages ? [ ],
+            inputsFrom ? [ ],
           }:
           {
-            inherit script packages;
+            inherit script packages inputsFrom;
           }
         )
           value
@@ -23,14 +24,27 @@ builtins.mapAttrs (
         {
           script = value;
           packages = [ ];
+          inputsFrom = [ ];
         };
+    pathPackages =
+      app.packages
+      ++ lib.subtractLists app.inputsFrom (
+        lib.flatten (
+          map (name: lib.catAttrs name app.inputsFrom) [
+            "buildInputs"
+            "nativeBuildInputs"
+            "propagatedBuildInputs"
+            "propagatedNativeBuildInputs"
+          ]
+        )
+      );
     program = stdenvNoCC.mkDerivation (finalAttrs: {
       inherit name;
 
       app = replaceVars ./app.sh {
         inherit (app) script;
-        path = lib.optionalString (app.packages != [ ]) ''
-          export PATH="${lib.makeBinPath app.packages}:$PATH"
+        path = lib.optionalString (pathPackages != [ ]) ''
+          export PATH="${lib.makeBinPath pathPackages}:$PATH"
         '';
       };
 
