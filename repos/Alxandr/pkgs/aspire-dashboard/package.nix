@@ -30,6 +30,8 @@ buildDotnetModule (finalAttrs: {
 
   postFixup = ''
     mv "$out/bin/Aspire.Dashboard" "$out/bin/aspire-dashboard"
+    wrapProgram "$out/bin/aspire-dashboard" \
+      --chdir "$out/lib/aspire-dashboard"
   '';
 
   doInstallCheck = true;
@@ -51,7 +53,7 @@ buildDotnetModule (finalAttrs: {
 
     dashboardReady=
     for _ in $(seq 1 50); do
-      if curl --fail --silent --show-error http://127.0.0.1:18888/ > /dev/null; then
+      if curl --fail --silent --show-error http://127.0.0.1:18888/css/app.css > /dev/null; then
         dashboardReady=1
         break
       fi
@@ -66,6 +68,16 @@ buildDotnetModule (finalAttrs: {
       cat dashboard.log
       exit 1
     fi
+
+    curl --fail --silent --show-error \
+      http://127.0.0.1:18888/Aspire.Dashboard.styles.css \
+      > /dev/null
+    curl --fail --silent --show-error \
+      http://127.0.0.1:18888/framework/blazor.web.10.js \
+      > /dev/null
+    curl --fail --silent --show-error \
+      http://127.0.0.1:18888/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css \
+      > /dev/null
 
     kill "$dashboardPid"
     wait "$dashboardPid" || true
