@@ -28,7 +28,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "freesmlauncher-unwrapped";
-  version = "2.2.2";
+  version = "2.3.0";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "FreesmTeam";
     repo = "FreesmLauncher";
     tag = finalAttrs.version;
-    hash = "sha256-FPBifWh/1hOhUpEl+eoB685T9lP5lSA9FQHQeFBJu24=";
+    hash = "sha256-BD4sqPRAUle3ymEnNrERVjPkN+Hqu7HpF4vhv9MSbHA=";
   };
 
   postUnpack = ''
