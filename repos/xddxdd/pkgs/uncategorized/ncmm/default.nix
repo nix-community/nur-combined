@@ -7,12 +7,12 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "ncmm";
-  version = "1.2.1";
+  version = "1.2.2";
   src = fetchFromGitHub {
     owner = "3899";
     repo = "ncmm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AOtHZMWm2gtQoAN4Wj4wc4yQBoOssbqmf2pT7YhbiyE=";
+    hash = "sha256-o/3MycnAux0lW3unNbya5ZtjnJA+JvQkmEn4i2Twi5w=";
   };
   vendorHash = "sha256-dYGMbXaPARioUHlNcQCtCM8q79g66m9utnAS7Bdyrk4=";
 

@@ -8,14 +8,14 @@
 
 buildGo127Module (finalAttrs: {
   pname = "bifrost";
-  version = "2.1.1";
+  version = "2.2.0";
   src = fetchurl {
     url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v${finalAttrs.version}.tar.gz";
-    hash = "sha256-d5lAHDM6c0N8XTOUZ3FiMi3TW6jEb+AHOhY4ulJZFuE=";
+    hash = "sha256-COCMThz/N92FlYSsn+bZs6TkTYUkLMJfOcYLT3hX6hU=";
   };
   sourceRoot = "bifrost-transports-v${finalAttrs.version}/transports";
 
-  vendorHash = "sha256-fBfkCxvePfLC9wjHSjjEvvXYQAu3jD10R2vyyfqdi9U=";
+  vendorHash = "sha256-tlKIt38Rh5KQu4ny534eqC6PPE1DTLQEC5m+rHAUJJ0=";
 
   env.CGO_ENABLED = 1;
   GOWORK = "off";
