@@ -1,5 +1,6 @@
 /.env
 /.envrc
+__pycache__/
 
 # nix
 result*

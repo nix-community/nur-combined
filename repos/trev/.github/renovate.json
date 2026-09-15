@@ -6,7 +6,10 @@
   "requireConfig": "ignored",
   "platform": "github",
   "repositories": ["spotdemo4/trevpkgs"],
-  "allowedCommands": ["fix-hash --file utils/images"],
+  "allowedCommands": [
+    "^fix-hash --file utils/images$",
+    "^utils/renovate/refresh_forgejo_flake_hash\\.py --file packages/[A-Za-z0-9_-]+/[A-Za-z0-9_-]+\\.nix --dep-name [A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+  ],
   "exposeAllEnv": true,
 
   // repository
@@ -47,9 +50,8 @@
       "description": "Forgejo flakes",
       "managerFilePatterns": ["/^packages/.*.nix$/"],
       "matchStrings": [
-        "builtins\\.getFlake\\s+\"git\\+(?<registryUrl>https?://[^/]+)/(?<depName>[^?\"\\s]+)\\?(?<shallow>shallow=1&)?rev=(?<currentDigest>[a-f0-9]{40})\"\\s+#\\s+(?<currentValue>\\S+)"
+        "builtins\\.getFlake\\s+\"(?<registryUrl>https?://[^/]+)/(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz\\?narHash=[^\"&\\s]+\"\\s+#\\s+(?<currentValue>\\S+)"
       ],
-      "autoReplaceStringTemplate": "builtins.getFlake\n  \"git+{{{registryUrl}}}/{{{depName}}}?{{#if shallow}}{{{shallow}}}{{/if}}rev={{{newDigest}}}\" # {{{newValue}}}",
       "depTypeTemplate": "flake",
       "datasourceTemplate": "forgejo-tags"
     }
@@ -74,6 +76,17 @@
       "pinDigests": true,
       "postUpgradeTasks": {
         "commands": ["fix-hash --file utils/images"]
+      }
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["forgejo-tags"],
+      "matchDepTypes": ["flake"],
+      "postUpgradeTasks": {
+        "commands": [
+          "utils/renovate/refresh_forgejo_flake_hash.py --file {{{packageFile}}} --dep-name {{{depName}}}"
+        ],
+        "executionMode": "update"
       }
     },
     {

@@ -138,6 +138,7 @@
           update = pkgs.mkShell {
             packages = with pkgs; [
               nix-update
+              python3
               (pkgs.callPackage ./packages/fix-hash { })
               (pkgs.callPackage ./packages/renovate { })
             ];
@@ -193,6 +194,14 @@
             ];
             script = ''
               renovate-config-validator renovate.json
+            '';
+          };
+
+          renovate-helper = {
+            root = ./utils/renovate;
+            packages = [ pkgs.python3 ];
+            script = ''
+              python -m unittest discover
             '';
           };
 
