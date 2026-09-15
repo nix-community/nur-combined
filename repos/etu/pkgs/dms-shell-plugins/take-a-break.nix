@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-take-a-break";
-  version = "1.4.4-unstable-2026-08-23";
+  version = "1.5.0-unstable-2026-09-14";
 
   src = fetchFromGitHub {
     owner = "hthienloc";
     repo = "dms-take-a-break";
-    rev = "38e5a1cc12cd797a0d55d26d47c905fab9fa180b";
-    hash = "sha256-y2XG9XRx1JBugIfgsftm6W5I/2TcBpaS451Ab0meeiI=";
+    rev = "a35c114f364cd02f7500dbdf9caa145ee1520364";
+    hash = "sha256-h50O0LRjtI7fGzgtZzx5OLVsI5cd1mJQ5NjjSQlPc7E=";
   };
 
   dontBuild = true;
