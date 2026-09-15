@@ -1502,8 +1502,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "579aa0ddeec6b271c8082ffddf12d6bb367bddca",
-            "sha256": "0044s7c39vwcrx8a7i0zmc6xcjanyibdri10lmqfi2455sbgcg9r",
+            "rev": "b5918fd1643d6e4fe3b38b03733f7ab7adf327df",
+            "sha256": "00gxrqxhfqdgmdksdiazic5xj6c6g2s9262vn55l6kpy2vrx0pqd",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2692,8 +2692,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "8bfabea44d144de20a97744889727d55f4b374c3",
-            "sha256": "0nrvv2mxda8b73axcz583ddhx6ngj52h106nppryhvgpmpvkl3bv",
+            "rev": "2c1b74ed7d5ec8be3d8bfd90bbf4c96cebe14f1d",
+            "sha256": "0a7zvhxsl0086wifh2vqwd3pxn7kv2zvyylm4plf97a53c9d7s1m",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
