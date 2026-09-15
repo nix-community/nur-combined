@@ -31,8 +31,8 @@
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
-            "rev": "e4cde9bdce770c7effb45fca7a64e68ee1a42564",
-            "sha256": "1hhd3fpzk9q5ch48ragh767zcljdx2yqacvw6nnk6j1wiqa2f7nn",
+            "rev": "b37cc2a7a4200bdd072d153b2fe3e4c1e50015ea",
+            "sha256": "0qmxxpv8arp51grrfxy4da68ndj2j1yg7kc06khhdijcsyzdij0f",
             "url": "https://github.com/Alxandr/nur"
         },
         "AndrewKvalheim": {
@@ -2832,8 +2832,8 @@
             "url": "https://github.com/lz37/nur"
         },
         "zhyiheihei": {
-            "rev": "7fae696ef318d57cd1695a124ac4ad127c7cbd07",
-            "sha256": "0fvlbrdzjrgh0sz7af8mz7zy05g10ksih94zj5dml9f60bqfnj21",
+            "rev": "31d1f1f1813a232a620aaae8b6cb6862fe6b790c",
+            "sha256": "1y2rfy0sd4gis24gnrn643jkwjzl400k4akkmw0w74qj92xyhl53",
             "url": "https://github.com/zhyiheihei/zhyi-packages"
         },
         "zimeg": {
