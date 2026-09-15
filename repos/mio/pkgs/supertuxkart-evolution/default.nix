@@ -56,8 +56,8 @@ stdenv.mkDerivation {
     owner = "supertuxkart";
     repo = "stk-code";
     # BalanceSTK2 branch commit
-    rev = "e2ca0d2";
-    hash = "sha256-wbiDG/I1ZXMkprygFZZVisWiLAPTISudimOkUEVkmv0=";
+    rev = "0ceec3b";
+    hash = "sha256-iigNVXEINCudGaKwGfma1xNCGcPUhJCxKcqZPWbHdqk=";
   };
 
   postPatch = ''
