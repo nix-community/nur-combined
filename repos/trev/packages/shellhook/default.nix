@@ -1,71 +1,9 @@
 {
-  git,
-  jq,
-  lib,
-  ncurses,
-  nix,
-  openssh,
-  runtimeShell,
-  shellcheck-minimal,
-  stdenvNoCC,
+  getForgejoFlake,
+  system,
 }:
-
-stdenvNoCC.mkDerivation (finalAttrs: {
-  name = "shellhook";
-  src = lib.fileset.toSource {
-    root = ./.;
-    fileset = lib.fileset.unions [
-      ./shellhook.sh
-      ./pre-push.sh
-    ];
-  };
-
-  nativeBuildInputs = [
-    shellcheck-minimal
-  ];
-
-  runtimeInputs = [
-    git
-    ncurses
-    jq
-    openssh
-    nix
-  ];
-
-  passthru = {
-    ref = "${lib.meta.getExe finalAttrs.finalPackage}";
-  };
-
-  unpackPhase = ''
-    cp -a "$src/." .
-    chmod -R a+w .
-  '';
-
-  dontConfigure = true;
-
-  buildPhase = ''
-    echo "#!${runtimeShell}" >> shellhook
-    echo 'export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> shellhook
-    echo "prepush=$out/etc/pre-push" >> shellhook
-    tail -n +4 shellhook.sh >> shellhook
-    chmod +x shellhook
-  '';
-
-  doCheck = true;
-  checkPhase = ''
-    shellcheck shellhook
-  '';
-
-  installPhase = ''
-    mkdir -p $out/bin $out/etc
-    cp pre-push.sh $out/etc/pre-push
-    cp shellhook $out/bin/shellhook
-  '';
-
-  meta = {
-    description = "Shell hook for nix development shells";
-    mainProgram = "shellhook";
-    homepage = "https://github.com/spotdemo4/trevpkgs/tree/main/pkgs/shellhook";
-    platforms = lib.platforms.all;
-  };
-})
+(getForgejoFlake {
+  url = "https://trev.zip/llc/shellHook";
+  rev = "0eedc7ec62041d270349860123e3cfaf4830c871"; # v0.1.1
+  hash = "sha256-F+2U8DpSwgJaDO9KC9+8GfQEQpOiCO5TLOsJ4jSnGUg=";
+}).packages."${system}".default

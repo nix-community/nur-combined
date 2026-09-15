@@ -1,7 +1,10 @@
 /.env
 /.envrc
-__pycache__/
 
 # nix
 result*
 /.direnv/
+
+# python
+__pycache__/
+.ruff_cache/

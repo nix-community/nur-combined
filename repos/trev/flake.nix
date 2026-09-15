@@ -99,7 +99,7 @@
       devShells = forEachSystem (
         system: pkgs: {
           default = pkgs.mkShell {
-            shellHook = (pkgs.callPackage ./packages/shellhook { }).ref;
+            shellHook = self.packages.${system}.shellhook.ref;
             packages = with pkgs; [
               # nix
               nixd

@@ -5,7 +5,6 @@
   gleam,
   beamPackages,
   zig,
-  zig_0_13 ? null,
   p7zip,
   writeText,
   runCommand,
@@ -90,7 +89,7 @@ lib.makeOverridable (
     rebar3Package ? beamPackages.rebar3,
     elixirPackage ? beamPackages.elixir,
     gleamPackage ? gleam,
-    zigPackage ? (if zig_0_13 != null then zig_0_13 else zig),
+    zigPackage ? zig,
     # Burrito target selection
     target ? defaultTarget.target, # "linux" | "macos" | "windows"
     targetCpu ? defaultTarget.cpu, # "x86_64" | "aarch64"

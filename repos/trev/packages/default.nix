@@ -31,7 +31,6 @@ in
   pysentry = pkgs.callPackage ./pysentry { };
   qsvenc = pkgs.callPackage ./qsvenc { };
   renovate = pkgs.callPackage ./renovate { };
-  shellhook = pkgs.callPackage ./shellhook { };
   type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { inherit (pkgs) nix-update-script; };
   xdg-desktop-portal-luminous = pkgs.callPackage ./xdg-desktop-portal-luminous { };
   zig-protobuf = pkgs.callPackage ./zig-protobuf { };
