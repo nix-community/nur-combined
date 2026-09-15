@@ -150,6 +150,9 @@
         "aasg": {
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
+        "abemedia": {
+            "url": "https://github.com/abemedia/nur-packages"
+        },
         "abszero": {
             "file": "nur.nix",
             "url": "https://github.com/Weathercold/nixfiles"
@@ -527,6 +530,9 @@
         },
         "dtz": {
             "url": "https://github.com/dtzWill/nur-packages"
+        },
+        "duncannah": {
+            "url": "https://github.com/duncannah/nur-packages"
         },
         "dustinblackman": {
             "url": "https://github.com/dustinblackman/nur-packages"
@@ -1403,6 +1409,9 @@
         },
         "sgo": {
             "url": "https://github.com/stigtsp/nur"
+        },
+        "sh0rtround": {
+            "url": "https://github.com/Sh0rtRound-wq/nur-packages"
         },
         "shados": {
             "url": "https://github.com/Shados/nur-packages"
