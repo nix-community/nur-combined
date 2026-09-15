@@ -14,12 +14,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nix-repin,
       nixpkgs,
+      treefmt-nix,
       ...
     }:
     let
@@ -31,6 +36,16 @@
       ];
       forAllSystems = lib.genAttrs systems;
       pkgsFor = system: import nixpkgs { inherit system; };
+      treefmtFor =
+        system:
+        treefmt-nix.lib.evalModule (pkgsFor system) {
+          projectRootFile = "flake.nix";
+          programs.nixfmt.enable = true;
+          settings.formatter.nixfmt.excludes = [
+            "pkgs/*/source.nix"
+            "pkgs/*/cargo-lock.nix"
+          ];
+        };
       repositoryFor =
         system:
         import ./default.nix {
@@ -57,6 +72,6 @@
         update = nix-repin.apps.${system}.default;
       });
 
-      formatter = forAllSystems (system: (pkgsFor system).nixfmt-tree);
+      formatter = forAllSystems (system: (treefmtFor system).config.build.wrapper);
     };
 }
