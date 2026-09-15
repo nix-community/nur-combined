@@ -9,13 +9,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "aspire-dashboard";
-  version = "13.5.3";
+  version = "13.5.4";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "aspire";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-W6bK/prw13oH9sK79QNRo1uKAjd1tD91/8T0cPmAyTU=";
+    hash = "sha256-X6qefCB8b5W+CGLHxAu5M77Yp80dtfJhBVYkbiJNKWM=";
   };
 
   projectFile = "src/Aspire.Dashboard/Aspire.Dashboard.csproj";
