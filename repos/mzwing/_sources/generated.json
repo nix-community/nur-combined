@@ -369,12 +369,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.42.4",
-            "sha256": "sha256-JBHvLlMlpLl+EssYcKXTPT4Er/XEk1OdB/h1ajwYhnk=",
+            "rev": "v0.42.5",
+            "sha256": "sha256-JMpY1yJjFJ6NALHJSlNbarJcO74JWLo3ORituLq44ZE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.42.4"
+        "version": "v0.42.5"
     },
     "manboster": {
         "cargoLock": null,
