@@ -1,4 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>peacock0803sz/renovate-config"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Bump the pinned NixOS stable channel in the build matrix",
+      "managerFilePatterns": ["/^\\.github/workflows/build\\.yml$/"],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+?) depName=(?<depName>[a-z-]+?)( versioning=(?<versioning>[a-z-]+?))?\\s+- nixpkgs=https://github\\.com/NixOS/nixpkgs/archive/refs/heads/nixos-(?<currentValue>\\d+\\.\\d+)\\.tar\\.gz",
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{/if}}",
+    },
+  ],
 }

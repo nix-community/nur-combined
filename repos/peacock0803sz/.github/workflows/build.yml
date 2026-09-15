@@ -11,9 +11,18 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron: "51 2 * * *"
   workflow_dispatch:
+concurrency:
+  # Supersede stale PR runs, but always let cron and main pushes finish so the
+  # cachix cache still gets populated.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   tests:
     strategy:
+      # Keep every matrix cell running: a red cell on all channels means a
+      # package problem, a red cell on one channel means a channel problem.
+      # Cancelling also discards store paths cachix has not pushed yet.
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
@@ -41,7 +50,10 @@ jobs:
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
+          # Current NixOS stable. Kept in sync by Renovate (see .github/renovate.json5)
+          # so it cannot silently go EOL like nixos-25.05 did.
+          # renovate: datasource=endoflife-date depName=nixos versioning=loose
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
