@@ -457,7 +457,15 @@ in {
         fetchArgs = pkgs.lib.functionArgs pkgs.fetchFromGitHub // pkgs.functionArgs fetchFunc;
         final = pkgs.lib.setFunctionArgs fetchFunc fetchArgs;
     in final;
-    fetchurlRhys-T = pkgs.lib.mirrorFunctionArgs pkgs.fetchurl (args: (pkgs.fetchurl args).overrideAttrs (old: {
+    fetchurlRhys-T = pkgs.lib.mirrorFunctionArgs pkgs.fetchurl (args: (pkgs.fetchurl args).overrideAttrs (old: if old?mirrorsListFile then {
+        # <https://github.com/NixOS/nixpkgs/pull/552662>
+        mirrorsListFile = let
+            mirrorsPrefixed = pkgs.lib.mapAttrs' (n: v: pkgs.lib.nameValuePair ("_mirror_" + n) v) self.myLib.mirrors;
+        in pkgs.concatText "mirrors-list-Rhys-T" [
+            old.mirrorsListFile
+            (pkgs.lib.toFile "mirrors-list-Rhys-T-only" (pkgs.lib.toShellVars mirrorsPrefixed))
+        ];
+    } else {
         mirrorsFile = old.mirrorsFile.overrideAttrs (old: self.myLib.mirrors);
     }));
     fetchzipRhys-T = pkgs.fetchzip.override { fetchurl = self.fetchurlRhys-T; };
