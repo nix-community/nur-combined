@@ -463,7 +463,7 @@ in {
             mirrorsPrefixed = pkgs.lib.mapAttrs' (n: v: pkgs.lib.nameValuePair ("_mirror_" + n) v) self.myLib.mirrors;
         in pkgs.concatText "mirrors-list-Rhys-T" [
             old.mirrorsListFile
-            (pkgs.lib.toFile "mirrors-list-Rhys-T-only" (pkgs.lib.toShellVars mirrorsPrefixed))
+            (pkgs.lib.toFile "mirrors-list-Rhys-T-only" ("\n" + pkgs.lib.toShellVars mirrorsPrefixed))
         ];
     } else {
         mirrorsFile = old.mirrorsFile.overrideAttrs (old: self.myLib.mirrors);
