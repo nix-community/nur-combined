@@ -538,8 +538,8 @@
             "url": "https://github.com/brpaz/nur-packages"
         },
         "bryanhonof": {
-            "rev": "4dc0c603b3bd7af29aaf7ac735346641f9cefb2a",
-            "sha256": "1k83s93qc6alsfazc8i0p3yby4kp029ixsasjbyca3xn04g4nx8l",
+            "rev": "cf881a844b06846fec6c8bdaff412f62cdd6750a",
+            "sha256": "0gvajx4652m2br5k0ghkc3qn8vw45f77kj5ibc1v8s4zz4nh2f7n",
             "url": "https://github.com/bryanhonof/nur-packages"
         },
         "c0deaddict": {
@@ -1105,8 +1105,8 @@
             "url": "https://github.com/heph2/nur-packages"
         },
         "herver": {
-            "rev": "9f9ca2cc8c528b0cec9769a6081006cf45beb295",
-            "sha256": "03zqfgn6n64y1bxxz3zz08xr0icdmkfj9vy11j222fivl7p23vbs",
+            "rev": "0a15c6a5cc7861bd6d332c5f878979223f202c23",
+            "sha256": "0693dcmv0blgsqih4sm9vdx28yw1mf6qqawv21b730ya5x5gw798",
             "url": "https://github.com/herver/nur"
         },
         "hetav21": {
