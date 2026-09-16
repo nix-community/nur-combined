@@ -19,6 +19,7 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  feishin = pkgs.callPackage ./pkgs/feishin { };
   nxapi = pkgs.callPackage ./pkgs/nxapi { };
   nxapi-app = pkgs.callPackage ./pkgs/nxapi-app { };
   tm-mumble-link = pkgs.callPackage ./pkgs/tm-mumble-link { };
