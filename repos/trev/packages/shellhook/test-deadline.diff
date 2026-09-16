@@ -1,0 +1,23 @@
+Increase scheduling headroom while keeping each command shorter than the
+shared deadline and their combined duration longer than it.
+
+--- a/src/command.rs
++++ b/src/command.rs
+@@ -681,14 +681,14 @@
+     #[test]
+     fn commands_share_one_deadline() {
+-        let runner = runner(Duration::from_millis(250));
++        let runner = runner(Duration::from_millis(2500));
+         assert!(
+             runner
+-                .output(Path::new("."), "/bin/sh", &["-c", "sleep 0.15"])
++                .output(Path::new("."), "/bin/sh", &["-c", "sleep 1.5"])
+                 .unwrap()
+                 .success()
+         );
+         let error = runner
+-            .output(Path::new("."), "/bin/sh", &["-c", "sleep 0.15"])
++            .output(Path::new("."), "/bin/sh", &["-c", "sleep 1.5"])
+             .unwrap_err();
+         assert_eq!(error.kind(), ErrorKind::TimedOut);
+     }
