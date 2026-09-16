@@ -8,7 +8,7 @@
 }:
 
 let
-  version = "10.50.1e";
+  version = "10.51.1a";
   pname = "ibkr-tws";
 
   src = fetchurl {
@@ -16,7 +16,7 @@ let
     # It embeds the exact Zulu JRE (with JavaFX) that TWS requires, so no
     # separate JRE download is needed (IBKR does not host it under /jres).
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    hash = "sha256-HNfdQN0w3kqzn2lHaxeaBHudtwI9fb6eQUcVzuvTct8=";
+    hash = "sha256-Z3DwK0AsSEUPW7T2HvwUBrrJus5wEwJd1rgu/WHltis=";
     name = "${pname}-${version}-installer.sh";
   };
 
@@ -200,7 +200,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.etagHash = "fbafba10f1541816d85ed5ae4294a416";
+  passthru.etagHash = "f1686a63a48c7542213fffb439a4e1ee";
 
   meta = {
     description = "Interactive Brokers Trader Workstation (TWS) trading platform";
