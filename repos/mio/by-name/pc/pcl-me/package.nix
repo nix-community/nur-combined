@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, dotnetCorePackages
-, fontconfig
-, cacert
-, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  fontconfig,
+  cacert,
+  makeWrapper,
 }:
 
 let
@@ -23,28 +24,34 @@ let
   deps = stdenv.mkDerivation {
     name = "${pname}-deps-${version}";
     inherit src;
-    
-    nativeBuildInputs = [ dotnet-sdk cacert ];
-    
+
+    nativeBuildInputs = [
+      dotnet-sdk
+      cacert
+    ];
+
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
     outputHash = "sha256-0oTvKobby4skC/SaAqju9Yi/dhj9S7rw+yV4Fa8yz4c=";
-    
+
     buildPhase = ''
       export DOTNET_NOLOGO=1
       export DOTNET_CLI_TELEMETRY_OPTOUT=1
       export HOME=$TMPDIR
-      
+
       dotnet restore "Plain Craft Launcher 2.slnx" --packages $out --source https://api.nuget.org/v3/index.json
     '';
-    
+
     installPhase = "true";
   };
 in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  nativeBuildInputs = [ dotnet-sdk makeWrapper ];
+  nativeBuildInputs = [
+    dotnet-sdk
+    makeWrapper
+  ];
   buildInputs = [ fontconfig ];
 
   buildPhase = ''
@@ -52,7 +59,7 @@ stdenv.mkDerivation {
     export DOTNET_CLI_TELEMETRY_OPTOUT=1
     export HOME=$TMPDIR
     export NUGET_PACKAGES=${deps}
-    
+
     # We must restore again using offline cache to generate obj/ files
     dotnet restore "Plain Craft Launcher 2.slnx" --source ${deps}
 
