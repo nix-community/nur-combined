@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "3.1",
+  "version": "3.2",
   "platforms": {
     "aarch64-darwin": {
       "file": "WiiUDownloader-macOS-Universal.dmg",
-      "hash": "sha256-7eW41Gj50wKJZIQQs19BQhmhnzCq9BHUHiRGOhvSlGM="
+      "hash": "sha256-J4ogHE5WSASdcpoc+7CtddcdSvbisDhEVM3SYJkZgX0="
     },
     "x86_64-darwin": {
       "file": "WiiUDownloader-macOS-Universal.dmg",
-      "hash": "sha256-7eW41Gj50wKJZIQQs19BQhmhnzCq9BHUHiRGOhvSlGM="
+      "hash": "sha256-J4ogHE5WSASdcpoc+7CtddcdSvbisDhEVM3SYJkZgX0="
     },
     "x86_64-linux": {
       "file": "WiiUDownloader-Linux-x86_64.AppImage",
-      "hash": "sha256-Sb/bc3G2UGgK63zXmZQuKAK1TPcNEKz+LMUAdK816/A="
+      "hash": "sha256-4Nb9OiRLvgpJlJyOIq6ePnzIhCuRh+WOuuZjG+C4JtQ="
     },
     "aarch64-linux": {
       "file": "WiiUDownloader-Linux-aarch64.AppImage",
-      "hash": "sha256-GYgNjnCHKN7IgJlkzGYTHvFIT+3Wu3Q5fcJ/HDqcTZc="
+      "hash": "sha256-ASw6WcgKHOnT6R2h/u57ck4R3jmGawrUFlHKrruzUs0="
     }
   }
 }
