@@ -18,13 +18,13 @@
 
 flutter347.buildFlutterApplication (finalAttrs: {
   pname = "loveiwara";
-  version = "0.5.1";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "FoxSensei001";
     repo = "LoveIwara";
     tag = finalAttrs.version;
-    hash = "sha256-9LKPAnMn/3XK+rLng+Fy0OGYsp2F3EJt9ppm59VcrBk=";
+    hash = "sha256-FB7HUpDNjVcwAx65hjOpZUT5hHDhnLEaeUTm8Xufwes=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
@@ -93,7 +93,7 @@ flutter347.buildFlutterApplication (finalAttrs: {
 
   postPatch = ''
     substituteInPlace pubspec.yaml \
-      --replace-fail 'version: 0.5.0+3' 'version: ${finalAttrs.version}+3' \
+      --replace-fail 'version: 0.6.1+1' 'version: ${finalAttrs.version}+1' \
       --replace-fail '  flutter: 3.47.0' '  flutter: ">=3.47.0 <4.0.0"'
   '';
 
