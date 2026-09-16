@@ -30,7 +30,7 @@ async function check(file, { config, force, repo = null }) {
   const instance = config.source.instance;
   const api_repo = repo || config.source.repo;
 
-  let releases = (await getReleases(instance, api_repo)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  let releases = (await getReleases(instance, api_repo)).sort((a, b) => new Date(b.released_at).getTime() - new Date(a.released_at).getTime());
 
   if (config.source.skip_prerelease) releases = releases.filter(release => !release.upcoming_release);
 

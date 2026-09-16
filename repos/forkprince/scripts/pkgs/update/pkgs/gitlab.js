@@ -44,14 +44,14 @@ async function single(file, { config, force }) {
 
   const unpack = config.asset.unpack || false;
 
+  const release = releases.find(r => r.tag_name === `${prefix}${version}` || r.tag_name === version);
+
   let url;
 
   if (config.asset.file) {
-    const release = releases.find(r => r.tag_name === `${prefix}${version}` || r.tag_name === version);
-    const fileName = apply(config.asset.file.replace(/\{version\}/g, version), []);
+    const fileName = apply(config.asset.file.replace(/\{version\}/g, version), config.asset.substitutions || []);
 
-    url = findUrl(release, fileName);
-    if (!url) url = `${instance}/${repo}/releases/download/${prefix}${version}/${fileName}`;
+    url = findUrl(release, fileName) || `${instance}/${repo}/releases/download/${prefix}${version}/${fileName}`;
   } else url = config.asset.url;
 
   url = url
@@ -63,7 +63,7 @@ async function single(file, { config, force }) {
 
   const hash = await getHash(url, unpack);
 
-  await update.single(file, { version, hash });
+  await update.single(file, { version, asset: { ...config.asset, url: config.asset.url ? url : undefined, file: config.asset.file }, hash });
 
   console.log(`Updated to version ${version}`);
 }
@@ -132,7 +132,7 @@ async function platforms(file, { config, force }) {
 
       console.log(`Checking ${platform} (${repo})...`);
 
-      let releases = (await getReleases(instance, repo)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      let releases = (await getReleases(instance, repo)).sort((a, b) => new Date(b.released_at).getTime() - new Date(a.released_at).getTime());
 
       if (config.source.skip_prerelease) releases = releases.filter(release => !release.upcoming_release);
 
@@ -172,8 +172,7 @@ async function platforms(file, { config, force }) {
       if (resolved) {
         const fileName = apply(resolved.replace(/\{version\}/g, parsed), settings.substitutions || []);
 
-        url = release ? findUrl(release, fileName) : null;
-        if (!url) url = `${instance}/${repo}/releases/download/${prefix}${parsed}/${fileName}`;
+        url = (release && findUrl(release, fileName)) || `${instance}/${repo}/releases/download/${prefix}${parsed}/${fileName}`;
       } else url = settings.url;
 
       url = url
@@ -213,20 +212,30 @@ async function variants(file, { config, force }) {
     }
 
     const repo = settings.repo || config.source.repo;
+    const variantInstance = settings.instance || instance;
+    const variantPrefix = settings.tag_prefix || prefix;
 
     const unpack = settings.unpack || config.asset.unpack || false;
     const file_name = settings.file || config.asset.file;
 
-    const name = apply(file_name.replace(/\{version\}/g, version), settings.substitutions);
+    let url;
 
-    let url = release ? findUrl(release, name) : null;
-    if (!url) url = `${instance}/${repo}/releases/download/${prefix}${version}/${name}`;
+    if (file_name) {
+      const name = apply(file_name.replace(/\{version\}/g, version), settings.substitutions || []);
+
+      url = (release && findUrl(release, name)) || `${variantInstance}/${repo}/releases/download/${variantPrefix}${version}/${name}`;
+    } else url = settings.url;
+
+    url = url
+      .replace(/\{repo\}/g, repo)
+      .replace(/\{version\}/g, version)
+      .replace(/\{raw_version\}/g, `${variantPrefix}${version}`);
 
     console.log(`Downloading ${url} (${variant})`);
 
     const hash = await getHash(url, unpack);
 
-    await update.variants(file, { variant, hash });
+    await update.variants(file, { variant, url: settings.url ? url : undefined, hash });
 
     console.log(`Updated ${variant} to version ${version}`);
 

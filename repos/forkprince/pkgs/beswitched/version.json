@@ -1,0 +1,15 @@
+{
+  "name": "Beswitched",
+  "source": {
+    "type": "gitlab-release",
+    "instance": "https://gitlab.com",
+    "repo": "dubiusfafa/beswitched-releases",
+    "tag_prefix": "v"
+  },
+  "version": "1.0.3",
+  "asset": {
+    "url": "https://gitlab.com/-/project/85876450/uploads/1cd2f44776fb4f77171b51bccef2cb7d/Beswitched-1.0.3-macOS-arm64.dmg",
+    "unpack": false
+  },
+  "hash": "sha256-A3M5V75Tz0HbyN7HY4sxpP2IUJL0PnrUM6xBkmySxaY="
+}

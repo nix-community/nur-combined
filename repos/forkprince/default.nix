@@ -30,6 +30,7 @@
   mcman = lib.callPackage ./pkgs/mcman {};
   nuvio = lib.callPackage ./pkgs/nuvio {};
   sfw = lib.callPackage ./pkgs/sfw {};
+  fx = lib.callPackage ./pkgs/fx {};
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
@@ -47,6 +48,7 @@
   supercharge = lib.callPackage ./pkgs/supercharge {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   screendrop = lib.callPackage ./pkgs/screendrop {};
+  beswitched = lib.callPackage ./pkgs/beswitched {};
   vorssaint = lib.callPackage ./pkgs/vorssaint {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
