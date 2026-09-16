@@ -9,6 +9,7 @@
   pkg-config,
   tinyxml,
   lld,
+  autoPatchelfHook,
   nix-update-script,
 }:
 
@@ -43,6 +44,7 @@ clangStdenv.mkDerivation (finalAttrs: {
     qt6.wrapQtAppsHook
     pkg-config
     lld
+    autoPatchelfHook
   ];
 
   passthru.updateScript = nix-update-script { };
