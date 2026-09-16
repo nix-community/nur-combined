@@ -18,11 +18,42 @@ let
     name = "${pname}-${version}-installer.sh";
   };
 
-  # The installer requires exactly Zulu JRE 17.0.16 with JavaFX
-  jre = fetchurl {
-    url = "https://download2.interactivebrokers.com/installers/jres/linux-amd64-17.0.16.0.101-zulu.tar.gz";
-    hash = "sha256-EauLTM3yedR0NSK5sPw6zfdSrWx+m9c7yuko/opXrt4=";
-  };
+  # Libraries required by the bundled JavaFX JRE (Swing/JavaFX/AWT rendering)
+  # and by the install4j installer, which initialises java.awt.Toolkit even in
+  # quiet mode and therefore needs the X11 stack at build time.
+  runtimeLibs = with pkgs; [
+    stdenv.cc.cc.lib # libstdc++
+    zlib
+    glib
+    fontconfig
+    freetype
+    libGL
+    mesa
+    gtk3
+    pango
+    cairo
+    gdk-pixbuf
+    atk
+    nss
+    nspr
+    expat
+    dbus
+    cups
+    libxkbcommon
+    xorg.libX11
+    xorg.libxcb
+    xorg.libXext
+    xorg.libXi
+    xorg.libXrender
+    xorg.libXtst
+    xorg.libXrandr
+    xorg.libXcursor
+    xorg.libXfixes
+    xorg.libXcomposite
+    xorg.libXdamage
+    alsa-lib
+    libpulseaudio
+  ];
 in
 stdenv.mkDerivation {
   inherit pname version src;
@@ -33,24 +64,8 @@ stdenv.mkDerivation {
     pkgs.patchelf
   ];
 
-  # Libraries required by the bundled JRE (Swing/JavaFX rendering)
-  buildInputs = with pkgs; [
-    stdenv.cc.cc.lib # libstdc++
-    zlib
-    glib
-    fontconfig
-    freetype
-    libGL
-    mesa
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXext
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXtst
-    alsa-lib
-    libpulseaudio
-  ];
+  # Libraries required by the bundled JavaFX JRE (Swing/JavaFX rendering)
+  buildInputs = runtimeLibs;
 
   autoPatchelfIgnoreMissingDeps = true;
 
@@ -60,11 +75,20 @@ stdenv.mkDerivation {
   buildPhase = ''
     runHook preBuild
 
-    # Pre-extract and patch the JRE so it runs in the Nix sandbox
+    libPath="${lib.makeLibraryPath runtimeLibs}"
+
+    # Extract the installer payload to obtain the embedded JavaFX JRE (Zulu 25).
+    # IBKR no longer publishes this JRE under /jres, and the installer requires
+    # that exact version, so the only reliable source is its own bundled copy.
+    mkdir -p extract
+    INSTALL4J_TEMP="$(pwd)/extract" sh $src __i4j_extract_and_exit
+    jreTar=$(echo extract/*.dir/jre.tar.gz)
+
+    # Pre-extract and patch that JRE so it runs in the Nix sandbox; the same
+    # patched tree is later installed as the runtime JRE.
     mkdir -p patched-jre
-    tar xzf ${jre} -C patched-jre
+    tar xzf "$jreTar" -C patched-jre
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
-    libPath="${lib.makeLibraryPath [ pkgs.zlib pkgs.glib stdenv.cc.cc.lib ]}"
     find patched-jre -type f | while read f; do
       if patchelf --print-interpreter "$f" &>/dev/null; then
         patchelf --set-interpreter "$interpreter" "$f"
@@ -76,15 +100,18 @@ stdenv.mkDerivation {
       fi
     done
 
-    cp $src installer.sh
-    chmod +x installer.sh
+    # Run the install4j installer in quiet mode with our patched JRE.
+    # INSTALL4J_DISABLE_BUNDLED_JRE stops it from unpacking its own copy of the
+    # JRE (whose ELF loader is unpatched and cannot run in the sandbox).
+    export HOME="$(pwd)/home"
+    mkdir -p "$HOME"
     export INSTALL4J_JAVA_HOME_OVERRIDE="$(pwd)/patched-jre"
+    export INSTALL4J_DISABLE_BUNDLED_JRE=true
+    export LD_LIBRARY_PATH="$libPath"
+    bash $src -q -dir $out
 
-    # Run the install4j installer in quiet mode
-    bash installer.sh -q -dir $out
-
-    # Remove installer artifacts
-    rm -f $out/uninstall $out/"IB Gateway 10.47.desktop"
+    # Remove installer artifacts (uninstaller + versioned desktop symlink)
+    rm -f $out/uninstall "$out"/*.desktop
 
     # Fix hardcoded build-time paths in install4j config
     substituteInPlace $out/.install4j/response.varfile \
@@ -113,9 +140,9 @@ stdenv.mkDerivation {
     StartupWMClass=install4j-launcher-Main
     DESKTOP
 
-    # Extract the bundled JRE for runtime use
+    # Install the embedded JRE for runtime use (autoPatchelfHook fixes it up).
     mkdir -p $out/jre
-    tar xzf ${jre} -C $out/jre
+    tar xzf "$(echo extract/*.dir/jre.tar.gz)" -C $out/jre
 
     # Create a launcher script that sets up a writable app directory.
     # The install4j launcher expects to write config/logs next to itself.

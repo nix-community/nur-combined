@@ -18,23 +18,10 @@ let
     name = "${pname}-${version}-installer.sh";
   };
 
-  # The installer requires exactly Zulu JRE 17.0.10 and rejects other versions
-  jre = fetchurl {
-    url = "https://download2.interactivebrokers.com/installers/jres/linux-amd64-17.0.10.0.101-zulu-nojavafx.tar.gz";
-    hash = "sha256:02zrsfmscxw1632kxwlg9k53rifp385q37xz5kj1y4cvdfgsr2j0";
-  };
-in
-stdenv.mkDerivation {
-  inherit pname version src;
-
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    pkgs.patchelf
-  ];
-
-  # Libraries required by the bundled Qt 6.8.3 native .so files
-  buildInputs = with pkgs; [
+  # Libraries required by the bundled Qt 6.8.3 native .so files, and by the
+  # install4j installer/JRE at build time (it initialises java.awt.Toolkit even
+  # in quiet mode, so the X11 stack must be present).
+  runtimeLibs = with pkgs; [
     stdenv.cc.cc.lib # libstdc++
     zlib
     zstd
@@ -77,6 +64,18 @@ stdenv.mkDerivation {
     krb5
     udev
   ];
+in
+stdenv.mkDerivation {
+  inherit pname version src;
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    pkgs.patchelf
+  ];
+
+  # Libraries required by the bundled Qt 6.8.3 native .so files
+  buildInputs = runtimeLibs;
 
   # Some bundled Qt plugins reference optional Qt modules not included
   # (Qt6OpenGLWidgets, Qt63DCore, Qt6VirtualKeyboard, etc.)
@@ -88,11 +87,20 @@ stdenv.mkDerivation {
   buildPhase = ''
     runHook preBuild
 
-    # Pre-extract and patch the JRE so it runs in the Nix sandbox
+    libPath="${lib.makeLibraryPath runtimeLibs}"
+
+    # Extract the installer payload to obtain the embedded JRE (Zulu 25). IBKR
+    # no longer publishes this JRE under /jres, and the installer requires that
+    # exact version, so the only reliable source is the installer's own copy.
+    mkdir -p extract
+    INSTALL4J_TEMP="$(pwd)/extract" sh $src __i4j_extract_and_exit
+    jreTar=$(echo extract/*.dir/jre.tar.gz)
+
+    # Pre-extract and patch that JRE so it runs in the Nix sandbox; the same
+    # patched tree is later installed as the runtime JRE.
     mkdir -p patched-jre
-    tar xzf ${jre} -C patched-jre
+    tar xzf "$jreTar" -C patched-jre
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
-    libPath="${lib.makeLibraryPath [ pkgs.zlib pkgs.glib stdenv.cc.cc.lib ]}"
     find patched-jre -type f | while read f; do
       if patchelf --print-interpreter "$f" &>/dev/null; then
         patchelf --set-interpreter "$interpreter" "$f"
@@ -104,12 +112,15 @@ stdenv.mkDerivation {
       fi
     done
 
-    cp $src installer.sh
-    chmod +x installer.sh
+    # Run the install4j installer in quiet mode with our patched JRE.
+    # INSTALL4J_DISABLE_BUNDLED_JRE stops it from unpacking its own copy of the
+    # JRE (whose ELF loader is unpatched and cannot run in the sandbox).
+    export HOME="$(pwd)/home"
+    mkdir -p "$HOME"
     export INSTALL4J_JAVA_HOME_OVERRIDE="$(pwd)/patched-jre"
-
-    # Run the install4j installer in quiet mode
-    bash installer.sh -q -dir $out
+    export INSTALL4J_DISABLE_BUNDLED_JRE=true
+    export LD_LIBRARY_PATH="$libPath"
+    bash $src -q -dir $out
 
     # Remove installer artifacts
     rm -f $out/uninstall $out/"IBKR Desktop.desktop"
@@ -142,9 +153,9 @@ stdenv.mkDerivation {
     StartupWMClass=install4j-launcher-Main
     DESKTOP
 
-    # Extract the bundled JRE for runtime use
+    # Install the embedded JRE for runtime use (autoPatchelfHook fixes it up).
     mkdir -p $out/jre
-    tar xzf ${jre} -C $out/jre
+    tar xzf "$(echo extract/*.dir/jre.tar.gz)" -C $out/jre
 
     # Create a launcher script that sets up a writable app directory.
     # The install4j launcher expects to write config/logs next to itself.
