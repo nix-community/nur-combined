@@ -57,5 +57,10 @@ pkgs.lib.makeScope pkgs.newScope (
         inherit (self) birdnet;
       }
     );
+
+    two-kinds-of-people = callPackage ./twokindsofpeople { };
+    melt = callPackage ./melt { };
+    moonlight-duelists = callPackage ./moonlight-duelists { };
+    moon-illusion = callPackage ./moon-illusion { };
   }
 )
