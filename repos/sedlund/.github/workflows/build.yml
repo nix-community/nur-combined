@@ -16,11 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
+      - name: Install Determinate Nix
+        uses: DeterminateSystems/determinate-nix-action@v3.22.3
         with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+          github-token: ${{ github.token }}
 
       - name: Setup cachix
         uses: cachix/cachix-action@v17

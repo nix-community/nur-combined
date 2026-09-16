@@ -17,24 +17,31 @@ jobs:
         with:
           ref: ${{ github.event.repository.default_branch }}
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31.9.1
+      - name: Install Determinate Nix
+        uses: DeterminateSystems/determinate-nix-action@v3.22.3
         with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+          github-token: ${{ github.token }}
 
-      - name: Update root flake.lock
-        run: nix flake update
-
+      # update-flake-lock handles one flake directory; stage the dev lockfile
+      # first so the action includes both lockfiles in the same pull request.
       - name: Update dev flake.lock
         run: nix flake update --flake ./dev
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v8.1.1
+      - name: Update root flake.lock and create pull request
+        id: update
+        uses: DeterminateSystems/update-flake-lock@v28
         with:
           branch: update_flake_lock_action
-          delete-branch: true
-          commit-message: "chore(flake): update lock files"
-          title: "flake.lock: update"
-          body: |
+          commit-msg: "chore(flake): update lock files"
+          pr-title: "flake.lock: update"
+          pr-body: |
             Automated changes for root and dev lock files.
+
+      - name: Enable auto-merge
+        if: >-
+          steps.update.outputs.pull-request-number != '' &&
+          steps.update.outputs.pull-request-operation != 'closed'
+        run: gh pr merge "$PR_NUMBER" --auto --squash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.update.outputs.pull-request-number }}
