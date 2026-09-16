@@ -14,16 +14,16 @@ let
 in
 buildGoModule rec {
   pname = "syncyomi";
-  version = "1.5.4";
+  version = "1.5.5";
 
   src = fetchFromGitHub {
     owner = "SyncYomi";
     repo = "SyncYomi";
     tag = "v${version}";
-    hash = "sha256-O+22BVjGP3UdLDXFzwz0wVT+W2L0GteHuJJBPtVh8gY=";
+    hash = "sha256-Qbibe+D2YpNY7pPrAePFXBNLSrN0m2Kwvko0a7bMpW4=";
   };
 
-  vendorHash = "sha256-fYST+3Yc5mkffGmiXqubbXu9Z4O2+4vOBlhJdnGpJts=";
+  vendorHash = "sha256-kn9GihRu/TmQLDRw5TEkXvGLWHM7eO/qROyo+yYA44o=";
 
   web = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "${pname}-web";
