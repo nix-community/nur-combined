@@ -68,6 +68,9 @@
         "Freed-Wu": {
             "url": "https://github.com/Freed-Wu/nur-packages"
         },
+        "Greep": {
+            "url": "https://github.com/GreepTheSheep/nix-nurpkgs"
+        },
         "GriefNorth": {
             "url": "https://github.com/GriefNorth/nur-packages"
         },
