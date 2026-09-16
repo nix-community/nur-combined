@@ -29,6 +29,9 @@
           nixosModules = {
             subconverter = import ./modules/services/networking/subconverter.nix;
           };
+          hmModules = {
+            linuxqq-clipsync = import ./modules/services/misc/linuxqq-clipsync.nix;
+          };
         };
       }
     );
