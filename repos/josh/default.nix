@@ -4,15 +4,7 @@
 let
   inherit (pkgs) lib;
 
-  callPackage = pkgs.lib.customisation.callPackageWith (
-    pkgs // { nur.repos.josh = pkgs' // internalPkgs; }
-  );
-
-  internalPkgs = {
-    checkKubeImages = args: callPackage ./internal/check-kube-images.nix args;
-    fetchhelm = callPackage ./internal/fetchhelm.nix { };
-    renderHelmTemplate = args: callPackage ./internal/helm-render-template.nix args;
-  };
+  callPackage = pkgs.lib.customisation.callPackageWith (pkgs // { nur.repos.josh = pkgs'; });
 
   packagesFromDirectory =
     directory:
