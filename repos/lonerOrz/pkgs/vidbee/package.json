@@ -1,6 +1,7 @@
 {
   "name": "vidbee-workspace",
   "private": true,
+  "packageManager": "pnpm@11.1.2",
   "scripts": {
     "check": "pnpm --filter ./apps/desktop run check",
     "check:i18n": "pnpm --filter ./apps/desktop run check:i18n",
@@ -15,6 +16,7 @@
     "build:mac": "pnpm --filter ./apps/desktop run build:mac",
     "build:linux": "pnpm --filter ./apps/desktop run build:linux",
     "release": "pnpm --filter ./apps/desktop run release",
+    "release:preview": "pnpm --filter ./apps/desktop run release:preview",
     "db:generate": "pnpm --filter ./apps/desktop run db:generate",
     "db:migrate": "pnpm --filter ./apps/desktop run db:migrate",
     "fix": "pnpm --filter ./apps/desktop run fix",
@@ -27,30 +29,20 @@
     "start:web": "pnpm -r --parallel --filter ./apps/api --filter ./apps/web run dev",
     "build:web": "pnpm --filter ./apps/web run build",
     "check:web": "pnpm --filter ./apps/web run check",
-    "dev:docs": "pnpm --filter ./apps/docs dev",
-    "build:docs": "pnpm --filter ./apps/docs build",
     "dev:extension": "pnpm --filter ./apps/extension dev",
     "build:extension": "pnpm --filter ./apps/extension build",
     "zip:extension": "pnpm --filter ./apps/extension zip",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.9",
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
-    "electron": "^38.3.0",
-    "husky": "^9.1.7"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "better-sqlite3",
-      "electron",
-      "esbuild"
-    ],
-    "overrides": {
-      "better-sqlite3": "12.8.0"
-    }
+    "electron": "^43.4.1",
+    "husky": "^9.1.7",
+    "ultracite": "7.10.6"
   },
   "dependencies": {
-    "@sentry/browser": "^10.49.0"
+    "@sentry/browser": "^10.74.0"
   }
 }

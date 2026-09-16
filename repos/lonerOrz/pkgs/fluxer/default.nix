@@ -19,7 +19,6 @@ let
       hash = current.x86_64-linux-hash;
     };
 
-    # 如果官方有提供 arm64 版本的 AppImage，更新脚本会自动替换HASH
     aarch64-linux = fetchurl {
       url = "https://api.fluxer.app/dl/desktop/stable/linux/arm64/latest/appimage";
       hash = current.aarch64-linux-hash;
@@ -45,11 +44,16 @@ appimageTools.wrapType2 {
 
     # Install desktop
     mkdir -p $out/share/applications
-    install -Dm644 ${appimageContents}/fluxer.desktop $out/share/applications/fluxer.desktop
+    install -Dm644 ${appimageContents}/fluxer-canary.desktop $out/share/applications/fluxer.desktop
     substituteInPlace $out/share/applications/fluxer.desktop \
-      --replace-fail Exec=AppRun Exec=fluxer
+      --replace-fail 'Exec=AppRun %U' 'Exec=fluxer %U' \
+      --replace-fail 'Exec="/opt/Fluxer Canary/fluxer-canary"' 'Exec=fluxer' \
+      --replace-fail Icon=fluxer-canary Icon=fluxer \
+      --replace-fail StartupWMClass=fluxer-canary StartupWMClass=fluxer
 
     # Copy icons
+    install -Dm644 ${appimageContents}/usr/share/icons/hicolor/1024x1024/apps/fluxer-canary.png \
+      $out/share/icons/hicolor/1024x1024/apps/fluxer.png
     cp -r ${appimageContents}/usr/share/icons $out/share/
 
     wrapProgram $out/bin/fluxer \
@@ -71,9 +75,10 @@ appimageTools.wrapType2 {
         callPackage ../../utils/fetch-urls.nix {
           inherit versionFile;
           versionCommand = ''
-            curl -sI "https://api.fluxer.app/dl/desktop/stable/linux/x64/latest/appimage" \
-              | grep -i "^content-disposition:" \
-              | sed -n 's/.*fluxer-stable-\([0-9.]*\)-x86_64\.AppImage.*/\1/p'
+            curl -sIL "https://api.fluxer.app/dl/desktop/stable/linux/x64/latest/appimage" \
+              | grep -i "^x-fluxer-version:" \
+              | awk '{print $2}' \
+              | tr -d '\r'
           '';
           hashUrls = {
             x86_64-linux = "https://api.fluxer.app/dl/desktop/stable/linux/x64/latest/appimage";
