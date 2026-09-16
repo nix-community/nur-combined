@@ -173,16 +173,16 @@
   };
   loveiwara = {
     pname = "loveiwara";
-    version = "0.5.1";
+    version = "0.6.1";
     src = fetchFromGitHub {
       owner = "FoxSensei001";
       repo = "LoveIwara";
-      rev = "0.5.1";
+      rev = "0.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-9LKPAnMn/3XK+rLng+Fy0OGYsp2F3EJt9ppm59VcrBk=";
+      sha256 = "sha256-FB7HUpDNjVcwAx65hjOpZUT5hHDhnLEaeUTm8Xufwes=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-9LKPAnMn_3XK+rLng+Fy0OGYsp2F3EJt9ppm59VcrBk=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-FB7HUpDNjVcwAx65hjOpZUT5hHDhnLEaeUTm8Xufwes=/pubspec.lock";
     };
   };
   lxgw-wenkai-gb = {
@@ -257,21 +257,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "776743a8c09313bad21ff9301daab65c0be12fd3";
+    version = "ad161e243b7421ba1bfcbb9a337fe5bc24d816ae";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "776743a8c09313bad21ff9301daab65c0be12fd3";
+      rev = "ad161e243b7421ba1bfcbb9a337fe5bc24d816ae";
       fetchSubmodules = false;
-      sha256 = "sha256-F48mFUOHD2r0w+U+hC0wgx3/ivtt82F4EZ+D7f+ywhI=";
+      sha256 = "sha256-d9W4pLFZRo7mVbQAi9SB/pWhM9Gwj5ovtBzfQpIqWec=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-F48mFUOHD2r0w+U+hC0wgx3_ivtt82F4EZ+D7f+ywhI=/Cargo.lock";
+      lockFile = ./. + "/sha256-d9W4pLFZRo7mVbQAi9SB_pWhM9Gwj5ovtBzfQpIqWec=/Cargo.lock";
       outputHashes = {
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-15";
+    date = "2026-09-16";
   };
   piliplus = {
     pname = "piliplus";
