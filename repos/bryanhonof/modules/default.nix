@@ -1,5 +1,3 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  ccache-storage-http = ./ccache-storage-http.nix;
 }

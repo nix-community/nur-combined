@@ -15,6 +15,9 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ccache-storage-http-go = pkgs.callPackage ./pkgs/ccache-storage-http-go { };
+  git-of-theseus = pkgs.callPackage ./pkgs/git-of-theseus { };
+  gix-of-theseus = pkgs.callPackage ./pkgs/gix-of-theseus { };
+  likec4 = pkgs.callPackage ./pkgs/likec4 { };
 
   # Audio plugins/tools
   ratatouille = pkgs.callPackage ./pkgs/ratatouille { };
