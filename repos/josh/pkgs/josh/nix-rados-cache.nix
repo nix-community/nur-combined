@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
   ceph,
-  go,
   nix-update-script,
 }:
 buildGoModule {
@@ -40,6 +39,5 @@ buildGoModule {
     license = lib.licenses.mit;
     mainProgram = "nix-rados-cache";
     inherit (ceph.meta) platforms;
-    broken = lib.strings.versionOlder go.version "1.26.7";
   };
 }

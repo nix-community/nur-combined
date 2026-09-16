@@ -8,7 +8,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rezmoss-cloud-provider-ip-addresses";
-  version = "2026.09.16-unstable-2026-09-16";
+  version = "2026.09.16";
 
   outputs = [
     "out"
@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "rezmoss";
     repo = "cloud-provider-ip-addresses";
-    rev = "8cfcffaa665960aa99e4bda1160740130cbf9283";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-WTBL30pY+CRksjqdLFHh113hFyENMtyy+bafsLMS+bc=";
   };
 
@@ -40,7 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     json =

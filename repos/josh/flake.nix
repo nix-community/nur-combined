@@ -32,9 +32,9 @@
       mkPackages =
         pkgs:
         let
-          nurpkgs = import ./default.nix { inherit pkgs; };
+          pkgs' = import ./default.nix { inherit pkgs; };
         in
-        lib.attrsets.filterAttrs (_: pkg: pkg.meta.available) nurpkgs;
+        lib.attrsets.filterAttrs (_: pkg: pkg.meta.available) pkgs';
 
       mkChecks =
         name: pkgs:

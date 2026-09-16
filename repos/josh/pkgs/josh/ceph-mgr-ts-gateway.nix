@@ -2,7 +2,6 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  go,
   nix-update-script,
   runCommand,
 }:
@@ -45,6 +44,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/ceph-mgr-ts-gateway";
     license = lib.licenses.mit;
     mainProgram = "ceph-mgr-ts-gateway";
-    broken = lib.strings.versionOlder go.version "1.26.5";
   };
 })

@@ -1,13 +1,12 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
-  go_1_27,
   nix-update-script,
   runCommand,
 }:
 # Remove go 1.27 workaround once nixpkgs defaults to go 1.27 or newer.
-(buildGoModule.override { go = go_1_27; }) (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "intel-gpu-plugin";
   version = "0.37.0";
 

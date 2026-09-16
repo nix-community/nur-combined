@@ -3,9 +3,9 @@ let
   pkg = terraform-providers.mkProvider {
     owner = "Telmate";
     repo = "terraform-provider-proxmox";
-    rev = "v3.0.2-rc08";
-    hash = "sha256-oRGBOyWwS/pv0ETmDBLmVUScqxHWc4EX+yWwyTCzCsI=";
-    vendorHash = "sha256-r34lRNmmd2Q3iyCC5qU96H1NmUJ5kMFfhN+JGnu35Ik=";
+    rev = "v3.0.2-rc10";
+    hash = "sha256-uZxq/vrvhqvi897G/rxFK89dV+zsvcks9oZf1V28NwA=";
+    vendorHash = "sha256-MySaED4kj+F2rYaYu1rpw5qUQFBx9u2Prpn+nqvqqA0=";
     provider-source-address = "registry.terraform.io/Telmate/proxmox";
     homepage = "https://github.com/Telmate/terraform-provider-proxmox";
     spdx = "MIT";

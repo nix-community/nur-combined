@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
   ceph,
-  go,
   nix-update-script,
   runCommand,
   testers,
@@ -57,6 +56,5 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "restic-rados-server";
     inherit (ceph.meta) platforms;
-    broken = lib.strings.versionOlder go.version "1.26.5";
   };
 })
