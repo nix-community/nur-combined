@@ -25,6 +25,7 @@
     ./htop
     ./jq
     ./keyboard
+    ./libreoffice
     ./mail
     ./mpv
     ./nix
