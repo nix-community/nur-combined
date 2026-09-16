@@ -2,8 +2,23 @@
 
 Personal [NUR](https://github.com/nix-community/NUR) packages.
 
-All package sources are pinned by version/tag and hash, so evaluation remains
+All package sources are pinned by version/tag or commit and hash, so evaluation remains
 pure and reproducible.
+
+## ModelTrace
+
+Run the local model-attribution web application:
+
+```console
+nix run .#modeltrace
+```
+
+The application opens `http://127.0.0.1:7860/` and listens only on loopback.
+Writable fingerprint banks are stored in `$XDG_DATA_HOME/modeltrace`, falling
+back to `$HOME/.local/share/modeltrace`. Bundled data seeds missing files;
+existing banks and custom data are not overwritten on restart or upgrade.
+ModelTrace has no upstream release tags, so its updater follows the default
+branch and pins the resulting commit and source hash.
 
 ## Update packages
 
@@ -13,7 +28,7 @@ Update selected packages:
 nix run .#update -- amber-lsp quien
 ```
 
-Update every package that follows a standard upstream tag:
+Update every package in the default update set:
 
 ```console
 nix run .#update -- --all
@@ -51,7 +66,7 @@ vendor binary package remains available as `cangjie-bin`.
 
 ## Automatic updates
 
-The `Update NUR packages` GitHub Actions workflow runs every Monday at 03:17
+The `Update NUR packages` GitHub Actions workflow runs daily at 03:17
 UTC (11:17 Asia/Shanghai) and can also be started manually. It updates the
 default package set, validates native x86_64 builds, updates the aarch64 source
 pins for binary packages, and commits successful changes directly to the

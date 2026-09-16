@@ -1,0 +1,80 @@
+--- a/app.py
++++ b/app.py
+@@ -2,8 +2,11 @@
+ 
+ import json
+ import math
++import os
+ import re
+ import secrets
++import shutil
++import tempfile
+ from pathlib import Path
+ 
+ from flask import Flask, jsonify, render_template, request
+@@ -15,8 +18,23 @@
+ 
+ app = Flask(__name__)
+ PROJECT = Path(__file__).resolve().parent
+-CUSTOM_BANKS_FILE = PROJECT / "data" / "custom_banks.json"
+-UNIFIED_BANK_FILE = PROJECT / "data" / "unified_bank.json"
++DATA = Path(os.environ.get("XDG_DATA_HOME") or Path.home() / ".local" / "share") / "modeltrace"
++DATA.mkdir(parents=True, exist_ok=True)
++# Seed writable banks without overwriting user data, even on concurrent startup.
++for source in (PROJECT / "data").iterdir():
++    target = DATA / source.name
++    if target.exists():
++        continue
++    with tempfile.NamedTemporaryFile(dir=DATA) as temporary:
++        with source.open("rb") as handle:
++            shutil.copyfileobj(handle, temporary)
++        temporary.flush()
++        try:
++            os.link(temporary.name, target)
++        except FileExistsError:
++            pass
++CUSTOM_BANKS_FILE = DATA / "custom_banks.json"
++UNIFIED_BANK_FILE = DATA / "unified_bank.json"
+ DEFAULT_BANK_ID = "claude"
+ 
+ 
+@@ -24,13 +42,13 @@
+     return {
+         "gpt": {
+             "label": "GPT",
+-            "bank_file": PROJECT / "data" / "gpt_bank.json",
+-            "data_file": PROJECT / "data" / "gpt_reference.jsonl",
++            "bank_file": DATA / "gpt_bank.json",
++            "data_file": DATA / "gpt_reference.jsonl",
+         },
+         "claude": {
+             "label": "Claude",
+-            "bank_file": PROJECT / "data" / "claude_bank.json",
+-            "data_file": PROJECT / "data" / "claude_reference.jsonl",
++            "bank_file": DATA / "claude_bank.json",
++            "data_file": DATA / "claude_reference.jsonl",
+         },
+     }
+ 
+@@ -42,8 +60,8 @@
+             bank_id = item["id"]
+             configs[bank_id] = {
+                 "label": item["label"],
+-                "bank_file": PROJECT / "data" / f"{bank_id}_bank.json",
+-                "data_file": PROJECT / "data" / f"{bank_id}_reference.jsonl",
++                "bank_file": DATA / f"{bank_id}_bank.json",
++                "data_file": DATA / f"{bank_id}_reference.jsonl",
+                 "custom": True,
+             }
+     return configs
+@@ -252,8 +270,8 @@
+         return jsonify({"error": "同名指纹库已存在"}), 400
+     config = {
+         "label": label,
+-        "bank_file": PROJECT / "data" / f"{bank_id}_bank.json",
+-        "data_file": PROJECT / "data" / f"{bank_id}_reference.jsonl",
++        "bank_file": DATA / f"{bank_id}_bank.json",
++        "data_file": DATA / f"{bank_id}_reference.jsonl",
+         "custom": True,
+     }
+     config["data_file"].parent.mkdir(parents=True, exist_ok=True)

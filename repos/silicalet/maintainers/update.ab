@@ -11,6 +11,7 @@ main (args) {
         "ghost-downloader-3",
         "ipgw",
         "meatshell-bin",
+        "modeltrace",
         "neomacs-bin",
         "nyaterm-bin",
         "oh-dsh-bin",

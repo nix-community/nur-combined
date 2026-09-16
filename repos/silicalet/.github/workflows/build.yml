@@ -74,6 +74,7 @@ jobs:
           - { package: ghost-downloader-3, system: x86_64-linux, runner: ubuntu-latest }
           - { package: ipgw, system: x86_64-linux, runner: ubuntu-latest }
           - { package: meatshell-bin, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: modeltrace, system: x86_64-linux, runner: ubuntu-latest }
           - { package: neomacs-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: nyaterm-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: oh-dsh-bin, system: x86_64-linux, runner: ubuntu-latest }

@@ -40,7 +40,12 @@
           );
           packageUpdaters = map (
             name:
-            pkgs.runCommand "nur-update-${name}-bin"
+            let
+              updaterName =
+                "nur-update-${name}"
+                + nixpkgs.lib.optionalString (builtins.hasAttr "${name}-bin" self.legacyPackages.${system}) "-bin";
+            in
+            pkgs.runCommand updaterName
               {
                 nativeBuildInputs = [ pkgs.amber-lang ];
               }
@@ -48,7 +53,7 @@
                 mkdir -p "$out/bin"
                 amber build \
                   ${./pkgs + "/${name}/update.ab"} \
-                  "$out/bin/nur-update-${name}-bin"
+                  "$out/bin/${updaterName}"
               ''
           ) packageUpdaterNames;
           update =

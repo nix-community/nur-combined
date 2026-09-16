@@ -1,0 +1,3 @@
+main {
+    $ nix-update modeltrace --flake --build --format --version=branch $?
+}
