@@ -1,5 +1,5 @@
 {
-  description = "Rainlendar package";
+  description = "NicoWeio's NUR packages";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -16,6 +16,10 @@
           };
         in
         {
+          radiopropa = pkgs.callPackage ./radiopropa {
+            python = pkgs.python312;
+            numpy = pkgs.python312Packages.numpy;
+          };
           rainlendar2 = pkgs.callPackage ./rainlendar2 { };
         });
     };

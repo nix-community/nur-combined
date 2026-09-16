@@ -7,6 +7,7 @@ packages.
 
 | Package | Description |
 | --- | --- |
+| `radiopropa` | Radio propagation in inhomogeneous media ray tracing. |
 | `rainlendar2` | Customizable desktop calendar (Rainlendar Lite). |
 
 ## Installation
