@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://helm.cilium.io/";
   chart = "cilium";
-  version = "1.20.1";
-  hash = "sha256-SJXAwedwFluZGlPda7Xw19Avq2Nm9VFCsBjqVGR/em8=";
+  version = "1.20.2";
+  hash = "sha256-B6yOW8FluRJEF+/bvVvsobW6zUhE2WYE1lprZI/s95U=";
 
   meta = {
     description = "Helm chart for Cilium, eBPF-based networking, observability, and security";
