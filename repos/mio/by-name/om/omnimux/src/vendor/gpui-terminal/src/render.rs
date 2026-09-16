@@ -648,7 +648,7 @@ impl TerminalRenderer {
 
             // Paint each character individually at exact cell positions
             // This ensures perfect alignment for terminal emulation
-            for (col_idx, cell) in cells {
+            for (col_idx, cell) in cells.clone() {
                 let ch = cell.c;
 
                 // Skip empty cells (space or null) and wide-char spacers.
@@ -666,11 +666,15 @@ impl TerminalRenderer {
                 // the shaped glyph is ~1×cell_width wide even though alacritty
                 // reserved 2 columns. Centre the glyph in its 2-cell slot so it
                 // always lines up correctly regardless of the font's advance width.
-                let cell_cols = if cell.flags.contains(Flags::WIDE_CHAR) {
-                    2.0_f32
-                } else {
-                    1.0_f32
-                };
+                let mut cell_cols = 1.0_f32;
+                let mut is_wide = cell.flags.contains(Flags::WIDE_CHAR);
+                if is_wide {
+                    if col_idx + 1 < num_cols && cells[col_idx + 1].1.flags.contains(Flags::WIDE_CHAR_SPACER) {
+                        cell_cols = 2.0_f32;
+                    } else {
+                        is_wide = false;
+                    }
+                }
                 let slot_width = self.cell_width * cell_cols;
 
                 // Centre glyph horizontally within the slot
@@ -737,7 +741,7 @@ impl TerminalRenderer {
                 // For wide chars (emoji, CJK) NotoColorEmoji reports 1em advance
                 // even though alacritty reserved 2 columns — centre the glyph in
                 // its 2-cell slot so it never bleeds into adjacent cells.
-                let x = if cell.flags.contains(Flags::WIDE_CHAR) {
+                let x = if is_wide {
                     x_slot + (slot_width - shaped_line.width) / 2.0
                 } else {
                     x_slot
