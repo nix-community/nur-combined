@@ -240,10 +240,10 @@
     };
     "ahrefs-seo-toolbar" = buildMozillaXpiAddon {
       pname = "ahrefs-seo-toolbar";
-      version = "3.2.12";
+      version = "3.2.13";
       addonId = "ahrefs@AhrefsPteLtd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5006342/ahrefs_seo_toolbar-3.2.12.xpi";
-      sha256 = "73c92ded8ec6863490af93f4fea296300a54f195994ebca253710bbdda311d71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5031292/ahrefs_seo_toolbar-3.2.13.xpi";
+      sha256 = "81c91d0c4c241df059aaf1230841583e9570819db99804e23fe7aa937b5068ee";
       meta = with lib;
       {
         homepage = "https://ahrefs.com/seo-toolbar";
@@ -3743,10 +3743,10 @@
     };
     "ebates" = buildMozillaXpiAddon {
       pname = "ebates";
-      version = "26.10.1";
+      version = "26.16.0";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4845688/ebates-26.10.1.xpi";
-      sha256 = "508e899402937f4a94285a47ff0fb32a0087e9f1937191e4f2bb0a9a188dd77c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5015694/ebates-26.16.0.xpi";
+      sha256 = "25895489c73f74371915ea8a6af9b728a54b83a9897d834d52e240ca0f5d80b1";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -4748,10 +4748,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.2.0";
+      version = "2.2.2";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5029975/geo_spoof-2.2.0.xpi";
-      sha256 = "75b7b7e5bbc8d41160e83b366d37f9e9e87cf2bf94ae74fc04da45cbed881cae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5033148/geo_spoof-2.2.2.xpi";
+      sha256 = "94993178e8407b97cad210e653658036ab3cb9d241500ff72785b2597238a47c";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -4810,10 +4810,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.1";
+      version = "10.6.2";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5016559/ghostery-10.6.1.xpi";
-      sha256 = "420d620133a9aa49c50f7129507b0295fa831f060e266da7d2c60ea7384f2f7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5032165/ghostery-10.6.2.xpi";
+      sha256 = "471d57dd28e93400d6e704c38af5fe7580a08e83238bfdb671e747674b1304f6";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -8286,10 +8286,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.244";
+      version = "2.4.245";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5022115/lichess_tools_by_siderite-2.4.244.xpi";
-      sha256 = "e10a0c1714ccc94eb41bd969efa47fd2dcd8b70431336064b275e0205dacbff2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5030822/lichess_tools_by_siderite-2.4.245.xpi";
+      sha256 = "54cf3c72031fdd45b1ebb2a8312287a704259897706582ecc636ebed00605055";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -9919,10 +9919,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.13.0";
+      version = "1.13.1";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5019013/mtab-1.13.0.xpi";
-      sha256 = "811651feb436946bc53d980de2306a67198a3d51f6bc7db38517cb4f4bdcf994";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5032952/mtab-1.13.1.xpi";
+      sha256 = "1bba7666389882b509105c6d2ca0bdc25d057100be07e8a1854c410368eee3a2";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -11308,10 +11308,10 @@
     };
     "privacy-badger" = buildMozillaXpiAddon {
       pname = "privacy-badger";
-      version = "2026.8.7";
+      version = "2026.9.15";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4944345/privacy_badger17-2026.8.7.xpi";
-      sha256 = "27885c1a80a00f8a293817feefb390addeb40ac4fa24a4ef3b56c9333c93d053";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5032646/privacy_badger17-2026.9.15.xpi";
+      sha256 = "97cd8911e3486da34a532a7c7f2806cd6d0cfa117a1fbe5e8747042a94442d62";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -11321,6 +11321,7 @@
           "<all_urls>"
           "alarms"
           "privacy"
+          "scripting"
           "storage"
           "tabs"
           "webNavigation"
@@ -17563,10 +17564,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.24.6";
+      version = "2.25.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5006014/youtube_no_translation-2.24.6.xpi";
-      sha256 = "585c82cf962e0c2c8d6540ad6a81211eef6a133fbcd269cd3fcc2f0aa2dacf92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5016291/youtube_no_translation-2.25.0.xpi";
+      sha256 = "e82410d32621fc61eec626141c7008586c40e660ad0d3e74990587bc8dba838c";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
@@ -17775,10 +17776,10 @@
     };
     "zeroomega" = buildMozillaXpiAddon {
       pname = "zeroomega";
-      version = "3.5.1";
+      version = "3.5.2";
       addonId = "suziwen1@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4973909/zeroomega-3.5.1.xpi";
-      sha256 = "e62823e137eb60b35f2b4f3c11c1c39aa98b62dfd1a1ed23266d0c06863b0baf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5017630/zeroomega-3.5.2.xpi";
+      sha256 = "a65098b76bcaeb532ba6aaf103c39b3de0a0d9a4f7d8855e3ba87fb4052e01ef";
       meta = with lib;
       {
         description = "Manage and switch between multiple proxies quickly &amp; easily.";
