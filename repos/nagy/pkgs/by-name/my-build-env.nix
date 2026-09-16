@@ -48,7 +48,7 @@ let
             nur.repos.nagy.modules.opentofu
             nur.repos.nagy.modules.ai
             nur.repos.nagy.modules.python
-            nur.repos.nagy.modules.pytr
+            # nur.repos.nagy.modules.pytr
             nur.repos.nagy.modules.restic
             nur.repos.nagy.modules.shortcommands_common
             nur.repos.nagy.modules.shortcommands

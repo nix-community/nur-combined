@@ -18,15 +18,13 @@ let
   # below). This mirrors the policy merging nixpkgs does when `enable = true`:
   # preferences become locked `Preferences` entries and `DisableAppUpdate` is
   # added.
-  bakedPolicies =
-    cfg.policies
-    // {
-      DisableAppUpdate = true;
-      Preferences = lib.mapAttrs (_: value: {
-        Value = value;
-        Status = cfg.preferencesStatus;
-      }) cfg.preferences;
-    };
+  bakedPolicies = cfg.policies // {
+    DisableAppUpdate = true;
+    Preferences = lib.mapAttrs (_: value: {
+      Value = value;
+      Status = cfg.preferencesStatus;
+    }) cfg.preferences;
+  };
 
   wrappedFirefox = pkgs.wrapFirefox cfg.package.unwrapped {
     extraPolicies = bakedPolicies;
