@@ -6,8 +6,4 @@ fd.overrideAttrs (attrs: {
     # See https://github.com/sharkdp/fd/issues/839
     ./relative-full-path.patch
   ];
-
-  checkFlags = (attrs.checkFlags or [ ]) ++ [
-    "--skip=test_full_path"
-  ];
 })

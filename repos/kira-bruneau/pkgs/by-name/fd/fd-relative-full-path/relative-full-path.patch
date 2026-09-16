@@ -1,30 +1,61 @@
 diff --git a/src/walk.rs b/src/walk.rs
-index 7316475..40cd6a7 100644
+index 30128a0..e02e012 100644
 --- a/src/walk.rs
 +++ b/src/walk.rs
-@@ -524,13 +524,11 @@ impl WorkerState {
-                 // Check the name first, since it doesn't require metadata
-                 let entry_path = entry.path();
+@@ -657,14 +657,13 @@ fn search_str_for_entry<'a>(
+     entry_path: &'a std::path::Path,
+     full_path_base: Option<&std::path::Path>,
+ ) -> Cow<'a, OsStr> {
+-    if let Some(cwd) = full_path_base {
+-        // If full_path_base is some, that means that we need to return
+-        // the absolute path
+-        if entry_path.is_absolute() {
+-            return Cow::Borrowed(entry_path.as_os_str());
+-        }
+-        let path = entry_path.strip_prefix(".").unwrap_or(entry_path);
+-        Cow::Owned(cwd.join(path).into())
++    if let Some(_cwd) = full_path_base {
++        Cow::Borrowed(
++            entry_path
++                .strip_prefix("./")
++                .unwrap_or(entry_path)
++                .as_os_str(),
++        )
+     } else {
+         match entry_path.file_name() {
+             Some(filename) => Cow::Borrowed(filename),
+@@ -696,7 +695,7 @@ mod tests {
+         let full_path_base = Some(Path::new("/home/user"));
+         assert_eq!(
+             search_str_for_entry(Path::new("foo/bar"), full_path_base),
+-            PathBuf::from("/home/user/foo/bar")
++            PathBuf::from("foo/bar")
+         );
+     }
  
--                let search_str: Cow<OsStr> = if config.search_full_path {
--                    let path_abs_buf = filesystem::path_absolute_form(entry_path)
--                        .expect("Retrieving absolute path succeeds");
--                    Cow::Owned(path_abs_buf.as_os_str().to_os_string())
-+                let search_str: &OsStr = if config.search_full_path {
-+                    entry_path.strip_prefix("./").unwrap_or(entry_path).as_os_str()
-                 } else {
-                     match entry_path.file_name() {
--                        Some(filename) => Cow::Borrowed(filename),
-+                        Some(filename) => filename,
-                         None => unreachable!(
-                             "Encountered file system entry without a file name. This should only \
-                              happen for paths like 'foo/bar/..' or '/' which are not supposed to \
-@@ -541,7 +539,7 @@ impl WorkerState {
+@@ -705,7 +704,7 @@ mod tests {
+         let full_path_base = Some(Path::new("/home/user"));
+         assert_eq!(
+             search_str_for_entry(Path::new("./foo/bar"), full_path_base),
+-            PathBuf::from("/home/user/foo/bar")
++            PathBuf::from("foo/bar")
+         );
+     }
  
-                 if !patterns
-                     .iter()
--                    .all(|pat| pat.is_match(&filesystem::osstr_to_bytes(search_str.as_ref())))
-+                    .all(|pat| pat.is_match(&filesystem::osstr_to_bytes(search_str)))
-                 {
-                     return WalkState::Continue;
-                 }
+diff --git a/tests/tests.rs b/tests/tests.rs
+index 0fce5ed..7c56af8 100644
+--- a/tests/tests.rs
++++ b/tests/tests.rs
+@@ -667,11 +667,8 @@ fn test_regex_overrides_glob() {
+ fn test_full_path() {
+     let te = TestEnv::new(DEFAULT_DIRS, DEFAULT_FILES);
+ 
+-    let root = te.system_root();
+-    let prefix = escape(&root.to_string_lossy());
+-
+     te.assert_output(
+-        &["--full-path", &format!("^{prefix}.*three.*foo$")],
++        &["--full-path", &format!("^.*three.*foo$")],
+         "one/two/three/d.foo
+         one/two/three/directory_foo/",
+     );

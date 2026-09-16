@@ -7,7 +7,7 @@
 
 klipper.overrideAttrs (attrs: {
   pname = "ender3-v3-se-klipper-with-display";
-  version = "1.0.0-unstable-2026-07-29";
+  version = "1.0.1-unstable-2026-07-29";
 
   src = fetchFromGitHub {
     owner = "jpcurti";
