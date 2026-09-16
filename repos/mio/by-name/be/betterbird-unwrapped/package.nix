@@ -175,11 +175,11 @@ in
         ;
     };
   }).override
-  {
-    crashreporterSupport = false; # not supported
-    geolocationSupport = false;
-    webrtcSupport = false;
+    {
+      crashreporterSupport = false; # not supported
+      geolocationSupport = false;
+      webrtcSupport = false;
 
-    pgoSupport = false; # console.warn: feeds: "downloadFee d: network connection unavailable"
-  }
+      pgoSupport = false; # console.warn: feeds: "downloadFee d: network connection unavailable"
+    }
 )

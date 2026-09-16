@@ -272,19 +272,6 @@ byName
       (old.nativeBuildInputs or [ ])
       ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
   });
-
-  vscode1133 = pkgs.callPackage ./pkgs/vscode/vscode.nix {
-    buildVscode = pkgs.callPackage ./pkgs/vscode/generic.nix { };
-  };
-  vscode-fhs1133 = vscode1133.fhs;
-  vscode-fhsWithPackages1133 = vscode1133.fhsWithPackages;
-  vscode-utils1133 = pkgs.callPackage ./pkgs/vscode/extensions/vscode-utils.nix { };
-  vscode-extensions1133 = pkgs.lib.recurseIntoAttrs (
-    pkgs.callPackage ./pkgs/vscode/extensions {
-      vscode-utils = vscode-utils1133;
-    }
-  );
-
 })
 // (lib.optionalAttrs (!no-ifd) (
   with byName;
