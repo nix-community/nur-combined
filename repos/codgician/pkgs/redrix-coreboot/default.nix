@@ -34,14 +34,14 @@ let
 in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "redrix-coreboot";
-  version = "26.06-unstable.1246-ge317bd232e1d";
+  version = "26.06-unstable.1255-g96b021b2b853";
 
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "coreboot";
-    rev = "e317bd232e1d028cbe89077d7b2ddbfabedcb6af";
+    rev = "96b021b2b853a329fdaf6884924a74763a7c22e9";
     fetchSubmodules = true;
-    hash = "sha256-bm4189GFDGK2b2qz6NCjF2g3o6OxovnxcGt/phpAO/w=";
+    hash = "sha256-0mFLyt3z0q0xKkb1RWPATYT/PEld3JiB/O510pyNmIc=";
   };
 
   nativeBuildInputs = [

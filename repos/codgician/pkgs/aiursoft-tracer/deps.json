@@ -76,13 +76,13 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.30",
-    "hash": "sha256-8ph3jnM/YV4JRroVMglTv9feXMHGlpg/oKHotZrEw0k="
+    "version": "10.0.31",
+    "hash": "sha256-7cjdbK2IXn+ZeVbOjYTGqBpfXIA1hapRpk9m4VkM878="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.34",
-    "hash": "sha256-Rz6PbDxsgwp4OI9m6CN1O2MLM3KmOA2Tg1GUGWw3WtQ="
+    "version": "10.0.35",
+    "hash": "sha256-y88sszgUU+bCHRj5SJ35nSVR7eGrY4L/rwVZho/mp5M="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
@@ -136,13 +136,13 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.5.0",
-    "hash": "sha256-uNBMi0te+2VPw30xS8mGSpacbR+nbJKcJu59oG+GFXc="
+    "version": "5.5.1",
+    "hash": "sha256-WgXfybJQpPxL/zJf9AyRNO5k/34oWEZxKlOFGsWLJ0o="
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.5.0",
-    "hash": "sha256-YR1LSjxXdoPKQOy/JkyiGfaXDlRacEsVWONsKcwlwzA="
+    "version": "5.5.1",
+    "hash": "sha256-ZjZmoUei8M5eDRC3vbj3a/js8RSh8QajynyBS5XSvds="
   },
   {
     "pname": "Humanizer.Core",
@@ -241,8 +241,8 @@
   },
   {
     "pname": "Microsoft.CodeCoverage",
-    "version": "18.10.0",
-    "hash": "sha256-CruHCbs9PzO3m2/lyhjZbjDfMVNcO99bdMohchvvhI4="
+    "version": "18.10.1",
+    "hash": "sha256-j6kLSrn2sJA6sUf+tcDAfwI9maDTjU5+xZl7qd+5pEA="
   },
   {
     "pname": "Microsoft.Data.Sqlite.Core",
@@ -511,8 +511,8 @@
   },
   {
     "pname": "Microsoft.NET.Test.Sdk",
-    "version": "18.10.0",
-    "hash": "sha256-BAdT4MCcuW/lgVokaiDKk+V2b6w+/l3bMfKEsWLhXvU="
+    "version": "18.10.1",
+    "hash": "sha256-12rO5bWnSE7xdrZg4zgRxu8/M4vUdR46ov0xiz2y/P4="
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
@@ -536,8 +536,8 @@
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
-    "version": "18.10.0",
-    "hash": "sha256-ftoPwkiJ+AUG0G8t3VtUwhNLEUP7+mQAoykw0QFPEJw="
+    "version": "18.10.1",
+    "hash": "sha256-rtEsNPmOjjL1VCi6CRCLROMsbIia6sv6rGYciKUkbW8="
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
@@ -546,8 +546,8 @@
   },
   {
     "pname": "Microsoft.TestPlatform.TestHost",
-    "version": "18.10.0",
-    "hash": "sha256-RBdFb7uMIgpK3Omt4zf8nBSBMmafSNjtoK2BRDwvLkY="
+    "version": "18.10.1",
+    "hash": "sha256-1lLjkHDqSCMGjopGg0KwaNnztQrh/aP7V7E+ydtkgiw="
   },
   {
     "pname": "Microsoft.VisualStudio.SolutionPersistence",
@@ -711,7 +711,7 @@
   },
   {
     "pname": "System.IO.Hashing",
-    "version": "10.0.10",
-    "hash": "sha256-TPzhNJAi0x/X5NoYu62MbRLB7GgVCneSqRDbV3aYQ0M="
+    "version": "10.0.12",
+    "hash": "sha256-2RjeBEFopI4UinPoTG22+P6lcJY4SNxMA2MarZeVjdE="
   }
 ]
