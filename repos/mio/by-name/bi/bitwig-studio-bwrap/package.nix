@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation {
         outDir=${bitwig-studio}
         TMPDIR="$(${coreutils}/bin/mktemp --directory)"
         cleanup() { ${coreutils}/bin/rm -rf "$TMPDIR"; }
-        trap cleanup EXIT
+        trap cleanup EXIT INT TERM
 
         ${coreutils}/bin/cp -r "$outDir"/libexec/resources/VampTransforms "$TMPDIR"
         ${coreutils}/bin/chmod -R u+w "$TMPDIR/VampTransforms"
@@ -52,7 +52,6 @@ stdenvNoCC.mkDerivation {
           --bind / / \
           --dev-bind /dev /dev \
           --bind "$TMPDIR"/VampTransforms "$outDir"/libexec/resources/VampTransforms \
-          --die-with-parent \
           "''${net_args[@]}" \
           "$outDir"/libexec/bitwig-studio \
           "$@"
