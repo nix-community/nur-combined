@@ -1,5 +1,5 @@
---- a/manifest.json
-+++ b/manifest.json
+--- a/manifest.json	1970-01-01 10:00:01.000000000 +1000
++++ b/manifest.json	2026-09-16 23:04:49.783593016 +1000
 @@ -10,9 +10,19 @@
    },
  
@@ -31,9 +31,9 @@
      }
    ],
    "browser_specific_settings": {
---- a/unhook.js
-+++ b/unhook.js
-@@ -1,35 +1,134 @@
+--- a/unhook.js	1970-01-01 10:00:01.000000000 +1000
++++ b/unhook.js	2026-09-16 23:04:55.736551767 +1000
+@@ -1,35 +1,132 @@
  // Chrome/Firefox compatibility
  const browserAPI = globalThis.browser || globalThis.chrome;
  
@@ -117,7 +117,7 @@
 +  }
 +  if (!settings.redirectToSubscriptions || !isHomeOrTrending()) {
 +    return false;
-+  }
+   }
 +  // Full document loads are handled by background webRequest when possible.
 +  // This path covers SPA navigations (logo/Home) where webRequest does not run.
 +  redirecting = true;
@@ -150,9 +150,7 @@
 +function applyStyles(settings) {
 +  writeEarlyHideCache(settings);
 +
-+  if (redirectHomeIfNeeded(settings)) {
-+    return;
-   }
++  const isRedirecting = redirectHomeIfNeeded(settings);
  
    if (!styleElement) {
      styleElement = document.createElement('style');
@@ -179,13 +177,13 @@
    if (settings.hideEndScreenCards) rules.push('.ytp-fullscreen-grid, .ytp-ce-element { display: none !important; }');
    if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
  
-@@ -65,22 +164,80 @@
+@@ -65,22 +162,80 @@
    }
  
    styleElement.textContent = rules.join('\n');
 +
 +  // Keep early hide only while home feed should stay hidden; otherwise reveal.
-+  if (settings.hideHomeFeed && path === '/') {
++  if (isRedirecting || (settings.hideHomeFeed && path === '/')) {
 +    setEarlyHide(true);
 +  } else {
 +    setEarlyHide(false);
