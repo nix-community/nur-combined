@@ -1,7 +1,7 @@
-diff --git a/parentcheck/parentcheck.go b/parentcheck/parentcheck.go
+diff --git a/internal/parentcheck/parentcheck.go b/internal/parentcheck/parentcheck.go
 index 87de602..52f0237 100644
---- a/parentcheck/parentcheck.go
-+++ b/parentcheck/parentcheck.go
+--- a/internal/parentcheck/parentcheck.go
++++ b/internal/parentcheck/parentcheck.go
 @@ -32,8 +32,8 @@ func CheckParentProcess() {
  		return
  	}

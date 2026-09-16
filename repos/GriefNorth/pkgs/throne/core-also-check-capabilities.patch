@@ -1,19 +1,20 @@
-diff --git a/server.go b/server.go
-index 4499a6d..4c14d1a 100644
---- a/server.go
-+++ b/server.go
-@@ -24,6 +24,7 @@ import (
- 	"github.com/sagernet/sing-box/experimental/clashapi"
- 	"github.com/sagernet/sing/common"
- 	E "github.com/sagernet/sing/common/exceptions"
+diff --git a/internal/rpc/system.go b/internal/rpc/system.go
+--- a/internal/rpc/system.go
++++ b/internal/rpc/system.go
+@@ -2,8 +2,9 @@ package rpc
+
+ import (
+ 	"context"
+ 	"os"
+ 	"runtime"
 +	"golang.org/x/sys/unix"
- 	"github.com/sagernet/sing/service"
- 	"github.com/xtls/xray-core/core"
+
+ 	"ThroneCore/gen"
  )
-@@ -462,6 +463,27 @@ func (s *server) IsPrivileged(ctx context.Context, _ *gen.EmptyReq) (*gen.IsPriv
+@@ -15,5 +15,26 @@ func (s *server) IsPrivileged(ctx context.Context, _ *gen.EmptyReq) (*gen.IsPriv
  		}, nil
  	}
- 
+
 +	if runtime.GOOS == "linux" {
 +		caps := unix.CapUserHeader{
 +			Version: unix.LINUX_CAPABILITY_VERSION_3,
@@ -37,4 +38,3 @@ index 4499a6d..4c14d1a 100644
 +
  	return &gen.IsPrivilegedResponse{HasPrivilege: To(os.Geteuid() == 0)}, nil
  }
- 

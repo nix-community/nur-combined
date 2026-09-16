@@ -26,13 +26,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "throne";
-  version = "1.3.0-beta.3";
+  version = "1.3.0-beta.4";
 
   src = fetchFromGitHub {
     owner = "throneproj";
     repo = "Throne";
     tag = finalAttrs.version;
-    hash = "sha256-+XWu7KbSFTMpC70X1uwgr28kn52gRu3iZHMeWfO2ZNk=";
+    hash = "sha256-i1EBhR3t+OXcutpW1L62hp7Zspp4vHZMc79ODlONXIY=";
   };
 
   strictDeps = true;
@@ -99,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.core = buildGoModule {
     pname = "throne-core";
     inherit (finalAttrs) version src;
-    sourceRoot = "${finalAttrs.src.name}/core/server";
+    sourceRoot = "${finalAttrs.src.name}/core";
 
     patches = [
       # also check cap_net_admin so we don't have to set suid
@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
     proxyVendor = true;
-    vendorHash = "sha256-rJWg9lxRrkbZ/RMSFjaWrejqBnzwaCL22+UW8tpqbII=";
+    vendorHash = "sha256-bj2i8pRCDuyZbcH3GGqKESzMTzSOLLV8raK4C+I29es=";
 
     nativeBuildInputs = [
       protobuf
