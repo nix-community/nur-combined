@@ -17,13 +17,13 @@
 in
   stdenvNoCC.mkDerivation {
     pname = "gruvbox-plus-icons";
-    version = "6.6.0-unstable-2026-09-14";
+    version = "6.6.0-unstable-2026-09-15";
 
     src = fetchFromGitHub {
       owner = "SylEleuth";
       repo = "gruvbox-plus-icon-pack";
-      rev = "8fc0a07868b974512813e0961be951a28e7485ea";
-      hash = "sha256-5kWO2VdQuHgXsYbRRckS4oLc1NQjwwK8da7Ky4r7C44=";
+      rev = "cdc7961a8e1cee28dbd482fbcefaf6b1c72727bc";
+      hash = "sha256-UPpTQZ6gjJbAShuiB3M2g8Vg3w0hkvVSeD9vH8TBhW8=";
     };
 
     patches = [./folder-color.patch];
