@@ -347,12 +347,12 @@ go = '1.25.5'
     hash = 'sha256-q5bQGHB7cyEejA9tQkrhpvzpfYRvXcmClbWBgfs3Ymc='
 
   [mod.'github.com/sagernet/asc-go']
-    version = 'v0.0.0-20260827085112-8f8226245b0d'
-    hash = 'sha256-6mfoJTujgAOoVRhVfAnDpjJlHXxup466eohiRw9DLfk='
+    version = 'v0.0.0-20260914163356-9e3d45a797c1'
+    hash = 'sha256-8giIWrrJ88GxMr5AdXwDajDVFxjJJhncFtgv7KLRqRU='
 
   [mod.'github.com/sagernet/bbolt']
-    version = 'v0.0.0-20260823094646-e24805439c9c'
-    hash = 'sha256-xsNJ7JVqXt72Iz/PdrMoNIK8QhLAxUOW7TFqKgUQyRE='
+    version = 'v0.0.0-20260915102804-500ee1e84832'
+    hash = 'sha256-Wd8ICHzRiACi04bkpsIYLvQLPOL2FDyENfKstlEf/O4='
 
   [mod.'github.com/sagernet/cors']
     version = 'v1.2.1'
@@ -555,8 +555,8 @@ go = '1.25.5'
     hash = 'sha256-JkrVd6e/FEfdf3GiKCWe6xDJHxzk7CWQxVAz23Vmn0U='
 
   [mod.'github.com/sagernet/sing-tun']
-    version = 'v0.9.4-0.20260914145202-3a0d3878577a'
-    hash = 'sha256-sB0w+ASCeRCZ0kZawhrwWd+3kljAFpcihw20tjUUdck='
+    version = 'v0.9.4-0.20260916043548-e842d006fa65'
+    hash = 'sha256-pMkKnc4M9uHEAoO5SGUkfYi78bPjSotkPtrqx7KZZpU='
 
   [mod.'github.com/sagernet/sing-usbip']
     version = 'v0.0.0-20260817040617-28bd42667eca'
@@ -571,12 +571,12 @@ go = '1.25.5'
     hash = 'sha256-8qcsBtXTuvDGuEbZmzqxDWEaNniBhstcZq2w8fRyISk='
 
   [mod.'github.com/sagernet/tailscale']
-    version = 'v1.102.1-sing-box-1.14-mod.5'
-    hash = 'sha256-UwJlu0xg9tSSl7Hx4z820u9gcLVEVC6/IVGt5iRQpE8='
+    version = 'v1.102.1-sing-box-1.14-mod.5.0.20260916060041-a8fbeb4b0838'
+    hash = 'sha256-meaUwPyeZu7ZO66FHY+KMT6VFPyFZ4w06K6vHN4p7FY='
 
   [mod.'github.com/sagernet/wireguard-go']
-    version = 'v0.0.6'
-    hash = 'sha256-mZXZ22IZAJRCTdrGjPEzBKvqcGAPe3yaF6H62TZtMKY='
+    version = 'v0.0.7-0.20260916054909-2da8d81dcd5e'
+    hash = 'sha256-Xnjq1oh52w0vI4DsZyH/VuSj7+xdA76+ohi/X2x1C2Q='
 
   [mod.'github.com/sagernet/ws']
     version = 'v0.0.0-20231204124109-acfe8907c854'
