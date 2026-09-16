@@ -62,5 +62,6 @@ pkgs.lib.makeScope pkgs.newScope (
     melt = callPackage ./melt { };
     moonlight-duelists = callPackage ./moonlight-duelists { };
     moon-illusion = callPackage ./moon-illusion { };
+    oblivion2666demo = callPackage ./oblivion2666demo { };
   }
 )
