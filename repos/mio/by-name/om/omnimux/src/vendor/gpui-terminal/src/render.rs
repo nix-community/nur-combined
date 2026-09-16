@@ -669,8 +669,15 @@ impl TerminalRenderer {
                 let mut cell_cols = 1.0_f32;
                 let mut is_wide = cell.flags.contains(Flags::WIDE_CHAR);
                 if is_wide {
-                    if col_idx + 1 < num_cols && cells[col_idx + 1].1.flags.contains(Flags::WIDE_CHAR_SPACER) {
-                        cell_cols = 2.0_f32;
+                    if col_idx + 1 < num_cols {
+                        let next_cell = &cells[col_idx + 1].1;
+                        // Alacritty clears WIDE_CHAR_SPACER if a literal space is printed over it.
+                        // We still want to treat it as a 2-cell slot if the next cell is empty/space.
+                        if next_cell.flags.contains(Flags::WIDE_CHAR_SPACER) || next_cell.c == ' ' || next_cell.c == '\0' {
+                            cell_cols = 2.0_f32;
+                        } else {
+                            is_wide = false;
+                        }
                     } else {
                         is_wide = false;
                     }
