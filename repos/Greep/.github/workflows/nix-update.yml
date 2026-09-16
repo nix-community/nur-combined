@@ -1,0 +1,44 @@
+name: "Fetch latest updates with nix-update"
+on:
+  schedule:
+    # fetch every 6 hours starting 4am 12th minute
+    - cron: '12 4/6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    - name: Run nix-update
+      env:
+        AUTO_COMMIT: "1"
+      run: ./pkgs/update.sh
+    - name: Push commits
+      # Push the per-package commits even if some other package update failed.
+      if: always()
+      run: |
+        if [ ! -d .git ]; then
+          echo "No repository, nothing to push."
+          exit 0
+        fi
+        if [ "$(git rev-list --count '@{upstream}..HEAD')" -eq 0 ]; then
+          echo "No commits to push."
+          exit 0
+        fi
+        git push
