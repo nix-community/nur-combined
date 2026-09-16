@@ -648,7 +648,7 @@ impl TerminalRenderer {
 
             // Paint each character individually at exact cell positions
             // This ensures perfect alignment for terminal emulation
-            for (col_idx, cell) in cells.clone() {
+            for &(col_idx, ref cell) in &cells {
                 let ch = cell.c;
 
                 // Skip empty cells (space or null) and wide-char spacers.
