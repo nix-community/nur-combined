@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "nix-easy-search";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "Sh0rtRound-wq";
     repo = "NixEasySearch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LvWXZlTUVVJpcjKdVDojyuw246RgOm9dDh9LgWAT49I=";
+    hash = "sha256-v5Jc5FCTgYDfkSqqDYoxJmr0thF8ECzB3QD/vYAHzqs=";
   };
 
-  vendorHash = null;
+  vendorHash = "sha256-hN1s+fMfmnpNGrh8/XrljJEkCMfzGFNHAnh2OqeaVek=";
 
   strictDeps = true;
   __structuredAttrs = true;
