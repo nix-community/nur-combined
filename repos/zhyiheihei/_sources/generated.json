@@ -111,16 +111,16 @@
             "name": null,
             "owner": "vastsa",
             "repo": "FileCodeBox",
-            "rev": "v2.6.1",
-            "sha256": "sha256-PElZNdSpeXVx+B7VqQWJtYv581dvuh/Tfj7QiYrrF6w=",
+            "rev": "v2.7.0",
+            "sha256": "sha256-IOFIJAmAMFXNvZEc7nufLR5/fiEJsN43M263/R+23hk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.6.1"
+        "version": "v2.7.0"
     },
     "filecodebox-frontend": {
         "cargoLock": null,
-        "date": "2026-09-14",
+        "date": "2026-09-16",
         "extract": null,
         "name": "filecodebox-frontend",
         "passthru": null,
@@ -130,13 +130,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c32466a20ae104eae9e2d8561965378e1c1b5325",
-            "sha256": "sha256-DX3vHtuk0pI7daIScZ/s1vTzbDtwRKO8/sgVWxTpPM0=",
+            "rev": "3075ff15e088c4d86977d44ab0d1f2342c66b275",
+            "sha256": "sha256-jA1PlbJt61+7Z3pSj1zm0GDKSli/4JbifpKAs5BP/X4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/vastsa/FileCodeBoxFronted.git"
         },
-        "version": "c32466a20ae104eae9e2d8561965378e1c1b5325"
+        "version": "3075ff15e088c4d86977d44ab0d1f2342c66b275"
     },
     "hubproxy": {
         "cargoLock": null,
@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.20.18",
-            "sha256": "sha256-z6rNe6D8snX8NG35Ff0E157Q4zcUGWh4X/B+RWctaKA=",
+            "rev": "v4.20.19",
+            "sha256": "sha256-mdlxPoHLRZ5+Iw8Ym1Zw3i7ZqQ2oMu6XOz/NIiqVgxo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.20.18"
+        "version": "v4.20.19"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.20.18",
-            "sha256": "sha256-HWJVEPHpZX+qWF0MJ/ZDmks1FL5ZKznvU2h6h1/Igrw=",
+            "rev": "v4.20.19",
+            "sha256": "sha256-I2pFBsl0shiVshELjst4N6r2t6SymJ4UDYzhBszx2sc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.20.18"
+        "version": "v4.20.19"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
