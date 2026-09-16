@@ -31,7 +31,6 @@ in
         };
       };
       programs = {
-        # pot.enable = true;
         steam.enable = true;
         wireshark.enable = true;
       };
@@ -46,6 +45,13 @@ in
     virtualisation.waydroid.enable = true;
 
     services = {
+      displayManager.noctalia-greeter = {
+        enable = true;
+        settings = {
+          appearance.hide_logo = true;
+          idle.timeout = 600;
+        };
+      };
       flatpak.enable = true;
       protonmail-bridge.enable = true;
     };
@@ -69,6 +75,7 @@ in
         git-absorb
         git-secret
         goldendict-ng
+        gpclient
         hyperfine
         inkscape
         inotify-tools

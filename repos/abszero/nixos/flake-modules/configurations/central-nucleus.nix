@@ -17,14 +17,18 @@ let
   hostName = "central-nucleus";
   system = "x86_64-linux";
   domain = "weathercold.moe";
-  addr = "2a01:4f8:1c1c:88a8::1";
+  ipv4 = "167.233.94.66";
+  ipv6 = "2a01:4f8:1c1c:88a8::1";
 
   mainModule = nixos: {
     abszero = {
       profiles.server.enable = true;
       hardware.hetzner-co-x86-cx23.enable = true;
       users.admins = [ "weathercold" ];
-      networking.addrs.${addr}.type = "ipv6";
+      networking.addrs = {
+        ${ipv4}.type = "ipv4";
+        ${ipv6}.type = "ipv6";
+      };
       services.headscale.enable = true;
     };
 
@@ -89,9 +93,15 @@ let
 
     networking = {
       inherit domain;
-      interfaces.enp1s0.ipv6.addresses = singleton {
-        address = addr;
-        prefixLength = 64;
+      interfaces.enp1s0 = {
+        ipv4.addresses = singleton {
+          address = ipv4;
+          prefixLength = 0;
+        };
+        ipv6.addresses = singleton {
+          address = ipv6;
+          prefixLength = 64;
+        };
       };
     };
   };
@@ -107,16 +117,13 @@ in
       ];
     };
     programs.ssh.knownHosts.${hostName} = {
-      extraHostNames = [
-        domain
-        "${hostName}.${domain}"
-      ];
+      extraHostNames = [ "${hostName}.${domain}" ];
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP0sqleia3X4x5fo+h9ReragzkkpJWRIy+yzLcWwFlCd weathercold@central-nucleus";
     };
   };
 
   flake.deploy.nodes.${hostName} = {
-    hostname = "domain";
+    hostname = domain;
     sshOpts = [
       "-p"
       "1337"

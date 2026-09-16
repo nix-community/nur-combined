@@ -67,13 +67,17 @@ in
           inputs.zen-browser.homeModules.beta
           inputs.nix-index-database.homeModules.nix-index
           inputs.sops.homeModules.sops
-          inputs.catppuccin.homeModules.catppuccin
           (toModuleList ../../../lib/modules)
           (toModuleList ../../modules)
           c.modules
           {
+            disabledModules = flatten [
+              ../../../lib/modules/themes/catppuccin/catppuccin.nix
+              (toModuleList ../../modules/themes/catppuccin)
+            ];
             nixpkgs.overlays = [
               (_: prev: import ../../../pkgs { pkgs = prev; })
+              inputs.wisp.overlays.wisp
             ];
             home = {
               inherit (c) username homeDirectory;

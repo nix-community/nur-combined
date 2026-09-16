@@ -6,21 +6,73 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib)
+    types
+    mkOption
+    mkEnableOption
+    mkIf
+    optionalString
+    ;
+  inherit (config.lib.catppuccin) toTitleCase;
   cfg = config.abszero.themes.colloid.gtk;
+
+  mkSuffix = s: "-${toTitleCase s}";
+
+  accents = [
+    "default"
+    "purple"
+    "pink"
+    "red"
+    "orange"
+    "yellow"
+    "green"
+    "teal"
+    "grey"
+  ];
 in
 
 {
-  options.abszero.themes.colloid.gtk.enable = mkEnableOption "colloid gtk theme";
+  options.abszero.themes.colloid.gtk = {
+    enable = mkEnableOption "colloid gtk theme with catppuccin scheme";
 
-  config.gtk = mkIf cfg.enable {
-    theme = {
-      package = pkgs.colloid-gtk-theme_git;
-      name = "Colloid-Light";
+    accent = mkOption {
+      type = types.enum accents;
+      default = "default";
+      description = "Accent of the theme. Not all accents are supported.";
     };
-    iconTheme = {
-      package = pkgs.colloid-icon-theme;
-      name = "Colloid";
+
+    size = mkOption {
+      type = types.enum [
+        "standard"
+        "compact"
+      ];
+      default = "standard";
+      description = "Size of the theme.";
+    };
+
+    tweaks = mkOption {
+      type =
+        with types;
+        listOf (enum [
+          "black"
+          "rimless"
+          "normal"
+          "float"
+        ]);
+      default = [ ];
+      description = "Tweaks of the theme.";
+    };
+  };
+
+  config.gtk.theme = mkIf cfg.enable {
+    name =
+      "Colloid"
+      + optionalString (cfg.accent != "default") (mkSuffix cfg.accent)
+      + optionalString (cfg.size == "compact") "-Compact";
+    package = pkgs.colloid-gtk-theme.override {
+      themeVariants = [ cfg.accent ];
+      sizeVariants = [ cfg.size ];
+      inherit (cfg) tweaks;
     };
   };
 }

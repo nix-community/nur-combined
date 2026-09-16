@@ -26,7 +26,6 @@ in
       window_placement = "auto";
 
       session = {
-        suspend_on_close = true;
         restore_windows = true;
         restore_camera = true;
         restore_bookmarks = true;
@@ -89,8 +88,7 @@ in
         "mod+shift+KP_9" = "set-bookmark 9";
 
         # Window manipulation
-        "mod+w" = "suspend-window";
-        "mod+shift+w" = "close-window";
+        "mod+w" = "close-window";
         "mod+f" = "toggle-fullscreen";
         "mod+m" = "fit-window"; # m for maximize
         "mod+x" = "fill-window"; # x for expand
@@ -137,10 +135,31 @@ in
         }
         # Resize
         {
+          title = "/^.* - Anki$/";
+          size = [
+            679
+            711
+          ];
+        }
+        {
           title = "Buzz";
           size = [
             370
             370
+          ];
+        }
+        {
+          title = "/^.*Discord.*$/";
+          size = [
+            941
+            960
+          ];
+        }
+        {
+          app_id = "com.mitchellh.ghostty";
+          size = [
+            812
+            494
           ];
         }
         {
@@ -150,49 +169,41 @@ in
             370
           ];
         }
+        # Pin
         {
-          app_id = "org.gnome.Solanum";
-          size = [
-            370
-            370
+          title = "AIRI";
+          widget = true;
+          pinned_to_screen = true;
+          position = [
+            1000
+            (-800)
           ];
         }
-        # Pin
         {
           app_id = "org.kde.polkit-kde-authentication-agent-1";
           pinned_to_screen = true;
         }
         {
-          title = "Satty";
-          suspend_on_close = false;
+          title = "satty";
           pinned_to_screen = true;
         }
         {
           app_id = "it.mijorus.smile";
-          suspend_on_close = false;
           pinned_to_screen = true;
+        }
+        {
+          app_id = "steam";
+          title = "/^notificationtoasts_\\d+_desktop$/";
+          pinned_to_screen = true;
+          position = [
+            1000
+            (-800)
+          ];
         }
         {
           app_id = "Vial";
           title = "Enter an arbitrary keycode";
           pinned_to_screen = true;
-        }
-        # Widget
-        {
-          title = "AIRI";
-          widget = true;
-          position = [
-            1000
-            (-800)
-          ];
-        }
-        {
-          app_id = "steam";
-          title = "/^notificationtoasts_\\d+_desktop$/";
-          position = [
-            1000
-            (-800)
-          ];
         }
       ];
     };

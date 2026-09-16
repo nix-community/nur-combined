@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkDefault mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.profiles.full;
 in
 
@@ -42,11 +42,7 @@ in
     };
 
     gtk.enable = true;
-    qt = {
-      enable = true;
-      style.name = mkDefault "kvantum";
-      platformTheme.name = mkDefault "kvantum";
-    };
+    qt.enable = true;
 
     services.syncthing = {
       enable = true;

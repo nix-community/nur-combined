@@ -12,6 +12,7 @@ let
     mkEnableOption
     mkOption
     mkIf
+    mkAfter
     singleton
     recursiveUpdate
     ;
@@ -26,7 +27,7 @@ let
     else
       warn "proxy.json is hidden, configuration is incomplete" { };
 
-  mainModule = {
+  mainModule = { pkgs, ... }: {
     abszero = {
       profiles.desktopWithAI.enable = true;
 
@@ -37,7 +38,6 @@ let
       users.admins = [ "weathercold" ];
 
       services = {
-        displayManager.tuigreet.enable = true;
         hardware.framework_rgbafan = {
           enable = true;
           mode = "smoothspin";
@@ -62,13 +62,7 @@ let
 
       programs.driftwm.enable = true;
 
-      themes.catppuccin = {
-        enable = true;
-        polarity = "dark";
-        fonts.enable = true;
-        plymouth.enable = true;
-        tuigreet.enable = true;
-      };
+      themes.noctalia.fonts.enable = true;
     };
 
     disko.devices.disk.nvme0n1 = {
@@ -145,8 +139,6 @@ let
       };
     };
 
-    catppuccin.accent = "pink";
-
     nixpkgs.config.rocmSupport = true; # For ComfyUI
 
     users.users = rec {
@@ -162,7 +154,16 @@ let
 
     networking = { inherit domain; };
 
-    services.comfyui.acceleration = "rocm";
+    services = {
+      comfyui.acceleration = "rocm";
+      displayManager.noctalia-greeter = {
+        cursorTheme = {
+          name = "aris-cursors";
+          package = pkgs.aris-cursors;
+        };
+        settings.cursor.size = 96;
+      };
+    };
   };
 
   configModule = submodule: {
@@ -173,9 +174,9 @@ let
 
     config.modules = [
       {
-        nix.settings.substituters = mkIf submodule.config.substituters.${hostName}.enable [
+        nix.settings.substituters = mkIf submodule.config.substituters.${hostName}.enable (mkAfter [
           "ssh-ng://weathercold@${hostName}.${domain}:1337?trusted=true"
-        ];
+        ]);
       }
       {
         nix = mkIf submodule.config.buildMachines.${hostName}.enable {
@@ -194,7 +195,7 @@ let
               "nixos-test"
             ];
           };
-          # For builders with faster Internet than the local machine
+          # For builders with faster connection to substitutes than to the local machine
           settings.builders-use-substitutes = true;
         };
       }

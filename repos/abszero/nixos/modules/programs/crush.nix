@@ -40,16 +40,10 @@ in
             base_url = "http://localhost:${toString config.services.llama-cpp.settings.port}/v1";
             models = [
               {
-                name = "Qwen 3.6 27B";
-                id = "qwen3.6-27b";
+                name = "Qwen 3.8 27B";
+                id = "qwen3.8-27b";
                 context_window = 64000;
                 default_max_tokens = 6400;
-              }
-              {
-                name = "Qwen 3.6 35B A3B";
-                id = "qwen3.6-35b-a3b";
-                context_window = 48000;
-                default_max_tokens = 4800;
               }
             ];
           };

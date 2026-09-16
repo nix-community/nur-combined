@@ -11,13 +11,13 @@ functions.
 
 ## Rice
 
-- Display manager: [tuigreet](https://github.com/tuigreet/tuigreet)
+- Display manager: [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter)
 - Window manager: [DriftWM](https://github.com/malbiruk/driftwm)
-- Desktop shell: [under construction](https://github.com/Weathercold/wisp)
-- Terminal: [ghostty](https://ghostty.org)
+- Desktop shell: [Noctalia](https://noctalia.dev) + [wisp (under construction)](https://github.com/Weathercold/wisp)
+ Terminal: [ghostty](https://ghostty.org)
 - Shell: [Nu](https://www.nushell.sh)
 - Prompt: [starship](https://starship.rs)
-- Color theme: [catppuccin](https://catppuccin.com)
+- Fetcher: [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 
 ## Highlights
 

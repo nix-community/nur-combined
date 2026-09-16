@@ -59,6 +59,7 @@ in
         keep-outputs = true
         keep-derivations = true
         connect-timeout = 10
+        stalled-download-timeout = 30
       '';
     };
 
@@ -142,7 +143,10 @@ in
     };
 
     services = {
-      journald.console = "/dev/tty10";
+      journald.settings.Journal = {
+        ForwardToConsole = true;
+        TTYPath = "/dev/tty10";
+      };
       userborn.enable = true; # Manage users with userborn; required for nixos-init
     };
 

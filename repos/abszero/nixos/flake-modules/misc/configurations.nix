@@ -69,11 +69,14 @@ in
           inputs.sops.nixosModules.sops
           inputs.disko.nixosModules.disko
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.catppuccin.nixosModules.catppuccin
           (toModuleList ../../../lib/modules)
           (toModuleList ../../modules)
           c.modules
           {
+            disabledModules = flatten [
+              ../../../lib/modules/themes/catppuccin/catppuccin.nix
+              (toModuleList ../../modules/themes/catppuccin)
+            ];
             nixpkgs.overlays = [
               (_: prev: import ../../../pkgs { pkgs = prev; })
               inputs.nix-cachyos-kernel.overlays.default

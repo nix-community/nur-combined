@@ -19,7 +19,7 @@ let
     else
       warn "proxy.json is hidden, configuration is incomplete" { };
 
-  mainModule = {
+  mainModule = { pkgs, ... }: {
     abszero = {
       profiles.laptop.enable = true;
 
@@ -30,7 +30,6 @@ let
       hardware.framework-12-13th-gen-intel.enable = true;
 
       services = {
-        displayManager.tuigreet.enable = true;
         xray = recursiveUpdate proxySettings {
           # enable = true;
           preset = "vless-tcp-xtls-reality-client";
@@ -40,12 +39,7 @@ let
 
       programs.driftwm.enable = true;
 
-      themes.catppuccin = {
-        enable = true;
-        polarity = "dark";
-        plymouth.enable = true;
-        tuigreet.enable = true;
-      };
+      themes.noctalia.fonts.enable = true;
     };
 
     disko.devices.disk.nvme0n1 = {
@@ -132,8 +126,6 @@ let
       };
     };
 
-    catppuccin.accent = "pink";
-
     fileSystems.windows = {
       device = "/dev/disk/by-partlabel/Basic\x20data\x20partition";
       fsType = "ntfs3";
@@ -159,6 +151,14 @@ let
     };
 
     networking = { inherit domain; };
+
+    services.displayManager.noctalia-greeter = {
+      cursorTheme = {
+        name = "aris-cursors";
+        package = pkgs.aris-cursors;
+      };
+      settings.cursor.size = 96;
+    };
   };
 in
 
