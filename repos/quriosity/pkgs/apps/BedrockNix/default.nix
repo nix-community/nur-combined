@@ -2,11 +2,11 @@
 
 let
   pname = "BedrockOnLinux";
-  version = "2.2.5";
+  version = "2.2.6";
 
   src = fetchurl {
     url = "https://github.com/Wyze3306/BedrockOnLinux/releases/download/v${version}/BedrockOnLinux-${version}-x86_64.AppImage";
-    hash = "sha256-UglqJlFRwLF7la4N9kbAI0Adkl9HpNVyB8lg/zpBAiA=";
+    hash = "sha256-kVLrTOfP8aqB+wAhW84OGdNbk+V8jbd9/GZXb9kQZsc=";
   };
 
   appimageContents = appimageTools.extract {
