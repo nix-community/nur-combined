@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitLab,
+  fetchFromGitHub,
   meson,
   ninja,
   pkg-config,
@@ -49,7 +49,7 @@ in
 generic {
   pname = "wshowlyrics";
   version = "0.10.2";
-  src = fetchFromGitLab {
+  src = fetchFromGitHub {
     owner = "wshowlyrics";
     repo = "wshowlyrics";
     rev = "v0.10.2";
