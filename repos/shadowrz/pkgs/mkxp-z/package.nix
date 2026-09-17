@@ -40,17 +40,18 @@ let
           "--with-static-linked-ext"
         ];
       });
+  rev = "826929eeb3ebc4b887c011604919217a790770f4";
 in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mkxp-z";
-  version = "0-unstable-2025-11-12";
+  version = "0-unstable-2026-07-01";
 
   src = fetchFromGitHub {
     owner = "mkxp-z";
     repo = finalAttrs.pname;
-    rev = "1eabaec21bb76dd4ec1f36229f7ea5a734a98eef";
-    sha256 = "sha256-zANeU3dmumPtc1JUWlCOM9BmO/3Z1v+ihNshnYcC/6k=";
+    sha256 = "sha256-qjKfwqwOXmVtIhPK4ODuSpmLyK+uROEAbc3vjSlY1pU=";
+    inherit rev;
   };
 
   buildInputs = [
@@ -86,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     # Hardcode Git revision
-    sed -i "/git_hash = /s:git_hash = .*:git_hash = '${finalAttrs.version}':" meson.build
+    sed -i "/git_hash = /s:git_hash = .*:git_hash = '${rev}':" meson.build
     # Count for builtin iconv
     sed -i '37,38s/)/, required: false)/' src/meson.build
     patchShebangs linux/
