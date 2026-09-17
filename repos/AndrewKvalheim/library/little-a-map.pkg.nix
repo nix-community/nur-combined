@@ -13,7 +13,7 @@ let
 in
 rustPlatform.buildRustPackage (little-a-map: {
   pname = "little-a-map";
-  version = "0.13.11";
+  version = "0.13.12";
   meta = {
     description = "Compositor of player-created Minecraft map items";
     homepage = "https://codeberg.org/AndrewKvalheim/little-a-map";
@@ -27,10 +27,10 @@ rustPlatform.buildRustPackage (little-a-map: {
     owner = "AndrewKvalheim";
     repo = "little-a-map";
     rev = "refs/tags/v${little-a-map.version}";
-    hash = "sha256-rnZG+6yuY62z2dxkUFVqQtUb/PfGR8XYnnYusrAmTNQ=";
+    hash = "sha256-yXjm63saNStsvilkvIcs5q7MExmVvQ2goDgznNvzyDU=";
   };
 
-  cargoHash = "sha256-acnL53PmjU+51duMrkwr+9/cUCrpN7CRKuWS7tR2Eak=";
+  cargoHash = "sha256-Jabyrtl3JPHz/aQxt3wljI9VtkW2FsLHvf/u3+Cera4=";
 
   nativeBuildInputs = [ cmake ];
 
