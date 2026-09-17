@@ -85,11 +85,11 @@ Or, use variables from this repository in case I change them:
 |  | `browser-control-mcp` | [browser-control-mcp](https://github.com/eyalzh/browser-control-mcp) | 1.5.2 | MCP server paired with a browser extension that enables AI agents to control the user's browser |
 | `x86_64-linux` | `browseros` | [browseros](https://www.browseros.com) | 0.50.5 | Open source agentic browser |
 |  | `buname` | [buname](https://github.com/dramforever/buname) | 0-unstable-2025-09-18 | Uname wrapper that renumbers Linux versions as if 2.6 never ended |
-|  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.3 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
+|  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.4 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 | `x86_64-linux` | `cleanuparr` | [cleanuparr](https://github.com/Cleanuparr/Cleanuparr) | 2.10.6 | Advanced download manager for the Servarr ecosystem |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.3.5 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.3.7 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
@@ -121,7 +121,7 @@ Or, use variables from this repository in case I change them:
 |  | `env-dedup` | [env-dedup](https://github.com/alexjp/env-dedup) | 0-unstable-2025-09-06 | Deduplicate the environment variables values |
 |  | `epub-to-xtc-converter` | [epub-to-xtc-converter](https://github.com/bigbag/epub-to-xtc-converter) | 0.8.0 | CLI tool for converting EPUB files to XTC/XTCH format for Xteink e-readers |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
-|  | `extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.11 | DynamoDB-compatible API adapter backed by PostgreSQL |
+|  | `extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.12 | DynamoDB-compatible API adapter backed by PostgreSQL |
 |  | `fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-13 | Simulated server implementation of Ollama API |
 |  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 2.0.1-unstable-2025-05-13 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
@@ -163,7 +163,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.2 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-09-16 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-09-17 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `lightpanda` | [lightpanda](https://lightpanda.io) | 0.4.1 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
@@ -171,7 +171,7 @@ Or, use variables from this repository in case I change them:
 |  | `lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration |
 |  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `lyrics-on-panel-backend` | [lyrics-on-panel-backend](https://github.com/KangweiZhu/lyrics-on-panel) | 2.0 | MPRIS2 WebSocket backend for the Lyrics-on-Panel KDE Plasma widget |
-|  | `mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 4.11.4 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
+|  | `mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 4.11.6 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
 |  | `magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 31.0 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2609.0 | Matrix-Google Messages puppeting bridge |
 |  | `metapi` | [metapi](https://github.com/cita-777/metapi) | 1.3.0 | Meta-layer management and unified proxy for AI API aggregation platforms |
@@ -246,7 +246,7 @@ Or, use variables from this repository in case I change them:
 |  | `sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 10.00 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
 |  | `sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2026-05-21 | Allow SideStore to work across all iOS devices on your local network |
-|  | `silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.2.1 | Pre-trained enterprise-grade Voice Activity Detector |
+|  | `silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.2.2 | Pre-trained enterprise-grade Voice Activity Detector |
 |  | `smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.5.2 | Api for SmartRent locks, thermostats, moisture sensors and switches |
 |  | `smfc` | [smfc](https://github.com/petersulyok/smfc) | 6.2.0 | Super Micro Fan Control |
 |  | `space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
@@ -261,7 +261,7 @@ Or, use variables from this repository in case I change them:
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2026-03-16 | TQDM progress bar helpers for logging and other headless application |
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-09-16 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-09-17 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -1318,7 +1318,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
 |  | `python3Packages.runpod` | [runpod](https://github.com/runpod/runpod-python) | 1.12.0 | Python library for RunPod API and serverless worker SDK |
 |  | `python3Packages.runpod-python` | [runpod](https://github.com/runpod/runpod-python) | 1.12.0 | Python library for RunPod API and serverless worker SDK |
-|  | `python3Packages.silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.2.1 | Pre-trained enterprise-grade Voice Activity Detector |
+|  | `python3Packages.silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.2.2 | Pre-trained enterprise-grade Voice Activity Detector |
 |  | `python3Packages.smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.5.2 | Api for SmartRent locks, thermostats, moisture sensors and switches |
 |  | `python3Packages.smfc` | [smfc](https://github.com/petersulyok/smfc) | 6.2.0 | Super Micro Fan Control |
 |  | `python3Packages.torch-complex` | [torch-complex](https://pypi.org/project/torch-complex) | 0.4.4 | Temporal python class for PyTorch-ComplexTensor |
@@ -1353,10 +1353,10 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.browser-control-mcp` | [browser-control-mcp](https://github.com/eyalzh/browser-control-mcp) | 1.5.2 | MCP server paired with a browser extension that enables AI agents to control the user's browser |
 | `x86_64-linux` | `uncategorized.browseros` | [browseros](https://www.browseros.com) | 0.50.5 | Open source agentic browser |
 |  | `uncategorized.buname` | [buname](https://github.com/dramforever/buname) | 0-unstable-2025-09-18 | Uname wrapper that renumbers Linux versions as if 2.6 never ended |
-|  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.3 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
+|  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.4 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 | `x86_64-linux` | `uncategorized.cleanuparr` | [cleanuparr](https://github.com/Cleanuparr/Cleanuparr) | 2.10.6 | Advanced download manager for the Servarr ecosystem |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.3.5 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.3.7 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-08 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 2.1.0 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
@@ -1372,7 +1372,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.env-dedup` | [env-dedup](https://github.com/alexjp/env-dedup) | 0-unstable-2025-09-06 | Deduplicate the environment variables values |
 |  | `uncategorized.epub-to-xtc-converter` | [epub-to-xtc-converter](https://github.com/bigbag/epub-to-xtc-converter) | 0.8.0 | CLI tool for converting EPUB files to XTC/XTCH format for Xteink e-readers |
 |  | `uncategorized.etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
-|  | `uncategorized.extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.11 | DynamoDB-compatible API adapter backed by PostgreSQL |
+|  | `uncategorized.extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.12 | DynamoDB-compatible API adapter backed by PostgreSQL |
 |  | `uncategorized.fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-13 | Simulated server implementation of Ollama API |
 |  | `uncategorized.fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 2.0.1-unstable-2025-05-13 | Minimal Delegated License Service (DLS) |
 |  | `uncategorized.fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
@@ -1410,14 +1410,14 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.2 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-09-16 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-09-17 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 0.4.1 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `uncategorized.linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `uncategorized.linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 |  | `uncategorized.lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration |
 |  | `uncategorized.lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `uncategorized.lyrics-on-panel-backend` | [lyrics-on-panel-backend](https://github.com/KangweiZhu/lyrics-on-panel) | 2.0 | MPRIS2 WebSocket backend for the Lyrics-on-Panel KDE Plasma widget |
-|  | `uncategorized.mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 4.11.4 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
+|  | `uncategorized.mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 4.11.6 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
 |  | `uncategorized.magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 31.0 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `uncategorized.mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2609.0 | Matrix-Google Messages puppeting bridge |
 |  | `uncategorized.metapi` | [metapi](https://github.com/cita-777/metapi) | 1.3.0 | Meta-layer management and unified proxy for AI API aggregation platforms |
@@ -1485,7 +1485,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.tel42verifier` | [tel42verifier](https://github.com/strexp/tel42verifier) | 0.0.3 | Multi-domain ENUM-based Caller ID verifier for Asterisk |
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-09-16 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-09-17 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |

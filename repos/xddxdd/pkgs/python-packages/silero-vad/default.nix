@@ -12,14 +12,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "silero-vad";
-  version = "6.2.1";
+  version = "6.2.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "snakers4";
     repo = "silero-vad";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-peGaJkSqjeobgx479OKt8ErorFviTIA7naFPewgab4U=";
+    hash = "sha256-1CBN5a30UHev2bUBn+Lt7VyWHOuywG1lTifwPNI0FHk=";
   };
   pythonRelaxDeps = true;
 

@@ -1,12 +1,12 @@
 {
   "aarch64-linux": {
-    "hash": "sha256-PdZPm40Euu1CunK2OXPaGVAkjsYLftF3pKPv6VJHM0w=",
-    "url": "https://github.com/mlm-games/Mages/releases/download/4.11.4/mages-4.11.4-aarch64.AppImage",
-    "version": "4.11.4"
+    "hash": "sha256-XpX8xk7sBzhVpLENc6A7fcY+2akC6wbcy908dBbZtbg=",
+    "url": "https://github.com/mlm-games/Mages/releases/download/4.11.6/mages-4.11.6-aarch64.AppImage",
+    "version": "4.11.6"
   },
   "x86_64-linux": {
-    "hash": "sha256-kURy4+ff/6bFhz4yN5ytsJC7uVr9ltXQJ+afO8+Ud84=",
-    "url": "https://github.com/mlm-games/Mages/releases/download/4.11.4/mages-4.11.4-x86_64.AppImage",
-    "version": "4.11.4"
+    "hash": "sha256-hzjozs6SY4II9EHr+4Vbd6GyU8v+3auPCRNAd4ANLE4=",
+    "url": "https://github.com/mlm-games/Mages/releases/download/4.11.6/mages-4.11.6-x86_64.AppImage",
+    "version": "4.11.6"
   }
 }
