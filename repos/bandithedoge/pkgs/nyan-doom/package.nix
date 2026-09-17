@@ -8,25 +8,28 @@
   SDL2_image,
   SDL2_mixer,
   cmake,
+  discord-rpc,
   fluidsynth,
   libGLU,
   libmad,
   libopenmpt,
   libsndfile,
+  libspng,
   libvorbis,
   libzip,
   ninja,
   portmidi,
+  rapidjson,
   zlib,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nyan-doom";
-  version = "1.5.4";
+  version = "1.6.0";
   src = fetchFromGitHub {
     owner = "andrikpowell";
     repo = "nyan-doom";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-xo63dxtKNNyjAc7GXismXt2jtKcQgAIB5Sn1n311sJY=";
+    hash = "sha256-2vQz0FSE7iZwrs6K3xiuTkgBbbVVmv8WW5gFuXIU6Bw=";
   };
   sourceRoot = "source/prboom2";
 
@@ -39,14 +42,17 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
     SDL2_image
     SDL2_mixer
+    discord-rpc
     fluidsynth
     libGLU
     libmad
     libopenmpt
     libsndfile
+    libspng
     libvorbis
     libzip
     portmidi
+    rapidjson
     zlib
   ];
 

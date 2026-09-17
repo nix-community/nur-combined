@@ -48,6 +48,7 @@
   nugget-doom = [ "nugget-doom" ];
   ob-xf = [ "ob-xf" ];
   onagre = [ "onagre" ];
+  pedantix = [ "pedantix" ];
   powertab = [ "powertab-editor" ];
   ripplerx = [ "ripplerx" ];
   rnnoise-plugin = [ "rnnoise-plugin" ];
