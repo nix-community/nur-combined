@@ -15,7 +15,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-unwrapped";
-  version = "nightly-unstable-2026-09-12";
+  version = "1.22.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=dev" ]; };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "An almost stable Matrix client";
