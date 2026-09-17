@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-09-16",
+        "date": "2026-09-17",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "2b0b1074d7e8c9150b6813513c478baf7c5e4828",
-            "sha256": "sha256-H201qHWv9ldbmsRV5+Kw1YTdmF7rZlm58v5bfrABtwI=",
+            "rev": "8f810301858f4f0db47c921b4250830918ef9cf2",
+            "sha256": "sha256-A97nsyONy1TxdB2J4Kp7Im6m7IEfvzOTwAgWw67v1H0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2b0b1074d7e8c9150b6813513c478baf7c5e4828"
+        "version": "8f810301858f4f0db47c921b4250830918ef9cf2"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -166,7 +166,7 @@
     },
     "skkeleton": {
         "cargoLock": null,
-        "date": "2026-09-14",
+        "date": "2026-09-17",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -178,12 +178,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "156338265a33ca94baa227329e65fee7d6a0addc",
-            "sha256": "sha256-YEkPIgP5KwK7FvoyDb0j+XeTsn3aDDH4L0l4tk/YiPo=",
+            "rev": "f0868eca6a902847186882c40581a9139ea08cee",
+            "sha256": "sha256-2ubwhj6Udwkt8fhafYIkIDR3TGvrumm7BAX6oobIM5M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "156338265a33ca94baa227329e65fee7d6a0addc"
+        "version": "f0868eca6a902847186882c40581a9139ea08cee"
     },
     "vivaldi-darwin": {
         "cargoLock": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LuuQivv5FS8fsr6js9F5frP1t8BMLS92AGQxJK4on2A=",
+            "sha256": "sha256-iW/VDZJH6+R0i3UHW+xoHKQTLUHLIh55RLEnIGVWdBA=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.52.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.64.universal.dmg"
         },
-        "version": "8.2.4133.52"
+        "version": "8.2.4133.64"
     },
     "zen-browser": {
         "cargoLock": null,

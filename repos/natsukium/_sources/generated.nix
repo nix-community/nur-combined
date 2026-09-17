@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "2b0b1074d7e8c9150b6813513c478baf7c5e4828";
+    version = "8f810301858f4f0db47c921b4250830918ef9cf2";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "2b0b1074d7e8c9150b6813513c478baf7c5e4828";
+      rev = "8f810301858f4f0db47c921b4250830918ef9cf2";
       fetchSubmodules = false;
-      sha256 = "sha256-H201qHWv9ldbmsRV5+Kw1YTdmF7rZlm58v5bfrABtwI=";
+      sha256 = "sha256-A97nsyONy1TxdB2J4Kp7Im6m7IEfvzOTwAgWw67v1H0=";
     };
-    date = "2026-09-16";
+    date = "2026-09-17";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -99,22 +99,22 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "156338265a33ca94baa227329e65fee7d6a0addc";
+    version = "f0868eca6a902847186882c40581a9139ea08cee";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "156338265a33ca94baa227329e65fee7d6a0addc";
+      rev = "f0868eca6a902847186882c40581a9139ea08cee";
       fetchSubmodules = false;
-      sha256 = "sha256-YEkPIgP5KwK7FvoyDb0j+XeTsn3aDDH4L0l4tk/YiPo=";
+      sha256 = "sha256-2ubwhj6Udwkt8fhafYIkIDR3TGvrumm7BAX6oobIM5M=";
     };
-    date = "2026-09-14";
+    date = "2026-09-17";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "8.2.4133.52";
+    version = "8.2.4133.64";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.52.universal.dmg";
-      sha256 = "sha256-LuuQivv5FS8fsr6js9F5frP1t8BMLS92AGQxJK4on2A=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.64.universal.dmg";
+      sha256 = "sha256-iW/VDZJH6+R0i3UHW+xoHKQTLUHLIh55RLEnIGVWdBA=";
     };
   };
   zen-browser = {
