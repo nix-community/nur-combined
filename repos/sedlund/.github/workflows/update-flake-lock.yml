@@ -29,7 +29,7 @@ jobs:
 
       - name: Update root flake.lock and create pull request
         id: update
-        uses: DeterminateSystems/update-flake-lock@v28
+        uses: DeterminateSystems/update-flake-lock@v29
         with:
           branch: update_flake_lock_action
           commit-msg: "chore(flake): update lock files"

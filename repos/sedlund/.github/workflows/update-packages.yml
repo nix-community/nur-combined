@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31.9.1
+        uses: cachix/install-nix-action@v31.11.1
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
