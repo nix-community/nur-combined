@@ -54,21 +54,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "4225a2de3f3b4f1a680d41ad79214b8a973d087b";
+    version = "78bf9e696862346b7ec72dc66707c7c735feda08";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "4225a2de3f3b4f1a680d41ad79214b8a973d087b";
+      rev = "78bf9e696862346b7ec72dc66707c7c735feda08";
       fetchSubmodules = false;
-      sha256 = "sha256-IGiThwVbnJRrWkFXngryoDxa0uPZJnP4fU+dfRWWJxk=";
+      sha256 = "sha256-uTmZjQ4ncAzOKCgZXW92XDvaT7NxmY37d87fcO4MgQM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-IGiThwVbnJRrWkFXngryoDxa0uPZJnP4fU+dfRWWJxk=/Cargo.lock";
+      lockFile = ./. + "/sha256-uTmZjQ4ncAzOKCgZXW92XDvaT7NxmY37d87fcO4MgQM=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-09-10";
+    date = "2026-09-17";
   };
   flake-linter = {
     pname = "flake-linter";
@@ -240,21 +240,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "2d22aae1f387eb44625e71a4487e2b8de4798104";
+    version = "df77e0565467f9074ec42f67fcf5fc28c7a60675";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "2d22aae1f387eb44625e71a4487e2b8de4798104";
+      rev = "df77e0565467f9074ec42f67fcf5fc28c7a60675";
       fetchSubmodules = false;
-      sha256 = "sha256-P46BcgN6xL8bPrgFQUZKnBzjYJykYFhXrVUle91+1eU=";
+      sha256 = "sha256-MI7COqnF9c26sh+zZ65m8HrtwN4GKTfqLZjTZURgJJQ=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-P46BcgN6xL8bPrgFQUZKnBzjYJykYFhXrVUle91+1eU=/Cargo.lock";
+      lockFile = ./. + "/sha256-MI7COqnF9c26sh+zZ65m8HrtwN4GKTfqLZjTZURgJJQ=/Cargo.lock";
       outputHashes = {
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-16";
+    date = "2026-09-17";
   };
   piliplus = {
     pname = "piliplus";
@@ -312,16 +312,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.0.0-beta.1";
+    version = "v4.0.0-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.0.0-beta.1";
+      rev = "v4.0.0-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-mFVdxOmYr8G/KYEBJzrxgj6v9mxHw/avMaWkYhq5Saw=";
+      sha256 = "sha256-qf3dJpNkr39xCUnabVDQccvPnNQDYSxfrxuYN1lMIfg=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-mFVdxOmYr8G_KYEBJzrxgj6v9mxHw_avMaWkYhq5Saw=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-qf3dJpNkr39xCUnabVDQccvPnNQDYSxfrxuYN1lMIfg=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -389,7 +389,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {
