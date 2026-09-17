@@ -11,6 +11,7 @@ in
     vacu.network.ips = {
       doofStatic4 = "205.201.63.13";
       doofStatic6 = "2602:fce8:106:10::1";
+      doofStaticRange6 = "2602:fce8:106:10::/64";
     };
     vacu.network.doofPubKey = "nuESyYEJ3YU0hTZZgAd7iHBz1ytWBVM5PjEL1VEoTkU=";
     vacu.packages = [ "wireguard-tools" ];
@@ -51,30 +52,51 @@ in
           Destination = "0.0.0.0/0";
           Table = tunnelName;
         }
+        {
+          Gateway = "2602:fce8:1::ab";
+          GatewayOnLink = true;
+          Source = cfg.ips.doofStaticRange6;
+          Destination = "::/0";
+          Table = tunnelName;
+        }
       ];
-      # systemd's [RoutingPolicyRule] To= is single-valued (last line wins), so
-      # a list of subnets must become one rule per subnet — otherwise only the
-      # last subnet keeps its traffic in the main table and the rest fall
-      # through to the tunnel table (breaking e.g. VM->doofStatic4 replies).
-      # Explicit priorities keep the per-subnet main-table exceptions ahead of
-      # the catch-all tunnel rule.
-      routingPolicyRules =
-        (map (subnet: {
+      # Prefer specific routes in the main table, but suppress its default
+      # routes so all other traffic sourced from the Doof addresses falls
+      # through to the tunnel table.
+      routingPolicyRules = [
+        {
+          Family = "ipv4";
           From = "${cfg.ips.doofStatic4}/32";
-          To = subnet;
           Table = "main";
+          SuppressPrefixLength = 0;
           Priority = 100;
-        }) cfg.ips.t2dSubnets)
-        ++ [
-          {
-            From = "${cfg.ips.doofStatic4}/32";
-            Table = tunnelName;
-            Priority = 200;
-          }
-        ];
+        }
+        {
+          Family = "ipv6";
+          From = cfg.ips.doofStaticRange6;
+          Table = "main";
+          SuppressPrefixLength = 0;
+          Priority = 100;
+        }
+        {
+          Family = "ipv4";
+          From = "${cfg.ips.doofStatic4}/32";
+          Table = tunnelName;
+          Priority = 200;
+        }
+        {
+          Family = "ipv6";
+          From = cfg.ips.doofStaticRange6;
+          Table = tunnelName;
+          Priority = 200;
+        }
+      ];
     };
     systemd.network.networks.${cfg.lan_bridge_network} = {
-      address = lib.mkAfter [ "${cfg.ips.doofStatic4}/32" ];
+      address = lib.mkAfter [
+        "${cfg.ips.doofStatic4}/32"
+        "${cfg.ips.doofStatic6}/128"
+      ];
     };
   };
 }
