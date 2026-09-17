@@ -10,16 +10,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "maki";
-  version = "0.5.4";
+  version = "0.5.5";
 
   src = fetchFromGitHub {
     owner = "tontinton";
     repo = "maki";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Oiqar0kLK5rV27soJZtTzcJtfbCatNVS8OvIiZYzyAs=";
+    hash = "sha256-6IEdSMLeL0dmDynBS3qCEPxrW8wN/FyJDgojjqmZn7g=";
   };
 
-  cargoHash = "sha256-NnAMXsvnFKcOMrftyrpbUBY7M2to/lKuyAaYseYhvus=";
+  cargoHash = "sha256-Y30sGDJyA3SRWxBQLqBhSW7zyAYdAh4qFzLcuEWkeYM=";
 
   nativeBuildInputs = [
     makeWrapper
