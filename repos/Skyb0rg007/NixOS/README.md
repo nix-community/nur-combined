@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 55 packages.
+Generated from 56 packages.
 
 ## `ambient-build-vm`
 
@@ -13,7 +13,7 @@ Generated from 55 packages.
 ## `ambient-ci`
 
 - **Package name:** ambient-ci
-- **Version:** 0.19.0
+- **Version:** 0.20.0
 - **Description:** Ambient continuous integration engine
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** AGPL-3.0-or-later
@@ -45,7 +45,7 @@ Generated from 55 packages.
 ## `blueferry`
 
 - **Package name:** blueferry
-- **Version:** 0.7.7
+- **Version:** 0.8.1
 - **Description:** iPhone iMessage/SMS and notifications bridge to Linux over Bluetooth
 - **Homepage:** [https://github.com/erikwb/blueferry](https://github.com/erikwb/blueferry)
 - **License:** GPL-2.0-only
@@ -61,7 +61,7 @@ Generated from 55 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-09-04
+- **Version:** 0.4.0-unstable-2026-09-17
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -69,7 +69,7 @@ Generated from 55 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.8.10
+- **Version:** 0.8.11
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -85,7 +85,7 @@ Generated from 55 packages.
 ## `cascade`
 
 - **Package name:** cascade
-- **Version:** 0.1.0-beta6
+- **Version:** 0.1.0-beta7
 - **Description:** Friendly DNSSEC signing pipeline
 - **Homepage:** [https://blog.nlnetlabs.nl/cascade/](https://blog.nlnetlabs.nl/cascade/)
 - **License:** BSD-3-Clause
@@ -101,9 +101,9 @@ Generated from 55 packages.
 ## `claude-desktop`
 
 - **Package name:** claude-desktop
-- **Version:** 1.26832.0
+- **Version:** 1.52386.6
 - **Description:** Desktop application for Claude.ai
-- **Homepage:** [https://claude.ai/download](https://claude.ai/download)
+- **Homepage:** [https://claude.ai](https://claude.ai)
 - **License:** LicenseRef-nixos-unfree
 
 ## `credentialsd`
@@ -129,6 +129,14 @@ Generated from 55 packages.
 - **Homepage:** [https://www.defined.net/](https://www.defined.net/)
 - **License:** LicenseRef-nixos-unfree
 
+## `docker-sbx`
+
+- **Package name:** docker-sbx
+- **Version:** 0.44.0-rc1
+- **Description:** Safe environments for agents
+- **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
+- **License:** LicenseRef-nixos-unfree
+
 ## `filc-pizfix`
 
 - **Package name:** filc-pizfix
@@ -148,7 +156,7 @@ Generated from 55 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 81.0.0
+- **Version:** 83.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -196,15 +204,15 @@ Generated from 55 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.18.42
+- **Version:** 0.19.2
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
-- **License:** LGPL-2.1-or-later
+- **License:** LGPL-3.0-or-later
 
 ## `masque-go`
 
 - **Package name:** masque-go
-- **Version:** 0.4.0
+- **Version:** 0.5.0
 - **Description:** Implementation of RFC 9298 based on quic-go
 - **Homepage:** [https://quic-go.net](https://quic-go.net)
 - **License:** MIT
@@ -220,7 +228,7 @@ Generated from 55 packages.
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27-unstable-2026-09-03
+- **Version:** 27-unstable-2026-09-09
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -291,7 +299,7 @@ Generated from 55 packages.
 ## `python3Packages.cache-dit`
 
 - **Package name:** cache-dit
-- **Version:** 1.5.1
+- **Version:** 1.5.2
 - **Description:** Cache-DiT: Accelerating Diffusion Transformers with Dynamic Feature Caching
 - **Homepage:** [https://github.com/vipshop/cache-dit](https://github.com/vipshop/cache-dit)
 - **License:** Apache-2.0
@@ -323,7 +331,7 @@ Generated from 55 packages.
 ## `rsbinder-tools`
 
 - **Package name:** rsbinder-tools
-- **Version:** 0.10.0
+- **Version:** 0.11.0
 - **Description:** CLI tools for Binder IPC on Linux
 - **Homepage:** [https://github.com/hiking90/rsbinder](https://github.com/hiking90/rsbinder)
 - **License:** Apache-2.0
@@ -355,7 +363,7 @@ Generated from 55 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-08-14
+- **Version:** 0-unstable-2026-09-04
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -379,7 +387,7 @@ Generated from 55 packages.
 ## `systemd-btf`
 
 - **Package name:** systemd-btf
-- **Version:** 261.1
+- **Version:** 261.2
 - **Description:** System and service manager for Linux
 - **Homepage:** [https://systemd.io](https://systemd.io)
 - **License:** BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT AND MIT-0 AND OFL-1.1 AND LicenseRef-nixos-publicDomain
@@ -429,7 +437,7 @@ Generated from 55 packages.
 ## `cdash`
 
 - **Package name:** cdash
-- **Version:** 5.3.0
+- **Version:** 5.4.0
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause

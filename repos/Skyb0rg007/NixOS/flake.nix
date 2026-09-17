@@ -1,5 +1,9 @@
 {
   description = "Nix packages";
+  nixConfig = {
+    extra-substituters = [ "https://skyenet.cachix.org" ];
+    extra-trusted-public-keys = [ "skyenet.cachix.org-1:Pf1Kzvduw4vFW0jGH3Vvaxkv8RYk2EK5LyPzhpYBI5s=" ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

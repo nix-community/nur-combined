@@ -14,7 +14,7 @@ fi
 old_vsn="$(grep --only-matching --perl-regexp 'version = "\K[^"]+' "$pkg")"
 
 new_vsn="$(gh api repos/docker/sbx-releases/releases --jq '.[0].tag_name' | \
-  grep --only-matching --perl-regexp '\d+\.\d+\.\d+(-rc\d+)')"
+  grep --only-matching --perl-regexp '\d+\.\d+\.\d+(-rc\d+)?')"
 
 if [ "$old_vsn" = "$new_vsn" ]; then
   echo "No new version available, skipping"

@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/landstrip/landstrip/releases/tag/${finalAttrs.src.tag}";
     mainProgram = "landstrip";
     maintainers = [ lib.maintainers.skyesoss ];
-    license = lib.licenses.lgpl21Plus;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin ++ lib.platforms.windows;
   };
 })
