@@ -31,8 +31,11 @@ jobs:
         with:
           nix_path: nixpkgs=channel:${{ matrix.channel }}
 
-      - name: Cache Nix store paths
-        uses: DeterminateSystems/magic-nix-cache-action@v14
+      - name: Configure Cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: ${{ vars.CACHIX_CACHE_NAME }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Evaluate package set
         run: |

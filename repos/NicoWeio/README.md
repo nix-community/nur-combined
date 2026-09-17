@@ -46,3 +46,14 @@ done
 
 The GitHub Actions workflow performs the same evaluation and sequential build on
 every push and pull request.
+
+### CI binary cache
+
+CI uses [Cachix](https://cachix.org) to restore and publish Nix store paths.
+Create the Cachix cache, then configure these GitHub repository settings:
+
+- Variable `CACHIX_CACHE_NAME`: the name of the Cachix cache.
+- Secret `CACHIX_AUTH_TOKEN`: a per-cache token with write access.
+
+Pull requests from forks do not receive the secret, so they can only restore
+from a public cache and do not publish build outputs.
