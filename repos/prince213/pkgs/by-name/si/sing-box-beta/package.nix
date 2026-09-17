@@ -7,12 +7,12 @@
 
 (sing-box.override { cronet-go = cronet-go-beta; }).overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.15.0-alpha.4";
+  version = "1.15.0-alpha.5";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-dFMxkJ8PNPctMS/E5L3G/pOM8jOtPPRACaGG7R3wT8g=";
+    hash = "sha256-kkufQiNSDyTv11cBHyvVZAC8H9mQQiOgRMhl5QWRlHw=";
   };
 
-  vendorHash = "sha256-AbTfAciw4hm5o7ySSuw330kVtrw1DfaAyqYPR5E4380=";
+  vendorHash = "sha256-VrTW1hO7ord3uto4y3ECQB+Kb+8cbpLBJ4CWIxDYoNM=";
 })
