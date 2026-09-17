@@ -80,7 +80,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.75 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [x] |  | `vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-08-24 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.11.2 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.12.3 | Z.ai's official agentic development environment desktop app for GLM models |
 | - [x] |  | `zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.2-1 | Fast Chinese variant conversion backed by Rust |
 </details>
 
@@ -123,6 +123,6 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.75 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `uncategorized.ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-08-24 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.11.2 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.12.3 | Z.ai's official agentic development environment desktop app for GLM models |
 </details>
 

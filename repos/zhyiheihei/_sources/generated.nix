@@ -245,10 +245,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.11.2";
+    version = "3.12.3";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.11.2/linux-x64/ZCode-3.11.2-linux-x64.deb";
-      hash = "sha256-fRO4OGMTAs9h4bgEDLZ/NJ7CNWZ5WJfxdGQyxcXXfVs=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.12.3/linux-x64/ZCode-3.12.3-linux-x64.deb";
+      hash = "sha256-Yx+9afzv5dV8YHu/0Ee7ekdK9gF0ZGgbmcy3sVdJxg4=";
     };
   };
   zhconv-rs = {
