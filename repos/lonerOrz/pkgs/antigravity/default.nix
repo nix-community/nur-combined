@@ -34,6 +34,8 @@
   libsoup_3,
   libsecret,
   callPackage,
+  curl,
+  jq,
 }:
 
 let
@@ -45,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.13.3-4533425205018624/linux-x64/Antigravity.tar.gz
   src = fetchurl {
-    url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${finalAttrs.version}/linux-x64/Antigravity.tar.gz";
+    url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${finalAttrs.version}/linux-x64/Antigravity${lib.optionalString (lib.versionAtLeast finalAttrs.version "2.0.0") "%20IDE"}.tar.gz";
     hash = current.hash;
   };
 
@@ -86,6 +88,8 @@ stdenv.mkDerivation (finalAttrs: {
     libsecret
   ];
 
+    binaryName = if lib.versionAtLeast finalAttrs.version "2.0.0" then "antigravity-ide" else "antigravity";
+
   installPhase = ''
     runHook preInstall
 
@@ -93,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r * $out/share/antigravity
 
     mkdir -p $out/bin
-    makeWrapper $out/share/antigravity/antigravity $out/bin/antigravity \
+    makeWrapper $out/share/antigravity/$binaryName $out/bin/antigravity \
       --set ELECTRON_OZONE_PLATFORM_HINT auto \
       --add-flags "--enable-features=UseOzonePlatform --ozone-platform-hint=auto --enable-wayland-ime" \
       --unset NODE_OPTIONS \
@@ -110,10 +114,9 @@ stdenv.mkDerivation (finalAttrs: {
       callPackage ../../utils/json.nix {
         commands = {
           version = ''
-            curl -sL --compressed https://antigravity.google/ \
-            | grep -Eo 'main-[^"]+\.js' | head -n1 \
-            | xargs -I{} curl -sL --compressed "https://antigravity.google/{}" \
-            | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+-[0-9]+' | head -n1
+            ${lib.getExe curl} -fsSL --max-time 30 \
+              'https://antigravity-ide-auto-updater-974169037036.us-central1.run.app/releases' \
+            | ${lib.getExe jq} -er '.[0] | .version + "-" + .execution_id | select(test("^[0-9]+[.][0-9]+[.][0-9]+-[0-9]+$"))'
           '';
         };
       }
