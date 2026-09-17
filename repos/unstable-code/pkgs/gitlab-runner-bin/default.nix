@@ -7,7 +7,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gitlab-runner-bin";
-  version = "19.3.2";
+  version = "19.4.0";
 
   # ⚠️ 소스 빌드가 아니라 **upstream 공식 바이너리**를 쓴다. 이유는 nixpkgs 의 갱신 지연이다.
   #   nixpkgs 의 gitlab-runner 는 2026-09-14 기준 master 까지 19.2.1 인데 upstream 은 19.3.2 였고,
@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   #   갱신 절차: ./update.sh (GitLab releases API 의 최고 semver 를 보고 아래 version/hash 를 교체).
   src = fetchurl {
     url = "https://gitlab-runner-downloads.s3.amazonaws.com/v${finalAttrs.version}/binaries/gitlab-runner-linux-amd64";
-    hash = "sha256-zg4ozeKk1VTEih7uQ3BtxAChgGfrHpHgAaXlXF6g7PY=";
+    hash = "sha256-ruvaZDXQBmIvE15LCVRQRG4Qd9iYAiekS1P8QE/CIVc=";
   };
 
   dontUnpack = true;
