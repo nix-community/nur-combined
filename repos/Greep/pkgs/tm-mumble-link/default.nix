@@ -16,7 +16,7 @@
   vulkan-loader,
 }:
 let
-  version = "1.1.1";
+  version = "1.1.2";
 
   # The release archive ships no icon; reuse the 32x32 app icon from the repo.
   icon = fetchurl {
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://github.com/XertroV/tm-mumble-bridge/releases/download/v${version}/tm-mumble-link-v${version}-linux-x86_64.tar.gz";
-    hash = "sha256-Y3e3q5pQTj/QUEGWP+OfLzQOO3M6Hfro72ViLWB1QS0=";
+    hash = "sha256-CaRaPMvNoBuwCFlpFW6bPLgtAFFMU0JH8VsC9shTu4E=";
   };
 
   # The tarball has no top-level directory: files sit at the archive root.
