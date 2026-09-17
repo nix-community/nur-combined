@@ -421,10 +421,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.2.3";
+      version = "3.3.2";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4820668/archivebox_exporter-3.2.3.xpi";
-      sha256 = "cf540508a91c8bcddaf980ffb462f03c9998b121805d2e9f9fe8fea0150014dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5035763/archivebox_exporter-3.3.2.xpi";
+      sha256 = "5cdfc09ac43731859a97d8fac1fbac715041c3415d194ba04df818229522bdee";
       meta = with lib;
       {
         homepage = "https://github.com/ArchiveBox/archivebox-browser-extension";
@@ -432,6 +432,7 @@
         license = licenses.mit;
         mozPermissions = [
           "storage"
+          "alarms"
           "activeTab"
           "contextMenus"
           "unlimitedStorage"
@@ -2612,16 +2613,16 @@
     };
     "copy-link-text" = buildMozillaXpiAddon {
       pname = "copy-link-text";
-      version = "1.6.8";
+      version = "1.6.9";
       addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4780317/copy_link_text_webextension-1.6.8.xpi";
-      sha256 = "8392d061385a27db45a5343400bb51dcebac04c143439cfa5fd6b8d492771acf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5035704/copy_link_text_webextension-1.6.9.xpi";
+      sha256 = "ef759c1d79743297f86dcf44a5ed525292cdedd09e4e954f0d22a3975d7e9083";
       meta = with lib;
       {
         homepage = "https://github.com/def00111/copy-link-text";
         description = "Copy the text of the link.";
         license = licenses.mpl20;
-        mozPermissions = [ "clipboardWrite" "menus" "scripting" ];
+        mozPermissions = [ "clipboardWrite" "menus" "scripting" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -2947,10 +2948,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "157.0.20260914.90352";
+      version = "157.0.20260916.90747";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028781/dansk_da_language_pack-157.0.20260914.90352.xpi";
-      sha256 = "11643cb66d0e47f0f5b2c69a66fdfb7514d0217f8bff621cf5ddcb2b8a18598c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034549/dansk_da_language_pack-157.0.20260916.90747.xpi";
+      sha256 = "7b351f2ced5d6fd8c8f95180e4b07aa2c0d3f7b9caefe63fcf40829b93138354";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3165,10 +3166,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "157.0.20260914.90352";
+      version = "157.0.20260916.90747";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028782/deutsch_de_language_pack-157.0.20260914.90352.xpi";
-      sha256 = "ac0ea050416fa6fedeb30d481b9709a953cf9ab2aabcb1d136a2b825e2ab24de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034547/deutsch_de_language_pack-157.0.20260916.90747.xpi";
+      sha256 = "8b6e1e10d2b47071ec07b890d8fd7a9ce969524ec36d7d5e53fedd5e3636e8ff";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4348,10 +4349,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "6.2.4";
+      version = "6.2.5";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4994240/flagfox-6.2.4.xpi";
-      sha256 = "7506d3488707885778b805359c39b888e1190f046bb85c8564da4e2fdd16cae6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5036143/flagfox-6.2.5.xpi";
+      sha256 = "38b216074e233f4f0f8e524e6990d81bbb04d3076b138382d3ddbbfca7722699";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4667,10 +4668,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "157.0.20260914.90352";
+      version = "157.0.20260916.90747";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028748/francais_language_pack-157.0.20260914.90352.xpi";
-      sha256 = "812813c2fed491e66c6100003a53dc802f567da214626366288e79e6927d7cc7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034450/francais_language_pack-157.0.20260916.90747.xpi";
+      sha256 = "f684192c7fbfbbd93cba558640b55d6a840cd4dc0229ea18d5e475ac77efd31c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4704,10 +4705,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "157.0.20260914.90352";
+      version = "157.0.20260916.90747";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028760/gaidhlig_language_pack-157.0.20260914.90352.xpi";
-      sha256 = "81a63887afb7aa1fbe2f9d32f3d3fcaf20156b3e888914d49b7d5f40e0a542d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034494/gaidhlig_language_pack-157.0.20260916.90747.xpi";
+      sha256 = "e889c9fba8f69a4f397a1beb83e40a7febe878daeaa6a83d384e8c6bd6a7ffbb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10884,10 +10885,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.82";
+      version = "1.5.83";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5010083/page_assist-1.5.82.xpi";
-      sha256 = "b04869843f750ef5a48c347911a5c7e6f6148f0e94516615b46757ecfc104fa5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5026936/page_assist-1.5.83.xpi";
+      sha256 = "c71d14130bd64ea9594ef1c4c1d25fb8ec199b489a586027d28fa4787174160c";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -10937,10 +10938,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.130";
+      version = "1.0.131";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5022298/paperpile_addon-1.0.130.xpi";
-      sha256 = "7d70861ca507c6b04c97fa5dcf18839b3edf7552ef70189a6a411ea4e3fa3f65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034155/paperpile_addon-1.0.131.xpi";
+      sha256 = "907e4b99438b927787faa6de45570b8ec06ecf5824b7456a547e93265affcc5a";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -13163,10 +13164,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "157.0.20260914.90352";
+      version = "157.0.20260916.90747";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028820/scots_language_pack-157.0.20260914.90352.xpi";
-      sha256 = "9e0de0bf7b71e73d86345ca9d9b788430f5ee8b013f311b1931863598a3ccad2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034526/scots_language_pack-157.0.20260916.90747.xpi";
+      sha256 = "013d32dbb0583b5509672cf6306cc35cf3e9026d788343cb1aafb4a85331f710";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13680,10 +13681,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.25.0";
+      version = "1.26.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5030455/single_file-1.25.0.xpi";
-      sha256 = "bdc8a6a7000f6f76e5d4097e05b65c07b130eaf50989c304a081454c4f493330";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5035849/single_file-1.26.0.xpi";
+      sha256 = "53979f4451cf8777c4c2eb115216fe2f55395a3725f32b73b23808a93b002806";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -13746,10 +13747,10 @@
     };
     "smartproxy" = buildMozillaXpiAddon {
       pname = "smartproxy";
-      version = "2.3";
+      version = "2.4.2";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4972492/smartproxy-2.3.xpi";
-      sha256 = "9525b73985d36a04020a0cf97ac11db222081c723ff8b296e96b8d43895dcf17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034249/smartproxy-2.4.2.xpi";
+      sha256 = "9da2d936a0445084b5deb1cf272221235fb3ca6ccb544efa26d877cfc6d0191c";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
@@ -14186,10 +14187,10 @@
     };
     "super-agent" = buildMozillaXpiAddon {
       pname = "super-agent";
-      version = "4.6.3";
+      version = "4.6.5";
       addonId = "{a9cc4ef5-1149-47a9-8b94-490f324fe157}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4989364/super_agent-4.6.3.xpi";
-      sha256 = "93c58d39aec8ab024bbb2937ee1d481b4e650a71c3c5c9c268d081b8ea573972";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5035969/super_agent-4.6.5.xpi";
+      sha256 = "e732d4e163ac60fa6c6c0e17b5faa6a59efc867a643330324125c99fd101a182";
       meta = with lib;
       {
         description = "Super Agent automatically fills out website's cookie consent forms for you based on your preferences. Super Agent will save you a lot of clicks and let you take control of your privacy in a very easy way.";
@@ -15670,10 +15671,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.74.0";
+      version = "1.75.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4981431/ublock_origin-1.74.0.xpi";
-      sha256 = "175756d74468c9ba45863f7fc333d3be670f82d5b066314e915814dd547d1652";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034826/ublock_origin-1.75.0.xpi";
+      sha256 = "5b74415860456370644bd80f16125e865b0e6c356bb5dfcfb84069967eaa5287";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
