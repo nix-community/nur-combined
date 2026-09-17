@@ -12,6 +12,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.sessionVariables._ZO_ECHO = 1;
+    nix.gc.automatic = true;
     programs = {
       starship = {
         enable = true;

@@ -21,8 +21,12 @@ in
 
   config = lib.mkIf cfg.users.toyvo.enable {
     home = {
-      packages = [
+      packages = with pkgs; [
+        ast-grep
         inputs.nixcfg.packages.${system}.toyvo-neovim
+        proton-pass-cli
+        ripgrep
+        sops
       ];
       sessionVariables.EDITOR = "nvim";
     };
@@ -103,7 +107,10 @@ in
         package = inputs.herdr.packages.${system}.herdr;
         settings = {
           terminal.default_shell = lib.getExe pkgs.fish;
-          ui.toast.delivery = "herdr";
+          ui = {
+            toast.delivery = "herdr";
+            status_indicators = "symbols";
+          };
         };
       };
       hyper.enable = cfg.gui.enable;

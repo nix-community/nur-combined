@@ -32,6 +32,7 @@ in
 
   config = lib.mkIf cfg.enable {
     nix = {
+      gc.automatic = true;
       settings = {
         experimental-features = [
           "nix-command"

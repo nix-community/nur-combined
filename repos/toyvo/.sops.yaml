@@ -18,6 +18,7 @@ keys:
   - &server_steamdeck_nixos age1wlrat6ckl34359tnqrww8jc0tlyedy33puzw9uvhszralfzcpaaqesg4ts
   - &server_thinkpad age1xech2qev7kpnquuv88qtaygnqtp4972ke605puef5hj6mjvh6ypqg7ud7q
   - &server_work age1a5l7mjh63y3qkddp8zuu3j6p4fc9pfa9qvuyav66dvhd7w0kgcrqnkj4js
+  - &server_work_l age1pht7y3taycjxyqky7gr97glf5e7tqxygeusd3nmj3s0l6j8hlqfqkeq4wg
   - &server_pixel10a age1cxf324r7tpd5t7thzk583ufuqele566l4e0crjrpfneu6wvjncns8pgpsg
 creation_rules:
   - path_regex: secrets.yaml$
@@ -38,4 +39,5 @@ creation_rules:
           - *server_steamdeck_nixos
           - *server_thinkpad
           - *server_work
+          - *server_work_l
           - *server_pixel10a
