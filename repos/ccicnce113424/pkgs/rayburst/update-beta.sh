@@ -3,7 +3,7 @@
 set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../../_scripts/update-lib.sh"
-package_name="motrix-next-beta"
+package_name="rayburst-beta"
 
 parse_args "$@"
 setup_paths
@@ -12,7 +12,7 @@ check_stale "jq"
 
 nix_build_hash \
   "(import ./pkgs {}).${package_name}.pnpmDeps.overrideAttrs (_: { outputHash = \"\"; outputHashAlgo = \"sha256\"; })" \
-  "MotrixNext git deps"
+  "Rayburst git deps"
 
 jq -n \
   --arg version "$version" \

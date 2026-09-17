@@ -72,11 +72,6 @@ fetch.github = "chiyuki0325/lyrica"
 src.branch = "v1"
 src.git = "https://github.com/chiyuki0325/lyrica"
 
-[motrix-next-beta]
-cargo_lock = ["src-tauri/Cargo.lock"]
-fetch.github = "AnInsomniacy/motrix-next"
-src.github_tag = "AnInsomniacy/motrix-next"
-
 [nix-auth]
 fetch.github = "numtide/nix-auth"
 src.git = "https://github.com/numtide/nix-auth"
@@ -108,6 +103,11 @@ src.git = "https://github.com/pixes-app/pixes"
 [pwasio]
 fetch.github = "golfiros/pwasio"
 src.git = "https://github.com/golfiros/pwasio"
+
+[rayburst-beta]
+cargo_lock = ["src-tauri/Cargo.lock"]
+fetch.github = "AnInsomniacy/rayburst"
+src.github_tag = "AnInsomniacy/rayburst"
 
 [splayer-kde-bar-lyc]
 extract = ["metadata.json"]

@@ -214,23 +214,6 @@
     };
     date = "2026-08-15";
   };
-  motrix-next-beta = {
-    pname = "motrix-next-beta";
-    version = "v3.9.9";
-    src = fetchFromGitHub {
-      owner = "AnInsomniacy";
-      repo = "motrix-next";
-      rev = "v3.9.9";
-      fetchSubmodules = false;
-      sha256 = "sha256-HIEvsivOiHAyKAEwfPytS31M9wHxC3fmh6e1Sn3AHKo=";
-    };
-    cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-HIEvsivOiHAyKAEwfPytS31M9wHxC3fmh6e1Sn3AHKo=/src-tauri/Cargo.lock";
-      outputHashes = {
-        
-      };
-    };
-  };
   nix-auth = {
     pname = "nix-auth";
     version = "575338159cc1a196e931ee96ff0bb94b90f42f7a";
@@ -327,6 +310,23 @@
     };
     date = "2026-06-10";
   };
+  rayburst-beta = {
+    pname = "rayburst-beta";
+    version = "v4.0.0-beta.1";
+    src = fetchFromGitHub {
+      owner = "AnInsomniacy";
+      repo = "rayburst";
+      rev = "v4.0.0-beta.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-mFVdxOmYr8G/KYEBJzrxgj6v9mxHw/avMaWkYhq5Saw=";
+    };
+    cargoLock."src-tauri/Cargo.lock" = {
+      lockFile = ./. + "/sha256-mFVdxOmYr8G_KYEBJzrxgj6v9mxHw_avMaWkYhq5Saw=/src-tauri/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+  };
   splayer-kde-bar-lyc = {
     pname = "splayer-kde-bar-lyc";
     version = "d89404376a2b27dbb58046ce6da894c1e83c9169";
@@ -389,7 +389,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

@@ -111,14 +111,6 @@ lib.makeScope pkgs.newScope (
       sources = fetchedSrc.lyrica;
     };
 
-    motrix-next = self.callPackage ./motrix-next/package.nix { };
-
-    motrix-next-beta = self.callPackage ./motrix-next rec {
-      inherit (lib.importJSON ./motrix-next/src-info.json) hash;
-      sources = fetchedSrc.motrix-next-beta;
-      version = stableVersion sources;
-    };
-
     nix-auth = self.callPackage ./nix-auth rec {
       inherit (lib.importJSON ./nix-auth/src-info.json) hash;
       sources = fetchedSrc.nix-auth;
@@ -162,6 +154,14 @@ lib.makeScope pkgs.newScope (
     pwasio = self.callPackage ./pwasio rec {
       sources = fetchedSrc.pwasio;
       version = unstableVersion sources 0;
+    };
+
+    rayburst = self.callPackage ./rayburst/package.nix { };
+
+    rayburst-beta = self.callPackage ./rayburst rec {
+      inherit (lib.importJSON ./rayburst/src-info.json) hash;
+      sources = fetchedSrc.rayburst-beta;
+      version = stableVersion sources;
     };
 
     scx_pandemonium = pkgs.scx.rustscheds.overrideAttrs (

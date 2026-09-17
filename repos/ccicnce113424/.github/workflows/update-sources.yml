@@ -45,13 +45,12 @@ jobs:
           pkgs/kikoflu/update.sh
           pkgs/loveiwara/update.sh
           pkgs/enimul/update.sh
-          # pkgs/motrix-next/update.sh
-          pkgs/motrix-next/update-beta.sh
           pkgs/nix-auth/update.sh
           pkgs/open-orpheus-dev/update.sh
           pkgs/piliplus/update.sh
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
+          pkgs/rayburst/update-beta.sh
           pkgs/splayer-next-dev/update.sh
           pkgs/wild-reader/update.sh
 

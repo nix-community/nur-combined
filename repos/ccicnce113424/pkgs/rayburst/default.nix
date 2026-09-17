@@ -8,9 +8,9 @@
   callPackage,
 }:
 let
-  motrix-next = callPackage ./package.nix { };
+  rayburst = callPackage ./package.nix { };
 in
-motrix-next.overrideAttrs (
+rayburst.overrideAttrs (
   final: _prev: {
     inherit (sources) pname src;
     inherit version;
