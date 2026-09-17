@@ -158,6 +158,7 @@ in
         dmidecode
         efibootmgr
         flac
+        foregejo-cli
         gh
         hdparm
         home-manager
@@ -188,6 +189,7 @@ in
         sqlite-interactive
         sshpass
         tcpdump
+        tea
         termscp
         vrb
         yt-dlp

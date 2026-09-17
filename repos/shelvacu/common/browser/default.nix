@@ -95,7 +95,7 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
         }
         {
           Name = "NixOS Packages";
-          URLTemplate = "https://search.nixos.org/packages?channel=26.051&query={searchTerms}";
+          URLTemplate = "https://search.nixos.org/packages?channel=26.05&query={searchTerms}";
           Alias = "!np";
         }
         {
