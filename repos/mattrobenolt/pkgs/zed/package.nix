@@ -6,6 +6,7 @@
   makeDesktopItem,
   copyDesktopItems,
   alsa-lib,
+  glib,
   version,
   hashes,
   channel,
@@ -42,6 +43,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     alsa-lib
+    glib
     stdenv.cc.cc.lib
   ];
 

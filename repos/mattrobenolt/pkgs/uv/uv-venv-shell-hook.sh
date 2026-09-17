@@ -1,4 +1,8 @@
 uvVenvShellHook() {
+  if [ -z "${venvDir-}" ]; then
+    venvDir=".venv"
+  fi
+
   echo "Executing uvVenvShellHook"
   runHook preShellHook
 
@@ -20,8 +24,5 @@ uvVenvShellHook() {
 
 if [ -z "${dontUseVenvShellHook:-}" ] && [ -z "${shellHook-}" ]; then
   echo "Using uvVenvShellHook"
-  if [ -z "${venvDir-}" ]; then
-    venvDir=".venv"
-  fi
   shellHook=uvVenvShellHook
 fi

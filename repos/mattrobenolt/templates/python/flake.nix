@@ -34,7 +34,6 @@
         in
         {
           devShells.default = pkgs.mkShell {
-            venvDir = ".venv";
             packages = with pkgs; [
               uv
               uvShellHook
