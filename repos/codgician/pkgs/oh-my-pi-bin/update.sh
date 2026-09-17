@@ -8,8 +8,36 @@ path="$nur/pkgs/oh-my-pi-bin/default.nix"
 
 repo="can1357/oh-my-pi"
 
-# Resolve the latest release tag (strip the leading "v" for the Nix version).
-new_tag=$(curl -fsSL "https://api.github.com/repos/${repo}/releases/latest" | jq -r .tag_name)
+# Resolve the latest stable release tag. Prefer the GitHub API (optionally
+# authenticated) but fall back to the HTML /releases/latest redirect so the
+# script still works when unauthenticated API calls are rate-limited (403).
+auth_args=()
+token="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
+if [ -n "$token" ]; then
+    auth_args=(-H "Authorization: Bearer ${token}")
+fi
+
+new_tag=""
+if api_json=$(curl -fsSL "${auth_args[@]}" \
+    -H "Accept: application/vnd.github+json" \
+    -H "User-Agent: oh-my-pi-bin-update" \
+    "https://api.github.com/repos/${repo}/releases/latest" 2>/dev/null); then
+    new_tag=$(jq -r '
+        select(.draft | not)
+        | select(.prerelease | not)
+        | .tag_name // empty
+    ' <<< "$api_json")
+fi
+
+if [ -z "$new_tag" ] || [ "$new_tag" = "null" ]; then
+    # /releases/latest 302s to /releases/tag/<tag> for the newest stable release.
+    effective=$(curl -fsSIL \
+        -H "User-Agent: oh-my-pi-bin-update" \
+        -o /dev/null -w '%{url_effective}' \
+        "https://github.com/${repo}/releases/latest")
+    new_tag=$(sed -nE 's|.*/tag/(v[^/?#]+)$|\1|p' <<< "$effective")
+fi
+
 new_version="${new_tag#v}"
 
 if [ -z "$new_version" ] || [ "$new_version" = "null" ]; then
