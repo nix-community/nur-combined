@@ -17,14 +17,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "degrees-of-lewdity";
-  version = "0.5.12.11";
+  version = "0.5.12.12";
 
   src = fetchFromGitLab {
     domain = "gitgud.io";
     owner = "Vrelnir";
     repo = "degrees-of-lewdity";
     tag = finalAttrs.version;
-    hash = "sha256-rrD2be67/cQTPOBf4uokOuKtCy4X9u3vA6p9ALCoYWY=";
+    hash = "sha256-JTG+xjMjqT3AKmliSVtZAAlg1HSQkNG0PNgd/jIRLxk=";
   };
 
   strictDeps = true;

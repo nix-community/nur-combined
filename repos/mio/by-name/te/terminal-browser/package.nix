@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  rustPlatform,
   pnpm_10,
   pnpmConfigHook,
   fetchPnpmDeps,
@@ -13,32 +12,24 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.8.1";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
     repo = "terminal-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-EquDTikgqUmUrQJJQX4ZYgfEFQRehj7p7mnA/B0bnwc=";
+    hash = "sha256-c2HF3JkUaXhXdJqSdBvdzUBuT4v82FDrNZANl0TrA3k=";
   };
 
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    src = finalAttrs.src;
-    sourceRoot = "${finalAttrs.src.name}/engine";
-    hash = "sha256-PFJCbUzOWz6w7Offk3E2Io5ddMg3HFcU6MZdZx2Ud/w=";
-  };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
-    hash = "sha256-CLoX6axparzIxyUZVyScC3h4sa+G7lr680jjbXIrW9Q=";
+    hash = "sha256-TfOXh8CuMe+ih6D75rJiU3QCaWYnoMhNOFM9dP5T1S4=";
   };
 
   nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    rustPlatform.rust.cargo
-    rustPlatform.rust.rustc
     pnpm_10
     pnpmConfigHook
     nodejs
@@ -50,22 +41,11 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i '/fetch-electron.sh/d' browser/package.json
   '';
 
-  cargoRoot = "engine";
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
   buildPhase = ''
     runHook preBuild
 
-    # build rust native module
-    (
-      cd engine
-      cargo build --release -p pixel-node
-    )
-
-    mkdir -p browser/native
-    cp engine/target/release/libpixel_node.${
-      if stdenv.hostPlatform.isDarwin then "dylib" else "so"
-    } browser/native/pixel.node
 
     # bundle js
     mkdir -p browser/dist cli/dist
@@ -81,7 +61,6 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/share/terminal-browser/bin $out/share/terminal-browser/browser $out/share/terminal-browser/cli
     cp -r browser/dist $out/share/terminal-browser/browser/
     cp -r cli/dist $out/share/terminal-browser/cli/
-    cp -r browser/native $out/share/terminal-browser/browser/
 
     # copy fonts
     mkdir -p $out/share/terminal-browser/assets/fonts

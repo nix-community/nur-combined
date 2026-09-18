@@ -9,13 +9,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ublock-origin-firefox";
-  version = "1.74.0";
+  version = "1.75.0";
 
   src = fetchFromGitHub {
     owner = "gorhill";
     repo = "uBlock";
     rev = finalAttrs.version;
-    hash = "sha256-FWyyWAC6wpY3W88gKyFMDAj5zKyA0aTe57THfdUNGMY=";
+    hash = "sha256-XAcC9pYB+kmVzjczefrNAJNBf1nF1y9xvZWNRFp5O2o=";
   };
 
   uAssetsMain = fetchFromGitHub {
