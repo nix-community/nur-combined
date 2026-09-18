@@ -23,7 +23,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rrs";
-  version = "1.9.3";
+  version = "1.9.4";
 
   __structuredAttrs = true;
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "maisvendoo";
     repo = "RRS";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wNXy8Lw9EW7q6l1vdllD9jl7sNVgRgAOtUQ7etgMNTo=";
+    hash = "sha256-111dO+K77PQ7t92uaIzydRIU1TMCjPOmFazYZTiJ518=";
   };
 
   postPatch = ''
