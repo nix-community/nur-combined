@@ -115,9 +115,8 @@ in
     with subtest("reload config"):
         client.succeed("curl --fail -X POST -H \"Authorization: Bearer ${secret}\" http://server:${toString port}/_venator/v0/admin/reload-config")
 
-    # TODO: not implemented yet
-    # with subtest("ensure federation works"):
-    #     client.succeed("curl --fail http://server:${toString port}/_matrix/federation/v1/version")
+    with subtest("ensure federation works"):
+        client.succeed("curl --fail http://server:${toString port}/_matrix/federation/v1/version")
 
     with subtest("ensure sending messages is possible"):
         client.succeed("do_test >&2")

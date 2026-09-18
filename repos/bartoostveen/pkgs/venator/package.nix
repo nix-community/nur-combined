@@ -8,6 +8,7 @@
   mdbook,
   versionCheckHook,
   withDocs ? true,
+  withFederation ? true,
 }:
 
 let
@@ -39,7 +40,7 @@ buildGo127Module (finalAttrs: {
     versionCheckHook
   ];
 
-  tags = lib.optional withDocs "docs";
+  tags = lib.optional withDocs "docs" ++ lib.optional withFederation "federation";
 
   env = {
     VENATOR_BUILD_TAGS = lib.concatStringsSep "," finalAttrs.tags;
