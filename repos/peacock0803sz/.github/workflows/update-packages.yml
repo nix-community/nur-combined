@@ -29,8 +29,10 @@ jobs:
           if [ -n "${{ inputs.package }}" ]; then
             echo 'packages=["${{ inputs.package }}"]' >> "$GITHUB_OUTPUT"
           else
+            # trmnlp is a bundlerApp, which nix-update cannot read; the
+            # update-trmnlp job below handles it instead.
             packages=$(ls -d pkgs/*/ | xargs -I{} basename {} \
-              | jq -R -s -c 'split("\n") | map(select(length > 0))')
+              | jq -R -s -c 'split("\n") | map(select(length > 0 and . != "trmnlp"))')
             echo "packages=${packages}" >> "$GITHUB_OUTPUT"
           fi
 
@@ -93,6 +95,90 @@ jobs:
 
           - Automated update by [nix-update](https://github.com/Mic92/nix-update)
           - **Package**: \`${pkg}\`
+          - **New version**: \`${ver}\`
+          EOF
+          )"
+
+          # Update existing PR or create a new one
+          existing_pr=$(gh pr list --head "${branch}" --state open --json number -q '.[0].number')
+          if [ -n "${existing_pr}" ]; then
+            gh pr edit "${existing_pr}" --title "${title}" --body "${body}"
+          else
+            gh pr create --title "${title}" --label "dependencies" --label "nix" --body "${body}"
+          fi
+
+  update-trmnlp:
+    # trmnlp is packaged from the trmnl_preview gem via bundlerApp, so its
+    # version lives in pkgs/trmnlp/Gemfile and its dependency hashes in
+    # gemset.nix. Neither nix-update nor Renovate's bundler manager can
+    # regenerate gemset.nix, so bundix runs here instead.
+    if: inputs.package == '' || inputs.package == 'trmnlp'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump the gem and regenerate gemset.nix
+        id: update
+        run: |
+          gemfile=pkgs/trmnlp/Gemfile
+          old_ver=$(sed -n "s/^gem 'trmnl_preview', '\(.*\)'$/\1/p" "${gemfile}")
+          new_ver=$(curl -sSf https://rubygems.org/api/v1/gems/trmnl_preview.json | jq -r .version)
+
+          if [ -z "${old_ver}" ]; then
+            echo "::error::could not read the pinned version from ${gemfile}"
+            exit 1
+          fi
+          if [ "${old_ver}" = "${new_ver}" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          sed -i "s/^gem 'trmnl_preview', '.*'$/gem 'trmnl_preview', '${new_ver}'/" "${gemfile}"
+
+          # `bundle lock` (not `bundle update`) keeps transitive gems at their
+          # current versions unless the new release forces a bump.
+          (
+            cd pkgs/trmnlp
+            nix shell nixpkgs#ruby_4_0 nixpkgs#bundix \
+              --command bash -c 'bundle lock --add-platform ruby && bundix'
+          )
+
+          # Gate the PR on a real build so a broken gemset never gets opened.
+          nix build .#trmnlp --no-link
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "version=${new_ver}" >> "$GITHUB_OUTPUT"
+
+      - name: Create PR via gh
+        if: steps.update.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: "peacock0803sz"
+          GIT_AUTHOR_EMAIL: "33555487+peacock0803sz@users.noreply.github.com"
+          GIT_COMMITTER_NAME: "github-actions[bot]"
+          GIT_COMMITTER_EMAIL: "github-actions[bot]@users.noreply.github.com"
+        run: |
+          ver="${{ steps.update.outputs.version }}"
+          branch="update/trmnlp"
+
+          git switch -c "${branch}"
+          git add pkgs/trmnlp/Gemfile pkgs/trmnlp/Gemfile.lock pkgs/trmnlp/gemset.nix
+          git restore .
+          git commit -m ":arrow_up: Update trmnlp to ${ver}"
+          git push -u origin "${branch}" --force
+
+          title=":arrow_up: Update trmnlp to ${ver}"
+          body="$(cat <<EOF
+          ## Summary
+
+          - Automated update by [bundix](https://github.com/nix-community/bundix)
+          - **Package**: \`trmnlp\` (gem: \`trmnl_preview\`)
           - **New version**: \`${ver}\`
           EOF
           )"

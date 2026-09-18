@@ -1,6 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>peacock0803sz/renovate-config"],
+  // pkgs/trmnlp is a bundlerApp. Renovate would bump its Gemfile and
+  // Gemfile.lock but has no way to regenerate gemset.nix, which is the only
+  // file the Nix build actually reads — so every such PR would fail to build.
+  // update-packages.yml runs bundix instead.
+  "bundler": {
+    "enabled": false,
+  },
   "customManagers": [
     {
       "customType": "regex",

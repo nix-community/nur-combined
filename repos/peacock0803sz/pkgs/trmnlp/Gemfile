@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+# The executable is `trmnlp`, the gem is `trmnl_preview`.
+gem 'trmnl_preview', '0.12.0'
