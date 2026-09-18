@@ -673,8 +673,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "3ff971617036c012eefffee45ec51d06df549c6c",
-            "sha256": "14rcf0ijik6kr1ipx8mmw761af3niygzw4wcnpxvckfwjbn2q96m",
+            "rev": "031ca44fdcaecfeb113eb5f88a9ca0254f3acefb",
+            "sha256": "13kxqld8xv738nvza9ik7plcl3ngibs1qnagri23prwc9bffhid8",
             "url": "https://github.com/congee/nur"
         },
         "connoromalley": {
