@@ -131,13 +131,24 @@ in
       iptables -t nat -N vacuvm-doof 2>/dev/null || true
       iptables -t nat -F vacuvm-doof
       iptables -t nat -A vacuvm-doof -s ${config.vacu.vmNet.v4Prefix}.0/24 -o ${doof_if} -j SNAT --to-source ${cfg.ips.doofStatic4}
+      # iptables -t nat -A vacuvm-doof -s ${config.vacu.vmNet.v4Prefix}.0/24 -o ${doof_if} -j MASQUERADE
       iptables -t nat -C POSTROUTING -j vacuvm-doof 2>/dev/null \
         || iptables -t nat -A POSTROUTING -j vacuvm-doof
+
+      iptables -N vacuvm-doof-forward 2>/dev/null | true
+      iptables -F vacuvm-doof-forward
+      iptables -A vacuvm-doof-forward -i 'v-*' -o ${doof_if} -j ACCEPT
+      iptables -C FORWARD -j vacuvm-doof-foward 2>/dev/null \
+        || iptables -A FORWARD -j vacuvm-doof-forward
     '';
     networking.firewall.extraStopCommands = ''
       iptables -t nat -D POSTROUTING -j vacuvm-doof 2>/dev/null || true
       iptables -t nat -F vacuvm-doof 2>/dev/null || true
       iptables -t nat -X vacuvm-doof 2>/dev/null || true
+
+      iptables -D FORWARD -j vacuvm-doof-forward 2>/dev/null || true
+      iptables -F vacuvm-doof-forward 2>/dev/null || true
+      iptables -X vacuvm-doof-forward 2>/dev/null || true
     '';
   };
 }
