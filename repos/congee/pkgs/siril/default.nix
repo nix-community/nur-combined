@@ -142,29 +142,17 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # --- SVG pixbuf loader repair ------------------------------------------
-    # librsvg's gdk-pixbuf SVG loader is linked against "@rpath/librsvg-2.2.dylib"
-    # but ships no LC_RPATH on aarch64-darwin, so dyld can't dlopen it. That makes
-    # gdk-pixbuf-query-loaders drop it (librsvg's own loaders.cache has an empty
-    # svg entry), and every SVG the GTK UI touches — symbolic icons, menu
-    # check-marks, the logo — fails with "Unrecognized image file format".
-    #
-    # Rather than rebuild librsvg (its compiled loader is fine, only a Mach-O
-    # load command is wrong), copy the loader into our own output, rewrite the
-    # dangling dependency to the absolute dylib, and regenerate a loaders.cache
-    # that lists it. install_name_tool re-signs ad-hoc on its own, so no codesign
-    # is needed. The absolute references keep librsvg in siril's runtime closure.
-    loaderDir="$out/lib/gdk-pixbuf-2.0/2.10.0/loaders"
-    mkdir -p "$loaderDir"
-    cp ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader_svg.dylib "$loaderDir/"
-    chmod u+w "$loaderDir/libpixbufloader_svg.dylib"
-    install_name_tool \
-      -id "$loaderDir/libpixbufloader_svg.dylib" \
-      -change @rpath/librsvg-2.2.dylib ${librsvg}/lib/librsvg-2.2.dylib \
-      "$loaderDir/libpixbufloader_svg.dylib"
+    # --- SVG pixbuf loader --------------------------------------------------
+    # librsvg ships its gdk-pixbuf SVG loader in its own store path, and
+    # GDK_PIXBUF_MODULE_FILE can name only one cache, so merge gdk-pixbuf's
+    # loaders and librsvg's into a single one here. Without the SVG loader every
+    # SVG the GTK UI touches — symbolic icons, menu check-marks, the logo —
+    # fails with "Unrecognized image file format". The absolute path the cache
+    # records keeps librsvg in siril's runtime closure.
+    mkdir -p "$out/lib/gdk-pixbuf-2.0/2.10.0"
     ${lib.getDev gdk-pixbuf}/bin/gdk-pixbuf-query-loaders \
       ${lib.getLib gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders/*.so \
-      "$loaderDir/libpixbufloader_svg.dylib" \
+      ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so \
       > "$out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
     # wrapGAppsHook3 bakes the current $GDK_PIXBUF_MODULE_FILE into the launcher
     # during fixup (later, same shell), so override it here to our fixed cache.

@@ -19,7 +19,7 @@
 }:
 
 let
-  version = "0.31.2";
+  version = "0.32.2";
 
   # Wheels are published per macOS deployment target. 26_0 additionally
   # carries Metal-4 NAX kernels (M5-class GPUs); on M1-M4 the variants are
@@ -29,32 +29,32 @@ let
   wheels = {
     macosx_14_0_arm64 = {
       mlx = {
-        url = "https://files.pythonhosted.org/packages/8b/f5/e63f6a9316ded2d14a8ebc7a9ca25734c784e8c54d064a78b4dceeacec0e/mlx-${version}-cp314-cp314-macosx_14_0_arm64.whl";
-        hash = "sha256-oTyc4jw97vaqWgkxXnlT4aXcMR6FH6Fvx0yB+yUJwLk=";
+        url = "https://files.pythonhosted.org/packages/35/c8/d4f7c648d6ea7baee986047ca30647a5733df5b9c77bb0a262dc5aca0843/mlx-${version}-cp314-cp314-macosx_14_0_arm64.whl";
+        hash = "sha256-yZ47ZFG7SlUHHPGVlPVkQ1vYjedwCPN35hGkCou/syg=";
       };
       mlx-metal = {
-        url = "https://files.pythonhosted.org/packages/3f/69/fe3b783ebe999f3118234e1e940feb622518bfb1dea6ac5d13b1d36a8449/mlx_metal-${version}-py3-none-macosx_14_0_arm64.whl";
-        hash = "sha256-slOFvO4Y/BlAkiVbi1O5o9hInrZQ5ZFg8bV6rdB6otw=";
+        url = "https://files.pythonhosted.org/packages/f7/ab/ba1952908c5d2a5070cf1cfbfea0161c4751ea62299e2776819810917483/mlx_metal-${version}-py3-none-macosx_14_0_arm64.whl";
+        hash = "sha256-OCX/83nbwQfdNBPlZKBsrqokgZkQ7EnAQ55FTAahubg=";
       };
     };
     macosx_15_0_arm64 = {
       mlx = {
-        url = "https://files.pythonhosted.org/packages/31/50/9d0c03ea3134cd85c132df7b0e4b75e6344bd8b4881a0b9c465cfa27f724/mlx-${version}-cp314-cp314-macosx_15_0_arm64.whl";
-        hash = "sha256-sHZL8R/Dpx3umI4ZJ17vZ3dcq2MRLYu37xc8qLKhJHw=";
+        url = "https://files.pythonhosted.org/packages/f8/c8/6928f4b9ca8f190c7c7a19c0a67920aa1742c62c6e66b05f7a1e21da728c/mlx-${version}-cp314-cp314-macosx_15_0_arm64.whl";
+        hash = "sha256-j8Qz41pwWOMPeiJcOfzga6QTlP6On9Zzg7cPCwbeOYw=";
       };
       mlx-metal = {
-        url = "https://files.pythonhosted.org/packages/4f/5d/4c690d5b93c30ba002656c37363159d978705bf8eb801b8481840fb942c2/mlx_metal-${version}-py3-none-macosx_15_0_arm64.whl";
-        hash = "sha256-6dTl/ObKEKh6DjiFl/mVGa1ZTQnmdHCLUxK9i9T1mX0=";
+        url = "https://files.pythonhosted.org/packages/79/ec/34f37376e26d537fadffb99af3a760d6545e37f5e1a30a552baadf237fc5/mlx_metal-${version}-py3-none-macosx_15_0_arm64.whl";
+        hash = "sha256-VaNpJQ0iCyzxAhOoeirBsaQgYIxbNbHfTnFHrI4y8SE=";
       };
     };
     macosx_26_0_arm64 = {
       mlx = {
-        url = "https://files.pythonhosted.org/packages/ef/5b/d364cc793bcb504621313acb55627cf0d5403ab2e0a594aa081cdbe4591f/mlx-${version}-cp314-cp314-macosx_26_0_arm64.whl";
-        hash = "sha256-Wcy9DwBE1Pl/EevL8MSAvJ6WKTX9lidfEglUr+plvoo=";
+        url = "https://files.pythonhosted.org/packages/ce/f0/4cb126cdfffb6d976fedba1dc276cb714e1a37d6f47527dc5deeaa8a8668/mlx-${version}-cp314-cp314-macosx_26_0_arm64.whl";
+        hash = "sha256-NQNhfjqmqOQR31MjbVvKA5/MqXVW8a3hxOXMimTeUtI=";
       };
       mlx-metal = {
-        url = "https://files.pythonhosted.org/packages/99/82/11fd62a8d7a3e96e5c43220b17de0151e3f10101f8bb3b865f5bd9cdd074/mlx_metal-${version}-py3-none-macosx_26_0_arm64.whl";
-        hash = "sha256-hP+2DuUD8D62hPX7Fo1c/zHioWt/J8FzHq92Yr1um0Y=";
+        url = "https://files.pythonhosted.org/packages/dd/cd/4e50bf325100e7165e13d025f264362bf0009196269f9eaf87f2c6e738a2/mlx_metal-${version}-py3-none-macosx_26_0_arm64.whl";
+        hash = "sha256-5qvqyaxSZYMMnBVBtvlum+N6hcJEZ2OkatRmxjo4N6s=";
       };
     };
   };

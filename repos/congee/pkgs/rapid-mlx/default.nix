@@ -29,14 +29,14 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "rapid-mlx";
-  version = "0.12.18";
+  version = "0.14.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "raullenchai";
     repo = "Rapid-MLX";
     rev = "v${version}";
-    hash = "sha256-OlOxByEZpTTbjLPizUSrFq5w1nhwue4/A8+ZF8RcaWs=";
+    hash = "sha256-lCf2ILXtyJxv40wCBVf1bpGtokLy16bCIoEqAGm0ghI=";
   };
 
   build-system = with python3Packages; [
@@ -58,6 +58,7 @@ python3Packages.buildPythonApplication rec {
     pillow
     psutil
     pyyaml
+    referencing
     requests
     tabulate
     tokenizers
@@ -68,10 +69,10 @@ python3Packages.buildPythonApplication rec {
     websockets
   ];
 
-  # Upstream caps transformers<5.13 because 5.13.0's _LazyAutoMapping.register
-  # dereferenced key.__module__, and mlx-lm registers its NewlineTokenizer by
-  # string name. 5.14.0 restored getattr(key, "__module__", ""), so nixpkgs'
-  # 5.15.0 imports fine.
+  # Upstream excludes the broken 5.13.0 (its _LazyAutoMapping.register
+  # dereferenced key.__module__, which mlx-lm's string-name tokenizer
+  # registration tripped over) and caps <5.16 only as a precaution against
+  # unvalidated minors; nixpkgs' 5.16+ imports fine.
   pythonRelaxDeps = [ "transformers" ];
 
   # tests require downloaded models and a live server
