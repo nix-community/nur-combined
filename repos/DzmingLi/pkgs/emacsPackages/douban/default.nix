@@ -3,7 +3,6 @@
   emacsPackages,
   fetchFromGitHub,
   browser-cookies,
-  org-extra-emphasis,
 }:
 
 ## DzmingLi/douban.el: write and publish Douban content from Emacs.
@@ -17,14 +16,13 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "douban.el";
-    rev = "caf9ecb9ed03ac7f2a86d74d98ff9adc7438e700";
-    hash = "sha256-A8oP4+3W5hHPbaDtiOorM7j//jd550Q73Py9E/v9p/s=";
+    rev = "d0380518bcf3da4f9b5adf8af7ceb8180b3ad66f";
+    hash = "sha256-9w4ijmUpBRqsLf88uHsOTmRvPeRnXhQnpRVipvAbQeE=";
   };
 
   packageRequires = [
     browser-cookies
     emacsPackages.elpaDevelPackages.plz
-    org-extra-emphasis
   ];
 
   turnCompilationWarningToError = true;
