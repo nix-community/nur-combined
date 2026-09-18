@@ -13,7 +13,7 @@ let
   # which a FOD's content is forbidden from referencing.
   addon = stdenv.mkDerivation {
     pname = "racket-langserver-addon";
-    version = "1.0-unstable-2026-04-30";
+    version = "1.0-unstable-2026-09-16";
 
     dontUnpack = true;
     nativeBuildInputs = [
@@ -57,7 +57,7 @@ let
     '';
 
     outputHashMode = "recursive";
-    outputHash = "sha256-HH/5HvKEgbh7pnnGSOdjJhN8h6UsxoFaYoLrhuzNSwM=";
+    outputHash = "sha256-ivx3mPK7RuujTxA59FUzyvYGRuFxmetvEiCLDqcDRoE=";
   };
 in
 runCommand "racket-langserver"
