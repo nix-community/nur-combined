@@ -1,10 +1,10 @@
 { blepfx, fetchzip }:
 blepfx.mkBlep (finalAttrs: {
   pname = "crunchrr";
-  version = "100";
+  version = "126";
   src = fetchzip {
     url = "https://github.com/blepfx/dist/releases/download/release-${finalAttrs.version}/crunchrr-x86_64-unknown-linux-gnu.zip";
-    hash = "sha256-8etQEJI4azfc80pR+areBdrLgbWcPb5S5p3TyhOFY2E=";
+    hash = "sha256-PmGLRjYxhcKSXaHm4EUDjydjrV80KsFSxCr1h05NfbY=";
     stripRoot = false;
   };
 

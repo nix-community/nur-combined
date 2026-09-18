@@ -1,10 +1,10 @@
 { blepfx, fetchzip }:
 blepfx.mkBlep (finalAttrs: {
   pname = "filtrr";
-  version = "100";
+  version = "126";
   src = fetchzip {
     url = "https://github.com/blepfx/dist/releases/download/release-${finalAttrs.version}/filtrr-x86_64-unknown-linux-gnu.zip";
-    sha256 = "sha256-k0jqtwClzW/oNtKR2/nsQNFCbt6J0Lp3dmAf2X09UOU=";
+    sha256 = "sha256-pr+yDQ/LAzkqBAiXiAnEpjPhQBqzYkSw2THhk+KYAuM=";
     stripRoot = false;
   };
 

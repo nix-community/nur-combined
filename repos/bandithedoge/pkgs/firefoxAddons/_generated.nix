@@ -505,10 +505,10 @@
     };
     "harper" = buildMozillaXpiAddon {
       pname = "harper";
-      version = "2.10.0";
+      version = "2.11.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018605/private_grammar_checker_harper-2.10.0.xpi";
-      sha256 = "8af1d4f5d6627a0b03665828eaff5b649de72be727511e0b1443510fa2e653e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5037758/private_grammar_checker_harper-2.11.0.xpi";
+      sha256 = "c596a23a5c3b33b9c58cbaafd9ce0a3ab5e0e829d2cd7c205028999be64a25d8";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -1425,13 +1425,13 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.4";
+      version = "4.4.5";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5000082/tree_style_tab-4.4.4.xpi";
-      sha256 = "cc1eecb91204016d44def589e9322f89c4b8c70937e142c21b8e558da2206f78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5037805/tree_style_tab-4.4.5.xpi";
+      sha256 = "a42ba90491013649ffda3e199ee9f5400a056b2230dfbac4cab799c61f7a154d";
       meta = with lib;
       {
-        homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
+        homepage = "https://github.com/piroor/treestyletab";
         description = "Show tabs like a tree.";
         mozPermissions = [
           "activeTab"
