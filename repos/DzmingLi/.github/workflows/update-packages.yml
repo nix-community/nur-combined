@@ -81,6 +81,13 @@ jobs:
             git commit -m "wechat: update"
           }
 
+          nu scripts/update-racket-langserver.nu
+
+          if not (git status --porcelain pkgs/racket-langserver/default.nix | str trim | is-empty) {
+            git add pkgs/racket-langserver/default.nix
+            git commit -m "racket-langserver: update addon FOD hash"
+          }
+
       - name: Push changes
         run: |
           let ahead = (git rev-list HEAD ^origin/main --count | str trim | into int)
