@@ -20,7 +20,7 @@ $packages | par-each {|name|
   let current_commit = git rev-parse HEAD
   
   try {
-    nix-update --commit --flake $name
+    nix-update --use-update-script --commit --flake $name
   } catch {
     return
   }

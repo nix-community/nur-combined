@@ -22,4 +22,5 @@
   example-package = pkgs.callPackage ./pkgs/example-package { };
   kwm-nightly = pkgs.callPackage ./pkgs/kwm-nightly { };
   kwim-nightly = pkgs.callPackage ./pkgs/kwim-nightly { };
+  driftwm = pkgs.callPackage ./pkgs/driftwm { };
 }
