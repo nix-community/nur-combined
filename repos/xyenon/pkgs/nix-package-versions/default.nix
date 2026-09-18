@@ -8,5 +8,6 @@ haskell.lib.overrideCabal (haskellPackages.callPackage ./cabal2nix.nix { }) (_pr
   version = "0-unstable-${source.date}";
   inherit (source) src;
   enableSeparateBinOutput = true;
+  description = "List package versions across Nixpkgs revisions";
   homepage = "https://github.com/lazamar/nix-package-versions";
 })

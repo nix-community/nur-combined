@@ -1,0 +1,73 @@
+name: Update README
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+concurrency:
+  group: update-readme-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  update:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      HAS_GH_PAT: ${{ secrets.GH_PAT != '' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
+          token: ${{ secrets.GH_PAT || github.token }}
+      - name: Warn if GH_PAT is missing
+        if: env.HAS_GH_PAT != 'true'
+        run: echo '::warning::Set GH_PAT so the generated commit triggers fresh PR checks.'
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+      - name: Generate package documentation
+        run: ./scripts/generate-package-docs.py
+      - name: Commit package documentation
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          if git diff --quiet -- README.md; then
+            exit 0
+          fi
+
+          source_sha=$(git rev-parse HEAD)
+          git fetch origin "$BRANCH"
+          if [ "$source_sha" != "$(git rev-parse "origin/$BRANCH")" ]; then
+            echo '::notice::A newer commit is available; its workflow will update README.'
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "README: update package information" \
+            -m "Regenerate the package documentation after changes to package metadata."
+
+          if ! git push origin "HEAD:$BRANCH"; then
+            git fetch origin "$BRANCH"
+            if [ "$(git rev-parse "origin/$BRANCH")" != "$source_sha" ]; then
+              echo '::notice::A newer commit won the race; its workflow will update README.'
+              exit 0
+            fi
+            exit 1
+          fi
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+      - name: Verify package documentation
+        run: |
+          ./scripts/generate-package-docs.py
+          git diff --exit-code -- README.md

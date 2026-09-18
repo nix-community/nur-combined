@@ -8,6 +8,11 @@ _:
     jsonfmt.enable = true;
     nixfmt.enable = true;
     rubocop.enable = true;
+    ruff-check = {
+      enable = true;
+      extendSelect = [ "I" ];
+    };
+    ruff-format.enable = true;
     shellcheck.enable = true;
     shfmt = {
       enable = true;
