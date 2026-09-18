@@ -36,7 +36,7 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = [
     makeWrapper
     copyDesktopItems
-  ] ++ lib.optional stdenv.isAarch64 python3;
+  ] ++ lib.optional stdenv.hostPlatform.isAarch64 python3;
 
   desktopItems = [
     (makeDesktopItem {
