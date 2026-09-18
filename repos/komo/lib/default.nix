@@ -1,7 +1,8 @@
 { pkgs }:
 
 with pkgs.lib; {
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+  mkMeta = { description, license, homepage, mainProgram }: {
+    inherit description homepage mainProgram;
+    licenses = [ licenses.${license} ];
+  };
 }

@@ -10,20 +10,37 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-
+let
+  lib = import ./lib { inherit pkgs; };
+  callPackage =
+    point:
+    attrs@{
+      lib ? { },
+      ...
+    }:
+    pkgs.callPackage point (
+      attrs
+      // {
+        lib = pkgs.lib // lib;
+      }
+    );
+in
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  inherit lib;
   nixosModules = import ./nixos-modules; # NixOS modules
   # homeModules = { }; # Home Manager modules
   # darwinModules = { }; # nix-darwin modules
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  kwm-nightly = pkgs.callPackage ./pkgs/kwm-nightly { };
-  kwim-nightly = pkgs.callPackage ./pkgs/kwim-nightly { };
-  driftwm = pkgs.callPackage ./pkgs/driftwm { };
-  driftwm-desktop = pkgs.callPackage ./pkgs/driftwm-desktop { };
+  /*nixfmt:disable*/
+  example-package = callPackage ./pkgs/example-package { };
+  kwm-nightly     = callPackage ./pkgs/kwm-nightly { };
+  kwim-nightly    = callPackage ./pkgs/kwim-nightly { };
+  driftwm         = callPackage ./pkgs/driftwm { };
+  driftwm-desktop = callPackage ./pkgs/driftwm-desktop { };
+  driftmap        = callPackage ./pkgs/driftmap { };
+  /*nixfmt:enable*/
 }
