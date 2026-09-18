@@ -9,14 +9,14 @@
 
 buildGoModule (finalAttrs: {
   pname = "panix";
-  version = "0.9.0-unstable-2026-08-13";
+  version = "0.9.3-unstable-2026-09-17";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
   owner = "mihakrumpestar";
   repo = "panix";
-  rev = "a402222da01f833f2bacf2dd436cdd2314512561";
-  hash = "sha256-qZBzjDY0G7kt+DGIX06Mr6ANEyrKIJS1BB/Fm4uhAgI=";
+  rev = "13006efaddc3ccf831be78d5b3d9073fa78e27f2";
+  hash = "sha256-umYvRmElWprOj+j0yDJvHfgHdt8U/4OSjpVT3+Rfr7Q=";
 };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -31,7 +31,7 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = 0;
 
-  vendorHash = "sha256-q9pUwV9JGYNIDTemgu28eG2SBH2mNQ2BQO/u73f42xM=";
+  vendorHash = "sha256-c+Qjn/RTZdSOFeqCaANBLaJl3zFeJYe7lIAve35rDkQ=";
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     # using process substitution
