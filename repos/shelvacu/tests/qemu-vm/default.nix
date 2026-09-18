@@ -6,10 +6,15 @@
   ...
 }:
 let
-  hostGatewayIP = "10.78.77.1";
+  v4Prefix = "10.78.77";
+  hostGatewayIP = "${v4Prefix}.1";
+  guestTags = {
+    test-vm = 2;
+    test-vm2 = 3;
+  };
   guestIPs = {
-    test-vm = "10.78.77.2";
-    test-vm2 = "10.78.77.3";
+    test-vm = "${v4Prefix}.2";
+    test-vm2 = "${v4Prefix}.3";
   };
   # Each guest pings the other one, so guest<->guest traffic is exercised in
   # both directions.
@@ -223,14 +228,14 @@ in
 
     vacu.vmNet = {
       enable = true;
-      gateway = hostGatewayIP;
+      inherit v4Prefix;
     };
 
     # Two VMs, so the test covers guest<->guest traffic (which the host has to
     # forward between the two taps) and not just host<->guest.
-    vacu.qemuVMs = lib.mapAttrs (vmName: address: {
+    vacu.qemuVMs = lib.mapAttrs (vmName: tag: {
       rootDir = "/tmp/${vmName}-root";
-      inherit address;
+      inherit tag;
       baseMem = 512;
       maxMem = 2048;
       cpus = 1;
@@ -248,7 +253,7 @@ in
           readOnly = true;
         };
       };
-    }) guestIPs;
+    }) guestTags;
 
     # The share sources must exist before the VM starts (each share's virtiofsd
     # asserts on its path).

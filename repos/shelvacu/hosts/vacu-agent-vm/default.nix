@@ -23,6 +23,8 @@
   system.stateVersion = "25.11";
 
   vacuvmGuest.ip = "10.78.77.2";
+  vacuvmGuest.ipv6 = "2602:fce8:106:10::2";
+  vacuvmGuest.ipv6Gateway = "2602:fce8:106:10::1";
 
   networking.firewall.allowedUDPPorts = [
     137

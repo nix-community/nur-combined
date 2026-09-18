@@ -4,6 +4,21 @@ let
   cfg = config.vacu.network;
   doof_if = "wg-doof";
   tunnelName = "doofTun";
+  vmPolicyRules = lib.concatMap (vmName: [
+    {
+      Family = "both";
+      IncomingInterface = "v-${vmName}";
+      Table = "main";
+      SuppressPrefixLength = 0;
+      Priority = 125;
+    }
+    {
+      Family = "both";
+      IncomingInterface = "v-${vmName}";
+      Table = tunnelName;
+      Priority = 150;
+    }
+  ]) (lib.attrNames config.vacu.qemuVMs);
 in
 {
   options.vacu.network.doofPubKey = mkOption { type = types.str; };
@@ -90,7 +105,8 @@ in
           Table = tunnelName;
           Priority = 200;
         }
-      ];
+      ]
+      ++ vmPolicyRules;
     };
     systemd.network.networks.${cfg.lan_bridge_network} = {
       address = lib.mkAfter [
@@ -98,5 +114,20 @@ in
         "${cfg.ips.doofStatic6}/128"
       ];
     };
+
+    # IPv4 guests use private addresses, so pin their translated source to the
+    # public Doof address. IPv6 guests hold routed /128s and need no NAT.
+    networking.firewall.extraCommands = ''
+      iptables -t nat -N vacuvm-doof 2>/dev/null || true
+      iptables -t nat -F vacuvm-doof
+      iptables -t nat -A vacuvm-doof -s ${config.vacu.vmNet.v4Prefix}.0/24 -o ${doof_if} -j SNAT --to-source ${cfg.ips.doofStatic4}
+      iptables -t nat -C POSTROUTING -j vacuvm-doof 2>/dev/null \
+        || iptables -t nat -A POSTROUTING -j vacuvm-doof
+    '';
+    networking.firewall.extraStopCommands = ''
+      iptables -t nat -D POSTROUTING -j vacuvm-doof 2>/dev/null || true
+      iptables -t nat -F vacuvm-doof 2>/dev/null || true
+      iptables -t nat -X vacuvm-doof 2>/dev/null || true
+    '';
   };
 }

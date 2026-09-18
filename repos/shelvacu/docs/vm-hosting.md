@@ -20,10 +20,11 @@
 - **Memory**: fixed base + `virtio-balloon` for reclaiming + `maxmem`/DIMM slots
   defined for future `virtio-mem` hotplug. No KSM.
 - **Networking**: routed, **not** bridged. Each VM gets its own TAP, created by
-  QEMU on start and torn down in `postStop`. The QEMU service's `postStart` puts
-  the gateway address 10.78.77.1 on the tap as a `/32` and adds a `/32` host
-  route back to the guest; the upstream router carries a static route for
-  10.78.77.0/24 via prophecy's LAN IP.
+  QEMU on start and torn down when QEMU exits. Networkd puts the IPv4 gateway
+  address 10.78.77.1 on the tap as a `/32` and adds host routes back to the
+  guest's IPv4 `/32` and public Doof IPv6 `/128`. VM traffic is policy-routed
+  through `wg-doof`; IPv4 is SNATed to 205.201.63.13 while IPv6 leaves with the
+  guest's own address from 2602:fce8:106:10::/64.
 
   Because each tap is a point-to-point link with the host as the only neighbour,
   **guests must hold a `/32`, not a `/24`** (see `modules/vacuvmGuest.nix`). A
@@ -103,10 +104,6 @@ systemctl start qemu-vacu-agent-vm
 journalctl -fu qemu-vacu-agent-vm
 ```
 
-### 5. Configure the upstream router
-
-Add a static route: `10.78.77.0/24 via <prophecy LAN IP (10.78.79.22)>`.
-
 ## Console access
 
 Each guest has two consoles:
@@ -135,8 +132,8 @@ VMs.
    `btrfs subvolume create /btr-root-in-here/rw/vms/<name>`
 3. Add a service file `hosts/prophecy/<name>.nix` (same pattern as
    `agent-vm.nix`)
-4. Pick an IP in 10.78.77.0/24; update `common/hosts.nix` and
-   `common/staticNames.nix`
+4. Pick an IPv4 address in 10.78.77.0/24 and a unique `/128` in the Doof
+   2602:fce8:106:10::/64; update `common/hosts.nix` and `common/staticNames.nix`
 5. Bootstrap and start
 
 ## Memory hotplug (when needed)

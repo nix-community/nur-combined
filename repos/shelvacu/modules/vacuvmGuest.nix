@@ -17,6 +17,14 @@
         tap). Must match `vacu.vmNet.gateway` on the VM host.
       '';
     };
+    vacuvmGuest.ipv6 = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+    };
+    vacuvmGuest.ipv6Gateway = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+    };
   };
 
   config = {
@@ -73,6 +81,9 @@
         Address = "${config.vacuvmGuest.ip}/32";
         DNS = "10.78.79.1";
       };
+      addresses = lib.optional (config.vacuvmGuest.ipv6 != null) {
+        Address = "${config.vacuvmGuest.ipv6}/128";
+      };
       routes = [
         # A /32 address leaves nothing on-link, so the gateway itself needs an
         # explicit link-scope route before it can be used as a next hop.
@@ -84,6 +95,16 @@
         # prefix (it isn't — see above).
         {
           Gateway = config.vacuvmGuest.gateway;
+          GatewayOnLink = true;
+        }
+      ]
+      ++ lib.optionals (config.vacuvmGuest.ipv6 != null) [
+        {
+          Destination = "${config.vacuvmGuest.ipv6Gateway}/128";
+          Scope = "link";
+        }
+        {
+          Gateway = config.vacuvmGuest.ipv6Gateway;
           GatewayOnLink = true;
         }
       ];

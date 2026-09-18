@@ -81,26 +81,48 @@ let
           type = types.str;
           description = ''
             MAC address for the guest virtio-net NIC. Defaults to a unicast,
-            locally-administered address derived from `address`
+            locally-administered address derived from `v4Address`
             (02:00:<ip-bytes-in-hex>), so it is unique per guest, stable, and
             can never land on the multicast bit. Rarely needs to be set.
           '';
           example = "52:54:00:12:34:56";
           default =
             let
-              octets = lib.splitString "." config.address;
+              octets = lib.splitString "." config.v4Address;
               hexPair = n: lib.toLower (lib.fixedWidthString 2 "0" (lib.toHexString (lib.toInt n)));
             in
             "02:00:${lib.concatMapStringsSep ":" hexPair octets}";
         };
-        address = mkOption {
+        tag = mkOption {
+          type = types.ints.between 2 254;
+          description = ''
+            Numeric host tag appended in decimal to the IPv4 prefix and in
+            hexadecimal to the IPv6 prefix.
+          '';
+          example = 2;
+        };
+        v4Address = mkOption {
           type = types.str;
+          default = "${netCfg.v4Prefix}.${toString config.tag}";
           description = ''
             Guest IPv4 address (no prefix). The host adds a /32 route to it via
             the VM's tap interface. The guest should use this address and point
             its default gateway at vacu.vmNet.gateway.
           '';
           example = "10.78.77.2";
+        };
+        v6Address = mkOption {
+          type = types.nullOr types.str;
+          default =
+            if netCfg.v6Prefix == null then
+              null
+            else
+              "${netCfg.v6Prefix}${lib.toLower (lib.toHexString config.tag)}";
+          description = ''
+            Optional guest IPv6 address (no prefix). The host adds a /128
+            route to it via the VM's tap interface.
+          '';
+          example = "2001:db8::2";
         };
         baseMem = mkOption {
           type = types.ints.positive;
@@ -445,12 +467,17 @@ let
         LinkLocalAddressing = "no";
         IPv4ReversePathFilter = "strict";
       };
+      addresses = lib.optional (vmCfg.v6Address != null) { Address = "${netCfg.ipv6Gateway}/128"; };
       routes = [
         {
-          Destination = "${vmCfg.address}/32";
+          Destination = "${vmCfg.v4Address}/32";
           Scope = "link";
         }
-      ];
+      ]
+      ++ lib.optional (vmCfg.v6Address != null) {
+        Destination = "${vmCfg.v6Address}/128";
+        Scope = "link";
+      };
     }
   ) cfg;
 
@@ -578,12 +605,30 @@ in
 {
   options.vacu.vmNet = {
     enable = lib.mkEnableOption "routed networking for QEMU VMs";
+    v4Prefix = mkOption {
+      type = types.strMatching ''([0-9]{1,3}\.){2}[0-9]{1,3}'';
+      default = "10.78.77";
+      description = "IPv4 prefix without a trailing dot; VM tags are appended as the final octet.";
+    };
+    v6Prefix = mkOption {
+      type = types.nullOr (types.strMatching ".*::$");
+      default = null;
+      description = "Optional IPv6 prefix ending in `::`; VM tags are appended to it.";
+    };
     gateway = mkOption {
       type = types.str;
-      default = "10.78.77.1";
+      default = "${netCfg.v4Prefix}.1";
       description = ''
         Host-side gateway IPv4 (no prefix). Assigned as a /32 to each VM's tap
         interface; guests use it as their default gateway.
+      '';
+    };
+    ipv6Gateway = mkOption {
+      type = types.nullOr types.str;
+      default = if netCfg.v6Prefix == null then null else "${netCfg.v6Prefix}1";
+      description = ''
+        Host-side IPv6 gateway (no prefix), assigned as a /128 to VM tap
+        interfaces whose VM has v6Address set.
       '';
     };
   };
@@ -600,10 +645,10 @@ in
   config = {
     systemd.network = mkIf netCfg.enable {
       enable = true;
-      # Routed networking needs forwarding between the taps (and out to the
-      # LAN). The upstream router carries a static route for the VM subnet to
-      # this host.
+      # Routed networking needs forwarding between taps and toward whichever
+      # uplink the host's policy routing selects.
       config.networkConfig.IPv4Forwarding = true;
+      config.networkConfig.IPv6Forwarding = true;
       networks = vmNetworks;
     };
 
@@ -620,12 +665,28 @@ in
     # satisfies this; the assertion only guards hand-set overrides.
     assertions = [
       {
+        assertion = lib.all (vmCfg: vmCfg.v6Address == null || netCfg.ipv6Gateway != null) (
+          lib.attrValues cfg
+        );
+        message = "vacu.vmNet.ipv6Gateway must be set when a VM has v6Address";
+      }
+      {
         assertion =
           let
-            addresses = lib.mapAttrsToList (_: vmCfg: vmCfg.address) cfg;
+            addresses = lib.mapAttrsToList (_: vmCfg: vmCfg.v4Address) cfg;
           in
           (builtins.length addresses) == (builtins.length (lib.uniqueStrings addresses));
         message = "vm addresses are not unique";
+      }
+      {
+        assertion =
+          let
+            addresses = lib.filter (address: address != null) (
+              lib.mapAttrsToList (_: vmCfg: vmCfg.v6Address) cfg
+            );
+          in
+          (builtins.length addresses) == (builtins.length (lib.uniqueStrings addresses));
+        message = "VM IPv6 addresses are not unique";
       }
     ]
     ++ lib.mapAttrsToList (

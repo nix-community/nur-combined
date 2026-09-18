@@ -67,7 +67,7 @@ in
           "admin.consortium.chat"
         ];
         extraConfig = ''
-          reverse_proxy http://${config.vacu.qemuVMs.quasar2.address}:80
+          reverse_proxy http://${config.vacu.qemuVMs.quasar2.v4Address}:80
         '';
       };
       "for.miras.pet" = {
