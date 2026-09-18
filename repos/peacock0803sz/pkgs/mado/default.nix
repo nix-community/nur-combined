@@ -1,8 +1,8 @@
-{ lib, buildGo125Module, fetchFromGitHub }:
+{ lib, buildGo126Module, fetchFromGitHub }:
 let
   version = "1.0.1";
 in
-buildGo125Module {
+buildGo126Module {
   pname = "mado";
   inherit version;
 

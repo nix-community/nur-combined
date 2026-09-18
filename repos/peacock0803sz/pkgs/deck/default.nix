@@ -1,10 +1,10 @@
-{ lib, buildGo125Module, fetchFromGitHub }:
+{ lib, buildGo126Module, fetchFromGitHub }:
 # https://github.com/k1LoW/deck
 let
   version = "1.23.1";
   pname = "deck";
 in
-buildGo125Module {
+buildGo126Module {
   inherit pname version;
 
   src = fetchFromGitHub {
