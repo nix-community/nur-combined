@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index eff7a68..19803cd 100644
+index f1f57ff..b2185c5 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -37,10 +37,10 @@
@@ -39,7 +39,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 0da9cdc..cf54265 100644
+index b1857bf..c57d455 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -436,6 +436,12 @@ importers:
@@ -80,7 +80,7 @@ index 0da9cdc..cf54265 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -8621,6 +8638,14 @@ snapshots:
+@@ -8618,6 +8635,14 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.0(@types/node@24.13.5)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.104.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
@@ -95,7 +95,7 @@ index 0da9cdc..cf54265 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -11922,6 +11947,8 @@ snapshots:
+@@ -11919,6 +11944,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
