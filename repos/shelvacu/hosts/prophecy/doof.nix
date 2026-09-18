@@ -138,7 +138,7 @@ in
       iptables -N vacuvm-doof-forward 2>/dev/null | true
       iptables -F vacuvm-doof-forward
       iptables -A vacuvm-doof-forward -i 'v-*' -o ${doof_if} -j ACCEPT
-      iptables -C FORWARD -j vacuvm-doof-foward 2>/dev/null \
+      iptables -C FORWARD -j vacuvm-doof-forward 2>/dev/null \
         || iptables -A FORWARD -j vacuvm-doof-forward
     '';
     networking.firewall.extraStopCommands = ''

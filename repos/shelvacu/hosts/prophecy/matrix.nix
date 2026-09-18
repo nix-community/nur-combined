@@ -59,7 +59,6 @@ in
     "sv.mt".extraConfig = lib.mkBefore ''
       handle /.well-known/matrix/server {
         header Content-Type application/json
-        header Access-Control-Allow-Origin *
         respond `${wellKnownServer}` 200
       }
       handle /.well-known/matrix/client {

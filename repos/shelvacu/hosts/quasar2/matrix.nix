@@ -59,10 +59,16 @@ in
         };
       in
       ''
-        respond /.well-known/matrix/server `${wellknown.server}` 200
-        respond /.well-known/matrix/client `${wellknown.client}` 200
-        reverse_proxy localhost:8008
         header Strict-Transport-Security "max-age=63072000; includeSubDomains"
+
+        header /.well-known/matrix/server Content-Type application/json
+        respond /.well-known/matrix/server `${wellknown.server}` 200
+
+        header /.well-known/matrix/client Content-Type application/json
+        header /.well-known/matrix/client Access-Control-Allow-Origin *
+        respond /.well-known/matrix/client `${wellknown.client}` 200
+
+        reverse_proxy localhost:8008
       '';
     ${"http://" + delegatedDomain}.extraConfig = ''
       reverse_proxy /_matrix/* localhost:8008
