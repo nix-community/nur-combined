@@ -2,11 +2,11 @@ pkgs@{ stdenv, lib, wrapGAppsHook3, zstd, autoPatchelfHook, makeWrapper, desktop
 
 stdenv.mkDerivation rec {
   pname = "octarine";
-  version = "0.52.1";
+  version = "0.52.2";
 
   src = fetchurl {
     url = "https://pub-3d35bc018fc54f11bde129e3e73e8002.r2.dev/${version}/linux/Octarine-bin-${version}-1-x86_64.pkg.tar.zst";
-    hash = "sha256-OXRF32jEVPPqJQaWaNHkyXGPPMpyV8ZPvQH6+qshYec=";
+    hash = "sha256-14BfVduoYS2GyJoCrrMtiULVsaZzdkuJpWUWBcEXhd4=";
   };
 
   nativeBuildInputs = [ zstd autoPatchelfHook wrapGAppsHook3 makeWrapper ];
