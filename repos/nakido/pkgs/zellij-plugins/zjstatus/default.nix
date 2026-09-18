@@ -14,11 +14,11 @@ stdenvNoCC.mkDerivation rec {
   };
 
   pname = "zjstatus";
-  version = "0.22.0";
+  version = "0.25.0";
 
   src = fetchurl {
     url = "https://github.com/dj95/zjstatus/releases/download/v${version}/zjstatus.wasm";
-    sha256 = "sha256-TeQm0gscv4YScuknrutbSdksF/Diu50XP4W/fwFU3VM=";
+    sha256 = "sha256-KCzqshnlbhkIyfrDOQckH+bD4e99hfqrPl9DjO+HuP4=";
   };
 
   dontUnpack = true;
