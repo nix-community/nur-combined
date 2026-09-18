@@ -7,7 +7,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
@@ -23,4 +25,5 @@
   kwm-nightly = pkgs.callPackage ./pkgs/kwm-nightly { };
   kwim-nightly = pkgs.callPackage ./pkgs/kwim-nightly { };
   driftwm = pkgs.callPackage ./pkgs/driftwm { };
+  driftwm-desktop = pkgs.callPackage ./pkgs/driftwm-desktop { };
 }
