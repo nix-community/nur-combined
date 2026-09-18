@@ -158,7 +158,7 @@ in
         dmidecode
         efibootmgr
         flac
-        foregejo-cli
+        forgejo-cli
         gh
         hdparm
         home-manager
