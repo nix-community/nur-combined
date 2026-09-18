@@ -15,7 +15,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-unwrapped";
-  version = "1.22.0";
+  version = "1.22.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -23,8 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SableClient";
     repo = "Sable";
-    rev = "4c9e3a72bea95b98c2c3664fad9ff3ce8428d3c3";
-    hash = "sha256-I4vlAKhfnNMuZWj9hUD5JXZHVN6D26nJchhArWa+wJo=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-65CPiwdCADLgiCewiDEgqwy/WQ8BGuyCXdjbKkX2dGE=";
   };
 
   nativeBuildInputs = [
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-6IWk+W0PamQ4LpRD+94K8NmzUWU6/8pTf1NpOur3a2o=";
+    hash = "sha256-paJKHLFT78b/OKg/xWYUquET5JjF3P1kNZXRTP0IIsY=";
   };
 
   env = {
@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "An almost stable Matrix client";
     homepage = "https://github.com/SableClient/Sable";
-    changelog = "https://github.com/SableClient/Sable/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/SableClient/Sable/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ bartoostveen ];
     platforms = lib.platforms.all;
