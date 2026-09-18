@@ -464,7 +464,7 @@ let
       matchConfig.Name = "v-${vmName}";
       networkConfig = {
         Address = "${netCfg.gateway}/32";
-        LinkLocalAddressing = "no";
+        LinkLocalAddressing = "ipv6";
         IPv4ReversePathFilter = "strict";
       };
       addresses = lib.optional (vmCfg.v6Address != null) { Address = "${netCfg.ipv6Gateway}/128"; };

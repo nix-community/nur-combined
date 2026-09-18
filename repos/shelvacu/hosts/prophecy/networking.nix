@@ -70,6 +70,7 @@ in
       ]) cfg.ips.t2dSubnets);
       dns = [ cfg.ips.t2dRouter ];
       networkConfig.IPv4ProxyARP = true;
+      networkConfig.IPv6AcceptRA = true;
     };
 
     systemd.network.networks."10-containers" = {

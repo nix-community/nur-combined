@@ -33,6 +33,16 @@ in
     sops.secrets.wireguardKey = {
       owner = config.users.users.systemd-network.name;
     };
+    services.radvd = {
+      enable = true;
+      config = ''
+        interface br-main {
+          AdvSendAdvert on;
+          AdvDefaultLifetime 0;
+          route ${cfg.ips.doofStaticRange6} { };
+        };
+      '';
+    };
     systemd.network.config.routeTables.${tunnelName} = 422;
     systemd.network.config.addRouteTablesToIPRoute2 = true;
     systemd.network.netdevs.${doof_if} = {
