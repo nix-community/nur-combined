@@ -427,7 +427,7 @@ dependencies = [
  "codex-exec-server",
  "codex-features",
  "codex-login",
- "codex-models-manager",
+ "codex-model-provider",
  "codex-protocol",
  "codex-utils-cargo-bin",
  "core_test_support",
@@ -2212,6 +2212,7 @@ dependencies = [
  "codex-model-provider",
  "codex-model-provider-info",
  "codex-models-manager",
+ "codex-network-proxy",
  "codex-otel",
  "codex-plugin",
  "codex-protocol",
@@ -2225,6 +2226,8 @@ dependencies = [
  "codex-state",
  "codex-thread-store",
  "codex-tools",
+ "codex-uds",
+ "codex-user-verification",
  "codex-utils-absolute-path",
  "codex-utils-cargo-bin",
  "codex-utils-cli",
@@ -2298,6 +2301,7 @@ name = "codex-app-server-daemon"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "blake3",
  "codex-app-server-protocol",
  "codex-app-server-transport",
  "codex-http-client",
@@ -2308,7 +2312,6 @@ dependencies = [
  "pretty_assertions",
  "serde",
  "serde_json",
- "sha2 0.10.9",
  "tempfile",
  "tokio",
  "tokio-tungstenite",
@@ -2408,6 +2411,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha2 0.10.9",
+ "signal-hook",
  "tempfile",
  "time",
  "tokio",
@@ -2864,6 +2868,7 @@ dependencies = [
  "codex-utils-path",
  "codex-utils-path-uri",
  "codex-utils-redacted-string",
+ "codex-windows-sandbox",
  "core-foundation 0.9.4",
  "dns-lookup",
  "dunce",
@@ -2987,6 +2992,7 @@ dependencies = [
  "codex-file-system",
  "codex-git-utils",
  "codex-guardian-context",
+ "codex-guardian-reviewer",
  "codex-history",
  "codex-home",
  "codex-hooks",
@@ -3403,6 +3409,7 @@ dependencies = [
 name = "codex-features"
 version = "0.0.0"
 dependencies = [
+ "codex-network-proxy",
  "codex-otel",
  "codex-protocol",
  "pretty_assertions",
@@ -3421,6 +3428,7 @@ dependencies = [
  "codex-http-client",
  "codex-login",
  "codex-protocol",
+ "codex-rollout",
  "flate2",
  "http 1.4.0",
  "httpdate",
@@ -3540,10 +3548,35 @@ dependencies = [
 name = "codex-guardian-context"
 version = "0.0.0"
 dependencies = [
+ "codex-context-fragments",
  "codex-history",
  "codex-protocol",
  "pretty_assertions",
  "serde_json",
+]
+
+[[package]]
+name = "codex-guardian-reviewer"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "codex-analytics",
+ "codex-extension-api",
+ "codex-features",
+ "codex-feedback",
+ "codex-mcp",
+ "codex-otel",
+ "codex-protocol",
+ "opentelemetry",
+ "opentelemetry_sdk",
+ "pretty_assertions",
+ "rand 0.9.3",
+ "serde",
+ "serde_json",
+ "test-case",
+ "tokio",
+ "tokio-util",
+ "tracing",
 ]
 
 [[package]]
@@ -3562,8 +3595,6 @@ dependencies = [
  "codex-login",
  "codex-model-provider",
  "codex-model-provider-info",
- "codex-models-manager",
- "codex-network-proxy",
  "codex-protocol",
  "core_test_support",
  "dirs",
@@ -3893,6 +3924,7 @@ dependencies = [
  "codex-extension-api",
  "codex-features",
  "codex-otel",
+ "codex-protocol",
  "codex-tools",
  "codex-utils-absolute-path",
  "codex-utils-output-truncation",
@@ -3971,6 +4003,8 @@ dependencies = [
 name = "codex-model-provider"
 version = "0.0.0"
 dependencies = [
+ "base64 0.22.1",
+ "chrono",
  "codex-agent-identity",
  "codex-api",
  "codex-aws-auth",
@@ -3985,7 +4019,10 @@ dependencies = [
  "codex-utils-redacted-string",
  "http 1.4.0",
  "pretty_assertions",
+ "serde",
  "serde_json",
+ "sha2 0.10.9",
+ "tempfile",
  "tokio",
  "tracing",
  "wiremock",
@@ -4034,8 +4071,15 @@ dependencies = [
  "anyhow",
  "appcontainer_common",
  "codex-protocol",
+ "codex-utils-absolute-path",
+ "codex-utils-path-uri",
+ "codex-windows-sandbox",
  "learning_mode_windows",
+ "pretty_assertions",
+ "tempfile",
+ "thiserror 2.0.18",
  "tracelogging",
+ "windows-sys 0.61.2",
  "wxc_common",
 ]
 
@@ -4063,8 +4107,13 @@ dependencies = [
  "rama-tls-rustls",
  "rama-unix",
  "rand 0.9.3",
+ "rand_regex",
+ "regex",
+ "regex-automata",
+ "regex-syntax",
  "rustls-native-certs",
  "schannel",
+ "schemars 0.8.22",
  "security-framework 3.5.1",
  "serde",
  "serde_json",
@@ -4326,6 +4375,8 @@ dependencies = [
  "tiny_http",
  "tokio",
  "tracing",
+ "tracing-subscriber",
+ "tracing-test",
  "url",
  "urlencoding",
  "webbrowser",
@@ -4678,6 +4729,7 @@ dependencies = [
  "codex-otel",
  "codex-plugin",
  "codex-protocol",
+ "codex-realtime-webrtc",
  "codex-rollout",
  "codex-sandboxing",
  "codex-shell-command",
@@ -4767,6 +4819,26 @@ dependencies = [
  "tokio-util",
  "uds_windows",
  "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "codex-user-verification"
+version = "0.0.0"
+dependencies = [
+ "base64 0.22.1",
+ "core-foundation 0.10.1",
+ "dirs",
+ "objc2",
+ "objc2-foundation",
+ "objc2-local-authentication",
+ "p256",
+ "pretty_assertions",
+ "security-framework 3.5.1",
+ "security-framework-sys",
+ "sha2 0.10.9",
+ "tempfile",
+ "thiserror 2.0.18",
+ "tracing",
 ]
 
 [[package]]
@@ -10709,6 +10781,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "objc2-local-authentication"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e48e0b8b339e0d9d2ed4416b7f93f9d4daadff7d4dd797f89867cde11aeac607"
+dependencies = [
+ "objc2",
+ "objc2-foundation",
+]
+
+[[package]]
 name = "objc2-quartz-core"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -12426,6 +12508,16 @@ name = "rand_core"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "63b8176103e19a2643978565ca18b50549f6101881c443590420e4dc998a3c69"
+
+[[package]]
+name = "rand_regex"
+version = "0.18.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "04db2e382d13679a1e42400e90e306cdbb79dc5cd41bb035ba4eae72e78cdf37"
+dependencies = [
+ "rand 0.9.3",
+ "regex-syntax",
+]
 
 [[package]]
 name = "rand_xorshift"
