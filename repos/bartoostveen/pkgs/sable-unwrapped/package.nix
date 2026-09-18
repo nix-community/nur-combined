@@ -15,7 +15,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-unwrapped";
-  version = "1.22.1";
+  version = "1.22.3";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -24,8 +24,13 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "Sable";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-65CPiwdCADLgiCewiDEgqwy/WQ8BGuyCXdjbKkX2dGE=";
+    hash = "sha256-bU20ULw8qNJggS3TFSFNOSkYSI12Q8BCHqMq2oQfu2Y=";
   };
+
+  patches = [
+    # Revert Firebase config
+    ./0001-Revert-chore-add-Firebase-config-for-native-FCM-push.patch
+  ];
 
   nativeBuildInputs = [
     pnpm

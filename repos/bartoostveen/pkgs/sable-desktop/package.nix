@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/src-tauri";
 
-  cargoHash = "sha256-YGN3ccZT0XY88H7FstvuIZhcnETuCKaALRA2zp2hWK8=";
+  cargoHash = "sha256-CqB2a78/hVFTwx5TWkVZBM3YR/MS+JAD7/TIsAZw0FU=";
 
   buildNoDefaultFeatures = true;
   buildFeatures = [
