@@ -6,7 +6,7 @@
   pkg-config,
   seatd,
   mesa,
-  libdisplay-info,
+  libdisplay-info_0_3,
   libxkbcommon,
   libinput,
   libgbm,
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage {
   buildInputs = [
     seatd
     mesa
-    libdisplay-info
+    libdisplay-info_0_3
     libxkbcommon
     libinput
     libgbm
