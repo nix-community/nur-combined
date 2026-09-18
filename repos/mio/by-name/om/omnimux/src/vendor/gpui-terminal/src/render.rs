@@ -657,6 +657,16 @@ impl TerminalRenderer {
                 if ch == ' ' || ch == '\0' {
                     continue;
                 }
+                // Skip standalone variation selectors and zero-width joiners/spaces.
+                // Tmux partial redraws can strand them in cell.c; shaping them
+                // directly produces a .notdef square in most font fallbacks.
+                if (ch >= '\u{FE00}' && ch <= '\u{FE0F}') 
+                    || ch == '\u{200B}' 
+                    || ch == '\u{200C}' 
+                    || ch == '\u{200D}' 
+                {
+                    continue;
+                }
                 if cell.flags.contains(Flags::WIDE_CHAR_SPACER) {
                     continue;
                 }
