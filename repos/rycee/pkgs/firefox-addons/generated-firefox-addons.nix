@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildMozillaXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.9.0";
+      version = "1.9.1";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5029061/2fas_two_factor_authentication-1.9.0.xpi";
-      sha256 = "cc2469da18fb9f3dd6c99de019c8c476b3c19f87bbdf7267f2401034130ab930";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5037083/2fas_two_factor_authentication-1.9.1.xpi";
+      sha256 = "d9571157cf77e6056ec5be68d214339b97c409b20cd4ba27f1fed59bd671ce4f";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -1300,10 +1300,10 @@
     };
     "bitwarden" = buildMozillaXpiAddon {
       pname = "bitwarden";
-      version = "2026.8.0";
+      version = "2026.9.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4970633/bitwarden_password_manager-2026.8.0.xpi";
-      sha256 = "989ee33f19329af1fc155dcebb7f90a517a7259cea4bfbdd660923d25a7d465a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5037282/bitwarden_password_manager-2026.9.0.xpi";
+      sha256 = "324a2d97e365092fe9db0f0069e4c748c935858523868361a3277c1bbf339a17";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -11834,10 +11834,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "2.10.0";
+      version = "2.11.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018605/private_grammar_checker_harper-2.10.0.xpi";
-      sha256 = "8af1d4f5d6627a0b03665828eaff5b649de72be727511e0b1443510fa2e653e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5037758/private_grammar_checker_harper-2.11.0.xpi";
+      sha256 = "c596a23a5c3b33b9c58cbaafd9ce0a3ab5e0e829d2cd7c205028999be64a25d8";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -12504,7 +12504,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/reddit-comment-collapser";
-        description = "A more elegant solution for collapsing reddit comment trees.\n\nReddit Comment Collapser is free and open source. Contributions welcome - https://github.com/tom-james-watson/reddit-comment-collapser";
+        description = "An easier way to collapse and get around comment threads on old and new Reddit.";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -15150,13 +15150,13 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.4";
+      version = "4.4.5";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5000082/tree_style_tab-4.4.4.xpi";
-      sha256 = "cc1eecb91204016d44def589e9322f89c4b8c70937e142c21b8e558da2206f78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5037805/tree_style_tab-4.4.5.xpi";
+      sha256 = "a42ba90491013649ffda3e199ee9f5400a056b2230dfbac4cab799c61f7a154d";
       meta = with lib;
       {
-        homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
+        homepage = "https://github.com/piroor/treestyletab";
         description = "Show tabs like a tree.";
         license = {
           shortName = "tree-style-tab";
@@ -16805,15 +16805,15 @@
     };
     "web-eid" = buildMozillaXpiAddon {
       pname = "web-eid";
-      version = "2.2.1";
+      version = "2.5.0";
       addonId = "{e68418bc-f2b0-4459-a9ea-3e72b6751b07}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079746/web_eid_webextension-2.2.1.xpi";
-      sha256 = "392666581a3e71130307eb94f9010b4ca843829f592db9a093ad68fc00ca59ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4978521/web_eid_webextension-2.5.0.xpi";
+      sha256 = "d6fb209ba0e36bfce7abd8b8e557fdf0385973f015fb5d6806387efe81efbca7";
       meta = with lib;
       {
         description = "Use your electronic identification card for secure authentication and digital signing.";
         license = licenses.mit;
-        mozPermissions = [ "*://*/*" "nativeMessaging" ];
+        mozPermissions = [ "*://*/*" "nativeMessaging" "storage" "devtools" ];
         platforms = platforms.all;
       };
     };
