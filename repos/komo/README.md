@@ -25,6 +25,6 @@
 To reduce the amount of time installing packages from here, add this following
 to your `nix.conf`.
 ```ini
-extra-substituters = https://den.krom.foo.ng
+extra-substituters = https://nix.awuff.foo.ng
 extra-trusted-public-keys = kromfin-nixcache:eb0zARxpXg9NaiR2g5TQFnj4z3DucJyj9PVMSZB02xA=
 ```
