@@ -14,6 +14,7 @@
   libxrandr,
   libxi,
   vulkan-loader,
+  tuiVersion ? false,
 }:
 let
   version = "1.1.2";
@@ -22,16 +23,6 @@ let
   icon = fetchurl {
     url = "https://raw.githubusercontent.com/XertroV/tm-mumble-bridge/v${version}/assets/icon.ico";
     hash = "sha256-QEIwPX9rUtoNg8NIzKha35sP2T74TXYFTvwGcvKeGes=";
-  };
-
-  desktopItem = makeDesktopItem {
-    name = "tm-mumble-link";
-    desktopName = "TM to Mumble Link";
-    comment = "Bridge Trackmania's proximity-chat plugin to Mumble's Link plugin";
-    exec = "tm-mumble-link";
-    icon = "tm-mumble-link";
-    categories = [ "Game" "Audio" ];
-    terminal = false;
   };
 in
 stdenv.mkDerivation {
@@ -66,8 +57,11 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-
+  '' + lib.optionalString (!tuiVersion) ''
     install -Dm755 tm-mumble-link "$out/bin/tm-mumble-link"
+  '' + lib.optionalString tuiVersion ''
+    install -Dm755 tm-mumble-link-tui "$out/bin/tm-mumble-link-tui"
+  '' + ''
     install -Dm644 LICENSE "$out/share/doc/tm-mumble-link/LICENSE"
 
     cp ${icon} tm-mumble-link.ico
@@ -78,7 +72,29 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems =
+    lib.optionals (!tuiVersion) [
+      (makeDesktopItem {
+        name = "tm-mumble-link";
+        desktopName = "TM to Mumble Link";
+        comment = "Bridge Trackmania's proximity-chat plugin to Mumble's Link plugin";
+        exec = "tm-mumble-link";
+        icon = "tm-mumble-link";
+        categories = [ "Game" "Audio" ];
+        terminal = false;
+      })
+    ]
+    ++ lib.optionals tuiVersion [
+      (makeDesktopItem {
+        name = "tm-mumble-link-tui";
+        desktopName = "TM to Mumble Link (TUI)";
+        comment = "Bridge Trackmania's proximity-chat plugin to Mumble's Link plugin";
+        exec = "tm-mumble-link-tui";
+        icon = "tm-mumble-link";
+        categories = [ "Game" "Audio" ];
+        terminal = true;
+      })
+    ];
 
   meta = {
     description = "Bridge Trackmania's proximity-chat plugin to Mumble's Link plugin for positional audio";
@@ -86,7 +102,8 @@ stdenv.mkDerivation {
     changelog = "https://github.com/XertroV/tm-mumble-bridge/releases/tag/v${version}";
     license = lib.licenses.unlicense;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    mainProgram = "tm-mumble-link";
     platforms = lib.platforms.linux;
-  };
+  }
+  // lib.optionalAttrs (!tuiVersion) { mainProgram = "tm-mumble-link"; }
+  // lib.optionalAttrs tuiVersion { mainProgram = "tm-mumble-link-tui"; };
 }
