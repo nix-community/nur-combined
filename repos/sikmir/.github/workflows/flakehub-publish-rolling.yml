@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/determinate-nix-action@v3
-      - uses: DeterminateSystems/flakehub-push@main
+      - uses: DeterminateSystems/flakehub-push@v7
         with:
           name: sikmir/nur-packages
           rolling: true

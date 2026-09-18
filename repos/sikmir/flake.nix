@@ -16,7 +16,7 @@
       overlays.default = final: prev: import ./pkgs { pkgs = prev; };
       nixosModules = import ./modules;
     }
-    // flake-utils.lib.eachDefaultSystem (
+    // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ] (
       system:
       let
         config = {

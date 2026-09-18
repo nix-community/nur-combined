@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tatuin";
-  version = "0.26.0";
+  version = "0.27.0";
 
   src = fetchFromGitHub {
     owner = "panter-dsd";
     repo = "tatuin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TPIjVpIFgBdZvPdmC1IyPyAjRP2Zq4Tx2HPAPrik7Ok=";
+    hash = "sha256-SkliqxaT39gO1Xd2AKH2cHrpxseqRbTNSRcA3z1WAzA=";
   };
 
-  cargoHash = "sha256-MIWm84Dmhy71glhAQLEIX69IWQHePx4nY9TT2O9E7Fw=";
+  cargoHash = "sha256-AiWaot+plToiptsOl2OcuGbST1ciWKOjd7Gk2qARYvI=";
 
   nativeBuildInputs = [ perl ];
 
