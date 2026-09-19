@@ -35,5 +35,6 @@ buildDotnetModule (finalAttrs: {
     mainProgram = "Cpp2IL";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ RoGreat ];
+    broken = true;
   };
 })
