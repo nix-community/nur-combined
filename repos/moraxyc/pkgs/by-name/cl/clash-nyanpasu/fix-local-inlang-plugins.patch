@@ -1,28 +1,28 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index f1f57ff..b2185c5 100644
+index 831142b..e71ed58 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -37,10 +37,10 @@
      "country-emoji": "2.0.1",
      "d3": "7.9.0",
      "dayjs": "1.11.23",
--    "motion": "13.2.0",
+-    "motion": "13.4.0",
      "less": "4.9.1",
      "lodash-es": "4.18.1",
      "monaco-editor": "0.56.0",
-+    "motion": "13.2.0",
++    "motion": "13.4.0",
      "radix-ui": "1.6.7",
      "react": "19.3.0",
      "react-aria-components": "1.21.1",
 @@ -55,6 +55,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.529",
+     "@iconify/json": "2.2.530",
 +    "@inlang/plugin-m-function-matcher": "^2.2.16",
 +    "@inlang/plugin-message-format": "^4.4.4",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.3",
-     "@tanstack/react-query": "5.102.8",
+     "@tanstack/react-query": "5.103.1",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
 index cb96b35..3777c63 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
@@ -39,13 +39,13 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index b1857bf..c57d455 100644
+index fe8511d..50b8bac 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -436,6 +436,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.529
-         version: 2.2.529
+         specifier: 2.2.530
+         version: 2.2.530
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.16
 +        version: 2.2.16
