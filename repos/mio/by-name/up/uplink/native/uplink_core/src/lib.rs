@@ -233,14 +233,15 @@ pub async fn upload_file(
 ) -> Result<String, String> {
     let mut last_err = String::new();
     let mut prefs = PrefsSession::begin();
-    let order = prefs.ordered(&["catbox", "0x0", "uguu", "pasteboard"]);
+    // Cold-start prefers hosts that responded quickly in probes; prefs can reorder later.
+    let order = prefs.ordered(&["pasteboard", "uguu", "catbox", "0x0"]);
 
     for id in order {
         let result = match id {
+            "pasteboard" => upload_file_pasteboard(&filename, &data, on_progress.clone()).await,
+            "uguu" => upload_file_uguu(&filename, &data, on_progress.clone()).await,
             "catbox" => upload_file_catbox(&filename, &data, on_progress.clone()).await,
             "0x0" => upload_file_0x0(&filename, &data, on_progress.clone()).await,
-            "uguu" => upload_file_uguu(&filename, &data, on_progress.clone()).await,
-            "pasteboard" => upload_file_pasteboard(&filename, &data, on_progress.clone()).await,
             _ => continue,
         };
         match result {
