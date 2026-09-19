@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-display-profile-manager";
-  version = "0.1.8-unstable-2026-07-15";
+  version = "0.1.9-unstable-2026-09-18";
 
   src = fetchFromGitHub {
     owner = "jankelemen";
     repo = "dank-display-profile-manager";
-    rev = "497ea32fe48fe76835d52f7a6794d516cde15b48";
-    hash = "sha256-CzEGtqtT82Ba9sXQKFNp3x8wibHLgJQVU+sIa1hmRiM=";
+    rev = "e59fd5babc4e99b0c2fb224180fe5b0f8e18b8ca";
+    hash = "sha256-PIkoNwtSfbuN0FXv9SvD/2idypTiBm8/n5yGp+CZGBI=";
   };
 
   dontBuild = true;
