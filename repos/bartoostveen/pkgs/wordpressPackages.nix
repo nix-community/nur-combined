@@ -71,6 +71,12 @@ makeScope newScope (
         id = "user-profile-dashboard-fields-control";
         hash = "sha256-sEAGsJs2RF0tAVO+vP2pt7ini1Sqa62eHJg7bgszXkc=";
       };
+      opengraph = self.callPackage self.mkWpPlugin {
+        pname = "opengraph";
+        version = "3.0.0";
+        id = "opengraph";
+        hash = "sha256-PlSOiVJtmQPuE1zUN6PbRf/BBKzrqr8A82ekENB/Ec0=";
+      };
       view-transitions = self.callPackage self.mkWpPlugin {
         pname = "wp-view-transitions";
         version = "1.2.1";
