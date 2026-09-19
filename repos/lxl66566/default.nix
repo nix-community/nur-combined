@@ -31,4 +31,6 @@ in
   urldecoder = callPackage ./pkgs/urldecoder { };
   user-startup-rs = callPackage ./pkgs/user-startup-rs { };
   xp3-pack-unpack = callPackage ./pkgs/xp3-pack-unpack { };
+  zdu = callPackage ./pkgs/zdu { };
+  zhfmt = callPackage ./pkgs/zhfmt { };
 }

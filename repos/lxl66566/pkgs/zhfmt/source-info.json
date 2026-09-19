@@ -1,0 +1,26 @@
+{
+  "owner": "lxl66566",
+  "version": "v0.1.2",
+  "hashes": {
+    "aarch64-linux": {
+      "gnu": {
+        "sha256": "10c2ec2646081e1db8ba3c93702bfa06ec5411498401d086cb732b32070d0731",
+        "targetSystem": "aarch64-unknown-linux-gnu"
+      },
+      "musl": {
+        "sha256": "666318879e369e11618ee6078aa3ab8832a98a5d8f8d442050bac671eb4eb4a1",
+        "targetSystem": "aarch64-unknown-linux-musl"
+      }
+    },
+    "x86_64-linux": {
+      "gnu": {
+        "sha256": "2bb693b35a79a30ef85eff051740b472e04105367f945bc5c37f3e8806b230ee",
+        "targetSystem": "x86_64-unknown-linux-gnu"
+      },
+      "musl": {
+        "sha256": "8d9e0d9763fe5de4f31e13dae0549789f2daa2da5e768a39c0cec9173409e382",
+        "targetSystem": "x86_64-unknown-linux-musl"
+      }
+    }
+  }
+}

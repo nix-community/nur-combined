@@ -71,6 +71,8 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [urldecoder](https://github.com/lxl66566/urldecoder) | null, musl | Batch find and decode URLs in your text/files. very fast. |
 | [user-startup-rs](https://github.com/lxl66566/user-startup-rs) | null, musl | Simple cross-platform tool to make your command auto run on startup |
 | [xp3-pack-unpack](https://github.com/lxl66566/xp3-pack-unpack) | null | kirikiri xp3 format cli packer & unpacker |
+| [zdu](https://github.com/lxl66566/zdu) | null, musl | A fast disk usage analyzer, competitive with dust and pdu. |
+| [zhfmt](https://github.com/lxl66566/zhfmt) | null, musl | High performance formatter that adds spaces between CJK and Latin characters |
 
 ## modules
 
