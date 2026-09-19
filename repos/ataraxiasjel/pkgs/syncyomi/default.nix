@@ -14,16 +14,16 @@ let
 in
 buildGoModule rec {
   pname = "syncyomi";
-  version = "1.5.5";
+  version = "1.5.6";
 
   src = fetchFromGitHub {
     owner = "SyncYomi";
     repo = "SyncYomi";
     tag = "v${version}";
-    hash = "sha256-Qbibe+D2YpNY7pPrAePFXBNLSrN0m2Kwvko0a7bMpW4=";
+    hash = "sha256-X/MYpkFtbV/LOtqIAyOz9F9Q5pB6/Yx6lzxUACUaIB8=";
   };
 
-  vendorHash = "sha256-kn9GihRu/TmQLDRw5TEkXvGLWHM7eO/qROyo+yYA44o=";
+  vendorHash = "sha256-8ar9OYvXC3QJXJrj0zEzqyR33VvpGGr4Bzt/MH8OeeI=";
 
   web = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "${pname}-web";
@@ -39,7 +39,7 @@ buildGoModule rec {
         ;
       inherit pnpm;
       fetcherVersion = 4;
-      hash = "sha256-Zi8JY4Bm0sm8phU+dWlNOuU04tbaRLC/Uixgm5YKe3A=";
+      hash = "sha256-o9MwiZ4tbIbe8KxpXPSJqcBSGcukHsfB+TEgcqGF+Is=";
     };
 
     nativeBuildInputs = [
