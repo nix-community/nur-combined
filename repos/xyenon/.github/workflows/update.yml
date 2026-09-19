@@ -37,7 +37,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
       - name: Install nix
-        uses: DeterminateSystems/determinate-nix-action@v3.22.4
+        uses: DeterminateSystems/determinate-nix-action@v3.22.5
         with:
           extra-conf: |
             access-tokens = github.com=${{ github.token }}
