@@ -3,7 +3,7 @@
   emacsPackages,
   fetchFromGitHub,
   browser-cookies,
-  pandoc,
+  org-typst-math,
   typst,
 }:
 
@@ -18,27 +18,28 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "af038f2e11df2667ca07db61344fc14dce63579d";
-    hash = "sha256-4o16hTE0eLZouG8ISbjxrjiFMu1fKkKDsQdPJHSBKqc=";
+    rev = "7eccf206b38df8bfbceaa9d8cfb5d472798fe1ea";
+    hash = "sha256-xhefOwifg+RN8Lcx1JL+fK+mH/M9UTlYjIEn//dTlS4=";
   };
 
   packageRequires = [
     browser-cookies
     emacsPackages.elpaDevelPackages.plz
+    org-typst-math
   ];
 
   turnCompilationWarningToError = true;
 
+  # The remaining Typst CLI use is SVG -> PNG rasterization during image
+  # upload.  Math conversion goes through the org-typst-math helper instead.
   postPatch = ''
     substituteInPlace zhihu.el \
-      --replace-fail '"pandoc"' '"${lib.getExe pandoc}"' \
       --replace-fail '"typst"' '"${lib.getExe typst}"'
   '';
 
   doCheck = true;
   checkPhase = ''
     runHook preCheck
-    grep -Fq '"${lib.getExe pandoc}"' zhihu.el
     grep -Fq '"${lib.getExe typst}"' zhihu.el
     emacs -l package -f package-initialize --batch -L . \
       --eval "(unless (require 'zhihu nil t) (error \"Failed to load zhihu\"))"
