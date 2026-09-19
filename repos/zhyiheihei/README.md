@@ -60,7 +60,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.8 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [x] |  | `docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.8 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
-| - [x] |  | `filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.7.0 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
+| - [x] |  | `filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.7.1 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
 | - [ ] |  | `hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
 | - [ ] |  | `imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [x] |  | `jieba-next` | [jieba-next](https://github.com/mxcoras/jieba-next) | 1.0.0rc1 | Modern jieba fork with Rust speedups |
@@ -80,7 +80,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.75 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [x] |  | `vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-08-24 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.12.3 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.14.0 | Z.ai's official agentic development environment desktop app for GLM models |
 | - [x] |  | `zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.2-1 | Fast Chinese variant conversion backed by Rust |
 </details>
 
@@ -111,7 +111,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.8 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [ ] |  | `uncategorized.docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.8 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `uncategorized.epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
-| - [ ] |  | `uncategorized.filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.7.0 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
+| - [ ] |  | `uncategorized.filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.7.1 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
 | - [ ] |  | `uncategorized.hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
 | - [ ] |  | `uncategorized.imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [ ] |  | `uncategorized.navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
@@ -123,6 +123,6 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.75 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `uncategorized.ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-08-24 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.12.3 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.14.0 | Z.ai's official agentic development environment desktop app for GLM models |
 </details>
 

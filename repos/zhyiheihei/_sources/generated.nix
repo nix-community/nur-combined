@@ -57,24 +57,24 @@
   };
   filecodebox = {
     pname = "filecodebox";
-    version = "v2.7.0";
+    version = "v2.7.1";
     src = fetchFromGitHub {
       owner = "vastsa";
       repo = "FileCodeBox";
-      tag = "v2.7.0";
-      hash = "sha256-IOFIJAmAMFXNvZEc7nufLR5/fiEJsN43M263/R+23hk=";
+      tag = "v2.7.1";
+      hash = "sha256-TPDQp1jICxJdbthGbMSbOlcvOmNqW1whngo4Qb6kmQw=";
     };
   };
   filecodebox-frontend = {
     pname = "filecodebox-frontend";
-    version = "3075ff15e088c4d86977d44ab0d1f2342c66b275";
+    version = "b4c8aa8c10a9565d87ed80c3a3307317346110ed";
     src = fetchgit {
       url = "https://github.com/vastsa/FileCodeBoxFronted.git";
-      rev = "3075ff15e088c4d86977d44ab0d1f2342c66b275";
+      rev = "b4c8aa8c10a9565d87ed80c3a3307317346110ed";
       fetchSubmodules = false;
-      hash = "sha256-jA1PlbJt61+7Z3pSj1zm0GDKSli/4JbifpKAs5BP/X4=";
+      hash = "sha256-QOe3J4Nhc75gf6sxQFclsPQdDWZfzwOBMlu9LbYSh5Y=";
     };
-    date = "2026-09-16";
+    date = "2026-09-20";
   };
   hubproxy = {
     pname = "hubproxy";
@@ -245,10 +245,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.12.3";
+    version = "3.14.0";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.12.3/linux-x64/ZCode-3.12.3-linux-x64.deb";
-      hash = "sha256-Yx+9afzv5dV8YHu/0Ee7ekdK9gF0ZGgbmcy3sVdJxg4=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.0/linux-x64/ZCode-3.14.0-linux-x64.deb";
+      hash = "sha256-rRx/dtQJZ9501qhzi7epQe01C3jEM52uz/HJlCEShCo=";
     };
   };
   zhconv-rs = {

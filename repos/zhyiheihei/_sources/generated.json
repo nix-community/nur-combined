@@ -111,16 +111,16 @@
             "name": null,
             "owner": "vastsa",
             "repo": "FileCodeBox",
-            "rev": "v2.7.0",
-            "sha256": "sha256-IOFIJAmAMFXNvZEc7nufLR5/fiEJsN43M263/R+23hk=",
+            "rev": "v2.7.1",
+            "sha256": "sha256-TPDQp1jICxJdbthGbMSbOlcvOmNqW1whngo4Qb6kmQw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.7.0"
+        "version": "v2.7.1"
     },
     "filecodebox-frontend": {
         "cargoLock": null,
-        "date": "2026-09-16",
+        "date": "2026-09-20",
         "extract": null,
         "name": "filecodebox-frontend",
         "passthru": null,
@@ -130,13 +130,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3075ff15e088c4d86977d44ab0d1f2342c66b275",
-            "sha256": "sha256-jA1PlbJt61+7Z3pSj1zm0GDKSli/4JbifpKAs5BP/X4=",
+            "rev": "b4c8aa8c10a9565d87ed80c3a3307317346110ed",
+            "sha256": "sha256-QOe3J4Nhc75gf6sxQFclsPQdDWZfzwOBMlu9LbYSh5Y=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/vastsa/FileCodeBoxFronted.git"
         },
-        "version": "3075ff15e088c4d86977d44ab0d1f2342c66b275"
+        "version": "b4c8aa8c10a9565d87ed80c3a3307317346110ed"
     },
     "hubproxy": {
         "cargoLock": null,
@@ -482,11 +482,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Yx+9afzv5dV8YHu/0Ee7ekdK9gF0ZGgbmcy3sVdJxg4=",
+            "sha256": "sha256-rRx/dtQJZ9501qhzi7epQe01C3jEM52uz/HJlCEShCo=",
             "type": "url",
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.12.3/linux-x64/ZCode-3.12.3-linux-x64.deb"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.0/linux-x64/ZCode-3.14.0-linux-x64.deb"
         },
-        "version": "3.12.3"
+        "version": "3.14.0"
     },
     "zhconv-rs": {
         "cargoLock": null,
