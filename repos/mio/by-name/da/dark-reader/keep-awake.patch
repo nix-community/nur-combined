@@ -1,0 +1,15 @@
+--- a/src/background/index.ts.orig	2026-09-19 20:11:36.635896918 +1000
++++ b/src/background/index.ts	2026-09-19 20:11:36.637896908 +1000
+@@ -259,3 +259,12 @@
+     writeInstallationVersion(chrome.storage.local, details);
+     writeInstallationVersion(chrome.storage.sync, details);
+ });
++
++// Keep-awake patch
++chrome.alarms.create("keepAwake", { periodInMinutes: 1 });
++chrome.alarms.onAlarm.addListener((alarm) => {
++    if (alarm.name === "keepAwake") {
++        // keep alive
++    }
++});
++

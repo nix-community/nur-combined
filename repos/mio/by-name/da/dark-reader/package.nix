@@ -14,6 +14,10 @@ buildNpmPackage (finalAttrs: {
 
   nativeBuildInputs = [ zip ];
 
+  patches = [
+    ./keep-awake.patch
+  ];
+
   src = fetchFromGitHub {
     owner = "darkreader";
     repo = "darkreader";
