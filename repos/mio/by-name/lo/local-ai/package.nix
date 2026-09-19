@@ -113,8 +113,9 @@ let
         src = fetchFromGitHub {
           owner = "ggerganov";
           repo = "llama.cpp";
-          rev = "60addddf3c567c43ec3caf70fc953fba3572d96f";
-          hash = "sha256-8TKMRYsNSEZcQX9gx56Yb+wbq1lMPr500Heox+UKv10=";
+          # Pin from LocalAI backend/cpp/llama-cpp/Makefile (LLAMA_VERSION).
+          rev = "38a5b42d9a3e82e0a586bcd1caed121f36c87a73";
+          hash = "sha256-E7CdvipRswHbAXCwzBfm9NWamLa6jwuUM3jeI/SfZS8=";
           fetchSubmodules = true;
         };
         npmDeps = null;
@@ -139,12 +140,16 @@ let
           cp --no-preserve=mode \
             "$llamaCppBackend"/CMakeLists.txt \
             "$llamaCppBackend"/grpc-server.cpp \
+            "$llamaCppBackend"/model_load_error.h \
+            "$llamaCppBackend"/model_load_error_test.cpp \
             "$llamaCppBackend"/message_content.h \
             "$llamaCppBackend"/message_content_test.cpp \
             "$llamaCppBackend"/passthrough_options.h \
             "$llamaCppBackend"/passthrough_options_test.cpp \
             "$llamaCppBackend"/parent_watch.h \
             "$llamaCppBackend"/parent_watch_test.cpp \
+            "$llamaCppBackend"/stream_peer.h \
+            "$llamaCppBackend"/stream_peer_test.cpp \
             "$llamaCppBackend"/thread_params.h \
             "$llamaCppBackend"/thread_params_test.cpp \
             "$llamaCppBackend"/tts_request_options.h \
@@ -164,11 +169,23 @@ let
           else
             hasServerMetrics=0
           fi
+          if grep -q "mtmd_helper_init_opt" tools/mtmd/mtmd-helper.h; then
+            hasMtmdInitOpt=1
+          else
+            hasMtmdInitOpt=0
+          fi
+          if grep -q "llm_add_n_cpu_ffn_overrides" common/common.h; then
+            hasNCpuFfnHelper=1
+          else
+            hasNCpuFfnHelper=0
+          fi
           printf '%s\n' \
             '// Generated for LocalAI nix packaging. Do not edit.' \
             '#pragma once' \
             "#define LOCALAI_LEGACY_LOAD_MODE $legacyLoadMode" \
             "#define LOCALAI_HAS_SERVER_METRICS $hasServerMetrics" \
+            "#define LOCALAI_HAS_MTMD_INIT_OPT $hasMtmdInitOpt" \
+            "#define LOCALAI_HAS_N_CPU_FFN_HELPER $hasNCpuFfnHelper" \
             > tools/grpc-server/llama_compat.h
 
           sed -i tools/grpc-server/CMakeLists.txt \
@@ -197,8 +214,18 @@ let
           curl
         ];
         nativeBuildInputs =
-          lib.filter (x: !(lib.hasPrefix "npm-" (x.name or ""))) (prev.nativeBuildInputs or [ ])
-          ++ [ git ];
+          lib.filter (
+            x:
+            let
+              n = x.name or "";
+            in
+            !(lib.hasPrefix "npm-" n) && !(lib.hasPrefix "nodejs-" n)
+          ) (prev.nativeBuildInputs or [ ])
+          ++ [
+            git
+            protobuf
+            grpc
+          ];
         postInstall = ''
           if [ -e $out/bin/llama-cli ]; then
             ln -sf $out/bin/llama-cli $out/bin/llama
@@ -438,12 +465,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.9.0";
+  version = "4.10.0";
   src = fetchFromGitHub {
     owner = "mudler";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-8y0xZauO/19PsnUV+TahQLcis/SvCYep2zyBTdwgGkk=";
+    hash = "sha256-deXiylJUExTBL9C+CKsKKRTb24b4mS2bT59ZaF5NzXA=";
   };
 
   prepare-sources =
@@ -469,7 +496,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/core/http/react-ui";
-      hash = "sha256-8pGEaSdlFH9RMrYlebGYbmIIFCUryE36elsOFVyo/oo=";
+      hash = "sha256-bNzYhMW/phuBx2ALUgsLa9/dCcGduIUp1AZUrQ3edvQ=";
     };
 
     nativeBuildInputs = [
@@ -493,7 +520,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-5AT0t83gFRLrQZPKPQW0BeOJx8LLk+aJgMtyuvoeCSE=";
+    vendorHash = "sha256-LZ+rGeDSMh6HxsRJEh799qHmPqT63S7VUwHLz8PR1n4=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 

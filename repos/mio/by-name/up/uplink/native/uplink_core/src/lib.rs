@@ -1,12 +1,18 @@
+mod preference;
+
 use bytes::Bytes;
 use futures_util::stream;
+use preference::PrefsSession;
 use reqwest::Body;
 use std::sync::Arc;
+use std::time::Duration;
 
 /// Reports `(bytes_sent, bytes_total)` for the current upload attempt.
 pub type ProgressCallback = Arc<dyn Fn(u64, u64) + Send + Sync>;
 
 const CHUNK_SIZE: usize = 64 * 1024;
+/// Fail over to the next host if one stalls.
+const PROVIDER_TIMEOUT: Duration = Duration::from_secs(30);
 
 fn report(on_progress: &Option<ProgressCallback>, sent: u64, total: u64) {
     if let Some(cb) = on_progress {
@@ -45,11 +51,20 @@ fn file_part(
     reqwest::multipart::Part::stream_with_length(body, len).file_name(filename.to_owned())
 }
 
+fn http_client() -> Result<reqwest::Client, String> {
+    reqwest::Client::builder()
+        .user_agent("curl/8.4.0")
+        .timeout(PROVIDER_TIMEOUT)
+        .connect_timeout(Duration::from_secs(10))
+        .build()
+        .map_err(|e| e.to_string())
+}
+
 pub async fn upload_text_paste_rs(
     text: &str,
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
-    let client = reqwest::Client::new();
+    let client = http_client()?;
     let (body, _) = body_with_progress(text.as_bytes().to_vec(), on_progress);
     match client.post("https://paste.rs/").body(body).send().await {
         Ok(res) if res.status().is_success() => {
@@ -64,10 +79,7 @@ pub async fn upload_text_0x0(
     text: &str,
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
-    let client = reqwest::Client::builder()
-        .user_agent("curl/8.4.0")
-        .build()
-        .map_err(|e| e.to_string())?;
+    let client = http_client()?;
     let part = file_part("paste.txt", text.as_bytes().to_vec(), on_progress);
     let form = reqwest::multipart::Form::new().part("file", part);
     match client.post("https://0x0.st").multipart(form).send().await {
@@ -84,15 +96,25 @@ pub async fn upload_text(
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
     let mut last_err = String::new();
+    let mut prefs = PrefsSession::begin();
+    let order = prefs.ordered(&["paste_rs", "0x0"]);
 
-    match upload_text_paste_rs(text, on_progress.clone()).await {
-        Ok(url) => return Ok(url),
-        Err(e) => last_err = e,
-    }
-
-    match upload_text_0x0(text, on_progress).await {
-        Ok(url) => return Ok(url),
-        Err(e) => last_err = e,
+    for id in order {
+        let result = match id {
+            "paste_rs" => upload_text_paste_rs(text, on_progress.clone()).await,
+            "0x0" => upload_text_0x0(text, on_progress.clone()).await,
+            _ => continue,
+        };
+        match result {
+            Ok(url) => {
+                prefs.record_ok(id);
+                return Ok(url);
+            }
+            Err(e) => {
+                prefs.record_fail(id);
+                last_err = e;
+            }
+        }
     }
 
     Err(format!(
@@ -106,10 +128,7 @@ pub async fn upload_file_catbox(
     data: &[u8],
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
-    let client = reqwest::Client::builder()
-        .user_agent("curl/8.4.0")
-        .build()
-        .map_err(|e| e.to_string())?;
+    let client = http_client()?;
     let part = file_part(filename, data.to_vec(), on_progress);
     let form = reqwest::multipart::Form::new()
         .text("reqtype", "fileupload")
@@ -134,10 +153,7 @@ pub async fn upload_file_0x0(
     data: &[u8],
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
-    let client = reqwest::Client::builder()
-        .user_agent("curl/8.4.0")
-        .build()
-        .map_err(|e| e.to_string())?;
+    let client = http_client()?;
     let part = file_part(filename, data.to_vec(), on_progress);
     let form = reqwest::multipart::Form::new().part("file", part);
 
@@ -155,10 +171,7 @@ pub async fn upload_file_uguu(
     data: &[u8],
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
-    let client = reqwest::Client::builder()
-        .user_agent("curl/8.4.0")
-        .build()
-        .map_err(|e| e.to_string())?;
+    let client = http_client()?;
     let part = file_part(filename, data.to_vec(), on_progress);
     let form = reqwest::multipart::Form::new().part("files[]", part);
 
@@ -190,10 +203,7 @@ pub async fn upload_file_pasteboard(
     data: &[u8],
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
-    let client = reqwest::Client::builder()
-        .user_agent("curl/8.4.0")
-        .build()
-        .map_err(|e| e.to_string())?;
+    let client = http_client()?;
     let part = file_part(filename, data.to_vec(), on_progress);
     let form = reqwest::multipart::Form::new().part("file", part);
 
@@ -222,25 +232,27 @@ pub async fn upload_file(
     on_progress: Option<ProgressCallback>,
 ) -> Result<String, String> {
     let mut last_err = String::new();
+    let mut prefs = PrefsSession::begin();
+    let order = prefs.ordered(&["catbox", "0x0", "uguu", "pasteboard"]);
 
-    match upload_file_catbox(&filename, &data, on_progress.clone()).await {
-        Ok(url) => return Ok(url),
-        Err(e) => last_err = e,
-    }
-
-    match upload_file_0x0(&filename, &data, on_progress.clone()).await {
-        Ok(url) => return Ok(url),
-        Err(e) => last_err = e,
-    }
-
-    match upload_file_uguu(&filename, &data, on_progress.clone()).await {
-        Ok(url) => return Ok(url),
-        Err(e) => last_err = e,
-    }
-
-    match upload_file_pasteboard(&filename, &data, on_progress).await {
-        Ok(url) => return Ok(url),
-        Err(e) => last_err = e,
+    for id in order {
+        let result = match id {
+            "catbox" => upload_file_catbox(&filename, &data, on_progress.clone()).await,
+            "0x0" => upload_file_0x0(&filename, &data, on_progress.clone()).await,
+            "uguu" => upload_file_uguu(&filename, &data, on_progress.clone()).await,
+            "pasteboard" => upload_file_pasteboard(&filename, &data, on_progress.clone()).await,
+            _ => continue,
+        };
+        match result {
+            Ok(url) => {
+                prefs.record_ok(id);
+                return Ok(url);
+            }
+            Err(e) => {
+                prefs.record_fail(id);
+                last_err = e;
+            }
+        }
     }
 
     Err(format!(

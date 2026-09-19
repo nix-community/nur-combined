@@ -134,9 +134,11 @@ layout of `gpui-ce`.
   instead of emulating a left-click drag, improving touch scrolling on Wayland.
 - `Pixels`: use `f32::from(...)` instead of `.as_f32()` because Wayland coordinates are `f64`.
 - `platform/linux/text_system.rs` and `platform/mac/text_system.rs`: extend cosmic-text's Unix font fallback list
-  with `Symbols Nerd Font Mono` / `Symbols Nerd Font`. Put `Noto Color Emoji` before Noto Sans / DejaVu / Symbols2. Strip system
-  `Noto Color Emoji` (often COLRv1 → blank glyphs under Swash) so bundled CBDT emoji from `add_fonts` wins.
-  Restored `is_nerd_font_symbols` check to bypass `has_m_glyph` requirements for symbols fonts.
+  with `Symbols Nerd Font Mono` / `Symbols Nerd Font`. Put `Noto Color Emoji` **first** in the common fallback list.
+  Strip system emoji thieves (COLRv1 / google-fonts `Noto Color Emoji`, broken `Noto Color Emoji Compat Test`,
+  outline `Noto Emoji`, Unifont*, Segoe UI Emoji/Symbol) so bundled CBDT emoji from `add_fonts` wins — otherwise
+  Starship `yellow bold` python `🐍` shapes with Compat Test and paints as yellow tofu. Also list those families
+  in `forbidden_fallback`. Restored `is_nerd_font_symbols` check to bypass `has_m_glyph` for symbols fonts.
 - `platform/mac/text_system.rs`: explicitly register graphics fonts (like bundled icons) via `CTFontManagerRegisterGraphicsFont` so that macOS `CoreText` fallback shaping correctly locates and renders them.
 - Wayland/X11 XDP appearance handler: drop the client `RefCell` borrow before
   `set_appearance` (observers may call `Platform::window_appearance` →

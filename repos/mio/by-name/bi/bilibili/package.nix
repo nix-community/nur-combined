@@ -22,24 +22,24 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
-  version = "1.18.0-1";
+  version = "1.19.0-1";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "bilibili-linux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JRXf1C587OWC5aIUfaf8YPjYlnGxGC1KIvzAXZmCtMg=";
+    hash = "sha256-gqI4S2VX44od1gjBKMXr2JAv7NlVJib5hqN08r+aRoo=";
   };
 
   bilibiliInstaller = fetchurl {
     url = "https://dl.hdslb.com/mobile/fixed/bili_win/bili_win-install.exe";
-    hash = "sha256-dXJd6CbgR/0FYst+hF3Xll8KOUvrtaMndnjk2P5Pus4=";
+    hash = "sha256-ftvTt963focWWbW6tzwoi0cdNnEothXxYByefJPlvBs=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-K6JWwAIAmwpSYR9O+uXrKM5yfI6mwcXa87KRn0OolVc=";
+    hash = "sha256-lHXcwLotj/tprrkHRVBUyYx9MML/NvuN2AnWhbmNnCA=";
   };
 
   nativeBuildInputs = [
@@ -70,11 +70,15 @@ stdenv.mkDerivation (finalAttrs: {
 
     substituteInPlace tools/fix-other.sh \
       --replace-warn 'wget -c https://github.com/msojocs/bilibili-linux/releases/download/tools/cursor-tool -Ocursor-tool' "" \
-      --replace-warn 'chmod +x cursor-tool' ""
+      --replace-warn 'chmod +x cursor-tool' "" \
+      --replace-fail 'npx -y asar e app.asar app' 'asar e app.asar app' \
+      --replace-fail 'npx -y asar p app app.asar' 'asar p app app.asar'
 
     substituteInPlace tools/extension.sh \
       --replace-warn 'pnpm install' "" \
-      --replace-warn 'pnpm run build' ""
+      --replace-warn 'pnpm run build' "" \
+      --replace-fail 'npx -y asar e app.asar app' 'asar e app.asar app' \
+      --replace-fail 'npx -y asar p app app.asar' 'asar p app app.asar'
   '';
 
   buildPhase = ''

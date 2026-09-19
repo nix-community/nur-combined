@@ -60,12 +60,15 @@ struct TerminalSymbolFallback;
 impl Fallback for TerminalSymbolFallback {
     fn common_fallback(&self) -> &'static [&'static str] {
         &[
+            // Bundled CBDT Noto Color Emoji first: Starship bold runs make cosmic-text
+            // skip weight-mismatched emoji during named fallback and scan "other"
+            // fonts, where google-fonts Compat Test / Noto Emoji / Unifont otherwise
+            // steal 🐍 and paint yellow tofu.
+            "Noto Color Emoji",
             "Symbols Nerd Font Mono",
             "Symbols Nerd Font",
-            // Color emoji MUST come before Noto Sans / DejaVu / Symbols2 — those
-            // claim many emoji codepoints with empty or mono outlines, so 🌐 and
-            // friends never reach a working color emoji font (blank cells).
-            "Noto Color Emoji",
+            // Keep these after color emoji — they claim many emoji codepoints with
+            // empty or mono outlines.
             "Noto Sans",
             "DejaVu Sans",
             "FreeSans",
@@ -78,7 +81,19 @@ impl Fallback for TerminalSymbolFallback {
     }
 
     fn forbidden_fallback(&self) -> &'static [&'static str] {
-        Fallback::forbidden_fallback(&PlatformFallback)
+        // Belt-and-suspenders with `remove_competing_emoji_faces`: never pick these
+        // even if a face somehow remains in fontdb after add_fonts.
+        &[
+            "Noto Emoji",
+            "Noto Color Emoji Compat Test",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol",
+            "Unifont",
+            "Unifont Upper",
+            "Unifont-JP",
+            "Unifont-T",
+            "Unifont CSUR",
+        ]
     }
 
     fn script_fallback(&self, script: Script, locale: &str) -> &'static [&'static str] {
@@ -92,10 +107,11 @@ fn new_font_system_with_terminal_fallbacks() -> FontSystem {
         .unwrap_or_else(|_| "en-US".to_string());
     let mut db = fontdb::Database::new();
     db.load_system_fonts();
-    // Drop system Noto Color Emoji (often COLRv1 from google-fonts / Fedora).
-    // Swash cannot rasterize COLRv1 → blank glyphs. Omnimux then `add_fonts` a
-    // CBDT bitmap NotoColorEmoji.ttf that actually paints.
-    remove_noto_color_emoji_faces(&mut db);
+    // Drop system color/mono emoji claimants. Swash cannot paint COLRv1 Noto Color
+    // Emoji; google-fonts also ships a broken "Compat Test" face and outline
+    // "Noto Emoji" that cosmic-text prefers for bold Starship runs (🐍 → yellow
+    // tofu). Omnimux `add_fonts` a CBDT NotoColorEmoji.ttf that actually paints.
+    remove_competing_emoji_faces(&mut db);
     // Match cosmic_text::FontSystem::new_with_fonts defaults.
     db.set_monospace_family("Noto Sans Mono");
     db.set_sans_serif_family("Open Sans");
@@ -103,15 +119,28 @@ fn new_font_system_with_terminal_fallbacks() -> FontSystem {
     FontSystem::new_with_locale_and_db_and_fallback(locale, db, TerminalSymbolFallback)
 }
 
-fn remove_noto_color_emoji_faces(db: &mut fontdb::Database) {
+fn remove_competing_emoji_faces(db: &mut fontdb::Database) {
     let ids: Vec<_> = db
         .faces()
         .filter(|face| {
-            face.post_script_name == "NotoColorEmoji"
-                || face
-                    .families
-                    .iter()
-                    .any(|(name, _)| name == "Noto Color Emoji")
+            let ps = face.post_script_name.as_str();
+            if ps == "NotoColorEmoji"
+                || ps.contains("NotoColorEmojiCompat")
+                || ps.starts_with("NotoEmoji")
+                || ps == "SegoeUIEmoji"
+                || ps == "SegoeUISymbol"
+                || ps.starts_with("Unifont")
+            {
+                return true;
+            }
+            face.families.iter().any(|(name, _)| {
+                name == "Noto Color Emoji"
+                    || name == "Noto Color Emoji Compat Test"
+                    || name == "Noto Emoji"
+                    || name == "Segoe UI Emoji"
+                    || name == "Segoe UI Symbol"
+                    || name.starts_with("Unifont")
+            })
         })
         .map(|face| face.id)
         .collect();
