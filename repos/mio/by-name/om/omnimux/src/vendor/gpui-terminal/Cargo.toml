@@ -34,6 +34,7 @@ name = "gpui-terminal"
 path = "src/main.rs"
 
 [dependencies.alacritty_terminal]
+path = "../alacritty_terminal"
 version = "0.25.1"
 
 [dependencies.anyhow]
