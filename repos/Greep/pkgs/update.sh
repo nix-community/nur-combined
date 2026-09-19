@@ -160,7 +160,7 @@ update_package() {
 
   # nix-update updates version + hashes automatically
   echo "--- nix-update ---"
-  nix run nixpkgs#nix-update -- $nix_update_args "$pkg_name" || {
+  nix run nixpkgs#nix-update -- $nix_update_args "$pkg_name" | awk '!/^\$ /' || {
     echo "nix-update failed for $pkg_name"
     report_row failed "$pkg_name" "$old_version" "" "nix-update"
     return 1

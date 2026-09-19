@@ -41,7 +41,11 @@
 
 ### Maintained by @bensuperpc
 
-- [bs-thread-pool](https://github.com/bshoshany/thread-pool): BS::thread_pool: a fast, lightweight, modern, and easy-to-use C++17 / C++20 / C++23 thread pool library
+- [bs-thread-pool](https://github.com/bshoshany/thread-pool): Fast, lightweight, modern, and easy-to-use C++17 / C++20 / C++23 thread pool library
+- [fastnoise2](https://github.com/Auburn/FastNoise2): Modular node graph based noise generation library using SIMD, C++17 and templates
+- [libnbtplusplus](https://github.com/PrismLauncher/libnbtplusplus): C++ library for Minecraft's file format NBT
+- [raylib-cpp](https://github.com/RobLoach/raylib-cpp): C++ Object Oriented Wrapper for raylib
+- [zpp-bits](https://github.com/eyalz800/zpp_bits): Modern C++20 binary serialization and RPC library
 
 ## Development
 

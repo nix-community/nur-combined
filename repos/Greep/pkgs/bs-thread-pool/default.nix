@@ -32,9 +32,10 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "BS::thread_pool: a fast, lightweight, modern, and easy-to-use C++17 / C++20 / C++23 thread pool library";
+    description = "Fast, lightweight, modern, and easy-to-use C++17 / C++20 / C++23 thread pool library";
     homepage = "https://github.com/bshoshany/thread-pool";
     downloadPage = "https://github.com/bshoshany/thread-pool";
+    sourceProvenance = with sourceTypes; [ fromSource ];
     license = licenses.mit;
     platforms = platforms.all;
     changelog = "https://github.com/bshoshany/thread-pool/blob/master/CHANGELOG.md";
