@@ -1,0 +1,80 @@
+From 41b6d89eef175d6ff590d58db1e053a714e412f7 Mon Sep 17 00:00:00 2001
+From: Bart Oostveen <bart@bartoostveen.nl>
+Date: Sat, 19 Sep 2026 01:44:47 +0200
+Subject: [PATCH] fix(setup): remove connectivity check
+
+---
+ scripts/setup.js | 22 +---------------------
+ 1 file changed, 1 insertion(+), 21 deletions(-)
+
+diff --git a/scripts/setup.js b/scripts/setup.js
+index 191ca3e..494435c 100644
+--- a/scripts/setup.js
++++ b/scripts/setup.js
+@@ -7,7 +7,6 @@ const fs = require("fs")
+ const sqlite = require("better-sqlite3")
+ const {scheduler} = require("timers/promises")
+ const {isDeepStrictEqual} = require("util")
+-const {createServer} = require("http")
+ const {join} = require("path")
+ 
+ const {prompt} = require("enquirer")
+@@ -16,7 +15,6 @@ const {magenta, bold, cyan} = require("ansi-colors")
+ const HeatSync = require("heatsync")
+ const {SnowTransfer} = require("snowtransfer")
+ const DiscordTypes = require("discord-api-types/v10")
+-const {createApp, defineEventHandler, toNodeListener} = require("h3")
+ 
+ const passthrough = require("../src/passthrough")
+ const db = new sqlite("ooye.db")
+@@ -71,13 +69,6 @@ async function validateHomeserverOrigin(serverUrlPrompt, url) {
+ 	return true
+ }
+ 
+-function defineEchoHandler() {
+-	return defineEventHandler(event => {
+-		return "Out Of Your Element is listening.\n" +
+-			`Received a ${event.method} request on path ${event.path}\n`
+-	})
+-}
+-
+ ;(async () => {
+ 	// create registration file with prompts...
+ 	if (!reg) {
+@@ -112,11 +103,6 @@ function defineEchoHandler() {
+ 		})
+ 		portResponse.socket = +portResponse.socket || portResponse.socket // convert to number if numeric
+ 
+-		const app = createApp()
+-		app.use(defineEchoHandler())
+-		const server = createServer(toNodeListener(app))
+-		await server.listen(portResponse.socket)
+-
+ 		console.log("Now you need to enter a public URL that OOYE's web server will live on.")
+ 		console.log("Set up your reverse proxy so that this URL accesses OOYE.")
+ 		console.log("Examples: https://gitdab.com/cadence/out-of-your-element/src/branch/main/docs/get-started.md#appendix")
+@@ -132,11 +118,7 @@ function defineEchoHandler() {
+ 			validate: async url => {
+ 				process.stdout.write(magenta(" checking, please wait..."))
+ 				try {
+-					const res = await fetch(url)
+-					if (res.status !== 200) return `Server returned status code ${res.status}`
+-					const text = await res.text()
+-					if (!text.startsWith("Out Of Your Element is listening.")) return `Server does not point to OOYE`
+-					return true
++					return URL.parse(url) !== null;
+ 				} catch (e) {
+ 					return e.message
+ 				}
+@@ -144,8 +126,6 @@ function defineEchoHandler() {
+ 		})
+ 		bridgeOriginResponse.bridge_origin = bridgeOriginResponse.bridge_origin.replace(/\/+$/, "") // remove trailing slash
+ 
+-		await server.close()
+-
+ 		console.log("What is your Discord bot token?")
+ 		console.log("Go to https://discord.com/developers, create or pick an app, go to the Bot section, and reset the token.")
+ 		/** @type {SnowTransfer} */ // @ts-ignore
+-- 
+2.55.0
+
