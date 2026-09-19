@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.9.2";
+    version = "v1.9.3";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.9.2";
+      rev = "v1.9.3";
       fetchSubmodules = false;
-      sha256 = "sha256-720ermjl7/lw8UrTNV0rojrv0rc8hiqZ6zktOcXpUHs=";
+      sha256 = "sha256-fgVpkZqDmMWfs0+Cgex6JLIlb2zFpV5ktDBrrjchoHA=";
     };
   };
   claude-code-wakatime = {
@@ -200,13 +200,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.42.5";
+    version = "v0.42.6";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.42.5";
+      rev = "v0.42.6";
       fetchSubmodules = false;
-      sha256 = "sha256-JMpY1yJjFJ6NALHJSlNbarJcO74JWLo3ORituLq44ZE=";
+      sha256 = "sha256-rJ3XIVwMmVqMqZpQhIknvn/OVinWe/Pz1AHOilJsOpI=";
     };
   };
   manboster = {
@@ -301,26 +301,26 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v2.8.0";
+    version = "v3.0.0";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v2.8.0";
+      rev = "v3.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-WxCvIe6oufFFxU2TKuweaODCWB7rhYEK06ZsShI8UEg=";
+      sha256 = "sha256-1HsvGnxLPWkt5WQJW4YM06VzNfNnh/HuGDDNK0073Xg=";
     };
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "1369da96020f14d0a1c58200464901fb40c47997";
+    version = "17f290c8b5104d9aba8a1ba7383a2ca83c3d14c4";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "1369da96020f14d0a1c58200464901fb40c47997";
+      rev = "17f290c8b5104d9aba8a1ba7383a2ca83c3d14c4";
       fetchSubmodules = false;
-      sha256 = "sha256-SbpYyC9/lyZ3PFkJEY84rX0wu3c29K36d3STfUbTg6s=";
+      sha256 = "sha256-yWbf/Ms5y3x7qhpu2aGjX0R76Rzg3UH3nehHft2K87w=";
     };
-    date = "2026-09-14";
+    date = "2026-09-18";
   };
   typenix = {
     pname = "typenix";

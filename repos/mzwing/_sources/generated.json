@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.9.2",
-            "sha256": "sha256-720ermjl7/lw8UrTNV0rojrv0rc8hiqZ6zktOcXpUHs=",
+            "rev": "v1.9.3",
+            "sha256": "sha256-fgVpkZqDmMWfs0+Cgex6JLIlb2zFpV5ktDBrrjchoHA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.2"
+        "version": "v1.9.3"
     },
     "claude-code-wakatime": {
         "cargoLock": null,
@@ -369,12 +369,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.42.5",
-            "sha256": "sha256-JMpY1yJjFJ6NALHJSlNbarJcO74JWLo3ORituLq44ZE=",
+            "rev": "v0.42.6",
+            "sha256": "sha256-rJ3XIVwMmVqMqZpQhIknvn/OVinWe/Pz1AHOilJsOpI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.42.5"
+        "version": "v0.42.6"
     },
     "manboster": {
         "cargoLock": null,
@@ -558,16 +558,16 @@
             "name": null,
             "owner": "sinspired",
             "repo": "subs-check-pro",
-            "rev": "v2.8.0",
-            "sha256": "sha256-WxCvIe6oufFFxU2TKuweaODCWB7rhYEK06ZsShI8UEg=",
+            "rev": "v3.0.0",
+            "sha256": "sha256-1HsvGnxLPWkt5WQJW4YM06VzNfNnh/HuGDDNK0073Xg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.8.0"
+        "version": "v3.0.0"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
-        "date": "2026-09-14",
+        "date": "2026-09-18",
         "extract": null,
         "name": "tree-sitter-nix",
         "passthru": null,
@@ -579,12 +579,12 @@
             "name": null,
             "owner": "nix-community",
             "repo": "tree-sitter-nix",
-            "rev": "1369da96020f14d0a1c58200464901fb40c47997",
-            "sha256": "sha256-SbpYyC9/lyZ3PFkJEY84rX0wu3c29K36d3STfUbTg6s=",
+            "rev": "17f290c8b5104d9aba8a1ba7383a2ca83c3d14c4",
+            "sha256": "sha256-yWbf/Ms5y3x7qhpu2aGjX0R76Rzg3UH3nehHft2K87w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1369da96020f14d0a1c58200464901fb40c47997"
+        "version": "17f290c8b5104d9aba8a1ba7383a2ca83c3d14c4"
     },
     "typenix": {
         "cargoLock": null,
