@@ -19,6 +19,7 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bs-thread-pool = pkgs.callPackage ./pkgs/bs-thread-pool { };
   feishin = pkgs.callPackage ./pkgs/feishin { };
   nxapi = pkgs.callPackage ./pkgs/nxapi { };
   nxapi-app = pkgs.callPackage ./pkgs/nxapi-app { };
