@@ -119,18 +119,18 @@ in
     in
     {
       "${mainDir}/root".d = {
-        user = "copyparty-share";
-        group = "copyparty-share";
+        user = cfg.mainUser;
+        group = cfg.mainGroup;
         mode = userOnly;
       };
       "${mainDir}/chaosbox".d = {
-        user = "copyparty-share";
-        group = "copyparty-share";
+        user = cfg.mainUser;
+        group = cfg.mainGroup;
         mode = userOnly;
       };
 
       "/propdata/media/readme.md"."L".argument = vaculib.path ./media-readme.md;
-      "/propdata/java-files"."A+".argument = "user:copyparty:rwX,default:user:copyparty:rwX";
+      "/propdata/java-files"."A+".argument = "user:${cfg.mainUser}:rwx,default:user:${cfg.mainUser}:rwx";
     };
   services.caddy.virtualHosts."2e14.t2d.lan" = {
     vacu.hsts = false;
