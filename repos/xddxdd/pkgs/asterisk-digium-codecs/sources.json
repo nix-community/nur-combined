@@ -882,6 +882,13 @@
                 "version": "1.0.3"
             }
         },
+        "siren14": {
+            "64": {
+                "hash": "sha256-8uiD+rNOzPr4oAZFRM+xWog6hbYIPj9ftF3Uqrxe79A=",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-24.0/x86-64/codec_siren14-24.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
         "siren7": {
             "64": {
                 "hash": "18g43z9qmlbw8kdj53j2dvls24krl1l6c8yplh53x0cwz3fqplds",
