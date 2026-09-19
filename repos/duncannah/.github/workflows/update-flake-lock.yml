@@ -31,9 +31,13 @@ jobs:
           use-flakehub: false
 
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v28
-        with:
-          git-author-name: "github-actions[bot]"
-          git-author-email: "github-actions[bot]@users.noreply.github.com"
-          git-committer-name: "github-actions[bot]"
-          git-committer-email: "github-actions[bot]@users.noreply.github.com"
+        run: nix flake update
+
+      - name: Commit and push changes
+        run: |
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git commit -m "chore(deps): update flake.lock" || echo "No changes to commit"
+          git push origin HEAD:main
