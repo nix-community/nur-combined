@@ -161,6 +161,7 @@ in
       "copyparty.sv.mt"
       "files.sv.mt"
       "f.sv.mt"
+      "fs.sv.mt"
       "copy.shelvacu.com"
       "copyparty.shelvacu.com"
       "files.shelvacu.com"

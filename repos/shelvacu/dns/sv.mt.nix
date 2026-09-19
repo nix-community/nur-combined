@@ -13,6 +13,7 @@ in
     "copy".A = propA;
     "copyparty".A = propA;
     "f".A = propA;
+    "fs".A = propA;
     "files".A = propA;
     "jf".A = propA;
     # this points to javi public IP, and makes it so java does not have to type a long domain.

@@ -43,7 +43,7 @@ in
       allow_federation = true;
       allow_announcements_check = false;
       new_user_displayname_suffix = "";
-      ip_lookup_strategy = 1;
+      ip_lookup_strategy = 5;
       log_colors = false;
     };
   };
