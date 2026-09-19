@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "obsidian-git";
-  version = "2.39.0";
+  version = "2.40.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "Vinzent03";
     repo = "obsidian-git";
     rev = version;
-    sha256 = "sha256-xXfHEyrh+w35/ViZJbpZTA37AzJJjv941fkZzNruvE4=";
+    sha256 = "sha256-3c93LhlaWzYwW1rAJICHpPdhw4CH2PuZnStkgr/0JGM=";
   };
 
   nativeBuildInputs = with pkgs; [
