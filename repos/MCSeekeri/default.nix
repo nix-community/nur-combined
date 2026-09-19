@@ -42,4 +42,5 @@
   mindmaster = pkgs.callPackage ./pkgs/mindmaster { };
   yozo-office = pkgs.callPackage ./pkgs/yozo-office { };
   workbuddy = pkgs.callPackage ./pkgs/workbuddy { };
+  rime-frost = pkgs.callPackage ./pkgs/rime-frost { };
 }

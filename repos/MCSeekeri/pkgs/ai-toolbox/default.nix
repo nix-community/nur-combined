@@ -22,13 +22,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ai-toolbox";
-  version = "1.1.4";
+  version = "1.1.5";
 
   src = fetchFromGitHub {
     owner = "coulsontl";
     repo = "ai-toolbox";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-JHTWhtkRnE6GOW140c1tGNyDNzzzWoNNs3wELbpj1qs=";
+    hash = "sha256-fxTQZx4/3OJ3HUncH2As3IZWE5lCzDPW7q8s1p/PltI=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = false;
 
   cargoRoot = "tauri";
-  cargoHash = "sha256-1sZRjlLZcBCCO8Tfp16+SLPytwoE5BL6XdrE7e8sunU=";
+  cargoHash = "sha256-64wJ6PRnJb2daGjYHAT2Z1qG8Pp21Ij3xvim8/jEHBY=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   postPatch = ''

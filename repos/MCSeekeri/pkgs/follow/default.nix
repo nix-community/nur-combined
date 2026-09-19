@@ -7,10 +7,10 @@
 
 let
   pname = "follow";
-  version = "1.13.0";
+  version = "1.14.0";
   src = fetchurl {
     url = "https://github.com/RSSNext/Folo/releases/download/desktop/v${version}/Folo-${version}-linux-x64.AppImage";
-    hash = "sha256-DVUtehVQrp3CoXzGmMlCaWcfs8vm8mO3aoELZpjbvHI=";
+    hash = "sha256-YyOUo0P6EzDA++RwFtUjjkYsUXvSI0JR2cUfAtnJ95s=";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 in
@@ -23,7 +23,12 @@ appimageTools.wrapType2 {
     cp -r ${appimageContents}/usr/share/icons $out/share/ 2>/dev/null || true
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "desktop/v(.*)"
+    ];
+  };
 
   meta = {
     description = "Next generation information browser";

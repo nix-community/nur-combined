@@ -10,12 +10,12 @@
   stdenvNoCC,
 }:
 let
-  version = "0.2.4";
+  version = "0.2.5";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-THQjyrUn65QHhTtTQBuDp17o0Erz8uWC0yDjkKRNaxM=";
+    hash = "sha256-kVoUQUHs/KjbkxbJNds9AY13GUbSu+nCX4LJcWFBdYI=";
   };
 
   frontendPnpmDeps = fetchPnpmDeps {
