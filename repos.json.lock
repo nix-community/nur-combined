@@ -407,8 +407,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "2c1ce31da1afc5c6dda2847b271e3ae471c40ffb",
-            "sha256": "1gb34wvs1lv9hb6lr6kk4i7p96hidiih0czchjzc8fzr84m2s03l",
+            "rev": "000381611fec4ca0059ea9e13ebead4a97f0f946",
+            "sha256": "0aa1iqkd6b990dls1qdcrl1989p80p4nq82z6khh0vr73nsaxbqx",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -2205,8 +2205,8 @@
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
-            "rev": "6d1863f8b64bb1899ac27e43d22f63c0c177e8c0",
-            "sha256": "0kmp988b24cfllicbkiw4cscc2n317m5lczx19h16ncw9diynyi8",
+            "rev": "07fc92ce3727de0d0e1f2308960b83946f20758d",
+            "sha256": "1fvw07lvb4bi5y2r6kf2bqdj265rbbwgf5jgnw0nvxhz2wyq16ir",
             "url": "https://github.com/RoGreat/nur-packages"
         },
         "rseops": {
