@@ -28,7 +28,66 @@ jobs:
     - name: Run nix-update
       env:
         AUTO_COMMIT: "1"
+        # Filled by update.sh, rendered into the run summary below. Declared per
+        # step because the `runner` context is not available in job-level env.
+        REPORT_FILE: ${{ runner.temp }}/nix-update-report.tsv
       run: ./pkgs/update.sh
+    - name: Generate run summary
+      if: always()
+      env:
+        REPORT_FILE: ${{ runner.temp }}/nix-update-report.tsv
+      run: |
+        REPO_URL="${{ github.server_url }}/${{ github.repository }}"
+        SHA="${{ github.sha }}"
+
+        {
+          echo "## nix-update summary"
+          echo
+          echo "Run [\`${{ github.run_id }}\`](${REPO_URL}/actions/runs/${{ github.run_id }}) on nixpkgs unstable, $(date -u '+%Y-%m-%d %H:%M UTC')."
+          echo
+        } >> "$GITHUB_STEP_SUMMARY"
+
+        if [ ! -s "$REPORT_FILE" ]; then
+          echo "> :warning: No report was produced: the update run did not reach any package. Check the job log." >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+
+        # One TSV row per package: status, name, old version, new version, note.
+        awk -F'\t' -v repo="$REPO_URL" -v sha="$SHA" '
+          function section(title, rows, count,   i) {
+            if (count == 0) return
+            printf "\n### %s\n\n| Package | Detail |\n| --- | --- |\n", title
+            for (i = 1; i <= count; i++) printf "| %s |\n", rows[i]
+          }
+          {
+            pkg = "[" $2 "](" repo "/tree/" sha "/pkgs/" $2 ")"
+            if ($1 == "ok") {
+              if ($5 == "up to date") { upToDate[++nUp] = pkg " | `" $4 "`" }
+              else { updated[++nNew] = pkg " | " ($3 == "" ? "?" : $3) " → " ($4 == "" ? "?" : $4) }
+            } else if ($1 == "skipped") {
+              skipped[++nSkip] = pkg " | " ($5 == "" ? "_no reason given_" : $5)
+            } else {
+              failed[++nFail] = pkg " | failed at " ($5 == "" ? "an unknown step" : "`" $5 "`")
+            }
+          }
+          END {
+            printf "| Result | Count |\n| --- | :---: |\n"
+            printf "| :white_check_mark: Updated | %d |\n", nNew
+            printf "| :heavy_minus_sign: Up to date | %d |\n", nUp
+            printf "| :fast_forward: Skipped (blacklisted) | %d |\n", nSkip
+            printf "| :x: Failed | %d |\n", nFail
+            printf "| **Total** | **%d** |\n", nNew + nUp + nSkip + nFail
+
+            section("Updated", updated, nNew)
+            section("Up to date", upToDate, nUp)
+            section("Skipped (blacklisted)", skipped, nSkip)
+            section("Failed", failed, nFail)
+
+            if (nFail > 0) {
+              printf "\n> :warning: %d package(s) failed to update — see the step log above.\n", nFail
+            }
+          }
+        ' "$REPORT_FILE" >> "$GITHUB_STEP_SUMMARY"
     - name: Push commits
       # Push the per-package commits even if some other package update failed.
       if: always()
@@ -37,8 +96,26 @@ jobs:
           echo "No repository, nothing to push."
           exit 0
         fi
-        if [ "$(git rev-list --count '@{upstream}..HEAD')" -eq 0 ]; then
+
+        # Captured before pushing: `@{upstream}..HEAD` is empty once pushed.
+        commits="$(git log --oneline '@{upstream}..HEAD' || true)"
+
+        if [ -z "$commits" ]; then
           echo "No commits to push."
+          {
+            echo
+            echo "No commit to push: every package was up to date, blacklisted or failed."
+          } >> "$GITHUB_STEP_SUMMARY"
           exit 0
         fi
+
         git push
+
+        {
+          echo
+          echo "### Pushed commits"
+          echo
+          echo '```'
+          echo "$commits"
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY"

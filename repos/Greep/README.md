@@ -32,7 +32,17 @@
 
 ## Packages
 
+### Maintained by @GreepTheSheep
+
 - [feishin](https://github.com/jeffvli/feishin): Full-featured Jellyfin, Navidrome, and OpenSubsonic Compatible Music Player
 - [nxapi](https://github.com/samuelthomas2774/nxapi): Nintendo Switch Online/Parental Controls app APIs - CLI
 - [nxapi-app](https://github.com/samuelthomas2774/nxapi): Nintendo Switch Online/Parental Controls app APIs - Electron app
 - [tm-mumble-link](https://github.com/XertroV/tm-mumble-bridge): Bridge Trackmania's proximity-chat plugin to Mumble's Link plugin for positional audio
+
+### Maintained by @bensuperpc
+
+- [bs-thread-pool](https://github.com/bshoshany/thread-pool): BS::thread_pool: a fast, lightweight, modern, and easy-to-use C++17 / C++20 / C++23 thread pool library
+
+## Development
+
+Adding a package, updating versions, blacklisting a package from the automated updates: see [pkgs/README.md](./pkgs/README.md).
