@@ -206,10 +206,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "dirtyRev": "0ddda67968e44d95e971a2d1552b909bb5f793dd-dirty",
-        "dirtyShortRev": "0ddda67-dirty",
-        "lastModified": 1789278549,
-        "narHash": "sha256-durk7eWvH0lKuy1s5M12T4nL5hrjbXp0VAfJCnv41fY=",
+        "lastModified": 1789426871,
+        "narHash": "sha256-SHHf1HPDelVceVuzwTEizuf3Hi0nC/eTo7jrrY73ATU=",
+        "ref": "refs/heads/main",
+        "rev": "b51fc433e3615f619347e7a78f304dfa125edd4c",
+        "revCount": 35,
         "type": "git",
         "url": "file:///home/riro/Src/nyaw-dn42-autopeer"
       },
@@ -523,10 +524,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "dirtyRev": "9ebb06ed6f5a9096902883a2f866d909a135734d-dirty",
-        "dirtyShortRev": "9ebb06e-dirty",
-        "lastModified": 1786985358,
-        "narHash": "sha256-sQkN1jp3Fno1Zzve9DiaV1dBjAQxtWqatjWS3eV+GKs=",
+        "lastModified": 1788168882,
+        "narHash": "sha256-Ylea2o9feiOcaRD0ILbk9dXxg8Ve/X9iDJs8Kalm4Cc=",
+        "ref": "refs/heads/add-honk",
+        "rev": "08d25f02ea789fd8b7e98f7bba45a429d7f2ac14",
+        "revCount": 151,
         "type": "git",
         "url": "file:///home/riro/Src/flake.nix"
       },
@@ -3144,6 +3146,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_36": {
+      "locked": {
+        "lastModified": 1789149629,
+        "narHash": "sha256-H6GwaZzZf+4npqv0tph94w9tZddSjFjmQrVsW0z78uk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "eaad089433ca2bb662274377d33df3d0e51ef28b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_4": {
       "locked": {
         "lastModified": 1726042813,
@@ -3800,6 +3818,7 @@
         "tg-online-keeper": "tg-online-keeper",
         "vaultix": "vaultix",
         "vicinae": "vicinae",
+        "vocat": "vocat",
         "xwayland-satellite": "xwayland-satellite"
       }
     },
@@ -4556,6 +4575,21 @@
         "owner": "vicinaehq",
         "repo": "vicinae",
         "type": "github"
+      }
+    },
+    "vocat": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_36"
+      },
+      "locked": {
+        "lastModified": 1789339861,
+        "narHash": "sha256-mZmIobde8eDKqcQPjP57uFpWT7xJLzqZoyTuSwYhJwI=",
+        "path": "/home/riro/Src/vohive-nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/riro/Src/vohive-nix",
+        "type": "path"
       }
     },
     "xwayland-satellite": {

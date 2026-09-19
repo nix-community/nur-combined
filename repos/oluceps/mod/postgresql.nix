@@ -5,6 +5,10 @@
       services.prometheus.exporters.postgres = {
         enable = true;
         listenAddress = "[::]";
+        runAsLocalSuperUser = true;
+      };
+      systemd.services.postgresql.serviceConfig = {
+        ReadWritePaths = [ "/pool0/relation" ];
       };
       services.postgresql = {
         enable = true;

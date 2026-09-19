@@ -155,32 +155,32 @@
         rtkit.enable = true;
       };
       services = {
-        swayidle = {
-          enable = true;
-          systemdTarget = "niri.service";
-          timeouts = [
-            {
-              timeout = 900;
-              command = "/run/current-system/systemd/bin/loginctl lock-session";
-            }
-            {
-              timeout = 915;
-              command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
-            }
-          ];
-          events = [
-            {
-              event = "lock";
-              command = "${
-                inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-              }/bin/noctalia-shell ipc call lockScreen lock";
-            }
-            {
-              event = "before-sleep";
-              command = "/run/current-system/systemd/bin/loginctl lock-session";
-            }
-          ];
-        };
+        # swayidle = {
+        #   enable = true;
+        #   systemdTarget = "niri.service";
+        #   timeouts = [
+        #     {
+        #       timeout = 900;
+        #       command = "/run/current-system/systemd/bin/loginctl lock-session";
+        #     }
+        #     {
+        #       timeout = 915;
+        #       command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
+        #     }
+        #   ];
+        #   events = [
+        #     {
+        #       event = "lock";
+        #       command = "${
+        #         inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+        #       }/bin/noctalia-shell ipc call lockScreen lock";
+        #     }
+        #     {
+        #       event = "before-sleep";
+        #       command = "/run/current-system/systemd/bin/loginctl lock-session";
+        #     }
+        #   ];
+        # };
         acpid.enable = true;
         udev = {
           # Remove Yubikey Auto Lock

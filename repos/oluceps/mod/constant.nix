@@ -61,6 +61,7 @@ let
             }
           ) { } node-data)
           {
+            "fdcc::5" = [ "box.nyaw.xyz" ];
             "fdcc::3" = srvOnEihort;
             "fdcc::1" = srvOnHastur;
             "127.0.0.1" = [ "sync.nyaw.xyz" ];

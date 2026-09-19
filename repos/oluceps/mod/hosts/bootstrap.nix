@@ -45,7 +45,7 @@
 
           users.mutableUsers = false;
           users.users.root = {
-            initialHashedPassword = lib.mkForce self.data.keys.hashedPasswd;
+            # initialHashedPassword = lib.mkForce self.data.keys.hashedPasswd;
             openssh.authorizedKeys.keys = [
               self.data.keys.sshPubKey2
               self.data.keys.skSshPubKey
@@ -68,226 +68,45 @@
           system.stateVersion = "25.11";
         }
 
-        # {
-
-        #   fileSystems."/persist".neededForBoot = true;
-        #   disko = {
-        #     devices = {
-        #       disk = {
-        #         main = {
-        #           imageSize = "5G";
-        #           device = "/dev/sda";
-        #           type = "disk";
-        #           content = {
-        #             type = "gpt";
-        #             partitions = {
-        #               ESP = {
-        #                 name = "ESP";
-        #                 size = "256M";
-        #                 type = "EF00";
-        #                 priority = 0;
-        #                 content = {
-        #                   type = "filesystem";
-        #                   format = "vfat";
-        #                   mountpoint = "/efi";
-        #                   mountOptions = [
-        #                     "fmask=0077"
-        #                     "dmask=0077"
-        #                   ];
-        #                 };
-        #               };
-
-        #               solid = {
-        #                 label = "SOLID";
-        #                 end = "-0";
-        #                 content = {
-        #                   type = "btrfs";
-        #                   extraArgs = [
-        #                     "-f"
-        #                     "--csum xxhash64"
-        #                   ];
-        #                   subvolumes = {
-        #                     "nix" = {
-        #                       mountpoint = "/nix";
-        #                       mountOptions = [
-        #                         "compress=zstd"
-        #                         "noatime"
-        #                         "nodev"
-        #                         "nosuid"
-        #                       ];
-        #                     };
-        #                     "var" = {
-        #                       mountpoint = "/var";
-        #                       mountOptions = [
-        #                         "compress=zstd"
-        #                         "noatime"
-        #                         "nodev"
-        #                         "nosuid"
-        #                       ];
-        #                     };
-        #                     "persist" = {
-        #                       mountpoint = "/persist";
-        #                       mountOptions = [
-        #                         "compress=zstd"
-        #                         "noatime"
-        #                       ];
-        #                     };
-        #                     "root" = {
-        #                       mountpoint = "/";
-        #                       mountOptions = [
-        #                         "compress=zstd"
-        #                         "noatime"
-        #                         "nodev"
-        #                         "nosuid"
-        #                       ];
-        #                     };
-        #                   };
-        #                 };
-        #               };
-        #             };
-        #           };
-        #         };
-        #       };
-
-        #       # nodev = {
-        #       #   "/" = {
-        #       #     fsType = "tmpfs";
-        #       #     mountOptions = [
-        #       #       "relatime"
-        #       #       "nosuid"
-        #       #       "nodev"
-        #       #       "size=2G"
-        #       #       "mode=755"
-        #       #     ];
-        #       #   };
-        #       # };
-        #     };
-        #   };
-        #   boot = {
-        #     kernelParams = [
-        #       "audit=0"
-        #       "net.ifnames=0"
-
-        #       "console=ttyS0"
-        #       "earlyprintk=ttyS0"
-        #       "rootdelay=300"
-        #     ];
-        #     loader = {
-        #       efi = {
-        #         canTouchEfiVariables = true;
-        #         efiSysMountPoint = "/efi";
-        #       };
-        #       systemd-boot.enable = true;
-        #       # timeout = 3;
-        #     };
-        #     initrd = {
-        #       compressor = "zstd";
-        #       compressorArgs = [
-        #         "-19"
-        #         "-T0"
-        #       ];
-        #       systemd.enable = true;
-
-        #       kernelModules = [
-        #         # "hv_vmbus" # for hyper-V
-        #         # "hv_netvsc"
-        #         # "hv_utils"
-        #         # "hv_storvsc"
-        #       ];
-        #     };
-        #   };
-        # }
-
         {
-          boot = {
-            loader = {
-              # timeout = 3;
-              # limine = {
-              #   enable = true;
-              #   efiSupport = true;
-              #   biosSupport = true;
-              #   biosDevice = "/dev/sda";
-              # };
-              grub = {
-                enable = true;
-                # efiSupport = true;
-                # biosSupport = true;
-                # biosDevice = "/dev/sda";
-                device = "/dev/sda";
-              };
-            };
-            kernelParams = [
-              "audit=0"
-              "net.ifnames=0"
-              "rootdelay=300"
-              "19200n8"
-            ];
-            initrd = {
-              compressor = "zstd";
-              compressorArgs = [
-                "-19"
-                "-T0"
-              ];
-              systemd.enable = true;
-
-              kernelModules = [
-                # "hv_netvsc"
-                # "hv_utils"
-                # "hv_storvsc"
-              ];
-            };
-          };
 
           fileSystems."/persist".neededForBoot = true;
           disko = {
-
             devices = {
               disk = {
                 main = {
                   imageSize = "2G";
-                  type = "disk";
                   device = "/dev/sda";
+                  type = "disk";
                   content = {
                     type = "gpt";
                     partitions = {
-                      boot = {
-                        size = "1M";
-                        priority = 0;
-                        type = "EF02";
-                      };
                       ESP = {
                         name = "ESP";
                         size = "256M";
                         type = "EF00";
+                        priority = 0;
                         content = {
                           type = "filesystem";
                           format = "vfat";
-                          mountpoint = "/boot";
-                          mountOptions = [ "umask=0077" ];
+                          mountpoint = "/efi";
+                          mountOptions = [
+                            "fmask=0077"
+                            "dmask=0077"
+                          ];
                         };
                       };
+
                       solid = {
                         label = "SOLID";
                         end = "-0";
                         content = {
                           type = "btrfs";
                           extraArgs = [
-                            "--label nixos"
                             "-f"
                             "--csum xxhash64"
-                            "--features"
-                            "block-group-tree"
                           ];
                           subvolumes = {
-                            "root" = {
-                              mountpoint = "/";
-                              mountOptions = [
-                                "compress=zstd"
-                                "noatime"
-                                "nodev"
-                                "nosuid"
-                              ];
-                            };
                             "nix" = {
                               mountpoint = "/nix";
                               mountOptions = [
@@ -313,6 +132,15 @@
                                 "noatime"
                               ];
                             };
+                            "root" = {
+                              mountpoint = "/";
+                              mountOptions = [
+                                "compress=zstd"
+                                "noatime"
+                                "nodev"
+                                "nosuid"
+                              ];
+                            };
                           };
                         };
                       };
@@ -320,47 +148,216 @@
                   };
                 };
               };
+
+              # nodev = {
+              #   "/" = {
+              #     fsType = "tmpfs";
+              #     mountOptions = [
+              #       "relatime"
+              #       "nosuid"
+              #       "nodev"
+              #       "size=2G"
+              #       "mode=755"
+              #     ];
+              #   };
+              # };
+            };
+          };
+          boot = {
+            kernelParams = [
+              "audit=0"
+              "net.ifnames=0"
+
+              "rootdelay=300"
+            ];
+            loader = {
+              efi = {
+                canTouchEfiVariables = true;
+                efiSysMountPoint = "/efi";
+              };
+              systemd-boot.enable = true;
+              timeout = 3;
+            };
+            initrd = {
+              compressor = "zstd";
+              compressorArgs = [
+                "-19"
+                "-T0"
+              ];
+              systemd.enable = true;
+
+              kernelModules = [
+                # "hv_vmbus" # for hyper-V
+                # "hv_netvsc"
+                # "hv_utils"
+                # "hv_storvsc"
+              ];
             };
           };
         }
+
+        # {
+        #   boot = {
+        #     loader = {
+        #       # timeout = 3;
+        #       # limine = {
+        #       #   enable = true;
+        #       #   efiSupport = true;
+        #       #   biosSupport = true;
+        #       #   biosDevice = "/dev/sda";
+        #       # };
+        #       grub = {
+        #         enable = true;
+        #         # efiSupport = true;
+        #         # biosSupport = true;
+        #         # biosDevice = "/dev/sda";
+        #         device = "/dev/sda";
+        #       };
+        #     };
+        #     kernelParams = [
+        #       "audit=0"
+        #       "net.ifnames=0"
+        #       "rootdelay=300"
+        #       "19200n8"
+        #     ];
+        #     initrd = {
+        #       compressor = "zstd";
+        #       compressorArgs = [
+        #         "-19"
+        #         "-T0"
+        #       ];
+        #       systemd.enable = true;
+
+        #       kernelModules = [
+        #         # "hv_netvsc"
+        #         # "hv_utils"
+        #         # "hv_storvsc"
+        #       ];
+        #     };
+        #   };
+
+        #   fileSystems."/persist".neededForBoot = true;
+        #   disko = {
+
+        #     devices = {
+        #       disk = {
+        #         main = {
+        #           imageSize = "2G";
+        #           type = "disk";
+        #           device = "/dev/sda";
+        #           content = {
+        #             type = "gpt";
+        #             partitions = {
+        #               boot = {
+        #                 size = "1M";
+        #                 priority = 0;
+        #                 type = "EF02";
+        #               };
+        #               ESP = {
+        #                 name = "ESP";
+        #                 size = "256M";
+        #                 type = "EF00";
+        #                 content = {
+        #                   type = "filesystem";
+        #                   format = "vfat";
+        #                   mountpoint = "/boot";
+        #                   mountOptions = [ "umask=0077" ];
+        #                 };
+        #               };
+        #               solid = {
+        #                 label = "SOLID";
+        #                 end = "-0";
+        #                 content = {
+        #                   type = "btrfs";
+        #                   extraArgs = [
+        #                     "--label nixos"
+        #                     "-f"
+        #                     "--csum xxhash64"
+        #                     "--features"
+        #                     "block-group-tree"
+        #                   ];
+        #                   subvolumes = {
+        #                     "root" = {
+        #                       mountpoint = "/";
+        #                       mountOptions = [
+        #                         "compress=zstd"
+        #                         "noatime"
+        #                         "nodev"
+        #                         "nosuid"
+        #                       ];
+        #                     };
+        #                     "nix" = {
+        #                       mountpoint = "/nix";
+        #                       mountOptions = [
+        #                         "compress=zstd"
+        #                         "noatime"
+        #                         "nodev"
+        #                         "nosuid"
+        #                       ];
+        #                     };
+        #                     "var" = {
+        #                       mountpoint = "/var";
+        #                       mountOptions = [
+        #                         "compress=zstd"
+        #                         "noatime"
+        #                         "nodev"
+        #                         "nosuid"
+        #                       ];
+        #                     };
+        #                     "persist" = {
+        #                       mountpoint = "/persist";
+        #                       mountOptions = [
+        #                         "compress=zstd"
+        #                         "noatime"
+        #                       ];
+        #                     };
+        #                   };
+        #                 };
+        #               };
+        #             };
+        #           };
+        #         };
+        #       };
+        #     };
+        #   };
+        # }
 
         {
           systemd.network = {
             enable = true;
 
             links."10-eno1" = {
-              matchConfig.MACAddress = "bc:24:11:cd:2f:35";
+              matchConfig.MACAddress = "02:00:17:07:69:3f";
               linkConfig.Name = "eno1";
             };
 
             networks."8-eno1" = {
               matchConfig.Name = "eno1";
               networkConfig = {
-                DHCP = "no";
+                DHCP = "ipv6";
                 IPv4Forwarding = true;
                 IPv6Forwarding = true;
                 IPv6AcceptRA = true;
                 MulticastDNS = true;
               };
               ipv6AcceptRAConfig = {
-                DHCPv6Client = false;
+                DHCPv6Client = true;
                 # UseDNS = false;
               };
               # domains = [ "PVE" ];
 
               address = [
-                "216.195.195.184/24"
-                "2a0f:1cc6:b225:0:c744:d4a4:9364:2971/64"
+                "161.33.137.52/32"
               ];
               linkConfig.RequiredForOnline = "routable";
               routes = [
-                {
-                  Gateway = "2a0f:1cc6:b225::1";
-                  GatewayOnLink = true;
-                }
-                {
-                  Gateway = "216.195.195.254";
-                }
+                # {
+                #   Gateway = "2a0f:1cc6:b225::1";
+                #   GatewayOnLink = true;
+                # }
+                # {
+                #   Gateway = "216.195.195.254";
+                # }
               ];
             };
           };
@@ -368,7 +365,7 @@
         inputs.disko.nixosModules.disko
         {
           nixpkgs = {
-            hostPlatform = "x86_64-linux";
+            hostPlatform = "aarch64-linux";
             overlays = with inputs; [
               fenix.overlays.default
               self.overlays.default
@@ -377,7 +374,7 @@
                   args:
                   (prev.aggregateModules args).overrideAttrs (old: {
                     passthru = (old.passthru or { }) // {
-                      target = "bzImage";
+                      target = "Image";
                     };
                   });
               })

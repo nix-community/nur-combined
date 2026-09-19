@@ -124,6 +124,10 @@
         device = "pool0/clickhouse";
         fsType = "zfs";
       };
+      "pool0/relation" = {
+        device = "pool0/relation";
+        fsType = "zfs";
+      };
     };
     swapDevices = [
       {

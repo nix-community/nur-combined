@@ -24,6 +24,7 @@
 
     nix-topology.url = "github:oddlama/nix-topology";
     limes.url = "/home/riro/Src/limes-project/limes";
+    vocat.url = "path:/home/riro/Src/vohive-nix";
     niri = {
       url = "github:YaLTeR/niri";
       # inputs.nixpkgs.follows = "nixpkgs";

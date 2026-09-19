@@ -151,6 +151,8 @@
                  domain(suffix: '2.ip.skk.moe') -> direct
                  domain(suffix: 'exhentai.org') -> ex
                  domain(suffix: 'argotunnel.com') -> all
+                 pname(vocat) -> anthropic
+                 dip(87.194.9.8) -> anthropic
 
                  fallback: all
              }

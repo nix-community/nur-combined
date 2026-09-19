@@ -111,15 +111,17 @@ ygg_pubkey = "1271764f912480d928ff1d1c002393b71b171f142575a2e05539678df1b8c2b1"
 # user = "elen"
 # ygg_pubkey = "00009960b687622088a805cc95cb5721584856bcc4268f3f51eed280877f8e28"
 
-# [node.nodens]
-# # dmit lax
-# id = 5
-# addrs = ["2605:52c0:3:90b:505a:26ff:fec1:cdbf", "136.175.179.183"]
-# censor = false
-# nat = false
-# user = "elen"
-# ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbuDim30CUgAaG5p6Wxh/3CyqnrhWRUI2MLgrxOga3x"
-# link_local_addr = "fe80::04e2:3e20:0613:4d92/64"
-# wg_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
-# iata = "LAX"
-# city = "Los Angeles"
+[node.nodens]
+id = 7
+addrs = [
+  "193.123.164.59",
+  "2603:c021:8025:648e:0:dc5b:117f:5225"]
+censor = false
+nat = false
+user = "elen"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINvK1dRx8hMAsN9cTELhZmz3p2t/p7EfT9Y/mI6z3V7j"
+link_local_addr = "fe80::04e2:3e20:0613:4d92/64"
+wg_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
+ygg_pubkey = "357b0c3db5589d7f706d8f6bfff170119f8b54f139d315cba542bf234f4e6da7"
+iata = "TYO"
+city = "Tokyo"

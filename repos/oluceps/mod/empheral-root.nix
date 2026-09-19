@@ -112,6 +112,7 @@
           ".config"
           ".mongodb"
           ".vscode"
+          ".codex"
           ".gradle"
           ".steam"
           ".gemini"

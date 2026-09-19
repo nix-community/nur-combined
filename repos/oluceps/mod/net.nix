@@ -94,7 +94,7 @@ in
                   ct state { established, related } accept
 
                   iifname "vm2" oifname "vxlan-mesh" icmpv6 type echo-request counter accept
-                  iifname "vm2" oifname "vxlan-mesh" ip6 daddr fdcc::3 tcp dport { 8123 } counter accept
+                  iifname "vm2" oifname "vxlan-mesh" ip6 daddr fdcc::3 tcp dport { 5432 } counter accept
                   iifname "vxlan-mesh" oifname "vm2" ct state { established, related } counter accept
                 }
                 chain postrouting {
@@ -302,6 +302,48 @@ in
               RequiredForOnline = "routable";
               MTUBytes = 1280;
             };
+          };
+        };
+
+      }
+    ];
+  flake.modules.nixos."net/nodens" =
+    { ... }:
+    lib.mkMerge [
+      common
+      {
+        networking = {
+          hostName = "nodens";
+        };
+        systemd.network = {
+          enable = true;
+
+          wait-online = {
+            enable = true;
+            anyInterface = true;
+            ignoredInterfaces = [
+              "wg0"
+            ];
+          };
+          links."10-eth0" = {
+            matchConfig.MACAddress = "02:00:17:04:b0:f1";
+            linkConfig.Name = "eth0";
+          };
+
+          networks."8-eth0" = {
+            matchConfig.Name = "eth0";
+            networkConfig = {
+              DHCP = "yes";
+              IPv4Forwarding = true;
+              IPv6Forwarding = true;
+              IPv6AcceptRA = true;
+              MulticastDNS = true;
+            };
+            ipv6AcceptRAConfig = {
+              DHCPv6Client = true;
+            };
+
+            linkConfig.RequiredForOnline = "routable";
           };
         };
 

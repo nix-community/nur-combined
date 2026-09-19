@@ -14,10 +14,8 @@
         n: _:
         !elem n [
           # "yidhra"
-          "resq"
           "rescue"
           "bootstrap"
-          "nodens"
           # "hastur"
           # "kaambl"
         ]
