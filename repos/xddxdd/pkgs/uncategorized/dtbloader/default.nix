@@ -6,13 +6,13 @@
 }:
 llvmPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "dtbloader";
-  version = "1.5.4";
+  version = "1.5.5";
   src = fetchFromGitHub {
     owner = "TravMurav";
     repo = "dtbloader";
     tag = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-2M1S8cBsP/wX8ODAIR3iL7tRBhtpruWRIpBjK7bDku8=";
+    hash = "sha256-KxeFtzi9iWlnvAdHyM7NF/RX0n+dGyHM7ZrJkqer3F0=";
   };
   nativeBuildInputs = with llvmPackages; [
     clang-unwrapped
