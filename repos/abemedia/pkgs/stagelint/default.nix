@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "1mfyqrv0v4k1czix6bbl1ziq323hdqaz1k6zx56ycgkn4dn162ah";
-    aarch64-linux = "14sywpgkvzg9hs4r3ajwkj07001pdkwhhgqwcd3qfc52wi0szhc9";
-    x86_64-darwin = "1ir86fbl02wi2xa93ymza7j2ji86yh14ri74qd7ch04wh870f73k";
-    aarch64-darwin = "1ylxywmrhl21cs90mnz6w35ikj7bz3d5icxikywdyy70i3d0fjpg";
+    x86_64-linux = "1546hmsy789i3cppjrwny2kwl4ccn6z31dlxy94mnxhm5rb3biqx";
+    aarch64-linux = "1i6vnd36j6bcs9r96n67nm3x76d9r6g7wlgxcibsaxv49kbm5vz5";
+    x86_64-darwin = "1hnadx6f9n6yfc5dyppcx6dm4n2i39zi2a5s8gbkw3n03j6priyd";
+    aarch64-darwin = "1c4l60qswl70ck3vd7z8s4xwn7a6j02yqmrpv41zvqhad5w3v4h1";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.0/stagelint-0.2.0-x86_64-unknown-linux-musl.tar.gz";
-    aarch64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.0/stagelint-0.2.0-aarch64-unknown-linux-musl.tar.gz";
-    x86_64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.0/stagelint-0.2.0-x86_64-apple-darwin.tar.gz";
-    aarch64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.0/stagelint-0.2.0-aarch64-apple-darwin.tar.gz";
+    x86_64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-x86_64-unknown-linux-musl.tar.gz";
+    aarch64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-aarch64-unknown-linux-musl.tar.gz";
+    x86_64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-x86_64-apple-darwin.tar.gz";
+    aarch64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-aarch64-apple-darwin.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "stagelint";
-  version = "0.2.0";
+  version = "0.2.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -35,8 +35,10 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp -vr ./stagelint $out/bin/stagelint
+    runHook postInstall
   '';
 
   meta = {
