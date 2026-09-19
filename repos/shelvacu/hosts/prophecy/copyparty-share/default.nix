@@ -99,6 +99,14 @@ in
           A: shelvacu
         '';
       };
+      "/ppl/java/java-backup" = {
+        hostPath = "/propdata/java-files";
+        access = ''
+          rwmd.: @java
+          A: shelvacu
+        '';
+      };
+      #check this out shelly
       # "/general_access" = {
       #   hostPath = pkgs.emptyDirectory;
       #   access = "r: @general_access";
