@@ -86,11 +86,12 @@ in
         top-k = "20";
         min-p = "0";
       };
-      # Bonsai 2 27B PTQ1_0 (~5.95 GB). No mmproj: the 12 GB 3060 receipt
-      # held the native 262k window without the vision tower.
+      # Bonsai 2 27B PTQ1_0 (~5.95 GB). --no-mmproj: hf-repo auto-pulls the
+      # 0.63 GB projector and 262k + ngl 99 then OOMs the 12 GB 3060.
       "bonsai-2-27b" = {
         hf-repo = "prism-ml/Ternary-Bonsai-2-27B-gguf";
         hf-file = "Ternary-Bonsai-2-27B-PTQ1_0.gguf";
+        no-mmproj = "on";
         alias = "bonsai-2-27b";
         ngl = "99";
         ctx-size = "262144";
