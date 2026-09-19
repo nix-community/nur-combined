@@ -20,8 +20,23 @@ in
 {
   imports = [
     vacuModules.caddy-hsts
+    vacuModules.sni-frontend
     /${vacuRoot}/static-sites/module.nix
   ];
+
+  # matrix-test.shelvacu.com is served by the jv-shel VM, which has no public
+  # IPv4 of its own — its outbound traffic shares this machine's tunnel
+  # address, and this machine's Caddy already answers on :443 there. So :443
+  # and :8448 are taken by a front door that reads the server name and relays
+  # that one name onward untouched, leaving its certificate on the VM.
+  vacu.sniFrontend = {
+    enable = true;
+    ports = [
+      443
+      8448
+    ];
+    passthrough."matrix-test.shelvacu.com" = "${config.vacu.qemuVMs.jv-shel.v4Address}:443";
+  };
   systemd.tmpfiles.settings."10-whatever".${socketDir}.d = {
     user = "caddy";
     group = "caddy";
