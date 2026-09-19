@@ -261,7 +261,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>zsh-smart-suggestion</code></strong> — AI-powered command suggestions directly in your zsh shell</summary>
 
-- **Version:** `0.1.19`
+- **Version:** `0.1.20`
 - **License:** Unlicense
 - **Homepage:** [https://github.com/XYenon/smart-suggestion](https://github.com/XYenon/smart-suggestion)
 - **Build:** `nix build github:XYenon/nur-packages#zsh-smart-suggestion`
