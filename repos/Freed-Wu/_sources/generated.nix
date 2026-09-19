@@ -19,10 +19,10 @@
   };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
-    version = "0.2.18";
+    version = "0.2.19";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.18.tar.gz";
-      sha256 = "sha256-+Ajz9dnSFU3c3zlvzw5C/lODEzOmOd8iZpFvyHrCX1I=";
+      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.19.tar.gz";
+      sha256 = "sha256-OwFffORJa7rLCWfXvv+eOP/URz526IHnsrUzCo/P45g=";
     };
   };
   manpager = {
