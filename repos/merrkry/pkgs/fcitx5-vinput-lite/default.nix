@@ -19,20 +19,18 @@
   libopus,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "fcitx5-vinput-lite";
-  version = "2.3.8";
+  version = "2.3.26";
 
   src = fetchFromGitHub {
     owner = "xifan2333";
     repo = "fcitx5-vinput";
-    rev = "4afe1fdb6ad141821d0aa0e974ab55454d4ffcdd";
-    hash = "sha256-Pbg+M5lAlr33JYOw5fBLwsHulR7UmUt6BW79jaq1VUQ=";
+    rev = "refs/tags/v${finalAttrs.version}";
+    hash = "sha256-xD/Twh4WpLBWxq5EHwWLKioWnq28ylwHRc2TNC2Stuc=";
   };
-
-  patches = [ ./optional-local-asr.patch ];
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -56,6 +54,7 @@ stdenv.mkDerivation {
   ];
 
   cmakeFlags = [
+    # Keep sherpa-onnx and ONNX Runtime out of the build dependencies.
     "-DVINPUT_ENABLE_LOCAL_ASR=OFF"
     "-DVINPUT_RUNTIME_MODE=system"
     "-DVINPUT_FETCH_CLI11=OFF"
@@ -83,4 +82,4 @@ stdenv.mkDerivation {
     ];
     mainProgram = "vinput";
   };
-}
+})

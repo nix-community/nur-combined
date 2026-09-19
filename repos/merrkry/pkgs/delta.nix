@@ -21,6 +21,8 @@ stdenv.mkDerivation {
     name = "delta-linux-x86_64.tar.gz";
     hash = "sha256-Q/CSFKlIDd47DwQk/QatfBs8AtM/ObTA3TFOTvggcsE=";
     message = ''
+      Delta downloads at https://delta.dev/download require signing in
+      and accepting the beta terms. This package requires the 0.6.1 archive.
       Copy delta-linux-x86_64.tar.gz to the current directory, then add it
       to the Nix store with:
 
@@ -61,6 +63,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "AI-native code editor";
+    homepage = "https://delta.dev";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ merrkry ];
     mainProgram = "delta";
