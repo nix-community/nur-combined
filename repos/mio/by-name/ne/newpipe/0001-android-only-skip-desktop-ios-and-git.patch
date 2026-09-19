@@ -1,0 +1,49 @@
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+--- a/settings.gradle.kts
++++ b/settings.gradle.kts
+@@ -22,7 +22,6 @@
+     }
+ }
+ include(":app") // androidApp
+-include(":desktopApp")
+ include("shared")
+ 
+ // Use a local copy of NewPipe Extractor by uncommenting the lines below.
+
+diff --git a/shared/build.gradle.kts b/shared/build.gradle.kts
+--- a/shared/build.gradle.kts
++++ b/shared/build.gradle.kts
+@@ -78,16 +78,6 @@
+         }
+     }
+ 
+-    listOf(
+-        iosArm64(),
+-        iosSimulatorArm64()
+-    ).forEach { iosTarget ->
+-        iosTarget.binaries.framework {
+-            baseName = "ComposeApp"
+-            isStatic = true
+-        }
+-    }
+-
+     jvm()
+ 
+     sourceSets {
+
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts
++++ b/app/build.gradle.kts
+@@ -17,11 +17,8 @@
+     checkstyle
+ }
+ 
+-val gitWorkingBranch = providers.exec {
+-    commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
+-}.standardOutput.asText.map { it.trim() }
+ val defaultBranches = listOf("master", "dev")
+-val workingBranch = gitWorkingBranch.getOrElse("")
++val workingBranch = "master"
+ val normalizedWorkingBranch = workingBranch
+     .replaceFirst("^[^A-Za-z]+".toRegex(), "")
+     .replace("[^0-9A-Za-z]+".toRegex(), "")

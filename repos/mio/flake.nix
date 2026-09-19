@@ -17,6 +17,7 @@
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
+            config.android_sdk.accept_license = true;
             config.permittedInsecurePackages = [
               "python-2.7.18"
             ];
@@ -34,6 +35,7 @@
           ppp = import ./default.nix {
             pkgs = import nixpkgs {
               config.allowUnfree = true;
+              config.android_sdk.accept_license = true;
               config.cudaSupport = true;
               inherit system;
             };
