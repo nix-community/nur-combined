@@ -1,0 +1,16 @@
+--- a/src/background/extension.ts
++++ b/src/background/extension.ts
+@@ -235,6 +235,13 @@
+         this.wakeInterval = setInterval(() => {
+             const now = Date.now();
+             if (now - lastRun > WAKE_CHECK_INTERVAL + WAKE_CHECK_INTERVAL_ERROR) {
++                // Woke from sleep: re-sync color scheme in case it changed while suspended
++                if (isFirefox) {
++                    const isDarkNow = isSystemDarkModeEnabled();
++                    if (isDarkNow !== Extension.wasLastColorSchemeDark) {
++                        Extension.onColorSchemeChange(isDarkNow);
++                    }
++                }
+                 Extension.handleAutomationCheck();
+             }
+             lastRun = now;

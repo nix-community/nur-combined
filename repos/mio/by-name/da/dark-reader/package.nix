@@ -15,7 +15,7 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = [ zip ];
 
   patches = [
-    ./keep-awake.patch
+    ./firefox-color-scheme-wakeup.patch
   ];
 
   src = fetchFromGitHub {
