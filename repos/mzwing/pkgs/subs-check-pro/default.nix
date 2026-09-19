@@ -12,9 +12,10 @@ buildGoApplication rec {
   # main.go sits at the repository root.
   subPackages = ["."];
 
-  # Share the CGO setting with gomod2nix's dependency cache. Upstream builds every release
-  # target with cgo off (.goreleaser.yaml, Makefile).
-  CGO_ENABLED = "0";
+  # Share the CGO setting with gomod2nix's dependency cache.
+  # quickjs-go compiles QuickJS from vendored C sources, so v3 cannot build with cgo off.
+  # Upstream's .goreleaser.yaml sets CGO_ENABLED=1 for every target; the Makefile's 0 is stale.
+  CGO_ENABLED = "1";
 
   ldflags = [
     "-s"
