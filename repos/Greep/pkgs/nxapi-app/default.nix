@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  maintainers,
   ...
 }:
 let
@@ -28,13 +29,14 @@ pkgs.appimageTools.wrapType2 rec {
       cp "${contents}/${pname}.desktop" "$out/share/applications/"
     '';
 
-  meta = {
+  meta = with lib; {
     description = "Nintendo Switch Online/Parental Controls app APIs - Electron app";
     homepage = "https://github.com/samuelthomas2774/nxapi";
     changelog = "https://github.com/samuelthomas2774/nxapi/releases/tag/v${version}";
-    license = lib.licenses.agpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = licenses.agpl3Plus;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     mainProgram = "nxapi-app";
-    platforms = lib.platforms.linux;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ greep ];
   };
 }

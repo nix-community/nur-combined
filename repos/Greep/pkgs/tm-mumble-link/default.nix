@@ -14,6 +14,7 @@
   libxrandr,
   libxi,
   vulkan-loader,
+  maintainers,
   tuiVersion ? false,
 }:
 let
@@ -116,13 +117,14 @@ stdenv.mkDerivation {
       })
     ];
 
-  meta = {
+  meta = with lib; {
     description = "Bridge Trackmania's proximity-chat plugin to Mumble's Link plugin for positional audio";
     homepage = "https://github.com/XertroV/tm-mumble-bridge";
     changelog = "https://github.com/XertroV/tm-mumble-bridge/releases/tag/v${version}";
-    license = lib.licenses.unlicense;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = lib.platforms.linux;
+    license = licenses.unlicense;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ greep ];
   }
   // lib.optionalAttrs (!tuiVersion) { mainProgram = "tm-mumble-link"; }
   // lib.optionalAttrs tuiVersion { mainProgram = "tm-mumble-link-tui"; };

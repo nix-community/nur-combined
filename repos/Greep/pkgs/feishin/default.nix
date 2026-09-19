@@ -13,7 +13,8 @@
   actool,
   copyDesktopItems,
   makeDesktopItem,
-  nix-update-script
+  nix-update-script,
+  maintainers
 }:
 let
   electron = electron_43;
@@ -136,13 +137,14 @@ buildNpmPackage (finalAttrs: {
     updateScript = nix-update-script { };
   };
 
-  meta = {
+  meta = with lib; {
     description = "Full-featured Jellyfin, Navidrome, and OpenSubsonic Compatible Music Player";
     homepage = "https://github.com/jeffvli/feishin";
     changelog = "https://github.com/jeffvli/feishin/releases/tag/v${finalAttrs.version}";
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
-    license = lib.licenses.gpl3Plus;
-    platforms = lib.platforms.unix;
+    sourceProvenance = with sourceTypes; [ fromSource ];
+    license = licenses.gpl3Plus;
+    platforms = platforms.unix;
     mainProgram = "feishin";
+    maintainers = with maintainers; [ greep ];
   };
 })

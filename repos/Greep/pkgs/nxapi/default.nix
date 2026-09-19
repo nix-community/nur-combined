@@ -3,6 +3,7 @@
 , nodejs_22
 , makeWrapper
 , fetchurl
+, maintainers
 }:
 
 let
@@ -52,11 +53,12 @@ in buildNpmPackage {
       --prefix PATH : ${lib.makeBinPath [ nodejs_22 ]}
   '';
 
-  meta = {
+  meta = with lib; {
     description = "Nintendo Switch Online/Parental Controls app APIs - CLI";
     homepage = "https://github.com/samuelthomas2774/nxapi";
-    license = lib.licenses.agpl3Plus;
+    license = licenses.agpl3Plus;
     mainProgram = "nxapi";
-    platforms = lib.platforms.linux;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ greep ];
   };
 }

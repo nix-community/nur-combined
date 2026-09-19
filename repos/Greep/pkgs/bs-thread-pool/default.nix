@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  maintainers,
 }:
 
 let
@@ -37,5 +38,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     platforms = platforms.all;
     changelog = "https://github.com/bshoshany/thread-pool/blob/master/CHANGELOG.md";
+    maintainers = with maintainers; [ bensuperpc ];
   };
 }
