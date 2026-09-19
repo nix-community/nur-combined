@@ -45,4 +45,6 @@
 
   snarkjs = self.callPackage ./pkgs/zk/snarkjs { };
 
+  zundamahjong = self.callPackage ./pkgs/games/zundamahjong { };
+
 })
