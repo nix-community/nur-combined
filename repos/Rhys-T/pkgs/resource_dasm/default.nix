@@ -3,12 +3,12 @@
     needsFmt = fuzziqersoftwareFmtPatchHook.isNeeded;
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2026-09-10";
+    version = "0-unstable-2026-09-18";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "resource_dasm";
-        rev = "2142f1e6f960d737cf2f9c6d07cbb283aeb106fc";
-        hash = "sha256-zBdGpkgKXF2M3CPX5mVfJVV7jKCBINmreMD7GZw1a+U=";
+        rev = "de838167612c2e038e93ea3bbad9dd18eef5baf2";
+        hash = "sha256-bood3cpFFd9bTGPNTC62B8DhwH/aABaYnuhbaIbBT/U=";
     };
     nativeBuildInputs =
         [cmake]
@@ -37,6 +37,11 @@ in stdenv.mkDerivation rec {
         # HACK: Fix invalid format strings.
         substituteInPlace src/Audio/MODSynthesizer.cc --replace-fail '{:-2}' '{:<2}'
         substituteInPlace src/Audio/smssynth.cc --replace-fail '{:-7}' '{:<7}'
+        
+        # HACK: Fix missing parentheses
+        substituteInPlace src/resource_dasm.cc --replace-fail \
+            'uint32_t next_code_addr = ret.base + (ret.a5_world_size + 1) & (~1);' \
+            'uint32_t next_code_addr = ret.base + ((ret.a5_world_size + 1) & (~1));'
     '';
     ${if useNetpbm then "postInstall" else null} = ''
         for file in "$out"/bin/*; do
