@@ -22,4 +22,5 @@
   hunk = pkgs.callPackage ./pkgs/hunk { };
   plannotator = pkgs.callPackage ./pkgs/plannotator { };
   varlock = pkgs.callPackage ./pkgs/varlock { };
+  paper-design = pkgs.callPackage ./pkgs/paper-design { };
 }
