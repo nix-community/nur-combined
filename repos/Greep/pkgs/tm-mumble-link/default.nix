@@ -45,6 +45,26 @@ stdenv.mkDerivation {
 
   buildInputs = [
     stdenv.cc.cc.lib
+  ]
+  ++ lib.optionals (!tuiVersion) [
+    libxkbcommon
+    wayland
+    libGL
+    libx11
+    libxcursor
+    libxrandr
+    libxi
+    vulkan-loader
+  ];
+
+  # winit/wgpu/egui open their backends with dlopen at runtime, so none of the
+  # libraries above ever show up in the binary's NEEDED list. autoPatchelfHook
+  # only patches NEEDED entries, which leaves an RPATH holding little more than
+  # libgcc_s, and the GUI then aborts at startup with
+  # `WaylandError(Connection(NoWaylandLib))`. runtimeDependencies is the hook's
+  # supported way to force dlopen'd libraries into the RPATH.
+  # The TUI binary is headless and needs none of this.
+  runtimeDependencies = lib.optionals (!tuiVersion) [
     libxkbcommon
     wayland
     libGL
