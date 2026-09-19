@@ -6,7 +6,9 @@
 }:
 let
   dataDir = "/media/ssd1tb/llama";
-  llamaCpp = pkgs.unstable.llama-cpp.override { cudaSupport = true; };
+  # Stock llama.cpp cannot run Bonsai 2 (PTQ1_0 / PQ2_0 unknown; Q2_0 is
+  # gibberish). PrismML fork built from source on top of unstable llama-cpp.
+  llamaCpp = pkgs.prismml-llama-cpp;
 in
 {
   networking.ports.llama-cpp.enable = true;
@@ -83,6 +85,23 @@ in
         top-p = "0.95";
         top-k = "20";
         min-p = "0";
+      };
+      # Bonsai 2 27B PTQ1_0 (~5.95 GB). No mmproj: the 12 GB 3060 receipt
+      # held the native 262k window without the vision tower.
+      "bonsai-2-27b" = {
+        hf-repo = "prism-ml/Ternary-Bonsai-2-27B-gguf";
+        hf-file = "Ternary-Bonsai-2-27B-PTQ1_0.gguf";
+        alias = "bonsai-2-27b";
+        ngl = "99";
+        ctx-size = "262144";
+        flash-attn = "on";
+        parallel = "1";
+        cache-type-k = "q4_0";
+        cache-type-v = "q4_0";
+        jinja = "on";
+        temp = "1.0";
+        top-p = "0.95";
+        top-k = "20";
       };
     };
   };

@@ -21,6 +21,7 @@ module: {
 						models: {
 							"qwen3.5-9b":           {name: "qwen3.5-9b"}
 							"cyber-tiel-coder-35b": {name: "cyber-tiel-coder-35b"}
+							"bonsai-2-27b":         {name: "bonsai-2-27b"}
 						}
 					}
 				}
