@@ -79,13 +79,13 @@
     "fast-nix-gc": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-uTmZjQ4ncAzOKCgZXW92XDvaT7NxmY37d87fcO4MgQM=/Cargo.lock",
+                "sha256-+UU7dEd9Cxx+s3rdQWhx059L5Y2FkNCj3kSWMRFrKXY=/Cargo.lock",
                 {
                     "harmonia-file-core-3.1.0": "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4="
                 }
             ]
         },
-        "date": "2026-09-17",
+        "date": "2026-09-19",
         "extract": null,
         "name": "fast-nix-gc",
         "passthru": null,
@@ -97,12 +97,12 @@
             "name": null,
             "owner": "Mic92",
             "repo": "fast-nix-gc",
-            "rev": "78bf9e696862346b7ec72dc66707c7c735feda08",
-            "sha256": "sha256-uTmZjQ4ncAzOKCgZXW92XDvaT7NxmY37d87fcO4MgQM=",
+            "rev": "b4eb644e0868ce4f93d9f2747940d4cfcbce62c7",
+            "sha256": "sha256-+UU7dEd9Cxx+s3rdQWhx059L5Y2FkNCj3kSWMRFrKXY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "78bf9e696862346b7ec72dc66707c7c735feda08"
+        "version": "b4eb644e0868ce4f93d9f2747940d4cfcbce62c7"
     },
     "flake-linter": {
         "cargoLock": null,
@@ -551,11 +551,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-ib5K8LikQSCyIN0X56lnUAXAVCP0rGzyKqX4hIagb6c=/Cargo.lock",
+                "sha256-cbHZZYq+_DNJ3+xF1SVWlTsh22el_nOp45uHjPGnL_k=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-09-15",
+        "date": "2026-09-19",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -567,12 +567,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "97cfc88243d7469b57cbd6c3571edd4bd8580ea1",
-            "sha256": "sha256-ib5K8LikQSCyIN0X56lnUAXAVCP0rGzyKqX4hIagb6c=",
+            "rev": "d3dd84df99333f19b04a2faef1972a89f35aee0f",
+            "sha256": "sha256-cbHZZYq+/DNJ3+xF1SVWlTsh22el/nOp45uHjPGnL/k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "97cfc88243d7469b57cbd6c3571edd4bd8580ea1"
+        "version": "d3dd84df99333f19b04a2faef1972a89f35aee0f"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -609,12 +609,12 @@
             "name": null,
             "owner": "juliobbv-p",
             "repo": "svt-av1-hdr",
-            "rev": "v4.1.0",
-            "sha256": "sha256-n66RPDTfBsPCR/4y8dpU3Au1WZHpkpln899e2+LKxto=",
+            "rev": "v4.2.0",
+            "sha256": "sha256-axJ4C2gSQMdiGo6qLNxaQ5AWUuZp6gRnEI8Bx0B7tlw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.1.0"
+        "version": "v4.2.0"
     },
     "uosc-danmaku": {
         "cargoLock": null,

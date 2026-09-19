@@ -54,21 +54,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "78bf9e696862346b7ec72dc66707c7c735feda08";
+    version = "b4eb644e0868ce4f93d9f2747940d4cfcbce62c7";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "78bf9e696862346b7ec72dc66707c7c735feda08";
+      rev = "b4eb644e0868ce4f93d9f2747940d4cfcbce62c7";
       fetchSubmodules = false;
-      sha256 = "sha256-uTmZjQ4ncAzOKCgZXW92XDvaT7NxmY37d87fcO4MgQM=";
+      sha256 = "sha256-+UU7dEd9Cxx+s3rdQWhx059L5Y2FkNCj3kSWMRFrKXY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-uTmZjQ4ncAzOKCgZXW92XDvaT7NxmY37d87fcO4MgQM=/Cargo.lock";
+      lockFile = ./. + "/sha256-+UU7dEd9Cxx+s3rdQWhx059L5Y2FkNCj3kSWMRFrKXY=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-09-17";
+    date = "2026-09-19";
   };
   flake-linter = {
     pname = "flake-linter";
@@ -343,21 +343,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "97cfc88243d7469b57cbd6c3571edd4bd8580ea1";
+    version = "d3dd84df99333f19b04a2faef1972a89f35aee0f";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "97cfc88243d7469b57cbd6c3571edd4bd8580ea1";
+      rev = "d3dd84df99333f19b04a2faef1972a89f35aee0f";
       fetchSubmodules = false;
-      sha256 = "sha256-ib5K8LikQSCyIN0X56lnUAXAVCP0rGzyKqX4hIagb6c=";
+      sha256 = "sha256-cbHZZYq+/DNJ3+xF1SVWlTsh22el/nOp45uHjPGnL/k=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ib5K8LikQSCyIN0X56lnUAXAVCP0rGzyKqX4hIagb6c=/Cargo.lock";
+      lockFile = ./. + "/sha256-cbHZZYq+_DNJ3+xF1SVWlTsh22el_nOp45uHjPGnL_k=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-09-15";
+    date = "2026-09-19";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -372,13 +372,13 @@
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
-    version = "v4.1.0";
+    version = "v4.2.0";
     src = fetchFromGitHub {
       owner = "juliobbv-p";
       repo = "svt-av1-hdr";
-      rev = "v4.1.0";
+      rev = "v4.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-n66RPDTfBsPCR/4y8dpU3Au1WZHpkpln899e2+LKxto=";
+      sha256 = "sha256-axJ4C2gSQMdiGo6qLNxaQ5AWUuZp6gRnEI8Bx0B7tlw=";
     };
   };
   uosc-danmaku = {
