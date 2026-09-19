@@ -1,5 +1,6 @@
---- a/CMakeLists.txt	2026-08-22 10:52:35.924082216 -0700
-+++ b/CMakeLists.txt	2026-08-22 10:52:45.527791809 -0700
+diff -ru ela-old/CMakeLists.txt ela-new/CMakeLists.txt
+--- a/CMakeLists.txt	2026-09-19 01:42:35.986860476 -0700
++++ b/CMakeLists.txt	2026-09-19 01:42:36.260310937 -0700
 @@ -10,32 +10,11 @@
  set(CMAKE_CXX_STANDARD_REQUIRED ON)
  add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
@@ -7,7 +8,7 @@
 -#在这里配置QT路径 例如 D:/Qt/6.6.2/msvc2019_64 D:/Qt/5.15.2/msvc2019_64 /home/liniyous/Qt/5.15.2/gcc_64
 -SET(QT_SDK_DIR D:/Qt/5.15.2/msvc2019_64 CACHE PATH "QT SDK DIR" FORCE)
 -message("在CMAKE中配置 QT_SDK_DIR 选项指定QT路径; 当前路径: ${QT_SDK_DIR}")
--SET(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/Install CACHE PATH "Installation path" FORCE)
+-SET(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/Install/${QT_VERSION} CACHE PATH "Installation path" FORCE)
 -
  list(APPEND CMAKE_PREFIX_PATH ${QT_SDK_DIR})
  
@@ -33,8 +34,9 @@
  add_subdirectory(ElaWidgetTools)
  add_subdirectory(ElaWidgetToolsExample)
  
---- a/ElaWidgetTools/CMakeLists.txt	2026-08-22 10:52:35.924168701 -0700
-+++ b/ElaWidgetTools/CMakeLists.txt	2026-08-22 10:52:45.527952304 -0700
+diff -ru ela-old/ElaWidgetTools/CMakeLists.txt ela-new/ElaWidgetTools/CMakeLists.txt
+--- a/ElaWidgetTools/CMakeLists.txt	2026-09-19 01:42:35.986991350 -0700
++++ b/ElaWidgetTools/CMakeLists.txt	2026-09-19 01:42:36.260396041 -0700
 @@ -36,11 +36,12 @@
  add_library(Ela::WidgetTools ALIAS ${PROJECT_NAME})
  
@@ -94,8 +96,9 @@
 -    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${PROJECT_NAME}/lib/cmake
 +    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION lib/cmake
  )
---- a/ElaWidgetToolsExample/CMakeLists.txt	2026-08-22 10:52:35.929609225 -0700
-+++ b/ElaWidgetToolsExample/CMakeLists.txt	2026-08-22 10:52:45.528018749 -0700
+diff -ru ela-old/ElaWidgetToolsExample/CMakeLists.txt ela-new/ElaWidgetToolsExample/CMakeLists.txt
+--- a/ElaWidgetToolsExample/CMakeLists.txt	2026-09-19 01:42:36.007006241 -0700
++++ b/ElaWidgetToolsExample/CMakeLists.txt	2026-09-19 01:42:36.260452223 -0700
 @@ -41,9 +41,9 @@
      )
  endif ()

@@ -1236,10 +1236,9 @@ diff --git a/dom/media/webrtc/jsapi/PeerConnectionImpl.cpp b/dom/media/webrtc/js
 index 3050c592ce..ca8d24ca01 100644
 --- a/dom/media/webrtc/jsapi/PeerConnectionImpl.cpp
 +++ b/dom/media/webrtc/jsapi/PeerConnectionImpl.cpp
-@@ -32,6 +32,7 @@
+@@ -32,5 +32,6 @@
  #include "mozilla/IntegerPrintfMacros.h"
  #include "mozilla/Sprintf.h"
- #include "mozilla/StaticPrefs_media.h"
 +#include "mozilla/StaticPrefs_zoom.h"
  #include "mozilla/glean/DomMediaWebrtcMetrics.h"
  #include "mozilla/media/MediaUtils.h"

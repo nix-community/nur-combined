@@ -198,14 +198,13 @@ diff --git a/src/scanner.l b/src/scanner.l
 index c825fa7..7e5cad5 100644
 --- a/src/scanner.l
 +++ b/src/scanner.l
-@@ -462,6 +462,7 @@ addrstring	({macaddr}|{ip4addr}|{ip6addr})
- "snat"			{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return SNAT; }
- "dnat"			{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return DNAT; }
- "masquerade"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return MASQUERADE; }
-+"fullcone"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return FULLCONE; }
- "redirect"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return REDIRECT; }
+@@ -486,5 +486,6 @@
+ <*>"snat"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return SNAT; }
+ <*>"dnat"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return DNAT; }
+ <*>"masquerade"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return MASQUERADE; }
++<*>"fullcone"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return FULLCONE; }
+ <*>"redirect"		{ scanner_push_start_cond(yyscanner, SCANSTATE_STMT_NAT); return REDIRECT; }
  "random"		{ return RANDOM; }
- <SCANSTATE_STMT_NAT>{
 diff --git a/src/statement.c b/src/statement.c
 index 551cd13..0afbcc1 100644
 --- a/src/statement.c
