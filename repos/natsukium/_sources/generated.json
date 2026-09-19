@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-09-18",
+        "date": "2026-09-19",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "af60b25241b4853325ab55033bd38722e1543a9b",
-            "sha256": "sha256-qvizXab8KBLsseKWwxVAeaIgU+JK46kZxnNQdkfD53g=",
+            "rev": "049678bbc258bf6e5d7f54ce75849ed6691b3393",
+            "sha256": "sha256-qGWUSGvMI7N13NjE6y0nD//UEKSaMOdXICDINZt1V44=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "af60b25241b4853325ab55033bd38722e1543a9b"
+        "version": "049678bbc258bf6e5d7f54ce75849ed6691b3393"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "playwright-cli",
-            "rev": "v0.1.20",
-            "sha256": "sha256-MSBXygESmOlZi8qryAsUN6jb30RbysdEZRBXocrXZ14=",
+            "rev": "v0.1.21",
+            "sha256": "sha256-ZHfQBZQejJKNYfhszd99i4GIzEpomBzX0/HkMK2T8DQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.20"
+        "version": "v0.1.21"
     },
     "qmk-toolbox": {
         "cargoLock": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iW/VDZJH6+R0i3UHW+xoHKQTLUHLIh55RLEnIGVWdBA=",
+            "sha256": "sha256-ZsEU3XIUlvKwV9jWwV44Z5Yw4Fx6JNTsvF8gUSNbjGA=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.64.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.68.universal.dmg"
         },
-        "version": "8.2.4133.64"
+        "version": "8.2.4133.68"
     },
     "zen-browser": {
         "cargoLock": null,

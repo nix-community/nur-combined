@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "af60b25241b4853325ab55033bd38722e1543a9b";
+    version = "049678bbc258bf6e5d7f54ce75849ed6691b3393";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "af60b25241b4853325ab55033bd38722e1543a9b";
+      rev = "049678bbc258bf6e5d7f54ce75849ed6691b3393";
       fetchSubmodules = false;
-      sha256 = "sha256-qvizXab8KBLsseKWwxVAeaIgU+JK46kZxnNQdkfD53g=";
+      sha256 = "sha256-qGWUSGvMI7N13NjE6y0nD//UEKSaMOdXICDINZt1V44=";
     };
-    date = "2026-09-18";
+    date = "2026-09-19";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -60,13 +60,13 @@
   };
   playwright-cli = {
     pname = "playwright-cli";
-    version = "v0.1.20";
+    version = "v0.1.21";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "playwright-cli";
-      rev = "v0.1.20";
+      rev = "v0.1.21";
       fetchSubmodules = false;
-      sha256 = "sha256-MSBXygESmOlZi8qryAsUN6jb30RbysdEZRBXocrXZ14=";
+      sha256 = "sha256-ZHfQBZQejJKNYfhszd99i4GIzEpomBzX0/HkMK2T8DQ=";
     };
   };
   qmk-toolbox = {
@@ -111,10 +111,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "8.2.4133.64";
+    version = "8.2.4133.68";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.64.universal.dmg";
-      sha256 = "sha256-iW/VDZJH6+R0i3UHW+xoHKQTLUHLIh55RLEnIGVWdBA=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.68.universal.dmg";
+      sha256 = "sha256-ZsEU3XIUlvKwV9jWwV44Z5Yw4Fx6JNTsvF8gUSNbjGA=";
     };
   };
   zen-browser = {

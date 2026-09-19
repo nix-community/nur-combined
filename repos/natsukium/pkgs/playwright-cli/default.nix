@@ -11,7 +11,7 @@ buildNpmPackage (finalAttrs: {
 
   inherit (source) src;
 
-  npmDepsHash = "sha256-PZrjfveGYvPapua4eRV6FJRc9txh8OXSsbsxQmkiZPw=";
+  npmDepsHash = "sha256-aTn5CFeAzoH4J+TYiM4HOULzWAeyU3xmD4wkQdsJrGY=";
 
   dontNpmBuild = true;
 
