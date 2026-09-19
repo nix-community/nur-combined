@@ -21,12 +21,12 @@
 }:
 clangStdenv.mkDerivation {
   pname = "element";
-  version = "1.2.0-unstable-2026-09-14";
+  version = "1.2.0-unstable-2026-09-18";
   src = fetchFromGitHub {
     owner = "kushview";
     repo = "element";
-    rev = "25fe264ee5fcd911402feda688f58d7798ea33b3";
-    hash = "sha256-ileHWSuWg9sG/RTu2FoCYXFMzMOoXRsldP3ExoXCtJ8=";
+    rev = "bc83456b44c7dd7d8f9746de408997c4cc3c51b9";
+    hash = "sha256-bw7vedHSKeAOW7L+uuRcT4DBQ6ODfqDb1L0D2fPvLww=";
     fetchSubmodules = true;
   };
 

@@ -7,15 +7,15 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu-plugin-compress";
-  version = "0.2.5";
+  version = "0.2.11";
   src = fetchFromGitHub {
     owner = "yybit";
     repo = "nu_plugin_compress";
     rev = finalAttrs.version;
-    hash = "sha256-sm26bkBgZqPWaCUJxQqKiA8M/eROh6sCnIRrgxbJPTo=";
+    hash = "sha256-1JIT4LadPfAqZiA3VF/OlgOatnZ4UseLsGPge/X5ALI=";
   };
 
-  cargoHash = "sha256-HAnqF81WIDtrkpxlcXRgrp5qRl1PMj/dYBTjSaVpgkw=";
+  cargoHash = "sha256-lNEKD3VVzi4KPMBEyZHb1LkZ5sRlYSLRM6cae4zv4uY=";
 
   passthru.updateScript = nix-update-script { };
 
