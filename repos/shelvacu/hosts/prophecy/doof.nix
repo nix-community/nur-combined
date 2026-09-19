@@ -49,7 +49,16 @@ in
       netdevConfig = {
         Kind = "wireguard";
         Name = doof_if;
-        MTUBytes = 1300;
+        MTUBytes =
+          let
+            wireguardOverhead = 
+              20 # outer IPv4 header
+              + 8 # udp header
+              + 32 # wireguard header + auth
+              ;
+            wanMtu = 1492;
+          in
+          wanMtu - wireguardOverhead;
       };
       wireguardConfig = {
         # FirewallMark = "0xd00f";
@@ -57,7 +66,8 @@ in
       };
       wireguardPeers = lib.singleton {
         PublicKey = cfg.doofPubKey;
-        Endpoint = "tun-sea.doof.net:53263";
+        # Only connect to v4; it's got better MTU
+        Endpoint = "205.201.63.44:53263";
         AllowedIPs = [
           "0.0.0.0/0"
           "::/0"

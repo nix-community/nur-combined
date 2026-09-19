@@ -102,11 +102,10 @@ in
       "/ppl/java/java-backup" = {
         hostPath = "/propdata/java-files";
         access = ''
-          rwmd.: @java
+          rwmd.: java
           A: shelvacu
         '';
       };
-      #check this out shelly
       # "/general_access" = {
       #   hostPath = pkgs.emptyDirectory;
       #   access = "r: @general_access";
@@ -131,6 +130,7 @@ in
       };
 
       "/propdata/media/readme.md"."L".argument = vaculib.path ./media-readme.md;
+      "/propdata/java-files"."A+".argument = "user:copyparty:rwX,default:user:copyparty:rwX";
     };
   services.caddy.virtualHosts."2e14.t2d.lan" = {
     vacu.hsts = false;

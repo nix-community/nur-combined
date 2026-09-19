@@ -96,6 +96,7 @@
         {
           Gateway = config.vacuvmGuest.gateway;
           GatewayOnLink = true;
+          MTUBytes = 1432;
         }
       ]
       ++ lib.optionals (config.vacuvmGuest.ipv6 != null) [
@@ -106,6 +107,7 @@
         {
           Gateway = config.vacuvmGuest.ipv6Gateway;
           GatewayOnLink = true;
+          MTUBytes = 1432;
         }
       ];
     };

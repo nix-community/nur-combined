@@ -6,6 +6,7 @@ let
   lan_route = {
     Gateway = cfg.ips.t2dRouter;
     GatewayOnLink = true;
+    MTUBytes = 1492;
   };
 in
 {
