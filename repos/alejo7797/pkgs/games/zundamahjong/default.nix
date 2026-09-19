@@ -39,7 +39,7 @@ let
   };
 in
 
-python3Packages.buildPythonApplication {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "zundamahjong";
   inherit version;
   pyproject = true;
@@ -82,6 +82,12 @@ python3Packages.buildPythonApplication {
         "client"
       ];
     };
+
+    venv = python3Packages.python.withPackages (ps: [
+      ps.gunicorn
+      ps.psycopg
+      finalAttrs.finalPackage
+    ]);
   };
 
   meta = {
@@ -89,4 +95,4 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/faraplay/zundamahjong";
     license = lib.licenses.mit;
   };
-}
+})
