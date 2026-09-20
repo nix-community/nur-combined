@@ -85,7 +85,7 @@ pub(crate) fn paint_marked_text(
     );
     window.paint_quad(fill(ime_background_bounds, bg));
 
-    let _ = shaped_line.paint(ime_position, line_height, window, cx);
+    let _ = shaped_line.paint(ime_position, line_height, TextAlign::Left, None, window, cx);
 }
 
 pub(crate) struct TerminalInputHandler {

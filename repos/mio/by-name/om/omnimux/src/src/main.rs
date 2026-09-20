@@ -28,7 +28,7 @@ fn main() {
         std::env::set_var("GPUI_TOUCHSCREEN_DRAG_SCROLLS", if drag_scrolls { "1" } else { "0" });
     }
 
-    gpui::Application::new().run(move |cx: &mut gpui::App| {
+    gpui_platform::application().run(move |cx: &mut gpui::App| {
         gpui_component::init(cx);
         load_bundled_symbol_fonts(cx);
 

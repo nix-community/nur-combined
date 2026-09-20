@@ -178,7 +178,7 @@ pub fn render_search_bar(
                 .flex_row()
                 .items_center()
                 .gap_2()
-                .child(div().flex_grow().child(Input::new(&this.search_input).w_full()))
+                .child(div().flex_grow(1.).child(Input::new(&this.search_input).w_full()))
                 .child(
                     div()
                         .id("search_prev")

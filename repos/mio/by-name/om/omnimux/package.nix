@@ -9,6 +9,8 @@
   wayland,
   vulkan-loader,
   libGL,
+  fontconfig,
+  freetype,
   desktopToDarwinBundle,
   makeWrapper,
   nerd-fonts,
@@ -44,6 +46,9 @@ rustPlatform.buildRustPackage {
       wayland
       vulkan-loader
       libGL
+      # gpui-pre / zed-font-kit (font-kit feature on gpui-pre-platform)
+      fontconfig
+      freetype
     ];
 
   # Install .desktop + icon on all platforms so Linux gets a launcher entry and
@@ -75,6 +80,8 @@ rustPlatform.buildRustPackage {
           vulkan-loader
           libGL
           libxkbcommon
+          fontconfig
+          freetype
         ]
       }
     ''

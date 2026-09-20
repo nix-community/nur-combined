@@ -80,7 +80,7 @@ pub fn render_title_bar(
                 .flex()
                 .flex_row()
                 .items_center()
-                .flex_grow()
+                .flex_grow(1.)
                 .h_full()
                 .window_control_area(WindowControlArea::Drag)
                 // Wayland/X11 ignore WindowControlArea hit-tests; start a move

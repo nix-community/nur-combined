@@ -4,8 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-gpui = { version = "0.2.2", features = ["runtime_shaders"] }
-gpui-component = "0.5.1"
+gpui = { package = "gpui-pre", version = "0.3.5" }
+gpui-platform = { package = "gpui-pre-platform", version = "0.3.5", features = [
+    "wayland",
+    "x11",
+    "font-kit",
+] }
+gpui-component = "0.6.4"
 gpui-terminal = { path = "vendor/gpui-terminal" }
 glob = "0.3"
 portable-pty = "0.9.0"
@@ -15,9 +20,11 @@ serde_json = "1"
 # (xcb → zed-scap pulled in 0.30.0; not compiled on Linux but present in lockfile.)
 quick-xml = { version = "0.41", optional = true }
 
-# Wayland touchscreen support (wl_touch → mouse/scroll) until upstream merges
-# https://github.com/zed-industries/zed/pull/40139 into crates.io gpui.
+# Omnimux patches on the gpui-pre platform split:
+# - gpui-pre-linux: Wayland wl_touch + appearance RefCell + maximized resize
+# - gpui-pre-wgpu: cosmic-text emoji/Nerd fallback (Starship 🐍 tofu)
+# - gpui-pre-macos: CTFontManager + Nerd symbols bypass
 [patch.crates-io]
-gpui = { path = "vendor/gpui" }
-gpui-component = { path = "vendor/gpui-component" }
-
+gpui-pre-linux = { path = "vendor/gpui-pre-linux" }
+gpui-pre-wgpu = { path = "vendor/gpui-pre-wgpu" }
+gpui-pre-macos = { path = "vendor/gpui-pre-macos" }

@@ -130,7 +130,7 @@ impl TerminalTabs {
         if self.confirm_link_open {
             self.pending_open_url = Some(url);
             self.focus_ui = true;
-            self.focus_handle.focus(window);
+            self.focus_handle.focus(window, cx);
         } else {
             cx.open_url(&url);
         }
@@ -185,7 +185,7 @@ impl TerminalTabs {
         // Set state before focusing so on_focus_lost → restore_terminal_focus
         // sees context_menu.is_some() and does not steal focus back.
         self.context_menu = Some((menu, position, subscription));
-        window.focus(&menu_focus);
+        window.focus(&menu_focus, cx);
         cx.notify();
     }
 

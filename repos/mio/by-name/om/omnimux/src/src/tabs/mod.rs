@@ -219,7 +219,7 @@ impl TerminalTabs {
                 }
             }),
             cx.subscribe_in(&search_input, window, move |this, _, event, _, cx| {
-                if let InputEvent::PressEnter { secondary } = event {
+                if let InputEvent::PressEnter { secondary, .. } = event {
                     this.run_search(!secondary, cx);
                 }
             }),
@@ -233,7 +233,9 @@ impl TerminalTabs {
             cx.observe_window_bounds(window, |this, window, cx| {
                 let window_handle = window.window_handle();
                 cx.spawn(async move |_, cx| {
-                    gpui::Timer::after(std::time::Duration::from_millis(500)).await;
+                    cx.background_executor()
+                        .timer(std::time::Duration::from_millis(500))
+                        .await;
                     let _ = window_handle.update(cx, |_, window, _| {
                         crate::settings::save_window_maximized(window.is_maximized());
                     });
@@ -355,7 +357,7 @@ impl Render for TerminalTabs {
                 deferred(
                     anchored()
                         .position(*position)
-                        .anchor(Corner::TopLeft)
+                        .anchor(Anchor::TopLeft)
                         .snap_to_window_with_margin(Edges::all(px(8.)))
                         .child(menu.clone()),
                 )

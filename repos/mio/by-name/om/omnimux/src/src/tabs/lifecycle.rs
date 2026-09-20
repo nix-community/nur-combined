@@ -106,7 +106,7 @@ impl TerminalTabs {
 
         let tabs = cx.entity().downgrade();
         cx.spawn(async move |_, cx| {
-            gpui::Timer::after(wait).await;
+            cx.background_executor().timer(wait).await;
             let _ = tabs.update(cx, |tabs, cx| {
                 if let Some(index) = tabs.tab_index_for(&session_weak) {
                     tabs.schedule_reconnect(index, cx);

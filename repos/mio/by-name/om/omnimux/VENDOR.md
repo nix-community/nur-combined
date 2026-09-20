@@ -116,72 +116,58 @@ Keep `src/`, `Cargo.toml`, `LICENSE-APACHE`, `.cargo_vcs_info.json`. Do **not** 
 
 ---
 
-# Vendored gpui-ce 0.3.3 (Wayland touch)
+# Vendored gpui-pre platform crates (0.3.5)
 
-Omnimux uses the community fork `gpui-ce` 0.3.3 + `gpui-component` 0.5.1.
-Upstream GPUI (and `gpui-ce`) on Wayland ignores `wl_touch`, so touchscreen
-taps never become clicks. We vendor the published `gpui-ce` 0.3.3 crates.io
-tree and port our Wayland touch and appearance observer patches onto it.
+Omnimux depends on crates.io **`gpui-pre` 0.3.5** + **`gpui-pre-platform`** +
+**`gpui-component` 0.6.4** (no longer vendors the monolithic `gpui-ce` tree).
+Platform backends are split: we path-patch only the crates that carry Omnimux
+deltas via `[patch.crates-io]` in `src/Cargo.toml`.
 
-Cargo picks it up via `[patch.crates-io]` in `by-name/om/omnimux/src/Cargo.toml`.
-Note that because `gpui-component` 0.5.1 expects a dependency named `gpui` version 0.2.2,
-we rename `gpui-ce` to `gpui` in its `Cargo.toml` and trick the version resolution so
-that `gpui-component` seamlessly builds against it.
+| Vendored crate | Upstream | Why patched |
+| --- | --- | --- |
+| `vendor/gpui-pre-linux` | `gpui-pre-linux` 0.3.5 (zed@d89e9c2) | Wayland `wl_touch`, pointer press orphan fix, XDP appearance RefCell, maximized resize guard |
+| `vendor/gpui-pre-wgpu` | `gpui-pre-wgpu` 0.3.5 | cosmic-text emoji / Nerd fallback (Starship `🐍` tofu) |
+| `vendor/gpui-pre-macos` | `gpui-pre-macos` 0.3.5 | `CTFontManagerRegisterGraphicsFont` + Nerd symbols `has_m_glyph` bypass |
 
-## Baseline
+App entry uses `gpui_platform::application()` (platforms no longer live inside `gpui`).
 
-| | |
-| --- | --- |
-| Crate | `gpui-ce` 0.3.3 |
-| crates.io checksum | (Automatically handled by Cargo/Nix) |
-| License | Apache-2.0 (see `LICENSE-APACHE`) |
+## Local changes (vs stock 0.3.5)
 
-## Local changes (vs stock gpui-ce 0.3.3)
+Touch source: [zed#40139](https://github.com/zed-industries/zed/pull/40139) /
+`robert7k` `feature/touch-events` (still not in this gpui-pre snapshot). Pinch-to-zoom
+from that PR omitted (`KeyDownEvent` lacks the fields it needs).
 
-Source of the touch logic:
-[zed#40139](https://github.com/zed-industries/zed/pull/40139) /
-`robert7k` `feature/touch-events`, adapted to the monolithic
-layout of `gpui-ce`.
+**`gpui-pre-linux`**
 
-- `serial.rs`: add `SerialKind::Touch`.
-- `client.rs`: bind `wl_touch` from seat capabilities; map single-finger
-  down/motion/up to mouse down/move/up; map two-finger pan to scroll.
-- Pinch-to-zoom from upstream omitted (`KeyDownEvent` in GPUI lacks fields that PR uses).
-- On touch down, set `mouse_focused_window` from the touched surface so up/move
-  reach the window even if the pointer never entered (gap in the upstream PR).
-- Also keep `touch_window` + `touch_mouse_down_sent` so a later pointer Leave
-  cannot orphan MouseUp, Cancel synthesizes MouseUp (not only MouseExited),
-  and ending a two-finger scroll does not re-assert `button_pressed`.
-- Pointer MouseDown similarly remembers `pointer_button_window` across
-  `wl_pointer::Leave`, so Button release still delivers MouseUp (same orphan class as touch). Enter does not clear an in-flight press.
-- Touch uses the same multi-click (`click_count`) tracking as `wl_pointer`, so
-  title-bar double-tap can maximize like a mouse double-click.
-- Added `GPUI_TOUCHSCREEN_DRAG_SCROLLS` environment variable logic. When enabled,
-  a single-finger touch motion emulates a scroll wheel (if it exceeds an 8px threshold)
-  instead of emulating a left-click drag, improving touch scrolling on Wayland.
-- `Pixels`: use `f32::from(...)` instead of `.as_f32()` because Wayland coordinates are `f64`.
-- `platform/linux/text_system.rs` and `platform/mac/text_system.rs`: extend cosmic-text's Unix font fallback list
-  with `Symbols Nerd Font Mono` / `Symbols Nerd Font`. Put `Noto Color Emoji` **first** in the common fallback list.
-  Strip system emoji thieves (COLRv1 / google-fonts `Noto Color Emoji`, broken `Noto Color Emoji Compat Test`,
-  outline `Noto Emoji`, Unifont*, Segoe UI Emoji/Symbol) so bundled CBDT emoji from `add_fonts` wins — otherwise
-  Starship `yellow bold` python `🐍` shapes with Compat Test and paints as yellow tofu. Also list those families
-  in `forbidden_fallback`. Restored `is_nerd_font_symbols` check to bypass `has_m_glyph` for symbols fonts.
-- `platform/mac/text_system.rs`: explicitly register graphics fonts (like bundled icons) via `CTFontManagerRegisterGraphicsFont` so that macOS `CoreText` fallback shaping correctly locates and renders them.
-- Wayland/X11 XDP appearance handler: drop the client `RefCell` borrow before
-  `set_appearance` (observers may call `Platform::window_appearance` →
-  `with_common`). Also take-call-restore for the appearance callback.
-- `window.rs` (Wayland): added `if state.maximized { return; }` to `start_window_resize` to prevent
-  misbehaving window dragging when maximized.
+- `wayland/serial.rs`: `SerialKind::Touch`.
+- `wayland/client.rs`: bind `wl_touch` from seat capabilities; single-finger → mouse
+  down/move/up; two-finger pan → scroll. On touch down, set `mouse_focused_window`
+  from the touched surface so up/move work without a prior pointer Enter. Keep
+  `touch_window` + `touch_mouse_down_sent` so pointer Leave cannot orphan MouseUp;
+  Cancel synthesizes MouseUp; ending two-finger scroll does not re-assert
+  `button_pressed`. Same multi-click tracking as `wl_pointer` (title-bar double-tap).
+  `pointer_button_window` across `wl_pointer::Leave` for the same orphan class.
+  `GPUI_TOUCHSCREEN_DRAG_SCROLLS` (default on): single-finger motion past 8px becomes
+  scroll instead of drag. XDP appearance: drop client `RefCell` before `set_appearance`.
+- `wayland/window.rs`: skip `start_window_resize` when maximized.
+- `x11/client.rs`: same XDP appearance borrow fix.
+
+**`gpui-pre-wgpu`** (`cosmic_text_system.rs`)
+
+- Custom `TerminalSymbolFallback`: put bundled CBDT **Noto Color Emoji** first, then
+  Symbols Nerd Font Mono / Symbols Nerd Font; forbid Compat Test / outline Noto Emoji /
+  Unifont* / Segoe emoji. Strip competing system faces so Starship bold `🐍` does not
+  paint yellow tofu.
+- `remove_competing_emoji_faces` before `FontSystem::new_with_locale_and_db_and_fallback`.
+
+**`gpui-pre-macos`** (`text_system.rs`)
+
+- Register bundled fonts with `CTFontManagerRegisterGraphicsFont`.
+- Treat Symbols Nerd Font like Segoe Fluent Icons for the `m`-glyph load gate.
+
+`gpui-component` 0.6.4 is used from crates.io (maximized window-border guard is upstream).
+Default theme still ships a `drag_border` JSON key while schema expects `drag.border`;
+serde ignores the typo and falls back to `primary` — acceptable, not worth re-vendoring
+the whole crate for.
 
 ---
-
-# gpui-component
-
-This directory contains a vendored copy of `gpui-component` version 0.5.1 from crates.io.
-
-## Local Patches:
-- **`src/window_border.rs`**: Modified `on_mouse_down` and the hover handler to return early if `window.is_maximized()`. This prevents the resize icon from appearing on the edges of the screen when the window is maximized.
-- **`src/table/state.rs` & `src/tree.rs`**: Adjusted `track_scroll` to pass `&UniformListScrollHandle` instead of an owned `UniformListScrollHandle`, ensuring compatibility with the updated `gpui-ce` API.
-- **`src/theme/default-theme.json`**: Fixed `drag_border` typo (to `drag.border`) so that it parses correctly, and increased `drop_target.background` opacity in dark mode to improve visibility for tab drag indicators.
-
-We use this vendored version so we can use it with our custom `gpui-ce` base.

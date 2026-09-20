@@ -1003,7 +1003,7 @@ impl TerminalView {
         window: &mut Window,
         cx: &mut Context<Self>,
     ) {
-        window.focus(&self.focus_handle);
+        window.focus(&self.focus_handle, cx);
 
         // Ctrl + left click → open URL when a handler is set.
         let link_modifier = event.modifiers.control;
@@ -1840,7 +1840,7 @@ impl Render for TerminalView {
                             view.apply_pinned_selection();
                         });
 
-                        let mut term = state_arc.lock();
+                        let term = state_arc.lock();
 
                         // Paint the terminal with measured dimensions
                         measured_renderer.paint(

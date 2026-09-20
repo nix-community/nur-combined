@@ -54,7 +54,7 @@ impl TerminalTabs {
         };
         session.update(cx, |session, cx| session.clear_bell(cx));
         let tv = session.read(cx).terminal_view.clone();
-        tv.read(cx).focus_handle().clone().focus(window);
+        tv.read(cx).focus_handle().clone().focus(window, cx);
         cx.on_next_frame(window, |this, window, cx| {
             if this.show_host_prompt
                 || this.show_search
@@ -73,7 +73,7 @@ impl TerminalTabs {
                 .read(cx)
                 .focus_handle()
                 .clone()
-                .focus(window);
+                .focus(window, cx);
         });
     }
 
@@ -81,14 +81,14 @@ impl TerminalTabs {
         self.host_input
             .read(cx)
             .focus_handle(cx)
-            .focus(window);
+            .focus(window, cx);
     }
 
     pub(crate) fn focus_search_input(&mut self, window: &mut Window, cx: &mut Context<Self>) {
         self.search_input
             .read(cx)
             .focus_handle(cx)
-            .focus(window);
+            .focus(window, cx);
     }
 
     pub(crate) fn apply_pending_focus(&mut self, window: &mut Window, cx: &mut Context<Self>) {
@@ -99,7 +99,7 @@ impl TerminalTabs {
             } else if self.show_search {
                 self.focus_search_input(window, cx);
             } else if self.show_settings || self.pending_open_url.is_some() {
-                self.focus_handle.focus(window);
+                self.focus_handle.focus(window, cx);
             }
             return;
         }

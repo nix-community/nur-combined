@@ -418,7 +418,9 @@ fi"#;
                     let entity = cx.entity().downgrade();
                     cx.spawn(async move |_, cx| {
                         for _ in 0..20 {
-                            gpui::Timer::after(std::time::Duration::from_millis(1)).await;
+                            cx.background_executor()
+                                .timer(std::time::Duration::from_millis(1))
+                                .await;
                             if let Ok(mut child) = child_arc.lock() {
                                 if let Ok(Some(status)) = child.try_wait() {
                                     let code = status.exit_code();
