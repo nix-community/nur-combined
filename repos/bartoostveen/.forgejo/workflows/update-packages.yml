@@ -37,7 +37,7 @@ jobs:
       matrix: ${{ fromJson(needs.eval.outputs.matrix) }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: actions/setup-home@a4a889b9c11347ff52afd33bd731618604bbb8b1 # v1
+      - uses: actions/setup-home@24f381c90fb24e9f090418dbce83d326b014f4ef # v1
         with:
           gpg-privkey: ${{ secrets.GPG_PRIVKEY }}
           gpg-key-id: ${{ vars.GPG_KEY_ID }}
