@@ -211,7 +211,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>rime-ice-unstable</code></strong> — Rime 配置：雾凇拼音 | 长期维护的简体词库</summary>
 
-- **Version:** `2026.06.30-unstable-2026-09-18`
+- **Version:** `2026.06.30-unstable-2026-09-19`
 - **License:** GPL-3.0-only
 - **Homepage:** [https://github.com/iDvel/rime-ice](https://github.com/iDvel/rime-ice)
 - **Build:** `nix build github:XYenon/nur-packages#rime-ice-unstable`
