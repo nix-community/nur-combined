@@ -2,7 +2,7 @@
   stdenvNoCC,
   fetchurl,
   _7zz,
-  lib,
+  lib
 }:
 let
   ver = lib.helper.read ./version.json;
