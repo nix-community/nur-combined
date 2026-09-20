@@ -212,6 +212,10 @@ stdenv.mkDerivation (finalAttrs: {
     # development settings
     (lib.cmakeBool "BUILD_UNITTESTS" finalAttrs.doInstallCheck)
   ]
+  ++ lib.optionals withSpatial [
+    # Match spatial's dependencies to avoid mixing C++11 and C++17 constexpr symbols.
+    (lib.cmakeFeature "CMAKE_CXX_STANDARD" "17")
+  ]
   ++ lib.optionals (!canRunHostBinaries) [
     (lib.cmakeFeature "DUCKDB_EXPLICIT_PLATFORM" duckdbPlatform)
   ];
