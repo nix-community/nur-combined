@@ -69,6 +69,7 @@ jobs:
       if: steps.after.outputs.changed == 'true'
       uses: peter-evans/create-pull-request@v8
       with:
+        token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/${{ matrix.package }}-${{ steps.after.outputs.version }}
         commit-message: "${{ matrix.package }}: ${{ steps.before.outputs.version }} -> ${{ steps.after.outputs.version }}"
         title: "${{ matrix.package }}: ${{ steps.before.outputs.version }} -> ${{ steps.after.outputs.version }}"
@@ -139,6 +140,7 @@ jobs:
       if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'true'
       uses: peter-evans/create-pull-request@v8
       with:
+        token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/oneaws-${{ steps.check.outputs.version }}
         commit-message: "oneaws: ${{ steps.before.outputs.version }} -> ${{ steps.check.outputs.version }}"
         title: "oneaws: ${{ steps.before.outputs.version }} -> ${{ steps.check.outputs.version }}"
@@ -153,6 +155,7 @@ jobs:
       if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'false'
       uses: peter-evans/create-pull-request@v8
       with:
+        token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/oneaws-deps
         commit-message: "oneaws: update dependencies"
         title: "oneaws: update dependencies"
@@ -234,6 +237,7 @@ jobs:
       if: steps.after.outputs.changed == 'true'
       uses: peter-evans/create-pull-request@v8
       with:
+        token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/chatgpt-${{ steps.fetch.outputs.version }}
         commit-message: "chatgpt: ${{ steps.before.outputs.version }} -> ${{ steps.fetch.outputs.version }}"
         title: "chatgpt: ${{ steps.before.outputs.version }} -> ${{ steps.fetch.outputs.version }}"

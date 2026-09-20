@@ -10,19 +10,19 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "ccpocket-bridge";
-  version = "1.81.5";
+  version = "1.83.0";
 
   src = fetchFromGitHub {
     owner = "K9i-0";
     repo = "ccpocket";
     rev = "bridge/v${finalAttrs.version}";
-    hash = "sha256-SJ4Hm8ncBHeK3/HZwjR3WfWTXOgulNXGOY7tK0wFzps=";
+    hash = "sha256-qWUd4QDVTamFSsgzJdcl8fvuSaCHN1Kot3Ex7Q5TBvY=";
   };
 
   patches = [ ./sdk-process-claude-path.patch ];
 
   npmWorkspace = "packages/bridge";
-  npmDepsHash = "sha256-lpvSGa/t5I7LOszhmw6yMksDhqjRoel/1Zpu/xTHOR8=";
+  npmDepsHash = "sha256-Chy/HyRYQI7XbBG7YIngCyq5mw5E0JaGgNfJoNfpnRQ=";
 
   nodejs = nodejs_22;
 

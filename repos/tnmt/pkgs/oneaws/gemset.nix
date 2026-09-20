@@ -14,10 +14,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0l49y6cafq6whskhq8jrzsd8k2wvgla34sjnnilzzk5ydkxp4mlm";
+      sha256 = "1jl9v6vrqgqvic7928z92sq8nwr41zpvpdaxdib56ib524qcgx3n";
       type = "gem";
     };
-    version = "1.1286.0";
+    version = "1.1287.0";
   };
   aws-sdk-core = {
     dependencies = ["aws-eventstream" "aws-partitions" "aws-sigv4" "base64" "bigdecimal" "jmespath" "logger" "rexml"];
@@ -25,10 +25,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "04hsw6f8wwg5afpm4f30zl8lyacgm64ananxfylx2fij31l0ls2l";
+      sha256 = "1iljck5b1s02vagyvgivg9j81nk2wl721qwfd33cws7ngyfd2am9";
       type = "gem";
     };
-    version = "3.256.0";
+    version = "3.257.0";
   };
   aws-sigv4 = {
     dependencies = ["aws-eventstream"];
