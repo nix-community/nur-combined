@@ -9,6 +9,7 @@ makePakeApp {
   appName = "ChatGPT";
   url = "https://chatgpt.com/";
   icon = fetchurl {
+    name = "chatgpt-icon.png";
     url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/OpenAI_logo_2025_%28symbol%29.svg/1280px-OpenAI_logo_2025_%28symbol%29.svg.png";
     hash = "sha256-SurkxSXH7J9CYmzFeiSDKgp7aHFSWRSwpkYPb9bxfxc=";
   };
