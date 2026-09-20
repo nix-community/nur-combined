@@ -17,6 +17,7 @@
   noto-fonts-color-emoji,
   hack-font,
   tmux,
+  libiconv,
 }:
 
 rustPlatform.buildRustPackage {
@@ -39,6 +40,7 @@ rustPlatform.buildRustPackage {
   buildInputs =
     lib.optionals stdenv.hostPlatform.isDarwin [
       apple-sdk_14
+      libiconv
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libxcb
@@ -50,6 +52,10 @@ rustPlatform.buildRustPackage {
       fontconfig
       freetype
     ];
+
+  buildFeatures = lib.optionals stdenv.hostPlatform.isDarwin [
+    "gpui-platform/runtime_shaders"
+  ];
 
   # Install .desktop + icon on all platforms so Linux gets a launcher entry and
   # Darwin's desktopToDarwinBundle can generate $out/Applications/Omnimux.app.
