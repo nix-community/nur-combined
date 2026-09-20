@@ -5,11 +5,16 @@
       inputs.disko.nixosModules.disko
     ];
     fileSystems."/persist".neededForBoot = true;
+    swapDevices = [
+      {
+        device = "/dev/disk/by-partuuid/2ba02b7f-979f-48e8-afba-158f0f37e125";
+      }
+    ];
+
     disko = {
       devices = {
         disk = {
           main = {
-            # imageSize = "2G";
             device = "/dev/sda";
             type = "disk";
             content = {

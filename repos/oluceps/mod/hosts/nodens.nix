@@ -50,7 +50,7 @@
       xray.configFile = config.vaultix.secrets.xray.path;
 
       zramSwap = {
-        enable = true;
+        enable = false;
         swapDevices = 1;
         memoryPercent = 50;
         algorithm = "lz4";
@@ -80,6 +80,12 @@
           "earlyprintk=ttyS0"
           "rootdelay=300"
           "19200n8"
+
+          "zswap.enabled=1"
+          "zswap.compressor=zstd"
+          "zswap.zpool=zsmalloc"
+          "zswap.max_pool_percent=25"
+          "zswap.shrinker_enabled=1"
         ];
         initrd = {
           compressor = "zstd";
