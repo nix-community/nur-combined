@@ -1,0 +1,488 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# ///
+"""Reorder Herdr workspaces.
+
+Ensure each linked worktree has an open main-checkout workspace and is
+nested under it, then order: this checkout first, other mains with their
+worktrees nested (path sort), non-git last.
+"""
+
+import json
+import os
+import socket
+import subprocess
+import sys
+from collections import defaultdict
+from dataclasses import dataclass
+from functools import cache
+from pathlib import Path
+
+PIN = Path(__file__).resolve().parent
+LAYOUT_ROOTS = (
+    Path.home() / ".grok" / "worktrees",
+    Path.home() / ".herdr" / "worktrees",
+)
+
+
+@dataclass
+class Row:
+    workspace_id: str
+    label: str
+    checkout: Path | None
+    repo_root: Path | None
+    linked: bool
+    source: str
+    repo_name: str | None = None
+
+
+def paint(code: str | None, text: str) -> str:
+    if not code or os.environ.get("NO_COLOR"):
+        return text
+    if not sys.stdout.isatty() and not os.environ.get("FORCE_COLOR"):
+        return text
+    return f"\033[{code}m{text}\033[0m"
+
+
+def herdr(*args: str) -> dict:
+    proc = subprocess.run(["herdr", *args], capture_output=True, text=True)
+    if proc.returncode != 0:
+        sys.stderr.write(proc.stderr or proc.stdout)
+        raise SystemExit(proc.returncode)
+    return json.loads(proc.stdout)
+
+
+def herdr_try(*args: str) -> dict | None:
+    proc = subprocess.run(["herdr", *args], capture_output=True, text=True)
+    if proc.returncode != 0:
+        err = (proc.stderr or proc.stdout).strip()
+        print(paint("33", f"  herdr {' '.join(args)}: {err}"))
+        return None
+    return json.loads(proc.stdout)
+
+
+@cache
+def git_info(path: Path) -> tuple[Path, Path, bool] | None:
+    proc = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(path),
+            "rev-parse",
+            "--path-format=absolute",
+            "--show-toplevel",
+            "--git-common-dir",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        return None
+    lines = proc.stdout.splitlines()
+    toplevel = Path(lines[0]).resolve()
+    common = Path(lines[1]).resolve()
+    repo_root = common.parent if common.name == ".git" else common
+    return toplevel, repo_root, toplevel != repo_root
+
+
+def layout_slug(path: Path) -> str | None:
+    resolved = path.resolve()
+    for root in LAYOUT_ROOTS:
+        try:
+            rel = resolved.relative_to(root.resolve())
+        except ValueError:
+            continue
+        if len(rel.parts) >= 2:
+            return rel.parts[0]
+    return None
+
+
+def match_slug(slug: str, known: list[tuple[str, Path]]) -> Path | None:
+    slug_l = slug.lower()
+    hits = [
+        (name, root)
+        for name, root in known
+        if slug_l == name or slug_l.endswith("-" + name)
+    ]
+    if not hits:
+        return None
+    return max(hits, key=lambda item: len(item[0]))[1]
+
+
+def classify(ws: dict, cwd: str | None) -> Row:
+    wt = ws.get("worktree")
+    if wt:
+        return Row(
+            ws["workspace_id"],
+            ws["label"],
+            Path(wt["checkout_path"]).resolve(),
+            Path(wt["repo_root"]).resolve(),
+            bool(wt["is_linked_worktree"]),
+            "herdr",
+            wt.get("repo_name"),
+        )
+    checkout = Path(cwd).resolve() if cwd else None
+    info = git_info(checkout) if checkout else None
+    if info is None:
+        return Row(ws["workspace_id"], ws["label"], checkout, None, False, "git")
+    _, repo_root, linked = info
+    return Row(
+        ws["workspace_id"],
+        ws["label"],
+        checkout,
+        repo_root,
+        linked,
+        "git",
+        repo_root.name,
+    )
+
+
+def git_run(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", "-C", str(repo), *args], capture_output=True, text=True
+    )
+
+
+def ensure_branch(repo: Path, name: str) -> bool:
+    if git_run(repo, "show-ref", "--verify", "--quiet", f"refs/heads/{name}").returncode == 0:
+        return True
+    if git_run(repo, "show-ref", "--verify", "--quiet", f"refs/remotes/origin/{name}").returncode != 0:
+        return False
+    print(paint("36", f"+ git -C {repo} branch --track {name} origin/{name}"))
+    proc = git_run(repo, "branch", "--track", name, f"origin/{name}")
+    if proc.returncode != 0:
+        sys.stderr.write(proc.stderr)
+        return False
+    return True
+
+
+def relink_worktree(checkout: Path, repo_root: Path) -> bool:
+    if git_info(checkout):
+        return True
+    name = checkout.name
+    if not ensure_branch(repo_root, name):
+        print(paint("33", f"  no branch {name} in {repo_root}"))
+        return False
+    gitdir = repo_root / ".git"
+    if not gitdir.is_dir():
+        print(paint("33", f"  {repo_root} has no .git directory"))
+        return False
+    admin = gitdir / "worktrees" / name
+    print(paint("36", f"+ relink {checkout} -> {admin}"))
+    admin.mkdir(parents=True, exist_ok=True)
+    (admin / "commondir").write_text("../..\n")
+    (admin / "gitdir").write_text(f"{checkout / '.git'}\n")
+    (admin / "HEAD").write_text(f"ref: refs/heads/{name}\n")
+    (checkout / ".git").write_text(f"gitdir: {admin}\n")
+    git_run(repo_root, "worktree", "repair", str(checkout))
+    git_info.cache_clear()
+    if git_info(checkout) is None:
+        print(paint("33", "  relink failed"))
+        return False
+    print(paint("32", "  git worktree restored"))
+    return True
+
+
+def infer_repo_root(checkout: Path) -> Path | None:
+    parent = checkout.parent
+    if not parent.is_dir():
+        return None
+    for sibling in sorted(parent.iterdir()):
+        if sibling == checkout or not sibling.is_dir():
+            continue
+        info = git_info(sibling)
+        if info is not None:
+            return info[1]
+    return None
+
+
+def worktree_open(
+    path: Path,
+    label: str,
+    *,
+    workspace: str | None = None,
+    cwd: Path | None = None,
+) -> dict | None:
+    args = ["worktree", "open", "--path", str(path), "--label", label, "--no-focus"]
+    shown = ["+ herdr worktree open"]
+    if workspace:
+        args.extend(["--workspace", workspace])
+        shown.append(f"--workspace {workspace}")
+    if cwd:
+        args.extend(["--cwd", str(cwd)])
+        shown.append(f"--cwd {cwd}")
+    shown.append(f"--path {path} --label {label} --no-focus")
+    print(paint("36", " ".join(shown)))
+    data = herdr_try(*args)
+    return None if data is None else data.get("result")
+
+
+def ensure_topology(rows: list[Row]) -> int:
+    groups: dict[Path, list[Row]] = defaultdict(list)
+    for row in rows:
+        if row.repo_root is not None:
+            groups[row.repo_root].append(row)
+    n = 0
+    for root, group in sorted(groups.items(), key=lambda item: str(item[0])):
+        linked = [row for row in group if row.linked]
+        mains = [row for row in group if not row.linked]
+        if not linked:
+            continue
+        if mains:
+            parent = mains[0].workspace_id
+        else:
+            if git_info(root) is None:
+                print(paint("33", f"  no main checkout at {root}"))
+                continue
+            label = next((row.repo_name for row in group if row.repo_name), root.name)
+            result = worktree_open(root, label, cwd=root)
+            if result is None:
+                continue
+            parent = result["workspace"]["workspace_id"]
+            already = result.get("already_open")
+            extra = ", already open" if already else ""
+            print(paint("32", f"  opened main {label} ({parent}{extra})"))
+            n += 1
+        for row in linked:
+            if row.source == "herdr" or row.checkout is None:
+                continue
+            if not relink_worktree(row.checkout, root):
+                continue
+            result = worktree_open(row.checkout, row.label, workspace=parent, cwd=root)
+            if result is None:
+                continue
+            already = result.get("already_open")
+            ws_id = result.get("workspace", {}).get("workspace_id", "?")
+            extra = ", already open" if already else ""
+            print(
+                paint("35", f"  nested {row.label} under {root.name} ({ws_id}{extra})")
+            )
+            n += 1
+    return n
+
+
+def attach_layout_worktrees(rows: list[Row]) -> None:
+    known: list[tuple[str, Path]] = []
+    for row in rows:
+        if row.repo_root is None:
+            continue
+        known.append((row.repo_root.name.lower(), row.repo_root))
+        if row.repo_name:
+            known.append((row.repo_name.lower(), row.repo_root))
+    for row in rows:
+        if row.repo_root is not None or row.checkout is None:
+            continue
+        slug = layout_slug(row.checkout)
+        if slug is None:
+            continue
+        print(paint("36", f"+ layout {row.checkout}"))
+        root = match_slug(slug, known) or infer_repo_root(row.checkout)
+        if root is None:
+            print(paint("33", f"  {row.label}: worktree layout {slug}, no main repo found"))
+            continue
+        row.linked = True
+        row.source = "layout"
+        row.repo_root = root
+        row.repo_name = root.name
+        print(paint("35", f"  {row.label}: worktree of {root}"))
+
+
+def criterion(row: Row) -> str:
+    if row.checkout == PIN:
+        return "this checkout first"
+    if row.repo_root == PIN:
+        return "worktree nested under this checkout"
+    if row.linked and row.repo_root is not None:
+        return f"worktree nested under {row.repo_root}"
+    if row.repo_root is not None:
+        return f"main checkout {row.repo_root}"
+    return "not a git repo, last"
+
+
+def _key(row: Row) -> tuple[str, str, str]:
+    return (str(row.checkout or ""), row.label, row.workspace_id)
+
+
+def desired_order(rows: list[Row]) -> list[Row]:
+    pin_main: list[Row] = []
+    pin_wt: list[Row] = []
+    groups: dict[Path, list[Row]] = defaultdict(list)
+    nongit: list[Row] = []
+    for row in rows:
+        if row.checkout == PIN:
+            pin_main.append(row)
+        elif row.repo_root == PIN:
+            pin_wt.append(row)
+        elif row.repo_root is not None:
+            groups[row.repo_root].append(row)
+        else:
+            nongit.append(row)
+    out = sorted(pin_main, key=_key) + sorted(pin_wt, key=_key)
+    for root in sorted(groups, key=str):
+        group = groups[root]
+        mains = sorted((r for r in group if not r.linked), key=_key)
+        wts = sorted((r for r in group if r.linked), key=_key)
+        out.extend(mains)
+        out.extend(wts)
+    out.extend(sorted(nongit, key=_key))
+    return out
+
+
+def print_table(
+    rows: list[tuple[str, ...]], paints: list[tuple[str | None, ...]]
+) -> None:
+    if not rows:
+        return
+    widths = [max(len(row[i]) for row in rows) for i in range(len(rows[0]))]
+    for row, codes in zip(rows, paints):
+        cells = [paint(codes[0], row[0].rjust(widths[0]))]
+        cells.extend(
+            paint(code, cell.ljust(width))
+            for cell, width, code in zip(row[1:], widths[1:], codes[1:])
+        )
+        print("  ".join(cells).rstrip())
+
+
+def herdr_rpc(method: str, params: dict) -> dict:
+    status = herdr("status", "--json")
+    sock_path = status.get("server", {}).get("socket")
+    if not sock_path:
+        raise SystemExit("herdr server is not running")
+    req = {"id": "reorder_herdr_workspaces", "method": method, "params": params}
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
+        sock.connect(sock_path)
+        sock.sendall((json.dumps(req) + "\n").encode())
+        buf = bytearray()
+        while True:
+            chunk = sock.recv(1 << 16)
+            if not chunk:
+                break
+            buf.extend(chunk)
+            if b"\n" in buf:
+                break
+    if not buf:
+        raise SystemExit(f"empty reply from herdr {method}")
+    resp = json.loads(buf)
+    err = resp.get("error")
+    if err:
+        raise SystemExit(f"herdr {method}: {err.get('code')}: {err.get('message')}")
+    return resp.get("result") or {}
+
+
+def kind_of(row: Row) -> str:
+    if row.linked:
+        return "worktree"
+    if row.repo_root is not None:
+        return "repo"
+    return "dir"
+
+
+def kind_color(row: Row) -> str:
+    if row.checkout == PIN:
+        return "1;36"
+    if row.linked:
+        return "35"
+    if row.repo_root is not None:
+        return "32"
+    return "33"
+
+
+def collect_rows() -> tuple[list[dict], list[Row]]:
+    print(paint("36", "+ herdr workspace list"))
+    workspaces = herdr("workspace", "list")["result"]["workspaces"]
+    print(paint("2", f"  {len(workspaces)} workspaces"))
+
+    print(paint("36", "+ herdr pane list"))
+    cwd_by_ws: dict[str, str] = {}
+    panes = herdr("pane", "list")["result"]["panes"]
+    for pane in panes:
+        cwd_by_ws.setdefault(pane["workspace_id"], pane.get("cwd"))
+    print(paint("2", f"  {len(panes)} panes"))
+
+    rows: list[Row] = []
+    probed = 0
+    for ws in workspaces:
+        cwd = cwd_by_ws.get(ws["workspace_id"])
+        if ws.get("worktree"):
+            row = classify(ws, cwd)
+        else:
+            probed += 1
+            target = cwd or "-"
+            print(paint("36", f"+ git -C {target} rev-parse --show-toplevel --git-common-dir"))
+            row = classify(ws, cwd)
+            if row.repo_root is None:
+                print(paint("33", f"  {ws['label']}: not a git repo"))
+            else:
+                kind = "worktree" if row.linked else "main"
+                print(paint("32", f"  {ws['label']}: {kind} of {row.repo_root}"))
+        rows.append(row)
+    attach_layout_worktrees(rows)
+    print(
+        paint(
+            "2",
+            f"  herdr worktree on {len(rows) - probed}, git probe on {probed}",
+        )
+    )
+    return workspaces, rows
+
+
+def main() -> None:
+    if len(sys.argv) != 1:
+        raise SystemExit(f"usage: {Path(sys.argv[0]).name}")
+
+    workspaces, rows = collect_rows()
+    if ensure_topology(rows):
+        workspaces, rows = collect_rows()
+
+    wanted = desired_order(rows)
+    by_id = {ws["workspace_id"]: ws for ws in workspaces}
+    current_ids = [ws["workspace_id"] for ws in workspaces]
+    wanted_ids = [row.workspace_id for row in wanted]
+
+    print(paint("1", "order:"))
+    table: list[tuple[str, ...]] = []
+    paints: list[tuple[str | None, ...]] = []
+    for i, row in enumerate(wanted, 1):
+        kind = kind_of(row)
+        was = by_id[row.workspace_id]["number"]
+        moved = "" if was == i else f"was {was}"
+        color = kind_color(row)
+        table.append((str(i), row.label, kind, row.source, criterion(row), moved))
+        paints.append(
+            (
+                color,
+                "1;36" if row.checkout == PIN else color,
+                color,
+                "2",
+                "2",
+                "33" if moved else None,
+            )
+        )
+    print_table(table, paints)
+
+    if current_ids == wanted_ids:
+        print(paint("32", "already in order, no move"))
+        return
+    if len(wanted_ids) == 1:
+        return
+    anchor = wanted[-1]
+    print(
+        paint(
+            "36",
+            f"+ workspace.move_block {len(wanted_ids) - 1} ids "
+            f"before {anchor.label} ({anchor.workspace_id})",
+        )
+    )
+    herdr_rpc(
+        "workspace.move_block",
+        {
+            "workspace_ids": wanted_ids[:-1],
+            "before_workspace_id": wanted_ids[-1],
+        },
+    )
+    print(paint("32", "ok"))
+
+
+if __name__ == "__main__":
+    main()

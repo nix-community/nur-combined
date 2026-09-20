@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.10"
 # ///
-"""Export a grok session trace tarball into local /tmp.
+"""Export a grok session trace tarball into destination.
 
 If --from HOST, wait until HOST answers ping, then run grok trace on HOST
 via ssh and rsync the tarball here.
@@ -26,7 +26,14 @@ parser.add_argument(
     dest="from_host",
     metavar="HOST",
     default="localhost",
-    help="run on HOST via ssh (user@host ok) and rsync the tarball into local /tmp; localhost is local",
+    help="run on HOST via ssh (user@host ok) and rsync the tarball into destination; localhost is local",
+)
+parser.add_argument(
+    "--to",
+    dest="destination",
+    default="/tmp",
+    type=Path,
+    help="Where to save"
 )
 parser.add_argument(
     "-J",
@@ -165,7 +172,8 @@ if args.from_host:
     wait_reachable(ssh_host(args.from_host))
 
 src = run_trace(args.from_host)
-dest = Path("/tmp") / src.name
+args.destination.mkdir(parents=True, exist_ok=True)
+dest =  args.destination / src.name
 rsync_src = f"{args.from_host}:{src}" if args.from_host else str(src)
 
 if not args.from_host and src.resolve() == dest.resolve():
