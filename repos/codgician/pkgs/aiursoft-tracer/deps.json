@@ -76,13 +76,13 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.31",
-    "hash": "sha256-7cjdbK2IXn+ZeVbOjYTGqBpfXIA1hapRpk9m4VkM878="
+    "version": "10.0.32",
+    "hash": "sha256-oO6XFzhwi+dTIPnsLxUe5EKMFJfSu70ekj7+46below="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.35",
-    "hash": "sha256-y88sszgUU+bCHRj5SJ35nSVR7eGrY4L/rwVZho/mp5M="
+    "version": "10.0.36",
+    "hash": "sha256-vNFVvSA26NQKjx23tK0yKYInZHVFOTwLYi73vy0o4uo="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
@@ -121,8 +121,8 @@
   },
   {
     "pname": "AsyncKeyedLock",
-    "version": "8.0.2",
-    "hash": "sha256-0NKdC+oxdYxS3Uz1lak5RpdTWyKYT7C3hkCdm5T0D84="
+    "version": "8.1.2",
+    "hash": "sha256-MrRfxHrpfOzLDj88ldezJQUStNsENDT4y/HmINh+lWk="
   },
   {
     "pname": "ClickHouse.Client",
@@ -136,13 +136,13 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.5.1",
-    "hash": "sha256-WgXfybJQpPxL/zJf9AyRNO5k/34oWEZxKlOFGsWLJ0o="
+    "version": "5.5.2",
+    "hash": "sha256-akmaF8/WhvJ3RL9HEdCRgx0edFyRvuvVqZC9VzumnWY="
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.5.1",
-    "hash": "sha256-ZjZmoUei8M5eDRC3vbj3a/js8RSh8QajynyBS5XSvds="
+    "version": "5.5.2",
+    "hash": "sha256-rFWHWXX6fBdnyoQajrCnQA5qmk7KyNciar6qZXrTqcA="
   },
   {
     "pname": "Humanizer.Core",
