@@ -21,7 +21,10 @@ buildDotnetModule (finalAttrs: {
   projectFile = "src/Aspire.Dashboard/Aspire.Dashboard.csproj";
   nugetDeps = ./deps.json;
 
-  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-sdk = dotnetCorePackages.combinePackages [
+    dotnetCorePackages.sdk_10_0
+    dotnetCorePackages.sdk_8_0
+  ];
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
   runtimeId = "linux-x64";
   selfContainedBuild = false;

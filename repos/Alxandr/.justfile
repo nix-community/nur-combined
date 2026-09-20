@@ -48,3 +48,12 @@ generate-cargo-json repository directory:
 
     cp "$tmpDir/source/Cargo.json" "$packageDir/Cargo.json"
     echo "Generated $packageDir/Cargo.json"
+
+# Generate the NuGet dependency file for a buildDotnetModule package.
+generate-nuget-deps package:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    package={{ quote(package) }}
+    fetchDeps=$(nix-build . -A "$package.fetch-deps" --no-out-link)
+    "$fetchDeps"
