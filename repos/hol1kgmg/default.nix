@@ -16,6 +16,7 @@
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
+  markserv = pkgs.callPackage ./pkgs/markserv { };
   openscreen-for-mac = pkgs.callPackage ./pkgs/openscreen-for-mac { };
   spec-kit = pkgs.callPackage ./pkgs/spec-kit { };
   yaskkserv2 = pkgs.callPackage ./pkgs/yaskkserv2 { };
