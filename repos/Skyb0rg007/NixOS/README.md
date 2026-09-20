@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 56 packages.
+Generated from 57 packages.
 
 ## `ambient-build-vm`
 
@@ -423,6 +423,14 @@ Generated from 56 packages.
 - **Description:** CLI for accessing TPM 2.0 chips on Linux.
 - **Homepage:** [https://github.com/jarkkojs/tpm2-library](https://github.com/jarkkojs/tpm2-library)
 - **License:** GPL-3.0-or-later
+
+## `ublksrv`
+
+- **Package name:** ublksrv
+- **Version:** 1.8
+- **Description:** userspace block device driver
+- **Homepage:** [https://github.com/ublk-org/ublksrv](https://github.com/ublk-org/ublksrv)
+- **License:** (MIT OR GPL-2.0-only) AND (MIT OR LGPL-2.1-only) AND GPL-2.0-only
 
 ## `vmdb2`
 
