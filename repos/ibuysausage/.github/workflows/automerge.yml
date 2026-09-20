@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   workflow_run:
     workflows:
-      - "Build and populate cache"
+      - "Update flake.lock"
     types:
       - completed
 
@@ -18,8 +18,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: automerge
-        uses: pascalgn/automerge-action@v0.16.4
+      - name: Find and merge automated PR
         env:
           GITHUB_TOKEN: ${{ secrets.FLAKE_LOCK_PAT }}
           MERGE_COMMIT_MESSAGE: "pull-request-title"
@@ -27,3 +26,26 @@ jobs:
           MERGE_DELETE_BRANCH: "true"
           MERGE_METHOD: "squash"
           MERGE_LABELS: ""
+        run: |
+          PR=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --state open \
+            --label automated \
+            --json number \
+            --jq '.[0].number')
+
+          if [ -z "$PR" ]; then
+            echo "No automated PR found"
+            exit 0
+          fi
+
+          echo "Merging PR #$PR"
+
+          gh pr update-branch "$PR" \
+            --repo "${{ github.repository }}"
+
+          gh api \
+            --method PUT \
+            "/repos/${{ github.repository }}/pulls/$PR/merge" \
+            -f merge_method=squash \
+            -f commit_title="Update flake.lock (#$PR)"
