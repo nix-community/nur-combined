@@ -10,8 +10,9 @@ Package entry: [`package.nix`](./package.nix). App sources: [`src/src/`](./src/s
 
 | Tree | Notes |
 | --- | --- |
-| [`src/vendor/gpui-terminal/`](./src/vendor/gpui-terminal/) | Terminal emulator; see [`VENDOR.md`](./src/vendor/gpui-terminal/VENDOR.md) for upstream pin and local patches |
-| [`src/vendor/gpui/`](./src/vendor/gpui/) | GPUI fork; see [`VENDOR.md`](./src/vendor/gpui/VENDOR.md) |
+| [`src/vendor/gpui-terminal/`](./src/vendor/gpui-terminal/) | Terminal emulator; see [`VENDOR.md`](./VENDOR.md) for upstream pin and local patches |
+| [`src/vendor/alacritty_terminal/`](./src/vendor/alacritty_terminal/) | VTE grid (path dep); Linux-only wide-char overwrite patch — see [`VENDOR.md`](./VENDOR.md) |
+| [`src/vendor/gpui/`](./src/vendor/gpui/) | GPUI fork; see [`VENDOR.md`](./VENDOR.md) |
 
 Omnimux owns tab chrome, SSH/tmux spawn, settings, focus, packaging, and shortcut routing under `src/src/` — not the vendor trees.
 
