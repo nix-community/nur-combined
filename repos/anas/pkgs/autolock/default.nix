@@ -8,7 +8,7 @@
 
 let
   pname = "autolock";
-  version = "1.0";
+  version = "1.2";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -17,12 +17,11 @@ stdenv.mkDerivation {
     owner = "ayari";
     repo = "autolock";
     rev = version;
-    hash = "sha256-wMjAeJIXPmns2xlyp3JfJG4Tk7/5K2b9dnSdRjcyCwQ=";
+    hash = "sha256-4g4dFzfeHtePccvhj9bMkFiE1S4ivwLeCt8EbZxdiU4=";
   };
 
   patches = [
     ./systemd-libs.patch
-    ./0001-chore-config.mk-bump-ver-to-1.0.patch
   ];
 
   buildInputs = [

@@ -14,6 +14,7 @@ let
       (optionalArg "-t" cfg.timeout)
       (optionalArg "-i" cfg.interval)
       (optionalArg "-c" cfg.lockCommand)
+      (optionalArg "-C" cfg.altLockCommand)
       (optionalArg "-f" cfg.fullscreenTimeout)
       (lib.optional cfg.ignoreSleep "--ignore-sleep")
       cfg.extraArgs
@@ -48,6 +49,12 @@ in {
       type = lib.types.nullOr lib.types.str;
       default = null;
       description = "Command to execute when locking.";
+    };
+
+    altLockCommand = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Command to execute on system sleep and lock events.";
     };
 
     fullscreenTimeout = lib.mkOption {

@@ -13,10 +13,10 @@ rustPlatform.buildRustPackage rec {
     owner = "robertpsoane";
     repo = "ducker";
     rev = "v${version}";
-    hash = "sha256-KT76qhAXUV1ShxXD0NVdvIU0RrEimGJt2RRDkqejZ9s=";
+    hash = "sha256-ly5+2GySq2yiEDXG+IXfAB70Wzp58B+Py0GCuvwKXxw=";
   };
 
-  cargoHash = "sha256-gqAB71+9ENTiqUEEJkH5n63a5E1YSiDO0Zvml7DjLr0=";
+  cargoHash = "sha256-Sgn7dxmt/kn40jqMcRUIxdLfJRDWrHEAUb3TXUuGqSk=";
 
   nativeBuildInputs = [ pkg-config ];
 
