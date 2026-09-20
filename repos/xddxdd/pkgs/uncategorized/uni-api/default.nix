@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  unstableGitUpdater,
+  nix-update-script,
   rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -16,11 +16,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoRoot = "rust/uni-api-native";
   buildAndTestSubdir = "rust/uni-api-native";
 
-  cargoHash = "sha256-UK6JmTpJ872JucxI+t2poK6KgnllZA4OiRm+/M84u2c=";
+  cargoHash = "sha256-Bi2EnrDP7MkFvsML5yVKzIrSmD26MY/ot0BJ2UrMD68=";
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/yym68686/uni-api";
-    tagPrefix = "v";
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
   };
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

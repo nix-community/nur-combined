@@ -3,7 +3,7 @@
   lib,
   stdenv,
   cmake,
-  liboqs,
+  liboqs-unstable,
   openssl_3,
 }:
 let
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    liboqs
+    liboqs-unstable
     openssl_3
   ];
 
