@@ -20,6 +20,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   mozart = pkgs.callPackage ./pkgs/mozart { };
+  krypton-cli = pkgs.callPackage ./pkgs/krypton-cli { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
