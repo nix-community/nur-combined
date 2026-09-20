@@ -40,21 +40,24 @@ appimageTools.wrapType2 {
   ];
 
   extraInstallCommands = ''
-    tree ${appimageContents}
+    # Install desktop entry from the stable AppImage
+    install -Dm644 \
+      ${appimageContents}/fluxer.desktop \
+      $out/share/applications/fluxer.desktop
 
-    # Install desktop
-    mkdir -p $out/share/applications
-    install -Dm644 ${appimageContents}/fluxer-canary.desktop $out/share/applications/fluxer.desktop
-    substituteInPlace $out/share/applications/fluxer.desktop \
-      --replace-fail 'Exec=AppRun %U' 'Exec=fluxer %U' \
-      --replace-fail 'Exec="/opt/Fluxer Canary/fluxer-canary"' 'Exec=fluxer' \
-      --replace-fail Icon=fluxer-canary Icon=fluxer \
-      --replace-fail StartupWMClass=fluxer-canary StartupWMClass=fluxer
-
-    # Copy icons
-    install -Dm644 ${appimageContents}/usr/share/icons/hicolor/1024x1024/apps/fluxer-canary.png \
+    # The stable AppImage ships fluxer.png, not fluxer-canary.png
+    install -Dm644 \
+      ${appimageContents}/usr/share/icons/hicolor/1024x1024/apps/fluxer.png \
       $out/share/icons/hicolor/1024x1024/apps/fluxer.png
-    cp -r ${appimageContents}/usr/share/icons $out/share/
+
+    # Make the desktop entry usable after AppImage extraction.
+    # Do not use --replace-fail here: the upstream stable desktop
+    # entry may already contain the desired values.
+    sed -i \
+      -e 's|^Exec=.*$|Exec=fluxer %U|' \
+      -e 's|^Icon=.*$|Icon=fluxer|' \
+      -e 's|^StartupWMClass=.*$|StartupWMClass=fluxer|' \
+      $out/share/applications/fluxer.desktop
 
     wrapProgram $out/bin/fluxer \
       --add-flags "--enable-features=UseOzonePlatform" \
