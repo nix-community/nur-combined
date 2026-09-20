@@ -427,8 +427,8 @@
       sha256 = "5cdfc09ac43731859a97d8fac1fbac715041c3415d194ba04df818229522bdee";
       meta = with lib;
       {
-        homepage = "https://github.com/ArchiveBox/archivebox-browser-extension";
-        description = "Automatically or manually send pages to your ArchiveBox for archival.";
+        homepage = "https://extension.archivebox.io/";
+        description = "Save pages, screenshots, and bookmarks locally or to your own ArchiveBox server.";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -2613,16 +2613,21 @@
     };
     "copy-link-text" = buildMozillaXpiAddon {
       pname = "copy-link-text";
-      version = "1.6.9";
+      version = "1.7.0";
       addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5035704/copy_link_text_webextension-1.6.9.xpi";
-      sha256 = "ef759c1d79743297f86dcf44a5ed525292cdedd09e4e954f0d22a3975d7e9083";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5042314/copy_link_text_webextension-1.7.0.xpi";
+      sha256 = "e7761003cb1312a4fdaa2a7bc56d6685a10e7365f26f250f32a2333b56635b05";
       meta = with lib;
       {
         homepage = "https://github.com/def00111/copy-link-text";
         description = "Copy the text of the link.";
         license = licenses.mpl20;
-        mozPermissions = [ "clipboardWrite" "menus" "scripting" "<all_urls>" ];
+        mozPermissions = [
+          "clipboardWrite"
+          "menus"
+          "notifications"
+          "scripting"
+        ];
         platforms = platforms.all;
       };
     };
@@ -10713,10 +10718,10 @@
     };
     "onetab" = buildMozillaXpiAddon {
       pname = "onetab";
-      version = "2.19";
+      version = "2.20";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4948072/onetab-2.19.xpi";
-      sha256 = "3aab9eda39cb7b1cfc0267d2b2732f877f7df7dd44432b6bafd99f77ac4b0b4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5042610/onetab-2.20.xpi";
+      sha256 = "f4cbd1015e1c265f31dc7d8e74252b7ac57dafe93bd3df32d8e64d59230f4174";
       meta = with lib;
       {
         homepage = "https://www.one-tab.com";
@@ -13681,10 +13686,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.26.0";
+      version = "1.26.1";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5035849/single_file-1.26.0.xpi";
-      sha256 = "53979f4451cf8777c4c2eb115216fe2f55395a3725f32b73b23808a93b002806";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5042893/single_file-1.26.1.xpi";
+      sha256 = "eb9afa6f03cf81722b14cc16853aa53c7df86b547c361f982e1871762be62b1f";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14479,10 +14484,10 @@
     };
     "tablissng" = buildMozillaXpiAddon {
       pname = "tablissng";
-      version = "1.7.1";
+      version = "1.8.0";
       addonId = "extension@tabliss-maintained";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4836699/tablissng-1.7.1.xpi";
-      sha256 = "6c4d6f0972ebe29d598e34f461f4d79a1fb2842dfde8047f54d3f0195292f3e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5042853/tablissng-1.8.0.xpi";
+      sha256 = "48d593e28d96c0cbee4e0386d8bc9ffef0c6273185b9bbe3d60b7ef39847020d";
       meta = with lib;
       {
         homepage = "https://github.com/BookCatKid/TablissNG";
@@ -15731,10 +15736,10 @@
     };
     "ukrainian-dictionary" = buildMozillaXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.8.5";
+      version = "6.8.6";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4977583/ukrainian_dictionary-6.8.5.xpi";
-      sha256 = "994628fce3e81e633b17f27c6086738e691cd973b470cf853f1d0a1e92f5aaba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5042236/ukrainian_dictionary-6.8.6.xpi";
+      sha256 = "8cb4f0b87951e6b2612484011a5849dc7c45fcb8415ddd52492b5a69e62720b9";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
