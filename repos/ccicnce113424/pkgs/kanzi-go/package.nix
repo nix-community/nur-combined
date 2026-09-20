@@ -5,12 +5,12 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "kanzi-go";
-  version = "2.5.1";
+  version = "2.6.0";
   src = fetchFromGitHub {
     owner = "flanglet";
     repo = "kanzi-go";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YN+5d24K4/cL+1dlava6YvwW+wBL8HVgiyCpaCqYjS4=";
+    hash = "sha256-Yh0FPzxJt1jEQ7senQ6UVUgPuJUFXG3ZiF+Xh27ymPE=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/v2";

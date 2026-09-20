@@ -24,25 +24,25 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "a745343776a4a18b30e4cc0ba55ad484ed1c62f5";
+    version = "d6557633dbff5518f827d335c04dc9fbe973f19c";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "a745343776a4a18b30e4cc0ba55ad484ed1c62f5";
+      rev = "d6557633dbff5518f827d335c04dc9fbe973f19c";
       fetchSubmodules = false;
-      sha256 = "sha256-dYGtZncJqnjEBqEeALqryG3iI72n6DmREobFhFHCpcE=";
+      sha256 = "sha256-+NG2uOGoJ4oAcsyI7F0gmhXEjuw+QJOskAANk0ynx0c=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-dYGtZncJqnjEBqEeALqryG3iI72n6DmREobFhFHCpcE=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-+NG2uOGoJ4oAcsyI7F0gmhXEjuw+QJOskAANk0ynx0c=/src-tauri/Cargo.lock";
       outputHashes = {
         "rsrpc-0.28.0" = "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=";
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
         "livesplit-hotkey-0.8.0" = "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=";
-        "tauri-plugin-shell-2.2.1" = "sha256-Cl3XZcbFbwgcdMiMwzDLeNK/yALj1KtouUbunmKqD/8=";
+        "tauri-plugin-shell-2.2.1" = "sha256-/0jPi8kbs+yfLVl5ckD3xcSpc+3KXb1K4xsgdfp0KOQ=";
         "window_titles-0.1.0" = "sha256-lk2T+6curAwqOUuQ8RtYCjX2ygGBgzt4ILBAMV+ql0w=";
       };
     };
-    date = "2026-09-14";
+    date = "2026-09-20";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
@@ -240,21 +240,21 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "df77e0565467f9074ec42f67fcf5fc28c7a60675";
+    version = "8869ed210096cc836b98128dedc3e77c70bc2781";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "df77e0565467f9074ec42f67fcf5fc28c7a60675";
+      rev = "8869ed210096cc836b98128dedc3e77c70bc2781";
       fetchSubmodules = false;
-      sha256 = "sha256-MI7COqnF9c26sh+zZ65m8HrtwN4GKTfqLZjTZURgJJQ=";
+      sha256 = "sha256-SOnD+ZTrPRiVBm0RVfRs7p9em7m/3UK5OhJgT2UE47M=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-MI7COqnF9c26sh+zZ65m8HrtwN4GKTfqLZjTZURgJJQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-SOnD+ZTrPRiVBm0RVfRs7p9em7m_3UK5OhJgT2UE47M=/Cargo.lock";
       outputHashes = {
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-17";
+    date = "2026-09-20";
   };
   piliplus = {
     pname = "piliplus";
@@ -312,16 +312,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.0.0-beta.2";
+    version = "v4.0.0-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.0.0-beta.2";
+      rev = "v4.0.0-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-qf3dJpNkr39xCUnabVDQccvPnNQDYSxfrxuYN1lMIfg=";
+      sha256 = "sha256-0LGFVl6KlDgSHVG4vUYPlHXpxzLT8zhhTJrng2B1ZVM=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-qf3dJpNkr39xCUnabVDQccvPnNQDYSxfrxuYN1lMIfg=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-0LGFVl6KlDgSHVG4vUYPlHXpxzLT8zhhTJrng2B1ZVM=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -343,21 +343,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "d3dd84df99333f19b04a2faef1972a89f35aee0f";
+    version = "3f3729c7a614bdac3fd41c780f2e89786ba04ee3";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "d3dd84df99333f19b04a2faef1972a89f35aee0f";
+      rev = "3f3729c7a614bdac3fd41c780f2e89786ba04ee3";
       fetchSubmodules = false;
-      sha256 = "sha256-cbHZZYq+/DNJ3+xF1SVWlTsh22el/nOp45uHjPGnL/k=";
+      sha256 = "sha256-9pIu9yLUDD4oqdp9WwhmbsjVjJl+iHsM8CCm0wYYw8c=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-cbHZZYq+_DNJ3+xF1SVWlTsh22el_nOp45uHjPGnL_k=/Cargo.lock";
+      lockFile = ./. + "/sha256-9pIu9yLUDD4oqdp9WwhmbsjVjJl+iHsM8CCm0wYYw8c=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-09-19";
+    date = "2026-09-20";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";

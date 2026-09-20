@@ -248,6 +248,7 @@ dependencies = [
  "parking_lot",
  "pipewire",
  "rustfft",
+ "serde_json",
  "signalsmith-stretch",
  "thiserror 2.0.20",
  "time",
