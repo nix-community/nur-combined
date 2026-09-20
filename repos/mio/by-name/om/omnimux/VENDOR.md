@@ -15,7 +15,7 @@ App-level behavior (appearance sync, Settings, packaging) lives in Omnimux’s [
 | Recorded in | `.cargo_vcs_info.json` (`git.sha1`) |
 | First vendored in nurpkgs | commit `457e38f2` (*fix: scroll to tmux, cursor viewport, tab drag, Ctrl+/- zoom*) |
 | License | MIT OR Apache-2.0 (see `LICENSE-*` in this directory) |
-| Key deps (upstream) | `gpui` 0.2.2, `alacritty_terminal` 0.25.1 (path-vendored; see below), `arboard`, `flume`, … |
+| Key deps (upstream) | `gpui` (via gpui-pre), `alacritty_terminal` 0.26.0 (path-vendored; see below), `arboard`, `flume`, … |
 
 Upstream README still describes OSC 52 / mouse as partially planned; many of those gaps are what we patched locally.
 
@@ -89,15 +89,15 @@ Rough chronological / thematic summary of edits under this vendor tree:
 
 ---
 
-# Vendored `alacritty_terminal` 0.25.1
+# Vendored `alacritty_terminal` 0.26.0
 
 Path dep from `gpui-terminal` (`path = "../alacritty_terminal"`). Needed only so we can keep a tiny Linux grid patch; crates.io alone cannot carry that delta.
 
 | Field | Value |
 | --- | --- |
 | Upstream | [alacritty/alacritty](https://github.com/alacritty/alacritty) `alacritty_terminal` |
-| Version | `0.25.1` |
-| crates.io baseline SHA | `.cargo_vcs_info.json` → `12082407d9cb3384a2bd83c578e556ec3faa2c4d` |
+| Version | `0.26.0` (crates.io newest) |
+| crates.io baseline SHA | `.cargo_vcs_info.json` → `94e7c8874e526b1e67b349d9ba30ddf81669119e` |
 | License | Apache-2.0 (`LICENSE-APACHE`) |
 
 ## Local patch (vs crates.io)
@@ -107,7 +107,7 @@ In `src/term/mod.rs` `write_at_cursor`, when overwriting a wide-char **spacer** 
 - **non-Linux**: stock `clear_wide()` on the previous cell (clears `WIDE_CHAR` **and** replaces the glyph with `' '`).
 - **Linux**: only `flags.remove(Flags::WIDE_CHAR)` — keep the emoji/CJK codepoint so mux/wcwidth mismatches do not blank the glyph (renderer then falls back via spacer checks in `gpui-terminal` `render.rs`).
 
-No other source diffs vs crates.io 0.25.1.
+No other source diffs vs crates.io 0.26.0.
 
 ## Tree hygiene
 
