@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description = "Deep-clean a NixOS system: generations, boot entries, GC roots, and non-Nix bloat";
-    homepage = "https://github.com/YOUR_GITHUB_USERNAME/nix-reaper";
+    homepage = "https://github.com/ibuysausage/nix-reaper";
     license = licenses.mit;
     mainProgram = "nix-reaper";
     platforms = platforms.linux;
