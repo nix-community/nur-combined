@@ -74,7 +74,6 @@ in
     jellyfin.A = propA;
     jf.A = propA;
     jobs.A = propA;
-    local-nixcache.A = s "10.78.79.22";
     mail.A = doA;
     matrix-rtc.A = propA;
     matrix.A = propA;

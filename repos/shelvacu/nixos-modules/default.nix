@@ -1,1 +1,6 @@
-{ imports = [ ./genieacs.nix ]; }
+{
+  imports = [
+    ./caddy-validate.nix
+    ./genieacs.nix
+  ];
+}

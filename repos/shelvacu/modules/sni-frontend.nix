@@ -10,11 +10,7 @@
 # Both destinations are told who the client really is with the PROXY protocol,
 # which they have to be configured to expect — Caddy is handled below, and a
 # passthrough target needs its own listener set up to trust this machine.
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.vacu.sniFrontend;
   inherit (lib) mkOption types;
@@ -37,8 +33,11 @@ in
         TCP ports to front. Every one of them is routed by server name, so a
         port serving a passthrough name works the same as 443 does.
 
-        Only TCP is fronted: QUIC carries its server name inside encrypted
-        packets, so UDP is left alone and Caddy keeps serving HTTP/3 itself.
+        Only TCP is fronted, and **HTTP/3 is given up** as a result. nginx's
+        ssl_preread reads a TLS handshake off a stream, so there is nothing to
+        route QUIC with, and a unix socket carries no UDP for Caddy to serve it
+        on either. Clients negotiate HTTP/3 and fall back to HTTP/2 themselves,
+        so the cost is a little performance, not reachability.
       '';
     };
 
@@ -71,21 +70,19 @@ in
       description = "Unix socket carrying the relayed plain-HTTP traffic.";
     };
 
-    quicBinds = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      example = [ "udp/0.0.0.0" "udp/[::]" ];
+    httpBind = mkOption {
+      type = types.str;
+      readOnly = true;
+      default = "unix/${cfg.caddyHttpSocket}|0660";
       description = ''
-        Extra addresses to add to Caddy's bind, for recovering HTTP/3.
+        The Caddyfile `bind` line a site served over plain HTTP has to carry.
 
-        Empty by default because **moving Caddy to a unix socket gives up
-        HTTP/3**: a socket carries no UDP, so QUIC has nowhere to land. Adding
-        UDP addresses here does give Caddy a QUIC listener, but it also stops
-        the PROXY-protocol wrapper from applying to the socket, which breaks
-        every ordinary request — so treat this as an experiment, not a fix.
-
-        Clients negotiate HTTP/3 and fall back to HTTP/2 on their own, so the
-        cost of leaving this empty is a little performance, not reachability.
+        `default_bind` puts every site on the TLS socket, and Caddy will not
+        serve plain HTTP and HTTPS on one listener — a site whose address says
+        `http://` has to name this bind instead, or the config does not even
+        adapt. It also has to be a site block of its own: `bind` applies to a
+        whole block, so such a name cannot ride along in the `serverAliases` of
+        an HTTPS site. The assertions below point out either mistake.
       '';
     };
 
@@ -109,7 +106,47 @@ in
         assertion = config.services.caddy.enable;
         message = "vacu.sniFrontend routes unmatched names to Caddy, so Caddy has to be enabled.";
       }
-    ];
+    ]
+    ++ lib.optionals (cfg.httpPort != null) (
+      # Caddy only rejects an http:// site sharing a listener with HTTPS while
+      # adapting the Caddyfile, which is at the end of a deploy, on the machine,
+      # as a failed unit. These say the same thing at eval time and say what to
+      # do about it.
+      let
+        plain = lib.hasPrefix "http://";
+        # A site block's addresses are the attribute name plus the aliases, and
+        # one `bind` covers all of them.
+        addressesOf = name: vhost: [ name ] ++ vhost.serverAliases;
+        classify = name: vhost: {
+          inherit name;
+          addresses = addressesOf name vhost;
+          bound = lib.hasInfix "bind ${cfg.httpBind}" vhost.extraConfig;
+        };
+        sites = lib.mapAttrsToList classify config.services.caddy.virtualHosts;
+        mixed = lib.filter (s: lib.any plain s.addresses && !lib.all plain s.addresses) sites;
+        stray = lib.filter (s: lib.all plain s.addresses && !s.bound) sites;
+        names = lib.concatMapStringsSep ", " (s: s.name);
+      in
+      [
+        {
+          assertion = mixed == [ ];
+          message = ''
+            Caddy sites with both http:// and https:// addresses, which cannot share
+            one listener under vacu.sniFrontend: ${names mixed}.
+            Split the http:// address into its own site block carrying
+            `bind ${cfg.httpBind}`; it cannot stay a serverAlias, because bind
+            applies to the whole block.
+          '';
+        }
+        {
+          assertion = stray == [ ];
+          message = ''
+            Plain-HTTP Caddy sites still left on the TLS socket by default_bind: ${names stray}.
+            Add `bind ${cfg.httpBind}` to each so the plain-HTTP relay reaches them.
+          '';
+        }
+      ]
+    );
 
     services.nginx = {
       enable = true;
@@ -174,29 +211,34 @@ in
       requires = [ "caddy.service" ];
     };
 
-    services.caddy.globalConfig = lib.mkAfter (''
-      default_bind ${lib.concatStringsSep " " ([ "unix/${cfg.caddySocket}|0660" ] ++ cfg.quicBinds)}
-      servers unix/${cfg.caddySocket}|0660 {
-        listener_wrappers {
-          # No allow list: reaching this socket already means getting past its
-          # group, and a unix peer has no address to match on anyway.
-          proxy_protocol
-          tls
+    services.caddy.globalConfig = lib.mkAfter (
+      ''
+        # TCP only: adding a udp/ address here would give QUIC somewhere to
+        # land, but it also stops `servers` below from matching, so the PROXY
+        # wrapper never applies and every ordinary request breaks.
+        default_bind unix/${cfg.caddySocket}|0660
+        servers unix/${cfg.caddySocket}|0660 {
+          listener_wrappers {
+            # No allow list: reaching this socket already means getting past its
+            # group, and a unix peer has no address to match on anyway.
+            proxy_protocol
+            tls
+          }
         }
-      }
-    ''
-    + lib.optionalString (cfg.httpPort != null) ''
-      # Caddy would put its own HTTP server on the socket above, where it would
-      # collide with the TLS one, so the redirects it normally generates are
-      # turned off and served by the site below instead — on its own socket,
-      # reached by the plain relay.
-      auto_https disable_redirects
-      servers unix/${cfg.caddyHttpSocket}|0660 {
-        listener_wrappers {
-          proxy_protocol
+      ''
+      + lib.optionalString (cfg.httpPort != null) ''
+        # Caddy would put its own HTTP server on the socket above, where it would
+        # collide with the TLS one, so the redirects it normally generates are
+        # turned off and served by the site below instead — on its own socket,
+        # reached by the plain relay.
+        auto_https disable_redirects
+        servers unix/${cfg.caddyHttpSocket}|0660 {
+          listener_wrappers {
+            proxy_protocol
+          }
         }
-      }
-    '');
+      ''
+    );
 
     # Appended as raw Caddyfile rather than a virtualHost, so it stays clear of
     # whatever options a host layers onto its vhosts.

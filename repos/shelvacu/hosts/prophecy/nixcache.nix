@@ -5,7 +5,6 @@ in
 {
   services.caddy.virtualHosts."nixcache.shelvacu.com" = {
     vacu.hsts = "preload";
-    serverAliases = [ "http://local-nixcache.shelvacu.com" ];
     extraConfig = ''
       root * ${cachePath}
       file_server

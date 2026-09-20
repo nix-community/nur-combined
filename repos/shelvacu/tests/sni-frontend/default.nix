@@ -9,13 +9,15 @@ let
   certs = import /${vacuRoot}/deterministic-certs.nix { nixpkgs = pkgs; };
   localDomain = "local.test";
   passthroughDomain = "passthru.test";
+  plainDomain = "plain.test";
 
   rootCA = certs.selfSigned "sni-test-ca" {
     ca = true;
     cert_signing_key = true;
     cn = "SNI frontend test CA";
   };
-  certFor = name: domain:
+  certFor =
+    name: domain:
     certs.caSigned name rootCA {
       ca = false;
       signing_key = true;
@@ -34,13 +36,17 @@ in
   defaults = {
     security.pki.certificateFiles = [ rootCA.certificatePath ];
     networking.hosts = {
-      ${nodes.front.networking.primaryIPAddress} = [ localDomain passthroughDomain ];
+      ${nodes.front.networking.primaryIPAddress} = [
+        localDomain
+        passthroughDomain
+        plainDomain
+      ];
     };
   };
 
   # The machine with the public address. It serves local.test itself and hands
   # passthru.test to the backend without decrypting it.
-  nodes.front = { ... }: {
+  nodes.front = { config, ... }: {
     imports = [ vacuModules.sni-frontend ];
 
     vacu.sniFrontend = {
@@ -55,6 +61,14 @@ in
         # Echoes who Caddy thinks the client is, which is the whole point of
         # carrying the PROXY header across the socket.
         respond "front {http.request.remote.host}"
+      '';
+      # A site of this host's own that is served over plain HTTP, next to the
+      # HTTPS one above. Caddy will not put the two on one listener, so this is
+      # what httpBind is for — and a site that forgets it does not fail alone,
+      # it stops the whole Caddyfile from adapting.
+      virtualHosts."http://${plainDomain}".extraConfig = ''
+        bind ${config.vacu.sniFrontend.httpBind}
+        respond "plain {http.request.remote.host}"
       '';
     };
   };
@@ -84,9 +98,7 @@ in
     };
   };
 
-  nodes.client = { ... }: {
-    environment.systemPackages = [ pkgs.curlHTTP3 ];
-  };
+  nodes.client = { ... }: { environment.systemPackages = [ pkgs.curlHTTP3 ]; };
 
   testScript = ''
     start_all()
@@ -148,11 +160,23 @@ in
         assert out.startswith("front "), f"fallback request failed: {out!r}"
 
     with subtest("plain HTTP is still served, so redirects and ACME keep working"):
-        # Only TLS moved to the socket. Port 80 has no server name to route on
-        # and no reason to be relayed, so Caddy keeps it directly.
+        # Binding Caddy's sites to a socket takes its HTTP server with them, so
+        # port 80 is relayed to a socket of its own. Nothing routes by name
+        # there — it is a straight copy — but the redirect has to survive it.
         code = client.succeed(
             "curl -sS -o /dev/null -w '%{http_code}' http://${localDomain}/"
         )
         assert code.startswith("30"), f"expected a redirect from port 80, got {code}"
+
+    with subtest("a site of this host's own can be served over plain HTTP"):
+        # The generated redirect is a catch-all, so a name with a site of its
+        # own has to win over it rather than bounce to a URL with no HTTPS
+        # behind it.
+        out = client.succeed("curl -sS --fail http://${plainDomain}/")
+        assert out.startswith("plain "), f"expected the plain-HTTP site, got {out!r}"
+
+    with subtest("the plain-HTTP relay carries the client address too"):
+        served_ip = client.succeed("curl -sS --fail http://${plainDomain}/").split()[1]
+        assert served_ip == client_ip, f"expected client {client_ip}, Caddy saw {served_ip}"
   '';
 }
