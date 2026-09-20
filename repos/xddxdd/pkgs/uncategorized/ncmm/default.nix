@@ -12,7 +12,7 @@ buildGoModule (finalAttrs: {
     owner = "3899";
     repo = "ncmm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-o/3MycnAux0lW3unNbya5ZtjnJA+JvQkmEn4i2Twi5w=";
+    hash = "sha256-v9CnBlVenWFbefoSN+0/jLRgg6LjQhmTiiPNP0AvAFA=";
   };
   vendorHash = "sha256-dYGMbXaPARioUHlNcQCtCM8q79g66m9utnAS7Bdyrk4=";
 
