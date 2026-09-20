@@ -28,4 +28,17 @@
       services.credentialsd.package = packages.credentialsd;
     };
   };
+  ublksrv = pkgs.testers.runNixOSTest {
+    imports = [ ./ublksrv.nix ];
+    nodes = {
+      open = {
+        imports = [ nixosModules.ublksrv ];
+        programs.ublksrv.package = packages.ublksrv;
+      };
+      restricted = {
+        imports = [ nixosModules.ublksrv ];
+        programs.ublksrv.package = packages.ublksrv;
+      };
+    };
+  };
 }

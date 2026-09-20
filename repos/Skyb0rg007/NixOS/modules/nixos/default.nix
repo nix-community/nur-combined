@@ -6,4 +6,5 @@
   debspawn = ./debspawn;
   keylime = ./keylime;
   tubearchivist = ./tubearchivist;
+  ublksrv = ./ublksrv;
 }

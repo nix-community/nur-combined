@@ -13,6 +13,7 @@
   libnfs,
   libiscsi,
   gnutls,
+  nixosTests,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ublksrv";
@@ -66,8 +67,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   doInstallCheck = true;
 
-  passthru.tests.pkg-config = testers.hasPkgConfigModules {
-    package = finalAttrs.finalPackage;
+  passthru.tests = {
+    pkg-config = testers.hasPkgConfigModules {
+      package = finalAttrs.finalPackage;
+    };
+    nixos = nixosTests.ublksrv;
   };
 
   meta = {
