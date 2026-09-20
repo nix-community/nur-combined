@@ -23,7 +23,6 @@ let
 
   hostName = "fracture-ray";
   system = "x86_64-linux";
-  domain = "weathercold.moe";
 
   proxySettings =
     if (readDir ./. ? "proxy.json") then
@@ -113,17 +112,13 @@ in
       ];
     };
     programs.ssh.knownHosts.${hostName} = {
-      extraHostNames = [ "${hostName}.${domain}" ];
+      extraHostNames = [ "${hostName}.ts.net" ];
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAiiJpfgoNlF5Tt5SyrOiSX+0OcMi4XxfxpqU66USQkx weathercold@nixos-fwdesktop";
     };
   };
 
   flake.deploy.nodes.${hostName} = {
     hostname = proxySettings.address;
-    sshOpts = [
-      "-p"
-      "1337"
-    ];
     profiles.system = {
       user = "root";
       path = inputs.deploy-rs.lib.${system}.activate.nixos config.flake.nixosConfigurations.${hostName};

@@ -131,8 +131,10 @@ in
       nameservers = [
         "2606:4700:4700::1111" # Cloudflare
         "2620:fe::fe" # Quad9
+        "2001:4860:4860::8888" # Google
         "1.1.1.1" # Cloudflare
         "9.9.9.9" # Quad9
+        "8.8.8.8" # Google
       ];
     };
 

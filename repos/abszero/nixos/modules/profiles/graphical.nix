@@ -82,7 +82,7 @@ in
         enable = true;
         settings.Resolve = {
           FallbackDNS = [ ]; # Disable fallback DNS
-          # Always use global name servers (shouldn't affect VPNs)
+          # Route all domains to global name servers by default (shouldn't affect VPNs)
           Domains = config.networking.search ++ [ "~." ];
           DNSOverTLS = true;
           DNSSEC = true;

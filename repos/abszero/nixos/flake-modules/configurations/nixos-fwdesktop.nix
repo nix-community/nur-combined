@@ -19,7 +19,6 @@ let
 
   hostName = "nixos-fwdesktop";
   system = "x86_64-linux";
-  domain = "weathercold.moe";
 
   proxySettings =
     if (readDir ./fracture-ray ? "proxy.json") then
@@ -152,8 +151,6 @@ let
       };
     };
 
-    networking = { inherit domain; };
-
     services = {
       comfyui.acceleration = "rocm";
       displayManager.noctalia-greeter = {
@@ -175,14 +172,14 @@ let
     config.modules = [
       {
         nix.settings.substituters = mkIf submodule.config.substituters.${hostName}.enable (mkAfter [
-          "ssh-ng://weathercold@${hostName}.${domain}:1337?trusted=true"
+          "ssh-ng://${hostName}?trusted=true"
         ]);
       }
       {
         nix = mkIf submodule.config.buildMachines.${hostName}.enable {
           distributedBuilds = true;
           buildMachines = singleton {
-            hostName = "${hostName}.${domain}:1337";
+            inherit hostName;
             protocol = "ssh-ng";
             sshUser = "weathercold";
             inherit system;
@@ -217,7 +214,7 @@ in
       ];
     };
     programs.ssh.knownHosts.${hostName} = {
-      extraHostNames = [ "${hostName}.${domain}" ];
+      extraHostNames = [ "${hostName}.ts.net" ];
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF8oO2vJoegH702ELMZU/u8KEWrYEF3GKiWT/AgObq3B weathercold@nixos-fwdesktop";
     };
   };

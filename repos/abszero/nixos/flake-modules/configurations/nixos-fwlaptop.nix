@@ -11,7 +11,6 @@ let
 
   hostName = "nixos-fwlaptop";
   system = "x86_64-linux";
-  domain = "weathercold.moe";
 
   proxySettings =
     if (readDir ./fracture-ray ? "proxy.json") then
@@ -149,8 +148,6 @@ let
         inherit (weathercold) hashedPassword;
       };
     };
-
-    networking = { inherit domain; };
 
     services.displayManager.noctalia-greeter = {
       cursorTheme = {

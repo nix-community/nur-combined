@@ -4,6 +4,7 @@
 
 let
   inherit (builtins)
+    elemAt
     filter
     concatStringsSep
     mapAttrs
@@ -27,12 +28,25 @@ let
       hostNames = mkOption {
         type = with types; listOf singleLineStr;
         default = [ name ] ++ config.extraHostNames;
-        description = "Host names and IPs of the host";
+        description = "Host names and IPs";
       };
       extraHostNames = mkOption {
         type = with types; listOf singleLineStr;
         default = [ ];
         description = "Additional host names. No effect if hostNames is overriden";
+      };
+      port = mkOption {
+        type = types.port;
+        # Obfuscate the port. However, for a proxy server, according to
+        # https://geneva.cs.umd.edu/posts/fully-encrypted-traffic/en/, this won't
+        # make it less detectable by the GFW.
+        default = 1337;
+        description = "SSH port";
+      };
+      user = mkOption {
+        type = with types; nullOr singleLineStr;
+        default = null;
+        description = "Remote user to connect to";
       };
       publicKey = mkOption {
         type = with types; nullOr singleLineStr;
@@ -42,6 +56,7 @@ let
       identityFile = mkOption {
         type = with types; nullOr singleLineStr;
         default = "~/.ssh/id_ed25519_${name}";
+        description = "Identity file used to connect to host";
       };
     };
   };
@@ -50,23 +65,32 @@ let
     modules = singleton (
       nixos:
       let
-        key = cfg.knownHosts.${nixos.config.networking.hostName}.publicKey or null;
+        localCfg = cfg.knownHosts.${nixos.config.networking.hostName} or null;
       in
       {
-        # Add the public keys to their corresponding hosts
-        nix.sshServe.keys = [ key ];
+        # Add the public keys of the local host
         users.users = genAttrs (nixos.config.abszero.users.admins ++ [ "root" ]) (username: {
-          openssh.authorizedKeys.keys = mkIf (key != null) [ key ];
+          openssh.authorizedKeys.keys = mkIf (localCfg != null && localCfg.publicKey != null) [
+            localCfg.publicKey
+          ];
         });
-        # Add known hosts to every machine
+
+        # Configure SSH port of the local host
+        services.openssh.ports = mkIf (localCfg != null) [ localCfg.port ];
+
         programs.ssh = {
-          knownHosts = mapAttrs (_: v: getAttrs [ "extraHostNames" "publicKey" ] v) cfg.knownHosts;
+          # Add known hosts
+          knownHosts = mapAttrs (_: v: getAttrs [ "hostNames" "publicKey" ] v) cfg.knownHosts;
+          # Configure known hosts for connection
           extraConfig = pipe cfg.knownHosts [
             attrValues
             (filter (h: h.identityFile != null))
             (concatMapStringsSep "\n" (h: ''
               Host ${concatStringsSep " " h.hostNames}
+                Port ${toString h.port}
+                User ${if h.user != null then h.user else elemAt nixos.config.abszero.users.admins 0}
                 IdentityFile ${h.identityFile}
+                IdentitiesOnly yes
             ''))
           ];
         };

@@ -47,7 +47,10 @@ in
     ];
 
     programs = {
-      ghostty.enable = true;
+      ghostty = {
+        enable = true;
+        settings.window-decoration = "none";
+      };
       noctalia = {
         enable = true;
         systemd.enable = true;

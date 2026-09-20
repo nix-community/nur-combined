@@ -36,12 +36,10 @@ in
       ];
     };
 
-    networking = {
-      useDHCP = false; # Static IP
-      defaultGateway6 = {
-        address = "fe80::1";
-        interface = "enp1s0";
-      };
+    # ipv4 is configured via DHCP
+    networking.defaultGateway6 = {
+      address = "fe80::1";
+      interface = "enp1s0";
     };
   };
 }

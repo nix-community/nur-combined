@@ -93,17 +93,18 @@ let
 
     networking = {
       inherit domain;
-      interfaces.enp1s0 = {
-        ipv4.addresses = singleton {
-          address = ipv4;
-          prefixLength = 0;
-        };
-        ipv6.addresses = singleton {
-          address = ipv6;
-          prefixLength = 64;
-        };
+      # ipv4 is configured via DHCP
+      interfaces.enp1s0.ipv6.addresses = singleton {
+        address = ipv6;
+        prefixLength = 64;
       };
     };
+
+    services.caddy.extraConfig = ''
+      ${domain} {
+        reverse_proxy https://example.com
+      }
+    '';
   };
 in
 
@@ -117,17 +118,16 @@ in
       ];
     };
     programs.ssh.knownHosts.${hostName} = {
-      extraHostNames = [ "${hostName}.${domain}" ];
+      extraHostNames = [
+        domain
+        "${hostName}.ts.net"
+      ];
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP0sqleia3X4x5fo+h9ReragzkkpJWRIy+yzLcWwFlCd weathercold@central-nucleus";
     };
   };
 
   flake.deploy.nodes.${hostName} = {
     hostname = domain;
-    sshOpts = [
-      "-p"
-      "1337"
-    ];
     profiles.system = {
       user = "root";
       path = inputs.deploy-rs.lib.${system}.activate.nixos config.flake.nixosConfigurations.${hostName};

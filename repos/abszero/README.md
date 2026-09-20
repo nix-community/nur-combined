@@ -14,7 +14,7 @@ functions.
 - Display manager: [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter)
 - Window manager: [DriftWM](https://github.com/malbiruk/driftwm)
 - Desktop shell: [Noctalia](https://noctalia.dev) + [wisp (under construction)](https://github.com/Weathercold/wisp)
- Terminal: [ghostty](https://ghostty.org)
+- Terminal: [ghostty](https://ghostty.org)
 - Shell: [Nu](https://www.nushell.sh)
 - Prompt: [starship](https://starship.rs)
 - Fetcher: [fastfetch](https://github.com/fastfetch-cli/fastfetch)
@@ -23,8 +23,7 @@ functions.
 
 - Headscale [server](nixos/modules/services/networking/headscale.nix) connecting all hosts
 - Using [darkman](https://gitlab.com/WhyNotHugo/darkman) to
-  [automatically switch theme](home/modules/services/scheduling/darkman.nix) based on
-  [home-manager configurations](home/configurations/weathercold/nixos-redmibook.nix)
+  [automatically switch theme](home/modules/services/scheduling/darkman.nix) (unused)
 - A [module](nixos/modules/services/hardware/framework_rgbafan.nix) to control
   RGB on framework desktop
 - [Xray vless-tcp-xtls-reality tproxy configuration](nixos/modules/services/networking/xray)
@@ -62,8 +61,8 @@ functions.
 
 - `base-cursors`
 - `base-fastfetch`: themes fastfetch
-- `base-foot`
-- `base-ghostty` (unused)
+- `base-foot` (unused)
+- `base-ghostty`
 - `base-hyprland-dynamic-cursors` (unused): configures dynamic cursors plugin for hyprland
 - `base-nushell`
 - `base-starship`
@@ -72,8 +71,8 @@ functions.
 - `catppuccin-discord` (deprecated)
 - `catppuccin-fcitx5`
 - `catppuccin-fonts`: installs fonts for the catppuccin theme
-- `catppuccin-foot`
-- `catppuccin-ghostty` (unused)
+- `catppuccin-foot` (unused)
+- `catppuccin-ghostty`
 - `catppuccin-gtk`
 - `catppuccin-hyprland` (unused)
 - `catppuccin-niri`
