@@ -27,7 +27,7 @@
     meta = with pkgs.lib; {
       description = "Command-line interface for the Krypton encryption library";
       homepage = "https://crates.io/crates/krypton-cli";
-      license = licenses.mit;
+      license = licenses.asl20;
       mainProgram = "krypton";
     };
   };
