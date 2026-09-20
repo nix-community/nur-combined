@@ -24,7 +24,6 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  brave-origin = pkgs.callPackage ./pkgs/brave-origin { };
   ax = pkgs.callPackage ./pkgs/ax { };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
   oneaws = pkgs.callPackage ./pkgs/oneaws { };
