@@ -115,6 +115,7 @@
         cp -r ${./darwin_compat_headers} $NIX_BUILD_TOP/darwin_headers
         chmod -R +w $NIX_BUILD_TOP/darwin_headers
         export CFLAGS="-I$NIX_BUILD_TOP/darwin_headers -Wno-int-conversion -Wno-c23-extensions -Doff64_t=off_t -Dlseek64=lseek -Dftruncate64=ftruncate -Dpread64=pread -Dpwrite64=pwrite -DCLOCK_BOOTTIME=CLOCK_MONOTONIC $CFLAGS"
+        sed -i "s|pregrow_stack();|// pregrow_stack();|" src/main-executable/main.c
         substituteInPlace src/main-executable/main.c           --replace-warn "__attribute__((section(\".interp\")))" ""
       '';
     postInstall = (old.postInstall or "") + ''

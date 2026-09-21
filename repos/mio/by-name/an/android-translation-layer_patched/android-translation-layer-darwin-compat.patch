@@ -219,11 +219,15 @@ diff -ruN a/src/main-executable/bionic_compat.c b/src/main-executable/bionic_com
 +void init__r_debug() {}
 +#endif
 diff -ruN a/src/main-executable/main.c b/src/main-executable/main.c
---- a/src/main-executable/main.c	2026-09-21 19:06:59
-+++ b/src/main-executable/main.c	2026-09-21 19:08:06
-@@ -842,4 +842,4 @@
- }
+--- a/src/main-executable/main.c
++++ b/src/main-executable/main.c
+@@ -843,3 +843,9 @@
  
  /* TODO: recall what this is doing here */
--const char dl_loader[] __attribute__((section(".interp"))) = "/lib/ld-linux.so.2";
-+const char dl_loader[]  = "/lib/ld-linux.so.2";
+ const char dl_loader[] __attribute__((section(".interp"))) = "/lib/ld-linux.so.2";
++
++#ifdef __APPLE__
++void dl_parse_library_path(const char *path, char *delim) {}
++void libc_bio_set_apply_path_overrides_func(apply_path_overrides_func_type *func) {}
++void remove_ongoing_notifications() {}
++#endif
