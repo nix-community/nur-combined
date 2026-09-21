@@ -35,11 +35,13 @@
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
       wrapGAppsHook4
     ];
-    buildInputs = (old.buildInputs or [ ]) ++ [
-      webp-pixbuf-loader
-      vulkan-loader
-      vulkan-headers
-    ];
+    buildInputs =
+      (old.buildInputs or [ ])
+      ++ [ webp-pixbuf-loader ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        vulkan-loader
+        vulkan-headers
+      ];
     patches = (old.patches or [ ]) ++ [
       ./android-translation-layer-bitmap-unlock.patch
       ./android-translation-layer-bitmapfactory-logs.patch
@@ -88,7 +90,7 @@
     ];
     postPatch =
       (old.postPatch or "")
-      + lib.optionalString stdenv.isDarwin ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
               substituteInPlace meson.build \
                 --replace-warn "dependency('wayland-protocols', version: '>=1.12')" "dependency('dummy', required: false)" \
                 --replace-warn "dependency('wayland-client')" "dependency('dummy', required: false)" \
@@ -131,7 +133,7 @@
       '';
     preConfigure =
       (old.preConfigure or "")
-      + lib.optionalString stdenv.isDarwin ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
               mkdir -p $NIX_BUILD_TOP/darwin_headers
               cat << 'EOF' > $NIX_BUILD_TOP/darwin_headers/uchar.h
         #ifndef UCHAR_H
@@ -413,7 +415,7 @@
     '';
     postFixup =
       (old.postFixup or "")
-      + lib.optionalString stdenv.isDarwin ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
         install_name_tool -add_rpath ${art-standalone_patched}/lib $out/bin/.android-translation-layer-wrapped || true
         install_name_tool -add_rpath ${art-standalone_patched}/lib $out/lib/java/dex/android_translation_layer/natives/libtranslation_layer_main.dylib || true
       '';
