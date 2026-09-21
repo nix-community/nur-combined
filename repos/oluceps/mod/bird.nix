@@ -96,6 +96,11 @@
           config = config.bird.baseConfig + config.bird.config;
           checkConfig = false;
         };
+
+        services.prometheus.exporters.bird = {
+          enable = true;
+          listenAddress = "[::]";
+        };
       };
     };
 }

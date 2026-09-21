@@ -112,7 +112,7 @@
         stateVersion = "24.11";
       };
       boot = {
-        binfmt.emulatedSystems = [ "aarch64-linux" ];
+        # binfmt.emulatedSystems = [ "aarch64-linux" ];
         kernel.sysctl = {
           "vm.vfs_cache_pressure" = lib.mkForce 200;
         };

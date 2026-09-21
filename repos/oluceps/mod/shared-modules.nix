@@ -15,6 +15,9 @@
           "self"
           "hjem"
           "flyline"
-        ];
+        ]
+      ++ [
+        inputs.nix-minecraft.nixosModules.minecraft-servers
+      ];
   };
 }

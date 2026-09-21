@@ -68,6 +68,7 @@
         ++ [
           inputs.self.overlays.default
           inputs.nix-topology.overlays.default
+          inputs.nix-minecraft.overlay
         ]
       );
     };

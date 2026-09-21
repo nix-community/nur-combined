@@ -167,6 +167,7 @@
     import-tree.url = "github:vic/import-tree";
     flyline.url = "github:HalFrgrd/flyline";
     flyline.inputs.nixpkgs.follows = "nixpkgs";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     self.submodules = true;
 
   };
