@@ -64,11 +64,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788379502,
-        "narHash": "sha256-KSHuKv1B5FV64yA5j+0WBdiTpWMtQrIUia1xXnyvl7o=",
+        "lastModified": 1788984335,
+        "narHash": "sha256-+0ZKjnIAn75ttr0FUlABWoOwYwsAmUPCb3ZYtH2PKw0=",
         "owner": "Mic92",
         "repo": "nixfmt-rs",
-        "rev": "0b3f3cffc584b7c0661814bedf0af042dd23d105",
+        "rev": "55a5fbe5e1d357f3e3fb3cb66e9d087cae85bdc9",
         "type": "github"
       },
       "original": {

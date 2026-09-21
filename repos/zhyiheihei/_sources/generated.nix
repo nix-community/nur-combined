@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.21.0";
+    version = "v4.21.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.21.0";
-      hash = "sha256-S34qmqepVvt05h+ltpx/QxjE8YaJm4b0gCl6LvrNCVk=";
+      tag = "v4.21.3";
+      hash = "sha256-o61wQzvigsdzzo9WXp/FQFkiuHPFRFhIcZMS+CmHyoE=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.21.0";
+    version = "v4.21.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.21.0";
-      hash = "sha256-BLngtWU4d1b4kfj0IvUXZViNyyl53JHuk+hIymieuSo=";
+      tag = "v4.21.3";
+      hash = "sha256-B7rdTTWB4I5OeLi3yc6FD1hGwV6PExor8pY0uBV7nXs=";
     };
   };
   pinyin2hanzi = {
@@ -245,10 +245,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.14.0";
+    version = "3.14.1";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.0/linux-x64/ZCode-3.14.0-linux-x64.deb";
-      hash = "sha256-rRx/dtQJZ9501qhzi7epQe01C3jEM52uz/HJlCEShCo=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.1/linux-x64/ZCode-3.14.1-linux-x64.deb";
+      hash = "sha256-K6bZ0TD98ir1APVVosKJ+lMAcS3ZcFIjElH4eCraP98=";
     };
   };
   zhconv-rs = {
