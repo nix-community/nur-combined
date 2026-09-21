@@ -25,6 +25,11 @@
             "sha256": "10r1dpic4v6grw064cgm8j536lm9167iv2zm6gz6qisbh29mfyrc",
             "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
+        "Adamekka": {
+            "rev": "dc5730f93761986e850f654603c6cc1bb500fd43",
+            "sha256": "123ff6gwcmjfkbvm0k7q7mzlbp1d3n9pn9hq57r1zq89pk2vpmmm",
+            "url": "https://github.com/Adamekka/nur-packages"
+        },
         "Alxandr": {
             "rev": "df5b7b448ef03f1313e5d596645f20d8643ac772",
             "sha256": "0fr0ccqnixnd4y43rs8548rcz973vc088agnkbxzqgk69946ny6n",
@@ -1164,11 +1169,6 @@
             "sha256": "1rcf7mx6zvzi9w4lmczd3nb0xhd6nsgrklmkwjscjak2zx2i3d92",
             "url": "https://github.com/ianmurphy1/nurpkgs"
         },
-        "ibuysausage": {
-            "rev": "3876586626c81c02d7ea0235c8d9f45a75bac098",
-            "sha256": "17j1ff8ckpwvl9s26krv9fvl1zbrvpn7avb9502sapnx8d91kzqv",
-            "url": "https://github.com/ibuysausage/nur-packages"
-        },
         "ifd3f": {
             "rev": "8fc8cbaadaf46a3412adbf54ce5b5fd7f9407238",
             "sha256": "06sldq7cqrj27pm619dq6kdf8iv697hcbdqsnw8cygsypfm4h9vb",
@@ -1692,6 +1692,11 @@
             "sha256": "10fc8ik6jmsjf1kayfnhnn05iiawaf12fa5gj0w74y2787s1q13n",
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
+        "misuzu": {
+            "rev": "d04c0f7d90865ea3cfaddeeb5eaebfa152622bef",
+            "sha256": "0xid68r2ycn2z4qhyc3c3a5si66s5wj70q42hjrc973a5a17xz2k",
+            "url": "https://github.com/misuzu/mur"
+        },
         "mloeper": {
             "rev": "f5a6bd83ababb5a05d10b337c0849db71646f213",
             "sha256": "1frwkh3mfgsc1zr26ydrdf19hdacfcp7jnkyipz8x0x5vigxln6q",
@@ -2014,8 +2019,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "2248a2085867c56e43dbfe495befca1733dc5099",
-            "sha256": "0h1gbj50sahq4dkbj2p0pb6m9f8jwcsn48mj34mp3mc4sngrnkrm",
+            "rev": "d521febf8331c584158c5dd7b2ba8ff82f8aa222",
+            "sha256": "142iyasf87wblqgq2670v9ysnzzaz94cd7raviv7i6gpnhxlsf2h",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "pedorich-n": {

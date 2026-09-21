@@ -16,6 +16,9 @@
             "type": "gitlab",
             "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
+        "Adamekka": {
+            "url": "https://github.com/Adamekka/nur-packages"
+        },
         "Alxandr": {
             "url": "https://github.com/Alxandr/nur"
         },
@@ -724,9 +727,6 @@
         "ianmurphy1": {
             "url": "https://github.com/ianmurphy1/nurpkgs"
         },
-        "ibuysausage": {
-            "url": "https://github.com/ibuysausage/nur-packages"
-        },
         "ifd3f": {
             "url": "https://github.com/ifd3f/nur-packages"
         },
@@ -1049,6 +1049,9 @@
         "misterio": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~misterio/nix-config"
+        },
+        "misuzu": {
+            "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
             "url": "https://github.com/MartinLoeper/nur"
