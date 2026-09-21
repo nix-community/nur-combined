@@ -13,11 +13,11 @@ Once Nix has been set up, you can use or install packages from this
 repository with:
 
 ```sh
-nix-shell -p nur.repos.yashsio.mozart
+nix-shell -p nur.repos.yashsio.package-name
 ```
 
 or
 
 ```sh
-nix-env -iA nur.repos.yashsio.mozart
+nix-env -iA nur.repos.yashsio.package-name
 ```
