@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "106.3";
+      version = "106.4";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1051286/cardbook-106.3-tb.xpi?src=";
-      sha256 = "ae16cd6534ad2f5c5432d461681c5d8f35f834b0a14ae171e4146d869738103d";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1051965/cardbook-106.4-tb.xpi?src=";
+      sha256 = "7cd0ef0dc9eb7e5192b67eeb589d1d66ca84b614addfe09ec73a74b7e6a06ebf";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";

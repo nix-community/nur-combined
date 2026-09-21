@@ -2613,16 +2613,17 @@
     };
     "copy-link-text" = buildMozillaXpiAddon {
       pname = "copy-link-text";
-      version = "1.7.0";
+      version = "1.7.1";
       addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5042314/copy_link_text_webextension-1.7.0.xpi";
-      sha256 = "e7761003cb1312a4fdaa2a7bc56d6685a10e7365f26f250f32a2333b56635b05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5043902/copy_link_text_webextension-1.7.1.xpi";
+      sha256 = "a8e28e1f869445e3cc717f41cf43271ac45f3e692aa507dd6538b6b55e3af4fe";
       meta = with lib;
       {
         homepage = "https://github.com/def00111/copy-link-text";
         description = "Copy the text of the link.";
         license = licenses.mpl20;
         mozPermissions = [
+          "alarms"
           "clipboardWrite"
           "menus"
           "notifications"
@@ -3837,10 +3838,10 @@
     };
     "elasticvue" = buildMozillaXpiAddon {
       pname = "elasticvue";
-      version = "1.15.0";
+      version = "1.16.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4802717/elasticvue-1.15.0.xpi";
-      sha256 = "cd0bac523334a100a9e51d1a14f919e5a3b61539a3b4517dec6759aedf750061";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5043960/elasticvue-1.16.0.xpi";
+      sha256 = "c55cd6bb68456247412a66cf7ead97f0d29cd58fd9fc1cf98bdda8a33a42fa6c";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -8292,10 +8293,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.245";
+      version = "2.4.246";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5030822/lichess_tools_by_siderite-2.4.245.xpi";
-      sha256 = "54cf3c72031fdd45b1ebb2a8312287a704259897706582ecc636ebed00605055";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5043736/lichess_tools_by_siderite-2.4.246.xpi";
+      sha256 = "b6c64fa96efdb0fccbc1f9187be509542404c9b97ffd6f96a06dc9554cae363f";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10384,10 +10385,10 @@
     };
     "nos2x-fox" = buildMozillaXpiAddon {
       pname = "nos2x-fox";
-      version = "1.20.1";
+      version = "1.21.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4893170/nos2x_fox-1.20.1.xpi";
-      sha256 = "1146a7444cbe2bd26776fa9777697cd10d0579145efe6484537e80723a5a7fa1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5045061/nos2x_fox-1.21.0.xpi";
+      sha256 = "6e9258b4fb845de60f5bc91b4178dfe31d972d76ce687bb44ad0234fe54ca901";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
@@ -14151,10 +14152,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.13";
+      version = "2.4.14";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028285/styl_us-2.4.13.xpi";
-      sha256 = "2d969b7514acbfa7b77b4e4c6341b9e1e8bcd4c3b9bc63d8b06e5d853dd1cbdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5044316/styl_us-2.4.14.xpi";
+      sha256 = "51d4efd6aa6484a749b97e36222f7bbe2ff699ed16b9a13adf40ecb6a0597081";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -17184,7 +17185,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/fabiocchetti/wide-github/";
-        description = "Makes GitHub wide on Mozilla Firefox.\n\nSupports GitHub, private Gists, GitHub Enterprise, and custom domains (TLDs).";
+        description = "Makes GitHub wide on Mozilla Firefox. Supports GitHub, private Gists, GitHub Enterprise, and custom domains (TLDs).";
         license = licenses.gpl3;
         mozPermissions = [
           "storage"
