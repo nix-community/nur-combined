@@ -111,7 +111,7 @@
     "matui": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-LnpqZgw5jfKKlrqn0CIM_ActRKUdMYWVIM29dA47aw8=/Cargo.lock",
+                "sha256-oANNLcnmx4PIaE5mkTvNRZFsxxeGW8XVOXWHd7hLtj4=/Cargo.lock",
                 {}
             ]
         },
@@ -127,12 +127,12 @@
             "name": null,
             "owner": "pkulak",
             "repo": "matui",
-            "rev": "v1.0.0",
-            "sha256": "sha256-LnpqZgw5jfKKlrqn0CIM/ActRKUdMYWVIM29dA47aw8=",
+            "rev": "v1.0.2",
+            "sha256": "sha256-oANNLcnmx4PIaE5mkTvNRZFsxxeGW8XVOXWHd7hLtj4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.0"
+        "version": "v1.0.2"
     },
     "omniwm": {
         "cargoLock": null,

@@ -72,16 +72,16 @@
   };
   matui = {
     pname = "matui";
-    version = "v1.0.0";
+    version = "v1.0.2";
     src = fetchFromGitHub {
       owner = "pkulak";
       repo = "matui";
-      rev = "v1.0.0";
+      rev = "v1.0.2";
       fetchSubmodules = false;
-      sha256 = "sha256-LnpqZgw5jfKKlrqn0CIM/ActRKUdMYWVIM29dA47aw8=";
+      sha256 = "sha256-oANNLcnmx4PIaE5mkTvNRZFsxxeGW8XVOXWHd7hLtj4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-LnpqZgw5jfKKlrqn0CIM_ActRKUdMYWVIM29dA47aw8=/Cargo.lock";
+      lockFile = ./. + "/sha256-oANNLcnmx4PIaE5mkTvNRZFsxxeGW8XVOXWHd7hLtj4=/Cargo.lock";
       outputHashes = {
         
       };
