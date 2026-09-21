@@ -28,12 +28,17 @@ module: {
 					}]
 				}
 				models: {
-					default:                  "grok-4.6"
+					default:                  "grok-4.7"
 					default_reasoning_effort: "xhigh"
 				}
 				model: {
 					"grok-4.6": {
 						model:                     "grok-4.6"
+						base_url:                  "https://cli-chat-proxy.grok.com/v1"
+						supports_reasoning_effort: true
+					}
+					"grok-4.7": {
+						model:                     "grok-4.7"
 						base_url:                  "https://cli-chat-proxy.grok.com/v1"
 						supports_reasoning_effort: true
 					}
