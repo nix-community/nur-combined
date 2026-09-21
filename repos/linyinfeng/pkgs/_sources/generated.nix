@@ -50,13 +50,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v3.0.14";
+    version = "v3.0.15";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v3.0.14";
+      rev = "v3.0.15";
       fetchSubmodules = false;
-      sha256 = "sha256-WO/Lhtdo/nZ89gbi7xxozZQtNgfn+46h2EnNkkAZa84=";
+      sha256 = "sha256-kmFq89AqG7ryjJ3fEO909lQxg/2TiPWmnwAMta2oEo8=";
     };
   };
   dot-tar = {
@@ -603,17 +603,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "589487c7758a2775f606ec631bd78609497f6e05";
+    version = "5f9a90f2be01243dd0ea4fe014cce12686cf3ced";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "589487c7758a2775f606ec631bd78609497f6e05";
+      rev = "5f9a90f2be01243dd0ea4fe014cce12686cf3ced";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-+obQA2BJQrltEUbkfBEnf98hquT1LnyfNIg+EE9N89A=";
+      sha256 = "sha256-ZYfvJ5Py7j7m95G2sKqP6iUw+t0XOzMVggRTLIti5v8=";
     };
-    date = "2026-09-12";
+    date = "2026-09-20";
   };
   vlmcsd = {
     pname = "vlmcsd";
