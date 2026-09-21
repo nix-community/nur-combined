@@ -1,5 +1,6 @@
---- a/manifest.json	1970-01-01 10:00:01.000000000 +1000
-+++ b/manifest.json	2026-09-16 23:04:49.783593016 +1000
+diff -ur unhook-src/manifest.json unhook-src-patched/manifest.json
+--- unhook-src/manifest.json	1970-01-01 10:00:01.000000000 +1000
++++ unhook-src-patched/manifest.json	2026-09-21 14:36:30.474038586 +1000
 @@ -10,9 +10,19 @@
    },
  
@@ -31,9 +32,10 @@
      }
    ],
    "browser_specific_settings": {
---- a/unhook.js	1970-01-01 10:00:01.000000000 +1000
-+++ b/unhook.js	2026-09-16 23:04:55.736551767 +1000
-@@ -1,35 +1,132 @@
+diff -ur unhook-src/unhook.js unhook-src-patched/unhook.js
+--- unhook-src/unhook.js	1970-01-01 10:00:01.000000000 +1000
++++ unhook-src-patched/unhook.js	2026-09-21 14:36:45.782967639 +1000
+@@ -1,37 +1,139 @@
  // Chrome/Firefox compatibility
  const browserAPI = globalThis.browser || globalThis.chrome;
  
@@ -51,12 +53,7 @@
 +function isHomeOrTrending(path = window.location.pathname) {
 +  return path === '/' || path === '/feed/trending';
 +}
- 
--  // Redirect homepage to subscriptions
--  if (settings.redirectToSubscriptions) {
--    if (path === '/' || path === '/feed/trending') {
--      window.location.replace('https://www.youtube.com/feed/subscriptions');
--      return;
++
 +function styleParent() {
 +  // document.head may be missing at document_start
 +  return document.head || document.documentElement;
@@ -87,7 +84,12 @@
 +function cacheWantsEarlyHide(cache) {
 +  return !!(cache && (cache.hideHomeFeed || cache.redirectToSubscriptions));
 +}
-+
+ 
+-  // Redirect homepage to subscriptions
+-  if (settings.redirectToSubscriptions) {
+-    if (path === '/' || path === '/feed/trending') {
+-      window.location.replace('https://www.youtube.com/feed/subscriptions');
+-      return;
 +function setEarlyHide(enabled) {
 +  if (enabled) {
 +    document.documentElement.classList.add('unhook-hide-home');
@@ -106,8 +108,8 @@
 +      styleParent().appendChild(earlyHideElement);
      }
 +    return;
-+  }
-+
+   }
+ 
 +  document.documentElement.classList.remove('unhook-hide-home');
 +}
 +
@@ -117,7 +119,7 @@
 +  }
 +  if (!settings.redirectToSubscriptions || !isHomeOrTrending()) {
 +    return false;
-   }
++  }
 +  // Full document loads are handled by background webRequest when possible.
 +  // This path covers SPA navigations (logo/Home) where webRequest does not run.
 +  redirecting = true;
@@ -151,7 +153,7 @@
 +  writeEarlyHideCache(settings);
 +
 +  const isRedirecting = redirectHomeIfNeeded(settings);
- 
++
    if (!styleElement) {
      styleElement = document.createElement('style');
      styleElement.id = 'unhook-styles';
@@ -175,9 +177,17 @@
 -  
 +
    if (settings.hideEndScreenCards) rules.push('.ytp-fullscreen-grid, .ytp-ce-element { display: none !important; }');
-   if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
+-  if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
++  if (settings.hideShorts) {
++    rules.push('a#endpoint[title="Shorts"], ytd-shorts { display: none !important; }');
++    if (path !== '/feed/you') {
++      rules.push('grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }');
++    }
++  }
  
-@@ -65,22 +162,80 @@
+   if (settings.hideComments) rules.push('.ytd-comments { display: none !important; }');
+   if (settings.hideProfilePhotos) rules.push('#author-thumbnail { display: none !important; }');
+@@ -65,22 +167,80 @@
    }
  
    styleElement.textContent = rules.join('\n');
