@@ -180,7 +180,7 @@ diff -ur unhook-src/unhook.js unhook-src-patched/unhook.js
 -  if (settings.hideShorts) rules.push('a#endpoint[title="Shorts"], ytd-shorts, grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }')
 +  if (settings.hideShorts) {
 +    rules.push('a#endpoint[title="Shorts"], ytd-shorts { display: none !important; }');
-+    if (path !== '/feed/you') {
++    if (isHomeOrTrending() || path === '/feed/subscriptions') {
 +      rules.push('grid-shelf-view-model, ytd-rich-shelf-renderer { display: none !important; }');
 +    }
 +  }
