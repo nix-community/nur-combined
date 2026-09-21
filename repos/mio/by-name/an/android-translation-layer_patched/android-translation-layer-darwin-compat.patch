@@ -1,0 +1,229 @@
+diff -ruN a/src/api-impl-jni/android_inputmethodservice_InputMethodService.c b/src/api-impl-jni/android_inputmethodservice_InputMethodService.c
+--- a/src/api-impl-jni/android_inputmethodservice_InputMethodService.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/android_inputmethodservice_InputMethodService.c	2026-09-21 19:08:55
+@@ -1,4 +1,15 @@
++#ifdef __APPLE__
+ #include <jni.h>
++JNIEXPORT jlong JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeInit(JNIEnv *env, jobject this) { return 0; }
++JNIEXPORT jboolean JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeSetCompositingText(JNIEnv *env, jobject this, jlong ptr, jstring text, jint newCursorPosition) { return 0; }
++JNIEXPORT jboolean JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeSetCompositingRegion(JNIEnv *env, jobject this, jlong ptr, jint start, jint end) { return 0; }
++JNIEXPORT jboolean JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeFinishComposingText(JNIEnv *env, jobject this, jlong ptr) { return 0; }
++JNIEXPORT jboolean JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeCommitText(JNIEnv *env, jobject this, jlong ptr, jstring text, jint newCursorPosition) { return 0; }
++JNIEXPORT jboolean JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeDeleteSurroundingText(JNIEnv *env, jobject this, jlong ptr, jint beforeLength, jint afterLength) { return 0; }
++JNIEXPORT jboolean JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeSetSelection(JNIEnv *env, jobject this, jlong ptr, jint start, jint end) { return 0; }
++JNIEXPORT jboolean JNICALL Java_android_inputmethodservice_InputMethodService_00024ATLInputConnection_nativeSendKeyEvent(JNIEnv *env, jobject this, jlong ptr, jlong time, jlong key, jlong state) { return 0; }
++#else
++#include <jni.h>
+ 
+ #include <stdbool.h>
+ #include <stdint.h>
+@@ -291,3 +302,5 @@
+ 
+ 	return true;
+ }
++
++#endif
+diff -ruN a/src/api-impl-jni/android_os_Vibrator.c b/src/api-impl-jni/android_os_Vibrator.c
+--- a/src/api-impl-jni/android_os_Vibrator.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/android_os_Vibrator.c	2026-09-21 19:07:10
+@@ -1,3 +1,8 @@
++#ifdef __APPLE__
++#include <jni.h>
++JNIEXPORT jint JNICALL Java_android_os_Vibrator_native_1constructor(JNIEnv *env, jobject this) { return -1; }
++JNIEXPORT void JNICALL Java_android_os_Vibrator_native_1vibrate(JNIEnv *env, jobject this, jint fd, jlong duration) {}
++#else
+ #include <gudev/gudev.h>
+ 
+ #include <fcntl.h>
+@@ -111,3 +116,4 @@
+ 		g_log(NULL, G_LOG_LEVEL_WARNING, "failed to play vibraton: %m");
+ 	}
+ }
++#endif
+diff -ruN a/src/api-impl-jni/app/android_app_NotificationManager.c b/src/api-impl-jni/app/android_app_NotificationManager.c
+--- a/src/api-impl-jni/app/android_app_NotificationManager.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/app/android_app_NotificationManager.c	2026-09-21 19:07:26
+@@ -1,3 +1,12 @@
++#ifdef __APPLE__
++#include <jni.h>
++JNIEXPORT jlong JNICALL Java_android_app_NotificationManager_nativeInitBuilder(JNIEnv *env, jobject this) { return 0; }
++JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeAddAction(JNIEnv *env, jobject this, jlong builder_ptr, jstring name_jstr, jint type, jobject intent) {}
++JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeShowNotification(JNIEnv *env, jobject this, jlong builder_ptr, jint id, jstring title_jstr, jstring text_jstr, jstring icon_jstr, jboolean ongoing, jint type, jobject intent) {}
++JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeCancel(JNIEnv *env, jobject this, jint id) {}
++JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeShowMPRIS(JNIEnv *env, jobject this, jstring package_name_jstr, jstring identity_jstr) {}
++JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeCancelMPRIS(JNIEnv *env, jobject this) {}
++#else
+ #include <gio/gdesktopappinfo.h>
+ #include <gtk/gtk.h>
+ 
+@@ -218,3 +227,4 @@
+ 		g_clear_handle_id(&dbus_name_id, g_bus_unown_name);
+ 	}
+ }
++#endif
+diff -ruN a/src/api-impl-jni/app/android_app_WallpaperManager.c b/src/api-impl-jni/app/android_app_WallpaperManager.c
+--- a/src/api-impl-jni/app/android_app_WallpaperManager.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/app/android_app_WallpaperManager.c	2026-09-21 19:07:45
+@@ -1,3 +1,7 @@
++#ifdef __APPLE__
++#include <jni.h>
++JNIEXPORT void JNICALL Java_android_app_WallpaperManager_set_1bitmap(JNIEnv *env, jclass clazz, jlong texture_ptr) {}
++#else
+ #include <gdk/gdk.h>
+ #include <libportal/portal.h>
+ 
+@@ -24,3 +28,4 @@
+ 	xdp_portal_set_wallpaper(portal, NULL, g_file_get_uri(file), XDP_WALLPAPER_FLAG_NONE, NULL, wallpaper_ready_cb, file);
+ 	g_object_unref(portal);
+ }
++#endif
+diff -ruN a/src/api-impl-jni/audio/android_media_AudioManager.c b/src/api-impl-jni/audio/android_media_AudioManager.c
+--- a/src/api-impl-jni/audio/android_media_AudioManager.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/audio/android_media_AudioManager.c	2026-09-21 19:09:53
+@@ -1,4 +1,7 @@
+ #include <alsa/asoundlib.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <stdio.h>
+ #include <gio/gio.h>
+ #include <stdio.h>
+ 
+diff -ruN a/src/api-impl-jni/audio/android_media_AudioRecord.c b/src/api-impl-jni/audio/android_media_AudioRecord.c
+--- a/src/api-impl-jni/audio/android_media_AudioRecord.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/audio/android_media_AudioRecord.c	2026-09-21 19:09:53
+@@ -1,4 +1,7 @@
+ #include <alsa/asoundlib.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <stdio.h>
+ 
+ #include "../defines.h"
+ #include "audio.h"
+diff -ruN a/src/api-impl-jni/audio/android_media_AudioTrack.c b/src/api-impl-jni/audio/android_media_AudioTrack.c
+--- a/src/api-impl-jni/audio/android_media_AudioTrack.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/audio/android_media_AudioTrack.c	2026-09-21 19:09:53
+@@ -1,6 +1,9 @@
+ #include <gtk/gtk.h>
+ 
+ #include <alsa/asoundlib.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <stdio.h>
+ #include <stdint.h>
+ #include <stdio.h>
+ 
+diff -ruN a/src/api-impl-jni/audio/audio.c b/src/api-impl-jni/audio/audio.c
+--- a/src/api-impl-jni/audio/audio.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/audio/audio.c	2026-09-21 19:09:53
+@@ -1,4 +1,7 @@
+ #include <alsa/asoundlib.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <stdio.h>
+ 
+ #include "audio.h"
+ 
+diff -ruN a/src/api-impl-jni/location/android_location_LocationManager.c b/src/api-impl-jni/location/android_location_LocationManager.c
+--- a/src/api-impl-jni/location/android_location_LocationManager.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/location/android_location_LocationManager.c	2026-09-21 19:07:45
+@@ -1,3 +1,7 @@
++#ifdef __APPLE__
++#include <jni.h>
++JNIEXPORT void JNICALL Java_android_location_LocationManager_nativeGetLocation(JNIEnv *env, jobject j) {}
++#else
+ #include <libportal/portal.h>
+ 
+ #include "../defines.h"
+@@ -41,3 +45,4 @@
+ 
+ 	xdp_portal_location_monitor_start(portal, NULL, 0, 0, XDP_LOCATION_ACCURACY_EXACT, XDP_LOCATION_MONITOR_FLAG_NONE, NULL, NULL, NULL);
+ }
++#endif
+diff -ruN a/src/api-impl-jni/media/android_media_MediaCodec.c b/src/api-impl-jni/media/android_media_MediaCodec.c
+--- a/src/api-impl-jni/media/android_media_MediaCodec.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/media/android_media_MediaCodec.c	2026-09-21 19:09:44
+@@ -1,3 +1,15 @@
++#ifdef __APPLE__
++#include <jni.h>
++JNIEXPORT jlong JNICALL Java_android_media_MediaCodec_native_1constructor(JNIEnv *env, jobject this, jstring codec_name) { return 0; }
++JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1configure_1audio(JNIEnv *env, jobject this, jlong codec, jobject extradata, jint sample_rate, jint nb_channels) {}
++JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1configure_1video(JNIEnv *env, jobject this, jlong codec, jobject csd0, jobject csd1, jobject surface_obj) {}
++JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1start(JNIEnv *env, jobject this, jlong codec) {}
++JNIEXPORT jint JNICALL Java_android_media_MediaCodec_native_1queueInputBuffer(JNIEnv *env, jobject this, jlong codec, jobject buffer, jlong presentationTimeUs) { return 0; }
++JNIEXPORT jint JNICALL Java_android_media_MediaCodec_native_1dequeueOutputBuffer(JNIEnv *env, jobject this, jlong codec, jobject buffer, jobject buffer_info) { return 0; }
++JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1releaseOutputBuffer(JNIEnv *env, jobject this, jlong codec, jobject buffer, jboolean render, jlong presentationTimeNs) {}
++JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1flush(JNIEnv *env, jobject this, jlong codec) {}
++JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1release(JNIEnv *env, jobject this, jlong codec) {}
++#else
+ /*
+  * Android MediaCodec implementation for Android Translation Layer
+  *
+@@ -517,3 +529,5 @@
+ 	avcodec_free_context(&ctx->codec);
+ 	free(ctx);
+ }
++
++#endif
+diff -ruN a/src/api-impl-jni/widgets/android_webkit_WebView.c b/src/api-impl-jni/widgets/android_webkit_WebView.c
+--- a/src/api-impl-jni/widgets/android_webkit_WebView.c	2026-09-21 19:06:59
++++ b/src/api-impl-jni/widgets/android_webkit_WebView.c	2026-09-21 19:07:59
+@@ -1,3 +1,9 @@
++#ifdef __APPLE__
++#include <jni.h>
++JNIEXPORT jlong JNICALL Java_android_webkit_WebView_native_1constructor(JNIEnv *env, jobject this, jobject context, jobject attrs) { return 0; }
++JNIEXPORT void JNICALL Java_android_webkit_WebView_native_1loadUrl(JNIEnv *env, jobject this, jlong widget_ptr, jstring url) {}
++JNIEXPORT void JNICALL Java_android_webkit_WebView_native_1loadDataWithBaseURL(JNIEnv *env, jobject this, jlong widget_ptr, jstring base_url, jstring data_jstr, jstring mime_type, jstring encoding) {}
++#else
+ #include <gio/gunixinputstream.h>
+ #include <gtk/gtk.h>
+ #include <webkit/webkit.h>
+@@ -76,3 +82,4 @@
+ 	(*env)->GetStringUTFRegion(env, data_jstr, 0, data_jlen, data);
+ 	webkit_web_view_load_bytes(webview, g_bytes_new(data, data_len), mime_type ? _CSTRING(mime_type) : "text/html", encoding ? _CSTRING(encoding) : NULL, base_url ? _CSTRING(base_url) : NULL);
+ }
++#endif
+diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
+--- a/src/libandroid/native_window.c	2026-09-21 19:06:59
++++ b/src/libandroid/native_window.c	2026-09-21 19:08:29
+@@ -448,7 +448,7 @@
+ 
+ // FIXME 2: this BLATANTLY belongs elsewhere
+ 
+-typedef XrResult (*xr_func)(...);
++typedef XrResult (*xr_func)();
+ 
+ /* avoid hard dependency on libopenxr_loader for the three functions that we only ever call when running a VR app */
+ /* NOTE: our use of __builtin_va_arg_pack means this only works as long as we don't need to call a function
+@@ -461,7 +461,7 @@
+ 	}
+ 
+ 	xr_func func = dlsym(openxr_loader_handle, func_name);
+-	return func(__builtin_va_arg_pack());
++	return -1;
+ }
+ 
+ static XrResult bionic_xrInitializeLoaderKHR(void *loaderInitInfo)
+diff -ruN a/src/main-executable/bionic_compat.c b/src/main-executable/bionic_compat.c
+--- a/src/main-executable/bionic_compat.c	2026-09-21 19:06:59
++++ b/src/main-executable/bionic_compat.c	2026-09-21 19:09:31
+@@ -1,3 +1,4 @@
++#ifndef __APPLE__
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+@@ -161,3 +162,6 @@
+ 	 */
+ #endif
+ /* clang-format on */
++#else
++void init__r_debug() {}
++#endif
+diff -ruN a/src/main-executable/main.c b/src/main-executable/main.c
+--- a/src/main-executable/main.c	2026-09-21 19:06:59
++++ b/src/main-executable/main.c	2026-09-21 19:08:06
+@@ -842,4 +842,4 @@
+ }
+ 
+ /* TODO: recall what this is doing here */
+-const char dl_loader[] __attribute__((section(".interp"))) = "/lib/ld-linux.so.2";
++const char dl_loader[]  = "/lib/ld-linux.so.2";
