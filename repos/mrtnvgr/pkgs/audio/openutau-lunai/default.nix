@@ -49,7 +49,11 @@ buildDotnetModule rec {
   # The "GenerateDepsFile" task fails when multiple projects are built in parallel.
   enableParallelBuilding = false;
 
-  projectFile = "OpenUtau.sln";
+  # Do not publish the whole solution: the OpenUtau.Test project has
+  # DebugType disabled in Release via Directory.Build.targets, and publishing
+  # it with --no-build fails with MSB3030 because the expected .pdb is missing.
+  projectFile = "OpenUtau/OpenUtau.csproj";
+  testProjectFile = "OpenUtau.Test/OpenUtau.Test.csproj";
   nugetDeps = ./deps.json;
 
   executables = [ "OpenUtau-Lunai" ];
