@@ -39,13 +39,18 @@ rec {
         ./github-actions.nix
       ];
       perSystem =
-        { pkgs, inputs', ... }:
+        {
+          pkgs,
+          lib,
+          inputs',
+          ...
+        }:
         let
           nvfetcher-bin = inputs'.nvfetcher.packages.default or null;
         in
         {
           devShells.default = pkgs.callPackage ./devshell.nix { inherit nvfetcher-bin; };
-          packages = {
+          packages = lib.mkIf (nvfetcher-bin != null) {
             inherit nvfetcher-bin;
           };
           legacyPackages = {

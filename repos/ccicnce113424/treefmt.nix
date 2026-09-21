@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  imports = [ (inputs.treefmt-nix.flakeModule or null) ];
+  imports = [ (inputs.treefmt-nix.flakeModule or { }) ];
   perSystem =
     { pkgs, ... }:
     {
