@@ -406,18 +406,18 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.3.9";
+    version = "0.4.0";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.9/waywallen-0.3.9-x86_64.AppImage";
-      sha256 = "sha256-499tPXymKD0Owftj/Asgu08ZmHBMuFKPHdsR+ribmt8=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.4.0/waywallen-0.4.0-x86_64.AppImage";
+      sha256 = "sha256-n/TwuzBvs+oMYdPIBdJ+eeGdYbHous85MNAMZ2EZI8Q=";
     };
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.3.3";
+    version = "0.4.0";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.3.3/waywallen-kde-0.3.3-x86_64-embed.zip";
-      sha256 = "sha256-0SGuTy/KLSZkts1qb1x3GticUwOI3CQVWyRNhzOuBZ4=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.4.0/waywallen-kde-0.4.0-x86_64-embed.zip";
+      sha256 = "sha256-CBGTomn7nQ9NQ/7mg+m+S70x8Dy/7imUBhYUT2SVeNY=";
     };
   };
   wild = {
