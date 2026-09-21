@@ -165,10 +165,33 @@
                 static_configs = [ { targets = [ "[fdcc::3]:9031" ]; } ];
                 relabel_configs = fdcc_instance_relabel;
               }
+
               {
-                job_name = "uubboo_wgmesh_metrics";
+                job_name = "wgmesh_metrics";
+                metrics_path = "/metrics";
                 scheme = "http";
-                static_configs = [ { targets = [ "[fdcc::6]:9586" ]; } ];
+                static_configs = [
+                  {
+                    targets = [
+                      "[fdcc::6]:9586"
+                      "[fdcc::5]:9586"
+                      "[fdcc::8]:9586"
+                    ];
+                  }
+                ];
+                relabel_configs = fdcc_instance_relabel;
+              }
+              {
+                job_name = "bird_metrics";
+                scheme = "http";
+                static_configs = [
+                  {
+                    targets = [
+                      "[fdcc::5]:9324"
+                      "[fdcc::8]:9324"
+                    ];
+                  }
+                ];
                 relabel_configs = fdcc_instance_relabel;
               }
               {

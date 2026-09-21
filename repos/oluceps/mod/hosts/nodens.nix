@@ -39,6 +39,7 @@
             # sing-server
             xray
             mc
+            wgmesh
 
           ])
         )
@@ -49,6 +50,10 @@
 
       identity.user = "elen";
       xray.configFile = config.vaultix.secrets.xray.path;
+      wgmesh = {
+        configFile = "/var/lib/wgmesh/config.json";
+        image = "ghcr.io/asoul-rec/wg-mesh:master@sha256:4a22da9332b01c2fa70dc9df2d82342880881f9dcf05f68cde308a2517b1b496";
+      };
 
       zramSwap = {
         enable = false;

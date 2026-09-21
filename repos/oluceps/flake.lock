@@ -206,11 +206,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1789426871,
-        "narHash": "sha256-SHHf1HPDelVceVuzwTEizuf3Hi0nC/eTo7jrrY73ATU=",
+        "lastModified": 1790018477,
+        "narHash": "sha256-gsbmetPsZAEDtCQyDsB481wNAIpj7tsOJ65SHQbWUhk=",
         "ref": "refs/heads/main",
-        "rev": "b51fc433e3615f619347e7a78f304dfa125edd4c",
-        "revCount": 35,
+        "rev": "7677df5360c0aa3fe66ae7de6f965537f110889f",
+        "revCount": 46,
         "type": "git",
         "url": "file:///home/riro/Src/nyaw-dn42-autopeer"
       },

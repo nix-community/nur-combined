@@ -35,6 +35,7 @@
             chrony
             # dae
             prometheus
+            wgmesh
           ])
         )
         ++ [
@@ -42,6 +43,7 @@
         ];
 
       identity.user = "elen";
+      wgmesh.configFile = "/var/lib/wgmesh/config.json";
 
       environment.etc."alloy/config.alloy".text = ''
         discovery.relabel "journal" {
