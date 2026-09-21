@@ -19,14 +19,13 @@
 
 let
   pname = "open-pencil";
-  version = "0.13.2-unstable-2026-07-20";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "open-pencil";
     repo = "open-pencil";
-    # The v0.13.2 tag predates required lockfile fixes.
-    rev = "9db46f919b3e3905022e7e6a20a0092f1ba46efc";
-    hash = "sha256-Pw8GgTbYwHlvjSWpS8IDIn+mIY4Y1uUJW5SPy0G77NU=";
+    tag = "v${version}";
+    hash = "sha256-f+FwDXQJNY+UcWO/4th4IFrKPsdieGdd1gnJXuh+YYw=";
   };
 
   nodeTargets = {
@@ -45,9 +44,9 @@ let
   };
 
   nodeModuleHashes = {
-    aarch64-darwin = "sha256-v1pGloFe9D0RSOBRM/rx20sWEPUjvJS43HegrCVI958=";
-    aarch64-linux = "sha256-XtgkatjpsayGoGIlFpLNrfOfKA48hL6IMPGeysklMBI=";
-    x86_64-linux = "sha256-JyB2Jg0y2ejll2goTAve935tgmyD+NcKprgJrYWBDBs=";
+    aarch64-darwin = "sha256-DqaM4Bkl0y5Gq6c1DAApYaqgfFZfIxzmVJu2ZlI0MJU=";
+    aarch64-linux = "sha256-8X6lixi4d9NsXEekWF4czFFvQPxKSCe2utUAdZvlVv0=";
+    x86_64-linux = "sha256-naUtALrvDNwic52+gBBUD+5uT3RhJcYQDQL5PGPHcuU=";
   };
 
   system = stdenv.hostPlatform.system;
@@ -117,7 +116,7 @@ rustPlatform.buildRustPackage {
 
   cargoRoot = "desktop";
   buildAndTestSubdir = "desktop";
-  cargoHash = "sha256-ZHlFcmTZ/2GbNxhrygmQBvlaFSWryO8o9tNXwVA8Q0Q=";
+  cargoHash = "sha256-8LZV/6FoQuQa0VLvvlwqctqmxxs9U9gGCR0N9ba6m6g=";
 
   nativeBuildInputs = [
     bun
@@ -156,20 +155,29 @@ rustPlatform.buildRustPackage {
   postConfigure = configureNodeModules;
 
   tauriConf = builtins.toJSON {
-    build.beforeBuildCommand = "bun run build:packages && bunx vite build";
+    build.beforeBuildCommand = "bun run generate:icons --target desktop && bun run generate:tauri-menu && bun run build:packages && bunx vite build";
     bundle = {
       createUpdaterArtifacts = false;
       macOS.signingIdentity = null;
     };
   };
 
-  preBuild = ''
-    tauriConfPath="$TMPDIR/tauri-nix.conf.json"
-    printf '%s' "$tauriConf" > "$tauriConfPath"
-    tauriBuildFlags+=(--config "$tauriConfPath")
-  '';
+  preBuild =
+    lib.optionalString stdenv.hostPlatform.isLinux ''
+      # The icon generator loads Sharp's prebuilt native module.
+      export LD_LIBRARY_PATH="${
+        lib.makeLibraryPath [ stdenv.cc.cc.lib ]
+      }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+    ''
+    + ''
+      tauriConfPath="$TMPDIR/tauri-nix.conf.json"
+      printf '%s' "$tauriConf" > "$tauriConfPath"
+      tauriBuildFlags+=(--config "$tauriConfPath")
+    '';
 
   doCheck = false;
+
+  passthru = { inherit nodeModules; };
 
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(--set-default WEBKIT_DISABLE_DMABUF_RENDERER 1)
