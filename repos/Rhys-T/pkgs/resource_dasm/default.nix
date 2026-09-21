@@ -3,12 +3,12 @@
     needsFmt = fuzziqersoftwareFmtPatchHook.isNeeded;
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2026-09-18";
+    version = "0-unstable-2026-09-20";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "resource_dasm";
-        rev = "de838167612c2e038e93ea3bbad9dd18eef5baf2";
-        hash = "sha256-bood3cpFFd9bTGPNTC62B8DhwH/aABaYnuhbaIbBT/U=";
+        rev = "5cbf27ea0ca5f8923602e1b9a3e6411adc0f7ccb";
+        hash = "sha256-1pvY599xX4hc7+ZBahw3aeNWHw9GF3FVPwHXzfmLOMg=";
     };
     nativeBuildInputs =
         [cmake]
@@ -37,11 +37,6 @@ in stdenv.mkDerivation rec {
         # HACK: Fix invalid format strings.
         substituteInPlace src/Audio/MODSynthesizer.cc --replace-fail '{:-2}' '{:<2}'
         substituteInPlace src/Audio/smssynth.cc --replace-fail '{:-7}' '{:<7}'
-        
-        # HACK: Fix missing parentheses
-        substituteInPlace src/resource_dasm.cc --replace-fail \
-            'uint32_t next_code_addr = ret.base + (ret.a5_world_size + 1) & (~1);' \
-            'uint32_t next_code_addr = ret.base + ((ret.a5_world_size + 1) & (~1));'
     '';
     ${if useNetpbm then "postInstall" else null} = ''
         for file in "$out"/bin/*; do
@@ -76,9 +71,10 @@ in stdenv.mkDerivation rec {
                 * **gcmdump**: Extracts all files in a GCM file (GameCube disc image) or TGC file (embedded GameCube disc image).
                 * **gcmasm**: Generates a GCM image from a directory tree.
                 * **gvmdump**: Extracts all files in a GVM archive (from Phantasy Star Online) to the current directory, and converts the GVR textures to Windows BMP files. Also can decode individual GVR files outside of a GVM archive.
+                * **rarcdump**: Extracts all files in a RARC or SZS archive to the current directory.
                 * **rcfdump**: Extracts all files in a RCF archive (from The Simpsons: Hit and Run) to the current directory.
                 * **smsdumpbanks**: Extracts the contents of JAudio instrument and waveform banks in AAF, BX, or BAA format (from Super Mario Sunshine, Luigi's Mansion, Pikmin, and other games). See "Using smssynth" for more information.
-                * **smssynth**: Synthesizes and debugs music sequences in BMS format (from Super Mario Sunshine, Luigi's Mansion, Pikmin, and other games) or MIDI format (from classic Macintosh games). See "Using smssynth" for more information.
+                * **smssynth**: Synthesizes and debugs music sequences in BMS format (from Super Mario Sunshine, Luigi's Mansion, Pikmin, and other games), or MIDI/Tune/QTMA formats (from classic Macintosh games). See "Using smssynth" for more information.
                 * **modsynth**: Synthesizes and debugs music sequences in Protracker/Soundtracker MOD format.
             * Game map generators
                 * **blobbo_render**: Generates maps from Blobbo levels.
@@ -90,6 +86,8 @@ in stdenv.mkDerivation rec {
                 * **infotron_render**: Generates maps from Infotron levels files.
                 * **lemmings_render**: Generates maps from Lemmings and Oh No! More Lemmings levels and graphics files.
                 * **mshines_render**: Generates maps from Monkey Shines world files.
+                * **pop1_render**: Generates maps from the Mac version of Prince of Persia.
+                * **pop2_render**: Generates maps from the Mac version of Prince of Persia 2.
                 * **realmz_dasm**: Generates maps from Realmz scenarios and disassembles the scenario scripts into readable assembly-like syntax.
         '';
         homepage = "https://github.com/fuzziqersoftware/resource_dasm";
