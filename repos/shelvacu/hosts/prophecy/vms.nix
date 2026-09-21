@@ -41,6 +41,14 @@
       cpus = 2;
     };
 
+    pbxvm = {
+      tag = 6;
+      baseMem = 1 * 1024;
+      maxMem = 4 * 1024;
+      dimmSlots = 4;
+      cpus = 2;
+    };
+
     jv-shel = {
       tag = 5;
       baseMem = 1 * 1024;

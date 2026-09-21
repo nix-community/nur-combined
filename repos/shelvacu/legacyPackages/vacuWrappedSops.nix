@@ -40,6 +40,10 @@ let
         key_groups = singleGroup (userKeysAge ++ agesOf "liam");
       }
       {
+        path_regex = "/secrets/hosts/pbxvm\\.yaml$";
+        key_groups = singleGroup (userKeysAge ++ agesOf "pbxvm");
+      }
+      {
         path_regex = "/secrets/hosts/prophecy\\.yaml$";
         key_groups = singleGroup (userKeysAge ++ agesOf "prophecy");
       }

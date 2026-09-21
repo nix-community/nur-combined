@@ -27,6 +27,10 @@ let
       "tf2-nix"
     ];
     liam.inp = [ "sops-nix" ];
+    pbxvm = {
+      inp = [ "sops-nix" ];
+      aliases = [ "pbx" ];
+    };
     prophecy = {
       inp = [
         "impermanence"

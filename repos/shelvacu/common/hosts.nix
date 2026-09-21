@@ -147,6 +147,15 @@
       isLan = true;
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsorkZ3rIZ2lLigwQWfA64xZRlt5lk6QPzypg55eLlD";
     };
+    pbxvm = {
+      altNames = [
+        "pbx"
+        "phone-pbx"
+      ];
+      primaryIp = "10.78.77.6";
+      # ssh.keys: fill in from `ssh-keyscan 10.78.77.6` after the VM's first
+      # boot, then re-key secrets/hosts/pbxvm.yaml so the VM can read it.
+    };
     prophecy = {
       altNames = [
         "prop"

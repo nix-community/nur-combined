@@ -1,0 +1,147 @@
+# pbxvm — Asterisk + TFTP for the Cisco CP-8851
+
+A vacuvm on prophecy (tag 6, `10.78.77.6` / `2602:fce8:106:10::6`) that does two
+jobs: TFTP-provisions one Cisco IP Phone 8851 and gives it dial tone through a
+Telnyx SIP trunk.
+
+## Why it looks like this
+
+- **The phone runs Cisco's _enterprise_ (Unified CM) SIP firmware**, not the
+  multiplatform (MPP) firmware. That decides everything about provisioning: the
+  phone TFTPs `SEP<MAC>.cnf.xml` in CUCM's XML schema and takes its whole
+  identity — proxy address, line, credentials, dial rules — from that one file.
+  There is no per-setting web UI to fall back on.
+- **The phone talks SIP over TCP** (`<transportLayerProtocol>1</…>`). The
+  enterprise firmware's UDP path retransmits aggressively against anything that
+  isn't a real CUCM; TCP is the well-trodden combination with Asterisk. The
+  `1001` pjsip endpoint is pinned to `transport-tcp` to match.
+- **Only basic calling works.** The enterprise firmware expects a pile of
+  Cisco-proprietary SIP extensions for its softkeys — BLF, call park, DND sync,
+  conferencing, directories. Stock Asterisk does not speak them, so those keys
+  will do nothing. <https://usecallmanager.nz/> patches Asterisk to add them; if
+  the missing features start to matter, that patch is the path, and the XML here
+  is already written in the shape its docs expect.
+- **The phone reaches the VM directly, no router changes.** The vacuvm net
+  `10.78.77.0/24` is _inside_ the LAN's `10.78.76.0/22`, so the phone thinks
+  `10.78.77.6` is on-link and ARPs for it — and prophecy's `IPv4ProxyARP` on
+  `br-main` answers. That is also why asterisk's `local_net` is the whole `/22`:
+  everything on the LAN gets the VM's own address in SDP.
+- **Telnyx sees prophecy's Doof address.** Guest traffic is policy-routed out
+  `wg-doof` and SNATed to `205.201.63.13` (`hosts/prophecy/doof.nix`), so the
+  trunk's transport carries `external_media_address` /
+  `external_signaling_address` = that address. Inbound calls rely on `line=yes`
+  on the outbound registration: Telnyx sends the INVITE back through the same
+  flow the REGISTER opened, which is what survives the SNAT. The trunk AOR's
+  `qualify_frequency=30` doubles as the keepalive that stops conntrack dropping
+  that mapping.
+- **The VM is the phone's NTP server.** An 8851 in SIP mode has no other source
+  of time, so chrony runs here with `allow 10.78.76.0/22` and the XML points
+  `<ntps>` at `10.78.77.6`.
+
+## Files
+
+| File                       | What                                                            |
+| -------------------------- | --------------------------------------------------------------- |
+| `hosts/pbxvm/default.nix`  | Host basics plus the `vacu.pbx.*` options everything else reads |
+| `hosts/pbxvm/asterisk.nix` | pjsip transports/endpoints/trunk, dialplan, firewall            |
+| `hosts/pbxvm/tftp.nix`     | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
+| `hosts/prophecy/vms.nix`   | The VM itself (tag 6)                                           |
+| `secrets/hosts/pbxvm.yaml` | Telnyx password + the line's SIP password                       |
+
+Both passwords are sops-rendered at runtime (`sops.templates`) rather than baked
+into the store — including the one inside `SEP<MAC>.cnf.xml`, which sops writes
+straight into `/srv/tftp`. Note TFTP then hands that file to anyone on the LAN
+who asks for the right name; the real protection there is that the LAN is
+trusted, not the file mode.
+
+## Bringing it up
+
+### 1. Deploy
+
+```bash
+# on prophecy: picks up the new tap, its routes/policy rules, and the units
+nixos-rebuild switch --flake .#prophecy
+
+toplevel=$(nix build .#nixosConfigurations.pbxvm.config.system.build.toplevel \
+  --no-link --print-out-paths)
+vacuvm bootstrap pbxvm "$toplevel"
+systemctl start vacuvm-pbxvm-qemu
+```
+
+### 2. Finish the secrets
+
+`secrets/hosts/pbxvm.yaml` is committed with `REPLACE-ME-…` placeholders, and it
+is encrypted only to the user keys — the VM had no host key when it was written,
+so sops-nix on pbxvm cannot read it yet and asterisk will start with unusable
+credentials.
+
+```bash
+# once the VM has booted and generated its host key
+ssh-keyscan 10.78.77.6
+# put the ed25519 key in common/hosts.nix under `pbxvm.ssh.keys`, then:
+./sops updatekeys secrets/hosts/pbxvm.yaml   # re-encrypt, now including the VM
+./sops secrets/hosts/pbxvm.yaml              # fill in the two real passwords
+```
+
+- `telnyx.password` — the password of the Telnyx **credential connection** whose
+  username is `usertelnyx97122`.
+- `phone.1001.password` — invent one. It only has to match between asterisk and
+  the XML, and this repo puts it in both.
+
+Then rebuild the VM. Asterisk is `restartIfChanged = false` (so a rebuild never
+drops a live call), so restart it by hand:
+
+```bash
+systemctl restart asterisk
+```
+
+### 3. Point the phone at the TFTP server
+
+Nothing hands out DHCP option 150 on this LAN, so set it on the handset:
+
+**Settings → Admin Settings → Network Setup → IPv4 Setup → Alternate TFTP →
+On**, then **TFTP Server 1 → `10.78.77.6`**. Save; the phone reboots.
+
+If the phone has ever been registered to a real CUCM it holds an ITL and will
+refuse this unsigned config. Clear it: **Settings → Admin Settings → Security
+Setup → Trust List → ITL File**, unlock with `**#`, then **Erase**. A full
+factory reset (hold `#` while powering on, then dial `123456789*0#`) does the
+same and more.
+
+### 4. Check
+
+```bash
+# on pbxvm
+journalctl -fu atftpd                       # watch the phone fetch SEP….cnf.xml
+asterisk -rx 'pjsip show registrations'     # telnyx → Registered
+asterisk -rx 'pjsip show endpoints'         # 1001 → Not in use (i.e. registered)
+```
+
+Then dial **611** from the handset for an echo test — that proves RTP between
+phone and PBX without involving Telnyx or spending money. After that, dial a
+real number.
+
+## Dialling
+
+- 10 digits (`5555550123`), 11 (`15555550123`), or `+1…` — all normalised to
+  E.164 and sent to Telnyx.
+- `011` + country code for international.
+- `911` / `933` pass straight through. **Telnyx e911 has to be configured and
+  the address verified on their side before this means anything.**
+- `611` — local echo test.
+- Everything inbound from Telnyx rings the one phone.
+
+`vacu.pbx.telnyx.outboundCallerId` is unset, so Telnyx picks the connection's
+default caller ID. Set it to an E.164 number you own to override.
+
+## Things that will need attention later
+
+- `vacu.pbx.telnyx.signalingIps` is Telnyx's _US_ signalling pair from
+  <https://sip.telnyx.com/>. If the connection moves region, or Telnyx
+  renumbers, update it (inbound would still work via `line=yes`, but the
+  `identify` would stop matching).
+- No voicemail, no second extension, no CDR storage. All are additions to
+  `hosts/pbxvm/asterisk.nix` rather than rework.
+- `<loadInformation>` is deliberately absent from the XML, so the phone keeps
+  whatever firmware it has. Upgrading it means putting the `.loads`/`.sbn` files
+  in `/srv/tftp` and naming the load there.
