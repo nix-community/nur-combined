@@ -46,7 +46,11 @@ let
   nodeModuleHashes = {
     aarch64-darwin = "sha256-DqaM4Bkl0y5Gq6c1DAApYaqgfFZfIxzmVJu2ZlI0MJU=";
     aarch64-linux = "sha256-8X6lixi4d9NsXEekWF4czFFvQPxKSCe2utUAdZvlVv0=";
-    x86_64-linux = "sha256-naUtALrvDNwic52+gBBUD+5uT3RhJcYQDQL5PGPHcuU=";
+    x86_64-linux =
+      if lib.versionAtLeast bun.version "1.4.0" then
+        "sha256-GCazJjAsCbQxs1MlVOaQiIfxVgSDTVG2eDk+OMb45bc="
+      else
+        "sha256-naUtALrvDNwic52+gBBUD+5uT3RhJcYQDQL5PGPHcuU=";
   };
 
   system = stdenv.hostPlatform.system;
