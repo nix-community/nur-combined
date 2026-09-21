@@ -1,20 +1,28 @@
-{ lib, rustPlatform, fetchFromGitHub }:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dogma";
-  version = "3.0.0"; # without "v"
+  version = "3.1.0"; # without "v"
 
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "dogma";
     rev = "v${version}";
-    hash = "sha256-cWxfkKLZ4eLbab7hG1YQAq8+rI8soA+wPJV7R08sBeM=";
+    hash = "sha256-vGYDsUwtaUvmpel+Q3l7ujmnHIOf9U+6B8hYQ7qS1AE=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
 
+  nativeBuildInputs = [ installShellFiles ];
 
   doCheck = false;
+
+  postInstall = ''
+    installShellCompletion --cmd dogma \
+      --bash <($out/bin/dogma completions bash) \
+      --zsh <($out/bin/dogma completions zsh) \
+      --fish <($out/bin/dogma completions fish)
+  '';
 
   mainProgram = "dogma";
 

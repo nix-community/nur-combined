@@ -81,6 +81,11 @@ cargo install dogma-rust          # binary installed as `dogma`
 cargo build --release             # binary at target/release/dogma
 ```
 
+Packages are also published for NixOS/Nix (`nur.repos.x71c9.dogma`), Arch Linux
+(AUR `dogma` and `dogma-bin`) and Homebrew (`brew install x71c9/x71c9/dogma`).
+These install bash, zsh and fish completions, so the
+[Shell completion](#shell-completion) steps below only apply to cargo installs.
+
 Set `DOGMA_VAULT` per developer in `.bashrc` or per project in `shell.nix`:
 
 ```bash
