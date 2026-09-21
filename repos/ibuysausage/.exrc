@@ -1,6 +1,6 @@
 " .exrc for nur-packages
-" Requires: nvim 0.10+ (vim.system), git, nix (with flakes enabled for
-" `nix run nixpkgs#nix-prefetch-github`).
+" Requires: nvim 0.10+ (vim.system, float footers), git, nix (with flakes
+" enabled for `nix run nixpkgs#nix-prefetch-github`).
 "
 " Drop this file at the root of your nur-packages repo as `.exrc`, then in nvim
 " run `:set exrc` (or set it globally in your main config) and trust the file
@@ -17,14 +17,21 @@
 " :NurBumpAll[!]
 "   Finds the pkgs/ directory (walking up from the current buffer, falling back
 "   to the cwd), then does the same as :NurBump for every pkgs/*/default.nix.
-"   A report buffer opens and fills in live: package, repo, old -> new commit,
-"   new sha256 and status. Files are written to disk; any of them that are open
-"   in a buffer get reloaded. Packages whose buffer has unsaved changes are
-"   skipped. Packages already on the newest commit are left alone, unless you
-"   use :NurBumpAll! to force a re-prefetch. Press q in the report to close it.
+"   A report opens in a large floating window (REPORT_SCALE below) and fills in
+"   live: a colored table with package, repo, old -> new commit, new sha256 and
+"   status, plus a progress bar and per-state counts. Files are written to disk;
+"   any of them that are open in a buffer get reloaded. Packages whose buffer has
+"   unsaved changes are skipped. Packages already on the newest commit are left
+"   alone, unless you use :NurBumpAll! to force a re-prefetch. Press q or <Esc>
+"   in the report to close it.
+"
+"   Colors: every NurBump* highlight group links to a standard group, so the
+"   report follows your colorscheme. Override any of them from your own config,
+"   e.g. vim.api.nvim_set_hl(0, "NurBumpPkg", { fg = "#ff9e64", bold = true })
 
 lua << EOF
 local MAX_PARALLEL = 4 -- how many packages are checked/prefetched at once
+local REPORT_SCALE = 0.9 -- report window size as a fraction of the editor (1.0 = whole screen)
 
 ---------------------------------------------------------------------------
 -- helpers that operate on a list of lines (a buffer's or a file's)
@@ -197,11 +204,112 @@ local function loaded_buf_for(path)
   return nil
 end
 
-local function pad(s, w)
-  return s .. string.rep(" ", math.max(0, w - vim.fn.strdisplaywidth(s)))
+---------------------------------------------------------------------------
+-- report window: colors, layout helpers
+---------------------------------------------------------------------------
+local hl_ns = vim.api.nvim_create_namespace("nurbump")
+
+-- Every group links to a standard one (default = true), so the report follows
+-- your colorscheme and anything you define yourself beforehand wins.
+local function setup_highlights()
+  local links = {
+    NurBumpPath = "Comment", -- pkgs/ directory line
+    NurBumpSep = "Special", -- table borders and rules
+    NurBumpHeader = "Title", -- column titles
+    NurBumpPkg = "Function", -- package name
+    NurBumpRepo = "Identifier", -- owner/repo
+    NurBumpOld = "Comment", -- old commit
+    NurBumpArrow = "Operator", -- the arrow between old and new
+    NurBumpNew = "Constant", -- new commit
+    NurBumpHash = "String", -- new sha256
+    NurBumpPending = "Comment",
+    NurBumpRunning = "DiagnosticHint",
+    NurBumpUpdated = "DiagnosticOk",
+    NurBumpCurrent = "DiagnosticInfo",
+    NurBumpSkipped = "DiagnosticWarn",
+    NurBumpFailed = "DiagnosticError",
+    NurBumpBarDone = "DiagnosticOk", -- progress bar, filled part
+    NurBumpBarTodo = "Comment", -- progress bar, empty part
+  }
+  for name, target in pairs(links) do
+    vim.api.nvim_set_hl(0, name, { link = target, default = true })
+  end
 end
 
-local function open_report(nrows)
+local STATES = {
+  pending = { icon = "·", label = "pending", hl = "NurBumpPending" },
+  running = { icon = "…", label = "running", hl = "NurBumpRunning" },
+  updated = { icon = "✓", label = "updated", hl = "NurBumpUpdated" },
+  current = { icon = "●", label = "up to date", hl = "NurBumpCurrent" },
+  skipped = { icon = "!", label = "skipped", hl = "NurBumpSkipped" },
+  failed = { icon = "✗", label = "failed", hl = "NurBumpFailed" },
+}
+
+-- A line is a list of chunks { text, hl_group? }. Returns the joined string and
+-- the highlight spans { start_byte, end_byte, hl_group } for it.
+local function build_line(chunks)
+  local parts, spans, col = {}, {}, 0
+  for _, c in ipairs(chunks) do
+    local text, hl = c[1], c[2]
+    parts[#parts + 1] = text
+    if hl and #text > 0 then
+      spans[#spans + 1] = { col, col + #text, hl }
+    end
+    col = col + #text
+  end
+  return table.concat(parts), spans
+end
+
+local function chunks_width(chunks)
+  local w = 0
+  for _, c in ipairs(chunks) do
+    w = w + vim.fn.strdisplaywidth(c[1])
+  end
+  return w
+end
+
+-- One table row: cells are chunk lists, padded to `widths` and split by " │ ".
+local function row_chunks(cells, widths)
+  local out = { { " " } }
+  for i, cell in ipairs(cells) do
+    for _, c in ipairs(cell) do
+      out[#out + 1] = c
+    end
+    if i < #cells then
+      out[#out + 1] = { string.rep(" ", widths[i] - chunks_width(cell)) }
+      out[#out + 1] = { " │ ", "NurBumpSep" }
+    end
+  end
+  return out
+end
+
+local function commit_chunks(r)
+  if not (r.old or r.new) then
+    return {}
+  end
+  return {
+    { r.old or "?", "NurBumpOld" },
+    { " → ", "NurBumpArrow" },
+    { r.new or "...", "NurBumpNew" },
+  }
+end
+
+-- Position/size of the floating window, recomputed on resize.
+local function float_geometry()
+  local cols = vim.o.columns
+  local rows = vim.o.lines - vim.o.cmdheight - (vim.o.laststatus > 0 and 1 or 0)
+  local width = math.min(cols - 2, math.max(40, math.floor((cols - 2) * REPORT_SCALE)))
+  local height = math.min(rows - 2, math.max(8, math.floor((rows - 2) * REPORT_SCALE)))
+  return {
+    relative = "editor",
+    width = width,
+    height = height,
+    col = math.floor((cols - width - 2) / 2),
+    row = math.floor((rows - height - 2) / 2),
+  }
+end
+
+local function open_report()
   -- close a report from a previous run, if it's still around
   for _, b in ipairs(vim.api.nvim_list_bufs()) do
     if vim.b[b].nurbump_report then
@@ -209,17 +317,52 @@ local function open_report(nrows)
     end
   end
 
-  vim.cmd(("botright %dnew"):format(math.min(nrows + 6, 20)))
-  local buf = vim.api.nvim_get_current_buf()
+  setup_highlights()
+
+  local buf = vim.api.nvim_create_buf(false, true) -- unlisted scratch buffer
   vim.b[buf].nurbump_report = true
-  vim.bo[buf].buftype = "nofile"
   vim.bo[buf].bufhidden = "wipe"
-  vim.bo[buf].swapfile = false
   vim.bo[buf].filetype = "nurbump"
   vim.bo[buf].modifiable = false
   pcall(vim.api.nvim_buf_set_name, buf, "NurBumpAll")
-  vim.wo.wrap = false
-  vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true })
+
+  local win = vim.api.nvim_open_win(
+    buf,
+    true,
+    vim.tbl_extend("force", float_geometry(), {
+      style = "minimal",
+      border = "rounded",
+      title = " NurBumpAll ",
+      title_pos = "center",
+      footer = " q / <Esc> to close ",
+      footer_pos = "right",
+    })
+  )
+  vim.wo[win].wrap = false
+  vim.wo[win].cursorline = true
+  vim.wo[win].spell = false -- no spell-check squiggles on package names and hashes
+
+  local function close()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+  for _, key in ipairs({ "q", "<Esc>" }) do
+    vim.keymap.set("n", key, close, { buffer = buf, silent = true, nowait = true })
+  end
+
+  -- keep the window sized to the editor; the autocmd removes itself once the
+  -- window is gone. (Only geometry is passed, so `style` isn't re-applied.)
+  vim.api.nvim_create_autocmd("VimResized", {
+    group = vim.api.nvim_create_augroup("NurBumpReport", { clear = true }),
+    callback = function()
+      if not vim.api.nvim_win_is_valid(win) then
+        return true
+      end
+      vim.api.nvim_win_set_config(win, float_geometry())
+    end,
+  })
+
   return buf
 end
 
@@ -268,66 +411,103 @@ local function nur_bump_all(force)
     }
   end
 
-  local buf = open_report(#rows)
+  local buf = open_report()
+  local headers = { "package", "repo", "commit", "sha256", "status" }
+  local BAR = 20 -- progress bar width
 
   local function render()
     if not vim.api.nvim_buf_is_valid(buf) then
       return
     end
-    local header = { "package", "repo", "commit", "sha256" }
-    local widths = {}
-    for i, h in ipairs(header) do
-      widths[i] = vim.fn.strdisplaywidth(h)
+
+    -- cells are chunk lists; column widths come from the widest cell
+    local header_cells, widths = {}, {}
+    for i, h in ipairs(headers) do
+      header_cells[i] = { { h, "NurBumpHeader" } }
+      widths[i] = chunks_width(header_cells[i])
     end
 
     local counts = { updated = 0, current = 0, skipped = 0, failed = 0 }
     local finished = 0
     local body = {}
     for _, r in ipairs(rows) do
-      local commit = ""
-      if r.old or r.new then
-        commit = (r.old or "?") .. " -> " .. (r.new or "...")
+      local st = STATES[r.state]
+      local cells = {
+        { { r.name, "NurBumpPkg" } },
+        { { r.repo or "", "NurBumpRepo" } },
+        commit_chunks(r),
+        { { r.hash or "", "NurBumpHash" } },
+        { { st.icon .. " " .. r.status, st.hl } },
+      }
+      for i, cell in ipairs(cells) do
+        widths[i] = math.max(widths[i], chunks_width(cell))
       end
-      local cells = { r.name, r.repo or "", commit, r.hash or "" }
-      for i, c in ipairs(cells) do
-        widths[i] = math.max(widths[i], vim.fn.strdisplaywidth(c))
-      end
-      body[#body + 1] = { cells = cells, status = r.status }
+      body[#body + 1] = cells
       if counts[r.state] then
         counts[r.state] = counts[r.state] + 1
         finished = finished + 1
       end
     end
 
-    local function fmt(cells, status)
-      local parts = {}
-      for i, c in ipairs(cells) do
-        parts[i] = pad(c, widths[i])
+    -- horizontal rule with `mid` as the column crossing (┼ or ┴)
+    local function rule(mid)
+      local segs = {}
+      for i, w in ipairs(widths) do
+        segs[i] = string.rep("─", w + (i == #widths and 1 or 2))
       end
-      return table.concat(parts, "  ") .. "  " .. status
+      return table.concat(segs, mid)
+    end
+    local total = vim.fn.strdisplaywidth(rule("┼"))
+
+    local lines, spans = {}, {}
+    local function add(chunks)
+      local text, sp = build_line(chunks)
+      lines[#lines + 1] = text
+      spans[#lines] = sp
     end
 
-    local out = { "NurBumpAll  " .. pkgs_dir, "" }
-    out[#out + 1] = fmt(header, "status")
-    out[#out + 1] = string.rep("-", vim.fn.strdisplaywidth(out[#out]))
-    for _, b in ipairs(body) do
-      out[#out + 1] = fmt(b.cells, b.status)
+    local top = { { " " }, { vim.fn.fnamemodify(pkgs_dir, ":~"), "NurBumpPath" } }
+    if force then
+      top[#top + 1] = { "   forced: re-prefetching everything", "NurBumpSkipped" }
     end
-    out[#out + 1] = ""
-    if finished < #rows then
-      out[#out + 1] = ("Working... %d/%d finished"):format(finished, #rows)
+    add(top)
+    add({ { string.rep("━", total), "NurBumpSep" } })
+    add(row_chunks(header_cells, widths))
+    add({ { rule("┼"), "NurBumpSep" } })
+    for _, cells in ipairs(body) do
+      add(row_chunks(cells, widths))
+    end
+    add({ { rule("┴"), "NurBumpSep" } })
+    add({})
+
+    local filled = math.floor(BAR * finished / #rows)
+    local summary = {
+      { " " },
+      { string.rep("█", filled), "NurBumpBarDone" },
+      { string.rep("░", BAR - filled), "NurBumpBarTodo" },
+      { ("  %d/%d   "):format(finished, #rows) },
+    }
+    for _, key in ipairs({ "updated", "current", "skipped", "failed" }) do
+      local st = STATES[key]
+      summary[#summary + 1] = { ("%s %d %s   "):format(st.icon, counts[key], st.label), st.hl }
+    end
+    if finished == #rows then
+      summary[#summary + 1] = { "done", "NurBumpUpdated" }
     else
-      out[#out + 1] = ("Done: %d updated, %d up to date, %d skipped, %d failed   (q to close)"):format(
-        counts.updated,
-        counts.current,
-        counts.skipped,
-        counts.failed
-      )
+      summary[#summary + 1] = { "working…", "NurBumpRunning" }
     end
+    add(summary)
 
     vim.bo[buf].modifiable = true
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, out)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
     vim.bo[buf].modifiable = false
+
+    vim.api.nvim_buf_clear_namespace(buf, hl_ns, 0, -1)
+    for i, sp in ipairs(spans) do
+      for _, s in ipairs(sp) do
+        vim.api.nvim_buf_set_extmark(buf, hl_ns, i - 1, s[1], { end_col = s[2], hl_group = s[3] })
+      end
+    end
   end
 
   local function set(row, state, status)
