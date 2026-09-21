@@ -6,7 +6,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "buildstream-sbom";
-  version = "1.1";
+  version = "1.2";
   pyproject = true;
   strictDeps = true;
   __structuredAttributes = true;
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "BuildStream";
     repo = "buildstream-sbom";
     tag = finalAttrs.version;
-    hash = "sha256-YuqKWQX4UnTFcPpYTa3tlgkeTYc9khfZe1PAW84yv5I=";
+    hash = "sha256-Eo9aoJFdYFQWE6K/C44Q45XUDH0R8I+Hxqu0EHkbIbk=";
   };
 
   build-system = [
