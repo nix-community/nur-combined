@@ -9,12 +9,12 @@ stdenvNoCC.mkDerivation {
   __structuredAttrs = true;
 
   pname = "fg";
-  version = "0-unstable-2026-01-03";
+  version = "0-unstable-2026-09-20";
   src = fetchFromGitHub {
     owner = "DreamMaoMao";
     repo = "fg.yazi";
-    rev = "b9fb819d2c407795d0e0678ef33f0dd0b2db8bb3";
-    hash = "sha256-fgv7iNqx/4EMIcRGmXYY7Y+9/O+nZKeZtsbi0NQPCbw=";
+    rev = "629ee224ab027a7dece548ebac3618a8a9b0bc16";
+    hash = "sha256-ZoIYzXATPjLYSF7kH5UXgj6Ax1+HwL007iSG59x17qA=";
   };
 
   patches = [

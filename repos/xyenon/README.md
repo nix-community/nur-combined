@@ -327,7 +327,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.fg</code></strong> — Yazi plugin for rg search with fzf file preview</summary>
 
-- **Version:** `0-unstable-2026-01-03`
+- **Version:** `0-unstable-2026-09-20`
 - **License:** MIT
 - **Homepage:** [https://github.com/DreamMaoMao/fg.yazi](https://github.com/DreamMaoMao/fg.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.fg`
