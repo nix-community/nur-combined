@@ -15,8 +15,7 @@ nix run alejo7797\#snappy-topology
 ```
 
 #### Features
-- Access [special features](https://snappy.computop.org/installing.html#sagemath) of SnapPy depending on Sage
-- Access Regina's rich [Python interface](https://regina-normal.github.io/docs/python.html)
+- Access [special features](https://snappy.computop.org/installing.html#sagemath) of SnapPy depending on Sage!
 
 ### [KnotJob](https://www.maths.dur.ac.uk/users/dirk.schuetz/knotjob.html)
 ```bash
@@ -47,7 +46,6 @@ nix run alejo7797\#knotjob
 
             environment.systemPackages = with pkgs; [
               knotjob
-              regina-normal
               sage
               snappy-topology
             ];

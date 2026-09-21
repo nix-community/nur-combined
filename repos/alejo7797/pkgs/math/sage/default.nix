@@ -17,7 +17,6 @@ __sage.override {
   extraPythonPackages =
     ps:
     [
-      ps.regina
       ps.snappy
     ]
     ++ extraPythonPackages ps;
