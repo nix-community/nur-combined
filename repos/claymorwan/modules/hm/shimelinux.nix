@@ -25,7 +25,7 @@ in
       sessionVariables._JAVA_AWT_WM_NONREPARENTING = 1;
     };
 
-    xdg.autostart.entries = [
+    xdg.autostart.entries = lib.mkIf cfg.autostart [
       "${cfg.package}/share/applications/shimelinux.desktop"
     ];
   };
