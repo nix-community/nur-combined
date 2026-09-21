@@ -15,7 +15,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-unwrapped";
-  version = "1.22.4";
+  version = "1.22.6";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "Sable";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-15iUAT0C5b1qLv5pgBpzGsOGIH5dbgpmjQc0Z6uaRYY=";
+    hash = "sha256-AZ2gKcCLJvllC/lOL+l/zt3/RxztWd8mu25Eo0vyMBY=";
   };
 
   patches = [

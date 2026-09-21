@@ -6,7 +6,7 @@
   hidapi,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "gloriousctl";
   version = "0-unstable-2026-03-25";
 
@@ -38,4 +38,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "gloriousctl";
     platforms = lib.platforms.all;
   };
-})
+}
