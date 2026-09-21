@@ -33,11 +33,11 @@
     }@inputs:
     let
       inherit (nixpkgs) lib;
-      inherit (flake-utils.lib) eachDefaultSystem mkApp;
+      inherit (flake-utils.lib) eachSystem mkApp;
       systems = flake-utils.lib.system;
       myPkgs = import ./packages;
     in
-    eachDefaultSystem (
+    eachSystem ["x86_64-linux" "aarch64-linux"] (
       system:
       let
         pkgs = import nixpkgs {

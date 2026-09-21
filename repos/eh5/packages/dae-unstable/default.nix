@@ -10,24 +10,19 @@
 
 buildGoModule (finalAttrs: {
   pname = "dae";
-  version = "2.0.0-unstable-2026-08-26";
+  version = "2.1.1-unstable-2026-09-20";
 
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = "dae";
-    rev = "5db27a0028d36e7847bd3796497df952337a20e2";
-    hash = "sha256-bOa8QwNfwlwyjTxvlaHMdcZupC967DsPyT8So2rMvzk=";
+    rev = "17cc1de85dd0ae82f69cf0c182d99a1c35b193eb";
+    hash = "sha256-TZ+47ldnYmxjEW+WYBpQMf+4ajbpJnBw/W9d1c7bYS0=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-S2dNFvMeZqGhzu+sIBGeaET4bQXfeucao6XR4QSTpog=";
+  vendorHash = "sha256-N2noQXRV9Vewie4PiWkjDeX6U2+kF1kQ9L10kZ5X/LI=";
 
   proxyVendor = true;
-  
-  patches = [
-    ./0001-fix-control-revert-dns.ipversion_prefer-to-the-previ.patch
-    ./0002-chore-control-cleanup-unused-rfc8305-implementation.patch
-  ];
 
   nativeBuildInputs = [ clang ];
 

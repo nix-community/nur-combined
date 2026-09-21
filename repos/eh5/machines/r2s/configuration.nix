@@ -25,7 +25,7 @@
   nix = {
     settings = {
       substituters = lib.mkForce [
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://cache.nixos.org"
         "https://eh5.cachix.org"
       ];
@@ -52,7 +52,8 @@
   documentation.doc.enable = false;
   documentation.nixos.enable = false;
 
-  programs.command-not-found.enable = true;
+  # https://github.com/NixOS/nixpkgs/issues/564286
+  programs.command-not-found.enable = false;
   programs.vim.enable = true;
   programs.vim.defaultEditor = true;
   programs.git.enable = true;

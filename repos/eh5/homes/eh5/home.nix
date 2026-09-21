@@ -19,7 +19,7 @@
     package = pkgs.nixVersions.stable;
     settings = {
       substituters = lib.mkForce [
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://cache.nixos.org"
         "https://eh5.cachix.org"
       ];
