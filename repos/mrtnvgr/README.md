@@ -27,6 +27,7 @@
 
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
 - [ANINA](https://crql.works/archive/anina/)
+- [PitchNet](https://github.com/SessionLoops/PitchNet)
 
 #### Utilities
 

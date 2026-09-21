@@ -27,12 +27,16 @@ in rec {
   fetchurl-gz = p ./pkgs/builders/fetchers/fetchurl-gz { };
 
   # Audio
+  openutau-lunai = p ./pkgs/audio/openutau-lunai { };
+
   js_ReaScriptAPI = p ./pkgs/audio/js_ReaScriptAPI { };
 
   # OneTrick-KEYS = p ./pkgs/audio/OneTrick-KEYS { };
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
 
   nam-trainer = p ./pkgs/audio/nam-trainer { };
+
+  pitchnet = p ./pkgs/audio/pitchnet { };
 
   convert-gig-file = p ./pkgs/convert-gig-file { };
 
