@@ -37,8 +37,7 @@ Install
 
 Alias
 
-- [ZSH Alias](#zsh-alias)
-- [Bash Alias](#bash-alias)
+- [Alias](#alias)
 
 Combine
 
@@ -215,7 +214,9 @@ environment.systemPackages = [ nur.repos.x71c9.tempesta ];
 home.packages = [ pkgs.nur.repos.x71c9.tempesta ];
 ```
 
-The NUR package includes configurable shell completion support. See [NUR documentation](https://github.com/x71c9/nur-packages/blob/master/pkgs/tempesta/README.md) for completion configuration options.
+The NUR, AUR and Homebrew packages install shell completions for bash, zsh and
+fish, plus the `t` and `tmps` commands as aliases of `tempesta`. Completion
+works for all three names.
 
 ### Arch Linux (AUR)
 
@@ -295,32 +296,34 @@ echo 'tempesta completion fish | source' > ~/.config/fish/completions/tempesta.f
 
 ### Alias
 
-#### ZSH Alias
+Packages installed from NUR, AUR or Homebrew already provide `t` and `tmps`
+as symlinks to `tempesta`, with completion for each name. Nothing else is
+needed there.
 
-Most likely you will alias the command with
+When building from source, the same names can be added as shell aliases. The
+completion scripts printed by `tempesta completion <shell>` register
+`tempesta`, `t` and `tmps`, so once the script is sourced (see
+[Shell completion](#shell-completion)) the aliases complete as well:
 
 ```bash
 alias t='tempesta'
+alias tmps='tempesta'
 ```
 
-In order to make completion in bash to work with alias you can add the following:
+For a different alias name, register it after sourcing the completion script:
 
 ```bash
-complete -o default -o nospace -F _tempesta t
-```
+# bash
+alias bm='tempesta'
+complete -F _tempesta bm
 
-where the final `t` is the name of the alias.
+# zsh
+alias bm='tempesta'
+compdef _tempesta bm
 
-#### Bash Alias
-
-Autocompletion do not work for bash alias but works when using functions,
-therefore is recommended to use a function instead, for example:
-
-```bash
-t() {
-  tempesta "$@"
-}
-complete -o default -o nospace -F _tempesta t
+# fish
+alias bm='tempesta'
+complete -c bm --wraps tempesta
 ```
 
 ## fzf
