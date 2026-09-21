@@ -9,28 +9,28 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "nix-reaper";
-  version = "43224d4";
+  version = "9cfb4b9";
 
   src = fetchFromGitHub {
     owner = "ibuysausage";
     repo = "nix-reaper";
     rev = "${version}";
-    sha256 = "sha256-wCem4O5U9H6puSwQUb1bKEaiFM/xK/Ar8nT6uHKsPd4=";
+    sha256 = "sha256-O3lDOOLE4mySssvnPV8aE+vKHONZuFufCpdOHUuSuH4=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/nix-reaper \
       --prefix PATH : ${
-        lib.makeBinPath [
-          nix
-          systemd
-          coreutils
-        ]
-      }
+      lib.makeBinPath [
+        nix
+        systemd
+        coreutils
+      ]
+    }
   '';
 
   meta = with lib; {

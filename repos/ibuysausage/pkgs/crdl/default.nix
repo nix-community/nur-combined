@@ -16,7 +16,7 @@ buildGoModule rec {
     sha256 = "sha256-TPBX9yhq18BIcH9Y4cb+GwiyOTgJcLMG5BNelv3gkpU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorHash = "sha256-lNWzylzk/VT3/vpSlsxCnVCmUY24dn9zdOp+8TFo0yE=";
 
@@ -25,7 +25,7 @@ buildGoModule rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/crdl --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+    wrapProgram $out/bin/crdl --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = with lib; {
