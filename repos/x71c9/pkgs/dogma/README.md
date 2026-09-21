@@ -197,7 +197,7 @@ dogma infra init dev hetzner --upgrade
 
 ### `dogma deploy <env> [pipeline]`
 
-Full deploy pipeline. Always deploys to all hosts. When no pipelines are declared in `dogma.yml`, an implicit nixos pipeline is used. When exactly one pipeline is declared, `[pipeline]` may be omitted; with several declared it is required.
+Full deploy pipeline. Always deploys to all hosts, in the order they are declared in `dogma.yml` unless `depends-on` constrains them. When no pipelines are declared in `dogma.yml`, an implicit nixos pipeline is used. When exactly one pipeline is declared, `[pipeline]` may be omitted; with several declared it is required.
 
 A pipeline whose `env` attribute is set can also be run by name alone: `dogma deploy <pipeline>`. The single argument is resolved against declared env and pipeline names; a name that matches both is an error and requires the explicit two-argument form.
 
@@ -221,7 +221,7 @@ dogma deploy publish-prod --new                # pipeline with env attribute set
 | 4 | Infra cache refresh (all envs) |
 | 5 | Generate `.sops.yaml` from SSH host keys |
 | 6 | Encrypt secrets with sops, commit |
-| 7 | `nixos-rebuild switch` per host |
+| 7 | `nixos-rebuild switch` per host, in dependency order |
 | 8 | Git tags + push |
 | 9 | Post-deploy hooks |
 
@@ -286,6 +286,8 @@ machines:
     secrets:                # secret groups to encrypt for this machine
       - <group>
     deployer: nixos-rebuild # default; only option currently
+    depends-on:             # deploy after these machines; a bare name
+      - <name>              # is also accepted
 
 secrets:
   <group>:
@@ -359,6 +361,25 @@ Both hooks receive:
 version="${DOGMA_VERSION#deploy/}"
 jq --arg v "$version" '.version = $v' backend/package.json > tmp && mv tmp backend/package.json
 ```
+
+## Deploy ordering
+
+A nixos pipeline deploys every machine in `dogma.yml`, one at a time, in the order they are declared. `depends-on` makes that order explicit where it matters:
+
+```yaml
+machines:
+  backend:
+    hostname: myproject-{env}-backend
+    depends-on: [database]    # or the shorthand: depends-on: database
+  database:
+    hostname: myproject-{env}-database
+```
+
+Here `database` deploys first even though `backend` is written above it. Machines that no dependency constrains keep their declared order, so adding `depends-on` to one machine never reshuffles the rest.
+
+`depends-on` orders deploys; it does not check service health. Dogma waits for a dependency's `nixos-rebuild switch` to complete successfully before starting a dependent machine, but does not verify that the services on it are accepting connections. A failing `nixos-rebuild` aborts the pipeline before any dependent machine is touched, and before tags are pushed.
+
+Naming an undeclared machine, depending on itself, or forming a cycle are all validation errors, reported before anything is deployed.
 
 ## Generated files
 
