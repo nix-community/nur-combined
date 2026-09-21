@@ -41,7 +41,7 @@ rec {
       perSystem =
         { pkgs, inputs', ... }:
         let
-          nvfetcher-bin = inputs'.nvfetcher.packages.default;
+          nvfetcher-bin = inputs'.nvfetcher.packages.default or null;
         in
         {
           devShells.default = pkgs.callPackage ./devshell.nix { inherit nvfetcher-bin; };
