@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "superpowers";
-  version = "6.3.0";
+  version = "6.4.1";
 
   src = fetchFromGitHub {
     owner = "obra";
     repo = "superpowers";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EsGNO0dULWf5Bx6bGrCv2kI2Z8aKH0kRvGiuN23wChQ=";
+    hash = "sha256-rgeJhjQyABYlhlyFRmgyhbZmmmIPPNkch4CXyTkGEyM=";
   };
 
   installPhase = ''

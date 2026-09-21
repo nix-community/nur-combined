@@ -15,14 +15,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit pname;
-  version = "1.15.0-alpha.5";
+  version = "1.15.0-alpha.6";
 
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchurl {
     url = "https://github.com/SagerNet/sing-box/releases/download/v${finalAttrs.version}/SFM-${finalAttrs.version}-Universal.pkg";
-    hash = "sha256-jGEvE2FAqZRF/K8S/uE4TfcMHJVBlZ6FXEG8u2lm2xo=";
+    hash = "sha256-wo6X4KowXURJJ39YIipIe0lGzllufywQ63JoKaNMo8g=";
   };
 
   nativeBuildInputs = [

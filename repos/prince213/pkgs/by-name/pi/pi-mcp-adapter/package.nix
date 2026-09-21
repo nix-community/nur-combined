@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-mcp-adapter";
-  version = "2.34.0";
+  version = "2.35.0";
 
   __structuredAttrs = true;
 
@@ -14,24 +14,18 @@ buildNpmPackage (finalAttrs: {
     owner = "nicobailon";
     repo = "pi-mcp-adapter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YpiJROIG0/U81wAoImjktbg/d5wGnc6o130IlOrTyEE=";
+    hash = "sha256-Nd+TNav29lRJ1CSUIRXrBQNq7pudUxvzAk8hWzCkJKA=";
   };
 
   patches = [ ./package-lock.patch ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-SEaS7QKqjCuzFk3z1O95TvJuzuMVcUzPU2sBjxbPGUs=";
+  npmDepsHash = "sha256-j9kR925hD1JNqXyruBj+74/9KDTpn3qNd7SlIzesw+0=";
 
   npmInstallFlags = [ "--omit=dev" ];
   npmPackFlags = [ "--ignore-scripts" ];
 
   dontNpmBuild = true;
-
-  postInstall = ''
-    rm -rf $out/bin
-    cp -r $out/lib/node_modules/pi-mcp-adapter/. $out
-    rm -rf $out/lib
-  '';
 
   meta = {
     description = "MCP adapter for Pi coding agent";
