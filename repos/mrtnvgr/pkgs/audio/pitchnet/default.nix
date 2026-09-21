@@ -101,6 +101,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     cp -r ../Resources $out/Resources
 
+    # TODO: looks veeeeeeeryyyy hacky
+    for res in fonts images lang models; do
+      ln -s ../../../../../Resources/$res $out/lib/vst3/PitchNet.vst3/Contents/Resources/$res
+    done
+
     install -Dm644 ../Resources/images/icon.png $out/share/icons/hicolor/512x512/apps/pitchnet.png
 
     for f in $out/bin/PitchNet $out/lib/vst3/PitchNet.vst3/Contents/x86_64-linux/PitchNet.so; do
