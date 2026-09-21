@@ -1169,6 +1169,11 @@
             "sha256": "1rcf7mx6zvzi9w4lmczd3nb0xhd6nsgrklmkwjscjak2zx2i3d92",
             "url": "https://github.com/ianmurphy1/nurpkgs"
         },
+        "ibuysausage": {
+            "rev": "33a9689ec93776337952d5f7c6d5715216c44429",
+            "sha256": "16fhdicy2iafmw8j4w978lkpidbpl7vx2f3x632z54w43rf3kzm9",
+            "url": "https://github.com/ibuysausage/nur-packages"
+        },
         "ifd3f": {
             "rev": "8fc8cbaadaf46a3412adbf54ce5b5fd7f9407238",
             "sha256": "06sldq7cqrj27pm619dq6kdf8iv697hcbdqsnw8cygsypfm4h9vb",
