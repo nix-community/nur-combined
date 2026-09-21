@@ -3,69 +3,76 @@
   lib,
   fetchFromGitHub,
   makeWrapper,
-  opusfile,
-  libogg,
-  SDL2,
+  pkg-config,
+  which,
+  curl,
+  ffmpeg_8,
   freetype,
   libjpeg,
+  libogg,
+  libopus,
+  libvorbis,
   openal,
-  curl,
+  opusfile,
+  sdl3,
+  zlib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "realrtcw";
-  version = "4.0-432ce5c";
+  version = "5.44c";
 
   src = fetchFromGitHub {
     owner = "wolfetplayer";
     repo = "RealRTCW";
-    rev = "432ce5ce9f3aa7c19613e02d800dd8b7517282b2";
-    hash = "sha256-rcBlXWAohb0QuM9iwiDtHxSKNh3kcCuuUc3ouEqCNvA=";
+    tag = finalAttrs.version;
+    hash = "sha256-L1/Fk8AHoGNvrOJrMASHztm2SwOFpq2LPRR0lPBO+0c=";
   };
 
   enableParallelBuilding = true;
+
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    which
+  ];
+
+  buildInputs = [
+    curl
+    ffmpeg_8
+    freetype
+    libjpeg
+    libogg
+    libopus
+    libvorbis
+    openal
+    opusfile
+    sdl3
+    zlib
+  ];
+
   installTargets = [ "copyfiles" ];
-  hardeningDisable = [ "format" ];
 
   makeFlags = [
-    "USE_INTERNAL_LIBS=0"
     "COPYDIR=${placeholder "out"}/opt/realrtcw"
+    "USE_INTERNAL_LIBS=0"
     "USE_OPENAL_DLOPEN=0"
     "USE_CURL_DLOPEN=0"
     "STEAM=0"
   ];
 
-  patches = [ ./nosteam.patch ];
-
-  nativeBuildInputs = [ makeWrapper ];
-
-  buildInputs = [
-    opusfile
-    libogg
-    SDL2
-    freetype
-    libjpeg
-    openal
-    curl
-  ];
-
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-I${SDL2.dev}/include/SDL2"
-    "-I${opusfile.dev}/include/opus"
-  ];
-  NIX_CFLAGS_LINK = [ "-lSDL2" ];
-
   postInstall = ''
-    for i in `find $out/opt/realrtcw -maxdepth 1 -type f -executable`; do
-      makeWrapper $i $out/bin/`basename $i` --chdir "$out/opt/realrtcw"
-    done
+    for bin in $out/opt/realrtcw/RealRTCW.*; do
+        makeWrapper "$bin" $out/bin/realrtcw \
+          --chdir "$out/opt/realrtcw"
+      done
   '';
 
   meta = with lib; {
     description = "RealRTCW mod based on ioRTCW engine";
     homepage = src.meta.homepage;
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
-    mainProgram = "RealRTCW.x86_64";
+    mainProgram = "realrtcw";
   };
-}
+})
