@@ -12,6 +12,7 @@
   alsa-lib,
   mpv-unwrapped,
   libnotify,
+  callPackage,
 }:
 let
   flutter = flutter347;
@@ -20,7 +21,10 @@ flutter.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version pubspecLock gitHashes;
 
-  customSourceBuilders.sqlite3_flutter_libs = { src, ... }: src;
+  customSourceBuilders = {
+    sqlite3_flutter_libs = { src, ... }: src;
+    sqlite3 = callPackage ./sqlite3-flutter.nix { };
+  };
 
   desktopItems = [
     (makeDesktopItem {

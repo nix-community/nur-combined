@@ -24,16 +24,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "d6557633dbff5518f827d335c04dc9fbe973f19c";
+    version = "064b1e598d52ae6d6b49971a925b270bdb9d408d";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "d6557633dbff5518f827d335c04dc9fbe973f19c";
+      rev = "064b1e598d52ae6d6b49971a925b270bdb9d408d";
       fetchSubmodules = false;
-      sha256 = "sha256-+NG2uOGoJ4oAcsyI7F0gmhXEjuw+QJOskAANk0ynx0c=";
+      sha256 = "sha256-HJLUGP8ZMpcf35smbKyPErBUPPgt4AGP0XEG81Sq7Vk=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-+NG2uOGoJ4oAcsyI7F0gmhXEjuw+QJOskAANk0ynx0c=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-HJLUGP8ZMpcf35smbKyPErBUPPgt4AGP0XEG81Sq7Vk=/src-tauri/Cargo.lock";
       outputHashes = {
         "rsrpc-0.28.0" = "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=";
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
@@ -312,16 +312,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.0.0-beta.3";
+    version = "v4.0.0-beta.4";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.0.0-beta.3";
+      rev = "v4.0.0-beta.4";
       fetchSubmodules = false;
-      sha256 = "sha256-0LGFVl6KlDgSHVG4vUYPlHXpxzLT8zhhTJrng2B1ZVM=";
+      sha256 = "sha256-TpKzprB4gEsLEPt1+hhgbfvsLmAU+ERM1sG8UIyy96Y=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-0LGFVl6KlDgSHVG4vUYPlHXpxzLT8zhhTJrng2B1ZVM=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-TpKzprB4gEsLEPt1+hhgbfvsLmAU+ERM1sG8UIyy96Y=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -343,21 +343,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "3f3729c7a614bdac3fd41c780f2e89786ba04ee3";
+    version = "32fb1a97d6d618899f20a3a0e1c060d85bb9cd37";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "3f3729c7a614bdac3fd41c780f2e89786ba04ee3";
+      rev = "32fb1a97d6d618899f20a3a0e1c060d85bb9cd37";
       fetchSubmodules = false;
-      sha256 = "sha256-9pIu9yLUDD4oqdp9WwhmbsjVjJl+iHsM8CCm0wYYw8c=";
+      sha256 = "sha256-pORn95rW97b9A+z3kGFTANz4gM371K2vRFqQCMHy4aA=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-9pIu9yLUDD4oqdp9WwhmbsjVjJl+iHsM8CCm0wYYw8c=/Cargo.lock";
+      lockFile = ./. + "/sha256-pORn95rW97b9A+z3kGFTANz4gM371K2vRFqQCMHy4aA=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-09-20";
+    date = "2026-09-21";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
