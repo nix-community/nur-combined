@@ -9,7 +9,6 @@
 
 | Package | Description |
 |---------|-------------|
-| [ax](./pkgs/ax) | The AI-era curl |
 | [ccpocket-bridge](./pkgs/ccpocket-bridge) | Bridge server connecting Claude Agent SDK and Codex CLI to mobile devices |
 | [chatgpt](./pkgs/chatgpt) | Official ChatGPT desktop app by OpenAI, repackaged from the upstream Linux .deb |
 | [givy](./pkgs/givy) | Local GitHub-like git viewer with a web UI |
