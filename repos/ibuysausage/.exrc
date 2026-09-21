@@ -17,13 +17,16 @@
 " :NurBumpAll[!]
 "   Finds the pkgs/ directory (walking up from the current buffer, falling back
 "   to the cwd), then does the same as :NurBump for every pkgs/*/default.nix.
-"   A report opens in a large floating window (REPORT_SCALE below) and fills in
-"   live: a colored table with package, repo, old -> new commit, new sha256 and
-"   status, plus a progress bar and per-state counts. Files are written to disk;
-"   any of them that are open in a buffer get reloaded. Packages whose buffer has
-"   unsaved changes are skipped. Packages already on the newest commit are left
-"   alone, unless you use :NurBumpAll! to force a re-prefetch. Press q or <Esc>
-"   in the report to close it.
+"   A report opens in a floating window (REPORT_SCALE below) and fills in live:
+"   a colored table with package, repo, old -> new commit, new sha256 and
+"   status, plus a progress bar and per-state counts. The table always spans the
+"   full width of the window: spare room goes to the status column, and when
+"   space is tight the columns shrink (and their text is elided) in the order
+"   given by SHRINK_ORDER, down to MIN_WIDTHS. Resizing nvim re-lays it out.
+"   Files are written to disk; any of them that are open in a buffer get
+"   reloaded. Packages whose buffer has unsaved changes are skipped. Packages
+"   already on the newest commit are left alone, unless you use :NurBumpAll! to
+"   force a re-prefetch. Press q or <Esc> in the report to close it.
 "
 "   Colors: every NurBump* highlight group links to a standard group, so the
 "   report follows your colorscheme. Override any of them from your own config,
@@ -31,7 +34,7 @@
 
 lua << EOF
 local MAX_PARALLEL = 4 -- how many packages are checked/prefetched at once
-local REPORT_SCALE = 0.9 -- report window size as a fraction of the editor (1.0 = whole screen)
+local REPORT_SCALE = 0.8 -- report window size as a fraction of the editor (1.0 = whole screen)
 
 ---------------------------------------------------------------------------
 -- helpers that operate on a list of lines (a buffer's or a file's)
@@ -268,15 +271,42 @@ local function chunks_width(chunks)
   return w
 end
 
--- One table row: cells are chunk lists, padded to `widths` and split by " │ ".
+-- Cut a chunk list down to `width` display cells, marking the cut with "…".
+local function fit_chunks(chunks, width)
+  if chunks_width(chunks) <= width then
+    return chunks
+  end
+  local out, used = {}, 0
+  for _, c in ipairs(chunks) do
+    local w = vim.fn.strdisplaywidth(c[1])
+    if used + w <= width then
+      out[#out + 1] = c
+      used = used + w
+    else
+      local room = width - used - 1 -- keep a cell for the ellipsis
+      if room > 0 then
+        out[#out + 1] = { vim.fn.strcharpart(c[1], 0, room) .. "…", c[2] }
+      elseif width - used > 0 then
+        out[#out + 1] = { "…", c[2] }
+      end
+      break
+    end
+  end
+  return out
+end
+
+-- One table row: cells are chunk lists, elided/padded to `widths` and split by
+-- " │ ". The last cell is padded too, so every row is exactly as wide as the
+-- rules above and below it.
 local function row_chunks(cells, widths)
   local out = { { " " } }
   for i, cell in ipairs(cells) do
-    for _, c in ipairs(cell) do
+    local fitted = fit_chunks(cell, widths[i])
+    for _, c in ipairs(fitted) do
       out[#out + 1] = c
     end
+    out[#out + 1] = { string.rep(" ", math.max(0, widths[i] - chunks_width(fitted))) }
     if i < #cells then
-      out[#out + 1] = { string.rep(" ", widths[i] - chunks_width(cell)) }
       out[#out + 1] = { " │ ", "NurBumpSep" }
     end
   end
@@ -309,7 +339,19 @@ local function float_geometry()
   }
 end
 
-local function open_report()
+-- Usable text width of the report: the window's own width while it's open,
+-- otherwise the width it would get.
+local function report_width(buf)
+  for _, w in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_is_valid(w) and vim.api.nvim_win_get_buf(w) == buf then
+      return vim.api.nvim_win_get_width(w)
+    end
+  end
+  return float_geometry().width
+end
+
+-- hooks.on_resize, if set, is called after the window has been re-sized.
+local function open_report(hooks)
   -- close a report from a previous run, if it's still around
   for _, b in ipairs(vim.api.nvim_list_bufs()) do
     if vim.b[b].nurbump_report then
@@ -351,8 +393,9 @@ local function open_report()
     vim.keymap.set("n", key, close, { buffer = buf, silent = true, nowait = true })
   end
 
-  -- keep the window sized to the editor; the autocmd removes itself once the
-  -- window is gone. (Only geometry is passed, so `style` isn't re-applied.)
+  -- keep the window sized to the editor and re-lay out the table for the new
+  -- width; the autocmd removes itself once the window is gone. (Only geometry
+  -- is passed, so `style` isn't re-applied.)
   vim.api.nvim_create_autocmd("VimResized", {
     group = vim.api.nvim_create_augroup("NurBumpReport", { clear = true }),
     callback = function()
@@ -360,6 +403,9 @@ local function open_report()
         return true
       end
       vim.api.nvim_win_set_config(win, float_geometry())
+      if hooks and hooks.on_resize then
+        hooks.on_resize()
+      end
     end,
   })
 
@@ -411,16 +457,21 @@ local function nur_bump_all(force)
     }
   end
 
-  local buf = open_report()
+  local hooks = {}
+  local buf = open_report(hooks)
   local headers = { "package", "repo", "commit", "sha256", "status" }
-  local BAR = 20 -- progress bar width
+  -- how the table adapts to the window width
+  local GROW_COL = 5 -- spare width goes to the status column
+  local SHRINK_ORDER = { 5, 2, 1, 3, 4 } -- columns give width up in this order
+  local MIN_WIDTHS = { 8, 10, 12, 16, 8 } -- and never below this
+  local BAR_MIN = 10 -- progress bar never gets narrower than this
 
   local function render()
     if not vim.api.nvim_buf_is_valid(buf) then
       return
     end
 
-    -- cells are chunk lists; column widths come from the widest cell
+    -- cells are chunk lists; column widths start from the widest cell
     local header_cells, widths = {}, {}
     for i, h in ipairs(headers) do
       header_cells[i] = { { h, "NurBumpHeader" } }
@@ -449,6 +500,27 @@ local function nur_bump_all(force)
       end
     end
 
+    -- stretch (or squeeze) the columns so the table spans the whole window: a
+    -- row is a leading space, the columns, and " │ " between each pair.
+    local target = report_width(buf) - (3 * #widths - 2)
+    local natural = 0
+    for _, w in ipairs(widths) do
+      natural = natural + w
+    end
+    if natural < target then
+      widths[GROW_COL] = widths[GROW_COL] + (target - natural)
+    elseif natural > target then
+      local over = natural - target
+      for _, i in ipairs(SHRINK_ORDER) do
+        if over <= 0 then
+          break
+        end
+        local give = math.min(over, math.max(0, widths[i] - MIN_WIDTHS[i]))
+        widths[i] = widths[i] - give
+        over = over - give
+      end
+    end
+
     -- horizontal rule with `mid` as the column crossing (┼ or ┴)
     local function rule(mid)
       local segs = {}
@@ -470,7 +542,7 @@ local function nur_bump_all(force)
     if force then
       top[#top + 1] = { "   forced: re-prefetching everything", "NurBumpSkipped" }
     end
-    add(top)
+    add(fit_chunks(top, total))
     add({ { string.rep("━", total), "NurBumpSep" } })
     add(row_chunks(header_cells, widths))
     add({ { rule("┼"), "NurBumpSep" } })
@@ -480,23 +552,29 @@ local function nur_bump_all(force)
     add({ { rule("┴"), "NurBumpSep" } })
     add({})
 
-    local filled = math.floor(BAR * finished / #rows)
+    -- counts first, then let the progress bar take all the width that's left
+    local right = { { ("  %d/%d   "):format(finished, #rows) } }
+    for _, key in ipairs({ "updated", "current", "skipped", "failed" }) do
+      local st = STATES[key]
+      right[#right + 1] = { ("%s %d %s   "):format(st.icon, counts[key], st.label), st.hl }
+    end
+    if finished == #rows then
+      right[#right + 1] = { "done", "NurBumpUpdated" }
+    else
+      right[#right + 1] = { "working…", "NurBumpRunning" }
+    end
+
+    local bar = math.max(BAR_MIN, total - 1 - chunks_width(right))
+    local filled = math.floor(bar * finished / #rows)
     local summary = {
       { " " },
       { string.rep("█", filled), "NurBumpBarDone" },
-      { string.rep("░", BAR - filled), "NurBumpBarTodo" },
-      { ("  %d/%d   "):format(finished, #rows) },
+      { string.rep("░", bar - filled), "NurBumpBarTodo" },
     }
-    for _, key in ipairs({ "updated", "current", "skipped", "failed" }) do
-      local st = STATES[key]
-      summary[#summary + 1] = { ("%s %d %s   "):format(st.icon, counts[key], st.label), st.hl }
+    for _, c in ipairs(right) do
+      summary[#summary + 1] = c
     end
-    if finished == #rows then
-      summary[#summary + 1] = { "done", "NurBumpUpdated" }
-    else
-      summary[#summary + 1] = { "working…", "NurBumpRunning" }
-    end
-    add(summary)
+    add(fit_chunks(summary, total))
 
     vim.bo[buf].modifiable = true
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
@@ -509,6 +587,8 @@ local function nur_bump_all(force)
       end
     end
   end
+
+  hooks.on_resize = render
 
   local function set(row, state, status)
     row.state, row.status = state, status
