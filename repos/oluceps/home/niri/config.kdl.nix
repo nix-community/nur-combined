@@ -104,6 +104,7 @@ in
       match app-id="foot"
       match app-id="kitty"
       match app-id="rio"
+      match app-id="Minecraft* 1.21.1"
       match is-active=true
       match is-focused=true
       open-maximized true

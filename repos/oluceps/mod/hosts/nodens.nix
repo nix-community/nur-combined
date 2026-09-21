@@ -38,6 +38,7 @@
             chrony
             # sing-server
             xray
+            mc
 
           ])
         )

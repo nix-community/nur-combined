@@ -88,10 +88,6 @@
               
               return false;
           }
-          protocol direct direct_dn42 {
-            ipv6 { table dn42_v6; };
-            interface "dn42-dummy";
-          }          
 
           function dn42_import_from_peer(int peer_asn; int peer_id) -> bool {
 

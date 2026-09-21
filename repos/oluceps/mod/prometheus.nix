@@ -124,6 +124,16 @@
                 relabel_configs = fqdn_instance_relabel;
               }
               {
+                job_name = "minecraft_metrics";
+                scheme = "http";
+                static_configs = [
+                  {
+                    targets = [ "[fdcc::8]:19565" ];
+                  }
+                ];
+                relabel_configs = fdcc_instance_relabel;
+              }
+              {
                 job_name = "tg-online";
                 scheme = "http";
                 metrics_path = "/metrics";
@@ -331,6 +341,7 @@
                   with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
                 );
               }
+
             ]
             ++ lib.optionals (config.networking.hostName == "eihort") [
               {
