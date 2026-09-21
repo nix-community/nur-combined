@@ -15,6 +15,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `bluez-5_86` | [Upstream](https://github.com/bluez/bluez) |
 | `cargo-pretty` | [Upstream](https://github.com/romancitodev/cargo-pretty) |
 | `deepseek-harness` | [Usage](pkgs/deepseek-harness/README.md) |
+| `dingtalk` | [Upstream](https://www.dingtalk.com/) |
 | `firefoxpwa-xwayland` | [Usage](pkgs/firefoxpwa-xwayland/README.md) |
 | `flutter-rust-bridge-codegen` | [Upstream](https://github.com/fzyzcjy/flutter_rust_bridge) |
 | `gradle-language-server` | [Usage](pkgs/gradle-language-server/README.md) |

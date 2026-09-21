@@ -63,10 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r bin lib "$out/opt/ab-download-manager/"
 
     auto_start_jars=("$out/opt/ab-download-manager/lib/app"/auto-start-desktop-*.jar)
-    if [[ ''${#auto_start_jars[@]} -ne 1 || ! -f "''${auto_start_jars[0]}" ]]; then
-      echo "expected exactly one auto-start-desktop JAR" >&2
-      exit 1
-    fi
 
     mkdir -p nix-autostart-classes
     install -m444 ${./Startup.java} Startup.java

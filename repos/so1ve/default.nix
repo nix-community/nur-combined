@@ -9,6 +9,7 @@
   bluez-5_86 = pkgs.callPackage ./pkgs/bluez-5_86 { };
   cargo-pretty = pkgs.callPackage ./pkgs/cargo-pretty { };
   deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
+  dingtalk = pkgs.callPackage ./pkgs/dingtalk { };
   firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
   gradle-language-server = pkgs.callPackage ./pkgs/gradle-language-server { };
