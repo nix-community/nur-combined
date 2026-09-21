@@ -8,13 +8,13 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "v1.12";
+    version = "v1.13";
     src = fetchFromGitHub {
       owner = "awslabs";
       repo = "aws-sigv4-proxy";
-      rev = "v1.12";
+      rev = "v1.13";
       fetchSubmodules = false;
-      sha256 = "sha256-U0Jxe52bmV+QaS+mKNdW+VzzCtulRL1ZanbWxp4oqcs=";
+      sha256 = "sha256-RMLumWYHfxNxWt6UJzYvaAQX0PWltJrWcPZXrhrdymM=";
     };
   };
   baibot = {
