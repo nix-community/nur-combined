@@ -2,6 +2,7 @@
   lib,
   buildNpmPackage,
   fetchgit,
+  writeScript,
 }:
 buildNpmPackage rec {
   pname = "jisho";
@@ -23,6 +24,20 @@ buildNpmPackage rec {
     '';
 
   patches = [./type.patch];
+
+  passthru.updateScript =
+    writeScript "update-${pname}"
+    # bash
+    ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl jq common-updater-scripts
+
+      set -eu -o pipefail
+
+      REV="$(curl -s https://api.github.com/repos/raycast/extensions/commits?per_page=1 | jq -r '.[0].sha')"
+      update-source-version raycast-${pname} "${version}" --ignore-same-version --rev="$REV"
+      update-source-version raycast-${pname} "${version}" --ignore-same-version --source-key=npmDeps
+    '';
 
   npmDepsHash = "sha256-RFfMJ3qN2wy4ycHgJeljcZXE5MRvgMXOCJQ+FqjTcyY=";
 

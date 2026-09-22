@@ -32,6 +32,6 @@
   obsidian-vim-yank-highlight = pkgs.callPackage ./pkgs/obsidian-vim-yank-highlight {};
   obsidian-vimrc-support = pkgs.callPackage ./pkgs/obsidian-vimrc-support {};
   openflowlm = pkgs.callPackage ./pkgs/openflowlm {};
+  raycast-jisho = pkgs.callPackage ./pkgs/raycast-jisho {};
   vicinae-bitwarden = pkgs.callPackage ./pkgs/vicinae-bitwarden {};
-  vicinae-jisho = pkgs.callPackage ./pkgs/vicinae-jisho {};
 }
