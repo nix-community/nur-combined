@@ -171,22 +171,29 @@ in
         allow=ulaw
         allow=alaw
 
-        [${ext}]
-        type=peer
-        host=dynamic
-        dtmfmode=rfc2833
-        ; The enterprise firmware's UDP path retransmits badly against anything
-        ; that is not a real CUCM; the phone is set to transportLayerProtocol 1.
-        transport=tcp
-        context=from-phone
-        callerid=${cfg.phoneLabel} <${ext}>
-        ; The switch the whole patch hangs off. Without it the peer is served as
-        ; a generic SIP phone and every Cisco softkey stays dead.
-        cisco=yes
-        directmedia=no
-        ; 'qualify' is deprecated in this chan_sip; 'yes' means the 2000ms default.
-        maxqualify=yes
-        #include "${sipSecrets}"
+        ; One peer per line button on the phone, because each button is its own
+        ; SIP registration. That is the whole trunk-selection mechanism: the
+        ; button the call was started on decides which peer the INVITE comes
+        ; from, and each peer's context pins the trunk. They share a password —
+        ; it is one handset on a trusted LAN, and one secret to rotate.
+        ${lib.concatMapStringsSep "\n" (l: ''
+          [${l.extension}]
+          type=peer
+          host=dynamic
+          dtmfmode=rfc2833
+          ; The enterprise firmware's UDP path retransmits badly against anything
+          ; that is not a real CUCM; the phone is set to transportLayerProtocol 1.
+          transport=tcp
+          context=from-phone-${l.trunk}
+          callerid=${cfg.phoneLabel} <${l.extension}>
+          ; The switch the whole patch hangs off. Without it the peer is served as
+          ; a generic SIP phone and every Cisco softkey stays dead.
+          cisco=yes
+          directmedia=no
+          ; 'qualify' is deprecated in this chan_sip; 'yes' means the 2000ms default.
+          maxqualify=yes
+          #include "${sipSecrets}"
+        '') cfg.lines}
 
         ; The phone reads its TFTP config when it boots and at no other time --
         ; there is no polling interval. To push a change without walking over to
@@ -264,7 +271,18 @@ in
         )}
 
         ;---------------------------------------------------------------------
-        ; Everything the phone dials
+        ; One context per line button. Which button the call was placed on is
+        ; which peer the INVITE came from, which is this context -- so picking
+        ; a line *is* picking a trunk, and there is nothing to dial for it.
+        ;---------------------------------------------------------------------
+        ${lib.concatMapStringsSep "\n" (l: ''
+          [from-phone-${l.trunk}]
+          exten => _[*+0-9].,1,Set(TRUNK=${l.trunk})
+           same => n,Goto(from-phone,''${EXTEN},1)
+        '') cfg.lines}
+
+        ;---------------------------------------------------------------------
+        ; Everything the phone dials, once its line has chosen a trunk
         ;---------------------------------------------------------------------
         [from-phone]
         ; Echo test, for proving the audio path without spending money.
@@ -274,9 +292,10 @@ in
          same => n,Echo()
          same => n,Hangup()
 
-        ; Pick a trunk explicitly by prefix; note the phone's own dial rules
-        ; have no entry for these, so they leave on the `*` catch-all timeout
-        ; rather than the instant the last digit lands.
+        ; Override the line's trunk by prefix, for a trunk that has one. Note
+        ; the phone's own dial rules have no entry for these, so they leave on
+        ; the `*` catch-all timeout rather than the instant the last digit
+        ; lands -- which is why the line buttons are the everyday way.
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (
             name: t:
@@ -287,10 +306,11 @@ in
           ) (lib.filterAttrs (_: t: t.dialPrefix != null) trunks)
         )}
 
-        ; Everything else goes out whichever trunk is the default.
-        exten => _X.,1,Set(TRUNK=''${DEFAULT_TRUNK})
+        ; Otherwise keep whatever the line set. DEFAULT_TRUNK is the belt and
+        ; braces for a call that somehow arrived without one.
+        exten => _X.,1,ExecIf($["''${TRUNK}" = ""]?Set(TRUNK=''${DEFAULT_TRUNK}))
          same => n,Goto(normalise,''${EXTEN},1)
-        exten => _+X.,1,Set(TRUNK=''${DEFAULT_TRUNK})
+        exten => _+X.,1,ExecIf($["''${TRUNK}" = ""]?Set(TRUNK=''${DEFAULT_TRUNK}))
          same => n,Goto(normalise,''${EXTEN},1)
 
         ;---------------------------------------------------------------------
@@ -314,16 +334,16 @@ in
          same => n,Hangup()
 
         ;---------------------------------------------------------------------
-        ; In -- one phone, so every trunk rings it
+        ; In -- one phone, but ring the line button that belongs to the trunk
+        ; the call came in on, so the handset shows which number was called
+        ; and answering it holds the right line.
         ;---------------------------------------------------------------------
-        ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (name: _: ''
-            [from-${name}]
-            exten => _[+0-9].,1,NoOp(inbound ''${EXTEN} from ${name})
-             same => n,Dial(SIP/${ext},30)
-             same => n,Hangup()
-          '') trunks
-        )}
+        ${lib.concatMapStringsSep "\n" (l: ''
+          [from-${l.trunk}]
+          exten => _[+0-9].,1,NoOp(inbound ''${EXTEN} from ${l.trunk})
+           same => n,Dial(SIP/${l.extension},30)
+           same => n,Hangup()
+        '') cfg.lines}
       '';
     };
   };

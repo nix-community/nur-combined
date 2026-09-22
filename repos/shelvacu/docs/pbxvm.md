@@ -45,13 +45,25 @@ Telnyx SIP trunk.
   same flow the REGISTER opened, which is what survives the SNAT. Each AOR's
   `qualify_frequency=30` doubles as the keepalive that stops conntrack dropping
   that mapping.
-- **Two trunks.** `vacu.pbx.trunks` generates a pjsip endpoint/aor/registration
-  set and a `from-<name>` inbound context per provider, so adding a third is a
-  few lines. Both ring the one phone inbound. Outbound goes via
-  `vacu.pbx.defaultTrunk` (Telnyx) unless a trunk's `dialPrefix` is dialled
-  first — `*8` picks JMP.chat. The prefix has no entry in the phone's own dial
-  rules, so those calls leave on the `*` catch-all timeout rather than the
-  instant the last digit lands.
+- **Two trunks, two line buttons.** `vacu.pbx.trunks` generates a pjsip
+  endpoint/aor/registration set and a `from-<name>` inbound context per
+  provider, so adding a third is a few lines.
+
+  Each trunk also gets a **line button on the handset**, and that is how you
+  choose which way a call goes out. Every button is a SIP registration of its
+  own — 1001 for Telnyx on button 1, 1002 for JMP.chat on button 2, counting up
+  from `vacu.pbx.extension` — so the button a call was placed on arrives at
+  asterisk as _which chan_sip peer sent the INVITE_. Each peer has its own
+  `from-phone-<trunk>` context whose only job is to `Set(TRUNK=…)` before
+  handing off to the shared dialplan. Nothing is dialled to select a trunk, so
+  nothing interferes with the dial rules, and the normal timeouts apply
+  unchanged.
+
+  Inbound, each trunk rings its own line, so the button that lights up tells you
+  which of your numbers was called.
+
+  `dialPrefix` still exists as a second way in — a prefix that forces a trunk
+  from any line — but no trunk sets one now.
 - **The VM is the phone's NTP server.** An 8851 in SIP mode has no other source
   of time, so chrony runs here with `allow 10.78.76.0/22` and the XML points
   `<ntps>` at `10.78.77.6`.
@@ -61,7 +73,7 @@ Telnyx SIP trunk.
 | File                                | What                                                            |
 | ----------------------------------- | --------------------------------------------------------------- |
 | `hosts/pbxvm/default.nix`           | Host basics plus the `vacu.pbx.*` options everything else reads |
-| `hosts/pbxvm/asterisk.nix`          | chan_sip peer, pjsip trunk, dialplan, firewall                  |
+| `hosts/pbxvm/asterisk.nix`          | chan_sip line peers, pjsip trunks, dialplan, firewall           |
 | `packages/asterisk-usecallmanager/` | Asterisk + the usecallmanager.nz patch                          |
 | `hosts/pbxvm/tftp.nix`              | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
 | `hosts/pbxvm/secrets-guard.nix`     | Refuses to start either service when sops has not rendered      |
@@ -109,7 +121,9 @@ git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked fi
   username is `usertelnyx97122`.
 - `jmpchat.password` — the JMP.chat / Bandwidth password for `c4986875698`.
 - `phone.1001.password` — invent one. It only has to match between asterisk and
-  the XML, and this repo puts it in both.
+  the XML, and this repo puts it in both. Every line button shares it: they are
+  the same handset on the same trusted LAN, and one secret is one thing to
+  rotate. So adding a trunk needs no new secret beyond its own password.
 
 Then rebuild and deploy pbxvm. The asterisk _unit_ does not change when only the
 ciphertext does, and it is `restartIfChanged = false` besides (so a rebuild
@@ -138,8 +152,14 @@ same and more.
 # on pbxvm
 journalctl -fu atftpd                       # watch the phone fetch SEP….cnf.xml
 asterisk -rx 'pjsip show registrations'     # telnyx and jmpchat → Registered
-asterisk -rx 'pjsip show endpoints'         # 1001 → Not in use (i.e. registered)
+asterisk -rx 'sip show peers'               # 1001 and 1002 → one row each, with
+                                            # a host:port, i.e. both lines are up
 ```
+
+Both line peers must show a contact. A handset that registers only 1001 has
+taken a stale config: it has one line button and no way to reach JMP.chat.
+Re-read the config (see below) and check the phone's **Settings → Phone
+Information**.
 
 Then dial **611** from the handset for an echo test — that proves RTP between
 phone and PBX without involving Telnyx or spending money. After that, dial a
@@ -220,6 +240,18 @@ Two log-reading traps worth knowing:
 
 ## Dialling
 
+### Picking a trunk
+
+Press the line button for the trunk you want — **Telnyx** on button 1, **JMP**
+on button 2 — then dial. Off-hook without pressing one takes button 1, so Telnyx
+stays the no-thought default (`vacu.pbx.defaultTrunk` decides which trunk that
+is, and it is always button 1).
+
+The labels next to the buttons come from each trunk's `label`; the dialling
+rules below are the same on every line.
+
+### Numbers
+
 - 10 digits (`5555550123`), 11 (`15555550123`), or `+1…` — all normalised to
   E.164 and sent to Telnyx.
 - Every rule is anchored on a literal leading digit (`1..........`, then
@@ -256,19 +288,19 @@ Two log-reading traps worth knowing:
   Set the option to `false` for the 16 hand-written rules if the handset ever
   chokes on the size.
 
-- `611` — local echo test.
-- Everything inbound from Telnyx rings the one phone.
+- `611` — local echo test, on either line.
+- A call inbound on a trunk rings that trunk's line button.
 
-`vacu.pbx.telnyx.outboundCallerId` is unset, so Telnyx picks the connection's
-default caller ID. Set it to an E.164 number you own to override.
+`vacu.pbx.trunks.telnyx.outboundCallerId` is unset, so Telnyx picks the
+connection's default caller ID. Set it to an E.164 number you own to override.
 
 ## Things that will need attention later
 
-- `vacu.pbx.telnyx.signalingIps` is Telnyx's _US_ signalling pair from
+- `vacu.pbx.trunks.telnyx.signalingIps` is Telnyx's _US_ signalling pair from
   <https://sip.telnyx.com/>. If the connection moves region, or Telnyx
   renumbers, update it (inbound would still work via `line=yes`, but the
   `identify` would stop matching).
-- No voicemail, no second extension, no CDR storage. All are additions to
+- No voicemail, no second handset, no CDR storage. All are additions to
   `hosts/pbxvm/asterisk.nix` rather than rework.
 - `<loadInformation>` is deliberately absent from the XML, so the phone keeps
   whatever firmware it has. Upgrading it means putting the `.loads`/`.sbn` files

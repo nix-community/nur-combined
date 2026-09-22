@@ -7,6 +7,7 @@
 }:
 let
   inherit (lib) mkOption types;
+  cfg = config.vacu.pbx;
 in
 {
   imports = [
@@ -17,12 +18,29 @@ in
 
   options.vacu.pbx = {
     extension = mkOption {
-      type = types.str;
+      type = types.strMatching "[0-9]+";
       default = "1001";
       description = ''
-        The SIP username / line number the Cisco phone registers as. Used as
-        the pjsip endpoint, aor and auth username, and as `name`/`contact`/
-        `authName` in the phone's TFTP config.
+        The SIP username the phone's *first* line registers as. Each further
+        line button counts up from here — with two trunks and the default
+        `1001`, the phone registers as 1001 and 1002. Numeric because of that
+        counting.
+      '';
+    };
+    lines = mkOption {
+      internal = true;
+      readOnly = true;
+      type = types.listOf (types.attrsOf types.str);
+      description = ''
+        The phone's line buttons, one per trunk, in button order: the default
+        trunk on button 1 and the rest after it. Computed, not set by hand —
+        `trunks` and `extension` are the inputs. Each entry has `trunk`,
+        `index`, `extension` and `label`.
+
+        This is the whole mechanism for choosing an outbound trunk: every line
+        is a SIP registration of its own, so which button the call started on
+        arrives at asterisk as which peer sent the INVITE, and each peer has a
+        context that pins `TRUNK`.
       '';
     };
     phoneMac = mkOption {
@@ -135,21 +153,32 @@ in
       type = types.str;
       default = "telnyx";
       description = ''
-        Which `trunks` entry carries an outbound call that did not ask for a
-        particular one. Any trunk with a `dialPrefix` can be picked per call.
+        Which `trunks` entry gets line button 1 on the phone, and so carries
+        any call placed without picking a line first.
       '';
     };
     trunks = mkOption {
       description = ''
         Upstream SIP providers, keyed by name. Each becomes a chan_pjsip
         endpoint/aor/registration/identify set, an inbound dialplan context
-        `from-<name>`, and a sops secret at `<name>/password`.
+        `from-<name>`, a sops secret at `<name>/password`, and a line button
+        on the phone that sends outbound calls this way.
       '';
       default = { };
       type = types.attrsOf (
         types.submodule (
           { name, ... }: {
             options = {
+              label = mkOption {
+                type = types.str;
+                default = name;
+                description = ''
+                  Text the phone shows next to this trunk's line button, and
+                  the display name its line registers with. The 8851 has room
+                  for a short word.
+                '';
+                example = "Telnyx";
+              };
               user = mkOption {
                 type = types.str;
                 description = "Credential username to register with.";
@@ -185,9 +214,14 @@ in
                 type = types.nullOr types.str;
                 default = null;
                 description = ''
-                  Dial this before a number to force the call out this trunk,
-                  e.g. `*8`. Null means the trunk is only reachable by being
-                  `defaultTrunk`.
+                  Optional second way in, on top of this trunk's line button:
+                  dial this before a number, from any line, to force the call
+                  out this trunk. Null (the default) means the line button is
+                  the only way.
+
+                  The prefix has no entry in the phone's dial rules, so such a
+                  call leaves on the `*` catch-all timeout rather than the
+                  instant the last digit lands.
                 '';
                 example = "*8";
               };
@@ -216,8 +250,29 @@ in
 
     vacu.pbx.phoneMac = "C444A03F4BD6";
     vacu.pbx.publicIp = "205.201.63.13";
+    # One line button per trunk, default trunk first. Every button is its own
+    # SIP registration, so the extensions count up from `extension`.
+    vacu.pbx.lines =
+      let
+        names = [ cfg.defaultTrunk ] ++ lib.remove cfg.defaultTrunk (lib.attrNames cfg.trunks);
+      in
+      lib.imap1 (i: name: {
+        trunk = name;
+        index = toString i;
+        extension = toString (lib.toInt cfg.extension + i - 1);
+        inherit (cfg.trunks.${name}) label;
+      }) names;
+
+    assertions = [
+      {
+        assertion = cfg.trunks ? ${cfg.defaultTrunk};
+        message = "vacu.pbx.defaultTrunk is ${cfg.defaultTrunk}, which is not one of vacu.pbx.trunks.";
+      }
+    ];
+
     vacu.pbx.trunks = {
       telnyx = {
+        label = "Telnyx";
         user = "usertelnyx97122";
         domain = "sip.telnyx.com";
         # US signalling pair from <https://sip.telnyx.com/>; update if the
@@ -228,11 +283,10 @@ in
         ];
       };
       jmpchat = {
+        label = "JMP";
         user = "c4986875698";
         domain = "jmp.cbcbc7.auth.bandwidth.com";
         port = 5008;
-        # Not the default trunk, so reach it by dialling *8 then the number.
-        dialPrefix = "*8";
       };
     };
 

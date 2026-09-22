@@ -327,33 +327,43 @@ in
           <alwaysUsePrimeLine>false</alwaysUsePrimeLine>
           <phoneLabel>${cfg.phoneLabel}</phoneLabel>
           <callStats>false</callStats>
+          <!-- One line button per trunk, the default trunk on button 1. Each
+               is a registration of its own, which is what makes the buttons a
+               trunk selector: the INVITE reaches asterisk from that line's
+               peer, and the peer's context pins the trunk. Going off-hook
+               without pressing one takes button 1 (alwaysUsePrimeLine is
+               false, so it is "first available line", and with nothing ringing
+               or held that is the first). -->
           <sipLines>
-            <line button="1" lineIndex="1">
-              <!-- featureID 9 is a plain line appearance. -->
-              <featureID>9</featureID>
-              <featureLabel>${ext}</featureLabel>
-              <!-- USECALLMANAGER: use the callManagerGroup member above as the
-                   proxy, rather than a separate address here. -->
-              <proxy>USECALLMANAGER</proxy>
-              <port>${toString cfg.sipPort}</port>
-              <name>${ext}</name>
-              <displayName>${ext}</displayName>
-              <contact>${ext}</contact>
-              <authName>${ext}</authName>
-              <authPassword>${config.sops.placeholder."phone/${ext}/password"}</authPassword>
-              <autoAnswer>
-                <autoAnswerEnabled>0</autoAnswerEnabled>
-              </autoAnswer>
-              <callWaiting>1</callWaiting>
-              <sharedLine>false</sharedLine>
-              <messageWaitingLampPolicy>3</messageWaitingLampPolicy>
-              <messageWaitingAMWI>0</messageWaitingAMWI>
-              <messagesNumber></messagesNumber>
-              <ringSettingIdle>4</ringSettingIdle>
-              <ringSettingActive>5</ringSettingActive>
-              <maxNumCalls>4</maxNumCalls>
-              <busyTrigger>2</busyTrigger>
-            </line>
+            ${lib.concatMapStringsSep "\n" (l: ''
+              <line button="${l.index}" lineIndex="${l.index}">
+                <!-- featureID 9 is a plain line appearance. -->
+                <featureID>9</featureID>
+                <featureLabel>${l.label}</featureLabel>
+                <!-- USECALLMANAGER: use the callManagerGroup member above as the
+                     proxy, rather than a separate address here. -->
+                <proxy>USECALLMANAGER</proxy>
+                <port>${toString cfg.sipPort}</port>
+                <name>${l.extension}</name>
+                <displayName>${l.label}</displayName>
+                <contact>${l.extension}</contact>
+                <authName>${l.extension}</authName>
+                <!-- All the lines share one password; see asterisk.nix. -->
+                <authPassword>${config.sops.placeholder."phone/${ext}/password"}</authPassword>
+                <autoAnswer>
+                  <autoAnswerEnabled>0</autoAnswerEnabled>
+                </autoAnswer>
+                <callWaiting>1</callWaiting>
+                <sharedLine>false</sharedLine>
+                <messageWaitingLampPolicy>3</messageWaitingLampPolicy>
+                <messageWaitingAMWI>0</messageWaitingAMWI>
+                <messagesNumber></messagesNumber>
+                <ringSettingIdle>4</ringSettingIdle>
+                <ringSettingActive>5</ringSettingActive>
+                <maxNumCalls>4</maxNumCalls>
+                <busyTrigger>2</busyTrigger>
+              </line>
+            '') cfg.lines}
           </sipLines>
           <dialTemplate>dialplan.xml</dialTemplate>
         </sipProfile>

@@ -54,26 +54,34 @@ let
   # only — never echo the value.
   phoneConfig = config.sops.templates."SEP${cfg.phoneMac}.cnf.xml".path;
   checkPhonePassword = pkgs.writeShellScript "atftpd-check-phone-password" ''
-    pw=$(${pkgs.gnused}/bin/sed -n 's:.*<authPassword>\(.*\)</authPassword>.*:\1:p' ${lib.escapeShellArg phoneConfig})
     rc=0
+    # One <authPassword> per line button, so read them all rather than assuming
+    # a single match -- with several, $(...) would return them concatenated and
+    # the length check below would be measuring the wrong thing.
+    #
     # The enterprise firmware truncates authName/authPassword at 30 characters,
     # so a longer one registers with a silently different password and 401-loops.
-    if [ "''${#pw}" -gt 30 ]; then
-      echo "atftpd: phone line password is ''${#pw} characters; the 8851 truncates authPassword at 30." >&2
-      echo "atftpd: the phone would register with a truncated password and fail authentication." >&2
-      rc=1
-    fi
-    # Neither password is escaped on its way into the XML, so these would make
-    # the config file unparseable and the phone would reject it wholesale.
-    sshpw=$(${pkgs.gnused}/bin/sed -n 's:.*<sshPassword>\(.*\)</sshPassword>.*:\1:p' ${lib.escapeShellArg phoneConfig})
-    for v in "$pw" "$sshpw"; do
+    while IFS= read -r pw; do
+      if [ "''${#pw}" -gt 30 ]; then
+        echo "atftpd: a phone line password is ''${#pw} characters; the 8851 truncates authPassword at 30." >&2
+        echo "atftpd: the phone would register with a truncated password and fail authentication." >&2
+        rc=1
+        break
+      fi
+    done < <(${pkgs.gnused}/bin/sed -n 's:.*<authPassword>\(.*\)</authPassword>.*:\1:p' ${lib.escapeShellArg phoneConfig})
+    # No password is escaped on its way into the XML, so these would make the
+    # config file unparseable and the phone would reject it wholesale.
+    while IFS= read -r v; do
       case $v in
         *'&'* | *'<'* | *'>'*)
           echo "atftpd: a password in the phone config contains & < or >, which breaks the XML." >&2
           rc=1
+          break
           ;;
       esac
-    done
+    done < <(${pkgs.gnused}/bin/sed -n \
+      -e 's:.*<authPassword>\(.*\)</authPassword>.*:\1:p' \
+      -e 's:.*<sshPassword>\(.*\)</sshPassword>.*:\1:p' ${lib.escapeShellArg phoneConfig})
     exit "$rc"
   '';
 
