@@ -7,10 +7,13 @@
   # hooks
   autoPatchelfHook,
   makeWrapper,
+  versionCheckHook,
   wrapGAppsHook3,
+  writableTmpDirAsHomeHook,
 
   # native build inputs
   dpkg,
+  patchelf,
   unzip,
 
   # build inputs
@@ -45,6 +48,7 @@
 
   # runtime deps
   bubblewrap,
+  coreutils,
   libGL,
   libpulseaudio,
   libsecret,
@@ -77,15 +81,19 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i "s|const family = familySync();|const family = 'glibc'     ;|" usr/lib/chatgpt/resources/app.asar
   '';
 
-  nativeBuildInputs =
-    lib.optionals isDarwin [ unzip ]
-    ++ lib.optionals isLinux [
-      autoPatchelfHook
-      dpkg
-      makeWrapper
-      qt6.wrapQtAppsHook
-      wrapGAppsHook3
-    ];
+  nativeBuildInputs = [
+    makeWrapper
+  ]
+  ++ lib.optionals isDarwin [
+    unzip
+    patchelf
+  ]
+  ++ lib.optionals isLinux [
+    autoPatchelfHook
+    dpkg
+    qt6.wrapQtAppsHook
+    wrapGAppsHook3
+  ];
 
   buildInputs = lib.optionals isLinux [
     alsa-lib
@@ -140,7 +148,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p "$out/Applications"
     mkdir -p "$out/bin"
     cp -a ChatGPT.app "$out/Applications"
-    ln -s "$out/Applications/ChatGPT.app/Contents/MacOS/ChatGPT" "$out/bin/ChatGPT"
+    makeWrapper "$out/Applications/ChatGPT.app/Contents/MacOS/ChatGPT" "$out/bin/ChatGPT"
   ''
   + lib.optionalString isLinux ''
     mkdir -p "$out"
@@ -181,9 +189,11 @@ stdenv.mkDerivation (finalAttrs: {
       --set CHATGPT_RESOURCES_CACHE_LABEL ${lib.escapeShellArg "${finalAttrs.version}-${system}"} \
       --prefix PATH : ${
         lib.makeBinPath [
-          nodejs-slim
-          xdg-utils
           bubblewrap
+          coreutils
+          nodejs-slim
+          nodejs-slim.npm
+          xdg-utils
         ]
       } \
       --set-default CODEX_BROWSER_USE_NODE_PATH ${lib.getExe nodejs-slim} \
@@ -198,6 +208,15 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   dontStrip = true;
+  dontPatchELF = isDarwin;
+  dontPatchShebangs = isDarwin;
+
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [
+    versionCheckHook
+    writableTmpDirAsHomeHook
+  ];
+  versionCheckKeepEnvironment = [ "HOME" ];
 
   passthru = {
     updateScript = ./update.sh;
