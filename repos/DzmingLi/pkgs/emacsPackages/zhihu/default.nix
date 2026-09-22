@@ -2,7 +2,6 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
-  browser-cookies,
   org-typst-math,
   typst,
 }:
@@ -18,12 +17,11 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "7eccf206b38df8bfbceaa9d8cfb5d472798fe1ea";
-    hash = "sha256-xhefOwifg+RN8Lcx1JL+fK+mH/M9UTlYjIEn//dTlS4=";
+    rev = "263debec5a6ba81b42462bcc6768e17c7b3d029a";
+    hash = "sha256-kEsds0iwv1Pc5EjsuzurJRn5Tmy8pGonS5eiHCH5XlU=";
   };
 
   packageRequires = [
-    browser-cookies
     emacsPackages.elpaDevelPackages.plz
     org-typst-math
   ];

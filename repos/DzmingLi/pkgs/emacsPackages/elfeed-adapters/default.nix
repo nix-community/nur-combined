@@ -2,7 +2,6 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
-  browser-cookies,
   zhihu,
 }:
 
@@ -13,12 +12,11 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "elfeed-adapters";
-    rev = "93d738ac72b626f8a7238c54d93b0f4ce54d54e8";
-    hash = "sha256-eESop65v5N7WcOMT/H56S75zSkf8pq8hm+CiQ47MzAg=";
+    rev = "7649ac1e59794266c184a6ea2c67dff34b8b0f3c";
+    hash = "sha256-eR/3Ru8XGWx3IKW8g/P2HrDizO/xhalrrXjEUuwgTDM=";
   };
 
   packageRequires = [
-    browser-cookies
     zhihu
     emacsPackages.elfeed
     emacsPackages.elpaDevelPackages.plz
