@@ -1,0 +1,12 @@
+--- a/src-tauri/src/agents/backups.rs
++++ b/src-tauri/src/agents/backups.rs
+@@ -3,6 +3,9 @@
+ use std::sync::atomic::{AtomicU64, Ordering};
+ 
+ mod restore;
++use restore::desktop_profile_needs_mapping;
++pub(crate) use restore::{preview_agent_config_backup, restore_agent_config_backup};
++#[cfg(test)]
+ pub(crate) use restore::*;
+ 
+ static SEQUENCE: AtomicU64 = AtomicU64::new(0);

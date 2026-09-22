@@ -1,0 +1,25 @@
+--- a/src-tauri/src/core_runtime.rs	2026-09-22 00:24:37.198690379 -0700
++++ b/src-tauri/src/core_runtime.rs	2026-09-22 00:24:40.350943763 -0700
+@@ -1684,6 +1684,22 @@
+             .join("Application Support")
+             .join("com.cpa.gui"));
+     }
++    #[cfg(not(target_os = "macos"))]
++    {
++        if let Some(dir) = env::var_os("EASYCLIPROXYAPI_DATA_DIR") {
++            return Ok(PathBuf::from(dir));
++        }
++        if !executable_dir.join(PORTABLE_APP_MANIFEST_FILE).is_file() {
++            let data_home = env::var_os("XDG_DATA_HOME")
++                .map(PathBuf::from)
++                .or_else(|| {
++                    env::var_os("HOME")
++                        .map(|home| PathBuf::from(home).join(".local").join("share"))
++                })
++                .ok_or_else(|| "无法确定用户数据目录".to_string())?;
++            return Ok(data_home.join("com.cpa.gui"));
++        }
++    }
+     Ok(executable_dir)
+ }
+ 
