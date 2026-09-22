@@ -22,6 +22,10 @@ go = '1.27.0'
     version = 'v0.0.0-20211027044916-e49e68abd344'
     hash = 'sha256-bg3CgHxMgcMCOHB6yiN1uRYo8WgGqr1iLAswo9dQKhY='
 
+  [mod.'github.com/adrg/xdg']
+    version = 'v0.5.3'
+    hash = 'sha256-bo6tBgHS+3sl6f4oWpmdFrZjfV6eA/3xAlysSW0bIEs='
+
   [mod.'github.com/akutz/memconn']
     version = 'v0.1.0'
     hash = 'sha256-WOs/RQYjQbn41ui8ztHgWSd4jxydE+fvIrl/0dmHD9Y='
@@ -91,7 +95,7 @@ go = '1.27.0'
     hash = 'sha256-Qa7BSAXtgH7CB5STBiXTTOCgivWUiA65u3KxDOSZCkQ='
 
   [mod.'github.com/easytier/easytier/easytier-go']
-    version = 'v0.0.0-20260919002212-0f3d8e443492'
+    version = 'v0.0.0-20260919154446-8d200c26d723'
     hash = 'sha256-mue1cW4H2yXz6wC6GI3N0oKUIe1MGr1zoU0fehpKDv4='
 
   [mod.'github.com/enfein/mieru/v3']
@@ -142,17 +146,21 @@ go = '1.27.0'
     version = 'v1.1.0'
     hash = 'sha256-ok0PEEvSR010nh6vB3nDCyKSSVvoB50/UjVvBKOYXsA='
 
+  [mod.'github.com/go-ole/go-ole']
+    version = 'v1.3.0'
+    hash = 'sha256-tF8t3VcV71jQ4jbPL91BwR59AKDpUAFV1waIKzkXJu8='
+
   [mod.'github.com/go-playground/locales']
     version = 'v0.14.1'
     hash = 'sha256-BMJGAexq96waZn60DJXZfByRHb8zA/JP/i6f/YrW9oQ='
 
   [mod.'github.com/go-playground/universal-translator']
-    version = 'v0.18.1'
-    hash = 'sha256-2/B2qP51zfiY+k8G0w0D03KXUc7XpWj6wKY7NjNP/9E='
+    version = 'v0.18.2'
+    hash = 'sha256-5L7t8ONu6GaYGXTNt8qVGcSNcq6NeRQlGF6/SKMEM84='
 
   [mod.'github.com/go-playground/validator/v10']
-    version = 'v10.30.4'
-    hash = 'sha256-8lruOQIk6IS5ti60Y/YfM1Q3rp4MFp8oxve+98Gtwg8='
+    version = 'v10.30.5'
+    hash = 'sha256-kPfwBlR7UrfNkwKg9GItrZbMG8mFzrXUqKRdjCz7bTo='
 
   [mod.'github.com/gobwas/httphead']
     version = 'v0.1.0'
@@ -173,6 +181,10 @@ go = '1.27.0'
   [mod.'github.com/goccy/go-yaml']
     version = 'v1.19.2'
     hash = 'sha256-pkqkwtziwXoWlTOxJsPFdMc7Mj0mSC3Ll/xUmYAYcYE='
+
+  [mod.'github.com/godbus/dbus/v5']
+    version = 'v5.2.2'
+    hash = 'sha256-j+LicPlXcB1R3oVFPa8cd4yVJLpBx+ca5gXmHqOJSN8='
 
   [mod.'github.com/gofrs/uuid/v5']
     version = 'v5.5.1'
@@ -323,8 +335,8 @@ go = '1.27.0'
     hash = 'sha256-eQLGncjplmcX493YM+X4FDlMhrnWs3boBtovDB01eH8='
 
   [mod.'github.com/metacubex/gvisor']
-    version = 'v0.0.0-20260826100401-79317d808312'
-    hash = 'sha256-kTXJVpfGwuPzWzVc9c2aWNP04Xcb63jyMC+zXfx9p5E='
+    version = 'v0.0.0-20260922041103-e2cbcd6e7400'
+    hash = 'sha256-ig5/Nt3/Ch6u46tHjB23pX5/TLRuXXWa3M3Uj1gQuVM='
 
   [mod.'github.com/metacubex/hkdf']
     version = 'v0.1.0'
@@ -359,8 +371,8 @@ go = '1.27.0'
     hash = 'sha256-v4GXNwlXSVPg9Q77vA9gH6MSFKIiH904Y9oUKvITPXs='
 
   [mod.'github.com/metacubex/mipstack']
-    version = 'v0.0.0-20260919022553-98e5ad53a0e2'
-    hash = 'sha256-MbWwAbXxabDRJI6KyY1ZEViFy+M3ojUBu1vLgl/l01s='
+    version = 'v0.0.0-20260922000335-dbef50b1df45'
+    hash = 'sha256-tuE2ogGj5gPmRvHIq+ruo8ziVOdF+hzMhbMSVKX/d/o='
 
   [mod.'github.com/metacubex/mlkem']
     version = 'v0.1.0'
@@ -383,8 +395,8 @@ go = '1.27.0'
     hash = 'sha256-CJngSi8+AnFUd6J9h1EsXh6wH0MsXqdzk/Usmknd2TA='
 
   [mod.'github.com/metacubex/sing']
-    version = 'v0.5.7'
-    hash = 'sha256-0Iil/kZVZ4i4sU8BJ0Cg1YRNdnE91rutipOT60KcBQ4='
+    version = 'v0.5.8'
+    hash = 'sha256-JZ5NRSUJwga/3eWd6rFOxQ2hl3hdtzCmLTRnaVrjIoY='
 
   [mod.'github.com/metacubex/sing-mux']
     version = 'v0.3.11'
@@ -519,8 +531,8 @@ go = '1.27.0'
     hash = 'sha256-xaxHnTKIZt1cHK5ZqTuSTOt5RNSjQB37GlrIgEGBskM='
 
   [mod.'github.com/quic-go/quic-go']
-    version = 'v0.62.0'
-    hash = 'sha256-mDXZXaLUg/zWBeKf5RwEeyiQ+vk1bxgk6xjAzHf3oeU='
+    version = 'v0.63.0'
+    hash = 'sha256-ctsVUQiUjpXvs/yG75vd5lewqCphwLfaFo426WL5arE='
 
   [mod.'github.com/rasky/go-lzo']
     version = 'v0.0.0-20200203143853-96a758eda86e'
@@ -559,8 +571,8 @@ go = '1.27.0'
     hash = 'sha256-/6VIsBoXMskxdKKacx8wgS4GdHyU1dCl9wVYYcRDXio='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.3.0'
-    hash = 'sha256-l7Ab4yj8ynISBakYc3i7QPQOX/1W65OvnaBwyPAYrd8='
+    version = 'v1.3.3'
+    hash = 'sha256-SPn33x3NXrvUf5Ll5U/CnliIAnCW4bSePSmS5cuZOOc='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'
@@ -603,8 +615,8 @@ go = '1.27.0'
     hash = 'sha256-/W4sowusGHO1Fb4mlqNQlfqgl278E0BqgMUzexkzWVw='
 
   [mod.'github.com/ulikunitz/xz']
-    version = 'v0.5.16'
-    hash = 'sha256-H9PHsg4f6p+8MGGddvO8qGY17aXu4uHch+0zgsw6dlo='
+    version = 'v0.5.17'
+    hash = 'sha256-KkgxNnViDRkpJy/Xv4OFyLfmIaC7BPLEJTtpvuGP7Ks='
 
   [mod.'github.com/vmihailenco/msgpack/v5']
     version = 'v5.4.1'
@@ -613,6 +625,10 @@ go = '1.27.0'
   [mod.'github.com/vmihailenco/tagparser/v2']
     version = 'v2.0.0'
     hash = 'sha256-M9QyaKhSmmYwsJk7gkjtqu9PuiqZHSmTkous8VWkWY0='
+
+  [mod.'github.com/wailsapp/wails/v3']
+    version = 'v3.0.0-beta.24'
+    hash = 'sha256-qlXjoLgFl3JyYR2N1ZrEwztUpncTOIxVV0Ip9GJsOLw='
 
   [mod.'github.com/x448/float16']
     version = 'v0.8.4'

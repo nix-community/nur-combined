@@ -511,8 +511,8 @@ go = '1.25.5'
     hash = 'sha256-Wj/pBCB9OeL/WmxNEbaxixBry6zjJrSoH1IVmZM/CjU='
 
   [mod.'github.com/sagernet/sing']
-    version = 'v0.9.5-0.20260917164122-8fc5da509c10'
-    hash = 'sha256-N+3OZIo8y4OsRJABiX6RqoM5z9TBAdNAFRlZbTJmVm4='
+    version = 'v0.9.6-0.20260922013359-4ca3bebe0b8e'
+    hash = 'sha256-nJMOiJiEiZN74jOUkaxRELoq1HHNAopK0VItRAikzZ0='
 
   [mod.'github.com/sagernet/sing-anytls']
     version = 'v0.0.0-20260904135308-cec2d74334be'
@@ -523,8 +523,8 @@ go = '1.25.5'
     hash = 'sha256-4FvluFMWMFgm1rLkAdFwwr1PWAZ6i+dnEBWGp5p6HUQ='
 
   [mod.'github.com/sagernet/sing-mux']
-    version = 'v0.3.7-0.20260905054442-91d1502591ce'
-    hash = 'sha256-XU41GY48JyLn8sYEzL44s/ZERtsv8nG0tXHEdDOUNBc='
+    version = 'v0.3.9-0.20260919141002-baf887b90a62'
+    hash = 'sha256-9jY1vurYR27J5VPupBWClhy92RM0aKPCVB/h38Vb0+0='
 
   [mod.'github.com/sagernet/sing-openconnect']
     version = 'v0.0.0-20260903200519-8b89c968949d'
@@ -555,8 +555,8 @@ go = '1.25.5'
     hash = 'sha256-JkrVd6e/FEfdf3GiKCWe6xDJHxzk7CWQxVAz23Vmn0U='
 
   [mod.'github.com/sagernet/sing-tun']
-    version = 'v0.9.4-0.20260917142847-fbc0c3dff312'
-    hash = 'sha256-bvdjmbUPvgRlyiBKsgY44lBCWPMoMg08SESR9YyYMNY='
+    version = 'v0.9.6-0.20260922105247-aff4131a9e9e'
+    hash = 'sha256-DRakLvfFdz3t7oggR6EvrWpodKZV/GrQ1OIxB3zaJ5U='
 
   [mod.'github.com/sagernet/sing-usbip']
     version = 'v0.0.0-20260817040617-28bd42667eca'
@@ -1344,7 +1344,6 @@ go = '1.25.5'
       'github.com/sagernet/sing/common/x/list',
       'github.com/sagernet/sing/contrab/freelru',
       'github.com/sagernet/sing/contrab/maphash',
-      'github.com/sagernet/sing/protocol/http',
       'github.com/sagernet/sing/protocol/socks',
       'github.com/sagernet/sing/protocol/socks/socks4',
       'github.com/sagernet/sing/protocol/socks/socks5',

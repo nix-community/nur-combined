@@ -189,13 +189,13 @@
   };
   kelivo = {
     pname = "kelivo";
-    version = "v1.2.7";
+    version = "v1.3.0";
     src = fetchFromGitHub {
       owner = "Chevey339";
       repo = "kelivo";
-      rev = "v1.2.7";
+      rev = "v1.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Y6S29ms0rOE45SrXZIPl3AYEzU3ojFpEn/o8hB+K/a0=";
+      sha256 = "sha256-sQZPgIS6ZPnG1KLIgKCKJzWFnhpvURb+ZQcdsMvNXOk=";
     };
   };
   magic-context = {
@@ -268,13 +268,13 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.6";
+    version = "v1.15.0-alpha.7";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.6";
+      rev = "v1.15.0-alpha.7";
       fetchSubmodules = false;
-      sha256 = "sha256-zKoHeCFT9yfCM25fSrXg4aUqr/EvHH2eBF19unR9muI=";
+      sha256 = "sha256-S9e7A+uhprwB6wHQLgvJ+2i5SWjwBCfGjzchutyD9Xc=";
     };
   };
   sing-box-beta = {
@@ -301,13 +301,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.0.0";
+    version = "v3.1.0";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.0.0";
+      rev = "v3.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-1HsvGnxLPWkt5WQJW4YM06VzNfNnh/HuGDDNK0073Xg=";
+      sha256 = "sha256-afWi562nHXRtkc8y7gVviZRk4oES4QDkJrCmc0c7/40=";
     };
   };
   tree-sitter-nix = {
