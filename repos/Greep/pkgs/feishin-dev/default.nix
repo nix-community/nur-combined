@@ -29,8 +29,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     "owner" = "jeffvli";
     "repo" = "feishin";
-    "rev" = "ce421d2729f9f63e25ab641566ceb27b3612ce2f";
-    "hash" = "sha256-f+cfvghq+/PxRxk7KzwPFN6NwbW34SLXBcegjcnbUTA=";
+    "rev" = "b320f7154237c5b491d0594bd3c795c167f110c2";
+    "hash" = "sha256-O1xs03Vg1LDmI9+2vKEQTPP/kbhMaSeEvSngxMyLBGg=";
   };
 
   __structuredAttrs = true;
