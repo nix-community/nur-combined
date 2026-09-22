@@ -9,10 +9,21 @@ let
   # common/nixos.nix's time.timeZone.
   ciscoTimeZone = "Pacific Standard/Daylight Time";
 
-  # The phone's dial rules: how long to wait before sending what has been
-  # keyed, so the user doesn't have to press Dial. `.` is one digit, `!` is one
-  # or more; the last entry is the catch-all inter-digit timeout. These mirror
-  # the [from-phone] patterns in extensions.conf.
+  # The phone's dial rules: how long to wait before sending what has been keyed,
+  # so the user doesn't have to press Dial. These mirror the [from-phone]
+  # patterns in extensions.conf; the phone matches the first rule that fits, so
+  # the catch-all has to come last.
+  #
+  # Two wildcards: `.` is exactly one character, `*` is one or more (a literal
+  # star key would be `\*`). There is no `!` — that is IOS dial-peer syntax, and
+  # a rule containing it never matches anything.
+  #
+  # Keep the UPPERCASE `<DIALTEMPLATE MATCH= Timeout=>` spelling. The
+  # usecallmanagernz reference files use lowercase `<dialTemplate match=
+  # timeout=>` and XML is case-sensitive, so this looks like it ought to be
+  # wrong — but the uppercase form is what is actually deployed and working on
+  # this 8851, with 10-digit numbers dialling the instant the last digit lands.
+  # Don't "correct" it without a handset to test against.
   dialplanXml = pkgs.writeText "dialplan.xml" ''
     <DIALTEMPLATE>
       <TEMPLATE MATCH="611" Timeout="0"/>
@@ -20,7 +31,7 @@ let
       <TEMPLATE MATCH="933" Timeout="0"/>
       <TEMPLATE MATCH="1.........." Timeout="0"/>
       <TEMPLATE MATCH=".........." Timeout="0"/>
-      <TEMPLATE MATCH="011!" Timeout="4"/>
+      <TEMPLATE MATCH="011*" Timeout="4"/>
       <TEMPLATE MATCH="*" Timeout="5"/>
     </DIALTEMPLATE>
   '';

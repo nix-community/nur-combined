@@ -47,7 +47,12 @@ in
         [general]
 
         [logfiles]
-        syslog.local0 => notice,warning,error
+        ; `verbose` is what carries call progress -- the "Executing [...]" and
+        ; "Called PJSIP/..." lines. Without it the journal only ever shows
+        ; things that went wrong at NOTICE or above, so a call that never
+        ; reaches the dialplan and a call that sails through look identical:
+        ; both produce complete silence.
+        syslog.local0 => notice,warning,error,verbose
       '';
 
       "rtp.conf" = ''

@@ -40,13 +40,14 @@ Telnyx SIP trunk.
 
 ## Files
 
-| File                       | What                                                            |
-| -------------------------- | --------------------------------------------------------------- |
-| `hosts/pbxvm/default.nix`  | Host basics plus the `vacu.pbx.*` options everything else reads |
-| `hosts/pbxvm/asterisk.nix` | pjsip transports/endpoints/trunk, dialplan, firewall            |
-| `hosts/pbxvm/tftp.nix`     | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
-| `hosts/prophecy/vms.nix`   | The VM itself (tag 6)                                           |
-| `secrets/hosts/pbxvm.yaml` | Telnyx password + the line's SIP password                       |
+| File                            | What                                                            |
+| ------------------------------- | --------------------------------------------------------------- |
+| `hosts/pbxvm/default.nix`       | Host basics plus the `vacu.pbx.*` options everything else reads |
+| `hosts/pbxvm/asterisk.nix`      | pjsip transports/endpoints/trunk, dialplan, firewall            |
+| `hosts/pbxvm/tftp.nix`          | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
+| `hosts/pbxvm/secrets-guard.nix` | Refuses to start either service when sops has not rendered      |
+| `hosts/prophecy/vms.nix`        | The VM itself (tag 6)                                           |
+| `secrets/hosts/pbxvm.yaml`      | Telnyx password + the line's SIP password                       |
 
 Both passwords are sops-rendered at runtime (`sops.templates`) rather than baked
 into the store — including the one inside `SEP<MAC>.cnf.xml`, which sops writes
@@ -70,10 +71,11 @@ systemctl start vacuvm-pbxvm-qemu
 
 ### 2. Finish the secrets
 
-`secrets/hosts/pbxvm.yaml` is committed with `REPLACE-ME-…` placeholders, and it
-is encrypted only to the user keys — the VM had no host key when it was written,
-so sops-nix on pbxvm cannot read it yet and asterisk will start with unusable
-credentials.
+**Nothing works until this step is done.** `secrets/hosts/pbxvm.yaml` is
+committed with `REPLACE-ME-…` placeholders and is encrypted only to the user
+keys — the VM had no host key when it was written, so sops-nix on pbxvm cannot
+decrypt it. Both of the files it renders are load-bearing: asterisk `#include`s
+one and refuses to start without it, and the other _is_ the phone's config file.
 
 ```bash
 # once the VM has booted and generated its host key
@@ -81,6 +83,7 @@ ssh-keyscan 10.78.77.6
 # put the ed25519 key in common/hosts.nix under `pbxvm.ssh.keys`, then:
 ./sops updatekeys secrets/hosts/pbxvm.yaml   # re-encrypt, now including the VM
 ./sops secrets/hosts/pbxvm.yaml              # fill in the two real passwords
+git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked files
 ```
 
 - `telnyx.password` — the password of the Telnyx **credential connection** whose
@@ -88,8 +91,9 @@ ssh-keyscan 10.78.77.6
 - `phone.1001.password` — invent one. It only has to match between asterisk and
   the XML, and this repo puts it in both.
 
-Then rebuild the VM. Asterisk is `restartIfChanged = false` (so a rebuild never
-drops a live call), so restart it by hand:
+Then rebuild and deploy pbxvm. The asterisk _unit_ does not change when only the
+ciphertext does, and it is `restartIfChanged = false` besides (so a rebuild
+never drops a live call), so restart it by hand afterwards:
 
 ```bash
 systemctl restart asterisk
@@ -120,6 +124,35 @@ asterisk -rx 'pjsip show endpoints'         # 1001 → Not in use (i.e. register
 Then dial **611** from the handset for an echo test — that proves RTP between
 phone and PBX without involving Telnyx or spending money. After that, dial a
 real number.
+
+### Troubleshooting: the phone sits on "Phone is registering"
+
+First check asterisk is actually listening — `pjsip show transports` should list
+two. If it lists none, look for this in the journal:
+
+```
+The file '/run/secrets/rendered/pjsip-secrets.conf' was listed as a #include but it does not exist
+Contents of config file 'pjsip.conf' are invalid and cannot be parsed
+```
+
+That means step 2 above is unfinished. Asterisk discards the **whole** config
+file when an `#include` target is missing, so the result is a PBX with no
+transports and no endpoints at all — the phone has nothing to register to.
+`hosts/pbxvm/secrets-guard.nix` now refuses to start asterisk (and atftpd) in
+that state rather than letting it come up hollow, so the more likely symptom
+today is a failed unit naming the missing file.
+
+Two log-reading traps worth knowing:
+
+- **atftpd's `Serving <file> to <ip>` line is printed when the request arrives,
+  before the file is opened** (`tftpd.c`, `GET_RRQ`). It is not evidence that
+  anything was delivered. A phone that keeps re-requesting the same short list
+  of files every ~45s is a phone that is _not_ getting a usable config.
+- The phone always asks for `CTLSEP<MAC>.tlv`, `ITLSEP<MAC>.tlv`, `ITLFile.tlv`
+  and `AppDialRules.xml`. All four are absent on purpose and their failures are
+  normal. `dialplan.xml` is the one to watch for: the phone only asks for it
+  after it has parsed `SEP<MAC>.cnf.xml`, so its absence from the log means the
+  config never took.
 
 ## Dialling
 
