@@ -1,232 +1,272 @@
 {
   alsa-lib,
+  apr,
+  aprutil,
   at-spi2-atk,
   at-spi2-core,
-  buildFHSEnv,
-  cairo,
+  autoPatchelfHook,
   callPackage,
+  cairo,
+  copyDesktopItems,
   cups,
+  curl,
   dbus,
   dpkg,
-  expat,
+  e2fsprogs,
   fontconfig,
   freetype,
+  fribidi,
   gdk-pixbuf,
   glib,
-  glib-networking,
-  gnutls,
-  gtk2,
   gtk3,
+  gnutls,
+  graphite2,
+  harfbuzz,
+  icu63,
+  krb5,
   lib,
-  libappindicator-gtk3,
-  libdbusmenu,
-  libdrm,
-  libgbm,
-  libGL,
   libGLU,
-  libice,
-  libnotify,
-  libpulseaudio,
-  libsecret,
-  libsm,
-  libx11,
+  libICE,
+  libSM,
+  libX11,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXmu,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libXt,
+  libXtst,
   libxcb,
-  libxcomposite,
-  libxcursor,
-  libxdamage,
-  libxext,
-  libxfixes,
-  libxi,
-  libxinerama,
-  libxkbcommon,
-  libxrandr,
-  libxrender,
-  libxscrnsaver,
-  libxtst,
+  libdrm,
+  libgcrypt,
+  libglvnd,
+  libidn2,
+  libinput,
+  libjpeg,
+  libpng,
+  libpsl,
+  libpulseaudio,
+  libssh2,
+  libthai,
   libxcrypt-legacy,
+  libxkbcommon,
   makeDesktopItem,
+  makeWrapper,
+  mesa,
+  mtdev,
+  nghttp2,
   nspr,
   nss,
+  opencv,
+  openldap,
   pango,
+  pcre2,
   pipewire,
+  prelink,
+  qt5,
+  rtmpdump,
   source ? callPackage ./source.nix { },
   stdenv,
-  stdenvNoCC,
-  systemdLibs,
+  udev,
   util-linux,
-  vulkan-loader,
-  wayland,
-  writeShellScript,
-  xdg-utils,
-  zenity,
-  zlib,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
 }:
 
 let
-  unwrapped = stdenvNoCC.mkDerivation {
-    pname = "dingtalk-unwrapped";
-    inherit (source) version src;
+  screenshareHook = lib.optionalString stdenv.isx86_64 (
+    "${callPackage ./wayland-screenshare.nix { }}/lib/libdingtalkhook.so"
+  );
 
-    strictDeps = true;
-    dontBuild = true;
-    # The release contains a collection of vendor libraries which must remain
-    # together with the application binary.
-    dontFixup = true;
-
-    nativeBuildInputs = [ dpkg ];
-
-    unpackPhase = ''
-      runHook preUnpack
-
-      dpkg-deb -x "$src" .
-
-      runHook postUnpack
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      release_dirs=(opt/apps/com.alibabainc.dingtalk/files/*-Release.*)
-
-      mkdir -p "$out/libexec/dingtalk/release"
-      cp -a "''${release_dirs[0]}"/. "$out/libexec/dingtalk/release/"
-
-      if [ -f opt/apps/com.alibabainc.dingtalk/files/version ]; then
-        install -Dm444 \
-          opt/apps/com.alibabainc.dingtalk/files/version \
-          "$out/libexec/dingtalk/version"
-      fi
-
-      # Recent official packages carry their icon outside the release payload.
-      # Keep it when present, while allowing older package layouts as well.
-      icon=$(find opt/apps/com.alibabainc.dingtalk -type f \
-        \( -iname '*.png' -o -iname '*.svg' \) -print -quit)
-      if [ -n "$icon" ]; then
-        icon_name="dingtalk.''${icon##*.}"
-        install -Dm444 "$icon" "$out/share/icons/hicolor/256x256/apps/$icon_name"
-      fi
-
-      runHook postInstall
-    '';
-  };
-
-  desktopItem = makeDesktopItem {
-    name = "dingtalk";
-    desktopName = "DingTalk";
-    comment = "DingTalk desktop client";
-    exec = "dingtalk %U";
-    icon = "dingtalk";
-    categories = [
-      "Chat"
-      "Office"
-    ];
-    mimeTypes = [
-      "x-scheme-handler/dingtalk"
-      "x-scheme-handler/dingtalk_std_ind"
-    ];
-    extraConfig = {
-      "Name[zh_CN]" = "钉钉";
-      "Comment[zh_CN]" = "钉钉桌面版";
-    };
-  };
-
-  runScript = writeShellScript "dingtalk-start" ''
-    if [[ "''${XMODIFIERS:-}" =~ fcitx ]]; then
-      [ -n "''${QT_IM_MODULE:-}" ] || export QT_IM_MODULE=fcitx
-      [ -n "''${GTK_IM_MODULE:-}" ] || export GTK_IM_MODULE=fcitx
-    elif [[ "''${XMODIFIERS:-}" =~ ibus ]]; then
-      [ -n "''${QT_IM_MODULE:-}" ] || export QT_IM_MODULE=ibus
-      [ -n "''${GTK_IM_MODULE:-}" ] || export GTK_IM_MODULE=ibus
-    fi
-
-    # DingTalk ships the XCB Qt platform plugin, so run it through Xwayland.
-    export QT_QPA_PLATFORM="''${QT_QPA_PLATFORM:-xcb}"
-    export QT_PLUGIN_PATH="${unwrapped}/libexec/dingtalk/release''${QT_PLUGIN_PATH:+:$QT_PLUGIN_PATH}"
-    export GIO_EXTRA_MODULES="${glib-networking}/lib/gio/modules''${GIO_EXTRA_MODULES:+:$GIO_EXTRA_MODULES}"
-
-    release_dir="${unwrapped}/libexec/dingtalk/release"
-    if [ -d "$release_dir/plugins/dtwebview" ]; then
-      export LD_LIBRARY_PATH="$release_dir/plugins/dtwebview''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-    fi
-
-    cd "$release_dir"
-    exec ./com.alibabainc.dingtalk "$@"
-  '';
-in
-buildFHSEnv {
-  pname = "dingtalk";
-  inherit (source) version;
-
-  targetPkgs = _pkgs: [
+  libraries = [
     alsa-lib
+    apr
+    aprutil
     at-spi2-atk
     at-spi2-core
     cairo
     cups
+    curl
     dbus
-    expat
+    e2fsprogs
     fontconfig
     freetype
+    fribidi
     gdk-pixbuf
     glib
-    glib-networking
     gnutls
-    gtk2
+    graphite2
     gtk3
-    libappindicator-gtk3
-    libdbusmenu
+    harfbuzz
+    icu63
+    krb5
     libdrm
-    libgbm
-    libGL
+    libgcrypt
     libGLU
-    libice
-    libnotify
+    libglvnd
+    libidn2
+    libinput
+    libjpeg
+    libpng
+    libpsl
     libpulseaudio
-    libsecret
-    libsm
-    libx11
-    libxcb
-    libxcomposite
-    libxcursor
+    libssh2
+    libthai
     libxcrypt-legacy
-    libxdamage
-    libxext
-    libxfixes
-    libxi
-    libxinerama
     libxkbcommon
-    libxrandr
-    libxrender
-    libxscrnsaver
-    libxtst
+    mesa
+    mtdev
+    nghttp2
     nspr
     nss
+    opencv
+    openldap
     pango
+    pcre2
     pipewire
-    stdenv.cc.cc.lib
-    systemdLibs
+    qt5.qtbase
+    qt5.qtmultimedia
+    qt5.qtsvg
+    qt5.qtx11extras
+    rtmpdump
+    udev
     util-linux
-    vulkan-loader
-    wayland
-    xdg-utils
-    zenity
-    zlib
+    libICE
+    libSM
+    libX11
+    libxcb
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXinerama
+    libXmu
+    libXrandr
+    libXrender
+    libXScrnSaver
+    libXt
+    libXtst
+    xcbutilimage
+    xcbutilkeysyms
+    xcbutilrenderutil
+    xcbutilwm
+  ];
+in
+stdenv.mkDerivation (finalAttrs: {
+  pname = "dingtalk";
+  inherit (source) version src;
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    copyDesktopItems
+    dpkg
+    makeWrapper
+    prelink
+    qt5.wrapQtAppsHook
   ];
 
-  runScript = runScript;
+  buildInputs = libraries;
 
-  extraInstallCommands = ''
-    mkdir -p "$out/share"
-    ln -s "${desktopItem}/share/applications" "$out/share/applications"
-    if [ -d "${unwrapped}/share/icons" ]; then
-      ln -s "${unwrapped}/share/icons" "$out/share/icons"
-    fi
+  # The Qt hook provides arguments for the wrapper below.
+  dontWrapQtApps = true;
+
+  unpackPhase = ''
+    runHook preUnpack
+
+    dpkg -x "$src" .
+    mv opt/apps/com.alibabainc.dingtalk/files/version version
+    mv opt/apps/com.alibabainc.dingtalk/files/*-Release.* release
+
+    # Keep the bundled OpenSSL 1.1 libraries: DingTalk still requires their ABI.
+    rm -f release/{*.a,*.la,*.prl,dingtalk_crash_report,dingtalk_updater,libapr*,libcurl.so.*}
+    rm -f release/{libdouble-conversion.so.*,libEGL*,libfontconfig*,libfreetype*,libfribidi*,libgbm.*,libgdk-x11-2.0.so.*,libGLES*}
+    rm -f release/{libgtk-x11-2.0.so.*,libharfbuzz*,libicu*,libidn2*,libjpeg*,libm.so.*,libnghttp2*}
+    rm -f release/{libpango-1.0.*,libpangocairo-1.0.*,libpangoft2-1.0.*,libpcre2*,libpng*,libpsl*,libQt5*,libssh2*}
+    rm -f release/{libstdc++.so.6,libstdc++*,libunistring*,libvk*,libvulkan*,libxcb*,libz*}
+    rm -f release/{doctor,libgdkglext-x11*,libgtkglext-x11*}
+    rm -rf release/{engines-1_1,imageformats,platform*,swiftshader,xcbglintegrations}
+    rm -rf release/Resources/{i18n/tool/*.exe,qss/mac}
+
+    runHook postUnpack
   '';
+
+  installPhase = ''
+    runHook preInstall
+
+    install -Dm444 version "$out/version"
+    mv release "$out/lib"
+
+    mkdir -p "$out/bin"
+    cat > "$out/bin/dingtalk" <<EOF
+    #!/usr/bin/env bash
+    if [[ \''${XMODIFIERS} =~ fcitx ]]; then
+      export QT_IM_MODULE=fcitx
+      export GTK_IM_MODULE=fcitx
+    elif [[ \''${XMODIFIERS} =~ ibus ]]; then
+      export QT_IM_MODULE=ibus
+      export GTK_IM_MODULE=ibus
+      export IBUS_USE_PORTAL=1
+    fi
+
+    exec "$out/lib/com.alibabainc.dingtalk" "\$@"
+    EOF
+    chmod +x "$out/bin/dingtalk"
+
+    wrapProgram "$out/bin/dingtalk" \
+      "''${qtWrapperArgs[@]}" \
+      --chdir "$out/lib" \
+      --unset WAYLAND_DISPLAY \
+      --set QT_QPA_PLATFORM xcb \
+      --set QT_AUTO_SCREEN_SCALE_FACTOR 1 \
+      ${lib.optionalString stdenv.isx86_64 "--prefix LD_PRELOAD : ${screenshareHook}"} \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
+
+    install -Dm444 "$out/lib/Resources/image/common/about/logo.png" \
+      "$out/share/pixmaps/dingtalk.png"
+
+    runHook postInstall
+  '';
+
+  postFixup = ''
+    execstack -c "$out/lib/dingtalk_dll.so"
+    execstack -c "$out/lib/libconference_new.so"
+  '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "dingtalk";
+      desktopName = "DingTalk";
+      genericName = "DingTalk";
+      categories = [ "Chat" ];
+      exec = "dingtalk %u";
+      icon = "dingtalk";
+      keywords = [ "dingtalk" ];
+      mimeTypes = [ "x-scheme-handler/dingtalk" ];
+      extraConfig = {
+        "Name[zh_CN]" = "钉钉";
+        "Name[zh_TW]" = "釘釘";
+      };
+    })
+  ];
+
+  passthru = lib.optionalAttrs stdenv.isx86_64 {
+    dingtalk-wayland-screenshare = callPackage ./wayland-screenshare.nix { };
+  };
 
   meta = {
     description = "DingTalk desktop client";
     homepage = "https://www.dingtalk.com/";
-    license = lib.licenses.unfree;
+    license = lib.licenses.unfreeRedistributable;
     mainProgram = "dingtalk";
     platforms = [
       "x86_64-linux"
@@ -234,4 +274,4 @@ buildFHSEnv {
     ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
-}
+})

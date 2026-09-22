@@ -1,4 +1,4 @@
-import { defineSource, fetchurl } from "nix-repin";
+import { defineSource, fetchurl, github } from "nix-repin";
 
 async function release(architecture: string) {
   const response = await fetch(
@@ -22,17 +22,26 @@ async function release(architecture: string) {
   return { version: match[1], url };
 }
 
-export default defineSource(async () => {
+export default defineSource(async ({ packageDirectory }) => {
   const [x86_64, aarch64] = await Promise.all([
     release("amd64"),
     release("arm64"),
   ]);
 
-  return fetchurl({
+  const dingtalk = await fetchurl({
     version: x86_64.version,
     urls: {
       "x86_64-linux": x86_64.url,
       "aarch64-linux": aarch64.url,
     },
   });
+  const screenshare = await github.branch({
+    branch: "master",
+    repository: "lzl200110/dingtalk-wayland-screenshare",
+  })({ packageDirectory });
+
+  return {
+    ...dingtalk,
+    "screenshare-source.nix": screenshare["source.nix"],
+  };
 });
