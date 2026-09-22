@@ -84,9 +84,9 @@ in (writeShellApplication {
       ${initScript}
     fi
 
-    ${postScript}
-
     ln -sf ${activateScript} "$WINEPREFIX/activate"
+
+    ${postScript}
   '';
 }).overrideAttrs {
   # TODO: https://github.com/NixOS/nixpkgs/issues/344414
