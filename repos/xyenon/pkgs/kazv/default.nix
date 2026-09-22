@@ -27,6 +27,7 @@
   nlohmann_json,
   libkazv,
   cmark,
+  lexbor,
   qcoro,
   breeze-icons,
   nix-update-script,
@@ -36,14 +37,14 @@ stdenv.mkDerivation {
   __structuredAttrs = true;
 
   pname = "kazv";
-  version = "0.7.0-unstable-2026-09-11";
+  version = "0.7.0-unstable-2026-09-21";
 
   src = fetchFromCodeberg {
     owner = "the-kazv-project";
     repo = "kazv";
     fetchSubmodules = true;
-    rev = "473e3734b6b4529af0dd00c9bdbc2b7f73e9c49e";
-    hash = "sha256-/vDNaKBfrWk14njGJPBpDvMASg3TD8HbU+oWiOM6yMk=";
+    rev = "9cc311ce4336c72fcdf170d79f2b5e0666a7015e";
+    hash = "sha256-rkMY72Icpk2yhBaMsP66B+RfH1HELDjXvQF8o4cRrOU=";
   };
 
   nativeBuildInputs = [
@@ -77,6 +78,7 @@ stdenv.mkDerivation {
     nlohmann_json
     libkazv
     cmark
+    lexbor
     qcoro
   ];
 

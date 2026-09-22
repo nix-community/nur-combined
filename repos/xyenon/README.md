@@ -81,7 +81,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>kazv</code></strong> — Convergent qml/kirigami matrix client based on libkazv</summary>
 
-- **Version:** `0.7.0-unstable-2026-09-11`
+- **Version:** `0.7.0-unstable-2026-09-21`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://lily-is.land/kazv/kazv](https://lily-is.land/kazv/kazv)
 - **Build:** `nix build github:XYenon/nur-packages#kazv`
