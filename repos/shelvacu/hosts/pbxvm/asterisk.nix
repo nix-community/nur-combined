@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   options,
   ...
@@ -7,16 +8,80 @@
 let
   cfg = config.vacu.pbx;
   ext = cfg.extension;
-  telnyx = cfg.telnyx;
+  trunks = cfg.trunks;
 
   # Rendered by sops-nix at runtime so neither password ends up in the nix
-  # store. pjsip.conf `#include`s it; see sops.templates below.
+  # store; each config `#include`s its own. See sops.templates below.
   pjsipSecrets = config.sops.templates."pjsip-secrets.conf".path;
+  sipSecrets = config.sops.templates."sip-secrets.conf".path;
 
-  # Both transports advertise the same NAT story; only the protocol differs.
-  # The Cisco enterprise (CUCM) SIP firmware retransmits badly over UDP — the
-  # phone is configured for TCP (transportLayerProtocol 1) — while Telnyx is
-  # dialled over UDP.
+  # Only the upstream trunks are left on chan_pjsip, all dialled over UDP.
+
+  # One endpoint/aor/registration(/identify) set per trunk. `line=yes` on the
+  # registration is what makes inbound calls work from behind prophecy's SNAT:
+  # the provider sends the INVITE back down the flow the REGISTER opened, and
+  # pjsip matches it to the endpoint by the line tag rather than by address.
+  trunkSections = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (
+      name: t:
+      let
+        uri = "sip:${t.domain}:${toString t.port}";
+      in
+      ''
+        ;=====================================================================
+        ; ${name}
+        ;=====================================================================
+
+        [${name}]
+        type=endpoint
+        transport=transport-udp
+        context=from-${name}
+        aors=${name}
+        outbound_auth=${name}-auth
+        disallow=all
+        allow=ulaw
+        allow=alaw
+        direct_media=no
+        rtp_symmetric=yes
+        force_rport=yes
+        rewrite_contact=yes
+        dtmf_mode=rfc4733
+        from_user=${t.user}
+        from_domain=${t.domain}
+        send_rpid=yes
+
+        [${name}]
+        type=aor
+        contact=${uri}
+        ; Also the NAT keepalive: prophecy's SNAT only keeps the mapping that
+        ; lets the provider reach us alive while packets keep flowing, and
+        ; conntrack's UDP timeouts are far shorter than the registration
+        ; interval.
+        qualify_frequency=30
+
+        [${name}]
+        type=registration
+        transport=transport-udp
+        outbound_auth=${name}-auth
+        server_uri=${uri}
+        client_uri=sip:${t.user}@${t.domain}:${toString t.port}
+        contact_user=${t.user}
+        retry_interval=60
+        forbidden_retry_interval=600
+        expiration=120
+        line=yes
+        endpoint=${name}
+      ''
+      + lib.optionalString (t.signalingIps != [ ]) ''
+
+        [${name}]
+        type=identify
+        endpoint=${name}
+        ${lib.concatMapStringsSep "\n" (ip: "match=${ip}") t.signalingIps}
+      ''
+    ) trunks
+  );
+
   natSettings = ''
     ${lib.concatMapStringsSep "\n" (net: "local_net=${net}") cfg.localNets}
     external_media_address=${cfg.publicIp}
@@ -26,6 +91,9 @@ in
 {
   services.asterisk = {
     enable = true;
+
+    # chan_sip, and the Cisco extensions built on it, exist only in this build.
+    package = pkgs.asterisk-usecallmanager;
 
     # The nixpkgs default list still names two files asterisk 22 no longer
     # ships, which land in /etc/asterisk as dangling symlinks.
@@ -55,43 +123,17 @@ in
         syslog.local0 => notice,warning,error,verbose
       '';
 
-      # The phone reads its TFTP config when it boots and at no other time —
-      # there is no polling interval. To push a change without walking over to
-      # it, CUCM sends a NOTIFY carrying `Event: service-control`; all-zero
-      # version stamps mean "everything you have cached is stale, fetch it
-      # again". Without this file res_pjsip_notify declines to load entirely and
-      # `pjsip send notify` does not exist, which is the state this config was
-      # in until now.
-      #
-      # CUCM also puts `RegisterCallId={<the phone's REGISTER Call-ID>}` in the
-      # body, and the phone may want it before acting. Stock PJSIP has no way to
-      # reach that value — the usecallmanagernz patch supplies it through
-      # chan_sip's SIP_PEER() — so it is absent here and the phone may ignore
-      # the NOTIFY. Rebooting the handset always works.
-      "pjsip_notify.conf" = ''
-        [cisco-restart]
-        Event=>service-control
-        Subscription-State=>active
-        Content-type=>text/plain
-        Content=>action=restart
-        Content=>ConfigVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>DialplanVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>SoftkeyVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>FeatureControlVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>
-
-        ; Full reset rather than a quick restart: the phone re-runs its whole
-        ; boot sequence, TFTP and all.
-        [cisco-reset]
-        Event=>service-control
-        Subscription-State=>active
-        Content-type=>text/plain
-        Content=>action=reset
-        Content=>ConfigVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>DialplanVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>SoftkeyVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>FeatureControlVersionStamp={00000000-0000-0000-0000-000000000000}
-        Content=>
+      # The nixpkgs module's modules.conf is just `autoload=yes`, which is what
+      # we want plus one exception: res_pjsip_notify has nothing to do here now
+      # that the phone's restart/reset are chan_sip type=notify sections, and
+      # the only trunks on pjsip are upstream providers we would never send a
+      # NOTIFY to. Left to autoload it looks for a pjsip_notify.conf that does
+      # not exist and logs an error on every start; noload says so deliberately
+      # instead of keeping an empty config file around to quiet it.
+      "modules.conf" = ''
+        [modules]
+        autoload=yes
+        noload => res_pjsip_notify.so
       '';
 
       "rtp.conf" = ''
@@ -103,6 +145,91 @@ in
         icesupport=no
       '';
 
+      # The Cisco 8851 runs Cisco's *enterprise* (Unified CM) firmware, which
+      # expects a pile of proprietary SIP that only the usecallmanager.nz patch
+      # speaks -- and that patch reintroduces chan_sip to carry it, because
+      # upstream deleted chan_sip in Asterisk 21. So the phone is a chan_sip
+      # peer and the Telnyx trunk stays on chan_pjsip, each with its own bind:
+      # the two stacks are independent and cannot share a port.
+      "sip.conf" = ''
+        [general]
+        ; This chan_sip rejects `context`, `allowguest` and `dtmfmode` in
+        ; [general]: guests are unconditionally disabled now, and all three
+        ; belong on a peer.
+        alwaysauthreject=yes
+        srvlookup=no
+        udpbindaddr=0.0.0.0:${toString cfg.sipPort}
+        tcpenable=yes
+        tcpbindaddr=0.0.0.0:${toString cfg.sipPort}
+        ; The phone is on the LAN with no NAT between us -- prophecy's SNAT is
+        ; only in the path to the trunks, which is chan_pjsip's problem.
+        ${lib.concatMapStringsSep "\n" (net: "localnetwork=${net}") cfg.localNets}
+        nat=no
+        disallow=all
+        ; g722 first: the 8851 has a wideband handset and speaker.
+        allow=g722
+        allow=ulaw
+        allow=alaw
+
+        [${ext}]
+        type=peer
+        host=dynamic
+        dtmfmode=rfc2833
+        ; The enterprise firmware's UDP path retransmits badly against anything
+        ; that is not a real CUCM; the phone is set to transportLayerProtocol 1.
+        transport=tcp
+        context=from-phone
+        callerid=${cfg.phoneLabel} <${ext}>
+        ; The switch the whole patch hangs off. Without it the peer is served as
+        ; a generic SIP phone and every Cisco softkey stays dead.
+        cisco=yes
+        directmedia=no
+        ; 'qualify' is deprecated in this chan_sip; 'yes' means the 2000ms default.
+        maxqualify=yes
+        #include "${sipSecrets}"
+
+        ; The phone reads its TFTP config when it boots and at no other time --
+        ; there is no polling interval. To push a change without walking over to
+        ; it, CUCM sends a NOTIFY carrying `Event: service-control`; all-zero
+        ; version stamps mean "everything you have cached is stale, fetch it
+        ; again".
+        ;
+        ; RegisterCallId is the part stock Asterisk could not supply, and the
+        ; reason this moved off chan_pjsip: the patch adds SIP_PEER(), so the
+        ; NOTIFY can carry the Call-ID of the phone's own REGISTER, which is
+        ; what it checks before acting. This chan_sip wants the types inline
+        ; here rather than in a sip_notify.conf, which it deprecates.
+        ;
+        ;   asterisk -rx 'sip notify cisco-restart 1001'
+        ;   asterisk -rx 'sip notify cisco-reset 1001'
+        [cisco-service-control](!)
+        type=notify
+        header=Event: service-control
+        header=Subscription-State: active
+        header=Content-Type: text/plain
+        ; Quick restart: re-reads config without a full boot cycle.
+        [cisco-restart](cisco-service-control)
+        content=action=restart
+        content=RegisterCallId={''${SIP_PEER(''${PEERNAME},register_callid)}}
+        content=ConfigVersionStamp={00000000-0000-0000-0000-000000000000}
+        content=DialplanVersionStamp={00000000-0000-0000-0000-000000000000}
+        content=SoftkeyVersionStamp={00000000-0000-0000-0000-000000000000}
+        content=FeatureControlVersionStamp={00000000-0000-0000-0000-000000000000}
+        ; Full reset: the phone re-runs its whole boot sequence, TFTP and all.
+        [cisco-reset](cisco-service-control)
+        content=action=reset
+        content=RegisterCallId={''${SIP_PEER(''${PEERNAME},register_callid)}}
+        content=ConfigVersionStamp={00000000-0000-0000-0000-000000000000}
+        content=DialplanVersionStamp={00000000-0000-0000-0000-000000000000}
+        content=SoftkeyVersionStamp={00000000-0000-0000-0000-000000000000}
+        content=FeatureControlVersionStamp={00000000-0000-0000-0000-000000000000}
+        ; Tell the phone to upload a problem report -- see the phone's web UI
+        ; for where it lands.
+        [cisco-prt-report](cisco-service-control)
+        content=action=prt-report
+        content=RegisterCallId={''${SIP_PEER(''${PEERNAME},register_callid)}}
+      '';
+
       "pjsip.conf" = ''
         [global]
         type=global
@@ -112,102 +239,13 @@ in
         ; Transports
         ;=====================================================================
 
-        [transport-tcp]
-        type=transport
-        protocol=tcp
-        bind=0.0.0.0:${toString cfg.sipPort}
-        ${natSettings}
-
         [transport-udp]
         type=transport
         protocol=udp
-        bind=0.0.0.0:${toString cfg.sipPort}
+        bind=0.0.0.0:${toString cfg.pjsipPort}
         ${natSettings}
 
-        ;=====================================================================
-        ; The Cisco 8851
-        ;=====================================================================
-
-        [${ext}]
-        type=endpoint
-        transport=transport-tcp
-        context=from-phone
-        aors=${ext}
-        auth=${ext}-auth
-        disallow=all
-        ; g722 first: the 8851 has a wideband handset and speaker.
-        allow=g722
-        allow=ulaw
-        allow=alaw
-        ; Keep the media on asterisk — it is the only thing that can bridge the
-        ; phone's LAN address and Telnyx's public one.
-        direct_media=no
-        rtp_symmetric=yes
-        force_rport=yes
-        rewrite_contact=yes
-        dtmf_mode=rfc4733
-        device_state_busy_at=2
-        callerid=${cfg.phoneLabel} <${ext}>
-
-        [${ext}]
-        type=aor
-        max_contacts=1
-        remove_existing=yes
-        ; The phone re-REGISTERs every timerRegisterExpires (3600s); qualify
-        ; notices a yanked cable long before that.
-        qualify_frequency=60
-
-        ;=====================================================================
-        ; Telnyx trunk
-        ;=====================================================================
-
-        [telnyx]
-        type=endpoint
-        transport=transport-udp
-        context=from-telnyx
-        aors=telnyx
-        outbound_auth=telnyx-auth
-        disallow=all
-        allow=ulaw
-        allow=alaw
-        direct_media=no
-        rtp_symmetric=yes
-        force_rport=yes
-        rewrite_contact=yes
-        dtmf_mode=rfc4733
-        from_user=${telnyx.user}
-        from_domain=${telnyx.domain}
-        send_rpid=yes
-
-        [telnyx]
-        type=aor
-        contact=sip:${telnyx.domain}
-        ; Also the NAT keepalive: prophecy's SNAT only keeps the mapping that
-        ; lets Telnyx reach us alive while packets keep flowing, and conntrack's
-        ; UDP timeouts are far shorter than the registration interval.
-        qualify_frequency=30
-
-        [telnyx]
-        type=registration
-        transport=transport-udp
-        outbound_auth=telnyx-auth
-        server_uri=sip:${telnyx.domain}
-        client_uri=sip:${telnyx.user}@${telnyx.domain}
-        contact_user=${telnyx.user}
-        retry_interval=60
-        forbidden_retry_interval=600
-        expiration=120
-        ; line/endpoint: tag the registration's Contact so INVITEs Telnyx sends
-        ; back through it are matched to the telnyx endpoint. This is what makes
-        ; inbound calls work from behind the SNAT, where the identify below
-        ; cannot be relied on alone.
-        line=yes
-        endpoint=telnyx
-
-        [telnyx]
-        type=identify
-        endpoint=telnyx
-        ${lib.concatMapStringsSep "\n" (ip: "match=${ip}") telnyx.signalingIps}
+        ${trunkSections}
 
         ;=====================================================================
         ; Credentials (rendered at runtime by sops-nix)
@@ -218,9 +256,12 @@ in
 
       "extensions.conf" = ''
         [globals]
-        ${lib.optionalString (
-          telnyx.outboundCallerId != null
-        ) "OUTBOUND_CALLERID=${telnyx.outboundCallerId}"}
+        DEFAULT_TRUNK=${cfg.defaultTrunk}
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (name: t: "CALLERID_${name}=${toString t.outboundCallerId}") (
+            lib.filterAttrs (_: t: t.outboundCallerId != null) trunks
+          )
+        )}
 
         ;---------------------------------------------------------------------
         ; Everything the phone dials
@@ -233,8 +274,29 @@ in
          same => n,Echo()
          same => n,Hangup()
 
-        ; Telnyx wants E.164, so normalise every way the handset might be
-        ; dialled into +1XXXXXXXXXX before handing it to the trunk.
+        ; Pick a trunk explicitly by prefix; note the phone's own dial rules
+        ; have no entry for these, so they leave on the `*` catch-all timeout
+        ; rather than the instant the last digit lands.
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (
+            name: t:
+            let
+              skip = toString (builtins.stringLength t.dialPrefix);
+            in
+            "exten => _${t.dialPrefix}X.,1,Set(TRUNK=${name})\n same => n,Goto(normalise,\${EXTEN:${skip}},1)"
+          ) (lib.filterAttrs (_: t: t.dialPrefix != null) trunks)
+        )}
+
+        ; Everything else goes out whichever trunk is the default.
+        exten => _X.,1,Set(TRUNK=''${DEFAULT_TRUNK})
+         same => n,Goto(normalise,''${EXTEN},1)
+        exten => _+X.,1,Set(TRUNK=''${DEFAULT_TRUNK})
+         same => n,Goto(normalise,''${EXTEN},1)
+
+        ;---------------------------------------------------------------------
+        ; Normalise to E.164, whichever trunk was chosen
+        ;---------------------------------------------------------------------
+        [normalise]
         exten => _+X.,1,Goto(pstn,''${EXTEN},1)
         exten => _1NXXNXXXXXX,1,Goto(pstn,+''${EXTEN},1)
         exten => _NXXNXXXXXX,1,Goto(pstn,+1''${EXTEN},1)
@@ -243,46 +305,60 @@ in
         exten => 933,1,Goto(pstn,933,1)
 
         ;---------------------------------------------------------------------
-        ; Outbound via Telnyx
+        ; Out
         ;---------------------------------------------------------------------
         [pstn]
-        exten => _[+0-9].,1,NoOp(outbound ''${EXTEN} via telnyx)
-         same => n,ExecIf($["''${OUTBOUND_CALLERID}" != ""]?Set(CALLERID(num)=''${OUTBOUND_CALLERID}))
-         same => n,Dial(PJSIP/''${EXTEN}@telnyx,60)
+        exten => _[+0-9].,1,NoOp(outbound ''${EXTEN} via ''${TRUNK})
+         same => n,ExecIf($["''${CALLERID_''${TRUNK}}" != ""]?Set(CALLERID(num)=''${CALLERID_''${TRUNK}}))
+         same => n,Dial(PJSIP/''${EXTEN}@''${TRUNK},60)
          same => n,Hangup()
 
         ;---------------------------------------------------------------------
-        ; Inbound from Telnyx — one phone, so everything rings it
+        ; In -- one phone, so every trunk rings it
         ;---------------------------------------------------------------------
-        [from-telnyx]
-        exten => _[+0-9].,1,NoOp(inbound ''${EXTEN} from telnyx)
-         same => n,Dial(PJSIP/${ext},30)
-         same => n,Hangup()
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (name: _: ''
+            [from-${name}]
+            exten => _[+0-9].,1,NoOp(inbound ''${EXTEN} from ${name})
+             same => n,Dial(SIP/${ext},30)
+             same => n,Hangup()
+          '') trunks
+        )}
       '';
     };
   };
 
-  sops.secrets."telnyx/password" = { };
-  sops.secrets."phone/${config.vacu.pbx.extension}/password" = { };
-
-  sops.templates."pjsip-secrets.conf" = {
+  # chan_sip takes the phone's password as a bare `secret=` inside the peer
+  # section, so this file is #included mid-section rather than being a section
+  # of its own.
+  sops.templates."sip-secrets.conf" = {
     owner = "asterisk";
     content = ''
-      [${ext}-auth]
-      type=auth
-      auth_type=userpass
-      username=${ext}
-      password=${config.sops.placeholder."phone/${ext}/password"}
-
-      [telnyx-auth]
-      type=auth
-      auth_type=userpass
-      username=${telnyx.user}
-      password=${config.sops.placeholder."telnyx/password"}
+      secret=${config.sops.placeholder."phone/${ext}/password"}
     '';
   };
 
+  sops.secrets = lib.mapAttrs' (_: t: lib.nameValuePair t.secretKey { }) trunks // {
+    "phone/${ext}/password" = { };
+  };
+
+  sops.templates."pjsip-secrets.conf" = {
+    owner = "asterisk";
+    content = lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: t: ''
+        [${name}-auth]
+        type=auth
+        auth_type=userpass
+        username=${t.user}
+        password=${config.sops.placeholder.${t.secretKey}}
+      '') trunks
+    );
+  };
+
   networking.firewall.allowedTCPPorts = [ cfg.sipPort ];
-  networking.firewall.allowedUDPPorts = [ cfg.sipPort ];
+  networking.firewall.allowedUDPPorts = [
+    cfg.sipPort
+    cfg.pjsipPort
+  ];
   networking.firewall.allowedUDPPortRanges = [ { inherit (cfg.rtpPortRange) from to; } ];
 }

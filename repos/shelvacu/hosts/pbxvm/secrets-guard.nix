@@ -63,23 +63,27 @@ let
       echo "atftpd: the phone would register with a truncated password and fail authentication." >&2
       rc=1
     fi
-    # <authPassword> is not escaped on its way into the XML, so these would make
+    # Neither password is escaped on its way into the XML, so these would make
     # the config file unparseable and the phone would reject it wholesale.
-    case $pw in
-      *'&'* | *'<'* | *'>'*)
-        echo "atftpd: phone line password contains & < or >, which breaks the config XML." >&2
-        rc=1
-        ;;
-    esac
+    sshpw=$(${pkgs.gnused}/bin/sed -n 's:.*<sshPassword>\(.*\)</sshPassword>.*:\1:p' ${lib.escapeShellArg phoneConfig})
+    for v in "$pw" "$sshpw"; do
+      case $v in
+        *'&'* | *'<'* | *'>'*)
+          echo "atftpd: a password in the phone config contains & < or >, which breaks the XML." >&2
+          rc=1
+          ;;
+      esac
+    done
     exit "$rc"
   '';
 
   pjsipSecrets = config.sops.templates."pjsip-secrets.conf".path;
+  sipSecrets = config.sops.templates."sip-secrets.conf".path;
   checkPjsipSecrets = pkgs.writeShellScript "asterisk-check-pjsip-secrets" ''
     # ';' starts a comment in asterisk's config parser, so a password containing
     # one is silently truncated at load and every authentication fails.
-    if ${pkgs.gnugrep}/bin/grep -q '^password=.*;' ${lib.escapeShellArg pjsipSecrets}; then
-      echo "asterisk: a password in ${pjsipSecrets} contains ';', which asterisk treats as" >&2
+    if ${pkgs.gnugrep}/bin/grep -qE '^(password|secret)=.*;' ${lib.escapeShellArg pjsipSecrets} ${lib.escapeShellArg sipSecrets}; then
+      echo "asterisk: a password contains ';', which asterisk treats as" >&2
       echo "asterisk: the start of a comment -- it would be silently truncated at load." >&2
       exit 1
     fi
@@ -91,7 +95,10 @@ in
       (guard {
         unit = "asterisk";
         user = "asterisk";
-        files = [ pjsipSecrets ];
+        files = [
+          pjsipSecrets
+          sipSecrets
+        ];
       })
       checkPjsipSecrets
     ];

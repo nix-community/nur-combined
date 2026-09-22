@@ -259,6 +259,8 @@ in
   # sops template and not a store path — although note TFTP hands it to anyone
   # on the LAN who asks for the right filename, so the real protection is that
   # the LAN is trusted.
+  sops.secrets = lib.mkIf cfg.sshAccess { "phone/${ext}/sshPassword" = { }; };
+
   sops.templates.${configName} = {
     path = "${cfg.tftpRoot}/${configName}";
     mode = "0444";
@@ -267,6 +269,10 @@ in
       <device>
         <fullConfig>true</fullConfig>
         <deviceProtocol>SIP</deviceProtocol>
+        ${lib.optionalString cfg.sshAccess ''
+          <sshUserId>${cfg.sshUser}</sshUserId>
+          <sshPassword>${config.sops.placeholder."phone/${ext}/sshPassword"}</sshPassword>
+        ''}
         <devicePool>
           <dateTimeSetting>
             <dateTemplate>M/D/Y</dateTemplate>
@@ -361,7 +367,9 @@ in
           <!-- 0 = enabled. The phone's web UI is the only practical way to read
                its status/logs, and this LAN is trusted. -->
           <webAccess>0</webAccess>
-          <sshAccess>1</sshAccess>
+          <!-- Same encoding: 0 enables the phone's SSH server, 1 disables it.
+               Needs <sshUserId>/<sshPassword> above to be of any use. -->
+          <sshAccess>${if cfg.sshAccess then "0" else "1"}</sshAccess>
           <settingsAccess>1</settingsAccess>
           <disableSpeaker>false</disableSpeaker>
           <disableSpeakerAndHeadset>false</disableSpeakerAndHeadset>

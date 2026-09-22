@@ -15,39 +15,58 @@ Telnyx SIP trunk.
   enterprise firmware's UDP path retransmits aggressively against anything that
   isn't a real CUCM; TCP is the well-trodden combination with Asterisk. The
   `1001` pjsip endpoint is pinned to `transport-tcp` to match.
-- **Only basic calling works.** The enterprise firmware expects a pile of
-  Cisco-proprietary SIP extensions for its softkeys — BLF, call park, DND sync,
-  conferencing, directories. Stock Asterisk does not speak them, so those keys
-  will do nothing. <https://usecallmanager.nz/> patches Asterisk to add them; if
-  the missing features start to matter, that patch is the path, and the XML here
-  is already written in the shape its docs expect.
+- **Two channel drivers, one PBX.** The enterprise firmware expects a pile of
+  Cisco-proprietary SIP for its softkeys — BLF, call park, DND sync,
+  conferencing, directories — which stock Asterisk does not speak. The
+  <https://usecallmanager.nz/> patch adds it, and carries it on **chan_sip**,
+  which upstream deleted in Asterisk 21 and the patch reintroduces wholesale.
+
+  So the phone is a `chan_sip` peer in `sip.conf` with `cisco=yes`, and the
+  Telnyx trunk stays a `chan_pjsip` endpoint. The two stacks are independent and
+  cannot share a bind, so chan_sip keeps 5060 (which is what the phone is told
+  and what it falls back to) and chan_pjsip moves to 5062. Only outbound
+  registration uses the latter, so the number is arbitrary — Telnyx replies to
+  whatever source port the REGISTER came from.
+
+  The patched build is `packages/asterisk-usecallmanager`. It pins one exact
+  Asterisk release, because the patch is cut against one and will not apply to
+  another; a nixpkgs bump fails the build with an explicit message rather than
+  quietly producing an unpatched asterisk under a patched name.
 - **The phone reaches the VM directly, no router changes.** The vacuvm net
   `10.78.77.0/24` is _inside_ the LAN's `10.78.76.0/22`, so the phone thinks
   `10.78.77.6` is on-link and ARPs for it — and prophecy's `IPv4ProxyARP` on
   `br-main` answers. That is also why asterisk's `local_net` is the whole `/22`:
   everything on the LAN gets the VM's own address in SDP.
-- **Telnyx sees prophecy's Doof address.** Guest traffic is policy-routed out
+- **The trunks see prophecy's Doof address.** Guest traffic is policy-routed out
   `wg-doof` and SNATed to `205.201.63.13` (`hosts/prophecy/doof.nix`), so the
-  trunk's transport carries `external_media_address` /
+  pjsip transport carries `external_media_address` /
   `external_signaling_address` = that address. Inbound calls rely on `line=yes`
-  on the outbound registration: Telnyx sends the INVITE back through the same
-  flow the REGISTER opened, which is what survives the SNAT. The trunk AOR's
+  on each outbound registration: the provider sends the INVITE back through the
+  same flow the REGISTER opened, which is what survives the SNAT. Each AOR's
   `qualify_frequency=30` doubles as the keepalive that stops conntrack dropping
   that mapping.
+- **Two trunks.** `vacu.pbx.trunks` generates a pjsip endpoint/aor/registration
+  set and a `from-<name>` inbound context per provider, so adding a third is a
+  few lines. Both ring the one phone inbound. Outbound goes via
+  `vacu.pbx.defaultTrunk` (Telnyx) unless a trunk's `dialPrefix` is dialled
+  first — `*8` picks JMP.chat. The prefix has no entry in the phone's own dial
+  rules, so those calls leave on the `*` catch-all timeout rather than the
+  instant the last digit lands.
 - **The VM is the phone's NTP server.** An 8851 in SIP mode has no other source
   of time, so chrony runs here with `allow 10.78.76.0/22` and the XML points
   `<ntps>` at `10.78.77.6`.
 
 ## Files
 
-| File                            | What                                                            |
-| ------------------------------- | --------------------------------------------------------------- |
-| `hosts/pbxvm/default.nix`       | Host basics plus the `vacu.pbx.*` options everything else reads |
-| `hosts/pbxvm/asterisk.nix`      | pjsip transports/endpoints/trunk, dialplan, firewall            |
-| `hosts/pbxvm/tftp.nix`          | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
-| `hosts/pbxvm/secrets-guard.nix` | Refuses to start either service when sops has not rendered      |
-| `hosts/prophecy/vms.nix`        | The VM itself (tag 6)                                           |
-| `secrets/hosts/pbxvm.yaml`      | Telnyx password + the line's SIP password                       |
+| File                                | What                                                            |
+| ----------------------------------- | --------------------------------------------------------------- |
+| `hosts/pbxvm/default.nix`           | Host basics plus the `vacu.pbx.*` options everything else reads |
+| `hosts/pbxvm/asterisk.nix`          | chan_sip peer, pjsip trunk, dialplan, firewall                  |
+| `packages/asterisk-usecallmanager/` | Asterisk + the usecallmanager.nz patch                          |
+| `hosts/pbxvm/tftp.nix`              | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
+| `hosts/pbxvm/secrets-guard.nix`     | Refuses to start either service when sops has not rendered      |
+| `hosts/prophecy/vms.nix`            | The VM itself (tag 6)                                           |
+| `secrets/hosts/pbxvm.yaml`          | Telnyx password + the line's SIP password                       |
 
 Both passwords are sops-rendered at runtime (`sops.templates`) rather than baked
 into the store — including the one inside `SEP<MAC>.cnf.xml`, which sops writes
@@ -88,6 +107,7 @@ git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked fi
 
 - `telnyx.password` — the password of the Telnyx **credential connection** whose
   username is `usertelnyx97122`.
+- `jmpchat.password` — the JMP.chat / Bandwidth password for `c4986875698`.
 - `phone.1001.password` — invent one. It only has to match between asterisk and
   the XML, and this repo puts it in both.
 
@@ -117,13 +137,34 @@ same and more.
 ```bash
 # on pbxvm
 journalctl -fu atftpd                       # watch the phone fetch SEP….cnf.xml
-asterisk -rx 'pjsip show registrations'     # telnyx → Registered
+asterisk -rx 'pjsip show registrations'     # telnyx and jmpchat → Registered
 asterisk -rx 'pjsip show endpoints'         # 1001 → Not in use (i.e. registered)
 ```
 
 Then dial **611** from the handset for an echo test — that proves RTP between
 phone and PBX without involving Telnyx or spending money. After that, dial a
 real number.
+
+### SSH on the handset
+
+Off by default; the web UI reports it as **SSH access enabled: No**, which is
+this repo's `<sshAccess>1</sshAccess>` doing exactly what it was told (`0`
+enables, `1` disables — same inverted encoding as `webAccess`).
+
+It needs a password, so add one to the secrets file _before_ turning it on —
+otherwise sops cannot render the phone's config and atftpd refuses to start:
+
+```bash
+./sops secrets/hosts/pbxvm.yaml     # add phone.1001.sshPassword
+git add secrets/hosts/pbxvm.yaml
+```
+
+then set `vacu.pbx.sshAccess = true;` and rebuild. The username is
+`vacu.pbx.sshUser` (default `cisco`). The phone re-reads its config on boot
+only, so push it with `sip notify cisco-restart 1001` or reboot the handset.
+
+Logging in lands you in a restricted shell. On the 8800 series, username `debug`
+and password `debug` from there reaches the actual debugging shell.
 
 ### Pushing a config change to the phone
 
@@ -135,15 +176,15 @@ failure-retry loop, not polling: a phone that got a usable config stops asking.)
 Three ways to make it re-read, cheapest first:
 
 ```bash
-asterisk -rx 'pjsip send notify cisco-restart endpoint 1001'   # quick restart
-asterisk -rx 'pjsip send notify cisco-reset endpoint 1001'     # full boot cycle
+asterisk -rx 'sip notify cisco-restart 1001'   # quick restart
+asterisk -rx 'sip notify cisco-reset 1001'     # full boot cycle
 ```
 
 That is CUCM's mechanism: a NOTIFY carrying `Event: service-control`, where
-all-zero version stamps mean "everything you have cached is stale". CUCM also
-includes `RegisterCallId={<the phone's REGISTER Call-ID>}` and the phone may
-want it before acting — stock PJSIP has no way to reach that value, so it is
-absent and the NOTIFY may be ignored. Untested against this handset.
+all-zero version stamps mean "everything you have cached is stale". It also
+carries `RegisterCallId={<the phone's REGISTER Call-ID>}`, which the phone
+checks before acting — supplied by the patch's `SIP_PEER()`, and the reason this
+moved off chan_pjsip, which has no way to reach that value.
 
 Failing that, reboot the phone from **Settings → Admin Settings → Restart**, or
 pull its PoE. Those always work.
