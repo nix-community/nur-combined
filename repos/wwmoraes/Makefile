@@ -10,6 +10,10 @@ PKGS_IN_SUBDIR = $(patsubst %/default.nix,%,$(wildcard pkgs/*/default.nix))
 PUSH_PKGS_SINGLE_FILE = $(patsubst pkgs/%,push/%,${PKGS_SINGLE_FILE})
 PUSH_PKGS_IN_SUBDIR = $(patsubst pkgs/%,push/%,${PKGS_IN_SUBDIR})
 
+# Nix packages to use for local evaluation checks
+# See:
+# - https://github.com/nix-community/NUR/blob/main/README.md#local-evaluation-check
+# - https://github.com/nix-community/nur-packages-template/blob/main/.github/workflows/build.yml#L38-L40
 define NIX_PATHS
 $(strip
 nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
