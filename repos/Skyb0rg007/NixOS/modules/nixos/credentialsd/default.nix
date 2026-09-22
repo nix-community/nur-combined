@@ -59,9 +59,10 @@ in
     systemd.packages = [ cfg.package ];
     systemd.user.services = {
       "xyz.iinuwa.credentialsd.Credentials".wantedBy = [ "default.target" ];
-      "xyz.iinuwa.credentialsd.FlowControl".wantedBy = [ "default.target" ];
       "xyz.iinuwa.credentialsd.UiControl".wantedBy = [ "default.target" ];
     };
+
+    xdg.portal.extraPortals = [ cfg.package ];
 
     programs.firefox.nativeMessagingHosts.packages = lib.mkIf cfg.browserIntegration.firefox.enable [
       cfg.package

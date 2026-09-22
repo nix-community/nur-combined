@@ -61,7 +61,7 @@ Generated from 57 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-09-17
+- **Version:** 0.4.0-unstable-2026-09-21
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -77,7 +77,7 @@ Generated from 57 packages.
 ## `buildstream-sbom`
 
 - **Package name:** buildstream-sbom
-- **Version:** 1.1
+- **Version:** 1.2
 - **Description:** Produce SBOMs describing BuildStream elements and dependencies
 - **Homepage:** [https://gitlab.com/BuildStream/buildstream-sbom/](https://gitlab.com/BuildStream/buildstream-sbom/)
 - **License:** Apache-2.0
@@ -97,14 +97,6 @@ Generated from 57 packages.
 - **Description:** KMIP to PKCS#11 bridge for Cascade
 - **Homepage:** [https://github.com/NLnetLabs/cascade-hsm-bridge](https://github.com/NLnetLabs/cascade-hsm-bridge)
 - **License:** BSD-3-Clause
-
-## `claude-desktop`
-
-- **Package name:** claude-desktop
-- **Version:** 1.52386.6
-- **Description:** Desktop application for Claude.ai
-- **Homepage:** [https://claude.ai](https://claude.ai)
-- **License:** LicenseRef-nixos-unfree
 
 ## `credentialsd`
 
@@ -132,7 +124,7 @@ Generated from 57 packages.
 ## `docker-sbx`
 
 - **Package name:** docker-sbx
-- **Version:** 0.44.0-rc1
+- **Version:** 0.46.0-rc2
 - **Description:** Safe environments for agents
 - **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
 - **License:** LicenseRef-nixos-unfree
@@ -335,6 +327,14 @@ Generated from 57 packages.
 - **Description:** CLI tools for Binder IPC on Linux
 - **Homepage:** [https://github.com/hiking90/rsbinder](https://github.com/hiking90/rsbinder)
 - **License:** Apache-2.0
+
+## `rublk`
+
+- **Package name:** rublk
+- **Version:** 0.2.15
+- **Description:** Rust block device in userspace
+- **Homepage:** [https://github.com/ublk-org/rublk](https://github.com/ublk-org/rublk)
+- **License:** GPL-2.0-or-later
 
 ## `run0-wrappers`
 

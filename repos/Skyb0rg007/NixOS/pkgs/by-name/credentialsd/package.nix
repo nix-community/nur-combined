@@ -30,18 +30,18 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "credentialsd";
-  version = "0.2.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "linux-credentials";
     repo = "credentialsd";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7rXO0ZYCf84BE9ZBx4zYwgrd4xR1gv0vtRuxTqvBMQ4=";
+    hash = "sha256-wCkgO/T8UCQLMAY6HyxEL0HlGFlRhqGC+bZc6XhcTwU=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-ugb671Wxlx6T12sX+j/Wj9+mOO3mbfFebN5AGKmb7gI=";
+    hash = "sha256-+YEr2bPkJwl0DEWMjKDCjIgq5SX54T2jsbYRbRPGOwQ=";
   };
 
   nativeBuildInputs = [
@@ -68,6 +68,11 @@ stdenv.mkDerivation (finalAttrs: {
     pcsclite
     udev
   ];
+
+  postPatch = ''
+    substituteInPlace credentialsd-ui/data/resources/icons/copy-icons.py \
+      --replace-fail '#!/usr/bin/python3' '#!${python3.interpreter}'
+  '';
 
   dontWrapGApps = true;
 

@@ -12,10 +12,21 @@
         ];
       };
 
+      # `/share/xdg-desktop-portal` is only linked into the system path when
+      # the portal module is enabled, so exercise the portal registration here.
+      xdg.portal = {
+        enable = true;
+        config.common.default = "*";
+      };
+
       assertions = [
         {
           assertion = lib.elem config.services.credentialsd.package config.programs.firefox.nativeMessagingHosts.packages;
           message = "credentialsd should register its Firefox native messaging host package";
+        }
+        {
+          assertion = lib.elem config.services.credentialsd.package config.xdg.portal.extraPortals;
+          message = "credentialsd should register its xdg-desktop-portal implementation";
         }
       ];
     };
@@ -27,7 +38,6 @@
     with subtest("systemd user units are installed and enabled"):
       for unit in [
           "xyz.iinuwa.credentialsd.Credentials.service",
-          "xyz.iinuwa.credentialsd.FlowControl.service",
           "xyz.iinuwa.credentialsd.UiControl.service",
       ]:
           machine.succeed(f"test -e /etc/systemd/user/{unit}")
@@ -36,7 +46,6 @@
     with subtest("D-Bus activation files are installed"):
       for service in [
           "xyz.iinuwa.credentialsd.Credentials.service",
-          "xyz.iinuwa.credentialsd.FlowControl.service",
           "xyz.iinuwa.credentialsd.UiControl.service",
       ]:
           machine.succeed(f"test -e /run/current-system/sw/share/dbus-1/services/{service}")
@@ -50,5 +59,10 @@
           machine.succeed(f"grep -q 'xyz.iinuwa.credentialsd_helper' {manifest}")
           machine.succeed(f"grep -q 'chrome-extension://abcdefghijklmnopabcdefghijklmnop/' {manifest}")
           machine.succeed(f"grep -q '/bin/credentialsd-firefox-helper' {manifest}")
+
+    with subtest("xdg-desktop-portal implementation is registered"):
+      machine.succeed(
+          "test -e /run/current-system/sw/share/xdg-desktop-portal/portals/credentialsd.portal"
+      )
   '';
 }
