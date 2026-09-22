@@ -14,6 +14,7 @@
   gdk-pixbuf,
   glib,
   glib-networking,
+  gnutls,
   gtk2,
   gtk3,
   lib,
@@ -169,6 +170,7 @@ buildFHSEnv {
     gdk-pixbuf
     glib
     glib-networking
+    gnutls
     gtk2
     gtk3
     libappindicator-gtk3
