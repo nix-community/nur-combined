@@ -2370,8 +2370,8 @@
             "url": "https://github.com/sn0wm1x/ur"
         },
         "so1ve": {
-            "rev": "c99767c77c2c60b8881037bc65f46a26e08de6b7",
-            "sha256": "01i6fsxz9b8vy64m2665y8fvrwmwkgxgwj3q7lh3xa4pzr0yaqc1",
+            "rev": "a5d25cc8d01fd33721b872b960844516b86b4e8e",
+            "sha256": "1dn27b155mq80c952fwai799l761jdx4iy9lzq8i65xvi8pbii7b",
             "url": "https://github.com/so1ve/nur-packages"
         },
         "some-pkgs": {
