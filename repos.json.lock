@@ -2309,6 +2309,11 @@
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "rev": "ee6374bf0b8794c46c67d00d1bf5d2c915d7f745",
+            "sha256": "1dffvzniy1zhgasqj4wa4wksvw7j3ikk1xbkf1rixprksxrgkhrk",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "rev": "0993aa16bfda4f29b37271ce6ae7fb092125682a",
             "sha256": "0cm503qdfcpxs29w664ar1nzgycd4vpmkikq609kkkqi2hlhw37n",
