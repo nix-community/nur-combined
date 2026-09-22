@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation rec {
   pname = "nlvm";
-  version = "a940e32";
+  version = "1d45b54";
 
   src = fetchgit {
     url = "https://github.com/arnetheduck/nlvm.git";

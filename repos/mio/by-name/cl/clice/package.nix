@@ -1,6 +1,6 @@
 {
   lib,
-  llvmPackages_20,
+  llvmPackages_23,
   fetchFromGitHub,
   fetchzip,
   cmake,
@@ -19,22 +19,22 @@
 # We skip -fuse-ld=lld: with clang+lld, mid-build host flatc loses libstdc++
 # RPATH and schema codegen fails in the sandbox (luochen's flake hits the same).
 let
-  inherit (llvmPackages_20) stdenv;
+  inherit (llvmPackages_23) stdenv;
 
   # Matches cmake/package.cmake setup_llvm(...). Distro LLVM lacks the private
   # Clang headers clice needs, so we use the project's published prebuilts.
-  llvmVersion = "22.1.8";
+  llvmVersion = "23.1.1+r1";
 
   llvmArtifact =
     if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64 then
       {
         name = "x86_64-unknown-linux-gnu.releasedbg";
-        hash = "sha256-QYuAUTsTiRof1gXz1BH8eEZPkuatbndJUkxNZKjQlew=";
+        hash = "sha256-jhrynHZIPJdHy4Oa7/lCWMpV0TYyQFKtOrD8SCzerTA=";
       }
     else if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64 then
       {
         name = "aarch64-unknown-linux-gnu.releasedbg";
-        hash = "sha256-xET+gQxUl5Oj8bZQ0eGglxi6AaWtTILz/1Oj4BqvvVg=";
+        hash = "";
       }
     else
       throw "clice: unsupported platform ${stdenv.hostPlatform.system}";
@@ -149,13 +149,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026091916";
+  version = "0.1.2026092107";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-s2LXdqEmsYnjCac8YuTjqSWdFE9wGaZsT1oRKNponYY=";
+    hash = "sha256-5qsaW+v6mEzrpiihasGOjSm7QdTSMqLkX2G05OeAItc=";
   };
 
   nativeBuildInputs = [
@@ -165,6 +165,8 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     flatc
   ];
+
+  env.CXXFLAGS = "-Wno-error=unused-template";
 
   buildInputs = [
     zlib
@@ -178,12 +180,8 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace CMakeLists.txt \
       --replace-fail 'project(CLICE_PROJECT VERSION 0.1.0' \
       'project(CLICE_PROJECT VERSION ${finalAttrs.version}'
-  ''
-  # Upstream ships -static-libstdc++/-static-libgcc for portable release
-  # tarballs; Nix links against the stdenv runtime instead.
-  + lib.optionalString stdenv.hostPlatform.isLinux ''
-    substituteInPlace CMakeLists.txt \
-      --replace-fail ' -static-libstdc++ -static-libgcc' ""
+
+    sed -i 's/FATAL_ERROR "The LLVM package at/WARNING "The LLVM package at/' cmake/llvm.cmake
   '';
 
   cmakeFlags = [

@@ -3,30 +3,32 @@
   stdenv,
   fetchFromGitHub,
   pnpm,
+  pnpmConfigHook,
   nodejs_22,
   fetchPnpmDeps,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "violentmonkey";
-  version = "2.49.1";
+  version = "2.49.2";
 
   src = fetchFromGitHub {
     owner = "violentmonkey";
     repo = "violentmonkey";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rlgoKtdhjA+B4bs5sqI5nzrvzafewK6vKjFZf3w/V6E=";
+    hash = "sha256-BEkJtGZxZr7AEjRmZmtVYps8tGGG3rssB1655za9mGo=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-TwVrzdknctcPdxOHWNW/Re25d85RMe1YUXy8TN/GrCs=";
+    hash = "sha256-r/QIJfb+gD6qE0j0/NAU5WNPxrH2Fvr/Lj9zRjiHf08=";
     fetcherVersion = 4;
   };
 
   nativeBuildInputs = [
     nodejs_22
-    pnpm.configHook
+    pnpmConfigHook
+    pnpm
   ];
 
   buildPhase = ''
