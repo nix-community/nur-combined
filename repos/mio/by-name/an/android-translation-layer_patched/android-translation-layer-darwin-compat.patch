@@ -183,9 +183,60 @@ diff -ruN a/src/api-impl-jni/widgets/android_webkit_WebView.c b/src/api-impl-jni
  }
 +#endif
 diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
---- a/src/libandroid/native_window.c	2026-09-21 19:06:59
-+++ b/src/libandroid/native_window.c	2026-09-21 19:08:29
-@@ -448,7 +448,7 @@
+--- a/src/libandroid/native_window.c
++++ b/src/libandroid/native_window.c
+@@ -36,6 +36,12 @@
+ #include <gdk/wayland/gdkwayland.h>
+ #include <gdk/x11/gdkx.h>
+ #include <gtk/gtk.h>
++#ifdef __APPLE__
++#include <gdk/macos/gdkmacos.h>
++#include <vulkan/vulkan_macos.h>
++#include <objc/message.h>
++#include <objc/runtime.h>
++#endif
+ 
+ // FIXME: move this together with the other stuff that doesn't belong in this file
+ #include <openxr/openxr.h>
+@@ -418,6 +424,17 @@
+ 		};
+ 
+ 		return vkCreateXlibSurfaceKHR(instance, &x11_create_info, pAllocator, pSurface);
++#ifdef __APPLE__
++	} else if (GDK_IS_MACOS_DISPLAY(display)) {
++		GtkWidget *window = GTK_WIDGET(gtk_widget_get_native(pCreateInfo->window->surface_view_widget));
++		void *ns_window = gdk_macos_surface_get_native_window(GDK_MACOS_SURFACE(gtk_native_get_surface(GTK_NATIVE(window))));
++		void *content_view = ((void* (*)(void *, void *))objc_msgSend)(ns_window, sel_registerName("contentView"));
++		VkMacOSSurfaceCreateInfoMVK macos_create_info = {
++			.sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
++			.pView = content_view,
++		};
++		return vkCreateMacOSSurfaceMVK(instance, &macos_create_info, pAllocator, pSurface);
++#endif
+ 	} else {
+ 		fprintf(stderr, "bionic_vkCreateAndroidSurfaceKHR: the GDK backend is neither Wayland nor X11, no SurfaceView for you");
+ 		return VK_ERROR_UNKNOWN;
+@@ -427,11 +444,19 @@
+ VkResult bionic_vkCreateInstance(VkInstanceCreateInfo *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkInstance *pInstance)
+ {
+ 	int original_extension_count = pCreateInfo->enabledExtensionCount;
++#ifdef __APPLE__
++	int new_extension_count = original_extension_count + 1;
++#else
+ 	int new_extension_count = original_extension_count + 2;
++#endif
+ 	const char **enabled_exts = malloc(new_extension_count * sizeof(char *));
+ 	memcpy(enabled_exts, pCreateInfo->ppEnabledExtensionNames, original_extension_count * sizeof(char *));
++#ifdef __APPLE__
++	enabled_exts[original_extension_count] = "VK_MVK_macos_surface";
++#else
+ 	enabled_exts[original_extension_count] = "VK_KHR_wayland_surface";
+ 	enabled_exts[original_extension_count + 1] = "VK_KHR_xlib_surface";
++#endif
+ 
+ 	pCreateInfo->enabledExtensionCount = new_extension_count;
+ 	pCreateInfo->ppEnabledExtensionNames = enabled_exts;
+@@ -448,7 +473,7 @@
  
  // FIXME 2: this BLATANTLY belongs elsewhere
  
@@ -194,7 +245,7 @@ diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
  
  /* avoid hard dependency on libopenxr_loader for the three functions that we only ever call when running a VR app */
  /* NOTE: our use of __builtin_va_arg_pack means this only works as long as we don't need to call a function
-@@ -461,7 +461,7 @@
+@@ -461,7 +486,7 @@
  	}
  
  	xr_func func = dlsym(openxr_loader_handle, func_name);
@@ -203,9 +254,8 @@ diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
  }
  
  static XrResult bionic_xrInitializeLoaderKHR(void *loaderInitInfo)
-diff -ruN a/src/main-executable/bionic_compat.c b/src/main-executable/bionic_compat.c
---- a/src/main-executable/bionic_compat.c	2026-09-21 19:06:59
-+++ b/src/main-executable/bionic_compat.c	2026-09-21 19:09:31
+--- a/src/main-executable/bionic_compat.c
++++ b/src/main-executable/bionic_compat.c
 @@ -1,3 +1,4 @@
 +#ifndef __APPLE__
  #include <stdio.h>
@@ -218,16 +268,82 @@ diff -ruN a/src/main-executable/bionic_compat.c b/src/main-executable/bionic_com
 +#else
 +void init__r_debug() {}
 +#endif
-diff -ruN a/src/main-executable/main.c b/src/main-executable/main.c
 --- a/src/main-executable/main.c
 +++ b/src/main-executable/main.c
-@@ -843,3 +843,9 @@
+@@ -795,7 +795,7 @@
+ 	GtkApplication *app;
+ 	int status;
+ 
+-	pregrow_stack();
++	// pregrow_stack();
+ 
+ 	/* this has to be done in the main executable, so might as well do it here */
+ 	init__r_debug();
+@@ -842,4 +842,10 @@
+ }
  
  /* TODO: recall what this is doing here */
- const char dl_loader[] __attribute__((section(".interp"))) = "/lib/ld-linux.so.2";
+-const char dl_loader[] __attribute__((section(".interp"))) = "/lib/ld-linux.so.2";
++const char dl_loader[]  = "/lib/ld-linux.so.2";
 +
 +#ifdef __APPLE__
 +void dl_parse_library_path(const char *path, char *delim) {}
 +void libc_bio_set_apply_path_overrides_func(apply_path_overrides_func_type *func) {}
 +void remove_ongoing_notifications() {}
 +#endif
+--- a/meson.build
++++ b/meson.build
+@@ -74,13 +74,13 @@
+                                           	'-D_LARGEFILE64_SOURCE',
+                                           ],
+                                           link_args : [
+-                                          	'-Wl,-z,lazy',  # outdated Nvidia driver version 340 lacks EGL symbols
++                                          	  # outdated Nvidia driver version 340 lacks EGL symbols
+                                           ])
+ 
+-wayland_protos_dep = dependency('wayland-protocols', version: '>=1.12')
++wayland_protos_dep = dependency('dummy', required: false)
+ 
+ # wayland protocols for osk
+-subdir('protocol')
++wl_proto_headers = []
+ 
+ libtranslationlayer_so = shared_library('translation_layer_main', [
+                                                                   	'src/api-impl-jni/android_app_NativeActivity.c',
+@@ -171,7 +171,7 @@
+                                                                   	unifiedpush_distributor,
+                                                                   	unifiedpush_connector,
+                                                                         wl_proto_headers,
+-                                                                        wl_proto_sources,
++                                                                        
+                                                                         extra_jni_srcs,
+                                                                   ] + marshal_files,
+                                                                   install: true,
+@@ -179,14 +179,14 @@
+                                                                   install_rpath: '$ORIGIN/:' + get_option('prefix') / get_option('libdir') / 'art',
+                                                                   dependencies: [
+                                                                         extra_deps,
+-                                                                  	dependency('gtk4', version: '>=4.14'), dependency('gl'), dependency('egl'), dependency('wayland-client'), dependency('jni'),
+-                                                                  	dependency('libportal'), dependency('sqlite3'), dependency('libavcodec', version: '>=59'), dependency('libdrm'),
+-                                                                  	dependency('gudev-1.0'), dependency('libswscale'), dependency('webkitgtk-6.0'), dependency('gio-unix-2.0'),
++                                                                  	dependency('gtk4', version: '>=4.14'), dependency('gl'), dependency('egl'), dependency('dummy', required: false), dependency('jni'),
++                                                                  	dependency('dummy', required: false), dependency('sqlite3'), dependency('libavcodec', version: '>=59'), dependency('dummy', required: false),
++                                                                  	dependency('dummy', required: false), dependency('libswscale'), dependency('dummy', required: false), dependency('gio-unix-2.0'),
+                                                                         libart_dep, wayland_protos_dep
+                                                                   ],
+                                                                   link_with: [ libandroid_so ],
+                                                                   link_args: [
+-                                                                  	'-lasound'
++                                                                  	
+                                                                   ],
+                                                                   c_args: [
+                                                                   	'-D_LARGEFILE64_SOURCE',
+@@ -205,7 +205,7 @@
+                                         ],
+                                         install: true,
+                                         dependencies: [
+-                                        	dependency('gtk4'), dependency('jni'), declare_dependency(link_with: libtranslationlayer_so), libart_dep, dependency('dl'), libdl_bio_dep, libc_bio_dep, dependency('libportal'), dependency('fontconfig'),
++                                        	dependency('gtk4'), dependency('jni'), declare_dependency(link_with: libtranslationlayer_so), libart_dep, dependency('dl'), libdl_bio_dep, libc_bio_dep, dependency('dummy', required: false), dependency('fontconfig'),
+                                         ],
+                                         link_args: [
+                                         	'-rdynamic'

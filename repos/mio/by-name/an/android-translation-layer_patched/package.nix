@@ -93,30 +93,12 @@
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
         ./android-translation-layer-darwin-compat.patch
       ];
-    postPatch =
-      (old.postPatch or "")
-      + lib.optionalString stdenv.hostPlatform.isDarwin ''
-        substituteInPlace meson.build \
-          --replace-warn "dependency('wayland-protocols', version: '>=1.12')" "dependency('dummy', required: false)" \
-          --replace-warn "dependency('wayland-client')" "dependency('dummy', required: false)" \
-          --replace-warn "dependency('libportal')" "dependency('dummy', required: false)" \
-          --replace-warn "dependency('libdrm')" "dependency('dummy', required: false)" \
-          --replace-warn "dependency('gudev-1.0')" "dependency('dummy', required: false)" \
-          --replace-warn "dependency('webkitgtk-6.0')" "dependency('dummy', required: false)" \
-          --replace-warn "'-lasound'" "" \
-          --replace-warn "'-Wl,-z,lazy'," "" \
-          --replace-warn "subdir('protocol')" "wl_proto_headers = []" \
-          --replace-warn "wl_proto_sources," ""
-        rm -rf protocol
-      '';
     preConfigure =
       (old.preConfigure or "")
       + lib.optionalString stdenv.hostPlatform.isDarwin ''
         cp -r ${./darwin_compat_headers} $NIX_BUILD_TOP/darwin_headers
         chmod -R +w $NIX_BUILD_TOP/darwin_headers
         export CFLAGS="-I$NIX_BUILD_TOP/darwin_headers -Wno-int-conversion -Wno-c23-extensions -Doff64_t=off_t -Dlseek64=lseek -Dftruncate64=ftruncate -Dpread64=pread -Dpwrite64=pwrite -DCLOCK_BOOTTIME=CLOCK_MONOTONIC $CFLAGS"
-        sed -i "s|pregrow_stack();|// pregrow_stack();|" src/main-executable/main.c
-        substituteInPlace src/main-executable/main.c           --replace-warn "__attribute__((section(\".interp\")))" ""
       '';
     postInstall = (old.postInstall or "") + ''
       mkdir -p $out/etc/security

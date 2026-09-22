@@ -158,7 +158,8 @@ stdenv.mkDerivation {
     EOF
   '';
 
-  # programs.wireguird uses security.sudo.extraRules for wg-quick now
+  # Runs as the logged-in user. On NixOS, programs.wireguird installs
+  # cap_net_admin wrappers in /run/wrappers/bin (wg-quick, wg).
   preFixup = ''
     gappsWrapperArgs+=(--prefix PATH : ${wireguardToolPath})
   '';
