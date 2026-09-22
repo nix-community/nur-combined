@@ -1249,10 +1249,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.14.0";
+      version = "0.14.1";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4991225/bilisponsorblock-0.14.0.xpi";
-      sha256 = "3ebe8fd92e1ac8cff04421d4b29127e20e3a6ab1f468bf1e872417bab849a13b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5045346/bilisponsorblock-0.14.1.xpi";
+      sha256 = "7c633457259559897fea5414940578e5766c1ef5e2cccd10f31f90ef763fb437";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -2613,10 +2613,10 @@
     };
     "copy-link-text" = buildMozillaXpiAddon {
       pname = "copy-link-text";
-      version = "1.7.1";
+      version = "1.7.2";
       addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5043902/copy_link_text_webextension-1.7.1.xpi";
-      sha256 = "a8e28e1f869445e3cc717f41cf43271ac45f3e692aa507dd6538b6b55e3af4fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5047270/copy_link_text_webextension-1.7.2.xpi";
+      sha256 = "8c598c9893997a521fe1c2fb8cd80c237af12c10addcbcecd0c5f8409e14aacf";
       meta = with lib;
       {
         homepage = "https://github.com/def00111/copy-link-text";
@@ -2954,10 +2954,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "157.0.20260918.91356";
+      version = "156.0.20260921.121718";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5039507/dansk_da_language_pack-157.0.20260918.91356.xpi";
-      sha256 = "cb45b3ea02a864a3e12b6dfc6940bad7b81d2f884a702a614c1f2ebcee5b8c4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5047029/dansk_da_language_pack-156.0.20260921.121718.xpi";
+      sha256 = "5eb00ac92d26acfe0705b4c249dc2c124eb8f51507b8406b1dc6eb66176bd20a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3172,10 +3172,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "157.0.20260918.91356";
+      version = "156.0.20260921.121718";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5039501/deutsch_de_language_pack-157.0.20260918.91356.xpi";
-      sha256 = "6d22effacdbf2b0cb0e68af23308eb86be02e15bd4b969cfce75fc3f25a32778";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5047030/deutsch_de_language_pack-156.0.20260921.121718.xpi";
+      sha256 = "ba1d6acffc54785e962326e9f5099d7d0694136aea2c5c5a17709c48ff00518b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4674,10 +4674,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "157.0.20260918.91356";
+      version = "156.0.20260921.121718";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5039467/francais_language_pack-157.0.20260918.91356.xpi";
-      sha256 = "80dec18efe44e2de28b5d3b56f74057b15dfc49dc41f20f1da1365d091cfcd4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5047035/francais_language_pack-156.0.20260921.121718.xpi";
+      sha256 = "0ed3d16a74aad07f2dcfd6df4b7d1361afebf453baf35157127fa235c2df2187";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4711,10 +4711,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "157.0.20260918.91356";
+      version = "156.0.20260921.121718";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5039484/gaidhlig_language_pack-157.0.20260918.91356.xpi";
-      sha256 = "66c26e8018b40437cdfa0a279d256efd617cfadd8130991226916f20fc916adf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5046908/gaidhlig_language_pack-156.0.20260921.121718.xpi";
+      sha256 = "11dd2bc5322c053f0f04dc9cc5b7363266f27adeee727f6e3894047c2e04d3b4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10024,10 +10024,10 @@
     };
     "muzli" = buildMozillaXpiAddon {
       pname = "muzli";
-      version = "33.1.7";
+      version = "33.1.11";
       addonId = "firefox@muz.li";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4998122/muzli-33.1.7.xpi";
-      sha256 = "cfa815c74f56b393895a3ba4642128f75c556c7d524853431e46e673f569512d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5046483/muzli-33.1.11.xpi";
+      sha256 = "4065a551d0ea38b2dae36f26c4dad35041e397328c42f0f9565943a622772913";
       meta = with lib;
       {
         homepage = "https://muz.li";
@@ -13170,10 +13170,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "157.0.20260918.91356";
+      version = "156.0.20260921.121718";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5039486/scots_language_pack-157.0.20260918.91356.xpi";
-      sha256 = "3a63c1d6045ed18909c9e5f906a4ecfe69aa329222cba1bb4952287f4cf842dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5047011/scots_language_pack-156.0.20260921.121718.xpi";
+      sha256 = "dd71e1fb4ae510bf817ae68fcbcc974499a650689b746e8abc8712bf41870b26";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13687,10 +13687,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.26.1";
+      version = "1.26.2";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5042893/single_file-1.26.1.xpi";
-      sha256 = "eb9afa6f03cf81722b14cc16853aa53c7df86b547c361f982e1871762be62b1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5047808/single_file-1.26.2.xpi";
+      sha256 = "c9177ccebac9c939e67c739f163105d7b0eebbbb54ac32a8e7fe9c8c79ac0689";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14485,10 +14485,10 @@
     };
     "tablissng" = buildMozillaXpiAddon {
       pname = "tablissng";
-      version = "1.8.0";
+      version = "1.8.1";
       addonId = "extension@tabliss-maintained";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5042853/tablissng-1.8.0.xpi";
-      sha256 = "48d593e28d96c0cbee4e0386d8bc9ffef0c6273185b9bbe3d60b7ef39847020d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5047698/tablissng-1.8.1.xpi";
+      sha256 = "2f16feb3a32e6b07b70d224fa21d975ad280394499fd3ca4d16fbb72d0741622";
       meta = with lib;
       {
         homepage = "https://github.com/BookCatKid/TablissNG";
@@ -14643,10 +14643,10 @@
     };
     "tetrio-plus" = buildMozillaXpiAddon {
       pname = "tetrio-plus";
-      version = "0.28.0";
+      version = "0.28.2";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4754807/tetrio_plus-0.28.0.xpi";
-      sha256 = "62c2662db29ead416f2655d1b36baf7638ee42402652d50a2e60cb90b5947bf4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5045314/tetrio_plus-0.28.2.xpi";
+      sha256 = "de0c345210f8c8588877f2d6550121bf84189e52e0a54f6e393f46bc4e8cf14f";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for TETR.IO.";
@@ -17373,16 +17373,16 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.0.9";
+      version = "2.1.0";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4853991/yang_addon-2.0.9.xpi";
-      sha256 = "0a8332ac52b2c3b155838e397faf05648d10bd332d75b7d92415bb4b5b15ecd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5046626/yang_addon-2.1.0.xpi";
+      sha256 = "d8453e988699f905628b02b21f447d7d1040e8c381fa5a2ab1ca9b8705796d72";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
         description = "An open-source, lightweight extension that allows using DuckDuckGo-like bangs anywhere.";
         license = licenses.gpl3;
-        mozPermissions = [ "webRequest" "activeTab" "storage" ];
+        mozPermissions = [ "webRequest" "search" "activeTab" "storage" ];
         platforms = platforms.all;
       };
     };
