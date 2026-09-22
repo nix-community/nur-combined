@@ -10,6 +10,10 @@
   gst_all_1,
   keybinder3,
   libayatana-appindicator,
+  callPackage,
+  path,
+  sqlite,
+  writeScript,
 }: let
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
@@ -31,12 +35,27 @@
       "linux"
     ];
   };
+
+  # nixpkgs makes libsqlcipher an unconditional runtime dependency of pub `sqlite3` >=3.5.0 but only carries its hash for 3.5.0 on x86_64-linux, so every other version and system throws at evaluation time.
+  # kelivo drives drift against plain sqlite3 and never looks sqlcipher up, so drop it rather than pin hashes that the lockfile update workflow invalidates on each bump.
+  sqlite3SourceBuilder = args:
+    (callPackage (path + "/pkgs/development/compilers/dart/package-source-builders/sqlite3") {} args).overrideAttrs {
+      setupHook = writeScript "sqlite3-setup-hook" ''
+        sqliteFixupHook() {
+          runtimeDependencies+=('${lib.getLib sqlite}')
+        }
+
+        preFixupHooks+=(sqliteFixupHook)
+      '';
+    };
 in
   flutter347.buildFlutterApplication {
     inherit pname src version;
 
     # Upstream gitignores pubspec.lock; update-lockfiles resolves and commits this.
     pubspecLock = lib.importJSON ./pubspec.lock.json;
+
+    customSourceBuilders.sqlite3 = sqlite3SourceBuilder;
 
     # `lib/secrets/fallback.dart` is gitignored but imported unconditionally by
     # lib/core/providers/model_provider.dart. Upstream CI injects a SiliconFlow
