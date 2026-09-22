@@ -55,6 +55,45 @@ in
         syslog.local0 => notice,warning,error,verbose
       '';
 
+      # The phone reads its TFTP config when it boots and at no other time —
+      # there is no polling interval. To push a change without walking over to
+      # it, CUCM sends a NOTIFY carrying `Event: service-control`; all-zero
+      # version stamps mean "everything you have cached is stale, fetch it
+      # again". Without this file res_pjsip_notify declines to load entirely and
+      # `pjsip send notify` does not exist, which is the state this config was
+      # in until now.
+      #
+      # CUCM also puts `RegisterCallId={<the phone's REGISTER Call-ID>}` in the
+      # body, and the phone may want it before acting. Stock PJSIP has no way to
+      # reach that value — the usecallmanagernz patch supplies it through
+      # chan_sip's SIP_PEER() — so it is absent here and the phone may ignore
+      # the NOTIFY. Rebooting the handset always works.
+      "pjsip_notify.conf" = ''
+        [cisco-restart]
+        Event=>service-control
+        Subscription-State=>active
+        Content-type=>text/plain
+        Content=>action=restart
+        Content=>ConfigVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>DialplanVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>SoftkeyVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>FeatureControlVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>
+
+        ; Full reset rather than a quick restart: the phone re-runs its whole
+        ; boot sequence, TFTP and all.
+        [cisco-reset]
+        Event=>service-control
+        Subscription-State=>active
+        Content-type=>text/plain
+        Content=>action=reset
+        Content=>ConfigVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>DialplanVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>SoftkeyVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>FeatureControlVersionStamp={00000000-0000-0000-0000-000000000000}
+        Content=>
+      '';
+
       "rtp.conf" = ''
         [general]
         rtpstart=${toString cfg.rtpPortRange.from}

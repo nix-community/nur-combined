@@ -19,7 +19,8 @@ let
   # means knowing how long a phone number is in every country on earth; see
   # genDialplan below for the method and the correctness argument.
   #
-  # Two wildcards: `.` is exactly one character, `*` is one or more (a literal
+  # Two wildcards, per https://usecallmanager.nz/dial-template.html: `.` is
+  # exactly one digit, # or *, and `*` is zero or more of the same (a literal
   # star key would be `\*`). There is no `!` -- that is IOS dial-peer syntax,
   # and a rule containing it never matches anything. There are no character
   # ranges either: `[2-9]` appears in some Cisco examples but is absent from the

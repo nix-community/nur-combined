@@ -125,6 +125,29 @@ Then dial **611** from the handset for an echo test — that proves RTP between
 phone and PBX without involving Telnyx or spending money. After that, dial a
 real number.
 
+### Pushing a config change to the phone
+
+The phone reads its TFTP files **when it boots, and at no other time** — there
+is no polling interval, so editing `dialplan.xml` or `SEP<MAC>.cnf.xml` on the
+server changes nothing by itself. (Repeated fetches in the atftpd log are the
+failure-retry loop, not polling: a phone that got a usable config stops asking.)
+
+Three ways to make it re-read, cheapest first:
+
+```bash
+asterisk -rx 'pjsip send notify cisco-restart endpoint 1001'   # quick restart
+asterisk -rx 'pjsip send notify cisco-reset endpoint 1001'     # full boot cycle
+```
+
+That is CUCM's mechanism: a NOTIFY carrying `Event: service-control`, where
+all-zero version stamps mean "everything you have cached is stale". CUCM also
+includes `RegisterCallId={<the phone's REGISTER Call-ID>}` and the phone may
+want it before acting — stock PJSIP has no way to reach that value, so it is
+absent and the NOTIFY may be ignored. Untested against this handset.
+
+Failing that, reboot the phone from **Settings → Admin Settings → Restart**, or
+pull its PoE. Those always work.
+
 ### Troubleshooting: the phone sits on "Phone is registering"
 
 First check asterisk is actually listening — `pjsip show transports` should list
