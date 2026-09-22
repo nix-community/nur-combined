@@ -26,13 +26,6 @@ in
   #   attrs
   genAttrs' = values: f: listToAttrs (map f values);
 
-  # Merge a list of attrs non-recursively, later values override previous ones.
-  #
-  # merge ::
-  #   [ attrs ]
-  #   attrs
-  merge = foldl (a: b: a // b) { };
-
   # Merge a list of attrs recursively, later values override previous ones.
   #
   # recursiveMerge ::

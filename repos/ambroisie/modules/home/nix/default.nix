@@ -3,7 +3,7 @@
 let
   cfg = config.my.home.nix;
 
-  channels = lib.my.merge [
+  channels = lib.mergeAttrsList [
     {
       # Allow me to use my custom package using `nix run self#pkg`
       self = inputs.self;
