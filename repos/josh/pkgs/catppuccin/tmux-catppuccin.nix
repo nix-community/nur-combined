@@ -8,13 +8,13 @@
 tmuxPlugins.mkTmuxPlugin rec {
   pluginName = "catppuccin";
   rtpFilePath = "catppuccin.tmux";
-  version = "2.3.0";
+  version = "2.3.1";
 
   src = fetchFromGitHub {
     owner = "catppuccin";
     repo = "tmux";
     tag = "v${version}";
-    hash = "sha256-3CJRQCgS8NAN7vOLBjNGiHbGXTIrIyY/FLmfZrXcEYc=";
+    hash = "sha256-yOlLZhRdZabBTdD2t9I0mbMRcx8xApAmBPq87F3Hu3o=";
   };
 
   meta = {
