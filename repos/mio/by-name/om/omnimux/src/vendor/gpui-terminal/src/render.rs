@@ -730,7 +730,12 @@ impl TerminalRenderer {
                 );
 
                 // Create text run for this single character
-                let char_str = ch.to_string();
+                let mut char_str = ch.to_string();
+                if let Some(zw) = cell.zerowidth() {
+                    for &z in zw {
+                        char_str.push(z);
+                    }
+                }
                 let text_run = TextRun {
                     len: char_str.len(),
                     font,

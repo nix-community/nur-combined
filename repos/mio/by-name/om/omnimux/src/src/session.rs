@@ -516,8 +516,25 @@ impl Drop for TerminalSession {
 }
 
 fn truncate_chars(s: &str, max: usize) -> String {
-    let mut iter = s.chars();
-    let truncated: String = iter.by_ref().take(max).collect();
+    let mut count = 0;
+    let mut truncated = String::new();
+    let mut iter = s.chars().peekable();
+    while let Some(c) = iter.next() {
+        truncated.push(c);
+        if !matches!(c, '\u{0300}'..='\u{036F}' | '\u{200D}' | '\u{FE00}'..='\u{FE0F}' | '\u{1F3FB}'..='\u{1F3FF}') {
+            count += 1;
+        }
+        if count >= max {
+            while let Some(&next_c) = iter.peek() {
+                if matches!(next_c, '\u{0300}'..='\u{036F}' | '\u{200D}' | '\u{FE00}'..='\u{FE0F}' | '\u{1F3FB}'..='\u{1F3FF}') {
+                    truncated.push(iter.next().unwrap());
+                } else {
+                    break;
+                }
+            }
+            break;
+        }
+    }
     if iter.next().is_some() {
         format!("{truncated}…")
     } else {
