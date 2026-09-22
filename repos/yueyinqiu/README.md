@@ -1,3 +1,9 @@
+This repository is no longer being updated. The content has been split into separate repositories:
+- mihomo-manager-mihomo-mixin: https://github.com/MihomoManager/MihomoManager.MihomoMixin-Nix
+- nix-daemon-proxy-client & nix-daemon-proxy-server: https://github.com/yueyinqiu/NixDaemonProxy-Nix
+- snavi: https://github.com/yueyinqiu/Snavi-Nix
+
+
 # MyNurPackages
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
