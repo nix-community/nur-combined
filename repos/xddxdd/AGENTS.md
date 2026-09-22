@@ -49,6 +49,7 @@
 (2) BPF 目标不能用 nixpkgs 包装的 `clang`：cc-wrapper 会向编译器注入 x86 专用 CFLAGS（如 `-fzero-call-used-regs=used-gpr`），报 `unsupported option ... for target 'bpf'`；改用 `llvmPackages.clang-unwrapped` 的裸 clang。
 (3) 裸 clang 不会自动获得 cc-wrapper 注入的 include 路径，需在 `BPF_CFLAGS` 里显式加 `-I${libbpf}/include`。
 (4) 若上游 Makefile 同时负责 Rust/BPF，只需传 `BPF_CLANG`/`BPFTOOL`/`VMLINUX_BTF` 等变量调用 `make bpf`，Rust 部分交给 `rustPlatform.buildRustPackage`；上游锁定 `Cargo.lock` 时用 `cargoLock.lockFile = "${finalAttrs.src}/Cargo.lock"` 免维护哈希。
+- **从源码打包 Godot 游戏**：用 `godot_4_X`（编辑器）加 `godot_4_X.export-templates-bin`（预编译 export templates，已进 binary cache，远轻于 `godot.export-template` 的源码编译）。导出前把模板目录软链到 `$XDG_DATA_HOME/godot/export_templates`——只设 `HOME` 不够，用户 shell 常已设 `XDG_DATA_HOME` 且其优先于 HOME，沙箱里两个都要设：`export HOME=$TMPDIR; export XDG_DATA_HOME="$HOME/.local/share"`；再 `godot4 --headless --export-release "<preset 名>" <输出路径>`（preset 名是 `export_presets.cfg` 的 `name=` 字段，不一定是 `Linux/X11`）。`binary_format/embed_pck=true` 时游戏数据被追加进 ELF 的 `pck` 段，必须设 `dontStrip = true`（strip 报 `allocated section 'pck' not in segment` 并破坏 pck）和 `dontPatchELF = true`（stdenv 的 patchelf setup-hook 在 fixupPhase 跑 `patchelf --shrink-rpath`，而 Godot 的 X11/Vulkan 依赖全是运行期 dlopen、DT_NEEDED 只有 libc，rpath 会被整个删空），最后在 installPhase 手动 `patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} --set-rpath ${lib.makeLibraryPath buildInputs}`。buildInputs 至少含 `vulkan-loader`、X11 系列（`libx11`/`libxcursor`/`libxext`/`libxfixes`/`libxi`/`libxinerama`/`libxkbcommon`/`libxrandr`/`libxrender`）、`libpulseaudio`、`alsa-lib`、`udev`、`fontconfig`。
 
 ## 包元数据规范
 
