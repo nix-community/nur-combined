@@ -12,6 +12,12 @@
 # never updated. The first non-empty line of that file is printed as the
 # reason. Use --force (or -f) to update it anyway.
 #
+# Per-package options: a package whose directory contains a
+# `.nix-update-options` file is updated with the extra nix-update arguments
+# listed in it, one option per line (`#` starts a comment). Example:
+# `--version=branch=development` to track a branch. A --version passed on the
+# command line overrides a --version from the file.
+#
 # Report: when REPORT_FILE is set, one tab-separated row per package is appended
 # to that file (status, name, old version, new version, note), with status being
 # ok, skipped or failed. Used by CI to build the run summary.
@@ -26,6 +32,8 @@ PKGS_DIR="$REPO_ROOT/pkgs"
 
 # --- Blacklist marker: presence of this file in a pkg dir disables updates ---
 SKIP_MARKER=".nix-update-ignore"
+# --- Extra per-package nix-update options (one option per line) ---
+OPTIONS_FILE=".nix-update-options"
 FORCE=0
 SKIPPED=()
 
@@ -44,6 +52,14 @@ is_blacklisted() {
 # --- Reason stored in a blacklist marker: first non-empty line (may be empty) ---
 skip_reason() {
   grep -m1 -v '^[[:space:]]*$' "$1/$SKIP_MARKER" 2>/dev/null || true
+}
+
+# --- Extra nix-update options of a package, one argument per line ---
+# Strips trailing comments and blank lines. Silent when the file is absent.
+package_update_options() {
+  local file="$1/$OPTIONS_FILE"
+  [ -f "$file" ] || return 0
+  sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$file"
 }
 
 # --- Appends one row to the machine-readable report (no-op without REPORT_FILE) ---
@@ -103,10 +119,10 @@ commit_package() {
 # --- Updates a given package ---
 update_package() {
   local pkg_name="$1"
-  local version_arg=""
+  local -a version_arg=()
 
   if [ $# -eq 2 ]; then
-    version_arg="--version $2"
+    version_arg=(--version "$2")
     echo "Target version: $2"
   else
     echo "Target version: latest available"
@@ -147,8 +163,32 @@ update_package() {
     fi
   done
 
-  local nix_update_args="--flake $version_arg"
+  local nix_update_args=(--flake)
   local build_cmd="nix build .#$pkg_name --no-link --print-out-paths"
+
+  [ ${#version_arg[@]} -gt 0 ] && nix_update_args+=("${version_arg[@]}")
+
+  # Extra options from .nix-update-options. An explicit CLI version wins over a
+  # --version coming from the file.
+  local -a extra_options=()
+  local -a filtered=()
+  local opt
+  while IFS= read -r opt; do
+    [ -n "$opt" ] && extra_options+=("$opt")
+  done < <(package_update_options "$pkg_dir")
+
+  if [ ${#extra_options[@]} -gt 0 ]; then
+    if [ ${#version_arg[@]} -gt 0 ]; then
+      for opt in "${extra_options[@]}"; do
+        [[ "$opt" == --version* ]] || filtered+=("$opt")
+      done
+      extra_options=("${filtered[@]}")
+    fi
+    if [ ${#extra_options[@]} -gt 0 ]; then
+      echo "  (options from $OPTIONS_FILE: ${extra_options[*]})"
+      nix_update_args+=("${extra_options[@]}")
+    fi
+  fi
 
   if [ "$needs_insecure" = true ]; then
     echo "  (insecure dependencies -> NIXPKGS_ALLOW_INSECURE=1)"
@@ -160,7 +200,7 @@ update_package() {
 
   # nix-update updates version + hashes automatically
   echo "--- nix-update ---"
-  nix run nixpkgs#nix-update -- $nix_update_args "$pkg_name" | awk '!/^\$ /' || {
+  nix run nixpkgs#nix-update -- "${nix_update_args[@]}" "$pkg_name" | awk '!/^\$ /' || {
     echo "nix-update failed for $pkg_name"
     report_row failed "$pkg_name" "$old_version" "" "nix-update"
     return 1

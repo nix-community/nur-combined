@@ -1,0 +1,3 @@
+# feishin-dev tracks the development branch (commits) instead of release tags,
+# so nix-update must use a branch snapshot: it bumps rev/src hash and pnpmDeps.
+--version=branch=development

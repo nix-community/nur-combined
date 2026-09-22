@@ -85,6 +85,26 @@ Use `--force` (or `-f`) to override the blacklist for a single run:
 The marker filename is the `SKIP_MARKER` variable at the top of `update.sh` if
 you want a different name.
 
+### Per-package options
+
+Extra `nix-update` arguments can be set per package in a `.nix-update-options`
+file in the package directory, one option per line (`#` starts a comment):
+
+```bash
+# pkgs/feishin-dev/.nix-update-options
+--version=branch=development
+```
+
+Every non-comment line is appended to the `nix-update` invocation, so this
+tracks the `development` branch (latest commit + refreshed `src`/`pnpmDeps`
+hashes) instead of release tags. See
+[`feishin-dev`](./feishin-dev/.nix-update-options) for a real example.
+
+A `--version` given on the command line (`./pkgs/update.sh feishin-dev 1.18.0`)
+overrides a `--version` from the file. Like the blacklist marker, the options
+file must be committed to take effect on CI. The filename is the `OPTIONS_FILE`
+variable at the top of `update.sh`.
+
 ### Automated updates
 
 [`.github/workflows/nix-update.yml`](../.github/workflows/nix-update.yml) runs

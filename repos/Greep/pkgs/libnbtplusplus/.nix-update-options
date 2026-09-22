@@ -1,0 +1,3 @@
+# libnbtplusplus tracks the master branch (commits) instead of release tags,
+# so libnbtplusplus must use a branch snapshot: it bumps rev/src hash.
+--version=branch=master

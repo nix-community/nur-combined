@@ -35,6 +35,7 @@
 ### Maintained by @GreepTheSheep
 
 - [feishin](https://github.com/jeffvli/feishin): Full-featured Jellyfin, Navidrome, and OpenSubsonic Compatible Music Player
+- [feishin-dev](https://github.com/jeffvli/feishin): Full-featured Jellyfin, Navidrome, and OpenSubsonic Compatible Music Player
 - [nxapi](https://github.com/samuelthomas2774/nxapi): Nintendo Switch Online/Parental Controls app APIs - CLI
 - [nxapi-app](https://github.com/samuelthomas2774/nxapi): Nintendo Switch Online/Parental Controls app APIs - Electron app
 - [tm-mumble-link](https://github.com/XertroV/tm-mumble-bridge): Bridge Trackmania's proximity-chat plugin to Mumble's Link plugin for positional audio
