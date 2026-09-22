@@ -11,7 +11,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libnbtplusplus";
-  version = "2.3.0";
+  version = "0-unstable-2026-02-25";
 
   src = fetchFromGitHub {
     owner = "PrismLauncher";

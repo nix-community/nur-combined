@@ -24,7 +24,7 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "feishin";
-  version = "dev";
+  version = "1.17.0-unstable-2026-09-22";
 
   src = fetchFromGitHub {
     "owner" = "jeffvli";
