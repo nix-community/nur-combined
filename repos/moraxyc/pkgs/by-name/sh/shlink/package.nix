@@ -33,7 +33,7 @@ php.buildComposerProject2 (finalAttrs: {
 
   inherit (finalAttrs.passthru) php;
 
-  vendorHash = "sha256-PipbTV3RA5Y7tYg6Hf4m69vUP7JaP8473NDCqUOuCqY=";
+  vendorHash = "sha256-UPWUz4UzECtD7G0m9b6GgZNBuWJCDcu9iOzB5DRPIsw=";
 
   composerLock = ./composer.lock;
   composerNoDev = true;
