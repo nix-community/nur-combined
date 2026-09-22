@@ -268,10 +268,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.dingtalk.com/";
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "dingtalk";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 })
