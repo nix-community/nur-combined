@@ -17,6 +17,7 @@
   aqua = pkgs.callPackage ./pkgs/aqua { };
   deck = pkgs.callPackage ./pkgs/deck { };
   gwq = pkgs.callPackage ./pkgs/gwq { };
+  langsmith-cli = pkgs.callPackage ./pkgs/langsmith-cli { };
   mado = pkgs.callPackage ./pkgs/mado { };
   notizen = pkgs.callPackage ./pkgs/notizen { };
   tfcmt = pkgs.callPackage ./pkgs/tfcmt { };
