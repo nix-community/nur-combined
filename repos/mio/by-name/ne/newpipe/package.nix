@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
   mitmCache = gradle.fetchDeps {
     inherit (finalAttrs) pname;
     pkg = finalAttrs.finalPackage;
-    data = ./deps.json;
+    data = if stdenv.hostPlatform.isDarwin then ./deps-darwin.json else ./deps-linux.json;
     silent = false;
     useBwrap = false;
   };
