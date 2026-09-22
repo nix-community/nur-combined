@@ -38,6 +38,21 @@ in
       default = "Cisco 8851";
       description = "Text shown in the phone's top-right corner.";
     };
+    perCountryDialRules = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to generate a `Timeout="0"` dial rule per country calling code,
+        so an international number sends the instant its last digit lands
+        instead of after the `011*` catch-all timeout. Adds ~215 rules to
+        dialplan.xml (~10 KiB).
+
+        Cisco documents no limit on the number of dial rules a phone will
+        accept, so if the handset starts ignoring the whole file — no auto-dial
+        at all, not even for local numbers — turn this off and it reverts to
+        the handful of hand-written rules.
+      '';
+    };
     tftpRoot = mkOption {
       type = types.str;
       default = "/srv/tftp";

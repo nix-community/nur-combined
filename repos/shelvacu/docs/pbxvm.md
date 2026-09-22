@@ -158,9 +158,40 @@ Two log-reading traps worth knowing:
 
 - 10 digits (`5555550123`), 11 (`15555550123`), or `+1…` — all normalised to
   E.164 and sent to Telnyx.
-- `011` + country code for international.
-- `911` / `933` pass straight through. **Telnyx e911 has to be configured and
-  the address verified on their side before this means anything.**
+- Every rule is anchored on a literal leading digit (`1..........`, then
+  `2.........` through `9.........` for the ten-digit case). `.` matches any
+  character, so a bare ten-dot rule also matches the first ten keys of
+  `011 49 30 …`, and being the longer pattern it beats `011*` — the phone would
+  dial a truncated international number the moment the tenth key landed.
+  Anchoring on 1-9 keeps the local rules clear of the leading `0` that every
+  international dial string starts with. There is no `[2-9]` range syntax to do
+  this in one rule; it appears in some Cisco examples but is not among the
+  documented pattern characters.
+- `011` + country code for international. `vacu.pbx.perCountryDialRules`
+  generates a `Timeout="0"` rule per **(country code, leading-digit prefix)**
+  from libphonenumber's metadata — about 2400 rules, 116 KiB — so the call sends
+  the instant the number is unambiguously complete.
+
+  Branching on leading digits, rather than one length per country, is what makes
+  it worth the size. A country's overall maximum is usually set by some rare
+  long service range, so a per-country rule almost never fires: Tokyo numbers
+  are 9 digits but +81 runs to 17, Sydney is 9 but +61 runs to 12. Splitting on
+  the first digits collapses those to the length that actually applies. Across
+  every example number libphonenumber ships, instant dialling goes from **56% to
+  85%**.
+
+  It cannot make a number undialable. The length attached to a prefix is the
+  maximum over every number type whose pattern that prefix could still grow
+  into, so it is never shorter than a real number starting that way. Countries
+  with genuinely open numbering never tighten and keep falling through to the
+  `011*` timeout — a German landline is 5 to 15 digits and every Vorwahl reaches
+  15, so Germany gets no benefit at all and is unchanged.
+
+  The generator re-checks that at build time against all 1128 example numbers
+  and **fails the build** rather than emit a rule that would dial one truncated.
+  Set the option to `false` for the 16 hand-written rules if the handset ever
+  chokes on the size.
+
 - `611` — local echo test.
 - Everything inbound from Telnyx rings the one phone.
 
