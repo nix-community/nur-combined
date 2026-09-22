@@ -21,7 +21,7 @@ let
 
   package = cfg.package.override { inherit wireguard-tools; };
 
-  wrapperCapabilities = "cap_net_raw,cap_net_admin,cap_kill,cap_dac_override+eip";
+  wrapperCapabilities = "cap_net_raw,cap_net_admin+eip";
 
   mkWrapper = name: {
     owner = "root";
