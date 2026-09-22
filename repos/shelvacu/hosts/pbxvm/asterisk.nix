@@ -15,6 +15,11 @@ let
   pjsipSecrets = config.sops.templates."pjsip-secrets.conf".path;
   sipSecrets = config.sops.templates."sip-secrets.conf".path;
 
+  # Line buttons 2 and up. The phone registers only the first line, so these are
+  # `register=` aliases of that registration rather than registrations of their
+  # own; see sip.conf below.
+  secondaryLines = builtins.tail cfg.lines;
+
   # Only the upstream trunks are left on chan_pjsip, all dialled over UDP.
 
   # One endpoint/aor/registration(/identify) set per trunk. `line=yes` on the
@@ -171,11 +176,29 @@ in
         allow=ulaw
         allow=alaw
 
-        ; One peer per line button on the phone, because each button is its own
-        ; SIP registration. That is the whole trunk-selection mechanism: the
-        ; button the call was started on decides which peer the INVITE comes
-        ; from, and each peer's context pins the trunk. They share a password —
-        ; it is one handset on a trusted LAN, and one secret to rotate.
+        ; One peer per line button on the phone. That is the whole
+        ; trunk-selection mechanism: the button the call was started on decides
+        ; which peer the INVITE comes from, and each peer's context pins the
+        ; trunk.
+        ;
+        ; The phone does not register these separately, though -- the enterprise
+        ; firmware sends *one* REGISTER, for the primary line, and holds one
+        ; device-wide digest credential. So the primary peer lists the others in
+        ; `register=`, and chan_sip gives each of them the primary's
+        ; registration: its address, socket and secret, a contact rebuilt as
+        ; its own name at the phone's address, and a line index counting up
+        ; from 2 in the order listed here.
+        ;
+        ; That line index is also what makes their authentication work. The
+        ; phone answers every challenge as the primary line, so `cisco=yes` plus
+        ; an index above 1 is how chan_sip knows to expect the primary's name in
+        ; the digest username rather than the peer's own (sip/dialog.c,
+        ; "Cisco phones use the primary line credentials for secondary lines").
+        ; Get this wrong and the phone sits on "Phone is registering" while the
+        ; journal repeats `Authorization username mismatch`.
+        ;
+        ; Everything else stays per peer, which is the point: context, callerid
+        ; and dialplan are the line's own.
         ${lib.concatMapStringsSep "\n" (l: ''
           [${l.extension}]
           type=peer
@@ -187,11 +210,15 @@ in
           context=from-phone-${l.trunk}
           callerid=${cfg.phoneLabel} <${l.extension}>
           ; The switch the whole patch hangs off. Without it the peer is served as
-          ; a generic SIP phone and every Cisco softkey stays dead.
+          ; a generic SIP phone and every Cisco softkey stays dead -- and the
+          ; secondary lines never authenticate at all.
           cisco=yes
           directmedia=no
           ; 'qualify' is deprecated in this chan_sip; 'yes' means the 2000ms default.
           maxqualify=yes
+          ${lib.optionalString (l.index == "1" && secondaryLines != [ ]) ''
+            register=${lib.concatMapStringsSep "," (s: s.extension) secondaryLines}
+          ''}
           #include "${sipSecrets}"
         '') cfg.lines}
 

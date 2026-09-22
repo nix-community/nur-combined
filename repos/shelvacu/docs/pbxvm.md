@@ -50,14 +50,29 @@ Telnyx SIP trunk.
   provider, so adding a third is a few lines.
 
   Each trunk also gets a **line button on the handset**, and that is how you
-  choose which way a call goes out. Every button is a SIP registration of its
-  own — 1001 for Telnyx on button 1, 1002 for JMP.chat on button 2, counting up
-  from `vacu.pbx.extension` — so the button a call was placed on arrives at
-  asterisk as _which chan_sip peer sent the INVITE_. Each peer has its own
-  `from-phone-<trunk>` context whose only job is to `Set(TRUNK=…)` before
-  handing off to the shared dialplan. Nothing is dialled to select a trunk, so
-  nothing interferes with the dial rules, and the normal timeouts apply
-  unchanged.
+  choose which way a call goes out. Each button is a chan_sip peer of its own —
+  1001 for Telnyx on button 1, 1002 for JMP.chat on button 2, counting up from
+  `vacu.pbx.extension` — so the button a call was placed on arrives at asterisk
+  as _which peer sent the INVITE_. Each peer has its own `from-phone-<trunk>`
+  context whose only job is to `Set(TRUNK=…)` before handing off to the shared
+  dialplan. Nothing is dialled to select a trunk, so nothing interferes with the
+  dial rules, and the normal timeouts apply unchanged.
+
+  They are not independent registrations, and that is the part that bites: the
+  enterprise firmware sends **one REGISTER, for the primary line**, and holds
+  **one device-wide digest credential**. So every `<line>` in the phone's config
+  carries the _primary_ line's `authName`/`authPassword`. Give them one each and
+  the phone answers the primary line's own challenge as 1002, asterisk rejects
+  it with `Authorization username mismatch`, and the handset never gets past
+  "Phone is registering".
+
+  chan_sip is built for exactly this. The primary peer lists the others in
+  `register=`, which hands each of them the primary's registration — address,
+  socket, secret, a contact rebuilt as its own name at the phone's address, and
+  a line index counting from 2 in the order listed. That index above 1, together
+  with `cisco=yes`, is also how a peer knows to expect the primary's name in the
+  digest username rather than its own. Context, callerid and dialplan stay the
+  line's own, which is what leaves room for the scheme above.
 
   Inbound, each trunk rings its own line, so the button that lights up tells you
   which of your numbers was called.
@@ -156,10 +171,9 @@ asterisk -rx 'sip show peers'               # 1001 and 1002 → one row each, wi
                                             # a host:port, i.e. both lines are up
 ```
 
-Both line peers must show a contact. A handset that registers only 1001 has
-taken a stale config: it has one line button and no way to reach JMP.chat.
-Re-read the config (see below) and check the phone's **Settings → Phone
-Information**.
+Both line peers must show a host:port. 1002 gets its one from 1001's
+registration (`register=` in `sip.conf`), so it appears a moment after the phone
+registers and not before — if 1001 is unregistered, both look dead.
 
 Then dial **611** from the handset for an echo test — that proves RTP between
 phone and PBX without involving Telnyx or spending money. After that, dial a
@@ -237,6 +251,24 @@ Two log-reading traps worth knowing:
   normal. `dialplan.xml` is the one to watch for: the phone only asks for it
   after it has parsed `SEP<MAC>.cnf.xml`, so its absence from the log means the
   config never took.
+
+If the phone _is_ getting its config and still sits there, look for this:
+
+```
+Authorization username mismatch for SIP peer '1001' response has '1002'
+SIP registration for peer '<sip:1001@10.78.77.6>' … failed because 'Username mismatch'
+```
+
+That is the one-credential-per-device behavior described above: the phone is
+answering the primary line's challenge with some other line's `authName`. Every
+`<line>` has to carry the primary line's `authName`/`authPassword`, and each
+secondary line peer has to be in the primary's `register=`. Both are generated,
+so in practice this means the handset is running an older config than the server
+has. Restart it and watch atftpd log the fetch — and note
+`sip notify
+cisco-restart` is no use here, since it needs the Call-ID of a
+REGISTER that by definition never succeeded. Reboot from **Settings → Admin
+Settings → Restart**, or pull the PoE.
 
 ## Dialling
 

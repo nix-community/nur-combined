@@ -347,8 +347,17 @@ in
                 <name>${l.extension}</name>
                 <displayName>${l.label}</displayName>
                 <contact>${l.extension}</contact>
-                <authName>${l.extension}</authName>
-                <!-- All the lines share one password; see asterisk.nix. -->
+                <!-- authName/authPassword are the *primary* line's on every
+                     line, not this line's own. The phone holds one device-wide
+                     digest credential and answers every challenge with it; with
+                     a different authName per line it picks one (in practice the
+                     last one it read) and uses that for the primary line's
+                     REGISTER too, which asterisk rejects with `Authorization
+                     username mismatch` and the handset never gets past "Phone
+                     is registering". chan_sip expects exactly this: the
+                     secondary line peers are `register=` aliases and are told
+                     to look for the primary's name in the digest username. -->
+                <authName>${ext}</authName>
                 <authPassword>${config.sops.placeholder."phone/${ext}/password"}</authPassword>
                 <autoAnswer>
                   <autoAnswerEnabled>0</autoAnswerEnabled>
