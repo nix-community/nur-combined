@@ -2,7 +2,6 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
-  org-typst-math,
   typst,
 }:
 
@@ -17,13 +16,12 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "263debec5a6ba81b42462bcc6768e17c7b3d029a";
-    hash = "sha256-kEsds0iwv1Pc5EjsuzurJRn5Tmy8pGonS5eiHCH5XlU=";
+    rev = "a296530ef16ef1fa3abd93180e02017bf81c4394";
+    hash = "sha256-Eun6+CTRmCI37FOHR75DS2hmnG+fnX9cjeR65TU5gmA=";
   };
 
   packageRequires = [
     emacsPackages.elpaDevelPackages.plz
-    org-typst-math
   ];
 
   turnCompilationWarningToError = true;
