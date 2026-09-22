@@ -1,0 +1,63 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "jisho",
+  "title": "Jisho - Japanese Dictionary",
+  "description": "Search Jisho.org",
+  "icon": "jisho-icon.png",
+  "author": "dmacdermott",
+  "license": "MIT",
+  "contributors": [
+    "mmtf"
+  ],
+  "preferences": [
+    {
+      "required": false,
+      "name": "save-to-history-on-clear",
+      "label": "Save to history on clear",
+      "description": "Jisho saves the last search query to the history once the search query is cleared.",
+      "type": "checkbox",
+      "default": true
+    }
+  ],
+  "commands": [
+    {
+      "name": "search",
+      "title": "Translate Japanese",
+      "subtitle": "Jisho",
+      "description": "Search Jisho.org for Japanese translations",
+      "mode": "view"
+    },
+    {
+      "name": "history",
+      "title": "Search History",
+      "subtitle": "Jisho",
+      "description": "View previous search queries and results",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^2.4.1",
+    "@raycast/utils": "^2.3.1",
+    "nanoid": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.70.1",
+    "@typescript-eslint/parser": "^8.70.1",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.8",
+    "typescript": "^5.7.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "lint": "ray lint"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.9",
+    "js-yaml@3": "3.15.1",
+    "fast-uri": "3.1.5"
+  }
+}

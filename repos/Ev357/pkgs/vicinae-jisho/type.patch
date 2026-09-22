@@ -1,0 +1,12 @@
+diff --git a/src/components/SearchHistoryItem.tsx b/src/components/SearchHistoryItem.tsx
+index 2dbcc65..ee22827 100644
+--- a/src/components/SearchHistoryItem.tsx
++++ b/src/components/SearchHistoryItem.tsx
+@@ -1,6 +1,6 @@
+ import { Action, ActionPanel, Icon, LaunchType, List, Toast, showToast } from "@raycast/api";
+ 
+-import { SearchHistoryItem } from "../types/types";
++import type { SearchHistoryItem } from "../types/types";
+ import SearchResultItem from "./SearchResultItem";
+ import Command from "../search";
+ 

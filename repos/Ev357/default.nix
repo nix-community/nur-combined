@@ -33,4 +33,5 @@
   obsidian-vimrc-support = pkgs.callPackage ./pkgs/obsidian-vimrc-support {};
   openflowlm = pkgs.callPackage ./pkgs/openflowlm {};
   vicinae-bitwarden = pkgs.callPackage ./pkgs/vicinae-bitwarden {};
+  vicinae-jisho = pkgs.callPackage ./pkgs/vicinae-jisho {};
 }
