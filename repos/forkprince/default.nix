@@ -7,6 +7,7 @@
   twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
   hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
   syslock = lib.callPackage ./pkgs/syslock {};
+  xuan = lib.callPackage ./pkgs/xuan {};
 
   tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
   note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
@@ -46,6 +47,7 @@
   linearmouse = lib.callPackage ./pkgs/linearmouse {};
   pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
   supercharge = lib.callPackage ./pkgs/supercharge {};
+  compositor = lib.callPackage ./pkgs/compositor {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   screendrop = lib.callPackage ./pkgs/screendrop {};
   beswitched = lib.callPackage ./pkgs/beswitched {};

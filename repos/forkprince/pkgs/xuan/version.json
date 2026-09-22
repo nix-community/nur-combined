@@ -1,0 +1,15 @@
+{
+  "name": "Xuan",
+  "source": {
+    "type": "github-release",
+    "repo": "silverling/xuan",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "xuan-{version}-linux-x86_64.tar.gz",
+    "unpack": false
+  },
+  "version": "0.1.1",
+  "hash": "sha256-ygno+c9LJIYsxgfjZW9HVcjJaebBgttgJhB91dvq9k4="
+}

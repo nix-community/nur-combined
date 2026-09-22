@@ -1,0 +1,15 @@
+{
+  "name": "Compositor",
+  "source": {
+    "type": "github-release",
+    "repo": "robbietilton/Compositor",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Compositor.dmg",
+    "unpack": false
+  },
+  "version": "1.2.2",
+  "hash": "sha256-6W1wpbg1ztGES58PEFJ1MNTgCknhaVg13i94cyiMbpY="
+}
