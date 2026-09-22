@@ -451,6 +451,12 @@ lib.mkOption {
             tui = lib.mkOption {
               type = lib.types.submodule {
                 options = {
+                  active_theme = lib.mkOption {
+                    type = lib.types.nullOr lib.types.str;
+                    default = "charmtone-panther";
+                    description = "Name of the currently active theme";
+                  };
+
                   compact_mode = lib.mkOption {
                     type = lib.types.nullOr lib.types.bool;
                     default = false;
