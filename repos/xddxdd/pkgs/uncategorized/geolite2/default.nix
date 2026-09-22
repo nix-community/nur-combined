@@ -5,21 +5,21 @@
 }:
 let
   geolite2AsnSrc = fetchurl {
-    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.19/GeoLite2-ASN.mmdb";
-    hash = "sha256-y2ZEFYaSrBWFXCAdDFUjWBC2+og/3vfTHUjMSFzldjk=";
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.22/GeoLite2-ASN.mmdb";
+    hash = "sha256-ZBzOBGE6VfzrLXw+8nYRjVqnIas/WuqwHFKRiDVF5Cg=";
   };
   geolite2CitySrc = fetchurl {
-    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.19/GeoLite2-City.mmdb";
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.22/GeoLite2-City.mmdb";
     hash = "sha256-mkT8OiHwE6INMJgDiva41t5F2K4iOFyUzXcj7hoOAOU=";
   };
   geolite2CountrySrc = fetchurl {
-    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.19/GeoLite2-Country.mmdb";
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.09.22/GeoLite2-Country.mmdb";
     hash = "sha256-fKZ1Owk6aUQaXpGF9JjuHnZ8JO9sCRVJTR9oCQzKAy0=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "geolite2";
-  version = "2026.09.19";
+  version = "2026.09.22";
   dontUnpack = true;
 
   installPhase = ''

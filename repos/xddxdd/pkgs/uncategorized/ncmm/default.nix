@@ -7,7 +7,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "ncmm";
-  version = "1.2.2";
+  version = "1.2.3";
   src = fetchFromGitHub {
     owner = "3899";
     repo = "ncmm";
