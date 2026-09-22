@@ -148,7 +148,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "newpipe";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode # gradle mitm cache
