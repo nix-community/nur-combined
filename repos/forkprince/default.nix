@@ -6,6 +6,7 @@
   hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
   twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
   hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
+  rhythia = lib.callPackage ./pkgs/rhythia {};
   syslock = lib.callPackage ./pkgs/syslock {};
   xuan = lib.callPackage ./pkgs/xuan {};
 

@@ -1,0 +1,13 @@
+{
+  "name": "Rhythia",
+  "source": {
+    "type": "github-release",
+    "repo": "Rhythia/Client"
+  },
+  "asset": {
+    "file": "Linux.zip",
+    "unpack": false
+  },
+  "version": "0.1.2",
+  "hash": "sha256-hSxkGxTBeHTFtHWObVNDXPHM8mhSO92rq/bnzzaztXg="
+}
