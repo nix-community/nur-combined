@@ -49,12 +49,12 @@
             "name": null,
             "owner": "dqzboy",
             "repo": "Docker-Proxy",
-            "rev": "v5.1.8",
-            "sha256": "sha256-L23KYipHUzZoLNfW002fdQIJnjgfi8DzwQKx4bA7mXo=",
+            "rev": "v5.1.9",
+            "sha256": "sha256-ORYcjilwxa9OhS6Mb5LPf/CNb2RGxc36gcMnrB3d7MY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.1.8"
+        "version": "v5.1.9"
     },
     "docker-proxy-hubcmdui": {
         "cargoLock": null,
@@ -70,12 +70,12 @@
             "name": null,
             "owner": "dqzboy",
             "repo": "Docker-Proxy",
-            "rev": "v5.1.8",
-            "sha256": "sha256-L23KYipHUzZoLNfW002fdQIJnjgfi8DzwQKx4bA7mXo=",
+            "rev": "v5.1.9",
+            "sha256": "sha256-ORYcjilwxa9OhS6Mb5LPf/CNb2RGxc36gcMnrB3d7MY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.1.8"
+        "version": "v5.1.9"
     },
     "epd-food-server": {
         "cargoLock": null,
@@ -411,11 +411,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QStQAKB71c9OV2KqRbNrfcYFw0vUelO/Lq4NNUptZX8=",
+            "sha256": "sha256-L+Rw8mE2J3X+p5CurQwAdByRwH78NBTq33aWkWSE6wQ=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.75/vaults3-linux-amd64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.76/vaults3-linux-amd64.tar.gz"
         },
-        "version": "4.4.75"
+        "version": "4.4.76"
     },
     "vaults3-linux-arm64": {
         "cargoLock": null,
@@ -426,11 +426,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jbvsfOKuPR+tCjifQJj4Dtj37OXlJGsuNvQ1Vesweso=",
+            "sha256": "sha256-Q04erfR1pvITCDMP4m2rXsIU1Khl03jN1FQiO75fd0g=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.75/vaults3-linux-arm64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.76/vaults3-linux-arm64.tar.gz"
         },
-        "version": "4.4.75"
+        "version": "4.4.76"
     },
     "vertex": {
         "cargoLock": null,
@@ -482,11 +482,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-K6bZ0TD98ir1APVVosKJ+lMAcS3ZcFIjElH4eCraP98=",
+            "sha256": "sha256-hRL7eIiWhsfs3JGmCahua0CCVaENsMmvug0+N3sLW08=",
             "type": "url",
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.1/linux-x64/ZCode-3.14.1-linux-x64.deb"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.3/linux-x64/ZCode-3.14.3-linux-x64.deb"
         },
-        "version": "3.14.1"
+        "version": "3.14.3"
     },
     "zhconv-rs": {
         "cargoLock": null,

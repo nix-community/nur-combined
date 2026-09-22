@@ -9,7 +9,7 @@ buildGoModule (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/go-proxy";
 
-  vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
+  vendorHash = "sha256-A2VemH2MWZGf3V8N8pmHmPLtjmG2DJ92bDr060KNfMM=";
 
   env.CGO_ENABLED = "0";
   env.GOPROXY = "https://goproxy.cn,direct";

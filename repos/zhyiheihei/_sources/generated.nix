@@ -26,22 +26,22 @@
   };
   docker-proxy = {
     pname = "docker-proxy";
-    version = "v5.1.8";
+    version = "v5.1.9";
     src = fetchFromGitHub {
       owner = "dqzboy";
       repo = "Docker-Proxy";
-      tag = "v5.1.8";
-      hash = "sha256-L23KYipHUzZoLNfW002fdQIJnjgfi8DzwQKx4bA7mXo=";
+      tag = "v5.1.9";
+      hash = "sha256-ORYcjilwxa9OhS6Mb5LPf/CNb2RGxc36gcMnrB3d7MY=";
     };
   };
   docker-proxy-hubcmdui = {
     pname = "docker-proxy-hubcmdui";
-    version = "v5.1.8";
+    version = "v5.1.9";
     src = fetchFromGitHub {
       owner = "dqzboy";
       repo = "Docker-Proxy";
-      tag = "v5.1.8";
-      hash = "sha256-L23KYipHUzZoLNfW002fdQIJnjgfi8DzwQKx4bA7mXo=";
+      tag = "v5.1.9";
+      hash = "sha256-ORYcjilwxa9OhS6Mb5LPf/CNb2RGxc36gcMnrB3d7MY=";
     };
   };
   epd-food-server = {
@@ -208,18 +208,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "4.4.75";
+    version = "4.4.76";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.75/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-QStQAKB71c9OV2KqRbNrfcYFw0vUelO/Lq4NNUptZX8=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.76/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-L+Rw8mE2J3X+p5CurQwAdByRwH78NBTq33aWkWSE6wQ=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "4.4.75";
+    version = "4.4.76";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.75/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-jbvsfOKuPR+tCjifQJj4Dtj37OXlJGsuNvQ1Vesweso=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.76/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-Q04erfR1pvITCDMP4m2rXsIU1Khl03jN1FQiO75fd0g=";
     };
   };
   vertex = {
@@ -245,10 +245,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.14.1";
+    version = "3.14.3";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.1/linux-x64/ZCode-3.14.1-linux-x64.deb";
-      hash = "sha256-K6bZ0TD98ir1APVVosKJ+lMAcS3ZcFIjElH4eCraP98=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.3/linux-x64/ZCode-3.14.3-linux-x64.deb";
+      hash = "sha256-hRL7eIiWhsfs3JGmCahua0CCVaENsMmvug0+N3sLW08=";
     };
   };
   zhconv-rs = {
