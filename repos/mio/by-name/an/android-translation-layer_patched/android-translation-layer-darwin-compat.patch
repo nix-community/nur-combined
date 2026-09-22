@@ -347,3 +347,56 @@ diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
                                          ],
                                          link_args: [
                                          	'-rdynamic'
+--- a/src/api-impl-jni/content/android_content_Context.c
++++ b/src/api-impl-jni/content/android_content_Context.c
+@@ -1,3 +1,4 @@
++#include <fcntl.h>
+ #define _GNU_SOURCE
+ 
+ #include <gtk/gtk.h>
+@@ -114,16 +115,27 @@
+ 
+ char *fd_get_path(int fd)
+ {
+-	char *fdlink = g_strdup_printf("/proc/self/fd/%d", fd);
+ 	char *buf = g_malloc(PATH_MAX);
++#ifdef __APPLE__
++	if (fcntl(fd, F_GETPATH, buf) != -1) {
++		return buf;
++	} else {
++		g_free(buf);
++		return NULL;
++	}
++#else
++	char *fdlink = g_strdup_printf("/proc/self/fd/%d", fd);
+ 
+ 	ssize_t len = readlink(fdlink, buf, PATH_MAX - 1);
+ 	g_free(fdlink);
+-	if (len < 0)
++	if (len < 0) {
++		g_free(buf);
+ 		return NULL;
++	}
+ 
+ 	buf[len] = '\0';
+ 	return buf;
++#endif
+ }
+ 
+ extern GtkWindow *window;
+--- a/src/api-impl-jni/android_os_MemoryFile.c
++++ b/src/api-impl-jni/android_os_MemoryFile.c
+@@ -53,7 +53,13 @@
+ JNIEXPORT jobject JNICALL Java_android_os_MemoryFile_native_1open(JNIEnv *env, jclass this, jstring name, jint length)
+ {
+ 	const char *cname = name ? (*env)->GetStringUTFChars(env, name, NULL) : "memory-file";
++#ifdef __APPLE__
++	char template[] = "/tmp/android-memfd-XXXXXX";
++	int fd = mkstemp(template);
++	if (fd >= 0) unlink(template);
++#else
+ 	int fd = memfd_create(cname, MFD_CLOEXEC);
++#endif
+ 	if (name)
+ 		(*env)->ReleaseStringUTFChars(env, name, cname);
+ 	if (fd < 0) {

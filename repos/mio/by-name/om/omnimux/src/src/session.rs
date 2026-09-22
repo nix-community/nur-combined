@@ -518,26 +518,38 @@ impl Drop for TerminalSession {
 fn truncate_chars(s: &str, max: usize) -> String {
     let mut count = 0;
     let mut truncated = String::new();
+    let mut prev_was_zwj = false;
     let mut iter = s.chars().peekable();
+    
     while let Some(c) = iter.next() {
-        truncated.push(c);
-        if !matches!(c, '\u{0300}'..='\u{036F}' | '\u{200D}' | '\u{FE00}'..='\u{FE0F}' | '\u{1F3FB}'..='\u{1F3FF}') {
+        let is_modifier = matches!(c, '\u{0300}'..='\u{036F}' | '\u{200D}' | '\u{FE00}'..='\u{FE0F}' | '\u{1F3FB}'..='\u{1F3FF}');
+        let is_new_cluster = !is_modifier && !prev_was_zwj;
+        
+        if is_new_cluster {
+            if count >= max {
+                return format!("{truncated}…");
+            }
             count += 1;
         }
-        if count >= max {
-            while let Some(&next_c) = iter.peek() {
-                if matches!(next_c, '\u{0300}'..='\u{036F}' | '\u{200D}' | '\u{FE00}'..='\u{FE0F}' | '\u{1F3FB}'..='\u{1F3FF}') {
-                    truncated.push(iter.next().unwrap());
-                } else {
-                    break;
-                }
-            }
-            break;
-        }
+        
+        truncated.push(c);
+        prev_was_zwj = c == '\u{200D}';
     }
-    if iter.next().is_some() {
-        format!("{truncated}…")
-    } else {
-        truncated
+    
+    truncated
+}
+
+#[cfg(test)]
+mod tests {
+    use super::truncate_chars;
+
+    #[test]
+    fn test_truncate_chars() {
+        assert_eq!(truncate_chars("abc", 2), "ab…");
+        assert_eq!(truncate_chars("👨‍👩‍👦", 1), "👨‍👩‍👦");
+        assert_eq!(truncate_chars("👨‍👩‍👦x", 1), "👨‍👩‍👦…");
+        assert_eq!(truncate_chars("👨‍👩‍👦x", 2), "👨‍👩‍👦x");
+        assert_eq!(truncate_chars("a👨‍👩‍👦", 1), "a…");
+        assert_eq!(truncate_chars("a👨‍👩‍👦", 2), "a👨‍👩‍👦");
     }
 }

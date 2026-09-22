@@ -43,7 +43,9 @@ pub fn load_bundled_symbol_fonts(cx: &gpui::App) {
     if fonts.is_empty() {
         return;
     }
-    if let Err(err) = cx.text_system().add_fonts(fonts) {
-        eprintln!("omnimux: failed to load bundled symbol fonts: {err}");
+    for bytes in fonts {
+        if let Err(err) = cx.text_system().add_fonts(vec![bytes]) {
+            eprintln!("omnimux: failed to load a bundled symbol font: {err}");
+        }
     }
 }
