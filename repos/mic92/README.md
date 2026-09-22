@@ -1,5 +1,9 @@
 # Nur-packages
 
+> [!WARNING]
+> **Deprecated.** This repository is no longer maintained and has been removed
+> from [NUR](https://github.com/nix-community/NUR).
+
 ![Build Status](https://github.com/Mic92/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-mic92-blue.svg)](https://mic92.cachix.org)
 
