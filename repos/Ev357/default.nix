@@ -12,10 +12,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   alx-wol = pkgs.linuxPackages_latest.callPackage ./pkgs/alx-wol {};
-  raycast-bitwarden = pkgs.callPackage ./pkgs/raycast-bitwarden {};
   catppuccin-obsidian = pkgs.callPackage ./pkgs/catppuccin-obsidian {};
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
-  openflowlm = pkgs.callPackage ./pkgs/openflowlm {};
   flm-add = pkgs.callPackage ./pkgs/flm-add {};
   flm-q4nx-converter = pkgs.callPackage ./pkgs/flm-q4nx-converter {};
   folder-notes = pkgs.callPackage ./pkgs/folder-notes {};
@@ -35,4 +33,6 @@
   obsidian-style-settings = pkgs.callPackage ./pkgs/obsidian-style-settings {};
   obsidian-vim-yank-highlight = pkgs.callPackage ./pkgs/obsidian-vim-yank-highlight {};
   obsidian-vimrc-support = pkgs.callPackage ./pkgs/obsidian-vimrc-support {};
+  openflowlm = pkgs.callPackage ./pkgs/openflowlm {};
+  vicinae-bitwarden = pkgs.callPackage ./pkgs/vicinae-bitwarden {};
 }

@@ -3,16 +3,15 @@
   buildNpmPackage,
   fetchgit,
   writeScript,
-  ...
 }:
 buildNpmPackage rec {
   pname = "bitwarden";
   version = "1.0.0";
 
   src = fetchgit {
-    url = "https://github.com/raycast/extensions";
-    rev = "c7dd3a79dd54657a721e395f29c47c0796e9402d";
-    sha256 = "sha256-YYHppyRgHdUggeIEwbzD4oV6H2ly/5Z6W4y+B/H0n7g=";
+    url = "https://github.com/vicinaehq/extensions";
+    rev = "5882e1bbdfcf64279cbd1ed86a50aabed6f716d3";
+    sha256 = "sha256-f3Lfq4HGpgZYll+zuJC7bl+rBckjG5sF0lHiicWtoRU=";
     sparseCheckout = [
       "/extensions/${pname}"
     ];
@@ -28,12 +27,12 @@ buildNpmPackage rec {
 
       set -eu -o pipefail
 
-      REV="$(curl -s https://api.github.com/repos/raycast/extensions/commits?per_page=1 | jq -r '.[0].sha')"
+      REV="$(curl -s https://api.github.com/repos/vicinaehq/extensions/commits?per_page=1 | jq -r '.[0].sha')"
       update-source-version raycast-${pname} "${version}" --ignore-same-version --rev="$REV"
       update-source-version raycast-${pname} "${version}" --ignore-same-version --source-key=npmDeps
     '';
 
-  npmDepsHash = "sha256-m5+vgnLHySQBQVHzt99ARFqVwRbUKBFWn1erQcMCCvE=";
+  npmDepsHash = "sha256-08AigyP59EeO5lKymNp/ANzsczs9RkRY4kFOS8CKq24=";
 
   installPhase =
     # bash
@@ -41,18 +40,14 @@ buildNpmPackage rec {
       runHook preInstall
 
       mkdir -p $out
-      cp -r /build/.config/raycast/extensions/${pname}/* $out/
+      cp -r /build/.local/share/vicinae/extensions/${pname}/* $out/
 
       runHook postInstall
     '';
 
-  env = {
-    ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
-  };
-
   meta = {
-    description = "Access your Bitwarden vault directly from Raycast";
-    homepage = "https://www.raycast.com/jomifepe/bitwarden";
+    description = "Search, copy and paste credentials from your Bitwarden vault using the rbw CLI";
+    homepage = "https://www.vicinae.com/extensions/bl4zee1g/bitwarden";
     license = lib.licenses.mit;
   };
 }
