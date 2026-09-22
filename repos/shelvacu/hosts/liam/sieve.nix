@@ -478,6 +478,13 @@ let
         envelope_matches "*-ml@shelvacu.com"
       )}
 
+      ${pure_flags [ "offerup" ] (envelope_matches "offerup@shelvacu.com")}
+      ${pure_flags [ "offerup-message" "A" ]
+        [
+          (has_flag "offerup")
+          (from_matches "*@messages.offerup.com")
+        ]
+      }
       ${pure_flags [ "dxl" "D" ] (envelope_matches "dxl@shelvacu.com")}
       ${pure_flags [ "tp8b" "D" ] (envelope_matches "tp8b@sv.mt")}
 
