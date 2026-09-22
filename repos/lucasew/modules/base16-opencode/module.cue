@@ -14,7 +14,7 @@ module: {
 
 	config: {}
 
-	file: {
+	file: home: {
 		".config/opencode/themes/workspaced.json": {
 			type: "json"
 			values: {

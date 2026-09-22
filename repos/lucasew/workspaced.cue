@@ -658,7 +658,7 @@ workspaced: {
 }
 
 workspaced: {
-	file: {
+	file: home: {
 		".config/herdr/config.toml": {
 			values: {
 				if workspaced.runtime.goos == "darwin" {

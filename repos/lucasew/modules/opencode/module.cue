@@ -6,7 +6,7 @@ module: {
 		recommends: []
 	}
 	config: {}
-	file: {
+	file: home: {
 		".config/opencode/opencode.json": {
 			type: "json"
 			values: {

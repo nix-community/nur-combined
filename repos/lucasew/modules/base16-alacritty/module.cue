@@ -12,7 +12,7 @@ module: {
 		recommends: []
 	}
 	config: {}
-	file: {
+	file: home: {
 		".config/alacritty/colors.toml": {
 			type: "toml"
 			values: {

@@ -6,7 +6,7 @@ module: {
 		recommends: []
 	}
 	config: {}
-	file: {
+	file: home: {
 		".config/gammastep/config.ini": {
 			type: "ini"
 			values: {

@@ -6,7 +6,7 @@ module: {
 		recommends: []
 	}
 	config: {}
-	file: {
+	file: home: {
 		".config/herdr/config.toml": {
 			type: "toml"
 			values: {

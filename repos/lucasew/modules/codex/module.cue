@@ -6,7 +6,7 @@ module: {
 		recommends: []
 	}
 	config: {}
-	file: {
+	file: home: {
 		".codex/config.toml": {
 			type: "toml"
 			values: {

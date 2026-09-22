@@ -6,7 +6,7 @@ module: {
 		recommends: []
 	}
 	config: {}
-	file: {
+	file: home: {
 		".grok/config.toml": {
 			type: "toml"
 			values: {

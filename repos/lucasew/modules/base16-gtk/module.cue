@@ -23,7 +23,7 @@ module: {
 		recommends: []
 	}
 
-	file: {
+	file: home: {
 		".config/gtk-3.0/settings.ini": {
 			type: "ini"
 			values: {

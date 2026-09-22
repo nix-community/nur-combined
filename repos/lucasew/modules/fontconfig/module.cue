@@ -15,7 +15,7 @@ module: {
 		emoji:      string | *"Noto Color Emoji"
 	}
 
-	file: {
+	file: home: {
 		".config/fontconfig/fonts.conf": {
 			type: "xml"
 			values: {

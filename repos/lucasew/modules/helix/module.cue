@@ -6,7 +6,7 @@ module: {
 		recommends: []
 	}
 	config: {}
-	file: {
+	file: home: {
 		".config/helix/config.toml": {
 			type: "toml"
 			values: {

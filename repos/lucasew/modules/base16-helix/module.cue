@@ -14,7 +14,7 @@ module: {
 
 	config: {}
 
-	file: {
+	file: home: {
 		".config/helix/themes/base16.toml": {
 			type: "toml"
 			values: {
