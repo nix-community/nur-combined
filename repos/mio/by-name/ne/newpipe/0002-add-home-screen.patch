@@ -48,10 +48,10 @@ index fe1f30f91..b41323961 100644
  /**
 diff --git a/shared/src/commonMain/kotlin/net/newpipe/app/screen/home/HomeScreen.kt b/shared/src/commonMain/kotlin/net/newpipe/app/screen/home/HomeScreen.kt
 new file mode 100644
-index 000000000..ad77d6d2f
+index 000000000..c9daa59e0
 --- /dev/null
 +++ b/shared/src/commonMain/kotlin/net/newpipe/app/screen/home/HomeScreen.kt
-@@ -0,0 +1,100 @@
+@@ -0,0 +1,101 @@
 +/*
 + * SPDX-FileCopyrightText: 2026 NewPipe e.V. <https://newpipe-ev.de>
 + * SPDX-License-Identifier: GPL-3.0-or-later
@@ -66,6 +66,7 @@ index 000000000..ad77d6d2f
 +import androidx.compose.foundation.layout.padding
 +import androidx.compose.foundation.lazy.LazyColumn
 +import androidx.compose.material3.ExperimentalMaterial3Api
++import androidx.compose.material3.IconButton
 +import androidx.compose.material3.Scaffold
 +import androidx.compose.material3.Text
 +import androidx.compose.material3.TopAppBar

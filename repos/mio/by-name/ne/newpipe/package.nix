@@ -99,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     jarFile=$(find desktopApp/build/compose/jars -name "*.jar" | head -1)
     install -Dm644 "$jarFile" "$out/share/newpipe-native/newpipe-native.jar"
 
-    install -Dm644 ${../newpipe/icon.png} \
+    install -Dm644 ${./icon.png} \
       "$out/share/icons/hicolor/192x192/apps/newpipe-native.png"
 
     makeWrapper ${jdk21}/bin/java "$out/bin/newpipe-native" \
