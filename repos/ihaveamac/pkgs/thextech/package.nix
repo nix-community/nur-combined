@@ -8,6 +8,7 @@
   ninja,
   git,
   SDL2,
+  perl,
   libpng,
   libjpeg,
   libglvnd,
@@ -49,6 +50,7 @@ let
       cmake
       ninja
       git
+      perl
     ];
 
     preBuild = ''

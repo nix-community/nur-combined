@@ -17,7 +17,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [3dstool-1.2.6](https://github.com/dnasdw/3dstool) | \_3dstool | An all-in-one tool for extracting/creating 3ds roms. |
 | [3dstools-1.3.1](https://github.com/devkitpro/3dstools) | \_3dstools | Tools for 3DS homebrew |
 | [3gxtool-1.3](https://gitlab.com/thepixellizeross/3gxtool) | \_3gxtool | An utility to generate 3GX plugins. |
-| [azahar-2126.1.1-unstable-2026-09-16](https://github.com/azahar-emu/azahar) | azahar-master | Open-source 3DS emulator project based on Citra (master branch) |
+| [azahar-2126.1.2-unstable-2026-09-21](https://github.com/azahar-emu/azahar) | azahar-master | Open-source 3DS emulator project based on Citra (master branch) |
 | [bannertool-2024-11-30](https://github.com/ihaveamac/3ds-bannertool) | bannertool | A tool for creating 3DS banners. (Mix of Windows unicode fix and CMake build system) |
 | [caesar-0.4.2-unstable-2022-08-16](https://github.com/kr3nshaw/caesar) | caesar | A tool that extracts the contents of Citrus Sound Archives |
 | [chlink-5.0.0](https://github.com/BernardoGiordano/Checkpoint) | chlink | Companion PC CLI for Checkpoint's wireless save transfer |
@@ -30,8 +30,8 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
 | [darctool-yls8-0-unstable-2015-11-21](https://github.com/yellows8/darctool) | darctool-yls8 | Tool for extracting and building 3DS darc archive files. |
 | [DiscordWikiBot-0-unstable-2026-08-27](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
-| [evi-original-v9.1.0-unstable-2026-09-15](https://codeberg.org/evi-editor/evi) | evi | EVi, a hard-fork of Vim v9.1.0 (Jan 2024) before AI was used in the project |
-| [evi-full-original-v9.1.0-unstable-2026-09-15](https://codeberg.org/evi-editor/evi) | evi-full | EVi, a hard-fork of Vim v9.1.0 (Jan 2024) before AI was used in the project |
+| [evi-original-v9.1.0-unstable-2026-09-21](https://codeberg.org/evi-editor/evi) | evi | EVi, a hard-fork of Vim v9.1.0 (Jan 2024) before AI was used in the project |
+| [evi-full-original-v9.1.0-unstable-2026-09-21](https://codeberg.org/evi-editor/evi) | evi-full | EVi, a hard-fork of Vim v9.1.0 (Jan 2024) before AI was used in the project |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
 | [gmodpatchtool-20260722](https://github.com/ticky/lnshot) | gmodpatchtool | Patches for Garry's Mod. Updates/Improves CEF and Fixes common launch/performance issues (esp. on Linux/Proton/macOS) |
 | [kame-editor-1.4.1-unstable-2025-06-04](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
@@ -53,6 +53,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [mediawiki-core-1.46.0](https://www.mediawiki.org/) | mediawiki\_1\_46\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
 | [mrpack-install-0.21.0-beta-unstable-2026-03-11](https://github.com/nothub/mrpack-install) | mrpack-install | Modrinth Modpack server deployment |
 | [noods-release-unstable-2026-08-09](https://github.com/Hydr8gon/NooDS) | noods | A (hopefully!) speedy DS emulator |
+| [notepad++-8.9.8](https://notepad-plus-plus.org) | notepad-plus-plus | Source code editor for Windows (Wine wrapper) |
 | [otptool-1.0](https://github.com/SciresM/otptool) | otptool | view and extract data from a 3DS OTP |
 | [qcma-0.4.1-unstable-2025-07-14](https://codestation.github.io/qcma/) | qcma | Cross-platform content manager assistant for the PS Vita |
 | [retro-aim-server-0.24.0](https://github.com/mk6i/retro-aim-server) | retro-aim-server | Self-hostable instant messaging server compatible with classic AIM and ICQ clients |
@@ -80,6 +81,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [wfs-tools-1.2.3-unstable-2025-03-19](https://github.com/koolkdev/wfs-tools) | wfs-tools | WFS (WiiU File System) Tools |
 | [wheelwizard-2.5.7](https://github.com/TeamWheelWizard/WheelWizard) | wheelwizard | Retro Rewind Launcher |
 | [wifiboot-host-unstable-2023-07-02](https://github.com/danny8376/wifiboot-host) | wifiboot-host | command line version uploader for https://problemkaputt.de/wifiboot.htm |
+| [winscp-6.5.7](https://winscp.net) | winscp | SFTP, FTP, WebDAV, S3 and SCP client for Windows (Wine wrapper) |
 | [xenonrecomp-0-unstable-2025-08-04](https://github.com/hedge-dev/XenonRecomp) | xenonrecomp | A tool for recompiling Xbox 360 games to native executables. |
 | [yt-dlp-2026.08.19-unstable-2026-09-16](https://github.com/yt-dlp/yt-dlp/) | yt-dlp-master | Feature-rich command-line audio/video downloader (master branch) |
 | [ytdl-nfo-0.3.0-unstable-2026-01-31](https://github.com/owdevel/ytdl-nfo) | ytdl-nfo | youtube-dl JSON metadata to Kodi-style NFO converter (fork with setuptools fix) |
