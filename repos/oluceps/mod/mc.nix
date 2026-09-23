@@ -19,6 +19,9 @@
           "[fdcc::8]:25575"
         ];
         wantedBy = [ "sockets.target" ];
+        socketConfig = {
+          BindIPv6Only = "ipv6-only";
+        };
       };
       systemd.services.mc-metrics-proxy = {
         description = "Proxy for MC Metrics IPv6 to IPv4";

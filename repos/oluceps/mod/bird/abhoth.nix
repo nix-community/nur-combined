@@ -26,7 +26,6 @@
           owner = "bird";
         };
       };
-
       systemd.network = {
         netdevs."10-dn42-dummy-0" = {
           enable = true;
@@ -42,10 +41,9 @@
           address = [ "fdda:1965:1d5f::${toString ((config.fn.getThisNode).id + 1)}" ];
         };
       };
+
       bird = {
         config = ''
-          include "${config.vaultix.secrets.babel-auth.path}";
-
           ipv6 table dn42_v6;
 
           roa4 table dn42_roa4;
@@ -74,7 +72,7 @@
             expire keep 3600;
           }
 
-          function dn42_roa_check() {
+          function dn42_roa_check() -> bool {
               if net.type = NET_IP4 then {
                   # bgp_path.last is origin ASN
                   if roa_check(dn42_roa4, net, bgp_path.last) = ROA_VALID then return true;
@@ -88,7 +86,10 @@
               
               return false;
           }
-
+          protocol static static_dn42 {
+            ipv6 { table dn42_v6; };
+            route DN42_PREFIX reject;
+          }
           function dn42_import_from_peer(int peer_asn; int peer_id) -> bool {
 
             if net.type != NET_IP6 then return false;
@@ -104,12 +105,17 @@
 
           function dn42_export_to_peer(int peer_asn; int peer_id) -> bool {
             # announce my field
-            if source = RTS_DEVICE && net ~ DN42_FIELD then return true;
+            if source = RTS_STATIC && net ~ DN42_FIELD then return true;
             
             # my A -> me -> my B
             if source = RTS_BGP then return true;
             
             return false;
+          }
+
+          protocol direct abhoth_dn42 {
+            ipv6;
+            interface "dn42-dummy";
           }
 
           # pipe to main table
@@ -122,9 +128,24 @@
               reject;
             };
             
-            # 从 master6 侧不向 dn42_v6 输出任何东西
-            # (因为在 static_dn42 里已经独立生成了宣告前缀)
-            export none; 
+            export filter {
+              if source = RTS_DEVICE && net ~ DN42_V6_RANGE then accept;
+              reject;
+            };
+          }
+
+          # TODO: auto gen
+          protocol bgp ibgp_nodens {
+            local HORTUS_OWNIP as DN42_ASN;
+            neighbor fdcc::8 as DN42_ASN;
+            
+            ipv6 {
+              table dn42_v6;
+              igp table master6;
+              import all;
+              export all;
+              next hop self;
+            };
           }
 
           include "/var/lib/autopeer/*.conf";

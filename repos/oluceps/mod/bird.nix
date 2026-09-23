@@ -82,6 +82,24 @@
                 export filter to_kernel;
               };
             };
+            protocol babel {
+              interface "vxlan-mesh" {
+                type wired;
+                hello interval 2s;
+                update interval 8s;
+                rtt cost 192;
+                rtt max 300ms;
+                rtt decay 60;
+                check link no;
+                extended next hop yes;
+                authentication mac;
+                include "${config.vaultix.secrets.babel-auth.path}";
+              };
+              ipv6 {
+                import where in_hortus();
+                export filter to_hortus;
+              };
+            };
           '';
         };
         config = lib.mkOption {

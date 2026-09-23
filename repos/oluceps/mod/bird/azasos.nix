@@ -8,9 +8,7 @@
         owner = "bird";
       };
       bird = {
-        config = ''
-          include "${config.vaultix.secrets.babel-auth.path}";
-        '';
+        config = "";
       };
     };
 }

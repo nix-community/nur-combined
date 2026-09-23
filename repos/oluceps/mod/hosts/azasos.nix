@@ -32,7 +32,6 @@
             vxlan-mesh
             yggdrasil
             chrony
-            prometheus
             xray
             ntfy
             subs

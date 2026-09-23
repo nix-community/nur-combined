@@ -39,6 +39,7 @@ with pkgs;
   kooha # recorder
 
   typst
+  zed-editor-fhs
   # blender-hip
   ruffle
 

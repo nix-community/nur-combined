@@ -79,6 +79,7 @@
             Name = "vxlan-mesh";
             Kind = "vxlan";
             MACAddress = genMacHashed thisNode.id;
+            MTUBytes = 1314;
           };
           vxlanConfig = {
             VNI = 100;
@@ -90,6 +91,7 @@
           matchConfig.Name = "vxlan-mesh";
 
           networkConfig = {
+            LinkLocalAddressing = "ipv6";
             IPv6LinkLocalAddressGenerationMode = "random";
           };
 

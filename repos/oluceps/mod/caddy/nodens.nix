@@ -132,7 +132,7 @@
                       upstreams = [ { dial = "localhost:${toString config.services.autopeer.port}"; } ];
                     }
                   ];
-                  match = [ { host = [ "dn42.nyaw.xyz" ]; } ];
+                  match = [ { host = [ "jp-tyo-2.dn42.nyaw.xyz" ]; } ];
                 }
                 (import ../../caddy/nyaw-xyz-zone-apex.nix)
               ];
