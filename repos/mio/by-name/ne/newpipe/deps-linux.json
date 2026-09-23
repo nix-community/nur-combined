@@ -1974,21 +1974,6 @@
   "maven.google.com/com/android/kotlin/multiplatform/library/group-index": {
    "xml": "sha256-tBdL+cBAinobj8DRBQ7dwWoQdUXIJg4/Xk1xVvyCRQ4="
   },
-  "maven.google.com/com/android/legacy-kapt/group-index": {
-   "xml": "sha256-uz4aeIndhakWOrvn/7h/Hyasu+FubQRbK3ZRMMSMK2Y="
-  },
-  "maven.google.com/com/android/tools/group-index": {
-   "xml": "sha256-jM1B6YJYkrR6jujRjEEbUImL4CgMRluFTfZlxwgu7kc="
-  },
-  "maven.google.com/com/google/android/exoplayer/group-index": {
-   "xml": "sha256-4g1JQj30+rUar7ejrspnu3VXbnEV6anRrK03Lb1+vi0="
-  },
-  "maven.google.com/com/google/android/material/group-index": {
-   "xml": "sha256-Ew8Yf2jjLfnpmulxSpC9XE6aVpDFvK9/ZPR1BTLkhEQ="
-  },
-  "maven.google.com/com/google/devtools/ksp/group-index": {
-   "xml": "sha256-SUBKarupA62e6sdt8Dnqor/hDpDkpIaVzFdj0ZSiPmI="
-  },
   "maven.google.com/master-index": {
    "xml": "sha256-ABmkuroB0FZdbp/A9bnczPhDvAQI7KDCGQLuBxhog3o="
   },
