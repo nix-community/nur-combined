@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>nginx</code></strong> — Reverse proxy and lightweight webserver</summary>
 
-- **Version:** `1.30.4`
+- **Version:** `1.30.5`
 - **License:** BSD-2-Clause
 - **Homepage:** [https://nginx.org](https://nginx.org)
 - **Build:** `nix build github:XYenon/nur-packages#nginx`
@@ -151,7 +151,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>nginxMainline</code></strong> — Reverse proxy and lightweight webserver</summary>
 
-- **Version:** `1.31.5`
+- **Version:** `1.31.6`
 - **License:** BSD-2-Clause
 - **Homepage:** [https://nginx.org](https://nginx.org)
 - **Build:** `nix build github:XYenon/nur-packages#nginxMainline`
