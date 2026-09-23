@@ -420,11 +420,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-m8ChvWOtZIw/KCXsuVdN/wEvoBJ2Dx/WmBqQc6mupIY=",
+            "sha256": "sha256-EnFxchMSWmDbeIK0a7VeH/cPeSmugB/xF29zJDODX5g=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.10/omp-darwin-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.11/omp-darwin-x64"
         },
-        "version": "v18.2.10"
+        "version": "v18.2.11"
     },
     "oh-my-pi-bin-amd64-linux": {
         "cargoLock": null,
@@ -435,11 +435,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Hk41Gf8TTWmvD1aWhgS6euhp9D2kQyfjCHpAK23TFv0=",
+            "sha256": "sha256-l885VXvz2YMn3UyYFDgLfmvLduQRae3ZsP8wQkxzOio=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.10/omp-linux-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.11/omp-linux-x64"
         },
-        "version": "v18.2.10"
+        "version": "v18.2.11"
     },
     "oh-my-pi-bin-arm64-darwin": {
         "cargoLock": null,
@@ -450,11 +450,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Molbag+x8zeIrIq5yAegwCEhSWPIDE2Va+CMbq/e4Ag=",
+            "sha256": "sha256-+u/9V2dM/6JT4vEn1y3f5tzYHh65HrXSFIkT5ioBCig=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.10/omp-darwin-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.11/omp-darwin-arm64"
         },
-        "version": "v18.2.10"
+        "version": "v18.2.11"
     },
     "oh-my-pi-bin-arm64-linux": {
         "cargoLock": null,
@@ -465,11 +465,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Zq+JDxTJCmad8FqQGMkdgxiR3uCX4p4atiD5NVPJ3tM=",
+            "sha256": "sha256-wRX5WgoAgdNySjyHgjH7jDsv2yWtWtbDsw0VKoKzk54=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.10/omp-linux-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.2.11/omp-linux-arm64"
         },
-        "version": "v18.2.10"
+        "version": "v18.2.11"
     },
     "pi-agent": {
         "cargoLock": null,
