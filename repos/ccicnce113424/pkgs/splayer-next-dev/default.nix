@@ -5,6 +5,7 @@
   fetchPnpmDeps,
   rustPlatform,
   callPackage,
+  dbus,
 }:
 let
   splayer-next = callPackage ./package.nix { };
@@ -23,5 +24,6 @@ splayer-next.overrideAttrs (
     prePatch = prev.prePatch + ''
       echo ${sources.src.rev} > COMMIT
     '';
+    buildInputs = prev.buildInputs ++ [ dbus ];
   }
 )
