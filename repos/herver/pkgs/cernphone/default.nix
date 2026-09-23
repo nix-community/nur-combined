@@ -19,7 +19,7 @@ let
     name = "cern-phone-app-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit pname version src;
   };
 in
@@ -79,8 +79,7 @@ stdenv.mkDerivation {
       --add-flags "--no-sandbox" \
       --prefix XDG_DATA_DIRS : "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
-        # dlopened by native node modules packed inside app.asar
-        # (keytar: libsecret/glib; node-hid: libusb/libudev)
+        stdenv.cc.cc.lib
         pkgs.glib
         pkgs.libsecret
         pkgs.libusb1
