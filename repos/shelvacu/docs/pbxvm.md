@@ -79,6 +79,39 @@ Telnyx SIP trunk.
 
   `dialPrefix` still exists as a second way in — a prefix that forces a trunk
   from any line — but no trunk sets one now.
+- **KPML is off (`<kpml>0</kpml>`), or the phone cannot dial at all.** Left on —
+  the firmware default — the phone collects digits the CUCM way: it sends an
+  INVITE carrying only the **first keypress** and expects to report the rest
+  over a KPML subscription. This chan_sip has no KPML (the string does not occur
+  anywhere in the patch), so it replies `484 Address Incomplete` and the handset
+  plays reorder the moment the first digit lands. The symptom is total: every
+  call dies on digit one, and asterisk logs nothing but two `ast_set_qos` lines,
+  because the 484 path in `handlers.c` is silent.
+
+  With it off the phone collects digits itself and sends one INVITE with the
+  whole number. See the dial-rules note under Dialling for when that is instant
+  and when it waits.
+- **Provisioning goes over HTTP, with TFTP as the fallback.** The phone tries
+  HTTP on port 6970 of its TFTP server for every file it wants, and only falls
+  back to TFTP when that fails. Its TFTP client is slow in a way no server can
+  fix: every transfer loses its first packet — the phone tries IPv6 first and
+  its own log says `sendto() failed: Address family not supported` — then waits
+  out a 500 ms retransmit timer, serially, so files land 6.6 seconds apart.
+
+  Measured on this handset, same files, same directory:
+
+  | transport | the boot's fetching | to both lines registered |
+  | --------- | ------------------- | ------------------------ |
+  | TFTP      | ~45 s               | ~80 s                    |
+  | HTTP      | 5–7 s               | ~10 s                    |
+
+  `services.darkhttpd` serves it: three static files, read only, one handset, no
+  config file. It binds `::` rather than `0.0.0.0` because the module passes
+  `--ipv6` whenever the host has IPv6 and darkhttpd binds one socket; with the
+  kernel's default `bindv6only=0` that covers IPv4 too, arriving v4-mapped, the
+  same way atftpd already logs the phone as `::ffff:10.78.78.249`. The port is
+  hardcoded in the firmware (6971 is its HTTPS port, which wants an ITL this
+  setup does not have).
 - **The VM is the phone's NTP server.** An 8851 in SIP mode has no other source
   of time, so chrony runs here with `allow 10.78.76.0/22` and the XML points
   `<ntps>` at `10.78.77.6`.
@@ -91,6 +124,7 @@ Telnyx SIP trunk.
 | `hosts/pbxvm/asterisk.nix`          | chan_sip line peers, pjsip trunks, dialplan, firewall           |
 | `packages/asterisk-usecallmanager/` | Asterisk + the usecallmanager.nz patch                          |
 | `hosts/pbxvm/tftp.nix`              | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
+| `hosts/pbxvm/http.nix`              | the same files over HTTP, which is what the phone prefers       |
 | `hosts/pbxvm/secrets-guard.nix`     | Refuses to start either service when sops has not rendered      |
 | `hosts/prophecy/vms.nix`            | The VM itself (tag 6)                                           |
 | `secrets/hosts/pbxvm.yaml`          | Telnyx password + the line's SIP password                       |
@@ -165,7 +199,8 @@ same and more.
 
 ```bash
 # on pbxvm
-journalctl -fu atftpd                       # watch the phone fetch SEP….cnf.xml
+journalctl -fu darkhttpd                    # watch the phone fetch SEP….cnf.xml
+journalctl -fu atftpd                       # only if HTTP failed and it fell back
 asterisk -rx 'pjsip show registrations'     # telnyx and jmpchat → Registered
 asterisk -rx 'sip show peers'               # 1001 and 1002 → one row each, with
                                             # a host:port, i.e. both lines are up
@@ -242,6 +277,8 @@ today is a failed unit naming the missing file.
 
 Two log-reading traps worth knowing:
 
+- The phone normally provisions over HTTP, so `darkhttpd`'s log is the one to
+  watch; atftpd staying silent is correct, not a fault.
 - **atftpd's `Serving <file> to <ip>` line is printed when the request arrives,
   before the file is opened** (`tftpd.c`, `GET_RRQ`). It is not evidence that
   anything was delivered. A phone that keeps re-requesting the same short list
@@ -270,6 +307,29 @@ cisco-restart` is no use here, since it needs the Call-ID of a
 REGISTER that by definition never succeeded. Reboot from **Settings → Admin
 Settings → Restart**, or pull the PoE.
 
+### Troubleshooting: the error tone starts on the first digit
+
+Every outbound call dies the instant a key is pressed, and asterisk's journal
+shows only this per attempt, with no `Executing [...]` line:
+
+```
+netsock2.c: Using SIP audio TOS bits 184
+netsock2.c: Using SIP audio CoS mark 5
+```
+
+That is KPML: the phone sent an INVITE carrying one digit, and chan_sip replied
+`484 Address Incomplete` down the silent path in `handlers.c` (the logged
+rejection at NOTICE is only for `404`, so a 484 leaves no trace at all). Check
+`<kpml>0</kpml>` is in the phone's config and that the handset has re-read it.
+
+To see the digit for yourself, read the INVITE out of the phone's own log rather
+than guessing:
+
+```bash
+curl -s http://<phone-ip>/FS/messages | grep -A6 'INVITE sip:'
+# To: <sip:4@10.78.77.6>      <- one keypress, which matches no extension
+```
+
 ## Dialling
 
 ### Picking a trunk
@@ -297,8 +357,9 @@ rules below are the same on every line.
   documented pattern characters.
 - `011` + country code for international. `vacu.pbx.perCountryDialRules`
   generates a `Timeout="0"` rule per **(country code, leading-digit prefix)**
-  from libphonenumber's metadata — about 2400 rules, 116 KiB — so the call sends
-  the instant the number is unambiguously complete.
+  from libphonenumber's metadata — 2404 rules, 117 KiB for every country, of
+  which about 8 KiB fits — so the call sends the instant the number is
+  unambiguously complete.
 
   Branching on leading digits, rather than one length per country, is what makes
   it worth the size. A country's overall maximum is usually set by some rare
@@ -306,7 +367,9 @@ rules below are the same on every line.
   are 9 digits but +81 runs to 17, Sydney is 9 but +61 runs to 12. Splitting on
   the first digits collapses those to the length that actually applies. Across
   every example number libphonenumber ships, instant dialling goes from **56% to
-  85%**.
+  85%** — if the whole set fits, which on this handset it does not: at the 8191
+  bytes it does take, the ~120 countries that fit give **50%**, against 0% with
+  the local rules alone.
 
   It cannot make a number undialable. The length attached to a prefix is the
   maximum over every number type whose pattern that prefix could still grow
@@ -317,11 +380,99 @@ rules below are the same on every line.
 
   The generator re-checks that at build time against all 1128 example numbers
   and **fails the build** rather than emit a rule that would dial one truncated.
-  Set the option to `false` for the 16 hand-written rules if the handset ever
-  chokes on the size.
+  The handset caps the file at 8191 bytes, which is far less than every country
+  needs, so only about 120 of them fit — see "The dial rules must fit in 8191
+  bytes" below for which and why. Set the option to `false` for just the 12
+  hand-written local rules.
 
 - `611` — local echo test, on either line.
 - A call inbound on a trunk rings that trunk's line button.
+
+### The dial rules must fit in 8191 bytes
+
+**The handset holds the whole dial plan in one 8191-byte buffer and throws away
+anything longer** — not the excess rules, the entire file, leaving no auto-dial
+at all, not even for local numbers. Read out of `usr/lib/libsip.so` in the
+firmware (`rootfs288xx…sbn` is a plain squashfs; `unsquashfs` it):
+
+```
+CC_Config_setDialPlan                      ; sipcc/core/api/cc_config.c:124
+    ldr  r3, 0x00001fff                    ; 8191
+    cmp  r2, r3                            ; r2 = dial plan length
+    ble  accept
+    ...  "Setting NULL dialplan string (length [%d] is 0, or length is larger
+          than maximum [%d])"               ; prints 0x2000 = 8192
+    then: set a NULL dial plan -> "Loading Default Dialplan"
+
+dp_init_template                           ; sipcc/core/submgr/dialplanint.c
+    memset(dpLoadArea, 0, 0x1fff)          ; one static 8191-byte buffer
+    memcpy(dpLoadArea, string, length)
+```
+
+Both of those log lines are behind debug flags that are off, so on the phone
+this failure is completely silent: dialling simply waits for the timeout. The
+generator therefore enforces the limit itself and **fails the build** rather
+than emit a file the handset would discard.
+
+Every country needs 117 KiB, so `perCountryDialRules` fits what it can, cheapest
+country first: ~120 of the 215 countries that have rules, in ~7.9 KiB, taking
+instant dialling from 0% to ~50% of libphonenumber's example numbers. Most
+countries cost a single rule because all their numbers are one length; the
+expensive ones are those whose length depends on the area code — Japan needs 143
+rules and Pakistan 152, either of them as much as a hundred cheap countries —
+and those are what gets dropped. Dropped countries still dial, on the `011*`
+timeout. `perCountryDialRuleCountries` overrides the choice when the country you
+call is one of the expensive ones.
+
+Confirmed on the handset: at 7897 bytes (294 under the limit) a ten-digit number
+sends on the last digit, and at 119608 bytes nothing auto-dials at all. So the
+8191 above is the bound that matters, and it is on the file's own bytes.
+
+A build that fits prints its numbers:
+
+```
+7897 bytes, 162 rules, 294 bytes spare; 96 countries left out as too expensive: +7 +20 …
+```
+
+#### Historical note, and a log line that lies
+
+This was originally diagnosed as a race, wrongly, and the docs said so for a
+while. Every config parse prints
+
+```
+config_parser_handle_dialplan_file : Unable to fetch DP file=[dialplan.xml].  Setting to default.
+```
+
+**including parses after which the dial rules demonstrably work.** The fetch is
+asynchronous: the parse hands the request to the phone's download subsystem,
+gives it ~100 ms to _accept_ it (not to deliver the file), logs that line when
+it hasn't, and the file lands seconds later and is applied anyway. Do not
+diagnose the dial plan from it.
+
+None of the following ever mattered, so don't re-test them: where
+`<dialTemplate>` sits in the config, whether a previous fetch left the file
+cached, the locale blocks, restart versus full reset, the 11.7.1 → 14.4.1
+firmware upgrade, or serving everything over HTTP instead of TFTP. That last one
+turned out to be worth doing for its own sake, and is now on — see "Provisioning
+goes over HTTP" above.
+
+#### Reading the phone's log anyway
+
+It is the right tool for other questions — it is how the KPML single-digit
+INVITE was found — so: the web UI is enabled and `/FS/` serves the log files.
+
+```bash
+# on pbxvm
+curl -s http://<phone-ip>/FS/messages
+curl -s "http://<phone-ip>/CGI/Java/Serviceability?adapter=device.statistics.consolelog"
+```
+
+The log rotates on boot, so look in `/FS/messages.0` (and the `main_*.tar.gz`
+archives listed on the console-log page) for anything older than the last few
+minutes. Two practical notes: `/FS/` returns a 50-byte "not found" page for a
+minute or two after a boot, and the only reliable test of whether the dial rules
+are live is to dial a ten-digit number and see whether it sends on the last
+digit.
 
 `vacu.pbx.trunks.telnyx.outboundCallerId` is unset, so Telnyx picks the
 connection's default caller ID. Set it to an E.164 number you own to override.
@@ -334,6 +485,60 @@ connection's default caller ID. Set it to an E.164 number you own to override.
   `identify` would stop matching).
 - No voicemail, no second handset, no CDR storage. All are additions to
   `hosts/pbxvm/asterisk.nix` rather than rework.
-- `<loadInformation>` is deliberately absent from the XML, so the phone keeps
-  whatever firmware it has. Upgrading it means putting the `.loads`/`.sbn` files
-  in `/srv/tftp` and naming the load there.
+- `<loadInformation>` is absent from the XML unless `vacu.pbx.firmwareLoad` is
+  set, so by default the phone keeps whatever firmware it has. See below for an
+  upgrade.
+
+## Upgrading the phone's firmware
+
+The images come in a Cisco `.cop.sha512`, which is not redistributable and runs
+to a few hundred MB, so they stay out of the repo and out of the nix store: they
+are unpacked into `/srv/tftp` by hand for the upgrade and deleted afterwards.
+`vacu.pbx.firmwareLoad` is the only declarative part.
+
+A COP file is a Cisco signed object — a TLV header followed by a gzipped tar.
+There is no header length to trust, so find where the payload starts:
+
+```bash
+# the offset of the gzip magic, which is where the tar begins
+python3 -c 'd=open("cmterm-88xx-sip.14-4-1-0301-6.k4.cop.sha512","rb").read(8192)
+print(next(i for i in range(len(d)-1) if d[i]==0x1f and d[i+1]==0x8b))'   # e.g. 428
+
+tail -c +429 cmterm-*.cop.sha512 | gzip -dc | tar t      # look before extracting
+```
+
+Inside, `sip88xx.<version>.loads` is itself a signed file whose payload is an
+INI listing one `[PLATFORM_n]` section per hardware variant. Match the phone to
+its section using **Device information** in its web UI: this 8851 reports
+`rootfs288xx…` and `sb2288xx…`, which is `[PLATFORM_2]`, so it fetches the
+`288xx` images and ignores the others.
+
+```bash
+# on pbxvm, as root: unpack, and make it readable by the user atftpd drops to
+tail -c +429 cmterm-*.cop.sha512 | gzip -dc | tar x -C /srv/tftp
+chmod a+r /srv/tftp/*.sbn /srv/tftp/*.loads
+```
+
+Then set `vacu.pbx.firmwareLoad` to the load name (the `.loads` filename without
+that extension), deploy, and restart the handset. It compares the name against
+what it runs, fetches the images for its platform, writes them to flash and
+reboots — several minutes, during which it is unusable and must not lose power.
+Watch `journalctl -fu darkhttpd` for the `.sbn` transfers and the phone's
+**Settings → Admin Settings → Status → Status messages** for progress.
+
+This handset went 11.7.1 → 14.4.1 that way in about four minutes over TFTP,
+fetching only its `[PLATFORM_2]` images: `rootfs288xx`, `kern288xx`, `ssb288xx`
+and `sb2288xx`. Two things change afterwards that look like faults and are not —
+the web UI reports **Service mode: On-premise** where 11.7 said _Enterprise_,
+and the phone starts asking for `defaultheadsetconfig.json`, which 14.x wants
+and this server does not have, so it joins the `.tlv` files as a harmless 404.
+
+Afterwards, confirm the new version in the web UI, then **unset `firmwareLoad`,
+redeploy, and delete the images** — a load named in the config whose files are
+missing leaves the phone hunting for them on every boot, and these are the
+largest files on the VM by two orders of magnitude:
+
+```bash
+# on pbxvm, once the handset reports the new load
+cd /srv/tftp && sudo rm -f *.sbn *.loads *.rwb *.txt *.sh Ringlist-wb.xml
+```

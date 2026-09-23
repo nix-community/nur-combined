@@ -60,15 +60,41 @@ in
       type = types.bool;
       default = true;
       description = ''
-        Whether to generate a `Timeout="0"` dial rule per country calling code,
-        so an international number sends the instant its last digit lands
-        instead of after the `011*` catch-all timeout. Adds ~215 rules to
-        dialplan.xml (~10 KiB).
+        Whether to generate `Timeout="0"` dial rules per (country calling code,
+        leading-digit prefix), so an international number sends the instant its
+        last digit lands instead of after the `011*` catch-all timeout.
 
-        Cisco documents no limit on the number of dial rules a phone will
-        accept, so if the handset starts ignoring the whole file — no auto-dial
-        at all, not even for local numbers — turn this off and it reverts to
-        the handful of hand-written rules.
+        The handset will not take an arbitrarily large dial plan: it holds the
+        whole file in one 8191-byte buffer and `CC_Config_setDialPlan` in its
+        libsip.so rejects anything longer, installing the *default* dial plan
+        instead — so one byte too many costs every rule in the file, including
+        the local ones, and the phone says so only if a debug flag nobody has
+        set is on. Every country would need 117 KiB.
+
+        So the generator fits what it can: cheapest country first, until the
+        budget is gone, which gets ~120 of the 215 countries that have rules
+        and takes instant dialling from 0% to ~50% of libphonenumber's example
+        numbers. What it leaves out still dials, on the `011*` timeout.
+        `perCountryDialRuleCountries` overrides the choice.
+
+        Turn this off for just the local rules (626 B).
+      '';
+    };
+    perCountryDialRuleCountries = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      example = [
+        "44"
+        "81"
+      ];
+      description = ''
+        Country calling codes to spend the dial-plan budget on, instead of
+        letting `perCountryDialRules` fit as many as it can. Useful when the
+        countries you actually call are among the expensive ones it drops —
+        Japan alone is 143 rules, as much as a hundred cheap countries.
+
+        An explicit list is treated as a request rather than a suggestion: all
+        of it is emitted, and the build fails if the result does not fit.
       '';
     };
     sshAccess = mkOption {
@@ -94,6 +120,52 @@ in
       type = types.str;
       default = "/srv/tftp";
       description = "Directory atftpd serves the phone's provisioning files from.";
+    };
+    httpProvisioning = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to also serve `tftpRoot` over HTTP. The phone tries HTTP on
+        `httpPort` of its TFTP server for every file it wants, and only falls
+        back to TFTP when that fails — and its TFTP client is slow in a way the
+        server cannot fix, losing the first packet of every transfer and then
+        waiting out a 500 ms retransmit timer, serially. Measured on this
+        handset: the boot's fetching drops from ~45 s to 7 s and registration
+        from ~80 s to ~40 s.
+
+        atftpd stays enabled either way, as the fallback.
+      '';
+    };
+    httpPort = mkOption {
+      type = types.port;
+      default = 6970;
+      description = ''
+        Port for `httpProvisioning`. Not arbitrary and not worth moving: 6970 is
+        the port the phone probes, hardcoded in its firmware. (It uses 6971 for
+        HTTPS, which needs an ITL this setup does not have.)
+      '';
+    };
+    firmwareLoad = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      example = "sip88xx.14-4-1-0301-6";
+      description = ''
+        Firmware load to tell the phone to run, as `<loadInformation>` in its
+        config: the name of the `.loads` file without that extension. The phone
+        compares it against what it is running and upgrades (or downgrades) to
+        match.
+
+        Null, the default, omits the element, which is what leaves the handset
+        on whatever firmware it already has.
+
+        Setting it is only half the job: the `.loads` file and the `.sbn` images
+        it names have to be in `tftpRoot`, and they do not live in this repo —
+        they come out of a Cisco `.cop.sha512` that is not redistributable and
+        runs to a few hundred MB. See "Upgrading the phone's firmware" in
+        docs/pbxvm.md for unpacking them. A load named here whose files are
+        absent leaves the phone hunting for them on every boot, so unset it
+        again once the upgrade is done.
+      '';
     };
     sipPort = mkOption {
       type = types.port;

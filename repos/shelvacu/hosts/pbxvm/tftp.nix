@@ -44,7 +44,13 @@ let
         ];
       }
       ''
-        python3 ${genDialplan} ${lib.optionalString (!cfg.perCountryDialRules) "--local-only"} > $out
+        python3 ${genDialplan} \
+          ${lib.optionalString (!cfg.perCountryDialRules) "--local-only"} \
+          ${
+            lib.optionalString (
+              cfg.perCountryDialRuleCountries != [ ]
+            ) "--countries=${lib.concatStringsSep "," cfg.perCountryDialRuleCountries}"
+          } > $out
       '';
 
   # Emits one Timeout="0" rule per (country code, leading-digit prefix), at the
@@ -75,7 +81,9 @@ let
 
     Emits the whole DIALTEMPLATE. With --local-only, just the hand-written rules;
     otherwise also a rule per (country code, leading-digit prefix) at the longest
-    national number that can begin with that prefix.
+    national number that can begin with that prefix, restricted to
+    --countries=<cc>,<cc>,... when given. Fails if the result is too big for the
+    phone to accept.
     """
     import re
     import sys
@@ -89,6 +97,20 @@ let
     # How many leading digits of the national number we are willing to branch on.
     # 6 is where the output stops changing.
     MAX_PREFIX = 6
+
+    # The firmware's ceiling on the whole file, read out of libsip.so: CC_Config_
+    # setDialPlan (sipcc/core/api/cc_config.c) rejects a dial plan whose length is
+    # above 0x1fff, and dp_init_template memcpy()s it into a zeroed 8191-byte
+    # dpLoadArea. The rejection path sets a NULL dial plan, which is why one byte
+    # too many costs every rule in the file.
+    MAX_BYTES = 8191
+
+    # Held back from the greedy fill below, not from the hard limit: the check in
+    # the firmware is on a length this script cannot see being computed, so a
+    # terminator or an off-by-one in what it counts would otherwise cost every
+    # rule in the file. One cheap country is a fair price for not being one byte
+    # from the edge.
+    MARGIN = 64
 
     TYPES = ("fixed_line", "mobile", "toll_free", "premium_rate", "shared_cost",
              "voip", "personal_number", "pager", "uan", "voicemail")
@@ -148,9 +170,11 @@ let
         return [leaf for p, _ in live for leaf in leaves(types, p)]
 
 
-    def country_rules():
+    def country_rules(only):
         out = []
         for cc in sorted(COUNTRY_CODE_TO_REGION_CODE):
+            if only is not None and cc not in only:
+                continue
             types = number_types(cc)
             if not types:
                 continue
@@ -216,13 +240,78 @@ let
               file=sys.stderr)
 
 
+    def render(rules):
+        return ("<DIALTEMPLATE>\n"
+                + "".join(f'  <TEMPLATE MATCH="{p}" Timeout="{t}"/>\n' for p, t in rules)
+                + "</DIALTEMPLATE>\n")
+
+
+    def fit(budget):
+        """Country rules, cheapest country first, until `budget` bytes are gone.
+
+        Most countries cost one rule: their numbers are all one length, so a
+        single pattern pins it. The expensive ones are those whose length depends
+        on the area code -- Japan needs 143 rules, Pakistan 152 -- and buying one
+        of those costs as much as a hundred cheap countries. Cheapest-first
+        therefore covers far more of the world than any prefix of a list sorted by
+        anything else, and what it drops keeps working on the `011*` timeout.
+        """
+        costs = []
+        for cc in sorted(COUNTRY_CODE_TO_REGION_CODE):
+            rules = country_rules({cc})
+            if rules:
+                costs.append((len(render(rules).encode()) - len(render([]).encode()),
+                              cc, rules))
+        costs.sort()
+
+        out, dropped, spent = [], [], 0
+        for cost, cc, rules in costs:
+            if spent + cost <= budget:
+                spent += cost
+                out += rules
+            else:
+                dropped.append(cc)
+        return out, dropped
+
+
     def main():
-        rules = LOCAL + ([] if "--local-only" in sys.argv else country_rules()) + TRAILING
+        only = None
+        for arg in sys.argv:
+            if arg.startswith("--countries="):
+                only = {int(c) for c in arg.split("=", 1)[1].split(",") if c}
+
+        dropped = []
+        if "--local-only" in sys.argv:
+            country = []
+        elif only is not None:
+            # An explicit list is a request, not a suggestion: emit exactly those
+            # and fail below if they do not fit, rather than quietly dropping the
+            # country someone asked for.
+            country = country_rules(only)
+        else:
+            country, dropped = fit(
+                MAX_BYTES - MARGIN - len(render(LOCAL + TRAILING).encode()))
+
+        rules = LOCAL + country + TRAILING
         verify(rules)
-        print("<DIALTEMPLATE>")
-        for pattern, timeout in rules:
-            print(f'  <TEMPLATE MATCH="{pattern}" Timeout="{timeout}"/>')
-        print("</DIALTEMPLATE>")
+        out = render(rules).encode()
+
+        # The handset holds the whole dial plan in one 8191-byte static buffer and
+        # drops a longer one on the floor -- not the offending rules, the entire
+        # file, leaving no auto-dial at all, not even for local numbers. It says so
+        # only if a debug flag nobody has set is on, so on the phone the failure is
+        # silent. Be loud here instead.
+        if len(out) > MAX_BYTES:
+            sys.exit(f"dialplan.xml is {len(out)} bytes with {len(country)} country "
+                     f"rules; the phone ignores anything over {MAX_BYTES} and falls "
+                     f"back to no dial rules at all. Ask for fewer countries in "
+                     f"vacu.pbx.perCountryDialRuleCountries.")
+
+        print(f"{len(out)} bytes, {len(rules)} rules, {MAX_BYTES - len(out)} bytes spare"
+              + (f"; {len(dropped)} countries left out as too expensive: "
+                 + " ".join(f"+{cc}" for cc in sorted(dropped)) if dropped else ""),
+              file=sys.stderr)
+        sys.stdout.write(out.decode())
 
 
     main()
@@ -260,6 +349,34 @@ in
   # on the LAN who asks for the right filename, so the real protection is that
   # the LAN is trusted.
   sops.secrets = lib.mkIf cfg.sshAccess { "phone/${ext}/sshPassword" = { }; };
+
+  # Build-time well-formedness gate on the file above. The phone discards the
+  # *whole* config when the XML does not parse and then provisions nothing, and
+  # that failure looks nothing like a typo: the handset simply never comes back.
+  # The trap that earned this check is that XML forbids `--` inside a comment, so
+  # a perfectly ordinary dash in an explanatory comment silently destroys the
+  # file. sops renders this at runtime, but a syntax error is in the template, so
+  # it can be caught here rather than on the handset.
+  #
+  # Wired through system.extraDependencies because that is enough to make the
+  # check build whenever the system does, without importing its result back into
+  # evaluation.
+  system.extraDependencies = [
+    (pkgs.runCommand "check-${configName}"
+      {
+        nativeBuildInputs = [ pkgs.libxml2 ];
+        # The sops placeholders are not valid XML themselves (they look like an
+        # unclosed tag), so substitute them before parsing. They are not secret.
+        inherit (config.sops.templates.${configName}) content;
+        passAsFile = [ "content" ];
+      }
+      ''
+        sed 's/<SOPS:[0-9a-f]*:PLACEHOLDER>/placeholder/g' "$contentPath" > config.xml
+        xmllint --noout config.xml
+        touch $out
+      ''
+    )
+  ];
 
   sops.templates.${configName} = {
     path = "${cfg.tftpRoot}/${configName}";
@@ -299,6 +416,27 @@ in
           </callManagerGroup>
         </devicePool>
         <sipProfile>
+          <!-- 0 disables KPML, and it is the difference between a handset that
+               can dial out and one that cannot. Left on (the firmware default)
+               the phone hands digit collection to the call agent the CUCM way:
+               it sends an INVITE carrying only the *first* keypress and expects
+               to report the rest over a KPML subscription. This chan_sip has no
+               KPML whatsoever, the string does not appear anywhere in the patch,
+               so it answers 484 Address Incomplete and the phone plays reorder
+               the instant the first digit lands, before there is a number.
+
+               Off, the phone collects digits itself and sends one INVITE with
+               the whole number: immediately when dialplan.xml's rules say the
+               number is complete, otherwise on the firmware's 15 second
+               timeout. So the dial rules become a latency optimisation rather
+               than the thing standing between you and a dial tone, which
+               matters, because the phone loses a race against itself while
+               loading them more often than not. See docs/pbxvm.md.
+
+               (Note for the next editor: no double hyphen may appear inside
+               these comments. XML forbids it, and the phone discards the whole
+               file, which is what the xmllint gate below now catches.) -->
+          <kpml>0</kpml>
           <sipProxies>
             <registerWithProxy>true</registerWithProxy>
           </sipProxies>
@@ -402,9 +540,13 @@ in
           <name>United_States</name>
           <version>1.0.0.0-1</version>
         </networkLocaleInfo>
-        <!-- Deliberately no <loadInformation>: leaving it out means the phone
-             keeps whatever firmware it already has instead of hunting this
-             TFTP server for a .loads it will not find. -->
+        <!-- With no <loadInformation> the phone keeps whatever firmware it
+             already has, instead of hunting this TFTP server for a .loads it
+             will not find. vacu.pbx.firmwareLoad sets it for an upgrade; see
+             docs/pbxvm.md. -->
+        ${lib.optionalString (
+          cfg.firmwareLoad != null
+        ) "<loadInformation>${cfg.firmwareLoad}</loadInformation>"}
         <authenticationURL></authenticationURL>
         <directoryURL></directoryURL>
         <idleURL></idleURL>

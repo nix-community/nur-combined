@@ -74,6 +74,14 @@ let
         retry_interval=60
         forbidden_retry_interval=600
         expiration=120
+        ; Without this a single 401 ends the registration for good: pjsip logs
+        ; "Fatal response '401' ... stopping outbound registration" and never
+        ; tries again, so a provider that rejects one REGISTER -- a rotated
+        ; password, a rate limit, a bad nonce -- takes the trunk down until
+        ; somebody notices and reloads. Retrying every forbidden_retry_interval
+        ; is noisier and self-healing, which is the better trade for a trunk
+        ; nobody is watching. (JMP.chat did exactly this on 2026-09-22.)
+        auth_rejection_permanent=no
         line=yes
         endpoint=${name}
       ''
