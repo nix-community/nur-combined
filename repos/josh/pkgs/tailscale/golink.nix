@@ -5,13 +5,13 @@
 }:
 golink.overrideAttrs (
   _finalAttrs: previousAttrs: {
-    version = "1.0.0-unstable-2026-09-22";
+    version = "1.0.0-unstable-2026-09-23";
 
     src = fetchFromGitHub {
       owner = "tailscale";
       repo = "golink";
-      rev = "6ee915b34f81fed9310c2d63bdcd7c5134abe4ed";
-      hash = "sha256-xSKk1WHQdMTxhooovpD4J5sucIhO1BRNStChRSS+aI0=";
+      rev = "e034189e44e1d01c0672c401b038b8959d58aea6";
+      hash = "sha256-lIt63F0a5AQNANln/ZtlpbMPNvqdEcutu2ybOT5vE6I=";
     };
 
     vendorHash = "sha256-Hyb4HtnkYCRzVQGzEDCylv9fQwtEuWG8bbxnIjnYIps=";
