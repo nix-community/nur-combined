@@ -26,8 +26,8 @@
             "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
         "Adamekka": {
-            "rev": "7e8510ea7146372229e7f22a22224c0920706200",
-            "sha256": "0w4jjchycxz1148l6f82qc9mcj0s8lnwl73r5m9maa3i2bqixynm",
+            "rev": "19a978cc00b955e7be533d624868ecbcf08c55fb",
+            "sha256": "02fkip7s1a60wais02ld0r019l8ql15ldc4fyf4r6fm114b6vdd2",
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
@@ -658,8 +658,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "670d670542120a1bd3ef28eaeb12c2695e03bc18",
-            "sha256": "1vmf2rh1yk8j7ldnssbb227jcsmplc2qb76ncjrym24c6sk6clx2",
+            "rev": "87bdcc3edda29d2565f4437854aec3357da869e6",
+            "sha256": "1lbkqx5l4mskkava9mnh97iakghmi5q773gjzmjlj3bjsbmizxl9",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -2517,8 +2517,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "f412b909cc0db2ed50d9643f9718d83790681379",
-            "sha256": "012qmaj84pvri4ssfiab0rzi5ih4mxdsls9d14djlbfz3yzd2jcl",
+            "rev": "39e43c975fc8c77543ba699ab0e14f4ea1237dbd",
+            "sha256": "0rahhydyss2nz89ci4fmrxvf2js5f6mihpnbghdfiwv2gcch0zdk",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
