@@ -106,8 +106,8 @@
             "url": "https://github.com/Ex-32/nur-packages"
         },
         "Freed-Wu": {
-            "rev": "4e382da6f4185c03eef8d2f4e881392cb54c2ac7",
-            "sha256": "0zm09vlsh9bwsfs3l64cls7291p4z6f74jqgkkcfgi4a07dh0w1z",
+            "rev": "c7f40555de1573e764a3addb9446072110bdae9d",
+            "sha256": "1rwzg7qan28bf8rql74slbm40skd95wg0krw1cvjl2y6w492v602",
             "url": "https://github.com/Freed-Wu/nur-packages"
         },
         "Greep": {
@@ -1110,8 +1110,8 @@
             "url": "https://github.com/heph2/nur-packages"
         },
         "herver": {
-            "rev": "ac3cb9dce390743581b963654a6bfe712271bd9a",
-            "sha256": "1arb3djj61l4jdg7jcvhvkjvgcggfxvyd92q2yral8ci4d6mb7r4",
+            "rev": "723d8b81371fade60eed7b7bc9402f8b0a2edcb2",
+            "sha256": "0s56gwkagmz07kqskf2vrixf0si6adgi3g9i1dpy35wx3k4sdpr2",
             "url": "https://github.com/herver/nur"
         },
         "hetav21": {
@@ -1688,8 +1688,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "0c24bd1ccae6ad9efae727f7852a914cf9702eca",
-            "sha256": "1sarfyzyank9z7s2hdb9rx8sg9r0a78km6a01s83q6nz9hz3gzac",
+            "rev": "605e1abadb2e25c31c6c237f0be8c371c4cfb7f0",
+            "sha256": "10a0g5rilmpia6lbmis31jjzlvqlbfxkci0ib8j4yazf8a547jw2",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
