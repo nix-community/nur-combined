@@ -210,7 +210,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/rukamori/ArchiveTune";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ mio ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "archivetune";
     sourceProvenance = with lib.sourceTypes; [
       fromSource
