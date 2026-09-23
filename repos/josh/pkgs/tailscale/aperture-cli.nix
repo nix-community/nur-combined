@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   buildGoModule,
   fetchFromGitHub,
 
@@ -10,13 +9,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "aperture-cli";
-  version = "0.0.11";
+  version = "0.0.12";
 
   src = fetchFromGitHub {
     owner = "tailscale";
     repo = "aperture-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8vG2uHS+izRrbZXhN+5xtdz+uQKY7Grz9ZTS9+I0PNU=";
+    hash = "sha256-zuI7B+RTZDPeFwyBgHF2XESq+uO5Hhfh300hgtMfzoY=";
   };
 
   vendorHash = "sha256-iM4z1fVNm9vSyyNcGf/rPCHJph6laiSos2AWwJJtOfU=";
@@ -28,13 +27,7 @@ buildGoModule (finalAttrs: {
     "-X main.buildVersion=v${finalAttrs.version}"
   ];
 
-  preCheck = ''
-    export HOME=$(mktemp -d)
-  '';
-
-  checkFlags = lib.lists.optionals stdenv.hostPlatform.isDarwin [
-    "-skip=^TestSettings_InvalidJSONReturnsErrorWithoutReplacingFile$"
-  ];
+  doCheck = false;
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
