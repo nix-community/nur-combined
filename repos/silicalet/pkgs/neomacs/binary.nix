@@ -1,6 +1,7 @@
 {
   lib,
   autoPatchelfHook,
+  dbus,
   fetchurl,
   fontconfig,
   gst_all_1,
@@ -33,6 +34,7 @@ let
     inherit (source) url hash;
   };
   runtimeLibraries = [
+    dbus
     fontconfig
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
