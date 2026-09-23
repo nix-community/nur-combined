@@ -46,13 +46,13 @@ let
 in
 python313Packages.buildPythonApplication rec {
   pname = "JMComic-qt";
-  version = "1.3.5";
+  version = "1.3.6";
 
   src = fetchFromGitHub {
     owner = "tonquer";
     repo = "JMComic-qt";
     rev = "v${version}";
-    hash = "sha256-IAd++GupEUvyrU3T/FOana0hogzODzNt9Qz+TAecBJU=";
+    hash = "sha256-LeVxO9zPFJM4RzRny6ltGzmclBHBKderJ/p7MVq+Mpg=";
   };
 
   format = "other";

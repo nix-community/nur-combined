@@ -8,8 +8,11 @@
 # pipeline: 7z-extract resources from the Windows installer, asar unpack,
 # rebuild native modules with node-gyp (electron headers for electron-side
 # modules, node headers for node-side ones), asar pack with upstream's unpack
-# globs, then the fix-* patches (package name, cli, bootstrap/config, wcc/wcsc,
-# float-pigment).
+# globs, then the fix-* patches (package name, cli, skill, bootstrap/config,
+# wcc/wcsc, float-pigment, webview touch-focus/mouse-leave).
+# Since 2.02.2608070-2 upstream dropped its bundled node runtime: bin/node runs
+# the Electron binary with ELECTRON_RUN_AS_NODE=1, so no node runtime is staged
+# into electron/ (node headers are still needed for the node-side gyp modules).
 # Desktop entry fields mirror upstream res/deb.desktop; icons come from
 # upstream res/icons.
 # npm/ holds hand-written manifests + lockfiles for the native-module rebuild
@@ -73,10 +76,8 @@ let
   compilerVersion = "0.2.0";
   devtoolsVersion = "2.02.2608070";
 
-  nodeTarball = fetchurl {
-    url = "https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-linux-x64.tar.gz";
-    hash = "sha256-+4cCJhGdRzePqcksRTU4nHLa4U/Me0fm/cyCxD3lpUc=";
-  };
+  # node 运行时不再打进 electron/：上游 bin/node 现在以 ELECTRON_RUN_AS_NODE
+  # 复用 electron 二进制（CHANGELOG 2.02.2608070-2 "refactor: 移除node依赖"）。
   nodeHeaders = fetchurl {
     url = "https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-headers.tar.gz";
     hash = "sha256-pg5aVD+rXlEFUllIxZbUl0xhfzlgbO9265TDvx35oGw=";
@@ -129,13 +130,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "wechat-web-devtools-linux";
-  version = "0-unstable-fdc31cf";
+  version = "0-unstable-c399c6c";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "wechat-web-devtools-linux";
-    rev = "fdc31cf04f793f3a102dfebd74aaf72e2d30807b";
-    hash = "sha256-sTIf418mRye3ePZCC7UryHiCL+1oK6bFnouyEHEFXxo=";
+    rev = "c399c6c3b0c10409b7ae441db828b6f35b3e2f1d";
+    hash = "sha256-h1e1hIWFctlX7x8ysHymQ/DUwnEa00dqAYXDdRMN8as=";
   };
 
   nativeBuildInputs = [
@@ -205,10 +206,6 @@ stdenv.mkDerivation (finalAttrs: {
     ROOT="$PWD"
 
     # ── 依赖解包 ─────────────────────────────
-    # node 运行时二进制（electron/node，CLI 用）
-    mkdir -p deps/node
-    tar xf ${nodeTarball} -C deps/node --strip-components=1
-
     # node 头文件（node-gyp --nodedir 用，include/node 布局）
     mkdir -p deps/node-headers
     tar xf ${nodeHeaders} -C deps/node-headers --strip-components=1
@@ -320,11 +317,20 @@ stdenv.mkDerivation (finalAttrs: {
     cat "$src/res/scripts/cli.js" resources/app/js/common/cli/index.js > "$TMPDIR/cli.js"
     cat "$TMPDIR/cli.js" > resources/app/js/common/cli/index.js
 
+    # fix-skill.sh 内联（prepend skill-index.js / append install-root.js）
+    cat "$src/res/scripts/skills/skill-index.js" resources/app/js/common/cli/skill-index.js > "$TMPDIR/skill-index.js"
+    cat "$TMPDIR/skill-index.js" > resources/app/js/common/cli/skill-index.js
+    cat resources/app/wechatide-skill/skills/installer/scripts/install-root.mjs "$src/res/scripts/skills/install-root.js" > "$TMPDIR/install-root.mjs"
+    cat "$TMPDIR/install-root.mjs" > resources/app/wechatide-skill/skills/installer/scripts/install-root.mjs
+
     # fix-compiler.sh 内联（prepend bootstrap.js + config.js）
     cat "$src/res/scripts/bootstrap.js" resources/app/js/electron/backend/bootstrap.js > "$TMPDIR/bootstrap.js"
     cat "$TMPDIR/bootstrap.js" > resources/app/js/electron/backend/bootstrap.js
     cat "$src/res/scripts/config.js" resources/app/js/common/miniprogram-builder/modules/corecompiler/original/workerThread/config.js > "$TMPDIR/config.js"
     cat "$TMPDIR/config.js" > resources/app/js/common/miniprogram-builder/modules/corecompiler/original/workerThread/config.js
+
+    # fix-webview-touch-focus.js（模拟器需点击两次；版本相关模块校验后追加补丁）
+    node "$src/tools/fix-webview-touch-focus.js" resources/app
 
     # wcc/wcsc 替换为 Linux 版本
     cp ${wccBin} resources/app/node_modules/wcc-exec/wcc
@@ -355,12 +361,9 @@ stdenv.mkDerivation (finalAttrs: {
     echo "${finalAttrs.version}" > resources/app.asar.unpacked/.build_time
 
     # ── electron 组装（build-src.yml Compress Resources） ──
+    # node 运行时不再随 electron 分发：bin/node 以 ELECTRON_RUN_AS_NODE 复用 electron
     rm -rf electron/resources
     ln -s ../resources electron/resources
-    cp deps/node/bin/node electron/node
-    chmod u+w electron/node
-    ln -s node electron/node.exe
-    ln -s node electron/node-18.exe
 
     runHook postBuild
   '';

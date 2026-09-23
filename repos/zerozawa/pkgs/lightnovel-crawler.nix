@@ -11,11 +11,11 @@ let
   # exejs — JS execution engine, replaces PyExecJS
   exejs = python3Packages.buildPythonPackage rec {
     pname = "exejs";
-    version = "0.0.7";
+    version = "1.0.1";
     format = "wheel";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/b4/2f/a9786ef0130b2de80ed2273a43e0ca7c86333ac61de6b6c9b4307b8fd66b/exejs-0.0.7-py3-none-any.whl";
-      hash = "sha256-upLNcuzFBweJvSQYV49p/i6h3plCwKkBhUSehV8oMgE=";
+      url = "https://files.pythonhosted.org/packages/cd/d4/8a02500810353b8c4c6428ee11483eeecfc715beea719ccdc213acc1edf1/exejs-1.0.1-py3-none-any.whl";
+      hash = "sha256-1VNkR7YTI7+UFJexa+oPW0cF4OthUJ816FQ3Am6pEOM=";
     };
     doCheck = false;
   };

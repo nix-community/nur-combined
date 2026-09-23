@@ -70,13 +70,15 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "StartLive";
-  version = "1.1.2";
+  # 上游 1.2.0 tag 缺 src/core/exceptions/TitleStatusError.py（启动即 ImportError），
+  # Release-v1.2.1 (84d9d383) 才补上，因此 pin commit 而非 tag。
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "Radekyspec";
     repo = pname;
-    rev = version;
-    hash = "sha256-hkjJTQNEapNb5R/G2NkydUIdDNVz4Gb7fjraHyi6ZDE=";
+    rev = "84d9d383cfd15311b83b93d0dac398f98668f11b";
+    hash = "sha256-0Uw1pyuFYpYNxWyJEX9NiV+ASgaE+AY77as4rMt+5+s=";
   };
 
   format = "other";
@@ -104,6 +106,7 @@ python3Packages.buildPythonApplication rec {
     ))
     obsws-python
     keyring
+    cryptography
     darkdetect
     semver
     pyqtdarktheme-fork
