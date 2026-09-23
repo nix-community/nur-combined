@@ -90,8 +90,14 @@ let
     url = "https://artifacts.electronjs.org/headers/dist/v${electronVersion}/node-v${electronVersion}-headers.tar.gz";
     hash = "sha256-EXE7YX7yd1DJJxarSgzvMLS/Ld1rc57pXeX5GKh/StU=";
   };
+  # 上游 conf/config.json 用的就是 wxqcloud 这个 host；dldir1 对 GitHub runner
+  # 时通时不通（2026-09-23 CI: curl (28) Failed to connect after 135s），
+  # 两个 host 的字节完全相同（sha256 a502dead…），所以 mirror 优先 + 备用。
   devtoolsExe = fetchurl {
-    url = "https://dldir1.qq.com/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe";
+    urls = [
+      "https://devtools.wxqcloud.qq.com.cn/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe"
+      "https://dldir1.qq.com/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe"
+    ];
     hash = "sha256-pQLerS5PttywteFX4fK5rADBCiDxlAkXESofhIHtXtk=";
   };
   ripgrepTarball = fetchurl {
