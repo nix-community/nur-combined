@@ -13,14 +13,8 @@ diff --git a/go.mod b/go.mod
 index 5ca4b21..4dd5178 100644
 --- a/go.mod
 +++ b/go.mod
-@@ -5,6 +5,7 @@ module github.com/finb/bark-server/v2
- go 1.25.5
- 
- require (
+@@ -7,0 +8,1 @@ require (
 +	github.com/coreos/go-systemd/v22 v22.7.0
- 	github.com/go-sql-driver/mysql v1.10.0
- 	github.com/gofiber/adaptor/v2 v2.2.1
- 	github.com/gofiber/fiber/v2 v2.52.13
 diff --git a/go.sum b/go.sum
 index bd6964e..2b902c5 100644
 --- a/go.sum
@@ -86,4 +80,3 @@ index db5c1d6..f5137c2 100644
  		logger.Infof("Bark Server Listen at: %s , Database: %s", addr, reflect.TypeOf(db))
 -- 
 2.53.0
-
