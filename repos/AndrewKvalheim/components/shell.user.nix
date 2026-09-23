@@ -333,6 +333,8 @@ in
         lsblk = "lsblk --output 'name,type,uuid,label,size,fstype,mountpoints' --paths";
         mv = "mv --update=none-fail --verbose";
         nixos-rebuild = "nom-nixos-rebuild";
+        nixos-repl = "nix repl --expr 'import <nixpkgs/nixos> { }'";
+        nixpkgs-repl = "nix repl --expr 'import <nixpkgs> { }'";
         p = "gopass";
         path = "nom-build --no-out-link --pure '<nixpkgs>' --attr";
         pt = "gopass-ydotool";
@@ -404,6 +406,7 @@ in
     h = "tig --all";
     hs = "home-manager switch";
     i = "jjui";
+    jc = "journalctl";
     jd = "jj diff";
     jf = "jj git fetch";
     jl = "jj status";
@@ -418,6 +421,7 @@ in
     np = "nix-shell --packages";
     rebase = "git rebase --autostash --autosquash --interactive";
     s = "git status";
+    sc = "systemctl";
     stash = "git stash save --include-untracked";
     undo = "git restore --patch";
   };

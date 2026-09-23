@@ -36,7 +36,7 @@ specify {
   chunker.dontEval = true /* FIXME: infinite recursion */;
   co2monitor = any;
   darktable.version = "≥5.6"; # color harmonizer module
-  dawarich.patch = ./library/assets/dawarich_viridis.patch;
+  dawarich.patch = [ ./library/assets/dawarich_issue-2951.patch ./library/assets/dawarich_viridis.patch ];
   decompiler-mc = any;
   dmarc-report-notifier = any;
   doh = any;
@@ -66,6 +66,7 @@ specify {
   inkscape = { patch = ./library/assets/inkscape_png-no-comment.patch; big = true; ccache = true; dontEval = true /* FIXME: infinite recursion */; }; # inkscape/inkscape!7193
   iosevka-custom = any;
   iptables_exporter = any;
+  jitsi-meet-electron = { version = "≥2026.8.0"; search = pr 561096 "sha256-uFsFVord8XSOhS+5kbXJjCS5Gmb2GlwAcSa5RgaDyTY="; }; # Re NixOS/nixpkgs#563262
   jj-dynamic-default-description = any;
   josm.env.GSETTINGS_SCHEMA_DIR = "${resolved.gtk3}/share/gsettings-schemas/${resolved.gtk3.name}/glib-2.0/schemas"; # Workaround for NixOS/nixpkgs#557824
   josm-hidpi = any;
@@ -133,7 +134,7 @@ specify {
     mitchdenny.ecdc.search = open-vsx;
     ms-python.isort.version = "≥2026.5"; # microsoft/vscode-isort#649
     ms-vscode.wasm-wasi-core.search = open-vsx;
-    ronnidc.nunjucks.search = [ open-vsx vscode-marketplace ];
+    ronnidc.nunjucks.search = open-vsx;
     sissel.shopify-liquid.search = open-vsx;
     syler.sass-indented.search = open-vsx;
     sysoev.language-stylus.search = open-vsx;

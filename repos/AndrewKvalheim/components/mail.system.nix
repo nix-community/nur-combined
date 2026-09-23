@@ -21,11 +21,11 @@ in
 
     mapFiles = {
       sender_canonical_maps = toFile "sender_canonical_maps" ''
-        /^(.+)@${hostName}$/ ${hostName}/$1@andrew.kvalhe.im
+        /^(.+)@(${hostName})(\.localdomain)?$/ $2/$1@andrew.kvalhe.im
       '';
       smtp_sasl_password_maps = host.dir + "/assets/smtp-sasl-password-maps.local.postmap";
       virtual_alias_maps = toFile "virtual_alias_maps" ''
-        /^(.+)@${hostName}\.localdomain$/ ${rootAliasLocal}+${hostName}/$1@${rootAliasDomain}
+        /^(.+)@(${hostName})(\.localdomain)?$/ ${rootAliasLocal}+$2/$1@${rootAliasDomain}
       '';
     };
 

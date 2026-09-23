@@ -6,11 +6,11 @@ let
   inherit (config.services) syncthing;
   inherit (lib) getExe escapeShellArg mapAttrsToList mkForce mkIf mkOption;
   inherit (lib.types) attrsOf listOf str submodule;
-  inherit (pkgs) curl writeShellApplication;
+  inherit (pkgs) coreutils curl writeShellApplication;
 
   wait-ready = writeShellApplication {
     name = "wait-ready";
-    runtimeInputs = [ curl ];
+    runtimeInputs = [ coreutils curl ];
     text = ''
       while ! curl --fail --out-null --silent "$@"; do
         sleep '1s'
@@ -48,6 +48,8 @@ in
       enable = true;
 
       guiAddress = "${guiIp}:80"; # Used by syncthing-init.service
+
+      extraFlags = [ "--log-level=WARN" ];
 
       settings = {
         options = {
@@ -103,7 +105,7 @@ in
         CapabilityBoundingSet = /* module ++ */ AmbientCapabilities;
         DeviceAllow = "";
         DevicePolicy = "closed";
-        IPAddressAllow = [ guiIp ]
+        IPAddressAllow = [ "127.0.0.1" guiIp ]
           ++ mapAttrsToList (h: _: host.wireguard.peers.${h}.ip) host.syncthing.peers;
         IPAddressDeny = "any";
         PrivateUsers = mkForce false;

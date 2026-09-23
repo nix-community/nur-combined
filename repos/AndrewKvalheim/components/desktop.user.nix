@@ -130,6 +130,7 @@ in
           { wm_class = "emote"; scratch_layer = true; }
           { wm_class = "firefox"; title = "Picture-in-Picture"; scratch_layer = true; }
           { wm_class = "@joplin/app-desktop"; preferredWidth = "${toString term}px"; }
+          { wm_class = "org.gnome.NautilusPreviewer"; scratch_layer = true; }
           { wm_class = "qemu"; scratch_layer = true; }
           { wm_class = "stretch-break"; scratch_layer = true; }
           { wm_class = "io.github.pieterdd.StretchBreak"; scratch_layer = true; }

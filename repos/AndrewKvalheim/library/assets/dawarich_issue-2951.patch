@@ -1,0 +1,8 @@
+Work around Freika/dawarich#2951
+
+--- a/config/initializers/sidekiq.rb
++++ b/config/initializers/sidekiq.rb
+@@ -5,2 +5,3 @@
+   config.logger = Sidekiq::Logger.new($stdout)
++  config.logger.level = ENV.fetch('SIDEKIQ_LOG_LEVEL', 'info')
+ 

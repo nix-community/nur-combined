@@ -3,12 +3,12 @@
 let
   inherit (config) host;
   inherit (lib) mapAttrs' mapAttrsToList mkOption nameValuePair;
-  inherit (lib.types) attrsOf int str submodule;
+  inherit (lib.types) attrsOf port str submodule;
 in
 {
   options.host.wireguard = {
     ip = mkOption { type = str; };
-    port = mkOption { type = int; };
+    port = mkOption { type = port; };
     peers = mkOption {
       type = attrsOf (submodule {
         options = {

@@ -9,8 +9,6 @@ let
   inherit (lib.hm.gvariant) mkTuple mkUint32;
   inherit (pkgs) formats makeAutostartItem onlyBinMan;
   inherit (pkgs.writers) writeTOML;
-  inherit (system) nix systemd;
-  inherit (system.virtualisation) docker;
   inherit (import ../library/utilities.lib.nix { inherit lib; }) requireBig;
 
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
@@ -225,7 +223,7 @@ in
       killall
       lsof
       multitail
-      (off.override { docker = docker.package; nix = nix.package; systemd = systemd.package; })
+      off
       s-tui
       snitch
       usbutils
@@ -306,10 +304,13 @@ in
     };
 
     # Configuration
-    home.sessionVariables = {
+    home.sessionVariables = rec {
       ADD_WORDS_WORDLIST_PATH = ./assets/words.txt;
       ANSIBLE_NOCOWS = "🐄"; # Workaround for ansible/ansible#10530
+      PAGER = "${getExe pkgs.moor} --tab-size 4 --wrap";
       PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
+      SYSTEMD_PAGER = PAGER;
+      SYSTEMD_PAGERSECURE = "true"; # moor supports `LESSSECURE`
       UV_PYTHON_DOWNLOADS = "never";
     };
     xdg.configFile."cargo-release/release.toml".source = writeTOML "release.toml" {

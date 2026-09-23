@@ -539,6 +539,7 @@ geekery
 Gemenskap
 Gemfile
 gemset
+geocoder
 geocoding
 geolocation
 georeferencer

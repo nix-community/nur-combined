@@ -2,7 +2,7 @@
 
 let
   inherit (lib) escapeShellArg getExe mkEnableOption mkIf mkMerge mkOption;
-  inherit (lib.types) int;
+  inherit (lib.types) port;
   inherit (pkgs) apt-cacher-ng writeShellScript;
 
   cfg = config.services.apt-cacher-ng;
@@ -52,7 +52,7 @@ in
 {
   options.services.apt-cacher-ng = {
     enable = mkEnableOption "caching proxy of APT repositories";
-    port = mkOption { type = int; default = 3142; };
+    port = mkOption { type = port; default = 3142; };
   };
 
   config = mkIf cfg.enable {
