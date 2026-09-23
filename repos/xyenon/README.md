@@ -171,7 +171,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>nix-package-versions</code></strong> — List package versions across Nixpkgs revisions</summary>
 
-- **Version:** `0-unstable-2025-06-19`
+- **Version:** `0-unstable-2026-09-22`
 - **License:** BSD-3-Clause
 - **Homepage:** [https://github.com/lazamar/nix-package-versions](https://github.com/lazamar/nix-package-versions)
 - **Build:** `nix build github:XYenon/nur-packages#nix-package-versions`

@@ -120,15 +120,15 @@
   };
   nix-package-versions = {
     pname = "nix-package-versions";
-    version = "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe";
+    version = "cbebdebbb2b01a43e9c4b8f00ab4dc0bf79964b7";
     src = fetchFromGitHub {
       owner = "lazamar";
       repo = "nix-package-versions";
-      rev = "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe";
+      rev = "cbebdebbb2b01a43e9c4b8f00ab4dc0bf79964b7";
       fetchSubmodules = false;
-      sha256 = "sha256-M5/gLq+DhZIA1sBDmYY42XhV/l3tMHI2JcIkhWsRcx8=";
+      sha256 = "sha256-jrTBjeuW31BLJFESpSE2W4GJxDkttrmEtgYvuCek6RY=";
     };
-    date = "2025-06-19";
+    date = "2026-09-22";
   };
   rime-ice = {
     pname = "rime-ice";
