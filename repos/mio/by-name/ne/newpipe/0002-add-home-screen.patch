@@ -1,0 +1,154 @@
+diff --git a/shared/src/commonMain/kotlin/net/newpipe/app/App.kt b/shared/src/commonMain/kotlin/net/newpipe/app/App.kt
+index ae4d54da0..25ad0ef53 100644
+--- a/shared/src/commonMain/kotlin/net/newpipe/app/App.kt
++++ b/shared/src/commonMain/kotlin/net/newpipe/app/App.kt
+@@ -22,7 +22,7 @@ import org.koin.plugin.module.dsl.koinConfiguration
+  */
+ @Composable
+ fun App(
+-    startDestination: Destination = Destination.About,
++    startDestination: Destination = Destination.Home,
+     onCloseRequest: () -> Unit,
+     withKoin: @Composable () -> Unit = {}
+ ) {
+diff --git a/shared/src/commonMain/kotlin/net/newpipe/app/navigation/Destination.kt b/shared/src/commonMain/kotlin/net/newpipe/app/navigation/Destination.kt
+index 367285066..ab7b9b638 100644
+--- a/shared/src/commonMain/kotlin/net/newpipe/app/navigation/Destination.kt
++++ b/shared/src/commonMain/kotlin/net/newpipe/app/navigation/Destination.kt
+@@ -20,4 +20,7 @@ sealed interface Destination : NavKey {
+ 
+     @Serializable
+     data object About : Destination
++
++    @Serializable
++    data object Home : Destination
+ }
+diff --git a/shared/src/commonMain/kotlin/net/newpipe/app/navigation/NavModule.kt b/shared/src/commonMain/kotlin/net/newpipe/app/navigation/NavModule.kt
+index fe1f30f91..b41323961 100644
+--- a/shared/src/commonMain/kotlin/net/newpipe/app/navigation/NavModule.kt
++++ b/shared/src/commonMain/kotlin/net/newpipe/app/navigation/NavModule.kt
+@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateListOf
+ import co.touchlab.kermit.Logger
+ import net.newpipe.app.screen.about.AboutScreen
+ import net.newpipe.app.screen.settings.SettingsHomeScreen
++import net.newpipe.app.screen.home.HomeScreen
+ import org.koin.core.annotation.KoinExperimentalAPI
+ import org.koin.core.annotation.Provided
+ import org.koin.core.annotation.Singleton
+@@ -32,6 +33,10 @@ fun navModule() = module {
+     navigation<Destination.Settings> {
+         SettingsHomeScreen()
+     }
++
++    navigation<Destination.Home> {
++        HomeScreen()
++    }
+ }
+ 
+ /**
+diff --git a/shared/src/commonMain/kotlin/net/newpipe/app/screen/home/HomeScreen.kt b/shared/src/commonMain/kotlin/net/newpipe/app/screen/home/HomeScreen.kt
+new file mode 100644
+index 000000000..ad77d6d2f
+--- /dev/null
++++ b/shared/src/commonMain/kotlin/net/newpipe/app/screen/home/HomeScreen.kt
+@@ -0,0 +1,100 @@
++/*
++ * SPDX-FileCopyrightText: 2026 NewPipe e.V. <https://newpipe-ev.de>
++ * SPDX-License-Identifier: GPL-3.0-or-later
++ */
++
++package net.newpipe.app.screen.home
++
++import androidx.compose.foundation.layout.Box
++import androidx.compose.foundation.layout.Column
++import androidx.compose.foundation.layout.fillMaxSize
++import androidx.compose.foundation.layout.fillMaxWidth
++import androidx.compose.foundation.layout.padding
++import androidx.compose.foundation.lazy.LazyColumn
++import androidx.compose.material3.ExperimentalMaterial3Api
++import androidx.compose.material3.Scaffold
++import androidx.compose.material3.Text
++import androidx.compose.material3.TopAppBar
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Card
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++import net.newpipe.app.navigation.Destination
++import net.newpipe.app.navigation.Navigator
++import org.koin.compose.koinInject
++
++@OptIn(ExperimentalMaterial3Api::class)
++@Composable
++fun HomeScreen() {
++    val navigator = koinInject<Navigator>()
++
++    Scaffold(
++        topBar = {
++            TopAppBar(
++                title = { Text("NewPipe") },
++                actions = {
++                    IconButton(onClick = { /* TODO: Search */ }) {
++                        Text("Search")
++                    }
++                    IconButton(onClick = { navigator.navigateTo(Destination.About) }) {
++                        Text("About")
++                    }
++                    IconButton(onClick = { navigator.navigateTo(Destination.Settings) }) {
++                        Text("Settings")
++                    }
++                }
++            )
++        }
++    ) { paddingValues ->
++        LazyColumn(
++            modifier = Modifier
++                .fillMaxSize()
++                .padding(paddingValues)
++                .padding(16.dp)
++        ) {
++            item {
++                Text(
++                    text = "Trending",
++                    style = MaterialTheme.typography.titleLarge,
++                    modifier = Modifier.padding(bottom = 16.dp)
++                )
++            }
++            items(10) { index ->
++                VideoPlaceholderCard(index = index)
++            }
++        }
++    }
++}
++
++@Composable
++fun VideoPlaceholderCard(index: Int) {
++    Card(
++        modifier = Modifier
++            .fillMaxWidth()
++            .padding(bottom = 16.dp)
++    ) {
++        Column(
++            modifier = Modifier.padding(16.dp)
++        ) {
++            Box(
++                modifier = Modifier
++                    .fillMaxWidth()
++                    .padding(bottom = 8.dp),
++                contentAlignment = Alignment.Center
++            ) {
++                Text(text = "Thumbnail Placeholder ${index + 1}")
++            }
++            Text(
++                text = "Trending Video Title ${index + 1}",
++                style = MaterialTheme.typography.bodyLarge
++            )
++            Text(
++                text = "Channel Name • 1M views • 1 day ago",
++                style = MaterialTheme.typography.bodyMedium,
++                color = MaterialTheme.colorScheme.onSurfaceVariant
++            )
++        }
++    }
++}
