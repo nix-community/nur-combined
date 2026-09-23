@@ -2438,10 +2438,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.24.1";
+      version = "4.24.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5007691/control_panel_for_twitter-4.24.1.xpi";
-      sha256 = "8b5407ca43c8b30135caea2c8369f9e2fee15f9889c45dd4d13f40d4372c99ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5048223/control_panel_for_twitter-4.24.2.xpi";
+      sha256 = "c73ed4f663a83e35c9bd96e2e7d2bef85b4eb4c165d6d94ce3a1f2a3fe65b9e8";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -10400,10 +10400,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.33";
+      version = "13.6.34";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028324/noscript-13.6.33.xpi";
-      sha256 = "23181d2c5062e07ae887e914d7e06951d51cc1e3b6473db84c22e8a0ca6fddfc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5049426/noscript-13.6.34.xpi";
+      sha256 = "b9abd3fb706a082249244b94783d3af4864006a7c24b0ec29a8ca52baee3a0d2";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -12503,21 +12503,16 @@
     };
     "reddit-comment-collapser" = buildMozillaXpiAddon {
       pname = "reddit-comment-collapser";
-      version = "5.1.2resigned1";
+      version = "7.0.1";
       addonId = "{a5b2e636-07e5-4331-93c1-6cf4074356c8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4272010/reddit_comment_collapser-5.1.2resigned1.xpi";
-      sha256 = "e29404a50c858d191584eb53c05bca1bd9648d8163cea8e6ed3b99b1faf4990b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5037582/reddit_comment_collapser-7.0.1.xpi";
+      sha256 = "7724175a05f4057d539d66796e10d992ee59e6fd54abe598c521ac40517b27f6";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/reddit-comment-collapser";
         description = "An easier way to collapse and get around comment threads on old and new Reddit.";
         license = licenses.mit;
-        mozPermissions = [
-          "storage"
-          "https://*.reddit.com/"
-          "http://*.reddit.com/*/comments/*"
-          "https://*.reddit.com/*/comments/*"
-        ];
+        mozPermissions = [ "storage" "https://*.reddit.com/*" ];
         platforms = platforms.all;
       };
     };
@@ -13687,10 +13682,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.26.2";
+      version = "1.26.3";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5047808/single_file-1.26.2.xpi";
-      sha256 = "c9177ccebac9c939e67c739f163105d7b0eebbbb54ac32a8e7fe9c8c79ac0689";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5050630/single_file-1.26.3.xpi";
+      sha256 = "2f7ad20a8a3afddca72a995dcf34792104774ddc84919cc97ff2a6b5586ec538";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14427,10 +14422,10 @@
     };
     "tab-unload-for-tree-style-tab" = buildMozillaXpiAddon {
       pname = "tab-unload-for-tree-style-tab";
-      version = "6.17";
+      version = "6.20";
       addonId = "{7aa0a466-58f8-427b-8cd2-e94645c4edc2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326243/tab_unload_for_tree_style_tab-6.17.xpi";
-      sha256 = "243f48da0a7dd0834cb816bbdf0c16c503b3f5f273f9826478a70af11718bdca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5048454/tab_unload_for_tree_style_tab-6.20.xpi";
+      sha256 = "d9307f96b71b25ddd4251acf3c2822f1fd7b01156d94f8e146f90ebeba64640f";
       meta = with lib;
       {
         homepage = "https://github.com/Lej77/tab-unloader-for-tree-style-tab";
@@ -17268,10 +17263,10 @@
     };
     "windscribe" = buildMozillaXpiAddon {
       pname = "windscribe";
-      version = "3.4.14.3";
+      version = "3.4.14.4";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4811976/windscribe-3.4.14.3.xpi";
-      sha256 = "bc8e3600cfc4247e4ed9937392ad39c46e77c987f03e0d0f54e515e09caeda00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5006622/windscribe-3.4.14.4.xpi";
+      sha256 = "80d1f4d78f83c7bc83e62b7fc317cae640742e53b06c05fb11b139418406e7dc";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
