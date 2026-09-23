@@ -48,15 +48,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "e86139b4dfe9a181be900c7b21a54ee10a4a5a5d";
+    version = "fef2c38a3d518942567c3254a2f6026e90f01c5d";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "e86139b4dfe9a181be900c7b21a54ee10a4a5a5d";
+      rev = "fef2c38a3d518942567c3254a2f6026e90f01c5d";
       fetchSubmodules = false;
-      sha256 = "sha256-U2hjZWBqQVUB+qjxjRGuJXSigi5nvlAcXd0pj7fms50=";
+      sha256 = "sha256-Y16AwljzIm+sPbvnI2Npv7RCYvggfuAmw1+3TIqMesw=";
     };
-    date = "2026-09-03";
+    date = "2026-09-23";
   };
   playwright-cli = {
     pname = "playwright-cli";
@@ -119,10 +119,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.22.2b";
+    version = "1.22.3b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.22.2b/zen.macos-universal.dmg";
-      sha256 = "sha256-IzJnM1NVG/5GB6pu3Tw+4xSWUmUadpisq62TVhLJOUM=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.22.3b/zen.macos-universal.dmg";
+      sha256 = "sha256-cdv+OU7S9tHrmD/wzG35djxD/Gd3IgKHmmpAeUwU4aE=";
     };
   };
 }
