@@ -1,0 +1,33 @@
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+index 18dcd9e..996a216 100644
+--- a/settings.gradle.kts
++++ b/settings.gradle.kts
+@@ -21,7 +21,6 @@ dependencyResolutionManagement {
+         maven(url = "https://repo.clojars.org")
+     }
+ }
+-include(":app") // androidApp
+ include(":desktopApp")
+ include("shared")
+ 
+diff --git a/shared/build.gradle.kts b/shared/build.gradle.kts
+index 6c1ffe4..d2ab9c4 100644
+--- a/shared/build.gradle.kts
++++ b/shared/build.gradle.kts
+@@ -78,16 +78,6 @@ kotlin {
+         }
+     }
+ 
+-    listOf(
+-        iosArm64(),
+-        iosSimulatorArm64()
+-    ).forEach { iosTarget ->
+-        iosTarget.binaries.framework {
+-            baseName = "ComposeApp"
+-            isStatic = true
+-        }
+-    }
+-
+     jvm()
+ 
+     sourceSets {
