@@ -62,7 +62,6 @@
 
               openssh.authorizedKeys.keys = authSSHKeys;
             };
-            root.shell = pkgs.fish;
           };
           groups.nixosvmtest = { };
           groups.${config.identity.user} = { };

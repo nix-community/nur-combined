@@ -20,7 +20,10 @@
             define DN42_ASN = 4242420291;
             define DN42_PREFIX = fdda:1965:1d5f::/48;
             define DN42_FIELD = [ fdda:1965:1d5f::/48+ ];
+            define DN42_PREFIX_V4 = 172.22.105.160/27;
+            define DN42_FIELD_V4 = [ 172.22.105.160/27+ ];
             define DN42_OWNIP = fdda:1965:1d5f::${toString ((config.fn.getThisNode).id + 1)};
+            define DN42_OWNIP_V4 = 172.22.105.16${toString ((config.fn.getThisNode).id + 1)};
 
             protocol device {
               scan time 20;
@@ -82,6 +85,36 @@
                 export filter to_kernel;
               };
             };
+
+            filter to_kernel_v4 {
+              case source {
+                RTS_STATIC: {
+                  krt_metric = 512;
+                  accept;
+                }
+                RTS_DEVICE: {
+                  krt_metric = 64;
+                  accept;
+                }
+                RTS_BGP: {
+                  krt_prefsrc = DN42_OWNIP_V4;
+                  krt_metric = 256;
+                  accept;
+                }                
+                else: reject;
+              }
+            };
+
+            protocol kernel kernel4 {
+              scan time 20;
+              metric 0;
+              ipv4 {
+                preference 100;
+                import none;
+                export filter to_kernel_v4;
+              };
+            };
+
             protocol babel {
               interface "vxlan-mesh" {
                 type wired;
