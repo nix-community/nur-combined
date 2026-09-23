@@ -34,7 +34,7 @@ let
   gradle = gradle_9.override { java = jdk; };
 
   # Compose Desktop native launcher + Skiko/JNA runtime libs.
-  runtimeLibs = [
+  runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
     cups
     file
@@ -98,7 +98,11 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i '/include(":spotifycore")/d' settings.gradle.kts
     sed -i '/include(":morideobfuscator")/d' settings.gradle.kts
     echo 'include(":desktop")' >> settings.gradle.kts
+    sed -i '/mavenCentral {/i \        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")' settings.gradle.kts
     sed -i '/mavenCentral()/i \        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")' settings.gradle.kts
+
+    # Remove Linux-specific targetFormats from desktop/build.gradle.kts so it works on macOS
+    sed -i '/targetFormats/d' desktop/build.gradle.kts
 
     # Add Compose Multiplatform to the root build.gradle.kts
     sed -i '/alias(libs.plugins.compose.compiler) apply false/a \    alias(libs.plugins.compose.multiplatform) apply false' build.gradle.kts
@@ -113,7 +117,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Silence the JVM OOM settings that conflict with sandbox memory limits.
     sed -i 's/-Xmx[0-9]*[MmGg]//g; s/-Dkotlin.daemon.jvm.options=[^ ]*//' gradle.properties || true
-    echo 'org.gradle.jvmargs=-Dfile.encoding=UTF-8' >> gradle.properties
+    sed -i '/org.gradle.jvmargs/d' gradle.properties || true
+    echo 'org.gradle.jvmargs=-Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8' >> gradle.properties
   '';
 
   env.JAVA_HOME = jdk;
@@ -122,6 +127,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dorg.gradle.java.home=${jdk}"
     "-Dfile.encoding=utf-8"
     "-Dorg.gradle.native=false"
+    "-Djava.net.preferIPv4Stack=true"
+    "--no-daemon"
   ];
 
   gradleBuildTask = ":desktop:createReleaseDistributable";
@@ -138,11 +145,13 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [
-    copyDesktopItems
     gradle
     jdk
     makeWrapper
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook
+    copyDesktopItems
   ];
 
   buildInputs = runtimeLibs;
@@ -157,10 +166,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   __darwinAllowLocalNetworking = true;
 
-  preConfigure = ''
-    export ANDROID_USER_HOME="$TMPDIR/android"
-    export GRADLE_USER_HOME="$TMPDIR/gradle"
-    mkdir -p "$ANDROID_USER_HOME" "$GRADLE_USER_HOME"
+  preBuild = ''
+    export HOME=$(mktemp -d)
+    export ANDROID_USER_HOME="$HOME/.android"
+    mkdir -p "$ANDROID_USER_HOME"
+    export JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true"
   '';
 
   doCheck = false;
@@ -169,24 +179,41 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/lib
-    cp -a desktop/build/compose/binaries/main-release/app/ArchiveTune $out/lib/archivetune
 
-    # Replace the bundled JRE with the nixpkgs one.
-    rm -rf $out/lib/archivetune/lib/runtime
-    ln -s ${jdk.home} $out/lib/archivetune/lib/runtime
+    if [ -d desktop/build/compose/binaries/main-release/app/ArchiveTune.app ]; then
+      # macOS
+      mkdir -p $out/Applications
+      cp -a desktop/build/compose/binaries/main-release/app/ArchiveTune.app $out/Applications/
+      
+      # Replace the bundled JRE with the nixpkgs one.
+      rm -rf $out/Applications/ArchiveTune.app/Contents/runtime
+      ln -s ${jdk.home} $out/Applications/ArchiveTune.app/Contents/runtime
+      
+      mkdir -p $out/bin
+      makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune
+    else
+      # linux
+      cp -a desktop/build/compose/binaries/main-release/app/ArchiveTune $out/lib/archivetune
 
-    install -Dm644 desktop/src/jvmMain/resources/icon.png \
-      $out/share/icons/hicolor/512x512/apps/archivetune.png 2>/dev/null || true
+      # Replace the bundled JRE with the nixpkgs one.
+      rm -rf $out/lib/archivetune/lib/runtime
+      ln -s ${jdk.home} $out/lib/archivetune/lib/runtime
+
+      install -Dm644 desktop/src/jvmMain/resources/icon.png \
+        $out/share/icons/hicolor/512x512/apps/archivetune.png 2>/dev/null || true
+    fi
 
     runHook postInstall
   '';
 
   preFixup = ''
-    makeWrapper $out/lib/archivetune/bin/ArchiveTune $out/bin/archivetune \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
+    if [ -d $out/lib/archivetune ]; then
+      makeWrapper $out/lib/archivetune/bin/ArchiveTune $out/bin/archivetune \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
+    fi
   '';
 
-  desktopItems = [
+  desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
       name = "archivetune";
       exec = "archivetune";
@@ -213,6 +240,8 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
     ];
     mainProgram = "archivetune";
     sourceProvenance = with lib.sourceTypes; [

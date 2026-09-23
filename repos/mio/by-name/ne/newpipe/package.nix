@@ -8,6 +8,7 @@
   makeDesktopItem,
   makeWrapper,
   writeText,
+  desktopToDarwinBundle,
   # Runtime dependencies for the JVM desktop app
   libGL,
   libx11,
@@ -46,7 +47,8 @@ stdenv.mkDerivation (finalAttrs: {
     gradle
     jdk21
     makeWrapper
-  ];
+  ]
+  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   mitmCache = gradle.fetchDeps {
     inherit (finalAttrs) pname;
@@ -103,16 +105,16 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper ${jdk21}/bin/java "$out/bin/newpipe-native" \
       --add-flags "-jar $out/share/newpipe-native/newpipe-native.jar" \
       ${lib.optionalString stdenv.hostPlatform.isLinux ''
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          libGL
-          libx11
-          libxext
-          libxrender
-          fontconfig
-          freetype
-        ]
-      }"
+        --prefix LD_LIBRARY_PATH : "${
+          lib.makeLibraryPath [
+            libGL
+            libx11
+            libxext
+            libxrender
+            fontconfig
+            freetype
+          ]
+        }"
       ''}
 
     runHook postInstall

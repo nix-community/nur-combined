@@ -72,54 +72,54 @@ rustPlatform.buildRustPackage rec {
   ];
 
   preBuild = ''
-    echo "Creating fake sysroot to fix lockfile conflicts..."
-    REAL_SYSROOT=$(rustc --print sysroot)
-    export FAKE_SYSROOT=$TMPDIR/fake-sysroot
-    mkdir -p $FAKE_SYSROOT/lib/rustlib/src
-    
-    # Link all stuff from real sysroot
-    for item in $REAL_SYSROOT/*; do
-        if [ "$item" != "$REAL_SYSROOT/lib" ]; then
-            ln -s $item $FAKE_SYSROOT/
-        fi
-    done
-    mkdir -p $FAKE_SYSROOT/lib/rustlib
-    for item in $REAL_SYSROOT/lib/*; do
-        if [ "$item" != "$REAL_SYSROOT/lib/rustlib" ]; then
-            ln -s $item $FAKE_SYSROOT/lib/
-        fi
-    done
-    for item in $REAL_SYSROOT/lib/rustlib/*; do
-        if [ "$item" != "$REAL_SYSROOT/lib/rustlib/src" ]; then
-            ln -s $item $FAKE_SYSROOT/lib/rustlib/
-        fi
-    done
-    
-    # Copy rust-src and remove lockfile
-    cp -r $REAL_SYSROOT/lib/rustlib/src/rust $FAKE_SYSROOT/lib/rustlib/src/rust
-    chmod -R +w $FAKE_SYSROOT/lib/rustlib/src/rust
-    
-    # Remove std's Cargo.lock and replace it with Kani's modified lockfile
-    rm -f $FAKE_SYSROOT/lib/rustlib/src/rust/library/Cargo.lock
-    cp Cargo.lock $FAKE_SYSROOT/lib/rustlib/src/rust/library/Cargo.lock
-    
-    # Inject a wrapper into build-kani to intercept sysroot
-    cat << 'EOF_PATCH' > $TMPDIR/sysroot.patch
---- tools/build-kani/src/sysroot.rs
-+++ tools/build-kani/src/sysroot.rs
-@@ -156,6 +156,9 @@
-     ];
-     rustc_args.extend_from_slice(extra_rustc_args);
-+    let wrapper_path = compiler_path.with_extension("wrapper");
-+    std::fs::write(&wrapper_path, format!("#!/bin/sh\nif [ \"$1\" = \"--print\" ] && [ \"$2\" = \"sysroot\" ]; then echo \"{}\"; elif [ \"$1\" = \"--print=sysroot\" ]; then echo \"{}\"; else exec {} \"$@\"; fi\n", std::env::var("FAKE_SYSROOT").unwrap(), std::env::var("FAKE_SYSROOT").unwrap(), compiler_path.display())).unwrap();
-+    std::process::Command::new("chmod").arg("+x").arg(&wrapper_path).status().unwrap();
-     let mut cmd = Command::new("cargo")
-         .env("CARGO_ENCODED_RUSTFLAGS", rustc_args.join("\x1f"))
--        .env("RUSTC", compiler_path)
-+        .env("RUSTC", wrapper_path)
-         .args(args)
-EOF_PATCH
-    patch -p0 < $TMPDIR/sysroot.patch
+        echo "Creating fake sysroot to fix lockfile conflicts..."
+        REAL_SYSROOT=$(rustc --print sysroot)
+        export FAKE_SYSROOT=$TMPDIR/fake-sysroot
+        mkdir -p $FAKE_SYSROOT/lib/rustlib/src
+        
+        # Link all stuff from real sysroot
+        for item in $REAL_SYSROOT/*; do
+            if [ "$item" != "$REAL_SYSROOT/lib" ]; then
+                ln -s $item $FAKE_SYSROOT/
+            fi
+        done
+        mkdir -p $FAKE_SYSROOT/lib/rustlib
+        for item in $REAL_SYSROOT/lib/*; do
+            if [ "$item" != "$REAL_SYSROOT/lib/rustlib" ]; then
+                ln -s $item $FAKE_SYSROOT/lib/
+            fi
+        done
+        for item in $REAL_SYSROOT/lib/rustlib/*; do
+            if [ "$item" != "$REAL_SYSROOT/lib/rustlib/src" ]; then
+                ln -s $item $FAKE_SYSROOT/lib/rustlib/
+            fi
+        done
+        
+        # Copy rust-src and remove lockfile
+        cp -r $REAL_SYSROOT/lib/rustlib/src/rust $FAKE_SYSROOT/lib/rustlib/src/rust
+        chmod -R +w $FAKE_SYSROOT/lib/rustlib/src/rust
+        
+        # Remove std's Cargo.lock and replace it with Kani's modified lockfile
+        rm -f $FAKE_SYSROOT/lib/rustlib/src/rust/library/Cargo.lock
+        cp Cargo.lock $FAKE_SYSROOT/lib/rustlib/src/rust/library/Cargo.lock
+        
+        # Inject a wrapper into build-kani to intercept sysroot
+        cat << 'EOF_PATCH' > $TMPDIR/sysroot.patch
+    --- tools/build-kani/src/sysroot.rs
+    +++ tools/build-kani/src/sysroot.rs
+    @@ -156,6 +156,9 @@
+         ];
+         rustc_args.extend_from_slice(extra_rustc_args);
+    +    let wrapper_path = compiler_path.with_extension("wrapper");
+    +    std::fs::write(&wrapper_path, format!("#!/bin/sh\nif [ \"$1\" = \"--print\" ] && [ \"$2\" = \"sysroot\" ]; then echo \"{}\"; elif [ \"$1\" = \"--print=sysroot\" ]; then echo \"{}\"; else exec {} \"$@\"; fi\n", std::env::var("FAKE_SYSROOT").unwrap(), std::env::var("FAKE_SYSROOT").unwrap(), compiler_path.display())).unwrap();
+    +    std::process::Command::new("chmod").arg("+x").arg(&wrapper_path).status().unwrap();
+         let mut cmd = Command::new("cargo")
+             .env("CARGO_ENCODED_RUSTFLAGS", rustc_args.join("\x1f"))
+    -        .env("RUSTC", compiler_path)
+    +        .env("RUSTC", wrapper_path)
+             .args(args)
+    EOF_PATCH
+        patch -p0 < $TMPDIR/sysroot.patch
   '';
 
   buildPhase = ''
