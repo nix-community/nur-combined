@@ -15,19 +15,19 @@ import androidx.compose.ui.window.rememberWindowState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import moe.rukamori.archivetune.innertube.YouTube
+import moe.rukamori.archivetune.innertube.NetworkGatekeeper
+import moe.rukamori.archivetune.innertube.models.SongItem
 
 fun main() = application {
-    moe.rukamori.archivetune.innertube.NetworkGatekeeper.setConnectionBlocked(false)
+    NetworkGatekeeper.setConnectionBlocked(false)
     val windowState = rememberWindowState(width = 1200.dp, height = 800.dp)
 
     Window(
         onCloseRequest = ::exitApplication,
-        title = "ArchiveTune",
+        title = "ArchiveTune Desktop",
         state = windowState,
     ) {
-        MaterialTheme(
-            colorScheme = darkColorScheme(),
-        ) {
+        MaterialTheme(colorScheme = darkColorScheme()) {
             ArchiveTuneApp()
         }
     }
@@ -37,9 +37,9 @@ fun main() = application {
 fun ArchiveTuneApp() {
     val scope = rememberCoroutineScope()
     var searchQuery by remember { mutableStateOf("") }
-    var searchResults by remember { mutableStateOf(listOf<String>()) }
+    var searchResults by remember { mutableStateOf(listOf<SongItem>()) }
     var isLoading by remember { mutableStateOf(false) }
-    var statusMessage by remember { mutableStateOf("Welcome to ArchiveTune Desktop") }
+    var statusMessage by remember { mutableStateOf("Ready") }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -50,7 +50,7 @@ fun ArchiveTuneApp() {
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Text(
-                text = "🌸 ArchiveTune",
+                text = "🌸 ArchiveTune Desktop",
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.primary,
             )
@@ -62,7 +62,7 @@ fun ArchiveTuneApp() {
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    label = { Text("Search YouTube Music") },
+                    label = { Text("Search Music") },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                 )
@@ -72,12 +72,16 @@ fun ArchiveTuneApp() {
                             isLoading = true
                             searchResults = emptyList()
                             scope.launch(Dispatchers.IO) {
-                                val result = YouTube.search(searchQuery, YouTube.SearchFilter.FILTER_SONG)
-                                result.onSuccess { page ->
-                                    searchResults = page.items.map { it.toString() }
-                                    statusMessage = "Found ${searchResults.size} results"
-                                }.onFailure { err ->
-                                    statusMessage = "Error: ${err.message}"
+                                try {
+                                    val result = YouTube.search(searchQuery, YouTube.SearchFilter.FILTER_SONG)
+                                    result.onSuccess { page ->
+                                        searchResults = page.items.filterIsInstance<SongItem>()
+                                        statusMessage = "Found ${searchResults.size} songs"
+                                    }.onFailure { err ->
+                                        statusMessage = "Error: ${err.message}"
+                                    }
+                                } catch(e: Exception) {
+                                    statusMessage = "Error: ${e.message}"
                                 }
                                 isLoading = false
                             }
@@ -98,30 +102,23 @@ fun ArchiveTuneApp() {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
 
-            LazyColumnResults(searchResults)
-        }
-    }
-}
-
-@Composable
-fun LazyColumnResults(items: List<String>) {
-    if (items.isEmpty()) return
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        items(items) { item ->
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                ),
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text(
-                    text = item,
-                    modifier = Modifier.padding(12.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                )
+                items(searchResults) { item ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        ),
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(text = item.title, style = MaterialTheme.typography.titleMedium)
+                            Text(text = item.toString(), style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                }
             }
         }
     }

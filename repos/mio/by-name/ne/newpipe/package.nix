@@ -83,6 +83,10 @@ stdenv.mkDerivation (finalAttrs: {
     ANDROID_SDK_ROOT = androidSdkRoot;
   };
 
+  env = {
+    _JAVA_OPTIONS = "-Djava.net.preferIPv4Stack=true";
+  };
+
   gradleFlags = [
     "-Dorg.gradle.java.home=${jdk21}"
     "-Dfile.encoding=utf-8"
@@ -101,6 +105,8 @@ stdenv.mkDerivation (finalAttrs: {
   __darwinAllowLocalNetworking = true;
 
   preBuild = ''
+    export HOME="$TMPDIR"
+    export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true -Duser.home=$TMPDIR"
     export ANDROID_USER_HOME="$TMPDIR/android"
     export GRADLE_USER_HOME="$TMPDIR/gradle"
     mkdir -p "$ANDROID_USER_HOME" "$GRADLE_USER_HOME"
