@@ -203,6 +203,8 @@ stdenv.mkDerivation {
     fi
 
     export INSTALL4J_JAVA_HOME_OVERRIDE="\$STORE_PATH/jre"
+    # Disable the in-app updater, it cannot work on Nix
+    export INSTALL4J_ADD_VM_PARAMS="-DskipUpdateCheck=true\''${INSTALL4J_ADD_VM_PARAMS:+ \$INSTALL4J_ADD_VM_PARAMS}"
     export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
     export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ ]; }}"
     export QT_QPA_PLATFORM=xcb
