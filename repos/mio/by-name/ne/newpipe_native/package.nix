@@ -51,12 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname;
     pkg = finalAttrs.finalPackage;
     data = ./deps.json;
-    silent = false;
-    useBwrap = false;
   };
 
   env = {
-    JAVA_HOME = jdk21;
+    _JAVA_OPTIONS = "-Djava.net.preferIPv4Stack=true";
   };
 
   gradleFlags = [
@@ -71,10 +69,13 @@ stdenv.mkDerivation (finalAttrs: {
   gradleInitScript = writeText "empty-init-script.gradle" "";
 
   doCheck = false;
+  __darwinAllowLocalNetworking = true;
 
   preBuild = ''
-    export GRADLE_USER_HOME="$TMPDIR/gradle"
-    mkdir -p "$GRADLE_USER_HOME"
+    export HOME="$TMPDIR"
+    export ANDROID_USER_HOME="$TMPDIR/.android"
+    mkdir -p "$ANDROID_USER_HOME"
+    export _JAVA_OPTIONS="$_JAVA_OPTIONS -Duser.home=$TMPDIR"
   '';
 
   installPhase = ''
@@ -88,6 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     makeWrapper ${jdk21}/bin/java "$out/bin/newpipe-native" \
       --add-flags "-jar $out/share/newpipe-native/newpipe-native.jar" \
+      ${lib.optionalString stdenv.hostPlatform.isLinux ''
       --prefix LD_LIBRARY_PATH : "${
         lib.makeLibraryPath [
           libGL
@@ -98,6 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
           freetype
         ]
       }"
+      ''}
 
     runHook postInstall
   '';
@@ -131,7 +134,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "newpipe-native";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode # gradle mitm cache
