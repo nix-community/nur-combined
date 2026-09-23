@@ -123,7 +123,7 @@ pub fn render_tab_bar(
                         .child(
                             div()
                                 .child("\u{f021}") // FA refresh
-                                
+                                .font_family("Symbols Nerd Font Mono")
                                 .text_color(colors.muted)
                                 .text_xs(),
                         )
@@ -150,7 +150,7 @@ pub fn render_tab_bar(
                     .child(
                         div()
                             .child("\u{f00d}") // FA times — avoid color-emoji ✕
-                            
+                            .font_family("Symbols Nerd Font Mono")
                             .text_color(colors.muted)
                             .text_xs(),
                     )

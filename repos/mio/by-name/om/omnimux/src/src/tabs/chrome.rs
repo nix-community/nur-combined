@@ -21,7 +21,7 @@ fn chrome_glyph(glyph: &'static str, color: impl Into<Hsla>) -> Div {
     div()
         .child(glyph)
         .text_color(color)
-        
+        .font_family(CHROME_ICON_FONT)
         .text_lg()
         .font_weight(FontWeight::MEDIUM)
 }
