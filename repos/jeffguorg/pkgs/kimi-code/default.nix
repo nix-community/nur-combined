@@ -61,19 +61,17 @@ buildNpmPackage rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/lib
-    cp -r node_modules $out/lib/node_modules
+    mkdir -p $out/bin $out/lib/kimi-code
+    cp -r node_modules $out/lib/kimi-code/node_modules
 
     makeWrapper ${lib.getExe nodejs} $out/bin/kimi \
-      --add-flags "$out/lib/node_modules/@moonshot-ai/kimi-code/dist/main.mjs"
+      --add-flags "$out/lib/kimi-code/node_modules/@moonshot-ai/kimi-code/dist/main.mjs"
+
 
     runHook postInstall
   '';
-
-  # postinstall.mjs 会在全局安装时尝试迁移旧版 Python CLI 的 PATH shim，
-  # Nix 构建沙箱里不需要，且可能误操作；禁用它。
   postFixup = ''
-    rm -f $out/lib/node_modules/@moonshot-ai/kimi-code/scripts/postinstall.mjs
+    rm -f $out/lib/kimi-code/node_modules/@moonshot-ai/kimi-code/scripts/postinstall.mjs
   '';
 
   meta = {

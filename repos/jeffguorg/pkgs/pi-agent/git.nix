@@ -49,16 +49,16 @@ buildNpmPackage rec {
     # 纯生产依赖树（缓存来自预取的 npmDeps），构建期 devDeps 至此不再进入产物
     npm ci --omit=dev --ignore-scripts
 
-    mkdir -p $out/lib $out/bin
+    mkdir -p $out/lib/pi-agent-git $out/bin
     # -L 解引用 workspaces 的相对符号链接（node_modules/@earendil-works/* →
     # packages/*），得到与 npm 发布一致的实体目录布局
-    cp -rL node_modules $out/lib/
+    cp -rL node_modules $out/lib/pi-agent-git/node_modules
 
     # 运行时只读 dist；各 workspace 的 src/test 不随 npm 包发布，裁掉以缩小 closure
-    for pkg in $out/lib/node_modules/@earendil-works/*/; do
+    for pkg in $out/lib/pi-agent-git/node_modules/@earendil-works/*/; do
       rm -rf "''${pkg}src" "''${pkg}test"
     done
-    pkgOut=$out/lib/node_modules/@earendil-works/pi-coding-agent
+    pkgOut=$out/lib/pi-agent-git/node_modules/@earendil-works/pi-coding-agent
 
     makeWrapper ${lib.getExe nodejs_22} $out/bin/pi \
       --add-flags "$pkgOut/dist/bundle/cli.js"

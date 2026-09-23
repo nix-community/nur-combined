@@ -52,12 +52,11 @@ buildNpmPackage rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/lib
-    cp -r node_modules $out/lib/node_modules
+    mkdir -p $out/bin $out/lib/pi-agent
+    cp -r node_modules $out/lib/pi-agent/node_modules
 
     makeWrapper ${lib.getExe nodejs} $out/bin/pi \
-      --add-flags "$out/lib/node_modules/@earendil-works/pi-coding-agent/dist/cli.js"
-
+      --add-flags "$out/lib/pi-agent/node_modules/@earendil-works/pi-coding-agent/dist/cli.js"
     runHook postInstall
   '';
 
