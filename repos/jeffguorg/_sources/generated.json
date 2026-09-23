@@ -118,6 +118,51 @@
         },
         "version": "rust-v0.156.1"
     },
+    "codex-bin-amd64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-bin-amd64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-n+4m5z9aJLawVwRvDb5hn5S7AkuTTid/VPSTTQgUVNA=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.156.1-darwin-x64.tgz"
+        },
+        "version": "0.156.1"
+    },
+    "codex-bin-amd64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-bin-amd64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-3tmEC6vrUR55c4rnCARK5In7zlDbcAK5Q7MZXPWuaiU=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.156.1-linux-x64.tgz"
+        },
+        "version": "0.156.1"
+    },
+    "codex-bin-arm64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-bin-arm64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-iYI901A2TV4MuKdMHqWF7CtzB5MdncCsQZW4vI+eLfo=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.156.1-darwin-arm64.tgz"
+        },
+        "version": "0.156.1"
+    },
     "codex-bin-arm64-linux": {
         "cargoLock": null,
         "date": null,

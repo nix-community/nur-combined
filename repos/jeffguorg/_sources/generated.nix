@@ -81,6 +81,30 @@
       };
     };
   };
+  codex-bin-amd64-darwin = {
+    pname = "codex-bin-amd64-darwin";
+    version = "0.156.1";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.156.1-darwin-x64.tgz";
+      sha256 = "sha256-n+4m5z9aJLawVwRvDb5hn5S7AkuTTid/VPSTTQgUVNA=";
+    };
+  };
+  codex-bin-amd64-linux = {
+    pname = "codex-bin-amd64-linux";
+    version = "0.156.1";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.156.1-linux-x64.tgz";
+      sha256 = "sha256-3tmEC6vrUR55c4rnCARK5In7zlDbcAK5Q7MZXPWuaiU=";
+    };
+  };
+  codex-bin-arm64-darwin = {
+    pname = "codex-bin-arm64-darwin";
+    version = "0.156.1";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.156.1-darwin-arm64.tgz";
+      sha256 = "sha256-iYI901A2TV4MuKdMHqWF7CtzB5MdncCsQZW4vI+eLfo=";
+    };
+  };
   codex-bin-arm64-linux = {
     pname = "codex-bin-arm64-linux";
     version = "0.156.1";
