@@ -11,14 +11,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "kui";
-  version = "1.14.1";
+  version = "1.15.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "abersheeran";
     repo = "kui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PbE90v7y5qzyNJCCh8759BDPq2nFKO7A2FchIbHYWxk=";
+    hash = "sha256-h3wNlrvphb+Pc17s4wAKmqHHTSwTdMUnoEF3Tq+PljI=";
   };
   propagatedBuildInputs = [
     baize
