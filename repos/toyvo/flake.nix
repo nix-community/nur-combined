@@ -12,7 +12,6 @@
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
-    dioxus_monorepo.url = "github:toyvo/dioxus_monorepo";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixos-unstable";

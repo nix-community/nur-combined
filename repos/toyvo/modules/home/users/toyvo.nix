@@ -14,6 +14,7 @@ in
     ../programs/terminals/hyper.nix
     ../programs/editors/zed.nix
     ../programs/jujutsu.nix
+    ../programs/pi.nix
     ../catppuccin.nix
   ];
 

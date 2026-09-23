@@ -6,9 +6,6 @@
     { lib, inputs, ... }:
     {
       imports = [
-        ./session.nix
-        ./shells.nix
-        ./sops.nix
         ./catppuccin.nix
         ./programs/bat.nix
         ./programs/editors/helix.nix
@@ -18,7 +15,9 @@
         ./programs/eza.nix
         ./programs/git.nix
         ./programs/gtk.nix
+        ./programs/jujutsu.nix
         ./programs/kde.nix
+        ./programs/pi.nix
         ./programs/shells/bash.nix
         ./programs/shells/fish.nix
         ./programs/shells/ion.nix
@@ -33,39 +32,44 @@
         ./programs/terminals/rio.nix
         ./programs/terminals/wezterm.nix
         ./programs/volta.nix
+        ./session.nix
+        ./shells.nix
+        ./sops.nix
         ./users/chloe.nix
         ./users/toyvo.nix
       ];
 
       options.nixcfg.gui.enable = lib.mkEnableOption "GUI Applications";
     };
-  session = ./session.nix;
-  catppuccin = ./catppuccin.nix;
-  shells = ./shells.nix;
-  sops = ./sops.nix;
+  alacritty = ./programs/terminals/alacritty.nix;
+  bash = ./programs/shells/bash.nix;
   bat = ./programs/bat.nix;
-  helix = ./programs/editors/helix.nix;
-  ideavim = ./programs/editors/ideavim.nix;
-  opencode = ./programs/editors/opencode.nix;
-  zed = ./programs/editors/zed.nix;
+  catppuccin = ./catppuccin.nix;
+  chloe = ./users/chloe.nix;
   eza = ./programs/eza.nix;
+  fish = ./programs/shells/fish.nix;
+  ghostty = ./programs/terminals/ghostty.nix;
   git = ./programs/git.nix;
   gtk = ./programs/gtk.nix;
-  kde = ./programs/kde.nix;
-  bash = ./programs/shells/bash.nix;
-  fish = ./programs/shells/fish.nix;
-  ion = ./programs/shells/ion.nix;
-  nushell = ./programs/shells/nushell.nix;
-  powershell = ./programs/shells/powershell.nix;
-  zsh = ./programs/shells/zsh.nix;
-  ssh = ./programs/ssh.nix;
-  alacritty = ./programs/terminals/alacritty.nix;
-  ghostty = ./programs/terminals/ghostty.nix;
+  helix = ./programs/editors/helix.nix;
   hyper = ./programs/terminals/hyper.nix;
+  ideavim = ./programs/editors/ideavim.nix;
+  ion = ./programs/shells/ion.nix;
+  jujutsu = ./programs/jujutsu.nix;
+  kde = ./programs/kde.nix;
   kitty = ./programs/terminals/kitty.nix;
+  nushell = ./programs/shells/nushell.nix;
+  opencode = ./programs/editors/opencode.nix;
+  pi = ./programs/pi.nix;
+  powershell = ./programs/shells/powershell.nix;
   rio = ./programs/terminals/rio.nix;
-  wezterm = ./programs/terminals/wezterm.nix;
-  volta = ./programs/volta.nix;
-  chloe = ./users/chloe.nix;
+  session = ./session.nix;
+  shells = ./shells.nix;
+  sops = ./sops.nix;
+  ssh = ./programs/ssh.nix;
   toyvo = ./users/toyvo.nix;
+  volta = ./programs/volta.nix;
+  wezterm = ./programs/terminals/wezterm.nix;
+  zed = ./programs/editors/zed.nix;
+  zsh = ./programs/shells/zsh.nix;
 }

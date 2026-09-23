@@ -12,7 +12,6 @@
     inputs.nixcfg.modules.nixos.default
     inputs.apple-silicon-support.nixosModules.apple-silicon-support
     inputs.catppuccin.nixosModules.catppuccin
-    inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index

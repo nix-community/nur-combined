@@ -20,7 +20,6 @@ in
     ./samba.nix
     ./homepage.nix
     inputs.catppuccin.nixosModules.catppuccin
-    inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
@@ -182,15 +181,15 @@ in
         cockpit-files
       ];
     };
-    discord_bot = {
-      enable = true;
-      env_file = config.sops.secrets."discord_bot.env".path;
-      env = {
-        ADDR = "0.0.0.0";
-        PORT = homelab.${hostName}.services.discord_bot.port;
-        BASE_URL = "https://toyvo.dev";
-      };
-    };
+    # discord_bot = {
+    #   enable = true;
+    #   env_file = config.sops.secrets."discord_bot.env".path;
+    #   env = {
+    #     ADDR = "0.0.0.0";
+    #     PORT = homelab.${hostName}.services.discord_bot.port;
+    #     BASE_URL = "https://toyvo.dev";
+    #   };
+    # };
     forgejo = {
       enable = true;
       stateDir = "/mnt/POOL/forgejo";
