@@ -3,6 +3,9 @@ on:
   schedule:
     - cron: "23 0 * * *"
   workflow_dispatch:
+concurrency:
+  group: update-packages-${{ github.event.repository.default_branch }}
+  cancel-in-progress: false
 jobs:
   update:
     # Cron cannot filter by branch; skip scheduled runs off the default branch.
@@ -51,9 +54,9 @@ jobs:
         id: weekly
         run: |
           if [ "$(date +%u)" = "5" ]; then
-            echo "is_weekly=true" >> $GITHUB_OUTPUT
+            echo "is_weekly=true" >> "$GITHUB_OUTPUT"
           else
-            echo "is_weekly=false" >> $GITHUB_OUTPUT
+            echo "is_weekly=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Update flake inputs (weekly)
         if: github.event_name == 'workflow_dispatch' || steps.weekly.outputs.is_weekly == 'true'
@@ -65,18 +68,37 @@ jobs:
           echo 'github = "${{ github.token }}"' >> ~/.config/nvchecker/keyfile.toml
       - name: Run update script
         run: ./scripts/update.sh
+      - name: Generate package documentation
+        run: |
+          ./scripts/generate-package-docs.py
+
+          if ! git diff --quiet -- README.md; then
+            git add README.md
+            git commit -m "README: update package information" \
+              -m "Regenerate the package documentation after changes to package metadata."
+          fi
+
+          ./scripts/generate-package-docs.py
+          git diff --exit-code -- README.md
+      - name: Verify clean worktree
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --short
+            echo '::error::The update left uncommitted changes.'
+            exit 1
+          fi
       - name: Check for changes
         id: changes
         run: |
-          if [ -n "$(git log origin/$BASE_BRANCH..HEAD)" ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
+          if [ -n "$(git log "origin/$BASE_BRANCH..HEAD")" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
           else
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Generate PR description
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          git log origin/$BASE_BRANCH..HEAD --pretty=format:'## %s%n%n%b' > /tmp/pr_body.md
+          git log "origin/$BASE_BRANCH..HEAD" --pretty=format:'## %s%n%n%b' > /tmp/pr_body.md
       - name: Create Pull Request
         if: steps.changes.outputs.has_changes == 'true'
         run: |
