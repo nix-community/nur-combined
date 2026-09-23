@@ -12,16 +12,17 @@
   mimalloc,
   mpv-unwrapped,
   webkitgtk_4_1,
+  yq,
 }:
 
 let
-  version = "2.3.3";
+  version = "2.3.4";
 
   src = fetchFromGitHub {
     owner = "Predidit";
     repo = "Kazumi";
     tag = version;
-    hash = "sha256-2BhB7wEptw1KfPwfLvuO+2IvdimygtwVSp496hkZ7XE=";
+    hash = "sha256-cb1YvLZkA6nsr85fD+/HAYeJNDXUWSx5bVJOPiyoNxo=";
   };
 in
 flutter.buildFlutterApplication {
@@ -32,7 +33,10 @@ flutter.buildFlutterApplication {
 
   gitHashes = lib.importJSON ./gitHashes.json;
 
-  flutterBuildFlags = [ "--dart-define=appBuildName=${version}" ];
+  flutterBuildFlags = [
+    "--dart-define=appBuildName=${version}"
+    "--dart-define=source=system"
+  ];
 
   customSourceBuilders = {
     # unofficial media_kit_libs_linux
@@ -82,6 +86,9 @@ flutter.buildFlutterApplication {
   };
 
   postPatch = ''
+    # Configure media_kit hook to use system libmpv instead of downloading from GitHub
+    yq -Y '.hooks = {"user_defines": {"media_kit": {"source": "system"}}}' pubspec.yaml > pubspec.yaml.new && mv pubspec.yaml.new pubspec.yaml
+
     # Fix Flutter 3.24+ API change
     substituteInPlace lib/pages/plugin_editor/plugin_view_page.dart \
       --replace-fail "onReorderItem:" "onReorder:"
@@ -101,7 +108,10 @@ flutter.buildFlutterApplication {
     )
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    yq
+  ];
 
   buildInputs = [
     alsa-lib
@@ -118,7 +128,6 @@ flutter.buildFlutterApplication {
   ];
 
   postInstall = ''
-    ln -snf ${mpv-unwrapped}/lib/libmpv.so.2 $out/app/$pname/lib/libmpv.so.2
     install -Dm 0644 assets/linux/io.github.Predidit.Kazumi.desktop -t $out/share/applications/
     install -Dm 0644 assets/images/logo/logo_linux.png $out/share/icons/hicolor/512x512/apps/io.github.Predidit.Kazumi.png
   '';
