@@ -5,16 +5,16 @@
 }:
 golink.overrideAttrs (
   _finalAttrs: previousAttrs: {
-    version = "1.0.0-unstable-2026-08-20";
+    version = "1.0.0-unstable-2026-09-22";
 
     src = fetchFromGitHub {
       owner = "tailscale";
       repo = "golink";
-      rev = "3f9300f2b03f29f1a2eb704ff419d849f47aabf4";
-      hash = "sha256-RUS9EtnG0VwRzOV0a0f8vC1nxpjSRONSHdLaQ2Z5aUE=";
+      rev = "6ee915b34f81fed9310c2d63bdcd7c5134abe4ed";
+      hash = "sha256-xSKk1WHQdMTxhooovpD4J5sucIhO1BRNStChRSS+aI0=";
     };
 
-    vendorHash = "sha256-V6ko9wBp1pRY00l3EynnAFf5JlM/BQTA6hctXlWMnRI=";
+    vendorHash = "sha256-Hyb4HtnkYCRzVQGzEDCylv9fQwtEuWG8bbxnIjnYIps=";
 
     passthru = previousAttrs.passthru // {
       updateScript = nix-update-script {
