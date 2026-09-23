@@ -122,6 +122,8 @@ let
 
     ### Applications
 
+    chromium_50-bin = callPackage ./chromium_50-bin { };
+
     find-itch-upload = callPackage ./find-itch-upload { };
 
     # testing purpose
