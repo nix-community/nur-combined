@@ -21,6 +21,7 @@ dependencies {
     implementation(compose.desktop.linux_arm64)
     implementation(compose.material3)
     implementation(compose.components.resources)
+    implementation(libs.okhttp)
 }
 
 compose.desktop {
