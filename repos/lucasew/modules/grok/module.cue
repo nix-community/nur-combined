@@ -53,9 +53,9 @@ module: {
 							"--omit-images",
 							"--no-clone",
 							"--browser-bin-path",
-							workspaced.browser.webapp,
+							browser.webapp,
 							"--data-dir",
-							"\(workspaced.runtime.home)/.cache/rod-mcp",
+							"\(runtime.home)/.cache/rod-mcp",
 						]
 						startup_timeout_sec: 60
 						enabled:             true

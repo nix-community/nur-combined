@@ -14,8 +14,8 @@ module: {
 				model_reasoning_effort: "medium"
 				personality:            "pragmatic"
 				projects: {
-					"\(workspaced.runtime.dotfiles_root)": {trust_level: "trusted"}
-					"\(workspaced.runtime.dotfiles_root)/workspaced": {trust_level: "trusted"}
+					"\(runtime.dotfiles_root)": {trust_level: "trusted"}
+					"\(runtime.dotfiles_root)/workspaced": {trust_level: "trusted"}
 				}
 				notice: {
 					model_migrations: {

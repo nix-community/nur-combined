@@ -1,7 +1,7 @@
 package module
 
 #hex: {
-	for k, v in workspaced.modules.base16.config if k =~ "^base" {
+	for k, v in modules.base16.config if k =~ "^base" {
 		(k): "#\(v)"
 	}
 }

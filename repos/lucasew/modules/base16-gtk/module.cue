@@ -1,6 +1,6 @@
 package module
 
-#gtk: workspaced.modules["base16-gtk"].config
+#gtk: modules["base16-gtk"].config
 
 #gtkSettingsShared: {
 	"gtk-theme-name":         #gtk.theme_name
@@ -8,10 +8,10 @@ package module
 	"gtk-font-name":          #gtk.font_name
 	"gtk-cursor-theme-name":  #gtk.cursor_theme
 	"gtk-cursor-theme-size":  #gtk.cursor_size
-	if workspaced.modules.base16.config.dark_mode {
+	if modules.base16.config.dark_mode {
 		"gtk-application-prefer-dark-theme": 1
 	}
-	if workspaced.modules.base16.config.dark_mode == false {
+	if modules.base16.config.dark_mode == false {
 		"gtk-application-prefer-dark-theme": 0
 	}
 	...
@@ -52,10 +52,10 @@ module: {
 	config: {
 		// adw-gtk3 reads libadwaita named colors from ~/.config/gtk-{3,4}.0/gtk.css
 		theme_name: string
-		if workspaced.modules.base16.config.dark_mode {
+		if modules.base16.config.dark_mode {
 			theme_name: *"adw-gtk3-dark" | string
 		}
-		if workspaced.modules.base16.config.dark_mode == false {
+		if modules.base16.config.dark_mode == false {
 			theme_name: *"adw-gtk3" | string
 		}
 
@@ -71,10 +71,10 @@ module: {
 				"icon-theme":   string | *icon_theme
 				"cursor-theme": string | *cursor_theme
 				"color-scheme": string
-				if workspaced.modules.base16.config.dark_mode {
+				if modules.base16.config.dark_mode {
 					"color-scheme": *"prefer-dark" | string
 				}
-				if workspaced.modules.base16.config.dark_mode == false {
+				if modules.base16.config.dark_mode == false {
 					"color-scheme": *"prefer-light" | string
 				}
 			}

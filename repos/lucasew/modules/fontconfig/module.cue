@@ -1,6 +1,6 @@
 package module
 
-#fonts: workspaced.modules.fontconfig.config
+#fonts: modules.fontconfig.config
 
 module: {
 	meta: {
