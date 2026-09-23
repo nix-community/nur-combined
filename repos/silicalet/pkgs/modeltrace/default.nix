@@ -16,13 +16,13 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "modeltrace";
-  version = "0-unstable-2026-09-15";
+  version = "0-unstable-2026-09-23";
 
   src = fetchFromGitHub {
     owner = "xqy2006";
     repo = "ModelTrace";
-    rev = "3f0dd2f4b451ad424f3b165a108a468efe4d4d81";
-    hash = "sha256-0InSHeJBt+7k5i/spOxCGNiIT+tLlobfElH06U84ECA=";
+    rev = "55a2e4a55170423b484d701e9a82ab62b268c811";
+    hash = "sha256-+DPG1QBjsfzHr+UsXERu91af0FwuRX1UABtzki35u8M=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
