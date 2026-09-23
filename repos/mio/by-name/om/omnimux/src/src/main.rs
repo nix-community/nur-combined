@@ -29,8 +29,8 @@ fn main() {
     }
 
     gpui_platform::application().run(move |cx: &mut gpui::App| {
-        gpui_component::init(cx);
         load_bundled_symbol_fonts(cx);
+        gpui_component::init(cx);
 
         cx.bind_keys([
             KeyBinding::new("cmd-t", NewTab, Some("omnimux")),
