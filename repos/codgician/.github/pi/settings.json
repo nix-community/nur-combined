@@ -1,0 +1,5 @@
+{
+  "defaultProvider": "dendro",
+  "defaultModel": "gpt-6-luna",
+  "defaultThinkingLevel": "xhigh"
+}

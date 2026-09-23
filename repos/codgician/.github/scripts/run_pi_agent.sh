@@ -10,6 +10,7 @@ repository_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd -P)
 runtime_dir=$(mktemp -d)
 trap 'rm -rf "$runtime_dir"' EXIT
 cp "$repository_root/.github/pi/models.json" "$runtime_dir/models.json"
+cp "$repository_root/.github/pi/settings.json" "$runtime_dir/settings.json"
 export PI_CODING_AGENT_DIR="$runtime_dir"
 export PI_OFFLINE=1
 export PI_TELEMETRY=0
@@ -50,7 +51,4 @@ pi \
   --no-themes \
   --no-context-files \
   --tools read,bash,edit,write,grep,find,ls \
-  --provider dendro \
-  --model grok-4.5 \
-  --thinking high \
   "$prompt"

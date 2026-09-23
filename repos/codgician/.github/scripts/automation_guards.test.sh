@@ -113,7 +113,17 @@ if [[ -e "$build_args_file" ]]; then
 fi
 
 models=$(PACKAGE=pi-guard-test DENDRO_API_KEY=test .github/scripts/run_pi_agent.sh --check)
-if [[ "$models" != *dendro* || "$models" != *grok-4.5* ]]; then
-  echo 'Pinned Pi environment did not load the Dendro model' >&2
+if [[ "$models" != *dendro* || "$models" != *gpt-6-luna* ]]; then
+  echo 'Pinned Pi environment did not load the configured Dendro model' >&2
+  exit 1
+fi
+if ! jq -e --slurpfile catalog .github/pi/models.json '
+  . as $settings |
+  .defaultProvider == "dendro" and
+  .defaultModel == "gpt-6-luna" and
+  .defaultThinkingLevel == "xhigh" and
+  ([$catalog[0].providers[$settings.defaultProvider].models[].id] | index($settings.defaultModel)) != null
+' .github/pi/settings.json >/dev/null; then
+  echo 'Pi startup defaults do not match the registered model and thinking level' >&2
   exit 1
 fi
