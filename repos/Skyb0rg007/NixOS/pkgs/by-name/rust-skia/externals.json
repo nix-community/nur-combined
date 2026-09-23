@@ -1,0 +1,47 @@
+{
+  "expat": {
+    "hash": "sha256-ifMDdEWu9H8iJ/VSKuXlisJKx1s1F8ecT74bwXnBWcA=",
+    "rev": "6154446fccefbf3ca644894f598969113b0c7bcd",
+    "url": "https://chromium.googlesource.com/external/github.com/libexpat/libexpat.git"
+  },
+  "harfbuzz": {
+    "hash": "sha256-EYItQuWvB4q2Q2iJfMyEtX9MTm3rEFlcwZ+NQEAVy0M=",
+    "rev": "9cb1fee51069b206effb4736e443b038d230789d",
+    "url": "https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git"
+  },
+  "icu": {
+    "hash": "sha256-DsktUjKFFbeSqlFZTBqbZgvuJLOKvssCym2M3tcOJtw=",
+    "rev": "d578f2e8b7bd5938e21cfb6bf15c079e0aa5b738",
+    "url": "https://chromium.googlesource.com/chromium/deps/icu.git"
+  },
+  "libjpeg-turbo": {
+    "hash": "sha256-Ig+tmprZDvlf/M72/DTar2pbxat9ZElgSqdXdoM0lPs=",
+    "rev": "e14cbfaa85529d47f9f55b0f104a579c1061f9ad",
+    "url": "https://chromium.googlesource.com/chromium/deps/libjpeg_turbo.git"
+  },
+  "libpng": {
+    "hash": "sha256-N507gFyjXXsJ3dyQN0SlVy80WXlbNlZs/cnqLaCmFTk=",
+    "rev": "d5515b5b8be3901aac04e5bd8bd5c89f287bcd33",
+    "url": "https://skia.googlesource.com/third_party/libpng.git"
+  },
+  "libwebp": {
+    "hash": "sha256-lH5wpzaCCPCfW2rHevJ7MQ6WpTYkh2LljLvD1nq36To=",
+    "rev": "845d5476a866141ba35ac133f856fa62f0b7445f",
+    "url": "https://chromium.googlesource.com/webm/libwebp.git"
+  },
+  "vulkanmemoryallocator": {
+    "hash": "sha256-LBZJcom7G7maF9wpUVeVEJQAJwGy6365INk3VD0/0PM=",
+    "rev": "eb744ea7a2b17040121b4bbb4d6f9e8a77e3cae7",
+    "url": "https://chromium.googlesource.com/external/github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator"
+  },
+  "wuffs": {
+    "hash": "sha256-373d2F/STcgCHEq+PO+SCHrKVOo6uO1rqqwRN5eeBCw=",
+    "rev": "e3f919ccfe3ef542cfc983a82146070258fb57f8",
+    "url": "https://skia.googlesource.com/external/github.com/google/wuffs-mirror-release-c.git"
+  },
+  "zlib": {
+    "hash": "sha256-jNj6SuTZ5/a7crtYhxW3Q/TlfRMNMfYIVxDlr7bYdzQ=",
+    "rev": "646b7f569718921d7d4b5b8e22572ff6c76f2596",
+    "url": "https://chromium.googlesource.com/chromium/src/third_party/zlib"
+  }
+}
