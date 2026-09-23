@@ -3,6 +3,7 @@
 , stdenvNoCC
 , buildNpmPackage
 , makeBinaryWrapper
+, jq
 , nodejs
 , python3
 , sources
@@ -15,33 +16,17 @@ buildNpmPackage rec {
   pname = "pi-agent";
   version = pi-agent-source.version;
 
-  # 与 kimi-code 同模式：tarball 的 package.json 不适合直接 install，
-  # 构造一个仅依赖 @earendil-works/pi-coding-agent 的 wrapper 项目。
+  # wrapper 的 manifest 与 lockfile 同源：package.json 直接取自官方 install
+  # lockfile 的根节点，不手写依赖或 overrides，以上游发布内容为准。
   src = stdenvNoCC.mkDerivation {
     name = "pi-agent-${version}-install-root";
     src = pi-agent-source.src;
     dontBuild = true;
+    nativeBuildInputs = [ jq ];
     installPhase = ''
       runHook preInstall
       mkdir -p $out
-      cat > $out/package.json <<EOF
-      {
-        "name": "@earendil-works/pi-coding-agent-install",
-        "version": "${version}",
-        "private": true,
-        "description": "Lockfile root used by the Pi installer and updater.",
-        "dependencies": {
-          "@earendil-works/pi-coding-agent": "${version}"
-        },
-        "overrides": {
-          "protobufjs": "7.6.5",
-          "rimraf": "6.1.2",
-          "gaxios": {
-            "rimraf": "6.1.2"
-          }
-        }
-      }
-      EOF
+      jq '.packages[""]' ${./package-lock.json} > $out/package.json
       cp ${./package-lock.json} $out/package-lock.json
       runHook postInstall
     '';
@@ -50,6 +35,7 @@ buildNpmPackage rec {
   npmDepsHash = "sha256-nKAcSzT8YkMC5eabkHKxuTt5rW9hdc4cQhBiUcGX84M=";
 
   nativeBuildInputs = [
+    jq
     makeBinaryWrapper
     python3
   ];

@@ -40,6 +40,8 @@ in
   oh-my-pi-bin = callPackage ./pkgs/oh-my-pi {};
   pi-agent = callPackage ./pkgs/pi-agent {};
   pi-agent-bin = callPackage ./pkgs/pi-agent-bin {};
+  pi-agent-git = callPackage ./pkgs/pi-agent/git.nix {};
+  pi-agent-patched = callPackage ./pkgs/pi-agent-patched {};
   vagrant-vmware-utility = callPackage ./pkgs/vagrant-vmware-utility.nix {};
   garble = callPackage ./pkgs/garble {};
 

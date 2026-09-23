@@ -311,6 +311,14 @@
       sha256 = "sha256-BC0grohe5POxAoFfMoC5YsN3sun7RN5AN5CMxTDq5NQ=";
     };
   };
+  pi-agent-git = {
+    pname = "pi-agent-git";
+    version = "0.86.1";
+    src = fetchurl {
+      url = "https://github.com/earendil-works/pi/releases/download/v0.86.1/pi-0.86.1-source.tar.gz";
+      sha256 = "sha256-G5COT8QUwi/CNEHPuysJBlDpXRmqywa++HNAzNQxy+o=";
+    };
+  };
   vagrant-vmware-utility = {
     pname = "vagrant-vmware-utility";
     version = "utility-v1.0.24";

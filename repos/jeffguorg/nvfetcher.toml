@@ -145,6 +145,12 @@ fetch.url = "https://github.com/can1357/oh-my-pi/releases/download/$ver/omp-darw
 src.cmd = "npm view @earendil-works/pi-coding-agent version 2>/dev/null"
 fetch.url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-$ver.tgz"
 
+
+# 与 pi-agent 同版本源（npm view），但从上游 release 附带的确定性源码包构建；
+# pi-<version>-source.tar.gz 含被 gitignore 的 model-data，见 pkgs/pi-agent/git.nix。
+[pi-agent-git]
+src.cmd = "npm view @earendil-works/pi-coding-agent version 2>/dev/null"
+fetch.url = "https://github.com/earendil-works/pi/releases/download/v$ver/pi-$ver-source.tar.gz"
 [pi-agent-bin-amd64-linux]
 src.github_tag = "earendil-works/pi"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"

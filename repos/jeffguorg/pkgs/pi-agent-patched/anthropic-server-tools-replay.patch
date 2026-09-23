@@ -1,0 +1,164 @@
+diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/anthropic-messages.ts
+index 2192e75..00026bf 100644
+--- a/packages/ai/src/api/anthropic-messages.ts
++++ b/packages/ai/src/api/anthropic-messages.ts
+@@ -597,6 +597,12 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 
+ 			type Block = (ThinkingContent | TextContent | (ToolCall & { partialJson: string })) & { index: number };
+ 			const blocks = output.content as Block[];
++			// Server tool blocks (server_tool_use, web_search_tool_result) and text
++			// citations have no internal representation; capture the raw wire blocks
++			// so the finished message can be replayed verbatim. See
++			// AssistantMessage.anthropicWireContent.
++			const wireBlocks: { index: number; block: Record<string, any>; jsonBuf?: string }[] = [];
++			const wireBlockAt = (index: number) => wireBlocks.find((entry) => entry.index === index);
+ 
+ 			for await (const event of iterateAnthropicEvents(response, options?.signal)) {
+ 				if (event.type === "message_start") {
+@@ -630,6 +636,16 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 						}
+ 						continue;
+ 					}
++					// Verbatim capture for anthropicWireContent replay.
++					const wireBlock = { ...(event.content_block as unknown as Record<string, any>) };
++					if (event.content_block.type === "text" && !Array.isArray(wireBlock.citations)) {
++						wireBlock.citations = [];
++					}
++					wireBlocks.push({
++						index: event.index,
++						block: wireBlock,
++						...(event.content_block.type === "server_tool_use" ? { jsonBuf: "" } : {}),
++					});
+ 					if (event.content_block.type === "text") {
+ 						const block: Block = {
+ 							type: "text",
+@@ -684,6 +700,10 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 								partial: output,
+ 							});
+ 						}
++						const wire = wireBlockAt(event.index);
++						if (wire && wire.block.type === "text") {
++							wire.block.text = (wire.block.text ?? "") + event.delta.text;
++						}
+ 					} else if (event.delta.type === "thinking_delta") {
+ 						const index = blocks.findIndex((b) => b.index === event.index);
+ 						const block = blocks[index];
+@@ -696,6 +716,10 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 								partial: output,
+ 							});
+ 						}
++						const wire = wireBlockAt(event.index);
++						if (wire && wire.block.type === "thinking") {
++							wire.block.thinking = (wire.block.thinking ?? "") + event.delta.thinking;
++						}
+ 					} else if (event.delta.type === "input_json_delta") {
+ 						const index = blocks.findIndex((b) => b.index === event.index);
+ 						const block = blocks[index];
+@@ -709,6 +733,10 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 								partial: output,
+ 							});
+ 						}
++						const wire = wireBlockAt(event.index);
++						if (wire && wire.block.type === "server_tool_use") {
++							wire.jsonBuf = (wire.jsonBuf ?? "") + event.delta.partial_json;
++						}
+ 					} else if (event.delta.type === "signature_delta") {
+ 						const index = blocks.findIndex((b) => b.index === event.index);
+ 						const block = blocks[index];
+@@ -716,10 +744,30 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 							block.thinkingSignature = block.thinkingSignature || "";
+ 							block.thinkingSignature += event.delta.signature;
+ 						}
++						const wire = wireBlockAt(event.index);
++						if (wire && wire.block.type === "thinking") {
++							wire.block.signature = (wire.block.signature ?? "") + event.delta.signature;
++						}
++					} else if ((event.delta as { type: string }).type === "citations_delta") {
++						const citation = (event.delta as { citation?: unknown }).citation;
++						const wire = wireBlockAt(event.index);
++						if (wire && wire.block.type === "text" && citation !== undefined) {
++							const citations = Array.isArray(wire.block.citations) ? wire.block.citations : [];
++							wire.block.citations = [...citations, citation];
++						}
+ 					}
+ 				} else if (event.type === "content_block_stop") {
+ 					const index = blocks.findIndex((b) => b.index === event.index);
+ 					const block = blocks[index];
++					const wire = wireBlockAt(event.index);
++					if (wire) {
++						if (wire.block.type === "server_tool_use" && wire.jsonBuf !== undefined) {
++							wire.block.input = parseStreamingJson(wire.jsonBuf);
++						}
++						if (wire.block.type === "tool_use" && block && block.type === "toolCall") {
++							wire.block.input = block.arguments;
++						}
++					}
+ 					if (block) {
+ 						delete (block as any).index;
+ 						if (block.type === "text") {
+@@ -787,6 +835,18 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 					calculateCost(usageModel, output.usage);
+ 				}
+ 			}
++			// Attach captured wire blocks when the response carried provider-native
++			// content with no internal representation; replay uses them verbatim.
++			if (
++				wireBlocks.some(
++					(entry) =>
++						entry.block.type === "server_tool_use" ||
++						entry.block.type === "web_search_tool_result" ||
++						(entry.block.type === "text" && (entry.block.citations?.length ?? 0) > 0),
++				)
++			) {
++				output.anthropicWireContent = wireBlocks.map((entry) => entry.block);
++			}
+ 
+ 			if (options?.signal?.aborted) {
+ 				throw new Error("Request was aborted");
+@@ -1060,6 +1120,7 @@ function buildParams(
+ 		compat.allowEmptySignature,
+ 		model.compat?.supportsMidConvoEffort === true ? model.provider : undefined,
+ 		nativeToolChanges,
++		model.provider,
+ 	);
+ 	const activeEffort = options?.effort ?? "high";
+ 	const betaFeatures = getBetaFeatures(model, context, isOAuthToken, nativeToolChanges, options);
+@@ -1230,6 +1291,7 @@ function convertMessages(
+ 	allowEmptySignature = false,
+ 	managedProvider?: string,
+ 	nativeToolChanges = false,
++	provider?: string,
+ ): ConvertedAnthropicMessages {
+ 	const params: MessageParam[] = [];
+ 	const assistantLevels = new Map<number, AnthropicEffort>();
+@@ -1361,6 +1423,12 @@ function convertMessages(
+ 					});
+ 				}
+ 			}
++			if (msg.anthropicWireContent && provider !== undefined && msg.provider === provider) {
++				// Provider-native turn (server tool use/results, citations): replace the
++				// internal conversion with the captured wire blocks; conversion drops them.
++				blocks.length = 0;
++				blocks.push(...(msg.anthropicWireContent as ContentBlockParam[]));
++			}
+ 			if (blocks.length === 0) continue;
+ 			const messageIndex = params.length;
+ 			params.push({
+diff --git a/packages/ai/src/types.ts b/packages/ai/src/types.ts
+index 2f28cc8..e50de39 100644
+--- a/packages/ai/src/types.ts
++++ b/packages/ai/src/types.ts
+@@ -528,6 +528,13 @@ export interface AssistantMessage {
+ 	deferred?: DeferredHandle;
+ 	errorMessage?: string;
+ 	rawStopReason?: string;
++	/**
++	 * Verbatim provider-native content blocks captured from the Anthropic Messages
++	 * stream for content with no internal representation (server tool
++	 * use/results, text citations). Replayed as-is when the same provider
++	 * resends the message; other providers fall back to the internal conversion.
++	 */
++	anthropicWireContent?: unknown[];
+ 	/**
+ 	 * Provider indication of whether the model explicitly ended its turn.
+ 	 * Preserved for debugging and does not currently affect agent control flow.

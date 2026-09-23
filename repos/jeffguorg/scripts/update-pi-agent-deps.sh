@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
-# Refresh pi-agent's npm package-lock.json and npmDepsHash after a source bump.
+# Refresh pi-agent and pi-agent-git npm deps after a source bump.
 #
 # pi-agent is a buildNpmPackage whose lockfile derives from the official
 # pi-coding-agent-install-package-lock.json attached to each GitHub release.
-# That lockfile ships with integrity:null on the @earendil-works/* packages,
-# which prefetch-npm-deps rejects, so the script fills integrity in from
-# registry metadata before hashing.
+# That lockfile is the single upstream-sourced artifact: pkgs/pi-agent/default.nix
+# derives its wrapper manifest from the lockfile root entry, so dependency
+# versions are never hand-written. The lockfile ships with integrity:null on
+# the @earendil-works/* packages, which prefetch-npm-deps rejects, so the
+# script fills integrity in from registry metadata before hashing.
 #
 # Triggered by .github/workflows/auto-update.yml when scripts/auto-update.sh
 # reports pi-agent in NPM_DEPS_TARGETS. Also runnable locally from repo root.
+# The pi-agent-git section refreshes pkgs/pi-agent/git.nix in the same pass.
 
 set -euo pipefail
 
@@ -89,7 +92,30 @@ sed -i "s|npmDepsHash = \"sha256-[^\"]*\";|npmDepsHash = \"$NEW_HASH\";|" "$NIXF
 
 echo "Lockfile refreshed; npmDepsHash = $NEW_HASH"
 
-# 4. Verify the package still builds end-to-end with the refreshed deps.
+# 4. Refresh pi-agent-git's npmDepsHash from the same release's source archive.
+# pi-agent-git builds the monorepo from pi-<version>-source.tar.gz; its root
+# package-lock.json is hashed with the default fetcher v1 format — fetcher v2
+# fetches live registry packuments, which makes the hash drift over time.
+GIT_NIX="$ROOT/pkgs/pi-agent/git.nix"
+if [[ -f "$GIT_NIX" ]]; then
+  echo "Refreshing pi-agent-git npm deps"
+  GIT_VERSION=$(jq -r '.["pi-agent-git"].version' "$GENERATED")
+  if [[ -z "$GIT_VERSION" || "$GIT_VERSION" == "null" ]]; then
+    echo "could not read pi-agent-git version from $GENERATED" >&2
+    exit 1
+  fi
+  curl -sL -o "$tmp/source.tar.gz" \
+    "https://github.com/earendil-works/pi/releases/download/v${GIT_VERSION}/pi-${GIT_VERSION}-source.tar.gz"
+  tar -xzf "$tmp/source.tar.gz" -C "$tmp" "pi-${GIT_VERSION}/package-lock.json"
+  GIT_HASH=$(nix run nixpkgs#prefetch-npm-deps -- "$tmp/pi-${GIT_VERSION}/package-lock.json")
+  sed -i "s|npmDepsHash = \"sha256-[^\"]*\";|npmDepsHash = \"$GIT_HASH\";|" "$GIT_NIX"
+  echo "pi-agent-git npmDepsHash = $GIT_HASH"
+fi
+
+# 5. Verify the packages still build end-to-end with the refreshed deps.
 echo "Verifying build..."
 nix-build -A pi-agent
-echo "pi-agent builds OK with refreshed npm deps."
+if [[ -f "$GIT_NIX" ]]; then
+  nix-build -A pi-agent-git
+fi
+echo "pi-agent/pi-agent-git build OK with refreshed npm deps."

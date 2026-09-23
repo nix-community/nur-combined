@@ -545,6 +545,21 @@
         },
         "version": "v0.85.1"
     },
+    "pi-agent-git": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pi-agent-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-G5COT8QUwi/CNEHPuysJBlDpXRmqywa++HNAzNQxy+o=",
+            "type": "url",
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.86.1/pi-0.86.1-source.tar.gz"
+        },
+        "version": "0.86.1"
+    },
     "vagrant-vmware-utility": {
         "cargoLock": null,
         "date": null,
