@@ -15,7 +15,7 @@
   version = lib.removePrefix "v" source.version;
 
   # Cross-platform pnpm store hash refreshed by update-hashes.
-  pnpmDepsHash = "sha256-3glelHHfcBvJfI+mqvSug684TZ3EnvN/x62Gugp+AN8=";
+  pnpmDepsHash = "sha256-7A1NOAo3Wle8VXJ6bzFFyfp9nj0zFaTcSr73+RyQCPM=";
 in
   stdenv.mkDerivation {
     inherit pname src version;

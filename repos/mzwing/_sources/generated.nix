@@ -63,13 +63,13 @@
   };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
-    version = "v7.2.127-11";
+    version = "v7.3.12-1";
     src = fetchFromGitHub {
       owner = "kaitranntt";
       repo = "CLIProxyAPIPlus";
-      rev = "v7.2.127-11";
+      rev = "v7.3.12-1";
       fetchSubmodules = false;
-      sha256 = "sha256-0Yg1xuBxjo8/g1SAKIoAuWm9VWNVQ1FTfQ11avzE0bg=";
+      sha256 = "sha256-ux5WhKCApQDcxcnDsKGoBNy5dnTHinNxC8Jdh5rU0JI=";
     };
   };
   cloudflarespeedtest = {
@@ -178,13 +178,13 @@
   };
   "icalingua++" = {
     pname = "icalingua++";
-    version = "v2.26.6";
+    version = "v2.26.8";
     src = fetchFromGitHub {
       owner = "Icalingua-plus-plus";
       repo = "Icalingua-plus-plus";
-      rev = "v2.26.6";
+      rev = "v2.26.8";
       fetchSubmodules = false;
-      sha256 = "sha256-aor50LIjV4EfcsQkBLlXj4YJzaHSWY0OYgGquEGZyp4=";
+      sha256 = "sha256-mJ/aEhvQ85/RrvT2PkB5bm86GfI4ZMdNAFhW5pXfM+c=";
     };
   };
   kelivo = {
@@ -233,15 +233,15 @@
   };
   manboster-canary = {
     pname = "manboster-canary";
-    version = "8408e39ba8392ed10de24c14db89568899007092";
+    version = "b433a98900cf7c5b7f1b9f5f64efdf8cd533e525";
     src = fetchFromGitHub {
       owner = "manboster";
       repo = "manboster";
-      rev = "8408e39ba8392ed10de24c14db89568899007092";
+      rev = "b433a98900cf7c5b7f1b9f5f64efdf8cd533e525";
       fetchSubmodules = false;
-      sha256 = "sha256-sXH49LA/WtT8R8Ht48XKhyKgPAJawWBzHYAOLt6xBeE=";
+      sha256 = "sha256-R0TYA7qmloCEZCShIVNnPg7dn+lhV7OuJy29L8yiIRU=";
     };
-    date = "2026-07-24";
+    date = "2026-09-23";
   };
   manboster-rc = {
     pname = "manboster-rc";

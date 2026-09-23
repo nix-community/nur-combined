@@ -202,6 +202,10 @@ go = '1.26.0'
     version = 'v1.4.0'
     hash = 'sha256-Q6kplWkY37Tzy6GOme3Wut40jFK4Izun+ij/BJvcEu0='
 
+  [mod.'github.com/libp2p/zeroconf/v2']
+    version = 'v2.2.0'
+    hash = 'sha256-eUAVvGcgQZs2yrQPcU5W0a4dQSH/HfiHSSYJpE9sOHc='
+
   [mod.'github.com/lucasb-eyer/go-colorful']
     version = 'v1.3.0'
     hash = 'sha256-6BKrJsfmxie+YFAWzTYVPQfrwjQEXRo+J8LY+50C1BU='
@@ -217,6 +221,10 @@ go = '1.26.0'
   [mod.'github.com/mattn/go-runewidth']
     version = 'v0.0.19'
     hash = 'sha256-GpnbKplhX410Q/eIdknvWbYZgdav1keN+7wNUeOSMHE='
+
+  [mod.'github.com/miekg/dns']
+    version = 'v1.1.43'
+    hash = 'sha256-FWtLHGlkx7WhMFB5qmO+NSHg9S5WuvZ3PGTQSij6Nhw='
 
   [mod.'github.com/minio/md5-simd']
     version = 'v1.1.2'
@@ -884,6 +892,15 @@ go = '1.26.0'
       'github.com/leodido/go-urn/scim/schema'
     ]
 
+  [cacheModules.'github.com/libp2p/zeroconf/v2']
+    packages = [
+      'github.com/libp2p/zeroconf/v2'
+    ]
+    deps = [
+      'github.com/miekg/dns',
+      'golang.org/x/net'
+    ]
+
   [cacheModules.'github.com/lucasb-eyer/go-colorful']
     packages = [
       'github.com/lucasb-eyer/go-colorful'
@@ -903,6 +920,15 @@ go = '1.26.0'
     ]
     deps = [
       'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/miekg/dns']
+    packages = [
+      'github.com/miekg/dns'
+    ]
+    deps = [
+      'golang.org/x/net',
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'github.com/minio/md5-simd']
@@ -1391,6 +1417,7 @@ go = '1.26.0'
   [cacheModules.'golang.org/x/text']
     packages = [
       'golang.org/x/text/cases',
+      'golang.org/x/text/currency',
       'golang.org/x/text/language',
       'golang.org/x/text/runes',
       'golang.org/x/text/secure/bidirule',
