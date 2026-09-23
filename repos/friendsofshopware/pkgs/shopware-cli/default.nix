@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "0f1sdwpwhif3qjz2nqbqbfdpdh8b0705gl8pz8mha2snyb8n5c40";
-    aarch64-linux = "1qzblzyb0ra40jxdbs4f6hadnwmjcpfbpr5r44mf3bl8ndxikbyz";
-    x86_64-darwin = "1v8j130r3yvdkx15lx391wbpzk6sxzy30jmfr58x43k5mca36w6l";
-    aarch64-darwin = "0p1sqdbkxm0ij8wpf0j6wfyl7711blvpn2rq1ma5jn37sxanainf";
+    x86_64-linux = "0lzjc42fbfv8zaqnmrmnvwskbi32f6b9g7pr9cpk2shfvxxk7a2j";
+    aarch64-linux = "0bwf8x9snj91wsl9lh788nm2qb237hyhgbip1l6mdyvb0lnba06l";
+    x86_64-darwin = "095ssh74n8lww44jnv5dicdvhsf3smx7cvzlcnlqcwyy3g5nxf8a";
+    aarch64-darwin = "1gg9b1knb2rs1ngs3qwj5y73hz0pc5pw92q0ili1a038y26pbn5g";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/shopware/shopware-cli/releases/download/0.18.4/shopware-cli_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/shopware/shopware-cli/releases/download/0.18.4/shopware-cli_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/shopware/shopware-cli/releases/download/0.18.4/shopware-cli_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/shopware/shopware-cli/releases/download/0.18.4/shopware-cli_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/shopware/shopware-cli/releases/download/v0.18.5/shopware-cli_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/shopware/shopware-cli/releases/download/v0.18.5/shopware-cli_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/shopware/shopware-cli/releases/download/v0.18.5/shopware-cli_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/shopware/shopware-cli/releases/download/v0.18.5/shopware-cli_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "shopware-cli";
-  version = "0.18.4";
+  version = "0.18.5";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -35,8 +35,10 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp -vr ./shopware-cli $out/bin/shopware-cli
+    runHook postInstall
   '';
   postInstall = ''
     ln -sf "$out/bin/shopware-cli" "$out/bin/swx"
