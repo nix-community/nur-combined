@@ -85,9 +85,9 @@ stdenv.mkDerivation (finalAttrs: {
     chmod -R +w core
 
     # Add the :desktop module
-    mkdir -p desktop/src/jvmMain/kotlin/moe/rukamori/archivetune/desktop
+    mkdir -p desktop/src/main/kotlin/moe/rukamori/archivetune/desktop
     cp ${./desktop-build.gradle.kts} desktop/build.gradle.kts
-    cp ${./desktop-Main.kt} desktop/src/jvmMain/kotlin/moe/rukamori/archivetune/desktop/Main.kt
+    cp ${./desktop-Main.kt} desktop/src/main/kotlin/moe/rukamori/archivetune/desktop/Main.kt
 
     # Wire the :desktop module into settings.gradle.kts
     sed -i '/include(":app")/d' settings.gradle.kts
@@ -187,7 +187,8 @@ stdenv.mkDerivation (finalAttrs: {
       
       # Replace the bundled JRE with the nixpkgs one.
       rm -rf $out/Applications/ArchiveTune.app/Contents/runtime
-      ln -s ${jdk.home} $out/Applications/ArchiveTune.app/Contents/runtime
+      jdk_mac=$(ls -d ${jdk.home}/Library/Java/JavaVirtualMachines/*.jdk)
+      ln -s "$jdk_mac" $out/Applications/ArchiveTune.app/Contents/runtime
       
       mkdir -p $out/bin
       makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune

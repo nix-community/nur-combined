@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import moe.rukamori.archivetune.innertube.YouTube
 
 fun main() = application {
+    moe.rukamori.archivetune.innertube.NetworkGatekeeper.setConnectionBlocked(false)
     val windowState = rememberWindowState(width = 1200.dp, height = 800.dp)
 
     Window(
@@ -71,7 +72,7 @@ fun ArchiveTuneApp() {
                             isLoading = true
                             searchResults = emptyList()
                             scope.launch(Dispatchers.IO) {
-                                val result = YouTube.search(searchQuery, null)
+                                val result = YouTube.search(searchQuery, YouTube.SearchFilter.FILTER_SONG)
                                 result.onSuccess { page ->
                                     searchResults = page.items.map { it.toString() }
                                     statusMessage = "Found ${searchResults.size} results"
