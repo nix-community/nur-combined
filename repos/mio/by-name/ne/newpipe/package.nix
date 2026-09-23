@@ -4,21 +4,35 @@
   fetchFromGitHub,
   gradle_9,
   jdk21,
+  androidenv,
+  android-translation-layer_patched,
   copyDesktopItems,
   makeDesktopItem,
   makeWrapper,
   writeText,
-  desktopToDarwinBundle,
-  # Runtime dependencies for the JVM desktop app
-  libGL,
-  libx11,
-  libxext,
-  libxrender,
-  fontconfig,
-  freetype,
 }:
 
 let
+  # AGP 9.2 pulls Build-Tools 36; keep 37 available for compileSdk 37.
+  buildToolsVersion = "36.0.0";
+  androidComposition = androidenv.composeAndroidPackages {
+    cmdLineToolsVersion = "latest";
+    platformVersions = [
+      "35"
+      "37"
+    ];
+    buildToolsVersions = [
+      buildToolsVersion
+      "37.0.0"
+    ];
+    includeNDK = false;
+    includeEmulator = false;
+    includeSystemImages = false;
+    includeSources = false;
+  };
+  androidSdk = androidComposition.androidsdk;
+  androidSdkRoot = "${androidSdk}/libexec/android-sdk";
+  aapt2 = "${androidSdkRoot}/build-tools/${buildToolsVersion}/aapt2";
   gradle = gradle_9.override { java = jdk21; };
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -33,13 +47,19 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    ./0001-desktop-only-remove-android-ios.patch
-    ./0002-add-home-screen.patch
+    ./0001-android-only-skip-desktop-ios-and-git.patch
   ];
 
   postPatch = ''
     # Configuration cache is flaky under the Gradle MITM proxy.
     sed -i 's/org.gradle.configuration-cache=true/org.gradle.configuration-cache=false/' gradle.properties
+
+    printf '%s\n' \
+      'sdk.dir=${androidSdkRoot}' \
+      'android.aapt2FromMavenOverride=${aapt2}' \
+      > local.properties
+
+    echo "android.aapt2FromMavenOverride=${aapt2}" >> gradle.properties
   '';
 
   nativeBuildInputs = [
@@ -47,109 +67,88 @@ stdenv.mkDerivation (finalAttrs: {
     gradle
     jdk21
     makeWrapper
-  ]
-  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  ];
 
   mitmCache = gradle.fetchDeps {
     inherit (finalAttrs) pname;
     pkg = finalAttrs.finalPackage;
-    data = ./deps.json;
+    data = if stdenv.hostPlatform.isDarwin then ./deps-darwin.json else ./deps-linux.json;
+    silent = false;
+    useBwrap = false;
   };
 
   env = {
-    _JAVA_OPTIONS = "-Djava.net.preferIPv4Stack=true";
+    JAVA_HOME = jdk21;
+    ANDROID_HOME = androidSdkRoot;
+    ANDROID_SDK_ROOT = androidSdkRoot;
   };
 
   gradleFlags = [
     "-Dorg.gradle.java.home=${jdk21}"
     "-Dfile.encoding=utf-8"
+    "-Dorg.gradle.project.android.aapt2FromMavenOverride=${aapt2}"
   ];
 
-  gradleBuildTask = ":desktopApp:packageUberJarForCurrentOS";
+  gradleBuildTask = ":app:assembleRelease";
   gradleUpdateTask = finalAttrs.gradleBuildTask;
 
-  # Empty init script: avoids potential issues with the Gradle MITM proxy.
+  # Empty init script: reproducible archives break some Android Gradle Plugin tasks.
   gradleInitScript = writeText "empty-init-script.gradle" "";
 
-  preGradleUpdate = ''
-    cat >> desktopApp/build.gradle.kts <<EOF
-    dependencies {
-        val skikoVersion = "0.144.6"
-        runtimeOnly("org.jetbrains.skiko:skiko-awt-runtime-macos-x64:\$skikoVersion")
-        runtimeOnly("org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:\$skikoVersion")
-        runtimeOnly("org.jetbrains.skiko:skiko-awt-runtime-linux-x64:\$skikoVersion")
-        runtimeOnly("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:\$skikoVersion")
-    }
-    EOF
-  '';
-
   doCheck = false;
+
+  # Gradle MITM + Android SDK license checks need loopback.
   __darwinAllowLocalNetworking = true;
 
   preBuild = ''
-    export HOME="$TMPDIR"
-    export ANDROID_USER_HOME="$TMPDIR/.android"
-    mkdir -p "$ANDROID_USER_HOME"
-    export _JAVA_OPTIONS="$_JAVA_OPTIONS -Duser.home=$TMPDIR"
+    export ANDROID_USER_HOME="$TMPDIR/android"
+    export GRADLE_USER_HOME="$TMPDIR/gradle"
+    mkdir -p "$ANDROID_USER_HOME" "$GRADLE_USER_HOME"
   '';
 
   installPhase = ''
     runHook preInstall
 
-    jarFile=$(find desktopApp/build/compose/jars -name "*.jar" | head -1)
-    install -Dm644 "$jarFile" "$out/share/newpipe-native/newpipe-native.jar"
+    install -Dm644 app/build/outputs/apk/release/*.apk \
+      "$out/share/newpipe/NewPipe.apk"
 
     install -Dm644 ${./icon.png} \
-      "$out/share/icons/hicolor/192x192/apps/newpipe-native.png"
+      "$out/share/icons/hicolor/192x192/apps/newpipe.png"
 
-    makeWrapper ${jdk21}/bin/java "$out/bin/newpipe-native" \
-      --add-flags "-jar $out/share/newpipe-native/newpipe-native.jar" \
-      ${lib.optionalString stdenv.hostPlatform.isLinux ''
-        --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath [
-            libGL
-            libx11
-            libxext
-            libxrender
-            fontconfig
-            freetype
-          ]
-        }"
-      ''}
+    makeWrapper ${lib.getExe android-translation-layer_patched} "$out/bin/newpipe" \
+      --run 'rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/art"' \
+      --set-default ATL_UGLY_ENABLE_WEBVIEW "" \
+      --add-flags "--gapplication-app-id=org.schabi.newpipe" \
+      --add-flags "$out/share/newpipe/NewPipe.apk"
 
     runHook postInstall
   '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = "newpipe-native";
-      desktopName = "NewPipe (Native)";
-      comment = "Libre lightweight streaming frontend — Compose Multiplatform desktop";
-      exec = "newpipe-native";
-      icon = "newpipe-native";
+      name = "newpipe";
+      desktopName = "NewPipe";
+      comment = "Libre lightweight streaming frontend";
+      exec = "newpipe";
+      icon = "newpipe";
       categories = [
         "AudioVideo"
         "Video"
         "Player"
         "TV"
       ];
-      startupWMClass = "newpipe-native";
+      startupWMClass = "org.schabi.newpipe";
     })
   ];
 
   meta = {
-    description = "NewPipe Compose Multiplatform desktop app (native JVM build)";
-    longDescription = ''
-      NewPipe built from source as a native JVM desktop application using the
-      Compose Multiplatform :desktopApp module. Unlike the ATL-based 'newpipe'
-      package this runs directly on the JVM without Android emulation.
-    '';
+    description = "NewPipe Android app built from source, launched via patched Android Translation Layer";
     homepage = "https://newpipe.net";
     changelog = "https://github.com/TeamNewPipe/NewPipe/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ ];
-    mainProgram = "newpipe-native";
-    platforms = lib.platforms.unix;
+    mainProgram = "newpipe";
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode # gradle mitm cache
