@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  buildGoModule,
+  buildGoLatestModule,
   git,
   versionCheckHook,
   replaceVars,
@@ -9,7 +9,7 @@
   sources,
 }:
 
-buildGoModule (finalAttrs: {
+buildGoLatestModule (finalAttrs: {
   pname = "garble";
   version = lib.removePrefix "v" sources.garble.version;
 
@@ -34,7 +34,7 @@ buildGoModule (finalAttrs: {
     "TestScript/gogarble|TestScript/gotoolchain|TestScript/tiny|TestScript/crossbuild|TestScript/atomic"
   ];
 
-  vendorHash = "sha256-F0Jc15ulA+qRDZu5W3FU9dZ+oXq8lGXP4dQeWnZwYbk=";
+  vendorHash = "sha256-sil0EZsvmQimmUHKSFUWK72b9Ug1smDYBiuoALUOM5Q=";
 
   # Used for some of the tests.
   nativeCheckInputs = [
