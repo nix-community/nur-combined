@@ -6,6 +6,17 @@
   dockerTools,
 }:
 {
+  aircard = {
+    pname = "aircard";
+    version = "v1.2.4";
+    src = fetchFromGitHub {
+      owner = "Mak5er";
+      repo = "AirCard";
+      rev = "v1.2.4";
+      fetchSubmodules = false;
+      sha256 = "sha256-q4XERgIcG+aNKbXUv/5rGSVNmr4jgHeTPLiq39cQKyY=";
+    };
+  };
   airtrail = {
     pname = "airtrail";
     version = "v3.12.0";
@@ -76,16 +87,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "5a7720f66a13ca0d0fe6f3e4413808c60703b620";
+    version = "232321d52121fe8bb25cb2a090d814129cb50c55";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "5a7720f66a13ca0d0fe6f3e4413808c60703b620";
+      rev = "232321d52121fe8bb25cb2a090d814129cb50c55";
       fetchSubmodules = false;
-      sha256 = "sha256-alhQeZxSSBuBt8vLaendUsX0/zm+BLaYxKovcCZYFaM=";
+      sha256 = "sha256-phGWl0zefemyRAla2j//0YrDZvF36F+No5yWaA8NY1M=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-alhQeZxSSBuBt8vLaendUsX0_zm+BLaYxKovcCZYFaM=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-phGWl0zefemyRAla2j__0YrDZvF36F+No5yWaA8NY1M=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -133,15 +144,15 @@
   };
   dae = {
     pname = "dae";
-    version = "17cc1de85dd0ae82f69cf0c182d99a1c35b193eb";
+    version = "6f2f2aa66084f3d736e4bf86a327e3523b3cdede";
     src = fetchFromGitHub {
       owner = "daeuniverse";
       repo = "dae";
-      rev = "17cc1de85dd0ae82f69cf0c182d99a1c35b193eb";
+      rev = "6f2f2aa66084f3d736e4bf86a327e3523b3cdede";
       fetchSubmodules = true;
-      sha256 = "sha256-TZ+47ldnYmxjEW+WYBpQMf+4ajbpJnBw/W9d1c7bYS0=";
+      sha256 = "sha256-1a9OQVH90XZ6SvQxKPd+hCDwQkV8rzTLMZ7NhCDw05Y=";
     };
-    date = "2026-09-20";
+    date = "2026-09-24";
   };
   dae-stable = {
     pname = "dae-stable";

@@ -1,4 +1,8 @@
 # keep-sorted start group_start_regex=["^\\[[^\\]]+\\]"] by_regex=["^\\[([^\\]]+)\\]"] newline_separated=yes case=no
+[aircard]
+src.github = "Mak5er/AirCard"
+fetch.github = "Mak5er/AirCard"
+
 [airtrail]
 src.github = "johanohly/AirTrail"
 fetch.github = "johanohly/AirTrail"
@@ -272,3 +276,4 @@ src.github = "moraxyc/whois42d-ng"
 fetch.url = "file:///dev/null"
 
 # keep-sorted end
+
