@@ -14,8 +14,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "yashsio";
     repo = "mozart";
-    rev = "98290e088f633e04eafde97e8225865be3b5838c";
-    hash = "sha256-i1SLttBpVLFufX5DcPV2QlQGvshdFJCUWOB10O8zREw=";
+    rev = "cad1d6e12cda9f003addb6c0db4927ba7a038c04";
+    hash = "sha256-zBXweMh4+4n0MAOjlDawkXKR4VtttSRYrFxUYHWwSGw=";
   };
 
   buildInputs = [
