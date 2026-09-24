@@ -266,8 +266,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "0809029f5002921fce34e18f6f79374dcb3ff745",
-            "sha256": "06r9d1qhg5biaf6lz03816h436b4g2hfygz83vxcl7793q1njl3k",
+            "rev": "6ffa407c049616dedf89f5e13a246bf0f1e92a85",
+            "sha256": "1sm25glnhz0bybk4rlqyyglwrnc44zivn9qh8lddai3mp9vyxzf8",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -2517,8 +2517,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "d90a7f0cd624aab7642f466b82002a71b82a5946",
-            "sha256": "0lfiw4xy7c8d3cg8jgm2d4pqxihq7a67dxp0khmcqzmg51043l40",
+            "rev": "80862fcd1f36d04f9701eb99e31aa2e758d4d440",
+            "sha256": "003s9w637l5rjfv2nkd9ggnvflkf7v1cax0jyziv5sypfb7pcbmg",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
