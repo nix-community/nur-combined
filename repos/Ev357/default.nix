@@ -34,4 +34,5 @@
   openflowlm = pkgs.callPackage ./pkgs/openflowlm {};
   raycast-jisho = pkgs.callPackage ./pkgs/raycast-jisho {};
   vicinae-bitwarden = pkgs.callPackage ./pkgs/vicinae-bitwarden {};
+  vicinae-nix = pkgs.callPackage ./pkgs/vicinae-nix {};
 }
