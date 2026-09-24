@@ -18,10 +18,15 @@ let
   metalSources = {
     DS4_METAL_FLASH_ATTN_SOURCE = "flash_attn.metal";
     DS4_METAL_DENSE_SOURCE = "dense.metal";
+    DS4_METAL_GLM53_BF16_SOURCE = "glm53_bf16.metal";
+    DS4_METAL_GLM53_VISION_SOURCE = "glm53_vision.metal";
+    DS4_METAL_DEEPSEEK4_VISION_SOURCE = "deepseek4_vision.metal";
+    DS4_METAL_GLM53_KDA_SOURCE = "glm53_kda.metal";
     DS4_METAL_MOE_SOURCE = "moe.metal";
     DS4_METAL_DSV4_HC_SOURCE = "dsv4_hc.metal";
     DS4_METAL_UNARY_SOURCE = "unary.metal";
     DS4_METAL_DSV4_KV_SOURCE = "dsv4_kv.metal";
+    DS4_METAL_DSV41_SOURCE = "dsv41.metal";
     DS4_METAL_DSV4_ROPE_SOURCE = "dsv4_rope.metal";
     DS4_METAL_DSV4_MISC_SOURCE = "dsv4_misc.metal";
     DS4_METAL_ARGSORT_SOURCE = "argsort.metal";
@@ -35,6 +40,8 @@ let
     DS4_METAL_NORM_SOURCE = "norm.metal";
     DS4_METAL_BIN_SOURCE = "bin.metal";
     DS4_METAL_SET_ROWS_SOURCE = "set_rows.metal";
+    DS4_METAL_QWEN4_SOURCE = "qwen4.metal";
+    DS4_METAL_QWEN4_VISION_SOURCE = "qwen4_vision.metal";
   };
 
   metalSourceWrapperArgs = lib.concatStringsSep " " (
@@ -43,13 +50,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "ds4";
-  version = "0-unstable-2026-09-02";
+  version = "0-unstable-2026-09-20";
 
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "ds4";
-    rev = "b0a147a7fba6d1a104d047d5a140e9bb4bfc13cd";
-    hash = "sha256-sHpV49J+3EPHAKFO/aKolTZ16uCfaiX+WKgsDKNLNTU=";
+    rev = "0aaea5a238fb41a35106a551e73c8409dfb751ac";
+    hash = "sha256-Bo/td1HwVjw6bwz3BDwTP+ZSudkVFCo2aIVK4axvmXg=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
