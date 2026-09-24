@@ -1,0 +1,136 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/Lyrics.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Lyrics.kt	2026-09-24 13:03:57
+@@ -9,13 +9,7 @@
+ 
+ package moe.rukamori.archivetune.ui.component
+ 
+-import android.annotation.SuppressLint
+-import android.content.res.Configuration
+-import android.os.Build
+-import android.view.WindowManager
+-import android.widget.Toast
+ import androidx.activity.compose.BackHandler
+-import androidx.annotation.RequiresApi
+ import androidx.compose.animation.AnimatedVisibility
+ import androidx.compose.animation.core.Animatable
+ import androidx.compose.animation.core.CubicBezierEasing
+@@ -105,8 +99,6 @@
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalDensity
+ import androidx.compose.ui.platform.LocalLayoutDirection
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.AnnotatedString
+ import androidx.compose.ui.text.SpanStyle
+ import androidx.compose.ui.text.buildAnnotatedString
+@@ -404,7 +396,6 @@
+ 
+ @RequiresApi(Build.VERSION_CODES.M)
+ @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+-@SuppressLint("UnusedBoxWithConstraintsScope", "StringFormatInvalid")
+ @Composable
+ fun Lyrics(
+     sliderPositionProvider: () -> Long?,
+@@ -789,7 +780,7 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.lyrics_not_found),
++                    text = "lyrics_not_found",
+                     fontSize = 20.sp,
+                     color = MaterialTheme.colorScheme.secondary,
+                     textAlign = TextAlign.Center,
+@@ -2448,13 +2439,13 @@
+                     horizontalArrangement = Arrangement.spacedBy(8.dp),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                         modifier = Modifier.size(18.dp),
+                     )
+                     Text(
+-                        text = stringResource(R.string.resume_autoscroll),
++                        text = "resume_autoscroll",
+                         color = MaterialTheme.colorScheme.onPrimaryContainer,
+                         style = MaterialTheme.typography.bodyMedium,
+                         fontWeight = FontWeight.Medium,
+@@ -2489,8 +2480,8 @@
+                                 contentAlignment = Alignment.Center,
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(id = R.drawable.close),
+-                                    contentDescription = stringResource(R.string.cancel),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                    contentDescription = "cancel",
+                                     tint = Color.White,
+                                     modifier = Modifier.size(20.dp),
+                                 )
+@@ -2532,13 +2523,13 @@
+                                 horizontalArrangement = Arrangement.spacedBy(8.dp),
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(id = R.drawable.share),
+-                                    contentDescription = stringResource(R.string.share_selected),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                    contentDescription = "share_selected",
+                                     tint = Color.Black,
+                                     modifier = Modifier.size(20.dp),
+                                 )
+                                 Text(
+-                                    text = stringResource(R.string.share),
++                                    text = "share",
+                                     color = Color.Black,
+                                     style = MaterialTheme.typography.bodyMedium,
+                                     fontWeight = FontWeight.Medium,
+@@ -2567,7 +2558,7 @@
+                 ) {
+                     Column(modifier = Modifier.padding(20.dp)) {
+                         Text(
+-                            text = stringResource(R.string.share_lyrics),
++                            text = "share_lyrics",
+                             fontWeight = FontWeight.Bold,
+                             fontSize = 20.sp,
+                             color = MaterialTheme.colorScheme.onSurface,
+@@ -2589,13 +2580,13 @@
+                             verticalAlignment = Alignment.CenterVertically,
+                         ) {
+                             Icon(
+-                                painter = painterResource(id = R.drawable.share),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 tint = MaterialTheme.colorScheme.primary,
+                             )
+                             Spacer(modifier = Modifier.width(12.dp))
+                             Text(
+-                                text = stringResource(R.string.share_as_text),
++                                text = "share_as_text",
+                                 fontSize = 16.sp,
+                                 color = MaterialTheme.colorScheme.onSurface,
+                             )
+@@ -2613,13 +2604,13 @@
+                             verticalAlignment = Alignment.CenterVertically,
+                         ) {
+                             Icon(
+-                                painter = painterResource(id = R.drawable.share),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 tint = MaterialTheme.colorScheme.primary,
+                             )
+                             Spacer(modifier = Modifier.width(12.dp))
+                             Text(
+-                                text = stringResource(R.string.share_as_image),
++                                text = "share_as_image",
+                                 fontSize = 16.sp,
+                                 color = MaterialTheme.colorScheme.onSurface,
+                             )
+@@ -2633,7 +2624,7 @@
+                             horizontalArrangement = Arrangement.End,
+                         ) {
+                             Text(
+-                                text = stringResource(R.string.cancel),
++                                text = "cancel",
+                                 fontSize = 16.sp,
+                                 color = MaterialTheme.colorScheme.error,
+                                 fontWeight = FontWeight.Medium,

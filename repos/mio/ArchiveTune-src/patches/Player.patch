@@ -1,0 +1,81 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/player/Player.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/player/Player.kt	2026-09-24 13:04:01
+@@ -9,16 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.player
+ 
+-import android.content.Context
+-import android.content.res.Configuration
+-import android.database.ContentObserver
+-import android.graphics.Bitmap
+-import android.media.AudioManager
+-import android.os.Build
+-import android.os.Handler
+-import android.os.Looper
+-import android.os.SystemClock
+-import android.provider.Settings
+ import androidx.activity.compose.BackHandler
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.AnimatedVisibility
+@@ -115,8 +105,6 @@
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalDensity
+ import androidx.compose.ui.platform.LocalView
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -192,7 +180,6 @@
+ import moe.rukamori.archivetune.ui.screens.buildLoginRoute
+ import moe.rukamori.archivetune.ui.screens.settings.DarkMode
+ import moe.rukamori.archivetune.ui.theme.PlayerColorExtractor
+-import android.widget.Toast
+ import com.materialkolor.ktx.toHct
+ import com.materialkolor.ktx.toColor
+ import moe.rukamori.archivetune.ui.utils.highRes
+@@ -2004,7 +1991,7 @@
+         ) {
+             val metadata = mediaMetadata ?: MediaMetadata(
+                 id = "",
+-                title = stringResource(R.string.app_name),
++                title = "app_name",
+                 artists = emptyList(),
+                 duration = 0,
+             )
+@@ -2790,7 +2777,7 @@
+                 verticalAlignment = Alignment.CenterVertically,
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.expand_more),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = textColor.copy(alpha = 0.8f),
+                     modifier =
+@@ -2806,7 +2793,7 @@
+                 Spacer(Modifier.weight(1f))
+ 
+                 Icon(
+-                    painter = painterResource(if (liked) R.drawable.favorite else R.drawable.favorite_border),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.favorite else R.drawable.favorite_border),
+                     contentDescription = null,
+                     tint =
+                         if (liked) {
+@@ -2827,7 +2814,7 @@
+                 Spacer(Modifier.width((18f * scale).dp))
+ 
+                 Icon(
+-                    painter = painterResource(R.drawable.queue_music),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = textColor.copy(alpha = 0.78f),
+                     modifier =
+@@ -2843,7 +2830,7 @@
+                 Spacer(Modifier.width((18f * scale).dp))
+ 
+                 Icon(
+-                    painter = painterResource(R.drawable.more_vert),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = textColor.copy(alpha = 0.78f),
+                     modifier =

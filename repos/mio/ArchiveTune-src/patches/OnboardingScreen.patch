@@ -1,0 +1,206 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/onboarding/OnboardingScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/onboarding/OnboardingScreen.kt	2026-09-24 13:04:01
+@@ -9,8 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.onboarding
+ 
+-import android.content.Intent
+-import android.provider.Settings
+ import androidx.activity.compose.rememberLauncherForActivityResult
+ import androidx.activity.result.contract.ActivityResultContracts
+ import androidx.compose.animation.AnimatedVisibility
+@@ -62,8 +60,6 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontStyle
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -162,9 +158,9 @@
+ 
+             OnboardingScreenState.Empty -> {
+                 MessageContent(
+-                    title = stringResource(R.string.onboarding_empty_title),
+-                    subtitle = stringResource(R.string.onboarding_empty_subtitle),
+-                    actionLabel = stringResource(R.string.onboarding_finish),
++                    title = "onboarding_empty_title",
++                    subtitle = "onboarding_empty_subtitle",
++                    actionLabel = "onboarding_finish",
+                     onAction = onComplete,
+                     contentPadding = padding,
+                 )
+@@ -173,8 +169,8 @@
+             is OnboardingScreenState.Error -> {
+                 MessageContent(
+                     title = stringResource(state.messageResId),
+-                    subtitle = stringResource(R.string.onboarding_empty_subtitle),
+-                    actionLabel = stringResource(R.string.onboarding_finish),
++                    subtitle = "onboarding_empty_subtitle",
++                    actionLabel = "onboarding_finish",
+                     onAction = onComplete,
+                     contentPadding = padding,
+                 )
+@@ -369,14 +365,14 @@
+                     ) {
+                         Box(contentAlignment = Alignment.Center) {
+                             Icon(
+-                                painter = painterResource(R.drawable.account),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 modifier = Modifier.size(34.dp),
+                             )
+                         }
+                     }
+                     Text(
+-                        text = stringResource(R.string.onboarding_login_optional),
++                        text = "onboarding_login_optional",
+                         style = MaterialTheme.typography.bodyLarge,
+                         color = MaterialTheme.colorScheme.onSurfaceVariant,
+                     )
+@@ -385,7 +381,7 @@
+         }
+         item(key = "login-benefits-title", contentType = "benefits-title") {
+             Text(
+-                text = stringResource(R.string.onboarding_login_benefits_title),
++                text = "onboarding_login_benefits_title",
+                 modifier =
+                     Modifier
+                         .widthIn(max = OnboardingContentMaxWidth)
+@@ -446,7 +442,7 @@
+             ) {
+                 Box(contentAlignment = Alignment.Center) {
+                     Icon(
+-                        painter = painterResource(benefit.iconResId),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(24.dp),
+                     )
+@@ -461,7 +457,7 @@
+         },
+         trailingContent = {
+             Icon(
+-                painter = painterResource(R.drawable.arrow_forward),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+             )
+@@ -495,13 +491,13 @@
+             contentPadding = OnboardingActionButtonPadding,
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.login),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 modifier = Modifier.size(20.dp),
+             )
+             Spacer(modifier = Modifier.size(8.dp))
+             Text(
+-                text = stringResource(R.string.login),
++                text = "login",
+                 style = MaterialTheme.typography.titleMedium,
+                 fontWeight = FontWeight.SemiBold,
+             )
+@@ -517,7 +513,7 @@
+                 contentPadding = OnboardingActionButtonPadding,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.back_button_desc),
++                    text = "back_button_desc",
+                     style = MaterialTheme.typography.titleMedium,
+                     fontWeight = FontWeight.SemiBold,
+                 )
+@@ -527,7 +523,7 @@
+                 modifier = Modifier.weight(1f),
+             ) {
+                 Text(
+-                    text = stringResource(R.string.onboarding_login_skip),
++                    text = "onboarding_login_skip",
+                     style = MaterialTheme.typography.titleMedium,
+                     fontWeight = FontWeight.SemiBold,
+                 )
+@@ -626,7 +622,7 @@
+         ) {
+             Box(contentAlignment = Alignment.Center) {
+                 Icon(
+-                    painter = painterResource(iconResId),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(150.dp),
+                 )
+@@ -796,7 +792,7 @@
+                 ) {
+                     Box(contentAlignment = Alignment.Center) {
+                         Icon(
+-                            painter = painterResource(action.iconResId),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(30.dp),
+                         )
+@@ -830,7 +826,7 @@
+         ) {
+             Box(contentAlignment = Alignment.Center) {
+                 Icon(
+-                    painter = painterResource(iconResId),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(34.dp),
+                 )
+@@ -937,7 +933,7 @@
+     ) {
+         Box(contentAlignment = Alignment.Center) {
+             Icon(
+-                painter = painterResource(permission.iconResId),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 modifier = Modifier.size(24.dp),
+             )
+@@ -958,7 +954,7 @@
+             shapes = ButtonDefaults.shapes(),
+             contentPadding = ButtonDefaults.SmallContentPadding,
+         ) {
+-            Text(text = stringResource(R.string.allow))
++            Text(text = "allow")
+         }
+     } else {
+         Surface(
+@@ -1004,7 +1000,7 @@
+             ) {
+                 Box(contentAlignment = Alignment.Center) {
+                     Icon(
+-                        painter = painterResource(action.iconResId),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(24.dp),
+                     )
+@@ -1019,7 +1015,7 @@
+         },
+         trailingContent = {
+             Icon(
+-                painter = painterResource(R.drawable.arrow_forward),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+             )
+@@ -1043,9 +1039,9 @@
+     val isLastPage = currentPage >= pageCount - 1
+     val nextLabel =
+         if (isLastPage) {
+-            stringResource(R.string.onboarding_finish)
++            "onboarding_finish"
+         } else {
+-            stringResource(R.string.next)
++            "next"
+         }
+ 
+     Column(
+@@ -1091,7 +1087,7 @@
+                     contentPadding = OnboardingActionButtonPadding,
+                 ) {
+                     Text(
+-                        text = stringResource(R.string.back_button_desc),
++                        text = "back_button_desc",
+                         style = MaterialTheme.typography.titleMedium,
+                         fontWeight = FontWeight.SemiBold,
+                     )

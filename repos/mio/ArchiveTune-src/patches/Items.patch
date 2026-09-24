@@ -1,0 +1,235 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/Items.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Items.kt	2026-09-24 13:03:57
+@@ -9,8 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.component
+ 
+-import android.widget.Toast
+-import androidx.annotation.DrawableRes
+ import androidx.compose.animation.AnimatedVisibility
+ import androidx.compose.animation.animateColorAsState
+ import androidx.compose.animation.core.animate
+@@ -77,9 +75,7 @@
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalDensity
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -349,7 +345,7 @@
+ private fun SongSourceIcon(isLocal: Boolean) {
+     val color = if (isLocal) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+     Icon(
+-        painter = painterResource(if (isLocal) R.drawable.playlist_local else R.drawable.playlist_online),
++        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.playlist_local else R.drawable.playlist_online),
+         contentDescription =
+             stringResource(
+                 if (isLocal) R.string.playlist_source_local else R.string.playlist_source_online,
+@@ -516,7 +512,7 @@
+     badges: @Composable RowScope.() -> Unit = {
+         if (artist.artist.bookmarkedAt != null) {
+             Icon(
+-                painter = painterResource(R.drawable.favorite),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.error,
+                 modifier =
+@@ -783,13 +779,13 @@
+             placeHolder = {
+                 val painter =
+                     when (playlist.playlist.name) {
+-                        stringResource(R.string.liked) -> R.drawable.favorite_border
+-                        stringResource(R.string.offline) -> R.drawable.offline
+-                        stringResource(R.string.cached_playlist) -> R.drawable.cached
++                        "liked" -> R.drawable.favorite_border
++                        "offline" -> R.drawable.offline
++                        "cached_playlist" -> R.drawable.cached
+                         else -> if (autoPlaylist) R.drawable.trending_up else R.drawable.queue_music
+                     }
+                 Icon(
+-                    painter = painterResource(painter),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = LocalContentColor.current.copy(alpha = 0.8f),
+                     modifier = Modifier.size(ListThumbnailSize / 2),
+@@ -856,9 +852,9 @@
+             placeHolder = {
+                 val painter =
+                     when (playlist.playlist.name) {
+-                        stringResource(R.string.liked) -> R.drawable.favorite_border
+-                        stringResource(R.string.offline) -> R.drawable.offline
+-                        stringResource(R.string.cached_playlist) -> R.drawable.cached
++                        "liked" -> R.drawable.favorite_border
++                        "offline" -> R.drawable.offline
++                        "cached_playlist" -> R.drawable.cached
+                         else -> if (autoPlaylist) R.drawable.trending_up else R.drawable.queue_music
+                     }
+                 Box(
+@@ -866,7 +862,7 @@
+                     modifier = Modifier.fillMaxSize(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(painter),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = LocalContentColor.current.copy(alpha = 0.8f),
+                         modifier = Modifier.size(width / 2),
+@@ -907,16 +903,16 @@
+     autoPlaylist: Boolean,
+ ): Int =
+     when (playlist.playlist.name) {
+-        stringResource(R.string.liked) -> R.drawable.favorite_border
+-        stringResource(R.string.offline) -> R.drawable.offline
+-        stringResource(R.string.cached_playlist) -> R.drawable.cached
++        "liked" -> R.drawable.favorite_border
++        "offline" -> R.drawable.offline
++        "cached_playlist" -> R.drawable.cached
+         else -> if (autoPlaylist) R.drawable.trending_up else R.drawable.queue_music
+     }
+ 
+ @Composable
+ fun LibraryPinnedCollectionTile(
+     title: String,
+-    @DrawableRes iconRes: Int,
++    iconRes: Int,
+     modifier: Modifier = Modifier,
+     subtitle: String? = null,
+     accentColor: Color = MaterialTheme.colorScheme.primary,
+@@ -953,7 +949,7 @@
+                     shape = CircleShape,
+                 ) {
+                     Icon(
+-                        painter = painterResource(iconRes),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = accentColor,
+                         modifier = Modifier.padding(12.dp),
+@@ -1052,7 +1048,7 @@
+                     size = thumbnailSize,
+                     placeHolder = {
+                         Icon(
+-                            painter = painterResource(playlistPlaceholderIcon(playlist, autoPlaylist)),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent)),
+                             contentDescription = null,
+                             tint = LocalContentColor.current.copy(alpha = 0.8f),
+                             modifier = Modifier.size(thumbnailSize / 2),
+@@ -1665,7 +1661,7 @@
+     albumIndex: Int? = null,
+     isSelected: Boolean = false,
+     shouldLoadImage: Boolean = true,
+-    @DrawableRes placeholderIconRes: Int? = null,
++    placeholderIconRes: Int? = null,
+     thumbnailRatio: Float = 1f,
+     contentScale: ContentScale? = null,
+     showPlaceholder: Boolean = false,
+@@ -1724,7 +1720,7 @@
+                     contentAlignment = Alignment.Center,
+                 ) {
+                     Icon(
+-                        painter = painterResource(placeholderIconRes),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                         modifier = Modifier.size(ListThumbnailSize * 0.48f),
+@@ -1793,7 +1789,7 @@
+                         .background(Color.Black.copy(alpha = 0.5f)),
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.done),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                 )
+             }
+@@ -1892,7 +1888,7 @@
+                     )
+                 } else {
+                     Icon(
+-                        painter = painterResource(R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = Color.White,
+                     )
+@@ -1919,7 +1915,7 @@
+                             .background(Color.Black.copy(alpha = 0.6f)),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = Color.White,
+                     )
+@@ -1946,7 +1942,7 @@
+                             .background(Color.Black.copy(alpha = ActiveBoxAlpha)),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = Color.White,
+                     )
+@@ -2070,7 +2066,7 @@
+                     .background(Color.Black.copy(alpha = ActiveBoxAlpha)),
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.play),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = Color.White,
+                 modifier = Modifier.size(20.dp),
+@@ -2103,7 +2099,7 @@
+                     .clickable(onClick = onClick),
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.play),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = Color.White,
+             )
+@@ -2186,7 +2182,7 @@
+                 contentAlignment = align,
+             ) {
+                 Icon(
+-                    painter = painterResource(id = iconRes),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier =
+                         Modifier
+@@ -2235,7 +2231,7 @@
+     @Composable
+     fun Favorite() {
+         Icon(
+-            painter = painterResource(R.drawable.favorite),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = MaterialTheme.colorScheme.error,
+             modifier =
+@@ -2248,7 +2244,7 @@
+     @Composable
+     fun Library() {
+         Icon(
+-            painter = painterResource(R.drawable.library_add_check),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             modifier =
+                 Modifier
+@@ -2265,7 +2261,7 @@
+         when (state) {
+             STATE_COMPLETED -> {
+                 Icon(
+-                    painter = painterResource(R.drawable.offline),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier =
+                         Modifier
+@@ -2307,7 +2303,7 @@
+     @Composable
+     fun Explicit() {
+         Icon(
+-            painter = painterResource(R.drawable.explicit),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             modifier =
+                 Modifier

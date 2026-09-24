@@ -1,0 +1,27 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/MoodAndGenresScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/MoodAndGenresScreen.kt	2026-09-24 13:03:59
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens
+ 
+-import android.content.Context
+ import androidx.compose.foundation.ExperimentalFoundationApi
+ import androidx.compose.foundation.background
+ import androidx.compose.foundation.layout.Box
+@@ -43,7 +42,6 @@
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalDensity
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.dp
+@@ -101,7 +99,7 @@
+     ) {
+         item(span = { GridItemSpan(maxLineSpan) }) {
+             NavigationTitle(
+-                title = stringResource(R.string.mood_and_genres),
++                title = "mood_and_genres",
+                 modifier = Modifier.animateItem(),
+             )
+         }

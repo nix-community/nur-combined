@@ -1,0 +1,449 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/menu/PlayerMenu.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/menu/PlayerMenu.kt	2026-09-24 13:04:01
+@@ -9,9 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.menu
+ 
+-import android.content.Intent
+-import android.media.audiofx.AudioEffect
+-import android.widget.Toast
+ import androidx.activity.compose.rememberLauncherForActivityResult
+ import androidx.activity.result.contract.ActivityResultContracts
+ import androidx.compose.foundation.background
+@@ -69,8 +66,6 @@
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -264,7 +259,7 @@
+                                 contentAlignment = Alignment.Center,
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.music_note),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                     modifier = Modifier.size(18.dp),
+@@ -364,7 +359,7 @@
+                     contentAlignment = Alignment.Center,
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.music_note),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                         modifier = Modifier.size(22.dp),
+@@ -384,7 +379,7 @@
+ 
+             Column(modifier = Modifier.weight(1f)) {
+                 Text(
+-                    text = stringResource(R.string.now_playing),
++                    text = "now_playing",
+                     style = MaterialTheme.typography.labelLarge,
+                     color = MaterialTheme.colorScheme.primary,
+                     maxLines = 1,
+@@ -444,13 +439,13 @@
+                                     NewAction(
+                                         icon = {
+                                             Icon(
+-                                                painter = painterResource(R.drawable.radio),
++                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                 contentDescription = null,
+                                                 modifier = Modifier.size(28.dp),
+                                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                             )
+                                         },
+-                                        text = stringResource(R.string.start_radio),
++                                        text = "start_radio",
+                                         onClick = {
+                                             playerConnection.startRadioSeamlessly()
+                                             onDismiss()
+@@ -473,14 +468,14 @@
+                                                 CircularWavyProgressIndicator(modifier = Modifier.size(28.dp))
+                                             } else {
+                                                 Icon(
+-                                                    painter = painterResource(R.drawable.sync),
++                                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                     contentDescription = null,
+                                                     modifier = Modifier.size(28.dp),
+                                                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                 )
+                                             }
+                                         },
+-                                        text = stringResource(R.string.refetch_canvas),
++                                        text = "refetch_canvas",
+                                         onClick = {
+                                             coroutineScope.launch {
+                                                 when (
+@@ -511,13 +506,13 @@
+                                 NewAction(
+                                     icon = {
+                                         Icon(
+-                                            painter = painterResource(R.drawable.playlist_add),
++                                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                             contentDescription = null,
+                                             modifier = Modifier.size(28.dp),
+                                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                         )
+                                     },
+-                                    text = stringResource(R.string.add_to_playlist),
++                                    text = "add_to_playlist",
+                                     onClick = { showChoosePlaylistDialog = true },
+                                 ),
+                             )
+@@ -526,8 +521,7 @@
+                                     icon = {
+                                         Icon(
+                                             painter =
+-                                                painterResource(
+-                                                    if (isInSpeedDial) R.drawable.bookmark_filled else R.drawable.bookmark,
++                                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.bookmark_filled else R.drawable.bookmark,
+                                                 ),
+                                             contentDescription = null,
+                                             modifier = Modifier.size(28.dp),
+@@ -554,13 +548,13 @@
+                                     NewAction(
+                                         icon = {
+                                             Icon(
+-                                                painter = painterResource(R.drawable.share),
++                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                 contentDescription = null,
+                                                 modifier = Modifier.size(28.dp),
+                                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                             )
+                                         },
+-                                        text = stringResource(R.string.share),
++                                        text = "share",
+                                         onClick = {
+                                             shareLocalAudio(context, mediaMetadata.id, librarySong?.format?.mimeType)
+                                             onDismiss()
+@@ -570,13 +564,13 @@
+                                     NewAction(
+                                         icon = {
+                                             Icon(
+-                                                painter = painterResource(R.drawable.link),
++                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                 contentDescription = null,
+                                                 modifier = Modifier.size(28.dp),
+                                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                             )
+                                         },
+-                                        text = stringResource(R.string.copy_link),
++                                        text = "copy_link",
+                                         onClick = {
+                                             val clipboard =
+                                                 context.getSystemService(
+@@ -604,13 +598,13 @@
+                                     NewAction(
+                                         icon = {
+                                             Icon(
+-                                                painter = painterResource(R.drawable.fire),
++                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                 contentDescription = null,
+                                                 modifier = Modifier.size(28.dp),
+                                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                             )
+                                         },
+-                                        text = stringResource(R.string.music_together),
++                                        text = "music_together",
+                                         onClick = {
+                                             onDismiss()
+                                             playerBottomSheetState.snapTo(playerBottomSheetState.collapsedBound)
+@@ -626,13 +620,13 @@
+                                     NewAction(
+                                         icon = {
+                                             Icon(
+-                                                painter = painterResource(R.drawable.bedtime),
++                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                 contentDescription = null,
+                                                 modifier = Modifier.size(28.dp),
+                                                 tint = aodContentColor,
+                                             )
+                                         },
+-                                        text = stringResource(R.string.aod_mode),
++                                        text = "aod_mode",
+                                         onClick = {
+                                             onAodFeatureEnabledChange(!aodFeatureEnabled)
+                                         },
+@@ -655,10 +649,10 @@
+                     Column {
+                         if (splitArtists.isNotEmpty()) {
+                             ListItem(
+-                                headlineContent = { Text(text = stringResource(R.string.view_artist)) },
++                                headlineContent = { Text(text = "view_artist") },
+                                 leadingContent = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.artist),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 },
+@@ -685,10 +679,10 @@
+ 
+                         if (mediaMetadata.album != null) {
+                             ListItem(
+-                                headlineContent = { Text(text = stringResource(R.string.view_album)) },
++                                headlineContent = { Text(text = "view_album") },
+                                 leadingContent = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.album),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 },
+@@ -716,13 +710,13 @@
+                             ListItem(
+                                 headlineContent = {
+                                     Text(
+-                                        text = stringResource(R.string.remove_download),
++                                        text = "remove_download",
+                                         color = MaterialTheme.colorScheme.error,
+                                     )
+                                 },
+                                 leadingContent = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.offline),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         tint = MaterialTheme.colorScheme.error,
+                                     )
+@@ -742,7 +736,7 @@
+ 
+                         Download.STATE_QUEUED, Download.STATE_DOWNLOADING -> {
+                             ListItem(
+-                                headlineContent = { Text(text = stringResource(R.string.downloading)) },
++                                headlineContent = { Text(text = "downloading") },
+                                 leadingContent = {
+                                     CircularWavyProgressIndicator(
+                                         modifier = Modifier.size(24.dp),
+@@ -763,10 +757,10 @@
+ 
+                         else -> {
+                             ListItem(
+-                                headlineContent = { Text(text = stringResource(R.string.action_download)) },
++                                headlineContent = { Text(text = "action_download") },
+                                 leadingContent = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.download),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 },
+@@ -798,10 +792,10 @@
+                             color = MaterialTheme.colorScheme.outlineVariant,
+                         )
+                         ListItem(
+-                            headlineContent = { Text(text = stringResource(R.string.open_with_downloader)) },
++                            headlineContent = { Text(text = "open_with_downloader") },
+                             leadingContent = {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.download),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             },
+@@ -841,11 +835,11 @@
+                     if (isQueueTrigger == true && onPlayNextFromQueue != null) {
+                         ListItem(
+                             headlineContent = {
+-                                Text(text = stringResource(R.string.play_next))
++                                Text(text = "play_next")
+                             },
+                             leadingContent = {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.playlist_play),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             },
+@@ -867,13 +861,13 @@
+                         ListItem(
+                             headlineContent = {
+                                 Text(
+-                                    text = stringResource(R.string.remove_from_queue),
++                                    text = "remove_from_queue",
+                                     color = MaterialTheme.colorScheme.error,
+                                 )
+                             },
+                             leadingContent = {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.delete),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint = MaterialTheme.colorScheme.error,
+                                 )
+@@ -893,10 +887,10 @@
+                     }
+ 
+                     ListItem(
+-                        headlineContent = { Text(text = stringResource(R.string.details)) },
++                        headlineContent = { Text(text = "details") },
+                         leadingContent = {
+                             Icon(
+-                                painter = painterResource(R.drawable.info),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                             )
+                         },
+@@ -915,10 +909,10 @@
+                         )
+ 
+                         ListItem(
+-                            headlineContent = { Text(text = stringResource(R.string.equalizer)) },
++                            headlineContent = { Text(text = "equalizer") },
+                             leadingContent = {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.equalizer),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             },
+@@ -932,10 +926,10 @@
+                         )
+ 
+                         ListItem(
+-                            headlineContent = { Text(text = stringResource(R.string.tempo_and_pitch)) },
++                            headlineContent = { Text(text = "tempo_and_pitch") },
+                             leadingContent = {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.speed),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             },
+@@ -981,7 +975,7 @@
+                 modifier = Modifier.fillMaxWidth(),
+             ) {
+                 Text(
+-                    text = stringResource(R.string.volume),
++                    text = "volume",
+                     style = MaterialTheme.typography.titleSmall,
+                     modifier = Modifier.weight(1f),
+                 )
+@@ -1007,8 +1001,8 @@
+                             .padding(horizontal = 12.dp, vertical = 10.dp),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.volume_off),
+-                        contentDescription = stringResource(R.string.minimum_volume),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                        contentDescription = "minimum_volume",
+                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                         modifier = Modifier.size(18.dp),
+                     )
+@@ -1020,8 +1014,8 @@
+                     )
+ 
+                     Icon(
+-                        painter = painterResource(R.drawable.volume_up),
+-                        contentDescription = stringResource(R.string.maximum_volume),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                        contentDescription = "maximum_volume",
+                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                         modifier = Modifier.size(18.dp),
+                     )
+@@ -1109,7 +1103,7 @@
+         properties = DialogProperties(usePlatformDefaultWidth = false),
+         onDismissRequest = onDismiss,
+         title = {
+-            Text(stringResource(R.string.tempo_and_pitch))
++            Text("tempo_and_pitch")
+         },
+         dismissButton = {
+             TextButton(
+@@ -1120,7 +1114,7 @@
+                 },
+                 shapes = ButtonDefaults.shapes(),
+             ) {
+-                Text(stringResource(R.string.reset))
++                Text("reset")
+             }
+         },
+         confirmButton = {
+@@ -1145,13 +1139,13 @@
+                     modifier = Modifier.fillMaxWidth(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.speed),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(28.dp),
+                     )
+ 
+                     Text(
+-                        text = stringResource(R.string.tempo),
++                        text = "tempo",
+                         style = MaterialTheme.typography.titleMedium,
+                         modifier = Modifier.weight(1f),
+                     )
+@@ -1176,7 +1170,7 @@
+                         },
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.remove),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -1203,7 +1197,7 @@
+                         },
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.add),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -1239,13 +1233,13 @@
+                     modifier = Modifier.fillMaxWidth(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.discover_tune),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(28.dp),
+                     )
+ 
+                     Text(
+-                        text = stringResource(R.string.pitch),
++                        text = "pitch",
+                         style = MaterialTheme.typography.titleMedium,
+                         modifier = Modifier.weight(1f),
+                     )
+@@ -1278,12 +1272,12 @@
+                     FilterChip(
+                         selected = pitchMode == PitchMode.Semitones,
+                         onClick = { pitchMode = PitchMode.Semitones },
+-                        label = { Text(stringResource(R.string.pitch_mode_semitones_short)) },
++                        label = { Text("pitch_mode_semitones_short") },
+                     )
+                     FilterChip(
+                         selected = pitchMode == PitchMode.Multiplier,
+                         onClick = { pitchMode = PitchMode.Multiplier },
+-                        label = { Text(stringResource(R.string.pitch_mode_multiplier_short)) },
++                        label = { Text("pitch_mode_multiplier_short") },
+                     )
+                 }
+ 
+@@ -1343,7 +1337,7 @@
+                                 },
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.remove),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             }
+@@ -1370,7 +1364,7 @@
+                                 },
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.add),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             }

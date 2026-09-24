@@ -1,0 +1,715 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AodCustomizedScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AodCustomizedScreen.kt	2026-09-24 13:03:59
+@@ -60,8 +60,6 @@
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.Shape
+ import androidx.compose.ui.input.nestedscroll.nestedScroll
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.semantics.Role
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+@@ -288,13 +286,13 @@
+             LargeFlexibleTopAppBar(
+                 title = {
+                     Text(
+-                        text = stringResource(R.string.aod_customize_title),
++                        text = "aod_customize_title",
+                         fontWeight = FontWeight.Bold,
+                     )
+                 },
+                 subtitle = {
+                     Text(
+-                        text = stringResource(R.string.aod_customize_subtitle),
++                        text = "aod_customize_subtitle",
+                         maxLines = 1,
+                         overflow = TextOverflow.Ellipsis,
+                     )
+@@ -305,7 +303,7 @@
+                         onLongClick = navController::backToMain,
+                     ) {
+                         Icon(
+-                            painterResource(R.drawable.arrow_back),
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -346,9 +344,9 @@
+                 contentType = "preference",
+             ) {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.aod_customize_mode_enabled)) },
+-                    description = stringResource(R.string.aod_customize_mode_enabled_desc),
+-                    icon = { Icon(painterResource(R.drawable.bedtime), null) },
++                    title = { Text("aod_customize_mode_enabled") },
++                    description = "aod_customize_mode_enabled_desc",
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = aodModeEnabled,
+                     onCheckedChange = onAodModeEnabledChange,
+                 )
+@@ -358,67 +356,67 @@
+                 key = "aod_visibility",
+                 contentType = "preference_group",
+             ) {
+-                PreferenceGroup(title = stringResource(R.string.aod_customize_visibility)) {
++                PreferenceGroup(title = "aod_customize_visibility") {
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_thumbnail)) },
+-                            icon = { Icon(painterResource(R.drawable.image), null) },
++                            title = { Text("aod_customize_show_thumbnail") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showThumbnail,
+                             onCheckedChange = onShowThumbnailChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_artist)) },
+-                            icon = { Icon(painterResource(R.drawable.artist), null) },
++                            title = { Text("aod_customize_show_artist") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showArtist,
+                             onCheckedChange = onShowArtistChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_album)) },
+-                            icon = { Icon(painterResource(R.drawable.album), null) },
++                            title = { Text("aod_customize_show_album") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showAlbum,
+                             onCheckedChange = onShowAlbumChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_progress)) },
+-                            icon = { Icon(painterResource(R.drawable.sliders), null) },
++                            title = { Text("aod_customize_show_progress") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showProgress,
+                             onCheckedChange = onShowProgressChange,
+                         )
+                     }
+                     item(visible = showProgress) {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_time_labels)) },
+-                            icon = { Icon(painterResource(R.drawable.timer), null) },
++                            title = { Text("aod_customize_show_time_labels") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showTimeLabels,
+                             onCheckedChange = onShowTimeLabelsChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_controls)) },
+-                            icon = { Icon(painterResource(R.drawable.buttons), null) },
++                            title = { Text("aod_customize_show_controls") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showControls,
+                             onCheckedChange = onShowControlsChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_exit_button)) },
+-                            icon = { Icon(painterResource(R.drawable.close), null) },
++                            title = { Text("aod_customize_show_exit_button") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showExitButton,
+                             onCheckedChange = onShowExitButtonChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_lyric_ticker)) },
+-                            icon = { Icon(painterResource(R.drawable.music_note), null) },
++                            title = { Text("aod_customize_show_lyric_ticker") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showLyricTicker,
+                             onCheckedChange = onShowLyricTickerChange,
+                         )
+@@ -443,11 +441,11 @@
+                 key = "aod_layout",
+                 contentType = "preference_group",
+             ) {
+-                PreferenceGroup(title = stringResource(R.string.aod_customize_layout)) {
++                PreferenceGroup(title = "aod_customize_layout") {
+                     item {
+                         EnumListPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_clock_style)) },
+-                            icon = { Icon(painterResource(R.drawable.timer), null) },
++                            title = { Text("aod_customize_clock_style") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             selectedValue = clockStyle,
+                             valueText = { it.label() },
+                             onValueSelected = onClockStyleChange,
+@@ -455,8 +453,8 @@
+                     }
+                     item {
+                         EnumListPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_background_style)) },
+-                            icon = { Icon(painterResource(R.drawable.gradient), null) },
++                            title = { Text("aod_customize_background_style") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             selectedValue = backgroundStyle,
+                             valueText = { it.label() },
+                             onValueSelected = onBackgroundStyleChange,
+@@ -464,8 +462,8 @@
+                     }
+                     item {
+                         EnumListPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_accent_style)) },
+-                            icon = { Icon(painterResource(R.drawable.palette), null) },
++                            title = { Text("aod_customize_accent_style") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             selectedValue = accentStyle,
+                             valueText = { it.label() },
+                             onValueSelected = onAccentStyleChange,
+@@ -473,8 +471,8 @@
+                     }
+                     item {
+                         EnumListPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_content_position)) },
+-                            icon = { Icon(painterResource(R.drawable.format_align_center), null) },
++                            title = { Text("aod_customize_content_position") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             selectedValue = contentPosition,
+                             valueText = { it.label() },
+                             onValueSelected = onContentPositionChange,
+@@ -482,8 +480,8 @@
+                     }
+                     item {
+                         EnumListPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_text_alignment)) },
+-                            icon = { Icon(painterResource(R.drawable.text_fields), null) },
++                            title = { Text("aod_customize_text_alignment") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             selectedValue = textAlignment,
+                             valueText = { it.label() },
+                             onValueSelected = onTextAlignmentChange,
+@@ -491,8 +489,8 @@
+                     }
+                     item {
+                         AodIntSliderPreference(
+-                            title = stringResource(R.string.aod_customize_title_max_lines),
+-                            icon = { Icon(painterResource(R.drawable.text_fields), null) },
++                            title = "aod_customize_title_max_lines",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = titleMaxLines,
+                             valueRange = 1..3,
+                             onValueChange = onTitleMaxLinesChange,
+@@ -505,11 +503,11 @@
+                 key = "aod_scale",
+                 contentType = "preference_group",
+             ) {
+-                PreferenceGroup(title = stringResource(R.string.aod_customize_scale_and_spacing)) {
++                PreferenceGroup(title = "aod_customize_scale_and_spacing") {
+                     item {
+                         AodSliderPreference(
+-                            title = stringResource(R.string.aod_customize_thumbnail_size),
+-                            icon = { Icon(painterResource(R.drawable.image), null) },
++                            title = "aod_customize_thumbnail_size",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = thumbnailSize,
+                             valueRange = 160f..340f,
+                             steps = 35,
+@@ -519,8 +517,8 @@
+                     }
+                     item {
+                         AodIntSliderPreference(
+-                            title = stringResource(R.string.aod_customize_shape_rotation),
+-                            icon = { Icon(painterResource(R.drawable.replay), null) },
++                            title = "aod_customize_shape_rotation",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = thumbnailShapeRotation,
+                             valueRange = 0..315,
+                             steps = 7,
+@@ -530,8 +528,8 @@
+                     }
+                     item {
+                         AodSliderPreference(
+-                            title = stringResource(R.string.aod_customize_horizontal_padding),
+-                            icon = { Icon(painterResource(R.drawable.format_align_center), null) },
++                            title = "aod_customize_horizontal_padding",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = horizontalPadding,
+                             valueRange = 16f..72f,
+                             steps = 13,
+@@ -541,8 +539,8 @@
+                     }
+                     item {
+                         AodSliderPreference(
+-                            title = stringResource(R.string.aod_customize_vertical_spacing),
+-                            icon = { Icon(painterResource(R.drawable.drag_handle), null) },
++                            title = "aod_customize_vertical_spacing",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = verticalSpacing,
+                             valueRange = 8f..36f,
+                             steps = 13,
+@@ -552,8 +550,8 @@
+                     }
+                     item {
+                         AodSliderPreference(
+-                            title = stringResource(R.string.aod_customize_ambient_intensity),
+-                            icon = { Icon(painterResource(R.drawable.blur_on), null) },
++                            title = "aod_customize_ambient_intensity",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = ambientIntensity,
+                             valueRange = 0f..1f,
+                             steps = 20,
+@@ -563,8 +561,8 @@
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_artwork_glow)) },
+-                            icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                            title = { Text("aod_customize_artwork_glow") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = artworkGlow,
+                             onCheckedChange = onArtworkGlowChange,
+                         )
+@@ -576,11 +574,11 @@
+                 key = "aod_controls",
+                 contentType = "preference_group",
+             ) {
+-                PreferenceGroup(title = stringResource(R.string.aod_customize_controls)) {
++                PreferenceGroup(title = "aod_customize_controls") {
+                     item {
+                         EnumListPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_control_style)) },
+-                            icon = { Icon(painterResource(R.drawable.buttons), null) },
++                            title = { Text("aod_customize_control_style") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             selectedValue = controlStyle,
+                             valueText = { it.label() },
+                             onValueSelected = onControlStyleChange,
+@@ -589,8 +587,8 @@
+                     }
+                     item {
+                         AodSliderPreference(
+-                            title = stringResource(R.string.aod_customize_control_size),
+-                            icon = { Icon(painterResource(R.drawable.buttons), null) },
++                            title = "aod_customize_control_size",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = controlSize,
+                             valueRange = 52f..84f,
+                             steps = 15,
+@@ -606,45 +604,45 @@
+                 key = "aod_advanced",
+                 contentType = "preference_group",
+             ) {
+-                PreferenceGroup(title = stringResource(R.string.aod_customize_security_power)) {
++                PreferenceGroup(title = "aod_customize_security_power") {
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_true_ambient_mode)) },
+-                            description = stringResource(R.string.aod_customize_true_ambient_mode_desc),
+-                            icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                            title = { Text("aod_customize_true_ambient_mode") },
++                            description = "aod_customize_true_ambient_mode_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = trueAmbientMode,
+                             onCheckedChange = onTrueAmbientModeChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_auto_start_screen_off)) },
+-                            description = stringResource(R.string.aod_customize_auto_start_screen_off_desc),
+-                            icon = { Icon(painterResource(R.drawable.blur_on), null) },
++                            title = { Text("aod_customize_auto_start_screen_off") },
++                            description = "aod_customize_auto_start_screen_off_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = autoStartScreenOff,
+                             onCheckedChange = onAutoStartScreenOffChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_proximity_blackout)) },
+-                            description = stringResource(R.string.aod_customize_proximity_blackout_desc),
+-                            icon = { Icon(painterResource(R.drawable.timer), null) },
++                            title = { Text("aod_customize_proximity_blackout") },
++                            description = "aod_customize_proximity_blackout_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = proximityBlackout,
+                             onCheckedChange = onProximityBlackoutChange,
+                         )
+                     }
+                     item {
+                         PreferenceEntry(
+-                            title = { Text(stringResource(R.string.aod_customize_screensaver_info_title)) },
+-                            description = stringResource(R.string.aod_customize_screensaver_info_desc),
+-                            icon = { Icon(painterResource(R.drawable.info), null) },
++                            title = { Text("aod_customize_screensaver_info_title") },
++                            description = "aod_customize_screensaver_info_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         )
+                     }
+                     item {
+                         AodSliderPreference(
+-                            title = stringResource(R.string.aod_customize_ambient_brightness),
+-                            icon = { Icon(painterResource(R.drawable.sliders), null) },
++                            title = "aod_customize_ambient_brightness",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             value = (aodBrightness * 100f).coerceIn(1f, 30f),
+                             valueRange = 1f..30f,
+                             steps = 28,
+@@ -654,52 +652,52 @@
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_touch_lock)) },
+-                            description = stringResource(R.string.aod_customize_touch_lock_desc),
+-                            icon = { Icon(painterResource(R.drawable.buttons), null) },
++                            title = { Text("aod_customize_touch_lock") },
++                            description = "aod_customize_touch_lock_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = touchLockEnabled,
+                             onCheckedChange = onTouchLockEnabledChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_clock)) },
+-                            icon = { Icon(painterResource(R.drawable.timer), null) },
++                            title = { Text("aod_customize_show_clock") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showClock,
+                             onCheckedChange = onShowClockChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_show_battery)) },
+-                            icon = { Icon(painterResource(R.drawable.sliders), null) },
++                            title = { Text("aod_customize_show_battery") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = showBattery,
+                             onCheckedChange = onShowBatteryChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_pixel_shift)) },
+-                            description = stringResource(R.string.aod_customize_pixel_shift_desc),
+-                            icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                            title = { Text("aod_customize_pixel_shift") },
++                            description = "aod_customize_pixel_shift_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = pixelShiftEnabled,
+                             onCheckedChange = onPixelShiftEnabledChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_auto_dimming)) },
+-                            description = stringResource(R.string.aod_customize_auto_dimming_desc),
+-                            icon = { Icon(painterResource(R.drawable.blur_on), null) },
++                            title = { Text("aod_customize_auto_dimming") },
++                            description = "aod_customize_auto_dimming_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = autoDimming,
+                             onCheckedChange = onAutoDimmingChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_gestures)) },
+-                            description = stringResource(R.string.aod_customize_gestures_desc),
+-                            icon = { Icon(painterResource(R.drawable.drag_handle), null) },
++                            title = { Text("aod_customize_gestures") },
++                            description = "aod_customize_gestures_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = gesturesEnabled,
+                             onCheckedChange = onGesturesEnabledChange,
+                         )
+@@ -711,12 +709,12 @@
+                 key = "aod_smart_lock",
+                 contentType = "preference_group",
+             ) {
+-                PreferenceGroup(title = stringResource(R.string.aod_customize_smart_lock)) {
++                PreferenceGroup(title = "aod_customize_smart_lock") {
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_shake_to_unlock)) },
+-                            description = stringResource(R.string.aod_customize_shake_to_unlock_desc),
+-                            icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                            title = { Text("aod_customize_shake_to_unlock") },
++                            description = "aod_customize_shake_to_unlock_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = shakeToUnlock,
+                             onCheckedChange = onShakeToUnlockChange,
+                             isEnabled = touchLockEnabled,
+@@ -724,9 +722,9 @@
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_auto_lock)) },
+-                            description = stringResource(R.string.aod_customize_auto_lock_desc),
+-                            icon = { Icon(painterResource(R.drawable.timer), null) },
++                            title = { Text("aod_customize_auto_lock") },
++                            description = "aod_customize_auto_lock_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = autoLockEnabled,
+                             onCheckedChange = onAutoLockEnabledChange,
+                             isEnabled = touchLockEnabled,
+@@ -735,8 +733,8 @@
+                     if (autoLockEnabled && touchLockEnabled) {
+                         item {
+                             AodSliderPreference(
+-                                title = stringResource(R.string.aod_customize_auto_lock_delay),
+-                                icon = { Icon(painterResource(R.drawable.timer), null) },
++                                title = "aod_customize_auto_lock_delay",
++                                icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                                 value = autoLockTimeout.toFloat(),
+                                 valueRange = 3f..120f,
+                                 steps = 23,
+@@ -747,18 +745,18 @@
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_marquee_titles)) },
+-                            description = stringResource(R.string.aod_customize_marquee_titles_desc),
+-                            icon = { Icon(painterResource(R.drawable.drag_handle), null) },
++                            title = { Text("aod_customize_marquee_titles") },
++                            description = "aod_customize_marquee_titles_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = marqueeTitles,
+                             onCheckedChange = onMarqueeTitlesChange,
+                         )
+                     }
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.aod_customize_minimal_locked_view)) },
+-                            description = stringResource(R.string.aod_customize_minimal_locked_view_desc),
+-                            icon = { Icon(painterResource(R.drawable.blur_on), null) },
++                            title = { Text("aod_customize_minimal_locked_view") },
++                            description = "aod_customize_minimal_locked_view_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = minimalLockedState,
+                             onCheckedChange = onMinimalLockedStateChange,
+                             isEnabled = touchLockEnabled,
+@@ -814,7 +812,7 @@
+             verticalArrangement = Arrangement.spacedBy(12.dp),
+         ) {
+             Text(
+-                text = stringResource(R.string.aod_customize_preview),
++                text = "aod_customize_preview",
+                 style = MaterialTheme.typography.titleMedium,
+                 fontWeight = FontWeight.Bold,
+             )
+@@ -837,7 +835,7 @@
+             ) {
+                 if (settings.showExitButton) {
+                     Icon(
+-                        painter = painterResource(R.drawable.close),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = Color.White.copy(alpha = 0.72f),
+                         modifier =
+@@ -875,7 +873,7 @@
+                         modifier = Modifier.fillMaxWidth(),
+                     ) {
+                         Text(
+-                            text = stringResource(R.string.aod_customize_sample_title),
++                            text = "aod_customize_sample_title",
+                             style = MaterialTheme.typography.titleMedium,
+                             fontWeight = FontWeight.Bold,
+                             color = Color.White,
+@@ -886,7 +884,7 @@
+                         )
+                         if (settings.showArtist) {
+                             Text(
+-                                text = stringResource(R.string.aod_customize_sample_artist),
++                                text = "aod_customize_sample_artist",
+                                 style = MaterialTheme.typography.bodySmall,
+                                 color = Color.White.copy(alpha = 0.68f),
+                                 maxLines = 1,
+@@ -897,7 +895,7 @@
+                         }
+                         if (settings.showAlbum) {
+                             Text(
+-                                text = stringResource(R.string.aod_customize_sample_album),
++                                text = "aod_customize_sample_album",
+                                 style = MaterialTheme.typography.labelSmall,
+                                 color = Color.White.copy(alpha = 0.52f),
+                                 maxLines = 1,
+@@ -956,7 +954,7 @@
+                 ),
+     ) {
+         Icon(
+-            painter = painterResource(R.drawable.music_note),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = Color.White.copy(alpha = 0.78f),
+             modifier =
+@@ -999,12 +997,12 @@
+                 horizontalArrangement = Arrangement.SpaceBetween,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.aod_customize_sample_elapsed),
++                    text = "aod_customize_sample_elapsed",
+                     style = MaterialTheme.typography.labelSmall,
+                     color = Color.White.copy(alpha = 0.62f),
+                 )
+                 Text(
+-                    text = stringResource(R.string.aod_customize_sample_duration),
++                    text = "aod_customize_sample_duration",
+                     style = MaterialTheme.typography.labelSmall,
+                     color = Color.White.copy(alpha = 0.62f),
+                 )
+@@ -1079,7 +1077,7 @@
+         contentAlignment = Alignment.Center,
+     ) {
+         Icon(
+-            painter = painterResource(iconRes),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = contentColor,
+             modifier = Modifier.size(size * 0.46f),
+@@ -1111,12 +1109,12 @@
+         ) {
+             Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                 Text(
+-                    text = stringResource(R.string.aod_customize_thumbnail_shape),
++                    text = "aod_customize_thumbnail_shape",
+                     style = MaterialTheme.typography.titleMedium,
+                     fontWeight = FontWeight.Bold,
+                 )
+                 Text(
+-                    text = stringResource(R.string.aod_customize_thumbnail_shape_desc),
++                    text = "aod_customize_thumbnail_shape_desc",
+                     style = MaterialTheme.typography.bodyMedium,
+                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                 )
+@@ -1193,7 +1191,7 @@
+                 Box(contentAlignment = Alignment.Center) {
+                     if (selected) {
+                         Icon(
+-                            painter = painterResource(R.drawable.check),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(20.dp),
+                         )
+@@ -1382,76 +1380,76 @@
+ @Composable
+ private fun AodThumbnailShape.label(): String =
+     when (this) {
+-        AodThumbnailShape.ROUNDED -> stringResource(R.string.aod_shape_rounded)
+-        AodThumbnailShape.SQUARE -> stringResource(R.string.aod_shape_square)
+-        AodThumbnailShape.CIRCLE -> stringResource(R.string.aod_shape_circle)
+-        AodThumbnailShape.PILL -> stringResource(R.string.aod_shape_pill)
+-        AodThumbnailShape.ARCH -> stringResource(R.string.aod_shape_arch)
+-        AodThumbnailShape.SLANTED -> stringResource(R.string.aod_shape_slanted)
+-        AodThumbnailShape.DIAMOND -> stringResource(R.string.aod_shape_diamond)
+-        AodThumbnailShape.PENTAGON -> stringResource(R.string.aod_shape_pentagon)
+-        AodThumbnailShape.TRIANGLE -> stringResource(R.string.aod_shape_triangle)
+-        AodThumbnailShape.HEART -> stringResource(R.string.aod_shape_heart)
+-        AodThumbnailShape.FLOWER -> stringResource(R.string.aod_shape_flower)
+-        AodThumbnailShape.CLOVER_4 -> stringResource(R.string.aod_shape_clover_4)
+-        AodThumbnailShape.COOKIE_6 -> stringResource(R.string.aod_shape_cookie_6)
+-        AodThumbnailShape.COOKIE_9 -> stringResource(R.string.aod_shape_cookie_9)
+-        AodThumbnailShape.SUNNY -> stringResource(R.string.aod_shape_sunny)
+-        AodThumbnailShape.SOFT_BURST -> stringResource(R.string.aod_shape_soft_burst)
+-        AodThumbnailShape.GHOSTISH -> stringResource(R.string.aod_shape_ghostish)
+-        AodThumbnailShape.PIXEL_CIRCLE -> stringResource(R.string.aod_shape_pixel_circle)
++        AodThumbnailShape.ROUNDED -> "aod_shape_rounded"
++        AodThumbnailShape.SQUARE -> "aod_shape_square"
++        AodThumbnailShape.CIRCLE -> "aod_shape_circle"
++        AodThumbnailShape.PILL -> "aod_shape_pill"
++        AodThumbnailShape.ARCH -> "aod_shape_arch"
++        AodThumbnailShape.SLANTED -> "aod_shape_slanted"
++        AodThumbnailShape.DIAMOND -> "aod_shape_diamond"
++        AodThumbnailShape.PENTAGON -> "aod_shape_pentagon"
++        AodThumbnailShape.TRIANGLE -> "aod_shape_triangle"
++        AodThumbnailShape.HEART -> "aod_shape_heart"
++        AodThumbnailShape.FLOWER -> "aod_shape_flower"
++        AodThumbnailShape.CLOVER_4 -> "aod_shape_clover_4"
++        AodThumbnailShape.COOKIE_6 -> "aod_shape_cookie_6"
++        AodThumbnailShape.COOKIE_9 -> "aod_shape_cookie_9"
++        AodThumbnailShape.SUNNY -> "aod_shape_sunny"
++        AodThumbnailShape.SOFT_BURST -> "aod_shape_soft_burst"
++        AodThumbnailShape.GHOSTISH -> "aod_shape_ghostish"
++        AodThumbnailShape.PIXEL_CIRCLE -> "aod_shape_pixel_circle"
+     }
+ 
+ @Composable
+ private fun AodBackgroundStyle.label(): String =
+     when (this) {
+-        AodBackgroundStyle.PURE_BLACK -> stringResource(R.string.aod_background_pure_black)
+-        AodBackgroundStyle.SOFT_RADIAL -> stringResource(R.string.aod_background_soft_radial)
+-        AodBackgroundStyle.TONAL_EDGE -> stringResource(R.string.aod_background_tonal_edge)
+-        AodBackgroundStyle.AMBIENT_GLOW -> stringResource(R.string.aod_background_ambient_glow)
+-        AodBackgroundStyle.ADAPTIVE_ART -> stringResource(R.string.aod_background_adaptive_art)
+-        AodBackgroundStyle.FROSTED_WALLPAPER -> stringResource(R.string.aod_background_frosted_wallpaper)
+-        AodBackgroundStyle.ADAPTIVE_FROSTED -> stringResource(R.string.aod_background_adaptive_frosted)
++        AodBackgroundStyle.PURE_BLACK -> "aod_background_pure_black"
++        AodBackgroundStyle.SOFT_RADIAL -> "aod_background_soft_radial"
++        AodBackgroundStyle.TONAL_EDGE -> "aod_background_tonal_edge"
++        AodBackgroundStyle.AMBIENT_GLOW -> "aod_background_ambient_glow"
++        AodBackgroundStyle.ADAPTIVE_ART -> "aod_background_adaptive_art"
++        AodBackgroundStyle.FROSTED_WALLPAPER -> "aod_background_frosted_wallpaper"
++        AodBackgroundStyle.ADAPTIVE_FROSTED -> "aod_background_adaptive_frosted"
+     }
+ 
+ @Composable
+ private fun AodAccentStyle.label(): String =
+     when (this) {
+-        AodAccentStyle.MONOCHROME -> stringResource(R.string.aod_accent_monochrome)
+-        AodAccentStyle.THEME -> stringResource(R.string.aod_accent_theme)
++        AodAccentStyle.MONOCHROME -> "aod_accent_monochrome"
++        AodAccentStyle.THEME -> "aod_accent_theme"
+     }
+ 
+ @Composable
+ private fun AodContentPosition.label(): String =
+     when (this) {
+-        AodContentPosition.TOP -> stringResource(R.string.aod_position_top)
+-        AodContentPosition.CENTER -> stringResource(R.string.aod_position_center)
+-        AodContentPosition.BOTTOM -> stringResource(R.string.aod_position_bottom)
++        AodContentPosition.TOP -> "aod_position_top"
++        AodContentPosition.CENTER -> "aod_position_center"
++        AodContentPosition.BOTTOM -> "aod_position_bottom"
+     }
+ 
+ @Composable
+ private fun AodTextAlignment.label(): String =
+     when (this) {
+-        AodTextAlignment.START -> stringResource(R.string.aod_alignment_start)
+-        AodTextAlignment.CENTER -> stringResource(R.string.aod_alignment_center)
+-        AodTextAlignment.END -> stringResource(R.string.aod_alignment_end)
++        AodTextAlignment.START -> "aod_alignment_start"
++        AodTextAlignment.CENTER -> "aod_alignment_center"
++        AodTextAlignment.END -> "aod_alignment_end"
+     }
+ 
+ @Composable
+ private fun AodControlStyle.label(): String =
+     when (this) {
+-        AodControlStyle.FILLED -> stringResource(R.string.aod_control_filled)
+-        AodControlStyle.TONAL -> stringResource(R.string.aod_control_tonal)
+-        AodControlStyle.MINIMAL -> stringResource(R.string.aod_control_minimal)
++        AodControlStyle.FILLED -> "aod_control_filled"
++        AodControlStyle.TONAL -> "aod_control_tonal"
++        AodControlStyle.MINIMAL -> "aod_control_minimal"
+     }
+ 
+ @Composable
+ private fun AodClockStyle.label(): String =
+     when (this) {
+-        AodClockStyle.BOLD_DIGITAL -> stringResource(R.string.aod_clock_bold_digital)
+-        AodClockStyle.MINIMAL -> stringResource(R.string.aod_clock_minimal)
+-        AodClockStyle.ELEGANT_THIN -> stringResource(R.string.aod_clock_elegant_thin)
+-        AodClockStyle.PIXEL_STACKED -> stringResource(R.string.aod_clock_pixel_stacked)
++        AodClockStyle.BOLD_DIGITAL -> "aod_clock_bold_digital"
++        AodClockStyle.MINIMAL -> "aod_clock_minimal"
++        AodClockStyle.ELEGANT_THIN -> "aod_clock_elegant_thin"
++        AodClockStyle.PIXEL_STACKED -> "aod_clock_pixel_stacked"
+     }
+ 
+ private fun AodContentPosition.toBoxAlignment(): Alignment =

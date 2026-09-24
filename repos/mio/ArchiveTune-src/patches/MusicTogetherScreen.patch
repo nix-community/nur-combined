@@ -1,0 +1,440 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/MusicTogetherScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/MusicTogetherScreen.kt	2026-09-24 13:03:59
+@@ -9,11 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.settings
+ 
+-import android.content.ClipData
+-import android.content.ClipboardManager
+-import android.content.Intent
+-import android.widget.Toast
+-import androidx.annotation.StringRes
+ import androidx.compose.animation.animateContentSize
+ import androidx.compose.animation.core.Spring
+ import androidx.compose.animation.core.spring
+@@ -80,8 +75,6 @@
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.input.nestedscroll.nestedScroll
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.semantics.Role
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.input.ImeAction
+@@ -166,7 +159,7 @@
+     Scaffold(
+         topBar = {
+             LargeFlexibleTopAppBar(
+-                title = { Text(stringResource(R.string.music_together)) },
++                title = { Text("music_together") },
+                 navigationIcon = {
+                     AtIconButton(
+                         onClick = navController::navigateUp,
+@@ -181,7 +174,7 @@
+                             ),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.arrow_back),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -380,9 +373,9 @@
+ 
+         is MusicTogetherDialogUiState.DisplayName -> {
+             TextFieldDialog(
+-                title = { Text(text = stringResource(R.string.together_display_name)) },
++                title = { Text(text = "together_display_name") },
+                 initialTextFieldValue = TextFieldValue(dialog.initialValue),
+-                placeholder = { Text(text = stringResource(R.string.together_display_name_placeholder)) },
++                placeholder = { Text(text = "together_display_name_placeholder") },
+                 isInputValid = { it.trim().isNotBlank() },
+                 onDone = viewModel::submitDisplayName,
+                 onDismiss = viewModel::dismissDialog,
+@@ -391,7 +384,7 @@
+ 
+         is MusicTogetherDialogUiState.Port -> {
+             TextFieldDialog(
+-                title = { Text(text = stringResource(R.string.together_port)) },
++                title = { Text(text = "together_port") },
+                 initialTextFieldValue = TextFieldValue(dialog.initialValue),
+                 placeholder = { Text(text = dialog.initialValue) },
+                 isInputValid = { it.trim().toIntOrNull() in 1..65535 },
+@@ -407,7 +400,7 @@
+ 
+         is MusicTogetherDialogUiState.Join -> {
+             TextFieldDialog(
+-                title = { Text(text = stringResource(R.string.join_session)) },
++                title = { Text(text = "join_session") },
+                 initialTextFieldValue = TextFieldValue(dialog.initialValue),
+                 placeholder = { Text(text = stringResource(dialog.placeholderResId)) },
+                 singleLine = false,
+@@ -522,12 +515,12 @@
+                         shapes = ButtonDefaults.shapes(),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.leave),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(18.dp),
+                         )
+                         Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                        Text(text = stringResource(R.string.leave))
++                        Text(text = "leave")
+                     }
+                 }
+             }
+@@ -587,24 +580,24 @@
+                     shapes = ButtonDefaults.shapes(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.copy),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(16.dp),
+                     )
+                     Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                    Text(text = stringResource(R.string.copy_link))
++                    Text(text = "copy_link")
+                 }
+                 TextButton(
+                     onClick = { onShare(sessionShare.value) },
+                     shapes = ButtonDefaults.shapes(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.share),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(16.dp),
+                     )
+                     Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                    Text(text = stringResource(R.string.share))
++                    Text(text = "share")
+                 }
+             }
+         }
+@@ -630,12 +623,12 @@
+                 AccentIcon(iconResId = R.drawable.music_note, accent = MaterialTheme.colorScheme.tertiary)
+                 Column(modifier = Modifier.weight(1f)) {
+                     Text(
+-                        text = stringResource(R.string.together_current_playback),
++                        text = "together_current_playback",
+                         style = MaterialTheme.typography.titleMedium,
+                         fontWeight = FontWeight.SemiBold,
+                     )
+                     Text(
+-                        text = playback.title ?: stringResource(R.string.together_playback_empty),
++                        text = playback.title ?: "together_playback_empty",
+                         style = MaterialTheme.typography.bodyLarge,
+                         maxLines = 2,
+                         overflow = TextOverflow.Ellipsis,
+@@ -668,9 +661,9 @@
+                 InfoPill(
+                     text =
+                         if (playback.shuffleEnabled) {
+-                            stringResource(R.string.together_shuffle_on)
++                            "together_shuffle_on"
+                         } else {
+-                            stringResource(R.string.together_shuffle_off)
++                            "together_shuffle_off"
+                         },
+                 )
+                 InfoPill(text = stringResource(R.string.together_repeat_mode, playback.repeatMode))
+@@ -697,7 +690,7 @@
+                 shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
+                 icon = {},
+             ) {
+-                Text(text = stringResource(R.string.together_lan))
++                Text(text = "together_lan")
+             }
+             SegmentedButton(
+                 selected = host.onlineMode,
+@@ -705,7 +698,7 @@
+                 shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
+                 icon = {},
+             ) {
+-                Text(text = stringResource(R.string.together_online))
++                Text(text = "together_online")
+             }
+         }
+         SettingsRow(
+@@ -752,15 +745,15 @@
+                     color = MaterialTheme.colorScheme.onPrimary,
+                 )
+                 Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                Text(text = stringResource(R.string.loading))
++                Text(text = "loading")
+             } else {
+                 Icon(
+-                    painter = painterResource(R.drawable.fire),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(18.dp),
+                 )
+                 Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                Text(text = stringResource(R.string.start_session))
++                Text(text = "start_session")
+             }
+         }
+     }
+@@ -785,7 +778,7 @@
+                 shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
+                 icon = {},
+             ) {
+-                Text(text = stringResource(R.string.together_join_link))
++                Text(text = "together_join_link")
+             }
+             SegmentedButton(
+                 selected = join.onlineMode,
+@@ -794,7 +787,7 @@
+                 shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
+                 icon = {},
+             ) {
+-                Text(text = stringResource(R.string.together_join_code))
++                Text(text = "together_join_code")
+             }
+         }
+         SettingsRow(
+@@ -817,7 +810,7 @@
+                         color = MaterialTheme.colorScheme.onSecondaryContainer,
+                     )
+                     Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                    Text(text = stringResource(R.string.connecting))
++                    Text(text = "connecting")
+                 }
+ 
+                 join.waitingApproval -> {
+@@ -826,27 +819,27 @@
+                         color = MaterialTheme.colorScheme.onSecondaryContainer,
+                     )
+                     Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                    Text(text = stringResource(R.string.together_waiting_approval))
++                    Text(text = "together_waiting_approval")
+                 }
+ 
+                 join.joined -> {
+                     Icon(
+-                        painter = painterResource(R.drawable.check),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(18.dp),
+                     )
+                     Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                    Text(text = stringResource(R.string.joined))
++                    Text(text = "joined")
+                 }
+ 
+                 else -> {
+                     Icon(
+-                        painter = painterResource(R.drawable.join),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(18.dp),
+                     )
+                     Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                    Text(text = stringResource(R.string.join))
++                    Text(text = "join")
+                 }
+             }
+         }
+@@ -941,36 +934,36 @@
+                 if (participant.showApproveActions) {
+                     IconButton(onClick = { viewModel.approveParticipant(participant.id) }) {
+                         Icon(
+-                            painter = painterResource(R.drawable.check),
+-                            contentDescription = stringResource(R.string.together_approve),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "together_approve",
+                         )
+                     }
+                     IconButton(onClick = { viewModel.rejectParticipant(participant.id) }) {
+                         Icon(
+-                            painter = painterResource(R.drawable.close),
+-                            contentDescription = stringResource(R.string.together_reject),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "together_reject",
+                         )
+                     }
+                 }
+                 if (participant.showTransferHostAction) {
+                     IconButton(onClick = { viewModel.requestTransferHost(participant.id) }) {
+                         Icon(
+-                            painter = painterResource(R.drawable.sync),
+-                            contentDescription = stringResource(R.string.together_transfer_host),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "together_transfer_host",
+                         )
+                     }
+                 }
+                 if (participant.showModerationActions) {
+                     IconButton(onClick = { viewModel.requestKickParticipant(participant.id) }) {
+                         Icon(
+-                            painter = painterResource(R.drawable.kick),
+-                            contentDescription = stringResource(R.string.together_kick),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "together_kick",
+                         )
+                     }
+                     IconButton(onClick = { viewModel.requestBanParticipant(participant.id) }) {
+                         Icon(
+-                            painter = painterResource(R.drawable.block),
+-                            contentDescription = stringResource(R.string.together_ban),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "together_ban",
+                         )
+                     }
+                 }
+@@ -1042,7 +1035,7 @@
+             ) {
+                 Box(contentAlignment = Alignment.Center) {
+                     Icon(
+-                        painter = painterResource(item.iconResId),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(18.dp),
+                         tint = MaterialTheme.colorScheme.primary,
+@@ -1077,10 +1070,10 @@
+ @Composable
+ private fun SectionCard(
+     @androidx.annotation.DrawableRes iconResId: Int,
+-    @StringRes titleResId: Int,
++    titleResId: Int,
+     accent: Color,
+     modifier: Modifier = Modifier,
+-    @StringRes subtitleResId: Int? = null,
++    subtitleResId: Int? = null,
+     subtitle: String? = null,
+     content: @Composable ColumnScope.() -> Unit,
+ ) {
+@@ -1133,7 +1126,7 @@
+ @Composable
+ private fun SettingsRow(
+     @androidx.annotation.DrawableRes iconResId: Int,
+-    @StringRes titleResId: Int,
++    titleResId: Int,
+     subtitle: String,
+     subtitleMaxLines: Int = 1,
+     onClick: (() -> Unit)? = null,
+@@ -1158,7 +1151,7 @@
+         trailingContent = {
+             if (onClick != null) {
+                 Icon(
+-                    painter = painterResource(R.drawable.navigate_next),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                 )
+@@ -1177,7 +1170,7 @@
+ @Composable
+ private fun ToggleRow(
+     @androidx.annotation.DrawableRes iconResId: Int,
+-    @StringRes titleResId: Int,
++    titleResId: Int,
+     checked: Boolean,
+     onCheckedChange: (Boolean) -> Unit,
+ ) {
+@@ -1227,7 +1220,7 @@
+         contentAlignment = Alignment.Center,
+     ) {
+         Icon(
+-            painter = painterResource(iconResId),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = accent,
+             modifier = Modifier.size(size * 0.52f),
+@@ -1255,8 +1248,8 @@
+ @Composable
+ private fun EmptyPanel(
+     @androidx.annotation.DrawableRes iconResId: Int,
+-    @StringRes titleResId: Int,
+-    @StringRes bodyResId: Int,
++    titleResId: Int,
++    bodyResId: Int,
+ ) {
+     Surface(
+         modifier = Modifier.fillMaxWidth(),
+@@ -1308,7 +1301,7 @@
+ 
+ @Composable
+ private fun ErrorContent(
+-    @StringRes messageResId: Int,
++    messageResId: Int,
+ ) {
+     Box(
+         modifier = Modifier.fillMaxSize(),
+@@ -1340,7 +1333,7 @@
+             ) {
+                 AccentIcon(iconResId = R.drawable.fire, accent = MaterialTheme.colorScheme.primary, size = 40.dp)
+                 Text(
+-                    text = stringResource(R.string.together_welcome_title),
++                    text = "together_welcome_title",
+                     style = MaterialTheme.typography.headlineSmall,
+                     fontWeight = FontWeight.SemiBold,
+                 )
+@@ -1349,7 +1342,7 @@
+         text = {
+             Column(verticalArrangement = Arrangement.spacedBy(MusicTogetherSpacing.sm)) {
+                 Text(
+-                    text = stringResource(R.string.together_welcome_body),
++                    text = "together_welcome_body",
+                     style = MaterialTheme.typography.bodyMedium,
+                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                 )
+@@ -1400,7 +1393,7 @@
+                         onCheckedChange = null,
+                     )
+                     Text(
+-                        text = stringResource(R.string.together_dont_show_again),
++                        text = "together_dont_show_again",
+                         style = MaterialTheme.typography.bodyMedium,
+                     )
+                 }
+@@ -1412,12 +1405,12 @@
+                 shapes = ButtonDefaults.shapes(),
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.check),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(18.dp),
+                 )
+                 Spacer(Modifier.width(MusicTogetherSpacing.xs))
+-                Text(text = stringResource(R.string.got_it))
++                Text(text = "got_it")
+             }
+         },
+     )
+@@ -1426,8 +1419,8 @@
+ @Composable
+ private fun InstructionRow(
+     @androidx.annotation.DrawableRes iconResId: Int,
+-    @StringRes titleResId: Int,
+-    @StringRes bodyResId: Int,
++    titleResId: Int,
++    bodyResId: Int,
+     accent: Color,
+ ) {
+     Row(
+@@ -1452,10 +1445,10 @@
+ 
+ @Composable
+ private fun ConfirmParticipantDialog(
+-    @StringRes titleResId: Int,
+-    @StringRes bodyResId: Int,
++    titleResId: Int,
++    bodyResId: Int,
+     participantName: String,
+-    @StringRes confirmResId: Int,
++    confirmResId: Int,
+     destructive: Boolean,
+     onConfirm: () -> Unit,
+     onDismiss: () -> Unit,
+@@ -1488,7 +1481,7 @@
+         },
+         dismissButton = {
+             TextButton(onClick = onDismiss, shapes = ButtonDefaults.shapes()) {
+-                Text(text = stringResource(R.string.dismiss))
++                Text(text = "dismiss")
+             }
+         },
+     )

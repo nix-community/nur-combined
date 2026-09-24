@@ -1,0 +1,78 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/player/AodPlayerScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/player/AodPlayerScreen.kt	2026-09-24 13:04:02
+@@ -9,12 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.player
+ 
+-import android.app.Activity
+-import android.hardware.Sensor
+-import android.hardware.SensorEvent
+-import android.hardware.SensorEventListener
+-import android.hardware.SensorManager
+-import android.view.WindowManager
+ import androidx.activity.compose.BackHandler
+ import androidx.compose.animation.AnimatedVisibility
+ import androidx.compose.animation.animateColorAsState
+@@ -70,8 +64,6 @@
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalDensity
+ import androidx.compose.ui.platform.LocalView
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.IntOffset
+@@ -548,7 +540,7 @@
+                         .padding(8.dp),
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.close),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = White70,
+                 )
+@@ -880,7 +872,7 @@
+             modifier = Modifier.size(skipButtonSize),
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.skip_previous),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = if (canSkipPrevious) Color.White else White35,
+                 modifier = Modifier.size(skipIconSize),
+@@ -906,7 +898,7 @@
+                     colors = playButtonColors,
+                 ) {
+                     Icon(
+-                        painter = painterResource(if (isPlaying) R.drawable.pause else R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.pause else R.drawable.play),
+                         contentDescription = null,
+                         modifier = Modifier.size(playIconSize),
+                     )
+@@ -931,7 +923,7 @@
+                     colors = tonalButtonColors,
+                 ) {
+                     Icon(
+-                        painter = painterResource(if (isPlaying) R.drawable.pause else R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.pause else R.drawable.play),
+                         contentDescription = null,
+                         modifier = Modifier.size(playIconSize),
+                     )
+@@ -952,7 +944,7 @@
+                     modifier = Modifier.size(playButtonSize),
+                 ) {
+                     Icon(
+-                        painter = painterResource(if (isPlaying) R.drawable.pause else R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.pause else R.drawable.play),
+                         contentDescription = null,
+                         tint = Color.White,
+                         modifier = Modifier.size(playIconSize),
+@@ -975,7 +967,7 @@
+             modifier = Modifier.size(skipButtonSize),
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.skip_next),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = if (canSkipNext) Color.White else White35,
+                 modifier = Modifier.size(skipIconSize),

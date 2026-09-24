@@ -1,0 +1,555 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/LyricsSettings.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/LyricsSettings.kt	2026-09-24 13:03:59
+@@ -56,8 +56,6 @@
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.platform.LocalUriHandler
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.input.ImeAction
+ import androidx.compose.ui.text.input.KeyboardType
+@@ -129,7 +127,7 @@
+ 
+     if (showClearLyricsDialog) {
+         ActionPromptDialog(
+-            title = stringResource(R.string.clear_lyrics_cache),
++            title = "clear_lyrics_cache",
+             onDismiss = { showClearLyricsDialog = false },
+             onConfirm = {
+                 viewModel.clearLyricsCache()
+@@ -137,7 +135,7 @@
+             },
+             onCancel = { showClearLyricsDialog = false },
+         ) {
+-            Text(stringResource(R.string.clear_lyrics_cache_confirm))
++            Text("clear_lyrics_cache_confirm")
+         }
+     }
+ 
+@@ -222,7 +220,7 @@
+             }
+ 
+         TextFieldDialog(
+-            title = { Text(stringResource(R.string.paxsenix_api_key)) },
++            title = { Text("paxsenix_api_key") },
+             initialTextFieldValue = TextFieldValue(paxsenixApiKey),
+             keyboardOptions = keyboardOptions,
+             visualTransformation = passwordVisualTransformation,
+@@ -270,7 +268,7 @@
+                         onClick = { tempTextSize = 24f },
+                         shapes = ButtonDefaults.shapes(),
+                     ) {
+-                        Text(stringResource(R.string.reset))
++                        Text("reset")
+                     }
+ 
+                     Spacer(modifier = Modifier.weight(1f))
+@@ -300,7 +298,7 @@
+                     modifier = Modifier.padding(16.dp),
+                 ) {
+                     Text(
+-                        text = stringResource(R.string.lyrics_text_size),
++                        text = "lyrics_text_size",
+                         style = MaterialTheme.typography.headlineSmall,
+                         modifier = Modifier.padding(bottom = 16.dp),
+                     )
+@@ -337,7 +335,7 @@
+                         onClick = { tempLineSpacing = 1.3f },
+                         shapes = ButtonDefaults.shapes(),
+                     ) {
+-                        Text(stringResource(R.string.reset))
++                        Text("reset")
+                     }
+ 
+                     Spacer(modifier = Modifier.weight(1f))
+@@ -367,7 +365,7 @@
+                     modifier = Modifier.padding(16.dp),
+                 ) {
+                     Text(
+-                        text = stringResource(R.string.lyrics_line_spacing),
++                        text = "lyrics_line_spacing",
+                         style = MaterialTheme.typography.headlineSmall,
+                         modifier = Modifier.padding(bottom = 16.dp),
+                     )
+@@ -389,17 +387,17 @@
+             }
+         }
+ 
+-        PreferenceGroup(title = stringResource(R.string.display)) {
++        PreferenceGroup(title = "display") {
+             item {
+                 EnumListPreference(
+-                    title = { Text(stringResource(R.string.lyrics_mode)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_mode") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     selectedValue = lyricsMode,
+                     onValueSelected = onLyricsModeChange,
+                     valueText = {
+                         when (it) {
+-                            LyricsMode.V2 -> stringResource(R.string.lyrics_mode_v2)
+-                            LyricsMode.ENHANCED -> stringResource(R.string.lyrics_mode_enhanced)
++                            LyricsMode.V2 -> "lyrics_mode_v2"
++                            LyricsMode.ENHANCED -> "lyrics_mode_enhanced"
+                         }
+                     },
+                 )
+@@ -409,9 +407,9 @@
+                 val animationSettingsEnabled = lyricsMode == LyricsMode.V2
+ 
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.lyrics_animation_style)) },
+-                    description = if (animationSettingsEnabled) null else stringResource(R.string.lyrics_animation_style_v2_only),
+-                    icon = { Icon(painterResource(R.drawable.animation), null) },
++                    title = { Text("lyrics_animation_style") },
++                    description = if (animationSettingsEnabled) null else "lyrics_animation_style_v2_only",
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { navController.navigate("settings/appearance/lyrics_animations") },
+                     isEnabled = animationSettingsEnabled,
+                 )
+@@ -419,8 +417,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_click_change)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_click_change") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsClick,
+                     onCheckedChange = onLyricsClickChange,
+                 )
+@@ -428,8 +426,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_auto_scroll)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_auto_scroll") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsScroll,
+                     onCheckedChange = onLyricsScrollChange,
+                 )
+@@ -437,8 +435,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_line_blur)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_line_blur") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsLineBlur,
+                     onCheckedChange = onLyricsLineBlurChange,
+                 )
+@@ -446,28 +444,28 @@
+ 
+             item {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.lyrics_text_size)) },
++                    title = { Text("lyrics_text_size") },
+                     description = "${lyricsTextSize.roundToInt()} sp",
+-                    icon = { Icon(painterResource(R.drawable.text_fields), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { showLyricsTextSizeDialog = true },
+                 )
+             }
+ 
+             item {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.lyrics_line_spacing)) },
++                    title = { Text("lyrics_line_spacing") },
+                     description = "${String.format("%.1f", lyricsLineSpacing)}x",
+-                    icon = { Icon(painterResource(R.drawable.text_fields), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { showLyricsLineSpacingDialog = true },
+                 )
+             }
+         }
+ 
+-        PreferenceGroup(title = stringResource(R.string.providers)) {
++        PreferenceGroup(title = "providers") {
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_betterlyrics)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_betterlyrics") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableBetterLyrics,
+                     onCheckedChange = onEnableBetterLyricsChange,
+                 )
+@@ -475,8 +473,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_betterlyrics_portato)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_betterlyrics_portato") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableBetterLyricsPortato,
+                     onCheckedChange = onEnableBetterLyricsPortatoChange,
+                 )
+@@ -484,8 +482,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_youlyplus_lyrics)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_youlyplus_lyrics") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableYouLyPlusLyrics,
+                     onCheckedChange = onEnableYouLyPlusLyricsChange,
+                 )
+@@ -493,8 +491,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_lrclib)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_lrclib") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableLrclib,
+                     onCheckedChange = onEnableLrclibChange,
+                 )
+@@ -502,8 +500,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_kugou)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_kugou") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableKugou,
+                     onCheckedChange = onEnableKugouChange,
+                 )
+@@ -511,8 +509,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_unison_lyrics)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_unison_lyrics") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableUnisonLyrics,
+                     onCheckedChange = onEnableUnisonLyricsChange,
+                 )
+@@ -520,8 +518,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_simpmusic_lyrics)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_simpmusic_lyrics") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableSimpMusicLyrics,
+                     onCheckedChange = onEnableSimpMusicLyricsChange,
+                 )
+@@ -529,8 +527,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_megalobiz_lyrics)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_megalobiz_lyrics") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enableMegalobizLyrics,
+                     onCheckedChange = onEnableMegalobizLyricsChange,
+                 )
+@@ -538,8 +536,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.enable_paxsenix_lyrics)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("enable_paxsenix_lyrics") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enablePaxsenixLyrics,
+                     onCheckedChange = onEnablePaxsenixLyricsChange,
+                 )
+@@ -547,30 +545,30 @@
+ 
+             item(visible = enablePaxsenixLyrics) {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.paxsenix_api_key)) },
++                    title = { Text("paxsenix_api_key") },
+                     description =
+                         if (paxsenixApiKey.isBlank()) {
+-                            stringResource(R.string.paxsenix_api_key_missing)
++                            "paxsenix_api_key_missing"
+                         } else {
+-                            stringResource(R.string.paxsenix_api_key_configured)
++                            "paxsenix_api_key_configured"
+                         },
+-                    icon = { Icon(painterResource(R.drawable.token), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { showPaxsenixApiKeyDialog = true },
+                 )
+             }
+ 
+             item(visible = enablePaxsenixLyrics) {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.paxsenix_stats)) },
+-                    icon = { Icon(painterResource(R.drawable.stats), null) },
++                    title = { Text("paxsenix_stats") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { showPaxsenixStatsDialog = true },
+                 )
+             }
+ 
+             item(visible = enablePaxsenixLyrics) {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.paxsenix_apple_music)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("paxsenix_apple_music") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enablePaxsenixAppleMusicLyrics,
+                     onCheckedChange = onEnablePaxsenixAppleMusicLyricsChange,
+                 )
+@@ -578,8 +576,8 @@
+ 
+             item(visible = enablePaxsenixLyrics) {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.paxsenix_spotify)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("paxsenix_spotify") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enablePaxsenixSpotifyLyrics,
+                     onCheckedChange = onEnablePaxsenixSpotifyLyricsChange,
+                 )
+@@ -587,8 +585,8 @@
+ 
+             item(visible = enablePaxsenixLyrics) {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.paxsenix_musixmatch)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("paxsenix_musixmatch") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = enablePaxsenixMusixmatchLyrics,
+                     onCheckedChange = onEnablePaxsenixMusixmatchLyricsChange,
+                 )
+@@ -596,19 +594,19 @@
+ 
+             item {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.set_first_lyrics_provider)) },
++                    title = { Text("set_first_lyrics_provider") },
+                     description = providerOrder.firstOrNull()?.displayName(),
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { showProviderOrderDialog = true },
+                 )
+             }
+         }
+ 
+-        PreferenceGroup(title = stringResource(R.string.romanization)) {
++        PreferenceGroup(title = "romanization") {
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_romanize_japanese)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_romanize_japanese") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsRomanizeJapanese,
+                     onCheckedChange = onLyricsRomanizeJapaneseChange,
+                 )
+@@ -616,8 +614,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_romanize_korean)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_romanize_korean") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsRomanizeKorean,
+                     onCheckedChange = onLyricsRomanizeKoreanChange,
+                 )
+@@ -625,8 +623,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_romanize_chinese)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_romanize_chinese") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsRomanizeChinese,
+                     onCheckedChange = onLyricsRomanizeChineseChange,
+                 )
+@@ -634,8 +632,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_romanize_hindi)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_romanize_hindi") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsRomanizeHindi,
+                     onCheckedChange = onLyricsRomanizeHindiChange,
+                 )
+@@ -643,8 +641,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.lyrics_romanize_other_languages)) },
+-                    icon = { Icon(painterResource(R.drawable.lyrics), null) },
++                    title = { Text("lyrics_romanize_other_languages") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = lyricsRomanizeOtherLanguages,
+                     onCheckedChange = onLyricsRomanizeOtherLanguagesChange,
+                 )
+@@ -652,11 +650,11 @@
+         }
+ 
+ 
+-        PreferenceGroup(title = stringResource(R.string.cache)) {
++        PreferenceGroup(title = "cache") {
+             item {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.clear_lyrics_cache)) },
+-                    icon = { Icon(painterResource(R.drawable.delete), null) },
++                    title = { Text("clear_lyrics_cache") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { showClearLyricsDialog = true },
+                 )
+             }
+@@ -664,14 +662,14 @@
+     }
+ 
+     TopAppBar(
+-        title = { Text(stringResource(R.string.lyrics)) },
++        title = { Text("lyrics") },
+         navigationIcon = {
+             IconButton(
+                 onClick = navController::navigateUp,
+                 onLongClick = navController::backToMain,
+             ) {
+                 Icon(
+-                    painterResource(R.drawable.arrow_back),
++                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                 )
+             }
+@@ -691,9 +689,9 @@
+         PreferredLyricsProvider.BETTER_LYRICS_PORTATO -> "BetterLyrics Portato"
+         PreferredLyricsProvider.YOULY_PLUS -> "YouLyPlus"
+         PreferredLyricsProvider.SIMPMUSIC -> "SimpMusic"
+-        PreferredLyricsProvider.PAXSENIX_APPLE_MUSIC -> stringResource(R.string.paxsenix_apple_music)
+-        PreferredLyricsProvider.PAXSENIX_SPOTIFY -> stringResource(R.string.paxsenix_spotify)
+-        PreferredLyricsProvider.PAXSENIX_MUSIXMATCH -> stringResource(R.string.paxsenix_musixmatch)
++        PreferredLyricsProvider.PAXSENIX_APPLE_MUSIC -> "paxsenix_apple_music"
++        PreferredLyricsProvider.PAXSENIX_SPOTIFY -> "paxsenix_spotify"
++        PreferredLyricsProvider.PAXSENIX_MUSIXMATCH -> "paxsenix_musixmatch"
+         PreferredLyricsProvider.UNISON -> "Unison"
+     }
+ 
+@@ -732,7 +730,7 @@
+     ) {
+         Column(modifier = Modifier.padding(top = 4.dp)) {
+             Text(
+-                text = stringResource(R.string.set_first_lyrics_provider),
++                text = "set_first_lyrics_provider",
+                 style = MaterialTheme.typography.headlineSmall,
+                 modifier = Modifier.padding(bottom = 12.dp),
+             )
+@@ -783,7 +781,7 @@
+                                 modifier = Modifier.weight(1f),
+                             )
+                             Icon(
+-                                painter = painterResource(R.drawable.drag_handle),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 tint = contentColor.copy(alpha = 0.6f),
+                                 modifier =
+@@ -828,16 +826,16 @@
+ 
+     DefaultDialog(
+         onDismiss = onDismiss,
+-        title = { Text(stringResource(R.string.paxsenix_stats)) },
+-        icon = { Icon(painterResource(R.drawable.stats), contentDescription = null) },
++        title = { Text("paxsenix_stats") },
++        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null) },
+         buttons = {
+             if (state is PaxsenixStatsState.Error) {
+                 TextButton(onClick = onRetry) {
+-                    Text(stringResource(R.string.retry))
++                    Text("retry")
+                 }
+             } else {
+                 TextButton(onClick = { uriHandler.openUri("https://lyrics.paxsenix.org/") }) {
+-                    Text(stringResource(R.string.visit_website))
++                    Text("visit_website")
+                 }
+             }
+             Spacer(Modifier.weight(1f))
+@@ -869,13 +867,13 @@
+                     verticalArrangement = Arrangement.spacedBy(8.dp),
+                 ) {
+                     Icon(
+-                        painterResource(R.drawable.error),
++                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = MaterialTheme.colorScheme.error,
+                         modifier = Modifier.size(32.dp),
+                     )
+                     Text(
+-                        text = stringResource(R.string.paxsenix_stats_failed),
++                        text = "paxsenix_stats_failed",
+                         style = MaterialTheme.typography.bodyMedium,
+                         color = MaterialTheme.colorScheme.onSurfaceVariant,
+                     )
+@@ -911,7 +909,7 @@
+                 horizontalArrangement = Arrangement.SpaceBetween,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.uptime),
++                    text = "uptime",
+                     style = MaterialTheme.typography.bodySmall,
+                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                 )
+@@ -926,7 +924,7 @@
+                 horizontalArrangement = Arrangement.SpaceBetween,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.total_requests),
++                    text = "total_requests",
+                     style = MaterialTheme.typography.bodySmall,
+                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                 )
+@@ -941,7 +939,7 @@
+                 horizontalArrangement = Arrangement.SpaceBetween,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.success_rate),
++                    text = "success_rate",
+                     style = MaterialTheme.typography.bodySmall,
+                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                 )
+@@ -956,7 +954,7 @@
+         if (stats.providers.isNotEmpty()) {
+             HorizontalDivider()
+             Text(
+-                text = stringResource(R.string.providers),
++                text = "providers",
+                 style = MaterialTheme.typography.labelMedium,
+                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+             )
+@@ -972,7 +970,7 @@
+         if (stats.requestLog.isNotEmpty()) {
+             HorizontalDivider()
+             Text(
+-                text = stringResource(R.string.recent_requests),
++                text = "recent_requests",
+                 style = MaterialTheme.typography.labelMedium,
+                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+             )
+@@ -1047,9 +1045,9 @@
+         }
+     val statusLabel =
+         when (status) {
+-            PaxsenixServerStatus.Operational -> stringResource(R.string.paxsenix_status_operational)
+-            PaxsenixServerStatus.Degraded -> stringResource(R.string.paxsenix_status_degraded)
+-            PaxsenixServerStatus.Down -> stringResource(R.string.paxsenix_status_down)
++            PaxsenixServerStatus.Operational -> "paxsenix_status_operational"
++            PaxsenixServerStatus.Degraded -> "paxsenix_status_degraded"
++            PaxsenixServerStatus.Down -> "paxsenix_status_down"
+         }
+ 
+     Card(

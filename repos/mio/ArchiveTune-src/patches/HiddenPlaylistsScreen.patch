@@ -1,0 +1,70 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/HiddenPlaylistsScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/HiddenPlaylistsScreen.kt	2026-09-24 13:03:59
+@@ -39,8 +39,6 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.layout.ContentScale
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.dp
+@@ -69,14 +67,14 @@
+     Scaffold(
+         topBar = {
+             TopAppBar(
+-                title = { Text(stringResource(R.string.hidden_playlists)) },
++                title = { Text("hidden_playlists") },
+                 navigationIcon = {
+                     IconButton(
+                         onClick = navController::navigateUp,
+                         onLongClick = navController::backToMain,
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.arrow_back),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -95,14 +93,14 @@
+                 verticalArrangement = Arrangement.Center,
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.visibility_off),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(64.dp),
+                     tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f),
+                 )
+                 Spacer(modifier = Modifier.height(16.dp))
+                 Text(
+-                    text = stringResource(R.string.no_hidden_playlists),
++                    text = "no_hidden_playlists",
+                     style = MaterialTheme.typography.titleMedium,
+                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                 )
+@@ -180,7 +178,7 @@
+             )
+             Spacer(modifier = Modifier.height(2.dp))
+             Text(
+-                text = "${playlist.songCount} ${stringResource(R.string.tracks_label)}",
++                text = "${playlist.songCount} ${"tracks_label"}",
+                 style = MaterialTheme.typography.bodySmall,
+                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+             )
+@@ -193,13 +191,13 @@
+             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp),
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.visibility_off),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 modifier = Modifier.size(16.dp),
+             )
+             Spacer(modifier = Modifier.width(6.dp))
+             Text(
+-                text = stringResource(R.string.unhide),
++                text = "unhide",
+                 style = MaterialTheme.typography.labelLarge,
+             )
+         }

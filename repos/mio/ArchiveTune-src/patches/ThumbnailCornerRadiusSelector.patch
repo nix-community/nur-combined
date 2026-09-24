@@ -1,0 +1,45 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/ThumbnailCornerRadiusSelector.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/ThumbnailCornerRadiusSelector.kt	2026-09-24 13:03:57
+@@ -21,8 +21,6 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.layout.ContentScale
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.unit.dp
+@@ -55,13 +53,13 @@
+         description = stringResource(id = R.string.corner_radius, thumbnailCornerRadius.roundToInt()),
+         icon = {
+             Icon(
+-                painter = painterResource(id = R.drawable.image),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+             )
+         },
+         trailingContent = {
+             Icon(
+-                painter = painterResource(R.drawable.arrow_forward),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.primary,
+             )
+@@ -153,7 +151,7 @@
+                         contentAlignment = Alignment.Center,
+                     ) {
+                         Image(
+-                            painter = painterResource(R.drawable.ic_music_placeholder),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             contentScale = ContentScale.Crop,
+                             modifier = Modifier.fillMaxSize(),
+@@ -355,7 +353,7 @@
+                         ) {
+                             Row(verticalAlignment = Alignment.CenterVertically) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.check),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     modifier = Modifier.size(18.dp),
+                                 )

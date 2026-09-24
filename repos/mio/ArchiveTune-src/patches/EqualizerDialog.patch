@@ -1,0 +1,277 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/menu/EqualizerDialog.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/menu/EqualizerDialog.kt	2026-09-24 13:04:01
+@@ -79,8 +79,6 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.input.nestedscroll.nestedScroll
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -221,11 +219,11 @@
+         modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
+         topBar = {
+             LargeFlexibleTopAppBar(
+-                title = { Text(text = stringResource(R.string.equalizer)) },
+-                subtitle = { Text(text = stringResource(R.string.eq_screen_subtitle)) },
++                title = { Text(text = "equalizer") },
++                subtitle = { Text(text = "eq_screen_subtitle") },
+                 navigationIcon = {
+                     IconButton(onClick = onDismiss) {
+-                        Icon(painter = painterResource(R.drawable.close), contentDescription = null)
++                        Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null)
+                     }
+                 },
+                 colors =
+@@ -432,7 +430,7 @@
+             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                 Surface(shape = CircleShape, color = MaterialTheme.colorScheme.surface.copy(alpha = 0.76f)) {
+                     Icon(
+-                        painter = painterResource(R.drawable.graphic_eq),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.padding(12.dp).size(28.dp),
+                     )
+@@ -444,7 +442,7 @@
+                         fontWeight = FontWeight.SemiBold,
+                     )
+                     Text(
+-                        text = stringResource(R.string.eq_enable_description),
++                        text = "eq_enable_description",
+                         style = MaterialTheme.typography.bodyMedium,
+                         color = contentColor,
+                     )
+@@ -452,9 +450,9 @@
+                 Switch(checked = enabled, onCheckedChange = onEnabledChange)
+             }
+             FilledTonalButton(onClick = onOpenSystemEqualizer, modifier = Modifier.fillMaxWidth(), shapes = ButtonDefaults.shapes()) {
+-                Icon(painter = painterResource(R.drawable.tune), contentDescription = null)
++                Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null)
+                 Spacer(Modifier.width(8.dp))
+-                Text(text = stringResource(R.string.eq_open_system_equalizer))
++                Text(text = "eq_open_system_equalizer")
+             }
+         }
+     }
+@@ -472,7 +470,7 @@
+     ) {
+         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+             Text(
+-                text = stringResource(R.string.eq_control_mode),
++                text = "eq_control_mode",
+                 style = MaterialTheme.typography.titleMedium,
+                 fontWeight = FontWeight.SemiBold,
+             )
+@@ -515,7 +513,7 @@
+ ) {
+     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+         PresetSection(model, onPresetClick)
+-        EqualizerSection(title = stringResource(R.string.eq_tone), subtitle = stringResource(R.string.eq_tone_description)) {
++        EqualizerSection(title = "eq_tone", subtitle = "eq_tone_description") {
+             repeat(model.tones.size) { index ->
+                 val tone = model.tones[index]
+                 ToneSlider(
+@@ -556,11 +554,11 @@
+     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+         PresetSection(model, onPresetClick)
+         EqualizerSection(
+-            title = stringResource(R.string.eq_bands),
+-            subtitle = stringResource(R.string.eq_bands_description),
++            title = "eq_bands",
++            subtitle = "eq_bands_description",
+             action = {
+                 TextButton(onClick = onResetBands, enabled = model.enabled, shapes = ButtonDefaults.shapes()) {
+-                    Text(text = stringResource(R.string.reset))
++                    Text(text = "reset")
+                 }
+             },
+         ) {
+@@ -576,10 +574,10 @@
+                 if (index != model.bands.size - 1) HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+             }
+         }
+-        EqualizerSection(title = stringResource(R.string.eq_signal), subtitle = stringResource(R.string.eq_signal_description)) {
++        EqualizerSection(title = "eq_signal", subtitle = "eq_signal_description") {
+             ToggleSlider(
+-                title = stringResource(R.string.eq_output_gain),
+-                description = stringResource(R.string.eq_output_gain_description),
++                title = "eq_output_gain",
++                description = "eq_output_gain_description",
+                 enabled = model.outputGainEnabled,
+                 controlsEnabled = model.enabled && !model.autoHeadroomEnabled,
+                 value = model.outputGainMb,
+@@ -591,17 +589,17 @@
+             )
+             Spacer(Modifier.height(12.dp))
+             SettingsToggle(
+-                title = stringResource(R.string.eq_auto_headroom),
+-                description = stringResource(R.string.eq_auto_headroom_description),
++                title = "eq_auto_headroom",
++                description = "eq_auto_headroom_description",
+                 checked = model.autoHeadroomEnabled,
+                 enabled = model.enabled,
+                 onCheckedChange = onAutoHeadroomEnabledChange,
+             )
+         }
+-        EqualizerSection(title = stringResource(R.string.eq_effects), subtitle = stringResource(R.string.eq_effects_description)) {
++        EqualizerSection(title = "eq_effects", subtitle = "eq_effects_description") {
+             ToggleSlider(
+-                title = stringResource(R.string.eq_bass_boost),
+-                description = stringResource(R.string.eq_bass_boost_description),
++                title = "eq_bass_boost",
++                description = "eq_bass_boost_description",
+                 enabled = model.bassBoostEnabled,
+                 controlsEnabled = model.enabled,
+                 value = model.bassBoostStrength,
+@@ -613,8 +611,8 @@
+             )
+             Spacer(Modifier.height(12.dp))
+             ToggleSlider(
+-                title = stringResource(R.string.eq_virtualizer),
+-                description = stringResource(R.string.eq_virtualizer_description),
++                title = "eq_virtualizer",
++                description = "eq_virtualizer_description",
+                 enabled = model.virtualizerEnabled,
+                 controlsEnabled = model.enabled,
+                 value = model.virtualizerStrength,
+@@ -625,21 +623,21 @@
+                 onValueChangeFinished = onVirtualizerValueChangeFinished,
+             )
+         }
+-        EqualizerSection(title = stringResource(R.string.eq_profiles), subtitle = stringResource(R.string.eq_profiles_description)) {
++        EqualizerSection(title = "eq_profiles", subtitle = "eq_profiles_description") {
+             Row(
+                 modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                 horizontalArrangement = Arrangement.spacedBy(8.dp),
+             ) {
+                 Button(onClick = onShowSaveProfile, enabled = model.enabled, shapes = ButtonDefaults.shapes()) {
+-                    Icon(painter = painterResource(R.drawable.add), contentDescription = null)
++                    Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null)
+                     Spacer(Modifier.width(8.dp))
+-                    Text(text = stringResource(R.string.eq_save_profile))
++                    Text(text = "eq_save_profile")
+                 }
+                 OutlinedButton(onClick = onShowManageProfiles, enabled = model.profiles.size > 0, shapes = ButtonDefaults.shapes()) {
+-                    Text(text = stringResource(R.string.eq_manage))
++                    Text(text = "eq_manage")
+                 }
+                 OutlinedButton(onClick = onImportProfiles, shapes = ButtonDefaults.shapes()) {
+-                    Text(text = stringResource(R.string.eq_import))
++                    Text(text = "eq_import")
+                 }
+             }
+         }
+@@ -651,7 +649,7 @@
+     model: EqualizerUiModel,
+     onPresetClick: (String) -> Unit,
+ ) {
+-    EqualizerSection(title = stringResource(R.string.eq_presets), subtitle = stringResource(R.string.eq_presets_description)) {
++    EqualizerSection(title = "eq_presets", subtitle = "eq_presets_description") {
+         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+             items(count = model.presets.size, key = { model.presets[it].id }, contentType = { "preset" }) { index ->
+                 val preset = model.presets[index]
+@@ -663,7 +661,7 @@
+                         Text(
+                             text =
+                                 when {
+-                                    preset.id == "flat" -> stringResource(R.string.eq_flat)
++                                    preset.id == "flat" -> "eq_flat"
+                                     preset.name.isNullOrBlank() -> stringResource(R.string.eq_preset_number, index)
+                                     else -> preset.name.orEmpty()
+                                 },
+@@ -843,20 +841,20 @@
+ ) {
+     AlertDialog(
+         onDismissRequest = onDismiss,
+-        title = { Text(text = stringResource(R.string.eq_save_profile)) },
++        title = { Text(text = "eq_save_profile") },
+         text = {
+             OutlinedTextField(
+                 value = name,
+                 onValueChange = onNameChange,
+-                label = { Text(text = stringResource(R.string.eq_profile_name)) },
++                label = { Text(text = "eq_profile_name") },
+                 singleLine = true,
+                 modifier = Modifier.fillMaxWidth(),
+             )
+         },
+         confirmButton = {
+-            TextButton(onClick = onSave, enabled = name.isNotBlank()) { Text(text = stringResource(R.string.save)) }
++            TextButton(onClick = onSave, enabled = name.isNotBlank()) { Text(text = "save") }
+         },
+-        dismissButton = { TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
++        dismissButton = { TextButton(onClick = onDismiss) { Text(text = "eq_close") } },
+     )
+ }
+ 
+@@ -870,7 +868,7 @@
+ ) {
+     AlertDialog(
+         onDismissRequest = onDismiss,
+-        title = { Text(text = stringResource(R.string.eq_profiles)) },
++        title = { Text(text = "eq_profiles") },
+         text = {
+             LazyColumn(modifier = Modifier.fillMaxWidth().height(360.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                 items(count = profiles.size, key = { profiles[it].id }, contentType = { "profile" }) { index ->
+@@ -878,7 +876,7 @@
+                 }
+             }
+         },
+-        confirmButton = { TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
++        confirmButton = { TextButton(onClick = onDismiss) { Text(text = "eq_close") } },
+     )
+ }
+ 
+@@ -895,24 +893,24 @@
+         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+         leadingContent = {
+             Icon(
+-                painter = painterResource(if (profile.isSelected) R.drawable.check else R.drawable.equalizer),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.check else R.drawable.equalizer),
+                 contentDescription = null,
+             )
+         },
+         trailingContent = {
+             Row {
+                 IconButton(onClick = { onExport(profile.id) }) {
+-                    Icon(painter = painterResource(R.drawable.share), contentDescription = stringResource(R.string.export))
++                    Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "export")
+                 }
+                 IconButton(onClick = { onDelete(profile.id) }) {
+-                    Icon(painter = painterResource(R.drawable.delete), contentDescription = stringResource(R.string.delete))
++                    Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "delete")
+                 }
+             }
+         },
+-        supportingContent = { Text(text = stringResource(R.string.eq_custom_profile)) },
++        supportingContent = { Text(text = "eq_custom_profile") },
+         content = {
+             Text(
+-                text = profile.name.ifBlank { stringResource(R.string.eq_imported_profile) },
++                text = profile.name.ifBlank { "eq_imported_profile" },
+                 maxLines = 1,
+                 overflow = TextOverflow.Ellipsis,
+             )
+@@ -934,7 +932,7 @@
+ ) {
+     EqualizerMessage(
+         contentPadding = contentPadding,
+-        message = stringResource(R.string.eq_waiting_for_audio_session),
++        message = "eq_waiting_for_audio_session",
+         onOpenSystemEqualizer = onOpenSystemEqualizer,
+     )
+ }
+@@ -956,10 +954,10 @@
+ ) {
+     Box(modifier = Modifier.fillMaxSize().padding(contentPadding).padding(24.dp), contentAlignment = Alignment.Center) {
+         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+-            Icon(painter = painterResource(R.drawable.graphic_eq), contentDescription = null, modifier = Modifier.size(48.dp))
++            Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null, modifier = Modifier.size(48.dp))
+             Text(text = message, style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+             FilledTonalButton(onClick = onOpenSystemEqualizer, shapes = ButtonDefaults.shapes()) {
+-                Text(text = stringResource(R.string.eq_open_system_equalizer))
++                Text(text = "eq_open_system_equalizer")
+             }
+         }
+     }

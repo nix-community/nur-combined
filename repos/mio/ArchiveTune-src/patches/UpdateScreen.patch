@@ -1,0 +1,392 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/UpdateScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/UpdateScreen.kt	2026-09-24 13:03:59
+@@ -9,12 +9,8 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.settings
+ 
+-import android.Manifest
+-import android.content.pm.PackageManager
+-import android.os.Build
+ import androidx.activity.compose.rememberLauncherForActivityResult
+ import androidx.activity.result.contract.ActivityResultContracts
+-import androidx.annotation.DrawableRes
+ import androidx.compose.animation.AnimatedVisibility
+ import androidx.compose.animation.animateContentSize
+ import androidx.compose.animation.core.animateFloatAsState
+@@ -88,8 +84,6 @@
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalUriHandler
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontFamily
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+@@ -227,7 +221,7 @@
+ 
+     val updateSheetContent: @Composable ColumnScope.() -> Unit = {
+         Text(
+-            text = stringResource(R.string.new_update_available),
++            text = "new_update_available",
+             style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+             modifier = Modifier.padding(top = 16.dp),
+         )
+@@ -268,7 +262,7 @@
+                 )
+             } else {
+                 Text(
+-                    text = stringResource(R.string.release_notes_unavailable),
++                    text = "release_notes_unavailable",
+                     style = MaterialTheme.typography.bodyMedium,
+                 )
+             }
+@@ -287,7 +281,7 @@
+             modifier = Modifier.fillMaxWidth(),
+             shapes = ButtonDefaults.shapes(),
+         ) {
+-            Text(text = stringResource(R.string.update_text))
++            Text(text = "update_text")
+         }
+ 
+         Spacer(Modifier.height(12.dp))
+@@ -352,55 +346,55 @@
+     if (showEnableUpdateNotificationConfirmDialog) {
+         AlertDialog(
+             onDismissRequest = { showEnableUpdateNotificationConfirmDialog = false },
+-            title = { Text(stringResource(R.string.enable_update_notification)) },
++            title = { Text("enable_update_notification") },
+             text = {
+                 Column(
+                     verticalArrangement = Arrangement.spacedBy(12.dp),
+                     modifier = Modifier.fillMaxWidth(),
+                 ) {
+                     Text(
+-                        text = stringResource(R.string.updates_channel_warning_intro),
++                        text = "updates_channel_warning_intro",
+                         style = MaterialTheme.typography.bodyMedium,
+                     )
+ 
+                     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                         Text(
+-                            text = stringResource(R.string.updates_channel_warning_stable_title),
++                            text = "updates_channel_warning_stable_title",
+                             style = MaterialTheme.typography.bodyMedium,
+                             fontWeight = FontWeight.SemiBold,
+                         )
+                         Text(
+-                            text = stringResource(R.string.updates_channel_warning_stable_source),
++                            text = "updates_channel_warning_stable_source",
+                             style = MaterialTheme.typography.bodySmall,
+                         )
+                         Text(
+-                            text = stringResource(R.string.updates_channel_warning_stable_desc),
++                            text = "updates_channel_warning_stable_desc",
+                             style = MaterialTheme.typography.bodySmall,
+                         )
+                     }
+ 
+                     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                         Text(
+-                            text = stringResource(R.string.updates_channel_warning_artifact_title),
++                            text = "updates_channel_warning_artifact_title",
+                             style = MaterialTheme.typography.bodyMedium,
+                             fontWeight = FontWeight.SemiBold,
+                         )
+                         Text(
+-                            text = stringResource(R.string.updates_artifact_hosting_description),
++                            text = "updates_artifact_hosting_description",
+                             style = MaterialTheme.typography.bodySmall,
+                         )
+                         Text(
+-                            text = stringResource(R.string.updates_channel_warning_artifact_risk),
++                            text = "updates_channel_warning_artifact_risk",
+                             style = MaterialTheme.typography.bodySmall,
+                         )
+                     }
+ 
+                     Text(
+-                        text = stringResource(R.string.updates_channel_warning_artifact_unstable),
++                        text = "updates_channel_warning_artifact_unstable",
+                         style = MaterialTheme.typography.bodySmall,
+                     )
+                     Text(
+-                        text = stringResource(R.string.updates_channel_warning_artifact_acknowledgement),
++                        text = "updates_channel_warning_artifact_acknowledgement",
+                         style = MaterialTheme.typography.bodySmall,
+                     )
+                 }
+@@ -431,10 +425,10 @@
+     if (showArtifactChannelConfirmDialog) {
+         AlertDialog(
+             onDismissRequest = { showArtifactChannelConfirmDialog = false },
+-            title = { Text(stringResource(R.string.channel_artifact)) },
++            title = { Text("channel_artifact") },
+             text = {
+                 Text(
+-                    text = stringResource(R.string.updates_artifact_channel_confirmation),
++                    text = "updates_artifact_channel_confirmation",
+                     style = MaterialTheme.typography.bodyMedium,
+                 )
+             },
+@@ -490,7 +484,7 @@
+     )
+     val topBarSubtitle =
+         when (updateChannel) {
+-            UpdateChannel.ARTIFACT -> stringResource(R.string.updates_subtitle_artifact)
++            UpdateChannel.ARTIFACT -> "updates_subtitle_artifact"
+             UpdateChannel.STABLE -> channelTitle
+         }
+ 
+@@ -506,7 +500,7 @@
+             MediumFlexibleTopAppBar(
+                 title = {
+                     Text(
+-                        text = stringResource(R.string.updates),
++                        text = "updates",
+                         fontWeight = FontWeight.Bold,
+                     )
+                 },
+@@ -523,8 +517,8 @@
+                         onLongClick = navController::backToMain,
+                     ) {
+                         Icon(
+-                            painterResource(R.drawable.arrow_back),
+-                            contentDescription = stringResource(R.string.back_button_desc),
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "back_button_desc",
+                         )
+                     }
+                 },
+@@ -626,7 +620,7 @@
+             },
+             title = {
+                 Text(
+-                    text = stringResource(R.string.updates_status_checking),
++                    text = "updates_status_checking",
+                     style = MaterialTheme.typography.headlineSmall,
+                 )
+             },
+@@ -732,7 +726,7 @@
+                 ) {
+                     Box(contentAlignment = Alignment.Center) {
+                         Icon(
+-                            painter = painterResource(R.drawable.check),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(24.dp),
+                             tint = MaterialTheme.colorScheme.onPrimaryContainer,
+@@ -742,7 +736,7 @@
+             },
+             title = {
+                 Text(
+-                    text = stringResource(R.string.updates_status_current),
++                    text = "updates_status_current",
+                     style = MaterialTheme.typography.headlineSmall,
+                     modifier = Modifier.fillMaxWidth(),
+                     textAlign = TextAlign.Center,
+@@ -770,7 +764,7 @@
+             onDismissRequest = { showUpdateErrorDialog = false },
+             icon = {
+                 Icon(
+-                    painter = painterResource(R.drawable.error),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(24.dp),
+                     tint = MaterialTheme.colorScheme.error,
+@@ -778,7 +772,7 @@
+             },
+             title = {
+                 Text(
+-                    text = stringResource(R.string.error_loading_changelog),
++                    text = "error_loading_changelog",
+                     style = MaterialTheme.typography.headlineSmall,
+                 )
+             },
+@@ -874,13 +868,13 @@
+     val channelLabel =
+         when (updateChannel) {
+             UpdateChannel.STABLE -> channelTitle
+-            UpdateChannel.ARTIFACT -> stringResource(R.string.channel_artifact)
++            UpdateChannel.ARTIFACT -> "channel_artifact"
+         }
+     val supportingText =
+         when {
+-            latestVersion == null -> stringResource(R.string.updates_status_checking)
++            latestVersion == null -> "updates_status_checking"
+             isUpdateAvailable -> stringResource(R.string.latest_version_format, latestVersion)
+-            else -> stringResource(R.string.updates_status_current)
++            else -> "updates_status_current"
+         }
+     val statusContainerColor =
+         if (isUpdateAvailable) {
+@@ -933,7 +927,7 @@
+                 ) {
+                     Box(contentAlignment = Alignment.Center) {
+                         Icon(
+-                            painter = painterResource(R.drawable.update),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(24.dp),
+                         )
+@@ -950,7 +944,7 @@
+                         verticalAlignment = Alignment.CenterVertically,
+                     ) {
+                         Text(
+-                            text = stringResource(R.string.current_version),
++                            text = "current_version",
+                             style = MaterialTheme.typography.labelLarge,
+                             color = MaterialTheme.colorScheme.onSurfaceVariant,
+                             modifier = Modifier.weight(1f),
+@@ -993,12 +987,12 @@
+                     shapes = ButtonDefaults.shapes(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.sync),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(18.dp),
+                     )
+                     Spacer(modifier = Modifier.width(8.dp))
+-                    Text(text = stringResource(R.string.check_for_update))
++                    Text(text = "check_for_update")
+                 }
+ 
+                 if (updateChannel == UpdateChannel.STABLE) {
+@@ -1011,12 +1005,12 @@
+                         shapes = ButtonDefaults.shapes(),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.update),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(18.dp),
+                         )
+                         Spacer(modifier = Modifier.width(8.dp))
+-                        Text(text = stringResource(R.string.view_changelog))
++                        Text(text = "view_changelog")
+                     }
+                 }
+             }
+@@ -1062,10 +1056,10 @@
+                 )
+             },
+             supportingContent = {
+-                Text(text = stringResource(R.string.enable_update_notification_channel_desc))
++                Text(text = "enable_update_notification_channel_desc")
+             },
+             content = {
+-                Text(text = stringResource(R.string.enable_update_notification))
++                Text(text = "enable_update_notification")
+             },
+         )
+ 
+@@ -1096,12 +1090,12 @@
+                         verticalArrangement = Arrangement.spacedBy(2.dp),
+                     ) {
+                         Text(
+-                            text = stringResource(R.string.update_channel),
++                            text = "update_channel",
+                             style = MaterialTheme.typography.titleMedium,
+                             fontWeight = FontWeight.SemiBold,
+                         )
+                         Text(
+-                            text = stringResource(R.string.update_channel_desc),
++                            text = "update_channel_desc",
+                             style = MaterialTheme.typography.bodyMedium,
+                             color = MaterialTheme.colorScheme.onSurfaceVariant,
+                         )
+@@ -1123,7 +1117,7 @@
+                         shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
+                         icon = {},
+                     ) {
+-                        Text(text = stringResource(R.string.channel_artifact))
++                        Text(text = "channel_artifact")
+                     }
+                 }
+             }
+@@ -1165,7 +1159,7 @@
+             },
+             trailingContent = {
+                 Icon(
+-                    painter = painterResource(R.drawable.expand_more),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.rotate(rotationAngle),
+                 )
+@@ -1175,11 +1169,11 @@
+                     text =
+                         when {
+                             isLoading -> {
+-                                stringResource(R.string.updates_loading_commits)
++                                "updates_loading_commits"
+                             }
+ 
+                             commits.isEmpty() -> {
+-                                stringResource(R.string.updates_no_commits)
++                                "updates_no_commits"
+                             }
+ 
+                             else -> {
+@@ -1193,7 +1187,7 @@
+             },
+             content = {
+                 Text(
+-                    text = stringResource(R.string.recent_commits),
++                    text = "recent_commits",
+                     style = MaterialTheme.typography.titleMedium,
+                     fontWeight = FontWeight.SemiBold,
+                 )
+@@ -1221,7 +1215,7 @@
+                             ) {
+                                 LoadingIndicator(modifier = Modifier.size(32.dp))
+                                 Text(
+-                                    text = stringResource(R.string.updates_loading_commits),
++                                    text = "updates_loading_commits",
+                                     style = MaterialTheme.typography.bodyMedium,
+                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                 )
+@@ -1237,7 +1231,7 @@
+                         color = MaterialTheme.colorScheme.surfaceContainerLow,
+                     ) {
+                         Text(
+-                            text = stringResource(R.string.updates_no_commits),
++                            text = "updates_no_commits",
+                             style = MaterialTheme.typography.bodyMedium,
+                             color = MaterialTheme.colorScheme.onSurfaceVariant,
+                             textAlign = TextAlign.Center,
+@@ -1273,7 +1267,7 @@
+ 
+ @Composable
+ private fun FeatureIcon(
+-    @DrawableRes iconRes: Int,
++    iconRes: Int,
+     containerColor: Color,
+     contentColor: Color,
+ ) {
+@@ -1282,7 +1276,7 @@
+         color = containerColor,
+     ) {
+         Icon(
+-            painter = painterResource(iconRes),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = contentColor,
+             modifier =
+@@ -1317,7 +1311,7 @@
+         },
+         trailingContent = {
+             Icon(
+-                painter = painterResource(R.drawable.arrow_forward),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+             )
+@@ -1372,7 +1366,7 @@
+                 )
+             } else {
+                 Icon(
+-                    painter = painterResource(R.drawable.github),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                     modifier = Modifier.size(22.dp),

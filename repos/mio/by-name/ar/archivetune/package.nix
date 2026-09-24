@@ -69,20 +69,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  src = fetchFromGitHub {
-    owner = "rukamori";
-    repo = "ArchiveTune";
-    rev = "9ed48d85b715f347b140b3f7c8729e3e79b0dac2";
-    hash = "sha256-d91C0c40Icv3vkUsk6gFz03cLCTSdg8Hf9XeezYgOiM=";
-  };
+  src = ../../../ArchiveTune-src;
 
   patches = [ ];
 
   postPatch = ''
     # Wire the pinned :core submodule source into place.
-    rm -rf core
-    cp -r ${coreSrc} core
-    chmod -R +w core
 
     # Add the :desktop module
     mkdir -p desktop/src/main/kotlin/moe/rukamori/archivetune/desktop
@@ -97,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i '/include(":shazamkit")/d' settings.gradle.kts
     sed -i '/include(":spotifycore")/d' settings.gradle.kts
     sed -i '/include(":morideobfuscator")/d' settings.gradle.kts
-    echo 'include(":desktop")' >> settings.gradle.kts
+    echo 'include(":desktop")\ninclude(":app")\ninclude(":android-stubs")' >> settings.gradle.kts
     sed -i '/mavenCentral {/i \        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")' settings.gradle.kts
     sed -i '/mavenCentral()/i \        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")' settings.gradle.kts
 

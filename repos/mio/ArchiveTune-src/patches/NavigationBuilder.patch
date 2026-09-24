@@ -1,0 +1,10 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt	2026-09-24 13:03:59
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens
+ 
+-import android.net.Uri
+ import androidx.compose.animation.core.tween
+ import androidx.compose.animation.fadeIn
+ import androidx.compose.animation.fadeOut

@@ -1,0 +1,29 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/viewmodels/ArtistViewModel.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/ArtistViewModel.kt	2026-09-24 13:04:02
+@@ -7,8 +7,6 @@
+ 
+ package moe.rukamori.archivetune.viewmodels
+ 
+-import android.content.Context
+-import androidx.annotation.StringRes
+ import androidx.compose.runtime.Immutable
+ import androidx.compose.runtime.getValue
+ import androidx.compose.runtime.mutableStateOf
+@@ -66,7 +64,7 @@
+ 
+     @Immutable
+     data class Error(
+-        @StringRes val messageRes: Int,
++        val messageRes: Int,
+     ) : ArtistBlockState
+ }
+ 
+@@ -91,7 +89,7 @@
+ 
+     @Immutable
+     data class ShowMessage(
+-        @StringRes val messageRes: Int,
++        val messageRes: Int,
+     ) : ArtistEvent
+ }
+ 

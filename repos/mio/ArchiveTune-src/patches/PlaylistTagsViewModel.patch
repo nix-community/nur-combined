@@ -1,0 +1,28 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/viewmodels/PlaylistTagsViewModel.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/PlaylistTagsViewModel.kt	2026-09-24 13:04:02
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.viewmodels
+ 
+-import androidx.annotation.StringRes
+ import androidx.compose.runtime.Immutable
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+@@ -56,7 +55,7 @@
+ 
+     @Immutable
+     data class Error(
+-        @StringRes val messageResId: Int,
++        val messageResId: Int,
+     ) : PlaylistTagsScreenState
+ }
+ 
+@@ -103,7 +102,7 @@
+     val selectedBulkTagIds: Set<String>,
+     val selectedBulkPlaylistIds: Set<String>,
+     val isBulkAssignVisible: Boolean,
+-    @StringRes val operationErrorResId: Int?,
++    val operationErrorResId: Int?,
+ )
+ 
+ @OptIn(ExperimentalCoroutinesApi::class)

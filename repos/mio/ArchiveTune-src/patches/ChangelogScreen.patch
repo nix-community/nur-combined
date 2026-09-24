@@ -1,0 +1,54 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/ChangelogScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/ChangelogScreen.kt	2026-09-24 13:04:00
+@@ -17,8 +17,6 @@
+ import androidx.compose.runtime.*
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.unit.dp
+ import androidx.navigation.NavController
+@@ -79,14 +77,14 @@
+     Scaffold(
+         topBar = {
+             TopAppBar(
+-                title = { Text(stringResource(R.string.changelog)) },
++                title = { Text("changelog") },
+                 navigationIcon = {
+                     IconButton(
+                         onClick = navController::navigateUp,
+                         onLongClick = navController::backToMain,
+                     ) {
+                         Icon(
+-                            painterResource(R.drawable.arrow_back),
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -121,7 +119,7 @@
+                         horizontalAlignment = Alignment.CenterHorizontally,
+                     ) {
+                         Text(
+-                            text = stringResource(R.string.error_loading_changelog),
++                            text = "error_loading_changelog",
+                             style = MaterialTheme.typography.bodyLarge,
+                             color = MaterialTheme.colorScheme.error,
+                         )
+@@ -133,14 +131,14 @@
+                                 loadReleases(forceRefresh = true)
+                             }
+                         }, shapes = ButtonDefaults.shapes()) {
+-                            Text(stringResource(R.string.retry))
++                            Text("retry")
+                         }
+                     }
+                 }
+ 
+                 releases.isEmpty() -> {
+                     Text(
+-                        text = stringResource(R.string.no_releases),
++                        text = "no_releases",
+                         modifier =
+                             Modifier
+                                 .align(Alignment.Center)

@@ -1,0 +1,34 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/IconButton.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/IconButton.kt	2026-09-24 13:07:08
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.component
+ 
+-import androidx.annotation.DrawableRes
+ import androidx.compose.foundation.ExperimentalFoundationApi
+ import androidx.compose.foundation.Image
+ import androidx.compose.foundation.Indication
+@@ -33,13 +32,12 @@
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.ColorFilter
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.semantics.Role
+ import androidx.compose.ui.unit.dp
+ 
+ @Composable
+ fun ResizableIconButton(
+-    @DrawableRes icon: Int,
++    icon: Int,
+     modifier: Modifier = Modifier,
+     color: Color = MaterialTheme.colorScheme.onSurface,
+     enabled: Boolean = true,
+@@ -47,7 +45,7 @@
+     onClick: () -> Unit = {},
+ ) {
+     Image(
+-        painter = painterResource(icon),
++        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+         contentDescription = null,
+         colorFilter = ColorFilter.tint(color),
+         modifier =

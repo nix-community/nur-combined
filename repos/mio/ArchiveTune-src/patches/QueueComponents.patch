@@ -1,0 +1,331 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/player/QueueComponents.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/player/QueueComponents.kt	2026-09-24 13:04:01
+@@ -62,9 +62,7 @@
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalView
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontFamily
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+@@ -207,14 +205,13 @@
+             ) {
+                 Icon(
+                     painter =
+-                        painterResource(
+-                            if (liked) {
++                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                 R.drawable.favorite
+                             } else {
+                                 R.drawable.favorite_border
+                             },
+                         ),
+-                    contentDescription = stringResource(R.string.action_like),
++                    contentDescription = "action_like",
+                     modifier = Modifier.size(26.dp),
+                 )
+             }
+@@ -245,7 +242,7 @@
+                         ),
+                 ) {
+                     Icon(
+-                        painter = painterResource(if (locked) R.drawable.lock else R.drawable.lock_open),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.lock else R.drawable.lock_open),
+                         contentDescription = null,
+                         modifier = Modifier.size(20.dp),
+                     )
+@@ -259,7 +256,7 @@
+                         ),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.more_vert),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(20.dp),
+                     )
+@@ -273,8 +270,8 @@
+                         ),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.delete),
+-                        contentDescription = stringResource(R.string.clear),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                        contentDescription = "clear",
+                         modifier = Modifier.size(20.dp),
+                     )
+                 }
+@@ -330,8 +327,8 @@
+                 colors = if (shuffleModeEnabled) checkedColors else uncheckedColors,
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.shuffle),
+-                    contentDescription = stringResource(R.string.action_shuffle_on),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    contentDescription = "action_shuffle_on",
+                     modifier = Modifier.size(22.dp),
+                 )
+             }
+@@ -353,8 +350,7 @@
+             ) {
+                 Icon(
+                     painter =
+-                        painterResource(
+-                            when (repeatMode) {
++                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                 Player.REPEAT_MODE_ONE -> R.drawable.repeat_one_on
+                                 Player.REPEAT_MODE_ALL -> R.drawable.repeat_on
+                                 else -> R.drawable.repeat
+@@ -384,8 +380,8 @@
+                         )
+                     } else {
+                         Icon(
+-                            painter = painterResource(R.drawable.all_inclusive),
+-                            contentDescription = stringResource(R.string.similar_content),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "similar_content",
+                             modifier = Modifier.size(22.dp),
+                         )
+                     }
+@@ -397,7 +393,7 @@
+             Spacer(modifier = Modifier.height(14.dp))
+ 
+             Text(
+-                text = stringResource(R.string.queue_continue_playing),
++                text = "queue_continue_playing",
+                 style = MaterialTheme.typography.titleMedium,
+                 fontWeight = FontWeight.SemiBold,
+                 color = onBackgroundColor,
+@@ -406,7 +402,7 @@
+             Spacer(modifier = Modifier.height(2.dp))
+ 
+             Text(
+-                text = stringResource(R.string.queue_autoplaying_similar),
++                text = "queue_autoplaying_similar",
+                 style = MaterialTheme.typography.bodySmall,
+                 color = onBackgroundColor.copy(alpha = 0.5f),
+             )
+@@ -440,7 +436,7 @@
+                 horizontalArrangement = Arrangement.Center,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.sleep_timer),
++                    text = "sleep_timer",
+                     overflow = TextOverflow.Ellipsis,
+                     maxLines = 1,
+                     style = MaterialTheme.typography.headlineSmall,
+@@ -480,7 +476,7 @@
+                 Spacer(Modifier.height(8.dp))
+ 
+                 OutlinedButton(onClick = onEndOfSong, shapes = ButtonDefaults.shapes()) {
+-                    Text(stringResource(R.string.end_of_song))
++                    Text("end_of_song")
+                 }
+             }
+         },
+@@ -630,7 +626,7 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.queue_music),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(iconSize),
+                     tint = textBackgroundColor,
+@@ -666,7 +662,7 @@
+                         )
+                     } else {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.bedtime),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(iconSize),
+                             tint = textBackgroundColor,
+@@ -686,7 +682,7 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.lyrics),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(iconSize),
+                     tint = textBackgroundColor,
+@@ -727,9 +723,7 @@
+             ) {
+                 Icon(
+                     painter =
+-                        painterResource(
+-                            id =
+-                                when (repeatMode) {
++                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                     Player.REPEAT_MODE_OFF, Player.REPEAT_MODE_ALL -> R.drawable.repeat
+                                     Player.REPEAT_MODE_ONE -> R.drawable.repeat_one
+                                     else -> R.drawable.repeat
+@@ -757,7 +751,7 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.more_vert),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(iconSize),
+                     tint = iconButtonColor,
+@@ -826,7 +820,7 @@
+                     horizontalArrangement = Arrangement.spacedBy(6.dp),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.queue_music),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(18.dp),
+                         tint = textBackgroundColor.copy(alpha = 0.7f),
+@@ -862,7 +856,7 @@
+                         )
+                     } else {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.bedtime),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(18.dp),
+                             tint = textBackgroundColor.copy(alpha = 0.7f),
+@@ -885,7 +879,7 @@
+                     horizontalArrangement = Arrangement.spacedBy(6.dp),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.lyrics),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(18.dp),
+                         tint = textBackgroundColor.copy(alpha = 0.7f),
+@@ -909,7 +903,7 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.more_vert),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(18.dp),
+                     tint = textBackgroundColor.copy(alpha = 0.7f),
+@@ -971,7 +965,7 @@
+                     modifier = Modifier.fillMaxWidth(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.queue_music),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(20.dp),
+                         tint = textBackgroundColor,
+@@ -999,7 +993,7 @@
+                     modifier = Modifier.fillMaxWidth(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.bedtime),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(20.dp),
+                         tint = textBackgroundColor,
+@@ -1043,7 +1037,7 @@
+                     modifier = Modifier.fillMaxWidth(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.lyrics),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(20.dp),
+                         tint = textBackgroundColor,
+@@ -1128,7 +1122,7 @@
+                     modifier = Modifier.fillMaxSize(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.queue_music),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(iconSize),
+                         tint = textBackgroundColor,
+@@ -1179,7 +1173,7 @@
+                         )
+                     } else {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.bedtime),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(iconSize),
+                             tint = textBackgroundColor,
+@@ -1207,7 +1201,7 @@
+                     modifier = Modifier.fillMaxSize(),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.lyrics),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(iconSize),
+                         tint = textBackgroundColor,
+@@ -1283,7 +1277,7 @@
+                         contentAlignment = Alignment.Center,
+                     ) {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.queue_music),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(iconSize),
+                             tint = textBackgroundColor,
+@@ -1302,7 +1296,7 @@
+                         contentAlignment = Alignment.Center,
+                     ) {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.lyrics),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(iconSize),
+                             tint = textBackgroundColor,
+@@ -1335,7 +1329,7 @@
+                                 ),
+                         ) {
+                             Icon(
+-                                painter = painterResource(id = R.drawable.bedtime),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = stringResource(id = R.string.sleep_timer),
+                                 modifier = Modifier.size(iconSize),
+                                 tint = textBackgroundColor,
+@@ -1458,8 +1452,8 @@
+                     horizontalArrangement = Arrangement.Center,
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.bedtime),
+-                        contentDescription = stringResource(R.string.sleep_timer),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                        contentDescription = "sleep_timer",
+                         tint = textBackgroundColor,
+                         modifier = Modifier.size(18.dp),
+                     )
+@@ -1511,7 +1505,7 @@
+                     colors = if (shuffleModeEnabled) checkedColors else uncheckedColors,
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.shuffle),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription =
+                             stringResource(
+                                 if (shuffleModeEnabled) R.string.action_shuffle_on else R.string.action_shuffle_off,
+@@ -1540,8 +1534,7 @@
+                 ) {
+                     Icon(
+                         painter =
+-                            painterResource(
+-                                when (repeatMode) {
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                     Player.REPEAT_MODE_ONE -> R.drawable.repeat_one
+                                     else -> R.drawable.repeat
+                                 },
+@@ -1586,8 +1579,8 @@
+                         contentAlignment = Alignment.Center,
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.more_horiz),
+-                            contentDescription = stringResource(R.string.more_options),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "more_options",
+                             tint = textBackgroundColor,
+                             modifier = Modifier.size(28.dp),
+                         )

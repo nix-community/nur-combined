@@ -1,0 +1,117 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/AlbumScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/AlbumScreen.kt	2026-09-24 13:03:58
+@@ -59,9 +59,7 @@
+ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.LinkAnnotation
+ import androidx.compose.ui.text.buildAnnotatedString
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -353,7 +351,7 @@
+                                     when (val state = downloadState) {
+                                         HeaderDownloadState.Completed -> {
+                                             Icon(
+-                                                painter = painterResource(R.drawable.offline),
++                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                 contentDescription = null,
+                                                 modifier = Modifier.size(22.dp),
+                                             )
+@@ -369,7 +367,7 @@
+ 
+                                         HeaderDownloadState.None -> {
+                                             Icon(
+-                                                painter = painterResource(R.drawable.download),
++                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                 contentDescription = null,
+                                                 modifier = Modifier.size(22.dp),
+                                             )
+@@ -402,7 +400,7 @@
+                 // Songs Section Header
+                 item(key = "songs_header") {
+                     NavigationTitle(
+-                        title = stringResource(R.string.songs),
++                        title = "songs",
+                     )
+                 }
+ 
+@@ -431,7 +429,7 @@
+                                 onLongClick = {},
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.more_vert),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             }
+@@ -470,7 +468,7 @@
+                 if (otherVersions.isNotEmpty()) {
+                     item(key = "other_versions_header") {
+                         NavigationTitle(
+-                            title = stringResource(R.string.other_versions),
++                            title = "other_versions",
+                         )
+                     }
+                     item(key = "other_versions_list") {
+@@ -581,8 +579,8 @@
+                     AlbumUiState.Empty -> {
+                         item(key = "empty") {
+                             MediaDetailStatePanel(
+-                                title = stringResource(R.string.empty_album),
+-                                description = stringResource(R.string.empty_album_desc),
++                                title = "empty_album",
++                                description = "empty_album_desc",
+                                 iconRes = R.drawable.album,
+                                 modifier =
+                                     Modifier
+@@ -604,7 +602,7 @@
+                                         if (state.isNotFound) R.string.album_not_found_desc else R.string.error_unknown,
+                                     ),
+                                 iconRes = R.drawable.error,
+-                                actionLabel = stringResource(R.string.retry),
++                                actionLabel = "retry",
+                                 onAction = retry,
+                                 modifier =
+                                     Modifier
+@@ -671,8 +669,7 @@
+                 ) {
+                     Icon(
+                         painter =
+-                            painterResource(
+-                                if (selection) R.drawable.close else R.drawable.arrow_back,
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.close else R.drawable.arrow_back,
+                             ),
+                         contentDescription = null,
+                     )
+@@ -693,8 +690,7 @@
+                     ) {
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    if (count == wrappedSongs.size) R.drawable.deselect else R.drawable.select_all,
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.deselect else R.drawable.select_all,
+                                 ),
+                             contentDescription = null,
+                         )
+@@ -716,7 +712,7 @@
+                         onLongClick = {},
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.more_vert),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -739,8 +735,8 @@
+                             onLongClick = {},
+                         ) {
+                             Icon(
+-                                painter = painterResource(R.drawable.more_horiz),
+-                                contentDescription = stringResource(R.string.more_options),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                contentDescription = "more_options",
+                             )
+                         }
+                     }

@@ -1,0 +1,115 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/playlist/TopPlaylistScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/playlist/TopPlaylistScreen.kt	2026-09-24 13:04:00
+@@ -60,9 +60,7 @@
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalFocusManager
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.input.ImeAction
+ import androidx.compose.ui.text.input.TextFieldValue
+ import androidx.compose.ui.unit.dp
+@@ -151,7 +149,7 @@
+     }
+ 
+     val sortType by viewModel.topPeriod.collectAsState()
+-    val name = stringResource(R.string.my_top) + " $maxSize"
++    val name = "my_top" + " $maxSize"
+ 
+     val downloadUtil = LocalDownloadUtil.current
+     var downloads by remember { mutableStateOf<Map<String, Download>>(emptyMap()) }
+@@ -296,7 +294,7 @@
+                     item {
+                         EmptyPlaceholder(
+                             icon = R.drawable.music_note,
+-                            text = stringResource(R.string.playlist_is_empty),
++                            text = "playlist_is_empty",
+                         )
+                     }
+                 } else {
+@@ -379,7 +377,7 @@
+                                         when (val state = downloadState) {
+                                             HeaderDownloadState.Completed -> {
+                                                 Icon(
+-                                                    painter = painterResource(R.drawable.offline),
++                                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                     contentDescription = null,
+                                                     modifier = Modifier.size(22.dp),
+                                                 )
+@@ -395,7 +393,7 @@
+ 
+                                             HeaderDownloadState.None -> {
+                                                 Icon(
+-                                                    painter = painterResource(R.drawable.download),
++                                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                     contentDescription = null,
+                                                     modifier = Modifier.size(22.dp),
+                                                 )
+@@ -477,7 +475,7 @@
+                                     },
+                                 ) {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.more_vert),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 }
+@@ -563,7 +561,7 @@
+                             onValueChange = { query = it },
+                             placeholder = {
+                                 Text(
+-                                    text = stringResource(R.string.search),
++                                    text = "search",
+                                     style = MaterialTheme.typography.titleLarge,
+                                 )
+                             },
+@@ -620,8 +618,7 @@
+                 ) {
+                     Icon(
+                         painter =
+-                            painterResource(
+-                                if (selection) R.drawable.close else R.drawable.arrow_back,
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.close else R.drawable.arrow_back,
+                             ),
+                         contentDescription = null,
+                     )
+@@ -641,8 +638,7 @@
+                     ) {
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    if (count == wrappedSongs.size) R.drawable.deselect else R.drawable.select_all,
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.deselect else R.drawable.select_all,
+                                 ),
+                             contentDescription = null,
+                         )
+@@ -663,7 +659,7 @@
+                         },
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.more_vert),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -672,7 +668,7 @@
+                         onClick = { isSearching = true },
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.search),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -690,8 +686,8 @@
+                             },
+                         ) {
+                             Icon(
+-                                painter = painterResource(R.drawable.more_horiz),
+-                                contentDescription = stringResource(R.string.more_options),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                contentDescription = "more_options",
+                             )
+                         }
+                     }

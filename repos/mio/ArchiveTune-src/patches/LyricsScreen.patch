@@ -1,0 +1,130 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/player/LyricsScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/player/LyricsScreen.kt	2026-09-24 13:04:02
+@@ -9,8 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.player
+ 
+-import android.content.res.Configuration
+-import android.view.HapticFeedbackConstants
+ import androidx.activity.compose.BackHandler
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.core.tween
+@@ -68,8 +66,6 @@
+ import androidx.compose.ui.platform.LocalConfiguration
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalView
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.semantics.Role
+ import androidx.compose.ui.semantics.contentDescription
+ import androidx.compose.ui.semantics.semantics
+@@ -641,7 +637,7 @@
+     onClick: () -> Unit,
+     modifier: Modifier = Modifier,
+ ) {
+-    val closeDescription = stringResource(R.string.close)
++    val closeDescription = "close"
+     Box(
+         modifier =
+             modifier
+@@ -690,7 +686,7 @@
+             )
+             if (mediaMetadata.thumbnailUrl == null) {
+                 Icon(
+-                    painter = painterResource(R.drawable.music_note),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = foregroundColor.copy(alpha = 0.72f),
+                     modifier = Modifier.size(26.dp),
+@@ -724,7 +720,7 @@
+ 
+         AppleMusicHeaderIconButton(
+             iconRes = R.drawable.close,
+-            contentDescription = stringResource(R.string.close),
++            contentDescription = "close",
+             foregroundColor = foregroundColor,
+             onClick = onDismissClick,
+         )
+@@ -733,7 +729,7 @@
+ 
+         AppleMusicHeaderIconButton(
+             iconRes = R.drawable.more_horiz,
+-            contentDescription = stringResource(R.string.more_options),
++            contentDescription = "more_options",
+             foregroundColor = foregroundColor,
+             onClick = onMoreClick,
+         )
+@@ -768,7 +764,7 @@
+             contentAlignment = Alignment.Center,
+         ) {
+             Icon(
+-                painter = painterResource(iconRes),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = contentDescription,
+                 tint = foregroundColor,
+                 modifier = Modifier.size(22.dp),
+@@ -867,7 +863,7 @@
+         ) {
+             AppleMusicTransportButton(
+                 iconRes = R.drawable.skip_previous,
+-                contentDescription = stringResource(R.string.widget_previous),
++                contentDescription = "widget_previous",
+                 iconSize = 44.dp,
+                 touchSize = 68.dp,
+                 foregroundColor = foregroundColor,
+@@ -884,12 +880,12 @@
+                     )
+                 } else {
+                     Icon(
+-                        painter = painterResource(if (isPlaying) R.drawable.pause else R.drawable.play),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.pause else R.drawable.play),
+                         contentDescription =
+                             if (isPlaying) {
+-                                stringResource(R.string.widget_pause)
++                                "widget_pause"
+                             } else {
+-                                stringResource(R.string.play)
++                                "play"
+                             },
+                         tint = foregroundColor,
+                         modifier = Modifier.size(54.dp),
+@@ -898,7 +894,7 @@
+             }
+             AppleMusicTransportButton(
+                 iconRes = R.drawable.skip_next,
+-                contentDescription = stringResource(R.string.next),
++                contentDescription = "next",
+                 iconSize = 44.dp,
+                 touchSize = 68.dp,
+                 foregroundColor = foregroundColor,
+@@ -914,8 +910,8 @@
+             verticalAlignment = Alignment.CenterVertically,
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.volume_off),
+-                contentDescription = stringResource(R.string.minimum_volume),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                contentDescription = "minimum_volume",
+                 tint = foregroundColor.copy(alpha = 0.66f),
+                 modifier = Modifier.size(17.dp),
+             )
+@@ -933,8 +929,8 @@
+                         .padding(horizontal = 16.dp),
+             )
+             Icon(
+-                painter = painterResource(R.drawable.volume_up),
+-                contentDescription = stringResource(R.string.maximum_volume),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                contentDescription = "maximum_volume",
+                 tint = foregroundColor.copy(alpha = 0.66f),
+                 modifier = Modifier.size(19.dp),
+             )
+@@ -957,7 +953,7 @@
+         modifier = modifier.size(touchSize),
+     ) {
+         Icon(
+-            painter = painterResource(iconRes),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = contentDescription,
+             tint = foregroundColor,
+             modifier = Modifier.size(iconSize),

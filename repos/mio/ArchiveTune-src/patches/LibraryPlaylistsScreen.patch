@@ -1,0 +1,233 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/library/LibraryPlaylistsScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/library/LibraryPlaylistsScreen.kt	2026-09-24 13:04:00
+@@ -67,8 +67,6 @@
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.dp
+@@ -228,23 +226,23 @@
+                 val currentSortLabel =
+                     when (sortType) {
+                         PlaylistSortType.CREATE_DATE -> {
+-                            stringResource(R.string.recently_added)
++                            "recently_added"
+                         }
+ 
+                         PlaylistSortType.NAME -> {
+-                            if (sortDescending) stringResource(R.string.sort_z_to_a) else stringResource(R.string.sort_a_to_z)
++                            if (sortDescending) "sort_z_to_a" else "sort_a_to_z"
+                         }
+ 
+                         PlaylistSortType.SONG_COUNT -> {
+-                            stringResource(R.string.tracks_count_label)
++                            "tracks_count_label"
+                         }
+ 
+                         PlaylistSortType.LAST_UPDATED -> {
+-                            stringResource(R.string.recently_updated)
++                            "recently_updated"
+                         }
+ 
+                         PlaylistSortType.CUSTOM -> {
+-                            stringResource(R.string.custom_order)
++                            "custom_order"
+                         }
+                     }
+ 
+@@ -279,7 +277,7 @@
+                             )
+                             Spacer(modifier = Modifier.width(6.dp))
+                             Icon(
+-                                painter = painterResource(id = R.drawable.expand_more),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                 modifier = Modifier.size(16.dp),
+@@ -293,11 +291,11 @@
+                             PlaylistSortType.entries.forEach { type ->
+                                 val label =
+                                     when (type) {
+-                                        PlaylistSortType.CREATE_DATE -> stringResource(R.string.recently_added)
+-                                        PlaylistSortType.NAME -> stringResource(R.string.sort_a_to_z)
+-                                        PlaylistSortType.SONG_COUNT -> stringResource(R.string.tracks_count_label)
+-                                        PlaylistSortType.LAST_UPDATED -> stringResource(R.string.recently_updated)
+-                                        PlaylistSortType.CUSTOM -> stringResource(R.string.custom_order)
++                                        PlaylistSortType.CREATE_DATE -> "recently_added"
++                                        PlaylistSortType.NAME -> "sort_a_to_z"
++                                        PlaylistSortType.SONG_COUNT -> "tracks_count_label"
++                                        PlaylistSortType.LAST_UPDATED -> "recently_updated"
++                                        PlaylistSortType.CUSTOM -> "custom_order"
+                                     }
+                                 DropdownMenuItem(
+                                     text = { Text(label) },
+@@ -311,21 +309,21 @@
+                                 )
+                             }
+                             DropdownMenuItem(
+-                                text = { Text(stringResource(R.string.hidden_playlists)) },
++                                text = { Text("hidden_playlists") },
+                                 onClick = {
+                                     showHidden = !showHidden
+                                     showSortMenu = false
+                                 },
+                                 leadingIcon = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.visibility_off),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 },
+                                 trailingIcon = {
+                                     if (showHidden) {
+                                         Icon(
+-                                            painter = painterResource(R.drawable.check),
++                                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                             contentDescription = null,
+                                         )
+                                     }
+@@ -346,7 +344,7 @@
+                             modifier = Modifier.size(40.dp),
+                         ) {
+                             Icon(
+-                                painter = painterResource(id = R.drawable.arrow_downward),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription =
+                                     stringResource(
+                                         if (sortDescending) {
+@@ -372,7 +370,7 @@
+                             modifier = Modifier.size(40.dp),
+                         ) {
+                             Icon(
+-                                painter = painterResource(if (locked) R.drawable.lock else R.drawable.lock_open),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.lock else R.drawable.lock_open),
+                                 contentDescription = null,
+                             )
+                         }
+@@ -399,8 +397,8 @@
+                             contentAlignment = Alignment.Center,
+                         ) {
+                             Icon(
+-                                painter = painterResource(id = R.drawable.queue_music),
+-                                contentDescription = stringResource(R.string.list_view),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                contentDescription = "list_view",
+                                 tint = if (!isGridView) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                 modifier = Modifier.size(16.dp),
+                             )
+@@ -415,8 +413,8 @@
+                             contentAlignment = Alignment.Center,
+                         ) {
+                             Icon(
+-                                painter = painterResource(id = R.drawable.album),
+-                                contentDescription = stringResource(R.string.grid_view),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                contentDescription = "grid_view",
+                                 tint = if (isGridView) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                 modifier = Modifier.size(16.dp),
+                             )
+@@ -435,8 +433,8 @@
+                         modifier = Modifier.size(40.dp),
+                     ) {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.add),
+-                            contentDescription = stringResource(R.string.create_playlist),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "create_playlist",
+                             modifier = Modifier.size(18.dp),
+                         )
+                     }
+@@ -804,7 +802,7 @@
+                 horizontalArrangement = Arrangement.spacedBy(8.dp),
+             ) {
+                 Text(
+-                    text = "${playlist.songCount} ${stringResource(R.string.tracks_label)}",
++                    text = "${playlist.songCount} ${"tracks_label"}",
+                     modifier = Modifier.weight(1f),
+                     style = MaterialTheme.typography.bodySmall,
+                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+@@ -819,7 +817,7 @@
+                             R.string.personal_label,
+                         )
+                     } else {
+-                        stringResource(R.string.youtube_synced)
++                        "youtube_synced"
+                     }
+                 val tagColor = if (playlist.playlist.isEditable) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+                 Box(
+@@ -842,8 +840,8 @@
+                 if (playlist.playlist.isHidden) {
+                     Spacer(modifier = Modifier.width(8.dp))
+                     Icon(
+-                        painter = painterResource(id = R.drawable.visibility_off),
+-                        contentDescription = stringResource(R.string.hide_playlist),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                        contentDescription = "hide_playlist",
+                         modifier = Modifier.size(12.dp),
+                         tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f),
+                     )
+@@ -862,8 +860,8 @@
+             modifier = Modifier.size(36.dp),
+         ) {
+             Icon(
+-                painter = painterResource(id = R.drawable.play),
+-                contentDescription = stringResource(R.string.play),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                contentDescription = "play",
+                 modifier = Modifier.size(16.dp),
+             )
+         }
+@@ -876,8 +874,8 @@
+             modifier = Modifier.size(36.dp),
+         ) {
+             Icon(
+-                painter = painterResource(id = R.drawable.more_vert),
+-                contentDescription = stringResource(R.string.options_label),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                contentDescription = "options_label",
+             )
+         }
+ 
+@@ -888,7 +886,7 @@
+                 modifier = dragHandleModifier.size(36.dp),
+             ) {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.drag_handle),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                 )
+             }
+@@ -965,8 +963,8 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.play),
+-                    contentDescription = stringResource(R.string.play),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    contentDescription = "play",
+                     tint = MaterialTheme.colorScheme.onPrimary,
+                     modifier = Modifier.size(16.dp),
+                 )
+@@ -974,8 +972,8 @@
+ 
+             if (playlist.playlist.isHidden) {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.visibility_off),
+-                    contentDescription = stringResource(R.string.hide_playlist),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    contentDescription = "hide_playlist",
+                     modifier =
+                         Modifier
+                             .align(Alignment.TopEnd)
+@@ -996,7 +994,7 @@
+             overflow = TextOverflow.Ellipsis,
+         )
+         Text(
+-            text = "${playlist.songCount} ${stringResource(R.string.tracks_label)}",
++            text = "${playlist.songCount} ${"tracks_label"}",
+             style = MaterialTheme.typography.bodySmall,
+             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+         )
