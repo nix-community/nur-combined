@@ -30,4 +30,9 @@ rec {
   bof4-text-extractor = pkgs.callPackage ./packages/bof4-text-extractor { };
   bof-text-editor = pkgs.python3Packages.callPackage ./packages/bof-text-editor { };
   emi-extractor = pkgs.callPackage ./packages/emi-extractor { };
+
+  # Costa Rica Firma Digital
+  firma-digital-cr = pkgs.callPackage ./packages/firma-digital-cr {
+    inherit (pkgs) buildFHSEnv;
+  };
 }
