@@ -40,6 +40,7 @@ let
       "pkgs/os-specific/linux/xpadneo"
 
       "pkgs/by-name/an/anytype"
+      "pkgs/by-name/an/anytype-heart"
       "pkgs/by-name/ar/arc-theme"
       "pkgs/by-name/cc/ccache"
       "pkgs/by-name/cl/clonehero"
@@ -52,6 +53,7 @@ let
       "pkgs/by-name/po/poke"
       "pkgs/by-name/po/pokemmo-installer"
       "pkgs/by-name/pr/protontricks"
+      "pkgs/by-name/ta/tantivy-go"
       "pkgs/by-name/te/texlab"
       "pkgs/by-name/uk/ukmm"
       "pkgs/by-name/un/undistract-me"
