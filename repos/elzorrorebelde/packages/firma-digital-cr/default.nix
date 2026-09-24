@@ -117,7 +117,7 @@ rec {
     pname = "firma-digital-cr-ca-certificates";
     inherit version;
     src = zipArchive;
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [ unzip openssl_3_6 ];
 
     unpackPhase = ''
       runHook preUnpack
@@ -130,6 +130,16 @@ rec {
       runHook preInstall
       mkdir -p $out/etc/ssl/certs
       cp certs/* $out/etc/ssl/certs/
+
+      # ponytail: one-liner DER→PEM conversion. If openssl ever
+      # chokes on a file, add `|| true` to skip it and log a warning.
+      for f in $out/etc/ssl/certs/*; do
+        if [ "$(head -c1 "$f" | od -A n -t x1 | tr -d ' \n')" = "30" ]; then
+          openssl x509 -inform DER -outform PEM -in "$f" -out "$f.new"
+          mv "$f.new" "$f"
+        fi
+      done
+
       runHook postInstall
     '';
 
