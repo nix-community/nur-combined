@@ -4,6 +4,7 @@
   fetchFromGitHub,
   cmakeMinimal,
   installShellFiles,
+  makeBinaryWrapper,
   gitMinimal,
   nodejs-slim,
   cacert,
@@ -16,7 +17,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aube";
-  version = "2.2.9";
+  version = "2.3.0";
 
   __structuredAttrs = true;
 
@@ -24,14 +25,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "aubepkg";
     repo = "aube";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8FaIVRYDKvtayuYzUMFl2e93Dl4EZTVrvGe6TiZJRQU=";
+    hash = "sha256-nNfDd3Aur7P5dRcT6ioyXf6TzNrXAafOVs8grZ0rfB8=";
   };
 
-  cargoHash = "sha256-Wob7D0Ly5ElQbl6jKJKbWM93C6/3NJr6XZRwlmgM8i4=";
+  cargoHash = "sha256-54C321JXpcSFueT8EF5bloDdjfjiS+ZppLsd8Q64stk=";
 
   nativeBuildInputs = [
     cmakeMinimal
     installShellFiles
+    makeBinaryWrapper
     pkg-config
   ];
 
@@ -40,8 +42,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postPatch = ''
+    # coreutils: unknown program 'native-echo'
+    makeWrapper $(type -P echo) echo
+
     substituteInPlace crates/aube/src/commands/exec.rs \
-      --replace-fail '"/bin/echo"' "\"$(type -P echo)\""
+      --replace-fail '"/bin/echo"' "\"$PWD/echo\""
 
     substituteInPlace crates/aube-lockfile/src/io.rs crates/aube/src/commands/version.rs \
       --replace-fail '"git"' '"${lib.getExe gitMinimal}"'
