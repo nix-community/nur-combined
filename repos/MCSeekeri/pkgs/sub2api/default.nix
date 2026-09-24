@@ -1,6 +1,6 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   fetchPnpmDeps,
   pnpmConfigHook,
@@ -60,7 +60,7 @@ let
     '';
   };
 in
-buildGoModule {
+buildGo127Module {
   pname = "sub2api";
   inherit version src;
 
