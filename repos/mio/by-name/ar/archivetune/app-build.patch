@@ -1,6 +1,6 @@
 --- a/app/build.gradle.kts	2026-09-24 13:42:01
-+++ b/app/build.gradle.kts	2026-09-24 13:43:59
-@@ -1,481 +1,16 @@
++++ b/app/build.gradle.kts	2026-09-24 14:03:32
+@@ -1,481 +1,21 @@
 -import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 -import java.util.Properties
 -
@@ -14,17 +14,14 @@
 +    kotlin("jvm")
 +    id("org.jetbrains.compose") version "1.7.0"
 +    id("org.jetbrains.kotlin.plugin.compose")
-+    application
  }
  
 -val localProperties = Properties()
 -val localPropertiesFile = rootProject.file("local.properties")
 -if (localPropertiesFile.exists()) {
 -    localProperties.load(localPropertiesFile.inputStream())
-+application {
-+    mainClass.set("moe.rukamori.archivetune.DesktopMainKt")
- }
- 
+-}
+-
 -fun String.asBuildConfigString(): String =
 -    "\"${
 -        replace("\\", "\\\\")
@@ -114,7 +111,12 @@
 -            providers.gradleProperty("nightlyVersionName").orNull?.trim().orEmpty()
 -        if (nightlyVersionName.isNotEmpty()) {
 -            versionName = nightlyVersionName
--        }
++compose.desktop {
++    application {
++        mainClass = "moe.rukamori.archivetune.DesktopMainKt"
++        buildTypes.release.proguard {
++            isEnabled.set(false)
+         }
 -        buildConfigField("String", "DISTRIBUTION", "\"gms\"")
 -        buildConfigField("boolean", "UPDATER_AVAILABLE", "true")
 -
@@ -140,7 +142,7 @@
 -                ?: githubRepo
 -        buildConfigField("String", "RELEASE_GITHUB_OWNER", releaseGithubOwner.asBuildConfigString())
 -        buildConfigField("String", "RELEASE_GITHUB_REPO", releaseGithubRepo.asBuildConfigString())
--    }
+     }
 -
 -    flavorDimensions += listOf("distribution", "device", "abi")
 -    productFlavors {
@@ -298,8 +300,8 @@
 -        }
 -    }
 -
--}
--
+ }
+ 
 -kotlin {
 -    jvmToolchain(21)
 -}
@@ -424,7 +426,8 @@
 -    implementation("androidx.compose.material3.adaptive:adaptive:1.3.0-rc01")
 -    implementation(libs.accompanist.lyrics.ui)
 -    implementation(libs.accompanist.lyrics.core)
--}
++    implementation(project(":android-stubs"))
+ }
 -
 -androidComponents {
 -    onVariants(selector().all()) { variant ->
@@ -490,4 +493,3 @@
 -        "org.jetbrains.kotlin:kotlin-metadata-jvm:${libs.versions.kotlinMetadata.get()}",
 -    )
 -}
-+    implementation(project(":android-stubs"))}
