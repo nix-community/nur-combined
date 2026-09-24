@@ -1,6 +1,6 @@
 --- a/app/build.gradle.kts	2026-09-24 13:42:01
-+++ b/app/build.gradle.kts	2026-09-24 14:03:32
-@@ -1,481 +1,21 @@
++++ b/app/build.gradle.kts	2026-09-24 14:10:38
+@@ -1,481 +1,24 @@
 -import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 -import java.util.Properties
 -
@@ -114,8 +114,8 @@
 +compose.desktop {
 +    application {
 +        mainClass = "moe.rukamori.archivetune.DesktopMainKt"
-+        buildTypes.release.proguard {
-+            isEnabled.set(false)
++        nativeDistributions {
++            packageName = "ArchiveTune"
          }
 -        buildConfigField("String", "DISTRIBUTION", "\"gms\"")
 -        buildConfigField("boolean", "UPDATER_AVAILABLE", "true")
@@ -142,7 +142,7 @@
 -                ?: githubRepo
 -        buildConfigField("String", "RELEASE_GITHUB_OWNER", releaseGithubOwner.asBuildConfigString())
 -        buildConfigField("String", "RELEASE_GITHUB_REPO", releaseGithubRepo.asBuildConfigString())
-     }
+-    }
 -
 -    flavorDimensions += listOf("distribution", "device", "abi")
 -    productFlavors {
@@ -155,7 +155,9 @@
 -            buildConfigField("long", "DISCORD_APPLICATION_ID_LONG", "${discordApplicationIdLong}L")
 -            buildConfigField("String", "DISCORD_REDIRECT_SCHEME", "\"$discordRedirectScheme\"")
 -            manifestPlaceholders["discordRedirectScheme"] = discordRedirectScheme
--        }
++        buildTypes.release.proguard {
++            isEnabled.set(false)
+         }
 -        create("foss") {
 -            dimension = "distribution"
 -            buildConfigField("String", "DISTRIBUTION", "\"foss\"")
@@ -200,7 +202,7 @@
 -            ndk { abiFilters += "x86_64" }
 -            buildConfigField("String", "ARCHITECTURE", "\"x86_64\"")
 -        }
--    }
+     }
 -
 -    signingConfigs {
 -        create("release") {

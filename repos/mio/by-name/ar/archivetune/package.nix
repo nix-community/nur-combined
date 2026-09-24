@@ -96,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
     patch -p1 < ${./root-build.patch}
     patch -p1 < ${./settings.patch}
     patch -p1 < ${./app-build.patch}
-    
+
     # Copy android stubs
     cp -r  ${./android-stubs} android-stubs
     chmod -R +w .
