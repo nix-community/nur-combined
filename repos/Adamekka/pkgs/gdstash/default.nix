@@ -8,12 +8,12 @@
 }:
 
 let
-  nexusFileHash = "sha256-bnhMjksN++Q6CqvTetOEx7w/y5xOz0haSOQ0VXZkdOM=";
-  nexusFileId = "3241";
+  nexusFileHash = "sha256-K1yUOjYXzXDL401pyfOdDD3USGsvvtYa0QPZcqRxFDc=";
+  nexusFileId = "3942";
 in
 stdenvNoCC.mkDerivation rec {
   pname = "gdstash";
-  version = "1.8.2g";
+  version = "1.9.0c";
 
   src = ./GDStash.zip;
 
