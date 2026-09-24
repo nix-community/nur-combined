@@ -85,18 +85,27 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/ui/screens
 
     # Copy our desktop UI components
-    cp -r ${./src}/* ./
+    cp -r  ${./src}/* ./
 
     # Apply build script patches
     patch -p1 < ${./root-build.patch}
     patch -p1 < ${./settings.patch}
     patch -p1 < ${./app-build.patch}
+    
+    # Fix the application block to use compose.desktop.application so createReleaseDistributable works
+    sed -i 's/    application//' app/build.gradle.kts
+    sed -i 's/application {/compose.desktop {\n    application {/' app/build.gradle.kts
+    sed -i 's/    mainClass.set("moe.rukamori.archivetune.DesktopMainKt")/        mainClass = "moe.rukamori.archivetune.DesktopMainKt"\n    }/' app/build.gradle.kts
+
 
     # Copy android stubs
-    cp -r ${./android-stubs} android-stubs
+    cp -r  ${./android-stubs} android-stubs
+    chmod -R +w .
+    ls -la android-stubs
 
     # We also have migration-patches if the user wants to apply them manually
     cp -r ${./migration-patches} patches/
+    chmod -R +w .
   '';
 
   env.JAVA_HOME = jdk;
