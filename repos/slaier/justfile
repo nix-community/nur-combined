@@ -12,10 +12,10 @@ build:
   nix build .#nixosConfigurations.local.config.system.build.toplevel
 
 local goal="switch" *FLAGS="":
-  sudo nixos-rebuild {{goal}} --flake .#local {{FLAGS}}
+  sudo -n /run/current-system/sw/bin/nixos-rebuild {{goal}} --flake .#local {{FLAGS}}
 
 rollback:
-  sudo nixos-rebuild test --flake .#local --rollback
+  sudo -n /run/current-system/sw/bin/nixos-rebuild test --flake .#local --rollback
 
 iso:
   nix build .#nixosConfigurations.installer.config.system.build.isoImage

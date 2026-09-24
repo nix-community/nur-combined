@@ -8,6 +8,10 @@ in
   home.packages = [ pkgs.swaybg ];
   xdg.dataFile."${bg}".source = bgPath;
   xdg.configFile."niri/config.kdl".source = ./niri.kdl;
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications."inode/directory" = "org.gnome.Nautilus.desktop";
+  };
   services.swayidle =
     let
       # Lock command
