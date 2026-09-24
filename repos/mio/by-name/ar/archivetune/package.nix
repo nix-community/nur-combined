@@ -90,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/ui/screens
 
     # Copy our desktop UI components
-    cp -r  ${./src}/* ./
+    patch -p1 < ${./desktop-ui.patch}
 
     # Apply build script patches
     patch -p1 < ${./root-build.patch}
