@@ -900,8 +900,8 @@
             "url": "https://github.com/EHfive/flakes"
         },
         "elzorrorebelde": {
-            "rev": "fc3653c67347a0cdcddc649a99f41c7391691d75",
-            "sha256": "1dlnhrplggsicmh6gwgpi0s3kgcqbf4wdv3hd2zaim745xnbbj44",
+            "rev": "190caa3574fc1b9dd1ca9a17804decdb8a9d76ee",
+            "sha256": "08x643yyl4d68rwsk76q72g1yw6p8kb7b1fgy34m86zvnixi17nz",
             "url": "https://rosa.radicle.network/z3YkDws5EsBLkbzbbrjzrzB775AJX.git"
         },
         "emiller88": {
@@ -1688,8 +1688,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "931f43e3bfab35c8c40fbdaf55f0c7eb5de8fb04",
-            "sha256": "1ph087vjicxm0s55551rdncc9fzyazk09svw8c3nkvgabg13p5bw",
+            "rev": "548ccaf093668f7fe9b8ee8fbd043a1ba87b0295",
+            "sha256": "1wa84mab6mp9xrimws52kjyinzwkg8fs80530dj562cw2k738dsg",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
