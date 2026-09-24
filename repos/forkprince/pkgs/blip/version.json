@@ -6,9 +6,9 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "1.2.0,20260914015615",
+  "version": "1.2.2,20260923163338",
   "asset": {
-    "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20260914015615.zip",
-    "hash": "sha256-u/YcHhp8MkUW/rQeatbIQLWQgdleeienfvRqzM07zQg="
+    "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20260923163338.zip",
+    "hash": "sha256-8j4sRP4LeUfoQubT4lMpFo+bh3plDdaLPgYqJ+4VEnA="
   }
 }
