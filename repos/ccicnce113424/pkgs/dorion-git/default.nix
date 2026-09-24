@@ -24,7 +24,7 @@ dorion.overrideAttrs (
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."src-tauri/Cargo.lock";
     patches = [
       ./dont-disable-dma.patch
-      ./notification-icon.patch
+      # ./notification-icon.patch
     ];
     postPatch =
       builtins.replaceStrings [ ''"$cargoDepsCopy"/*'' ] [ ''"$cargoDepsCopy"/{.,*}'' ]
