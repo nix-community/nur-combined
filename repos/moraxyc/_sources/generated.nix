@@ -693,6 +693,26 @@
     };
     date = "2026-09-24";
   };
+  wetype-ime-linux = {
+    pname = "wetype-ime-linux";
+    version = "b14ac636c7392f7bfca0b53330193dc36b11233f";
+    src = fetchFromGitHub {
+      owner = "yu1745";
+      repo = "wetype-ime-linux";
+      rev = "b14ac636c7392f7bfca0b53330193dc36b11233f";
+      fetchSubmodules = false;
+      sha256 = "sha256-UXALbCU9j1sIeBbA3oc2wFKmKxbTac39JH3nF5VdLJI=";
+    };
+    date = "2026-09-24";
+  };
+  wetype-ime-linux-stable = {
+    pname = "wetype-ime-linux-stable";
+    version = "v0.1.3";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
   whois42d-ng = {
     pname = "whois42d-ng";
     version = "7476dfd46eccae5aa50fd04dcbfbc40dd0431e25";
