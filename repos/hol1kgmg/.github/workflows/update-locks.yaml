@@ -1,0 +1,48 @@
+name: update-locks
+
+on:
+  schedule:
+    - cron: "0 0 * * 6" # 毎週土曜 09:00 JST
+  workflow_dispatch:
+
+# 既定をゼロ権限にする。書き込みはすべて App トークンで行う
+permissions: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: DeterminateSystems/nix-installer-action@786fff0690178f1234e4e1fe9b536e94f5433196 # v20
+
+      - run: nix flake update
+
+      # トークンの発行は nix の評価より後に置く。flake input が侵害された場合に、
+      # 評価時の任意コード実行がトークンへ到達する窓を狭める
+      - uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        id: token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
+        id: pr
+        with:
+          token: ${{ steps.token.outputs.token }}
+          title: "chore: flake.lock を更新"
+          commit-message: "chore: flake.lock を更新"
+          branch: update-locks
+          delete-branch: true
+          # workflow_dispatch を別ブランチから起動しても main へ向ける
+          base: main
+
+      # ブランチ保護を迂回しない。build.yml のビルドが通って初めてマージされる
+      - if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          PR: ${{ steps.pr.outputs.pull-request-number }}
+        run: gh pr merge --squash --delete-branch --auto "$PR"

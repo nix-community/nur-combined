@@ -148,3 +148,28 @@ bump PKG VERSION:
       echo "   Run 'just build {{PKG}}' and copy the 'got:' hash from the failure."
     fi
     git --no-pager diff -- "$f" || true
+
+# Re-resolve stale hashes (src, cargoHash, npmDepsHash) from build failures
+fix-hashes PKG:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    f="pkgs/{{PKG}}/default.nix"
+    # ponytail: 5 rounds is plenty — one per hash in a package. Raise if a
+    # package ever pins more fixed-output hashes than that.
+    for _ in 1 2 3 4 5; do
+      if out=$(nix build ".#{{PKG}}" -L 2>&1); then
+        echo "==> {{PKG}} builds"
+        exit 0
+      fi
+      spec=$(grep -oE 'specified: +sha256-[A-Za-z0-9+/=]+' <<<"$out" | head -1 | awk '{print $NF}')
+      got=$(grep -oE 'got: +sha256-[A-Za-z0-9+/=]+' <<<"$out" | head -1 | awk '{print $NF}')
+      if [[ -z "$spec" || -z "$got" ]]; then
+        echo "$out" >&2
+        exit 1
+      fi
+      echo "==> $spec -> $got"
+      sed -i.bak -e "s|$spec|$got|" "$f"
+      rm -f "$f.bak"
+    done
+    echo "still failing after 5 hash rounds" >&2
+    exit 1

@@ -21,7 +21,11 @@ let
     hash = "sha256-SUYF4bbaYwNgoe498VoCUzuLPcjBLQXR0o0DWjjoSnI=";
   };
 
-  zigDeps = callPackage "${src}/vendor/libghostty-vt/build.zig.zon.nix" {
+  # upstream の vendor/libghostty-vt/build.zig.zon.nix をここに取り込んである。
+  # "${src}/..." を callPackage すると IFD になり、nix-env -qa の読み取り専用の
+  # 評価ストアでは src の .drv を書けずに落ちる（NUR の評価器も IFD を通さない）。
+  # version を上げるときは update.sh がこのファイルも取り直す
+  zigDeps = callPackage ./build.zig.zon.nix {
     name = "herdr-libghostty-vt-zig-cache";
     inherit zstd;
     linkFarm =
@@ -39,9 +43,10 @@ rustPlatform.buildRustPackage {
   version = "0.9.0";
   inherit src;
 
-  cargoLock = {
-    lockFile = "${src}/Cargo.lock";
-  };
+  # "${src}/Cargo.lock" を cargoLock に渡すと、評価時に src を読むため IFD になる。
+  # nix-env -qa（読み取り専用の評価ストア）と NUR の評価器がそこで落ちる。
+  # vendor 済みの hash を置けば評価は src に触らない。更新は just fix-hashes herdr
+  cargoHash = "sha256-CW/SF/cAPDv47gS5B7XbVZEE6LC9F1a2I1TLTJ4AWdw=";
 
   nativeBuildInputs =
     [

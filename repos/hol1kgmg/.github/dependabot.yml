@@ -1,6 +1,11 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  # .github/workflows/ 配下の全 workflow が対象。SHA pin と横の # vN コメントを更新する。
+  # flake.lock は update-locks.yaml、pkgs/*/default.nix は update-packages.yaml が見る
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
+      interval: monthly
+    # update-packages.yaml の MIN_AGE_DAYS と揃える
+    cooldown:
+      default-days: 2

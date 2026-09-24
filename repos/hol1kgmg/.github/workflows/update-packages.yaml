@@ -1,0 +1,138 @@
+name: update-packages
+
+# Dependabot に Nix の ecosystem は無い。パッケージの version はここで上げる
+on:
+  schedule:
+    - cron: "30 0 * * 6" # 毎週土曜 09:30 JST（update-locks の後）
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "このパッケージだけ更新する（空なら全部）"
+        required: false
+
+# 既定をゼロ権限にする。書き込みはすべて App トークンで行う
+permissions: {}
+
+env:
+  # 公開からこの日数が経った version だけを候補にする。出てすぐの release は
+  # 取り下げや hotfix が続くことがある。各 update.sh も同じ変数を読む
+  MIN_AGE_DAYS: 2
+
+jobs:
+  update:
+    # upstream の Releases API を叩くための読み取り権限。書き込みは App トークン
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - pkg: yaskkserv2
+            repo: wachikun/yaskkserv2
+          - pkg: spec-kit
+            repo: github/spec-kit
+          # update.sh を持つパッケージは repo を見ない
+          - pkg: herdr
+          - pkg: markserv
+          - pkg: openscreen-for-mac
+    runs-on: ubuntu-latest
+    steps:
+      - id: gate
+        env:
+          WANT: ${{ github.event.inputs.package }}
+          PKG: ${{ matrix.pkg }}
+        run: |
+          if [[ -n "$WANT" && "$WANT" != "$PKG" ]]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.gate.outputs.run == 'true'
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - if: steps.gate.outputs.run == 'true'
+        uses: DeterminateSystems/nix-installer-action@786fff0690178f1234e4e1fe9b536e94f5433196 # v20
+
+      - name: bump
+        if: steps.gate.outputs.run == 'true'
+        id: bump
+        env:
+          PKG: ${{ matrix.pkg }}
+          REPO: ${{ matrix.repo }}
+          GH_TOKEN: ${{ github.token }}
+          # update.sh 側は curl を使うため、こちらの名前も渡す（未認証だと 60req/h）
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          f="pkgs/$PKG/default.nix"
+          old=$(grep -m1 -E '^\s*version = "' "$f" | sed -E 's/.*"(.*)".*/\1/')
+
+          if [[ -x "pkgs/$PKG/update.sh" ]]; then
+            # fetchFromGitHub でないパッケージは自前の update.sh を持つ
+            "./pkgs/$PKG/update.sh"
+          else
+            # Releases API を使う。git tag には日時が無く、prerelease も除外できない
+            cutoff=$(date -u -d "$MIN_AGE_DAYS days ago" +%FT%TZ)
+            latest=$(gh api --paginate "repos/$REPO/releases?per_page=100" \
+              --jq ".[] | select((.draft or .prerelease) | not) | select(.published_at < \"$cutoff\") | .tag_name" \
+              | sed -e 's|^v||' | sort -V | tail -1)
+            [[ -n "$latest" ]] || { echo "no release older than $MIN_AGE_DAYS days for $REPO" >&2; exit 1; }
+            # 手で先に上げた場合、cutoff に阻まれて候補が古いことがある。巻き戻さない
+            if [[ "$(printf '%s\n%s\n' "$old" "$latest" | sort -V | tail -1)" == "$old" ]]; then
+              echo "$PKG is already at $old"
+            else
+              nix shell nixpkgs#just -c just bump "$PKG" "$latest"
+            fi
+          fi
+
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          {
+            echo "changed=true"
+            echo "old=$old"
+            echo "new=$(grep -m1 -E '^\s*version = "' "$f" | sed -E 's/.*"(.*)".*/\1/')"
+          } >> "$GITHUB_OUTPUT"
+
+      # openscreen-for-mac は darwin 専用で、この runner ではビルドできない。
+      # 残りは hash をここで解決する。ビルドが通らなければ PR も作らない
+      - name: fix-hashes
+        if: steps.gate.outputs.run == 'true' && steps.bump.outputs.changed == 'true' && matrix.pkg != 'openscreen-for-mac'
+        env:
+          PKG: ${{ matrix.pkg }}
+        run: nix shell nixpkgs#just -c just fix-hashes "$PKG"
+
+      # トークンの発行は nix の評価より後に置く。upstream のソースが侵害された場合に、
+      # ビルド時の任意コード実行がトークンへ到達する窓を狭める
+      - if: steps.gate.outputs.run == 'true' && steps.bump.outputs.changed == 'true'
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        id: token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - if: steps.gate.outputs.run == 'true' && steps.bump.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
+        id: pr
+        with:
+          token: ${{ steps.token.outputs.token }}
+          title: "chore(${{ matrix.pkg }}): ${{ steps.bump.outputs.old }} -> ${{ steps.bump.outputs.new }}"
+          commit-message: "chore(${{ matrix.pkg }}): ${{ steps.bump.outputs.old }} -> ${{ steps.bump.outputs.new }}"
+          # パッケージごとの固定ブランチ。マージされずに残っても PR の本数は増えない
+          branch: update-${{ matrix.pkg }}
+          delete-branch: true
+          # workflow_dispatch を別ブランチから起動しても main へ向ける
+          base: main
+
+      # ブランチ保護を迂回しない。build.yml のビルドが通って初めてマージされる。
+      # openscreen-for-mac は ubuntu の CI が検証にならないため手動で見る
+      - if: steps.gate.outputs.run == 'true' && steps.pr.outputs.pull-request-number != '' && matrix.pkg != 'openscreen-for-mac'
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          PR: ${{ steps.pr.outputs.pull-request-number }}
+        run: gh pr merge --squash --delete-branch --auto "$PR"

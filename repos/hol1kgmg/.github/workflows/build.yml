@@ -14,6 +14,9 @@ on:
 jobs:
   tests:
     strategy:
+      # 1レグが落ちても残りの結果は見たい。どのチャネルで壊れたかが分からないと
+      # 原因の切り分けに往復が増える
+      fail-fast: false
       matrix:
         # Set this to notify the global nur package registry that changes are
         # available.
@@ -37,7 +40,6 @@ jobs:
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -74,3 +76,14 @@ jobs:
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+
+  # ruleset protect-main が見る必須チェックはこの1本だけ。tests は matrix で
+  # チェック名が変わるため、ruleset に直接指定すると matrix を触るたびに壊れる
+  check:
+    # tests が失敗すると後続は skipped になり、skipped は必須チェックで success
+    # 扱いになる。always() で必ず走らせ、結果を明示的に判定する
+    if: always()
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+    - run: '[[ "${{ needs.tests.result }}" == "success" ]]'
