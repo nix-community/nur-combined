@@ -8,20 +8,21 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-web-access";
-  version = "0.30.0";
+  version = "0.31.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-web-access";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-B8Ca1AH0OGM8nOKoWLI8Xukx0NNwU8FN84WzADa0v7c=";
+    hash = "sha256-ykR2slh8MkxxbP660h0rvk2Y7SaKv+Cw/lJC21JqGW8=";
   };
 
-  # Pi provides these peers at runtime, but their nested lock entries have no
+  # Pi provides these packages at runtime, but their nested lock entries have no
   # integrity hashes for buildNpmPackage to fetch.
   postPatch = ''
     ${lib.getExe jq} '
       del(
+        .packages["node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/chord"],
         .packages["node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-agent-core"],
         .packages["node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai"],
         .packages["node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-client"],
@@ -33,7 +34,7 @@ buildNpmPackage (finalAttrs: {
     mv package-lock.patched.json package-lock.json
   '';
 
-  npmDepsHash = "sha256-PJFJFtTzPYTOmtW/p/UYq+Rz+BoPqrNS71iLlM1lan0=";
+  npmDepsHash = "sha256-wuKTT/90zWukhtIrdKqlT/l87q/byQNajoSwMhX45es=";
 
   npmFlags = [
     "--ignore-scripts"
