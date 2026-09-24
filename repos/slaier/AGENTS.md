@@ -6,7 +6,7 @@ Compact guidance for OpenCode sessions in this NixOS flake repo. Covers only the
 
 - `just check` — fast, no-sudo validation: evaluates the `local` config and prints what would be built (`nix build .#nixosConfigurations.local.config.system.build.toplevel --dry-run`). **Use this to verify changes instead of `just`** — it needs no password and doesn't activate the system. Requires new/untracked files to be `git add`ed first (Nix can't see untracked paths; the dry-run names the offending path).
 - `just build` — build the `local` system closure to `./result` without activating (no sudo).
-- `just` — build & activate the `local` config (`sudo nixos-rebuild test --flake .#local`). Only needed when you actually want to apply the config; otherwise prefer `just check`.
+- `just` — build & activate the `local` config (`sudo nixos-rebuild test --flake .#local`). Only needed when you actually want to apply the config; otherwise prefer `just check`. sudo is passwordless for `nixos-rebuild` (`security.sudo.extraRules` in `modules/users/default.nix`).
 - `just local switch` / `just local boot` / `just rollback` — activate / set next-boot / revert.
 - `just iso` — build the installer ISO.
 - `just update` — `nix flake update` + `nix-update --flake` for `CloudflareSpeedTest` and `pw-duck`. Do not hand-edit version/sha in `package.nix`; for new `fetchurl` hashes use `hash = lib.fakeHash` and let the build failure report the correct `sha256-...`.

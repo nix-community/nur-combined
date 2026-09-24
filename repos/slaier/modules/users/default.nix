@@ -29,4 +29,19 @@ in
 
   users.users.root.openssh.authorizedKeys.keys = [ publicKey ];
   programs.ssh.knownHosts."local.lan".publicKey = publicKey;
+
+  # Passwordless rebuild: whole nixos-rebuild runs via sudo without a
+  # password prompt (nixos-rebuild-ng does not escalate internally unless
+  # asked with --elevate, so prefixing sudo remains the robust path).
+  security.sudo.extraRules = [
+    {
+      users = [ "nixos" ];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/nixos-rebuild";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 }

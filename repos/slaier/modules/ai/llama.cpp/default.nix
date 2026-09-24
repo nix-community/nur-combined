@@ -14,7 +14,6 @@ let
     flash-attn = on
     fit = on
     fit-target = 1024
-    prio = 3
     kv-unified = true
     repeat-penalty = 1.05
 
