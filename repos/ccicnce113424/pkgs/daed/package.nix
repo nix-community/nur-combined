@@ -17,12 +17,12 @@ let
 in
 buildGoModule (finalAttrs: {
   pname = "daed";
-  version = "1.27.0";
+  version = "2.1.1";
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = "daed";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-CvxCDdOLsdSlFfmoR+C1IUt9HvkAV5JsWGI94DLXB+U=";
+    hash = "sha256-F8Q97sGA4sMgupb31+nFT55sdx/Jr1mgwOjb45o9hlc=";
     fetchSubmodules = true;
   };
 
@@ -39,7 +39,7 @@ buildGoModule (finalAttrs: {
         ;
       inherit pnpm;
       fetcherVersion = 4;
-      hash = "sha256-1BBSEKV/o7aH15GV+NgbyT8cBeAUivrgfpqsl5kfCyQ=";
+      hash = "sha256-CL21Q9y5C2TGbu8yppXTt7fZQfyMlePQXyMh2cVg5TE=";
     };
 
     nativeBuildInputs = [
@@ -69,12 +69,14 @@ buildGoModule (finalAttrs: {
     '';
   };
 
-  vendorHash = "sha256-l7jgMvrbpOY2+cvnc0e5cvSgKVm4GcWC+bPbff+PE80=";
+  vendorHash = "sha256-SGM2avz/pUF/CMo/TLQHrDQ/wdqvBGp4XNlTe86b5Og=";
   proxyVendor = true;
 
   nativeBuildInputs = [ clang ];
 
   hardeningDisable = [ "zerocallusedregs" ];
+
+  patches = [ ./fix-dependency.patch ];
 
   prePatch = ''
     substituteInPlace Makefile \

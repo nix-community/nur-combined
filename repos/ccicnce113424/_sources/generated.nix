@@ -54,21 +54,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "b4eb644e0868ce4f93d9f2747940d4cfcbce62c7";
+    version = "de33bdb8a5ca304d443252dd61702f8649dcc26b";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "b4eb644e0868ce4f93d9f2747940d4cfcbce62c7";
+      rev = "de33bdb8a5ca304d443252dd61702f8649dcc26b";
       fetchSubmodules = false;
-      sha256 = "sha256-+UU7dEd9Cxx+s3rdQWhx059L5Y2FkNCj3kSWMRFrKXY=";
+      sha256 = "sha256-EbXqCoQYMtNBjbPOW+6A5wp8Xn9d2wcnyUq2OJ6qXKY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-+UU7dEd9Cxx+s3rdQWhx059L5Y2FkNCj3kSWMRFrKXY=/Cargo.lock";
+      lockFile = ./. + "/sha256-EbXqCoQYMtNBjbPOW+6A5wp8Xn9d2wcnyUq2OJ6qXKY=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-09-19";
+    date = "2026-09-24";
   };
   flake-linter = {
     pname = "flake-linter";
@@ -312,16 +312,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.0.0-beta.6";
+    version = "v4.0.0";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.0.0-beta.6";
+      rev = "v4.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-/gmMpxgd5IDXsJsWkvJ1R9Loh4zuCapIyF9JxzZ/LnI=";
+      sha256 = "sha256-2GuZEFwua3SY7EVywAi0r8ITz/9cUbks7K7ux8SijAo=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-_gmMpxgd5IDXsJsWkvJ1R9Loh4zuCapIyF9JxzZ_LnI=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-2GuZEFwua3SY7EVywAi0r8ITz_9cUbks7K7ux8SijAo=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
