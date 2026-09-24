@@ -12,7 +12,7 @@ let
     hash = "sha256-qfgH+hkOZtPFW8KfXHTwhOyrGr+d706p74o7uq5GcIk=";
   };
 
-  contents = appimageTools.extractType2 {
+  contents = appimageTools.extract {
     pname = "browseros";
     inherit version src;
   };
