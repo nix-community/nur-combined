@@ -111,7 +111,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
 
   meta = {
-    description = "Full-featured download manager, rebuilt from scratch with Tauri 2, Vue 3, and Rust";
+    description = "Desktop download manager for files, torrents and streams";
     homepage = "https://github.com/AnInsomniacy/rayburst";
     changelog = "https://github.com/AnInsomniacy/rayburst/releases/tag/v${finalAttrs.version}";
     license = with lib.licenses; [
