@@ -108,6 +108,9 @@ flutter.buildFlutterApplication {
     mainProgram = "kazumi";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.lonerOrz ];
-    platforms = lib.platforms.linux;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }
