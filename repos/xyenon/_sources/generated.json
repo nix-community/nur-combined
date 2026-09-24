@@ -189,7 +189,7 @@
     },
     "nix-package-versions": {
         "cargoLock": null,
-        "date": "2026-09-22",
+        "date": "2026-09-23",
         "extract": null,
         "name": "nix-package-versions",
         "passthru": null,
@@ -201,12 +201,12 @@
             "name": null,
             "owner": "lazamar",
             "repo": "nix-package-versions",
-            "rev": "cbebdebbb2b01a43e9c4b8f00ab4dc0bf79964b7",
-            "sha256": "sha256-jrTBjeuW31BLJFESpSE2W4GJxDkttrmEtgYvuCek6RY=",
+            "rev": "7b50db16b19a38b5a7b1716d9289d8f028e1d37f",
+            "sha256": "sha256-Zdq/rSdHYVmLQYuocAyDdYaPFZaWwq8NOASz+DVlM98=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cbebdebbb2b01a43e9c4b8f00ab4dc0bf79964b7"
+        "version": "7b50db16b19a38b5a7b1716d9289d8f028e1d37f"
     },
     "rime-ice": {
         "cargoLock": null,
