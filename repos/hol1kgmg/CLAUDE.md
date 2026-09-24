@@ -24,6 +24,7 @@ _Note: Rules will be added as the project evolves._
 | Skill                | When to Use                                    |
 | -------------------- | ---------------------------------------------- |
 | **frontend-design**  | Building web components, pages, or applications with distinctive, production-grade design |
+| **dependabot-review** | Reviewing open dependabot PRs (github-actions) for mergeability; check-only by default |
 
 ## Work Rules
 

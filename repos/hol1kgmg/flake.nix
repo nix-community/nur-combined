@@ -22,5 +22,19 @@
         import ./default.nix { inherit pkgs; }
       );
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+
+      devShells = forAllSystems (system:
+        let pkgs = nixpkgs.legacyPackages.${system}; in {
+          default = pkgs.mkShell {
+            packages = [
+              pkgs.just
+              pkgs.gitleaks
+              pkgs.lefthook
+              pkgs.gh
+              pkgs.gh-dash
+            ];
+            shellHook = "lefthook install >/dev/null";
+          };
+        });
     };
 }

@@ -173,3 +173,9 @@ fix-hashes PKG:
     done
     echo "still failing after 5 hash rounds" >&2
     exit 1
+
+# --- misc --------------------------------------------------------------------
+
+# Scan working tree for secrets
+scan:
+    gitleaks dir --verbose
