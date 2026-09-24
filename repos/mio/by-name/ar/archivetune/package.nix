@@ -80,6 +80,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
 
+    # Wire the pinned :core submodule source into place.
+    rm -rf core
+    cp -r ${coreSrc} core
+    chmod -R +w core
+
     # Rename android main to old_android_main to preserve it as reference
     mv app/src/main app/src/old_android_main
     mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/ui/screens
@@ -95,7 +100,11 @@ stdenv.mkDerivation (finalAttrs: {
     # Fix the application block to use compose.desktop.application so createReleaseDistributable works
     sed -i 's/    application//' app/build.gradle.kts
     sed -i 's/application {/compose.desktop {\n    application {/' app/build.gradle.kts
-    sed -i 's/    mainClass.set("moe.rukamori.archivetune.DesktopMainKt")/        mainClass = "moe.rukamori.archivetune.DesktopMainKt"\n    }/' app/build.gradle.kts
+    sed -i 's/    mainClass.set("moe.rukamori.archivetune.DesktopMainKt")/        mainClass = "moe.rukamori.archivetune.DesktopMainKt"
+        buildTypes.release.proguard {
+            isEnabled.set(false)
+        }
+    }/' app/build.gradle.kts
 
 
     # Copy android stubs
