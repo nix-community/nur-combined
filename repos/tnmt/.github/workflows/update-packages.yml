@@ -176,10 +176,9 @@ jobs:
       run: gh pr merge --squash --auto "${{ steps.cpr_deps.outputs.pull-request-number }}"
 
   update-chatgpt:
-    # chatgpt's upstream .deb is served from a fixed "latest" URL with no
-    # version in it, so nix-update can't detect version/hash changes here.
-    # Fetch the deb directly, read the version out of its control file, and
-    # recompute both arch hashes to see if anything actually changed.
+    # chatgpt is distributed via an apt repository that nix-update can't
+    # query, so read the version and SHA256 of each arch straight from the
+    # repository's Packages index instead of downloading the ~400MB debs.
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -201,21 +200,30 @@ jobs:
         VERSION=$(grep 'version = ' pkgs/chatgpt/default.nix | head -1 | sed 's/.*"\(.*\)".*/\1/')
         echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-    - name: Fetch latest .deb and compute version/hashes
+    - name: Read latest version/hashes from the apt Packages index
       id: fetch
       run: |
-        curl -fsSL -o /tmp/chatgpt_amd64.deb https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb
-        curl -fsSL -o /tmp/chatgpt_arm64.deb https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_arm64.deb
+        BASE=https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/stable/main
+        curl -fsSL -o /tmp/Packages-amd64 "$BASE/binary-amd64/Packages"
+        curl -fsSL -o /tmp/Packages-arm64 "$BASE/binary-arm64/Packages"
 
-        echo "version=$(dpkg-deb -f /tmp/chatgpt_amd64.deb Version)" >> "$GITHUB_OUTPUT"
-        echo "hash_x86_64=$(nix hash file --sri /tmp/chatgpt_amd64.deb)" >> "$GITHUB_OUTPUT"
-        echo "hash_aarch64=$(nix hash file --sri /tmp/chatgpt_arm64.deb)" >> "$GITHUB_OUTPUT"
+        field() { sed -n "s/^$1: //p" "$2" | head -1; }
+        VERSION_AMD64=$(field Version /tmp/Packages-amd64)
+        VERSION_ARM64=$(field Version /tmp/Packages-arm64)
+        if [ "$VERSION_AMD64" != "$VERSION_ARM64" ]; then
+          echo "amd64 ($VERSION_AMD64) and arm64 ($VERSION_ARM64) versions differ" >&2
+          exit 1
+        fi
+
+        echo "version=$VERSION_AMD64" >> "$GITHUB_OUTPUT"
+        echo "hash_x86_64=$(nix hash convert --hash-algo sha256 --to sri "$(field SHA256 /tmp/Packages-amd64)")" >> "$GITHUB_OUTPUT"
+        echo "hash_aarch64=$(nix hash convert --hash-algo sha256 --to sri "$(field SHA256 /tmp/Packages-arm64)")" >> "$GITHUB_OUTPUT"
 
     - name: Update default.nix
       run: |
         sed -i "s/version = \"[^\"]*\";/version = \"${{ steps.fetch.outputs.version }}\";/" pkgs/chatgpt/default.nix
-        sed -i "/chatgpt_amd64.deb/,/hash = /{s|hash = \"[^\"]*\";|hash = \"${{ steps.fetch.outputs.hash_x86_64 }}\";|}" pkgs/chatgpt/default.nix
-        sed -i "/chatgpt_arm64.deb/,/hash = /{s|hash = \"[^\"]*\";|hash = \"${{ steps.fetch.outputs.hash_aarch64 }}\";|}" pkgs/chatgpt/default.nix
+        sed -i "/arch = \"amd64\"/,/hash = /{s|hash = \"[^\"]*\";|hash = \"${{ steps.fetch.outputs.hash_x86_64 }}\";|}" pkgs/chatgpt/default.nix
+        sed -i "/arch = \"arm64\"/,/hash = /{s|hash = \"[^\"]*\";|hash = \"${{ steps.fetch.outputs.hash_aarch64 }}\";|}" pkgs/chatgpt/default.nix
 
     - name: Detect changes
       id: after
@@ -243,8 +251,6 @@ jobs:
         title: "chatgpt: ${{ steps.before.outputs.version }} -> ${{ steps.fetch.outputs.version }}"
         body: |
           Automated update of chatgpt from `${{ steps.before.outputs.version }}` to `${{ steps.fetch.outputs.version }}`.
-
-          Rolling URL hash bump (the upstream .deb is served from a fixed "latest" URL).
         labels: automated
 
     - name: Enable auto-merge

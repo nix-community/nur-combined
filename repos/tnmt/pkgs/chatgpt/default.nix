@@ -41,11 +41,11 @@ let
 
   allArchives = {
     x86_64-linux = {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb";
+      arch = "amd64";
       hash = "sha256-hR7Ci2W94v8dqfN9zfW24gqRXHVo+LLOmTwAQo8BiuU=";
     };
     aarch64-linux = {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_arm64.deb";
+      arch = "arm64";
       hash = "sha256-IRSINiPa40pLx6Z/qtPmZS3Zv9x6KPV8Nu0D41C+HPE=";
     };
   };
@@ -97,7 +97,10 @@ in
 stdenv.mkDerivation {
   inherit pname version;
 
-  src = fetchurl { inherit (archive) url hash; };
+  src = fetchurl {
+    url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_${version}_${archive.arch}.deb";
+    inherit (archive) hash;
+  };
 
   nativeBuildInputs = [
     dpkg
