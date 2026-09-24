@@ -18,7 +18,7 @@
 }:
 
 let
-  version = "1.21.14b";
+  version = "1.22.3b";
   firefoxVersion = "153.0.3";
 
   firefoxSrc = fetchurl {
@@ -89,7 +89,7 @@ let
       owner = "zen-browser";
       repo = "desktop";
       tag = version;
-      hash = "sha256-O9z8C19xa8od8M52CHt+ZKdOksyAwbVj38FDnunTQ6Y=";
+      hash = "sha256-Y09/9Xx99s/y2tTq5jidwqql0d61gX47TIaAEj+IbkI=";
       fetchSubmodules = true;
     };
 
@@ -98,7 +98,7 @@ let
       tar --extract --file=${firefoxSrc} --directory=source/engine --strip-components=1
     '';
 
-    npmDepsHash = "sha256-rfVWUQxCBZGIM7QHYxQlTYd6yWH5fIY74yhGU0ZY4rQ=";
+    npmDepsHash = "sha256-/+VUkSkvMEC0a7M5Cc4CGks1zffSXY0iIFM9FyB2kng=";
     makeCacheWritable = true;
 
     # NOTE: this is used for the ffprefs step.
