@@ -1,5 +1,5 @@
-use super::TerminalTabs;
 use super::ChromeColors;
+use super::TerminalTabs;
 use crate::settings::save_session;
 use gpui::prelude::*;
 use gpui::*;
@@ -111,8 +111,14 @@ pub fn render_tab_bar(
             .when(show_refresh, |tab_div| {
                 tab_div.child(
                     div()
-                        .id(("refresh_tab", i)).flex_shrink_0()
-                        .flex().items_center().justify_center().w(px(20.0)).h(px(20.0)).ml_1()
+                        .id(("refresh_tab", i))
+                        .flex_shrink_0()
+                        .flex()
+                        .items_center()
+                        .justify_center()
+                        .w(px(20.0))
+                        .h(px(20.0))
+                        .ml_1()
                         .hover(|style| style.bg(colors.hover).rounded_sm())
                         .on_mouse_down(MouseButton::Left, |_, window, cx| {
                             window.prevent_default();
@@ -136,8 +142,14 @@ pub fn render_tab_bar(
             })
             .child(
                 div()
-                    .id(("close_tab", i)).flex_shrink_0()
-                    .flex().items_center().justify_center().w(px(20.0)).h(px(20.0)).ml_1()
+                    .id(("close_tab", i))
+                    .flex_shrink_0()
+                    .flex()
+                    .items_center()
+                    .justify_center()
+                    .w(px(20.0))
+                    .h(px(20.0))
+                    .ml_1()
                     .hover(|style| style.bg(colors.hover).rounded_sm())
                     .on_mouse_down(MouseButton::Left, |_, window, cx| {
                         window.prevent_default();
