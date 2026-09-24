@@ -1,0 +1,38 @@
+From 0874935508d758e3ba5cd1ee2b6499ea06e24821 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Wed, 26 Nov 2025 17:13:35 +0100
+Subject: [PATCH 146/194] sdm845.config: Load shift6mq panel as module
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This delays probing and that way we avoid an oops on boot with
+
+```
+disp_cc_mdss_pclk0_clk_src: rcg didn't update its configuration.
+```
+
+and the panel comes up right after boot. Otherwise it needs two
+power button presses to show a picture.
+
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
+---
+ arch/arm64/configs/sdm845.config | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
+index 7b25ea555bd7..2955f100a977 100644
+--- a/arch/arm64/configs/sdm845.config
++++ b/arch/arm64/configs/sdm845.config
+@@ -46,7 +46,7 @@ CONFIG_INPUT_MAX77693_HAPTIC=m
+ CONFIG_PWM_CLK=m
+ 
+ # SHIFT6mq
+-CONFIG_DRM_PANEL_VISIONOX_RM69299=y
++CONFIG_DRM_PANEL_VISIONOX_RM69299=m
+ CONFIG_SND_SOC_TFA989X=m
+ 
+ # Pixel 3
+-- 
+2.53.0
+

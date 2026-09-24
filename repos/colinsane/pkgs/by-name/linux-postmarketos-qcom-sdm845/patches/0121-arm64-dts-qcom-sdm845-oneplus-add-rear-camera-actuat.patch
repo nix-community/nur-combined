@@ -1,0 +1,67 @@
+From 2ce622c9ab23c54065bfa8657a1fb70a0a6e7121 Mon Sep 17 00:00:00 2001
+From: Vasiliy Doylov <nekocwd@mainlining.org>
+Date: Mon, 10 Nov 2025 11:43:45 +0300
+Subject: [PATCH 121/194] arm64: dts: qcom: sdm845-oneplus: add rear camera
+ actuators
+
+This commit enables sub and main rear camera actuators
+
+Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
+---
+ .../boot/dts/qcom/sdm845-oneplus-common.dtsi   | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 5725e69d5efa..948a0dd18d13 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -678,6 +678,8 @@
+ 		orientation = <1>; /* Rear camera */
+ 		rotation = <270>;
+ 
++		lens-focus = <&rear_cam_actuator>;
++
+ 		status = "okay";
+ 
+ 		port {
+@@ -690,7 +692,12 @@
+ 		};
+ 	};
+ 
+-	/* rear onnn,lc898217xc @72 */
++	rear_cam_actuator: actuator@72 {
++		compatible = "onnn,lc898217xc";
++		reg = <0x72>;
++		vana-supply = <&main_cam_vaf>;
++		vdd-supply = <&cam_vio_1p8>;
++	};
+ };
+ 
+ &cci_i2c1 {
+@@ -716,6 +723,8 @@
+ 		orientation = <1>; /* Rear camera */
+ 		rotation = <270>;
+ 
++		lens-focus = <&sub_cam_actuator>;
++
+ 		status = "okay";
+ 
+ 		port {
+@@ -725,8 +734,13 @@
+ 				link-frequencies = /bits/ 64 <500000000>;
+ 			};
+ 		};
++	};
+ 
+-	/* onnn,lc898217xc @ 74 */
++	sub_cam_actuator: actuator@74 {
++		compatible = "onnn,lc898217xc";
++		reg = <0x74>;
++		vana-supply = <&sub_cam_vaf>;
++		vdd-supply = <&cam_vio_1p8>;
+ 	};
+ };
+ 
+-- 
+2.53.0
+

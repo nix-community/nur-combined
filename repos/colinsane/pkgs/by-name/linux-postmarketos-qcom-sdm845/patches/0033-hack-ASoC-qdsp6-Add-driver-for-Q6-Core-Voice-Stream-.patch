@@ -1,0 +1,107 @@
+From 88cc0150e5f9422b89bc445e10127b1ef977ea00 Mon Sep 17 00:00:00 2001
+From: Stephan Gerhold <stephan@gerhold.net>
+Date: Tue, 28 Apr 2020 16:11:53 +0200
+Subject: [PATCH 033/194] hack! ASoC: qdsp6: Add driver for Q6 Core Voice
+ Stream (q6cvs)
+
+This is just a stub for now. Later this would be used for features
+like call recording.
+
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+(cherry picked from commit ba9cd1dac6c77c234b5956cc11981d5663cdc431)
+Link: https://github.com/msm8916-mainline/linux
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ MAINTAINERS                   |  1 +
+ sound/soc/qcom/qdsp6/Makefile |  2 +-
+ sound/soc/qcom/qdsp6/q6cvs.c  | 36 +++++++++++++++++++++++++++++++++++
+ sound/soc/qcom/qdsp6/q6cvs.h  |  9 +++++++++
+ 4 files changed, 47 insertions(+), 1 deletion(-)
+ create mode 100644 sound/soc/qcom/qdsp6/q6cvs.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6cvs.h
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6da3f9bf7706..abd7f97618dc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29450,6 +29450,7 @@ F:	*/
+ 
+ M:	Avoid Warnings <dev@null.cz>
+ S:	Unmaintained
++F:	sound/soc/qcom/qdsp6/q6cvs.c
+ F:	sound/soc/qcom/qdsp6/q6cvp.c
+ F:	sound/soc/qcom/qdsp6/q6mvm.c
+ F:	sound/soc/qcom/qdsp6/q6voice-common.c
+diff --git a/sound/soc/qcom/qdsp6/Makefile b/sound/soc/qcom/qdsp6/Makefile
+index 07bac415f0d3..4856fc094f30 100644
+--- a/sound/soc/qcom/qdsp6/Makefile
++++ b/sound/soc/qcom/qdsp6/Makefile
+@@ -11,7 +11,7 @@ obj-$(CONFIG_SND_SOC_QDSP6_ADM) += q6adm.o
+ obj-$(CONFIG_SND_SOC_QDSP6_ROUTING) += q6routing.o
+ obj-$(CONFIG_SND_SOC_QDSP6_ASM) += q6asm.o
+ obj-$(CONFIG_SND_SOC_QDSP6_ASM_DAI) += q6asm-dai.o
+-obj-$(CONFIG_SND_SOC_QDSP6_Q6VOICE) += q6cvp.o q6mvm.o q6voice-common.o
++obj-$(CONFIG_SND_SOC_QDSP6_Q6VOICE) += q6cvp.o q6cvs.o q6mvm.o q6voice-common.o
+ 
+ obj-$(CONFIG_SND_SOC_QDSP6_APM) += snd-q6apm.o
+ obj-$(CONFIG_SND_SOC_QDSP6_APM_DAI) += q6apm-dai.o
+diff --git a/sound/soc/qcom/qdsp6/q6cvs.c b/sound/soc/qcom/qdsp6/q6cvs.c
+new file mode 100644
+index 000000000000..1b7531e5d7a1
+--- /dev/null
++++ b/sound/soc/qcom/qdsp6/q6cvs.c
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
++// Copyright (c) 2020, Stephan Gerhold
++
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/soc/qcom/apr.h>
++#include "q6cvs.h"
++#include "q6voice-common.h"
++
++static int q6cvs_probe(struct apr_device *adev)
++{
++	return q6voice_common_probe(adev, Q6VOICE_SERVICE_CVS);
++}
++
++static const struct of_device_id q6cvs_device_id[]  = {
++	{ .compatible = "qcom,q6cvs" },
++	{},
++};
++MODULE_DEVICE_TABLE(of, q6cvs_device_id);
++
++static struct apr_driver qcom_q6cvs_driver = {
++	.probe = q6cvs_probe,
++	.remove = q6voice_common_remove,
++	.callback = q6voice_common_callback,
++	.driver = {
++		.name = "qcom-q6cvs",
++		.of_match_table = of_match_ptr(q6cvs_device_id),
++	},
++};
++
++module_apr_driver(qcom_q6cvs_driver);
++
++MODULE_AUTHOR("Stephan Gerhold <stephan@gerhold.net>");
++MODULE_DESCRIPTION("Q6 Core Voice Stream");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/qcom/qdsp6/q6cvs.h b/sound/soc/qcom/qdsp6/q6cvs.h
+new file mode 100644
+index 000000000000..1b30eea9851e
+--- /dev/null
++++ b/sound/soc/qcom/qdsp6/q6cvs.h
+@@ -0,0 +1,9 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _Q6_CVS_H
++#define _Q6_CVS_H
++
++#include "q6voice.h"
++
++struct q6voice_session;
++
++#endif /* _Q6_CVS_H */
+-- 
+2.53.0
+

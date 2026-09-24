@@ -1,0 +1,98 @@
+From 504b81072398ccd82c4c6a4b600671ed6ea1aa48 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+Date: Sat, 10 Sep 2022 21:38:41 -0500
+Subject: [PATCH 063/194] stalled! arm64: dts: qcom: sdm845-xiaomi-beryllium:
+ add separate dai link for headphone mic
+
+We can use existing multimedia+slimbus dai link for headphones mic too.
+But it doesn't work well with the linux userspace side.
+It wouldn't seamlessly switch between both the mics.
+Adding a separate multimedia and slimbus dai fixes this issue.
+Also fix extra whitespaces in few places.
+---
+ .../qcom/sdm845-xiaomi-beryllium-common.dtsi  | 36 ++++++++++++++++---
+ 1 file changed, 31 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index 49d6c9c94649..d01545a89ad9 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -435,6 +435,10 @@
+ 	dai@2 {
+ 		reg = <MSM_FRONTEND_DAI_MULTIMEDIA3>;
+ 	};
++
++	dai@3 {
++		reg = <3>;
++	};
+ };
+ 
+ &qupv3_id_0 {
+@@ -479,21 +483,28 @@
+ 	mm1-dai-link {
+ 		link-name = "MultiMedia1";
+ 		cpu {
+-			sound-dai = <&q6asmdai  MSM_FRONTEND_DAI_MULTIMEDIA1>;
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
+ 		};
+ 	};
+ 
+ 	mm2-dai-link {
+ 		link-name = "MultiMedia2";
+ 		cpu {
+-			sound-dai = <&q6asmdai  MSM_FRONTEND_DAI_MULTIMEDIA2>;
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
+ 		};
+ 	};
+ 
+ 	mm3-dai-link {
+ 		link-name = "MultiMedia3";
+ 		cpu {
+-			sound-dai = <&q6asmdai  MSM_FRONTEND_DAI_MULTIMEDIA3>;
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA3>;
++		};
++	};
++
++	mm4-dai-link {
++		link-name = "MultiMedia4";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA4>;
+ 		};
+ 	};
+ 
+@@ -520,7 +531,7 @@
+ 	};
+ 
+ 	slimcap-dai-link {
+-		link-name = "SLIM Capture";
++		link-name = "SLIM WCD Capture";
+ 		cpu {
+ 			sound-dai = <&q6afedai SLIMBUS_0_TX>;
+ 		};
+@@ -530,7 +541,22 @@
+ 		};
+ 
+ 		codec {
+-			sound-dai = <&wcd9340 1>;
++			sound-dai = <&wcd9340 1>; /* AIF1_CAP */
++		};
++	};
++
++	slimcap2-dai-link {
++		link-name = "SLIM WCD Capture 2";
++		cpu {
++			sound-dai = <&q6afedai SLIMBUS_1_TX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&wcd9340 3>; /* AIF2_CAP */
+ 		};
+ 	};
+ };
+-- 
+2.53.0
+

@@ -1,0 +1,44 @@
+From 707cc971999d2d737d2eb334ba97509d77a99518 Mon Sep 17 00:00:00 2001
+From: Petr Hodina <petr.hodina@protonmail.com>
+Date: Wed, 7 Jan 2026 15:55:10 +0100
+Subject: [PATCH 115/194] arm64: dts: qcom: sdm845-xiaomi-beryllium: Introduce
+ framebuffer
+
+Add framebuffer for early console and u-boot support.
+
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index e7b4360347d7..50093a9b6397 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -42,6 +42,22 @@
+ 		serial1 = &uart6;
+ 	};
+ 
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer {
++			compatible = "simple-framebuffer";
++			memory-region = <&cont_splash_mem>;
++
++			format = "a8r8g8b8";
++			stride = <(1080 * 4)>;
++			height = <2246>;
++			width = <1080>;
++		};
++	};
++
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+ 		autorepeat;
+-- 
+2.53.0
+

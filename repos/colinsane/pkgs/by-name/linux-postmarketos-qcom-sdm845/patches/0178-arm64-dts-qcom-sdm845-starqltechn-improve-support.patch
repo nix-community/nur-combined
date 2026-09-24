@@ -1,0 +1,247 @@
+From c9d86c941e4b01b489cef9582d8cb70c4bf00f59 Mon Sep 17 00:00:00 2001
+From: Dzmitry Sankouski <dsankouski@gmail.com>
+Date: Sun, 23 Feb 2025 19:45:08 +0300
+Subject: [PATCH 178/194] arm64: dts: qcom: sdm845-starqltechn: improve support
+
+arm64: dts: qcom: sdm845: enable gmu
+
+Leave gmu enabled, because it's only probed when
+GPU is.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: remove wifi
+
+Starqltechn has broadcom chip for wifi, so sdm845 wifi part
+can be disabled.
+
+Fixes: d711b22eee55 ("arm64: dts: qcom: starqltechn: add initial device tree for starqltechn")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: fix usb regulator mistake
+
+Usb regulator was wrongly pointed to vreg_l1a_0p875.
+However, on starqltechn it's powered from vreg_l5a_0p8.
+
+Fixes: d711b22eee55 ("arm64: dts: qcom: starqltechn: add initial device tree for starqltechn")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: refactor node order
+
+Fixes: d711b22eee55 ("arm64: dts: qcom: starqltechn: add initial device tree for starqltechn")
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: remove excess reserved gpios
+
+Starqltechn has 2 reserved gpio ranges <27 4>, <85 4>.
+<27 4> is spi for eSE(embedded Secure Element).
+<85 4> is spi for fingerprint.
+
+Remove excess reserved gpio regions.
+
+Fixes: d711b22eee55 ("arm64: dts: qcom: starqltechn: add initial device tree for starqltechn")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add gpio keys
+
+Add support for phone buttons.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add max77705 PMIC
+
+Add support for max77705 MFD device. Supported sub-devices:
+ charger, fuelgauge, haptic, led
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add display PMIC
+
+Add support for s2dos05 display / touchscreen PMIC
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add touchscreen support
+
+Add support for samsung,s6sy761 touchscreen.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add initial sound support
+
+Add support for sound (headphones and mics only)
+Also redefine slpi reserved memory, because adsp_mem overlaps with
+slpi_mem inherited from sdm845.dtsi.
+
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add graphics support
+
+Add support for gpu and panel.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add modem support
+
+Add support for modem and ipa(IP Accelerator).
+Add spss reserved memory node.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dzmitry Sankouski <dsankouski@gmail.com>
+
+arm64: dts: qcom: sdm845-starqltechn: add slpi support
+
+Add slpi node to support sensors
+
+arm64: dts: qcom: sdm845-starqltechn: add framebuffer reserved memory
+
+arm64: dts: qcom: sdm845-starqltechn: disable fb regulators
+
+Disable framebuffer regulators, to allow panel to switch off screen
+completely
+
+arm64: dts: qcom: sdm845-starqltechn: add more audio support
+---
+ .../dts/qcom/sdm845-samsung-starqltechn.dts   | 82 +++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+index e70449785340..6b7936f1cc6d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+@@ -14,6 +14,7 @@
+ #include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/sound/qcom,q6asm.h>
+ #include <dt-bindings/sound/qcom,wcd934x.h>
++#include <dt-bindings/sound/qcom,q6voice.h>
+ 
+ #include "sdm845.dtsi"
+ #include "pm8998.dtsi"
+@@ -143,6 +144,11 @@
+ 			no-map;
+ 		};
+ 
++		fb_mem: memory@95800000 {
++			reg = <0 0x95800000 0 0x500000>;
++			no-map;
++		};
++
+ 		adsp_mem: memory@97800000 {
+ 			reg = <0 0x97800000 0 0x2000000>;
+ 			no-map;
+@@ -159,6 +165,34 @@
+ 		};
+ 	};
+ 
++	i2c18 {
++		compatible = "i2c-gpio";
++		sda-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
++		scl-gpios = <&tlmm 63 GPIO_ACTIVE_HIGH>;
++		i2c-gpio,delay-us = <2>;
++		pinctrl-0 = <&i2c18_sda_state &i2c18_scl_state>;
++		pinctrl-names = "default";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		max98512_codec: max98512@39 {
++			compatible = "maxim,max98512";
++			#sound-dai-cells = <0>;
++			reg = <0x39>;
++			maxim,spk-gain = <0x5>;
++			maxim,spk-gain-rcv = <0x1>;
++			maxim,digital-gain-rcv = <0x34>;
++			maxim,sysclk = <0xbb8000>;
++			maxim,vmon_slot = <0x1>;
++			maxim,platform_info = <0x1 0x1006 0x10001062 0x1ff1020b 0x0 0x33>;
++			maxim,boost_step = <0xf 0xf 0xf 0xf 0xf 0xf 0xf 0xf 0xf 0xf 0xf 0xf 0xf 0xf 0x2 0x0>;
++			maxim,registers-of-amp = <0x1f 0x0 0x21 0xc0 0x2d 0x14 0x2f 0x0>;
++			maxim,sub_reg = <0x3a>;
++			maxim,mono_stereo = <0x1>;
++			interleave_mode = <0x1>;
++		};
++	};
++
+ 	i2c-21 {
+ 		compatible = "i2c-gpio";
+ 		sda-gpios = <&tlmm 127 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+@@ -773,6 +807,28 @@
+ 		};
+ 	};
+ 
++	voicemmode1-dai-link {
++		link-name = "VoiceMMode1";
++		cpu {
++			sound-dai = <&q6voicedai VOICEMMODE1>;
++		};
++	};
++
++	speaker-dai-link {
++		link-name = "Speaker Playback";
++		codec {
++			sound-dai = <&max98512_codec>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai QUATERNARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++
+ 	slim-dai-link {
+ 		link-name = "SLIM Playback 1";
+ 
+@@ -892,6 +948,18 @@
+ 	};
+ };
+ 
++&q6cvp {
++	status = "okay";
++};
++
++&q6cvs {
++	status = "okay";
++};
++
++&q6mvm {
++	status = "okay";
++};
++
+ &wcd9340 {
+ 	reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
+ 	vdd-buck-supply = <&vreg_s4a_1p8>;
+@@ -1055,6 +1123,20 @@
+ 
+ 	slpi_ldo_active_state: slpi-ldo-active-state {
+ 		pins = "gpio8";
++                function = "gpio";
++                drive-strength = <2>;
++                bias-disable;
++        };
++
++	i2c18_sda_state: i2c18-sda-state {
++		pins = "gpio62";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	i2c18_scl_state: i2c18-scl-state {
++		pins = "gpio63";
+ 		function = "gpio";
+ 		drive-strength = <2>;
+ 		bias-disable;
+-- 
+2.53.0
+

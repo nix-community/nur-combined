@@ -1,0 +1,75 @@
+From 9b72e9b240d2306b0f3f01a7f49c6b1ecea25334 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Thu, 17 Sep 2026 05:54:08 +0000
+Subject: [PATCH] nixos/btrfs.autoScrub: disable "E501 line too long" python
+ lint
+
+otherwise `services.btrfs.autoScrub.enable = true;` on a cross-compiled
+system will fail, like:
+
+> error: builder for '/nix/store/ghygqfy3v12ypif539j9i327h03cajwv-btrfs-scrub-maybe-cancel.drv' failed with exit code 1;
+>        last 3 log lines:
+>        > /nix/store/vb0i1w0b71gbkm7i1zdplr39jv4bhybc-btrfs-scrub-maybe-cancel:5:80: E501 line too long (105 > 79 characters)
+>        > btrfs = "/nix/store/dphqp3qw10rlxq87l7z1ax4bwr011kxx-btrfs-progs-aarch64-unknown-linux-gnu-7.1/bin/btrfs"
+>        >                                                                                ^
+
+cross-compiled packages such as `pkgsCross.aarch64-multiplatform.btrfs-progs`
+have that extra `-${system}` in their store path, pushing it beyond 79 chars.
+---
+ nixos/modules/tasks/filesystems/btrfs.nix | 40 ++++++++++++++---------
+ 1 file changed, 24 insertions(+), 16 deletions(-)
+
+diff --git a/nixos/modules/tasks/filesystems/btrfs.nix b/nixos/modules/tasks/filesystems/btrfs.nix
+index ad08ed24c41c6e5d990b175c9acc43bd5a7c6aab..a38457968c58d1feba0fd326a11eef08ae74e9d1 100644
+--- a/nixos/modules/tasks/filesystems/btrfs.nix
++++ b/nixos/modules/tasks/filesystems/btrfs.nix
+@@ -171,25 +171,33 @@ in
+         serviceConfig =
+           let
+             btrfsCmd = getExe pkgs.btrfs-progs;
+-            btrfsCancelCmd = pkgs.writers.writePython3 "btrfs-scrub-maybe-cancel" { } ''
+-              import subprocess
+-              import sys
++            btrfsCancelCmd =
++              pkgs.writers.writePython3 "btrfs-scrub-maybe-cancel"
++                {
++                  flakeIgnore = [
++                    # `btrfsCmd` may exceed 80-character line length for some platforms
++                    "E501"
++                  ];
++                }
++                ''
++                  import subprocess
++                  import sys
+ 
+-              btrfs = "${escape [ "\"" "\\" ] btrfsCmd}"
+-              result = subprocess.run(
+-                  [btrfs, "scrub", "cancel"] + sys.argv[1:],
+-                  stderr=subprocess.PIPE,
+-                  check=False,
+-                  shell=False
+-              )
++                  btrfs = "${escape [ "\"" "\\" ] btrfsCmd}"
++                  result = subprocess.run(
++                      [btrfs, "scrub", "cancel"] + sys.argv[1:],
++                      stderr=subprocess.PIPE,
++                      check=False,
++                      shell=False
++                  )
+ 
+-              # ignore errors if there was no running scrub to cancel
+-              if result.returncode == 2:
+-                  sys.exit(0)
++                  # ignore errors if there was no running scrub to cancel
++                  if result.returncode == 2:
++                      sys.exit(0)
+ 
+-              sys.stderr.buffer.write(result.stderr)
+-              sys.exit(result.returncode)
+-            '';
++                  sys.stderr.buffer.write(result.stderr)
++                  sys.exit(result.returncode)
++                '';
+             additionalScrubArgs = optionals (cfgScrub.limit != null) [
+               "--limit"
+               cfgScrub.limit

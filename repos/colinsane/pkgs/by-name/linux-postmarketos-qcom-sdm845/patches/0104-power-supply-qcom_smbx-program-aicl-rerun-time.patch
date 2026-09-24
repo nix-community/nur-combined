@@ -1,0 +1,34 @@
+From e7611d9624d4ca8f1f15acfcebea35565aaee34b Mon Sep 17 00:00:00 2001
+From: Casey Connolly <casey.connolly@linaro.org>
+Date: Thu, 19 Jun 2025 16:55:19 +0200
+Subject: [PATCH 104/194] power: supply: qcom_smbx: program aicl rerun time
+
+We don't know what the bootloader programmed here, but we want to have a
+consistent value. Program the automatic input current limit detection to
+re-run every 3 seconds. This seems to be necessary at least for smb5.
+
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+---
+ drivers/power/supply/qcom_smbx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
+index cc3a6adc3fcd..9386adfb7b6f 100644
+--- a/drivers/power/supply/qcom_smbx.c
++++ b/drivers/power/supply/qcom_smbx.c
+@@ -1094,6 +1094,12 @@ static int smb_probe(struct platform_device *pdev)
+ 		return dev_err_probe(chip->dev, rc,
+ 				     "Couldn't write fast charge current cfg");
+ 
++	rc = regmap_write_bits(chip->regmap, chip->base + AICL_RERUN_TIME_CFG,
++			       AICL_RERUN_TIME_MASK, AIC_RERUN_TIME_3_SECS);
++	if (rc < 0)
++		return dev_err_probe(chip->dev, rc,
++				     "Couldn't write fast AICL rerun time");
++
+ 	/* Initialise charger state */
+ 	schedule_delayed_work(&chip->status_change_work, 0);
+ 
+-- 
+2.53.0
+

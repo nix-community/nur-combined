@@ -1,0 +1,56 @@
+From 0e90772bd7550d8c4f4835b66ef6e558968d587a Mon Sep 17 00:00:00 2001
+From: Petr Hodina <petr.hodina@protonmail.com>
+Date: Wed, 7 Jan 2026 16:19:07 +0100
+Subject: [PATCH 114/194] Add framebuffer on Xiaomi Poco F1 and disable the
+ MDSS on tianma panel variant
+
+Enable framebuffer for early console output.
+
+Due to broken panel driver on tianma and no visual output it's better
+to disable the MDSS so the framebuffer stays on.
+
+In case second patch gets rejected, please apply the first one standalone
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+To: Sam Day <me@samcday.com>
+To: Dzmitry Sankouski <dsankouski@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+---
+Changes in v3:
+- Strip label from framebuffer node and remove -0 postfix. (Konrad)
+- Link to v2: https://lore.kernel.org/r/20260317-beryllium-fb-v2-0-36b69dfb760c@ixit.cz
+
+Changes in v2:
+- Added few conversion to use memory-region.
+- Corrected framebuffer node name. (Konrad)
+- Link to v1: https://lore.kernel.org/r/20260311-beryllium-fb-v1-0-408a580d125e@ixit.cz
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 3,
+    "change-id": "20260107-beryllium-fb-d3e87bc20be0",
+    "prefixes": [],
+    "history": {
+      "v1": [
+        "20260311-beryllium-fb-v1-0-408a580d125e@ixit.cz"
+      ],
+      "v2": [
+        "20260317-beryllium-fb-v2-0-36b69dfb760c@ixit.cz"
+      ]
+    }
+  }
+}
+-- 
+2.53.0
+

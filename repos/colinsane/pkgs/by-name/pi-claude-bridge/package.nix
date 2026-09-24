@@ -6,17 +6,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-claude-bridge";
-  version = "0.7.0";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "elidickinson";
     repo = "pi-claude-bridge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-L9aczhKDeXbq5CKFLMb68Oa1J0RzjFtPzucma+NBlTk=";
+    hash = "sha256-/7Ofo9nt74RXaV+01TIzguFxm0FpeNKRXV5Uk67qSGI=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-Ls/0DDs0vEdARVh1ZzcDtKGPydMm2UKmEvZH9VFKQvQ=";
+  npmDepsHash = "sha256-23mX9QflTLyrf+cd1c34BPOrOVaMc/fHHYOjOkN++zA=";
 
   dontNpmBuild = true;  # package.json defines no build script
 

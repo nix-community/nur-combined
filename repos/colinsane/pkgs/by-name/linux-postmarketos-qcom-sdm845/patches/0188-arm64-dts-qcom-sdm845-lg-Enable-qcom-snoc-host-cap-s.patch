@@ -1,0 +1,29 @@
+From bbaa512beb5939adcbc26b16651d921ff263bc04 Mon Sep 17 00:00:00 2001
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Wed, 8 Apr 2026 19:11:15 -0700
+Subject: [PATCH 188/194] arm64: dts: qcom: sdm845-lg: Enable
+ qcom,snoc-host-cap-skip-quirk
+
+The WCN3990 firmware for judyln does not respond to the request for
+host capabilities. Add the devicetree quirk to skip this request.
+
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 86cf4eb44084..e0c3566761bf 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -694,5 +694,7 @@
+ 	vdd-3.3-ch0-supply = <&vreg_l25a_3p3>;
+ 	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
+ 
++	qcom,snoc-host-cap-skip-quirk;
++
+ 	status = "okay";
+ };
+-- 
+2.53.0
+

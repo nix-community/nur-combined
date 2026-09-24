@@ -1,0 +1,257 @@
+From 72f630464cf505bfe12feb94884195ce84192f6f Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 11 Sep 2023 21:48:47 -0400
+Subject: [PATCH 050/194] hack! ASoC: qdsp6: q6cvp: add commands in cvd 2.3
+
+The CVD 2.3 revision expects a different initialization sequence.
+Implement the commands to make this possible.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6cvp.c | 199 +++++++++++++++++++++++++++++++++++
+ sound/soc/qcom/qdsp6/q6cvp.h |   5 +
+ 2 files changed, 204 insertions(+)
+
+diff --git a/sound/soc/qcom/qdsp6/q6cvp.c b/sound/soc/qcom/qdsp6/q6cvp.c
+index 15da14698343..ca9720a879e4 100644
+--- a/sound/soc/qcom/qdsp6/q6cvp.c
++++ b/sound/soc/qcom/qdsp6/q6cvp.c
+@@ -29,6 +29,22 @@
+ #define VSS_IVOCPROC_CMD_DISABLE			0x000110E1
+ 
+ #define VSS_IVOCPROC_CMD_CREATE_FULL_CONTROL_SESSION_V2	0x000112BF
++#define VSS_IVOCPROC_CMD_CREATE_FULL_CONTROL_SESSION_V3	0x00013169
++
++#define VSS_IVOCPROC_CMD_TOPOLOGY_COMMIT		0x00013198
++
++#define VSS_ICOMMON_CMD_SET_PARAM_V2			0x0001133D
++
++#define VSS_MODULE_CVD_GENERIC				0x0001316E
++
++#define VSS_PARAM_VOCPROC_RX_CHANNEL_INFO		0x0001328F
++#define VSS_PARAM_VOCPROC_TX_CHANNEL_INFO		0x0001328E
++#define VSS_PARAM_RX_PORT_ENDPOINT_MEDIA_INFO		0x00013254
++#define VSS_PARAM_TX_PORT_ENDPOINT_MEDIA_INFO		0x00013253
++
++#define VOC_SET_MEDIA_FORMAT_PARAM_TOKEN		2
++
++#define VSS_NUM_CHANNELS_MAX 8
+ 
+ struct vss_ivocproc_cmd_create_full_control_session_v2_cmd {
+ 	struct apr_hdr hdr;
+@@ -91,6 +107,62 @@ struct vss_ivocproc_cmd_create_full_control_session_v2_cmd {
+ 	char name[20];
+ } __packed;
+ 
++struct vss_param_endpoint_media_format_info {
++	u32 port_id;
++	u16 num_channels;
++	u16 bits_per_sample;
++	u32 sample_rate;
++	u8 channel_mapping[VSS_NUM_CHANNELS_MAX];
++} __packed;
++
++struct vss_param_vocproc_dev_channel_info {
++	u32 num_channels;
++	u32 bits_per_sample;
++	u8 channel_mapping[VSS_NUM_CHANNELS_MAX];
++} __packed;
++
++struct vss_icommon_param_data {
++	u32 module_id;
++	u32 param_id;
++	u16 param_size;
++	u16 reserved;
++
++	union {
++		struct vss_param_endpoint_media_format_info media_format_info;
++		struct vss_param_vocproc_dev_channel_info channel_info;
++	};
++} __packed;
++
++struct vss_icommon_cmd_set_param_v2_cmd {
++	struct apr_hdr hdr;
++
++	/*
++	 * Pointer to the unique identifier for an address. What type of
++	 * address? DMA? Device-specific memory? Please direct inquiries of
++	 * this type to the SoC manufacturer.
++	 *
++	 * Anyway, the most important information for this parameter is that
++	 * this field is set to zero if the data is in-band, i.e. in the same
++	 * packet.
++	 */
++	u32 mem_handle;
++
++	/*
++	 * This field is ignored if you are only paying attention to this
++	 * documentation of the fields. Otherwise, refer to your own
++	 * documentation. I did not ask for this, and will not fully document
++	 * it if its accuracy cannot be measured.
++	 */
++	u64 mem_address;
++
++	/*
++	 * Just set this to the size of the parameter data.
++	 */
++	u32 mem_size;
++
++	struct vss_icommon_param_data param_data;
++} __packed;
++
+ struct q6voice_session *q6cvp_session_create(enum q6voice_path_type path,
+ 					     u16 tx_port, u16 rx_port)
+ {
+@@ -114,6 +186,133 @@ struct q6voice_session *q6cvp_session_create(enum q6voice_path_type path,
+ }
+ EXPORT_SYMBOL_GPL(q6cvp_session_create);
+ 
++struct q6voice_session *q6cvp_session_create_v3(enum q6voice_path_type path,
++						u16 tx_port, u16 rx_port)
++{
++	/*
++	 * According to downstream, the v3 parameters are the exact same, with
++	 * the only difference being the opcode.
++	 */
++	struct vss_ivocproc_cmd_create_full_control_session_v2_cmd cmd;
++
++	cmd.hdr.pkt_size = sizeof(cmd);
++	cmd.hdr.opcode = VSS_IVOCPROC_CMD_CREATE_FULL_CONTROL_SESSION_V3;
++
++	/* TODO: Implement calibration */
++	cmd.tx_topology_id = VSS_IVOCPROC_TOPOLOGY_ID_TX_SM_ECNS;
++	cmd.rx_topology_id = VSS_IVOCPROC_TOPOLOGY_ID_RX_DEFAULT;
++
++	cmd.direction = VSS_IVOCPROC_DIRECTION_RX_TX;
++	cmd.tx_port_id = tx_port;
++	cmd.rx_port_id = rx_port;
++	cmd.profile_id = VSS_ICOMMON_CAL_NETWORK_ID_NONE;
++	cmd.vocproc_mode = VSS_IVOCPROC_VOCPROC_MODE_EC_INT_MIXING;
++	cmd.ec_ref_port_id = VSS_IVOCPROC_PORT_ID_NONE;
++
++	return q6voice_session_create(Q6VOICE_SERVICE_CVP, path, &cmd.hdr);
++}
++EXPORT_SYMBOL_GPL(q6cvp_session_create_v3);
++
++int q6cvp_send_channel_info(struct q6voice_session *cvp, bool is_tx)
++{
++	struct vss_icommon_cmd_set_param_v2_cmd cmd;
++
++	cmd.hdr.pkt_size = offsetof(struct vss_icommon_cmd_set_param_v2_cmd,
++				    param_data.channel_info)
++			 + sizeof(struct vss_param_vocproc_dev_channel_info);
++	cmd.hdr.opcode = VSS_ICOMMON_CMD_SET_PARAM_V2;
++
++	cmd.mem_handle = 0;
++	cmd.mem_size = offsetof(struct vss_icommon_param_data, channel_info)
++		     + sizeof(struct vss_param_vocproc_dev_channel_info);
++
++	cmd.param_data.module_id = VSS_MODULE_CVD_GENERIC;
++	cmd.param_data.param_id = is_tx ? VSS_PARAM_VOCPROC_TX_CHANNEL_INFO
++					: VSS_PARAM_VOCPROC_RX_CHANNEL_INFO;
++	cmd.param_data.param_size = sizeof(struct vss_param_vocproc_dev_channel_info);
++	cmd.param_data.reserved = 0;
++
++	if (is_tx)
++		cmd.param_data.channel_info.num_channels = 1;
++	else
++		cmd.param_data.channel_info.num_channels = 2;
++
++	cmd.param_data.channel_info.bits_per_sample = 16;
++	cmd.param_data.channel_info.channel_mapping[0] = 1;
++
++	if (is_tx)
++		cmd.param_data.channel_info.channel_mapping[1] = 0;
++	else
++		cmd.param_data.channel_info.channel_mapping[1] = 1;
++
++	cmd.param_data.channel_info.channel_mapping[2] = 0;
++	cmd.param_data.channel_info.channel_mapping[3] = 0;
++	cmd.param_data.channel_info.channel_mapping[4] = 0;
++	cmd.param_data.channel_info.channel_mapping[5] = 0;
++	cmd.param_data.channel_info.channel_mapping[6] = 0;
++	cmd.param_data.channel_info.channel_mapping[7] = 0;
++
++	return q6voice_common_send(cvp, &cmd.hdr);
++}
++EXPORT_SYMBOL_GPL(q6cvp_send_channel_info);
++
++int q6cvp_send_media_format(struct q6voice_session *cvp, int port_id, bool is_tx)
++{
++	struct vss_icommon_cmd_set_param_v2_cmd cmd;
++
++	cmd.hdr.pkt_size = offsetof(struct vss_icommon_cmd_set_param_v2_cmd,
++				    param_data.media_format_info)
++			 + sizeof(struct vss_param_endpoint_media_format_info);
++	cmd.hdr.opcode = VSS_ICOMMON_CMD_SET_PARAM_V2;
++
++	cmd.mem_handle = 0;
++	cmd.mem_size = offsetof(struct vss_icommon_param_data, media_format_info)
++		     + sizeof(struct vss_param_endpoint_media_format_info);
++
++	cmd.param_data.module_id = VSS_MODULE_CVD_GENERIC;
++	cmd.param_data.param_id = is_tx ? VSS_PARAM_TX_PORT_ENDPOINT_MEDIA_INFO
++					: VSS_PARAM_RX_PORT_ENDPOINT_MEDIA_INFO;
++	cmd.param_data.param_size = sizeof(struct vss_param_endpoint_media_format_info);
++	cmd.param_data.reserved = 0;
++
++	cmd.param_data.media_format_info.port_id = port_id;
++
++	if (is_tx)
++		cmd.param_data.media_format_info.num_channels = 1;
++	else
++		cmd.param_data.media_format_info.num_channels = 2;
++
++	cmd.param_data.media_format_info.bits_per_sample = 16;
++	cmd.param_data.media_format_info.sample_rate = 48000;
++	cmd.param_data.media_format_info.channel_mapping[0] = 1;
++
++	if (is_tx)
++		cmd.param_data.media_format_info.channel_mapping[1] = 0;
++	else
++		cmd.param_data.media_format_info.channel_mapping[1] = 1;
++
++	cmd.param_data.media_format_info.channel_mapping[2] = 0;
++	cmd.param_data.media_format_info.channel_mapping[3] = 0;
++	cmd.param_data.media_format_info.channel_mapping[4] = 0;
++	cmd.param_data.media_format_info.channel_mapping[5] = 0;
++	cmd.param_data.media_format_info.channel_mapping[6] = 0;
++	cmd.param_data.media_format_info.channel_mapping[7] = 0;
++
++	return q6voice_common_send(cvp, &cmd.hdr);
++}
++EXPORT_SYMBOL_GPL(q6cvp_send_media_format);
++
++int q6cvp_topology_commit(struct q6voice_session *cvp)
++{
++	struct apr_pkt cmd;
++
++	cmd.hdr.pkt_size = APR_HDR_SIZE;
++	cmd.hdr.opcode = VSS_IVOCPROC_CMD_TOPOLOGY_COMMIT;
++
++	return q6voice_common_send(cvp, &cmd.hdr);
++}
++EXPORT_SYMBOL_GPL(q6cvp_topology_commit);
++
+ int q6cvp_enable(struct q6voice_session *cvp, bool state)
+ {
+ 	struct apr_pkt cmd;
+diff --git a/sound/soc/qcom/qdsp6/q6cvp.h b/sound/soc/qcom/qdsp6/q6cvp.h
+index 1a2a5d2d597e..052e8c65963c 100644
+--- a/sound/soc/qcom/qdsp6/q6cvp.h
++++ b/sound/soc/qcom/qdsp6/q6cvp.h
+@@ -8,6 +8,11 @@ struct q6voice_session;
+ 
+ struct q6voice_session *q6cvp_session_create(enum q6voice_path_type path,
+ 					     u16 tx_port, u16 rx_port);
++struct q6voice_session *q6cvp_session_create_v3(enum q6voice_path_type path,
++						u16 tx_port, u16 rx_port);
++int q6cvp_send_channel_info(struct q6voice_session *cvp, bool is_tx);
++int q6cvp_send_media_format(struct q6voice_session *cvp, int port_id, bool is_tx);
++int q6cvp_topology_commit(struct q6voice_session *cvp);
+ int q6cvp_enable(struct q6voice_session *cvp, bool enable);
+ 
+ #endif /* _Q6_CVP_H */
+-- 
+2.53.0
+

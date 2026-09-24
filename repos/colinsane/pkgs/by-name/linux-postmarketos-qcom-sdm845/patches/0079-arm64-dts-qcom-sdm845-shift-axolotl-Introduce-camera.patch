@@ -1,0 +1,141 @@
+From 811827dc2956dcb8a225abc6fa5fb7fee5ce122a Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 18 Mar 2026 06:32:12 +0000
+Subject: [PATCH 079/194] arm64: dts: qcom: sdm845-shift-axolotl: Introduce
+ camera
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-shift-axolotl.dts    | 95 +++++++++++++++++++
+ 1 file changed, 95 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index dba6ca8a7c4b..9eae07cb7e91 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -10,6 +10,7 @@
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/leds/common.h>
++#include <dt-bindings/media/video-interfaces.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/sound/qcom,q6asm.h>
+@@ -90,6 +91,32 @@
+ 		voltage-max-design-microvolt = <4400000>;
+ 	};
+ 
++	camera_rear_avdd: camera-rear-avdd-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "camera_rear_avdd";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		startup-delay-us = <135>;
++		enable-active-high;
++		gpios = <&tlmm 27 GPIO_ACTIVE_HIGH>;
++
++		vin-supply = <&vreg_bob>;
++	};
++
++	camera_rear_dvdd: camera-rear-dvdd-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "camera_rear_dvdd";
++		regulator-min-microvolt = <1050000>;
++		regulator-max-microvolt = <1050000>;
++		startup-delay-us = <135>;
++		enable-active-high;
++		gpios = <&pm8998_gpios 12 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&camera_rear_dvdd_n_default>;
++		pinctrl-names = "default";
++		vin-supply = <&vreg_s3a_1p35>;
++	};
++
+ 	vph_pwr: vph-pwr-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vph_pwr";
+@@ -419,6 +446,67 @@
+ 	status = "okay";
+ };
+ 
++&camss {
++	vdda-phy-supply = <&vreg_l1a_0p875>;
++	vdda-pll-supply = <&vdda_mipi_csi_1p25>;
++
++	vdda-csi0-supply = <&vdda_mipi_csi0_0p9>;
++	vdda-csi1-supply = <&vdda_mipi_csi1_0p9>;
++	vdda-csi2-supply = <&vdda_mipi_csi2_0p9>;
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++			csiphy0_ep: endpoint {
++				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&rear_camera_ep>;
++			};
++		};
++	};
++};
++
++&cci {
++	status = "okay";
++};
++
++&cci_i2c0 {
++	rear_camera: camera@1a {
++		compatible = "sony,imx519";
++		reg = <0x1a>;
++
++		vcore-supply = <&camera_rear_dvdd>;
++		vana-supply = <&camera_rear_avdd>;
++		vio-supply = <&vreg_lvs1a_1p8>;
++
++		clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++		clock-names = "mclk";
++		assigned-clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++		assigned-clock-rates = <24000000>;
++
++		reset-gpios = <&tlmm 80 GPIO_ACTIVE_LOW>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&cam_mclk0_default>;
++
++		orientation = <1>;
++		rotation = <270>;
++
++		port {
++			rear_camera_ep: endpoint {
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <740000000>;
++				remote-endpoint = <&csiphy0_ep>;
++			};
++		};
++	};
++};
++
+ &gcc {
+ 	protected-clocks = <GCC_QSPI_CORE_CLK>,
+ 			   <GCC_QSPI_CORE_CLK_SRC>,
+@@ -531,6 +619,13 @@
+ };
+ 
+ &pm8998_gpios {
++	camera_rear_dvdd_n_default: camera-rear-dvdd-n-default-pins {
++		pins = "gpio12";
++		function = "normal";
++		power-source = <0>; // PM8998_GPIO_VPH? TODO: add include
++		output-low;
++	};
++
+ 	volume_up_gpio: pm8998-gpio6-state {
+ 		pinconf {
+ 			pins = "gpio6";
+-- 
+2.53.0
+

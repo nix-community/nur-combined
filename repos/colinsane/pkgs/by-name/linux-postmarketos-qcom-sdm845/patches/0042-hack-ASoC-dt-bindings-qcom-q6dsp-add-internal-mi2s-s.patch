@@ -1,0 +1,176 @@
+From 5de302ed8a0745451856bb285b9fae0527328ded Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Fri, 18 Aug 2023 18:46:43 -0400
+Subject: [PATCH 042/194] hack! ASoC: dt-bindings: qcom: q6dsp: add internal
+ mi2s support
+
+The internal MI2S ports are found on devices with the internal sound
+card for Snapdragon 660. Add support for them.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ .../sound/qcom,q6dsp-lpass-ports.yaml         | 63 +++++++++----------
+ .../sound/qcom,q6dsp-lpass-ports.h            | 14 +++++
+ 2 files changed, 43 insertions(+), 34 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+index 2b27d6c8f58f..f45c3324393e 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+@@ -17,31 +17,28 @@ properties:
+     enum:
+       - qcom,q6afe-dais
+ 
+-  '#sound-dai-cells':
++  "#sound-dai-cells":
+     const: 1
+ 
+-  '#address-cells':
++  "#address-cells":
+     const: 1
+ 
+-  '#size-cells':
++  "#size-cells":
+     const: 0
+ 
+ # Digital Audio Interfaces
+ patternProperties:
+-  '^dai@[0-9]+$':
++  "^dai@[0-9]+$":
+     type: object
+-    description:
+-      Q6DSP Digital Audio Interfaces.
++    description: Q6DSP Digital Audio Interfaces.
+ 
+     properties:
+       reg:
+-        description:
+-          Digital Audio Interface ID
++        description: Digital Audio Interface ID
+ 
+       qcom,sd-lines:
+         $ref: /schemas/types.yaml#/definitions/uint32-array
+-        description:
+-          List of serial data lines used by this dai.should be one or more of the 0-3 sd lines.
++        description: List of serial data lines used by this dai.should be one or more of the 0-3 sd lines.
+         minItems: 1
+         maxItems: 4
+         uniqueItems: true
+@@ -52,44 +49,39 @@ patternProperties:
+       qcom,tdm-sync-mode:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         enum: [0, 1, 2]
+-        description:
+-          TDM Synchronization mode
+-            0 = Short sync bit mode
+-            1 = Long sync mode
+-            2 = Short sync slot mode
++        description: TDM Synchronization mode
++          0 = Short sync bit mode
++          1 = Long sync mode
++          2 = Short sync slot mode
+ 
+       qcom,tdm-sync-src:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         enum: [0, 1]
+-        description:
+-          TDM Synchronization source
+-            0 = External source
+-            1 = Internal source
++        description: TDM Synchronization source
++          0 = External source
++          1 = Internal source
+ 
+       qcom,tdm-data-out:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         enum: [0, 1]
+-        description:
+-          TDM Data out signal to drive with other masters
+-            0 = Disable
+-            1 = Enable
++        description: TDM Data out signal to drive with other masters
++          0 = Disable
++          1 = Enable
+ 
+       qcom,tdm-invert-sync:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         enum: [0, 1]
+-        description:
+-          TDM Invert the sync
+-            0 = Normal
+-            1 = Invert
++        description: TDM Invert the sync
++          0 = Normal
++          1 = Invert
+ 
+       qcom,tdm-data-delay:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         enum: [0, 1, 2]
+-        description:
+-          TDM Number of bit clock to delay data
+-            0 = 0 bit clock cycle
+-            1 = 1 bit clock cycle
+-            2 = 2 bit clock cycle
++        description: TDM Number of bit clock to delay data
++          0 = 0 bit clock cycle
++          1 = 1 bit clock cycle
++          2 = 2 bit clock cycle
+ 
+       qcom,tdm-data-align:
+         $ref: /schemas/types.yaml#/definitions/uint32
+@@ -97,8 +89,8 @@ patternProperties:
+         description:
+           Indicate how data is packed within the slot. For example, 32 slot
+           width in case of sample bit width is 24TDM Invert the sync.
+-            0 = MSB
+-            1 = LSB
++          0 = MSB
++          1 = LSB
+ 
+     required:
+       - reg
+@@ -128,6 +120,7 @@ patternProperties:
+                 # MI2S DAI ID range PRIMARY_MI2S_RX - QUATERNARY_MI2S_TX and
+                 # QUINARY_MI2S_RX - QUINARY_MI2S_TX and
+                 # LPI_MI2S_RX_0 - SENARY_MI2S_TX
++                # INT0_MI2S_RX - INT6_MI2S_TX
+                 items:
+                   oneOf:
+                     - minimum: 16
+@@ -136,6 +129,8 @@ patternProperties:
+                       maximum: 128
+                     - minimum: 137
+                       maximum: 148
++                    - minimum: 149
++                      maximum: 162
+         then:
+           required:
+             - qcom,sd-lines
+diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+index 45850f2d4342..059f2ea1bd23 100644
+--- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
++++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+@@ -152,6 +152,20 @@
+ #define LPI_MI2S_TX_4		146
+ #define SENARY_MI2S_RX		147
+ #define SENARY_MI2S_TX		148
++#define INT0_MI2S_RX		149
++#define INT0_MI2S_TX		150
++#define INT1_MI2S_RX		151
++#define INT1_MI2S_TX		152
++#define INT2_MI2S_RX		153
++#define INT2_MI2S_TX		154
++#define INT3_MI2S_RX		155
++#define INT3_MI2S_TX		156
++#define INT4_MI2S_RX		157
++#define INT4_MI2S_TX		158
++#define INT5_MI2S_RX		159
++#define INT5_MI2S_TX		160
++#define INT6_MI2S_RX		161
++#define INT6_MI2S_TX		162
+ 
+ #define LPASS_CLK_ID_PRI_MI2S_IBIT	1
+ #define LPASS_CLK_ID_PRI_MI2S_EBIT	2
+-- 
+2.53.0
+

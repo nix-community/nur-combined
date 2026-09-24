@@ -1,0 +1,52 @@
+From 88bf32f8d0c530286d1e93d94e3d95a59e0ab5f5 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sat, 14 Feb 2026 16:38:51 +0100
+Subject: [PATCH 131/194] dt-bindings: input: touchscreen: st,stmfts: Introduce
+ STM FTS5
+
+Introduce more recent STM FTS5 touchscreen support.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../bindings/input/touchscreen/st,stmfts.yaml     | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+index 64c4f24ea3dd..441fc92b9a4e 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+@@ -16,10 +16,19 @@ description:
+ 
+ allOf:
+   - $ref: touchscreen.yaml#
++  - if:
++      properties:
++        compatible:
++          const: st,stmfts5
++    then:
++      required:
++        - mode-switch-gpios
+ 
+ properties:
+   compatible:
+-    const: st,stmfts
++    enum:
++      - st,stmfts
++      - st,stmfts5
+ 
+   reg:
+     maxItems: 1
+@@ -40,6 +49,10 @@ properties:
+   vdd-supply:
+     description: Power supply
+ 
++  mode-switch-gpios:
++    description: Switch between touchscreen SLPI and AP mode.
++    maxItems: 1
++
+   reset-gpios:
+     description: Reset GPIO (active-low)
+     maxItems: 1
+-- 
+2.53.0
+

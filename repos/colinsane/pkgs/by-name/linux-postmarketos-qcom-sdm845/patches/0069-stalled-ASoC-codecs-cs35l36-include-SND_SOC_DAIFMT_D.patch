@@ -1,0 +1,28 @@
+From 0a0e00d4f17cbb2fee72b24b66b97c1a712a2740 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Tue, 27 Aug 2024 21:25:16 -0500
+Subject: [PATCH 069/194] stalled! ASoC: codecs: cs35l36: include
+ SND_SOC_DAIFMT_DSP_B support
+
+Tested in Google Pixel 3. Both SND_SOC_DAIFMT_DSP_A and SND_SOC_DAIFMT_DSP_B works fine.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ sound/soc/codecs/cs35l36.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
+index 93818d7ec1a7..0218f7f964df 100644
+--- a/sound/soc/codecs/cs35l36.c
++++ b/sound/soc/codecs/cs35l36.c
+@@ -793,6 +793,7 @@ static int cs35l36_set_dai_fmt(struct snd_soc_dai *component_dai,
+ 
+ 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+ 	case SND_SOC_DAIFMT_DSP_A:
++	case SND_SOC_DAIFMT_DSP_B:
+ 		asp_fmt = 0;
+ 		break;
+ 	case SND_SOC_DAIFMT_I2S:
+-- 
+2.53.0
+

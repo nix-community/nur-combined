@@ -1,0 +1,28 @@
+From 9235b0c0a32636606eae60a7016e8b69b36e7c75 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Tue, 28 Apr 2026 17:42:31 -0500
+Subject: [PATCH 182/194] HACK! drm/panel: sw43408: skip unprepare
+
+Workaround panel re-enable bug where panel wont turn on once turned off. Might lead to extra power consumption.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ drivers/gpu/drm/panel/panel-lg-sw43408.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+index 43f0c9f1b7fd..8552efea6d35 100644
+--- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
++++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+@@ -220,7 +220,7 @@ static int sw43408_backlight_init(struct sw43408_panel *ctx)
+ static const struct drm_panel_funcs sw43408_funcs = {
+ 	.disable = sw43408_disable,
+ 	.enable = sw43408_enable,
+-	.unprepare = sw43408_unprepare,
++	// .unprepare = sw43408_unprepare,
+ 	.prepare = sw43408_prepare,
+ 	.get_modes = sw43408_get_modes,
+ };
+-- 
+2.53.0
+

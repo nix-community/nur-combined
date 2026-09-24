@@ -1,0 +1,33 @@
+From 1901603c75a6294edf6f94dbc094b0749655cdc3 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 17 Dec 2025 11:30:50 +0100
+Subject: [PATCH 065/194] EDITME: cover title for axolotl-misc
+
+Misc SHIFT 6MQ (axolotl) improvements.
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Casey Connolly <casey.connolly@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes v1:
+ - Put into right order i2c frequency commit. (David)
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20251217-axolotl-misc-1d33073b3c23",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

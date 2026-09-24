@@ -1,0 +1,91 @@
+From e2bea7468fa04ba634356ddf6f4e4bee64e1b2e0 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sat, 14 Feb 2026 16:40:37 +0100
+Subject: [PATCH 122/194] Input: support for STM FTS5
+
+Used on various phones. Minimal basic support.
+
+Includes device-tree enabling touchscreen on Pixel 3.
+
+Sending as WIP, as not all comments we're addressed, but please feel
+free to apply any patch which does look ready for inclusion.
+
+What is missing:
+ - switching between AP and SLPI mode (to be able to wake up phone by touch)
+ - firmware loading
+ - anything above basic touch
+
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Henrik Rydberg <rydberg@bitmath.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>
+Cc: linux-input@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+---
+TODO for v4:
+- wrap everything below enabling the supplies into stmfts_configure()
+  to avoid bunch of gotos to power off on error? (Dmitry T.)
+- finish chip specific ops and potentinally remove is_fts5. (Dmitry T.)
+
+Changes in v4:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://lore.kernel.org/r/20260403-stmfts5-v3-0-5da768cfd201@ixit.cz
+
+Changes in v3:
+- s/touchscreen_pins/touchscreen_irq_n. (Konrad)
+- Use interrupts-extended. (Konrad)
+- Fixed rebase conflict against 8665ceb926ec ("Input: stmfts - use guard notation when acquiring mutex")
+- Rename switch-gpios to mode-switch-gpios.
+- Do not define properties in if:then: branches. (Krzysztof)
+- Link to v2: https://lore.kernel.org/r/20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz
+
+Changes in v2:
+- Fix typo in the binding s/switch-gpio/switch-gpios/.
+- Deduplacate allOf. (Rob yamllint)
+- Add missing S-off-by. (Dmitry B.)
+- Dropped irq-gpios as it's not needed. (Konrad)
+- Correct x and y touchscreen area size. (Konrad)
+- Correct reset introduction commit description. (Krzysztof)
+- Partially implemented chip specific ops. (Dmitry T.)
+- Separeted license naming cleanup into separate commit (Dmitry T.)
+- Link to v1: https://lore.kernel.org/r/20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 4,
+    "change-id": "20260214-stmfts5-b47311fbd732",
+    "prefixes": [
+      "WIP"
+    ],
+    "history": {
+      "v1": [
+        "20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz"
+      ],
+      "v2": [
+        "20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz"
+      ],
+      "v3": [
+        "20260403-stmfts5-v3-0-5da768cfd201@ixit.cz"
+      ]
+    }
+  }
+}
+-- 
+2.53.0
+

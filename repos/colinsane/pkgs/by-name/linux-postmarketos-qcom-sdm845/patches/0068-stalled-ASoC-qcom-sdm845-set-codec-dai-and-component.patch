@@ -1,0 +1,52 @@
+From 5b072ad4da40669353933282488622389c64d562 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Tue, 27 Aug 2024 20:26:01 -0500
+Subject: [PATCH 068/194] stalled! ASoC: qcom: sdm845: set codec dai and
+ component sysclk during startup
+
+The cs35l36 codec needs the codec dai and component sysclk to be set here.
+Downstream android sdm845 machine driver does this too.
+Shouldn't affect any other devices unless it uses TDM RX0 and the codec
+doesn't like sysclk being set at this point. Mostly this shouldn't be an issue.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ sound/soc/qcom/sdm845.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+index 0ce9dff4dc52..cd8b2d43ad3a 100644
+--- a/sound/soc/qcom/sdm845.c
++++ b/sound/soc/qcom/sdm845.c
+@@ -406,6 +406,28 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
+ 					return ret;
+ 				}
+ 			}
++
++			// The cs35l36 codec needs the codec dai and component sysclk to be set here.
++			// Downstream android sdm845 machine driver does this too.
++			// Shouldn't affect any other devices unless it uses TDM RX0 and the codec
++			// doesn't like sysclk being set at this point. Mostly this shouldn't be an issue.
++			ret = snd_soc_dai_set_sysclk(codec_dai, 0,
++				     TDM_BCLK_RATE,
++				     SND_SOC_CLOCK_IN);
++			if (ret < 0) {
++				dev_err(codec_dai->dev,
++					"Failed to set codec dai sysclk: %d\n", ret);
++				return ret;
++			}
++
++			ret = snd_soc_component_set_sysclk(codec_dai->component, 0, 0,
++					TDM_BCLK_RATE,
++					SND_SOC_CLOCK_IN);
++			if (ret < 0) {
++				dev_err(codec_dai->dev,
++					"Failed to set codec component sysclk: %d\n", ret);
++				return ret;
++			}
+ 		}
+ 		break;
+ 	case SLIMBUS_0_RX...SLIMBUS_6_TX:
+-- 
+2.53.0
+

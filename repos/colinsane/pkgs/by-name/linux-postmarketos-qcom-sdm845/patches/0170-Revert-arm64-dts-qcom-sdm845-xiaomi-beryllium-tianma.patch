@@ -1,0 +1,32 @@
+From baea8f63b4153c408438ca451715c4ab2015b5a0 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Tue, 28 Apr 2026 00:39:24 -0500
+Subject: [PATCH 170/194] Revert "arm64: dts: qcom:
+ sdm845-xiaomi-beryllium-tianma: Disable MDSS"
+
+This reverts commit b75381b318fc0a3db8d767c790a766740e21aa7d.
+---
+ .../boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts   | 10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
+index f8ed28e95e76..71816a9f33b4 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
+@@ -36,13 +36,3 @@
+ 		touchscreen-size-y = <2246>;
+ 	};
+ };
+-
+-&dispcc {
+-	/* Disable for now so simple-framebuffer continues working */
+-	status = "disabled";
+-};
+-
+-&mdss {
+-	/* Disable for now so simple-framebuffer continues working */
+-	status = "disabled";
+-};
+-- 
+2.53.0
+

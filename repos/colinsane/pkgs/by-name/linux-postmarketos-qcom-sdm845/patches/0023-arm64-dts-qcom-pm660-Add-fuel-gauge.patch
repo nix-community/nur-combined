@@ -1,0 +1,38 @@
+From 45feabddd8bdbddf59a938505d6f6832c5964326 Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Thu, 29 Sep 2022 19:50:28 -0400
+Subject: [PATCH 023/194] arm64: dts: qcom: pm660: Add fuel gauge
+
+The PM660 has the same fuel gauge as PMI8998. Add support for
+PM660 battery monitoring.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/pm660.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/pm660.dtsi b/arch/arm64/boot/dts/qcom/pm660.dtsi
+index 156b2ddff0dc..ce53f5ddc4bd 100644
+--- a/arch/arm64/boot/dts/qcom/pm660.dtsi
++++ b/arch/arm64/boot/dts/qcom/pm660.dtsi
+@@ -197,6 +197,16 @@
+ 			};
+ 		};
+ 
++		pm660_fg: fuel-gauge@4000 {
++			compatible = "qcom,pmi8998-fg";
++			reg = <0x4000>;
++
++			interrupts = <0x0 0x40 0x3 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "soc-delta";
++
++			status = "disabled";
++		};
++
+ 		pm660_rradc: adc@4500 {
+ 			compatible = "qcom,pm660-rradc";
+ 			reg = <0x4500>;
+-- 
+2.53.0
+

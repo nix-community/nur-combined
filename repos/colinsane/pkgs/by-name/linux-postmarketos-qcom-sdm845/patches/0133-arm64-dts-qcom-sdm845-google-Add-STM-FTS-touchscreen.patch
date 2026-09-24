@@ -1,0 +1,63 @@
+From f637f24cceadbdece55b2e9b297e658f8c30fe60 Mon Sep 17 00:00:00 2001
+From: Petr Hodina <petr.hodina@protonmail.com>
+Date: Tue, 18 Nov 2025 10:57:12 +0100
+Subject: [PATCH 133/194] arm64: dts: qcom: sdm845-google: Add STM FTS
+ touchscreen support
+
+Basic touchscreen connected to second i2c bus.
+
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+Co-developed-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-google-blueline.dts  | 19 ++++++++++++++++++-
+ .../boot/dts/qcom/sdm845-google-common.dtsi   |  2 +-
+ 2 files changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+index fa89be500fb8..8fb988130b55 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+@@ -26,7 +26,24 @@
+ 
+ 	status = "okay";
+ 
+-	/* ST,FTS @ 49 */
++	touchscreen@49 {
++		compatible = "st,stmfts5";
++		reg = <0x49>;
++
++		pinctrl-0 = <&touchscreen_irq_n>, <&touchscreen_reset>;
++		pinctrl-names = "default";
++
++		interrupts-extended = <&tlmm 125 IRQ_TYPE_LEVEL_LOW>;
++
++		mode-switch-gpios = <&tlmm 136 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
++
++		avdd-supply = <&vreg_l14a_1p8>;
++		vdd-supply = <&vreg_l19a_3p3>;
++
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <2160>;
++	};
+ };
+ 
+ &mdss_dsi0 {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 0fd5e4bb33ca..113ea6671c29 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -504,7 +504,7 @@
+ 		bias-pull-up;
+ 	};
+ 
+-	touchscreen_pins: ts-pins-gpio-state {
++	touchscreen_irq_n: ts-irq-n-gpio-state {
+ 		pins = "gpio125";
+ 		function = "gpio";
+ 		drive-strength = <2>;
+-- 
+2.53.0
+

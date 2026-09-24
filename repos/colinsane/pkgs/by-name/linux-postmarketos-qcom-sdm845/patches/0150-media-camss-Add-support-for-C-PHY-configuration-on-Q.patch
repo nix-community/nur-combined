@@ -1,0 +1,104 @@
+From b99105a1890f10d1a5e27638f564d1ed2b424742 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sun, 9 Nov 2025 09:52:01 +0100
+Subject: [PATCH 150/194] media: camss: Add support for C-PHY configuration on
+ Qualcomm platforms
+
+># Short summary
+
+This patch series extends the Qualcomm CAMSS (Camera Subsystem),
+including CSID and CSIPHY components, to support C-PHY mode configuration.
+
+># Background and motivation
+
+Modern smartphone cameras increasingly rely on MIPI C-PHY rather than D-PHY,
+thanks to its higher data throughput and signal efficiency. As a result,
+many OEMs adopt C-PHY interfaces for main (rear) cameras on Qualcomm-based
+devices.
+
+Until now, mainline Linux lacked C-PHY configuration support for Qualcomm
+chipsets, preventing bring-up of primary camera sensors on several
+Snapdragon platforms. This series closes that gap.
+
+ - Introduces C-PHY configuration support for the CAMSS driver stack,
+   covering both CSID and CSIPHY blocks.
+ - Successfully enables C-PHY operation on the Snapdragon 845 platform.
+ - Tested on OnePlus 6 and 6T phones running mainline Linux,
+   using the Sony IMX519 main camera sensor.
+ - The new configuration allows other chipsets versionsto enable C-PHY by
+   simply adding corresponding sensor driver support and csiphy
+   initialization data, following the example set for sdm845.
+
+With this patch series, mainline Linux gains working C-PHY support for
+Snapdragon 845, paving the way for improved main camera functionality
+across many Qualcomm-based devices. The groundwork also simplifies
+future enablement efforts for additional SoCs and sensors.
+
+Until merged, the series will be also available at:
+  https://gitlab.com/sdm845/sdm845-next/-/commits/b4/qcom-cphy
+
+To: Robert Foss <rfoss@kernel.org>
+To: Todor Tomov <todor.too@gmail.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Luca Weiss <luca.weiss@fairphone.com>
+To: Petr Hodina <phodina@protonmail.com>
+To: Casey Connolly <casey.connolly@linaro.org>
+To: Dr. Git <drgitx@gmail.com>
+Cc: Joel Selvaraj <foss@joelselvaraj.com>
+Cc: Kieran Bingham <kbingham@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+---
+Changes in v3:
+- Parse device-tree properties much early in the process, so the subdev
+  init has already filled structs with data.
+- Moved C/D-PHY configuration back to the _init.
+- Link to v2: https://lore.kernel.org/r/20251204-qcom-cphy-v2-0-6b35ef8b071e@ixit.cz
+
+Changes in v2:
+- [NOTE] This is still WIP patch series, thus I wanted to publish already
+  changed parts to get feedback regarding to the direction of patchset.  [/NOTE]
+- When switch to using odd bits, zeroed val which was left unitialized in v1.
+- Accidentally missed archs added back in the commit moving lane regs to
+  new location.
+- Remove commit with reverting check for only D-PHY is supported and
+  adjusted the check to also account for C-PHY.
+- Documented link frequency calculation with defines. (Casey)
+- Changed the cphy boolean to phy_cfg enum in the camss/camss-csiphy.
+  (Brian)
+- Added patch for csiphy-3ph enablement for sm7280 from Luca as I'm
+  meanwhile trying to bring up the C-PHY sensor on FairPhone 5.
+- Merged these two commits together
+    csiphy-3ph: Enable sdm845 C-PHY sequence
+    csiphy-3ph: Add Gen2 v1.1 MIPI CSI-2 CPHY init
+  merged R-b.
+- Link to v1: https://lore.kernel.org/r/20251109-qcom-cphy-v1-0-165f7e79b0e1@ixit.cz
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 3,
+    "change-id": "20251109-qcom-cphy-bb8cbda1c644",
+    "prefixes": [
+      "WIP"
+    ],
+    "history": {
+      "v1": [
+        "20251109-qcom-cphy-v1-0-165f7e79b0e1@ixit.cz"
+      ],
+      "v2": [
+        "20251204-qcom-cphy-v2-0-6b35ef8b071e@ixit.cz"
+      ]
+    }
+  }
+}
+-- 
+2.53.0
+

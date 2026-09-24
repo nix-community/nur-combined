@@ -1,0 +1,148 @@
+From 2a53e9b74de7a8737e59115d3202e82f2a198083 Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 11 Sep 2023 21:50:54 -0400
+Subject: [PATCH 051/194] hack! ASoC: qdsp6: q6voice: add cvd 2.3
+ initialization sequence
+
+Some platforms such as SDM670 have CVD version 2.3. This version
+requires different commands to run on creation. Add the initialization
+sequence for this version, using a device tree property to determine
+which sequence to run.
+
+No-submit: detect the params (channels, bit width, sample rate)
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6voice-dai.c |  6 +++-
+ sound/soc/qcom/qdsp6/q6voice.c     | 47 +++++++++++++++++++++++++++---
+ sound/soc/qcom/qdsp6/q6voice.h     |  2 +-
+ 3 files changed, 49 insertions(+), 6 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6voice-dai.c b/sound/soc/qcom/qdsp6/q6voice-dai.c
+index f5087c2c0545..ca8ddf929ef4 100644
+--- a/sound/soc/qcom/qdsp6/q6voice-dai.c
++++ b/sound/soc/qcom/qdsp6/q6voice-dai.c
+@@ -481,8 +481,12 @@ static int q6voice_dai_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct q6voice *v;
++	struct device_node *np = dev_of_node(dev);
++	bool cvd_v2_3;
+ 
+-	v = q6voice_create(dev);
++	cvd_v2_3 = of_property_read_bool(np, "qcom,cvd-v2.3");
++
++	v = q6voice_create(dev, cvd_v2_3);
+ 	if (IS_ERR(v))
+ 		return PTR_ERR(v);
+ 
+diff --git a/sound/soc/qcom/qdsp6/q6voice.c b/sound/soc/qcom/qdsp6/q6voice.c
+index 26481dfdc271..18b0581f63b6 100644
+--- a/sound/soc/qcom/qdsp6/q6voice.c
++++ b/sound/soc/qcom/qdsp6/q6voice.c
+@@ -23,6 +23,7 @@ struct q6voice_path {
+ 
+ 	enum q6voice_path_type type;
+ 	int tx_port, rx_port;
++	u32 tx_topo, rx_topo;
+ 	/* Serialize access to voice path session */
+ 	struct mutex lock;
+ 	struct q6voice_path_runtime *runtime;
+@@ -30,9 +31,37 @@ struct q6voice_path {
+ 
+ struct q6voice {
+ 	struct device *dev;
++	bool cvd_v2_3;
+ 	struct q6voice_path paths[Q6VOICE_PATH_COUNT];
+ };
+ 
++static inline struct q6voice_session *session_create(enum q6voice_path_type type,
++						     int tx_port, int rx_port)
++{
++	return q6cvp_session_create(type, tx_port, rx_port);
++}
++
++static struct q6voice_session *session_create_v3(enum q6voice_path_type type,
++						 int tx_port, int rx_port,
++						 u32 tx_topo, u32 rx_topo)
++{
++	struct q6voice_session *cvp;
++
++	cvp = q6cvp_session_create_v3(type, tx_port, rx_port);
++	if (cvp == NULL)
++		return NULL;
++
++	q6cvp_send_channel_info(cvp, false);
++	q6cvp_send_channel_info(cvp, true);
++
++	q6cvp_send_media_format(cvp, rx_port, false);
++	q6cvp_send_media_format(cvp, tx_port, true);
++
++	q6cvp_topology_commit(cvp);
++
++	return cvp;
++}
++
+ static int q6voice_path_start(struct q6voice_path *p)
+ {
+ 	struct device *dev = p->v->dev;
+@@ -51,9 +80,16 @@ static int q6voice_path_start(struct q6voice_path *p)
+ 
+ 	cvp = p->runtime->sessions[Q6VOICE_SERVICE_CVP];
+ 	if (!cvp) {
+-		cvp = q6cvp_session_create(p->type,
+-					   q6afe_get_port_id(p->tx_port),
+-					   q6afe_get_port_id(p->rx_port));
++		if (p->v->cvd_v2_3)
++			cvp = session_create_v3(p->type,
++						q6afe_get_port_id(p->tx_port),
++						q6afe_get_port_id(p->rx_port),
++						p->tx_topo, p->rx_topo);
++		else
++			cvp = session_create(p->type,
++					     q6afe_get_port_id(p->tx_port),
++					     q6afe_get_port_id(p->rx_port));
++
+ 		if (IS_ERR(cvp))
+ 			return PTR_ERR(cvp);
+ 		p->runtime->sessions[Q6VOICE_SERVICE_CVP] = cvp;
+@@ -208,7 +244,7 @@ static void q6voice_free(void *data)
+ 	}
+ }
+ 
+-struct q6voice *q6voice_create(struct device *dev)
++struct q6voice *q6voice_create(struct device *dev, bool cvd_v2_3)
+ {
+ 	struct q6voice *v;
+ 	enum q6voice_path_type path;
+@@ -219,12 +255,15 @@ struct q6voice *q6voice_create(struct device *dev)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	v->dev = dev;
++	v->cvd_v2_3 = cvd_v2_3;
+ 
+ 	for (path = 0; path < Q6VOICE_PATH_COUNT; ++path) {
+ 		struct q6voice_path *p = &v->paths[path];
+ 
+ 		p->v = v;
+ 		p->type = path;
++		p->tx_topo = VSS_IVOCPROC_TOPOLOGY_ID_TX_SM_ECNS;
++		p->rx_topo = VSS_IVOCPROC_TOPOLOGY_ID_RX_DEFAULT;
+ 		mutex_init(&p->lock);
+ 	}
+ 
+diff --git a/sound/soc/qcom/qdsp6/q6voice.h b/sound/soc/qcom/qdsp6/q6voice.h
+index 12f9294f127f..8ddc7ecfa842 100644
+--- a/sound/soc/qcom/qdsp6/q6voice.h
++++ b/sound/soc/qcom/qdsp6/q6voice.h
+@@ -16,7 +16,7 @@ enum q6voice_path_type {
+ 
+ struct q6voice;
+ 
+-struct q6voice *q6voice_create(struct device *dev);
++struct q6voice *q6voice_create(struct device *dev, bool cvd_v2_3);
+ int q6voice_start(struct q6voice *v, enum q6voice_path_type path, bool capture);
+ int q6voice_stop(struct q6voice *v, enum q6voice_path_type path, bool capture);
+ 
+-- 
+2.53.0
+

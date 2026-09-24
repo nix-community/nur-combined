@@ -1,0 +1,117 @@
+From 704a63ba589e8cab6dae7adc73fa0aaacc0d8aab Mon Sep 17 00:00:00 2001
+From: Vincent Knecht <vincent.knecht@mailoo.org>
+Date: Tue, 28 Sep 2021 20:03:13 +0200
+Subject: [PATCH 037/194] hack! ASoC: qdsp6: q6voice: Add getter/setter for rx
+ and tx ports
+
+Add function to get and set RX/TX ports and use those
+to un-hardcode the ports set in q6cvp_session_create() call.
+
+Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
+[use bool capture instead of enum similar to q6voice_start(),
+ add path parameter]
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+(cherry picked from commit 6599fc6fa4acd85e66e3238a0a46ccf20cff00ff)
+Link: https://github.com/msm8916-mainline/linux
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6voice.c | 42 +++++++++++++++++++++++-----------
+ sound/soc/qcom/qdsp6/q6voice.h |  5 ++++
+ 2 files changed, 34 insertions(+), 13 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6voice.c b/sound/soc/qcom/qdsp6/q6voice.c
+index 2ecd71a16adf..26481dfdc271 100644
+--- a/sound/soc/qcom/qdsp6/q6voice.c
++++ b/sound/soc/qcom/qdsp6/q6voice.c
+@@ -7,21 +7,12 @@
+ #include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
++#include "q6afe.h"
+ #include "q6cvp.h"
+ #include "q6cvs.h"
+ #include "q6mvm.h"
+ #include "q6voice-common.h"
+ 
+-/* FIXME: Remove */
+-#define AFE_PORT_ID_PRIMARY_MI2S_RX         0x1000
+-#define AFE_PORT_ID_PRIMARY_MI2S_TX         0x1001
+-#define AFE_PORT_ID_SECONDARY_MI2S_RX       0x1002
+-#define AFE_PORT_ID_SECONDARY_MI2S_TX       0x1003
+-#define AFE_PORT_ID_TERTIARY_MI2S_RX        0x1004
+-#define AFE_PORT_ID_TERTIARY_MI2S_TX        0x1005
+-#define AFE_PORT_ID_QUATERNARY_MI2S_RX      0x1006
+-#define AFE_PORT_ID_QUATERNARY_MI2S_TX      0x1007
+-
+ struct q6voice_path_runtime {
+ 	struct q6voice_session *sessions[Q6VOICE_SERVICE_COUNT];
+ 	unsigned int started;
+@@ -31,6 +22,7 @@ struct q6voice_path {
+ 	struct q6voice *v;
+ 
+ 	enum q6voice_path_type type;
++	int tx_port, rx_port;
+ 	/* Serialize access to voice path session */
+ 	struct mutex lock;
+ 	struct q6voice_path_runtime *runtime;
+@@ -59,9 +51,9 @@ static int q6voice_path_start(struct q6voice_path *p)
+ 
+ 	cvp = p->runtime->sessions[Q6VOICE_SERVICE_CVP];
+ 	if (!cvp) {
+-		/* FIXME: Stop hardcoding */
+-		cvp = q6cvp_session_create(p->type, AFE_PORT_ID_TERTIARY_MI2S_TX,
+-					   AFE_PORT_ID_PRIMARY_MI2S_RX);
++		cvp = q6cvp_session_create(p->type,
++					   q6afe_get_port_id(p->tx_port),
++					   q6afe_get_port_id(p->rx_port));
+ 		if (IS_ERR(cvp))
+ 			return PTR_ERR(cvp);
+ 		p->runtime->sessions[Q6VOICE_SERVICE_CVP] = cvp;
+@@ -244,6 +236,30 @@ struct q6voice *q6voice_create(struct device *dev)
+ }
+ EXPORT_SYMBOL_GPL(q6voice_create);
+ 
++int q6voice_get_port(struct q6voice *v, enum q6voice_path_type path,
++		     bool capture)
++{
++	struct q6voice_path *p = &v->paths[path];
++
++	if (capture)
++		return p->tx_port;
++	else
++		return p->rx_port;
++}
++EXPORT_SYMBOL_GPL(q6voice_get_port);
++
++void q6voice_set_port(struct q6voice *v, enum q6voice_path_type path,
++		      bool capture, int index)
++{
++	struct q6voice_path *p = &v->paths[path];
++
++	if (capture)
++		p->tx_port = index;
++	else
++		p->rx_port = index;
++}
++EXPORT_SYMBOL_GPL(q6voice_set_port);
++
+ MODULE_AUTHOR("Stephan Gerhold <stephan@gerhold.net>");
+ MODULE_DESCRIPTION("Q6Voice driver");
+ MODULE_LICENSE("GPL");
+diff --git a/sound/soc/qcom/qdsp6/q6voice.h b/sound/soc/qcom/qdsp6/q6voice.h
+index 38f9fe38e628..e2f1e43a0360 100644
+--- a/sound/soc/qcom/qdsp6/q6voice.h
++++ b/sound/soc/qcom/qdsp6/q6voice.h
+@@ -20,4 +20,9 @@ struct q6voice *q6voice_create(struct device *dev);
+ int q6voice_start(struct q6voice *v, enum q6voice_path_type path, bool capture);
+ int q6voice_stop(struct q6voice *v, enum q6voice_path_type path, bool capture);
+ 
++int q6voice_get_port(struct q6voice *v, enum q6voice_path_type path,
++		     bool capture);
++void q6voice_set_port(struct q6voice *v, enum q6voice_path_type path,
++		      bool capture, int index);
++
+ #endif /* _Q6_VOICE_H */
+-- 
+2.53.0
+

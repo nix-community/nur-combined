@@ -1,0 +1,57 @@
+From e4766e848a63134348262e9af884d2f08d790fe1 Mon Sep 17 00:00:00 2001
+From: Casey Connolly <casey.connolly@linaro.org>
+Date: Tue, 17 Jan 2023 14:24:13 +0000
+Subject: [PATCH 113/194] rpmsg: qcom: glink: support waking up on channel rx
+
+Configure all channels as wakeup capable and report a wakeup event
+when data is received.
+
+This allows userspace to "subscribe" to a particular channel where
+it is useful to wake up to process new data. The expected usecase
+is to allow for handling incoming SMS or phone calls where the only
+notification mechanism is via QRTR on the IPCRTR glink channel.
+
+As this behaviour is likely undesirable for most users, this patch
+doesn't enable a wakeup_source for any channels by default.
+
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/rpmsg/qcom_glink_native.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
+index 401a4ece0c97..cb1d3008bbeb 100644
+--- a/drivers/rpmsg/qcom_glink_native.c
++++ b/drivers/rpmsg/qcom_glink_native.c
+@@ -1005,6 +1005,9 @@ static int qcom_glink_rx_data(struct qcom_glink *glink, size_t avail)
+ 		channel->buf = NULL;
+ 
+ 		qcom_glink_rx_done(glink, channel, intent);
++
++		pm_wakeup_ws_event(channel->ept.rpdev->dev.power.wakeup, 0,
++				   true);
+ 	}
+ 
+ advance_rx:
+@@ -1693,6 +1696,17 @@ static int qcom_glink_rx_open(struct qcom_glink *glink, unsigned int rcid,
+ 		if (ret)
+ 			goto rcid_remove;
+ 
++		/*
++		 * Declare all channels as wakeup capable, but don't enable
++		 * waking up by default.
++		 *
++		 * Userspace may wish to be woken up for incoming messages on a
++		 * specific channel, for example to handle incoming calls or SMS
++		 * messages on the IPCRTR channel. This can be done be enabling
++		 * the wakeup source via sysfs.
++		 */
++		device_set_wakeup_capable(&rpdev->dev, true);
++
+ 		channel->rpdev = rpdev;
+ 	}
+ 
+-- 
+2.53.0
+

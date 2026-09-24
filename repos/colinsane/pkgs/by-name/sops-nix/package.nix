@@ -1,15 +1,23 @@
 {
+  applyPatches,
   fetchFromGitHub,
   flake-inputs,
   nix-update-script,
 }:
 let
-  version = "assets-unstable-2026-09-02";
-  src = fetchFromGitHub {
-    owner = "Mic92";
-    repo = "sops-nix";
-    rev = "fbf759290e0cb0a98dfc813a4eb7d53ad1dacb57";
-    hash = "sha256-gkSH8VUtCo6hnysNmb9DbTuDepH2t5pv+QWjP75xKAk=";
+  version = "assets-unstable-2026-09-09";
+  src = applyPatches {
+    src = fetchFromGitHub {
+      owner = "Mic92";
+      repo = "sops-nix";
+      rev = "13616fff713a9f94055c66f15687ebdc17a335df";
+      hash = "sha256-4GuMPW90JSxXWDPUB9M+1m7fYbe3H0apOd86/zBQ2Kw=";
+    };
+    # XXX(2026-09-16): nixpkgs dropped buildGo125Module; package builds fine with 1.26 instead.
+    postPatch = ''
+      substituteInPlace pkgs/sops-install-secrets/default.nix \
+        --replace-fail buildGo125Module buildGo126Module
+    '';
   };
   flake = flake-inputs.import-flake {
     inherit src;

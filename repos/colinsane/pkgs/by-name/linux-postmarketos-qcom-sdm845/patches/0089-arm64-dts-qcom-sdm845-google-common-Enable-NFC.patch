@@ -1,0 +1,64 @@
+From 7c7cc3bab85a96089d56ff11250b0bba9cde957c Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 25 Mar 2026 23:47:02 +0100
+Subject: [PATCH 089/194] arm64: dts: qcom: sdm845-google-common: Enable NFC
+
+Enable NFC controller NXP PN557.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-google-common.dtsi   | 31 +++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 693006685776..b2dc0327dff8 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -391,6 +391,23 @@
+ 	firmware-name = "qcom/sdm845/Google/blueline/a630_zap.mbn";
+ };
+ 
++&i2c3 {
++	status = "okay";
++
++	nfc@28 {
++		compatible = "nxp,pn557", "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
++
++		enable-gpios = <&tlmm 25 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 79 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&nfc_int_default &nfc_enable_default>;
++		pinctrl-names = "default";
++	};
++};
++
+ &i2c12 {
+ 	/* Bottom spkr (right) CS35L36 @ 40 */
+ 
+@@ -459,6 +476,20 @@
+ 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
+ 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
+ 
++	nfc_int_default: nfc-int-default-state {
++		pins = "gpio63";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	nfc_enable_default: nfc-enable-default-state {
++		pins = "gpio25", "gpio79";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
+ 	touchscreen_reset: ts-reset-state {
+ 		pins = "gpio99";
+ 		function = "gpio";
+-- 
+2.53.0
+

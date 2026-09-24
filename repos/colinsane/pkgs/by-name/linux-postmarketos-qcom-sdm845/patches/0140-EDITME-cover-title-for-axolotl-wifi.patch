@@ -1,0 +1,27 @@
+From 7cb6aa5358fbd9dfff769def6a498e27537ec14a Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 15 Apr 2026 13:22:34 +0200
+Subject: [PATCH 140/194] EDITME: cover title for axolotl-wifi
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20260415-axolotl-wifi-9280ef88618a",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

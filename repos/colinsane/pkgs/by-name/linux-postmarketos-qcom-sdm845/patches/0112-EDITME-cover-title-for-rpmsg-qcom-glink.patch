@@ -1,0 +1,36 @@
+From 508c46f5a3a6e4b8a2212edc0f5eaf694d1f2ccd Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Tue, 18 Nov 2025 14:56:11 +0100
+Subject: [PATCH 112/194] EDITME: cover title for rpmsg-qcom-glink
+
+Abandoned, discussion here:
+  https://lore.kernel.org/all/20230117142414.983946-1-caleb.connolly@linaro.org/
+
+Downstream note:
+
+    FIX: rpmsg: glink: fix wakeup nullptr
+
+    Somehow rpdev can be null???
+
+    weird...
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-remoteproc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 2,
+    "change-id": "20251118-rpmsg-qcom-glink-8aab10623ff5",
+    "prefixes": [],
+    "from-thread": "20230117142414.983946-1-caleb.connolly@linaro.org"
+  }
+}
+-- 
+2.53.0
+

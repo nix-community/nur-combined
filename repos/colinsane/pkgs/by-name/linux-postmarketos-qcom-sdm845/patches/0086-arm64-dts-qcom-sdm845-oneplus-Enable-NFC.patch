@@ -1,0 +1,94 @@
+From 6992a211a8f370ad0569944e77d7c98e14c78404 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Fri, 6 Dec 2024 15:41:53 +0000
+Subject: [PATCH 086/194] arm64: dts: qcom: sdm845-oneplus: Enable NFC
+
+Enable NFC controller NXP PN553, which is part of the package NXP NQ330
+(NFC + eSE).
+
+Based on work of biemster <l.j.beemster@gmail.com>.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-oneplus-common.dtsi  | 51 ++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 13802f137871..3cc4bb8996ee 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -757,7 +757,19 @@
+ 
+ 	status = "okay";
+ 
+-	/* nxp,nxp-nci-i2c @28 */
++	nfc@28 {
++		compatible = "nxp,pn553", "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
++
++		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&nfc_default>;
++		pinctrl-1 = <&nfc_sleep>;
++		pinctrl-names = "default", "sleep";
++	};
+ };
+ 
+ &i2c10 {
+@@ -982,6 +994,11 @@
+ 	status = "okay";
+ };
+ 
++&qup_i2c3_default {
++	drive-strength = <2>;
++	bias-disable;
++};
++
+ &qup_i2c10_default {
+ 	drive-strength = <2>;
+ 	bias-disable;
+@@ -1489,6 +1506,38 @@
+ 		bias-pull-up;
+ 		output-high;
+ 	};
++
++	nfc_default: nfc-default-state {
++		enable-pins {
++			pins = "gpio12", "gpio62";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-up;
++		};
++
++		int-pins {
++			pins = "gpio63";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-up;
++		};
++	};
++
++	nfc_sleep: nfc-sleep-state {
++		enable-pins {
++			pins = "gpio12", "gpio62";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		int-pins {
++			pins = "gpio63";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-up;
++		};
++	};
+ };
+ 
+ &venus {
+-- 
+2.53.0
+

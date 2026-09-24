@@ -33,6 +33,7 @@ in
     environment.sessionVariables.VK_LOADER_DRIVERS_DISABLE = "*nouveau*";  #< 2026-03-02: fixes gtk apps to not segfault. unsure if musl, or all nvidia
     sane.users.colin.environment.VK_LOADER_DRIVERS_DISABLE = "*nouveau*";
 
+    sane.programs.audacity.enableFor.user.colin = false;  #< 2026-09-16: does not compile
     sane.programs.avahi.enableFor.user.colin = false;  #< 2026-01-25: causes `nss-mdns` to be on nssModules; not supported. long-term: enable mdns via a dns proxy -- not nss
     sane.programs.binwalk.enableFor = { system = false; user.colin = false; };  #< 2026-07-01: blocked on sleuthkit
     sane.programs.brave.enableFor.user.colin = false;  #< 2026-01-29: links against libgcc_s.so.1, etc: lots of undefined symbols during installCheckPhase

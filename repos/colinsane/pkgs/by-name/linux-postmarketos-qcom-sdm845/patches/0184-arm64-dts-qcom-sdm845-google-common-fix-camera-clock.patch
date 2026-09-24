@@ -1,0 +1,40 @@
+From 5ae80186e9678c32ed4e69bfac57fb95e342b231 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Tue, 28 Apr 2026 23:29:00 -0500
+Subject: [PATCH 184/194] arm64: dts: qcom: sdm845-google-common: fix camera
+ clock rates
+
+Changed the assigned clock rates for front and auxiliary cameras from 24000000 to 19200000
+to match kernel driver allowed clock rates. Tested both front cameras to be working in my
+Pixel 3.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 172dad46c51e..c7dae34aa826 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -465,7 +465,7 @@
+ 
+ 		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
+ 		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
+-		assigned-clock-rates = <24000000>;
++		assigned-clock-rates = <19200000>;
+ 
+ 		reset-gpios = <&tlmm 21 GPIO_ACTIVE_LOW>;
+ 
+@@ -494,7 +494,7 @@
+ 
+ 		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
+ 		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
+-		assigned-clock-rates = <24000000>;
++		assigned-clock-rates = <19200000>;
+ 
+ 		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
+ 
+-- 
+2.53.0
+

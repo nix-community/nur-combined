@@ -1,0 +1,60 @@
+From 8294f2821dfb7650f25b60dfe03d3011a5b6748d Mon Sep 17 00:00:00 2001
+From: Casey Connolly <casey@connolly.tech>
+Date: Sun, 30 Jan 2022 20:26:03 +0000
+Subject: [PATCH 060/194] hack! arm64: dts: qcom: sdm845-oneplus-common: add
+ nodes for q6voice apr service
+
+Signed-off-by: Casey Connolly <casey@connolly.tech>
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-oneplus-common.dtsi  | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index fca0ea281751..82f4d71b7424 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -13,6 +13,7 @@
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/sound/qcom,q6asm.h>
++#include <dt-bindings/sound/qcom,q6voice.h>
+ 
+ #include "sdm845.dtsi"
+ #include "sdm845-wcd9340.dtsi"
+@@ -754,6 +755,14 @@
+ 		};
+ 	};
+ 
++	voicemmode1-dai-link {
++		link-name = "VoiceMMode1";
++
++		cpu {
++			sound-dai = <&q6voicedai VOICEMMODE1>;
++		};
++	};
++
+ 	speaker_playback_dai: speaker-dai-link {
+ 		link-name = "Speaker Playback";
+ 		cpu {
+@@ -1044,3 +1053,16 @@
+ 
+ 	status = "okay";
+ };
++
++/* qdsp6 hacks */
++&q6cvp {
++	status = "okay";
++};
++
++&q6cvs {
++	status = "okay";
++};
++
++&q6mvm {
++	status = "okay";
++};
+-- 
+2.53.0
+

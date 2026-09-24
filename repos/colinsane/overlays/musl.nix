@@ -46,7 +46,7 @@ let
   ;
   fetchAports = {
     path,
-    rev ? "fa53ed6ea1a6e4daf73c6edc03f40cb76ed07e08",  # 2026-08-30
+    rev ? "3afe6023de702a1b55fe0fbbd5e2e9297fc5768f",  # 2026-09-16
     ...
   }@args: let
     args' = lib.removeAttrs args [ "path" "rev" ];
@@ -58,7 +58,7 @@ let
   });
   fetchCports = {
     path,
-    rev ? "50857aa088214ea7a2ed00bc7fec01260ab0db52",  # 2026-08-30
+    rev ? "131833264017c454d677bee73f5034e275515631",  # 2026-09-15
     ...
   }@args: let
     args' = lib.removeAttrs args [ "path" "rev" ];
@@ -383,6 +383,17 @@ super.lib.composeManyExtensions [
     #   # '' + (base.postConfigure or "");
     # });
 
+    # knot-dns tests fail because musl doesn't find its tzdata in the nix build sandbox
+    # > not ok 47 - time_print isoZ result '1970-01-01T12:13:20+00:00' == '1970-01-01T13:13:20+01:00'
+    # > not ok 49 - time_print isoZ_ex result '1970-01-01T12:13:20.012+00:00
+    knot-dns = prev.knot-dns.overrideAttrs (prevAttrs: {
+      # doCheck = false;
+      postPatch = (prevAttrs.postPatch or "") + ''
+        substituteInPlace tests/contrib/test_time.c \
+          --replace-fail 'putenv("TZ=Europe/Prague");' 'putenv("TZ=UTC-1");'
+      '';
+    });
+
     # 2026-04-30: still required
     # 2026-01-20: knot-dns -> xdp-tools -> emacs-nox -> mailutils.
     # mailutils fails to build, non-trivial to fix; hopefully disabling it here doesn't lose anything.
@@ -437,11 +448,24 @@ super.lib.composeManyExtensions [
       withMalcontent = false;
     };
 
+    # 2026-09-23: still required
+    # sqlite build hangs on musl during TCL extension compilation (tclsqlite-ex.c).
+    # disable TCL support and checks to unblock the build.
+    sqlite = prev.sqlite.overrideAttrs (upstream: {
+      configureFlags = (upstream.configureFlags or []) ++ [ "--disable-tcl" ];
+      doCheck = false;
+    });
+
     firefox-unwrapped = (prev.firefox-unwrapped.override {
       # nothing wrong with lto/pgo, except that it's slow to build/iterate
       enableLTO = false;
       enablePGO = false;
     }).overrideAttrs (upstream: {
+      # the patches below change vendored rust files
+      # > error: the listed checksum of `/build/firefox-156.0/third_party/rust/audio_thread_priority/src/rt_linux.rs` has changed:
+      postPatch = (upstream.postPatch or "") + ''
+        sed -i 's/53204f6aa158b270a22b4099cde58558ec5ff96292ac8955581b4bcfbf3443d3/5364ffadc66df91d3f105f018aa8fa25ea61d0c3d09660cd82562ead4b7bb0b9/g' third_party/rust/audio_thread_priority/.cargo-checksum.json
+      '';
       patches = (upstream.patches or []) ++ [
         # (fetchVoid {
         #   # 2026-03-01: fixes "/build/firefox-148.0/dom/media/webrtc/libwebrtc_overrides/call/call_basic_stats.h:17:24: error: unknown type name 'int64_t'"
@@ -460,6 +484,11 @@ super.lib.composeManyExtensions [
           # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
           path = "community/firefox/musl-no-linux-prctl.patch";
           hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
+        })
+        (fetchCports {
+          # 2026-09-17: fixes "no method named `to_ne_bytes` found for raw pointer `*mut c_void` in the current scope"
+          path = "main/firefox/patches/musl-rust-thread-id.patch";
+          hash = "sha256-dmgJrEcecPVB9ehBoPplxbsP/1uoQnUdIARYQ9Jjt08=";
         })
 
         # (fetchVoid {
@@ -1070,6 +1099,8 @@ super.lib.composeManyExtensions [
       postPatch = (upstream.postPatch or "") + ''
         # 2026-08-04: musl needs <stddef.h> for offsetof in support/nfs/getport.c
         sed -i '/#include "nfslib.h"/a #include <stddef.h>' support/nfs/getport.c
+        # 2026-09-22: "gssd.c:547:78: error: format ‘%lx’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘pthread_t’ {aka ‘struct __pthread *’}"
+        sed -i 's/thread id 0x%lx/thread id 0x%p/g' utils/gssd/gssd.c
       '';
 
       # version = "2.6.4";

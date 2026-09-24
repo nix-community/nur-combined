@@ -1,0 +1,33 @@
+From c42ce89a18a2f4dbdb6b1d7faef83fb9945a82a5 Mon Sep 17 00:00:00 2001
+From: Petr Hodina <phodina@protonmail.com>
+Date: Fri, 14 Nov 2025 21:27:57 +0100
+Subject: [PATCH 144/194] hack! scripts: allow unused command-line arguments
+ with clang
+
+Some compiler wrappers (e.g., Nix's cc-wrapper) pass extra arguments
+like -nostdlibinc, which clang may warn about. Convert
+-Werror=unused-command-line-argument to a warning to prevent build
+failures on wrapped toolchains.
+---
+ scripts/Makefile.clang | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/Makefile.clang b/scripts/Makefile.clang
+index b67636b28c35..acec25f8d113 100644
+--- a/scripts/Makefile.clang
++++ b/scripts/Makefile.clang
+@@ -37,6 +37,10 @@ endif
+ CLANG_FLAGS	+= -Werror=unknown-warning-option
+ CLANG_FLAGS	+= -Werror=ignored-optimization-argument
+ CLANG_FLAGS	+= -Werror=option-ignored
+-CLANG_FLAGS	+= -Werror=unused-command-line-argument
++# Some compiler wrappers (for example, nix's cc-wrapper) pass additional
++# driver-specific arguments such as -nostdlibinc which clang sometimes
++# reports as "unused command line argument". Treat that as a warning
++# instead of an error to avoid builds failing on wrapped toolchains.
++CLANG_FLAGS	+= -Wno-unused-command-line-argument
+ KBUILD_CPPFLAGS	+= $(CLANG_FLAGS)
+ export CLANG_FLAGS
+-- 
+2.53.0
+

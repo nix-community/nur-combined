@@ -1,0 +1,48 @@
+From 37d37f41502af2b257102b12cc8a7f8db141baa6 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Thu, 13 Nov 2025 18:13:00 +0100
+Subject: [PATCH 098/194] power: supply: pmi8998 charger improvements and smb5
+ support
+
+EDITME: Imported from f20250619-smb2-smb5-support-v1-0-ac5dec51b6e1@linaro.org
+        Please review before sending.
+FIXME: MAINTAINER update patch missing, some conflict.
+
+This series contains fixes and cleanups for the pmi8998 charger driver,
+as well as introducing support for the newer smb5 charger found in the
+pm8150b and other newer Qualcomm PMICs..
+
+A bug is fixed where wakeirq enable/disable refcounting wasn't respected
+when the driver was unloaded and reloaded.
+
+Support is added for disabling charging entirely by writing a 0 to the
+"status" register (as described in the psy documentation). This allows
+for userspace programs to manage charging, e.g. to stop at 80% capacity.
+
+The AICL re-run interval is programmed to a consistent value (3
+seconds).
+
+The battery property charge-term-current-microamp is now respected, this
+is used to program the constant charge current limit during the fast
+charging phase. This also makes it safer to increase the max current
+limit this driver originally imposed from 1A to ~2A. According to the
+PMIC docs this is easy to handle without a secondary charger chip (which
+most but not all phones have).
+
+Further increasing the charge current limit would require tighter
+integration with thermal zones and a mechanism to limit the current
+when the device gets too warm (e.g. by modelling the power supply as
+a cooling device). This infrastructure is currently missing from the
+kernel.
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20250518-smb2-smb5-support-01685eca6fbb",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

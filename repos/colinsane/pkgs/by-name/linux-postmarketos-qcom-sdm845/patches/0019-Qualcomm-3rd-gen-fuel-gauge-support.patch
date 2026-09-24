@@ -1,0 +1,86 @@
+From bb645c8fb7a7f7f4735a1722e7fd93f67dc768e9 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Fri, 21 Nov 2025 20:13:18 +0100
+Subject: [PATCH 019/194] Qualcomm 3rd gen fuel gauge support
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This FG (fuel gauge) can be found on Snapdragon 835, 845, 660, 670..
+
+Series enables the FG, which is used on phones as OnePlus 6, 6T, Pixel 3a..
+
+Since many downstream trees (sdm845-mainline, sdm660, sdm670) carring
+these patches, after Barnabás dropped older gen support from the driver,
+cleaned up the driver, I picked changes and cleaned up device-tree
+patches and sending the whole bulk for review.
+
+Note:
+Usually I picked the oldest commits authors.
+Since there was multiple patches, multiple names and modifications etc.,
+if someone from the authors, co-developers, contributors etc. missing,
+please let me know and I'll fix this up in the next series.
+
+Currently some authors are unreachable or haven't given Signed-off-by
+yet, thus RFC, when this get cleaned up, I'll sent non-RFC or leave it
+to the authors to continue upstreaming process in case they want to.
+
+Until merged (or taken over by the original authors), the series is
+available at:
+  https://gitlab.com/sdm845/sdm845-next/-/commits/b4%2Fpmi8998_fuel_gauge
+
+To: Sebastian Reichel <sre@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Casey Connolly <casey.connolly@linaro.org>
+To: Joel Selvaraj <jo@jsfamily.in>
+To: Yassine Oudjana <y.oudjana@protonmail.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Alexander Martinz <amartinz@shiftphones.com>
+To: Barnabás Czémán <barnabas.czeman@mainlining.org>
+Cc: linux-pm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v1:
+- Clean and read charge full and max voltage from dts. (Joel)
+- Dont put battery info on remove. All the battery info data is devm
+  tracked so it will be freed for us on removal. (Casey)
+- Invert charging current. Battery current should be negative for charging
+  batteries, invert it so it's correct. Fixes upower charging status
+  reporting. (Casey)
+- Expose PROP_STATUS to fix upower not detecting charging status properly.
+- Adopt battery info API changes.
+- Silence -EPROBE_DEFER error. (Richard)
+- Add present sysfs property. Required for battery drivers from
+  UPower>=1.90.0 onwards to work properly. (Alexander)
+- Drop support for older gen from the driver. (Barnabás)
+- Rename the driver to pmi8998_fg. (Barnabás)
+- Remove unnecessary batt_info. (Barnabás)
+- Fix all checkpatch issues in strict mode. (Barnabás)
+- Fixed naming, properties sorting, styling issues, few checkpatch
+  warnings. (David)
+- Link to v0:
+  - https://gitlab.com/msm8998-mainline/linux/ (very old)
+  - https://gitlab.com/sdm845-mainline/linux/ (multiple branches)
+  - https://github.com/sdm660-mainline/linux/
+  - https://gitlab.com/sdm670-mainline/linux-patches/-/tree/main/stable
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20251121-pmi8998_fuel_gauge-cfaf78ed103d",
+    "prefixes": [
+      "RFC"
+    ]
+  }
+}
+-- 
+2.53.0
+

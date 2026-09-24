@@ -1,0 +1,75 @@
+From 38e7c55e3f335420f8218d9bace6ba6e43bb91ba Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sat, 14 Feb 2026 17:13:06 +0100
+Subject: [PATCH 127/194] Input: stmfts - disable regulators when power on
+ fails
+
+We must power off regulators after failing at power on phase.
+Create stmfts_configure function, so we don't have to use goto.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/touchscreen/stmfts.c | 37 +++++++++++++++++++-----------
+ 1 file changed, 24 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index 71d9b747ccfc..290511dd6943 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -539,22 +539,10 @@ static int stmfts_read_system_info(struct stmfts_data *sdata)
+ 	return 0;
+ }
+ 
+-static int stmfts_power_on(struct stmfts_data *sdata)
++static int stmfts_configure(struct stmfts_data *sdata)
+ {
+ 	int err;
+ 
+-	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
+-				    sdata->supplies);
+-	if (err)
+-		return err;
+-
+-	/*
+-	 * The datasheet does not specify the power on time, but considering
+-	 * that the reset time is < 10ms, I sleep 20ms to be sure
+-	 */
+-	msleep(20);
+-
+-
+ 	err = stmfts_read_system_info(sdata);
+ 	if (err)
+ 		return err;
+@@ -596,6 +584,29 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 	return 0;
+ }
+ 
++static int stmfts_power_on(struct stmfts_data *sdata)
++{
++	int err;
++
++	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
++				    sdata->supplies);
++	if (err)
++		return err;
++
++	/*
++	 * The datasheet does not specify the power on time, but considering
++	 * that the reset time is < 10ms, I sleep 20ms to be sure
++	 */
++	msleep(20);
++
++	err = stmfts_configure(sdata);
++	if (err)
++		regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
++				       sdata->supplies);
++
++	return err;
++}
++
+ static void stmfts_power_off(void *data)
+ {
+ 	struct stmfts_data *sdata = data;
+-- 
+2.53.0
+

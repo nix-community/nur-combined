@@ -10,23 +10,13 @@ let
   wxwidgets_3_2 = pkgs.wxwidgets_3_2.override {
     withWebKit = false;
   };
-  basePkg = pkgs.audacity.overrideAttrs (base: {
-    # upstream audacity.desktop specifies GDK_BACKEND=x11, with which it doesn't actually launch :|
-    postInstall = (base.postInstall or "") + ''
-      substituteInPlace $out/share/applications/${appId}.desktop \
-        --replace-fail 'GDK_BACKEND=x11 ' ""
-    '';
-
-    # XXX(2025-03-03): upstream nixpkgs incorrectly defaults `GDK_BACKEND=x11`,
-    # even though audacity runs fine on wayland
-    postFixup = lib.replaceStrings [ "--set-default GDK_BACKEND x11" ] [ "" ] base.postFixup;
-  });
+  basePkg = pkgs.audacity;
   # basePkg = pkgs.tenacity;  #< uncomment if the audacity build breaks
   appId = basePkg.pname;
 in
 {
   sane.programs.audacity = {
-    packageUnwrapped = basePkg.override {
+    packageUnwrapped = pkgs.audacity.override {
       inherit wxwidgets_3_2;
     };
 

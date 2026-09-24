@@ -1,0 +1,67 @@
+From ae680fe49aea35822b4d74a78ea464b6fbb90202 Mon Sep 17 00:00:00 2001
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 7 Dec 2025 23:56:01 -0800
+Subject: [PATCH 187/194] arm64: dts: qcom: sdm845-lg-{judyln, judyp}:
+ Reference memory region in fb
+
+To prevent duplicating the framebuffer address and size point out the
+existing framebuffer memory region instead of specifying the address
+manually.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 3 +--
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts  | 4 ++--
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts   | 4 ++--
+ 3 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 85dc4468b6c4..86cf4eb44084 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -98,8 +98,7 @@
+ 			no-map;
+ 		};
+ 
+-		/* Framebuffer region */
+-		memory@9d400000 {
++		framebuffer_mem: memory@9d400000 {
+ 			reg = <0x0 0x9d400000 0x0 0x2400000>;
+ 			no-map;
+ 		};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index adf41aa0146a..349faa123ff1 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -14,9 +14,9 @@
+ 	compatible = "lg,judyln", "qcom,sdm845";
+ 
+ 	chosen {
+-		framebuffer@9d400000 {
++		framebuffer {
+ 			compatible = "simple-framebuffer";
+-			reg = <0x0 0x9d400000 0x0 (1440 * 3120 * 4)>;
++			memory-region = <&framebuffer_mem>;
+ 			width = <1440>;
+ 			height = <3120>;
+ 			stride = <(1440 * 4)>;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts
+index d244ebdd17be..44e762f78e95 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts
+@@ -14,9 +14,9 @@
+ 	compatible = "lg,judyp", "qcom,sdm845";
+ 
+ 	chosen {
+-		framebuffer@9d400000 {
++		framebuffer {
+ 			compatible = "simple-framebuffer";
+-			reg = <0x0 0x9d400000 0x0 (1440 * 2880 * 4)>;
++			memory-region = <&framebuffer_mem>;
+ 			width = <1440>;
+ 			height = <2880>;
+ 			stride = <(1440 * 4)>;
+-- 
+2.53.0
+

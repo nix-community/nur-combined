@@ -1,0 +1,44 @@
+From 42797388e8870d8818d66a544a99685d683e4391 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Thu, 4 Dec 2025 17:32:41 +0100
+Subject: [PATCH 157/194] media: qcom: camss: csiphy-3ph: C-PHY needs own lane
+ configuration
+
+Make sure we have proper lane registers definition in-place for each
+generation, otherwise C-PHY won't work.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c   | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+index d82a88dad74b..89bfe3710fc3 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+@@ -1217,6 +1217,22 @@ static int csiphy_lanes_enable(struct csiphy_device *csiphy,
+ 	u8 val;
+ 	int i;
+ 
++	if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++		switch (csiphy->camss->res->version) {
++		case CAMSS_2290:
++		case CAMSS_8280XP:
++		case CAMSS_X1E80100:
++		case CAMSS_8550:
++		case CAMSS_8650:
++		case CAMSS_8300:
++		case CAMSS_8775P:
++			dev_err(dev, "Missing lane_regs definition for C-PHY\n");
++			return -EINVAL;
++		default:
++			break;
++		}
++	}
++
+ 	switch (csiphy->camss->res->version) {
+ 	case CAMSS_845:
+ 		if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
+-- 
+2.53.0
+

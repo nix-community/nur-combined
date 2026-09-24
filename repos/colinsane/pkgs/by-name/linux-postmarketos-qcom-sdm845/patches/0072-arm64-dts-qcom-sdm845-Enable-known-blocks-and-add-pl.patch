@@ -1,0 +1,66 @@
+From 5ad200a6f5406b7301d78817fdc7c8a3339a08af Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sun, 23 Nov 2025 14:26:50 +0100
+Subject: [PATCH 072/194] arm64: dts: qcom: sdm845: Enable known blocks and add
+ placeholders
+
+We know these devices are present, most of them are supported by
+downstream and close to the mainline kernels.
+
+This seems to be very handy when rebasing the integration tree with
+the support for multiple different block at same time.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-oneplus-common.dtsi  | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 82f4d71b7424..ad165b19b5cd 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -443,6 +443,26 @@
+ 	};
+ };
+ 
++&cci {
++	status = "okay";
++};
++
++&cci_i2c0 {
++	/* front sony,imx371 @10 */
++
++	/* rear sony,imx519 @1a */
++
++	/* rear onnn,lc898217xc @72 */
++};
++
++&cci_i2c1 {
++	/* sa,sa3103 @ 0d */
++
++	/* rear sony,imx376k @10 */
++
++	/* onnn,lc898217xc @ 74 */
++};
++
+ &cdsp_pas {
+ 	firmware-name = "qcom/sdm845/OnePlus/enchilada/cdsp.mbn";
+ 
+@@ -465,6 +485,14 @@
+ 	firmware-name = "qcom/sdm845/OnePlus/enchilada/a630_zap.mbn";
+ };
+ 
++&i2c3 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	/* nxp,nxp-nci-i2c @28 */
++};
++
+ &i2c10 {
+ 	status = "okay";
+ 	clock-frequency = <100000>;
+-- 
+2.53.0
+

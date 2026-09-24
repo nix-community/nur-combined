@@ -1,0 +1,170 @@
+From c23339e0cdd6551a7d21a5e71cec5e128458caf5 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Thu, 15 Aug 2024 03:14:16 -0500
+Subject: [PATCH 080/194] arm64: dts: qcom: sdm845-xiaomi-beryllium: add
+ support for imx363 camera
+
+[David]
+ - sort
+ - use mclk0
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../qcom/sdm845-xiaomi-beryllium-common.dtsi  | 116 +++++++++++++++++-
+ 1 file changed, 115 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index d01545a89ad9..4950e7c645c7 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -135,6 +135,42 @@
+ 		regulator-max-microvolt = <1800000>;
+ 		regulator-always-on;
+ 	};
++
++	cam_iovdd: reg_cam_iovdd {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_iovdd";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		enable-active-high;
++		gpio = <&tlmm 50 GPIO_ACTIVE_HIGH>;
++	};
++
++	cam_ldo: reg_cam_ldo {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_ldo";
++		regulator-min-microvolt = <1350000>;
++		regulator-max-microvolt = <1350000>;
++		enable-active-high;
++		gpio = <&tlmm 99 GPIO_ACTIVE_HIGH>;
++		regulator-always-on;
++	};
++
++	cam0_avdd: reg_cam0_avdd {
++		compatible = "regulator-fixed";
++		regulator-name = "cam0_avdd";
++		enable-active-high;
++		gpio = <&tlmm 40 GPIO_ACTIVE_HIGH>;
++	};
++
++	cam0_dvdd: reg_cam0_dvdd {
++		compatible = "regulator-fixed";
++		regulator-name = "cam0_dvdd";
++		regulator-min-microvolt = <1350000>;
++		regulator-max-microvolt = <1350000>;
++		regulator-enable-ramp-delay = <135>;
++		enable-active-high;
++		gpio = <&pm8998_gpios 11 GPIO_ACTIVE_HIGH>;
++	};
+ };
+ 
+ &adsp_pas {
+@@ -147,6 +183,9 @@
+ 		compatible = "qcom,pm8998-rpmh-regulators";
+ 		qcom,pmic-id = "a";
+ 
++		vdda_mipi_csi0_0p9:
++		vdda_mipi_csi1_0p9:
++		vdda_mipi_csi2_0p9:
+ 		vreg_l1a_0p875: ldo1 {
+ 			regulator-min-microvolt = <880000>;
+ 			regulator-max-microvolt = <880000>;
+@@ -231,10 +270,67 @@
+ 	};
+ };
+ 
++&cci {
++	status = "okay";
++};
++
++&camss {
++	vdda-phy-supply = <&vreg_l1a_0p875>;
++	vdda-pll-supply = <&vreg_l26a_1p2>;
++
++	vdda-csi0-supply = <&vdda_mipi_csi0_0p9>;
++	vdda-csi1-supply = <&vdda_mipi_csi1_0p9>;
++	vdda-csi2-supply = <&vdda_mipi_csi2_0p9>;
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		port@0 {
++			reg = <0>;
++			csiphy0_ep: endpoint {
++				clock-lanes = <7>;
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&imx363_ep>;
++			};
++		};
++	};
++};
++
+ &cci_i2c0 {
+ 	status = "okay";
+ 
+-	/* IMX363 @ 10 */
++	camera@10 {
++		compatible = "sony,imx363";
++		reg = <0x10>;
++
++		reset-gpios = <&tlmm 80 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cam0_default &cam_mclk0_default>;
++
++		clocks = <&clock_camcc CAM_CC_MCLK0_CLK>;
++		clock-names = "xvclk";
++		clock-frequency = <24000000>;
++
++		vif-supply = <&cam_iovdd>;
++		vana-supply = <&cam0_avdd>;
++		vdig-supply = <&cam0_dvdd>;
++
++		orientation = <1>;
++		rotation = <270>;
++
++		status = "okay";
++
++		port {
++			imx363_ep: endpoint {
++				clock-lanes = <1>;
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <636000000>;
++				remote-endpoint = <&csiphy0_ep>;
++			};
++		};
++	};
+ };
+ 
+ &cdsp_pas {
+@@ -564,6 +660,24 @@
+ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <81 4>;
+ 
++	cam0_default: cam0_default {
++		rst {
++			pins = "gpio80";
++			function = "gpio";
++
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		avdd {
++			pins = "gpio40";
++			function = "gpio";
++
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++
+ 	sdc2_default_state: sdc2-default-state {
+ 		clk-pins {
+ 			pins = "sdc2_clk";
+-- 
+2.53.0
+

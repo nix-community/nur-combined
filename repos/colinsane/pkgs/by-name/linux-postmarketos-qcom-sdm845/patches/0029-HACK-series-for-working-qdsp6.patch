@@ -1,0 +1,25 @@
+From 1ec498c6fac684ab53fb0746cd0bb625d84fd2e8 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Tue, 18 Nov 2025 15:24:31 +0100
+Subject: [PATCH 029/194] HACK series: for working qdsp6
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Unfortunately, there are multiple slightly different versions used across various forks, we’ve never really converged on a single one.
+
+Mainline: doesn’t make sense in the current state. The current design with the q6voiced service required in userspace has too many integration issues, it conflicts with all other ongoing efforts to improve call audio support in standard userspace components like PipeWire. This is partly also why call audio tends to be unreliable.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20251118-qdsp6-2a3e5a72a045",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

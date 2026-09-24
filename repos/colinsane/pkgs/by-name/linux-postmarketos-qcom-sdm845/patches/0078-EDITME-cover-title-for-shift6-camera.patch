@@ -1,0 +1,18 @@
+From 4c7f817089745fd7266f8245cfa5d3ea5f1ec1e3 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 18 Mar 2026 16:48:49 +0100
+Subject: [PATCH 078/194] EDITME: cover title for shift6-camera
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20260318-shift6-camera-cf4108ccb3bb",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

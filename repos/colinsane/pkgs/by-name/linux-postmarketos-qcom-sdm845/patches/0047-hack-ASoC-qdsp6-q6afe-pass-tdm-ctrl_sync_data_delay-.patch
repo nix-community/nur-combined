@@ -1,0 +1,44 @@
+From fe4ddd82a4eeda3fa964faa6ce2ac88843425fbc Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 25 Jun 2024 18:43:31 -0400
+Subject: [PATCH 047/194] hack! ASoC: qdsp6: q6afe: pass tdm
+ ctrl_sync_data_delay from config
+
+The codec may expect to delay data by 0, 1 or 2 bit clock cycles.
+Keeping the TDM ctrl_sync_data_delay value zero-initialized could result
+in corruption of data being read at the AFE. Add a configuration value
+for the data delay and send it when preparing the TDM port.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6afe.c | 1 +
+ sound/soc/qcom/qdsp6/q6afe.h | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
+index 52d53bb21b7f..6cb613acbe67 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.c
++++ b/sound/soc/qcom/qdsp6/q6afe.c
+@@ -1404,6 +1404,7 @@ void q6afe_tdm_port_prepare(struct q6afe_port *port,
+ 	pcfg->tdm_cfg.sync_mode = cfg->sync_mode;
+ 	pcfg->tdm_cfg.sync_src = cfg->sync_src;
+ 	pcfg->tdm_cfg.nslots_per_frame = cfg->nslots_per_frame;
++	pcfg->tdm_cfg.ctrl_sync_data_delay = cfg->data_delay;
+ 
+ 	pcfg->tdm_cfg.slot_width = cfg->slot_width;
+ 	pcfg->tdm_cfg.slot_mask = cfg->slot_mask;
+diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
+index 39e5ee7145f8..b7bfdcaee894 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.h
++++ b/sound/soc/qcom/qdsp6/q6afe.h
+@@ -190,6 +190,7 @@ struct q6afe_tdm_cfg {
+ 	u16	sync_mode;
+ 	u16	sync_src;
+ 	u16	nslots_per_frame;
++	u16	data_delay;
+ 	u16	slot_width;
+ 	u16	slot_mask;
+ 	u32	data_align_type;
+-- 
+2.53.0
+

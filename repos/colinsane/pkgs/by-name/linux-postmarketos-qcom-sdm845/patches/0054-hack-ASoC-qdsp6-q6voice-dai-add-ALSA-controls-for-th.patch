@@ -1,0 +1,97 @@
+From d3d9d4cca292c62f65c7310182de35fd4b26646d Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 8 Oct 2024 19:30:45 -0400
+Subject: [PATCH 054/194] hack! ASoC: qdsp6: q6voice-dai: add ALSA controls for
+ the topology ID
+
+The topology IDs are different between sound card models (smartphones in
+the context of the Pixel 3a), and even codecs. As a result, the topology
+IDs are not defined by the device tree, but rather by the ALSA
+configuration. Add controls to ALSA for the topology ID so they can be
+configured per codec.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6voice-dai.c | 52 ++++++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
+
+diff --git a/sound/soc/qcom/qdsp6/q6voice-dai.c b/sound/soc/qcom/qdsp6/q6voice-dai.c
+index ca8ddf929ef4..39efc752c588 100644
+--- a/sound/soc/qcom/qdsp6/q6voice-dai.c
++++ b/sound/soc/qcom/qdsp6/q6voice-dai.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+ // Copyright (c) 2020, Stephan Gerhold
+ 
++#include <linux/limits.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <sound/soc.h>
+@@ -193,6 +194,55 @@ static int q6voice_put_mixer_playback(struct snd_kcontrol *kcontrol,
+ 	return q6voice_put_mixer(kcontrol, ucontrol, false);
+ }
+ 
++static int q6voice_get_topology_kctrl(struct snd_kcontrol *kcontrol,
++				      struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *c = snd_kcontrol_chip(kcontrol);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	struct q6voice *v = snd_soc_component_get_drvdata(c);
++	enum q6voice_path_type path = q6voice_get_path(mc->reg);
++	bool capture = !!mc->shift;
++
++	if (path >= Q6VOICE_PATH_COUNT) {
++		dev_err(c->dev, "Invalid DAI ID %u\n", mc->reg);
++		return -EINVAL;
++	}
++
++	ucontrol->value.integer.value[0] =
++		q6voice_get_topology(v, path, capture);
++
++	return 0;
++}
++
++static int q6voice_put_topology_kctrl(struct snd_kcontrol *kcontrol,
++				      struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *c = snd_kcontrol_chip(kcontrol);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	struct q6voice *v = snd_soc_component_get_drvdata(c);
++	u32 val = ucontrol->value.integer.value[0];
++	enum q6voice_path_type path = q6voice_get_path(mc->reg);
++	bool capture = !!mc->shift;
++
++	if (path >= Q6VOICE_PATH_COUNT) {
++		dev_err(c->dev, "Invalid DAI ID %u\n", mc->reg);
++		return -EINVAL;
++	}
++
++	q6voice_set_topology(v, path, capture, val);
++
++	return 1;
++}
++
++static const struct snd_kcontrol_new q6voice_kcontrols[] = {
++	SOC_SINGLE_EXT("VoiceMMode1 TX Topology", VOICEMMODE1, 1, S32_MAX, 0,
++		       q6voice_get_topology_kctrl, q6voice_put_topology_kctrl),
++	SOC_SINGLE_EXT("VoiceMMode1 RX Topology", VOICEMMODE1, 0, S32_MAX, 0,
++		       q6voice_get_topology_kctrl, q6voice_put_topology_kctrl),
++};
++
+ static const struct snd_kcontrol_new cs_voice_tx_mixer_controls[] = {
+ 	SOC_SINGLE_EXT("PRI_MI2S_TX", PRIMARY_MI2S_TX, CS_VOICE, 1, 0,
+ 		       q6voice_get_mixer_capture, q6voice_put_mixer_capture),
+@@ -466,6 +516,8 @@ static const struct snd_soc_component_driver q6voice_dai_component = {
+ 	.name = DRV_NAME,
+ 	.open = q6voice_dai_open,
+ 
++	.controls = q6voice_kcontrols,
++	.num_controls = ARRAY_SIZE(q6voice_kcontrols),
+ 	.dapm_widgets = q6voice_dapm_widgets,
+ 	.num_dapm_widgets = ARRAY_SIZE(q6voice_dapm_widgets),
+ 	.dapm_routes = q6voice_dapm_routes,
+-- 
+2.53.0
+

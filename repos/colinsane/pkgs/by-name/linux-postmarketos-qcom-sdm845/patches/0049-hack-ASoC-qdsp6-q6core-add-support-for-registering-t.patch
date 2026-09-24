@@ -1,0 +1,217 @@
+From 3ec5444cac14692b505da2d4d9ef589648cbc74b Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 8 Oct 2024 18:55:21 -0400
+Subject: [PATCH 049/194] hack! ASoC: qdsp6: q6core: add support for
+ registering topologies
+
+To use a topology ID, the DSP must first have the topology registered.
+Add support for registering topologies from an
+ACDB (Audio Calibration DataBase).
+
+No-submit: topologies are useless upstream,
+           unless support is added to q6afe
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6core.c | 148 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 147 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6core.c b/sound/soc/qcom/qdsp6/q6core.c
+index 48825756a7ab..051149da43d8 100644
+--- a/sound/soc/qcom/qdsp6/q6core.c
++++ b/sound/soc/qcom/qdsp6/q6core.c
+@@ -10,6 +10,7 @@
+ #include <linux/of.h>
+ #include <linux/of_platform.h>
+ #include <linux/jiffies.h>
++#include <linux/firmware.h>
+ #include <linux/soc/qcom/apr.h>
+ #include "q6core.h"
+ #include "q6dsp-errno.h"
+@@ -20,9 +21,17 @@
+ #define AVCS_CMDRSP_ADSP_EVENT_GET_STATE	0x0001290D
+ #define AVCS_GET_VERSIONS       0x00012905
+ #define AVCS_GET_VERSIONS_RSP   0x00012906
++#define AVCS_CMD_REGISTER_TOPOLOGIES	0x00012923
++#define AVCS_CMD_DEREGISTER_TOPOLOGIES	0x0001292a
+ #define AVCS_CMD_GET_FWK_VERSION	0x001292c
+ #define AVCS_CMDRSP_GET_FWK_VERSION	0x001292d
+ 
++#define AVCS_MODE_DEREGISTER_ALL_CUSTOM_TOPOLOGIES	2
++
++#define ACDB_SECTION_GPROPLUT	0x54554c504f525047
++#define ACDB_SECTION_DATAPOOL	0x4c4f4f5041544144
++#define ACDB_TOPOLOGIES_BLOB	0x000131a7
++
+ struct avcs_svc_info {
+ 	uint32_t service_id;
+ 	uint32_t version;
+@@ -41,6 +50,13 @@ struct avcs_svc_api_info {
+ 	uint32_t api_branch_version;
+ } __packed;
+ 
++struct avcs_cmd_register_topologies {
++	uint32_t payload_addr_lsw;
++	uint32_t payload_addr_msw;
++	uint32_t mem_map_handle;
++	uint32_t payload_size;
++} __packed;
++
+ struct avcs_cmdrsp_get_fwk_version {
+ 	uint32_t build_major_version;
+ 	uint32_t build_minor_version;
+@@ -236,6 +252,38 @@ static bool __q6core_is_adsp_ready(struct q6core *core)
+ 	return false;
+ }
+ 
++static int q6core_register_topologies(struct device *dev, u32 size, const void *data)
++{
++	struct q6core *core = dev_get_drvdata(dev);
++	struct apr_device *adev = core->adev;
++	struct avcs_cmd_register_topologies *cmd;
++	struct apr_pkt *pkt;
++	void *p, *dest;
++	int pkt_size, ret;
++
++	pkt_size = APR_HDR_SIZE + sizeof(*cmd) + size;
++
++	p = kzalloc(pkt_size, GFP_KERNEL);
++	if (!p)
++		return -ENOMEM;
++
++	pkt = p;
++	cmd = p + APR_HDR_SIZE;
++	dest = p + APR_HDR_SIZE + sizeof(*cmd);
++
++	pkt->hdr.hdr_field = APR_HDR_FIELD(APR_MSG_TYPE_SEQ_CMD,
++				      APR_HDR_LEN(APR_HDR_SIZE), APR_PKT_VER);
++	pkt->hdr.pkt_size = pkt_size;
++	pkt->hdr.opcode = AVCS_CMD_REGISTER_TOPOLOGIES;
++	cmd->payload_size = size;
++
++	memcpy(dest, data, size);
++
++	ret = apr_send_pkt(adev, pkt);
++	kfree(p);
++	return ret;
++}
++
+ /**
+  * q6core_get_svc_api_info() - Get version number of a service.
+  *
+@@ -325,6 +373,103 @@ bool q6core_is_adsp_ready(void)
+ }
+ EXPORT_SYMBOL_GPL(q6core_is_adsp_ready);
+ 
++static int acdb_section_offset(const struct firmware *fw,
++			       u64 section, u32 *off_out)
++{
++	const u8 *data = fw->data + 32;
++	u32 off = 32;
++	u32 sect_size;
++	u64 sect_id;
++
++	while (off + 12 <= fw->size) {
++		sect_id = *(const u64 *) data;
++		sect_size = *(const u32 *) (data + 8);
++
++		if (off + 12 + sect_size > fw->size)
++			return -EINVAL;
++
++		if (sect_id == section) {
++			*off_out = off;
++			return 0;
++		}
++
++		off += 12 + sect_size;
++		data += 12 + sect_size;
++	}
++
++	return -ENOENT;
++}
++
++static int acdb_get_global_property(const struct firmware *fw,
++				    u32 prop_id, u32 *offset)
++{
++	u32 gproplut_off, datapool_off;
++	u32 lut_size, lut_nelts, i;
++	const u32 *data;
++	int ret;
++
++	ret = acdb_section_offset(fw, ACDB_SECTION_GPROPLUT, &gproplut_off);
++	if (ret)
++		return ret;
++
++	ret = acdb_section_offset(fw, ACDB_SECTION_DATAPOOL, &datapool_off);
++	if (ret)
++		return ret;
++
++	lut_size = *(const u32 *) (fw->data + gproplut_off + 8);
++	if (lut_size < 4)
++		return -EINVAL;
++
++	lut_nelts = *(const u32 *) (fw->data + gproplut_off + 12);
++	if (lut_size < 4 + 8 * lut_nelts)
++		return -EINVAL;
++
++	data = (const u32 *) (fw->data + gproplut_off + 16);
++	for (i = 0; i < lut_nelts; i++) {
++		if (datapool_off + 12 + data[i * 2 + 1] + 4 > fw->size)
++			return -EINVAL;
++
++		if (data[i * 2] == prop_id) {
++			*offset = datapool_off + 12 + data[i * 2 + 1];
++			return 0;
++		}
++	}
++
++	return -ENOENT;
++}
++
++static int q6core_load_and_register_topologies(struct device *dev)
++{
++	const struct device_node *np = dev_of_node(dev);
++	const char *fw_name;
++	const struct firmware *fw;
++	u32 topo_off, size;
++	int ret;
++
++	ret = of_property_read_string(np, "qcom,acdb-name", &fw_name);
++	if (ret)
++		return 0;
++
++	ret = request_firmware(&fw, fw_name, dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to load Global_cal.acdb");
++
++	ret = acdb_get_global_property(fw, ACDB_TOPOLOGIES_BLOB, &topo_off);
++	if (ret) {
++		dev_err(dev, "ACDB parse error: %d\n", ret);
++		goto release_fw;
++	}
++
++	size = *(const u32 *) (fw->data + topo_off);
++	ret = q6core_register_topologies(dev, size, fw->data + topo_off + 4);
++	if (ret < 0)
++		goto release_fw;
++
++release_fw:
++	release_firmware(fw);
++	return 0;
++}
++
+ static int q6core_probe(struct apr_device *adev)
+ {
+ 	g_core = kzalloc_obj(*g_core);
+@@ -336,7 +481,8 @@ static int q6core_probe(struct apr_device *adev)
+ 	mutex_init(&g_core->lock);
+ 	g_core->adev = adev;
+ 	init_waitqueue_head(&g_core->wait);
+-	return 0;
++
++	return q6core_load_and_register_topologies(&adev->dev);
+ }
+ 
+ static void q6core_exit(struct apr_device *adev)
+-- 
+2.53.0
+

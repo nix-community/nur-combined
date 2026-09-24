@@ -1,0 +1,94 @@
+From 15fb3bd6cd422bb38b1260757f1d35dc91150e88 Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Fri, 18 Aug 2023 19:19:11 -0400
+Subject: [PATCH 045/194] hack! ASoC: qdsp6: q6afe-dai: add internal mi2s
+ support
+
+Add the internal MI2S ports found on the SDM660 internal sound card.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6afe-dai.c | 46 ++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+
+diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
+index a0d21034a626..34ec3bd3ea8c 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-dai.c
++++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
+@@ -412,6 +412,7 @@ static int q6afe_dai_prepare(struct snd_pcm_substream *substream,
+ 	case SENARY_MI2S_RX ... SENARY_MI2S_TX:
+ 	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
+ 	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
++	case INT0_MI2S_RX ... INT6_MI2S_TX:
+ 		rc = q6afe_i2s_port_prepare(dai_data->port[dai->id],
+ 			       &dai_data->port_config[dai->id].i2s_cfg);
+ 		if (rc < 0) {
+@@ -665,6 +666,21 @@ static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
+ 
+ 	/* USB playback AFE port receives data for playback, hence use the RX port */
+ 	{"USB Playback", NULL, "USB_RX"},
++
++	{"INT0 MI2S Playback", NULL, "INT0_MI2S_RX"},
++	{"INT0_MI2S_TX", NULL, "INT0 MI2S Capture"},
++	{"INT1 MI2S Playback", NULL, "INT1_MI2S_RX"},
++	{"INT1_MI2S_TX", NULL, "INT1 MI2S Capture"},
++	{"INT2 MI2S Playback", NULL, "INT2_MI2S_RX"},
++	{"INT2_MI2S_TX", NULL, "INT2 MI2S Capture"},
++	{"INT3 MI2S Playback", NULL, "INT3_MI2S_RX"},
++	{"INT3_MI2S_TX", NULL, "INT3 MI2S Capture"},
++	{"INT4 MI2S Playback", NULL, "INT4_MI2S_RX"},
++	{"INT4_MI2S_TX", NULL, "INT4 MI2S Capture"},
++	{"INT5 MI2S Playback", NULL, "INT5_MI2S_RX"},
++	{"INT5_MI2S_TX", NULL, "INT5 MI2S Capture"},
++	{"INT6 MI2S Playback", NULL, "INT6_MI2S_RX"},
++	{"INT6_MI2S_TX", NULL, "INT6 MI2S Capture"},
+ };
+ 
+ static int msm_dai_q6_dai_probe(struct snd_soc_dai *dai)
+@@ -1011,6 +1027,35 @@ static const struct snd_soc_dapm_widget q6afe_dai_widgets[] = {
+ 		0, SND_SOC_NOPM, 0, 0),
+ 
+ 	SND_SOC_DAPM_AIF_IN("USB_RX", NULL, 0, SND_SOC_NOPM, 0, 0),
++
++	SND_SOC_DAPM_AIF_IN("INT0_MI2S_RX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("INT0_MI2S_TX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("INT1_MI2S_RX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("INT1_MI2S_TX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("INT2_MI2S_RX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("INT2_MI2S_TX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("INT3_MI2S_RX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("INT3_MI2S_TX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("INT4_MI2S_RX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("INT4_MI2S_TX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("INT5_MI2S_RX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("INT5_MI2S_TX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("INT6_MI2S_RX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("INT6_MI2S_TX", "NULL",
++		0, SND_SOC_NOPM, 0, 0),
+ };
+ 
+ static const struct snd_soc_component_driver q6afe_dai_component = {
+@@ -1045,6 +1090,7 @@ static void of_q6afe_parse_dai_data(struct device *dev,
+ 		case SENARY_MI2S_RX ... SENARY_MI2S_TX:
+ 		case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
+ 		case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
++		case INT0_MI2S_RX ... INT6_MI2S_TX:
+ 			priv = &data->priv[id];
+ 			ret = of_property_read_variable_u32_array(node,
+ 							"qcom,sd-lines",
+-- 
+2.53.0
+

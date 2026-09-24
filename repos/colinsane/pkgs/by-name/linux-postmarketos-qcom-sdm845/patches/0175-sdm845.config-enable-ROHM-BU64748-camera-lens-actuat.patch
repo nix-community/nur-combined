@@ -1,0 +1,28 @@
+From 0d695b08888f3472191866854689a1f49bc65fc3 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Sun, 16 Mar 2025 20:13:10 -0500
+Subject: [PATCH 175/194] sdm845.config: enable ROHM BU64748 camera lens
+ actuator
+
+Used by Poco F1 main rear camera (Sony IMX363).
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ arch/arm64/configs/sdm845.config | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
+index 2955f100a977..b9e7dfe5df48 100644
+--- a/arch/arm64/configs/sdm845.config
++++ b/arch/arm64/configs/sdm845.config
+@@ -31,6 +31,7 @@ CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS=m
+ CONFIG_QCOM_GPI_DMA=m
+ CONFIG_SND_SOC_TAS2559=m
+ CONFIG_VIDEO_IMX363=m
++CONFIG_VIDEO_BU64748=m
+ 
+ # Samsung S9 SM-G9600(starqltechn)
+ CONFIG_SND_SOC_MAX98512=y
+-- 
+2.53.0
+

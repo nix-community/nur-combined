@@ -1,0 +1,47 @@
+From 14f9a35f93df2b06cddc386251e347db39fc9d4e Mon Sep 17 00:00:00 2001
+From: Dylan Van Assche <me@dylanvanassche.be>
+Date: Thu, 26 May 2022 21:29:16 +0200
+Subject: [PATCH 061/194] hack! arm64: dts: qcom: sdm845-shift-axolotl: add
+ nodes for q6voice apr service
+
+Enable q6voice nodes to allow routing phone call audio to audio devices.
+
+Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
+---
+ .../arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index 1d2ce093ef21..257fb379a644 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -11,6 +11,9 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
++#include <dt-bindings/sound/qcom,q6voice.h>
+ #include "sdm845.dtsi"
+ #include "pm8998.dtsi"
+ #include "pmi8998.dtsi"
+@@ -814,3 +817,16 @@
+ 	qcom,calibration-variant = "shift_axolotl";
+ 	qcom,snoc-host-cap-8bit-quirk;
+ };
++
++/* qdsp6 hacks */
++&q6cvp {
++	status = "okay";
++};
++
++&q6cvs {
++	status = "okay";
++};
++
++&q6mvm {
++	status = "okay";
++};
+-- 
+2.53.0
+

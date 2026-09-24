@@ -1,0 +1,31 @@
+From 3d8fff1b2e62fa278d9f6b04207760ec82cdc170 Mon Sep 17 00:00:00 2001
+From: Casey Connolly <casey.connolly@linaro.org>
+Date: Thu, 19 Jun 2025 16:55:09 +0200
+Subject: [PATCH 099/194] dt-bindings: power: supply: qcom,pmi89980-charger:
+ add pm8150b and 7250b
+
+Add compatible strings for these two PMICs which use the SMB5 generation
+of charger.
+
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml  | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml b/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
+index 70f5cd6eaeab..9e200ba3f3a8 100644
+--- a/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
++++ b/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
+@@ -12,6 +12,8 @@ maintainers:
+ properties:
+   compatible:
+     enum:
++      - qcom,pm7250b-charger
++      - qcom,pm8150b-charger
+       - qcom,pmi8998-charger
+       - qcom,pm660-charger
+ 
+-- 
+2.53.0
+

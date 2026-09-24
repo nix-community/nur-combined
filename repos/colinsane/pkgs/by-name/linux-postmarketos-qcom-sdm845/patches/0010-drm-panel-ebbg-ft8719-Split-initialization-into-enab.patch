@@ -1,0 +1,77 @@
+From b02d2b570080c13c2a32cbe41b0969abad07ca9b Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Thu, 22 Jan 2026 19:26:55 +0100
+Subject: [PATCH 010/194] drm/panel: ebbg-ft8719: Split initialization into
+ enable/disable fn
+
+Let's have better balanced init sequence.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+index fb9f9f42be4f..22048501a9fb 100644
+--- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
++++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+@@ -54,8 +54,9 @@ static void ebbg_ft8719_reset(struct ebbg_ft8719 *ctx)
+ 	usleep_range(15000, 16000);
+ }
+ 
+-static int ebbg_ft8719_on(struct ebbg_ft8719 *ctx)
++static int ebbg_ft8719_enable(struct drm_panel *panel)
+ {
++	struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
+ 	struct mipi_dsi_device *dsi = ctx->dsi;
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+@@ -72,12 +73,13 @@ static int ebbg_ft8719_on(struct ebbg_ft8719 *ctx)
+ 	return dsi_ctx.accum_err;
+ }
+ 
+-static int ebbg_ft8719_off(struct ebbg_ft8719 *ctx)
++static int ebbg_ft8719_disable(struct drm_panel *panel)
+ {
++	struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
+ 	struct mipi_dsi_device *dsi = ctx->dsi;
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+-	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+ 
+ 	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
+@@ -98,12 +100,6 @@ static int ebbg_ft8719_prepare(struct drm_panel *panel)
+ 
+ 	ebbg_ft8719_reset(ctx);
+ 
+-	ret = ebbg_ft8719_on(ctx);
+-	if (ret < 0) {
+-		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+-		return ret;
+-	}
+-
+ 	return 0;
+ }
+ 
+@@ -111,7 +107,6 @@ static int ebbg_ft8719_unprepare(struct drm_panel *panel)
+ {
+ 	struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
+ 
+-	ebbg_ft8719_off(ctx);
+ 	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+ 	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+ 
+@@ -153,6 +148,8 @@ static int ebbg_ft8719_get_modes(struct drm_panel *panel,
+ 
+ static const struct drm_panel_funcs ebbg_ft8719_panel_funcs = {
+ 	.prepare = ebbg_ft8719_prepare,
++	.enable = ebbg_ft8719_enable,
++	.disable = ebbg_ft8719_disable,
+ 	.unprepare = ebbg_ft8719_unprepare,
+ 	.get_modes = ebbg_ft8719_get_modes,
+ };
+-- 
+2.53.0
+

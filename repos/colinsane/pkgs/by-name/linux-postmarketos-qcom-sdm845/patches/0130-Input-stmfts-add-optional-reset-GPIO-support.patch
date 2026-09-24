@@ -1,0 +1,81 @@
+From 5f8a04fb068b0061ec2f2dbfd35dd04f8dbeb029 Mon Sep 17 00:00:00 2001
+From: Petr Hodina <petr.hodina@protonmail.com>
+Date: Tue, 18 Nov 2025 22:04:17 +0100
+Subject: [PATCH 130/194] Input: stmfts - add optional reset GPIO support
+
+Add support for an optional "reset-gpios" property. If present, the
+driver drives the reset line high at probe time and releases it during
+power-on, after the regulators have been enabled.
+
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+Co-developed-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/touchscreen/stmfts.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index b61a19e95429..1e6d9a287cd0 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -77,6 +77,7 @@ static const struct regulator_bulk_data stmfts_supplies[] = {
+ struct stmfts_data {
+ 	struct i2c_client *client;
+ 	struct input_dev *input;
++	struct gpio_desc *reset_gpio;
+ 	struct led_classdev led_cdev;
+ 	struct mutex mutex;
+ 
+@@ -539,6 +540,15 @@ static int stmfts_read_system_info(struct stmfts_data *sdata)
+ 	return 0;
+ }
+ 
++static void stmfts_reset(struct stmfts_data *sdata)
++{
++	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
++	msleep(20);
++
++	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
++	msleep(50);
++}
++
+ static int stmfts_configure(struct stmfts_data *sdata)
+ {
+ 	int err;
+@@ -599,6 +609,9 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 	 */
+ 	msleep(20);
+ 
++	if (sdata->reset_gpio)
++		stmfts_reset(sdata);
++
+ 	err = stmfts_configure(sdata);
+ 	if (err)
+ 		regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
+@@ -612,6 +625,10 @@ static void stmfts_power_off(void *data)
+ 	struct stmfts_data *sdata = data;
+ 
+ 	disable_irq(sdata->client->irq);
++
++	if (sdata->reset_gpio)
++		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
++
+ 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
+ 			       sdata->supplies);
+ }
+@@ -668,6 +685,12 @@ static int stmfts_probe(struct i2c_client *client)
+ 	if (err)
+ 		return err;
+ 
++	sdata->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						    GPIOD_OUT_HIGH);
++	if (IS_ERR(sdata->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(sdata->reset_gpio),
++				     "Failed to get GPIO 'reset'\n");
++
+ 	sdata->input = devm_input_allocate_device(dev);
+ 	if (!sdata->input)
+ 		return -ENOMEM;
+-- 
+2.53.0
+

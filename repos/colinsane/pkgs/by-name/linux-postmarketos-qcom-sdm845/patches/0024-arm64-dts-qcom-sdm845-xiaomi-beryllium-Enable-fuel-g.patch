@@ -1,0 +1,35 @@
+From 6fd3383c76746352e4d75c7c1f092c26495a9a1b Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+Date: Fri, 10 Mar 2023 02:42:33 -0600
+Subject: [PATCH 024/194] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable
+ fuel gauge
+
+Enable the fuel gauge and configure the associated charger and battery.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi      | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index 01e753382440..e5e3e6351269 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -394,6 +394,13 @@
+ 	};
+ };
+ 
++&pmi8998_fg {
++	power-supplies = <&pmi8998_charger>;
++	monitored-battery = <&battery>;
++
++	status = "okay";
++};
++
+ &pmi8998_haptics {
+ 	qcom,wave-play-rate-us = <4878>;
+ 
+-- 
+2.53.0
+

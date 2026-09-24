@@ -1,0 +1,30 @@
+From 986c36edd3d89224c8180b5346dc54803aabc5f5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Mon, 13 Oct 2025 17:27:10 +0200
+Subject: [PATCH 145/194] drm/panel: visionox-rm69299: Set prepare_prev_first
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Otherwise sending DSI commands fails
+
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
+---
+ drivers/gpu/drm/panel/panel-visionox-rm69299.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+index f1430370ff94..b149bca05421 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
++++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+@@ -389,6 +389,7 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
+ 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++	ctx->panel.prepare_prev_first = true;
+ 	ret = mipi_dsi_attach(dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "dsi attach failed ret = %d\n", ret);
+-- 
+2.53.0
+

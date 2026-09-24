@@ -1,0 +1,36 @@
+From f947f589a541b2b7013eaffad60b4409b80ff578 Mon Sep 17 00:00:00 2001
+From: Petr Hodina <petr.hodina@protonmail.com>
+Date: Wed, 7 Jan 2026 16:16:24 +0100
+Subject: [PATCH 119/194] arm64: dts: qcom: sdm845-xiaomi-beryllium-tianma:
+ Disable MDSS
+
+Currently the panel driver for tianma is broken.
+Disable MDSS to prevent DRM taking over the framebuffer.
+
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts   | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
+index b58964cde834..d1c7bccaab50 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
+@@ -36,3 +36,13 @@
+ 		touchscreen-size-y = <2246>;
+ 	};
+ };
++
++&dispcc {
++	/* Disable for now so simple-framebuffer continues working */
++	status = "disabled";
++};
++
++&mdss {
++	/* Disable for now so simple-framebuffer continues working */
++	status = "disabled";
++};
+-- 
+2.53.0
+

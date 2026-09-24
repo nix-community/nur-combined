@@ -1,0 +1,53 @@
+From 28fae73f5b19f30689bc2de72c651d20421c3a84 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Sun, 16 Mar 2025 20:12:10 -0500
+Subject: [PATCH 174/194] arm64: dts: qcom: sdm845-xiaomi-beryllium: add rear
+ camera actuator
+
+Xiaomi Poco F1 uses the ROHM BU64748 VCM as the focus lens
+for its main rear camera (Sony IMX363).
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ .../qcom/sdm845-xiaomi-beryllium-common.dtsi   | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index d89a66d70f61..4c813a1dc2a5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -190,6 +190,16 @@
+ 		enable-active-high;
+ 		gpio = <&pm8998_gpios 11 GPIO_ACTIVE_HIGH>;
+ 	};
++
++	cam0_actuator_regulator: gpio-regulator@5 {
++		compatible = "regulator-fixed";
++		regulator-name = "cam0_actuator_regulator";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-enable-ramp-delay = <100>;
++		enable-active-high;
++		gpio = <&tlmm 26 GPIO_ACTIVE_HIGH>;
++	};
+ };
+ 
+ &adsp_pas {
+@@ -320,6 +330,14 @@
+ &cci_i2c0 {
+ 	status = "okay";
+ 
++	actuator: actuator@c {
++		compatible = "rohm,bu64748";
++		reg = <0x0c>;
++		vcc-supply = <&cam0_actuator_regulator>;
++		vio-supply = <&cam_iovdd>;
++		status = "okay";
++	};
++
+ 	camera@10 {
+ 		compatible = "sony,imx363";
+ 		reg = <0x10>;
+-- 
+2.53.0
+

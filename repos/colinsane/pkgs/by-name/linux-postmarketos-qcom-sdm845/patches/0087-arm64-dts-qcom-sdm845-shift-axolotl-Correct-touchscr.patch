@@ -1,0 +1,31 @@
+From 56c582ce21fa33a896d059e647053efa886b24ef Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Tue, 24 Mar 2026 18:59:39 +0100
+Subject: [PATCH 087/194] arm64: dts: qcom: sdm845-shift-axolotl: Correct
+ touchscreen sleep state
+
+There is no suspend state in the mainline kernel, use the sleep state
+intended for this purpose.
+
+Fixes: 45882459159d ("arm64: dts: qcom: sdm845: add device tree for SHIFT6mq")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index 38c7fa966324..3057d7bd52fe 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -540,7 +540,7 @@
+ 
+ 		pinctrl-0 = <&ts_int_active &ts_reset_active>;
+ 		pinctrl-1 = <&ts_int_suspend &ts_reset_suspend>;
+-		pinctrl-names = "default", "suspend";
++		pinctrl-names = "default", "sleep";
+ 
+ 		touchscreen-size-x = <1080>;
+ 		touchscreen-size-y = <2160>;
+-- 
+2.53.0
+

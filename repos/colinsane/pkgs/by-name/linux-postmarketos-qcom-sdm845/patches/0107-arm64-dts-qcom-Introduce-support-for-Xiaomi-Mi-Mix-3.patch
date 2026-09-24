@@ -1,0 +1,1191 @@
+From d543bd54f1906978c3ff0a6b4e660f4cf08c8adc Mon Sep 17 00:00:00 2001
+From: Mihail Maksimov <miha5424@gmail.com>
+Date: Sun, 22 Jun 2025 16:54:15 +0300
+Subject: [PATCH 107/194] arm64: dts: qcom: Introduce support for Xiaomi Mi Mix
+ 3
+
+Xiaomi Mi Mix 3, codename perseus is mobile phone released in 2018.
+
+Works great:
+ - Storage,
+ - Display,
+ - GPU,
+ - Flashlight,
+ - Bluetooth,
+ - Sensors (excluding hall sensor).
+
+Audio is working, but for full testing and use requires alsa ucm
+configuration and maybe additional work.
+
+[David]
+ - small adaptation to use upstream FTS driver (w/ modifications)
+
+Signed-off-by: Mihail Maksimov <miha5424@gmail.com>
+Co-developed-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../boot/dts/qcom/sdm845-xiaomi-perseus.dts   | 1126 +++++++++++++++++
+ 3 files changed, 1128 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sdm845-xiaomi-perseus.dts
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index b4943123d2e4..20d689845d89 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -974,6 +974,7 @@ properties:
+               - thundercomm,db845c
+               - xiaomi,beryllium
+               - xiaomi,beryllium-ebbg
++              - xiaomi,perseus
+               - xiaomi,polaris
+           - const: qcom,sdm845
+ 
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 4ba8e7306419..557be6fd56d7 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -321,6 +321,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-sony-xperia-tama-akatsuki.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-sony-xperia-tama-apollo.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-beryllium-ebbg.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-beryllium-tianma.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-perseus.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-xiaomi-polaris.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-shift-axolotl.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-huawei-matebook-e-2019.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-perseus.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-perseus.dts
+new file mode 100644
+index 000000000000..8257dd7b8249
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-perseus.dts
+@@ -0,0 +1,1126 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Xiaomi Mi Mix 3 (perseus) device tree.
++ *
++ * Copyright (c) 2025 Noi <miha5424@gmail.com>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/arm/qcom,ids.h>
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/input/linux-event-codes.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
++#include <dt-bindings/sound/qcom,q6voice.h>
++
++#include "sdm845.dtsi"
++#include "sdm845-wcd9340.dtsi"
++#include "pm8998.dtsi"
++#include "pmi8998.dtsi"
++#include "pm8005.dtsi"
++
++/*
++ * Delete following upstream (sdm845.dtsi) reserved
++ * memory mappings which are different in this device.
++ */
++/delete-node/ &tz_mem;
++/delete-node/ &adsp_mem;
++/delete-node/ &wlan_msa_mem;
++/delete-node/ &mpss_region;
++/delete-node/ &venus_mem;
++/delete-node/ &cdsp_mem;
++/delete-node/ &mba_region;
++/delete-node/ &slpi_mem;
++/delete-node/ &spss_mem;
++/delete-node/ &rmtfs_mem;
++
++/{
++	model = "Xiaomi Mi Mix 3";
++	compatible = "xiaomi,perseus", "qcom,sdm845";
++	chassis-type = "handset";
++
++	/* required for bootloader to select correct board */
++	qcom,board-id = <0x63 0x0>;
++	qcom,msm-id = <QCOM_ID_SDM845 0x20001>;
++
++	aliases {
++		serial0 = &uart9;
++		serial1 = &uart6;
++	};
++
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		stdout-path = "serial0:115200n8";
++
++		framebuffer: framebuffer@9d400000 {
++			compatible = "simple-framebuffer";
++			memory-region = <&cont_splash_mem>;
++
++			format = "a8r8g8b8";
++			height = <2340>;
++			stride = <(1080 * 4)>;
++			width = <1080>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&volume_up_gpio>;
++
++		key-vol-up {
++			label = "Volume up";
++			linux,code = <KEY_VOLUMEUP>;
++			gpios = <&pm8998_gpios 6 GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	reserved-memory {
++		cont_splash_mem: splash@9d400000 {
++			reg = <0 0x9d400000 0 0x02400000>;
++			no-map;
++		};
++
++		tz_mem: memory@86200000 {
++			reg = <0 0x86200000 0 0x4900000>;
++			no-map;
++		};
++
++		adsp_mem: memory@8c500000 {
++			reg = <0 0x8c500000 0 0x1e00000>;
++			no-map;
++		};
++
++		wlan_msa_mem: memory@8e300000 {
++			reg = <0 0x8e300000 0 0x100000>;
++			no-map;
++		};
++
++		mpss_region: memory@8e400000 {
++			reg = <0 0x8e400000 0 0x7800000>;
++			no-map;
++		};
++
++		venus_mem: memory@95c00000 {
++			reg = <0 0x95c00000 0 0x500000>;
++			no-map;
++		};
++
++		cdsp_mem: memory@96100000 {
++			reg = <0 0x96100000 0 0x800000>;
++			no-map;
++		};
++
++		mba_region: memory@96900000 {
++			reg = <0 0x96900000 0 0x200000>;
++			no-map;
++		};
++
++		slpi_mem: memory@96b00000 {
++			reg = <0 0x96b00000 0 0x1400000>;
++			no-map;
++		};
++
++		spss_mem: memory@97f00000 {
++			reg = <0 0x97f00000 0 0x100000>;
++			no-map;
++		};
++
++		rmtfs_mem: memory@f6301000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0 0xf6301000 0 0x200000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++	};
++
++	battery: battery {
++		compatible = "simple-battery";
++
++		charge-full-design-microamp-hours = <3200000>;
++		voltage-min-design-microvolt = <3700000>;
++		voltage-max-design-microvolt = <4400000>;
++	};
++
++	vph_pwr: vph-pwr-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++	};
++
++	disp_vci_vreg: disp_vci_vreg {
++		compatible = "regulator-fixed";
++		regulator-name = "disp_vci_vreg";
++		start-delay-us = <4000>;
++		regulator-always-on;
++		regulator-boot-on;
++		enable-active-high;
++		gpio = <&tlmm 99 0>;
++	};
++
++	disp_vddio_vreg: disp_vddio_vreg {
++		compatible = "regulator-fixed";
++		regulator-name = "disp_vddio_vreg";
++		startup-delay-us = <4000>;
++		regulator-always-on;
++		regulator-boot-on;
++		enable-active-high;
++		gpio = <&tlmm 79 0>;
++	};
++
++	fp_vdd_vreg: fp_vdd_vreg {
++		compatible = "regulator-fixed";
++		regulator-name = "fp_vdd_vreg";
++		startup-delay-us = <4000>;
++		regulator-always-on;
++		enable-active-high;
++		gpio = <&tlmm 50 0>;
++	};
++
++	/*
++	 * Apparently RPMh does not provide support for PM8998 S4 because it
++	 * is always-on; model it as a fixed regulator.
++	 */
++	vreg_s4a_1p8: pm8998-smps4 {
++		compatible = "regulator-fixed";
++		regulator-name = "vreg_s4a_1p8";
++
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++
++		regulator-always-on;
++		regulator-boot-on;
++		vin-supply = <&vph_pwr>;
++	};
++};
++
++&adsp_pas {
++	firmware-name = "qcom/sdm845/Xiaomi/perseus/adsp.mbn";
++
++	status = "okay";
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm8998-rpmh-regulators";
++		qcom,pmic-id = "a";
++
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++		vdd-s4-supply = <&vph_pwr>;
++		vdd-s5-supply = <&vph_pwr>;
++		vdd-s6-supply = <&vph_pwr>;
++		vdd-s7-supply = <&vph_pwr>;
++		vdd-s8-supply = <&vph_pwr>;
++		vdd-s9-supply = <&vph_pwr>;
++		vdd-s10-supply = <&vph_pwr>;
++		vdd-s11-supply = <&vph_pwr>;
++		vdd-s12-supply = <&vph_pwr>;
++		vdd-s13-supply = <&vph_pwr>;
++		vdd-l1-l27-supply = <&vreg_s7a_1p025>;
++		vdd-l2-l8-l17-supply = <&vreg_s3a_1p35>;
++		vdd-l3-l11-supply = <&vreg_s7a_1p025>;
++		vdd-l4-l5-supply = <&vreg_s7a_1p025>;
++		vdd-l6-supply = <&vph_pwr>;
++		vdd-l7-l12-l14-l15-supply = <&vreg_s5a_2p04>;
++		vdd-l9-supply = <&vreg_bob>;
++		vdd-l10-l23-l25-supply = <&vreg_bob>;
++		vdd-l13-l19-l21-supply = <&vreg_bob>;
++		vdd-l16-l28-supply = <&vreg_bob>;
++		vdd-l18-l22-supply = <&vreg_bob>;
++		vdd-l20-l24-supply = <&vreg_bob>;
++		vdd-l26-supply = <&vreg_s3a_1p35>;
++		vin-lvs-1-2-supply = <&vreg_s4a_1p8>;
++
++		vreg_s2a_1p1: smps2 {
++			regulator-always-on;
++			regulator-min-microvolt = <1100000>;
++			regulator-max-microvolt = <1100000>;
++		};
++
++		vreg_s3a_1p35: smps3 {
++			regulator-min-microvolt = <1352000>;
++			regulator-max-microvolt = <1352000>;
++		};
++
++		vreg_s5a_2p04: smps5 {
++			regulator-always-on;
++			regulator-min-microvolt = <1904000>;
++			regulator-max-microvolt = <2040000>;
++		};
++
++		vreg_s7a_1p025: smps7 {
++			regulator-always-on;
++			regulator-min-microvolt = <900000>;
++			regulator-max-microvolt = <1028000>;
++		};
++
++		vdda_mipi_dsi0_pll:
++		vdda_ufs1_core:
++		vreg_l1a_0p875: ldo1 {
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <880000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2a_1p2: ldo2 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l3a_1p0: ldo3 {
++			regulator-min-microvolt = <1000000>;
++			regulator-max-microvolt = <1000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5a_0p8: ldo5 {
++			regulator-min-microvolt = <800000>;
++			regulator-max-microvolt = <800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6a_1p8: ldo6 {
++			regulator-min-microvolt = <1856000>;
++			regulator-max-microvolt = <1856000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7a_1p8: ldo7 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8a_1p2: ldo8 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1248000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9a_1p8: ldo9 {
++			regulator-min-microvolt = <1704000>;
++			regulator-max-microvolt = <2928000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10a_2p95: ldo10 {
++			regulator-min-microvolt = <1704000>;
++			regulator-max-microvolt = <2928000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l11a_1p05: ldo11 {
++			regulator-min-microvolt = <1000000>;
++			regulator-max-microvolt = <1048000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l12a_1p8: ldo12 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l13a_2p95: ldo13 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l14a_1p8: ldo14 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-always-on;
++			regulator-boot-on;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l15a_1p8: ldo15 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l16a_2p7: ldo16 {
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <2704000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l17a_1p3: ldo17 {
++			regulator-always-on;
++			regulator-min-microvolt = <1304000>;
++			regulator-max-microvolt = <1304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l18a_2p9: ldo18 {
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l19a_3p1: ldo19 {
++			regulator-min-microvolt = <2856000>;
++			regulator-max-microvolt = <3104000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l20a_2p95: ldo20 {
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l21a_2p95: ldo21 {
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l22a_3p3: ldo22 {
++			regulator-min-microvolt = <2864000>;
++			regulator-max-microvolt = <3312000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l23a_3p3: ldo23 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3312000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l24a_3p075: ldo24 {
++			regulator-min-microvolt = <3088000>;
++			regulator-max-microvolt = <3088000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l25a_3p3: ldo25 {
++			regulator-always-on;
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3312000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vdda_mipi_dsi0_1p2:
++		vdda_ufs1_1p2:
++		vreg_l26a_1p2: ldo26 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-boot-on;
++		};
++
++		vreg_l28a_3p0: ldo28 {
++			regulator-min-microvolt = <2856000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_lvs1a_1p8: lvs1 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-always-on;
++		};
++
++		vreg_lvs2a_1p8: lvs2 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-always-on;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pmi8998-rpmh-regulators";
++		qcom,pmic-id = "b";
++
++		vdd-bob-supply = <&vph_pwr>;
++
++		vreg_bob: bob {
++			regulator-min-microvolt = <3312000>;
++			regulator-max-microvolt = <3600000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
++			regulator-allow-bypass;
++		};
++	};
++
++	regulators-2 {
++		compatible = "qcom,pm8005-rpmh-regulators";
++		qcom,pmic-id = "c";
++
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++		vdd-s4-supply = <&vph_pwr>;
++
++		vreg_smp3c_0p6: smps3 {
++			regulator-min-microvolt = <600000>;
++			regulator-max-microvolt = <600000>;
++			regulator-always-on;
++		};
++	};
++};
++
++&cdsp_pas {
++	firmware-name = "qcom/sdm845/Xiaomi/perseus/cdsp.mbn";
++
++	status = "okay";
++};
++
++&gcc {
++	protected-clocks = <GCC_QSPI_CORE_CLK>,
++			   <GCC_QSPI_CORE_CLK_SRC>,
++			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>,
++			   <GCC_LPASS_Q6_AXI_CLK>,
++			   <GCC_LPASS_SWAY_CLK>;
++};
++
++&gpi_dma0 {
++	status = "okay";
++};
++
++&gpi_dma1 {
++	status = "okay";
++};
++
++&gmu {
++	status = "okay";
++};
++
++&gpu {
++	status = "okay";
++
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/sdm845/Xiaomi/perseus/a630_zap.mbn";
++};
++
++&ibb {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-over-current-protection;
++	regulator-pull-down;
++	regulator-soft-start;
++
++	qcom,discharge-resistor-kohms = <300>;
++};
++
++&ipa {
++	memory-region = <&ipa_fw_mem>;
++	firmware-name = "qcom/sdm845/perseus/ipa_fws.mbn";
++	qcom,gsi-loader = "self";
++
++	status = "okay";
++};
++
++&i2c3 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	nfc@28 {
++		compatible = "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupt-parent = <&tlmm>;
++		interrupts = <63 IRQ_TYPE_LEVEL_HIGH>;
++
++		enable-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 88 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&nfc_default>;
++	};
++};
++
++&i2c5 {
++	#dma-cells = <3>;
++	clock-frequency = <400000>;
++
++	dmas =  <&gpi_dma0 0 5 QCOM_GPI_I2C>,
++			<&gpi_dma0 1 5 QCOM_GPI_I2C>;
++	dma-names = "tx", "rx";
++
++	status = "okay";
++
++	tas2557_codec: tas2557@4c{
++		#sound-dai-cells = <1>;
++		compatible = "ti,tas2557";
++		reg = <0x4c>;
++		ti,cdc-reset-gpio = <&tlmm 69 0>;
++		ti,irq-gpio = <&tlmm 30 0>;
++		ti,bypass-tmax = <0>;
++	};
++};
++
++&i2c14 {
++	#dma-cells = <3>;
++	clock-frequency = <400000>;
++
++	dmas =  <&gpi_dma1 0 6 QCOM_GPI_I2C>,
++		<&gpi_dma1 1 6 QCOM_GPI_I2C>;
++	dma-names = "tx", "rx";
++
++	status = "okay";
++
++	touchscreen@49 {
++		compatible = "st,stmfts5", "st,stmfts", "st,fts";
++		reg = <0x49>;
++		interrupts-extended = <&tlmm 31 IRQ_TYPE_LEVEL_LOW>;
++
++		pinctrl-0 = <&ts_int_default &ts_reset_default>;
++		pinctrl-1 = <&ts_int_sleep &ts_reset_sleep>;
++		pinctrl-names = "default", "sleep";
++
++		vdd-supply = <&disp_vddio_vreg>;
++		avdd-supply = <&vreg_l28a_3p0>;
++		vcc-supply = <&lab>;
++
++		touchscreen-size-x = <1079>;
++		touchscreen-size-y = <2339>;
++
++		/* downstream driver */
++		st,pwr-reg-name = "avdd";
++		st,bus-reg-name = "vdd";
++		st,irq-gpio = <&tlmm 31 0x2008>;
++		st,reset-gpio = <&tlmm 32 0x00>;
++		st,max-coords = <1079 2339>;
++		st,config-array-size = <1>;
++		st,default-fw-name = "st_fts_e5.ftb";
++		st,cfg_0 {
++			st,fw-name = "st_fts_e5.ftb";
++			st,limit-name = "stm_fts_production_limits.csv";
++		};
++	};
++};
++
++&lab {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-soft-start;
++	regulator-pull-down;
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vdda_mipi_dsi0_1p2>;
++
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	status = "okay";
++
++	display_panel: panel@0 {
++		compatible = "samsung,ea8076";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		reg = <0>;
++
++		te-gpios = <&tlmm 10 GPIO_ACTIVE_LOW>;
++		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++		vddio-supply = <&vreg_l14a_1p8>;
++		vci-supply = <&disp_vci_vreg>;
++		backlight = <&pmi8998_wled>;
++		vddpos-supply = <&lab>;
++		vddneg-supply = <&ibb>;
++
++		pinctrl-names = "default", "sleep";
++		pinctrl-0 = <&sde_dsi_default &sde_te_default>;
++		pinctrl-1 = <&sde_dsi_sleep &sde_te_sleep>;
++
++		status = "okay";
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++	remote-endpoint = <&panel_in>;
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vdda_mipi_dsi0_pll>;
++
++	status = "okay";
++};
++
++&mss_pil {
++	firmware-name = "qcom/sdm845/Xiaomi/perseus/mba.mbn",
++			"qcom/sdm845/Xiaomi/perseus/modem.mbn";
++
++	status = "okay";
++};
++
++&pm8998_gpios {
++	volume_up_gpio: pm8998-gpio6-state {
++		pinconf {
++			qcom,drive-strength = <PMIC_GPIO_STRENGTH_NO>;
++			function = "normal";
++			pins = "gpio6";
++			input-enable;
++			bias-pull-up;
++		};
++	};
++};
++
++&pmi8998_wled {
++	qcom,current-boost-limit = <970>;
++	qcom,ovp-millivolt = <29600>;
++	qcom,current-limit-microamp = <20000>;
++	qcom,num-strings = <2>;
++	qcom,switching-freq = <600>;
++	qcom,external-pfet;
++	qcom,cabc;
++
++	status = "okay";
++};
++
++&pmi8998_charger {
++	monitored-battery = <&battery>;
++
++	status = "okay";
++};
++
++&pmi8998_fg {
++	power-supplies = <&pmi8998_charger>;
++	monitored-battery = <&battery>;
++
++	status = "okay";
++};
++
++&pm8998_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&pmi8998_lpg {
++	status = "okay";
++
++	led@5 {
++		reg = <5>;
++		color = <LED_COLOR_ID_WHITE>;
++		function = LED_FUNCTION_STATUS;
++	};
++};
++
++&pmi8998_flash {
++	status = "okay";
++
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>;
++		led-max-microamp = <500000>;
++		flash-max-microamp = <1500000>;
++		flash-max-timeout-us = <1280000>;
++	};
++
++	led-1 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_YELLOW>;
++		led-sources = <2>;
++		led-max-microamp = <500000>;
++		flash-max-microamp = <1500000>;
++		flash-max-timeout-us = <1280000>;
++	};
++};
++
++&pmi8998_haptics {
++	qcom,wave-play-rate-us = <4878>;
++
++	status = "okay";
++};
++
++&q6afedai {
++	dai@22 {
++		reg = <QUATERNARY_MI2S_RX>;
++		qcom,sd-lines = <0>;
++	};
++};
++
++&q6asmdai {
++	dai@0 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
++	};
++
++	dai@1 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA2>;
++	};
++
++	dai@2 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA3>;
++	};
++
++	dai@3 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA4>;
++	};
++};
++
++&q6voicedai {
++	dai@1 {
++		reg = <VOICEMMODE1>;
++	};
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&qup_uart9_rx {
++	drive-strength = <2>;
++	bias-pull-up;
++};
++
++&qup_uart9_tx {
++	drive-strength = <2>;
++	bias-disable;
++};
++
++&uart6 {
++	pinctrl-0 = <&qup_uart6_4pin>;
++
++	status = "okay";
++
++	bluetooth {
++		compatible = "qcom,wcn3990-bt";
++
++		firmware-name = "sdm845/Xiaomi/perseus/crnv21.bin";
++
++		vddio-supply = <&vreg_s4a_1p8>;
++		vddxo-supply = <&vreg_l7a_1p8>;
++		vddrf-supply = <&vreg_l17a_1p3>;
++		vddch0-supply = <&vreg_l25a_3p3>;
++
++		max-speed = <3200000>;
++	};
++};
++
++&uart9 {
++	status = "okay";
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 150 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l20a_2p95>;
++	vcc-max-microamp = <600000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vdda_ufs1_core>;
++	vdda-pll-supply = <&vdda_ufs1_1p2>;
++
++	status = "okay";
++};
++
++&usb_1 {
++	/*
++	 * disable USB3 clock requirement as the device only supports
++	 * USB2.
++	 */
++	qcom,select-utmi-as-pipe-clk;
++
++	status = "okay";
++};
++
++&usb_1_dwc3 {
++	/*
++	 * We don't have the capability to switch modes yet.
++	 */
++	dr_mode = "peripheral";
++
++	/* fastest mode for USB 2 */
++	maximum-speed = "high-speed";
++
++	/* Remove USB3 phy as it's unused on this device. */
++	phys = <&usb_1_hsphy>;
++	phy-names = "usb2-phy";
++};
++
++&usb_1_hsphy {
++	vdd-supply = <&vreg_l1a_0p875>;
++	vdda-pll-supply = <&vreg_l12a_1p8>;
++	vdda-phy-dpdm-supply = <&vreg_l24a_3p075>;
++
++	qcom,imp-res-offset-value = <8>;
++	qcom,hstx-trim-value = <QUSB2_V2_HSTX_TRIM_21_6_MA>;
++	qcom,preemphasis-level = <QUSB2_V2_PREEMPHASIS_5_PERCENT>;
++	qcom,preemphasis-width = <QUSB2_V2_PREEMPHASIS_WIDTH_HALF_BIT>;
++
++	status = "okay";
++};
++
++&usb_1_qmpphy {
++	vdda-phy-supply = <&vreg_l26a_1p2>;
++	vdda-pll-supply = <&vreg_l1a_0p875>;
++
++	status = "okay";
++};
++
++&slpi_pas {
++	firmware-name = "qcom/sdm845/Xiaomi/perseus/slpi_ps.mbn";
++
++	status = "okay";
++};
++
++&sound {
++	compatible = "qcom,sdm845-sndcard";
++
++	pinctrl-0 = <&quat_mi2s_active &quat_mi2s_sd0_active>;
++	pinctrl-names = "default";
++
++	model = "Xiaomi Mi Mix 3";
++	audio-routing =
++		"RX_BIAS", "MCLK",
++		"AMIC1", "MIC BIAS1",
++		"AMIC2", "MIC BIAS2",
++		"AMIC3", "MIC BIAS3";
++
++	mm1-dai-link {
++		link-name = "MultiMedia1";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
++		};
++	};
++
++	mm2-dai-link {
++		link-name = "MultiMedia2";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
++		};
++	};
++
++	mm3-dai-link {
++		link-name = "MultiMedia3";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA3>;
++		};
++	};
++
++	mm4-dai-link {
++		link-name = "MultiMedia4";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA4>;
++		};
++	};
++
++	dai-link-voicemmode1 {
++		link-name = "VoiceMMode1";
++		cpu {
++			sound-dai = <&q6voicedai VOICEMMODE1>;
++		};
++	};
++
++	tas2557-dai-link {
++		link-name = "Primary Spkr Playback";
++		cpu {
++			sound-dai = <&q6afedai QUATERNARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&tas2557_codec 0>;
++		};
++	};
++
++	slim-dai-link {
++		link-name = "SLIM Playback";
++		cpu {
++			sound-dai = <&q6afedai SLIMBUS_0_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&wcd9340 0>;
++		};
++	};
++
++	slimcap-dai-link {
++		link-name = "SLIM WCD Capture";
++		cpu {
++			sound-dai = <&q6afedai SLIMBUS_0_TX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&wcd9340 1>;
++		};
++	};
++
++	slimcap2-dai-link {
++		link-name = "SLIM WCD Capture 2";
++		cpu {
++			sound-dai = <&q6afedai SLIMBUS_1_TX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&wcd9340 3>;
++		};
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <0 4>, /* FIXME fill */
++			       <81 4> /* FIXME fill */;
++
++	ts_int_default: ts-int-default-state {
++		pins = "gpio31";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-down;
++		input-enable;
++	};
++
++	ts_int_sleep: ts-int-sleep-state {
++		pins = "gpio31";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++		input-enable;
++	};
++
++	ts_reset_default: ts-reset-default-state {
++		pins = "gpio32";
++		function = "gpio";
++		drive-strength = <16>;
++		output-high;
++	};
++
++	ts_reset_sleep: ts-reset-sleep-state {
++		pins = "gpio32";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-low;
++	};
++
++	sde_dsi_default: sde-dsi-default-state {
++		pins = "gpio6", "gpio52";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	sde_dsi_sleep: sde-dsi-sleep-state {
++		pins = "gpio6", "gpio52";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_te_default: sde-te-default-state {
++		pins = "gpio10";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_te_sleep: sde-te-sleep-state {
++		pins = "gpio10";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	nfc_default: nfc-default-state {
++		pins = "gpio128 gpio88 gpio63";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++};
++
++&venus {
++	firmware-name = "qcom/sdm845/Xiaomi/perseus/venus.mbn";
++
++	status = "okay";
++};
++
++&wcd9340 {
++	reset-gpios = <&tlmm 64 0>;
++	vdd-buck-sido-supply = <&vreg_s4a_1p8>;
++	vdd-buck-supply = <&vreg_s4a_1p8>;
++	vdd-tx-supply = <&vreg_s4a_1p8>;
++	vdd-rx-supply = <&vreg_s4a_1p8>;
++	vdd-io-supply = <&vreg_s4a_1p8>;
++
++	qcom,micbias1-microvolt = <2700000>;
++	qcom,micbias2-microvolt = <1800000>;
++	qcom,micbias3-microvolt = <2700000>;
++	qcom,micbias4-microvolt = <2700000>;
++};
++
++&wifi {
++	vdd-0.8-cx-mx-supply = <&vreg_l5a_0p8>;
++	vdd-1.8-xo-supply = <&vreg_l7a_1p8>;
++	vdd-1.3-rfa-supply = <&vreg_l17a_1p3>;
++	vdd-3.3-ch0-supply = <&vreg_l25a_3p3>;
++	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
++
++	qcom,snoc-host-cap-skip-quirk;
++	qcom,ath10k-calibration-variant = "xiaomi_perseus";
++
++	status = "okay";
++};
++
++/* qdsp6 hacks */
++&q6cvp {
++	status = "okay";
++};
++
++&q6cvs {
++	status = "okay";
++};
++
++&q6mvm {
++	status = "okay";
++};
+-- 
+2.53.0
+

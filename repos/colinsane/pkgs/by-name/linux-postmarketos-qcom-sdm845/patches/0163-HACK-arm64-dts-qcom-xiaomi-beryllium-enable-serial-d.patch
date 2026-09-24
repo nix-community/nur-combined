@@ -1,0 +1,72 @@
+From 15dfe70199757c25d311b05fbbedd6459abe497f Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+Date: Thu, 2 May 2024 22:49:47 +0000
+Subject: [PATCH 163/194] HACK: arm64: dts: qcom: xiaomi-beryllium: enable
+ serial debug
+
+Marked as hack because it adds a 2s delay during the boot up process which helps workaround the random display failure during some reboots.
+Issue is discussed here: https://gitlab.freedesktop.org/drm/msm/-/issues/46
+and here: https://gitlab.com/postmarketOS/pmaports/-/issues/2518
+
+But, let's keep this even if the bug is fixed, because I got serial debugging work reliably in my Poco F1 atlast!!
+
+(cherry picked from commit 5219473b31eae61ffb3370c1c42d5b49ec9e6a19)
+
+Co-authored-by: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+---
+ .../qcom/sdm845-xiaomi-beryllium-common.dtsi   | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index 50093a9b6397..bdcefb2aef91 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -39,6 +39,7 @@
+ 	qcom,msm-id = <QCOM_ID_SDM845 0x20001>;
+ 
+ 	aliases {
++		serial0 = &uart9;
+ 		serial1 = &uart6;
+ 	};
+ 
+@@ -47,6 +48,8 @@
+ 		#size-cells = <2>;
+ 		ranges;
+ 
++		stdout-path = "serial0:115200n8";
++
+ 		framebuffer {
+ 			compatible = "simple-framebuffer";
+ 			memory-region = <&cont_splash_mem>;
+@@ -561,6 +564,16 @@
+ 	status = "okay";
+ };
+ 
++&qup_uart9_rx {
++	drive-strength = <2>;
++	bias-pull-up;
++};
++
++&qup_uart9_tx {
++	drive-strength = <2>;
++	bias-disable;
++};
++
+ &sdhc_2 {
+ 	status = "okay";
+ 
+@@ -768,6 +781,11 @@
+ 	};
+ };
+ 
++&uart9 {
++	label = "LS-UART1";
++	status = "okay";
++};
++
+ &ufs_mem_hc {
+ 	status = "okay";
+ 
+-- 
+2.53.0
+

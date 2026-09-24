@@ -1,0 +1,30 @@
+From b9e9d5126e32542e58d65548a3d17bcd21fdc906 Mon Sep 17 00:00:00 2001
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Tue, 28 Apr 2026 18:07:20 -0700
+Subject: [PATCH 193/194] sdm845.config: Drivers for LG G7 ThinQ
+
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/configs/sdm845.config | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/configs/sdm845.config b/arch/arm64/configs/sdm845.config
+index b917e05b9153..fd80a973ccf8 100644
+--- a/arch/arm64/configs/sdm845.config
++++ b/arch/arm64/configs/sdm845.config
+@@ -74,6 +74,12 @@ CONFIG_BACKLIGHT_PWM=y
+ CONFIG_EC_LENOVO_YOGA_C630=m
+ CONFIG_BATTERY_LENOVO_YOGA_C630=m
+ 
++# LG G7 ThinQ
++CONFIG_DRM_PANEL_LG_SW49410_LH609QH1=y
++CONFIG_TOUCHSCREEN_SW49410=y
++CONFIG_QCOM_WDT=y
++CONFIG_SPI_QCOM_GENI=y
++
+ # SOC
+ CONFIG_NR_CPUS=8
+ CONFIG_SCSI_UFS_QCOM=y
+-- 
+2.53.0
+

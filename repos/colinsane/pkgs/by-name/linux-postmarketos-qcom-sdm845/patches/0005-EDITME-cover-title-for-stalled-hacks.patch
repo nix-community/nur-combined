@@ -1,0 +1,18 @@
+From c163f7c7b254b0d9bc3f41b2c0211efe8af4b8e6 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 3 Dec 2025 14:51:28 +0100
+Subject: [PATCH 005/194] EDITME: cover title for stalled-hacks
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20251203-stalled-hacks-544f25d625d3",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

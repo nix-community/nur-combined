@@ -1,0 +1,176 @@
+From 49dc42be39770c9865430d0ee12925779cc30779 Mon Sep 17 00:00:00 2001
+From: Alexander Martinz <amartinz@shiftphones.com>
+Date: Tue, 18 Jan 2022 17:43:22 +0100
+Subject: [PATCH 066/194] arm64: dts: qcom: sdm845-shift-axolotl: Enable sound
+ subsystem
+
+Introduce support audio speakers and microphones.
+
+Signed-off-by: Alexander Martinz <amartinz@shiftphones.com>
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Co-developed-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-shift-axolotl.dts    | 118 +++++++++++++++++-
+ 1 file changed, 117 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index 257fb379a644..db880ddc8a0b 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -15,6 +15,7 @@
+ #include <dt-bindings/sound/qcom,q6asm.h>
+ #include <dt-bindings/sound/qcom,q6voice.h>
+ #include "sdm845.dtsi"
++#include "sdm845-wcd9340.dtsi"
+ #include "pm8998.dtsi"
+ #include "pmi8998.dtsi"
+ 
+@@ -467,7 +468,7 @@
+ 
+ 	status = "okay";
+ 
+-	audio-codec@34 {
++	tfa9890_codec: audio-codec@34 {
+ 		compatible = "nxp,tfa9890";
+ 		reg = <0x34>;
+ 		vddd-supply = <&vreg_s4a_1p8>;
+@@ -613,6 +614,27 @@
+ 	};
+ };
+ 
++&q6afedai {
++	qi2s@22 {
++		reg = <QUATERNARY_MI2S_RX>;
++		qcom,sd-lines = <0>;
++	};
++};
++
++&q6asmdai {
++	dai@0 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
++	};
++
++	dai@1 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA2>;
++	};
++
++	dai@2 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA3>;
++	};
++};
++
+ &qup_uart9_rx {
+ 	drive-strength = <2>;
+ 	bias-pull-up;
+@@ -655,6 +677,84 @@
+ 	status = "okay";
+ };
+ 
++&sound {
++	model = "SHIFT6mq";
++	compatible = "qcom,sdm845-sndcard";
++	pinctrl-0 = <&quat_mi2s_active &quat_mi2s_sd0_active>;
++	pinctrl-names = "default";
++
++	audio-routing = "RX_BIAS", "MCLK",
++			"AMIC1", "MIC BIAS1",
++			"AMIC2", "MIC BIAS2",
++			"AMIC3", "MIC BIAS3";
++
++	mm1-dai-link {
++		link-name = "MultiMedia1";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
++		};
++	};
++
++	mm2-dai-link {
++		link-name = "MultiMedia2";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
++		};
++	};
++
++	mm3-dai-link {
++		link-name = "MultiMedia3";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA3>;
++		};
++	};
++
++	speaker-dai-link {
++		link-name = "Speaker Playback";
++		codec {
++			sound-dai = <&tfa9890_codec>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai QUATERNARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++
++	slim-dai-link {
++		link-name = "SLIM Playback";
++		codec {
++			sound-dai = <&wcd9340 0>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai SLIMBUS_0_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++
++	slimcap-dai-link {
++		link-name = "SLIM Capture";
++		codec {
++			sound-dai = <&wcd9340 1>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai SLIMBUS_0_TX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <81 4>;
+ 
+@@ -805,6 +905,22 @@
+ 	status = "okay";
+ };
+ 
++&wcd9340 {
++	pinctrl-0 = <&wcd_intr_default>;
++	pinctrl-names = "default";
++	reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++	vdd-buck-supply = <&vreg_s4a_1p8>;
++	vdd-buck-sido-supply = <&vreg_s4a_1p8>;
++	vdd-tx-supply = <&vreg_s4a_1p8>;
++	vdd-rx-supply = <&vreg_s4a_1p8>;
++	vdd-io-supply = <&vreg_s4a_1p8>;
++
++	qcom,micbias1-microvolt = <2700000>;
++	qcom,micbias2-microvolt = <2700000>;
++	qcom,micbias3-microvolt = <2700000>;
++	qcom,micbias4-microvolt = <2700000>;
++};
++
+ &wifi {
+ 	status = "okay";
+ 
+-- 
+2.53.0
+

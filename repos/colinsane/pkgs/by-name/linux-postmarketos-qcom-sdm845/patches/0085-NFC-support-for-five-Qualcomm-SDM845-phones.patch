@@ -1,0 +1,68 @@
+From 8a9e4dfd05a79802565fd3b22579fa042b6be2e2 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Tue, 18 Nov 2025 17:03:52 +0100
+Subject: [PATCH 085/194] NFC support for five Qualcomm SDM845 phones
+
+ - OnePlus 6 / 6T
+ - Pixel 3 / 3 XL
+ - SHIFT 6MQ
+
+Verified with NFC card using neard:
+
+systemctl enable --now neard
+nfctool --device nfc0 -1
+nfctool -d nfc0 -p
+gdbus introspect --system --dest org.neard --object-path /org/neard/nfc0/tag0/record0
+
+successfully detecting and reading a tag.
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Alexander Martinz <amartinz@shift.eco>
+Cc: Petr Hodina <petr.hodina@protonmail.com>
+Cc: biemster <l.j.beemster@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: oe-linux-nfc@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+---
+Changes in v3:
+- Added Pixel 3 / 3 XL support.
+- VERIFY why drive-strength is <6>, while downstream kernel uses <2>.
+- Took full ownership of OnePlus 6 NFC patch as original author prefer to keep annonymous. (Krzysztof)
+- Enable sleep states (pinctrl).
+- Link to v2: https://lore.kernel.org/r/20260324-oneplus-nfc-v2-0-3eef052c9bc6@ixit.cz
+
+Changes in v2:
+- Use interrupts-extended. (Konrad)
+- Dropped QUESTION prefix, as it's verified this settings work.
+- Added compatible for OnePlus 6 based on schematics.
+- Corrected axolotl NFC compatible based on information from Alexander (SHIFT).
+- Link to v1: https://lore.kernel.org/r/20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 3,
+    "change-id": "20251118-oneplus-nfc-c00ef1cdfa9b",
+    "prefixes": [],
+    "history": {
+      "v1": [
+        "20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz"
+      ],
+      "v2": [
+        "20260324-oneplus-nfc-v2-0-3eef052c9bc6@ixit.cz"
+      ]
+    }
+  }
+}
+-- 
+2.53.0
+

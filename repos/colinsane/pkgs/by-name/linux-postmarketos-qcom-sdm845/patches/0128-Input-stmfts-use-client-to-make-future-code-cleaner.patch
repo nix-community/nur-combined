@@ -1,0 +1,35 @@
+From 3b96ad72ba2d45089ec36cde0b08e3665f519dad Mon Sep 17 00:00:00 2001
+From: Petr Hodina <petr.hodina@protonmail.com>
+Date: Mon, 15 Dec 2025 15:30:04 +0100
+Subject: [PATCH 128/194] Input: stmfts - use client to make future code
+ cleaner
+
+Make code cleaner, compiler will optimize it away anyway.
+
+Preparation for FTM5 support, where more steps are needed.
+
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/touchscreen/stmfts.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index 290511dd6943..b61a19e95429 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -769,9 +769,10 @@ static int stmfts_runtime_suspend(struct device *dev)
+ static int stmfts_runtime_resume(struct device *dev)
+ {
+ 	struct stmfts_data *sdata = dev_get_drvdata(dev);
++	struct i2c_client *client = sdata->client;
+ 	int ret;
+ 
+-	ret = i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_OUT);
++	ret = i2c_smbus_write_byte(client, STMFTS_SLEEP_OUT);
+ 	if (ret)
+ 		dev_err(dev, "failed to resume device: %d\n", ret);
+ 
+-- 
+2.53.0
+

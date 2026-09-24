@@ -1,0 +1,2114 @@
+From d764b9a278d8bb9fa1af5adfabecceeb075e38fc Mon Sep 17 00:00:00 2001
+From: "Dr. Git" <drgitx@gmail.com>
+Date: Mon, 3 Feb 2025 11:50:32 -0500
+Subject: [PATCH 077/194] stalled! media: i2c: Add imx519 image sensor driver
+
+[David]
+ - rework of imx519 dphy for 6MQ
+ - document registers
+---
+ MAINTAINERS                |    8 +
+ drivers/media/i2c/Kconfig  |   14 +
+ drivers/media/i2c/Makefile |    1 +
+ drivers/media/i2c/imx519.c | 2033 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 2056 insertions(+)
+ create mode 100644 drivers/media/i2c/imx519.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7f805048da6d..a045fbe19cbd 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24911,6 +24911,14 @@ T:	git git://linuxtv.org/media.git
+ F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+ F:	drivers/media/i2c/imx415.c
+ 
++SONY IMX519 SENSOR DRIVER
++M:	Arducam Kernel Maintenance <info@arducam.com>
++M:	Lee Jackson <lee.jackson@arducam.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++T:	git git://linuxtv.org/media_tree.git
++F:	Documentation/devicetree/bindings/media/i2c/sony,imx519.yaml
++
+ SONY MEMORYSTICK SUBSYSTEM
+ M:	Maxim Levitsky <maximlevitsky@gmail.com>
+ M:	Alex Dubov <oakad@yahoo.com>
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 25f19bd9968d..a96d659400ba 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -317,6 +317,20 @@ config VIDEO_IMX415
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called imx415.
+ 
++config VIDEO_IMX519
++	tristate "Sony IMX519 sensor support"
++	depends on I2C && VIDEO_DEV
++	select MEDIA_CONTROLLER
++	select VIDEO_V4L2_SUBDEV_API
++	select V4L2_CCI_I2C
++	select V4L2_FWNODE
++	help
++	  This is a Video4Linux2 sensor driver for the Sony
++	  IMX519 camera.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called imx519.
++
+ config VIDEO_MAX9271_LIB
+ 	tristate
+ 
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 7465d75a6572..3429b811d6ec 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -64,6 +64,7 @@ obj-$(CONFIG_VIDEO_IMX371) += imx371.o
+ obj-$(CONFIG_VIDEO_IMX376) += imx376.o
+ obj-$(CONFIG_VIDEO_IMX412) += imx412.o
+ obj-$(CONFIG_VIDEO_IMX415) += imx415.o
++obj-$(CONFIG_VIDEO_IMX519) += imx519.o
+ obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
+ obj-$(CONFIG_VIDEO_ISL7998X) += isl7998x.o
+ obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
+diff --git a/drivers/media/i2c/imx519.c b/drivers/media/i2c/imx519.c
+new file mode 100644
+index 000000000000..4834d687a4b3
+--- /dev/null
++++ b/drivers/media/i2c/imx519.c
+@@ -0,0 +1,2033 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * A V4L2 driver for Sony IMX519 cameras.
++ * Copyright (C) 2021 Arducam Technology co., Ltd.
++ *
++ * Based on Sony IMX477 camera driver
++ * Copyright (C) 2020 Raspberry Pi (Trading) Ltd
++ */
++#include <linux/unaligned.h>
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
++#include <media/v4l2-cci.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-event.h>
++#include <media/v4l2-fwnode.h>
++#include <media/v4l2-mediabus.h>
++
++/* Chip ID */
++#define IMX519_REG_CHIP_ID		CCI_REG16(0x0016)
++#define IMX519_CHIP_ID			0x0519
++
++/* CCS standard registers */
++#define IMX519_REG_MODE_SELECT		CCI_REG8(0x0100)
++#define IMX519_MODE_STANDBY		0x00
++#define IMX519_MODE_STREAMING		0x01
++
++#define IMX519_REG_ORIENTATION		CCI_REG8(0x0101)
++#define IMX519_REG_FAST_STANDBY_CTRL	CCI_REG8(0x0106)
++#define IMX519_REG_CSI_SIGNALING_MODE	CCI_REG8(0x0111)
++#define IMX519_CSI_SIGNALING_DPHY	0x02
++#define IMX519_CSI_SIGNALING_CPHY	0x03
++#define IMX519_REG_CSI_DATA_FORMAT	CCI_REG16(0x0112)
++#define IMX519_REG_CSI_LANE_MODE	CCI_REG8(0x0114)
++#define IMX519_CSI_3_LANE_MODE		0x02
++#define IMX519_CSI_4_LANE_MODE		0x03
++#define IMX519_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
++
++/* HDR registers */
++#define IMX519_REG_HDR_MODE		CCI_REG8(0x0220)
++#define IMX519_REG_HDR_RESOLUTION	CCI_REG8(0x0221)
++#define IMX519_REG_EXPOSURE_RATIO	CCI_REG8(0x0222)
++
++/* PLL registers */
++#define IMX519_REG_VT_PIX_CLK_DIV	CCI_REG8(0x0301)
++#define IMX519_REG_VT_SYS_CLK_DIV	CCI_REG8(0x0303)
++#define IMX519_REG_PRE_PLL_CLK_DIV	CCI_REG8(0x0305)
++#define IMX519_REG_PLL_MULTIPLIER	CCI_REG16(0x0306)
++#define IMX519_REG_OP_PIX_CLK_DIV	CCI_REG8(0x0309)
++#define IMX519_REG_OP_SYS_CLK_DIV	CCI_REG8(0x030b)
++#define IMX519_REG_OP_PRE_PLL_CLK_DIV	CCI_REG8(0x030d)
++#define IMX519_REG_OP_PLL_MULTIPLIER	CCI_REG16(0x030e)
++#define IMX519_REG_PLL_MODE		CCI_REG8(0x0310)
++#define IMX519_PLL_MODE_DUAL		0x01
++
++/* Frame / line timing */
++#define IMX519_REG_FRAME_LENGTH		CCI_REG16(0x0340)
++#define IMX519_REG_LINE_LENGTH_PCK	CCI_REG16(0x0342)
++
++/* Crop window */
++#define IMX519_REG_X_ADDR_START		CCI_REG16(0x0344)
++#define IMX519_REG_Y_ADDR_START		CCI_REG16(0x0346)
++#define IMX519_REG_X_ADDR_END		CCI_REG16(0x0348)
++#define IMX519_REG_Y_ADDR_END		CCI_REG16(0x034a)
++#define IMX519_REG_X_OUTPUT_SIZE	CCI_REG16(0x034c)
++#define IMX519_REG_Y_OUTPUT_SIZE	CCI_REG16(0x034e)
++
++/* Scaling */
++#define IMX519_REG_SCALING_MODE		CCI_REG8(0x0401)
++#define IMX519_REG_SCALE_M		CCI_REG16(0x0404)
++#define IMX519_REG_DIGITAL_CROP_X_OFFSET CCI_REG16(0x0408)
++#define IMX519_REG_DIGITAL_CROP_Y_OFFSET CCI_REG16(0x040a)
++#define IMX519_REG_DIGITAL_CROP_WIDTH	CCI_REG16(0x040c)
++#define IMX519_REG_DIGITAL_CROP_HEIGHT	CCI_REG16(0x040e)
++
++/* Link bit rate (32-bit, Mbps with 8 fractional bits) */
++#define IMX519_REG_REQUESTED_LINK_RATE	CCI_REG32(0x0820)
++
++/* Shading correction */
++#define IMX519_REG_SHADING_CORRECTION_EN CCI_REG8(0x0b00)
++
++/* Binning */
++#define IMX519_REG_BINNING_MODE		CCI_REG8(0x0900)
++#define IMX519_REG_BINNING_TYPE		CCI_REG8(0x0901)
++#define IMX519_REG_BINNING_WEIGHTING	CCI_REG8(0x0902)
++
++#define IMX519_XCLK_FREQ		24000000
++
++/* D-PHY link frequency: 740 MHz */
++#define IMX519_LINK_FREQ_DPHY		740000000LL
++/* C-PHY link frequency: ~500.4 MHz (symbol rate) */
++#define IMX519_LINK_FREQ_CPHY		500399375LL
++
++/*
++ * Pixel rates reported to userspace.
++ * D-PHY: 4 lanes * 740 MHz * 2 bits/symbol / 10 bpp = 592 Mpix/s
++ * C-PHY: 3 trios * 500.4 MHz * 2.28 bits/symbol * 16/7 / 10 bpp ≈ 1143.77 Mpix/s
++ */
++#define IMX519_PIXEL_RATE_DPHY		592000000LL
++#define IMX519_PIXEL_RATE_CPHY		1143770000LL
++
++/*
++ * Internal total pixel clock used for frame-length timing math.
++ * This is line_length_pix * frame_length_lines * fps for the mode and is
++ * distinct from the V4L2 pixel rate (active data bandwidth on the link).
++ *
++ * D-PHY: 8320 * 4006 * 30 = 999897600
++ * C-PHY: 16896 * 3572 * 10 = 603471120 (full-res 10fps), verified across modes
++ */
++#define IMX519_PIXCLK_DPHY		999897600LL
++#define IMX519_PIXCLK_CPHY		603471120LL
++
++#define IMX519_FRAME_LENGTH_MAX		0xffdc
++
++/* Long exposure multiplier */
++#define IMX519_LONG_EXP_SHIFT_MAX	7
++#define IMX519_LONG_EXP_SHIFT_REG	CCI_REG8(0x3100)
++
++/* Exposure control */
++#define IMX519_REG_EXPOSURE		CCI_REG16(0x0202)
++#define IMX519_EXPOSURE_OFFSET		32
++#define IMX519_EXPOSURE_MIN		20
++#define IMX519_EXPOSURE_STEP		1
++#define IMX519_EXPOSURE_DEFAULT		0x3e8
++#define IMX519_EXPOSURE_MAX		(IMX519_FRAME_LENGTH_MAX - \
++					 IMX519_EXPOSURE_OFFSET)
++
++/* Analog gain control */
++#define IMX519_REG_ANALOG_GAIN		CCI_REG16(0x0204)
++#define IMX519_ANA_GAIN_MIN		0
++#define IMX519_ANA_GAIN_MAX		960
++#define IMX519_ANA_GAIN_STEP		1
++#define IMX519_ANA_GAIN_DEFAULT		0x0
++
++/* Digital gain control */
++#define IMX519_REG_DIGITAL_GAIN		CCI_REG16(0x020e)
++#define IMX519_DGTL_GAIN_MIN		0x0100
++#define IMX519_DGTL_GAIN_MAX		0xffff
++#define IMX519_DGTL_GAIN_DEFAULT	0x0100
++#define IMX519_DGTL_GAIN_STEP		1
++
++/* Test Pattern Control */
++#define IMX519_REG_TEST_PATTERN		CCI_REG16(0x0600)
++#define IMX519_TEST_PATTERN_DISABLE	0
++#define IMX519_TEST_PATTERN_SOLID_COLOR	1
++#define IMX519_TEST_PATTERN_COLOR_BARS	2
++#define IMX519_TEST_PATTERN_GREY_COLOR	3
++#define IMX519_TEST_PATTERN_PN9		4
++
++/* Test pattern colour components */
++#define IMX519_REG_TEST_PATTERN_R	CCI_REG16(0x0602)
++#define IMX519_REG_TEST_PATTERN_GR	CCI_REG16(0x0604)
++#define IMX519_REG_TEST_PATTERN_B	CCI_REG16(0x0606)
++#define IMX519_REG_TEST_PATTERN_GB	CCI_REG16(0x0608)
++#define IMX519_TEST_PATTERN_COLOUR_MIN	0
++#define IMX519_TEST_PATTERN_COLOUR_MAX	0x0fff
++#define IMX519_TEST_PATTERN_COLOUR_STEP	1
++#define IMX519_TEST_PATTERN_R_DEFAULT	IMX519_TEST_PATTERN_COLOUR_MAX
++#define IMX519_TEST_PATTERN_GR_DEFAULT	0
++#define IMX519_TEST_PATTERN_B_DEFAULT	0
++#define IMX519_TEST_PATTERN_GB_DEFAULT	0
++
++/* Embedded metadata stream structure */
++#define IMX519_EMBEDDED_LINE_WIDTH (5820 * 3)
++#define IMX519_NUM_EMBEDDED_LINES 1
++
++enum pad_types {
++	IMAGE_PAD,
++	METADATA_PAD,
++	NUM_PADS
++};
++
++/* IMX519 native and active pixel array size. */
++#define IMX519_NATIVE_WIDTH		4672U
++#define IMX519_NATIVE_HEIGHT		3648U
++#define IMX519_PIXEL_ARRAY_LEFT		8U
++#define IMX519_PIXEL_ARRAY_TOP		48U
++#define IMX519_PIXEL_ARRAY_WIDTH	4656U
++#define IMX519_PIXEL_ARRAY_HEIGHT	3496U
++
++struct imx519_reg_list {
++	unsigned int num_of_regs;
++	const struct cci_reg_sequence *regs;
++};
++
++/* Mode : resolution and related config&values */
++struct imx519_mode {
++	unsigned int width;
++	unsigned int height;
++	unsigned int line_length_pix;
++	struct v4l2_rect crop;
++	struct v4l2_fract timeperframe_min;
++	struct v4l2_fract timeperframe_default;
++	struct imx519_reg_list reg_list;
++};
++
++/* PHY-specific configuration (link rate, PLL, signaling) */
++struct imx519_phy_config {
++	u32 bus_type;
++	s64 link_freq;
++	s64 pixel_rate;
++	s64 pixclk_hz;
++	unsigned int num_lanes;
++	struct imx519_reg_list phy_regs;
++	const struct imx519_mode *modes;
++	unsigned int num_modes;
++};
++
++
++static const struct cci_reg_sequence mode_common_regs[] = {
++	{ CCI_REG8(0x0136), 0x18 },
++	{ CCI_REG8(0x0137), 0x00 },
++	{ CCI_REG8(0x3c7e), 0x01 },
++	{ CCI_REG8(0x3c7f), 0x07 },
++	{ CCI_REG8(0x3020), 0x00 },
++	{ CCI_REG8(0x3e35), 0x01 },
++	{ CCI_REG8(0x3f7f), 0x01 },
++	{ CCI_REG8(0x5609), 0x57 },
++	{ CCI_REG8(0x5613), 0x51 },
++	{ CCI_REG8(0x561f), 0x5e },
++	{ CCI_REG8(0x5623), 0xd2 },
++	{ CCI_REG8(0x5637), 0x11 },
++	{ CCI_REG8(0x5657), 0x11 },
++	{ CCI_REG8(0x5659), 0x12 },
++	{ CCI_REG8(0x5733), 0x60 },
++	{ CCI_REG8(0x5905), 0x57 },
++	{ CCI_REG8(0x590f), 0x51 },
++	{ CCI_REG8(0x591b), 0x5e },
++	{ CCI_REG8(0x591f), 0xd2 },
++	{ CCI_REG8(0x5933), 0x11 },
++	{ CCI_REG8(0x5953), 0x11 },
++	{ CCI_REG8(0x5955), 0x12 },
++	{ CCI_REG8(0x5a2f), 0x60 },
++	{ CCI_REG8(0x5a85), 0x57 },
++	{ CCI_REG8(0x5a8f), 0x51 },
++	{ CCI_REG8(0x5a9b), 0x5e },
++	{ CCI_REG8(0x5a9f), 0xd2 },
++	{ CCI_REG8(0x5ab3), 0x11 },
++	{ CCI_REG8(0x5ad3), 0x11 },
++	{ CCI_REG8(0x5ad5), 0x12 },
++	{ CCI_REG8(0x5baf), 0x60 },
++	{ CCI_REG8(0x5c15), 0x2a },
++	{ CCI_REG8(0x5c17), 0x80 },
++	{ CCI_REG8(0x5c19), 0x31 },
++	{ CCI_REG8(0x5c1b), 0x87 },
++	{ CCI_REG8(0x5c25), 0x25 },
++	{ CCI_REG8(0x5c27), 0x7b },
++	{ CCI_REG8(0x5c29), 0x2a },
++	{ CCI_REG8(0x5c2b), 0x80 },
++	{ CCI_REG8(0x5c2d), 0x31 },
++	{ CCI_REG8(0x5c2f), 0x87 },
++	{ CCI_REG8(0x5c35), 0x2b },
++	{ CCI_REG8(0x5c37), 0x81 },
++	{ CCI_REG8(0x5c39), 0x31 },
++	{ CCI_REG8(0x5c3b), 0x87 },
++	{ CCI_REG8(0x5c45), 0x25 },
++	{ CCI_REG8(0x5c47), 0x7b },
++	{ CCI_REG8(0x5c49), 0x2a },
++	{ CCI_REG8(0x5c4b), 0x80 },
++	{ CCI_REG8(0x5c4d), 0x31 },
++	{ CCI_REG8(0x5c4f), 0x87 },
++	{ CCI_REG8(0x5c55), 0x2d },
++	{ CCI_REG8(0x5c57), 0x83 },
++	{ CCI_REG8(0x5c59), 0x32 },
++	{ CCI_REG8(0x5c5b), 0x88 },
++	{ CCI_REG8(0x5c65), 0x29 },
++	{ CCI_REG8(0x5c67), 0x7f },
++	{ CCI_REG8(0x5c69), 0x2e },
++	{ CCI_REG8(0x5c6b), 0x84 },
++	{ CCI_REG8(0x5c6d), 0x32 },
++	{ CCI_REG8(0x5c6f), 0x88 },
++	{ CCI_REG8(0x5e69), 0x04 },
++	{ CCI_REG8(0x5e9d), 0x00 },
++	{ CCI_REG8(0x5f18), 0x10 },
++	{ CCI_REG8(0x5f1a), 0x0e },
++	{ CCI_REG8(0x5f20), 0x12 },
++	{ CCI_REG8(0x5f22), 0x10 },
++	{ CCI_REG8(0x5f24), 0x0e },
++	{ CCI_REG8(0x5f28), 0x10 },
++	{ CCI_REG8(0x5f2a), 0x0e },
++	{ CCI_REG8(0x5f30), 0x12 },
++	{ CCI_REG8(0x5f32), 0x10 },
++	{ CCI_REG8(0x5f34), 0x0e },
++	{ CCI_REG8(0x5f38), 0x0f },
++	{ CCI_REG8(0x5f39), 0x0d },
++	{ CCI_REG8(0x5f3c), 0x11 },
++	{ CCI_REG8(0x5f3d), 0x0f },
++	{ CCI_REG8(0x5f3e), 0x0d },
++	{ CCI_REG8(0x5f61), 0x07 },
++	{ CCI_REG8(0x5f64), 0x05 },
++	{ CCI_REG8(0x5f67), 0x03 },
++	{ CCI_REG8(0x5f6a), 0x03 },
++	{ CCI_REG8(0x5f6d), 0x07 },
++	{ CCI_REG8(0x5f70), 0x07 },
++	{ CCI_REG8(0x5f73), 0x05 },
++	{ CCI_REG8(0x5f76), 0x02 },
++	{ CCI_REG8(0x5f79), 0x07 },
++	{ CCI_REG8(0x5f7c), 0x07 },
++	{ CCI_REG8(0x5f7f), 0x07 },
++	{ CCI_REG8(0x5f82), 0x07 },
++	{ CCI_REG8(0x5f85), 0x03 },
++	{ CCI_REG8(0x5f88), 0x02 },
++	{ CCI_REG8(0x5f8b), 0x01 },
++	{ CCI_REG8(0x5f8e), 0x01 },
++	{ CCI_REG8(0x5f91), 0x04 },
++	{ CCI_REG8(0x5f94), 0x05 },
++	{ CCI_REG8(0x5f97), 0x02 },
++	{ CCI_REG8(0x5f9d), 0x07 },
++	{ CCI_REG8(0x5fa0), 0x07 },
++	{ CCI_REG8(0x5fa3), 0x07 },
++	{ CCI_REG8(0x5fa6), 0x07 },
++	{ CCI_REG8(0x5fa9), 0x03 },
++	{ CCI_REG8(0x5fac), 0x01 },
++	{ CCI_REG8(0x5faf), 0x01 },
++	{ CCI_REG8(0x5fb5), 0x03 },
++	{ CCI_REG8(0x5fb8), 0x02 },
++	{ CCI_REG8(0x5fbb), 0x01 },
++	{ CCI_REG8(0x5fc1), 0x07 },
++	{ CCI_REG8(0x5fc4), 0x07 },
++	{ CCI_REG8(0x5fc7), 0x07 },
++	{ CCI_REG8(0x5fd1), 0x00 },
++	{ CCI_REG8(0x6302), 0x79 },
++	{ CCI_REG8(0x6305), 0x78 },
++	{ CCI_REG8(0x6306), 0xa5 },
++	{ CCI_REG8(0x6308), 0x03 },
++	{ CCI_REG8(0x6309), 0x20 },
++	{ CCI_REG8(0x630b), 0x0a },
++	{ CCI_REG8(0x630d), 0x48 },
++	{ CCI_REG8(0x630f), 0x06 },
++	{ CCI_REG8(0x6311), 0xa4 },
++	{ CCI_REG8(0x6313), 0x03 },
++	{ CCI_REG8(0x6314), 0x20 },
++	{ CCI_REG8(0x6316), 0x0a },
++	{ CCI_REG8(0x6317), 0x31 },
++	{ CCI_REG8(0x6318), 0x4a },
++	{ CCI_REG8(0x631a), 0x06 },
++	{ CCI_REG8(0x631b), 0x40 },
++	{ CCI_REG8(0x631c), 0xa4 },
++	{ CCI_REG8(0x631e), 0x03 },
++	{ CCI_REG8(0x631f), 0x20 },
++	{ CCI_REG8(0x6321), 0x0a },
++	{ CCI_REG8(0x6323), 0x4a },
++	{ CCI_REG8(0x6328), 0x80 },
++	{ CCI_REG8(0x6329), 0x01 },
++	{ CCI_REG8(0x632a), 0x30 },
++	{ CCI_REG8(0x632b), 0x02 },
++	{ CCI_REG8(0x632c), 0x20 },
++	{ CCI_REG8(0x632d), 0x02 },
++	{ CCI_REG8(0x632e), 0x30 },
++	{ CCI_REG8(0x6330), 0x60 },
++	{ CCI_REG8(0x6332), 0x90 },
++	{ CCI_REG8(0x6333), 0x01 },
++	{ CCI_REG8(0x6334), 0x30 },
++	{ CCI_REG8(0x6335), 0x02 },
++	{ CCI_REG8(0x6336), 0x20 },
++	{ CCI_REG8(0x6338), 0x80 },
++	{ CCI_REG8(0x633a), 0xa0 },
++	{ CCI_REG8(0x633b), 0x01 },
++	{ CCI_REG8(0x633c), 0x60 },
++	{ CCI_REG8(0x633d), 0x02 },
++	{ CCI_REG8(0x633e), 0x60 },
++	{ CCI_REG8(0x633f), 0x01 },
++	{ CCI_REG8(0x6340), 0x30 },
++	{ CCI_REG8(0x6341), 0x02 },
++	{ CCI_REG8(0x6342), 0x20 },
++	{ CCI_REG8(0x6343), 0x03 },
++	{ CCI_REG8(0x6344), 0x80 },
++	{ CCI_REG8(0x6345), 0x03 },
++	{ CCI_REG8(0x6346), 0x90 },
++	{ CCI_REG8(0x6348), 0xf0 },
++	{ CCI_REG8(0x6349), 0x01 },
++	{ CCI_REG8(0x634a), 0x20 },
++	{ CCI_REG8(0x634b), 0x02 },
++	{ CCI_REG8(0x634c), 0x10 },
++	{ CCI_REG8(0x634d), 0x03 },
++	{ CCI_REG8(0x634e), 0x60 },
++	{ CCI_REG8(0x6350), 0xa0 },
++	{ CCI_REG8(0x6351), 0x01 },
++	{ CCI_REG8(0x6352), 0x60 },
++	{ CCI_REG8(0x6353), 0x02 },
++	{ CCI_REG8(0x6354), 0x50 },
++	{ CCI_REG8(0x6355), 0x02 },
++	{ CCI_REG8(0x6356), 0x60 },
++	{ CCI_REG8(0x6357), 0x01 },
++	{ CCI_REG8(0x6358), 0x30 },
++	{ CCI_REG8(0x6359), 0x02 },
++	{ CCI_REG8(0x635a), 0x30 },
++	{ CCI_REG8(0x635b), 0x03 },
++	{ CCI_REG8(0x635c), 0x90 },
++	{ CCI_REG8(0x635f), 0x01 },
++	{ CCI_REG8(0x6360), 0x10 },
++	{ CCI_REG8(0x6361), 0x01 },
++	{ CCI_REG8(0x6362), 0x40 },
++	{ CCI_REG8(0x6363), 0x02 },
++	{ CCI_REG8(0x6364), 0x50 },
++	{ CCI_REG8(0x6368), 0x70 },
++	{ CCI_REG8(0x636a), 0xa0 },
++	{ CCI_REG8(0x636b), 0x01 },
++	{ CCI_REG8(0x636c), 0x50 },
++	{ CCI_REG8(0x637d), 0xe4 },
++	{ CCI_REG8(0x637e), 0xb4 },
++	{ CCI_REG8(0x638c), 0x8e },
++	{ CCI_REG8(0x638d), 0x38 },
++	{ CCI_REG8(0x638e), 0xe3 },
++	{ CCI_REG8(0x638f), 0x4c },
++	{ CCI_REG8(0x6390), 0x30 },
++	{ CCI_REG8(0x6391), 0xc3 },
++	{ CCI_REG8(0x6392), 0xae },
++	{ CCI_REG8(0x6393), 0xba },
++	{ CCI_REG8(0x6394), 0xeb },
++	{ CCI_REG8(0x6395), 0x6e },
++	{ CCI_REG8(0x6396), 0x34 },
++	{ CCI_REG8(0x6397), 0xe3 },
++	{ CCI_REG8(0x6398), 0xcf },
++	{ CCI_REG8(0x6399), 0x3c },
++	{ CCI_REG8(0x639a), 0xf3 },
++	{ CCI_REG8(0x639b), 0x0c },
++	{ CCI_REG8(0x639c), 0x30 },
++	{ CCI_REG8(0x639d), 0xc1 },
++	{ CCI_REG8(0x63b9), 0xa3 },
++	{ CCI_REG8(0x63ba), 0xfe },
++	{ CCI_REG8(0x7600), 0x01 },
++	{ CCI_REG8(0x79a0), 0x01 },
++	{ CCI_REG8(0x79a1), 0x01 },
++	{ CCI_REG8(0x79a2), 0x01 },
++	{ CCI_REG8(0x79a3), 0x01 },
++	{ CCI_REG8(0x79a4), 0x01 },
++	{ CCI_REG8(0x79a5), 0x20 },
++	{ CCI_REG8(0x79a9), 0x00 },
++	{ CCI_REG8(0x79aa), 0x01 },
++	{ CCI_REG8(0x79ad), 0x00 },
++	{ CCI_REG8(0x79af), 0x00 },
++	{ CCI_REG8(0x8173), 0x01 },
++	{ CCI_REG8(0x835c), 0x01 },
++	{ CCI_REG8(0x8a74), 0x01 },
++	{ CCI_REG8(0x8c1f), 0x00 },
++	{ CCI_REG8(0x8c27), 0x00 },
++	{ CCI_REG8(0x8c3b), 0x03 },
++	{ CCI_REG8(0x9004), 0x0b },
++	{ CCI_REG8(0x920c), 0x6a },
++	{ CCI_REG8(0x920d), 0x22 },
++	{ CCI_REG8(0x920e), 0x6a },
++	{ CCI_REG8(0x920f), 0x23 },
++	{ CCI_REG8(0x9214), 0x6a },
++	{ CCI_REG8(0x9215), 0x20 },
++	{ CCI_REG8(0x9216), 0x6a },
++	{ CCI_REG8(0x9217), 0x21 },
++	{ CCI_REG8(0x9385), 0x3e },
++	{ CCI_REG8(0x9387), 0x1b },
++	{ CCI_REG8(0x938d), 0x4d },
++	{ CCI_REG8(0x938f), 0x43 },
++	{ CCI_REG8(0x9391), 0x1b },
++	{ CCI_REG8(0x9395), 0x4d },
++	{ CCI_REG8(0x9397), 0x43 },
++	{ CCI_REG8(0x9399), 0x1b },
++	{ CCI_REG8(0x939d), 0x3e },
++	{ CCI_REG8(0x939f), 0x2f },
++	{ CCI_REG8(0x93a5), 0x43 },
++	{ CCI_REG8(0x93a7), 0x2f },
++	{ CCI_REG8(0x93a9), 0x2f },
++	{ CCI_REG8(0x93ad), 0x34 },
++	{ CCI_REG8(0x93af), 0x2f },
++	{ CCI_REG8(0x93b5), 0x3e },
++	{ CCI_REG8(0x93b7), 0x2f },
++	{ CCI_REG8(0x93bd), 0x4d },
++	{ CCI_REG8(0x93bf), 0x43 },
++	{ CCI_REG8(0x93c1), 0x2f },
++	{ CCI_REG8(0x93c5), 0x4d },
++	{ CCI_REG8(0x93c7), 0x43 },
++	{ CCI_REG8(0x93c9), 0x2f },
++	{ CCI_REG8(0x974b), 0x02 },
++	{ CCI_REG8(0x995c), 0x8c },
++	{ CCI_REG8(0x995d), 0x00 },
++	{ CCI_REG8(0x995e), 0x00 },
++	{ CCI_REG8(0x9963), 0x64 },
++	{ CCI_REG8(0x9964), 0x50 },
++	{ CCI_REG8(0xaa0a), 0x26 },
++	{ CCI_REG8(0xae03), 0x04 },
++	{ CCI_REG8(0xae04), 0x03 },
++	{ CCI_REG8(0xae05), 0x03 },
++	{ CCI_REG8(0xbc1c), 0x08 },
++	{ CCI_REG8(0xbcf1), 0x02 },
++};
++
++/*
++ * PHY-specific registers: CSI signaling, lane mode, PLL, link rate, and
++ * vendor-specific tuning that change between C-PHY and D-PHY configurations.
++ * Applied once at stream-on before the per-mode geometry registers.
++ */
++
++/* D-PHY: 4 lanes, 740 Mbps/lane */
++static const struct cci_reg_sequence imx519_dphy_regs[] = {
++	/* CSI signaling: D-PHY, 10-bit data, 4 data lanes */
++	{ IMX519_REG_CSI_SIGNALING_MODE, IMX519_CSI_SIGNALING_DPHY },
++	{ IMX519_REG_CSI_DATA_FORMAT, 0x0a0a },
++	{ IMX519_REG_CSI_LANE_MODE, IMX519_CSI_4_LANE_MODE },
++	/* VT PLL: pix_div=6, sys_div=2, pre_div=4, mult=250 */
++	{ IMX519_REG_VT_PIX_CLK_DIV, 0x06 },
++	{ IMX519_REG_VT_SYS_CLK_DIV, 0x02 },
++	{ IMX519_REG_PRE_PLL_CLK_DIV, 0x04 },
++	{ IMX519_REG_PLL_MULTIPLIER, 0x00fa },
++	/* OP PLL: pix_div=10, sys_div=1, pre_div=3, mult=251, dual PLL */
++	{ IMX519_REG_OP_PIX_CLK_DIV, 0x0a },
++	{ IMX519_REG_OP_SYS_CLK_DIV, 0x01 },
++	{ IMX519_REG_OP_PRE_PLL_CLK_DIV, 0x03 },
++	{ IMX519_REG_OP_PLL_MULTIPLIER, 0x00fb },
++	{ IMX519_REG_PLL_MODE, IMX519_PLL_MODE_DUAL },
++	/* Link bit rate: 0x17200000 = 1480.0 Mbps (740 MHz DDR) */
++	{ IMX519_REG_REQUESTED_LINK_RATE, 0x17200000 },
++	/* Vendor-specific D-PHY tuning */
++	{ CCI_REG8(0x3e20), 0x01 },
++	{ CCI_REG8(0x3e37), 0x01 },	/* D-PHY-specific */
++	{ IMX519_REG_FAST_STANDBY_CTRL, 0x00 },
++	{ IMX519_REG_SHADING_CORRECTION_EN, 0x00 },
++	{ CCI_REG8(0x3230), 0x00 },
++	{ CCI_REG8(0x3f14), 0x00 },	/* D-PHY: 0x00, C-PHY: 0x01 */
++	{ CCI_REG8(0x3f3c), 0x03 },	/* D-PHY: 0x03, C-PHY: 0x01 */
++	{ CCI_REG8(0x3f0d), 0x0a },
++	{ CCI_REG16(0x3c06), 0x01a1 },	/* D-PHY: 0x01a1, C-PHY: 0x0048 */
++	{ CCI_REG16(0x3c0a), 0x0000 },
++	{ CCI_REG16(0x3f78), 0x0000 },	/* D-PHY: 0x0000, C-PHY: 0x0040 */
++	{ CCI_REG16(0x3f7c), 0x0000 },
++};
++
++/* C-PHY: 3 trios, ~500.4 MHz symbol rate */
++static const struct cci_reg_sequence imx519_cphy_regs[] = {
++	/* CSI signaling: C-PHY, 10-bit data, 3 data trios */
++	{ IMX519_REG_CSI_SIGNALING_MODE, IMX519_CSI_SIGNALING_CPHY },
++	{ IMX519_REG_CSI_DATA_FORMAT, 0x0a0a },
++	{ IMX519_REG_CSI_LANE_MODE, IMX519_CSI_3_LANE_MODE },
++	/* VT PLL: pix_div=6, sys_div=4, pre_div=4, mult=343 */
++	{ IMX519_REG_VT_PIX_CLK_DIV, 0x06 },
++	{ IMX519_REG_VT_SYS_CLK_DIV, 0x04 },
++	{ IMX519_REG_PRE_PLL_CLK_DIV, 0x04 },
++	{ IMX519_REG_PLL_MULTIPLIER, 0x0157 },
++	/* OP PLL: pix_div=10, sys_div=2, pre_div=4, mult=329, dual PLL */
++	{ IMX519_REG_OP_PIX_CLK_DIV, 0x0a },
++	{ IMX519_REG_OP_SYS_CLK_DIV, 0x02 },
++	{ IMX519_REG_OP_PRE_PLL_CLK_DIV, 0x04 },
++	{ IMX519_REG_OP_PLL_MULTIPLIER, 0x0149 },
++	{ IMX519_REG_PLL_MODE, IMX519_PLL_MODE_DUAL },
++	/* Link bit rate: 0x0ce40000 = 3300.0 Msymbols/s (C-PHY encoding) */
++	{ IMX519_REG_REQUESTED_LINK_RATE, 0x0ce40000 },
++	/* Vendor-specific C-PHY tuning */
++	{ CCI_REG8(0x3e20), 0x01 },
++	{ CCI_REG8(0x3e37), 0x00 },	/* C-PHY-specific */
++	{ CCI_REG8(0x3e3b), 0x00 },	/* C-PHY only */
++	{ IMX519_REG_FAST_STANDBY_CTRL, 0x00 },
++	{ IMX519_REG_SHADING_CORRECTION_EN, 0x00 },
++	{ CCI_REG8(0x3230), 0x00 },
++	{ CCI_REG8(0x3f14), 0x01 },
++	{ CCI_REG8(0x3f3c), 0x01 },
++	{ CCI_REG8(0x3f0d), 0x0a },
++	{ CCI_REG8(0x3fbc), 0x00 },	/* C-PHY only */
++	{ CCI_REG16(0x3c06), 0x0048 },
++	{ CCI_REG16(0x3c0a), 0x0000 },
++	{ CCI_REG16(0x3f78), 0x0040 },
++	{ CCI_REG16(0x3f7c), 0x0000 },
++};
++
++/*
++ * Per-mode geometry registers: frame/line length, crop window, output size,
++ * HDR, binning, and digital crop.  These are common to both PHY types except
++ * for the frame timing (line_length_pck and frame_length_lines) which differ
++ * due to different total pixel clocks.
++ */
++
++/* 16 mpix D-PHY: 4656x3496 @ 30fps, line_length=0x2080, frame_length=0x0fa6 */
++static const struct cci_reg_sequence mode_4656x3496_dphy_regs[] = {
++	{ IMX519_REG_LINE_LENGTH_PCK, 0x2080 },
++	{ IMX519_REG_FRAME_LENGTH, 0x0fa6 },
++	{ IMX519_REG_X_ADDR_START, 0x0000 },
++	{ IMX519_REG_Y_ADDR_START, 0x0000 },
++	{ IMX519_REG_X_ADDR_END, 0x122f },
++	{ IMX519_REG_Y_ADDR_END, 0x0da7 },
++	{ IMX519_REG_HDR_MODE, 0x01 },
++	{ IMX519_REG_HDR_RESOLUTION, 0x11 },
++	{ IMX519_REG_EXPOSURE_RATIO, 0x01 },
++	{ IMX519_REG_BINNING_MODE, 0x00 },
++	{ IMX519_REG_BINNING_TYPE, 0x11 },
++	{ IMX519_REG_BINNING_WEIGHTING, 0x0a },
++	{ CCI_REG8(0x3f4c), 0x01 },
++	{ CCI_REG8(0x3f4d), 0x01 },
++	{ CCI_REG8(0x4254), 0x7f },
++	{ IMX519_REG_SCALING_MODE, 0x00 },
++	{ IMX519_REG_SCALE_M, 0x0010 },
++	{ IMX519_REG_DIGITAL_CROP_X_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_Y_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_WIDTH, 0x1230 },
++	{ IMX519_REG_DIGITAL_CROP_HEIGHT, 0x0da8 },
++	{ IMX519_REG_X_OUTPUT_SIZE, 0x1230 },
++	{ IMX519_REG_Y_OUTPUT_SIZE, 0x0da8 },
++};
++
++/* 16 mpix C-PHY: 4656x3496 @ 10fps, line_length=0x4200, frame_length=0x0df4 */
++static const struct cci_reg_sequence mode_4656x3496_cphy_regs[] = {
++	{ IMX519_REG_LINE_LENGTH_PCK, 0x4200 },
++	{ IMX519_REG_FRAME_LENGTH, 0x0df4 },
++	{ IMX519_REG_X_ADDR_START, 0x0000 },
++	{ IMX519_REG_Y_ADDR_START, 0x0000 },
++	{ IMX519_REG_X_ADDR_END, 0x122f },
++	{ IMX519_REG_Y_ADDR_END, 0x0da7 },
++	{ IMX519_REG_HDR_MODE, 0x00 },
++	{ IMX519_REG_HDR_RESOLUTION, 0x11 },
++	{ IMX519_REG_EXPOSURE_RATIO, 0x01 },
++	{ IMX519_REG_BINNING_MODE, 0x00 },
++	{ IMX519_REG_BINNING_TYPE, 0x11 },
++	{ IMX519_REG_BINNING_WEIGHTING, 0x0a },
++	{ CCI_REG8(0x3f4c), 0x01 },
++	{ CCI_REG8(0x3f4d), 0x01 },
++	{ CCI_REG8(0x4254), 0x7f },
++	{ IMX519_REG_SCALING_MODE, 0x00 },
++	{ IMX519_REG_SCALE_M, 0x0010 },
++	{ IMX519_REG_DIGITAL_CROP_X_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_Y_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_WIDTH, 0x1230 },
++	{ IMX519_REG_DIGITAL_CROP_HEIGHT, 0x0da8 },
++	{ IMX519_REG_X_OUTPUT_SIZE, 0x1230 },
++	{ IMX519_REG_Y_OUTPUT_SIZE, 0x0da8 },
++};
++
++/* 4K C-PHY: 3840x2160 @ 21fps, line_length=0x3870, frame_length=0x08d4 */
++static const struct cci_reg_sequence mode_3840x2160_cphy_regs[] = {
++	{ IMX519_REG_LINE_LENGTH_PCK, 0x3870 },
++	{ IMX519_REG_FRAME_LENGTH, 0x08d4 },
++	{ IMX519_REG_X_ADDR_START, 0x0198 },
++	{ IMX519_REG_Y_ADDR_START, 0x02a0 },
++	{ IMX519_REG_X_ADDR_END, 0x1097 },
++	{ IMX519_REG_Y_ADDR_END, 0x0b17 },
++	{ IMX519_REG_HDR_MODE, 0x00 },
++	{ IMX519_REG_HDR_RESOLUTION, 0x11 },
++	{ IMX519_REG_EXPOSURE_RATIO, 0x01 },
++	{ IMX519_REG_BINNING_MODE, 0x00 },
++	{ IMX519_REG_BINNING_TYPE, 0x11 },
++	{ IMX519_REG_BINNING_WEIGHTING, 0x0a },
++	{ CCI_REG8(0x3f4c), 0x01 },
++	{ CCI_REG8(0x3f4d), 0x01 },
++	{ CCI_REG8(0x4254), 0x7f },
++	{ IMX519_REG_SCALING_MODE, 0x00 },
++	{ IMX519_REG_SCALE_M, 0x0010 },
++	{ IMX519_REG_DIGITAL_CROP_X_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_Y_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_WIDTH, 0x0f00 },
++	{ IMX519_REG_DIGITAL_CROP_HEIGHT, 0x0870 },
++	{ IMX519_REG_X_OUTPUT_SIZE, 0x0f00 },
++	{ IMX519_REG_Y_OUTPUT_SIZE, 0x0870 },
++};
++
++/* 2x2 binned C-PHY: 2328x1748 @ 30fps, line_length=0x2412, frame_length=0x09ac */
++static const struct cci_reg_sequence mode_2328x1748_cphy_regs[] = {
++	{ IMX519_REG_LINE_LENGTH_PCK, 0x2412 },
++	{ IMX519_REG_FRAME_LENGTH, 0x09ac },
++	{ IMX519_REG_X_ADDR_START, 0x0000 },
++	{ IMX519_REG_Y_ADDR_START, 0x0000 },
++	{ IMX519_REG_X_ADDR_END, 0x122f },
++	{ IMX519_REG_Y_ADDR_END, 0x0da7 },
++	{ IMX519_REG_HDR_MODE, 0x00 },
++	{ IMX519_REG_HDR_RESOLUTION, 0x11 },
++	{ IMX519_REG_EXPOSURE_RATIO, 0x01 },
++	{ IMX519_REG_BINNING_MODE, 0x01 },
++	{ IMX519_REG_BINNING_TYPE, 0x22 },
++	{ IMX519_REG_BINNING_WEIGHTING, 0x0a },
++	{ CCI_REG8(0x3f4c), 0x01 },
++	{ CCI_REG8(0x3f4d), 0x01 },
++	{ CCI_REG8(0x4254), 0x7f },
++	{ IMX519_REG_SCALING_MODE, 0x00 },
++	{ IMX519_REG_SCALE_M, 0x0010 },
++	{ IMX519_REG_DIGITAL_CROP_X_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_Y_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_WIDTH, 0x0918 },
++	{ IMX519_REG_DIGITAL_CROP_HEIGHT, 0x06d4 },
++	{ IMX519_REG_X_OUTPUT_SIZE, 0x0918 },
++	{ IMX519_REG_Y_OUTPUT_SIZE, 0x06d4 },
++};
++
++/* 1080p C-PHY: 1920x1080 @ 60fps, line_length=0x25d9, frame_length=0x049c */
++static const struct cci_reg_sequence mode_1920x1080_cphy_regs[] = {
++	{ IMX519_REG_LINE_LENGTH_PCK, 0x25d9 },
++	{ IMX519_REG_FRAME_LENGTH, 0x049c },
++	{ IMX519_REG_X_ADDR_START, 0x0198 },
++	{ IMX519_REG_Y_ADDR_START, 0x02a2 },
++	{ IMX519_REG_X_ADDR_END, 0x1097 },
++	{ IMX519_REG_Y_ADDR_END, 0x0b15 },
++	{ IMX519_REG_HDR_MODE, 0x00 },
++	{ IMX519_REG_HDR_RESOLUTION, 0x11 },
++	{ IMX519_REG_EXPOSURE_RATIO, 0x01 },
++	{ IMX519_REG_BINNING_MODE, 0x01 },
++	{ IMX519_REG_BINNING_TYPE, 0x22 },
++	{ IMX519_REG_BINNING_WEIGHTING, 0x0a },
++	{ CCI_REG8(0x3f4c), 0x01 },
++	{ CCI_REG8(0x3f4d), 0x01 },
++	{ CCI_REG8(0x4254), 0x7f },
++	{ IMX519_REG_SCALING_MODE, 0x00 },
++	{ IMX519_REG_SCALE_M, 0x0010 },
++	{ IMX519_REG_DIGITAL_CROP_X_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_Y_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_WIDTH, 0x0780 },
++	{ IMX519_REG_DIGITAL_CROP_HEIGHT, 0x0438 },
++	{ IMX519_REG_X_OUTPUT_SIZE, 0x0780 },
++	{ IMX519_REG_Y_OUTPUT_SIZE, 0x0438 },
++};
++
++/* 720p C-PHY: 1280x720 @ 120fps, line_length=0x1b3b, frame_length=0x0334 */
++static const struct cci_reg_sequence mode_1280x720_cphy_regs[] = {
++	{ IMX519_REG_LINE_LENGTH_PCK, 0x1b3b },
++	{ IMX519_REG_FRAME_LENGTH, 0x0334 },
++	{ IMX519_REG_X_ADDR_START, 0x0418 },
++	{ IMX519_REG_Y_ADDR_START, 0x0412 },
++	{ IMX519_REG_X_ADDR_END, 0x0e17 },
++	{ IMX519_REG_Y_ADDR_END, 0x09b6 },
++	{ IMX519_REG_HDR_MODE, 0x00 },
++	{ IMX519_REG_HDR_RESOLUTION, 0x11 },
++	{ IMX519_REG_EXPOSURE_RATIO, 0x01 },
++	{ IMX519_REG_BINNING_MODE, 0x01 },
++	{ IMX519_REG_BINNING_TYPE, 0x22 },
++	{ IMX519_REG_BINNING_WEIGHTING, 0x0a },
++	{ CCI_REG8(0x3f4c), 0x01 },
++	{ CCI_REG8(0x3f4d), 0x01 },
++	{ CCI_REG8(0x4254), 0x7f },
++	{ IMX519_REG_SCALING_MODE, 0x00 },
++	{ IMX519_REG_SCALE_M, 0x0010 },
++	{ IMX519_REG_DIGITAL_CROP_X_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_Y_OFFSET, 0x0000 },
++	{ IMX519_REG_DIGITAL_CROP_WIDTH, 0x0500 },
++	{ IMX519_REG_DIGITAL_CROP_HEIGHT, 0x02d0 },
++	{ IMX519_REG_X_OUTPUT_SIZE, 0x0500 },
++	{ IMX519_REG_Y_OUTPUT_SIZE, 0x02d0 },
++};
++
++/* D-PHY mode table - only full resolution for now */
++static const struct imx519_mode imx519_modes_dphy[] = {
++	{
++		.width = 4656,
++		.height = 3496,
++		.line_length_pix = 0x2080,
++		.crop = {
++			.left = IMX519_PIXEL_ARRAY_LEFT,
++			.top = IMX519_PIXEL_ARRAY_TOP,
++			.width = 4656,
++			.height = 3496,
++		},
++		.timeperframe_min = {
++			.numerator = 100,
++			.denominator = 3000
++		},
++		.timeperframe_default = {
++			.numerator = 100,
++			.denominator = 3000
++		},
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_4656x3496_dphy_regs),
++			.regs = mode_4656x3496_dphy_regs,
++		}
++	},
++};
++
++/* C-PHY mode table - full set of resolutions */
++static const struct imx519_mode imx519_modes_cphy[] = {
++	{
++		/* 16 mpix 10fps */
++		.width = 4656,
++		.height = 3496,
++		.line_length_pix = 0x4200,
++		.crop = {
++			.left = IMX519_PIXEL_ARRAY_LEFT,
++			.top = IMX519_PIXEL_ARRAY_TOP,
++			.width = 4656,
++			.height = 3496,
++		},
++		.timeperframe_min = {
++			.numerator = 100,
++			.denominator = 1000
++		},
++		.timeperframe_default = {
++			.numerator = 100,
++			.denominator = 1000
++		},
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_4656x3496_cphy_regs),
++			.regs = mode_4656x3496_cphy_regs,
++		}
++	},
++	{
++		/* 4K 21fps */
++		.width = 3840,
++		.height = 2160,
++		.line_length_pix = 0x3870,
++		.crop = {
++			.left = IMX519_PIXEL_ARRAY_LEFT + 408,
++			.top = IMX519_PIXEL_ARRAY_TOP + 672,
++			.width = 3840,
++			.height = 2160,
++		},
++		.timeperframe_min = {
++			.numerator = 100,
++			.denominator = 2100
++		},
++		.timeperframe_default = {
++			.numerator = 100,
++			.denominator = 2100
++		},
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_3840x2160_cphy_regs),
++			.regs = mode_3840x2160_cphy_regs,
++		}
++	},
++	{
++		/* 2x2 binned 30fps */
++		.width = 2328,
++		.height = 1748,
++		.line_length_pix = 0x2412,
++		.crop = {
++			.left = IMX519_PIXEL_ARRAY_LEFT,
++			.top = IMX519_PIXEL_ARRAY_TOP,
++			.width = 4656,
++			.height = 3496,
++		},
++		.timeperframe_min = {
++			.numerator = 100,
++			.denominator = 3000
++		},
++		.timeperframe_default = {
++			.numerator = 100,
++			.denominator = 3000
++		},
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_2328x1748_cphy_regs),
++			.regs = mode_2328x1748_cphy_regs,
++		}
++	},
++	{
++		/* 1080p 60fps */
++		.width = 1920,
++		.height = 1080,
++		.line_length_pix = 0x25D9,
++		.crop = {
++			.left = IMX519_PIXEL_ARRAY_LEFT + 408,
++			.top = IMX519_PIXEL_ARRAY_TOP + 674,
++			.width = 3840,
++			.height = 2160,
++		},
++		.timeperframe_min = {
++			.numerator = 100,
++			.denominator = 6000
++		},
++		.timeperframe_default = {
++			.numerator = 100,
++			.denominator = 6000
++		},
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_1920x1080_cphy_regs),
++			.regs = mode_1920x1080_cphy_regs,
++		}
++	},
++	{
++		/* 720p 120fps */
++		.width = 1280,
++		.height = 720,
++		.line_length_pix = 0x1B3B,
++		.crop = {
++			.left = IMX519_PIXEL_ARRAY_LEFT + 1048,
++			.top = IMX519_PIXEL_ARRAY_TOP + 1042,
++			.width = 2560,
++			.height = 1440,
++		},
++		.timeperframe_min = {
++			.numerator = 100,
++			.denominator = 12000
++		},
++		.timeperframe_default = {
++			.numerator = 100,
++			.denominator = 12000
++		},
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_1280x720_cphy_regs),
++			.regs = mode_1280x720_cphy_regs,
++		}
++	},
++};
++
++/* PHY configuration descriptors */
++static const struct imx519_phy_config imx519_phy_dphy = {
++	.bus_type = V4L2_MBUS_CSI2_DPHY,
++	.link_freq = IMX519_LINK_FREQ_DPHY,
++	.pixel_rate = IMX519_PIXEL_RATE_DPHY,
++	.pixclk_hz = IMX519_PIXCLK_DPHY,
++	.num_lanes = 4,
++	.phy_regs = {
++		.num_of_regs = ARRAY_SIZE(imx519_dphy_regs),
++		.regs = imx519_dphy_regs,
++	},
++	.modes = imx519_modes_dphy,
++	.num_modes = ARRAY_SIZE(imx519_modes_dphy),
++};
++
++static const struct imx519_phy_config imx519_phy_cphy = {
++	.bus_type = V4L2_MBUS_CSI2_CPHY,
++	.link_freq = IMX519_LINK_FREQ_CPHY,
++	.pixel_rate = IMX519_PIXEL_RATE_CPHY,
++	.pixclk_hz = IMX519_PIXCLK_CPHY,
++	.num_lanes = 3,
++	.phy_regs = {
++		.num_of_regs = ARRAY_SIZE(imx519_cphy_regs),
++		.regs = imx519_cphy_regs,
++	},
++	.modes = imx519_modes_cphy,
++	.num_modes = ARRAY_SIZE(imx519_modes_cphy),
++};
++
++/*
++ * The supported formats.
++ * This table MUST contain 4 entries per format, to cover the various flip
++ * combinations in the order
++ * - no flip
++ * - h flip
++ * - v flip
++ * - h&v flips
++ */
++static const u32 codes[] = {
++	/* 10-bit modes. */
++	MEDIA_BUS_FMT_SRGGB10_1X10,
++	MEDIA_BUS_FMT_SGRBG10_1X10,
++	MEDIA_BUS_FMT_SGBRG10_1X10,
++	MEDIA_BUS_FMT_SBGGR10_1X10,
++};
++
++static const char * const imx519_test_pattern_menu[] = {
++	"Disabled",
++	"Color Bars",
++	"Solid Color",
++	"Grey Color Bars",
++	"PN9"
++};
++
++static const int imx519_test_pattern_val[] = {
++	IMX519_TEST_PATTERN_DISABLE,
++	IMX519_TEST_PATTERN_COLOR_BARS,
++	IMX519_TEST_PATTERN_SOLID_COLOR,
++	IMX519_TEST_PATTERN_GREY_COLOR,
++	IMX519_TEST_PATTERN_PN9,
++};
++
++/* regulator supplies */
++static const char * const imx519_supply_name[] = {
++	/* Supplies can be enabled in any order */
++	"vana",		/* Analog (2.8V) supply */
++	"vcore",	/* Digital Core (1.05V) supply */
++	"vio",		/* IF (1.8V) supply */
++};
++
++/*
++ * Initialisation delay between XCLR low->high and the moment when the sensor
++ * can start capture (i.e. can leave software standby), given by T7 in the
++ * datasheet is 8ms.  This does include I2C setup time as well.
++ *
++ * Note, that delay between XCLR low->high and reading the CCI ID register (T6
++ * in the datasheet) is much smaller - 600us.
++ */
++#define IMX519_XCLR_MIN_DELAY_US	8000
++#define IMX519_XCLR_DELAY_RANGE_US	1000
++
++struct imx519 {
++	struct v4l2_subdev sd;
++	struct media_pad pad[NUM_PADS];
++
++	unsigned int fmt_code;
++
++	struct regmap *regmap;
++	struct clk *xclk;
++
++	struct gpio_desc *reset_gpio;
++	struct regulator_bulk_data supplies[ARRAY_SIZE(imx519_supply_name)];
++
++	struct v4l2_ctrl_handler ctrl_handler;
++	/* V4L2 Controls */
++	struct v4l2_ctrl *pixel_rate;
++	struct v4l2_ctrl *exposure;
++	struct v4l2_ctrl *vflip;
++	struct v4l2_ctrl *hflip;
++	struct v4l2_ctrl *vblank;
++	struct v4l2_ctrl *hblank;
++
++	/* PHY configuration (C-PHY or D-PHY), set at probe */
++	const struct imx519_phy_config *phy_cfg;
++
++	/* Current mode */
++	const struct imx519_mode *mode;
++
++	struct mutex mutex;
++	bool streaming;
++	bool common_regs_written;
++
++	/* Current long exposure factor in use. Set through V4L2_CID_VBLANK */
++	unsigned int long_exp_shift;
++};
++
++static inline struct imx519 *to_imx519(struct v4l2_subdev *sd)
++{
++	return container_of(sd, struct imx519, sd);
++}
++
++/* Get bayer order based on flip setting. */
++static u32 imx519_get_format_code(struct imx519 *imx519)
++{
++	unsigned int i;
++
++	lockdep_assert_held(&imx519->mutex);
++
++	i = (imx519->vflip->val ? 2 : 0) |
++	    (imx519->hflip->val ? 1 : 0);
++
++	return codes[i];
++}
++
++static int imx519_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++{
++	struct imx519 *imx519 = to_imx519(sd);
++	struct v4l2_mbus_framefmt *try_fmt_img =
++		v4l2_subdev_state_get_format(fh->state, IMAGE_PAD);
++	struct v4l2_mbus_framefmt *try_fmt_meta =
++		v4l2_subdev_state_get_format(fh->state, METADATA_PAD);
++	struct v4l2_rect *try_crop;
++
++	mutex_lock(&imx519->mutex);
++
++	/* Initialize try_fmt for the image pad */
++	try_fmt_img->width = imx519->phy_cfg->modes[0].width;
++	try_fmt_img->height = imx519->phy_cfg->modes[0].height;
++	try_fmt_img->code = imx519_get_format_code(imx519);
++	try_fmt_img->field = V4L2_FIELD_NONE;
++
++	/* Initialize try_fmt for the embedded metadata pad */
++	try_fmt_meta->width = IMX519_EMBEDDED_LINE_WIDTH;
++	try_fmt_meta->height = IMX519_NUM_EMBEDDED_LINES;
++	try_fmt_meta->code = MEDIA_BUS_FMT_METADATA_FIXED;
++	try_fmt_meta->field = V4L2_FIELD_NONE;
++
++	/* Initialize try_crop */
++	try_crop = v4l2_subdev_state_get_crop(fh->state, IMAGE_PAD);
++	try_crop->left = IMX519_PIXEL_ARRAY_LEFT;
++	try_crop->top = IMX519_PIXEL_ARRAY_TOP;
++	try_crop->width = IMX519_PIXEL_ARRAY_WIDTH;
++	try_crop->height = IMX519_PIXEL_ARRAY_HEIGHT;
++
++	mutex_unlock(&imx519->mutex);
++
++	return 0;
++}
++
++static void imx519_adjust_exposure_range(struct imx519 *imx519)
++{
++	int exposure_max, exposure_def;
++
++	/* Honour the VBLANK limits when setting exposure. */
++	exposure_max = imx519->mode->height + imx519->vblank->val -
++		       IMX519_EXPOSURE_OFFSET;
++	exposure_def = min(exposure_max, imx519->exposure->val);
++	__v4l2_ctrl_modify_range(imx519->exposure, imx519->exposure->minimum,
++				 exposure_max, imx519->exposure->step,
++				 exposure_def);
++}
++
++static int imx519_set_frame_length(struct imx519 *imx519, unsigned int val)
++{
++	int ret = 0;
++
++	imx519->long_exp_shift = 0;
++
++	while (val > IMX519_FRAME_LENGTH_MAX) {
++		imx519->long_exp_shift++;
++		val >>= 1;
++	}
++
++	cci_write(imx519->regmap, IMX519_REG_FRAME_LENGTH, val, &ret);
++	if (ret)
++		return ret;
++
++	cci_write(imx519->regmap, IMX519_LONG_EXP_SHIFT_REG,
++		  imx519->long_exp_shift, &ret);
++
++	return ret;
++}
++
++static int imx519_set_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct imx519 *imx519 =
++		container_of(ctrl->handler, struct imx519, ctrl_handler);
++	struct i2c_client *client = v4l2_get_subdevdata(&imx519->sd);
++	int ret = 0;
++
++	/*
++	 * The VBLANK control may change the limits of usable exposure, so check
++	 * and adjust if necessary.
++	 */
++	if (ctrl->id == V4L2_CID_VBLANK)
++		imx519_adjust_exposure_range(imx519);
++
++	/*
++	 * Applying V4L2 control value only happens
++	 * when power is up for streaming
++	 */
++	if (pm_runtime_get_if_in_use(&client->dev) == 0)
++		return 0;
++
++	switch (ctrl->id) {
++	case V4L2_CID_ANALOGUE_GAIN:
++		cci_write(imx519->regmap, IMX519_REG_ANALOG_GAIN,
++			  ctrl->val, &ret);
++		break;
++	case V4L2_CID_EXPOSURE:
++		cci_write(imx519->regmap, IMX519_REG_EXPOSURE,
++			  ctrl->val >> imx519->long_exp_shift, &ret);
++		break;
++	case V4L2_CID_DIGITAL_GAIN:
++		cci_write(imx519->regmap, IMX519_REG_DIGITAL_GAIN,
++			  ctrl->val, &ret);
++		break;
++	case V4L2_CID_TEST_PATTERN:
++		cci_write(imx519->regmap, IMX519_REG_TEST_PATTERN,
++			  imx519_test_pattern_val[ctrl->val], &ret);
++		break;
++	case V4L2_CID_TEST_PATTERN_RED:
++		cci_write(imx519->regmap, IMX519_REG_TEST_PATTERN_R,
++			  ctrl->val, &ret);
++		break;
++	case V4L2_CID_TEST_PATTERN_GREENR:
++		cci_write(imx519->regmap, IMX519_REG_TEST_PATTERN_GR,
++			  ctrl->val, &ret);
++		break;
++	case V4L2_CID_TEST_PATTERN_BLUE:
++		cci_write(imx519->regmap, IMX519_REG_TEST_PATTERN_B,
++			  ctrl->val, &ret);
++		break;
++	case V4L2_CID_TEST_PATTERN_GREENB:
++		cci_write(imx519->regmap, IMX519_REG_TEST_PATTERN_GB,
++			  ctrl->val, &ret);
++		break;
++	case V4L2_CID_HFLIP:
++	case V4L2_CID_VFLIP:
++		cci_write(imx519->regmap, IMX519_REG_ORIENTATION,
++			  imx519->hflip->val | imx519->vflip->val << 1, &ret);
++		break;
++	case V4L2_CID_VBLANK:
++		ret = imx519_set_frame_length(imx519,
++					      imx519->mode->height + ctrl->val);
++		break;
++	case V4L2_CID_HBLANK:
++	case V4L2_CID_LINK_FREQ:
++	case V4L2_CID_PIXEL_RATE:
++		ret = 0;
++		break;
++	default:
++		dev_dbg(&client->dev,
++			"ctrl(id:0x%x,val:0x%x) is not handled\n",
++			ctrl->id, ctrl->val);
++		ret = -EINVAL;
++		break;
++	}
++
++	pm_runtime_put(&client->dev);
++
++	return ret;
++}
++
++static const struct v4l2_ctrl_ops imx519_ctrl_ops = {
++	.s_ctrl = imx519_set_ctrl,
++};
++
++static int imx519_enum_mbus_code(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_mbus_code_enum *code)
++{
++	struct imx519 *imx519 = to_imx519(sd);
++
++	if (code->pad >= NUM_PADS)
++		return -EINVAL;
++
++	if (code->pad == IMAGE_PAD) {
++		if (code->index > 0)
++			return -EINVAL;
++
++		code->code = imx519_get_format_code(imx519);
++	} else {
++		if (code->index > 0)
++			return -EINVAL;
++
++		code->code = MEDIA_BUS_FMT_METADATA_FIXED;
++	}
++
++	return 0;
++}
++
++static int imx519_enum_frame_size(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *sd_state,
++				  struct v4l2_subdev_frame_size_enum *fse)
++{
++	struct imx519 *imx519 = to_imx519(sd);
++
++	if (fse->pad >= NUM_PADS)
++		return -EINVAL;
++
++	if (fse->pad == IMAGE_PAD) {
++		if (fse->index >= imx519->phy_cfg->num_modes)
++			return -EINVAL;
++
++		if (fse->code != imx519_get_format_code(imx519))
++			return -EINVAL;
++
++		fse->min_width = imx519->phy_cfg->modes[fse->index].width;
++		fse->max_width = fse->min_width;
++		fse->min_height = imx519->phy_cfg->modes[fse->index].height;
++		fse->max_height = fse->min_height;
++	} else {
++		if (fse->code != MEDIA_BUS_FMT_METADATA_FIXED || fse->index > 0)
++			return -EINVAL;
++
++		fse->min_width = IMX519_EMBEDDED_LINE_WIDTH;
++		fse->max_width = fse->min_width;
++		fse->min_height = IMX519_NUM_EMBEDDED_LINES;
++		fse->max_height = fse->min_height;
++	}
++
++	return 0;
++}
++
++static void imx519_reset_colorspace(struct v4l2_mbus_framefmt *fmt)
++{
++	fmt->colorspace = V4L2_COLORSPACE_RAW;
++	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
++	fmt->quantization = V4L2_MAP_QUANTIZATION_DEFAULT(true,
++							  fmt->colorspace,
++							  fmt->ycbcr_enc);
++	fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(fmt->colorspace);
++}
++
++static void imx519_update_image_pad_format(struct imx519 *imx519,
++					   const struct imx519_mode *mode,
++					   struct v4l2_subdev_format *fmt)
++{
++	fmt->format.width = mode->width;
++	fmt->format.height = mode->height;
++	fmt->format.field = V4L2_FIELD_NONE;
++	imx519_reset_colorspace(&fmt->format);
++}
++
++static void imx519_update_metadata_pad_format(struct v4l2_subdev_format *fmt)
++{
++	fmt->format.width = IMX519_EMBEDDED_LINE_WIDTH;
++	fmt->format.height = IMX519_NUM_EMBEDDED_LINES;
++	fmt->format.code = MEDIA_BUS_FMT_METADATA_FIXED;
++	fmt->format.field = V4L2_FIELD_NONE;
++}
++
++static int imx519_get_pad_format(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_format *fmt)
++{
++	struct imx519 *imx519 = to_imx519(sd);
++
++	if (fmt->pad >= NUM_PADS)
++		return -EINVAL;
++
++	mutex_lock(&imx519->mutex);
++
++	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
++		struct v4l2_mbus_framefmt *try_fmt =
++			v4l2_subdev_state_get_format(sd_state, fmt->pad);
++		/* update the code which could change due to vflip or hflip: */
++		try_fmt->code = fmt->pad == IMAGE_PAD ?
++				imx519_get_format_code(imx519) :
++				MEDIA_BUS_FMT_METADATA_FIXED;
++		fmt->format = *try_fmt;
++	} else {
++		if (fmt->pad == IMAGE_PAD) {
++			imx519_update_image_pad_format(imx519, imx519->mode,
++						       fmt);
++			fmt->format.code =
++			       imx519_get_format_code(imx519);
++		} else {
++			imx519_update_metadata_pad_format(fmt);
++		}
++	}
++
++	mutex_unlock(&imx519->mutex);
++	return 0;
++}
++
++static
++unsigned int imx519_get_frame_length(const struct imx519 *imx519,
++				     const struct imx519_mode *mode,
++				     const struct v4l2_fract *timeperframe)
++{
++	u64 frame_length;
++
++	frame_length = (u64)timeperframe->numerator * imx519->phy_cfg->pixclk_hz;
++	do_div(frame_length,
++	       (u64)timeperframe->denominator * mode->line_length_pix);
++
++	if (WARN_ON(frame_length > IMX519_FRAME_LENGTH_MAX))
++		frame_length = IMX519_FRAME_LENGTH_MAX;
++
++	return max_t(unsigned int, frame_length, mode->height);
++}
++
++static void imx519_set_framing_limits(struct imx519 *imx519)
++{
++	unsigned int frm_length_min, frm_length_default, hblank;
++	const struct imx519_mode *mode = imx519->mode;
++
++	frm_length_min = imx519_get_frame_length(imx519, mode,
++					       &mode->timeperframe_min);
++	frm_length_default =
++		     imx519_get_frame_length(imx519, mode,
++					     &mode->timeperframe_default);
++
++	/* Default to no long exposure multiplier. */
++	imx519->long_exp_shift = 0;
++
++	/* Update limits and set FPS to default */
++	__v4l2_ctrl_modify_range(imx519->vblank, frm_length_min - mode->height,
++				 ((1 << IMX519_LONG_EXP_SHIFT_MAX) *
++					IMX519_FRAME_LENGTH_MAX) - mode->height,
++				 1, frm_length_default - mode->height);
++
++	/* Setting this will adjust the exposure limits as well. */
++	__v4l2_ctrl_s_ctrl(imx519->vblank, frm_length_default - mode->height);
++
++	/*
++	 * Currently PPL is fixed to the mode specified value, so hblank
++	 * depends on mode->width only, and is not changeable in any
++	 * way other than changing the mode.
++	 */
++	hblank = mode->line_length_pix - mode->width;
++	__v4l2_ctrl_modify_range(imx519->hblank, hblank, hblank, 1, hblank);
++}
++
++static int imx519_set_pad_format(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_format *fmt)
++{
++	struct v4l2_mbus_framefmt *framefmt;
++	const struct imx519_mode *mode;
++	struct imx519 *imx519 = to_imx519(sd);
++
++	if (fmt->pad >= NUM_PADS)
++		return -EINVAL;
++
++	mutex_lock(&imx519->mutex);
++
++	if (fmt->pad == IMAGE_PAD) {
++		/* Bayer order varies with flips */
++		fmt->format.code = imx519_get_format_code(imx519);
++
++		mode = v4l2_find_nearest_size(imx519->phy_cfg->modes,
++					      imx519->phy_cfg->num_modes,
++					      width, height,
++					      fmt->format.width,
++					      fmt->format.height);
++		imx519_update_image_pad_format(imx519, mode, fmt);
++		if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
++			framefmt = v4l2_subdev_state_get_format(sd_state,
++								fmt->pad);
++			*framefmt = fmt->format;
++		} else {
++			imx519->mode = mode;
++			imx519->fmt_code = fmt->format.code;
++			imx519_set_framing_limits(imx519);
++		}
++	} else {
++		if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
++			framefmt = v4l2_subdev_state_get_format(sd_state,
++								fmt->pad);
++			*framefmt = fmt->format;
++		} else {
++			/* Only one embedded data mode is supported */
++			imx519_update_metadata_pad_format(fmt);
++		}
++	}
++
++	mutex_unlock(&imx519->mutex);
++
++	return 0;
++}
++
++static const struct v4l2_rect *
++__imx519_get_pad_crop(struct imx519 *imx519, struct v4l2_subdev_state *sd_state,
++		      unsigned int pad, enum v4l2_subdev_format_whence which)
++{
++	switch (which) {
++	case V4L2_SUBDEV_FORMAT_TRY:
++		return v4l2_subdev_state_get_crop(sd_state, pad);
++	case V4L2_SUBDEV_FORMAT_ACTIVE:
++		return &imx519->mode->crop;
++	}
++
++	return NULL;
++}
++
++static int imx519_get_selection(struct v4l2_subdev *sd,
++				struct v4l2_subdev_state *sd_state,
++				struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP: {
++		struct imx519 *imx519 = to_imx519(sd);
++
++		mutex_lock(&imx519->mutex);
++		sel->r = *__imx519_get_pad_crop(imx519, sd_state, sel->pad,
++						sel->which);
++		mutex_unlock(&imx519->mutex);
++
++		return 0;
++	}
++
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = IMX519_NATIVE_WIDTH;
++		sel->r.height = IMX519_NATIVE_HEIGHT;
++
++		return 0;
++
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.left = IMX519_PIXEL_ARRAY_LEFT;
++		sel->r.top = IMX519_PIXEL_ARRAY_TOP;
++		sel->r.width = IMX519_PIXEL_ARRAY_WIDTH;
++		sel->r.height = IMX519_PIXEL_ARRAY_HEIGHT;
++
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
++/* Start streaming */
++static int imx519_start_streaming(struct imx519 *imx519)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(&imx519->sd);
++	const struct imx519_reg_list *reg_list;
++	int ret;
++
++	if (!imx519->common_regs_written) {
++		ret = cci_multi_reg_write(imx519->regmap, mode_common_regs,
++					  ARRAY_SIZE(mode_common_regs), NULL);
++		if (ret) {
++			dev_err(&client->dev, "%s failed to set common settings\n",
++				__func__);
++			return ret;
++		}
++		imx519->common_regs_written = true;
++	}
++
++	/* Apply PHY-specific registers (PLL, signaling, link rate) */
++	reg_list = &imx519->phy_cfg->phy_regs;
++	ret = cci_multi_reg_write(imx519->regmap, reg_list->regs,
++				  reg_list->num_of_regs, NULL);
++	if (ret) {
++		dev_err(&client->dev, "%s failed to set PHY config\n",
++			__func__);
++		return ret;
++	}
++
++	/* Apply per-mode geometry registers */
++	reg_list = &imx519->mode->reg_list;
++	ret = cci_multi_reg_write(imx519->regmap, reg_list->regs,
++				  reg_list->num_of_regs, NULL);
++	if (ret) {
++		dev_err(&client->dev, "%s failed to set mode\n", __func__);
++		return ret;
++	}
++
++	/* Apply customized values from user */
++	ret =  __v4l2_ctrl_handler_setup(imx519->sd.ctrl_handler);
++	if (ret)
++		return ret;
++
++	/* set stream on register */
++	return cci_write(imx519->regmap, IMX519_REG_MODE_SELECT,
++			IMX519_MODE_STREAMING, NULL);
++}
++
++/* Stop streaming */
++static void imx519_stop_streaming(struct imx519 *imx519)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(&imx519->sd);
++	int ret;
++
++	/* set stream off register */
++	ret = cci_write(imx519->regmap, IMX519_REG_MODE_SELECT,
++			IMX519_MODE_STANDBY, NULL);
++	if (ret)
++		dev_err(&client->dev, "%s failed to set stream\n", __func__);
++}
++
++static int imx519_set_stream(struct v4l2_subdev *sd, int enable)
++{
++	struct imx519 *imx519 = to_imx519(sd);
++	struct i2c_client *client = v4l2_get_subdevdata(sd);
++	int ret = 0;
++
++	mutex_lock(&imx519->mutex);
++	if (imx519->streaming == enable) {
++		mutex_unlock(&imx519->mutex);
++		return 0;
++	}
++
++	if (enable) {
++		ret = pm_runtime_get_sync(&client->dev);
++		if (ret < 0) {
++			pm_runtime_put_noidle(&client->dev);
++			goto err_unlock;
++		}
++
++		/*
++		 * Apply default & customized values
++		 * and then start streaming.
++		 */
++		ret = imx519_start_streaming(imx519);
++		if (ret)
++			goto err_rpm_put;
++	} else {
++		imx519_stop_streaming(imx519);
++		pm_runtime_put(&client->dev);
++	}
++
++	imx519->streaming = enable;
++
++	/* vflip and hflip cannot change during streaming */
++	__v4l2_ctrl_grab(imx519->vflip, enable);
++	__v4l2_ctrl_grab(imx519->hflip, enable);
++
++	mutex_unlock(&imx519->mutex);
++
++	return ret;
++
++err_rpm_put:
++	pm_runtime_put(&client->dev);
++err_unlock:
++	mutex_unlock(&imx519->mutex);
++
++	return ret;
++}
++
++/* Power/clock management functions */
++static int imx519_power_on(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct imx519 *imx519 = to_imx519(sd);
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(imx519_supply_name),
++				    imx519->supplies);
++	if (ret) {
++		dev_err(&client->dev, "%s: failed to enable regulators\n",
++			__func__);
++		return ret;
++	}
++
++	ret = clk_prepare_enable(imx519->xclk);
++	if (ret) {
++		dev_err(&client->dev, "%s: failed to enable clock\n",
++			__func__);
++		goto reg_off;
++	}
++
++	gpiod_set_value_cansleep(imx519->reset_gpio, 0);
++	usleep_range(IMX519_XCLR_MIN_DELAY_US,
++		     IMX519_XCLR_MIN_DELAY_US + IMX519_XCLR_DELAY_RANGE_US);
++
++	return 0;
++
++reg_off:
++	regulator_bulk_disable(ARRAY_SIZE(imx519_supply_name), imx519->supplies);
++	return ret;
++}
++
++static int imx519_power_off(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct imx519 *imx519 = to_imx519(sd);
++
++	gpiod_set_value_cansleep(imx519->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(imx519_supply_name), imx519->supplies);
++	clk_disable_unprepare(imx519->xclk);
++
++	/* Force reprogramming of the common registers when powered up again. */
++	imx519->common_regs_written = false;
++
++	return 0;
++}
++
++static int __maybe_unused imx519_suspend(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct imx519 *imx519 = to_imx519(sd);
++
++	if (imx519->streaming)
++		imx519_stop_streaming(imx519);
++
++	return 0;
++}
++
++static int __maybe_unused imx519_resume(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct imx519 *imx519 = to_imx519(sd);
++	int ret;
++
++	if (imx519->streaming) {
++		ret = imx519_start_streaming(imx519);
++		if (ret)
++			goto error;
++	}
++
++	return 0;
++
++error:
++	imx519_stop_streaming(imx519);
++	imx519->streaming = 0;
++	return ret;
++}
++
++static int imx519_get_regulators(struct imx519 *imx519)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(&imx519->sd);
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(imx519_supply_name); i++)
++		imx519->supplies[i].supply = imx519_supply_name[i];
++
++	return devm_regulator_bulk_get(&client->dev,
++				       ARRAY_SIZE(imx519_supply_name),
++				       imx519->supplies);
++}
++
++/* Verify chip ID */
++static int imx519_identify_module(struct imx519 *imx519)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(&imx519->sd);
++	int ret;
++	u64 val;
++
++	ret = cci_read(imx519->regmap, IMX519_REG_CHIP_ID, &val, NULL);
++	if (ret) {
++		dev_err(&client->dev, "failed to read chip id %x, with error %d\n",
++			IMX519_CHIP_ID, ret);
++		return ret;
++	}
++
++	if (val != IMX519_CHIP_ID) {
++		dev_err(&client->dev, "chip id mismatch: %x!=%llx\n",
++			IMX519_CHIP_ID, val);
++		return -EIO;
++	}
++
++	dev_dbg(&client->dev, "device found: imx%llx\n", val);
++
++	return 0;
++}
++
++static const struct v4l2_subdev_core_ops imx519_core_ops = {
++	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
++	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
++};
++
++static const struct v4l2_subdev_video_ops imx519_video_ops = {
++	.s_stream = imx519_set_stream,
++};
++
++static const struct v4l2_subdev_pad_ops imx519_pad_ops = {
++	.enum_mbus_code = imx519_enum_mbus_code,
++	.get_fmt = imx519_get_pad_format,
++	.set_fmt = imx519_set_pad_format,
++	.get_selection = imx519_get_selection,
++	.enum_frame_size = imx519_enum_frame_size,
++};
++
++static const struct v4l2_subdev_ops imx519_subdev_ops = {
++	.core = &imx519_core_ops,
++	.video = &imx519_video_ops,
++	.pad = &imx519_pad_ops,
++};
++
++static const struct v4l2_subdev_internal_ops imx519_internal_ops = {
++	.open = imx519_open,
++};
++
++/* Initialize control handlers */
++static int imx519_init_controls(struct imx519 *imx519)
++{
++	struct v4l2_ctrl_handler *ctrl_hdlr;
++	struct i2c_client *client = v4l2_get_subdevdata(&imx519->sd);
++	struct v4l2_fwnode_device_properties props;
++	struct v4l2_ctrl *link_freq;
++	unsigned int i;
++	int ret;
++
++	ctrl_hdlr = &imx519->ctrl_handler;
++	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 16);
++	if (ret)
++		return ret;
++
++	mutex_init(&imx519->mutex);
++	ctrl_hdlr->lock = &imx519->mutex;
++
++	/* By default, PIXEL_RATE is read only */
++	imx519->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops,
++					       V4L2_CID_PIXEL_RATE,
++					       imx519->phy_cfg->pixel_rate,
++					       imx519->phy_cfg->pixel_rate, 1,
++					       imx519->phy_cfg->pixel_rate);
++
++	/* LINK_FREQ is also read only */
++	link_freq =
++		v4l2_ctrl_new_int_menu(ctrl_hdlr, &imx519_ctrl_ops,
++				       V4L2_CID_LINK_FREQ,
++				       0, 0, &imx519->phy_cfg->link_freq);
++	if (link_freq)
++		link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++
++	/*
++	 * Create the controls here, but mode specific limits are setup
++	 * in the imx519_set_framing_limits() call below.
++	 */
++	imx519->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops,
++					   V4L2_CID_VBLANK, 0, 0xffff, 1, 0);
++	imx519->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops,
++					   V4L2_CID_HBLANK, 0, 0xffff, 1, 0);
++
++	/* HBLANK is read-only for now, but does change with mode. */
++	if (imx519->hblank)
++		imx519->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++
++	imx519->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops,
++					     V4L2_CID_EXPOSURE,
++					     IMX519_EXPOSURE_MIN,
++					     IMX519_EXPOSURE_MAX,
++					     IMX519_EXPOSURE_STEP,
++					     IMX519_EXPOSURE_DEFAULT);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
++			  IMX519_ANA_GAIN_MIN, IMX519_ANA_GAIN_MAX,
++			  IMX519_ANA_GAIN_STEP, IMX519_ANA_GAIN_DEFAULT);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
++			  IMX519_DGTL_GAIN_MIN, IMX519_DGTL_GAIN_MAX,
++			  IMX519_DGTL_GAIN_STEP, IMX519_DGTL_GAIN_DEFAULT);
++
++	imx519->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops,
++					  V4L2_CID_HFLIP, 0, 1, 1, 0);
++	if (imx519->hflip)
++		imx519->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
++
++	imx519->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops,
++					  V4L2_CID_VFLIP, 0, 1, 1, 0);
++	if (imx519->vflip)
++		imx519->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
++
++	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &imx519_ctrl_ops,
++				     V4L2_CID_TEST_PATTERN,
++				     ARRAY_SIZE(imx519_test_pattern_menu) - 1,
++				     0, 0, imx519_test_pattern_menu);
++	for (i = 0; i < 4; i++) {
++		/*
++		 * The assumption is that
++		 * V4L2_CID_TEST_PATTERN_GREENR == V4L2_CID_TEST_PATTERN_RED + 1
++		 * V4L2_CID_TEST_PATTERN_BLUE   == V4L2_CID_TEST_PATTERN_RED + 2
++		 * V4L2_CID_TEST_PATTERN_GREENB == V4L2_CID_TEST_PATTERN_RED + 3
++		 */
++		v4l2_ctrl_new_std(ctrl_hdlr, &imx519_ctrl_ops,
++				  V4L2_CID_TEST_PATTERN_RED + i,
++				  IMX519_TEST_PATTERN_COLOUR_MIN,
++				  IMX519_TEST_PATTERN_COLOUR_MAX,
++				  IMX519_TEST_PATTERN_COLOUR_STEP,
++				  IMX519_TEST_PATTERN_COLOUR_MAX);
++		/* The "Solid color" pattern is white by default */
++	}
++
++	if (ctrl_hdlr->error) {
++		ret = ctrl_hdlr->error;
++		dev_err(&client->dev, "%s control init failed (%d)\n",
++			__func__, ret);
++		goto error;
++	}
++
++	ret = v4l2_fwnode_device_parse(&client->dev, &props);
++	if (ret)
++		goto error;
++
++	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &imx519_ctrl_ops,
++					      &props);
++	if (ret)
++		goto error;
++
++	imx519->sd.ctrl_handler = ctrl_hdlr;
++
++	/* Setup exposure and frame/line length limits. */
++	imx519_set_framing_limits(imx519);
++
++	return 0;
++
++error:
++	v4l2_ctrl_handler_free(ctrl_hdlr);
++	mutex_destroy(&imx519->mutex);
++
++	return ret;
++}
++
++static void imx519_free_controls(struct imx519 *imx519)
++{
++	v4l2_ctrl_handler_free(imx519->sd.ctrl_handler);
++	mutex_destroy(&imx519->mutex);
++}
++
++static int imx519_check_hwcfg(struct device *dev, struct imx519 *imx519)
++{
++	struct fwnode_handle *endpoint;
++	struct v4l2_fwnode_endpoint ep_cfg = {
++		.bus_type = V4L2_MBUS_UNKNOWN
++	};
++	const struct imx519_phy_config *phy_cfg;
++	int ret = -EINVAL;
++
++	endpoint = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
++	if (!endpoint) {
++		dev_err(dev, "endpoint node not found\n");
++		return -EINVAL;
++	}
++
++	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg)) {
++		dev_err(dev, "could not parse endpoint\n");
++		goto error_out;
++	}
++
++	switch (ep_cfg.bus_type) {
++	case V4L2_MBUS_CSI2_DPHY:
++		phy_cfg = &imx519_phy_dphy;
++		break;
++	case V4L2_MBUS_CSI2_CPHY:
++		phy_cfg = &imx519_phy_cphy;
++		break;
++	default:
++		dev_err(dev, "unsupported bus type %u\n", ep_cfg.bus_type);
++		goto error_out;
++	}
++
++	/* Check the link frequency set in device tree */
++	if (!ep_cfg.nr_of_link_frequencies) {
++		dev_err(dev, "link-frequency property not found in DT\n");
++		goto error_out;
++	}
++
++	if (ep_cfg.nr_of_link_frequencies != 1 ||
++	    ep_cfg.link_frequencies[0] != phy_cfg->link_freq) {
++		dev_err(dev, "Link frequency not supported: %lld\n",
++			ep_cfg.link_frequencies[0]);
++		goto error_out;
++	}
++
++	imx519->phy_cfg = phy_cfg;
++	ret = 0;
++
++error_out:
++	v4l2_fwnode_endpoint_free(&ep_cfg);
++	fwnode_handle_put(endpoint);
++
++	return ret;
++}
++
++static const struct of_device_id imx519_dt_ids[] = {
++	{ .compatible = "sony,imx519"},
++	{ /* sentinel */ }
++};
++
++static int imx519_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct imx519 *imx519;
++	const struct of_device_id *match;
++	u32 xclk_freq;
++	int ret;
++
++	imx519 = devm_kzalloc(&client->dev, sizeof(*imx519), GFP_KERNEL);
++	if (!imx519)
++		return -ENOMEM;
++
++	v4l2_i2c_subdev_init(&imx519->sd, client, &imx519_subdev_ops);
++
++	match = of_match_device(imx519_dt_ids, dev);
++	if (!match)
++		return -ENODEV;
++
++	/* Check hardware config and detect PHY type from device tree */
++	if (imx519_check_hwcfg(dev, imx519))
++		return -EINVAL;
++
++	imx519->regmap = devm_cci_regmap_init_i2c(client, 16);
++	if (IS_ERR(imx519->regmap))
++		return dev_err_probe(dev, PTR_ERR(imx519->regmap),
++				     "failed to initialize CCI\n");
++
++	/* Get system clock (xclk) */
++	imx519->xclk = devm_clk_get(dev, NULL);
++	if (IS_ERR(imx519->xclk))
++		return dev_err_probe(dev, PTR_ERR(imx519->xclk),
++				     "failed to get xclk\n");
++
++	xclk_freq = clk_get_rate(imx519->xclk);
++	if (xclk_freq != IMX519_XCLK_FREQ)
++		return dev_err_probe(dev, -EINVAL,
++				     "xclk frequency not supported: %d Hz\n",
++				     xclk_freq);
++
++	ret = imx519_get_regulators(imx519);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get regulators\n");
++
++	/* Request optional enable pin */
++	imx519->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						     GPIOD_OUT_LOW);
++
++	/*
++	 * The sensor must be powered for imx519_identify_module()
++	 * to be able to read the CHIP_ID register
++	 */
++	ret = imx519_power_on(dev);
++	if (ret)
++		return ret;
++
++	ret = imx519_identify_module(imx519);
++	if (ret)
++		goto error_power_off;
++
++	/* Set default mode to max resolution */
++	imx519->mode = &imx519->phy_cfg->modes[0];
++	imx519->fmt_code = MEDIA_BUS_FMT_SRGGB10_1X10;
++
++	/* Enable runtime PM and turn off the device */
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_idle(dev);
++
++	/* This needs the pm runtime to be registered. */
++	ret = imx519_init_controls(imx519);
++	if (ret)
++		goto error_power_off;
++
++	/* Initialize subdev */
++	imx519->sd.internal_ops = &imx519_internal_ops;
++	imx519->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
++			    V4L2_SUBDEV_FL_HAS_EVENTS;
++	imx519->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
++
++	/* Initialize source pads */
++	imx519->pad[IMAGE_PAD].flags = MEDIA_PAD_FL_SOURCE;
++	imx519->pad[METADATA_PAD].flags = MEDIA_PAD_FL_SOURCE;
++
++	ret = media_entity_pads_init(&imx519->sd.entity, NUM_PADS, imx519->pad);
++	if (ret) {
++		dev_err(dev, "failed to init entity pads: %d\n", ret);
++		goto error_handler_free;
++	}
++
++	ret = v4l2_async_register_subdev_sensor(&imx519->sd);
++	if (ret < 0) {
++		dev_err(dev, "failed to register sensor sub-device: %d\n", ret);
++		goto error_media_entity;
++	}
++
++	return 0;
++
++error_media_entity:
++	media_entity_cleanup(&imx519->sd.entity);
++
++error_handler_free:
++	imx519_free_controls(imx519);
++
++error_power_off:
++	pm_runtime_disable(&client->dev);
++	pm_runtime_set_suspended(&client->dev);
++	imx519_power_off(&client->dev);
++
++	return ret;
++}
++
++static void imx519_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct imx519 *imx519 = to_imx519(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	media_entity_cleanup(&sd->entity);
++	imx519_free_controls(imx519);
++
++	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev))
++		imx519_power_off(&client->dev);
++	pm_runtime_set_suspended(&client->dev);
++}
++
++MODULE_DEVICE_TABLE(of, imx519_dt_ids);
++
++static const struct dev_pm_ops imx519_pm_ops = {
++	SET_SYSTEM_SLEEP_PM_OPS(imx519_suspend, imx519_resume)
++	SET_RUNTIME_PM_OPS(imx519_power_off, imx519_power_on, NULL)
++};
++
++static struct i2c_driver imx519_i2c_driver = {
++	.driver = {
++		.name = "imx519",
++		.of_match_table	= imx519_dt_ids,
++		.pm = &imx519_pm_ops,
++	},
++	.probe = imx519_probe,
++	.remove = imx519_remove,
++};
++
++module_i2c_driver(imx519_i2c_driver);
++
++MODULE_AUTHOR("Lee Jackson <info@arducam.com>");
++MODULE_DESCRIPTION("Sony IMX519 sensor driver");
++MODULE_LICENSE("GPL");
+-- 
+2.53.0
+

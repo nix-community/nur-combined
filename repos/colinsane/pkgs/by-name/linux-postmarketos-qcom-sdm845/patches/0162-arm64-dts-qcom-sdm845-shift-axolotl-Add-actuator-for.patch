@@ -1,0 +1,64 @@
+From 8498574ede23883a473750b49573c14993accbb3 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 15 Apr 2026 18:52:11 +0000
+Subject: [PATCH 162/194] arm64: dts: qcom: sdm845-shift-axolotl: Add actuator
+ for main rear camera
+
+Main rear camera uses Dongwoon DW9714V actuator. Add regulator and
+actuator node.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm845-shift-axolotl.dts    | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index b0034bdcde9b..21f6825d881f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -117,6 +117,19 @@
+ 		vin-supply = <&vreg_s3a_1p35>;
+ 	};
+ 
++	cam_vaf_2p8: cam-vaf-2p8-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_vaf_2p8";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-enable-ramp-delay = <100>;
++		enable-active-high;
++		gpio = <&tlmm 8 GPIO_ACTIVE_HIGH>;
++		vin-supply = <&vreg_bob>;
++
++		regulator-always-on;
++	};
++
+ 	vph_pwr: vph-pwr-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vph_pwr";
+@@ -513,6 +526,13 @@
+ };
+ 
+ &cci_i2c0 {
++	rear_camera_actuator: actuator@c {
++		compatible = "dongwoon,dw9714v", "dongwoon,dw9714a", "dongwoon,dw9714";
++		reg = <0x0c>;
++
++		vcc-supply = <&vreg_lvs1a_1p8>;
++	};
++
+ 	rear_camera: camera@1a {
+ 		compatible = "sony,imx519";
+ 		reg = <0x1a>;
+@@ -534,6 +554,8 @@
+ 		orientation = <1>;
+ 		rotation = <270>;
+ 
++		lens-focus = <&rear_camera_actuator>;
++
+ 		port {
+ 			rear_camera_ep: endpoint {
+ 				data-lanes = <1 2 3 4>;
+-- 
+2.53.0
+

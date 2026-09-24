@@ -1,0 +1,36 @@
+From ada2b91ca0fdb13592d8da38f3978671719c8ef1 Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Thu, 29 Sep 2022 19:52:35 -0400
+Subject: [PATCH 027/194] arm64: dts: qcom: sdm670-google-sargo: Enable fuel
+ gauge
+
+The PM660 fuel gauge determines the battery charge. Enable it for full
+battery support.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
+index ed55646ca419..a8e0e85c42cd 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
+@@ -490,6 +490,13 @@
+ 	status = "okay";
+ };
+ 
++&pm660_fg {
++	monitored-battery = <&battery>;
++	power-supplies = <&pm660_charger>;
++
++	status = "okay";
++};
++
+ &pm660_rradc {
+ 	status = "okay";
+ };
+-- 
+2.53.0
+

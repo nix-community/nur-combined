@@ -1,0 +1,145 @@
+From 350b19c8bc070c1e02a0f9444173bc2f4613cbe0 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Wed, 21 Jan 2026 22:58:08 +0100
+Subject: [PATCH 002/194] .forgejo: introduce pull request based CI
+
+ - checkpatch
+ - yaml-linting
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .forgejo/build.yml        | 34 +++++++++++++++++
+ .forgejo/workflows/QA.yml | 80 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 114 insertions(+)
+ create mode 100644 .forgejo/build.yml
+ create mode 100644 .forgejo/workflows/QA.yml
+
+diff --git a/.forgejo/build.yml b/.forgejo/build.yml
+new file mode 100644
+index 000000000000..8da0472d288e
+--- /dev/null
++++ b/.forgejo/build.yml
+@@ -0,0 +1,34 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++name: Build
++
++on: [pull_request]
++
++jobs:
++  build:
++    name: build-kernel
++    runs-on: codeberg-medium
++    steps:
++      - uses: actions/checkout@v4
++        with:
++          fetch-depth: 150
++
++      - name: install dependecies
++        run: |
++          sudo apt-get -qq update > /dev/null
++          sudo apt-get -qq install clang llvm lld bc git build-essential binutils-multiarch device-tree-compiler fakeroot libncurses5-dev libssl-dev bison flex libelf-dev dwarves python3-pip > /dev/null
++
++      - name: defconfig+sdm845.config
++        run: |
++          ARCH=arm64 LLVM=1 make defconfig sdm845.config O=.output -j4
++
++      - name: build
++        run: |
++          ARCH=arm64 LLVM=1 make O=.output -j5
++
++      - uses: actions/upload-artifact@v3
++        with:
++          name: linux-build
++          path: .output
++          retention-days: 7
++          compression-level: 0
++          include-hidden-files: true
+diff --git a/.forgejo/workflows/QA.yml b/.forgejo/workflows/QA.yml
+new file mode 100644
+index 000000000000..473b819542f1
+--- /dev/null
++++ b/.forgejo/workflows/QA.yml
+@@ -0,0 +1,80 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++name: Quality assurance
++
++on: [pull_request]
++
++jobs:
++  checkpatch:
++    name: checkpatch
++    runs-on: codeberg-medium
++    steps:
++      - uses: actions/checkout@v6
++        with:
++          fetch-depth: 250
++      - name: Run checkpatch review
++        uses: https://github.com/okias/checkpatch-action@1d3915e610146bbad77ef8a7a9e29338fffc85d9
++        env:
++          CHECKPATCH_COMMAND: checkpatch.pl --no-tree --strict
++
++  yaml-linting:
++    name: yaml-linting
++    runs-on: codeberg-medium
++    steps:
++      - uses: actions/checkout@v4
++        with:
++          fetch-depth: 250
++
++      - name: Fetch file names
++        run: |
++          PR=${FORGEJO_REF#"refs/pull/"}
++          PRNUM=${PR%"/head"}  # Forgejo
++          URL=${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls/${PRNUM}/files
++
++          len=0
++          list=
++          p=1
++          while true; do
++            list_page=$(curl $URL?page=$p -X GET -s | jq '.[].filename' -r)
++            len_page=$(echo "$list_page" | grep -c . || true)
++            [ "$len_page" == 0 ] && break
++            list+="$list_page"$'\n'
++            ((len+=len_page))
++            ((p++))
++          done
++          echo -e " - Files $len:\n $list"
++          if [[ $len == 0 ]] ; then exit 0; fi
++          echo "list<<EOF" >> $FORGEJO_ENV
++          # here we can place the command that will generate multi-line text
++          echo $list >> $FORGEJO_ENV
++          echo "EOF" >> $FORGEJO_ENV
++
++      - name: Install yamllint
++        run: |
++          sudo apt-get -qq update > /dev/null
++          sudo apt-get -qq install python3-dev python3-pip > /dev/null
++          pip install --break-system-packages git+https://github.com/devicetree-org/dt-schema.git@master
++          pip install --break-system-packages yamllint
++
++      - name: Run yamllint review
++        run: |
++          status=0
++          touch out.txt
++          echo "dt-doc-validate output:"
++          for item in ${{ env.list }}; do
++            if [[ "${item}" != **/*yaml ]]; then
++              continue
++            fi
++
++            yamllint -d "{rules: {line-length: {level: warning, max: 100}}}" \
++                     -f github ${item}
++            yamllint -d "{rules: {line-length: {level: warning, max: 100}}}" \
++                     -f standard ${item} >> out.txt
++
++            # remove warning about URL
++            dt-doc-validate "${item}" 2>&1 || status=1
++
++            exit $status
++          done
++
++          echo "yamllint output:"
++          cat out.txt
+-- 
+2.53.0
+

@@ -1,0 +1,64 @@
+From e705731cf0ddfc59cfddf4e4ca09049096fc3513 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sun, 6 Jun 2021 04:17:49 +0530
+Subject: [PATCH 058/194] hack! arm64: dts: qcom: sdm845: Add q6voice APR
+ service device nodes
+
+arm64: dts: qcom: sdm845: add PDs to q6voice APR
+
+Original author: Joel Selvaraj <jo@jsfamily.in>
+
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 34 ++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index 4ae8627d6dbc..daf63392a078 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -976,6 +976,40 @@
+ 						#sound-dai-cells = <0>;
+ 					};
+ 				};
++
++				q6mvm: apr-service@9 {
++					compatible = "qcom,q6mvm";
++					reg = <APR_SVC_ADSP_MVM>;
++
++					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
++
++					status = "disabled";
++
++					q6voicedai: dais {
++						compatible = "qcom,q6voice-dais";
++						#address-cells = <1>;
++						#size-cells = <0>;
++						#sound-dai-cells = <1>;
++					};
++				};
++
++				q6cvs: apr-service@a {
++					compatible = "qcom,q6cvs";
++					reg = <APR_SVC_ADSP_CVS>;
++
++					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
++
++					status = "disabled";
++				};
++
++				q6cvp: apr-service@b {
++					compatible = "qcom,q6cvp";
++					reg = <APR_SVC_ADSP_CVP>;
++
++					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
++
++					status = "disabled";
++				};
+ 			};
+ 
+ 			fastrpc {
+-- 
+2.53.0
+

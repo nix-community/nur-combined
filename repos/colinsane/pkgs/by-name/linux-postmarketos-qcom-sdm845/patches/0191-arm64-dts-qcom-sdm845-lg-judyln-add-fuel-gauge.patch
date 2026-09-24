@@ -1,0 +1,32 @@
+From d0e3eeb9f5b65af74aff86285e82a2269497ac7b Mon Sep 17 00:00:00 2001
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 5 Oct 2025 14:03:28 -0700
+Subject: [PATCH 191/194] arm64: dts: qcom: sdm845-lg-judyln: add fuel gauge
+
+Add the fuel gauge node for LG G7 ThinQ (judyln)
+
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index 20bd41278e0a..7f6ed0942f9d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -141,6 +141,12 @@
+ 	status = "okay";
+ };
+ 
++&pmi8998_fg {
++	status = "okay";
++	monitored-battery = <&battery>;
++	power-supplies = <&pmi8998_charger>;
++};
++
+ &qup_spi5_default {
+ 	drive-strength = <6>;
+ 	bias-disable;
+-- 
+2.53.0
+

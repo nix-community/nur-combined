@@ -1,0 +1,35 @@
+From 204ef5bb1b0c7cd4cf3c5ede1fd91e1f68e4fada Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Sun, 16 Mar 2025 20:03:16 -0500
+Subject: [PATCH 171/194] MAINTAINERS: Add entry for ROHM BU64748 lens voice
+ coil driver
+
+Add entry for ROHM BU64748 lens voice coil driver.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 57a25a06f6af..377ff8343f0d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23210,6 +23210,14 @@ L:	linux-iio@vger.kernel.org
+ S:	Supported
+ F:	drivers/iio/light/rohm-bu27034.c
+ 
++ROHM BU64748 LENS VOICE COIL DRIVER
++M:	Joel Selvaraj <foss@joelselvaraj.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++T:	git git://linuxtv.org/media.git
++F:	Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml
++F:	drivers/media/i2c/bu64748.c
++
+ ROHM MULTIFUNCTION BD9571MWV-M PMIC DEVICE DRIVERS
+ M:	Marek Vasut <marek.vasut+renesas@gmail.com>
+ L:	linux-kernel@vger.kernel.org
+-- 
+2.53.0
+

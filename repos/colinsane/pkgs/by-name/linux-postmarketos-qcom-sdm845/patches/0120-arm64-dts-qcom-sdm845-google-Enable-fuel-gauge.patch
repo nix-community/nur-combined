@@ -1,0 +1,33 @@
+From be9dcb036067affa85bc9a832e66396e0578b16a Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Fri, 12 Dec 2025 16:34:33 +0100
+Subject: [PATCH 120/194] arm64: dts: qcom: sdm845-google: Enable fuel gauge
+
+Enable the fuel gauge and configure the associated charger and battery.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index b2dc0327dff8..0fd5e4bb33ca 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -454,6 +454,13 @@
+ 	status = "okay";
+ };
+ 
++&pmi8998_fg {
++	monitored-battery = <&battery>;
++	power-supplies = <&pmi8998_charger>;
++
++	status = "okay";
++};
++
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+-- 
+2.53.0
+

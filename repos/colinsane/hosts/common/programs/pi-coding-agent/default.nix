@@ -374,7 +374,7 @@ in
         pkgs.pi-claude-bridge
         pkgs.pi-claude-usage
         pkgs.pi-codex-goal
-        pkgs.pi-cwd
+        # pkgs.pi-cwd   #< doesn't work when using the pi-claude-bridge provider
         # pkgs.pi-goal  #< adds `/goal` slash command
         # pkgs.pi-kagi  #< adds `web_search` tool
         # pkgs.pi-lens  #< adds LSP support, but also a lot of tool noise

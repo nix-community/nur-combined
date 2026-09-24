@@ -1,0 +1,182 @@
+From 5339541633677936c55d6832353f2e778a3f380f Mon Sep 17 00:00:00 2001
+From: Vincent Knecht <vincent.knecht@mailoo.org>
+Date: Wed, 6 Oct 2021 18:21:21 +0200
+Subject: [PATCH 038/194] hack! ASoC: qdsp6: q6voice-dai: Add controls for
+ voice rx and tx ports
+
+Add ALSA controls for voice RX and TX ports.
+
+[David]
+ - snd_soc_dapm_kcontrol_dapm()                    -> snd_soc_dapm_kcontrol_to_dapm()
+Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
+[use mc->shift to mark TX mixers for now to simplify code]
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+(cherry picked from commit 0f3005393555a4ddd6261ff7413186be751b2ad6)
+Link: https://github.com/msm8916-mainline/linux
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6voice-dai.c | 126 ++++++++++++++++++++++++++++-
+ 1 file changed, 123 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6voice-dai.c b/sound/soc/qcom/qdsp6/q6voice-dai.c
+index 84681a97c940..d3d7b003ba8b 100644
+--- a/sound/soc/qcom/qdsp6/q6voice-dai.c
++++ b/sound/soc/qcom/qdsp6/q6voice-dai.c
+@@ -5,6 +5,7 @@
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <sound/soc.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/sound/qcom,q6voice.h>
+ #include "q6voice.h"
+ 
+@@ -76,17 +77,134 @@ static int q6voice_dai_open(struct snd_soc_component *component,
+ 	return 0;
+ }
+ 
++static int q6voice_get_mixer(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
++	struct snd_soc_component *c = snd_soc_dapm_to_component(dapm);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	struct q6voice *v = snd_soc_component_get_drvdata(c);
++	bool capture = !!mc->shift;
++
++	ucontrol->value.integer.value[0] =
++		q6voice_get_port(v, Q6VOICE_PATH_VOICE, capture) == mc->reg;
++	return 0;
++}
++
++static int q6voice_put_mixer(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
++	struct snd_soc_component *c = snd_soc_dapm_to_component(dapm);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	struct q6voice *v = snd_soc_component_get_drvdata(c);
++	bool val = !!ucontrol->value.integer.value[0];
++	bool capture = !!mc->shift;
++
++	if (val)
++		q6voice_set_port(v, Q6VOICE_PATH_VOICE, capture, mc->reg);
++	else if (q6voice_get_port(v, Q6VOICE_PATH_VOICE, capture) == mc->reg)
++		q6voice_set_port(v, Q6VOICE_PATH_VOICE, capture, 0);
++
++	snd_soc_dapm_mixer_update_power(dapm, kcontrol, val, NULL);
++	return 1;
++}
++
++static const struct snd_kcontrol_new voice_tx_mixer_controls[] = {
++	SOC_SINGLE_EXT("PRI_MI2S_TX", PRIMARY_MI2S_TX, 1, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer),
++	SOC_SINGLE_EXT("SEC_MI2S_TX", SECONDARY_MI2S_TX, 1, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer),
++	SOC_SINGLE_EXT("TERT_MI2S_TX", TERTIARY_MI2S_TX, 1, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer),
++	SOC_SINGLE_EXT("QUAT_MI2S_TX", QUATERNARY_MI2S_TX, 1, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer),
++	SOC_SINGLE_EXT("QUIN_MI2S_TX", QUINARY_MI2S_TX, 1, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer),
++};
++
++static const struct snd_kcontrol_new primary_mi2s_rx_mixer_controls[] = {
++	SOC_SINGLE_EXT("CS-Voice", PRIMARY_MI2S_RX, 0, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer)
++};
++
++static const struct snd_kcontrol_new secondary_mi2s_rx_mixer_controls[] = {
++	SOC_SINGLE_EXT("CS-Voice", SECONDARY_MI2S_RX, 0, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer)
++};
++
++static const struct snd_kcontrol_new tertiary_mi2s_rx_mixer_controls[] = {
++	SOC_SINGLE_EXT("CS-Voice", TERTIARY_MI2S_RX, 0, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer)
++};
++
++static const struct snd_kcontrol_new quaternary_mi2s_rx_mixer_controls[] = {
++	SOC_SINGLE_EXT("CS-Voice", QUATERNARY_MI2S_RX, 0, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer)
++};
++
++static const struct snd_kcontrol_new quinary_mi2s_rx_mixer_controls[] = {
++	SOC_SINGLE_EXT("CS-Voice", QUINARY_MI2S_RX, 0, 1, 0,
++		       q6voice_get_mixer, q6voice_put_mixer)
++};
++
+ static const struct snd_soc_dapm_widget q6voice_dapm_widgets[] = {
+ 	SND_SOC_DAPM_AIF_IN("CS-VOICE_DL1", "CS-VOICE Playback", 0, SND_SOC_NOPM, 0, 0),
+ 	SND_SOC_DAPM_AIF_OUT("CS-VOICE_UL1", "CS-VOICE Capture", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_MIXER("CS-Voice Capture Mixer", SND_SOC_NOPM, 0, 0,
++			   voice_tx_mixer_controls,
++			   ARRAY_SIZE(voice_tx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("PRI_MI2S_RX Voice Mixer", SND_SOC_NOPM, 0, 0,
++			   primary_mi2s_rx_mixer_controls,
++			   ARRAY_SIZE(primary_mi2s_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("SEC_MI2S_RX Voice Mixer", SND_SOC_NOPM, 0, 0,
++			   secondary_mi2s_rx_mixer_controls,
++			   ARRAY_SIZE(secondary_mi2s_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("TERT_MI2S_RX Voice Mixer", SND_SOC_NOPM, 0, 0,
++			   tertiary_mi2s_rx_mixer_controls,
++			   ARRAY_SIZE(tertiary_mi2s_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("QUAT_MI2S_RX Voice Mixer", SND_SOC_NOPM, 0, 0,
++			   quaternary_mi2s_rx_mixer_controls,
++			   ARRAY_SIZE(quaternary_mi2s_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("QUIN_MI2S_RX Voice Mixer", SND_SOC_NOPM, 0, 0,
++			   quinary_mi2s_rx_mixer_controls,
++			   ARRAY_SIZE(quinary_mi2s_rx_mixer_controls)),
+ };
+ 
+ static const struct snd_soc_dapm_route q6voice_dapm_routes[] = {
+-	/* TODO: Make routing configurable */
+-	{"CS-VOICE_UL1", NULL, "TERT_MI2S_TX"},
+-	{"PRI_MI2S_RX", NULL, "CS-VOICE_DL1"},
++	{ "CS-Voice Capture Mixer",	"PRI_MI2S_TX",	"PRI_MI2S_TX" },
++	{ "CS-Voice Capture Mixer",	"SEC_MI2S_TX",	"SEC_MI2S_TX" },
++	{ "CS-Voice Capture Mixer",	"TERT_MI2S_TX",	"TERT_MI2S_TX" },
++	{ "CS-Voice Capture Mixer",	"QUAT_MI2S_TX",	"QUAT_MI2S_TX" },
++	{ "CS-Voice Capture Mixer",	"QUIN_MI2S_TX",	"QUIN_MI2S_TX" },
++	{ "CS-VOICE_UL1",		NULL,		"CS-Voice Capture Mixer" },
++
++	{ "PRI_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
++	{ "SEC_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
++	{ "TERT_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
++	{ "QUAT_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
++	{ "QUIN_MI2S_RX Voice Mixer",	"CS-Voice",	"CS-VOICE_DL1" },
++	{ "PRI_MI2S_RX",		NULL,		"PRI_MI2S_RX Voice Mixer" },
++	{ "SEC_MI2S_RX",		NULL,		"SEC_MI2S_RX Voice Mixer" },
++	{ "TERT_MI2S_RX",		NULL,		"TERT_MI2S_RX Voice Mixer" },
++	{ "QUAT_MI2S_RX",		NULL,		"QUAT_MI2S_RX Voice Mixer" },
++	{ "QUIN_MI2S_RX",		NULL,		"QUIN_MI2S_RX Voice Mixer" },
+ };
+ 
++static unsigned int q6voice_reg_read(struct snd_soc_component *component,
++				     unsigned int reg)
++{
++	/* default value */
++	return 0;
++}
++
++static int q6voice_reg_write(struct snd_soc_component *component,
++			     unsigned int reg, unsigned int val)
++{
++	/* dummy */
++	return 0;
++}
++
+ static const struct snd_soc_component_driver q6voice_dai_component = {
+ 	.name = DRV_NAME,
+ 	.open = q6voice_dai_open,
+@@ -95,6 +213,8 @@ static const struct snd_soc_component_driver q6voice_dai_component = {
+ 	.num_dapm_widgets = ARRAY_SIZE(q6voice_dapm_widgets),
+ 	.dapm_routes = q6voice_dapm_routes,
+ 	.num_dapm_routes = ARRAY_SIZE(q6voice_dapm_routes),
++	.read = q6voice_reg_read,
++	.write = q6voice_reg_write,
+ 
+ 	/* Needs to probe after q6afe */
+ 	.probe_order = SND_SOC_COMP_ORDER_LATE,
+-- 
+2.53.0
+

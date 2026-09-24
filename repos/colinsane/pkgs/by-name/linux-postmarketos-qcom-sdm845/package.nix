@@ -329,6 +329,15 @@ in (linuxManualConfig (extraCallArgs // {
   passthru = (base.passthru or {}) // {
     inherit defconfigStr;
     structuredConfig = sane-kernel-tools.parseDefconfigStructuredNonempty defconfigStr;
+    # git -C ~/ref/repos/kernel.org/linux format-patch 848940c8eb6194e1d220c3cd1a9624c3d1612ebd..sdm845-7.1-rc1-r0 patches
+    # that *should* be `git format-patch v7.1-rc..sdm845-7.1-rc1-r0` but for whatever reason sdm845-mainline's base is a rewritten v7.1-rc1 (someone rewrote the gpg sig?)
+    patches = lib.mapAttrs' (fsName: patch: {
+      name = lib.removeSuffix ".patch" fsName;
+      value = {
+        name = lib.removeSuffix ".patch" fsName;
+        patch = ./patches/${fsName};
+      };
+    }) (builtins.readDir ./patches);
   };
 })
 

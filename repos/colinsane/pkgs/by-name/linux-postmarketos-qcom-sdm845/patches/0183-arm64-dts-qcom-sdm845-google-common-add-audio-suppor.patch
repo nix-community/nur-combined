@@ -1,0 +1,185 @@
+From 7a958671f97a04a2e51bb1d01184456c8c6998eb Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Tue, 28 Apr 2026 23:27:19 -0500
+Subject: [PATCH 183/194] arm64: dts: qcom: sdm845-google-common: add audio
+ support for CS35L36 speaker codecs
+
+Introduced support for two CS35L36 audio codecs for the bottom and top speakers.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ .../boot/dts/qcom/sdm845-google-common.dtsi   | 128 ++++++++++++++++++
+ 1 file changed, 128 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index f1f9b1a23c7d..172dad46c51e 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -9,6 +9,9 @@
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/media/video-interfaces.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
++
+ 
+ #include "sdm845.dtsi"
+ #include "pm8998.dtsi"
+@@ -564,8 +567,58 @@
+ 
+ &i2c12 {
+ 	/* Bottom spkr (right) CS35L36 @ 40 */
++	status="okay";
++
++	cs35l36_codec1: cs35l36@40 {
++		#sound-dai-cells = <1>;
++		sound-name-prefix = "Right";
++
++		/* bottom speaker - right */
++		compatible = "cirrus,cs35l36";
++		reg = <0x40>;
++		reset-gpios = <&tlmm 112 0>;
++		VA-supply = <&vreg_s4a_1p8>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <115 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cs35l36_reset_bottom &cs35l36_irq_bottom>;
++		cirrus,boost-ind-nanohenry = <1000>;
++		cirrus,boost-ctl-select = <0x01>;
++		cirrus,boost-ctl-millivolt = <10000>;
++		cirrus,boost-peak-milliamp = <3700>;
++		cirrus,weak-fet-delay = <0x04>;
++		cirrus,weak-fet-thld = <0x01>;
++		cirrus,temp-warn-threshold = <0x01>;
++		cirrus,multi-amp-mode;
++		cirrus,irq-drive-select = <0x00>;
++		cirrus,irq-gpio-select = <0x00>;
++	};
+ 
+ 	/* Top spkr (left) CS35L36 @ 41 */
++	cs35l36_codec2: cs35l36@41 {
++		#sound-dai-cells = <1>;
++		sound-name-prefix = "Left";
++
++		/* top speaker - left */
++		compatible = "cirrus,cs35l36";
++		reg = <0x41>;
++		reset-gpios = <&tlmm 75 0>;
++		VA-supply = <&vreg_s4a_1p8>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <40 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cs35l36_reset_top &cs35l36_irq_top>;
++		cirrus,boost-ind-nanohenry = <1000>;
++		cirrus,boost-ctl-select = <0x01>;
++		cirrus,boost-ctl-millivolt = <10000>;
++		cirrus,boost-peak-milliamp = <3700>;
++		cirrus,weak-fet-delay = <0x04>;
++		cirrus,weak-fet-thld = <0x01>;
++		cirrus,temp-warn-threshold = <0x01>;
++		cirrus,multi-amp-mode;
++		cirrus,irq-drive-select = <0x00>;
++		cirrus,irq-gpio-select = <0x00>;
++	};
+ };
+ 
+ &ipa {
+@@ -628,6 +681,24 @@
+ 	};
+ };
+ 
++&q6afedai {
++	dai@72 {
++		reg = <QUATERNARY_TDM_RX_0>;
++		qcom,tdm-sync-mode = <0>;
++		qcom,tdm-sync-src = <1>;
++		qcom,tdm-data-out = <0>;
++		qcom,tdm-invert-sync = <0>;
++		qcom,tdm-data-delay = <1>;
++		qcom,tdm-data-align = <0>;
++	};
++};
++
++&q6asmdai {
++	dai@0 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
++	};
++};
++
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+@@ -646,6 +717,36 @@
+ 	bias-disable;
+ };
+ 
++&sound {
++	compatible = "qcom,db845c-sndcard", "qcom,sdm845-sndcard";
++	pinctrl-0 = <&quat_mi2s_active
++			&quat_mi2s_sd0_active &quat_mi2s_sd1_active>;
++	pinctrl-names = "default";
++	model = "Google Pixel 3";
++
++	mm1-dai-link {
++		link-name = "MultiMedia1";
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
++		};
++	};
++
++	cs35l36-dai-link {
++		link-name = "Speaker Playback";
++		cpu {
++			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&cs35l36_codec1 0>, <&cs35l36_codec2 0>;
++		};
++	};
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
+ 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
+@@ -712,6 +813,33 @@
+ 		drive-strength = <2>;
+ 		bias-disable;
+ 	};
++
++	cs35l36_reset_top: cs35l36_reset_top {
++		pins = "gpio75";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cs35l36_irq_top: cs35l36_irq_top {
++		pins = "gpio40";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++	cs35l36_reset_bottom: cs35l36_reset_bottom {
++		pins = "gpio112";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cs35l36_irq_bottom: cs35l36_irq_bottom {
++		pins = "gpio115";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
+ };
+ 
+ &uart6 {
+-- 
+2.53.0
+

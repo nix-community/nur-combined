@@ -1,0 +1,44 @@
+From 3b60816a406699dff729a4c422bd6cf904a112b7 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Tue, 18 Nov 2025 12:40:00 +0100
+Subject: [PATCH 105/194] xiaomi-perseus support
+
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v1:
+ - Adjust to run with latest next, zap_shader move. (David)
+ - Sorting and cosmetics. (David)
+ - Firmware path change to adhere Linux kernel requirements. (David)
+ - Add xiaomi,perseus into Documentation bindings, (David)
+ - Used define for SDM845 chipset-id. (David)
+ - Refactored framebuffer node. (David)
+ - Sorted nodes. (David)
+ - Removed wrong sound compatible "qcom,db845c-sndcard". (David)
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20251118-xiaomi-perseus-445a0a3d364b",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

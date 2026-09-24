@@ -1,0 +1,32 @@
+From 3e234cda288f89db00bbb04fee9ba6360f212cad Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 25 Jun 2024 18:52:30 -0400
+Subject: [PATCH 048/194] hack! ASoC: qdsp6: q6afe-dai: configure tdm data
+ delay from device tree
+
+The codec may expect to delay data by 0, 1 or 2 bit clock cycles.
+Keeping the TDM data delay zero-initialized by ignoring the device tree
+value could result in corruption of data being read at the AFE.
+Configure the data delay according to the value already supplied in
+device tree.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6afe-dai.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
+index 34ec3bd3ea8c..355917a765f3 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-dai.c
++++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
+@@ -278,6 +278,7 @@ static int q6tdm_hw_params(struct snd_pcm_substream *substream,
+ 	tdm->data_align_type = dai_data->priv[dai->id].data_align;
+ 	tdm->sync_src = dai_data->priv[dai->id].sync_src;
+ 	tdm->sync_mode = dai_data->priv[dai->id].sync_mode;
++	tdm->data_delay = dai_data->priv[dai->id].data_delay;
+ 
+ 	return 0;
+ }
+-- 
+2.53.0
+

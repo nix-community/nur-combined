@@ -93,7 +93,8 @@ in
     };
     environment.systemPackages = [ pkgs.qrtr ];
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-postmarketos-qcom-sdm845;
-    boot.kernelPackages = pkgs.linuxPackagesFor pkgs.vanilla-mobile-nixos.pkgs.linuxKernels.linux_sdm845;
+    # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.vanilla-mobile-nixos.pkgs.linuxKernels.linux_sdm845;
+    boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-xiaomi-pocophone-sane;
     boot.extraModulePackages = [ config.boot.kernelPackages.pocophone-wcd934x ];
 
     # options imported from vanilla-mobile-nixos
@@ -140,7 +141,7 @@ in
       # these are likely not *all* necessary
       "fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
       "qcom_fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
-      "ipa"  #< vanilla-mobile-nixos claims this causes boot lockup
+      "ipa"  #< causes a kernel panic on boot (vanilla-mobile-nixos knows about this and i've reproduced the bug on their 7.1 kernel)
     ];
 
     sane.programs.alsa-ucm-conf.suggestedPrograms = [

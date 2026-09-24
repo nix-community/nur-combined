@@ -1,0 +1,27 @@
+From def1bcf51f9b265f060e2a39ef349649a2bccc14 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Mon, 27 Apr 2026 16:40:43 -0500
+Subject: [PATCH 164/194] arm64: dts: qcom: sdm845-xiaomi-beryllium-common:
+ update ipa fw path
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index bdcefb2aef91..3db7189b716c 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -389,7 +389,7 @@
+ &ipa {
+ 	qcom,gsi-loader = "self";
+ 	memory-region = <&ipa_fw_mem>;
+-	firmware-name = "qcom/sdm845/beryllium/ipa_fws.mbn";
++	firmware-name = "qcom/sdm845/Xiaomi/beryllium/ipa_fws.mbn";
+ 
+ 	status = "okay";
+ };
+-- 
+2.53.0
+

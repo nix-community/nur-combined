@@ -139,31 +139,39 @@ fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::f
   io::close(notify_fd)!;
   let notify_fd_path = "/proc/self/fd/1";
 
-  let pasta_args: []str = [
-    "pasta",
-    "--ipv4-only",
-    // pasta `up`s `lo` regardless of this flag; `--config-net` just tells
-    // it to assign an IP and routes to the new device it creates
-    "--config-net",
-    // port forwards:
-    "-u", "none",
-    "-t", "none",
-    "-U", "none",
-    "-T", "none",
-    // "-U", "53",  #< if using the host's DNS
-    // "-T", "53",  #< if using the host's DNS
-    "--outbound-if4", net.dev,
-    "--gateway", net.gateway,
-    "--netns-only",
-    // pidstr,
-    // "--netns", netns_path,
-    "--netns", netns_fd_path,
-    "--pid", notify_fd_path,
-    // pasta daemonizes by default, *specifically* so it can unshare its PID namespace.
-    // i'm managing that here though, so we can have it not fork.
-    "--foreground",
-  ];
+  let pasta_args: []str = [];
   defer free(pasta_args);
+  append(pasta_args, "pasta")!;
+  append(pasta_args, "--ipv4-only")!;
+  // pasta `up`s `lo` regardless of this flag; `--config-net` just tells
+  // it to assign an IP and routes to the new device it creates
+  append(pasta_args, "--config-net")!;
+  // port forwards:
+  append(pasta_args, "-u")!;
+  append(pasta_args, "none")!;
+  append(pasta_args, "-t")!;
+  append(pasta_args, "none")!;
+  append(pasta_args, "-U")!;
+  append(pasta_args, "none")!;
+  append(pasta_args, "-T")!;
+  append(pasta_args, "none")!;
+  // "-U", "53",  #< if using the host's DNS
+  // "-T", "53",  #< if using the host's DNS
+  append(pasta_args, "--outbound-if4")!;
+  append(pasta_args, net.dev)!;
+  append(pasta_args, "--gateway")!;
+  append(pasta_args, net.gateway)!;
+  append(pasta_args, "--netns-only")!;
+  // append(pasta_args, pidstr)!;
+  // append(pasta_args, "--netns")!;
+  // append(pasta_args, netns_path)!;
+  append(pasta_args, "--netns")!;
+  append(pasta_args, netns_fd_path)!;
+  append(pasta_args, "--pid")!;
+  append(pasta_args, notify_fd_path)!;
+  // pasta daemonizes by default, *specifically* so it can unshare its PID namespace.
+  // i'm managing that here though, so we can have it not fork.
+  append(pasta_args, "--foreground")!;
 
   switch (tree::get_level(tree::global)) {
     case 0 => append(pasta_args, "--quiet")!;  //< don't print MAC/DHCP/DNS values

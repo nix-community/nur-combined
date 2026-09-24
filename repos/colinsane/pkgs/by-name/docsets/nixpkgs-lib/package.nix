@@ -3,20 +3,31 @@
 # - <https://github.com/nixosbrasil/nix-docgen>
 # - <https://kapeli.com/docsets#dashDocset>
 {
+  jq,
   lib,
   make-docset-index,
   nixpkgs-manual,
+  runCommand,
   stdenvNoCC,
 }:
 let
   # nixpkgs has logic to build an attrset of all the items which make it into nixpkgs-manual.
   # this is a json dictionary with each entry like:
   # - `"lib.asserts.assertEachOneOf": "[lib/asserts.nix:135](https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L135) in `<nixpkgs>`"`
-  lib-locations = nixpkgs-manual.lib-docs.overrideAttrs (base: {
-    installPhase = base.installPhase + ''
-      cp locations.json $out/locations.json
-    '';
-  });
+  lib-locations = runCommand "nixpkgs-lib-locations.json" {
+    nativeBuildInputs = [
+      jq
+    ];
+  } ''
+    jq '
+     .entries
+     | map({
+         key: .attrPath,
+         value: "[\(.source.file):\(.source.line)](https://github.com/NixOS/nixpkgs/blob/master/\(.source.file)#L\(.source.line)) in `<nixpkgs>`"
+       })
+     | from_entries
+   ' < ${nixpkgs-manual.lib-docs}/lib-functions.json > $out
+  '';
 
 in stdenvNoCC.mkDerivation {
   pname = "nixpkgs-lib";
@@ -26,7 +37,7 @@ in stdenvNoCC.mkDerivation {
 
   unpackPhase = ''
     cp ${./Info.plist} Info.plist
-    cp ${lib-locations}/locations.json locations.json
+    cp ${lib-locations} locations.json
     cp -R ${nixpkgs-manual}/share/doc/nixpkgs nixpkgs-manual
   '';
 

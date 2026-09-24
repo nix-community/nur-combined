@@ -1,8 +1,8 @@
 {
   description = "TODO: FILLME: description";
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.11";
-    flake-utils.url = github:numtide/flake-utils;
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, flake-utils }:

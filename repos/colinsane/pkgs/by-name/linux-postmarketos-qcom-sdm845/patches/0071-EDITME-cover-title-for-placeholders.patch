@@ -1,0 +1,26 @@
+From e0869aa8a96b153539f16b1ccdc5a90dc9321d99 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sun, 23 Nov 2025 14:10:07 +0100
+Subject: [PATCH 071/194] EDITME: cover title for placeholders
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20251123-placeholders-7d65e29648a4",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

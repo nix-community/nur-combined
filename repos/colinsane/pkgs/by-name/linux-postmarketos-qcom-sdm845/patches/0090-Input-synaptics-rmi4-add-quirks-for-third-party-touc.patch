@@ -1,0 +1,123 @@
+From 4d0bd0858ef1134d0d0178bcd69c9dee9c4c13bd Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sat, 8 Mar 2025 14:38:29 +0100
+Subject: [PATCH 090/194] Input: synaptics-rmi4 - add quirks for third party
+ touchscreen controllers
+
+With the growing popularity of running upstream Linux on mobile devices,
+we're beginning to run into more and more edgecases. The OnePlus 6 is a
+fairly well supported 2018 era smartphone, selling over a million units
+in it's first 22 days. With this level of popularity, it's almost
+inevitable that we get third party replacement displays, and as a
+result, replacement touchscreen controllers.
+
+The OnePlus 6 shipped with an extremely usecase specific touchscreen
+driver, it implemented only the bare minimum parts of the highly generic
+rmi4 protocol, instead hardcoding most of the register addresses.
+
+As a result, the third party touchscreen controllers that are often
+found in replacement screens, implement only the registers that the
+downstream driver reads from. They additionally have other restrictions
+such as heavy penalties on unaligned reads.
+
+This series attempts to implement the necessary workaround to support
+some of these chips with the rmi4 driver. Although it's worth noting
+that at the time of writing there are other unofficial controllers in
+the wild that don't work even with these patches.
+
+We have been shipping these patches in postmarketOS for the last several
+years, and they are known to not cause any regressions on the OnePlus
+6/6T (with the official Synaptics controller), however I don't own any
+other rmi4 hardware to further validate this.
+
+The series is also available (until merged) at
+  https://codeberg.org/sdm845/linux/commits/b4/synaptics-rmi4
+
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Jason A. Donenfeld <Jason@zx2c4.com>
+To: Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
+To: Vincent Huang <vincent.huang@tw.synaptics.com>
+Cc: David Heidelberg <david@ixit.cz>
+Cc: linux-input@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Casey Connolly <casey.connolly@linaro.org>
+Cc: phone-devel@vger.kernel.org
+
+---
+Changes in v8:
+- The pdt_scan_state->pdts array should actually be of size
+  (RMI_PDT_MAX+1). (Casey)
+- Move the pdt_count to relevant patch. (Casey)
+- Link to v7: https://lore.kernel.org/r/20260320-synaptics-rmi4-v7-0-379360de18d0@ixit.cz
+
+Changes in v7:
+- Rebased on top of next-20260320, no other changes.
+- Link to v6: https://lore.kernel.org/r/20251113-synaptics-rmi4-v6-0-d9836afab801@ixit.cz
+
+Changes in v6:
+- Rebased on top of next-20251113.
+- No other change since the Rob Herring comment.
+- Link to v5: https://lore.kernel.org/r/20250410-synaptics-rmi4-v5-0-b41bb90f78b9@ixit.cz
+
+Changes in v5:
+- Removed -i2c suffix from rmi4-s3706b-i2c (Krzysztof).
+- Link to v4: https://lore.kernel.org/r/20250402-synaptics-rmi4-v4-0-1bb95959e564@ixit.cz
+
+Changes in v4:
+- Replaced patch "dt-bindings: input: syna,rmi4: document syna,pdt-fallback-desc"
+  with patch documenting specific touchscreen model used in OnePlus 6 and 6T.
+- Fixed zero electrode return code (Dmitry).
+- Switched the duplicate detection algo to bitmap (Dmitry).
+- Optimized rmi_device_platform_data struct to avoid unnecessary
+  padding.
+- Changed fallback_size from int to unsigned int.
+- Changed SoB from nickname and old address (methanal <baclofen@tuta.io>) to
+  Kaustabh Chakraborty <kauschluss@disroot.org>.
+  Verified ownership through the sdm845 chatroom on Matrix.
+- Link to v3: https://lore.kernel.org/r/20250308-synaptics-rmi4-v3-0-215d3e7289a2@ixit.cz
+
+Changes in v3:
+- reworded dt-bindings property description
+- fixed the rmi_driver_of_probe definition for non device-tree builds.
+- fixed some indentation issues reported by checkpatch
+- change rmi_pdt_entry_is_valid() variable to unsigned
+- Link to v2: https://lore.kernel.org/all/20230929-caleb-rmi4-quirks-v2-0-b227ac498d88@linaro.org
+
+Changes in v2:
+- Improve dt-bindings patch (thanks Rob)
+- Add missing cast in patch 5 to fix the pointer arithmetic
+- Link to v1: https://lore.kernel.org/r/20230929-caleb-rmi4-quirks-v1-0-cc3c703f022d@linaro.org
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 8,
+    "change-id": "20250308-synaptics-rmi4-c832b2f73ceb",
+    "prefixes": [],
+    "history": {
+      "v3": [
+        "20250308-synaptics-rmi4-v3-0-215d3e7289a2@ixit.cz"
+      ],
+      "v4": [
+        "20250402-synaptics-rmi4-v4-0-1bb95959e564@ixit.cz"
+      ],
+      "v5": [
+        "20250410-synaptics-rmi4-v5-0-b41bb90f78b9@ixit.cz"
+      ],
+      "v6": [
+        "20251113-synaptics-rmi4-v6-0-d9836afab801@ixit.cz"
+      ],
+      "v7": [
+        "20260320-synaptics-rmi4-v7-0-379360de18d0@ixit.cz"
+      ]
+    }
+  }
+}
+-- 
+2.53.0
+

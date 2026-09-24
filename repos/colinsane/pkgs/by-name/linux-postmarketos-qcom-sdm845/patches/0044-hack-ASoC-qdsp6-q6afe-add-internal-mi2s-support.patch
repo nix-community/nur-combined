@@ -1,0 +1,109 @@
+From b8c57a4a2c4bffc3e64d782f84ceb359b6845091 Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Fri, 18 Aug 2023 19:06:51 -0400
+Subject: [PATCH 044/194] hack! ASoC: qdsp6: q6afe: add internal mi2s support
+
+Add the port mappings for internal MI2S, found on the Snapdragon 660
+internal sound card.
+---
+ sound/soc/qcom/qdsp6/q6afe.c | 56 ++++++++++++++++++++++++++++++++++++
+ sound/soc/qcom/qdsp6/q6afe.h |  2 +-
+ 2 files changed, 57 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
+index 40237267fda0..52d53bb21b7f 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.c
++++ b/sound/soc/qcom/qdsp6/q6afe.c
+@@ -132,6 +132,20 @@
+ #define AFE_PORT_ID_QUINARY_MI2S_TX	    0x1017
+ #define AFE_PORT_ID_SENARY_MI2S_RX          0x1018
+ #define AFE_PORT_ID_SENARY_MI2S_TX          0x1019
++#define AFE_PORT_ID_INT0_MI2S_RX	    0x102e
++#define AFE_PORT_ID_INT0_MI2S_TX	    0x102f
++#define AFE_PORT_ID_INT1_MI2S_RX	    0x1030
++#define AFE_PORT_ID_INT1_MI2S_TX	    0x1031
++#define AFE_PORT_ID_INT2_MI2S_RX	    0x1032
++#define AFE_PORT_ID_INT2_MI2S_TX	    0x1033
++#define AFE_PORT_ID_INT3_MI2S_RX	    0x1034
++#define AFE_PORT_ID_INT3_MI2S_TX	    0x1035
++#define AFE_PORT_ID_INT4_MI2S_RX	    0x1036
++#define AFE_PORT_ID_INT4_MI2S_TX	    0x1037
++#define AFE_PORT_ID_INT5_MI2S_RX	    0x1038
++#define AFE_PORT_ID_INT5_MI2S_TX	    0x1039
++#define AFE_PORT_ID_INT6_MI2S_RX	    0x103a
++#define AFE_PORT_ID_INT6_MI2S_TX	    0x103b
+ 
+ /* Start of the range of port IDs for TDM devices. */
+ #define AFE_PORT_ID_TDM_PORT_RANGE_START	0x9000
+@@ -931,6 +945,34 @@ static struct afe_port_map port_maps[AFE_PORT_MAX] = {
+ 	[RX_CODEC_DMA_RX_7] = { AFE_PORT_ID_RX_CODEC_DMA_RX_7,
+ 				RX_CODEC_DMA_RX_7, 1, 1},
+ 	[USB_RX] = { AFE_PORT_ID_USB_RX, USB_RX, 1, 1},
++	[INT0_MI2S_RX] = { AFE_PORT_ID_INT0_MI2S_RX,
++				INT0_MI2S_RX, 1, 1},
++	[INT0_MI2S_TX] = { AFE_PORT_ID_INT0_MI2S_TX,
++				INT0_MI2S_RX, 0, 1},
++	[INT1_MI2S_RX] = { AFE_PORT_ID_INT1_MI2S_RX,
++				INT1_MI2S_RX, 1, 1},
++	[INT1_MI2S_TX] = { AFE_PORT_ID_INT1_MI2S_TX,
++				INT1_MI2S_RX, 0, 1},
++	[INT2_MI2S_RX] = { AFE_PORT_ID_INT2_MI2S_RX,
++				INT2_MI2S_RX, 1, 1},
++	[INT2_MI2S_TX] = { AFE_PORT_ID_INT2_MI2S_TX,
++				INT2_MI2S_RX, 0, 1},
++	[INT3_MI2S_RX] = { AFE_PORT_ID_INT3_MI2S_RX,
++				INT3_MI2S_RX, 1, 1},
++	[INT3_MI2S_TX] = { AFE_PORT_ID_INT3_MI2S_TX,
++				INT3_MI2S_RX, 0, 1},
++	[INT4_MI2S_RX] = { AFE_PORT_ID_INT4_MI2S_RX,
++				INT4_MI2S_RX, 1, 1},
++	[INT4_MI2S_TX] = { AFE_PORT_ID_INT4_MI2S_TX,
++				INT4_MI2S_RX, 0, 1},
++	[INT5_MI2S_RX] = { AFE_PORT_ID_INT5_MI2S_RX,
++				INT5_MI2S_RX, 1, 1},
++	[INT5_MI2S_TX] = { AFE_PORT_ID_INT5_MI2S_TX,
++				INT5_MI2S_RX, 0, 1},
++	[INT6_MI2S_RX] = { AFE_PORT_ID_INT6_MI2S_RX,
++				INT6_MI2S_RX, 1, 1},
++	[INT6_MI2S_TX] = { AFE_PORT_ID_INT6_MI2S_TX,
++				INT6_MI2S_RX, 0, 1},
+ };
+ 
+ static void q6afe_port_free(struct kref *ref)
+@@ -1785,6 +1827,20 @@ struct q6afe_port *q6afe_port_get_from_id(struct device *dev, int id)
+ 	case AFE_PORT_ID_QUINARY_MI2S_TX:
+ 	case AFE_PORT_ID_SENARY_MI2S_RX:
+ 	case AFE_PORT_ID_SENARY_MI2S_TX:
++	case AFE_PORT_ID_INT0_MI2S_RX:
++	case AFE_PORT_ID_INT0_MI2S_TX:
++	case AFE_PORT_ID_INT1_MI2S_RX:
++	case AFE_PORT_ID_INT1_MI2S_TX:
++	case AFE_PORT_ID_INT2_MI2S_RX:
++	case AFE_PORT_ID_INT2_MI2S_TX:
++	case AFE_PORT_ID_INT3_MI2S_RX:
++	case AFE_PORT_ID_INT3_MI2S_TX:
++	case AFE_PORT_ID_INT4_MI2S_RX:
++	case AFE_PORT_ID_INT4_MI2S_TX:
++	case AFE_PORT_ID_INT5_MI2S_RX:
++	case AFE_PORT_ID_INT5_MI2S_TX:
++	case AFE_PORT_ID_INT6_MI2S_RX:
++	case AFE_PORT_ID_INT6_MI2S_TX:
+ 		cfg_type = AFE_PARAM_ID_I2S_CONFIG;
+ 		break;
+ 	case AFE_PORT_ID_PRIMARY_TDM_RX ... AFE_PORT_ID_QUINARY_TDM_TX_7:
+diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
+index 0b8c3ec1315c..39e5ee7145f8 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.h
++++ b/sound/soc/qcom/qdsp6/q6afe.h
+@@ -4,7 +4,7 @@
+ #define __Q6AFE_H__
+ #include "../common.h"
+ 
+-#define AFE_PORT_MAX		(LPASS_MAX_PORT)
++#define AFE_PORT_MAX		(LPASS_MAX_PORT + 14)
+ 
+ #define MSM_AFE_PORT_TYPE_RX 0
+ #define MSM_AFE_PORT_TYPE_TX 1
+-- 
+2.53.0
+

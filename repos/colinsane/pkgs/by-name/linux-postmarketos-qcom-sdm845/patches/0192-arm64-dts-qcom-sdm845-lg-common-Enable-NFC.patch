@@ -1,0 +1,75 @@
+From 63e9b2ee1cc8bf6a53ab391942d4fc0d0c9ce9c1 Mon Sep 17 00:00:00 2001
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Thu, 26 Mar 2026 12:52:25 -0700
+Subject: [PATCH 192/194] arm64: dts: qcom: sdm845-lg-common: Enable NFC
+
+Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+
+Downstream dtsi for reference:
+https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ .../arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 32 +++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index e0c3566761bf..b6768b77117b 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -471,6 +471,25 @@
+ 	status = "okay";
+ };
+ 
++&i2c3 {
++	clock-frequency = <1000000>;
++
++	status = "okay";
++
++	nfc@28 {
++		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
++
++		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&nfc_default>;
++		pinctrl-names = "default";
++	};
++};
++
+ &ipa {
+ 	qcom,gsi-loader = "self";
+ 	memory-region = <&ipa_fw_mem>;
+@@ -554,6 +573,12 @@
+ 	status = "okay";
+ };
+ 
++&qup_i2c3_default {
++	drive-strength = <2>;
++	bias-disable;
++};
++
++
+ &qup_uart9_rx {
+ 	drive-strength = <2>;
+ 	bias-pull-up;
+@@ -612,6 +637,13 @@
+ 		function = "gpio";
+ 		bias-pull-up;
+ 	};
++
++	nfc_default: nfc-default-state {
++		pins = "gpio12", "gpio62", "gpio63";
++		function = "gpio";
++		drive-strength = <6>;
++		bias-pull-up;
++	};
+ };
+ 
+ &uart6 {
+-- 
+2.53.0
+

@@ -1,0 +1,33 @@
+From de33891406f35a6d7038bcccf4b28088b43b977f Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Fri, 13 Jun 2025 22:42:16 -0500
+Subject: [PATCH 084/194] stalled! arm64: dts: qcom: sdm845-oneplus: Add
+ q6voicedai reg
+
+This makes it similar to the other dais. Noticed in sdm660 repo.  But I am not sure if it's a functional requirement. Anyways let's specify it.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 5f0016b629af..13802f137871 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -968,6 +968,12 @@
+ 	};
+ };
+ 
++&q6voicedai {
++	dai@1 {
++		reg = <VOICEMMODE1>;
++	};
++};
++
+ &qupv3_id_1 {
+ 	status = "okay";
+ };
+-- 
+2.53.0
+

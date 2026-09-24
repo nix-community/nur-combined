@@ -1,0 +1,54 @@
+From 78a30edf01a04e28c8eea4d11cbd38c8b96bee15 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sat, 4 Apr 2026 22:02:18 +0200
+Subject: [PATCH 139/194] downstream! arm64: dts: qcom: sdm845-oneplus-fajita:
+ enable TFA speaker codec
+
+---
+ .../boot/dts/qcom/sdm845-oneplus-fajita.dts   | 23 +++++++++++++------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 786ccabc1636..7ffcad24d505 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -54,7 +54,17 @@
+ };
+ 
+ &i2c4 {
+-	/* nxp,tfa9894 @ 0x34 */
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	tfa9894_codec: tfa9894@34 {
++		#sound-dai-cells = <1>;
++		compatible = "nxp,tfa9894";
++		reg = <0x34>;
++		reset-gpio = <&tlmm 69 GPIO_ACTIVE_HIGH>;
++	};
++
+ };
+ 
+ &bq27441_fg {
+@@ -75,12 +85,11 @@
+ 	monitored-battery = <&battery>;
+ };
+ 
+-/*
+- * The TFA9894 codec is currently unsupported.
+- * We need to delete the node to allow the soundcard
+- * to probe for headphones/earpiece.
+- */
+-/delete-node/ &speaker_playback_dai;
++&speaker_playback_dai {
++	codec {
++		sound-dai = <&tfa9894_codec 0>;
++	};
++};
+ 
+ &rmi4_f12 {
+ 	touchscreen-y-mm = <148>;
+-- 
+2.53.0
+

@@ -1,0 +1,65 @@
+From cc359ff0dd6cb9b76e8ac59f2fa30d35177d41fe Mon Sep 17 00:00:00 2001
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Date: Sun, 15 Oct 2023 22:11:53 +0100
+Subject: [PATCH 095/194] Input: synaptics-rmi4 - don't do unaligned reads in
+ IRQ context
+
+Some replacement displays include third-party touch ICs which incur a
+significant penalty (1-2 seconds) when doing certain unaligned reads.
+This is enough to break functionality when it happens in the hot path,
+so adjust the interrupt handler to not read from an unaligned address.
+
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/rmi4/rmi_driver.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index dea04cf076eb..fc84799c36e0 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -137,9 +137,14 @@ static int rmi_process_interrupt_requests(struct rmi_device *rmi_dev)
+ 		return 0;
+ 
+ 	if (!data->attn_data.data) {
++		/*
++		 * Read the device status register as well and ignore it.
++		 * Some aftermarket ICs have issues with interrupt requests
++		 * otherwise.
++		 */
+ 		error = rmi_read_block(rmi_dev,
+-				data->f01_container->fd.data_base_addr + 1,
+-				data->irq_status, data->num_of_irq_regs);
++				data->f01_container->fd.data_base_addr,
++				(u8 *)data->irq_status - 1, data->num_of_irq_regs + 1);
+ 		if (error < 0) {
+ 			dev_err(dev, "Failed to read irqs, code=%d\n", error);
+ 			return error;
+@@ -1078,16 +1083,17 @@ int rmi_probe_interrupts(struct rmi_driver_data *data)
+ 	data->num_of_irq_regs = (data->irq_count + 7) / 8;
+ 
+ 	size = BITS_TO_LONGS(data->irq_count) * sizeof(unsigned long);
+-	data->irq_memory = devm_kcalloc(dev, size, 4, GFP_KERNEL);
++	data->irq_memory = devm_kzalloc(dev, size * 4 + 1, GFP_KERNEL);
+ 	if (!data->irq_memory) {
+ 		dev_err(dev, "Failed to allocate memory for irq masks.\n");
+ 		return -ENOMEM;
+ 	}
+ 
+-	data->irq_status	= data->irq_memory + size * 0;
+-	data->fn_irq_bits	= data->irq_memory + size * 1;
+-	data->current_irq_mask	= data->irq_memory + size * 2;
+-	data->new_irq_mask	= data->irq_memory + size * 3;
++	/* The first byte is reserved for the device status register */
++	data->irq_status	= data->irq_memory + size * 0 + 1;
++	data->fn_irq_bits	= data->irq_memory + size * 1 + 1;
++	data->current_irq_mask	= data->irq_memory + size * 2 + 1;
++	data->new_irq_mask	= data->irq_memory + size * 3 + 1;
+ 
+ 	return retval;
+ }
+-- 
+2.53.0
+

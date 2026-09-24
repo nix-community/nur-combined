@@ -1,0 +1,62 @@
+From 4e4540fb41ca0b3c6f3abf77292b8f6172768bf3 Mon Sep 17 00:00:00 2001
+From: Samuel Dionne-Riel <samuel@dionne-riel.com>
+Date: Sun, 20 Jun 2021 23:19:33 -0400
+Subject: [PATCH 004/194] hack! Add back TEXT_OFFSET in the built image...
+
+Some SDM845-based phones, namely the Pixel 3 (blueline) will fail to
+boot a recent kernel on the Q or R bootloader if this is missing.
+
+Meanwhile, the P bootloader can deal with that image properly it seems.
+
+With Q:
+
+```
+Booting from slot (a)
+KernelDecompress failed: Invalid Parameter Kernel Load Address unaligned
+```
+
+With R:
+
+```
+Booting from slot (a)
+Partition Not Found
+KernelDecompress failed: Invalid Parameter Kernel TextOffset does not match
+```
+
+This is theorized to be required for other SDM845 devices, but untested.
+
+This (hackily) reverts parts of
+120dc60d0bdbadcad7460222f74c9ed15cdeb73e.
+---
+ arch/arm64/kernel/head.S  | 2 +-
+ arch/arm64/kernel/image.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+index 87a822e5c4ca..aff2e97fa27c 100644
+--- a/arch/arm64/kernel/head.S
++++ b/arch/arm64/kernel/head.S
+@@ -60,7 +60,7 @@
+ 	 */
+ 	efi_signature_nop			// special NOP to identity as PE/COFF executable
+ 	b	primary_entry			// branch to kernel start, magic
+-	.quad	0				// Image load offset from start of RAM, little-endian
++	le64sym	_kernel_offset_le		// Image load offset from start of RAM, little-endian
+ 	le64sym	_kernel_size_le			// Effective size of kernel image, little-endian
+ 	le64sym	_kernel_flags_le		// Informative flags, little-endian
+ 	.quad	0				// reserved
+diff --git a/arch/arm64/kernel/image.h b/arch/arm64/kernel/image.h
+index 7bc3ba897901..0297e5d3e9af 100644
+--- a/arch/arm64/kernel/image.h
++++ b/arch/arm64/kernel/image.h
+@@ -62,6 +62,7 @@
+  */
+ #define HEAD_SYMBOLS						\
+ 	DEFINE_IMAGE_LE64(_kernel_size_le, _end - _text);	\
++	DEFINE_IMAGE_LE64(_kernel_offset_le, 0x00080000);	\
+ 	DEFINE_IMAGE_LE64(_kernel_flags_le, __HEAD_FLAGS);
+ 
+ #endif /* __ARM64_KERNEL_IMAGE_H */
+-- 
+2.53.0
+

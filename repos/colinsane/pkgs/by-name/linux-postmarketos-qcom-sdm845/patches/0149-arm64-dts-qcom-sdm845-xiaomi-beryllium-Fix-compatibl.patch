@@ -1,0 +1,51 @@
+From eb091edfc9ce788efbc36708c23be03adb7a452f Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Thu, 25 Sep 2025 01:36:58 +0200
+Subject: [PATCH 149/194] arm64: dts: qcom: sdm845-xiaomi-beryllium: Fix
+ compatible strings
+
+The most specific strings should come first (panel variant included),
+then the more generic ones (device and SoC).
+
+This is necessary for hexagonrpcd to guess the HexagonFS path for the
+device. It tries all of the compatible entries, but if none for
+xiaomi,beryllium existed it wouldn't be able to guess it.
+
+Fixes: bcf429831ecb ("arm64: dts: qcom: sdm845-xiaomi-beryllium-ebbg: introduce Xiaomi Poco F1 EBBG variant")
+Fixes: dd6459a0890a ("arm64: dts: qcom: split beryllium dts into common dtsi and tianma dts")
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts   | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts
+index 2d6f0e382a6c..d157622f84d1 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts
+@@ -6,7 +6,7 @@
+ 
+ / {
+ 	model = "Xiaomi Pocophone F1 (EBBG)";
+-	compatible = "xiaomi,beryllium-ebbg", "qcom,sdm845";
++	compatible = "xiaomi,beryllium-ebbg", "xiaomi,beryllium", "qcom,sdm845";
+ };
+ 
+ &display_panel {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
+index d1c7bccaab50..f8ed28e95e76 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
+@@ -6,7 +6,7 @@
+ 
+ / {
+ 	model = "Xiaomi Pocophone F1 (Tianma)";
+-	compatible = "xiaomi,beryllium", "qcom,sdm845";
++	compatible = "xiaomi,beryllium-tianma", "xiaomi,beryllium", "qcom,sdm845";
+ };
+ 
+ &display_panel {
+-- 
+2.53.0
+

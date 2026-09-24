@@ -1,0 +1,47 @@
+From bc8bdd3e6da45691f0a1e99e75cb9b22ab7a787c Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Fri, 3 Apr 2026 18:48:51 +0200
+Subject: [PATCH 148/194] dt-bindings: arm: qcom: Add Xiaomi Poco F1 Tianma
+ variant bindings
+
+Add documentation for Tianma display and touchscreen variant.
+
+While at it, correct binding documentation expectation.
+
+Fixes: 341fdef8ea49 ("dt-bindings: arm: qcom: Add Xiaomi Poco F1 EBBG variant bindings")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 20d689845d89..5ad609f2e274 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -822,6 +822,14 @@ properties:
+           - const: google,zombie-sku514
+           - const: qcom,sc7280
+ 
++      - description: Xiaomi Poco F1
++        items:
++          - enum:
++              - xiaomi,beryllium-ebbg
++              - xiaomi,beryllium-tianma
++          - const: xiaomi,beryllium
++          - const: qcom,sdm845
++
+       - items:
+           - enum:
+               - lenovo,flex-5g
+@@ -972,8 +980,6 @@ properties:
+               - sony,akatsuki-row
+               - sony,apollo-row
+               - thundercomm,db845c
+-              - xiaomi,beryllium
+-              - xiaomi,beryllium-ebbg
+               - xiaomi,perseus
+               - xiaomi,polaris
+           - const: qcom,sdm845
+-- 
+2.53.0
+

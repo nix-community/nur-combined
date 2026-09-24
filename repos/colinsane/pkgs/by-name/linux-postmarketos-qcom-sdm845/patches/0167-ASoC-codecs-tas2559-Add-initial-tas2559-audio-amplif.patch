@@ -1,0 +1,2899 @@
+From f8d8e6bf1954dc54d8afea9cadb8d10526bf0305 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <joel.devbox@protonmail.com>
+Date: Wed, 17 Jun 2020 23:14:58 +0530
+Subject: [PATCH 167/194] ASoC: codecs: tas2559: Add initial tas2559 audio
+ amplifier codec
+
+Introduce the TAS2559 audio codec.
+
+Squash History:
+tas2559: comment out load calibration function in order to build it as module
+tas2559: fix symmetric_rates compilation error
+tas2559: merge the files
+tas2559: remove functions from header
+tas2559: reorder, remove functions and structs from header. None of the other codecs have them in headers. sooooo.
+ASoC: codecs: tas2559: cleanup
+tas2559: irq cleanup complete
+tas2559: compile fixes
+tas2559: remove timer and temperature check
+tas2559: remove calibiration related stuffs
+tas2559: remove unncessary kcontrols
+tas2559: remove yram checksum
+tas2559: its fine, remove vboost control
+tas2559: use gpiod and specifiy legacy_dai_naming
+tas2559: Fix build, kcontrol_chip instead of kcontrol_component
+---
+ sound/soc/codecs/Kconfig   |    4 +
+ sound/soc/codecs/Makefile  |    4 +
+ sound/soc/codecs/tas2559.c | 2289 ++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/tas2559.h |  525 +++++++++
+ 4 files changed, 2822 insertions(+)
+ create mode 100644 sound/soc/codecs/tas2559.c
+ create mode 100644 sound/soc/codecs/tas2559.h
+
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 2c6d6520993e..4d65f975d54a 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -365,6 +365,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_WSA883X
+ 	imply SND_SOC_WSA884X
+ 	imply SND_SOC_ZL38060
++	imply SND_SOC_TAS2559
+ 	help
+ 	  Normally ASoC codec drivers are only built if a machine driver which
+ 	  uses them is also built since they are only usable with a machine
+@@ -2880,6 +2881,9 @@ config SND_SOC_LPASS_VA_MACRO
+ 	select REGMAP_MMIO
+ 	select SND_SOC_LPASS_MACRO_COMMON
+ 	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
++config SND_SOC_TAS2559
++	tristate "Texas Instruments TAS2559 speaker amplifier"
++	depends on I2C
+ 
+ config SND_SOC_LPASS_RX_MACRO
+ 	depends on COMMON_CLK
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 9cfa43976cc6..19e3191b7eb3 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -439,6 +439,10 @@ snd-soc-tas2780-y := tas2780.o
+ # Mux
+ snd-soc-simple-mux-y := simple-mux.o
+ 
++snd-soc-tas2559-objs := tas2559.o
++ccflags-y += -DDEBUG
++obj-$(CONFIG_SND_SOC_TAS2559) += snd-soc-tas2559.o
++
+ obj-$(CONFIG_SND_SOC_88PM860X)	+= snd-soc-88pm860x.o
+ obj-$(CONFIG_SND_SOC_AB8500_CODEC)	+= snd-soc-ab8500-codec.o
+ obj-$(CONFIG_SND_SOC_AC97_CODEC)	+= snd-soc-ac97.o
+diff --git a/sound/soc/codecs/tas2559.c b/sound/soc/codecs/tas2559.c
+new file mode 100644
+index 000000000000..5a2d0eda92ba
+--- /dev/null
++++ b/sound/soc/codecs/tas2559.c
+@@ -0,0 +1,2289 @@
++/*
++** =============================================================================
++** Copyright (c) 2016  Texas Instruments Inc.
++**
++** This program is free software; you can redistribute it and/or modify it under
++** the terms of the GNU General Public License as published by the Free Software
++** Foundation; version 2.
++**
++** This program is distributed in the hope that it will be useful, but WITHOUT
++** ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
++** FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
++**
++** File:
++**     tas2559.c
++**
++** Description:
++**     ALSA SoC driver for Texas Instruments TAS2559 High Performance 4W Smart Amplifier
++**
++** =============================================================================
++*/
++
++#include <linux/module.h>
++#include <linux/moduleparam.h>
++#include <linux/init.h>
++#include <linux/delay.h>
++#include <linux/pm.h>
++#include <linux/i2c.h>
++#include <linux/regulator/consumer.h>
++#include <linux/firmware.h>
++#include <linux/regmap.h>
++#include <linux/of.h>
++#include <linux/slab.h>
++#include <linux/gpio/consumer.h>
++#include <linux/syscalls.h>
++#include <linux/fcntl.h>
++#include <linux/uaccess.h>
++#include <linux/crc8.h>
++#include <sound/core.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-dapm.h>
++#include <sound/initval.h>
++#include <sound/tlv.h>
++
++#include "tas2559.h"
++
++struct TBlock {
++	unsigned int mnType;
++	unsigned char mbPChkSumPresent;
++	unsigned char mnPChkSum;
++	unsigned int mnCommands;
++	unsigned char *mpData;
++};
++
++struct TData {
++	char mpName[64];
++	char *mpDescription;
++	unsigned int mnBlocks;
++	struct TBlock *mpBlocks;
++};
++
++struct TProgram {
++	char mpName[64];
++	char *mpDescription;
++	unsigned char mnAppMode;
++	unsigned short mnBoost;
++	struct TData mData;
++};
++
++struct TPLL {
++	char mpName[64];
++	char *mpDescription;
++	struct TBlock mBlock;
++};
++
++struct TConfiguration {
++	char mpName[64];
++	char *mpDescription;
++	unsigned int mnDevices;
++	unsigned int mnProgram;
++	unsigned int mnPLL;
++	unsigned int mnSamplingRate;
++	unsigned char mnPLLSrc;
++	unsigned int mnPLLSrcRate;
++	struct TData mData;
++};
++
++struct TCalibration {
++	char mpName[64];
++	char *mpDescription;
++	unsigned int mnProgram;
++	unsigned int mnConfiguration;
++	struct TData mData;
++};
++
++struct TFirmware {
++	unsigned int mnFWSize;
++	unsigned int mnChecksum;
++	unsigned int mnPPCVersion;
++	unsigned int mnFWVersion;
++	unsigned int mnDriverVersion;
++	unsigned int mnTimeStamp;
++	char mpDDCName[64];
++	char *mpDescription;
++	unsigned int mnDeviceFamily;
++	unsigned int mnDevice;
++	unsigned int mnPLLs;
++	struct TPLL *mpPLLs;
++	unsigned int mnPrograms;
++	struct TProgram *mpPrograms;
++	unsigned int mnConfigurations;
++	struct TConfiguration *mpConfigurations;
++	unsigned int mnCalibrations;
++	struct TCalibration *mpCalibrations;
++};
++
++struct tas2559_register {
++	int book;
++	int page;
++	int reg;
++};
++
++enum channel {
++	DevA = 0x01,
++	DevB = 0x02,
++	DevBoth = (DevA | DevB),
++};
++
++struct tas2559_priv {
++	struct device *dev;
++	struct regmap *mpRegmap;
++	struct i2c_client *client;
++	struct mutex dev_lock;
++	struct TFirmware *mpFirmware;
++	unsigned int mnCurrentProgram;
++	unsigned int mnCurrentSampleRate;
++	unsigned int mnCurrentConfiguration;
++	unsigned int mnNewConfiguration;
++	unsigned int mnCurrentCalibration;
++	bool mbPowerUp;
++	bool mbLoadConfigurationPrePowerUp;
++
++	/* parameters for TAS2559 */
++	struct gpio_desc *mnDevAGPIORST;
++	unsigned char mnDevAAddr;
++	unsigned char mnDevACurrentBook;
++	unsigned char mnDevACurrentPage;
++
++	/* parameters for TAS2560 */
++	struct gpio_desc *mnDevBGPIORST;
++	unsigned char mnDevBAddr;
++	unsigned char mnDevBCurrentBook;
++	unsigned char mnDevBCurrentPage;
++
++	unsigned int mnErrCode;
++	unsigned int mnRestart;
++	struct mutex codec_lock;
++};
++
++static unsigned int p_tas2559_default_data[] = {
++	DevA, TAS2559_SAR_ADC2_REG, 0x05,/* enable SAR ADC */
++	DevA, TAS2559_CLK_ERR_CTRL2, 0x21,/*clk1:clock hysteresis, 0.34ms; clock halt, 22ms*/
++	DevA, TAS2559_CLK_ERR_CTRL3, 0x21,/*clk2: rampDown 15dB/us, clock hysteresis, 10.66us; clock halt, 22ms */
++	DevB, TAS2560_CLK_ERR_CTRL2, 0x21,/*rampDown 15dB/us, clock1 hysteresis, 0.34ms; clock2 hysteresis, 10.6us */
++	DevA, TAS2559_SAFE_GUARD_REG, TAS2559_SAFE_GUARD_PATTERN,/* safe guard */
++	DevA, TAS2559_CLK_ERR_CTRL, 0x00,/*enable clock error detection*/
++	DevB, TAS2560_CLK_ERR_CTRL, 0x00,/* disable clock error detection */
++	0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
++};
++
++static unsigned int p_tas2559_startup_data[] = {
++	DevA, TAS2559_GPIO1_PIN_REG, 0x01,/* enable BCLK */
++	DevA, TAS2559_GPIO2_PIN_REG, 0x01,/* enable WCLK */
++	DevA, TAS2559_POWER_CTRL2_REG, 0xA0,/*Class-D, Boost power up*/
++	DevA, TAS2559_POWER_CTRL2_REG, 0xA3,/*Class-D, Boost, IV sense power up*/
++	DevA, TAS2559_POWER_CTRL1_REG, 0xF8,/*PLL, DSP, clock dividers power up*/
++	DevBoth, TAS2559_UDELAY, 2000,/*delay*/
++	DevB, TAS2560_DEV_MODE_REG, 0x02,
++	DevB, TAS2560_MUTE_REG, 0x41,
++	DevBoth, TAS2559_UDELAY, 2000,/*delay*/
++	DevA, TAS2559_CLK_ERR_CTRL, 0x2B,/*enable clock error detection*/
++	DevB, TAS2560_CLK_ERR_CTRL, 0x0B,/* disable clock error detection */
++	0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
++};
++
++static unsigned int p_tas2559_mute_data[] = {
++	DevA, TAS2559_SOFT_MUTE_REG, 0x01,/*soft mute*/
++	DevB, TAS2560_MUTE_REG, 0x41,
++	DevA, TAS2559_MDELAY, 10,/*delay 10ms*/
++	DevA, TAS2559_MUTE_REG, 0x03,/*mute*/
++	0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
++};
++
++static unsigned int p_tas2559_unmute_data[] = {
++	DevA, TAS2559_MUTE_REG, 0x00,		/*unmute*/
++	DevB, TAS2560_MUTE_REG, 0x40,
++	DevA, TAS2559_SOFT_MUTE_REG, 0x00,	/*soft unmute*/
++	0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
++};
++
++static unsigned int p_tas2559_shutdown_data[] = {
++	DevA, TAS2559_CLK_ERR_CTRL, 0x00,/* disable clock error detection */
++	DevB, TAS2560_CLK_ERR_CTRL, 0x00,/* disable clock error detection */
++	DevA, TAS2559_SOFT_MUTE_REG, 0x01,/*soft mute*/
++	DevB, TAS2560_MUTE_REG, 0x41,
++	DevB, TAS2560_MUTE_REG, 0x01,
++	DevBoth, TAS2559_MDELAY, 10,/*delay 10ms*/
++	DevB, TAS2559_MDELAY, 20,/*delay 20ms*/
++	DevA, TAS2559_POWER_CTRL1_REG, 0x60,/*DSP power down*/
++	DevA, TAS2559_MDELAY, 2,/*delay 20ms*/
++	DevA, TAS2559_MUTE_REG, 0x03,/*mute*/
++	DevA, TAS2559_POWER_CTRL2_REG, 0x00,/*Class-D, Boost power down*/
++	DevA, TAS2559_POWER_CTRL1_REG, 0x00,/*all power down*/
++	DevB, TAS2560_DEV_MODE_REG, 0x01,
++	DevA, TAS2559_GPIO1_PIN_REG, 0x00,/* disable BCLK */
++	DevA, TAS2559_GPIO2_PIN_REG, 0x00,/* disable WCLK */
++	0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
++};
++
++static unsigned int p_tas2559_shutdown_DevB_data[] = {
++	DevA, TAS2559_CLK_ERR_CTRL, 0x00,/* disable clock error detection */
++	DevB, TAS2560_CLK_ERR_CTRL, 0x00,/* disable clock error detection */
++	DevB, TAS2560_MUTE_REG, 0x41,
++	DevB, TAS2560_MUTE_REG, 0x01,
++	DevA, TAS2559_POWER_CTRL1_REG, 0x60,/*DSP power down*/
++	DevBoth, TAS2559_MDELAY, 30,/*delay 2ms*/
++	DevB, TAS2560_DEV_MODE_REG, 0x01,
++	DevA, TAS2559_POWER_CTRL2_REG, 0x00,/*Class-D, Boost power down*/
++	DevA, TAS2559_POWER_CTRL1_REG, 0x00,/*all power down*/
++	DevA, TAS2559_GPIO1_PIN_REG, 0x00,/* disable BCLK */
++	DevA, TAS2559_GPIO2_PIN_REG, 0x00,/* disable WCLK */
++	0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
++};
++
++static int tas2559_i2c_read_device(struct tas2559_priv *pTAS2559,
++				   unsigned char addr,
++				   unsigned char reg,
++				   unsigned char *p_value)
++{
++	int nResult = 0;
++	unsigned int val = 0;
++
++	pTAS2559->client->addr = addr;
++	nResult = regmap_read(pTAS2559->mpRegmap, reg, &val);
++
++	if (nResult < 0)
++		dev_err(pTAS2559->dev, "%s[0x%x] Error %d\n",
++			__func__, addr, nResult);
++	else
++		*p_value = (unsigned char)val;
++
++	return nResult;
++}
++
++static int tas2559_i2c_write_device(struct tas2559_priv *pTAS2559,
++				    unsigned char addr,
++				    unsigned char reg,
++				    unsigned char value)
++{
++	int nResult = 0;
++
++	pTAS2559->client->addr = addr;
++	nResult = regmap_write(pTAS2559->mpRegmap, reg, value);
++
++	if (nResult < 0)
++		dev_err(pTAS2559->dev, "%s[0x%x] Error %d\n",
++			__func__, addr, nResult);
++
++	return nResult;
++}
++
++static int tas2559_i2c_update_bits(struct tas2559_priv *pTAS2559,
++				   unsigned char addr,
++				   unsigned char reg,
++				   unsigned char mask,
++				   unsigned char value)
++{
++	int nResult = 0;
++
++	pTAS2559->client->addr = addr;
++	nResult = regmap_update_bits(pTAS2559->mpRegmap, reg, mask, value);
++
++	if (nResult < 0)
++		dev_err(pTAS2559->dev, "%s[0x%x] Error %d\n",
++			__func__, addr, nResult);
++
++	return nResult;
++}
++
++static int tas2559_i2c_bulkwrite_device(struct tas2559_priv *pTAS2559,
++					unsigned char addr,
++					unsigned char reg,
++					unsigned char *pBuf,
++					unsigned int len)
++{
++	int nResult = 0;
++
++	pTAS2559->client->addr = addr;
++	nResult = regmap_bulk_write(pTAS2559->mpRegmap, reg, pBuf, len);
++
++	if (nResult < 0)
++		dev_err(pTAS2559->dev, "%s[0x%x] Error %d\n",
++			__func__, addr, nResult);
++
++	return nResult;
++}
++
++static int tas2559_change_book_page(struct tas2559_priv *pTAS2559,
++				    enum channel chn,
++				    unsigned char nBook,
++				    unsigned char nPage)
++{
++	int nResult = 0;
++
++	if (chn & DevA) {
++		if (pTAS2559->mnDevACurrentBook == nBook) {
++			if (pTAS2559->mnDevACurrentPage != nPage) {
++				nResult = tas2559_i2c_write_device(pTAS2559,
++								   pTAS2559->mnDevAAddr, TAS2559_BOOKCTL_PAGE, nPage);
++
++				if (nResult >= 0)
++					pTAS2559->mnDevACurrentPage = nPage;
++			}
++		} else {
++			nResult = tas2559_i2c_write_device(pTAS2559,
++							   pTAS2559->mnDevAAddr, TAS2559_BOOKCTL_PAGE, 0);
++
++			if (nResult >= 0) {
++				pTAS2559->mnDevACurrentPage = 0;
++				nResult = tas2559_i2c_write_device(pTAS2559,
++								   pTAS2559->mnDevAAddr, TAS2559_BOOKCTL_REG, nBook);
++				pTAS2559->mnDevACurrentBook = nBook;
++
++				if (nPage != 0) {
++					nResult = tas2559_i2c_write_device(pTAS2559,
++									   pTAS2559->mnDevAAddr, TAS2559_BOOKCTL_PAGE, nPage);
++					pTAS2559->mnDevACurrentPage = nPage;
++				}
++			}
++		}
++	}
++
++	if (chn & DevB) {
++		if (pTAS2559->mnDevBCurrentBook == nBook) {
++			if (pTAS2559->mnDevBCurrentPage != nPage) {
++				nResult = tas2559_i2c_write_device(pTAS2559,
++								   pTAS2559->mnDevBAddr, TAS2559_BOOKCTL_PAGE, nPage);
++
++				if (nResult >= 0)
++					pTAS2559->mnDevBCurrentPage = nPage;
++			}
++		} else {
++			nResult = tas2559_i2c_write_device(pTAS2559,
++							   pTAS2559->mnDevBAddr, TAS2559_BOOKCTL_PAGE, 0);
++
++			if (nResult >= 0) {
++				pTAS2559->mnDevBCurrentPage = 0;
++				nResult = tas2559_i2c_write_device(pTAS2559,
++								   pTAS2559->mnDevBAddr, TAS2559_BOOKCTL_REG, nBook);
++				pTAS2559->mnDevBCurrentBook = nBook;
++
++				if (nPage != 0) {
++					tas2559_i2c_write_device(pTAS2559,
++								 pTAS2559->mnDevBAddr, TAS2559_BOOKCTL_PAGE, nPage);
++					pTAS2559->mnDevBCurrentPage = nPage;
++				}
++			}
++		}
++	}
++
++	return nResult;
++}
++
++static int tas2559_dev_read(struct tas2559_priv *pTAS2559,
++			    enum channel chn,
++			    unsigned int nRegister,
++			    unsigned int *pValue)
++{
++	int nResult = 0;
++	unsigned char Value = 0;
++
++	mutex_lock(&pTAS2559->dev_lock);
++
++	nResult = tas2559_change_book_page(pTAS2559, chn,
++					   TAS2559_BOOK_ID(nRegister), TAS2559_PAGE_ID(nRegister));
++
++	if (nResult >= 0) {
++		if (chn == DevA)
++			nResult = tas2559_i2c_read_device(pTAS2559,
++							  pTAS2559->mnDevAAddr, TAS2559_PAGE_REG(nRegister), &Value);
++		else
++			if (chn == DevB)
++				nResult = tas2559_i2c_read_device(pTAS2559,
++								  pTAS2559->mnDevBAddr, TAS2559_PAGE_REG(nRegister), &Value);
++			else {
++				dev_err(pTAS2559->dev, "%s， read chn ERROR %d\n", __func__, chn);
++				nResult = -EINVAL;
++			}
++
++		if (nResult >= 0)
++			*pValue = Value;
++	}
++
++	mutex_unlock(&pTAS2559->dev_lock);
++	return nResult;
++}
++
++static int tas2559_dev_write(struct tas2559_priv *pTAS2559,
++			     enum channel chn,
++			     unsigned int nRegister,
++			     unsigned int nValue)
++{
++	int nResult = 0;
++
++	mutex_lock(&pTAS2559->dev_lock);
++
++	nResult = tas2559_change_book_page(pTAS2559,
++					   chn, TAS2559_BOOK_ID(nRegister), TAS2559_PAGE_ID(nRegister));
++
++	if (nResult >= 0) {
++		if (chn & DevA)
++			nResult = tas2559_i2c_write_device(pTAS2559,
++							   pTAS2559->mnDevAAddr, TAS2559_PAGE_REG(nRegister), nValue);
++
++		if (chn & DevB)
++			nResult = tas2559_i2c_write_device(pTAS2559,
++							   pTAS2559->mnDevBAddr, TAS2559_PAGE_REG(nRegister), nValue);
++	}
++
++	mutex_unlock(&pTAS2559->dev_lock);
++	return nResult;
++}
++
++static int tas2559_dev_bulk_write(struct tas2559_priv *pTAS2559,
++				  enum channel chn,
++				  unsigned int nRegister,
++				  unsigned char *pData,
++				  unsigned int nLength)
++{
++	int nResult = 0;
++	unsigned char reg = 0;
++
++	mutex_lock(&pTAS2559->dev_lock);
++
++	nResult = tas2559_change_book_page(pTAS2559, chn,
++					   TAS2559_BOOK_ID(nRegister), TAS2559_PAGE_ID(nRegister));
++
++	if (nResult >= 0) {
++		reg = TAS2559_PAGE_REG(nRegister);
++
++		if (chn & DevA)
++			nResult = tas2559_i2c_bulkwrite_device(pTAS2559,
++							       pTAS2559->mnDevAAddr, reg, pData, nLength);
++
++		if (chn & DevB)
++			nResult = tas2559_i2c_bulkwrite_device(pTAS2559,
++							       pTAS2559->mnDevBAddr, reg, pData, nLength);
++	}
++
++	mutex_unlock(&pTAS2559->dev_lock);
++	return nResult;
++}
++
++static int tas2559_dev_update_bits(
++	struct tas2559_priv *pTAS2559,
++	enum channel chn,
++	unsigned int nRegister,
++	unsigned int nMask,
++	unsigned int nValue)
++{
++	int nResult = 0;
++
++	mutex_lock(&pTAS2559->dev_lock);
++
++	nResult = tas2559_change_book_page(pTAS2559,
++					   chn, TAS2559_BOOK_ID(nRegister), TAS2559_PAGE_ID(nRegister));
++
++	if (nResult >= 0) {
++		if (chn & DevA)
++			nResult = tas2559_i2c_update_bits(pTAS2559,
++							  pTAS2559->mnDevAAddr, TAS2559_PAGE_REG(nRegister), nMask, nValue);
++
++		if (chn & DevB)
++			nResult = tas2559_i2c_update_bits(pTAS2559,
++							  pTAS2559->mnDevBAddr, TAS2559_PAGE_REG(nRegister), nMask, nValue);
++	}
++
++	mutex_unlock(&pTAS2559->dev_lock);
++	return nResult;
++}
++
++static void tas2559_hw_reset(struct tas2559_priv *pTAS2559)
++{
++	dev_dbg(pTAS2559->dev, "%s\n", __func__);
++
++	gpiod_set_value_cansleep(pTAS2559->mnDevAGPIORST, 0);
++	msleep(5);
++	gpiod_set_value_cansleep(pTAS2559->mnDevAGPIORST, 1);
++	msleep(2);
++
++	gpiod_set_value_cansleep(pTAS2559->mnDevBGPIORST, 0);
++	msleep(5);
++	gpiod_set_value_cansleep(pTAS2559->mnDevBGPIORST, 1);
++	msleep(2);
++
++	pTAS2559->mnDevACurrentBook = -1;
++	pTAS2559->mnDevACurrentPage = -1;
++	pTAS2559->mnDevBCurrentBook = -1;
++	pTAS2559->mnDevBCurrentPage = -1;
++
++	if (pTAS2559->mnErrCode)
++		dev_info(pTAS2559->dev, "%s, ErrCode=0x%x\n", __func__, pTAS2559->mnErrCode);
++
++	pTAS2559->mnErrCode = 0;
++}
++
++static int tas2559_dev_load_data(struct tas2559_priv *pTAS2559,
++				 enum channel dev, unsigned int *pData)
++{
++	int nResult = 0;
++	unsigned int n = 0;
++	unsigned int nRegister;
++	unsigned int nData;
++	enum channel chl;
++
++	do {
++		chl = pData[n * 3];
++
++		if (chl == 0xffffffff)
++			break;
++
++		if (dev & chl) {
++			nRegister = pData[n * 3 + 1];
++			nData = pData[n * 3 + 2];
++
++			if (nRegister == TAS2559_UDELAY) {
++				udelay(nData);
++			} else if (nRegister == TAS2559_MDELAY) {
++				mdelay(nData);
++			} else if (nRegister != 0xFFFFFFFF) {
++				nResult = tas2559_dev_write(pTAS2559, chl, nRegister, nData);
++				if (nResult < 0)
++					break;
++			}
++		}
++
++		n++;
++	} while (nRegister != 0xFFFFFFFF);
++
++	return nResult;
++}
++
++static int tas2559_DevStartup(struct tas2559_priv *pTAS2559,
++			      unsigned int dev)
++{
++	int nResult = 0;
++	enum channel chl = dev;
++
++	if (dev == DevB)
++		chl = DevBoth;
++
++	dev_dbg(pTAS2559->dev, "%s, chl=%d\n", __func__, chl);
++	nResult = tas2559_dev_load_data(pTAS2559, chl, p_tas2559_startup_data);
++
++	return nResult;
++}
++
++static int tas2559_DevShutdown(struct tas2559_priv *pTAS2559,
++			       unsigned int dev)
++{
++	int nResult = 0;
++
++	dev_dbg(pTAS2559->dev, "%s, dev=%d\n", __func__, dev);
++
++	if (dev == DevB)
++		nResult = tas2559_dev_load_data(pTAS2559, dev, p_tas2559_shutdown_DevB_data);
++	else
++		nResult = tas2559_dev_load_data(pTAS2559, dev, p_tas2559_shutdown_data);
++
++	return nResult;
++}
++
++int tas2559_set_DAC_gain(struct tas2559_priv *pTAS2559,
++			 enum channel chl, unsigned int nGain)
++{
++	int nResult = 0;
++	int gain = (nGain & 0x0f);
++
++	dev_dbg(pTAS2559->dev, "%s, nGain: %d", __func__, nGain);
++
++	if (chl & DevA) {
++		nResult = tas2559_dev_update_bits(pTAS2559, DevA,
++						TAS2559_SPK_CTRL_REG, 0x78, (gain << 3));
++
++		if (nResult < 0)
++			goto end;
++	}
++
++	if (chl & DevB)
++		nResult = tas2559_dev_update_bits(pTAS2559, DevB,
++						TAS2560_SPK_CTRL_REG, 0x0f, gain);
++
++end:
++
++	return nResult;
++}
++
++int tas2559_get_DAC_gain(struct tas2559_priv *pTAS2559,
++			 enum channel chl, unsigned char *pnGain)
++{
++	int nResult = 0;
++	int nGain;
++
++	if (chl == DevA) {
++		nResult = tas2559_dev_read(pTAS2559, DevA, TAS2559_SPK_CTRL_REG, &nGain);
++
++		if (nResult >= 0)
++			*pnGain = ((nGain >> 3) & 0x0f);
++	} else
++		if (chl == DevB) {
++			nResult = tas2559_dev_read(pTAS2559, DevB, TAS2560_SPK_CTRL_REG, &nGain);
++
++			if (nResult >= 0)
++				*pnGain = (nGain & 0x0f);
++		}
++
++	return nResult;
++}
++
++int tas2559_DevMute(struct tas2559_priv *pTAS2559, enum channel dev, bool mute)
++{
++	int nResult = 0;
++
++	dev_dbg(pTAS2559->dev, "%s, dev=%d, mute=%d\n", __func__, dev, mute);
++
++	if (mute)
++		nResult = tas2559_dev_load_data(pTAS2559, dev, p_tas2559_mute_data);
++	else
++		nResult = tas2559_dev_load_data(pTAS2559, dev, p_tas2559_unmute_data);
++
++	return nResult;
++}
++
++int tas2559_load_default(struct tas2559_priv *pTAS2559)
++{
++	int nResult = 0;
++
++	dev_dbg(pTAS2559->dev, "%s\n", __func__);
++
++	nResult = tas2559_dev_load_data(pTAS2559, DevBoth, p_tas2559_default_data);
++	if (nResult < 0)
++		goto end;
++
++    // Set default bit rate of 16 for DevA
++	nResult = tas2559_dev_update_bits(pTAS2559, DevA, TAS2559_ASI1_DAC_FORMAT_REG, 0x18, 0);
++	if (nResult < 0)
++		goto end;
++	
++	 // Set default bit rate of 16 for DevB
++	nResult = tas2559_dev_update_bits(pTAS2559, DevB, TAS2560_DAI_FMT, 0x03, 0);
++	if (nResult < 0)
++		goto end;
++
++	/* enable DOUT tri-state for extra BCLKs */
++	nResult = tas2559_dev_update_bits(pTAS2559, DevA, TAS2559_ASI1_DAC_FORMAT_REG, 0x01, 0x01);
++	if (nResult < 0)
++		goto end;
++
++	nResult = tas2559_dev_update_bits(pTAS2559, DevB, TAS2560_ASI_CFG_1, 0x02, 0x02);
++	if (nResult < 0)
++		goto end;
++
++	/* Interrupt pin, low-highZ, high active driven */
++	nResult = tas2559_dev_update_bits(pTAS2559, DevA, TAS2559_GPIO_HIZ_CTRL2_REG, 0x30, 0x30);
++
++end:
++	return nResult;
++}
++
++
++void tas2559_clear_firmware(struct TFirmware *pFirmware)
++{
++	unsigned int n, nn;
++
++	if (!pFirmware)
++		return;
++
++	kfree(pFirmware->mpDescription);
++
++	if (pFirmware->mpPLLs != NULL) {
++		for (n = 0; n < pFirmware->mnPLLs; n++) {
++			kfree(pFirmware->mpPLLs[n].mpDescription);
++			kfree(pFirmware->mpPLLs[n].mBlock.mpData);
++		}
++
++		kfree(pFirmware->mpPLLs);
++	}
++
++	if (pFirmware->mpPrograms != NULL) {
++		for (n = 0; n < pFirmware->mnPrograms; n++) {
++			kfree(pFirmware->mpPrograms[n].mpDescription);
++			kfree(pFirmware->mpPrograms[n].mData.mpDescription);
++
++			for (nn = 0; nn < pFirmware->mpPrograms[n].mData.mnBlocks; nn++)
++				kfree(pFirmware->mpPrograms[n].mData.mpBlocks[nn].mpData);
++
++			kfree(pFirmware->mpPrograms[n].mData.mpBlocks);
++		}
++
++		kfree(pFirmware->mpPrograms);
++	}
++
++	if (pFirmware->mpConfigurations != NULL) {
++		for (n = 0; n < pFirmware->mnConfigurations; n++) {
++			kfree(pFirmware->mpConfigurations[n].mpDescription);
++			kfree(pFirmware->mpConfigurations[n].mData.mpDescription);
++
++			for (nn = 0; nn < pFirmware->mpConfigurations[n].mData.mnBlocks; nn++)
++				kfree(pFirmware->mpConfigurations[n].mData.mpBlocks[nn].mpData);
++
++			kfree(pFirmware->mpConfigurations[n].mData.mpBlocks);
++		}
++
++		kfree(pFirmware->mpConfigurations);
++	}
++
++	if (pFirmware->mpCalibrations != NULL) {
++		for (n = 0; n < pFirmware->mnCalibrations; n++) {
++			kfree(pFirmware->mpCalibrations[n].mpDescription);
++			kfree(pFirmware->mpCalibrations[n].mData.mpDescription);
++
++			for (nn = 0; nn < pFirmware->mpCalibrations[n].mData.mnBlocks; nn++)
++				kfree(pFirmware->mpCalibrations[n].mData.mpBlocks[nn].mpData);
++
++			kfree(pFirmware->mpCalibrations[n].mData.mpBlocks);
++		}
++
++		kfree(pFirmware->mpCalibrations);
++	}
++
++	memset(pFirmware, 0x00, sizeof(struct TFirmware));
++}
++
++static int tas2559_load_block(struct tas2559_priv *pTAS2559, struct TBlock *pBlock)
++{
++	int nResult = 0;
++	unsigned int nCommand = 0;
++	unsigned char nBook;
++	unsigned char nPage;
++	unsigned char nOffset;
++	unsigned char nData;
++	unsigned int nValue1;
++	unsigned int nLength;
++	unsigned int nSleep;
++	enum channel chl;
++	unsigned char *pData = pBlock->mpData;
++
++	dev_dbg(pTAS2559->dev, "%s: Type = %d, commands = %d\n", __func__,
++		pBlock->mnType, pBlock->mnCommands);
++
++	if (pBlock->mnType == TAS2559_BLOCK_PLL) {
++		chl = DevA;
++	} else if ((pBlock->mnType == TAS2559_BLOCK_PGM_DEV_A)
++		    || (pBlock->mnType == TAS2559_BLOCK_CFG_COEFF_DEV_A)
++		    || (pBlock->mnType == TAS2559_BLOCK_CFG_PRE_DEV_A)) {
++		chl = DevA;
++	} else if ((pBlock->mnType == TAS2559_BLOCK_PGM_DEV_B)
++		    || (pBlock->mnType == TAS2559_BLOCK_PST_POWERUP_DEV_B)
++		    || (pBlock->mnType == TAS2559_BLOCK_CFG_PRE_DEV_B)) {
++		chl = DevB;
++	} else {
++		dev_err(pTAS2559->dev, "block type error %d\n", pBlock->mnType);
++		nResult = -EINVAL;
++		goto end;
++	}
++
++	if (pBlock->mbPChkSumPresent) {
++		if (chl == DevA) {
++			nResult = tas2559_dev_write(pTAS2559, DevA, TAS2559_CRC_RESET_REG, 1);
++			if (nResult < 0)
++				goto end;
++		} else {
++			nResult = tas2559_dev_write(pTAS2559, DevB, TAS2560_CRC_CHK_REG, 1);
++			if (nResult < 0)
++				goto end;
++		}
++	}
++
++	nCommand = 0;
++	while (nCommand < pBlock->mnCommands) {
++		pData = pBlock->mpData + nCommand * 4;
++		nBook = pData[0];
++		nPage = pData[1];
++		nOffset = pData[2];
++		nData = pData[3];
++		nCommand++;
++
++		if (nOffset <= 0x7F) {
++			nResult = tas2559_dev_write(pTAS2559,
++						chl, TAS2559_REG(nBook, nPage, nOffset), nData);
++			if (nResult < 0)
++				goto end;
++
++		} else if (nOffset == 0x81) {
++			nSleep = (nBook << 8) + nPage;
++			msleep(nSleep);
++		} else if (nOffset == 0x85) {
++			pData += 4;
++			nLength = (nBook << 8) + nPage;
++			nBook = pData[0];
++			nPage = pData[1];
++			nOffset = pData[2];
++
++			if (nLength > 1) {
++				nResult = tas2559_dev_bulk_write(pTAS2559,
++							chl, TAS2559_REG(nBook, nPage, nOffset), pData + 3, nLength);
++				if (nResult < 0)
++					goto end;
++
++			} else {
++				nResult = tas2559_dev_write(pTAS2559,
++							chl, TAS2559_REG(nBook, nPage, nOffset), pData[3]);
++				if (nResult < 0)
++					goto end;
++
++			}
++
++			nCommand++;
++			if (nLength >= 2)
++				nCommand += ((nLength - 2) / 4) + 1;
++		}
++	}
++
++	if (pBlock->mbPChkSumPresent) {
++		if (chl == DevA)
++			nResult = tas2559_dev_read(pTAS2559, DevA,
++						TAS2559_CRC_CHECKSUM_REG, &nValue1);
++		else
++			nResult = tas2559_dev_read(pTAS2559, DevB,
++						TAS2560_CRC_CHK_REG, &nValue1);
++
++		if (nResult < 0)
++			goto end;
++
++		if (nValue1 != pBlock->mnPChkSum) {
++			dev_err(pTAS2559->dev, "Block PChkSum Error: FW = 0x%x, Reg = 0x%x\n",
++				pBlock->mnPChkSum, (nValue1 & 0xff));
++			nResult = -EAGAIN;
++			pTAS2559->mnErrCode |= ERROR_PRAM_CRCCHK;
++		}
++	}
++
++end:
++
++	if (nResult < 0)
++		dev_err(pTAS2559->dev, "Block (%d) load error\n",
++			pBlock->mnType);
++
++	return nResult;
++}
++
++static int tas2559_load_data(struct tas2559_priv *pTAS2559, struct TData *pData, unsigned int nType)
++{
++	int nResult = 0;
++	unsigned int nBlock;
++	struct TBlock *pBlock;
++
++	dev_dbg(pTAS2559->dev,
++		"TAS2559 load data: %s, Blocks = %d, Block Type = %d\n", pData->mpName, pData->mnBlocks, nType);
++
++	for (nBlock = 0; nBlock < pData->mnBlocks; nBlock++) {
++		pBlock = &(pData->mpBlocks[nBlock]);
++
++		if (pBlock->mnType == nType) {
++			nResult = tas2559_load_block(pTAS2559, pBlock);
++
++			if (nResult < 0)
++				break;
++		}
++	}
++
++	return nResult;
++}
++
++static void failsafe(struct tas2559_priv *pTAS2559)
++{
++	dev_err(pTAS2559->dev, "%s\n", __func__);
++	pTAS2559->mnErrCode |= ERROR_FAILSAFE;
++
++	tas2559_DevShutdown(pTAS2559, DevBoth);
++	pTAS2559->mbPowerUp = false;
++	tas2559_hw_reset(pTAS2559);
++	tas2559_dev_write(pTAS2559, DevBoth, TAS2559_SW_RESET_REG, 0x01);
++	msleep(1);
++	tas2559_dev_write(pTAS2559, DevA, TAS2559_SPK_CTRL_REG, 0x04);
++	tas2559_dev_write(pTAS2559, DevB, TAS2560_SPK_CTRL_REG, 0x50);
++
++	if (pTAS2559->mpFirmware != NULL)
++		tas2559_clear_firmware(pTAS2559->mpFirmware);
++}
++
++static int tas2559_load_coefficient(struct tas2559_priv *pTAS2559,
++				    int nPrevConfig, int nNewConfig, bool bPowerOn)
++{
++	int nResult = 0;
++	struct TPLL *pPLL;
++	struct TProgram *pProgram = NULL;
++	struct TConfiguration *pPrevConfiguration;
++	struct TConfiguration *pNewConfiguration;
++	enum channel chl;
++	bool bRestorePower = false;
++
++	dev_dbg(pTAS2559->dev, "%s, Prev=%d, new=%d, Pow=%d\n",
++		__func__, nPrevConfig, nNewConfig, bPowerOn);
++
++	if (!pTAS2559->mpFirmware->mnConfigurations) {
++		dev_err(pTAS2559->dev, "%s, firmware not loaded\n", __func__);
++		goto end;
++	}
++
++	if (nNewConfig >= pTAS2559->mpFirmware->mnConfigurations) {
++		dev_err(pTAS2559->dev, "%s, invalid configuration New=%d, total=%d\n",
++			__func__, nNewConfig, pTAS2559->mpFirmware->mnConfigurations);
++		goto end;
++	}
++
++	if (nPrevConfig < 0) {
++		pPrevConfiguration = NULL;
++		chl = DevBoth;
++	} else
++		if (nPrevConfig == nNewConfig) {
++			dev_dbg(pTAS2559->dev, "%d configuration is already loaded\n", nNewConfig);
++			goto end;
++		} else {
++			pPrevConfiguration = &(pTAS2559->mpFirmware->mpConfigurations[nPrevConfig]);
++			chl = pPrevConfiguration->mnDevices;
++		}
++
++	pNewConfiguration = &(pTAS2559->mpFirmware->mpConfigurations[nNewConfig]);
++	pTAS2559->mnCurrentConfiguration = nNewConfig;
++
++	if (pPrevConfiguration) {
++		if ((pPrevConfiguration->mnPLL == pNewConfiguration->mnPLL)
++		    && (pPrevConfiguration->mnDevices == pNewConfiguration->mnDevices)) {
++			dev_dbg(pTAS2559->dev, "%s, PLL and device same\n", __func__);
++			goto prog_coefficient;
++		}
++	}
++
++	pProgram = &(pTAS2559->mpFirmware->mpPrograms[pTAS2559->mnCurrentProgram]);
++
++	if (bPowerOn) {
++
++		nResult = tas2559_DevShutdown(pTAS2559, chl);
++
++		if (nResult < 0)
++			goto end;
++
++		bRestorePower = true;
++	}
++
++	/* load PLL */
++	pPLL = &(pTAS2559->mpFirmware->mpPLLs[pNewConfiguration->mnPLL]);
++	dev_dbg(pTAS2559->dev, "load PLL: %s block for Configuration %s\n",
++		pPLL->mpName, pNewConfiguration->mpName);
++	nResult = tas2559_load_block(pTAS2559, &(pPLL->mBlock));
++
++	if (nResult < 0)
++		goto end;
++
++	pTAS2559->mnCurrentSampleRate = pNewConfiguration->mnSamplingRate;
++
++	dev_dbg(pTAS2559->dev, "load configuration %s conefficient pre block\n",
++		pNewConfiguration->mpName);
++
++	if (pNewConfiguration->mnDevices & DevA) {
++		nResult = tas2559_load_data(pTAS2559, &(pNewConfiguration->mData), TAS2559_BLOCK_CFG_PRE_DEV_A);
++
++		if (nResult < 0)
++			goto end;
++	}
++
++	if (pNewConfiguration->mnDevices & DevB) {
++		nResult = tas2559_load_data(pTAS2559, &(pNewConfiguration->mData), TAS2559_BLOCK_CFG_PRE_DEV_B);
++
++		if (nResult < 0)
++			goto end;
++	}
++
++prog_coefficient:
++	dev_dbg(pTAS2559->dev, "load new configuration: %s, coeff block data\n",
++		pNewConfiguration->mpName);
++
++	if (pNewConfiguration->mnDevices & DevA) {
++		nResult = tas2559_load_data(pTAS2559, &(pNewConfiguration->mData),
++					    TAS2559_BLOCK_CFG_COEFF_DEV_A);
++		if (nResult < 0)
++			goto end;
++	}
++
++	if (pNewConfiguration->mnDevices & DevB) {
++		nResult = tas2559_load_data(pTAS2559, &(pNewConfiguration->mData),
++					    TAS2559_BLOCK_CFG_COEFF_DEV_B);
++		if (nResult < 0)
++			goto end;
++	}
++
++	if (bRestorePower) {
++		nResult = tas2559_DevStartup(pTAS2559, pNewConfiguration->mnDevices);
++		if (nResult < 0)
++			goto end;
++
++		if (pNewConfiguration->mnDevices & DevB) {
++			nResult = tas2559_load_data(pTAS2559, &(pNewConfiguration->mData),
++						    TAS2559_BLOCK_PST_POWERUP_DEV_B);
++
++			if (nResult < 0)
++				goto end;
++		}
++
++		dev_dbg(pTAS2559->dev,
++			"device powered up, load unmute\n");
++		nResult = tas2559_DevMute(pTAS2559, pNewConfiguration->mnDevices, false);
++		if (nResult < 0)
++			goto end;
++	}
++
++end:
++
++	if (nResult < 0)
++		dev_err(pTAS2559->dev, "%s, load new conf %s error\n", __func__, pNewConfiguration->mpName);
++
++	pTAS2559->mnNewConfiguration = pTAS2559->mnCurrentConfiguration;
++	return nResult;
++}
++
++static int tas2559_load_configuration(struct tas2559_priv *pTAS2559,
++				      unsigned int nConfiguration, bool bLoadSame)
++{
++	int nResult = 0;
++	struct TConfiguration *pCurrentConfiguration = NULL;
++	struct TConfiguration *pNewConfiguration = NULL;
++
++	dev_dbg(pTAS2559->dev, "%s: %d\n", __func__, nConfiguration);
++
++	if ((!pTAS2559->mpFirmware->mpPrograms) ||
++	    (!pTAS2559->mpFirmware->mpConfigurations)) {
++		dev_err(pTAS2559->dev, "Firmware not loaded\n");
++		nResult = 0;
++		goto end;
++	}
++
++	if (nConfiguration >= pTAS2559->mpFirmware->mnConfigurations) {
++		dev_err(pTAS2559->dev, "Configuration %d doesn't exist\n",
++			nConfiguration);
++		nResult = 0;
++		goto end;
++	}
++
++	if ((!pTAS2559->mbLoadConfigurationPrePowerUp)
++	    && (nConfiguration == pTAS2559->mnCurrentConfiguration)
++	    && (!bLoadSame)) {
++		dev_info(pTAS2559->dev, "Configuration %d is already loaded\n",
++			 nConfiguration);
++		nResult = 0;
++		goto end;
++	}
++
++	pCurrentConfiguration =
++		&(pTAS2559->mpFirmware->mpConfigurations[pTAS2559->mnCurrentConfiguration]);
++	pNewConfiguration =
++		&(pTAS2559->mpFirmware->mpConfigurations[nConfiguration]);
++
++	if (pNewConfiguration->mnProgram != pCurrentConfiguration->mnProgram) {
++		dev_err(pTAS2559->dev, "Configuration %d, %s doesn't share the same program as current %d\n",
++			nConfiguration, pNewConfiguration->mpName, pCurrentConfiguration->mnProgram);
++		nResult = 0;
++		goto end;
++	}
++
++	if (pNewConfiguration->mnPLL >= pTAS2559->mpFirmware->mnPLLs) {
++		dev_err(pTAS2559->dev, "Configuration %d, %s doesn't have a valid PLL index %d\n",
++			nConfiguration, pNewConfiguration->mpName, pNewConfiguration->mnPLL);
++		nResult = 0;
++		goto end;
++	}
++
++	if (pTAS2559->mbPowerUp) {
++		dev_err(pTAS2559->dev, "%s, device power on, load new conf[%d] %s\n", __func__,
++			nConfiguration, pNewConfiguration->mpName);
++		nResult = tas2559_load_coefficient(pTAS2559, pTAS2559->mnCurrentConfiguration, nConfiguration, true);
++		pTAS2559->mbLoadConfigurationPrePowerUp = false;
++	} else {
++		dev_dbg(pTAS2559->dev,
++			"TAS2559 was powered down, will load coefficient when power up\n");
++		pTAS2559->mbLoadConfigurationPrePowerUp = true;
++		pTAS2559->mnNewConfiguration = nConfiguration;
++	}
++
++end:
++
++	if (nResult < 0) {
++		if (pTAS2559->mnErrCode & (ERROR_DEVA_I2C_COMM | ERROR_DEVB_I2C_COMM | ERROR_PRAM_CRCCHK | ERROR_YRAM_CRCCHK))
++			failsafe(pTAS2559);
++	}
++
++	return nResult;
++}
++
++int tas2559_set_program(struct tas2559_priv *pTAS2559,
++			unsigned int nProgram, int nConfig)
++{
++	struct TProgram *pProgram;
++	struct TConfiguration *pConfiguration;
++	unsigned int nConfiguration = 0;
++	unsigned int nSampleRate = 0;
++	bool bFound = false;
++	int nResult = 0;
++
++	if ((!pTAS2559->mpFirmware->mpPrograms) ||
++	    (!pTAS2559->mpFirmware->mpConfigurations)) {
++		dev_err(pTAS2559->dev, "Firmware not loaded\n");
++		nResult = 0;
++		goto end;
++	}
++
++	if (nProgram >= pTAS2559->mpFirmware->mnPrograms) {
++		dev_err(pTAS2559->dev, "TAS2559: Program %d doesn't exist\n",
++			nProgram);
++		nResult = 0;
++		goto end;
++	}
++
++	if(nProgram == 1)
++		pTAS2559->mnCurrentSampleRate = 96000;
++	else
++		pTAS2559->mnCurrentSampleRate = 48000;
++
++	if (nConfig < 0) {
++		nConfiguration = 0;
++		nSampleRate = pTAS2559->mnCurrentSampleRate;
++		dev_err(pTAS2559->dev, "nSampleRate: %d\n", nSampleRate);
++
++		while (!bFound && (nConfiguration < pTAS2559->mpFirmware->mnConfigurations)) {
++			dev_err(pTAS2559->dev, "mpConfigurations SampleRate: %d\n",
++							pTAS2559->mpFirmware->mpConfigurations[nConfiguration].mnSamplingRate);
++			if (pTAS2559->mpFirmware->mpConfigurations[nConfiguration].mnProgram == nProgram) {
++				if (nSampleRate == 0) {
++					bFound = true;
++					dev_info(pTAS2559->dev, "find default configuration %d\n", nConfiguration);
++				} else if (nSampleRate == pTAS2559->mpFirmware->mpConfigurations[nConfiguration].mnSamplingRate) {
++					bFound = true;
++					dev_info(pTAS2559->dev, "find matching configuration %d\n", nConfiguration);
++				} else {
++					nConfiguration++;
++				}
++			} else {
++				nConfiguration++;
++			}
++		}
++
++		if (!bFound) {
++			dev_err(pTAS2559->dev,
++				"Program %d, no valid configuration found for sample rate %d, ignore\n",
++				nProgram, nSampleRate);
++			nResult = 0;
++			goto end;
++		}
++	} else {
++		if (pTAS2559->mpFirmware->mpConfigurations[nConfig].mnProgram != nProgram) {
++			dev_err(pTAS2559->dev, "%s, configuration program doesn't match\n", __func__);
++			nResult = 0;
++			goto end;
++		}
++
++		nConfiguration = nConfig;
++	}
++
++	pProgram = &(pTAS2559->mpFirmware->mpPrograms[nProgram]);
++
++	if (pTAS2559->mbPowerUp) {
++		dev_info(pTAS2559->dev,
++			 "device powered up, power down to load program %d (%s)\n",
++			 nProgram, pProgram->mpName);
++
++		nResult = tas2559_DevShutdown(pTAS2559, DevBoth);
++
++		if (nResult < 0)
++			goto end;
++	}
++
++	tas2559_hw_reset(pTAS2559);
++	nResult = tas2559_dev_write(pTAS2559, DevBoth, TAS2559_SW_RESET_REG, 0x01);
++	if (nResult < 0)
++		goto end;
++
++	msleep(1);
++	nResult = tas2559_load_default(pTAS2559);
++	if (nResult < 0)
++		goto end;
++
++	dev_info(pTAS2559->dev, "load program %d (%s)\n", nProgram, pProgram->mpName);
++	nResult = tas2559_load_data(pTAS2559, &(pProgram->mData), TAS2559_BLOCK_PGM_DEV_A);
++	if (nResult < 0)
++		goto end;
++
++	nResult = tas2559_load_data(pTAS2559, &(pProgram->mData), TAS2559_BLOCK_PGM_DEV_B);
++	if (nResult < 0)
++		goto end;
++
++	pTAS2559->mnCurrentProgram = nProgram;
++
++	nResult = tas2559_load_coefficient(pTAS2559, -1, nConfiguration, false);
++	if (nResult < 0)
++		goto end;
++
++	if (pTAS2559->mbPowerUp) {
++		pConfiguration = &(pTAS2559->mpFirmware->mpConfigurations[pTAS2559->mnCurrentConfiguration]);
++		nResult = tas2559_DevStartup(pTAS2559, pConfiguration->mnDevices);
++		if (nResult < 0)
++			goto end;
++
++		if (pConfiguration->mnDevices & DevB) {
++			nResult = tas2559_load_data(pTAS2559, &(pConfiguration->mData),
++						TAS2559_BLOCK_PST_POWERUP_DEV_B);
++			if (nResult < 0)
++				goto end;
++		}
++
++		nResult = tas2559_DevMute(pTAS2559, pConfiguration->mnDevices, false);
++		if (nResult < 0)
++			goto end;
++	}
++
++end:
++
++	if (nResult < 0) {
++		if (pTAS2559->mnErrCode & (ERROR_DEVA_I2C_COMM | ERROR_DEVB_I2C_COMM | ERROR_PRAM_CRCCHK | ERROR_YRAM_CRCCHK))
++			failsafe(pTAS2559);
++	}
++
++	return nResult;
++}
++
++static void fw_print_header(struct tas2559_priv *pTAS2559, struct TFirmware *pFirmware)
++{
++	dev_info(pTAS2559->dev, "FW Size       = %d", pFirmware->mnFWSize);
++	dev_info(pTAS2559->dev, "Checksum      = 0x%04X", pFirmware->mnChecksum);
++	dev_info(pTAS2559->dev, "PPC Version   = 0x%04X", pFirmware->mnPPCVersion);
++	dev_info(pTAS2559->dev, "FW  Version    = 0x%04X", pFirmware->mnFWVersion);
++	dev_info(pTAS2559->dev, "Driver Version= 0x%04X", pFirmware->mnDriverVersion);
++	dev_info(pTAS2559->dev, "Timestamp     = %d", pFirmware->mnTimeStamp);
++	dev_info(pTAS2559->dev, "DDC Name      = %s", pFirmware->mpDDCName);
++	dev_info(pTAS2559->dev, "Description   = %s", pFirmware->mpDescription);
++}
++
++static inline unsigned int fw_convert_number(unsigned char *pData)
++{
++	return pData[3] + (pData[2] << 8) + (pData[1] << 16) + (pData[0] << 24);
++}
++
++static int fw_parse_header(struct tas2559_priv *pTAS2559,
++			   struct TFirmware *pFirmware, unsigned char *pData, unsigned int nSize)
++{
++	unsigned char *pDataStart = pData;
++	unsigned int n;
++	unsigned char pMagicNumber[] = { 0x35, 0x35, 0x35, 0x32 };
++
++	if (nSize < 104) {
++		dev_err(pTAS2559->dev, "Firmware: Header too short");
++		return -EINVAL;
++	}
++
++	if (memcmp(pData, pMagicNumber, 4)) {
++		dev_err(pTAS2559->dev, "Firmware: Magic number doesn't match");
++		return -EINVAL;
++	}
++
++	pData += 4;
++
++	pFirmware->mnFWSize = fw_convert_number(pData);
++	pData += 4;
++
++	pFirmware->mnChecksum = fw_convert_number(pData);
++	pData += 4;
++
++	pFirmware->mnPPCVersion = fw_convert_number(pData);
++	pData += 4;
++
++	pFirmware->mnFWVersion = fw_convert_number(pData);
++	pData += 4;
++
++	pFirmware->mnDriverVersion = fw_convert_number(pData);
++	dev_err(pTAS2559->dev, "Firmware driver: 0x%x", pFirmware->mnDriverVersion);
++	pData += 4;
++
++	pFirmware->mnTimeStamp = fw_convert_number(pData);
++	pData += 4;
++
++	memcpy(pFirmware->mpDDCName, pData, 64);
++	pData += 64;
++
++	n = strlen(pData);
++	pFirmware->mpDescription = kmemdup(pData, n + 1, GFP_KERNEL);
++	pData += n + 1;
++
++	if ((pData - pDataStart) >= nSize) {
++		dev_err(pTAS2559->dev, "Firmware: Header too short after DDC description");
++		return -EINVAL;
++	}
++
++	pFirmware->mnDeviceFamily = fw_convert_number(pData);
++	pData += 4;
++
++	if (pFirmware->mnDeviceFamily != 0) {
++		dev_err(pTAS2559->dev,
++			"deviceFamily %d, not TAS device", pFirmware->mnDeviceFamily);
++		return -EINVAL;
++	}
++
++	pFirmware->mnDevice = fw_convert_number(pData);
++	pData += 4;
++
++	if (pFirmware->mnDevice != 4) {
++		dev_err(pTAS2559->dev,
++			"device %d, not TAS2559", pFirmware->mnDevice);
++		return -EINVAL;
++	}
++
++	fw_print_header(pTAS2559, pFirmware);
++
++	return pData - pDataStart;
++}
++
++static int fw_parse_block_data(struct tas2559_priv *pTAS2559, struct TFirmware *pFirmware,
++			       struct TBlock *pBlock, unsigned char *pData)
++{
++	unsigned char *pDataStart = pData;
++	unsigned int n;
++
++	pBlock->mnType = fw_convert_number(pData);
++	pData += 4;
++
++	if (pFirmware->mnDriverVersion >= PPC_DRIVER_CRCCHK) {
++		pBlock->mbPChkSumPresent = pData[0];
++		pData++;
++
++		pBlock->mnPChkSum = pData[0];
++		pData++;
++
++		// skip YRAM checksum data for simplicity
++		pData += 2;
++	} else {
++		pBlock->mbPChkSumPresent = 0;
++	}
++
++	pBlock->mnCommands = fw_convert_number(pData);
++	pData += 4;
++
++	n = pBlock->mnCommands * 4;
++	pBlock->mpData = kmemdup(pData, n, GFP_KERNEL);
++	pData += n;
++
++	return pData - pDataStart;
++}
++
++static int fw_parse_data(struct tas2559_priv *pTAS2559, struct TFirmware *pFirmware,
++			 struct TData *pImageData, unsigned char *pData)
++{
++	unsigned char *pDataStart = pData;
++	unsigned int nBlock;
++	unsigned int n;
++
++	memcpy(pImageData->mpName, pData, 64);
++	pData += 64;
++
++	n = strlen(pData);
++	pImageData->mpDescription = kmemdup(pData, n + 1, GFP_KERNEL);
++	pData += n + 1;
++
++	pImageData->mnBlocks = (pData[0] << 8) + pData[1];
++	pData += 2;
++
++	pImageData->mpBlocks =
++		kmalloc(sizeof(struct TBlock) * pImageData->mnBlocks, GFP_KERNEL);
++
++	for (nBlock = 0; nBlock < pImageData->mnBlocks; nBlock++) {
++		n = fw_parse_block_data(pTAS2559, pFirmware,
++					&(pImageData->mpBlocks[nBlock]), pData);
++		pData += n;
++	}
++
++	return pData - pDataStart;
++}
++
++static int fw_parse_pll_data(struct tas2559_priv *pTAS2559,
++			     struct TFirmware *pFirmware, unsigned char *pData)
++{
++	unsigned char *pDataStart = pData;
++	unsigned int n;
++	unsigned int nPLL;
++	struct TPLL *pPLL;
++
++	pFirmware->mnPLLs = (pData[0] << 8) + pData[1];
++	pData += 2;
++
++	if (pFirmware->mnPLLs == 0)
++		goto end;
++
++	pFirmware->mpPLLs = kmalloc_array(pFirmware->mnPLLs, sizeof(struct TPLL), GFP_KERNEL);
++
++	for (nPLL = 0; nPLL < pFirmware->mnPLLs; nPLL++) {
++		pPLL = &(pFirmware->mpPLLs[nPLL]);
++
++		memcpy(pPLL->mpName, pData, 64);
++		pData += 64;
++
++		n = strlen(pData);
++		pPLL->mpDescription = kmemdup(pData, n + 1, GFP_KERNEL);
++		pData += n + 1;
++
++		n = fw_parse_block_data(pTAS2559, pFirmware, &(pPLL->mBlock), pData);
++		pData += n;
++	}
++
++end:
++	return pData - pDataStart;
++}
++
++static int fw_parse_program_data(struct tas2559_priv *pTAS2559,
++				 struct TFirmware *pFirmware, unsigned char *pData)
++{
++	unsigned char *pDataStart = pData;
++	unsigned int n;
++	unsigned int nProgram;
++	struct TProgram *pProgram;
++
++	pFirmware->mnPrograms = (pData[0] << 8) + pData[1];
++	pData += 2;
++
++	if (pFirmware->mnPrograms == 0)
++		goto end;
++
++	pFirmware->mpPrograms =
++		kmalloc(sizeof(struct TProgram) * pFirmware->mnPrograms, GFP_KERNEL);
++
++	for (nProgram = 0; nProgram < pFirmware->mnPrograms; nProgram++) {
++		pProgram = &(pFirmware->mpPrograms[nProgram]);
++		memcpy(pProgram->mpName, pData, 64);
++		pData += 64;
++
++		n = strlen(pData);
++		pProgram->mpDescription = kmemdup(pData, n + 1, GFP_KERNEL);
++		pData += n + 1;
++
++		pProgram->mnAppMode = pData[0];
++		pData++;
++
++		pProgram->mnBoost = (pData[0] << 8) + pData[1];
++		pData += 2;
++
++		n = fw_parse_data(pTAS2559, pFirmware, &(pProgram->mData), pData);
++		pData += n;
++	}
++
++end:
++
++	return pData - pDataStart;
++}
++
++static int fw_parse_configuration_data(struct tas2559_priv *pTAS2559,
++				       struct TFirmware *pFirmware, unsigned char *pData)
++{
++	unsigned char *pDataStart = pData;
++	unsigned int n;
++	unsigned int nConfiguration;
++	struct TConfiguration *pConfiguration;
++
++	pFirmware->mnConfigurations = (pData[0] << 8) + pData[1];
++	pData += 2;
++
++	if (pFirmware->mnConfigurations == 0)
++		goto end;
++
++	pFirmware->mpConfigurations =
++		kmalloc(sizeof(struct TConfiguration) * pFirmware->mnConfigurations,
++			GFP_KERNEL);
++
++	for (nConfiguration = 0; nConfiguration < pFirmware->mnConfigurations;
++	     nConfiguration++) {
++		pConfiguration = &(pFirmware->mpConfigurations[nConfiguration]);
++		memcpy(pConfiguration->mpName, pData, 64);
++		pData += 64;
++
++		n = strlen(pData);
++		pConfiguration->mpDescription = kmemdup(pData, n + 1, GFP_KERNEL);
++		pData += n + 1;
++
++		if ((pFirmware->mnDriverVersion >= PPC_DRIVER_CONFDEV)
++		    || ((pFirmware->mnDriverVersion >= PPC_DRIVER_CFGDEV_NONCRC)
++			&& (pFirmware->mnDriverVersion < PPC_DRIVER_CRCCHK))) {
++			pConfiguration->mnDevices = (pData[0] << 8) + pData[1];
++			pData += 2;
++		} else
++			pConfiguration->mnDevices = DevBoth;
++
++		pConfiguration->mnProgram = pData[0];
++		pData++;
++
++		pConfiguration->mnPLL = pData[0];
++		pData++;
++
++		pConfiguration->mnSamplingRate = fw_convert_number(pData);
++		pData += 4;
++
++		if (pFirmware->mnDriverVersion >= PPC_DRIVER_MTPLLSRC) {
++			pConfiguration->mnPLLSrc = pData[0];
++			pData++;
++
++			pConfiguration->mnPLLSrcRate = fw_convert_number(pData);
++			pData += 4;
++			dev_err(pTAS2559->dev, "line:%d, pData: 0x%x, 0x%x, 0x%x, 0x%x", __LINE__, pData[0], pData[1], pData[2], pData[3]);
++		}
++
++		n = fw_parse_data(pTAS2559, pFirmware, &(pConfiguration->mData), pData);
++		pData += n;
++	}
++
++end:
++
++	return pData - pDataStart;
++}
++
++static int fw_parse_calibration_data(struct tas2559_priv *pTAS2559,
++			      struct TFirmware *pFirmware, unsigned char *pData)
++{
++	unsigned char *pDataStart = pData;
++	unsigned int n;
++	unsigned int nCalibration;
++	struct TCalibration *pCalibration;
++
++	pFirmware->mnCalibrations = (pData[0] << 8) + pData[1];
++	pData += 2;
++
++	if (pFirmware->mnCalibrations == 0)
++		goto end;
++
++	pFirmware->mpCalibrations =
++		kmalloc(sizeof(struct TCalibration) * pFirmware->mnCalibrations, GFP_KERNEL);
++
++	for (nCalibration = 0;
++	     nCalibration < pFirmware->mnCalibrations;
++	     nCalibration++) {
++		pCalibration = &(pFirmware->mpCalibrations[nCalibration]);
++		memcpy(pCalibration->mpName, pData, 64);
++		pData += 64;
++
++		n = strlen(pData);
++		pCalibration->mpDescription = kmemdup(pData, n + 1, GFP_KERNEL);
++		pData += n + 1;
++
++		pCalibration->mnProgram = pData[0];
++		pData++;
++
++		pCalibration->mnConfiguration = pData[0];
++		pData++;
++
++		n = fw_parse_data(pTAS2559, pFirmware, &(pCalibration->mData), pData);
++		pData += n;
++	}
++
++end:
++
++	return pData - pDataStart;
++}
++
++static int fw_parse(struct tas2559_priv *pTAS2559,
++		    struct TFirmware *pFirmware, unsigned char *pData, unsigned int nSize)
++{
++	int nPosition = 0;
++
++	nPosition = fw_parse_header(pTAS2559, pFirmware, pData, nSize);
++
++	if (nPosition < 0) {
++		dev_err(pTAS2559->dev, "Firmware: Wrong Header");
++		return -EINVAL;
++	}
++
++	if (nPosition >= nSize) {
++		dev_err(pTAS2559->dev, "Firmware: Too short");
++		return -EINVAL;
++	}
++
++	pData += nPosition;
++	nSize -= nPosition;
++	nPosition = 0;
++
++	nPosition = fw_parse_pll_data(pTAS2559, pFirmware, pData);
++
++	pData += nPosition;
++	nSize -= nPosition;
++	nPosition = 0;
++
++	nPosition = fw_parse_program_data(pTAS2559, pFirmware, pData);
++
++	pData += nPosition;
++	nSize -= nPosition;
++	nPosition = 0;
++
++	nPosition = fw_parse_configuration_data(pTAS2559, pFirmware, pData);
++
++	pData += nPosition;
++	nSize -= nPosition;
++	nPosition = 0;
++
++	if (nSize > 64)
++		nPosition = fw_parse_calibration_data(pTAS2559, pFirmware, pData);
++
++	return 0;
++}
++
++void tas2559_fw_ready(const struct firmware *pFW, void *pContext)
++{
++	struct tas2559_priv *pTAS2559 = (struct tas2559_priv *) pContext;
++	int nResult;
++	unsigned int nProgram = 0;
++	unsigned int nSampleRate = 0;
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	dev_info(pTAS2559->dev, "%s:\n", __func__);
++
++	if (unlikely(!pFW) || unlikely(!pFW->data)) {
++		dev_err(pTAS2559->dev, "%s firmware is not loaded.\n",
++			TAS2559_FW_NAME);
++		goto end;
++	}
++
++	if (pTAS2559->mpFirmware->mpConfigurations) {
++		nProgram = pTAS2559->mnCurrentProgram;
++		nSampleRate = pTAS2559->mnCurrentSampleRate;
++		dev_dbg(pTAS2559->dev, "clear current firmware\n");
++		tas2559_clear_firmware(pTAS2559->mpFirmware);
++	}
++
++	nResult = fw_parse(pTAS2559, pTAS2559->mpFirmware, (unsigned char *)(pFW->data), pFW->size);
++	release_firmware(pFW);
++
++	if (nResult < 0) {
++		dev_err(pTAS2559->dev, "firmware is corrupt\n");
++		goto end;
++	}
++
++	if (!pTAS2559->mpFirmware->mnPrograms) {
++		dev_err(pTAS2559->dev, "firmware contains no programs\n");
++		nResult = -EINVAL;
++		goto end;
++	}
++
++	if (!pTAS2559->mpFirmware->mnConfigurations) {
++		dev_err(pTAS2559->dev, "firmware contains no configurations\n");
++		nResult = -EINVAL;
++		goto end;
++	}
++
++	if (nProgram >= pTAS2559->mpFirmware->mnPrograms) {
++		dev_info(pTAS2559->dev,
++			 "no previous program, set to default\n");
++		nProgram = 0;
++	}
++
++	pTAS2559->mnCurrentSampleRate = nSampleRate;
++	nResult = tas2559_set_program(pTAS2559, nProgram, -1);
++
++end:
++	mutex_unlock(&pTAS2559->codec_lock);
++}
++
++int tas2559_enable(struct tas2559_priv *pTAS2559, bool bEnable)
++{
++	int nResult = 0;
++	struct TProgram *pProgram;
++	struct TConfiguration *pConfiguration;
++	unsigned int nValue;
++
++	dev_dbg(pTAS2559->dev, "%s: %s\n", __func__, bEnable ? "On" : "Off");
++
++	if ((pTAS2559->mpFirmware->mnPrograms == 0)
++	    || (pTAS2559->mpFirmware->mnConfigurations == 0)) {
++		dev_err(pTAS2559->dev, "%s, firmware not loaded\n", __func__);
++		/*Load firmware*/
++		nResult = request_firmware_nowait(THIS_MODULE, 1, TAS2559_FW_NAME,
++			pTAS2559->dev, GFP_KERNEL, pTAS2559, tas2559_fw_ready);
++		if(nResult < 0) {
++			dev_err(pTAS2559->dev, "%s, firmware is loaded\n", __func__);
++			goto end;
++		}
++	}
++
++	/* check safe guard*/
++	nResult = tas2559_dev_read(pTAS2559, DevA, TAS2559_SAFE_GUARD_REG, &nValue);
++	if (nResult < 0)
++		goto end;
++	if ((nValue & 0xff) != TAS2559_SAFE_GUARD_PATTERN) {
++		dev_err(pTAS2559->dev, "ERROR DevA safe guard (0x%x) failure!\n", nValue);
++		nResult = -EPIPE;
++		pTAS2559->mnErrCode = ERROR_SAFE_GUARD;
++		pTAS2559->mbPowerUp = true;
++		goto end;
++	}
++
++	pProgram = &(pTAS2559->mpFirmware->mpPrograms[pTAS2559->mnCurrentProgram]);
++	if (bEnable) {
++		if (!pTAS2559->mbPowerUp) {
++			if (pTAS2559->mbLoadConfigurationPrePowerUp) {
++				pTAS2559->mbLoadConfigurationPrePowerUp = false;
++				nResult = tas2559_load_coefficient(pTAS2559,
++								pTAS2559->mnCurrentConfiguration, pTAS2559->mnNewConfiguration, false);
++				if (nResult < 0)
++					goto end;
++			}
++
++			pConfiguration = &(pTAS2559->mpFirmware->mpConfigurations[pTAS2559->mnCurrentConfiguration]);
++			nResult = tas2559_DevStartup(pTAS2559, pConfiguration->mnDevices);
++			if (nResult < 0)
++				goto end;
++
++			if (pConfiguration->mnDevices & DevB) {
++				nResult = tas2559_load_data(pTAS2559, &(pConfiguration->mData),
++								TAS2559_BLOCK_PST_POWERUP_DEV_B);
++				if (nResult < 0)
++					goto end;
++			}
++
++			nResult = tas2559_DevMute(pTAS2559, pConfiguration->mnDevices, false);
++			if (nResult < 0)
++				goto end;
++
++			pTAS2559->mbPowerUp = true;
++			pTAS2559->mnRestart = 0;
++		}
++	} else {
++		if (pTAS2559->mbPowerUp) {
++
++			pConfiguration = &(pTAS2559->mpFirmware->mpConfigurations[pTAS2559->mnCurrentConfiguration]);
++
++			nResult = tas2559_DevShutdown(pTAS2559, pConfiguration->mnDevices);
++			if (nResult < 0)
++				goto end;
++
++			pTAS2559->mbPowerUp = false;
++			pTAS2559->mnRestart = 0;
++		}
++	}
++
++	nResult = 0;
++
++end:
++
++	if (nResult < 0) {
++		if (pTAS2559->mnErrCode & (ERROR_DEVA_I2C_COMM | ERROR_DEVB_I2C_COMM | ERROR_PRAM_CRCCHK | ERROR_YRAM_CRCCHK | ERROR_SAFE_GUARD))
++			failsafe(pTAS2559);
++	}
++
++	dev_dbg(pTAS2559->dev, "%s: exit\n", __func__);
++	return nResult;
++}
++
++int tas2559_set_sampling_rate(struct tas2559_priv *pTAS2559, unsigned int nSamplingRate)
++{
++	int nResult = 0;
++	struct TConfiguration *pConfiguration;
++	unsigned int nConfiguration;
++
++	dev_dbg(pTAS2559->dev, "%s: nSamplingRate = %d [Hz]\n", __func__,
++		nSamplingRate);
++
++	if ((!pTAS2559->mpFirmware->mpPrograms) ||
++	    (!pTAS2559->mpFirmware->mpConfigurations)) {
++		dev_err(pTAS2559->dev, "Firmware not loaded\n");
++		nResult = -EINVAL;
++		goto end;
++	}
++
++	pConfiguration = &(pTAS2559->mpFirmware->mpConfigurations[pTAS2559->mnCurrentConfiguration]);
++
++	if (pConfiguration->mnSamplingRate == nSamplingRate) {
++		dev_info(pTAS2559->dev, "Sampling rate for current configuration matches: %d\n",
++			 nSamplingRate);
++		nResult = 0;
++		goto end;
++	}
++
++	for (nConfiguration = 0;
++	     nConfiguration < pTAS2559->mpFirmware->mnConfigurations;
++	     nConfiguration++) {
++		pConfiguration =
++			&(pTAS2559->mpFirmware->mpConfigurations[nConfiguration]);
++
++		if ((pConfiguration->mnSamplingRate == nSamplingRate)
++		    && (pConfiguration->mnProgram == pTAS2559->mnCurrentProgram)) {
++			dev_info(pTAS2559->dev,
++				 "Found configuration: %s, with compatible sampling rate %d\n",
++				 pConfiguration->mpName, nSamplingRate);
++			nResult = tas2559_load_configuration(pTAS2559, nConfiguration, false);
++			goto end;
++		}
++	}
++
++	dev_err(pTAS2559->dev, "Cannot find a configuration that supports sampling rate: %d\n",
++		nSamplingRate);
++
++end:
++
++	return nResult;
++}
++
++int tas2559_set_config(struct tas2559_priv *pTAS2559, int config)
++{
++	struct TConfiguration *pConfiguration;
++	struct TProgram *pProgram;
++	unsigned int nProgram = pTAS2559->mnCurrentProgram;
++	unsigned int nConfiguration = config;
++	int nResult = 0;
++
++	if ((!pTAS2559->mpFirmware->mpPrograms) ||
++	    (!pTAS2559->mpFirmware->mpConfigurations)) {
++		dev_err(pTAS2559->dev, "Firmware not loaded\n");
++		nResult = -EINVAL;
++		goto end;
++	}
++
++	if (nConfiguration >= pTAS2559->mpFirmware->mnConfigurations) {
++		dev_err(pTAS2559->dev, "Configuration %d doesn't exist\n",
++			nConfiguration);
++		nResult = -EINVAL;
++		goto end;
++	}
++
++	pConfiguration = &(pTAS2559->mpFirmware->mpConfigurations[nConfiguration]);
++	pProgram = &(pTAS2559->mpFirmware->mpPrograms[nProgram]);
++
++	if (nProgram != pConfiguration->mnProgram) {
++		dev_err(pTAS2559->dev,
++			"Configuration %d, %s with Program %d isn't compatible with existing Program %d, %s\n",
++			nConfiguration, pConfiguration->mpName, pConfiguration->mnProgram,
++			nProgram, pProgram->mpName);
++		nResult = -EINVAL;
++		goto end;
++	}
++
++	dev_dbg(pTAS2559->dev, "%s, load new conf %s\n", __func__, pConfiguration->mpName);
++	nResult = tas2559_load_configuration(pTAS2559, nConfiguration, false);
++
++end:
++
++	return nResult;
++}
++
++int tas2559_parse_dt(struct device *dev, struct tas2559_priv *pTAS2559)
++{
++	struct device_node *np = dev->of_node;
++	int rc = 0, ret = 0;
++	unsigned int value;
++
++	pTAS2559->mnDevAGPIORST = devm_gpiod_get(dev, "ti,tas2559-reset", GPIOD_OUT_LOW);
++	if (IS_ERR(pTAS2559->mnDevAGPIORST)) {
++		ret = PTR_ERR(pTAS2559->mnDevAGPIORST);
++		dev_err(dev, "Failed to request reset gpio, error %d\n", ret);
++		return ret;
++	}
++	else
++		dev_dbg(pTAS2559->dev, "%s, tas2559 reset gpio\n", __func__);
++
++	pTAS2559->mnDevBGPIORST = devm_gpiod_get(dev, "ti,tas2560-reset", GPIOD_OUT_LOW);
++	if (IS_ERR(pTAS2559->mnDevBGPIORST)) {
++		ret = PTR_ERR(pTAS2559->mnDevBGPIORST);
++		dev_err(dev, "Failed to request reset gpio, error %d\n", ret);
++		return ret;
++	}
++	else
++		dev_dbg(pTAS2559->dev, "%s, tas2560 reset gpio\n", __func__);
++
++	rc = of_property_read_u32(np, "ti,tas2559-addr", &value);
++	if (rc) {
++		dev_err(pTAS2559->dev, "Looking up %s property in node %s failed %d\n",
++			"ti,tas2559-addr", np->full_name, rc);
++		ret = -EINVAL;
++		goto end;
++	} else {
++		pTAS2559->mnDevAAddr = value;
++		dev_dbg(pTAS2559->dev, "ti,tas2559 addr=0x%x\n", pTAS2559->mnDevAAddr);
++	}
++
++	rc = of_property_read_u32(np, "ti,tas2560-addr", &value);
++	if (rc) {
++		dev_err(pTAS2559->dev, "Looking up %s property in node %s failed %d\n",
++			"ti,tas2560-addr", np->full_name, rc);
++		ret = -EINVAL;
++		goto end;
++	} else {
++		pTAS2559->mnDevBAddr = value;
++		dev_dbg(pTAS2559->dev, "ti,tas2560-addr=0x%x\n", pTAS2559->mnDevBAddr);
++	}	
++
++end:
++
++	return ret;
++}
++
++// Codec related
++
++static const struct snd_soc_dapm_widget tas2559_dapm_widgets[] = {
++	SND_SOC_DAPM_AIF_IN("ASI1", "ASI1 Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("ASI2", "ASI2 Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("ASIM", "ASIM Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_DAC("DAC", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_OUT_DRV("ClassD", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("PLL", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("NDivider", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_OUTPUT("OUT")
++};
++
++static const struct snd_soc_dapm_route tas2559_audio_map[] = {
++	{"DAC", NULL, "ASI1"},
++	{"DAC", NULL, "ASI2"},
++	{"DAC", NULL, "ASIM"},
++	{"ClassD", NULL, "DAC"},
++	{"OUT", NULL, "ClassD"},
++	{"DAC", NULL, "PLL"},
++	{"DAC", NULL, "NDivider"},
++};
++
++static int tas2559_mute(struct snd_soc_dai *dai, int mute, int direction)
++{
++	struct snd_soc_component *codec = dai->component;
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(codec);
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	dev_dbg(pTAS2559->dev, "%s\n", __func__);
++	tas2559_enable(pTAS2559, !mute);
++
++	mutex_unlock(&pTAS2559->codec_lock);
++	return 0;
++}
++
++static int tas2559_hw_params(struct snd_pcm_substream *pSubstream,
++			     struct snd_pcm_hw_params *pParams, struct snd_soc_dai *pDAI)
++{
++	struct snd_soc_component *pCodec = pDAI->component;
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(pCodec);
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	dev_dbg(pTAS2559->dev, "%s\n", __func__);
++	tas2559_set_sampling_rate(pTAS2559, params_rate(pParams));
++
++	mutex_unlock(&pTAS2559->codec_lock);
++	return 0;
++}
++
++static int tas2559_configuration_get(struct snd_kcontrol *pKcontrol,
++				     struct snd_ctl_elem_value *pValue)
++{
++    struct snd_soc_component *codec = snd_kcontrol_chip(pKcontrol);
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(codec);
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	pValue->value.integer.value[0] = pTAS2559->mnCurrentConfiguration;
++	dev_dbg(pTAS2559->dev, "%s = %d\n", __func__,
++		pTAS2559->mnCurrentConfiguration);
++
++	mutex_unlock(&pTAS2559->codec_lock);
++	return 0;
++}
++
++static int tas2559_configuration_put(struct snd_kcontrol *pKcontrol,
++				     struct snd_ctl_elem_value *pValue)
++{
++    struct snd_soc_component *codec = snd_kcontrol_chip(pKcontrol);
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(codec);
++	unsigned int nConfiguration = pValue->value.integer.value[0];
++	int ret = 0;
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	dev_info(pTAS2559->dev, "%s = %d\n", __func__, nConfiguration);
++	ret = tas2559_set_config(pTAS2559, nConfiguration);
++
++	mutex_unlock(&pTAS2559->codec_lock);
++	return ret;
++}
++
++static int tas2559_ldac_gain_get(struct snd_kcontrol *pKcontrol,
++				 struct snd_ctl_elem_value *pValue)
++{
++    struct snd_soc_component *codec = snd_kcontrol_chip(pKcontrol);
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(codec);
++	unsigned char nGain = 0;
++	int ret = -1;
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	ret = tas2559_get_DAC_gain(pTAS2559, DevA, &nGain);
++
++	if (ret >= 0)
++		pValue->value.integer.value[0] = nGain;
++
++	dev_dbg(pTAS2559->dev, "%s, ret = %d, %d\n", __func__, ret, nGain);
++
++	mutex_unlock(&pTAS2559->codec_lock);
++	return ret;
++}
++
++static int tas2559_ldac_gain_put(struct snd_kcontrol *pKcontrol,
++				 struct snd_ctl_elem_value *pValue)
++{
++    struct snd_soc_component *codec = snd_kcontrol_chip(pKcontrol);
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(codec);
++	unsigned int nGain = pValue->value.integer.value[0];
++	int ret = 0;
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	ret = tas2559_set_DAC_gain(pTAS2559, DevA, nGain);
++
++	mutex_unlock(&pTAS2559->codec_lock);
++	return ret;
++}
++
++static int tas2559_rdac_gain_get(struct snd_kcontrol *pKcontrol,
++				 struct snd_ctl_elem_value *pValue)
++{
++    struct snd_soc_component *codec = snd_kcontrol_chip(pKcontrol);
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(codec);
++	unsigned char nGain = 0;
++	int ret = -1;
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	ret = tas2559_get_DAC_gain(pTAS2559, DevB, &nGain);
++
++	if (ret >= 0)
++		pValue->value.integer.value[0] = nGain;
++
++	dev_dbg(pTAS2559->dev, "%s, ret = %d, %d\n", __func__, ret, nGain);
++
++	mutex_unlock(&pTAS2559->codec_lock);
++
++	return ret;
++}
++
++static int tas2559_rdac_gain_put(struct snd_kcontrol *pKcontrol,
++				 struct snd_ctl_elem_value *pValue)
++{
++    struct snd_soc_component *codec = snd_kcontrol_chip(pKcontrol);
++	struct tas2559_priv *pTAS2559 = snd_soc_component_get_drvdata(codec);
++	unsigned int nGain = pValue->value.integer.value[0];
++	int ret = 0;
++
++	mutex_lock(&pTAS2559->codec_lock);
++
++	ret = tas2559_set_DAC_gain(pTAS2559, DevB, nGain);
++
++	mutex_unlock(&pTAS2559->codec_lock);
++	return ret;
++}
++
++static const struct snd_kcontrol_new tas2559_snd_controls[] = {
++	SOC_SINGLE_EXT("TAS2559 DAC Playback Volume", SND_SOC_NOPM, 0, 0x0f, 0,
++		tas2559_ldac_gain_get, tas2559_ldac_gain_put),
++	SOC_SINGLE_EXT("TAS2560 DAC Playback Volume", SND_SOC_NOPM, 0, 0x0f, 0,
++		tas2559_rdac_gain_get, tas2559_rdac_gain_put),
++	SOC_SINGLE_EXT("Configuration", SND_SOC_NOPM, 0, 0x00FF, 0,
++		tas2559_configuration_get, tas2559_configuration_put),
++};
++
++static const struct snd_soc_component_driver soc_codec_driver_tas2559 = {
++	.idle_bias_on = false,
++	.controls = tas2559_snd_controls,
++	.num_controls = ARRAY_SIZE(tas2559_snd_controls),
++	.dapm_widgets = tas2559_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(tas2559_dapm_widgets),
++	.dapm_routes = tas2559_audio_map,
++	.num_dapm_routes = ARRAY_SIZE(tas2559_audio_map),
++	.legacy_dai_naming	= 1,
++};
++
++static struct snd_soc_dai_ops tas2559_dai_ops = {
++	.mute_stream = tas2559_mute,
++	.hw_params = tas2559_hw_params,
++};
++
++#define TAS2559_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE |\
++			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
++static struct snd_soc_dai_driver tas2559_dai_driver[] = {
++	{
++		.name = "tas2559 ASI1",
++		.id = 0,
++		.playback = {
++			.stream_name = "ASI1 Playback",
++			.channels_min = 2,
++			.channels_max = 2,
++			.rates = SNDRV_PCM_RATE_8000_192000,
++			.formats = TAS2559_FORMATS,
++		},
++		.ops = &tas2559_dai_ops,
++		.symmetric_rate = 1,
++	},
++	{
++		.name = "tas2559 ASI2",
++		.id = 1,
++		.playback = {
++			.stream_name = "ASI2 Playback",
++			.channels_min = 2,
++			.channels_max = 2,
++			.rates = SNDRV_PCM_RATE_8000_192000,
++			.formats = TAS2559_FORMATS,
++		},
++		.ops = &tas2559_dai_ops,
++		.symmetric_rate = 1,
++	},
++	{
++		.name = "tas2559 ASIM",
++		.id = 2,
++		.playback = {
++			.stream_name = "ASIM Playback",
++			.channels_min = 2,
++			.channels_max = 2,
++			.rates = SNDRV_PCM_RATE_8000_192000,
++			.formats = TAS2559_FORMATS,
++		},
++		.ops = &tas2559_dai_ops,
++		.symmetric_rate = 1,
++	},
++};
++
++int tas2559_register_codec(struct tas2559_priv *pTAS2559)
++{
++	int nResult = 0;
++
++	dev_info(pTAS2559->dev, "%s, enter\n", __func__);
++	nResult = devm_snd_soc_register_component(pTAS2559->dev,
++					 &soc_codec_driver_tas2559,
++					 tas2559_dai_driver, ARRAY_SIZE(tas2559_dai_driver));
++	return nResult;
++}
++
++int tas2559_deregister_codec(struct tas2559_priv *pTAS2559)
++{
++	snd_soc_unregister_component(pTAS2559->dev);
++	return 0;
++}
++
++//I2C Driver
++
++static bool tas2559_volatile(struct device *pDev, unsigned int nRegister)
++{
++	return true;
++}
++
++static bool tas2559_writeable(struct device *pDev, unsigned int nRegister)
++{
++	return true;
++}
++
++static const struct regmap_config tas2559_i2c_regmap = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.writeable_reg = tas2559_writeable,
++	.volatile_reg = tas2559_volatile,
++	.cache_type = REGCACHE_NONE,
++	.max_register = 128,
++};
++
++static int tas2559_i2c_probe(struct i2c_client *pClient)
++{
++	struct tas2559_priv *pTAS2559;
++	int nResult;
++
++	dev_info(&pClient->dev, "%s enter\n", __func__);
++	pTAS2559 = devm_kzalloc(&pClient->dev, sizeof(struct tas2559_priv), GFP_KERNEL);
++
++	if (!pTAS2559) {
++		dev_err(&pClient->dev, " -ENOMEM\n");
++		nResult = -ENOMEM;
++		goto err;
++	}
++
++	pTAS2559->client = pClient;
++	pTAS2559->dev = &pClient->dev;
++	i2c_set_clientdata(pClient, pTAS2559);
++	dev_set_drvdata(&pClient->dev, pTAS2559);
++
++	pTAS2559->mpRegmap = devm_regmap_init_i2c(pClient, &tas2559_i2c_regmap);
++
++	if (IS_ERR(pTAS2559->mpRegmap)) {
++		nResult = PTR_ERR(pTAS2559->mpRegmap);
++		dev_err(&pClient->dev, "Failed to allocate register map: %d\n",
++			nResult);
++		goto err;
++	}
++
++	if (pClient->dev.of_node)
++		tas2559_parse_dt(&pClient->dev, pTAS2559);
++
++	tas2559_hw_reset(pTAS2559);
++
++	pTAS2559->mnRestart = 0;
++
++	mutex_init(&pTAS2559->dev_lock);
++
++	/* Reset the chip */
++	nResult = tas2559_dev_write(pTAS2559, DevBoth, TAS2559_SW_RESET_REG, 1);
++	if (nResult < 0) {
++		dev_err(&pClient->dev, "I2c fail, %d\n", nResult);
++		goto err;
++	}
++	msleep(1);
++
++	pTAS2559->mpFirmware = devm_kzalloc(&pClient->dev, sizeof(struct TFirmware), GFP_KERNEL);
++
++	if (!pTAS2559->mpFirmware) {
++		dev_err(&pClient->dev, "mpFirmware ENOMEM\n");
++		nResult = -ENOMEM;
++		goto err;
++	}
++
++	mutex_init(&pTAS2559->codec_lock);
++	tas2559_register_codec(pTAS2559);
++
++	nResult = request_firmware_nowait(THIS_MODULE, 1, TAS2559_FW_NAME,
++					  pTAS2559->dev, GFP_KERNEL, pTAS2559, tas2559_fw_ready);
++
++err:
++
++	return nResult;
++}
++
++static void tas2559_i2c_remove(struct i2c_client *pClient)
++{
++	struct tas2559_priv *pTAS2559 = i2c_get_clientdata(pClient);
++
++	dev_info(pTAS2559->dev, "%s\n", __func__);
++
++	tas2559_deregister_codec(pTAS2559);
++	mutex_destroy(&pTAS2559->codec_lock);
++
++	mutex_destroy(&pTAS2559->dev_lock);
++	return;
++}
++
++static const struct i2c_device_id tas2559_i2c_id[] = {
++	{"tas2559", 0},
++	{}
++};
++
++MODULE_DEVICE_TABLE(i2c, tas2559_i2c_id);
++
++#if defined(CONFIG_OF)
++static const struct of_device_id tas2559_of_match[] = {
++	{.compatible = "ti,tas2559"},
++	{},
++};
++
++MODULE_DEVICE_TABLE(of, tas2559_of_match);
++#endif
++
++static struct i2c_driver tas2559_i2c_driver = {
++	.driver = {
++		.name = "tas2559",
++		.owner = THIS_MODULE,
++#if defined(CONFIG_OF)
++		.of_match_table = of_match_ptr(tas2559_of_match),
++#endif
++	},
++	.probe = tas2559_i2c_probe,
++	.remove = tas2559_i2c_remove,
++	.id_table = tas2559_i2c_id,
++};
++
++module_i2c_driver(tas2559_i2c_driver);
++
++MODULE_AUTHOR("Texas Instruments Inc.");
++MODULE_DESCRIPTION("TAS2559 ALSA SOC Smart Amplifier Stereo driver");
++MODULE_LICENSE("GPL v2");
+diff --git a/sound/soc/codecs/tas2559.h b/sound/soc/codecs/tas2559.h
+new file mode 100644
+index 000000000000..bdd5f4e767af
+--- /dev/null
++++ b/sound/soc/codecs/tas2559.h
+@@ -0,0 +1,525 @@
++/*
++** =============================================================================
++** Copyright (c) 2016  Texas Instruments Inc.
++**
++** This program is free software; you can redistribute it and/or modify it under
++** the terms of the GNU General Public License as published by the Free Software
++** Foundation; version 2.
++**
++** This program is distributed in the hope that it will be useful, but WITHOUT
++** ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
++** FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
++**
++** File:
++**     tas2559.h
++**
++** Description:
++**     definitions and data structures for TAS2559 Android Linux driver
++**
++** =============================================================================
++*/
++
++#ifndef _TAS2559_H
++#define _TAS2559_H
++
++#include <linux/regmap.h>
++
++/* Page Control Register */
++#define	TAS2559_PAGECTL_REG			0
++
++/* Book Control Register (available in page0 of each book) */
++#define	TAS2559_BOOKCTL_PAGE			0
++#define	TAS2559_BOOKCTL_REG			127
++
++#define TAS2559_REG(book, page, reg)		((((unsigned int)book * 256 * 128) + \
++											((unsigned int)page * 128)) + reg)
++
++#define	TAS2559_BOOK_ID(reg)			((unsigned char)(reg / (256 * 128)))
++#define	TAS2559_PAGE_ID(reg)			((unsigned char)((reg % (256 * 128)) / 128))
++#define	TAS2559_BOOK_REG(reg)			((unsigned char)(reg % (256 * 128)))
++#define	TAS2559_PAGE_REG(reg)			((unsigned char)((reg % (256 * 128)) % 128))
++
++/* Book0, Page0 registers */
++#define	TAS2559_SW_RESET_REG			TAS2559_REG(0, 0, 1)
++
++#define	TAS2559_REV_PGID_REG			TAS2559_REG(0, 0, 3)
++#define	TAS2559_PG_VERSION_1P0			0x00
++#define	TAS2559_PG_VERSION_2P0			0x10
++#define	TAS2559_PG_VERSION_2P1			0x20
++
++#define	TAS2559_POWER_CTRL1_REG			TAS2559_REG(0, 0, 4)
++#define	TAS2559_POWER_CTRL2_REG			TAS2559_REG(0, 0, 5)
++
++#define	TAS2559_SPK_CTRL_REG			TAS2559_REG(0, 0, 6)
++/* B0P0R6 - TAS2559_SPK_CTRL_REG */
++#define	TAS2559_DAC_GAIN_MASK			(0xf << 3)
++#define	TAS2559_DAC_GAIN_SHIFT			0x03
++
++#define	TAS2559_MUTE_REG			TAS2559_REG(0, 0, 7)
++#define	TAS2559_SNS_CTRL_REG			TAS2559_REG(0, 0, 8)
++#define	TAS2559_ADC_INPUT_SEL_REG		TAS2559_REG(0, 0, 9)
++#define	TAS2559_DBOOST_CTL_REG			TAS2559_REG(0, 0, 10)
++#define	TAS2559_NONAME11_REG			TAS2559_REG(0, 0, 11)
++#define	TAS2559_NONAME12_REG			TAS2559_REG(0, 0, 12)
++#define	TAS2559_NONAME13_REG			TAS2559_REG(0, 0, 13)
++#define	TAS2559_NONAME14_REG			TAS2559_REG(0, 0, 14)
++#define	TAS2559_NONAME15_REG			TAS2559_REG(0, 0, 15)
++#define	TAS2559_NONAME16_REG			TAS2559_REG(0, 0, 16)
++#define	TAS2559_NONAME17_REG			TAS2559_REG(0, 0, 17)
++#define	TAS2559_NONAME18_REG			TAS2559_REG(0, 0, 18)
++#define	TAS2559_SAR_SAMPLING_TIME_REG		TAS2559_REG(0, 0, 19)
++#define	TAS2559_SAR_ADC1_REG			TAS2559_REG(0, 0, 20)
++#define	TAS2559_SAR_ADC2_REG			TAS2559_REG(0, 0, 21)	/* B0_P0_R0x15 */
++#define	TAS2559_CRC_CHECKSUM_REG		TAS2559_REG(0, 0, 32)	/* B0_P0_R0x20 */
++#define	TAS2559_CRC_RESET_REG			TAS2559_REG(0, 0, 33)	/* B0_P0_R0x21 */
++#define	TAS2559_DSP_MODE_SELECT_REG		TAS2559_REG(0, 0, 34)
++#define	TAS2559_SAFE_GUARD_REG			TAS2559_REG(0, 0, 37)	/* B0_P0_R0x25 */
++#define	TAS2559_ASI_CTRL_REG			TAS2559_REG(0, 0, 42)
++#define	TAS2559_CLK_ERR_CTRL			TAS2559_REG(0, 0, 44)	/* B0_P0_R0x2c */
++#define	TAS2559_CLK_ERR_CTRL2			TAS2559_REG(0, 0, 45)	/* B0_P0_R0x2d*/
++#define	TAS2559_CLK_ERR_CTRL3			TAS2559_REG(0, 0, 46)	/* B0_P0_R0x2e*/
++#define	TAS2559_DBOOST_CFG_REG			TAS2559_REG(0, 0, 52)
++#define	TAS2559_POWER_UP_FLAG_REG		TAS2559_REG(0, 0, 100)	/* B0_P0_R0x64 */
++#define	TAS2559_FLAGS_1				TAS2559_REG(0, 0, 104)	/* B0_P0_R0x68 */
++#define	TAS2559_FLAGS_2				TAS2559_REG(0, 0, 108)	/* B0_P0_R0x6c */
++
++/* Book0, Page1 registers */
++#define	TAS2559_ASI1_DAC_FORMAT_REG		TAS2559_REG(0, 1, 1)
++#define	TAS2559_ASI1_ADC_FORMAT_REG		TAS2559_REG(0, 1, 2)
++#define	TAS2559_ASI1_OFFSET1_REG		TAS2559_REG(0, 1, 3)
++#define	TAS2559_ASI1_ADC_PATH_REG		TAS2559_REG(0, 1, 7)
++#define	TAS2559_ASI1_DAC_BCLK_REG		TAS2559_REG(0, 1, 8)
++#define	TAS2559_ASI1_DAC_WCLK_REG		TAS2559_REG(0, 1, 9)
++#define	TAS2559_ASI1_ADC_BCLK_REG		TAS2559_REG(0, 1, 10)
++#define	TAS2559_ASI1_ADC_WCLK_REG		TAS2559_REG(0, 1, 11)
++#define	TAS2559_ASI1_DIN_DOUT_MUX_REG		TAS2559_REG(0, 1, 12)
++#define	TAS2559_ASI1_BDIV_CLK_SEL_REG		TAS2559_REG(0, 1, 13)
++#define	TAS2559_ASI1_BDIV_CLK_RATIO_REG		TAS2559_REG(0, 1, 14)
++#define	TAS2559_ASI1_WDIV_CLK_RATIO_REG		TAS2559_REG(0, 1, 15)
++#define	TAS2559_ASI1_DAC_CLKOUT_REG		TAS2559_REG(0, 1, 16)
++#define	TAS2559_ASI1_ADC_CLKOUT_REG		TAS2559_REG(0, 1, 17)
++
++#define	TAS2559_ASI2_DAC_FORMAT_REG		TAS2559_REG(0, 1, 21)
++#define	TAS2559_ASI2_ADC_FORMAT_REG		TAS2559_REG(0, 1, 22)
++#define	TAS2559_ASI2_OFFSET1_REG		TAS2559_REG(0, 1, 23)
++#define	TAS2559_ASI2_ADC_PATH_REG		TAS2559_REG(0, 1, 27)
++#define	TAS2559_ASI2_DAC_BCLK_REG		TAS2559_REG(0, 1, 28)
++#define	TAS2559_ASI2_DAC_WCLK_REG		TAS2559_REG(0, 1, 29)
++#define	TAS2559_ASI2_ADC_BCLK_REG		TAS2559_REG(0, 1, 30)
++#define	TAS2559_ASI2_ADC_WCLK_REG		TAS2559_REG(0, 1, 31)
++#define	TAS2559_ASI2_DIN_DOUT_MUX_REG		TAS2559_REG(0, 1, 32)
++#define	TAS2559_ASI2_BDIV_CLK_SEL_REG		TAS2559_REG(0, 1, 33)
++#define	TAS2559_ASI2_BDIV_CLK_RATIO_REG		TAS2559_REG(0, 1, 34)
++#define	TAS2559_ASI2_WDIV_CLK_RATIO_REG		TAS2559_REG(0, 1, 35)
++#define	TAS2559_ASI2_DAC_CLKOUT_REG		TAS2559_REG(0, 1, 36)
++#define	TAS2559_ASI2_ADC_CLKOUT_REG		TAS2559_REG(0, 1, 37)
++
++#define	TAS2559_GPIO1_PIN_REG			TAS2559_REG(0, 1, 61)	/* B0_P1_R0x3d */
++#define	TAS2559_GPIO2_PIN_REG			TAS2559_REG(0, 1, 62)	/* B0_P1_R0x3e */
++#define	TAS2559_GPIO3_PIN_REG			TAS2559_REG(0, 1, 63)
++#define	TAS2559_GPIO4_PIN_REG			TAS2559_REG(0, 1, 64)
++#define	TAS2559_GPIO5_PIN_REG			TAS2559_REG(0, 1, 65)
++#define	TAS2559_GPIO6_PIN_REG			TAS2559_REG(0, 1, 66)
++#define	TAS2559_GPIO7_PIN_REG			TAS2559_REG(0, 1, 67)
++#define	TAS2559_GPIO8_PIN_REG			TAS2559_REG(0, 1, 68)
++#define	TAS2559_GPIO9_PIN_REG			TAS2559_REG(0, 1, 69)
++#define	TAS2559_GPIO10_PIN_REG			TAS2559_REG(0, 1, 70)
++
++#define	TAS2559_GPI_PIN_REG				TAS2559_REG(0, 1, 77)		/* B0_P1_R0x4d */
++#define	TAS2559_GPIO_HIZ_CTRL1_REG		TAS2559_REG(0, 1, 79)
++#define	TAS2559_GPIO_HIZ_CTRL2_REG		TAS2559_REG(0, 1, 80)		/* B0_P1_R0x50 */
++#define	TAS2559_GPIO_HIZ_CTRL3_REG		TAS2559_REG(0, 1, 81)
++#define	TAS2559_GPIO_HIZ_CTRL4_REG		TAS2559_REG(0, 1, 82)
++#define	TAS2559_GPIO_HIZ_CTRL5_REG		TAS2559_REG(0, 1, 83)
++
++#define	TAS2559_BIT_BANG_CTRL_REG		TAS2559_REG(0, 1, 87)
++#define	TAS2559_BIT_BANG_OUT1_REG		TAS2559_REG(0, 1, 88)
++#define	TAS2559_BIT_BANG_OUT2_REG		TAS2559_REG(0, 1, 89)
++#define	TAS2559_BIT_BANG_IN1_REG		TAS2559_REG(0, 1, 90)
++#define	TAS2559_BIT_BANG_IN2_REG		TAS2559_REG(0, 1, 91)
++#define	TAS2559_BIT_BANG_IN3_REG		TAS2559_REG(0, 1, 92)
++
++#define	TAS2559_PDM_IN_CLK_REG			TAS2559_REG(0, 1, 94)
++#define	TAS2559_PDM_IN_PIN_REG			TAS2559_REG(0, 1, 95)
++
++#define	TAS2559_ASIM_IFACE1_REG			TAS2559_REG(0, 1, 98)
++#define	TAS2559_ASIM_FORMAT_REG			TAS2559_REG(0, 1, 99)
++#define	TAS2559_ASIM_IFACE3_REG			TAS2559_REG(0, 1, 100)
++#define	TAS2559_ASIM_IFACE4_REG			TAS2559_REG(0, 1, 101)
++#define	TAS2559_ASIM_IFACE5_REG			TAS2559_REG(0, 1, 102)
++#define	TAS2559_ASIM_IFACE6_REG			TAS2559_REG(0, 1, 103)
++#define	TAS2559_ASIM_IFACE7_REG			TAS2559_REG(0, 1, 104)
++#define	TAS2559_ASIM_IFACE8_REG			TAS2559_REG(0, 1, 105)
++#define	TAS2559_CLK_HALT_REG			TAS2559_REG(0, 1, 106)	/* B0_P1_R0x6a */
++#define	TAS2559_INT_GEN1_REG			TAS2559_REG(0, 1, 108)	/* B0_P1_R0x6c */
++#define	TAS2559_INT_GEN2_REG			TAS2559_REG(0, 1, 109)	/* B0_P1_R0x6d */
++#define	TAS2559_INT_GEN3_REG			TAS2559_REG(0, 1, 110)	/* B0_P1_R0x6e */
++#define	TAS2559_INT_GEN4_REG			TAS2559_REG(0, 1, 111)	/* B0_P1_R0x6f */
++#define TAS2559_INT_MODE_REG			TAS2559_REG(0, 1, 114)	/* B0_P1_R0x72 */
++#define	TAS2559_MAIN_CLKIN_REG			TAS2559_REG(0, 1, 115)
++#define	TAS2559_PLL_CLKIN_REG			TAS2559_REG(0, 1, 116)
++#define	TAS2559_CLKOUT_MUX_REG			TAS2559_REG(0, 1, 117)
++#define	TAS2559_CLKOUT_CDIV_REG			TAS2559_REG(0, 1, 118)
++#define	TAS2559_HACK_GP01_REG			TAS2559_REG(0, 1, 122)
++
++#define	TAS2559_SLEEPMODE_CTL_REG		TAS2559_REG(0, 2, 7)
++#define	TAS2559_HACK01_REG			TAS2559_REG(0, 2, 10)
++
++#define	TAS2559_ISENSE_THRESHOLD		TAS2559_REG(0, 50, 104)
++#define	TAS2559_BOOSTON_EFFICIENCY		TAS2559_REG(0, 51, 16)
++#define	TAS2559_BOOSTOFF_EFFICIENCY		TAS2559_REG(0, 51, 20)
++#define	TAS2559_BOOST_HEADROOM			TAS2559_REG(0, 51, 24)
++#define	TAS2559_THERMAL_FOLDBACK_REG	TAS2559_REG(0, 51, 100)
++
++#define TAS2559_SA_CHL_CTRL_REG			TAS2559_REG(0, 53, 20)	/* B0_P0x35_R0x14 */
++#define	TAS2559_VPRED_COMP_REG			TAS2559_REG(0, 53, 24)
++#define	TAS2559_SA_COEFF_SWAP_REG		TAS2559_REG(0, 53, 44)	/* B0_P0x35_R0x2c */
++
++#define	TAS2559_TEST_MODE_REG			TAS2559_REG(0, 253, 13)
++#define	TAS2559_BROADCAST_REG			TAS2559_REG(0, 253, 54)
++#define	TAS2559_VBST_VOLT_REG			TAS2559_REG(0, 253, 58)/* B0_P0xfd_R0x3a */
++#define	TAS2559_CRYPTIC_REG			TAS2559_REG(0, 253, 71)
++
++#define	TAS2559_DAC_INTERPOL_REG		TAS2559_REG(100, 0, 1)
++#define	TAS2559_SOFT_MUTE_REG			TAS2559_REG(100, 0, 7)
++#define	TAS2559_PLL_P_VAL_REG			TAS2559_REG(100, 0, 27)
++#define	TAS2559_PLL_J_VAL_REG			TAS2559_REG(100, 0, 28)
++#define	TAS2559_PLL_D_VAL_MSB_REG		TAS2559_REG(100, 0, 29)
++#define	TAS2559_PLL_D_VAL_LSB_REG		TAS2559_REG(100, 0, 30)
++#define	TAS2559_CLK_MISC_REG			TAS2559_REG(100, 0, 31)
++#define	TAS2559_PLL_N_VAL_REG			TAS2559_REG(100, 0, 32)
++#define	TAS2559_DAC_MADC_VAL_REG		TAS2559_REG(100, 0, 33)
++#define	TAS2559_ISENSE_DIV_REG			TAS2559_REG(100, 0, 42)
++#define	TAS2559_RAMP_CLK_DIV_MSB_REG	TAS2559_REG(100, 0, 43)
++#define	TAS2559_RAMP_CLK_DIV_LSB_REG	TAS2559_REG(100, 0, 44)
++#define	TAS2559_VBOOST_CTL_REG			TAS2559_REG(100, 0, 64)	/* B0x64_P0x00_R0x40 */
++
++#define	TAS2559_DIE_TEMP_REG			TAS2559_REG(130, 2, 124)	/* B0x82_P0x02_R0x7C */
++#define	TAS2559_DEVA_CALI_R0_REG		TAS2559_REG(140, 47, 40)	/* B0x8c_P0x2f_R0x28 */
++#define	TAS2559_DEVB_CALI_R0_REG		TAS2559_REG(140, 54, 12)	/* B0x8c_P0x36_R0x0c */
++
++/* Bits */
++/* B0P0R4 - TAS2559_POWER_CTRL1_REG */
++#define	TAS2559_SW_SHUTDOWN			(0x1 << 0)
++#define	TAS2559_MADC_POWER_UP			(0x1 << 3)
++#define	TAS2559_MDAC_POWER_UP			(0x1 << 4)
++#define	TAS2559_NDIV_POWER_UP			(0x1 << 5)
++#define	TAS2559_PLL_POWER_UP			(0x1 << 6)
++#define	TAS2559_DSP_POWER_UP			(0x1 << 7)
++
++/* B0P0R5 - TAS2559_POWER_CTRL2_REG */
++#define	TAS2559_VSENSE_ENABLE			(0x1 << 0)
++#define	TAS2559_ISENSE_ENABLE			(0x1 << 1)
++#define	TAS2559_BOOST_ENABLE			(0x1 << 5)
++#define	TAS2559_CLASSD_ENABLE			(0x1 << 7)
++
++/* B0P0R7 - TAS2559_MUTE_REG */
++#define	TAS2559_CLASSD_MUTE			(0x1 << 0)
++#define	TAS2559_ISENSE_MUTE			(0x1 << 1)
++
++/* B0P253R13 - TAS2559_TEST_MODE_REG */
++#define	TAS2559_TEST_MODE_ENABLE		(13)
++#define	TAS2559_TEST_MODE_MASK			(0xf << 0)
++
++/* B0P253R71 - TAS2559_CRYPTIC_REG */
++#define	TAS2559_OSC_TRIM_CAP(x)			((x & 0x3f) << 0)
++#define	TAS2559_DISABLE_ENCRYPTION		(0x1 << 6)
++#define	TAS2559_SL_COMP				(0x1 << 7)
++
++/* B0P1R115/6 - TAS2559_MAIN/PLL_CLKIN_REG */
++#define	TAS2559_XXX_CLKIN_GPIO1			(0)
++#define	TAS2559_XXX_CLKIN_GPIO2			(1)
++#define	TAS2559_XXX_CLKIN_GPIO3			(2)
++#define	TAS2559_XXX_CLKIN_GPIO4			(3)
++#define	TAS2559_XXX_CLKIN_GPIO5			(4)
++#define	TAS2559_XXX_CLKIN_GPIO6			(5)
++#define	TAS2559_XXX_CLKIN_GPIO7			(6)
++#define	TAS2559_XXX_CLKIN_GPIO8			(7)
++#define	TAS2559_XXX_CLKIN_GPIO9			(8)
++#define	TAS2559_XXX_CLKIN_GPIO10		(9)
++#define	TAS2559_XXX_CLKIN_GPI1			(12)
++#define	TAS2559_XXX_CLKIN_GPI2			(13)
++#define	TAS2559_XXX_CLKIN_GPI3			(14)
++#define	TAS2559_NDIV_CLKIN_PLL			(15)
++#define	TAS2559_PLL_CLKIN_INT_OSC		(15)
++
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO1       (0)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO2       (1)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO3       (2)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO4       (3)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO5       (4)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO6       (5)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO7       (6)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO8       (7)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO9       (8)
++#define	TAS2559_MCLK_CLKIN_SRC_GPIO10      (9)
++#define	TAS2559_MCLK_CLKIN_SRC_GPI1        (12)
++#define	TAS2559_MCLK_CLKIN_SRC_GPI2        (13)
++#define	TAS2559_MCLK_CLKIN_SRC_GPI3        (14)
++
++#define	TAS2559_FORMAT_I2S			(0x0 << 5)
++#define	TAS2559_FORMAT_DSP			(0x1 << 5)
++#define	TAS2559_FORMAT_RIGHT_J			(0x2 << 5)
++#define	TAS2559_FORMAT_LEFT_J			(0x3 << 5)
++#define	TAS2559_FORMAT_MONO_PCM			(0x4 << 5)
++#define	TAS2559_FORMAT_MASK			(0x7 << 5)
++
++#define	TAS2559_WORDLENGTH_16BIT		(0x0 << 3)
++#define	TAS2559_WORDLENGTH_20BIT		(0x1 << 3)
++#define	TAS2559_WORDLENGTH_24BIT		(0x2 << 3)
++#define	TAS2559_WORDLENGTH_32BIT		(0x3 << 3)
++#define	TAS2559_WORDLENGTH_MASK			TAS2559_WORDLENGTH_32BIT
++
++/* B100P0R7 - TAS2559_SOFT_MUTE_REG */
++#define	TAS2559_PDM_SOFT_MUTE			(0x1 << 0)
++#define	TAS2559_VSENSE_SOFT_MUTE		(0x1 << 1)
++#define	TAS2559_ISENSE_SOFT_MUTE		(0x1 << 2)
++#define	TAS2559_CLASSD_SOFT_MUTE		(0x1 << 3)
++
++/* B100P0R27 - TAS2559_PLL_P_VAL_REG */
++#define	TAS2559_PLL_P_VAL_MASK			(0x3f << 0)
++
++/* B100P0R28 - TAS2559_PLL_J_VAL_REG */
++#define	TAS2559_PLL_J_VAL_MASK			((unsigned int) (0x7f << 0))
++#define	TAS2559_PLL_J_VAL_MASKX	0x00
++
++/* B100P0R29-30 - TAS2559_PLL_D_VAL_MSB/LSB_REG */
++#define	TAS2559_PLL_D_MSB_VAL(x)		((x >> 8) & 0x3f)
++#define	TAS2559_PLL_D_LSB_VAL(x)		(x & 0xff)
++
++/* B100P0R31 - TAS2559_CLK_MISC_REG */
++#define	TAS2559_DSP_CLK_FROM_PLL		(0x1 << 5)
++
++#define	TAS2559_FW_NAME     "tas2559_uCDSP.bin"
++
++#define	CHANNEL_LEFT				(0)
++#define	CHANNEL_RIGHT				(1)
++
++#define	TAS2559_APP_ROM1MODE	0
++#define	TAS2559_APP_ROM2MODE	1
++#define	TAS2559_APP_TUNINGMODE	2
++#define	TAS2559_APP_ROM1_96KHZ	3
++#define	TAS2559_APP_ROM2_96KHZ	4
++#define	TAS2559_APP_RAMMODE		5
++
++#define	TAS2559_BOOST_OFF		0
++#define	TAS2559_BOOST_DEVA		1
++#define	TAS2559_BOOST_DEVB		2
++#define	TAS2559_BOOST_BOTH		3
++
++#define	TAS2559_AD_BD		0	/* DevA default, DevB default */
++#define	TAS2559_AM_BM		1	/* DevA mute, DevB mute */
++#define	TAS2559_AL_BR		2	/* DevA left channel, DevB right channel */
++#define	TAS2559_AR_BL		3	/* DevA right channel, DevB left channel */
++#define	TAS2559_AH_BH		4	/* DevA (L+R)/2, DevB (L+R)/2 */
++
++#define	TAS2559_VBST_DEFAULT		0	/* firmware default */
++#define	TAS2559_VBST_A_ON			1	/* DevA always 8.5V, DevB default */
++#define	TAS2559_VBST_B_ON			2	/* DevA default, DevB always 8.5V */
++#define	TAS2559_VBST_A_ON_B_ON		(TAS2559_VBST_A_ON | TAS2559_VBST_B_ON)	/* both DevA and DevB always 8.5V */
++#define	TAS2559_VBST_NEED_DEFAULT	0xff	/* need default value */
++
++#define	TAS2559_VBST_8P5V	0	/* coresponding PPG 0dB */
++#define	TAS2559_VBST_8P1V	1	/* coresponding PPG -1dB */
++#define	TAS2559_VBST_7P6V	2	/* coresponding PPG -2dB */
++#define	TAS2559_VBST_6P6V	3	/* coresponding PPG -3dB */
++#define	TAS2559_VBST_5P6V	4	/* coresponding PPG -4dB */
++
++#define TAS2559_YRAM_BOOK1				140	/* 0x8c */
++
++#define TAS2559_YRAM1_PAGE				42	/* 0x2a */
++#define TAS2559_YRAM1_START_REG			88
++#define TAS2559_YRAM1_END_REG			127
++
++#define TAS2559_YRAM2_START_PAGE		43	/* 0x2b */
++#define TAS2559_YRAM2_END_PAGE			55
++#define TAS2559_YRAM2_START_REG			8
++#define TAS2559_YRAM2_END_REG			127
++
++#define TAS2559_YRAM3_PAGE				56	/* 0x38 */
++#define TAS2559_YRAM3_START_REG			8
++#define TAS2559_YRAM3_END_REG			47
++
++/* should not include B0_P53_R44-R47 */
++#define TAS2559_YRAM_BOOK2				0
++#define TAS2559_YRAM4_START_PAGE		50	/* 0x32 */
++#define TAS2559_YRAM4_END_PAGE			60	/* 0x3c */
++#define TAS2559_YRAM4_START_REG			8
++#define TAS2559_YRAM4_END_REG			127
++
++#define TAS2559_YRAM5_PAGE				61	/* 0x3d */
++#define TAS2559_YRAM5_START_REG			8
++#define TAS2559_YRAM5_END_REG			27
++
++#define TAS2559_YRAM_BOOK3				120	/* 0x78 */
++#define TAS2559_YRAM6_PAGE				12	/* 0x0c */
++#define TAS2559_YRAM6_START_REG			104	/* 0x68 */
++#define TAS2559_YRAM6_END_REG			107	/* 0x6b */
++
++#define TAS2559_SAFE_GUARD_PATTERN		0x5a
++#define LOW_TEMPERATURE_CHECK_PERIOD	5000	/* 5 second */
++
++/* Page Control Register */
++#define	TAS2560_PAGECTL_REG			0
++
++/* Book Control Register (available in page0 of each book) */
++#define	TAS2560_BOOKCTL_PAGE		0
++#define	TAS2560_BOOKCTL_REG			127
++
++#define	TAS2560_REG(book, page, reg)		(((book * 256 * 128) + \
++						 (page * 128)) + reg)
++
++#define	TAS2560_BOOK_ID(reg)		(reg / (256 * 128))
++#define	TAS2560_PAGE_ID(reg)		((reg % (256 * 128)) / 128)
++#define	TAS2560_BOOK_REG(reg)		(reg % (256 * 128))
++#define	TAS2560_PAGE_REG(reg)		((reg % (256 * 128)) % 128)
++
++/* Book0, Page0 registers */
++#define	TAS2560_SW_RESET_REG		TAS2560_REG(0, 0, 1)
++#define	TAS2560_DEV_MODE_REG		TAS2560_REG(0, 0, 2)
++#define	TAS2560_SPK_CTRL_REG		TAS2560_REG(0, 0, 4)
++#define	TAS2560_MUTE_REG			TAS2560_REG(0, 0, 7)
++#define	TAS2560_PWR_REG				TAS2560_REG(0, 0, 7)
++#define	TAS2560_PWR_BIT_MASK		(0x3 << 6)
++#define	TAS2560_MUTE_MASK			(0x7)
++
++#define	TAS2560_SR_CTRL1			TAS2560_REG(0, 0, 8)
++#define	TAS2560_LOAD				TAS2560_REG(0, 0, 9)
++#define	TAS2560_SR_CTRL2			TAS2560_REG(0, 0, 13)	/*B0_P0_R0x0d*/
++#define	TAS2560_SR_CTRL3			TAS2560_REG(0, 0, 14)	/*B0_P0_R0x0e*/
++
++#define	TAS2560_CLK_SEL				TAS2560_REG(0, 0, 15)
++#define	TAS2560_PLL_SRC_MASK		(0xc0)
++#define	TAS2560_PLL_CLKIN_BCLK		(0)
++#define	TAS2560_PLL_CLKIN_MCLK		(1)
++#define	TAS2560_PLL_CLKIN_PDMCLK	(2)
++#define	TAS2560_PLL_P_MASK			(0x3f)
++
++#define	TAS2560_SET_FREQ			TAS2560_REG(0, 0, 16)
++#define	TAS2560_PLL_J_MASK			(0x7f)
++
++#define	TAS2560_PLL_D_MSB			TAS2560_REG(0, 0, 17)	/*B0_P0_R0x11*/
++#define	TAS2560_PLL_D_LSB			TAS2560_REG(0, 0, 18)	/*B0_P0_R0x12*/
++
++#define	TAS2560_DAI_FMT				TAS2560_REG(0, 0, 20)	/* B0_P0_R0x14 */
++#define	TAS2560_ASI_CTRL			TAS2560_REG(0, 0, 21)	/* B0_P0_R0x15 */
++#define	TAS2560_ASI_OFFSET_1		TAS2560_REG(0, 0, 22)	/*B0_P0_R0x16*/
++#define	TAS2560_ASI_CFG_1			TAS2560_REG(0, 0, 24)	/* B0_P0_R0x18 */
++#define	TAS2560_DIRINV_MASK			0x3c
++#define	TAS2560_BCLKINV				(1 << 2)
++#define	TAS2560_WCLKINV				(1 << 3)
++#define	TAS2560_BCLKDIR				(1 << 4)
++#define	TAS2560_WCLKDIR				(1 << 5)
++
++#define	TAS2560_CLK_ERR_CTRL		TAS2560_REG(0, 0, 33)	/* B0_P0_R0x21 */
++#define	TAS2560_IRQ_PIN_REG			TAS2560_REG(0, 0, 35)	/* B0_P0_R0x23 */
++#define	TAS2560_INT_MODE_REG		TAS2560_REG(0, 0, 36)	/* B0_P0_R0x24 */
++#define	TAS2560_INT_GEN_REG			TAS2560_REG(0, 0, 37)	/* B0_P0_R0x25 */
++#define	TAS2560_FLAGS_1				TAS2560_REG(0, 0, 38)	/* B0_P0_R0x26 */
++#define	TAS2560_FLAGS_2				TAS2560_REG(0, 0, 39)	/* B0_P0_R0x27 */
++#define	TAS2560_POWER_UP_FLAG_REG	TAS2560_REG(0, 0, 42)	/* B0_P0_R0x2a */
++
++#define	TAS2560_DR_BOOST_REG_2		TAS2560_REG(0, 0, 60)	/* B0_P0_R0x3c */
++#define	TAS2560_DR_BOOST_REG_1		TAS2560_REG(0, 0, 73)	/* B0_P0_R0x49 */
++#define	TAS2560_VBOOST_CTL_REG		TAS2560_REG(0, 0, 79)	/* B0_P0_R0x4f */
++#define	TAS2560_CLK_ERR_CTRL2		TAS2560_REG(0, 0, 80)	/* B0_P0_R0x50 */
++#define	TAS2560_SLEEPMODE_CTL_REG	TAS2560_REG(0, 0, 84)	/* B0_P0_R0x54 */
++#define	TAS2560_ID_REG				TAS2560_REG(0, 0, 125)
++#define	TAS2560_CRC_CHK_REG			TAS2560_REG(0, 0, 126)	/* B0_P0_R0x7e */
++
++/* Book0, Page50 registers */
++#define	TAS2560_HPF_CUTOFF_CTL1		TAS2560_REG(0, 50, 28)	/* B0_P0x32_R0x1c */
++#define	TAS2560_HPF_CUTOFF_CTL2		TAS2560_REG(0, 50, 32)	/* B0_P0x32_R0x20 */
++#define	TAS2560_HPF_CUTOFF_CTL3		TAS2560_REG(0, 50, 36)	/* B0_P0x32_R0x24 */
++
++#define	TAS2560_ISENSE_PATH_CTL1	TAS2560_REG(0, 50, 40)	/* B0_P0x32_R0x28 */
++#define	TAS2560_ISENSE_PATH_CTL2	TAS2560_REG(0, 50, 44)	/* B0_P0x32_R0x2c */
++#define	TAS2560_ISENSE_PATH_CTL3	TAS2560_REG(0, 50, 48)	/* B0_P0x32_R0x30 */
++
++#define	TAS2560_VLIMIT_THRESHOLD	TAS2560_REG(0, 50, 60)
++#define TAS2560_IDLE_CHNL_DETECT	TAS2560_REG(0, 50, 108)	/* B0_P0x32_R0x6c */
++
++/* Book0, Page51 registers */
++#define	TAS2560_BOOST_HEAD			TAS2560_REG(0, 51, 24)	/* B0_P0x33_R0x18 */
++#define	TAS2560_BOOST_ON			TAS2560_REG(0, 51, 16)	/* B0_P0x33_R0x10 */
++#define	TAS2560_BOOST_OFF			TAS2560_REG(0, 51, 20)	/* B0_P0x33_R0x14 */
++#define	TAS2560_BOOST_TABLE_CTRL1	TAS2560_REG(0, 51, 32)	/* B0_P0x33_R0x20 */
++#define	TAS2560_BOOST_TABLE_CTRL2	TAS2560_REG(0, 51, 36)	/* B0_P0x33_R0x24 */
++#define	TAS2560_BOOST_TABLE_CTRL3	TAS2560_REG(0, 51, 40)	/* B0_P0x33_R0x28 */
++#define	TAS2560_BOOST_TABLE_CTRL4	TAS2560_REG(0, 51, 44)	/* B0_P0x33_R0x2c */
++#define	TAS2560_BOOST_TABLE_CTRL5	TAS2560_REG(0, 51, 48)	/* B0_P0x33_R0x30 */
++#define	TAS2560_BOOST_TABLE_CTRL6	TAS2560_REG(0, 51, 52)	/* B0_P0x33_R0x34 */
++#define	TAS2560_BOOST_TABLE_CTRL7	TAS2560_REG(0, 51, 56)	/* B0_P0x33_R0x38 */
++#define	TAS2560_BOOST_TABLE_CTRL8	TAS2560_REG(0, 51, 60)	/* B0_P0x33_R0x3c */
++#define	TAS2560_THERMAL_FOLDBACK	TAS2560_REG(0, 51, 100)	/* B0_P0x33_R0x64 */
++
++/* Book0, Page52 registers */
++#define	TAS2560_VSENSE_DEL_CTL1		TAS2560_REG(0, 52, 52)	/* B0_P0x34_R0x34 */
++#define	TAS2560_VSENSE_DEL_CTL2		TAS2560_REG(0, 52, 56)	/* B0_P0x34_R0x38 */
++#define	TAS2560_VSENSE_DEL_CTL3		TAS2560_REG(0, 52, 60)	/* B0_P0x34_R0x3c */
++#define	TAS2560_VSENSE_DEL_CTL4		TAS2560_REG(0, 52, 64)	/* B0_P0x34_R0x40 */
++#define	TAS2560_VSENSE_DEL_CTL5		TAS2560_REG(0, 52, 68)	/* B0_P0x34_R0x44 */
++
++#define	TAS2560_VBST_VOLT_REG		TAS2559_REG(0, 253, 54)	/* B0_P0xfd_R0x36 */
++
++#define	TAS2560_DATAFORMAT_I2S		(0x0 << 2)
++#define	TAS2560_DATAFORMAT_DSP		(0x1 << 2)
++#define	TAS2560_DATAFORMAT_RIGHT_J	(0x2 << 2)
++#define	TAS2560_DATAFORMAT_LEFT_J	(0x3 << 2)
++
++#define	TAS2560_DAI_FMT_MASK		(0x7 << 2)
++#define	LOAD_MASK					0x18
++
++#define	TAS2560_YRAM_BOOK			0
++#define	TAS2560_YRAM_START_PAGE		50
++#define	TAS2560_YRAM_END_PAGE		52
++#define	TAS2560_YRAM_START_REG		8
++#define	TAS2560_YRAM_END_REG		127
++
++#define	ERROR_NONE			0x00000000
++#define	ERROR_PLL_ABSENT	0x00000001
++#define	ERROR_DEVA_I2C_COMM	0x00000002
++#define	ERROR_DEVB_I2C_COMM	0x00000004
++#define	ERROR_PRAM_CRCCHK	0x00000008
++#define	ERROR_YRAM_CRCCHK	0x00000010
++#define	ERROR_CLK_DET2		0x00000020
++#define	ERROR_CLK_DET1		0x00000040
++#define	ERROR_CLK_LOST		0x00000080
++#define	ERROR_BROWNOUT		0x00000100
++#define	ERROR_DIE_OVERTEMP	0x00000200
++#define	ERROR_CLK_HALT		0x00000400
++#define	ERROR_UNDER_VOLTAGE	0x00000800
++#define	ERROR_OVER_CURRENT	0x00001000
++#define	ERROR_CLASSD_PWR	0x00002000
++#define	ERROR_SAFE_GUARD	0x00004000
++#define	ERROR_FAILSAFE		0x40000000
++
++#define	LOW_TEMPERATURE_GAIN	6
++#define	LOW_TEMPERATURE_COUNTER	12
++
++#define RESTART_MAX 3
++
++#define TAS2559_UDELAY 0xFFFFFFFE
++#define TAS2559_MDELAY 0xFFFFFFFD
++
++#define FW_ERR_HEADER -1
++#define FW_ERR_SIZE -2
++
++#define TAS2559_BLOCK_PLL				0x00
++#define TAS2559_BLOCK_PGM_ALL			0x0d
++#define TAS2559_BLOCK_PGM_DEV_A			0x01
++#define TAS2559_BLOCK_PGM_DEV_B			0x08
++#define TAS2559_BLOCK_CFG_COEFF_DEV_A	0x03
++#define TAS2559_BLOCK_CFG_COEFF_DEV_B	0x0a
++#define TAS2559_BLOCK_CFG_PRE_DEV_A		0x04
++#define TAS2559_BLOCK_CFG_PRE_DEV_B		0x0b
++#define TAS2559_BLOCK_CFG_POST			0x05
++#define TAS2559_BLOCK_CFG_POST_POWER	0x06
++#define TAS2559_BLOCK_PST_POWERUP_DEV_B 0x0e
++
++#define	PPC_DRIVER_CRCCHK			0x00000200
++#define	PPC_DRIVER_CONFDEV			0x00000300
++#define	PPC_DRIVER_MTPLLSRC			0x00000400
++#define	PPC_DRIVER_CFGDEV_NONCRC	0x00000101
++
++#endif /* _TAS2559_H */
+-- 
+2.53.0
+

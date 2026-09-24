@@ -1,0 +1,53 @@
+From c2bd2fb743d6c7d9e075d0a1df5d545e862a1633 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sat, 11 Apr 2026 00:21:12 +0200
+Subject: [PATCH 136/194] arm64: dts: qcom: sdm845-google: Enable PMI8998
+ camera flash LED
+
+Enable the PMI8998 flash LED block and describe the white flash LED
+used for the rear camera.
+
+Configure the LED in flash mode with hardware limits matching the
+original device configuration, including maximum current and timeout.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 3965b90ada57..f1f9b1a23c7d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -6,6 +6,7 @@
+ #include <dt-bindings/dma/qcom-gpi.h>
+ #include <dt-bindings/input/linux-event-codes.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/media/video-interfaces.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+@@ -614,6 +615,19 @@
+ 	status = "okay";
+ };
+ 
++&pmi8998_flash {
++	status = "okay";
++
++	led-1 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <2>;
++		led-max-microamp = <500000>;
++		flash-max-microamp = <750000>;
++		flash-max-timeout-us = <1280000>;
++	};
++};
++
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+-- 
+2.53.0
+

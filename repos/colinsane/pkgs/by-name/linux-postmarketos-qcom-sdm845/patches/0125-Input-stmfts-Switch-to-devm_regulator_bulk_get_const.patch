@@ -1,0 +1,81 @@
+From 2e8162c48b4b22dc26d678ea3e6cc89c61439e6d Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sat, 14 Feb 2026 18:38:34 +0100
+Subject: [PATCH 125/194] Input: stmfts - Switch to
+ devm_regulator_bulk_get_const
+
+Switch to devm_regulator_bulk_get_const() to stop setting the supplies
+list in probe(), and move the regulator_bulk_data struct in static const.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/touchscreen/stmfts.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index 7b1e975a8566..ff884e04ad4c 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -69,9 +69,9 @@
+ #define STMFTS_MAX_FINGERS	10
+ #define STMFTS_DEV_NAME		"stmfts"
+ 
+-enum stmfts_regulators {
+-	STMFTS_REGULATOR_VDD,
+-	STMFTS_REGULATOR_AVDD,
++static const struct regulator_bulk_data stmfts_supplies[] = {
++	{ .supply = "vdd" },
++	{ .supply = "avdd" },
+ };
+ 
+ struct stmfts_data {
+@@ -82,7 +82,7 @@ struct stmfts_data {
+ 
+ 	struct touchscreen_properties prop;
+ 
+-	struct regulator_bulk_data regulators[2];
++	struct regulator_bulk_data *supplies;
+ 
+ 	/*
+ 	 * Presence of ledvdd will be used also to check
+@@ -523,8 +523,8 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 	int err;
+ 	u8 reg[8];
+ 
+-	err = regulator_bulk_enable(ARRAY_SIZE(sdata->regulators),
+-				    sdata->regulators);
++	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
++				    sdata->supplies);
+ 	if (err)
+ 		return err;
+ 
+@@ -589,8 +589,8 @@ static void stmfts_power_off(void *data)
+ 	struct stmfts_data *sdata = data;
+ 
+ 	disable_irq(sdata->client->irq);
+-	regulator_bulk_disable(ARRAY_SIZE(sdata->regulators),
+-						sdata->regulators);
++	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
++			       sdata->supplies);
+ }
+ 
+ static int stmfts_enable_led(struct stmfts_data *sdata)
+@@ -638,11 +638,10 @@ static int stmfts_probe(struct i2c_client *client)
+ 	mutex_init(&sdata->mutex);
+ 	init_completion(&sdata->cmd_done);
+ 
+-	sdata->regulators[STMFTS_REGULATOR_VDD].supply = "vdd";
+-	sdata->regulators[STMFTS_REGULATOR_AVDD].supply = "avdd";
+-	err = devm_regulator_bulk_get(dev,
+-				      ARRAY_SIZE(sdata->regulators),
+-				      sdata->regulators);
++	err = devm_regulator_bulk_get_const(dev,
++					    ARRAY_SIZE(stmfts_supplies),
++					    stmfts_supplies,
++					    &sdata->supplies);
+ 	if (err)
+ 		return err;
+ 
+-- 
+2.53.0
+

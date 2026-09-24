@@ -1,0 +1,27 @@
+From a69a5c6347bbd4b21809b0fd6dc3edd8172102f5 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Tue, 16 Dec 2025 15:28:08 +0100
+Subject: [PATCH 073/194] EDITME: downstream-cameras
+
+These should be most likely replaced by using CCS driver which is
+generic and is inside the kernel.
+
+The CCS driver may need more work (and implement quirks) before this
+happens.
+
+There already has been done work for IMX519, which is used by
+RaspberryPi extension boards.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20251216-downstream-cameras-2af0cfa9933f",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

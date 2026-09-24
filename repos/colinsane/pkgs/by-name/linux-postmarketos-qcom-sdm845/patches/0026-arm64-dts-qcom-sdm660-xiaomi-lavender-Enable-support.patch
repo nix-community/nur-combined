@@ -1,0 +1,60 @@
+From 87635573d0fa1faa5039269df7f289a5b09789e8 Mon Sep 17 00:00:00 2001
+From: Alexey Minnekhanov <alexeymin@postmarketos.org>
+Date: Mon, 1 Jan 2024 01:08:27 +0300
+Subject: [PATCH 026/194] arm64: dts: qcom: sdm660-xiaomi-lavender: Enable
+ support for battery
+
+Add support for battery, fuelgauge and charger.
+
+Signed-off-by: Alexey Minnekhanov <alexeymin@postmarketos.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../boot/dts/qcom/sdm660-xiaomi-lavender.dts  | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm660-xiaomi-lavender.dts b/arch/arm64/boot/dts/qcom/sdm660-xiaomi-lavender.dts
+index a9926ad6c6f9..cb89b88d887d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm660-xiaomi-lavender.dts
++++ b/arch/arm64/boot/dts/qcom/sdm660-xiaomi-lavender.dts
+@@ -38,6 +38,14 @@
+ 		};
+ 	};
+ 
++	battery: battery {
++		compatible = "simple-battery";
++
++		charge-full-design-microamp-hours = <4000000>;
++		voltage-min-design-microvolt = <3400000>;
++		voltage-max-design-microvolt = <4400000>;
++	};
++
+ 	vph_pwr: vph-pwr-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vph_pwr";
+@@ -93,6 +101,23 @@
+ 	status = "okay";
+ };
+ 
++&pm660_charger {
++	monitored-battery = <&battery>;
++
++	status = "okay";
++};
++
++&pm660_fg {
++	monitored-battery = <&battery>;
++	power-supplies = <&pm660_charger>;
++
++	status = "okay";
++};
++
++&pm660_rradc {
++	status = "okay";
++};
++
+ &pon_pwrkey {
+ 	status = "okay";
+ };
+-- 
+2.53.0
+

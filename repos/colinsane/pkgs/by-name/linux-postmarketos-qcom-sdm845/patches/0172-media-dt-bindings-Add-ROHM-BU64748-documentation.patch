@@ -1,0 +1,79 @@
+From a4e05ca1c83ec1ef99ee2eca84a843de2509be27 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <foss@joelselvaraj.com>
+Date: Sun, 16 Mar 2025 20:04:58 -0500
+Subject: [PATCH 172/194] media: dt-bindings: Add ROHM BU64748 documentation
+
+Add device tree binding for ROHM BU64748 voice coil motor.
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ .../bindings/media/i2c/rohm,bu64748.yaml      | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml b/Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml
+new file mode 100644
+index 000000000000..1afd33245e0c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/rohm,bu64748.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++# Copyright 2025 Joel Selvaraj <foss@joelselvaraj.com>
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/rohm,bu64748.yaml##
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ROHM BU64748 Voice Coil Motor (VCM) Lens
++
++maintainers:
++  - Joel Selvaraj <foss@joelselvaraj.com>
++
++description:
++  The BU64748 is a 12-bit digital-to-analog (DAC) converter.
++  VCM current is controlled with linear mode driver. The DAC is controlled
++  via 2-wire (I2C-compatible) serial interface. This chip is intended for
++  driving voice coil lenses in camera modules.
++
++properties:
++  compatible:
++    enum:
++      - rohm,bu64748
++
++  reg:
++    maxItems: 1
++
++  vcc-supply:
++    description:
++      VCM power supply.
++
++  vio-supply:
++    description:
++      I/O power supply of the CCI i2c interface.
++
++required:
++  - compatible
++  - reg
++  - vcc-supply
++
++additionalProperties: false
++
++examples:
++  - |
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera-lens@c {
++            compatible = "rohm,bu64748";
++            reg = <0x0c>;
++
++            vcc-supply = <&cam_actuator_reg>;
++            vio-supply = <&cam_iovdd>;
++        };
++    };
++...
+-- 
+2.53.0
+

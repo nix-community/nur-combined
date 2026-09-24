@@ -1,0 +1,64 @@
+From 027fe06c4cb306921ca949ff1d963f7f55fbbc2b Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Sun, 15 Mar 2026 20:51:09 +0100
+Subject: [PATCH 134/194] Add initial dual front camera and rear flash support
+ for Pixel 3 / 3 XL
+
+Describe the dual front-facing IMX355 sensors (standard and wide)
+and enable the PMI8998 flash LED with hardware-accurate limits.
+
+This brings up the basic camera topology and flash support in DT.
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>
+Cc: Richard Acayan <mailingradian@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+---
+Changes in v4:
+- Define 24 MHz ext clock for the cameras.
+- Link to v3: https://lore.kernel.org/r/20260412-pixel3-camera-v3-0-e26b090a6110@ixit.cz
+
+Changes in v3:
+- Dropped cam_vio label. (Dmitry)
+- Move the MCLK2 pinctrl from cameras to common camss. (Dmitry)
+- Link to v2: https://lore.kernel.org/r/20260411-pixel3-camera-v2-0-41b889abb14c@ixit.cz
+
+Changes in v2:
+- leds.h include escaped the initial submission. Fixed.
+- Link to v1: https://lore.kernel.org/r/20260411-pixel3-camera-v1-0-2757606515b6@ixit.cz
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 4,
+    "change-id": "20260315-pixel3-camera-a9989bf589ee",
+    "prefixes": [],
+    "history": {
+      "v1": [
+        "20260411-pixel3-camera-v1-0-2757606515b6@ixit.cz"
+      ],
+      "v2": [
+        "20260411-pixel3-camera-v2-0-41b889abb14c@ixit.cz"
+      ],
+      "v3": [
+        "20260412-pixel3-camera-v3-0-e26b090a6110@ixit.cz"
+      ]
+    },
+    "prerequisites": [
+      "change-id: 20260414-imx355-24mhz-b8ccfab3adfb:v1",
+      "base-commit: 66672af7a095d89f082c5327f3b15bc2f93d558e"
+    ]
+  }
+}
+-- 
+2.53.0
+

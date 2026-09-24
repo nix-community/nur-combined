@@ -1,0 +1,185 @@
+From e925118376f12a132be9003684f475f28dee6ca8 Mon Sep 17 00:00:00 2001
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Date: Sun, 15 Oct 2023 22:11:55 +0100
+Subject: [PATCH 097/194] Input: synaptics-rmi4 - support fallback values for
+ PDT descriptor bytes
+
+Some replacement displays include third-party touch ICs which do not
+expose the function number and the interrupt status in its PDT entries.
+
+OnePlus 6 (original touch IC)
+  rmi4_i2c 12-0020: read 6 bytes at 0x00e3: 0 (2b 22 0d 06 01 01)
+
+OnePlus 6 (aftermarket touch IC)
+  rmi4_i2c 12-0020: read 6 bytes at 0x00e3: 0 (2c 23 0d 06 00 00)
+
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+[codeflow adjustments, checkpatch fixes, wording]
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Co-developed-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/rmi4/rmi_driver.c | 63 ++++++++++++++++++++++++++++-----
+ drivers/input/rmi4/rmi_driver.h |  3 ++
+ include/linux/rmi.h             |  3 ++
+ 3 files changed, 61 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index fc84799c36e0..bb1db5bbb3ab 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -462,9 +462,10 @@ static int rmi_driver_reset_handler(struct rmi_device *rmi_dev)
+ 	return 0;
+ }
+ 
+-static int rmi_read_pdt_entry(struct rmi_device *rmi_dev,
+-			      struct pdt_entry *entry, u16 pdt_address)
++static int rmi_read_pdt_entry(struct rmi_device *rmi_dev, struct pdt_entry *entry,
++			      struct pdt_scan_state *state, u16 pdt_address)
+ {
++	const struct rmi_device_platform_data *pdata = rmi_get_platform_data(rmi_dev);
+ 	u8 buf[RMI_PDT_ENTRY_SIZE];
+ 	int error;
+ 
+@@ -475,6 +476,21 @@ static int rmi_read_pdt_entry(struct rmi_device *rmi_dev,
+ 		return error;
+ 	}
+ 
++	if (pdata->pdt_fallback_size > state->pdt_count * RMI_OF_PDT_DESC_CELLS + 1) {
++		/* Use the description bytes from the driver */
++		buf[5] = pdata->pdt_fallback_desc[state->pdt_count * RMI_OF_PDT_DESC_CELLS];
++		buf[4] = pdata->pdt_fallback_desc[state->pdt_count * RMI_OF_PDT_DESC_CELLS + 1];
++
++		error = rmi_read_block(rmi_dev, pdt_address, buf,
++				RMI_PDT_ENTRY_SIZE - 2);
++		if (error) {
++			dev_err(&rmi_dev->dev,
++					"Read PDT entry at %#06x failed, code: %d.\n",
++					pdt_address, error);
++			return error;
++		}
++	}
++
+ 	entry->page_start = pdt_address & RMI4_PAGE_MASK;
+ 	entry->query_base_addr = buf[0];
+ 	entry->command_base_addr = buf[1];
+@@ -522,6 +538,7 @@ static bool rmi_pdt_entry_is_valid(struct rmi_device *rmi_dev,
+ 	}
+ 
+ 	state->pdts[fn] = true;
++	state->pdt_count++;
+ 	return true;
+ }
+ 
+@@ -546,7 +563,7 @@ static int rmi_scan_pdt_page(struct rmi_device *rmi_dev,
+ 	int retval;
+ 
+ 	for (addr = pdt_start; addr >= pdt_end; addr -= RMI_PDT_ENTRY_SIZE) {
+-		error = rmi_read_pdt_entry(rmi_dev, &pdt_entry, addr);
++		error = rmi_read_pdt_entry(rmi_dev, &pdt_entry, state, addr);
+ 		if (error)
+ 			return error;
+ 
+@@ -1023,9 +1040,13 @@ static int rmi_driver_remove(struct device *dev)
+ }
+ 
+ #ifdef CONFIG_OF
+-static int rmi_driver_of_probe(struct device *dev,
+-				struct rmi_device_platform_data *pdata)
++static const u8 rmi_s3706_fallback_pdt[] = {34, 41, 01, 01, 12, 01};
++
++static int rmi_driver_of_probe(struct rmi_device *rmi_dev,
++			       struct rmi_device_platform_data *pdata)
+ {
++	struct device *dev = rmi_dev->xport->dev;
++	u8 buf[RMI_PDT_ENTRY_SIZE];
+ 	int retval;
+ 
+ 	retval = rmi_of_property_read_u32(dev, &pdata->reset_delay_ms,
+@@ -1033,11 +1054,37 @@ static int rmi_driver_of_probe(struct device *dev,
+ 	if (retval)
+ 		return retval;
+ 
++	/*
++	 * In some aftermerket touch ICs, the first PDT entry is empty and
++	 * the function number register is 0. If so, the driver
++	 * may have provide backup PDT entries.
++	 */
++
++	retval = rmi_read_block(rmi_dev, PDT_START_SCAN_LOCATION,
++			buf, RMI_PDT_ENTRY_SIZE);
++	if (retval) {
++		dev_err(dev, "Read PDT entry at %#06x failed, code: %d.\n",
++			PDT_START_SCAN_LOCATION, retval);
++		return retval;
++	}
++
++	if (!RMI4_END_OF_PDT(buf[5]))
++		return 0;
++
++	/* List of known PDT entries per compatible. */
++	if (of_device_is_compatible(dev->of_node, "syna,rmi4-s3706b")) {
++		pdata->pdt_fallback_desc = rmi_s3706_fallback_pdt;
++		pdata->pdt_fallback_size = ARRAY_SIZE(rmi_s3706_fallback_pdt);
++	} else {
++		dev_err(dev, "First PDT entry is empty and no backup values provided.\n");
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ #else
+-static inline int rmi_driver_of_probe(struct device *dev,
+-					struct rmi_device_platform_data *pdata)
++static inline int rmi_driver_of_probe(struct rmi_device *rmi_dev,
++				      struct rmi_device_platform_data *pdata)
+ {
+ 	return -ENODEV;
+ }
+@@ -1158,7 +1205,7 @@ static int rmi_driver_probe(struct device *dev)
+ 	pdata = rmi_get_platform_data(rmi_dev);
+ 
+ 	if (rmi_dev->xport->dev->of_node) {
+-		retval = rmi_driver_of_probe(rmi_dev->xport->dev, pdata);
++		retval = rmi_driver_of_probe(rmi_dev, pdata);
+ 		if (retval)
+ 			return retval;
+ 	}
+diff --git a/drivers/input/rmi4/rmi_driver.h b/drivers/input/rmi4/rmi_driver.h
+index 2c47373c3d17..a6a29fde49f3 100644
+--- a/drivers/input/rmi4/rmi_driver.h
++++ b/drivers/input/rmi4/rmi_driver.h
+@@ -31,6 +31,8 @@
+ #define RMI_PDT_FUNCTION_VERSION_MASK   0x60
+ #define RMI_PDT_INT_SOURCE_COUNT_MASK   0x07
+ 
++#define RMI_OF_PDT_DESC_CELLS 2
++
+ #define PDT_START_SCAN_LOCATION 0x00e9
+ #define PDT_END_SCAN_LOCATION	0x0005
+ #define RMI4_END_OF_PDT(id) ((id) == 0x00 || (id) == 0xff)
+@@ -50,6 +52,7 @@ struct pdt_entry {
+ 
+ struct pdt_scan_state {
+ 	u8 empty_pages;
++	u8 pdt_count;
+ 	bool pdts[RMI_PDT_MAX + 1];
+ };
+ 
+diff --git a/include/linux/rmi.h b/include/linux/rmi.h
+index ab7eea01ab42..4ba2cefac855 100644
+--- a/include/linux/rmi.h
++++ b/include/linux/rmi.h
+@@ -214,6 +214,9 @@ struct rmi_device_platform_data {
+ 	int reset_delay_ms;
+ 	int irq;
+ 
++	unsigned int pdt_fallback_size;
++	const u8 *pdt_fallback_desc;
++
+ 	struct rmi_device_platform_data_spi spi_data;
+ 
+ 	/* function handler pdata */
+-- 
+2.53.0
+

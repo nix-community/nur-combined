@@ -1,0 +1,29 @@
+From 419205198011694ed39efcb59c69b92544ab97ab Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Thu, 22 Jan 2026 19:29:28 +0100
+Subject: [PATCH 009/194] EDITME: cover title for ebbg-ft8719-fixups
+
+To: Joel Selvaraj <jo@jsfamily.in>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 1,
+    "change-id": "20260122-ebbg-ft8719-fixups-bce548250b02",
+    "prefixes": []
+  }
+}
+-- 
+2.53.0
+

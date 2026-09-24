@@ -1,0 +1,37 @@
+From 815810fcec055d2a364710936c9d36b79d7ccb47 Mon Sep 17 00:00:00 2001
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Date: Sun, 15 Oct 2023 22:11:52 +0100
+Subject: [PATCH 094/194] Input: synaptics-rmi4 - f55: handle zero electrode
+ count
+
+Some third party ICs claim to support f55 but report an electrode count
+of 0. Catch this and bail out early so that we don't confuse the i2c bus
+with 0 sized reads.
+
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+[simplify code, adjust wording]
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/rmi4/rmi_f55.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/input/rmi4/rmi_f55.c b/drivers/input/rmi4/rmi_f55.c
+index 488adaca4dd0..776c915b82e7 100644
+--- a/drivers/input/rmi4/rmi_f55.c
++++ b/drivers/input/rmi4/rmi_f55.c
+@@ -52,6 +52,11 @@ static int rmi_f55_detect(struct rmi_function *fn)
+ 
+ 	f55->num_rx_electrodes = f55->qry[F55_NUM_RX_OFFSET];
+ 	f55->num_tx_electrodes = f55->qry[F55_NUM_TX_OFFSET];
++	if (!f55->num_rx_electrodes || !f55->num_tx_electrodes) {
++		dev_err(&fn->dev, "%s: F55 query returned no electrodes, giving up\n",
++			__func__);
++		return -EINVAL;
++	}
+ 
+ 	f55->cfg_num_rx_electrodes = f55->num_rx_electrodes;
+ 	f55->cfg_num_tx_electrodes = f55->num_rx_electrodes;
+-- 
+2.53.0
+

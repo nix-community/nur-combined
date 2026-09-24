@@ -1,0 +1,85 @@
+From 42c741d4c2919c1bdad60089bf90a34ee5e342ff Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Tue, 8 Oct 2024 19:13:30 -0400
+Subject: [PATCH 052/194] hack! ASoC: qdsp6: q6cvp: add topology ID parameters
+ to session functions
+
+For some VoLTE calls between new phones, the topology IDs must be set to
+a value in the ACDB. Add RX and TX topology ID parameters to the
+functions that send the CREATE_FULL_CONTROL_SESSION command, so the
+correct topology IDs can be sent.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6cvp.c | 16 ++++++++--------
+ sound/soc/qcom/qdsp6/q6cvp.h |  6 ++++--
+ 2 files changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6cvp.c b/sound/soc/qcom/qdsp6/q6cvp.c
+index ca9720a879e4..907b7f7f2af5 100644
+--- a/sound/soc/qcom/qdsp6/q6cvp.c
++++ b/sound/soc/qcom/qdsp6/q6cvp.c
+@@ -164,16 +164,16 @@ struct vss_icommon_cmd_set_param_v2_cmd {
+ } __packed;
+ 
+ struct q6voice_session *q6cvp_session_create(enum q6voice_path_type path,
+-					     u16 tx_port, u16 rx_port)
++					     u16 tx_port, u16 rx_port,
++					     u32 tx_topo, u32 rx_topo)
+ {
+ 	struct vss_ivocproc_cmd_create_full_control_session_v2_cmd cmd;
+ 
+ 	cmd.hdr.pkt_size = sizeof(cmd);
+ 	cmd.hdr.opcode = VSS_IVOCPROC_CMD_CREATE_FULL_CONTROL_SESSION_V2;
+ 
+-	/* TODO: Implement calibration */
+-	cmd.tx_topology_id = VSS_IVOCPROC_TOPOLOGY_ID_TX_SM_ECNS;
+-	cmd.rx_topology_id = VSS_IVOCPROC_TOPOLOGY_ID_RX_DEFAULT;
++	cmd.tx_topology_id = tx_topo;
++	cmd.rx_topology_id = rx_topo;
+ 
+ 	cmd.direction = VSS_IVOCPROC_DIRECTION_RX_TX;
+ 	cmd.tx_port_id = tx_port;
+@@ -187,7 +187,8 @@ struct q6voice_session *q6cvp_session_create(enum q6voice_path_type path,
+ EXPORT_SYMBOL_GPL(q6cvp_session_create);
+ 
+ struct q6voice_session *q6cvp_session_create_v3(enum q6voice_path_type path,
+-						u16 tx_port, u16 rx_port)
++						u16 tx_port, u16 rx_port,
++						u32 tx_topo, u32 rx_topo)
+ {
+ 	/*
+ 	 * According to downstream, the v3 parameters are the exact same, with
+@@ -198,9 +199,8 @@ struct q6voice_session *q6cvp_session_create_v3(enum q6voice_path_type path,
+ 	cmd.hdr.pkt_size = sizeof(cmd);
+ 	cmd.hdr.opcode = VSS_IVOCPROC_CMD_CREATE_FULL_CONTROL_SESSION_V3;
+ 
+-	/* TODO: Implement calibration */
+-	cmd.tx_topology_id = VSS_IVOCPROC_TOPOLOGY_ID_TX_SM_ECNS;
+-	cmd.rx_topology_id = VSS_IVOCPROC_TOPOLOGY_ID_RX_DEFAULT;
++	cmd.tx_topology_id = tx_topo;
++	cmd.rx_topology_id = rx_topo;
+ 
+ 	cmd.direction = VSS_IVOCPROC_DIRECTION_RX_TX;
+ 	cmd.tx_port_id = tx_port;
+diff --git a/sound/soc/qcom/qdsp6/q6cvp.h b/sound/soc/qcom/qdsp6/q6cvp.h
+index 052e8c65963c..8aaf8b445a40 100644
+--- a/sound/soc/qcom/qdsp6/q6cvp.h
++++ b/sound/soc/qcom/qdsp6/q6cvp.h
+@@ -7,9 +7,11 @@
+ struct q6voice_session;
+ 
+ struct q6voice_session *q6cvp_session_create(enum q6voice_path_type path,
+-					     u16 tx_port, u16 rx_port);
++					     u16 tx_port, u16 rx_port,
++					     u32 tx_topo, u32 rx_topo);
+ struct q6voice_session *q6cvp_session_create_v3(enum q6voice_path_type path,
+-						u16 tx_port, u16 rx_port);
++						u16 tx_port, u16 rx_port,
++						u32 tx_topo, u32 rx_topo);
+ int q6cvp_send_channel_info(struct q6voice_session *cvp, bool is_tx);
+ int q6cvp_send_media_format(struct q6voice_session *cvp, int port_id, bool is_tx);
+ int q6cvp_topology_commit(struct q6voice_session *cvp);
+-- 
+2.53.0
+

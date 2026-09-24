@@ -1,0 +1,253 @@
+From 76ecad911354c24935f7b9d99b92b55643ceb636 Mon Sep 17 00:00:00 2001
+From: Caleb Connolly <caleb.connolly@linaro.org>
+Date: Thu, 8 Dec 2022 19:52:20 +0000
+Subject: [PATCH 165/194] drm/panel: nt36672a: move dsi commands from
+ prepare/unprepare to enable/disable
+
+The commit 007ac0262b0d ("drm/msm/dsi: switch to DRM_PANEL_BRIDGE")
+breaks panels which send DSI commands in their .unprepare callbacks.
+Migrate to using .disable for that for nt36672a panel. Similarly
+migrate to using .enable for that for nt36672a panel.
+
+Co-developed-by: Joel Selvaraj <foss@joelselvaraj.com>
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+
+drm/panel: novatek-nt36672a: prepare_prev_first
+
+This corrects the host initialisation sequence so that we can send
+DSI/DCS commands in prepare().
+
+Signed-off-by: Caleb Connolly <caleb.connolly@linaro.org>
+
+tianma panel proper enable/disable hookup! BUT 20s video out timeout delay during boot
+
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+
+[    4.036724] random: crng init done
+[    4.043921] /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0
+[    4.361796] /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+[    4.374915] msm_dpu ae01000.display-controller: bound ae94000.dsi (ops dsi_ops)
+[    4.383095] adreno 5000000.gpu: supply vdd not found, using dummy regulator
+[    4.390160] adreno 5000000.gpu: supply vddcx not found, using dummy regulator
+[    4.406355] msm_dpu ae01000.display-controller: bound 5000000.gpu (ops a3xx_ops)
+[    4.414230] Console: switching to colour dummy device 80x25
+[    4.422139] [drm:dpu_kms_hw_init:1168] dpu hardware revision:0x40000000
+[    4.431775] [drm] Initialized msm 1.13.0 for ae01000.display-controller on minor 0
+[    4.439525] msm_dpu ae01000.display-controller: Direct firmware load for qcom/a630_sqe.fw failed with error -2
+[    4.449610] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a630_sqe.fw
+[    4.473103] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d400000, fsynr=0x3d0021, cbfrsynra=0x880, cb=13
+[    4.473131] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+[    4.473146] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473382] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d42c700, fsynr=0x3d0021, cbfrsynra=0xc88, cb=13
+[    4.473398] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+[    4.473412] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473440] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d452d00, fsynr=0x3d0021, cbfrsynra=0xc88, cb=13
+[    4.473453] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+[    4.473466] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473495] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d45a800, fsynr=0x3d0021, cbfrsynra=0x880, cb=13
+[    4.473508] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+[    4.473522] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473554] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d462600, fsynr=0x3d0021, cbfrsynra=0xc88, cb=13
+[    4.473567] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+[    4.473580] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473606] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d46b000, fsynr=0x3d0021, cbfrsynra=0x880, cb=13
+[    4.473618] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+[    4.473631] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473655] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d472200, fsynr=0x3d0021, cbfrsynra=0x880, cb=13
+[    4.473668] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+[    4.473681] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473706] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d479600, fsynr=0x3d0021, cbfrsynra=0xc88, cb=13
+[    4.473717] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+[    4.473730] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473773] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d480500, fsynr=0x3d0021, cbfrsynra=0xc88, cb=13
+[    4.473786] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+[    4.473800] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.473827] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d48a600, fsynr=0x3d0021, cbfrsynra=0xc88, cb=13
+[    4.473840] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+[    4.473853] arm-smmu 15000000.iommu: FSYNR0 = 003d0021 [S1CBNDX=61 PNU PLVL=1]
+[    4.489438] nt36672a_panel_prepare
+[    4.489850] dsi_err_worker: status=4
+[    4.905536] nt36672a_panel_enable
+[    4.977437] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.064946] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.145114] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.233140] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.313099] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.392990] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.480993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.560993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.648992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.729101] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.808992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.897084] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    5.976993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.064953] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.144992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.225099] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.312992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.392992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.480993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.560991] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.640991] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.729101] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.808993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.896992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    6.977757] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.064994] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.145100] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.225101] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.312994] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.392993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.480993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.560992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.640992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.729117] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.808992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.896994] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    7.976992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    8.057098] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[    8.144992] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+....
+....
+....
+....
+[   28.697118] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[   28.784993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[   28.865101] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[   28.944993] msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+[   29.090924] fb0: sys_fillrect: framebuffer is not in virtual address space.
+[   29.090965] fb0: sys_imageblit: framebuffer is not in virtual address space.
+[   29.129105] Console: switching to colour frame buffer device 135x140
+[   31.951206] msm_dpu ae01000.display-controller: [drm] fb0: msmdrmfb frame buffer device
+[   31.961291] geni_i2c a98000.i2c: Bus frequency not specified, default to 100kHz.
+[   31.974726] geni_i2c a98000.i2c: Bus frequency not specified, default to 100kHz.
+[   31.985113] input: gpio-keys as /devices/platform/gpio-keys/input/input2
+[   31.992984] clk: Disabling unused clocks
+[   31.995531] geni_i2c a98000.i2c: Bus frequency not specified, default to 100kHz.
+[   31.997195] PM: genpd: Disabling unused power domains
+[   32.012610] Freeing unused kernel memory: 2304K
+[   32.017243] Run /init as init process
+[   32.057349] syslogd started: BusyBox v1.37.0
+[   32.061948] [pmOS-rd]:   <0xe2><0x9d><0xac><0xe2><0x9d><0xac> PMOS STAGE 1 <0xe2><0x9d><0xad><0xe2><0x9d><0xad>
+[   32.066956] [pmOS-rd]: initramfs version: 3.9.6-r0
+[   32.071851] [pmOS-rd]:   <0xe2><0x9d><0xac><0xe2><0x9d><0xac> PMOS STAGE 2 <0xe2><0x9d><0xad><0xe2><0x9d><0xad>
+[   32.531122] geni_i2c a98000.i2c: Bus frequency not specified, default to 100kHz.
+[   32.827039] input: nt36672a-ts as /devices/platform/soc@0/ac0000.geniqup/a98000.i2c/i2c-14/14-0001/input/input3
+[   32.893175] [pmOS-rd]:   Setting up USB gadget through configfs
+[   32.906154] configfs-gadget.g1 gadget.0: HOST MAC 22:1e:ef:fd:e3:8d
+[   32.912509] configfs-gadget.g1 gadget.0: MAC 26:85:e6:f3:df:72
+[   32.940855] [pmOS-rd]: Trying to start server with parameters: Server IP addr: 172.16.42.1:67, client IP addr: 172.16.42.2, interface: usb0
+[   32.953551] [pmOS-rd]: Setting framebuffer mode to: U:1080x2246p-0
+[   34.056833] [pmOS-rd]: Trying to mount subpartitions for 10 seconds...
+[   34.711818] [pmOS-rd]: Mount subpartitions of /dev/sda21
+[   34.712501] loop0: detected capacity change from 0 to 112213976
+[   34.715249]  loop0: p1 p2
+---
+ .../gpu/drm/panel/panel-novatek-nt36672a.c    | 42 ++++++++++---------
+ 1 file changed, 22 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+index 7e8b5e059575..614d02c9dbbf 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+@@ -92,23 +92,14 @@ static void nt36672a_send_cmds(struct mipi_dsi_multi_context *dsi_ctx,
+ 	}
+ }
+ 
+-static void nt36672a_panel_power_off(struct drm_panel *panel)
+-{
+-	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
+-	int ret;
+-
+-	gpiod_set_value(pinfo->reset_gpio, 1);
+-
+-	ret = regulator_bulk_disable(ARRAY_SIZE(pinfo->supplies), pinfo->supplies);
+-	if (ret)
+-		dev_err(panel->dev, "regulator_bulk_disable failed %d\n", ret);
+-}
+-
+-static int nt36672a_panel_unprepare(struct drm_panel *panel)
++static int nt36672a_panel_disable(struct drm_panel *panel)
+ {
+ 	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
++	struct mipi_dsi_device *dsi = pinfo->link;
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
+ 
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
+ 	/* send off cmds */
+ 	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->off_cmds,
+ 			   pinfo->desc->num_off_cmds);
+@@ -127,13 +118,22 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
+ 	/* 0x3C = 60ms delay */
+ 	msleep(60);
+ 
+-	nt36672a_panel_power_off(panel);
++	return dsi_ctx.accum_err;
++}
++
++static int nt36672a_panel_unprepare(struct drm_panel *panel)
++{
++	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
++
++	gpiod_set_value(pinfo->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(pinfo->supplies), pinfo->supplies);
+ 
+ 	return 0;
+ }
+ 
+-static int nt36672a_panel_power_on(struct nt36672a_panel *pinfo)
++static int nt36672a_panel_prepare(struct drm_panel *panel)
+ {
++	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
+ 	int ret;
+ 
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(pinfo->supplies), pinfo->supplies);
+@@ -154,12 +154,13 @@ static int nt36672a_panel_power_on(struct nt36672a_panel *pinfo)
+ 	return 0;
+ }
+ 
+-static int nt36672a_panel_prepare(struct drm_panel *panel)
++static int nt36672a_panel_enable(struct drm_panel *panel)
+ {
+ 	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
++	struct mipi_dsi_device *dsi = pinfo->link;
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
+ 
+-	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+ 
+ 	/* send first part of init cmds */
+ 	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_1,
+@@ -178,9 +179,6 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+ 
+ 	mipi_dsi_msleep(&dsi_ctx, 120);
+ 
+-	if (dsi_ctx.accum_err < 0)
+-		gpiod_set_value(pinfo->reset_gpio, 0);
+-
+ 	return dsi_ctx.accum_err;
+ }
+ 
+@@ -208,6 +206,8 @@ static int nt36672a_panel_get_modes(struct drm_panel *panel,
+ }
+ 
+ static const struct drm_panel_funcs panel_funcs = {
++	.enable = nt36672a_panel_enable,
++	.disable = nt36672a_panel_disable,
+ 	.unprepare = nt36672a_panel_unprepare,
+ 	.prepare = nt36672a_panel_prepare,
+ 	.get_modes = nt36672a_panel_get_modes,
+@@ -574,6 +574,8 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
+ 		return dev_err_probe(dev, PTR_ERR(pinfo->reset_gpio),
+ 				     "failed to get reset gpio from DT\n");
+ 
++	pinfo->base.prepare_prev_first = true;
++
+ 	ret = drm_panel_of_backlight(&pinfo->base);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+-- 
+2.53.0
+

@@ -1,0 +1,75 @@
+From 6bcc424e86408960ab5852154bc200f648455f7f Mon Sep 17 00:00:00 2001
+From: Dzmitry Sankouski <dsankouski@gmail.com>
+Date: Sat, 24 May 2025 14:32:47 +0300
+Subject: [PATCH 179/194] arm64: dts: qcom: sdm845-starqltechn: fix slpi
+ support
+
+Fix commit with slpi support.
+
+Fixes c0cb8c3dac8("arm64: dts: qcom: sdm845-starqltechn: add slpi support")
+---
+ .../dts/qcom/sdm845-samsung-starqltechn.dts   | 27 ++++++++++++-------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+index 6b7936f1cc6d..8729be6b461d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+@@ -23,7 +23,6 @@
+ /delete-node/ &rmtfs_mem;
+ /delete-node/ &spss_mem;
+ /delete-node/ &adsp_mem;
+-/delete-node/ &slpi_mem;
+ 
+ / {
+ 	chassis-type = "handset";
+@@ -134,11 +133,6 @@
+ 			no-map;
+ 		};
+ 
+-		slpi_mem: slpi@96700000 {
+-			reg = <0 0x96700000 0 0x1000000>;
+-			no-map;
+-		};
+-
+ 		spss_mem: spss@97700000 {
+ 			reg = <0 0x97700000 0 0x100000>;
+ 			no-map;
+@@ -992,6 +986,10 @@
+ 	firmware-name = "qcom/sdm845/Samsung/starqltechn/slpi.mbn";
+ 	cx-supply = <&slpi_regulator>;
+ 
++	pinctrl-0 = <&slpi_ldo_active_state>;
++	pinctrl-1 = <&slpi_ldo_sleep_state>;
++	pinctrl-names = "default", "sleep";
++
+ 	status = "okay";
+ };
+ 
+@@ -1123,10 +1121,19 @@
+ 
+ 	slpi_ldo_active_state: slpi-ldo-active-state {
+ 		pins = "gpio8";
+-                function = "gpio";
+-                drive-strength = <2>;
+-                bias-disable;
+-        };
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-high;
++	};
++
++	slpi_ldo_sleep_state: slpi-ldo-sleep-state {
++		pins = "gpio8";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-low;
++	};
+ 
+ 	i2c18_sda_state: i2c18-sda-state {
+ 		pins = "gpio62";
+-- 
+2.53.0
+

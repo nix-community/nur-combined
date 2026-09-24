@@ -1,0 +1,45 @@
+From 800af20f3db1a9b7fd287616f1dde88261d91d83 Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Fri, 3 Apr 2026 18:37:40 +0200
+Subject: [PATCH 147/194] Correct Xiaomi Poco F1 compatible strings and
+ evaluation.
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: Casey Connolly <casey.connolly@linaro.org>
+To: Joel Selvaraj <joelselvaraj.oss@gmail.com>
+To: Jens Reidel <adrian@travitia.xyz>
+Cc: Petr Hodina <petr.hodina@protonmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+---
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://lore.kernel.org/r/20260403-beryllium-compat-string-v1-0-0a6b9cb55a20@ixit.cz
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 2,
+    "change-id": "20260403-beryllium-compat-string-cc149b90a29d",
+    "prefixes": [],
+    "history": {
+      "v1": [
+        "20260403-beryllium-compat-string-v1-0-0a6b9cb55a20@ixit.cz"
+      ]
+    }
+  }
+}
+-- 
+2.53.0
+

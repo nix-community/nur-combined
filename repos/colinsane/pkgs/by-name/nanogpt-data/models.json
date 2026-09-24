@@ -1,5 +1,111 @@
 [
   {
+    "id": "inference-net/schematron-v2-small",
+    "name": "Schematron V2 Small",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.23,
+      "currency": "USD",
+      "prompt": 0.05,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 128000,
+    "max_output_tokens": 4096,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "inference-net/schematron-v2-turbo",
+    "name": "Schematron V2 Turbo",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 0.15,
+      "currency": "USD",
+      "prompt": 0.03,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 128000,
+    "max_output_tokens": 8192,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "meta-llama/llama-3.1-405b-instruct",
+    "name": "Llama 3.1 405B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 2.0265,
+      "currency": "USD",
+      "prompt": 2.0265,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 8192,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "mistralai/mistral-small-24b-instruct-2501",
+    "name": "Mistral Small 3 24B (2501)",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.3465,
+      "currency": "USD",
+      "prompt": 0.1155,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 32768,
+    "max_output_tokens": 8192,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "lightonai/LightOnOCR-2-1B",
+    "name": "LightOnOCR 2",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.3465,
+      "currency": "USD",
+      "prompt": 0.1785,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 32768,
+    "max_output_tokens": 8192,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "meta/muse-spark-1.3",
     "name": "Muse Spark 1.3",
     "pricing": {
@@ -156,35 +262,13 @@
     }
   },
   {
-    "id": "deepseek/deepseek-v4-flash-vision-exp-uncensored",
-    "name": "DeepSeek V4 Flash Vision Exp Uncensored",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00022,
-      "completion": 1.6,
-      "currency": "USD",
-      "prompt": 0.44,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 524288,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "z-ai/glm-5.3-flash-uncensored",
     "name": "GLM 5.3 Flash Uncensored",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000175,
-      "completion": 1.4,
+      "cacheReadInputPer1kTokens": 0.0001,
+      "completion": 0.8,
       "currency": "USD",
-      "prompt": 0.35,
+      "prompt": 0.2,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -266,6 +350,72 @@
     }
   },
   {
+    "id": "qwen/qwen3.8-27b-queen",
+    "name": "Qwen 3.8 27B Queen",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.000125,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "gemma-4-12b-it-semancer",
+    "name": "Gemma 4 12B Semancer",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.25,
+      "currency": "USD",
+      "prompt": 0.05,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "gemma-4-12b-it-station-keeper",
+    "name": "Gemma 4 12B StationKeeper",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.25,
+      "currency": "USD",
+      "prompt": 0.05,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "qwen/qwen3.8-27b-fable",
     "name": "Qwen 3.8 27B Fable",
     "pricing": {
@@ -313,7 +463,7 @@
     "id": "qwen/qwen3.8-27b-obliterated",
     "name": "Qwen 3.8 27B Obliterated",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000125,
+      "cacheReadInputPer1kTokens": 0.0002,
       "completion": 1.5,
       "currency": "USD",
       "prompt": 0.25,
@@ -335,98 +485,10 @@
     "id": "qwen/qwen3.8-27b-obliterated:thinking",
     "name": "Qwen 3.8 27B Obliterated Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000125,
+      "cacheReadInputPer1kTokens": 0.0002,
       "completion": 1.5,
       "currency": "USD",
       "prompt": 0.25,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "qwen/qwen3.6-35b-a3b-uncensored",
-    "name": "Qwen 3.6 35B A3B Uncensored",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
-      "completion": 0.95,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "qwen/qwen3.6-35b-a3b-uncensored:thinking",
-    "name": "Qwen 3.6 35B A3B Uncensored Thinking",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
-      "completion": 0.95,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "ornith-ai/ornith-1.5-9b",
-    "name": "Ornith 1.5 9B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.2,
-      "currency": "USD",
-      "prompt": 0.1,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "ornith-ai/ornith-1.5-9b:thinking",
-    "name": "Ornith 1.5 9B Thinking",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.2,
-      "currency": "USD",
-      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -882,7 +944,7 @@
     }
   },
   {
-    "id": "qwen3.8-27b",
+    "id": "qwen/qwen3.8-27b",
     "name": "Qwen3.8 27B",
     "pricing": {
       "cacheReadInputPer1kTokens": 4e-05,
@@ -899,12 +961,13 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
   {
-    "id": "qwen3.8-27b:thinking",
+    "id": "qwen/qwen3.8-27b:thinking",
     "name": "Qwen3.8 27B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 4e-05,
@@ -921,12 +984,13 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
   {
-    "id": "qwen3.5-4b",
+    "id": "qwen/qwen3.5-4b",
     "name": "Qwen3.5 4B",
     "pricing": {
       "cacheReadInputPer1kTokens": 5e-05,
@@ -948,7 +1012,7 @@
     }
   },
   {
-    "id": "qwen3.5-2b",
+    "id": "qwen/qwen3.5-2b",
     "name": "Qwen3.5 2B",
     "pricing": {
       "cacheReadInputPer1kTokens": 4e-05,
@@ -970,7 +1034,7 @@
     }
   },
   {
-    "id": "qwen3.5-0.8b",
+    "id": "qwen/qwen3.5-0.8b",
     "name": "Qwen3.5 0.8B",
     "pricing": {
       "cacheReadInputPer1kTokens": 3e-05,
@@ -1449,7 +1513,9 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video",
+        "audio"
       ]
     }
   },
@@ -1545,10 +1611,10 @@
     "id": "sakana/fugu-ultra",
     "name": "Fugu Ultra",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000525,
-      "completion": 31.5,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 30.0,
       "currency": "USD",
-      "prompt": 5.25,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -1567,14 +1633,36 @@
     "id": "sakana/fugu-ultra-v1.1",
     "name": "Fugu Ultra v1.1",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000525,
-      "completion": 31.5,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 30.0,
       "currency": "USD",
-      "prompt": 5.25,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
     "max_output_tokens": 16384,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "sakana/fugu-max",
+    "name": "Fugu Max",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00025,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 128000,
     "capabilities": {
       "reasoning": true
     },
@@ -1990,195 +2078,6 @@
     }
   },
   {
-    "id": "exa-answer",
-    "name": "Exa (Answer)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 2.5,
-      "currency": "USD",
-      "prompt": 2.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "linkup-research-low",
-    "name": "Linkup Research Low",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 131.25,
-      "currency": "USD",
-      "prompt": 131.25,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "linkup-research-medium",
-    "name": "Linkup Research Medium",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 262.5,
-      "currency": "USD",
-      "prompt": 262.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "linkup-research-high",
-    "name": "Linkup Research High",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 787.5,
-      "currency": "USD",
-      "prompt": 787.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "linkup-research-xhigh",
-    "name": "Linkup Research XHigh",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 1312.5,
-      "currency": "USD",
-      "prompt": 1312.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "sofya-research",
-    "name": "Sofya Research",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 65.625,
-      "currency": "USD",
-      "prompt": 65.625,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "brave",
-    "name": "Brave (Answers)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 5.0,
-      "currency": "USD",
-      "prompt": 5.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "brave-pro",
-    "name": "Brave (Pro)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 5.0,
-      "currency": "USD",
-      "prompt": 5.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "brave-research",
-    "name": "Brave (Research)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 5.0,
-      "currency": "USD",
-      "prompt": 5.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": null,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "fastgpt",
     "name": "Web Answer",
     "pricing": {
@@ -2350,7 +2249,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-5-20250929",
+    "id": "anthropic/claude-sonnet-4.5",
     "name": "Claude Sonnet 4.5",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -2359,7 +2258,7 @@
       "prompt": 3.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
+    "context_length": 200000,
     "max_output_tokens": 64000,
     "capabilities": {
       "reasoning": true
@@ -2372,7 +2271,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-5-20250929-thinking",
+    "id": "anthropic/claude-sonnet-4.5:thinking",
     "name": "Claude Sonnet 4.5 Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -2381,7 +2280,7 @@
       "prompt": 3.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
+    "context_length": 200000,
     "max_output_tokens": 64000,
     "capabilities": {
       "reasoning": true
@@ -2415,7 +2314,7 @@
     }
   },
   {
-    "id": "mistralai/Devstral-Small-2505",
+    "id": "mistralai/devstral-small-2505",
     "name": "Mistral Devstral Small 2505",
     "pricing": {
       "cacheReadInputPer1kTokens": 3e-05,
@@ -3089,7 +2988,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -3111,7 +3011,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -3202,27 +3103,6 @@
         "text",
         "image",
         "audio"
-      ]
-    }
-  },
-  {
-    "id": "sonar-deep-research",
-    "name": "Perplexity Deep Research",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0017,
-      "completion": 13.6,
-      "currency": "USD",
-      "prompt": 3.4,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
       ]
     }
   },
@@ -3398,6 +3278,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3421,6 +3302,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3444,6 +3326,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3605,6 +3488,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3628,6 +3512,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3651,6 +3536,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3697,6 +3583,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3789,6 +3676,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3812,6 +3700,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3835,6 +3724,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -3858,6 +3748,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -4071,28 +3962,6 @@
         "image",
         "video",
         "audio"
-      ]
-    }
-  },
-  {
-    "id": "nex-agi/nex-n2-mini",
-    "name": "Nex N2 Mini",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 2.5e-06,
-      "completion": 0.1,
-      "currency": "USD",
-      "prompt": 0.025,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },
@@ -5155,7 +5024,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-20250514",
+    "id": "anthropic/claude-sonnet-4",
     "name": "Claude 4 Sonnet",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -5177,7 +5046,7 @@
     }
   },
   {
-    "id": "claude-opus-4-20250514",
+    "id": "anthropic/claude-opus-4",
     "name": "Claude 4 Opus",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -5199,7 +5068,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-thinking",
+    "id": "anthropic/claude-sonnet-4:thinking",
     "name": "Claude 4 Sonnet Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -5221,7 +5090,7 @@
     }
   },
   {
-    "id": "claude-opus-4-thinking",
+    "id": "anthropic/claude-opus-4:thinking",
     "name": "Claude 4 Opus Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -5473,7 +5342,9 @@
     },
     "architecture": {
       "input_modalities": [
-        "text"
+        "text",
+        "image",
+        "video"
       ]
     }
   },
@@ -5579,7 +5450,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -5647,7 +5519,7 @@
     }
   },
   {
-    "id": "qwen3-vl-235b-a22b-thinking",
+    "id": "qwen/qwen3-vl-235b-a22b-thinking",
     "name": "Qwen3 VL 235B A22B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00025,
@@ -5712,7 +5584,7 @@
     }
   },
   {
-    "id": "qwen3-coder-30b-a3b-instruct",
+    "id": "qwen/qwen3-coder-30b-a3b-instruct",
     "name": "Qwen3 Coder 30B A3B Instruct",
     "pricing": {
       "cacheReadInputPer1kTokens": 5e-05,
@@ -5754,7 +5626,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "id": "qwen/qwen3-235b-a22b-instruct-2507",
     "name": "Qwen 3 235b A22B 2507",
     "pricing": {
       "cacheReadInputPer1kTokens": 6.5e-05,
@@ -5775,7 +5647,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen3-235B-A22B-Thinking-2507",
+    "id": "qwen/qwen3-235b-a22b-thinking-2507",
     "name": "Qwen 3 235b A22B 2507 Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00015,
@@ -5796,7 +5668,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
+    "id": "qwen/qwen3-next-80b-a3b-instruct",
     "name": "Qwen3 Next 80B A3B (Instruct)",
     "pricing": {
       "cacheReadInputPer1kTokens": 7.5e-05,
@@ -5880,7 +5752,7 @@
     }
   },
   {
-    "id": "MiniMax-M2",
+    "id": "minimax/minimax-m2",
     "name": "MiniMax M2",
     "pricing": {
       "cacheReadInputPer1kTokens": 8.5e-05,
@@ -6048,7 +5920,8 @@
       "input_modalities": [
         "text",
         "image",
-        "video"
+        "video",
+        "audio"
       ]
     }
   },
@@ -6071,7 +5944,8 @@
       "input_modalities": [
         "text",
         "image",
-        "video"
+        "video",
+        "audio"
       ]
     }
   },
@@ -6747,12 +6621,13 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
   {
-    "id": "qwen3-30b-a3b-instruct-2507",
+    "id": "qwen/qwen3-30b-a3b-instruct-2507",
     "name": "Qwen3 30B A3B Instruct 2507",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001,
@@ -6900,7 +6775,7 @@
     }
   },
   {
-    "id": "claude-haiku-4-5-20251001",
+    "id": "anthropic/claude-haiku-4.5",
     "name": "Claude Haiku 4.5",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001,
@@ -6922,7 +6797,7 @@
     }
   },
   {
-    "id": "claude-haiku-4-5-20251001-thinking",
+    "id": "anthropic/claude-haiku-4.5:thinking",
     "name": "Claude Haiku 4.5 Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001,
@@ -7029,7 +6904,7 @@
     }
   },
   {
-    "id": "qwen-turbo",
+    "id": "qwen/qwen-turbo",
     "name": "Qwen Turbo",
     "pricing": {
       "cacheReadInputPer1kTokens": 2.499e-05,
@@ -7050,7 +6925,7 @@
     }
   },
   {
-    "id": "qwen-max",
+    "id": "qwen/qwen-max",
     "name": "Qwen 2.5 Max",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00079985,
@@ -7071,7 +6946,7 @@
     }
   },
   {
-    "id": "qwen3-max-2026-01-23",
+    "id": "qwen/qwen3-max-2026-01-23",
     "name": "Qwen3 Max 2026-01-23",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0006001,
@@ -7092,7 +6967,7 @@
     }
   },
   {
-    "id": "qwen3.7-max",
+    "id": "qwen/qwen3.7-max",
     "name": "Qwen3.7 Max",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0005,
@@ -7113,7 +6988,7 @@
     }
   },
   {
-    "id": "qwen3.7-max:thinking",
+    "id": "qwen/qwen3.7-max:thinking",
     "name": "Qwen3.7 Max Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0005,
@@ -7134,7 +7009,7 @@
     }
   },
   {
-    "id": "qwen3.7-plus",
+    "id": "qwen/qwen3.7-plus",
     "name": "Qwen3.7 Plus",
     "pricing": {
       "cacheReadInputPer1kTokens": 8e-05,
@@ -7157,7 +7032,7 @@
     }
   },
   {
-    "id": "qwen3.7-plus:thinking",
+    "id": "qwen/qwen3.7-plus:thinking",
     "name": "Qwen3.7 Plus Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 8e-05,
@@ -7180,7 +7055,7 @@
     }
   },
   {
-    "id": "qwen3.7-flash",
+    "id": "qwen/qwen3.7-flash",
     "name": "Qwen3.7 Flash",
     "pricing": {
       "cacheReadInputPer1kTokens": 6e-06,
@@ -7203,7 +7078,7 @@
     }
   },
   {
-    "id": "qwen3.7-flash:thinking",
+    "id": "qwen/qwen3.7-flash:thinking",
     "name": "Qwen3.7 Flash Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 6e-06,
@@ -7226,7 +7101,7 @@
     }
   },
   {
-    "id": "alibaba/qwen3.8-max-0902",
+    "id": "qwen/qwen3.8-max-0902",
     "name": "Qwen3.8 Max 0902",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00017,
@@ -7249,13 +7124,13 @@
     }
   },
   {
-    "id": "alibaba/qwen3.8-flash",
+    "id": "qwen/qwen3.8-flash",
     "name": "Qwen3.8 Flash",
     "pricing": {
       "cacheReadInputPer1kTokens": 1.6e-05,
-      "completion": 0.47,
+      "completion": 0.42,
       "currency": "USD",
-      "prompt": 0.16,
+      "prompt": 0.14,
       "unit": "per_million_tokens"
     },
     "context_length": 991808,
@@ -7272,7 +7147,7 @@
     }
   },
   {
-    "id": "qwen3.6-max-preview",
+    "id": "qwen/qwen3.6-max-preview",
     "name": "Qwen3.6 Max Preview",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00052,
@@ -7293,7 +7168,7 @@
     }
   },
   {
-    "id": "qwen3.5-omni-flash",
+    "id": "qwen/qwen3.5-omni-flash",
     "name": "Qwen3.5 Omni Flash",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
@@ -7317,7 +7192,7 @@
     }
   },
   {
-    "id": "qwen3.5-omni-plus",
+    "id": "qwen/qwen3.5-omni-plus",
     "name": "Qwen3.5 Omni Plus",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
@@ -7341,7 +7216,7 @@
     }
   },
   {
-    "id": "qwen3.5-122b-a10b",
+    "id": "qwen/qwen3.5-122b-a10b",
     "name": "Qwen3.5 122B A10B",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000103788,
@@ -7362,7 +7237,7 @@
     }
   },
   {
-    "id": "qwen3.5-122b-a10b:thinking",
+    "id": "qwen/qwen3.5-122b-a10b:thinking",
     "name": "Qwen3.5 122B A10B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000103788,
@@ -7383,7 +7258,7 @@
     }
   },
   {
-    "id": "qwen3.5-27b",
+    "id": "qwen/qwen3.5-27b",
     "name": "Qwen3.5 27B",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000135,
@@ -7406,7 +7281,7 @@
     }
   },
   {
-    "id": "qwen3.5-27b:thinking",
+    "id": "qwen/qwen3.5-27b:thinking",
     "name": "Qwen3.5 27B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000135,
@@ -7429,7 +7304,7 @@
     }
   },
   {
-    "id": "qwen3.5-35b-a3b",
+    "id": "qwen/qwen3.5-35b-a3b",
     "name": "Qwen3.5 35B A3B",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001125,
@@ -7452,7 +7327,7 @@
     }
   },
   {
-    "id": "qwen3.5-35b-a3b:thinking",
+    "id": "qwen/qwen3.5-35b-a3b:thinking",
     "name": "Qwen3.5 35B A3B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001125,
@@ -7475,7 +7350,7 @@
     }
   },
   {
-    "id": "qwen3.5-flash",
+    "id": "qwen/qwen3.5-flash",
     "name": "Qwen3.5 Flash",
     "pricing": {
       "cacheReadInputPer1kTokens": 5e-05,
@@ -7498,7 +7373,7 @@
     }
   },
   {
-    "id": "qwen3.5-flash:thinking",
+    "id": "qwen/qwen3.5-flash:thinking",
     "name": "Qwen3.5 Flash Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 5e-05,
@@ -7521,7 +7396,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen3.6-35B-A3B",
+    "id": "qwen/qwen3.6-35b-a3b",
     "name": "Qwen3.6 35B A3B",
     "pricing": {
       "cacheReadInputPer1kTokens": 5.6e-05,
@@ -7544,7 +7419,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen3.6-35B-A3B:thinking",
+    "id": "qwen/qwen3.6-35b-a3b:thinking",
     "name": "Qwen3.6 35B A3B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 5.6e-05,
@@ -7567,7 +7442,7 @@
     }
   },
   {
-    "id": "alibaba/qwen3.6-flash",
+    "id": "qwen/qwen3.6-flash",
     "name": "Qwen3.6 Flash",
     "pricing": {
       "cacheReadInputPer1kTokens": 2e-05,
@@ -7590,7 +7465,7 @@
     }
   },
   {
-    "id": "alibaba/qwen3.6-27b",
+    "id": "qwen/qwen3.6-27b",
     "name": "Qwen3.6 27B",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001015,
@@ -7613,7 +7488,7 @@
     }
   },
   {
-    "id": "alibaba/qwen3.6-27b:thinking",
+    "id": "qwen/qwen3.6-27b:thinking",
     "name": "Qwen3.6 27B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001015,
@@ -7766,10 +7641,10 @@
     "id": "deepseek/deepseek-v4-flash-0731",
     "name": "DeepSeek V4 Flash 0731",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1.4e-05,
-      "completion": 0.28,
+      "cacheReadInputPer1kTokens": 1.3e-05,
+      "completion": 0.16,
       "currency": "USD",
-      "prompt": 0.14,
+      "prompt": 0.05,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -7787,10 +7662,10 @@
     "id": "deepseek/deepseek-v4-flash-latest",
     "name": "DeepSeek V4 Flash Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1.4e-05,
-      "completion": 0.28,
+      "cacheReadInputPer1kTokens": 1.3e-05,
+      "completion": 0.16,
       "currency": "USD",
-      "prompt": 0.14,
+      "prompt": 0.05,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -7808,10 +7683,10 @@
     "id": "deepseek/deepseek-v4-flash-0731:thinking",
     "name": "DeepSeek V4 Flash 0731 (Thinking)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1.4e-05,
-      "completion": 0.28,
+      "cacheReadInputPer1kTokens": 1.3e-05,
+      "completion": 0.16,
       "currency": "USD",
-      "prompt": 0.14,
+      "prompt": 0.05,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -7952,7 +7827,7 @@
     }
   },
   {
-    "id": "qwen-plus",
+    "id": "qwen/qwen-plus",
     "name": "Qwen Plus",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00019975,
@@ -7996,7 +7871,7 @@
     }
   },
   {
-    "id": "qwen/qwen3.5-397b-a17b-thinking",
+    "id": "qwen/qwen3.5-397b-a17b:thinking",
     "name": "Qwen3.5 397B A17B Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -8042,7 +7917,7 @@
     }
   },
   {
-    "id": "qwen/qwen3.5-plus-thinking",
+    "id": "qwen/qwen3.5-plus:thinking",
     "name": "Qwen3.5 Plus Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 4e-05,
@@ -8065,7 +7940,73 @@
     }
   },
   {
-    "id": "qwen3.8-max",
+    "id": "agnes-3.0-flash",
+    "name": "Agnes 3.0 Flash",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 5e-06,
+      "completion": 0.15,
+      "currency": "USD",
+      "prompt": 0.05,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 524288,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "deepseek/deepseek-v4.1-flash",
+    "name": "DeepSeek V4.1 Flash",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 3e-06,
+      "completion": 0.4,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 384000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "deepseek/deepseek-v4.1-flash:thinking",
+    "name": "DeepSeek V4.1 Flash Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 3e-06,
+      "completion": 0.4,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 384000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "qwen/qwen3.8-max",
     "name": "Qwen3.8 Max",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00025,
@@ -8088,30 +8029,7 @@
     }
   },
   {
-    "id": "qwen/qwen3.8-2.4t-a95b",
-    "name": "Qwen3.8 2.4T A95B (Max)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
-      "completion": 6.0,
-      "currency": "USD",
-      "prompt": 2.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 991000,
-    "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image",
-        "video"
-      ]
-    }
-  },
-  {
-    "id": "qwen3.8-max:thinking",
+    "id": "qwen/qwen3.8-max:thinking",
     "name": "Qwen3.8 Max Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00025,
@@ -8134,7 +8052,7 @@
     }
   },
   {
-    "id": "qwen-3.6-plus",
+    "id": "qwen/qwen3.6-plus",
     "name": "Qwen 3.6 Plus",
     "pricing": {
       "cacheReadInputPer1kTokens": 3.25e-05,
@@ -8157,7 +8075,7 @@
     }
   },
   {
-    "id": "qwen-long",
+    "id": "qwen/qwen-long",
     "name": "Qwen Long 10M",
     "pricing": {
       "cacheReadInputPer1kTokens": 5.015e-05,
@@ -8178,7 +8096,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen2.5-Coder-32B-Instruct",
+    "id": "qwen/qwen2.5-coder-32b-instruct",
     "name": "Qwen 2.5 Coder 32b",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001003,
@@ -8273,48 +8191,6 @@
     },
     "context_length": 1000000,
     "max_output_tokens": 65535,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "yi-large",
-    "name": "Yi Large",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.001598,
-      "completion": 3.196,
-      "currency": "USD",
-      "prompt": 3.196,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 32000,
-    "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "yi-medium-200k",
-    "name": "Yi Medium 200k",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0012495,
-      "completion": 2.499,
-      "currency": "USD",
-      "prompt": 2.499,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 4096,
     "capabilities": {
       "reasoning": false
     },
@@ -8682,90 +8558,6 @@
     }
   },
   {
-    "id": "sonar-pro",
-    "name": "Perplexity Pro",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0015,
-      "completion": 15.0,
-      "currency": "USD",
-      "prompt": 3.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 128000,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "sonar-reasoning-pro",
-    "name": "Perplexity Reasoning Pro",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.001,
-      "completion": 8.0,
-      "currency": "USD",
-      "prompt": 2.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "perplexity-academic-researcher",
-    "name": "Perplexity Academic Researcher",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.001,
-      "completion": 8.0,
-      "currency": "USD",
-      "prompt": 2.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "sonar",
-    "name": "Perplexity Simple",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 1.0,
-      "currency": "USD",
-      "prompt": 1.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 127072,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "Gryphe/MythoMax-L2-13b",
     "name": "MythoMax 13B",
     "pricing": {
@@ -8955,7 +8747,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen3-8B",
+    "id": "qwen/qwen3-8b",
     "name": "Qwen 3 8B",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000235,
@@ -9273,10 +9065,10 @@
     "id": "TEE/gpt-oss-20b",
     "name": "GPT-OSS 20B TEE",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001,
-      "completion": 0.8,
+      "cacheReadInputPer1kTokens": 2e-05,
+      "completion": 0.15,
       "currency": "USD",
-      "prompt": 0.2,
+      "prompt": 0.04,
       "unit": "per_million_tokens"
     },
     "context_length": 131072,
@@ -9330,6 +9122,28 @@
     "architecture": {
       "input_modalities": [
         "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/deepseek-v4.1-flash",
+    "name": "DeepSeek V4.1 Flash TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00013,
+      "completion": 1.45,
+      "currency": "USD",
+      "prompt": 0.65,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 384000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
       ]
     }
   },
@@ -9434,6 +9248,27 @@
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/nemotron-3.5-lightning",
+    "name": "Nvidia Nemotron 3.5 Lightning TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.08,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -9866,7 +9701,7 @@
     }
   },
   {
-    "id": "mistralai/Mistral-Nemo-Instruct-2407",
+    "id": "mistralai/mistral-nemo-instruct-2407",
     "name": "Mistral Nemo",
     "pricing": {
       "cacheReadInputPer1kTokens": 5.015e-05,
@@ -10502,113 +10337,6 @@
     }
   },
   {
-    "id": "azure-o1",
-    "name": "Azure o1",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0075,
-      "completion": 60.0,
-      "currency": "USD",
-      "prompt": 15.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 100000,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "azure-o3-mini",
-    "name": "Azure o3-mini",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00055,
-      "completion": 4.4,
-      "currency": "USD",
-      "prompt": 1.1,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "azure-gpt-4o",
-    "name": "Azure gpt-4o",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00125,
-      "completion": 10.0,
-      "currency": "USD",
-      "prompt": 2.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "azure-gpt-4o-mini",
-    "name": "Azure gpt-4o-mini",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
-      "completion": 0.6,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "azure-gpt-4-turbo",
-    "name": "Azure gpt-4-turbo",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 30.0,
-      "currency": "USD",
-      "prompt": 10.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "deepseek-r1-sambanova",
     "name": "DeepSeek R1 Fast",
     "pricing": {
@@ -10651,7 +10379,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-thinking:1024",
+    "id": "anthropic/claude-sonnet-4:thinking:1024",
     "name": "Claude 4 Sonnet Thinking (1K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -10673,7 +10401,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-thinking:8192",
+    "id": "anthropic/claude-sonnet-4:thinking:8192",
     "name": "Claude 4 Sonnet Thinking (8K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -10695,7 +10423,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-thinking:32768",
+    "id": "anthropic/claude-sonnet-4:thinking:32768",
     "name": "Claude 4 Sonnet Thinking (32K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -10717,7 +10445,7 @@
     }
   },
   {
-    "id": "claude-sonnet-4-thinking:64000",
+    "id": "anthropic/claude-sonnet-4:thinking:64000",
     "name": "Claude 4 Sonnet Thinking (64K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0003,
@@ -10739,7 +10467,7 @@
     }
   },
   {
-    "id": "claude-opus-4-thinking:1024",
+    "id": "anthropic/claude-opus-4:thinking:1024",
     "name": "Claude 4 Opus Thinking (1K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -10761,7 +10489,7 @@
     }
   },
   {
-    "id": "claude-opus-4-thinking:8192",
+    "id": "anthropic/claude-opus-4:thinking:8192",
     "name": "Claude 4 Opus Thinking (8K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -10783,7 +10511,7 @@
     }
   },
   {
-    "id": "claude-opus-4-thinking:32768",
+    "id": "anthropic/claude-opus-4:thinking:32768",
     "name": "Claude 4 Opus Thinking (32K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -11025,7 +10753,7 @@
     }
   },
   {
-    "id": "claude-opus-4-5-20251101",
+    "id": "anthropic/claude-opus-4.5",
     "name": "Claude 4.5 Opus",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0005,
@@ -11047,7 +10775,7 @@
     }
   },
   {
-    "id": "claude-opus-4-5-20251101:thinking",
+    "id": "anthropic/claude-opus-4.5:thinking",
     "name": "Claude 4.5 Opus Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0005,
@@ -11069,7 +10797,7 @@
     }
   },
   {
-    "id": "claude-opus-4-1-20250805",
+    "id": "anthropic/claude-opus-4.1",
     "name": "Claude 4.1 Opus",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -11091,7 +10819,7 @@
     }
   },
   {
-    "id": "claude-opus-4-1-thinking",
+    "id": "anthropic/claude-opus-4.1:thinking",
     "name": "Claude 4.1 Opus Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -11113,7 +10841,7 @@
     }
   },
   {
-    "id": "claude-opus-4-1-thinking:1024",
+    "id": "anthropic/claude-opus-4.1:thinking:1024",
     "name": "Claude 4.1 Opus Thinking (1K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -11135,7 +10863,7 @@
     }
   },
   {
-    "id": "claude-opus-4-1-thinking:8192",
+    "id": "anthropic/claude-opus-4.1:thinking:8192",
     "name": "Claude 4.1 Opus Thinking (8K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -11157,7 +10885,7 @@
     }
   },
   {
-    "id": "claude-opus-4-1-thinking:32768",
+    "id": "anthropic/claude-opus-4.1:thinking:32768",
     "name": "Claude 4.1 Opus Thinking (32K)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0015,
@@ -11369,7 +11097,7 @@
     }
   },
   {
-    "id": "qwen25-vl-72b-instruct",
+    "id": "qwen/qwen2.5-vl-72b-instruct",
     "name": "Qwen25 VL 72b",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000349945,
@@ -11477,8 +11205,8 @@
     }
   },
   {
-    "id": "mistral-small-31-24b-instruct",
-    "name": "Mistral Small 31 24b Instruct",
+    "id": "mistralai/mistral-small-3.1-24b-instruct",
+    "name": "Mistral Small 3.1 24B (2503)",
     "pricing": {
       "cacheReadInputPer1kTokens": 5e-05,
       "completion": 0.3,
@@ -11499,8 +11227,8 @@
     }
   },
   {
-    "id": "chutesai/Mistral-Small-3.2-24B-Instruct-2506",
-    "name": "Mistral Small 3.2 24b Instruct",
+    "id": "mistralai/mistral-small-3.2-24b-instruct",
+    "name": "Mistral Small 3.2 24B (2506)",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.0001,
       "completion": 0.4,
@@ -11562,7 +11290,7 @@
     }
   },
   {
-    "id": "Qwen/Qwen3-VL-235B-A22B-Instruct",
+    "id": "qwen/qwen3-vl-235b-a22b-instruct",
     "name": "Qwen3 VL 235B A22B Instruct",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00015,
@@ -12468,7 +12196,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -12490,7 +12219,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -12512,7 +12242,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -12534,7 +12265,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -12577,6 +12309,29 @@
     "architecture": {
       "input_modalities": [
         "text"
+      ]
+    }
+  },
+  {
+    "id": "inclusionai/ling-3.0-flash-vl",
+    "name": "Ling 3.0 Flash VL",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.2e-05,
+      "completion": 0.18,
+      "currency": "USD",
+      "prompt": 0.06,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
       ]
     }
   },
@@ -12640,7 +12395,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -12662,7 +12418,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -12684,28 +12441,6 @@
     "architecture": {
       "input_modalities": [
         "text"
-      ]
-    }
-  },
-  {
-    "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
-    "name": "Nvidia Nemotron 3 Nano Omni",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5.25e-05,
-      "completion": 0.42,
-      "currency": "USD",
-      "prompt": 0.105,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },
@@ -12748,28 +12483,6 @@
     "architecture": {
       "input_modalities": [
         "text"
-      ]
-    }
-  },
-  {
-    "id": "nex-agi/nex-n2-pro",
-    "name": "Nex N2 Pro",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
-      "completion": 2.5,
-      "currency": "USD",
-      "prompt": 0.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },
@@ -12829,90 +12542,6 @@
     "max_output_tokens": null,
     "capabilities": {
       "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "crofai/greg-2-super",
-    "name": "Greg 2 Super",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
-      "completion": 5.0,
-      "currency": "USD",
-      "prompt": 1.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 229376,
-    "max_output_tokens": 229376,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "crofai/greg-2-ultra",
-    "name": "Greg 2 Ultra",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 10.0,
-      "currency": "USD",
-      "prompt": 3.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 229376,
-    "max_output_tokens": 229376,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "xiaomi/mimo-v2.5-pro-crof",
-    "name": "MiMo V2.5 Pro (Crof)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 3e-06,
-      "completion": 0.8,
-      "currency": "USD",
-      "prompt": 0.4,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 1000000,
-    "max_output_tokens": 131072,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "xiaomi/mimo-v2.5-pro-crof:thinking",
-    "name": "MiMo V2.5 Pro Thinking (Crof)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 3e-06,
-      "completion": 0.8,
-      "currency": "USD",
-      "prompt": 0.4,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 1000000,
-    "max_output_tokens": 131072,
-    "capabilities": {
-      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -13220,7 +12849,7 @@
     }
   },
   {
-    "id": "mistral/mistral-medium-3.5",
+    "id": "mistralai/mistral-medium-3.5",
     "name": "Mistral Medium 3.5",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00075,
@@ -13242,7 +12871,7 @@
     }
   },
   {
-    "id": "mistral/mistral-medium-3.5:thinking",
+    "id": "mistralai/mistral-medium-3.5:thinking",
     "name": "Mistral Medium 3.5 Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00075,
@@ -13309,10 +12938,10 @@
     "id": "sarvam-105b",
     "name": "Sarvam 105B",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.8e-05,
-      "completion": 0.177,
+      "cacheReadInputPer1kTokens": 3.36e-05,
+      "completion": 0.2124,
       "currency": "USD",
-      "prompt": 0.045,
+      "prompt": 0.054,
       "unit": "per_million_tokens"
     },
     "context_length": 131072,
@@ -13323,6 +12952,94 @@
     "architecture": {
       "input_modalities": [
         "text"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-astra-latest",
+    "name": "GPT Astra Latest",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 50.0,
+      "currency": "USD",
+      "prompt": 10.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-luna-latest",
+    "name": "GPT Luna Latest",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2e-05,
+      "completion": 1.2,
+      "currency": "USD",
+      "prompt": 0.2,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-sol-latest",
+    "name": "GPT Sol Latest",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 10.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-terra-latest",
+    "name": "GPT Terra Latest",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 12.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
       ]
     }
   }

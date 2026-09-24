@@ -1,0 +1,79 @@
+From 59d374566429465f2d9371b77b79bc110b882435 Mon Sep 17 00:00:00 2001
+From: Joel Selvaraj <jo@jsfamily.in>
+Date: Mon, 6 Dec 2021 12:45:49 +0530
+Subject: [PATCH 168/194] arm64: dts: qcom: sdm845-xiaomi-beryllium-common: add
+ support for tas2559 speaker
+
+Configure TAS2559 speaker amplifier which uses i2c5 and gpi_dma0.
+Also, configure the audio dai link.
+---
+ .../qcom/sdm845-xiaomi-beryllium-common.dtsi  | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index 3db7189b716c..d89a66d70f61 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -365,6 +365,10 @@
+ 			   <GCC_LPASS_SWAY_CLK>;
+ };
+ 
++&gpi_dma0 {
++	status = "okay";
++};
++
+ &gpi_dma1 {
+ 	status = "okay";
+ };
+@@ -453,6 +457,26 @@
+ 	"qcom/sdm845/Xiaomi/beryllium/modem.mbn";
+ };
+ 
++&i2c5 {
++	#dma-cells = <3>;
++	status="okay";
++
++	dmas = <&gpi_dma0 0 5 QCOM_GPI_I2C>,
++		   <&gpi_dma0 1 5 QCOM_GPI_I2C>;
++	dma-names = "tx", "rx";
++
++	/*smart PA*/
++	tas2559_codec: tas2559@4c{
++		#sound-dai-cells = <1>;
++		compatible = "ti,tas2559";
++		reg = <0x4c>;
++		ti,tas2559-reset-gpio = <&tlmm 12 0>;
++		ti,tas2560-reset-gpio = <&tlmm 76 0>;
++		ti,tas2559-addr = <0x4c>;
++		ti,tas2560-addr = <0x4d>;
++	};
++};
++
+ &pm8998_gpios {
+ 	vol_up_pin_a: vol-up-active-state {
+ 		pins = "gpio6";
+@@ -640,6 +664,21 @@
+ 		};
+ 	};
+ 
++	tas2559-dai-link {
++		link-name = "Primary Spkr Playback";
++		cpu {
++			sound-dai = <&q6afedai QUATERNARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai =  <&tas2559_codec 0>;
++		};
++	};
++
+ 	slim-dai-link {
+ 		link-name = "SLIM Playback";
+ 		cpu {
+-- 
+2.53.0
+

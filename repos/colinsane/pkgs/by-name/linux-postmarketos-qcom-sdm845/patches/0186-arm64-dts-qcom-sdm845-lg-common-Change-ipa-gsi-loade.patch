@@ -1,0 +1,41 @@
+From 4114341811e5724928a75e390225bd989f904b5b Mon Sep 17 00:00:00 2001
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 28 Sep 2025 21:41:49 -0700
+Subject: [PATCH 186/194] arm64: dts: qcom: sdm845-lg-common: Change ipa
+ gsi-loader to 'self', add memory-region
+
+The modem firmware for this device doesn't preload the IPA firmware
+and requires the OS handles that instead. Set qcom,gsi-loader = "self"
+to reflect that.
+
+Ensure the ipa uses the correct memory.
+
+ipa 1e40000.ipa: channel 4 limited to 256 TREs
+ipa 1e40000.ipa: IPA driver initialized
+ipa 1e40000.ipa: received modem starting event
+ipa 1e40000.ipa: received modem running event
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 9d82961d527e..85dc4468b6c4 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -473,7 +473,9 @@
+ };
+ 
+ &ipa {
+-	qcom,gsi-loader = "modem";
++	qcom,gsi-loader = "self";
++	memory-region = <&ipa_fw_mem>;
++
+ 	status = "okay";
+ };
+ 
+-- 
+2.53.0
+

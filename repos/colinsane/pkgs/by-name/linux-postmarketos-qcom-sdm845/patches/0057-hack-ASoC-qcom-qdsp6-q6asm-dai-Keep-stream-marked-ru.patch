@@ -1,0 +1,32 @@
+From 776db709c1921ef447899fbdaeec2ba765a701a5 Mon Sep 17 00:00:00 2001
+From: Richard Acayan <mailingradian@gmail.com>
+Date: Mon, 9 Feb 2026 07:42:04 -0500
+Subject: [PATCH 057/194] hack! ASoC: qcom: qdsp6: q6asm-dai: Keep stream
+ marked running on stop
+
+The stream will be marked stopped after emitting end-of-stream. When
+q6asm_dai_prepare is called while stopped, it is assumed that there is
+no memory region mapped with different parameters. Keep the stream
+marked as running so the prepare callback resets the memory regions.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index 4f8f7db6c3d3..28e4a842fe90 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -341,7 +341,7 @@ static int q6asm_dai_trigger(struct snd_soc_component *component,
+ 				       0, 0, 0);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+-		prtd->state = Q6ASM_STREAM_STOPPED;
++		// prtd->state = Q6ASM_STREAM_STOPPED;
+ 		ret = q6asm_cmd_nowait(prtd->audio_client, prtd->stream_id,
+ 				       CMD_EOS);
+ 		break;
+-- 
+2.53.0
+
