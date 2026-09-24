@@ -70,6 +70,7 @@ fun HomeScreen() {
         HomePage.Chip("Library")
     )
 
+
     Column(modifier = Modifier.fillMaxSize()) {
         HomeCategoryChips(
             chips = chips,
@@ -77,8 +78,18 @@ fun HomeScreen() {
             onChipSelected = { selectedChip = it }
         )
         
+        val dummySongs = listOf(
+            StubSong("1", "Never Gonna Give You Up", "Rick Astley"),
+            StubSong("2", "Together Forever", "Rick Astley"),
+            StubSong("3", "Whenever You Need Somebody", "Rick Astley"),
+            StubSong("4", "Take Me to Your Heart", "Rick Astley")
+        )
+
+        QuickPicksSection(songs = dummySongs)
+        
         Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
             Text("Home Screen Content WIP")
         }
     }
+
 }
