@@ -1,0 +1,317 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AiIntegrationSettings.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AiIntegrationSettings.kt	2026-09-24 13:04:00
+@@ -9,7 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.settings
+ 
+-import android.widget.Toast
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.core.Spring
+ import androidx.compose.animation.core.spring
+@@ -71,8 +70,6 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.semantics.Role
+ import androidx.compose.ui.text.font.FontFamily
+ import androidx.compose.ui.text.font.FontWeight
+@@ -199,12 +196,12 @@
+             ),
+         )
+ 
+-        PreferenceGroup(title = stringResource(R.string.ai_provider_settings)) {
++        PreferenceGroup(title = "ai_provider_settings") {
+             item {
+                 ListPreference(
+-                    title = { Text(stringResource(R.string.ai_provider)) },
+-                    description = stringResource(R.string.ai_provider_desc),
+-                    icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                    title = { Text("ai_provider") },
++                    description = "ai_provider_desc",
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     selectedValue = model.provider,
+                     values = AiProviderOptions,
+                     valueText = { it.label() },
+@@ -214,23 +211,23 @@
+ 
+             item(visible = model.provider == AiProvider.CUSTOM) {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.ai_custom_endpoint)) },
++                    title = { Text("ai_custom_endpoint") },
+                     description = model.customEndpoint,
+-                    icon = { Icon(painterResource(R.drawable.website), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { onOpenEditor(AiSettingsEditorField.CUSTOM_ENDPOINT) },
+                 )
+             }
+ 
+             item {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.ai_api_key)) },
++                    title = { Text("ai_api_key") },
+                     description =
+                         if (model.apiKey.isBlank()) {
+-                            stringResource(R.string.ai_api_key_missing)
++                            "ai_api_key_missing"
+                         } else {
+-                            stringResource(R.string.ai_api_key_configured)
++                            "ai_api_key_configured"
+                         },
+-                    icon = { Icon(painterResource(R.drawable.token), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { onOpenEditor(AiSettingsEditorField.API_KEY) },
+                     isEnabled = model.provider != AiProvider.NONE,
+                 )
+@@ -256,9 +253,9 @@
+ 
+             item(visible = model.provider == AiProvider.CUSTOM) {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.ai_model)) },
++                    title = { Text("ai_model") },
+                     description = model.customModel,
+-                    icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { onOpenEditor(AiSettingsEditorField.CUSTOM_MODEL) },
+                 )
+             }
+@@ -272,7 +269,7 @@
+                         else -> TestApiVisualState.Idle
+                     }
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.ai_test_api)) },
++                    title = { Text("ai_test_api") },
+                     icon = {
+                         AnimatedContent(
+                             targetState = testVisualState,
+@@ -287,15 +284,15 @@
+                         ) { state ->
+                             when (state) {
+                                 TestApiVisualState.Success -> {
+-                                    Icon(painterResource(R.drawable.done), null)
++                                    Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null)
+                                 }
+ 
+                                 TestApiVisualState.Failed -> {
+-                                    Icon(painterResource(R.drawable.error), null, tint = MaterialTheme.colorScheme.error)
++                                    Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null, tint = MaterialTheme.colorScheme.error)
+                                 }
+ 
+                                 else -> {
+-                                    Icon(painterResource(R.drawable.sync), null)
++                                    Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null)
+                                 }
+                             }
+                         }
+@@ -313,7 +310,7 @@
+                             Text(
+                                 text =
+                                     when (state) {
+-                                        TestApiVisualState.Testing -> stringResource(R.string.ai_api_testing)
++                                        TestApiVisualState.Testing -> "ai_api_testing"
+                                         else -> model.validationStatus.label()
+                                     },
+                                 style = MaterialTheme.typography.bodyMedium,
+@@ -350,17 +347,17 @@
+             }
+         }
+ 
+-        PreferenceGroup(title = stringResource(R.string.ai_translation_settings)) {
++        PreferenceGroup(title = "ai_translation_settings") {
+             item {
+                 PreferenceEntry(
+-                    title = { Text(stringResource(R.string.ai_custom_prompt)) },
++                    title = { Text("ai_custom_prompt") },
+                     description =
+                         if (model.customPrompt.isBlank()) {
+-                            stringResource(R.string.ai_custom_prompt_desc)
++                            "ai_custom_prompt_desc"
+                         } else {
+-                            stringResource(R.string.ai_api_key_configured)
++                            "ai_api_key_configured"
+                         },
+-                    icon = { Icon(painterResource(R.drawable.edit), null) },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     onClick = { onOpenEditor(AiSettingsEditorField.CUSTOM_PROMPT) },
+                 )
+             }
+@@ -371,15 +368,15 @@
+ @Composable
+ private fun AiIntegrationTopAppBar(navController: NavController) {
+     TopAppBar(
+-        title = { Text(stringResource(R.string.ai_integration)) },
++        title = { Text("ai_integration") },
+         navigationIcon = {
+             IconButton(
+                 onClick = navController::navigateUp,
+                 onLongClick = navController::backToMain,
+             ) {
+                 Icon(
+-                    painterResource(R.drawable.arrow_back),
+-                    contentDescription = stringResource(R.string.back_button_desc),
++                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    contentDescription = "back_button_desc",
+                 )
+             }
+         },
+@@ -405,13 +402,13 @@
+         constrainContentHeight = true,
+         icon = {
+             Icon(
+-                painter = painterResource(R.drawable.error),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.error,
+                 modifier = Modifier.size(24.dp),
+             )
+         },
+-        title = { Text(stringResource(R.string.ai_api_test_failed)) },
++        title = { Text("ai_api_test_failed") },
+         buttons = {
+             TextButton(onClick = onClose, shapes = ButtonDefaults.shapes()) {
+                 Text(stringResource(android.R.string.ok))
+@@ -481,7 +478,7 @@
+ 
+     DefaultDialog(
+         onDismiss = onDismiss,
+-        icon = { Icon(painterResource(iconResId), contentDescription = null) },
++        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null) },
+         title = { Text(stringResource(titleResId)) },
+         buttons = {
+             TextButton(onClick = onDismiss, shapes = ButtonDefaults.shapes()) {
+@@ -492,7 +489,7 @@
+                 onClick = onSave,
+                 shapes = ButtonDefaults.shapes(),
+             ) {
+-                Text(stringResource(R.string.save))
++                Text("save")
+             }
+         },
+     ) {
+@@ -508,7 +505,7 @@
+             label = { Text(stringResource(titleResId)) },
+             supportingText =
+                 if (isCustomPrompt) {
+-                    { Text(stringResource(R.string.ai_custom_prompt_desc)) }
++                    { Text("ai_custom_prompt_desc") }
+                 } else {
+                     null
+                 },
+@@ -551,19 +548,19 @@
+ @Composable
+ private fun AiProvider.label(): String =
+     when (this) {
+-        AiProvider.CHATGPT -> stringResource(R.string.ai_provider_openai)
+-        AiProvider.GEMINI -> stringResource(R.string.ai_provider_gemini)
+-        AiProvider.OPENROUTER -> stringResource(R.string.ai_provider_openrouter)
+-        AiProvider.CUSTOM -> stringResource(R.string.custom)
+-        AiProvider.NONE -> stringResource(R.string.ai_provider_none)
++        AiProvider.CHATGPT -> "ai_provider_openai"
++        AiProvider.GEMINI -> "ai_provider_gemini"
++        AiProvider.OPENROUTER -> "ai_provider_openrouter"
++        AiProvider.CUSTOM -> "custom"
++        AiProvider.NONE -> "ai_provider_none"
+     }
+ 
+ @Composable
+ private fun AiApiValidationStatus.label(): String =
+     when (this) {
+-        AiApiValidationStatus.UNKNOWN -> stringResource(R.string.ai_api_status_unknown)
+-        AiApiValidationStatus.SUCCESS -> stringResource(R.string.ai_api_status_success)
+-        AiApiValidationStatus.FAILED -> stringResource(R.string.ai_api_status_failed)
++        AiApiValidationStatus.UNKNOWN -> "ai_api_status_unknown"
++        AiApiValidationStatus.SUCCESS -> "ai_api_status_success"
++        AiApiValidationStatus.FAILED -> "ai_api_status_failed"
+     }
+ 
+ @Composable
+@@ -579,7 +576,7 @@
+         verticalAlignment = Alignment.Top,
+     ) {
+         Icon(
+-            painter = painterResource(R.drawable.error),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = MaterialTheme.colorScheme.error,
+             modifier = Modifier.size(20.dp),
+@@ -615,10 +612,10 @@
+ 
+     val description =
+         when {
+-            isFetching && availableModels.isEmpty() -> stringResource(R.string.ai_model_loading)
+-            availableModels.isEmpty() && !canFetch -> stringResource(R.string.ai_model_api_key_required)
+-            availableModels.isEmpty() -> stringResource(R.string.ai_model_fetch_hint)
+-            selectedModel.isBlank() -> stringResource(R.string.ai_model_not_selected)
++            isFetching && availableModels.isEmpty() -> "ai_model_loading"
++            availableModels.isEmpty() && !canFetch -> "ai_model_api_key_required"
++            availableModels.isEmpty() -> "ai_model_fetch_hint"
++            selectedModel.isBlank() -> "ai_model_not_selected"
+             else -> availableModels.firstOrNull { it.id == selectedModel }?.displayName ?: selectedModel
+         }
+ 
+@@ -630,7 +627,7 @@
+             containerColor = MaterialTheme.colorScheme.surface,
+         ) {
+             Text(
+-                text = stringResource(R.string.ai_model),
++                text = "ai_model",
+                 style = MaterialTheme.typography.headlineMedium,
+                 fontWeight = FontWeight.Bold,
+                 modifier =
+@@ -646,10 +643,10 @@
+                         onSearch = {},
+                         expanded = false,
+                         onExpandedChange = {},
+-                        placeholder = { Text(stringResource(R.string.ai_model_search)) },
++                        placeholder = { Text("ai_model_search") },
+                         leadingIcon = {
+                             Icon(
+-                                painter = painterResource(R.drawable.search),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                             )
+                         },
+@@ -660,8 +657,8 @@
+                                         onClick = { onSearchQueryChange("") },
+                                     ) {
+                                         Icon(
+-                                            painter = painterResource(R.drawable.close),
+-                                            contentDescription = stringResource(R.string.clear),
++                                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                            contentDescription = "clear",
+                                         )
+                                     }
+                                 }
+@@ -690,7 +687,7 @@
+                 if (filteredModels.isEmpty()) {
+                     item(key = "empty", contentType = "empty") {
+                         Text(
+-                            text = stringResource(R.string.ai_model_no_results),
++                            text = "ai_model_no_results",
+                             style = MaterialTheme.typography.bodyLarge,
+                             color = MaterialTheme.colorScheme.onSurfaceVariant,
+                             textAlign = TextAlign.Center,
+@@ -765,9 +762,9 @@
+     }
+ 
+     PreferenceEntry(
+-        title = { Text(stringResource(R.string.ai_model)) },
++        title = { Text("ai_model") },
+         description = description,
+-        icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+         trailingContent = {
+             if (isFetching) {
+                 CircularWavyProgressIndicator(modifier = Modifier.size(24.dp))
+@@ -777,8 +774,8 @@
+                     enabled = canFetch,
+                 ) {
+                     Icon(
+-                        painterResource(R.drawable.sync),
+-                        contentDescription = stringResource(R.string.ai_fetch_models),
++                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                        contentDescription = "ai_fetch_models",
+                     )
+                 }
+             }

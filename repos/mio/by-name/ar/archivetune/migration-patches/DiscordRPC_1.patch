@@ -1,0 +1,10 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/utils/DiscordRPC.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/utils/DiscordRPC.kt	2026-09-24 13:04:06
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.utils
+ 
+-import android.content.Context
+ import me.bush.translator.Language
+ import me.bush.translator.Translator
+ import moe.rukamori.archivetune.BuildConfig

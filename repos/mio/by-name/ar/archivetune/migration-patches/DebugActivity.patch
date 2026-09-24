@@ -1,0 +1,57 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/DebugActivity.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/DebugActivity.kt	2026-09-24 13:03:56
+@@ -9,12 +9,6 @@
+ 
+ package moe.rukamori.archivetune
+ 
+-import android.content.ClipData
+-import android.content.Intent
+-import android.os.Build
+-import android.os.Bundle
+-import android.provider.Settings
+-import android.widget.Toast
+ import androidx.activity.ComponentActivity
+ import androidx.activity.compose.setContent
+ import androidx.compose.foundation.layout.Arrangement
+@@ -51,7 +45,6 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.platform.LocalClipboardManager
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.text.AnnotatedString
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -201,7 +194,7 @@
+                 onClick = onShareAll,
+                 icon = {
+                     Icon(
+-                        painter = painterResource(R.drawable.share),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                     )
+                 },
+@@ -221,13 +214,13 @@
+                 actions = {
+                     IconButton(onClick = onCopyAll) {
+                         Icon(
+-                            painter = painterResource(R.drawable.select_all),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+                     IconButton(onClick = onClose) {
+                         Icon(
+-                            painter = painterResource(R.drawable.close),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -267,7 +260,7 @@
+                         horizontalArrangement = Arrangement.spacedBy(10.dp),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.error),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = MaterialTheme.colorScheme.onErrorContainer,
+                             modifier = Modifier.size(22.dp),

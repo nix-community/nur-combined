@@ -1,0 +1,261 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/ContentSettings.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/ContentSettings.kt	2026-09-24 13:04:00
+@@ -9,9 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.settings
+ 
+-import android.content.Intent
+-import android.os.Build
+-import android.provider.Settings
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.Column
+ import androidx.compose.foundation.layout.fillMaxSize
+@@ -33,8 +30,6 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.core.net.toUri
+ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+ import androidx.lifecycle.compose.collectAsStateWithLifecycle
+@@ -101,15 +96,15 @@
+             .verticalScroll(rememberScrollState())
+             .padding(bottom = SettingsDimensions.ScreenBottomPadding),
+     ) {
+-        PreferenceGroup(title = stringResource(R.string.general)) {
++        PreferenceGroup(title = "general") {
+             item {
+                 ListPreference(
+-                    title = { Text(stringResource(R.string.content_language)) },
+-                    icon = { Icon(painterResource(R.drawable.language), null) },
++                    title = { Text("content_language") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     selectedValue = contentLanguage,
+                     values = listOf(SYSTEM_DEFAULT) + LanguageCodeToName.keys.toList(),
+                     valueText = {
+-                        LanguageCodeToName.getOrElse(it) { stringResource(R.string.system_default) }
++                        LanguageCodeToName.getOrElse(it) { "system_default" }
+                     },
+                     onValueSelected = { newValue ->
+                         val locale = Locale.getDefault()
+@@ -131,12 +126,12 @@
+ 
+             item {
+                 ListPreference(
+-                    title = { Text(stringResource(R.string.content_country)) },
+-                    icon = { Icon(painterResource(R.drawable.location_on), null) },
++                    title = { Text("content_country") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     selectedValue = contentCountry,
+                     values = listOf(SYSTEM_DEFAULT) + CountryCodeToName.keys.toList(),
+                     valueText = {
+-                        CountryCodeToName.getOrElse(it) { stringResource(R.string.system_default) }
++                        CountryCodeToName.getOrElse(it) { "system_default" }
+                     },
+                     onValueSelected = { newValue ->
+                         val locale = Locale.getDefault()
+@@ -156,8 +151,8 @@
+ 
+             item {
+                 ListPreference(
+-                    title = { Text(stringResource(R.string.you_might_like_source)) },
+-                    icon = { Icon(painterResource(R.drawable.playlist_play), null) },
++                    title = { Text("you_might_like_source") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     selectedValue = playlistSuggestionSource,
+                     values =
+                         listOf(
+@@ -167,9 +162,9 @@
+                         ),
+                     valueText = {
+                         when (it) {
+-                            PlaylistSuggestionSource.PLAYLIST_TITLE -> stringResource(R.string.playlist_suggestion_source_title)
+-                            PlaylistSuggestionSource.PLAYLIST_CONTENT -> stringResource(R.string.playlist_suggestion_source_content)
+-                            PlaylistSuggestionSource.BOTH -> stringResource(R.string.playlist_suggestion_source_both)
++                            PlaylistSuggestionSource.PLAYLIST_TITLE -> "playlist_suggestion_source_title"
++                            PlaylistSuggestionSource.PLAYLIST_CONTENT -> "playlist_suggestion_source_content"
++                            PlaylistSuggestionSource.BOTH -> "playlist_suggestion_source_both"
+                         }
+                     },
+                     onValueSelected = onPlaylistSuggestionSourceChange,
+@@ -178,8 +173,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.hide_explicit)) },
+-                    icon = { Icon(painterResource(R.drawable.explicit), null) },
++                    title = { Text("hide_explicit") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = hideExplicit,
+                     onCheckedChange = onHideExplicitChange,
+                 )
+@@ -187,8 +182,8 @@
+ 
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.hide_video)) },
+-                    icon = { Icon(painterResource(R.drawable.slow_motion_video), null) },
++                    title = { Text("hide_video") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = hideVideo,
+                     onCheckedChange = onHideVideoChange,
+                 )
+@@ -203,11 +198,11 @@
+             onOpenSource = viewModel::openAiContentFilterSource,
+         )
+ 
+-        PreferenceGroup(title = stringResource(R.string.app_language)) {
++        PreferenceGroup(title = "app_language") {
+             item {
+                 SwitchPreference(
+-                    title = { Text(stringResource(R.string.use_system_language)) },
+-                    icon = { Icon(painterResource(R.drawable.language), null) },
++                    title = { Text("use_system_language") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     checked = useSystemLanguage,
+                     onCheckedChange = { checked ->
+                         onUseSystemLanguageChange(checked)
+@@ -219,11 +214,11 @@
+             }
+         }
+ 
+-        PreferenceGroup(title = stringResource(R.string.misc)) {
++        PreferenceGroup(title = "misc") {
+             item {
+                 EditTextPreference(
+-                    title = { Text(stringResource(R.string.top_length)) },
+-                    icon = { Icon(painterResource(R.drawable.trending_up), null) },
++                    title = { Text("top_length") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     value = lengthTop,
+                     isInputValid = { it.toIntOrNull()?.let { num -> num > 0 } == true },
+                     onValueChange = onLengthTopChange,
+@@ -232,15 +227,15 @@
+ 
+             item {
+                 ListPreference(
+-                    title = { Text(stringResource(R.string.set_quick_picks)) },
+-                    icon = { Icon(painterResource(R.drawable.home_outlined), null) },
++                    title = { Text("set_quick_picks") },
++                    icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                     selectedValue = quickPicks,
+                     values = listOf(QuickPicks.QUICK_PICKS, QuickPicks.LAST_LISTEN, QuickPicks.DONT_SHOW),
+                     valueText = {
+                         when (it) {
+-                            QuickPicks.QUICK_PICKS -> stringResource(R.string.quick_picks)
+-                            QuickPicks.LAST_LISTEN -> stringResource(R.string.last_song_listened)
+-                            QuickPicks.DONT_SHOW -> stringResource(R.string.dont_show)
++                            QuickPicks.QUICK_PICKS -> "quick_picks"
++                            QuickPicks.LAST_LISTEN -> "last_song_listened"
++                            QuickPicks.DONT_SHOW -> "dont_show"
+                         }
+                     },
+                     onValueSelected = onQuickPicksChange,
+@@ -250,14 +245,14 @@
+     }
+ 
+     TopAppBar(
+-        title = { Text(stringResource(R.string.content)) },
++        title = { Text("content") },
+         navigationIcon = {
+             IconButton(
+                 onClick = navController::navigateUp,
+                 onLongClick = navController::backToMain,
+             ) {
+                 Icon(
+-                    painterResource(R.drawable.arrow_back),
++                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                 )
+             }
+@@ -280,14 +275,14 @@
+     onRefresh: () -> Unit,
+     onOpenSource: () -> Unit,
+ ) {
+-    PreferenceGroup(title = stringResource(R.string.ai_content_filter)) {
++    PreferenceGroup(title = "ai_content_filter") {
+         when (state) {
+             AiContentFilterSettingsState.Loading -> {
+                 item {
+                     PreferenceEntry(
+-                        title = { Text(stringResource(R.string.ai_content_filter)) },
+-                        description = stringResource(R.string.loading),
+-                        icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                        title = { Text("ai_content_filter") },
++                        description = "loading",
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         isEnabled = false,
+                     )
+                 }
+@@ -300,9 +295,9 @@
+             is AiContentFilterSettingsState.Error -> {
+                 item {
+                     PreferenceEntry(
+-                        title = { Text(stringResource(R.string.ai_content_filter)) },
++                        title = { Text("ai_content_filter") },
+                         description = stringResource(state.messageResId),
+-                        icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         onClick = onRefresh,
+                     )
+                 }
+@@ -312,18 +307,18 @@
+                 val model = state.model
+                 item {
+                     SwitchPreference(
+-                        title = { Text(stringResource(R.string.ai_content_filter_hide)) },
+-                        description = stringResource(R.string.ai_content_filter_hide_summary),
+-                        icon = { Icon(painterResource(R.drawable.auto_awesome), null) },
++                        title = { Text("ai_content_filter_hide") },
++                        description = "ai_content_filter_hide_summary",
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         checked = model.enabled,
+                         onCheckedChange = onEnabledChange,
+                     )
+                 }
+                 item {
+                     SwitchPreference(
+-                        title = { Text(stringResource(R.string.ai_content_filter_moderate)) },
+-                        description = stringResource(R.string.ai_content_filter_moderate_summary),
+-                        icon = { Icon(painterResource(R.drawable.filter_alt), null) },
++                        title = { Text("ai_content_filter_moderate") },
++                        description = "ai_content_filter_moderate_summary",
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         checked = model.includeModerateConfidence,
+                         onCheckedChange = onIncludeModerateChange,
+                         isEnabled = model.enabled,
+@@ -331,10 +326,10 @@
+                 }
+                 item {
+                     PreferenceEntry(
+-                        title = { Text(stringResource(R.string.ai_content_filter_update)) },
++                        title = { Text("ai_content_filter_update") },
+                         description =
+                             if (model.refreshing) {
+-                                stringResource(R.string.loading)
++                                "loading"
+                             } else {
+                                 stringResource(
+                                     R.string.ai_content_filter_list_counts,
+@@ -342,16 +337,16 @@
+                                     model.warnlistCount,
+                                 )
+                             },
+-                        icon = { Icon(painterResource(R.drawable.sync), null) },
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         onClick = onRefresh,
+                         isEnabled = !model.refreshing,
+                     )
+                 }
+                 item {
+                     PreferenceEntry(
+-                        title = { Text(stringResource(R.string.ai_content_filter_source)) },
+-                        description = stringResource(R.string.ai_content_filter_source_summary),
+-                        icon = { Icon(painterResource(R.drawable.info), null) },
++                        title = { Text("ai_content_filter_source") },
++                        description = "ai_content_filter_source_summary",
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         onClick = onOpenSource,
+                     )
+                 }

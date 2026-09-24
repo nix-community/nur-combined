@@ -1,0 +1,30 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/SortHeader.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/SortHeader.kt	2026-09-24 13:03:57
+@@ -29,8 +29,6 @@
+ import androidx.compose.runtime.setValue
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.rotate
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.dp
+ import moe.rukamori.archivetune.R
+@@ -86,7 +84,7 @@
+                                 .widthIn(min = SplitButtonDefaults.MediumContainerHeight),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.arrow_downward),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription =
+                                 stringResource(
+                                     if (sortDescending) {
+@@ -132,8 +130,7 @@
+                     trailingIcon = {
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    if (sortType == type) {
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                         R.drawable.radio_button_checked
+                                     } else {
+                                         R.drawable.radio_button_unchecked

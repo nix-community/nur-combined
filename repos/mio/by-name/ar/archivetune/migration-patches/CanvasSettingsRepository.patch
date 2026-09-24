@@ -1,0 +1,13 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/canvas/CanvasSettingsRepository.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/canvas/CanvasSettingsRepository.kt	2026-09-24 13:04:08
+@@ -7,10 +7,6 @@
+ 
+ package moe.rukamori.archivetune.canvas
+ 
+-import android.content.Context
+-import android.net.ConnectivityManager
+-import android.net.Network
+-import android.net.NetworkCapabilities
+ import androidx.core.content.getSystemService
+ import androidx.datastore.preferences.core.edit
+ import dagger.hilt.android.qualifiers.ApplicationContext

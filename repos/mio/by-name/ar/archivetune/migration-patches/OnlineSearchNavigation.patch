@@ -1,0 +1,10 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/search/OnlineSearchNavigation.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/search/OnlineSearchNavigation.kt	2026-09-24 13:04:00
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.search
+ 
+-import android.util.Base64
+ 
+ internal const val OnlineSearchResultRoute = "search/{encodedQuery}"
+ internal const val OnlineSearchResultRoutePrefix = "search/"

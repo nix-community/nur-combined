@@ -1,0 +1,314 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/YearInMusicScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/YearInMusicScreen.kt	2026-09-24 13:03:59
+@@ -9,9 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens
+ 
+-import android.content.Intent
+-import android.view.View
+-import android.view.ViewTreeObserver
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.fadeIn
+ import androidx.compose.animation.fadeOut
+@@ -78,9 +75,7 @@
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalHapticFeedback
+ import androidx.compose.ui.platform.LocalView
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.text.style.TextOverflow
+@@ -319,13 +314,13 @@
+ 
+ @Composable
+ private fun rememberYearInMusicCards(content: YearInMusicUiState.Content): List<YearInMusicRecapCard> {
+-    val introLabel = stringResource(R.string.year_in_music_recap)
+-    val totalsLabel = stringResource(R.string.total_listening_time)
+-    val topTrackLabel = stringResource(R.string.year_in_music_top_track)
+-    val artistsLabel = stringResource(R.string.year_in_music_ranked_artists)
+-    val albumsLabel = stringResource(R.string.year_in_music_ranked_albums)
+-    val summaryLabel = stringResource(R.string.share_summary)
+-    val emptyLabel = stringResource(R.string.no_listening_data)
++    val introLabel = "year_in_music_recap"
++    val totalsLabel = "total_listening_time"
++    val topTrackLabel = "year_in_music_top_track"
++    val artistsLabel = "year_in_music_ranked_artists"
++    val albumsLabel = "year_in_music_ranked_albums"
++    val summaryLabel = "share_summary"
++    val emptyLabel = "no_listening_data"
+ 
+     return remember(
+         content.selectedYear,
+@@ -554,8 +549,8 @@
+     applySafeContentInsets: Boolean,
+ ) {
+     RecapCardContent(
+-        badge = stringResource(R.string.year_in_music_recap),
+-        footer = joinByBullet(stringResource(R.string.app_name), card.year.toString()),
++        badge = "year_in_music_recap",
++        footer = joinByBullet("app_name", card.year.toString()),
+         verticalArrangement = Arrangement.Center,
+         applySafeContentInsets = applySafeContentInsets,
+     ) {
+@@ -567,7 +562,7 @@
+         )
+         Spacer(modifier = Modifier.height(24.dp))
+         Text(
+-            text = stringResource(R.string.year_in_music_empty_title),
++            text = "year_in_music_empty_title",
+             style = MaterialTheme.typography.displaySmall,
+             fontWeight = FontWeight.Black,
+             color = RecapCream,
+@@ -660,7 +655,7 @@
+                 lineHeight = 70.sp,
+             )
+             Text(
+-                text = stringResource(R.string.year_in_music_recap_word),
++                text = "year_in_music_recap_word",
+                 style = MaterialTheme.typography.displayLarge.copy(fontSize = 72.sp),
+                 fontWeight = FontWeight.Black,
+                 color = Color.White,
+@@ -673,14 +668,14 @@
+             verticalArrangement = Arrangement.spacedBy(14.dp),
+         ) {
+             Text(
+-                text = stringResource(R.string.year_in_music_intro_hero),
++                text = "year_in_music_intro_hero",
+                 style = MaterialTheme.typography.headlineSmall,
+                 fontWeight = FontWeight.Black,
+                 color = Color.White,
+                 lineHeight = 30.sp,
+             )
+             Text(
+-                text = stringResource(R.string.year_in_music_intro_details),
++                text = "year_in_music_intro_details",
+                 style = MaterialTheme.typography.bodyMedium,
+                 fontWeight = FontWeight.SemiBold,
+                 color = Color.White.copy(alpha = 0.82f),
+@@ -696,7 +691,7 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Text(
+-                    text = stringResource(R.string.year_in_music_swipe_begin),
++                    text = "year_in_music_swipe_begin",
+                     style = MaterialTheme.typography.titleMedium,
+                     fontWeight = FontWeight.Black,
+                     color = Color.White,
+@@ -712,14 +707,14 @@
+     applySafeContentInsets: Boolean,
+ ) {
+     RecapCardContent(
+-        badge = stringResource(R.string.total_listening_time),
+-        footer = stringResource(R.string.year_in_music_totals_title),
++        badge = "total_listening_time",
++        footer = "year_in_music_totals_title",
+         verticalArrangement = Arrangement.SpaceBetween,
+         applySafeContentInsets = applySafeContentInsets,
+     ) {
+         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+             Text(
+-                text = stringResource(R.string.year_in_music_totals_title),
++                text = "year_in_music_totals_title",
+                 style = MaterialTheme.typography.headlineLarge,
+                 fontWeight = FontWeight.Black,
+                 color = RecapCream,
+@@ -737,14 +732,14 @@
+         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+             RecapStatRow(
+                 icon = R.drawable.play,
+-                label = stringResource(R.string.year_in_music_plays_label),
++                label = "year_in_music_plays_label",
+                 value = card.totalSongsPlayed.toString(),
+                 color = RecapCream,
+             )
+             card.topSong?.let {
+                 RecapStatRow(
+                     icon = R.drawable.music_note,
+-                    label = stringResource(R.string.year_in_music_top_track),
++                    label = "year_in_music_top_track",
+                     value = it.title,
+                     color = RecapRed,
+                 )
+@@ -752,7 +747,7 @@
+             card.topArtist?.let {
+                 RecapStatRow(
+                     icon = R.drawable.artist,
+-                    label = stringResource(R.string.top_artists),
++                    label = "top_artists",
+                     value = it.artist.name,
+                     color = RecapGreen,
+                 )
+@@ -805,8 +800,8 @@
+                     ),
+         )
+         RecapCardContent(
+-            badge = "#1 ${stringResource(R.string.year_in_music_top_track)}",
+-            footer = stringResource(R.string.year_in_music_top_pick),
++            badge = "#1 ${"year_in_music_top_track"}",
++            footer = "year_in_music_top_pick",
+             verticalArrangement = Arrangement.SpaceBetween,
+             applySafeContentInsets = applySafeContentInsets,
+         ) {
+@@ -865,14 +860,14 @@
+     onArtistLongClick: (Artist) -> Unit,
+ ) {
+     RecapCardContent(
+-        badge = stringResource(R.string.top_artists),
+-        footer = stringResource(R.string.year_in_music_ranked_artists),
++        badge = "top_artists",
++        footer = "year_in_music_ranked_artists",
+         verticalArrangement = Arrangement.SpaceBetween,
+         applySafeContentInsets = applySafeContentInsets,
+     ) {
+         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+             Text(
+-                text = stringResource(R.string.year_in_music_ranked_artists),
++                text = "year_in_music_ranked_artists",
+                 style = MaterialTheme.typography.displaySmall,
+                 fontWeight = FontWeight.Black,
+                 color = RecapCream,
+@@ -915,14 +910,14 @@
+     applySafeContentInsets: Boolean,
+ ) {
+     RecapCardContent(
+-        badge = stringResource(R.string.albums),
+-        footer = stringResource(R.string.year_in_music_ranked_albums),
++        badge = "albums",
++        footer = "year_in_music_ranked_albums",
+         verticalArrangement = Arrangement.SpaceBetween,
+         applySafeContentInsets = applySafeContentInsets,
+     ) {
+         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+             Text(
+-                text = stringResource(R.string.year_in_music_ranked_albums),
++                text = "year_in_music_ranked_albums",
+                 style = MaterialTheme.typography.displaySmall,
+                 fontWeight = FontWeight.Black,
+                 color = RecapCream,
+@@ -985,7 +980,7 @@
+             verticalArrangement = Arrangement.SpaceBetween,
+         ) {
+             Text(
+-                text = "${card.year} ${stringResource(R.string.year_in_music_recap_word)}",
++                text = "${card.year} ${"year_in_music_recap_word"}",
+                 style = MaterialTheme.typography.titleLarge,
+                 fontWeight = FontWeight.Black,
+                 color = RecapInk,
+@@ -996,14 +991,14 @@
+                 horizontalArrangement = Arrangement.spacedBy(16.dp),
+             ) {
+                 SummaryRankColumn(
+-                    title = stringResource(R.string.top_artists),
++                    title = "top_artists",
+                     imageData = card.topArtists.firstOrNull()?.thumbnailUrl,
+                     names = card.topArtists.map { it.artist.name },
+                     circularImage = true,
+                     modifier = Modifier.weight(1f),
+                 )
+                 SummaryRankColumn(
+-                    title = stringResource(R.string.top_songs),
++                    title = "top_songs",
+                     imageData = card.topSongs.firstOrNull()?.thumbnailUrl,
+                     names = card.topSongs.map { it.title },
+                     circularImage = false,
+@@ -1012,7 +1007,7 @@
+             }
+ 
+             Text(
+-                text = stringResource(R.string.year_in_music_musical_passport).uppercase(),
++                text = "year_in_music_musical_passport".uppercase(),
+                 style = MaterialTheme.typography.titleMedium,
+                 fontWeight = FontWeight.Black,
+                 color = RecapInk,
+@@ -1024,17 +1019,17 @@
+                 verticalAlignment = Alignment.CenterVertically,
+             ) {
+                 PassportStamp(
+-                    label = stringResource(R.string.top_artists),
++                    label = "top_artists",
+                     imageData = card.topArtists.firstOrNull()?.thumbnailUrl,
+                     count = card.topArtists.size,
+                 )
+                 PassportStamp(
+-                    label = stringResource(R.string.top_songs),
++                    label = "top_songs",
+                     imageData = card.topSongs.firstOrNull()?.thumbnailUrl,
+                     count = card.topSongs.size,
+                 )
+                 PassportStamp(
+-                    label = stringResource(R.string.albums),
++                    label = "albums",
+                     imageData = card.topAlbums.firstOrNull()?.thumbnailUrl,
+                     count = card.topAlbums.size,
+                 )
+@@ -1045,7 +1040,7 @@
+                 verticalArrangement = Arrangement.spacedBy(6.dp),
+             ) {
+                 Text(
+-                    text = stringResource(R.string.year_in_music_minutes_label).uppercase(),
++                    text = "year_in_music_minutes_label".uppercase(),
+                     style = MaterialTheme.typography.titleMedium,
+                     fontWeight = FontWeight.Black,
+                     color = RecapInk,
+@@ -1058,7 +1053,7 @@
+                     lineHeight = 40.sp,
+                 )
+                 Text(
+-                    text = stringResource(R.string.year_in_music_minutes_unit).uppercase(),
++                    text = "year_in_music_minutes_unit".uppercase(),
+                     style = MaterialTheme.typography.titleLarge,
+                     fontWeight = FontWeight.Black,
+                     color = RecapInk,
+@@ -1239,12 +1234,12 @@
+         horizontalArrangement = Arrangement.spacedBy(7.dp),
+     ) {
+         Image(
+-            painter = painterResource(R.drawable.app_icon_small),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             modifier = Modifier.size(20.dp),
+         )
+         Text(
+-            text = stringResource(R.string.app_name),
++            text = "app_name",
+             style = MaterialTheme.typography.labelLarge,
+             fontWeight = FontWeight.Black,
+             color = contentColor,
+@@ -1545,7 +1540,7 @@
+         horizontalArrangement = Arrangement.spacedBy(6.dp),
+     ) {
+         Icon(
+-            painter = painterResource(icon),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = color,
+             modifier = Modifier.size(16.dp),
+@@ -1608,7 +1603,7 @@
+         contentAlignment = Alignment.Center,
+     ) {
+         Icon(
+-            painter = painterResource(icon),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+             contentDescription = null,
+             tint = tint,
+             modifier = Modifier.size(24.dp),
+@@ -1683,7 +1678,7 @@
+                     )
+                 } else {
+                     Icon(
+-                        painter = painterResource(R.drawable.share),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                     )
+                 }
+@@ -1691,7 +1686,7 @@
+         },
+         text = {
+             Text(
+-                text = stringResource(R.string.year_in_music_current_card),
++                text = "year_in_music_current_card",
+                 fontWeight = FontWeight.Black,
+             )
+         },

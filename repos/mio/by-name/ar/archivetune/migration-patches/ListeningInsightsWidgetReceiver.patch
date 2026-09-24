@@ -1,0 +1,11 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/widget/ListeningInsightsWidgetReceiver.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/widget/ListeningInsightsWidgetReceiver.kt	2026-09-24 13:04:05
+@@ -7,8 +7,6 @@
+ 
+ package moe.rukamori.archivetune.widget
+ 
+-import android.appwidget.AppWidgetManager
+-import android.content.Context
+ import androidx.glance.appwidget.GlanceAppWidget
+ import androidx.glance.appwidget.GlanceAppWidgetReceiver
+ import kotlinx.coroutines.CoroutineScope

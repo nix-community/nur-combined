@@ -1,0 +1,116 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/NewReleaseScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NewReleaseScreen.kt	2026-09-24 13:03:59
+@@ -9,7 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens
+ 
+-import androidx.annotation.StringRes
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.core.tween
+ import androidx.compose.animation.fadeIn
+@@ -70,8 +69,6 @@
+ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+ import androidx.compose.ui.input.nestedscroll.nestedScroll
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.unit.dp
+@@ -115,14 +112,14 @@
+         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+         topBar = {
+             LargeFlexibleTopAppBar(
+-                title = { Text(stringResource(R.string.new_releases)) },
++                title = { Text("new_releases") },
+                 navigationIcon = {
+                     IconButton(
+                         onClick = navController::navigateUp,
+                         onLongClick = navController::backToMain,
+                     ) {
+                         Icon(
+-                            painterResource(R.drawable.arrow_back),
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -190,14 +187,14 @@
+                     ) {
+                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                             Icon(
+-                                painter = painterResource(R.drawable.error),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 tint = MaterialTheme.colorScheme.error,
+                                 modifier = Modifier.size(48.dp),
+                             )
+                             Spacer(Modifier.height(16.dp))
+                             Text(
+-                                text = stringResource(R.string.network_unavailable),
++                                text = "network_unavailable",
+                                 style = MaterialTheme.typography.titleLarge,
+                                 color = MaterialTheme.colorScheme.onSurface,
+                                 textAlign = TextAlign.Center,
+@@ -207,7 +204,7 @@
+                                 onClick = viewModel::retry,
+                                 shapes = ButtonDefaults.shapes(),
+                             ) {
+-                                Text(stringResource(R.string.retry))
++                                Text("retry")
+                             }
+                         }
+                     }
+@@ -224,7 +221,7 @@
+                     ) {
+                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                             Text(
+-                                text = stringResource(R.string.no_results_found),
++                                text = "no_results_found",
+                                 style = MaterialTheme.typography.titleLarge,
+                                 color = MaterialTheme.colorScheme.onSurface,
+                                 textAlign = TextAlign.Center,
+@@ -234,7 +231,7 @@
+                                 onClick = viewModel::retry,
+                                 shapes = ButtonDefaults.shapes(),
+                             ) {
+-                                Text(stringResource(R.string.refresh))
++                                Text("refresh")
+                             }
+                         }
+                     }
+@@ -246,7 +243,7 @@
+ 
+ @Immutable
+ private enum class NewReleaseTab(
+-    @StringRes val titleRes: Int,
++    val titleRes: Int,
+     val icon: ImageVector,
+     val contentType: String,
+ ) {
+@@ -469,7 +466,7 @@
+             modifier = Modifier.padding(start = 20.dp, top = 18.dp, end = 20.dp, bottom = 10.dp),
+         ) {
+             Text(
+-                text = stringResource(R.string.total_releases),
++                text = "total_releases",
+                 style = MaterialTheme.typography.titleMedium,
+                 fontWeight = FontWeight.SemiBold,
+                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+@@ -568,7 +565,7 @@
+                 .padding(horizontal = 24.dp, vertical = 56.dp),
+     ) {
+         Text(
+-            text = stringResource(R.string.no_releases_found),
++            text = "no_releases_found",
+             style = MaterialTheme.typography.titleLarge,
+             color = MaterialTheme.colorScheme.onSurface,
+             textAlign = TextAlign.Center,
+@@ -578,7 +575,7 @@
+             onClick = onRefresh,
+             shapes = ButtonDefaults.shapes(),
+         ) {
+-            Text(stringResource(R.string.refresh))
++            Text("refresh")
+         }
+     }
+ }

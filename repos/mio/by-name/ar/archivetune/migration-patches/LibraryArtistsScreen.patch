@@ -1,0 +1,192 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/library/LibraryArtistsScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/library/LibraryArtistsScreen.kt	2026-09-24 13:04:00
+@@ -59,8 +59,6 @@
+ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.dp
+@@ -193,7 +191,7 @@
+                                     contentAlignment = Alignment.Center,
+                                 ) {
+                                     Icon(
+-                                        painter = painterResource(id = R.drawable.person),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         tint = MaterialTheme.colorScheme.onPrimary,
+                                         modifier = Modifier.size(16.dp),
+@@ -204,12 +202,12 @@
+                                     modifier = Modifier.weight(1f),
+                                 ) {
+                                     Text(
+-                                        text = stringResource(R.string.top_artist_badge),
++                                        text = "top_artist_badge",
+                                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                         color = MaterialTheme.colorScheme.primary,
+                                     )
+                                     Text(
+-                                        text = topArtist?.artist?.name ?: stringResource(R.string.no_artist_yet),
++                                        text = topArtist?.artist?.name ?: "no_artist_yet",
+                                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                         maxLines = 1,
+                                         overflow = TextOverflow.Ellipsis,
+@@ -259,7 +257,7 @@
+                                     modifier = Modifier.height(32.dp),
+                                 ) {
+                                     Text(
+-                                        text = stringResource(R.string.play_all),
++                                        text = "play_all",
+                                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                     )
+                                 }
+@@ -279,7 +277,7 @@
+                                     modifier = Modifier.size(32.dp),
+                                 ) {
+                                     Icon(
+-                                        painter = painterResource(id = R.drawable.more_vert),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                         modifier = Modifier.size(16.dp),
+@@ -313,12 +311,12 @@
+                                 verticalAlignment = Alignment.CenterVertically,
+                             ) {
+                                 Text(
+-                                    text = stringResource(R.string.artists),
++                                    text = "artists",
+                                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                     color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                 )
+                                 Icon(
+-                                    painter = painterResource(id = R.drawable.arrow_forward),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint = MaterialTheme.colorScheme.primary,
+                                     modifier = Modifier.size(16.dp),
+@@ -334,7 +332,7 @@
+                                     color = MaterialTheme.colorScheme.primary,
+                                 )
+                                 Text(
+-                                    text = stringResource(R.string.total_label),
++                                    text = "total_label",
+                                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f),
+                                 )
+@@ -360,7 +358,7 @@
+                                         R.string.newest_first,
+                                     )
+                                 } else {
+-                                    stringResource(R.string.oldest_first)
++                                    "oldest_first"
+                                 }
+                             }
+ 
+@@ -370,7 +368,7 @@
+                                         R.string.sort_z_to_a,
+                                     )
+                                 } else {
+-                                    stringResource(R.string.sort_a_to_z)
++                                    "sort_a_to_z"
+                                 }
+                             }
+ 
+@@ -380,12 +378,12 @@
+                                         R.string.most_tracks,
+                                     )
+                                 } else {
+-                                    stringResource(R.string.least_tracks)
++                                    "least_tracks"
+                                 }
+                             }
+ 
+                             ArtistSortType.PLAY_TIME -> {
+-                                stringResource(R.string.play_time)
++                                "play_time"
+                             }
+                         }
+ 
+@@ -410,7 +408,7 @@
+                                 )
+                                 Spacer(modifier = Modifier.width(6.dp))
+                                 Icon(
+-                                    painter = painterResource(id = R.drawable.expand_more),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                     modifier = Modifier.size(16.dp),
+@@ -424,10 +422,10 @@
+                                 ArtistSortType.entries.forEach { type ->
+                                     val label =
+                                         when (type) {
+-                                            ArtistSortType.CREATE_DATE -> stringResource(R.string.recently_added)
+-                                            ArtistSortType.NAME -> stringResource(R.string.sort_a_to_z)
+-                                            ArtistSortType.SONG_COUNT -> stringResource(R.string.tracks_count_label)
+-                                            ArtistSortType.PLAY_TIME -> stringResource(R.string.play_time)
++                                            ArtistSortType.CREATE_DATE -> "recently_added"
++                                            ArtistSortType.NAME -> "sort_a_to_z"
++                                            ArtistSortType.SONG_COUNT -> "tracks_count_label"
++                                            ArtistSortType.PLAY_TIME -> "play_time"
+                                         }
+                                     DropdownMenuItem(
+                                         text = { Text(label) },
+@@ -453,8 +451,7 @@
+                         ) {
+                             Icon(
+                                 painter =
+-                                    painterResource(
+-                                        id = if (sortDescending) R.drawable.arrow_downward else R.drawable.arrow_upward,
++                                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.arrow_downward else R.drawable.arrow_upward,
+                                     ),
+                                 contentDescription =
+                                     if (sortDescending) {
+@@ -462,7 +459,7 @@
+                                             R.string.sort_descending,
+                                         )
+                                     } else {
+-                                        stringResource(R.string.sort_ascending)
++                                        "sort_ascending"
+                                     },
+                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                 modifier = Modifier.size(16.dp),
+@@ -484,9 +481,9 @@
+                                 if (filter ==
+                                     ArtistFilter.LIKED
+                                 ) {
+-                                    stringResource(R.string.subscribed_only)
++                                    "subscribed_only"
+                                 } else {
+-                                    stringResource(R.string.all_artists_filter)
++                                    "all_artists_filter"
+                                 },
+                             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+                             color = MaterialTheme.colorScheme.primary,
+@@ -558,7 +555,7 @@
+                         )
+                         Spacer(modifier = Modifier.height(2.dp))
+                         Text(
+-                            text = stringResource(R.string.artist_subtitle),
++                            text = "artist_subtitle",
+                             style = MaterialTheme.typography.bodySmall,
+                             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+                         )
+@@ -594,7 +591,7 @@
+                             ),
+                     ) {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.play),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(12.dp),
+                         )
+@@ -606,7 +603,7 @@
+             if (artists.size > 2) {
+                 item(span = { GridItemSpan(2) }, key = "recent_artists_header") {
+                     Text(
+-                        text = stringResource(R.string.recently_played_artists),
++                        text = "recently_played_artists",
+                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                         modifier = Modifier.padding(top = 8.dp),
+                         color = MaterialTheme.colorScheme.onBackground,

@@ -1,0 +1,11 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/playback/MusicServiceWidgetUpdater.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/playback/MusicServiceWidgetUpdater.kt	2026-09-24 13:04:08
+@@ -7,8 +7,6 @@
+ 
+ package moe.rukamori.archivetune.playback
+ 
+-import android.graphics.BitmapFactory
+-import android.net.Uri
+ import androidx.datastore.preferences.core.MutablePreferences
+ import androidx.datastore.preferences.core.Preferences
+ import androidx.datastore.preferences.core.mutablePreferencesOf

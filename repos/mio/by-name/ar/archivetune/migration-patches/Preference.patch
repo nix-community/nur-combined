@@ -1,0 +1,114 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt	2026-09-24 13:03:57
+@@ -82,9 +82,7 @@
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.graphics.Shape
+ import androidx.compose.ui.graphics.graphicsLayer
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.semantics.Role
+ import androidx.compose.ui.text.TextRange
+ import androidx.compose.ui.text.font.FontWeight
+@@ -407,7 +405,7 @@
+         },
+         trailingContent = {
+             Icon(
+-                painter = painterResource(R.drawable.arrow_forward),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                 modifier = Modifier.size(22.dp),
+@@ -474,7 +472,7 @@
+         },
+         trailingContent = {
+             Icon(
+-                painter = painterResource(R.drawable.arrow_forward),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                 modifier = Modifier.size(22.dp),
+@@ -777,7 +775,7 @@
+         if (selected) {
+             Spacer(Modifier.width(16.dp))
+             Icon(
+-                painter = painterResource(R.drawable.check),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = contentColor,
+                 modifier = Modifier.size(28.dp),
+@@ -849,8 +847,7 @@
+                     ) { isChecked ->
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    id = if (isChecked) R.drawable.check else R.drawable.close,
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.check else R.drawable.close,
+                                 ),
+                             contentDescription = null,
+                             modifier = Modifier.size(SwitchDefaults.IconSize),
+@@ -985,7 +982,7 @@
+                     horizontalArrangement = Arrangement.Center,
+                 ) {
+                     Text(
+-                        text = stringResource(R.string.history_duration),
++                        text = "history_duration",
+                         overflow = TextOverflow.Ellipsis,
+                         maxLines = 1,
+                         style = MaterialTheme.typography.headlineSmall,
+@@ -1019,7 +1016,7 @@
+                     Spacer(Modifier.height(12.dp))
+ 
+                     Text(
+-                        text = stringResource(R.string.history_duration_desc),
++                        text = "history_duration_desc",
+                         style = MaterialTheme.typography.bodyMedium,
+                         color = MaterialTheme.colorScheme.secondary,
+                     )
+@@ -1084,7 +1081,7 @@
+                     horizontalArrangement = Arrangement.Center,
+                 ) {
+                     Text(
+-                        text = stringResource(R.string.audio_crossfade_dialog_title),
++                        text = "audio_crossfade_dialog_title",
+                         overflow = TextOverflow.Ellipsis,
+                         maxLines = 1,
+                         style = MaterialTheme.typography.headlineSmall,
+@@ -1121,7 +1118,7 @@
+                     Text(
+                         text =
+                             if (rounded <= 0f) {
+-                                stringResource(R.string.dark_theme_off)
++                                "dark_theme_off"
+                             } else {
+                                 stringResource(R.string.audio_crossfade_seconds, displayValue)
+                             },
+@@ -1131,7 +1128,7 @@
+                     Spacer(Modifier.height(12.dp))
+ 
+                     Text(
+-                        text = stringResource(R.string.audio_crossfade_description),
++                        text = "audio_crossfade_description",
+                         style = MaterialTheme.typography.bodyMedium,
+                         color = MaterialTheme.colorScheme.secondary,
+                     )
+@@ -1174,16 +1171,16 @@
+         if (isWhole) rounded.roundToInt().toString() else String.format(java.util.Locale.getDefault(), "%.1f", rounded)
+     val descriptionText =
+         if (rounded <= 0f) {
+-            stringResource(R.string.dark_theme_off)
++            "dark_theme_off"
+         } else {
+             stringResource(R.string.audio_crossfade_seconds, displayValue)
+         }
+ 
+     PreferenceEntry(
+         modifier = modifier,
+-        title = { Text(stringResource(R.string.audio_crossfade_title)) },
++        title = { Text("audio_crossfade_title") },
+         description = descriptionText,
+-        icon = { Icon(painterResource(R.drawable.graphic_eq), null) },
++        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+         onClick = { if (isEnabled) showDialog = true },
+         isEnabled = isEnabled,
+     )

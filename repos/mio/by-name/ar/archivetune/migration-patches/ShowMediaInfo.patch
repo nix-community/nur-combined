@@ -1,0 +1,132 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt	2026-09-24 13:03:58
+@@ -9,11 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.utils
+ 
+-import android.content.ClipData
+-import android.content.ClipboardManager
+-import android.content.Context
+-import android.content.Intent
+-import android.widget.Toast
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.animateContentSize
+ import androidx.compose.animation.fadeIn
+@@ -67,8 +62,6 @@
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.dp
+@@ -148,18 +141,18 @@
+ ) {
+     val model = (state as? MediaInfoState.Success)?.data
+     if (model == null) {
+-        MediaInfoStatusCard(title = stringResource(R.string.information), state = state)
++        MediaInfoStatusCard(title = "information", state = state)
+         return
+     }
+-    val unknownText = stringResource(R.string.unknown)
+-    val pleaseWaitText = stringResource(R.string.please_wait)
+-    val copyText = stringResource(R.string.copy)
+-    val shareText = stringResource(R.string.share)
+-    val closeText = stringResource(R.string.close)
+-    val descriptionLabel = stringResource(R.string.description)
+-    val detailsLabel = stringResource(R.string.details)
+-    val numbersLabel = stringResource(R.string.numbers)
+-    val informationLabel = stringResource(R.string.information)
++    val unknownText = "unknown"
++    val pleaseWaitText = "please_wait"
++    val copyText = "copy"
++    val shareText = "share"
++    val closeText = "close"
++    val descriptionLabel = "description"
++    val detailsLabel = "details"
++    val numbersLabel = "numbers"
++    val informationLabel = "information"
+     val description = (model.descriptionState as? MediaInfoState.Success)?.data
+     val onCopyDescription: () -> Unit = remember(onCopy, description) {
+         { description?.let(onCopy) }
+@@ -194,7 +187,7 @@
+                     modifier = Modifier.weight(1f),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.copy),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                     )
+                     Spacer(Modifier.width(8.dp))
+@@ -206,7 +199,7 @@
+                     modifier = Modifier.weight(1f),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.share),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                     )
+                     Spacer(Modifier.width(8.dp))
+@@ -234,7 +227,7 @@
+                             },
+                             leadingIcon = {
+                                 Icon(
+-                                    painter = painterResource(fact.iconRes),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                 )
+                             },
+@@ -401,7 +394,7 @@
+                         ) {
+                             Box(contentAlignment = Alignment.Center) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.music_note),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                 )
+@@ -454,7 +447,7 @@
+ 
+             IconButton(onClick = onClose) {
+                 Icon(
+-                    painter = painterResource(R.drawable.close),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = closeText,
+                 )
+             }
+@@ -483,14 +476,14 @@
+                     },
+                     headlineContent = {
+                         Text(
+-                            text = item.value ?: stringResource(R.string.unknown),
++                            text = item.value ?: "unknown",
+                             maxLines = 2,
+                             overflow = TextOverflow.Ellipsis,
+                         )
+                     },
+                     trailingContent = {
+                         Icon(
+-                            painter = painterResource(R.drawable.copy),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = copyContentDescription,
+                         )
+                     },
+@@ -544,7 +537,7 @@
+                 )
+                 OutlinedButton(onClick = onCopy) {
+                     Icon(
+-                        painter = painterResource(R.drawable.copy),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                     )
+                     Spacer(Modifier.width(8.dp))
+@@ -593,7 +586,7 @@
+                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+                             )
+                             Text(
+-                                text = metric.value ?: stringResource(R.string.unknown),
++                                text = metric.value ?: "unknown",
+                                 style = MaterialTheme.typography.headlineSmall,
+                                 fontWeight = FontWeight.SemiBold,
+                             )

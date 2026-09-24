@@ -1,0 +1,141 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/LyricsEnhanced.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/LyricsEnhanced.kt	2026-09-24 13:03:58
+@@ -13,9 +13,6 @@
+ 
+ package moe.rukamori.archivetune.ui.component
+ 
+-import android.app.Activity
+-import android.view.WindowManager
+-import android.widget.Toast
+ import androidx.activity.compose.BackHandler
+ import androidx.compose.animation.core.FastOutSlowInEasing
+ import androidx.compose.animation.core.tween
+@@ -83,9 +80,7 @@
+ import androidx.compose.ui.input.nestedscroll.nestedScroll
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalLayoutDirection
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.TextStyle
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
+@@ -551,7 +546,7 @@
+             lyricsState !is LyricsRenderScreenState.Success -> {
+                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                     Text(
+-                        text = stringResource(R.string.lyrics_not_found),
++                        text = "lyrics_not_found",
+                         style = MaterialTheme.typography.bodyLarge,
+                         color = textColor.copy(alpha = 0.6f),
+                         textAlign = TextAlign.Center,
+@@ -562,7 +557,7 @@
+             isSynced && syncedLyrics.lines.isEmpty() -> {
+                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                     Text(
+-                        text = stringResource(R.string.lyrics_not_found),
++                        text = "lyrics_not_found",
+                         style = MaterialTheme.typography.bodyLarge,
+                         color = textColor.copy(alpha = 0.6f),
+                         textAlign = TextAlign.Center,
+@@ -573,7 +568,7 @@
+             !isSynced && plainLyrics.items.isEmpty() -> {
+                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                     Text(
+-                        text = stringResource(R.string.lyrics_not_found),
++                        text = "lyrics_not_found",
+                         style = MaterialTheme.typography.bodyLarge,
+                         color = textColor.copy(alpha = 0.6f),
+                         textAlign = TextAlign.Center,
+@@ -681,7 +676,7 @@
+             ) {
+                 Column(modifier = Modifier.padding(20.dp)) {
+                     Text(
+-                        text = stringResource(R.string.share_lyrics),
++                        text = "share_lyrics",
+                         fontWeight = FontWeight.Bold,
+                         fontSize = 20.sp,
+                         color = MaterialTheme.colorScheme.onSurface,
+@@ -702,13 +697,13 @@
+                         verticalAlignment = Alignment.CenterVertically,
+                     ) {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.share),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = MaterialTheme.colorScheme.primary,
+                         )
+                         Spacer(modifier = Modifier.width(12.dp))
+                         Text(
+-                            text = stringResource(R.string.share_as_text),
++                            text = "share_as_text",
+                             fontSize = 16.sp,
+                             color = MaterialTheme.colorScheme.onSurface,
+                         )
+@@ -725,13 +720,13 @@
+                         verticalAlignment = Alignment.CenterVertically,
+                     ) {
+                         Icon(
+-                            painter = painterResource(id = R.drawable.share),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = MaterialTheme.colorScheme.primary,
+                         )
+                         Spacer(modifier = Modifier.width(12.dp))
+                         Text(
+-                            text = stringResource(R.string.share_as_image),
++                            text = "share_as_image",
+                             fontSize = 16.sp,
+                             color = MaterialTheme.colorScheme.onSurface,
+                         )
+@@ -744,7 +739,7 @@
+                         horizontalArrangement = Arrangement.End,
+                     ) {
+                         Text(
+-                            text = stringResource(R.string.cancel),
++                            text = "cancel",
+                             fontSize = 16.sp,
+                             color = MaterialTheme.colorScheme.error,
+                             fontWeight = FontWeight.Medium,
+@@ -907,7 +902,7 @@
+             ) {
+                 Column(modifier = Modifier.weight(1f)) {
+                     Text(
+-                        text = stringResource(R.string.share_selected),
++                        text = "share_selected",
+                         style = MaterialTheme.typography.headlineSmall,
+                         fontWeight = FontWeight.Medium,
+                     )
+@@ -918,7 +913,7 @@
+                     )
+                 }
+                 TextButton(onClick = onDismissRequest) {
+-                    Text(text = stringResource(R.string.close))
++                    Text(text = "close")
+                 }
+             }
+ 
+@@ -953,7 +948,7 @@
+                 verticalAlignment = Alignment.CenterVertically,
+             ) {
+                 TextButton(onClick = onDismissRequest) {
+-                    Text(text = stringResource(R.string.cancel))
++                    Text(text = "cancel")
+                 }
+                 Button(
+                     onClick = onShareSelected,
+@@ -966,12 +961,12 @@
+                         ),
+                 ) {
+                     Icon(
+-                        painter = painterResource(id = R.drawable.share),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.size(20.dp),
+                     )
+                     Spacer(modifier = Modifier.width(10.dp))
+-                    Text(text = stringResource(R.string.share_selected))
++                    Text(text = "share_selected")
+                 }
+             }
+         }

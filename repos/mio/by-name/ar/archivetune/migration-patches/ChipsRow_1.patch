@@ -1,0 +1,52 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/ChipsRow.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/ChipsRow.kt	2026-09-24 13:07:08
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.component
+ 
+-import android.annotation.SuppressLint
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.AnimatedVisibility
+ import androidx.compose.animation.core.animateFloatAsState
+@@ -47,8 +46,6 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.graphicsLayer
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.dp
+ import moe.rukamori.archivetune.R
+ import moe.rukamori.archivetune.ui.screens.OptionStats
+@@ -82,13 +79,13 @@
+                 leadingIcon = {
+                     if (isSelected) {
+                         Icon(
+-                            painter = painterResource(R.drawable.done),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(FilterChipDefaults.IconSize),
+                         )
+                     } else if (iconRes != null) {
+                         Icon(
+-                            painter = painterResource(iconRes),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(FilterChipDefaults.IconSize),
+                         )
+@@ -107,7 +104,6 @@
+     }
+ }
+ 
+-@SuppressLint("UnusedContentLambdaTargetStateParameter")
+ @Composable
+ fun <Int> ChoiceChipsRow(
+     chips: List<Pair<Int, String>>,
+@@ -153,7 +149,7 @@
+                 },
+                 trailingIcon = {
+                     Icon(
+-                        painter = painterResource(R.drawable.expand_more),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         modifier = Modifier.graphicsLayer(rotationZ = rotationAnimation),
+                     )

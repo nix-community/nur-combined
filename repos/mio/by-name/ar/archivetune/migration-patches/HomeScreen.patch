@@ -1,0 +1,90 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt	2026-09-24 13:03:59
+@@ -7,10 +7,7 @@
+ 
+ package moe.rukamori.archivetune.ui.screens
+ 
+-import android.net.Uri
+ import androidx.activity.compose.BackHandler
+-import androidx.annotation.DrawableRes
+-import androidx.annotation.StringRes
+ import androidx.compose.foundation.ExperimentalFoundationApi
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.BoxWithConstraints
+@@ -48,8 +45,6 @@
+ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+ import androidx.compose.ui.input.nestedscroll.nestedScroll
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.dp
+ import androidx.lifecycle.compose.collectAsStateWithLifecycle
+ import androidx.navigation.NavController
+@@ -224,10 +219,10 @@
+ @OptIn(ExperimentalMaterial3ExpressiveApi::class)
+ @Composable
+ private fun HomeStatePane(
+-    @DrawableRes iconResId: Int?,
+-    @StringRes messageResId: Int?,
++    iconResId: Int?,
++    messageResId: Int?,
+     modifier: Modifier = Modifier,
+-    @StringRes actionResId: Int? = null,
++    actionResId: Int? = null,
+     showLoadingIndicator: Boolean = false,
+     onAction: (() -> Unit)? = null,
+ ) {
+@@ -247,7 +242,7 @@
+             } else {
+                 iconResId?.let {
+                     Icon(
+-                        painter = painterResource(it),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = MaterialTheme.colorScheme.primary,
+                         modifier = Modifier.size(48.dp),
+@@ -364,7 +359,7 @@
+                             contentType = "section_header",
+                         ) {
+                             HomeSectionHeader(
+-                                title = stringResource(R.string.quick_picks),
++                                title = "quick_picks",
+                                 modifier = Modifier.animateItem(),
+                             )
+                         }
+@@ -393,7 +388,7 @@
+                             contentType = "section_header",
+                         ) {
+                             HomeSectionHeader(
+-                                title = stringResource(R.string.quick_picks),
++                                title = "quick_picks",
+                                 modifier = Modifier.animateItem(),
+                             )
+                         }
+@@ -422,7 +417,7 @@
+                             contentType = "section_header",
+                         ) {
+                             HomeSectionHeader(
+-                                title = stringResource(R.string.speed_dial),
++                                title = "speed_dial",
+                                 modifier = Modifier.animateItem(),
+                             )
+                         }
+@@ -451,7 +446,7 @@
+                             contentType = "section_header",
+                         ) {
+                             HomeSectionHeader(
+-                                title = stringResource(R.string.keep_listening),
++                                title = "keep_listening",
+                                 modifier = Modifier.animateItem(),
+                             )
+                         }
+@@ -506,7 +501,7 @@
+                             contentType = "section_header",
+                         ) {
+                             HomeSectionHeader(
+-                                title = stringResource(R.string.forgotten_favorites),
++                                title = "forgotten_favorites",
+                                 modifier = Modifier.animateItem(),
+                             )
+                         }

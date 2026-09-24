@@ -1,0 +1,19 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/DebugPanel.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/DebugPanel.kt	2026-09-24 13:03:57
+@@ -8,7 +8,6 @@
+ package moe.rukamori.archivetune.ui.component
+ 
+ import androidx.compose.runtime.Composable
+-import androidx.compose.ui.res.painterResource
+ import moe.rukamori.archivetune.R
+ 
+ /**
+@@ -22,7 +21,7 @@
+     trailingContent: (@Composable () -> Unit)? = null,
+ ): Material3SettingsItem =
+     Material3SettingsItem(
+-        icon = painterResource(R.drawable.info),
++        icon = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+         title = title,
+         description = description,
+         trailingContent = trailingContent,

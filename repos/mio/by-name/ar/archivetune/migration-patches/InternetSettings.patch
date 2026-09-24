@@ -1,0 +1,199 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/InternetSettings.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/InternetSettings.kt	2026-09-24 13:03:59
+@@ -44,8 +44,6 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.unit.dp
+ import androidx.datastore.preferences.core.stringPreferencesKey
+@@ -97,7 +95,7 @@
+                 contentAlignment = Alignment.Center,
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.error),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = MaterialTheme.colorScheme.error,
+                     modifier = Modifier.size(SettingsDimensions.BannerIconInnerSize),
+@@ -109,18 +107,18 @@
+                 verticalArrangement = Arrangement.spacedBy(8.dp),
+             ) {
+                 Text(
+-                    text = stringResource(R.string.internet_warning_title),
++                    text = "internet_warning_title",
+                     style = MaterialTheme.typography.titleSmall,
+                     fontWeight = FontWeight.Bold,
+                     color = MaterialTheme.colorScheme.onErrorContainer,
+                 )
+                 Text(
+-                    text = stringResource(R.string.internet_warning_doh),
++                    text = "internet_warning_doh",
+                     style = MaterialTheme.typography.bodySmall,
+                     color = MaterialTheme.colorScheme.onErrorContainer.copy(alpha = 0.8f),
+                 )
+                 Text(
+-                    text = stringResource(R.string.internet_warning_proxy),
++                    text = "internet_warning_proxy",
+                     style = MaterialTheme.typography.bodySmall,
+                     color = MaterialTheme.colorScheme.onErrorContainer.copy(alpha = 0.8f),
+                 )
+@@ -154,14 +152,14 @@
+     Scaffold(
+         topBar = {
+             TopAppBar(
+-                title = { Text(stringResource(R.string.internet)) },
++                title = { Text("internet") },
+                 navigationIcon = {
+                     IconButton(
+                         onClick = navController::navigateUp,
+                         onLongClick = navController::backToMain,
+                     ) {
+                         Icon(
+-                            painterResource(R.drawable.arrow_back),
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -180,12 +178,12 @@
+         ) {
+             InternetWarningBox()
+ 
+-            PreferenceGroup(title = stringResource(R.string.dns_over_https)) {
++            PreferenceGroup(title = "dns_over_https") {
+                 item {
+                     SwitchPreference(
+-                        title = { Text(stringResource(R.string.dns_over_https)) },
+-                        description = stringResource(R.string.dns_over_https_desc),
+-                        icon = { Icon(painterResource(R.drawable.security), null) },
++                        title = { Text("dns_over_https") },
++                        description = "dns_over_https_desc",
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         checked = dnsOverHttpsEnabled,
+                         onCheckedChange = onDnsOverHttpsEnabledChange,
+                     )
+@@ -193,8 +191,8 @@
+ 
+                 item(visible = dnsOverHttpsEnabled) {
+                     ListPreference(
+-                        title = { Text(stringResource(R.string.dns_provider)) },
+-                        icon = { Icon(painterResource(R.drawable.website), null) },
++                        title = { Text("dns_provider") },
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         selectedValue = dnsProvider,
+                         values = dnsProviders,
+                         valueText = { it },
+@@ -204,18 +202,18 @@
+ 
+                 item(visible = dnsOverHttpsEnabled && dnsProvider == "Custom") {
+                     EditTextPreference(
+-                        title = { Text(stringResource(R.string.dns_custom_url)) },
++                        title = { Text("dns_custom_url") },
+                         value = customDnsUrl,
+                         onValueChange = onCustomDnsUrlChange,
+                     )
+                 }
+             }
+ 
+-            PreferenceGroup(title = stringResource(R.string.proxy)) {
++            PreferenceGroup(title = "proxy") {
+                 item {
+                     SwitchPreference(
+-                        title = { Text(stringResource(R.string.enable_proxy)) },
+-                        icon = { Icon(painterResource(R.drawable.wifi_proxy), null) },
++                        title = { Text("enable_proxy") },
++                        icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                         checked = proxyEnabled,
+                         onCheckedChange = {
+                             onProxyEnabledChange(it)
+@@ -226,7 +224,7 @@
+ 
+                 item(visible = proxyEnabled) {
+                     ListPreference(
+-                        title = { Text(stringResource(R.string.proxy_type)) },
++                        title = { Text("proxy_type") },
+                         selectedValue = proxyType,
+                         values = proxyTypes,
+                         valueText = { it.name },
+@@ -239,7 +237,7 @@
+ 
+                 item(visible = proxyEnabled) {
+                     EditTextPreference(
+-                        title = { Text(stringResource(R.string.proxy_host)) },
++                        title = { Text("proxy_host") },
+                         value = proxyHost,
+                         onValueChange = {
+                             onProxyHostChange(it)
+@@ -250,7 +248,7 @@
+ 
+                 item(visible = proxyEnabled) {
+                     NumberEditTextPreference(
+-                        title = { Text(stringResource(R.string.proxy_port)) },
++                        title = { Text("proxy_port") },
+                         value = proxyPort,
+                         onValueChange = {
+                             onProxyPortChange(it)
+@@ -262,10 +260,10 @@
+             }
+ 
+             if (proxyEnabled) {
+-                PreferenceGroup(title = stringResource(R.string.proxy_auth)) {
++                PreferenceGroup(title = "proxy_auth") {
+                     item {
+                         EditTextPreference(
+-                            title = { Text(stringResource(R.string.proxy_username)) },
++                            title = { Text("proxy_username") },
+                             value = proxyUsername,
+                             onValueChange = {
+                                 onProxyUsernameChange(it)
+@@ -276,7 +274,7 @@
+ 
+                     item {
+                         EditTextPreference(
+-                            title = { Text(stringResource(R.string.proxy_password)) },
++                            title = { Text("proxy_password") },
+                             value = proxyPassword,
+                             onValueChange = {
+                                 onProxyPasswordChange(it)
+@@ -287,9 +285,9 @@
+ 
+                     item {
+                         SwitchPreference(
+-                            title = { Text(stringResource(R.string.stream_bypass_proxy)) },
+-                            description = stringResource(R.string.stream_bypass_proxy_desc),
+-                            icon = { Icon(painterResource(R.drawable.wifi_proxy), null) },
++                            title = { Text("stream_bypass_proxy") },
++                            description = "stream_bypass_proxy_desc",
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             checked = streamBypassProxy,
+                             onCheckedChange = {
+                                 onStreamBypassProxyChange(it)
+@@ -300,8 +298,8 @@
+ 
+                     item {
+                         PreferenceEntry(
+-                            title = { Text(stringResource(R.string.test_proxy_connection)) },
+-                            icon = { Icon(painterResource(R.drawable.check), null) },
++                            title = { Text("test_proxy_connection") },
++                            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
+                             onClick = {
+                                 if (testingProxy) return@PreferenceEntry
+                                 scope.launch(Dispatchers.IO) {
+@@ -376,13 +374,13 @@
+                 color = MaterialTheme.colorScheme.primary,
+             )
+             Spacer(Modifier.height(16.dp))
+-            Text(stringResource(R.string.testing_proxy_connection))
++            Text("testing_proxy_connection")
+         }
+     }
+ 
+     if (testResult != null) {
+         ActionPromptDialog(
+-            title = stringResource(R.string.test_proxy_connection),
++            title = "test_proxy_connection",
+             onDismiss = { testResult = null },
+             onConfirm = { testResult = null },
+             content = {

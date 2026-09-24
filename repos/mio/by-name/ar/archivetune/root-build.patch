@@ -1,0 +1,16 @@
+--- a/build.gradle.kts	2026-09-24 13:42:01
++++ b/build.gradle.kts	2026-09-24 13:44:00
+@@ -1,11 +1,7 @@
+ plugins {
+-    alias(libs.plugins.android.application) apply false
+-    alias(libs.plugins.android.library) apply false
+-    alias(libs.plugins.kotlin.android) apply false
+-    alias(libs.plugins.kotlin.jvm) apply false
++                alias(libs.plugins.kotlin.jvm) apply false
+     alias(libs.plugins.compose.compiler) apply false
+-    alias(libs.plugins.aboutlibraries.android) apply false
+-    alias(libs.plugins.spotless)
++        alias(libs.plugins.spotless)
+ }
+ 
+ spotless {

@@ -1,0 +1,10 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/theme/PlayerBackgroundColorUtils.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/PlayerBackgroundColorUtils.kt	2026-09-24 13:04:01
+@@ -10,7 +10,6 @@
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.lerp
+ import androidx.compose.ui.graphics.toArgb
+-import android.graphics.Color as AndroidColor
+ 
+ object PlayerBackgroundColorUtils {
+     private const val DEFAULT_MIN_BRIGHTNESS = 0.15f

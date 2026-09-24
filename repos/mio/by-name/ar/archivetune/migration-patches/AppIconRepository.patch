@@ -1,0 +1,23 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/appicon/AppIconRepository.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/appicon/AppIconRepository.kt	2026-09-24 13:04:09
+@@ -7,11 +7,6 @@
+ 
+ package moe.rukamori.archivetune.appicon
+ 
+-import android.content.ComponentName
+-import android.content.Context
+-import android.content.pm.PackageManager
+-import android.os.Build
+-import androidx.annotation.DrawableRes
+ import dagger.hilt.android.qualifiers.ApplicationContext
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.NonCancellable
+@@ -27,7 +22,7 @@
+     val name: String?,
+     val author: String?,
+     val githubAuthorUrl: String?,
+-    @DrawableRes val previewDrawableResId: Int,
++    val previewDrawableResId: Int,
+     val aliasClassName: String,
+     val isDefault: Boolean,
+ )

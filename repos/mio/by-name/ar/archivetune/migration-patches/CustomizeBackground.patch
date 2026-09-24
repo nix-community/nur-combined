@@ -1,0 +1,197 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/CustomizeBackground.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/CustomizeBackground.kt	2026-09-24 13:04:00
+@@ -9,9 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.settings
+ 
+-import android.content.Context
+-import android.content.Intent
+-import android.net.Uri
+ import androidx.activity.compose.rememberLauncherForActivityResult
+ import androidx.activity.result.contract.ActivityResultContracts
+ import androidx.compose.foundation.Image
+@@ -68,8 +65,6 @@
+ import androidx.compose.ui.input.nestedscroll.nestedScroll
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.semantics.contentDescription
+ import androidx.compose.ui.semantics.semantics
+ import androidx.compose.ui.text.font.FontWeight
+@@ -110,9 +105,9 @@
+     val (brightness, onBrightnessChange) =
+         rememberPreference(PlayerCustomBrightnessKey, DEFAULT_BRIGHTNESS)
+ 
+-    val permissionErrorMessage = stringResource(R.string.custom_background_permission_error)
++    val permissionErrorMessage = "custom_background_permission_error"
+     val permissionCleanupErrorMessage =
+-        stringResource(R.string.custom_background_permission_cleanup_error)
++        "custom_background_permission_cleanup_error"
+     val launcher =
+         rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { selectedUri ->
+             selectedUri ?: return@rememberLauncherForActivityResult
+@@ -146,12 +141,12 @@
+             MediumFlexibleTopAppBar(
+                 title = {
+                     Text(
+-                        text = stringResource(R.string.customize_background_title),
++                        text = "customize_background_title",
+                         fontWeight = FontWeight.Bold,
+                     )
+                 },
+                 subtitle = {
+-                    Text(text = stringResource(R.string.custom_background_subtitle))
++                    Text(text = "custom_background_subtitle")
+                 },
+                 navigationIcon = {
+                     IconButton(
+@@ -160,8 +155,8 @@
+                         colors = IconButtonDefaults.filledTonalIconButtonColors(),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.arrow_back),
+-                            contentDescription = stringResource(R.string.back_button_desc),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "back_button_desc",
+                         )
+                     }
+                 },
+@@ -345,7 +340,7 @@
+             verticalArrangement = Arrangement.spacedBy(12.dp),
+         ) {
+             Text(
+-                text = stringResource(R.string.preview),
++                text = "preview",
+                 style = MaterialTheme.typography.titleLarge,
+                 color = MaterialTheme.colorScheme.onSurface,
+             )
+@@ -355,7 +350,7 @@
+                 verticalAlignment = Alignment.Top,
+             ) {
+                 BackgroundPreviewPane(
+-                    title = stringResource(R.string.custom_background_preview_player),
++                    title = "custom_background_preview_player",
+                     previewDrawable = R.drawable.player_preview,
+                     aspectRatio = PLAYER_PREVIEW_ASPECT_RATIO,
+                     imageUri = parsedUri,
+@@ -364,7 +359,7 @@
+                     modifier = Modifier.weight(1f),
+                 )
+                 BackgroundPreviewPane(
+-                    title = stringResource(R.string.custom_background_preview_lyrics),
++                    title = "custom_background_preview_lyrics",
+                     previewDrawable = R.drawable.lyrics_preview,
+                     aspectRatio = LYRICS_PREVIEW_ASPECT_RATIO,
+                     imageUri = parsedUri,
+@@ -375,7 +370,7 @@
+             }
+             if (parsedUri == null) {
+                 Text(
+-                    text = stringResource(R.string.custom_background_preview_empty),
++                    text = "custom_background_preview_empty",
+                     style = MaterialTheme.typography.bodyMedium,
+                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                 )
+@@ -414,7 +409,7 @@
+         ) {
+             if (imageUri == null) {
+                 Icon(
+-                    painter = painterResource(R.drawable.image),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(32.dp),
+                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
+@@ -437,7 +432,7 @@
+                             .background(Color.Black.copy(alpha = 0.4f)),
+                 )
+                 Image(
+-                    painter = painterResource(previewDrawable),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.matchParentSize(),
+                     contentScale = ContentScale.FillBounds,
+@@ -465,7 +460,7 @@
+             contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+         ) {
+             Icon(
+-                painter = painterResource(if (hasImage) R.drawable.edit else R.drawable.image),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.edit else R.drawable.image),
+                 contentDescription = null,
+             )
+             Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+@@ -484,11 +479,11 @@
+                 contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.delete),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                 )
+                 Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+-                Text(text = stringResource(R.string.custom_background_remove_image))
++                Text(text = "custom_background_remove_image")
+             }
+         }
+     }
+@@ -511,13 +506,13 @@
+         verticalArrangement = Arrangement.spacedBy(8.dp),
+     ) {
+         Text(
+-            text = stringResource(R.string.custom_background_adjustments),
++            text = "custom_background_adjustments",
+             style = MaterialTheme.typography.titleLarge,
+             color = MaterialTheme.colorScheme.onSurface,
+             modifier = Modifier.padding(horizontal = 4.dp),
+         )
+         Text(
+-            text = stringResource(R.string.custom_background_adjustments_description),
++            text = "custom_background_adjustments_description",
+             style = MaterialTheme.typography.bodyMedium,
+             color = MaterialTheme.colorScheme.onSurfaceVariant,
+             modifier = Modifier.padding(horizontal = 4.dp),
+@@ -531,7 +526,7 @@
+                 ),
+         ) {
+             BackgroundAdjustmentSlider(
+-                label = stringResource(R.string.blur),
++                label = "blur",
+                 valueLabel =
+                     stringResource(
+                         R.string.custom_background_blur_value,
+@@ -546,7 +541,7 @@
+                 color = MaterialTheme.colorScheme.outlineVariant,
+             )
+             BackgroundAdjustmentSlider(
+-                label = stringResource(R.string.contrast),
++                label = "contrast",
+                 valueLabel =
+                     stringResource(
+                         R.string.custom_background_scale_value,
+@@ -561,7 +556,7 @@
+                 color = MaterialTheme.colorScheme.outlineVariant,
+             )
+             BackgroundAdjustmentSlider(
+-                label = stringResource(R.string.brightness),
++                label = "brightness",
+                 valueLabel =
+                     stringResource(
+                         R.string.custom_background_scale_value,
+@@ -578,7 +573,7 @@
+             modifier = Modifier.fillMaxWidth(),
+             shapes = ButtonDefaults.shapes(),
+         ) {
+-            Text(text = stringResource(R.string.reset))
++            Text(text = "reset")
+         }
+     }
+ }
+@@ -638,7 +633,7 @@
+         modifier = modifier.fillMaxWidth(),
+         shapes = ButtonDefaults.shapes(),
+     ) {
+-        Text(text = stringResource(R.string.save))
++        Text(text = "save")
+     }
+ }
+ 

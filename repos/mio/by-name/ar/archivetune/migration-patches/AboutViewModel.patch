@@ -1,0 +1,74 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/viewmodels/AboutViewModel.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/AboutViewModel.kt	2026-09-24 13:04:03
+@@ -7,8 +7,6 @@
+ 
+ package moe.rukamori.archivetune.viewmodels
+ 
+-import androidx.annotation.DrawableRes
+-import androidx.annotation.StringRes
+ import androidx.compose.runtime.Immutable
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+@@ -46,13 +44,13 @@
+     data object Empty : AboutScreenState
+ 
+     data class Error(
+-        @StringRes val messageResId: Int,
++        val messageResId: Int,
+     ) : AboutScreenState
+ }
+ 
+ @Immutable
+ data class AboutUiModel(
+-    @StringRes val appNameResId: Int,
++    val appNameResId: Int,
+     val versionName: String,
+     val buildHash: String?,
+     val buildVariant: String,
+@@ -71,7 +69,7 @@
+ data class TeamMember(
+     val avatarUrl: String,
+     val name: String,
+-    @StringRes val positionResId: Int,
++    val positionResId: Int,
+     val profileUrl: String?,
+     val links: AboutLinkCollection,
+ )
+@@ -92,8 +90,8 @@
+ @Immutable
+ data class AboutLinkUiModel(
+     val id: String,
+-    @DrawableRes val iconResId: Int,
+-    @StringRes val labelResId: Int,
++    val iconResId: Int,
++    val labelResId: Int,
+     val url: String,
+ )
+ 
+@@ -126,7 +124,7 @@
+     data object Empty : AboutContributorsUiState
+ 
+     data class Error(
+-        @StringRes val messageResId: Int,
++        val messageResId: Int,
+     ) : AboutContributorsUiState
+ }
+ 
+@@ -146,7 +144,7 @@
+     data object Empty : AboutTranslationContributorsUiState
+ 
+     data class Error(
+-        @StringRes val messageResId: Int,
++        val messageResId: Int,
+     ) : AboutTranslationContributorsUiState
+ }
+ 
+@@ -181,7 +179,7 @@
+     data object Empty : AboutDependencyLicensesUiState
+ 
+     data class Error(
+-        @StringRes val messageResId: Int,
++        val messageResId: Int,
+     ) : AboutDependencyLicensesUiState
+ }
+ 

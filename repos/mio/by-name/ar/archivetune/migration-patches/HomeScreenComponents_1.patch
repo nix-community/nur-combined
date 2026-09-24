@@ -1,0 +1,114 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt	2026-09-24 13:32:32
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt	2026-09-24 13:36:11
+@@ -77,8 +77,6 @@
+ import androidx.compose.ui.layout.ContentScale
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalDensity
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextOverflow
+ import androidx.compose.ui.unit.Dp
+@@ -173,7 +171,7 @@
+                     if (selected) {
+                         {
+                             Icon(
+-                                painter = painterResource(R.drawable.done),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 modifier = Modifier.size(FilterChipDefaults.IconSize),
+                             )
+@@ -240,7 +238,7 @@
+         }
+         if (onClick != null) {
+             Icon(
+-                painter = painterResource(R.drawable.arrow_forward),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+             )
+@@ -379,7 +377,7 @@
+                             ) {
+                                 Box(contentAlignment = Alignment.Center) {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.volume_up),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         modifier = Modifier.size(19.dp),
+                                     )
+@@ -467,7 +465,7 @@
+                                     },
+                                 ) {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.more_vert),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 }
+@@ -641,7 +639,7 @@
+                             ) {
+                                 Box(contentAlignment = Alignment.Center) {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.volume_up),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         modifier = Modifier.size(19.dp),
+                                     )
+@@ -726,7 +724,7 @@
+                                     },
+                                 ) {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.more_vert),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 }
+@@ -1281,7 +1279,7 @@
+                         },
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.more_vert),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -1664,8 +1662,8 @@
+     modifier: Modifier = Modifier,
+ ) {
+     HomeSectionHeader(
+-        label = stringResource(R.string.your_youtube_playlists),
+-        title = accountName.ifBlank { stringResource(R.string.account) },
++        label = "your_youtube_playlists",
++        title = accountName.ifBlank { "account" },
+         thumbnail = {
+             if (accountImageUrl != null) {
+                 val context = LocalContext.current
+@@ -1686,8 +1684,8 @@
+                     }
+                 AsyncImage(
+                     model = imageRequest,
+-                    placeholder = painterResource(id = R.drawable.person),
+-                    error = painterResource(id = R.drawable.person),
++                    placeholder = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    error = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     contentScale = ContentScale.Crop,
+                     modifier =
+@@ -1697,7 +1695,7 @@
+                 )
+             } else {
+                 Icon(
+-                    painter = painterResource(id = R.drawable.person),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     modifier = Modifier.size(ListThumbnailSize),
+                 )
+@@ -1718,7 +1716,7 @@
+     modifier: Modifier = Modifier,
+ ) {
+     HomeSectionHeader(
+-        label = stringResource(R.string.similar_to),
++        label = "similar_to",
+         title = recommendation.title.title,
+         thumbnail =
+             recommendation.title.thumbnailUrl?.let { thumbnailUrl ->

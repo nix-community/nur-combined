@@ -1,0 +1,438 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/menu/LyricsMenu.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/menu/LyricsMenu.kt	2026-09-24 13:04:01
+@@ -7,10 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.menu
+ 
+-import android.app.SearchManager
+-import android.content.Intent
+-import android.content.res.Configuration
+-import android.widget.Toast
+ import androidx.compose.animation.animateContentSize
+ import androidx.compose.foundation.BorderStroke
+ import androidx.compose.foundation.layout.Arrangement
+@@ -77,8 +73,6 @@
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.platform.LocalConfiguration
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.input.ImeAction
+ import androidx.compose.ui.text.input.TextFieldValue
+ import androidx.compose.ui.text.style.TextAlign
+@@ -155,7 +149,7 @@
+     if (showEditDialog) {
+         TextFieldDialog(
+             onDismiss = { showEditDialog = false },
+-            icon = { Icon(painter = painterResource(R.drawable.edit), contentDescription = null) },
++            icon = { Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null) },
+             title = { Text(text = mediaMetadataProvider().title) },
+             initialTextFieldValue = TextFieldValue(lyricsProvider()?.lyrics.orEmpty()),
+             singleLine = false,
+@@ -341,15 +335,15 @@
+                 showLyricsSyncOffsetDialog = false
+             },
+             icon = {
+-                Icon(painter = painterResource(R.drawable.speed), contentDescription = null)
++                Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null)
+             },
+-            title = { Text(stringResource(R.string.lyrics_sync_offset)) },
++            title = { Text("lyrics_sync_offset") },
+             buttons = {
+                 TextButton(
+                     onClick = { tempLyricsSyncOffset = 0f },
+                     shapes = ButtonDefaults.shapes(),
+                 ) {
+-                    Text(stringResource(R.string.reset))
++                    Text("reset")
+                 }
+                 Spacer(modifier = Modifier.weight(1f))
+                 TextButton(
+@@ -472,14 +466,14 @@
+             ) {
+                 Column(modifier = Modifier.padding(24.dp)) {
+                     Icon(
+-                        painter = painterResource(R.drawable.translate),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = AlertDialogDefaults.iconContentColor,
+                         modifier = Modifier.align(Alignment.CenterHorizontally),
+                     )
+                     Spacer(Modifier.height(16.dp))
+                     Text(
+-                        text = stringResource(R.string.translate),
++                        text = "translate",
+                         style = MaterialTheme.typography.headlineSmall,
+                         color = AlertDialogDefaults.titleContentColor,
+                         modifier = Modifier.align(Alignment.CenterHorizontally),
+@@ -491,7 +485,7 @@
+                             onValueChange = setTextFieldValue,
+                             enabled = !isTranslationInProgress,
+                             singleLine = false,
+-                            label = { Text(stringResource(R.string.lyrics)) },
++                            label = { Text("lyrics") },
+                             modifier =
+                                 Modifier
+                                     .fillMaxWidth()
+@@ -502,7 +496,7 @@
+ 
+                         Row(verticalAlignment = Alignment.CenterVertically) {
+                             Text(
+-                                text = stringResource(R.string.source),
++                                text = "source",
+                                 modifier = Modifier.width(96.dp),
+                             )
+ 
+@@ -516,8 +510,8 @@
+                                 OutlinedTextField(
+                                     value =
+                                         when (selectedSource) {
+-                                            LyricsTranslationSource.AI_TRANSLATION -> stringResource(R.string.ai_translation_menu)
+-                                            LyricsTranslationSource.TRANSLATION -> stringResource(R.string.translate)
++                                            LyricsTranslationSource.AI_TRANSLATION -> "ai_translation_menu"
++                                            LyricsTranslationSource.TRANSLATION -> "translate"
+                                         },
+                                     onValueChange = {},
+                                     enabled = !isTranslationInProgress,
+@@ -537,7 +531,7 @@
+                                     onDismissRequest = { sourceExpanded = false },
+                                 ) {
+                                     DropdownMenuItem(
+-                                        text = { Text(stringResource(R.string.ai_translation_menu)) },
++                                        text = { Text("ai_translation_menu") },
+                                         enabled = isAiTranslationEnabled,
+                                         onClick = {
+                                             selectedSource = LyricsTranslationSource.AI_TRANSLATION
+@@ -545,7 +539,7 @@
+                                         },
+                                     )
+                                     DropdownMenuItem(
+-                                        text = { Text(stringResource(R.string.translate)) },
++                                        text = { Text("translate") },
+                                         onClick = {
+                                             selectedSource = LyricsTranslationSource.TRANSLATION
+                                             sourceExpanded = false
+@@ -559,7 +553,7 @@
+ 
+                         Row(verticalAlignment = Alignment.CenterVertically) {
+                             Text(
+-                                text = stringResource(R.string.language_label),
++                                text = "language_label",
+                                 modifier = Modifier.width(96.dp),
+                             )
+ 
+@@ -657,7 +651,7 @@
+                                 LoadingIndicator(modifier = Modifier.size(18.dp))
+                                 Spacer(Modifier.width(8.dp))
+                             }
+-                            Text(stringResource(R.string.translate))
++                            Text("translate")
+                         }
+                     }
+                 }
+@@ -683,25 +677,25 @@
+                             NewAction(
+                                 icon = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.edit),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         modifier = Modifier.size(28.dp),
+                                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                     )
+                                 },
+-                                text = stringResource(R.string.edit),
++                                text = "edit",
+                                 onClick = { showEditDialog = true },
+                             ),
+                             NewAction(
+                                 icon = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.cached),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         modifier = Modifier.size(28.dp),
+                                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                     )
+                                 },
+-                                text = stringResource(R.string.refetch),
++                                text = "refetch",
+                                 onClick = {
+                                     viewModel.refetchLyrics(mediaMetadataProvider())
+                                 },
+@@ -709,38 +703,38 @@
+                             NewAction(
+                                 icon = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.translate),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         modifier = Modifier.size(28.dp),
+                                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                     )
+                                 },
+-                                text = stringResource(R.string.translate),
++                                text = "translate",
+                                 onClick = { showTranslateDialog = true },
+                                 enabled = isTranslateEnabled,
+                             ),
+                             NewAction(
+                                 icon = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.speed),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         modifier = Modifier.size(28.dp),
+                                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                     )
+                                 },
+-                                text = stringResource(R.string.lyrics_sync_offset),
++                                text = "lyrics_sync_offset",
+                                 onClick = { showLyricsSyncOffsetDialog = true },
+                             ),
+                             NewAction(
+                                 icon = {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.search),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         modifier = Modifier.size(28.dp),
+                                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                     )
+                                 },
+-                                text = stringResource(R.string.search),
++                                text = "search",
+                                 onClick = { showSearchDialog = true },
+                             ),
+                         ),
+@@ -748,7 +742,7 @@
+                 )
+                 NewMenuItem(
+                     headlineContent = {
+-                        Text(stringResource(R.string.show_lyrics_player_controls))
++                        Text("show_lyrics_player_controls")
+                     },
+                     trailingContent = {
+                         Switch(
+@@ -880,11 +874,11 @@
+     val subtitle =
+         when (state) {
+             LyricsSearchScreenState.Loading -> {
+-                stringResource(R.string.lyrics_searching_providers)
++                "lyrics_searching_providers"
+             }
+ 
+             LyricsSearchScreenState.Empty -> {
+-                stringResource(R.string.lyrics_not_found)
++                "lyrics_not_found"
+             }
+ 
+             is LyricsSearchScreenState.Error -> {
+@@ -930,7 +924,7 @@
+             ) {
+                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                     Icon(
+-                        painter = painterResource(R.drawable.manage_search),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                         modifier = Modifier.size(30.dp),
+@@ -939,7 +933,7 @@
+             }
+             Column(modifier = Modifier.weight(1f)) {
+                 Text(
+-                    text = stringResource(R.string.search_lyrics),
++                    text = "search_lyrics",
+                     style = MaterialTheme.typography.titleLarge,
+                     color = MaterialTheme.colorScheme.onPrimaryContainer,
+                     maxLines = 1,
+@@ -966,8 +960,8 @@
+                     modifier = Modifier.size(48.dp),
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.cached),
+-                        contentDescription = stringResource(R.string.refetch),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                        contentDescription = "refetch",
+                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                     )
+                 }
+@@ -977,8 +971,8 @@
+                 modifier = Modifier.size(48.dp),
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.close),
+-                    contentDescription = stringResource(R.string.close),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    contentDescription = "close",
+                     tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                 )
+             }
+@@ -997,9 +991,9 @@
+     val motionScheme = MaterialTheme.motionScheme
+     val lyricsType =
+         when {
+-            result.isWordSynced -> stringResource(R.string.lyrics_word_sync)
+-            result.isLineSynced -> stringResource(R.string.lyrics_synced_badge)
+-            else -> stringResource(R.string.lyrics_search_plain_badge)
++            result.isWordSynced -> "lyrics_word_sync"
++            result.isLineSynced -> "lyrics_synced_badge"
++            else -> "lyrics_search_plain_badge"
+         }
+     val stats =
+         stringResource(
+@@ -1073,10 +1067,9 @@
+                 ) {
+                     Icon(
+                         painter =
+-                            painterResource(
+-                                if (isExpanded) R.drawable.expand_less else R.drawable.expand_more,
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.expand_less else R.drawable.expand_more,
+                             ),
+-                        contentDescription = stringResource(R.string.details),
++                        contentDescription = "details",
+                         tint = contentColor,
+                     )
+                 }
+@@ -1139,7 +1132,7 @@
+     ) {
+         Box(contentAlignment = Alignment.Center) {
+             Icon(
+-                painter = painterResource(icon),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = contentColor,
+                 modifier = Modifier.size(24.dp),
+@@ -1196,7 +1189,7 @@
+             horizontalArrangement = pillArrangement,
+         ) {
+             Icon(
+-                painter = painterResource(icon),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = contentColor,
+                 modifier = Modifier.size(16.dp),
+@@ -1224,7 +1217,7 @@
+     ) {
+         LoadingIndicator(modifier = Modifier.size(40.dp))
+         Text(
+-            text = stringResource(R.string.lyrics_searching_providers),
++            text = "lyrics_searching_providers",
+             style = MaterialTheme.typography.bodyMedium,
+             color = MaterialTheme.colorScheme.onSurfaceVariant,
+             textAlign = TextAlign.Center,
+@@ -1244,7 +1237,7 @@
+     ) {
+         LoadingIndicator(modifier = Modifier.size(24.dp))
+         Text(
+-            text = stringResource(R.string.lyrics_search_still_searching),
++            text = "lyrics_search_still_searching",
+             style = MaterialTheme.typography.bodySmall,
+             color = MaterialTheme.colorScheme.onSurfaceVariant,
+         )
+@@ -1255,7 +1248,7 @@
+ private fun LyricsSearchEmptyContent() {
+     LyricsSearchMessageContent(
+         icon = R.drawable.search_off,
+-        text = stringResource(R.string.lyrics_not_found),
++        text = "lyrics_not_found",
+         containerColor = MaterialTheme.colorScheme.errorContainer,
+         contentColor = MaterialTheme.colorScheme.onErrorContainer,
+     )
+@@ -1293,7 +1286,7 @@
+         ) {
+             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                 Icon(
+-                    painter = painterResource(icon),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = contentColor,
+                     modifier = Modifier.size(28.dp),
+@@ -1381,7 +1374,7 @@
+         verticalAlignment = Alignment.CenterVertically,
+     ) {
+         Text(
+-            text = stringResource(R.string.search_lyrics),
++            text = "search_lyrics",
+             style = MaterialTheme.typography.headlineSmall,
+             color = AlertDialogDefaults.titleContentColor,
+             modifier = Modifier.weight(1f),
+@@ -1392,8 +1385,8 @@
+             shape = MaterialTheme.shapes.medium,
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.close),
+-                contentDescription = stringResource(R.string.close),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                contentDescription = "close",
+             )
+         }
+     }
+@@ -1416,7 +1409,7 @@
+         LyricsSearchTextField(
+             value = titleField,
+             onValueChange = onTitleFieldChange,
+-            label = stringResource(R.string.song_title),
++            label = "song_title",
+             iconResId = R.drawable.music_note,
+             imeAction = ImeAction.Next,
+             onSearch = onSearch,
+@@ -1424,7 +1417,7 @@
+         LyricsSearchTextField(
+             value = artistField,
+             onValueChange = onArtistFieldChange,
+-            label = stringResource(R.string.song_artists),
++            label = "song_artists",
+             iconResId = R.drawable.artist,
+             imeAction = ImeAction.Search,
+             onSearch = onSearch,
+@@ -1460,7 +1453,7 @@
+         label = { Text(label) },
+         leadingIcon = {
+             Icon(
+-                painter = painterResource(iconResId),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 modifier = Modifier.size(20.dp),
+             )
+@@ -1470,8 +1463,8 @@
+                 {
+                     IconButton(onClick = { onValueChange(TextFieldValue()) }) {
+                         Icon(
+-                            painter = painterResource(R.drawable.close),
+-                            contentDescription = stringResource(R.string.clear),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                            contentDescription = "clear",
+                         )
+                     }
+                 }
+@@ -1503,12 +1496,12 @@
+             contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.language),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 modifier = Modifier.size(ButtonDefaults.IconSize),
+             )
+             Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+-            Text(stringResource(R.string.search_online))
++            Text("search_online")
+         }
+ 
+         Button(
+@@ -1516,12 +1509,12 @@
+             contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.search),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 modifier = Modifier.size(ButtonDefaults.IconSize),
+             )
+             Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+-            Text(stringResource(R.string.search))
++            Text("search")
+         }
+     }
+ }

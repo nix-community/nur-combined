@@ -1,0 +1,318 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/MainActivity.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/MainActivity.kt	2026-09-24 13:03:55
+@@ -9,26 +9,9 @@
+ 
+ package moe.rukamori.archivetune
+ 
+-import android.annotation.SuppressLint
+-import android.content.ComponentName
+-import android.content.Context
+-import android.content.Intent
+-import android.content.ServiceConnection
+-import android.content.pm.PackageManager
+-import android.content.res.Configuration
+-import android.net.Uri
+-import android.os.Build
+-import android.os.Bundle
+-import android.os.IBinder
+-import android.provider.OpenableColumns
+-import android.view.View
+-import android.view.WindowManager
+-import android.webkit.MimeTypeMap
+-import android.widget.Toast
+ import androidx.activity.ComponentActivity
+ import androidx.activity.compose.BackHandler
+ import androidx.activity.compose.setContent
+-import androidx.annotation.DrawableRes
+ import androidx.compose.animation.AnimatedContentTransitionScope
+ import androidx.compose.animation.AnimatedVisibility
+ import androidx.compose.animation.Crossfade
+@@ -135,8 +118,6 @@
+ import androidx.compose.ui.platform.LocalDensity
+ import androidx.compose.ui.platform.LocalFocusManager
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.TextRange
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.input.TextFieldValue
+@@ -509,8 +490,7 @@
+         }
+     }
+ 
+-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+-    @OptIn(ExperimentalMaterial3Api::class)
++        @OptIn(ExperimentalMaterial3Api::class)
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+@@ -654,7 +634,7 @@
+             val updateSheetContent: @Composable ColumnScope.() -> Unit = {
+                 // receiver: ColumnScope
+                 Text(
+-                    text = stringResource(R.string.new_update_available),
++                    text = "new_update_available",
+                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                     modifier = Modifier.padding(top = 16.dp),
+                 )
+@@ -695,7 +675,7 @@
+                         )
+                     } else {
+                         Text(
+-                            text = stringResource(R.string.release_notes_unavailable),
++                            text = "release_notes_unavailable",
+                             style = MaterialTheme.typography.bodyMedium,
+                         )
+                     }
+@@ -713,7 +693,7 @@
+                     modifier = Modifier.fillMaxWidth(),
+                     shapes = ButtonDefaults.shapes(),
+                 ) {
+-                    Text(text = stringResource(R.string.update_text))
++                    Text(text = "update_text")
+                 }
+             }
+ 
+@@ -1647,8 +1627,7 @@
+                                                 icon = {
+                                                     Icon(
+                                                         painter =
+-                                                            painterResource(
+-                                                                id = if (isSelected) screen.iconIdActive else screen.iconIdInactive,
++                                                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) screen.iconIdActive else screen.iconIdInactive,
+                                                             ),
+                                                         contentDescription = null,
+                                                     )
+@@ -1806,7 +1785,7 @@
+                                                     Row(verticalAlignment = Alignment.CenterVertically) {
+                                                         // app icon
+                                                         Icon(
+-                                                            painter = painterResource(R.drawable.about_appbar),
++                                                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                             contentDescription = null,
+                                                             modifier =
+                                                                 Modifier
+@@ -1814,7 +1793,7 @@
+                                                                     .padding(end = 3.dp),
+                                                         )
+                                                         Text(
+-                                                            text = stringResource(R.string.app_name),
++                                                            text = "app_name",
+                                                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                                             maxLines = 1,
+                                                             overflow = TextOverflow.Ellipsis,
+@@ -1826,8 +1805,8 @@
+                                                         onClick = { navController.navigate("history") },
+                                                     ) {
+                                                         Icon(
+-                                                            painter = painterResource(R.drawable.history),
+-                                                            contentDescription = stringResource(R.string.history),
++                                                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                                            contentDescription = "history",
+                                                         )
+                                                     }
+                                                     TooltipBox(
+@@ -1840,13 +1819,13 @@
+                                                         tooltip = {
+                                                             if (hasUnreadNews) {
+                                                                 RichTooltip(
+-                                                                    title = { Text(stringResource(R.string.news_tooltip_title)) },
++                                                                    title = { Text("news_tooltip_title") },
+                                                                 ) {
+-                                                                    Text(stringResource(R.string.news_tooltip_body))
++                                                                    Text("news_tooltip_body")
+                                                                 }
+                                                             } else {
+                                                                 PlainTooltip {
+-                                                                    Text(stringResource(R.string.news))
++                                                                    Text("news")
+                                                                 }
+                                                             }
+                                                         },
+@@ -1861,8 +1840,8 @@
+                                                                 }
+                                                             }) {
+                                                                 Icon(
+-                                                                    painter = painterResource(R.drawable.newspaper),
+-                                                                    contentDescription = stringResource(R.string.news),
++                                                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                                                    contentDescription = "news",
+                                                                 )
+                                                             }
+                                                         }
+@@ -1871,8 +1850,8 @@
+                                                         onClick = { navController.navigate("new_release") },
+                                                     ) {
+                                                         Icon(
+-                                                            painter = painterResource(R.drawable.new_release),
+-                                                            contentDescription = stringResource(R.string.new_release_albums),
++                                                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                                            contentDescription = "new_release_albums",
+                                                         )
+                                                     }
+                                                     TranslucentTopAppBarIconButton(
+@@ -1889,8 +1868,8 @@
+                                                             }
+                                                         }) {
+                                                             Icon(
+-                                                                painter = painterResource(R.drawable.settings),
+-                                                                contentDescription = stringResource(R.string.settings),
++                                                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                                                contentDescription = "settings",
+                                                                 modifier = Modifier.size(24.dp),
+                                                             )
+                                                         }
+@@ -1993,12 +1972,7 @@
+                                                     },
+                                                 ) {
+                                                     Icon(
+-                                                        painterResource(
+-                                                            if (active ||
+-                                                                !navigationItems.fastAny {
+-                                                                    it.route == navBackStackEntry?.destination?.route
+-                                                                }
+-                                                            ) {
++                                                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                                                 R.drawable.arrow_back
+                                                             } else {
+                                                                 R.drawable.search
+@@ -2022,7 +1996,7 @@
+                                                                 },
+                                                             ) {
+                                                                 Icon(
+-                                                                    painter = painterResource(R.drawable.close),
++                                                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                                     contentDescription = null,
+                                                                 )
+                                                             }
+@@ -2041,8 +2015,7 @@
+                                                         ) {
+                                                             Icon(
+                                                                 painter =
+-                                                                    painterResource(
+-                                                                        when (searchSource) {
++                                                                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                                                             SearchSource.LOCAL -> R.drawable.library_music
+                                                                             SearchSource.ONLINE -> R.drawable.language
+                                                                         },
+@@ -2849,8 +2822,7 @@
+             .onFailure { reportException(it) }
+     }
+ 
+-    @SuppressLint("ObsoleteSdkInt")
+-    private fun setSystemBarAppearance(isDark: Boolean) {
++        private fun setSystemBarAppearance(isDark: Boolean) {
+         WindowCompat.getInsetsController(window, window.decorView.rootView).apply {
+             isAppearanceLightStatusBars = !isDark
+             isAppearanceLightNavigationBars = !isDark
+@@ -2902,8 +2874,8 @@
+ 
+         AlertDialog(
+             onDismissRequest = { pendingBackupRestoreUri = null },
+-            icon = { Icon(painterResource(R.drawable.restore), null) },
+-            title = { Text(stringResource(R.string.restore_options_title)) },
++            icon = { Icon(androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), null) },
++            title = { Text("restore_options_title") },
+             text = {
+                 Column {
+                     BackupCategory.entries.forEach { category ->
+@@ -2977,7 +2949,7 @@
+                     enabled = selected.isNotEmpty(),
+                     shapes = ButtonDefaults.shapes(),
+                 ) {
+-                    Text(stringResource(R.string.action_restore))
++                    Text("action_restore")
+                 }
+             },
+             dismissButton = {
+@@ -3066,8 +3038,8 @@
+             contentColor = MaterialTheme.colorScheme.onPrimary,
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.more_horiz),
+-                contentDescription = stringResource(R.string.more),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                contentDescription = "more",
+             )
+         }
+ 
+@@ -3079,7 +3051,7 @@
+             tonalElevation = 6.dp,
+         ) {
+             DropdownMenuItem(
+-                text = { Text(stringResource(R.string.music_recognition)) },
++                text = { Text("music_recognition") },
+                 onClick = {
+                     onExpandedChange(false)
+                     onMusicRecognitionClick()
+@@ -3087,14 +3059,14 @@
+                 leadingIcon = {
+                     HomeOverflowMenuIcon(
+                         iconRes = R.drawable.mic,
+-                        contentDescription = stringResource(R.string.music_recognition),
++                        contentDescription = "music_recognition",
+                         pureBlack = pureBlack,
+                     )
+                 },
+                 colors = menuItemColors,
+             )
+             DropdownMenuItem(
+-                text = { Text(stringResource(R.string.music_together)) },
++                text = { Text("music_together") },
+                 onClick = {
+                     onExpandedChange(false)
+                     onMusicTogetherClick()
+@@ -3109,7 +3081,7 @@
+                 colors = menuItemColors,
+             )
+             DropdownMenuItem(
+-                text = { Text(stringResource(R.string.shuffle)) },
++                text = { Text("shuffle") },
+                 onClick = {
+                     onExpandedChange(false)
+                     onShuffleClick()
+@@ -3117,7 +3089,7 @@
+                 leadingIcon = {
+                     HomeOverflowMenuIcon(
+                         iconRes = R.drawable.shuffle,
+-                        contentDescription = stringResource(R.string.shuffle),
++                        contentDescription = "shuffle",
+                         pureBlack = pureBlack,
+                     )
+                 },
+@@ -3129,7 +3101,7 @@
+ 
+ @Composable
+ private fun HomeOverflowMenuIcon(
+-    @DrawableRes iconRes: Int,
++    iconRes: Int,
+     contentDescription: String?,
+     pureBlack: Boolean,
+ ) {
+@@ -3146,7 +3118,7 @@
+     ) {
+         Box(contentAlignment = Alignment.Center) {
+             Icon(
+-                painter = painterResource(iconRes),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = contentDescription,
+             )
+         }
+@@ -3191,7 +3163,7 @@
+     Box {
+         IconButton(onClick = { expanded = true }) {
+             Icon(
+-                painter = painterResource(R.drawable.filter_alt),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+             )
+         }
+@@ -3220,7 +3192,7 @@
+                     leadingIcon = {
+                         if (sort == selectedSort) {
+                             Icon(
+-                                painter = painterResource(R.drawable.done),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                             )
+                         } else {

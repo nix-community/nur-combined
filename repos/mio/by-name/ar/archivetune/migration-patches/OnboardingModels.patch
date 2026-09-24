@@ -1,0 +1,79 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/onboarding/OnboardingModels.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/onboarding/OnboardingModels.kt	2026-09-24 13:04:11
+@@ -7,8 +7,6 @@
+ 
+ package moe.rukamori.archivetune.onboarding
+ 
+-import androidx.annotation.DrawableRes
+-import androidx.annotation.StringRes
+ import androidx.compose.runtime.Immutable
+ import com.google.common.collect.ImmutableList
+ 
+@@ -22,7 +20,7 @@
+     data object Empty : OnboardingScreenState
+ 
+     data class Error(
+-        @StringRes val messageResId: Int,
++        val messageResId: Int,
+     ) : OnboardingScreenState
+ }
+ 
+@@ -30,7 +28,7 @@
+ data class OnboardingUiState(
+     val shouldShowOnboarding: Boolean,
+     val currentPage: Int,
+-    @StringRes val variantLabelResId: Int,
++    val variantLabelResId: Int,
+     val versionName: String,
+     val pages: ImmutableList<OnboardingPageUiModel>,
+     val permissions: ImmutableList<OnboardingPermissionUiModel>,
+@@ -41,9 +39,9 @@
+ @Immutable
+ data class OnboardingPageUiModel(
+     val id: OnboardingPageId,
+-    @StringRes val titleResId: Int,
+-    @StringRes val subtitleResId: Int,
+-    @DrawableRes val iconResId: Int,
++    val titleResId: Int,
++    val subtitleResId: Int,
++    val iconResId: Int,
+ )
+ 
+ enum class OnboardingPageId {
+@@ -56,17 +54,17 @@
+ @Immutable
+ data class OnboardingLoginBenefitUiModel(
+     val id: String,
+-    @StringRes val titleResId: Int,
+-    @StringRes val descriptionResId: Int,
+-    @DrawableRes val iconResId: Int,
++    val titleResId: Int,
++    val descriptionResId: Int,
++    val iconResId: Int,
+ )
+ 
+ @Immutable
+ data class OnboardingPermissionUiModel(
+     val id: OnboardingPermissionId,
+-    @StringRes val titleResId: Int,
+-    @StringRes val descriptionResId: Int,
+-    @DrawableRes val iconResId: Int,
++    val titleResId: Int,
++    val descriptionResId: Int,
++    val iconResId: Int,
+     val status: OnboardingPermissionStatus,
+     val action: OnboardingPermissionAction?,
+ )
+@@ -108,9 +106,9 @@
+ @Immutable
+ data class OnboardingCommunityActionUiModel(
+     val id: String,
+-    @StringRes val titleResId: Int,
+-    @StringRes val descriptionResId: Int,
+-    @DrawableRes val iconResId: Int,
++    val titleResId: Int,
++    val descriptionResId: Int,
++    val iconResId: Int,
+     val url: String,
+ )
+ 

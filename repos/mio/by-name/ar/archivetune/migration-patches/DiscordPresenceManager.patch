@@ -1,0 +1,12 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/settings/DiscordPresenceManager.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/DiscordPresenceManager.kt	2026-09-24 13:04:00
+@@ -7,9 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.settings
+ 
+-import android.content.Context
+-import android.os.Handler
+-import android.os.Looper
+ import androidx.lifecycle.Lifecycle
+ import androidx.lifecycle.LifecycleEventObserver
+ import androidx.lifecycle.ProcessLifecycleOwner

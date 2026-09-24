@@ -1,0 +1,61 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/menu/ImportPlaylistDialog.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/menu/ImportPlaylistDialog.kt	2026-09-24 13:04:01
+@@ -9,7 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.menu
+ 
+-import android.widget.Toast
+ import androidx.compose.foundation.layout.Column
+ import androidx.compose.foundation.layout.Spacer
+ import androidx.compose.foundation.layout.height
+@@ -29,8 +28,6 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.input.TextFieldValue
+ import androidx.compose.ui.unit.dp
+ import kotlinx.coroutines.Dispatchers
+@@ -87,8 +84,8 @@
+ 
+     if (isVisible) {
+         TextFieldDialog(
+-            icon = { Icon(painter = painterResource(R.drawable.add), contentDescription = null) },
+-            title = { Text(text = stringResource(R.string.import_playlist)) },
++            icon = { Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = null) },
++            title = { Text(text = "import_playlist") },
+             initialTextFieldValue = TextFieldValue(text = playlistTitle),
+             autoFocus = false,
+             onDismiss = {
+@@ -179,10 +176,10 @@
+                     resetState()
+                 }
+             },
+-            title = { Text(text = stringResource(R.string.import_playlist)) },
++            title = { Text(text = "import_playlist") },
+             content = {
+                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
+-                    Text(text = stringResource(R.string.already_in_playlist))
++                    Text(text = "already_in_playlist")
+                     if (isProcessingDuplicate) {
+                         Spacer(modifier = Modifier.height(16.dp))
+                         CircularWavyProgressIndicator()
+@@ -271,7 +268,7 @@
+                         }
+                     },
+                     shapes = ButtonDefaults.shapes(),
+-                ) { Text(text = stringResource(R.string.update_button)) }
++                ) { Text(text = "update_button") }
+ 
+                 TextButton(
+                     enabled = !isProcessingDuplicate,
+@@ -320,7 +317,7 @@
+                         }
+                     },
+                     shapes = ButtonDefaults.shapes(),
+-                ) { Text(text = stringResource(R.string.import_playlist)) }
++                ) { Text(text = "import_playlist") }
+             },
+         )
+     }

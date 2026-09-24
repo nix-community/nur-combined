@@ -1,0 +1,30 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/FloatingNavigationToolbar.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/FloatingNavigationToolbar.kt	2026-09-24 13:03:57
+@@ -9,8 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.component
+ 
+-import android.os.SystemClock
+-import android.view.ViewConfiguration
+ import androidx.compose.animation.Crossfade
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.Row
+@@ -42,8 +40,6 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.graphics.Color
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.util.lerp
+ import moe.rukamori.archivetune.constants.FloatingBarJunctionCornerRadius
+@@ -151,8 +147,7 @@
+                                     ) { isSelected ->
+                                         Icon(
+                                             painter =
+-                                                painterResource(
+-                                                    if (isSelected) screen.iconIdActive else screen.iconIdInactive,
++                                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) screen.iconIdActive else screen.iconIdInactive,
+                                                 ),
+                                             contentDescription = null,
+                                         )

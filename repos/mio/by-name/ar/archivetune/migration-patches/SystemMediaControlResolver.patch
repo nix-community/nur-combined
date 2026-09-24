@@ -1,0 +1,28 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/utils/oem/SystemMediaControlResolver.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/utils/oem/SystemMediaControlResolver.kt	2026-09-24 13:02:44
+@@ -7,15 +7,6 @@
+ 
+ package moe.rukamori.archivetune.utils.oem
+ 
+-import android.annotation.SuppressLint
+-import android.content.Context
+-import android.content.Intent
+-import android.content.pm.ApplicationInfo
+-import android.content.pm.ResolveInfo
+-import android.media.MediaRouter2
+-import android.os.Build
+-import android.provider.Settings
+-import androidx.annotation.RequiresApi
+ 
+ /**
+  * Taken from [this](https://github.com/Moriafly/media-kit/blob/main/media-kit-core/src/main/java/com/moriafly/mediakit/core/oem/MiPlayAudioSupport.kt)
+@@ -148,8 +139,7 @@
+             false
+         }
+ 
+-    @SuppressLint("PrivateApi")
+-    private fun getOneUIVersionReadable(): String? {
++        private fun getOneUIVersionReadable(): String? {
+         return try {
+             val systemProperties = Class.forName("android.os.SystemProperties")
+             val get = systemProperties.getMethod("get", String::class.java)

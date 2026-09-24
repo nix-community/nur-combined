@@ -1,0 +1,14 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/utils/NetworkConnectivityObserver.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/utils/NetworkConnectivityObserver.kt	2026-09-24 13:04:07
+@@ -7,11 +7,6 @@
+ 
+ package moe.rukamori.archivetune.utils
+ 
+-import android.content.Context
+-import android.net.ConnectivityManager
+-import android.net.Network
+-import android.net.NetworkCapabilities
+-import android.net.NetworkRequest
+ import kotlinx.coroutines.channels.Channel
+ import kotlinx.coroutines.flow.receiveAsFlow
+ 

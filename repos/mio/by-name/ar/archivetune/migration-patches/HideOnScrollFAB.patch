@@ -1,0 +1,72 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/component/HideOnScrollFAB.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/component/HideOnScrollFAB.kt	2026-09-24 13:03:57
+@@ -7,7 +7,6 @@
+ 
+ package moe.rukamori.archivetune.ui.component
+ 
+-import androidx.annotation.DrawableRes
+ import androidx.compose.animation.AnimatedVisibility
+ import androidx.compose.animation.core.tween
+ import androidx.compose.animation.slideInVertically
+@@ -29,7 +28,6 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.platform.LocalView
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.unit.dp
+ import moe.rukamori.archivetune.LocalAnimationsDisabled
+ import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
+@@ -42,7 +40,7 @@
+ fun HideOnScrollFAB(
+     visible: Boolean = true,
+     lazyListState: LazyListState,
+-    @DrawableRes icon: Int,
++    icon: Int,
+     label: String,
+     modifier: Modifier = Modifier,
+     onClick: () -> Unit,
+@@ -71,7 +69,7 @@
+ fun BoxScope.HideOnScrollFAB(
+     visible: Boolean = true,
+     lazyListState: LazyListState,
+-    @DrawableRes icon: Int,
++    icon: Int,
+     label: String,
+     onClick: () -> Unit,
+ ) {
+@@ -90,7 +88,7 @@
+ fun BoxScope.HideOnScrollFAB(
+     visible: Boolean = true,
+     lazyListState: LazyGridState,
+-    @DrawableRes icon: Int,
++    icon: Int,
+     label: String,
+     onClick: () -> Unit,
+ ) {
+@@ -120,7 +118,7 @@
+ fun BoxScope.HideOnScrollFAB(
+     visible: Boolean = true,
+     scrollState: ScrollState,
+-    @DrawableRes icon: Int,
++    icon: Int,
+     label: String,
+     onClick: () -> Unit,
+ ) {
+@@ -147,7 +145,7 @@
+ 
+ @Composable
+ private fun HideOnScrollFabButton(
+-    @DrawableRes icon: Int,
++    icon: Int,
+     label: String,
+     onClick: () -> Unit,
+ ) {
+@@ -167,7 +165,7 @@
+         },
+         icon = {
+             Icon(
+-                painter = painterResource(icon),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+             )
+         },

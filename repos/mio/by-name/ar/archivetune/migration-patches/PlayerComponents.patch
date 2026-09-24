@@ -1,0 +1,639 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/player/PlayerComponents.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/player/PlayerComponents.kt	2026-09-24 13:04:01
+@@ -9,9 +9,6 @@
+ 
+ package moe.rukamori.archivetune.ui.player
+ 
+-import android.content.Context
+-import android.content.Intent
+-import android.net.Uri
+ import androidx.compose.animation.AnimatedContent
+ import androidx.compose.animation.core.LinearEasing
+ import androidx.compose.animation.core.RepeatMode
+@@ -121,8 +118,6 @@
+ import kotlin.math.abs
+ import androidx.compose.ui.platform.LocalHapticFeedback
+ import androidx.compose.ui.platform.LocalView
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.Placeholder
+ import androidx.compose.ui.text.PlaceholderVerticalAlign
+ import androidx.compose.ui.text.TextStyle
+@@ -193,7 +188,7 @@
+                 }
+             }
+         }
+-    val badgePainter = painterResource(R.drawable.explicit)
++    val badgePainter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent)
+     val inlineContent =
+         remember(badgePainter, color, explicit) {
+             if (explicit) {
+@@ -347,7 +342,7 @@
+                             },
+                 ) {
+                     Image(
+-                        painter = painterResource(R.drawable.share),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         colorFilter = ColorFilter.tint(iconButtonColor),
+                         modifier =
+@@ -369,8 +364,7 @@
+                 ) {
+                     Image(
+                         painter =
+-                            painterResource(
+-                                if (currentSongLiked) {
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                     R.drawable.favorite
+                                 } else {
+                                     R.drawable.favorite_border
+@@ -412,7 +406,7 @@
+                     contentAlignment = Alignment.Center,
+                 ) {
+                     Icon(
+-                        painter = painterResource(R.drawable.share),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = null,
+                         tint = textBackgroundColor.copy(alpha = 0.7f),
+                         modifier = Modifier.size(20.dp),
+@@ -428,8 +422,7 @@
+                 ) {
+                     Icon(
+                         painter =
+-                            painterResource(
+-                                if (currentSongLiked) {
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                     R.drawable.favorite
+                                 } else {
+                                     R.drawable.favorite_border
+@@ -475,7 +468,7 @@
+                 ) {
+                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                         Icon(
+-                            painter = painterResource(R.drawable.share),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = textBackgroundColor,
+                             modifier = Modifier.size(22.dp),
+@@ -500,8 +493,7 @@
+                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    if (currentSongLiked) {
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                         R.drawable.favorite
+                                     } else {
+                                         R.drawable.favorite_border
+@@ -547,7 +539,7 @@
+                 ) {
+                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                         Icon(
+-                            painter = painterResource(R.drawable.more_horiz),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = textBackgroundColor,
+                             modifier = Modifier.size(22.dp),
+@@ -578,7 +570,7 @@
+                         },
+             ) {
+                 Image(
+-                    painter = painterResource(R.drawable.share),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     colorFilter = ColorFilter.tint(iconButtonColor),
+                     modifier =
+@@ -616,7 +608,7 @@
+                         },
+             ) {
+                 Image(
+-                    painter = painterResource(R.drawable.more_horiz),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     colorFilter = ColorFilter.tint(iconButtonColor),
+                 )
+@@ -656,7 +648,7 @@
+                 ) {
+                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                         Icon(
+-                            painter = painterResource(R.drawable.share),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = textBackgroundColor,
+                             modifier = Modifier.size(20.dp),
+@@ -681,8 +673,7 @@
+                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    if (currentSongLiked) {
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                         R.drawable.favorite
+                                     } else {
+                                         R.drawable.favorite_border
+@@ -733,7 +724,7 @@
+                 ) {
+                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                         Icon(
+-                            painter = painterResource(R.drawable.more_horiz),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = textBackgroundColor,
+                             modifier = Modifier.size(20.dp),
+@@ -991,7 +982,7 @@
+                                 .clip(RoundedCornerShape(32.dp)),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.skip_previous),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(32.dp),
+                         )
+@@ -1027,13 +1018,7 @@
+                         } else {
+                             Icon(
+                                 painter =
+-                                    painterResource(
+-                                        when {
+-                                            playbackState == STATE_ENDED -> R.drawable.replay
+-                                            isPlaying -> R.drawable.pause
+-                                            else -> R.drawable.play
+-                                        },
+-                                    ),
++                                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 modifier = Modifier.size(42.dp),
+                             )
+@@ -1059,7 +1044,7 @@
+                                 .clip(RoundedCornerShape(32.dp)),
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.skip_next),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             modifier = Modifier.size(32.dp),
+                         )
+@@ -1093,7 +1078,7 @@
+                         contentAlignment = Alignment.Center,
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.shuffle),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint =
+                                 textBackgroundColor.copy(
+@@ -1116,7 +1101,7 @@
+                         contentAlignment = Alignment.Center,
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.skip_previous),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = textBackgroundColor.copy(alpha = if (canSkipPrevious) 0.9f else 0.4f),
+                             modifier = Modifier.size(26.dp),
+@@ -1148,13 +1133,7 @@
+                         } else {
+                             Icon(
+                                 painter =
+-                                    painterResource(
+-                                        when {
+-                                            playbackState == STATE_ENDED -> R.drawable.replay
+-                                            isPlaying -> R.drawable.pause
+-                                            else -> R.drawable.play
+-                                        },
+-                                    ),
++                                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 tint = icBackgroundColor,
+                                 modifier = Modifier.size(34.dp),
+@@ -1175,7 +1154,7 @@
+                         contentAlignment = Alignment.Center,
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.skip_next),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                             tint = textBackgroundColor.copy(alpha = if (canSkipNext) 0.9f else 0.4f),
+                             modifier = Modifier.size(26.dp),
+@@ -1200,8 +1179,7 @@
+                     ) {
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    when (repeatMode) {
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                         Player.REPEAT_MODE_OFF, Player.REPEAT_MODE_ALL -> R.drawable.repeat
+                                         Player.REPEAT_MODE_ONE -> R.drawable.repeat_one
+                                         else -> R.drawable.repeat
+@@ -1277,7 +1255,7 @@
+                                 contentAlignment = Alignment.Center,
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.shuffle),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint =
+                                         textBackgroundColor.copy(
+@@ -1305,7 +1283,7 @@
+                                 contentAlignment = Alignment.Center,
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.skip_previous),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint =
+                                         textBackgroundColor.copy(
+@@ -1346,13 +1324,7 @@
+                             } else {
+                                 Icon(
+                                     painter =
+-                                        painterResource(
+-                                            when {
+-                                                playbackState == STATE_ENDED -> R.drawable.replay
+-                                                isPlaying -> R.drawable.pause
+-                                                else -> R.drawable.play
+-                                            },
+-                                        ),
++                                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint = icBackgroundColor,
+                                     modifier = Modifier.size(44.dp),
+@@ -1380,7 +1352,7 @@
+                                 contentAlignment = Alignment.Center,
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.skip_next),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint =
+                                         textBackgroundColor.copy(
+@@ -1416,8 +1388,7 @@
+                             ) {
+                                 Icon(
+                                     painter =
+-                                        painterResource(
+-                                            when (repeatMode) {
++                                        androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                                 Player.REPEAT_MODE_ONE -> R.drawable.repeat_one
+                                                 else -> R.drawable.repeat
+                                             },
+@@ -1516,10 +1487,7 @@
+                     } else {
+                         Image(
+                             painter =
+-                                painterResource(
+-                                    if (playbackState ==
+-                                        STATE_ENDED
+-                                    ) {
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                         R.drawable.replay
+                                     } else if (isPlaying) {
+                                         R.drawable.pause
+@@ -1615,7 +1583,7 @@
+                                 contentAlignment = Alignment.Center,
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.skip_previous),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint =
+                                         MaterialTheme.colorScheme.onSecondaryContainer.copy(
+@@ -1656,13 +1624,7 @@
+                                 } else {
+                                     Icon(
+                                         painter =
+-                                            painterResource(
+-                                                when {
+-                                                    playbackState == STATE_ENDED -> R.drawable.replay
+-                                                    isPlaying -> R.drawable.pause
+-                                                    else -> R.drawable.play
+-                                                },
+-                                            ),
++                                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                         tint = iconButtonColor,
+                                         modifier = Modifier.size(44.dp),
+@@ -1697,7 +1659,7 @@
+                                 contentAlignment = Alignment.Center,
+                             ) {
+                                 Icon(
+-                                    painter = painterResource(R.drawable.skip_next),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = null,
+                                     tint =
+                                         MaterialTheme.colorScheme.onSecondaryContainer.copy(
+@@ -1741,7 +1703,7 @@
+                             contentAlignment = Alignment.Center,
+                         ) {
+                             Icon(
+-                                painter = painterResource(R.drawable.shuffle),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 tint =
+                                     if (shuffleModeEnabled) {
+@@ -1781,8 +1743,7 @@
+                         ) {
+                             Icon(
+                                 painter =
+-                                    painterResource(
+-                                        when (repeatMode) {
++                                    androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                             Player.REPEAT_MODE_ONE -> R.drawable.repeat_one
+                                             else -> R.drawable.repeat
+                                         },
+@@ -1928,7 +1889,7 @@
+                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                         ) {
+                             Icon(
+-                                painter = painterResource(R.drawable.graphic_eq),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                 contentDescription = null,
+                                 modifier = Modifier.size(14.dp),
+                                 tint = textBackgroundColor.copy(alpha = 0.8f),
+@@ -2372,7 +2333,7 @@
+             Spacer(Modifier.height(headerTop))
+ 
+             V8Header(
+-                title = stringResource(R.string.now_playing),
++                title = "now_playing",
+                 subtitle = subtitle,
+                 foreground = foreground,
+                 secondaryForeground = secondaryForeground,
+@@ -2515,7 +2476,7 @@
+                 horizontalAlignment = Alignment.CenterHorizontally,
+             ) {
+                 V8Header(
+-                    title = stringResource(R.string.now_playing),
++                    title = "now_playing",
+                     subtitle = subtitle,
+                     foreground = foreground,
+                     secondaryForeground = secondaryForeground,
+@@ -2700,7 +2661,7 @@
+         ) {
+             V8ActionButton(
+                 iconRes = R.drawable.more_vert,
+-                contentDescription = stringResource(R.string.more_options),
++                contentDescription = "more_options",
+                 foreground = foreground,
+                 containerColor = foreground.copy(alpha = 0.16f),
+                 iconSize = 24.dp,
+@@ -2708,7 +2669,7 @@
+             )
+             V8ActionButton(
+                 iconRes = if (liked) R.drawable.favorite else R.drawable.favorite_border,
+-                contentDescription = stringResource(R.string.action_like),
++                contentDescription = "action_like",
+                 foreground = foreground,
+                 containerColor = foreground.copy(alpha = 0.16f),
+                 iconSize = 26.dp,
+@@ -2738,7 +2699,7 @@
+             contentAlignment = Alignment.Center,
+         ) {
+             Icon(
+-                painter = painterResource(iconRes),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = contentDescription,
+                 tint = foreground,
+                 modifier = Modifier.size(iconSize),
+@@ -2835,7 +2796,7 @@
+             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+         ) {
+             Icon(
+-                painter = painterResource(R.drawable.graphic_eq),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = null,
+                 tint = foreground.copy(alpha = 0.72f),
+                 modifier = Modifier.size(15.dp),
+@@ -2871,7 +2832,7 @@
+     ) {
+         V8TransportButton(
+             iconRes = R.drawable.skip_previous,
+-            contentDescription = stringResource(R.string.widget_previous),
++            contentDescription = "widget_previous",
+             foreground = foreground,
+             enabled = canSkipPrevious,
+             touchSize = 64.dp,
+@@ -2903,18 +2864,12 @@
+                 } else {
+                     Icon(
+                         painter =
+-                            painterResource(
+-                                when {
+-                                    playbackState == STATE_ENDED -> R.drawable.replay
+-                                    isPlaying -> R.drawable.pause
+-                                    else -> R.drawable.play
+-                                },
+-                            ),
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription =
+                             if (isPlaying) {
+-                                stringResource(R.string.widget_pause)
++                                "widget_pause"
+                             } else {
+-                                stringResource(R.string.play)
++                                "play"
+                             },
+                         tint = foreground,
+                         modifier = Modifier.size(52.dp),
+@@ -2925,7 +2880,7 @@
+ 
+         V8TransportButton(
+             iconRes = R.drawable.skip_next,
+-            contentDescription = stringResource(R.string.next),
++            contentDescription = "next",
+             foreground = foreground,
+             enabled = canSkipNext,
+             touchSize = 64.dp,
+@@ -2960,7 +2915,7 @@
+             contentAlignment = Alignment.Center,
+         ) {
+             Icon(
+-                painter = painterResource(iconRes),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = contentDescription,
+                 tint = foreground.copy(alpha = if (enabled) 1f else 0.4f),
+                 modifier = Modifier.size(iconSize),
+@@ -2981,8 +2936,8 @@
+         verticalAlignment = Alignment.CenterVertically,
+     ) {
+         Icon(
+-            painter = painterResource(R.drawable.volume_off),
+-            contentDescription = stringResource(R.string.minimum_volume),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++            contentDescription = "minimum_volume",
+             tint = secondaryForeground,
+             modifier = Modifier.size(22.dp),
+         )
+@@ -3000,8 +2955,8 @@
+                     .padding(horizontal = 18.dp),
+         )
+         Icon(
+-            painter = painterResource(R.drawable.volume_up),
+-            contentDescription = stringResource(R.string.maximum_volume),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++            contentDescription = "maximum_volume",
+             tint = secondaryForeground,
+             modifier = Modifier.size(24.dp),
+         )
+@@ -3339,7 +3294,7 @@
+                     modifier = Modifier.size(48.dp)
+                 ) {
+                     Icon(
+-                        painter = painterResource(if (liked) R.drawable.favorite else R.drawable.favorite_border),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.favorite else R.drawable.favorite_border),
+                         contentDescription = stringResource(if (liked) R.string.action_remove_like else R.string.action_like),
+                         tint = if (liked) MaterialTheme.colorScheme.primary else textBackgroundColor,
+                         modifier = Modifier.size(32.dp)
+@@ -3594,7 +3549,7 @@
+         )
+ 
+         Text(
+-            text = stringResource(R.string.now_playing),
++            text = "now_playing",
+             style = MaterialTheme.typography.titleLarge,
+             fontWeight = FontWeight.SemiBold,
+             color = textColor,
+@@ -3612,7 +3567,7 @@
+         ) {
+             V9HeaderButton(
+                 iconRes = R.drawable.lyrics,
+-                contentDescription = stringResource(R.string.lyrics),
++                contentDescription = "lyrics",
+                 containerColor = containerColor,
+                 iconColor = iconColor,
+                 shape = RoundedCornerShape(22.dp),
+@@ -3620,7 +3575,7 @@
+             )
+             V9HeaderButton(
+                 iconRes = R.drawable.queue_music,
+-                contentDescription = stringResource(R.string.queue),
++                contentDescription = "queue",
+                 containerColor = containerColor,
+                 iconColor = iconColor,
+                 shape = RoundedCornerShape(22.dp),
+@@ -3650,7 +3605,7 @@
+             contentAlignment = Alignment.Center,
+         ) {
+             Icon(
+-                painter = painterResource(iconRes),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = contentDescription,
+                 tint = iconColor,
+                 modifier = Modifier.size(26.dp),
+@@ -3851,7 +3806,7 @@
+                 inactiveContentColor = textColor.copy(alpha = 0.6f),
+                 onClick = onShuffleClick,
+                 iconId = R.drawable.shuffle,
+-                contentDesc = stringResource(R.string.shuffle)
++                contentDesc = "shuffle"
+             )
+ 
+             val repeatActive = repeatMode != Player.REPEAT_MODE_OFF
+@@ -3870,7 +3825,7 @@
+                 inactiveContentColor = textColor.copy(alpha = 0.6f),
+                 onClick = onRepeatClick,
+                 iconId = repeatIcon,
+-                contentDesc = stringResource(R.string.repeat_mode_all)
++                contentDesc = "repeat_mode_all"
+             )
+ 
+             ToggleSegmentButton(
+@@ -3883,7 +3838,7 @@
+                 inactiveContentColor = textColor.copy(alpha = 0.6f),
+                 onClick = onMenuClick,
+                 iconId = R.drawable.more_vert,
+-                contentDesc = stringResource(R.string.more)
++                contentDesc = "more"
+             )
+         }
+     }
+@@ -4502,7 +4457,7 @@
+                 field = field,
+                 size = 44.dp
+             ) {
+-                Icon(painter = painterResource(R.drawable.expand_more), contentDescription = "Collapse", modifier = Modifier.size(26.dp))
++                Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "Collapse", modifier = Modifier.size(26.dp))
+             }
+             Row(
+                 horizontalArrangement = Arrangement.spacedBy(8.dp),
+@@ -4530,7 +4485,7 @@
+                                 )
+                                 Spacer(modifier = Modifier.width(8.dp))
+                                 Icon(
+-                                    painter = painterResource(R.drawable.bedtime),
++                                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                     contentDescription = "Sleep timer",
+                                     modifier = Modifier.size(18.dp)
+                                 )
+@@ -4544,7 +4499,7 @@
+                         field = accent,
+                         size = 44.dp
+                     ) {
+-                        Icon(painter = painterResource(R.drawable.bedtime), contentDescription = "Sleep timer", modifier = Modifier.size(22.dp))
++                        Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "Sleep timer", modifier = Modifier.size(22.dp))
+                     }
+                 }
+ 
+@@ -4554,7 +4509,7 @@
+                     field = field,
+                     size = 44.dp
+                 ) {
+-                    Icon(painter = painterResource(R.drawable.lyrics), contentDescription = "Lyrics", modifier = Modifier.size(22.dp))
++                    Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "Lyrics", modifier = Modifier.size(22.dp))
+                 }
+                 EditorialCircleButton(
+                     onClick = onMenuClick,
+@@ -4562,7 +4517,7 @@
+                     field = field,
+                     size = 44.dp
+                 ) {
+-                    Icon(painter = painterResource(R.drawable.more_vert), contentDescription = "More", modifier = Modifier.size(22.dp))
++                    Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "More", modifier = Modifier.size(22.dp))
+                 }
+             }
+         }
+@@ -4631,7 +4586,7 @@
+             ) {
+                 if (mediaMetadata.explicit) {
+                     Icon(
+-                        painter = painterResource(R.drawable.explicit),
++                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                         contentDescription = "Explicit",
+                         tint = accent.copy(alpha = 0.8f),
+                         modifier = Modifier
+@@ -4714,7 +4669,7 @@
+                     field = field,
+                     size = 80.dp
+                 ) {
+-                    Icon(painter = painterResource(R.drawable.skip_next), contentDescription = "Next", modifier = Modifier.size(34.dp))
++                    Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "Next", modifier = Modifier.size(34.dp))
+                 }
+             }
+ 
+@@ -4735,7 +4690,7 @@
+                     field = field,
+                     size = 80.dp
+                 ) {
+-                    Icon(painter = painterResource(R.drawable.skip_previous), contentDescription = "Previous", modifier = Modifier.size(34.dp))
++                    Icon(painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent), contentDescription = "Previous", modifier = Modifier.size(34.dp))
+                 }
+ 
+                 Column(modifier = Modifier.weight(1f)) {
+@@ -4947,7 +4902,7 @@
+                 )
+             } else {
+                 Icon(
+-                    painter = painterResource(R.drawable.music_note),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                     contentDescription = null,
+                     tint = field,
+                     modifier = Modifier.size(artSize * 0.3f)
+@@ -5049,7 +5004,7 @@
+     ) {
+         CompositionLocalProvider(LocalContentColor provides contentColor) {
+             Icon(
+-                painter = painterResource(iconResId),
++                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                 contentDescription = contentDescription,
+                 modifier = Modifier.size(20.dp),
+             )

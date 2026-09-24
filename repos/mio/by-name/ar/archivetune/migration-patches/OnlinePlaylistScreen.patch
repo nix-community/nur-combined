@@ -1,0 +1,124 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/screens/playlist/OnlinePlaylistScreen.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/playlist/OnlinePlaylistScreen.kt	2026-09-24 13:04:00
+@@ -69,9 +69,7 @@
+ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.pluralStringResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.LinkAnnotation
+ import androidx.compose.ui.text.buildAnnotatedString
+ import androidx.compose.ui.text.input.ImeAction
+@@ -560,7 +558,7 @@
+                                             when (val state = downloadState) {
+                                                 HeaderDownloadState.Completed -> {
+                                                     Icon(
+-                                                        painter = painterResource(R.drawable.offline),
++                                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                         contentDescription = null,
+                                                         modifier = Modifier.size(22.dp),
+                                                     )
+@@ -576,7 +574,7 @@
+ 
+                                                 HeaderDownloadState.None -> {
+                                                     Icon(
+-                                                        painter = painterResource(R.drawable.download),
++                                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                                         contentDescription = null,
+                                                         modifier = Modifier.size(22.dp),
+                                                     )
+@@ -637,8 +635,8 @@
+                     if (songs.isEmpty() && !isLoading && error == null) {
+                         item(key = "empty") {
+                             MediaDetailStatePanel(
+-                                title = stringResource(R.string.empty_playlist),
+-                                description = stringResource(R.string.empty_playlist_desc),
++                                title = "empty_playlist",
++                                description = "empty_playlist_desc",
+                                 iconRes = R.drawable.playlist_online,
+                                 modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 32.dp),
+                             )
+@@ -675,7 +673,7 @@
+                                     onLongClick = {},
+                                 ) {
+                                     Icon(
+-                                        painter = painterResource(R.drawable.more_vert),
++                                        painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                                         contentDescription = null,
+                                     )
+                                 }
+@@ -740,13 +738,13 @@
+                                 ),
+                             description =
+                                 if (isPrivatePlaylist) {
+-                                    stringResource(R.string.playlist_private_desc)
++                                    "playlist_private_desc"
+                                 } else {
+-                                    error ?: stringResource(R.string.playlist_not_found_desc)
++                                    error ?: "playlist_not_found_desc"
+                                 },
+                             iconRes = if (isPrivatePlaylist) null else R.drawable.error,
+                             imageRes = if (isPrivatePlaylist) R.drawable.anime_blank else null,
+-                            actionLabel = if (error != null && !isPrivatePlaylist) stringResource(R.string.retry) else null,
++                            actionLabel = if (error != null && !isPrivatePlaylist) "retry" else null,
+                             onAction = if (error != null && !isPrivatePlaylist) retry else null,
+                             modifier =
+                                 Modifier
+@@ -802,7 +800,7 @@
+                         onValueChange = { query = it },
+                         placeholder = {
+                             Text(
+-                                text = stringResource(R.string.search),
++                                text = "search",
+                                 style = MaterialTheme.typography.titleLarge,
+                             )
+                         },
+@@ -843,8 +841,7 @@
+                 ) {
+                     Icon(
+                         painter =
+-                            painterResource(
+-                                if (selection) R.drawable.close else R.drawable.arrow_back,
++                            androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.close else R.drawable.arrow_back,
+                             ),
+                         contentDescription = null,
+                     )
+@@ -865,8 +862,7 @@
+                     ) {
+                         Icon(
+                             painter =
+-                                painterResource(
+-                                    if (count == wrappedSongs.size) {
++                                androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) {
+                                         R.drawable.deselect
+                                     } else {
+                                         R.drawable.select_all
+@@ -896,14 +892,14 @@
+                         onLongClick = {},
+                     ) {
+                         Icon(
+-                            painter = painterResource(R.drawable.more_vert),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+                 } else if (!isSearching) {
+                     IconButton(onClick = { isSearching = true }, onLongClick = {}) {
+                         Icon(
+-                            painter = painterResource(R.drawable.search),
++                            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
+                             contentDescription = null,
+                         )
+                     }
+@@ -925,8 +921,8 @@
+                             onLongClick = {},
+                         ) {
+                             Icon(
+-                                painter = painterResource(R.drawable.more_horiz),
+-                                contentDescription = stringResource(R.string.more_options),
++                                painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                                contentDescription = "more_options",
+                             )
+                         }
+                     }

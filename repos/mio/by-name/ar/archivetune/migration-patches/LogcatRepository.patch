@@ -1,0 +1,13 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/logcat/LogcatRepository.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/logcat/LogcatRepository.kt	2026-09-24 13:04:06
+@@ -7,10 +7,6 @@
+ 
+ package moe.rukamori.archivetune.logcat
+ 
+-import android.content.Context
+-import android.net.Uri
+-import android.os.Process
+-import android.util.Log
+ import androidx.core.content.FileProvider
+ import dagger.hilt.android.qualifiers.ApplicationContext
+ import kotlinx.coroutines.Dispatchers

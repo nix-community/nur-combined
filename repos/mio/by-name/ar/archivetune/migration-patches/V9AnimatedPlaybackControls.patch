@@ -1,0 +1,48 @@
+--- app/src/old_android_main/kotlin/moe/rukamori/archivetune/ui/player/V9AnimatedPlaybackControls.kt	2026-09-24 02:17:47
++++ app/src/main/kotlin/moe/rukamori/archivetune/ui/player/V9AnimatedPlaybackControls.kt	2026-09-24 13:04:02
+@@ -42,8 +42,6 @@
+ import androidx.compose.ui.graphics.graphicsLayer
+ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+ import androidx.compose.ui.platform.LocalHapticFeedback
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.Dp
+ import androidx.compose.ui.unit.dp
+ import kotlinx.coroutines.delay
+@@ -167,8 +165,8 @@
+                 contentAlignment = Alignment.Center
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.skip_previous),
+-                    contentDescription = stringResource(R.string.widget_previous),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    contentDescription = "widget_previous",
+                     tint = tintPreviousIcon,
+                     modifier = Modifier.size(iconSize)
+                 )
+@@ -231,8 +229,8 @@
+                 contentAlignment = Alignment.Center
+             ) {
+                 Icon(
+-                    painter = painterResource(R.drawable.skip_next),
+-                    contentDescription = stringResource(R.string.next),
++                    painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent),
++                    contentDescription = "next",
+                     tint = tintNextIcon,
+                     modifier = Modifier.size(iconSize)
+                 )
+@@ -254,11 +252,11 @@
+         label = "v9PlayPauseCrossfade"
+     ) { playing ->
+         Icon(
+-            painter = painterResource(if (playing) R.drawable.pause else R.drawable.play),
++            painter = androidx.compose.ui.graphics.painter.ColorPainter(androidx.compose.ui.graphics.Color.Transparent) R.drawable.pause else R.drawable.play),
+             contentDescription = if (playing) {
+-                stringResource(R.string.widget_pause)
++                "widget_pause"
+             } else {
+-                stringResource(R.string.play)
++                "play"
+             },
+             tint = tint,
+             modifier = Modifier.size(size)

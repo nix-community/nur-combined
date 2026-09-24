@@ -69,48 +69,34 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  src = ../../../ArchiveTune-src;
+  src = fetchFromGitHub {
+    owner = "rukamori";
+    repo = "ArchiveTune";
+    rev = "9ed48d85b715f347b140b3f7c8729e3e79b0dac2";
+    hash = "sha256-d91C0c40Icv3vkUsk6gFz03cLCTSdg8Hf9XeezYgOiM=";
+  };
 
   patches = [ ];
 
   postPatch = ''
-    # Wire the pinned :core submodule source into place.
 
-    # Add the :desktop module
-    mkdir -p desktop/src/main/kotlin/moe/rukamori/archivetune/desktop
-    cp ${./desktop-build.gradle.kts} desktop/build.gradle.kts
-    cp ${./desktop-Main.kt} desktop/src/main/kotlin/moe/rukamori/archivetune/desktop/Main.kt
+    # Rename android main to old_android_main to preserve it as reference
+    mv app/src/main app/src/old_android_main
+    mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/ui/screens
 
-    # Wire the :desktop module into settings.gradle.kts
-    sed -i '/include(":app")/d' settings.gradle.kts
-    sed -i '/include(":lyrics/d' settings.gradle.kts
-    sed -i '/include(":lastfm")/d' settings.gradle.kts
-    sed -i '/include(":canvas")/d' settings.gradle.kts
-    sed -i '/include(":shazamkit")/d' settings.gradle.kts
-    sed -i '/include(":spotifycore")/d' settings.gradle.kts
-    sed -i '/include(":morideobfuscator")/d' settings.gradle.kts
-    echo 'include(":desktop")\ninclude(":app")\ninclude(":android-stubs")' >> settings.gradle.kts
-    sed -i '/mavenCentral {/i \        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")' settings.gradle.kts
-    sed -i '/mavenCentral()/i \        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")' settings.gradle.kts
+    # Copy our desktop UI components
+    cp -r ${./src}/* ./
 
-    # Remove Linux-specific targetFormats from desktop/build.gradle.kts so it works on macOS
-    sed -i '/targetFormats/d' desktop/build.gradle.kts
+    # Apply build script patches
+    patch -p1 < ${./root-build.patch}
+    patch -p1 < ${./settings.patch}
+    patch -p1 < ${./app-build.patch}
 
-    # Add Compose Multiplatform to the root build.gradle.kts
-    sed -i '/alias(libs.plugins.compose.compiler) apply false/a \    alias(libs.plugins.compose.multiplatform) apply false' build.gradle.kts
+    # Copy android stubs
+    cp -r ${./android-stubs} android-stubs
 
-    # Update gradle/libs.versions.toml with required versions and plugins
-    sed -i '/^compose = /a compose-multiplatform = "1.8.1"\nskiko = "0.9.4.1"' gradle/libs.versions.toml
-    sed -i '/^compose-compiler = /a compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }' gradle/libs.versions.toml
-
-    # Disable configuration cache (flaky under Gradle MITM proxy).
-    sed -i 's/org.gradle.configuration-cache=true/org.gradle.configuration-cache=false/' gradle.properties || true
-    echo 'org.gradle.vfs.watch=false' >> gradle.properties
-
-    # Silence the JVM OOM settings that conflict with sandbox memory limits.
-    sed -i 's/-Xmx[0-9]*[MmGg]//g; s/-Dkotlin.daemon.jvm.options=[^ ]*//' gradle.properties || true
-    sed -i '/org.gradle.jvmargs/d' gradle.properties || true
-    echo 'org.gradle.jvmargs=-Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8' >> gradle.properties
+    # We also have migration-patches if the user wants to apply them manually
+    cp -r ${./migration-patches} patches/
   '';
 
   env.JAVA_HOME = jdk;
@@ -123,14 +109,14 @@ stdenv.mkDerivation (finalAttrs: {
     "--no-daemon"
   ];
 
-  gradleBuildTask = ":desktop:createReleaseDistributable";
+  gradleBuildTask = ":app:createReleaseDistributable";
   gradleUpdateTask = finalAttrs.gradleBuildTask;
 
   gradleUpdateScript = ''
     runHook preBuild
 
     # Pull host-native Skiko + arm64/macOS variants so the deps cache is portable.
-    gradle :desktop:composeApp 2>/dev/null || true
+    gradle :app:composeApp 2>/dev/null || true
     gradle ${finalAttrs.gradleBuildTask}
 
     runHook postGradleUpdate
@@ -172,10 +158,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p $out/lib
 
-    if [ -d desktop/build/compose/binaries/main-release/app/ArchiveTune.app ]; then
+    if [ -d app/build/compose/binaries/main-release/app/ArchiveTune.app ]; then
       # macOS
       mkdir -p $out/Applications
-      cp -a desktop/build/compose/binaries/main-release/app/ArchiveTune.app $out/Applications/
+      cp -a app/build/compose/binaries/main-release/app/ArchiveTune.app $out/Applications/
       
       # Replace the bundled JRE with the nixpkgs one.
       rm -rf $out/Applications/ArchiveTune.app/Contents/runtime
@@ -186,13 +172,13 @@ stdenv.mkDerivation (finalAttrs: {
       makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune
     else
       # linux
-      cp -a desktop/build/compose/binaries/main-release/app/ArchiveTune $out/lib/archivetune
+      cp -a app/build/compose/binaries/main-release/app/ArchiveTune $out/lib/archivetune
 
       # Replace the bundled JRE with the nixpkgs one.
       rm -rf $out/lib/archivetune/lib/runtime
       ln -s ${jdk.home} $out/lib/archivetune/lib/runtime
 
-      install -Dm644 desktop/src/jvmMain/resources/icon.png \
+      install -Dm644 app/src/main/res/mipmap-xxxhdpi/ic_launcher.png \
         $out/share/icons/hicolor/512x512/apps/archivetune.png 2>/dev/null || true
     fi
 
