@@ -6,3 +6,4 @@ Icon=omnimux
 Terminal=false
 Type=Application
 Categories=System;TerminalEmulator;
+StartupWMClass=omnimux
