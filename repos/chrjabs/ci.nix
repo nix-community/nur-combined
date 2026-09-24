@@ -56,8 +56,8 @@ let
     rust-overlay = pkgs.fetchFromGitHub {
       owner = "oxalica";
       repo = "rust-overlay";
-      rev = "0b3a5ad260479f2c9bdadf3ba5b2a4be359cfcdd";
-      hash = "sha256-znoNJs2QZFl+wCFLd6FbUJ00c74kvzOjyQYXc45uFvo=";
+      rev = "fb058ecf6d14837ea152a3d5225ce7f88ee5cde1";
+      hash = "sha256-01WcSplVEmQt13QUZLfWez27JO+2lyYWX+yTitvkF3g=";
     };
   };
 
