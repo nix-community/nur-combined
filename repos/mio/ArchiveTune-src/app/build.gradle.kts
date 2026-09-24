@@ -13,4 +13,4 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.material3)
     implementation(project(":core"))
-}
+    implementation(project(":android-stubs"))}
