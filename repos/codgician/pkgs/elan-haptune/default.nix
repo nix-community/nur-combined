@@ -8,13 +8,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "elan-haptune";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "elan-haptune";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pzcnWRKgPETwbPOMXqVEPnjzVU9bX+PagRhj234QpYk=";
+    hash = "sha256-c/uncPSGYIwcywNYcHKF1fnIxNG4W/9itg2K5CgU5DQ=";
   };
 
   cargoHash = "sha256-iIG24PMrGZIsLlWPgV3u4vwymjv6qeJTqW27pfVRbHA=";
