@@ -369,12 +369,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.42.6",
-            "sha256": "sha256-rJ3XIVwMmVqMqZpQhIknvn/OVinWe/Pz1AHOilJsOpI=",
+            "rev": "v0.43.0",
+            "sha256": "sha256-Vp8nWXj+tKtCiYfpP/RzXBmTHadw3+0fuh1VxFKG1yE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.42.6"
+        "version": "v0.43.0"
     },
     "manboster": {
         "cargoLock": null,
@@ -495,12 +495,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.15.0-alpha.7",
-            "sha256": "sha256-S9e7A+uhprwB6wHQLgvJ+2i5SWjwBCfGjzchutyD9Xc=",
+            "rev": "v1.15.0-alpha.8",
+            "sha256": "sha256-g456S8Pw9GYm0E48fNUAg840r+MinxKTpbcIzQKhniA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.0-alpha.7"
+        "version": "v1.15.0-alpha.8"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -516,12 +516,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.1",
-            "sha256": "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=",
+            "rev": "v1.14.2",
+            "sha256": "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.1"
+        "version": "v1.14.2"
     },
     "sing-box-rc": {
         "cargoLock": null,
@@ -537,12 +537,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.1",
-            "sha256": "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=",
+            "rev": "v1.14.2",
+            "sha256": "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.1"
+        "version": "v1.14.2"
     },
     "subs-check-pro": {
         "cargoLock": null,

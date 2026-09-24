@@ -200,13 +200,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.42.6";
+    version = "v0.43.0";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.42.6";
+      rev = "v0.43.0";
       fetchSubmodules = false;
-      sha256 = "sha256-rJ3XIVwMmVqMqZpQhIknvn/OVinWe/Pz1AHOilJsOpI=";
+      sha256 = "sha256-Vp8nWXj+tKtCiYfpP/RzXBmTHadw3+0fuh1VxFKG1yE=";
     };
   };
   manboster = {
@@ -268,35 +268,35 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.7";
+    version = "v1.15.0-alpha.8";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.7";
+      rev = "v1.15.0-alpha.8";
       fetchSubmodules = false;
-      sha256 = "sha256-S9e7A+uhprwB6wHQLgvJ+2i5SWjwBCfGjzchutyD9Xc=";
+      sha256 = "sha256-g456S8Pw9GYm0E48fNUAg840r+MinxKTpbcIzQKhniA=";
     };
   };
   sing-box-beta = {
     pname = "sing-box-beta";
-    version = "v1.14.1";
+    version = "v1.14.2";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.1";
+      rev = "v1.14.2";
       fetchSubmodules = false;
-      sha256 = "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=";
+      sha256 = "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=";
     };
   };
   sing-box-rc = {
     pname = "sing-box-rc";
-    version = "v1.14.1";
+    version = "v1.14.2";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.1";
+      rev = "v1.14.2";
       fetchSubmodules = false;
-      sha256 = "sha256-Ce1eukO8ERZEKUoqwcJEJIZcO6VcG/cRnfCdg4FCYJw=";
+      sha256 = "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=";
     };
   };
   subs-check-pro = {
