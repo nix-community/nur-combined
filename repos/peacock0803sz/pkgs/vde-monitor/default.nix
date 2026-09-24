@@ -1,19 +1,19 @@
 { lib, stdenv, fetchFromGitHub, nodejs_24, pnpm_10, makeWrapper }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "vde-monitor";
-  version = "0.14.22";
+  version = "0.14.23";
 
   src = fetchFromGitHub {
     owner = "yuki-yano";
     repo = "vde-monitor";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ozw8slDKwJ1ehCsth/LqUKnJPcs4hJOn//rkdS6HEDQ=";
+    hash = "sha256-/c0dd3VPpq+Erjcx5ZpDEtX6EXNj2VPK8NUEv/7X5uw=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-A650SPR/DjouQW2S6Byf+6dKZA78HkN2vVw7W+8+XMA=";
+    hash = "sha256-j4Z2Gv1whpduAPRxYvrqpWOcuEtnZxhNOLHfusHfux0=";
   };
 
   nativeBuildInputs = [
