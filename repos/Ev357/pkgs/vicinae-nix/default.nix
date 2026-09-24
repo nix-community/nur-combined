@@ -11,7 +11,7 @@ buildNpmPackage rec {
   src = fetchgit {
     url = "https://github.com/vicinaehq/extensions";
     rev = "5882e1bbdfcf64279cbd1ed86a50aabed6f716d3";
-    sha256 = "sha256-f3Lfq4HGpgZYll+zuJC7bl+rBckjG5sF0lHiicWtoRU=";
+    sha256 = "sha256-OPxgKOoUBw9GVshdSF27QJFFaR8fVLGqDljIj8mZHow=";
     sparseCheckout = [
       "/extensions/${pname}"
     ];
@@ -32,7 +32,7 @@ buildNpmPackage rec {
       update-source-version raycast-${pname} "${version}" --ignore-same-version --source-key=npmDeps
     '';
 
-  npmDepsHash = "";
+  npmDepsHash = "sha256-TEyCCDjAtRYX2uH2TpLfe4/hTzyfMiyDhzVdyQXhEus=";
 
   installPhase =
     # bash
