@@ -17,6 +17,7 @@
 | Package | Description | Source | Updated |
 | --- | --- | --- | --- |
 | `default-creds-tui` | Find default credentials for many devices and software, without leaving the terminal | [anotherhadi/default-creds-tui](https://github.com/anotherhadi/default-creds-tui) | 2026-08-27 |
+| `enzo` | Terminal video player | [MiguelRegueiro/enzo](https://github.com/MiguelRegueiro/enzo) | 2026-08-12 |
 | `fztea` | Remote control your flipper from the local terminal or over SSH | [jon4hz/fztea](https://github.com/jon4hz/fztea) | 2024-09-01 |
 | `github-recon` | Retrieves and aggregates public OSINT data about a GitHub user using Go and the GitHub API. Finds hidden emails in commit history, previous usernames, friends, other GitHub accounts, and more. | [anotherhadi/github-recon](https://github.com/anotherhadi/github-recon) | 2025-09-22 |
 | `gravatar-recon` | Retrieve and aggregate public OSINT data from Gravatar. Given an email address, the tool queries the Gravatar API and extracts useful information such as profile metadata, avatar, social accounts, and contact info. | [anotherhadi/gravatar-recon](https://github.com/anotherhadi/gravatar-recon) | 2025-09-25 |
