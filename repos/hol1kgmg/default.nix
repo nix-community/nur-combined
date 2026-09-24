@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
+  gitcrawl = pkgs.callPackage ./pkgs/gitcrawl { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
   markserv = pkgs.callPackage ./pkgs/markserv { };
   openscreen-for-mac = pkgs.callPackage ./pkgs/openscreen-for-mac { };
