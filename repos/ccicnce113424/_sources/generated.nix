@@ -312,16 +312,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.0.0-beta.5";
+    version = "v4.0.0-beta.6";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.0.0-beta.5";
+      rev = "v4.0.0-beta.6";
       fetchSubmodules = false;
-      sha256 = "sha256-9+vWCCRAXAWc5w1z5EVmfBUQxJnOdnSg6m6pHgqVkfc=";
+      sha256 = "sha256-/gmMpxgd5IDXsJsWkvJ1R9Loh4zuCapIyF9JxzZ/LnI=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-9+vWCCRAXAWc5w1z5EVmfBUQxJnOdnSg6m6pHgqVkfc=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-_gmMpxgd5IDXsJsWkvJ1R9Loh4zuCapIyF9JxzZ_LnI=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -343,21 +343,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "5ffe1443925b9d08ccd6bf67034d4d494561e011";
+    version = "ceb9d72b34fe4266674c814f2b3dcd46352a67e5";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "5ffe1443925b9d08ccd6bf67034d4d494561e011";
+      rev = "ceb9d72b34fe4266674c814f2b3dcd46352a67e5";
       fetchSubmodules = false;
-      sha256 = "sha256-YtxAZrMV0qIgsXxg65QcQxXrMEssS7P7HiqLUt/51hI=";
+      sha256 = "sha256-2A30jobtlG/9a6z2M+l8buIcpmoQbeuUGgW+AbU/1y8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-YtxAZrMV0qIgsXxg65QcQxXrMEssS7P7HiqLUt_51hI=/Cargo.lock";
+      lockFile = ./. + "/sha256-2A30jobtlG_9a6z2M+l8buIcpmoQbeuUGgW+AbU_1y8=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-09-23";
+    date = "2026-09-24";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
