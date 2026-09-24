@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dank-pomodoro-timer";
-  version = "0-unstable-2026-09-15";
+  version = "0-unstable-2026-09-23";
 
   src = fetchFromGitHub {
     owner = "AvengeMedia";
     repo = "dms-plugins";
-    rev = "bb90a1db7d540e64ae049c5906afba9b24baa865";
-    hash = "sha256-NYmw2wCZYAKNU1xcodKMDXs5wwtAguOUNazRxcLjsUE=";
+    rev = "e774a9756f2a50499c37a5513f28bee4ebe81d73";
+    hash = "sha256-92NjKVTslsbSVJMnxV4SaL7o0vZ1/mxaKdcRJr7EoqI=";
   };
 
   sourceRoot = "source/DankPomodoroTimer";
