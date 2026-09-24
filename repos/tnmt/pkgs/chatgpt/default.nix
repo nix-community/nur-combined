@@ -22,7 +22,14 @@
   libGL,
   libnotify,
   libusb1,
+  libx11,
+  libxcb,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
   libxkbcommon,
+  libxrandr,
   mesa,
   nspr,
   nss,
@@ -30,7 +37,6 @@
   pango,
   systemd,
   vulkan-loader,
-  xorg,
   xz,
   nix-update-script,
 }:
@@ -75,7 +81,15 @@ let
     libGL
     libnotify
     libusb1
+    libx11
+    libx11.dev
+    libxcb
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
     libxkbcommon
+    libxrandr
     mesa
     nspr
     nss
@@ -84,14 +98,6 @@ let
     systemd
     vulkan-loader
     xz
-    xorg.libX11
-    xorg.libX11.dev
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxcb
   ];
 in
 stdenv.mkDerivation {
