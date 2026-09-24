@@ -1,28 +1,262 @@
-diff -urN app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt ../by-name/ar/archivetune/src/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	1970-01-01 10:00:00
-+++ b/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-09-24 16:35:17
-@@ -0,0 +1,14 @@
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-09-24 17:57:49
+@@ -0,0 +1,52 @@
 +package moe.rukamori.archivetune
 +
++import androidx.compose.foundation.layout.Box
++import androidx.compose.foundation.layout.Row
++import androidx.compose.foundation.layout.fillMaxSize
++import androidx.compose.foundation.layout.padding
++import androidx.compose.material.icons.Icons
++import androidx.compose.material.icons.filled.Home
++import androidx.compose.material.icons.filled.Search
++import androidx.compose.material.icons.filled.List
++import androidx.compose.material3.*
++import androidx.compose.runtime.*
++import androidx.compose.ui.Modifier
 +import androidx.compose.ui.window.Window
 +import androidx.compose.ui.window.application
 +import moe.rukamori.archivetune.ui.screens.HomeScreen
++import moe.rukamori.archivetune.ui.screens.ExploreScreen
++import moe.rukamori.archivetune.ui.screens.LibraryScreen
 +
 +fun main() = application {
 +    Window(
 +        onCloseRequest = ::exitApplication,
 +        title = "ArchiveTune Desktop"
 +    ) {
-+        HomeScreen()
++        var selectedItem by remember { mutableStateOf(0) }
++        val items = listOf("Home", "Explore", "Library")
++        val icons = listOf(Icons.Filled.Home, Icons.Filled.Search, Icons.Filled.List)
++
++        Scaffold(
++            bottomBar = {
++                NavigationBar {
++                    items.forEachIndexed { index, item ->
++                        NavigationBarItem(
++                            icon = { Icon(icons[index], contentDescription = item) },
++                            label = { Text(item) },
++                            selected = selectedItem == index,
++                            onClick = { selectedItem = index }
++                        )
++                    }
++                }
++            }
++        ) { innerPadding ->
++            Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
++                when (selectedItem) {
++                    0 -> HomeScreen()
++                    1 -> ExploreScreen()
++                    2 -> LibraryScreen()
++                }
++            }
++        }
 +    }
 +}
-diff -urN app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt ../by-name/ar/archivetune/src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/AccountPlaylists.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/AccountPlaylists.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/AccountPlaylists.kt	1970-01-01 10:00:00
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/AccountPlaylists.kt	2026-09-24 17:55:15
+@@ -0,0 +1,44 @@
++package moe.rukamori.archivetune.ui.screens
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.lazy.LazyRow
++import androidx.compose.foundation.lazy.items
++import androidx.compose.material3.Card
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++
++@Composable
++fun AccountPlaylistsSection(
++    playlists: List<StubAlbum>,
++    modifier: Modifier = Modifier
++) {
++    Column(modifier = modifier.fillMaxWidth()) {
++        Text(
++            text = "Your playlists",
++            style = MaterialTheme.typography.titleLarge,
++            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
++        )
++        
++        LazyRow(
++            contentPadding = PaddingValues(horizontal = 16.dp),
++            horizontalArrangement = Arrangement.spacedBy(16.dp),
++            modifier = Modifier.fillMaxWidth()
++        ) {
++            items(playlists) { playlist ->
++                Card(modifier = Modifier.width(160.dp).height(160.dp)) {
++                    Column(
++                        modifier = Modifier.padding(16.dp).fillMaxSize(),
++                        verticalArrangement = Arrangement.Center,
++                        horizontalAlignment = Alignment.CenterHorizontally
++                    ) {
++                        Text(playlist.title, style = MaterialTheme.typography.titleMedium)
++                    }
++                }
++            }
++        }
++    }
++}
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ExploreScreen.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ExploreScreen.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ExploreScreen.kt	1970-01-01 10:00:00
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ExploreScreen.kt	2026-09-24 17:55:35
+@@ -0,0 +1,90 @@
++package moe.rukamori.archivetune.ui.screens
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.lazy.LazyRow
++import androidx.compose.foundation.lazy.items
++import androidx.compose.foundation.rememberScrollState
++import androidx.compose.foundation.verticalScroll
++import androidx.compose.material3.Card
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++
++@Composable
++fun ExploreScreen() {
++    val scrollState = rememberScrollState()
++
++    Column(
++        modifier = Modifier
++            .fillMaxSize()
++            .verticalScroll(scrollState)
++            .padding(vertical = 16.dp)
++    ) {
++        Text(
++            text = "Trending",
++            style = MaterialTheme.typography.titleLarge,
++            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
++        )
++        
++        val trendingSongs = listOf(
++            StubSong("t1", "Blinding Lights", "The Weeknd"),
++            StubSong("t2", "Levitating", "Dua Lipa"),
++            StubSong("t3", "Save Your Tears", "The Weeknd")
++        )
++        
++        LazyRow(
++            contentPadding = PaddingValues(horizontal = 16.dp),
++            horizontalArrangement = Arrangement.spacedBy(16.dp),
++            modifier = Modifier.fillMaxWidth()
++        ) {
++            items(trendingSongs) { song ->
++                Card(modifier = Modifier.width(160.dp).height(120.dp)) {
++                    Column(
++                        modifier = Modifier.padding(16.dp).fillMaxSize(),
++                        verticalArrangement = Arrangement.Center,
++                        horizontalAlignment = Alignment.CenterHorizontally
++                    ) {
++                        Text(song.title, style = MaterialTheme.typography.titleMedium)
++                        Text(song.artist, style = MaterialTheme.typography.bodyMedium)
++                    }
++                }
++            }
++        }
++        
++        Spacer(modifier = Modifier.height(32.dp))
++        
++        Text(
++            text = "New release albums",
++            style = MaterialTheme.typography.titleLarge,
++            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
++        )
++        
++        val newAlbums = listOf(
++            StubAlbum("a1", "Midnights", "Taylor Swift"),
++            StubAlbum("a2", "Harry's House", "Harry Styles"),
++            StubAlbum("a3", "Renaissance", "Beyoncé")
++        )
++        
++        LazyRow(
++            contentPadding = PaddingValues(horizontal = 16.dp),
++            horizontalArrangement = Arrangement.spacedBy(16.dp),
++            modifier = Modifier.fillMaxWidth()
++        ) {
++            items(newAlbums) { album ->
++                Card(modifier = Modifier.width(160.dp).height(160.dp)) {
++                    Column(
++                        modifier = Modifier.padding(16.dp).fillMaxSize(),
++                        verticalArrangement = Arrangement.Center,
++                        horizontalAlignment = Alignment.CenterHorizontally
++                    ) {
++                        Text(album.title, style = MaterialTheme.typography.titleMedium)
++                        Text(album.author, style = MaterialTheme.typography.bodyMedium)
++                    }
++                }
++            }
++        }
++    }
++}
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ForgottenFavorites.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ForgottenFavorites.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ForgottenFavorites.kt	1970-01-01 10:00:00
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ForgottenFavorites.kt	2026-09-24 17:55:15
+@@ -0,0 +1,49 @@
++package moe.rukamori.archivetune.ui.screens
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.lazy.grid.GridCells
++import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
++import androidx.compose.foundation.lazy.grid.items
++import androidx.compose.material3.Card
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++
++@Composable
++fun ForgottenFavoritesSection(
++    songs: List<StubSong>,
++    modifier: Modifier = Modifier
++) {
++    Column(modifier = modifier.fillMaxWidth()) {
++        Text(
++            text = "Forgotten favorites",
++            style = MaterialTheme.typography.titleLarge,
++            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
++        )
++        
++        LazyHorizontalGrid(
++            rows = GridCells.Fixed(minOf(4, maxOf(1, songs.size))),
++            contentPadding = PaddingValues(horizontal = 16.dp),
++            horizontalArrangement = Arrangement.spacedBy(16.dp),
++            verticalArrangement = Arrangement.spacedBy(8.dp),
++            modifier = Modifier.fillMaxWidth().height(260.dp)
++        ) {
++            items(songs) { song ->
++                Card(modifier = Modifier.width(280.dp).fillMaxHeight()) {
++                    Row(
++                        modifier = Modifier.padding(12.dp).fillMaxSize(),
++                        verticalAlignment = Alignment.CenterVertically
++                    ) {
++                        Column(modifier = Modifier.weight(1f)) {
++                            Text(song.title, style = MaterialTheme.typography.titleMedium)
++                            Text(song.artist, style = MaterialTheme.typography.bodyMedium)
++                        }
++                    }
++                }
++            }
++        }
++    }
++}
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt	1970-01-01 10:00:00
-+++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt	2026-09-24 16:38:16
-@@ -0,0 +1,95 @@
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt	2026-09-24 17:55:15
+@@ -0,0 +1,147 @@
 +package moe.rukamori.archivetune.ui.screens
 +
 +import androidx.compose.foundation.horizontalScroll
++import androidx.compose.foundation.verticalScroll
 +import androidx.compose.foundation.layout.Arrangement
 +import androidx.compose.foundation.layout.Box
 +import androidx.compose.foundation.layout.Column
@@ -31,6 +265,8 @@ diff -urN app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt 
 +import androidx.compose.foundation.layout.fillMaxWidth
 +import androidx.compose.foundation.layout.heightIn
 +import androidx.compose.foundation.layout.padding
++import androidx.compose.foundation.layout.Spacer
++import androidx.compose.foundation.layout.height
 +import androidx.compose.foundation.rememberScrollState
 +import androidx.compose.material3.FilterChip
 +import androidx.compose.material3.Icon
@@ -93,7 +329,7 @@ diff -urN app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt 
 +    )
 +
 +
-+    Column(modifier = Modifier.fillMaxSize()) {
++    Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
 +        HomeCategoryChips(
 +            chips = chips,
 +            selectedChip = selectedChip,
@@ -107,17 +343,137 @@ diff -urN app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreen.kt 
 +            StubSong("4", "Take Me to Your Heart", "Rick Astley")
 +        )
 +
++
 +        QuickPicksSection(songs = dummySongs)
 +        
-+        Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-+            Text("Home Screen Content WIP")
-+        }
++        Spacer(modifier = Modifier.height(24.dp))
++        
++        val forgottenSongs = listOf(
++            StubSong("5", "Billie Jean", "Michael Jackson"),
++            StubSong("6", "Beat It", "Michael Jackson"),
++            StubSong("7", "Thriller", "Michael Jackson"),
++            StubSong("8", "Smooth Criminal", "Michael Jackson"),
++            StubSong("9", "Bad", "Michael Jackson"),
++            StubSong("10", "Black or White", "Michael Jackson")
++        )
++        
++
++        ForgottenFavoritesSection(songs = forgottenSongs)
++        
++        Spacer(modifier = Modifier.height(24.dp))
++        
++        val keepListeningAlbums = listOf(
++            StubAlbum("1", "Thriller", "Michael Jackson"),
++            StubAlbum("2", "Bad", "Michael Jackson"),
++            StubAlbum("3", "Dangerous", "Michael Jackson")
++        )
++        
++
++        KeepListeningSection(items = keepListeningAlbums)
++        
++        Spacer(modifier = Modifier.height(24.dp))
++        
++        val similarSongs = listOf(
++            StubSong("11", "Don't Stop 'Til You Get Enough", "Michael Jackson"),
++            StubSong("12", "Rock with You", "Michael Jackson"),
++            StubSong("13", "Wanna Be Startin' Somethin'", "Michael Jackson")
++        )
++        
++
++        SimilarRecommendationsSection(title = "Michael Jackson", songs = similarSongs)
++        
++        Spacer(modifier = Modifier.height(24.dp))
++        
++        val accountPlaylists = listOf(
++            StubAlbum("p1", "My Mix 1", "YouTube Music"),
++            StubAlbum("p2", "Discover Weekly", "YouTube Music"),
++            StubAlbum("p3", "Liked Music", "YouTube Music")
++        )
++        
++        AccountPlaylistsSection(playlists = accountPlaylists)
++
++
++
++
++        
++        Spacer(modifier = Modifier.height(32.dp))
 +    }
 +
 +}
-diff -urN app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt ../by-name/ar/archivetune/src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/KeepListening.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/KeepListening.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/KeepListening.kt	1970-01-01 10:00:00
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/KeepListening.kt	2026-09-24 17:55:15
+@@ -0,0 +1,48 @@
++package moe.rukamori.archivetune.ui.screens
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.lazy.LazyRow
++import androidx.compose.foundation.lazy.items
++import androidx.compose.material3.Card
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++
++// Stub for LocalItem (Albums/Playlists)
++data class StubAlbum(val id: String, val title: String, val author: String)
++
++@Composable
++fun KeepListeningSection(
++    items: List<StubAlbum>,
++    modifier: Modifier = Modifier
++) {
++    Column(modifier = modifier.fillMaxWidth()) {
++        Text(
++            text = "Keep listening",
++            style = MaterialTheme.typography.titleLarge,
++            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
++        )
++        
++        LazyRow(
++            contentPadding = PaddingValues(horizontal = 16.dp),
++            horizontalArrangement = Arrangement.spacedBy(16.dp),
++            modifier = Modifier.fillMaxWidth()
++        ) {
++            items(items) { album ->
++                Card(modifier = Modifier.width(160.dp).height(200.dp)) {
++                    Column(
++                        modifier = Modifier.padding(16.dp).fillMaxSize(),
++                        verticalArrangement = Arrangement.Center,
++                        horizontalAlignment = Alignment.CenterHorizontally
++                    ) {
++                        Text(album.title, style = MaterialTheme.typography.titleMedium)
++                        Text(album.author, style = MaterialTheme.typography.bodyMedium)
++                    }
++                }
++            }
++        }
++    }
++}
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LibraryScreen.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LibraryScreen.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LibraryScreen.kt	1970-01-01 10:00:00
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LibraryScreen.kt	2026-09-24 17:55:42
+@@ -0,0 +1,15 @@
++package moe.rukamori.archivetune.ui.screens
++
++import androidx.compose.foundation.layout.Box
++import androidx.compose.foundation.layout.fillMaxSize
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++
++@Composable
++fun LibraryScreen() {
++    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
++        Text("Library Screen WIP")
++    }
++}
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt	1970-01-01 10:00:00
-+++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt	2026-09-24 16:38:16
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt	2026-09-24 17:55:15
 @@ -0,0 +1,48 @@
 +package moe.rukamori.archivetune.ui.screens
 +
@@ -154,6 +510,56 @@ diff -urN app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/QuickPicks.kt 
 +        ) {
 +            items(songs) { song ->
 +                Card(modifier = Modifier.width(200.dp).height(120.dp)) {
++                    Column(
++                        modifier = Modifier.padding(16.dp).fillMaxSize(),
++                        verticalArrangement = Arrangement.Center,
++                        horizontalAlignment = Alignment.CenterHorizontally
++                    ) {
++                        Text(song.title, style = MaterialTheme.typography.titleMedium)
++                        Text(song.artist, style = MaterialTheme.typography.bodyMedium)
++                    }
++                }
++            }
++        }
++    }
++}
+diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/SimilarRecommendations.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/SimilarRecommendations.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/SimilarRecommendations.kt	1970-01-01 10:00:00
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/SimilarRecommendations.kt	2026-09-24 17:55:15
+@@ -0,0 +1,46 @@
++package moe.rukamori.archivetune.ui.screens
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.lazy.LazyRow
++import androidx.compose.foundation.lazy.items
++import androidx.compose.material3.Card
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++
++@Composable
++fun SimilarRecommendationsSection(
++    title: String,
++    songs: List<StubSong>,
++    modifier: Modifier = Modifier
++) {
++    Column(modifier = modifier.fillMaxWidth()) {
++        Text(
++            text = "Similar to $title",
++            style = MaterialTheme.typography.titleLarge,
++            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
++        )
++        
++        LazyRow(
++            contentPadding = PaddingValues(horizontal = 16.dp),
++            horizontalArrangement = Arrangement.spacedBy(16.dp),
++            modifier = Modifier.fillMaxWidth()
++        ) {
++            items(songs) { song ->
++                Card(modifier = Modifier.width(160.dp).height(200.dp)) {
 +                    Column(
 +                        modifier = Modifier.padding(16.dp).fillMaxSize(),
 +                        verticalArrangement = Arrangement.Center,
