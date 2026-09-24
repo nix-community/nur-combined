@@ -14,8 +14,6 @@
   alx-wol = pkgs.linuxPackages_latest.callPackage ./pkgs/alx-wol {};
   catppuccin-obsidian = pkgs.callPackage ./pkgs/catppuccin-obsidian {};
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
-  flm-add = pkgs.callPackage ./pkgs/flm-add {};
-  flm-q4nx-converter = pkgs.callPackage ./pkgs/flm-q4nx-converter {};
   folder-notes = pkgs.callPackage ./pkgs/folder-notes {};
   hayase = pkgs.callPackage ./pkgs/hayase {};
   helium = pkgs.callPackage ./pkgs/helium {};
@@ -31,7 +29,6 @@
   obsidian-style-settings = pkgs.callPackage ./pkgs/obsidian-style-settings {};
   obsidian-vim-yank-highlight = pkgs.callPackage ./pkgs/obsidian-vim-yank-highlight {};
   obsidian-vimrc-support = pkgs.callPackage ./pkgs/obsidian-vimrc-support {};
-  openflowlm = pkgs.callPackage ./pkgs/openflowlm {};
   raycast-jisho = pkgs.callPackage ./pkgs/raycast-jisho {};
   vicinae-bitwarden = pkgs.callPackage ./pkgs/vicinae-bitwarden {};
   vicinae-nix = pkgs.callPackage ./pkgs/vicinae-nix {};
