@@ -88,7 +88,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-CPdeGfsi7b7ozfYsnMiys9Cg3z7tyO0jCPaUUTx/LSQ=";
+    hash = "sha256-wgkM2X4oJ/TAjRzHGVCrYrrbBa3rcSmsFhxatsBZkoM=";
   };
 
   nativeBuildInputs = [
