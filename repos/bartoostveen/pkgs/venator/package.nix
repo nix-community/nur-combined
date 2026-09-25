@@ -16,7 +16,7 @@ let
 in
 buildGo127Module (finalAttrs: {
   pname = "venator";
-  version = "0.1.0a4-unstable-2026-09-19";
+  version = "0.1.0a4-unstable-2026-09-25";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -24,11 +24,11 @@ buildGo127Module (finalAttrs: {
   src = fetchFromCodeberg {
     owner = "matrix-venator";
     repo = "venator";
-    rev = "322132b5260da2ba6c15263c6fd33584af4e4300";
-    hash = "sha256-ubcMqFc+PWLf1ZX8KXFG2CAFO4G/KqNO5v8TjvymlsI=";
+    rev = "252b77c8ef3b3fa2c9130ab7c1a60f9b7bc830d0";
+    hash = "sha256-lzlL8Hat4EP9PqwXwreGaPRCRKqolt8DuRZ8Ov8WHs4=";
   };
 
-  vendorHash = "sha256-1/znvlE2AxEmYITU8FoNTK1T/5tz7s4+AiWnz88vHvA=";
+  vendorHash = "sha256-0flLB5KcpNarSFC0fZj3JzSLKlmzqGvGZ33oU6wBcHs=";
 
   preBuild = lib.optionalString withDocs ''
     if [ -d vendor ]; then
@@ -78,7 +78,7 @@ buildGo127Module (finalAttrs: {
         hash = "sha256-9fZSLpuXF+iMs/9TmMaZBqLd+OaCBHTAAFc9zLxrl2I=";
       };
 
-      vendorHash = "sha256-1/znvlE2AxEmYITU8FoNTK1T/5tz7s4+AiWnz88vHvA=";
+      vendorHash = "sha256-0flLB5KcpNarSFC0fZj3JzSLKlmzqGvGZ33oU6wBcHs=";
 
       passthru = finalAttrs.passthru // {
         updateScript = nix-update-script {
