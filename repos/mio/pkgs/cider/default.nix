@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cider";
-  version = "05d554c";
+  version = "3b74e64";
 
   src = fetchFromGitHub {
     owner = "taoky";
     repo = "Cider";
     rev = finalAttrs.version;
-    hash = "sha256-B1F2k82bHiwjz7+0vLs1A8paOYO992SkPzuVRCYCN/U=";
+    hash = "sha256-THZzIpJn6z/SjT/qbbbcsh0NTXwq4XnQOLk/r9k1tFE=";
   };
 
   pnpmDeps = fetchPnpmDeps {

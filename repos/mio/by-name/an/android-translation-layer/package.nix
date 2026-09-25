@@ -33,8 +33,8 @@ stdenv.mkDerivation {
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "3e686d1";
-    hash = "sha256-qZDZb7CR+qGZRbrUm2h39rb6nQlX/m4LcfH/ZEtxmwM=";
+    rev = "b4bd403";
+    hash = "sha256-G0rsDUALgFiGmcx9dzRLl6bosLGOAoiQ8cXmpdoCTRs=";
   };
 
   patches = [
