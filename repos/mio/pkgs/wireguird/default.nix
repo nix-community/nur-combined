@@ -69,6 +69,21 @@ let
     ];
 
     postPatch = ''
+      # The capability wrapper marks the process non-dumpable, which denies
+      # xdg-desktop-portal access to /proc/<pid>/root, breaking GTK dark mode.
+      # We inject a C constructor to re-enable PR_SET_DUMPABLE from *inside*
+      # the final Go process, avoiding execve resets.
+      cat <<'EOF' > dumpable.go
+      package main
+      /*
+      #include <sys/prctl.h>
+      void __attribute__((constructor)) init_dumpable() {
+          prctl(PR_SET_DUMPABLE, 1, 0, 0, 0);
+      }
+      */
+      import "C"
+      EOF
+
       # Patch all hardcoded icon paths
       substituteInPlace gui/gui.go \
         --replace-fail 'IconPath    = "/opt/wireguird/Icon/"' \
@@ -127,7 +142,6 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     wrapGAppsHook3
-    makeBinaryWrapper
   ];
 
   buildInputs = [
@@ -137,36 +151,14 @@ stdenv.mkDerivation {
 
   unpackPhase = "true";
 
-  dontWrapGApps = true;
-
-  buildPhase = ''
-    cat <<'EOF' > wrapper.c
-    #include <sys/prctl.h>
-    #include <unistd.h>
-    int main(int argc, char **argv) {
-        // The capability wrapper marks the process non-dumpable; the kernel then
-        // denies /proc/<pid>/root to xdg-desktop-portal, breaking GTK dark mode.
-        // Re-enable dumpable so the portal can read our settings.
-        prctl(PR_SET_DUMPABLE, 1, 0, 0, 0);
-        execv("${wireguird-unwrapped}/bin/wireguird", argv);
-        return 1;
-    }
-    EOF
-    $CC -O2 wrapper.c -o wireguird-dumpable
-  '';
-
   installPhase = ''
-    mkdir -p "$out/bin" "$out/libexec" "$out/share/applications"
+    mkdir -p "$out/bin" "$out/share/applications"
     ln -s ${wireguird-unwrapped}/share/icons "$out/share/icons"
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
-    install -Dm755 wireguird-dumpable "$out/libexec/wireguird-dumpable"
-
-    # Runs as the logged-in user. On NixOS, programs.wireguird installs
-    # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
-    makeWrapper "$out/libexec/wireguird-dumpable" "$out/bin/wireguird" \
-      "''${gappsWrapperArgs[@]}" \
-      --prefix PATH : ${wireguardToolPath}
+    # Install the real binary. wrapGAppsHook3 will wrap it
+    # automatically in the fixup phase.
+    install -Dm755 ${wireguird-unwrapped}/bin/wireguird "$out/bin/wireguird"
 
     install -Dm644 /dev/stdin "$out/share/applications/wireguird.desktop" <<EOF
       [Desktop Entry]
@@ -180,6 +172,11 @@ stdenv.mkDerivation {
     EOF
   '';
 
+  # Runs as the logged-in user. On NixOS, programs.wireguird installs
+  # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
+  preFixup = ''
+    gappsWrapperArgs+=(--prefix PATH : ${wireguardToolPath})
+  '';
   passthru.unwrapped = wireguird-unwrapped;
 
   meta = wireguird-unwrapped.meta // {
