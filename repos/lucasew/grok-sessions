@@ -1,0 +1,230 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# ///
+"""Write running Grok session ids and the Herdr tab map to a Markdown file."""
+
+from __future__ import annotations
+
+import json
+import os
+import subprocess
+from argparse import ArgumentParser
+from datetime import datetime, timezone
+from pathlib import Path
+
+parser = ArgumentParser(description=__doc__)
+parser.add_argument(
+    "-o",
+    "--output",
+    type=Path,
+    default=Path.home() / "grok_sessions.md",
+    help="markdown file to write (default: ~/grok_sessions.md)",
+)
+parser.add_argument(
+    "--grok-home",
+    type=Path,
+    default=Path(os.environ.get("GROK_HOME", Path.home() / ".grok")),
+    help="Grok home directory (default: $GROK_HOME or ~/.grok)",
+)
+args = parser.parse_args()
+
+
+def running_grok(pid: int) -> bool:
+    cmdline = Path(f"/proc/{pid}/cmdline")
+    try:
+        raw = cmdline.read_bytes()
+    except OSError:
+        return False
+    return b"grok" in raw.replace(b"\0", b" ")
+
+
+def load_sessions(grok_home: Path) -> list[dict]:
+    path = grok_home / "active_sessions.json"
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    running = []
+    for row in rows:
+        pid = int(row["pid"])
+        if running_grok(pid):
+            running.append(row)
+    running.sort(key=lambda row: row.get("opened_at") or "")
+    return running
+
+
+def session_title(grok_home: Path, session_id: str) -> str:
+    matches = list((grok_home / "sessions").glob(f"*/{session_id}/summary.json"))
+    if not matches:
+        return ""
+    summary = json.loads(matches[0].read_text(encoding="utf-8"))
+    return summary.get("generated_title") or summary.get("session_summary") or ""
+
+
+def herdr_json(command: list[str]) -> dict:
+    proc = subprocess.run(
+        command,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    return json.loads(proc.stdout)
+
+
+def load_herdr() -> tuple[list[dict], dict[str, dict], dict[str, str], dict[int, dict]]:
+    panes = herdr_json(["herdr", "pane", "list"])["result"]["panes"]
+    tabs = {
+        tab["tab_id"]: tab
+        for tab in herdr_json(["herdr", "tab", "list"])["result"]["tabs"]
+    }
+    workspaces = {
+        ws["workspace_id"]: ws.get("label") or ""
+        for ws in herdr_json(["herdr", "workspace", "list"])["result"]["workspaces"]
+    }
+    by_pid: dict[int, dict] = {}
+    for pane in panes:
+        info = herdr_json(
+            ["herdr", "pane", "process-info", "--pane", pane["pane_id"]]
+        )["result"]["process_info"]
+        for proc in info.get("foreground_processes") or []:
+            if proc.get("name") == "grok" or "grok" in (proc.get("cmdline") or ""):
+                by_pid[int(proc["pid"])] = pane
+    return panes, tabs, workspaces, by_pid
+
+
+def cell(value: object) -> str:
+    text = "" if value is None else str(value)
+    return text.replace("|", "\\|").replace("\n", " ")
+
+
+def table(headers: list[str], rows: list[list[object]]) -> str:
+    head = "| " + " | ".join(headers) + " |"
+    rule = "| " + " | ".join("---" for _ in headers) + " |"
+    body = ["| " + " | ".join(cell(item) for item in row) + " |" for row in rows]
+    return "\n".join([head, rule, *body])
+
+
+def render(sessions: list[dict], herdr: tuple | None, herdr_error: str, grok_home: Path) -> str:
+    titles = {row["session_id"]: session_title(grok_home, row["session_id"]) for row in sessions}
+    panes: list[dict] = []
+    tabs: dict[str, dict] = {}
+    workspaces: dict[str, str] = {}
+    by_pid: dict[int, dict] = {}
+    if herdr is not None:
+        panes, tabs, workspaces, by_pid = herdr
+
+    session_rows = []
+    for row in sessions:
+        pane = by_pid.get(int(row["pid"]), {})
+        tab = tabs.get(pane.get("tab_id", ""), {})
+        workspace_id = pane.get("workspace_id", "")
+        session_rows.append(
+            [
+                row["session_id"],
+                row["pid"],
+                row.get("cwd", ""),
+                row.get("opened_at", ""),
+                pane.get("tab_id", ""),
+                tab.get("label", ""),
+                pane.get("pane_id", ""),
+                workspace_id,
+                workspaces.get(workspace_id, ""),
+                pane.get("agent_status", ""),
+                titles.get(row["session_id"], ""),
+            ]
+        )
+
+    tab_rows = []
+    session_by_pane = {}
+    for row in sessions:
+        pane = by_pid.get(int(row["pid"]))
+        if pane:
+            session_by_pane[pane["pane_id"]] = row["session_id"]
+    for pane in panes:
+        tab = tabs.get(pane["tab_id"], {})
+        workspace_id = pane["workspace_id"]
+        tab_rows.append(
+            [
+                workspace_id,
+                workspaces.get(workspace_id, ""),
+                pane["tab_id"],
+                tab.get("number", ""),
+                tab.get("label", ""),
+                pane["pane_id"],
+                pane.get("cwd", ""),
+                pane.get("agent", ""),
+                pane.get("agent_status", ""),
+                session_by_pane.get(pane["pane_id"], ""),
+            ]
+        )
+    tab_rows.sort(key=lambda row: (str(row[1]), str(row[3]), str(row[2])))
+
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    parts = [
+        "# Grok sessions",
+        "",
+        f"Generated {now}.",
+        "",
+        "## Running sessions",
+        "",
+        table(
+            [
+                "session_id",
+                "pid",
+                "cwd",
+                "opened_at",
+                "tab_id",
+                "tab",
+                "pane_id",
+                "workspace_id",
+                "workspace",
+                "status",
+                "title",
+            ],
+            session_rows,
+        ),
+        "",
+        "## Tabs",
+        "",
+    ]
+    if herdr_error:
+        parts.extend([f"Herdr tab map unavailable: {herdr_error}", ""])
+    else:
+        parts.extend(
+            [
+                table(
+                    [
+                        "workspace_id",
+                        "workspace",
+                        "tab_id",
+                        "number",
+                        "label",
+                        "pane_id",
+                        "cwd",
+                        "agent",
+                        "status",
+                        "session_id",
+                    ],
+                    tab_rows,
+                ),
+                "",
+            ]
+        )
+    return "\n".join(parts)
+
+
+def main() -> None:
+    sessions = load_sessions(args.grok_home)
+    herdr = None
+    herdr_error = ""
+    try:
+        herdr = load_herdr()
+    except (OSError, subprocess.SubprocessError, json.JSONDecodeError, KeyError) as exc:
+        herdr_error = str(exc)
+    text = render(sessions, herdr, herdr_error, args.grok_home)
+    output = args.output.expanduser()
+    output.write_text(text, encoding="utf-8")
+    print(output)
+
+
+if __name__ == "__main__":
+    main()
