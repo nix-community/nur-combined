@@ -68,24 +68,6 @@ buildGo127Module (finalAttrs: {
 
   passthru = {
     updateScript = nix-update-script { extraArgs = [ "--version=branch=dev" ]; };
-    withExperimentalOauth = finalAttrs.overrideAttrs {
-      version = "0.1.0a4-unstable-2026-09-18";
-
-      src = fetchFromCodeberg {
-        owner = "matrix-venator";
-        repo = "venator";
-        rev = "c2e09307added03ec8e42928de7608ed956ba920";
-        hash = "sha256-9fZSLpuXF+iMs/9TmMaZBqLd+OaCBHTAAFc9zLxrl2I=";
-      };
-
-      vendorHash = "sha256-0flLB5KcpNarSFC0fZj3JzSLKlmzqGvGZ33oU6wBcHs=";
-
-      passthru = finalAttrs.passthru // {
-        updateScript = nix-update-script {
-          extraArgs = [ "--version=branch=wip/oauth2-account-management" ];
-        };
-      };
-    };
     docs = callPackage (
       {
         stdenv,
