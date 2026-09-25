@@ -81,14 +81,14 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "work-iq";
   # CLI version from the @microsoft/workiq npm package (canonical binary distro).
-  version = "1.0.0";
+  version = "1.0.1";
 
   # Upstream publishes no buildable CLI source. The GitHub repo is a plugin
   # marketplace; the workiq CLI ships only as platform-native binaries inside
   # the npm tarball.
   src = fetchurl {
     url = "https://registry.npmjs.org/@microsoft/workiq/-/workiq-${finalAttrs.version}.tgz";
-    hash = "sha256-LGtPdLMh923WEsQrqajx5skE3Ipvc1ZooZhKgXzXR0U=";
+    hash = "sha256-2ILfgXugT1gTxDMOwA/JtSAzjqGDkmUz1T/k2zPvMKU=";
   };
 
   # Plugin/skill tree from the canonical marketplace repository. Untagged;
@@ -96,8 +96,8 @@ stdenv.mkDerivation (finalAttrs: {
   plugins = fetchFromGitHub {
     owner = "microsoft";
     repo = "work-iq";
-    rev = "b27a6c3062bf3b30156675f7ec2f572e94a1e8cd";
-    hash = "sha256-h6EBisSKuZFgfybESNRIi/GOzwJ5jaYsXdUYfxbzUxk=";
+    rev = "821949b0097fbbabdb8db8412c9d0efd91716e00";
+    hash = "sha256-u8KxdiKJ3QtzGO716Au89atSbZPvXU4VaaAtfr3Wxis=";
   };
 
   sourceRoot = "package";
