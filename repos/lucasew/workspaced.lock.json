@@ -207,6 +207,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:lewtec/herdr-reflow",
+      "depName": "lewtec/herdr-reflow",
+      "currentValue": "0.0.1",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:lewtec/rod-mcp",
       "depName": "lewtec/rod-mcp",
       "currentValue": "0.2.2",

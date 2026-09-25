@@ -152,6 +152,11 @@ lazy_tools: {
 		global: true
 		bins: ["herdr"]
 	}
+	herdr_reflow: {
+		ref: "github:lewtec/herdr-reflow"
+		global: true
+		bins: ["herdr-reflow"]
+	}
 	grok: {
 		ref: "grok-build"
 		global: true
