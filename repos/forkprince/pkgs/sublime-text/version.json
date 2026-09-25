@@ -6,9 +6,9 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "4213",
+  "version": "4215",
   "asset": {
-    "url": "https://download.sublimetext.com/sublime_text_build_4213_mac.zip",
-    "hash": "sha256-G5JBWov0O9wKDX+pkk+AxHOJjLovN+4roqKH5XHlMOE="
+    "url": "https://download.sublimetext.com/sublime_text_build_4215_mac.zip",
+    "hash": "sha256-oCY/NmYPE5gbslsF6WhoFCnOX2cTSHbNkDL/qC4ZBNU="
   }
 }
