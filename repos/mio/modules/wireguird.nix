@@ -76,6 +76,13 @@ in
     ];
 
     security.wrappers = {
+      wireguird = {
+        owner = "root";
+        group = cfg.group;
+        capabilities = "cap_net_raw,cap_net_admin+eip";
+        permissions = "u+rx,g+x";
+        source = "${lib.getExe package}";
+      };
       wg-quick = mkWrapper "wg-quick" // {
         source = wgQuickSource;
       };

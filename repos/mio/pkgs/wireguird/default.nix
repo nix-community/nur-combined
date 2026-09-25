@@ -137,14 +137,30 @@ stdenv.mkDerivation {
 
   unpackPhase = "true";
 
+  buildPhase = ''
+    cat <<'EOF' > wrapper.c
+    #include <sys/prctl.h>
+    #include <unistd.h>
+    int main(int argc, char **argv) {
+        // The capability wrapper marks the process non-dumpable; the kernel then
+        // denies /proc/<pid>/root to xdg-desktop-portal, breaking GTK dark mode.
+        // Re-enable dumpable so the portal can read our settings.
+        prctl(PR_SET_DUMPABLE, 1, 0, 0, 0);
+        execv("${wireguird-unwrapped}/bin/wireguird", argv);
+        return 1;
+    }
+    EOF
+    $CC -O2 wrapper.c -o wireguird-dumpable
+  '';
+
   installPhase = ''
     mkdir -p "$out/bin" "$out/share/applications"
     ln -s ${wireguird-unwrapped}/share/icons "$out/share/icons"
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
-    # Install the real binary. wrapGAppsHook3 will wrap it
+    # Install the C wrapper as the main binary. wrapGAppsHook3 will wrap it
     # automatically in the fixup phase.
-    install -Dm755 ${wireguird-unwrapped}/bin/wireguird "$out/bin/wireguird"
+    install -Dm755 wireguird-dumpable "$out/bin/wireguird"
 
     install -Dm644 /dev/stdin "$out/share/applications/wireguird.desktop" <<EOF
       [Desktop Entry]
@@ -159,7 +175,7 @@ stdenv.mkDerivation {
   '';
 
   # Runs as the logged-in user. On NixOS, programs.wireguird installs
-  # cap_net_admin wrappers in /run/wrappers/bin (wg-quick, wg).
+  # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
   preFixup = ''
     gappsWrapperArgs+=(--prefix PATH : ${wireguardToolPath})
   '';
