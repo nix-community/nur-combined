@@ -42,7 +42,13 @@ let
       reshade-shaders = final.callPackage ./reshade-shaders { };
       seadrive-fuse = final.callPackage ./seadrive-fuse { };
       sing-box-beta = final.callPackage ./sing-box/beta.nix { };
+      sing-box-beta-full = final.callPackage ./sing-box/beta.nix { withCGO = true; };
       sing-box-extended = final.callPackage ./sing-box/extended.nix { };
+      sing-box-extended-full = final.callPackage ./sing-box/extended.nix { withCGO = true; };
+      sing-box-lx = final.callPackage ./sing-box/lx.nix { };
+      sing-box-lx-full = final.callPackage ./sing-box/lx.nix { withCGO = true; };
+      sing-box-stable = final.callPackage ./sing-box/stable.nix { };
+      sing-box-stable-full = final.callPackage ./sing-box/stable.nix { withCGO = true; };
       stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
       strudel = final.callPackage ./strudel { };
       strudel-with-server = final.strudel.override { withServer = true; };

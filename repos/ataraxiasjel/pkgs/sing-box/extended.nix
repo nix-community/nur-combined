@@ -4,71 +4,48 @@
   fetchFromGitHub,
   installShellFiles,
   coreutils,
+  lld,
   nix-update-script,
   nixosTests,
+  withCGO ? false,
 }:
-
-buildGoModule (finalAttrs: {
-  pname = "sing-box-extended";
+let
   version = "1.14.1-extended-2.7.2";
+in
+import ./common.nix {
+  inherit
+    lib
+    buildGoModule
+    installShellFiles
+    coreutils
+    lld
+    nix-update-script
+    nixosTests
+    version
+    withCGO
+    ;
 
+  pname = "sing-box-extended";
+  homepage = "https://github.com/shtorm-7/sing-box-extended";
   src = fetchFromGitHub {
     owner = "shtorm-7";
     repo = "sing-box-extended";
-    tag = "v${finalAttrs.version}";
+    tag = "v${version}";
     hash = "sha256-bDE90wcoTLBm3lDICO+z7Kl+hhIXBYZN5lsrLXQbL10=";
   };
-
   vendorHash = "sha256-fR6ZlkSBiM0EiGwd6mWQ07p+gMnYuhugai4x4SsUNiU=";
-
-  tags = [
-    "with_quic"
-    "with_grpc"
-    "with_dhcp"
-    "with_wireguard"
-    "with_utls"
-    "with_acme"
-    "with_clash_api"
-    "with_v2ray_api"
-    "with_gvisor"
-    # "with_embedded_tor"
-    "with_tailscale"
+  extraTags = [
+    # extended-specific, all non-CGO
+    "with_masque"
+    "with_mtproxy"
+    "with_trusttunnel"
+    "with_call"
+    "with_sudoku"
+    "with_manager"
+    # with_admin_panel needs service/admin_panel/dist generated via
+    # `make build_admin_panel` (npm + cmd/internal/admin_panel_pack),
+    # not checked into git. Wire up later with a frontend build.
+    # "with_admin_panel"
+    "with_profiler"
   ];
-
-  subPackages = [
-    "cmd/sing-box"
-  ];
-
-  # TODO: remove after nixpkgs updates its go version
-  postPatch = ''
-    substituteInPlace go.mod --replace-fail "go 1.26.4" "go 1.26.3"
-  '';
-
-  nativeBuildInputs = [ installShellFiles ];
-
-  ldflags = [
-    "-X=github.com/sagernet/sing-box/constant.Version=${finalAttrs.version}"
-  ];
-
-  postInstall = ''
-    installShellCompletion release/completions/sing-box.{bash,fish,zsh}
-
-    substituteInPlace release/config/sing-box{,@}.service \
-      --replace-fail "/usr/bin/sing-box" "$out/bin/sing-box" \
-      --replace-fail "/bin/kill" "${coreutils}/bin/kill"
-    install -Dm444 -t "$out/lib/systemd/system/" release/config/sing-box{,@}.service
-  '';
-
-  passthru = {
-    updateScript = nix-update-script { };
-    tests = { inherit (nixosTests) sing-box; };
-  };
-
-  meta = {
-    homepage = "https://github.com/shtorm-7/sing-box-extended";
-    description = "Universal proxy platform";
-    license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ataraxiasjel ];
-    mainProgram = "sing-box";
-  };
-})
+}
