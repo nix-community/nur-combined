@@ -237,9 +237,9 @@
     },
     {
       "kind": "source",
-      "ref": "github:lucasew/workspaced",
-      "depName": "lucasew/workspaced",
-      "packageName": "https://github.com/lucasew/workspaced",
+      "ref": "github:lewtec/modot",
+      "depName": "lewtec/modot",
+      "packageName": "https://github.com/lewtec/modot",
       "currentValue": "master",
       "currentDigest": "833e99da856a33ef2809a0606ed338224a456eca",
       "datasource": "git-refs"

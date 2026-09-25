@@ -1,12 +1,8 @@
 package module
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-	config: {}
-	file: home: {
+modules: "herdr": config: {}
+
+file: home: {
 		".config/herdr/config.toml": {
 			type: "toml"
 			values: {
@@ -16,4 +12,3 @@ module: {
 			}
 		}
 	}
-}

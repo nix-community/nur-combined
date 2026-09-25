@@ -1,7 +1,7 @@
 {{- /* Script x: adds lazy shims to PATH */ -}}
 {{- file "x" "0755" }}
 #!/usr/bin/env bash
-exec "{{ home }}/.local/bin/workspaced" open exec -p "{{ userDataDir }}/shim/lazy" "$@"
+exec "{{ home }}/.local/bin/modot" open exec -p "{{ userDataDir }}/shim/lazy" "$@"
 {{- endfile }}
 
 {{- /* Global shims for tools */ -}}
@@ -24,9 +24,9 @@ exec "{{ home }}/.local/bin/workspaced" open exec -p "{{ userDataDir }}/shim/laz
 {{- $locked := lockTool $ref }}{{ if not $locked }}{{ $locked = lockTool $name }}{{ end }}
 #!/usr/bin/env bash
 {{ if $locked -}}
-exec "$("{{ home }}/.local/bin/workspaced" tool which "{{ $locked.ref }}@{{ $locked.version }}" "{{ . }}")" "$@"
+exec "$("{{ home }}/.local/bin/modot" tool which "{{ $locked.ref }}@{{ $locked.version }}" "{{ . }}")" "$@"
 {{ else -}}
-exec "{{ home }}/.local/bin/workspaced" open lazy --home --bin "{{ . }}" "{{ $ref }}" -- "$@"
+exec "{{ home }}/.local/bin/modot" open lazy --home --bin "{{ . }}" "{{ $ref }}" -- "$@"
 {{ end }}
             {{- endfile }}
         {{- end }}
@@ -49,7 +49,7 @@ exec "{{ home }}/.local/bin/workspaced" open lazy --home --bin "{{ . }}" "{{ $re
 #!/usr/bin/env bash
 set -euo pipefail
 
-_ws="{{ home }}/.local/bin/workspaced"
+_ws="{{ home }}/.local/bin/modot"
 if [[ -z "${AGENT_BROWSER_EXECUTABLE_PATH:-}" ]]; then
 	export AGENT_BROWSER_EXECUTABLE_PATH="$("$_ws" tool which "{{ $webappRef }}" "{{ $webappBin }}")"
 fi

@@ -6,13 +6,9 @@ package module
 	}
 }
 
-module: {
-	meta: {
-		requires: ["base16"]
-		recommends: []
-	}
-	config: {}
-	file: home: {
+modules: "base16-alacritty": config: {}
+
+file: home: {
 		".config/alacritty/colors.toml": {
 			type: "toml"
 			values: {
@@ -43,4 +39,3 @@ module: {
 			}
 		}
 	}
-}

@@ -17,13 +17,7 @@ package module
 	...
 }
 
-module: {
-	meta: {
-		requires: ["base16"]
-		recommends: []
-	}
-
-	file: home: {
+file: home: {
 		".config/gtk-3.0/settings.ini": {
 			type: "ini"
 			values: {
@@ -49,7 +43,7 @@ module: {
 		}
 	}
 
-	config: {
+modules: "base16-gtk": config: {
 		// adw-gtk3 reads libadwaita named colors from ~/.config/gtk-{3,4}.0/gtk.css
 		theme_name: string
 		if modules.base16.config.dark_mode {
@@ -81,10 +75,9 @@ module: {
 		}
 	}
 
-	drivers: {
-		"workspaced/pkg/driver/notification.Driver": {
+drivers: {
+		"github.com/lewtec/modot/internal/driver/notification.Driver": {
 			notification_dbus:        100
 			notification_notify_send: 10
 		}
 	}
-}

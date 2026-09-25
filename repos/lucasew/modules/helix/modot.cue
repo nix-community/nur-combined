@@ -1,12 +1,8 @@
 package module
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-	config: {}
-	file: home: {
+modules: "helix": config: {}
+
+file: home: {
 		".config/helix/config.toml": {
 			type: "toml"
 			values: {
@@ -19,4 +15,3 @@ module: {
 			}
 		}
 	}
-}

@@ -1,12 +1,8 @@
 package module
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-	config: {}
-	file: home: {
+modules: "gammastep": config: {}
+
+file: home: {
 		".config/gammastep/config.ini": {
 			type: "ini"
 			values: {
@@ -23,4 +19,3 @@ module: {
 			}
 		}
 	}
-}

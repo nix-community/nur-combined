@@ -5,6 +5,5 @@ out.nar
 .direnv
 *.fd
 __pycache__
-workspaced/workspaced_test
-workspaced
+modot
 .codex

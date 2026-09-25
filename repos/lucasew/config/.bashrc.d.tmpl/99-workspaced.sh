@@ -1,8 +1,8 @@
 # shellcheck shell=bash
-# This file is partially replaced by 15-workspaced-init.source.sh when using workspaced shell init
+# This file is partially replaced by 15-modot-init.source.sh when using modot shell init
 # The .source.sh generates completion code in parallel for faster startup
 
-if command -v workspaced >/dev/null 2>&1; then
+if command -v modot >/dev/null 2>&1; then
 	# Start daemon if not already running
-	(workspaced daemon --try &) &>/dev/null
+	(modot daemon --try &) &>/dev/null
 fi

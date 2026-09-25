@@ -1,12 +1,8 @@
 package module
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-	config: {}
-	file: home: {
+modules: "opencode": config: {}
+
+file: home: {
 		".config/opencode/opencode.json": {
 			type: "json"
 			values: {
@@ -28,4 +24,3 @@ module: {
 			}
 		}
 	}
-}

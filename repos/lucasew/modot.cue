@@ -30,7 +30,7 @@ hosts: {
 
 
 drivers: {
-	"github.com/lucasew/workspaced/pkg/driver/terminal.Driver": {
+	"github.com/lewtec/modot/internal/driver/terminal.Driver": {
 		"terminal_kitty": 70
 	}
 }
@@ -543,7 +543,7 @@ backup: {
 		}
 	}
 	workspaced: {
-		from: "github:lucasew/workspaced"
+		from: "github:lewtec/modot"
 	}
 	// Local skills come straight from the workspace tree.
 	// We reference the built-in "self" input directly below instead of

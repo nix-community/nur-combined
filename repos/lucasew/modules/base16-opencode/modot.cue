@@ -6,15 +6,9 @@ package module
 	}
 }
 
-module: {
-	meta: {
-		requires: ["base16"]
-		recommends: []
-	}
+modules: "base16-opencode": config: {}
 
-	config: {}
-
-	file: home: {
+file: home: {
 		".config/opencode/themes/workspaced.json": {
 			type: "json"
 			values: {
@@ -92,4 +86,3 @@ module: {
 			}
 		}
 	}
-}

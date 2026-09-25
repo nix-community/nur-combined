@@ -1,12 +1,8 @@
 package module
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-	config: {}
-	file: home: {
+modules: "codex": config: {}
+
+file: home: {
 		".codex/config.toml": {
 			type: "toml"
 			values: {
@@ -44,4 +40,3 @@ module: {
 			}
 		}
 	}
-}

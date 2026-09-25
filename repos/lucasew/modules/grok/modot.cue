@@ -1,12 +1,8 @@
 package module
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-	config: {}
-	file: home: {
+modules: "grok": config: {}
+
+file: home: {
 		".grok/config.toml": {
 			type: "toml"
 			values: {
@@ -64,4 +60,3 @@ module: {
 			}
 		}
 	}
-}

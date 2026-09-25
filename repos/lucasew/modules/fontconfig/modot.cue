@@ -2,20 +2,14 @@ package module
 
 #fonts: modules.fontconfig.config
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-
-	config: {
+modules: "fontconfig": config: {
 		serif:      string | *"DejaVu Serif"
 		sans_serif: string | *"DejaVu Sans"
 		monospace:  string | *"DejaVu Sans Mono"
 		emoji:      string | *"Noto Color Emoji"
 	}
 
-	file: home: {
+file: home: {
 		".config/fontconfig/fonts.conf": {
 			type: "xml"
 			values: {
@@ -30,4 +24,3 @@ module: {
 			}
 		}
 	}
-}

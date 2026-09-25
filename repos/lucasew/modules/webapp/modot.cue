@@ -1,12 +1,6 @@
 package module
 
-module: {
-	meta: {
-		requires: []
-		recommends: []
-	}
-
-	config: {
+modules: "webapp": config: {
 		apps?: [string]: {
 			browser: string | *null
 			url: string
@@ -16,4 +10,3 @@ module: {
 			extra_flags: [...string]
 		}
 	}
-}

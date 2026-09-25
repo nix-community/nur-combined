@@ -6,15 +6,9 @@ package module
 	}
 }
 
-module: {
-	meta: {
-		requires: ["base16"]
-		recommends: []
-	}
+modules: "base16-helix": config: {}
 
-	config: {}
-
-	file: home: {
+file: home: {
 		".config/helix/themes/base16.toml": {
 			type: "toml"
 			values: {
@@ -69,4 +63,3 @@ module: {
 			}
 		}
 	}
-}
