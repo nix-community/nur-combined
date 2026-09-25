@@ -1,12 +1,15 @@
 // Delete packages bun unpacks on only some of the targets, since an unpruned tree hashes differently per system.
 // A gate that admits every target unpacks identically everywhere and has to stay: `onnxruntime-node` names all three OSes and no CPU, and the CLI bundle resolves through it.
-import {readdirSync, readFileSync, rmSync} from "node:fs";
+import {existsSync, readdirSync, readFileSync, rmSync} from "node:fs";
 import {join} from "node:path";
 
 const roots = process.argv.slice(2);
 if (roots.length === 0) {
   throw new Error("usage: prune-platform-packages.mjs <node_modules>...");
 }
+
+// bun links esbuild's bin straight into its platform package, so pruning leaves a link naming the system; such links can cross levels, so they go once every tree is pruned.
+const binDirs = [];
 
 // meta.platforms, as node spells them.
 const TARGETS = [
@@ -69,6 +72,10 @@ function visitTree(nodeModules) {
       rmSync(path, {recursive: true, force: true});
       continue;
     }
+    if (entry.name === ".bin") {
+      binDirs.push(path);
+      continue;
+    }
     // .bun is the isolated linker's package store; anything else dotted is bun's own bookkeeping.
     if (entry.name === ".bun") {
       visitTree(join(path, "node_modules"));
@@ -85,3 +92,13 @@ function visitTree(nodeModules) {
 }
 
 for (const root of roots) visitTree(root);
+
+for (const binDir of binDirs) {
+  for (const name of readdirSync(binDir)) {
+    const link = join(binDir, name);
+    if (!existsSync(link)) rmSync(link, {force: true});
+  }
+  if (readdirSync(binDir).length === 0) {
+    rmSync(binDir, {recursive: true, force: true});
+  }
+}

@@ -200,13 +200,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.43.0";
+    version = "v0.43.2";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.43.0";
+      rev = "v0.43.2";
       fetchSubmodules = false;
-      sha256 = "sha256-Vp8nWXj+tKtCiYfpP/RzXBmTHadw3+0fuh1VxFKG1yE=";
+      sha256 = "sha256-dVwEA6racPkqbSUd6FZeghIwaISDuH9K/07f/EzveOU=";
     };
   };
   manboster = {
