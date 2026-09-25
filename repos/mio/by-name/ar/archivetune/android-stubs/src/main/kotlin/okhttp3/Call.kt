@@ -1,9 +1,6 @@
 package okhttp3
 
-
-interface Call : Cloneable {
+interface Call {
     fun enqueue(responseCallback: Callback)
-    fun isCanceled(): Boolean = false
-    override fun clone(): Call
+    fun cancel()
 }
-

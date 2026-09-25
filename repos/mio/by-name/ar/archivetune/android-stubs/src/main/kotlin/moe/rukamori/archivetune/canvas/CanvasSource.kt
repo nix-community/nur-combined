@@ -8,4 +8,8 @@ enum class CanvasSource {
     ALL;
 
     fun accepts(other: CanvasSource): Boolean = true
+    
+    companion object {
+        fun fromPreference(preference: String?): CanvasSource = ALL
+    }
 }

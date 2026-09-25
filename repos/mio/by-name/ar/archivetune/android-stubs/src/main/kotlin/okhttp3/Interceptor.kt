@@ -1,5 +1,11 @@
 package okhttp3
 
-open class Interceptor {
-    companion object { }
+interface Interceptor {
+    fun intercept(chain: Chain): Response
+    
+    interface Chain {
+        fun request(): Request
+        fun proceed(request: Request): Response
+        fun call(): Call
+    }
 }

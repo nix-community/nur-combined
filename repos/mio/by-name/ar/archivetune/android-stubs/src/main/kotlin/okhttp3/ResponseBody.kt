@@ -1,8 +1,8 @@
 package okhttp3
+import okio.BufferedSource
 
-
-abstract class ResponseBody : java.io.Closeable {
-    fun byteStream(): java.io.InputStream = TODO()
-    override fun close() {}
+open class ResponseBody {
+    open fun contentType(): Any? = null
+    open fun contentLength(): Long = 0L
+    open fun source(): BufferedSource = TODO()
 }
-
