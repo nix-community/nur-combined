@@ -1,5 +1,4 @@
 package androidx.room
 
-open class Embedded {
-    companion object { }
-}
+@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY)
+annotation class Embedded(val prefix: String = "")

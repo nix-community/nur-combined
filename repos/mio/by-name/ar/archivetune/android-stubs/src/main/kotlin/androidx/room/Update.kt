@@ -1,3 +1,4 @@
 package androidx.room
 
-annotation class Update
+@Target(AnnotationTarget.FUNCTION)
+annotation class Update(val onConflict: Int = 0)

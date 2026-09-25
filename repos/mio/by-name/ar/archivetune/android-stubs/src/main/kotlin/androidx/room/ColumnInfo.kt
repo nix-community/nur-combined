@@ -1,5 +1,4 @@
 package androidx.room
 
-open class ColumnInfo {
-    companion object { }
-}
+@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY)
+annotation class ColumnInfo(val name: String = "", val defaultValue: String = "")

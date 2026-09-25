@@ -1,3 +1,4 @@
 package androidx.room
 
-annotation class Insert
+@Target(AnnotationTarget.FUNCTION)
+annotation class Insert(val onConflict: Int = 0)

@@ -1,3 +1,4 @@
 package androidx.room
 
-annotation class Query
+@Target(AnnotationTarget.FUNCTION)
+annotation class Query(val value: String = "")

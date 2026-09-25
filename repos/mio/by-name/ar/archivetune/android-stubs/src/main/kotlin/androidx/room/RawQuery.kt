@@ -1,5 +1,4 @@
 package androidx.room
 
-open class RawQuery {
-    companion object { }
-}
+@Target(AnnotationTarget.FUNCTION)
+annotation class RawQuery

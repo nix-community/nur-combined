@@ -1,5 +1,4 @@
 package androidx.room
 
-open class Upsert {
-    companion object { }
-}
+@Target(AnnotationTarget.FUNCTION)
+annotation class Upsert

@@ -1,5 +1,4 @@
 package androidx.room
 
-open class Relation {
-    companion object { }
-}
+@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY)
+annotation class Relation(val parentColumn: String = "", val entityColumn: String = "", val entity: kotlin.reflect.KClass<*> = Any::class)

@@ -1,5 +1,4 @@
 package androidx.room
 
-open class Transaction {
-    companion object { }
-}
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+annotation class Transaction

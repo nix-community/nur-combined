@@ -1,5 +1,4 @@
 package androidx.media3.session
+import android.os.Bundle
 
-open class SessionCommand {
-    companion object { }
-}
+class SessionCommand(val action: String, val extras: Bundle)

@@ -1,5 +1,4 @@
 package androidx.room
 
-open class RewriteQueriesToDropUnusedColumns {
-    companion object { }
-}
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+annotation class RewriteQueriesToDropUnusedColumns

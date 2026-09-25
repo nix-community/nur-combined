@@ -1,5 +1,4 @@
 package androidx.lifecycle
+import android.app.Application
 
-open class AndroidViewModel {
-    companion object { }
-}
+open class AndroidViewModel(application: Application) : ViewModel()

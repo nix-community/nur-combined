@@ -1,5 +1,4 @@
 package androidx.room
 
-open class DatabaseView {
-    companion object { }
-}
+@Target(AnnotationTarget.CLASS)
+annotation class DatabaseView(val value: String = "", val viewName: String = "")

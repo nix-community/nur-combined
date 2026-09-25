@@ -1,5 +1,5 @@
 package androidx.room
 
-open class RoomWarnings {
-    companion object { }
+object RoomWarnings {
+    const val QUERY_MISMATCH = "ROOM_QUERY_MISMATCH"
 }
