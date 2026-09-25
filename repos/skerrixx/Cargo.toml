@@ -1,0 +1,22 @@
+[package]
+name = "rfetch"
+version = "1.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "A fast, neofetch-like system information fetcher with ascii art, screenshot-ready output, and zero required configuration"
+license = "GPL-3.0-or-later"
+readme = "README.md"
+repository = "https://github.com/HuntedByTheIRS/rfetch"
+keywords = ["neofetch", "fetch", "system-info", "cli", "linux"]
+categories = ["command-line-utilities"]
+
+[profile.release]
+opt-level = 2
+lto = true
+codegen-units = 1
+strip = true
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+libc = "0.2"

@@ -1,0 +1,28 @@
+use super::Logo;
+
+pub const LOGO: Logo = Logo {
+    id: "rhel",
+    aliases: &["redhat", "red hat enterprise linux"],
+    display_name: "  rhel",
+    art: r#"  ____
+           .MMM..:MMMMMMM
+          MMMMMMMMMMMMMMMMMM
+          MMMMMMMMMMMMMMMMMMMM.
+         MMMMMMMMMMMMMMMMMMMMMM
+        ,MMMMMMMMMMMMMMMMMMMMMM:
+        MMMMMMMMMMMMMMMMMMMMMMMM
+  .MMMM'  MMMMMMMMMMMMMMMMMMMMMM
+ MMMMMM    `MMMMMMMMMMMMMMMMMMMM.
+MMMMMMMM      MMMMMMMMMMMMMMMMMM .
+MMMMMMMMM.       `MMMMMMMMMMMMM' MM.
+MMMMMMMMMMM.                     MMMM
+`MMMMMMMMMMMMM.                 ,MMMMM.
+ `MMMMMMMMMMMMMMMMM.          ,MMMMMMMM.
+    MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+      MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:
+         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+            `MMMMMMMMMMMMMMMMMMMMMMMM:
+                ``MMMMMMMMMMMMMMMMM'
+"#,
+    color: (238, 0, 0),
+};

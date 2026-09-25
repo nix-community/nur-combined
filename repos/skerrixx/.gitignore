@@ -1,0 +1,4 @@
+build/
+target/
+# a little harsh, but git repositories are for
+# source code, not binaries.
