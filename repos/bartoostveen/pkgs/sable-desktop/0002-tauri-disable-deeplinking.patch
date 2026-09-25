@@ -1,6 +1,6 @@
-From 7843071a9a30b141239ce94067bf71db83d8ec47 Mon Sep 17 00:00:00 2001
+From d76f2d344a080ab0b61d77e03f837ce8ea45645c Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
-Date: Sun, 2 Aug 2026 13:03:05 +0200
+Date: Fri, 25 Sep 2026 22:21:13 +0200
 Subject: [PATCH 2/2] tauri: disable deeplinking
 
 ---
@@ -8,12 +8,12 @@ Subject: [PATCH 2/2] tauri: disable deeplinking
  1 file changed, 9 deletions(-)
 
 diff --git a/src/lib.rs b/src/lib.rs
-index 7fcfe176c..362699ad1 100644
+index 94cca099b..68951f8d8 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -379,15 +379,6 @@ pub fn run() {
- 
+@@ -411,17 +411,8 @@ pub fn run() {
              network::native_upload::cleanup_uploads(app.handle());
+             network::map_tiles::cleanup_cache(app.handle());
  
 -            #[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
 -            {
@@ -21,12 +21,14 @@ index 7fcfe176c..362699ad1 100644
 -                app.deep_link().register_all()?;
 -            }
 -
--            #[cfg(all(feature = "cef", target_os = "linux"))]
--            deep_link_ipc::drain_pending_urls(app.handle());
--
              show_or_create_main_window(app.handle())?;
  
+-            #[cfg(all(feature = "cef", target_os = "linux"))]
+-            deep_link_ipc::drain_pending_launches(app.handle());
+-
              // Failsafe: if the frontend never calls show() (hung webview), force-show
+             // the window after 5s so the app isn't invisible forever.
+             #[cfg(desktop)]
 -- 
 2.55.0
 

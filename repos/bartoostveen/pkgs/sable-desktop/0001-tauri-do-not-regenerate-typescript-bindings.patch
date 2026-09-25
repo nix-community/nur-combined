@@ -1,7 +1,7 @@
-From 5505853f618ec2543d7dd89bb80b2aa2cd884f46 Mon Sep 17 00:00:00 2001
+From a1a22b12d54b2b11ddcf6dfa3904e28d964e3685 Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
-Date: Sun, 2 Aug 2026 11:53:02 +0200
-Subject: [PATCH] tauri: do not regenerate typescript bindings
+Date: Fri, 25 Sep 2026 22:20:06 +0200
+Subject: [PATCH 1/2] tauri: do not regenerate typescript bindings
 
 The frontend gets built in a separate package with up-to-date typescript bindings.
 ---
@@ -9,10 +9,10 @@ The frontend gets built in a separate package with up-to-date typescript binding
  1 file changed, 3 deletions(-)
 
 diff --git a/build.rs b/build.rs
-index d4624f92b..adeaaa3af 100644
+index 5f567a8d9..b904e0ea5 100644
 --- a/build.rs
 +++ b/build.rs
-@@ -58,9 +58,6 @@ fn main() {
+@@ -62,9 +62,6 @@ fn main() {
          println!("cargo:rustc-link-arg=-fuse-ld=lld");
      }
  
