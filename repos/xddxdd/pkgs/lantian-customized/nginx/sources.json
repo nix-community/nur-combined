@@ -67,9 +67,9 @@
     "rev": "b7b76b853131b6fa7579d20c2816b4b6abb16bea"
   },
   "zstd-nginx-module": {
-    "hash": "sha256-xGyiC9VuLgHs0rOWLIPbaOCfMG8AKpHThNrRt+9qlC0=",
+    "hash": "sha256-hY+WKddcyilMsUj8MMCUrQG2PDSN2HriEvpRMDUvF1Q=",
     "owner": "HanadaLee",
     "repo": "ngx_http_zstd_module",
-    "rev": "5e01ec0890bcf59c214a63aef5e2ea374273bc67"
+    "rev": "d35686b29b9fb6a65db6091c365775b45ca93200"
   }
 }
