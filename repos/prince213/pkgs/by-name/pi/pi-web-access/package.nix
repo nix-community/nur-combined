@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-web-access";
-  version = "0.30.0";
+  version = "0.31.0";
 
   __structuredAttrs = true;
 
@@ -14,13 +14,16 @@ buildNpmPackage (finalAttrs: {
     owner = "nicobailon";
     repo = "pi-web-access";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-B8Ca1AH0OGM8nOKoWLI8Xukx0NNwU8FN84WzADa0v7c=";
+    hash = "sha256-ykR2slh8MkxxbP660h0rvk2Y7SaKv+Cw/lJC21JqGW8=";
   };
 
-  patches = [ ./package-lock.patch ];
+  patches = [
+    ./no-pi-deps.patch
+    ./pi-version.patch
+  ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-Zx5f7wpvREbZND7CxwFMxCdAWbeqGzMMiPgLtmXqQ1c=";
+  npmDepsHash = "sha256-cnt4YnMZ0VavLL55UZog3+vikkPJGa2IYknSZ5v+8ns=";
 
   npmInstallFlags = [ "--omit=peer" ];
   npmPruneFlags = [ "--omit=peer" ];

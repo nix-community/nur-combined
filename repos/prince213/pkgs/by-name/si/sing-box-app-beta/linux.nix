@@ -49,8 +49,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-for-desktop";
-    rev = "063035d30d44c9b780daa07529a26d1ed8bb26a7";
-    hash = "sha256-dzenu1/YCNed/r4v2S1b9nqf78qnnVTZnS2LvnHp0vM=";
+    rev = "9dc6a313f0dd8e0227227690d1e0933a20163d55";
+    hash = "sha256-h8o788OWFxOwBid6JnNKlhfV+oai66VX7S7bDyJ0gx8=";
   };
 
   postPatch = ''
@@ -149,6 +149,7 @@ buildNpmPackage (finalAttrs: {
   '';
 
   meta = meta // {
+    branch = "dev";
     homepage = "https://github.com/SagerNet/sing-box-for-desktop";
     platforms = lib.platforms.linux;
   };

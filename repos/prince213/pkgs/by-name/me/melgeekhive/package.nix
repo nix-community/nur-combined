@@ -33,7 +33,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "melgeekhive";
-  version = "1.6.1";
+  version = "1.6.5";
 
   src = fetchurl {
     url = "https://pancdn.melgeek.cn/software/hive/MelGeekHive-Linux-V${finalAttrs.version}.zip";
@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "--referer"
       "https://www.melgeek.cn/download"
     ];
-    hash = "sha256-oN82be4yzp2LFkhr8NBVAi8gQkSjReKwzq2XV4dMhIU=";
+    hash = "sha256-f1ztuzfMQZutAns5VJ+l9OazURG8duwOGXBMPCfn30g=";
   };
 
   nativeBuildInputs = [
