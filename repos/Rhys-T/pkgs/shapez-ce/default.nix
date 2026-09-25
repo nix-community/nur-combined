@@ -4,7 +4,7 @@
     fetchFromGitHub, fetchurl,
     nodejs_22,
     electron,
-    ffmpeg, jre, zip,
+    ffmpeg-headless, jre, zip,
     rsync,
     removeReferencesTo, buildPackages, makeBinaryWrapper,
     copyDesktopItems, makeDesktopItem, iconConvTools,
@@ -50,7 +50,7 @@
                 '"G_BUILD_TIME": new Date(process.env["SOURCE_DATE_EPOCH"]*1000).getTime().toString()'
     '';
     nativeBuildInputs =
-        [jre ffmpeg zip removeReferencesTo makeBinaryWrapper]
+        [jre ffmpeg-headless zip removeReferencesTo makeBinaryWrapper]
         ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [copyDesktopItems iconConvTools]
         ++ lib.optionals (stdenv.hostPlatform.isDarwin) [rsync]
     ;
