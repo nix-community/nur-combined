@@ -337,7 +337,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.keep-preferences</code></strong> — Keep Yazi manager preferences per tab and directory</summary>
 
-- **Version:** `0-unstable-2026-08-05`
+- **Version:** `0-unstable-2026-09-24`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://github.com/XYenon/keep-preferences.yazi](https://github.com/XYenon/keep-preferences.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.keep-preferences`
