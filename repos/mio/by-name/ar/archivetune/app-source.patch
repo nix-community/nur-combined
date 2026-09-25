@@ -1,0 +1,17 @@
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/App.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/App.kt
+@@ -314,12 +314,8 @@
+                     throwable.printStackTrace(pw)
+                     val stack = sw.toString()
+ 
+-                    val intent =
+-                        Intent(this@App, DebugActivity::class.java).apply {
+-                            putExtra(DebugActivity.EXTRA_STACK_TRACE, stack)
+-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+-                        }
+-                    startActivity(intent)
++                    System.err.println(stack)
++                    
+                     try {
+                         Thread.sleep(100)
+                     } catch (_: InterruptedException) {

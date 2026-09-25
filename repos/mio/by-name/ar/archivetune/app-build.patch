@@ -1,6 +1,6 @@
 --- a/app/build.gradle.kts	2026-09-24 13:42:01
 +++ b/app/build.gradle.kts	2026-09-24 14:10:38
-@@ -1,481 +1,24 @@
+@@ -1,481 +1,25 @@
 -import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 -import java.util.Properties
 -
@@ -429,6 +429,7 @@
 -    implementation(libs.accompanist.lyrics.ui)
 -    implementation(libs.accompanist.lyrics.core)
 +    implementation(project(":android-stubs"))
++    implementation("org.robolectric:android-all:14-robolectric-10818077")
  }
 -
 -androidComponents {

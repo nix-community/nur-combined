@@ -85,15 +85,24 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ${coreSrc} core
     chmod -R +w core
 
-    # Rename android main to old_android_main to preserve it as reference
-    mv app/src/main app/src/old_android_main
-    mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/ui/screens
+    # Keep original Android source intact for Brute-Force Porting (Path 2)
+    rm -f app/src/main/kotlin/moe/rukamori/archivetune/MainActivity.kt
+    rm -f app/src/main/kotlin/moe/rukamori/archivetune/DebugActivity.kt
+    rm -f app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt
+    rm -rf app/src/main/kotlin/moe/rukamori/archivetune/widget
+    rm -rf app/src/main/kotlin/moe/rukamori/archivetune/aod
+    # We will provide global Android mocks in android-stubs.
+    # mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/ui/screens
 
     # Copy our desktop UI components
     patch -p1 < ${./desktop-ui.patch}
 
+    # Fix shapes parameter in TextButton
+    find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = ButtonDefaults.shapes()/shape = ButtonDefaults.textShape/g" {} +
+    find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = /shape = /g" {} +
     # Apply build script patches
     patch -p1 < ${./root-build.patch}
+    patch -p1 < ${./app-source.patch}
     patch -p1 < ${./settings.patch}
     patch -p1 < ${./app-build.patch}
 

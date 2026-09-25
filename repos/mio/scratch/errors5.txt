@@ -1,0 +1,100 @@
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:47:36 No value passed for parameter 'navController'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:47:36 No value passed for parameter 'viewModel'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:48:39 No value passed for parameter 'navController'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:49:39 No value passed for parameter 'navController'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:50:40 No value passed for parameter 'navController'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:50:40 No value passed for parameter 'latestVersionName'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:122:21 Unresolved reference 'config'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:123:25 Unresolved reference 'connectTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:124:25 Unresolved reference 'readTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:125:25 Unresolved reference 'writeTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:126:25 Unresolved reference 'retryOnConnectionFailure'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:219:26 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:220:97 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:233:26 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:234:98 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:20:16 Unresolved reference 'http'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:75:21 Unresolved reference 'config'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:76:25 Unresolved reference 'connectTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:77:25 Unresolved reference 'readTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:78:25 Unresolved reference 'writeTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:79:25 Unresolved reference 'retryOnConnectionFailure'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:110:42 Unresolved reference 'value'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:149:35 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutContributorsRepository.kt:191:25 Unresolved reference 'HttpStatusCode'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:13:31 Unresolved reference 'header'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:14:31 Unresolved reference 'post'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:15:31 Unresolved reference 'setBody'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:17:16 Unresolved reference 'http'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:18:16 Unresolved reference 'http'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:39:17 Unresolved reference 'config'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:40:21 Unresolved reference 'connectTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:41:21 Unresolved reference 'readTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:42:21 Unresolved reference 'writeTimeout'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:43:21 Unresolved reference 'retryOnConnectionFailure'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:194:20 Unresolved reference 'post'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:195:17 Unresolved reference 'header'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:196:17 Unresolved reference 'contentType'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:196:29 Unresolved reference 'ContentType'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:197:17 Unresolved reference 'setBody'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:240:20 Unresolved reference 'post'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:241:17 Unresolved reference 'contentType'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:241:29 Unresolved reference 'ContentType'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:242:17 Unresolved reference 'setBody'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:273:17 Unresolved reference 'header'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:276:22 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:276:77 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:288:31 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:290:22 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/ai/AiTextService.kt:290:77 Unresolved reference 'status'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:68:18 Unresolved reference 'Builder'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:195:24 Unresolved reference 'w'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:215:24 Unresolved reference 'w'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:223:26 Unresolved reference 'Builder'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:227:26 Unresolved reference 'build'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:231:30 This type has a constructor, so it must be initialized here.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:232:25 'onFailure' overrides nothing.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:236:39 Unresolved reference 'isCanceled'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:237:40 Unresolved reference 'w'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:242:25 'onResponse' overrides nothing.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:248:46 Cannot infer type for type parameter 'R'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:248:46 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:248:52 Inapplicable candidate(s): fun readResponse(response: Response): String?
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:250:44 Unresolved reference 'w'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:251:37 Null cannot be a value of a non-null type 'uninferred K (of fun <K> TRY_CALL)'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:260:27 Unresolved reference 'isSuccessful'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:261:24 Unresolved reference 'w'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:261:84 Unresolved reference 'code'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:264:33 Unresolved reference 'body'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:267:24 Unresolved reference 'w'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:271:38 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:271:38 Cannot infer type for type parameter 'R'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:271:44 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:276:43 Unresolved reference 'read'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aicontentfilter/AiContentFilterRepository.kt:280:32 Unresolved reference 'w'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:18:26 Unresolved reference 'setViewTreeOnBackPressedDispatcherOwner'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:25:37 Unresolved reference 'ComposeView'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:29:35 Unresolved reference 'collectAsStateWithLifecycle'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:30:27 Unresolved reference 'setViewTreeLifecycleOwner'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:34:28 Unresolved reference 'setViewTreeSavedStateRegistryOwner'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:57:1 Class 'AodDreamService' is not abstract and does not implement abstract member:
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:60:5 Only one class can appear in a supertype list.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:61:5 Only one class can appear in a supertype list.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:66:55 Too many arguments for 'constructor(): LifecycleRegistry'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:67:77 Unresolved reference 'create'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:68:65 Too many arguments for 'constructor(): OnBackPressedDispatcher'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:70:5 'lifecycle' overrides nothing.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:70:47 Return type mismatch: expected 'Lifecycle', actual 'LifecycleRegistry'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:71:5 'savedStateRegistry' overrides nothing.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:72:5 'onBackPressedDispatcher' overrides nothing.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:90:27 Unresolved reference 'handleLifecycleEvent'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:90:58 Unresolved reference 'Event'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:100:27 Unresolved reference 'handleLifecycleEvent'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:100:58 Unresolved reference 'Event'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:101:27 Unresolved reference 'handleLifecycleEvent'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:101:58 Unresolved reference 'Event'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:112:27 Unresolved reference 'ComposeView'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:112:45 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:112:51 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:113:13 Unresolved reference 'setViewTreeLifecycleOwner'.
+e: file:///nix/var/nix/builds/nix-1771-366066034/source/app/src/main/kotlin/moe/rukamori/archivetune/aod/AodDreamService.kt:114:13 Unresolved reference 'setViewTreeSavedStateRegistryOwner'.

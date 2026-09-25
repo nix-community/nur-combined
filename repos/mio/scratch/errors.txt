@@ -1,0 +1,100 @@
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/App.kt:316:25 Inapplicable candidate(s): constructor(p0: Intent!, p1: Int): Intent
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/App.kt:316:42 Unresolved reference 'DebugActivity'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/App.kt:316:63 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/App.kt:316:63 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/App.kt:317:38 Unresolved reference 'DebugActivity'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:19:44 Unresolved reference 'LibraryScreen'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:20:44 Unresolved reference 'SettingsScreen'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:47:36 No value passed for parameter 'navController'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:47:36 No value passed for parameter 'viewModel'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:48:39 No value passed for parameter 'navController'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:49:26 Unresolved reference 'LibraryScreen'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt:50:26 Unresolved reference 'SettingsScreen'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:14:34 Unresolved reference 'setContent'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:43:37 Unresolved reference 'LocalContext'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:45:32 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:49:17 Unresolved reference 'hilt'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:50:35 Unresolved reference 'collectAsStateWithLifecycle'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:60:5 'onCreate' overrides nothing.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:61:15 Unresolved reference 'onCreate'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:62:19 Unresolved reference 'intent'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:64:19 None of the following candidates is applicable:
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:64:28 Argument type mismatch: actual type is 'RestoreBackupFileActivity', but 'Context!' was expected.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:64:86 Unresolved reference 'show'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:65:13 Unresolved reference 'finish'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:68:9 Unresolved reference 'setContent'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:69:13 @Composable invocations can only happen from the context of a @Composable function
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:71:27 Argument type mismatch: actual type is 'Any', but 'Uri' was expected.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:72:40 Unresolved reference 'finish'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:97:41 Unresolved reference 'hiltViewModel'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:99:19 Unresolved reference 'LocalContext'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:104:66 Unresolved reference 'collectAsStateWithLifecycle'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:121:32 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:123:58 No parameter with name 'shapes' found.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:123:82 Unresolved reference 'shapes'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:124:30 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:128:22 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:135:47 Argument type mismatch: actual type is 'Int', but 'String' was expected.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:136:32 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:138:58 No parameter with name 'shapes' found.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:138:82 Unresolved reference 'shapes'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:139:30 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:154:29 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:155:36 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:172:48 Unresolved reference 'percent'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:173:48 Unresolved reference 'title'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:174:51 Function invocation 'step(...)' expected.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:175:56 Unresolved reference 'indeterminate'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:195:45 No parameter with name 'shapes' found.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:195:69 Unresolved reference 'shapes'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:196:22 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:200:17 No parameter with name 'shapes' found.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:200:41 Unresolved reference 'shapes'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:265:55 Argument type mismatch: actual type is 'Int', but 'String' was expected.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:281:36 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt:294:36 Unresolved reference 'stringResource'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:13:12 Unresolved reference 'mikepenz'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:14:12 Unresolved reference 'mikepenz'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:16:8 Unresolved reference 'io'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:17:8 Unresolved reference 'io'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:18:8 Unresolved reference 'io'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:19:8 Unresolved reference 'io'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:20:8 Unresolved reference 'io'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:21:8 Unresolved reference 'io'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:22:8 Unresolved reference 'io'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:35:21 Unresolved reference 'Singleton'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:113:2 Unresolved reference 'Singleton'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:117:10 Illegal annotation class 'ApplicationContext'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:120:13 Unresolved reference 'HttpClient'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:120:24 Unresolved reference 'OkHttp'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:121:17 Unresolved reference 'engine'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:122:21 Unresolved reference 'config'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:123:25 Unresolved reference 'connectTimeout'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:124:25 Unresolved reference 'readTimeout'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:125:25 Unresolved reference 'writeTimeout'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:126:25 Unresolved reference 'retryOnConnectionFailure'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:174:25 Unresolved reference 'Libs'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:180:36 Cannot infer type for value parameter 'library'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:181:33 Inapplicable candidate(s): constructor(name: String, version: String?, licenses: String?): AboutDependencyLicense
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:182:52 Unresolved reference 'name'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:182:57 Cannot infer type for type parameter 'C'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:182:57 Cannot infer type for type parameter 'R'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:182:75 Unresolved reference 'uniqueId'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:183:55 Unresolved reference 'artifactVersion'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:183:72 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:183:87 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:185:49 Unresolved reference 'licenses'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:186:52 Cannot infer type for value parameter 'license'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:186:71 Unresolved reference 'name'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:187:55 Cannot infer type for value parameter 'license'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:190:46 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:190:46 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:190:61 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:192:40 Cannot infer type for value parameter 'library'. Specify it explicitly.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:192:59 Unresolved reference 'name'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:209:27 Unresolved reference 'HttpResponse'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:211:21 Unresolved reference 'headers'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:212:25 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:213:25 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:215:21 Unresolved reference 'parameter'.
+e: file:///nix/var/nix/builds/nix-99972-841741642/source/app/src/main/kotlin/moe/rukamori/archivetune/about/AboutAttributionRepository.kt:216:21 Unresolved reference 'parameter'.
