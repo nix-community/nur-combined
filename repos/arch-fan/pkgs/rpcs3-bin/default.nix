@@ -12,14 +12,14 @@
 
 let
   pname = "rpcs3";
-  version = "0.0.42-20043";
+  version = "0.0.42-20051";
 
-  commit = "b5a174e933a083389e2f851005e474ccb3e676d9";
-  shortCommit = "b5a174e9";
+  commit = "a106fb0ee78dbadc4a3f8623549c2f789d74d974";
+  shortCommit = "a106fb0e";
 
   src = fetchurl {
     url = "https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-${commit}/rpcs3-v${version}-${shortCommit}_linux64.AppImage";
-    hash = "sha256-pExT7mhelFLL9UCZzh+KIwlaqMH8FsQW3stL3UG9Pv4=";
+    hash = "sha256-wreu2rfc0Eqp3YwJNtgUOfcb8JIzoOE/wZvAaAyC0fI=";
   };
 
   contents = runCommand "${pname}-${version}-extracted" { } ''
