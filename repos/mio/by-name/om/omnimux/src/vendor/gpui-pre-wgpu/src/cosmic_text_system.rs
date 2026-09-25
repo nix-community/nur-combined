@@ -470,6 +470,11 @@ impl CosmicTextSystemState {
             let allowed_bad_font_names = [
                 "SegoeFluentIcons", // NOTE: Segoe fluent icons postscript name is inconsistent
                 "Segoe Fluent Icons",
+                "SymbolsNFM",
+                "SymbolsNF",
+                "SymbolsNerdFontMono-Regular",
+                "SymbolsNerdFont-Regular",
+                "NotoColorEmoji",
             ];
 
             if font.as_swash().charmap().map('m') == 0
