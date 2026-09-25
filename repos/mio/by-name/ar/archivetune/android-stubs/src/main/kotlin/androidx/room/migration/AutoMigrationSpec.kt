@@ -1,5 +1,6 @@
 package androidx.room.migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
-open class AutoMigrationSpec {
-    companion object { }
+interface AutoMigrationSpec {
+    fun onPostMigrate(db: SupportSQLiteDatabase) {}
 }
