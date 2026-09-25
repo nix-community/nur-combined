@@ -30,6 +30,7 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mkdir -p $out/bin
     makeWrapper ${lib.getExe nodejs} $out/bin/waline \
+      --set NODE_ENV production \
       --add-flags "$out/lib/node_modules/@waline/vercel/vanilla.js"
   '';
 

@@ -23,6 +23,7 @@ buildNpmPackage (finalAttrs: {
     cp -r ${finalAttrs.src}/common $out/lib/node_modules/mcp-server/node_modules/@browser-control-mcp/common
     mkdir -p $out/bin
     makeWrapper ${lib.getExe nodejs} $out/bin/browser-control-mcp \
+      --set NODE_ENV production \
       --add-flags "$out/lib/node_modules/mcp-server/dist/server.js"
   '';
 

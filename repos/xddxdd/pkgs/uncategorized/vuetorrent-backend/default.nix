@@ -22,6 +22,7 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mkdir -p $out/bin
     makeWrapper ${nodejs}/bin/node "$out/bin/vuetorrent-backend" \
+      --set NODE_ENV production \
       --add-flags "$out/lib/node_modules/vuetorrent-backend/src/index.js"
   '';
 

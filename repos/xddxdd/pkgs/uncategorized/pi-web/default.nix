@@ -22,6 +22,15 @@ buildNpmPackage (finalAttrs: {
   dontNpmBuild = true;
   makeCacheWritable = true;
 
+  npmFlags = [ "--omit=dev" ];
+  dontNpmPrune = true;
+
+  makeWrapperArgs = [
+    "--set"
+    "NODE_ENV"
+    "production"
+  ];
+
   passthru.updateScript = [ (toString ./update.sh) ];
 
   meta = {

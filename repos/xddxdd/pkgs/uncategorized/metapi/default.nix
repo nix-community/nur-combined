@@ -29,6 +29,7 @@ buildNpmPackage (finalAttrs: {
     mkdir -p $out/lib/node_modules/metapi
     cp -r dist node_modules package.json drizzle $out/lib/node_modules/metapi/
     makeWrapper ${lib.getExe nodejs} $out/bin/metapi \
+      --set NODE_ENV production \
       --add-flags "$out/lib/node_modules/metapi/dist/server/index.js"
 
     runHook postInstall

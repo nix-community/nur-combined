@@ -39,6 +39,7 @@ buildNpmPackage (finalAttrs: {
 
     mkdir -p $out/bin
     makeWrapper ${lib.getExe nodejs} $out/bin/epub-to-xtc \
+      --set NODE_ENV production \
       --add-flags "$out/lib/epub-to-xtc-converter/cli/index.js"
 
     runHook postInstall
