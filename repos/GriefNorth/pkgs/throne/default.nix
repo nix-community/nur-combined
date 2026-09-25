@@ -26,13 +26,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "throne";
-  version = "1.3.0";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "throneproj";
     repo = "Throne";
     tag = finalAttrs.version;
-    hash = "sha256-cUtypkM0W6TbhR6es0L7tr+OdhklVNoZQ0MaLhbfxjc=";
+    hash = "sha256-G1i8nFMabkg7qUbqYq/GYXsREXRcSXtDSO+RgiuulIE=";
   };
 
   strictDeps = true;
@@ -51,14 +51,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.INPUT_VERSION = finalAttrs.version;
 
+  preConfigure = ''
+    cmakeFlagsArray=(
+      "-DNKR_CORE_IN_PATH=ON"
+      "-DNKR_ELEVATION_HINT=This installation cannot grant the core privileges by itself. Enable Tun mode with the NixOS module: programs.throne.tunMode.enable = true"
+      "-DNKR_DESKTOP_EXEC=Throne"
+    )
+  '';
+
   # suppress errors in 3rdparty/simple-protobuf
   env.NIX_CFLAGS_COMPILE = "-Wno-error=maybe-uninitialized";
 
   patches = [
-    # disable suid request as it cannot be applied to ThroneCore in nix store
-    # and prompt users to use NixOS module instead. And use ThroneCore from PATH
-    # to make use of security wrappers
-    ./nixos-disable-setuid-request.patch
     # fix nodiscard warnings with Qt >= 6.11 that are fatal with -Werror
     ./fix-utils-nodiscard.patch
   ];
@@ -102,14 +106,12 @@ stdenv.mkDerivation (finalAttrs: {
     sourceRoot = "${finalAttrs.src.name}/core";
 
     patches = [
-      # also check cap_net_admin so we don't have to set suid
-      ./core-also-check-capabilities.patch
       # relax parent directory check for NixOS security wrappers
       ./core-relax-parent-check.patch
     ];
 
     proxyVendor = true;
-    vendorHash = "sha256-AsSiipI8lb156vnJgmh086WqC9Az3WuU8U7eAq+4nZk=";
+    vendorHash = "sha256-F4BmIzLifBMFuyfvNGMgXK8eelKxxENRAD2wdhfJDNY=";
 
     nativeBuildInputs = [
       protobuf
