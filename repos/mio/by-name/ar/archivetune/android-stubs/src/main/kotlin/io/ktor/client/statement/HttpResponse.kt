@@ -1,3 +1,7 @@
 package io.ktor.client.statement
 
-open class HttpResponse
+import io.ktor.http.HttpStatusCode
+
+open class HttpResponse {
+    val status: HttpStatusCode = HttpStatusCode.OK
+}

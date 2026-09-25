@@ -1,3 +1,3 @@
 package okio
 
-interface BufferedSource
+interface BufferedSource : Source

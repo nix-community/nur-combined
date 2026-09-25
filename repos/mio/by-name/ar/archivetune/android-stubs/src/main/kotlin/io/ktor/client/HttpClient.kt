@@ -1,7 +1,9 @@
 package io.ktor.client
 
+import io.ktor.client.engine.okhttp.OkHttpConfig
 
-class HttpClient(engine: Any? = null, block: HttpClientConfig<*>.() -> Unit = {}) {
-    suspend inline fun <reified T> get(url: String): T = TODO()
+class HttpClient(engine: Any? = null, block: HttpClientConfig.() -> Unit = {})
+
+class HttpClientConfig {
+    fun engine(block: OkHttpConfig.() -> Unit) {}
 }
-

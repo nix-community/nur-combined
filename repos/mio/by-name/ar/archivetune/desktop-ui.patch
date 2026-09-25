@@ -48,10 +48,10 @@ diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.
 +        ) { innerPadding ->
 +            Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
 +                when (selectedItem) {
-+                    0 -> HomeScreen()
-+                    1 -> ExploreScreen()
-+                    2 -> LibraryScreen()
-+                    3 -> SettingsScreen()
++                    0 -> HomeScreen(TODO(), TODO())
++                    1 -> ExploreScreen(TODO())
++                    2 -> LibraryScreen(TODO())
++                    3 -> SettingsScreen(TODO(), TODO())
 +                }
 +            }
 +        }

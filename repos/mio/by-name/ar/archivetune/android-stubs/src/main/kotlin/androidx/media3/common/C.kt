@@ -1,5 +1,5 @@
 package androidx.media3.common
 
-open class C {
-    companion object { }
+object C {
+    const val INDEX_UNSET = -1
 }

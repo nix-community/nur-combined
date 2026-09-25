@@ -11,4 +11,6 @@ object ArchiveTuneCanvas {
         requireVertical: Boolean,
         forceRefresh: Boolean
     ): CanvasArtwork? = null
+    
+    suspend fun isHealthy(): Boolean = false
 }
