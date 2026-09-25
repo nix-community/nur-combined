@@ -1,0 +1,23 @@
+diff --git a/wge-apic/CMakeLists.txt b/wge-apic/CMakeLists.txt
+index 96d9e62..6a0b764 100644
+--- a/wge-apic/CMakeLists.txt
++++ b/wge-apic/CMakeLists.txt
+@@ -1,10 +1,13 @@
++cmake_minimum_required(VERSION 3.12)
++
+ file(GLOB WGE_CAPI "${CMAKE_CURRENT_SOURCE_DIR}/*.cc")
+ message(STATUS "WGE_CAPI files: ${WGE_CAPI}")
+ 
+ add_library(wge_apic STATIC ${WGE_CAPI})
++add_library(wge_shared SHARED IMPORTED)
++set_target_properties(wge_shared PROPERTIES
++	IMPORTED_LOCATION "$ENV{NIX_WGE_PATH}/lib/libwge.so"
++	INTERFACE_INCLUDE_DIRECTORIES "$ENV{NIX_WGE_PATH}/include"
++)
+ 
+ target_link_libraries(wge_apic PRIVATE wge_shared)
+-
+-target_include_directories(wge_apic PRIVATE
+-  ${WGE_VCPKG_INCLUDE_DIR}
+-)
+\ No newline at end of file

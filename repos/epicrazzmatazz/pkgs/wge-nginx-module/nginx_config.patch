@@ -1,0 +1,37 @@
+diff --git a/nginx/config b/nginx/config
+index e0c280f..38cd34e 100644
+--- a/nginx/config
++++ b/nginx/config
+@@ -6,21 +6,11 @@ ngx_feature_incs="
+ #include <stdio.h>
+ "
+ 
+-ngx_wge_opt_I="-I$ngx_addon_dir/../wge-apic"
+-ngx_wge_opt_L="-L$ngx_addon_dir/../build/wge-apic -lwge_apic -lwge -lspdlog -lfmt -lstdc++"
+-
+-ngx_feature_libs="-L$ngx_addon_dir/../build/wge-apic -lwge_apic -lwge -lspdlog -lfmt -lstdc++"
++ngx_feature_libs="-lwge_apic -lwge -lspdlog -lfmt -lstdc++"
+ ngx_feature_path="$ngx_addon_dir/../wge-apic"
+ 
+ . auto/feature
+ 
+-if [ $ngx_found = no ]; then
+- cat << END
+- $0: error: ngx_http_wge_module requires the wge library.
+-END
+- exit 1
+-fi
+-
+ 
+ ngx_addon_name=ngx_http_wge_module
+ 
+@@ -61,9 +51,6 @@ if test -n "$ngx_module_link"; then
+ 
+ 	. auto/module
+ else
+-	CFLAGS="$ngx_wge_opt_I $CFLAGS"
+-	NGX_LD_OPT="$ngx_wge_opt_L $NGX_LD_OPT"
+-
+ 	CORE_INCS="$CORE_INCS $ngx_feature_path"
+ 	CORE_LIBS="$CORE_LIBS $ngx_feature_libs"
+ 

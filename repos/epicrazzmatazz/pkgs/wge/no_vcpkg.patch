@@ -1,0 +1,210 @@
+diff --git a/CMakePresets.json b/CMakePresets.json
+index f4f019a..d924538 100644
+--- a/CMakePresets.json
++++ b/CMakePresets.json
+@@ -1,17 +1,9 @@
+ {
+   "version": 2,
+   "configurePresets": [
+-    {
+-      "name": "vcpkg",
+-      "generator": "Ninja",
+-      "binaryDir": "${sourceDir}/build",
+-      "cacheVariables": {
+-        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+-      }
+-    },
+     {
+       "name": "debug",
+-      "inherits": "vcpkg",
++      "generator": "Ninja",
+       "binaryDir": "${sourceDir}/build/debug",
+       "cacheVariables": {
+         "CMAKE_BUILD_TYPE": "Debug"
+@@ -19,7 +11,7 @@
+     },
+     {
+       "name": "release",
+-      "inherits": "vcpkg",
++      "generator": "Ninja",
+       "binaryDir": "${sourceDir}/build/release",
+       "cacheVariables": {
+         "CMAKE_BUILD_TYPE": "Release"
+@@ -27,11 +19,11 @@
+     },
+     {
+       "name": "release-with-debug-info",
+-      "inherits": "vcpkg",
++      "generator": "Ninja",
+       "binaryDir": "${sourceDir}/build/release-with-debug-info",
+       "cacheVariables": {
+         "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+       }
+     }
+   ]
+-}
+\ No newline at end of file
++}
+diff --git a/benchmarks/modsecurity/CMakeLists.txt b/benchmarks/modsecurity/CMakeLists.txt
+index 3b504e9..1745c06 100644
+--- a/benchmarks/modsecurity/CMakeLists.txt
++++ b/benchmarks/modsecurity/CMakeLists.txt
+@@ -8,7 +8,6 @@ add_custom_command(
+   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/modsecurity/bindings/python/modsecurity
+   ${CMAKE_CURRENT_SOURCE_DIR}/modsecurity/others/libinjection
+   ${CMAKE_CURRENT_SOURCE_DIR}/modsecurity/others/mbedtls
+-  COMMAND git submodule update --init
+   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/modsecurity
+ )
+ 
+@@ -48,7 +47,7 @@ elseif(${CMAKE_BUILD_TYPE} STREQUAL "RelWithDebInfo")
+       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/modsecurity
+       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/modsecurity/configure
+     )
+-  
++
+     # Configure
+     add_custom_command(
+       OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/modsecurity/config.log
+diff --git a/benchmarks/wge/CMakeLists.txt b/benchmarks/wge/CMakeLists.txt
+index 40733a8..5e7caed 100644
+--- a/benchmarks/wge/CMakeLists.txt
++++ b/benchmarks/wge/CMakeLists.txt
+@@ -4,11 +4,10 @@ file(GLOB local_source
+ )
+ 
+ find_package(spdlog CONFIG REQUIRED)
+-find_package(pcre2 CONFIG REQUIRED)
+ find_package(re2 CONFIG REQUIRED)
+ find_package(PkgConfig REQUIRED)
++pkg_check_modules(PCRE2 REQUIRED IMPORTED_TARGET libpcre2-8)
+ pkg_check_modules(TCMALLOC REQUIRED libtcmalloc)
+-find_package(PkgConfig REQUIRED)
+ pkg_check_modules(HYPERSCAN REQUIRED libhs)
+ find_library(INJECTION_LIB injection)
+ find_package(antlr4-runtime CONFIG REQUIRED)
+@@ -44,7 +43,7 @@ add_dependencies(wge_benchmark wge_install_target)
+ target_include_directories(wge_benchmark PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/wge_install/include)
+ target_link_libraries(wge_benchmark PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/wge_install/lib/libwge.a)
+ target_link_libraries(wge_benchmark PRIVATE spdlog::spdlog_header_only)
+-target_link_libraries(wge_benchmark PRIVATE PCRE2::8BIT)
++target_link_libraries(wge_benchmark PRIVATE PkgConfig::PCRE2)
+ target_link_libraries(wge_benchmark PRIVATE re2::re2)
+ target_link_directories(wge_benchmark PRIVATE ${HYPERSCAN_LIBRARY_DIRS})
+ target_link_libraries(wge_benchmark PRIVATE ${HYPERSCAN_LIBRARIES})
+@@ -60,7 +59,7 @@ add_dependencies(wge_benchmark_tcmalloc wge_install_target)
+ target_include_directories(wge_benchmark_tcmalloc PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/wge_install/include)
+ target_link_libraries(wge_benchmark_tcmalloc PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/wge_install/lib/libwge.a)
+ target_link_libraries(wge_benchmark_tcmalloc PRIVATE spdlog::spdlog_header_only)
+-target_link_libraries(wge_benchmark_tcmalloc PRIVATE PCRE2::8BIT)
++target_link_libraries(wge_benchmark_tcmalloc PRIVATE PkgConfig::PCRE2)
+ target_link_libraries(wge_benchmark_tcmalloc PRIVATE re2::re2)
+ target_link_directories(wge_benchmark_tcmalloc PRIVATE ${TCMALLOC_LIBRARY_DIRS})
+ target_link_libraries(wge_benchmark_tcmalloc PRIVATE ${TCMALLOC_LIBRARIES})
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 6af4f77..2351709 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -63,14 +63,14 @@ target_link_libraries(wge_shared PRIVATE ${INJECTION_LIB})
+ find_package(re2 CONFIG REQUIRED)
+ target_link_libraries(wge_shared PRIVATE re2::re2)
+ 
+-find_package(pcre2 CONFIG REQUIRED)
+-target_link_libraries(wge_shared PRIVATE PCRE2::8BIT)
+-
+ find_package(PkgConfig REQUIRED)
++pkg_check_modules(PCRE2 REQUIRED IMPORTED_TARGET libpcre2-8)
++target_link_libraries(wge_shared PRIVATE PkgConfig::PCRE2)
++
+ pkg_check_modules(HYPERSCAN REQUIRED libhs)
+ target_link_directories(wge_shared PRIVATE ${HYPERSCAN_LIBRARY_DIRS})
+ target_link_libraries(wge_shared PRIVATE ${HYPERSCAN_LIBRARIES})
+ 
+ # Set consistent output names (only filename differs by suffix)
+ set_target_properties(wge PROPERTIES OUTPUT_NAME "wge")
+-set_target_properties(wge_shared PROPERTIES OUTPUT_NAME "wge")
+\ No newline at end of file
++set_target_properties(wge_shared PROPERTIES OUTPUT_NAME "wge")
+diff --git a/src/antlr4/CMakeLists.txt b/src/antlr4/CMakeLists.txt
+index 6136be8..d85971c 100644
+--- a/src/antlr4/CMakeLists.txt
++++ b/src/antlr4/CMakeLists.txt
+@@ -3,7 +3,7 @@ file(GLOB local_source
+   *.cc
+ )
+ 
+-set(generated_source 
++set(generated_source
+   antlr4_gen/SecLangParserBaseVisitor.h
+   antlr4_gen/SecLangLexer.h
+   antlr4_gen/SecLangParser.h
+@@ -17,7 +17,7 @@ set(generated_source
+ add_custom_command(
+   OUTPUT ${generated_source}
+   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/antlr4
+-  COMMAND java -Xmx500M -cp "/usr/local/lib/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool -Dlanguage=Cpp -visitor -no-listener -package Wge::Antlr4::Antlr4Gen -o ${CMAKE_BINARY_DIR}/src/antlr4/antlr4_gen *.g4
++  COMMAND java -Xmx500M -cp "$ENV{NIX_ANTLR_JAR_PATH}/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool -Dlanguage=Cpp -visitor -no-listener -package Wge::Antlr4::Antlr4Gen -o ${CMAKE_BINARY_DIR}/src/antlr4/antlr4_gen *.g4
+   DEPENDS ${CMAKE_SOURCE_DIR}/src/antlr4/SecLangParser.g4 ${CMAKE_SOURCE_DIR}/src/antlr4/SecLangLexer.g4
+ )
+ 
+diff --git a/src/common/CMakeLists.txt b/src/common/CMakeLists.txt
+index e458572..5898368 100644
+--- a/src/common/CMakeLists.txt
++++ b/src/common/CMakeLists.txt
+@@ -16,14 +16,14 @@ add_subdirectory(ragel)
+ add_library(common ${local_source} $<TARGET_OBJECTS:common_ragel>)
+ 
+ find_package(spdlog CONFIG REQUIRED)
+-find_package(pcre2 CONFIG REQUIRED)
+-target_link_libraries(common PRIVATE spdlog::spdlog_header_only PCRE2::8BIT)
+-
+ find_package(PkgConfig REQUIRED)
++pkg_check_modules(PCRE2 REQUIRED IMPORTED_TARGET libpcre2-8)
++target_link_libraries(common PRIVATE spdlog::spdlog_header_only PkgConfig::PCRE2)
++
+ pkg_check_modules(HYPERSCAN REQUIRED libhs)
+ target_include_directories(common PRIVATE ${HYPERSCAN_INCLUDE_DIRS})
+ target_link_directories(common PRIVATE ${HYPERSCAN_LIBRARY_DIRS})
+ target_link_libraries(common PRIVATE ${HYPERSCAN_LIBRARIES})
+ 
+ find_package(re2 CONFIG REQUIRED)
+-target_link_libraries(common PRIVATE re2::re2)
+\ No newline at end of file
++target_link_libraries(common PRIVATE re2::re2)
+diff --git a/src/common/ragel/CMakeLists.txt b/src/common/ragel/CMakeLists.txt
+index 5167095..b25993b 100644
+--- a/src/common/ragel/CMakeLists.txt
++++ b/src/common/ragel/CMakeLists.txt
+@@ -26,12 +26,12 @@ foreach(RAGEL_FILE ${RAGEL_FILES})
+   list(APPEND GENERATED_FILES ${GENERATED_FILE})
+ endforeach()
+ 
+-find_package(boost_unordered CONFIG REQUIRED)
++find_package(Boost CONFIG REQUIRED)
+ 
+ add_library(common_ragel ${local_source} ${GENERATED_FILES})
+ set_target_properties(common_ragel PROPERTIES LINKER_LANGUAGE CXX)
+ target_include_directories(common_ragel PRIVATE ${CMAKE_BINARY_DIR}/src/common/ragel/ragel_gen)
+ target_include_directories(common_ragel PRIVATE ${CMAKE_BINARY_DIR}/src/transformation/ragel/ragel_gen)
+ target_include_directories(common_ragel PRIVATE ${CMAKE_SOURCE_DIR})
+-target_link_libraries(common_ragel PUBLIC Boost::unordered)
++target_link_libraries(common_ragel PUBLIC Boost::headers)
+ 
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 05d2a4e..2853302 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -16,10 +16,10 @@ target_link_libraries(test PRIVATE GTest::gtest GTest::gtest_main GTest::gmock G
+ find_package(spdlog CONFIG REQUIRED)
+ target_link_libraries(test PRIVATE spdlog::spdlog_header_only)
+ 
+-find_package(pcre2 CONFIG REQUIRED)
+-target_link_libraries(test PRIVATE PCRE2::8BIT)
+-
+ find_package(PkgConfig REQUIRED)
++pkg_check_modules(PCRE2 REQUIRED IMPORTED_TARGET libpcre2-8)
++target_link_libraries(test PRIVATE PkgConfig::PCRE2)
++
+ pkg_check_modules(HYPERSCAN REQUIRED libhs)
+ target_include_directories(test PRIVATE ${HYPERSCAN_INCLUDE_DIRS})
+ target_link_directories(test PRIVATE ${HYPERSCAN_LIBRARY_DIRS})
