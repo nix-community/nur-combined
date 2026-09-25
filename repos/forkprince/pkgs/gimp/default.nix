@@ -2,7 +2,7 @@
   gimp-with-plugins,
   stdenvNoCC,
   fetchurl,
-  undmg,
+  _7zz,
   lib,
 }:
 if stdenvNoCC.hostPlatform.isDarwin
@@ -15,14 +15,20 @@ in
 
     src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
-    nativeBuildInputs = [undmg];
+    nativeBuildInputs = [_7zz];
+
+    unpackPhase = ''
+      runHook preUnpack
+      7zz x -y -snld -x!'GIMP.app/Contents/share' "$src"
+      7zz x -y -snld -aos "$src" GIMP.app/Contents/share
+      runHook postUnpack
+    '';
 
     meta = {
       description = "GNU Image Manipulation Program";
       homepage = "https://www.gimp.org/";
       maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl3Plus;
-      broken = true;
     };
   })
 else gimp-with-plugins
