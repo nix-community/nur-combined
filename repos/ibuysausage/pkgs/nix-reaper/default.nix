@@ -9,13 +9,13 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "nix-reaper";
-  version = "b901acc";
+  version = "290f40e";
 
   src = fetchFromGitHub {
     owner = "ibuysausage";
     repo = "nix-reaper";
     rev = "${version}";
-    sha256 = "sha256-pEqqnAB29PVzD4ItmjcK9E2S6MOvt3mvhYy552vRKXU=";
+    sha256 = "sha256-wuNZt66ab1r++qPUyXtKC3uYgG8xSdFpz8uGErSJHyk=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
