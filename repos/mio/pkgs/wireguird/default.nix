@@ -17,6 +17,9 @@
   pkg-config,
   makeBinaryWrapper,
   wireguard-tools,
+  util-linux,
+  dbus,
+  gnugrep,
 }:
 let
   # Build fileb0x separately so we can use it to regenerate static/ab0x.go
@@ -69,21 +72,6 @@ let
     ];
 
     postPatch = ''
-      # The capability wrapper marks the process non-dumpable, which denies
-      # xdg-desktop-portal access to /proc/<pid>/root, breaking GTK dark mode.
-      # We inject a C constructor to re-enable PR_SET_DUMPABLE from *inside*
-      # the final Go process, avoiding execve resets.
-      cat <<'EOF' > dumpable.go
-      package main
-      /*
-      #include <sys/prctl.h>
-      void __attribute__((constructor)) init_dumpable() {
-          prctl(PR_SET_DUMPABLE, 1, 0, 0, 0);
-      }
-      */
-      import "C"
-      EOF
-
       # Patch all hardcoded icon paths
       substituteInPlace gui/gui.go \
         --replace-fail 'IconPath    = "/opt/wireguird/Icon/"' \
@@ -134,7 +122,7 @@ let
   # Do not put systemd on PATH here: its resolvconf (resolvectl) would beat
   # wireguard-tools' openresolv PATH suffix and break DNS= when openresolv is
   # the backend. programs.wireguird prefixes networking.resolvconf.package.
-  wireguardToolPath = "/run/wrappers/bin:${lib.makeBinPath [ wireguard-tools ]}";
+  wireguardToolPath = "/run/wrappers/bin:${lib.makeBinPath [ wireguard-tools dbus gnugrep ]}";
 in
 stdenv.mkDerivation {
   pname = "wireguird";
@@ -142,6 +130,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     wrapGAppsHook3
+    makeBinaryWrapper
   ];
 
   buildInputs = [
@@ -150,15 +139,43 @@ stdenv.mkDerivation {
   ];
 
   unpackPhase = "true";
+  
+  dontWrapGApps = true;
 
   installPhase = ''
-    mkdir -p "$out/bin" "$out/share/applications"
+    mkdir -p "$out/bin" "$out/libexec" "$out/share/applications"
     ln -s ${wireguird-unwrapped}/share/icons "$out/share/icons"
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
-    # Install the real binary. wrapGAppsHook3 will wrap it
-    # automatically in the fixup phase.
-    install -Dm755 ${wireguird-unwrapped}/bin/wireguird "$out/bin/wireguird"
+    install -Dm755 ${wireguird-unwrapped}/bin/wireguird "$out/libexec/wireguird-raw"
+
+    # The Linux kernel strictly forbids unprivileged processes (like xdg-desktop-portal)
+    # from reading /proc/<pid>/root of processes with elevated capabilities (cap_net_admin).
+    # Setting dumpable=1 does NOT bypass the ptrace_has_cap() kernel check.
+    # Therefore, GTK's internal portal communication will ALWAYS be denied.
+    # We must disable the portal (GTK_USE_PORTAL=0) to prevent crashes/warnings.
+    # To preserve dark mode, we query the portal from a subprocess that drops all
+    # capabilities (using setpriv), and manually set GTK_THEME.
+    cat <<'EOF' > "$out/libexec/wireguird-launcher"
+    #!/bin/sh
+    export GTK_USE_PORTAL=0
+    
+    # Drop capabilities and query the portal for the color scheme
+    if ${util-linux}/bin/setpriv --ambient-caps=-all --inh-caps=-all dbus-send --print-reply --session \
+        --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop \
+        org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' 2>/dev/null | grep -q 'uint32 1'; then
+        export GTK_THEME=Adwaita:dark
+    fi
+    
+    exec "$out/libexec/wireguird-raw" "$@"
+    EOF
+    chmod +x "$out/libexec/wireguird-launcher"
+
+    # wrapGAppsHook3 isn't used because we set dontWrapGApps=true.
+    # We use makeWrapper to add the PATH and GApps variables.
+    makeWrapper "$out/libexec/wireguird-launcher" "$out/bin/wireguird" \
+      "''${gappsWrapperArgs[@]}" \
+      --prefix PATH : ${wireguardToolPath}
 
     install -Dm644 /dev/stdin "$out/share/applications/wireguird.desktop" <<EOF
       [Desktop Entry]
@@ -172,11 +189,6 @@ stdenv.mkDerivation {
     EOF
   '';
 
-  # Runs as the logged-in user. On NixOS, programs.wireguird installs
-  # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
-  preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : ${wireguardToolPath})
-  '';
   passthru.unwrapped = wireguird-unwrapped;
 
   meta = wireguird-unwrapped.meta // {
