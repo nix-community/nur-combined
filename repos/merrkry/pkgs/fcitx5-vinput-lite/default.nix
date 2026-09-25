@@ -23,13 +23,13 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "fcitx5-vinput-lite";
-  version = "2.3.26";
+  version = "2.4.0";
 
   src = fetchFromGitHub {
     owner = "xifan2333";
     repo = "fcitx5-vinput";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-xD/Twh4WpLBWxq5EHwWLKioWnq28ylwHRc2TNC2Stuc=";
+    hash = "sha256-Fs3dTHfde74C4MXZLJWvhDY6fQUIrY2Qwcgnq59aKJ0=";
   };
 
   strictDeps = true;
