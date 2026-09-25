@@ -15,12 +15,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "dsp56300";
-  version = "2.2.16";
+  version = "2.2.25";
   src = fetchFromGitHub {
     owner = "dsp56300";
     repo = "gearmulator";
     rev = finalAttrs.version;
-    hash = "sha256-gkN13tCVHyl0mO0Qo7aRn+XwvScXz62JjiM9f4IKpIs=";
+    hash = "sha256-B9jOT95tXKVpUtKrApLgrmA1aroOSaOHrZd+yCYvDG8=";
     fetchSubmodules = true;
   };
 
@@ -68,6 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   dontUseJuceInstall = true;
+  dontUseMold = true;
 
   passthru.updateScript = nix-update-script { };
 

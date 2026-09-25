@@ -74,9 +74,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2c4106c1cc882ac3f832b77a3c72fdce83e17d72",
-      "url": "https://github.com/sayanarijit/dual-pane.xplr/archive/2c4106c1cc882ac3f832b77a3c72fdce83e17d72.tar.gz",
-      "hash": "sha256-/b49pDSz1nIFpKmaqdlWmacUzLGfFIHo0oVhFjHEQWY="
+      "revision": "db470860912fb9f36ef397329c0e42c2f76187b8",
+      "url": "https://github.com/sayanarijit/dual-pane.xplr/archive/db470860912fb9f36ef397329c0e42c2f76187b8.tar.gz",
+      "hash": "sha256-DgmIA9OzcSICcD7UFvHqiH49Zo5X4x9L/XBQJ4QaAdA="
     },
     "dysh-style.xplr": {
       "type": "Git",
@@ -386,9 +386,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "eeba82a862ca296db253d7319caf730ce1f034c2",
-      "url": "https://github.com/sayanarijit/tree-view.xplr/archive/eeba82a862ca296db253d7319caf730ce1f034c2.tar.gz",
-      "hash": "sha256-v9KDupi5l3F+Oa5X6pc/Qz9EhaFIrnQK5sckjne/kIU="
+      "revision": "b3afe823457e862c1a76c6b52cf3f99d5e8cf45d",
+      "url": "https://github.com/sayanarijit/tree-view.xplr/archive/b3afe823457e862c1a76c6b52cf3f99d5e8cf45d.tar.gz",
+      "hash": "sha256-K9jGsF1Zt/wN3ggqJyvtlK2zs/CbCkcb/GBU6V7A37U="
     },
     "tri-pane.xplr": {
       "type": "Git",
@@ -399,9 +399,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "d90c65eb2bdd182f09db2db8969a99666f90c78b",
-      "url": "https://github.com/sayanarijit/tri-pane.xplr/archive/d90c65eb2bdd182f09db2db8969a99666f90c78b.tar.gz",
-      "hash": "sha256-repzWTUYZirpBwQ+SEe1Gp1EFMHGG5VONSRS00c995c="
+      "revision": "a2b62bc061a9bb82e49a9e7f69b173c96fd040f7",
+      "url": "https://github.com/sayanarijit/tri-pane.xplr/archive/a2b62bc061a9bb82e49a9e7f69b173c96fd040f7.tar.gz",
+      "hash": "sha256-fipwYUJ/PBaqBdA5TFyNwXJ9907EtdQ4bp8ZFSKD1V4="
     },
     "type-to-nav.xplr": {
       "type": "Git",
@@ -477,9 +477,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6e247bc75fc97a0b80290ae4ce4301241e298c4f",
-      "url": "https://github.com/sayanarijit/zentable.xplr/archive/6e247bc75fc97a0b80290ae4ce4301241e298c4f.tar.gz",
-      "hash": "sha256-iomaBYc3Bj/JIGIGzjcKOyZXUmZedCPvDkC1cyyrhQo="
+      "revision": "32291a40f0deae09c13bba1ea73d3d73dc3af41a",
+      "url": "https://github.com/sayanarijit/zentable.xplr/archive/32291a40f0deae09c13bba1ea73d3d73dc3af41a.tar.gz",
+      "hash": "sha256-kBBqDu9f+WzWpjxxoA8ogTIvS9XsSebZAfjnBgEUEqI="
     },
     "zoxide.xplr": {
       "type": "Git",

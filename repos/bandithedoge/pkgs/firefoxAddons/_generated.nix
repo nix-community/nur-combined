@@ -616,10 +616,10 @@
     };
     "nexusmods-advance" = buildMozillaXpiAddon {
       pname = "nexusmods-advance";
-      version = "0.27.0";
+      version = "0.27.1";
       addonId = "NexusModsAdvance@Caiota";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5025829/nexusmods_advance-0.27.0.xpi";
-      sha256 = "e109b49df2b33ee15f74332ad76fba63a2dbff7c60ca50e000972f85fd1bcfaf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5056782/nexusmods_advance-0.27.1.xpi";
+      sha256 = "3afb31a03deefc7ef426d75e7852897d85f61d4aa07daca7e7330c74e2c7dcd0";
       meta = with lib;
       {
         description = "Enhance your browsing experience on the NexusMods site and manage your mods directly through the browser!";
@@ -630,6 +630,7 @@
           "storage"
           "notifications"
           "webNavigation"
+          "alarms"
           "downloads"
           "declarativeNetRequest"
           "declarativeNetRequestWithHostAccess"
@@ -1143,10 +1144,10 @@
     };
     "reddit-enhancement-suite" = buildMozillaXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.24.10";
+      version = "5.24.11";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4899821/reddit_enhancement_suite-5.24.10.xpi";
-      sha256 = "4573cfdb10193467e99e1dd5a792f23ae69764540c2e06d0444f12a81cdc4f0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4998395/reddit_enhancement_suite-5.24.11.xpi";
+      sha256 = "d2c5f729d967c86b0467963309c98dec074f141e7881a569ba0b85f58f8a74d6";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1370,10 +1371,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.13";
+      version = "2.4.14";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028285/styl_us-2.4.13.xpi";
-      sha256 = "2d969b7514acbfa7b77b4e4c6341b9e1e8bcd4c3b9bc63d8b06e5d853dd1cbdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5044316/styl_us-2.4.14.xpi";
+      sha256 = "51d4efd6aa6484a749b97e36222f7bbe2ff699ed16b9a13adf40ecb6a0597081";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
