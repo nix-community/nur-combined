@@ -52,6 +52,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '"createUpdaterArtifacts": true' '"createUpdaterArtifacts": false'
   '';
 
+  env.NODE_ENV = "production";
+
   tauriBuildFlags = [ "--ignore-version-mismatches" ];
   # https://github.com/farion1231/cc-switch/pull/2316
 

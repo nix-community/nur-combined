@@ -84,6 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     cat > $out/bin/super-productivity <<WRAPPER
     #!${stdenv.shell}
+    export NODE_ENV=production
     exec ${electron}/bin/electron "$out/opt/Super Productivity/resources/app.asar" \
       --no-sandbox "\$@"
     WRAPPER

@@ -75,6 +75,7 @@ let
       CURSEFORGE_API_KEY = ""; # 回头再修好这个
       npm_config_build_from_source = "true";
       npm_config_nodedir = "${electron.headers}";
+      NODE_ENV = "production";
     };
 
     postPatch = ''

@@ -31,6 +31,8 @@ buildNpmPackage (finalAttrs: {
   ];
   npmInstallFlags = [ "--omit=dev" ];
 
+  env.NODE_ENV = "production";
+
   nativeBuildInputs = [ makeWrapper ];
 
   postPatch = ''

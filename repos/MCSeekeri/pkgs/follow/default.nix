@@ -23,6 +23,8 @@ appimageTools.wrapType2 {
     cp -r ${appimageContents}/usr/share/icons $out/share/ 2>/dev/null || true
   '';
 
+  extraPreBwrapCmds = "export NODE_ENV=production";
+
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version-regex"

@@ -48,6 +48,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '"createUpdaterArtifacts": true' '"createUpdaterArtifacts": false'
   '';
 
+  env.NODE_ENV = "production";
+
   tauriBuildFlags = [ "--ignore-version-mismatches" ];
 
   nativeBuildInputs = [

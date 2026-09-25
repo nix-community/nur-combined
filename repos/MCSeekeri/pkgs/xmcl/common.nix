@@ -94,6 +94,7 @@ let
         ''}
 
         export XMCL_DISABLE_AUTO_UPDATE=1
+        export NODE_ENV=production
 
         exec ${lib.getExe electron} "''${extra_flags[@]}" "$app" "$@"
       '';

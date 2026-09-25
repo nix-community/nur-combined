@@ -46,6 +46,8 @@ let
       pnpm_10
     ];
 
+    env.NODE_ENV = "production";
+
     buildPhase = ''
       runHook preBuild
       pnpm run build

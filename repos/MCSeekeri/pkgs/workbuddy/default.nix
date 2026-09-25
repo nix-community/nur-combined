@@ -125,6 +125,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r opt/WorkBuddy $out/opt/WorkBuddy
 
     makeWrapper ${lib.placeholder "out"}/opt/WorkBuddy/workbuddy $out/bin/workbuddy \
+      --set NODE_ENV production \
       --prefix LD_LIBRARY_PATH : "${lib.placeholder "out"}/opt/WorkBuddy" \
       --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
       --add-flags "--no-sandbox" \

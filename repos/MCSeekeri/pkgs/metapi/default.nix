@@ -33,6 +33,8 @@ buildNpmPackage (finalAttrs: {
   '';
 
   preBuild = ''
+    export NODE_ENV=production
+
     npm rebuild esbuild sharp better-sqlite3
   '';
 
@@ -51,12 +53,12 @@ buildNpmPackage (finalAttrs: {
 
     makeWrapper ${lib.getExe nodejs_26} "$out/bin/metapi" \
       --add-flags "$out/lib/node_modules/metapi/dist/server/index.js" \
-      --set-default NODE_ENV production \
+      --set NODE_ENV production \
       --set-default PORT 4000
 
     makeWrapper ${lib.getExe nodejs_26} "$out/bin/metapi-migrate" \
       --add-flags "$out/lib/node_modules/metapi/dist/server/db/migrate.js" \
-      --set-default NODE_ENV production
+      --set NODE_ENV production
 
     runHook postInstall
   '';

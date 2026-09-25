@@ -30,6 +30,10 @@ buildNpmPackage (finalAttrs: {
 
   npmBuildScript = "bundle";
 
+  preBuild = ''
+    export NODE_ENV=production
+  '';
+
   installPhase = ''
     runHook preInstall
 
@@ -38,6 +42,7 @@ buildNpmPackage (finalAttrs: {
     cp -r . $out/lib/sabaki/app
     install -Dm644 logo.png $out/share/icons/hicolor/512x512/apps/sabaki.png
     makeWrapper ${electron_42}/bin/electron $out/bin/sabaki \
+      --set NODE_ENV production \
       --add-flags "--app=$out/lib/sabaki/app"
 
     runHook postInstall
