@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # coreutils: unknown program 'native-echo'
     makeWrapper $(type -P echo) echo
 
-    substituteInPlace crates/aube-linker/src/sys.rs crates/aube/src/commands/exec.rs \
+    substituteInPlace crates/aube-linker/src/sys.rs crates/aube-scripts/src/lib.rs crates/aube/src/commands/exec.rs \
       --replace-fail '"/bin/echo"' "\"$PWD/echo\""
 
     substituteInPlace crates/aube-linker/src/sys.rs \
