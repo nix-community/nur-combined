@@ -48,14 +48,6 @@
         ./android-translation-layer-bitmap-unlock.patch
         ./android-translation-layer-bitmapfactory-logs.patch
         ./android-translation-layer-kotatsu-stub.patch
-        (fetchpatch {
-          url = "https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/290.patch";
-          hash = "sha256-Aan2AnrLSFLURWVggpxMM2Sztkhy0g7atSeQDGJasz8=";
-        })
-        (fetchpatch {
-          url = "https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/251.patch";
-          hash = "sha256-Y39nuhVGcGP/H61ZbyclMyAO2HjsC2VVl4R86N8c0K0=";
-        })
         ./android-translation-layer-fdroid-stub.patch
         ./android-translation-layer-context-stub.patch
         ./android-translation-layer-newpipe-esc-stub.patch
