@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mcpls";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "bug-ops";
     repo = "mcpls";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-4eW1JHzSY10jRcXl7CY8LVdtgFmoYJAjaWxKs7pIrVY=";
+    hash = "sha256-LEMcmr2+xxZnq0wKhql0jT6ma89tAD1J3hkUAeC1FXY=";
   };
 
-  cargoHash = "sha256-buBw9ZH0Xu/9Mp9WNDfx/5Gg4rz26GYSJO6zieltCKM=";
+  cargoHash = "sha256-ktQDIY5Q9DyymDIxUxTjzPugVc46Sn4GOP9+u9wfZlI=";
 
   dontUseCargoParallelTests = true;
 

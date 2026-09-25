@@ -7,13 +7,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pi-move-session";
-  version = "0.5.8";
+  version = "0.5.9";
 
   src = fetchFromGitHub {
     owner = "w-winter";
     repo = "dot314";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-jeowgqvZwYYnKYoQ9lOg7Ugos8ydJO0/fuo4R883FAw=";
+    hash = "sha256-OpBcgg3e4eYzN54aUeIGgDS+7gjfXXU/sd7Y3FcC0ec=";
   };
 
   nativeBuildInputs = [

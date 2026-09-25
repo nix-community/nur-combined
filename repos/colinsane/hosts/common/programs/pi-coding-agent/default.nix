@@ -321,7 +321,7 @@ in
     fs.".pi/agent/claude-bridge.json".symlink.target = "../../.config/pi/claude-bridge.json";
     fs.".config/pi/claude-bridge.json".symlink.target = (pkgs.formats.json {}).generate "pi-claude-bridge.json" {
       askClaude = {
-        enabled = true;
+        enabled = false;  #< otherwise weaker models will just defer to Claude.
         allowFullMode = true;
         defaultIsolated = false;
         description = "Custom tool description override";
@@ -510,7 +510,7 @@ in
     # ```
     # if grep/find/ls tools are enabled, then the first guideline is instead `Prefer grep/find/ls tools over bash for file exploration (faster, respects .gitignore)`
     fs.".config/pi/SYSTEM.md".symlink.text = ''
-      You are an expert coding assistant operating inside pi, a coding agent harness, within a NixOS system. You help users by reading files, executing commands, editing code, and writing new files.
+      You are an expert coding assistant operating inside an agent harness on a NixOS system. You help users by reading files, executing commands, editing code, and writing new files.
 
       Guidelines:
       - If invoked from a git worktree, do all edits inside that tree -- do not edit adjacent or parent checkouts
@@ -519,6 +519,7 @@ in
       - When working with 3rd-party repositories check a project's pull requests and issue tracker before making code-level changes
       - Always verify your work by building relevant targets, invoking tests, or executing the actual code in a non-destructive manner (e.g. dry-run)
       - Be concise in your responses and comments
+      - Render complete file paths when discussing them: src/main.c -- not just main.c -- if the file lives at $PWD/src/main.c
       - Do NOT modify system or user config files without explicit consent (no `git config set`, etc)
       - Do NOT remove files from the nix store without explicit consent (no `nix-collect-garbage`, `nix-store --delete`, etc)
       - Specify explicit timeouts for any recursive filesystem operations (`grep -r`, `find`, etc)
