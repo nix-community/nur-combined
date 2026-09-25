@@ -82,6 +82,7 @@ in
       bitwarden-desktop
       brave
       calibre
+      chatterino2
       dino
       dissent # discord client
       element-desktop
@@ -111,6 +112,8 @@ in
       shotcut
       signal-desktop
       simplex-chat-desktop
+      streamlink
+      streamlink-twitch-gui
       svp_4_6_263
       tor-browser
       tremotesf
