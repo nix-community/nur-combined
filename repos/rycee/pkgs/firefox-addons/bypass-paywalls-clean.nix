@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.4.3";
+  version = "4.4.5.3";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.4.3.xpi";
-  sha256 = "4e4b8676c4fcf297bd3f686fd6a6b15f7503738d6421282f3b44c86d100f4d53";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.5.3.xpi";
+  sha256 = "bbfa730b7f5f8a98f98b3e461749047f2326fe6a7b90f91d26bfe8e55b43b5b5";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -199,6 +199,7 @@ buildFirefoxXpiAddon {
       "*://*.dallasnews.com/*"
       "*://*.daytondailynews.com/*"
       "*://*.decanter.com/*"
+      "*://*.deccanherald.com/*"
       "*://*.defector.com/*"
       "*://*.delish.com/*"
       "*://*.democratandchronicle.com/*"
@@ -398,6 +399,7 @@ buildFirefoxXpiAddon {
       "*://*.investorschronicle.co.uk/*"
       "*://*.ipolitics.ca/*"
       "*://*.irishexaminer.com/*"
+      "*://*.irishmirror.ie/*"
       "*://*.irishnews.com/*"
       "*://*.irishtimes.com/*"
       "*://*.italian.tech/*"
@@ -475,6 +477,7 @@ buildFirefoxXpiAddon {
       "*://*.lemagit.fr/*"
       "*://*.lemessager.fr/*"
       "*://*.lemonde.fr/*"
+      "*://*.lenordvaudois.ch/*"
       "*://*.lenouveleconomiste.fr/*"
       "*://*.lenouvelliste.ch/*"
       "*://*.leparisien.fr/*"
@@ -539,6 +542,7 @@ buildFirefoxXpiAddon {
       "*://*.midilibre.fr/*"
       "*://*.milanofinanza.it/*"
       "*://*.milenio.com/*"
+      "*://*.mirror.co.uk/*"
       "*://*.mittelbayerische.de/*"
       "*://*.mlive.com/*"
       "*://*.modernhealthcare.com/*"
@@ -729,7 +733,6 @@ buildFirefoxXpiAddon {
       "*://*.smh.com.au/*"
       "*://*.sofrep.com/*"
       "*://*.sourcingjournal.com/*"
-      "*://*.spacenews.com/*"
       "*://*.spectator.com.au/*"
       "*://*.spectator.com/*"
       "*://*.spektrum.de/*"
@@ -889,7 +892,6 @@ buildFirefoxXpiAddon {
       "*://*.vn.nl/*"
       "*://*.vogue.co.uk/*"
       "*://*.vogue.com/*"
-      "*://*.voguebusiness.com/*"
       "*://*.vol.at/*"
       "*://*.volksfreund.de/*"
       "*://*.volkskrant.nl/*"
@@ -912,6 +914,7 @@ buildFirefoxXpiAddon {
       "*://*.wiesbadener-kurier.de/*"
       "*://*.winnipegfreepress.com/*"
       "*://*.wired.com/*"
+      "*://*.wissenschaft.de/*"
       "*://*.wiwo.de/*"
       "*://*.wochenblatt.com/*"
       "*://*.womenshealth.de/*"
