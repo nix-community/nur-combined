@@ -44,6 +44,8 @@ let
       sing-box-beta = final.callPackage ./sing-box/beta.nix { };
       sing-box-extended = final.callPackage ./sing-box/extended.nix { };
       stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
+      strudel = final.callPackage ./strudel { };
+      strudel-with-server = final.strudel.override { withServer = true; };
       suwayomi-server = final.callPackage ./suwayomi-server { };
       suwayomi-webui = final.callPackage ./suwayomi-webui { };
       syncyomi = final.callPackage ./syncyomi { };
