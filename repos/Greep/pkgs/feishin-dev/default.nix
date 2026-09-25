@@ -119,8 +119,8 @@ buildNpmPackage (finalAttrs: {
   '';
 
   desktopItems = makeDesktopItem {
-    name = "feishin-dev";
-    desktopName = "Feishin (DEV)";
+    name = "feishin";
+    desktopName = "Feishin";
     comment = "Full-featured Jellyfin, Navidrome, and OpenSubsonic Compatible Music Player";
     icon = "feishin";
     exec = "feishin %u";
