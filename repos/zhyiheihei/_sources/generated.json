@@ -374,12 +374,12 @@
             "name": null,
             "owner": "sudoskys",
             "repo": "telegramify-markdown",
-            "rev": "pypi_1.2.0",
-            "sha256": "sha256-pfYmIXbhHl545cwSMkjDGlmR6g5n5vqIOiYLcGiVOVg=",
+            "rev": "pypi_1.4.0",
+            "sha256": "sha256-6u4FTLZo73jF50gXLJqCg84GONZgSNMC7pnHR3WxjNA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "pypi_1.2.0"
+        "version": "pypi_1.4.0"
     },
     "torrentool": {
         "cargoLock": null,

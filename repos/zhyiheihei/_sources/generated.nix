@@ -188,12 +188,12 @@
   };
   telegramify-markdown = {
     pname = "telegramify-markdown";
-    version = "pypi_1.2.0";
+    version = "pypi_1.4.0";
     src = fetchFromGitHub {
       owner = "sudoskys";
       repo = "telegramify-markdown";
-      tag = "pypi_1.2.0";
-      hash = "sha256-pfYmIXbhHl545cwSMkjDGlmR6g5n5vqIOiYLcGiVOVg=";
+      tag = "pypi_1.4.0";
+      hash = "sha256-6u4FTLZo73jF50gXLJqCg84GONZgSNMC7pnHR3WxjNA=";
     };
   };
   torrentool = {

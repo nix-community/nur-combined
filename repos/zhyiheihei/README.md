@@ -74,7 +74,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.18 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.3.2243 | Self-hosted manga reader and aggregator server |
-| - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.2.0 | Convert Markdown to Telegram plain text and entities |
+| - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.0 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [x] |  | `tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
 | - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.76 | Lightweight S3-compatible object storage with built-in web dashboard |
@@ -97,7 +97,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `python3Packages.proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [ ] |  | `python3Packages.pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
 | - [ ] |  | `python3Packages.pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.9.13 | Blazingly fast Markdown parser |
-| - [ ] |  | `python3Packages.telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.2.0 | Convert Markdown to Telegram plain text and entities |
+| - [ ] |  | `python3Packages.telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.0 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `python3Packages.torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [ ] |  | `python3Packages.tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
 | - [ ] |  | `python3Packages.zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.2-1 | Fast Chinese variant conversion backed by Rust |
