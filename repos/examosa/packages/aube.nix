@@ -45,8 +45,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # coreutils: unknown program 'native-echo'
     makeWrapper $(type -P echo) echo
 
-    substituteInPlace crates/aube/src/commands/exec.rs \
+    substituteInPlace crates/aube-linker/src/sys.rs crates/aube/src/commands/exec.rs \
       --replace-fail '"/bin/echo"' "\"$PWD/echo\""
+
+    substituteInPlace crates/aube-linker/src/sys.rs \
+      --replace-fail '#!/bin/sh' "#!$(type -P sh)"
 
     substituteInPlace crates/aube-lockfile/src/io.rs crates/aube/src/commands/version.rs \
       --replace-fail '"git"' '"${lib.getExe gitMinimal}"'
