@@ -22,5 +22,41 @@
       nixosModules.autolock = ./modules/autolock.nix;
       homeManagerModules.autolock = ./modules/autolock.nix;
 
+      devShells = forAllSystems (system:
+        let pkgs = import nixpkgs { inherit system; };
+        in {
+          default = pkgs.mkShell {
+            name = "nur";
+
+            nativeBuildInputs = with pkgs; [
+              # Nix
+              nil
+              nix-melt
+              nix-output-monitor
+              nix-tree
+              nixpkgs-fmt
+
+              # Shell
+              shellcheck
+              shfmt
+
+              # GitHub Actions
+              act
+              actionlint
+
+              # Misc
+              jq
+              pre-commit
+              just
+              fzf
+            ];
+
+            shellHook = ''
+              if [ -f .pre-commit-config.yaml ] && ! grep -q "pre-commit" .git/hooks/pre-commit 2>/dev/null; then
+                pre-commit install
+              fi
+            '';
+          };
+        });
     };
 }
