@@ -27,4 +27,5 @@
   canoe = pkgs.callPackage ./pkgs/canoe { };
   kwim = pkgs.callPackage ./pkgs/kwim { };
   linuxqq-clipsync = pkgs.callPackage ./pkgs/linuxqq-clipsync { };
+  th-tshyn = pkgs.callPackage ./pkgs/th-tshyn { };
 }
