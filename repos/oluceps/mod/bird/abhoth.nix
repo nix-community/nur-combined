@@ -127,7 +127,7 @@
             if source = RTS_STATIC && net ~ DN42_FIELD then return true;
             
             # my A -> me -> my B
-            if source = RTS_BGP then return true;
+            if source = RTS_BGP && dn42_roa_check() then return true;
             
             return false;
           }
@@ -137,7 +137,7 @@
             if source = RTS_STATIC && net ~ DN42_FIELD_V4 then return true;
             
             # my A -> me -> my B
-            if source = RTS_BGP then return true;
+            if source = RTS_BGP && dn42_roa_check() then return true;
             
             return false;
           }

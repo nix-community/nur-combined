@@ -42,6 +42,7 @@
             rustypaste
             wgmesh
 
+            security-toolkit
           ])
         )
         ++ [

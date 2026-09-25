@@ -99,6 +99,7 @@
           ".npm-packages"
           ".npm"
           ".pip"
+          ".pi"
           ".cache"
           ".local"
           ".mc"

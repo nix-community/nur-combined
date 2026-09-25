@@ -7,6 +7,7 @@ with pkgs;
   # termusic
   thunderbird
   amberol
+  google-colab-cli
   nix-weather
   # mako
   # qq
