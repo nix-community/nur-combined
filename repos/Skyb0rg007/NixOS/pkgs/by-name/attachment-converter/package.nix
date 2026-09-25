@@ -32,15 +32,15 @@ let
 in
 ocamlPackages.buildDunePackage (finalAttrs: {
   pname = "attachment-converter";
-  version = "0.2.1";
+  version = "0.2.2";
 
   minimalOCamlVersion = "4.14";
 
   src = fetchFromGitHub {
     owner = "uchicago-library";
     repo = "attachment-converter";
-    tag = "v${finalAttrs.version}-8";
-    hash = "sha256-swpkA3uz4AY1v29VKS8J2R3fG8mhDUZqzAbeW4NBmTM=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-J2C6cDwGh3cEE+4B+ziYtfbxvkAZ/JHxetJ+AD7gnaQ=";
   };
 
   strictDeps = true;
