@@ -563,7 +563,7 @@
             "url": "https://github.com/EHfive/flakes"
         },
         "elzorrorebelde": {
-            "url": "https://rosa.radicle.network/z3YkDws5EsBLkbzbbrjzrzB775AJX.git"
+            "url": "https://jardin.jorgearaya.dev/z3YkDws5EsBLkbzbbrjzrzB775AJX.git"
         },
         "emiller88": {
             "url": "https://github.com/emiller88/nur-packages"
@@ -573,6 +573,9 @@
         },
         "eownerdead": {
             "url": "https://codeberg.org/eownerdead/flakes"
+        },
+        "epicrazzmatazz": {
+            "url": "https://codeberg.org/epicrazzmatazz/nurpkgs"
         },
         "ethancedwards8": {
             "url": "https://github.com/ethancedwards8/ethancedwards8-nur"
@@ -858,6 +861,9 @@
         "jpyke3": {
             "url": "https://github.com/JPyke3/JPyke3-Nur"
         },
+        "juacamole": {
+            "url": "https://github.com/juacamole/nur-packages"
+        },
         "juxgd": {
             "url": "https://github.com/JuxGD/nur-packges"
         },
@@ -933,6 +939,9 @@
         },
         "lightquantum": {
             "url": "https://github.com/PhotonQuantum/nur-packages"
+        },
+        "lillycham": {
+            "url": "https://github.com/lillycham/nur-packages"
         },
         "linyinfeng": {
             "url": "https://github.com/linyinfeng/nur-packages"
@@ -1392,6 +1401,9 @@
         "sagikazarmark": {
             "url": "https://github.com/sagikazarmark/nur-packages"
         },
+        "sakuraba07": {
+            "url": "https://github.com/sakuraba07/nur-packages"
+        },
         "schmittlauch": {
             "url": "https://github.com/schmittlauch/nur-packages"
         },
@@ -1446,6 +1458,9 @@
         },
         "silicalet": {
             "url": "https://github.com/silicalet/nur-packages-silicalet"
+        },
+        "skerrixx": {
+            "url": "https://github.com/skerrixx/rfetch"
         },
         "skiletro": {
             "url": "https://github.com/skiletro/nur-repo"
