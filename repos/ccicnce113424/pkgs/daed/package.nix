@@ -5,6 +5,7 @@
   nodejs,
   stdenvNoCC,
   clang,
+  gotools,
   buildGoModule,
   fetchFromGitHub,
   lib,
@@ -69,27 +70,32 @@ buildGoModule (finalAttrs: {
     '';
   };
 
-  vendorHash = "sha256-SGM2avz/pUF/CMo/TLQHrDQ/wdqvBGp4XNlTe86b5Og=";
+  vendorHash = "sha256-+YQ/Ia54N/QKwd9p4AePg3CMjQvc4mFE1EcA/JPc8Po=";
   proxyVendor = true;
 
-  nativeBuildInputs = [ clang ];
+  nativeBuildInputs = [
+    clang
+    gotools
+  ];
 
   hardeningDisable = [ "zerocallusedregs" ];
-
-  patches = [ ./fix-dependency.patch ];
 
   prePatch = ''
     substituteInPlace Makefile \
       --replace-fail /bin/bash /bin/sh
 
-    # ${finalAttrs.web} does not have write permission
-    mkdir dist
-    cp -r ${finalAttrs.web}/* dist
-    chmod -R 755 dist
+    substituteInPlace graphql/service/config/global/global.go \
+      --replace-fail "go run -mod=mod golang.org/x/tools/cmd/goimports -w generated_resolver.go generated_input.go" \
+                     "goimports -w generated_resolver.go generated_input.go"
   '';
 
   buildPhase = ''
     runHook preBuild
+
+    # ${finalAttrs.web} does not have write permission
+    mkdir dist
+    cp -r ${finalAttrs.web}/* dist
+    chmod -R 755 dist
 
     make CFLAGS="-D__REMOVE_BPF_PRINTK -fno-stack-protector -Wno-unused-command-line-argument" \
       NOSTRIP=y \
