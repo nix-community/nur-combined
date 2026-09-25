@@ -11,10 +11,10 @@
 }:
 let
   pname = "beeper";
-  version = "4.3.144";
+  version = "4.3.152";
   originalSrc = fetchurl {
     url = "https://beeper-desktop.download.beeper.com/builds/Beeper-${version}-x86_64.AppImage";
-    hash = "sha256-AnL6jEUeb996BhJlo79lb0HgBqNiY+CHssGa5GJdXxM=";
+    hash = "sha256-geFtZKWuQl0x6s3G5CCo7Akj2B8lhID4ROikCYucd+w=";
   };
   src =  runCommand "${pname}-${version}-fixed.AppImage" { } ''
     cp ${originalSrc} $out
