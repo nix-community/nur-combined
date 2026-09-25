@@ -55,7 +55,7 @@
   xcbutilwm,
 }:
 let
-  version = "8.7.23";
+  version = "8.9.23";
 
   adspowerSrc = fetchurl {
     url = "https://version.adspower.net/software/linux-x64-global/${version}/AdsPower-Global-${version}-x64.deb";

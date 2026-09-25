@@ -26,12 +26,12 @@ let
 in
 buildDotnetModule (finalAttrs: {
   pname = "cleanuparr";
-  version = "2.10.7";
+  version = "2.10.8";
   src = fetchFromGitHub {
     owner = "Cleanuparr";
     repo = "Cleanuparr";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PL3GjKLjl4gq/6fG3QfeFp/Tuf09QHWAqE7ZXDR4kaU=";
+    hash = "sha256-F20pDTq19e24/SkZlbrUoz5tLglIvN8pQj8NbR7TcYo=";
   };
   __structuredAttrs = true;
 
