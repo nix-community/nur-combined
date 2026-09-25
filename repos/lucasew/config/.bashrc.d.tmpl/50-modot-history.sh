@@ -1,6 +1,6 @@
 # History hook for modot
 
-_workspaced_history_hook() {
+_modot_history_hook() {
 	local exit_code=$?
 	local cmd
 	# Get last command from history
@@ -20,8 +20,8 @@ _workspaced_history_hook() {
 }
 
 if [[ -n "$BASH_VERSION" && $- == *i* ]]; then
-	if [[ "$PROMPT_COMMAND" != *"_workspaced_history_hook"* ]]; then
-		PROMPT_COMMAND="_workspaced_history_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+	if [[ "$PROMPT_COMMAND" != *"_modot_history_hook"* ]]; then
+		PROMPT_COMMAND="_modot_history_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 	fi
 	# Bind Ctrl+R to history search. If cancelled, keep the current line.
 	bind -x '"\C-r": "SELECTED=$(modot utils history search \"$READLINE_LINE\"); if [[ -n \"$SELECTED\" ]]; then READLINE_LINE=$SELECTED; READLINE_POINT=${#READLINE_LINE}; fi"'

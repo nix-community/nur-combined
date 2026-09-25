@@ -11,7 +11,7 @@ file: home: {
 				personality:            "pragmatic"
 				projects: {
 					"\(runtime.dotfiles_root)": {trust_level: "trusted"}
-					"\(runtime.dotfiles_root)/workspaced": {trust_level: "trusted"}
+					"\(runtime.dotfiles_root)/modot": {trust_level: "trusted"}
 				}
 				notice: {
 					model_migrations: {

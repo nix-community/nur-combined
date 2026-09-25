@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.10"
 # ///
-"""Pin lewtec/skills to latest commit in workspaced.lock.json and workspaced.cue."""
+"""Pin lewtec/skills to latest commit in modot.lock.json and modot.cue."""
 
 import json
 import subprocess
@@ -10,8 +10,8 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-LOCK = ROOT / "workspaced.lock.json"
-CUE = ROOT / "workspaced.cue"
+LOCK = ROOT / "modot.lock.json"
+CUE = ROOT / "modot.cue"
 REPO = "lewtec/skills"
 
 

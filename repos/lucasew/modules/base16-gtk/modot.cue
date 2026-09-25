@@ -53,7 +53,7 @@ modules: "base16-gtk": config: {
 			theme_name: *"adw-gtk3" | string
 		}
 
-		icon_theme:   string | *"workspaced-base16"
+		icon_theme:   string | *"modot-base16"
 		font_name:    string | *"Sans 10"
 		cursor_theme: string | *"Adwaita"
 		cursor_size:  int | *24

@@ -1,9 +1,9 @@
 {
   "name": "base16-theme",
-  "displayName": "Base16 Theme (Workspaced)",
-  "description": "Base16 color scheme managed by workspaced",
+  "displayName": "Base16 Theme (Modot)",
+  "description": "Base16 color scheme managed by modot",
   "version": "1.0.0",
-  "publisher": "workspaced",
+  "publisher": "modot",
   "license": "MIT",
   "engines": {
     "vscode": "^1.12.0"
@@ -15,7 +15,7 @@
     "base16",
     "theme",
     "dark",
-    "workspaced"
+    "modot"
   ],
   "contributes": {
     "themes": [

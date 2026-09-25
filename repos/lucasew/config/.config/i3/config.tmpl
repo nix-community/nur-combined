@@ -1,4 +1,4 @@
-# Auto-generated from template by workspaced
+# Auto-generated from template by modot
 # i3 config file (v4)
 
 set $mod Mod4
@@ -65,7 +65,7 @@ bindsym $mod+Up focus up
 bindsym $mod+Left focus left
 bindsym $mod+Right focus right
 bindsym $mod+a focus parent
-bindsym $mod+Return exec workspaced open terminal
+bindsym $mod+Return exec modot open terminal
 
 # Move bindings
 bindsym $mod+Shift+Down move down
@@ -83,15 +83,15 @@ bindsym $mod+Shift+f floating toggle
 bindsym $mod+Shift+s sticky toggle
 
 # Scratchpad
-bindsym $mod+minus exec workspaced driver workspace scratchpad
-bindsym $mod+equal exec workspaced driver screen toggle
+bindsym $mod+minus exec modot driver workspace scratchpad
+bindsym $mod+equal exec modot driver screen toggle
 bindsym $mod+Shift+minus move scratchpad
 
 # Window control
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r restart
-bindsym $mod+d exec workspaced driver input launch
-bindsym $mod+Shift+d exec workspaced driver input window
+bindsym $mod+d exec modot driver input launch
+bindsym $mod+Shift+d exec modot driver input window
 bindsym $mod+e layout toggle split
 
 bindsym $mod+f fullscreen toggle
@@ -110,36 +110,36 @@ bindsym $mod+Ctrl+Down=resize shrink height 1 px or 1 ppt
 bindsym $mod+Ctrl+Left=resize grow width 1 px or 1 ppt
 
 # Media keys
-bindsym XF86AudioRaiseVolume exec workspaced driver audio up
-bindsym XF86AudioLowerVolume exec workspaced driver audio down
-bindsym XF86AudioMute exec workspaced driver audio mute
+bindsym XF86AudioRaiseVolume exec modot driver audio up
+bindsym XF86AudioLowerVolume exec modot driver audio down
+bindsym XF86AudioMute exec modot driver audio mute
 
-bindsym XF86AudioNext exec  workspaced driver media next
-bindsym XF86AudioPrev exec  workspaced driver media previous
-bindsym XF86AudioPlay exec  workspaced driver media play-pause
-bindsym XF86AudioPause exec workspaced driver media play-pause
+bindsym XF86AudioNext exec  modot driver media next
+bindsym XF86AudioPrev exec  modot driver media previous
+bindsym XF86AudioPlay exec  modot driver media play-pause
+bindsym XF86AudioPause exec modot driver media play-pause
 
-bindsym XF86MonBrightnessUp   exec workspaced driver brightness up
-bindsym XF86MonBrightnessDown exec workspaced driver brightness down
+bindsym XF86MonBrightnessUp   exec modot driver brightness up
+bindsym XF86MonBrightnessDown exec modot driver brightness down
 
 # Multi-monitor
 bindsym $mod+Shift+m move workspace to output left
 bindsym $mod+m focus output next
 
-# Workspaced shortcuts
-bindsym $mod+l exec workspaced driver power lock
-bindsym $mod+n exec workspaced driver workspace rotate
-bindsym $mod+z exec workspaced driver input workspace
-bindsym $mod+Shift+z exec workspaced driver input workspace --move
+# Modot shortcuts
+bindsym $mod+l exec modot driver power lock
+bindsym $mod+n exec modot driver workspace rotate
+bindsym $mod+z exec modot driver input workspace
+bindsym $mod+Shift+z exec modot driver input workspace --move
 
-bindsym $mod+b exec workspaced driver workspace next
-bindsym $mod+Shift+b exec workspaced driver workspace next --move
+bindsym $mod+b exec modot driver workspace next
+bindsym $mod+Shift+b exec modot driver workspace next --move
 
 # Screenshots
-bindsym --release Print exec workspaced driver screenshot output
-bindsym $mod+Print exec workspaced driver screenshot select
-bindsym $mod+Shift+Print exec workspaced driver screenshot window
-bindsym $mod+Ctrl+Shift+Print exec workspaced driver screenshot all
+bindsym --release Print exec modot driver screenshot output
+bindsym $mod+Print exec modot driver screenshot select
+bindsym $mod+Shift+Print exec modot driver screenshot window
+bindsym $mod+Ctrl+Shift+Print exec modot driver screenshot all
 
 # Autostart
 exec --no-startup-id /run/current-system/sw/libexec/polkit-mate-authentication-agent-1

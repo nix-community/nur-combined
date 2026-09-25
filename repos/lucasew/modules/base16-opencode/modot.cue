@@ -9,7 +9,7 @@ package module
 modules: "base16-opencode": config: {}
 
 file: home: {
-		".config/opencode/themes/workspaced.json": {
+		".config/opencode/themes/modot.json": {
 			type: "json"
 			values: {
 				"$schema": "https://opencode.ai/theme.json"

@@ -1,6 +1,6 @@
-# Workspaced modules
+# Modot modules
 
-Stuff under `modules/` is wired in via `workspaced.cue` (`input: "self:modules/..."`). Palette lives in `modules.base16.config`; the `base16-*` modules just paint apps with it.
+Stuff under `modules/` is wired in via `modot.cue` (`input: "self:modules/..."`). Palette lives in `modules.base16.config`; the `base16-*` modules just paint apps with it.
 
 ## New base16 module
 
@@ -27,10 +27,10 @@ module: {
 }
 ```
 
-Dest files can live in `module.file` (`docs/specs/file-spine.md` in workspaced)
-instead of templates. Enable the module in `workspaced.cue`.
+Dest files can live in `module.file` (`docs/specs/file-spine.md` in modot)
+instead of templates. Enable the module in `modot.cue`.
 
-Enable in `workspaced.cue`:
+Enable in `modot.cue`:
 
 ```cue
 "base16-{app}": {input: "self:modules/base16-{app}", enable: true}
@@ -43,11 +43,11 @@ Colors in templates:
 color: #{{ $base16.base00 }}
 ```
 
-Check with `workspaced home plan`, then `workspaced home apply`.
+Check with `modot home plan`, then `modot home apply`.
 
 ## `.d.tmpl` dirs
 
-When one output file needs pieces from different places (bindings here, colors there), use a directory named `something.d.tmpl/`. Workspaced concatenates its files in alpha order into `something`.
+When one output file needs pieces from different places (bindings here, colors there), use a directory named `something.d.tmpl/`. Modot concatenates its files in alpha order into `something`.
 
 Number prefixes set order: `00-` early, `10-` base, `50-` theme, `90-` late.
 
@@ -82,7 +82,7 @@ Use it when more than one module touches the same file. If one module owns the w
 | base0E | purple                              |
 | base0F | brown / deprecated                  |
 
-Defined in `modules/base16/module.cue` (`dark_mode` plus hex slots). Values are set in `workspaced.cue`.
+Defined in `modules/base16/module.cue` (`dark_mode` plus hex slots). Values are set in `modot.cue`.
 
 ## Shapes that already exist here
 

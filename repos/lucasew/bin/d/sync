@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-exec workspaced home sync "$@"
+exec modot home sync "$@"

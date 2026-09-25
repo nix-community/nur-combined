@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-workspaced home apply
+modot home apply

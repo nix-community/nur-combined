@@ -2,7 +2,7 @@
 
 Only `00-core-sd.sh` lives here. `bin/shim/sd` execs it for non-interactive `sd` / `sdw`.
 
-Interactive shell snippets are **not** loaded from this directory. They come from workspaced home apply:
+Interactive shell snippets are **not** loaded from this directory. They come from modot home apply:
 
 - `config/.bashrc.d.tmpl/` — main dotfiles root snippets
 - `modules/*/home/.bashrc.d.tmpl/` — module chunks (concat into `~/.bashrc`)

@@ -1,10 +1,10 @@
 {
   "$schema": "https://zed.dev/schema/themes/v0.1.0.json",
   "name": "base16",
-  "author": "Workspaced",
+  "author": "Modot",
   "themes": [
     {
-      "name": "Base16 workspaced",
+      "name": "Base16 modot",
       "appearance": "dark",
       "style": {
         "border": "#{{ .root.modules.base16.config.base02 }}",

@@ -125,7 +125,7 @@
           '';
 
           deploy = pkgs.writeShellScriptBin "deploy" ''
-            exec workspaced utils nix deploy "$@"
+            exec modot utils nix deploy "$@"
           '';
 
           teste-impure =

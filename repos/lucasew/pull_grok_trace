@@ -71,7 +71,7 @@ if args.jump and not args.from_host:
     parser.error("--jump only makes sense with --from")
 
 TRACE_CMD = [
-    "workspaced",
+    "modot",
     "tool",
     "with",
     "grok-build",

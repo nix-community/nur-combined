@@ -9,7 +9,7 @@
   options.services.dunst.enable = lib.mkEnableOption "dunst";
 
   config = lib.mkIf config.services.dunst.enable {
-    # dunst configuration is now managed by workspaced templates
+    # dunst configuration is now managed by modot templates
     # See: config/.config/dunst/dunstrc.tmpl
 
     systemd.user.services.dunst = {

@@ -34,10 +34,10 @@ in
       script = ''
         PATH=$PATH:/run/current-system/sw/bin
         exec swayidle -w -d \
-          timeout 300 'workspaced driver power lock' \
-          timeout 10 'pgrep swaylock && workspaced driver screen off' \
-          resume 'workspaced driver screen on' \
-          before-sleep 'workspaced driver power lock'
+          timeout 300 'modot driver power lock' \
+          timeout 10 'pgrep swaylock && modot driver screen off' \
+          resume 'modot driver screen on' \
+          before-sleep 'modot driver power lock'
       '';
     };
 

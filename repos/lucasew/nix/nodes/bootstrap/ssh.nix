@@ -1,6 +1,6 @@
 { ... }:
 {
-  # SSH config now managed by workspaced
+  # SSH config now managed by modot
   # See: config/.ssh/config.tmpl and config/.ssh/authorized_keys
 
   services.openssh = {

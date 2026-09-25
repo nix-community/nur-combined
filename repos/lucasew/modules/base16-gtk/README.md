@@ -19,7 +19,7 @@ Config (`modules.base16-gtk.config`):
 | key | default |
 |-----|---------|
 | `theme_name` | `adw-gtk3-dark` / `adw-gtk3` from `base16.dark_mode` |
-| `icon_theme` | `workspaced-base16` |
+| `icon_theme` | `modot-base16` |
 | `font_name` | `Sans 10` |
 | `cursor_theme` | `Adwaita` |
 | `cursor_size` | `24` |
@@ -31,7 +31,7 @@ Apply:
 # drop stale home-manager/Stylix symlinks if present
 rm -f ~/.config/gtk-3.0/gtk.css ~/.config/gtk-4.0/gtk.css
 
-workspaced home apply
+modot home apply
 ~/.dotfiles/bin/hooks/reload-gtk-theme
 ```
 

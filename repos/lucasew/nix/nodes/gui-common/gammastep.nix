@@ -25,7 +25,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    # gammastep configuration is now managed by workspaced templates
+    # gammastep configuration is now managed by modot templates
     # See: config/.config/gammastep/config.ini.tmpl
 
     systemd.user.services.gammastep = {

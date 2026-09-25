@@ -5,7 +5,7 @@ cd "$SCRIPT_DIR"
 
 export DOWNLOAD_DIR="$(mktemp -d)"
 
-curl -s https://raw.githubusercontent.com/lucasew/workspaced/refs/heads/master/setup > "$DOWNLOAD_DIR/setup"
+curl -s https://raw.githubusercontent.com/lewtec/modot/refs/heads/master/setup > "$DOWNLOAD_DIR/setup"
 chmod +x "$DOWNLOAD_DIR/setup"
 
 "$DOWNLOAD_DIR/setup" self-install -f

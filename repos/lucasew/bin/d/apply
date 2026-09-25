@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-exec workspaced home apply "$@"
+exec modot home apply "$@"

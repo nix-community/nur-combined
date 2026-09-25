@@ -12,7 +12,7 @@ if [[ "$SD_ROOT" =~ "/nix" ]]; then
 	fi
 fi
 
-__ws_shell_init="$(workspaced utils shell init bash)" || __ws_shell_init=""
+__ws_shell_init="$(modot utils shell init bash)" || __ws_shell_init=""
 if [[ -n "${__ws_shell_init}" ]]; then
 	eval "${__ws_shell_init}"
 fi

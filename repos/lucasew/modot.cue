@@ -1,4 +1,4 @@
-package workspaced
+package modot
 
 import "strings"
 
@@ -243,7 +243,7 @@ modules: {
 		input: "self:modules/base16"
 		enable: true
 		config: {
-			// From: workspaced utils palette generate assets/wallpapers/bliss.jpg --driver materialyou --polarity dark
+			// From: modot utils palette generate assets/wallpapers/bliss.jpg --driver materialyou --polarity dark
 			base00: "131313"
 			base01: "131313"
 			base02: "1f1f1f"
@@ -542,7 +542,7 @@ backup: {
 			version: "d8e0403724bbd91ceef1e1df983678b78ad02c3c"
 		}
 	}
-	workspaced: {
+	modot: {
 		from: "github:lewtec/modot"
 	}
 	// Local skills come straight from the workspace tree.

@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# Mise via workspaced (home lazy tool). Prefer ~/.local/bin/mise from this module.
+# Mise via modot (home lazy tool). Prefer ~/.local/bin/mise from this module.
 
 _mise_shims_dir="$HOME/.local/share/mise/shims"
 _clean_path=":$PATH:"
@@ -16,7 +16,7 @@ fi
 
 export MISE_ALL_COMPILE=false
 
-# Termux: `mise activate` is `workspaced open lazy` + real mise. That blocks
+# Termux: `mise activate` is `modot open lazy` + real mise. That blocks
 # bashrc with no output (stderr discarded). The hook also defined a function
 # that shadowed the wrapper; skip activate on Android.
 if [[ -n "${TERMUX_VERSION:-}${ANDROID_ROOT:-}" ]]; then

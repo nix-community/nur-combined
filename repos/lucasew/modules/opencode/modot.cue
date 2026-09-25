@@ -7,7 +7,7 @@ file: home: {
 			type: "json"
 			values: {
 				"$schema": "https://opencode.ai/config.json"
-				theme:     "workspaced"
+				theme:     "modot"
 				plugin: ["opencode-gemini-auth"]
 				provider: {
 					llamacpp: {

@@ -12,22 +12,22 @@ log_info() {
 }
 
 run_uv() {
-	if ! command -v workspaced >/dev/null 2>&1; then
-		log_info "workspaced not found; cannot resolve uv tool"
+	if ! command -v modot >/dev/null 2>&1; then
+		log_info "modot not found; cannot resolve uv tool"
 		exit 1
 	fi
-	workspaced open lazy --home uv -- "$@"
+	modot open lazy --home uv -- "$@"
 }
 
 run_node() {
-	if ! command -v workspaced >/dev/null 2>&1; then
-		log_info "workspaced not found; cannot resolve node tool"
+	if ! command -v modot >/dev/null 2>&1; then
+		log_info "modot not found; cannot resolve node tool"
 		exit 1
 	fi
-	if workspaced open lazy --home node -- "$@"; then
+	if modot open lazy --home node -- "$@"; then
 		return
 	fi
-	workspaced tool with mise:node -- "$@"
+	modot tool with mise:node -- "$@"
 }
 
 ensure_node() {
@@ -55,7 +55,7 @@ bootstrap_hermes() {
 	cd "$install_dir"
 	log_info "ensuring Python $python_version via uv"
 	run_uv python install "$python_version"
-	log_info "ensuring Node.js via workspaced/mise"
+	log_info "ensuring Node.js via modot/mise"
 	ensure_node
 	log_info "creating virtual environment"
 	run_uv venv venv --python "$python_version"
@@ -94,4 +94,4 @@ if [ ! -f "$install_dir/pyproject.toml" ]; then
 fi
 
 ensure_node
-exec env UV_PROJECT_ENVIRONMENT="$install_dir/venv" workspaced open lazy --home uv -- run --project "$install_dir" --python "$python_version" hermes "$@"
+exec env UV_PROJECT_ENVIRONMENT="$install_dir/venv" modot open lazy --home uv -- run --project "$install_dir" --python "$python_version" hermes "$@"
