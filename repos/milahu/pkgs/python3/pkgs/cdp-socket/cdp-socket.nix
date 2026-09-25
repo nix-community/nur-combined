@@ -1,35 +1,33 @@
-{ lib
-, python
-, fetchFromGitHub
-, fetchurl
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  wheel,
+  aiohttp,
+  websockets,
+  orjson,
 }:
 
-python.pkgs.buildPythonApplication rec {
+buildPythonPackage rec {
   pname = "cdp-socket";
-  version = "1.2.4";
+  version = "1.2.8";
   pyproject = true;
 
-  src =
-  if true then
-  fetchurl {
-    url = "https://github.com/kaliiiiiiiiii/CDP-Socket/archive/4813479d7b856c4a609aa19e6fea80ed9d425445.zip";
-    hash = "sha256-XrjpwV361ArJehY53cRwlGEyX/Cru5Eg+Ys1NCcYWbQ=";
-  }
-  else
-  fetchFromGitHub {
-    owner = "kaliiiiiiiiii";
+  src = fetchFromGitHub {
+    owner = "ttlns";
     repo = "CDP-Socket";
-    rev = "91882101aabac4cba5757a2f824b80d9300a64f2";
-    hash = "sha256-/LJvhx44700x67bBw40Loi9vdKAtHai4PBwiAF+GGsU=";
+    rev = "4813479d7b856c4a609aa19e6fea80ed9d425445";
+    hash = "sha256-zemAwOv/ATfuq+zTvFQnCpJskfJzU17r6nPX0mw9zdU=";
   };
 
   nativeBuildInputs = [
-    python.pkgs.setuptools
-    python.pkgs.wheel
+    setuptools
+    wheel
   ];
 
-  # https://github.com/kaliiiiiiiiii/CDP-Socket/blob/master/setup.py
-  propagatedBuildInputs = with python.pkgs; [
+  # https://github.com/ttlns/CDP-Socket/blob/master/setup.py
+  propagatedBuildInputs = [
     aiohttp
     websockets
     orjson
@@ -39,9 +37,8 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Socket for handling chrome-developer-protocol connections";
-    homepage = "https://github.com/kaliiiiiiiiii/CDP-Socket";
+    homepage = "https://github.com/ttlns/CDP-Socket";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
-    mainProgram = "cdp-socket";
   };
 }
