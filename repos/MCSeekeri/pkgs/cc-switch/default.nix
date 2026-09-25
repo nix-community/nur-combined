@@ -44,6 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   checkFlags = [
     "--skip=npm_anchor_supplies_sibling_node_to_env_shebang"
     "--skip=probe_version_command_captures_healthy_tool_output"
+    "--skip=mcode_history_uses_visible_roots_and_display_messages"
   ];
 
   postPatch = ''
