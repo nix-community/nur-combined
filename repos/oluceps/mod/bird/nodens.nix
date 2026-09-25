@@ -11,7 +11,6 @@
         enable = true;
         localAsn = 4242420291;
         port = 9341;
-        birdConfDir = "/var/lib/autopeer";
         environmentFile = config.vaultix.secrets."autopeer".path;
       };
       vaultix.secrets = {
