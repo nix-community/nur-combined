@@ -13,6 +13,7 @@
  * [IBKR Trader Workstation (TWS)](https://www.interactivebrokers.com/en/trading/download-tws.php)
  * [powerctl](https://git.sr.ht/~sircmpwn/powerctl)
  * [Proton Meet](https://proton.me/meet)
+ * [Threema Desktop](https://threema.com/en/download/threema-private/desktop-beta)
  * [TrackAudio](https://github.com/pierr3/TrackAudio)
  * [Tunnet](https://github.com/tunnetio/Tunnet)
  * [udpxy](https://github.com/pcherenkov/udpxy)

@@ -20,6 +20,8 @@
 
   proton-meet = pkgs.callPackage ./pkgs/proton-meet { };
 
+  threema-desktop = pkgs.callPackage ./pkgs/threema-desktop { };
+
   trackaudio = pkgs.callPackage ./pkgs/trackaudio { };
 
   tunnet = pkgs.callPackage ./pkgs/tunnet { };
