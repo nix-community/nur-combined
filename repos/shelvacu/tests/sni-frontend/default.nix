@@ -10,6 +10,16 @@ let
   localDomain = "local.test";
   passthroughDomain = "passthru.test";
   plainDomain = "plain.test";
+  # A whole zone handed over by wildcard, and the bare name of that zone, which
+  # the wildcard deliberately does not cover.
+  wildcardName = "*.wild.test";
+  wildcardSub = "sub.wild.test";
+  wildcardApex = "wild.test";
+  # The other mask: a whole zone, bare name included, which is what a host
+  # handing its zone to another machine actually wants.
+  zoneName = ".zone.test";
+  zoneApex = "zone.test";
+  zoneDeep = "deep.sub.zone.test";
 
   rootCA = certs.selfSigned "sni-test-ca" {
     ca = true;
@@ -29,6 +39,10 @@ let
     };
   localCert = certFor "sni-test-local" localDomain;
   passthroughCert = certFor "sni-test-passthrough" passthroughDomain;
+  wildcardSubCert = certFor "sni-test-wildcard-sub" wildcardSub;
+  wildcardApexCert = certFor "sni-test-wildcard-apex" wildcardApex;
+  zoneApexCert = certFor "sni-test-zone-apex" zoneApex;
+  zoneDeepCert = certFor "sni-test-zone-deep" zoneDeep;
 in
 {
   name = "sni-frontend";
@@ -40,6 +54,10 @@ in
         localDomain
         passthroughDomain
         plainDomain
+        wildcardSub
+        wildcardApex
+        zoneApex
+        zoneDeep
       ];
     };
   };
@@ -51,7 +69,11 @@ in
 
     vacu.sniFrontend = {
       enable = true;
-      passthrough.${passthroughDomain} = "backend:443";
+      passthrough = {
+        ${passthroughDomain} = "backend:443";
+        ${wildcardName} = "backend:443";
+        ${zoneName} = "backend:443";
+      };
     };
 
     services.caddy = {
@@ -60,6 +82,12 @@ in
         tls ${localCert.certificatePath} ${localCert.privateKeyPath}
         # Echoes who Caddy thinks the client is, which is the whole point of
         # carrying the PROXY header across the socket.
+        respond "front {http.request.remote.host}"
+      '';
+      # The bare name of the wildcarded zone, served here to prove the wildcard
+      # left it behind rather than swallowing it.
+      virtualHosts.${wildcardApex}.extraConfig = ''
+        tls ${wildcardApexCert.certificatePath} ${wildcardApexCert.privateKeyPath}
         respond "front {http.request.remote.host}"
       '';
       # A site of this host's own that is served over plain HTTP, next to the
@@ -95,6 +123,18 @@ in
         tls ${passthroughCert.certificatePath} ${passthroughCert.privateKeyPath}
         respond "backend {http.request.remote.host}"
       '';
+      virtualHosts.${wildcardSub}.extraConfig = ''
+        tls ${wildcardSubCert.certificatePath} ${wildcardSubCert.privateKeyPath}
+        respond "backend {http.request.remote.host}"
+      '';
+      virtualHosts.${zoneApex}.extraConfig = ''
+        tls ${zoneApexCert.certificatePath} ${zoneApexCert.privateKeyPath}
+        respond "backend {http.request.remote.host}"
+      '';
+      virtualHosts.${zoneDeep}.extraConfig = ''
+        tls ${zoneDeepCert.certificatePath} ${zoneDeepCert.privateKeyPath}
+        respond "backend {http.request.remote.host}"
+      '';
     };
   };
 
@@ -122,6 +162,25 @@ in
 
     with subtest("a passthrough name is answered by the backend"):
         out = client.succeed("curl -sS --fail https://${passthroughDomain}/")
+        assert out.startswith("backend "), f"expected the backend to answer, got {out!r}"
+
+    with subtest("a wildcard name relays every label under it"):
+        out = client.succeed("curl -sS --fail https://${wildcardSub}/")
+        assert out.startswith("backend "), f"expected the backend to answer, got {out!r}"
+
+    with subtest("a wildcard does not cover the bare name of its zone"):
+        # nginx matches these keys like a server_name, so `*.wild.test` leaves
+        # `wild.test` to the default — which is the trap the leading-dot form
+        # below exists to avoid.
+        out = client.succeed("curl -sS --fail https://${wildcardApex}/")
+        assert out.startswith("front "), f"expected the front Caddy to answer, got {out!r}"
+
+    with subtest("a leading dot hands over the bare name too"):
+        out = client.succeed("curl -sS --fail https://${zoneApex}/")
+        assert out.startswith("backend "), f"expected the backend to answer, got {out!r}"
+
+    with subtest("a leading dot hands over the zone however deep"):
+        out = client.succeed("curl -sS --fail https://${zoneDeep}/")
         assert out.startswith("backend "), f"expected the backend to answer, got {out!r}"
 
     with subtest("the backend sees the real client through the relay"):

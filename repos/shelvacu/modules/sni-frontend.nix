@@ -90,12 +90,22 @@ in
       type = types.attrsOf types.str;
       default = { };
       example = lib.literalExpression ''
-        { "matrix.example.com" = "10.0.0.5:443"; }
+        {
+          "matrix.example.com" = "10.0.0.5:443";
+          ".whole-zone.example.com" = "10.0.0.5:443";
+        }
       '';
       description = ''
         Server names to hand to somewhere else, as name -> `host:port`. A
         connection matching one of these is relayed exactly as it arrived, so
         the far end does its own TLS.
+
+        A name may be a mask, matched the way nginx matches a server_name:
+        `.example.com` hands over the whole zone, both the bare name and
+        anything under it, however deep. `*.example.com` is the same thing
+        without the bare name, which is rarely what you want here — a name left
+        behind still resolves to this machine, and Caddy answers it holding no
+        certificate for it.
       '';
     };
   };
@@ -169,7 +179,12 @@ in
         }
 
         map $ssl_preread_server_name $vacu_sni_upstream {
-          ${lib.concatStringsSep "\n          " (
+          # Without this the keys are matched as literal strings, so a masked
+          # name is never hit — silently, since everything then falls through to
+          # Caddy, which answers with a TLS alert for a name it holds no
+          # certificate for. Exact names match the same either way.
+          hostnames;
+          ${lib.concatStringsSep "\n  " (
             lib.mapAttrsToList (name: _: "${name} ${upstreamName name};") cfg.passthrough
           )}
           default ${caddyUpstream};

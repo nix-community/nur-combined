@@ -28,14 +28,19 @@ in
   # IPv4 of its own — its outbound traffic shares this machine's tunnel
   # address, and this machine's Caddy already answers on :443 there. So :443
   # and :8448 are taken by a front door that reads the server name and relays
-  # that one name onward untouched, leaving its certificate on the VM.
+  # those names onward untouched, leaving their certificates on the VM.
+  #
+  # The whole zone goes over, not just the apex: the VM serves other names under
+  # it (grafana.matrix-test.shelvacu.com), and any name left behind resolves to
+  # this address and gets answered by the Caddy below instead. The leading dot
+  # is nginx's shorthand for the bare name together with everything under it.
   vacu.sniFrontend = {
     enable = true;
     ports = [
       443
       8448
     ];
-    passthrough."matrix-test.shelvacu.com" = "${config.vacu.qemuVMs.jv-shel.v4Address}:443";
+    passthrough.".matrix-test.shelvacu.com" = "${config.vacu.qemuVMs.jv-shel.v4Address}:443";
   };
   systemd.tmpfiles.settings."10-whatever".${socketDir}.d = {
     user = "caddy";
