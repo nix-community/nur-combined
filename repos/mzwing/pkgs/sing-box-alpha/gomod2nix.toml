@@ -359,128 +359,128 @@ go = '1.25.5'
     hash = 'sha256-DcWWmHlCiZFv876Ay05UbcMZhQkiAmuChXcCrOd7pqQ='
 
   [mod.'github.com/sagernet/cronet-go']
-    version = 'v0.0.0-20260912104727-0d28acc44093'
-    hash = 'sha256-HBx/emfuy8Feq0a76UUSpSAgT2FvI0k8Y2BgihmTkZ8='
+    version = 'v0.0.0-20260926101438-c3902ec13951'
+    hash = 'sha256-40BP8E9M+Nlf3+haVKP/UoG/wBABzGN+WJwe6zy2f0o='
 
   [mod.'github.com/sagernet/cronet-go/all']
-    version = 'v0.0.0-20260912104727-0d28acc44093'
-    hash = 'sha256-Yy7CTITSMN6C2DsQ74lU1Sc4pFwfNAgNs9Wr+CbCop0='
+    version = 'v0.0.0-20260926101438-c3902ec13951'
+    hash = 'sha256-v7t+ajmYlEj0ggKIsk5MHIHCSBDWK14VFUDIRgOnCWU='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_386']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-Hif0Sb8mveavdSmlyHqjMCfftxw9xuccBd8JsglObCk='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-1dUNGPw7aWI6nDt/i+tOhpqiLhMWiSkZcOwFvToqL7U='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_amd64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-wk91SWloE/PGT6xVMGI4JfbWxAibbj88d6V9ncqWuZE='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-e6Sp18c6MHpvaqZ24mBlK5ODkHYFkkKuk1huUhJPeWc='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_arm']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-VGZDFWNGQU6+NjwHduMIAngqYvZAKsfivGr07vdl6QU='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-hLXr/euUxKUyBnLIA36tht6crFe8mZosYCfxG+6U6kw='
 
   [mod.'github.com/sagernet/cronet-go/lib/android_arm64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-g8uudx7daekodeQz27qs3rPu01AvADdrTUk/43uqaVM='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-eC3AXFOSmxHifIp2fCcmcsmYfR2srBEp2ukJMsaxhG4='
 
   [mod.'github.com/sagernet/cronet-go/lib/darwin_amd64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-htbZ60tHzwenjKTdZeq1ejL0yLxmH0vTl/CVwnjoTkI='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-rLNlUpeukXUAieKM96gJfVrBApX5rup11o13b+7ws1U='
 
   [mod.'github.com/sagernet/cronet-go/lib/darwin_arm64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-1LPtdJs5T6gBdK0+z8lWvoGkACR/8ZRfY5KUWYSSfn4='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-FokIrLuh8XBzihQpk/5I2EU6vwIFJ0F3wa/SXXrN6RY='
 
   [mod.'github.com/sagernet/cronet-go/lib/ios_amd64_simulator']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-vudsoYWYiI9DuBEDr/tRMGddNJr8BYWYZLgrblBhfCU='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-/TQ+CuDzrybgrqhFu9mDqIOg2/I55gWMaRRGk3CcnwE='
 
   [mod.'github.com/sagernet/cronet-go/lib/ios_arm64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-ExHpEI12Zl1vTX/HhRvZpCHGpmQ1fO2k0bzJIoj6tzM='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-NT86IhUY0mtBn2enHEYN4duh9r5/Cf0//0yNN/GU5tQ='
 
   [mod.'github.com/sagernet/cronet-go/lib/ios_arm64_simulator']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-Df35ATvCSYjdQQyfyonux7jdIzGBbqxhctlALE426Bg='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-6jE8LQFCS6SrklTBfiZ71BUMrNgZN77NNRQA8opZE2M='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_386']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-GSQet8Ki0tjexHNoN5WZhVpGV7Cq6vxEwboVUtv8xEo='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-hMZ1aFymcfDZD1Ehth6JRlrHd3h5Nx5VB6fD87EUFP0='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_386_musl']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-FvG2QDSrkdR+MregCh6PyFoNSVttbFdcUP3SvK0n+aU='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-MDjwbrKMgBr7kq4ikxel50TxdT7Mp8dmCW6QtwwRZ6o='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_amd64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-t5mdNEUM/I3gf2wrISj5p6pX4h+hZFVomSvRp1gk7VY='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-bLEBqOioH7Ghmo5em51FIc00HUGl98Qp7+Gu2qOhpds='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_amd64_musl']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-Hn69VYFax5hXbVhU14RpaeSL8kJZ1zKItickbbPsvsA='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-1KICod6trQsuB7S4yAoqkXGdA9QKdfrkprFo2TUXfis='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-rCFKYgRs1yCM7nf4fNBmlie3oq7tIFzYY6Gx/eeLvaM='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-918iqdQpP2CMz6X6AW5jwh6ud1L31As4/J+RbhmR1X8='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-a/oyFpWMzu9Ij1XEp0s4dt7PjI/Mkk1Y0u2DTx2rYKw='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-JE+dmrj/BxJC6ZTIXtuuJ6HN1lfU2LWlXZEM8HcW63Q='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm64_musl']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-5iOMsNz2kxcb4k3Xr2qiJska1ZsjKDSfPJaZkn+sWkk='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-Y9PThEMITTT4JY0oG5rmoWkICJROnu70ZxI2SbSyekc='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_arm_musl']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-BXnNAVpIiBHsoM8EzaKoocX4TVOPhYuj8uHrh+2uhUA='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-6tIvha+lA4aMv1OzDz+9jvcjno0Q2N4RwuGy4/eoS4Y='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_loong64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-BuhfuKX2k1hyToU/3H5Tuo1zE+h3DQKlCWVDIm5Pfhk='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-BQNgeZCWHdMose7LTEgS23zlFU2MwB5gKG3UJBuF0aQ='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_loong64_musl']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-vKFXN+yrwG4Q9wwTMKxKXmW+xF/1Qu1PyE7fMMccv1Y='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-lVvO5LyUTk2rKeofgtFY6E9Oe8Vu6qGal2mYJEsLzcM='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_mips64le']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-nZHyMS+KfCQBoaLJOamls5FJ2bhRMg17INKafP42ryE='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-mJ5HoLCihZ4VbW0dGUAq5pZXuQakpsQeyR04PlXMx3Y='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_mipsle']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-5I2Lkvq1ShH8nSwh5HLDW+8DpZFiGHPO3U+k/CR6hfo='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-ENXbuIYXFN4l1qqQSYdmjNSX0YKtHp2xr3OXwEwAklU='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_mipsle_musl']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-sF6GJnyIUfe1yhyj8RkZ9Y1mOVVpsQVvOe/JvgTukW4='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-oMKljQ6DwlWRhWjfQLnBod0cNVPJhXXqLl++Hc28v3U='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_riscv64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-yQ9gSrS7pb8nS4FFc4vGYY+l7o/IdNtCrxIMh7ON0MU='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-i0on5p9m8G5kcmxRuxd6r6egCWPu/fZsF2UCKi7BOcM='
 
   [mod.'github.com/sagernet/cronet-go/lib/linux_riscv64_musl']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-8KPCxKjjYy6DI5LoWC96M0CFxrbOXNGFNMzoBiF10bg='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-8EhaxAiBUSU5GC4/4gEui7fl2N2FKa0UYC1IOs0HVAc='
 
   [mod.'github.com/sagernet/cronet-go/lib/tvos_amd64_simulator']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-4r9G5dw9uDTfirV2gtznqcDlbb/qXdcxXGbm9Ue5Fes='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-I88v159qcSKpdt8HPlo07YmIe97JKmG2Ub3OC1Y+y48='
 
   [mod.'github.com/sagernet/cronet-go/lib/tvos_arm64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-Ua1m+ElNhmy5WIoU7Np118xMaVzGCN31fWm6scJrkI4='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-pP+GIAs9CJKnzEZUg7tjxZEEArq1X9ZemkkggXwMJO0='
 
   [mod.'github.com/sagernet/cronet-go/lib/tvos_arm64_simulator']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-duc+nJVN2vJoiisK6PvlIk04dH7inNaQ+EcUE3Cra28='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-+TMwMGxwPRNRvvXReD4xLBw4GMrS0Zevz3bafGoAiLA='
 
   [mod.'github.com/sagernet/cronet-go/lib/windows_amd64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-2eyExJ47r9VwgkaXzaJ9o3CvZMukunR3tbEYPKAIAic='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-LLgNgXSRhOCYrWHp+YYXSiz+Mkvcmw/om46VtplrnSE='
 
   [mod.'github.com/sagernet/cronet-go/lib/windows_arm64']
-    version = 'v0.0.0-20260912104006-c10c03c318db'
-    hash = 'sha256-R33ujRjyLrZ87HcFmUw6cHqetHvYPkF61Cv5z6w+Zkc='
+    version = 'v0.0.0-20260926100742-df0c319e1c07'
+    hash = 'sha256-HjSdw5ODDtENF64w9daqfiybFZJkbg1lucF9jGKEcHk='
 
   [mod.'github.com/sagernet/fswatch']
     version = 'v0.1.2'
@@ -527,12 +527,12 @@ go = '1.25.5'
     hash = 'sha256-9jY1vurYR27J5VPupBWClhy92RM0aKPCVB/h38Vb0+0='
 
   [mod.'github.com/sagernet/sing-openconnect']
-    version = 'v0.0.0-20260903200519-8b89c968949d'
-    hash = 'sha256-Y95cCCpzXQ57G+H0U+fglYb72ewFu9fjz/1Hl6Hlxak='
+    version = 'v0.0.0-20260925112412-098ce1337fbe'
+    hash = 'sha256-OyOq56uuidUhBhcRDwjb1+pTBXc+UwZr43pOH6MTCxQ='
 
   [mod.'github.com/sagernet/sing-openvpn']
-    version = 'v0.0.0-20260903200517-e060dda5b1f1'
-    hash = 'sha256-TgK52552Ts+g4/3wwT9/uQJ0sWQP+xCB48gg/ZLfoQw='
+    version = 'v0.0.0-20260925112415-fe3a4fdc2e64'
+    hash = 'sha256-kDXKAQUVdlR2sZ+phM8eGEv2WUPoKk2MWPg62KjAiQw='
 
   [mod.'github.com/sagernet/sing-quic']
     version = 'v0.7.1-0.20260924092235-4f371c86a365'
@@ -555,8 +555,8 @@ go = '1.25.5'
     hash = 'sha256-JkrVd6e/FEfdf3GiKCWe6xDJHxzk7CWQxVAz23Vmn0U='
 
   [mod.'github.com/sagernet/sing-tun']
-    version = 'v0.9.6-0.20260924073434-3077c705bbdb'
-    hash = 'sha256-C8K7Zx1ZOz9lb/crNAayYFvavPthNxiLI23m9xhvn+Y='
+    version = 'v0.9.6-0.20260925112405-97d11460f2ea'
+    hash = 'sha256-QtwLEzT+IfSsCaWO9HINfhbPnOjDjEsDJI2dlRCYcU0='
 
   [mod.'github.com/sagernet/sing-usbip']
     version = 'v0.0.0-20260817040617-28bd42667eca'
@@ -571,12 +571,12 @@ go = '1.25.5'
     hash = 'sha256-8qcsBtXTuvDGuEbZmzqxDWEaNniBhstcZq2w8fRyISk='
 
   [mod.'github.com/sagernet/tailscale']
-    version = 'v1.102.1-sing-box-1.14-mod.5.0.20260916060041-a8fbeb4b0838'
-    hash = 'sha256-meaUwPyeZu7ZO66FHY+KMT6VFPyFZ4w06K6vHN4p7FY='
+    version = 'v1.102.1-sing-box-1.14-mod.5.0.20260925112514-35e61219dedd'
+    hash = 'sha256-PI6Q5pwpWAlz7Ne4r0EgvCJ/0D1g0Od0+VU619i2bJM='
 
   [mod.'github.com/sagernet/wireguard-go']
-    version = 'v0.0.8-0.20260917055437-bc6039037038'
-    hash = 'sha256-ZDFtxN3LwiiC9TuqyCQKG9M233gJLLEiuTUJNfNtdyM='
+    version = 'v0.0.8-0.20260925112423-da3fb928cdc1'
+    hash = 'sha256-ujYv9WSCwEvCI0FG00yCYtVJx4SCtk7Md+YpDbm6GIA='
 
   [mod.'github.com/sagernet/ws']
     version = 'v0.0.0-20231204124109-acfe8907c854'

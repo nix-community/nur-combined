@@ -268,13 +268,13 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.8";
+    version = "v1.15.0-alpha.9";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.8";
+      rev = "v1.15.0-alpha.9";
       fetchSubmodules = false;
-      sha256 = "sha256-g456S8Pw9GYm0E48fNUAg840r+MinxKTpbcIzQKhniA=";
+      sha256 = "sha256-2We28JxX2uVSdYPz7t7WnTNxFAH/k3REmCh1F7vIeFg=";
     };
   };
   sing-box-beta = {

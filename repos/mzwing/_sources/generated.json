@@ -495,12 +495,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.15.0-alpha.8",
-            "sha256": "sha256-g456S8Pw9GYm0E48fNUAg840r+MinxKTpbcIzQKhniA=",
+            "rev": "v1.15.0-alpha.9",
+            "sha256": "sha256-2We28JxX2uVSdYPz7t7WnTNxFAH/k3REmCh1F7vIeFg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.0-alpha.8"
+        "version": "v1.15.0-alpha.9"
     },
     "sing-box-beta": {
         "cargoLock": null,
