@@ -46,6 +46,24 @@ in
       server_name = "consortium.chat";
       database_type = "psycopg2";
       database_args.database = "matrix-synapse";
+      old_signing_keys = {
+        # verified against:
+        # - matrix.org
+        # - blatant-lizardry.moe
+        "ed25519:a_hhuL" = {
+          key = "yB9wA2+2H6bQyf2eGKvn9N2CYFLe4r3OQeW9yf5e5cM";
+          expired_ts = 1664953149738; # 2022-10-05T06:59:09Z
+        };
+        # verified against
+        # - matrix.org
+        # - blatant-lizardry.moe
+        # - uninsane.org
+        # - the quasar backup
+        "ed25519:a_URkN" = {
+          key = "Ol/RoXQEWJPvXv++M901kd51XzN4MhvonPbnqMnGE+E";
+          expired_ts = 1778773012052; # 2026-05-14T15:36:52Z
+        };
+      };
     };
     extraConfigFiles = [ config.sops.secrets.matrix-synapse-secrets.path ];
   };
