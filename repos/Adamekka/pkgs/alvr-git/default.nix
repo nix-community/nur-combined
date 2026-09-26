@@ -1,5 +1,6 @@
 {
   alvr,
+  android-tools,
   fetchFromGitHub,
   ffmpeg_8,
   lib,
@@ -70,6 +71,12 @@ in
       '';
     });
   };
+
+  postInstall = oldAttrs.postInstall + ''
+    # ALVR looks for adb beside its binaries when installing the Quest client.
+    mkdir -p $out/bin/platform-tools
+    ln -s ${android-tools}/bin/adb $out/bin/platform-tools/adb
+  '';
 
   # The release patch targets an older build script and its FFmpeg 6.0 dependency.
   patches = [
