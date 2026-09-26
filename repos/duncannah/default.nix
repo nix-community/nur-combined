@@ -8,4 +8,5 @@
   overlays = import ./overlays;
 
   gomerge = pkgs.callPackage ./pkgs/gomerge { };
+  paintdotnet = pkgs.callPackage ./pkgs/paintdotnet { };
 }
