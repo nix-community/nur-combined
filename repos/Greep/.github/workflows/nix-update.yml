@@ -7,8 +7,71 @@ on:
 permissions:
   contents: write
 jobs:
-  fetch:
+  flake-update:
     runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    - name: Run flake update
+      id: run-flake-update
+      run: echo "nix-update=$(nix flake update)" >> "$GITHUB_OUTPUT"
+    - name: Generate run summary
+      if: always()
+      env:
+        FLAKE_UPDATE_OUTPUT: ${{ steps.run-flake-update.outputs.nix-update }}
+      run: |
+        {
+          echo "## nix flake-update summary"
+          echo
+          echo "Run [\`${{ github.run_id }}\`](${REPO_URL}/actions/runs/${{ github.run_id }}) on nixpkgs unstable, $(date -u '+%Y-%m-%d %H:%M UTC')."
+          echo
+          echo '```'
+          echo "$FLAKE_UPDATE_OUTPUT"
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY"
+    - name: Push commits
+      if: always()
+      run: |
+        if [ ! -d .git ]; then
+          echo "No repository, nothing to push."
+          exit 0
+        fi
+
+        if git diff --quiet flake.lock; then
+          echo "flake.lock is already up to date"
+          exit 0
+        fi
+
+        git add flake.lock
+        git commit -m "Flake update ($(date +%F))"
+        commit="$(git log --oneline '@{upstream}..HEAD' || true)"
+        git push
+        {
+          echo
+          echo "### Pushed commit"
+          echo
+          echo '```'
+          echo "$commit"
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY"
+
+  pkgs-update:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: flake-update
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
@@ -41,7 +104,7 @@ jobs:
         SHA="${{ github.sha }}"
 
         {
-          echo "## nix-update summary"
+          echo "## nix pkgs-update summary"
           echo
           echo "Run [\`${{ github.run_id }}\`](${REPO_URL}/actions/runs/${{ github.run_id }}) on nixpkgs unstable, $(date -u '+%Y-%m-%d %H:%M UTC')."
           echo
