@@ -10,6 +10,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
@@ -71,3 +72,9 @@ jobs:
       run: |
         echo "Some packages failed to update, see the log above." >&2
         exit 1
+
+    - name: Trigger build
+      if: always()
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh workflow run build.yml --ref "$GITHUB_REF_NAME"
