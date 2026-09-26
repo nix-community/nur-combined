@@ -1,0 +1,4 @@
+@use "libchain";
+.foo {
+  @include libchain.b;
+}

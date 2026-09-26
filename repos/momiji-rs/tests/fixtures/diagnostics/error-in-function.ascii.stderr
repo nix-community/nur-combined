@@ -1,0 +1,7 @@
+Error: "function chain failure"
+  ,
+5 |   @return fail-deep();
+  |           ^^^^^^^^^^^
+  '
+  error-in-function.scss 5:11  wrapper()
+  error-in-function.scss 8:6   root stylesheet

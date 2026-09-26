@@ -1,0 +1,21 @@
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use meta.feature-exists instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ a { x: feature-exists(global-variable-shadowing); }
+  │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-feature-exists.scss 1:8  root stylesheet
+
+DEPRECATION WARNING [feature-exists]: The feature-exists() function is deprecated.
+
+More info: https://sass-lang.com/d/feature-exists
+
+  ╷
+1 │ a { x: feature-exists(global-variable-shadowing); }
+  │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-feature-exists.scss 1:8  root stylesheet
+

@@ -1,0 +1,6 @@
+@use "sass:meta";
+
+.a {
+  filter: meta.call(meta.get-function("grayscale"), 1);
+  color: meta.call(meta.get-function("grayscale"), #abc);
+}

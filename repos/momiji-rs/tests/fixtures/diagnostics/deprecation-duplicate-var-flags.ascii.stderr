@@ -1,0 +1,19 @@
+DEPRECATION WARNING [duplicate-var-flags]: !global should only be written once for each variable.
+This will be an error in Dart Sass 2.0.0.
+
+  ,
+1 | a { $x: 1 !global !global; }
+  |                   ^^^^^^^
+  '
+    deprecation-duplicate-var-flags.scss 1:19  root stylesheet
+
+DEPRECATION WARNING [new-global]: As of Dart Sass 2.0.0, !global assignments won't be able to declare new variables.
+
+Recommendation: add `$x: null` at the stylesheet root.
+
+  ,
+1 | a { $x: 1 !global !global; }
+  |     ^^^^^^^^^^^^^^^^^^^^^
+  '
+    deprecation-duplicate-var-flags.scss 1:5  root stylesheet
+

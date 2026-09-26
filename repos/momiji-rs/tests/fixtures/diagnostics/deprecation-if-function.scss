@@ -1,0 +1,8 @@
+@mixin never($x) {
+  a: if($x, null, red);
+}
+
+.a {
+  b: if(true, if(false, 1, 2), 3);
+  c: if($condition: true, $if-true: 1, $if-false: 2);
+}

@@ -1,0 +1,6 @@
+@mixin deprecated-thing {
+  @warn "deprecated-thing is going away";
+}
+.foo {
+  @include deprecated-thing;
+}

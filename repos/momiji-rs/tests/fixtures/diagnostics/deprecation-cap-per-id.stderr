@@ -1,0 +1,183 @@
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, 2) or calc(1 / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+  ╷
+2 │   s1: (1 / 2);
+  │        ^^^^^
+  ╵
+    deprecation-cap-per-id.scss 2:8  root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, 3) or calc(1 / 3)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+  ╷
+3 │   s2: (1 / 3);
+  │        ^^^^^
+  ╵
+    deprecation-cap-per-id.scss 3:8  root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, 4) or calc(1 / 4)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+  ╷
+4 │   s3: (1 / 4);
+  │        ^^^^^
+  ╵
+    deprecation-cap-per-id.scss 4:8  root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, 5) or calc(1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+  ╷
+5 │   s4: (1 / 5);
+  │        ^^^^^
+  ╵
+    deprecation-cap-per-id.scss 5:8  root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, 6) or calc(1 / 6)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+  ╷
+6 │   s5: (1 / 6);
+  │        ^^^^^
+  ╵
+    deprecation-cap-per-id.scss 6:8  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+9 │   c1: lighten(#800, 1%);
+  │       ^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-cap-per-id.scss 9:7  root stylesheet
+
+DEPRECATION WARNING [color-functions]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 1.3636363636%)
+color.adjust($color, $lightness: 1%)
+
+More info: https://sass-lang.com/d/color-functions
+
+  ╷
+9 │   c1: lighten(#800, 1%);
+  │       ^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-cap-per-id.scss 9:7  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+10 │   c2: lighten(#800, 2%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 10:7  root stylesheet
+
+DEPRECATION WARNING [color-functions]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 2.7272727273%)
+color.adjust($color, $lightness: 2%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+10 │   c2: lighten(#800, 2%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 10:7  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+11 │   c3: lighten(#800, 3%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 11:7  root stylesheet
+
+DEPRECATION WARNING [color-functions]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 4.0909090909%)
+color.adjust($color, $lightness: 3%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+11 │   c3: lighten(#800, 3%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 11:7  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+12 │   c4: lighten(#800, 4%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 12:7  root stylesheet
+
+DEPRECATION WARNING [color-functions]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 5.4545454545%)
+color.adjust($color, $lightness: 4%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+12 │   c4: lighten(#800, 4%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 12:7  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+13 │   c5: lighten(#800, 5%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 13:7  root stylesheet
+
+DEPRECATION WARNING [color-functions]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 6.8181818182%)
+color.adjust($color, $lightness: 5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+13 │   c5: lighten(#800, 5%);
+   │       ^^^^^^^^^^^^^^^^^
+   ╵
+    deprecation-cap-per-id.scss 13:7  root stylesheet
+
+WARNING: 6 repetitive deprecation warnings omitted.
+Run in verbose mode to see all warnings.
+

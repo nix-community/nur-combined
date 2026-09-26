@@ -1,0 +1,9 @@
+@use "sass:color" as *;
+
+@function faded($c) {
+  @return transparentize($c, 0.2);
+}
+
+.a {
+  b: faded(rgba(#abcdef, 0.8));
+}

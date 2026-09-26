@@ -1,0 +1,42 @@
+[package]
+name = "sasso-napi"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+publish = false
+
+# F4 of docs/ASYNC_PERF_ARCHITECTURE.md: a native Node addon binding the CORE
+# crate directly (no wasm, no asyncify, no C ABI). Async compiles run on their
+# own OS thread — real CPU parallelism across concurrent compiles — and
+# importer/custom-function/logger callbacks round-trip to the JS thread over a
+# ThreadsafeFunction + reply-by-id channel bridge (the core `Importer` trait is
+# synchronous, so the compile thread blocks while JS resolves).
+#
+# Like `../wasm` and `../ffi`, this crate lives OUTSIDE the core workspace
+# (see ../Cargo.toml `[workspace] exclude`): it needs the napi FFI machinery,
+# while the core keeps `unsafe_code = "forbid"` and zero dependencies.
+
+# Self-contained workspace root: stops cargo's upward manifest walk here.
+[workspace]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { version = "2", features = ["napi8"] }
+napi-derive = "2"
+sasso = { path = ".." }
+
+[build-dependencies]
+napi-build = "2"
+
+[profile.release]
+# No `panic` key, i.e. `unwind`, and deliberately so — the core crate sets
+# `abort` and `ffi/` sets `unwind` with its own reason, so this is the last of
+# the four manifests that would otherwise be silent on the question. napi-rs
+# turns a Rust panic into a thrown JS error by catching the unwind at the
+# boundary; under `abort` that becomes a hard process exit, which would take
+# down the host Node process (and every other worker in a CLI run) instead of
+# failing one compile.
+lto = true
+codegen-units = 1

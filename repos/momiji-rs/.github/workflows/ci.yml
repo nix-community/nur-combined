@@ -1,0 +1,441 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: -D warnings
+
+jobs:
+  test:
+    name: fmt · clippy · test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: rustfmt
+        run: cargo fmt --all --check
+      - name: clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: test
+        run: cargo test --all-features
+      # The timezone reader's differential sweep is #[ignore]d because it
+      # needs the host's /usr/share/zoneinfo and a Python to disagree with —
+      # neither of which `cargo test` should depend on. CI has both, so it
+      # opts in: 598 zones x 12 instants against python's zoneinfo, which is
+      # what stands in for Miri on a module that has no unsafe to verify.
+      - name: localtime — the whole tz database vs python zoneinfo
+        run: cargo test --release --bin sasso -- --ignored --nocapture
+
+  msrv:
+    name: MSRV (1.74)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@1.74
+      - uses: Swatinem/rust-cache@v2
+      # `--lib --bins` and NOT `--all-targets`, which fails before it
+      # compiles a line of ours:
+      #
+      #   error: failed to parse manifest at `…/clap-4.6.1/Cargo.toml`
+      #     this version of Cargo is older than the `2024` edition
+      #
+      # A dev-dependency (`codspeed-divan-compat`) pulls in crates that
+      # need edition 2024, so the TESTS cannot build at 1.74 whatever
+      # they contain. The library and the binary are also exactly what
+      # the MSRV is a promise about: a consumer depends on `sasso`, not
+      # on its test suite.
+      #
+      # What this adds over the clippy job, measured 2026-09-23 by
+      # putting each back into `src/main.rs`:
+      #
+      #   Option::is_none_or   (1.82, API)      both catch it
+      #   File::set_modified   (1.75, API)      both catch it
+      #   c"hello"             (1.77, SYNTAX)   only this one
+      #
+      # Clippy's `incompatible_msrv` reads `rust-version` from
+      # Cargo.toml and knows the std APIs it has version data for. It
+      # does not know about syntax, so a literal, a language feature or
+      # an edition bump passes it and fails a real 1.74 build.
+      - name: cargo check on the oldest supported toolchain
+        run: cargo check --lib --bins
+      # The Windows target too, from HERE rather than from the Windows job:
+      # `cargo check --target` needs no linker and no Windows runner, so this
+      # costs ubuntu minutes instead of 2x-billed ones.
+      #
+      # It is the only place the MSRV promise is tested for the one dependency
+      # this crate has. `chrono` is Windows-only (see Cargo.toml), so the check
+      # above resolves it on no platform at all, and a future `chrono` 0.4.x
+      # raising its own MSRV would break `cargo install sasso` on Windows at
+      # 1.74 with nothing in CI noticing. Verified locally on 2026-09-23
+      # against chrono 0.4.45 before this was added, so it starts out green for
+      # a reason rather than by luck.
+      - name: cargo check for Windows on the oldest supported toolchain
+        run: |
+          rustup target add x86_64-pc-windows-msvc
+          cargo check --lib --bins --target x86_64-pc-windows-msvc
+
+  windows:
+    name: windows (build + test)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: build
+        run: cargo build --release
+      # The oracle for the one thing these tests must assume rather than
+      # derive: dart spells EVERY frame's path with the platform separator
+      # (`src\_dep.scss`), the entry stylesheet's included — `src/entry.scss` on
+      # the command line is reported `src\entry.scss` (#151). Non-blocking and
+      # printed in full, so a download hiccup does not fail the build and a
+      # disagreement is visible without one.
+      - name: dart-sass probes (informational)
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          # Pinned with the parity job's `npm install -g sass@…`; bump together.
+          $ver = '1.104.1'
+          $url = "https://github.com/sass/dart-sass/releases/download/$ver/dart-sass-$ver-windows-x64.zip"
+          Invoke-WebRequest -Uri $url -OutFile dart-sass.zip
+          Expand-Archive -Path dart-sass.zip -DestinationPath dart-sass-dist -Force
+          New-Item -ItemType Directory -Force -Path probe/src | Out-Null
+          Set-Content -Path probe/src/_dep.scss -Value '@warn "from the dependency";'
+          Set-Content -Path probe/src/entry.scss -Value '@use "dep";'
+          Push-Location probe
+          $out = & ../dart-sass-dist/dart-sass/sass.bat --no-source-map src/entry.scss 2>&1 | Out-String
+          Pop-Location
+          Write-Host "--- dart-sass $ver, cwd = the project root ---"
+          Write-Host $out
+          # Both frames are checked: they are produced by different code paths
+          # here (`pathstyle::pretty` via the module graph for the loaded file,
+          # via `entry_display_url` for the entry) even though dart runs both
+          # through the one `p.prettyUri`.
+          foreach ($f in 'src\_dep.scss', 'src\entry.scss') {
+            $win = [regex]::Escape($f)
+            $posix = [regex]::Escape($f.Replace('\', '/'))
+            if ($out -match $win) {
+              Write-Host "dart spells $f with a backslash -- what this suite expects"
+            } elseif ($out -match $posix) {
+              Write-Host "dart spells $f with a forward slash -- flip Style::sep and with_frame_paths"
+            } else {
+              Write-Host "neither spelling of $f in the transcript -- read it above"
+            }
+          }
+          # --- does dart stamp the --update narration HERE? (#189) ----------
+          #
+          # ANSWERED, 2026-09-23, by this step's first run: it does.
+          #
+          #   [2026-09-23 04:21:49] Compiled stamp.scss to stamp.css.
+          #
+          # sasso prints `Compiled …` alone here — `local_stamp` reads
+          # /etc/localtime or $TZ and Windows has neither — so the pin below
+          # is recording a DIVERGENCE, not a decision. #189 carries it.
+          #
+          # Kept running because dart is the thing being tracked, not us: if
+          # a future dart stops stamping, the fix in #189 becomes wrong and
+          # this is what says so. The match is deliberately loose after the
+          # minutes — the native build prints `HH:MM:SS` and the dart2js npm
+          # build prints `HH:MM` (#190), and requiring `]` right after the
+          # minutes is what made this step's first run report the OPPOSITE of
+          # what it had just printed.
+          Set-Content -Path probe/stamp.scss -Value 'a {b: c}'
+          Push-Location probe
+          $upd = & ../dart-sass-dist/dart-sass/sass.bat --no-source-map --update stamp.scss:stamp.css 2>&1 | Out-String
+          Pop-Location
+          Write-Host "--- dart --update, on this runner ---"
+          Write-Host $upd
+          if ($upd -match '\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}') {
+            Write-Host "dart STAMPS on Windows, as of the 2026-09-23 measurement -- the pin below records the divergence in #189"
+          } elseif ($upd -match 'Compiled ') {
+            Write-Host "dart NO LONGER stamps on Windows -- this changed since 2026-09-23; #189's fix would now be wrong"
+          } else {
+            Write-Host "dart narrated nothing to match against -- read the transcript above"
+          }
+      # `--no-fail-fast` because the first Windows run stopped at the library
+      # unit tests and never reached a single integration suite, on a platform
+      # where none of them had ever run. The ledger it reads names every test
+      # still known to fail here and the issue it belongs to; a line leaves the
+      # file when its issue closes.
+      - name: test
+        shell: pwsh
+        run: |
+          $skips = Get-Content .github/windows-known-failures.txt |
+            Where-Object { $_.Trim() -and -not $_.StartsWith('#') } |
+            ForEach-Object { '--skip'; $_.Trim() }
+          Write-Host "skipping $($skips.Count / 2) known failures"
+          cargo test --release --no-fail-fast -- @skips
+          if ($LASTEXITCODE -ne 0) { throw "cargo test failed" }
+      # This step used to pin the ABSENCE of a timestamp here, because
+      # `local_stamp` read /etc/localtime and Windows has no TZif file. The
+      # probe above then measured dart on this very runner and dart stamps, so
+      # the absence was a divergence rather than a decision (#189) — and this
+      # step is what failed when the fix landed, which is what it was for.
+      #
+      # It asserts the presence now, and the SHAPE, which is the half no other
+      # job can check: `src/localtime`'s own tests run on a machine whose
+      # offset comes from a tz file, and this is the only place the Windows
+      # path — `chrono::Local` via `local_offset_at` — is ever executed.
+      #
+      # Seconds are part of the shape on purpose (#190): dart's native build
+      # prints them and its dart2js build truncates them away by accident, and
+      # the native build is what a Windows user installs.
+      - name: --update narrates WITH a timestamp (the Windows clock, #189)
+        shell: pwsh
+        run: |
+          Set-Content -Path one.scss -Value 'a {b: c}'
+          $out = & ./target/release/sasso.exe --no-source-map --update one.scss:one.css
+          Write-Host "stdout: $out"
+          if ($out -notmatch 'Compiled one\.scss to one\.css\.$') {
+            throw "expected dart's wording, got: $out"
+          }
+          # `[YYYY-MM-DD HH:MM:SS] ` — anchored at the start, seconds required.
+          # Deliberately not `-match '^\['` alone: that would pass for any
+          # bracket at all, and this step exists to check a shape.
+          if ($out -notmatch '^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] ') {
+            throw "expected a [YYYY-MM-DD HH:MM:SS] stamp, got: $out"
+          }
+          # …and that it is a LOCAL reading rather than a constant: the year
+          # has to be this decade, which a zeroed or epoch stamp is not.
+          if ($out -notmatch '^\[20[2-9]\d-') {
+            throw "the stamp does not look like a real local time: $out"
+          }
+
+  parity:
+    name: dart-sass parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: install dart-sass
+        # Pinned like sass-spec (spec/SPEC_VERSION.txt): bump this together
+        # with a behavior catch-up (and the sass-spec pin + BASELINE.json),
+        # never ad hoc — an unpinned latest turns every upstream behavior
+        # change into red CI on unrelated PRs.
+        run: npm install -g sass@1.104.1
+      - name: parity tests vs dart-sass
+        run: SASSO_PARITY=1 SASS_BIN=sass cargo test --test parity -- --nocapture
+
+  wasm:
+    name: wasm32-wasip1 build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+      - uses: Swatinem/rust-cache@v2
+      - name: build (lib) for wasm
+        run: cargo build --lib --target wasm32-wasip1
+
+  wasm-npm:
+    name: wasm npm package (build + test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: wasm
+          cache-directories: |
+            wasm/target-size
+            wasm/target-speed
+      - name: install binaryen (wasm-opt)
+        run: sudo apt-get update && sudo apt-get install -y binaryen
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      # The wasm crate lives outside the core workspace, so fmt/clippy run inside
+      # wasm/ (the root `cargo fmt --all` / `--all-targets` don't reach it).
+      - name: rustfmt (wasm)
+        run: cargo fmt --check
+        working-directory: wasm
+      - name: clippy (wasm)
+        run: cargo clippy --lib --target wasm32-unknown-unknown -- -D warnings
+        working-directory: wasm
+      # Build BOTH wasm variants (size + speed), then exercise the full JS API
+      # surface — compileString/compile/async, source maps, the Compiler API,
+      # and the importer bridge (loadPaths, relative, user Importer/FileImporter).
+      - name: build wasm modules
+        run: bash wasm/build.sh
+      - name: node API + importer tests
+        run: node wasm/test.mjs
+
+  napi:
+    name: native addon (build + parity + test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            napi
+            wasm
+          cache-directories: |
+            wasm/target-size
+            wasm/target-speed
+      - name: install binaryen (wasm-opt)
+        run: sudo apt-get update && sudo apt-get install -y binaryen
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      # Like wasm/ and ffi/, the napi crate lives outside the core workspace.
+      - name: rustfmt (napi)
+        run: cargo fmt --check
+        working-directory: napi
+      - name: clippy (napi)
+        run: cargo clippy --release -- -D warnings
+        working-directory: napi
+      # The parity half of napi/test.mjs compiles every corpus with BOTH
+      # engines and asserts byte-identical CSS, so the wasm modules must exist.
+      - name: build wasm modules (parity reference)
+        run: bash wasm/build.sh
+      - name: build native addon
+        run: bash napi/build.sh
+      # napi/ is its OWN workspace and its lockfile is tracked (the addon ships
+      # prebuilt binaries, so its dependency set is pinned like the root
+      # crate's). It pins the core crate BY PATH, so a release that bumps
+      # Cargo.toml leaves this lockfile stale and the build above quietly
+      # rewrites a tracked file — twice now, unnoticed both times. Fail instead:
+      # a version bump has to carry the refreshed lockfile.
+      # (wasm/Cargo.lock is deliberately untracked — see wasm/.gitignore.)
+      - name: napi/Cargo.lock is not stale
+        run: git diff --exit-code napi/Cargo.lock
+      - name: node parity + behavior tests
+        run: node napi/test.mjs
+
+  ffi:
+    name: C ABI (ffi)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ffi
+      # The ffi crate lives outside the core workspace, so fmt/clippy/build run
+      # inside ffi/ (the root `cargo fmt --all` / `--all-targets` don't reach it).
+      - name: rustfmt (ffi)
+        run: cargo fmt --check
+        working-directory: ffi
+      - name: clippy (ffi)
+        run: cargo clippy --release --all-targets -- -D warnings
+        working-directory: ffi
+      - name: build cdylib + staticlib
+        run: cargo build --release
+        working-directory: ffi
+      - name: python ctypes smoke test
+        run: python3 examples/smoke.py
+        working-directory: ffi
+      - name: python ctypes custom-importer test
+        run: python3 examples/importer.py
+        working-directory: ffi
+
+  nix:
+    name: nix flake
+    # Both platform families `meta.platforms = unix` claims. The macOS leg is
+    # not redundant: `buildRustPackage`, the install checks and the sandbox
+    # itself differ enough there that a Linux-only check has let a broken
+    # darwin build through before in other projects.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+      # Builds nix/package.nix (full `cargo test` in the sandbox) and
+      # nix/ffi.nix (the C ABI's ctypes smoke test against the installed
+      # library), then the dart-compat check — issue #82's flag set, compared
+      # byte-for-byte against the dart-sass our flake.lock pins. Everything is
+      # pinned by flake.lock, so this job never goes red on someone else's bump.
+      - name: nix flake check
+        run: nix flake check -L --show-trace
+
+      # NUR's own evaluation check, from nix-community/NUR's README. `nix flake
+      # check` cannot stand in for it: this one forbids eval-time network access,
+      # which is the single constraint nix/nur.nix exists to satisfy, and it
+      # resolves nixpkgs unstable rather than our flake.lock, which is what NUR
+      # evaluates against. Worth a job because the failure is silent — NUR keeps
+      # the last revision that evaluated, so a break would leave users quietly
+      # on an older sasso with nothing to read. Linux only: NUR's evaluator is.
+      - name: NUR evaluation check
+        if: runner.os == 'Linux'
+        run: |
+          nixpkgs=$(nix-instantiate --find-file nixpkgs 2>/dev/null \
+            || nix flake prefetch nixpkgs --json \
+               | python3 -c 'import json,sys; print(json.load(sys.stdin)["storePath"])')
+          echo "nixpkgs = $nixpkgs"
+          nix-env -f nix/nur.nix -qa '*' --meta --drv-path --show-trace \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            -I nixpkgs="$nixpkgs" -I ./ | tee attrs.txt
+          grep -qE '^sasso-[0-9]' attrs.txt
+          grep -qE '^sasso-ffi-[0-9]' attrs.txt
+
+  conformance:
+    name: sass-spec ratchet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: fetch sass-spec
+        run: bash spec/fetch.sh
+      - name: build release
+        run: cargo build --release
+      - name: pass-rate ratchet (must not regress below spec/BASELINE.json)
+        run: python3 spec/check_baseline.py
+      # sass-spec ships dart-sass's EXPANDED output as the only expectation, so
+      # the run above has never scored compressed CSS. This one does, against
+      # spec/COMPRESSED_EXPECT.txt — committed per-case digests of a pinned
+      # dart-sass's compressed output. No node, no network.
+      - name: compressed ratchet (must not regress below spec/BASELINE_COMPRESSED.json)
+        run: python3 spec/check_baseline.py --style compressed
+      - name: failure summary by bucket (informational)
+        if: always()
+        run: |
+          python3 - <<'PYEOF'
+          import json, os
+          from collections import Counter
+          for style, path in (('expanded', 'results.json'),
+                              ('compressed', 'results-compressed.json')):
+              path = os.path.join('spec', path)
+              if not os.path.exists(path):
+                  print(f'no {path}'); continue
+              cases = json.load(open(path))['cases']
+              fails = [c['name'] for c in cases if c['status'] == 'FAIL']
+              print(f"=== {style}: FAIL total {len(fails)}")
+              buckets = Counter('/'.join(n.replace(':', '/').split('/')[:3]) for n in fails)
+              for k, v in buckets.most_common(30):
+                  print(f"{v:5} {k}")
+          PYEOF
+      - name: upload results.json
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sass-spec-results-linux
+          path: |
+            spec/results.json
+            spec/results-compressed.json
+          if-no-files-found: ignore

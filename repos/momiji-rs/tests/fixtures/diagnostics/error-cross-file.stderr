@@ -1,0 +1,7 @@
+Error: "boom from a"
+  ╷
+5 │   @include a;
+  │   ^^^^^^^^^^
+  ╵
+  _libchain.scss 5:3         b()
+  error-cross-file.scss 3:3  root stylesheet

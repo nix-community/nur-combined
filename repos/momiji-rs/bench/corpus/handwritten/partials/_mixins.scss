@@ -1,0 +1,45 @@
+// Mixins partial: @mixin / @include, args, content blocks, interpolation
+@use "sass:map";
+
+@mixin button-variant($bg, $text: #fff) {
+  background-color: $bg;
+  color: $text;
+  border: 1px solid darken($bg, 8%);
+
+  &:hover {
+    background-color: lighten($bg, 6%);
+    border-color: darken($bg, 12%);
+  }
+
+  &:active {
+    background-color: darken($bg, 4%);
+  }
+
+  &:disabled {
+    background-color: mix($bg, #fff, 50%);
+    cursor: not-allowed;
+  }
+}
+
+@mixin respond-to($name) {
+  @if map.has-key($breakpoints, $name) {
+    $min: map.get($breakpoints, $name);
+    @media (min-width: #{$min}) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$name}";
+  }
+}
+
+@mixin elevation($level: 1) {
+  $blur: $level * 4px;
+  $spread: $level * 1px;
+  box-shadow: 0 #{$level * 2px} #{$blur} #{$spread} rgba(0, 0, 0, 0.2);
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

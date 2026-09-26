@@ -1,0 +1,16 @@
+{
+  "name": "sasso-bench-real-world",
+  "private": true,
+  "description": "Pinned dart-sass for the real-world corpus benchmark",
+  "dependencies": {
+    "@primer/primitives": "^11.9.0",
+    "sass": "^1.89.0"
+  },
+  "devDependencies": {
+    "@nextcloud/dialogs": "^7.4.0",
+    "@nextcloud/password-confirmation": "^6.1.0",
+    "bootstrap": "^5.3.8",
+    "tippy.js": "^6.3.7",
+    "videojs-font": "^4.2.0"
+  }
+}

@@ -1,0 +1,7 @@
+Error: Undefined variable.
+  ╷
+2 │   @return $base + $missing;
+  │                   ^^^^^^^^
+  ╵
+  compile-undefined-variable-stack.scss 2:19  calc-width()
+  compile-undefined-variable-stack.scss 5:10  root stylesheet

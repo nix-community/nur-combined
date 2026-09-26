@@ -1,0 +1,10 @@
+{
+  "name": "sasso-native",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Native Node addon build of sasso (F4) — repo-internal for now; per-platform prebuilds are the publish blocker.",
+  "type": "module",
+  "main": "./index.mjs",
+  "exports": { ".": "./index.mjs" },
+  "engines": { "node": ">=18" }
+}

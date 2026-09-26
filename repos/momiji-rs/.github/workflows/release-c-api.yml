@@ -1,0 +1,150 @@
+name: Release C ABI (c-api tarball)
+
+# On a `v*` tag, build the C ABI (libsasso static + dynamic + sasso.h) for each
+# target and attach a `sasso-<tag>-<triple>-c-api.{tar.xz,zip}` to the GitHub
+# Release that the cargo-dist `Release` workflow creates for the same tag — the
+# universal, language-agnostic way to consume sasso (cgo/purego/ctypes/Fiddle/…).
+# This is a SEPARATE workflow (like release-crate.yml / release-wasm.yml) because
+# release.yml is cargo-dist-generated and must not be hand-edited.
+#
+# A manual run (workflow_dispatch) builds the tarballs as artifacts WITHOUT
+# uploading — a dry run to validate the matrix before cutting a tag.
+#
+# Every target ships `libsasso.a` plus a dynamic library, EXCEPT the two
+# `*-linux-musl` triples, which are static-only: a musl target defaults to
+# `+crt-static`, and rustc cannot build a cdylib under it (it warns "dropping
+# unsupported crate type `cdylib`"). See the packaging step.
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  build:
+    name: c-api ${{ matrix.triple }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - triple: x86_64-unknown-linux-gnu
+            runner: ubuntu-latest
+          - triple: aarch64-unknown-linux-gnu
+            runner: ubuntu-24.04-arm   # native ARM runner (free for public repos)
+          # musl: statically-linked libc, for Alpine and any distro-agnostic
+          # container (issue #18). Built on the NATIVE runner per arch so no
+          # cross-linker is needed — musl-tools provides `musl-gcc` for the
+          # host arch only.
+          - triple: x86_64-unknown-linux-musl
+            runner: ubuntu-latest
+          - triple: aarch64-unknown-linux-musl
+            runner: ubuntu-24.04-arm
+          - triple: aarch64-apple-darwin
+            runner: macos-14
+          - triple: x86_64-apple-darwin
+            runner: macos-14            # cross-compiled on the arm64 runner
+          - triple: x86_64-pc-windows-msvc
+            runner: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.triple }}
+
+      # `musl-gcc`, which rustc drives as the linker for *-linux-musl. Only the
+      # host arch is provided, which is why each musl triple builds on its own
+      # native runner rather than cross-compiling.
+      - name: Install the musl toolchain
+        if: endsWith(matrix.triple, '-linux-musl')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends musl-tools
+
+      - name: Build the C ABI (cdylib + staticlib)
+        run: cargo build --release --manifest-path ffi/Cargo.toml --target ${{ matrix.triple }}
+
+      - name: Package (Unix)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          name="sasso-${GITHUB_REF_NAME}-${{ matrix.triple }}-c-api"
+          out="ffi/target/${{ matrix.triple }}/release"
+          mkdir -p "$name/lib" "$name/include"
+          cp ffi/include/sasso.h "$name/include/"
+          cp "$out/libsasso.a" "$name/lib/"
+          case "${{ matrix.triple }}" in
+            *-apple-darwin)
+              cp "$out/libsasso.dylib" "$name/lib/"
+              # Relocatable install name so consumers can rpath the dylib.
+              install_name_tool -id @rpath/libsasso.dylib "$name/lib/libsasso.dylib"
+              ;;
+            *-linux-musl)
+              # STATIC ONLY, by design. A musl target defaults to
+              # `+crt-static`, under which rustc cannot produce a cdylib and
+              # emits "dropping unsupported crate type `cdylib`" — so there is
+              # no libsasso.so to copy, and blindly copying one would fail the
+              # build. Consumers that need a loadable module on musl should
+              # link libsasso.a into their own shared object.
+              ;;
+            *)
+              cp "$out/libsasso.so" "$name/lib/"
+              ;;
+          esac
+          tar -cJf "$name.tar.xz" "$name"
+          echo "ASSET=$name.tar.xz" >> "$GITHUB_ENV"
+
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $name = "sasso-${env:GITHUB_REF_NAME}-${{ matrix.triple }}-c-api"
+          $out  = "ffi/target/${{ matrix.triple }}/release"
+          New-Item -ItemType Directory -Force "$name/lib","$name/include" | Out-Null
+          Copy-Item ffi/include/sasso.h "$name/include/"
+          Copy-Item "$out/sasso.dll" "$name/lib/"          # dynamic
+          Copy-Item "$out/*.lib"     "$name/lib/"          # sasso.lib (static) + sasso.dll.lib (import)
+          Compress-Archive -Path "$name" -DestinationPath "$name.zip"
+          "ASSET=$name.zip" >> $env:GITHUB_ENV
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: c-api-${{ matrix.triple }}
+          path: ${{ env.ASSET }}
+          if-no-files-found: error
+
+  # Attach every tarball to the release cargo-dist created for this tag. Skipped
+  # on a manual dry run (no tag → the build artifacts are the deliverable there).
+  upload:
+    name: attach c-api tarballs to the release
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          pattern: c-api-*
+          merge-multiple: true
+
+      - name: Wait for the cargo-dist release, then upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          # cargo-dist creates the GitHub Release partway through its own run;
+          # poll for it (up to ~20 min) before attaching our assets.
+          for i in $(seq 1 60); do
+            if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              echo "release $tag exists"; break
+            fi
+            echo "waiting for release $tag … ($i/60)"; sleep 20
+          done
+          ls -la dist
+          gh release upload "$tag" dist/*.tar.xz dist/*.zip --clobber --repo "$GITHUB_REPOSITORY"

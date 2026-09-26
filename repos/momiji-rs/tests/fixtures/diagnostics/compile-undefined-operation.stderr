@@ -1,0 +1,6 @@
+Error: Undefined operation "1px + #fff".
+  ╷
+2 │   width: 1px + #fff;
+  │          ^^^^^^^^^^
+  ╵
+  compile-undefined-operation.scss 2:10  root stylesheet

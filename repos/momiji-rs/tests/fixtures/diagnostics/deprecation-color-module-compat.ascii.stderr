@@ -1,0 +1,50 @@
+DEPRECATION WARNING [color-module-compat]: Passing a number (1) to color.grayscale() is deprecated.
+
+Recommendation: grayscale(1)
+
+  ,
+5 |   a: grayscale(1);
+  |      ^^^^^^^^^^^^
+  '
+    deprecation-color-module-compat.scss 5:6  root stylesheet
+
+DEPRECATION WARNING [color-module-compat]: Passing a number (0.5) to color.invert() is deprecated.
+
+Recommendation: invert(0.5)
+
+  ,
+6 |   b: c.invert(0.5);
+  |      ^^^^^^^^^^^^^
+  '
+    deprecation-color-module-compat.scss 6:6  root stylesheet
+
+DEPRECATION WARNING [color-module-compat]: Passing a number (0.5 to color.opacity() is deprecated.
+
+Recommendation: opacity(0.5)
+
+  ,
+7 |   c: c.opacity(0.5);
+  |      ^^^^^^^^^^^^^^
+  '
+    deprecation-color-module-compat.scss 7:6  root stylesheet
+
+DEPRECATION WARNING [color-module-compat]: Using color.alpha() for a Microsoft filter is deprecated.
+
+Recommendation: alpha(opacity=20)
+
+  ,
+8 |   d: c.alpha(opacity=20);
+  |      ^^^^^^^^^^^^^^^^^^^
+  '
+    deprecation-color-module-compat.scss 8:6  root stylesheet
+
+DEPRECATION WARNING [color-module-compat]: Using color.alpha() for a Microsoft filter is deprecated.
+
+Recommendation: alpha(a=b, c=d)
+
+  ,
+9 |   e: c.alpha(a=b, c=d);
+  |      ^^^^^^^^^^^^^^^^^
+  '
+    deprecation-color-module-compat.scss 9:6  root stylesheet
+

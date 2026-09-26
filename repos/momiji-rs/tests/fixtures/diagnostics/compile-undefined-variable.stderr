@@ -1,0 +1,6 @@
+Error: Undefined variable.
+  ╷
+2 │   color: $undefined-var;
+  │          ^^^^^^^^^^^^^^
+  ╵
+  compile-undefined-variable.scss 2:10  root stylesheet

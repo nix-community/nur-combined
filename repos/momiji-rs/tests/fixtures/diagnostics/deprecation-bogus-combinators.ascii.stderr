@@ -1,0 +1,14 @@
+DEPRECATION WARNING [bogus-combinators]: The selector "a +" is only valid for nesting and shouldn't
+have children other than style rules. It will be omitted from the generated CSS.
+This will be an error in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/bogus-combinators
+
+  ,
+1 | a + {
+  | ^^^ invalid selector
+2 |   b: c;
+  |   ==== this is not a style rule
+  '
+    deprecation-bogus-combinators.scss 1:1  root stylesheet
+

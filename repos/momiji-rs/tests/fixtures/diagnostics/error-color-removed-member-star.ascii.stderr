@@ -1,0 +1,11 @@
+Error: The function transparentize() isn't in the sass:color module.
+
+Recommendation: color.adjust(rgba(171, 205, 239, 0.8), $alpha: -0.2)
+
+More info: https://sass-lang.com/documentation/functions/color#transparentize
+  ,
+4 |   @return transparentize($c, 0.2);
+  |           ^^^^^^^^^^^^^^^^^^^^^^^
+  '
+  error-color-removed-member-star.scss 4:11  faded()
+  error-color-removed-member-star.scss 8:6   root stylesheet

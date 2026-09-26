@@ -1,0 +1,6 @@
+Error: "Invalid widget configuration"
+  ,
+2 | @error "Invalid #{$name} configuration";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  '
+  error-interpolated.scss 2:1  root stylesheet

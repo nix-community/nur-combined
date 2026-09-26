@@ -1,0 +1,12 @@
+@use "sass:color" as c;
+@use "sass:color" as *;
+
+.a {
+  a: grayscale(1);
+  b: c.invert(0.5);
+  c: c.opacity(0.5);
+  d: c.alpha(opacity=20);
+  e: c.alpha(a=b, c=d);
+  f: c.grayscale(#abc);
+  g: c.alpha(#abc);
+}

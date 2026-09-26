@@ -1,0 +1,341 @@
+{
+  "//": "Real-world Sass corpora. Vetting criteria: well-known project, default-branch commit within the last 6 months (checked 2026-07-04; batch 2 checked 2026-07-05), meaningful SCSS/Sass source, compiles standalone with dart-sass. Excluded and why: foundation-sites (last commit 2024-09), picocss/pico (default branch stale since 2025-03), element-plus (linguist reports 0 SCSS bytes), discourse (variables injected by Ruby pipeline, no honest standalone compile), angular/components (bazel-only build), patternfly & materializecss (fork/star signal too weak). Batch-2 exclusions: swiper (styles moved to less/css), coreui core repo (880 stars; the well-known repo is the admin template).",
+  "projects": [
+    {
+      "name": "bootstrap",
+      "repo": "https://github.com/twbs/bootstrap",
+      "sha": "d35950ef24fe54a163e30f1d5007d439f803feda",
+      "stars": 174424,
+      "license": "MIT",
+      "sparse": [
+        "scss"
+      ],
+      "entry": "scss/bootstrap.scss",
+      "loadPaths": []
+    },
+    {
+      "name": "bulma",
+      "repo": "https://github.com/jgthms/bulma",
+      "sha": "741da22368cd548111224983a1c3ece8954fe8cc",
+      "stars": 50072,
+      "license": "MIT",
+      "sparse": [],
+      "entry": "bulma.scss",
+      "loadPaths": []
+    },
+    {
+      "name": "govuk-frontend",
+      "repo": "https://github.com/alphagov/govuk-frontend",
+      "sha": "cfd2224301604372b0f66757c0ee0838d8c0a87c",
+      "stars": 1420,
+      "license": "MIT",
+      "sparse": [
+        "packages/govuk-frontend/src"
+      ],
+      "entry": "packages/govuk-frontend/src/govuk/index.scss",
+      "loadPaths": [
+        "packages/govuk-frontend/src"
+      ]
+    },
+    {
+      "name": "uswds",
+      "repo": "https://github.com/uswds/uswds",
+      "sha": "95717ffcc41352735a040a634244460d19613ef8",
+      "stars": 7123,
+      "license": "SEE LICENSE (public-domain mix)",
+      "sparse": [
+        "packages"
+      ],
+      "prep": {
+        "write": {
+          "file": "entry.scss",
+          "content": "@forward \"uswds\";\n"
+        }
+      },
+      "entry": "@prep/entry.scss",
+      "loadPaths": [
+        "packages"
+      ]
+    },
+    {
+      "name": "carbon",
+      "repo": "https://github.com/carbon-design-system/carbon",
+      "sha": "f1d6bbfd93997352348e9aa1b0dc2100805cbb54",
+      "stars": 9258,
+      "license": "Apache-2.0",
+      "skip": "packages/layout/scss/generated/* is produced by a codegen step at publish time; the raw repo cannot compile standalone — sasso and dart-sass fail on the identical missing file (verified 2026-07-04). The earlier 'sasso can't resolve multi-segment relative @forward' diagnosis was wrong: sasso's load errors were attributed to the root file instead of the failing one (diagnostics follow-up in REFACTOR_NEXT).",
+      "sparse": [
+        "packages/styles",
+        "packages/themes",
+        "packages/colors",
+        "packages/grid",
+        "packages/layout",
+        "packages/motion",
+        "packages/type",
+        "packages/feature-flags",
+        "packages/icons"
+      ],
+      "shims": {
+        "@carbon/themes": "packages/themes",
+        "@carbon/colors": "packages/colors",
+        "@carbon/grid": "packages/grid",
+        "@carbon/layout": "packages/layout",
+        "@carbon/motion": "packages/motion",
+        "@carbon/type": "packages/type",
+        "@carbon/feature-flags": "packages/feature-flags",
+        "@carbon/icons": "packages/icons"
+      },
+      "entry": "packages/styles/index.scss",
+      "loadPaths": [
+        "@shim"
+      ]
+    },
+    {
+      "name": "primer-css",
+      "repo": "https://github.com/primer/css",
+      "sha": "17fa6118840d67b8acbbd05fed27f1715e8e5595",
+      "stars": 12983,
+      "license": "MIT",
+      "sparse": [
+        "src"
+      ],
+      "entry": "src/index.scss",
+      "loadPaths": [
+        "src",
+        "@node_modules"
+      ],
+      "note": "@primer/primitives (real npm dep of the project) supplies the CSS custom-property theme files; installed at harness level."
+    },
+    {
+      "name": "vuetify",
+      "repo": "https://github.com/vuetifyjs/vuetify",
+      "sha": "998fe6a8815d65982f45b5139d8a3fef6ab55b6e",
+      "stars": 41009,
+      "license": "MIT",
+      "sparse": [
+        "packages/vuetify/src/styles"
+      ],
+      "entry": "packages/vuetify/src/styles/main.sass",
+      "loadPaths": [
+        "packages/vuetify/src/styles"
+      ]
+    },
+    {
+      "name": "quasar",
+      "repo": "https://github.com/quasarframework/quasar",
+      "sha": "4202048bb7e1bb74ede5a74dc3f81169bb8efe3e",
+      "stars": 27189,
+      "license": "MIT",
+      "sparse": [
+        "ui/src"
+      ],
+      "entry": "ui/src/css/index.sass",
+      "loadPaths": [
+        "ui/src/css"
+      ]
+    },
+    {
+      "name": "mastodon",
+      "repo": "https://github.com/mastodon/mastodon",
+      "sha": "163f96cee4dea23365bff9b433871e68d20d9ee7",
+      "stars": 50088,
+      "license": "AGPL-3.0",
+      "sparse": [
+        "app/javascript/styles"
+      ],
+      "entry": "app/javascript/styles/application.scss",
+      "loadPaths": [
+        "app/javascript/styles"
+      ]
+    },
+    {
+      "name": "minimal-mistakes",
+      "repo": "https://github.com/mmistakes/minimal-mistakes",
+      "sha": "58d9185b2ee1127f117c7655a448e25ce2c284e4",
+      "stars": 13540,
+      "license": "MIT",
+      "sparse": [
+        "_sass",
+        "assets/css"
+      ],
+      "prep": {
+        "jekyll": {
+          "from": "assets/css/main.scss",
+          "file": "entry.scss",
+          "liquidDefault": "default"
+        }
+      },
+      "entry": "@prep/entry.scss",
+      "loadPaths": [
+        "_sass"
+      ]
+    },
+    {
+      "name": "just-the-docs",
+      "repo": "https://github.com/just-the-docs/just-the-docs",
+      "sha": "2aaf003bede71a222caa106d7fba24f5ca28a599",
+      "stars": 9079,
+      "license": "MIT",
+      "sparse": [
+        "_sass",
+        "assets/css",
+        "_includes/css"
+      ],
+      "prep": {
+        "write": {
+          "file": "entry.scss",
+          "content": "// Mirrors _includes/css/just-the-docs.scss.liquid with the default\n// Jekyll config (color_scheme=light, no site.logo, no custom includes).\n@import \"support/support\";\n@import \"custom/setup\";\n@import \"color_schemes/light\";\n@import \"modules\";\n"
+        }
+      },
+      "entry": "@prep/entry.scss",
+      "loadPaths": [
+        "_sass"
+      ]
+    },
+    {
+      "name": "tabler",
+      "repo": "https://github.com/tabler/tabler",
+      "sha": "d8bbb1e5a79ad6c63e3eed5a301b539a3128e9b8",
+      "stars": 41263,
+      "license": "MIT",
+      "sparse": [
+        "core/scss"
+      ],
+      "entry": "core/scss/tabler.scss",
+      "loadPaths": []
+    },
+    {
+      "name": "adminlte",
+      "repo": "https://github.com/ColorlibHQ/AdminLTE",
+      "sha": "1b5a9c4e53269076ce4aaf5789737f6bbc0b8696",
+      "stars": 45488,
+      "license": "MIT",
+      "sparse": [
+        "src/scss"
+      ],
+      "entry": "src/scss/adminlte.scss",
+      "loadPaths": [
+        "@node_modules"
+      ]
+    },
+    {
+      "name": "reveal.js",
+      "repo": "https://github.com/hakimel/reveal.js",
+      "sha": "a3b940695648aa1c5b0680bc9a5b905cf43020e5",
+      "stars": 71877,
+      "license": "MIT",
+      "sparse": [
+        "css"
+      ],
+      "entry": "css/reveal.scss",
+      "loadPaths": []
+    },
+    {
+      "name": "font-awesome",
+      "repo": "https://github.com/FortAwesome/Font-Awesome",
+      "sha": "70fb2dd154b617f62fc4ae5b0b7e2943bfd2aa96",
+      "stars": 76715,
+      "license": "CC-BY-4.0 + OFL-1.1 + MIT (Free)",
+      "sparse": [
+        "scss"
+      ],
+      "entry": "scss/fontawesome.scss",
+      "loadPaths": []
+    },
+    {
+      "name": "video.js",
+      "repo": "https://github.com/videojs/video.js",
+      "sha": "1ce2b219f450842455e120518bf669e1d5b2ae38",
+      "stars": 39805,
+      "license": "Apache-2.0",
+      "sparse": [
+        "src/css"
+      ],
+      "entry": "src/css/video-js.scss",
+      "loadPaths": [
+        "@node_modules"
+      ]
+    },
+    {
+      "name": "forem",
+      "repo": "https://github.com/forem/forem",
+      "sha": "b847ed15902f2c0f81e9b72ada5e6a4dfaed63a1",
+      "stars": 22738,
+      "license": "AGPL-3.0",
+      "sparse": [
+        "app/assets/stylesheets"
+      ],
+      "entry": "app/assets/stylesheets/crayons.scss",
+      "loadPaths": [
+        "app/assets/stylesheets"
+      ]
+    },
+    {
+      "name": "nextcloud",
+      "repo": "https://github.com/nextcloud/server",
+      "sha": "4d3b85a629de3ec775fb9a22638b438b849e875c",
+      "stars": 36034,
+      "license": "AGPL-3.0",
+      "sparse": [
+        "core/css"
+      ],
+      "entry": "core/css/server.scss",
+      "loadPaths": [],
+      "prep": {
+        "linkNodeModules": true
+      }
+    },
+    {
+      "name": "chirpy",
+      "repo": "https://github.com/cotes2020/jekyll-theme-chirpy",
+      "sha": "01c62bc6366417745587e2b61bb4ce617ce0b5f1",
+      "stars": 10142,
+      "license": "MIT",
+      "sparse": [
+        "_sass",
+        "assets/css"
+      ],
+      "prep": {
+        "jekyll": {
+          "from": "assets/css/jekyll-theme-chirpy.scss",
+          "file": "entry.scss",
+          "liquidDefault": ""
+        }
+      },
+      "entry": "@prep/entry.scss",
+      "loadPaths": [
+        "_sass"
+      ]
+    },
+    {
+      "name": "grafana",
+      "repo": "https://github.com/grafana/grafana",
+      "sha": "29b4e114264c06bd4cf6c625444830f141695bb1",
+      "stars": 75312,
+      "license": "AGPL-3.0",
+      "sparse": [
+        "public/sass"
+      ],
+      "entry": "public/sass/grafana.dark.scss",
+      "loadPaths": [
+        "public/sass"
+      ]
+    },
+    {
+      "name": "wagtail",
+      "repo": "https://github.com/wagtail/wagtail",
+      "sha": "6e0e6d950f6fe68360d68d833fd23b94f172cee7",
+      "stars": 20385,
+      "license": "BSD-3-Clause",
+      "sparse": [
+        "client/scss",
+        "client/src"
+      ],
+      "entry": "client/scss/core.scss",
+      "loadPaths": [],
+      "prep": {
+        "linkNodeModules": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+Error: Undefined variable.
+  ,
+2 |   color: $nope;
+  |          ^^^^^
+  '
+  deprecation-bogus-combinators-body-error.scss 2:10  root stylesheet

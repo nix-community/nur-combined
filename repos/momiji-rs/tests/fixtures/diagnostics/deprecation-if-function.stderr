@@ -1,0 +1,46 @@
+DEPRECATION WARNING [if-function]: The Sass if() syntax is deprecated in favor of the modern CSS syntax.
+
+Suggestion: if(not sass($x): red)
+
+More info: https://sass-lang.com/d/if-function
+
+  ╷
+2 │   a: if($x, null, red);
+  │      ^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-if-function.scss 2:6  root stylesheet
+
+DEPRECATION WARNING [if-function]: The Sass if() syntax is deprecated in favor of the modern CSS syntax.
+
+Suggestion: if(sass(false): 1; else: 2)
+
+More info: https://sass-lang.com/d/if-function
+
+  ╷
+6 │   b: if(true, if(false, 1, 2), 3);
+  │               ^^^^^^^^^^^^^^^
+  ╵
+    deprecation-if-function.scss 6:15  root stylesheet
+
+DEPRECATION WARNING [if-function]: The Sass if() syntax is deprecated in favor of the modern CSS syntax.
+
+Suggestion: if(sass(true): if(false, 1, 2); else: 3)
+
+More info: https://sass-lang.com/d/if-function
+
+  ╷
+6 │   b: if(true, if(false, 1, 2), 3);
+  │      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-if-function.scss 6:6  root stylesheet
+
+DEPRECATION WARNING [if-function]: The Sass if() syntax is deprecated in favor of the modern CSS syntax.
+
+More info: https://sass-lang.com/d/if-function
+
+  ╷
+7 │   c: if($condition: true, $if-true: 1, $if-false: 2);
+  │      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-if-function.scss 7:6  root stylesheet
+

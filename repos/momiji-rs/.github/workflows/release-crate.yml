@@ -1,0 +1,47 @@
+name: Publish crate
+
+# Publishes the `sasso` crate to crates.io on a version tag, alongside the
+# cargo-dist binary release (release.yml). Uses crates.io Trusted Publishing
+# (OIDC) — no CARGO_REGISTRY_TOKEN secret is stored.
+#
+# One-time setup on crates.io (Settings -> Trusted Publishing for the `sasso`
+# crate): add a GitHub publisher with repository `momiji-rs/sasso`, workflow
+# `release-crate.yml`, and (recommended) environment `release`. The very first
+# publish (0.1.0) was done with a token; every subsequent tagged version
+# publishes through this workflow with a short-lived OIDC token.
+
+on:
+  push:
+    tags:
+      # Crate releases ride `v*` tags. The decoupled npm line uses `npm-v*`
+      # (see release-wasm.yml) and deliberately does NOT match here.
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  # Manual fallback: re-publish from a branch when a tagged run failed AFTER the
+  # binary release was already cut (e.g. a dirty-lockfile `cargo publish` error),
+  # so we don't have to re-tag and re-run cargo-dist. Publishes whatever version
+  # the checked-out ref's Cargo.toml declares.
+  workflow_dispatch: {}
+
+permissions: {}
+
+jobs:
+  publish:
+    name: cargo publish
+    runs-on: ubuntu-latest
+    # Optional hardening: create a `release` environment with required
+    # reviewers / tag protection in the repo settings, then this gates on it.
+    environment: release
+    permissions:
+      id-token: write # mint the crates.io OIDC token
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: mint crates.io token (OIDC)
+        uses: rust-lang/crates-io-auth-action@v1
+        id: auth
+      - name: cargo publish
+        run: cargo publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}

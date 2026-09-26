@@ -1,0 +1,9 @@
+@mixin inner {
+  @error "deep failure";
+}
+@mixin outer {
+  @include inner;
+}
+.foo {
+  @include outer;
+}

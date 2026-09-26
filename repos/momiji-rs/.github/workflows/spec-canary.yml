@@ -1,0 +1,35 @@
+name: spec drift canary
+
+# Non-blocking drift detector: weekly (and on demand) it fetches the LATEST
+# upstream sass-spec and scores against it, so we notice when upstream adds or
+# changes cases and can re-pin (`spec/fetch.sh --pin=<sha>`) + re-baseline.
+#
+# This does NOT gate anything — the real ratchet (ci.yml `conformance`) runs the
+# PINNED suite (spec/fetch.sh, default mode) and stays reproducible.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    name: score against upstream HEAD
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: fetch latest sass-spec (reports pin vs upstream)
+        run: bash spec/fetch.sh --latest
+      - name: build release
+        run: cargo build --release
+      - name: score against latest (informational, never fails the run)
+        run: |
+          echo '## sass-spec drift vs pinned baseline' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          SASS_BIN=target/release/sasso python3 spec/check_baseline.py 2>&1 | tee -a "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,9 @@
+@function fail-deep() {
+  @error "function chain failure";
+}
+@function wrapper() {
+  @return fail-deep();
+}
+.foo {
+  x: wrapper();
+}

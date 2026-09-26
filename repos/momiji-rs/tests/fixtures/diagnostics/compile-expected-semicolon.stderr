@@ -1,0 +1,6 @@
+Error: expected ";".
+  ╷
+3 │   background: blue;
+  │             ^
+  ╵
+  compile-expected-semicolon.scss 3:13  root stylesheet

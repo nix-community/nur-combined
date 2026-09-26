@@ -1,0 +1,9 @@
+{
+  "spec_commit": "b39c3276821a6dc3dd4a0f7e1f63c48cb15e269b",
+  "dart_sass": "1.104.1",
+  "attempted": 14258,
+  "pass": 11560,
+  "error_expected": 2492,
+  "passing": 14052,
+  "note": "The COMPRESSED-style ratchet. sass-spec ships dart-sass's expanded output as a case's only expectation, so `pass` here is measured against spec/COMPRESSED_EXPECT.txt instead: per-case digests of the compressed CSS dart-sass 1.104.1 emits for the same cases (spec/gen_compressed.py). error_expected is style-independent and matches spec/BASELINE.json exactly. The gap to that file's pass count -- 11560 vs 11622 -- is 62 cases whose expanded CSS is byte-exact and whose compressed CSS is not, and every one of them is a case where dart-sass 1.104.1's own expanded output no longer matches the expectation sass-spec ships: they cannot pass both ratchets at once, so this ratchet cannot reach 11622 without the suite moving. No compressed-serialization divergence is known to remain. Raise this number, never lower it; bump this file in the same commit as the fix."
+}

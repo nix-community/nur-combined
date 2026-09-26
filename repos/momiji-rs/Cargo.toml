@@ -1,0 +1,210 @@
+[package]
+name = "sasso"
+version = "0.18.0"
+edition = "2021"
+rust-version = "1.74"
+license = "MIT OR Apache-2.0"
+description = "A pure-Rust SCSS to CSS compiler (a dart-sass alternative). Zero dependencies, wasm-friendly, embeddable as a library and usable as a CLI."
+homepage = "https://github.com/momiji-rs/sasso"
+repository = "https://github.com/momiji-rs/sasso"
+documentation = "https://docs.rs/sasso"
+readme = "README.md"
+keywords = ["sass", "scss", "css", "compiler", "wasm"]
+categories = ["compilers", "web-programming"]
+# Keep the published crate lean: ship only the library, binary, examples,
+# tests, licenses and README — not the conformance harness, benchmarks, or
+# analysis docs (those live in the git repo).
+#
+# `/benches` is on this list even though it is Cargo's conventional location for
+# a `[[bench]]` target, because the target is not self-contained: all six corpora
+# `benches/compile.rs` reads come from `/bench/corpus` — five under `gate/`, plus
+# `generated/large.scss`, which the shell harness under `/bench` compiles too —
+# and that tree is excluded above. Shipping one without the other put a bench in
+# the published crate
+# that cannot compile — `cargo package` never noticed because its verify step
+# does not build bench targets, so it went out in every release up to 0.18.0,
+# and anyone running `cargo bench` or `cargo test --all-targets` on the tarball
+# got six `couldn't read benches/../bench/corpus/...` errors. With the exclude,
+# Cargo drops the target from the published manifest and says so:
+# `warning: ignoring benchmark 'compile' as 'benches/compile.rs' is not included
+# in the published package`. That warning is this choice, not a misconfiguration.
+#
+# The file deliberately stays at `benches/compile.rs` rather than moving under
+# `/bench` beside its corpora: CodSpeed identifies a benchmark by its source
+# path (`format!("{file}::{module_path}{bench_name}")`, codspeed-divan-compat
+# `src/compat/uri.rs`), so relocating it would retire every URI and reset the
+# gate's regression history.
+exclude = ["/bench", "/benches", "/spec", "/docs", "/.github", "/wasm", "/ffi", "/nix", "flake.nix", "flake.lock"]
+
+[lib]
+name = "sasso"
+path = "src/lib.rs"
+
+# Default binary, auto-detected from src/main.rs, named `sasso`.
+[[bin]]
+name = "sasso"
+path = "src/main.rs"
+
+# Intentionally zero runtime dependencies: pure std, so the crate is
+# trivially wasm32-wasip1 / wasm32-unknown-unknown friendly and embeds
+# into a sandbox (rubyrs Tier-1) without pulling a single native -sys
+# crate. The whole pipeline (scan -> parse -> eval -> emit) and the CLI
+# (a hand-rolled arg parser) are std-only.
+[dependencies]
+
+# The one exception, and only on Windows: the local UTC offset for the
+# `--update`/`--watch` timestamp. dart prints one on every platform (measured
+# on the `windows-latest` runner, #189) and sasso printed none here, because
+# `src/localtime` learns the offset by reading `/etc/localtime` and Windows
+# has no TZif file to read.
+#
+# `std` exposes no local time on any platform, so the offset has to come from
+# either FFI or a crate. FFI would need `#[allow(unsafe_code)]` — this crate
+# allows that in exactly one audited module (`arena`, checked under Miri), and
+# a Win32 call cannot be checked under Miri at all. A crate keeps that count
+# at one.
+#
+# `windows-sys` is NOT the way to do that: it declares the `extern "system"`
+# functions but every call site still needs an `unsafe` block, so it buys a
+# dependency AND the exemption. What is needed is a crate with a SAFE
+# local-time API, and there are three. Measured 2026-09-23:
+#
+#   candidate   lockfile   1.74 + windows   ours unsafe   shipped weight
+#   chrono          37     builds           no            none
+#   time            13     FAILS            no            none
+#   jiff            21     builds           no            ~427 KB
+#   windows-sys     11     builds           YES           none
+#
+# LOCKFILE entries, not `cargo tree`: a lockfile is target-independent, so it
+# records every dependency a crate declares for every platform, including ones
+# we never build. `cargo tree -e normal --target x86_64-pc-windows-msvc` says
+# chrono costs 3 crates, which is true of a Windows BUILD and wrong about the
+# file every platform carries. The napi workspace's staleness check caught that.
+#
+# `time` is the smallest and cannot be used: `time-core` ships an edition-2024
+# manifest, which Cargo 1.74 refuses to parse, so it breaks the MSRV promise on
+# the one platform that would resolve it — and the MSRV job would not have
+# noticed, because it resolves this dependency on no platform at all. (It does
+# now; see the `msrv` job.)
+#
+# `jiff` embeds the whole tz database on Windows, which has no system copy —
+# jiff's own docs say so. That is the ~427 KB this module's header already
+# weighed and rejected for one log line, and unlike a lockfile entry it is
+# weight in every shipped binary.
+#
+# So: chrono, whose cost is 37 lines of lockfile metadata and nothing in the
+# binary, because `clock` resolves to the Windows API here. The 37 are mostly
+# iana-time-zone's other platforms (wasm-bindgen, js-sys, core-foundation-sys,
+# android_system_properties) — crates this build never compiles.
+#
+# OPTIONAL, behind a default-on feature, because `localtime` is a module of
+# the BINARY and the library never refers to it — but a target dependency
+# belongs to the package, so without this a Windows EMBEDDER would carry it in
+# their graph for a clock they never call. `default-features = false` gives
+# them the zero-dependency build the README promises; the binary, and anyone
+# who just runs `cargo install sasso`, keeps its stamp.
+[target.'cfg(windows)'.dependencies]
+chrono = { version = "0.4", default-features = false, features = [
+  "clock",
+  "std",
+], optional = true }
+
+[features]
+default = ["cli-clock"]
+
+# The CLI's local-time stamp. A no-op everywhere but Windows, where it is the
+# only thing that pulls a dependency (see the target section above). Turning
+# it off there returns the binary to printing `Compiled a.scss to a.css.`
+# with no `[…]` prefix, which is what it did before #189.
+cli-clock = ["dep:chrono"]
+
+[profile.release]
+# `panic = "abort"` is set EXPLICITLY, the way `ffi/` sets `unwind` and `wasm/`
+# sets `abort`: of the four manifests in this repo the core was the one that had
+# never said, and that silence was an inconsistency rather than a decision (the
+# fourth, `napi/`, now records why it keeps unwinding). Nothing outside
+# `#[cfg(test)]` unwinds — the crate's only `catch_unwind` is in `arena`'s test
+# module — and Cargo ignores the `panic` setting for the `test` and `bench`
+# profiles, so `cargo test --release` and the CodSpeed benches keep unwinding
+# and `arena::tests::pause_guard_lifts_on_unwind` still works. Profiles apply
+# to this workspace only, so a crate that depends on `sasso` is unaffected.
+panic = "abort"
+lto = "thin"
+codegen-units = 1
+# The release binary carries no debug info to begin with, so this only drops
+# the symbol table: it is a download-size change, not a speed one, and `ffi/`
+# and `wasm/` already do it. Costs a symbolized panic backtrace, which the CLI
+# never relies on (every user-facing error goes through `Display`).
+strip = true
+
+# The profile that 'dist' will build with
+[profile.dist]
+# `panic`, `strip` and `codegen-units` come from `release` above by
+# inheritance; `lto` is restated so this profile reads on its own.
+inherits = "release"
+lto = "thin"
+
+# Modern lint posture, expressed in-manifest so every target (lib, bin, tests,
+# examples) inherits it and CI/clippy stay consistent. `unsafe_code` is `deny`
+# (not `forbid`) so the single audited `arena` module — the scoped bump
+# allocator (perf #5), verified by unit tests + Miri — can `#[allow]` it; every
+# other module stays unsafe-free.
+[lints.rust]
+unsafe_code = "deny"
+missing_docs = "warn"
+rust_2018_idioms = { level = "warn", priority = -1 }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+
+# The `sasso` package is its own workspace root. The wasm-export wrapper
+# (`/wasm`, a cdylib that needs `unsafe` for its FFI exports) is kept OUT of
+# this workspace so the core crate keeps `unsafe_code = "forbid"`.
+[workspace]
+exclude = ["wasm", "ffi", "napi"]
+
+# Config for 'dist'
+[workspace.metadata.dist]
+# The preferred dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.32.0"
+# CI backends to support
+ci = "github"
+# The installers to generate for each app
+installers = ["shell", "powershell", "homebrew"]
+# The tap the generated formula names in its download URLs and is destined for.
+# `publish-jobs` deliberately does NOT include "homebrew": that job pushes the
+# formula into the tap from here, which needs a cross-repo write token
+# (`HOMEBREW_TAP_TOKEN`) held as a secret in this repo. Setting `tap` alone is
+# enough to make `dist` emit `sasso.rb` as a release artifact, checksums filled
+# in; momiji-rs/homebrew-tap then PULLS that artifact from the public release
+# API and commits it with its own built-in GITHUB_TOKEN. Same formula, no
+# cross-repo secret anywhere. `dist plan` warns about the disabled publish job
+# — that warning is this choice, not a misconfiguration.
+tap = "momiji-rs/homebrew-tap"
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "aarch64-unknown-linux-gnu", "aarch64-unknown-linux-musl", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl", "x86_64-pc-windows-msvc"]
+# Which actions to run on pull requests
+pr-run-mode = "plan"
+# Whether to install an updater program
+install-updater = false
+# Path that installers should place binaries in
+install-path = "CARGO_HOME"
+# Don't emit cargo-dist's own source archive: its filename is hardcoded to the
+# generic `source.tar.gz`, which is confusing for downstream packagers (e.g. the
+# FreeBSD ports tree). release-source.yml attaches a conventionally-named
+# `sasso-<version>.tar.xz` instead.
+source-tarball = false
+# release.yml is intentionally hand-edited: the tag trigger is narrowed to
+# `v[0-9]+...` so the decoupled `npm-v*` line (release-wasm.yml) does NOT fire
+# here. Tell `dist plan` not to fail its generated-file freshness check on it.
+allow-dirty = ["ci"]
+
+[dev-dependencies]
+divan = { version = "5.0.0", package = "codspeed-divan-compat" }
+
+# CodSpeed performance benchmarks for the SCSS -> CSS pipeline. The `divan`
+# dependency above is the CodSpeed compatibility layer, which keeps the upstream
+# divan API and adds CPU-simulation instrumentation under cargo-codspeed.
+[[bench]]
+name = "compile"
+harness = false

@@ -1,0 +1,8 @@
+@use "sass:color" as *;
+
+.a {
+  a: alpha(opacity=20);
+  b: alpha(a=b, c=d);
+  c: invert(0.5);
+  d: alpha(#abc);
+}

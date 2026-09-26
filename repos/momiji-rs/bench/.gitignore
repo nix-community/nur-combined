@@ -1,0 +1,10 @@
+# Rust build artifacts
+grass_runner/target/
+
+# Raw benchmark output (regenerate via scripts/run_bench.sh)
+results/*.json
+asyncify/results/
+
+# Generated corpus is checked in for reproducibility, but the batch is bulky;
+# uncomment to regenerate locally instead of committing.
+# corpus/batch/

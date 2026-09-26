@@ -1,0 +1,6 @@
+@mixin a {
+  @error "boom from a";
+}
+@mixin b {
+  @include a;
+}

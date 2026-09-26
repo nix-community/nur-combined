@@ -1,0 +1,6 @@
+@function calc-width($base) {
+  @return $base + $missing;
+}
+.foo {
+  width: calc-width(10px);
+}

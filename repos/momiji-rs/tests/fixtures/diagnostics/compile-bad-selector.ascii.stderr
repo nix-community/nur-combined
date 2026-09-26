@@ -1,0 +1,6 @@
+Error: Expected identifier.
+  ,
+1 | . {
+  |  ^
+  '
+  compile-bad-selector.scss 1:2  root stylesheet

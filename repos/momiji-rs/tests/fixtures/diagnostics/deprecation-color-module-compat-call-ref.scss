@@ -1,0 +1,8 @@
+@use "sass:color";
+@use "sass:meta";
+
+.a {
+  a: meta.call(meta.get-function("grayscale", $module: "color"), 1);
+  b: meta.call(meta.get-function("alpha", $module: "color"), opacity=20);
+  c: meta.call(meta.get-function("grayscale", $module: "color"), #abc);
+}

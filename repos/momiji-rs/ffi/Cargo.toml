@@ -1,0 +1,50 @@
+# The C-ABI (FFI) wrapper: a cdylib/staticlib around `sasso::compile`, exposing
+# a stable `extern "C"` surface so ANY language with a C FFI (PHP FFI, Python
+# ctypes/cffi, Ruby Fiddle, Go cgo, LuaJIT, …) can drive sasso in-process — one
+# ABI, many languages, no per-language native extension.
+#
+# Like `../wasm`, this lives OUTSIDE the core `sasso` workspace (see
+# ../Cargo.toml `[workspace] exclude` / this crate's own empty `[workspace]`):
+# the core crate keeps `unsafe_code = "deny"` (locally `#[allow]`-able only in
+# its audited arena module), while this thin layer needs the `unsafe` that a raw
+# `extern "C"` ABI requires.
+#
+# Self-contained workspace root: an empty `[workspace]` stops cargo's upward
+# manifest walk here, so the crate resolves identically from the main checkout
+# and from nested git worktrees.
+[workspace]
+
+[package]
+name = "sasso-ffi"
+# This WRAPPER's own version, independent of the core compiler it bundles.
+# `sasso_version()` reports `sasso_core::VERSION`, NOT this number — it used to
+# report this one, which had drifted to 0.6.1 while the compiler was 0.8.1.
+version = "0.6.1"
+edition = "2021"
+# 1.77 for `std::mem::offset_of!` (per-field versioned-struct gating in
+# read_options). This FFI cdylib is internal (publish = false); the core crate
+# keeps its own 1.74 MSRV.
+rust-version = "1.77"
+license = "MIT OR Apache-2.0"
+publish = false
+description = "C ABI (FFI) wrapper around the sasso pure-Rust SCSS to CSS compiler."
+
+[lib]
+# Output artifact is `libsasso.{so,dylib}` (+ `libsasso.a`) — the conventional
+# name a C consumer links/loads. The core crate is pulled in under the alias
+# `sasso_core` (below) so this crate's own lib name `sasso` doesn't clash.
+name = "sasso"
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+sasso_core = { package = "sasso", path = ".." }
+
+[profile.release]
+# Balanced for a callable library. `panic = "unwind"` is set EXPLICITLY (not
+# left to the default): the ABI's safety relies on `catch_unwind` to stop a
+# Rust panic from crossing the C boundary (which would be UB), and that only
+# works under the unwind strategy — `abort` would make `catch_unwind` a no-op.
+panic = "unwind"
+lto = "thin"
+codegen-units = 1
+strip = true

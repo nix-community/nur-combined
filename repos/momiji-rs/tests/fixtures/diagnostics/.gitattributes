@@ -1,0 +1,5 @@
+# These fixtures are byte-exact captures of dart-sass stderr and inputs.
+# Disable all git text normalization (CRLF conversion, whitespace munging)
+# so the bytes survive checkout on every platform / autocrlf setting.
+*.stderr -text
+*.scss   -text

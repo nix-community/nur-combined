@@ -1,0 +1,24 @@
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │   color: darken(#800, 20%);
+  │          ^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-darken.scss 2:10  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -75%)
+color.adjust($color, $lightness: -20%)
+
+More info: https://sass-lang.com/d/color-functions
+
+  ╷
+2 │   color: darken(#800, 20%);
+  │          ^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-darken.scss 2:10  root stylesheet
+

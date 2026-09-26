@@ -1,0 +1,6 @@
+// Exposes the sasso C ABI to Swift as `import CSasso`.
+// Compile with: swiftc -I . ... so this directory is on the import search path.
+module CSasso {
+    header "../../include/sasso.h"
+    export *
+}

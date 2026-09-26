@@ -1,0 +1,7 @@
+# Compiled artifacts from the language-binding examples (rebuilt on demand).
+c/test
+swift/test
+*.o
+# .NET build output
+csharp/bin/
+csharp/obj/

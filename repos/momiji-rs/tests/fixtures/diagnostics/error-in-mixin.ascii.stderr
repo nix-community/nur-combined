@@ -1,0 +1,6 @@
+Error: "value is required"
+  ,
+7 |   @include require(false);
+  |   ^^^^^^^^^^^^^^^^^^^^^^^
+  '
+  error-in-mixin.scss 7:3  root stylesheet

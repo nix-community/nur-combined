@@ -1,0 +1,11 @@
+<===> input.scss
+// silent comment removed
+.x {
+  // inner silent
+  color: green;
+}
+
+<===> output.css
+.x {
+  color: green;
+}

@@ -1,0 +1,6 @@
+Error: $color: 1 is not a color.
+  ,
+2 |   color: rgb(1, 2);
+  |          ^^^^^^^^^
+  '
+  compile-bad-argument.scss 2:10  root stylesheet

@@ -1,0 +1,4 @@
+WARNING: deprecated-thing is going away
+    warn-in-mixin.scss 2:3  deprecated-thing()
+    warn-in-mixin.scss 5:3  root stylesheet
+

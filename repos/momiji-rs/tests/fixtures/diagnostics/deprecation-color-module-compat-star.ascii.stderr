@@ -1,0 +1,30 @@
+DEPRECATION WARNING [color-module-compat]: Using color.alpha() for a Microsoft filter is deprecated.
+
+Recommendation: alpha(opacity=20)
+
+  ,
+4 |   a: alpha(opacity=20);
+  |      ^^^^^^^^^^^^^^^^^
+  '
+    deprecation-color-module-compat-star.scss 4:6  root stylesheet
+
+DEPRECATION WARNING [color-module-compat]: Using color.alpha() for a Microsoft filter is deprecated.
+
+Recommendation: alpha(a=b, c=d)
+
+  ,
+5 |   b: alpha(a=b, c=d);
+  |      ^^^^^^^^^^^^^^^
+  '
+    deprecation-color-module-compat-star.scss 5:6  root stylesheet
+
+DEPRECATION WARNING [color-module-compat]: Passing a number (0.5) to color.invert() is deprecated.
+
+Recommendation: invert(0.5)
+
+  ,
+6 |   c: invert(0.5);
+  |      ^^^^^^^^^^^
+  '
+    deprecation-color-module-compat-star.scss 6:6  root stylesheet
+

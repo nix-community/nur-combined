@@ -1,0 +1,8 @@
+@mixin require($val) {
+  @if not $val {
+    @error "value is required";
+  }
+}
+.foo {
+  @include require(false);
+}

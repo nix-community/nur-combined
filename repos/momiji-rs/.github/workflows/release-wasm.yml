@@ -1,0 +1,197 @@
+name: Publish wasm (npm)
+
+# Builds the wasm cdylib AND the native-addon platform packages, and publishes
+# the bare-name `sasso` package (+ its `sasso-native-<target>` prebuilds) to
+# npm on an `npm-v*` tag. The npm version line is DECOUPLED from the crate
+# (which releases on `v*` tags), so npm cuts ride their own `npm-vX.Y.Z` tags
+# and do not trigger the crate / cargo-dist / c-api workflows. Authenticates
+# via npm Trusted Publishing (OIDC) — NO NPM_TOKEN secret needed. One-time
+# setup on npmjs.com: add a trusted publisher (GitHub repo momiji-rs/sasso,
+# workflow release-wasm.yml) for `sasso` AND for EACH sasso-native-<target>
+# platform package. Publishes with provenance via the same id-token.
+#
+# ── Durable rules (the npm bare-name migration is complete; these outlive it) ──
+# • VERSION POLICY — skip 1.x entirely: 0.x now, then jump straight to 2.0.0.
+#   The name `sasso` previously hosted an unrelated, abandoned 2017 framework at
+#   versions 1.0.1–1.2.10 (now deprecated). Those version numbers are permanently
+#   burned: npm forbids republishing any name@version that was ever published, and
+#   unpublishing is 72h-gated + blocked for packages with dependents — so they
+#   can't be reclaimed (and trying makes it worse). It's harmless: `npm install`
+#   resolves the `latest` dist-tag, not the highest version, so every real install
+#   already lands on our 0.x build. When this line reaches "stable", release
+#   `2.0.0` (a clean major signal that is also safely > 1.2.10). NEVER publish a
+#   `sasso@1.x` — 1.3.0 etc. would falsely imply we shipped 1.0–1.2.
+# • CARGO-DIST REGEN — `release.yml` is cargo-dist-generated; its `on.tags` was
+#   hand-tightened to `v[0-9]+…` so an `npm-v*` tag does NOT also fire the crate
+#   release. Re-running `dist init`/`dist generate` reverts that — re-apply the
+#   `v`-prefix tightening to release.yml after any cargo-dist regen.
+# • VERSION ALIGNMENT — the npm line and the crate line carry the SAME version
+#   number from 0.14.0 onward. They drifted apart because npm forbids
+#   republishing a version, so every packaging mistake burns one: npm went
+#   0.7.0→0.7.9 in a single day (2026-06-23) and 0.8.0→0.10.0 in another
+#   (2026-07-04) while the crate cut one release, which is the whole of the
+#   three-minor gap. npm cannot go back, so the CRATE skips forward: crate
+#   0.10.0 + npm 0.13.0 are the last mismatched pair, and the next release is
+#   0.14.0 on both. The `version-match` job below enforces it — an `npm-v*` tag
+#   whose version does not equal `Cargo.toml`'s fails before anything
+#   publishes. Consequences worth knowing:
+#     - a wasm-only fix now also cuts a crate release with no compiler changes.
+#       That is fine and has precedent (0.9.1 shipped with "No compiler
+#       changes"); a version number costs nothing, two different `sasso`
+#       versions cost every reader a double-take.
+#     - if a botched npm publish burns a number anyway, bump BOTH lines past
+#       it. Letting npm run ahead alone is exactly how the gap opened.
+#     - at stable, BOTH jump to 2.0.0 together (npm can never publish 1.x, see
+#       the version policy above), so they do not re-diverge at 1.0.
+
+on:
+  push:
+    tags:
+      - 'npm-v[0-9]+.[0-9]+.[0-9]+*'
+
+permissions: {}
+
+jobs:
+  # ── The npm version must equal the crate version ─────────────────────────
+  # See VERSION ALIGNMENT above. This runs first and gates both publish jobs,
+  # so a mismatched tag fails before anything reaches the registry — npm
+  # versions cannot be unpublished, so the check has to be BEFORE, not after.
+  version-match:
+    name: version matches Cargo.toml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: compare
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME#npm-v}"
+          crate=$(grep -m1 '^version = ' Cargo.toml | cut -d'"' -f2)
+          echo "npm tag version : $tag"
+          echo "Cargo.toml      : $crate"
+          if [ "$tag" != "$crate" ]; then
+            echo "::error::npm tag npm-v$tag does not match Cargo.toml $crate."
+            echo "::error::The two lines share one version number (see VERSION"
+            echo "::error::ALIGNMENT in this workflow). Cut the crate release"
+            echo "::error::first, or retag npm at $crate."
+            exit 1
+          fi
+
+  # ── Native platform packages (sasso-native-<target>) ─────────────────────
+  # One leg per prebuilt target; each publishes its own package at the tag's
+  # version. `sasso/native` (wasm/npm/native.mjs) resolves these at runtime,
+  # and the main package pins them as exact-version optionalDependencies (see
+  # publish-wasm's inject step). Every platform package needs its OWN
+  # npmjs.com trusted-publisher entry pointing at THIS workflow file.
+  publish-native:
+    name: native ${{ matrix.target }}
+    needs: version-match
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      id-token: write # npm provenance
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: darwin-arm64,    runner: macos-14 }
+          # macos-13 is retired/starved; macos-15-intel is GitHub's continued
+          # Intel-mac runner label.
+          - { target: darwin-x64,      runner: macos-15-intel }
+          - { target: linux-x64-gnu,   runner: ubuntu-latest }
+          - { target: linux-arm64-gnu, runner: ubuntu-24.04-arm }
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: napi
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # never cache in release builds (npm OIDC)
+      - name: build native addon
+        run: bash napi/build.sh
+      - name: parity + behavior tests against the wasm reference
+        # The napi suite asserts byte-identical output vs the wasm engine, so
+        # build the wasm modules first — a platform binary never ships untested.
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then sudo apt-get update && sudo apt-get install -y binaryen; else brew install binaryen; fi
+          rustup target add wasm32-unknown-unknown
+          bash wasm/build.sh
+          node napi/test.mjs
+      - name: stage platform package
+        run: node napi/make-platform-package.mjs "${{ matrix.target }}" "${GITHUB_REF_NAME#npm-v}" napi/npm/sasso.node dist-native
+      - name: npm publish (platform package)
+        working-directory: dist-native
+        # Idempotent: a retried release run (e.g. after one leg's runner
+        # starved) must no-op on the legs that already published this version
+        # instead of failing the whole matrix on EPUBLISHCONFLICT.
+        run: |
+          V="${GITHUB_REF_NAME#npm-v}"
+          if [ "$(npm view "sasso-native-${{ matrix.target }}@$V" version 2>/dev/null)" = "$V" ]; then
+            echo "sasso-native-${{ matrix.target }}@$V already on the registry — skipping publish"
+          else
+            npm publish --provenance --access public
+          fi
+
+  publish-wasm:
+    name: build + npm publish
+    # The main package's optionalDependencies must reference platform packages
+    # that already exist on the registry.
+    needs: publish-native
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # npm provenance
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: wasm
+          # build.sh builds the size and speed variants in isolated target
+          # dirs (so switching opt-level can't reuse a stale artifact).
+          cache-directories: |
+            wasm/target-size
+            wasm/target-speed
+      - name: install binaryen (wasm-opt)
+        run: sudo apt-get update && sudo apt-get install -y binaryen
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # never cache in release builds (npm OIDC)
+      - name: build wasm module
+        run: bash wasm/build.sh
+      - name: stage license files
+        run: cp LICENSE-APACHE LICENSE-MIT wasm/npm/
+      - name: sync version to the release tag
+        working-directory: wasm/npm
+        # Strip the `npm-v` prefix: tag `npm-v0.7.0` -> npm version `0.7.0`.
+        run: npm version "${GITHUB_REF_NAME#npm-v}" --no-git-tag-version --allow-same-version
+      - name: inject native optionalDependencies (exact-version pinned)
+        # Injected at publish time, NOT committed: a git checkout must not
+        # reference registry versions that may not exist yet, and the pins
+        # must always equal the tag's version (esbuild-style lockstep).
+        working-directory: wasm/npm
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const v = process.env.GITHUB_REF_NAME.replace(/^npm-v/, "");
+            const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+            pkg.optionalDependencies = Object.fromEntries(
+              ["darwin-arm64", "darwin-x64", "linux-x64-gnu", "linux-arm64-gnu"]
+                .map((t) => [`sasso-native-${t}`, v]),
+            );
+            fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n");
+          '
+          node -e 'console.log(JSON.parse(require("node:fs").readFileSync("package.json","utf8")).optionalDependencies)'
+      - name: npm publish
+        working-directory: wasm/npm
+        # No NODE_AUTH_TOKEN: npm >= 11.5.1 performs the OIDC Trusted Publishing
+        # token exchange automatically (id-token: write + the npmjs.com trusted
+        # publisher config), which also supplies provenance.
+        run: npm publish --provenance --access public

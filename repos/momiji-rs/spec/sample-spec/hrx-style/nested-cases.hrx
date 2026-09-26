@@ -1,0 +1,34 @@
+<===> pass-case/input.scss
+$primary: #333;
+.btn {
+  background: $primary;
+}
+
+<===> pass-case/output.css
+.btn {
+  background: #333;
+}
+
+<===> error-case/input.scss
+.broken {
+  width: ;
+}
+
+<===> error-case/error
+Error: Expected expression.
+
+<===> use-case/input.scss
+@use "sass:math";
+.m {
+  width: math.div(10px, 2);
+}
+
+<===> use-case/output.css
+.m {
+  width: 5px;
+}
+
+<===> use-case/options.yml
+---
+:todo:
+- libsass

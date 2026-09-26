@@ -1,0 +1,37 @@
+# Build artifacts (root crate; nested helper crates carry their own too).
+/target
+napi/target/
+napi/npm/sasso.node
+bench/grass_runner/target/
+
+# The root Cargo.lock IS committed (this crate ships a binary). Auxiliary
+# throwaway tooling crates (bench) pin their own deps and are not committed.
+/bench/grass_runner/Cargo.lock
+
+# Conformance harness: the upstream sass-spec suite is fetched on demand by
+# spec/fetch.sh and pinned via spec/SPEC_VERSION.txt — never commit the whole
+# upstream tree. The harness scripts (fetch.sh, run_spec.py, etc.) ARE tracked.
+/spec/sass-spec/
+# Also ignore the symlink form (a worktree agent may symlink it rather than
+# clone), so `git add -A` never stages the suite.
+/spec/sass-spec
+# Per-run artifacts produced by the runner.
+/spec/results.json
+/spec/results-*.json
+/spec/clone.err
+/spec/__pycache__/
+
+# The root flake's lock IS committed (it pins what CI checks against). The
+# NixOS smoke VM's is not: that flake deliberately floats to today's nixpkgs and
+# microvm.nix, and `nix/nixos-vm/run.sh` passes --no-write-lock-file so a run
+# leaves nothing behind — this only catches a hand-run `nix build` in there.
+/nix/nixos-vm/flake.lock
+
+# Claude Code session-local state (never commit).
+/.claude/
+
+# Stray AI-tool / editor local state (never publish)
+.antigravitycli/
+.gemini/
+.cursor/
+.DS_Store

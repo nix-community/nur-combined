@@ -1,0 +1,17 @@
+[package]
+name = "grass_runner"
+version = "0.1.0"
+edition = "2021"
+description = "Tiny CLI wrapper around the grass Sass compiler for benchmarking."
+
+[[bin]]
+name = "grass_runner"
+path = "src/main.rs"
+
+[dependencies]
+grass = { version = "0.13.4", default-features = false }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1

@@ -1,0 +1,10 @@
+Error: The function lighten() isn't in the sass:color module.
+
+Recommendation: color.adjust(#abcdef, $lightness: 10%)
+
+More info: https://sass-lang.com/documentation/functions/color#lighten
+  ,
+4 |   b: color.lighten(#abcdef, 10%);
+  |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  '
+  error-color-removed-member.scss 4:6  root stylesheet

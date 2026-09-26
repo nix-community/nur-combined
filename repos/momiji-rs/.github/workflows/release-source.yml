@@ -1,0 +1,100 @@
+name: Release source tarball
+
+# On a `v*` tag, build a conventionally-named source tarball
+# (`sasso-<version>.tar.xz`, e.g. `sasso-0.8.0.tar.xz`) and attach it to the
+# GitHub Release that the cargo-dist `Release` workflow (release.yml) creates
+# for the same tag.
+#
+# cargo-dist's own source archive is disabled (`source-tarball = false` in
+# Cargo.toml) because its filename is hardcoded to the generic `source.tar.gz`,
+# which is awkward for downstream packagers such as the FreeBSD ports tree. The
+# `{project}-{version}.{ext}` name here follows the widespread convention and,
+# because `git archive` is deterministic, gives a stable checksum that (unlike
+# GitHub's on-the-fly "Source code" archives) will not change out from under a
+# port's distinfo.
+#
+# This is a SEPARATE workflow (like release-crate.yml / release-c-api.yml)
+# because release.yml is cargo-dist-generated and must not be hand-edited.
+#
+# A manual run (workflow_dispatch) builds the tarball as an artifact WITHOUT
+# uploading — a dry run to validate the packaging before cutting a tag.
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  build:
+    name: build source tarball
+    runs-on: ubuntu-latest
+    outputs:
+      asset: ${{ steps.pack.outputs.asset }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build the source tarball
+        id: pack
+        shell: bash
+        run: |
+          # On a tag, GITHUB_REF_NAME is the tag (e.g. `v0.8.0`); on a manual
+          # dry run it's the branch, so fall back to the crate version from
+          # Cargo.toml. Either way, strip a leading `v` for the canonical name.
+          ref="${GITHUB_REF_NAME}"
+          case "$ref" in
+            v[0-9]*) version="${ref#v}" ;;
+            *)       version="$(cargo metadata --no-deps --format-version 1 \
+                        | jq -r '.packages[] | select(.name == "sasso") | .version')" ;;
+          esac
+
+          name="sasso-${version}"
+          # `git archive` is deterministic: same tag -> byte-identical tarball,
+          # so the checksum is stable. `--prefix` makes it extract into a
+          # `sasso-<version>/` directory, as packagers expect.
+          git archive --format=tar --prefix="${name}/" HEAD | xz -9 > "${name}.tar.xz"
+          echo "asset=${name}.tar.xz" >> "$GITHUB_OUTPUT"
+
+          # Emit a checksum alongside the tarball for convenience.
+          sha256sum "${name}.tar.xz" | tee "${name}.tar.xz.sha256"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: source-tarball
+          path: |
+            ${{ steps.pack.outputs.asset }}
+            ${{ steps.pack.outputs.asset }}.sha256
+          if-no-files-found: error
+
+  # Attach the tarball to the release cargo-dist created for this tag. Skipped
+  # on a manual dry run (no tag → the build artifact is the deliverable there).
+  upload:
+    name: attach source tarball to the release
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: source-tarball
+          path: dist
+
+      - name: Wait for the cargo-dist release, then upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          # cargo-dist creates the GitHub Release partway through its own run;
+          # poll for it (up to ~20 min) before attaching our assets.
+          for i in $(seq 1 60); do
+            if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              echo "release $tag exists"; break
+            fi
+            echo "waiting for release $tag … ($i/60)"; sleep 20
+          done
+          ls -la dist
+          gh release upload "$tag" dist/*.tar.xz dist/*.tar.xz.sha256 --clobber --repo "$GITHUB_REPOSITORY"

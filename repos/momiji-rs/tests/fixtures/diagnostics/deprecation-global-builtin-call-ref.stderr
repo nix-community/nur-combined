@@ -1,0 +1,11 @@
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.grayscale instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │   color: meta.call(meta.get-function("grayscale"), #abc);
+  │          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    deprecation-global-builtin-call-ref.scss 5:10  root stylesheet
+

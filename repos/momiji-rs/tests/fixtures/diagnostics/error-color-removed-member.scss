@@ -1,0 +1,5 @@
+@use "sass:color";
+
+.a {
+  b: color.lighten(#abcdef, 10%);
+}

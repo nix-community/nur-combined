@@ -1,0 +1,7 @@
+Error: "deep failure"
+  ,
+5 |   @include inner;
+  |   ^^^^^^^^^^^^^^
+  '
+  error-stack-nested.scss 5:3  outer()
+  error-stack-nested.scss 8:3  root stylesheet

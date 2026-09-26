@@ -1,0 +1,11 @@
+DEPRECATION WARNING [bogus-combinators]: The selector ".café > + .b" is invalid CSS. It will be omitted from the generated CSS.
+This will be an error in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/bogus-combinators
+
+  ,
+2 | .café > + .b {
+  | ^^^^^^^^^^^^
+  '
+    deprecation-bogus-combinators-non-ascii.scss 2:1  root stylesheet
+

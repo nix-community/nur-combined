@@ -1,0 +1,4 @@
+# Build artifacts — the cdylib/staticlib + header are built (and the header
+# regenerated) in CI before a release.
+/target
+/Cargo.lock

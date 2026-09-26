@@ -1,0 +1,6 @@
+Error: Undefined variable.
+  ,
+2 |     color: $nope;
+  |            ^^^^^
+  '
+  compile-tab-expansion.scss 2:9  root stylesheet

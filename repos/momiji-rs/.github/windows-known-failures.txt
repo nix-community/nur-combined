@@ -1,0 +1,18 @@
+# Tests skipped by the Windows CI job, with the issue each one belongs to.
+#
+# A ledger, not a dustbin. Every line is a bug we found by running the
+# suite on Windows for the first time (#143) and have written down rather
+# than hidden; every line disappears when its issue closes. Skipping by
+# NAME rather than by module or by test binary is deliberate — a broad
+# `--skip arena` would swallow the next arena failure silently, which is
+# exactly how these went unnoticed while we shipped Windows binaries.
+#
+# Blank lines and #-comments are ignored.
+
+# --- #145: two arena tests, 32 threads x 2 GiB of reservation -------------
+# The disjoint-regions test holds 32 threads at a barrier, each reserving
+# 2 GiB of address space, and asks Windows for 64 GiB. Threads that cannot
+# reserve fall back to the system allocator — supported behaviour — and
+# their null base reads as a shared region.
+arena::tests::concurrent_threads_get_disjoint_regions_and_release_them
+arena::tests::a_thread_that_found_the_registry_full_recovers_when_a_slot_frees

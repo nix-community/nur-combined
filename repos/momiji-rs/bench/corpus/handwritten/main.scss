@@ -1,0 +1,116 @@
+// Hand-written corpus entry point.
+// Exercises: variables, nesting, &, @mixin/@include, @each, @for,
+// color functions (lighten/darken/mix/rgba), #{} interpolation, @import partials.
+@use "sass:map";
+
+@import "partials/variables";
+@import "partials/mixins";
+
+// --- Reset / base, with nesting and & ---
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  color: darken($brand-primary, 30%);
+  background: mix($brand-primary, #ffffff, 4%);
+
+  & > .container {
+    max-width: map.get($breakpoints, "lg");
+    margin: 0 auto;
+    padding: 0 $gutter;
+  }
+}
+
+// --- Buttons from theme map via @each + mixin ---
+@each $name, $color in $theme-colors {
+  .btn-#{$name} {
+    @include button-variant($color);
+    border-radius: $radius;
+    padding: ($gutter / 2) $gutter;
+  }
+}
+
+// --- Spacing utilities via @for-like @each over list (indexed) ---
+@for $i from 0 through 6 {
+  $space: nth($spacers, $i + 1);
+  .m-#{$i} {
+    margin: $space;
+  }
+  .p-#{$i} {
+    padding: $space;
+  }
+  .mt-#{$i} {
+    margin-top: $space;
+  }
+}
+
+// --- Responsive grid using @for and interpolation ---
+.row {
+  @include flex-center;
+  flex-wrap: wrap;
+  margin: 0 (-$gutter / 2);
+
+  @for $col from 1 through 12 {
+    .col-#{$col} {
+      flex: 0 0 percentage($col / 12);
+      max-width: percentage($col / 12);
+      padding: 0 ($gutter / 2);
+    }
+  }
+}
+
+// --- Cards with elevation mixin and rgba ---
+.card {
+  background: #fff;
+  border-radius: $radius * 2;
+  @include elevation(2);
+
+  .card-header {
+    padding: $gutter;
+    border-bottom: 1px solid rgba($brand-primary, 0.15);
+    color: $brand-primary;
+  }
+
+  .card-body {
+    padding: $gutter;
+    line-height: 1.5;
+  }
+
+  &:hover {
+    @include elevation(4);
+  }
+}
+
+// --- Responsive block using @content mixin ---
+.sidebar {
+  display: none;
+
+  @include respond-to("md") {
+    display: block;
+    width: 240px;
+  }
+
+  @include respond-to("lg") {
+    width: 320px;
+  }
+}
+
+// --- Alerts: @each producing tinted backgrounds with color funcs ---
+@each $name, $color in $theme-colors {
+  .alert-#{$name} {
+    color: darken($color, 30%);
+    background-color: lighten($color, 36%);
+    border: 1px solid lighten($color, 20%);
+    padding: $gutter;
+
+    .alert-link {
+      color: darken($color, 40%);
+      font-weight: 700;
+    }
+  }
+}

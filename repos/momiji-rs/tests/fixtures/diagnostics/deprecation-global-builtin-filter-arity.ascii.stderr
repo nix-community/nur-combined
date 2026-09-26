@@ -1,0 +1,10 @@
+Error: Only 1 argument allowed, but 2 were passed.
+  ,--> deprecation-global-builtin-filter-arity.scss
+2 |   filter: grayscale(1, 2);
+  |           ^^^^^^^^^^^^^^^ invocation
+  '
+  ,--> sass:color
+1 | @function grayscale($color) {
+  |           ================= declaration
+  '
+  deprecation-global-builtin-filter-arity.scss 2:11  root stylesheet

@@ -1,0 +1,17 @@
+# Regenerate the C header with:  cbindgen --config cbindgen.toml --output include/sasso.h
+#
+# The committed include/sasso.h is curated (hand-tuned comments + the
+# SASSO_STYLE_*/SASSO_SYNTAX_* macros), so review the diff after regenerating.
+language = "C"
+include_guard = "SASSO_H"
+pragma_once = false
+cpp_compat = true
+tab_width = 2
+style = "type"
+
+[export]
+prefix = ""
+item_types = ["enums", "structs", "functions", "constants"]
+
+[parse]
+parse_deps = false

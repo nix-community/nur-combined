@@ -1,0 +1,191 @@
+{
+  "expectedMarker": ".sasso-gate-corpus",
+  "files": {
+    "extend_heavy.scss": {
+      "bytes": 10699,
+      "sha256": "6d48fc9bad513ca4"
+    },
+    "legacy_deprecations.scss": {
+      "bytes": 758,
+      "sha256": "59840c35d807da91"
+    },
+    "selector_lists.scss": {
+      "bytes": 25046,
+      "sha256": "a82e26fd0323bb6b"
+    },
+    "use_graph/_mixins.scss": {
+      "bytes": 559,
+      "sha256": "8e096421c270b512"
+    },
+    "use_graph/_tokens.scss": {
+      "bytes": 313,
+      "sha256": "e67ff95df8fd63c7"
+    },
+    "use_graph/components/_c1_1.scss": {
+      "bytes": 600,
+      "sha256": "f29120e904065bf7"
+    },
+    "use_graph/components/_c1_2.scss": {
+      "bytes": 601,
+      "sha256": "79437cef509ce32a"
+    },
+    "use_graph/components/_c1_3.scss": {
+      "bytes": 604,
+      "sha256": "e3ad1aec5679f608"
+    },
+    "use_graph/components/_c1_4.scss": {
+      "bytes": 602,
+      "sha256": "5fc054e19d8d2d69"
+    },
+    "use_graph/components/_c1_5.scss": {
+      "bytes": 602,
+      "sha256": "a66d2c3593872bc8"
+    },
+    "use_graph/components/_c2_1.scss": {
+      "bytes": 600,
+      "sha256": "c8896d8d416e6361"
+    },
+    "use_graph/components/_c2_2.scss": {
+      "bytes": 604,
+      "sha256": "1cd1f50c797d2ddf"
+    },
+    "use_graph/components/_c2_3.scss": {
+      "bytes": 601,
+      "sha256": "40b59676659e7a43"
+    },
+    "use_graph/components/_c2_4.scss": {
+      "bytes": 602,
+      "sha256": "b170b05b4092cc1c"
+    },
+    "use_graph/components/_c2_5.scss": {
+      "bytes": 605,
+      "sha256": "a1e4edca4e786e23"
+    },
+    "use_graph/components/_c3_1.scss": {
+      "bytes": 603,
+      "sha256": "d5bfbf39b9b4d540"
+    },
+    "use_graph/components/_c3_2.scss": {
+      "bytes": 601,
+      "sha256": "0ccbf3739f0d6c28"
+    },
+    "use_graph/components/_c3_3.scss": {
+      "bytes": 601,
+      "sha256": "72058f61f9ca7712"
+    },
+    "use_graph/components/_c3_4.scss": {
+      "bytes": 605,
+      "sha256": "a41376b4468c6b87"
+    },
+    "use_graph/components/_c3_5.scss": {
+      "bytes": 602,
+      "sha256": "bcd68e34244998ff"
+    },
+    "use_graph/components/_c4_1.scss": {
+      "bytes": 600,
+      "sha256": "ce0228702924a0da"
+    },
+    "use_graph/components/_c4_2.scss": {
+      "bytes": 601,
+      "sha256": "fce7cb1b4658dd21"
+    },
+    "use_graph/components/_c4_3.scss": {
+      "bytes": 604,
+      "sha256": "ac7fad51d0723f3f"
+    },
+    "use_graph/components/_c4_4.scss": {
+      "bytes": 602,
+      "sha256": "11c9a27b766c2873"
+    },
+    "use_graph/components/_c4_5.scss": {
+      "bytes": 602,
+      "sha256": "3d709400fd68933f"
+    },
+    "use_graph/components/_c5_1.scss": {
+      "bytes": 600,
+      "sha256": "d4ca4a9d58c18d59"
+    },
+    "use_graph/components/_c5_2.scss": {
+      "bytes": 604,
+      "sha256": "3f7f8bbca8d87730"
+    },
+    "use_graph/components/_c5_3.scss": {
+      "bytes": 601,
+      "sha256": "dcaff64cc4ccdf32"
+    },
+    "use_graph/components/_c5_4.scss": {
+      "bytes": 602,
+      "sha256": "fe24293643da1c72"
+    },
+    "use_graph/components/_c5_5.scss": {
+      "bytes": 605,
+      "sha256": "f042cbcf48f77ef4"
+    },
+    "use_graph/components/_c6_1.scss": {
+      "bytes": 603,
+      "sha256": "0a2235d36bdb490c"
+    },
+    "use_graph/components/_c6_2.scss": {
+      "bytes": 601,
+      "sha256": "2a7f2196fee335cb"
+    },
+    "use_graph/components/_c6_3.scss": {
+      "bytes": 601,
+      "sha256": "d9f6e9201302481f"
+    },
+    "use_graph/components/_c6_4.scss": {
+      "bytes": 605,
+      "sha256": "cc45f14a44ff119c"
+    },
+    "use_graph/components/_c6_5.scss": {
+      "bytes": 602,
+      "sha256": "e90a18151685fe2e"
+    },
+    "use_graph/entry.scss": {
+      "bytes": 368,
+      "sha256": "242371b80e64ad96"
+    },
+    "use_graph/redundant.scss": {
+      "bytes": 1170,
+      "sha256": "0a2dee8fda86e78a"
+    },
+    "use_graph/sections/_s1.scss": {
+      "bytes": 367,
+      "sha256": "d84a0335f898663e"
+    },
+    "use_graph/sections/_s2.scss": {
+      "bytes": 367,
+      "sha256": "f2490f30e2371be6"
+    },
+    "use_graph/sections/_s3.scss": {
+      "bytes": 367,
+      "sha256": "e8a283a20504eb3e"
+    },
+    "use_graph/sections/_s4.scss": {
+      "bytes": 367,
+      "sha256": "b8b2c31976be7dff"
+    },
+    "use_graph/sections/_s5.scss": {
+      "bytes": 367,
+      "sha256": "c1374a17c3bbd8cd"
+    },
+    "use_graph/sections/_s6.scss": {
+      "bytes": 367,
+      "sha256": "7bcc874502be8249"
+    },
+    "use_graph/vendor/lib/_grid.scss": {
+      "bytes": 273,
+      "sha256": "69f9d73bbf92ffa3"
+    },
+    "use_graph/vendor/lib/_index.scss": {
+      "bytes": 173,
+      "sha256": "8bd840d9bc7c3a03"
+    },
+    "use_graph/vendor/lib/_reset.scss": {
+      "bytes": 245,
+      "sha256": "547fb6c917134145"
+    }
+  },
+  "generator": "bench/scripts/gen_gate_corpora.py",
+  "generatorVersion": 2
+}

@@ -1,0 +1,12 @@
+DEPRECATION WARNING [abs-percent]: Passing percentage units to the global abs() function is deprecated.
+In the future, this will emit a CSS abs() function to be resolved by the browser.
+To preserve current behavior: math.abs(10%)
+To emit a CSS abs() now: abs(#{10%})
+More info: https://sass-lang.com/d/abs-percent
+
+  ,
+1 | a { x: abs(10%); }
+  |        ^^^^^^^^
+  '
+    deprecation-abs-percent.scss 1:8  root stylesheet
+

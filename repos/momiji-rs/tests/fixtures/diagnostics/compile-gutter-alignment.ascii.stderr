@@ -1,0 +1,6 @@
+Error: Undefined variable.
+   ,
+11 |   color: $nope;
+   |          ^^^^^
+   '
+  compile-gutter-alignment.scss 11:10  root stylesheet

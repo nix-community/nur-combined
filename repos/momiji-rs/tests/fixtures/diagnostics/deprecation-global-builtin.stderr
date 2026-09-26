@@ -1,0 +1,11 @@
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use meta.type-of instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │   x: type-of(1);
+  │      ^^^^^^^^^^
+  ╵
+    deprecation-global-builtin.scss 2:6  root stylesheet
+
