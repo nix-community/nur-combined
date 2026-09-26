@@ -1,5 +1,7 @@
 package androidx.datastore.core
 
-open class DataMigration {
-    companion object { }
+interface DataMigration<T> {
+    suspend fun shouldMigrate(currentData: T): Boolean = true
+    suspend fun migrate(currentData: T): T
+    suspend fun cleanUp() {}
 }

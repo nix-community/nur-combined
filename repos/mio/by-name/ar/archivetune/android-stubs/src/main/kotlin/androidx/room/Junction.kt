@@ -1,5 +1,8 @@
 package androidx.room
 
-open class Junction {
-    companion object { }
-}
+@Target(AnnotationTarget.ANNOTATION_CLASS)
+annotation class Junction(
+    val value: kotlin.reflect.KClass<*> = Any::class,
+    val parentColumn: String = "",
+    val entityColumn: String = ""
+)
