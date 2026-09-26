@@ -1251,10 +1251,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.14.1";
+      version = "0.15.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5045346/bilisponsorblock-0.14.1.xpi";
-      sha256 = "7c633457259559897fea5414940578e5766c1ef5e2cccd10f31f90ef763fb437";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5057692/bilisponsorblock-0.15.0.xpi";
+      sha256 = "09592c1242dac1198f30c66930d2599fc3331438bb3f874d2d0f4e7008cd8225";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -4799,10 +4799,10 @@
     };
     "gesturefy" = buildMozillaXpiAddon {
       pname = "gesturefy";
-      version = "3.2.18";
+      version = "3.2.19";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4712754/gesturefy-3.2.18.xpi";
-      sha256 = "fbe25c2272ca45efd328eb1c8c7a1887fa4c4003dc953149d3246704c93ec838";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5059402/gesturefy-3.2.19.xpi";
+      sha256 = "03e7b5e0939123be873f79597e2ef0d7cb22acfae5d5ce4df83c1998011e8e5c";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -8295,10 +8295,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.246";
+      version = "2.4.247";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5043736/lichess_tools_by_siderite-2.4.246.xpi";
-      sha256 = "b6c64fa96efdb0fccbc1f9187be509542404c9b97ffd6f96a06dc9554cae363f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5057716/lichess_tools_by_siderite-2.4.247.xpi";
+      sha256 = "fb82b35af575d2dc16282c3c1d9937026b4b78d3de415903bfe9cdb7eda8e1d4";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10522,10 +10522,10 @@
     };
     "octotree" = buildMozillaXpiAddon {
       pname = "octotree";
-      version = "8.3.0";
+      version = "8.4.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4826373/octotree-8.3.0.xpi";
-      sha256 = "8aa1229f3295f518189be9529c22f3e77622dabb5d2c1c947e2cc26771b55cce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5059734/octotree-8.4.0.xpi";
+      sha256 = "69c358e6d84977779f66373a4ffdfdde2df1df5bc26d76efd5aed80ad6b60c6f";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -11949,10 +11949,10 @@
     };
     "proton-pass" = buildMozillaXpiAddon {
       pname = "proton-pass";
-      version = "1.38.0";
+      version = "1.41.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4885390/proton_pass-1.38.0.xpi";
-      sha256 = "225b96360b51b7756b2615432214fc0f4d93e9c3030ab4a864b1e07826eef9db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5055526/proton_pass-1.41.1.xpi";
+      sha256 = "f67c5836e5eff3f82ac38e03a7b27d30b84dbb5246f74bb21b8b5bb15d3cd936";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -14831,14 +14831,14 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.10.2";
+      version = "1.10.3";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4982582/time_zone_converter_savvy_time-1.10.2.xpi";
-      sha256 = "c9126af3ebbc5d909e75123da78ede82293be0cba3a9eadd8838e2ea3c3539cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5059276/time_zone_converter_savvy_time-1.10.3.xpi";
+      sha256 = "481473b8d0bb15a37f71e5db148db28a29c06b7077018342dfe8b9232f855e56";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
-        description = "Time zone and local time converter. Compare and convert time between many locations at a time.";
+        description = "Compare world times, convert time zones, and plan meetings across 24,000+ cities and towns. Works offline.";
         license = licenses.mpl20;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
@@ -14989,10 +14989,10 @@
     };
     "topicus-keyhub" = buildMozillaXpiAddon {
       pname = "topicus-keyhub";
-      version = "9.0.1";
+      version = "10.0.0";
       addonId = "keyhub@topicus.nl";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4953882/topicus_keyhub-9.0.1.xpi";
-      sha256 = "7c39b0c21f015e13ce628ce325303df8c4901bc18658c0e614c9345a27289b72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5057546/topicus_keyhub-10.0.0.xpi";
+      sha256 = "ae15e47c364014a716e82166e443bee29b05ed5e76522e2b6b505f06f44dfd83";
       meta = with lib;
       {
         homepage = "https://www.topicus-keyhub.com";
@@ -15153,10 +15153,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.6";
+      version = "4.4.7";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5039780/tree_style_tab-4.4.6.xpi";
-      sha256 = "e33e038bfc3a29c03ed5eb064cda4e73bb62de3cd39f4abb289052d40cc21b1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5058426/tree_style_tab-4.4.7.xpi";
+      sha256 = "efd9686a44bb5d75681ed9e1cfd2a92006864562840df5a6a497621a5cf65bb5";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/treestyletab";
@@ -15713,10 +15713,10 @@
     };
     "ubo-scope" = buildMozillaXpiAddon {
       pname = "ubo-scope";
-      version = "1.5.0";
+      version = "1.5.1";
       addonId = "uBO-Scope@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649685/ubo_scope-1.5.0.xpi";
-      sha256 = "91ff00badbdd9c433307df1f997fadf7c636c8a336c4450b7324a2ca491e6fc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5058651/ubo_scope-1.5.1.xpi";
+      sha256 = "1524dfc4a0ba0a8ab29e2819b99e1950759700647ea01dd79e14b3960e21fa78";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBO-Scope";
