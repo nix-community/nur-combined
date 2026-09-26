@@ -395,6 +395,7 @@ in
       # ollama default is 11434. hence 11435, as the successor.
       port = 11435;
       models-dir = toString pkgs.llama-cpp-models;
+      models-preset = toString pkgs.llama-cpp-models.presetsIni;
 
       # XXX(2026-04-01): if omitted, llama-cpp will attempt the model's native context, and decrease until it fits into RAM.
       # ctx-size = 131072;

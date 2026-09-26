@@ -2,6 +2,7 @@
   lib,
   linkFarm,
   mlModels,
+  writeText,
 }:
 let
   models = {
@@ -47,6 +48,7 @@ let
       # qwen-agentworld-35b-a3b-ud-iq2_m
       qwen-agentworld-35b-a3b-ud-iq3_s  # seems equally capable as iq4_nl
       # qwen-agentworld-35b-a3b-iq4_nl
+      qwen3_5-2b-mtp-ud-q4_k_xl
       # qwen3_5-35b-a3b-q4_k_m
       # qwen3_5-9b-q4_k_m
       # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-q3_k_s
@@ -70,20 +72,27 @@ let
       # step3_7-flash-iq4_xs
     ;
   };
+  models' = lib.mapAttrs (k: drv: drv.overrideAttrs (prevAttrs': {
+    passthru = (prevAttrs'.passthru or {}) // {
+      id = lib.removeSuffix ".gguf" drv.name;
+    };
+  })) models;
+  presets = lib.mapAttrs' (k: model: {
+    name = model.id;
+    value = model.preset or {};
+  }) models';
 in
 (linkFarm "llama-cpp-models" (lib.mapAttrs'
   (k: value: {
     inherit value;
     inherit (value) name;
   })
-  models
+  models'
 )).overrideAttrs (prevAttrs: {
   passthru = (prevAttrs.passthru or {}) // {
-    models = lib.mapAttrs (k: drv: drv.overrideAttrs (prevAttrs': {
-      passthru = (prevAttrs'.passthru or {}) // {
-        id = lib.removeSuffix ".gguf" drv.name;
-      };
-    })) models;
+    inherit presets;
+    models = models';
+    presetsIni = writeText "presets.ini" (lib.generators.toINI { } presets);
   };
 })
 
