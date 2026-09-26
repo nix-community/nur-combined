@@ -211,7 +211,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>rime-ice-unstable</code></strong> — Rime 配置：雾凇拼音 | 长期维护的简体词库</summary>
 
-- **Version:** `2026.06.30-unstable-2026-09-19`
+- **Version:** `2026.06.30-unstable-2026-09-25`
 - **License:** GPL-3.0-only
 - **Homepage:** [https://github.com/iDvel/rime-ice](https://github.com/iDvel/rime-ice)
 - **Build:** `nix build github:XYenon/nur-packages#rime-ice-unstable`
@@ -307,7 +307,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.clipboard</code></strong> — Clipboard sync plugin for Yazi that copies yanked file paths to the system clipboard</summary>
 
-- **Version:** `0-unstable-2026-08-27`
+- **Version:** `0-unstable-2026-09-25`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://github.com/XYenon/clipboard.yazi](https://github.com/XYenon/clipboard.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.clipboard`
