@@ -62,7 +62,7 @@ let
       # qwen3_5-122b-a10b-ud-q4_k_xl
       # qwen3_6-27b-mtp-q4_k_m
       # qwen3_6-35b-a3b-ud-q4_k_m
-      # qwen3_6-35b-a3b-mtp-ud-q4_k_m
+      qwen3_6-35b-a3b-mtp-ud-q4_k_m
       qwen3_6-35b-a3b-uncensored-hauhaucs-aggressive-q3_k_p
       qwen3_5-122b-a10b-uncensored-hauhaucs-aggressive-q3_k_p
       qwen3-next-80b-a3b-thinking-grpo-uncensored-i1-q4_k_s

@@ -7,4 +7,10 @@
   path = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";
   rev = "5bc3e238d916f48a861bac2f8a1990a0e9b7e98d";
   hash = "sha256-1Mc4/W/N5vHRW3tVJsnqaZn+YYvQWJWb82tyyT1MICw=";
+  passthru = {
+    preset = {
+      spec-type = "draft-mtp";
+      spec-draft-n-max = 4;
+    };
+  };
 }
