@@ -639,7 +639,7 @@
     },
     "uosc-danmaku-git": {
         "cargoLock": null,
-        "date": "2026-09-06",
+        "date": "2026-09-26",
         "extract": null,
         "name": "uosc-danmaku-git",
         "passthru": null,
@@ -651,12 +651,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "55f3aea77fb9d9357baa86eebd104eab95248699",
+            "rev": "763dcd39a46e3d3c6fafe0185acfaf7976f73371",
             "sha256": "sha256-8ihBDgdUdMJc5/M2+yFf8LWqPkBFtYcrPPpYqky6AME=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "55f3aea77fb9d9357baa86eebd104eab95248699"
+        "version": "763dcd39a46e3d3c6fafe0185acfaf7976f73371"
     },
     "waywallen-bin": {
         "cargoLock": null,
@@ -667,11 +667,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iQky6BhUoRj4UosICt8lsBOPLhBLg2Ta7OwUuhYAIH8=",
+            "sha256": "sha256-eMaUjkoUEt3pj/egM+hoKkRh5nrB6oNo2UEsml8Sl04=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.4.2/waywallen-0.4.2-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.4.3/waywallen-0.4.3-x86_64.AppImage"
         },
-        "version": "0.4.2"
+        "version": "0.4.3"
     },
     "waywallen-display-bin": {
         "cargoLock": null,

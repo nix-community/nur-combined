@@ -8,13 +8,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "kanzi-cpp";
-  version = "2.5.3";
+  version = "2.6.0";
 
   src = fetchFromGitHub {
     owner = "flanglet";
     repo = "kanzi-cpp";
     tag = finalAttrs.version;
-    hash = "sha256-nuHqJwAm3ySRwbTffMj4hgL+W0f49IqI1S5Q06SZc9U=";
+    hash = "sha256-l0Reuf0teSg7wmPHtRN0nae4IkN9jIoQ3EKDzQ2Rdmw=";
   };
 
   outputs = [

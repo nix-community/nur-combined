@@ -394,22 +394,22 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "55f3aea77fb9d9357baa86eebd104eab95248699";
+    version = "763dcd39a46e3d3c6fafe0185acfaf7976f73371";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "55f3aea77fb9d9357baa86eebd104eab95248699";
+      rev = "763dcd39a46e3d3c6fafe0185acfaf7976f73371";
       fetchSubmodules = false;
       sha256 = "sha256-8ihBDgdUdMJc5/M2+yFf8LWqPkBFtYcrPPpYqky6AME=";
     };
-    date = "2026-09-06";
+    date = "2026-09-26";
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.4.2";
+    version = "0.4.3";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.4.2/waywallen-0.4.2-x86_64.AppImage";
-      sha256 = "sha256-iQky6BhUoRj4UosICt8lsBOPLhBLg2Ta7OwUuhYAIH8=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.4.3/waywallen-0.4.3-x86_64.AppImage";
+      sha256 = "sha256-eMaUjkoUEt3pj/egM+hoKkRh5nrB6oNo2UEsml8Sl04=";
     };
   };
   waywallen-display-bin = {
