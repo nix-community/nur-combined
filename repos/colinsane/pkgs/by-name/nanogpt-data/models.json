@@ -1,5 +1,27 @@
 [
   {
+    "id": "fireworks/ember-1",
+    "name": "Ember 1",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0003,
+      "completion": 15.0,
+      "currency": "USD",
+      "prompt": 3.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "stealth/space-bunny-alpha",
     "name": "Space Bunny Alpha",
     "pricing": {
@@ -67,13 +89,13 @@
     }
   },
   {
-    "id": "nano/lumen-stealth",
-    "name": "Lumen Stealth",
+    "id": "kitani/clover-1-150b",
+    "name": "Clover 1 150B Preview",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
-      "completion": 0.0,
+      "completion": 0.8,
       "currency": "USD",
-      "prompt": 0.05,
+      "prompt": 0.15,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -542,6 +564,27 @@
       "input_modalities": [
         "text",
         "image"
+      ]
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3-uncensored",
+    "name": "GLM 5.3 Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0003,
+      "completion": 2.25,
+      "currency": "USD",
+      "prompt": 1.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
       ]
     }
   },
@@ -1275,6 +1318,48 @@
     }
   },
   {
+    "id": "xiaomi/mimo-v2.6-flash-uncensored",
+    "name": "MiMo V2.6 Flash Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.000275,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "xiaomi/mimo-v2.6-flash-uncensored:thinking",
+    "name": "MiMo V2.6 Flash Uncensored Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.000275,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "pokee-isaac",
     "name": "Pokee-Isaac 28B",
     "pricing": {
@@ -1482,6 +1567,28 @@
     "architecture": {
       "input_modalities": [
         "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/qwen3.8-27b-uncensored",
+    "name": "Qwen3.8 27B Uncensored TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.3,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 262144,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
       ]
     }
   },
@@ -1730,6 +1837,30 @@
         "text",
         "image",
         "video"
+      ]
+    }
+  },
+  {
+    "id": "perceptron/perceptron-mk1.5",
+    "name": "Perceptron Mk1.5",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 36864,
+    "max_output_tokens": 8192,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video",
+        "audio"
       ]
     }
   },
@@ -4471,10 +4602,10 @@
     "id": "x-ai/grok-latest",
     "name": "Grok Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 6.0,
+      "cacheReadInputPer1kTokens": 0.0004,
+      "completion": 4.8,
       "currency": "USD",
-      "prompt": 2.0,
+      "prompt": 1.6,
       "unit": "per_million_tokens"
     },
     "context_length": 500000,
@@ -10937,10 +11068,10 @@
     "id": "anthropic/claude-opus-latest",
     "name": "Claude Opus Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 25.0,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 20.0,
       "currency": "USD",
-      "prompt": 5.0,
+      "prompt": 4.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -13316,10 +13447,10 @@
     "id": "openai/gpt-luna-latest",
     "name": "GPT Luna Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2e-05,
-      "completion": 1.2,
+      "cacheReadInputPer1kTokens": 1e-05,
+      "completion": 0.5,
       "currency": "USD",
-      "prompt": 0.2,
+      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 1050000,
