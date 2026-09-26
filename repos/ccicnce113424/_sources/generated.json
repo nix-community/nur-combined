@@ -384,13 +384,13 @@
     "open-orpheus-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-J5iMWaN5Mpqv_MS7bNavQGN8O00TycsgU1VRt2mT+yM=/Cargo.lock",
+                "sha256-ZaZR2oQYOsFKOsvK9bkk80+gYVHRCgbj8P39j1xQf50=/Cargo.lock",
                 {
                     "avs3a-0.1.0": "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI="
                 }
             ]
         },
-        "date": "2026-09-23",
+        "date": "2026-09-25",
         "extract": null,
         "name": "open-orpheus-dev",
         "passthru": null,
@@ -402,18 +402,18 @@
             "name": null,
             "owner": "YUCLing",
             "repo": "open-orpheus",
-            "rev": "4491102fd75ff8c999a020c49496ec1e17679cdf",
-            "sha256": "sha256-J5iMWaN5Mpqv/MS7bNavQGN8O00TycsgU1VRt2mT+yM=",
+            "rev": "4f6188441b141d6915d2e56254748be2590eca40",
+            "sha256": "sha256-ZaZR2oQYOsFKOsvK9bkk80+gYVHRCgbj8P39j1xQf50=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4491102fd75ff8c999a020c49496ec1e17679cdf"
+        "version": "4f6188441b141d6915d2e56254748be2590eca40"
     },
     "piliplus": {
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-nOnRm0aClyZXX0CS+UmrTB98ybOdJvftz2ParPEk964=/pubspec.lock"
+            "pubspec.lock": "sha256-0yWyMEU1SCgsvhN+R6fFg9iUgUMUESEpUR4bGxxdS48=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -425,12 +425,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.1.4",
-            "sha256": "sha256-nOnRm0aClyZXX0CS+UmrTB98ybOdJvftz2ParPEk964=",
+            "rev": "2.1.5",
+            "sha256": "sha256-0yWyMEU1SCgsvhN+R6fFg9iUgUMUESEpUR4bGxxdS48=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.1.4"
+        "version": "2.1.5"
     },
     "pixes": {
         "cargoLock": null,
@@ -667,11 +667,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nV1pPNNojT8OGRkpTnRtnI3CcLoWacIe4hw+tb8IUOE=",
+            "sha256": "sha256-iQky6BhUoRj4UosICt8lsBOPLhBLg2Ta7OwUuhYAIH8=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.4.1/waywallen-0.4.1-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.4.2/waywallen-0.4.2-x86_64.AppImage"
         },
-        "version": "0.4.1"
+        "version": "0.4.2"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
