@@ -6,12 +6,12 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uni-api";
-  version = "1.7.276-unstable-2026-09-25";
+  version = "1.7.276-unstable-2026-09-26";
   src = fetchFromGitHub {
     owner = "yym68686";
     repo = "uni-api";
-    rev = "3c88ab43a31fb1cb4998b3c631ce9903369550cd";
-    hash = "sha256-TzMaFKzi7gaKYvZOyPLQ1NjMaY92p6DN7ezDFOhD5NM=";
+    rev = "b3daaaeb1686ab68585a22deb65f8adbef0f06ae";
+    hash = "sha256-JrNk6UgNzOB25lzJUc4cpWwwEuvhcIL4NuVxH0wBP60=";
   };
   cargoRoot = "rust/uni-api-native";
   buildAndTestSubdir = "rust/uni-api-native";
