@@ -68,6 +68,8 @@ stdenv.mkDerivation {
     maintainers = with lib.maintainers; [ merrkry ];
     mainProgram = "delta";
     platforms = [ "x86_64-linux" ];
+    # The source requires an authenticated manual download, so automated builders cannot build it.
+    hydraPlatforms = [ ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }

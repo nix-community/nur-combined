@@ -1,0 +1,54 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: NixOS/nix-installer-action@v1
+
+      - name: Set up binary cache
+        id: niks3
+        uses: Mic92/niks3-action@v1
+        with:
+          server-url: https://niks3-api.tsubasa.moe
+
+      - name: Build packages
+        run: >-
+          nix run .#nix-fast-build --
+          --flake .#buildJobs.x86_64-linux
+          --result-format json
+          --result-file "${RUNNER_TEMP}/nix-fast-build.json"
+          --skip-cached
+
+      - name: Refresh binary cache paths
+        if: steps.niks3.outputs.auth-token-script != ''
+        env:
+          NIKS3_AUTH_TOKEN_SCRIPT: ${{ steps.niks3.outputs.auth-token-script }}
+          NIKS3_BIN_DIR: ${{ steps.niks3.outputs.binary-dir }}
+        run: |
+          jq -r '.results[] | (.outputs // {})[]' \
+            "${RUNNER_TEMP}/nix-fast-build.json" | sort -u | \
+            "${NIKS3_BIN_DIR}/niks3" push \
+              --server-url https://niks3-api.tsubasa.moe \
+              --auth-token-script "${NIKS3_AUTH_TOKEN_SCRIPT}" \
+              --stdin
