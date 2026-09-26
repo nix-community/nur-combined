@@ -22,6 +22,9 @@
       nixosModules.autolock = ./modules/autolock.nix;
       homeManagerModules.autolock = ./modules/autolock.nix;
 
+      nixosModules.xsetwall = ./modules/xsetwall.nix;
+      homeManagerModules.xsetwall = ./modules/xsetwall.nix;
+
       devShells = forAllSystems (system:
         let pkgs = import nixpkgs { inherit system; };
         in {

@@ -22,7 +22,7 @@
   guitar = pkgs.callPackage ./pkgs/guitar { };
   patent = pkgs.callPackage ./pkgs/patent { };
   proxelar = pkgs.callPackage ./pkgs/proxelar { };
-  xwallset = pkgs.callPackage ./pkgs/xsetwall { };
+  xsetwall = pkgs.callPackage ./pkgs/xsetwall { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
