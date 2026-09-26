@@ -8,14 +8,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tilekiln";
-  version = "0.8.2";
+  version = "0.8.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pnorman";
     repo = "tilekiln";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tsihU/63SC0QO2HIBXkrU2GDKql6X3OF4D2qjxgCOTs=";
+    hash = "sha256-CnrmWh31bgg7TkPjsLJO7nS27bUV5ninhIGWezMANng=";
   };
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -32,6 +32,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     fastapi
     fs
     jinja2
+    setuptools_80
     pmtiles
     prometheus-client
     psycopg

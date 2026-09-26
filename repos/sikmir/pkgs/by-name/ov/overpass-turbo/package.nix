@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-NlZZvty3nfZcxb/Cw6X8IHIlJbqiSRrkDycgtQgvsIg=";
+    hash = "sha256-QzoY+RFentco3ksvYpsJy1Omn5aR+wSnkQKHygX03mI=";
   };
 
   nativeBuildInputs = [
@@ -57,6 +57,5 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/tyrasd/overpass-turbo";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # Error: Cannot find module './vite-plus.linux-x64-gnu.node'
   };
 })

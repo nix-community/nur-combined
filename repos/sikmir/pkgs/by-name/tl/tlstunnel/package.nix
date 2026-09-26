@@ -2,22 +2,25 @@
   lib,
   fetchFromGitHub,
   ocamlPackages,
+  writableTmpDirAsHomeHook,
 }:
 
 ocamlPackages.buildDunePackage rec {
   pname = "tlstunnel";
-  version = "0-unstable-2024-01-10";
+  version = "0-unstable-2026-08-19";
 
   src = fetchFromGitHub {
     owner = "robur-coop";
     repo = "tlstunnel";
-    rev = "c81e48739342e2f5c8ad5537b3543dfad721fc99";
-    hash = "sha256-+Cj6eea5IuOZUhCD4zCYddG/AjV/i7jluEeLfhWh5Go=";
+    rev = "4d9a1eafdc1f67644c20e022f755fdbf41fb950b";
+    hash = "sha256-VpTfeiAQF4oUdakna3cdXzdQMMtf2CVFhSU3IRxx4rk=";
   };
 
   sourceRoot = "${src.name}/client";
 
   useDune2 = true;
+
+  nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
   propagatedBuildInputs = with ocamlPackages; [
     asn1-combinators
@@ -25,7 +28,7 @@ ocamlPackages.buildDunePackage rec {
     fmt
     ipaddr
     logs
-    mirage-crypto
+    digestif
   ];
 
   meta = {
@@ -33,6 +36,5 @@ ocamlPackages.buildDunePackage rec {
     homepage = "https://github.com/robur-coop/tlstunnel";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true;
   };
 }

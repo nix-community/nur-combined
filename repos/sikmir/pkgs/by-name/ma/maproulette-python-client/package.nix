@@ -28,12 +28,12 @@ python3Packages.buildPythonPackage (finalAttrs: {
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   doCheck = false;
+  dontCheckPythonMetadata = true;
 
   meta = {
     description = "A Python API wrapper for MapRoulette";
     homepage = "https://github.com/osmlab/maproulette-python-client";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # importlib.metadata.PackageNotFoundError: No package metadata was found for maproulette-python-client
   };
 })

@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "c2cwsgiutils";
-  version = "6.1.9";
+  version = "6.1.10";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "c2cwsgiutils";
     tag = finalAttrs.version;
-    hash = "sha256-Ca3GCIavXqaimlmboeSHmEeZotQMtgoYXwFbR/ulR1M=";
+    hash = "sha256-ZhPqeymCM/t91Ao5+9NPM1y4DikDX2d/SiGfavXPAZk=";
   };
 
   postPatch = ''
