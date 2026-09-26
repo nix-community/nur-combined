@@ -10,16 +10,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "trek";
-  version = "4.2.1";
+  version = "4.3.2";
 
   src = fetchFromGitHub {
     owner = "liketrek";
     repo = "TREK";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qIuJOAzqYNIH9JdKe/YkInh+qQjOJigcZQD4/6r66AM=";
+    hash = "sha256-cQfJhOQFPzfmAetYRDUIjUxLNj5HrOYwXH7CPeQRFr0=";
   };
 
-  npmDepsHash = "sha256-2iTyYCgOycMoBkUs0PwBNihscvF9EjNvVF3uwtWSqME=";
+  npmDepsHash = "sha256-jobzGkHBqLD2wasMfsm4Kj7wn9sDm8OkkvGG+t4qsug=";
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -41,6 +41,24 @@ buildNpmPackage (finalAttrs: {
     mkdir -p $out/lib/trek/shared
     cp shared/package.json $out/lib/trek/shared/
     cp -r shared/dist $out/lib/trek/shared/dist
+
+    # npm only hoists a workspace's dependency to the root node_modules when
+    # nothing conflicts with it; otherwise it stays nested under the
+    # workspace's own node_modules. Since v4.3.0 that's the case for
+    # better-sqlite3 (server/node_modules/better-sqlite3), and copying only
+    # the root tree above left the server dying at startup with "Cannot find
+    # module 'better-sqlite3'". Ship whatever runtime deps `npm prune` left
+    # nested under each runtime workspace, so the next dependency to drop out
+    # of the hoisted tree doesn't break the package the same way.
+    for ws in shared server; do
+      if [ -d "$ws/node_modules" ]; then
+        find "$ws/node_modules" -mindepth 1 -maxdepth 1 -type d -empty -delete
+        if [ -n "$(ls -A "$ws/node_modules")" ]; then
+          mkdir -p "$out/lib/trek/$ws"
+          cp -r "$ws/node_modules" "$out/lib/trek/$ws/node_modules"
+        fi
+      fi
+    done
 
     mkdir -p $out/lib/trek/server/scripts
     cp server/package.json server/tsconfig.json server/reset-admin.js $out/lib/trek/server/

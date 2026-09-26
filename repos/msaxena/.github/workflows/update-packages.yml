@@ -242,8 +242,10 @@ jobs:
           # to main, and GitHub doesn't start workflow runs for pushes made
           # with the default GITHUB_TOKEN. Without this line an auto-merge
           # would silently skip NUR's re-sync ping and leave consumers
-          # waiting on NUR's own poll interval.
-          curl -sS --fail -X POST "https://nur-update.nix-community.org/update?repo=msaxena"
+          # waiting on NUR's own poll interval. The script retries, and only
+          # warns if NUR is still rate-limiting (HTTP 429) afterwards, so a
+          # busy endpoint doesn't fail an update that has already merged.
+          .github/scripts/notify-nur.sh
 
       # GitHub sends no notification when a PR branch is force-pushed, which
       # is why two fully-verified PRs sat unnoticed for a fortnight. An
