@@ -412,10 +412,10 @@
     };
     "gesturefy" = buildMozillaXpiAddon {
       pname = "gesturefy";
-      version = "3.2.18";
+      version = "3.2.19";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4712754/gesturefy-3.2.18.xpi";
-      sha256 = "fbe25c2272ca45efd328eb1c8c7a1887fa4c4003dc953149d3246704c93ec838";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5059402/gesturefy-3.2.19.xpi";
+      sha256 = "03e7b5e0939123be873f79597e2ef0d7cb22acfae5d5ce4df83c1998011e8e5c";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -1426,10 +1426,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.6";
+      version = "4.4.7";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5039780/tree_style_tab-4.4.6.xpi";
-      sha256 = "e33e038bfc3a29c03ed5eb064cda4e73bb62de3cd39f4abb289052d40cc21b1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5058426/tree_style_tab-4.4.7.xpi";
+      sha256 = "efd9686a44bb5d75681ed9e1cfd2a92006864562840df5a6a497621a5cf65bb5";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/treestyletab";
