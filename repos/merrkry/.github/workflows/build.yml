@@ -49,14 +49,25 @@ jobs:
           --skip-cached
 
       - name: Refresh binary cache paths
-        if: steps.niks3.outputs.auth-token-script != ''
+        if: ${{ !cancelled() && steps.niks3.outputs.auth-token-script != '' }}
         env:
           NIKS3_AUTH_TOKEN_SCRIPT: ${{ steps.niks3.outputs.auth-token-script }}
           NIKS3_BIN_DIR: ${{ steps.niks3.outputs.binary-dir }}
         run: |
-          jq -r '.results[] | (.outputs // {})[]' \
-            "${RUNNER_TEMP}/nix-fast-build.json" | sort -u | \
-            "${NIKS3_BIN_DIR}/niks3" push \
+          result_file="${RUNNER_TEMP}/nix-fast-build.json"
+          if [ ! -f "$result_file" ]; then
+            echo "No build results to upload"
+            exit 0
+          fi
+
+          jq -r '.results[] | select((.type == "BUILD" and .success) or (.type == "EVAL" and .success and .cacheStatus == "local")) | (.outputs // {})[]' \
+            "$result_file" | sort -u > "${RUNNER_TEMP}/niks3-paths"
+          if [ ! -s "${RUNNER_TEMP}/niks3-paths" ]; then
+            echo "No successful build outputs to upload"
+            exit 0
+          fi
+
+          "${NIKS3_BIN_DIR}/niks3" push \
               --server-url https://niks3-api.tsubasa.moe \
               --auth-token-script "${NIKS3_AUTH_TOKEN_SCRIPT}" \
-              --stdin
+              --stdin < "${RUNNER_TEMP}/niks3-paths"
