@@ -14,6 +14,12 @@ in
 
     nativeBuildInputs = [unzip];
 
+    extraInstall = ''
+      plist="$out/Applications/Highball.app/Contents/Info.plist"
+      sed -i 's|<key>SUEnableAutomaticChecks</key>[[:space:]]*<true/>|<key>SUEnableAutomaticChecks</key><false/>|' "$plist"
+      grep -qF '<key>SUEnableAutomaticChecks</key><false/>' "$plist"
+    '';
+
     meta = {
       description = "Run Windows games on Apple Silicon";
       homepage = "https://gauthierpiarrette.github.io/highball/";

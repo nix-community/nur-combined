@@ -5,19 +5,19 @@
     "repo": "OakVideoEditorCommunity/oak",
     "tag_prefix": "v"
   },
-  "version": "0.4.2-alpha",
+  "version": "0.5.0-alpha2",
   "platforms": {
     "x86_64-linux": {
-      "file": "Oak_Video_Editor-x86_64.AppImage",
-      "hash": "sha256-9wnoYP/TGoKs488fAyzBqM6T+sXeRNVWvM3D5xxF0mg="
-    },
-    "x86_64-darwin": {
-      "file": "Oak-Video-Editor-macOS.dmg",
-      "hash": "sha256-ugwJ05GvCo5ERtMwAzZ4oVhZY7u0INMKkdL2l3Q1ogo="
+      "version": "0.5.0-alpha2",
+      "file": "oak-editor_0.5.0_x86_64.AppImage",
+      "query": "[0].assets.find(a => a.name.endsWith('_x86_64.AppImage')).name",
+      "hash": "sha256-GTlCJNF2ynwEbnoaUsH7al+ZrRyv/ADbiFIs7Cgrv1Q="
     },
     "aarch64-darwin": {
-      "file": "Oak-Video-Editor-macOS.dmg",
-      "hash": "sha256-ugwJ05GvCo5ERtMwAzZ4oVhZY7u0INMKkdL2l3Q1ogo="
+      "version": "0.5.0-alpha2",
+      "file": "Oak-macOS-arm64.dmg",
+      "query": "[0].assets.find(a => a.name.endsWith('.dmg')).name",
+      "hash": "sha256-Ids4A/GPQFzeUMHd5vcphghHrhXnDsUeb2RrGwI/IzM="
     }
   }
 }
