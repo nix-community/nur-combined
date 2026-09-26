@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  date = "2026-09-24";
-  rev = "b83eab900644e4c7c77982ce3d44cb490f0c5e1d";
+  date = "2026-09-25";
+  rev = "63cdf17f17b4ee231ef862690048549f218e8e0e";
   src = fetchzip {
-    url = "https://codeload.github.com/Supreeeme/xwayland-satellite/tar.gz/b83eab900644e4c7c77982ce3d44cb490f0c5e1d";
-    hash = "sha256-eFEjCCniMCKeWU0PcZNv+tDYe08SLFPjRplyPY8OFt4=";
+    url = "https://codeload.github.com/Supreeeme/xwayland-satellite/tar.gz/63cdf17f17b4ee231ef862690048549f218e8e0e";
+    hash = "sha256-FBRBINpTMhkhVm9irSqeWKmI8/QMyXcTRxHeCMVvxdc=";
     extension = "tar.gz";
   };
 in
