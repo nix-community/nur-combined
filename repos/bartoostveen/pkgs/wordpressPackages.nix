@@ -73,9 +73,9 @@ makeScope newScope (
       };
       opengraph = self.callPackage self.mkWpPlugin {
         pname = "opengraph";
-        version = "3.0.0";
+        version = "3.0.1";
         id = "opengraph";
-        hash = "sha256-PlSOiVJtmQPuE1zUN6PbRf/BBKzrqr8A82ekENB/Ec0=";
+        hash = "sha256-wZh8uwARbcsazpWwz5h9pbhzY5N97VM1mvp/2tI30pY=";
       };
       view-transitions = self.callPackage self.mkWpPlugin {
         pname = "wp-view-transitions";
