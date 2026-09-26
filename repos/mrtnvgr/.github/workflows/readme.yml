@@ -1,0 +1,47 @@
+name: "Readme"
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "pkgs/**"
+      - "flake/**"
+      - "scripts/**"
+  workflow_dispatch:
+
+concurrency:
+  group: readme
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Regenerate package list
+      run: ./scripts/update-readme.sh
+
+    - name: Commit changes
+      run: |
+        if git diff --quiet -- README.md; then
+          echo "README is already up to date."
+          exit 0
+        fi
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git commit -m "readme: regenerate package list [skip ci]"
+        git push

@@ -32,6 +32,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
+    homepage = "https://github.com/stevefolta/gig2sfz";
     mainProgram = "convert-gig-file";
   };
 }

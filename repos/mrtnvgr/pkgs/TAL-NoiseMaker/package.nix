@@ -41,4 +41,8 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
+  meta = {
+    homepage = "https://tal-software.com/products/TAL-NoiseMaker";
+  };
 }

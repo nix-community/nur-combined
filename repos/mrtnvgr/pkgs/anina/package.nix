@@ -44,4 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  meta = {
+    homepage = "https://crql.works/archive/anina/";
+  };
 })
