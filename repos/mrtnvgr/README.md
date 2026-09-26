@@ -5,6 +5,21 @@
 ![Build](https://github.com/mrtnvgr/nurpkgs/workflows/Build/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-mrtnvgr-blue.svg)](https://mrtnvgr.cachix.org)
 
+## Updating
+
+Packages are updated automatically once a week by the
+[Update](https://github.com/mrtnvgr/nurpkgs/actions/workflows/update.yml) workflow,
+which runs [`nix-update`](https://github.com/Mic92/nix-update) and bumps `flake.lock`.
+
+To update a package manually:
+
+```console
+$ nix run nixpkgs#nix-update -- --flake <package>
+```
+
+Packages without a machine-readable upstream feed (e.g. `celeste`, `celesteMods`,
+`anina`, `TAL-NoiseMaker`, `soundfont-touhou`) are still updated by hand.
+
 ## Packages
 
 ### Soundfonts

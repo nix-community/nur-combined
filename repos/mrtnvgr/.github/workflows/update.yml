@@ -1,0 +1,73 @@
+name: "Update"
+
+on:
+  schedule:
+    - cron: "30 5 * * 0" # every Sunday at 5:30
+  workflow_dispatch:
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install nix-update
+      run: |
+        echo "$(nix build --no-link --print-out-paths nixpkgs#nix-update)/bin" >> "$GITHUB_PATH"
+
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+    - name: Update packages
+      id: update
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NIXPKGS_ALLOW_UNFREE: 1
+      run: |
+        failed=0
+        update() {
+          echo "::group::nix-update $*"
+          nix-update --flake --commit "$@" || failed=1
+          echo "::endgroup::"
+        }
+        update pitchnet
+        update openutau-lunai
+        update --version=branch convert-gig-file
+        echo "failed=$failed" >> "$GITHUB_OUTPUT"
+
+    - name: Update flake.lock
+      run: |
+        nix flake update
+        if ! git diff --quiet -- flake.lock; then
+          git add flake.lock
+          git commit -m "flake.lock: update"
+        fi
+
+    - name: Push changes
+      run: git push
+
+    - name: Check for update failures
+      if: always() && steps.update.outputs.failed == '1'
+      run: |
+        echo "Some packages failed to update, see the log above." >&2
+        exit 1

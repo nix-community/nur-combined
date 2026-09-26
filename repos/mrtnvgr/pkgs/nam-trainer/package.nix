@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "sdatkinson";
-    repo = pname;
+    repo = "neural-amp-modeler";
     rev = "v${version}";
     hash = "sha256-VgjSeOB3ayhgzv4pGMOdUYhHKFC23Nr6hIxQ/p9SZLw=";
   };
