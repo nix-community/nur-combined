@@ -19,4 +19,4 @@ jobs:
       - name: Update flake packages
         uses: gepbird/nix-update-action@v3.1.1
         with:
-          packages: "utmt-cli"
+          packages: "utmt-cli,shimelinux"
