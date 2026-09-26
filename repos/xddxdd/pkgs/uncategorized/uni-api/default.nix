@@ -13,10 +13,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rev = "b3daaaeb1686ab68585a22deb65f8adbef0f06ae";
     hash = "sha256-JrNk6UgNzOB25lzJUc4cpWwwEuvhcIL4NuVxH0wBP60=";
   };
-  cargoRoot = "rust/uni-api-native";
-  buildAndTestSubdir = "rust/uni-api-native";
-
-  cargoHash = "sha256-toCEv/PGau0zB4OjG/9Iu5BiloGfGbuDs3rbbyewuZc=";
+  cargoHash = "sha256-1D50SAv6O0SHX4toddEh63A3tdbEs/AODmO823P3MnQ=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
