@@ -1,14 +1,14 @@
-{ bashNonInteractive
-, coreutils
-, fetchFromGitHub
-, iproute2
-, kmod
-, lib
-, makeWrapper
-, maintainer
-, stdenvNoCC
-, unstableGitUpdater
-,
+{
+  bashNonInteractive,
+  coreutils,
+  fetchFromGitHub,
+  iproute2,
+  kmod,
+  lib,
+  makeWrapper,
+  maintainer,
+  stdenvNoCC,
+  unstableGitUpdater,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -48,11 +48,13 @@ stdenvNoCC.mkDerivation rec {
 
   postFixup = ''
     wrapProgram "$out/bin/wondershaper" \
-      --prefix PATH : ${lib.makeBinPath [
-        coreutils
-        iproute2
-        kmod
-      ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          iproute2
+          kmod
+        ]
+      }
   '';
 
   doInstallCheck = true;

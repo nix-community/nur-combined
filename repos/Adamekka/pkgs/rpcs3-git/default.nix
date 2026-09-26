@@ -1,43 +1,43 @@
-{ cmake
-, cubeb
-, curl
-, enableDiscordRpc ? false
-, faudio
-, faudioSupport ? true
-, fetchFromGitHub
-, ffmpeg
-, git
-, glew
-, glslang
-, hidapi
-, lib
-, libevdev
-, libpng
-, libsm
-, libusb1
-, llvm
-, maintainer
-, miniupnpc
-, openal
-, opencv
-, pkg-config
-, protobuf_33
-, pugixml
-, python3
-, qt6Packages
-, rtmidi
-, sdl3
-, stdenv
-, unstableGitUpdater
-, vulkan-headers
-, vulkan-loader
-, vulkan-memory-allocator
-, wayland
-, waylandSupport ? true
-, wrapGAppsHook3
-, zlib
-, zstd
-,
+{
+  cmake,
+  cubeb,
+  curl,
+  enableDiscordRpc ? false,
+  faudio,
+  faudioSupport ? true,
+  fetchFromGitHub,
+  ffmpeg,
+  git,
+  glew,
+  glslang,
+  hidapi,
+  lib,
+  libevdev,
+  libpng,
+  libsm,
+  libusb1,
+  llvm,
+  maintainer,
+  miniupnpc,
+  openal,
+  opencv,
+  pkg-config,
+  protobuf_33,
+  pugixml,
+  python3,
+  qt6Packages,
+  rtmidi,
+  sdl3,
+  stdenv,
+  unstableGitUpdater,
+  vulkan-headers,
+  vulkan-loader,
+  vulkan-memory-allocator,
+  wayland,
+  waylandSupport ? true,
+  wrapGAppsHook3,
+  zlib,
+  zstd,
 }:
 
 let

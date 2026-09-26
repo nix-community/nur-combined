@@ -1,15 +1,16 @@
-{ buildFHSEnv
-, cacert
-, curl
-, desktop-file-utils
-, dpkg
-, fetchurl
-, lib
-, maintainer
-, python3
-, stdenvNoCC
-, writeShellApplication
-, writeShellScript
+{
+  buildFHSEnv,
+  cacert,
+  curl,
+  desktop-file-utils,
+  dpkg,
+  fetchurl,
+  lib,
+  maintainer,
+  python3,
+  stdenvNoCC,
+  writeShellApplication,
+  writeShellScript,
 }:
 
 let
@@ -20,7 +21,10 @@ let
     license = lib.licenses.unfree;
     mainProgram = "chatgpt";
     maintainers = [ maintainer ];
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
   unwrapped = stdenvNoCC.mkDerivation {
@@ -54,49 +58,50 @@ buildFHSEnv {
   inherit (source) version;
   inherit meta;
 
-  targetPkgs = pkgs: with pkgs; [
-    alsa-lib
-    at-spi2-core
-    cairo
-    cups
-    curl
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    git
-    glib
-    gtk3
-    lcms2
-    libGL
-    libdrm
-    libgbm
-    libnotify
-    libpulseaudio
-    libusb1
-    libx11
-    libxcb
-    libxcomposite
-    libxcrypt-legacy
-    libxdamage
-    libxext
-    libxfixes
-    libxkbcommon
-    libxrandr
-    nspr
-    nss
-    pango
-    pipewire
-    qt5.qtbase
-    qt6.qtbase
-    systemdLibs
-    util-linux
-    vulkan-loader
-    wayland
-    xdg-utils
-    zlib
-  ];
+  targetPkgs =
+    pkgs: with pkgs; [
+      alsa-lib
+      at-spi2-core
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      git
+      glib
+      gtk3
+      lcms2
+      libGL
+      libdrm
+      libgbm
+      libnotify
+      libpulseaudio
+      libusb1
+      libx11
+      libxcb
+      libxcomposite
+      libxcrypt-legacy
+      libxdamage
+      libxext
+      libxfixes
+      libxkbcommon
+      libxrandr
+      nspr
+      nss
+      pango
+      pipewire
+      qt5.qtbase
+      qt6.qtbase
+      systemdLibs
+      util-linux
+      vulkan-loader
+      wayland
+      xdg-utils
+      zlib
+    ];
 
   # The downloaded Python expects /etc/ssl/cert.pem, which is absent on NixOS.
   profile = ''
@@ -151,7 +156,10 @@ buildFHSEnv {
     inherit unwrapped;
     updateScript = lib.getExe (writeShellApplication {
       name = "update-chatgpt";
-      runtimeInputs = [ curl python3 ];
+      runtimeInputs = [
+        curl
+        python3
+      ];
       text = "exec python3 pkgs/chatgpt/update.py";
     });
   };

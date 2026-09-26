@@ -1,17 +1,17 @@
-{ buildGoModule
-, coreutils
-, fetchFromGitHub
-, gitUpdater
-, gnumake
-, goose
-, lib
-, makeWrapper
-, maintainer
-, protobuf
-, protoc-gen-go
-, protoc-gen-go-grpc
-, runtimeShell
-,
+{
+  buildGoModule,
+  coreutils,
+  fetchFromGitHub,
+  gitUpdater,
+  gnumake,
+  goose,
+  lib,
+  makeWrapper,
+  maintainer,
+  protobuf,
+  protoc-gen-go,
+  protoc-gen-go-grpc,
+  runtimeShell,
 }:
 
 buildGoModule rec {

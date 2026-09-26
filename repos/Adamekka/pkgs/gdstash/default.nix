@@ -1,10 +1,10 @@
-{ jre
-, lib
-, makeWrapper
-, maintainer
-, stdenvNoCC
-, unzip
-,
+{
+  jre,
+  lib,
+  makeWrapper,
+  maintainer,
+  stdenvNoCC,
+  unzip,
 }:
 
 let

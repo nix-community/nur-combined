@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 let
   maintainer = {
@@ -22,10 +24,13 @@ in
 
   # MARK: Packages
 
+  alvr-git = pkgs.callPackage ./pkgs/alvr-git { inherit maintainer; };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { inherit maintainer; };
   gdstash = pkgs.callPackage ./pkgs/gdstash { inherit maintainer; };
   github-desktop = pkgs.callPackage ./pkgs/github-desktop { inherit maintainer; };
-  linux-wallpaperengine-git = pkgs.callPackage ./pkgs/linux-wallpaperengine-git { inherit maintainer; };
+  linux-wallpaperengine-git = pkgs.callPackage ./pkgs/linux-wallpaperengine-git {
+    inherit maintainer;
+  };
   lunar-tear = pkgs.callPackage ./pkgs/lunar-tear { inherit maintainer; };
   rpcs3-git = pkgs.callPackage ./pkgs/rpcs3-git { inherit maintainer; };
   wondershaper = pkgs.callPackage ./pkgs/wondershaper { inherit maintainer; };
