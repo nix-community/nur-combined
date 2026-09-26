@@ -52,3 +52,4 @@ Read these if you want, they are not the peak of literature.
 1. https://uraalice.itch.io/moon-illusion
 1. https://solarautomata.itch.io/oblivion2666demo
 1. https://uraalice.itch.io/ladys-pyre
+1. https://mismatched-wings.itch.io/affectionadorationabsolution

@@ -14,21 +14,23 @@
   psutil,
   pyarrow,
   kagglehub,
-  tensorflow,
+  tensorflowWithoutCuda,
+  onnxruntime,
+  ai-edge-litert,
   pytest-cov,
   pytest-xdist,
   pytest-timeout,
 }:
 buildPythonPackage (finalAttrs: {
   pname = "birdnet";
-  version = "0.2.16";
+  version = "1.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "birdnet-team";
     repo = "birdnet";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xHXuo50rx+xQoyWgr06VXkL2CnZhfvRqwzqeAcj8d9g=";
+    hash = "sha256-FleTK8KMjN8ylGAe+wWz56C3dcuFVdT8ITXDP3LIHGs=";
   };
 
   __structuredAttrs = true;
@@ -51,7 +53,9 @@ buildPythonPackage (finalAttrs: {
     psutil
     pyarrow
     kagglehub
-    tensorflow
+    tensorflowWithoutCuda
+    onnxruntime
+    ai-edge-litert
   ];
 
   # Tries to download model weights during tests

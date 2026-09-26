@@ -25,8 +25,13 @@ pkgs.lib.makeScope pkgs.newScope (
     audiomoth-config = callPackage ./audiomoth-config { };
     audiomoth-flash = callPackage ./audiomoth-flash { };
 
-    birdnet = self.python3Packages.callPackage ./birdnet { };
+    birdnet = self.python313Packages.callPackage ./birdnet { };
     birdnet-analyzer = self.callPackage ./birdnet-analyzer { };
+    python313Packages = pkgs.python313Packages.overrideScope (
+      _: _: {
+        inherit (self) birdnet;
+      }
+    );
 
     c2rust =
       let
@@ -52,17 +57,12 @@ pkgs.lib.makeScope pkgs.newScope (
           { targets = [ "x86_64-pc-windows-msvc" ]; };
     };
 
-    python3Packages = stable.python3Packages.overrideScope (
-      _: _: {
-        inherit (self) birdnet;
-      }
-    );
-
     two-kinds-of-people = callPackage ./twokindsofpeople { };
     melt = callPackage ./melt { };
     moonlight-duelists = callPackage ./moonlight-duelists { };
     moon-illusion = callPackage ./moon-illusion { };
     ladys-pyre = callPackage ./ladys-pyre { };
     oblivion2666demo = callPackage ./oblivion2666demo { };
+    affectionadorationabsolution = callPackage ./affectionadorationabsolution { };
   }
 )

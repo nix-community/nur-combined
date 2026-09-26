@@ -1,30 +1,27 @@
 {
   lib,
   stdenv,
-  python3Packages,
+  python313Packages,
   fetchFromGitHub,
   withGui ? true,
 }:
+let
+  python3Packages = python313Packages;
+in
 python3Packages.buildPythonApplication (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "birdnet-analyzer";
-  version = "2.4.0-unstable-2026-05-11";
+  version = "2.4.0-unstable-2026-09-08";
 
   # Using an unstable version because an older version was touching the
   # RO nix store
   src = fetchFromGitHub {
     owner = "birdnet-team";
     repo = "BirdNET-Analyzer";
-    rev = "3e9392dfde272aaa3929cc3f1d7b100b574abd36";
-    hash = "sha256-6FSPGXIS5N1L+j29qi1J1lqfVoC/tcVFFc9dnmkTQwk=";
+    rev = "df2ad1ce40415721397586832e04b6cb7d51079f";
+    hash = "sha256-ckx4oT1RE1PnPBvxGG8Ljm+km6jeURa0FIlUYi28TBI=";
   };
-
-  # Tell it to always use the APPDIR
-  postPatch = ''
-    substituteInPlace birdnet_analyzer/gui/settings.py birdnet_analyzer/gui/utils.py \
-      --replace-fail "utils.FROZEN" "True"
-  '';
 
   pyproject = true;
 
@@ -38,12 +35,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
       # Base deps
       librosa
       resampy
-      tensorflow
+      tensorflowWithoutCuda
       pyarrow
       tqdm
       pandas
       matplotlib
       birdnet
+      keras
     ]
     ++ lib.optionals withGui (
       [
