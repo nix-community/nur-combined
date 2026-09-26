@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "revmux";
-  version = "0.2.3";
+  version = "0.2.5";
 
   __structuredAttrs = true;
 
@@ -14,7 +14,7 @@ buildGoModule (finalAttrs: {
     owner = "umputun";
     repo = "revmux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bUt6mTqOzDofM11rWYHI3o2O0mhqLHUITblXbCBsfxo=";
+    hash = "sha256-NtuobTCc5Rf36u9jNy7fS01qVcfZgHsNpJLni9vvm4o=";
   };
 
   vendorHash = null;
