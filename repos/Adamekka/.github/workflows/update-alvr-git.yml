@@ -1,0 +1,99 @@
+name: Update alvr-git
+
+on:
+  schedule:
+    - cron: "30 5 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: update-alvr-git
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    name: Update and validate alvr-git
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      # nix-update starts nested Nix commands, so the setting must be inherited.
+      NIX_CONFIG: |
+        fallback = true
+    outputs:
+      base_sha: ${{ steps.update.outputs.base_sha }}
+      changed: ${{ steps.update.outputs.changed }}
+      package: ${{ steps.update.outputs.package }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: main
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+
+      - name: Update and build package
+        id: update
+        run: |
+          # The file sent to the push job must be tested against the triggering main commit.
+          if [ "$(git rev-parse HEAD)" != "$GITHUB_SHA" ]; then
+            printf '%s\n' 'Start a new updater run on main; main moved or another ref was selected.' >&2
+            exit 1
+          fi
+          printf 'base_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+          nix run nixpkgs#nix-update -- --flake --version branch=master \
+            --override-filename pkgs/alvr-git/default.nix alvr-git
+
+          changed_files="$(git diff --name-only)"
+          if [ -z "$changed_files" ]; then
+            printf 'changed=false\n' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$changed_files" != 'pkgs/alvr-git/default.nix' ] || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            printf '%s\n' 'The updater changed files outside pkgs/alvr-git/default.nix.' >&2
+            exit 1
+          fi
+
+          nix build --no-link .#alvr-git
+          printf 'changed=true\n' >> "$GITHUB_OUTPUT"
+          # Pass the exact validated file bytes to the push job.
+          printf 'package=%s\n' "$(base64 --wrap=0 pkgs/alvr-git/default.nix)" >> "$GITHUB_OUTPUT"
+
+  push:
+    name: Push validated alvr-git update
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true'
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout tested base
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.prepare.outputs.base_sha }}
+
+      - name: Commit and push tested update
+        env:
+          BASE_SHA: ${{ needs.prepare.outputs.base_sha }}
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          PACKAGE: ${{ needs.prepare.outputs.package }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$BASE_SHA"
+          printf '%s' "$PACKAGE" | base64 --decode > pkgs/alvr-git/default.nix
+          git add -- pkgs/alvr-git/default.nix
+          git commit -m "Update alvr-git"
+          git fetch origin refs/heads/main
+          if [ "$(git rev-parse FETCH_HEAD)" != "$BASE_SHA" ]; then
+            printf '%s\n' 'main changed during validation; start a new updater run on main.' >&2
+            exit 1
+          fi
+          # A concurrent advance after the fetch is rejected by this non-force push.
+          git push origin HEAD:refs/heads/main

@@ -4,10 +4,11 @@
   ffmpeg_8,
   lib,
   maintainer,
+  nix-update,
   replaceVars,
   rustPlatform,
-  unstableGitUpdater,
   vulkan-headers,
+  writeShellApplication,
   x264,
 }:
 
@@ -59,11 +60,15 @@ in
   };
 
   passthru = oldAttrs.passthru // {
-    updateScript = unstableGitUpdater {
-      branch = "master";
-      tagPrefix = "v";
-      url = "https://github.com/alvr-org/ALVR.git";
-    };
+    updateScript = lib.getExe (writeShellApplication {
+      name = "update-alvr-git";
+      runtimeInputs = [ nix-update ];
+      text = ''
+        # ALVR release tags do not track master; update this override and its Cargo hash.
+        nix-update --flake --version branch=master \
+          --override-filename pkgs/alvr-git/default.nix alvr-git
+      '';
+    });
   };
 
   # The release patch targets an older build script and its FFmpeg 6.0 dependency.
