@@ -13,6 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./shairport.nix
 
     ../../fragments/nh.nix
     ../../fragments/nix-settings.nix
@@ -77,6 +78,7 @@
   #   enable = true;
   #   pulse.enable = true;
   # };
+  hardware.alsa.enablePersistence = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -232,7 +234,6 @@
 
   services.home-assistant = {
     enable = true;
-    openFirewall = true;
     extraComponents = [
       # Components required to complete the onboarding
       "analytics"
@@ -639,6 +640,7 @@
     1883
     7088
     8080
+    8123
     13831
     21064 # Home Assistant HomeKit Bridge
     22437 # qBittorrent
