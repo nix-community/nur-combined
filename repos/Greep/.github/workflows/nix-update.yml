@@ -33,6 +33,11 @@ jobs:
       env:
         FLAKE_UPDATE_OUTPUT: ${{ steps.run-flake-update.outputs.nix-update }}
       run: |
+        if [ -z "$FLAKE_UPDATE_OUTPUT" ]; then
+          echo "Flake is already up to date"
+          exit 0
+        fi
+
         {
           echo "## nix flake-update summary"
           echo
