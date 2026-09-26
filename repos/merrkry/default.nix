@@ -10,4 +10,6 @@
   fcitx5-vinput-lite = pkgs.callPackage ./pkgs/fcitx5-vinput-lite { };
   kache = pkgs.callPackage ./pkgs/kache.nix { };
   kvlibadwaita-kvantum = pkgs.callPackage ./pkgs/kvlibadwaita-kvantum.nix { };
+  symseek = pkgs.callPackage ./pkgs/symseek.nix { };
+  yaasm = pkgs.callPackage ./pkgs/yaasm.nix { };
 }

@@ -8,6 +8,8 @@
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "kache";
   version = "0.26.3";
 
@@ -20,6 +22,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-Mt078AxY84RX+5Lb6q8zdE8R/Qw+e2sd8gouNYWIdXE=";
 
+  strictDeps = true;
   nativeBuildInputs = [ installShellFiles ];
 
   cargoBuildFlags = [

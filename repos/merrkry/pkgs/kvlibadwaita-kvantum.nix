@@ -3,7 +3,9 @@
   lib,
   stdenvNoCC,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "kvlibadwaita-kvantum";
   version = "0-unstable-2025-09-13";
 
@@ -13,6 +15,8 @@ stdenvNoCC.mkDerivation {
     rev = "1f4e0bec44b13dabfa1fe4047aa8eeaccf2f3557";
     sha256 = "sha256-jCXME6mpqqWd7gWReT04a//2O83VQcOaqIIXa+Frntc=";
   };
+
+  strictDeps = true;
 
   installPhase = ''
     mkdir -p $out/share/Kvantum
@@ -26,4 +30,4 @@ stdenvNoCC.mkDerivation {
     maintainers = with lib.maintainers; [ merrkry ];
     platforms = lib.platforms.linux;
   };
-}
+})
