@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "seekey";
-  version = "0.2.3";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "Nakanomk";
     repo = "Seekey";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UgHKQVrZacYf8WJgTngN7P440pHPriAfKgw2d9a2rdM=";
+    hash = "sha256-ln/77IRcppWf3yCaKBkbt0P1BeKf0ZwFRyqcIKD+ZfQ=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
