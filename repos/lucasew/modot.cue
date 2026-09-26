@@ -560,43 +560,6 @@ backup: {
 	destination: string | *""
 }
 
-// Remote (github etc.) skills need named inputs for locking/version pins.
-// Local self-based ones do not — we reference "self:..." directly.
-// core:place TargetBase is $HOME, so destinations are under ~/.agents/skills.
-inputs: {
-	for name, src in #skills if !strings.HasPrefix(src.from, "self") {
-		"skills_\(name)": {
-			from: src.from
-			version: src.version
-		}
-	}
-}
-
-// Generate place modules for all skills.
-// For self sources we use the direct "self:..." ref (no named input needed).
-modules: {
-	for name, value in #skills if !strings.HasPrefix(value.from, "self") {
-		"skills_\(name)": {
-			from: "core:place"
-			config: {
-				items: {
-					".agents/skills/\(value.destination)": "skills_\(name):\(value.origin)"
-				}
-			}
-		}
-	}
-	for name, value in #skills if strings.HasPrefix(value.from, "self") {
-		"skills_\(name)": {
-			from: "core:place"
-			config: {
-				items: {
-					".agents/skills/\(value.destination)": "self:\(value.origin)"
-				}
-			}
-		}
-	}
-}
-
 // ========== Agent definitions
 // Same shape as #skills. Origin defaults to "agents/". Destination is
 // ~/.grok/agents (Grok user agents) so spawn_subagent can see the type.
@@ -618,34 +581,49 @@ modules: {
 	destination: string | *""
 }
 
+// One description per tree. The place field name is the target.
+// Remote inputs are locked. self: is used directly. source maps merge.
+#trees: {
+	skills: {
+		root:  ".agents/skills"
+		input: "skills"
+		items: #skills
+		steps: "10_require": {
+			op: "require"
+			patterns: skill: "SKILL.md"
+		}
+	}
+	agents: {
+		root:  ".grok/agents"
+		input: "agents"
+		items: #agents
+		steps: {}
+	}
+}
+
 inputs: {
-	for name, src in #agents if !strings.HasPrefix(src.from, "self") {
-		"agents_\(name)": {
+	for _, tree in #trees for name, src in tree.items if !strings.HasPrefix(src.from, "self") {
+		"\(tree.input)_\(name)": {
 			from:    src.from
 			version: src.version
 		}
 	}
 }
 
-modules: {
-	for name, value in #agents if !strings.HasPrefix(value.from, "self") {
-		"agents_\(name)": {
-			from: "core:place"
-			config: {
-				items: {
-					".grok/agents/\(value.destination)": "agents_\(name):\(value.origin)"
-				}
-			}
-		}
-	}
-	for name, value in #agents if strings.HasPrefix(value.from, "self") {
-		"agents_\(name)": {
-			from: "core:place"
-			config: {
-				items: {
-					".grok/agents/\(value.destination)": "self:\(value.origin)"
-				}
-			}
+file: home: {
+	for _, tree in #trees for name, value in tree.items {
+		let path = [
+			if value.destination == "" {tree.root},
+			if value.destination != "" {"\(tree.root)/\(value.destination)"},
+		][0]
+		let ref = [
+			if strings.HasPrefix(value.from, "self") {"self:\(value.origin)"},
+			if !strings.HasPrefix(value.from, "self") {"\(tree.input)_\(name):\(value.origin)"},
+		][0]
+		"\(path)": {
+			type: "place"
+			source: "\(name)": ref
+			steps:   tree.steps
 		}
 	}
 }
