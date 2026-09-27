@@ -21,18 +21,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Nix
         uses: NixOS/nix-installer-action@v1
 
       - name: Set up binary cache
-        id: niks3
-        # TODO: Switch back to @v1 after it updates its bundled niks3 from 1.7.0 to 1.13.0.
-        # The newer action exports the CLI and OIDC helper used to refresh cache TTLs.
-        uses: Mic92/niks3-action@952f6bcde3f794cc498ad9e96d8d491777870829
+        uses: Mic92/niks3-action@v1
         with:
           server-url: https://niks3-api.tsubasa.moe
+          skip-push: true
 
       - name: Check Nix files
         run: nix develop -c bash -c 'nixfmt --check . && statix check .'
@@ -41,33 +39,8 @@ jobs:
         run: nix flake check --no-build
 
       - name: Build packages and dev shell
-        run: >-
-          nix run .#nix-fast-build --
-          --flake .#buildJobs.x86_64-linux
-          --result-format json
-          --result-file "${RUNNER_TEMP}/nix-fast-build.json"
-          --skip-cached
-
-      - name: Refresh binary cache paths
-        if: ${{ !cancelled() && steps.niks3.outputs.auth-token-script != '' }}
-        env:
-          NIKS3_AUTH_TOKEN_SCRIPT: ${{ steps.niks3.outputs.auth-token-script }}
-          NIKS3_BIN_DIR: ${{ steps.niks3.outputs.binary-dir }}
-        run: |
-          result_file="${RUNNER_TEMP}/nix-fast-build.json"
-          if [ ! -f "$result_file" ]; then
-            echo "No build results to upload"
-            exit 0
-          fi
-
-          jq -r '.results[] | select((.type == "BUILD" and .success) or (.type == "EVAL" and .success and .cacheStatus == "local")) | (.outputs // {})[]' \
-            "$result_file" | sort -u > "${RUNNER_TEMP}/niks3-paths"
-          if [ ! -s "${RUNNER_TEMP}/niks3-paths" ]; then
-            echo "No successful build outputs to upload"
-            exit 0
-          fi
-
-          "${NIKS3_BIN_DIR}/niks3" push \
-              --server-url https://niks3-api.tsubasa.moe \
-              --auth-token-script "${NIKS3_AUTH_TOKEN_SCRIPT}" \
-              --stdin < "${RUNNER_TEMP}/niks3-paths"
+        uses: merrkry/niks3-build-action@master
+        with:
+          server-url: https://niks3-api.tsubasa.moe
+          flake: .#buildJobs.x86_64-linux
+          args: --push-build-closure
