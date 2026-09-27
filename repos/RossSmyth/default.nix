@@ -1,17 +1,16 @@
 { ... }@args:
 let
+  inputs = import ./npins { };
+
   pkgs =
     args.pkgs or (import <nixpkgs> {
       config.microsoftVisualStudioLicenseAccepted = true;
       overlays = [
         (import inputs.rust-overlay)
         (import inputs.qmix).overlays.default
+        (import inputs.renpy-nix)
       ];
     });
-
-  inputs = import ./npins { };
-
-  stable = import inputs."nixos-25.11" { };
 in
 pkgs.lib.makeScope pkgs.newScope (
   self:
@@ -64,5 +63,6 @@ pkgs.lib.makeScope pkgs.newScope (
     ladys-pyre = callPackage ./ladys-pyre { };
     oblivion2666demo = callPackage ./oblivion2666demo { };
     affectionadorationabsolution = callPackage ./affectionadorationabsolution { };
+    lessons-in-love = callPackage ./lessons-in-love { };
   }
 )

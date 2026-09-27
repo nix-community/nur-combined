@@ -20,6 +20,19 @@
       "url": "https://github.com/Tygo-van-den-Hurk/QMix/archive/257b01ef535a00f999a4d3b81c21ce06b9783ca3.tar.gz",
       "hash": "sha256-3QtLhHpibp0jxeFRgQMVvWA66/DwQY3mk3Ag9JaE+1Y="
     },
+    "renpy-nix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "RossSmyth",
+        "repo": "renpy-nix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "0e0c41aa111d5f92235ba08a84d8b7fe93d88cdf",
+      "url": "https://github.com/RossSmyth/renpy-nix/archive/0e0c41aa111d5f92235ba08a84d8b7fe93d88cdf.tar.gz",
+      "hash": "sha256-dEGICGlUlGvXdjIAGgWQLAxTP70C2eRAu6MNJpUfBxA="
+    },
     "rust-overlay": {
       "type": "Git",
       "repository": {
