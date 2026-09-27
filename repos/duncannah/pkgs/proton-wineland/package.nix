@@ -74,6 +74,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/nanomatters/proton-cachyos";
     license = lib.licenses.bsd3;
+    broken = !(stdenvNoCC.hostPlatform.isLinux && stdenvNoCC.hostPlatform.isx86_64);
     platforms = builtins.attrNames finalAttrs.passthru.variants;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
