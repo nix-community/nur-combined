@@ -121,7 +121,13 @@ In a NixOS or nix-darwin configuration, add the flake's `overlays.default` and
 `pkgs.sasso` resolves to it — alongside `pkgs.sasso-ffi`, the C ABI packaged for
 building against (`libsasso`, `sasso.h`, a pkg-config file). `nix develop` drops
 you into the toolchain CI uses, dart-sass included, so the opt-in parity suite
-runs offline (`SASSO_PARITY=1 cargo test --test parity`). See
+runs offline (`SASSO_PARITY=1 cargo test --test parity`).
+
+A configuration that already uses the
+[Nix User Repository](https://github.com/nix-community/NUR) can name the
+package instead of the flake — `pkgs.nur.repos.momiji-rs.sasso`, and
+`sasso-ffi` beside it. It trails `master`: NUR normally re-locks daily, and
+keeps the last revision that evaluated if a newer one does not. See
 [`nix/README.md`](nix/README.md) for the packaging itself.
 
 **Library — crates.io.**

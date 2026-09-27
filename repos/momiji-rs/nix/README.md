@@ -84,10 +84,11 @@ a configuration can name a package rather than a flake URL:
 environment.systemPackages = [ pkgs.nur.repos.momiji-rs.sasso ];
 ```
 
-**Registration is not merged yet**, so `nur.repos.momiji-rs` does not resolve for
-anyone but us — until it does, the flake above is the only way in, and the line
-here and in the top-level README should stay unadvertised. The entry asks NUR to
-point at **this repository** rather than at a separate `nur-packages` one:
+Registration merged as [nix-community/NUR#1229] on 2026-09-26. Resolving
+`nur.repos.momiji-rs.{sasso,sasso-ffi}` through NUR's own `main` gave
+`sasso-0.18.0` and `sasso-ffi-0.6.1` built from `master` at `15c44de` (verified
+2026-09-26). The entry points NUR at **this repository** rather than at a
+separate `nur-packages` one:
 
 ```json
 "momiji-rs": {
@@ -128,6 +129,7 @@ sasso — which is why the `nix flake` CI job runs this same check on every push
 rather than leaving it to be remembered.
 
 [NUR]: https://github.com/nix-community/NUR
+[nix-community/NUR#1229]: https://github.com/nix-community/NUR/pull/1229
 
 ## The nixpkgs submission
 
