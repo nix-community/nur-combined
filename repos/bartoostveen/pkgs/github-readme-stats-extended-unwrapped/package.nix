@@ -19,7 +19,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "github-readme-stats-extended-unwrapped";
-  version = "2.2.0";
+  version = "2.2.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "stats-organization";
     repo = "github-stats-extended";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-M7vfMIWDE3bUCTdSPu/qs8E6H3M/ZRHdh1eI3a0EjXo=";
+    hash = "sha256-/NF/qaxRKJGG+DC8pDgJa+f33YYLCTGXLERLCKru4zk=";
   };
 
   nativeBuildInputs = [
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-Wl4ttmOB457oRY0+X5PTgGZf5a7AgIaJuF7Oj7saYF8=";
+    hash = "sha256-Mw6CVxQw+mva5zXtfo7P2UweeauAPLJRImpgCujea4A=";
   };
 
   # Otherwise pnpm prune complains about not being able to ask for confirmation
