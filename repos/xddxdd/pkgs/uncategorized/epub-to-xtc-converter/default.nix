@@ -8,15 +8,15 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "epub-to-xtc-converter";
-  version = "0.8.0";
+  version = "0.9.0";
   src = fetchFromGitHub {
     owner = "bigbag";
     repo = "epub-to-xtc-converter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ox921Uk0YaKmCRL66ksbKj7YnCC0i1E3BMEChyZpS4U=";
+    hash = "sha256-+xBomEJXbOTlQj9nzgLYDCeuziFgAeDIBL+uV/X1fyE=";
   };
   sourceRoot = "${finalAttrs.src.name}/cli";
-  npmDepsHash = "sha256-GuvoKLhcFqEw8zfMBl4vc4ISp1/r+FOQOpxMLOXrPXs=";
+  npmDepsHash = "sha256-/K91TBbhmJ6reZYvto6Fb++ZDXjl3ld2jWEqL0HJ7fs=";
 
   postPatch = ''
     sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"${finalAttrs.version}\"/" package.json

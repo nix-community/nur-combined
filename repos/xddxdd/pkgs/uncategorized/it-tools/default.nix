@@ -12,12 +12,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "it-tools";
-  version = "2026.7.11";
+  version = "2026.9.27";
   src = fetchFromGitHub {
     owner = "sharevb";
     repo = "it-tools";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Jo2S/LE8Hg4M/TdoivGq4CaSnHfbm70E1cFMdsFDjnE=";
+    hash = "sha256-tOTtibNYctIOX63MJzB28eq8FLmAuvtFuO/m226KUpE=";
   };
   pnpmDeps = fetchPnpmDeps {
     pname = "it-tools";
@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) src;
     pnpm = pnpm_11;
     fetcherVersion = 4;
-    hash = "sha256-5p/BNX+lEOAJlPlnKdjs1Zvk+Ty7hYeFU6pMzzShyog=";
+    hash = "sha256-qfoBr6fy+IZOy7Yv4+tM/aQUB79DQ3dcmEServda5d0=";
   };
 
   nativeBuildInputs = [

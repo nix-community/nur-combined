@@ -10,7 +10,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "calibre-cops";
-  version = "4.5.4";
+  version = "4.5.5";
   src = fetchurl {
     url = "https://github.com/mikespub-org/seblucas-cops/releases/download/${finalAttrs.version}/cops-${finalAttrs.version}-php84.zip";
     hash = "sha256-KSPecmpzyV/OSvkW4Skvesbw3qe/LnT9a6wZ655Py4o=";

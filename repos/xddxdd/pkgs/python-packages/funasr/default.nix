@@ -35,14 +35,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "funasr";
-  version = "1.4.16-unstable-2026-09-26";
+  version = "1.4.16-unstable-2026-09-27";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "modelscope";
     repo = "FunASR";
-    rev = "9e7f6af8c30bc9ba5c4ce498f09af5dcef96e225";
-    hash = "sha256-nRtIBA8TqyP7yzjDS2IZTmeUVeIaHOpioXBTNYP+q48=";
+    rev = "2d4566d4a4c84d73e1f828efa2dedfa88f33677f";
+    hash = "sha256-s6gUwspArqPf811TUsARYj8bCR/c1FrmJEYST3sttyQ=";
   };
   build-system = [ setuptools ];
 
