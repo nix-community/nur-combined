@@ -39,7 +39,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8KUCJVAqN0VWfr5b38MnybvYKCEeV2hnCSpRO3vRO2s=",
+            "sha256": "sha256-FCJUYrzSUhcNCdIrOIePCp4uo4Dk0fR4auM5YjxUv+w=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip"
         },
@@ -59,12 +59,12 @@
             "name": null,
             "owner": "imputnet",
             "repo": "helium-linux",
-            "rev": "0.17.0.1",
-            "sha256": "sha256-L0yK+S+IZ7Nv3lCcWcEXombBjenYNAj1QpwD+bIST6I=",
+            "rev": "0.18.1.1",
+            "sha256": "sha256-vq80zaXQ2vZCz2Vh7BaSWzz9GKMbz9QZv/XmfKPKvqY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.17.0.1"
+        "version": "0.18.1.1"
     },
     "helium-macos": {
         "cargoLock": null,
@@ -75,11 +75,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/8HOMvHzP8rSW06a0U5NGMldGJm8Q0a53ZBYDgsWBNY=",
+            "sha256": "sha256-QY5zOYBxYcvaxC26cFIGeZcFdtUPWqTzCj8IYv60odk=",
             "type": "url",
-            "url": "https://github.com/imputnet/helium-macos/releases/download/0.17.0.1/helium_0.17.0.1_arm64-macos.dmg"
+            "url": "https://github.com/imputnet/helium-macos/releases/download/0.18.1.1/helium_0.18.1.1_arm64-macos.dmg"
         },
-        "version": "0.17.0.1"
+        "version": "0.18.1.1"
     },
     "kanata": {
         "cargoLock": {
@@ -157,11 +157,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bjuLD+mLLrmsgqBICbDDySZR85foTFe1ETLPf8Gcl0U=",
+            "sha256": "sha256-qmhYDUF22NqVyYo/Pk3PPWy0AzoRjc0OWrBZHyfKIYY=",
             "type": "url",
-            "url": "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/archive/v8.5.0.tar.gz"
+            "url": "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/archive/v8.6.0.tar.gz"
         },
-        "version": "8.5.0"
+        "version": "8.6.0"
     },
     "yabai": {
         "cargoLock": null,
@@ -193,11 +193,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OQSmejhRsaYZ4tP6enCDWh1+Q2etMJMcz5tNIykq+ZA=",
+            "sha256": "sha256-cdv+OU7S9tHrmD/wzG35djxD/Gd3IgKHmmpAeUwU4aE=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.22.1b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.22.3b/zen.macos-universal.dmg"
         },
-        "version": "1.22.1b"
+        "version": "1.22.3b"
     },
     "zen-twilight": {
         "cargoLock": null,
@@ -208,10 +208,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6zJApcsDvWDk12efQc4BgWaV7GCKljJ54yleddWhsOQ=",
+            "sha256": "sha256-VbDgVYLKH4BSUefbj5GxVgLSsbE12Ml4B09VZaUUSxg=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg"
         },
-        "version": "1.22.1b"
+        "version": "1.22.3b"
     }
 }
