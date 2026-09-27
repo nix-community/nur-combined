@@ -20,6 +20,8 @@
 
   proton-meet = pkgs.callPackage ./pkgs/proton-meet { };
 
+  stratos = pkgs.callPackage ./pkgs/stratos { };
+
   threema-desktop = pkgs.callPackage ./pkgs/threema-desktop { };
 
   trackaudio = pkgs.callPackage ./pkgs/trackaudio { };
