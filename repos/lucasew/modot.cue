@@ -539,7 +539,7 @@ backup: {
 	if !#is_phone {
 		lewtec: {
 			from: "github:lewtec/skills"
-			version: "d8e0403724bbd91ceef1e1df983678b78ad02c3c"
+			version: "a475a4310f39efdb4125079bb5dd27dcfcc92799"
 		}
 	}
 	modot: {
