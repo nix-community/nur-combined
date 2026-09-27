@@ -1,5 +1,26 @@
 package coil3.compose
 
-open class AsyncImage {
-    companion object { }
-}
+import androidx.compose.runtime.Composable
+
+@Composable
+fun AsyncImage(
+    model: Any?,
+    contentDescription: String?,
+    modifier: Any = Any(),
+    contentScale: Any = Any(),
+    placeholder: Any? = null,
+    error: Any? = null,
+    fallback: Any? = null,
+    alignment: Any = Any(),
+    alpha: Float = 1f,
+    colorFilter: Any? = null,
+) {}
+
+@Composable
+fun SubcomposeAsyncImage(
+    model: Any?,
+    contentDescription: String?,
+    modifier: Any = Any(),
+    contentScale: Any = Any(),
+    content: @Composable (Any.() -> Unit) = {},
+) {}

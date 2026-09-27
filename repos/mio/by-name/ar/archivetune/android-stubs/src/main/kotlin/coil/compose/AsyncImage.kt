@@ -7,7 +7,11 @@ fun AsyncImage(
     model: Any?,
     contentDescription: String?,
     modifier: Any = Any(),
+    contentScale: Any = Any(),
     placeholder: Any? = null,
     error: Any? = null,
-    contentScale: Any = Any(),
+    fallback: Any? = null,
+    alignment: Any = Any(),
+    alpha: Float = 1f,
+    colorFilter: Any? = null,
 ) {}

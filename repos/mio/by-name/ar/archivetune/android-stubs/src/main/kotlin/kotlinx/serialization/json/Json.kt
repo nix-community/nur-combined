@@ -1,20 +1,37 @@
 package kotlinx.serialization.json
 
-open class JsonBuilder {
-    var ignoreUnknownKeys: Boolean = false
-    var encodeDefaults: Boolean = false
-    var explicitNulls: Boolean = false
-}
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.DeserializationStrategy
+import kotlinx.serialization.SerializationStrategy
 
-open class Json {
-    companion object {
-        var ignoreUnknownKeys: Boolean = false
-        var encodeDefaults: Boolean = false
-        var explicitNulls: Boolean = false
-    }
+class Json(val configuration: JsonConfiguration = JsonConfiguration()) {
+    fun <T> encodeToString(serializer: SerializationStrategy<T>, value: T): String = ""
+    fun <T> decodeFromString(deserializer: DeserializationStrategy<T>, string: String): T = TODO()
     
-    inline fun <reified T> decodeFromString(string: String): T = TODO()
-    fun <T> decodeFromString(deserializer: Any, string: String): T = TODO()
+    companion object Default : Json() {
+        inline fun <reified T> encodeToString(value: T): String = ""
+        inline fun <reified T> decodeFromString(string: String): T = TODO()
+    }
 }
 
-fun Json(block: JsonBuilder.() -> Unit): Json = Json()
+class JsonConfiguration
+
+fun Json(from: Json = Json, builderAction: JsonBuilder.() -> Unit): Json = Json()
+
+class JsonBuilder {
+    var prettyPrint: Boolean = false
+    var ignoreUnknownKeys: Boolean = false
+    var isLenient: Boolean = false
+    var encodeDefaults: Boolean = false
+    var explicitNulls: Boolean = true
+    var coerceInputValues: Boolean = false
+    var useArrayPolymorphism: Boolean = false
+    var classDiscriminator: String = "type"
+    var allowSpecialFloatingPointValues: Boolean = false
+    var allowStructuredMapKeys: Boolean = false
+    var useAlternativeNames: Boolean = true
+    var namingStrategy: Any? = null
+}
+
+inline fun <reified T> Json.encodeToString(value: T): String = ""
+inline fun <reified T> Json.decodeFromString(string: String): T = TODO()

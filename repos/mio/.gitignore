@@ -14,3 +14,11 @@ __pycache__
 /webp-pixbuf-loader-source
 /webp-pixbuf-loader-src
 ArchiveTune-src/
+
+# Scratch work and temp files
+scratch/
+META-INF/
+fix_*.py
+errors*.txt
+test-api.patch
+update_constraints.py
