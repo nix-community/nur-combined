@@ -2440,10 +2440,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.24.2";
+      version = "4.24.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5048223/control_panel_for_twitter-4.24.2.xpi";
-      sha256 = "c73ed4f663a83e35c9bd96e2e7d2bef85b4eb4c165d6d94ce3a1f2a3fe65b9e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5062025/control_panel_for_twitter-4.24.3.xpi";
+      sha256 = "72fdbafd0a0756ae501123c54ab241abf555a973a10ef400bdaf3630a8237988";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -10522,10 +10522,10 @@
     };
     "octotree" = buildMozillaXpiAddon {
       pname = "octotree";
-      version = "8.4.0";
+      version = "9.1.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5059734/octotree-8.4.0.xpi";
-      sha256 = "69c358e6d84977779f66373a4ffdfdde2df1df5bc26d76efd5aed80ad6b60c6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5061985/octotree-9.1.0.xpi";
+      sha256 = "8b40d8c2edf16f8dd49de3478b166d109636267e12fd9ee4edda19576e987ffe";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -17479,10 +17479,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.17.3";
+      version = "1.18.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4822619/youtube_auto_hd_fps-1.17.3.xpi";
-      sha256 = "60103913e353fb44bc5e6954c2bd808e25139e675a272f3aabd8de5ab8417fe3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5061494/youtube_auto_hd_fps-1.18.0.xpi";
+      sha256 = "559e0ff69b7ab625f0132fc4fa853762462331e6a9946eafc2cfc3a71679924e";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
