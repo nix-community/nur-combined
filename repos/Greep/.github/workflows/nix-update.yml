@@ -26,25 +26,31 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
     - name: Run flake update
-      id: run-flake-update
-      run: echo "nix-update=$(nix flake update)" >> "$GITHUB_OUTPUT"
+      env:
+        FLAKE_UPDATE_LOG: ${{ runner.temp }}/flake-update.log
+      run: |
+        set -o pipefail
+        nix flake update 2>&1 | tee "$FLAKE_UPDATE_LOG"
     - name: Generate run summary
       if: always()
       env:
-        FLAKE_UPDATE_OUTPUT: ${{ steps.run-flake-update.outputs.nix-update }}
+        FLAKE_UPDATE_LOG: ${{ runner.temp }}/flake-update.log
       run: |
-        if [ -z "$FLAKE_UPDATE_OUTPUT" ]; then
+        {
+          echo "## nix flake-update summary"
+          echo
+          echo "Run [\`${{ github.run_id }}\`](${REPO_URL}/actions/runs/${{ github.run_id }}) on nixpkgs unstable, $(date -u '+%Y-%m-%d %H:%M UTC')."
+        } >> "$GITHUB_STEP_SUMMARY"
+
+        if [ ! -s "$FLAKE_UPDATE_LOG" ]; then
           echo "Flake is already up to date"
           exit 0
         fi
 
         {
-          echo "## nix flake-update summary"
-          echo
-          echo "Run [\`${{ github.run_id }}\`](${REPO_URL}/actions/runs/${{ github.run_id }}) on nixpkgs unstable, $(date -u '+%Y-%m-%d %H:%M UTC')."
           echo
           echo '```'
-          echo "$FLAKE_UPDATE_OUTPUT"
+          cat "$FLAKE_UPDATE_LOG"
           echo '```'
         } >> "$GITHUB_STEP_SUMMARY"
     - name: Push commits
