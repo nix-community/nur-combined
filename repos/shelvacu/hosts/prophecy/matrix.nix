@@ -8,7 +8,7 @@ let
   socketDir = "/run/matrix-unix-socket";
   socketPath = "${socketDir}/socket.unix";
   delegatedName = "matrix.shelvacu.com";
-  wellKnownServer = builtins.toJSON { "m.server" = "${delegatedName}:443"; };
+  wellKnownServer = builtins.toJSON { "m.server" = "${delegatedName}"; };
   wellKnownClient = builtins.toJSON {
     "m.homeserver".base_url = "https://${delegatedName}";
     # MatrixRTC / Element Call focus. Backend configured in ./matrix-rtc.nix.
