@@ -8740,6 +8740,32 @@
         platforms = platforms.all;
       };
     };
+    "load-reddit-images-directly" = buildMozillaXpiAddon {
+      pname = "load-reddit-images-directly";
+      version = "1.9";
+      addonId = "{4c421bb7-c1de-4dc6-80c7-ce8625e34d24}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4769138/load_reddit_images_directly-1.9.xpi";
+      sha256 = "7242551ae0ce95a09111256caecb492db2e36f4cff3721d8cb7f7bf3369bd819";
+      meta = with lib;
+      {
+        homepage = "https://github.com/nopperl/load-reddit-images-directly";
+        description = "Loads reddit images directly instead of redirecting to the HTML page containing the image. This works for i.redd.it, preview.redd.it, external-preview.redd.it and www.reddit.com/media urls.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "webRequest"
+          "webRequestBlocking"
+          "*://i.redd.it/*"
+          "*://external-preview.redd.it/*"
+          "*://preview.redd.it/*"
+          "*://cf.preview.redd.it/*"
+          "*://www.reddit.com/*"
+          "*://www.reddit.com/r/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "localcdn" = buildMozillaXpiAddon {
       pname = "localcdn";
       version = "2.6.86";

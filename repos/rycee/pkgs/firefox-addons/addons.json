@@ -1226,6 +1226,9 @@
     "slug": "llmfeeder"
   },
   {
+    "slug": "load-reddit-images-directly"
+  },
+  {
     "slug": "localcdn-fork-of-decentraleyes",
     "pname": "localcdn"
   },
