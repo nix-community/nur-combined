@@ -146,7 +146,7 @@ with (import ./private.nix { inherit pkgs; });
           pkgs.symlinkJoin {
             name = "pkgscache";
             paths = with self; [
-              newpipe
+              #newpipe
               cb
               beammp-launcher
               mdbook-generate-summary

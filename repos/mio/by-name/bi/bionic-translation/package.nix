@@ -19,8 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "bionic_translation";
-    rev = "b36c17d";
-    hash = "sha256-ad+qWr+4vWCYAowY9wN6tDU+97dICbQX/pmv/DcYLzE=";
+    rev = "fb9d2ec";
+    hash = "sha256-+zdKavHpqf/ttXCuTDNIDSxflu1LOwf2GJ0cf+clTB8=";
   };
 
   nativeBuildInputs = [

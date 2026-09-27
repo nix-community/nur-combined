@@ -29,12 +29,12 @@
   libayatana-appindicator,
 }:
 let
-  version = "0.37.0";
+  version = "0.41.0";
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "artcraft";
     tag = "artcraft-v${version}";
-    hash = "sha256-o5Q5dVrULPK924xdC0jhKbM/wj3EXyXOmCEaqqyMlSw=";
+    hash = "sha256-kO4kHtU6cINVDpzxtTzq8s1nf8zqilHcJc7Fsi+iN0U=";
   };
   frontendSrc = runCommand "artcraft-frontend-src-${version}" { } ''
     cp -r ${src}/frontend $out
@@ -55,7 +55,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   npmRoot = "frontend";
   npmDeps = fetchNpmDeps {
     src = frontendSrc;
-    hash = "sha256-vlO67fvPqxNA/++DGR46VqPnvkSs/fPUnqEeKMJFlrw=";
+    hash = "sha256-SFHNSKXd6geJ8qYSPSwZSnG+0wmMDVfbasOPWNyLr5A=";
   };
   npmDepsFetcherVersion = 2;
   makeCacheWritable = true;
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildAndTestSubdir = "crates/desktop/artcraft";
-  cargoHash = "sha256-0Oi8sf6jmEy5rQFjqg/8kqCDZC/1DtA5pMj6QSl1c6s=";
+  cargoHash = "sha256-6XJlxw2NymY9oOj1j+MA3SkdypasSYTiAVE7nrxORMk=";
 
   nativeBuildInputs = [
     cargo-tauri.hook
@@ -145,7 +145,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       {} +
 
     substituteInPlace crates/desktop/artcraft/tauri.conf.json \
-      --replace-fail '"beforeBuildCommand": "npx run artcraft:build"' '"beforeBuildCommand": "true"'
+      --replace-fail '"beforeBuildCommand": "npx nx run artcraft:build"' '"beforeBuildCommand": "true"'
   '';
 
   preBuild = ''
