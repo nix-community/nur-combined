@@ -18,6 +18,12 @@ curl -fsSL https://raw.githubusercontent.com/skerrixx/rfetch/main/install.sh | s
 ```
 it takes a prebuilt release binary when that one actually runs on your system, and compiles from source itself when it does not (installing rust through rustup if you do not have it yet). the script makes that call, there is nothing for you to choose.
 
+note: if you wanna install it declaratively on nixos, the package is also in the NUR. just add
+```nix
+nur.repos.skerrixx.rfetch
+```
+in your config, ensuring that you have the NUR input in your flake.
+
 piped in, it still asks before it touches anything: prompts come from your terminal, not from the pipe, and answers default to no. add `-y` if you would rather not be asked at all, and pass any other flag after `sh -s --`.
 
 handy flags:
