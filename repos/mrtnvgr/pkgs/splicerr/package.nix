@@ -21,22 +21,22 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "splicerr";
-  version = "1.0.7";
+  version = "1.0.13";
 
   src = fetchFromGitHub {
-    owner = "Robert-K";
+    owner = "Exorsky";
     repo = "splicerr";
-    tag = "app-v${finalAttrs.version}";
-    hash = "sha256-hLKJ7tPk8N8WvZptj+lGt2OqH0MQo2+DQGYRTIfXv+Q=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-cOXGswc8yBUcE4jc6mDEBkhLMPnDvp7Ma5FQ2zs+vvQ=";
   };
 
-  cargoHash = "sha256-TyxrjJmSjezeWLXSPlb6FD7CXFdjUt8ZYreTrEEcd7w=";
+  cargoHash = "sha256-U4Lyzm+VcbSh4c63wjhncYR63Hgj0jZhKYOBHoxQRP8=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-cJ24DlzeMN0mUeEzwgNFRZ/kpG3v95V1r6VCOMaRs/8=";
+    hash = "sha256-pgTWdQ9C0rWa2Fag78RZZFEIHsEWae9n0eW9yJfdBuo=";
   };
 
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -67,7 +67,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Custom frontend for the Splice sample library";
-    homepage = "https://github.com/Robert-K/splicerr";
+    homepage = "https://github.com/Exorsky/splicerr";
     license = lib.licenses.mit;
     mainProgram = "splicerr";
     platforms = lib.platforms.linux;
