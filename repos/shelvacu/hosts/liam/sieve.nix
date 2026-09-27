@@ -478,6 +478,8 @@ let
         envelope_matches "*-ml@shelvacu.com"
       )}
 
+      ${pure_flags [ "healthchecks-io" "A" ] (from_matches "*@healthchecks.io")}
+
       ${pure_flags [ "offerup" ] (envelope_matches "offerup@shelvacu.com")}
       ${pure_flags [ "offerup-message" "A" ]
         [
