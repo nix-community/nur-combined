@@ -17,7 +17,7 @@ let
       f = import path;
     in
     f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
-  myPkgs = rec {
+  myPkgs = {
     # The `lib`, `modules`, and `overlay` names are special
     lib = pkgs.lib // import ./lib { inherit pkgs; }; # functions
     modules = import ./modules; # NixOS modules
@@ -25,8 +25,6 @@ let
 
     mySources = callPackage ./_sources/generated.nix { };
 
-    # https://github.com/NixOS/nixpkgs/pull/243429
-    netease-cloud-music = callPackage ./pkgs/applications/audio/netease-cloud-music { };
     bailian-cli = callPackage ./pkgs/tools/misc/bailian-cli { };
     codebuddy = callPackage ./pkgs/tools/misc/codebuddy { };
 
