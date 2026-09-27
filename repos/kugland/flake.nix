@@ -5,10 +5,11 @@
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
 
   outputs =
-    { self
-    , flake-parts
-    , ...
-    } @ inputs:
+    {
+      self,
+      flake-parts,
+      ...
+    }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [ ./modules ];
 
@@ -20,8 +21,17 @@
         "armv7l-linux"
       ];
 
-      perSystem = { pkgs, system, ... }: {
-        packages = import ./. { inherit pkgs system; };
-      };
+      perSystem =
+        {
+          lib,
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          # `puredata-with-plugins` is a function (as in nixpkgs), not a derivation,
+          # so it cannot be a flake `packages` output; keep only the derivations here.
+          packages = lib.filterAttrs (_: lib.isDerivation) (import ./. { inherit pkgs system; });
+        };
     };
 }

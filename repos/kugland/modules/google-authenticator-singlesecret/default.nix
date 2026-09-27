@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 let
   cfg = config.security.google-authenticator-singlesecret;
@@ -37,10 +38,7 @@ in
             let
               user = escapeCLang cfg.user;
               secret = escapeCLang (cfg.secret-dir + "/secret");
-              echo =
-                if cfg.echo
-                then "1"
-                else "0";
+              echo = if cfg.echo then "1" else "0";
             in
             ''
               sed -i -e 's|@TOTP_AUTH_USER@|"${user}"|' \

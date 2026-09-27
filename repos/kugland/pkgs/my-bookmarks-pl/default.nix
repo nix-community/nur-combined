@@ -1,10 +1,10 @@
-{ pkgs
-, lib
-, stdenvNoCC
-, fetchFromGitHub
-, perlPackages
-, makeWrapper
-,
+{
+  pkgs,
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  perlPackages,
+  makeWrapper,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "my-bookmarks.pl";
@@ -34,7 +34,13 @@ stdenvNoCC.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/my-bookmarks.pl \
-      --prefix PERL5LIB : "${with perlPackages; makePerlPath [GetoptLong URI]}"
+      --prefix PERL5LIB : "${
+        with perlPackages;
+        makePerlPath [
+          GetoptLong
+          URI
+        ]
+      }"
   '';
 
   meta = with lib; {

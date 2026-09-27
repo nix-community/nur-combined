@@ -36,3 +36,6 @@ d366de97fdb570af5697040c034f989019029d35
 
 # Reformatted again!
 6036d6044d5da1e391835f4e9c636f48db35a12a
+
+# Reformat with nixfmt (RFC 166 style)
+e954fd79f745a430f963742f53f0e12cd88ca916

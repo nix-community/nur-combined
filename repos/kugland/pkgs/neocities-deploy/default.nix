@@ -1,8 +1,8 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, buildRustPackage ? rustPlatform.buildRustPackage
-,
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  buildRustPackage ? rustPlatform.buildRustPackage,
 }:
 buildRustPackage rec {
   pname = "neocities-deploy";

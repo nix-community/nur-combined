@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 let
   cfg = config.networking.upnp;
@@ -18,14 +19,16 @@ let
       # Exit early if the interface is down
       ${pkgs.iproute2}/bin/ip addr show "$1" | grep -q 'state UP' || exit 0
 
-      ${lib.concatStringsSep "\n" (map (port: ''
+      ${lib.concatStringsSep "\n" (
+        map (port: ''
           ${pkgs.miniupnpc}/bin/upnpc -d ${toString port} TCP || true
-        '')
-        cfg.forward.tcpPorts)}
-      ${lib.concatStringsSep "\n" (map (port: ''
+        '') cfg.forward.tcpPorts
+      )}
+      ${lib.concatStringsSep "\n" (
+        map (port: ''
           ${pkgs.miniupnpc}/bin/upnpc -d ${toString port} UDP || true
-        '')
-        cfg.forward.udpPorts)}
+        '') cfg.forward.udpPorts
+      )}
       exec ${pkgs.miniupnpc}/bin/upnpc -r ${tcpPorts} ${udpPorts}
     '';
 in
@@ -102,12 +105,12 @@ in
       in
       {
         warnings = lib.mkMerge [
-          (lib.mkIf
-            (tcpPorts == [ ] && udpPorts == [ ])
-            "networking.upnp.forward is enabled, but no ports are specified to forward.")
-          (lib.mkIf
-            (ifaces == [ ])
-            "networking.upnp.forward is enabled, but no interfaces are specified to forward on.")
+          (lib.mkIf (
+            tcpPorts == [ ] && udpPorts == [ ]
+          ) "networking.upnp.forward is enabled, but no ports are specified to forward.")
+          (lib.mkIf (
+            ifaces == [ ]
+          ) "networking.upnp.forward is enabled, but no interfaces are specified to forward on.")
         ];
 
         systemd = lib.mkIf (tcpPorts != [ ] || udpPorts != [ ]) {
@@ -117,14 +120,17 @@ in
               after = [ "network.target" ];
               serviceConfig = {
                 Type = "oneshot";
-                ExecStart = ''${script} %I'';
-                RestrictAddressFamilies = lib.mkForce [ "AF_INET" "AF_NETLINK" ];
+                ExecStart = "${script} %I";
+                RestrictAddressFamilies = lib.mkForce [
+                  "AF_INET"
+                  "AF_NETLINK"
+                ];
                 RestrictNetworkIfaces = "%I";
               };
             };
           };
-          timers = builtins.listToAttrs (map
-            (iface: {
+          timers = builtins.listToAttrs (
+            map (iface: {
               enable = true;
               name = "upnpc@${iface}";
               value = {
@@ -138,8 +144,8 @@ in
                 };
                 wantedBy = [ "timers.target" ];
               };
-            })
-            ifaces);
+            }) ifaces
+          );
         };
       }
     ))

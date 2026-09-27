@@ -1,82 +1,81 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.services.autosshTunnels;
 
-  mkTunnel = tunnel:
+  mkTunnel =
+    tunnel:
     (if tunnel.reverse then "-R " else "-L ")
-    + (
-      if tunnel.localAddress != null
-      then "${tunnel.localAddress}:"
-      else ""
-    )
+    + (if tunnel.localAddress != null then "${tunnel.localAddress}:" else "")
     + "${toString tunnel.localPort}"
     + ":"
-    + (
-      if tunnel.remoteAddress != null
-      then "${tunnel.remoteAddress}:"
-      else "127.0.0.1:"
-    )
+    + (if tunnel.remoteAddress != null then "${tunnel.remoteAddress}:" else "127.0.0.1:")
     + "${toString tunnel.remotePort}";
 in
 {
   options = {
     services.autosshTunnels = {
       sessions = lib.mkOption {
-        type = types.attrsOf (types.submodule {
-          options = {
-            user = lib.mkOption {
-              type = types.str;
-              description = "User to connect as";
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              user = lib.mkOption {
+                type = types.str;
+                description = "User to connect as";
+              };
+              host = lib.mkOption {
+                type = types.str;
+                description = "Remote host to connect to";
+              };
+              port = lib.mkOption {
+                type = types.ints.u16;
+                description = "Remote port to connect to";
+                default = 22;
+              };
+              secretKey = lib.mkOption {
+                type = types.str;
+                description = "Path to the private key to use";
+              };
+              tunnels = lib.mkOption {
+                type = types.listOf (
+                  types.submodule {
+                    options = {
+                      localAddress = lib.mkOption {
+                        type = types.nullOr types.str;
+                        description = "Local address to bind to";
+                        default = null;
+                      };
+                      localPort = lib.mkOption {
+                        type = types.int;
+                        description = "Local port to bind to";
+                      };
+                      remoteAddress = lib.mkOption {
+                        type = types.nullOr types.str;
+                        description = "Remote address to forward to";
+                        default = null;
+                      };
+                      remotePort = lib.mkOption {
+                        type = types.int;
+                        description = "Remote port to forward to";
+                      };
+                      reverse = lib.mkOption {
+                        type = types.bool;
+                        description = "Is this a reverse tunnel?";
+                        default = false;
+                      };
+                    };
+                  }
+                );
+                default = [ ];
+              };
             };
-            host = lib.mkOption {
-              type = types.str;
-              description = "Remote host to connect to";
-            };
-            port = lib.mkOption {
-              type = types.ints.u16;
-              description = "Remote port to connect to";
-              default = 22;
-            };
-            secretKey = lib.mkOption {
-              type = types.str;
-              description = "Path to the private key to use";
-            };
-            tunnels = lib.mkOption {
-              type = types.listOf (types.submodule {
-                options = {
-                  localAddress = lib.mkOption {
-                    type = types.nullOr types.str;
-                    description = "Local address to bind to";
-                    default = null;
-                  };
-                  localPort = lib.mkOption {
-                    type = types.int;
-                    description = "Local port to bind to";
-                  };
-                  remoteAddress = lib.mkOption {
-                    type = types.nullOr types.str;
-                    description = "Remote address to forward to";
-                    default = null;
-                  };
-                  remotePort = lib.mkOption {
-                    type = types.int;
-                    description = "Remote port to forward to";
-                  };
-                  reverse = lib.mkOption {
-                    type = types.bool;
-                    description = "Is this a reverse tunnel?";
-                    default = false;
-                  };
-                };
-              });
-              default = [ ];
-            };
-          };
-        });
+          }
+        );
         default = { };
         example = {
           somehost = {
@@ -112,35 +111,34 @@ in
       };
       groups.autossh = { };
     };
-    services.autossh.sessions =
-      map
-        (
-          name:
-          let
-            session = cfg.sessions.${name};
-          in
-          {
-            inherit name;
-            user = "autossh";
-            monitoringPort = 0;
-            extraArguments = lib.concatStringsSep " " ([
-              "-N"
-              "-o Port=${toString session.port}"
-              "-o ControlMaster=no"
-              "-o Compression=no"
-              "-o ExitOnForwardFailure=yes"
-              "-o TCPKeepAlive=yes"
-              "-o ServerAliveInterval=60"
-              "-i ${session.secretKey}"
-              "${session.user}@${session.host}"
-            ]
-            ++ (map mkTunnel session.tunnels));
-          }
-        )
-        (builtins.attrNames cfg.sessions);
+    services.autossh.sessions = map (
+      name:
+      let
+        session = cfg.sessions.${name};
+      in
+      {
+        inherit name;
+        user = "autossh";
+        monitoringPort = 0;
+        extraArguments = lib.concatStringsSep " " (
+          [
+            "-N"
+            "-o Port=${toString session.port}"
+            "-o ControlMaster=no"
+            "-o Compression=no"
+            "-o ExitOnForwardFailure=yes"
+            "-o TCPKeepAlive=yes"
+            "-o ServerAliveInterval=60"
+            "-i ${session.secretKey}"
+            "${session.user}@${session.host}"
+          ]
+          ++ (map mkTunnel session.tunnels)
+        );
+      }
+    ) (builtins.attrNames cfg.sessions);
 
-    systemd.services = builtins.listToAttrs (map
-      (name: {
+    systemd.services = builtins.listToAttrs (
+      map (name: {
         name = "autossh-${name}";
         value = {
           serviceConfig = {
@@ -163,13 +161,16 @@ in
             ProtectKernelModules = true;
             ProtectKernelTunables = true;
             ProtectProc = "invisible";
-            RestrictAddressFamilies = lib.mkForce [ "AF_UNIX" "AF_INET" ];
+            RestrictAddressFamilies = lib.mkForce [
+              "AF_UNIX"
+              "AF_INET"
+            ];
             RestrictNamespaces = true;
             RestrictRealtime = true;
             RestrictSUIDSGID = true;
           };
         };
-      })
-      (builtins.attrNames cfg.sessions));
+      }) (builtins.attrNames cfg.sessions)
+    );
   };
 }

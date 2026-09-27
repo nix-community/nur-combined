@@ -1,8 +1,8 @@
-{ lib
-, stdenv
-, appimageTools
-, fetchurl
-,
+{
+  lib,
+  stdenv,
+  appimageTools,
+  fetchurl,
 }:
 let
   pname = "cursor";
@@ -14,11 +14,12 @@ let
     aarch64.hash = "sha256-Qxp5lcNS2i9zZPNgVdmuRt0xehQTtA9MoH+imdmp6f0=";
   };
   src = fetchurl (
-    if stdenv.hostPlatform.isx86_64
-    then sources.x86_64
-    else if stdenv.hostPlatform.isAarch64
-    then sources.aarch64
-    else throw "Unsupported architecture for Cursor"
+    if stdenv.hostPlatform.isx86_64 then
+      sources.x86_64
+    else if stdenv.hostPlatform.isAarch64 then
+      sources.aarch64
+    else
+      throw "Unsupported architecture for Cursor"
   );
   appimageContents = appimageTools.extract { inherit pname version src; };
 in
@@ -52,7 +53,10 @@ appimageTools.wrapType2 {
     downloadPage = "https://cursor.com/download";
     changelog = "https://github.com/getcursor/cursor/releases";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ maintainers.kugland ];
     mainProgram = "cursor";
     sourceProvenance = [ sourceTypes.binaryNativeCode ];

@@ -3,7 +3,7 @@
         "nil": {
             "formatting": {
                 "command": [
-                    "nixpkgs-fmt"
+                    "nixfmt"
                 ]
             }
         }

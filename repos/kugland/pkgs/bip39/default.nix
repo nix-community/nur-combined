@@ -1,12 +1,12 @@
-{ stdenv
-, lib
-, pkg-config
-, meson
-, ninja
-, libsodium
-, cunit
-, fetchFromGitHub
-,
+{
+  stdenv,
+  lib,
+  pkg-config,
+  meson,
+  ninja,
+  libsodium,
+  cunit,
+  fetchFromGitHub,
 }:
 stdenv.mkDerivation (_final: rec {
   pname = "bip39";
@@ -19,7 +19,11 @@ stdenv.mkDerivation (_final: rec {
     hash = "sha256-CMKexq0xkAWHQ1KJnXyQxbVQHDAc6Oql73eQ4IAviCE=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
   buildInputs = [ libsodium ];
   checkInputs = [ cunit ];
 

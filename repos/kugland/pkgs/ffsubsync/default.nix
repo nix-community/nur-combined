@@ -1,9 +1,10 @@
-{ lib
-, python312Packages
-, auditok
-, pysubs2
-,
-}: python312Packages.buildPythonPackage rec {
+{
+  lib,
+  python312Packages,
+  auditok,
+  pysubs2,
+}:
+python312Packages.buildPythonPackage rec {
   pname = "ffsubsync";
   version = "0.4.31";
   src = python312Packages.fetchPypi {
