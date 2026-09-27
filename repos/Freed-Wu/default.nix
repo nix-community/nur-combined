@@ -27,6 +27,8 @@ let
 
     # https://github.com/NixOS/nixpkgs/pull/243429
     netease-cloud-music = callPackage ./pkgs/applications/audio/netease-cloud-music { };
+    bailian-cli = callPackage ./pkgs/tools/misc/bailian-cli { };
+    codebuddy = callPackage ./pkgs/tools/misc/codebuddy { };
 
     gopass-symlinks = callPackage ./pkgs/shells/symlinks/gopass-symlinks { };
     proxychains-symlinks = callPackage ./pkgs/shells/symlinks/proxychains-symlinks { };
