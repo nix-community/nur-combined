@@ -124,6 +124,9 @@
           function dn42_export_to_peer(int peer_asn; int peer_id) -> bool {
             # announce my field
             if net = DN42_PREFIX then return true;
+            # Keep internal host routes inside our AS.
+            if net ~ DN42_FIELD then return false;
+            if !(net ~ DN42_V6_RANGE) then return false;
             
             # my A -> me -> my B
             if source = RTS_BGP && dn42_roa_check() then return true;
@@ -134,6 +137,9 @@
           function dn42_export_to_peer_v4(int peer_asn; int peer_id) -> bool {
             # announce my field
             if net = DN42_PREFIX_V4 then return true;
+            # Keep internal host routes inside our AS.
+            if net ~ DN42_FIELD_V4 then return false;
+            if !(net ~ DN42_V4_RANGE) then return false;
             
             # my A -> me -> my B
             if source = RTS_BGP && dn42_roa_check() then return true;
@@ -153,12 +159,14 @@
             peer table dn42_v6;
             
             import filter {
+              # Internal /128 routes must reach the kernel as well.
+              if net ~ DN42_FIELD then accept;
               if net ~ DN42_V6_RANGE then accept;
               reject;
             };
             
             export filter {
-              if source = RTS_DEVICE && net ~ DN42_V6_RANGE then accept;
+              if source = RTS_DEVICE && net ~ DN42_FIELD then accept;
               reject;
             };
           }
@@ -172,7 +180,7 @@
             };
 
             export filter {
-              if source = RTS_DEVICE && net ~ DN42_V4_RANGE then accept;
+              if source = RTS_DEVICE && net ~ DN42_FIELD_V4 then accept;
               reject;
             };
           }

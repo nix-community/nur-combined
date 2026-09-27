@@ -141,6 +141,19 @@
         };
       };
       config = {
+        # DN42 paths may enter and leave our AS through different routers.
+        # Netavark drops an asymmetric SYN-ACK as INVALID unless transit
+        # traffic bypasses conntrack. Keep locally delivered traffic tracked.
+        networking.nftables.tables.dn42-transit = lib.mkIf ((config.fn.getThisNode).dn42 or false) {
+          family = "inet";
+          content = ''
+            chain prerouting {
+              type filter hook prerouting priority raw; policy accept;
+              iifname { "wgp*", "vxlan-mesh" } fib daddr type != local ip saddr 172.20.0.0/14 ip daddr 172.20.0.0/14 counter notrack
+              iifname { "wgp*", "vxlan-mesh" } fib daddr type != local ip6 saddr fd00::/8 ip6 daddr fd00::/8 counter notrack
+            }
+          '';
+        };
         systemd.services.bird.restartIfChanged = false;
         services.bird = {
           enable = true;
