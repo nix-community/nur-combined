@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation {
   pname = "mozart";
-  version = "unstable";
+  version = "v1.0.0-beta.1";
 
   src = fetchFromGitHub {
     owner = "yashsio";
     repo = "mozart";
-    rev = "cad1d6e12cda9f003addb6c0db4927ba7a038c04";
-    hash = "sha256-zBXweMh4+4n0MAOjlDawkXKR4VtttSRYrFxUYHWwSGw=";
+    rev = "93aa0f9517f8d9efee01cad904e49779e61a97c5";
+    hash = "sha256-M4//dstgv+pJnIhthG8PXGfyvTJB2ikJ9nrAjE8oQRI=";
   };
 
   buildInputs = [
