@@ -6,14 +6,14 @@
 
 let
   pname = "archon";
-  version = "9.3.119";
+  version = "9.6.94";
 
   src = fetchurl {
     url = "https://github.com/RPGLogs/Uploaders-archon/releases/download/v${version}/archon-v${version}.AppImage";
-    hash = "sha256-mUsmaIxm3DZ1vvcwxpmDTWTj+UlFSv+jYkBrteL8xQk=";
+    hash = "sha256-l38nmbxLDdi/yMtoamG+hPqT22y32CfvdGtFitqIiZk=";
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit pname version src;
   };
 in
@@ -21,7 +21,7 @@ appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/"Archon App.desktop" \
+    install -m 444 -D ${appimageContents}/"archon.desktop" \
       $out/share/applications/${pname}.desktop
 
     substituteInPlace $out/share/applications/${pname}.desktop \

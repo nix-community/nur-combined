@@ -40,8 +40,8 @@
 
 let
   gradleUnwrapped = gradle-packages.mkGradle {
-    version = "9.3.1";
-    hash = "sha256-smbV/2uQ6tptw7IMsJDjcxMC5VOifF0+TfHw12vq/wY=";
+    version = "9.7.1";
+    hash = "sha256-rNU/HtrwLxqP+Zh5+KNLMCZhoFfZsGOunjW1UvgE0go=";
     defaultJava = jdk25;
   };
 
@@ -80,13 +80,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ab-download-manager";
-  version = "1.9.2";
+  version = "1.10.4";
 
   src = fetchFromGitHub {
     owner = "amir1376";
     repo = "ab-download-manager";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-4Nb6nRIWmiQqvPTCf4sGUtbWr4NqQX5PTy3oSVgu+aE=";
+    hash = "sha256-clSLAYa9ABo+CGEJltJzxZMGedOzmSlAKYUDImdjj6c=";
   };
 
   nativeBuildInputs = [
@@ -158,7 +158,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  # nix eval --raw .#ab-download-manager.passthru.fetch-deps.passthru.updateScript
+  # nix-build -A ab-download-manager.passthru.fetch-deps.passthru.updateScript
   passthru.fetch-deps = gradle.fetchDeps {
     pkg = finalAttrs.finalPackage;
     inherit (finalAttrs) pname;

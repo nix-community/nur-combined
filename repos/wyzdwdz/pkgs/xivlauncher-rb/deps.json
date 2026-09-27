@@ -15,6 +15,11 @@
     "hash": "sha256-Nb4ftf+RREzgiVOpc+xSxd4b+PiLGmFQM3okA/wGO54="
   },
   {
+    "pname": "DiscordRPCBridge-Wine",
+    "version": "1.0.0",
+    "hash": "sha256-mCNB08SxNlKU6DWtrPOV17GJMjLmRWBo644qSoUTkPg="
+  },
+  {
     "pname": "goaaats.Steamworks",
     "version": "2.3.4",
     "hash": "sha256-Wk9arQvVPPeMSgt8lL9rVRVkO1NrBNYzME4ZuOWcHc4="
@@ -56,13 +61,13 @@
   },
   {
     "pname": "Microsoft.AspNetCore.App.Ref",
-    "version": "9.0.19",
-    "hash": "sha256-Uz7T47SnCNsCJXJYm7zdMjTUmss6vd2xolTHruSVdoQ="
+    "version": "9.0.20",
+    "hash": "sha256-ZMaHC0MFs2YvW/fHGsxuXZnS74rcS9GJ1LGaMuscdMo="
   },
   {
     "pname": "Microsoft.AspNetCore.App.Runtime.linux-x64",
-    "version": "9.0.19",
-    "hash": "sha256-Hu6ct8SAFVYVCyTGV8Ibf8oo5OzaYWtWyhQq5R6i+gc="
+    "version": "9.0.20",
+    "hash": "sha256-ll6isPNcUHbChwtBEh+vIi6AI1DMf+cRaxk/q+d5Iyg="
   },
   {
     "pname": "Microsoft.CodeAnalysis.Analyzers",
@@ -101,18 +106,18 @@
   },
   {
     "pname": "Microsoft.NETCore.App.Host.linux-x64",
-    "version": "9.0.19",
-    "hash": "sha256-18YIKGzMqBUv+O4PZxS9UroJebMtyx2B8OH9I2LUDXo="
+    "version": "9.0.20",
+    "hash": "sha256-lsqBpxZyE13FPNsQrSEXDyjTpXnF6PX/hnUx4a+IikM="
   },
   {
     "pname": "Microsoft.NETCore.App.Ref",
-    "version": "9.0.19",
-    "hash": "sha256-rFSLCnXDMLH1BoKzV47t/k4l2/l+POTtgFIJ2XaRG5w="
+    "version": "9.0.20",
+    "hash": "sha256-6FQ6u7gCcf0IabmnZZ2jUU2TpYNQHzcPtqT1BaoaMkI="
   },
   {
     "pname": "Microsoft.NETCore.App.Runtime.linux-x64",
-    "version": "9.0.19",
-    "hash": "sha256-WjzP7nV4FY+GHMaBplrS95cWRjSyvT12QNh0tF4CVNs="
+    "version": "9.0.20",
+    "hash": "sha256-hCPvae3q8+fSnPqVWWXkziZsrkATUy2bcLEGjUKC5ik="
   },
   {
     "pname": "Microsoft.NETCore.Platforms",

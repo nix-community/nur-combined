@@ -37,7 +37,7 @@ let
     stripRoot = false;
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit version;
     pname = "assfonts-gui";
     src = "${tarSrc}/assfonts-gui.AppImage";
