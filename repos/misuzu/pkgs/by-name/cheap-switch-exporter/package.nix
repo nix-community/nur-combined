@@ -7,13 +7,13 @@
 
 buildGoModule rec {
   pname = "cheap-switch-exporter";
-  version = "0-unstable-2026-09-26";
+  version = "0-unstable-2026-09-27";
 
   src = fetchFromGitHub {
     owner = "pvelati";
     repo = "cheap-switch-exporter";
-    rev = "57e3e3573ec06815218869e60d28290c6d14635b";
-    hash = "sha256-w6XLxKgUT+G2EC7nb0OhMVRCFJccRPeMHY/fuRecCOk=";
+    rev = "40fead6d36ab7b588bbfaf6ee9206fd1e89db79c";
+    hash = "sha256-RUn1s1SXdPoAA1m15MSAbR/7Jl2jzwagGz2ixQbkIMQ=";
   };
 
   vendorHash = "sha256-cOjGMHQXQwTY4Kp0Bw69BA1C9CmGfA/cn3+5HOhAhPc=";
