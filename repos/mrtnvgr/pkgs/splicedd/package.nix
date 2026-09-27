@@ -9,6 +9,7 @@
   yarnConfigHook,
   pkg-config,
   glib-networking,
+  gst_all_1,
   openssl,
   webkitgtk_4_1,
   wrapGAppsHook4,
@@ -47,6 +48,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     glib-networking
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
     openssl
     webkitgtk_4_1
   ];
