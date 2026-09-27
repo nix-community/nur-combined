@@ -10,7 +10,7 @@ buildNpmPackage rec {
 
   src = fetchgit {
     url = "https://github.com/vicinaehq/extensions";
-    rev = "5882e1bbdfcf64279cbd1ed86a50aabed6f716d3";
+    rev = "def646b3655e13759d2b0a7b9d605f55fe83a5f7";
     sha256 = "sha256-OPxgKOoUBw9GVshdSF27QJFFaR8fVLGqDljIj8mZHow=";
     sparseCheckout = [
       "/extensions/${pname}"
@@ -28,8 +28,8 @@ buildNpmPackage rec {
       set -eu -o pipefail
 
       REV="$(curl -s https://api.github.com/repos/vicinaehq/extensions/commits?per_page=1 | jq -r '.[0].sha')"
-      update-source-version raycast-${pname} "${version}" --ignore-same-version --rev="$REV"
-      update-source-version raycast-${pname} "${version}" --ignore-same-version --source-key=npmDeps
+      update-source-version vicinae-${pname} "${version}" --ignore-same-version --rev="$REV"
+      update-source-version vicinae-${pname} "${version}" --ignore-same-version --source-key=npmDeps
     '';
 
   npmDepsHash = "sha256-TEyCCDjAtRYX2uH2TpLfe4/hTzyfMiyDhzVdyQXhEus=";

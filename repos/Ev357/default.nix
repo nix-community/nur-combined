@@ -18,6 +18,7 @@
   hayase = pkgs.callPackage ./pkgs/hayase {};
   helium = pkgs.callPackage ./pkgs/helium {};
   hyprshot = pkgs.callPackage ./pkgs/hyprshot {};
+  mochi-desktop = pkgs.callPackage ./pkgs/mochi-desktop {};
   obsidian-excalidraw-plugin = pkgs.callPackage ./pkgs/obsidian-excalidraw-plugin {};
   obsidian-excalidraw-plugin-patched = pkgs.callPackage ./pkgs/obsidian-excalidraw-plugin {
     enableHiddenScriptPatch = true;
