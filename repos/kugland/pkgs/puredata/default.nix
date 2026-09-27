@@ -73,6 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [ carlthome ];
     mainProgram = "pd";
-    changelog = "https://msp.puredata.info/Pd_documentation/x5.htm#s1";
+    changelog = "https://msp.ucsd.edu/Pd_documentation/5.current.status.htm#${finalAttrs.version}";
   };
 })
