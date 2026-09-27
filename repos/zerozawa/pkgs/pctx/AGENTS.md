@@ -6,7 +6,7 @@ Read this before updating `pctx`, `pctx.py`, or either fixed build input. The pa
 pkgs/pctx/
 ├── default.nix    # Rust CLI: pctx 0.7.1
 ├── python.nix     # Python SDK: pctx-client 0.4.1
-├── uv-build.nix   # Private source-built PEP 517 backend: uv-build 0.9.13
+├── uv-build.nix   # Private source-built PEP 517 backend: uv-build 0.9.30
 └── AGENTS.md      # This guide
 ```
 
@@ -51,7 +51,7 @@ uv-build = callPackage ./uv-build.nix { };
 
 Do **not** request `python3Packages`: nixpkgs intentionally supplies it as a throwing alias inside that package scope.
 
-The tagged Python source stores `src/pctx_client/descriptions/data` as an in-tree relative symlink. `uv-build` 0.9.13 cannot package it, so the narrow `postPatch` must replace the symlink with the same tagged source-tree contents before wheel construction. Keep `pythonImportsCheck = [ "pctx_client" ]`.
+The tagged Python source stores `src/pctx_client/descriptions/data` as an in-tree relative symlink. `uv-build` (0.9.13 through 0.9.30) cannot package it, so the narrow `postPatch` must replace the symlink with the same tagged source-tree contents before wheel construction. Keep `pythonImportsCheck = [ "pctx_client" ]`.
 
 ## Update workflow
 

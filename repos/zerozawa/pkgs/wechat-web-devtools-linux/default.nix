@@ -125,6 +125,16 @@ let
     hash = "sha256-A7ipWEYvUnNTWpqWAQntjb8NSfkrPW3MkMIa4ULgVK0=";
   };
 
+  # @swc/core 的平台绑定：安装包内只带 Windows 版 (core-win32-x64-msvc)，
+  # Linux 下缺 swc.linux-x64-gnu.node 会在 require 时报 "Failed to load native
+  # binding" 白屏（上游 #197）。该绑定是 napi 预编译产物，按包内 @swc/core
+  # 的版本取同名 npm 包的 .node 即可，无需本地编译。
+  swcCoreVersion = "1.15.33";
+  swcCoreLinuxTarball = fetchurl {
+    url = "https://registry.npmjs.org/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-${swcCoreVersion}.tgz";
+    hash = "sha256-YQZeem7dpLyN9UzjyBrCAJ7xkdwtY05JvZDQEwUFnRw=";
+  };
+
   nativeNpmDeps = fetchNpmDeps {
     src = ./npm/native;
     hash = "sha256-Axv9SVMJyDwG0k869L07AvdLnMSgIxAv8ewFqzgjTPQ=";
@@ -136,13 +146,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "wechat-web-devtools-linux";
-  version = "0-unstable-c399c6c";
+  version = "0-unstable-04f6006";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "wechat-web-devtools-linux";
-    rev = "c399c6c3b0c10409b7ae441db828b6f35b3e2f1d";
-    hash = "sha256-h1e1hIWFctlX7x8ysHymQ/DUwnEa00dqAYXDdRMN8as=";
+    rev = "04f60067523d844d7cd63dd23067652cb2e51c19";
+    hash = "sha256-9IMlbfqAsy/2ZrIFbviIuv5bBGMPxhlJqM6y9ESytk8=";
   };
 
   nativeBuildInputs = [
@@ -314,6 +324,20 @@ stdenv.mkDerivation (finalAttrs: {
     done
     popd
     rm -rf resources/app/node_modules_tmp
+
+    # @swc/core 的 Linux 绑定（上游 rebuild-node-modules.sh 同名步骤）：
+    # 安装包只带 Windows 绑定，缺 swc.linux-x64-gnu.node 时 binding.js 回落
+    # 到 wasm 或直接抛 "Failed to load native binding"。
+    mkdir -p resources/app/node_modules/@swc/core
+    tar xzf ${swcCoreLinuxTarball} -C "$TMPDIR" package/swc.linux-x64-gnu.node
+    # 绑定必须与包内 @swc/core 同版本，否则升级安装包后此处静默失配
+    bundled_swc_version=$(node -p "require('$ROOT/resources/app/node_modules/@swc/core/package.json').version")
+    if [ "$bundled_swc_version" != "${swcCoreVersion}" ]; then
+      echo "bundled @swc/core is $bundled_swc_version, expected ${swcCoreVersion}" >&2
+      exit 1
+    fi
+    install -m644 "$TMPDIR/package/swc.linux-x64-gnu.node" \
+      resources/app/node_modules/@swc/core/swc.linux-x64-gnu.node
 
     # ── 补丁：包名 / CLI / bootstrap / wcc / float-pigment ──
     # fix-package-name.js（srcdir 指向构建目录）

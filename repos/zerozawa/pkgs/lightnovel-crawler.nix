@@ -70,12 +70,12 @@ let
   # Helper for missing packages not in nixpkgs
   python-box = python3Packages.buildPythonPackage rec {
     pname = "python-box";
-    version = "7.3.2";
+    version = "7.4.1";
     pyproject = true;
     src = fetchPypi {
       pname = "python_box";
       inherit version;
-      hash = "sha256-AouZFxKeZ/MRky2TNHuKTxtQDXpaKHDuPANfTnsZQDs=";
+      hash = "sha256-5BLjbCX8qCI1YFFtU+9seZNZHDsOyLtOxYK/fe/defA=";
     };
     build-system = with python3Packages; [ setuptools ];
     doCheck = false;
@@ -83,14 +83,17 @@ let
 
   readability-lxml = python3Packages.buildPythonPackage rec {
     pname = "readability-lxml";
-    version = "0.8.1";
+    version = "0.9";
     pyproject = true;
     src = fetchPypi {
-      pname = "readability-lxml";
+      pname = "readability_lxml";
       inherit version;
-      hash = "sha256-5R/qVrWQmq+IbTB9SOeeCWKTJVr6Vnt9CLypTSWxpOE=";
+      hash = "sha256-96X4juGU7Wxao20UWT+/sgxde7jz9bxXc0KI1FpaviY=";
     };
-    build-system = with python3Packages; [ setuptools ];
+    build-system = with python3Packages; [ poetry-core ];
+    # 上游锁 chardet ^5.2，nixpkgs 只有 6.x；chardet 6 仍导出同签名的
+    # detect(bytes)，readability 用的就是这一处 API
+    pythonRelaxDeps = [ "chardet" ];
     propagatedBuildInputs = with python3Packages; [
       beautifulsoup4
       lxml
@@ -102,12 +105,12 @@ let
 
   questionary = python3Packages.buildPythonPackage rec {
     pname = "questionary";
-    version = "2.1.0";
+    version = "2.1.1";
     pyproject = true;
     src = fetchPypi {
       pname = "questionary";
       inherit version;
-      hash = "sha256-YwLN1kWxlmfY9uZjR3TpU4v80arZvih+dD2Wysr5VYc=";
+      hash = "sha256-PX6YApK7AQerqnnGjdPu48VhuDoPia5IKGCxgci9QS0=";
     };
     build-system = with python3Packages; [ poetry-core ];
     propagatedBuildInputs = with python3Packages; [
