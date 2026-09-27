@@ -12,11 +12,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "anina";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchzip {
     url = "https://f002.backblazeb2.com/file/crql-works/ANINA/ANINA-Linux-${finalAttrs.version}.zip";
-    hash = "sha256-4t2nNngvtpxQOHpvzBqXMRZxbZUAW+8tXpnHOvlSoL4=";
+    hash = "sha256-P5w4Sma7JOpmXXO7lux3GV8OuNpDSMsG0Dxup2Ubipc=";
     stripRoot = false;
   };
 

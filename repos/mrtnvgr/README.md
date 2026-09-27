@@ -6,13 +6,13 @@
 [![Cachix Cache](https://img.shields.io/badge/cachix-mrtnvgr-blue.svg)](https://mrtnvgr.cachix.org)
 
 <!-- packages:begin -->
-- [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
 - [anina](https://crql.works/archive/anina/)
 - [celeste](https://www.celestegame.com)
 - [celeste-classic-2](https://mattmakesgames.itch.io/celeste-classic-2)
 - [convert-gig-file](https://github.com/stevefolta/gig2sfz)
 - [fetchurl-gz](https://github.com/mrtnvgr/nurpkgs)
 - [fetchzip-gz](https://github.com/mrtnvgr/nurpkgs)
+- [glitch2](https://illformed.com/glitch/)
 - [mkWineApp](https://github.com/mrtnvgr/nurpkgs)
 - [mkWineEnv](https://github.com/mrtnvgr/nurpkgs)
 - [openutau-lunai](https://github.com/keirokeer/OpenUtau-lunai)
