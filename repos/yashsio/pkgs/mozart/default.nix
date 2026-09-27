@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation {
   pname = "mozart";
-  version = "v1.0.0-beta.1";
+  version = "1.0.0-beta.1";
 
   src = fetchFromGitHub {
     owner = "yashsio";
