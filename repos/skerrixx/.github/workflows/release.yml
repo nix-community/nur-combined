@@ -40,6 +40,11 @@ jobs:
         mkdir -p dist
         cp target/x86_64-unknown-linux-gnu/release/rfetch dist/rfetch-x86_64-unknown-linux-gnu
         cp target/x86_64-unknown-linux-musl/release/rfetch dist/rfetch-x86_64-unknown-linux-musl
+        cp install.sh dist/install.sh
+        chmod +x dist/*
+        for asset in dist/rfetch-*; do
+          sha256sum "$asset" | cut -d' ' -f1 > "$asset.sha256"
+        done
 
     - name: Upload release assets
       uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3

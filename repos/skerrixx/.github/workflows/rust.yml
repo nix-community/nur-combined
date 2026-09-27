@@ -10,7 +10,21 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  check:
+  installer:
+    name: installer
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+    - name: Shellcheck
+      run: shellcheck -s sh install.sh
+
+    - name: Installer runs
+      run: sh install.sh --help
+
+  rust:
+    name: rust
     runs-on: ubuntu-latest
 
     steps:

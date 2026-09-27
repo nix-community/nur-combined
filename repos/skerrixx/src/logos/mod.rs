@@ -22,6 +22,7 @@ pub mod fedora;
 pub mod garuda;
 pub mod gentoo;
 pub mod haliade;
+pub mod hurd;
 pub mod kali;
 pub mod kyon;
 pub mod lfs;
@@ -95,6 +96,7 @@ pub static LOGOS: &[&Logo] = &[
     &chimera::LOGO,
     &alpine::LOGO,
     &haliade::LOGO,
+    &hurd::LOGO,
     &netbsd::LOGO,
     &android::LOGO,
 ];
@@ -159,6 +161,7 @@ pub fn known_distros() -> Vec<&'static str> {
         "mist",
         "chimera",
         "haliade",
+        "hurd",
         "alpine",
         "android",
     ]
@@ -171,7 +174,7 @@ mod tests {
 
     #[test]
     fn ids_are_unique_and_complete() {
-        assert_eq!(LOGOS.len(), 39, "expected exactly 39 logos");
+        assert_eq!(LOGOS.len(), 40, "expected exactly 40 logos");
         let mut seen = HashSet::new();
         for logo in LOGOS {
             assert!(seen.insert(logo.id), "duplicate logo id: {}", logo.id);
@@ -197,7 +200,7 @@ mod tests {
     #[test]
     fn every_known_distro_resolves() {
         let distros = known_distros();
-        assert_eq!(distros.len(), 30, "expected exactly 30 known distros");
+        assert_eq!(distros.len(), 31, "expected exactly 31 known distros");
         assert!(
             !distros.contains(&"unknown"),
             "unknown is a fallback, not a distro"
@@ -243,12 +246,22 @@ mod tests {
 
     #[test]
     fn haliade_rename() {
-        assert_eq!(LOGOS.len(), 39);
+        assert_eq!(LOGOS.len(), 40);
         assert_eq!(lookup("haliade").map(|logo| logo.id), Some("haliade"));
         assert_eq!(lookup("zerene").map(|logo| logo.id), Some("haliade"));
         assert!(known_distros().contains(&"haliade"));
         assert!(!known_distros().contains(&"zerene"));
         assert!(display_name_for("haliade").contains("haliade"));
         assert!(display_name_for("haliade").contains('\u{efa7}'));
+    }
+
+    #[test]
+    fn hurd_logo() {
+        assert_eq!(lookup("hurd").map(|logo| logo.id), Some("hurd"));
+        assert_eq!(lookup("gnu").map(|logo| logo.id), Some("hurd"));
+        assert_eq!(lookup("GnuHurd").map(|logo| logo.id), Some("hurd"));
+        assert!(known_distros().contains(&"hurd"));
+        assert!(get_ascii_art("hurd").contains('┎'));
+        assert!(display_name_for("hurd").contains("hurd"));
     }
 }

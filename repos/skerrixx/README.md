@@ -12,7 +12,25 @@
 rfetch is a tool similar to neofetch, fastfetch, screenfetch, etc. what it's built for is to provide essential system info with ascii art and a convenient beautiful format
 
 ## installation
-for those using arch linux based systems, they can download it through the arch user repository (paru -S rfetch / yay -S rfetch)
+the universal install script works on debian/ubuntu, fedora/rhel, arch, alpine, void, gentoo, opensuse, nixos, freebsd, netbsd, openbsd and macos:
+```sh
+curl -fsSL https://raw.githubusercontent.com/skerrixx/rfetch/main/install.sh | sh
+```
+it takes a prebuilt release binary when that one actually runs on your system, and compiles from source itself when it does not (installing rust through rustup if you do not have it yet). the script makes that call, there is nothing for you to choose.
+
+piped in, it still asks before it touches anything: prompts come from your terminal, not from the pipe, and answers default to no. add `-y` if you would rather not be asked at all, and pass any other flag after `sh -s --`.
+
+handy flags:
+```sh
+sh install.sh --user          # install into ~/.local/bin, no root needed
+sh install.sh --musl          # build a static musl binary instead
+sh install.sh --version 1.0.0 # pin a specific release
+sh install.sh --uninstall     # remove the installed binary (config is kept)
+sh install.sh --help          # every option
+```
+
+if you would rather not use the script: arch users can get it from the aur with `paru -S rfetch` / `yay -S rfetch`, nix users can `nix run github:skerrixx/rfetch` or `nix profile add github:skerrixx/rfetch`, and if you keep your system declarative it is on nur as `nur.repos.skerrixx.rfetch`.
+
 for those wanting a manual install, the steps are:
 
 ### dependencies

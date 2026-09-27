@@ -1067,10 +1067,7 @@ mod tests {
             Some("Gentoo Linux")
         );
         // unquoted still works
-        assert_eq!(
-            extract_value("ID=arch\n", "ID").as_deref(),
-            Some("arch")
-        );
+        assert_eq!(extract_value("ID=arch\n", "ID").as_deref(), Some("arch"));
     }
 
     #[test]
