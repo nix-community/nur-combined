@@ -3,12 +3,12 @@
 { fetchzip }:
 
 let
-  version = "5.0.0";
-  rev = "v5.0.0";
-  npmDepsHash = "sha256-Ijnkr/75jo1LuDIp4HEhXziS/muQtzDOL0ejyYDC60k=";
+  version = "5.1.0";
+  rev = "v5.1.0";
+  npmDepsHash = "sha256-4svRtj8q9ojIlzXAvNCUVJfJnu+hh9eQDr1gKJPP15c=";
   src = fetchzip {
-    url = "https://codeload.github.com/BIT-Admin/Yanhekt-AutoSlides/tar.gz/v5.0.0";
-    hash = "sha256-2yVe4GjOIrVqF8YsI+HWlvZ/xB3CG9NFvejkKjl+8Fs=";
+    url = "https://codeload.github.com/BIT-Admin/Yanhekt-AutoSlides/tar.gz/v5.1.0";
+    hash = "sha256-UtDrnE9SbbRXGbLv4+MY6ImHY1cxGtOzAAML7MHX284=";
     extension = "tar.gz";
   };
 in
