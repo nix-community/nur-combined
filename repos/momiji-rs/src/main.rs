@@ -19,10 +19,12 @@
 
 use std::borrow::Cow;
 use std::cell::RefCell;
+use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::rc::Rc;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+use std::sync::Arc;
 use std::sync::Mutex;
 use std::time::Instant;
 
@@ -1167,6 +1169,36 @@ struct Shared {
     file_error_css: bool,
     /// Print an error stylesheet to stdout on failure (`--error-css`, explicit).
     stdout_error_css: bool,
+    /// Every file this WATCH has read as a stylesheet, across all rounds,
+    /// already reduced to the key `aliases_a_source` compares by. Empty for a
+    /// one-shot run, and empty on a watch's first compile.
+    ///
+    /// `finish_compile_error` needs it because a failure reports no
+    /// dependencies at all: once `_v.scss` is deleted, `attempted_paths()`
+    /// has no record that it was ever one, and the guard that refuses to
+    /// write an error stylesheet over a source has nothing to compare the
+    /// output against. The npm CLI survives this by keeping its `known` set
+    /// across a failure; this is the same memory (#177).
+    ///
+    /// REDUCED WHEN ADDED, and a set rather than a list, because the guard
+    /// runs per unit per round while this grows for the life of the watch.
+    /// Canonicalising it on every comparison cost 9.5 ms per unit per round
+    /// at 500 files and 38.9 ms at 2000 — a directory watch paid that once
+    /// per unit (measured 2026-09-25). A lookup costs nothing and touches no
+    /// filesystem.
+    ///
+    /// Behind an `Arc` so a round's `Shared` shares it rather than copying it.
+    /// Cloning the set was 11.8 us at 500 keys and 45.8 us at 2000, once per
+    /// round — not a practical cost, but it is O(history) work in a design
+    /// whose point is that the history stops costing anything, and the handle
+    /// makes it nothing.
+    ///
+    /// Each file contributes TWO keys: its own name, and what it ultimately
+    /// names if it is a symlink. A dependency read through `_v.scss ->
+    /// real_v.scss` is remembered under both, so deleting `real_v.scss` is
+    /// still recognised — the output link resolves to the target, and the
+    /// importer only ever reported the link.
+    watch_known: Arc<BTreeSet<PathBuf>>,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -1444,6 +1476,9 @@ fn run(cli: Cli) -> ExitCode {
     }
 
     let shared = Shared {
+        // A one-shot run has read nothing before; `run_watch` fills this in
+        // per round.
+        watch_known: Arc::new(BTreeSet::new()),
         load_paths: cli.load_paths.clone(),
         style: cli.style,
         unicode: !cli.no_unicode,
@@ -1768,12 +1803,316 @@ fn dirs_key(p: &Path) -> PathBuf {
     path_key(&normalize_path(&cwd.join(p)))
 }
 
+/// How many hops to follow before deciding the chain does not end.
+///
+/// Has to reach the deepest chain any supported platform will resolve, or the
+/// guard goes blind on a chain the OS is perfectly happy to write through:
+///
+/// ```text
+///   macOS     32  (SYMLOOP_MAX)
+///   Linux     40  (MAXSYMLINKS)
+///   Windows   63  (reparse points per path, per Microsoft's docs)
+/// ```
+///
+/// 64, so the deepest of those is inside the walk with a hop to spare. This is
+/// a CEILING, not a cost: the walk stops as soon as the chain ends, so an
+/// ordinary one-link output still costs one `read_link`. Only a cycle pays the
+/// full count, once per unit per round.
+///
+/// A chain of exactly this many still resolves, so the hop AFTER it is what
+/// marks a cycle — see the tail of [`link_destination`].
+const MAX_LINK_HOPS: usize = 64;
+
+/// The deepest chain any supported platform resolves. See [`MAX_LINK_HOPS`].
+const DEEPEST_PLATFORM_CHAIN: usize = 63;
+
+/// The ceiling may exceed a platform's own limit but must not fall below it: a
+/// chain the OS resolves has to be one `link_destination` can name. A `const`
+/// assertion rather than a test, because it is a fact about two constants —
+/// this fails the BUILD, which is the strongest place to fail.
+///
+/// It was 40 — Linux's figure — which left a 41-to-63-hop chain resolvable on
+/// Windows and unnameable here (r4109839508).
+const _: () = assert!(
+    MAX_LINK_HOPS > DEEPEST_PLATFORM_CHAIN,
+    "MAX_LINK_HOPS must exceed the deepest chain any platform resolves"
+);
+
+/// What `start` ultimately names, following the symlink chain as far as it
+/// goes. `None` for a cycle.
+///
+/// Unlike `canonicalize`, the END need not exist: that is the whole point,
+/// because the file this is asked about has just been deleted. Each hop is
+/// resolved against its own link's directory, CANONICALLY — a relative target
+/// is read by the filesystem after it has followed symlinks in the parent, so
+/// resolving lexically would name a different directory (#177, r4100984799).
+///
+/// Following the whole chain rather than one hop matters for the same reason:
+/// `out.css -> middle.scss -> _v.scss` writes through to `_v.scss`, and one
+/// hop stops at `middle.scss`, which is nothing any compile read
+/// (r4100984752).
+fn link_destination(start: &Path) -> Option<PathBuf> {
+    let mut cur = start.to_path_buf();
+    for _ in 0..MAX_LINK_HOPS {
+        // Not a link, or not there at all: this is the name it settles on.
+        let Ok(target) = std::fs::read_link(&cur) else {
+            return Some(cur);
+        };
+        // Joined LEXICALLY, and that is enough — which it was not when this
+        // was written. Resolving each holder here was load-bearing until
+        // `resolved_dir_key` began canonicalizing the RAW parent
+        // (r4109667582); that subsumed it, because `read_link` above is the
+        // OS resolving `cur` physically whatever its spelling, and the final
+        // key is resolved at the end. Tried removing it against every shape
+        // in `cli_dart_compat`'s watch cases plus a run where the whole
+        // directory is deleted: no behaviour changed, and the mutation sweep
+        // said so first by leaving this line as its one survivor.
+        //
+        // An absolute target replaces the holder, which `join` already does.
+        let holder = cur.parent().map_or_else(PathBuf::new, Path::to_path_buf);
+        cur = holder.join(target);
+    }
+    // `MAX_LINK_HOPS` links have been followed, and the chain may have ENDED
+    // exactly there — Linux resolves a 40-link chain and refuses only the
+    // 41st, so returning `None` here would leave the guard blind to a real
+    // target at the boundary. Measured before this: a 39-link chain named its
+    // target, a 40-link chain named nothing.
+    //
+    // So ask once more, and answer by whether what we landed on is itself a
+    // link: if it is not, the chain ended and this is the name; if it is,
+    // the chain is longer than anything resolves, or a cycle.
+    std::fs::read_link(&cur).err().map(|_| cur)
+}
+
+/// [`resolved_dir_key`] must agree with the filesystem, including when a
+/// user-typed path has `..` AFTER a symlinked component.
+#[cfg(all(test, unix))]
+mod resolved_dir_key_tests {
+    use std::path::{Path, PathBuf};
+
+    fn scratch(tag: &str) -> PathBuf {
+        let d = std::env::temp_dir().join(format!("sasso-rdk-{tag}-{}", std::process::id()));
+        std::fs::remove_dir_all(&d).ok();
+        d
+    }
+
+    /// `sub/linkdir -> ../real`, so `sub/linkdir/../x/_v.scss` reaches
+    /// `<root>/x/_v.scss`. Collapsing `..` lexically first answered
+    /// `<root>/sub/x/_v.scss` — measured disagreeing with `canonicalize`
+    /// before the fix (r4109667582).
+    #[test]
+    fn a_dotdot_after_a_symlink_follows_the_filesystem() {
+        let dir = scratch("dotdot");
+        for s in ["real", "sub", "x"] {
+            std::fs::create_dir_all(dir.join(s)).unwrap();
+        }
+        std::fs::write(dir.join("x/_v.scss"), "$c: red;\n").unwrap();
+        std::os::unix::fs::symlink("../real", dir.join("sub/linkdir")).unwrap();
+
+        let typed = dir.join("sub/linkdir/../x/_v.scss");
+        let os_says = std::fs::canonicalize(&typed).expect("the fixture resolves");
+        let got = super::resolved_dir_key(&typed, Path::new("/"));
+        std::fs::remove_dir_all(&dir).ok();
+        assert_eq!(got, super::path_key(&os_says));
+    }
+
+    /// The final component need NOT exist — that is what this is for — and a
+    /// missing parent falls back to the lexical reading rather than to
+    /// nothing.
+    #[test]
+    fn a_missing_file_still_keys_by_its_resolved_directory() {
+        let dir = scratch("missing");
+        std::fs::create_dir_all(dir.join("real")).unwrap();
+        std::os::unix::fs::symlink("real", dir.join("linkdir")).unwrap();
+
+        // The file does not exist; the directory does, and is a symlink.
+        let through_link = super::resolved_dir_key(&dir.join("linkdir/gone.scss"), Path::new("/"));
+        let through_real = super::resolved_dir_key(&dir.join("real/gone.scss"), Path::new("/"));
+        // A parent that does not exist at all: lexical, not empty.
+        let nowhere = super::resolved_dir_key(&dir.join("no/such/dir/x.scss"), Path::new("/"));
+        std::fs::remove_dir_all(&dir).ok();
+
+        assert_eq!(
+            through_link, through_real,
+            "two spellings of one directory must key the same"
+        );
+        assert!(
+            nowhere.ends_with("no/such/dir/x.scss"),
+            "a missing parent should keep its lexical name: {nowhere:?}"
+        );
+    }
+}
+
+/// [`link_destination`]'s hop boundary, tested at the FUNCTION rather than
+/// through a compile.
+///
+/// Deliberately not end-to-end: macOS's own `SYMLOOP_MAX` is 32, so a 40-link
+/// chain is refused by the kernel there and an end-to-end case would pass for
+/// the wrong reason — the guard would never be consulted. Linux resolves 40,
+/// which is exactly why the off-by-one mattered. The unit is where the rule
+/// lives, so the unit is where it is pinned.
+#[cfg(all(test, unix))]
+mod link_destination_tests {
+    use std::path::{Path, PathBuf};
+
+    /// `out.css -> h(n-1) -> … -> h1 -> _v.scss`, i.e. `n` links to follow.
+    fn chain_of(dir: &Path, n: usize) -> PathBuf {
+        std::fs::create_dir_all(dir).unwrap();
+        std::fs::write(dir.join("_v.scss"), "$c: red;\n").unwrap();
+        let mut prev = PathBuf::from("_v.scss");
+        for i in 1..n {
+            let link = dir.join(format!("h{i}"));
+            std::os::unix::fs::symlink(&prev, &link).unwrap();
+            prev = PathBuf::from(format!("h{i}"));
+        }
+        let out = dir.join("out.css");
+        std::os::unix::fs::symlink(&prev, &out).unwrap();
+        out
+    }
+
+    fn scratch(tag: &str) -> PathBuf {
+        let d = std::env::temp_dir().join(format!("sasso-hops-{tag}-{}", std::process::id()));
+        std::fs::remove_dir_all(&d).ok();
+        d
+    }
+
+    /// A chain that ENDS on the last allowed hop still names its target.
+    /// Returning `None` there left the guard blind at the boundary: measured
+    /// before the fix, 39 links named `_v.scss` and 40 named nothing.
+    #[test]
+    fn a_chain_ending_on_the_last_hop_is_named() {
+        // Two kinds of length, each for its own reason:
+        //
+        // - LITERALS for the platform limits (40 Linux, 63 Windows). Building
+        //   them from `MAX_LINK_HOPS` made this test adapt to a lowered
+        //   constant instead of catching it, which a mutation sweep caught.
+        // - `MAX_LINK_HOPS` itself, because a chain of exactly that length is
+        //   the only one that leaves the loop by exhausting it and so reaches
+        //   the post-loop check. Without it, deleting that check survived —
+        //   which a mutation sweep also caught, one ceiling raise later.
+        for n in [
+            1,
+            2,
+            39,
+            40,
+            62,
+            super::DEEPEST_PLATFORM_CHAIN,
+            super::MAX_LINK_HOPS,
+        ] {
+            let dir = scratch(&format!("end{n}"));
+            let out = chain_of(&dir, n);
+            let got = super::link_destination(&out);
+            let want = dir.join("_v.scss");
+            std::fs::remove_dir_all(&dir).ok();
+            assert_eq!(
+                got.as_deref().and_then(Path::file_name),
+                want.file_name(),
+                "a chain of {n} links should name its target, got {got:?}",
+            );
+        }
+    }
+
+    /// One hop past the limit is not resolvable, and neither is a cycle.
+    #[test]
+    fn a_longer_chain_or_a_cycle_names_nothing() {
+        let dir = scratch("over");
+        let out = chain_of(&dir, super::MAX_LINK_HOPS + 1);
+        // …counted from the CONSTANT here, because "one past what this
+        // follows" is what the `None` branch is about, not the platform's.
+        let over = super::link_destination(&out);
+        std::fs::remove_dir_all(&dir).ok();
+        assert_eq!(over, None, "a chain past the limit should name nothing");
+
+        let dir = scratch("cycle");
+        std::fs::create_dir_all(&dir).unwrap();
+        std::os::unix::fs::symlink("b.css", dir.join("a.css")).unwrap();
+        std::os::unix::fs::symlink("a.css", dir.join("b.css")).unwrap();
+        let cycle = super::link_destination(&dir.join("a.css"));
+        std::fs::remove_dir_all(&dir).ok();
+        assert_eq!(cycle, None, "a cycle should name nothing");
+    }
+
+    /// A plain path, and a dangling link, both name themselves — the two
+    /// cases the guard relies on most.
+    #[test]
+    fn a_plain_path_and_a_dangling_link_name_themselves() {
+        let dir = scratch("plain");
+        std::fs::create_dir_all(&dir).unwrap();
+        std::fs::write(dir.join("main.scss"), ".a{b:1}\n").unwrap();
+        std::os::unix::fs::symlink("gone.scss", dir.join("dangling.css")).unwrap();
+
+        let plain = super::link_destination(&dir.join("main.scss"));
+        let dangling = super::link_destination(&dir.join("dangling.css"));
+        std::fs::remove_dir_all(&dir).ok();
+
+        assert_eq!(plain.as_deref(), Some(dir.join("main.scss").as_path()));
+        assert_eq!(
+            dangling.as_deref().and_then(Path::file_name),
+            Some(std::ffi::OsStr::new("gone.scss")),
+            "a dangling link must still name what it points at",
+        );
+    }
+}
+
+/// A key for a path whose FINAL component may not exist: the directory
+/// resolved through symlinks, plus the name as written.
+///
+/// `canonicalize` needs the whole path to exist and so answers nothing for a
+/// deleted file — but the directory holding it is still there, and the
+/// directory is the part a symlink can rename. Without this, `real/_v.scss`
+/// and `linkdir/_v.scss` key differently while being one file, and which
+/// spelling each side uses depends on how the command line named the entry
+/// and the output (#177).
+fn resolved_dir_key(p: &Path, cwd: &Path) -> PathBuf {
+    let raw = cwd.join(p);
+    match (raw.parent(), raw.file_name()) {
+        (Some(parent), Some(name)) => {
+            // The RAW parent, NOT a lexically normalized one. `..` is resolved
+            // by the filesystem AFTER it has followed a symlink, so collapsing
+            // it first names a different directory: with `sub/linkdir ->
+            // ../real`, the path `sub/linkdir/../x/_v.scss` reaches
+            // `<cwd>/x/_v.scss`, while collapsing `..` lexically first gives
+            // `<cwd>/sub/x/_v.scss`. Measured disagreeing before this.
+            //
+            // Lexical normalization is the FALLBACK, for a parent that does
+            // not exist and so cannot be canonicalized.
+            let dir = std::fs::canonicalize(parent).unwrap_or_else(|_| normalize_path(parent));
+            path_key(&dir.join(name))
+        }
+        // A root, or a path ending in `..`: nothing to split, so fall back to
+        // the lexical key rather than inventing one.
+        _ => path_key(&normalize_path(&raw)),
+    }
+}
+
 /// Would writing `output` replace a file this compile read — the entry
 /// itself, or one of its dependencies?
 ///
 /// `path_key` rather than `==`, so the answer does not depend on the case a
 /// path was typed in on Windows, where two spellings are one file.
 fn aliases_a_source(output: &Path, unit: &Unit, deps: &[PathBuf]) -> bool {
+    alias_check(output, unit, deps, None)
+}
+
+/// …or a file this WATCH has read at any point.
+///
+/// Only the failure path may ask this, and the distinction is load-bearing: a
+/// failed compile reports no dependencies, so the history is the only memory
+/// it has. A SUCCESSFUL compile's `deps` are accurate, and consulting the
+/// history there is wrong — a dependency dropped from the entry (`@use "v"`
+/// deleted) stays in the history forever, and `out.css -> _v.scss` was then
+/// blocked from ever being written again, silently: measured, 0 narrations and
+/// the output never updated (r4109667607).
+fn aliases_a_source_or_remembered(
+    output: &Path,
+    unit: &Unit,
+    deps: &[PathBuf],
+    remembered: &BTreeSet<PathBuf>,
+) -> bool {
+    alias_check(output, unit, deps, Some(remembered))
+}
+
+fn alias_check(output: &Path, unit: &Unit, deps: &[PathBuf], remembered: Option<&BTreeSet<PathBuf>>) -> bool {
     // `dirs_key`, the same one the snapshot uses: the output is whatever was
     // typed on the command line and a dependency is the absolute path the
     // importer resolved, so `_v.scss` and `/…/_v.scss` are the same file
@@ -1787,14 +2126,37 @@ fn aliases_a_source(output: &Path, unit: &Unit, deps: &[PathBuf]) -> bool {
     // that EXISTS, which is why it is a second opinion rather than the rule:
     // an output that is not there yet cannot alias anything.
     let real = |p: &Path| std::fs::canonicalize(cwd.join(p)).ok().map(|c| path_key(&c));
+    // What the output ultimately NAMES, following the symlink chain. This is
+    // the reading that survives a DANGLING link, where `canonicalize` answers
+    // nothing at all — which is how `out.css -> _v.scss` came to recreate a
+    // deleted `_v.scss` with an error stylesheet in it (#177).
+    let named = link_destination(&cwd.join(output)).map(|p| resolved_dir_key(&p, &cwd));
     let dest = key(output);
     let dest_real = real(output);
-    let same =
-        |p: &Path| key(p) == dest || (dest_real.is_some() && real(p).is_some() && real(p) == dest_real);
+    let same = |p: &Path| {
+        key(p) == dest
+            || (dest_real.is_some() && real(p).is_some() && real(p) == dest_real)
+            // Compared through `resolved_dir_key`, not `key`: the file is
+            // GONE, so the only part symlinks can still rename is the
+            // directory holding it, and the two sides may spell that
+            // differently — `real/_v.scss` and `linkdir/_v.scss` are one file.
+            || named.as_ref() == Some(&resolved_dir_key(p, &cwd))
+    };
     if unit.source_path().is_some_and(same) {
         return true;
     }
-    deps.iter().any(|d| same(d))
+    // `deps` is what THIS compile read: a live, short list, and the strongest
+    // check available because those files still exist.
+    if deps.iter().any(|d| same(d)) {
+        return true;
+    }
+    // …and a failure reads nothing, so it also asks what the watch has read
+    // BEFORE. By lookup, not by scanning: every path in there was reduced
+    // when it was added, so this is two comparisons against a set rather than
+    // two `canonicalize` calls per file ever read.
+    remembered.is_some_and(|r| {
+        r.contains(&resolved_dir_key(output, &cwd)) || named.as_ref().is_some_and(|n| r.contains(n))
+    })
 }
 
 /// `--update`: is `output` at least as new as `input` and every file in
@@ -1948,7 +2310,7 @@ fn finish_compile_error(
     // then destroying the file on the next typo is worse than either.
     if shared.watch {
         if let Target::File(output) = &unit.target {
-            if aliases_a_source(output, unit, deps) {
+            if aliases_a_source_or_remembered(output, unit, deps, &shared.watch_known) {
                 return;
             }
         }
@@ -2014,6 +2376,9 @@ mod disturbed_tests {
     fn shared() -> Shared {
         Shared {
             load_paths: Vec::new(),
+            // These tests drive `finish_compile_error` directly, outside any
+            // watch, so there is nothing read to remember.
+            watch_known: Arc::new(BTreeSet::new()),
             style: OutputStyle::Expanded,
             unicode: true,
             charset: true,
@@ -2250,6 +2615,9 @@ fn compile_source(unit: &Unit, source: &str, shared: &Shared) -> Outcome {
             //   binary   Compiled x24  source DESTROYED
             //
             // Silent, because dart is silent.
+            // The history is NOT consulted here: this compile SUCCEEDED, so
+            // its `deps` are the truth about what it read. See
+            // `aliases_a_source_or_remembered`.
             Target::File(output)
                 if shared.watch && aliases_a_source(output, unit, &importer.attempted_paths()) => {}
             Target::File(output)
@@ -2400,20 +2768,32 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
     // stuck on `color: bl` forever. dart's own `--watch --update` is worse
     // here — it left the first change uncompiled entirely — so there is no
     // behaviour of its to copy.
-    let live = Shared {
+    // Rebuilt per round rather than twice up front, because it now carries
+    // the set of files this watch has read — which grows as the watch runs.
+    // Two `Vec` clones against a whole compile is not a cost worth shaping
+    // the code around.
+    let round_shared = |provisional: bool, known: &Arc<BTreeSet<PathBuf>>| Shared {
         update: false,
-        provisional: false,
+        provisional,
         load_paths: shared.load_paths.clone(),
         silenced: shared.silenced.clone(),
+        // The HANDLE, not the set.
+        watch_known: Arc::clone(known),
         ..*shared
     };
-    let live_provisional = Shared {
-        update: false,
-        provisional: true,
-        load_paths: shared.load_paths.clone(),
-        silenced: shared.silenced.clone(),
-        ..*shared
-    };
+
+    // Every file any round has read as a stylesheet, entries included.
+    //
+    // Kept across a FAILURE on purpose, which is the whole point: a failed
+    // compile reports no dependencies, so without this the error-stylesheet
+    // guard cannot tell that the output symlink points at one (#177). The
+    // npm CLI keeps its own `known` set for the same reason.
+    // In the `Arc` itself, so no round ever copies it. `Arc::make_mut` below
+    // copies only when the handle is still shared, and the round's `Shared` is
+    // scoped to drop before then — so in the steady state this is mutated in
+    // place and each round's clone is a refcount bump.
+    let mut ever_read: Arc<BTreeSet<PathBuf>> = Arc::new(BTreeSet::new());
+    let watch_cwd = std::env::current_dir().unwrap_or_default();
 
     let mut snapshot = watch::Snapshot::default();
     let mut coalesce = watch::Coalesce::new(watch::WINDOW);
@@ -2437,15 +2817,23 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
                 .iter()
                 .filter_map(|u| u.source_path().map(|p| (p.to_path_buf(), watch::Stamp::of(p))))
                 .collect();
-            let run_shared = match (started_once, provisional) {
-                // The very first compile is the only one `--update` applies
-                // to; it is also never provisional.
-                (false, _) => shared,
-                (true, true) => &live_provisional,
-                (true, false) => &live,
+            // The very first compile is the only one `--update` applies to;
+            // it is also never provisional, and has read nothing yet.
+            //
+            // Scoped, so the round's `Shared` — and with it its handle on the
+            // history — is dropped before the history is extended below. That
+            // is what lets `Arc::make_mut` mutate in place instead of copying.
+            let outcomes = {
+                let round_owned;
+                let run_shared = if started_once {
+                    round_owned = round_shared(provisional, &ever_read);
+                    &round_owned
+                } else {
+                    shared
+                };
+                started_once = true;
+                compile_all(units, run_shared, jobs, stop_on_error)
             };
-            started_once = true;
-            let outcomes = compile_all(units, run_shared, jobs, stop_on_error);
             let mut ok = true;
             let mut followed: Vec<(PathBuf, watch::Stamp)> = Vec::new();
             let mut unresolved: Vec<String> = Vec::new();
@@ -2492,6 +2880,24 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
             // keeps the earliest observation of a path, so adding both is
             // safe and the older wins.
             followed.extend(before_run);
+            // Remember them for the NEXT round, before directories are mixed
+            // in below: what this needs is files that were read, and a
+            // directory is not one.
+            //
+            // Reduced HERE rather than at comparison time, and each file
+            // contributes what it names as well as its own name — the
+            // importer reports the link it read (`_v.scss`) and the output
+            // link resolves to the target (`real_v.scss`), so remembering
+            // only one of the two leaves the other unrecognised.
+            {
+                let known = Arc::make_mut(&mut ever_read);
+                for (f, _) in &followed {
+                    known.insert(resolved_dir_key(f, &watch_cwd));
+                    if let Some(dest) = link_destination(&watch_cwd.join(f)) {
+                        known.insert(resolved_dir_key(&dest, &watch_cwd));
+                    }
+                }
+            }
             // …and the directories they live in, so a dependency that does
             // not exist YET can arrive. A missing `@use` target has no path
             // to stat; its directory does, and its mtime moves when the file

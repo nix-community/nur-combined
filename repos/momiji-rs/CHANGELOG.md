@@ -13,6 +13,61 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Fixed
 
+- **A deleted dependency is no longer resurrected through the output symlink**
+  (#177). With `out.css -> _v.scss` under `--watch`, deleting `_v.scss` made
+  the compile fail — and writing the error stylesheet through the link
+  RECREATED the file the user had just deleted, with CSS in it. The next
+  compile then found that file and could succeed on garbage.
+
+  ```
+    dart                  _v.scss stays gone
+    npm CLI, before #176  _v.scss RECREATED holding the error stylesheet
+    binary, before #177   _v.scss RECREATED holding the error stylesheet
+    both, now             _v.scss stays gone
+  ```
+
+  Two things had to change, and neither alone is enough:
+
+  - the guard asked `canonicalize`, which answers nothing for a DANGLING link,
+    so it stepped aside. It follows the link CHAIN now, resolving each hop
+    against its own holder — and compares through the holder rather than
+    lexically, because the file is gone and the directory is the only part a
+    symlink can still rename. Three shapes, each its own regression:
+    `out.css -> _v.scss`; `out.css -> middle.scss -> _v.scss`, where one hop
+    stops at a file no compile ever read; and a link reached through a
+    symlinked directory, where the entry and the output spell one directory
+    two ways (both mixed orders failed, in both directions). A relative target
+    climbing out with `..` through a symlinked holder is the fourth, and the
+    one the final parent's resolution alone cannot save; a DEPENDENCY that is
+    itself a symlink is the fifth — the importer reports the link it opened
+    and the output link resolves to the target, so both names are remembered;
+  - a failed compile reports no dependencies at all, so once `_v.scss` was
+    deleted nothing was left to recognise it by. The watch remembers every
+    file it has read, across failures, the way the npm CLI keeps its `known`
+    set.
+
+  The memory is consulted on the FAILURE path only. A successful compile's
+  dependency list is accurate, and asking the history there kept a dropped
+  `@use` alive forever — `out.css -> _v.scss` was then never written again,
+  silently. It is reduced to comparison keys as it is built, held behind an
+  `Arc` so no round copies it, and looked up rather than scanned. The guard runs once per unit per round while the memory
+  grows for the life of the watch, so canonicalising it per comparison cost
+  10.5 ms per unit per round at 500 files ever read and 42.3 ms at 2000. Two
+  set lookups cost 8-9 us regardless of history size:
+
+  ```
+    files ever read   scanned    looked up
+              10      217 us      8.6 us
+             100      2.24 ms     9.4 us
+             500     10.48 ms     8.4 us
+            2000     42.28 ms     9.3 us
+  ```
+
+  Not done by refusing to write through a dangling link at all:
+  `out.css -> dist/out.css` before the first build is a legitimate and common
+  setup, and dart writes it. That half-measure is now caught by a test rather
+  than warned about in a comment.
+
 - **The third `file:` URL decoder is gone** (#188). #163 unified the copies in
   `src/pathstyle.rs` and `napi/src/lib.rs` after they had drifted twice; a
   third lived in `src/main.rs` with its own `percent_decode` beside it, and it

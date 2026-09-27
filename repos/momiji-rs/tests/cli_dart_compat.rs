@@ -3187,6 +3187,433 @@ fn watch_declines_to_write_over_a_source_reached_through_a_symlink() {
     );
 }
 
+/// A deleted dependency is not resurrected through the output symlink, in any
+/// of the three shapes a link can take.
+///
+/// `--watch main.scss <out>` where `<out>` leads to `_v.scss`, then
+/// `rm _v.scss`. The compile now fails, and writing the error stylesheet
+/// through the link would RECREATE the file the user deleted, with CSS in it —
+/// after which the next compile finds it and may well succeed on garbage.
+///
+/// Measured 2026-09-22, and each shape again on 2026-09-24:
+///
+/// ```text
+///   dart                 _v.scss stays gone
+///   npm CLI, before #176 _v.scss RECREATED holding the error stylesheet
+///   binary, before #177  _v.scss RECREATED holding the error stylesheet
+/// ```
+///
+/// The three shapes are separate regressions, and the first fix caught only
+/// the first of them:
+///
+/// - `out.css -> _v.scss`, the direct link;
+/// - `out.css -> middle.scss -> _v.scss`, where one hop stops at
+///   `middle.scss` — a file no compile ever read (r4100984752);
+/// - the link reached through a symlinked directory, where the entry and the
+///   output name one directory two ways, so a lexical join keys the
+///   dependency differently from how it was remembered (r4100984799). Both
+///   mixed spellings failed, in both directions.
+///
+/// Two things had to change for any of it. The guard asked `canonicalize`,
+/// which answers NOTHING for a dangling link, so it stepped aside; it follows
+/// the link chain now and resolves each hop's directory. And a failed compile
+/// reports no dependencies at all, so there was nothing left to recognise
+/// `_v.scss` by — the watch remembers every file it has read, across
+/// failures, the way the npm CLI keeps its `known` set.
+#[test]
+#[cfg(unix)]
+fn watch_does_not_recreate_a_deleted_dependency_through_the_output_link() {
+    use std::time::{Duration, Instant};
+
+    // `@debug` fires when `_v.scss` is EXECUTED, which is the only honest
+    // signal that the watch has read it and can remember it. A sleep here
+    // would test the uninitialised-watch case on a loaded runner instead.
+    const DEP: &str = "$c: red;\n@debug \"the dependency was read\";\n";
+
+    for (shape, links) in [
+        ("direct", &[("out.css", "_v.scss")][..]),
+        (
+            "chained",
+            &[("middle.scss", "_v.scss"), ("out.css", "middle.scss")][..],
+        ),
+    ] {
+        let dir = scratch(&format!("watch_deleted_dep_{shape}"));
+        write(&dir, "main.scss", "@use \"v\" as v;\n.a { color: v.$c; }\n");
+        write(&dir, "_v.scss", DEP);
+        for (link, target) in links {
+            std::os::unix::fs::symlink(target, dir.join(link)).unwrap();
+        }
+
+        let log = dir.join("watch.err");
+        let mut child = std::process::Command::new(BIN)
+            .args(["--no-source-map", "--watch", "main.scss", "out.css"])
+            .current_dir(&dir)
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::from(std::fs::File::create(&log).unwrap()))
+            .spawn()
+            .expect("spawn --watch");
+
+        let until = |pred: &dyn Fn() -> bool| {
+            let deadline = Instant::now() + Duration::from_secs(20);
+            while Instant::now() < deadline {
+                if pred() {
+                    return true;
+                }
+                std::thread::sleep(Duration::from_millis(20));
+            }
+            false
+        };
+        let logged = |needle: &str| std::fs::read_to_string(&log).unwrap_or_default().contains(needle);
+
+        let read_it = until(&|| logged("the dependency was read"));
+        std::fs::remove_file(dir.join("_v.scss")).expect("rm the dependency");
+        // The failing compile has to have RUN before the file is judged, or
+        // this passes because nothing happened yet.
+        let failed = until(&|| logged("Can't find stylesheet to import"));
+        // …and the write it would do happens after the diagnostic, so give
+        // the round a moment to finish before looking.
+        std::thread::sleep(Duration::from_millis(500));
+
+        let _ = child.kill();
+        let _ = child.wait();
+        let came_back = dir.join("_v.scss").exists();
+        let contents = std::fs::read_to_string(dir.join("_v.scss")).unwrap_or_default();
+        std::fs::remove_dir_all(&dir).ok();
+
+        assert!(read_it, "{shape}: the first compile never read the dependency");
+        assert!(failed, "{shape}: the compile never reported the missing import");
+        assert!(
+            !came_back,
+            "{shape}: the deleted dependency was recreated through the link: {contents:?}"
+        );
+    }
+}
+
+/// The same, where the output link is reached through a SYMLINKED DIRECTORY
+/// and the entry names that directory the other way.
+///
+/// `linkdir -> real`, `real/out.css -> _v.scss`, entry `real/main.scss`,
+/// output `linkdir/out.css`. One file, two spellings: the dependency is
+/// remembered as `real/_v.scss` and a lexical join names `linkdir/_v.scss`,
+/// so the guard saw two different files and wrote (r4100984799). Both mixed
+/// orders failed before this; both are checked.
+#[test]
+#[cfg(unix)]
+fn watch_does_not_recreate_a_deleted_dependency_through_a_symlinked_directory() {
+    use std::time::{Duration, Instant};
+
+    for (entry, out) in [
+        ("real/main.scss", "linkdir/out.css"),
+        ("linkdir/main.scss", "real/out.css"),
+    ] {
+        let dir = scratch("watch_deleted_dep_linkdir");
+        std::fs::create_dir_all(dir.join("real")).unwrap();
+        write(&dir, "real/main.scss", "@use \"v\" as v;\n.a { color: v.$c; }\n");
+        write(
+            &dir,
+            "real/_v.scss",
+            "$c: red;\n@debug \"the dependency was read\";\n",
+        );
+        std::os::unix::fs::symlink("real", dir.join("linkdir")).unwrap();
+        std::os::unix::fs::symlink("_v.scss", dir.join("real/out.css")).unwrap();
+
+        let log = dir.join("watch.err");
+        let mut child = std::process::Command::new(BIN)
+            .args(["--no-source-map", "--watch", entry, out])
+            .current_dir(&dir)
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::from(std::fs::File::create(&log).unwrap()))
+            .spawn()
+            .expect("spawn --watch");
+
+        let until = |pred: &dyn Fn() -> bool| {
+            let deadline = Instant::now() + Duration::from_secs(20);
+            while Instant::now() < deadline {
+                if pred() {
+                    return true;
+                }
+                std::thread::sleep(Duration::from_millis(20));
+            }
+            false
+        };
+        let logged = |needle: &str| std::fs::read_to_string(&log).unwrap_or_default().contains(needle);
+
+        let read_it = until(&|| logged("the dependency was read"));
+        std::fs::remove_file(dir.join("real/_v.scss")).expect("rm the dependency");
+        let failed = until(&|| logged("Can't find stylesheet to import"));
+        std::thread::sleep(Duration::from_millis(500));
+
+        let _ = child.kill();
+        let _ = child.wait();
+        let came_back = dir.join("real/_v.scss").exists();
+        std::fs::remove_dir_all(&dir).ok();
+
+        assert!(read_it, "{entry} -> {out}: the dependency was never read");
+        assert!(failed, "{entry} -> {out}: the missing import was never reported");
+        assert!(
+            !came_back,
+            "{entry} -> {out}: the deleted dependency came back through the link"
+        );
+    }
+}
+
+/// …and where the DEPENDENCY is itself a symlink whose target is deleted.
+///
+/// ```text
+///   _v.scss -> real_v.scss     the dependency, read through a link
+///   out.css -> _v.scss         the output link
+///   rm real_v.scss             the chain now ends at a deleted file
+/// ```
+///
+/// The importer only ever reports `_v.scss`, the name it opened; the output
+/// link resolves all the way to `real_v.scss`. Remembering one of the two
+/// leaves the other unrecognised, and the error stylesheet then recreated
+/// `real_v.scss` (r4101409155, measured before the fix). So each remembered
+/// file contributes BOTH keys: its own name and what it ultimately names.
+#[test]
+#[cfg(unix)]
+fn watch_does_not_recreate_a_deleted_target_of_a_symlinked_dependency() {
+    use std::time::{Duration, Instant};
+
+    let dir = scratch("watch_dep_is_a_link");
+    write(
+        &dir,
+        "real_v.scss",
+        "$c: red;\n@debug \"the dependency was read\";\n",
+    );
+    write(&dir, "main.scss", "@use \"v\" as v;\n.a { color: v.$c; }\n");
+    std::os::unix::fs::symlink("real_v.scss", dir.join("_v.scss")).unwrap();
+    std::os::unix::fs::symlink("_v.scss", dir.join("out.css")).unwrap();
+
+    let log = dir.join("watch.err");
+    let mut child = std::process::Command::new(BIN)
+        .args(["--no-source-map", "--watch", "main.scss", "out.css"])
+        .current_dir(&dir)
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::from(std::fs::File::create(&log).unwrap()))
+        .spawn()
+        .expect("spawn --watch");
+
+    let until = |pred: &dyn Fn() -> bool| {
+        let deadline = Instant::now() + Duration::from_secs(20);
+        while Instant::now() < deadline {
+            if pred() {
+                return true;
+            }
+            std::thread::sleep(Duration::from_millis(20));
+        }
+        false
+    };
+    let logged = |needle: &str| std::fs::read_to_string(&log).unwrap_or_default().contains(needle);
+
+    let read_it = until(&|| logged("the dependency was read"));
+    std::fs::remove_file(dir.join("real_v.scss")).expect("rm the link's target");
+    let failed = until(&|| logged("Can't find stylesheet to import"));
+    std::thread::sleep(Duration::from_millis(500));
+
+    let _ = child.kill();
+    let _ = child.wait();
+    let came_back = dir.join("real_v.scss").exists();
+    let contents = std::fs::read_to_string(dir.join("real_v.scss")).unwrap_or_default();
+    std::fs::remove_dir_all(&dir).ok();
+
+    assert!(read_it, "the dependency was never read");
+    assert!(failed, "the missing import was never reported");
+    assert!(
+        !came_back,
+        "the link's deleted target was recreated: {contents:?}"
+    );
+}
+
+/// …and where the link's target climbs out with `..` through a symlinked
+/// holder, which is the one shape the FINAL parent's resolution cannot save.
+///
+/// ```text
+///   sub/linkdir -> ../real        so sub/linkdir IS <cwd>/real
+///   real/out.css -> ../x/_v.scss
+///
+///   resolved holder  <cwd>/real/../x/_v.scss      -> <cwd>/x/_v.scss
+///   lexical  holder  <cwd>/sub/linkdir/../x/…     -> <cwd>/sub/x/_v.scss
+/// ```
+///
+/// The dependency is `<cwd>/x/_v.scss`, so only the resolved reading names
+/// it; the lexical one names a file in a directory that does not exist. This
+/// is why each HOP resolves its own holder rather than only the last one —
+/// and it is the case that was missing when the first mutation sweep left
+/// that line as the one survivor.
+#[test]
+#[cfg(unix)]
+fn watch_follows_a_link_that_climbs_out_through_a_symlinked_holder() {
+    use std::time::{Duration, Instant};
+
+    let dir = scratch("watch_deleted_dep_dotdot");
+    for sub in ["real", "sub", "x"] {
+        std::fs::create_dir_all(dir.join(sub)).unwrap();
+    }
+    write(&dir, "x/main.scss", "@use \"v\" as v;\n.a { color: v.$c; }\n");
+    write(
+        &dir,
+        "x/_v.scss",
+        "$c: red;\n@debug \"the dependency was read\";\n",
+    );
+    std::os::unix::fs::symlink("../real", dir.join("sub/linkdir")).unwrap();
+    std::os::unix::fs::symlink("../x/_v.scss", dir.join("real/out.css")).unwrap();
+
+    let log = dir.join("watch.err");
+    let mut child = std::process::Command::new(BIN)
+        .args(["--no-source-map", "--watch", "x/main.scss", "sub/linkdir/out.css"])
+        .current_dir(&dir)
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::from(std::fs::File::create(&log).unwrap()))
+        .spawn()
+        .expect("spawn --watch");
+
+    let until = |pred: &dyn Fn() -> bool| {
+        let deadline = Instant::now() + Duration::from_secs(20);
+        while Instant::now() < deadline {
+            if pred() {
+                return true;
+            }
+            std::thread::sleep(Duration::from_millis(20));
+        }
+        false
+    };
+    let logged = |needle: &str| std::fs::read_to_string(&log).unwrap_or_default().contains(needle);
+
+    let read_it = until(&|| logged("the dependency was read"));
+    std::fs::remove_file(dir.join("x/_v.scss")).expect("rm the dependency");
+    let failed = until(&|| logged("Can't find stylesheet to import"));
+    std::thread::sleep(Duration::from_millis(500));
+
+    let _ = child.kill();
+    let _ = child.wait();
+    let came_back = dir.join("x/_v.scss").exists();
+    // The lexical reading would have written into a directory that does not
+    // exist, so its absence is worth asserting too: it says the write was
+    // refused rather than merely misdirected.
+    let stray = dir.join("sub/x").exists();
+    std::fs::remove_dir_all(&dir).ok();
+
+    assert!(read_it, "the dependency was never read");
+    assert!(failed, "the missing import was never reported");
+    assert!(!came_back, "the deleted dependency came back through the chain");
+    assert!(!stray, "the write was misdirected into sub/x rather than refused");
+}
+
+/// A dependency DROPPED from the entry stops blocking the output.
+///
+/// `out.css -> _v.scss`, `main.scss` uses `v`, so the first round declines to
+/// write — the output aliases a source. Then `@use "v"` is deleted: nothing
+/// reads `_v.scss` any more, and `out.css` is just the user's output again, so
+/// the write must go through.
+///
+/// It did not, once the watch started remembering: the historical key matched
+/// forever and the output was never written again — silently, with nothing
+/// narrated (r4109667607). So the history is consulted on the FAILURE path
+/// only, where `deps` is empty because the compile read nothing. A successful
+/// compile's `deps` are the truth.
+#[test]
+#[cfg(unix)]
+fn watch_stops_blocking_the_output_once_the_dependency_is_dropped() {
+    use std::time::{Duration, Instant};
+
+    let dir = scratch("watch_dep_dropped");
+    write(&dir, "_v.scss", "$c: red;\n");
+    write(&dir, "main.scss", "@use \"v\" as v;\n.a { color: v.$c; }\n");
+    // The output IS the dependency, by link — so a write lands in `_v.scss`.
+    std::os::unix::fs::symlink("_v.scss", dir.join("out.css")).unwrap();
+
+    let mut child = std::process::Command::new(BIN)
+        .args(["--no-source-map", "--watch", "main.scss", "out.css"])
+        .current_dir(&dir)
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+        .expect("spawn --watch");
+
+    let until = |pred: &dyn Fn() -> bool| {
+        let deadline = Instant::now() + Duration::from_secs(20);
+        while Instant::now() < deadline {
+            if pred() {
+                return true;
+            }
+            std::thread::sleep(Duration::from_millis(20));
+        }
+        false
+    };
+    let body = || std::fs::read_to_string(dir.join("_v.scss")).unwrap_or_default();
+
+    // The first round must NOT write: the output aliases a live dependency.
+    assert!(
+        until(&|| body().contains("$c: red")),
+        "the fixture is not what the test assumes"
+    );
+    std::thread::sleep(Duration::from_millis(600));
+    let untouched = body();
+
+    // Drop the dependency from the entry.
+    write(&dir, "main.scss", ".a { color: blue; }\n");
+    let wrote = until(&|| body().contains("color: blue"));
+
+    let _ = child.kill();
+    let _ = child.wait();
+    let after = body();
+    std::fs::remove_dir_all(&dir).ok();
+
+    assert!(
+        untouched.contains("$c: red"),
+        "the first round wrote over a live dependency: {untouched:?}"
+    );
+    assert!(wrote, "the write stayed blocked by the stale history: {after:?}");
+}
+
+/// …and the legitimate dangling link still works, which is why the guard
+/// cannot simply refuse to write through one.
+///
+/// `out.css -> dist/out.css` before the first build is a common setup, and
+/// `dist/out.css` is not a file any compile has read — so the link names
+/// nothing the watch knows and the write goes through. dart writes it too
+/// (measured 2026-09-24).
+#[test]
+#[cfg(unix)]
+fn watch_writes_through_a_dangling_link_that_names_no_source() {
+    use std::time::{Duration, Instant};
+
+    let dir = scratch("watch_dangling_ok");
+    write(&dir, "main.scss", ".a { color: red; }\n");
+    std::fs::create_dir_all(dir.join("dist")).unwrap();
+    std::os::unix::fs::symlink("dist/out.css", dir.join("out.css")).unwrap();
+
+    let mut child = std::process::Command::new(BIN)
+        .args(["--no-source-map", "--watch", "main.scss", "out.css"])
+        .current_dir(&dir)
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+        .expect("spawn --watch");
+
+    // Waited for rather than slept through: the point is that the write
+    // HAPPENS, so poll for it.
+    let target = dir.join("dist/out.css");
+    let deadline = Instant::now() + Duration::from_secs(20);
+    let mut written = String::new();
+    while Instant::now() < deadline {
+        written = std::fs::read_to_string(&target).unwrap_or_default();
+        if written.contains("color: red") {
+            break;
+        }
+        std::thread::sleep(Duration::from_millis(20));
+    }
+
+    let _ = child.kill();
+    let _ = child.wait();
+    std::fs::remove_dir_all(&dir).ok();
+    assert!(
+        written.contains("color: red"),
+        "the CSS was not written through the link: {written:?}"
+    );
+}
+
 /// The alias guard on the FAILURE path: a broken save when the output is
 /// one of the sources.
 ///
