@@ -7,16 +7,16 @@
 
 buildGoModule rec {
   pname = "cheap-switch-exporter";
-  version = "0-unstable-2026-03-04";
+  version = "0-unstable-2026-09-26";
 
   src = fetchFromGitHub {
     owner = "pvelati";
     repo = "cheap-switch-exporter";
-    rev = "2a0e07a11b1f0244c9d993b413f411e5acbc0696";
-    hash = "sha256-08A/LUsX0HTCcy8WaXo4aXIlAs4dxl8PONUCx87JVmw=";
+    rev = "57e3e3573ec06815218869e60d28290c6d14635b";
+    hash = "sha256-w6XLxKgUT+G2EC7nb0OhMVRCFJccRPeMHY/fuRecCOk=";
   };
 
-  vendorHash = "sha256-U6ue3roBFYQOLaKnJ3uodnL30pc5JEBy5tmK3F4IIc8=";
+  vendorHash = "sha256-cOjGMHQXQwTY4Kp0Bw69BA1C9CmGfA/cn3+5HOhAhPc=";
 
   passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
 
