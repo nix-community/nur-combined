@@ -18,5 +18,5 @@
 - [openutau-lunai](https://github.com/keirokeer/OpenUtau-lunai)
 - [pitchnet](https://github.com/SessionLoops/PitchNet)
 - [soundfont-touhou](https://musical-artifacts.com/artifacts/433)
-- [splicerr](https://github.com/Exorsky/splicerr)
+- [splicedd](https://github.com/ascpixi/splicedd)
 <!-- packages:end -->
