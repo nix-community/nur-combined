@@ -233,15 +233,15 @@
   };
   manboster-canary = {
     pname = "manboster-canary";
-    version = "b433a98900cf7c5b7f1b9f5f64efdf8cd533e525";
+    version = "3aac0adcf711df621996df896b2e2900ceb72053";
     src = fetchFromGitHub {
       owner = "manboster";
       repo = "manboster";
-      rev = "b433a98900cf7c5b7f1b9f5f64efdf8cd533e525";
+      rev = "3aac0adcf711df621996df896b2e2900ceb72053";
       fetchSubmodules = false;
-      sha256 = "sha256-R0TYA7qmloCEZCShIVNnPg7dn+lhV7OuJy29L8yiIRU=";
+      sha256 = "sha256-p3ZC6fv0fd8qhVBtIqNWTd0TRh3oSnzSu4/DKWk5tUQ=";
     };
-    date = "2026-09-23";
+    date = "2026-09-27";
   };
   manboster-rc = {
     pname = "manboster-rc";
@@ -301,13 +301,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.1.0";
+    version = "v3.2.1";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.1.0";
+      rev = "v3.2.1";
       fetchSubmodules = false;
-      sha256 = "sha256-afWi562nHXRtkc8y7gVviZRk4oES4QDkJrCmc0c7/40=";
+      sha256 = "sha256-4M9yURwTGUumQcX04ga+je4snZ5O7SIZTPr+/nTGtaA=";
     };
   };
   tree-sitter-nix = {

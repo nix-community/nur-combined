@@ -31,8 +31,8 @@ go = '1.27.0'
     hash = 'sha256-WOs/RQYjQbn41ui8ztHgWSd4jxydE+fvIrl/0dmHD9Y='
 
   [mod.'github.com/andybalholm/brotli']
-    version = 'v1.2.4'
-    hash = 'sha256-DHi9T5SrB/7zWEFtobF2UdTF8kab077O8bVmC7WxurQ='
+    version = 'v1.2.5'
+    hash = 'sha256-4Az9n3VpIZAP7yBSZNEH49ddwIBKVa3PVo7TT8cswac='
 
   [mod.'github.com/bahlo/generic-list-go']
     version = 'v0.2.0'
@@ -95,12 +95,12 @@ go = '1.27.0'
     hash = 'sha256-Qa7BSAXtgH7CB5STBiXTTOCgivWUiA65u3KxDOSZCkQ='
 
   [mod.'github.com/easytier/easytier/easytier-go']
-    version = 'v0.0.0-20260919154446-8d200c26d723'
+    version = 'v0.0.0-20260924040536-ff3921ce6842'
     hash = 'sha256-mue1cW4H2yXz6wC6GI3N0oKUIe1MGr1zoU0fehpKDv4='
 
   [mod.'github.com/enfein/mieru/v3']
-    version = 'v3.37.0'
-    hash = 'sha256-y4cLz8qLZVpYKvF5SRQIOikxOZuLNM0I+nn84j/j7Kk='
+    version = 'v3.38.0'
+    hash = 'sha256-vmNM85SxvH3jGRS1Oviod11ZKkfDDuqUf0TG8oFW9fM='
 
   [mod.'github.com/ericlagergren/aegis']
     version = 'v0.0.0-20250325060835-cd0defd64358'
@@ -215,8 +215,8 @@ go = '1.27.0'
     hash = 'sha256-F/Ve4oDaEqho8RryvdGSRR22/DbYHWZQa6M60n6oSYM='
 
   [mod.'github.com/google/pprof']
-    version = 'v0.0.0-20260906184651-6331bc6350fe'
-    hash = 'sha256-b0aofDeRDJ3wpHNHUsPAbdY052P2PxDhG4wP9zMB8ok='
+    version = 'v0.0.0-20260926063103-aaccee046517'
+    hash = 'sha256-pHfGiGrBDELmvjWxherk0lHWVgfQ1V6p9a8k+oJgvlU='
 
   [mod.'github.com/google/uuid']
     version = 'v1.6.0'
@@ -251,8 +251,8 @@ go = '1.27.0'
     hash = 'sha256-ObDjMcu8LInBsJXAuwlh1LceWKo2rH4rnlyN4kllcuE='
 
   [mod.'github.com/klauspost/compress']
-    version = 'v1.20.0'
-    hash = 'sha256-M7FmkBv1S66kAjg9yjkzY/PtCb/RTsRABSDLYYQ9itM='
+    version = 'v1.20.1'
+    hash = 'sha256-saWVNlxTAS7/lNaGght51onyIDaAFV1Kx11g3+vPuX4='
 
   [mod.'github.com/klauspost/cpuid/v2']
     version = 'v2.4.0'
@@ -371,8 +371,8 @@ go = '1.27.0'
     hash = 'sha256-v4GXNwlXSVPg9Q77vA9gH6MSFKIiH904Y9oUKvITPXs='
 
   [mod.'github.com/metacubex/mipstack']
-    version = 'v0.0.0-20260922000335-dbef50b1df45'
-    hash = 'sha256-tuE2ogGj5gPmRvHIq+ruo8ziVOdF+hzMhbMSVKX/d/o='
+    version = 'v0.0.0-20260926151545-332a03e253ef'
+    hash = 'sha256-bTQA49Z3Gaye+QankS5hG4v+44a0InPmfImdBfNaO1o='
 
   [mod.'github.com/metacubex/mlkem']
     version = 'v0.1.0'
@@ -567,12 +567,12 @@ go = '1.27.0'
     hash = 'sha256-UZABlJVkOP4bvNv2TKTLMRneaC6BykU8ccYPgPzo9so='
 
   [mod.'github.com/sinspired/checkip']
-    version = 'v0.5.3'
-    hash = 'sha256-/6VIsBoXMskxdKKacx8wgS4GdHyU1dCl9wVYYcRDXio='
+    version = 'v0.5.4'
+    hash = 'sha256-Gh12LPp/k4s+9UQunPO4ULpknc3KWf19qjn26HUANe0='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.3.3'
-    hash = 'sha256-SPn33x3NXrvUf5Ll5U/CnliIAnCW4bSePSmS5cuZOOc='
+    version = 'v1.3.5'
+    hash = 'sha256-v+PdnN4xbAwqsdyfJgZRvgOvdr0+FXzSJ92TLdOgAUI='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'
@@ -627,8 +627,8 @@ go = '1.27.0'
     hash = 'sha256-M9QyaKhSmmYwsJk7gkjtqu9PuiqZHSmTkous8VWkWY0='
 
   [mod.'github.com/wailsapp/wails/v3']
-    version = 'v3.0.0-beta.24'
-    hash = 'sha256-qlXjoLgFl3JyYR2N1ZrEwztUpncTOIxVV0Ip9GJsOLw='
+    version = 'v3.0.0-beta.26'
+    hash = 'sha256-jN9NRWW4J916ealr3zSZmZaudAEVsXwY1cyzB0Zyx3s='
 
   [mod.'github.com/x448/float16']
     version = 'v0.8.4'
