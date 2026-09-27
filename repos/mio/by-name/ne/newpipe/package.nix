@@ -91,6 +91,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dorg.gradle.java.home=${jdk21}"
     "-Dfile.encoding=utf-8"
     "-Dorg.gradle.project.android.aapt2FromMavenOverride=${aapt2}"
+    "-x"
+    "lint"
   ];
 
   gradleBuildTask = ":app:assembleRelease";
