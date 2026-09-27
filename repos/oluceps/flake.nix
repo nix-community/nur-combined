@@ -1,5 +1,9 @@
 {
   description = "oluceps' flake";
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
@@ -21,6 +25,7 @@
     nixpkgs-origin-vaul.url = "github:NixOS/nixpkgs?rev=ccfbb9cd5859cc51c9d720b47b08e48d1aff633f";
     hermes-agent.url = "github:NousResearch/hermes-agent";
     autopeer.url = "/home/riro/Src/nyaw-dn42-autopeer";
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     nix-topology.url = "github:oddlama/nix-topology";
     limes.url = "/home/riro/Src/limes-project/limes";

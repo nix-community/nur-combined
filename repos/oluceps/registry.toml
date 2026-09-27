@@ -14,6 +14,8 @@ wg_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 addrs = ["192.168.0.10"]
 ygg_pubkey = "30dd36b2bf9b9e96430e79ebf4c3d0ba7b6758140953246407bc9dddffbd09b8"
 mac = "30:56:0f:58:e1:b3"
+dn42 = false
+
 
 [node.kaambl]
 # laptop
@@ -29,6 +31,7 @@ addrs = ["192.168.0.70"]
 ygg_pubkey = "6368e736160c39e887509a1fba75e16f357ee92910a44edb77e135bbc87889c5"
 # identifiers = [{ name = "kaambl.local", type = "mdns" }]
 mac = "38:d5:7a:e2:19:7b"
+dn42 = false
 
 [node.eihort]
 # nas
@@ -43,10 +46,12 @@ wg_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
 ygg_pubkey = "38f6eb396caad927898ab182e882452499b0181477c25d7adb679905f12deb33"
 mac = "ac:1f:6b:e5:fe:3a"
 
+dn42 = false
 addrs = ["192.168.0.20"]
 # identifiers = [{ name = "eihort.local", type = "mdns" }]
 
 
+# panstar
 [node.yidhra]
 id = 3
 addrs = ["216.195.195.184", "2a0f:1cc6:b225:0:c744:d4a4:9364:2971"]
@@ -59,6 +64,7 @@ wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
 iata = "SGP"
 city = "Singapore"
 ygg_pubkey = "889fef0180f905dc0e4336d792ca2ca5a757f8b9f99997c7a18f2ac7be279b70"
+dn42 = true
 
 [node.abhoth]
 # dmit
@@ -73,6 +79,7 @@ wg_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
 iata = "NRT"
 city = "Tokyo"
 ygg_pubkey = "b382696fe2e84c8a33c51923453de48caa666745a9228582892b5703600725a9"
+dn42 = true
 
 [node.uubboo]
 # edge
@@ -87,6 +94,7 @@ link_local_addr = "fe80::dcec:8fbb:1f93:2d3f/64"
 wg_key = "ruJyKXSXmXg1zxFmFp/i9RYzZf6iwKN1ImcV1BdgaS4="
 ygg_pubkey = "2557a79ba3bf20908e9bc69f1502aeb36c0acc9890c022a0a09cfac5f16cc78b"
 mac = "c4:09:38:f2:3e:cb"
+dn42 = false
 
 [node.azasos]
 id = 6
@@ -102,6 +110,7 @@ city = "Hongkong"
 mac = "bc:24:11:21:c7:2c"
 ygg_pubkey = "1271764f912480d928ff1d1c002393b71b171f142575a2e05539678df1b8c2b1"
 
+dn42 = false
 
 # [extra.edgeone]
 # type = "ygg"
@@ -125,3 +134,4 @@ wg_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
 ygg_pubkey = "357b0c3db5589d7f706d8f6bfff170119f8b54f139d315cba542bf234f4e6da7"
 iata = "TYO"
 city = "Tokyo"
+dn42 = true

@@ -1,14 +1,17 @@
 { lib, ... }:
 let
   common = {
-    services.resolved.settings.Resolve = {
-      LLMNR = "true";
-      Cache = "no";
-      FallbackDNS = [
-        "8.8.8.8#dns.google"
-        "2001:4860:4860::8888#dns.google"
-      ];
-      DNSSEC = "false";
+    services.resolved = {
+
+      settings.Resolve = {
+        LLMNR = "true";
+        Cache = "no";
+        FallbackDNS = [
+          "8.8.8.8#dns.google"
+          "2001:4860:4860::8888#dns.google"
+        ];
+        DNSSEC = "false";
+      };
     };
     networking = {
       usePredictableInterfaceNames = true;
@@ -264,6 +267,24 @@ in
         networking = {
           hostName = "abhoth";
         };
+        services.resolved.dnsDelegates.dn42.Delegate = {
+          # configure dn42 anycast servers
+          DNS = [
+            "fd42:d42:d42:54::1"
+            "172.20.0.53"
+          ];
+
+          # configure all relevant dn42 domains as route-only domains
+          Domains = [
+            "~dn42"
+            "~20.172.in-addr.arpa"
+            "~21.172.in-addr.arpa"
+            "~22.172.in-addr.arpa"
+            "~23.172.in-addr.arpa"
+            "~10.in-addr.arpa"
+            "~d.f.ip6.arpa"
+          ];
+        };
         systemd.network = {
           enable = true;
 
@@ -315,6 +336,24 @@ in
         networking = {
           hostName = "nodens";
         };
+        services.resolved.dnsDelegates.dn42.Delegate = {
+          # configure dn42 anycast servers
+          DNS = [
+            "fd42:d42:d42:54::1"
+            "172.20.0.53"
+          ];
+
+          # configure all relevant dn42 domains as route-only domains
+          Domains = [
+            "~dn42"
+            "~20.172.in-addr.arpa"
+            "~21.172.in-addr.arpa"
+            "~22.172.in-addr.arpa"
+            "~23.172.in-addr.arpa"
+            "~10.in-addr.arpa"
+            "~d.f.ip6.arpa"
+          ];
+        };
         systemd.network = {
           enable = true;
 
@@ -357,6 +396,24 @@ in
         networking = {
           hostName = "yidhra";
           firewall.allowedUDPPorts = [ 51808 ];
+        };
+        services.resolved.dnsDelegates.dn42.Delegate = {
+          # configure dn42 anycast servers
+          DNS = [
+            "fd42:d42:d42:54::1"
+            "172.20.0.53"
+          ];
+
+          # configure all relevant dn42 domains as route-only domains
+          Domains = [
+            "~dn42"
+            "~20.172.in-addr.arpa"
+            "~21.172.in-addr.arpa"
+            "~22.172.in-addr.arpa"
+            "~23.172.in-addr.arpa"
+            "~10.in-addr.arpa"
+            "~d.f.ip6.arpa"
+          ];
         };
         systemd.network = {
           enable = true;

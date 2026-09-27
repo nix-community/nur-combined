@@ -24,7 +24,6 @@
             overlay
             identity
             openssh
-            # fail2ban # Disabled to save ~140MB space (Python3)
             earlyoom
             vaultix
             shared-modules
@@ -32,9 +31,7 @@
             empheral-root
             # base
             cut
-            fish
             bash
-            nix
             env
             pki
             security
@@ -63,6 +60,10 @@
           stateVersion = "26.11";
         };
 
+        users.users.elen.shell = lib.mkForce pkgs.bash;
+        services.journald.extraConfig = lib.mkForce ''
+          SystemMaxUse=0.1G
+        '';
         # environment.etc."alloy/config.alloy".text = ''
         #   discovery.relabel "journal" {
         #   	targets = []
@@ -98,6 +99,13 @@
         #   	external_labels = {}
         #   }
         # '';
+        zramSwap = {
+          enable = true;
+          swapDevices = 1;
+          memoryPercent = 80;
+          algorithm = "lz4";
+        };
+
         boot = {
           # supportedFilesystems = [ "tcp_bbr" ]; # removed typo
           loader = {

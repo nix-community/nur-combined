@@ -131,9 +131,8 @@
             ];
             ai = [
               antigravity-ide
-              inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
-              codex
-
+              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
+              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli
               opencode
               pi-coding-agent
               # claude-code

@@ -67,10 +67,13 @@ export def d [
         nix build .#nixosConfigurations.yidhra.pkgs.nixStatic -o nix-static
     
         scp ./nix-static/bin/nix root@216.195.195.184:/tmp/nix
-        ssh root@216.195.195.184 "chmod +x /tmp/nix && ln -sf /tmp/nix /tmp/nix-store"
+        ssh root@216.195.195.184 "chmod +x /tmp/nix && ln -sf /tmp/nix /tmp/nix-store && ln -sf /tmp/nix /tmp/nix-env"
     
         nix copy --to "ssh://root@216.195.195.184?remote-program=/tmp/nix-store" ./result
-        ssh root@216.195.195.184 $"(readlink -f ./result | str trim)/bin/switch-to-configuration switch"
+        let result_path = (readlink -f ./result | str trim)
+        ssh root@216.195.195.184 $"/tmp/nix-env -p /nix/var/nix/profiles/system --set ($result_path)"
+        ssh root@216.195.195.184 "systemctl stop caddy xray bird || true"
+        ssh root@216.195.195.184 $"/nix/var/nix/profiles/system/bin/switch-to-configuration ($mode)"
       } else if ($per == "nodens") {
         nixos-rebuild switch --flake .#nodens --build-host "elen@fdcc::8" --target-host "root@fdcc::8"
       } else {

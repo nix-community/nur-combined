@@ -40,6 +40,7 @@
           # fsync-store-paths = true;
           keep-outputs = true;
           keep-derivations = true;
+          accept-flake-config = true;
           trusted-users = [
             config.identity.user
           ];
