@@ -6,12 +6,12 @@
 }: let
   ver = lib.helper.read ./version.json;
 
-  entitlements = builtins.toFile "highball-entitlements.plist" ''<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-  <key>com.apple.security.device.audio-input</key><true/>
-</dict></plist>
-'';
+  entitlements = builtins.toFile "highball-entitlements.plist" ''    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0"><dict>
+      <key>com.apple.security.device.audio-input</key><true/>
+    </dict></plist>
+  '';
 in
   stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
     pname = "highball";

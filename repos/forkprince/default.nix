@@ -5,6 +5,7 @@
 
   hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
   twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
+  kryoto-desktop = lib.callPackage ./pkgs/kryoto-desktop {};
   hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
   rhythia = lib.callPackage ./pkgs/rhythia {};
   syslock = lib.callPackage ./pkgs/syslock {};

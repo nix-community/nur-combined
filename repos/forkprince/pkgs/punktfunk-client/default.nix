@@ -21,7 +21,7 @@
   glib,
   sdl3,
   opus,
-  lib
+  lib,
 }: let
   ver = lib.helper.read ./version.json;
 

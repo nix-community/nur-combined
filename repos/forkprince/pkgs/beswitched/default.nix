@@ -2,9 +2,8 @@
   stdenvNoCC,
   fetchurl,
   _7zz,
-  lib
-}:
-let
+  lib,
+}: let
   ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation (lib.helper.mkDarwin {

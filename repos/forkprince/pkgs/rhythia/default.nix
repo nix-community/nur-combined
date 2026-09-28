@@ -29,7 +29,7 @@
   udev,
   zlib,
   icu,
-  lib
+  lib,
 }: let
   ver = lib.helper.read ./version.json;
 

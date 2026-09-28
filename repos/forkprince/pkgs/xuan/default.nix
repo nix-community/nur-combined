@@ -18,7 +18,7 @@
   libGL,
   dbus,
   mesa,
-  lib
+  lib,
 }: let
   ver = lib.helper.read ./version.json;
 

@@ -2,7 +2,7 @@
   fetchFromGitHub,
   zig_0_16,
   stdenv,
-  lib
+  lib,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "fx";
