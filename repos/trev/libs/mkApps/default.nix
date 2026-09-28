@@ -14,9 +14,15 @@ builtins.mapAttrs (
             script,
             packages ? [ ],
             inputsFrom ? [ ],
+            description ? script,
           }:
           {
-            inherit script packages inputsFrom;
+            inherit
+              script
+              packages
+              inputsFrom
+              description
+              ;
           }
         )
           value
@@ -25,6 +31,7 @@ builtins.mapAttrs (
           script = value;
           packages = [ ];
           inputsFrom = [ ];
+          description = value;
         };
     pathPackages =
       app.packages
@@ -62,7 +69,7 @@ builtins.mapAttrs (
     type = "app";
     program = "${program}/bin/${name}";
     meta = {
-      inherit (app) script;
+      inherit (app) script description;
     };
   }
 )
