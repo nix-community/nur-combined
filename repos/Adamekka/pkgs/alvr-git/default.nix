@@ -16,10 +16,10 @@
 let
   src = fetchFromGitHub {
     fetchSubmodules = true;
-    hash = "sha256-V/uiMO/1zhPN/jd52pvG90ojPEpW5PTI5dwkbCiawuk=";
+    hash = "sha256-5buF9lciOC4hU7uS+56XZjwQuN6PUfpuE7rkG+Ja82k=";
     owner = "alvr-org";
     repo = "ALVR";
-    rev = "8c4c483ad9a0d351fc12774cdc11262542010735";
+    rev = "dc84d6835d4125226f9698f1f052629852d86e31";
   };
 
   # ALVR master uses FFmpeg 8.1 and patches its encoder; Nixpkgs ALVR uses FFmpeg 6.0.
@@ -89,5 +89,5 @@ in
 
   pname = "alvr-git";
   inherit src;
-  version = "20.14.1-unstable-2026-09-26";
+  version = "20.14.1-unstable-2026-09-27";
 })
