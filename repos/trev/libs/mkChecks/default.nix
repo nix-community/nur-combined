@@ -102,10 +102,13 @@ builtins.mapAttrs (
       check.src.overrideAttrs (
         _: prev: {
           inherit name checkPhase;
-
           nativeCheckInputs = (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
+          # keep the build hooks (mkRustPackage restores target/ in preBuild), skip the build itself
+          buildPhase = "runHook preBuild; runHook postBuild";
           doCheck = true;
-          doInstallCheck = true;
+          installPhase = "touch $out";
+          doInstallCheck = false;
+          dontFixup = true;
         }
       )
     else
