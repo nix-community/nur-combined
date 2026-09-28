@@ -1,11 +1,18 @@
 {
   fetchurl,
   fetchFromGitHub,
-  gradle_8,
+  gradle-packages,
   buildGradleAndroidPackage,
+  binutils,
+  jdk21,
   protobuf,
 }:
 let
+  gradle = gradle-packages.mkGradle {
+    version = "9.7.1";
+    hash = "sha256-rNU/HtrwLxqP+Zh5+KNLMCZhoFfZsGOunjW1UvgE0go=";
+    defaultJava = jdk21;
+  };
   extraLockData = {
     "io.grpc:protoc-gen-grpc-kotlin:1.3.0" = {
       "protoc-gen-grpc-kotlin-1.3.0.pom" = {
@@ -41,14 +48,14 @@ let
 in
 buildGradleAndroidPackage rec {
   pname = "tasks";
-  version = "14.8.5";
+  version = "15.12";
   applicationId = "org.tasks";
 
   src = fetchFromGitHub {
     owner = "tasks";
     repo = "tasks";
     tag = version;
-    hash = "sha256-0zSVxn3DrPHXn4C2UD5tZJzgk2c5GUFjYKOmTlWDdWI=";
+    hash = "sha256-ah6/xqlgBOKsXk5CJQHvxteihWL+HAMLUj1yqLjwSCE=";
   };
 
   patches = [
@@ -57,7 +64,8 @@ buildGradleAndroidPackage rec {
     ./grpc-fix.patch
   ];
 
-  gradle = gradle_8;
+  inherit gradle;
+  jdk = jdk21;
 
   strictDeps = true;
 
@@ -70,10 +78,21 @@ buildGradleAndroidPackage rec {
     "34"
     "35"
     "36"
+    "37"
   ];
 
   lockFile = ./gradle.lock;
   inherit extraLockData;
 
   gradleBuildTask = ":app:assembleGenericRelease";
+  gradleBuildFlags = [ ":composeApp:createDistributable" ];
+
+  nativeBuildInputs = [ binutils ];
+
+  postInstall = ''
+    mkdir -p "$out/desktop"
+    cp -a composeApp/build/compose/binaries/main/app/tasks-org \
+      "$out/desktop/"
+    cp graphics/icon.svg "$out/desktop/"
+  '';
 }

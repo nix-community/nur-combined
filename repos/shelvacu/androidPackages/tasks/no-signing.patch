@@ -1,9 +1,8 @@
-diff --git c/app/build.gradle.kts w/app/build.gradle.kts
-index 434c42dc4..52717f748 100644
---- c/app/build.gradle.kts
-+++ w/app/build.gradle.kts
-@@ -58,19 +58,19 @@ android {
-         testInstrumentationRunner = "org.tasks.TestRunner"
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts
++++ b/app/build.gradle.kts
+@@ -52,20 +52,6 @@ android {
+         manifestPlaceholders["appAuthRedirectScheme"] = "org.tasks"
      }
  
 -    signingConfigs {
@@ -19,36 +18,23 @@ index 434c42dc4..52717f748 100644
 -            keyPassword = tasksKeyPassword
 -        }
 -    }
-+    // signingConfigs {
-+    //     create("release") {
-+    //         val tasksKeyAlias: String? by project
-+    //         val tasksStoreFile: String? by project
-+    //         val tasksStorePassword: String? by project
-+    //         val tasksKeyPassword: String? by project
-+    //
-+    //         keyAlias = tasksKeyAlias
-+    //         storeFile = file(tasksStoreFile ?: "none")
-+    //         storePassword = tasksStorePassword
-+    //         keyPassword = tasksKeyPassword
-+    //     }
-+    // }
- 
+-
      compileOptions {
          isCoreLibraryDesugaringEnabled = true
-@@ -103,7 +103,7 @@ android {
-             resValue("string", "google_key", tasks_google_key ?: "")
+         sourceCompatibility = JavaVersion.VERSION_17
+@@ -95,7 +81,7 @@ android {
+             resValue("string", "posthog_key", tasks_posthog_key ?: "")
              isMinifyEnabled = true
-             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard.pro")
+             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.pro")
 -            signingConfig = signingConfigs.getByName("release")
 +            signingConfig = null
          }
      }
  
-diff --git c/wear/build.gradle.kts w/wear/build.gradle.kts
-index 651efb92d..5eb16ee45 100644
---- c/wear/build.gradle.kts
-+++ w/wear/build.gradle.kts
-@@ -19,19 +19,19 @@ android {
+diff --git a/wear/build.gradle.kts b/wear/build.gradle.kts
+--- a/wear/build.gradle.kts
++++ b/wear/build.gradle.kts
+@@ -19,20 +19,6 @@ android {
          minSdk = 30
      }
  
@@ -65,23 +51,11 @@ index 651efb92d..5eb16ee45 100644
 -            keyPassword = tasksKeyPassword
 -        }
 -    }
-+    // signingConfigs {
-+    //     create("release") {
-+    //         val tasksKeyAlias: String? by project
-+    //         val tasksStoreFile: String? by project
-+    //         val tasksStorePassword: String? by project
-+    //         val tasksKeyPassword: String? by project
-+    //
-+    //         keyAlias = tasksKeyAlias
-+    //         storeFile = file(tasksStoreFile ?: "none")
-+    //         storePassword = tasksStorePassword
-+    //         keyPassword = tasksKeyPassword
-+    //     }
-+    // }
- 
+-
      buildTypes {
-         release {
-@@ -40,7 +40,7 @@ android {
+         debug {
+             resValue("string", "posthog_key", "")
+@@ -45,7 +31,7 @@ android {
                  getDefaultProguardFile("proguard-android-optimize.txt"),
                  "proguard-rules.pro"
              )
@@ -90,10 +64,3 @@ index 651efb92d..5eb16ee45 100644
          }
      }
      compileOptions {
-@@ -98,4 +98,4 @@ dependencies {
-     androidTestImplementation(libs.androidx.ui.test.junit4)
-     debugImplementation(libs.androidx.ui.tooling)
-     debugImplementation(libs.androidx.ui.test.manifest)
--}
-\ No newline at end of file
-+}
