@@ -5055,6 +5055,48 @@ console.log("ok: cli — version/help/stdin/style/file @use/load-path/errors + e
     assert.deepEqual(appeared, ["/p/a/b"], "probe: the target appeared");
   }
 
+  // Arming again with nothing changed touches NOTHING.
+  //
+  // `rewatch` arms every absent load path itself and then `watchers.sync`
+  // fails on the same directory, reports it missing, and arms it again —
+  // twice per rewatch, microseconds apart. That used to close the handle the
+  // first arm created and open an identical one, and `handle.close()` is the
+  // expensive half of `fs.watch`: measured on macOS over 300 iterations,
+  // 0.4 ms to open, 3982 ms worst case to close, 6788 ms for a close+reopen.
+  // Synchronously, so it freezes the session (#195).
+  //
+  // Counted rather than timed, because the cost is the platform's and a
+  // timing assertion would tell the two apart nowhere — on Linux `fs.watch`
+  // is 0.2 ms. What this file can assert is that no handle was replaced.
+  {
+    const fs = fake(new Set(["/", "/p"]));
+    const probe = makeProbe({ ...fs, onAppear: () => {} });
+    probe.arm("/p/a/b");
+    const first = fs.handles[0];
+    probe.arm("/p/a/b");
+    probe.arm("/p/a/b");
+    assert.equal(fs.handles.length, 1, `probe: no second handle was opened (had ${fs.handles.length})`);
+    assert.equal(first.closed, false, "probe: and the first was not closed");
+    assert.equal(probe.size, 1, "probe: still exactly one");
+  }
+
+  // …but a re-arm that has somewhere DEEPER to go still replaces the handle,
+  // which is the case the early return must not swallow.
+  {
+    const present = new Set(["/", "/p"]);
+    const fs = fake(present);
+    const probe = makeProbe({ ...fs, onAppear: () => {} });
+    probe.arm("/p/a/b");
+    const first = fs.handles[0];
+    assert.equal(first.dir, "/p", "probe: watching the deepest ancestor that exists");
+    present.add("/p/a");
+    probe.arm("/p/a/b");
+    assert.equal(fs.handles.length, 2, "probe: a deeper ancestor is a new handle");
+    assert.equal(first.closed, true, "probe: and the shallower one is closed");
+    assert.equal(fs.handles[1].dir, "/p/a", "probe: now watching /p/a");
+    assert.equal(probe.size, 1, "probe: still one per target");
+  }
+
   // closeAll leaves nothing behind — rewatch calls it on every compile.
   {
     const fs = fake(new Set(["/", "/p"]));
@@ -5067,7 +5109,7 @@ console.log("ok: cli — version/help/stdin/style/file @use/load-path/errors + e
     assert.equal(fs.open(), 0, "probe: and actually closes them");
   }
 
-  console.log("ok: probe — one handle per target, re-arms deeper, closes cleanly");
+  console.log("ok: probe — one handle per target, idempotent, re-arms deeper, closes cleanly");
 }
 
 // === one live handle per directory, and what happens when one dies ===
