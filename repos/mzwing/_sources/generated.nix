@@ -200,13 +200,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.43.2";
+    version = "v0.44.1";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.43.2";
+      rev = "v0.44.1";
       fetchSubmodules = false;
-      sha256 = "sha256-dVwEA6racPkqbSUd6FZeghIwaISDuH9K/07f/EzveOU=";
+      sha256 = "sha256-ISVZAJbazbML4c/QRrBWyJRwanRjtbNpyUrpfAe3v0c=";
     };
   };
   manboster = {
@@ -301,26 +301,26 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.2.1";
+    version = "v3.2.2";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.2.1";
+      rev = "v3.2.2";
       fetchSubmodules = false;
-      sha256 = "sha256-4M9yURwTGUumQcX04ga+je4snZ5O7SIZTPr+/nTGtaA=";
+      sha256 = "sha256-7WRowxhsTj1/GYweAs0ZLlMLk/+ggzbY6OvacvAZFX8=";
     };
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "a2cd7f4011c6e5830c0c9af5aa35441b3ddd5fba";
+    version = "929f53586dcc0611d2c9406886d9d18033ed71bc";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "a2cd7f4011c6e5830c0c9af5aa35441b3ddd5fba";
+      rev = "929f53586dcc0611d2c9406886d9d18033ed71bc";
       fetchSubmodules = false;
-      sha256 = "sha256-IOanyzxBlLzlCOmLQa7hn+n1Yyc30upbmeuth7M4VcA=";
+      sha256 = "sha256-fAdq5luxS6klTenlFOztDSnCgtE9JfA+VJpYcDAJz/Q=";
     };
-    date = "2026-09-25";
+    date = "2026-09-28";
   };
   typenix = {
     pname = "typenix";

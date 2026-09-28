@@ -151,8 +151,8 @@ go = '1.27.0'
     hash = 'sha256-tF8t3VcV71jQ4jbPL91BwR59AKDpUAFV1waIKzkXJu8='
 
   [mod.'github.com/go-playground/locales']
-    version = 'v0.14.1'
-    hash = 'sha256-BMJGAexq96waZn60DJXZfByRHb8zA/JP/i6f/YrW9oQ='
+    version = 'v0.14.2'
+    hash = 'sha256-0CSo8WIlNQgzlmzM3+vcqhDh9LxPcM0+p5AdANUKiMI='
 
   [mod.'github.com/go-playground/universal-translator']
     version = 'v0.18.2'
@@ -175,8 +175,8 @@ go = '1.27.0'
     hash = 'sha256-I3BWBluCakfFuTKkwi5Dh+DlzpdcizOAxa4lKOUo8Ak='
 
   [mod.'github.com/goccy/go-json']
-    version = 'v0.10.6'
-    hash = 'sha256-/REW1EDZ3Ta45hrDNR9YTIlhkxQQI8OeK5TxBNJ47Ho='
+    version = 'v0.11.1'
+    hash = 'sha256-btbKScie2R6Yb0jZfubK7gzdXadFpkEfGJHNA2U6kUI='
 
   [mod.'github.com/goccy/go-yaml']
     version = 'v1.19.2'
@@ -519,8 +519,8 @@ go = '1.27.0'
     hash = 'sha256-cGx2/0QQay46MYGZuamFmU0TzNaFyaO+J7Ddzlr/3dI='
 
   [mod.'github.com/pierrec/lz4/v4']
-    version = 'v4.1.30'
-    hash = 'sha256-gTfMD5IpvOuox5yAyLKyeNgqOXx8Ve11B2rbCFFxUy8='
+    version = 'v4.1.31'
+    hash = 'sha256-3h7Q6dbvu4xTkrt/SaOIeR8bhRIlOxdLBgFJbPGOqDo='
 
   [mod.'github.com/pires/go-proxyproto']
     version = 'v0.15.0'
@@ -571,8 +571,8 @@ go = '1.27.0'
     hash = 'sha256-Gh12LPp/k4s+9UQunPO4ULpknc3KWf19qjn26HUANe0='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.3.5'
-    hash = 'sha256-v+PdnN4xbAwqsdyfJgZRvgOvdr0+FXzSJ92TLdOgAUI='
+    version = 'v1.3.6'
+    hash = 'sha256-Ga02IlYMr6xZ9vdFPeXFGLBcFHd+e0LeTrUhVE9K/Ts='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'
