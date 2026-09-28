@@ -8,13 +8,13 @@
 
 beamPackages.buildMix rec {
   name = "mint";
-  version = "1.10.1";
+  version = "1.11.0";
 
   src = fetchFromGitHub {
     owner = "elixir-mint";
     repo = "mint";
     rev = "v${version}";
-    hash = "sha256-1BHYIMsplIBu5/iPbEaaQ9du/TAV+jMj/+S/HU+lD7A=";
+    hash = "sha256-sgKInwC0jxeInGHMtvHSqWYBAKE34xHgCmziiOCyHCg=";
   };
 
   beamDeps = [ hpax ];
