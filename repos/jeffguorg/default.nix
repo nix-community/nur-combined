@@ -36,6 +36,8 @@ in
   dingtalk = callPackage ./pkgs/dingtalk {};
   kwok = callPackage ./pkgs/kwok/default.nix {};
   kimi-code = callPackage ./pkgs/kimi-code {};
+  dsh = callPackage ./pkgs/dsh {};
+  dsh-tui = callPackage ./pkgs/dsh-tui {};
   kagent-bin = callPackage ./pkgs/kagent {};
   oh-my-pi-bin = callPackage ./pkgs/oh-my-pi {};
   pi-agent = callPackage ./pkgs/pi-agent {};

@@ -294,6 +294,36 @@
         },
         "version": "8.1.0.6021101"
     },
+    "dsh": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dsh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Xy2nJy2UhavCI+aBB1gJqNkpaXxSMu5EVxjht+Bmv/g=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.1.7-rc.2.tgz"
+        },
+        "version": "0.1.7-rc.2"
+    },
+    "dsh-tui": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dsh-tui",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-u53fi4/Y/RrWr3PaCgV6kJ4iMNVecTWNCf18tyF70e8=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@deepseek-harness-tui/dsh-tui/-/dsh-tui-0.11.1.tgz"
+        },
+        "version": "0.11.1"
+    },
     "garble": {
         "cargoLock": null,
         "date": null,

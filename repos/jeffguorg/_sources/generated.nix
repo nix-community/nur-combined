@@ -178,6 +178,22 @@
       sha256 = "sha256-SEKPcpWGmBWQDDQYZ7u9J5sOsXI2QofdeLshzt+0me8=";
     };
   };
+  dsh = {
+    pname = "dsh";
+    version = "0.1.7-rc.2";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.1.7-rc.2.tgz";
+      sha256 = "sha256-Xy2nJy2UhavCI+aBB1gJqNkpaXxSMu5EVxjht+Bmv/g=";
+    };
+  };
+  dsh-tui = {
+    pname = "dsh-tui";
+    version = "0.11.1";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@deepseek-harness-tui/dsh-tui/-/dsh-tui-0.11.1.tgz";
+      sha256 = "sha256-u53fi4/Y/RrWr3PaCgV6kJ4iMNVecTWNCf18tyF70e8=";
+    };
+  };
   garble = {
     pname = "garble";
     version = "v0.18.0";

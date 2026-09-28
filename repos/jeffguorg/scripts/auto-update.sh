@@ -275,6 +275,8 @@ main() {
   run_nvfetcher_filter "claude-code" "claude-code-bin-arm64-linux, claude-code-bin-amd64-linux, claude-code-bin-arm64-darwin, claude-code-bin-amd64-darwin" '^(claude-code-bin-arm64-linux|claude-code-bin-amd64-linux|claude-code-bin-arm64-darwin|claude-code-bin-amd64-darwin)$'
   run_npm_deps_gate "kimi-code" "kimi-code" '^(kimi-code)$'
   run_npm_deps_gate "pi-agent" "pi-agent" '^(pi-agent|pi-agent-git)$'
+  run_npm_deps_gate "dsh" "dsh" '^(dsh)$'
+  run_npm_deps_gate "dsh-tui" "dsh-tui" '^(dsh-tui)$'
   run_nvfetcher_filter "pi-agent-bin" "pi-agent-bin-amd64-linux, pi-agent-bin-arm64-linux, pi-agent-bin-amd64-darwin, pi-agent-bin-arm64-darwin" '^(pi-agent-bin-amd64-linux|pi-agent-bin-arm64-linux|pi-agent-bin-amd64-darwin|pi-agent-bin-arm64-darwin)$'
   run_nvfetcher_filter "kagent" "kagent-bin-amd64-linux, kagent-bin-arm64-linux, kagent-bin-amd64-darwin, kagent-bin-arm64-darwin" '^(kagent-bin-amd64-linux|kagent-bin-arm64-linux|kagent-bin-amd64-darwin|kagent-bin-arm64-darwin)$'
   run_nvfetcher_filter "oh-my-pi" "oh-my-pi-bin-amd64-linux, oh-my-pi-bin-arm64-linux, oh-my-pi-bin-amd64-darwin, oh-my-pi-bin-arm64-darwin" '^(oh-my-pi-bin-amd64-linux|oh-my-pi-bin-arm64-linux|oh-my-pi-bin-amd64-darwin|oh-my-pi-bin-arm64-darwin)$'

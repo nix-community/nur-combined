@@ -141,6 +141,14 @@ src.use_max_tag = true
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 fetch.url = "https://github.com/can1357/oh-my-pi/releases/download/$ver/omp-darwin-arm64"
 
+[dsh]
+src.cmd = "npm view @deepseek-ai/dsh version 2>/dev/null"
+fetch.url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-$ver.tgz"
+
+[dsh-tui]
+src.cmd = "npm view @deepseek-harness-tui/dsh-tui version 2>/dev/null"
+fetch.url = "https://registry.npmjs.org/@deepseek-harness-tui/dsh-tui/-/dsh-tui-$ver.tgz"
+
 [pi-agent]
 src.cmd = "npm view @earendil-works/pi-coding-agent version 2>/dev/null"
 fetch.url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-$ver.tgz"
