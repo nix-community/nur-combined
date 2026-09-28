@@ -8,8 +8,8 @@
   repo = "odbc-scanner";
   branch = "main";
   submodulePath = null;
-  rev = "274a3307341dcafd62471c09b45c5d858d6c95cc";
-  hash = "sha256-I3LtOipBN+WuYiuWvt9sptc7mVglutxo/lMQCvsoz8o=";
+  rev = "7ce06c95c94b46a6984968439ca31ce968a2f473";
+  hash = "sha256-V9gLudrOlG4El9gBOU25PynEWD0std1bzvxz9oe2z6U=";
   loadOptions = [ "DONT_LINK" ];
   duckdbBuildInputs = [ unixodbc ];
   duckdbPostPatch = ''
