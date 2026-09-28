@@ -65,7 +65,7 @@ lib.optionalAttrs (hostConfig.isGraphical && hostConfig.isLinux) {
       enable = true;
       # font = "CascadiaCode";
       theme = "Arc-Dark";
-      extraConfig = {
+      settings = {
         show-icons = true;
       };
     };

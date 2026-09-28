@@ -70,16 +70,16 @@ in
       
       ${
             lib.optionalString
-            (hostConfig.hyprland && !hasDisplayManager)
-            ''
-              # Start Hyprland only on the primary TTY, leaving other TTYs
-              # available as recovery shells if the graphical session fails.
-              if [ "$XDG_VTNR" = "1" ] \
-                && [ -z "$WAYLAND_DISPLAY" ] \
-                && [ -z "$DISPLAY" ]; then
-                exec start-hyprland
-              fi
-            ''
+              (hostConfig.hyprland && !hasDisplayManager)
+              ''
+                # Start Hyprland only on the primary TTY, leaving other TTYs
+                # available as recovery shells if the graphical session fails.
+                if [ "$XDG_VTNR" = "1" ] \
+                  && [ -z "$WAYLAND_DISPLAY" ] \
+                  && [ -z "$DISPLAY" ]; then
+                  exec start-hyprland
+                fi
+              ''
           }
     ";
   };

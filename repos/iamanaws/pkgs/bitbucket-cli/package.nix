@@ -13,7 +13,6 @@ buildGoModule (finalAttrs: {
   pname = "bitbucket-cli";
   version = "0.31.1";
 
-
   src = fetchFromGitHub {
     owner = "avivsinai";
     repo = "bitbucket-cli";
