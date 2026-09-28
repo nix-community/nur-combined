@@ -6703,14 +6703,18 @@ fn is_private_member(name: &str) -> bool {
     name.starts_with('-') || name.starts_with('_')
 }
 
-/// Whether `module` exposes `name` as a built-in mixin. dart-sass's `sass:meta`
-/// module defines the `load-css` and `apply` mixins; no other built-in module
-/// exposes a mixin. Matched dash/underscore-insensitively.
+/// Whether `module` exposes `name` as a built-in mixin, from the same table
+/// `meta.module-mixins()` enumerates. Matched dash/underscore-insensitively,
+/// and escape-insensitively — which is why `normalize_arg_name` stays here
+/// rather than the table's own `canonical_name`: only this one decodes
+/// `\6C oad-css`.
+///
+/// It used to repeat the table's list (`"load-css" | "apply"`, plus a
+/// `module != "meta"` guard), so enumeration and lookup could disagree about a
+/// mixin (r4119082581). dart-sass gives no other built-in module a mixin; that
+/// is now the table's statement, made in one place.
 fn is_builtin_mixin(module: &str, name: &str) -> bool {
-    if module != "meta" {
-        return false;
-    }
-    matches!(normalize_arg_name(name).as_ref(), "load-css" | "apply")
+    crate::builtins::module_mixin_names(module).contains(&normalize_arg_name(name).as_ref())
 }
 
 /// Collect the names from a `@forward` `show`/`hide` member list, selecting

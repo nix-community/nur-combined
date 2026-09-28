@@ -35,7 +35,7 @@
 //! stretching those gaps. Driven by a clock the test supplies, N changes
 //! inside one window is exactly two runs, on any machine, every time.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use std::time::{Duration, SystemTime};
 
@@ -148,31 +148,38 @@ impl Stamp {
     /// question. What is left is the entry set, which our own writes are
     /// taken out of and nobody else's are.
     fn of_dir_minus(dir: &Path, ours: &[std::ffi::OsString]) -> Stamp {
-        let Ok(entries) = std::fs::read_dir(dir) else {
+        let Some(digest) = entry_set(dir, ours) else {
             return Stamp::MISSING;
         };
-        let mut names: Vec<std::ffi::OsString> = entries
-            .flatten()
-            .map(|e| e.file_name())
-            .filter(|n| !ours.contains(n))
-            .collect();
-        names.sort();
-        let mut h: u64 = 0xcbf2_9ce4_8422_2325;
-        for n in names {
-            for b in n.to_string_lossy().as_bytes() {
-                h ^= u64::from(*b);
-                h = h.wrapping_mul(0x1000_0000_01b3);
-            }
-            h ^= 0;
-            h = h.wrapping_mul(0x1000_0000_01b3);
-        }
         Stamp {
             modified: None,
             len: 0,
-            digest: h,
+            digest,
             mode: 0,
         }
     }
+}
+
+/// FNV-1a of the names in a directory, `ours` left out, or `None` when it
+/// cannot be listed.
+fn entry_set(dir: &Path, ours: &[std::ffi::OsString]) -> Option<u64> {
+    let entries = std::fs::read_dir(dir).ok()?;
+    let mut names: Vec<std::ffi::OsString> = entries
+        .flatten()
+        .map(|e| e.file_name())
+        .filter(|n| !ours.contains(n))
+        .collect();
+    names.sort();
+    let mut h: u64 = 0xcbf2_9ce4_8422_2325;
+    for n in names {
+        for b in n.to_string_lossy().as_bytes() {
+            h ^= u64::from(*b);
+            h = h.wrapping_mul(0x1000_0000_01b3);
+        }
+        h ^= 0;
+        h = h.wrapping_mul(0x1000_0000_01b3);
+    }
+    Some(h)
 }
 
 /// Which of two observations of one file came first.
@@ -278,6 +285,23 @@ pub(crate) struct Snapshot {
     /// own files taken out: our write cannot look like an arrival, and
     /// cannot hide one either.
     minus: BTreeMap<PathBuf, Vec<std::ffi::OsString>>,
+    /// For every other directory: its entry set when its stamp was taken,
+    /// or `None` when it could not be listed then.
+    ///
+    /// A directory is followed so a dependency can ARRIVE in it, and an
+    /// arrival changes what is in it. Its mtime moves for more than that: an
+    /// editor's atomic save writes a temporary file and renames it over the
+    /// original, and the directory's mtime moves with the names unchanged.
+    /// The file that was replaced is followed under its own name and its own
+    /// stamp moves, so that save is seen either way — the directory reporting
+    /// it TOO is what made every unit that follows the directory recompile.
+    /// On Lichess's tree that is 56 entries sharing one directory, for a save
+    /// to one of them (#198).
+    ///
+    /// So an mtime that moved is checked against this, once, and only a
+    /// different set of names is a change. It is read only when the stamp
+    /// already differs, so a sweep of an idle tree lists nothing.
+    entries: BTreeMap<PathBuf, Option<u64>>,
 }
 
 impl Snapshot {
@@ -337,6 +361,7 @@ impl Snapshot {
             }
         }
         let mut next: BTreeMap<PathBuf, Stamp> = BTreeMap::new();
+        let mut entries: BTreeMap<PathBuf, Option<u64>> = BTreeMap::new();
         for (p, at_read) in files {
             let s = self.files.get(&p).copied().unwrap_or(at_read);
             // Two units can load the same dependency, and each brings the
@@ -360,22 +385,36 @@ impl Snapshot {
                 // write already moved.
                 Some(names) => Stamp::of_dir_minus(&d, names),
                 // Not ours: keep what we knew, or an arrival during the
-                // compile becomes the baseline.
-                None => self.files.get(&d).copied().unwrap_or_else(|| stamp(&d)),
+                // compile becomes the baseline — and its entry set with it,
+                // taken at the same moment, so the two describe one state.
+                None => match self.files.get(&d) {
+                    Some(&s) => {
+                        entries.insert(d.clone(), self.entries.get(&d).copied().flatten());
+                        s
+                    }
+                    None => {
+                        entries.insert(d.clone(), entry_set(&d, &[]));
+                        stamp(&d)
+                    }
+                },
             };
             next.insert(d, s);
         }
         self.files = next;
         self.minus = minus;
+        self.entries = entries;
     }
 
-    /// Has any followed file changed? Updates the remembered stamps, so a
-    /// change is reported once.
-    pub(crate) fn changed<F>(&mut self, mut stamp: F) -> bool
+    /// Which followed paths have changed, in the keys they were followed
+    /// under. Updates the remembered stamps, so a change is reported once.
+    ///
+    /// The paths rather than a yes/no, because the caller recompiles only the
+    /// units that depend on them (see [`dependents`]).
+    pub(crate) fn changes<F>(&mut self, mut stamp: F) -> Vec<PathBuf>
     where
         F: FnMut(&Path) -> Stamp,
     {
-        let mut changed = false;
+        let mut changed = Vec::new();
         for (path, known) in self.files.iter_mut() {
             // A directory we wrote into is asked the same question it was
             // stamped with — see `Snapshot::minus`.
@@ -383,12 +422,36 @@ impl Snapshot {
                 Some(names) => Stamp::of_dir_minus(path, names),
                 None => stamp(path),
             };
-            if now != *known {
-                *known = now;
-                changed = true;
+            if now == *known {
+                continue;
             }
+            // A directory whose names did not change: nothing arrived and
+            // nothing left, whatever moved its mtime (see `entries`). Only
+            // when both observations are of a directory that is THERE — one
+            // appearing or vanishing is a change however it is listed.
+            if let Some(before) = self.entries.get_mut(path) {
+                let listed = entry_set(path, &[]);
+                let same = before.is_some() && listed == *before;
+                *before = listed;
+                if same && *known != Stamp::MISSING && now != Stamp::MISSING {
+                    *known = now;
+                    continue;
+                }
+            }
+            *known = now;
+            changed.push(path.clone());
         }
         changed
+    }
+
+    /// Has any followed file changed? The yes/no form of [`Self::changes`],
+    /// which is all most of the tests below ask.
+    #[cfg(test)]
+    pub(crate) fn changed<F>(&mut self, stamp: F) -> bool
+    where
+        F: FnMut(&Path) -> Stamp,
+    {
+        !self.changes(stamp).is_empty()
     }
 
     /// How many files are followed. Only the tests ask — the watcher itself
@@ -397,6 +460,49 @@ impl Snapshot {
     pub(crate) fn len(&self) -> usize {
         self.files.len()
     }
+}
+
+/// What one unit was last seen to depend on, in the keys [`Snapshot`]
+/// follows them under: the files it read, each with its at-read stamp, and
+/// the directories a dependency that does not exist yet could arrive in.
+#[derive(Default, Debug, Clone)]
+pub(crate) struct Deps {
+    pub(crate) files: Vec<(PathBuf, Stamp)>,
+    pub(crate) dirs: Vec<PathBuf>,
+}
+
+/// The units a set of changed paths calls for: every unit that follows one of
+/// them, by index into `deps`.
+///
+/// dart recompiles only the entries whose dependency graph contains the
+/// change, and so does this. Recompiling everything instead is not merely
+/// slower — each recompile rewrites its output and prints a `Compiled` line,
+/// and a build that wraps `--watch` post-processes per line (#198: one save
+/// on a 147-entry tree was 147 lines for 10 changed outputs).
+///
+/// A directory counts like a file. A dependency that does not exist yet can
+/// only arrive where some unit would look for it, and each unit follows
+/// exactly those directories, so the units following a directory are the
+/// ones an arrival there can matter to.
+///
+/// A path NO unit claims answers every unit. Every followed path comes from
+/// some unit's record, so it should not happen; if it does, recompiling
+/// everything is what `--watch` did before and is never wrong.
+pub(crate) fn dependents(deps: &[Deps], changed: &[PathBuf]) -> BTreeSet<usize> {
+    let mut hit = BTreeSet::new();
+    for path in changed {
+        let mut claimed = false;
+        for (i, d) in deps.iter().enumerate() {
+            if d.files.iter().any(|(f, _)| f == path) || d.dirs.iter().any(|x| x == path) {
+                hit.insert(i);
+                claimed = true;
+            }
+        }
+        if !claimed {
+            return (0..deps.len()).collect();
+        }
+    }
+    hit
 }
 
 /// What the coalescing rule wants done at a given moment.
@@ -934,5 +1040,107 @@ mod tests {
         let seen = s.changed(Stamp::of);
         std::fs::remove_dir_all(&dir).ok();
         assert!(seen, "a dependency arrived and the directory was ours");
+    }
+
+    /// An atomic save — write a temporary file, rename it over the original —
+    /// moves the directory's mtime and leaves its names as they were. The
+    /// FILE reports that save; the directory must not, or every unit that
+    /// follows the directory recompiles for it (#198). Something arriving
+    /// there still counts, and so does something leaving.
+    #[test]
+    fn an_atomic_save_is_not_an_arrival_in_its_directory() {
+        let dir = std::env::temp_dir().join(format!("sasso-atomic-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let file = dir.join("_v.scss");
+        std::fs::write(&file, "$c: red;\n").unwrap();
+
+        let mut s = Snapshot::default();
+        s.follow([(file.clone(), Stamp::of(&file))], [dir.clone()], &[], Stamp::of);
+        let dir_before = Stamp::of(&dir);
+
+        let tmp = dir.join(".v.scss.tmp");
+        std::fs::write(&tmp, "$c: blue;\n").unwrap();
+        std::fs::rename(&tmp, &file).unwrap();
+        let moved = Stamp::of(&dir) != dir_before;
+        let seen = s.changes(Stamp::of);
+
+        // A pause before each step, or Windows reads the step as no change:
+        // its timestamps have a 100 ns field and advance by the clock tick,
+        // ~15.6 ms, so a directory created into and emptied inside one tick
+        // keeps its stamp. CI failed on the departure without this. A poll
+        // cannot see a change its clock does not record; neither can dart's.
+        let tick = || std::thread::sleep(std::time::Duration::from_millis(50));
+        tick();
+        std::fs::write(dir.join("_new.scss"), "").unwrap();
+        let arrival = s.changes(Stamp::of);
+        tick();
+        std::fs::remove_file(dir.join("_new.scss")).unwrap();
+        let departure = s.changes(Stamp::of);
+        std::fs::remove_dir_all(&dir).ok();
+
+        // Verified on macOS; where a rename leaves the directory's mtime
+        // alone the rest still holds, it just proves less.
+        if cfg!(unix) {
+            assert!(
+                moved,
+                "the rename did not move the directory's mtime, so this proves nothing"
+            );
+        }
+        assert_eq!(seen, [file], "the save is the file's, not the directory's");
+        assert_eq!(arrival, std::slice::from_ref(&dir), "a new name is an arrival");
+        assert_eq!(departure, [dir], "and a name leaving is a change too");
+    }
+
+    fn deps(files: &[&str], dirs: &[&str]) -> Deps {
+        Deps {
+            files: files.iter().map(|f| (PathBuf::from(f), stamp_of(1))).collect(),
+            dirs: dirs.iter().map(PathBuf::from).collect(),
+        }
+    }
+
+    fn picked(deps: &[Deps], changed: &[&str]) -> Vec<usize> {
+        let changed: Vec<PathBuf> = changed.iter().map(PathBuf::from).collect();
+        dependents(deps, &changed).into_iter().collect()
+    }
+
+    /// #198: `a`, `b` and `c` side by side, `_x` used by `a` alone. dart
+    /// recompiles `a` for a save to `_x`; so must this.
+    #[test]
+    fn a_change_recompiles_only_the_units_that_read_it() {
+        let units = [
+            deps(&["a.scss", "_x.scss", "_shared.scss"], &["/w"]),
+            deps(&["b.scss", "_shared.scss"], &["/w"]),
+            deps(&["c.scss"], &["/w"]),
+        ];
+        assert_eq!(picked(&units, &["_x.scss"]), [0]);
+        assert_eq!(picked(&units, &["_shared.scss"]), [0, 1]);
+        assert_eq!(picked(&units, &["c.scss"]), [2], "an entry is its own dependency");
+        assert_eq!(picked(&units, &["_x.scss", "c.scss"]), [0, 2]);
+    }
+
+    /// A directory stands for the dependencies that could still arrive in it,
+    /// so it calls for the units that would look there — and no others.
+    #[test]
+    fn a_changed_directory_recompiles_the_units_that_follow_it() {
+        let units = [
+            deps(&["a/main.scss"], &["/w/a", "/w/a/sub"]),
+            deps(&["b/main.scss"], &["/w/b"]),
+        ];
+        assert_eq!(picked(&units, &["/w/a/sub"]), [0]);
+        assert_eq!(picked(&units, &["/w/b"]), [1]);
+    }
+
+    /// Every followed path comes from some unit's record, so an unclaimed one
+    /// means the bookkeeping is wrong somewhere — and the safe answer to that
+    /// is the old one, everything.
+    #[test]
+    fn a_change_nobody_claims_recompiles_everything() {
+        let units = [deps(&["a.scss"], &[]), deps(&["b.scss"], &[])];
+        assert_eq!(picked(&units, &["elsewhere.scss"]), [0, 1]);
+        assert_eq!(
+            picked(&units, &[]),
+            Vec::<usize>::new(),
+            "and no change is no run"
+        );
     }
 }

@@ -2778,11 +2778,17 @@ fn watch_recompiles_reports_and_recovers() {
         std::panic::resume_unwind(e);
     }
 
-    // dart prints the banner before the first compile and one line per file
-    // actually written; `--quiet` suppresses the lines but not the banner.
+    // dart prints the banner AFTER the first compile's line (#199) and one
+    // line per file actually written; `--quiet` suppresses the lines but not
+    // the banner.
+    let banner = "Sass is watching for changes. Press Ctrl-C to stop.\n\n";
+    let at = stdout
+        .find(banner)
+        .unwrap_or_else(|| panic!("banner missing: {stdout:?}"));
+    let before: Vec<&str> = stdout[..at].lines().collect();
     assert!(
-        stdout.starts_with("Sass is watching for changes. Press Ctrl-C to stop.\n\n"),
-        "banner missing: {stdout:?}",
+        before.len() == 1 && before[0].ends_with("Compiled src/main.scss to out.css."),
+        "exactly the first compile's line comes before the banner: {stdout:?}",
     );
     let compiled = stdout.lines().filter(|l| l.contains("Compiled")).count();
     assert!(
@@ -2796,6 +2802,258 @@ fn watch_recompiles_reports_and_recovers() {
         "a failed compile must not be narrated, and a provisional run must not \
          narrate a second time: {stdout:?}",
     );
+}
+
+/// `--watch`'s stdout, line by line, as it arrives — so a test can act at the
+/// moment a line is printed rather than after the process is killed.
+fn watch_lines(child: &mut std::process::Child) -> std::sync::mpsc::Receiver<String> {
+    use std::io::BufRead;
+    let pipe = child.stdout.take().expect("stdout piped");
+    let (tx, rx) = std::sync::mpsc::channel();
+    std::thread::spawn(move || {
+        for line in std::io::BufReader::new(pipe).lines() {
+            let Ok(line) = line else { break };
+            if tx.send(line).is_err() {
+                break;
+            }
+        }
+    });
+    rx
+}
+
+/// #199: the banner is what tools wait on to mean "the initial build is
+/// done" — nx's `readyWhen`, a VS Code problem matcher's `endsPattern` — and
+/// dart prints it after every initial output is written. Measured against
+/// dart-sass 1.104.1 with one entry and with 147: every output on disk, and
+/// every `Compiled` line printed, before the banner. Printing it first, as
+/// this did, declared a 147-entry build ready with none of it written.
+///
+/// One entry fails on purpose: dart still prints the banner after the round,
+/// with the error on stderr and the good entry's line on stdout.
+#[test]
+fn watch_prints_its_banner_after_the_first_compile() {
+    use std::time::Duration;
+
+    let dir = scratch("watch_banner");
+    write(&dir, "a.scss", "a { b: c; }\n");
+    write(&dir, "b.scss", "b { c: d; }\n");
+    write(&dir, "bad.scss", "a { b: $nope; }\n");
+
+    let mut child = std::process::Command::new(BIN)
+        .args([
+            "--no-source-map",
+            "--watch",
+            "a.scss:a.css",
+            "bad.scss:bad.css",
+            "b.scss:b.css",
+        ])
+        .current_dir(&dir)
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+        .expect("spawn --watch");
+    let lines = watch_lines(&mut child);
+
+    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        let mut before = Vec::new();
+        loop {
+            let line = lines
+                .recv_timeout(Duration::from_secs(20))
+                .unwrap_or_else(|_| panic!("no banner; so far: {before:?}"));
+            if line == "Sass is watching for changes. Press Ctrl-C to stop." {
+                break;
+            }
+            before.push(line);
+        }
+        // Read the moment the banner arrived: nothing may still be pending.
+        assert!(
+            dir.join("a.css").exists(),
+            "a.css not written when the banner printed"
+        );
+        assert!(
+            dir.join("b.css").exists(),
+            "b.css not written when the banner printed"
+        );
+        assert_eq!(before.len(), 2, "both lines, then the banner: {before:?}");
+        assert!(before[0].ends_with("Compiled a.scss to a.css."), "{before:?}");
+        assert!(before[1].ends_with("Compiled b.scss to b.css."), "{before:?}");
+        assert_eq!(
+            lines.recv_timeout(Duration::from_secs(5)).as_deref(),
+            Ok(""),
+            "dart leaves one blank line after the banner",
+        );
+    }));
+
+    let _ = child.kill();
+    let _ = child.wait();
+    std::fs::remove_dir_all(&dir).ok();
+    if let Err(e) = result {
+        std::panic::resume_unwind(e);
+    }
+}
+
+/// #198: a save recompiles the entries that depend on it and no others.
+///
+/// dart's rule, measured against dart-sass 1.104.1 `--watch --poll`: three
+/// entries side by side, `_x.scss` used by `a.scss` alone — saving `_x`
+/// rewrites `a.css` and narrates `a.scss`, and `b.css` and `c.css` are not
+/// touched. Before this every save recompiled and REWROTE every unit; on a
+/// 147-entry tree one save to a partial ten entries use printed 147
+/// `Compiled` lines and cost 4.1 s of CPU, and a build that post-processes
+/// per line post-processed all of them.
+#[test]
+fn watch_recompiles_only_the_entries_a_change_reaches() {
+    use std::time::{Duration, Instant, SystemTime};
+
+    let dir = scratch("watch_dependents");
+    write(&dir, "a.scss", "@use \"x\";\na { c: x.$c; }\n");
+    write(&dir, "_x.scss", "$c: red;\n");
+    write(&dir, "b.scss", "@use \"shared\";\nb { c: shared.$c; }\n");
+    write(&dir, "c.scss", "@use \"shared\";\nc { c: shared.$c; }\n");
+    write(&dir, "_shared.scss", "$c: blue;\n");
+    // The outputs in a directory of their own, as a real build keeps them
+    // (Lichess writes to `public/css`). Beside the sources, the watch would
+    // judge the source directory by its names from the first compile on —
+    // it wrote into it — and the atomic save below would prove nothing.
+    std::fs::create_dir_all(dir.join("out")).unwrap();
+
+    let mut child = std::process::Command::new(BIN)
+        .args([
+            "--no-source-map",
+            "--watch",
+            "a.scss:out/a.css",
+            "b.scss:out/b.css",
+            "c.scss:out/c.css",
+        ])
+        .current_dir(&dir)
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+        .expect("spawn --watch");
+    let lines = watch_lines(&mut child);
+
+    let css = |name: &str| std::fs::read_to_string(dir.join(name)).unwrap_or_default();
+    let mtime = |name: &str| -> Option<SystemTime> {
+        std::fs::metadata(dir.join(name)).and_then(|m| m.modified()).ok()
+    };
+    let until = |pred: &dyn Fn() -> bool| {
+        let deadline = Instant::now() + Duration::from_secs(20);
+        while Instant::now() < deadline {
+            if pred() {
+                return true;
+            }
+            std::thread::sleep(Duration::from_millis(20));
+        }
+        false
+    };
+    // Every `Compiled` line printed since the last call, once the catch-up
+    // that narrates a save has had time to run.
+    let narrated = || {
+        std::thread::sleep(Duration::from_millis(600));
+        lines
+            .try_iter()
+            .filter(|l| l.contains("Compiled"))
+            .collect::<Vec<_>>()
+    };
+
+    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        assert!(
+            until(&|| lines.try_iter().any(|l| l.starts_with("Sass is watching"))),
+            "the first compile never finished",
+        );
+        let _ = narrated();
+        let (b0, c0) = (mtime("out/b.css"), mtime("out/c.css"));
+        assert!(b0.is_some() && c0.is_some());
+
+        std::fs::write(dir.join("_x.scss"), "$c: navy;\n").unwrap();
+        assert!(
+            until(&|| css("out/a.css").contains("navy")),
+            "a.css never recompiled"
+        );
+        let said = narrated();
+        assert!(
+            said.len() == 1 && said[0].ends_with("Compiled a.scss to out/a.css."),
+            "a save to `_x` narrates `a` alone: {said:?}",
+        );
+        assert_eq!(
+            mtime("out/b.css"),
+            b0,
+            "b.css was rewritten for a file it does not use"
+        );
+        assert_eq!(
+            mtime("out/c.css"),
+            c0,
+            "c.css was rewritten for a file it does not use"
+        );
+
+        // A partial two entries share recompiles both, and only them.
+        let a0 = mtime("out/a.css");
+        std::fs::write(dir.join("_shared.scss"), "$c: teal;\n").unwrap();
+        assert!(
+            until(&|| css("out/b.css").contains("teal") && css("out/c.css").contains("teal")),
+            "b.css and c.css never recompiled",
+        );
+        let said = narrated();
+        assert_eq!(said.len(), 2, "{said:?}");
+        assert!(said[0].ends_with("Compiled b.scss to out/b.css."), "{said:?}");
+        assert!(said[1].ends_with("Compiled c.scss to out/c.css."), "{said:?}");
+        assert_eq!(
+            mtime("out/a.css"),
+            a0,
+            "a.css was rewritten for a file it does not use"
+        );
+
+        // An entry is its own dependency.
+        let b1 = mtime("out/b.css");
+        std::fs::write(dir.join("c.scss"), "c { c: green; }\n").unwrap();
+        assert!(
+            until(&|| css("out/c.css").contains("green")),
+            "c.css never recompiled"
+        );
+        let said = narrated();
+        assert!(
+            said.len() == 1 && said[0].ends_with("Compiled c.scss to out/c.css."),
+            "{said:?}"
+        );
+        assert_eq!(
+            mtime("out/b.css"),
+            b1,
+            "b.css was rewritten for another entry's save"
+        );
+
+        // The same save made the way many editors make it: a temporary file
+        // renamed over the original. That moves the DIRECTORY's mtime, and
+        // all three entries follow that directory.
+        let a1 = mtime("out/a.css");
+        std::fs::write(dir.join(".c.scss.swp"), "c { c: olive; }\n").unwrap();
+        std::fs::rename(dir.join(".c.scss.swp"), dir.join("c.scss")).unwrap();
+        assert!(
+            until(&|| css("out/c.css").contains("olive")),
+            "c.css never recompiled"
+        );
+        let said = narrated();
+        assert!(
+            said.len() == 1 && said[0].ends_with("Compiled c.scss to out/c.css."),
+            "an atomic save is still one entry's save: {said:?}",
+        );
+        assert_eq!(
+            mtime("out/a.css"),
+            a1,
+            "a.css was rewritten for another entry's atomic save"
+        );
+        assert_eq!(
+            mtime("out/b.css"),
+            b1,
+            "b.css was rewritten for another entry's atomic save"
+        );
+    }));
+
+    let _ = child.kill();
+    let _ = child.wait();
+    std::fs::remove_dir_all(&dir).ok();
+    if let Err(e) = result {
+        std::panic::resume_unwind(e);
+    }
 }
 
 /// The output written INTO a directory the watch follows, which is the

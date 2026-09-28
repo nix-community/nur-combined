@@ -17,7 +17,7 @@
 //! order. Exit codes follow dart-sass too: `64` for a usage error, `65` for a
 //! compile error, `66` when an input cannot be read.
 
-use std::borrow::Cow;
+use std::borrow::{Borrow, Cow};
 use std::cell::RefCell;
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
@@ -1571,12 +1571,19 @@ fn worse(a: Status, b: Status) -> Status {
 
 /// Compile every unit, up to `jobs` at a time, returning one slot per unit in
 /// input order. A slot is `None` when `stop_on_error` skipped the unit.
-fn compile_all(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) -> Vec<Option<Outcome>> {
+// Generic over how the units are held so `--watch` can compile a SUBSET — the
+// ones a change calls for — without copying a `Unit`, which owns its source.
+fn compile_all<U: Borrow<Unit> + Sync>(
+    units: &[U],
+    shared: &Shared,
+    jobs: usize,
+    stop_on_error: bool,
+) -> Vec<Option<Outcome>> {
     let n = units.len();
     if jobs <= 1 || n <= 1 {
         let mut results = Vec::with_capacity(n);
         for unit in units {
-            let outcome = compile_unit(unit, shared);
+            let outcome = compile_unit(unit.borrow(), shared);
             let failed = outcome.status != Status::Ok;
             results.push(Some(outcome));
             if failed && stop_on_error {
@@ -1607,7 +1614,7 @@ fn compile_all(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool
                 if stop_on_error && failed.load(Ordering::Relaxed) {
                     break;
                 }
-                let outcome = compile_unit(&units[i], shared);
+                let outcome = compile_unit(units[i].borrow(), shared);
                 if outcome.status != Status::Ok {
                     failed.store(true, Ordering::Relaxed);
                 }
@@ -1844,6 +1851,11 @@ fn dirs_key(p: &Path) -> PathBuf {
 const MAX_LINK_HOPS: usize = DEEPEST_PLATFORM_CHAIN + 1;
 
 /// The deepest chain any supported platform resolves. See [`MAX_LINK_HOPS`].
+///
+/// The `allow` is for the MSRV: rustc 1.74 does not count the `const`
+/// assertion below as a use, and reports this as dead under `-D warnings`.
+/// Current compilers do count it.
+#[allow(dead_code)]
 const DEEPEST_PLATFORM_CHAIN: usize = 63;
 
 /// What `start` ultimately names, following the symlink chain as far as it
@@ -2751,14 +2763,6 @@ fn compile_source(unit: &Unit, source: &str, shared: &Shared) -> Outcome {
 fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) -> ExitCode {
     use std::io::Write;
 
-    // dart prints this before the first compile and `--quiet` does not
-    // suppress it — measured 2026-09-20, and the npm CLI already matches.
-    {
-        let mut stdout = std::io::stdout().lock();
-        let _ = stdout.write_all(b"Sass is watching for changes. Press Ctrl-C to stop.\n\n");
-        let _ = stdout.flush();
-    }
-
     // A provisional run differs from an authoritative one in what it is
     // ALLOWED to do, not in how it compiles, so these are the same `Shared`
     // with a flag flipped rather than a second code path. (`..*shared` moves
@@ -2812,8 +2816,24 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
     let mut step = watch::Step::Run { provisional: false };
     let mut started_once = false;
 
+    // What each unit was last seen to depend on, by index into `units` —
+    // what lets a change recompile only the units it touches, as dart does
+    // (#198). A unit's record is replaced whenever it compiles and kept while
+    // it does not, so the snapshot, which is rebuilt from ALL of them after
+    // every round, never stops following a unit that simply was not called
+    // for.
+    let mut deps: Vec<watch::Deps> = units.iter().map(|_| watch::Deps::default()).collect();
+    // The units a change has called for and no AUTHORITATIVE run has
+    // compiled yet. A provisional run compiles them and leaves them here,
+    // since the catch-up behind it has to compile them again; a change seen
+    // while cooling joins them, which is how the catch-up covers it. The
+    // first compile is every unit.
+    let mut pending: BTreeSet<usize> = (0..units.len()).collect();
+
     loop {
         if let watch::Step::Run { provisional } = step {
+            let first = !started_once;
+            let chosen: Vec<usize> = pending.iter().copied().collect();
             // Before the compile, for the units it may never reach.
             // `--stop-on-error` can stop before a later unit is even read,
             // and that unit's entry still has to be followed — from BEFORE
@@ -2821,10 +2841,15 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
             // running is adopted as the baseline and no later poll can see
             // it. A unit that does compile brings its own read-time stamp
             // back and that one wins.
-            let before_run: Vec<(PathBuf, watch::Stamp)> = units
+            let before_run: Vec<Option<(PathBuf, watch::Stamp)>> = chosen
                 .iter()
-                .filter_map(|u| u.source_path().map(|p| (p.to_path_buf(), watch::Stamp::of(p))))
+                .map(|&i| {
+                    units[i]
+                        .source_path()
+                        .map(|p| (p.to_path_buf(), watch::Stamp::of(p)))
+                })
                 .collect();
+            let to_run: Vec<&Unit> = chosen.iter().map(|&i| &units[i]).collect();
             // The very first compile is the only one `--update` applies to;
             // it is also never provisional, and has read nothing yet.
             //
@@ -2840,23 +2865,46 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
                     shared
                 };
                 started_once = true;
-                compile_all(units, run_shared, jobs, stop_on_error)
+                compile_all(&to_run, run_shared, jobs, stop_on_error)
             };
             let mut ok = true;
-            let mut followed: Vec<(PathBuf, watch::Stamp)> = Vec::new();
-            let mut unresolved: Vec<String> = Vec::new();
             let mut disturbed: Vec<PathBuf> = Vec::new();
             {
                 let mut stdout = std::io::stdout().lock();
                 let mut stderr = std::io::stderr().lock();
                 let mut stderr_ends_blank = true;
-                for outcome in outcomes.into_iter().flatten() {
+                for ((&i, outcome), entry) in chosen.iter().zip(outcomes).zip(before_run) {
+                    let Some(outcome) = outcome else {
+                        // Not reached (`--stop-on-error`): it keeps what it
+                        // was following, gains its entry if it had none yet
+                        // — the first round — and stays pending, so the next
+                        // change compiles it, as it compiled every unit
+                        // before.
+                        if let Some((p, s)) = entry {
+                            if !deps[i].files.iter().any(|(f, _)| *f == p) {
+                                deps[i].files.push((p, s));
+                            }
+                        }
+                        continue;
+                    };
                     if outcome.status != Status::Ok {
                         ok = false;
                     }
-                    followed.extend(outcome.loaded);
-                    unresolved.extend(outcome.unresolved);
+                    // Follow the ENTRY too. A compile that failed before
+                    // reading anything — a parse error in the entry, an
+                    // unreadable file — records no loads at all, and
+                    // without this the watch would sit there forever with
+                    // nothing to notice. `Snapshot::follow` keeps the
+                    // earliest observation of a path, so adding the pre-run
+                    // stamp beside the read-time one is safe and the older
+                    // wins.
+                    let mut files = outcome.loaded;
+                    files.extend(entry);
+                    deps[i] = unit_deps(files, &outcome.unresolved, &shared.load_paths);
                     disturbed.extend(outcome.disturbed);
+                    if !provisional {
+                        pending.remove(&i);
+                    }
                     // A provisional run reports NOTHING. Its diagnostics are
                     // about a file that may still be being written, and the
                     // authoritative run 50 ms behind it will print whatever
@@ -2878,19 +2926,21 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
                 let _ = stdout.flush();
                 let _ = stderr.flush();
             }
-            // Follow the ENTRY too. A compile that failed before reading
-            // anything — a parse error in the entry, an unreadable file —
-            // records no loads at all, and without this the watch would sit
-            // there forever with nothing to notice.
-            // Every entry that COMPILED brought its own read-time stamp
-            // back. What is left is a unit that produced no outcome at all,
-            // and its pre-run stamp is the one to use — `Snapshot::follow`
-            // keeps the earliest observation of a path, so adding both is
-            // safe and the older wins.
-            followed.extend(before_run);
-            // Remember them for the NEXT round, before directories are mixed
-            // in below: what this needs is files that were read, and a
-            // directory is not one.
+            // After the first round, not before it: dart prints this once
+            // every initial output is written and narrated — failures
+            // included, which it reports first on stderr — and `--quiet`
+            // does not suppress it (measured 2026-09-27 against dart-sass
+            // 1.104.1, one entry and 147). Tools match on this line to mean
+            // "the initial build is done" (#199), so printing it first told
+            // them so before a single file was on disk. The npm CLI already
+            // has this order.
+            if first {
+                let mut stdout = std::io::stdout().lock();
+                let _ = stdout.write_all(b"Sass is watching for changes. Press Ctrl-C to stop.\n\n");
+                let _ = stdout.flush();
+            }
+            // Remember what was read for the NEXT round: files, not the
+            // directories the records also hold.
             //
             // Reduced HERE rather than at comparison time, and each file
             // contributes what it names as well as its own name — the
@@ -2899,36 +2949,13 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
             // only one of the two leaves the other unrecognised.
             {
                 let known = Arc::make_mut(&mut ever_read);
-                for (f, _) in &followed {
-                    known.insert(resolved_dir_key(f, &watch_cwd));
-                    if let Some(dest) = link_destination(&watch_cwd.join(f)) {
-                        known.insert(resolved_dir_key(&dest, &watch_cwd));
+                for &i in &chosen {
+                    for (f, _) in &deps[i].files {
+                        known.insert(resolved_dir_key(f, &watch_cwd));
+                        if let Some(dest) = link_destination(&watch_cwd.join(f)) {
+                            known.insert(resolved_dir_key(&dest, &watch_cwd));
+                        }
                     }
-                }
-            }
-            // …and the directories they live in, so a dependency that does
-            // not exist YET can arrive. A missing `@use` target has no path
-            // to stat; its directory does, and its mtime moves when the file
-            // is created.
-            let mut dirs: Vec<PathBuf> = followed
-                .iter()
-                .filter_map(|(f, _)| f.parent().map(Path::to_path_buf))
-                .collect();
-            dirs.extend(shared.load_paths.iter().cloned());
-            // A url that resolved to NOTHING names a directory none of those
-            // cover as soon as it has a segment of its own: `@use "sub/new"`
-            // would be found in `<base>/sub`, and `sub/` is in no compile's
-            // dependency list because nothing in it was ever read. Following
-            // a directory that does not exist yet costs nothing here —
-            // `Stamp::MISSING` compares equal to itself and becomes a change
-            // the moment the directory appears.
-            let bases: Vec<PathBuf> = dirs.clone();
-            for url in &unresolved {
-                let Some(within) = Path::new(url).parent().filter(|p| !p.as_os_str().is_empty()) else {
-                    continue;
-                };
-                for base in &bases {
-                    dirs.push(base.join(within));
                 }
             }
             // The directories this compile actually DISTURBED — where it
@@ -2943,46 +2970,105 @@ fn run_watch(units: &[Unit], shared: &Shared, jobs: usize, stop_on_error: bool) 
             // there" would re-stamp it on every compile and absorb an
             // arrival. Overwriting an existing file disturbs nothing.
             //
-            // Keyed through `dirs_key`, like `dirs` itself: the outputs are
-            // spelled as they were typed and the dependencies as the
-            // importer resolved them, so `out.css` and `/work/out.css` are
-            // one directory only once both are.
+            // Keyed through `dirs_key`, like the records' directories: the
+            // outputs are spelled as they were typed and the dependencies as
+            // the importer resolved them, so `out.css` and `/work/out.css`
+            // are one directory only once both are.
             // The FILES this compile created or removed, keyed like the
             // directories they live in. `follow` turns them into "what in
             // this directory is ours", so our own output is neither an
             // arrival nor a mask for one.
             let ours: Vec<PathBuf> = disturbed.iter().map(|f| dirs_key(f)).collect();
-            let dirs: Vec<PathBuf> = dirs.iter().map(|d| dirs_key(d)).collect();
-            snapshot.follow(followed, dirs, &ours, watch::Stamp::of);
+            // From EVERY unit's record, not only the ones that just ran:
+            // `follow` replaces the watched set, and a unit this round did
+            // not call for still depends on what it depended on. A path that
+            // was already followed keeps its stamp, so re-offering the older
+            // records changes nothing about them.
+            //
+            // The directories deduplicated first: units in one tree share
+            // most of them, and one this watch wrote into is re-read each
+            // time it is offered.
+            let dirs: BTreeSet<PathBuf> = deps.iter().flat_map(|d| d.dirs.iter().cloned()).collect();
+            snapshot.follow(
+                deps.iter().flat_map(|d| d.files.iter().cloned()),
+                dirs,
+                &ours,
+                watch::Stamp::of,
+            );
             coalesce.finished(provisional, ok);
         }
 
         std::thread::sleep(interval);
         let swept = Instant::now();
-        let changed = snapshot.changed(watch::Stamp::of);
+        let changes = snapshot.changes(watch::Stamp::of);
         interval = watch::next_interval(swept.elapsed(), watch::SWEEP_BUDGET);
+        // Called for NOW, when the change is seen, not when the run that
+        // compiles it comes round: a change seen while cooling is not
+        // compiled until the catch-up, and by then the snapshot has long
+        // since stopped reporting it.
+        pending.extend(watch::dependents(&deps, &changes));
 
         let now_ms = started.elapsed().as_millis() as u64;
         // A change is told to the coalescer FIRST and always, even when a
         // catch-up is already due this tick. The old order asked the tick
-        // first and took its run, dropping `changed` on the floor — and
-        // `Snapshot::changed` has already advanced the stamp by then, so the
+        // first and took its run, dropping the change on the floor — and
+        // `Snapshot::changes` has already advanced the stamp by then, so the
         // next sweep sees nothing and a save can be lost.
         //
         // Ordering it this way costs nothing: `on_change` while cooling only
         // sets the dirty bit, and having set it, `on_tick` cannot answer
         // `Run` in the same breath — it starts the cool-down. So the two
         // cannot both fire, and the catch-up still wins when it is due.
-        let from_change = if changed {
-            coalesce.on_change(now_ms)
-        } else {
+        let from_change = if changes.is_empty() {
             watch::Step::Wait
+        } else {
+            coalesce.on_change(now_ms)
         };
         step = match (coalesce.on_tick(now_ms), from_change) {
             (run @ watch::Step::Run { .. }, _) => run,
             (_, from_change) => from_change,
         };
     }
+}
+
+/// One unit's [`watch::Deps`]: the files its compile read, entry included,
+/// and the directories a dependency it could not find yet might arrive in.
+fn unit_deps(
+    files: Vec<(PathBuf, watch::Stamp)>,
+    unresolved: &[String],
+    load_paths: &[PathBuf],
+) -> watch::Deps {
+    // The directories the files live in, so a dependency that does not
+    // exist YET can arrive. A missing `@use` target has no path to stat;
+    // its directory does, and its mtime moves when the file is created.
+    let mut dirs: Vec<PathBuf> = files
+        .iter()
+        .filter_map(|(f, _)| f.parent().map(Path::to_path_buf))
+        .collect();
+    dirs.extend(load_paths.iter().cloned());
+    // A url that resolved to NOTHING names a directory none of those cover
+    // as soon as it has a segment of its own: `@use "sub/new"` would be
+    // found in `<base>/sub`, and `sub/` is in no compile's dependency list
+    // because nothing in it was ever read. Following a directory that does
+    // not exist yet costs nothing here — `Stamp::MISSING` compares equal to
+    // itself and becomes a change the moment the directory appears.
+    //
+    // Paired with THIS unit's bases only. Those are where its importer
+    // looks — beside the file that asked, then the load paths — so another
+    // unit's directories are nowhere its missing dependency could appear.
+    let bases: Vec<PathBuf> = dirs.clone();
+    for url in unresolved {
+        let Some(within) = Path::new(url).parent().filter(|p| !p.as_os_str().is_empty()) else {
+            continue;
+        };
+        for base in &bases {
+            dirs.push(base.join(within));
+        }
+    }
+    let mut dirs: Vec<PathBuf> = dirs.iter().map(|d| dirs_key(d)).collect();
+    dirs.sort();
+    dirs.dedup();
+    watch::Deps { files, dirs }
 }
 
 fn run_loop(units: &[Unit], shared: &Shared, n: u32) -> ExitCode {

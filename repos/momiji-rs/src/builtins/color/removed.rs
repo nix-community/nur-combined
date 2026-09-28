@@ -50,12 +50,10 @@ const REMOVED: [(&str, &str, bool); 9] = [
     ("transparentize", "alpha", true),
 ];
 
-/// Whether `member` is one of the removed members — a `sass:color` member that
-/// exists, and always fails. Callers pass the canonical spelling
-/// (`color.fade_in` is `fade-in`).
-pub(crate) fn is_member(member: &str) -> bool {
-    REMOVED.iter().any(|(name, _, _)| *name == member)
-}
+// There was an `is_member` here, answering "is this a removed member?" for
+// `module_has_member`. The `sass:color` table lists all nine now, so the
+// predicate has one source instead of two and this had nothing left to tell
+// it (#64). `call_module_member` below still owns the failure itself.
 
 /// Dispatch `color.<removed>(…)`. Always `Some(Err(…))` for a name this module
 /// owns: there is no argument list that makes the call succeed.
@@ -107,7 +105,11 @@ fn error(
 
 #[cfg(test)]
 mod tests {
-    use super::{is_member, REMOVED};
+    use super::REMOVED;
+
+    fn claimed(name: &str) -> bool {
+        REMOVED.iter().any(|(n, _, _)| *n == name)
+    }
 
     /// The table is the set dart-sass removed, and nothing else. A name added
     /// here that dart still implements would turn a working call into an error.
@@ -156,7 +158,27 @@ mod tests {
             "channel",
             "ie-hex-str",
         ] {
-            assert!(!is_member(name), "`{name}` is still a member");
+            assert!(!claimed(name), "`{name}` is still a member");
+        }
+    }
+
+    /// …and the other direction, which only became checkable once
+    /// `sass:color` had a member table: every name in here must BE a member.
+    ///
+    /// The two are separate tables for separate reasons — this one carries the
+    /// channel and the sign for the failure message, the module table carries
+    /// dart's order — so the thing worth pinning is that they agree. A removed
+    /// member that fell out of the module table would stop being found by
+    /// `meta.function-exists`, stop shadowing the deprecated global under
+    /// `@use "sass:color" as *`, and quietly run the old global instead of
+    /// reporting the removal (#64).
+    #[test]
+    fn every_removed_member_is_still_a_member() {
+        for (name, _, _) in REMOVED {
+            assert!(
+                crate::builtins::module_has_member("color", name),
+                "`color.{name}` is removed but no longer a member",
+            );
         }
     }
 }

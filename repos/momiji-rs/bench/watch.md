@@ -98,11 +98,33 @@ that tree dart's watcher never fires for most of the codebase, and an
 earlier version of the latency harness recorded it as a 60-second timeout
 ten times in a row before the cause was clear.
 
+## Many entries: what one save costs (binary, measured 2026-09-27)
+
+Everything above is one entry, where "which entries does this save reach" has
+one answer. On a real tree it is the question. Lichess's 147 entry points in
+one binary `--watch` process, their own flags, macOS/arm64, 8 saves per row:
+
+| save | entries it reaches | before #198 | now |
+|---|---|---|---|
+| `ui/lib/css/chat/_chat.scss` | 10 | 685 ms median, 897 max | **118 ms**, 218 max |
+| `ui/lib/css/_plugin.scss` | 138 | 620 ms, 717 max | 423 ms, 875 max |
+
+Before #198 every save recompiled and rewrote all 147: 147 `Compiled` lines
+and 3.70 s of CPU for a save that changed 10 outputs. Now it is 10 lines and
+0.63 s, dart's rule. A save that reaches nearly everything costs nearly what
+it did, as it should; the win is the ordinary save, which reaches a few.
+
+An atomic save of one of the 56 entries in `ui/bits/css/build/` is 1 line,
+not 56: that directory is followed for arrivals, and a rename over an
+existing name moves its mtime without changing what is in it.
+
 ## What is not measured here
 
-- **The binary has no `--watch`** yet (#86), so every number above is the
-  npm CLI. When the binary grows one it should be added as a column, and it
-  should implement the same provisional rule rather than rediscovering it.
+- **The binary on one entry, and the npm CLI on many.** The first table is the
+  npm CLI on one entry and the section above is the binary on 147; neither has
+  the other's column. The binary implements the same provisional rule, so its
+  single-entry column is a harness change, not a design one. The npm CLI's
+  `--watch` takes only one pair until #200.
 - **Throughput under a burst.** The harness leaves 400 ms between saves so
   each measures one edit rather than the tail of the last. How many compiles
   a burst costs is a different question, covered by the `--watch` tests in

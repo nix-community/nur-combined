@@ -824,9 +824,25 @@ impl<'a> Evaluator<'a> {
 
     /// `meta.module-variables/-functions/-mixins($module)`: a map from each
     /// (non-private) member name of the `@use`d module bound to `$module` to its
-    /// value (variables) or a first-class reference (functions/mixins). Members
-    /// are ordered by name (dart-sass uses source order; every spec module
-    /// defines them alphabetically, so this matches byte-for-byte).
+    /// value (variables) or a first-class reference (functions/mixins).
+    ///
+    /// The order is observable — the result is a map, and a Sass map keeps
+    /// insertion order — and the two branches below order differently on
+    /// purpose:
+    ///
+    /// - a BUILT-IN module answers in dart's DECLARATION order, from the member
+    ///   table in `builtins`. `sass:math` ends with `div`, not `unit`, and
+    ///   `sass:meta` begins `feature-exists, inspect, type-of` (#64).
+    /// - a USER module answers SORTED BY NAME, and dart uses declaration order
+    ///   there too, so this one still diverges (#209). It is not a choice so
+    ///   much as what the data allows: the member scopes are `HashMap`s, whose
+    ///   iteration order is randomized, so sorting is the only deterministic
+    ///   answer available until the order is recorded. The reason no test
+    ///   notices is that every spec module happens to declare its members
+    ///   alphabetically — a property of the corpus, not of the compiler.
+    ///
+    /// So do NOT unify these by sorting both: that would undo #64. Unifying
+    /// them the other way is #209.
     fn meta_module_members(
         &self,
         pos_args: &[Value],
@@ -854,18 +870,25 @@ impl<'a> Evaluator<'a> {
             }
         };
         let Some(module) = self.used_user_modules.get(&ns).cloned() else {
-            // A built-in module: `sass:meta` is modeled member-by-member
-            // (the suite probes it); other built-ins have no variables and
-            // their callables are dispatched, not enumerated, so report the
-            // names we know.
+            // A built-in module: all seven are modelled member by member,
+            // from the one table in `builtins`. This used to say that only
+            // `sass:meta` was, that the others "have no variables", and that
+            // their callables are "dispatched, not enumerated" — none of the
+            // three survived #64: `sass:math` has seven variables, and every
+            // module's members are enumerable and callable as references.
             if let Some(builtin) = self.used_modules.get(&ns) {
                 // The enumerated references belong to the module, not to the
                 // namespace they were reached through.
                 let owner = crate::value::BuiltinModule::from_name(builtin);
-                let names: Vec<&str> = match (*builtin, kind) {
-                    ("meta", MemberKind::Function) => crate::builtins::META_FUNCTION_NAMES.to_vec(),
-                    ("meta", MemberKind::Mixin) => crate::builtins::META_MIXIN_NAMES.to_vec(),
-                    _ => Vec::new(),
+                // Every built-in module answers now, from the one table in
+                // `builtins`, and in DART'S ORDER — a Sass map keeps insertion
+                // order, so this is observable. `sass:meta` was the only
+                // module modelled member-by-member before, which is why every
+                // other one returned an empty map (#64).
+                let names: Vec<&str> = match kind {
+                    MemberKind::Function => crate::builtins::module_function_names(builtin),
+                    MemberKind::Mixin => crate::builtins::module_mixin_names(builtin).to_vec(),
+                    MemberKind::Variable => crate::builtins::module_variable_names(builtin).to_vec(),
                 };
                 let entries: Vec<(Value, Value)> = names
                     .into_iter()
@@ -886,11 +909,24 @@ impl<'a> Evaluator<'a> {
                                 user: None,
                                 module: None,
                             })),
-                            MemberKind::Variable => Value::Null,
+                            // The real value, not `null`: dart answers
+                            // `("e": 2.718281828459045, "pi": …)` and this
+                            // used to answer `("e": null, …)` — the keys were
+                            // right and every value was wrong. `module_var`
+                            // already owned these; nothing was asking it.
+                            //
+                            // PROPAGATED, where this was `unwrap_or(Null)`: a
+                            // name the table lists that `module_var` cannot
+                            // answer is a bug in this build, and `null` is a
+                            // legitimate Sass value, so swallowing it dressed
+                            // the bug up as data (r4119082581).
+                            // `every_listed_variable_has_a_value` is what keeps
+                            // this from firing.
+                            MemberKind::Variable => crate::builtins::module_var(builtin, name, pos)?,
                         };
-                        (key, val)
+                        Ok((key, val))
                     })
-                    .collect();
+                    .collect::<Result<Vec<_>, Error>>()?;
                 return Ok(Value::Map(Map::new(entries)));
             }
             // dart drops the article in the `module-*` functions ONLY: every
