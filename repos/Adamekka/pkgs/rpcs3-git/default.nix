@@ -50,10 +50,10 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rpcs3-git";
-  version = "0.0.42-unstable-2026-09-27";
+  version = "0.0.42-unstable-2026-09-28";
 
   src = fetchFromGitHub {
-    hash = "sha256-tiDVE/myFJFij35PnlJLriot/h2oXw1JTlcny/0BMSQ=";
+    hash = "sha256-r+D8XtQSjRP4ioDrdro3r5bHPvEmFbFMz74NsHd44tg=";
     owner = "RPCS3";
     postCheckout = ''
       cd $out/3rdparty
@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
         stblib/stb wolfssl/wolfssl yaml-cpp/yaml-cpp
     '';
     repo = "rpcs3";
-    rev = "205a4481f3469953889df85c177e45ca8f199756";
+    rev = "105c4988f02d0845aacb25e7b06d026130a76dee";
   };
 
   nativeBuildInputs = [
