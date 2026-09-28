@@ -16,7 +16,10 @@
 let
   mkDummySrc = import ./dummySrc.nix { inherit lib runCommandLocal; };
 
-  # attributes that are specific to the real source or output
+  # attributes that are specific to the real source or output. The check phase is
+  # kept, so the dependencies of custom check commands (e.g. cargo clippy) are
+  # built too. It runs against the stubs, so it can't rely on other source files,
+  # override it with `cargoArtifactsArgs.checkPhase` if it does.
   depsExcludedArgs = [
     "src"
     "srcs"
@@ -41,9 +44,6 @@ let
     "preBuild"
     "buildPhase"
     "postBuild"
-    "preCheck"
-    "checkPhase"
-    "postCheck"
     "preInstall"
     "installPhase"
     "postInstall"

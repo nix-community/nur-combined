@@ -416,7 +416,7 @@ nix run .#configure
 
 ### mkRustPackage
 
-Wraps [`rustPlatform.buildRustPackage`](https://nixos.org/manual/nixpkgs/stable/#compiling-rust-applications-with-cargo), building dependencies in a separate derivation (`cargoArtifacts`) from a stubbed copy of the workspace. Source changes and version bumps only rebuild the workspace crates. Dependencies are vendored from `Cargo.lock`, so `cargoHash` isn't needed. `cargoArtifactsArgs` can be used to modify the dependency derivation.
+Wraps [`rustPlatform.buildRustPackage`](https://nixos.org/manual/nixpkgs/stable/#compiling-rust-applications-with-cargo), building dependencies in a separate derivation (`cargoArtifacts`) from a stubbed copy of the workspace. Source changes and version bumps only rebuild the workspace crates. Dependencies are vendored from `Cargo.lock`, so `cargoHash` isn't needed. The check phase also runs in the dependency derivation, against the stubs, so the dependencies of custom check commands (e.g. `cargo clippy`) are built there too. `cargoArtifactsArgs` can be used to modify the dependency derivation, e.g. overriding `checkPhase` if it needs other source files.
 
 ```nix
 pkgs.mkRustPackage (finalAttrs: {
