@@ -17,7 +17,10 @@ buildNpmPackage (finalAttrs: {
     hash = "sha256-bhHLSLf10ziGjR3KH2PxIe+iD2z/G30azDs0srG/dms=";
   };
 
-  patches = [ ./package-lock.patch ];
+  patches = [
+    ./displayPath.patch
+    ./package-lock.patch
+  ];
 
   npmDepsFetcherVersion = 2;
   npmDepsHash = "sha256-OF2ILr10WxVWpBzlzOgfj/EWQz/we5MlLDKMq0u90jc=";

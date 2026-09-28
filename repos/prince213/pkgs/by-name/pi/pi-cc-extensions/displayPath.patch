@@ -1,0 +1,38 @@
+--- a/extensions/renderer/tool/names.ts
++++ b/extensions/renderer/tool/names.ts
+@@ -1,4 +1,4 @@
+-import { posix, win32 } from "node:path";
++import { basename, isAbsolute, relative, sep } from "node:path";
+ import type { ThemeColor } from "@earendil-works/pi-coding-agent";
+ import { visibleWidth } from "@earendil-works/pi-tui";
+ import { config } from "../../config/config.ts";
+@@ -61,24 +61,17 @@
+ 	payload?: string;
+ };
+ 
+-function pathApi(value: string) {
+-	if (win32.isAbsolute(value)) return win32;
+-	if (posix.isAbsolute(value)) return posix;
+-	return undefined;
+-}
+-
+ /** cwd 内绝对路径转相对路径；cwd 外路径保持不变。 */
+ export function displayPath(value: unknown, cwd?: string): string {
+ 	const text = oneLine(value, 4096);
+ 	const base = cwd ? oneLine(cwd, 4096) : "";
+-	const api = pathApi(text);
+-	if (!api || !base || !api.isAbsolute(base)) return text;
+-	const relative = api.relative(base, text);
+-	if (!relative) return api.basename(text) || ".";
+-	if (relative === ".." || relative.startsWith(`..${api.sep}`) || api.isAbsolute(relative)) {
++	if (!isAbsolute(text) || !base || !isAbsolute(base)) return text;
++	const path = relative(base, text);
++	if (!path) return basename(text) || ".";
++	if (path === ".." || path.startsWith(`..${sep}`) || isAbsolute(path)) {
+ 		return text;
+ 	}
+-	return relative;
++	return path;
+ }
+ 
+ function headToWidth(text: string, width: number, ellipsis = ""): string {
