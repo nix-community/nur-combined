@@ -23,7 +23,7 @@ in
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
   kotlin-lsp = pkgs.callPackage ./kotlin-lsp { };
-  libvmaf = pkgs.callPackage ./libvmaf { };
+  libvmaf-latest = pkgs.callPackage ./libvmaf { };
   libwtf = pkgs.callPackage ./libwtf { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   paper-mono = pkgs.callPackage ./paper-mono { };
