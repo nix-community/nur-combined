@@ -67,7 +67,10 @@ buildNpmPackage rec {
 
     # package.json 声明了 dsh-tui 与 dst 两个 bin，指向同一个入口
     for bin in dsh-tui dst; do
+      # 同 pkgs/dsh：nix 编译的 node 上 node-addon-require-builtin 探测失败，
+      # 带 --expose-internals 走普通 require 获取 internal 模块
       makeWrapper ${lib.getExe nodejs} $out/bin/$bin \
+        --add-flags "--expose-internals" \
         --add-flags "$out/lib/dsh-tui/node_modules/@deepseek-harness-tui/dsh-tui/bin/dsh-tui.js"
     done
 

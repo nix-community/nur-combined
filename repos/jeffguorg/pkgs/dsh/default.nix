@@ -65,8 +65,13 @@ buildNpmPackage rec {
     cp -r node_modules $out/lib/dsh/node_modules
 
     makeWrapper ${lib.getExe nodejs} $out/bin/dsh \
+    # node-addon-require-builtin 只认 nodejs.org 官方二进制的 V8 内存布局，
+    # nixpkgs 编译的 node 上探测失败（Unsupported/no-getter）；带 --expose-internals
+    # 时上游改走普通 require 获取 internal 模块，绕过原生探测。dsh-tui 等前端
+    # 从 PATH 拉起本 bin 作为子进程，flag 必须由本 wrapper 携带。
+    makeWrapper ${lib.getExe nodejs} $out/bin/dsh \
+      --add-flags "--expose-internals" \
       --add-flags "$out/lib/dsh/node_modules/@deepseek-ai/dsh/lib/bin.js"
-
     runHook postInstall
   '';
 
