@@ -44,7 +44,9 @@ let
     };
     quasar2.inp = [ "sops-nix" ];
     ripper = { };
-    savm = { };
+    savm = {
+      unstable = true;
+    };
     shel-installer-iso = {
       module = /${vacuRoot}/hosts/installer/iso.nix;
       readOnlyPkgs = false;
@@ -69,6 +71,7 @@ let
         "agent-vm"
         "agent"
       ];
+      unstable = true;
     };
 
     # keep-sorted end
@@ -106,7 +109,7 @@ in
         /${vacuRoot}/common
         module
       ]
-      ++ lib.optional readOnlyPkgs allInputs.nixpkgs.nixosModules.readOnlyPkgs;
+      ++ lib.optional readOnlyPkgs whichPkgs.nixosModules.readOnlyPkgs;
     }
   ) hosts;
 
