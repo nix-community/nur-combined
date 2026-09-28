@@ -31,6 +31,8 @@ in
     postInstall =
       (old.postInstall or "")
       + pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        mkdir -p $out/bin/kiwix-desktop.app/Contents/Frameworks
+        ln -s ${pkgs.qt6.qtwebengine}/lib/QtWebEngineCore.framework $out/bin/kiwix-desktop.app/Contents/Frameworks/QtWebEngineCore.framework
         ln -s $out/bin/kiwix-desktop.app/Contents/MacOS/kiwix-desktop $out/bin/kiwix-desktop
       '';
   })
