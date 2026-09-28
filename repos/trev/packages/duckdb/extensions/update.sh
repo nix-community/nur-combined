@@ -28,6 +28,10 @@ while [[ $# -gt 0 ]]; do
             submodule_path=$2
             shift 2
             ;;
+        --no-submodule)
+            submodule_path=
+            shift
+            ;;
         --override-filename)
             override_filename=$2
             shift 2
@@ -48,8 +52,23 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$owner" || -z "$repo" || -z "$branch" || -z "$override_filename" || -z "$attr" ]]; then
-    printf 'usage: update.sh --owner OWNER --repo REPO --branch BRANCH --override-filename FILE --attr ATTR [--submodule-path PATH] [--dry-run]\n' >&2
+    printf 'usage: update.sh --owner OWNER --repo REPO --branch BRANCH --override-filename FILE --attr ATTR [--submodule-path PATH | --no-submodule] [--dry-run]\n' >&2
     exit 2
+fi
+
+# C API extensions have no duckdb submodule and are forward compatible, so track the branch head.
+if [[ -z "$submodule_path" ]]; then
+    if [[ "$dry_run" == true ]]; then
+        printf 'selected %s/%s@%s\n' "$owner" "$repo" "$branch"
+        exit 0
+    fi
+
+    nix-update \
+        --commit \
+        --version="branch=$branch" \
+        --override-filename="$override_filename" \
+        "$attr"
+    exit 0
 fi
 
 duckdb_version=$(nix eval --raw .#duckdb.version)

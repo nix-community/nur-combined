@@ -70,8 +70,17 @@ stdenvNoCC.mkDerivation {
       repo
       "--branch"
       branch
-      "--submodule-path"
-      submodulePath
+    ]
+    ++ (
+      if submodulePath == null then
+        [ "--no-submodule" ]
+      else
+        [
+          "--submodule-path"
+          submodulePath
+        ]
+    )
+    ++ [
       "--override-filename"
       "packages/duckdb/extensions/${attrName}.nix"
       "--attr"
