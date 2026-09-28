@@ -56,6 +56,19 @@ let
     substituteInPlace art/build/Android.common_build.mk \
       --replace-fail '@VIXL_INCLUDE@' '${vixl_patched}/include/vixl'
     bash ${./darwin-setup-host.sh}
+    
+    # Fix uninitialized pthread_cond_t in dex2oat's WatchDog on macOS
+    sed -i -e '/#ifndef __APPLE__/,/#endif/c\
+#ifndef __APPLE__\
+    pthread_condattr_t condattr;\
+    CHECK_WATCH_DOG_PTHREAD_CALL(pthread_condattr_init, (&condattr), reason);\
+    CHECK_WATCH_DOG_PTHREAD_CALL(pthread_condattr_setclock, (&condattr, CLOCK_MONOTONIC), reason);\
+    CHECK_WATCH_DOG_PTHREAD_CALL(pthread_cond_init, (&cond_, &condattr), reason);\
+    CHECK_WATCH_DOG_PTHREAD_CALL(pthread_condattr_destroy, (&condattr), reason);\
+#else\
+    CHECK_WATCH_DOG_PTHREAD_CALL(pthread_cond_init, (&cond_, nullptr), reason);\
+#endif
+' art/dex2oat/dex2oat.cc
   '';
 
   darwinHostBins = [
