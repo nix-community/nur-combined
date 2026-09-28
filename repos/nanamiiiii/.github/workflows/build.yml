@@ -4,47 +4,49 @@ on:
   push:
     branches:
       - main
-      - master
-  schedule:
-    # rebuild everyday at 2:51
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '25 3 * * *'
   workflow_dispatch:
 jobs:
-  tests:
+  build:
     strategy:
+      fail-fast: false
       matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - nanamiiiii
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+        include:
+          - runner: ubuntu-24.04
+            system: x86_64-linux
+            nurRepo: nanamiiiii
+          - runner: ubuntu-24.04-arm
+            system: aarch64-linux
+            nurRepo: nanamiiiii
+          - runner: macos-26
+            system: aarch64-darwin
+            nurRepo: nanamiiiii
 
-    runs-on: ubuntu-latest
+    name: Build (${{ matrix.system }})
+    runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Use locked nixpkgs
+      shell: bash
+      run: |
+        nixpkgs_path=$(nix eval --impure --raw --expr \
+          '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+        echo "NIX_PATH=nixpkgs=$nixpkgs_path" >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Check evaluation
       run: |
-        nix-env -f . -qa \* --meta --xml \
+        nix-instantiate ci.nix -A buildOutputs \
           --allowed-uris https://static.rust-lang.org \
           --option restrict-eval true \
           --option allow-import-from-derivation true \
-          --drv-path --show-trace \
+          --show-trace \
           -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
           -I "$PWD"
     - name: Build nix packages
@@ -74,7 +76,10 @@ jobs:
 
         # Include cached outputs as well as new builds.
         nix-build ci.nix -A cacheOutputs --no-out-link > "$RUNNER_TEMP/cache-outputs"
-        mapfile -t outputs < "$RUNNER_TEMP/cache-outputs"
+        outputs=()
+        while IFS= read -r output; do
+          outputs+=("$output")
+        done < "$RUNNER_TEMP/cache-outputs"
         if (( ${#outputs[@]} == 0 )); then
           echo 'No cacheable outputs to upload.'
           exit 0
@@ -82,6 +87,5 @@ jobs:
 
         nix copy --to "$S3_STORE_URL" "${outputs[@]}"
     - name: Trigger NUR update
-      # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      if: ${{ matrix.system == 'x86_64-linux' && matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

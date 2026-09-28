@@ -8,10 +8,6 @@ on:
   workflow_dispatch:
 jobs:
   update:
-    strategy:
-      matrix:
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -19,10 +15,15 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Use locked nixpkgs
+      shell: bash
+      run: |
+        nixpkgs_path=$(nix eval --impure --raw --expr \
+          '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+        echo "NIX_PATH=nixpkgs=$nixpkgs_path" >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Update clock-tui
