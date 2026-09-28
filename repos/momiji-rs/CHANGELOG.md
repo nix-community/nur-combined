@@ -239,6 +239,26 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Changed
 
+- **CI checks that the published file list carries no benchmark** (#178).
+  The bug that PR fixed — `exclude` dropping `/bench`, where the CodSpeed
+  corpora live, but not `/benches`, where the target that reads them lives
+  — shipped in eleven versions without anything noticing, because nothing
+  builds a published bench: `cargo publish`'s verify step does not, and a
+  consumer has no reason to. So the invariant is checked where it is
+  cheap and visible instead, on the file list itself.
+
+  ```
+    manifest state                       cargo package --list   step
+    /benches excluded (today)            239 files, no bench     passes
+    /benches off the exclude list        benches/compile.rs      fails
+    manifest does not parse              cargo exits 101         fails
+  ```
+
+  The third row is why the step assigns before it greps, with its own
+  `|| exit 1`: piping `cargo` into `grep` would report a manifest that
+  cannot be parsed as carrying no benchmark, and relying on the runner's
+  default `bash -e` would make the abort conditional on that default.
+
 - **One `file:` URL decoder instead of two** (#163). `src/pathstyle.rs`
   and `napi/src/lib.rs` each had their own, and the two had already
   drifted twice:

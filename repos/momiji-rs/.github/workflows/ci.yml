@@ -25,6 +25,27 @@ jobs:
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: test
         run: cargo test --all-features
+      # #178: `exclude` dropped `/bench`, where the CodSpeed corpora live, but
+      # not `/benches`, where the target that reads them lives, so every release
+      # up to 0.18.0 published a benchmark that could not compile. `cargo
+      # publish` cannot notice — its verify step does not build bench targets —
+      # and nothing else builds a published bench either, which is how it went
+      # out unremarked for eleven versions. What IS checkable is the file list:
+      # no benchmark, and no corpus it reads, belongs in the crate at all.
+      #
+      # Assigning before grepping, with its own `|| exit 1`, is deliberate:
+      # piping `cargo` straight into `grep` would turn a manifest that fails to
+      # parse into a passing check, and leaving the abort to the runner's default
+      # `bash -e` makes the step silently conditional on that default.
+      # `--allow-dirty` keeps the question about `exclude` rather than about
+      # whatever an earlier step left in the working tree.
+      - name: the published crate carries no benchmark
+        run: |
+          list=$(cargo package --list --allow-dirty) || exit 1
+          if printf '%s\n' "$list" | grep -E '^benches?/'; then
+            echo "::error::the files above would be published; see the exclude list in Cargo.toml"
+            exit 1
+          fi
       # The timezone reader's differential sweep is #[ignore]d because it
       # needs the host's /usr/share/zoneinfo and a Python to disagree with —
       # neither of which `cargo test` should depend on. CI has both, so it

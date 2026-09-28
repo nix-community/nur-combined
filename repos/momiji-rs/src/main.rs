@@ -1814,29 +1814,37 @@ fn dirs_key(p: &Path) -> PathBuf {
 ///   Windows   63  (reparse points per path, per Microsoft's docs)
 /// ```
 ///
-/// 64, so the deepest of those is inside the walk with a hop to spare. This is
-/// a CEILING, not a cost: the walk stops as soon as the chain ends, so an
-/// ordinary one-link output still costs one `read_link`. Only a cycle pays the
-/// full count, once per unit per round.
+/// One past the deepest of those, so it is inside the walk with a hop to
+/// spare. This is a CEILING, not a cost: the walk stops as soon as the chain
+/// ends, so an ordinary one-link output still costs one `read_link`. Only a
+/// cycle pays the full count, once per unit per round.
 ///
 /// A chain of exactly this many still resolves, so the hop AFTER it is what
 /// marks a cycle — see the tail of [`link_destination`].
-const MAX_LINK_HOPS: usize = 64;
+///
+/// DERIVED, where a `const` assertion used to compare two literals. It was 40
+/// — Linux's figure — which left a 41-to-63-hop chain resolvable on Windows
+/// and unnameable here (r4109839508), and deriving it makes that
+/// unrepresentable rather than merely detected.
+///
+/// The relation that MATTERS is `>=`, not the `>` the assertion checked: the
+/// loop runs this many times and the tail asks once more, so a chain of
+/// exactly this many links resolves. `DEEPEST_PLATFORM_CHAIN` alone would
+/// therefore do, and measured, lowering the `+ 1` away is the one mutation the
+/// sweep cannot kill — it changes no behaviour any platform can reach. The
+/// extra hop is slack, so the assertion guarded something stricter than
+/// anything needs, while the relation the tests do pin (a
+/// `DEEPEST_PLATFORM_CHAIN`-link chain names its target) is the real one.
+///
+/// Dropping it also fixes the MSRV build: 1.74's dead-code pass does not count
+/// a reference made from inside an anonymous `const _`, so
+/// `DEEPEST_PLATFORM_CHAIN` — named only there and in the tests, which
+/// `cargo check --lib --bins` does not compile — was `dead_code`, and CI runs
+/// every job with `-D warnings`.
+const MAX_LINK_HOPS: usize = DEEPEST_PLATFORM_CHAIN + 1;
 
 /// The deepest chain any supported platform resolves. See [`MAX_LINK_HOPS`].
 const DEEPEST_PLATFORM_CHAIN: usize = 63;
-
-/// The ceiling may exceed a platform's own limit but must not fall below it: a
-/// chain the OS resolves has to be one `link_destination` can name. A `const`
-/// assertion rather than a test, because it is a fact about two constants —
-/// this fails the BUILD, which is the strongest place to fail.
-///
-/// It was 40 — Linux's figure — which left a 41-to-63-hop chain resolvable on
-/// Windows and unnameable here (r4109839508).
-const _: () = assert!(
-    MAX_LINK_HOPS > DEEPEST_PLATFORM_CHAIN,
-    "MAX_LINK_HOPS must exceed the deepest chain any platform resolves"
-);
 
 /// What `start` ultimately names, following the symlink chain as far as it
 /// goes. `None` for a cycle.
