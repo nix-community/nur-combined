@@ -1,0 +1,34 @@
+diff --git a/src/libc/setjmp.rs b/src/libc/setjmp.rs
+index 6cd85d40..d9bceb73 100644
+--- a/src/libc/setjmp.rs
++++ b/src/libc/setjmp.rs
+@@ -71,6 +71,10 @@ fn sigsetjmp(env: &mut Environment, jmp_buf: MutPtr<JmpBuf>, _save_mask: i32) ->
+     setjmp(env, jmp_buf)
+ }
+ 
++fn siglongjmp(env: &mut Environment, jmp_buf: MutPtr<JmpBuf>, status: u32) {
++    longjmp(env, jmp_buf, status)
++}
++
+ fn longjmp(env: &mut Environment, jmp_buf: MutPtr<JmpBuf>, status: u32) {
+     let lr = env.cpu.regs()[crate::cpu::Cpu::LR];
+     let fp = env.cpu.regs()[abi::FRAME_POINTER];
+@@ -99,7 +103,8 @@ fn longjmp(env: &mut Environment, jmp_buf: MutPtr<JmpBuf>, status: u32) {
+     }
+ 
+     let regs = env.cpu.regs_mut();
+-    regs[0] = status;
++    // A zero argument must make the resumed setjmp return one.
++    regs[0] = status.max(1);
+     regs[4] = buf.r4;
+     regs[5] = buf.r5;
+     regs[6] = buf.r6;
+@@ -135,6 +140,8 @@ fn _longjmp(env: &mut Environment, jmp_buf: MutPtr<JmpBuf>, status: u32) {
+ pub const FUNCTIONS: FunctionExports = &[
+     export_c_func!(setjmp(_)),
+     export_c_func!(longjmp(_, _)),
++    export_c_func!(sigsetjmp(_, _)),
++    export_c_func!(siglongjmp(_, _)),
+     export_c_func!(__setjmp(_)),
+     export_c_func!(__longjmp(_, _)),
+     export_c_func!(_setjmp(_)),

@@ -1,0 +1,198 @@
+diff --git a/src/libc/ctype.rs b/src/libc/ctype.rs
+index 5da54661..ebce1be2 100644
+--- a/src/libc/ctype.rs
++++ b/src/libc/ctype.rs
+@@ -34,6 +34,58 @@ fn __maskrune(env: &mut Environment, rune: i32, mask: u32) -> i32 {
+     (rune_locale.runetype[(rune & 0xFF) as usize] & mask) as i32
+ }
+ 
++// The exported ctype functions receive either EOF or an unsigned char value.
++// Use the same classification bits as Darwin's inlined ctype macros.
++fn ctype_mask(c: i32, mask: u32) -> i32 {
++    u8::try_from(c)
++        .map(|c| (rune_type(c) & mask) as i32)
++        .unwrap_or(0)
++}
++
++fn isalnum(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x100 | 0x400)
++}
++fn isalpha(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x100)
++}
++fn iscntrl(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x200)
++}
++fn isdigit(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x400)
++}
++fn isgraph(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x800)
++}
++fn islower(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x1000)
++}
++fn ispunct(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x2000)
++}
++fn isspace(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x4000)
++}
++fn isupper(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x8000)
++}
++fn isxdigit(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x10000)
++}
++fn isblank(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x20000)
++}
++fn isprint(_env: &mut Environment, c: i32) -> i32 {
++    ctype_mask(c, 0x40000)
++}
++
++fn tolower(env: &mut Environment, c: i32) -> i32 {
++    __tolower(env, c)
++}
++fn toupper(env: &mut Environment, c: i32) -> i32 {
++    __toupper(env, c)
++}
++
+ /// Guest address of the lazily-built `__DefaultRuneLocale` table, so it is
+ /// only built (and allocated) once per process instead of on every
+ /// `__maskrune()` call or constant lookup.
+@@ -45,6 +97,46 @@ type darwin_rune_t = wchar_t;
+ 
+ const LOOKUP_TABLE_SIZE: usize = 1 << 8;
+ 
++fn rune_type(c: u8) -> u32 {
++    let mut bits = 0;
++    if c.is_ascii_alphabetic() {
++        bits |= 0x100;
++    }
++    if c.is_ascii_control() {
++        bits |= 0x200;
++    }
++    if c.is_ascii_digit() {
++        bits |= 0x400;
++    }
++    if c.is_ascii_graphic() {
++        bits |= 0x800;
++    }
++    if c.is_ascii_lowercase() {
++        bits |= 0x1000;
++    }
++    if c.is_ascii_punctuation() {
++        bits |= 0x2000;
++    }
++    // Rust's ASCII whitespace predicate excludes vertical tab.
++    if c.is_ascii_whitespace() || c == b'\x0b' {
++        bits |= 0x4000;
++    }
++    if c.is_ascii_uppercase() {
++        bits |= 0x8000;
++    }
++    if c.is_ascii_hexdigit() {
++        bits |= 0x10000;
++    }
++    if c == b' ' || c == b'\t' {
++        bits |= 0x20000; // isblank
++    }
++    if c.is_ascii_graphic() || c == b' ' {
++        bits |= 0x40000; // isprint
++    }
++    // Other Darwin bits (ideogram, special, phonogram, width) remain unset.
++    bits
++}
++
+ /// Darwin inlines its implementation of the ctype functions and so this struct
+ /// is part of its ABI. The names have had their leading underscores removed.
+ #[repr(C, packed)]
+@@ -88,48 +180,7 @@ fn get_default_rune_locale(env: &mut Environment) -> ConstVoidPtr {
+         let as_lower = c.to_ascii_lowercase();
+         let as_upper = c.to_ascii_uppercase();
+ 
+-        let mut as_runetype = 0u32;
+-        if c.is_ascii_alphabetic() {
+-            as_runetype |= 0x100;
+-        }
+-        if c.is_ascii_control() {
+-            as_runetype |= 0x200;
+-        }
+-        if c.is_ascii_digit() {
+-            as_runetype |= 0x400;
+-        }
+-        if c.is_ascii_graphic() {
+-            as_runetype |= 0x800;
+-        }
+-        if c.is_ascii_lowercase() {
+-            as_runetype |= 0x1000;
+-        }
+-        if c.is_ascii_punctuation() {
+-            as_runetype |= 0x2000;
+-        }
+-        // Rust's definition excludes vertical tab
+-        if c.is_ascii_whitespace() || c == b'\x0b' {
+-            as_runetype |= 0x4000;
+-        }
+-        if c.is_ascii_uppercase() {
+-            as_runetype |= 0x8000;
+-        }
+-        if c.is_ascii_hexdigit() {
+-            as_runetype |= 0x10000;
+-        }
+-        // isblank()
+-        if c == b' ' || c == b'\t' {
+-            as_runetype |= 0x20000;
+-        }
+-        // isprint()
+-        if c.is_ascii_graphic() || c == b' ' {
+-            as_runetype |= 0x40000;
+-        }
+-        // TODO: There are some other flags: "ideogram", "special", "phonogram",
+-        // and a character "width" between 0 and 4. These aren't standard C and
+-        // aren't implemented here.
+-
+-        runetype[idx] = as_runetype;
++        runetype[idx] = rune_type(c);
+         map_lower[idx] = as_lower.into();
+         map_upper[idx] = as_upper.into();
+     }
+@@ -171,7 +222,37 @@ pub const CONSTANTS: ConstantExports = &[(
+ )];
+ 
+ pub const FUNCTIONS: FunctionExports = &[
++    export_c_func!(isalnum(_)),
++    export_c_func!(isalpha(_)),
++    export_c_func!(iscntrl(_)),
++    export_c_func!(isdigit(_)),
++    export_c_func!(isgraph(_)),
++    export_c_func!(islower(_)),
++    export_c_func!(ispunct(_)),
++    export_c_func!(isspace(_)),
++    export_c_func!(isupper(_)),
++    export_c_func!(isxdigit(_)),
++    export_c_func!(isblank(_)),
++    export_c_func!(isprint(_)),
++    export_c_func!(tolower(_)),
++    export_c_func!(toupper(_)),
+     export_c_func!(__tolower(_)),
+     export_c_func!(__toupper(_)),
+     export_c_func!(__maskrune(_, _)),
+ ];
++
++#[cfg(test)]
++mod tests {
++    use super::ctype_mask;
++
++    #[test]
++    fn ctype_handles_ascii_and_eof() {
++        assert_ne!(ctype_mask(i32::from(b'A'), 0x100), 0);
++        assert_eq!(ctype_mask(i32::from(b'8'), 0x100), 0);
++        assert_ne!(ctype_mask(i32::from(b'8'), 0x400), 0);
++        assert_ne!(ctype_mask(i32::from(b'\t'), 0x4000), 0);
++        assert_ne!(ctype_mask(i32::from(b'\x0b'), 0x4000), 0);
++        assert_eq!(ctype_mask(-1, u32::MAX), 0);
++        assert_eq!(ctype_mask(256, u32::MAX), 0);
++    }
++}

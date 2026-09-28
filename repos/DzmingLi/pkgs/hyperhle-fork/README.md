@@ -28,6 +28,11 @@ If a release already includes a carried patch, reconcile the patch list in both
 `unwrapped.nix` and the updater before updating. An unexpected patch failure is
 intentional: do not silently discard a compatibility fix.
 
+`fix-ctype-exports.patch` implements the guest C character functions needed by
+三国杀－烈's victory settlement ([upstream PR #126](https://github.com/KlugKlugTG/HyperHLE-Fork/pull/126)).
+`fix-sigsetjmp-exports.patch` separately exports the existing guest jump-buffer
+implementation; it was not the cause of the settlement failure.
+
 ## Build and cache boundaries
 
 - `unwrapped`: crate2nix compiles each crate separately. The final executable uses

@@ -94,6 +94,8 @@ let
               patches = [
                 ./fix-hidpi-window-and-mouse.patch
                 ./fix-max-texture-size.patch
+                ./fix-sigsetjmp-exports.patch
+                ./fix-ctype-exports.patch
                 ./precomputed-licenses.patch
               ];
               postPatch = "cp ${./rust-dependencies.txt} rust-dependencies.txt";

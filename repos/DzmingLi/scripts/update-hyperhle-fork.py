@@ -144,7 +144,13 @@ def main():
         output.mkdir()
         generate(source, output, package, info)
         # Fail before touching the package if a carried patch no longer applies.
-        for name in ("fix-hidpi-window-and-mouse.patch", "fix-max-texture-size.patch", "precomputed-licenses.patch"):
+        for name in (
+            "fix-hidpi-window-and-mouse.patch",
+            "fix-max-texture-size.patch",
+            "fix-sigsetjmp-exports.patch",
+            "fix-ctype-exports.patch",
+            "precomputed-licenses.patch",
+        ):
             subprocess.run(["patch", "--batch", "-p1", "-i", str(package / name)],
                            cwd=source, check=True)
         for name, content in original.items():
