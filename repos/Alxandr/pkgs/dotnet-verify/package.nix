@@ -9,13 +9,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "dotnet-verify";
-  version = "0.9.1";
+  version = "0.9.2";
 
   src = fetchFromGitHub {
     owner = "VerifyTests";
     repo = "Verify.Terminal";
     tag = "${finalAttrs.version}";
-    hash = "sha256-4jvOA02dt+GTsfh+Td/59+3jiHV62mZgTx6fxJOIMJU=";
+    hash = "sha256-8n+nWG3pTAfnnpkicziXxqKWzWqAAHCYENQ1tauv3U0=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;

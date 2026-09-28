@@ -15,8 +15,8 @@ let
   src = fetchFromGitHub {
     owner = "nix-community";
     repo = "crate2nix";
-    rev = "5e1ecfd2d15b34ec90c2e51fdffbe8116595a767";
-    hash = "sha256-2577vxyoBa8+ZRiXr3CuPtOuEtPRYsFPSZuEc/KI/80=";
+    rev = "1cb60331b14f15dad145dbd4e207c1ec110e5675";
+    hash = "sha256-S2NrwKB7aQa6HZsg2UGCmzQPI5Dw+bqUPm8R23BAUh8=";
   };
 
   rawCrate2nix = nurLib.crate2nix {
