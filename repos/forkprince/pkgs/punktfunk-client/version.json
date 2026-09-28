@@ -1,0 +1,25 @@
+{
+  "name": "Punktfunk",
+  "source": {
+    "type": "forgejo-release",
+    "instance": "https://git.unom.io",
+    "repo": "unom/punktfunk",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.40.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "Punktfunk-{version}.dmg",
+      "hash": "sha256-xt2nRURuLtJZMvBjDD2/lhnIJO4Xec+ZB5DSf+Jd5fw="
+    },
+    "x86_64-linux": {
+      "file": "punktfunk-client_{version}_amd64.deb",
+      "hash": "sha256-SbAxWkY4Gg/lJ40GwmJ3FO6cTXBuohSG/Sz0QS3KPpU="
+    },
+    "aarch64-linux": {
+      "file": "punktfunk-client_{version}_arm64.deb",
+      "hash": "sha256-Ys8BBOTnIwmBLwjnzk8i8riShTqJF5TTuKvXP5RqiHo="
+    }
+  }
+}
