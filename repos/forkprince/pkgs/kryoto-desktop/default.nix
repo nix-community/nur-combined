@@ -27,7 +27,7 @@ in
     inherit pname version src;
 
     meta = {
-      description = "Desktop client: find a game, download it and play it";
+      description = "Find a game, download it and play it";
       homepage = "https://github.com/kyrotooooo/kryoto-desktop";
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [Prinky];
