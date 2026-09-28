@@ -76,9 +76,8 @@ jobs:
             local file=$1
             local max_lines=$2
             local max_chars=4000
-            local lines chars
+            local lines
             lines=$(wc -l < "$file")
-            chars=$(wc -c < "$file")
             if [ "$lines" -gt "$max_lines" ]; then
               head -n "$max_lines" "$file" > "$file.tmp"
               echo "... (truncated, $((lines - max_lines)) more lines; see full log in the Build Log)" >> "$file.tmp"
@@ -185,6 +184,7 @@ jobs:
           fi
 
       - name: Create Pull Request
+        id: cpr
         if: steps.changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
@@ -195,12 +195,13 @@ jobs:
           branch: auto-update-packages
           delete-branch: true
 
+      # create-pull-request switches the workspace back to the base branch
+      # before this step runs, so the PR number must come from the action's
+      # output — resolving it from the current git branch always fails.
       - name: Enable auto-merge
-        if: steps.changes.outputs.has_changes == 'true'
+        if: steps.cpr.outputs.pull-request-number != ''
         env:
           GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES || secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
         run: |
-          PR_NUMBER=$(gh pr view --json number --jq .number)
-          if [ -n "${PR_NUMBER}" ]; then
-            gh pr merge "$PR_NUMBER" --squash --auto --delete-branch
-          fi
+          gh pr merge "$PR_NUMBER" --squash --auto --delete-branch
