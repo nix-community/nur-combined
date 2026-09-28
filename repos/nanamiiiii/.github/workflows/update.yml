@@ -37,6 +37,8 @@ jobs:
       run: nix-shell -p nix-update --run "nix-update git-credential-1password"
     - name: Update npiperelay
       run: nix-shell -p nix-update --run "nix-update npiperelay"
+    - name: Update socklink
+      run: nix-shell -p nix-update --run "nix-update socklink"
     - name: Update proton-pass
       run: |
         set -euo pipefail

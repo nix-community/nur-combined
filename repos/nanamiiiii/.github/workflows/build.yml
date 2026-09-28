@@ -22,18 +22,6 @@ jobs:
         # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
           - nanamiiiii
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - nanamiiiii
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
 
@@ -50,14 +38,6 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v17
-      # Don't replace <YOUR_CACHIX_NAME> here!
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
@@ -65,10 +45,42 @@ jobs:
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+          -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
+          -I "$PWD"
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Upload to S3 binary cache
+      if: ${{ github.event_name != 'pull_request' }}
+      env:
+        S3_STORE_URL: ${{ secrets.S3_STORE_URL }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        NIX_SIGNING_KEY: ${{ secrets.NIX_SIGNING_KEY }}
+      shell: bash
+      run: |
+        if [[ -z "$S3_STORE_URL" ]]; then
+          echo 'S3_STORE_URL is unset; skipping upload.'
+          exit 0
+        fi
+        : "${AWS_ACCESS_KEY_ID:?Set the AWS_ACCESS_KEY_ID secret}"
+        : "${AWS_SECRET_ACCESS_KEY:?Set the AWS_SECRET_ACCESS_KEY secret}"
+        : "${NIX_SIGNING_KEY:?Set the NIX_SIGNING_KEY secret}"
+        [[ "$S3_STORE_URL" == s3://* ]] || { echo 'S3_STORE_URL must start with s3://'; exit 1; }
+
+        umask 077
+        key_file=/tmp/nix-cache-signing-key
+        trap 'rm -f "$key_file"' EXIT
+        printf '%s\n' "$NIX_SIGNING_KEY" > "$key_file"
+
+        # Include cached outputs as well as new builds.
+        nix-build ci.nix -A cacheOutputs --no-out-link > "$RUNNER_TEMP/cache-outputs"
+        mapfile -t outputs < "$RUNNER_TEMP/cache-outputs"
+        if (( ${#outputs[@]} == 0 )); then
+          echo 'No cacheable outputs to upload.'
+          exit 0
+        fi
+
+        nix copy --to "$S3_STORE_URL" "${outputs[@]}"
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
