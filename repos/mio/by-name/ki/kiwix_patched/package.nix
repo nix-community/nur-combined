@@ -20,6 +20,7 @@ in
     meta = (old.meta or { }) // {
       platforms = pkgs.lib.platforms.all;
     };
+    patches = (old.patches or [ ]) ++ [ ../../../patches/kiwix-opds-url.patch ];
     postPatch =
       (old.postPatch or "")
       + pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''

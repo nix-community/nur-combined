@@ -1,0 +1,22 @@
+From 514a3834352a9be5da969f74d01c021665455709 Mon Sep 17 00:00:00 2001
+From: Emmanuel Engelhart <kelson@kiwix.org>
+Date: Sun, 20 Sep 2026 21:54:51 +0200
+Subject: [PATCH] New OPDS feed url is https://opds.library.kiwix.org/
+
+---
+ src/opdsrequestmanager.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/opdsrequestmanager.cpp b/src/opdsrequestmanager.cpp
+index 2bfac71e1..8e508562b 100644
+--- a/src/opdsrequestmanager.cpp
++++ b/src/opdsrequestmanager.cpp
+@@ -10,7 +10,7 @@ QString OpdsRequestManager::getCatalogHost()
+     const char* const envVarVal = getenv("KIWIX_CATALOG_HOST");
+     return envVarVal
+          ? envVarVal
+-         : "library.kiwix.org";
++         : "opds.library.kiwix.org";
+ }
+ 
+ int OpdsRequestManager::getCatalogPort()
