@@ -14,13 +14,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "image-builder";
-  version = "83.0.0";
+  version = "84.0.0";
 
   src = fetchFromGitHub {
     owner = "osbuild";
     repo = "image-builder";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-T0TULbWTWhWf0h1QdMYOBtrHOG4q2FFNZeh9Z/8CUbU=";
+    hash = "sha256-tck/0D+tqkaz5p1G6/rGCC6bERp+H6wW+kEJ7/eAoiA=";
   };
 
   nativeBuildInputs = [ pkg-config ];
