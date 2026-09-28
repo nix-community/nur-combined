@@ -10,7 +10,7 @@
   src = fetchurl (lib.helper.getSingle ver);
   inherit (ver) version;
 
-  contents = appimageTools.extractType2 {inherit pname version src;};
+  contents = appimageTools.extract {inherit pname version src;};
 
   desktopItem = makeDesktopItem {
     name = pname;

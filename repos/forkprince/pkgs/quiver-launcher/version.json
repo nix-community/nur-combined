@@ -1,0 +1,28 @@
+{
+  "name": "Quiver Launcher",
+  "source": {
+    "type": "github-release",
+    "repo": "tgeorgiadis/quiver-launcher",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "3.4.5",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "QuiverLauncher-osx-arm64-Portable.zip",
+      "hash": "sha256-bQLuO3JL2o7K0eaEDDuAymcMQhsb2edGuF6sPvJS8Zg="
+    },
+    "x86_64-darwin": {
+      "file": "QuiverLauncher-osx-x64-Portable.zip",
+      "hash": "sha256-6EVUZ8Isx14nFVUYdN7nJneomFfetf+xZ/QOrjKWkTY="
+    },
+    "aarch64-linux": {
+      "file": "QuiverLauncher-linux-arm64.AppImage",
+      "hash": "sha256-HnjmUENg0ZKYByfzFqc4i+BFUapr/tQcjdDDg3OwvY8="
+    },
+    "x86_64-linux": {
+      "file": "QuiverLauncher-linux-x64.AppImage",
+      "hash": "sha256-h33fo2KBBGifV1hI/wNRKizzEqRB3t6PgBhbuzNiYQc="
+    }
+  }
+}

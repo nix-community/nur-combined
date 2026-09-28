@@ -29,7 +29,7 @@ in
       nativeBuildInputs = [_7zz];
     })
   else let
-    contents = appimageTools.extractType2 {inherit pname version src;};
+    contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
       name = "TinyWiiBackupManager";

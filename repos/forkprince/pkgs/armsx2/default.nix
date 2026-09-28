@@ -30,7 +30,7 @@ in
       '';
     })
   else let
-    contents = appimageTools.extractType2 {inherit pname version src;};
+    contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
       name = "armsx2";

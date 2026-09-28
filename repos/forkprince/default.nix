@@ -15,6 +15,7 @@
   note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
   re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
   punktfunk-client = lib.callPackage ./pkgs/punktfunk-client {};
+  quiver-launcher = lib.callPackage ./pkgs/quiver-launcher {};
   beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
   app-librescore = lib.callPackage ./pkgs/app-librescore {};
   wiiudownloader = lib.callPackage ./pkgs/wiiudownloader {};

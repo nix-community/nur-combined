@@ -3,22 +3,22 @@
   appimageTools,
   stdenvNoCC,
   fetchurl,
-  _7zz,
+  unzip,
   lib,
 }: let
   ver = lib.helper.read ./version.json;
 
-  pname = "altersend";
+  pname = "quiver-launcher";
   src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
   inherit (ver) version;
 
   meta = {
-    description = "Send files directly between devices over the internet - no cloud storage, no size limits";
-    homepage = "https://altersend.com";
+    description = "Cross-platform game launcher and library manager";
+    homepage = "https://github.com/tgeorgiadis/quiver-launcher";
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [Prinky];
-    license = lib.licenses.asl20;
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
-    mainProgram = "altersend";
+    mainProgram = pname;
   };
 in
   if stdenvNoCC.hostPlatform.isDarwin
@@ -26,33 +26,33 @@ in
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
-      nativeBuildInputs = [_7zz];
+      nativeBuildInputs = [unzip];
     })
   else let
     contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
-      name = "altersend";
-      desktopName = "AlterSend";
+      name = pname;
+      desktopName = "Quiver Launcher";
       comment = meta.description;
-      exec = "altersend %U";
-      icon = "altersend";
+      exec = "${pname} %U";
+      icon = pname;
       terminal = false;
-      categories = ["Network" "FileTransfer"];
+      categories = ["Game" "Utility"];
     };
   in
     appimageTools.wrapType2 {
       inherit pname version src meta;
 
+      extraPkgs = pkgs: with pkgs; [icu];
+
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/altersend.desktop
-        if [ -d ${contents}/usr/share/icons ]; then
-          cp -r ${contents}/usr/share/icons $out/share/ || true
-        fi
-        icon=$(find ${contents} -maxdepth 2 -name "*.png" | head -n1)
+          $out/share/applications/${pname}.desktop
+
+        icon=$(find ${contents} -maxdepth 4 -name '*.png' | head -n1)
         if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/altersend.png || true
+          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/${pname}.png
         fi
       '';
     }

@@ -41,7 +41,7 @@ in
       hash = "sha256-7cIv7CD0u95I3AvVV1N0OaTg18AzWRJm5sXm8n3cLrU=";
     };
 
-    contents = appimageTools.extractType2 {inherit pname version src;};
+    contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
       name = "note-block-studio";
