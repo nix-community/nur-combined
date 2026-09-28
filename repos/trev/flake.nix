@@ -242,7 +242,9 @@
         // import ./tests/mkAppImage { inherit pkgs self; }
         // import ./tests/mkApps { inherit pkgs self; }
         // import ./tests/mkChecks { inherit pkgs self; }
+        // import ./tests/mkGoModule { inherit pkgs self; }
         // import ./tests/mkImage { inherit pkgs self; }
+        // import ./tests/mkRustPackage { inherit pkgs self; }
         // pkgs.lib.optionalAttrs (system == "x86_64-linux") (import ./tests/mkFlake { inherit pkgs self; })
         // import ./packages/duckdb/checks.nix { inherit (pkgs) lib callPackage; }
         // pkgs.lib.mapAttrs' (
