@@ -414,6 +414,18 @@ nix run
 nix run .#configure
 ```
 
+### mkRustPackage
+
+Wraps [`rustPlatform.buildRustPackage`](https://nixos.org/manual/nixpkgs/stable/#compiling-rust-applications-with-cargo), building dependencies in a separate derivation (`cargoArtifacts`) from a stubbed copy of the workspace. Source changes and version bumps only rebuild the workspace crates. Dependencies are vendored from `Cargo.lock`, so `cargoHash` isn't needed. `cargoArtifactsArgs` can be used to modify the dependency derivation.
+
+```nix
+pkgs.mkRustPackage (finalAttrs: {
+  pname = "rust-pkg";
+  version = "1.0.0";
+  src = ./.;
+});
+```
+
 ### bufFetchDeps & bufHook
 
 Creates a fixed-output derivation for [buf](https://buf.build/) dependencies

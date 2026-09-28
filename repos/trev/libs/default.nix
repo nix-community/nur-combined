@@ -16,4 +16,5 @@
   mkFlake = pkgs.callPackage ./mkFlake { };
   mkGleamBurrito = pkgs.callPackage ./mkGleamBurrito { };
   mkImage = pkgs.callPackage ./mkImage { };
+  mkRustPackage = pkgs.callPackage ./mkRustPackage { };
 }
