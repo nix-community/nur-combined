@@ -24,8 +24,8 @@
 }:
 let
   llvmPackages =
-    if withPgo && (lib.versionOlder buildPackages.rustc.llvmPackages.release_version "22.1") then
-      buildPackages.llvmPackages_22
+    if withPgo && (lib.versionOlder buildPackages.rustc.llvmPackages.release_version "23.1") then
+      buildPackages.llvmPackages_23
     else
       buildPackages.rustc.llvmPackages;
   llvmCcAndBintools = symlinkJoin {
@@ -38,7 +38,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "150.0.7871.63-1";
+  version = "154.0.8037.49-2";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -47,18 +47,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hZbSK5ifZLkxwR5kdUZioZdwcPMaBXUtj64Kh7l4x9s=";
+    hash = "sha256-Ws65rwNbJjg19omAMARTKPNy2qn6WW47I3zzmNdxoxk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  patches = [
-    # ERROR: Assignment had no effect.
-    ./assignments.patch
-
-    ./cflags.patch
-  ]
-  ++ lib.optional stdenvNoCC.hostPlatform.isDarwin (
+  patches = lib.optional stdenvNoCC.hostPlatform.isDarwin (
     replaceVars ./libresolv.patch {
       libresolvInc = lib.getInclude darwin.libresolv;
       libresolvLib = lib.getLib darwin.libresolv;
@@ -158,16 +152,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     updateScript = nix-update-script { };
     pgoProfiles = {
       aarch64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-7871-1782251783-42ea1f90e1c578b011b558a4f21eaadd0e6204d9-1ddcb220ca6fd7fd5dc7593547188c00e30166f8.profdata";
-        hash = "sha256-o1pV5ZS4rT1xvEQLXd9anricvMFPgeAA+QiEgICaSCo=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-8037-1789514271-354a99ee3138b99ca5663d169539bc1a82b1eca7-01b870b743c773a6d66e8b1c5294a95ac51cd3b0.profdata";
+        hash = "sha256-aVtsXGPN6wf5OO5MMjCSIxBTkyXT7bINDqGCnnSjIMg=";
       };
       x86_64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-7871-1782236690-b2cfe6324d607a77036bbe97644bb237f4e223a1-3d4da56162112271e9a86f91f4696c964516a649.profdata";
-        hash = "sha256-xW08mdr8mL8bWLYfF5cAGozPZL0SKutOrTMuvMQgm4Q=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-8037-1789495081-eebf3ce77b36a1ad15bece90fb99aefb70206bb6-9272cb3a6934b0e4510fb1cde78ca7e9d7859922.profdata";
+        hash = "sha256-bg6BoaK2aCxU7+aGLrtiMAXC5n4M43kFZR24Lib1LLY=";
       };
       any-linux = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-7871-1782236690-ee033e4bf26c147ed0557fd905d416dc66bc7545-3d4da56162112271e9a86f91f4696c964516a649.profdata";
-        hash = "sha256-YxGO9z49f+Az75TIs9F1EXRQTDLuj97MCB5KF0kZJto=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-8037-1789495081-7feb9cdd3829d739633f8ac2c1a41d6c0f693bd3-9272cb3a6934b0e4510fb1cde78ca7e9d7859922.profdata";
+        hash = "sha256-Hh953Ett5yvM+8LmdJjnXOYMS1PBC86wVZw1hZbNcaI=";
       };
     };
   };
