@@ -10,6 +10,7 @@
   makeDesktopItem,
   makeWrapper,
   writeText,
+  desktopToDarwinBundle,
 }:
 
 let
@@ -67,7 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
     gradle
     jdk21
     makeWrapper
-  ];
+  ]
+  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   mitmCache = gradle.fetchDeps {
     inherit (finalAttrs) pname;
