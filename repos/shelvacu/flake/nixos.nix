@@ -25,6 +25,7 @@ let
       "nixos-hardware"
       "sops-nix"
       "tf2-nix"
+      "javi-wallpapers"
     ];
     liam.inp = [ "sops-nix" ];
     pbxvm = {

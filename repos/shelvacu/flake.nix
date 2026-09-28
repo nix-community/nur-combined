@@ -114,6 +114,10 @@
       url = "git+https://git.uninsane.org/shelvacu/keys.nix.git";
       flake = false;
     };
+    javi-wallpapers = {
+      url = "git+ssh://git@github.com/Java-Coffee1/wallpaper.git";
+      flake = false;
+    };
     # keep-sorted end
   };
 

@@ -45,6 +45,10 @@
 
   users.users.shelvacu.extraGroups = [ "dialout" ];
 
+  systemd.tmpfiles.settings."10-javi-wallpapers" = {
+    "/home/shelvacu/javi-wallpapers"."L".argument = "${inputs.javi-wallpapers}/desktop";
+  };
+
   programs.steam = {
     enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];

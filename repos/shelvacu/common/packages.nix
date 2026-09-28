@@ -126,6 +126,7 @@ in
     # pkgs for development-ish
     (lib.mkIf config.vacu.isDev ''
       # keep-sorted start
+      age
       cachix
       cargo
       clippy
@@ -136,6 +137,7 @@ in
       nixpkgs-review
       patchelf
       python3
+      ragenix
       ruby
       rust-script
       rustc

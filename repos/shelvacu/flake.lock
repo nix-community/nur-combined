@@ -413,6 +413,22 @@
         "type": "github"
       }
     },
+    "javi-wallpapers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790140810,
+        "narHash": "sha256-0++brXADvMXUc6fsltijVcZpGsIQNXoc+wzzj6IKHO0=",
+        "ref": "refs/heads/main",
+        "rev": "e0be444e71d84e09e9f7b6bfa03029152de78bb7",
+        "revCount": 4,
+        "type": "git",
+        "url": "ssh://git@github.com/Java-Coffee1/wallpaper.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/Java-Coffee1/wallpaper.git"
+      }
+    },
     "jovian-unstable": {
       "inputs": {
         "nix-github-actions": "nix-github-actions",
@@ -873,6 +889,7 @@
         "home-manager": "home-manager",
         "home-manager-unstable": "home-manager-unstable",
         "impermanence": "impermanence",
+        "javi-wallpapers": "javi-wallpapers",
         "jovian-unstable": "jovian-unstable",
         "mio-nurpkgs": "mio-nurpkgs",
         "most-winningest": "most-winningest",
