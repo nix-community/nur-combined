@@ -9,7 +9,7 @@
 }:
 
 let
-  version = "4.0.0-beta.6";
+  version = "4.0.0-beta.7";
   pname = "xpilot";
 
   # dwarfs 0.14.0 does not build against this nixpkgs's toolchain
@@ -21,7 +21,7 @@ let
 
   src = fetchurl {
     url = "https://downloads.xpilot.app/artifacts/${version}/linux-x64/xPilot.AppImage";
-    hash = "sha256-+5XCYvur2mZfoZ9xpfkKPG8V7IYC+nQqL5uhlnzxr5c=";
+    hash = "sha256-TYK507yySGJ4tXLvneREHF4/nG2vSdXB9rKbxARF6+E=";
     name = "xPilot-${version}.AppImage";
   };
 
