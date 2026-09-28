@@ -10,6 +10,7 @@
   hypervisor ? "qemu",
   useVirtiofs ? true,
   enableXvfb ? true,
+  agentStartCommand ? "python -m mcp_server",
 }:
 
 let
@@ -28,6 +29,7 @@ let
     echo "  - Display Resolution: ${resolution}"
     echo "  - Virtiofs (Host-Guest Share): ${if useVirtiofs then "Enabled" else "Disabled"}"
     echo "  - Xvfb (Headless Display): ${if enableXvfb then "Enabled" else "Disabled"}"
+    echo "  - Agent Start Command: ${agentStartCommand}"
     echo "  - microvm.nix path: @out@/share/microvm"
     echo ""
     echo "Deploying microVM..."
