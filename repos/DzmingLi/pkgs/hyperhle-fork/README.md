@@ -10,12 +10,15 @@ From the repository root:
 
 ```sh
 nix run .#hyperhle-fork.updater
-nix run .#hyperhle-fork.updater -- --version v1.0.92
+nix run .#hyperhle-fork.updater -- --version vTAG
+nix run .#hyperhle-fork.updater -- --revision COMMIT --version-label VERSION
 nix run .#hyperhle-fork.updater -- --regenerate
 ```
 
-The default selects the latest stable GitHub release. `--regenerate` keeps the
-current revision and recreates the generated inputs. The updater regenerates
+The default selects the latest stable GitHub release once it contains the
+currently pinned revision, so it never downgrades an unreleased fix. Use
+`--revision` with a full commit hash and a version label to pin an unreleased
+commit. `--regenerate` keeps the current revision. The updater regenerates
 `Cargo.nix`, Git crate hashes, source component hashes, and the runtime dependency
 license list. It checks that Cargo.lock was not changed, applies carried patches,
 evaluates without IFD, and builds before keeping the generated files. A failed
@@ -28,10 +31,12 @@ If a release already includes a carried patch, reconcile the patch list in both
 `unwrapped.nix` and the updater before updating. An unexpected patch failure is
 intentional: do not silently discard a compatibility fix.
 
-`fix-ctype-exports.patch` implements the guest C character functions needed by
-三国杀－烈's victory settlement ([upstream PR #126](https://github.com/KlugKlugTG/HyperHLE-Fork/pull/126)).
-`fix-sigsetjmp-exports.patch` separately exports the existing guest jump-buffer
-implementation; it was not the cause of the settlement failure.
+The pinned upstream commit includes the texture-limit, HiDPI, and guest C
+character-function fixes ([PR #122](https://github.com/KlugKlugTG/HyperHLE-Fork/pull/122),
+[PR #124](https://github.com/KlugKlugTG/HyperHLE-Fork/pull/124), and
+[PR #126](https://github.com/KlugKlugTG/HyperHLE-Fork/pull/126)).
+`fix-sigsetjmp-exports.patch` remains local; it exports the existing guest
+jump-buffer implementation and was unrelated to victory settlement.
 
 ## Build and cache boundaries
 

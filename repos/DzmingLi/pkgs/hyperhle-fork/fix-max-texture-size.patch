@@ -1,7 +1,0 @@
-diff --git a/src/frameworks/opengles/gles_guest.rs b/src/frameworks/opengles/gles_guest.rs
---- a/src/frameworks/opengles/gles_guest.rs
-+++ b/src/frameworks/opengles/gles_guest.rs
-@@ -424,3 +424,0 @@ fn glGetIntegerv(env: &mut Environment, pname: GLenum, params: MutPtr<GLint>) {
--        gles11::MAX_TEXTURE_SIZE => {
--            env.mem.write(params, 2048 as _);
--        }

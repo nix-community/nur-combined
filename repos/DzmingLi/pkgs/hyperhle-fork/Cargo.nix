@@ -3802,7 +3802,7 @@ rec {
           "vorbis" = [ "dep:symphonia-codec-vorbis" ];
           "wav" = [ "dep:symphonia-format-riff" "symphonia-format-riff/wav" ];
         };
-        resolvedDefaultFeatures = [ "aac" "adpcm" "aiff" "alac" "caf" "isomp4" "mp3" "pcm" "wav" ];
+        resolvedDefaultFeatures = [ "aac" "adpcm" "aiff" "alac" "ape" "caf" "id3v1" "id3v2" "isomp4" "mp3" "pcm" "wav" ];
       };
       "symphonia-bundle-mp3" = rec {
         crateName = "symphonia-bundle-mp3";
@@ -4131,7 +4131,7 @@ rec {
           "riff-id3" = [ "id3v2" ];
           "vorbis" = [ "flac" ];
         };
-        resolvedDefaultFeatures = [ "flac" "id3v2" "riff-id3" "riff-info" "vorbis" ];
+        resolvedDefaultFeatures = [ "ape" "flac" "id3v1" "id3v2" "riff-id3" "riff-info" "vorbis" ];
       };
       "syn 1.0.109" = rec {
         crateName = "syn";
@@ -4579,7 +4579,7 @@ rec {
             name = "symphonia";
             packageId = "symphonia";
             usesDefaultFeatures = false;
-            features = [ "aiff" "caf" "isomp4" "wav" "aac" "adpcm" "alac" "mp3" "pcm" ];
+            features = [ "aiff" "caf" "isomp4" "wav" "aac" "adpcm" "alac" "mp3" "pcm" "ape" "id3v1" "id3v2" ];
           }
           {
             name = "touchHLE_dynarmic_wrapper";

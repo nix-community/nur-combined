@@ -4,9 +4,11 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
+from urllib.parse import quote
 import urllib.request
 
 FEATURE = "touchHLE_libxml2_wrapper/static"
@@ -79,19 +81,33 @@ def generate(source, output, package, info):
     (output / "rust-dependencies.txt").write_text("".join(lines))
 
 
-def latest_tag():
+def github_json(path):
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "nur-hyperhle-updater"}
     if token := os.environ.get("GITHUB_TOKEN"):
         headers["Authorization"] = f"Bearer {token}"
     request = urllib.request.Request(
-        "https://api.github.com/repos/KlugKlugTG/HyperHLE-Fork/releases/latest",
+        "https://api.github.com/repos/KlugKlugTG/HyperHLE-Fork/" + path,
         headers=headers,
     )
     with urllib.request.urlopen(request, timeout=30) as response:
-        release = json.load(response)
+        return json.load(response)
+
+
+def latest_tag():
+    release = github_json("releases/latest")
     if release["draft"] or release["prerelease"]:
         raise RuntimeError("Expected a stable published release")
     return release["tag_name"]
+
+
+def release_contains_current(current_rev, tag):
+    comparison = github_json(f"compare/{quote(current_rev, safe='')}...{quote(tag, safe='')}")
+    status = comparison["status"]
+    if status == "ahead":
+        return True
+    if status in ("behind", "identical"):
+        return False
+    raise RuntimeError(f"Latest release {tag} diverges from pinned revision {current_rev}")
 
 
 def main():
@@ -99,25 +115,41 @@ def main():
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--regenerate", action="store_true", help="regenerate the pinned revision")
     mode.add_argument("--version", help="release tag/version; default: latest stable release")
+    mode.add_argument("--revision", help="pin an exact upstream commit before a release")
+    parser.add_argument("--version-label", help="package version label for --revision")
     parser.add_argument("--no-build", action="store_true", help="only generate and evaluate (development)")
     args = parser.parse_args()
+    if bool(args.revision) != bool(args.version_label):
+        parser.error("--revision and --version-label must be given together")
+    if args.revision and not re.fullmatch(r"[0-9a-f]{40}", args.revision):
+        parser.error("--revision requires a full 40-character Git commit hash")
+    if args.version_label and not re.fullmatch(r"[0-9A-Za-z.+_-]+", args.version_label):
+        parser.error("--version-label contains invalid characters")
     repo = Path(run("git", "rev-parse", "--show-toplevel"))
     package = repo / "pkgs/hyperhle-fork"
     info = json.loads((package / "sources.json").read_text())
     if not args.regenerate:
-        tag = args.version or latest_tag()
-        version = tag.removeprefix("v")
-        if version == info["version"]:
-            print(f"hyperhle-fork {version}: up to date")
-            return
-        if not tag.startswith("v"):
-            tag = "v" + tag
+        if args.revision:
+            version = args.version_label
+            ref = args.revision
+        else:
+            tag = args.version or latest_tag()
+            version = tag.removeprefix("v")
+            if version == info["version"]:
+                print(f"hyperhle-fork {version}: up to date")
+                return
+            if not tag.startswith("v"):
+                tag = "v" + tag
+            if not args.version and not release_contains_current(info["rev"], tag):
+                print(f"hyperhle-fork: latest release {tag} does not yet contain pinned revision")
+                return
+            ref = "refs/tags/" + tag
         fetched = json.loads(run(
             "nix-prefetch-git", "--url", "https://github.com/KlugKlugTG/HyperHLE-Fork.git",
-            "--rev", "refs/tags/" + tag, "--fetch-submodules",
+            "--rev", ref, "--fetch-submodules",
         ))
         info = {"version": version, "rev": fetched["rev"], "hash": run(
-            "nix", "hash", "convert", "--hash-algo", "sha256", "--to", "sri", fetched["sha256"],
+            "nix", "hash", "to-sri", "--type", "sha256", fetched["sha256"],
         )}
 
     original = {name: (package / name).read_bytes() if (package / name).exists() else None
@@ -145,13 +177,10 @@ def main():
         generate(source, output, package, info)
         # Fail before touching the package if a carried patch no longer applies.
         for name in (
-            "fix-hidpi-window-and-mouse.patch",
-            "fix-max-texture-size.patch",
             "fix-sigsetjmp-exports.patch",
-            "fix-ctype-exports.patch",
             "precomputed-licenses.patch",
         ):
-            subprocess.run(["patch", "--batch", "-p1", "-i", str(package / name)],
+            subprocess.run(["patch", "--forward", "--batch", "-p1", "-i", str(package / name)],
                            cwd=source, check=True)
         for name, content in original.items():
             current = (package / name).read_bytes() if (package / name).exists() else None
