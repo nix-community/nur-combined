@@ -22,7 +22,6 @@ in
   config = lib.mkIf cfg.enable {
     home = {
       packages = lib.mkIf (cfg.package != null) [ cfg.package ];
-      sessionVariables._JAVA_AWT_WM_NONREPARENTING = 1;
     };
 
     xdg.autostart.entries = lib.mkIf cfg.autostart [

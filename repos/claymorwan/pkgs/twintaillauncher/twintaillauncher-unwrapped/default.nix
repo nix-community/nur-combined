@@ -68,7 +68,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      # The icon theme is hardcoded.
+      # For some reasons ttl cannot find the lib at runtime even if it's required to build
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libayatana-appindicator ]}
     )
   '';

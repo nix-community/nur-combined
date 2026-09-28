@@ -9,7 +9,6 @@
   jdk21,
   callPackage,
   bash,
-  writeShellScript,
   nix-update-script,  
 }:
 
@@ -18,13 +17,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "shimelinux";
-  version = "1.3.1";
+  version = "1.3.2";
 
   src = fetchFromGitHub {
     owner = "BujjuIsABee";
     repo = "shimelinux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ciw//4t65WFetMENisq1ye/mGWNBwXMO36St8Dovhmg=";
+    hash = "sha256-3SdHPc3AL/AlnsheCPN1lLZHTdydeG61iOQBFsgGdBs=";
   };
 
   nativeBuildInputs = [
@@ -46,8 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
   dontPatchShebangs = true;
 
   prePatch = ''
-    # substituteInPlace ./shimelinux.sh \
-    #   --replace-fail '/usr' $out 
+    substituteInPlace ./shimelinux.sh \
+      --replace-fail '/usr/share' "$out/share"
 
     substituteInPlace ./build.gradle.kts \
       --replace-fail 'dependsOn("buildWaylandLib")' "" \
@@ -59,15 +58,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     install -Dm644 build/libs/shimelinux-${finalAttrs.version}.jar $out/share/java/shimelinux.jar
-    # install -Dm755 ./shimelinux.sh $out/bin/shimelinux
+    install -Dm755 ./shimelinux.sh $out/bin/shimelinux
 
     install -Dm644 ./icon.svg $out/share/icons/hicolor/scalable/apps/shimelinux.svg
     install -Dm644 ./shimelinux.desktop -t $out/share/applications
 
-    echo '#!${lib.getExe bash}' > ./shimelinux
-    echo "exec ${lib.getExe jdk21} -jar $out/share/java/shimelinux.jar" >> ./shimelinux
-    install -Dm755 ./shimelinux $out/bin/shimelinux
-    
     wrapProgram $out/bin/shimelinux \
       --prefix PATH : ${lib.makeBinPath [ jdk21 ]} \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libappindicator glib ]}
