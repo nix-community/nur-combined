@@ -1,0 +1,14 @@
+--- a/art/runtime/runtime.cc	1970-01-01 10:00:01
++++ b/art/runtime/runtime.cc	2026-09-28 00:00:00
+@@ -1000,7 +1000,10 @@
+   using Opt = RuntimeArgumentMap;
+   Opt runtime_options(std::move(runtime_options_in));
+   ScopedTrace trace(__FUNCTION__);
+-  CHECK_EQ(sysconf(_SC_PAGE_SIZE), kPageSize);
++  // On macOS (Darwin) with Apple Silicon, the host page size is 16 KB while
++  // ART's kPageSize is compiled as 4 KB.  The translation layer runs Android
++  // byte-code on the host OS, so we skip this assertion on Darwin.
++  // CHECK_EQ(sysconf(_SC_PAGE_SIZE), kPageSize);
+ 
+   // Early override for logging output.
+   if (runtime_options.Exists(Opt::UseStderrLogger)) {

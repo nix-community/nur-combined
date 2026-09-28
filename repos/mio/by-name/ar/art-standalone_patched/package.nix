@@ -47,6 +47,9 @@ let
     ./darwin-art-runtime.patch
     ./darwin-arm64-asm.patch
     ./darwin-misc.patch
+    # Skip CHECK_EQ(sysconf(_SC_PAGE_SIZE), kPageSize) on Apple Silicon where
+    # the host page size is 16 KB but ART's kPageSize is compiled as 4 KB.
+    ./darwin-page-size.patch
   ];
 
   darwinPostPatch = ''
