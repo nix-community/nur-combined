@@ -29,6 +29,32 @@ let
     '';
   };
 
+  # build and install would fail if they ran, and dontBuild/dontInstall would skip the hooks and $out
+  skipped = testPkgs.stdenvNoCC.mkDerivation {
+    pname = "mkchecks-skipped";
+    version = "1";
+    outputs = [
+      "out"
+      "dev"
+    ];
+
+    dontUnpack = true;
+    dontBuild = true;
+    dontInstall = true;
+
+    preBuild = ''
+      touch "$TMPDIR/pre-build-ran"
+    '';
+
+    buildPhase = ''
+      exit 1
+    '';
+
+    installPhase = ''
+      exit 1
+    '';
+  };
+
   direct = testPkgs.stdenvNoCC.mkDerivation {
     pname = "mkchecks-direct";
     version = "1";
@@ -92,6 +118,19 @@ let
         test "$(mkchecks-existing-input)" = mkchecks-existing-input
         test "$(mkchecks-added-input)" = mkchecks-added-input
         test "$(cat fixture.txt)" = fixture
+      '';
+    };
+
+    mkChecks-src-derivation-skipped = {
+      src = skipped;
+      env.MKCHECKS_ENV = "env";
+      preCheck = ''
+        export MKCHECKS_PRE_CHECK=pre-check
+      '';
+      script = ''
+        test -e "$TMPDIR/pre-build-ran"
+        test "$MKCHECKS_ENV" = env
+        test "$MKCHECKS_PRE_CHECK" = pre-check
       '';
     };
 

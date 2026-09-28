@@ -100,13 +100,23 @@ builtins.mapAttrs (
 
     if check ? src && lib.isDerivation check.src then
       check.src.overrideAttrs (
-        _: prev: {
+        _: prev:
+        # extraAttrs still holds the package itself as src
+        removeAttrs extraAttrs [ "src" ]
+        // {
           inherit name checkPhase;
           nativeCheckInputs = (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
+          env = (prev.env or { }) // (extraAttrs.env or { });
           # keep the build hooks (mkRustPackage restores target/ in preBuild), skip the build itself
+          dontBuild = false;
           buildPhase = "runHook preBuild; runHook postBuild";
           doCheck = true;
-          installPhase = "touch $out";
+          dontInstall = false;
+          installPhase = ''
+            for output in $(getAllOutputNames); do
+              touch "''${!output}"
+            done
+          '';
           doInstallCheck = false;
           dontFixup = true;
         }
