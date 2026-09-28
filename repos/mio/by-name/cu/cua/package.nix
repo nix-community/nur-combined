@@ -21,20 +21,42 @@ let
   };
 
   launcher = writeShellScriptBin "cua" ''
-    echo "Initializing Computer Use Agent (CUA) Sandbox..."
-    echo "Configuration:"
-    echo "  - Hypervisor: ${hypervisor}"
-    echo "  - CPUs: ${toString cpus}"
-    echo "  - RAM: ${toString memorySize}MB"
-    echo "  - Display Resolution: ${resolution}"
-    echo "  - Virtiofs (Host-Guest Share): ${if useVirtiofs then "Enabled" else "Disabled"}"
-    echo "  - Xvfb (Headless Display): ${if enableXvfb then "Enabled" else "Disabled"}"
-    echo "  - Agent Start Command: ${agentStartCommand}"
-    echo "  - microvm.nix path: @out@/share/microvm"
-    echo ""
-    echo "Deploying microVM..."
-    # In a fully realized implementation, this script would run a nix-build or nix-instantiate
-    # utilizing the microvm flake or modules to construct the agent VM.
+        echo "Initializing Computer Use Agent (CUA) Sandbox..."
+        echo "Configuration:"
+        echo "  - Hypervisor: ${hypervisor}"
+        echo "  - CPUs: ${toString cpus}"
+        echo "  - RAM: ${toString memorySize}MB"
+        echo "  - Display Resolution: ${resolution}"
+        echo "  - Virtiofs (Host-Guest Share): ${if useVirtiofs then "Enabled" else "Disabled"}"
+        echo "  - Xvfb (Headless Display): ${if enableXvfb then "Enabled" else "Disabled"}"
+        echo "  - Agent Start Command: ${agentStartCommand}"
+        echo "  - microvm.nix path: @out@/share/microvm"
+        echo ""
+        echo "Generating guest OS configuration..."
+        
+        cat > guest-config.nix <<'CONFIGEOF'
+    { pkgs, ... }: {
+      # The essential packages required for the Agent (via MCP) to control the VM
+      environment.systemPackages = with pkgs; [
+        xdotool     # For injecting mechanical mouse/keyboard inputs
+        scrot       # For capturing screenshots of the framebuffer
+        fluxbox     # Lightweight window manager
+        xorg.xinit  # X11 initialization
+      ];
+      
+      services.xserver = {
+        enable = true;
+        displayManager.startx.enable = true;
+        windowManager.fluxbox.enable = true;
+        # Configure headless Xvfb
+        videoDrivers = [ "dummy" ];
+      };
+    }
+    CONFIGEOF
+
+        echo "Deploying microVM..."
+        # In a fully realized implementation, this script would run a nix-build or nix-instantiate
+        # utilizing the microvm flake and the generated guest-config.nix to construct the agent VM.
   '';
 in
 stdenv.mkDerivation rec {
