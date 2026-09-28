@@ -8,16 +8,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "pvpn";
-  version = "0.2.6";
+  version = "0.2.10";
 
   src = fetchFromGitHub {
     owner = "YourDoritos";
     repo = "pVPN";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BN8N+A1GIgFfnhAEZ1YgnfSW3/XYg15mYCwO+M2GBmk=";
+    hash = "sha256-S29UqoSb3CAJBv6F1sHsn+xziP0DfUcprESme5I6M3I=";
   };
 
-  vendorHash = "sha256-2iy3oRJuFcnBok/Pks9dSdq8ulbOpVW5D4aHawmqZmg=";
+  vendorHash = "sha256-eVFKW4plsUwpwPqMmvdIEtJC/B0pk7eQL1Hlrgq8zrA=";
 
   ldflags = [
     "-s"

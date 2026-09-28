@@ -42,8 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
   gradleFlags = [ "-Dfile.encoding=utf-8" ];
 
-  dontPatchShebangs = true;
-
   prePatch = ''
     substituteInPlace ./shimelinux.sh \
       --replace-fail '/usr/share' "$out/share"
