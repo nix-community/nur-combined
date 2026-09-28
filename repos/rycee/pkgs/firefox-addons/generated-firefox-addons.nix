@@ -4404,10 +4404,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.10.3";
+      version = "5.11.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4993287/floccus-5.10.3.xpi";
-      sha256 = "3aaa6b65931c92be31fbd02b9f9a07531b53333dbd57cfe52f035e66a8b25d54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5063393/floccus-5.11.0.xpi";
+      sha256 = "14e934361bde413a198eaf3c851537c23255c11f36650fc3240cfa86a9642588";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -7577,10 +7577,10 @@
     };
     "leechblock-ng" = buildMozillaXpiAddon {
       pname = "leechblock-ng";
-      version = "1.7.3";
+      version = "1.8";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4938336/leechblock_ng-1.7.3.xpi";
-      sha256 = "57d81b0183195a5c799f120113dfbae0b7d687de6e60cc5d2a44eaf9892c9e06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5063822/leechblock_ng-1.8.xpi";
+      sha256 = "4548328caa620ea53bfb71b01bfa59527cef5e18ad9926d7691d8600d8ac6e13";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -10548,10 +10548,10 @@
     };
     "octotree" = buildMozillaXpiAddon {
       pname = "octotree";
-      version = "9.1.0";
+      version = "9.1.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5061985/octotree-9.1.0.xpi";
-      sha256 = "8b40d8c2edf16f8dd49de3478b166d109636267e12fd9ee4edda19576e987ffe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5064467/octotree-9.1.3.xpi";
+      sha256 = "9ef2e0b949ce6f1aab930bd92b5bf2f3c100cc9af2ac7496a6f776451725f9dd";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -13710,10 +13710,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.26.5";
+      version = "1.27.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5055029/single_file-1.26.5.xpi";
-      sha256 = "8b757deb569e447538be7b64bb581e1260b4d01615bb476ae9d466e3c2a3af08";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5064052/single_file-1.27.0.xpi";
+      sha256 = "799ea061e768c587b14c6bbaf66dca718d8ef6213da6f5c145bbcfa86882bef9";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -17396,10 +17396,10 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.1.0";
+      version = "2.1.1";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5046626/yang_addon-2.1.0.xpi";
-      sha256 = "d8453e988699f905628b02b21f447d7d1040e8c381fa5a2ab1ca9b8705796d72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5062641/yang_addon-2.1.1.xpi";
+      sha256 = "bcc31bfa49ef37ae4383b390cd43e8fdbf2320ab60e5035ca88cf603763cfb0c";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
@@ -17858,10 +17858,10 @@
     };
     "zhongwen" = buildMozillaXpiAddon {
       pname = "zhongwen";
-      version = "5.16.0";
+      version = "5.17.0";
       addonId = "{dedb3663-6f13-4c6c-bf0f-5bd111cb2c79}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4482184/zhongwen-5.16.0.xpi";
-      sha256 = "98645c53837a419fecfbaf335df80b366e6b6d274bb2a41711c8e3d760756574";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5062588/zhongwen-5.17.0.xpi";
+      sha256 = "6a508b43069c450c1eceb1354dc4ec3a956927794e553d29a98234f451c3360c";
       meta = with lib;
       {
         homepage = "https://github.com/cschiller/zhongwen";
