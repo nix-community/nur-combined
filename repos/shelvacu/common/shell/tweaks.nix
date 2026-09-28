@@ -118,7 +118,7 @@ let
     noglob = false;
     nolog = null; # "currently ignored"
     notify = false; # don't mingle job status with command output
-    nounset = true; # complain when using an unset variable
+    nounset = false; # setting to true breaks some completion scripts
     onecmd = false; # nonsense for interactive
     physical = false; # docs are confusing but I want the current behavior
     pipefail = false;
