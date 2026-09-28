@@ -88,6 +88,17 @@ jobs:
             git commit -m "racket-langserver: update addon FOD hash"
           }
 
+      - name: Update HyperHLE and its crate2nix inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          nix run .#hyperhle-fork.updater
+          if ! git diff --quiet -- pkgs/hyperhle-fork; then
+            git add pkgs/hyperhle-fork/Cargo.nix pkgs/hyperhle-fork/crate-hashes.json \
+              pkgs/hyperhle-fork/sources.json pkgs/hyperhle-fork/rust-dependencies.txt
+            git commit -m "hyperhle-fork: update and regenerate crate2nix inputs"
+          fi
+
       - name: Push changes
         run: |
           let ahead = (git rev-list HEAD ^origin/main --count | str trim | into int)

@@ -1,0 +1,249 @@
+diff --git a/src/window.rs b/src/window.rs
+index 50c6e0d1..a96e781a 100644
+--- a/src/window.rs
++++ b/src/window.rs
+@@ -14,0 +15,2 @@
++mod geometry;
++
+@@ -1133,17 +1135,2 @@ impl Window {
+-            // Clamp into the viewport. On hosts (Android, large desktops) the
+-            // SDL drawable is bigger than the iPhone's virtual screen and is
+-            // letterboxed inside the viewport. Touches landing in the
+-            // letterbox bars used to produce out-of-window iOS coordinates
+-            // (e.g. y == -91 or y == 570 for a 320x460 portrait window),
+-            // which made -[UIWindow hitTest:withEvent:] return nil for every
+-            // such touch. The "SUPER HACK" fallback in ui_touch then forced
+-            // the touch directly into the window object, bypassing all
+-            // subviews — so taps near the very top/bottom of a landscape
+-            // screen never reached overlay UI like CreateNewWorld dialogs
+-            // or the in-game chat field. Clamping to the viewport keeps the
+-            // touch on the nearest visible edge instead.
+-            let in_x = in_x.clamp(vx as f32, (vx + vw) as f32);
+-            let in_y = in_y.clamp(vy as f32, (vy + vh) as f32);
+-            // normalize to unit square centred on origin
+-            let x = (in_x - vx as f32) / vw as f32 - 0.5;
+-            let y = (in_y - vy as f32) / vh as f32 - 0.5;
++            // Clamp touches in letterbox bars to the nearest visible edge.
++            let (x, y) = geometry::normalize_viewport_coords((in_x, in_y), (vx, vy, vw, vh));
+@@ -1204,4 +1191,3 @@ impl Window {
+-            let (_, _, vw, vh) = window.viewport();
+-            let out_x = ((in_x as f32 / vw as f32) * 2.0 - 1.0).clamp(-1.0, 1.0);
+-            let out_y = ((in_y as f32 / vh as f32) * 2.0 - 1.0).clamp(-1.0, 1.0);
+-            (out_x, out_y)
++            let coords = window.mouse_drawable_coords((in_x, in_y));
++            let (x, y) = geometry::normalize_viewport_coords(coords, window.viewport());
++            (x * 2.0, y * 2.0)
+@@ -1293 +1279,2 @@ impl Window {
+-                    let coords = transform_input_coords(self, (x as f32, y as f32), false);
++                    let coords = self.mouse_drawable_coords((x, y));
++                    let coords = transform_input_coords(self, coords, false);
+@@ -1300 +1287,2 @@ impl Window {
+-                    let coords = transform_input_coords(self, (x as f32, y as f32), false);
++                    let coords = self.mouse_drawable_coords((x, y));
++                    let coords = transform_input_coords(self, coords, false);
+@@ -1310 +1298,2 @@ impl Window {
+-                    let coords = transform_input_coords(self, (x as f32, y as f32), false);
++                    let coords = self.mouse_drawable_coords((x, y));
++                    let coords = transform_input_coords(self, coords, false);
+@@ -2332 +2321,4 @@ impl Window {
+-        if !self.fullscreen && !Self::rotatable_fullscreen() {
++        // Preserve the macOS resize workaround in rotate_device(), which
++        // positions an app-sized viewport using viewport_y_offset().
++        #[cfg(target_os = "macos")]
++        if !self.fullscreen {
+@@ -2336 +2328,4 @@ impl Window {
+-        let (screen_width, screen_height) = self.window.drawable_size();
++        // Fit the actual drawable in windowed mode too: the compositor may
++        // resize the window or give it more pixels than its logical size.
++        geometry::fit_viewport((app_width, app_height), self.window.drawable_size())
++    }
+@@ -2338,16 +2333,7 @@ impl Window {
+-        let app_aspect = app_width as f32 / app_height as f32;
+-        let screen_aspect = screen_width as f32 / screen_height as f32;
+-        let (scaled_width, scaled_height) = if app_aspect < screen_aspect {
+-            (
+-                (screen_height as f32 * app_aspect).round() as u32,
+-                screen_height,
+-            )
+-        } else {
+-            (
+-                screen_width,
+-                (screen_width as f32 / app_aspect).round() as u32,
+-            )
+-        };
+-        let x = (screen_width - scaled_width) / 2;
+-        let y = (screen_height - scaled_height) / 2;
+-        (x, y, scaled_width, scaled_height)
++    /// SDL mouse coordinates must use the same pixel space as the viewport.
++    fn mouse_drawable_coords(&self, (x, y): (i32, i32)) -> (f32, f32) {
++        geometry::window_to_drawable(
++            (x as f32, y as f32),
++            self.window.size(),
++            self.window.drawable_size(),
++        )
+diff --git a/src/window/geometry.rs b/src/window/geometry.rs
+new file mode 100644
+index 00000000..40a6b89b
+--- /dev/null
++++ b/src/window/geometry.rs
+@@ -0,0 +1,160 @@
++/*
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
++ */
++//! Coordinate conversions shared by window presentation and input.
++
++/// Convert SDL window coordinates to drawable pixels. Query both sizes from
++/// the same window; their ratio can change when moving between displays.
++pub(super) fn window_to_drawable(
++    (x, y): (f32, f32),
++    (window_width, window_height): (u32, u32),
++    (drawable_width, drawable_height): (u32, u32),
++) -> (f32, f32) {
++    if window_width == 0 || window_height == 0 {
++        return (0.0, 0.0);
++    }
++    (
++        x * drawable_width as f32 / window_width as f32,
++        y * drawable_height as f32 / window_height as f32,
++    )
++}
++
++/// Center the app in the drawable, preserving its aspect ratio.
++pub(super) fn fit_viewport(
++    (app_width, app_height): (u32, u32),
++    (screen_width, screen_height): (u32, u32),
++) -> (u32, u32, u32, u32) {
++    if app_width == 0 || app_height == 0 || screen_width == 0 || screen_height == 0 {
++        return (0, 0, 0, 0);
++    }
++    let app_aspect = app_width as f32 / app_height as f32;
++    let screen_aspect = screen_width as f32 / screen_height as f32;
++    let (scaled_width, scaled_height) = if app_aspect < screen_aspect {
++        (
++            (screen_height as f32 * app_aspect).round() as u32,
++            screen_height,
++        )
++    } else {
++        (
++            screen_width,
++            (screen_width as f32 / app_aspect).round() as u32,
++        )
++    };
++    let x = (screen_width - scaled_width) / 2;
++    let y = (screen_height - scaled_height) / 2;
++    (x, y, scaled_width, scaled_height)
++}
++
++/// Map coordinates to a unit square centered on the viewport. Coordinates
++/// outside the viewport are clamped to its edges (-0.5 and 0.5).
++/// An empty viewport maps to the center, avoiding division by zero while hidden.
++pub(super) fn normalize_viewport_coords(
++    (x, y): (f32, f32),
++    (vx, vy, vw, vh): (u32, u32, u32, u32),
++) -> (f32, f32) {
++    if vw == 0 || vh == 0 {
++        return (0.0, 0.0);
++    }
++    (
++        ((x - vx as f32) / vw as f32).clamp(0.0, 1.0) - 0.5,
++        ((y - vy as f32) / vh as f32).clamp(0.0, 1.0) - 0.5,
++    )
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn matching_sizes_preserve_coordinates() {
++        assert_eq!(fit_viewport((480, 320), (480, 320)), (0, 0, 480, 320));
++        assert_eq!(
++            window_to_drawable((123.0, 45.0), (480, 320), (480, 320)),
++            (123.0, 45.0)
++        );
++    }
++
++    #[test]
++    fn mouse_and_finger_agree_on_hidpi_viewport() {
++        let viewport = fit_viewport((480, 320), (960, 640));
++        assert_eq!(viewport, (0, 0, 960, 640));
++        let mouse = window_to_drawable((120.0, 240.0), (480, 320), (960, 640));
++        // SDL finger coordinates are normalized to the entire drawable.
++        let finger = (0.25 * 960.0, 0.75 * 640.0);
++        assert_eq!(mouse, finger);
++        assert_eq!(normalize_viewport_coords(mouse, viewport), (-0.25, 0.25));
++    }
++
++    #[test]
++    fn fractional_scale_uses_current_window_dimensions() {
++        assert_eq!(
++            window_to_drawable((400.0, 300.0), (800, 600), (1000, 750)),
++            (500.0, 375.0)
++        );
++        assert_eq!(fit_viewport((480, 320), (1000, 750)), (0, 41, 1000, 667));
++    }
++
++    #[test]
++    fn pillarbox_center_edges_and_bars() {
++        let viewport = fit_viewport((320, 480), (1280, 960));
++        assert_eq!(viewport, (320, 0, 640, 960));
++        assert_eq!(
++            normalize_viewport_coords((640.0, 480.0), viewport),
++            (0.0, 0.0)
++        );
++        assert_eq!(
++            normalize_viewport_coords((320.0, 480.0), viewport),
++            (-0.5, 0.0)
++        );
++        assert_eq!(
++            normalize_viewport_coords((960.0, 480.0), viewport),
++            (0.5, 0.0)
++        );
++        assert_eq!(
++            normalize_viewport_coords((0.0, 480.0), viewport),
++            (-0.5, 0.0)
++        );
++        assert_eq!(
++            normalize_viewport_coords((1280.0, 480.0), viewport),
++            (0.5, 0.0)
++        );
++    }
++
++    #[test]
++    fn landscape_in_portrait_window_is_centered() {
++        let viewport = fit_viewport((480, 320), (960, 1280));
++        assert_eq!(viewport, (0, 320, 960, 640));
++        assert_eq!(
++            normalize_viewport_coords((480.0, 640.0), viewport),
++            (0.0, 0.0)
++        );
++        assert_eq!(
++            normalize_viewport_coords((480.0, 320.0), viewport),
++            (0.0, -0.5)
++        );
++        assert_eq!(
++            normalize_viewport_coords((480.0, 960.0), viewport),
++            (0.0, 0.5)
++        );
++    }
++
++    #[test]
++    fn mouse_accelerometer_center_is_neutral_after_letterboxing() {
++        let viewport = fit_viewport((480, 320), (960, 1280));
++        let mouse = window_to_drawable((240.0, 320.0), (480, 640), (960, 1280));
++        let (x, y) = normalize_viewport_coords(mouse, viewport);
++        assert_eq!((x * 2.0, y * 2.0), (0.0, 0.0));
++    }
++
++    #[test]
++    fn empty_dimensions_produce_finite_coordinates() {
++        assert_eq!(window_to_drawable((1.0, 1.0), (0, 0), (0, 0)), (0.0, 0.0));
++        assert_eq!(fit_viewport((480, 320), (0, 0)), (0, 0, 0, 0));
++        assert_eq!(
++            normalize_viewport_coords((1.0, 1.0), (0, 0, 0, 0)),
++            (0.0, 0.0)
++        );
++    }
++}

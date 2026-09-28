@@ -1,0 +1,15 @@
+{
+  "version": "1.0.92",
+  "rev": "0c77fbdfca05de10192495ae57f3347c744db60a",
+  "hash": "sha256-gb3Npk0KIMa9PW3KLbWaDhSPadLdSbK7UGJTfpvdA6g=",
+  "components": {
+    "touchHLE_dynarmic_wrapper": "sha256-f0gdRPNFlaNB3B6CY3WtOWz5I9eCsTXFI0rxaq/O7QU=",
+    "touchHLE_gl_bindings": "sha256-oDsEbLxqs//YYt9E11r+ATDq438RGiJVdd7qM9YzSoQ=",
+    "touchHLE_libxml2_wrapper": "sha256-Su5iSXpFuJKzW54V51j84810NzgzJdMWuK6KPR9woH8=",
+    "touchHLE_openal_soft_wrapper": "sha256-aXPgb2/mj6v8SZyaPhv5QB52TjGvHcx7NGFU/9j0xeM=",
+    "touchHLE_pvrt_decompress_wrapper": "sha256-F/o/jg78G8hktYehW0NHPA6OHRt1osPI3WT7req64TM=",
+    "touchHLE_stb_image_wrapper": "sha256-8Cb2DztWqXc1CPvTutBaFmFWV/biLDy7LLoNZ+swkX4=",
+    "touchHLE_version": "sha256-oodvjBOYKhNWQyKppqvDUBrZjqKeljpRi5iVlmVHWCU=",
+    "symphonia-codec-aac": "sha256-K0ZSHkJcr6tp18GOvXHLsLAi6f7y2/va70FkiRCebnQ="
+  }
+}

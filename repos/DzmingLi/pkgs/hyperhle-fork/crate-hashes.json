@@ -1,0 +1,4 @@
+{
+  "git+https://github.com/touchHLE/rust-sdl2?tag=touchHLE-3#sdl2-sys@0.37.0": "1nwlcqd9xlb9pamg03p9p0xaysxgpwc2l4bsrm809n02bkhxlync",
+  "git+https://github.com/touchHLE/rust-sdl2?tag=touchHLE-3#sdl2@0.37.0": "1nwlcqd9xlb9pamg03p9p0xaysxgpwc2l4bsrm809n02bkhxlync"
+}

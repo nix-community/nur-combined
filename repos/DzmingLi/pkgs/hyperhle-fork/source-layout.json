@@ -1,0 +1,10 @@
+{
+  "touchHLE_dynarmic_wrapper": {"path": "src/cpu/dynarmic_wrapper", "vendor": ["vendor/dynarmic"]},
+  "touchHLE_gl_bindings": {"path": "src/gles/gl_bindings", "vendor": []},
+  "touchHLE_libxml2_wrapper": {"path": "src/frameworks/libxml2_wrapper", "vendor": ["vendor/libxml2"]},
+  "touchHLE_openal_soft_wrapper": {"path": "src/audio/openal_soft_wrapper", "vendor": []},
+  "touchHLE_pvrt_decompress_wrapper": {"path": "src/image/pvrt_decompress_wrapper", "vendor": ["vendor/PVRTDecompress"]},
+  "touchHLE_stb_image_wrapper": {"path": "src/image/stb_image_wrapper", "vendor": ["vendor/stb"]},
+  "touchHLE_version": {"path": "src/version", "vendor": []},
+  "symphonia-codec-aac": {"path": "vendor/symphonia-codec-aac", "vendor": []}
+}
