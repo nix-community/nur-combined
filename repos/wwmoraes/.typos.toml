@@ -1,0 +1,26 @@
+[default]
+extend-ignore-identifiers-re = [
+  # keep-sorted start
+  # keep-sorted end
+]
+extend-ignore-words-re = [
+  # keep-sorted start
+  # keep-sorted end
+]
+extend-ignore-re = [
+  # keep-sorted start
+  "\\$STRUCTURIZR_SITE_GENERATR_[A-Z]+",
+  "nl\\.avisi\\.structurizr\\.site\\.generatr\\.AppKt",
+  "structurizr-site-generatr",
+  # keep-sorted end
+]
+
+[default.extend-identifiers]
+
+[default.extend-words]
+
+[files]
+extend-exclude = [
+  # keep-sorted start
+  # keep-sorted end
+]

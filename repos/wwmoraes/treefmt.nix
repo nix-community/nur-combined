@@ -1,6 +1,8 @@
 {
   imports = [
     ./modules/treefmt/checkmake.nix
+    ./modules/treefmt/shellcheck-posix.nix
+    ./modules/treefmt/shellcheck-bash.nix
   ];
 
   projectRootFile = "flake.nix";
@@ -8,7 +10,7 @@
   programs.checkmake = {
     enable = true;
     settings = {
-      maxbodylength.maxBodyLength = 10;
+      maxbodylength.maxBodyLength = 15;
     };
   };
   programs.keep-sorted.enable = true;
@@ -21,10 +23,12 @@
   };
   programs.nixf-diagnose.enable = true;
   programs.nixfmt.enable = true;
+  programs.shellcheck-bash.enable = true;
+  programs.shellcheck-posix.enable = true;
   programs.statix.enable = true;
   programs.typos = {
     enable = true;
-    # configFile = builtins.toString ./.typos.toml;
+    configFile = toString ./.typos.toml;
   };
   programs.yamlfmt = {
     enable = true;

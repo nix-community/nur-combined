@@ -111,6 +111,8 @@
             default = pkgs.linkFarmFromDrvs "nurpkgs" (builtins.attrValues drvPackages);
           };
 
+          treefmt = ./treefmt.nix;
+
           legacyPackages =
             import ./default.nix { inherit pkgs system; }
             // lib.optionalAttrs (pkgs ? gomod2nix) {

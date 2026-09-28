@@ -31,7 +31,8 @@ let
           # keep-sorted start
           pkgs.cocogitto
           # keep-sorted end
-        ] ++ prev.nativeBuildInputs;
+        ]
+        ++ prev.nativeBuildInputs;
 
         shellHook = ''
           cog install-hook --all --overwrite

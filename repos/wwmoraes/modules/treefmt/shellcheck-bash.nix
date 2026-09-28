@@ -6,13 +6,16 @@
     (mkFormatterModule {
       name = "shellcheck-bash";
       package = "shellcheck";
-      args = [ "--shell=bash" ];
       includes = [
         "*.bash"
         # direnv
         "*.envrc"
         "*.envrc.*"
       ];
+    })
+    (import ./shellcheck.nix {
+      name = "shellcheck-bash";
+      shell = "bash";
     })
   ];
 }

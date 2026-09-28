@@ -224,7 +224,7 @@ let
       (builtins.length entries) > 0
     ) "pmset ${flag} ${concatStringsSep " " entries}";
   pmsetSettingsToList =
-    attrs: mapAttrsToList (k: v: "${k} ${builtins.toString v}") (filterAttrs (n: v: v != null) attrs);
+    attrs: mapAttrsToList (k: v: "${k} ${toString v}") (filterAttrs (n: v: v != null) attrs);
   pmset = flag: attrs: writePmset flag (pmsetSettingsToList attrs);
 in
 {

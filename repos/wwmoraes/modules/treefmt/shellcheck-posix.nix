@@ -6,10 +6,13 @@
     (mkFormatterModule {
       name = "shellcheck-posix";
       package = "shellcheck";
-      args = [ "--shell=sh" ];
       includes = [
         "*.sh"
       ];
+    })
+    (import ./shellcheck.nix {
+      name = "shellcheck-posix";
+      shell = "sh";
     })
   ];
 }
