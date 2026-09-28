@@ -426,6 +426,21 @@ pkgs.mkRustPackage (finalAttrs: {
 });
 ```
 
+### mkGoModule
+
+Wraps [`buildGoModule`](https://nixos.org/manual/nixpkgs/stable/#sec-language-go), building the vendored dependencies in a separate derivation (`goCache`) and restoring its build cache. Source changes and version bumps only rebuild the main module's packages. The dependency derivation only uses `vendor/modules.txt` and the vendor directory, which is named without the version, so it only changes when the dependencies do. `vendorHash` is required and `proxyVendor` isn't supported. `goCacheArgs` can be used to modify the dependency derivation.
+
+Dependencies of tests are cached for the build directory used on Linux, on Darwin they're rebuilt in the check phase.
+
+```nix
+pkgs.mkGoModule (finalAttrs: {
+  pname = "go-pkg";
+  version = "1.0.0";
+  src = ./.;
+  vendorHash = "sha256-...";
+});
+```
+
 ### bufFetchDeps & bufHook
 
 Creates a fixed-output derivation for [buf](https://buf.build/) dependencies
