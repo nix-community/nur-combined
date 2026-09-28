@@ -1939,6 +1939,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "codex-agent-message-board-client"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "codex-agent-message-board-extension",
+ "codex-http-client",
+ "codex-protocol",
+ "eventsource-stream",
+ "futures",
+ "http 1.4.0",
+ "pretty_assertions",
+ "serde",
+ "serde_json",
+ "tokio",
+ "url",
+ "wiremock",
+]
+
+[[package]]
 name = "codex-agent-message-board-extension"
 version = "0.0.0"
 dependencies = [
@@ -2116,6 +2136,7 @@ dependencies = [
  "codex-utils-path-uri",
  "codex-utils-pty",
  "codex-web-search-extension",
+ "codex-websocket-auth",
  "codex-windows-sandbox",
  "core_test_support",
  "flate2",
@@ -2125,6 +2146,7 @@ dependencies = [
  "opentelemetry",
  "opentelemetry_sdk",
  "pretty_assertions",
+ "rcgen",
  "rmcp",
  "serde",
  "serde_json",
@@ -2139,6 +2161,7 @@ dependencies = [
  "tikv-jemallocator",
  "time",
  "tokio",
+ "tokio-rustls",
  "tokio-tungstenite",
  "tokio-util",
  "toml 0.9.11+spec-1.1.0",
@@ -2267,11 +2290,9 @@ dependencies = [
 name = "codex-app-server-transport"
 version = "0.0.0"
 dependencies = [
- "anyhow",
  "axum",
  "base64 0.22.1",
  "chrono",
- "clap",
  "codex-api",
  "codex-app-server-protocol",
  "codex-config",
@@ -2284,13 +2305,11 @@ dependencies = [
  "codex-uds",
  "codex-utils-absolute-path",
  "codex-utils-rustls-provider",
+ "codex-websocket-auth",
  "codex-websocket-client",
- "constant_time_eq",
  "futures",
  "gethostname",
- "hmac 0.12.1",
  "httpdate",
- "jsonwebtoken",
  "libc",
  "owo-colors",
  "pretty_assertions",
@@ -2343,6 +2362,7 @@ dependencies = [
  "codex-shell-escalation",
  "codex-utils-absolute-path",
  "codex-utils-home-dir",
+ "codex-utils-pty",
  "codex-windows-sandbox",
  "dotenvy",
  "pathdiff",
@@ -2531,12 +2551,15 @@ dependencies = [
  "codex-utils-path",
  "codex-utils-path-uri",
  "codex-utils-pty",
+ "codex-utils-redacted-string",
+ "codex-websocket-auth",
  "codex-windows-sandbox",
  "crossterm",
  "flate2",
  "futures",
  "http 1.4.0",
  "insta",
+ "jsonwebtoken",
  "libc",
  "os_info",
  "owo-colors",
@@ -2545,6 +2568,7 @@ dependencies = [
  "regex-lite",
  "serde",
  "serde_json",
+ "sha2 0.10.9",
  "sqlx",
  "supports-color 3.0.2",
  "sys-locale",
@@ -2577,6 +2601,7 @@ dependencies = [
  "rand 0.9.3",
  "tokio",
  "tracing",
+ "url",
 ]
 
 [[package]]
@@ -3020,6 +3045,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "codex-core-plugin-common"
+version = "0.0.0"
+dependencies = [
+ "codex-utils-absolute-path",
+ "semver",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.18",
+]
+
+[[package]]
 name = "codex-core-plugins"
 version = "0.0.0"
 dependencies = [
@@ -3029,6 +3065,7 @@ dependencies = [
  "codex-app-server-protocol",
  "codex-config",
  "codex-connectors",
+ "codex-core-plugin-common",
  "codex-exec-server",
  "codex-exec-server-test-support",
  "codex-git-utils",
@@ -3054,7 +3091,6 @@ dependencies = [
  "libc",
  "pretty_assertions",
  "regex",
- "semver",
  "serde",
  "serde_json",
  "serde_with",
@@ -3147,22 +3183,28 @@ dependencies = [
  "codex-api",
  "codex-build-info",
  "codex-config",
+ "codex-core-plugin-common",
  "codex-exec-server-protocol",
  "codex-exec-server-test-support",
  "codex-file-system",
+ "codex-file-watcher",
  "codex-http-client",
  "codex-network-proxy",
  "codex-otel",
  "codex-protocol",
  "codex-sandboxing",
  "codex-shell-command",
+ "codex-skills",
  "codex-test-binary-support",
+ "codex-uds",
  "codex-utils-absolute-path",
  "codex-utils-cargo-bin",
  "codex-utils-home-dir",
  "codex-utils-path-uri",
  "codex-utils-pty",
+ "codex-utils-redacted-string",
  "codex-utils-rustls-provider",
+ "codex-websocket-auth",
  "codex-websocket-client",
  "ctor 0.6.3",
  "dirs",
@@ -3257,16 +3299,19 @@ dependencies = [
 name = "codex-extension-api"
 version = "0.0.0"
 dependencies = [
+ "codex-api",
  "codex-config",
  "codex-context-fragments",
  "codex-exec-server-protocol",
  "codex-file-system",
+ "codex-guardian-context",
  "codex-history",
  "codex-mcp",
  "codex-protocol",
  "codex-tools",
  "codex-utils-absolute-path",
  "codex-utils-path-uri",
+ "futures",
  "pretty_assertions",
  "serde_json",
  "tokio",
@@ -3319,7 +3364,6 @@ name = "codex-features"
 version = "0.0.0"
 dependencies = [
  "codex-network-proxy",
- "codex-otel",
  "codex-protocol",
  "pretty_assertions",
  "schemars 0.8.22",
@@ -3338,6 +3382,7 @@ dependencies = [
  "codex-login",
  "codex-protocol",
  "codex-rollout",
+ "codex-state",
  "flate2",
  "http 1.4.0",
  "httpdate",
@@ -3541,11 +3586,11 @@ name = "codex-history-notes-extension"
 version = "0.0.0"
 dependencies = [
  "codex-analytics",
- "codex-api",
  "codex-client",
  "codex-config",
  "codex-core",
  "codex-extension-api",
+ "codex-http-client",
  "codex-login",
  "codex-model-provider",
  "codex-model-provider-info",
@@ -3588,6 +3633,7 @@ dependencies = [
  "codex-utils-path-uri",
  "codex-utils-pty",
  "futures",
+ "libc",
  "pretty_assertions",
  "regex",
  "schemars 0.8.22",
@@ -3609,6 +3655,7 @@ dependencies = [
  "futures",
  "http 1.4.0",
  "http-body 1.0.1",
+ "httpdate",
  "native-tls",
  "opentelemetry",
  "opentelemetry_sdk",
@@ -3644,6 +3691,7 @@ dependencies = [
  "codex-exec-server",
  "codex-extension-api",
  "codex-extension-items",
+ "codex-http-client",
  "codex-login",
  "codex-model-provider",
  "codex-model-provider-info",
@@ -3679,6 +3727,9 @@ name = "codex-keyring-store"
 version = "0.0.0"
 dependencies = [
  "keyring",
+ "pretty_assertions",
+ "secret-service",
+ "security-framework 3.5.1",
  "tracing",
 ]
 
@@ -3968,7 +4019,7 @@ dependencies = [
 name = "codex-model-provider-info"
 version = "0.0.0"
 dependencies = [
- "codex-api",
+ "codex-client",
  "codex-protocol",
  "codex-utils-absolute-path",
  "codex-utils-redacted-string",
@@ -4102,6 +4153,7 @@ dependencies = [
  "codex-http-client",
  "codex-protocol",
  "codex-utils-absolute-path",
+ "codex-utils-stream-parser",
  "codex-utils-string",
  "eventsource-stream",
  "gethostname",
@@ -4144,6 +4196,7 @@ name = "codex-plugin"
 version = "0.0.0"
 dependencies = [
  "codex-config",
+ "codex-core-plugin-common",
  "codex-protocol",
  "codex-utils-absolute-path",
  "codex-utils-path-uri",
@@ -4933,6 +4986,7 @@ dependencies = [
  "divan",
  "image",
  "mime_guess",
+ "png",
  "thiserror 2.0.18",
  "tokio",
 ]
@@ -5011,6 +5065,7 @@ name = "codex-utils-pty"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "ctor 0.6.3",
  "filedescriptor",
  "lazy_static",
  "libc",
@@ -5147,6 +5202,25 @@ dependencies = [
  "schemars 0.8.22",
  "serde_json",
  "url",
+]
+
+[[package]]
+name = "codex-websocket-auth"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "base64 0.22.1",
+ "clap",
+ "codex-utils-absolute-path",
+ "constant_time_eq",
+ "hmac 0.12.1",
+ "http 1.4.0",
+ "jsonwebtoken",
+ "pretty_assertions",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "time",
 ]
 
 [[package]]

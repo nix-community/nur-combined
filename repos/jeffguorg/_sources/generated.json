@@ -87,7 +87,7 @@
     "codex": {
         "cargoLock": {
             "codex-rs/Cargo.lock": [
-                "sha256-HuNL5VGd2LenhbCdcz0i8b6lRw3sicwXytyfXgCgy88=/codex-rs/Cargo.lock",
+                "sha256-6ogqs75pG4+hxG6RqwBwJPWd3wGks2wBID_epha9+Ds=/codex-rs/Cargo.lock",
                 {
                     "appcontainer_common-0.8.0": "sha256-XUkT2R+RYk9WIqgKnmIAagNW4xOTyp4bWHmQL1iznHw=",
                     "crossterm-0.29.0": "sha256-0OFnAzKZOd5lNkvwdXPu5zbfDWBRQG80OruXxqrFklQ=",
@@ -111,12 +111,12 @@
             "name": null,
             "owner": "openai",
             "repo": "codex",
-            "rev": "rust-v0.157.1",
-            "sha256": "sha256-HuNL5VGd2LenhbCdcz0i8b6lRw3sicwXytyfXgCgy88=",
+            "rev": "rust-v0.158.0",
+            "sha256": "sha256-6ogqs75pG4+hxG6RqwBwJPWd3wGks2wBID/epha9+Ds=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "rust-v0.157.1"
+        "version": "rust-v0.158.0"
     },
     "codex-bin-amd64-darwin": {
         "cargoLock": null,
@@ -127,11 +127,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-d7JsAPU5jGGfiwNgkrBkrn/+Q5GuO1NwxFf5PGTpAIw=",
+            "sha256": "sha256-cpZ/hWYSFoyvzEJZ7AyJDqmEg5gkQbUewJwYEdOGs5A=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-darwin-x64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.158.0-darwin-x64.tgz"
         },
-        "version": "0.157.1"
+        "version": "0.158.0"
     },
     "codex-bin-amd64-linux": {
         "cargoLock": null,
@@ -142,11 +142,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fxJnd0D0Of5IhMcDHZ1wPlcc7PXqn6OgWr0bvMwhYqg=",
+            "sha256": "sha256-P+hBBqry+/wTKZBoUQ00s9AVfuua9LN76M9UFvSFprs=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-linux-x64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.158.0-linux-x64.tgz"
         },
-        "version": "0.157.1"
+        "version": "0.158.0"
     },
     "codex-bin-arm64-darwin": {
         "cargoLock": null,
@@ -157,11 +157,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xRlmQPLl4cmk4aHBJHrTLwy+axnnBj2znRIEMGNEsoM=",
+            "sha256": "sha256-eEn4qofDlWgjzvCC2DtTiYCgztbkaMyk85wc9gbqja4=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-darwin-arm64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.158.0-darwin-arm64.tgz"
         },
-        "version": "0.157.1"
+        "version": "0.158.0"
     },
     "codex-bin-arm64-linux": {
         "cargoLock": null,
@@ -172,11 +172,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tz1ILAljpp1c7OX+FukZRzNZk3wi+0SZcC6jWHDhgk8=",
+            "sha256": "sha256-9M5CdX4QFA4LLwyRbnKUHHB9Pl19kJIkZd+ZJoz1PyI=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-linux-arm64.tgz"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.158.0-linux-arm64.tgz"
         },
-        "version": "0.157.1"
+        "version": "0.158.0"
     },
     "create-tauri-app": {
         "cargoLock": {
@@ -450,11 +450,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EuTwH9nIk56UfQxaHTt4YemChQUREvg1101Qltu61TU=",
+            "sha256": "sha256-KxeMphfwruGm3857UAsH1Xo0jjQY/QcTyBBVXldttEc=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.3.4/omp-darwin-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.4.2/omp-darwin-x64"
         },
-        "version": "v18.3.4"
+        "version": "v18.4.2"
     },
     "oh-my-pi-bin-amd64-linux": {
         "cargoLock": null,
@@ -465,11 +465,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6NE+qNpigfGDEIvCWulMShpRWaIHLRiOqMMLv85HNbg=",
+            "sha256": "sha256-VQFu9TF69VaXXzo9zgLI20H8HQXRW2UUeBT94BnC4gM=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.3.4/omp-linux-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.4.2/omp-linux-x64"
         },
-        "version": "v18.3.4"
+        "version": "v18.4.2"
     },
     "oh-my-pi-bin-arm64-darwin": {
         "cargoLock": null,
@@ -480,11 +480,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EKecVvxFkkXqxB1bQxjNf86Iod6ilNAFk4WTRq2nqoo=",
+            "sha256": "sha256-K0liDKOdg1/zE6rdTsYZMXMrXbQlGneB2KWiMFNBwUo=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.3.4/omp-darwin-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.4.2/omp-darwin-arm64"
         },
-        "version": "v18.3.4"
+        "version": "v18.4.2"
     },
     "oh-my-pi-bin-arm64-linux": {
         "cargoLock": null,
@@ -495,11 +495,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-uwWNSd3lu4Tm8blqp5jXOT07zhppJzkmlOSRILosJhk=",
+            "sha256": "sha256-LBbcTBRr+A2WLojr7+h8LVswtC8FE+uhANfBsWGr0Fs=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.3.4/omp-linux-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.4.2/omp-linux-arm64"
         },
-        "version": "v18.3.4"
+        "version": "v18.4.2"
     },
     "pi-agent": {
         "cargoLock": null,
