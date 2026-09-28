@@ -1,0 +1,25 @@
+From c64938a6f24493650a021bc96bff713894c05895 Mon Sep 17 00:00:00 2001
+From: Bart Oostveen <bart@bartoostveen.nl>
+Date: Mon, 28 Sep 2026 01:12:59 +0200
+Subject: [PATCH] fix: do not log build time
+
+---
+ nob.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/nob.c b/nob.c
+index 2502b54..71625be 100644
+--- a/nob.c
++++ b/nob.c
+@@ -422,8 +422,6 @@ bool make_build_h(Compiler compiler)
+         nob_log(WARNING, "compiler version will not be included in `tatr-version`");
+     }
+ 
+-    sb_appendf(&sb_build_h, "#define BUILD_TIME \"%s\"\n", get_current_date());
+-
+     const char *tasks_readme_md_file = "tasks/README.md";
+     if (file_exists(tasks_readme_md_file)) {
+         String_Builder sb_tasks_readme_md = {0};
+-- 
+2.55.0
+
