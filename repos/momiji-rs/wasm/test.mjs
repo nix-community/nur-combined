@@ -9,7 +9,7 @@
 // asyncify refactors must preserve (docs/HANDOFF_ASYNC_IMPORTER_PERF.md).
 // Run after build.sh: `node wasm/test.mjs`.
 import assert from "node:assert/strict";
-import { writeFileSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, copyFileSync, existsSync, statSync, lstatSync, symlinkSync, renameSync, rmSync, openSync, closeSync, chmodSync, realpathSync } from "node:fs";
+import { writeFileSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, copyFileSync, existsSync, statSync, lstatSync, symlinkSync, renameSync, rmSync, openSync, closeSync, chmodSync, realpathSync, watch } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, delimiter } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
@@ -4210,6 +4210,348 @@ console.log("ok: cli — version/help/stdin/style/file @use/load-path/errors + e
     console.log("ok: cli --watch — one save prints one @warn, and a save that changes nothing prints none");
   } finally {
     proc.kill();
+  }
+}
+
+// Any number of pairs (#200), and a save recompiles only the pairs that read
+// what it changed — dart's rule, and the binary's since #198. Lichess spawns
+// this CLI with 147 of them.
+//
+// The outputs go to their own directory ON PURPOSE. A directory a job writes
+// into holds that job's output, and an atomic save's temporary file there is
+// easy to mistake for something else; beside the sources, the atomic-save
+// step below would pass for the wrong reason.
+//
+// Twice: by default the sweep usually sees a save before the native watcher
+// does, so the native watcher's own choice of jobs is only exercised with the
+// sweep off.
+//
+// Which needs a native watcher that works. macOS's can stop delivering
+// anything at all until a reboot — seen 2026-09-28, where a bare `fs.watch`
+// heard none of five saves — and the default mode passes regardless, because
+// the sweep is there for exactly that.
+const nativeWatchDelivers = async () => {
+  const dir = mkdtempSync(join(tmpdir(), "sasso-fswatch-"));
+  let heard = false;
+  const w = watch(dir, () => (heard = true));
+  try {
+    for (let i = 0; i < 20 && !heard; i++) {
+      writeFileSync(join(dir, "probe"), String(i));
+      await new Promise((r) => setTimeout(r, 100));
+    }
+  } finally {
+    w.close();
+  }
+  return heard;
+};
+for (const mode of [[], ["--no-poll"]]) {
+  if (mode.length && !(await nativeWatchDelivers())) {
+    console.log("  (cli --watch --no-poll, many pairs: skipping — fs.watch delivers nothing here)");
+    continue;
+  }
+  const wdir = mkdtempSync(join(tmpdir(), "sasso-watchmany-"));
+  const src = join(wdir, "src");
+  const out = join(wdir, "out");
+  mkdirSync(src);
+  mkdirSync(out);
+  const put = (name, text) => writeFileSync(join(src, name), text);
+  put("_x.scss", "$x: red;\n");
+  put("_shared.scss", "$s: navy;\n");
+  put("a.scss", '@use "x";\n.a { color: x.$x; }\n');
+  // A warning each, so the rounds the pool compiles have diagnostics to
+  // put back in command-line order.
+  put("b.scss", '@use "shared";\n@warn "from b";\n.b { color: shared.$s; }\n');
+  put("c.scss", '@use "shared";\n@warn "from c";\n.c { color: shared.$s; }\n');
+  const names = ["a", "b", "c"];
+  const pairs = names.map((n) => `src/${n}.scss:out/${n}.css`);
+  // SASSO_DEBUG_WATCH names every compile. One whose CSS did not change
+  // writes and says nothing, so the outputs alone cannot show a wasted one.
+  const proc = spawn(process.execPath, [cliPath, "--no-source-map", "--watch", ...mode, ...pairs], {
+    cwd: wdir,
+    env: { ...process.env, SASSO_DEBUG_WATCH: "1" },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  let stdout = "";
+  let stderr = "";
+  let outputsAtBanner = null;
+  proc.stdout.on("data", (b) => {
+    stdout += b;
+    if (outputsAtBanner === null && stdout.includes("Sass is watching")) {
+      outputsAtBanner = names.filter((n) => existsSync(join(out, `${n}.css`))).length;
+    }
+  });
+  proc.stderr.on("data", (b) => (stderr += b));
+  const narrated = () => stdout.split("\n").filter((l) => l.includes("Compiled"));
+  const compiles = () => stderr.split("\n").filter((l) => l.startsWith("sasso: compiling "));
+  const css = (n) => {
+    try {
+      return readFileSync(join(out, `${n}.css`), "utf8");
+    } catch {
+      return "";
+    }
+  };
+  const stamp = (n) => statSync(join(out, `${n}.css`)).mtimeMs;
+  const until = async (pred, ms) => {
+    const deadline = Date.now() + ms;
+    while (Date.now() < deadline) {
+      if (pred()) return true;
+      await new Promise((r) => setTimeout(r, 25));
+    }
+    return false;
+  };
+  // Past the catch-up and past macOS's second notification of the same
+  // save (#164), so a line that was going to arrive has arrived.
+  const settle = () => new Promise((r) => setTimeout(r, 1500));
+  /** Save, wait for `lands`, and return which entries were narrated. */
+  const save = async (label, write, lands) => {
+    const seen = narrated().length;
+    const ran = compiles().length;
+    const stamps = Object.fromEntries(names.map((n) => [n, stamp(n)]));
+    write();
+    assert.ok(await until(lands, 20000), `cli --watch, many pairs: ${label} never landed`);
+    await settle();
+    const said = narrated()
+      .slice(seen)
+      .map((l) => /Compiled src\/(\w)\.scss/.exec(l)?.[1])
+      .sort();
+    const touched = names.filter((n) => stamp(n) !== stamps[n]);
+    // A provisional head and its catch-up are two compiles of one entry.
+    const compiled = [...new Set(compiles().slice(ran).map((l) => /src\/(\w)\.scss/.exec(l)?.[1]))].sort();
+    return { said, touched, compiled };
+  };
+
+  try {
+    assert.ok(await until(() => outputsAtBanner !== null, 20000), `no banner: ${stdout}${stderr}`);
+    assert.equal(outputsAtBanner, 3, "the banner came before every output was written");
+    assert.equal(narrated().length, 3, `one line per pair before the banner: ${stdout}`);
+    const warned = () => [...stderr.matchAll(/from (b|c)/g)].map((m) => m[1]).join("");
+    assert.equal(warned(), "bc", `each warning once, in command-line order: ${JSON.stringify(stderr)}`);
+    await settle();
+
+    let r = await save("a private partial", () => put("_x.scss", "$x: green;\n"), () => css("a").includes("green"));
+    assert.deepEqual(r.said, ["a"], `_x.scss reaches a alone: ${JSON.stringify(stdout)}`);
+    assert.deepEqual(r.compiled, ["a"], `and compiled nothing else: ${JSON.stringify(stderr)}`);
+    assert.deepEqual(r.touched, ["a"], "and only a's output was rewritten");
+
+    r = await save("a shared partial", () => put("_shared.scss", "$s: teal;\n"), () =>
+      css("b").includes("teal") && css("c").includes("teal"),
+    );
+    assert.deepEqual(r.said, ["b", "c"], `_shared.scss reaches b and c: ${JSON.stringify(stdout)}`);
+    assert.equal(warned(), "bcbc", `and warns once more each, in order: ${JSON.stringify(stderr)}`);
+    assert.deepEqual(r.compiled, ["b", "c"], `and compiled nothing else: ${JSON.stringify(stderr)}`);
+    assert.deepEqual(r.touched, ["b", "c"], "and a's output was left alone");
+
+    r = await save("an entry", () => put("c.scss", '@use "shared";\n.c { color: shared.$s; width: 1px; }\n'), () =>
+      css("c").includes("1px"),
+    );
+    assert.deepEqual(r.said, ["c"], `c.scss reaches c alone: ${JSON.stringify(stdout)}`);
+    assert.deepEqual(r.compiled, ["c"], `and compiled nothing else: ${JSON.stringify(stderr)}`);
+
+    // An atomic save: write beside, rename over. The directory's mtime moves
+    // and a temporary name comes and goes; the save is still c's alone.
+    r = await save(
+      "an atomic save",
+      () => {
+        const tmp = join(src, ".c.scss.tmp");
+        writeFileSync(tmp, '@use "shared";\n.c { color: shared.$s; width: 2px; }\n');
+        renameSync(tmp, join(src, "c.scss"));
+      },
+      () => css("c").includes("2px"),
+    );
+    assert.deepEqual(r.said, ["c"], `an atomic save of c.scss reaches c alone: ${JSON.stringify(stdout)}`);
+    assert.deepEqual(r.compiled, ["c"], `and compiled nothing else: ${JSON.stringify(stderr)}`);
+    assert.deepEqual(r.touched, ["c"], "and rewrites c alone");
+    // Not "stderr is empty": where the native addon cannot load, the CLI
+    // says so there, and that is not this test's business.
+    assert.doesNotMatch(stderr, /Error/, "no error on stderr");
+    console.log(`ok: cli --watch${mode.map((m) => ` ${m}`).join("")}, many pairs — banner after every output, and a save recompiles only what it reaches`);
+  } finally {
+    proc.kill();
+  }
+}
+
+// Two failing pairs whose outputs sit beside each other's sources. A failing
+// job accepts any change in its directories, because anything there may be
+// the fix — and each writes an error stylesheet into the directory the other
+// follows. Unless every job's output is noise to every job that does not
+// read it, they wake each other up forever.
+{
+  const wdir = mkdtempSync(join(tmpdir(), "sasso-watchpair-fail-"));
+  writeFileSync(join(wdir, "p.scss"), ".p { color: $nope; }\n");
+  writeFileSync(join(wdir, "q.scss"), ".q { color: $nope; }\n");
+  const proc = spawn(process.execPath, [cliPath, "--no-source-map", "--watch", "p.scss:p.css", "q.scss:q.css"], {
+    cwd: wdir,
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  let stdout = "";
+  let stderr = "";
+  proc.stdout.on("data", (b) => (stdout += b));
+  proc.stderr.on("data", (b) => (stderr += b));
+  const errors = () => stderr.split("\n").filter((l) => l.startsWith("Error:")).length;
+  const until = async (pred, ms) => {
+    const deadline = Date.now() + ms;
+    while (Date.now() < deadline) {
+      if (pred()) return true;
+      await new Promise((r) => setTimeout(r, 25));
+    }
+    return false;
+  };
+  try {
+    assert.ok(await until(() => stdout.includes("Sass is watching"), 20000), `no banner: ${stdout}${stderr}`);
+    await new Promise((r) => setTimeout(r, 2000));
+    assert.equal(errors(), 2, `two failing pairs reported ${errors()} errors in 2 s: ${JSON.stringify(stderr)}`);
+    // …and a failing job still hears its own fix.
+    writeFileSync(join(wdir, "p.scss"), ".p { color: red; }\n");
+    assert.ok(
+      await until(() => existsSync(join(wdir, "p.css")) && readFileSync(join(wdir, "p.css"), "utf8").includes("red"), 20000),
+      "the fix to p.scss never landed",
+    );
+    // q may hear the save too — a failing job takes anything in its
+    // directory, since a dependency that never loaded is not in `known` —
+    // but once that is over, the count has to stop moving.
+    await new Promise((r) => setTimeout(r, 1500));
+    const after = errors();
+    await new Promise((r) => setTimeout(r, 2000));
+    assert.equal(errors(), after, `q kept failing with nothing saved: ${JSON.stringify(stderr)}`);
+    console.log("ok: cli --watch, many pairs — failing pairs do not wake each other, and a fix still lands");
+  } finally {
+    proc.kill();
+  }
+}
+
+/** Spawn a many-pairs `--watch` in `wdir`; the caller kills it. */
+const watchPairs = (wdir, args, env = {}) => {
+  const proc = spawn(process.execPath, [cliPath, "--no-source-map", "--watch", ...args], {
+    cwd: wdir,
+    env: { ...process.env, SASSO_DEBUG_WATCH: "1", ...env },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  const log = { stdout: "", stderr: "" };
+  proc.stdout.on("data", (b) => (log.stdout += b));
+  proc.stderr.on("data", (b) => (log.stderr += b));
+  const read = (f) => {
+    try {
+      return readFileSync(join(wdir, f), "utf8");
+    } catch {
+      return "";
+    }
+  };
+  const until = async (pred, ms = 20000) => {
+    const deadline = Date.now() + ms;
+    while (Date.now() < deadline) {
+      if (pred()) return true;
+      await new Promise((r) => setTimeout(r, 25));
+    }
+    return false;
+  };
+  const banner = () => until(() => log.stdout.includes("Sass is watching"));
+  return { proc, log, read, until, banner };
+};
+
+// A pair that writes another pair's INPUT: `a.scss:b.scss b.scss:out.css`.
+// One-shot mode compiles such a batch one job at a time, write included, so
+// b reads what a has just written. The watch compiled the whole round before
+// writing any of it, and b read the b.scss from before.
+{
+  const wdir = mkdtempSync(join(tmpdir(), "sasso-watch-chain-"));
+  writeFileSync(join(wdir, "a.scss"), ".from-a { color: red; }\n");
+  writeFileSync(join(wdir, "b.scss"), ".stale { color: gray; }\n");
+  const w = watchPairs(wdir, ["a.scss:b.scss", "b.scss:out.css"]);
+  try {
+    assert.ok(await w.banner(), `no banner: ${w.log.stdout}${w.log.stderr}`);
+    assert.match(w.read("out.css"), /from-a/, `the first round read the b.scss before a wrote it: ${w.read("out.css")}`);
+    writeFileSync(join(wdir, "a.scss"), ".from-a { color: blue; }\n");
+    assert.ok(await w.until(() => w.read("out.css").includes("blue")), `a's save never reached out.css: ${w.read("out.css")}`);
+    assert.doesNotMatch(w.log.stderr, /Error/, "no error on stderr");
+    console.log("ok: cli --watch, many pairs — a pair that writes another's input is compiled before it, as one-shot does");
+  } finally {
+    w.proc.kill();
+  }
+}
+
+// A pair that fails because another pair's output is not there YET:
+// `a.scss:shared.css` and a `b.scss` that says `@use "shared"`. The first
+// round compiles b before a's output exists, and a's output is noise to a
+// job that has not read it, so b stayed failed until something else moved.
+{
+  const wdir = mkdtempSync(join(tmpdir(), "sasso-watch-created-"));
+  writeFileSync(join(wdir, "a.scss"), ".gen { color: olive; }\n");
+  writeFileSync(join(wdir, "b.scss"), '@use "shared";\n.b { color: teal; }\n');
+  const w = watchPairs(wdir, ["a.scss:shared.css", "b.scss:b.css"]);
+  try {
+    assert.ok(await w.banner(), `no banner: ${w.log.stdout}${w.log.stderr}`);
+    assert.ok(
+      await w.until(() => w.read("b.css").includes("olive")),
+      `b never recovered once a's output appeared: ${JSON.stringify(w.read("b.css"))} ${JSON.stringify(w.log.stderr)}`,
+    );
+    // …and it settles: nothing after that is another round.
+    await new Promise((r) => setTimeout(r, 1500));
+    const ran = w.log.stderr.split("\n").filter((l) => l.startsWith("sasso: compiling ")).length;
+    await new Promise((r) => setTimeout(r, 1500));
+    const now = w.log.stderr.split("\n").filter((l) => l.startsWith("sasso: compiling ")).length;
+    assert.equal(now, ran, `it kept compiling with nothing saved: ${JSON.stringify(w.log.stderr)}`);
+    console.log("ok: cli --watch, many pairs — a pair waiting on another pair's output compiles once it appears");
+  } finally {
+    w.proc.kill();
+  }
+}
+
+// …and under `--no-css` nothing appears, so nothing wakes. The output of a
+// pair that compiles is absent on every save there, and counting "absent
+// before the write" as "created" recompiled every failing neighbour on
+// every save, reprinting its error each time.
+//
+// a's SOURCE lives elsewhere: a failing job takes any change in the
+// directories it follows, so a source beside b would wake it by itself.
+// Only a's output is meant to land beside b.
+{
+  const wdir = mkdtempSync(join(tmpdir(), "sasso-watch-nocss-"));
+  mkdirSync(join(wdir, "src"));
+  mkdirSync(join(wdir, "b"));
+  writeFileSync(join(wdir, "src", "a.scss"), ".a { color: red; }\n");
+  writeFileSync(join(wdir, "b", "b.scss"), ".b { color: $nope; }\n");
+  const w = watchPairs(wdir, ["--no-css", "src/a.scss:b/a.css", "b/b.scss:b/b.css"]);
+  const compiledB = () => w.log.stderr.split("\n").filter((l) => l === "sasso: compiling b/b.scss").length;
+  const compiledA = () => w.log.stderr.split("\n").filter((l) => l === "sasso: compiling src/a.scss").length;
+  try {
+    assert.ok(await w.banner(), `no banner: ${w.log.stdout}${w.log.stderr}`);
+    await new Promise((r) => setTimeout(r, 1500));
+    const b0 = compiledB();
+    for (const colour of ["green", "blue"]) {
+      const a0 = compiledA();
+      writeFileSync(join(wdir, "src", "a.scss"), `.a { color: ${colour}; }\n`);
+      assert.ok(await w.until(() => compiledA() > a0), `the save to a.scss was never compiled: ${w.log.stderr}`);
+      await new Promise((r) => setTimeout(r, 1500));
+    }
+    assert.equal(compiledB(), b0, `a --no-css save woke the failing b: ${JSON.stringify(w.log.stderr)}`);
+    assert.ok(!existsSync(join(wdir, "b", "a.css")), "--no-css wrote an output");
+    console.log("ok: cli --watch --no-css, many pairs — an output that is never written wakes nobody");
+  } finally {
+    w.proc.kill();
+  }
+}
+
+// The pool losing its workers: one that cannot load the engine, and one that
+// dies in the middle of a round. The main thread sleeps until every worker
+// has reported, and a worker that never reached the handler that reports
+// left it asleep forever. The jobs they took are compiled in this thread,
+// and so is every round after.
+for (const how of ["fails-to-start", "dies"]) {
+  const wdir = mkdtempSync(join(tmpdir(), "sasso-watch-pool-lost-"));
+  writeFileSync(join(wdir, "_shared.scss"), "$s: navy;\n");
+  for (const n of ["a", "b", "c"]) writeFileSync(join(wdir, `${n}.scss`), `@use "shared";\n.${n} { color: shared.$s; }\n`);
+  const w = watchPairs(wdir, ["-j", "3", "a.scss:a.css", "b.scss:b.css", "c.scss:c.css"], { SASSO_TEST_WATCH_WORKER: how });
+  const all = (text) => ["a", "b", "c"].every((n) => w.read(`${n}.css`).includes(text));
+  try {
+    assert.ok(await w.banner(), `${how}: the watch hung: ${w.log.stdout}${w.log.stderr}`);
+    assert.ok(all("navy"), `${how}: the first round is incomplete: ${w.log.stderr}`);
+    writeFileSync(join(wdir, "_shared.scss"), "$s: teal;\n");
+    assert.ok(await w.until(() => all("teal")), `${how}: a later save never landed: ${w.log.stderr}`);
+    const said = w.log.stderr.split("\n").filter((l) => l.includes("worker pool failed"));
+    assert.equal(said.length, 1, `${how}: say so once: ${JSON.stringify(w.log.stderr)}`);
+    console.log(`ok: cli --watch, many pairs — a pool worker that ${how.replace(/-/g, " ")} costs its jobs nothing`);
+  } finally {
+    w.proc.kill();
   }
 }
 

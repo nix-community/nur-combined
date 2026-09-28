@@ -118,13 +118,42 @@ An atomic save of one of the 56 entries in `ui/bits/css/build/` is 1 line,
 not 56: that directory is followed for arrivals, and a rename over an
 existing name moves its mtime without changing what is in it.
 
+## Many entries: the npm CLI (measured 2026-09-28)
+
+The npm CLI takes many pairs since #200, and a round of two or more compiles
+on a pool of `--jobs` workers that lives for the whole watch. The same 147
+entries and flags, native addon, Linux/x86_64 (the pool defaults to 8 there),
+against the one-shot spawn over the same dependents that Lichess runs on
+every save today:
+
+| save | entries it reaches | pool | `-j 1` | one-shot spawn, 0.18.0 |
+|---|---|---|---|---|
+| first round | 147 | 447 ms | 1458 ms | 360 ms |
+| `ui/lib/css/chat/_chat.scss` | 10 | 196 ms | 417 ms | 265 ms |
+| `ui/lib/css/_plugin.scss` | 138 | 354 ms | 1549 ms | 359 ms |
+
+Idle CPU is 0%, and the first round is byte-identical to a one-shot compile
+of the same pairs (147 CSS files and 147 maps).
+
+The price is memory. Each thread that has compiled keeps its arena's
+high-water mark, so RSS after a save that reaches 138 settles, and does not
+grow, at a level set by the pool's width:
+
+| pool | `_plugin.scss` | RSS |
+|---|---|---|
+| `-j 1` | 1549 ms | ~350 MB |
+| 2 | 850 ms | ~580 MB |
+| 4 | 497 ms | ~900 MB |
+| 8 | 354 ms | ~1.35 GB |
+
 ## What is not measured here
 
-- **The binary on one entry, and the npm CLI on many.** The first table is the
-  npm CLI on one entry and the section above is the binary on 147; neither has
-  the other's column. The binary implements the same provisional rule, so its
-  single-entry column is a harness change, not a design one. The npm CLI's
-  `--watch` takes only one pair until #200.
+- **The binary on one entry.** The first table is the npm CLI on one entry;
+  the binary is measured only on 147. It implements the same provisional
+  rule, so its single-entry column is a harness change, not a design one.
+- **Both front ends on one platform.** The two many-entry tables are
+  different machines, so read each against its own baseline, not against
+  each other.
 - **Throughput under a burst.** The harness leaves 400 ms between saves so
   each measures one edit rather than the tail of the last. How many compiles
   a burst costs is a different question, covered by the `--watch` tests in
