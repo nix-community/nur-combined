@@ -15,19 +15,19 @@ categories = ["compilers", "web-programming"]
 # tests, licenses and README — not the conformance harness, benchmarks, or
 # analysis docs (those live in the git repo).
 #
-# `/benches` is on this list even though it is Cargo's conventional location for
-# a `[[bench]]` target, because the target is not self-contained: all six corpora
-# `benches/compile.rs` reads come from `/bench/corpus` — five under `gate/`, plus
-# `generated/large.scss`, which the shell harness under `/bench` compiles too —
-# and that tree is excluded above. Shipping one without the other put a bench in
-# the published crate
-# that cannot compile — `cargo package` never noticed because its verify step
-# does not build bench targets, so it went out in every release up to 0.18.0,
-# and anyone running `cargo bench` or `cargo test --all-targets` on the tarball
-# got six `couldn't read benches/../bench/corpus/...` errors. With the exclude,
-# Cargo drops the target from the published manifest and says so:
-# `warning: ignoring benchmark 'compile' as 'benches/compile.rs' is not included
-# in the published package`. That warning is this choice, not a misconfiguration.
+# `/benches` is on this list even though it is Cargo's conventional location
+# for a `[[bench]]` target, because the target is not self-contained: all six
+# corpora `benches/compile.rs` reads come from `/bench/corpus` — five under
+# `gate/`, plus `generated/large.scss`, which the shell harness under `/bench`
+# compiles too — and that tree is excluded above. Shipping one without the
+# other put a bench in the published crate that cannot compile —
+# `cargo package` never noticed because its verify step does not build bench
+# targets, so it went out in every release up to 0.18.0, and anyone running
+# `cargo bench` or `cargo test --all-targets` on the tarball got six `couldn't
+# read benches/../bench/corpus/...` errors. With the exclude, Cargo drops the
+# target from the published manifest and says so: `warning: ignoring benchmark
+# 'compile' as 'benches/compile.rs' is not included in the published package`.
+# That warning is this choice, not a misconfiguration.
 #
 # The file deliberately stays at `benches/compile.rs` rather than moving under
 # `/bench` beside its corpora: CodSpeed identifies a benchmark by its source

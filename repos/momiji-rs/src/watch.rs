@@ -790,8 +790,9 @@ mod tests {
     }
 
     /// …and a precise timestamp does not pay for it. `Stamp::of` reads the
-    /// file only when the mtime has no sub-second part, so on a filesystem
-    /// like this one the digest is always zero and no content is read.
+    /// file only when the clock is too coarse to tell two saves apart, and
+    /// `subsecond_is_fine` is what decides that — so where the stamps are
+    /// fine the digest stays zero and no content is read.
     #[test]
     fn a_precise_timestamp_costs_no_read() {
         let dir = std::env::temp_dir().join(format!("sasso-stamp-{}", std::process::id()));
@@ -799,12 +800,28 @@ mod tests {
         let p = dir.join("a.scss");
         std::fs::write(&p, "$c: red;\n").unwrap();
         let stamp = Stamp::of(&p);
-        let precise = stamp
+        // Guarded by the rule itself, not by `subsec_nanos != 0`. The drift
+        // that made the test below fail one Windows run in ten (e1265f2) was
+        // the same weaker guard, and fixing it there left this copy: every
+        // NTFS subsecond is a multiple of 100, so one in ten is also a
+        // multiple of 1000 — a stamp `subsec_nanos != 0` calls precise and
+        // the rule calls coarse, on which `Stamp::of` digests.
+        let subsec = stamp
             .modified
             .and_then(|t| t.duration_since(SystemTime::UNIX_EPOCH).ok())
-            .is_some_and(|d| d.subsec_nanos() != 0);
-        if precise {
-            assert_eq!(stamp.digest, 0, "a precise mtime should not have read the file");
+            .map_or(0, |d| d.subsec_nanos());
+        if subsecond_is_fine(subsec) {
+            assert_eq!(
+                stamp.digest, 0,
+                "a precise mtime ({subsec} ns) should not have read the file"
+            );
+        } else {
+            // The other half of the same rule, so neither branch is a way
+            // through this test that checks nothing.
+            assert_ne!(
+                stamp.digest, 0,
+                "a coarse mtime ({subsec} ns) should have read the file"
+            );
         }
         // A file that does not exist is never read either.
         assert_eq!(Stamp::of(&dir.join("nope.scss")), Stamp::MISSING);
