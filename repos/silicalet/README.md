@@ -80,3 +80,14 @@ workflow permissions and permission to push to the default branch.
 After pushing an update, it explicitly dispatches the regular package build
 workflow because commits made with `GITHUB_TOKEN` do not trigger another
 workflow from the ordinary `push` event.
+
+## Folia
+
+`folia-major-bin` packages the official Linux x86_64 release, including Electron,
+FFmpeg, and the Wayland wallpaper helper. Upstream does not publish Linux ARM64
+binaries. Run it with `nix run .#folia-major-bin`; update its pinned release with
+`nix run .#update -- folia-major-bin`. It is included in the default update set.
+
+Wallpaper mode requires a compositor supporting `wlr-layer-shell`. If graphics
+render incorrectly, try `FOLIA_LINUX_GRAPHICS_MODE=swiftshader` or `software`.
+Optional analysis models are downloaded by Folia into its user data directory.

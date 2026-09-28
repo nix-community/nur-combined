@@ -8,6 +8,7 @@ main (args) {
         "amber-lsp",
         "code996",
         "dnspick",
+        "folia-major-bin",
         "ghost-downloader-3",
         "ipgw",
         "meatshell-bin",

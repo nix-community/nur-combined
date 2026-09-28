@@ -30,6 +30,7 @@
   cangjie-bin = pkgs.callPackage ./pkgs/cangjie/binary.nix { };
   code996 = pkgs.callPackage ./pkgs/code996 { };
   dnspick = pkgs.callPackage ./pkgs/dnspick { };
+  folia-major-bin = pkgs.callPackage ./pkgs/folia-major/binary.nix { };
   ghost-downloader-3 = pkgs.callPackage ./pkgs/ghost-downloader-3 { };
   ipgw = pkgs.callPackage ./pkgs/ipgw { };
   meatshell = pkgs.callPackage ./pkgs/meatshell { };
