@@ -5,6 +5,10 @@
 # The dependency derivation only uses the vendor directory, so it doesn't change
 # with the source or version. Go's build cache is content-addressed, entries are
 # only reused when the compiler, flags and sources match.
+#
+# With `vendorHash = null` (no dependencies, or a vendor directory in the
+# source) there's nothing to build separately, so `goCache` is null and this is
+# a plain buildGoModule.
 {
   buildGoModule,
   lib,
@@ -97,7 +101,6 @@ lib.extendMkDerivation {
     assert lib.assertMsg (
       !(args.proxyVendor or false)
     ) "mkGoModule: proxyVendor is not supported, the dependencies are read from vendor/modules.txt";
-    assert lib.assertMsg (vendorHash != null) "mkGoModule: vendorHash can't be null";
 
     let
       pname = args.pname or (lib.getName args.name);
@@ -112,95 +115,98 @@ lib.extendMkDerivation {
           stripHash (baseNameOf (builtins.unsafeDiscardStringContext "${src}"));
 
       goCache =
-        (buildGoModule (
-          removeAttrs args depsExcludedArgs
-          // {
-            # without the version, which would change the output path
-            name = "${pname}-go-deps";
+        if vendorHash == null then
+          null
+        else
+          (buildGoModule (
+            removeAttrs args depsExcludedArgs
+            // {
+              # without the version, which would change the output path
+              name = "${pname}-go-deps";
 
-            src = null;
-            dontUnpack = true;
+              src = null;
+              dontUnpack = true;
 
-            nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
+              nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
 
-            preConfigure = ''
-              mkdir -p "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}/"$modRoot"
-              cd "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}
-            '';
+              preConfigure = ''
+                mkdir -p "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}/"$modRoot"
+                cd "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}
+              '';
 
-            # go.mod has to be consistent with vendor/modules.txt, which lists the
-            # explicit requirements, replacements and go versions
-            postConfigure = ''
-              awk '
-                BEGIN { print "module nix-go-deps\n\ngo ${lib.versions.majorMinor finalAttrs.passthru.go.version}\n" }
-                /^# / {
-                  sub(/^# /, "")
-                  mod = $0
-                  split($0, parts, " => ")
-                  replace = index($0, " => ") ? parts[2] : ""
-                  split(parts[1], left, " ")
-                  path = left[1]; version = left[2]
-                  if (replace != "") print "replace " parts[1] " => " replace
-                  next
-                }
-                /^## explicit/ && version != "" { print "require " path " " version }
-              ' vendor/modules.txt > go.mod
-            '';
+              # go.mod has to be consistent with vendor/modules.txt, which lists the
+              # explicit requirements, replacements and go versions
+              postConfigure = ''
+                awk '
+                  BEGIN { print "module nix-go-deps\n\ngo ${lib.versions.majorMinor finalAttrs.passthru.go.version}\n" }
+                  /^# / {
+                    sub(/^# /, "")
+                    mod = $0
+                    split($0, parts, " => ")
+                    replace = index($0, " => ") ? parts[2] : ""
+                    split(parts[1], left, " ")
+                    path = left[1]; version = left[2]
+                    if (replace != "") print "replace " parts[1] " => " replace
+                    next
+                  }
+                  /^## explicit/ && version != "" { print "require " path " " version }
+                ' vendor/modules.txt > go.mod
+              '';
 
-            buildPhase = ''
-              runHook preBuild
+              buildPhase = ''
+                runHook preBuild
 
-              flags=(''${tags:+-tags=$(concatStringsSep "," tags)} -p "$NIX_BUILD_CORES")
+                flags=(''${tags:+-tags=$(concatStringsSep "," tags)} -p "$NIX_BUILD_CORES")
 
-              # vendor/modules.txt lists every vendored package, including ones
-              # excluded by build constraints
-              mapfile -t packages < <(
-                go list -e "''${flags[@]}" -f '{{if not .Error}}{{.ImportPath}}{{end}}' \
-                  $(grep -v '^#' vendor/modules.txt)
-              )
-              echo "Building ''${#packages[@]} dependency packages"
+                # vendor/modules.txt lists every vendored package, including ones
+                # excluded by build constraints
+                mapfile -t packages < <(
+                  go list -e "''${flags[@]}" -f '{{if not .Error}}{{.ImportPath}}{{end}}' \
+                    $(grep -v '^#' vendor/modules.txt)
+                )
+                echo "Building ''${#packages[@]} dependency packages"
 
-              # packages that aren't used by the main module may need missing inputs,
-              # those are left to the real build
-              go build "''${flags[@]}" "''${packages[@]}" \
-                || echo "Some dependency packages failed to build, they'll be built in the main derivation"
-
-              if [ -n "$buildTestDeps" ]; then
-                echo "Building dependency packages without -trimpath for the check phase"
-                GOFLAGS="''${GOFLAGS//-trimpath/}" go build "''${flags[@]}" "''${packages[@]}" testing testing/internal/testdeps \
+                # packages that aren't used by the main module may need missing inputs,
+                # those are left to the real build
+                go build "''${flags[@]}" "''${packages[@]}" \
                   || echo "Some dependency packages failed to build, they'll be built in the main derivation"
-              fi
 
-              runHook postBuild
-            '';
+                if [ -n "$buildTestDeps" ]; then
+                  echo "Building dependency packages without -trimpath for the check phase"
+                  GOFLAGS="''${GOFLAGS//-trimpath/}" go build "''${flags[@]}" "''${packages[@]}" testing testing/internal/testdeps \
+                    || echo "Some dependency packages failed to build, they'll be built in the main derivation"
+                fi
 
-            buildTestDeps = finalAttrs.doCheck;
-            doCheck = false;
+                runHook postBuild
+              '';
 
-            installPhase = ''
-              runHook preInstall
+              buildTestDeps = finalAttrs.doCheck;
+              doCheck = false;
 
-              mkdir -p $out
-              echo "$PWD" > $out/dir
-              tar --create --owner=0 --group=0 --numeric-owner -C "$GOCACHE" . \
-                | zstd -T$NIX_BUILD_CORES -o $out/cache.tar.zst
+              installPhase = ''
+                runHook preInstall
 
-              runHook postInstall
-            '';
+                mkdir -p $out
+                echo "$PWD" > $out/dir
+                tar --create --owner=0 --group=0 --numeric-owner -C "$GOCACHE" . \
+                  | zstd -T$NIX_BUILD_CORES -o $out/cache.tar.zst
 
-            dontFixup = true;
-          }
-        )).overrideAttrs
-          (
-            {
-              # use the main derivation's vendor directory, so its source isn't needed
-              inherit (finalAttrs) goModules;
+                runHook postInstall
+              '';
 
-              # the cache can contain store paths, e.g. of go when built without -trimpath
-              disallowedReferences = [ ];
+              dontFixup = true;
             }
-            // goCacheArgs
-          );
+          )).overrideAttrs
+            (
+              {
+                # use the main derivation's vendor directory, so its source isn't needed
+                inherit (finalAttrs) goModules;
+
+                # the cache can contain store paths, e.g. of go when built without -trimpath
+                disallowedReferences = [ ];
+              }
+              // goCacheArgs
+            );
     in
     {
       goCache = args.goCache or goCache;
