@@ -324,7 +324,7 @@ in
   );
 
   # Set authentik user password from sops secret at activation time
-  systemd.services.postgresql.postStart = ''
+  systemd.services.postgresql.postStart = lib.mkAfter ''
     ${config.services.postgresql.package}/bin/psql -tAc "ALTER ROLE authentik PASSWORD '$(cat ${
       config.sops.secrets."authentik-db-password".path
     })';"
