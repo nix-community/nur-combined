@@ -14,8 +14,8 @@
   name = "spatial";
   repo = "duckdb-spatial";
   branch = "v1.5-variegata";
-  rev = "5070457973921603f7a5c3b100dc819e857c10a9";
-  hash = "sha256-/eZS6A5llTP7zIXFqeos3xOZnSgo+4ebFq3QbLBQZrA=";
+  rev = "66b4d3802569adcc26d37dd0379a192b41017915";
+  hash = "sha256-C0G7GHPQ1vnPPJANd6vV1N+LVs3Y4/bGmOKsz5B/x2k=";
   loadOptions = [
     "DONT_LINK"
     "INCLUDE_DIR src/spatial"
@@ -63,10 +63,5 @@
 
     substituteInPlace extension_external/spatial/src/spatial/util/math.cpp \
       --replace-fail "#if SPATIAL_USE_GEOS" "#if 0"
-
-    substituteInPlace \
-      extension_external/spatial/src/spatial/index/rtree/rtree_index.cpp \
-      extension_external/spatial/src/spatial/index/rtree/rtree_index.hpp \
-      --replace-fail "CommitDrop" "ResetStorage"
   '';
 }
