@@ -62,6 +62,8 @@ import { nativePackage, platformKey } from "./_addon.mjs";
  * both to the same output.
  */
 let compile, compileString, Exception, Logger;
+// The native engine's whole-batch compile, `undefined` on wasm (see `runJobs`).
+let cliBatch;
 
 /**
  * How this process chose its engine, for `--engine` and for the fallback
@@ -108,6 +110,7 @@ async function loadEngine() {
     kind = "wasm";
   }
   ({ compile, compileString, Exception, Logger } = mod);
+  cliBatch = mod._cliBatch;
   engine.kind = kind;
   return kind;
 }
@@ -898,6 +901,9 @@ function adjustSources(sources, mapDir, mode, stdinText) {
   });
 }
 
+/** A segment `encodeUrlSegment` would give back unchanged. */
+const URL_SEGMENT_KEPT = /^[A-Za-z0-9\-._~!$&'()*+,;=@]*$/;
+
 /**
  * Percent-encode one URL path segment exactly like dart's `Uri`: keep the
  * unreserved set (`A-Za-z0-9-._~`), the sub-delims (`!$&'()*+,;=`) and `@`.
@@ -905,6 +911,10 @@ function adjustSources(sources, mapDir, mode, stdinText) {
  * named `the+me,1.scss` differently from dart.
  */
 function encodeUrlSegment(seg) {
+  // Nearly every segment is already all kept characters, and then it is its
+  // own encoding: one test instead of an encoder and a test per byte, which
+  // was a tenth of the main thread's time in a 148-stylesheet batch.
+  if (URL_SEGMENT_KEPT.test(seg)) return seg;
   let out = "";
   for (const byte of new TextEncoder().encode(seg)) {
     const c = String.fromCharCode(byte);
@@ -932,6 +942,11 @@ function mapJson(map, sources, file) {
   const out = { version: 3, sourceRoot: "", sources, names: map.names || [], mappings: map.mappings };
   if (file !== undefined) out.file = file;
   if (map.sourcesContent) out.sourcesContent = map.sourcesContent;
+  // A `cliBatch` map carries its sources as the JSON text of that array,
+  // escaped as `JSON.stringify` escapes, and the field goes last either way.
+  if (map.sourcesContentJson !== undefined) {
+    return `${JSON.stringify(out).slice(0, -1)},"sourcesContent":${map.sourcesContentJson}}`;
+  }
   return JSON.stringify(out);
 }
 
@@ -2583,6 +2598,29 @@ async function runJobs(jobs, opts, common) {
     return { failed, worst };
   }
 
+  // On the native engine the addon compiles the batch on threads of its own,
+  // and this thread reports each job as it finishes, while the rest are still
+  // compiling. (In finishing order: what the user reads is put back in
+  // command-line order by the maps below, and the order the files are written
+  // in is unobservable here, since `collides` has already been ruled out.) A pool worker re-imports this whole module and the engine
+  // before its first compile — 50–65 ms of a 148-stylesheet Lichess build
+  // that went to neither compiling nor writing (measured 2026-09-28).
+  // Standard input stays on the pool: its job reads the bytes `compileSlice`
+  // holds, not a file.
+  if (cliBatch && !stdinBytes) {
+    const entries = jobs.map(({ input, output }) => ({ path: input, sourceMap: wantSourceMap(opts, output) }));
+    const batch = cliBatch(entries, { ...common, ...syntaxOf(opts) }, workers, opts.stopOnError);
+    let outcome;
+    try {
+      outcome = compileSlice(listOf(jobs), opts, common, null, undefined, diagnostics, compiled, batch);
+    } finally {
+      batch.finish();
+    }
+    flushDiagnostics(diagnostics, jobs.length);
+    flushCompiled(compiled, jobs.length);
+    return outcome;
+  }
+
   // [0] the next job to take, [1] the stop-on-error flag.
   const ctl = new Int32Array(new SharedArrayBuffer(8));
   // The job list goes over SHARED memory, decoded one job at a time as each is
@@ -2846,6 +2884,8 @@ function captureStderr(fn) {
  * `jobs` is a `{ length, at(i) }` view — a plain array in this thread, shared
  * bytes in a worker. Diagnostics go into the `diagnostics` map under the job's
  * index, not to stderr, so the caller can put them back in job order.
+ * With `precompiled` (a `cliBatch`), the compiles run elsewhere and this
+ * loop only reports each job, in the order they finish.
  * Returns `{ failed, worst }` — how many failed, and the most severe cause
  * as an exit code. It never exits the process, so a worker can report back
  * and the parent can decide.
@@ -2856,7 +2896,7 @@ function captureStderr(fn) {
  * with one compile error and one unwritable output answers 66 in either
  * command-line order, so it is severity and not recency that decides.
  */
-function compileSlice(jobs, opts, common, ctl, stdinBytes, diagnostics, compiled) {
+function compileSlice(jobs, opts, common, ctl, stdinBytes, diagnostics, compiled, precompiled) {
   const note = (i, text) => diagnostics.set(i, (diagnostics.get(i) ?? "") + text);
   // Decoded on first use, so a worker that never claims the `-` job never
   // touches the bytes; there is at most one such job, so at most one decode.
@@ -2884,7 +2924,12 @@ function compileSlice(jobs, opts, common, ctl, stdinBytes, diagnostics, compiled
   let next = 0;
   for (;;) {
     let i;
-    if (ctl) {
+    let done;
+    if (precompiled) {
+      done = precompiled.next();
+      if (!done) break;
+      i = done.i;
+    } else if (ctl) {
       if (Atomics.load(ctl, 1)) break; // another job failed and --stop-on-error is on
       i = Atomics.add(ctl, 0, 1);
       // Re-check AFTER claiming: between the check above and this claim
@@ -2900,13 +2945,15 @@ function compileSlice(jobs, opts, common, ctl, stdinBytes, diagnostics, compiled
     const wantMap = wantSourceMap(opts, output);
     // Warnings and deprecations belong to THIS job, wherever it ran.
     const run = captureStderr(() =>
-      input === "-"
-        ? compileString(stdinSource(), {
-            ...common,
-            sourceMap: wantMap,
-            syntax: opts.indented ? "indented" : "scss",
-          })
-        : compile(input, { ...common, sourceMap: wantMap, ...syntaxOf(opts) }),
+      done
+        ? done.settle()
+        : input === "-"
+          ? compileString(stdinSource(), {
+              ...common,
+              sourceMap: wantMap,
+              syntax: opts.indented ? "indented" : "scss",
+            })
+          : compile(input, { ...common, sourceMap: wantMap, ...syntaxOf(opts) }),
     );
     if (run.text) note(i, run.text);
     let result;
@@ -2968,7 +3015,9 @@ function compileSlice(jobs, opts, common, ctl, stdinBytes, diagnostics, compiled
       // is wrong about it; #182.
         if (writeError && opts.errorCss !== false) worst = Math.max(worst, EXIT_IO);
       }
-      if (opts.stopOnError || jobs.length === 1) {
+      // Precompiled, the addon stopped claiming at the error itself: the jobs
+      // it had already started are reported, as a pool's in-flight ones are.
+      if (!precompiled && (opts.stopOnError || jobs.length === 1)) {
         if (ctl) Atomics.store(ctl, 1, 1);
         break;
       }
@@ -3010,6 +3059,13 @@ function compileSlice(jobs, opts, common, ctl, stdinBytes, diagnostics, compiled
       failed++;
       worst = Math.max(worst, EXIT_IO);
       if (opts.stopOnError) {
+        // Precompiled, the jobs the addon has already started finish and are
+        // still reported below, as a pool's in-flight ones are; only the
+        // claiming stops.
+        if (precompiled) {
+          precompiled.stop();
+          continue;
+        }
         if (ctl) Atomics.store(ctl, 1, 1);
         break;
       }

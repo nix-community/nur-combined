@@ -36,7 +36,7 @@ use std::path::PathBuf;
 use std::rc::Rc;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::mpsc;
-use std::sync::Mutex;
+use std::sync::{Arc, Mutex};
 
 use napi::bindgen_prelude::*;
 use napi::threadsafe_function::{ErrorStrategy, ThreadsafeFunction, ThreadsafeFunctionCallMode};
@@ -577,6 +577,9 @@ fn internal_error_json(msg: &str) -> String {
     s
 }
 
+/// A JSON string literal, escaped exactly as `JSON.stringify` escapes one: a
+/// batch's `sourcesContent` text is spliced into JSON the CLI stringified, and
+/// must read as though that had stringified it too.
 fn json_str(v: &str, out: &mut String) {
     out.push('"');
     for c in v.chars() {
@@ -586,6 +589,8 @@ fn json_str(v: &str, out: &mut String) {
             '\n' => out.push_str("\\n"),
             '\r' => out.push_str("\\r"),
             '\t' => out.push_str("\\t"),
+            '\u{08}' => out.push_str("\\b"),
+            '\u{0c}' => out.push_str("\\f"),
             c if (c as u32) < 0x20 => out.push_str(&format!("\\u{:04x}", c as u32)),
             c => out.push(c),
         }
@@ -628,6 +633,22 @@ fn run_compile(
     warn: Option<sasso::WarnHandler>,
     functions: Vec<(String, sasso::HostFunction)>,
 ) -> std::result::Result<NativeResult, String> {
+    compile_parts(source, cfg, chain, warn, functions).map(|(css, map)| NativeResult {
+        css,
+        source_map: map.map(|m| m.to_json()),
+        loaded_urls: chain.loaded.borrow().clone(),
+    })
+}
+
+/// `run_compile` with the source map still a struct, for a caller that
+/// renders it itself.
+fn compile_parts(
+    source: &str,
+    cfg: &CompileConfig,
+    chain: &NapiChain<'_>,
+    warn: Option<sasso::WarnHandler>,
+    functions: Vec<(String, sasso::HostFunction)>,
+) -> std::result::Result<(String, Option<sasso::SourceMap>), String> {
     warm_stdio();
     let mut opts = Options::new()
         .with_style(if cfg.compressed {
@@ -664,18 +685,11 @@ fn run_compile(
     }
 
     let out = if cfg.want_map {
-        sasso::compile_with_source_map(source, &opts).map(|r| (r.css, Some(r.source_map.to_json())))
+        sasso::compile_with_source_map(source, &opts).map(|r| (r.css, Some(r.source_map)))
     } else {
         sasso::compile(source, &opts).map(|css| (css, None))
     };
-    match out {
-        Ok((css, map)) => Ok(NativeResult {
-            css,
-            source_map: map,
-            loaded_urls: chain.loaded.borrow().clone(),
-        }),
-        Err(e) => Err(error_json(&e, cfg.url.as_deref())),
-    }
+    out.map_err(|e| error_json(&e, cfg.url.as_deref()))
 }
 
 fn make_warn_tsfn(tsfn: Tsfn) -> sasso::WarnHandler {
@@ -768,6 +782,308 @@ pub fn compile_string_async(
         })
         .map_err(|e| napi::Error::new(Status::GenericFailure, format!("spawn failed: {e}")))?;
     Ok(promise)
+}
+
+// ------------------------------------------------------------------ batch API
+
+/// One stylesheet of a `compileBatch`: its source, read JS-side, and its config.
+/// No `source` is an entry the caller could not read. It still takes its place
+/// in the claim order and fails where it is claimed, so `stop_on_error` stops
+/// at it, or skips it, exactly as it would a compile error there.
+#[napi(object)]
+pub struct BatchJob {
+    pub source: Option<String>,
+    pub cfg: CompileConfig,
+}
+
+/// A finished `BatchJob`: `index` into the batch, and exactly one of `result`
+/// and `error` (the structured-JSON transport `compileStringSync` throws).
+#[napi(object)]
+pub struct BatchDone {
+    pub index: u32,
+    /// Its `source_map` is always `None`: a map, when there is one, is `map`.
+    pub result: Option<NativeResult>,
+    pub map: Option<BatchMap>,
+    pub error: Option<String>,
+    /// The job's warn events, `warn_json`-encoded, in the order they fired.
+    pub warnings: Vec<String>,
+}
+
+/// A batch job's source map, split into the parts the CLI rewrites and the
+/// one it only copies, which is already JSON text. Parsing a whole map to
+/// rewrite its `sources` and stringifying it back was the largest single cost
+/// on a batch's main thread, and nearly all of it was `sourcesContent`.
+#[napi(object)]
+pub struct BatchMap {
+    pub sources: Vec<String>,
+    pub mappings: String,
+    /// The `sourcesContent` array as JSON, escaped as `JSON.stringify` would.
+    pub sources_content: Option<String>,
+}
+
+impl BatchMap {
+    fn of(map: sasso::SourceMap) -> Self {
+        let sources_content = map.sources_content.map(|contents| {
+            let mut s = String::with_capacity(contents.iter().map(|c| c.len() + 3).sum::<usize>() + 2);
+            s.push('[');
+            for (i, c) in contents.iter().enumerate() {
+                if i > 0 {
+                    s.push(',');
+                }
+                json_str(c, &mut s);
+            }
+            s.push(']');
+            s
+        });
+        BatchMap {
+            sources: map.sources,
+            mappings: map.mappings,
+            sources_content,
+        }
+    }
+}
+
+/// How many finished results may wait to be taken before the threads stop
+/// claiming more. Each one holds its CSS, so a directory build of thousands
+/// of files cannot hold all of it at once.
+const BATCH_WINDOW: usize = 256;
+
+struct BatchShared {
+    jobs: Vec<BatchJob>,
+    stop_on_error: bool,
+    state: Mutex<BatchState>,
+    changed: std::sync::Condvar,
+}
+
+struct BatchState {
+    /// The next job to claim.
+    next: usize,
+    /// A failed job under `stop_on_error`, or `stop`/`finish`: nothing more is
+    /// claimed.
+    stopped: bool,
+    /// Threads that have left the claim loop, however they left it.
+    exited: usize,
+    /// Finished and not yet taken, in the order they finished.
+    ready: std::collections::VecDeque<BatchDone>,
+    /// Whether each claimed job has finished, to find one that never will.
+    finished: Vec<bool>,
+    /// Where the search for such a job resumes.
+    lost_scan: usize,
+}
+
+/// A running `compileBatch`. The threads keep compiling while the caller takes
+/// each result as it finishes, so what it does with one — for the CLI, the
+/// source map and the writes — overlaps the compiles still running.
+#[napi]
+pub struct BatchRun {
+    shared: Arc<BatchShared>,
+    threads: usize,
+    handles: Vec<std::thread::JoinHandle<()>>,
+}
+
+/// The CLI's multi-job build: `jobs` compiled on `threads` threads of this
+/// addon, taken back one at a time with `next`.
+///
+/// The npm CLI ran a batch on a pool of Node workers instead, and each one
+/// loads the whole CLI module and the engine again before its first compile:
+/// 50–65 ms of a 148-stylesheet Lichess build that the binary spends
+/// compiling. A thread here is ready when it is spawned.
+///
+/// Jobs are claimed in order, as in the binary's `compile_all`
+/// (`../../src/main.rs`), and with `stop_on_error` a compile error stops the
+/// claiming. No user importers, custom functions or logger: warnings are
+/// collected per job and the caller replays them, which is what keeps each
+/// job's block its own.
+#[napi]
+pub fn compile_batch(jobs: Vec<BatchJob>, threads: u32, stop_on_error: bool) -> BatchRun {
+    let n = jobs.len();
+    let shared = Arc::new(BatchShared {
+        jobs,
+        stop_on_error,
+        state: Mutex::new(BatchState {
+            next: 0,
+            stopped: false,
+            exited: 0,
+            ready: std::collections::VecDeque::new(),
+            finished: vec![false; n],
+            lost_scan: 0,
+        }),
+        changed: std::sync::Condvar::new(),
+    });
+    let wanted = (threads.max(1) as usize).min(n.max(1));
+    let handles: Vec<_> = (0..wanted)
+        .filter_map(|_| {
+            let shared = shared.clone();
+            std::thread::Builder::new()
+                .name("sasso-batch".into())
+                // The main thread's size rather than std's 2 MiB default: these
+                // compiles ran on the JS thread or a Node worker before, and a
+                // nesting depth that compiled there must not overflow here.
+                .stack_size(8 << 20)
+                .spawn(move || batch_thread(&shared))
+                .ok()
+        })
+        .collect();
+    let threads = handles.len();
+    BatchRun {
+        shared,
+        threads,
+        handles,
+    }
+}
+
+impl BatchShared {
+    fn lock(&self) -> std::sync::MutexGuard<'_, BatchState> {
+        self.state.lock().unwrap_or_else(|p| p.into_inner())
+    }
+
+    /// Claim the next job, waiting while the window is full; `None` once
+    /// there is nothing more to claim.
+    fn claim(&self) -> Option<usize> {
+        let mut st = self.lock();
+        while !st.stopped && st.next < self.jobs.len() && st.ready.len() >= BATCH_WINDOW {
+            st = self.changed.wait(st).unwrap_or_else(|p| p.into_inner());
+        }
+        if st.stopped || st.next >= self.jobs.len() {
+            return None;
+        }
+        st.next += 1;
+        Some(st.next - 1)
+    }
+
+    fn run(&self, i: usize) -> BatchDone {
+        let done = batch_one(i, &self.jobs[i]);
+        if self.stop_on_error && done.error.is_some() {
+            self.lock().stopped = true;
+        }
+        done
+    }
+}
+
+fn batch_thread(shared: &BatchShared) {
+    // Counted on the way out however the loop ends, so `next` never waits for
+    // a thread that is gone.
+    struct Exit<'a>(&'a BatchShared);
+    impl Drop for Exit<'_> {
+        fn drop(&mut self) {
+            self.0.lock().exited += 1;
+            self.0.changed.notify_all();
+        }
+    }
+    let _exit = Exit(shared);
+    while let Some(i) = shared.claim() {
+        let done = shared.run(i);
+        let mut st = shared.lock();
+        st.finished[i] = true;
+        st.ready.push_back(done);
+        shared.changed.notify_all();
+    }
+}
+
+fn batch_one(index: usize, job: &BatchJob) -> BatchDone {
+    let Some(source) = &job.source else {
+        // The caller holds the read error and reports it; this only has to
+        // fail, so that `run` stops the claiming.
+        return BatchDone {
+            index: index as u32,
+            result: None,
+            map: None,
+            error: Some(String::new()),
+            warnings: Vec::new(),
+        };
+    };
+    let chain = NapiChain::new(UserBridge::None, &job.cfg.load_paths);
+    let warnings: Rc<RefCell<Vec<String>>> = Rc::default();
+    let warn = job.cfg.want_warn.then(|| {
+        let sink = warnings.clone();
+        Rc::new(move |ev: &WarnEvent<'_>| sink.borrow_mut().push(warn_json(ev))) as sasso::WarnHandler
+    });
+    let out = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        compile_parts(source, &job.cfg, &chain, warn, Vec::new())
+    }));
+    let (result, map, error) = match out {
+        Ok(Ok((css, map))) => {
+            let result = NativeResult {
+                css,
+                source_map: None,
+                loaded_urls: chain.loaded.borrow().clone(),
+            };
+            (Some(result), map.map(BatchMap::of), None)
+        }
+        Ok(Err(json)) => (None, None, Some(json)),
+        Err(panic) => (None, None, Some(internal_error_json(&panic_text(&panic)))),
+    };
+    drop(chain);
+    let warnings = std::mem::take(&mut *warnings.borrow_mut());
+    BatchDone {
+        index: index as u32,
+        result,
+        map,
+        error,
+        warnings,
+    }
+}
+
+#[napi]
+impl BatchRun {
+    /// The next job to finish, waiting for one if none has; `null` once every
+    /// job that will run has been taken. A job `stop_on_error` kept from
+    /// starting is never returned.
+    #[napi]
+    pub fn next(&self) -> Option<BatchDone> {
+        let shared = &*self.shared;
+        if self.threads == 0 {
+            // No thread spawned: this one compiles, in job order.
+            let i = shared.claim()?;
+            return Some(shared.run(i));
+        }
+        let mut st = shared.lock();
+        loop {
+            if let Some(done) = st.ready.pop_front() {
+                shared.changed.notify_all();
+                return Some(done);
+            }
+            if st.exited == self.threads {
+                // Claimed by a thread that died outside the compile's own
+                // `catch_unwind`: the job fails rather than vanish from the build.
+                while st.lost_scan < st.next {
+                    let i = st.lost_scan;
+                    st.lost_scan += 1;
+                    if !st.finished[i] {
+                        return Some(BatchDone {
+                            index: i as u32,
+                            result: None,
+                            map: None,
+                            error: Some(internal_error_json("the batch thread compiling this exited")),
+                            warnings: Vec::new(),
+                        });
+                    }
+                }
+                return None;
+            }
+            st = shared.changed.wait(st).unwrap_or_else(|p| p.into_inner());
+        }
+    }
+
+    /// Stop claiming, without waiting: the jobs already claimed still finish
+    /// and `next` still returns them. For a failure only the caller sees —
+    /// the CLI's output write — under `--stop-on-error`.
+    #[napi]
+    pub fn stop(&self) {
+        self.shared.lock().stopped = true;
+        self.shared.changed.notify_all();
+    }
+
+    /// Stop claiming and wait for the jobs in hand. The caller calls it once
+    /// it has taken what it wants, so no thread outlives the build.
+    #[napi]
+    pub fn finish(&mut self) {
+        self.shared.lock().stopped = true;
+        self.shared.changed.notify_all();
+        for h in self.handles.drain(..) {
+            let _ = h.join();
+        }
+    }
 }
 
 // ------------------------------------------------------------------- sync API

@@ -749,4 +749,60 @@ console.log("ok: addon pairing — a skewed addon is refused where an addon exis
 console.log("ok: unicode — native and wasm render the same ASCII/Unicode gutters");
 
 console.log("ok: behavior guards — importers, errors, logger, functions, isolation, overlap, re-entrancy, valueOp");
+
+// The npm CLI's batch (`_cliBatch`): jobs are claimed in order, and an entry
+// that cannot be read takes its turn in that order like any other job. On one
+// thread the order is the whole schedule, so what --stop-on-error skips is
+// deterministic here.
+{
+  const dir = mkdtempSync(join(tmpdir(), "sasso-batch-"));
+  const bad = join(dir, "bad.scss");
+  const ok = join(dir, "ok.scss");
+  writeFileSync(bad, ".e { a: $nope; }\n");
+  writeFileSync(ok, ".o { a: b; }\n");
+  const missing = join(dir, "missing.scss");
+  const drain = (batch) => {
+    const out = [];
+    for (let done; (done = batch.next()); ) {
+      let css;
+      let error;
+      try {
+        css = done.settle().css;
+      } catch (e) {
+        error = e;
+      }
+      out.push({ i: done.i, css, error });
+    }
+    batch.finish();
+    return out;
+  };
+  const entry = (path) => ({ path, sourceMap: false });
+
+  // A compile failure first: the unreadable entry after it is never claimed,
+  // so the build reports one compile error and no read error.
+  const stopped = drain(napi._cliBatch([bad, ok, missing].map(entry), {}, 1, true));
+  assert.deepEqual(stopped.map((r) => r.i), [0], "batch: --stop-on-error claims nothing after the failure");
+  assert.match(stopped[0].error.message, /Undefined variable/, "batch: … and reports the compile error");
+
+  // Without it, every job runs, the unreadable one in its own place.
+  const all = drain(napi._cliBatch([missing, ok].map(entry), {}, 1, false));
+  assert.deepEqual(all.map((r) => r.i), [0, 1], "batch: an unreadable entry keeps its place in the order");
+  assert.equal(all[0].error?.code, "ENOENT", "batch: … and fails with its read error");
+  assert.match(all[1].css, /\.o/, "batch: … and the job after it still compiles");
+
+  // An unreadable entry stops the claiming too, like a compile error.
+  const unread = drain(napi._cliBatch([missing, ok].map(entry), {}, 1, true));
+  assert.deepEqual(unread.map((r) => r.i), [0], "batch: --stop-on-error stops at an unreadable entry");
+
+  // `stop` ends the claiming without dropping what already ran: whatever the
+  // thread had started still comes back, as an unbroken prefix of the order.
+  const many = napi._cliBatch(Array.from({ length: 8 }, () => entry(ok)), {}, 1, false);
+  const first = many.next();
+  many.stop();
+  const rest = drain(many);
+  const seen = [first.i, ...rest.map((r) => r.i)];
+  assert.deepEqual(seen, seen.map((_, k) => k), "batch: after stop, every started job is still returned");
+  rmSync(dir, { recursive: true, force: true });
+  console.log("ok: cli batch — claim order, unreadable entries, stop-on-error, stop");
+}
 console.log("all sasso-napi native-addon tests passed");

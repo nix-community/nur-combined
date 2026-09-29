@@ -402,18 +402,20 @@ function makeResult(nat, origHref) {
   const result = { css: nat.css, loadedUrls: urls };
   if (nat.sourceMap != null) {
     const map = JSON.parse(nat.sourceMap);
-    // The core relativizes map sources against the entry for BOTH engines, so
-    // they normally match the wasm output as-is. An ABSOLUTE path source (an
-    // unrelativizable file) is the one native-specific case — the wasm engine
-    // would carry a file: URL there, so normalize just those.
-    if (Array.isArray(map.sources)) {
-      map.sources = map.sources.map((s) =>
-        typeof s === "string" && isAbsolute(s) ? pathToFileURL(s).href : s,
-      );
-    }
+    if (Array.isArray(map.sources)) map.sources = mapSources(map.sources);
     result.sourceMap = map;
   }
   return result;
+}
+
+/**
+ * The core relativizes map sources against the entry for BOTH engines, so
+ * they normally match the wasm output as-is. An ABSOLUTE path source (an
+ * unrelativizable file) is the one native-specific case — the wasm engine
+ * would carry a file: URL there, so normalize just those.
+ */
+function mapSources(sources) {
+  return sources.map((s) => (typeof s === "string" && isAbsolute(s) ? pathToFileURL(s).href : s));
 }
 
 // --------------------------------------------------------- dart-sass modern API
@@ -493,6 +495,86 @@ export function compileAsync(path, options = {}) {
     },
   );
 }
+
+/**
+ * The CLI's multi-job build, for `cli.mjs` alone — not part of the API, and
+ * absent (`undefined`) from an addon that predates it.
+ *
+ * Every entry `{ path, sourceMap }` is compiled with the same `options` on
+ * `threads` of the addon's own threads; see `compile_batch` in
+ * `../../napi/src/lib.rs` for why. `options` carries what the CLI builds
+ * (`commonOptions`): no importers, no functions, and a logger only to be
+ * silent. The compiles start at once. Each `next()` waits for one to finish
+ * and returns `{ i, settle }` — `i` the entry, `settle()` sending its
+ * warnings where `compile` would have sent them and then returning its
+ * result or throwing its error, so a caller that captures stderr around it
+ * gets the job's own block — and `undefined` once every job that will run
+ * has been returned. With `stopOnError`, a failure keeps the jobs after it
+ * from starting, and those are never returned. `finish()` stops whatever has
+ * not started, once the caller has taken what it wants.
+ */
+function compileBatch(entries, options, threads, stopOnError) {
+  // One config for the batch; the entry, its syntax and the map differ per job.
+  const base = buildCfg(options, 0, undefined);
+  const logger = options.logger ?? null;
+  // The addon's job i is entry i. One that cannot be read goes in without a
+  // source and keeps its read error here: it fails where the addon claims it,
+  // so with --stop-on-error a compile failure before it still skips it, and
+  // it still stops what comes after.
+  const sent = [];
+  const jobs = [];
+  for (let i = 0; i < entries.length; i++) {
+    let entry;
+    try {
+      entry = entryFor(entries[i].path, options);
+    } catch (error) {
+      sent.push({ error });
+      // Present and `undefined`: the addon's object decoding rejects a missing
+      // field, and a `null` one as "not a string".
+      jobs.push({ source: undefined, cfg: base });
+      continue;
+    }
+    sent.push({ href: entry.entryHref });
+    jobs.push({
+      source: entry.source,
+      cfg: { ...base, syntax: entry.syntax, url: entry.entryHref, wantMap: !!entries[i].sourceMap },
+    });
+  }
+  const run = jobs.length ? native.compileBatch(jobs, threads, !!stopOnError) : null;
+  return {
+    next() {
+      const out = run?.next();
+      if (!out) return undefined;
+      const i = out.index;
+      const { href, error } = sent[i];
+      return {
+        i,
+        settle() {
+          if (error) throw error;
+          for (const w of out.warnings) dispatchWarn(logger, JSON.parse(w));
+          if (out.error != null) throw toException(out.error, href, href);
+          const result = makeResult(out.result, href);
+          // The map as `makeResult` would build it, except `sourcesContent`:
+          // that stays the JSON text it arrived as, for `mapJson` to splice.
+          if (out.map) {
+            const { sources, mappings } = out.map;
+            result.sourceMap = { version: 3, sources: mapSources(sources), names: [], mappings };
+            if (out.map.sourcesContent != null) result.sourceMap.sourcesContentJson = out.map.sourcesContent;
+          }
+          return result;
+        },
+      };
+    },
+    // Stop claiming; what is already running still comes back from `next`.
+    stop() {
+      run?.stop();
+    },
+    finish() {
+      run?.finish();
+    },
+  };
+}
+export const _cliBatch = typeof native.compileBatch === "function" ? compileBatch : undefined;
 
 /** Accepted for API parity; the native engine has no arena/pool knobs (each
  * async compile is its own OS thread; memory is the process allocator). */
