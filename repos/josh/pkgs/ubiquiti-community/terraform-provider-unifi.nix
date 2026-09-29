@@ -7,8 +7,8 @@ let
   pkg = terraform-providers.mkProvider {
     owner = "ubiquiti-community";
     repo = "terraform-provider-unifi";
-    rev = "v0.56.1";
-    hash = "sha256-rtRuqcADrEq6hodytLJ8z67nJjjZ6LTmFKgRd1GAd+A=";
+    rev = "v0.57.0";
+    hash = "sha256-CgixAzMfdV4lsc14ZdXUrE2AE0wkHcjIi7C2pQROOg0=";
     vendorHash = "sha256-CtqDFTVJqbPF5riVrEdtLZhOxtK1MU2SbTf8xClksQw=";
     provider-source-address = "registry.terraform.io/ubiquiti-community/unifi";
     homepage = "https://github.com/ubiquiti-community/terraform-provider-unifi";
