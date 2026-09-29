@@ -47,7 +47,16 @@ in
 
     nativeBuildInputs = [makeWrapper];
 
+    preBuild = ''
+      # nixpkgs' npm puts the inherited PATH ahead of a workspace's own .bin, so ui would build with the root's vite 5.
+      patchShebangs ui/node_modules
+      export PATH="$PWD/ui/node_modules/.bin:$PATH"
+    '';
+
     postInstall = ''
+      # The ui workspace link points at ui/, which is not shipped.
+      rm ${pkgDir}/node_modules/@colbymchenry/codegraph-ui
+
       install -Dm755 ${kernel}/lib/codegraph-kernel.node ${pkgDir}/kernel/codegraph-kernel.node
 
       rm "$out/bin/codegraph"
@@ -68,6 +77,7 @@ in
 
       test -f ${pkgDir}/kernel/codegraph-kernel.node
       test -f ${pkgDir}/dist/db/schema.sql
+      test -f ${pkgDir}/dist/viewer/index.html
       test -f ${pkgDir}/dist/extraction/wasm/tree-sitter-typescript.wasm
       test -f ${pkgDir}/dist/extraction/wasm/tree-sitter-rust.wasm
       test -d ${pkgDir}/node_modules/web-tree-sitter
