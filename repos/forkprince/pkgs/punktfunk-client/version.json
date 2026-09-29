@@ -7,19 +7,19 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.40.0",
+  "version": "0.41.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "Punktfunk-{version}.dmg",
-      "hash": "sha256-xt2nRURuLtJZMvBjDD2/lhnIJO4Xec+ZB5DSf+Jd5fw="
+      "hash": "sha256-HI+37iH5AduPzN8X5njMpX/WVgQs1W6i4pzQvvAc1iQ="
     },
     "x86_64-linux": {
       "file": "punktfunk-client_{version}_amd64.deb",
-      "hash": "sha256-SbAxWkY4Gg/lJ40GwmJ3FO6cTXBuohSG/Sz0QS3KPpU="
+      "hash": "sha256-Ce37heZhtU3vnYJsnope1lcC4SHVTrj3CSaCzbJXThc="
     },
     "aarch64-linux": {
       "file": "punktfunk-client_{version}_arm64.deb",
-      "hash": "sha256-Ys8BBOTnIwmBLwjnzk8i8riShTqJF5TTuKvXP5RqiHo="
+      "hash": "sha256-R/jaAzC975Us5A8HIPAZkc8wOQ6Zi1GiKohWZ3cr8BA="
     }
   }
 }
