@@ -100,7 +100,9 @@
                 + lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
                 # Work around HBMAME version of https://github.com/mamedev/mame/issues/13453
                 + lib.optionalString (lib.versionAtLeast stdenv.cc.version "20") " -Wno-error=nontrivial-memcall"
-            );
+            )
+            # HBMAME is using snprintf as an ersatz strlcpy in src/devices/bus/nscsi/cd.h, but gcc is complaining about the potential truncation, so:
+             + " -Wno-error=format-truncation";
         };
         passthru = (old.passthru or {}) // {
             tools = throw "HBMAME's copies of the MAME tools are not supported by the HBMAME developer, and have been removed. Please use the upstream `mame.tools` instead.";
