@@ -479,8 +479,6 @@ impl CosmicTextSystemState {
 
             if font.as_swash().charmap().map('m') == 0
                 && !allowed_bad_font_names.contains(&postscript_name.as_str())
-                && !postscript_name.contains("NerdFont")
-                && !postscript_name.contains("SymbolsNF")
             {
                 self.font_system.db_mut().remove_face(font.id());
                 continue;
