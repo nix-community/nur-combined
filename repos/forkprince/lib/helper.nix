@@ -263,7 +263,15 @@
       installPhase = ''
         runHook preInstall
         mkdir -p $out/Applications
-        app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
+        # AppleDouble metadata zips ship a decoy "__MACOSX/<name>.app"
+        # directory that find may match before the real bundle. Pick the
+        # shallowest remaining candidate so nested helper apps never win.
+        app=$(find . -maxdepth 2 -name "*.app" -type d ! -path "*/__MACOSX/*" \
+          | awk '{ print length($0) "\t" $0 }' | sort -n | head -n1 | cut -f2-)
+        if [ -z "$app" ]; then
+          echo "error: no .app bundle found in $PWD" >&2
+          exit 1
+        fi
         cp -R "$app" $out/Applications/
 
         ${extraInstall}
