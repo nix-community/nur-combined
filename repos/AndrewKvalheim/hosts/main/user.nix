@@ -4,6 +4,7 @@ let
   inherit (config.home) homeDirectory;
   inherit (lib) escapeShellArg getExe getExe';
   inherit (pkgs) makeAutostartItem writeShellScript;
+  inherit (import <nixpkgs/nixos/lib/utils.nix> { inherit lib pkgs; inherit (system) config; }) escapeSystemdPath;
 
   system = import <nixpkgs/nixos> { };
 in
@@ -61,6 +62,7 @@ in
     josm-hidpi
     karere
     kdePackages.kdenlive
+    krita
     libreoffice
     losslesscut-bin
     mark-applier
@@ -120,7 +122,7 @@ in
   # Unison
   services.unison.pairs = {
     "3d-printing" = {
-      when = "run-media-ak-ANDREW.mount"; # TODO: Provide escapeSystemdPath in Home Manager
+      when = "${escapeSystemdPath "/run/media/ak/ANDREW"}.mount";
       roots = [ "${homeDirectory}/akorg/project/current/3d-printing" "/run/media/ak/ANDREW/3d-printing" ];
       commandOptions.fat = "true";
     };

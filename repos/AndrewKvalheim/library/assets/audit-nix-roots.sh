@@ -4,6 +4,7 @@ set -Eeuo pipefail
 readarray -t roots < <(
   nix-store --gc --print-roots 2> >(grep --invert-match '^removing stale' >&2) \
   | grep --only-matching --perl-regexp '(?<=^").*(?=" ->)' \
+  | sed 's/\\\\/\\/g' \
   | sort
 )
 
@@ -18,10 +19,10 @@ for root in "${roots[@]}"; do
     "$HOME/.cache/nix/flake-registry.json"*|\
     "$HOME/.local/state/home-manager/gcroots/"*|\
     "$HOME/.local/state/nix/profiles/"*|\
-    "$XDG_RUNTIME_DIR/direnv/layouts/"*)
+    "$XDG_RUNTIME_DIR/direnv-layouts/"*)
       ;;
 
-    "$HOME/.cache/direnv/layouts/"*)
+    "$HOME/.cache/direnv-layouts/"*)
       if [[ -n "$(find "$root" ! -newermt '30 days ago')" ]]; then
         printf '\e[2mPruning direnv layout: %s\e[22m\n' "${root%/*}" >&2
         rm --recursive "${root%/*}"

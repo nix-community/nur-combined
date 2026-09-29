@@ -53,6 +53,7 @@ in
         };
       };
   };
+  home.sessionVariables.DELTA_PAGER = "${getExe pkgs.moor} --quit-if-one-screen"; # Not `programs.delta.options.pager`, to allow overriding by `tig`
 
   programs.git = {
     enable = true;
@@ -146,7 +147,7 @@ in
           title-blur = "white black";
           title-focus = "white black bold";
         };
-        bind.generic = "d @kitten @ launch --self --type=overlay --title=current --cwd=current --env DELTA_PAGER='less -+F' git show %(commit)"; # Pending jonas/tig#542
+        bind.generic = "d @kitten @ launch --self --type=overlay --title=current --cwd=current --env DELTA_PAGER='${getExe pkgs.moor}' git show %(commit)"; # Pending jonas/tig#542
       };
     };
   };

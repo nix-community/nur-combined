@@ -431,6 +431,7 @@ in
           "**/.direnv" = true;
           "**/.jj" = true;
           "**/.parcel-cache" = true;
+          "**/.pnpm-store" = true;
           "**/.ruff_cache" = true;
           "**/.Trash-*" = true;
           "**/.vagrant" = true;

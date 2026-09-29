@@ -85,6 +85,7 @@ specify {
   meshtastic-url = any;
   miller.version = "≥6.19"; # johnkerl/miller#2057
   minemap = any;
+  moor.version = "≥2.16.3"; # walles/moor#453
   mozjpeg-simple = any;
   nautilus.overlay = n: throwIf (builtins.any (p: p.pname == "glycin-loaders") n.buildInputs) "nautilus no longer requires an override" { buildInputs = n.buildInputs ++ [ stable.glycin-loaders ]; }; # Pending NixOS/nixpkgs#555938
   nbt-explorer = any;

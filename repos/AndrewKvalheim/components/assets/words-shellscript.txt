@@ -1,6 +1,7 @@
 alnum
 bwrap
 cjxl
+cksum
 Eeuo
 Eeux
 Eeuxo

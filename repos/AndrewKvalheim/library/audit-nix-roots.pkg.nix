@@ -5,6 +5,7 @@
 , bash
 , findutils
 , gnugrep
+, gnused
 , nix # TODO: config.nix.package?
 , uutils-coreutils
 }:
@@ -18,7 +19,7 @@ in
 resholve.writeScriptBin "audit-nix-roots"
 {
   interpreter = getExe bash;
-  inputs = [ findutils gnugrep nix uutils-coreutils' ];
+  inputs = [ findutils gnugrep gnused nix uutils-coreutils' ];
   execer = [
     "cannot:${getExe' nix "nix-store"}"
     "cannot:${getExe' uutils-coreutils' "date"}"

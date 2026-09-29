@@ -20,7 +20,7 @@ in
   programs.bash = {
     enable = true;
     historyControl = [ "ignorespace" ];
-    historyFile = "${homeDirectory}/akorg/resource/bash-history";
+    historyFile = "${homeDirectory}/akorg/resource/shell-history/bash";
     historyFileSize = 1000000000;
     historySize = 100000000;
     initExtra = with sgr; ''
@@ -29,7 +29,10 @@ in
     '';
   };
 
-  programs.bat.enable = true;
+  programs.bat = {
+    enable = true;
+    config.pager = "${getExe pkgs.moor} --quit-if-one-screen";
+  };
 
   programs.direnv = {
     enable = true;
@@ -39,16 +42,12 @@ in
       # Adapted from https://github.com/direnv/direnv/wiki/Customizing-cache-location
       declare -A direnv_layout_dirs
       direnv_layout_dir() {
-        local hash name
-        echo "''${direnv_layout_dirs[$PWD]:=$(
-          case "$PWD" in
-            "$HOME/project/"*|"$HOME/akorg/project/"*) store='user-state-cache';;
-            *) store='user-runtime';;
-          esac
-          hash="$(sha256sum <<< "$PWD" | head --bytes 16)"
-          name="''${PWD//\//-}"; name="''${name:1}"
-          systemd-path --suffix "direnv/layouts/$name#$hash" "$store"
-        )}"
+        local id; id="$(systemd-escape --path "$PWD")"
+        local store; case "$PWD" in
+          "$HOME/project/"*|"$HOME/akorg/project/"*) store='user-state-cache';;
+          *) store='user-runtime';;
+        esac
+        echo "''${direnv_layout_dirs[$PWD]:=$(systemd-path --suffix "direnv-layouts/$id" "$store")}"
       }
 
       # Pending direnv/direnv#1250
@@ -245,7 +244,7 @@ in
     ];
 
     history = {
-      path = "${homeDirectory}/akorg/resource/zsh-history";
+      path = "${homeDirectory}/akorg/resource/shell-history/zsh";
       expireDuplicatesFirst = true;
       extended = true;
       ignoreDups = false;

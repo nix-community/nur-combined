@@ -101,6 +101,7 @@ in
       # Command line
       just
       just-local
+      moor
       moreutils
       trash-cli
       udo
@@ -205,6 +206,7 @@ in
       gopass
       gopass-env
       gopass-ydotool
+      (onlyBinMan libsecret)
       pwgen
       xkcdpass
 
@@ -304,12 +306,13 @@ in
     };
 
     # Configuration
-    home.sessionVariables = rec {
+    home.sessionVariables = {
       ADD_WORDS_WORDLIST_PATH = ./assets/words.txt;
       ANSIBLE_NOCOWS = "🐄"; # Workaround for ansible/ansible#10530
-      PAGER = "${getExe pkgs.moor} --tab-size 4 --wrap";
+      MOOR = "--tab-size 4 --wrap";
+      PAGER = getExe pkgs.moor;
       PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
-      SYSTEMD_PAGER = PAGER;
+      SYSTEMD_PAGER = getExe pkgs.moor;
       SYSTEMD_PAGERSECURE = "true"; # moor supports `LESSSECURE`
       UV_PYTHON_DOWNLOADS = "never";
     };
