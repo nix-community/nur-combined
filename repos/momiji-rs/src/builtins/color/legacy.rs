@@ -33,7 +33,7 @@ pub(super) fn fn_rgb(
                 let b = Value::Number(int_num(c.b));
                 return Ok(special_call(name, &[&r, &g, &b, alpha]));
             }
-            let a = alpha_value(alpha, pos)?;
+            let a = alpha_value(alpha, Some("alpha"), pos)?;
             return Ok(Value::Color(computed(c.r, c.g, c.b, a)));
         }
         // The `$color` must be a real color. dart's legacy `rgb($color,
@@ -68,13 +68,14 @@ pub(super) fn fn_rgb(
     validate_alpha_unit(channels.alpha.as_ref(), pos)?;
     channels.validate_count("rgb", pos)?;
     channels.validate_rgb_units(&["red", "green", "blue"], pos)?;
+    let alpha_param = channels.alpha_param();
     let Channels { comps, alpha, .. } = channels;
     let z = crate::value::without_negative_zero;
     let r = z(rgb_channel(&comps[0], pos)?);
     let g = z(rgb_channel(&comps[1], pos)?);
     let b = z(rgb_channel(&comps[2], pos)?);
     let a = match &alpha {
-        Some(v) => z(alpha_value(v, pos)?),
+        Some(v) => z(alpha_value(v, alpha_param, pos)?),
         None => 1.0,
     };
     let mut c = Color::rgb(r, g, b, a);
@@ -186,6 +187,24 @@ pub(super) struct Channels {
 }
 
 impl Channels {
+    /// The parameter an alpha taken out of these channels was bound to, for a
+    /// diagnostic's `$<param>:` prefix. An alpha peeled out of the channels list
+    /// was bound to `$channels` and is reported under that name; one written as
+    /// its own argument was bound to `$alpha`.
+    ///
+    /// The question is `alpha_split`, not `single`: the one-argument form also
+    /// accepts a separate alpha beside the list (`rgb(var(--c), 0.5)`), and that
+    /// alpha belongs to `$alpha` even though `single` is set. No input is known
+    /// to reach a type error down that path — a special-value channels list is a
+    /// verbatim passthrough before any alpha is read, and a plain list with a
+    /// second argument binds dart's `rgb($color, $alpha)` overload instead
+    /// (`rgb(1 2 3, "x")` is `$color: (1 2 3) is not a color.` on both
+    /// compilers, measured 2026-09-29) — but the method should answer truthfully
+    /// rather than lean on that.
+    fn alpha_param(&self) -> Option<&'static str> {
+        Some(if self.alpha_split { "channels" } else { "alpha" })
+    }
+
     /// Gather the channel components and optional alpha. The three- and
     /// four-positional forms map directly; a single positional/named argument
     /// is treated as a channels list, splitting a trailing slash-division
@@ -233,14 +252,7 @@ impl Channels {
                 } else {
                     "a space- or slash-separated list"
                 };
-                // A bracketed list serializes with its own `[...]`; a bare
-                // (unbracketed) comma list is shown parenthesized, matching
-                // dart-sass (`(1, 2, 3)`).
-                let shown = if l.bracketed {
-                    channels.to_css(false)
-                } else {
-                    list_paren_css(&channels)
-                };
+                let shown = channels.to_inspect_message();
                 return Err(Error::at(format!("$channels: Expected {kind}, was {shown}"), pos));
             }
         }
@@ -280,7 +292,7 @@ impl Channels {
                     format!(
                         "${}: {} is not a number.",
                         names[i.min(names.len() - 1)],
-                        channel_err_css(comp)
+                        comp.to_inspect_message()
                     ),
                     pos,
                 ));
@@ -312,7 +324,7 @@ impl Channels {
                     format!(
                         "$channels: Expected {} to be a number, was {}.",
                         legacy_channel_name(names, i),
-                        channel_err_css(comp)
+                        comp.to_inspect_message()
                     ),
                     pos,
                 ));
@@ -367,7 +379,7 @@ impl Channels {
                 return Err(Error::at(
                     format!(
                         "$channels: The {space} color space has 3 channels but {} has {}.",
-                        list_paren_css(single),
+                        single.to_inspect_message(),
                         self.comps.len()
                     ),
                     pos,
@@ -758,18 +770,24 @@ pub(super) fn fn_hsl(
     channels.validate_positional_numeric(&["hue", "saturation", "lightness"], pos)?;
     validate_alpha_unit(channels.alpha.as_ref(), pos)?;
     channels.validate_count("hsl", pos)?;
+    let alpha_param = channels.alpha_param();
     let Channels { comps, alpha, .. } = channels;
     let h = hsl_hue(&comps[0], pos)?;
     // The repr preserves the supplied saturation/lightness percentages, except
     // saturation is floored at 0 (matching dart-sass: `hsl(0, 500%, 50%)` keeps
     // `500%`, `hsl(0, -100%, 50%)` becomes `0%`, lightness is left untouched).
-    let s_raw = channel_value(&comps[1], pos)?;
-    let l_raw = channel_value(&comps[2], pos)?;
+    // The names are for a message `validate_numeric` above has already made
+    // unreachable: it rejects a non-numeric channel with dart's own
+    // `Expected saturation channel to be a number, was …`. They are the
+    // channels' own names so that if a path ever reaches this, it says
+    // something true rather than something invented.
+    let s_raw = channel_value(&comps[1], Some("saturation"), pos)?;
+    let l_raw = channel_value(&comps[2], Some("lightness"), pos)?;
     let z = crate::value::without_negative_zero;
     let s_pct = z(if s_raw.is_nan() { 0.0 } else { s_raw.max(0.0) });
     let l_pct = z(if l_raw.is_nan() { 0.0 } else { l_raw });
     let a = match &alpha {
-        Some(v) => alpha_value(v, pos)?,
+        Some(v) => alpha_value(v, alpha_param, pos)?,
         None => 1.0,
     };
     let mut c = Color::from_hsl(
@@ -805,8 +823,16 @@ fn hsl_hue(v: &Value, pos: Pos) -> Result<f64, Error> {
             "turn" => num.value * 360.0,
             _ => num.value,
         }),
+        // No `$param:` prefix, because nothing is known to reach this arm:
+        // `validate_numeric` runs first and rejects a non-numeric channel with
+        // dart's own `Expected <channel> channel to be a number, was …`. 13
+        // shapes were tried against dart-sass 1.104.1 (2026-09-29) — a quoted
+        // string, a `var()`, a `calc()`, a degenerate `calc(infinity)`, a
+        // division — and every one of them was caught earlier, identically on
+        // both compilers. The spelling is still dart's, so if a path ever does
+        // arrive the sentence is right as far as it goes.
         other => Err(Error::at(
-            format!("{} is not a number.", other.to_css(false)),
+            format!("{} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -815,10 +841,10 @@ fn hsl_hue(v: &Value, pos: Pos) -> Result<f64, Error> {
 /// Read a legacy channel's numeric value, accepting the quotient a
 /// slash-division carries: inside a SPACE-separated channels list `60%/2`
 /// keeps its spelling, and `num` alone calls it "not a number".
-fn channel_value(v: &Value, pos: Pos) -> Result<f64, Error> {
+fn channel_value(v: &Value, pname: Option<&str>, pos: Pos) -> Result<f64, Error> {
     match channel_unit_number(v) {
         Some(n) => Ok(n.value),
-        None => num(v, pos),
+        None => num(v, pname, pos),
     }
 }
 
@@ -853,7 +879,7 @@ fn hsl_degenerate(channels: &Channels, pos: Pos) -> Result<Value, Error> {
     let s = hsl_degenerate_chan(&channels.comps[1], true, pos)?;
     let l = hsl_degenerate_chan(&channels.comps[2], false, pos)?;
     let a = match &channels.alpha {
-        Some(v) => alpha_value(v, pos)?,
+        Some(v) => alpha_value(v, channels.alpha_param(), pos)?,
         None => 1.0,
     };
     // The legacy rgb shadow is the plain hsl -> sRGB conversion, unclamped, so
@@ -884,7 +910,11 @@ fn hsl_degenerate(channels: &Channels, pos: Pos) -> Result<Value, Error> {
 fn hsl_degenerate_chan(v: &Value, is_saturation: bool, pos: Pos) -> Result<f64, Error> {
     let raw = match degenerate_value(v) {
         Some(c) => c,
-        None => channel_value(v, pos)?,
+        None => channel_value(
+            v,
+            Some(if is_saturation { "saturation" } else { "lightness" }),
+            pos,
+        )?,
     };
     // `f64::max` returns the non-NaN side, so a NaN saturation floors to 0 the
     // way the ordinary path's does.
@@ -902,7 +932,21 @@ fn hsl_degenerate_chan(v: &Value, is_saturation: bool, pos: Pos) -> Result<f64, 
 /// `calc()`) or a `none` missing-channel keyword it preserves the call
 /// verbatim, space-joined, with a bare numeric hue suffixed `deg`.
 pub(super) fn fn_hwb(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
+    hwb_channels(Some("channels"), pos_args, named, pos)
+}
+
+/// `hwb()`'s body, told which parameter the channels were bound to. `pname` is
+/// `None` for the comma form, whose channels list is synthesized here rather
+/// than written by the caller, so no parameter holds it.
+fn hwb_channels(
+    pname: Option<&str>,
+    pos_args: &[Value],
+    named: &[(String, Value)],
+    pos: Pos,
+) -> Result<Value, Error> {
     let params = ["channels"];
+    // `$channels: ` where a parameter was bound, and nothing where none was.
+    let p = pname.map_or(String::new(), |n| format!("${n}: "));
     // Only an OVERFLOW is an arity error, and only POSITIONAL arguments count
     // toward it: with nothing passed the parameter is simply missing, and dart
     // says so (`hwb()` is `Missing argument $channels.`, not "but 0 were
@@ -921,12 +965,8 @@ pub(super) fn fn_hwb(pos_args: &[Value], named: &[(String, Value)], pos: Pos) ->
             } else {
                 "a space- or slash-separated list"
             };
-            let shown = if l.bracketed {
-                channels.to_css(false)
-            } else {
-                list_paren_css(&channels)
-            };
-            return Err(Error::at(format!("$channels: Expected {kind}, was {shown}"), pos));
+            let shown = channels.to_inspect_message();
+            return Err(Error::at(format!("{p}Expected {kind}, was {shown}"), pos));
         }
     }
     let SplitChannels { comps, alpha, .. } = split_channels(&channels);
@@ -959,9 +999,9 @@ pub(super) fn fn_hwb(pos_args: &[Value], named: &[(String, Value)], pos: Pos) ->
         if !numeric {
             return Err(Error::at(
                 format!(
-                    "$channels: Expected {} to be a number, was {}.",
+                    "{p}Expected {} to be a number, was {}.",
                     legacy_channel_name(&["hue", "whiteness", "blackness"], i),
-                    channel_err_css(comp)
+                    comp.to_inspect_message()
                 ),
                 pos,
             ));
@@ -972,8 +1012,8 @@ pub(super) fn fn_hwb(pos_args: &[Value], named: &[(String, Value)], pos: Pos) ->
     if comps.len() != 3 {
         return Err(Error::at(
             format!(
-                "$channels: The hwb color space has 3 channels but {} has {}.",
-                list_paren_css(&channels),
+                "{p}The hwb color space has 3 channels but {} has {}.",
+                channels.to_inspect_message(),
                 comps.len()
             ),
             pos,
@@ -1029,10 +1069,10 @@ pub(super) fn fn_hwb(pos_args: &[Value], named: &[(String, Value)], pos: Pos) ->
         return Ok(Value::Color(make_modern(mc)));
     }
     let h = hsl_hue(&comps[0], pos)?;
-    let mut w_pct = channel_value(&comps[1], pos)?;
-    let mut b_pct = channel_value(&comps[2], pos)?;
+    let mut w_pct = channel_value(&comps[1], Some("whiteness"), pos)?;
+    let mut b_pct = channel_value(&comps[2], Some("blackness"), pos)?;
     let a = match &alpha {
-        Some(v) => alpha_value(v, pos)?,
+        Some(v) => alpha_value(v, pname, pos)?,
         None => 1.0,
     };
     // dart normalizes at CONSTRUCTION (`_colorFromChannels`): a whiteness +
@@ -1112,7 +1152,7 @@ fn fn_color_hwb(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Resu
         }),
         None => space,
     };
-    fn_hwb(&[channels], &[], pos)
+    hwb_channels(None, &[channels], &[], pos)
 }
 
 /// Convert HWB (hue degrees, whiteness/blackness percentages) to an sRGB
@@ -1169,11 +1209,7 @@ pub(super) fn fn_lab_family(
             } else {
                 "a space- or slash-separated list"
             };
-            let shown = if l.bracketed {
-                channels.to_css(false)
-            } else {
-                list_paren_css(&channels)
-            };
+            let shown = channels.to_inspect_message();
             return Err(Error::at(format!("$channels: Expected {kind}, was {shown}"), pos));
         }
         if l.items.is_empty() {
@@ -1220,7 +1256,7 @@ pub(super) fn fn_lab_family(
                 format!(
                     "$channels: Expected {} to be a number, was {}.",
                     legacy_channel_name(&names, i),
-                    channel_err_css(comp)
+                    comp.to_inspect_message()
                 ),
                 pos,
             ));
@@ -1232,7 +1268,7 @@ pub(super) fn fn_lab_family(
             format!(
                 "$channels: The {} color space has 3 channels but {} has {}.",
                 name,
-                list_paren_css(&channels),
+                channels.to_inspect_message(),
                 comps.len()
             ),
             pos,
@@ -1272,7 +1308,7 @@ pub(super) fn fn_lab_family(
     if let Some(a) = &alpha {
         // Validate the alpha's unit (errors on e.g. `0.4px`).
         if !is_none_keyword(a) {
-            alpha_value(a, pos)?;
+            alpha_value(a, Some("channels"), pos)?;
         }
     }
     let comps = normalized;
@@ -1367,11 +1403,7 @@ pub(super) fn fn_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
             } else {
                 "a space- or slash-separated list"
             };
-            let shown = if l.bracketed {
-                desc.to_css(false)
-            } else {
-                list_paren_css(&desc)
-            };
+            let shown = desc.to_inspect_message();
             return Err(Error::at(
                 format!("$description: Expected {kind}, was {shown}"),
                 pos,
@@ -1398,7 +1430,7 @@ pub(super) fn fn_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
         }
         other => {
             return Err(Error::at(
-                format!("$description: {} is not a string.", other.to_css(false)),
+                format!("$description: {} is not a string.", other.to_inspect_message()),
                 pos,
             ));
         }
@@ -1439,7 +1471,7 @@ pub(super) fn fn_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
                 format!(
                     "$description: Expected {} to be a number, was {}.",
                     legacy_channel_name(&names, i),
-                    channel_err_css(comp)
+                    comp.to_inspect_message()
                 ),
                 pos,
             ));
@@ -1451,7 +1483,7 @@ pub(super) fn fn_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
             format!(
                 "$description: The {} color space has 3 channels but {} has {}.",
                 space_lower,
-                color_desc_css(&desc),
+                desc.to_inspect_message(),
                 channels.len()
             ),
             pos,
@@ -1481,7 +1513,7 @@ pub(super) fn fn_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
     let channels = &channels[..];
     if let Some(a) = &alpha {
         if !is_none_keyword(a) {
-            alpha_value(a, pos)?;
+            alpha_value(a, Some("description"), pos)?;
         }
     }
     // `display-p3-linear` is accepted but not a real CSS Color 4 space in
@@ -1511,21 +1543,11 @@ pub(super) fn fn_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
     Ok(Value::Color(make_modern(mc)))
 }
 
-/// Serialize a `color()` description for its channel-count error message:
-/// wrapped in parentheses for a multi-item list, bare for a single value
-/// (`color(srgb)` → `srgb`).
-fn color_desc_css(desc: &Value) -> String {
-    match desc {
-        Value::List(l) if l.items.len() > 1 => list_paren_css(desc),
-        _ => desc.to_css(false),
-    }
-}
-
 pub(super) fn fn_mix(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color1", "color2", "weight", "method"];
     check_arity(4, pos_args, named, pos)?;
-    let c1 = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
-    let c2 = as_color(require(&params, pos_args, named, 1, pos)?, pos)?;
+    let c1 = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
+    let c2 = as_color(require(&params, pos_args, named, 1, pos)?, Some(params[1]), pos)?;
     let weight = match arg(&params, pos_args, named, 2) {
         Some(Value::Number(w)) => {
             // A NaN is within no range, and the bounds carry the value's unit
@@ -1544,7 +1566,7 @@ pub(super) fn fn_mix(pos_args: &[Value], named: &[(String, Value)], pos: Pos) ->
         }
         Some(other) => {
             return Err(Error::at(
-                format!("$weight: {} is not a number.", other.to_css(false)),
+                format!("$weight: {} is not a number.", other.to_inspect_message()),
                 pos,
             ))
         }
@@ -1632,7 +1654,10 @@ fn validate_mix_method(method: &Value, pos: Pos) -> Result<(ColorSpace, HueMetho
             ));
         }
         other => {
-            return err(format!("$method: {} is not a string.", other.to_css(false)));
+            return err(format!(
+                "$method: {} is not a string.",
+                other.to_inspect_message()
+            ));
         }
     };
     let space = space.to_ascii_lowercase();
@@ -1649,9 +1674,12 @@ fn validate_mix_method(method: &Value, pos: Pos) -> Result<(ColorSpace, HueMetho
     // method and the list must end with the literal `hue`.
     let method_token = match items[1] {
         Value::Str(s) if !s.quoted => s.text.clone(),
-        // A parenthesized list shows wrapped in parens (`(decreasing hue)`).
-        Value::List(_) => return err(format!("$method: {} is not a string.", list_paren_css(items[1]))),
-        other => return err(format!("$method: {} is not a string.", other.to_css(false))),
+        other => {
+            return err(format!(
+                "$method: {} is not a string.",
+                other.to_inspect_message()
+            ))
+        }
     };
     // The hue-method keyword is validated before the trailing `hue` keyword,
     // matching dart-sass's error order.
@@ -1699,7 +1727,7 @@ pub(super) fn fn_adjust_lightness(
 ) -> Result<Value, Error> {
     let params = ["color", "amount"];
     check_arity(2, pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     require_legacy_color(&c, name, pos)?;
     let amount = match require(&params, pos_args, named, 1, pos)? {
         Value::Number(num) => {
@@ -1718,7 +1746,7 @@ pub(super) fn fn_adjust_lightness(
         }
         other => {
             return Err(Error::at(
-                format!("$amount: {} is not a number.", other.to_css(false)),
+                format!("$amount: {} is not a number.", other.to_inspect_message()),
                 pos,
             ))
         }
@@ -1742,7 +1770,7 @@ pub(super) fn fn_percentage(pos_args: &[Value], named: &[(String, Value)], pos: 
             ));
         }
     }
-    let n = num(arg, pos)?;
+    let n = num(arg, Some("number"), pos)?;
     Ok(Value::Number(Number::with_unit(n * 100.0, "%")))
 }
 
@@ -1754,7 +1782,7 @@ pub(super) fn fn_channel(
 ) -> Result<Value, Error> {
     let params = ["color"];
     check_arity(params.len(), pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     // The legacy red/green/blue getters only support legacy colors.
     if c.modern.as_ref().is_some_and(|m| !m.space.is_legacy()) {
         return Err(Error::at(
@@ -1868,7 +1896,7 @@ pub(super) fn fn_alpha(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
     // argument allowed, but 2 were passed." where every non-overloaded member
     // says "Only 1 positional argument allowed". Hence the empty `named` here.
     check_arity(1, pos_args, &[], pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     // The legacy alpha getter only supports legacy colors.
     if c.modern.as_ref().is_some_and(|m| !m.space.is_legacy()) {
         return Err(Error::at(

@@ -85,7 +85,7 @@ fn as_map(v: &Value, fname: &str, pos: Pos) -> Result<Vec<(Value, Value)>, Error
         // The empty list doubles as the empty map.
         Value::List(l) if l.items.is_empty() => Ok(Vec::new()),
         other => Err(Error::at(
-            format!("$map: {} is not a map for `{fname}`.", other.to_css(false)),
+            format!("$map: {} is not a map for `{fname}`.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -423,7 +423,7 @@ fn as_map_named(v: &Value, param: &str, pos: Pos) -> Result<Vec<(Value, Value)>,
         Value::Map(m) => Ok(m.entries.as_ref().clone()),
         Value::List(l) if l.items.is_empty() => Ok(Vec::new()),
         other => Err(Error::at(
-            format!("${param}: {} is not a map.", other.to_css(false)),
+            format!("${param}: {} is not a map.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -443,7 +443,7 @@ fn fn_nth(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Val
     let map_v = super::require(&params, pos_args, named, 0, pos)?;
     let entries = as_map(map_v, "nth", pos)?;
     let n = super::require(&params, pos_args, named, 1, pos)?;
-    let raw = super::num(n, pos)?;
+    let raw = super::num(n, Some(params[1]), pos)?;
     if raw.fract() != 0.0 {
         return Err(Error::at(
             format!("$n: {} is not an int.", crate::value::fmt_num(raw, false)),

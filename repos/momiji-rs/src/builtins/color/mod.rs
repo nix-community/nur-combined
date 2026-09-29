@@ -17,7 +17,7 @@ pub(crate) mod removed;
 // Shared imports. These are private to `color`, but Rust makes them visible to
 // the child submodules, which pull them in with `use super::*;`.
 use super::color_ext::{computed, named_repr};
-use super::{arg, as_color, channel, check_arity, num, require, require_legacy_color};
+use super::{arg, as_color, channel, check_arity, num, require, require_legacy_color, type_error};
 use crate::error::Error;
 use crate::scanner::Pos;
 use crate::value::{fmt_num, CalcNode, Color, ColorSpace, List, ListSep, ModernColor, Number, Value};
@@ -186,7 +186,7 @@ pub(super) fn try_call(
 /// Read an alpha argument: a `%` is divided by 100, a unitless number is used
 /// directly, and the result is clamped to `[0, 1]`. NaN clamps to 0. Any
 /// other unit is an error (`Expected … to have unit "%" or no units.`).
-fn alpha_value(v: &Value, pos: Pos) -> Result<f64, Error> {
+fn alpha_value(v: &Value, pname: Option<&str>, pos: Pos) -> Result<f64, Error> {
     if let Some(c) = degenerate_value(v) {
         // A degenerate alpha is still an alpha: its UNIT is checked first, so
         // `calc(infinity * 1px)` is the wrong unit rather than an opaque
@@ -232,10 +232,7 @@ fn alpha_value(v: &Value, pos: Pos) -> Result<f64, Error> {
             };
             Ok(clamp_alpha(raw))
         }
-        other => Err(Error::at(
-            format!("$alpha: {} is not a number.", channel_err_css(other)),
-            pos,
-        )),
+        other => Err(type_error(other, pname, "number", pos)),
     }
 }
 
@@ -341,21 +338,4 @@ fn validate_alpha_unit(alpha: Option<&Value>, pos: Pos) -> Result<(), Error> {
         }
     }
     Ok(())
-}
-
-/// Render a non-number CHANNEL for a "channel to be a number" diagnostic: an
-/// unbracketed multi-item list is parenthesized (`(1 2)`, `(1, 2)`), matching
-/// dart-sass; a bracketed one already carries its own delimiters, and every
-/// other value prints plainly.
-fn channel_err_css(v: &Value) -> String {
-    match v {
-        Value::List(l) if l.items.len() > 1 && !l.bracketed => list_paren_css(v),
-        _ => v.to_css(false),
-    }
-}
-
-/// Serialize a list value wrapped in parentheses, as dart-sass does in its
-/// channel-list error messages (`(1%, 2, 3)`, `(1% 2)`).
-fn list_paren_css(v: &Value) -> String {
-    format!("({})", v.to_css(false))
 }

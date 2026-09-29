@@ -96,7 +96,7 @@ fn require_string<'v>(
             format!(
                 "${}: {} is not a string.",
                 params.get(i).copied().unwrap_or(""),
-                other.to_css(false)
+                other.to_inspect_message()
             ),
             pos,
         )),
@@ -105,11 +105,17 @@ fn require_string<'v>(
 
 /// Extract a unitless integer index, matching dart-sass which rejects any
 /// unit on string indices.
+///
+/// `int_names` is whether the NON-INTEGER message names the parameter: dart's
+/// `string.insert` writes `$index: 1.5 is not an int.` and its `string.slice`
+/// writes `1.5 is not an int.`, from the same rule reached two ways. The unit
+/// and type messages carry the name in both.
 fn require_index(
     params: &[&str],
     pos_args: &[Value],
     named: &[(String, Value)],
     i: usize,
+    int_names: bool,
     pos: Pos,
 ) -> Result<i64, Error> {
     let v = super::require(params, pos_args, named, i, pos)?;
@@ -119,22 +125,27 @@ fn require_index(
             let value = n.value;
             if !n.is_unitless() {
                 return Err(Error::at(
-                    format!("${pname}: Expected {} to have no units.", v.to_css(false)),
+                    format!("${pname}: Expected {} to have no units.", v.to_inspect_message()),
                     pos,
                 ));
             }
             // dart-sass requires an integer index (it rounds within a tiny
             // tolerance, but a genuine fraction like `0.5` is an error).
             if (value - value.round()).abs() > 1e-11 {
+                let shown = crate::value::fmt_num(value, false);
                 return Err(Error::at(
-                    format!("${pname}: {} is not an int.", crate::value::fmt_num(value, false)),
+                    if int_names {
+                        format!("${pname}: {shown} is not an int.")
+                    } else {
+                        format!("{shown} is not an int.")
+                    },
                     pos,
                 ));
             }
             Ok(value.round() as i64)
         }
         other => Err(Error::at(
-            format!("${pname}: {} is not a number.", other.to_css(false)),
+            format!("${pname}: {} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -217,9 +228,9 @@ fn fn_str_slice(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Resu
     let chars: Vec<char> = text.chars().collect();
     let len = chars.len() as i64;
 
-    let start_at = require_index(&params, pos_args, named, 1, pos)?;
+    let start_at = require_index(&params, pos_args, named, 1, false, pos)?;
     let end_at = match super::arg(&params, pos_args, named, 2) {
-        Some(_) => require_index(&params, pos_args, named, 2, pos)?,
+        Some(_) => require_index(&params, pos_args, named, 2, false, pos)?,
         None => -1,
     };
 
@@ -245,7 +256,7 @@ fn fn_str_insert(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Res
     let (insert, _) = require_string(&params, pos_args, named, 1, pos)?;
     let chars: Vec<char> = text.chars().collect();
     let len = chars.len() as i64;
-    let index = require_index(&params, pos_args, named, 2, pos)?;
+    let index = require_index(&params, pos_args, named, 2, true, pos)?;
 
     // Compute the 0-based offset at which `insert` is placed.
     let offset: usize = if index > 0 {
@@ -343,7 +354,7 @@ fn fn_split(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<V
         }
         Some(other) => {
             return Err(Error::at(
-                format!("$limit: {} is not a number.", other.to_css(false)),
+                format!("$limit: {} is not a number.", other.to_inspect_message()),
                 pos,
             ))
         }

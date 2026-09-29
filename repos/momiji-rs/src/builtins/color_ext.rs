@@ -459,16 +459,16 @@ fn plain_filter(name: &str, arg: &Value) -> Value {
 fn fn_adjust_hue(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "degrees"];
     check_max_args(pos_args, named, 2, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     require_legacy_color(&c, "adjust-hue", pos)?;
-    let degrees = angle_degrees(require(&params, pos_args, named, 1, pos)?, pos)?;
+    let degrees = angle_degrees(require(&params, pos_args, named, 1, pos)?, params[1], pos)?;
     Ok(Value::Color(rotate_hue(&c, degrees)))
 }
 
 /// Extract a hue angle in degrees from a number, converting the common CSS
 /// angle units. Unknown units (and the deprecated unitless/`in` cases) are
 /// treated as degrees, matching dart-sass's lenient legacy behavior.
-fn angle_degrees(v: &Value, pos: Pos) -> Result<f64, Error> {
+fn angle_degrees(v: &Value, pname: &str, pos: Pos) -> Result<f64, Error> {
     match v {
         Value::Number(n) => Ok(match n.unit() {
             "rad" => n.value.to_degrees(),
@@ -476,10 +476,7 @@ fn angle_degrees(v: &Value, pos: Pos) -> Result<f64, Error> {
             "turn" => n.value * 360.0,
             _ => n.value,
         }),
-        other => Err(Error::at(
-            format!("{} is not a number.", other.to_css(false)),
-            pos,
-        )),
+        other => Err(super::type_error(other, Some(pname), "number", pos)),
     }
 }
 
@@ -488,7 +485,7 @@ fn angle_degrees(v: &Value, pos: Pos) -> Result<f64, Error> {
 fn fn_complement(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "space"];
     check_max_args(pos_args, named, 2, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let space_v = arg(&params, pos_args, named, 1);
     let is_legacy = c.modern.as_ref().map(|m| m.space.is_legacy()).unwrap_or(true);
     let space = match space_v {
@@ -560,10 +557,10 @@ fn fn_invert(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Option<
     }
     let params = ["color", "weight", "space"];
     Some((|| {
-        let c = as_color(color, pos)?;
+        let c = as_color(color, Some(params[0]), pos)?;
         let weight = match arg(&params, pos_args, named, 1) {
             Some(v) => {
-                let n = num(v, pos)?;
+                let n = num(v, Some(params[1]), pos)?;
                 // A NaN is within no range (dart rejects it like any
                 // out-of-range value), and the bounds carry the value's unit.
                 if n.is_nan() || !(0.0..=100.0).contains(&n) {
@@ -634,7 +631,7 @@ fn fn_grayscale(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Opti
         return Some(Ok(plain_filter("grayscale", color)));
     }
     Some((|| {
-        let c = as_color(color, pos)?;
+        let c = as_color(color, Some("color"), pos)?;
         // A non-legacy color is desaturated by setting its oklch chroma to 0
         // and converting back to its own space; legacy colors set HSL
         // saturation to 0.
@@ -691,7 +688,7 @@ fn fn_saturate_two(
 ) -> Result<Value, Error> {
     let params = ["color", "amount"];
     check_max_args(pos_args, named, 2, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     require_legacy_color(&c, name, pos)?;
     let amount = require(&params, pos_args, named, 1, pos)?;
     let amount = bounded(amount, 0.0, 100.0, true, pos)?;
@@ -742,7 +739,7 @@ fn bounded(v: &Value, lo: f64, hi: f64, unit_bounds: bool, pos: Pos) -> Result<f
             }
         }
         other => Err(Error::at(
-            format!("$amount: {} is not a number.", other.to_css(false)),
+            format!("$amount: {} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -767,7 +764,7 @@ fn fn_fade(
 ) -> Result<Value, Error> {
     let params = ["color", "amount"];
     check_max_args(pos_args, named, 2, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     require_legacy_color(&c, name, pos)?;
     let amount = require(&params, pos_args, named, 1, pos)?;
     let amount = bounded(amount, 0.0, 1.0, false, pos)?;
@@ -786,7 +783,7 @@ fn fn_hsl_getter(
 ) -> Result<Value, Error> {
     let params = ["color"];
     check_max_args(pos_args, named, 1, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     // These legacy getters only support legacy colors.
     let is_legacy = c.modern.as_ref().map(|m| m.space.is_legacy()).unwrap_or(true);
     if !is_legacy {
@@ -850,7 +847,7 @@ fn fn_opacity(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Option
         return Some(Ok(plain_filter("opacity", color)));
     }
     Some((|| {
-        let c = as_color(color, pos)?;
+        let c = as_color(color, Some("color"), pos)?;
         Ok(Value::Number(Number::unitless(stored_alpha(&c))))
     })())
 }
@@ -859,7 +856,7 @@ fn fn_opacity(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Option
 fn fn_ie_hex_str(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color"];
     check_max_args(pos_args, named, 1, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let byte = |v: f64| v.round().clamp(0.0, 255.0) as u8;
     let text = format!(
         "#{:02X}{:02X}{:02X}{:02X}",
@@ -987,7 +984,7 @@ fn resolve_channels<'v>(
 /// then clamp.
 fn fn_adjust_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color"];
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     if pos_args.len() > 1 {
         return Err(Error::at(
             "Only one positional argument is allowed. All other arguments must be passed by name."
@@ -1015,7 +1012,7 @@ fn fn_adjust_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> R
 /// (alpha validated to `[0, 1]`).
 fn fn_change_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color"];
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     if pos_args.len() > 1 {
         return Err(Error::at(
             "Only one positional argument is allowed. All other arguments must be passed by name."
@@ -1044,7 +1041,7 @@ fn fn_change_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> R
 /// 100]`.
 fn fn_scale_color(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color"];
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     if pos_args.len() > 1 {
         return Err(Error::at(
             "Only one positional argument is allowed. All other arguments must be passed by name."
@@ -1127,7 +1124,7 @@ fn scale_factor(name: &str, v: &Value, pos: Pos) -> Result<f64, Error> {
             Ok(n.value / 100.0)
         }
         other => Err(Error::at(
-            format!("${name}: {} is not a number.", other.to_css(false)),
+            format!("${name}: {} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }

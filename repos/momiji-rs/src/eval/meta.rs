@@ -189,7 +189,7 @@ impl<'a> Evaluator<'a> {
                 Ok(Value::Map(Map::new(l.keywords.clone().unwrap_or_default())))
             }
             other => Err(Error::at(
-                format!("$args: {} is not an argument list.", other.to_css(false)),
+                format!("$args: {} is not an argument list.", other.to_inspect_message()),
                 pos,
             )),
         }
@@ -211,7 +211,7 @@ impl<'a> Evaluator<'a> {
             Value::Mixin(m) => m,
             other => {
                 return Err(Error::at(
-                    format!("$mixin: {} is not a mixin reference.", other.to_css(false)),
+                    format!("$mixin: {} is not a mixin reference.", other.to_inspect_message()),
                     pos,
                 ))
             }
@@ -248,7 +248,7 @@ impl<'a> Evaluator<'a> {
             Some(Value::Str(s)) => s.text.to_string(),
             Some(other) => {
                 return Err(Error::at(
-                    format!("$name: {} is not a string.", other.to_css(false)),
+                    format!("$name: {} is not a string.", other.to_inspect_message()),
                     pos,
                 ))
             }
@@ -262,7 +262,7 @@ impl<'a> Evaluator<'a> {
                 Value::Str(s) => return self.get_function_from_module(&name, &s.text, pos),
                 other => {
                     return Err(Error::at(
-                        format!("$module: {} is not a string.", other.to_css(false)),
+                        format!("$module: {} is not a string.", other.to_inspect_message()),
                         pos,
                     ))
                 }
@@ -378,7 +378,7 @@ impl<'a> Evaluator<'a> {
             Some(Value::Str(s)) => s.text.to_string(),
             Some(other) => {
                 return Err(Error::at(
-                    format!("$name: {} is not a string.", other.to_css(false)),
+                    format!("$name: {} is not a string.", other.to_inspect_message()),
                     pos,
                 ))
             }
@@ -391,7 +391,7 @@ impl<'a> Evaluator<'a> {
                     Value::Str(s) => s.text.clone(),
                     other => {
                         return Err(Error::at(
-                            format!("$module: {} is not a string.", other.to_css(false)),
+                            format!("$module: {} is not a string.", other.to_inspect_message()),
                             pos,
                         ))
                     }
@@ -626,7 +626,10 @@ impl<'a> Evaluator<'a> {
                 self.invoke_function_ref(&f, rest_pos, rest_named, pos, length)
             }
             other => Err(Error::at(
-                format!("$function: {} is not a function reference.", other.to_css(false)),
+                format!(
+                    "$function: {} is not a function reference.",
+                    other.to_inspect_message()
+                ),
                 pos,
             )),
         }
@@ -788,7 +791,7 @@ impl<'a> Evaluator<'a> {
             Value::Str(s) => s.text.to_string(),
             other => {
                 return Err(Error::at(
-                    format!("$name: {} is not a string.", other.to_css(false)),
+                    format!("$name: {} is not a string.", other.to_inspect_message()),
                     pos,
                 ))
             }
@@ -802,7 +805,7 @@ impl<'a> Evaluator<'a> {
                 Some(Value::Str(s)) => Some(s.text.to_string()),
                 Some(other) => {
                     return Err(Error::at(
-                        format!("$module: {} is not a string.", other.to_css(false)),
+                        format!("$module: {} is not a string.", other.to_inspect_message()),
                         pos,
                     ))
                 }
@@ -884,7 +887,7 @@ impl<'a> Evaluator<'a> {
             Value::Str(s) => s.text.to_string(),
             other => {
                 return Err(Error::at(
-                    format!("$module: {} is not a string.", other.to_css(false)),
+                    format!("$module: {} is not a string.", other.to_inspect_message()),
                     pos,
                 ))
             }

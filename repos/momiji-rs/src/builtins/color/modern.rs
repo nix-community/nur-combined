@@ -46,7 +46,7 @@ fn channel_name_arg(v: &Value, pos: Pos) -> Result<String, Error> {
             pos,
         )),
         other => Err(Error::at(
-            format!("$channel: {} is not a string.", other.to_css(false)),
+            format!("$channel: {} is not a string.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -55,7 +55,7 @@ fn channel_name_arg(v: &Value, pos: Pos) -> Result<String, Error> {
 fn fn_space(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color"];
     check_arity(params.len(), pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     Ok(Value::Str(crate::value::SassStr {
         text: color_space_of(&c).name().to_string().into(),
         quoted: false,
@@ -65,14 +65,14 @@ fn fn_space(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<V
 fn fn_is_legacy(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color"];
     check_arity(params.len(), pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     Ok(Value::Bool(color_space_of(&c).is_legacy()))
 }
 
 fn fn_to_space(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "space"];
     check_arity(2, pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let space = space_arg(require(&params, pos_args, named, 1, pos)?, pos)?;
     let mc = legacy_to_modern(&c);
     if mc.space == space {
@@ -85,7 +85,7 @@ fn fn_to_space(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Resul
 fn fn_color_channel(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "channel", "space"];
     check_arity(3, pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let chan = channel_name_arg(require(&params, pos_args, named, 1, pos)?, pos)?;
     let mc = legacy_to_modern(&c);
     // The space to read the channel in: explicit `$space`, else the color's own.
@@ -117,7 +117,7 @@ fn fn_color_channel(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> 
 fn fn_is_missing(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "channel"];
     check_arity(params.len(), pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let chan = channel_name_arg(require(&params, pos_args, named, 1, pos)?, pos)?;
     let mc = legacy_to_modern(&c);
     let missing = if chan == "alpha" {
@@ -145,7 +145,7 @@ fn fn_is_missing(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Res
 fn fn_is_in_gamut(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "space"];
     check_arity(2, pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let mc = legacy_to_modern(&c);
     let space = match arg(&params, pos_args, named, 1) {
         Some(v) => space_arg(v, pos)?,
@@ -157,7 +157,7 @@ fn fn_is_in_gamut(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Re
 fn fn_is_powerless(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "channel", "space"];
     check_arity(3, pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let chan = channel_name_arg(require(&params, pos_args, named, 1, pos)?, pos)?;
     let mc = legacy_to_modern(&c);
     let space = match arg(&params, pos_args, named, 2) {
@@ -185,8 +185,8 @@ fn fn_is_powerless(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> R
 fn fn_same(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color1", "color2"];
     check_arity(params.len(), pos_args, named, pos)?;
-    let c1 = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
-    let c2 = as_color(require(&params, pos_args, named, 1, pos)?, pos)?;
+    let c1 = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
+    let c2 = as_color(require(&params, pos_args, named, 1, pos)?, Some(params[1]), pos)?;
     let m1 = legacy_to_modern(&c1);
     let m2 = legacy_to_modern(&c2);
     // color.same compares the *realized* colors: a missing channel counts as 0
@@ -216,7 +216,7 @@ fn fn_same(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Va
 fn fn_to_gamut(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["color", "space", "method"];
     check_arity(params.len(), pos_args, named, pos)?;
-    let c = as_color(require(&params, pos_args, named, 0, pos)?, pos)?;
+    let c = as_color(require(&params, pos_args, named, 0, pos)?, Some(params[0]), pos)?;
     let mc = legacy_to_modern(&c);
     let space = match arg(&params, pos_args, named, 1) {
         Some(v) => space_arg(v, pos)?,
@@ -518,7 +518,7 @@ fn apply_alpha(cur: f64, v: &Value, op: ModifyOp, pos: Pos) -> Result<Option<f64
                     return Err(Error::at(
                         format!(
                             "$alpha: {} is not a number or unquoted \"none\".",
-                            other.to_css(false)
+                            other.to_inspect_message()
                         ),
                         pos,
                     ))
@@ -534,7 +534,7 @@ fn apply_alpha(cur: f64, v: &Value, op: ModifyOp, pos: Pos) -> Result<Option<f64
                 Value::Slash(n, _) => n.value,
                 other => {
                     return Err(Error::at(
-                        format!("$alpha: {} is not a number.", other.to_css(false)),
+                        format!("$alpha: {} is not a number.", other.to_inspect_message()),
                         pos,
                     ))
                 }

@@ -833,12 +833,6 @@ impl Map {
         }
     }
 
-    /// Serialize the map for CSS / error messages: `(k1: v1, k2: v2)`, with
-    /// the empty map rendered as `()`.
-    pub(crate) fn to_css(&self, compressed: bool) -> String {
-        self.to_map_css(compressed)
-    }
-
     /// Serialize the map as dart-sass does: `(k1: v1, k2: v2)`, with the empty
     /// map rendered as `()`. Keys and values use their inspect form so nested
     /// quoted strings keep their quotes.
@@ -1159,12 +1153,41 @@ impl Value {
     /// single-element comma and slash forms (`(1,)`, `(1/)`), which must not be
     /// wrapped a second time.
     ///
-    /// Every message that embeds a whole value reads it from here, so the
-    /// spellings cannot drift apart: `@error`, the legacy colour overloads'
-    /// `$color: … is not a color.`, and the `Recommendation:` line of the
-    /// removed `sass:color` members. Verified against dart-sass 1.104.1
-    /// (2026-09-19), including the shapes where the three used to disagree: a
-    /// one-element space list is `(1)`, not `1`.
+    /// Every message that embeds a whole value reads it from here, with one
+    /// exception named below, so the spellings cannot drift apart — `@error`,
+    /// every `<value> is not a <type>.` across the built-ins and the evaluator,
+    /// `@for`'s bounds, the colour channel diagnostics, `isn't a valid CSS
+    /// value.`, and the `Recommendation:` line of the removed `sass:color`
+    /// members. Four separate copies of this rule existed until #139, each
+    /// wrong in a shape it had never been measured in: they printed `null` and
+    /// `()` as nothing at all, and dropped a one-element list's parentheses.
+    ///
+    /// The exception is `Value <v> can't be used in a calculation.`, spelled by
+    /// `eval::calc_value_repr` and by a second copy in `builtins::math`.
+    /// dart-sass 1.104.1 writes no value in that sentence at all (`This
+    /// expression can't be used in a calculation.`), so #234 deletes both rather
+    /// than routing them here — folding it in would mean shipping a spelling
+    /// dart does not use.
+    ///
+    /// A `Number` receiver may still use `to_css`: its two spellings are the
+    /// same string. A `Map` may NOT, which is the trap — `(a: b)` spells
+    /// identically either way, so a probe built from maps like that one
+    /// "proves" a coincidence that does not hold. A `null` or `()` entry is
+    /// erased by the CSS spelling (`(a: )`), and a one-element comma list
+    /// inside a map loses a level of parentheses.
+    ///
+    /// A `Function` or `Mixin` reference reaches `isn't a valid CSS value.`
+    /// through its own `inspect()` rather than through here. That is sound
+    /// because neither is a list, so this method's one added rule cannot fire —
+    /// `get-function("rgb") isn't a valid CSS value.` is byte-identical on both
+    /// compilers (measured 2026-09-29) — but it is a second route to the same
+    /// sentence, and #241 is a bug in how far that route reaches rather than in
+    /// what it spells.
+    ///
+    /// Verified against dart-sass 1.104.1 (2026-09-19, re-measured across the
+    /// whole diagnostic surface 2026-09-29) including every list shape: a
+    /// one-element space list is `(1)`, not `1`, and the one-element comma and
+    /// slash forms `inspect` already parenthesizes must not be wrapped twice.
     pub(crate) fn to_inspect_message(&self) -> String {
         match self {
             Value::List(l) if !l.bracketed && !l.items.is_empty() => {

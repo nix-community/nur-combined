@@ -133,7 +133,7 @@ fn resolve_index(
         Value::Number(n) => n.value,
         other => {
             return Err(Error::at(
-                format!("${pname}: {} is not a number.", other.to_css(false)),
+                format!("${pname}: {} is not a number.", other.to_inspect_message()),
                 pos,
             ))
         }

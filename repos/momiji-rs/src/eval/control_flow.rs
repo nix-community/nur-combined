@@ -32,9 +32,11 @@ impl<'a> Evaluator<'a> {
     fn eval_for_number(&mut self, e: &Expr) -> Result<Number, Error> {
         match self.eval_expr(e)? {
             Value::Number(n) => Ok(n),
+            // The VALUE, not its type name: dart's `@for $i from "x"` is
+            // `"x" is not a number.`, measured against 1.104.1 (2026-09-29).
             other => Err(Error::unpositioned(format!(
                 "{} is not a number.",
-                other.type_name()
+                other.to_inspect_message()
             ))),
         }
     }
@@ -236,7 +238,7 @@ impl<'a> Evaluator<'a> {
                                 other => {
                                     return Err(Error::unpositioned(format!(
                                         "{} is not a string in $args.",
-                                        other.to_css(false)
+                                        other.to_inspect_message()
                                     )))
                                 }
                             };
@@ -987,7 +989,7 @@ impl<'a> Evaluator<'a> {
             other => {
                 return Err(Error::unpositioned(format!(
                     "$mixin: {} is not a mixin reference.",
-                    other.to_css(false)
+                    other.to_inspect_message()
                 )))
             }
         };
@@ -1264,7 +1266,7 @@ impl<'a> Evaluator<'a> {
                                     return Err(Error::at(
                                         format!(
                                             "Variable keyword argument map must have string keys.\n{} is not a string.",
-                                            other.to_css(false)
+                                            other.to_inspect_message()
                                         ),
                                         pos,
                                     ))

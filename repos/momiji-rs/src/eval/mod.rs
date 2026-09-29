@@ -3593,7 +3593,10 @@ impl<'a> Evaluator<'a> {
         // A map is not a valid CSS value (even when nested inside a list).
         if let Some(m) = find_map(&value) {
             return Err(Error::at(
-                format!("{} isn't a valid CSS value.", m.to_css(false)),
+                format!(
+                    "{} isn't a valid CSS value.",
+                    Value::Map(m.clone()).to_inspect_message()
+                ),
                 d.pos,
             ));
         }
@@ -3709,7 +3712,10 @@ impl<'a> Evaluator<'a> {
             if !matches!(value, Value::Null) {
                 if let Some(m) = find_map(&value) {
                     return Err(Error::at(
-                        format!("{} isn't a valid CSS value.", m.to_css(false)),
+                        format!(
+                            "{} isn't a valid CSS value.",
+                            Value::Map(m.clone()).to_inspect_message()
+                        ),
                         ps.pos,
                     ));
                 }
@@ -5408,7 +5414,10 @@ fn find_map(v: &Value) -> Option<&Map> {
 /// instead of silently emitting bogus output.
 pub(super) fn css_value_error_msg(v: &Value) -> Option<String> {
     if let Some(m) = find_map(v) {
-        return Some(format!("{} isn't a valid CSS value.", m.to_css(false)));
+        return Some(format!(
+            "{} isn't a valid CSS value.",
+            Value::Map(m.clone()).to_inspect_message()
+        ));
     }
     if let Value::List(l) = v {
         if l.items.is_empty() && !l.bracketed {
@@ -9025,7 +9034,7 @@ fn serialize_if_value(v: &Value) -> Result<String, Error> {
         other => match find_map(other) {
             Some(m) => Err(Error::unpositioned(format!(
                 "{} isn't a valid CSS value.",
-                m.to_css(false)
+                Value::Map(m.clone()).to_inspect_message()
             ))),
             None => Ok(other.to_css(false)),
         },

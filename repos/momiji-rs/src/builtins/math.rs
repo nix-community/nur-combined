@@ -165,7 +165,7 @@ fn round(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Valu
     // named-argument shape falls through to the positional handling below,
     // which reports the arity/name error.
     if pos_args.is_empty() && named.len() == 1 && named[0].0 == "number" {
-        let n = as_num(&named[0].1, pos)?;
+        let n = as_num(&named[0].1, Some("number"), pos)?;
         return Ok(num_value(n.copy_units(int_result(n.value.round()))));
     }
     let args = all_args(pos_args, named);
@@ -527,8 +527,8 @@ fn pow(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value,
     check_max_args(pos_args, named, 2, pos)?;
     let base = require_num(&["base", "exponent"], pos_args, named, 0, pos)?;
     let exp = require_num(&["base", "exponent"], pos_args, named, 1, pos)?;
-    no_unit(&base, pos)?;
-    no_unit(&exp, pos)?;
+    no_unit(&base, "base", pos)?;
+    no_unit(&exp, "exponent", pos)?;
     Ok(unitless(base.value.powf(exp.value)))
 }
 
@@ -543,7 +543,7 @@ fn unitless_unary(
 ) -> Result<Value, Error> {
     check_max_args(pos_args, named, 1, pos)?;
     let n = require_num(&[param], pos_args, named, 0, pos)?;
-    no_unit(&n, pos)?;
+    no_unit(&n, param, pos)?;
     Ok(unitless(op(n.value)))
 }
 
@@ -552,12 +552,12 @@ fn log(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value,
     check_max_args(pos_args, named, 2, pos)?;
     let params = &["number", "base"];
     let x = require_num(params, pos_args, named, 0, pos)?;
-    no_unit(&x, pos)?;
+    no_unit(&x, params[0], pos)?;
     match super::arg(params, pos_args, named, 1) {
         // An explicit `null` base means the natural logarithm (dart-sass).
         Some(b) if !matches!(b, Value::Null) => {
-            let b = as_num(b, pos)?;
-            no_unit(&b, pos)?;
+            let b = as_num(b, Some(params[1]), pos)?;
+            no_unit(&b, params[1], pos)?;
             Ok(unitless(x.value.ln() / b.value.ln()))
         }
         _ => Ok(unitless(x.value.ln())),
@@ -617,7 +617,7 @@ fn inverse_trig(
 ) -> Result<Value, Error> {
     check_max_args(pos_args, named, 1, pos)?;
     let n = require_num(&["number"], pos_args, named, 0, pos)?;
-    no_unit(&n, pos)?;
+    no_unit(&n, "number", pos)?;
     Ok(degrees(op(n.value).to_degrees()))
 }
 
@@ -714,7 +714,9 @@ fn min_max(
                 .iter()
                 .find(|v| !matches!(v, Value::Number(_)) && !value_is_calc_substitution(v))
             {
-                return Err(Error::at(format!("{} is not a number.", bad.to_css(false)), pos));
+                // A calc-style call's arguments are a rest list, so no
+                // parameter is named — dart's `math.max(1, "x")` shape.
+                return Err(super::type_error(bad, None, "number", pos));
             }
             Ok(preserved_call(fname, &args))
         }
@@ -836,7 +838,7 @@ fn clamp(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Valu
 pub(super) fn module_round(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     super::check_arity(1, pos_args, named, pos)?;
     let v = super::require(&["number"], pos_args, named, 0, pos)?;
-    let n = as_num(v, pos)?;
+    let n = as_num(v, Some("number"), pos)?;
     Ok(num_value(n.copy_units(int_result(n.value.round()))))
 }
 
@@ -852,10 +854,11 @@ pub(super) fn module_min_max(pos_args: &[Value], pos: Pos, is_min: bool) -> Resu
     if args.is_empty() {
         return Err(Error::at("At least one argument must be passed.", pos));
     }
-    // Every argument must be a number (dart-sass: "<v> is not a number.").
+    // Every argument must be a number, and `$numbers...` is a rest parameter so
+    // dart names none — `math.max(1, "x")` is `"x" is not a number.`, measured.
     for v in &args {
         if !matches!(v, Value::Number(_)) {
-            return Err(Error::at(format!("{} is not a number.", v.to_css(false)), pos));
+            return Err(super::type_error(v, None, "number", pos));
         }
     }
     match reduce_min_max(&args, is_min, pos)? {
@@ -897,7 +900,7 @@ pub(super) fn module_clamp(pos_args: &[Value], named: &[(String, Value)], pos: P
         match v {
             Value::Number(n) => Ok(n.clone()),
             other => Err(Error::at(
-                format!("${label}: {} is not a number.", other.to_css(false)),
+                format!("${label}: {} is not a number.", other.to_inspect_message()),
                 pos,
             )),
         }
@@ -960,7 +963,7 @@ fn random(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Val
         None => Ok(unitless(round_to_precision(r))),
         Some(Value::Null) => Ok(unitless(round_to_precision(r))),
         Some(v) => {
-            let n = as_num(v, pos)?;
+            let n = as_num(v, Some("limit"), pos)?;
             // dart-sass treats a value within the 1e-11 precision of an
             // integer as that integer.
             let rounded = n.value.round();
@@ -1173,7 +1176,7 @@ fn collect_nums(pos_args: &[Value], pos: Pos) -> Result<Vec<Number>, Error> {
     }
     let mut out = Vec::with_capacity(args.len());
     for v in &args {
-        out.push(as_num(v, pos)?);
+        out.push(as_num(v, None, pos)?);
     }
     Ok(out)
 }
@@ -1196,17 +1199,19 @@ fn const_number(text: &str) -> Option<Number> {
 
 /// Convert a value to a `Number`, also accepting the bare calc constants
 /// (`infinity`/`-infinity`/`NaN`/`pi`/`e`); erroring on any other non-number.
-fn as_num(v: &Value, pos: Pos) -> Result<Number, Error> {
+fn as_num(v: &Value, pname: Option<&str>, pos: Pos) -> Result<Number, Error> {
     match v {
         Value::Number(n) => Ok(n.clone()),
         Value::Str(s) if !s.quoted => match const_number(&s.text) {
             Some(n) => Ok(n),
-            None => Err(Error::at(format!("{} is not a number.", s.text), pos)),
+            // Through the shared formatter like every other branch: an unquoted
+            // string is not its own spelling. dart escapes and normalizes it —
+            // `math.abs(unquote("\e000"))` is `$number: \e000 is not a
+            // number.`, and a decoded newline prints as a space rather than
+            // breaking the sentence across two lines.
+            None => Err(super::type_error(v, pname, "number", pos)),
         },
-        other => Err(Error::at(
-            format!("{} is not a number.", other.to_css(false)),
-            pos,
-        )),
+        other => Err(super::type_error(other, pname, "number", pos)),
     }
 }
 
@@ -1220,7 +1225,7 @@ fn require_num(
     pos: Pos,
 ) -> Result<Number, Error> {
     let v = super::require(params, pos_args, named, i, pos)?;
-    as_num(v, pos)
+    as_num(v, Some(params[i]), pos)
 }
 
 /// Wrap a result number as a value: a finite number stays a plain `Number`,
@@ -1236,12 +1241,18 @@ fn num_value(n: Number) -> Value {
 }
 
 /// Ensure a number is unitless, erroring with dart-sass's wording.
-fn no_unit(n: &Number, pos: Pos) -> Result<(), Error> {
+///
+/// The message names the PARAMETER, like every other type assertion:
+/// `math.pow(1, 2px)` is `$exponent: Expected 2px to have no units.` and
+/// `math.pow(1px, 2)` is `$base: …` (dart-sass 1.104.1, measured 2026-09-29).
+/// The number keeps its own spelling — `to_css` and `to_inspect_message` agree
+/// for a `Number`, and only a `Number` reaches here.
+fn no_unit(n: &Number, pname: &str, pos: Pos) -> Result<(), Error> {
     if n.is_unitless() {
         Ok(())
     } else {
         Err(Error::at(
-            format!("Expected {} to have no units.", n.to_css(false)),
+            format!("${pname}: Expected {} to have no units.", n.to_css(false)),
             pos,
         ))
     }

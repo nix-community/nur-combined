@@ -10577,12 +10577,11 @@ fn a_built_in_rejects_an_unrecognized_named_argument() {
         // …and the body's own complaint comes FIRST for a rest parameter, which
         // is the half that distinguishes the two paths.
         "list.slash(1, $nope: 2)",
-        // A single value, not a list: dart inspects the offending value in this
-        // message and sasso serializes it, so a LIST would compare
-        // `("a" "b") is not a number.` against `"a" "b" is not a number.` — a
-        // wording difference that predates this change and has nothing to do
-        // with the ordering these cases are here for (#139).
+        // The offending value is spelled dart's way since #139, so the LIST
+        // shape belongs here too: it is the one that used to compare
+        // `("a" "b") is not a number.` against `"a" "b" is not a number.`.
         "math.max(\"a\", $nope: 1)",
+        "math.max(\"a\" \"b\", $nope: 1)",
         // Rule 0, dart's first: a parameter given both positionally and by
         // name, which outranks a missing argument, an overflow and an
         // unrecognized name in the same call (#147).
@@ -10610,8 +10609,9 @@ fn a_built_in_rejects_an_unrecognized_named_argument() {
         // The emptiness check, not a type error: for a REST parameter dart quotes
         // no parameter name in a type error (`1 is not a valid selector`, where
         // sasso says `$selectors: 1 is not …`) because the value came from the
-        // rest list rather than from a named parameter — another pre-existing
-        // wording difference, unrelated to the ordering (#139).
+        // rest list rather than from a named parameter — a wording difference
+        // `sass:selector` still has, unrelated to the ordering (#139 fixed the
+        // rule for every other family).
         "selector.nest($nope: 1)",
         "math.max($nope: 1)",
     ] {
@@ -12793,5 +12793,270 @@ fn parity_unquoted_private_use_character() {
     ] {
         assert_parity(scss);
         assert_parity_compressed(scss);
+    }
+}
+
+/// `compile()`'s error text reduced to dart's own sentence: the `Error: ` prefix
+/// and the ` (line:col)` suffix that `Display for Error` appends both removed, so
+/// an expectation can be compared WHOLE rather than as a prefix. The suffix is
+/// recognised as digits-colon-digits in a trailing parenthesis, which no message
+/// text ends in.
+fn our_error_sentence(rendered: &str) -> &str {
+    let msg = rendered.trim_start_matches("Error: ");
+    let Some(open) = msg.rfind(" (") else { return msg };
+    let inner = &msg[open + 2..];
+    let is_line_col = inner.ends_with(')')
+        && inner[..inner.len() - 1]
+            .split_once(':')
+            .is_some_and(|(line, col)| {
+                !line.is_empty()
+                    && !col.is_empty()
+                    && line.bytes().all(|b| b.is_ascii_digit())
+                    && col.bytes().all(|b| b.is_ascii_digit())
+            });
+    if is_line_col {
+        &msg[..open]
+    } else {
+        msg
+    }
+}
+
+/// A type error names the parameter the value was BOUND to, and spells the value
+/// dart's own `Value.toString()` way (#139).
+///
+/// Both halves are one rule with one implementation — `builtins::type_error` and
+/// `Value::to_inspect_message` — but the rule used to exist in four copies, each
+/// wrong in a shape it had never been measured in. So the cases below are chosen
+/// by what separates the copies rather than by what is easy to write: the values
+/// where the CSS and the message spellings differ (`null`, `()`, a one-element
+/// list, an unbracketed list), and the calls where the parameter the value was
+/// bound to is not the one the sentence goes on to name.
+#[test]
+fn a_type_error_names_its_parameter_and_spells_its_value_dart_s_way() {
+    if !enabled() {
+        return;
+    }
+    if dart_sass("a {b: 1}\n").is_none() {
+        eprintln!("skipping type-error parity: dart-sass unavailable");
+        return;
+    }
+
+    const USES: &str = "@use \"sass:color\";\n@use \"sass:math\";\n@use \"sass:string\";\n\
+                        @use \"sass:list\";\n@use \"sass:map\";\n@use \"sass:meta\";\n";
+
+    for expr in [
+        // The prefix, across the two helpers that had none.
+        "color.grayscale(true)",
+        "color.grayscale(\"x\")",
+        "color.grayscale((a: b))",
+        "color.mix(null, red)",
+        "color.change(null, $red: 1)",
+        "math.ceil(null)",
+        "math.abs(\"x\")",
+        // …and where dart has no parameter to name, because the value came out
+        // of a rest list. Getting this wrong is invisible if only the prefixed
+        // shapes are checked.
+        "math.max(1, \"x\")",
+        "math.hypot(1, \"x\")",
+        // The spelling: every shape where `to_css` and dart's `toString` differ.
+        "color.grayscale(null)",
+        "color.grayscale((1 2))",
+        "math.round((1 2))",
+        "string.index(\"abc\" \"b\", \"x\")",
+        "string.index(\"a\", \"b\" \"c\")",
+        "string.slice(\"abc\", (1 2))",
+        "list.nth(1 2 3, (1 2))",
+        "map.merge((1 2), (a: b))",
+        "meta.calc-name((1 2))",
+        "meta.feature-exists((1 2))",
+        // An unquoted string is NOT its own spelling: dart escapes a private-use
+        // character and prints a decoded newline as a space, where the raw text
+        // emitted the character and broke the sentence across two lines. These
+        // reach the calc-constant fallback (`infinity`/`pi`/… or else an error),
+        // which was the one branch not going through the shared formatter.
+        "math.abs(unquote(\"\\e000\"))",
+        "math.abs(unquote(\"a\\a b\"))",
+        "math.abs(foo)",
+        "math.ceil(unquote(\"\\e000\"))",
+        "rgb(list.append((), \"x\"), 2, 3)",
+        "rgb((\"x\",), 2, 3)",
+        "rgb((), 2, 3)",
+        "rgb(null, 2, 3)",
+        // The colour channel diagnostics, which had a copy of the spelling rule
+        // of their own — one that dropped a single-element list's parentheses
+        // and printed `null` and `()` as nothing.
+        "color.hwb(1, list.append((), \"x\"), 40%)",
+        "color.hwb(1, (\"x\",), 40%)",
+        "color.hwb(1, (), 40%)",
+        "color.hwb(1, null, 40%)",
+        "hsl(1, list.append((), \"x\"), 3%)",
+        "color(list.append((), srgb))",
+        "color((srgb,))",
+        // The parameter the value was BOUND to is not always the one the
+        // sentence names: one channels list binds `$channels`, the same values
+        // written out bind `$alpha`, `color()`'s binds `$description`, and
+        // `color.hwb`'s comma form binds none of them because sasso synthesizes
+        // that list rather than receiving it.
+        "rgb(1, 2, 3, \"x\")",
+        "rgb(1 2 3 / \"x\")",
+        "hsl(1 2% 3% / \"x\")",
+        "hwb(1 2% 3% / \"x\")",
+        "lab(1 2 3 / \"x\")",
+        "oklch(1 2 3 / \"x\")",
+        "color(srgb 1 2 3 / \"x\")",
+        "color.hwb(1 2% 3% / \"x\")",
+        "color.hwb(1, 2%, 3%, \"x\")",
+        "color.hwb(\"x\", 20%, 40%)",
+        "color.hwb(1, \"x\", 40%)",
+        "color.hwb(red, 20%, 40%)",
+        // Three sentences that name a REFERENCE rather than a type, and so were
+        // missed by a search for "is not a <type>." — each printed `null` as
+        // nothing and dropped a list's parentheses like the rest.
+        "meta.call((1 2), 1)",
+        "meta.call(null, 1)",
+        // `adjust-hue` is global-only (`color.adjust-hue` is a removed member),
+        // so this is the single path that reaches `angle_degrees`.
+        "adjust-hue(red, \"x\")",
+        // `Expected <n> to have no units.` is a type assertion like any other
+        // and carries the parameter; it named none.
+        "math.acos(1px)",
+        "math.asin(1px)",
+        "math.atan(1px)",
+        "math.log(1px)",
+        "math.log(1, 2px)",
+        "math.pow(1px, 2)",
+        "math.pow(1, 2px)",
+        "math.sqrt(1px)",
+        "string.slice(\"abc\", 1px)",
+        // …and `<n> is not an int.` is where dart is NOT uniform: `string.slice`
+        // reads its bounds through a helper that does not carry the name, where
+        // `string.insert` and `list.nth` do. sasso shared one helper for all
+        // three, so it could only match two of them at a time.
+        "string.slice(\"abc\", 1.5)",
+        "string.slice(\"abc\", 1, 2.5)",
+        "string.insert(\"abc\", \"x\", 1.5)",
+        "list.nth(1 2 3, 1.5)",
+        // …and the one alpha message that does NOT follow the binding: dart's
+        // unit check is written against the alpha channel by name whatever the
+        // call spelling, so both spellings say `$alpha:`.
+        "rgb(1 2 3 / 1px)",
+        "rgb(1, 2, 3, 1px)",
+    ] {
+        let scss = format!("{USES}a {{b: {expr}}}\n");
+        let ours = compile(&scss, &Options::default()).err().map(|e| e.to_string());
+        match dart_sass_error(&scss) {
+            Some(theirs) => {
+                let ours = ours.unwrap_or_else(|| panic!("expected our compile to error:\n{scss}"));
+                assert_eq!(
+                    our_error_sentence(&ours),
+                    theirs,
+                    "\n--- scss ---\n{scss}\n--- ours ---\n{ours}\n"
+                );
+            }
+            None => panic!("expected dart-sass to reject:\n{scss}"),
+        }
+    }
+
+    // `meta.apply` is a mixin include and `meta.keywords` needs a rest
+    // parameter to read, so neither fits the expression list above.
+    for scss in [
+        "@use \"sass:meta\";\na {@include meta.apply((1 2))}\n",
+        "@use \"sass:meta\";\na {@include meta.apply(null)}\n",
+        "@use \"sass:meta\";\n@function f($a...) {@return meta.keywords((1 2))}\na {b: f(1)}\n",
+        "@use \"sass:meta\";\n@function f($a...) {@return meta.keywords(null)}\na {b: f(1)}\n",
+    ] {
+        let ours = compile(scss, &Options::default()).err().map(|e| e.to_string());
+        match dart_sass_error(scss) {
+            Some(theirs) => {
+                let ours = ours.unwrap_or_else(|| panic!("expected our compile to error:\n{scss}"));
+                assert_eq!(
+                    our_error_sentence(&ours),
+                    theirs,
+                    "\n--- scss ---\n{scss}\n--- ours ---\n{ours}\n"
+                );
+            }
+            None => panic!("expected dart-sass to reject:\n{scss}"),
+        }
+    }
+
+    // `sass:map`'s shared coercion cannot be compared against dart yet: it
+    // appends a `` for `<function>` `` suffix dart never writes (#230). The VALUE
+    // in front of that suffix is this rule — it erased `null` and dropped a
+    // list's parentheses until the review caught that only the SIBLING helper had
+    // been routed through the shared spelling — so these assert sasso's whole
+    // sentence, suffix included. #230 cannot land without editing this list,
+    // which is the point of spelling it out rather than matching a prefix.
+    for (expr, want) in [
+        ("map.get(null, a)", "$map: null is not a map for `map-get`."),
+        ("map.keys(null)", "$map: null is not a map for `map-keys`."),
+        (
+            "map.has-key(null, a)",
+            "$map: null is not a map for `map-has-key`.",
+        ),
+        ("map.values((1 2))", "$map: (1 2) is not a map for `map-values`."),
+        (
+            "map.get(list.append((), \"x\"), a)",
+            "$map: (\"x\") is not a map for `map-get`.",
+        ),
+    ] {
+        let scss = format!("{USES}a {{b: {expr}}}\n");
+        let ours = compile(&scss, &Options::default())
+            .err()
+            .map(|e| e.to_string())
+            .unwrap_or_else(|| panic!("expected our compile to error:\n{scss}"));
+        assert_eq!(
+            our_error_sentence(&ours),
+            want,
+            "\n--- scss ---\n{scss}\n--- ours ---\n{ours}\n"
+        );
+    }
+
+    // `isn't a valid CSS value.` embeds a whole MAP, and the four sites that
+    // raise it were passed over on a probe built from `(a: b)` — whose two
+    // spellings coincide. They do not coincide for an entry the CSS spelling
+    // erases, which is most of the interesting ones.
+    for scss in [
+        "a {b: (a: null)}\n",
+        "a {b: (a: ())}\n",
+        "a {b: (null: b)}\n",
+        "a {b: ((): b)}\n",
+        "a {b: (a: b, c: null)}\n",
+        "a {b: (a: list.append((), \"x\"))}\n",
+        "a {b: 1 + (a: null)}\n",
+        "a {b: #{(a: null)}}\n",
+        "a {b: [(a: null)]}\n",
+        "a {b: (a: (b: null))}\n",
+    ] {
+        let scss = format!("@use \"sass:list\";\n{scss}");
+        let ours = compile(&scss, &Options::default()).err().map(|e| e.to_string());
+        match dart_sass_error(&scss) {
+            Some(theirs) => {
+                let ours = ours.unwrap_or_else(|| panic!("expected our compile to error:\n{scss}"));
+                assert_eq!(
+                    our_error_sentence(&ours),
+                    theirs,
+                    "\n--- scss ---\n{scss}\n--- ours ---\n{ours}\n"
+                );
+            }
+            None => panic!("expected dart-sass to reject:\n{scss}"),
+        }
+    }
+
+    // `@for`'s bounds are the same rule outside the built-ins: they printed the
+    // value's TYPE NAME (`string is not a number.`) rather than the value.
+    for bound in ["\"x\"", "red", "(a: b)", "(1 2)", "null"] {
+        let scss = format!("@for $i from {bound} through 3 {{a {{b: $i}}}}\n");
+        let ours = compile(&scss, &Options::default()).err().map(|e| e.to_string());
+        match dart_sass_error(&scss) {
+            Some(theirs) => {
+                let ours = ours.unwrap_or_else(|| panic!("expected our compile to error:\n{scss}"));
+                assert_eq!(
+                    our_error_sentence(&ours),
+                    theirs,
+                    "\n--- scss ---\n{scss}\n--- ours ---\n{ours}\n"
+                );
+            }
+            None => panic!("expected dart-sass to reject:\n{scss}"),
+        }
     }
 }

@@ -434,7 +434,7 @@ pub(crate) fn space_arg(v: &Value, pos: Pos) -> Result<ColorSpace, Error> {
         }
         other => {
             return Err(Error::at(
-                format!("$space: {} is not a string.", other.to_css(false)),
+                format!("$space: {} is not a string.", other.to_inspect_message()),
                 pos,
             ))
         }
@@ -996,7 +996,7 @@ pub(super) fn scale_pct(name: &str, v: &Value, pos: Pos) -> Result<f64, Error> {
             pos,
         )),
         other => Err(Error::at(
-            format!("${name}: {} is not a number.", other.to_css(false)),
+            format!("${name}: {} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -1055,7 +1055,7 @@ pub(super) fn validate_modify_unit(
             return Err(Error::at(
                 format!(
                     "${name}: {} is not a number{}.",
-                    other.to_css(false),
+                    other.to_inspect_message(),
                     none_suffix(accepts_none)
                 ),
                 pos,

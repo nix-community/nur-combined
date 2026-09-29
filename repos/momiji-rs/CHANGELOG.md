@@ -73,6 +73,80 @@ Conformance is tracked separately as a ratchet against the official
   name, and `expected "=".` for `[a~b]`, where only an operator's first
   character does.
 
+- **A type error names the parameter the value was bound to, and spells the
+  value dart's way** (#139). Two helpers carried no parameter name at all, so
+  the sentence started mid-air; and four separate copies of "how a diagnostic
+  writes a value" disagreed with dart and with each other:
+
+  ```
+    color.grayscale(null)          dart  $color: null is not a color.
+                                   sasso  is not a color.
+    math.round((1 2))              dart  $number: (1 2) is not a number.
+                                   sasso 1 2 is not a number.
+    string.index("abc" "b", "x")   dart  $string: ("abc" "b") is not a string.
+                                   sasso $string: "abc" "b" is not a string.
+    @for $i from "x" through 3     dart  "x" is not a number.
+                                   sasso string is not a number.
+  ```
+
+  The prefix names the **parameter**, which is not always the one the sentence
+  goes on to talk about. One channels list binds `$channels` and everything
+  inside it is reported under that name; the same values written out bind
+  `$alpha`; `color()`'s binds `$description`; and `color.hwb`'s comma form binds
+  none of them, because that channels list is synthesized rather than received:
+
+  ```
+    rgb(1, 2, 3, "x")           $alpha: "x" is not a number.
+    rgb(1 2 3 / "x")            $channels: "x" is not a number.
+    color(srgb 1 2 3 / "x")     $description: "x" is not a number.
+    color.hwb(1, 2%, 3%, "x")   "x" is not a number.
+  ```
+
+  Where dart has no parameter to name — a value out of a rest list —
+  it prints no prefix, so the name is an `Option` a caller has to decide rather
+  than a string it can forget: `math.max(1, "x")` stays unprefixed.
+
+  `Expected <n> to have no units.` is the same assertion and was missing the
+  same prefix (`math.pow(1, 2px)` is `$exponent: …`), and `adjust-hue`, whose
+  module spelling was removed so only the global reaches it, named nothing at
+  all. Going the other way, dart is not uniform about `<n> is not an int.`:
+  `string.insert` and `list.nth` name their parameter and `string.slice` does
+  not, from the same rule reached two ways. sasso shared one helper across all
+  three, so it could only ever match two of them.
+
+  The spelling is `Value::to_inspect_message`, which already existed and whose
+  doc already claimed every message read from it. It had four callers.
+  Diagnostics wrote CSS instead, and three colour helpers (`channel_err_css`,
+  `list_paren_css`, `color_desc_css`) plus four hand-written
+  bracketed/unbracketed branches held copies of the rule, each wrong in a shape
+  it had never been measured in — `null` and `()` printed as nothing at all, and
+  a one-element list lost its parentheses. `@for`'s bounds were the rule's
+  absence rather than a copy — they printed the value's TYPE NAME. All the copies
+  are gone and the helper has 73 call sites where it had 4 (`grep -o` over `src/`,
+  against `7045759`; `to_css(false)` falls 298 -> 232 the same way), so the claim
+  in the doc is now true;
+  the one that survives is filed (#234), because dart writes no value in that
+  sentence at all and the fix deletes the helper rather than correcting it.
+
+  Found by the same sweep and filed rather than fixed, each a different rule:
+  seven `sass:map` members end the sentence with a `` for `<function>` ``
+  suffix dart never writes (#230); `color.to-gamut` checks its `$method` enum
+  before checking the type (#231); `invert(1, "x")` answers with the plain-CSS
+  overload's arity message where dart reports the `$weight` type error (#232);
+  a keyword splat with a non-string key writes the wrong sentence, from two more
+  copies of one rule (#233); and two calculation diagnostics carry an older dart
+  wording, again from two copies each (#234). The value inside #233 is right now
+  — it is the sentence around it that is not. A sixth is not a message at all:
+  `string.split` rejects a unit on `$limit` that dart ignores outright (#235), so
+  a stylesheet dart compiles fails, and the unit check hides the two errors that
+  should have fired in its place.
+
+  Measured against dart-sass 1.104.1 over 336 comparisons, and on sass-spec with
+  `--check-stderr --stderr-arg=--no-unicode`: **67 more cases** print dart's
+  stderr byte for byte (1,269 -> 1,336 of the 3,250 that ship an expectation),
+  none regress, and no CSS verdict moves — every one of these is an error path,
+  so the ratchet stays at 14,114.
+
 ## [0.19.2] - 2026-09-29
 
 _Faster again through the npm package, on the paths 0.19.1 missed. The wasm

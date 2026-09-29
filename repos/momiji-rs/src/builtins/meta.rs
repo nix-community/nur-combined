@@ -81,7 +81,7 @@ fn fn_calc_name(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Resu
             }))
         }
         other => Err(Error::at(
-            format!("$calc: {} is not a calculation.", other.to_css(false)),
+            format!("$calc: {} is not a calculation.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -107,7 +107,7 @@ fn fn_calc_args(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Resu
             false,
         ))),
         other => Err(Error::at(
-            format!("$calc: {} is not a calculation.", other.to_css(false)),
+            format!("$calc: {} is not a calculation.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -162,7 +162,7 @@ fn fn_unit(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Va
     match v {
         Value::Number(n) => Ok(quoted(n.unit_string())),
         other => Err(Error::at(
-            format!("$number: {} is not a number.", other.to_css(false)),
+            format!("$number: {} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -175,7 +175,7 @@ fn fn_unitless(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Resul
     match v {
         Value::Number(n) => Ok(Value::Bool(n.is_unitless())),
         other => Err(Error::at(
-            format!("$number: {} is not a number.", other.to_css(false)),
+            format!("$number: {} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -191,7 +191,7 @@ fn fn_comparable(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Res
         match v {
             Value::Number(n) => Ok(n.clone()),
             other => Err(Error::at(
-                format!("${which}: {} is not a number.", other.to_css(false)),
+                format!("${which}: {} is not a number.", other.to_inspect_message()),
                 pos,
             )),
         }
@@ -221,7 +221,7 @@ fn fn_feature_exists(pos_args: &[Value], named: &[(String, Value)], pos: Pos) ->
         Value::Str(s) => &s.text,
         other => {
             return Err(Error::at(
-                format!("$feature: {} is not a string.", other.to_css(false)),
+                format!("$feature: {} is not a string.", other.to_inspect_message()),
                 pos,
             ))
         }
@@ -254,7 +254,7 @@ fn fn_function_exists(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -
         Value::Str(s) => &s.text,
         other => {
             return Err(Error::at(
-                format!("$name: {} is not a string.", other.to_css(false)),
+                format!("$name: {} is not a string.", other.to_inspect_message()),
                 pos,
             ))
         }
@@ -282,7 +282,7 @@ fn fn_get_function(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> O
     match v {
         Value::Str(_) => None,
         other => Some(Err(Error::at(
-            format!("$name: {} is not a string.", other.to_css(false)),
+            format!("$name: {} is not a string.", other.to_inspect_message()),
             pos,
         ))),
     }

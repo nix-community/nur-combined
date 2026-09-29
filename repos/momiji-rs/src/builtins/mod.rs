@@ -548,21 +548,56 @@ pub(crate) fn check_arity(
 }
 
 /// Extract an `f64` from a number value (ignoring its unit).
-pub(super) fn num(v: &Value, pos: Pos) -> Result<f64, Error> {
+pub(super) fn num(v: &Value, pname: Option<&str>, pos: Pos) -> Result<f64, Error> {
     match v {
         Value::Number(n) => Ok(n.value),
-        other => Err(Error::at(
-            format!("{} is not a number.", other.to_css(false)),
-            pos,
-        )),
+        other => Err(type_error(other, pname, "number", pos)),
     }
 }
 
+/// dart's "<value> is not a <type>." with the PARAMETER the value failed to
+/// bind to in front of it.
+///
+/// Both halves were missing here and are one sentence, so they are one
+/// function (#139):
+///
+/// - The prefix names the parameter, not the function — `color.mix(null, red)`
+///   is `$color1: …` and `color.mix(red, null)` is `$color2: …`. It is
+///   information the CALL SITE has, which is why the two helpers below take a
+///   name rather than inventing one. Where dart has no parameter to name — a
+///   value that came out of a rest list — it prints no prefix, and
+///   `math.max(1, "x")` already matched.
+/// - The value is spelled as [`Value::to_inspect_message`], dart's own
+///   `toString`, not as CSS: `null` is `null` rather than nothing at all, and
+///   an unbracketed list is parenthesized so its separator is not read as the
+///   sentence's punctuation.
+///
+/// The parameter is the one the value was BOUND to, which is not always the one
+/// the message goes on to talk about: `rgb(1 2 3 / "x")` binds `$channels` and
+/// says so, where `rgb(1, 2, 3, "x")` binds `$alpha`; `color(srgb 1 2 3 / "x")`
+/// says `$description`; and `color.hwb(1, 2%, 3%, "x")`, whose channels list
+/// sasso synthesizes rather than receives, names nothing at all.
+///
+/// Measured against dart-sass 1.104.1 on 2026-09-29; the spelling rule was
+/// measured for every list shape, including the single-element ones
+/// `inspect` already parenthesizes and must not be wrapped twice.
+pub(super) fn type_error(v: &Value, pname: Option<&str>, want: &str, pos: Pos) -> Error {
+    let msg = match pname {
+        Some(p) => format!("${p}: {} is not a {want}.", v.to_inspect_message()),
+        // A value that came out of a REST list was not bound to a parameter, so
+        // dart names none: `math.max(1, "x")` is `"x" is not a number.` where
+        // the fixed-arity `math.abs("x")` is `$number: "x" is not a number.`.
+        // An `Option` rather than an empty string, so a caller has to decide.
+        None => format!("{} is not a {want}.", v.to_inspect_message()),
+    };
+    Error::at(msg, pos)
+}
+
 /// Extract a color value.
-pub(super) fn as_color(v: &Value, pos: Pos) -> Result<Color, Error> {
+pub(super) fn as_color(v: &Value, pname: Option<&str>, pos: Pos) -> Result<Color, Error> {
     match v {
         Value::Color(c) => Ok(c.clone()),
-        other => Err(Error::at(format!("{} is not a color.", other.to_css(false)), pos)),
+        other => Err(type_error(other, pname, "color", pos)),
     }
 }
 
@@ -594,8 +629,16 @@ pub(super) fn channel(v: &Value, pos: Pos) -> Result<f64, Error> {
                 Ok(n.value.clamp(0.0, 255.0))
             }
         }
+        // No `$param:` prefix, because nothing is known to reach this arm:
+        // `validate_numeric` runs first and rejects a non-numeric channel with
+        // dart's own `Expected <channel> channel to be a number, was …`. 13
+        // shapes were tried against dart-sass 1.104.1 (2026-09-29) — a quoted
+        // string, a `var()`, a `calc()`, a degenerate `calc(infinity)`, a
+        // division — and every one of them was caught earlier, identically on
+        // both compilers. The spelling is still dart's, so if a path ever does
+        // arrive the sentence is right as far as it goes.
         other => Err(Error::at(
-            format!("{} is not a number.", other.to_css(false)),
+            format!("{} is not a number.", other.to_inspect_message()),
             pos,
         )),
     }
@@ -631,7 +674,7 @@ fn plain_css_function(
             }
             Value::Map(_) => {
                 return Err(Error::at(
-                    format!("{} isn't a valid CSS value.", v.to_css(false)),
+                    format!("{} isn't a valid CSS value.", v.to_inspect_message()),
                     pos,
                 ));
             }
@@ -1352,7 +1395,7 @@ fn call_module_body(
         // deprecation asks it too, so the two cannot disagree (#124).
         if let Some((ModuleFilterArg::NotAColor, v)) = module_filter_arg(member, pos_args, named) {
             return Err(Error::at(
-                format!("$color: {} is not a color.", v.to_css(false)),
+                format!("$color: {} is not a color.", v.to_inspect_message()),
                 pos,
             ));
         }
