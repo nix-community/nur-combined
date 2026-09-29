@@ -23,14 +23,15 @@ in
           bison
           bruno
           bun
-          cargo-generate
+          stablePkgs.cargo-generate
           cargo-make
-          stablePkgs.cargo-watch
+          cargo-watch
           ccache
           cmake
           dfu-util
           dioxus-cli
           dotnet-sdk
+          # esp-idf-full
           flex
           gh
           gnumake
@@ -42,15 +43,14 @@ in
           libusb1
           ninja
           nodejs
-          pnpm
-          prettier
           pipenv
           pkg-config
           pnpm
+          pnpm
+          prettier
           rustup
           systemfd
           uv
-          # esp-idf-full
         ]
         ++ lib.optionals cfg.gui.enable [
           jetbrains-toolbox

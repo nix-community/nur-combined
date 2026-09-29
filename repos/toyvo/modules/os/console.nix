@@ -31,7 +31,6 @@ in
           ++ [
             age
             broot
-            cachix
             curl
             curlie
             dig

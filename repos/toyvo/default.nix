@@ -26,17 +26,41 @@ let
       lib = lib';
       inherit inputs;
     };
+  # NUR evaluation (`nix-env -f .`, `ci.nix`) runs against several nixpkgs
+  # channels (nixpkgs-unstable, nixos-unstable, nixos-26.05, ...). A package
+  # that references a nixpkgs attribute missing from an older channel (e.g.
+  # pkgs.tinycast) must not fail the whole evaluation — the affected packages
+  # are simply omitted on that channel.
+  #
+  # - safeSet wraps package *sets* merged with // below: on evaluation
+  #   failure it falls back to {} so the merge still succeeds.
+  # - safePred makes the final filter exception-safe, so single packages
+  #   whose derivation fails to evaluate are skipped instead of aborting.
+  safeSet =
+    path:
+    let
+      result = builtins.tryEval (callPackage path);
+    in
+    if result.success then result.value else { };
+  safePred =
+    _: v:
+    let
+      result = builtins.tryEval (
+        lib.isDerivation v && ourLib.forSystem pkgs.stdenv.hostPlatform.system v
+      );
+    in
+    result.success && result.value;
   nixosModules = import ./modules/nixos; # NixOS modules
   homeModules = import ./modules/home; # Home Manager modules
   darwinModules = import ./modules/darwin; # nix-darwin modules
   flakeModules = import ./modules/flake; # flake-parts modules
 
-  VintagestoryServers = callPackage ./pkgs/VintagestoryServers;
-  fabricServers = callPackage ./pkgs/fabricServers;
-  neoforgeServers = callPackage ./pkgs/neoforgeServers;
-  papermcServers = callPackage ./pkgs/papermcServers;
-  purpurServers = callPackage ./pkgs/purpurServers;
-  tinycastPackages = callPackage ./pkgs/tinycast;
+  VintagestoryServers = safeSet ./pkgs/VintagestoryServers;
+  fabricServers = safeSet ./pkgs/fabricServers;
+  neoforgeServers = safeSet ./pkgs/neoforgeServers;
+  papermcServers = safeSet ./pkgs/papermcServers;
+  purpurServers = safeSet ./pkgs/purpurServers;
+  tinycastPackages = safeSet ./pkgs/tinycast;
   packages = {
     ghostex = callPackage ./pkgs/ghostex;
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
@@ -55,7 +79,6 @@ let
   // VintagestoryServers
   // fabricServers
   // neoforgeServers
-  // papermcServers
   // papermcServers
   // purpurServers
   // tinycastPackages;
@@ -78,6 +101,4 @@ in
   };
   overlays = import ./overlays; # nixpkgs overlays
 }
-// lib.filterAttrs (
-  _: v: lib.isDerivation v && ourLib.forSystem pkgs.stdenv.hostPlatform.system v
-) packages
+// lib.filterAttrs safePred packages
