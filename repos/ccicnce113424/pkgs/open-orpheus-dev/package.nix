@@ -13,6 +13,8 @@
   callPackage,
   zip,
   cargo-zigbuild,
+  pkg-config,
+  freetype,
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -46,12 +48,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-orpheus";
-  version = "0.17.1";
+  version = "0.18.0";
   src = fetchFromGitHub {
     owner = "YUCLing";
     repo = "open-orpheus";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-l/r7mRQz7eTHlcrpK7qaPcpYF2fqsZ6gyNARr9fJ994=";
+    hash = "sha256-5qGv2C2oIV8PoZpq80bkiN1nhPKywbsX/9yvnAfWlFc=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -62,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-7orpYRbYxMRzKQyCY8WLfrLU/8vyGGX3pJUdpwH9c2U=";
+    hash = "sha256-+1PpBTsV4Hg7j5JKXUq9N9mF34Lpm75ZMy1Ufwe1XLc=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -71,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-ym7BsQ5ln3Xi6tY5TtA83D49oYEO1AEVJ62b0ndJcec=";
+    hash = "sha256-gpPOiNqjZqWby8cJXpy38ie2MPdG2vabZSeq5a1qWd4=";
   };
 
   nativeBuildInputs = [
@@ -85,10 +87,13 @@ stdenv.mkDerivation (finalAttrs: {
     wasm-bindgen-cli
     zip
     cargo-zigbuild
+    pkg-config
     makeWrapper
     copyDesktopItems
     removeReferencesTo
   ];
+
+  buildInputs = [ freetype ];
 
   strictDeps = true;
   __structuredAttrs = true;

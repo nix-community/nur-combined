@@ -240,21 +240,22 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "4f6188441b141d6915d2e56254748be2590eca40";
+    version = "cc320465ceaf2a37a95ad818b273c594b8b70559";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "4f6188441b141d6915d2e56254748be2590eca40";
+      rev = "cc320465ceaf2a37a95ad818b273c594b8b70559";
       fetchSubmodules = false;
-      sha256 = "sha256-ZaZR2oQYOsFKOsvK9bkk80+gYVHRCgbj8P39j1xQf50=";
+      sha256 = "sha256-qRfgYDbHoZpl5HtqrfPvK/iLB3Nvc7NfTnAKk/ni6k0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ZaZR2oQYOsFKOsvK9bkk80+gYVHRCgbj8P39j1xQf50=/Cargo.lock";
+      lockFile = ./. + "/sha256-qRfgYDbHoZpl5HtqrfPvK_iLB3Nvc7NfTnAKk_ni6k0=/Cargo.lock";
       outputHashes = {
+        "font-kit-0.14.3" = "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=";
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-25";
+    date = "2026-09-28";
   };
   piliplus = {
     pname = "piliplus";
@@ -312,16 +313,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.0.0";
+    version = "v4.0.1-beta.1";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.0.0";
+      rev = "v4.0.1-beta.1";
       fetchSubmodules = false;
-      sha256 = "sha256-2GuZEFwua3SY7EVywAi0r8ITz/9cUbks7K7ux8SijAo=";
+      sha256 = "sha256-QKbpLWLo3WDlZEHmGB7VgwF7aKnVa139O21nIIvKvOo=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-2GuZEFwua3SY7EVywAi0r8ITz_9cUbks7K7ux8SijAo=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-QKbpLWLo3WDlZEHmGB7VgwF7aKnVa139O21nIIvKvOo=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -418,25 +419,6 @@
     src = fetchurl {
       url = "https://github.com/waywallen/waywallen-display/releases/download/v0.4.0/waywallen-kde-0.4.0-x86_64-embed.zip";
       sha256 = "sha256-CBGTomn7nQ9NQ/7mg+m+S70x8Dy/7imUBhYUT2SVeNY=";
-    };
-  };
-  wild = {
-    pname = "wild";
-    version = "v0.0.14";
-    src = fetchFromGitHub {
-      owner = "niuhuan";
-      repo = "wild";
-      rev = "v0.0.14";
-      fetchSubmodules = false;
-      sha256 = "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=";
-    };
-    extract = {
-      "pubspec.lock" = ./. + "/sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/pubspec.lock";
-    };cargoLock."rust/Cargo.lock" = {
-      lockFile = ./. + "/sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/rust/Cargo.lock";
-      outputHashes = {
-        
-      };
     };
   };
   zhuque = {

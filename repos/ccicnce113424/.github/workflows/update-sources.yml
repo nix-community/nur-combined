@@ -52,7 +52,6 @@ jobs:
           pkgs/pixes/update-git.sh
           pkgs/rayburst/update-beta.sh
           pkgs/splayer-next-dev/update.sh
-          pkgs/wild-reader/update.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8

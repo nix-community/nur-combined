@@ -239,15 +239,6 @@ lib.makeScope pkgs.newScope (
       inherit (sources) version;
     };
 
-    wild-reader = self.callPackage ./wild-reader rec {
-      sources = fetchedSrc.wild;
-
-      version = stableVersion sources;
-
-      pubspecLock = lib.importJSON ./wild-reader/pubspec.lock.json;
-      gitHashes = lib.importJSON ./wild-reader/git-hashes.json;
-    };
-
     # wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
 
     zhuque = self.callPackage ./zhuque rec {

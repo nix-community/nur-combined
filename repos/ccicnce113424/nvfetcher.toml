@@ -145,12 +145,6 @@ fetch.url = "https://github.com/waywallen/waywallen-display/releases/download/v$
 src.prefix = "v"
 src.github = "waywallen/waywallen-display"
 
-[wild]
-cargo_lock = ["rust/Cargo.lock"]
-extract = ["pubspec.lock"]
-fetch.github = "niuhuan/wild"
-src.github = "niuhuan/wild"
-
 [zhuque]
 fetch.url = "https://github.com/TrionesType/zhuque/releases/download/$ver/ZhuqueFangsong-$ver.zip"
 src.github_tag = "TrionesType/zhuque"

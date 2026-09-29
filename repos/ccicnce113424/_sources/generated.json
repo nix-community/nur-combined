@@ -384,13 +384,14 @@
     "open-orpheus-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-ZaZR2oQYOsFKOsvK9bkk80+gYVHRCgbj8P39j1xQf50=/Cargo.lock",
+                "sha256-qRfgYDbHoZpl5HtqrfPvK_iLB3Nvc7NfTnAKk_ni6k0=/Cargo.lock",
                 {
-                    "avs3a-0.1.0": "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI="
+                    "avs3a-0.1.0": "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=",
+                    "font-kit-0.14.3": "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg="
                 }
             ]
         },
-        "date": "2026-09-25",
+        "date": "2026-09-28",
         "extract": null,
         "name": "open-orpheus-dev",
         "passthru": null,
@@ -402,12 +403,12 @@
             "name": null,
             "owner": "YUCLing",
             "repo": "open-orpheus",
-            "rev": "4f6188441b141d6915d2e56254748be2590eca40",
-            "sha256": "sha256-ZaZR2oQYOsFKOsvK9bkk80+gYVHRCgbj8P39j1xQf50=",
+            "rev": "cc320465ceaf2a37a95ad818b273c594b8b70559",
+            "sha256": "sha256-qRfgYDbHoZpl5HtqrfPvK/iLB3Nvc7NfTnAKk/ni6k0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4f6188441b141d6915d2e56254748be2590eca40"
+        "version": "cc320465ceaf2a37a95ad818b273c594b8b70559"
     },
     "piliplus": {
         "cargoLock": null,
@@ -502,7 +503,7 @@
     "rayburst-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-2GuZEFwua3SY7EVywAi0r8ITz_9cUbks7K7ux8SijAo=/src-tauri/Cargo.lock",
+                "sha256-QKbpLWLo3WDlZEHmGB7VgwF7aKnVa139O21nIIvKvOo=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -518,12 +519,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "rayburst",
-            "rev": "v4.0.0",
-            "sha256": "sha256-2GuZEFwua3SY7EVywAi0r8ITz/9cUbks7K7ux8SijAo=",
+            "rev": "v4.0.1-beta.1",
+            "sha256": "sha256-QKbpLWLo3WDlZEHmGB7VgwF7aKnVa139O21nIIvKvOo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.0.0"
+        "version": "v4.0.1-beta.1"
     },
     "splayer-kde-bar-lyc": {
         "cargoLock": null,
@@ -687,34 +688,6 @@
             "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.4.0/waywallen-kde-0.4.0-x86_64-embed.zip"
         },
         "version": "0.4.0"
-    },
-    "wild": {
-        "cargoLock": {
-            "rust/Cargo.lock": [
-                "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/rust/Cargo.lock",
-                {}
-            ]
-        },
-        "date": null,
-        "extract": {
-            "pubspec.lock": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/pubspec.lock"
-        },
-        "name": "wild",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "niuhuan",
-            "repo": "wild",
-            "rev": "v0.0.14",
-            "sha256": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.0.14"
     },
     "zhuque": {
         "cargoLock": null,
