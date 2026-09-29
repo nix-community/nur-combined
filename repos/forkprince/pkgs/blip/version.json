@@ -2,13 +2,44 @@
   "name": "Blip",
   "source": {
     "type": "api",
-    "url": "https://formulae.brew.sh/api/cask/blip.json",
-    "version_path": ".version",
-    "url_path": ".url"
+    "url": "{0}",
+    "version_path": ".version"
   },
-  "version": "1.2.3,20260927200815",
-  "asset": {
-    "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20260927200815.zip",
-    "hash": "sha256-d4t3dVflCNZaqR5VMFOXlYQY3SXi6oCQqnDTwS4E/6I="
+  "version": "1.2.3",
+  "platforms": {
+    "x86_64-linux": {
+      "url_path": ".files[\"{1}\"].url",
+      "url": "https://static.blip.net/linux/blip-1.2.3-linux-amd64.tar.gz",
+      "substitutions": [
+        "https://static.blip.net/linux/latest.json",
+        "linux-amd64"
+      ],
+      "hash": "sha256-ZzToQpTxKKx9s7CtBJnpmW+EsgpaqYNkFbc3Dct+YQs="
+    },
+    "aarch64-linux": {
+      "url_path": ".files[\"{1}\"].url",
+      "url": "https://static.blip.net/linux/blip-1.2.3-linux-aarch64.tar.gz",
+      "substitutions": [
+        "https://static.blip.net/linux/latest.json",
+        "linux-aarch64"
+      ],
+      "hash": "sha256-PFgt5ljv+F/L6TAbeHdLhi3CL0BAHXd0WNISasPxxKk="
+    },
+    "aarch64-darwin": {
+      "url_path": ".url",
+      "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20260927200815.zip",
+      "substitutions": [
+        "https://formulae.brew.sh/api/cask/blip.json"
+      ],
+      "hash": "sha256-d4t3dVflCNZaqR5VMFOXlYQY3SXi6oCQqnDTwS4E/6I="
+    },
+    "x86_64-darwin": {
+      "url_path": ".url",
+      "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20260927200815.zip",
+      "substitutions": [
+        "https://formulae.brew.sh/api/cask/blip.json"
+      ],
+      "hash": "sha256-d4t3dVflCNZaqR5VMFOXlYQY3SXi6oCQqnDTwS4E/6I="
+    }
   }
 }
