@@ -891,7 +891,12 @@ impl<'a> Evaluator<'a> {
                             call_sep,
                             &norm,
                         )
-                        .map_err(|e| Error::at(e, *pos))?;
+                        // The whole INVOCATION, not its first character.
+                        // `Error::at` leaves `length` at 0, so every binding
+                        // error from a host function — this rule's, and
+                        // `Missing argument` with it — drew a one-column caret
+                        // where dart underlines the call (r4130575553).
+                        .map_err(|e| Error::at(e, *pos).with_length(*length))?;
                         // First-class function/mixin args round-trip as opaque
                         // handles into a per-dispatch table; save/restore the
                         // outer table so a nested custom-function call is safe.

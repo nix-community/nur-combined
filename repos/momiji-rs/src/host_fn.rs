@@ -144,6 +144,23 @@ pub(crate) fn bind_host_args(
         }
         keyword.insert(norm, v);
     }
+    // dart's first rule, on the THIRD binder that has a declared parameter list.
+    // Its JS API parses a `functions:` signature the same way it parses a Sass
+    // declaration and verifies against it, measured 2026-09-29 through
+    // `sass.compileString({functions: {'foo($a, $b: 2)': …}})`:
+    //
+    //   foo(1, $a: 2)      Argument $a was passed both by position and by name.
+    //   bar(1, 2, $x: 9)   ditto, for `bar($x, $rest...)`
+    //
+    // …and the callback does NOT run in either case, which is why this is here
+    // rather than inside it (r4130220838).
+    if let Some(msg) = crate::builtins::argument_passed_twice(
+        param_names.iter().map(String::as_str),
+        positional.len(),
+        |name| keyword.contains_key(name),
+    ) {
+        return Err(msg);
+    }
     let mut out = Vec::with_capacity(param_names.len() + rest.is_some() as usize);
     let mut pos_iter = positional.into_iter();
     for p in param_names {

@@ -365,15 +365,17 @@ fn fn_map_remove(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Res
     let mut entries = as_map_named(map_v, "map", pos)?;
     // Every argument after the map is a positional key to remove.
     let mut keys: Vec<Value> = pos_args.iter().skip(1).cloned().collect();
-    // A named `$key` provides a single key, but mixing it with positional rest
-    // keys is the same argument supplied twice (dart-sass errors).
+    // A named `$key` provides a single key. Mixing it with positional keys is
+    // the same argument supplied twice, and the SHARED rule reports that before
+    // this function runs — `Argument $key was passed both by position and by
+    // name.`, measured identical to dart for both spellings.
+    //
+    // A hand-written copy lived here and said `$keys`, naming the rest
+    // parameter rather than the one that was duplicated. It became unreachable
+    // when `map.remove` gained a signature, and is gone rather than left as a
+    // fourth spelling of that sentence waiting for a dispatch change to make it
+    // reachable again (r4130220884).
     if let Some((_, v)) = named.iter().find(|(n, _)| n == "key") {
-        if !keys.is_empty() {
-            return Err(Error::at(
-                "Argument $keys was passed both by position and by name.",
-                pos,
-            ));
-        }
         keys.push(v.clone());
     }
     entries.retain(|(k, _)| !keys.iter().any(|rk| rk.sass_eq(k)));

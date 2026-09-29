@@ -194,6 +194,216 @@ fn caret_line(block: &str) -> String {
         .to_string()
 }
 
+/// `Argument $x was passed both by position and by name.` renders ONE span, and
+/// `Missing argument $x.` renders two.
+///
+/// Both come from the same binder a line apart, and the first used the
+/// two-span helper — so it printed a `declaration` arm dart does not print. A
+/// message comparison cannot see that, which is how it reached review
+/// (r4130005295); this compares the whole block.
+///
+/// dart-sass 1.104.1, 2026-09-29:
+///
+/// ```text
+///   Error: Argument $a was passed both by position and by name.
+///     ╷
+///   2 │ a {b: f(1, $a: 2)}
+///     │       ^^^^^^^^^^^
+///     ╵
+/// ```
+#[test]
+fn the_duplicate_argument_diagnostic_has_a_single_span() {
+    let src = "@function f($a, $b: 2) {@return $a}\na {b: f(1, $a: 2)}\n";
+    let block = err_block(src, "in.scss");
+    assert!(
+        block.starts_with("Error: Argument $a was passed both by position and by name."),
+        "{block}"
+    );
+    assert!(
+        !block.contains("declaration"),
+        "dart renders this with the invocation alone:\n{block}"
+    );
+    assert!(
+        !block.contains("invocation"),
+        "a single span is not labelled:\n{block}"
+    );
+    assert_eq!(caret_line(&block), "^^^^^^^^^^^", "{block}");
+
+    // The neighbour, for contrast: a missing argument DOES carry the
+    // declaration it was measured against, so the difference is the rule's and
+    // not the renderer's.
+    let missing = err_block("@function f($a, $b: 2) {@return $a}\na {b: f()}\n", "in.scss");
+    assert!(missing.starts_with("Error: Missing argument $a."), "{missing}");
+    assert!(missing.contains("declaration"), "{missing}");
+    assert!(missing.contains("invocation"), "{missing}");
+}
+
+/// A host function's arguments are verified against its signature, and the
+/// callback does not run when they fail.
+///
+/// `Options::with_function("foo($a, $b)", …)` parses a real parameter list, so
+/// it is the third binder in the tree with a declaration to measure a call
+/// against — and it was the one this rule missed (r4130220838). Written without
+/// a default on purpose: `with_function` rejects one outright, which the
+/// paragraph below says of dart's signatures and this line did not
+/// (r4130662197).
+///
+/// dart's JS API parses a `functions:` signature the same way and verifies it.
+/// Measured 2026-09-29 through
+/// `sass.compileString(…, {functions: {'foo($a, $b: 2)': …}})`, recording
+/// whether the callback ran:
+///
+/// ```text
+///   foo($a, $b: 2)     foo(1, $a: 2)             ran=no   Argument $a was passed both …
+///   foo($a, $b: 2)     foo(1, 2, $a: 9, $b: 9)   ran=no   Argument $a was passed both …
+///   bar($x, $rest...)  bar(1, 2, $x: 9)          ran=no   Argument $x was passed both …
+///   bar($x, $rest...)  bar(1, $nope: 2)          ran=YES  No parameter named $nope.
+///   foo($a, $b: 2)     foo(1, $nope: 2)          ran=no   No parameter named $nope.
+///   foo($a, $b: 2)     foo(1, $b: 5)             ran=YES  (compiles)
+/// ```
+///
+/// The fourth row is dart's rest-parameter post-check — the callback runs and
+/// the leftover name is reported afterwards — which sasso does not model for a
+/// host function either (#225 is the same mechanism for a user callable).
+#[test]
+fn a_host_function_verifies_its_arguments_before_running() {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+
+    let run = |sig: &str, call: &str| -> (bool, String) {
+        let ran = Rc::new(RefCell::new(false));
+        let flag = Rc::clone(&ran);
+        let cb: sasso::HostFunction = Rc::new(move |_args: &[u8]| {
+            *flag.borrow_mut() = true;
+            // An unquoted string `ok`, encoded as the host ABI expects, so a
+            // call that BINDS compiles and the only errors are the rule's.
+            let mut v = vec![3u8, 0u8];
+            v.extend_from_slice(&2u32.to_le_bytes());
+            v.extend_from_slice(b"ok");
+            Ok(v)
+        });
+        let opts = Options::default().with_url("in.scss").with_function(sig, cb);
+        let out = match compile(&format!("a {{b: {call}}}\n"), &opts) {
+            Ok(_) => "(compiles)".to_string(),
+            Err(e) => e.to_string().trim_start_matches("Error: ").to_string(),
+        };
+        let did_run = *ran.borrow();
+        (did_run, out)
+    };
+
+    for (sig, call, want) in [
+        (
+            "foo($a, $b)",
+            "foo(1, $a: 2)",
+            "Argument $a was passed both by position and by name.",
+        ),
+        (
+            "foo($a, $b)",
+            "foo(1, 2, $a: 9, $b: 9)",
+            "Argument $a was passed both by position and by name.",
+        ),
+        (
+            "bar($x, $rest...)",
+            "bar(1, 2, $x: 9)",
+            "Argument $x was passed both by position and by name.",
+        ),
+        // The signature keeps its own spelling, so the lookup has to
+        // canonicalize the DECLARED name and the message must not — the two
+        // halves dart agrees on, and the only caller that exercises either.
+        (
+            "foo($a_b, $c)",
+            "foo(1, 2, $a-b: 9)",
+            "Argument $a_b was passed both by position and by name.",
+        ),
+        (
+            "foo($a_b, $c)",
+            "foo(1, 2, $a_b: 9)",
+            "Argument $a_b was passed both by position and by name.",
+        ),
+        (
+            "foo($a-b, $c)",
+            "foo(1, 2, $a_b: 9)",
+            "Argument $a-b was passed both by position and by name.",
+        ),
+    ] {
+        let (ran, out) = run(sig, call);
+        assert!(
+            out.starts_with(want),
+            "{sig} / {call}\n  want: {want}\n  got:  {out}"
+        );
+        assert!(
+            !ran,
+            "the callback ran before the call was rejected: {sig} / {call}"
+        );
+    }
+
+    // …and a name that IS a parameter still binds, with the callback running.
+    let (ran, out) = run("foo($a, $b)", "foo(1, $b: 5)");
+    assert_eq!(out, "(compiles)", "foo(1, $b: 5) should bind");
+    assert!(ran, "the callback should have run");
+
+    // The rendered span, not just the message. `bind_host_args` returns a
+    // String and its caller wrapped it with `Error::at`, which leaves
+    // `length == 0` — so every host binding error drew a ONE-COLUMN caret where
+    // dart underlines the whole call (r4130575553). dart renders
+    // `foo(1, $a: 2)` with thirteen carets, measured through its JS API.
+    let cb: sasso::HostFunction = Rc::new(|_a: &[u8]| Ok(vec![3u8, 0u8, 2, 0, 0, 0, b'o', b'k']));
+    let opts = Options::default()
+        .with_url("in.scss")
+        .with_function("foo($a, $b)", Rc::clone(&cb));
+    let block = compile("a {b: foo(1, $a: 2)}\n", &opts)
+        .expect_err("expected a compile error")
+        .to_string();
+    assert_eq!(caret_line(&block), "^".repeat("foo(1, $a: 2)".len()), "{block}");
+    // The neighbour it shares the bug with, so the fix is the call site's and
+    // not this rule's.
+    let missing = compile("a {b: foo(1, $nope: 2)}\n", &opts)
+        .expect_err("expected a compile error")
+        .to_string();
+    assert!(missing.starts_with("Error: Missing argument $b."), "{missing}");
+    assert_eq!(
+        caret_line(&missing),
+        "^".repeat("foo(1, $nope: 2)".len()),
+        "{missing}"
+    );
+}
+
+/// A rejected `meta.call` does not run the function it was given.
+///
+/// dart verifies the arguments before the body, so the target never runs. The
+/// check started out AFTER the dispatch, on the reasoning that `meta.call`'s
+/// rest parameter left only a missing `$function` to report — which the
+/// duplicate rule made stale: the target ran and its `@warn` reached stderr
+/// before the error (r4130125500).
+///
+/// Measured against dart-sass 1.104.1 on 2026-09-29: dart prints the error
+/// alone, with no WARNING line.
+#[test]
+fn a_rejected_meta_call_does_not_run_its_target() {
+    let src = "@use \"sass:meta\";\n\
+               @function noisy($x: 1) {@warn \"noisy ran\"; @return $x}\n\
+               a {b: meta.call(meta.get-function(\"noisy\"), \
+               $function: meta.get-function(\"noisy\"))}\n";
+    let seen: std::rc::Rc<std::cell::RefCell<Vec<String>>> =
+        std::rc::Rc::new(std::cell::RefCell::new(Vec::new()));
+    let sink = std::rc::Rc::clone(&seen);
+    let opts = Options::default().with_warn_handler(std::rc::Rc::new(move |ev: &sasso::WarnEvent<'_>| {
+        sink.borrow_mut().push(ev.message.to_string());
+    }));
+    let err = compile(src, &opts)
+        .expect_err("expected a compile error")
+        .to_string();
+    assert!(
+        err.starts_with("Error: Argument $function was passed both by position and by name."),
+        "{err}"
+    );
+    assert!(
+        seen.borrow().is_empty(),
+        "the target ran before the call was rejected: {:?}",
+        seen.borrow(),
+    );
+}
+
 #[test]
 fn a_module_diagnostic_carets_the_construct_it_is_about() {
     // dart spans the whole rule, call or reference a diagnostic is about;

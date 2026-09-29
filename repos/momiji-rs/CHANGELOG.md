@@ -23,6 +23,43 @@ used to compile, and may now fail._
 
 ### Fixed
 
+- **An argument given both positionally and by name is an error** (#147).
+  dart's first argument rule, which sasso had nowhere: a built-in let the
+  positional win and compiled, and a user callable rejected the call with the
+  wrong sentence — naming a real parameter as one that does not exist.
+
+  ```
+    color.mix(red, blue, 10%, $color1: green)   dart  Argument $color1 was passed both by position and by name.
+                                               sasso rgb(10%, 0%, 90%)
+    f(1, $a: 2)   @function f($a, $b: 2)       dart  Argument $a was passed both by position and by name.
+                                               sasso No parameter named $a.
+  ```
+
+  One `argument_passed_twice`, called from both the built-in verifier and the
+  user-callable binder, so the two cannot drift. It outranks every other
+  argument error, measured: `list.nth(1 2 3, $list: 4)` reports the duplicate
+  although `$n` is missing too, `list.nth(1, 2, 3, $list: 4)` reports it rather
+  than the overflow, and `list.nth(1 2 3, 1, $list: 4, $nope: 5)` rather than
+  the unrecognized name.
+
+  Three details a plausible implementation gets wrong, each with a case: there
+  is **no plural** (`f(1, 2, 3, $a: 9, $b: 9, $c: 9)` names `$a` alone, where
+  the unrecognized-name rule would have said `$a, $b or $c`); the parameter
+  reported is the first in **declaration** order, not in the order the names
+  were written; and the comparison canonicalizes the argument while the message
+  quotes the parameter, so `$start_at` is reported against `$start-at`.
+
+  It also corrected an offline test that had pinned sasso's own answer rather
+  than dart's: `f(1, 2, 3, $y: 4)` was asserted to report the positional
+  overflow. It cannot — an overflow means every parameter was filled
+  positionally, which makes naming one of them a duplicate.
+
+  Not fixed here, both measured and filed: a user callable's rest parameter
+  still accepts an unrecognized name, because dart decides that by whether the
+  body READ the keywords at runtime (#225); and a parameter declared `$a_b` is
+  still quoted back as `$a-b`, because the parser normalizes it before any
+  message exists (#224).
+
 - **A built-in rejects an argument name it does not declare** (#62).
   `string.to-upper-case("a", $nope: 1)` compiled, and so did `math.abs`,
   `map.get`, `color.red` and most of the rest: nothing read the argument, so

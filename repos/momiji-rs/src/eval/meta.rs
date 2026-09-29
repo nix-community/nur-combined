@@ -137,6 +137,21 @@ impl<'a> Evaluator<'a> {
     ) -> Option<Result<Value, Error>> {
         // Whatever these report, dart carets the CALL that reported it.
         let sized = |r: Result<Value, Error>| r.map_err(|e| e.with_length_at(pos, length));
+        // BEFORE the arm runs, not after. dart verifies the arguments and never
+        // reaches the body, which is observable through `meta.call`: with the
+        // check afterwards, `meta.call(get-function("noisy"), $function: …)`
+        // emitted `noisy`'s `@warn` and then reported the duplicate, where dart
+        // reports it alone (r4130125500).
+        //
+        // Safe to run before knowing whether this layer owns the member: a name
+        // the table does not have verifies vacuously, and one it does have would
+        // fail the same way in `call_module` a moment later. Every route here is
+        // already narrowed to a `sass:meta` member — `owner == "meta"` in
+        // `eval::expr`, `resolve_forwarded_builtin` for a `@forward`ed one — so
+        // a user function that happens to share a name is not reachable.
+        if let Err(e) = crate::builtins::verify_member_args("meta", member, pos_args, named, pos) {
+            return Some(sized(Err(e)));
+        }
         let out = match member {
             "variable-exists" => Some(self.meta_variable_exists(pos_args, named, pos, false)),
             "global-variable-exists" => Some(self.meta_variable_exists(pos_args, named, pos, true)),
@@ -153,26 +168,12 @@ impl<'a> Evaluator<'a> {
             "keywords" => Some(Self::meta_keywords(pos_args, named, pos)),
             _ => None,
         };
-        // These thirteen never reach `call_module`, so the table's declaration
-        // has to be applied here too — otherwise they are the one part of it
-        // nothing verifies, and `meta.variable-exists("v", $nope: 1)` answers
-        // `true` where dart says `No parameter named $nope.` (#62,
-        // r4128127579). One place covers every way in: a direct call, a
-        // `@forward`ed or `as *` one, and a first-class reference, all route
-        // through here.
-        //
-        // Checked after the arm has run rather than before, which is
-        // observationally the same: every member here is a pure query of the
-        // evaluator's state, and the only one that runs user code —
-        // `meta.call` — carries a rest parameter, so its verification can only
-        // report a missing `$function`, which its own body reports identically.
-        out.map(
-            |r| match crate::builtins::verify_member_args("meta", member, pos_args, named, pos) {
-                Err(e) => Err(e),
-                Ok(()) => r,
-            },
-        )
-        .map(sized)
+        // The thirteen above never reach `call_module`, which is why the table's
+        // declaration is applied here as well — otherwise they are the one part
+        // of it nothing verifies, and `meta.variable-exists("v", $nope: 1)`
+        // answers `true` where dart says `No parameter named $nope.` (#62,
+        // r4128127579).
+        out.map(sized)
     }
 
     /// `meta.keywords($args)`: the keyword arguments captured by a `$args...`

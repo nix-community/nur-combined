@@ -1917,9 +1917,18 @@ console.log("ok: cli — version/help/stdin/style/file @use/load-path/errors + e
     const par = runMixed(parOut, ["-j", "4"]);
     assert.equal(ref.status, EXIT_COMPILE, "cli: the mixed run fails on its broken entry");
     assert.equal(par.status, ref.status, "cli: parallel and -j 1 agree on the exit status");
-    assert.equal(par.stderr.replaceAll(parOut, refOut), ref.stderr, "cli: parallel stderr is in command-line order");
+    // These compare two SEPARATE invocations, and `--update` narrates each
+    // compile with a wall-clock timestamp — so a second ticking between the two
+    // runs made every line differ and failed the ORDER assertion for a reason
+    // that has nothing to do with order. Seen on CI 2026-09-29: the `-j 1` run
+    // stamped 07:40:01 and the `-j 4` run 07:40:02.
+    //
+    // The timestamp's own shape is asserted elsewhere (the Windows clock work,
+    // #189); here it is noise, so it comes out along with the output directory.
+    const stamped = (t) => t.replaceAll(parOut, refOut).replace(/\[\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\] /g, "");
+    assert.equal(stamped(par.stderr), stamped(ref.stderr), "cli: parallel stderr is in command-line order");
     assert.match(ref.stdout, /m0\.scss[\s\S]*m11\.scss/, "cli: --update reports the written files");
-    assert.equal(par.stdout.replaceAll(parOut, refOut), ref.stdout, "cli: parallel --update lines are in command-line order");
+    assert.equal(stamped(par.stdout), stamped(ref.stdout), "cli: parallel --update lines are in command-line order");
     assert.deepEqual(filesOf(parOut).map((t) => t && t.replaceAll("mixed-j4", "mixed-j1")), filesOf(refOut), "cli: parallel output and maps match -j 1");
     JSON.parse(readFileSync(join(parOut, "m9.css.map"), "utf8"));
   }

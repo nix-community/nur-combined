@@ -2975,10 +2975,20 @@ fn only_positional_arguments_count_toward_arity() {
             "@function f($x) { @return $x; }\na { b: f(1, 2, $nope: 3); }\n",
             "Only 1 positional argument allowed, but 2 were passed.",
         ),
-        // A named argument that IS a parameter still leaves the count alone.
+        // A named argument that IS a parameter cannot reach this rule at all,
+        // and the case is kept to say so. An overflow means the positional
+        // arguments outnumbered the parameters, so EVERY parameter was filled
+        // positionally — which makes naming one of them a duplicate, and
+        // dart reports that instead. Measured 2026-09-29 against dart-sass
+        // 1.104.1; this row previously claimed the overflow message, pinning
+        // sasso's own answer rather than dart's (#147).
         (
             "@function f($x, $y) { @return $x; }\na { b: f(1, 2, 3, $y: 4); }\n",
-            "Only 2 positional arguments allowed, but 3 were passed.",
+            "Argument $y was passed both by position and by name.",
+        ),
+        (
+            "@function f($x, $y) { @return $x; }\na { b: f(1, 2, 3, $x: 4); }\n",
+            "Argument $x was passed both by position and by name.",
         ),
     ] {
         let msg = ours_err(src);
@@ -9749,6 +9759,19 @@ fn a_built_in_rejects_an_unrecognized_named_argument() {
         // wording difference that predates this change and has nothing to do
         // with the ordering these cases are here for (#139).
         "math.max(\"a\", $nope: 1)",
+        // Rule 0, dart's first: a parameter given both positionally and by
+        // name, which outranks a missing argument, an overflow and an
+        // unrecognized name in the same call (#147).
+        "color.mix(red, blue, 10%, $color1: green)",
+        "list.nth(1 2 3, 1, $n: 9)",
+        "list.nth(1 2 3, $list: 4)",
+        "list.nth(1, 2, 3, $list: 4)",
+        "list.nth(1 2 3, 1, $list: 4, $nope: 5)",
+        "string.slice(\"abc\", 1, 2, $start_at: 9)",
+        // …and the rest parameter's own name is not a parameter, so this is the
+        // unrecognized-name rule rather than rule 0.
+        "map.get((a: 1), a, $keys: 2)",
+        "map.get((a: 1), a, $map: (b: 2))",
         // `sass:meta`'s evaluator-owned members, which answer from the
         // evaluator's own state and never reach `call_module` — the one part of
         // the table nothing checked (r4128127579).
@@ -9787,6 +9810,75 @@ fn a_built_in_rejects_an_unrecognized_named_argument() {
             None => panic!("dart-sass accepted this:\n{scss}"),
         }
     }
+
+    // The same rule on the USER path, which had it nowhere: the binder let the
+    // positional win and then blamed the keyword for naming no parameter, so
+    // `f(1, $a: 2)` reported a real parameter as unknown (#147). Both paths now
+    // call one `argument_passed_twice`.
+    //
+    // Compared by MESSAGE, not by `assert_error_parity`: these calls error
+    // either way, and which sentence they choose is the whole point. Two
+    // mutations survived while this used the weaker helper — dropping the
+    // declared name's canonicalization, and printing the CALL's spelling
+    // instead of the declaration's — because neither is observable unless the
+    // DECLARATION itself spells a name with an underscore.
+    const USER: &str = "@function f($a, $b: 2) {@return $a}\n\
+                        @function g($x, $rest...) {@return $x}\n\
+                        @function d($a-b) {@return $a-b}\n";
+    for (call, want) in [
+        (
+            "f(1, $a: 2)",
+            "Argument $a was passed both by position and by name.",
+        ),
+        (
+            "f(1, 2, $a: 9, $b: 9)",
+            "Argument $a was passed both by position and by name.",
+        ),
+        (
+            "f(1, 2, $b: 9, $a: 9)",
+            "Argument $a was passed both by position and by name.",
+        ),
+        (
+            "f(1, $a: 2, $nope: 3)",
+            "Argument $a was passed both by position and by name.",
+        ),
+        (
+            "g(1, 2, $x: 9)",
+            "Argument $x was passed both by position and by name.",
+        ),
+        // The CALL's spelling does not matter: `$a_b` and `$a-b` both report
+        // against the declaration's `$a-b`.
+        //
+        // `u($a_b)` is deliberately absent: dart quotes a declaration WRITTEN
+        // with an underscore as `$a_b` and sasso as `$a-b`, because the parser
+        // has already normalized it. That is wider than this rule —
+        // `Missing argument` differs the same way — and is recorded on its own.
+        (
+            "d(1, $a_b: 2)",
+            "Argument $a-b was passed both by position and by name.",
+        ),
+        (
+            "d(1, $a-b: 2)",
+            "Argument $a-b was passed both by position and by name.",
+        ),
+    ] {
+        let scss = format!("{USER}a {{b: {call}}}\n");
+        let ours = compile(&scss, &Options::default())
+            .err()
+            .map(|e| e.to_string())
+            .unwrap_or_else(|| panic!("expected an error:\n{scss}"));
+        let theirs = dart_sass_error(&scss).unwrap_or_else(|| panic!("dart-sass accepted this:\n{scss}"));
+        assert_eq!(theirs, want, "dart moved:\n{scss}");
+        assert!(
+            ours.trim_start_matches("Error: ").starts_with(want),
+            "\n--- scss ---\n{scss}--- ours ---\n{ours}\n--- want ---\n{want}\n"
+        );
+    }
+    // …and a mixin, which binds through the same function.
+    assert_error_parity("@mixin m($p, $q: 1) {z: $p}\na {@include m(1, $p: 2)}\n");
+    // NOT a duplicate, because the positional arguments stopped short of the
+    // named parameter — the case that fails if the rule forgets to count them.
+    assert_parity("@function f($a, $b: 2) {@return $a + $b}\na {b: f(1, $b: 5)}\n");
 
     // Every way in, not just the direct call: the check sits in
     // `try_meta_eval_call`, which a `@forward`ed member, an `as *` one and a
