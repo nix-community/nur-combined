@@ -159,13 +159,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "duckdb";
-  version = "1.5.5";
+  version = "1.5.6";
 
   src = fetchFromGitHub {
     owner = "duckdb";
     repo = "duckdb";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vFXrMcWF5KDYYRjWZb6iJdhGnCAb6SMlSgzlcr+FQ8Y=";
+    hash = "sha256-xHcucJA+2nTD9oeoZxDQzGS6QNnzjHQ7t9sz0OHA+zo=";
   };
 
   outputs = [
