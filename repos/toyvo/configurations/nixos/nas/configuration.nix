@@ -584,10 +584,6 @@ in
   sops.secrets."hermes.env".owner = "hermes";
   sops.secrets."signal-cli.env".owner = "signal-cli";
   sops.secrets."cache-priv-key.pem" = { };
-  sops.secrets."discord_bot.env" = {
-    owner = "discord_bot";
-    group = "discord_bot";
-  };
   # Grafana credentials are bind-mounted into the monitoring container where the grafana user
   # reads them via $__file{}. mode 0444 allows any process (including container-side grafana) to
   # read them without needing to match UIDs across the host/container boundary.
