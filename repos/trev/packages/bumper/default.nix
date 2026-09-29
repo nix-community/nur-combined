@@ -1,6 +1,6 @@
 {
   autoPatchelfHook,
-  fetchFromGitHub,
+  fetchFromGitea,
   lib,
   libgcc,
   nix-update-script,
@@ -11,18 +11,19 @@
   buildRustPackage ? rustPlatform.buildRustPackage,
 }:
 
-buildRustPackage (finalAttrs: {
+buildRustPackage (final: {
   pname = "bumper";
-  version = "0.30.3";
+  version = "0.31.0";
 
-  src = fetchFromGitHub {
-    owner = "spotdemo4";
+  src = fetchFromGitea {
+    domain = "trev.zip";
+    owner = "llc";
     repo = "bumper";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-0ZxsXUp4ZKnEVqFdU1QOxu9oXoya6XBfpE4vcmhsB3g=";
+    rev = "v${final.version}";
+    hash = "sha256-zbjp9DRi+25J3Xx6bXqL09IIrNL8+DwFMQFhgY79BEw=";
   };
 
-  cargoHash = "sha256-MxPYM8bDfg8S5phypSAwOi3PXURnQF/jy39xrfOavD0=";
+  cargoHash = "sha256-Q/QFDpaTrrqGWAPGSXyU7H25aKT2HB1xkDAzmmzezhw=";
 
   nativeBuildInputs = [
     pkg-config
@@ -37,7 +38,7 @@ buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--commit"
-      finalAttrs.pname
+      final.pname
     ];
   };
 
@@ -46,8 +47,8 @@ buildRustPackage (finalAttrs: {
     mainProgram = "bumper";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    homepage = "https://github.com/spotdemo4/bumper";
-    changelog = "https://github.com/spotdemo4/bumper/releases/tag/v${finalAttrs.version}";
-    downloadPage = "https://github.com/spotdemo4/bumper/releases/tag/v${finalAttrs.version}";
+    homepage = "https://trev.zip/llc/bumper";
+    changelog = "https://trev.zip/llc/bumper/releases/tag/v${final.version}";
+    downloadPage = "https://trev.zip/llc/bumper/releases/tag/v${final.version}";
   };
 })

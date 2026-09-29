@@ -51,6 +51,27 @@ programs.zen-browser.profiles.default = {
 };
 ```
 
+### [duckdb](https://github.com/duckdb/duckdb)
+
+Embeddable SQL OLAP Database Management System
+
+```elm
+nix run github:spotdemo4/trevpkgs#duckdb
+```
+
+Extensions are compiled into the binary rather than downloaded at runtime with `INSTALL`. The in-tree `autocomplete`, `icu`, `json`, `tpcds` and `tpch` extensions are enabled by default; out-of-tree extensions can be enabled with an override:
+
+```nix
+pkgs.trev.duckdb.override {
+  withHttpfs = true;
+  withPostgresScanner = true;
+  withSpatial = true;
+};
+```
+
+- out-of-tree: `withAvro`, `withAws`, `withAzure`, `withDucklake`, `withEncodings`, `withExcel`, `withFts`, `withHttpfs`, `withIceberg`, `withInet`, `withMysqlScanner`, `withOdbcScanner`, `withPostgresScanner`, `withQuack`, `withSpatial`, `withSqliteScanner`, `withSqlsmith`, `withVss`
+- drivers: `withJdbc`, `withOdbc`
+
 ### [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
 
 Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)
