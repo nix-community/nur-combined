@@ -11,22 +11,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "0n72fmxvf7bd7nbnynki14ljq250k1bji4c7idykai6gjsaj4s37";
-    aarch64-linux = "1gkmjsm87yksrmya3q3hwvryc8qf57gdsmmnj1vn90a13kw3y1bn";
-    x86_64-darwin = "0pz6a43slz4fz4a9iaxcjlii01kkwhkdrsqzws01xnpy54cdr0x0";
-    aarch64-darwin = "0zqskjwrrs2na744vaj3x9f1jc9kvhm6n0gbk5mmw9wh0wwzca6l";
+    x86_64-linux = "0s2722y1pb1qckq157jn08m71l34v5rv4mbi1gzg29cbw4ypz5hv";
+    aarch64-linux = "04zq0g2cp34k44447g40x9s2fbf86r41crz3spkdb6138698gizg";
+    x86_64-darwin = "0mnifc52dgvvkdqhdiqg5zi583whyr3xi7z59n4acd61ihjfnj1s";
+    aarch64-darwin = "0x2ki2pgcgg3mdy14g576bxxl2nk1gfl87644d6k1d6x1igw5w9l";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.9/drift_0.0.9_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "drift";
-  version = "0.0.9";
+  version = "0.0.10";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -37,9 +37,12 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ installShellFiles makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp -vr ./drift $out/bin/drift
     wrapProgram $out/bin/drift --prefix PATH : ${lib.makeBinPath ([ git ])}
+    installShellCompletion ./completions/*
+    runHook postInstall
   '';
 
   meta = {
