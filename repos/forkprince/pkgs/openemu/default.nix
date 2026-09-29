@@ -7,7 +7,7 @@
   ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
-    pname = "open-emu";
+    pname = "openemu";
     inherit (ver) version;
 
     src = fetchurl (lib.helper.getSingle ver);

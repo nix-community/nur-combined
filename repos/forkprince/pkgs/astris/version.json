@@ -1,0 +1,14 @@
+{
+  "name": "Astris",
+  "source": {
+    "type": "api",
+    "url": "https://codeberg.org/api/v1/repos/V380-Ori/Astris.Binaries/releases/latest",
+    "version_path": ".tag_name.replace('astris-', '')",
+    "url_path": ".assets[0].browser_download_url"
+  },
+  "version": "1.0.29",
+  "asset": {
+    "url": "https://codeberg.org/V380-Ori/Astris.Binaries/releases/download/astris-1.0.29/Astris-1.0.29+835d74ccc.dmg",
+    "hash": "sha256-vvuMlJNj+c6sHd1T5+J89mTtLTebk5PMMFq2tFMv7RE="
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "OpenEmu Silicon",
+  "source": {
+    "type": "github-release",
+    "repo": "OpenEmu-Silicon/OpenEmu-Silicon",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "OpenEmu-Silicon.dmg",
+    "unpack": false
+  },
+  "version": "1.3.0",
+  "hash": "sha256-JeAKmT8JItjjQA/Uv6xDIXbb+Gwp8n9SXmR/lD/dMVc="
+}

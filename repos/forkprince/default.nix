@@ -41,6 +41,7 @@
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
   folder-preview-pro = lib.callPackage ./pkgs/folder-preview-pro {};
   mcpelauncher-swift = lib.callPackage ./pkgs/mcpelauncher-swift {};
+  openemu-silicon = lib.callPackage ./pkgs/openemu-silicon {};
   creality-print = lib.callPackage ./pkgs/creality-print {};
   flux-markdown = lib.callPackage ./pkgs/flux-markdown {};
   vmware-fusion = lib.callPackage ./pkgs/vmware-fusion {};
@@ -63,9 +64,9 @@
   dockdoor = lib.callPackage ./pkgs/dockdoor {};
   hyperkey = lib.callPackage ./pkgs/hyperkey {};
   finetune = lib.callPackage ./pkgs/finetune {};
-  open-emu = lib.callPackage ./pkgs/open-emu {};
   opendisk = lib.callPackage ./pkgs/opendisk {};
   highball = lib.callPackage ./pkgs/highball {};
+  openemu = lib.callPackage ./pkgs/openemu {};
   openmtp = lib.callPackage ./pkgs/openmtp {};
   puremac = lib.callPackage ./pkgs/puremac {};
   macusb = lib.callPackage ./pkgs/macusb {};
@@ -73,6 +74,7 @@
   figura = lib.callPackage ./pkgs/figura {};
   achico = lib.callPackage ./pkgs/achico {};
   macsai = lib.callPackage ./pkgs/macsai {};
+  astris = lib.callPackage ./pkgs/astris {};
   orca = lib.callPackage ./pkgs/orca {};
   muxy = lib.callPackage ./pkgs/muxy {};
   blip = lib.callPackage ./pkgs/blip {};
@@ -130,4 +132,12 @@
   proton-cachyos-arm-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "arm";};
   proton-cachyos-v1-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v1";};
   proton-cachyos-v3-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v3";};
+
+  openemu-meta = lib.callPackage ./pkgs/openemu-meta {
+    inherit openemu openemu-silicon;
+  };
+
+  compositor-meta = lib.callPackage ./pkgs/compositor-meta {
+    inherit compositor xuan;
+  };
 }
