@@ -259,16 +259,16 @@
     };
     "betterviewer" = buildMozillaXpiAddon {
       pname = "betterviewer";
-      version = "2.0.2";
+      version = "3.0.0";
       addonId = "ademking@betterviewer";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4548184/betterviewer-2.0.2.xpi";
-      sha256 = "692e983dbbdeba2655f7a0cc446fea56ad3aafa831d626b58b414df87ceb1b97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5065762/betterviewer-3.0.0.xpi";
+      sha256 = "244143d1ca2d40ad7bb850fc6956d9fe20f0fca2b4883c31d51e4f247737c162";
       meta = with lib;
       {
         homepage = "https://github.com/Ademking/BetterViewer";
         description = "BetterViewer was designed as a replacement for the image viewing mode built into Firefox and Chrome-based web browsers. With BetterViewer you can use various keyboard shortcuts to quickly pan, zoom images, edit and a lot more!";
         license = licenses.mit;
-        mozPermissions = [ "storage" "contextMenus" "<all_urls>" ];
+        mozPermissions = [ "storage" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -1426,10 +1426,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.7";
+      version = "4.4.8";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5058426/tree_style_tab-4.4.7.xpi";
-      sha256 = "efd9686a44bb5d75681ed9e1cfd2a92006864562840df5a6a497621a5cf65bb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5068525/tree_style_tab-4.4.8.xpi";
+      sha256 = "62f6fd91fe90b52255434da5d43ebf8b395d6286d69663fe6f8785180c1270bf";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/treestyletab";

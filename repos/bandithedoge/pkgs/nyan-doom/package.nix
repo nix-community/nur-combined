@@ -24,12 +24,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nyan-doom";
-  version = "1.6.0";
+  version = "1.6.1";
   src = fetchFromGitHub {
     owner = "andrikpowell";
     repo = "nyan-doom";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-2vQz0FSE7iZwrs6K3xiuTkgBbbVVmv8WW5gFuXIU6Bw=";
+    hash = "sha256-BAcP7TKW5egG7jJ/31eh0i66JJYqyebu8ewEpkvnG+0=";
   };
   sourceRoot = "source/prboom2";
 
