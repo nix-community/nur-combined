@@ -126,7 +126,6 @@ stdenv.mkDerivation (finalAttrs: {
       "$out/share/icons/hicolor/192x192/apps/newpipe.png"
 
     makeWrapper ${lib.getExe android-translation-layer_patched} "$out/bin/newpipe" \
-      --run 'rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/art"' \
       --set-default ATL_UGLY_ENABLE_WEBVIEW "" \
       --add-flags "--gapplication-app-id=org.schabi.newpipe" \
       --add-flags "$out/share/newpipe/NewPipe.apk"
