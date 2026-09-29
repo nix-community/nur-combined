@@ -22,5 +22,6 @@ extend-ignore-re = [
 [files]
 extend-exclude = [
   # keep-sorted start
+  ".direnv"
   # keep-sorted end
 ]
