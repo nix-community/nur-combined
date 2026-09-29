@@ -26,6 +26,8 @@ in
   appimageTools.wrapType2 {
     inherit pname version src;
 
+    extraBwrapArgs = ["--unsetenv GIO_EXTRA_MODULES"];
+
     meta = {
       description = "Find a game, download it and play it";
       homepage = "https://github.com/kyrotooooo/kryoto-desktop";
