@@ -32,30 +32,33 @@ let
   flakeModules = import ./modules/flake; # flake-parts modules
 
   VintagestoryServers = callPackage ./pkgs/VintagestoryServers;
-  purpurServers = callPackage ./pkgs/purpurServers;
+  fabricServers = callPackage ./pkgs/fabricServers;
   neoforgeServers = callPackage ./pkgs/neoforgeServers;
   papermcServers = callPackage ./pkgs/papermcServers;
-  fabricServers = callPackage ./pkgs/fabricServers;
+  purpurServers = callPackage ./pkgs/purpurServers;
+  tinycastPackages = callPackage ./pkgs/tinycast;
   packages = {
+    ghostex = callPackage ./pkgs/ghostex;
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
+    libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
     mcsmanager = callPackage ./pkgs/mcsmanager;
     network-inventory = callPackage ./pkgs/network-inventory;
     odysseus = callPackage ./pkgs/odysseus;
     pre-commit = callPackage ./pkgs/pre-commit;
-    technitium-exporter = callPackage ./pkgs/technitium-exporter;
-    toyvo-neovim = callPackage ./pkgs/toyvo-neovim;
-    libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
     pre-push = callPackage ./pkgs/pre-push;
     setup-sops = callPackage ./pkgs/setup-sops;
+    technitium-exporter = callPackage ./pkgs/technitium-exporter;
     toyvo-helix = callPackage ./pkgs/toyvo-helix;
+    toyvo-neovim = callPackage ./pkgs/toyvo-neovim;
     # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   }
   // VintagestoryServers
-  // purpurServers
+  // fabricServers
   // neoforgeServers
   // papermcServers
   // papermcServers
-  // fabricServers;
+  // purpurServers
+  // tinycastPackages;
 in
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,

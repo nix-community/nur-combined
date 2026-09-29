@@ -12,7 +12,7 @@
   "agent_servers": {
     "pi-acp": {
       "default_config_options": {
-        "model": "openrouter/nvidia/nemotron-3-super-120b-a12b"
+        "model": "opencode-go/muse-spark-1.3-contributor"
       },
       "type": "registry"
     },

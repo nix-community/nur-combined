@@ -2,21 +2,12 @@
   config,
   lib,
   pkgs,
+  inputs,
+  system,
   ...
 }:
 let
   cfg = config.nixcfg;
-  # nixpkgs tracks the beta channel but is stuck on 0.10.3-beta.72.
-  # Override to the latest beta until upstream catches up.
-  # Check https://github.com/abue-ammar/tinycast/releases and drop this
-  # override once nixpkgs ships >= the version below.
-  tinycast-latest = pkgs.tinycast.overrideAttrs {
-    version = "0.11.6-beta.102";
-    src = pkgs.fetchurl {
-      url = "https://github.com/abue-ammar/tinycast/releases/download/v0.11.6-beta.102/Tinycast-0.11.6-beta.102.dmg";
-      hash = "sha256-iL8hthkpDA1HIam9CBSOxqEdqPHW/RKKiwTnrYDClrU=";
-    };
-  };
 in
 {
   options.nixcfg.gui.enable = lib.mkEnableOption "GUI Applications" // {
@@ -72,7 +63,8 @@ in
           pinentry_mac
           utm
           # warp-terminal
-          tinycast-latest
+          inputs.nixcfg.packages.${system}.tinycast-beta
+          inputs.nixcfg.packages.${system}.ghostex
         ];
     };
   };
