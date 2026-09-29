@@ -305,7 +305,13 @@
                 "url": "https://piston-data.mojang.com/v1/objects/2dc72797acbc1b63fc16a11c4ac393605f453754/client.jar",
                 "hash": "sha256-QIlu6fHivsPJNNqsfpPUHp49nC+K4Mo2bVL/v9GvopA="
             }
+        },
+        "26.3": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/e877b6a07acd633fb3bb475002175cec036e7b87/client.jar",
+                "hash": "sha256-RQjQBjI/JPoCh2MQwZLXOa9WUW6yWQAKxQ8JCaaMmi0="
+            }
         }
     },
-    "latest": "26.2"
+    "latest": "26.3"
 }
