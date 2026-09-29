@@ -81,7 +81,7 @@ Conformance is tracked separately as a ratchet against the official
   REJECT valid stylesheets, which is worse than the silence it replaces.
 
   Also not fixed here, each measured and filed: dart's fourth rule,
-  `Argument $x was passed both by position and by name.` (#213, which sasso
+  `Argument $x was passed both by position and by name.` (#147, which sasso
   implements nowhere and which outranks all three); the CSS math functions,
   whose named-argument error is `Keyword arguments can't be used with
   calculations.` (#215) — the bare `sin(…)` is one of those, while

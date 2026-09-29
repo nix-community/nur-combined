@@ -9747,7 +9747,7 @@ fn a_built_in_rejects_an_unrecognized_named_argument() {
         // message and sasso serializes it, so a LIST would compare
         // `("a" "b") is not a number.` against `"a" "b" is not a number.` — a
         // wording difference that predates this change and has nothing to do
-        // with the ordering these cases are here for (#212).
+        // with the ordering these cases are here for (#139).
         "math.max(\"a\", $nope: 1)",
         // `sass:meta`'s evaluator-owned members, which answer from the
         // evaluator's own state and never reach `call_module` — the one part of
@@ -9764,7 +9764,7 @@ fn a_built_in_rejects_an_unrecognized_named_argument() {
         // no parameter name in a type error (`1 is not a valid selector`, where
         // sasso says `$selectors: 1 is not …`) because the value came from the
         // rest list rather than from a named parameter — another pre-existing
-        // wording difference, unrelated to the ordering (#212).
+        // wording difference, unrelated to the ordering (#139).
         "selector.nest($nope: 1)",
         "math.max($nope: 1)",
     ] {
@@ -9803,7 +9803,7 @@ fn a_built_in_rejects_an_unrecognized_named_argument() {
     // RUNTIME whether the body read its keywords and sasso decides per member.
     // `map.set` reads them in the `$key`/`$value` form and not in the positional
     // one, so no per-member answer is right for both. Same for `map.merge`. See
-    // `f_kw` in `builtins`, and #213 for the user-callable half.
+    // `f_kw` in `builtins`, and #147 for the user-callable half.
 
     // Accepted, because the name IS a parameter — including behind a rest, and
     // in the underscore spelling. Rejecting these was a regression this PR

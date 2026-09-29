@@ -245,7 +245,7 @@ pub(super) fn require<'v>(
 ///
 /// dart has a FOURTH rule above all of these,
 /// `Argument $x was passed both by position and by name.`, which sasso
-/// implements nowhere (#213). It is deliberately absent here: adding it to the
+/// implements nowhere (#147). It is deliberately absent here: adding it to the
 /// built-ins alone would leave the user-callable path disagreeing with them.
 ///
 /// A REST parameter is verified elsewhere. dart binds the rest and runs the
@@ -791,7 +791,7 @@ const fn f(
 /// $nope: 3)` does not, and dart rejects `$nope` only in the second. A row
 /// cannot express that, so these six accept a leftover name where dart's body
 /// would have complained about it instead. The gap is one message, not one
-/// answer, and it is the same gap #213 records for user callables.
+/// answer, and it is the same gap #147 records for user callables.
 const fn f_kw(
     name: &'static str,
     global: Option<&'static str>,
