@@ -67,7 +67,6 @@ in
         inherit (config.services.nextcloud.package.packages.apps)
           calendar
           contacts
-          deck
           tasks
           ;
         # notify_push is automatically installed by the module
