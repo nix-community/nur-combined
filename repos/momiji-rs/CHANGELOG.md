@@ -11,6 +11,16 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+## [0.19.1] - 2026-09-28
+
+_Faster builds through the npm package: on Lichess's 148 entry points on
+Linux/x86_64, a full build takes about half as long as under 0.18.0, with
+byte-identical output. `@extend` stops comparing module paths per rule
+(#219), and the npm CLI compiles a batch on the native addon's own threads
+instead of a pool of Node workers (#221). Built-ins now reject an argument name
+they do not declare, as dart-sass does (#62): a stylesheet that passed one
+used to compile, and may now fail._
+
 ### Fixed
 
 - **A built-in rejects an argument name it does not declare** (#62).
@@ -3412,7 +3422,8 @@ real-world SCSS byte-identically to dart-sass.
 - Distribution: CLI binary (prebuilt via cargo-dist), library crate, and a
   zero-dependency WebAssembly build published to npm as `@momiji-rs/sasso`.
 
-[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.19.0...HEAD
+[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.19.1...HEAD
+[0.19.1]: https://github.com/momiji-rs/sasso/compare/v0.19.0...v0.19.1
 [0.19.0]: https://github.com/momiji-rs/sasso/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/momiji-rs/sasso/compare/v0.17.0...v0.18.0
 [0.17.0]: https://github.com/momiji-rs/sasso/compare/v0.16.0...v0.17.0
