@@ -49,9 +49,11 @@
   # runtime deps
   bubblewrap,
   coreutils,
+  gitMinimal,
   libGL,
   libpulseaudio,
   libsecret,
+  lsb-release,
   nodejs-slim,
   pipewire,
   ripgrep,
@@ -166,8 +168,9 @@ stdenv.mkDerivation (finalAttrs: {
     done
     find "$resources" -type f -name '*.musl.node' -delete
 
-    ln -sf ${lib.getExe tectonic-unwrapped} "$out/lib/chatgpt/resources/plugins/openai-bundled/plugins/latex/bin/tectonic"
+    ln -sf ${lib.getExe tectonic-unwrapped} "$resources/tectonic/tectonic"
     ln -sf ${lib.getExe ripgrep} "$out/lib/chatgpt/resources/rg"
+    mkdir -p "$out/lib/chatgpt/resources/cua_node/bin"
     ln -sf ${lib.getExe nodejs-slim} "$out/lib/chatgpt/resources/cua_node/bin/node"
 
     install -Dm755 ${lib.getExe finalAttrs.passthru.launcher} "$out/bin/chatgpt"
@@ -191,6 +194,8 @@ stdenv.mkDerivation (finalAttrs: {
         lib.makeBinPath [
           bubblewrap
           coreutils
+          gitMinimal
+          lsb-release
           nodejs-slim
           nodejs-slim.npm
           xdg-utils
