@@ -20,6 +20,7 @@
   langsmith-cli = pkgs.callPackage ./pkgs/langsmith-cli { };
   mado = pkgs.callPackage ./pkgs/mado { };
   notizen = pkgs.callPackage ./pkgs/notizen { };
+  tccli = pkgs.callPackage ./pkgs/tccli { };
   tfcmt = pkgs.callPackage ./pkgs/tfcmt { };
   trmnlp = pkgs.callPackage ./pkgs/trmnlp { };
   vde-layout = pkgs.callPackage ./pkgs/vde-layout { };
