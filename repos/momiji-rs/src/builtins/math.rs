@@ -56,7 +56,7 @@ pub(super) fn try_call(
         "sqrt" => Some(unitless_unary("number", pos_args, named, pos, f64::sqrt)),
         "exp" => Some(unitless_unary("number", pos_args, named, pos, f64::exp)),
         "log" => Some(log(pos_args, named, pos)),
-        "hypot" => Some(hypot(pos_args, named, pos)),
+        "hypot" => Some(hypot(pos_args, pos)),
         "sin" => Some(trig(pos_args, named, pos, f64::sin)),
         "cos" => Some(trig(pos_args, named, pos, f64::cos)),
         "tan" => Some(trig(pos_args, named, pos, f64::tan)),
@@ -569,8 +569,8 @@ fn log(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value,
 /// follows the `calc()` rules: a real-vs-unitless or known cross-dimension mix
 /// is an error, while an unknown/relative-unit pair that can't be converted
 /// preserves the whole call verbatim (`hypot(1%, 2%)`).
-fn hypot(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
-    let nums = collect_nums(pos_args, named, pos)?;
+fn hypot(pos_args: &[Value], pos: Pos) -> Result<Value, Error> {
+    let nums = collect_nums(pos_args, pos)?;
     let first = match nums.first() {
         Some(n) => n.clone(),
         None => return Err(Error::at("At least one argument must be passed.", pos)),
@@ -844,13 +844,11 @@ pub(super) fn module_round(pos_args: &[Value], named: &[(String, Value)], pos: P
 /// Every argument must be a number with a compatible unit; a non-number or a
 /// non-convertible unit pair is an error (unlike the global `min`/`max`, which
 /// preserve such calls as CSS calculations).
-pub(super) fn module_min_max(
-    pos_args: &[Value],
-    named: &[(String, Value)],
-    pos: Pos,
-    is_min: bool,
-) -> Result<Value, Error> {
-    let args = all_args(pos_args, named);
+pub(super) fn module_min_max(pos_args: &[Value], pos: Pos, is_min: bool) -> Result<Value, Error> {
+    // `pos_args` only: a named argument is not part of `$numbers...`. Folding
+    // its VALUE in here made `math.max(1, 2, $x: 999)` answer `999` — the
+    // named argument silently became an argument (#62).
+    let args = pos_args.to_vec();
     if args.is_empty() {
         return Err(Error::at("At least one argument must be passed.", pos));
     }
@@ -1162,8 +1160,10 @@ fn angle_to_radians(n: &Number, pos: Pos) -> Result<f64, Error> {
 }
 
 /// Collect every argument as a number, erroring on the first non-number.
-fn collect_nums(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Vec<Number>, Error> {
-    let args = all_args(pos_args, named);
+fn collect_nums(pos_args: &[Value], pos: Pos) -> Result<Vec<Number>, Error> {
+    // `pos_args` only — see `module_min_max`. `math.hypot(3, 4, $x: 12)`
+    // answered 13, having measured the hypotenuse of three sides (#62).
+    let args = pos_args.to_vec();
     if args.is_empty() {
         // A variadic member names no parameter to be missing.
         return Err(Error::at(

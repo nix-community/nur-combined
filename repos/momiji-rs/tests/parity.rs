@@ -9679,6 +9679,160 @@ fn builtin_module_members_are_enumerable_end_to_end() {
     );
 }
 
+/// An unrecognized named argument on a built-in, against dart (#62).
+///
+/// The unit tests in `builtins` drive the verifier directly; these drive the
+/// COMPILER, which is where the two halves have to agree with each other: a
+/// fixed-arity member is verified before its body runs and a rest-parameter one
+/// after, and getting that backwards is invisible until a body error and a name
+/// error are both available.
+#[test]
+fn a_built_in_rejects_an_unrecognized_named_argument() {
+    // The rejection loop below reads dart's MESSAGE directly rather than through
+    // `assert_parity`, so it has to gate itself: opted in, and dart actually
+    // reachable. Without the second check `None` from `dart_sass_error` means
+    // both "dart accepted it" and "there is no dart here", and treating them
+    // alike made the nix sandbox — which sets the env var and has no network for
+    // `npx` — fail this test rather than skip it.
+    if !enabled() {
+        return;
+    }
+    if dart_sass("a {b: 1}\n").is_none() {
+        eprintln!("skipping named-argument parity: dart-sass unavailable");
+        return;
+    }
+
+    // `$v`, `f` and `m` exist so that the `meta.*-exists` cases are about the
+    // unrecognized NAME and not about the thing they ask after.
+    const USES: &str = "@use \"sass:meta\";\n@use \"sass:math\";\n@use \"sass:color\";\n\
+                        @use \"sass:list\";\n@use \"sass:map\";\n@use \"sass:selector\";\n\
+                        @use \"sass:string\";\n$v: 1;\n@function f($a) {@return $a}\n\
+                        @mixin m {c: 1}\n";
+
+    // Rejected, with dart's own sentence and dart's own precedence.
+    for expr in [
+        // Rule 3 alone.
+        "string.to-upper-case(\"a\", $nope: 1)",
+        "math.abs(1, $nope: 1)",
+        "map.get((a: 1), a, $nope: 1)",
+        "color.red(red, $nope: 1)",
+        "color.mix(red, blue, $nope: 1)",
+        "string.unquote(\"a\", $nope: 1)",
+        // Rule 1 outranks it — 105 of the 116 members answer this way.
+        "list.nth($nope: 1)",
+        "list.nth(1 2 3, $nope: 1)",
+        "string.slice($nope: 1)",
+        // Rule 2 outranks it.
+        "math.abs(1, 2, $nope: 1)",
+        "list.nth(1 2 3, 1, 2, $nope: 1)",
+        // The plural, and the three-name form's connective.
+        "list.nth(1 2 3, 1, $x: 1, $y: 2)",
+        "list.nth(1 2 3, 1, $x: 1, $y: 2, $z: 3)",
+        // REST parameters: the name is rejected only after the body has had its
+        // say, so each of these needs enough valid arguments to get past it.
+        "math.max(1, 2, $nope: 3)",
+        "math.min(1, 2, $nope: 3)",
+        "math.hypot(3, 4, $nope: 5)",
+        "list.zip((1), (2), $nope: 3)",
+        "list.slash(1, 2, $nope: 3)",
+        "selector.nest(\"a\", \"b\", $nope: 1)",
+        "selector.append(\"a\", \"b\", $nope: 1)",
+        "map.has-key((a: 1), a, $nope: 1)",
+        "map.deep-remove((a: (b: 1)), a, $nope: 1)",
+        "map.remove((a: 1), a, $nope: 1)",
+        // …and the body's own complaint comes FIRST for a rest parameter, which
+        // is the half that distinguishes the two paths.
+        "list.slash(1, $nope: 2)",
+        // A single value, not a list: dart inspects the offending value in this
+        // message and sasso serializes it, so a LIST would compare
+        // `("a" "b") is not a number.` against `"a" "b" is not a number.` — a
+        // wording difference that predates this change and has nothing to do
+        // with the ordering these cases are here for (#212).
+        "math.max(\"a\", $nope: 1)",
+        // `sass:meta`'s evaluator-owned members, which answer from the
+        // evaluator's own state and never reach `call_module` — the one part of
+        // the table nothing checked (r4128127579).
+        "meta.variable-exists(\"v\", $nope: 1)",
+        "meta.global-variable-exists(\"v\", $nope: 1)",
+        "meta.function-exists(\"f\", $nope: 1)",
+        "meta.mixin-exists(\"m\", $nope: 1)",
+        "meta.content-exists($nope: 1)",
+        "meta.get-function(\"f\", $nope: 1)",
+        "meta.module-functions(\"math\", $nope: 1)",
+        "meta.inspect(1, $nope: 2)",
+        // The emptiness check, not a type error: for a REST parameter dart quotes
+        // no parameter name in a type error (`1 is not a valid selector`, where
+        // sasso says `$selectors: 1 is not …`) because the value came from the
+        // rest list rather than from a named parameter — another pre-existing
+        // wording difference, unrelated to the ordering (#212).
+        "selector.nest($nope: 1)",
+        "math.max($nope: 1)",
+    ] {
+        let scss = format!("{USES}a {{b: {expr}}}\n");
+        let ours = compile(&scss, &Options::default()).err().map(|e| e.to_string());
+        // The MESSAGE, not just the failure: `assert_error_parity` would pass on
+        // any error at all, and every case here is about which sentence dart
+        // chooses.
+        match dart_sass_error(&scss) {
+            Some(theirs) => {
+                let ours = ours.unwrap_or_else(|| panic!("expected an error:\n{scss}"));
+                let msg = ours.trim_start_matches("Error: ");
+                assert!(
+                    msg.starts_with(&theirs),
+                    "\n--- scss ---\n{scss}--- ours ---\n{ours}\n--- dart ---\n{theirs}\n"
+                );
+            }
+            // Unreachable: the probe above established that dart runs here, so
+            // `None` can only mean dart ACCEPTED what it should have rejected.
+            None => panic!("dart-sass accepted this:\n{scss}"),
+        }
+    }
+
+    // Every way in, not just the direct call: the check sits in
+    // `try_meta_eval_call`, which a `@forward`ed member, an `as *` one and a
+    // first-class reference all route through (r4128127579).
+    assert_error_parity("@use \"sass:meta\" as *;\n$v: 1;\na {b: variable-exists(\"v\", $nope: 1)}\n");
+    assert_error_parity(
+        "@use \"sass:meta\";\n$v: 1;\n\
+         a {b: meta.call(meta.get-function(\"variable-exists\", $module: \"meta\"), \"v\", $nope: 1)}\n",
+    );
+
+    // NOT here, and the reason is worth naming: `map.set((a: 1), b, 2, $nope: 3)`
+    // is `No parameter named $nope.` in dart and
+    // `(a: 1, b: 2) isn't a valid CSS value.` here, because dart decides at
+    // RUNTIME whether the body read its keywords and sasso decides per member.
+    // `map.set` reads them in the `$key`/`$value` form and not in the positional
+    // one, so no per-member answer is right for both. Same for `map.merge`. See
+    // `f_kw` in `builtins`, and #213 for the user-callable half.
+
+    // Accepted, because the name IS a parameter — including behind a rest, and
+    // in the underscore spelling. Rejecting these was a regression this PR
+    // introduced and a re-measure caught.
+    for expr in [
+        "string.slice(\"abcd\", 2, $end-at: 3)",
+        "string.slice(\"abcd\", 2, $end_at: 3)",
+        "string.slice($string: \"abcd\", $start_at: 2)",
+        "math.log(8, $base: 2)",
+        "color.invert(red, $weight: 100%)",
+        "list.join((1), (2), $separator: comma, $bracketed: true)",
+        "map.get((a: 1), $key: a)",
+        "map.has-key((a: 1), $key: a)",
+        "map.set((a: 1), $key: b, $value: 2)",
+        "map.deep-remove((a: (b: 1)), $key: a)",
+        "map.remove((a: 1), $key: a)",
+        "map.merge((a: 1), $map2: (b: 2))",
+        // Keywords ARE the interface for the `$kwargs` overloads.
+        "color.adjust(red, $lightness: 10%)",
+        "color.change(red, $red: 10)",
+        "color.scale(red, $lightness: 10%)",
+        // A rest parameter takes any number of positional arguments.
+        "math.max(1, 2, 3, 4, 5)",
+        "map.get((a: (b: 2)), a, b)",
+    ] {
+        assert_parity(&format!("{USES}a {{b: meta.inspect({expr})}}\n"));
+    }
+}
+
 #[test]
 fn deep_media_chains_and_content_forwarding() {
     // A three-level mergeable media chain re-bubbles every batch (the

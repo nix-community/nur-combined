@@ -59,6 +59,27 @@ pub(crate) fn call(
     let written = name;
     let lookup = canonical_name(name);
     let name = lookup.as_ref();
+    // dart verifies the arguments against the declaration BEFORE the body runs
+    // — measured: `math.abs("a", $x: 1)` is `No parameter named $x.`, not
+    // `"a" is not a number.` — so this is the first thing, ahead of every
+    // family (#62).
+    if let Some(f) = global_member(name) {
+        verify_args(f, pos_args, named, pos)?;
+        if f.rest().is_some() {
+            return reject_leftover(f, named, pos, call_body(name, written, pos_args, named, pos));
+        }
+    }
+    call_body(name, written, pos_args, named, pos)
+}
+
+/// [`call`]'s dispatch, split out so the rest-parameter post-check can wrap it.
+fn call_body(
+    name: &str,
+    written: &str,
+    pos_args: &[Value],
+    named: &[(String, Value)],
+    pos: Pos,
+) -> Result<Value, Error> {
     if let Some(r) = color::try_call(name, pos_args, named, pos) {
         return r;
     }
@@ -205,6 +226,227 @@ pub(super) fn require<'v>(
         Error::at(format!("Missing argument ${pname}."), pos)
     })
 }
+
+/// dart's `ArgumentDeclaration.verify` for a built-in, in the order dart
+/// raises it. Measured 2026-09-28 against dart-sass 1.104.1 across all 116
+/// module members; the numbers are how many of them answered each way.
+///
+/// ```text
+///   1. Missing argument $x.                 105 of 116 answer this to f($nope: 1)
+///   2. Only N positional arguments allowed, but M were passed.
+///   3. No parameter named $x. / No parameters named $x, $y or $z.
+/// ```
+///
+/// Rule 1 outranking rule 3 is why this exists as one function rather than a
+/// check bolted on in front: `list.nth($nope: 1)` is `Missing argument $list.`,
+/// not `No parameter named $nope.`, and the old `list.rs` copy — the only
+/// built-in that checked at all — had rule 3 first and so answered the wrong
+/// one (#62).
+///
+/// dart has a FOURTH rule above all of these,
+/// `Argument $x was passed both by position and by name.`, which sasso
+/// implements nowhere (#213). It is deliberately absent here: adding it to the
+/// built-ins alone would leave the user-callable path disagreeing with them.
+///
+/// A REST parameter is verified elsewhere. dart binds the rest and runs the
+/// body, and only complains about a leftover named argument afterwards —
+/// measured: `math.max("a" "b", $x: 1)` is `("a" "b") is not a number.`, while
+/// the fixed-arity `math.abs("a", $x: 1)` is `No parameter named $x.`. So rules
+/// 2 and 3 do not apply before the call, and rule 1 still does.
+fn verify_args(f: &Fun, pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<(), Error> {
+    let Some(_) = f.params else {
+        return Ok(()); // see `no_sig`
+    };
+    let declared = f.named_params();
+
+    // 1. A required parameter with no value, positional or named. dart names
+    //    the FIRST one.
+    for (i, param) in declared.iter().take(f.required).enumerate() {
+        if pos_args.len() > i {
+            continue;
+        }
+        if named.iter().any(|(n, _)| canonical_name(n).as_ref() == *param) {
+            continue;
+        }
+        return Err(Error::at(format!("Missing argument ${param}."), pos));
+    }
+
+    if f.rest().is_some() {
+        return Ok(());
+    }
+
+    // 2. Too many positional arguments — only the positional ones count.
+    check_arity(declared.len(), pos_args, named, pos)?;
+
+    // 3. Whatever is left over. dart lists them in the order they were
+    //    written, and joins with a comma and a final `or` — measured:
+    //    `No parameters named $x, $y or $z.`, with no comma before `or`.
+    let leftover: Vec<&str> = named
+        .iter()
+        .map(|(n, _)| n.as_str())
+        .filter(|n| {
+            let c = canonical_name(n);
+            !declared.contains(&c.as_ref())
+        })
+        .collect();
+    if let Some(err) = no_parameter_named(&leftover, pos) {
+        return Err(err);
+    }
+    Ok(())
+}
+
+/// dart's message for names that match no parameter, or `None` when there are
+/// none. Plural from two up, joined with a comma and a final `or` and NO comma
+/// before it: `No parameters named $x, $y or $z.` — measured 2026-09-28.
+///
+/// The names are reported in the order they were WRITTEN, not sorted.
+fn no_parameter_named(names: &[&str], pos: Pos) -> Option<Error> {
+    let (last, init) = names.split_last()?;
+    let msg = if init.is_empty() {
+        format!("No parameter named ${last}.")
+    } else {
+        let head = init
+            .iter()
+            .map(|n| format!("${n}"))
+            .collect::<Vec<_>>()
+            .join(", ");
+        format!("No parameters named {head} or ${last}.")
+    };
+    Some(Error::at(msg, pos))
+}
+
+/// A named argument that matches no parameter of `declared`, as dart's
+/// `No parameter named $x.`.
+///
+/// `declared` matters because a rest parameter usually sits behind named
+/// parameters that ARE addressable — `map.get($map, $key, $keys...)` answers
+/// `map.get((a: 1), $key: a)` with `1` in both compilers.
+fn reject_named(declared: &[&str], named: &[(String, Value)], pos: Pos) -> Result<(), Error> {
+    // `declared` matters: a rest parameter usually sits behind named parameters
+    // that ARE addressable — `map.get($map, $key, $keys...)` answers
+    // `map.get((a: 1), $key: a)` with `1` in both compilers. Rejecting every
+    // name here broke that, which a re-measure caught.
+    let names: Vec<&str> = named
+        .iter()
+        .map(|(n, _)| n.as_str())
+        .filter(|n| !declared.contains(&canonical_name(n).as_ref()))
+        .collect();
+    match no_parameter_named(&names, pos) {
+        Some(err) => Err(err),
+        None => Ok(()),
+    }
+}
+
+/// The other half of [`verify_args`], for a REST parameter: dart binds the rest,
+/// RUNS THE BODY, and only then complains about a named argument the body did
+/// not consume.
+///
+/// The order is observable, which is why this is a post-check and not part of
+/// `verify_args` — measured 2026-09-28:
+///
+/// ```text
+///   math.max("a" "b", $x: 1)   ("a" "b") is not a number.       the body
+///   list.slash(1, $x: 2)       At least two elements are required.
+///   math.max($x: 1)            At least one argument must be passed.
+///   math.max(1, 2, $x: 3)      No parameter named $x.           the leftover
+/// ```
+///
+/// A first attempt put the check inside each built-in, before the body's own
+/// validation; `a_built_in_rejects_an_unrecognized_named_argument` failed on the
+/// first of those and this replaced it.
+fn reject_leftover(
+    f: &Fun,
+    named: &[(String, Value)],
+    pos: Pos,
+    out: Result<Value, Error>,
+) -> Result<Value, Error> {
+    // Only for a rest parameter — a fixed-arity member was fully verified up
+    // front — and only when the body does not read the keywords itself.
+    if f.rest().is_none() || f.reads_keywords || named.is_empty() {
+        return out;
+    }
+    let value = out?;
+    reject_named(f.named_params(), named, pos)?;
+    Ok(value)
+}
+
+/// Verify a module member's arguments for a caller that dispatches the member
+/// ITSELF rather than through [`call_module`].
+///
+/// `sass:meta`'s evaluator-owned members are the case: `try_meta_eval_call`
+/// answers thirteen of them from the evaluator's own state and returns before
+/// `call_module` is reached, so without this they were the one part of the table
+/// nothing checked — `meta.variable-exists("v", $nope: 1)` answered `true`
+/// (r4128127579), and that is one of the shapes #62 was filed about.
+pub(crate) fn verify_member_args(
+    module: &str,
+    member: &str,
+    pos_args: &[Value],
+    named: &[(String, Value)],
+    pos: Pos,
+) -> Result<(), Error> {
+    let canonical = canonical_name(member);
+    match member_of(module, canonical.as_ref()) {
+        Some(f) => verify_args(f, pos_args, named, pos),
+        None => Ok(()),
+    }
+}
+
+/// The `Fun` row for a module member, for [`verify_args`].
+fn member_of(module: &str, member: &str) -> Option<&'static Fun> {
+    members_of(module)?.functions.iter().find(|f| f.name == member)
+}
+
+/// The `Fun` row a GLOBAL name is a view of, or `None` when this build does not
+/// know the global's parameters.
+///
+/// Only the members that name a global alias, which is 81 of the 116. The rest
+/// keep their previous behaviour at the global spelling, for two measured
+/// reasons: a deprecated colour global (`lighten`) shares its name with a
+/// module-only member, and `max`/`min`/`clamp`/`round` are also CSS math
+/// functions whose named-argument error is a different sentence entirely
+/// (`Keyword arguments can't be used with calculations.`, #215). Matching by
+/// member NAME would give those dart's Sass-function message where dart gives
+/// the calculation one.
+fn global_member(name: &str) -> Option<&'static Fun> {
+    if CALCULATION_GLOBALS.contains(&name) {
+        return None;
+    }
+    ["math", "color", "list", "map", "selector", "string", "meta"]
+        .iter()
+        .filter_map(|m| members_of(m))
+        .flat_map(|m| m.functions.iter())
+        .find(|f| f.global == Some(name))
+}
+
+/// The globals dart treats as CSS CALCULATIONS rather than as Sass functions,
+/// so a named argument there is a different sentence entirely:
+/// `Keyword arguments can't be used with calculations.` (#215).
+///
+/// They must stay out of [`global_member`], or the module member's declaration
+/// answers for the calculation and reports `No parameter named $x.` — which is
+/// what this rewrite did until a review caught it (r4128303276). The MODULE
+/// spelling is unaffected and verified as usual: `math.sin(1, $nope: 2)` is
+/// `No parameter named $nope.` in both compilers, and only the bare `sin(…)`
+/// is a calculation.
+///
+/// Measured 2026-09-28 by asking dart `<g>(…, $nope: 9)` for every global that
+/// names a math function. The split is not "is it a CSS math function" — these
+/// answer with the calculation sentence:
+///
+/// ```text
+///   acos asin atan atan2 clamp cos exp hypot log mod pow rem sign sin sqrt tan
+/// ```
+///
+/// …while `abs`, `ceil`, `floor`, `max`, `min`, `percentage`, `round`, `unit`,
+/// `unitless`, `random` and `comparable` answer as Sass functions and are
+/// verified here. `clamp`, `exp`, `mod`, `rem` and `sign` are in the list for
+/// completeness: they name no member with a global alias, so they never reach
+/// this lookup anyway.
+const CALCULATION_GLOBALS: &[&str] = &[
+    "acos", "asin", "atan", "atan2", "clamp", "cos", "exp", "hypot", "log", "mod", "pow", "rem", "sign",
+    "sin", "sqrt", "tan",
+];
 
 /// dart's arity check (`ArgumentDeclaration.verify`): only POSITIONAL
 /// arguments count against a function's parameter count, and the moment any
@@ -466,9 +708,127 @@ pub(crate) fn module_name(module: &str) -> Option<&'static str> {
 /// one of the nine adjusters CSS Color 4 removed, which exist in order to
 /// FAIL (see [`color::removed`]).
 struct Members {
-    functions: &'static [(&'static str, Option<&'static str>)],
+    functions: &'static [Fun],
     mixins: &'static [&'static str],
     variables: &'static [&'static str],
+}
+
+/// One function member: its name, the global that implements it, and dart's
+/// parameter declaration.
+struct Fun {
+    name: &'static str,
+    global: Option<&'static str>,
+    /// dart's parameters, in order, a rest parameter written with dart's own
+    /// `...` suffix (`&["map", "key", "keys..."]`). `None` for the two members
+    /// this table does not describe — see [`no_sig`], and
+    /// `only_the_overloaded_members_go_unverified`, which pins which two.
+    params: Option<&'static [&'static str]>,
+    /// How many leading `params` have no default, so omitting one is
+    /// `Missing argument $x.`. A rest parameter requires nothing.
+    required: usize,
+    /// Whether the implementation READS the keywords its rest parameter
+    /// collected, so a named argument is part of its interface rather than a
+    /// mistake. Only meaningful with a rest parameter; see [`f_kw`].
+    reads_keywords: bool,
+}
+
+impl Fun {
+    /// The rest parameter's name, if the last parameter is one.
+    fn rest(&self) -> Option<&'static str> {
+        self.params?.last()?.strip_suffix("...")
+    }
+
+    /// The named parameters, excluding a rest parameter — a rest parameter is
+    /// not addressable by name, which is measured: dart answers
+    /// `math.max(1, $numbers: 2)` with `No parameter named $numbers.`.
+    fn named_params(&self) -> &'static [&'static str] {
+        let all = self.params.unwrap_or(&[]);
+        match all.last() {
+            Some(last) if last.ends_with("...") => &all[..all.len() - 1],
+            _ => all,
+        }
+    }
+}
+
+/// A member with dart's signature, measured from the declaration dart prints
+/// under an argument error:
+///
+/// ```text
+///   Error: Missing argument $start-at.
+///     ┌──> sass:string
+///   1 │ @function slice($string, $start-at, $end-at: -1) {
+///     │           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ declaration
+/// ```
+///
+/// Every one of the 116 members was read that way on 2026-09-28 against
+/// dart-sass 1.104.1, and the global spelling shares the declaration — a
+/// `str-slice()` error prints `@function slice(…)` — so one row serves both.
+const fn f(
+    name: &'static str,
+    global: Option<&'static str>,
+    params: &'static [&'static str],
+    required: usize,
+) -> Fun {
+    Fun {
+        name,
+        global,
+        params: Some(params),
+        required,
+        reads_keywords: false,
+    }
+}
+
+/// A member whose rest parameter's KEYWORDS are its interface, so a named
+/// argument that matches no declared parameter is handed to the body instead of
+/// being rejected. Six members, measured: `color.adjust`/`change`/`scale` take
+/// channel adjustments that way (`color.adjust(red, $lightness: 10%)`),
+/// `map.merge` and `map.set` accept `$map2`/`$key`/`$value`, and `meta.call`
+/// forwards everything to the function it calls.
+///
+/// dart decides this at RUNTIME — it checks whether the body actually read the
+/// keywords (`ArgumentList.keywordsAccessed`) — which shows in `map.set`:
+/// `map.set((a: 1), $key: b, $value: 2)` reads them, `map.set((a: 1), b, 2,
+/// $nope: 3)` does not, and dart rejects `$nope` only in the second. A row
+/// cannot express that, so these six accept a leftover name where dart's body
+/// would have complained about it instead. The gap is one message, not one
+/// answer, and it is the same gap #213 records for user callables.
+const fn f_kw(
+    name: &'static str,
+    global: Option<&'static str>,
+    params: &'static [&'static str],
+    required: usize,
+) -> Fun {
+    Fun {
+        name,
+        global,
+        params: Some(params),
+        required,
+        reads_keywords: true,
+    }
+}
+
+/// A member whose parameters this table does NOT describe, so nothing is
+/// verified for it and its behaviour is unchanged. Two members, each for a
+/// measured reason:
+///
+/// - `color.hwb` is OVERLOADED by arity — `hwb($channels)` or
+///   `hwb($hue, $whiteness, $blackness, $alpha: 1)` — and the two declare
+///   DIFFERENT names, so a single row cannot say which applies before counting
+///   the arguments. (`map.remove` is overloaded too and does not need this: its
+///   overloads declare the same names and differ only in arity, which a rest
+///   parameter allows.)
+/// - `color.alpha` never prints a declaration at all: dart answers both
+///   `alpha(red, blue)` and `alpha(red, $x: 1)` with the self-contradictory
+///   `Only 1 argument allowed, but 1 were passed.`, from the legacy
+///   `alpha(opacity=20)` IE-filter overload.
+const fn no_sig(name: &'static str, global: Option<&'static str>) -> Fun {
+    Fun {
+        name,
+        global,
+        params: None,
+        required: 0,
+        reads_keywords: false,
+    }
 }
 
 /// The table every member question is answered from.
@@ -512,34 +872,34 @@ fn members_of(module: &str) -> Option<&'static Members> {
 /// listing them here made the `$module:`-qualified lookup lie.
 static MATH_MEMBERS: Members = Members {
     functions: &[
-        ("abs", Some("abs")),
-        ("acos", Some("acos")),
-        ("asin", Some("asin")),
-        ("atan", Some("atan")),
-        ("atan2", Some("atan2")),
-        ("ceil", Some("ceil")),
+        f("abs", Some("abs"), &["number"], 1),
+        f("acos", Some("acos"), &["number"], 1),
+        f("asin", Some("asin"), &["number"], 1),
+        f("atan", Some("atan"), &["number"], 1),
+        f("atan2", Some("atan2"), &["y", "x"], 2),
+        f("ceil", Some("ceil"), &["number"], 1),
         // The numeric forms, dispatched in `call_module`, distinct from the
         // global CSS-calc functions of the same name which preserve unknown
         // arguments.
-        ("clamp", None),
-        ("cos", Some("cos")),
-        ("compatible", Some("comparable")),
-        ("floor", Some("floor")),
-        ("hypot", Some("hypot")),
-        ("is-unitless", Some("unitless")),
-        ("log", Some("log")),
-        ("max", None),
-        ("min", None),
-        ("percentage", Some("percentage")),
-        ("pow", Some("pow")),
-        ("random", Some("random")),
-        ("round", None),
-        ("sin", Some("sin")),
-        ("sqrt", Some("sqrt")),
-        ("tan", Some("tan")),
-        ("unit", Some("unit")),
+        f("clamp", None, &["min", "number", "max"], 3),
+        f("cos", Some("cos"), &["number"], 1),
+        f("compatible", Some("comparable"), &["number1", "number2"], 2),
+        f("floor", Some("floor"), &["number"], 1),
+        f("hypot", Some("hypot"), &["numbers..."], 0),
+        f("is-unitless", Some("unitless"), &["number"], 1),
+        f("log", Some("log"), &["number", "base"], 1),
+        f("max", None, &["numbers..."], 0),
+        f("min", None, &["numbers..."], 0),
+        f("percentage", Some("percentage"), &["number"], 1),
+        f("pow", Some("pow"), &["base", "exponent"], 2),
+        f("random", Some("random"), &["limit"], 0),
+        f("round", None, &["number"], 1),
+        f("sin", Some("sin"), &["number"], 1),
+        f("sqrt", Some("sqrt"), &["number"], 1),
+        f("tan", Some("tan"), &["number"], 1),
+        f("unit", Some("unit"), &["number"], 1),
         // Last in dart's list, not alphabetical: true division, unit-aware.
-        ("div", None),
+        f("div", None, &["number1", "number2"], 2),
     ],
     mixins: &[],
     // Resolved by `module_var`, not callable.
@@ -565,46 +925,67 @@ static MATH_MEMBERS: Members = Members {
 /// of running the deprecated global.
 static COLOR_MEMBERS: Members = Members {
     functions: &[
-        ("red", Some("red")),
-        ("green", Some("green")),
-        ("blue", Some("blue")),
-        ("mix", Some("mix")),
-        ("invert", Some("invert")),
-        ("hue", Some("hue")),
-        ("saturation", Some("saturation")),
-        ("lightness", Some("lightness")),
-        ("adjust-hue", None),
-        ("lighten", None),
-        ("darken", None),
-        ("saturate", None),
-        ("desaturate", None),
-        ("grayscale", Some("grayscale")),
+        f("red", Some("red"), &["color"], 1),
+        f("green", Some("green"), &["color"], 1),
+        f("blue", Some("blue"), &["color"], 1),
+        f("mix", Some("mix"), &["color1", "color2", "weight", "method"], 2),
+        f("invert", Some("invert"), &["color", "weight", "space"], 1),
+        f("hue", Some("hue"), &["color"], 1),
+        f("saturation", Some("saturation"), &["color"], 1),
+        f("lightness", Some("lightness"), &["color"], 1),
+        f("adjust-hue", None, &["color", "amount"], 2),
+        f("lighten", None, &["color", "amount"], 2),
+        f("darken", None, &["color", "amount"], 2),
+        // Two parameters, measured: `color.saturate($nope: 1)` is
+        // `Missing argument $color.` and `color.saturate(10%)` is
+        // `Missing argument $amount.`. The GLOBAL `saturate` is a different
+        // declaration — `saturate($amount)`, the CSS filter function, asymmetric
+        // with `desaturate($color, $amount)` — which is why this row must keep
+        // `global: None`; `the_global_saturate_is_not_this_declaration` pins it.
+        f("saturate", None, &["color", "amount"], 2),
+        f("desaturate", None, &["color", "amount"], 2),
+        f("grayscale", Some("grayscale"), &["color"], 1),
         // Module-only: the comma form has no global alias, and the two
         // deprecated getters live only in the module list.
-        ("hwb", None),
-        ("whiteness", None),
-        ("blackness", None),
-        ("opacify", None),
-        ("fade-in", None),
-        ("transparentize", None),
-        ("fade-out", None),
-        ("alpha", Some("alpha")),
-        ("opacity", Some("opacity")),
+        no_sig("hwb", None),
+        f("whiteness", None, &["color"], 1),
+        f("blackness", None, &["color"], 1),
+        f("opacify", None, &["color", "amount"], 2),
+        f("fade-in", None, &["color", "amount"], 2),
+        f("transparentize", None, &["color", "amount"], 2),
+        f("fade-out", None, &["color", "amount"], 2),
+        no_sig("alpha", Some("alpha")),
+        f("opacity", Some("opacity"), &["color"], 1),
         // The CSS Color 4 members, under disambiguated global names.
-        ("space", Some("color-space")),
-        ("to-space", Some("color-to-space")),
-        ("is-legacy", Some("color-is-legacy")),
-        ("is-missing", Some("color-is-missing")),
-        ("is-in-gamut", Some("color-is-in-gamut")),
-        ("to-gamut", Some("color-to-gamut")),
-        ("channel", Some("color-channel")),
-        ("same", Some("color-same")),
-        ("is-powerless", Some("color-is-powerless")),
-        ("complement", Some("complement")),
-        ("adjust", Some("adjust-color")),
-        ("scale", Some("scale-color")),
-        ("change", Some("change-color")),
-        ("ie-hex-str", Some("ie-hex-str")),
+        f("space", Some("color-space"), &["color"], 1),
+        f("to-space", Some("color-to-space"), &["color", "space"], 2),
+        f("is-legacy", Some("color-is-legacy"), &["color"], 1),
+        f("is-missing", Some("color-is-missing"), &["color", "channel"], 2),
+        f("is-in-gamut", Some("color-is-in-gamut"), &["color", "space"], 1),
+        f(
+            "to-gamut",
+            Some("color-to-gamut"),
+            &["color", "space", "method"],
+            1,
+        ),
+        f(
+            "channel",
+            Some("color-channel"),
+            &["color", "channel", "space"],
+            2,
+        ),
+        f("same", Some("color-same"), &["color1", "color2"], 2),
+        f(
+            "is-powerless",
+            Some("color-is-powerless"),
+            &["color", "channel", "space"],
+            2,
+        ),
+        f("complement", Some("complement"), &["color", "space"], 1),
+        f_kw("adjust", Some("adjust-color"), &["color", "kwargs..."], 1),
+        f_kw("scale", Some("scale-color"), &["color", "kwargs..."], 1),
+        f_kw("change", Some("change-color"), &["color", "kwargs..."], 1),
+        f("ie-hex-str", Some("ie-hex-str"), &["color"], 1),
     ],
     mixins: &[],
     variables: &[],
@@ -613,17 +994,22 @@ static COLOR_MEMBERS: Members = Members {
 /// `sass:list`.
 static LIST_MEMBERS: Members = Members {
     functions: &[
-        ("length", Some("length")),
-        ("nth", Some("nth")),
-        ("set-nth", Some("set-nth")),
-        ("join", Some("join")),
-        ("append", Some("append")),
-        ("zip", Some("zip")),
-        ("index", Some("index")),
-        ("is-bracketed", Some("is-bracketed")),
-        ("separator", Some("list-separator")),
+        f("length", Some("length"), &["list"], 1),
+        f("nth", Some("nth"), &["list", "n"], 2),
+        f("set-nth", Some("set-nth"), &["list", "n", "value"], 3),
+        f(
+            "join",
+            Some("join"),
+            &["list1", "list2", "separator", "bracketed"],
+            2,
+        ),
+        f("append", Some("append"), &["list", "val", "separator"], 2),
+        f("zip", Some("zip"), &["lists..."], 0),
+        f("index", Some("index"), &["list", "value"], 2),
+        f("is-bracketed", Some("is-bracketed"), &["list"], 1),
+        f("separator", Some("list-separator"), &["list"], 1),
         // Module-only, and the one member dart had that sasso did not.
-        ("slash", None),
+        f("slash", None, &["elements..."], 0),
     ],
     mixins: &[],
     variables: &[],
@@ -632,16 +1018,20 @@ static LIST_MEMBERS: Members = Members {
 /// `sass:map`.
 static MAP_MEMBERS: Members = Members {
     functions: &[
-        ("get", Some("map-get")),
+        f("get", Some("map-get"), &["map", "key", "keys..."], 2),
         // Module-only: no global alias in dart.
-        ("set", None),
-        ("merge", Some("map-merge")),
-        ("remove", Some("map-remove")),
-        ("keys", Some("map-keys")),
-        ("values", Some("map-values")),
-        ("has-key", Some("map-has-key")),
-        ("deep-merge", None),
-        ("deep-remove", None),
+        f_kw("set", None, &["map", "args..."], 1),
+        f_kw("merge", Some("map-merge"), &["map1", "args..."], 1),
+        // dart overloads this by arity — `remove($map)` or
+        // `remove($map, $key, $keys...)` — and the two collapse into one row
+        // because they declare the SAME names and differ only in how many
+        // positional arguments they take, which a rest parameter already allows.
+        f("remove", Some("map-remove"), &["map", "key", "keys..."], 1),
+        f("keys", Some("map-keys"), &["map"], 1),
+        f("values", Some("map-values"), &["map"], 1),
+        f("has-key", Some("map-has-key"), &["map", "key", "keys..."], 2),
+        f("deep-merge", None, &["map1", "map2"], 2),
+        f("deep-remove", None, &["map", "key", "keys..."], 2),
     ],
     mixins: &[],
     variables: &[],
@@ -650,14 +1040,24 @@ static MAP_MEMBERS: Members = Members {
 /// `sass:selector`.
 static SELECTOR_MEMBERS: Members = Members {
     functions: &[
-        ("is-superselector", Some("is-superselector")),
-        ("simple-selectors", Some("simple-selectors")),
-        ("parse", Some("selector-parse")),
-        ("nest", Some("selector-nest")),
-        ("append", Some("selector-append")),
-        ("extend", Some("selector-extend")),
-        ("replace", Some("selector-replace")),
-        ("unify", Some("selector-unify")),
+        f("is-superselector", Some("is-superselector"), &["super", "sub"], 2),
+        f("simple-selectors", Some("simple-selectors"), &["selector"], 1),
+        f("parse", Some("selector-parse"), &["selector"], 1),
+        f("nest", Some("selector-nest"), &["selectors..."], 0),
+        f("append", Some("selector-append"), &["selectors..."], 0),
+        f(
+            "extend",
+            Some("selector-extend"),
+            &["selector", "extendee", "extender"],
+            3,
+        ),
+        f(
+            "replace",
+            Some("selector-replace"),
+            &["selector", "original", "replacement"],
+            3,
+        ),
+        f("unify", Some("selector-unify"), &["selector1", "selector2"], 2),
     ],
     mixins: &[],
     variables: &[],
@@ -666,17 +1066,17 @@ static SELECTOR_MEMBERS: Members = Members {
 /// `sass:string`.
 static STRING_MEMBERS: Members = Members {
     functions: &[
-        ("unquote", Some("unquote")),
-        ("quote", Some("quote")),
-        ("to-upper-case", Some("to-upper-case")),
-        ("to-lower-case", Some("to-lower-case")),
-        ("length", Some("str-length")),
-        ("insert", Some("str-insert")),
-        ("index", Some("str-index")),
-        ("slice", Some("str-slice")),
-        ("unique-id", Some("unique-id")),
+        f("unquote", Some("unquote"), &["string"], 1),
+        f("quote", Some("quote"), &["string"], 1),
+        f("to-upper-case", Some("to-upper-case"), &["string"], 1),
+        f("to-lower-case", Some("to-lower-case"), &["string"], 1),
+        f("length", Some("str-length"), &["string"], 1),
+        f("insert", Some("str-insert"), &["string", "insert", "index"], 3),
+        f("index", Some("str-index"), &["string", "substring"], 2),
+        f("slice", Some("str-slice"), &["string", "start-at", "end-at"], 2),
+        f("unique-id", Some("unique-id"), &[], 0),
         // Module-only.
-        ("split", None),
+        f("split", None, &["string", "separator", "limit"], 2),
     ],
     mixins: &[],
     variables: &[],
@@ -690,24 +1090,24 @@ static STRING_MEMBERS: Members = Members {
 /// every `$module`-qualified lookup ask.
 static META_MEMBERS: Members = Members {
     functions: &[
-        ("feature-exists", Some("feature-exists")),
-        ("inspect", Some("inspect")),
-        ("type-of", Some("type-of")),
-        ("keywords", None),
-        ("calc-name", Some("calc-name")),
-        ("calc-args", Some("calc-args")),
-        ("accepts-content", None),
-        ("global-variable-exists", None),
-        ("variable-exists", None),
-        ("function-exists", None),
-        ("mixin-exists", None),
-        ("content-exists", None),
-        ("module-variables", None),
-        ("module-functions", None),
-        ("module-mixins", None),
-        ("get-function", None),
-        ("get-mixin", None),
-        ("call", None),
+        f("feature-exists", Some("feature-exists"), &["feature"], 1),
+        f("inspect", Some("inspect"), &["value"], 1),
+        f("type-of", Some("type-of"), &["value"], 1),
+        f("keywords", None, &["args"], 1),
+        f("calc-name", Some("calc-name"), &["calc"], 1),
+        f("calc-args", Some("calc-args"), &["calc"], 1),
+        f("accepts-content", None, &["mixin"], 1),
+        f("global-variable-exists", None, &["name", "module"], 1),
+        f("variable-exists", None, &["name"], 1),
+        f("function-exists", None, &["name", "module"], 1),
+        f("mixin-exists", None, &["name", "module"], 1),
+        f("content-exists", None, &[], 0),
+        f("module-variables", None, &["module"], 1),
+        f("module-functions", None, &["module"], 1),
+        f("module-mixins", None, &["module"], 1),
+        f("get-function", None, &["name", "css", "module"], 1),
+        f("get-mixin", None, &["name", "module"], 1),
+        f_kw("call", None, &["function", "args..."], 1),
     ],
     mixins: &["load-css", "apply"],
     variables: &[],
@@ -725,7 +1125,7 @@ static META_MEMBERS: Members = Members {
 /// a namespace that is not a built-in; the caller has resolved the namespace
 /// by then.
 pub(crate) fn module_function_names(module: &str) -> Vec<&'static str> {
-    members_of(module).map_or_else(Vec::new, |m| m.functions.iter().map(|(name, _)| *name).collect())
+    members_of(module).map_or_else(Vec::new, |m| m.functions.iter().map(|f| f.name).collect())
 }
 
 /// A built-in module's MIXIN members, in dart's order.
@@ -744,8 +1144,8 @@ pub(crate) fn module_member_to_global(module: &str, member: &str) -> Option<&'st
     members_of(module)?
         .functions
         .iter()
-        .find(|(name, _)| *name == member)
-        .and_then(|(_, global)| *global)
+        .find(|f| f.name == member)
+        .and_then(|f| f.global)
 }
 
 /// Whether `module` exposes `member` as a FUNCTION.
@@ -763,7 +1163,7 @@ pub(crate) fn module_member_to_global(module: &str, member: &str) -> Option<&'st
 pub(crate) fn module_has_member(module: &str, member: &str) -> bool {
     let canonical = canonical_name(member);
     let member = canonical.as_ref();
-    members_of(module).is_some_and(|m| m.functions.iter().any(|(name, _)| *name == member))
+    members_of(module).is_some_and(|m| m.functions.iter().any(|f| f.name == member))
 }
 
 /// The `sass:meta` members that are ALSO global functions and are owned by the
@@ -802,6 +1202,30 @@ pub(crate) fn call_module(
     } else {
         member
     };
+    // Against dart's declaration first, for the same reason as in [`call`] —
+    // and here for every member, not only the ones that name a global.
+    if let Some(f) = member_of(module, member) {
+        verify_args(f, pos_args, named, pos)?;
+        if f.rest().is_some() {
+            return reject_leftover(
+                f,
+                named,
+                pos,
+                call_module_body(module, member, pos_args, named, pos),
+            );
+        }
+    }
+    call_module_body(module, member, pos_args, named, pos)
+}
+
+/// [`call_module`]'s dispatch, split out as [`call_body`] is.
+fn call_module_body(
+    module: &str,
+    member: &str,
+    pos_args: &[Value],
+    named: &[(String, Value)],
+    pos: Pos,
+) -> Result<Value, Error> {
     // `math.div(a, b)` is true (always-divide) division, unit-aware.
     if module == "math" && member == "div" {
         return math::module_div(pos_args, named, pos);
@@ -811,8 +1235,8 @@ pub(crate) fn call_module(
     if module == "math" {
         match member {
             "clamp" => return math::module_clamp(pos_args, named, pos),
-            "min" => return math::module_min_max(pos_args, named, pos, true),
-            "max" => return math::module_min_max(pos_args, named, pos, false),
+            "min" => return math::module_min_max(pos_args, pos, true),
+            "max" => return math::module_min_max(pos_args, pos, false),
             "round" => return math::module_round(pos_args, named, pos),
             _ => {}
         }
@@ -832,7 +1256,7 @@ pub(crate) fn call_module(
     }
     // `sass:list` members without a global alias (`slash`).
     if module == "list" {
-        if let Some(r) = list::call_module_member(member, pos_args, named, pos) {
+        if let Some(r) = list::call_module_member(member, pos_args, pos) {
             return r;
         }
     }
@@ -1071,6 +1495,283 @@ mod tests {
             ],
         ),
     ];
+
+    /// dart's four rules, in dart's order, measured.
+    ///
+    /// Literals, not built from the table: the point is to catch the table and
+    /// the verifier moving together. Every line was read from dart-sass 1.104.1
+    /// on 2026-09-28 (#62).
+    const ARGUMENT_ERRORS: &[(&str, &str, &[&str], &str)] = &[
+        // rule 1 (missing) outranks rule 3 (unrecognized), which is the
+        // ordering `list.rs`'s old copy got backwards.
+        ("list", "nth", &["$nope: 1"], "Missing argument $list."),
+        ("list", "nth", &["1 2 3", "$nope: 1"], "Missing argument $n."),
+        ("string", "slice", &["$nope: 1"], "Missing argument $string."),
+        // …and a near-miss on a real parameter's name is still rule 1, because
+        // the parameter it was meant for is the one reported.
+        (
+            "list",
+            "nth",
+            &["$lst: 1 2 3", "$n: 1"],
+            "Missing argument $list.",
+        ),
+        // rule 2 counts only the POSITIONAL arguments, and says so once a
+        // named one is present.
+        (
+            "math",
+            "abs",
+            &["1", "2", "$nope: 1"],
+            "Only 1 positional argument allowed, but 2 were passed.",
+        ),
+        (
+            "list",
+            "nth",
+            &["1 2 3", "1", "2", "$nope: 1"],
+            "Only 2 positional arguments allowed, but 3 were passed.",
+        ),
+        (
+            "string",
+            "slice",
+            &["1", "2", "3", "4"],
+            "Only 3 arguments allowed, but 4 were passed.",
+        ),
+        // rule 3, once nothing above applies.
+        (
+            "string",
+            "to-upper-case",
+            &["\"a\"", "$nope: 1"],
+            "No parameter named $nope.",
+        ),
+        ("math", "abs", &["1", "$nope: 1"], "No parameter named $nope."),
+        ("color", "red", &["red", "$nope: 1"], "No parameter named $nope."),
+        (
+            "string",
+            "slice",
+            &["$string: \"abc\"", "$start-at: 1", "$end: 2"],
+            "No parameter named $end.",
+        ),
+        // …in the plural, joined with a final `or` and no comma before it.
+        (
+            "list",
+            "nth",
+            &["1 2 3", "1", "$x: 1", "$y: 2"],
+            "No parameters named $x or $y.",
+        ),
+        (
+            "list",
+            "nth",
+            &["1 2 3", "1", "$x: 1", "$y: 2", "$z: 3"],
+            "No parameters named $x, $y or $z.",
+        ),
+    ];
+
+    /// An OPTIONAL parameter passed by name must still be accepted — the
+    /// verifier's job is to reject what dart rejects, and nothing else.
+    const ACCEPTED: &[(&str, &str, &[&str])] = &[
+        ("string", "slice", &["\"abcd\"", "2", "$end-at: 3"]),
+        // Underscores and dashes are the same character, so the spelling of
+        // the name cannot decide whether it is recognized.
+        ("string", "slice", &["\"abcd\"", "2", "$end_at: 3"]),
+        // …and for a REQUIRED parameter too, which is a different branch: rule
+        // 1 has to canonicalize the name it looks for, or `$start_at` reads as
+        // absent and the call fails with `Missing argument $start-at.` where
+        // dart answers `"bcd"`.
+        ("string", "slice", &["$string: \"abcd\"", "$start_at: 2"]),
+        ("list", "set-nth", &["$list: 1 2", "$n: 1", "$value: 9"]),
+        ("map", "has-key", &["$map: (a: 1)", "$key: a"]),
+        // The two with no recorded signature are verified for nothing, so
+        // arguments that would break any of the three rules still get through.
+        // `map.remove` is NOT one of them — its overloads collapse into a rest
+        // parameter — so these cases check that it is verified and still accepts
+        // every arity and its `$key`.
+        ("color", "hwb", &["red"]),
+        ("map", "remove", &["(a: 1, b: 2)", "b"]),
+        ("map", "remove", &["(a: 1)"]),
+        ("map", "remove", &["(a: 1, b: 2)", "$key: b"]),
+        ("color", "alpha", &["red"]),
+        ("math", "log", &["8", "$base: 2"]),
+        ("color", "invert", &["red", "$weight: 100%"]),
+        (
+            "list",
+            "join",
+            &["(1)", "(2)", "$separator: comma", "$bracketed: true"],
+        ),
+        // A REST parameter takes any number of positional arguments, so rule 2
+        // must not fire for one.
+        ("map", "get", &["(a: 1)", "a"]),
+        ("math", "max", &["1", "2", "3", "4", "5"]),
+    ];
+
+    /// Every case in [`ARGUMENT_ERRORS`] is what the verifier answers, and
+    /// every case in [`ACCEPTED`] gets through it.
+    #[test]
+    fn the_verifier_answers_what_dart_answers() {
+        for (module, member, args, want) in ARGUMENT_ERRORS {
+            let got = verify_call(module, member, args);
+            assert_eq!(
+                got.as_deref(),
+                Some(*want),
+                "{module}.{member}({})",
+                args.join(", ")
+            );
+        }
+        for (module, member, args) in ACCEPTED {
+            assert_eq!(
+                verify_call(module, member, args),
+                None,
+                "{module}.{member}({}) should pass verification",
+                args.join(", ")
+            );
+        }
+    }
+
+    /// Run only the verifier for `module.member(args…)`, returning its message.
+    ///
+    /// The arguments are written as they would be in a stylesheet — `"$n: 1"`
+    /// for a named one — and only their SHAPE matters here, because dart
+    /// verifies before the body runs and so never looks at the values.
+    fn verify_call(module: &str, member: &str, args: &[&str]) -> Option<String> {
+        let mut pos_args = Vec::new();
+        let mut named = Vec::new();
+        for arg in args {
+            match arg.strip_prefix('$').and_then(|a| a.split_once(": ")) {
+                Some((name, _)) => named.push((name.to_string(), super::Value::Null)),
+                None => pos_args.push(super::Value::Null),
+            }
+        }
+        let f =
+            super::member_of(module, member).unwrap_or_else(|| panic!("no member sass:{module}.{member}"));
+        super::verify_args(f, &pos_args, &named, super::Pos::NONE)
+            .err()
+            .map(|e| e.message)
+    }
+
+    /// A calculation global is not verified against its module member's
+    /// declaration.
+    ///
+    /// dart answers `sin(1, $nope: 2)` with
+    /// `Keyword arguments can't be used with calculations.` and
+    /// `math.sin(1, $nope: 2)` with `No parameter named $nope.`. Verifying the
+    /// bare `sin(…)` against `math.sin`'s parameters produced the second
+    /// sentence for the first call — a wrong message this rewrite introduced
+    /// where there had been none, which a review caught (r4128303276). The
+    /// right sentence is #215's; keeping these out leaves the previous
+    /// behaviour untouched rather than replacing one wrong answer with another.
+    #[test]
+    fn a_calculation_global_is_not_verified_as_a_member() {
+        // Measured: the sixteen dart answers about calculations.
+        for name in super::CALCULATION_GLOBALS {
+            assert!(
+                super::global_member(name).is_none(),
+                "the global `{name}` is a calculation, not a Sass function",
+            );
+        }
+        // …and the ones it answers about as Sass functions still are verified,
+        // so the exclusion did not take the whole family with it. Eight of the
+        // eleven measured SASS names: `max`, `min` and `round` are left out
+        // because they name no member with a global alias, so they never reach
+        // this lookup either — dart answers those as Sass functions for some
+        // argument shapes and as calculations for others, which is #215's and
+        // #220's selection problem rather than this exclusion's.
+        for name in [
+            "abs",
+            "ceil",
+            "floor",
+            "percentage",
+            "unit",
+            "unitless",
+            "random",
+            "comparable",
+        ] {
+            assert!(
+                super::global_member(name).is_some(),
+                "the global `{name}` is a Sass function and must be verified",
+            );
+        }
+        // The MODULE spelling is unaffected — that is the whole distinction.
+        for name in ["sin", "sqrt", "hypot", "log", "pow", "atan2"] {
+            assert!(super::member_of("math", name).unwrap().params.is_some());
+        }
+    }
+
+    /// `saturate` names two DIFFERENT declarations, and only one of them is
+    /// this table's.
+    ///
+    /// `color.saturate($color, $amount)` is the module member; the global
+    /// `saturate($amount)` is the CSS filter function, asymmetric with
+    /// `desaturate($color, $amount)`. Measured against dart-sass 1.104.1 on
+    /// 2026-09-28: `color.saturate($nope: 1)` is `Missing argument $color.`,
+    /// `color.saturate(10%)` is `Missing argument $amount.`, and the global
+    /// `saturate(1%)` is preserved as CSS.
+    ///
+    /// So giving this row a global alias would verify the filter function
+    /// against the member's parameters and answer `Missing argument $color.`
+    /// where dart answers about `$amount` — which is exactly the reading a
+    /// review arrived at (r4127788923), so the distinction is pinned rather
+    /// than left to the comment beside the row.
+    #[test]
+    fn the_global_saturate_is_not_this_declaration() {
+        let member = super::member_of("color", "saturate").unwrap();
+        assert_eq!(member.params, Some(&["color", "amount"][..]));
+        assert_eq!(member.required, 2);
+        assert_eq!(member.global, None, "the global saturate is a different function");
+        assert!(
+            super::global_member("saturate").is_none(),
+            "the global `saturate` must not be verified against the member's parameters",
+        );
+    }
+
+    /// The members with no recorded signature are exactly the ones there is a
+    /// measured reason for, and nothing has quietly joined them.
+    ///
+    /// The list, not a count: `no_sig`'s prose says two and nothing can make
+    /// that prose fail, which is why the assertion below names them. Four
+    /// stale "three"s were left behind when `map.remove` stopped needing
+    /// `no_sig` (r4127788954, r4127788989, r4128127606) and a fifth was this
+    /// very comment (r4128395163) — the count is the part that drifts.
+    #[test]
+    fn only_the_overloaded_members_go_unverified() {
+        let mut unverified = Vec::new();
+        for (module, _) in DART_FUNCTIONS {
+            for name in module_function_names(module) {
+                let f = super::member_of(module, name).unwrap();
+                if f.params.is_none() {
+                    unverified.push(format!("{module}.{name}"));
+                }
+            }
+        }
+        assert_eq!(unverified, ["color.hwb", "color.alpha"]);
+    }
+
+    /// A rest parameter is not addressable by its own name, and dart says so:
+    /// `math.max(1, $numbers: 2)` is `No parameter named $numbers.`. So the
+    /// rest must not appear among the parameters a name can match.
+    #[test]
+    fn a_rest_parameter_is_not_a_named_parameter() {
+        for (module, member, rest) in [
+            ("math", "max", "numbers"),
+            ("list", "slash", "elements"),
+            ("selector", "nest", "selectors"),
+            ("map", "get", "keys"),
+            ("meta", "call", "args"),
+        ] {
+            let f = super::member_of(module, member).unwrap();
+            assert_eq!(f.rest(), Some(rest), "sass:{module}.{member}");
+            // Not `!contains(&rest)`: the element is `"numbers..."`, so that
+            // reads false whether or not the rest is excluded, and the mutation
+            // that stopped excluding it SURVIVED until this looked for the
+            // suffix instead.
+            assert!(
+                f.named_params().iter().all(|p| !p.ends_with("...")),
+                "sass:{module}.{member} exposes its rest parameter as a name: {:?}",
+                f.named_params(),
+            );
+            assert!(
+                f.params.unwrap().len() == f.named_params().len() + 1,
+                "sass:{module}.{member} should have exactly one rest parameter",
+            );
+        }
+    }
 
     /// The table holds no more and no less than what was measured.
     ///

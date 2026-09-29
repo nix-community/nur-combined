@@ -11,6 +11,102 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Fixed
+
+- **A built-in rejects an argument name it does not declare** (#62).
+  `string.to-upper-case("a", $nope: 1)` compiled, and so did `math.abs`,
+  `map.get`, `color.red` and most of the rest: nothing read the argument, so
+  nothing noticed it. Worse for the variadic ones, which used its VALUE — the
+  named argument silently became an argument and changed the answer:
+
+  ```
+    math.max(1, 2, $x: 999)    dart  Error: No parameter named $x.    sasso  999
+    math.min(5, 4, $x: -7)     dart  Error                           sasso  -7
+    math.hypot(3, 4, $x: 12)   dart  Error                           sasso  13
+  ```
+
+  `hypot(3, 4, 12)` is `sqrt(9 + 16 + 144)`, so the value really was in the
+  computation, and nothing warned.
+
+  Every member now carries dart's own parameter declaration, read from what
+  dart prints under an argument error, and the checks run in dart's order:
+
+  ```
+    1. Missing argument $x.
+    2. Only N positional arguments allowed, but M were passed.
+    3. No parameter named $x. / No parameters named $x, $y or $z.
+  ```
+
+  The order matters more than the missing check did: 105 of the 116 members
+  answer `f($nope: 1)` with `Missing argument $X.`, not with the unrecognized
+  name, so raising the name first would have been wrong far more often than it
+  was right. `list.nth` was the one built-in that already answered, from a copy
+  of the rule in `list.rs` that had exactly that backwards — and a third copy of
+  "Only N argument(s) allowed" went with it.
+
+  A REST parameter is checked in two halves, because dart binds the rest, runs
+  the body, and only then complains about a name the body did not consume:
+
+  ```
+    math.max($x: 1)          At least one argument must be passed.   the body
+    list.slash(1, $x: 2)     At least two elements are required.
+    math.max(1, 2, $x: 3)    No parameter named $x.                  the leftover
+  ```
+
+  `color.adjust`/`change`/`scale`, `map.merge`/`set` and `meta.call` are
+  excluded: keywords are their interface (`color.adjust(red, $lightness: 10%)`).
+  dart decides that at runtime by whether the body read them, which `map.set`
+  shows — it reads them in the `$key`/`$value` form and not in the positional
+  one — so those two still differ from dart by one message where dart's own body
+  would have complained instead.
+
+  `sass:color`'s `hwb` and `alpha` verify nothing, both measured: `hwb` is
+  overloaded by arity with different parameter names, and `alpha` prints no
+  declaration at all (dart answers `alpha(red, blue)` with the
+  self-contradictory `Only 1 argument allowed, but 1 were passed.`).
+
+  **The overloaded colour constructors are NOT covered** (#220), and that
+  includes the shape #62 was opened with:
+
+  ```
+    rgb(1, 2, 3, $nope: 4)                          still returns the colour
+    color.hwb($channels: (240 10% 20%), $nope: 2)   still returns the colour
+  ```
+
+  dart chooses an overload and then verifies against that one, so the same
+  name is a parameter or not depending on its company —
+  `rgb(1, 2, 3, $channels: 1)` is `No parameter named $channels.` while
+  `rgb($red: 1, $green: 2, $blue: 3, $channels: 1)` is
+  `No parameters named $red, $green or $blue.`. Guessing that rule would
+  REJECT valid stylesheets, which is worse than the silence it replaces.
+
+  Also not fixed here, each measured and filed: dart's fourth rule,
+  `Argument $x was passed both by position and by name.` (#213, which sasso
+  implements nowhere and which outranks all three); the CSS math functions,
+  whose named-argument error is `Keyword arguments can't be used with
+  calculations.` (#215) — the bare `sin(…)` is one of those, while
+  `math.sin(…)` is verified here; and the deprecated global spellings, where
+  `lighten` shares a name with a module-only member.
+
+### Performance
+
+- **`@extend` no longer compares module paths per rule.** On a codebase that
+  spreads its `@extend`s over many modules, most of a compile went to comparing
+  strings: every style rule checked each `@extend` batch's origin module against
+  its own scope, and every `@extend` checked the origin of every extension
+  registered before it — both on full module paths, which share long prefixes,
+  so each comparison ran most of the way down the string. The first is now a
+  flag resolved once per scope; the second asks about the handful of distinct
+  origins in the store instead of every entry in it. Output is byte-identical.
+
+  Measured on Lichess's `ui/` tree (148 entry points, about 1,500 `@extend`s in
+  380 files) through the npm package's native engine on Linux/x86_64, the way
+  its build script calls sasso: a full build is 27.5% faster in dev mode
+  (source maps with embedded sources) and 31.6% faster in production mode
+  (compressed), and recompiling its heaviest entry point alone, which bounds how
+  soon a save in that area shows up, takes half the time. The binary compiles
+  that entry point 2.7× faster.
+
 ## [0.19.0] - 2026-09-28
 
 _Watch mode on both front ends: the binary gains `--watch` and `--update`

@@ -977,8 +977,10 @@ pub(crate) struct ExtendPlan {
     /// Each input batch's global registration index (ascending — the
     /// visible-subset filter preserves the evaluator's order).
     batch_reg_idx: Vec<usize>,
-    /// Each input batch's origin module key.
-    batch_origin: Vec<String>,
+    /// Whether each input batch's origin module is this scope. Resolved once
+    /// here: comparing the origin keys (module paths) per rule was most of an
+    /// `@extend`-heavy compile.
+    batch_is_own: Vec<bool>,
     /// Per-origin rank in this scope's downstream store-merge flatten
     /// (dart `addExtensions` order): smaller = earlier in the merged map.
     origin_rank: std::collections::HashMap<String, usize>,
@@ -1038,7 +1040,7 @@ pub(crate) fn build_extend_plan(
     let mut batches: Vec<Vec<Extension>> = Vec::new();
     let mut batch_registry_marks: Vec<usize> = Vec::new();
     let mut batch_reg_idx: Vec<usize> = Vec::new();
-    let mut batch_origin: Vec<String> = Vec::new();
+    let mut batch_is_own: Vec<bool> = Vec::new();
     let mut last_origin: Option<&str> = None;
     for (i, batch) in raw_batches.into_iter().enumerate() {
         let origin = extensions[i].origin.as_str();
@@ -1050,7 +1052,7 @@ pub(crate) fn build_extend_plan(
             batches.push(batch);
             batch_registry_marks.push(raw_marks[i]);
             batch_reg_idx.push(extensions[i].reg_idx);
-            batch_origin.push(extensions[i].origin.clone());
+            batch_is_own.push(origin == scope);
             last_origin = Some(origin);
         }
     }
@@ -1069,7 +1071,7 @@ pub(crate) fn build_extend_plan(
         registry,
         batch_registry_marks,
         batch_reg_idx,
-        batch_origin,
+        batch_is_own,
         origin_rank,
         legacy_order,
         source_spec,
@@ -1243,13 +1245,13 @@ pub(crate) fn extend_selectors(
             Vec::new()
         } else {
             (0..batches.len())
-                .filter(|&i| plan.batch_origin.get(i).is_some_and(|o| o != scope))
+                .filter(|&i| plan.batch_is_own.get(i) == Some(&false))
                 .collect()
         };
         let pre_batches: Vec<usize> = if extend_base != usize::MAX && extend_base > 0 {
             let mut v: Vec<usize> = (0..batches.len())
                 .filter(|&i| {
-                    (plan.legacy_order || plan.batch_origin.get(i).is_some_and(|o| o == scope))
+                    (plan.legacy_order || plan.batch_is_own.get(i) == Some(&true))
                         && plan.batch_reg_idx.get(i).copied().unwrap_or(usize::MAX) < extend_base
                 })
                 .collect();
@@ -3295,6 +3297,12 @@ fn expand_extensions(input: &[Extension]) -> (Vec<Vec<Extension>>, Vec<Extension
     // Every `@extend` target, for detecting a self-referential pseudo extender
     // (one whose `:not(...)`/`:has(...)` argument names a target — issue_2055).
     let all_targets: FxHashSet<Simple> = input.iter().filter_map(|e| e.target.clone()).collect();
+    // The distinct origins in `registry[..registry_scanned]`. `registry` is
+    // append-only and an entry's origin never changes, so the visibility gate
+    // below asks about a handful of origins instead of every entry: per entry,
+    // it was a hash of a module path per `@extend`, quadratic in the store.
+    let mut registry_origins: Vec<String> = Vec::new();
+    let mut registry_scanned = 0usize;
 
     for ext in input {
         let Some(target) = ext.target.clone() else {
@@ -3340,8 +3348,14 @@ fn expand_extensions(input: &[Extension]) -> (Vec<Vec<Extension>>, Vec<Extension
         // store. The block is what ends the borrow: the registration below
         // pushes to `registry`.
         let pre_extended: Vec<(Complex, bool)> = {
+            for r in &registry[registry_scanned..] {
+                if !registry_origins.contains(&r.origin) {
+                    registry_origins.push(r.origin.clone());
+                }
+            }
+            registry_scanned = registry.len();
             let visible_registry: std::borrow::Cow<'_, [Extension]> =
-                if registry.iter().all(|r| ext.origin_closure.contains(&r.origin)) {
+                if registry_origins.iter().all(|o| ext.origin_closure.contains(o)) {
                     std::borrow::Cow::Borrowed(&registry[..])
                 } else {
                     std::borrow::Cow::Owned(

@@ -153,7 +153,26 @@ impl<'a> Evaluator<'a> {
             "keywords" => Some(Self::meta_keywords(pos_args, named, pos)),
             _ => None,
         };
-        out.map(sized)
+        // These thirteen never reach `call_module`, so the table's declaration
+        // has to be applied here too — otherwise they are the one part of it
+        // nothing verifies, and `meta.variable-exists("v", $nope: 1)` answers
+        // `true` where dart says `No parameter named $nope.` (#62,
+        // r4128127579). One place covers every way in: a direct call, a
+        // `@forward`ed or `as *` one, and a first-class reference, all route
+        // through here.
+        //
+        // Checked after the arm has run rather than before, which is
+        // observationally the same: every member here is a pure query of the
+        // evaluator's state, and the only one that runs user code —
+        // `meta.call` — carries a rest parameter, so its verification can only
+        // report a missing `$function`, which its own body reports identically.
+        out.map(
+            |r| match crate::builtins::verify_member_args("meta", member, pos_args, named, pos) {
+                Err(e) => Err(e),
+                Ok(()) => r,
+            },
+        )
+        .map(sized)
     }
 
     /// `meta.keywords($args)`: the keyword arguments captured by a `$args...`

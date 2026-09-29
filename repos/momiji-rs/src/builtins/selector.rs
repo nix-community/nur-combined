@@ -41,8 +41,8 @@ pub(super) fn try_call(
     pos: Pos,
 ) -> Option<Result<Value, Error>> {
     Some(match name {
-        "selector-nest" => fn_nest(pos_args, named, pos),
-        "selector-append" => fn_append(pos_args, named, pos),
+        "selector-nest" => fn_nest(pos_args, pos),
+        "selector-append" => fn_append(pos_args, pos),
         "selector-extend" => fn_extend(pos_args, named, pos),
         "selector-replace" => fn_replace(pos_args, named, pos),
         "selector-unify" => fn_unify(pos_args, named, pos),
@@ -544,11 +544,12 @@ fn split_top_commas(s: &str) -> Vec<String> {
 
 /// `selector-nest($selectors...)`: nest each selector within the previous,
 /// resolving `&` against the accumulated result (dart-sass `nest`).
-fn fn_nest(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
-    let mut all: Vec<Value> = pos_args.to_vec();
-    for (_, v) in named {
-        all.push(v.clone());
-    }
+fn fn_nest(pos_args: &[Value], pos: Pos) -> Result<Value, Error> {
+    // `pos_args` only: a named argument is not part of `$selectors...`, and
+    // folding its VALUE in made `selector.nest("a", "b", $x: 1)` report
+    // `1 is not a valid selector` — a misleading message about an argument the
+    // caller never passed as a selector (#62).
+    let all: Vec<Value> = pos_args.to_vec();
     if all.is_empty() {
         return Err(Error::at(
             "$selectors: At least one selector must be passed.".to_string(),
@@ -605,11 +606,12 @@ fn parse_arg_selector(v: &Value, pos: Pos) -> Result<Vec<Complex>, Error> {
 /// `selector-append($selectors...)`: append each selector to the previous with
 /// no descendant combinator — the leading compound of each subsequent complex
 /// merges onto the trailing compound of the accumulator (dart-sass `append`).
-fn fn_append(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
-    let mut all: Vec<Value> = pos_args.to_vec();
-    for (_, v) in named {
-        all.push(v.clone());
-    }
+fn fn_append(pos_args: &[Value], pos: Pos) -> Result<Value, Error> {
+    // `pos_args` only: a named argument is not part of `$selectors...`, and
+    // folding its VALUE in made `selector.append("a", "b", $x: 1)` report
+    // `1 is not a valid selector` — a misleading message about an argument the
+    // caller never passed as a selector (#62). Same as `fn_nest` above.
+    let all: Vec<Value> = pos_args.to_vec();
     if all.is_empty() {
         return Err(Error::at(
             "$selectors: At least one selector must be passed.".to_string(),
