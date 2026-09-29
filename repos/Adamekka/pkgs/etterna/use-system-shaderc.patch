@@ -1,0 +1,18 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -137,10 +137,13 @@
+     target_link_libraries(Etterna PRIVATE vk-bootstrap::vk-bootstrap)
+     target_link_libraries(Etterna PRIVATE VulkanMemoryAllocator)
+ 
+-    find_package(Vulkan REQUIRED COMPONENTS shaderc_combined)
++    find_package(Vulkan REQUIRED)
++    # Use the system shaderc library so its own build controls glslang dependencies.
++    find_package(PkgConfig REQUIRED)
++    pkg_check_modules(SHADERC REQUIRED IMPORTED_TARGET shaderc)
+     target_link_libraries(Etterna PRIVATE
+         Vulkan::Headers
+-        Vulkan::shaderc_combined)
++        PkgConfig::SHADERC)
+ 
+     if(WITH_VULKAN_LINUX_EXTRAS AND UNIX AND NOT APPLE)
+         target_link_libraries(Etterna PRIVATE

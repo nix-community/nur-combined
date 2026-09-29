@@ -1,0 +1,48 @@
+name: Test Etterna
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/test-etterna.yml
+      - .github/workflows/update-etterna.yml
+      - default.nix
+      - flake.lock
+      - flake.nix
+      - pkgs/etterna/**
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/test-etterna.yml
+      - .github/workflows/update-etterna.yml
+      - default.nix
+      - flake.lock
+      - flake.nix
+      - pkgs/etterna/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      NIXPKGS_ALLOW_UNFREE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+
+      - name: Check formatting and workflow syntax
+        run: |
+          nix run --inputs-from . nixpkgs#nixfmt -- --check default.nix pkgs/etterna/default.nix
+          nix run --inputs-from . nixpkgs#actionlint -- \
+            .github/workflows/test-etterna.yml .github/workflows/update-etterna.yml
+
+      - name: Build and check package
+        run: nix build --impure --no-link --print-build-logs .#etterna

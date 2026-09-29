@@ -1,0 +1,99 @@
+name: Update Etterna
+
+on:
+  schedule:
+    - cron: "45 9 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: update-etterna
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      NIXPKGS_ALLOW_UNFREE: "1"
+    outputs:
+      base_sha: ${{ steps.update.outputs.base_sha }}
+      changed: ${{ steps.update.outputs.changed }}
+      package: ${{ steps.validated.outputs.package }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: main
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+
+      - name: Update stable release
+        id: update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The workflow and the package must be validated from the same main revision.
+          if [ "$(git rev-parse HEAD)" != "$GITHUB_SHA" ]; then
+            printf '%s\n' 'Start a new updater run on main; main moved or another ref was selected.' >&2
+            exit 1
+          fi
+          printf 'base_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          nix run --inputs-from . nixpkgs#nix-update -- \
+            --flake --version stable --use-github-releases etterna
+          if git diff --quiet -- pkgs/etterna/default.nix; then
+            printf 'changed=false\n' >> "$GITHUB_OUTPUT"
+          else
+            printf 'changed=true\n' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build and check updated package
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          nix run --inputs-from . nixpkgs#nixfmt -- --check pkgs/etterna/default.nix
+          nix build --impure --no-link --print-build-logs .#etterna
+
+      - name: Record validated package
+        id: validated
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          # Transfer exact validated bytes to the separate job with write permission.
+          printf 'package=%s\n' "$(base64 --wrap=0 pkgs/etterna/default.nix)" >> "$GITHUB_OUTPUT"
+
+  push:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout tested base
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.update.outputs.base_sha }}
+
+      - name: Commit and push tested update
+        env:
+          BASE_SHA: ${{ needs.update.outputs.base_sha }}
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          PACKAGE: ${{ needs.update.outputs.package }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$BASE_SHA"
+          printf '%s' "$PACKAGE" | base64 --decode > pkgs/etterna/default.nix
+          git add -- pkgs/etterna/default.nix
+          git commit -m "Update etterna"
+          git fetch origin refs/heads/main
+          if [ "$(git rev-parse FETCH_HEAD)" != "$BASE_SHA" ]; then
+            printf '%s\n' 'main changed during validation; start a new updater run on main, not a rerun of this job.' >&2
+            exit 1
+          fi
+          # A concurrent advance after the fetch is rejected by this non-force push.
+          git push origin HEAD:refs/heads/main

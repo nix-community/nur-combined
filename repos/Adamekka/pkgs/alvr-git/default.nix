@@ -2,6 +2,7 @@
   alvr,
   android-tools,
   fetchFromGitHub,
+  fetchpatch,
   ffmpeg_8,
   lib,
   maintainer,
@@ -80,6 +81,11 @@ in
 
   # The release patch targets an older build script and its FFmpeg 6.0 dependency.
   patches = [
+    # PR #3353 fixes pose matching with stripped SteamVR binaries to reduce stutter.
+    (fetchpatch {
+      hash = "sha256-AOUgD6Z509IJ14lLitIruE2b4+ypNmEJuBQ1mi3y6go=";
+      url = "https://github.com/alvr-org/ALVR/commit/20a319ba0ccef16081763c4456856b3491c94a9e.patch";
+    })
     (replaceVars ./fix-finding-libs.patch {
       ffmpeg = lib.getDev ffmpeg-alvr;
       vulkanHeaders = lib.getDev vulkan-headers;
