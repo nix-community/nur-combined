@@ -29,6 +29,7 @@
   "files": [
     "_loader.mjs",
     "_importer.mjs",
+    "_utf8.mjs",
     "_value.mjs",
     "_immutable.mjs",
     "_jobs.mjs",

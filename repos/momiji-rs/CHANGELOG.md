@@ -11,24 +11,15 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
-### Performance
+## [0.19.2] - 2026-09-29
 
-- **npm, wasm engine:** resolving an `@use`/`@import` no longer throws an
-  error for every candidate file that is not there. Most probes miss (about 850
-  of the 980 made by Lichess's heaviest entry point), and building an ENOENT
-  error for each was a quarter of the compile. That entry point compiles in
-  about 100 ms instead of 134 ms on Linux/x86_64. The native engine and the
-  binary resolve in Rust and are unaffected.
-
-## [0.19.1] - 2026-09-28
-
-_Faster builds through the npm package: on Lichess's 148 entry points on
-Linux/x86_64, a full build takes about half as long as under 0.18.0, with
-byte-identical output. `@extend` stops comparing module paths per rule
-(#219), and the npm CLI compiles a batch on the native addon's own threads
-instead of a pool of Node workers (#221). Built-ins now reject an argument name
-they do not declare, as dart-sass does (#62): a stylesheet that passed one
-used to compile, and may now fail._
+_Faster again through the npm package, on the paths 0.19.1 missed. The wasm
+engine stops throwing an error for every file it probes and does not find
+(#227), which takes a full Lichess build on it from 631 ms to 498 ms. The CLI
+stops loading its `--watch` modules on every run (#228), so handing one file
+to a `sasso` binary costs what it did in 0.18.0 again. An argument given both
+positionally and by name is now an error, as it is in dart-sass (#147): a
+stylesheet that did that used to compile, and may now fail._
 
 ### Fixed
 
@@ -68,6 +59,32 @@ used to compile, and may now fail._
   body READ the keywords at runtime (#225); and a parameter declared `$a_b` is
   still quoted back as `$a-b`, because the parser normalizes it before any
   message exists (#224).
+
+### Performance
+
+- **npm, wasm engine:** resolving an `@use`/`@import` no longer throws an
+  error for every candidate file that is not there. Most probes miss (about 850
+  of the 980 made by Lichess's heaviest entry point), and building an ENOENT
+  error for each was a quarter of the compile. That entry point compiles in
+  about 100 ms instead of 134 ms on Linux/x86_64. The native engine and the
+  binary resolve in Rust and are unaffected.
+- **npm CLI:** starting up is back to 0.18.0's cost. 0.19.x loaded the six
+  `--watch` modules and the whole importer on every run, including one that
+  only hands its command line to a `sasso` binary on PATH. They now load only
+  where they are used. Handing one small entry point to the binary takes
+  33.6 ms instead of 38.5 ms on Linux/x86_64 (0.18.0: 33.0 ms).
+
+## [0.19.1] - 2026-09-28
+
+_Faster builds through the npm package: on Lichess's 148 entry points on
+Linux/x86_64, a full build takes about half as long as under 0.18.0, with
+byte-identical output. `@extend` stops comparing module paths per rule
+(#219), and the npm CLI compiles a batch on the native addon's own threads
+instead of a pool of Node workers (#221). Built-ins now reject an argument name
+they do not declare, as dart-sass does (#62): a stylesheet that passed one
+used to compile, and may now fail._
+
+### Fixed
 
 - **A built-in rejects an argument name it does not declare** (#62).
   `string.to-upper-case("a", $nope: 1)` compiled, and so did `math.abs`,
@@ -3468,7 +3485,8 @@ real-world SCSS byte-identically to dart-sass.
 - Distribution: CLI binary (prebuilt via cargo-dist), library crate, and a
   zero-dependency WebAssembly build published to npm as `@momiji-rs/sasso`.
 
-[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.19.1...HEAD
+[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.19.2...HEAD
+[0.19.2]: https://github.com/momiji-rs/sasso/compare/v0.19.1...v0.19.2
 [0.19.1]: https://github.com/momiji-rs/sasso/compare/v0.19.0...v0.19.1
 [0.19.0]: https://github.com/momiji-rs/sasso/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/momiji-rs/sasso/compare/v0.17.0...v0.18.0

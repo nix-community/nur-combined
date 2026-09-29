@@ -33,16 +33,10 @@ import { constants as osConstants } from "node:os";
 import { defaultJobs } from "./_jobs.mjs";
 // The accepted deprecation ids, shared with the JS API so there is one copy.
 import { DEPRECATION_IDS } from "./_deprecations.mjs";
-import { triggersRecompile } from "./_watchfilter.mjs";
-import { coalesce } from "./_coalesce.mjs";
-import { makeProbe } from "./_probe.mjs";
-import { makePoller } from "./_poller.mjs";
-import { baselineFor } from "./_baseline.mjs";
-import { makeWatchers } from "./_watchers.mjs";
 import { errorCss } from "./_errorcss.mjs";
 // One UTF-8 rule for every read. `readFileSync(fd, "utf8")` substitutes
 // U+FFFD instead of refusing, which is the bug this exists to prevent.
-import { decodeUtf8 } from "./_importer.mjs";
+import { decodeUtf8 } from "./_utf8.mjs";
 // The prebuilt-addon rules, shared with native.mjs: which engine this platform
 // is SUPPOSED to run decides whether a wasm fallback is news (see `loadEngine`).
 import { nativePackage, platformKey } from "./_addon.mjs";
@@ -1429,6 +1423,22 @@ function isFresh(output, input, deps) {
 // binary's since #198. Lichess spawns this with 147 entry points; one watcher
 // per job would be 147 copies of the same few directories, and one sweep per
 // job 147 stats of every shared partial every 50 ms.
+//
+// Its six modules are loaded by `loadWatchModules`, only for `--watch`: a
+// static import put them on every run's startup, including one that just hands
+// its command line to the binary.
+let triggersRecompile, coalesce, makeProbe, makePoller, baselineFor, makeWatchers;
+async function loadWatchModules() {
+  [{ triggersRecompile }, { coalesce }, { makeProbe }, { makePoller }, { baselineFor }, { makeWatchers }] =
+    await Promise.all([
+      import("./_watchfilter.mjs"),
+      import("./_coalesce.mjs"),
+      import("./_probe.mjs"),
+      import("./_poller.mjs"),
+      import("./_baseline.mjs"),
+      import("./_watchers.mjs"),
+    ]);
+}
 function runWatch(jobs, common, opts) {
   // `--poll` is the native watcher OFF, `--no-poll` is the sweep off, and
   // by default both run: see the flag's own comment, and `_poller.mjs` for
@@ -2524,6 +2534,7 @@ async function main() {
   if (opts.watch) {
     if (jobs.some((j) => !j.output)) fail("error: --watch requires <input> <output>");
     const wantMap = opts.noCss ? false : opts.sourceMap === undefined ? true : opts.sourceMap;
+    await loadWatchModules();
     runWatch(jobs, { ...common, sourceMap: wantMap, ...syntaxOf(opts) }, opts);
     return; // keep the process alive on the watchers
   }
