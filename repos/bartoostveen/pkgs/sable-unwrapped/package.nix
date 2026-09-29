@@ -4,18 +4,18 @@
   nix-update-script,
   fetchFromGitHub,
   fetchPnpmDeps,
-  pnpm_10,
+  pnpm_11,
   pnpmConfigHook,
   nodejs_24,
 }:
 
 let
-  pnpm = pnpm_10;
+  pnpm = pnpm_11;
   nodejs = nodejs_24;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-unwrapped";
-  version = "1.22.9";
+  version = "1.22.10";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "Sable";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TZycPD+lor6pCTcJaZLUvb84CyFn5jBROltdz9hSdLg=";
+    hash = "sha256-ICeOuOHhL1WeFnPDcES+CLXFA181KCGNOEXWqFh3KlY=";
   };
 
   patches = [
@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-paJKHLFT78b/OKg/xWYUquET5JjF3P1kNZXRTP0IIsY=";
+    hash = "sha256-kEceCe0auMjcLSXYGOGLmm0PZpoRiz+FSl/Pa+pf/3g=";
   };
 
   env = {
