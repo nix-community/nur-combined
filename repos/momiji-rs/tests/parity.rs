@@ -3076,6 +3076,830 @@ fn an_attribute_value_is_decoded_and_requoted() {
 }
 
 #[test]
+fn non_ascii_whitespace_in_a_selector_is_not_a_separator() {
+    // CSS whitespace is space, tab, LF, CR and form feed — nothing else. NBSP
+    // and the other Unicode spaces are ordinary characters: part of a name
+    // (`a\u{a0}b` is ONE type selector) or of an attribute value. Treating them
+    // as whitespace rewrote them to U+0020, so `[a="x\u{a0}y"]` matched
+    // `x y` instead of `x&nbsp;y` (#71). Byte-matched to dart-sass 1.104.1,
+    // which keeps the character and so opens with `@charset`. Offline.
+    for (sel, want) in [
+        // A quoted attribute value keeps it (and, being an identifier, loses
+        // its quotes).
+        ("[a=\"x\u{a0}y\"]", "[a=x\u{a0}y]"),
+        ("[a=\"x\u{2003}y\"]", "[a=x\u{2003}y]"),
+        ("[a=\"x\u{a0}\u{a0}y\"]", "[a=x\u{a0}\u{a0}y]"),
+        ("[a=\"x \u{a0} y\"]", "[a=\"x \u{a0} y\"]"),
+        ("[a=\"x\u{a0}\"]", "[a=x\u{a0}]"),
+        // A hex escape's delimiter is the ASCII space; the NBSP after it stays.
+        ("[a=\"\\61 \u{a0}b\"]", "[a=a\u{a0}b]"),
+        // An unquoted value runs through it rather than stopping and reading
+        // the rest as a modifier (`[a=x y]`, with a plain space).
+        ("[a=x\u{a0}y]", "[a=x\u{a0}y]"),
+        ("[a=x\u{a0}]", "[a=x\u{a0}]"),
+        // Outside an attribute it is a name character, not a combinator.
+        ("a\u{a0}b", "a\u{a0}b"),
+        (".a\u{a0}.b", ".a\u{a0}.b"),
+        (":not(.a\u{a0}b)", ":not(.a\u{a0}b)"),
+        (":is([a=\"x\u{a0}y\"])", ":is([a=x\u{a0}y])"),
+        ("[a=\"x\u{a0}y\"] > b", "[a=x\u{a0}y] > b"),
+    ] {
+        assert_eq!(
+            ours(&format!("{sel} {{ c: d }}\n")),
+            format!("@charset \"UTF-8\";\n{want} {{\n  c: d;\n}}\n"),
+            "{sel}"
+        );
+    }
+    // The selector survives being re-parsed: as a parent, by `@extend`, and by
+    // the selector functions.
+    for (scss, want) in [
+        (
+            "[a=\"x\u{a0}y\"] { &.b { c: d } }\n",
+            "[a=x\u{a0}y].b {\n  c: d;\n}\n",
+        ),
+        (
+            ".a\u{a0}b { &:hover { c: d } }\n",
+            ".a\u{a0}b:hover {\n  c: d;\n}\n",
+        ),
+        (
+            "[a=\"x\u{a0}y\"] { @extend .q; }\n.q { e: f }\n",
+            ".q, [a=x\u{a0}y] {\n  e: f;\n}\n",
+        ),
+        (
+            ".a\u{a0}b { @extend .q; }\n.q { e: f }\n",
+            ".q, .a\u{a0}b {\n  e: f;\n}\n",
+        ),
+        (
+            "@use \"sass:selector\";\na { b: selector.parse(\"[a=\\\"x\u{a0}y\\\"]\"); }\n",
+            "a {\n  b: [a=x\u{a0}y];\n}\n",
+        ),
+        (
+            "@use \"sass:selector\";\na { b: selector.append(\"[a=x\u{a0}y]\", \".c\"); }\n",
+            "a {\n  b: [a=x\u{a0}y].c;\n}\n",
+        ),
+    ] {
+        assert_eq!(ours(scss), format!("@charset \"UTF-8\";\n{want}"), "{scss}");
+    }
+    // Compressed output takes the same path to the same answer.
+    let css = compile(
+        "[a=\"x\u{a0}y\"] > b { c: d }\n",
+        &Options::default().with_style(OutputStyle::Compressed),
+    )
+    .unwrap();
+    assert_eq!(css, "\u{feff}[a=x\u{a0}y]>b{c:d}");
+}
+
+#[test]
+fn a_hex_escape_is_not_closed_by_a_non_ascii_space() {
+    // A hex escape swallows ONE trailing CSS whitespace as its delimiter. An
+    // NBSP is not one, so it is the next character of the name — sasso ate it
+    // as the delimiter and deleted it (`\61\u{a0}b` came out `ab`). Every
+    // selector path decides this separately (the normalizer, the parser, the
+    // compressor), so each shape here goes through a different one.
+    // Byte-matched to dart-sass 1.104.1, in both styles. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "\\61\u{a0}b { c: d }\n",
+            "a\u{a0}b {\n  c: d;\n}\n",
+            "a\u{a0}b{c:d}",
+        ),
+        (
+            ".a\\9\u{a0}b { c: d }\n",
+            ".a\\9 \u{a0}b {\n  c: d;\n}\n",
+            ".a\\9 \u{a0}b{c:d}",
+        ),
+        (
+            "#\\31\u{a0}x { c: d }\n",
+            "#\\31 \u{a0}x {\n  c: d;\n}\n",
+            "#\\31 \u{a0}x{c:d}",
+        ),
+        (
+            ".a\\39\u{2003}x { c: d }\n",
+            ".a9\u{2003}x {\n  c: d;\n}\n",
+            ".a9\u{2003}x{c:d}",
+        ),
+        (
+            ".a\\9\u{a0}b > c { c: d }\n",
+            ".a\\9 \u{a0}b > c {\n  c: d;\n}\n",
+            ".a\\9 \u{a0}b>c{c:d}",
+        ),
+        (
+            ":not(.a\\9\u{a0}b) { c: d }\n",
+            ":not(.a\\9 \u{a0}b) {\n  c: d;\n}\n",
+            ":not(.a\\9 \u{a0}b){c:d}",
+        ),
+        (
+            ".a\\9\u{a0}b { &:hover { c: d } }\n",
+            ".a\\9 \u{a0}b:hover {\n  c: d;\n}\n",
+            ".a\\9 \u{a0}b:hover{c:d}",
+        ),
+        (
+            ".a\\9\u{a0}b { @extend .q; }\n.q { e: f }\n",
+            ".q, .a\\9 \u{a0}b {\n  e: f;\n}\n",
+            ".q,.a\\9 \u{a0}b{e:f}",
+        ),
+    ] {
+        assert_eq!(ours(scss), format!("@charset \"UTF-8\";\n{expanded}"), "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, format!("\u{feff}{compressed}"), "{scss} (compressed)");
+    }
+    // A CSS-whitespace delimiter is still consumed, and a tab still counts.
+    assert_eq!(ours(".a\\9 b { c: d }\n"), ".a\\9 b {\n  c: d;\n}\n");
+    assert_eq!(ours(".a\\9\tb { c: d }\n"), ".a\\9 b {\n  c: d;\n}\n");
+}
+
+#[test]
+fn the_compressor_keeps_a_non_ascii_space_beside_a_combinator() {
+    // Compressed output drops the whitespace around a combinator, and an NBSP
+    // beside one is not that whitespace: it starts the next compound's name.
+    // Byte-matched to dart-sass 1.104.1. Offline.
+    for (scss, compressed) in [
+        (".a \u{a0}b > c { c: d }\n", ".a \u{a0}b>c{c:d}"),
+        (".a > \u{a0}b { c: d }\n", ".a>\u{a0}b{c:d}"),
+        (".a \u{a0}~ b { c: d }\n", ".a \u{a0}~b{c:d}"),
+    ] {
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, format!("\u{feff}{compressed}"), "{scss}");
+    }
+}
+
+#[test]
+fn the_selector_parser_trims_and_skips_css_whitespace_only() {
+    // A selector is trimmed at its edges and around each comma, and parsed
+    // with whitespace skipped between compounds — by the normalizer, by the
+    // parser that nesting, `@extend` and the selector functions share, and by
+    // the pseudo-argument validator. Each did it with `str::trim` or
+    // `char::is_whitespace`, both of which take NBSP, so an NBSP at the edge
+    // of a compound was deleted: `:is(\u{a0}b)` came out `:is(b)`, and
+    // `.a \u{a0}b` came out `.a b`. Byte-matched to dart-sass 1.104.1, in
+    // both styles. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            ":is(.a \u{a0}b, c) { c: d }\n",
+            "@charset \"UTF-8\";\n:is(.a \u{a0}b, c) {\n  c: d;\n}",
+            "\u{feff}:is(.a \u{a0}b,c){c:d}",
+        ),
+        (
+            ":is(.a, \u{a0}b) { c: d }\n",
+            "@charset \"UTF-8\";\n:is(.a, \u{a0}b) {\n  c: d;\n}",
+            "\u{feff}:is(.a,\u{a0}b){c:d}",
+        ),
+        (
+            ":is(\u{a0}b) { c: d }\n",
+            "@charset \"UTF-8\";\n:is(\u{a0}b) {\n  c: d;\n}",
+            "\u{feff}:is(\u{a0}b){c:d}",
+        ),
+        (
+            ":where(.a > \u{a0}b) { c: d }\n",
+            "@charset \"UTF-8\";\n:where(.a > \u{a0}b) {\n  c: d;\n}",
+            "\u{feff}:where(.a>\u{a0}b){c:d}",
+        ),
+        (
+            "::slotted(\u{a0}b) { c: d }\n",
+            "@charset \"UTF-8\";\n::slotted(\u{a0}b) {\n  c: d;\n}",
+            "\u{feff}::slotted(\u{a0}b){c:d}",
+        ),
+        (
+            ".a \u{a0}b { &:hover { c: d } }\n",
+            "@charset \"UTF-8\";\n.a \u{a0}b:hover {\n  c: d;\n}",
+            "\u{feff}.a \u{a0}b:hover{c:d}",
+        ),
+        (
+            ".a, \u{a0}b { .c { d: e } }\n",
+            "@charset \"UTF-8\";\n.a .c, \u{a0}b .c {\n  d: e;\n}",
+            "\u{feff}.a .c,\u{a0}b .c{d:e}",
+        ),
+        (
+            ".a \u{a0}b { @extend .q; } .q { e: f }\n",
+            "@charset \"UTF-8\";\n.q, .a \u{a0}b {\n  e: f;\n}",
+            "\u{feff}.q,.a \u{a0}b{e:f}",
+        ),
+        (
+            ".q .r { e: f } .a \u{a0}b { @extend .r; }\n",
+            "@charset \"UTF-8\";\n.q .r, .q .a \u{a0}b, .a .q \u{a0}b {\n  e: f;\n}",
+            "\u{feff}.q .r,.q .a \u{a0}b,.a .q \u{a0}b{e:f}",
+        ),
+        (
+            "a\u{a0} { c: d }\n",
+            "@charset \"UTF-8\";\na\u{a0} {\n  c: d;\n}",
+            "\u{feff}a\u{a0}{c:d}",
+        ),
+        (
+            "a \u{a0} { c: d }\n",
+            "@charset \"UTF-8\";\na \u{a0} {\n  c: d;\n}",
+            "\u{feff}a \u{a0}{c:d}",
+        ),
+        (
+            "a,\u{a0}b { c: d }\n",
+            "@charset \"UTF-8\";\na, \u{a0}b {\n  c: d;\n}",
+            "\u{feff}a,\u{a0}b{c:d}",
+        ),
+        (
+            "a\u{a0},b { c: d }\n",
+            "@charset \"UTF-8\";\na\u{a0}, b {\n  c: d;\n}",
+            "\u{feff}a\u{a0},b{c:d}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.nest(\".a \u{a0}b\", \"&:hover\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: .a \u{a0}b:hover;\n}",
+            "\u{feff}a{b:.a \u{a0}b:hover}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.extend(\".a \u{a0}b\", \".a\", \".c\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: .a \u{a0}b, .c \u{a0}b;\n}",
+            "\u{feff}a{b:.a \u{a0}b,.c \u{a0}b}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(\".a \u{a0}b\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: .a \u{a0}b;\n}",
+            "\u{feff}a{b:.a \u{a0}b}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(\"\u{a0}.a\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: \u{a0}.a;\n}",
+            "\u{feff}a{b:\u{a0}.a}",
+        ),
+        (
+            ":not(\u{a0}) { c: d }\n",
+            "@charset \"UTF-8\";\n:not(\u{a0}) {\n  c: d;\n}",
+            "\u{feff}:not(\u{a0}){c:d}",
+        ),
+        (
+            ":is(\u{a0}) { c: d }\n",
+            "@charset \"UTF-8\";\n:is(\u{a0}) {\n  c: d;\n}",
+            "\u{feff}:is(\u{a0}){c:d}",
+        ),
+        (
+            ":is(a,\u{a0}) { c: d }\n",
+            "@charset \"UTF-8\";\n:is(a, \u{a0}) {\n  c: d;\n}",
+            "\u{feff}:is(a,\u{a0}){c:d}",
+        ),
+        (
+            ":nth-child(2n of .a \u{a0}) { c: d }\n",
+            "@charset \"UTF-8\";\n:nth-child(2n of .a \u{a0}) {\n  c: d;\n}",
+            "\u{feff}:nth-child(2n of .a \u{a0}){c:d}",
+        ),
+        (
+            ":nth-child(2n of \u{a0}.a) { c: d }\n",
+            "@charset \"UTF-8\";\n:nth-child(2n of \u{a0}.a) {\n  c: d;\n}",
+            "\u{feff}:nth-child(2n of \u{a0}.a){c:d}",
+        ),
+        (
+            ":is(a, \u{a0}, b) { c: d }\n",
+            "@charset \"UTF-8\";\n:is(a, \u{a0}, b) {\n  c: d;\n}",
+            "\u{feff}:is(a,\u{a0},b){c:d}",
+        ),
+        (
+            ":not(\u{a0}.a) { c: d }\n",
+            "@charset \"UTF-8\";\n:not(\u{a0}.a) {\n  c: d;\n}",
+            "\u{feff}:not(\u{a0}.a){c:d}",
+        ),
+        (
+            ":not(.a\u{a0}) { c: d }\n",
+            "@charset \"UTF-8\";\n:not(.a\u{a0}) {\n  c: d;\n}",
+            "\u{feff}:not(.a\u{a0}){c:d}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.simple-selectors(\"\u{a0}.a\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: \u{a0}, .a;\n}",
+            "\u{feff}a{b:\u{a0},.a}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.simple-selectors(\".a\u{a0}\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: .a\u{a0};\n}",
+            "\u{feff}a{b:.a\u{a0}}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.is-superselector(\"\u{a0}.a\", \".a\"); }\n",
+            "a {\n  b: false;\n}",
+            "a{b:false}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.is-superselector(\".a \u{a0}b\", \".a b\"); }\n",
+            "a {\n  b: false;\n}",
+            "a{b:false}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.replace(\".a b\", \"b\", \"\u{a0}.c\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: .a \u{a0}.c;\n}",
+            "\u{feff}a{b:.a \u{a0}.c}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.unify(\"\u{a0}.a\", \".c\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: \u{a0}.a.c;\n}",
+            "\u{feff}a{b:\u{a0}.a.c}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.append(\".a\", \"\u{a0}.c\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: .a\u{a0}.c;\n}",
+            "\u{feff}a{b:.a\u{a0}.c}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.extend(\".a \u{a0}b\", \"\u{a0}b\", \".c\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: .a \u{a0}b, .a .c;\n}",
+            "\u{feff}a{b:.a \u{a0}b,.a .c}",
+        ),
+        (
+            ".a { &:not(\u{a0}b) { c: d } }\n",
+            "@charset \"UTF-8\";\n.a:not(\u{a0}b) {\n  c: d;\n}",
+            "\u{feff}.a:not(\u{a0}b){c:d}",
+        ),
+        (
+            ".a:not(.b \u{a0}.c) { @extend .q; } .q { e: f }\n",
+            "@charset \"UTF-8\";\n.q, .a:not(.b \u{a0}.c) {\n  e: f;\n}",
+            "\u{feff}.q,.a:not(.b \u{a0}.c){e:f}",
+        ),
+        (
+            ".q:is(.b, \u{a0}.c) { e: f } .x { @extend .q; }\n",
+            "@charset \"UTF-8\";\n.q:is(.b, \u{a0}.c), .x:is(.b, \u{a0}.c) {\n  e: f;\n}",
+            "\u{feff}.q:is(.b,\u{a0}.c),.x:is(.b,\u{a0}.c){e:f}",
+        ),
+        (
+            ".a,\n\u{a0}b { c: d }\n",
+            "@charset \"UTF-8\";\n.a,\n\u{a0}b {\n  c: d;\n}",
+            "\u{feff}.a,\u{a0}b{c:d}",
+        ),
+        (
+            ".a { .b,\n\u{a0}.c { d: e } }\n",
+            "@charset \"UTF-8\";\n.a .b,\n.a \u{a0}.c {\n  d: e;\n}",
+            "\u{feff}.a .b,.a \u{a0}.c{d:e}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn an_nbsp_inside_an_nth_argument_is_not_whitespace() {
+    // `:nth-child`'s An+B and `of` scanners skipped whitespace with
+    // `char::is_whitespace`, so an NBSP was read as a separator and the
+    // argument was accepted (`2n \u{a0}+ 1` came out `2n+1`). dart-sass reads
+    // it as a character and rejects the argument; these are its messages
+    // (1.104.1). Offline.
+    for (scss, message) in [
+        (":nth-child(2n \u{a0}of .a) { c: d }\n", "Expected \"of\"."),
+        (":nth-child(\u{a0}2n) { c: d }\n", "Expected \"n\"."),
+        (":nth-child(2n\u{a0}) { c: d }\n", "expected \")\"."),
+        (":nth-child(2n \u{a0}+ 1) { c: d }\n", "Expected \"of\"."),
+        (":nth-child(2n + \u{a0}1) { c: d }\n", "Expected a number."),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err().to_string();
+        assert!(err.contains(message), "{scss}: {err}");
+    }
+}
+
+#[test]
+fn an_attribute_selector_is_validated_with_css_whitespace() {
+    // The `[…]` validator and its emit canonicalizer ended an unquoted value,
+    // and skipped around the operator and modifier, at any
+    // `char::is_whitespace`. An NBSP inside the value ended it, so the rest
+    // was read as a (too long) modifier and a valid selector was rejected;
+    // an NBSP where only whitespace may go was skipped, so an invalid one was
+    // accepted. Byte-matched to dart-sass 1.104.1, in both styles. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "[a=x\u{a0}yz] { c: d }\n",
+            "@charset \"UTF-8\";\n[a=x\u{a0}yz] {\n  c: d;\n}",
+            "\u{feff}[a=x\u{a0}yz]{c:d}",
+        ),
+        (
+            "[a=x\u{a0}y i] { c: d }\n",
+            "@charset \"UTF-8\";\n[a=x\u{a0}y i] {\n  c: d;\n}",
+            "\u{feff}[a=x\u{a0}y i]{c:d}",
+        ),
+        (
+            "[a = x\u{a0}y i] { c: d }\n",
+            "@charset \"UTF-8\";\n[a=x\u{a0}y i] {\n  c: d;\n}",
+            "\u{feff}[a=x\u{a0}y i]{c:d}",
+        ),
+        (
+            "[ a=x\u{a0}y ] { c: d }\n",
+            "@charset \"UTF-8\";\n[a=x\u{a0}y] {\n  c: d;\n}",
+            "\u{feff}[a=x\u{a0}y]{c:d}",
+        ),
+        (
+            ".p { &[a=x\u{a0}yz] { c: d } }\n",
+            "@charset \"UTF-8\";\n.p[a=x\u{a0}yz] {\n  c: d;\n}",
+            "\u{feff}.p[a=x\u{a0}yz]{c:d}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(\"[a=x\u{a0}yz]\"); }\n",
+            "@charset \"UTF-8\";\na {\n  b: [a=x\u{a0}yz];\n}",
+            "\u{feff}a{b:[a=x\u{a0}yz]}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    // An NBSP after the value is a character, not the space before a
+    // modifier, so dart rejects each of these.
+    for scss in [
+        "[a=x \u{a0}] { c: d }\n",
+        "[a=\"x\" \u{a0}i] { c: d }\n",
+        "[a=\"x\"\u{a0}] { c: d }\n",
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err().to_string();
+        assert!(err.contains("expected \"]\"."), "{scss}: {err}");
+    }
+}
+
+#[test]
+fn the_parent_selector_value_splits_compounds_at_css_whitespace() {
+    // `&` in SassScript is a comma list of space lists, one item per
+    // compound. The compounds were split with `str::split_whitespace`, which
+    // splits at an NBSP too, so `.a\u{a0}b` was two compounds and a plain
+    // `x: &` printed it `.a b`. Byte-matched to dart-sass 1.104.1, in both
+    // styles. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "@use \"sass:list\"; .a\u{a0}b .c { x: list.length(list.nth(&, 1)); }\n",
+            "@charset \"UTF-8\";\n.a\u{a0}b .c {\n  x: 2;\n}",
+            "\u{feff}.a\u{a0}b .c{x:2}",
+        ),
+        (
+            "@use \"sass:list\"; .a\u{a0}b { x: list.length(list.nth(&, 1)); }\n",
+            "@charset \"UTF-8\";\n.a\u{a0}b {\n  x: 1;\n}",
+            "\u{feff}.a\u{a0}b{x:1}",
+        ),
+        (
+            ".a\u{a0}b .c { x: &; }\n",
+            "@charset \"UTF-8\";\n.a\u{a0}b .c {\n  x: .a\u{a0}b .c;\n}",
+            "\u{feff}.a\u{a0}b .c{x:.a\u{a0}b .c}",
+        ),
+        (
+            "@use \"sass:list\"; .a \u{a0}b { x: list.nth(list.nth(&, 1), 2); }\n",
+            "@charset \"UTF-8\";\n.a \u{a0}b {\n  x: \u{a0}b;\n}",
+            "\u{feff}.a \u{a0}b{x:\u{a0}b}",
+        ),
+        (
+            "@use \"sass:list\"; .a\u{a0}b .c { x: list.nth(list.nth(&, 1), 1); }\n",
+            "@charset \"UTF-8\";\n.a\u{a0}b .c {\n  x: .a\u{a0}b;\n}",
+            "\u{feff}.a\u{a0}b .c{x:.a\u{a0}b}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn the_selector_normalizer_copies_a_quoted_string_verbatim() {
+    // The normalizer's whitespace pass collapsed every run of whitespace to
+    // one space, inside quoted strings too, so `[a="x   y"]` came out
+    // `[a="x y"]` and a tab in a value became a space: a different string,
+    // matching different elements. A string is one token; dart-sass keeps
+    // it byte for byte. Byte-matched to dart-sass 1.104.1, in both styles.
+    // Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "[a=\"x   y\"] { c: d }\n",
+            "[a=\"x   y\"] {\n  c: d;\n}",
+            "[a=\"x   y\"]{c:d}",
+        ),
+        (
+            "[a=\"x\ty\"] { c: d }\n",
+            "[a=\"x\ty\"] {\n  c: d;\n}",
+            "[a=\"x\ty\"]{c:d}",
+        ),
+        (
+            ":is([a=\"x   y\"]) { c: d }\n",
+            ":is([a=\"x   y\"]) {\n  c: d;\n}",
+            ":is([a=\"x   y\"]){c:d}",
+        ),
+        (
+            "[a=\"x   y\"] { &.b { c: d } }\n",
+            "[a=\"x   y\"].b {\n  c: d;\n}",
+            "[a=\"x   y\"].b{c:d}",
+        ),
+        (
+            "[a=\"x   y\"] { @extend .q; } .q { e: f }\n",
+            ".q, [a=\"x   y\"] {\n  e: f;\n}",
+            ".q,[a=\"x   y\"]{e:f}",
+        ),
+        (
+            "[a=\"x  y\"] > b { c: d }\n",
+            "[a=\"x  y\"] > b {\n  c: d;\n}",
+            "[a=\"x  y\"]>b{c:d}",
+        ),
+        (
+            ":unknown(\"a   b\") { c: d }\n",
+            ":unknown(\"a   b\") {\n  c: d;\n}",
+            ":unknown(\"a   b\"){c:d}",
+        ),
+        (
+            "[a='x   y'] { c: d }\n",
+            "[a=\"x   y\"] {\n  c: d;\n}",
+            "[a=\"x   y\"]{c:d}",
+        ),
+        (
+            "[a=\"x   y\"], b { c: d }\n",
+            "[a=\"x   y\"], b {\n  c: d;\n}",
+            "[a=\"x   y\"],b{c:d}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse('[a=\"x   y\"]'); }\n",
+            "a {\n  b: [a=\"x   y\"];\n}",
+            "a{b:[a=\"x   y\"]}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.append('[a=\"x   y\"]', \".c\"); }\n",
+            "a {\n  b: [a=\"x   y\"].c;\n}",
+            "a{b:[a=\"x   y\"].c}",
+        ),
+        (
+            "[a=\"x\\\"   y\"] { c: d }\n",
+            "[a='x\"   y'] {\n  c: d;\n}",
+            "[a='x\"   y']{c:d}",
+        ),
+        (
+            ".a { [a=\"x   y\"] & { c: d } }\n",
+            "[a=\"x   y\"] .a {\n  c: d;\n}",
+            "[a=\"x   y\"] .a{c:d}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    // A paren inside a string no longer counts toward the depth that keeps
+    // a pseudo argument's line break after a comma.
+    let css = compile(":is([a=\")\"],\n  b) { c: d }\n", &Options::default()).unwrap();
+    assert_eq!(css, ":is([a=\")\"],\nb) {\n  c: d;\n}");
+}
+
+#[test]
+fn a_selector_list_is_not_split_inside_a_quoted_string() {
+    // The top-level comma splitter counted parens and brackets but not
+    // quotes, so `[a="("]` left it one paren deep and the rest of the list
+    // was a single selector: `, b` never became its own complex, a nested
+    // `&.c` was appended to `b` alone, and `@extend` found no target.
+    // Byte-matched to dart-sass 1.104.1, in both styles. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "[a=\"(\"],\n  b { c: d }\n",
+            "[a=\"(\"],\nb {\n  c: d;\n}",
+            "[a=\"(\"],b{c:d}",
+        ),
+        (
+            "[a=\"(\"], b,\n  c { c: d }\n",
+            "[a=\"(\"], b,\nc {\n  c: d;\n}",
+            "[a=\"(\"],b,c{c:d}",
+        ),
+        (
+            "[a=\"]\"], b { c: d }\n",
+            "[a=\"]\"], b {\n  c: d;\n}",
+            "[a=\"]\"],b{c:d}",
+        ),
+        (
+            "[a=\")\"], b { c: d }\n",
+            "[a=\")\"], b {\n  c: d;\n}",
+            "[a=\")\"],b{c:d}",
+        ),
+        (
+            "[a=\"(\"], b { &.c { d: e } }\n",
+            "[a=\"(\"].c, b.c {\n  d: e;\n}",
+            "[a=\"(\"].c,b.c{d:e}",
+        ),
+        (
+            "[a=\"(\"], b { @extend .q; } .q { e: f }\n",
+            ".q, [a=\"(\"], b {\n  e: f;\n}",
+            ".q,[a=\"(\"],b{e:f}",
+        ),
+        (
+            "@use \"sass:list\"; [a=\"(\"], b { x: list.length(&); }\n",
+            "[a=\"(\"], b {\n  x: 2;\n}",
+            "[a=\"(\"],b{x:2}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn the_parent_selector_value_splits_only_at_top_level_whitespace() {
+    // `&`'s compounds were cut at every whitespace character, so a space
+    // inside a string, an attribute or a pseudo argument split a compound in
+    // two: `list.nth(list.nth(&, 1), 1)` of `:not(.a .b) .c` was `:not(.a`,
+    // and `x: &` re-joined `[a="x   y"]` with one space. An escaped space
+    // and a hex escape's delimiter belong to their compound too. Byte-matched
+    // to dart-sass 1.104.1, in both styles. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "@use \"sass:list\"; :is(a b) .c { x: list.length(list.nth(&, 1)); }\n",
+            ":is(a b) .c {\n  x: 2;\n}",
+            ":is(a b) .c{x:2}",
+        ),
+        (
+            "@use \"sass:list\"; [a=\"x y\"] .c { x: list.length(list.nth(&, 1)); }\n",
+            "[a=\"x y\"] .c {\n  x: 2;\n}",
+            "[a=\"x y\"] .c{x:2}",
+        ),
+        (
+            "[a=\"x   y\"] .c { x: &; }\n",
+            "[a=\"x   y\"] .c {\n  x: [a=\"x   y\"] .c;\n}",
+            "[a=\"x   y\"] .c{x:[a=\"x   y\"] .c}",
+        ),
+        (
+            "@use \"sass:list\"; [a=\"x y\"] .c { x: list.nth(list.nth(&, 1), 1); }\n",
+            "[a=\"x y\"] .c {\n  x: [a=\"x y\"];\n}",
+            "[a=\"x y\"] .c{x:[a=\"x y\"]}",
+        ),
+        (
+            "@use \"sass:list\"; :not(.a  .b) .c { x: list.nth(list.nth(&, 1), 1); }\n",
+            ":not(.a .b) .c {\n  x: :not(.a .b);\n}",
+            ":not(.a .b) .c{x::not(.a .b)}",
+        ),
+        (
+            "@use \"sass:list\"; .a\\ b .c { x: list.length(list.nth(&, 1)); }\n",
+            ".a\\ b .c {\n  x: 2;\n}",
+            ".a\\ b .c{x:2}",
+        ),
+        (
+            "@use \"sass:list\"; .a\\9 .b { x: list.length(list.nth(&, 1)); }\n",
+            ".a\\9 .b {\n  x: 1;\n}",
+            ".a\\9 .b{x:1}",
+        ),
+        (
+            "@use \"sass:list\"; .a\\9  .b { x: list.nth(list.nth(&, 1), 1); }\n",
+            ".a\\9  .b {\n  x: .a\\9 ;\n}",
+            ".a\\9  .b{x:.a\\9 }",
+        ),
+        (
+            "@use \"sass:list\"; .a ~ .b + .c { x: list.length(list.nth(&, 1)); }\n",
+            ".a ~ .b + .c {\n  x: 5;\n}",
+            ".a~.b+.c{x:5}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn a_pseudo_selector_list_is_not_split_inside_a_quoted_string() {
+    // The selector module's list splitter counted parens and brackets but not
+    // quotes, so a paren inside a string inside a pseudo argument changed the
+    // depth and the argument's commas stopped being list separators: compressed
+    // output kept `:is([a=")"], b)`'s space, and `is-superselector` could not
+    // see `b` in the list. Byte-matched to dart-sass 1.104.1, in both styles.
+    // Offline.
+    for (scss, expanded, compressed) in [
+        (
+            ":is([a=\")\"], b) { c: d }\n",
+            ":is([a=\")\"], b) {\n  c: d;\n}",
+            ":is([a=\")\"],b){c:d}",
+        ),
+        (
+            ":is([a=\")\"],\n  b) { c: d }\n",
+            ":is([a=\")\"],\nb) {\n  c: d;\n}",
+            ":is([a=\")\"],b){c:d}",
+        ),
+        (
+            ":not([a=\")\"], b) { c: d }\n",
+            ":not([a=\")\"], b) {\n  c: d;\n}",
+            ":not([a=\")\"],b){c:d}",
+        ),
+        (
+            ":is([a=\"(\"], b) { c: d }\n",
+            ":is([a=\"(\"], b) {\n  c: d;\n}",
+            ":is([a=\"(\"],b){c:d}",
+        ),
+        (
+            ":is([a=\"(\"], b) { @extend .q; } .q { e: f }\n",
+            ".q, :is([a=\"(\"], b) {\n  e: f;\n}",
+            ".q,:is([a=\"(\"],b){e:f}",
+        ),
+        (
+            ".q { e: f } :is([a=\"(\"], b) { @extend .q; }\n",
+            ".q, :is([a=\"(\"], b) {\n  e: f;\n}",
+            ".q,:is([a=\"(\"],b){e:f}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.is-superselector(':is([a=\"(\"], b)', \"b\"); }\n",
+            "a {\n  b: true;\n}",
+            "a{b:true}",
+        ),
+        (
+            ":nth-child(2n of [a=\"(\"], b) { c: d }\n",
+            ":nth-child(2n of [a=\"(\"], b) {\n  c: d;\n}",
+            ":nth-child(2n of [a=\"(\"],b){c:d}",
+        ),
+        (
+            ".a { &:is([a=\"(\"], b) { c: d } }\n",
+            ".a:is([a=\"(\"], b) {\n  c: d;\n}",
+            ".a:is([a=\"(\"],b){c:d}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn a_quoted_attribute_value_meets_its_modifier_in_compressed_output() {
+    // In compressed style dart drops the space between a QUOTED attribute value
+    // and its modifier (`[a="x y"i]`) — the closing quote already ends the
+    // value — and keeps it after an unquoted one (`[a=x i]`), where the space is
+    // what ends it. sasso kept it in both. Byte-matched to dart-sass 1.104.1, in
+    // both styles. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "[a=\"x y\" i] { c: d }\n",
+            "[a=\"x y\" i] {\n  c: d;\n}",
+            "[a=\"x y\"i]{c:d}",
+        ),
+        (
+            "[a='x y' s] { c: d }\n",
+            "[a=\"x y\" s] {\n  c: d;\n}",
+            "[a=\"x y\"s]{c:d}",
+        ),
+        (
+            "[a=\"1\" i] { c: d }\n",
+            "[a=\"1\" i] {\n  c: d;\n}",
+            "[a=\"1\"i]{c:d}",
+        ),
+        ("[a=\"x\" i] { c: d }\n", "[a=x i] {\n  c: d;\n}", "[a=x i]{c:d}"),
+        ("[a=x i] { c: d }\n", "[a=x i] {\n  c: d;\n}", "[a=x i]{c:d}"),
+        (
+            "[a=\"x y\"] { c: d }\n",
+            "[a=\"x y\"] {\n  c: d;\n}",
+            "[a=\"x y\"]{c:d}",
+        ),
+        (
+            ":is([a=\"x y\" i]) { c: d }\n",
+            ":is([a=\"x y\" i]) {\n  c: d;\n}",
+            ":is([a=\"x y\"i]){c:d}",
+        ),
+        (
+            "[a=\"x y\" i] > b { c: d }\n",
+            "[a=\"x y\" i] > b {\n  c: d;\n}",
+            "[a=\"x y\"i]>b{c:d}",
+        ),
+        (
+            "[a=\"x\\\" y\" i] { c: d }\n",
+            "[a='x\" y' i] {\n  c: d;\n}",
+            "[a='x\" y'i]{c:d}",
+        ),
+        (
+            "[a=\"x y\" I] { c: d }\n",
+            "[a=\"x y\" I] {\n  c: d;\n}",
+            "[a=\"x y\"I]{c:d}",
+        ),
+        (
+            "[a|=\"x y\" i] { c: d }\n",
+            "[a|=\"x y\" i] {\n  c: d;\n}",
+            "[a|=\"x y\"i]{c:d}",
+        ),
+        (
+            "[a=\"x   y\" i] { c: d }\n",
+            "[a=\"x   y\" i] {\n  c: d;\n}",
+            "[a=\"x   y\"i]{c:d}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn a_missing_attribute_operator_has_darts_message() {
+    // dart's attribute-operator reader has its own sentences: capitalized
+    // `Expected "]".` when no operator follows the name, and `expected "=".`
+    // when only an operator's first character does. sasso gave the value
+    // check's lowercase `expected "]".` for both. dart-sass 1.104.1; the
+    // first two are spec cases (css/selector/attribute, issue_2509). Offline.
+    for (scss, message) in [
+        ("[a b] { c: d }\n", "Error: Expected \"]\"."),
+        ("[charset i] { c: d }\n", "Error: Expected \"]\"."),
+        ("[a %= x] { c: d }\n", "Error: Expected \"]\"."),
+        ("[a \u{a0}= x] { c: d }\n", "Error: Expected \"]\"."),
+        ("$x: b; [a #{$x}] { c: d }\n", "Error: Expected \"]\"."),
+        ("[a~b] { c: d }\n", "Error: expected \"=\"."),
+        ("[a^b] { c: d }\n", "Error: expected \"=\"."),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err().to_string();
+        assert!(err.contains(message), "{scss}: {err}");
+    }
+}
+
+#[test]
 fn a_non_finite_hue_never_reaches_the_hsl_conversion() {
     // The hsl -> rgb arithmetic has no answer for a non-finite hue: it picks
     // the fallback sector and hands back a NaN component. dart-sass 1.104.0

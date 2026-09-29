@@ -16,7 +16,7 @@
 
 use crate::error::Error;
 use crate::scanner::Pos;
-use crate::selector::{self, Complex};
+use crate::selector::{self, is_css_whitespace, Complex};
 // `Compound` is referenced via the fully-qualified `crate::selector::Compound`
 // path in `compound_target`'s signature.
 use crate::value::{List, ListSep, SassStr, Value};
@@ -139,7 +139,7 @@ fn selector_list_arg(
 /// Parse a selector string into a list of complex selectors, erroring with
 /// dart-sass's `${pname}: expected selector.` on empty/unparseable input.
 fn parse_selector_text(text: &str, pname: &str, pos: Pos) -> Result<Vec<Complex>, Error> {
-    if text.trim().is_empty() {
+    if text.trim_matches(is_css_whitespace).is_empty() {
         return Err(Error::at(format!("${pname}: expected selector."), pos));
     }
     // Normalize like the main pipeline first: dart splits adjacent compounds
@@ -213,7 +213,12 @@ fn resolve_parents_str(child: &str, parents: &[String], fname: &str, pos: Pos) -
         if has_parent_ref(cc) {
             groups.push(expand_parent_refs(cc, &parent_strs, &parent_str));
         } else {
-            groups.push(parent_strs.iter().map(|p| format!("{p} {}", cc.trim())).collect());
+            groups.push(
+                parent_strs
+                    .iter()
+                    .map(|p| format!("{p} {}", cc.trim_matches(is_css_whitespace)))
+                    .collect(),
+            );
         }
     }
     let mut out: Vec<String> = Vec::new();
@@ -304,7 +309,7 @@ fn split_top_ws(s: &str) -> Vec<String> {
                 depth -= 1;
                 cur.push(c);
             }
-            c if c.is_whitespace() && depth == 0 => {
+            c if is_css_whitespace(c) && depth == 0 => {
                 if !cur.is_empty() {
                     out.push(std::mem::take(&mut cur));
                 }
@@ -537,7 +542,9 @@ fn split_top_commas(s: &str) -> Vec<String> {
         }
     }
     out.push(cur);
-    out.into_iter().filter(|p| !p.trim().is_empty()).collect()
+    out.into_iter()
+        .filter(|p| !p.trim_matches(is_css_whitespace).is_empty())
+        .collect()
 }
 
 // ---- nest -------------------------------------------------------------
@@ -581,7 +588,10 @@ fn fn_nest(pos_args: &[Value], pos: Pos) -> Result<Value, Error> {
                 }
             }
         }
-        parts.iter().map(|p| p.trim().to_string()).collect()
+        parts
+            .iter()
+            .map(|p| p.trim_matches(is_css_whitespace).to_string())
+            .collect()
     } else {
         parse_arg_selector(&all[0], pos)?
             .iter()
@@ -776,7 +786,7 @@ fn fn_simple_selectors(pos_args: &[Value], named: &[(String, Value)], pos: Pos) 
     check_arity(pos_args, named, 1, pos)?;
     let v = super::require(params, pos_args, named, 0, pos)?;
     let text = value_to_selector_string(v, "selector", pos)?;
-    if text.trim().is_empty() {
+    if text.trim_matches(is_css_whitespace).is_empty() {
         return Err(Error::at("$selector: expected selector.".to_string(), pos));
     }
     let simples = selector::parse_compound_simples(&text)

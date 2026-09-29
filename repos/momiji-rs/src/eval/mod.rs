@@ -25,6 +25,7 @@ use crate::ast::{
 };
 use crate::error::Error;
 use crate::scanner::Pos;
+use crate::selector::is_css_whitespace;
 use crate::value::{CalcNode, CalcOp, List, ListSep, Map, Number, SassFunction, SassMixin, SassStr, Value};
 use crate::{CanonicalUrl, CanonicalizeContext, Importer, OutputStyle, Syntax};
 
@@ -6198,7 +6199,7 @@ fn validate_attribute(inner: &[char]) -> Result<(), Error> {
     let err = || Error::unpositioned("expected \"]\".");
     let mut i = 0;
     let skip_ws = |i: &mut usize| {
-        while *i < inner.len() && inner[*i].is_whitespace() {
+        while *i < inner.len() && is_css_whitespace(inner[*i]) {
             *i += 1;
         }
     };
@@ -6220,14 +6221,15 @@ fn validate_attribute(inner: &[char]) -> Result<(), Error> {
         return Ok(()); // bare `[name]`
     }
     // An operator must follow the name; anything else (e.g. a second
-    // identifier in `[a b]`) is invalid.
-    let op_ok = match inner[i] {
-        '=' => true,
-        '~' | '|' | '^' | '$' | '*' => inner.get(i + 1) == Some(&'='),
-        _ => false,
-    };
-    if !op_ok {
-        return Err(err());
+    // identifier in `[a b]`) is invalid. These are dart's operator reader's
+    // sentences: capitalized `Expected "]".` for no operator at all, not the
+    // lowercase one the value and modifier checks give, and `expected "=".`
+    // for an operator's first character alone (`[a~b]`).
+    match inner[i] {
+        '=' => {}
+        '~' | '|' | '^' | '$' | '*' if inner.get(i + 1) == Some(&'=') => {}
+        '~' | '|' | '^' | '$' | '*' => return Err(Error::unpositioned("expected \"=\".")),
+        _ => return Err(Error::unpositioned("Expected \"]\".")),
     }
     i += if inner[i] == '=' { 1 } else { 2 };
     skip_ws(&mut i);
@@ -6239,7 +6241,7 @@ fn validate_attribute(inner: &[char]) -> Result<(), Error> {
                 let c = inner[i];
                 if c == '\\' {
                     i += 2;
-                } else if c.is_whitespace() {
+                } else if is_css_whitespace(c) {
                     break;
                 } else {
                     i += 1;
@@ -6301,10 +6303,10 @@ fn is_plain_css_identifier(s: &str) -> bool {
 fn normalize_attribute_text(inner: &str) -> String {
     let chars_buf = CharBuf::of(inner);
     let chars: &[char] = &chars_buf;
-    let fallback = || inner.trim().to_string();
+    let fallback = || inner.trim_matches(is_css_whitespace).to_string();
     let mut i = 0;
     let skip_ws = |i: &mut usize| {
-        while *i < chars.len() && chars[*i].is_whitespace() {
+        while *i < chars.len() && is_css_whitespace(chars[*i]) {
             *i += 1;
         }
     };
@@ -6351,7 +6353,7 @@ fn normalize_attribute_text(inner: &str) -> String {
                 let c = chars[i];
                 if c == '\\' {
                     i += 2;
-                } else if c.is_whitespace() {
+                } else if is_css_whitespace(c) {
                     break;
                 } else {
                     i += 1;
@@ -7502,14 +7504,26 @@ fn split_commas(s: &str) -> Segments<'_> {
     let mut bracket = 0i32;
     let mut start = 0usize;
     let mut escaped = false;
+    // The open quote of the string being skipped: a comma, paren or bracket
+    // inside `[a="(,"]` is string content, not structure.
+    let mut quote: Option<char> = None;
     for (idx, c) in s.char_indices() {
         // `\,` is a comma IN AN IDENTIFIER, not a list separator.
         if escaped {
             escaped = false;
             continue;
         }
+        if let Some(q) = quote {
+            match c {
+                '\\' => escaped = true,
+                _ if c == q => quote = None,
+                _ => {}
+            }
+            continue;
+        }
         match c {
             '\\' => escaped = true,
+            '"' | '\'' => quote = Some(c),
             '(' => paren += 1,
             ')' => paren -= 1,
             '[' => bracket += 1,
@@ -7692,8 +7706,10 @@ fn normalize_selector_owned_facts(s: String) -> Normalized {
 }
 
 fn normalize_selector_slow(s: &str) -> String {
-    // Collapse runs of whitespace to single spaces (and trim) — but a hex
-    // escape's single terminating whitespace is PART of the token
+    // Collapse runs of whitespace to single spaces (and trim) — CSS
+    // whitespace only: NBSP and the other Unicode spaces are ordinary
+    // characters in a selector (a name character, or part of a value), not
+    // separators. A hex escape's single terminating whitespace is PART of the token
     // (`selector\9 ` keeps its trailing space; dart emits `selector\9  {`).
     // Inside pseudo parens, a run that follows a comma and contains a
     // newline collapses to '\n' instead: dart's arg complexes carry their
@@ -7716,7 +7732,7 @@ fn normalize_selector_slow(s: &str) -> String {
                 ci += 1;
                 digits += 1;
             }
-            if ci < cs.len() && cs[ci].is_whitespace() {
+            if ci < cs.len() && is_css_whitespace(cs[ci]) {
                 collapsed.push(' ');
                 ci += 1;
             }
@@ -7732,10 +7748,30 @@ fn normalize_selector_slow(s: &str) -> String {
             prev_space = false;
             continue;
         }
-        if c.is_whitespace() {
+        // A quoted string is one token, copied verbatim to its close: the
+        // whitespace inside it is its content (`[a="x   y"]` keeps all three
+        // spaces), and a paren inside it is no paren.
+        if c == '"' || c == '\'' {
+            collapsed.push(c);
+            ci += 1;
+            while ci < cs.len() {
+                let d = cs[ci];
+                collapsed.push(d);
+                ci += 1;
+                if d == '\\' && ci < cs.len() {
+                    collapsed.push(cs[ci]);
+                    ci += 1;
+                } else if d == c {
+                    break;
+                }
+            }
+            prev_space = false;
+            continue;
+        }
+        if is_css_whitespace(c) {
             let mut has_nl = c == '\n';
             ci += 1;
-            while ci < cs.len() && cs[ci].is_whitespace() {
+            while ci < cs.len() && is_css_whitespace(cs[ci]) {
                 has_nl |= cs[ci] == '\n';
                 ci += 1;
             }
@@ -7859,11 +7895,11 @@ fn normalize_selector_slow(s: &str) -> String {
             }
         }
     }
-    let t = out.trim();
+    let t = out.trim_matches(is_css_whitespace);
     // dart keeps an escape's trailing space: a hex escape's terminator
     // (`selector\9 `) and an escaped literal space (`sp\ `) both survive;
     // only plain trailing whitespace trims.
-    let start = out.len() - out.trim_start().len();
+    let start = out.len() - out.trim_start_matches(is_css_whitespace).len();
     let end = start + t.len();
     if out[end..].starts_with(' ') && (ends_with_hex_escape(t) || ends_with_escaping_backslash(t)) {
         out[start..=end].to_string()
@@ -7900,8 +7936,8 @@ fn ends_with_escaping_backslash(t: &str) -> bool {
 /// that belongs to a trailing escape — a hex escape's terminator (`\9 `) or
 /// an escaped literal space (`sp\ `).
 fn trim_selector_part(p: &str) -> &str {
-    let t0 = p.trim_start();
-    let t = t0.trim_end();
+    let t0 = p.trim_start_matches(is_css_whitespace);
+    let t = t0.trim_end_matches(is_css_whitespace);
     if t.len() < t0.len() && (ends_with_hex_escape(t) || ends_with_escaping_backslash(t)) {
         &t0[..t.len() + 1]
     } else {
@@ -7966,6 +8002,59 @@ fn tokenize_complex(s: &str) -> Vec<SelToken<'_>> {
         tokens.push(SelToken::Compound(t));
     }
     tokens
+}
+
+/// Split a normalized complex selector into the items of its SassScript value
+/// (`&`): its compounds and combinators, cut at top-level CSS whitespace.
+/// Whitespace inside a string, an attribute or a pseudo argument is content,
+/// and so is an escaped character and a hex escape's one delimiter (`.a\9 .b`
+/// is a single compound).
+pub(crate) fn split_compounds(s: &str) -> Vec<&str> {
+    let mut out = Vec::new();
+    let mut depth = 0i32; // parens and brackets together
+    let mut start: Option<usize> = None;
+    let mut it = s.char_indices().peekable();
+    while let Some((idx, c)) = it.next() {
+        if is_css_whitespace(c) && depth == 0 {
+            if let Some(st) = start.take() {
+                out.push(&s[st..idx]);
+            }
+            continue;
+        }
+        start.get_or_insert(idx);
+        match c {
+            '\\' => {
+                if it.peek().is_some_and(|&(_, d)| d.is_ascii_hexdigit()) {
+                    for _ in 0..6 {
+                        if it.next_if(|&(_, d)| d.is_ascii_hexdigit()).is_none() {
+                            break;
+                        }
+                    }
+                    it.next_if(|&(_, d)| is_css_whitespace(d));
+                } else {
+                    it.next();
+                }
+            }
+            '"' | '\'' => {
+                while let Some((_, d)) = it.next() {
+                    match d {
+                        '\\' => {
+                            it.next();
+                        }
+                        q if q == c => break,
+                        _ => {}
+                    }
+                }
+            }
+            '(' | '[' => depth += 1,
+            ')' | ']' => depth -= 1,
+            _ => {}
+        }
+    }
+    if let Some(st) = start {
+        out.push(&s[st..]);
+    }
+    out
 }
 
 /// Whether a resolved complex selector is a "bogus combinator" that dart-sass
@@ -8239,7 +8328,7 @@ fn compound_has_bogus_pseudo(compound: &str) -> bool {
                     let allow_leading = name.eq_ignore_ascii_case("has");
                     let arg: String = chars[open + 1..k.min(chars.len())].iter().collect();
                     for part in split_commas(&arg).iter() {
-                        let part = part.trim();
+                        let part = part.trim_matches(is_css_whitespace);
                         if !part.is_empty() && complex_selector_is_bogus(part, true, allow_leading) {
                             return true;
                         }
@@ -8281,7 +8370,7 @@ fn copy_name(chars: &[char], i: &mut usize, out: &mut String) {
                         *i += 1;
                         digits += 1;
                     }
-                    if *i < chars.len() && chars[*i].is_whitespace() {
+                    if *i < chars.len() && is_css_whitespace(chars[*i]) {
                         *i += 1;
                     }
                 }

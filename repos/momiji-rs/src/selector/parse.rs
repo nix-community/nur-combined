@@ -13,7 +13,7 @@ use super::*;
 pub(crate) fn parse_list(sel: &str) -> Option<Vec<Complex>> {
     let mut out = Vec::new();
     for part in split_top(sel, ',') {
-        let part = part.trim();
+        let part = part.trim_matches(is_css_whitespace);
         if part.is_empty() {
             continue;
         }
@@ -206,7 +206,7 @@ pub(crate) fn canonicalize_ident(raw: &str) -> String {
                     digits += 1;
                 }
                 // One optional trailing whitespace terminates the escape.
-                if i < chars.len() && chars[i].is_whitespace() {
+                if i < chars.len() && is_css_whitespace(chars[i]) {
                     i += 1;
                 }
                 let cp = u32::from_str_radix(&hex, 16).unwrap_or(0);
@@ -271,7 +271,7 @@ fn read_ident(chars: &[char], i: &mut usize) -> Option<String> {
                     *i += 1;
                     digits += 1;
                 }
-                if *i < chars.len() && chars[*i].is_whitespace() {
+                if *i < chars.len() && is_css_whitespace(chars[*i]) {
                     s.push(chars[*i]);
                     *i += 1;
                 }
@@ -303,7 +303,7 @@ fn read_ident(chars: &[char], i: &mut usize) -> Option<String> {
 /// NOT `char::is_whitespace()`: that also matches NBSP and the other Unicode
 /// spaces, and eating one of those as an escape's delimiter would delete a
 /// character the value is supposed to keep.
-fn is_css_whitespace(c: char) -> bool {
+pub(crate) fn is_css_whitespace(c: char) -> bool {
     matches!(c, ' ' | '\t' | '\n' | '\r' | '\u{c}')
 }
 
@@ -387,7 +387,7 @@ fn is_attr_identifier(v: &str) -> bool {
 /// grammar is returned verbatim.
 pub(crate) fn normalize_attribute(text: &str) -> String {
     let inner = match text.strip_prefix('[').and_then(|t| t.strip_suffix(']')) {
-        Some(i) => i.trim(),
+        Some(i) => i.trim_matches(is_css_whitespace),
         None => return text.to_string(),
     };
     let cs: Vec<char> = inner.chars().collect();
@@ -410,7 +410,7 @@ pub(crate) fn normalize_attribute(text: &str) -> String {
     }
     let name: String = cs[name_start..i].iter().collect();
     let mut j = i;
-    while j < cs.len() && cs[j].is_whitespace() {
+    while j < cs.len() && is_css_whitespace(cs[j]) {
         j += 1;
     }
     if j >= cs.len() {
@@ -427,7 +427,7 @@ pub(crate) fn normalize_attribute(text: &str) -> String {
     } else {
         return text.to_string();
     };
-    while j < cs.len() && cs[j].is_whitespace() {
+    while j < cs.len() && is_css_whitespace(cs[j]) {
         j += 1;
     }
     // Value: quoted or an identifier run.
@@ -462,7 +462,7 @@ pub(crate) fn normalize_attribute(text: &str) -> String {
         };
     } else {
         let vstart = j;
-        while j < cs.len() && !cs[j].is_whitespace() && cs[j] != ']' {
+        while j < cs.len() && !is_css_whitespace(cs[j]) && cs[j] != ']' {
             if cs[j] == '\\' {
                 j += 1;
             }
@@ -473,13 +473,13 @@ pub(crate) fn normalize_attribute(text: &str) -> String {
         }
         value = cs[vstart..j].iter().collect();
     }
-    while j < cs.len() && cs[j].is_whitespace() {
+    while j < cs.len() && is_css_whitespace(cs[j]) {
         j += 1;
     }
     // Optional single-letter modifier (`i`/`s`).
     if j < cs.len() {
         let m: String = cs[j..].iter().collect();
-        let m = m.trim();
+        let m = m.trim_matches(is_css_whitespace);
         if m.len() == 1 && m.chars().next().is_some_and(|c| c.is_ascii_alphabetic()) {
             return format!("[{name}{op}{value} {m}]");
         }
@@ -573,7 +573,7 @@ fn read_pseudo(chars: &[char], i: &mut usize) -> Option<String> {
 }
 
 pub(super) fn skip_ws(chars: &[char], i: &mut usize) {
-    while *i < chars.len() && chars[*i].is_whitespace() {
+    while *i < chars.len() && is_css_whitespace(chars[*i]) {
         *i += 1;
     }
 }
@@ -587,6 +587,8 @@ fn is_ident_char(c: char) -> bool {
 }
 
 /// Split `s` on the top-level (paren/bracket depth 0) occurrences of `sep`.
+/// A quoted string is one token: a paren, bracket or `sep` inside it is
+/// content.
 pub(super) fn split_top(s: &str, sep: char) -> Vec<String> {
     let mut out = Vec::new();
     let mut cur = String::new();
@@ -599,6 +601,19 @@ pub(super) fn split_top(s: &str, sep: char) -> Vec<String> {
                 cur.push(c);
                 if let Some(n) = chars.next() {
                     cur.push(n);
+                }
+            }
+            '"' | '\'' => {
+                cur.push(c);
+                while let Some(d) = chars.next() {
+                    cur.push(d);
+                    if d == '\\' {
+                        if let Some(n) = chars.next() {
+                            cur.push(n);
+                        }
+                    } else if d == c {
+                        break;
+                    }
                 }
             }
             '(' => {
@@ -630,5 +645,5 @@ pub(super) fn split_top(s: &str, sep: char) -> Vec<String> {
 /// Parse a single complex selector (one comma-free selector). Returns `None`
 /// on any parse failure.
 pub(crate) fn parse_complex_one(s: &str) -> Option<Complex> {
-    parse_complex(s.trim())
+    parse_complex(s.trim_matches(is_css_whitespace))
 }

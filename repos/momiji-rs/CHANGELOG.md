@@ -11,6 +11,68 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Fixed
+
+- **A non-ASCII space in a selector is kept, not turned into a plain space**
+  (#71). CSS whitespace is space, tab, LF, CR and form feed; the selector
+  normalizer used Rust's `char::is_whitespace()`, which also matches NBSP and
+  the other Unicode spaces, and rewrote them to U+0020. So a rule written to
+  match `x&nbsp;y` silently matched `x y`:
+
+  ```
+    [a="x\u{a0}y"]   dart  [a=x\u{a0}y]   (and @charset "UTF-8")
+                     sasso [a="x y"]
+    a\u{a0}b         dart  a\u{a0}b       one type selector
+                     sasso a b            a descendant combinator
+  ```
+
+  An unquoted attribute value had the same flaw one step later: it stopped at
+  the NBSP and read the rest as a modifier, so `[a=x\u{a0}y]` became `[a=x y]`
+  — which is also what a quoted value turned into once it had lost its quotes
+  and was re-parsed, as a parent selector or by `@extend`.
+
+  A hex escape made it worse: its one delimiter must be CSS whitespace, but an
+  NBSP was accepted as the delimiter and so deleted — `\61\u{a0}b` came out
+  `ab`, and `.a\9\u{a0}b` lost its NBSP. Compressed output dropped one beside
+  a combinator as if it were the space around it (`.a > \u{a0}b` → `.a>b`).
+
+  The selector parser that nesting, `@extend` and the `selector` functions
+  share trimmed and split with `str::trim`, so an NBSP at the edge of a
+  compound was deleted there too: `:is(\u{a0}b)` came out `:is(b)`,
+  `selector.append(".a", "\u{a0}.c")` gave `.a.c` for dart's `.a\u{a0}.c`,
+  and `:nth-child(2n \u{a0}+ 1)` compiled to `2n+1` where dart rejects it.
+  The attribute validator was the mirror image: it rejected the valid
+  `[a=x\u{a0}yz]` (reading `yz` as a modifier) and accepted the invalid
+  `[a="x"\u{a0}]`. And `&` in SassScript split its compounds at an NBSP:
+  `list.length(list.nth(&, 1))` was 2 for `.a\u{a0}b`, and `x: &` printed
+  `.a b`.
+
+- **A paren or bracket inside a quoted attribute value no longer swallows the
+  rest of the selector list.** The top-level comma splitter did not skip
+  strings, so after `[a="("]` every following comma looked nested: `[a="("],
+  b { &.c {} }` produced `[a="("], b.c`, and `@extend` from that rule failed
+  with "The target selector was not found". A pseudo argument's list had the
+  same flaw: `selector.is-superselector(':is([a="("], b)', "b")` was false.
+
+- **Whitespace inside a quoted string in a selector is kept.** The
+  normalizer collapsed it like the whitespace between compounds, so
+  `[a="x   y"]` came out `[a="x y"]` and `[a="x\ty"]` lost its tab — a
+  different string, matching different elements.
+
+- **`&` in SassScript splits a selector only between its compounds.** It cut
+  at every space, so one inside a string, an attribute or a pseudo argument
+  split a compound: `list.nth(list.nth(&, 1), 1)` of `:not(.a .b) .c` was
+  `:not(.a`, and `list.length` of `.a\ b .c`'s first complex was 3, not 2.
+
+- **Compressed output drops the space before a quoted attribute value's
+  modifier**, as dart does: `[a="x y" i]` is `[a="x y"i]`. After an unquoted
+  value the space stays (`[a=x i]`).
+
+- **A missing attribute operator gets dart's message.** `[a b]` failed with
+  `expected "]".`; dart says `Expected "]".` when no operator follows the
+  name, and `expected "=".` for `[a~b]`, where only an operator's first
+  character does.
+
 ## [0.19.2] - 2026-09-29
 
 _Faster again through the npm package, on the paths 0.19.1 missed. The wasm
