@@ -105,14 +105,14 @@ buildFHSEnv {
       stdenv.cc.cc.lib
       systemd
       xdg-utils
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libXtst
-      xorg.libxcb
+      libx11
+      libxcomposite
+      libxdamage
+      libxext
+      libxfixes
+      libxrandr
+      libxtst
+      libxcb
     ];
   multiPkgs = _: [ ];
 
