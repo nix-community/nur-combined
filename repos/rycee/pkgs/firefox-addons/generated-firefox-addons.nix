@@ -308,6 +308,26 @@
         platforms = platforms.all;
       };
     };
+    "ambient-light-for-youtube" = buildMozillaXpiAddon {
+      pname = "ambient-light-for-youtube";
+      version = "2.38.17";
+      addonId = "{60493d8c-aec8-448e-a247-5d2cfa047d69}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4618615/ambient_light_for_youtube-2.38.17.xpi";
+      sha256 = "ee1671da08ac5c8d094b1c087b50bd5aa89490968b22ad13b155403bf2b55b78";
+      meta = with lib;
+      {
+        homepage = "https://github.com/WesselKroos/youtube-ambilight";
+        description = "Immerse yourself in YouTube™ videos with ambient light!";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "https://www.youtube.com/*"
+          "https://www.youtube.com/embed/*"
+          "https://www.youtube.com/live_chat*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "amp2html" = buildMozillaXpiAddon {
       pname = "amp2html";
       version = "2.1.0";
@@ -459,10 +479,10 @@
     };
     "aria2-integration" = buildMozillaXpiAddon {
       pname = "aria2-integration";
-      version = "0.4.5";
+      version = "0.5.0";
       addonId = "{e2488817-3d73-4013-850d-b66c5e42d505}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3025850/aria2_integration-0.4.5.xpi";
-      sha256 = "1672866f9860499d1a1d5848baab506431ac7db2e99253d517c3735f84410f26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5069291/aria2_integration-0.5.0.xpi";
+      sha256 = "d47b111100e14ec8e69b961371cdc718dbe2bd4b55c829613b22e4951c61a0a0";
       meta = with lib;
       {
         description = "Replace built-in download manager. When activated, detects the download links to direct links to this add-on and send to Aria2";
@@ -1665,7 +1685,7 @@
       meta = with lib;
       {
         homepage = "https://www.capitalone.com/applications/eno/virtualnumbers/";
-        description = "Shop more securely through your desktop browser with Eno®, your Capital One® assistant.";
+        description = "Shop more securely through your desktop browser with Eno®, your Capital One® assistant.\n\n\nTHE ENO BROWSER EXTENSION WILL BE DISCONTINUED ON SEPTEMBER 30, 2026";
         license = {
           shortName = "allrightsreserved";
           fullName = "All Rights Reserved";
@@ -2993,10 +3013,10 @@
     };
     "dark-mode-webextension" = buildMozillaXpiAddon {
       pname = "dark-mode-webextension";
-      version = "0.5.7";
+      version = "0.5.9";
       addonId = "{174b2d58-b983-4501-ab4b-07e71203cb43}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4924030/dark_mode_webextension-0.5.7.xpi";
-      sha256 = "4e37bd1cb889968d0bbc583d6a0196771456267599dfeb266e335a6fa73617d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5059935/dark_mode_webextension-0.5.9.xpi";
+      sha256 = "263f6fff2d95cb7aae8419f7d07178800474fa8b2eb6ae6d609e6036c7430cba";
       meta = with lib;
       {
         homepage = "https://mybrowseraddon.com/dark-mode.html";
@@ -15177,10 +15197,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.7";
+      version = "4.4.8";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5058426/tree_style_tab-4.4.7.xpi";
-      sha256 = "efd9686a44bb5d75681ed9e1cfd2a92006864562840df5a6a497621a5cf65bb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5068525/tree_style_tab-4.4.8.xpi";
+      sha256 = "62f6fd91fe90b52255434da5d43ebf8b395d6286d69663fe6f8785180c1270bf";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/treestyletab";
@@ -15856,10 +15876,10 @@
     };
     "untrap-for-youtube" = buildMozillaXpiAddon {
       pname = "untrap-for-youtube";
-      version = "12.0";
+      version = "12.1";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5013713/untrap_for_youtube-12.0.xpi";
-      sha256 = "57ae2e973d1bdff39545f6ad136f95bab4505aae1ccf606c486fc56306c9584e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5034754/untrap_for_youtube-12.1.xpi";
+      sha256 = "a7f9a81719d2d54fd15c7e938e32dfbb698309c7a4a4e80ad48594f835d7b6b5";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -15875,6 +15895,7 @@
           "activeTab"
           "management"
           "alarms"
+          "scripting"
           "*://www.youtube.com/*"
           "*://m.youtube.com/*"
         ];
