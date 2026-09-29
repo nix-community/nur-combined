@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.21.3";
+    version = "v4.21.4";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.21.3";
-      hash = "sha256-o61wQzvigsdzzo9WXp/FQFkiuHPFRFhIcZMS+CmHyoE=";
+      tag = "v4.21.4";
+      hash = "sha256-If3EjmuWYDwKc/HAIOKmB0liJZI1/vRJ4sPie1neWXk=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.21.3";
+    version = "v4.21.4";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.21.3";
-      hash = "sha256-B7rdTTWB4I5OeLi3yc6FD1hGwV6PExor8pY0uBV7nXs=";
+      tag = "v4.21.4";
+      hash = "sha256-tCTkWEAVts95/Ke+G/NeOsfu5utdYAlXdA+IgluabfY=";
     };
   };
   pinyin2hanzi = {
@@ -154,18 +154,18 @@
   };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
-    version = "1.2.18";
+    version = "1.2.19";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.18/sublinkPro-linux-amd64";
-      hash = "sha256-2js9kmy0BfDy3kAp1y1lhTuncNDAZPtCat+jZTexYmE=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.19/sublinkPro-linux-amd64";
+      hash = "sha256-alWodD/6dLBJXnjKjoPbRE+KiINy9LP1mlXOC/SBV/I=";
     };
   };
   sublinkpro-linux-arm64 = {
     pname = "sublinkpro-linux-arm64";
-    version = "1.2.18";
+    version = "1.2.19";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.18/sublinkPro-linux-arm64";
-      hash = "sha256-8U6Bx4qk/hgHIL0B9sT90fhNMkUUY7UD0WWmtQNMz4s=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.19/sublinkPro-linux-arm64";
+      hash = "sha256-WDXcMFk7QNI4IujtViBQ+n8nwlZagsCqjm1hVovFPXk=";
     };
   };
   sun-panel = {
@@ -245,10 +245,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.14.3";
+    version = "3.14.4";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.3/linux-x64/ZCode-3.14.3-linux-x64.deb";
-      hash = "sha256-hRL7eIiWhsfs3JGmCahua0CCVaENsMmvug0+N3sLW08=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.4/linux-x64/ZCode-3.14.4-linux-x64.deb";
+      hash = "sha256-11NhiEXl4FfCnMvDkXwIpMjZk1Xe731qD00pFrpp5L4=";
     };
   };
   zhconv-rs = {
