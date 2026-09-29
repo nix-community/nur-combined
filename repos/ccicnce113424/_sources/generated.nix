@@ -240,22 +240,22 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "cc320465ceaf2a37a95ad818b273c594b8b70559";
+    version = "7932c57cd024658a80a29af97bea079a59299273";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "cc320465ceaf2a37a95ad818b273c594b8b70559";
+      rev = "7932c57cd024658a80a29af97bea079a59299273";
       fetchSubmodules = false;
-      sha256 = "sha256-qRfgYDbHoZpl5HtqrfPvK/iLB3Nvc7NfTnAKk/ni6k0=";
+      sha256 = "sha256-s/Wv/B04Ro4RIgCAiW1FtTmfF5yxoCOAEQlhXylkgR0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-qRfgYDbHoZpl5HtqrfPvK_iLB3Nvc7NfTnAKk_ni6k0=/Cargo.lock";
+      lockFile = ./. + "/sha256-s_Wv_B04Ro4RIgCAiW1FtTmfF5yxoCOAEQlhXylkgR0=/Cargo.lock";
       outputHashes = {
         "font-kit-0.14.3" = "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=";
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-09-28";
+    date = "2026-09-29";
   };
   piliplus = {
     pname = "piliplus";
