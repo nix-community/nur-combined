@@ -73,7 +73,8 @@ pub(super) fn parse_compound(chars: &[char], i: &mut usize) -> Option<Compound> 
     while *i < chars.len() {
         let c = chars[*i];
         match c {
-            ' ' | '\t' | '\n' | '\r' | '>' | '+' | '~' | ',' => break,
+            '>' | '+' | '~' | ',' => break,
+            c if is_css_whitespace(c) => break,
             '.' => {
                 *i += 1;
                 let name = read_ident(chars, i)?;

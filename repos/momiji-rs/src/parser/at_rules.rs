@@ -415,7 +415,7 @@ impl Parser {
     fn skip_ws_trivia(&mut self) {
         loop {
             match self.sc.peek() {
-                Some(c) if c.is_whitespace() => {
+                Some(c) if is_css_whitespace(c) => {
                     self.sc.bump();
                 }
                 Some('/') if self.sc.peek_at(1) == Some('/') => {
@@ -514,7 +514,7 @@ impl Parser {
             }
             // Trailing whitespace before the `,`/`;` is not part of the url,
             // and the deprecation caret is sized from the trimmed token.
-            let path = raw.trim_end().to_string();
+            let path = raw.trim_end_matches(is_css_whitespace).to_string();
             if path.is_empty() {
                 return Err(Error::at("expected a string after @import", self.sc.position()));
             }
@@ -1170,6 +1170,9 @@ impl Parser {
                                 self.reject_plain_css_interp(interp_mark)?;
                                 pieces.push(TplPiece::Interp(e));
                             }
+                            Some('\n' | '\r' | '\u{c}') => {
+                                return Err(Error::at(format!("Expected {c}."), self.sc.position()));
+                            }
                             Some(ch) => {
                                 lit.push(ch);
                                 self.sc.bump();
@@ -1522,6 +1525,7 @@ impl Parser {
                 query: None,
                 body: vec![Stmt::Rule(Rule {
                     selector,
+                    in_decl_context: false,
                     body,
                     selector_pos,
                     selector_interp_spans: Vec::new(),
@@ -1563,7 +1567,7 @@ impl Parser {
         let value = self.parse_template(&[')', ','])?;
         if value
             .iter()
-            .all(|p| matches!(p, TplPiece::Lit(s) if s.trim().is_empty()))
+            .all(|p| matches!(p, TplPiece::Lit(s) if s.trim_matches(is_css_whitespace).is_empty()))
         {
             return Err(Error::at("Expected expression.", value_pos));
         }
@@ -1626,7 +1630,7 @@ impl Parser {
         let prelude = trim_prelude(self.parse_template_mode(&['{', ';', '}'], CommentMode::UnknownPrelude)?);
         self.skip_ws_inline();
         let (body, lines) = if self.sc.peek() == Some('{') {
-            let (body, lines) = self.parse_braced_body_lines()?;
+            let (body, lines) = self.parse_decl_body_lines()?;
             (Some(body), lines)
         } else {
             self.sc.eat(';');
@@ -1668,7 +1672,11 @@ impl Parser {
         let prelude = trim_prelude(prelude);
         self.skip_ws_inline();
         let (body, lines) = if self.sc.peek() == Some('{') {
-            let (body, lines) = self.parse_braced_body_lines()?;
+            let (body, lines) = if name == "-moz-document" {
+                self.parse_braced_body_lines()?
+            } else {
+                self.parse_decl_body_lines()?
+            };
             (Some(body), lines)
         } else {
             self.sc.eat(';');
@@ -1715,7 +1723,7 @@ impl Parser {
         let mut any = false;
         loop {
             match self.sc.peek() {
-                Some(c) if c.is_whitespace() => {
+                Some(c) if is_css_whitespace(c) => {
                     self.sc.bump();
                     any = true;
                 }
@@ -2234,7 +2242,11 @@ impl Parser {
         } else {
             name_length
         };
-        let body = self.parse_braced_body()?;
+        let body = if is_function {
+            self.parse_braced_body()?
+        } else {
+            self.parse_decl_body_lines()?.0
+        };
         // Unknown at-rules aren't allowed in a function body (parse-time in
         // dart-sass: "This at-rule is not allowed here.").
         if is_function {
@@ -2259,7 +2271,7 @@ impl Parser {
     pub(super) fn peek_callable_name_is_custom(&self) -> bool {
         let cs = self.sc.rest();
         let mut i = 0;
-        while i < cs.len() && cs[i].is_whitespace() {
+        while i < cs.len() && is_css_whitespace(cs[i]) {
             i += 1;
         }
         cs.get(i) == Some(&'-') && cs.get(i + 1) == Some(&'-')
@@ -2448,6 +2460,9 @@ impl Parser {
                                 self.reject_plain_css_interp(interp_mark)?;
                                 pieces.push(TplPiece::Interp(e));
                             }
+                            Some('\n' | '\r' | '\u{c}') => {
+                                return Err(Error::at(format!("Expected {q}."), self.sc.position()));
+                            }
                             Some(ch) => {
                                 lit.push(ch);
                                 self.sc.bump();
@@ -2458,8 +2473,8 @@ impl Parser {
                         }
                     }
                 }
-                Some(c) if c.is_whitespace() => {
-                    while matches!(self.sc.peek(), Some(c) if c.is_whitespace()) {
+                Some(c) if is_css_whitespace(c) => {
+                    while matches!(self.sc.peek(), Some(c) if is_css_whitespace(c)) {
                         self.sc.bump();
                     }
                     lit.push(' ');
@@ -2587,6 +2602,12 @@ impl Parser {
                                 }
                                 self.reject_plain_css_interp(interp_mark)?;
                                 pieces.push(TplPiece::Interp(e));
+                            }
+                            // As in any other string, dart's
+                            // `_interpolatedString` fails on an unescaped
+                            // line break.
+                            Some('\n' | '\r' | '\u{c}') => {
+                                return Err(Error::at(format!("Expected {q}."), self.sc.position()));
                             }
                             Some(c) => {
                                 lit.push(c);
@@ -2835,7 +2856,7 @@ impl Parser {
         // `@include name(args)` only. Neither covers the terminating `;`.
         let full_length;
         let content = if self.sc.peek() == Some('{') {
-            let body = self.parse_braced_body()?;
+            let body = self.parse_decl_body_lines()?.0;
             // In the indented syntax the braces around a child block are
             // SYNTHETIC — the front end wrote them into the reconstruction —
             // so the text they enclose is not a source span to point at, and

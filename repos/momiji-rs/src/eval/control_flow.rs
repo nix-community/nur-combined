@@ -1395,7 +1395,7 @@ impl<'a> Evaluator<'a> {
                 let mut collapsed = String::with_capacity(text.len());
                 let mut prev_ws = false;
                 for c in text.chars() {
-                    if c.is_whitespace() {
+                    if is_css_whitespace(c) {
                         prev_ws = true;
                         continue;
                     }

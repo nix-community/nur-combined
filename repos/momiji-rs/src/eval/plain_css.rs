@@ -34,7 +34,7 @@ impl<'a> Evaluator<'a> {
             let mut preserved: Vec<OutItem> = Vec::new();
             for stmt in stmts {
                 if let Stmt::Rule(r) = stmt {
-                    let (own, own_lbs) = self.css_selectors(&r.selector, true)?;
+                    let (own, own_lbs) = self.css_selectors(r, true)?;
                     if own.iter().any(|s| part_has_parent_ref(s)) {
                         let inner = self.css_body(&r.body)?;
                         if !inner.is_empty() {
@@ -66,7 +66,7 @@ impl<'a> Evaluator<'a> {
                     // with `preserveParentSelectors`). The sheet's own top level
                     // always rejects leading combinators — also when merged
                     // under a Sass parent (dart checks in the merge branch).
-                    let (own, own_lbs) = self.css_selectors(&r.selector, true)?;
+                    let (own, own_lbs) = self.css_selectors(r, true)?;
                     // A `&`-bearing rule was already emitted in the leading
                     // parent shell above.
                     if !parents.is_empty() && own.iter().any(|s| part_has_parent_ref(s)) {
@@ -180,7 +180,10 @@ impl<'a> Evaluator<'a> {
                     if body.is_none() && name.eq_ignore_ascii_case("charset") {
                         continue;
                     }
-                    let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                    let prelude_s = self
+                        .eval_template(prelude)?
+                        .trim_matches(is_css_whitespace)
+                        .to_string();
                     let lines = self.stamp(*lines);
                     match body {
                         None => sink.push_at_rule(OutNode::AtRule {
@@ -210,7 +213,10 @@ impl<'a> Evaluator<'a> {
                     body,
                     lines,
                 } => {
-                    let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                    let prelude_s = self
+                        .eval_template(prelude)?
+                        .trim_matches(is_css_whitespace)
+                        .to_string();
                     let out_body = self.css_at_body(body, true)?;
                     let lines = self.stamp(*lines);
                     sink.push_at_rule(OutNode::AtRule {
@@ -247,7 +253,7 @@ impl<'a> Evaluator<'a> {
                     let (selectors, linebreaks) = if frames {
                         (self.css_frame_selectors(&r.selector)?, Vec::new())
                     } else {
-                        self.css_selectors(&r.selector, false)?
+                        self.css_selectors(r, false)?
                     };
                     // Inside `@keyframes` this rule is a FRAME, and nothing in
                     // it bubbles: dart keeps a nested at-rule where it is
@@ -369,7 +375,10 @@ impl<'a> Evaluator<'a> {
                     body,
                     lines,
                 } => {
-                    let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                    let prelude_s = self
+                        .eval_template(prelude)?
+                        .trim_matches(is_css_whitespace)
+                        .to_string();
                     let lines = self.stamp(*lines);
                     match body {
                         None => out.push(OutNode::AtRule {
@@ -419,7 +428,10 @@ impl<'a> Evaluator<'a> {
                     body,
                     lines,
                 } => {
-                    let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                    let prelude_s = self
+                        .eval_template(prelude)?
+                        .trim_matches(is_css_whitespace)
+                        .to_string();
                     let out_body = self.css_at_body(body, true)?;
                     let lines = self.stamp(*lines);
                     out.push(OutNode::AtRule {
@@ -510,7 +522,10 @@ impl<'a> Evaluator<'a> {
                     body: Some(b),
                     ..
                 } => {
-                    let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                    let prelude_s = self
+                        .eval_template(prelude)?
+                        .trim_matches(is_css_whitespace)
+                        .to_string();
                     let inner = self.css_body(b)?;
                     bubble(name, AtRuleKind::Generic, prelude_s, inner, &mut bubbled);
                 }
@@ -524,7 +539,10 @@ impl<'a> Evaluator<'a> {
                     body,
                     lines,
                 } => {
-                    let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                    let prelude_s = self
+                        .eval_template(prelude)?
+                        .trim_matches(is_css_whitespace)
+                        .to_string();
                     let out_body = self.css_at_body(body, true)?;
                     let lines = self.stamp(*lines);
                     bubbled.push(OutNode::AtRule {
@@ -578,13 +596,16 @@ impl<'a> Evaluator<'a> {
     /// source's per-complex line-break flags (`a,\nb` keeps its lines).
     fn css_selectors(
         &mut self,
-        sel: &[crate::ast::TplPiece],
+        rule: &crate::ast::Rule,
         top_level: bool,
     ) -> Result<(Vec<String>, Vec<bool>), Error> {
-        let s = self.eval_template(sel)?;
+        let s = self.eval_template(&rule.selector)?;
+        if let Some((idx, msg)) = find_stray_selector_char(&s) {
+            return Err(self.interp_selector_error(rule, &s, &InterpBounds::None, idx, &msg));
+        }
         let parts: Vec<String> = split_commas(&s)
             .iter()
-            .map(|p| p.trim().to_string())
+            .map(|p| p.trim_matches(is_css_whitespace).to_string())
             .filter(|p| !p.is_empty())
             .collect();
         for p in &parts {
@@ -592,7 +613,7 @@ impl<'a> Evaluator<'a> {
         }
         let normalized: Vec<String> = parts.iter().map(|p| normalize_selector(p)).collect();
         let linebreaks = if s.contains('\n') {
-            comma_linebreaks(&s, false)
+            comma_linebreaks(&s, rule.in_decl_context)
         } else {
             Vec::new()
         };
@@ -604,23 +625,10 @@ impl<'a> Evaluator<'a> {
     /// re-serializes the stops joined with `", "`: the author's line breaks do
     /// not survive it, none of the selector normalization applies (`+5%` is a
     /// stop, not a sibling combinator), and `from`/`to` and a percentage's
-    /// exponent marker come back lowercased.
+    /// exponent marker come back lowercased. Anything else in a frame is the
+    /// stop parser's error, as in dart: no CSS-selector check runs first.
     fn css_frame_selectors(&mut self, sel: &[crate::ast::TplPiece]) -> Result<Vec<String>, Error> {
-        let s = self.eval_template(sel)?;
-        let mut stops = Vec::new();
-        for part in split_commas(&s).iter() {
-            let part = part.trim();
-            if part.is_empty() {
-                continue;
-            }
-            // The stop grammar is `from` | `to` | `<number>%`, stricter than
-            // this: dart rejects `foo`, `&` and `50 %` in a frame, where the
-            // checks below only catch the Sass-only selector forms. The
-            // remaining strictness gap is recorded in the plan.
-            validate_plain_css_selector(part, false)?;
-            stops.push(normalize_keyframe_selector(part));
-        }
-        Ok(stops)
+        parse_keyframe_selector(&self.eval_template(sel)?)
     }
 
     /// Build the body of a `@keyframes` below the bubbling level: as
@@ -713,7 +721,7 @@ impl<'a> Evaluator<'a> {
                 });
             }
             Stmt::Rule(r) => {
-                let (selectors, linebreaks) = self.css_selectors(&r.selector, false)?;
+                let (selectors, linebreaks) = self.css_selectors(r, false)?;
                 let inner = self.css_body(&r.body)?;
                 // An (recursively) empty nested rule is invisible (dart-sass
                 // skips childless rules when serializing).
@@ -793,7 +801,10 @@ impl<'a> Evaluator<'a> {
                 body,
                 lines,
             } => {
-                let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                let prelude_s = self
+                    .eval_template(prelude)?
+                    .trim_matches(is_css_whitespace)
+                    .to_string();
                 match body {
                     None => {
                         let lines = self.stamp(*lines);
@@ -827,7 +838,10 @@ impl<'a> Evaluator<'a> {
                 body,
                 lines,
             } => {
-                let prelude_s = self.eval_template(prelude)?.trim().to_string();
+                let prelude_s = self
+                    .eval_template(prelude)?
+                    .trim_matches(is_css_whitespace)
+                    .to_string();
                 let inner = self.css_frames_body(body)?;
                 let lines = self.stamp(*lines);
                 items.push(OutItem::NestedAtRule {

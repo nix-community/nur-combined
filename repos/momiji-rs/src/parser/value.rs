@@ -348,7 +348,8 @@ impl Parser {
             // starts a new term (dart-sass can't continue a string token).
             if matches!(op, Some(BinOp::Sub)) {
                 let interp_next = self.sc.peek_at(1) == Some('#') && self.sc.peek_at(2) == Some('{');
-                let ident_next = matches!(self.sc.peek_at(1), Some(c) if c.is_alphabetic() || c == '_' || c == '-' || c == '\\');
+                let ident_next =
+                    matches!(self.sc.peek_at(1), Some(c) if is_name_start_codepoint(c) || c == '\\');
                 // `--` always begins an identifier (a CSS custom-ident like
                 // `--em-2--em`), never a subtraction: `1--em` is the space
                 // list `1 --em`.
@@ -363,7 +364,7 @@ impl Parser {
                     // Whitespace OR a comment (`/* */`, `//`) immediately
                     // after the operator counts as separation, matching
                     // dart-sass's `1 /**/+/**/ 2` handling.
-                    let ws_after = matches!(self.sc.peek_at(1), Some(c) if c.is_whitespace())
+                    let ws_after = matches!(self.sc.peek_at(1), Some(c) if is_css_whitespace(c))
                         || (self.sc.peek_at(1) == Some('/')
                             && matches!(self.sc.peek_at(2), Some('*') | Some('/')));
                     // dart-sass: `+`/`-` in operator position is binary unless
@@ -383,7 +384,7 @@ impl Parser {
                             BinOp::Add => true,
                             _ => {
                                 let n1 = self.sc.peek_at(1);
-                                let starts_term = matches!(n1, Some(c) if c.is_ascii_digit() || c == '.' || c == '-' || c == '_' || c.is_alphabetic())
+                                let starts_term = matches!(n1, Some(c) if c.is_ascii_digit() || c == '.' || c == '-' || is_name_start_codepoint(c))
                                     || (n1 == Some('#') && self.sc.peek_at(2) == Some('{'))
                                     || n1 == Some('\\');
                                 !starts_term
@@ -433,7 +434,7 @@ impl Parser {
     /// something that can start an operand — otherwise it's a lone `%` token.
     fn percent_has_rhs(&self) -> bool {
         let mut i = 1;
-        while matches!(self.sc.peek_at(i), Some(c) if c.is_whitespace()) {
+        while matches!(self.sc.peek_at(i), Some(c) if is_css_whitespace(c)) {
             i += 1;
         }
         !matches!(
@@ -552,7 +553,7 @@ impl Parser {
                         operand: Box::new(operand),
                     });
                 }
-                if matches!(self.sc.peek_at(1), Some(c) if c.is_whitespace()) {
+                if matches!(self.sc.peek_at(1), Some(c) if is_css_whitespace(c)) {
                     if in_calc {
                         return Err(Error::at(
                             "This expression can't be used in a calculation.",
@@ -603,7 +604,7 @@ impl Parser {
                         || c == '+'
                         || c == '-'
                         || is_ident_char(c));
-                if starts_operand || matches!(next, Some(c) if c.is_whitespace()) {
+                if starts_operand || matches!(next, Some(c) if is_css_whitespace(c)) {
                     self.sc.bump();
                     self.skip_ws_inline();
                     let operand = self.unary()?;
@@ -1098,7 +1099,7 @@ impl Parser {
         } else {
             loop {
                 match self.sc.peek() {
-                    Some(c) if c.is_ascii_alphabetic() || c == '_' => {
+                    Some(c) if is_name_start_codepoint(c) => {
                         self.sc.bump();
                         unit.push(c);
                     }
@@ -1122,7 +1123,7 @@ impl Parser {
                     // follows (`1-em` is 1 with unit `-em`; `1--em` is the
                     // list `1 --em`, `1- 2` subtracts).
                     Some('-') if unit.is_empty() => match self.sc.peek_at(1) {
-                        Some(c) if c.is_ascii_alphabetic() || c == '_' => {
+                        Some(c) if is_name_start_codepoint(c) => {
                             self.sc.bump();
                             unit.push('-');
                         }
@@ -1746,6 +1747,9 @@ impl Parser {
                                     lit.push(esc);
                                 }
                             }
+                            Some('\n' | '\r' | '\u{c}') => {
+                                return Err(Error::at(format!("Expected {q}."), self.sc.position()));
+                            }
                             Some(ch) => {
                                 lit.push(ch);
                                 self.sc.bump();
@@ -1800,8 +1804,8 @@ impl Parser {
                     }
                 }
                 // Whitespace run collapses to a single space.
-                Some(c) if c.is_whitespace() => {
-                    while matches!(self.sc.peek(), Some(c) if c.is_whitespace()) {
+                Some(c) if is_css_whitespace(c) => {
+                    while matches!(self.sc.peek(), Some(c) if is_css_whitespace(c)) {
                         self.sc.bump();
                     }
                     lit.push(' ');

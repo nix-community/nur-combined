@@ -1934,7 +1934,7 @@ impl<'a> Evaluator<'a> {
         e
     }
 
-    /// Build the "expected selector." error for a `@` in a resolved selector:
+    /// Build the error `msg` for a stray character in a resolved selector:
     /// when the offending column falls inside an interpolation's output the
     /// error renders dart's dual-span "error in interpolated output" block;
     /// when it maps to literal selector text the source column is recovered
@@ -1945,8 +1945,8 @@ impl<'a> Evaluator<'a> {
         sel_str: &str,
         interp_bounds: &InterpBounds,
         at_idx: usize,
+        msg: &str,
     ) -> Error {
-        const MSG: &str = "expected selector.";
         let spans = &rule.selector_interp_spans;
         let single_line = !sel_str.contains('\n');
         // Inside an interpolation's output -> dual-span rendering, positioned
@@ -1960,11 +1960,11 @@ impl<'a> Evaluator<'a> {
                         line: line as usize,
                         col: col_start as usize,
                     };
-                    let mut e = Error::at(MSG, pos);
+                    let mut e = Error::at(msg, pos);
                     if self.diag_enabled() {
                         let source = Rc::clone(&self.current_source);
                         let frames = self.frames_for(pos);
-                        let mut rendered = format!("Error: {MSG}\n");
+                        let mut rendered = format!("Error: {msg}\n");
                         rendered.push_str(&crate::diag::render_interp_error_snippet(
                             &source,
                             line as usize,
@@ -2008,14 +2008,14 @@ impl<'a> Evaluator<'a> {
             }
             let col = (rule.selector_pos.col as i64 + at_idx as i64 + shift).max(1) as usize;
             return Error::at(
-                MSG,
+                msg,
                 Pos {
                     line: rule.selector_pos.line,
                     col,
                 },
             );
         }
-        Error::at(MSG, rule.selector_pos)
+        Error::at(msg, rule.selector_pos)
     }
 
     /// How a frame names its file: a path relative to the working directory,
@@ -3293,25 +3293,31 @@ impl<'a> Evaluator<'a> {
         let (sel_str, interp_bounds) = self.eval_template_bounds(&rule.selector)?;
         // A selector that resolves to nothing (e.g. `#{&}` at the document root,
         // where `&` is null) is rejected by dart-sass with "expected selector".
-        if sel_str.trim().is_empty() {
-            return Err(Error::unpositioned("expected selector."));
-        }
-        validate_selector(&sel_str, !parents.is_empty())?;
-        // A `@` has no legal position in a CSS selector: dart's selector
-        // parser fails with "expected selector." — pointed at the source when
-        // the offending character maps to literal text, or rendered as the
-        // dual-span "error in interpolated output" diagnostic when it came
-        // from an interpolation (todo_single_escape).
+        // A keyframe block's is parsed as stops instead, below.
         if !self.in_keyframes {
-            if let Some(at_idx) = find_unquoted_at(&sel_str) {
-                return Err(self.interp_selector_error(rule, &sel_str, &interp_bounds, at_idx));
+            if sel_str.trim_matches(is_css_whitespace).is_empty() {
+                return Err(Error::unpositioned("expected selector."));
+            }
+            validate_selector(&sel_str, !parents.is_empty())?;
+        }
+        // A character no selector may hold (`@`, `$`, a control character):
+        // dart's selector parser fails there, pointed at the source when the
+        // character maps to literal text, or rendered as the dual-span "error
+        // in interpolated output" diagnostic when it came from an
+        // interpolation (todo_single_escape).
+        if !self.in_keyframes {
+            if let Some((idx, msg)) = find_stray_selector_char(&sel_str) {
+                return Err(self.interp_selector_error(rule, &sel_str, &interp_bounds, idx, &msg));
             }
         }
         // A selector starting with a digit is dart's "expected selector."
         // (`1a {}`, issue_2023) — except keyframe stops (`50%`, `13E2%`).
         if !self.in_keyframes {
             for part in split_commas(&sel_str).iter() {
-                if part.trim_start().starts_with(|c: char| c.is_ascii_digit()) {
+                if part
+                    .trim_start_matches(is_css_whitespace)
+                    .starts_with(|c: char| c.is_ascii_digit())
+                {
                     return Err(Error::unpositioned("expected selector."));
                 }
             }
@@ -3326,7 +3332,7 @@ impl<'a> Evaluator<'a> {
         let part_lbs: Vec<bool> = if lbs_fast {
             Vec::new()
         } else {
-            comma_linebreaks(&sel_str, false)
+            comma_linebreaks(&sel_str, rule.in_decl_context)
         };
         let parent_lbs: &[bool] = if self.current_linebreaks.len() == parents.len() {
             &self.current_linebreaks
@@ -3346,16 +3352,7 @@ impl<'a> Evaluator<'a> {
         // keyframe stop really does carry a `%`.
         let (current, full_lbs, maybe_bogus, any_percent): (Vec<String>, Vec<bool>, bool, bool) =
             if self.in_keyframes {
-                (
-                    split_commas(&sel_str)
-                        .iter()
-                        .map(|p| p.trim().to_string())
-                        .filter(|p| !p.is_empty())
-                        .collect(),
-                    Vec::new(),
-                    true,
-                    true,
-                )
+                (parse_keyframe_selector(&sel_str)?, Vec::new(), true, true)
             } else {
                 let resolved = resolve_selectors_opt(
                     &sel_str,
@@ -3443,14 +3440,7 @@ impl<'a> Evaluator<'a> {
                     continue;
                 }
                 self.note_placeholder_rule(s);
-                // A keyframe stop is re-serialized: `FROM` -> `from`, and a
-                // percentage's exponent marker `130E-1%` -> `130e-1%`.
-                let s = if self.in_keyframes {
-                    normalize_keyframe_selector(s)
-                } else {
-                    s.clone()
-                };
-                emit_selectors.push(s);
+                emit_selectors.push(s.clone());
                 if !full_lbs.is_empty() {
                     emit_linebreaks.push(full_lbs.get(i).copied().unwrap_or(false));
                 }
@@ -4176,7 +4166,7 @@ impl<'a> Evaluator<'a> {
 /// `--b` is not.
 fn literal_name_is_custom_property(property: &[TplPiece]) -> bool {
     match property.first() {
-        Some(TplPiece::Lit(s)) => s.trim_start().starts_with("--"),
+        Some(TplPiece::Lit(s)) => s.trim_start_matches(is_css_whitespace).starts_with("--"),
         _ => false,
     }
 }
@@ -4190,7 +4180,7 @@ fn expr_has_substitution(e: &Expr) -> bool {
         Expr::Ident(pieces) => pieces.iter().any(|p| match p {
             TplPiece::Interp(_) => true,
             TplPiece::Lit(s) => {
-                let lower = s.trim_start().to_ascii_lowercase();
+                let lower = s.trim_start_matches(is_css_whitespace).to_ascii_lowercase();
                 lower.starts_with("var(") || lower.starts_with("env(")
             }
         }),
@@ -4405,20 +4395,20 @@ fn nested_calc_needs_parens(s: &str) -> bool {
     if is_complete_calculation(s) {
         return false;
     }
-    let trimmed = s.trim_start();
+    let trimmed = s.trim_start_matches(is_css_whitespace);
     let is_var = trimmed.len() >= 4 && trimmed[..4].eq_ignore_ascii_case("var(");
     is_var
         || s.chars()
-            .any(|c| c.is_whitespace() || matches!(c, '*' | '/' | '\\'))
+            .any(|c| is_css_whitespace(c) || matches!(c, '*' | '/' | '\\'))
 }
 
 fn is_complete_calculation(s: &str) -> bool {
-    let s = s.trim();
+    let s = s.trim_matches(is_css_whitespace);
     let Some(open) = s.find('(') else { return false };
     if !s.ends_with(')') {
         return false;
     }
-    let name = s[..open].trim().to_ascii_lowercase();
+    let name = s[..open].trim_matches(is_css_whitespace).to_ascii_lowercase();
     let is_calc_name = matches!(
         name.as_str(),
         "calc"
@@ -4875,7 +4865,7 @@ fn validate_decl_scope(stmts: &[Stmt], ctx: ScopeCtx) -> Result<(), Error> {
 /// a selector, so it must not count as a style rule inside a `@function` body.
 fn is_empty_parens_selector(selector: &[TplPiece]) -> bool {
     match selector {
-        [TplPiece::Lit(s)] => s.trim() == "()",
+        [TplPiece::Lit(s)] => s.trim_matches(is_css_whitespace) == "()",
         _ => false,
     }
 }
@@ -5627,14 +5617,18 @@ impl AtRootQuery {
                 rule: true,
             };
         };
-        let inner = text.trim().trim_start_matches('(').trim_end_matches(')');
+        let inner = text
+            .trim_matches(is_css_whitespace)
+            .trim_start_matches('(')
+            .trim_end_matches(')');
         let (include, list) = match inner.split_once(':') {
-            Some((k, v)) if k.trim().eq_ignore_ascii_case("with") => (true, v),
+            Some((k, v)) if k.trim_matches(is_css_whitespace).eq_ignore_ascii_case("with") => (true, v),
             Some((_, v)) => (false, v),
             None => (false, inner),
         };
         let names: Vec<String> = list
-            .split_whitespace()
+            .split(is_css_whitespace)
+            .filter(|s| !s.is_empty())
             .map(|s| s.trim_matches('"').trim_matches('\'').to_ascii_lowercase())
             .collect();
         let all = names.iter().any(|n| n == "all");
@@ -5661,27 +5655,145 @@ impl AtRootQuery {
     }
 }
 
-/// Normalize a keyframe selector the way dart re-serializes a stop: the
-/// `from`/`to` keywords are lowercased (`FROM` -> `from`), and so is a
-/// percentage stop's scientific-notation marker (`130E-1%` -> `130e-1%`);
-/// the digits are left verbatim.
-pub(super) fn normalize_keyframe_selector(s: &str) -> String {
-    let t = s.trim();
-    if t.eq_ignore_ascii_case("from") || t.eq_ignore_ascii_case("to") {
-        return t.to_ascii_lowercase();
+/// Parse a keyframe block's resolved selector as dart's
+/// `KeyframeSelectorParser` does: a comma list of `from`, `to` or a
+/// percentage, each re-serialized. The keywords are lowercased
+/// (`FROM` -> `from`), and so is a percentage's exponent marker
+/// (`130E-1%` -> `130e-1%`); the digits are left verbatim. Anything else is
+/// dart's error (`foo`, `10px`, `10% 20%`, a trailing comma).
+pub(super) fn parse_keyframe_selector(s: &str) -> Result<Vec<String>, Error> {
+    let cs: Vec<char> = s.chars().collect();
+    let at = |i: usize| cs.get(i).copied();
+    let digits = |i: &mut usize, out: &mut String| {
+        while let Some(c) = at(*i).filter(char::is_ascii_digit) {
+            out.push(c);
+            *i += 1;
+        }
+    };
+    let skip_ws = |i: &mut usize| {
+        while at(*i).is_some_and(is_css_whitespace) {
+            *i += 1;
+        }
+    };
+    let mut i = 0;
+    let mut stops = Vec::new();
+    loop {
+        skip_ws(&mut i);
+        let ident = match at(i) {
+            Some('\\') => true,
+            Some('-') => matches!(at(i + 1), Some(c) if c == '-' || c == '\\' || is_name_start(c)),
+            Some(c) => is_name_start(c),
+            None => false,
+        };
+        if ident {
+            // dart's `scanIdentifier("from")`, then `expectIdentifier("to")`:
+            // each letter may be escaped, and a name character right after
+            // `to` drops the message's final period.
+            match (scan_keyword(&cs, i, "from"), scan_keyword(&cs, i, "to")) {
+                (Some(j), _) if !ident_body_at(&cs, j) => {
+                    stops.push("from".to_string());
+                    i = j;
+                }
+                (_, Some(j)) if !ident_body_at(&cs, j) => {
+                    stops.push("to".to_string());
+                    i = j;
+                }
+                (_, Some(_)) => return Err(Error::unpositioned("Expected \"to\" or \"from\"")),
+                (_, None) => return Err(Error::unpositioned("Expected \"to\" or \"from\".")),
+            }
+        } else {
+            let mut stop = String::new();
+            if at(i) == Some('+') {
+                stop.push('+');
+                i += 1;
+            }
+            if !at(i).is_some_and(|c| c.is_ascii_digit() || c == '.') {
+                return Err(Error::unpositioned("Expected number."));
+            }
+            digits(&mut i, &mut stop);
+            if at(i) == Some('.') {
+                stop.push('.');
+                i += 1;
+                digits(&mut i, &mut stop);
+            }
+            if matches!(at(i), Some('e' | 'E')) {
+                stop.push('e');
+                i += 1;
+                if let Some(sign @ ('+' | '-')) = at(i) {
+                    stop.push(sign);
+                    i += 1;
+                }
+                if !at(i).is_some_and(|c| c.is_ascii_digit()) {
+                    return Err(Error::unpositioned("Expected digit."));
+                }
+                digits(&mut i, &mut stop);
+            }
+            if at(i) != Some('%') {
+                return Err(Error::unpositioned("expected \"%\"."));
+            }
+            stop.push('%');
+            i += 1;
+            stops.push(stop);
+        }
+        skip_ws(&mut i);
+        if at(i) != Some(',') {
+            break;
+        }
+        i += 1;
     }
-    if !s.contains('E') {
-        return s.to_string();
+    if i < cs.len() {
+        return Err(Error::unpositioned("expected no more input."));
     }
-    let is_pct = t.ends_with('%')
-        && t[..t.len() - 1]
-            .chars()
-            .all(|c| c.is_ascii_digit() || matches!(c, '.' | '+' | '-' | 'e' | 'E'));
-    if is_pct {
-        s.replace('E', "e")
-    } else {
-        s.to_string()
+    Ok(stops)
+}
+
+/// Match `word` case-insensitively at `cs[i..]`, a letter at a time, where
+/// each letter may be written as an escape (`\66rom`); the index after it.
+fn scan_keyword(cs: &[char], mut i: usize, word: &str) -> Option<usize> {
+    for letter in word.chars() {
+        let (c, next) = ident_char_at(cs, i)?;
+        if !c.eq_ignore_ascii_case(&letter) {
+            return None;
+        }
+        i = next;
     }
+    Some(i)
+}
+
+/// The identifier character at `cs[i]`, with an escape decoded as dart's
+/// `escapeCharacter` does, and the index after it.
+fn ident_char_at(cs: &[char], i: usize) -> Option<(char, usize)> {
+    match *cs.get(i)? {
+        '\\' => {
+            let hex = cs[i + 1..]
+                .iter()
+                .take(6)
+                .take_while(|c| c.is_ascii_hexdigit())
+                .count();
+            if hex == 0 {
+                let c = *cs.get(i + 1).filter(|&&c| !matches!(c, '\n' | '\r' | '\u{c}'))?;
+                return Some((c, i + 2));
+            }
+            let value: String = cs[i + 1..i + 1 + hex].iter().collect();
+            let c = u32::from_str_radix(&value, 16)
+                .ok()
+                .filter(|&v| v != 0)
+                .and_then(char::from_u32)
+                .unwrap_or('\u{fffd}');
+            let mut next = i + 1 + hex;
+            if cs.get(next).is_some_and(|&c| is_css_whitespace(c)) {
+                next += 1;
+            }
+            Some((c, next))
+        }
+        c => Some((c, i + 1)),
+    }
+}
+
+/// Whether an identifier's body continues at `cs[i]` (dart's
+/// `lookingAtIdentifierBody`).
+fn ident_body_at(cs: &[char], i: usize) -> bool {
+    cs.get(i).is_some_and(|&c| is_name_char(c) || c == '\\')
 }
 
 /// Convert an at-rule-body node list (as produced by `eval_at_body` with no
@@ -5759,7 +5871,7 @@ fn at_body_to_items(nodes: Vec<OutNode>) -> Vec<OutItem> {
 }
 
 fn validate_plain_css_selector(part: &str, top_level: bool) -> Result<(), Error> {
-    let trimmed = part.trim();
+    let trimmed = part.trim_matches(is_css_whitespace);
     let chars_buf = CharBuf::of(trimmed);
     let chars: &[char] = &chars_buf;
     // A leading combinator is allowed when *nested* (it joins onto the parent),
@@ -5788,7 +5900,8 @@ fn validate_plain_css_selector(part: &str, top_level: bool) -> Result<(), Error>
             '[' | '(' => depth += 1,
             ']' | ')' => depth -= 1,
             _ if depth > 0 => {}
-            ' ' | '\t' | '\n' | '\r' | '>' | '+' | '~' => at_compound_start = true,
+            '>' | '+' | '~' => at_compound_start = true,
+            c if is_css_whitespace(c) => at_compound_start = true,
             '%' if at_compound_start => {
                 return Err(Error::unpositioned(
                     "Placeholder selectors aren't allowed in plain CSS.",
@@ -5810,27 +5923,11 @@ fn validate_plain_css_selector(part: &str, top_level: bool) -> Result<(), Error>
     Ok(())
 }
 
-/// Whether the `(` at `chars[open]` directly follows a pseudo-class/element
-/// name: a non-empty run of identifier characters whose preceding character is
-/// a `:` (`:not(`, `::-webkit-any(`).
-fn paren_follows_pseudo(chars: &[char], open: usize) -> bool {
-    let mut j = open;
-    while j > 0 {
-        let p = chars[j - 1];
-        if p.is_ascii_alphanumeric() || p == '-' || p == '_' || (p as u32) >= 0x80 {
-            j -= 1;
-        } else {
-            break;
-        }
-    }
-    j < open && j > 0 && chars[j - 1] == ':'
-}
-
 fn validate_selector(sel: &str, has_parent: bool) -> Result<(), Error> {
     // A selector list whose FIRST comma part is empty is dart-sass's
     // "expected selector." (`,b`); later empty parts (`a,,b`, trailing `a,`)
     // are tolerated and skipped.
-    if sel.trim_start().starts_with(',') {
+    if sel.trim_start_matches(is_css_whitespace).starts_with(',') {
         return Err(Error::unpositioned("expected selector."));
     }
     // Parens and brackets must nest properly: `a:b([c)]` is dart's
@@ -5992,6 +6089,8 @@ fn validate_selector_tail(sel: &str, has_parent: bool) -> Result<(), Error> {
         // immediately after any combinator or whitespace).
         let mut at_compound_start = true;
         let mut depth = 0i32; // inside `[...]` or `(...)`
+                              // Where the last pseudo name's argument list opens.
+        let mut pseudo_paren = None;
         while i < chars.len() {
             let c = chars[i];
             match c {
@@ -6013,13 +6112,30 @@ fn validate_selector_tail(sel: &str, has_parent: bool) -> Result<(), Error> {
                     at_compound_start = false;
                     continue;
                 }
+                // A pseudo's name is an identifier, escapes included
+                // (`:\69s(…)`); a `(` right after it opens its argument.
+                ':' if depth == 0 => {
+                    let name_start = i + 1 + usize::from(chars.get(i + 1) == Some(&':'));
+                    let mut j = name_start;
+                    while ident_body_at(chars, j) {
+                        let Some((_, next)) = ident_char_at(chars, j) else {
+                            break;
+                        };
+                        j = next;
+                    }
+                    if j > name_start && chars.get(j) == Some(&'(') {
+                        pseudo_paren = Some(j);
+                    }
+                    i = j;
+                    at_compound_start = false;
+                    continue;
+                }
                 // A top-level `(` is only valid as a pseudo-class/element
-                // argument list (`:not(…)`, `::part(…)`): the run of identifier
-                // characters directly before it must follow a `:`. Anywhere
-                // else — compound start, after a plain identifier, after `]` —
+                // argument list (`:not(…)`, `::part(…)`). Anywhere else —
+                // compound start, after a plain identifier, after `]` —
                 // dart-sass reports "expected selector." (`a(b)`, `a (b)`).
                 '(' if depth == 0 => {
-                    if !paren_follows_pseudo(chars, i) {
+                    if pseudo_paren != Some(i) {
                         return Err(Error::unpositioned("expected selector."));
                     }
                     depth += 1;
@@ -6038,7 +6154,7 @@ fn validate_selector_tail(sel: &str, has_parent: bool) -> Result<(), Error> {
                     at_compound_start = false;
                 }
                 _ if depth > 0 => {}
-                ' ' | '\t' | '\n' | '\r' => at_compound_start = true,
+                c if is_css_whitespace(c) => at_compound_start = true,
                 '>' | '+' | '~' => at_compound_start = true,
                 '&' => {
                     if !at_compound_start {
@@ -6199,30 +6315,39 @@ fn matching_bracket(chars: &[char], open: usize) -> usize {
     chars.len()
 }
 
-/// Validate the inner content of an `[…]` attribute selector. dart-sass allows
-/// at most a single trailing ASCII-letter modifier, directly before the close
-/// bracket: `[a]`, `[a=b]`, `[a=b ]`, `[a="b"i]`, and `[a=b i]` are valid, but
-/// `[a b]` (no operator), `[a=b cd]` (too long), `[a=b 1]`/`[a=b _]`/`[a=b ï]`
-/// (non-letter), and `[a=b i ]` (trailing space after the modifier) are not.
+/// Validate the inner content of an `[…]` attribute selector as dart's
+/// `_attributeSelector` reads it: a name (`a`, `ns|a`, `|a`, `*|a`), then
+/// either the close bracket or an operator, a value (a string or an
+/// identifier), and at most a single ASCII-letter modifier directly before
+/// the close. `[a b]` (no operator), `[a=1]` (no identifier), `[a=b cd]`,
+/// `[a=b 1]` and `[a=b i ]` are rejected with dart's message.
 fn validate_attribute(inner: &[char]) -> Result<(), Error> {
     let err = || Error::unpositioned("expected \"]\".");
+    let ident =
+        |i: usize| scan_identifier(inner, i).ok_or_else(|| Error::unpositioned("Expected identifier."));
     let mut i = 0;
     let skip_ws = |i: &mut usize| {
         while *i < inner.len() && is_css_whitespace(inner[*i]) {
             *i += 1;
         }
     };
-    // Namespace + attribute name (identifiers, escapes, and a `|` namespace
-    // separator); interpolation has already been resolved to literal text.
+    // dart's `_attributeName`; interpolation has already been resolved to
+    // literal text.
     skip_ws(&mut i);
-    while i < inner.len() {
-        let c = inner[i];
-        if c == '\\' {
-            i += 2;
-        } else if is_name_char(c) || c == '|' || c == '*' {
-            i += 1;
-        } else {
-            break;
+    match inner.get(i) {
+        Some('*') => {
+            if inner.get(i + 1) != Some(&'|') {
+                return Err(Error::unpositioned("expected \"|\"."));
+            }
+            i = ident(i + 2)?;
+        }
+        Some('|') => i = ident(i + 1)?,
+        _ => {
+            i = ident(i)?;
+            // A `|` is a namespace separator unless it starts `|=`.
+            if inner.get(i) == Some(&'|') && inner.get(i + 1) != Some(&'=') {
+                i = ident(i + 1)?;
+            }
         }
     }
     skip_ws(&mut i);
@@ -6242,22 +6367,10 @@ fn validate_attribute(inner: &[char]) -> Result<(), Error> {
     }
     i += if inner[i] == '=' { 1 } else { 2 };
     skip_ws(&mut i);
-    // The value: a quoted string or an unquoted identifier (with escapes).
+    // The value: a quoted string or an identifier (with escapes).
     match inner.get(i) {
         Some('"') | Some('\'') => i = skip_string(inner, i),
-        Some(_) => {
-            while i < inner.len() {
-                let c = inner[i];
-                if c == '\\' {
-                    i += 2;
-                } else if is_css_whitespace(c) {
-                    break;
-                } else {
-                    i += 1;
-                }
-            }
-        }
-        None => return Err(err()),
+        _ => i = ident(i)?,
     }
     skip_ws(&mut i);
     if i >= inner.len() {
@@ -6268,6 +6381,30 @@ fn validate_attribute(inner: &[char]) -> Result<(), Error> {
         return Ok(());
     }
     Err(err())
+}
+
+/// The index after the identifier at `cs[i]`, read as dart's `identifier()`
+/// does, or `None` where dart says "Expected identifier.": an optional `-`
+/// (a second one lets the name start with any body character or none), then
+/// a name-start character or an escape, then the body.
+fn scan_identifier(cs: &[char], mut i: usize) -> Option<usize> {
+    let body_from = |mut i: usize| {
+        while ident_body_at(cs, i) {
+            i = ident_char_at(cs, i)?.1;
+        }
+        Some(i)
+    };
+    if cs.get(i) == Some(&'-') {
+        i += 1;
+        if cs.get(i) == Some(&'-') {
+            return body_from(i + 1);
+        }
+    }
+    match cs.get(i) {
+        Some('\\') => body_from(ident_char_at(cs, i)?.1),
+        Some(&c) if is_name_start(c) => body_from(i + 1),
+        _ => None,
+    }
 }
 
 fn is_name_char(c: char) -> bool {
@@ -6831,39 +6968,99 @@ fn extend_selector_list(
 /// emitted complex selector should begin on its own line — parallel to the
 /// parts `resolve_selectors` keeps.
 ///
-/// dart-sass carries a per-complex `lineBreak` flag set when a newline precedes
-/// the part in source (`a,\nb`). During parent resolution that flag survives for
-/// an *implicit*-parent part (`parent.lineBreak || child.lineBreak`), but a part
-/// that *references* the parent with `&` takes the parent complex's flag instead
-/// and drops its own. We don't track parent line-breaks, so for a `&`-part in a
-/// nested rule we conservatively report `false` (correct whenever the governing
-/// parent is the first/unbroken one, and never emits a break dart-sass wouldn't).
-fn comma_linebreaks(sel: &str, nested: bool) -> Vec<bool> {
-    // An EMPTY comma part (a stray trailing/doubled comma) is dropped, but a
-    // newline inside it still belongs to the next real part:
-    // `#foo #bar,,\n,#baz #boom,` keeps `#baz #boom` on its own line.
+/// dart-sass carries a per-complex `lineBreak` flag, set by comparing line
+/// numbers: a part is line-broken when a newline sits anywhere since the start
+/// of the last line-broken part — inside the previous complex (`a\nb, c`),
+/// before or after its comma (`a\n, b`), or in an EMPTY part between, which is
+/// itself dropped (`a,,\n,b`). Parent resolution then combines the flags (see
+/// `resolve_selectors_opt`).
+///
+/// `in_decl_context` is `Rule::in_decl_context`: dart's declaration-or-rule
+/// lookahead has already replaced the whitespace after a leading identifier
+/// with one space, so a newline there counts for nothing (`.p { a\nb, c {…} }`
+/// keeps `.p a b, .p c` on one line).
+fn comma_linebreaks(sel: &str, in_decl_context: bool) -> Vec<bool> {
+    let runs = if in_decl_context {
+        lead_ident_ws(sel)
+    } else {
+        Vec::new()
+    };
+    let squashed;
+    let sel = if runs.iter().any(|r| sel[r.clone()].contains('\n')) {
+        // Only the flags are wanted, so the runs can go entirely.
+        let mut out = String::with_capacity(sel.len());
+        let mut at = 0;
+        for r in runs {
+            out.push_str(&sel[at..r.start]);
+            at = r.end;
+        }
+        out.push_str(&sel[at..]);
+        squashed = out;
+        squashed.as_str()
+    } else {
+        sel
+    };
     let mut out = Vec::new();
-    let mut pending_nl = false;
-    let segs = split_commas(sel);
-    for (i, seg) in segs.iter().enumerate() {
-        if seg.trim().is_empty() {
-            pending_nl = pending_nl || (i > 0 && seg.contains('\n'));
+    let mut nl_since_break = false;
+    for (i, seg) in split_commas(sel).iter().enumerate() {
+        let body = seg.trim_start_matches(is_css_whitespace);
+        let leading_nl = seg[..seg.len() - body.len()].contains('\n');
+        if body.trim_end_matches(is_css_whitespace).is_empty() {
+            nl_since_break = nl_since_break || (i > 0 && leading_nl);
             continue;
         }
-        // dart marks a complex as line-broken when ANY newline sits between
-        // it and the previous one — including BEFORE the comma (`a\n, b`).
-        let leading_nl = seg.chars().take_while(|c| c.is_whitespace()).any(|c| c == '\n');
-        let prev_trailing_nl = i > 0
-            && segs[i - 1]
-                .chars()
-                .rev()
-                .take_while(|c| c.is_whitespace())
-                .any(|c| c == '\n');
-        let newline_before = i > 0 && (leading_nl || prev_trailing_nl);
-        out.push((newline_before || pending_nl) && !(nested && part_has_parent_ref(seg)));
-        pending_nl = false;
+        let line_break = i > 0 && (nl_since_break || leading_nl);
+        out.push(line_break);
+        nl_since_break = body.contains('\n');
     }
     out
+}
+
+/// The whitespace runs dart's `_declarationOrBuffer` drops from a selector's
+/// leading identifier (optionally behind a `*prop`/`:prop`/`.prop`/`#prop`
+/// hack character): each hex escape's terminating whitespace (`\\61\nb`),
+/// since dart keeps the identifier's value rather than its source, and the
+/// run after it, written back as one space — unless a `:` follows, which
+/// keeps that run as written.
+fn lead_ident_ws(sel: &str) -> Vec<std::ops::Range<usize>> {
+    let mut runs = Vec::new();
+    let mut it = sel.char_indices().peekable();
+    if matches!(it.peek(), Some((_, ':' | '*' | '.' | '#'))) {
+        it.next();
+        while it.next_if(|&(_, c)| is_css_whitespace(c)).is_some() {}
+    }
+    let mut cs = it.peek().map_or("", |&(i, _)| &sel[i..]).chars();
+    let starts_ident = match cs.next() {
+        Some('\\') => true,
+        Some('-') => matches!(cs.next(), Some(c) if c == '-' || c == '\\' || is_name_start(c)),
+        Some(c) => is_name_start(c),
+        None => false,
+    };
+    if !starts_ident {
+        return runs;
+    }
+    while let Some((_, c)) = it.next_if(|&(_, c)| is_name_char(c) || c == '\\') {
+        if c == '\\' {
+            // An escape: up to six hex digits and one whitespace, or one character.
+            if it.next_if(|&(_, c)| c.is_ascii_hexdigit()).is_some() {
+                for _ in 0..5 {
+                    it.next_if(|&(_, c)| c.is_ascii_hexdigit());
+                }
+                if let Some((i, c)) = it.next_if(|&(_, c)| is_css_whitespace(c)) {
+                    runs.push(i..i + c.len_utf8());
+                }
+            } else {
+                it.next();
+            }
+        }
+    }
+    let start = it.peek().map_or(sel.len(), |&(i, _)| i);
+    while it.next_if(|&(_, c)| is_css_whitespace(c)).is_some() {}
+    let end = it.peek().map_or(sel.len(), |&(i, _)| i);
+    if end > start && !sel[end..].starts_with(':') {
+        runs.push(start..end);
+    }
+    runs
 }
 
 /// Whether a selector comma-part contains a top-level parent reference `&`
@@ -6900,33 +7097,135 @@ fn part_has_parent_ref(part: &str) -> bool {
     false
 }
 
-/// The char index of the first `@` outside quoted strings in a resolved
-/// selector, if any — `@` has no legal position in a CSS selector.
-fn find_unquoted_at(sel: &str) -> Option<usize> {
-    // `@` is ASCII: no `@` byte means no occurrence at all — skip the
-    // quote-tracking walk that otherwise runs for every resolved selector.
-    if !sel.as_bytes().contains(&b'@') {
+/// The first character of a resolved selector that no selector may hold,
+/// with its char index and dart's message. dart's `_complexSelector` stops
+/// at a character that starts neither a compound selector nor a combinator:
+/// at the top level `parse` then reports "expected selector.", and in a
+/// selector pseudo's argument `expectChar(')')` reports `expected ")".`,
+/// unless the complex selector is still empty, which is "expected
+/// selector." again. Such a character is a C0 control other than CSS
+/// whitespace, DEL, a quote, or one of `` $ ^ ` ? < = @ / ``. An escape makes
+/// it part of an identifier, an attribute value may be a string, and an
+/// unknown pseudo's argument is dart's `declarationValue`, which takes any
+/// of them. Every attribute is validated
+/// on the way, so this alone serves where [`validate_selector`] is not run
+/// (plain CSS, `@extend`, the selector functions) and inside a pseudo's
+/// argument, which [`validate_selector_tail`] skips.
+pub(crate) fn find_stray_selector_char(sel: &str) -> Option<(usize, String)> {
+    if !sel.bytes().any(|b| b == b'[' || is_stray_selector_byte(b)) {
         return None;
     }
-    let mut quote: Option<char> = None;
-    let mut iter = sel.chars().enumerate();
-    while let Some((i, c)) = iter.next() {
-        match quote {
-            Some(q) => {
-                if c == '\\' {
-                    iter.next();
-                } else if c == q {
-                    quote = None;
-                }
+    let chars_buf = CharBuf::of(sel);
+    stray_in_selector(&chars_buf, 0, false)
+}
+
+fn is_stray_selector_byte(b: u8) -> bool {
+    matches!(
+        b,
+        0..=0x08
+            | 0x0b
+            | 0x0e..=0x1f
+            | 0x7f
+            | b'"'
+            | b'\''
+            | b'$'
+            | b'^'
+            | b'`'
+            | b'?'
+            | b'<'
+            | b'='
+            | b'@'
+            | b'/'
+    )
+}
+
+/// dart's `_selectorPseudoClasses`, matched unvendored.
+const SELECTOR_PSEUDO_CLASSES: [&str; 9] = [
+    "not",
+    "is",
+    "matches",
+    "where",
+    "current",
+    "any",
+    "has",
+    "host",
+    "host-context",
+];
+
+/// [`find_stray_selector_char`] over `cs`, a selector list that starts at
+/// char index `base`; `in_arg` when it is a pseudo's argument.
+fn stray_in_selector(cs: &[char], base: usize, in_arg: bool) -> Option<(usize, String)> {
+    // Whether the current complex selector has nothing in it yet.
+    let mut empty = true;
+    let mut i = 0;
+    while i < cs.len() {
+        match cs[i] {
+            '\\' => {
+                i += 2;
+                empty = false;
             }
-            None => match c {
-                '"' | '\'' => quote = Some(c),
-                '\\' => {
-                    iter.next();
+            '[' => {
+                let end = matching_bracket(cs, i);
+                if let Err(e) = validate_attribute(&cs[i + 1..end]) {
+                    return Some((base + i, e.message));
                 }
-                '@' => return Some(i),
-                _ => {}
-            },
+                i = end + 1;
+                empty = false;
+            }
+            ',' => {
+                i += 1;
+                empty = true;
+            }
+            ':' => {
+                empty = false;
+                let element = cs.get(i + 1) == Some(&':');
+                // The name is matched decoded: `:\69s()` is `:is()`.
+                let mut name = String::new();
+                let mut j = i + 1 + usize::from(element);
+                while ident_body_at(cs, j) {
+                    let Some((c, next)) = ident_char_at(cs, j) else {
+                        break;
+                    };
+                    name.push(c);
+                    j = next;
+                }
+                i = j;
+                if cs.get(j) != Some(&'(') {
+                    continue;
+                }
+                // dart's `_pseudo`: only these read their argument as a
+                // selector list, `nth-child` after its `of`.
+                let close = crate::selector::matching_paren(cs, j);
+                let inner = &cs[j + 1..close.min(cs.len())];
+                let unvendored = crate::selector::unvendor(&name);
+                let found = if element {
+                    (unvendored == "slotted").then(|| stray_in_selector(inner, base + j + 1, true))
+                } else if matches!(unvendored, "nth-child" | "nth-last-child") {
+                    crate::selector::nth_of_offset(inner)
+                        .map(|k| stray_in_selector(&inner[k..], base + j + 1 + k, true))
+                } else {
+                    SELECTOR_PSEUDO_CLASSES
+                        .contains(&unvendored)
+                        .then(|| stray_in_selector(inner, base + j + 1, true))
+                };
+                if let Some(found) = found.flatten() {
+                    return Some(found);
+                }
+                i = close + 1;
+            }
+            c if is_css_whitespace(c) => i += 1,
+            c if c.is_ascii() && is_stray_selector_byte(c as u8) => {
+                let msg = if in_arg && !empty {
+                    "expected \")\"."
+                } else {
+                    "expected selector."
+                };
+                return Some((base + i, msg.to_string()));
+            }
+            _ => {
+                i += 1;
+                empty = false;
+            }
         }
     }
     None
@@ -7180,7 +7479,7 @@ fn resolve_selectors_opt(
     // dart: a parent that ends in a combinator can't substitute into a `&`
     // that is part of a compound (`.a > { &.b {} }` errors; `& .b` is fine).
     let check_compound_parent = |part: &str, parent: &str| -> Result<(), Error> {
-        let trimmed = parent.trim_end();
+        let trimmed = parent.trim_end_matches(is_css_whitespace);
         if !matches!(trimmed.chars().last(), Some('>' | '+' | '~')) {
             return Ok(());
         }
@@ -7465,16 +7764,16 @@ fn resolve_selectors_opt(
     Ok(result)
 }
 
-/// `s.trim()` without an allocation when `s` has no surrounding whitespace —
+/// Trim CSS whitespace without an allocation when `s` has none around it —
 /// the common case for an evaluated property name, which is trimmed on every
 /// declaration and almost never has anything to lose. Hands back the same
 /// shared buffer (`trim` removed nothing → same length) instead of copying the
 /// bytes into a fresh one.
 fn trim_shared(s: Rc<str>) -> Rc<str> {
-    if s.trim().len() == s.len() {
+    if s.trim_matches(is_css_whitespace).len() == s.len() {
         s
     } else {
-        Rc::from(s.trim())
+        Rc::from(s.trim_matches(is_css_whitespace))
     }
 }
 
@@ -8617,7 +8916,7 @@ fn media_query_has_interp(q: &MediaQuery) -> bool {
 fn css_media_parse_list(text: &str) -> Result<Vec<ResolvedQuery>, Error> {
     let mut out = Vec::new();
     for part in split_top_level_media_commas(text) {
-        let part = part.trim();
+        let part = part.trim_matches(is_css_whitespace);
         if part.is_empty() {
             continue;
         }
@@ -8627,7 +8926,7 @@ fn css_media_parse_list(text: &str) -> Result<Vec<ResolvedQuery>, Error> {
         if q.mtype.is_none() && q.modifier.is_none() && q.conditions.len() == 1 {
             let c = q.conditions[0].clone();
             if let Some(inner) = c.strip_prefix('(').and_then(|s| s.strip_suffix(')')) {
-                let t = inner.trim();
+                let t = inner.trim_matches(is_css_whitespace);
                 let balanced = {
                     let mut d = 0i32;
                     let mut ok = true;
@@ -8685,7 +8984,7 @@ fn css_media_parse_one(t: &str) -> Result<ResolvedQuery, Error> {
     let chars: &[char] = &chars_buf;
     let mut i = 0usize;
     let skip_ws = |i: &mut usize| {
-        while *i < chars.len() && chars[*i].is_whitespace() {
+        while *i < chars.len() && is_css_whitespace(chars[*i]) {
             *i += 1;
         }
     };
@@ -8711,31 +9010,39 @@ fn css_media_parse_one(t: &str) -> Result<ResolvedQuery, Error> {
     };
     let take_ident = |i: &mut usize| -> String {
         let start = *i;
-        while *i < chars.len() && !chars[*i].is_whitespace() && chars[*i] != '(' {
+        while *i < chars.len() && !is_css_whitespace(chars[*i]) && chars[*i] != '(' {
             *i += 1;
         }
         chars[start..*i].iter().collect()
     };
     skip_ws(&mut i);
-    // Condition-only form: `(c) [and|or (c)]*` (possibly `not (c)`).
+    // Condition-only form: `(c) [and (c)]*` or `(c) [or (c)]*` (possibly
+    // `not (c)`). The first operator fixes the rest, as in dart's
+    // `_mediaLogicSequence`: anything else ends the query, and trailing
+    // input is then an error.
     if i < chars.len() && chars[i] == '(' {
         let mut conditions = vec![take_paren(&mut i)?];
         let mut conjunction_and = true;
+        let mut operator = None;
         loop {
             skip_ws(&mut i);
             if i >= chars.len() {
                 break;
             }
-            let word = take_ident(&mut i);
-            skip_ws(&mut i);
-            match word.to_ascii_lowercase().as_str() {
-                "and" => conditions.push(take_paren(&mut i)?),
-                "or" => {
-                    conjunction_and = false;
-                    conditions.push(take_paren(&mut i)?);
-                }
-                _ => return Err(Error::unpositioned("expected \"and\" or \"or\".")),
+            let word = take_ident(&mut i).to_ascii_lowercase();
+            let op = operator.get_or_insert_with(|| word.clone());
+            if word != *op || !matches!(op.as_str(), "and" | "or") {
+                return Err(Error::unpositioned("expected no more input."));
             }
+            conjunction_and = op == "and";
+            if i >= chars.len() || !is_css_whitespace(chars[i]) {
+                return Err(Error::unpositioned("Expected whitespace."));
+            }
+            skip_ws(&mut i);
+            if i >= chars.len() || chars[i] != '(' {
+                return Err(Error::unpositioned("expected media condition in parentheses."));
+            }
+            conditions.push(take_paren(&mut i)?);
         }
         return Ok(ResolvedQuery {
             modifier: None,

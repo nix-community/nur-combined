@@ -73,6 +73,96 @@ Conformance is tracked separately as a ratchet against the official
   name, and `expected "=".` for `[a~b]`, where only an operator's first
   character does.
 
+- **A non-ASCII space outside a selector is kept too** (#237). The
+  statement and value parser skipped NBSP and the other Unicode spaces as
+  whitespace, so one was dropped before a rule, after a `:`, inside an
+  argument list, a media query or an interpolation. dart-sass reads it as a
+  name character: `c:\u{a0}d` is the value `\u{a0}d`, `1 ==\u{a0}1` is
+  false, and `rgba(0,\u{a0}0, 0, 0.5)` is an error. An unknown at-rule's
+  prelude keeps a leading or trailing one (`@foo bar\u{a0};`). So does the
+  evaluator's resolved text: an NBSP at the edge of an interpolated selector
+  or property name, an `@at-root` query, an `if()` condition, an
+  interpolated media query, or a plain-CSS at-rule prelude or `@keyframes`
+  name is no longer dropped or read as a separator.
+
+- **A unit may be non-ASCII.** `1µs` was the list `1 µs`, and `math.unit(1é)`
+  an error; a unit, like any name, may begin with any non-ASCII character,
+  so both are one number, as in dart. The same rule makes `1 -\u{a0}2` the
+  list `1 -\u{a0}2` rather than a subtraction.
+
+- **A newline anywhere in a complex selector breaks the next one's line.**
+  dart compares line numbers, so `a\nb, c` puts `c` on its own line, as
+  `a,\nc` does; sasso only looked at the whitespace beside the comma. Inside
+  a style rule, `@mixin`, a content block or an unknown at-rule, dart first
+  rewrites the whitespace after a leading identifier as one space, so there
+  `.p { a\nb, c {…} }` stays `.p a b, .p c`, and sasso now does the same.
+
+- **An NBSP at the edge of an `@extend` target is part of it** (#238).
+  `@extend .a\u{a0}` extended `.a`; it now fails as dart's does, with "The
+  target selector was not found.", and `.a \u{a0}` and `\u{a0}.a` are the
+  complex and compound selectors they are.
+
+- **A keyframe selector is parsed as stops** (#238). A block inside
+  `@keyframes` may be named `from`, `to` (in any case, escaped or not) or a
+  percentage, in a comma list, and nothing else. sasso passed anything through
+  — `foo`, `10px`, `10% 20%`, `from,` and an NBSP beside `from` all compiled —
+  and ran the CSS selector checks on the stops instead, which rejected the
+  valid `.5%` with "Expected identifier.". Each now fails with dart's message,
+  in a plain CSS module too, and `\74o` and `1E1%` come out `to` and `1e1%`.
+
+- **An unescaped line break ends no quoted string** (#238). A raw LF, CR or
+  form feed inside quotes is dart's `Expected "<quote>".` wherever the string
+  is; the value parser already said so, but the readers that copy a string
+  verbatim let it through. `[a="x` + newline + `y"]` compiled to
+  `[a="x\ay"]`, and a custom property value, an unknown at-rule's prelude, an
+  `@supports (--a: …)` declaration, a plain CSS `@function` body and
+  `expression()` kept the raw line break. A `\` line continuation is still
+  dropped.
+
+- **An attribute selector follows dart's grammar** (#238). Its name and its
+  unquoted value are identifiers, an optional namespace comes before a `|`,
+  and only a single-letter modifier may follow the value. sasso took any
+  characters: `[]`, `[@a=b]`, `[a=1]`, `[a==b]`, `[*a]` and `[a=b$]` all
+  compiled. Each now fails with dart's message: "Expected identifier.",
+  `expected "|".` or `expected "]".`.
+
+- **A character that starts no selector is an error** (#238). A C0 control
+  character other than CSS whitespace (the vertical tab from #238 among
+  them), DEL, a quote, and `` $ ^ ` ? < = / `` compiled in a selector:
+  `a^b`, `:is(a$b)`, `a"b"`. A quoted string is only a selector's part
+  inside an attribute value or an unknown pseudo's argument. dart's message depends on where the character is:
+  "expected selector." at the top level, and `expected ")".` inside `:is()`
+  and the other selector pseudos, unless nothing comes before it there.
+  sasso now gives the same messages, in plain CSS, in `@extend` and in the
+  selector functions too. `@` was already an error, but it now gets the
+  same messages, and `:x(a@b)`, an unknown pseudo whose argument dart does
+  not parse as a selector, compiles.
+
+- **A form feed separates compound selectors.** Like a space, it starts a
+  new compound, so `a { b` + form feed + `& { … } }` compiles to `b a` and
+  `selector.nest("a", "b\c &")` returns `b a`, where both said `"&" may only
+  used at the beginning of a compound selector.`. In plain CSS, a
+  placeholder after a form feed is now dart's `Placeholder selectors aren't
+  allowed in plain CSS.`
+
+- **A pseudo's name is read with its escapes.** dart decodes the name before
+  it picks the argument's grammar, so `:\78(a$b)` is the unknown `:x(a$b)`,
+  whose argument is a declaration value, and `:\69s(a$b)` is `:is(a$b)`,
+  whose argument must be a selector. sasso scanned the raw name: the first
+  was "expected selector." and the second got the wrong message. `:\78 (a)`
+  now opens an argument list too, as the escape's delimiter is not a space.
+
+- **After a quoted string, a `-` before any name start begins a new term.**
+  A name start is any code point from U+0080 up, or an escape, so
+  `"q"-\u{a0}x` is the list `"q" -\u{a0}x` and `"q"-\78` is `"q" -x`,
+  where both were read as a subtraction.
+
+- **An interpolated media condition may not mix `and` and `or`.**
+  `@media #{"(a) and (b) or (c)"}` compiled to `(a) or (b) or (c)`; it is an
+  error, as it is when written out. A word other than the first operator now
+  gets dart's "expected no more input.", `and(b)` needs its whitespace, and
+  `and foo` asks for a condition in parentheses.
+
 - **A type error names the parameter the value was bound to, and spells the
   value dart's way** (#139). Two helpers carried no parameter name at all, so
   the sentence started mid-air; and four separate copies of "how a diagnostic

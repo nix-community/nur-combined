@@ -565,17 +565,27 @@ fn a_loaded_files_keyframe_stops_serialize_as_stops() {
         "@media p{@keyframes k{from,to{a:b}}}"
     );
 
-    // KNOWN GAP: the stop grammar is `from` | `to` | `<number>%`, and dart
-    // rejects anything else in a frame (`@keyframes k {foo {a: b}}` is
-    // `Expected "to" or "from".`, `&` and `[a=b]` are `Expected number.`,
-    // `50 %` is `expected "%".`). Neither evaluator checks that yet; the
-    // plain-CSS side rejects only the Sass-only selector forms, with its own
-    // message.
-    std::fs::write(dir.join("_bogus.css"), "@keyframes k { foo { a: b } }\n").unwrap();
-    assert_eq!(
-        compile_in(&dir, "bogus", "@use \"bogus\";"),
-        "@keyframes k {\n  foo {\n    a: b;\n  }\n}"
-    );
+    // The stop grammar is `from` | `to` | `<number>%`, and anything else in a
+    // frame is the stop parser's error. No CSS-selector check runs first, so
+    // `&` is not "not allowed in plain CSS", and `50 %` is not a placeholder.
+    for (css, message) in [
+        ("@keyframes k { foo { a: b } }\n", "Expected \"to\" or \"from\"."),
+        ("@keyframes k { & { a: b } }\n", "Expected number."),
+        ("@keyframes k { [a=b] { a: b } }\n", "Expected number."),
+        ("@keyframes k { 50 % { a: b } }\n", "expected \"%\"."),
+        ("@keyframes k { from, { a: b } }\n", "Expected number."),
+        (
+            ".a { @keyframes k { 10% 20% { a: b } } }\n",
+            "expected no more input.",
+        ),
+    ] {
+        std::fs::write(dir.join("_bogus.css"), css).unwrap();
+        assert_eq!(
+            compile_err_in(&dir, "e_bogus.scss", "@use \"bogus\";"),
+            message,
+            "{css}"
+        );
+    }
 }
 
 /// A style rule inside a keyframe block is an error, in a loaded `.css` file

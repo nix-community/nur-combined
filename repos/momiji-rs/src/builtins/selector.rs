@@ -142,6 +142,9 @@ fn parse_selector_text(text: &str, pname: &str, pos: Pos) -> Result<Vec<Complex>
     if text.trim_matches(is_css_whitespace).is_empty() {
         return Err(Error::at(format!("${pname}: expected selector."), pos));
     }
+    if let Some((_, msg)) = crate::eval::find_stray_selector_char(text) {
+        return Err(Error::at(format!("${pname}: {msg}"), pos));
+    }
     // Normalize like the main pipeline first: dart splits adjacent compounds
     // (`[c]d` parses as the descendant `[c] d`).
     let normalized = crate::eval::normalize_selector(text);
@@ -388,7 +391,8 @@ fn validate_parent_placement(s: &str) -> Result<(), Error> {
                 at_compound_start = false;
             }
             _ if depth > 0 => {}
-            ' ' | '\t' | '\n' | '\r' | '>' | '+' | '~' => at_compound_start = true,
+            '>' | '+' | '~' => at_compound_start = true,
+            c if is_css_whitespace(c) => at_compound_start = true,
             '&' => {
                 if !at_compound_start {
                     return Err(Error::unpositioned(

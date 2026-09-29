@@ -439,7 +439,7 @@ fn validate_selector_list_arg(arg: &str) -> Result<(), &'static str> {
 
 /// Index of the `)` matching the `(` at `open`, honouring strings/escapes and
 /// nested parens. Returns `chars.len()` when unmatched.
-fn matching_paren(chars: &[char], open: usize) -> usize {
+pub(crate) fn matching_paren(chars: &[char], open: usize) -> usize {
     let mut depth = 0i32;
     let mut i = open;
     while i < chars.len() {
@@ -655,6 +655,12 @@ fn finish_nth(chars: &[char], mut i: usize) -> Result<(), &'static str> {
 /// `:nth-child` argument (the part after a whitespace-introduced, complete-
 /// identifier `of` keyword), or `None` when there is no `of` clause.
 fn nth_of_selector(inner: &[char]) -> Option<String> {
+    nth_of_offset(inner).map(|j| inner[j..].iter().collect())
+}
+
+/// Where the `of` clause's selector list starts in an already-validated
+/// `:nth-child` argument, or `None` when there is no `of` clause.
+pub(crate) fn nth_of_offset(inner: &[char]) -> Option<usize> {
     let mut i = 0usize;
     // Find a whitespace-bounded `of` that is a complete identifier.
     while i + 1 < inner.len() {
@@ -668,7 +674,7 @@ fn nth_of_selector(inner: &[char]) -> Option<String> {
             while j < inner.len() && is_css_whitespace(inner[j]) {
                 j += 1;
             }
-            return Some(inner[j..].iter().collect());
+            return Some(j);
         }
         i += 1;
     }
@@ -3196,7 +3202,7 @@ fn is_selector_pseudo(name: &str) -> bool {
 /// Strip a CSS vendor prefix (`-pfx-is` → `is`), matching dart-sass `unvendor`,
 /// so a vendor-prefixed selector pseudo is recognized. A `--custom` name or a
 /// bare `-name` (no closing prefix dash) is returned unchanged.
-fn unvendor(name: &str) -> &str {
+pub(crate) fn unvendor(name: &str) -> &str {
     let bytes = name.as_bytes();
     if bytes.len() < 2 || bytes[0] != b'-' || bytes[1] == b'-' {
         return name;

@@ -386,6 +386,11 @@ pub(crate) struct VarDecl {
 
 pub(crate) struct Rule {
     pub selector: Vec<TplPiece>,
+    /// Whether the rule stands where a declaration may (see the parser's
+    /// `decl_context`): dart's declaration-or-rule lookahead then replaces the
+    /// whitespace after a leading identifier with one space, so a newline
+    /// there does not break the selector list's line (`a\nb, c`).
+    pub in_decl_context: bool,
     pub body: Vec<Stmt>,
     /// 1-based position where the selector text starts, for mapping a
     /// resolved-selector error column back to the source.

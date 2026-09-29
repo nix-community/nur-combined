@@ -101,7 +101,7 @@ impl Parser {
     pub(super) fn skip_trivia(&mut self, out: &mut Vec<Stmt>) -> Result<(), Error> {
         loop {
             match self.sc.peek() {
-                Some(c) if c.is_whitespace() => {
+                Some(c) if is_css_whitespace(c) => {
                     self.sc.bump();
                 }
                 Some('/') if self.sc.peek_at(1) == Some('/') => {
@@ -167,7 +167,7 @@ impl Parser {
         // custom-property name. With a top-level `:` it is always a custom
         // declaration (`--ambiguous:foo {…}`), never a style rule.
         let starts_custom = {
-            let first = cs.iter().position(|c| !c.is_whitespace());
+            let first = cs.iter().position(|&c| !is_css_whitespace(c));
             matches!(first, Some(p) if cs.get(p) == Some(&'-') && cs.get(p + 1) == Some(&'-'))
         };
         while i < cs.len() {
@@ -231,7 +231,7 @@ impl Parser {
                     after_colon = Some(i + 1);
                     ws_after_colon = matches!(
                         cs.get(i + 1),
-                        Some(c) if c.is_whitespace())
+                        Some(&c) if is_css_whitespace(c))
                         || matches!(
                             (cs.get(i + 1), cs.get(i + 2)),
                             (Some('/'), Some('*')) | (Some('/'), Some('/'))
@@ -245,7 +245,7 @@ impl Parser {
                         // value is empty, or whitespace/comment followed the
                         // colon; otherwise (`a:hover {`) a style rule.
                         Some(start) => {
-                            let empty_value = cs[start..i].iter().all(|c| c.is_whitespace())
+                            let empty_value = cs[start..i].iter().all(|&c| is_css_whitespace(c))
                                 || value_is_only_comments(&cs[start..i]);
                             if empty_value || ws_after_colon {
                                 NextKind::Declaration
@@ -280,8 +280,11 @@ impl Parser {
         if !self.sc.eat('{') {
             return Err(Error::at("expected \"{\".", self.sc.position()));
         }
+        let in_decl_context = self.decl_context;
         self.block_depth += 1;
+        let saved_decl_context = std::mem::replace(&mut self.decl_context, true);
         let body = self.parse_statements(false);
+        self.decl_context = saved_decl_context;
         self.block_depth -= 1;
         let body = body?;
         if !self.sc.eat('}') {
@@ -290,6 +293,7 @@ impl Parser {
         let end_line = self.sc.position().line as u32;
         Ok(Stmt::Rule(Rule {
             selector,
+            in_decl_context,
             body,
             selector_pos,
             selector_interp_spans,

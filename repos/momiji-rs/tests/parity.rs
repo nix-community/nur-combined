@@ -3879,6 +3879,1026 @@ fn a_quoted_attribute_value_meets_its_modifier_in_compressed_output() {
 }
 
 #[test]
+fn the_parser_skips_css_whitespace_only() {
+    // The statement and value parser skipped whitespace with
+    // `char::is_whitespace`, which also matches NBSP and the other Unicode
+    // spaces, so one was dropped wherever a space may go: before a rule, after
+    // a `:`, inside an argument list or an interpolation. dart-sass reads it as
+    // a name character (#237), so it starts an identifier (`\u{a0}1px` is one
+    // token, `1 == \u{a0}1` is false). Offline; outputs are dart-sass 1.104.1's.
+    for (scss, expanded, compressed) in [
+        (
+            "\u{a0}a { c: d }\n",
+            "@charset \"UTF-8\";\n\u{a0}a {\n  c: d;\n}",
+            "\u{feff}\u{a0}a{c:d}",
+        ),
+        (
+            "a { c:\u{a0}d }\n",
+            "@charset \"UTF-8\";\na {\n  c: \u{a0}d;\n}",
+            "\u{feff}a{c:\u{a0}d}",
+        ),
+        (
+            "$v:\u{a0}1px; a { c: $v }\n",
+            "@charset \"UTF-8\";\na {\n  c: \u{a0}1px;\n}",
+            "\u{feff}a{c:\u{a0}1px}",
+        ),
+        (
+            "a { c: 1px +\u{a0}2px }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1px\u{a0}2px;\n}",
+            "\u{feff}a{c:1px\u{a0}2px}",
+        ),
+        (
+            "a { c: foo(\u{a0}1px) }\n",
+            "@charset \"UTF-8\";\na {\n  c: foo(\u{a0}1px);\n}",
+            "\u{feff}a{c:foo(\u{a0}1px)}",
+        ),
+        (
+            "a { c: foo(1px,\u{a0}2px) }\n",
+            "@charset \"UTF-8\";\na {\n  c: foo(1px, \u{a0}2px);\n}",
+            "\u{feff}a{c:foo(1px, \u{a0}2px)}",
+        ),
+        (
+            "a { c: #{\u{a0}1 + 1} }\n",
+            "@charset \"UTF-8\";\na {\n  c: \u{a0}11;\n}",
+            "\u{feff}a{c:\u{a0}11}",
+        ),
+        (
+            "@mixin m($x) { c: $x } a { @include m(\u{a0}1px); }\n",
+            "@charset \"UTF-8\";\na {\n  c: \u{a0}1px;\n}",
+            "\u{feff}a{c:\u{a0}1px}",
+        ),
+        (
+            "@media (min-width:\u{a0}1px) { a { c: d } }\n",
+            "@charset \"UTF-8\";\n@media (min-width: \u{a0}1px) {\n  a {\n    c: d;\n  }\n}",
+            "\u{feff}@media(min-width: \u{a0}1px){a{c:d}}",
+        ),
+        (
+            "@supports (\u{a0}a: b) { a { c: d } }\n",
+            "@charset \"UTF-8\";\n@supports (\u{a0}a: b) {\n  a {\n    c: d;\n  }\n}",
+            "\u{feff}@supports(\u{a0}a: b){a{c:d}}",
+        ),
+        (
+            "a { b:\u{a0}{ c: d } }\n",
+            "@charset \"UTF-8\";\na b:\u{a0} {\n  c: d;\n}",
+            "\u{feff}a b:\u{a0}{c:d}",
+        ),
+        (
+            "@use \"sass:math\"; a { c: math.div(\u{a0}1, 2) }\n",
+            "@charset \"UTF-8\";\na {\n  c: \u{a0}1/2;\n}",
+            "\u{feff}a{c:\u{a0}1/2}",
+        ),
+        ("a { c: 1 ==\u{a0}1 }\n", "a {\n  c: false;\n}", "a{c:false}"),
+        (
+            "%p { c: d }\u{a0}a { @extend %p; }\n",
+            "@charset \"UTF-8\";\n\u{a0}a {\n  c: d;\n}",
+            "\u{feff}\u{a0}a{c:d}",
+        ),
+        (
+            "a { c: 1 /\u{a0}2 }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1/\u{a0}2;\n}",
+            "\u{feff}a{c:1/\u{a0}2}",
+        ),
+        (
+            "a { c: 1 +\u{a0}2 }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1\u{a0}2;\n}",
+            "\u{feff}a{c:1\u{a0}2}",
+        ),
+        (
+            "a { c: -\u{a0}1 }\n",
+            "@charset \"UTF-8\";\na {\n  c: -\u{a0}1;\n}",
+            "\u{feff}a{c:-\u{a0}1}",
+        ),
+        (
+            "a { c: calc(-\u{a0}1px) }\n",
+            "@charset \"UTF-8\";\na {\n  c: calc(-\u{a0}1px);\n}",
+            "\u{feff}a{c:calc(-\u{a0}1px)}",
+        ),
+        (
+            "a { c: +\u{a0}1 }\n",
+            "@charset \"UTF-8\";\na {\n  c: +\u{a0}1;\n}",
+            "\u{feff}a{c:+\u{a0}1}",
+        ),
+        (
+            "a { c: +\u{a0}x }\n",
+            "@charset \"UTF-8\";\na {\n  c: +\u{a0}x;\n}",
+            "\u{feff}a{c:+\u{a0}x}",
+        ),
+        (
+            "a { c: 1 + +\u{a0}1 }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1+\u{a0}1;\n}",
+            "\u{feff}a{c:1+\u{a0}1}",
+        ),
+        (
+            "a { c: var(--x,\u{a0}y) }\n",
+            "@charset \"UTF-8\";\na {\n  c: var(--x, \u{a0}y);\n}",
+            "\u{feff}a{c:var(--x, \u{a0}y)}",
+        ),
+        ("a { \u{a0}--x:foo{} }\n", "", ""),
+        (
+            "@import url(a.css)\u{a0};\n",
+            "@charset \"UTF-8\";\n@import url(a.css) \u{a0};",
+            "\u{feff}@import\"a.css\"\u{a0}",
+        ),
+        (
+            "@import \"a.css\"\u{a0};\n",
+            "@charset \"UTF-8\";\n@import \"a.css\" \u{a0};",
+            "\u{feff}@import\"a.css\"\u{a0}",
+        ),
+        (
+            "@at-root (with:\u{a0}) { a { c: d } }\n",
+            "a {\n  c: d;\n}",
+            "a{c:d}",
+        ),
+        (
+            "@media screen,\u{a0}print { a { c: d } }\n",
+            "@charset \"UTF-8\";\n@media screen, \u{a0}print {\n  a {\n    c: d;\n  }\n}",
+            "\u{feff}@media screen,\u{a0}print{a{c:d}}",
+        ),
+        (
+            "@function --f() { result: a\u{a0}  b }\n",
+            "@charset \"UTF-8\";\n@function --f() {\n  result: a\u{a0} b ;\n}",
+            "\u{feff}@function --f(){result: a\u{a0} b }",
+        ),
+        (
+            "@foo a\u{a0} b;\n",
+            "@charset \"UTF-8\";\n@foo a\u{a0} b;",
+            "\u{feff}@foo a\u{a0} b",
+        ),
+        (
+            "@foo a\u{a0}\n  b;\n",
+            "@charset \"UTF-8\";\n@foo a\u{a0}\n  b;",
+            "\u{feff}@foo a\u{a0}\n  b",
+        ),
+        (
+            "@foo a \u{a0}b;\n",
+            "@charset \"UTF-8\";\n@foo a \u{a0}b;",
+            "\u{feff}@foo a \u{a0}b",
+        ),
+        (
+            "a { c\u{a0}/**/: d }\n",
+            "@charset \"UTF-8\";\na {\n  c\u{a0}/**/: d;\n}",
+            "\u{feff}a{c\u{a0}/**/:d}",
+        ),
+        (
+            "a { c: expression(a\u{a0} b) }\n",
+            "@charset \"UTF-8\";\na {\n  c: expression(a\u{a0} b);\n}",
+            "\u{feff}a{c:expression(a\u{a0} b)}",
+        ),
+        (
+            "@function --f() { result: a \u{a0}b }\n",
+            "@charset \"UTF-8\";\n@function --f() {\n  result: a \u{a0}b ;\n}",
+            "\u{feff}@function --f(){result: a \u{a0}b }",
+        ),
+        (
+            "@foo bar\u{a0};\n",
+            "@charset \"UTF-8\";\n@foo bar\u{a0};",
+            "\u{feff}@foo bar\u{a0}",
+        ),
+        (
+            "@foo \u{a0}bar;\n",
+            "@charset \"UTF-8\";\n@foo \u{a0}bar;",
+            "\u{feff}@foo \u{a0}bar",
+        ),
+        (
+            "@media screen { a { @foo bar\u{a0}; } }\n",
+            "@charset \"UTF-8\";\n@media screen {\n  a {\n    @foo bar\u{a0};\n  }\n}",
+            "\u{feff}@media screen{a{@foo bar\u{a0}}}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn an_nbsp_in_a_value_is_not_whitespace_where_dart_rejects_it() {
+    // The same NBSP, read as a name character, makes these values invalid in
+    // dart-sass; sasso skipped it and accepted them. dart-sass 1.104.1's
+    // messages. Offline.
+    for (scss, message) in [
+        (
+            "a { c: rgba(0,\u{a0}0, 0, 0.5) }\n",
+            "$green: \u{a0}0 is not a number.",
+        ),
+        (
+            "a { c: (\u{a0}a: 1)\u{a0}}\n",
+            "(\u{a0}a: 1) isn't a valid CSS value.",
+        ),
+        (
+            "a { c: calc(1px\u{a0}+ 2px) }\n",
+            "\"+\" and \"-\" must be surrounded by whitespace in calculations.",
+        ),
+        ("a { c: 1 *\u{a0}2 }\n", "Undefined operation \"1 * \u{a0}2\"."),
+        ("a { c: 1 %\u{a0}}\n", "Undefined operation \"1 % \u{a0}\"."),
+        ("a { c: 1 %\u{a0}2 }\n", "Undefined operation \"1 % \u{a0}2\"."),
+        ("a { c: 1 % \u{a0}2 }\n", "Undefined operation \"1 % \u{a0}2\"."),
+        ("@media (min-width: 1px)\u{a0}{ a { c: d } }\n", "expected \"{\"."),
+        (
+            "a { c: 1px\u{a0}+ 2px }\n",
+            "1px\u{a0} and 2px have incompatible units.",
+        ),
+        (
+            "@media screen { a { @at-root (\u{a0}without: media) { b { c: d } } } }\n",
+            "Expected \"with\" or \"without\".",
+        ),
+        ("\u{a0}() { c: d }\n", "expected selector."),
+        ("#{\"\u{a0}()\"} { c: d }\n", "expected selector."),
+        (
+            "a { @at-root (with\u{a0}: rule) { b { c: d } } }\n",
+            "Expected \"with\" or \"without\".",
+        ),
+        (
+            "a { @at-root (\u{a0}with: rule) { b { c: d } } }\n",
+            "Expected \"with\" or \"without\".",
+        ),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err().to_string();
+        assert!(err.contains(message), "{scss}: {err}");
+    }
+}
+
+#[test]
+fn a_non_ascii_character_starts_a_name() {
+    // dart-sass's `isNameStart` is an ASCII letter, `_`, or any non-ASCII code
+    // point. A number's unit and a `-` that starts a new list term only took an
+    // ASCII letter or `_`, so `1µs` was the list `1 µs` and `1 -\u{a0}2` was a
+    // subtraction. Offline; outputs are dart-sass 1.104.1's.
+    for (scss, expanded, compressed) in [
+        (
+            "a { c: 1\u{e9} }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1\u{e9};\n}",
+            "\u{feff}a{c:1\u{e9}}",
+        ),
+        (
+            "a { c: 1\u{b5}s }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1\u{b5}s;\n}",
+            "\u{feff}a{c:1\u{b5}s}",
+        ),
+        (
+            "a { c: 1px\u{e9} }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1px\u{e9};\n}",
+            "\u{feff}a{c:1px\u{e9}}",
+        ),
+        (
+            "a { c: 1\u{e9} + 1\u{e9} }\n",
+            "@charset \"UTF-8\";\na {\n  c: 2\u{e9};\n}",
+            "\u{feff}a{c:2\u{e9}}",
+        ),
+        (
+            "a { c: 1px\u{a0}2px }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1px\u{a0}2px;\n}",
+            "\u{feff}a{c:1px\u{a0}2px}",
+        ),
+        (
+            "a { c: 1\u{a0}and 2 }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1\u{a0}and 2;\n}",
+            "\u{feff}a{c:1\u{a0}and 2}",
+        ),
+        (
+            "a { c: 1\u{a0} }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1\u{a0};\n}",
+            "\u{feff}a{c:1\u{a0}}",
+        ),
+        (
+            "@use \"sass:math\"; a { c: math.unit(1\u{e9}) }\n",
+            "@charset \"UTF-8\";\na {\n  c: \"\u{e9}\";\n}",
+            "\u{feff}a{c:\"\u{e9}\"}",
+        ),
+        (
+            "a { c: 1 -\u{a0}2 }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1 -\u{a0}2;\n}",
+            "\u{feff}a{c:1 -\u{a0}2}",
+        ),
+        (
+            "a { c: a -\u{a0}b }\n",
+            "@charset \"UTF-8\";\na {\n  c: a -\u{a0}b;\n}",
+            "\u{feff}a{c:a -\u{a0}b}",
+        ),
+        (
+            "a { c: 1 -\u{a0}\u{e9} }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1 -\u{a0}\u{e9};\n}",
+            "\u{feff}a{c:1 -\u{a0}\u{e9}}",
+        ),
+        (
+            "a { c: 1\u{2003} }\n",
+            "@charset \"UTF-8\";\na {\n  c: 1\u{2003};\n}",
+            "\u{feff}a{c:1\u{2003}}",
+        ),
+        (
+            "@use \"sass:math\"; a { c: math.unit(1-\u{e9}) }\n",
+            "@charset \"UTF-8\";\na {\n  c: \"-\u{e9}\";\n}",
+            "\u{feff}a{c:\"-\u{e9}\"}",
+        ),
+        (
+            "@use \"sass:math\"; a { c: math.unit(1-\u{a0}) }\n",
+            "@charset \"UTF-8\";\na {\n  c: \"-\u{a0}\";\n}",
+            "\u{feff}a{c:\"-\u{a0}\"}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn an_nbsp_at_the_edge_of_an_extend_target_is_part_of_it() {
+    // `@extend` trimmed its resolved target with Rust's Unicode whitespace, so
+    // `.a\u{a0}` extended `.a`. dart-sass reads the NBSP as part of the name.
+    // Outputs and messages are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            ".a { x: y } b { @extend .a !optional; }\n",
+            ".a, b {\n  x: y;\n}",
+            ".a,b{x:y}",
+        ),
+        (
+            ".a { x: y } b { @extend .a\u{a0}!optional; }\n",
+            ".a {\n  x: y;\n}",
+            ".a{x:y}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (target, message) in [
+        (".a\u{a0}", "The target selector was not found."),
+        ("#{\".a\u{a0}\"}", "The target selector was not found."),
+        (".a \u{a0}", "complex selectors may not be extended."),
+        ("\u{a0}.a", "compound selectors may no longer be extended."),
+        ("#{\"\u{a0}\"}", "The target selector was not found."),
+        ("#{\"\u{a0}, .a\"}", "The target selector was not found."),
+        ("#{\".a,\u{a0}\"}", "The target selector was not found."),
+    ] {
+        let scss = format!(".a {{ x: y }} b {{ @extend {target}; }}\n");
+        let err = compile(&scss, &Options::default()).unwrap_err().to_string();
+        assert!(err.contains(message), "{scss}: {err}");
+    }
+}
+
+#[test]
+fn the_evaluator_trims_css_whitespace_only() {
+    // The evaluator trimmed, split and collapsed resolved text with Rust's Unicode
+    // whitespace: an NBSP at the edge of a selector, a property name, an
+    // `@at-root` query, an `if()` condition or an interpolated media query was
+    // dropped or read as a separator. dart-sass reads it as a name character.
+    // Outputs are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "#{\"\u{a0}\"} { c: d }\n",
+            "@charset \"UTF-8\";\n\u{a0} {\n  c: d;\n}",
+            "\u{feff}\u{a0}{c:d}",
+        ),
+        (
+            "\u{a0}1a { c: d }\n",
+            "@charset \"UTF-8\";\n\u{a0}1a {\n  c: d;\n}",
+            "\u{feff}\u{a0}1a{c:d}",
+        ),
+        (
+            "#{\"\u{a0}1a\"} { c: d }\n",
+            "@charset \"UTF-8\";\n\u{a0}1a {\n  c: d;\n}",
+            "\u{feff}\u{a0}1a{c:d}",
+        ),
+        (
+            "a { b: { \u{a0}--x: y } }\n",
+            "@charset \"UTF-8\";\na {\n  b-\u{a0}--x: y;\n}",
+            "\u{feff}a{b-\u{a0}--x:y}",
+        ),
+        (
+            "a { c: calc(1px + #{\"a\u{a0}b\"}) }\n",
+            "@charset \"UTF-8\";\na {\n  c: calc(1px + a\u{a0}b);\n}",
+            "\u{feff}a{c:calc(1px + a\u{a0}b)}",
+        ),
+        (
+            "a { c: calc(1px * #{\"a\u{a0}b\"}) }\n",
+            "@charset \"UTF-8\";\na {\n  c: calc(1px * a\u{a0}b);\n}",
+            "\u{feff}a{c:calc(1px*a\u{a0}b)}",
+        ),
+        (
+            "a { c: calc(#{\"\u{a0}calc(1px)\"}) }\n",
+            "@charset \"UTF-8\";\na {\n  c: calc(\u{a0}calc(1px));\n}",
+            "\u{feff}a{c:calc(\u{a0}calc(1px))}",
+        ),
+        (
+            "\u{a0},b { c: d }\n",
+            "@charset \"UTF-8\";\n\u{a0}, b {\n  c: d;\n}",
+            "\u{feff}\u{a0},b{c:d}",
+        ),
+        (
+            "#{\"\u{a0},b\"} { c: d }\n",
+            "@charset \"UTF-8\";\n\u{a0}, b {\n  c: d;\n}",
+            "\u{feff}\u{a0},b{c:d}",
+        ),
+        (
+            "a,\u{a0}\nb { c: d }\n",
+            "@charset \"UTF-8\";\na, \u{a0} b {\n  c: d;\n}",
+            "\u{feff}a,\u{a0} b{c:d}",
+        ),
+        (
+            "a\u{a0}\n,b { c: d }\n",
+            "@charset \"UTF-8\";\na\u{a0},\nb {\n  c: d;\n}",
+            "\u{feff}a\u{a0},b{c:d}",
+        ),
+        (
+            "a\n\u{a0},b { c: d }\n",
+            "@charset \"UTF-8\";\na \u{a0},\nb {\n  c: d;\n}",
+            "\u{feff}a \u{a0},b{c:d}",
+        ),
+        (
+            ".a >\u{a0}{ &.b { c: d } }\n",
+            "@charset \"UTF-8\";\n.a > \u{a0}.b {\n  c: d;\n}",
+            "\u{feff}.a>\u{a0}.b{c:d}",
+        ),
+        (
+            ".a > #{\"\u{a0}\"} { &.b { c: d } }\n",
+            "@charset \"UTF-8\";\n.a > \u{a0}.b {\n  c: d;\n}",
+            "\u{feff}.a>\u{a0}.b{c:d}",
+        ),
+        (
+            "a { c\u{a0}: d }\n",
+            "@charset \"UTF-8\";\na {\n  c\u{a0}: d;\n}",
+            "\u{feff}a{c\u{a0}:d}",
+        ),
+        (
+            "a {\u{a0}c: d }\n",
+            "@charset \"UTF-8\";\na {\n  \u{a0}c: d;\n}",
+            "\u{feff}a{\u{a0}c:d}",
+        ),
+        (
+            "a { #{\"\u{a0}c\"}: d }\n",
+            "@charset \"UTF-8\";\na {\n  \u{a0}c: d;\n}",
+            "\u{feff}a{\u{a0}c:d}",
+        ),
+        (
+            "a { #{\"c\u{a0}\"}: d }\n",
+            "@charset \"UTF-8\";\na {\n  c\u{a0}: d;\n}",
+            "\u{feff}a{c\u{a0}:d}",
+        ),
+        (
+            "a { @at-root (without:\u{a0}rule) { b { c: d } } }\n",
+            "a b {\n  c: d;\n}",
+            "a b{c:d}",
+        ),
+        (
+            "a { @at-root (without: x\u{a0}rule) { b { c: d } } }\n",
+            "a b {\n  c: d;\n}",
+            "a b{c:d}",
+        ),
+        (
+            "@media screen { a { @at-root (without: media\u{a0}) { b { c: d } } } }\n",
+            "@media screen {\n  a b {\n    c: d;\n  }\n}",
+            "@media screen{a b{c:d}}",
+        ),
+        (
+            "a { b: if(css(x\u{a0}y): 1; else: 2) }\n",
+            "@charset \"UTF-8\";\na {\n  b: if(css(x\u{a0}y): 1; else: 2);\n}",
+            "\u{feff}a{b:if(css(x\u{a0}y): 1; else: 2)}",
+        ),
+        (
+            "a { b: if(css(\u{a0}): 1; else: 2) }\n",
+            "@charset \"UTF-8\";\na {\n  b: if(css(\u{a0}): 1; else: 2);\n}",
+            "\u{feff}a{b:if(css(\u{a0}): 1; else: 2)}",
+        ),
+        (
+            "a { b: if(css(x \u{a0} y): 1; else: 2) }\n",
+            "@charset \"UTF-8\";\na {\n  b: if(css(x \u{a0} y): 1; else: 2);\n}",
+            "\u{feff}a{b:if(css(x \u{a0} y): 1; else: 2)}",
+        ),
+        (
+            "a { b: if(foo(\u{a0}x): 1; else: 2) }\n",
+            "@charset \"UTF-8\";\na {\n  b: if(foo(\u{a0}x): 1; else: 2);\n}",
+            "\u{feff}a{b:if(foo(\u{a0}x): 1; else: 2)}",
+        ),
+        (
+            "a\u{a0} { &-b { c: d } }\n",
+            "@charset \"UTF-8\";\na\u{a0}-b {\n  c: d;\n}",
+            "\u{feff}a\u{a0}-b{c:d}",
+        ),
+        (
+            "a\u{a0} { & b { c: d } }\n",
+            "@charset \"UTF-8\";\na\u{a0} b {\n  c: d;\n}",
+            "\u{feff}a\u{a0} b{c:d}",
+        ),
+        (
+            "a { b: calc(1px + #{\"\u{a0}var(--x)\"}) }\n",
+            "@charset \"UTF-8\";\na {\n  b: calc(1px + \u{a0}var(--x));\n}",
+            "\u{feff}a{b:calc(1px + \u{a0}var(--x))}",
+        ),
+        (
+            "a { b: calc(#{\"\u{a0}var(--x)\"} 1px) }\n",
+            "@charset \"UTF-8\";\na {\n  b: calc(\u{a0}var(--x) 1px);\n}",
+            "\u{feff}a{b:calc(\u{a0}var(--x) 1px)}",
+        ),
+        (
+            "a { b: calc(#{\"\u{a0}env(x)\"} 1px) }\n",
+            "@charset \"UTF-8\";\na {\n  b: calc(\u{a0}env(x) 1px);\n}",
+            "\u{feff}a{b:calc(\u{a0}env(x) 1px)}",
+        ),
+        (
+            "@media #{\"\u{a0}screen\"} { a { b: c } }\n",
+            "@charset \"UTF-8\";\n@media \u{a0}screen {\n  a {\n    b: c;\n  }\n}",
+            "\u{feff}@media \u{a0}screen{a{b:c}}",
+        ),
+        (
+            "@media #{\"screen\u{a0}\"} { a { b: c } }\n",
+            "@charset \"UTF-8\";\n@media screen\u{a0} {\n  a {\n    b: c;\n  }\n}",
+            "\u{feff}@media screen\u{a0}{a{b:c}}",
+        ),
+        (
+            "@media #{\"screen,\u{a0}print\"} { a { b: c } }\n",
+            "@charset \"UTF-8\";\n@media screen, \u{a0}print {\n  a {\n    b: c;\n  }\n}",
+            "\u{feff}@media screen,\u{a0}print{a{b:c}}",
+        ),
+        (
+            "@media #{\"not\u{a0}screen\"} { a { b: c } }\n",
+            "@charset \"UTF-8\";\n@media not\u{a0}screen {\n  a {\n    b: c;\n  }\n}",
+            "\u{feff}@media not\u{a0}screen{a{b:c}}",
+        ),
+        (
+            "a { @at-root (without: \"\u{a0}rule\") { b { c: d } } }\n",
+            "a b {\n  c: d;\n}",
+            "a b{c:d}",
+        ),
+        (
+            "a { b: calc(calc(#{\"a\u{a0}b\"})) }\n",
+            "@charset \"UTF-8\";\na {\n  b: calc(a\u{a0}b);\n}",
+            "\u{feff}a{b:calc(a\u{a0}b)}",
+        ),
+        (
+            "a { b: calc(1px + calc(#{\"a\u{a0}b\"})) }\n",
+            "@charset \"UTF-8\";\na {\n  b: calc(1px + a\u{a0}b);\n}",
+            "\u{feff}a{b:calc(1px + a\u{a0}b)}",
+        ),
+        (
+            "a { b: calc(calc(#{\"\u{a0}var(--x)\"})) }\n",
+            "@charset \"UTF-8\";\na {\n  b: calc(\u{a0}var(--x));\n}",
+            "\u{feff}a{b:calc(\u{a0}var(--x))}",
+        ),
+        (
+            "a { b: calc(1px + calc(#{\"\u{a0}var(--x)\"})) }\n",
+            "@charset \"UTF-8\";\na {\n  b: calc(1px + \u{a0}var(--x));\n}",
+            "\u{feff}a{b:calc(1px + \u{a0}var(--x))}",
+        ),
+        (
+            "@media #{\"(\u{a0}not (a))\"} { a { b: c } }\n",
+            "@charset \"UTF-8\";\n@media (\u{a0}not (a)) {\n  a {\n    b: c;\n  }\n}",
+            "\u{feff}@media(\u{a0}not (a)){a{b:c}}",
+        ),
+        (
+            "@media #{\"(not (a)\u{a0})\"} { a { b: c } }\n",
+            "@charset \"UTF-8\";\n@media not (a)\u{a0} {\n  a {\n    b: c;\n  }\n}",
+            "\u{feff}@media not (a)\u{a0}{a{b:c}}",
+        ),
+        (
+            "a { \u{a0}--x: 1 + 1 }\n",
+            "@charset \"UTF-8\";\na {\n  \u{a0}--x: 2;\n}",
+            "\u{feff}a{\u{a0}--x:2}",
+        ),
+        (
+            "a { b: \u{a0}var(--x) }\n",
+            "@charset \"UTF-8\";\na {\n  b: \u{a0}var(--x);\n}",
+            "\u{feff}a{b:\u{a0}var(--x)}",
+        ),
+        (
+            "a { #{\"\u{a0}b\"}: 1 + 1 }\n",
+            "@charset \"UTF-8\";\na {\n  \u{a0}b: 2;\n}",
+            "\u{feff}a{\u{a0}b:2}",
+        ),
+        (
+            "a { #{\"b\u{a0}\"}: 1 + 1 }\n",
+            "@charset \"UTF-8\";\na {\n  b\u{a0}: 2;\n}",
+            "\u{feff}a{b\u{a0}:2}",
+        ),
+        (
+            "a { b: { \u{a0}c: d } }\n",
+            "@charset \"UTF-8\";\na {\n  b-\u{a0}c: d;\n}",
+            "\u{feff}a{b-\u{a0}c:d}",
+        ),
+        (
+            "\u{a0}1a, b { c: d }\n",
+            "@charset \"UTF-8\";\n\u{a0}1a, b {\n  c: d;\n}",
+            "\u{feff}\u{a0}1a,b{c:d}",
+        ),
+        (
+            "b, \u{a0}1a { c: d }\n",
+            "@charset \"UTF-8\";\nb, \u{a0}1a {\n  c: d;\n}",
+            "\u{feff}b,\u{a0}1a{c:d}",
+        ),
+        (
+            "a { b: { \u{a0}--c: d } }\n",
+            "@charset \"UTF-8\";\na {\n  b-\u{a0}--c: d;\n}",
+            "\u{feff}a{b-\u{a0}--c:d}",
+        ),
+        (
+            "a { b: { \u{a0}--c: { d: e } } }\n",
+            "@charset \"UTF-8\";\na {\n  b-\u{a0}--c-d: e;\n}",
+            "\u{feff}a{b-\u{a0}--c-d:e}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn the_plain_css_evaluator_trims_css_whitespace_only() {
+    // The same in a plain-CSS stylesheet: an unknown at-rule's prelude, a
+    // `@keyframes` name, a selector part and a media query keep an NBSP at
+    // either end, at every nesting depth. Outputs are dart-sass 1.104.1's.
+    let opts = Options::default().with_syntax(sasso::Syntax::Css);
+    let compressed_opts = Options::default()
+        .with_syntax(sasso::Syntax::Css)
+        .with_style(OutputStyle::Compressed);
+    for (css, expanded, compressed) in [
+        ("@foo bar\u{a0} { a { b: c } }\n", "@charset \"UTF-8\";\n@foo bar\u{a0} {\n  a {\n    b: c;\n  }\n}", "\u{feff}@foo bar\u{a0}{a{b:c}}"),
+        ("@foo \u{a0}bar { a { b: c } }\n", "@charset \"UTF-8\";\n@foo \u{a0}bar {\n  a {\n    b: c;\n  }\n}", "\u{feff}@foo \u{a0}bar{a{b:c}}"),
+        ("a { @foo bar\u{a0} { b: c } }\n", "@charset \"UTF-8\";\n@foo bar\u{a0} {\n  a {\n    b: c;\n  }\n}", "\u{feff}@foo bar\u{a0}{a{b:c}}"),
+        ("a { @foo \u{a0}bar { b: c } }\n", "@charset \"UTF-8\";\n@foo \u{a0}bar {\n  a {\n    b: c;\n  }\n}", "\u{feff}@foo \u{a0}bar{a{b:c}}"),
+        ("a { b { @foo bar\u{a0} { c: d } } }\n", "@charset \"UTF-8\";\na {\n  b {\n    @foo bar\u{a0} {\n      c: d;\n    }\n  }\n}", "\u{feff}a{b{@foo bar\u{a0}{c:d}}}"),
+        ("@keyframes k\u{a0} { from { a: b } }\n", "@charset \"UTF-8\";\n@keyframes k\u{a0} {\n  from {\n    a: b;\n  }\n}", "\u{feff}@keyframes k\u{a0}{from{a:b}}"),
+        ("@keyframes \u{a0}k { from { a: b } }\n", "@charset \"UTF-8\";\n@keyframes \u{a0}k {\n  from {\n    a: b;\n  }\n}", "\u{feff}@keyframes \u{a0}k{from{a:b}}"),
+        ("a { @keyframes k\u{a0} { from { a: b } } }\n", "@charset \"UTF-8\";\n@keyframes k\u{a0} {\n  from {\n    a: b;\n  }\n}", "\u{feff}@keyframes k\u{a0}{from{a:b}}"),
+        ("a { b { @keyframes k\u{a0} { from { a: b } } } }\n", "@charset \"UTF-8\";\na {\n  b {\n    @keyframes k\u{a0} {\n      from {\n        a: b;\n      }\n    }\n  }\n}", "\u{feff}a{b{@keyframes k\u{a0}{from{a:b}}}}"),
+        ("\u{a0}a, b { c: d }\n", "@charset \"UTF-8\";\n\u{a0}a, b {\n  c: d;\n}", "\u{feff}\u{a0}a,b{c:d}"),
+        ("a\u{a0}, b { c: d }\n", "@charset \"UTF-8\";\na\u{a0}, b {\n  c: d;\n}", "\u{feff}a\u{a0},b{c:d}"),
+        ("a, \u{a0}b { c: d }\n", "@charset \"UTF-8\";\na, \u{a0}b {\n  c: d;\n}", "\u{feff}a,\u{a0}b{c:d}"),
+        ("x { \u{a0}a, b { c: d } }\n", "@charset \"UTF-8\";\nx {\n  \u{a0}a, b {\n    c: d;\n  }\n}", "\u{feff}x{\u{a0}a,b{c:d}}"),
+        ("@media screen\u{a0} { a { b: c } }\n", "@charset \"UTF-8\";\n@media screen\u{a0} {\n  a {\n    b: c;\n  }\n}", "\u{feff}@media screen\u{a0}{a{b:c}}"),
+        ("@media \u{a0}screen { a { b: c } }\n", "@charset \"UTF-8\";\n@media \u{a0}screen {\n  a {\n    b: c;\n  }\n}", "\u{feff}@media \u{a0}screen{a{b:c}}"),
+        ("@media (a\u{a0}) { a { b: c } }\n", "@charset \"UTF-8\";\n@media (a\u{a0}) {\n  a {\n    b: c;\n  }\n}", "\u{feff}@media(a\u{a0}){a{b:c}}"),
+        ("@supports (a: b\u{a0}) { a { b: c } }\n", "@charset \"UTF-8\";\n@supports (a: b\u{a0}) {\n  a {\n    b: c;\n  }\n}", "\u{feff}@supports(a: b\u{a0}){a{b:c}}"),
+        ("\u{a0}> a { b: c }\n", "@charset \"UTF-8\";\n\u{a0} > a {\n  b: c;\n}", "\u{feff}\u{a0}>a{b:c}"),
+        ("a >\u{a0} { b: c }\n", "@charset \"UTF-8\";\na > \u{a0} {\n  b: c;\n}", "\u{feff}a>\u{a0}{b:c}"),
+        ("x { \u{a0}> a { b: c } }\n", "@charset \"UTF-8\";\nx {\n  \u{a0} > a {\n    b: c;\n  }\n}", "\u{feff}x{\u{a0}>a{b:c}}"),
+        ("x { a >\u{a0} { b: c } }\n", "@charset \"UTF-8\";\nx {\n  a > \u{a0} {\n    b: c;\n  }\n}", "\u{feff}x{a>\u{a0}{b:c}}"),
+        ("\u{a0}+ a { b: c }\n", "@charset \"UTF-8\";\n\u{a0} + a {\n  b: c;\n}", "\u{feff}\u{a0}+a{b:c}"),
+        ("a { \u{a0}b: c }\n", "@charset \"UTF-8\";\na {\n  \u{a0}b: c;\n}", "\u{feff}a{\u{a0}b:c}"),
+        ("a { b\u{a0}: c }\n", "@charset \"UTF-8\";\na {\n  b\u{a0}: c;\n}", "\u{feff}a{b\u{a0}:c}"),
+        ("a { b { \u{a0}c: d } }\n", "@charset \"UTF-8\";\na {\n  b {\n    \u{a0}c: d;\n  }\n}", "\u{feff}a{b{\u{a0}c:d}}"),
+        ("@supports \u{a0}(a: b) { x { y: z } }\n", "@charset \"UTF-8\";\n@supports \u{a0}(a: b) {\n  x {\n    y: z;\n  }\n}", "\u{feff}@supports \u{a0}(a: b){x{y:z}}"),
+        ("x { @supports \u{a0}(a: b) { y { z: w } } }\n", "@charset \"UTF-8\";\n@supports \u{a0}(a: b) {\n  x {\n    y {\n      z: w;\n    }\n  }\n}", "\u{feff}@supports \u{a0}(a: b){x{y{z:w}}}"),
+        ("@keyframes \u{a0}k { from { a: b } }\n", "@charset \"UTF-8\";\n@keyframes \u{a0}k {\n  from {\n    a: b;\n  }\n}", "\u{feff}@keyframes \u{a0}k{from{a:b}}"),
+        ("@keyframes k\u{a0} { from { a: b } }\n", "@charset \"UTF-8\";\n@keyframes k\u{a0} {\n  from {\n    a: b;\n  }\n}", "\u{feff}@keyframes k\u{a0}{from{a:b}}"),
+        ("x { @keyframes k\u{a0} { from { a: b } } }\n", "@charset \"UTF-8\";\n@keyframes k\u{a0} {\n  from {\n    a: b;\n  }\n}", "\u{feff}@keyframes k\u{a0}{from{a:b}}"),
+        ("@foo \u{a0}bar { x { y: z } }\n", "@charset \"UTF-8\";\n@foo \u{a0}bar {\n  x {\n    y: z;\n  }\n}", "\u{feff}@foo \u{a0}bar{x{y:z}}"),
+        ("@foo bar\u{a0} { x { y: z } }\n", "@charset \"UTF-8\";\n@foo bar\u{a0} {\n  x {\n    y: z;\n  }\n}", "\u{feff}@foo bar\u{a0}{x{y:z}}"),
+        ("x { @foo bar\u{a0} { y: z } }\n", "@charset \"UTF-8\";\n@foo bar\u{a0} {\n  x {\n    y: z;\n  }\n}", "\u{feff}@foo bar\u{a0}{x{y:z}}"),
+        ("@foo bar\u{a0};\n", "@charset \"UTF-8\";\n@foo bar\u{a0};", "\u{feff}@foo bar\u{a0}"),
+        ("@media x { @foo bar\u{a0} { y { z: w } } }\n", "@charset \"UTF-8\";\n@media x {\n  @foo bar\u{a0} {\n    y {\n      z: w;\n    }\n  }\n}", "\u{feff}@media x{@foo bar\u{a0}{y{z:w}}}"),
+        ("@media x { @foo \u{a0}bar { y { z: w } } }\n", "@charset \"UTF-8\";\n@media x {\n  @foo \u{a0}bar {\n    y {\n      z: w;\n    }\n  }\n}", "\u{feff}@media x{@foo \u{a0}bar{y{z:w}}}"),
+        ("@media x { @keyframes k\u{a0} { from { a: b } } }\n", "@charset \"UTF-8\";\n@media x {\n  @keyframes k\u{a0} {\n    from {\n      a: b;\n    }\n  }\n}", "\u{feff}@media x{@keyframes k\u{a0}{from{a:b}}}"),
+        ("@media x { @keyframes \u{a0}k { from { a: b } } }\n", "@charset \"UTF-8\";\n@media x {\n  @keyframes \u{a0}k {\n    from {\n      a: b;\n    }\n  }\n}", "\u{feff}@media x{@keyframes \u{a0}k{from{a:b}}}"),
+        ("@foo x { @bar y\u{a0} { z: w } }\n", "@charset \"UTF-8\";\n@foo x {\n  @bar y\u{a0} {\n    z: w;\n  }\n}", "\u{feff}@foo x{@bar y\u{a0}{z:w}}"),
+    ] {
+        assert_eq!(compile(css, &opts).unwrap(), expanded, "{css}");
+        assert_eq!(compile(css, &compressed_opts).unwrap(), compressed, "{css} (compressed)");
+    }
+    // An NBSP is not the whitespace a media query's `and` must be followed by.
+    let css = "@media screen and\u{a0}(a) { a { b: c } }\n";
+    let err = compile(css, &opts).unwrap_err().to_string();
+    assert!(err.contains("expected \"{\"."), "{err}");
+}
+
+#[test]
+fn a_newline_anywhere_since_the_last_break_breaks_the_line() {
+    // dart sets a complex selector's `lineBreak` by comparing line numbers: any
+    // newline since the last line-broken part breaks the next one, including one
+    // inside the previous complex (`a\nb, c`). Where a declaration may stand (a
+    // style rule, `@mixin`, a content block, an unknown at-rule), dart's
+    // declaration-or-rule lookahead first rewrites the whitespace after a leading
+    // identifier, and a hex escape's own whitespace, as one space, so a newline
+    // there does not count (`.p { a\nb, c {…} }` stays on one line).
+    for (scss, expanded, compressed) in [
+        ("a\nb, c { c: d }\n", "a b,\nc {\n  c: d;\n}", "a b,c{c:d}"),
+        ("a\n.x, c { c: d }\n", "a .x,\nc {\n  c: d;\n}", "a .x,c{c:d}"),
+        (
+            "a,\nb\nc, d { c: d }\n",
+            "a,\nb c,\nd {\n  c: d;\n}",
+            "a,b c,d{c:d}",
+        ),
+        ("a\nb,, c { c: d }\n", "a b,\nc {\n  c: d;\n}", "a b,c{c:d}"),
+        (
+            ".p\n.r, .q { a, c { x: y } }\n",
+            ".p .r a, .p .r c,\n.q a,\n.q c {\n  x: y;\n}",
+            ".p .r a,.p .r c,.q a,.q c{x:y}",
+        ),
+        (
+            "@media s { a\nb, c { c: d } }\n",
+            "@media s {\n  a b,\n  c {\n    c: d;\n  }\n}",
+            "@media s{a b,c{c:d}}",
+        ),
+        (
+            "a\nb, c { d\ne, f { x: y } }\n",
+            "a b d e, a b f,\nc d e,\nc f {\n  x: y;\n}",
+            "a b d e,a b f,c d e,c f{x:y}",
+        ),
+        (
+            ".p { a\nb, c { x: y } }\n",
+            ".p a b, .p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            ".p { a\n,b { x: y } }\n",
+            ".p a, .p b {\n  x: y;\n}",
+            ".p a,.p b{x:y}",
+        ),
+        (
+            ".p { #{a}\nb, c { x: y } }\n",
+            ".p a b, .p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            ".p { a.b\nc, d { x: y } }\n",
+            ".p a.b c,\n.p d {\n  x: y;\n}",
+            ".p a.b c,.p d{x:y}",
+        ),
+        (
+            ".p { .a\nb, c { x: y } }\n",
+            ".p .a b, .p c {\n  x: y;\n}",
+            ".p .a b,.p c{x:y}",
+        ),
+        (
+            ".p { #a\nb, c { x: y } }\n",
+            ".p #a b, .p c {\n  x: y;\n}",
+            ".p #a b,.p c{x:y}",
+        ),
+        (
+            ".p { *a\nb, c { x: y } }\n",
+            ".p * a b, .p c {\n  x: y;\n}",
+            ".p * a b,.p c{x:y}",
+        ),
+        (
+            ".p { :hover\nb, c { x: y } }\n",
+            ".p :hover b, .p c {\n  x: y;\n}",
+            ".p :hover b,.p c{x:y}",
+        ),
+        (
+            ".p { a\n:hover, c { x: y } }\n",
+            ".p a :hover,\n.p c {\n  x: y;\n}",
+            ".p a :hover,.p c{x:y}",
+        ),
+        (
+            ".p { -a\nb, c { x: y } }\n",
+            ".p -a b, .p c {\n  x: y;\n}",
+            ".p -a b,.p c{x:y}",
+        ),
+        (
+            ".p { --a\nb, c { x: y } }\n",
+            ".p --a b, .p c {\n  x: y;\n}",
+            ".p --a b,.p c{x:y}",
+        ),
+        (
+            ".p { \\61\nb, c { x: y } }\n",
+            ".p ab, .p c {\n  x: y;\n}",
+            ".p ab,.p c{x:y}",
+        ),
+        (
+            ".p { a\\:b\nc, d { x: y } }\n",
+            ".p a\\:b c, .p d {\n  x: y;\n}",
+            ".p a\\:b c,.p d{x:y}",
+        ),
+        (
+            ".p { a\n\nb\nc, d { x: y } }\n",
+            ".p a b c,\n.p d {\n  x: y;\n}",
+            ".p a b c,.p d{x:y}",
+        ),
+        (
+            ".p { a,\nb\nc, d { x: y } }\n",
+            ".p a,\n.p b c,\n.p d {\n  x: y;\n}",
+            ".p a,.p b c,.p d{x:y}",
+        ),
+        (
+            ".p { @media s { a\nb, c { x: y } } }\n",
+            "@media s {\n  .p a b, .p c {\n    x: y;\n  }\n}",
+            "@media s{.p a b,.p c{x:y}}",
+        ),
+        (
+            "@media s { a\nb, c { x: y } }\n",
+            "@media s {\n  a b,\n  c {\n    x: y;\n  }\n}",
+            "@media s{a b,c{x:y}}",
+        ),
+        (
+            "@mixin m { a\nb, c { x: y } } @include m;\n",
+            "a b, c {\n  x: y;\n}",
+            "a b,c{x:y}",
+        ),
+        (
+            "@mixin m { @content; } @include m { a\nb, c { x: y } }\n",
+            "a b, c {\n  x: y;\n}",
+            "a b,c{x:y}",
+        ),
+        (
+            "@foo { a\nb, c { x: y } }\n",
+            "@foo {\n  a b, c {\n    x: y;\n  }\n}",
+            "@foo{a b,c{x:y}}",
+        ),
+        (
+            "@-moz-document url(x) { a\nb, c { x: y } }\n",
+            "@-moz-document url(x) {\n  a b,\n  c {\n    x: y;\n  }\n}",
+            "@-moz-document url(x){a b,c{x:y}}",
+        ),
+        (
+            ".p { @at-root a\nb, c { x: y } }\n",
+            "a b,\nc {\n  x: y;\n}",
+            "a b,c{x:y}",
+        ),
+        (
+            ".p { @at-root { a\nb, c { x: y } } }\n",
+            "a b, c {\n  x: y;\n}",
+            "a b,c{x:y}",
+        ),
+        (
+            "@at-root a\nb, c { x: y }\n",
+            "a b,\nc {\n  x: y;\n}",
+            "a b,c{x:y}",
+        ),
+        (
+            ".p { @if true { a\nb, c { x: y } } }\n",
+            ".p a b, .p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            "a\nb, c { d\ne, f { x: y } }\n",
+            "a b d e, a b f,\nc d e,\nc f {\n  x: y;\n}",
+            "a b d e,a b f,c d e,c f{x:y}",
+        ),
+        (
+            ".p { a\n\u{a0}, c { x: y } }\n",
+            "@charset \"UTF-8\";\n.p a \u{a0}, .p c {\n  x: y;\n}",
+            "\u{feff}.p a \u{a0},.p c{x:y}",
+        ),
+        (
+            "a\n\u{a0},b { c: d }\n",
+            "@charset \"UTF-8\";\na \u{a0},\nb {\n  c: d;\n}",
+            "\u{feff}a \u{a0},b{c:d}",
+        ),
+        (
+            ".p { a /* c */\nb, c { x: y } }\n",
+            ".p a b, .p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            ".p { a\n/* c */ b, c { x: y } }\n",
+            ".p a b, .p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            ".p { > a\nb, c { x: y } }\n",
+            ".p > a b,\n.p c {\n  x: y;\n}",
+            ".p>a b,.p c{x:y}",
+        ),
+        (
+            ".p { & a\nb, c { x: y } }\n",
+            ".p a b,\n.p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            ".p { a\nb, &c { x: y } }\n",
+            ".p a b, .pc {\n  x: y;\n}",
+            ".p a b,.pc{x:y}",
+        ),
+        (
+            ".p { \\61\nb, c { x: y } }\n",
+            ".p ab, .p c {\n  x: y;\n}",
+            ".p ab,.p c{x:y}",
+        ),
+        (
+            ".p { \\61 \nb, c { x: y } }\n",
+            ".p a b, .p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            ".p { \\61\n:hover, c { x: y } }\n",
+            ".p a:hover, .p c {\n  x: y;\n}",
+            ".p a:hover,.p c{x:y}",
+        ),
+        (
+            ".p { \\x\nb, c { x: y } }\n",
+            ".p x b, .p c {\n  x: y;\n}",
+            ".p x b,.p c{x:y}",
+        ),
+        (
+            ".p { a\\61\nb, c { x: y } }\n",
+            ".p aab, .p c {\n  x: y;\n}",
+            ".p aab,.p c{x:y}",
+        ),
+        (
+            ".p { * a\nb, c { x: y } }\n",
+            ".p * a b, .p c {\n  x: y;\n}",
+            ".p * a b,.p c{x:y}",
+        ),
+        (
+            ".p { \\000061\nb, c { x: y } }\n",
+            ".p ab, .p c {\n  x: y;\n}",
+            ".p ab,.p c{x:y}",
+        ),
+        (
+            ".p { -\\61\nb, c { x: y } }\n",
+            ".p -ab, .p c {\n  x: y;\n}",
+            ".p -ab,.p c{x:y}",
+        ),
+        (
+            "@#{\"foo\"} { a\nb, c { x: y } }\n",
+            "@foo {\n  a b, c {\n    x: y;\n  }\n}",
+            "@foo{a b,c{x:y}}",
+        ),
+        ("a,,\n,b { c: d }\n", "a,\nb {\n  c: d;\n}", "a,b{c:d}"),
+        (
+            ".p { a,,\n,b { c: d } }\n",
+            ".p a,\n.p b {\n  c: d;\n}",
+            ".p a,.p b{c:d}",
+        ),
+        (
+            ".p { a\n,,b { c: d } }\n",
+            ".p a, .p b {\n  c: d;\n}",
+            ".p a,.p b{c:d}",
+        ),
+        (
+            ".p { \\61\t\nb, c { x: y } }\n",
+            ".p a b, .p c {\n  x: y;\n}",
+            ".p a b,.p c{x:y}",
+        ),
+        (
+            "a { x: y } b\nc, d { x: y }\n",
+            "a {\n  x: y;\n}\n\nb c,\nd {\n  x: y;\n}",
+            "a{x:y}b c,d{x:y}",
+        ),
+        (
+            "@mixin m { x: y } b\nc, d { x: y }\n",
+            "b c,\nd {\n  x: y;\n}",
+            "b c,d{x:y}",
+        ),
+        (
+            "@foo { x: y } b\nc, d { x: y }\n",
+            "@foo {\n  x: y;\n}\nb c,\nd {\n  x: y;\n}",
+            "@foo{x:y}b c,d{x:y}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+}
+
+#[test]
+fn a_newline_anywhere_since_the_last_break_breaks_the_line_in_plain_css() {
+    // The same rule in a plain-CSS stylesheet: dart's `CssParser` takes the
+    // declaration-or-rule lookahead inside a style rule or an unknown at-rule
+    // too.
+    let opts = Options::default().with_syntax(sasso::Syntax::Css);
+    for (css, expanded, compressed) in [
+        ("a\nb, c { x: y }\n", "a b,\nc {\n  x: y;\n}", "a b,c{x:y}"),
+        (
+            ".p { a\nb, c { x: y } }\n",
+            ".p {\n  a b, c {\n    x: y;\n  }\n}",
+            ".p{a b,c{x:y}}",
+        ),
+        ("a,\nb, c { x: y }\n", "a,\nb, c {\n  x: y;\n}", "a,b,c{x:y}"),
+        ("a\n, b { x: y }\n", "a,\nb {\n  x: y;\n}", "a,b{x:y}"),
+        (
+            ".p { a\n, b { x: y } }\n",
+            ".p {\n  a, b {\n    x: y;\n  }\n}",
+            ".p{a,b{x:y}}",
+        ),
+        (
+            ".p { .a\nb, c { x: y } }\n",
+            ".p {\n  .a b, c {\n    x: y;\n  }\n}",
+            ".p{.a b,c{x:y}}",
+        ),
+        (
+            "@media s { a\nb, c { x: y } }\n",
+            "@media s {\n  a b,\n  c {\n    x: y;\n  }\n}",
+            "@media s{a b,c{x:y}}",
+        ),
+        (
+            ".p { @media s { a\nb, c { x: y } } }\n",
+            "@media s {\n  .p {\n    a b, c {\n      x: y;\n    }\n  }\n}",
+            "@media s{.p{a b,c{x:y}}}",
+        ),
+        (
+            "@foo { a\nb, c { x: y } }\n",
+            "@foo {\n  a b, c {\n    x: y;\n  }\n}",
+            "@foo{a b,c{x:y}}",
+        ),
+    ] {
+        assert_eq!(compile(css, &opts).unwrap(), expanded, "{css}");
+        let compressed_opts = Options::default()
+            .with_syntax(sasso::Syntax::Css)
+            .with_style(OutputStyle::Compressed);
+        let out = compile(css, &compressed_opts).unwrap();
+        assert_eq!(out, compressed, "{css} (compressed)");
+    }
+}
+
+#[test]
 fn a_missing_attribute_operator_has_darts_message() {
     // dart's attribute-operator reader has its own sentences: capitalized
     // `Expected "]".` when no operator follows the name, and `expected "=".`
@@ -10163,6 +11183,304 @@ fn load_css_subtree_clone_and_blank_gating() {
 }
 
 #[test]
+fn an_unescaped_line_break_ends_no_quoted_string() {
+    // A quoted string may not hold a raw LF, CR or FF: dart's
+    // `_interpolatedString` fails on one with `Expected "<quote>".`, wherever
+    // the string is. The value parser already did; the readers that copy a
+    // string verbatim (selectors, unknown at-rule preludes, custom property
+    // values, `@supports` custom declarations, plain CSS `@function` bodies,
+    // `expression()` and its kin) passed it through. A `\` line continuation
+    // is still dropped. Outputs and messages are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        ("[a=\"x\\\ny\"] { c: d }\n", "[a=xy] {\n  c: d;\n}", "[a=xy]{c:d}"),
+        (
+            "a { --x: \"a\\\nb\"; }\n",
+            "a {\n  --x: \"a\\\n  b\";\n}",
+            "a{--x: \"a\\ b\"}",
+        ),
+        (
+            "@supports (--a: \"x\\\ny\") { a { b: c } }\n",
+            "@supports (--a: \"x\\ y\") {\n  a {\n    b: c;\n  }\n}",
+            "@supports(--a: \"x\\ y\"){a{b:c}}",
+        ),
+        (
+            "a { b: expression(\"x\\\ny\") }\n",
+            "a {\n  b: expression(\"x\\ y\");\n}",
+            "a{b:expression(\"x\\ y\")}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (scss, message) in [
+        ("[a=\"x\ny\"] { c: d }\n", "Expected \"."),
+        ("[a='x\ny'] { c: d }\n", "Expected '."),
+        ("[a=\"x\u{d}y\"] { c: d }\n", "Expected \"."),
+        ("[a=\"x\u{c}y\"] { c: d }\n", "Expected \"."),
+        (":is([a=\"x\ny\"]) { c: d }\n", "Expected \"."),
+        (".a:not([a=\"x\ny\"]) { c: d }\n", "Expected \"."),
+        (".b { @extend [a=\"x\ny\"]; }\n", "Expected \"."),
+        ("@foo \"x\ny\";\n", "Expected \"."),
+        ("@foo \"x\ny\" { a { b: c } }\n", "Expected \"."),
+        ("a { \"x\ny\": c }\n", "Expected \"."),
+        ("[a=\"#{1}\ny\"] { c: d }\n", "Expected \"."),
+        ("[a=\"x\n#{1}\"] { c: d }\n", "Expected \"."),
+        ("@at-root [a=\"x\ny\"] { c: d }\n", "Expected \"."),
+        ("@keyframes \"x\ny\" { from { c: d } }\n", "Expected \"."),
+        ("@at-root (with: \"x\ny\") { a { c: d } }\n", "Expected \"."),
+        ("a { --x: \"a\nb\"; }\n", "Expected \"."),
+        ("a { --x: 'a\u{d}b'; }\n", "Expected '."),
+        ("a { --x: \"a\u{c}b\"; }\n", "Expected \"."),
+        ("a { --x: [\"a\nb\"]; }\n", "Expected \"."),
+        ("a { --x: \"a#{1}\nb\"; }\n", "Expected \"."),
+        ("@supports (--a: \"x\ny\") { a { b: c } }\n", "Expected \"."),
+        ("@supports (--a: 'x\ny') { a { b: c } }\n", "Expected '."),
+        ("@function --f() { result: \"x\ny\"; }\n", "Expected \"."),
+        ("@function --f() { result: 'x\u{d}y'; }\n", "Expected '."),
+        ("a { b: expression(\"x\ny\") }\n", "Expected \"."),
+        ("a { b: progid:x(\"x\ny\") }\n", "Expected \"."),
+        ("a { b: element(\"x\ny\") }\n", "Expected \"."),
+        ("a { b: expression('x\u{d}y') }\n", "Expected '."),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err();
+        assert_eq!(err.message, message, "{scss}");
+    }
+    for (css, message) in [
+        ("[a=\"x\ny\"] { c: d }\n", "Expected \"."),
+        ("a { --x: \"a\nb\"; }\n", "Expected \"."),
+        ("@foo \"x\ny\";\n", "Expected \"."),
+        ("a { b: expression(\"x\ny\") }\n", "Expected \"."),
+        ("@supports (--a: \"x\ny\") { a { b: c } }\n", "Expected \"."),
+        ("@function --f() { result: \"x\ny\"; }\n", "Expected \"."),
+        ("a { b: \"x\ny\"; }\n", "Expected \"."),
+    ] {
+        let err = compile(css, &Options::default().with_syntax(sasso::Syntax::Css)).unwrap_err();
+        assert_eq!(err.message, message, "{css} (plain CSS)");
+    }
+}
+
+#[test]
+fn a_keyframe_selector_is_parsed_as_stops() {
+    // dart parses a keyframe block's resolved selector with its
+    // `KeyframeSelectorParser`: a comma list of `from`, `to` (either may be
+    // escaped) or a percentage, and nothing else. sasso passed anything
+    // through (`foo`, `10px`, `from,`, an NBSP beside `from`), and ran the CSS
+    // selector checks, which rejected `.5%` with "Expected identifier.".
+    // Outputs and messages are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "@keyframes k { FROM { c: d } }\n",
+            "@keyframes k {\n  from {\n    c: d;\n  }\n}",
+            "@keyframes k{from{c:d}}",
+        ),
+        (
+            "@keyframes k { 1e1% { c: d } }\n",
+            "@keyframes k {\n  1e1% {\n    c: d;\n  }\n}",
+            "@keyframes k{1e1%{c:d}}",
+        ),
+        (
+            "@keyframes k { +10% { c: d } }\n",
+            "@keyframes k {\n  +10% {\n    c: d;\n  }\n}",
+            "@keyframes k{+10%{c:d}}",
+        ),
+        (
+            "@keyframes k { .5% { c: d } }\n",
+            "@keyframes k {\n  .5% {\n    c: d;\n  }\n}",
+            "@keyframes k{.5%{c:d}}",
+        ),
+        (
+            "@keyframes k { 10%, 20% { c: d } }\n",
+            "@keyframes k {\n  10%, 20% {\n    c: d;\n  }\n}",
+            "@keyframes k{10%,20%{c:d}}",
+        ),
+        (
+            "@keyframes k { 10% , 20% { c: d } }\n",
+            "@keyframes k {\n  10%, 20% {\n    c: d;\n  }\n}",
+            "@keyframes k{10%,20%{c:d}}",
+        ),
+        (
+            "@keyframes k { 10%,20% { c: d } }\n",
+            "@keyframes k {\n  10%, 20% {\n    c: d;\n  }\n}",
+            "@keyframes k{10%,20%{c:d}}",
+        ),
+        (
+            "@keyframes k { FROM, TO { c: d } }\n",
+            "@keyframes k {\n  from, to {\n    c: d;\n  }\n}",
+            "@keyframes k{from,to{c:d}}",
+        ),
+        (
+            "@keyframes k { 130E-1% { c: d } }\n",
+            "@keyframes k {\n  130e-1% {\n    c: d;\n  }\n}",
+            "@keyframes k{130e-1%{c:d}}",
+        ),
+        (
+            "@keyframes k { 1e+2% { c: d } }\n",
+            "@keyframes k {\n  1e+2% {\n    c: d;\n  }\n}",
+            "@keyframes k{1e+2%{c:d}}",
+        ),
+        (
+            "@keyframes k { 10.% { c: d } }\n",
+            "@keyframes k {\n  10.% {\n    c: d;\n  }\n}",
+            "@keyframes k{10.%{c:d}}",
+        ),
+        (
+            "@keyframes k { from/**/ { c: d } }\n",
+            "@keyframes k {\n  from {\n    c: d;\n  }\n}",
+            "@keyframes k{from{c:d}}",
+        ),
+        (
+            "@keyframes k { #{\"10%, to\"} { c: d } }\n",
+            "@keyframes k {\n  10%, to {\n    c: d;\n  }\n}",
+            "@keyframes k{10%,to{c:d}}",
+        ),
+        (
+            "@keyframes k { \\66rom { c: d } }\n",
+            "@keyframes k {\n  from {\n    c: d;\n  }\n}",
+            "@keyframes k{from{c:d}}",
+        ),
+        (
+            "@keyframes k { \\74o { c: d } }\n",
+            "@keyframes k {\n  to {\n    c: d;\n  }\n}",
+            "@keyframes k{to{c:d}}",
+        ),
+        (
+            "@keyframes k { \\74 o { c: d } }\n",
+            "@keyframes k {\n  to {\n    c: d;\n  }\n}",
+            "@keyframes k{to{c:d}}",
+        ),
+        (
+            "@keyframes k { \\46ROM { c: d } }\n",
+            "@keyframes k {\n  from {\n    c: d;\n  }\n}",
+            "@keyframes k{from{c:d}}",
+        ),
+        (
+            "@keyframes k { \\74\\6f { c: d } }\n",
+            "@keyframes k {\n  to {\n    c: d;\n  }\n}",
+            "@keyframes k{to{c:d}}",
+        ),
+        (
+            "@keyframes k { t\\6f  , from { c: d } }\n",
+            "@keyframes k {\n  to, from {\n    c: d;\n  }\n}",
+            "@keyframes k{to,from{c:d}}",
+        ),
+        (
+            "@keyframes k { #{\".5%\"} { c: d } }\n",
+            "@keyframes k {\n  .5% {\n    c: d;\n  }\n}",
+            "@keyframes k{.5%{c:d}}",
+        ),
+        (
+            "@keyframes k { #{\"10.%\"} { c: d } }\n",
+            "@keyframes k {\n  10.% {\n    c: d;\n  }\n}",
+            "@keyframes k{10.%{c:d}}",
+        ),
+        (
+            "@keyframes k { #{\"1.5E+2%\"} { c: d } }\n",
+            "@keyframes k {\n  1.5e+2% {\n    c: d;\n  }\n}",
+            "@keyframes k{1.5e+2%{c:d}}",
+        ),
+        (
+            "@keyframes k { #{\"\\\\74o\"} { c: d } }\n",
+            "@keyframes k {\n  to {\n    c: d;\n  }\n}",
+            "@keyframes k{to{c:d}}",
+        ),
+        (
+            "@keyframes k { \\to { c: d } }\n",
+            "@keyframes k {\n  to {\n    c: d;\n  }\n}",
+            "@keyframes k{to{c:d}}",
+        ),
+        (
+            "@keyframes k { fr\\om { c: d } }\n",
+            "@keyframes k {\n  from {\n    c: d;\n  }\n}",
+            "@keyframes k{from{c:d}}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (scss, message) in [
+        ("@keyframes k { foo { c: d } }\n", "Expected \"to\" or \"from\"."),
+        ("@keyframes k { 10 { c: d } }\n", "expected \"%\"."),
+        ("@keyframes k { 10% 20% { c: d } }\n", "expected no more input."),
+        ("@keyframes k { from to { c: d } }\n", "expected no more input."),
+        (
+            "@keyframes k { from, foo { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+        (
+            "@keyframes k { #{\"foo\"} { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+        ("@keyframes k { 10px { c: d } }\n", "expected \"%\"."),
+        ("@keyframes k { -foo { c: d } }\n", "Expected \"to\" or \"from\"."),
+        ("@keyframes k { % { c: d } }\n", "Expected number."),
+        ("@keyframes k { from, { c: d } }\n", "Expected number."),
+        ("@keyframes k { ,from { c: d } }\n", "Expected number."),
+        ("@keyframes k { 10 % { c: d } }\n", "expected \"%\"."),
+        ("@keyframes k { 1e% { c: d } }\n", "Expected digit."),
+        (
+            "@keyframes k { from \u{a0} { c: d } }\n",
+            "expected no more input.",
+        ),
+        (
+            "@keyframes k { \u{a0}from { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+        ("@keyframes k { 10%\u{a0} { c: d } }\n", "expected no more input."),
+        (
+            "@keyframes k { #{\"from\" + \",\"} { c: d } }\n",
+            "Expected number.",
+        ),
+        (
+            "@keyframes k { fromx { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+        (
+            "@keyframes k { to\u{a0} { c: d } }\n",
+            "Expected \"to\" or \"from\"",
+        ),
+        ("@keyframes k { tox { c: d } }\n", "Expected \"to\" or \"from\""),
+        (
+            "@keyframes k { \\74o\\78 { c: d } }\n",
+            "Expected \"to\" or \"from\"",
+        ),
+        ("@keyframes k { #{\"%\"} { c: d } }\n", "Expected number."),
+        ("@keyframes k { #{\",from\"} { c: d } }\n", "Expected number."),
+        ("@keyframes k { #{\"10 %\"} { c: d } }\n", "expected \"%\"."),
+        ("@keyframes k { #{\"1e%\"} { c: d } }\n", "Expected digit."),
+        ("@keyframes k { #{\"-5%\"} { c: d } }\n", "Expected number."),
+        ("@keyframes k { #{\"1e-%\"} { c: d } }\n", "Expected digit."),
+        ("@keyframes k { #{\"\"} { c: d } }\n", "Expected number."),
+        ("@keyframes k { #{\" \"} { c: d } }\n", "Expected number."),
+        ("@keyframes k { #{\"\"}, from { c: d } }\n", "Expected number."),
+        ("@keyframes k { #{\"from,,to\"} { c: d } }\n", "Expected number."),
+        (
+            "@keyframes k { from\u{a0} { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+        (
+            "@keyframes k { #{\"from\u{a0}\"} { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+        (
+            "@keyframes k { \\FROM { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+        ("@keyframes k { \\tox { c: d } }\n", "Expected \"to\" or \"from\""),
+        (
+            "@keyframes k { \\-5% { c: d } }\n",
+            "Expected \"to\" or \"from\".",
+        ),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err();
+        assert_eq!(err.message, message, "{scss}");
+    }
+}
+
+#[test]
 fn keyframes_nested_at_rules_and_selector_normalization() {
     // A keyframe block is not a style rule: a nested at-rule stays inside
     // the frame instead of bubbling out.
@@ -10225,6 +11543,57 @@ fn media_interpolation_reparses_resolved_text() {
     assert_parity("@media ONLY screen {x {y: z}}\n");
     assert!(compile("@media #{\"(a)\"} or (b) {x {y: z}}\n", &Options::default()).is_err());
     assert_parity("@media bar#{12} {x {y: z}}\n");
+}
+
+#[test]
+fn a_resolved_media_condition_keeps_its_first_operator() {
+    // An interpolated query is re-parsed as dart's `_mediaLogicSequence`: the
+    // first `and` or `or` fixes the rest, and anything else ends the query, so
+    // the input left over is an error. sasso read each word afresh, so a mix
+    // came out as an `or` list and a stray word got the wrong message.
+    // Outputs and messages are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "@media #{\"(a) and (b) and (c)\"} { a { b: c } }\n",
+            "@media (a) and (b) and (c) {\n  a {\n    b: c;\n  }\n}",
+            "@media(a)and (b)and (c){a{b:c}}",
+        ),
+        (
+            "@media #{\"(a) or (b) or (c)\"} { a { b: c } }\n",
+            "@media (a) or (b) or (c) {\n  a {\n    b: c;\n  }\n}",
+            "@media(a)or (b)or (c){a{b:c}}",
+        ),
+        (
+            "@media #{\"(a) AND (b) And (c)\"} { a { b: c } }\n",
+            "@media (a) and (b) and (c) {\n  a {\n    b: c;\n  }\n}",
+            "@media(a)and (b)and (c){a{b:c}}",
+        ),
+        (
+            "@media #{\"(a) and (b), (c) or (d)\"} { a { b: c } }\n",
+            "@media (a) and (b), (c) or (d) {\n  a {\n    b: c;\n  }\n}",
+            "@media(a)and (b),(c)or (d){a{b:c}}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (query, message) in [
+        ("(a) foo", "expected no more input."),
+        ("(a) (b)", "expected no more input."),
+        ("(a)\u{a0}", "expected no more input."),
+        ("(a) and (b) foo", "expected no more input."),
+        ("(a) and (b) or (c)", "expected no more input."),
+        ("(a) or (b) and (c)", "expected no more input."),
+        ("(a) and(b)", "Expected whitespace."),
+        ("(a) or", "Expected whitespace."),
+        ("(a) and foo", "expected media condition in parentheses."),
+    ] {
+        let scss = format!("@media #{{\"{query}\"}} {{ a {{ b: c }} }}\n");
+        let err = compile(&scss, &Options::default()).unwrap_err().to_string();
+        assert!(err.contains(message), "{scss}: {err}");
+    }
 }
 
 #[test]
@@ -12796,6 +14165,391 @@ fn parity_unquoted_private_use_character() {
     }
 }
 
+#[test]
+fn an_attribute_selector_follows_dart_grammar() {
+    // dart's `_attributeSelector`: a name (`a`, `ns|a`, `|a`, `*|a`), then the
+    // close bracket or an operator, a value that is a string or an
+    // identifier, and at most one ASCII-letter modifier. sasso accepted any
+    // name and value characters (`[@a=b]`, `[a=1]`, `[a=b$]`, `[]`).
+    // Outputs and messages are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        ("[ a ] { c: d }\n", "[a] {\n  c: d;\n}", "[a]{c:d}"),
+        ("[-a] { c: d }\n", "[-a] {\n  c: d;\n}", "[-a]{c:d}"),
+        ("[--] { c: d }\n", "[--] {\n  c: d;\n}", "[--]{c:d}"),
+        ("[--1] { c: d }\n", "[--1] {\n  c: d;\n}", "[--1]{c:d}"),
+        ("[\\31 a] { c: d }\n", "[\\31 a] {\n  c: d;\n}", "[\\31 a]{c:d}"),
+        ("[a\\@b] { c: d }\n", "[a\\@b] {\n  c: d;\n}", "[a\\@b]{c:d}"),
+        ("[*|a] { c: d }\n", "[*|a] {\n  c: d;\n}", "[*|a]{c:d}"),
+        ("[|a] { c: d }\n", "[|a] {\n  c: d;\n}", "[|a]{c:d}"),
+        ("[a|b] { c: d }\n", "[a|b] {\n  c: d;\n}", "[a|b]{c:d}"),
+        ("[a|=b] { c: d }\n", "[a|=b] {\n  c: d;\n}", "[a|=b]{c:d}"),
+        ("[a|b|=c] { c: d }\n", "[a|b|=c] {\n  c: d;\n}", "[a|b|=c]{c:d}"),
+        ("[*|a=b] { c: d }\n", "[*|a=b] {\n  c: d;\n}", "[*|a=b]{c:d}"),
+        ("[a=-b] { c: d }\n", "[a=-b] {\n  c: d;\n}", "[a=-b]{c:d}"),
+        (
+            "[a=b\\ c] { c: d }\n",
+            "[a=b\\ c] {\n  c: d;\n}",
+            "[a=b\\ c]{c:d}",
+        ),
+        ("[a=\\\"] { c: d }\n", "[a=\\\"] {\n  c: d;\n}", "[a=\\\"]{c:d}"),
+        ("[a=_b] { c: d }\n", "[a=_b] {\n  c: d;\n}", "[a=_b]{c:d}"),
+        (
+            "[a=\u{e9}] { c: d }\n",
+            "@charset \"UTF-8\";\n[a=\u{e9}] {\n  c: d;\n}",
+            "\u{feff}[a=\u{e9}]{c:d}",
+        ),
+        ("[a=\"b\"i] { c: d }\n", "[a=b i] {\n  c: d;\n}", "[a=b i]{c:d}"),
+        ("[a=b I] { c: d }\n", "[a=b I] {\n  c: d;\n}", "[a=b I]{c:d}"),
+        ("b [a = c ] { c: d }\n", "b [a=c] {\n  c: d;\n}", "b [a=c]{c:d}"),
+        ("[a=#{\"x\"}] { c: d }\n", "[a=x] {\n  c: d;\n}", "[a=x]{c:d}"),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (scss, message) in [
+        ("[] { c: d }\n", "Expected identifier."),
+        ("[ ] { c: d }\n", "Expected identifier."),
+        ("[-1] { c: d }\n", "Expected identifier."),
+        ("[1a] { c: d }\n", "Expected identifier."),
+        ("[-] { c: d }\n", "Expected identifier."),
+        ("[*a] { c: d }\n", "expected \"|\"."),
+        ("[*] { c: d }\n", "expected \"|\"."),
+        ("[|] { c: d }\n", "Expected identifier."),
+        ("[a|] { c: d }\n", "Expected identifier."),
+        ("[\u{1}a=b] { c: d }\n", "Expected identifier."),
+        ("[@a=b] { c: d }\n", "Expected identifier."),
+        ("[/a=b] { c: d }\n", "Expected identifier."),
+        ("[$a=b] { c: d }\n", "Expected identifier."),
+        ("[=a=b] { c: d }\n", "Expected identifier."),
+        ("[a==b] { c: d }\n", "Expected identifier."),
+        ("[a=] { c: d }\n", "Expected identifier."),
+        ("[a= ] { c: d }\n", "Expected identifier."),
+        ("[a=1] { c: d }\n", "Expected identifier."),
+        ("[a=-1] { c: d }\n", "Expected identifier."),
+        ("[a=b@] { c: d }\n", "expected \"]\"."),
+        ("[a=b@c] { c: d }\n", "expected \"]\"."),
+        ("[a=b/] { c: d }\n", "expected \"]\"."),
+        ("[a=b$] { c: d }\n", "expected \"]\"."),
+        ("[a=b\u{1}] { c: d }\n", "expected \"]\"."),
+        ("[a=b=] { c: d }\n", "expected \"]\"."),
+        ("[a=b ii] { c: d }\n", "expected \"]\"."),
+        ("[a=b 1] { c: d }\n", "expected \"]\"."),
+        ("[a=b i ] { c: d }\n", "expected \"]\"."),
+        ("[a=\"b\" \"c\"] { c: d }\n", "expected \"]\"."),
+        ("[a~b] { c: d }\n", "expected \"=\"."),
+        ("[a b] { c: d }\n", "Expected \"]\"."),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err();
+        assert_eq!(err.message, message, "{scss}");
+    }
+}
+
+#[test]
+fn a_character_that_starts_no_selector_is_an_error() {
+    // dart's `_complexSelector` stops at a character that starts neither a
+    // compound selector nor a combinator: a C0 control other than CSS
+    // whitespace, DEL, a quote, or one of `` $ ^ ` ? < = @ / ``. At the top level that
+    // is "expected selector."; in a selector pseudo's argument it is
+    // `expected ")".`, or "expected selector." while the complex selector is
+    // still empty. sasso accepted all of them but `@` (and a `/` outside an
+    // argument), and rejected `@` even in an unknown pseudo's argument, which
+    // dart reads as a declaration value. Outputs and messages are dart-sass
+    // 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        (":x(a@b) { c: d }\n", ":x(a@b) {\n  c: d;\n}", ":x(a@b){c:d}"),
+        (":x(a^b) { c: d }\n", ":x(a^b) {\n  c: d;\n}", ":x(a^b){c:d}"),
+        (":x(a/b) { c: d }\n", ":x(a/b) {\n  c: d;\n}", ":x(a/b){c:d}"),
+        ("::x(a@b) { c: d }\n", "::x(a@b) {\n  c: d;\n}", "::x(a@b){c:d}"),
+        (
+            ":lang(a$) { c: d }\n",
+            ":lang(a$) {\n  c: d;\n}",
+            ":lang(a$){c:d}",
+        ),
+        (
+            ":dir(a@b) { c: d }\n",
+            ":dir(a@b) {\n  c: d;\n}",
+            ":dir(a@b){c:d}",
+        ),
+        (":IS(a$b) { c: d }\n", ":IS(a$b) {\n  c: d;\n}", ":IS(a$b){c:d}"),
+        (
+            "::is(a$b) { c: d }\n",
+            "::is(a$b) {\n  c: d;\n}",
+            "::is(a$b){c:d}",
+        ),
+        (
+            ":slotted(a$b) { c: d }\n",
+            ":slotted(a$b) {\n  c: d;\n}",
+            ":slotted(a$b){c:d}",
+        ),
+        (
+            ":nth-of-type(2n$) { c: d }\n",
+            ":nth-of-type(2n$) {\n  c: d;\n}",
+            ":nth-of-type(2n$){c:d}",
+        ),
+        (
+            ":x(\"$\") { c: d }\n",
+            ":x(\"$\") {\n  c: d;\n}",
+            ":x(\"$\"){c:d}",
+        ),
+        ("a\\$b { c: d }\n", "a\\$b {\n  c: d;\n}", "a\\$b{c:d}"),
+        ("a\\@b { c: d }\n", "a\\@b {\n  c: d;\n}", "a\\@b{c:d}"),
+        (
+            ":is(a\\$b) { c: d }\n",
+            ":is(a\\$b) {\n  c: d;\n}",
+            ":is(a\\$b){c:d}",
+        ),
+        (
+            "[a=\"$\"] { c: d }\n",
+            "[a=\"$\"] {\n  c: d;\n}",
+            "[a=\"$\"]{c:d}",
+        ),
+        (
+            "[a=\"@\"] { c: d }\n",
+            "[a=\"@\"] {\n  c: d;\n}",
+            "[a=\"@\"]{c:d}",
+        ),
+        (
+            ":x(a\"$\"b) { c: d }\n",
+            ":x(a\"$\"b) {\n  c: d;\n}",
+            ":x(a\"$\"b){c:d}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (scss, message) in [
+        ("a\u{1}b { c: d }\n", "expected selector."),
+        ("a\u{b}b { c: d }\n", "expected selector."),
+        ("a\u{7f} { c: d }\n", "expected selector."),
+        ("\u{1f}a { c: d }\n", "expected selector."),
+        ("a\u{0}b { c: d }\n", "expected selector."),
+        ("a$b { c: d }\n", "expected selector."),
+        ("a^b { c: d }\n", "expected selector."),
+        ("a`b { c: d }\n", "expected selector."),
+        ("a?b { c: d }\n", "expected selector."),
+        ("a<b { c: d }\n", "expected selector."),
+        ("a=b { c: d }\n", "expected selector."),
+        ("a@b { c: d }\n", "expected selector."),
+        ("a > ^b { c: d }\n", "expected selector."),
+        ("a, ?b { c: d }\n", "expected selector."),
+        (".a$ { c: d }\n", "expected selector."),
+        ("#a` { c: d }\n", "expected selector."),
+        ("%p<b { c: d }\n", "expected selector."),
+        (":hover= { c: d }\n", "expected selector."),
+        ("a:hover$ { c: d }\n", "expected selector."),
+        ("&$ { c: d }\n", "expected selector."),
+        (":is(a) $b { c: d }\n", "expected selector."),
+        (":is(a\u{b}b) { c: d }\n", "expected \")\"."),
+        (":is(a$b) { c: d }\n", "expected \")\"."),
+        (":is(a@b) { c: d }\n", "expected \")\"."),
+        (":is(a/b) { c: d }\n", "expected \")\"."),
+        (":is(a$) { c: d }\n", "expected \")\"."),
+        (":not(a /b) { c: d }\n", "expected \")\"."),
+        (":is($a) { c: d }\n", "expected selector."),
+        (":is( $a) { c: d }\n", "expected selector."),
+        (":is(/a) { c: d }\n", "expected selector."),
+        (":is(a, $b) { c: d }\n", "expected selector."),
+        (":is(a,$b) { c: d }\n", "expected selector."),
+        (":is(> $a) { c: d }\n", "expected \")\"."),
+        (":is(a > $b) { c: d }\n", "expected \")\"."),
+        (":is(:not(a$b)) { c: d }\n", "expected \")\"."),
+        (":-webkit-any(a$b) { c: d }\n", "expected \")\"."),
+        (":-moz-is(a$b) { c: d }\n", "expected \")\"."),
+        (":host(a$b) { c: d }\n", "expected \")\"."),
+        (":host-context(a$b) { c: d }\n", "expected \")\"."),
+        (":current(a$b) { c: d }\n", "expected \")\"."),
+        (":has(> a$b) { c: d }\n", "expected \")\"."),
+        (":where(a$b) { c: d }\n", "expected \")\"."),
+        (":matches(a$b) { c: d }\n", "expected \")\"."),
+        (":any(a$b) { c: d }\n", "expected \")\"."),
+        ("::slotted(a$b) { c: d }\n", "expected \")\"."),
+        ("::slotted(a/b) { c: d }\n", "expected \")\"."),
+        (":nth-child(2n of a$b) { c: d }\n", "expected \")\"."),
+        (":nth-child(2n of $a) { c: d }\n", "expected selector."),
+        (":nth-last-child(2n of a, $b) { c: d }\n", "expected selector."),
+        (":is([a=1]) { c: d }\n", "Expected identifier."),
+        (":is([a=b$]) { c: d }\n", "expected \"]\"."),
+        (":is(a[b]$c) { c: d }\n", "expected \")\"."),
+        (".p { a$b { c: d } }\n", "expected selector."),
+        (".q { #{\"a$b\"} { c: d } }\n", "expected selector."),
+        (".q { #{\"a\"}$b { c: d } }\n", "expected selector."),
+        (".q { :is(#{\"a$b\"}) { c: d } }\n", "expected \")\"."),
+        ("@media screen { a$b { c: d } }\n", "expected selector."),
+        ("@mixin m { a$b { c: d } } @include m;\n", "expected selector."),
+        ("@at-root a$b { c: d }\n", "expected selector."),
+        (".a { x: y } .b { @extend a$b; }\n", "expected selector."),
+        (".a { x: y } .b { @extend :is(a$b); }\n", "expected \")\"."),
+        (".a { x: y } .b { @extend a\u{b}b; }\n", "expected selector."),
+        (".a { x: y } .b { @extend [a=1]; }\n", "Expected identifier."),
+        ("a\"b\" { c: d }\n", "expected selector."),
+        ("a\"$\" { c: d }\n", "expected selector."),
+        (":is(\"x\") { c: d }\n", "expected selector."),
+        (":is(\"a$b\") { c: d }\n", "expected selector."),
+        (":is(a\"b\"c) { c: d }\n", "expected \")\"."),
+        (":is(a \"b\") { c: d }\n", "expected \")\"."),
+        (":is('x') { c: d }\n", "expected selector."),
+        (":not(a, \"b\") { c: d }\n", "expected selector."),
+        (":is(:hover $a) { c: d }\n", "expected \")\"."),
+        (":is(:hover$) { c: d }\n", "expected \")\"."),
+        (":is(::before $a) { c: d }\n", "expected \")\"."),
+        (":nth-child(2n of :not()) { c: d }\n", "expected selector."),
+        (":nth-child(2n of :is(a$b)) { c: d }\n", "expected \")\"."),
+        ("a\u{8}b { c: d }\n", "expected selector."),
+        (":is(a\u{8}b) { c: d }\n", "expected \")\"."),
+        ("[a=\"$\"]$ { c: d }\n", "expected selector."),
+        (".a { x: y } .b { @extend [-1]; }\n", "Expected identifier."),
+        (".a { x: y } .b { @extend a\"b\"; }\n", "expected selector."),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(\"a$b\") }\n",
+            "$selector: expected selector.",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(\":is(a$b)\") }\n",
+            "$selector: expected \")\".",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(\"[a=1]\") }\n",
+            "$selector: Expected identifier.",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.is-superselector(\"a$\", \"a\") }\n",
+            "$super: expected selector.",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(\"[-1]\") }\n",
+            "$selector: Expected identifier.",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse('a\"b\"') }\n",
+            "$selector: expected selector.",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.parse(':is(\"x\")') }\n",
+            "$selector: expected selector.",
+        ),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err();
+        assert_eq!(err.message, message, "{scss}");
+    }
+    let css = compile(
+        ":x(a@b) { c: d }\n",
+        &Options::default().with_syntax(sasso::Syntax::Css),
+    )
+    .unwrap();
+    assert_eq!(css, ":x(a@b) {\n  c: d;\n}");
+    for (css, message) in [
+        ("a$b { c: d }\n", "expected selector."),
+        ("a@b { c: d }\n", "expected selector."),
+        ("a\u{b}b { c: d }\n", "expected selector."),
+        (":is(a$b) { c: d }\n", "expected \")\"."),
+        ("[a=1] { c: d }\n", "Expected identifier."),
+        ("a { b$c { d: e } }\n", "expected selector."),
+        ("[-1] { c: d }\n", "Expected identifier."),
+        ("[1a] { c: d }\n", "Expected identifier."),
+        ("a\"b\" { c: d }\n", "expected selector."),
+        (":is(\"x\") { c: d }\n", "expected selector."),
+        ("a\u{8}b { c: d }\n", "expected selector."),
+    ] {
+        let err = compile(css, &Options::default().with_syntax(sasso::Syntax::Css)).unwrap_err();
+        assert_eq!(err.message, message, "{css} (plain CSS)");
+    }
+    // The error points at the character, and one that came out of an
+    // interpolation gets the dual-span block, with the message it has.
+    let err = compile(":is(a$b) { c: d }\n", &Options::default()).unwrap_err();
+    let msg = format!("{err}");
+    assert!(msg.contains("1:6"), "{msg}");
+    let scss = "$x: \"a$b\";\n.q:is(#{$x}) { c: d }\n";
+    let err = compile(scss, &Options::default()).unwrap_err();
+    let msg = format!("{err}");
+    assert!(msg.contains("2:9"), "{msg}");
+    let options = Options::new()
+        .with_url("file:///work/main.scss")
+        .with_cwd("/work");
+    let msg = compile(scss, &options).unwrap_err().to_string();
+    assert!(msg.starts_with("Error: expected \")\".\n"), "{msg}");
+    assert!(msg.contains("error in interpolated output"), "{msg}");
+}
+
+#[test]
+fn a_form_feed_separates_compound_selectors() {
+    // A form feed is CSS whitespace, so it starts a new compound: a `&` after
+    // it is at the start of one, and so is a plain CSS placeholder. The
+    // compound-start checks listed space, tab, LF and CR only. Outputs and
+    // messages are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        ("a { b\u{c}& { c: d } }\n", "b a {\n  c: d;\n}", "b a{c:d}"),
+        ("a { b\u{c}&-x { c: d } }\n", "b a-x {\n  c: d;\n}", "b a-x{c:d}"),
+        (
+            "a { :is(b)\u{c}& { c: d } }\n",
+            ":is(b) a {\n  c: d;\n}",
+            ":is(b) a{c:d}",
+        ),
+        ("a { [b]\u{c}& { c: d } }\n", "[b] a {\n  c: d;\n}", "[b] a{c:d}"),
+        ("a { b\u{c}\u{c}& { c: d } }\n", "b a {\n  c: d;\n}", "b a{c:d}"),
+        (
+            "@use \"sass:selector\"; a { b: selector.nest(\"a\", \"b\\c &\") }\n",
+            "a {\n  b: b a;\n}",
+            "a{b:b a}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.nest(\"a\", \"b\\c&\") }\n",
+            "a {\n  b: b a;\n}",
+            "a{b:b a}",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.nest(\"a\", \"b\\c &-x\") }\n",
+            "a {\n  b: b a-x;\n}",
+            "a{b:b a-x}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (scss, message) in [
+        (
+            "a\u{c}&-x { c: d }\n",
+            "A top-level selector may not contain a parent selector with a suffix.",
+        ),
+        (
+            "a { b& { c: d } }\n",
+            "\"&\" may only used at the beginning of a compound selector.",
+        ),
+        (
+            "@use \"sass:selector\"; a { b: selector.nest(\"a\", \"b&\") }\n",
+            "\"&\" may only used at the beginning of a compound selector.",
+        ),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err();
+        assert_eq!(err.message, message, "{scss}");
+    }
+    let css_opts = Options::default().with_syntax(sasso::Syntax::Css);
+    let css = compile("a { b\u{c}& { c: d } }\n", &css_opts).unwrap();
+    assert_eq!(css, "a {\n  b & {\n    c: d;\n  }\n}");
+    for (css, message) in [
+        (
+            "a\u{c}%b { c: d }\n",
+            "Placeholder selectors aren't allowed in plain CSS.",
+        ),
+        (
+            "a\u{c}\u{c}%b { c: d }\n",
+            "Placeholder selectors aren't allowed in plain CSS.",
+        ),
+        (
+            "a\u{c}&x { c: d }\n",
+            "Parent selectors can't have suffixes in plain CSS.",
+        ),
+    ] {
+        let err = compile(css, &css_opts).unwrap_err();
+        assert_eq!(err.message, message, "{css} (plain CSS)");
+    }
+}
+
 /// `compile()`'s error text reduced to dart's own sentence: the `Error: ` prefix
 /// and the ` (line:col)` suffix that `Display for Error` appends both removed, so
 /// an expectation can be compared WHOLE rather than as a prefix. The suffix is
@@ -13058,5 +14812,172 @@ fn a_type_error_names_its_parameter_and_spells_its_value_dart_s_way() {
             }
             None => panic!("expected dart-sass to reject:\n{scss}"),
         }
+    }
+}
+
+#[test]
+fn a_pseudo_name_is_read_with_its_escapes() {
+    // dart reads a pseudo's name as an identifier, decoding its escapes,
+    // before it decides whether the argument is a selector list:
+    // `:\69s(a$b)` is `:is(a$b)`, and `:\78(a$b)` is the unknown `:x(a$b)`,
+    // whose argument is a declaration value. sasso scanned the raw name, so
+    // it reported every `$` in these as "expected selector.", and a `(` after
+    // an escaped name was not an argument list at all. Outputs and messages
+    // are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        (":\\78(a$b) { c: d }\n", ":x(a$b) {\n  c: d;\n}", ":x(a$b){c:d}"),
+        (":\\78(a@b) { c: d }\n", ":x(a@b) {\n  c: d;\n}", ":x(a@b){c:d}"),
+        (":\\x(a$b) { c: d }\n", ":x(a$b) {\n  c: d;\n}", ":x(a$b){c:d}"),
+        (":\\78 (a$b) { c: d }\n", ":x(a$b) {\n  c: d;\n}", ":x(a$b){c:d}"),
+        (
+            ":\\49S(a$b) { c: d }\n",
+            ":IS(a$b) {\n  c: d;\n}",
+            ":IS(a$b){c:d}",
+        ),
+        (":\\69s(a) { c: d }\n", ":is(a) {\n  c: d;\n}", ":is(a){c:d}"),
+        (":\\78(a) { c: d }\n", ":x(a) {\n  c: d;\n}", ":x(a){c:d}"),
+        (
+            ":a\\(b(c) { d: e }\n",
+            ":a\\(b(c) {\n  d: e;\n}",
+            ":a\\(b(c){d:e}",
+        ),
+        (
+            ":\\31 a(b) { c: d }\n",
+            ":\\31 a(b) {\n  c: d;\n}",
+            ":\\31 a(b){c:d}",
+        ),
+        (
+            ":-webkit-any(a) { b: c }\n",
+            ":-webkit-any(a) {\n  b: c;\n}",
+            ":-webkit-any(a){b:c}",
+        ),
+        (
+            "::part(a) { b: c }\n",
+            "::part(a) {\n  b: c;\n}",
+            "::part(a){b:c}",
+        ),
+        (
+            ":not(a):is(b) { c: d }\n",
+            ":not(a):is(b) {\n  c: d;\n}",
+            ":not(a):is(b){c:d}",
+        ),
+        (
+            ":\u{e9}(b) { c: d }\n",
+            "@charset \"UTF-8\";\n:\u{e9}(b) {\n  c: d;\n}",
+            "\u{feff}:\u{e9}(b){c:d}",
+        ),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
+    }
+    for (scss, message) in [
+        (":\\69s(a$b) { c: d }\n", "expected \")\"."),
+        (":i\\73(a$b) { c: d }\n", "expected \")\"."),
+        (":\\6e ot(a$b) { c: d }\n", "expected \")\"."),
+        (":\\69 s(a$b) { c: d }\n", "expected \")\"."),
+        (":-webkit-\\69s(a$b) { c: d }\n", "expected \")\"."),
+        ("::\\73lotted(a$b) { c: d }\n", "expected \")\"."),
+        (":n\\th-child(2n of a$b) { c: d }\n", "expected \")\"."),
+        (":\\78(a$b):is(c$d) { c: d }\n", "expected \")\"."),
+        ("\\:\\78(a$b) { c: d }\n", "expected selector."),
+        ("\\:b(c) { d: e }\n", "expected selector."),
+        ("a\\:b(c) { d: e }\n", "expected selector."),
+        (":\\78  (a) { c: d }\n", "expected selector."),
+        ("a(b) { c: d }\n", "expected selector."),
+        ("a (b) { c: d }\n", "expected selector."),
+        ("[a](b) { c: d }\n", "expected selector."),
+        (":not(a)(b) { c: d }\n", "expected selector."),
+        (":a:b(c)(d) { e: f }\n", "expected selector."),
+        (":a b(c) { d: e }\n", "expected selector."),
+        (":a.b(c) { d: e }\n", "expected selector."),
+        (":a[b](c) { d: e }\n", "expected selector."),
+        (":a, b(c) { d: e }\n", "expected selector."),
+        ("a:(b) { c: d }\n", "Expected identifier."),
+        ("a::(b) { c: d }\n", "Expected identifier."),
+        (":1a(b) { c: d }\n", "Expected identifier."),
+        (":\\\n(a$b) { c: d }\n", "Expected escape sequence."),
+        (":a\\\n(b) { c: d }\n", "Expected escape sequence."),
+    ] {
+        let err = compile(scss, &Options::default()).unwrap_err();
+        assert_eq!(err.message, message, "{scss}");
+    }
+    let err = compile(
+        "@use \"sass:selector\"; a { b: selector.parse(\":\\\\69s(a$b)\") }\n",
+        &Options::default(),
+    )
+    .unwrap_err();
+    assert_eq!(err.message, "$selector: expected \")\".");
+    let css_opts = Options::default().with_syntax(sasso::Syntax::Css);
+    let css = compile(":\\78(a$b) { c: d }\n", &css_opts).unwrap();
+    assert_eq!(css, ":x(a$b) {\n  c: d;\n}");
+}
+
+#[test]
+fn a_minus_before_any_name_start_after_a_quoted_string_starts_a_term() {
+    // After a quoted string, dart reads `-` followed by a name start as the
+    // start of a new term, and a name start is any code point from U+0080 up,
+    // the NBSP included; so does an escape (`"q"-\78`). sasso checked
+    // `is_alphabetic() || '_'`, so `"q"-\u{a0}x` became a subtraction. Outputs are dart-sass 1.104.1's. Offline.
+    for (scss, expanded, compressed) in [
+        (
+            "a { b: \"q\"-\u{a0}x; }\n",
+            "@charset \"UTF-8\";\na {\n  b: \"q\" -\u{a0}x;\n}",
+            "\u{feff}a{b:\"q\" -\u{a0}x}",
+        ),
+        (
+            "a { b: 'q'-\u{a0}x; }\n",
+            "@charset \"UTF-8\";\na {\n  b: \"q\" -\u{a0}x;\n}",
+            "\u{feff}a{b:\"q\" -\u{a0}x}",
+        ),
+        (
+            "a { b: \"q\" -\u{a0}x; }\n",
+            "@charset \"UTF-8\";\na {\n  b: \"q\" -\u{a0}x;\n}",
+            "\u{feff}a{b:\"q\" -\u{a0}x}",
+        ),
+        (
+            "a { b: \"q\"-\u{a0}; }\n",
+            "@charset \"UTF-8\";\na {\n  b: \"q\" -\u{a0};\n}",
+            "\u{feff}a{b:\"q\" -\u{a0}}",
+        ),
+        ("a { b: \"q\"-l; }\n", "a {\n  b: \"q\" -l;\n}", "a{b:\"q\" -l}"),
+        (
+            "a { b: \"q\"-\u{e9}x; }\n",
+            "@charset \"UTF-8\";\na {\n  b: \"q\" -\u{e9}x;\n}",
+            "\u{feff}a{b:\"q\" -\u{e9}x}",
+        ),
+        (
+            "a { b: \"q\"-\u{4e2d}; }\n",
+            "@charset \"UTF-8\";\na {\n  b: \"q\" -\u{4e2d};\n}",
+            "\u{feff}a{b:\"q\" -\u{4e2d}}",
+        ),
+        (
+            "a { b: \"q\"-_x; }\n",
+            "a {\n  b: \"q\" -_x;\n}",
+            "a{b:\"q\" -_x}",
+        ),
+        (
+            "a { b: \"q\"-\\78; }\n",
+            "a {\n  b: \"q\" -x;\n}",
+            "a{b:\"q\" -x}",
+        ),
+        (
+            "a { b: \"q\"--x; }\n",
+            "a {\n  b: \"q\" --x;\n}",
+            "a{b:\"q\" --x}",
+        ),
+        (
+            "a { b: \"q\"-\u{a0}x \"r\"; }\n",
+            "@charset \"UTF-8\";\na {\n  b: \"q\" -\u{a0}x \"r\";\n}",
+            "\u{feff}a{b:\"q\" -\u{a0}x \"r\"}",
+        ),
+        ("a { b: \"q\"-1; }\n", "a {\n  b: \"q\"-1;\n}", "a{b:\"q\"-1}"),
+        ("a { b: \"q\"-(1); }\n", "a {\n  b: \"q\"-1;\n}", "a{b:\"q\"-1}"),
+    ] {
+        let css = compile(scss, &Options::default()).unwrap();
+        assert_eq!(css, expanded, "{scss}");
+        let css = compile(scss, &Options::default().with_style(OutputStyle::Compressed)).unwrap();
+        assert_eq!(css, compressed, "{scss} (compressed)");
     }
 }
