@@ -21,8 +21,8 @@ in
       platforms = pkgs.lib.platforms.all;
     };
     patches = (old.patches or [ ]) ++ [ 
-      ../../../patches/kiwix-opds-url.patch 
-      ../../../patches/kiwix-mac-tabbar-crash.patch
+      ./patches/kiwix-opds-url.patch 
+      ./patches/kiwix-mac-tabbar-crash.patch
     ];
     postPatch =
       (old.postPatch or "")
