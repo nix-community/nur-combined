@@ -80,6 +80,12 @@ stdenv.mkDerivation {
       substituteInPlace $out/lib/systemd/user/wshowlyrics.service \
         --replace-fail "/usr/bin/wshowlyrics" "$out/bin/wshowlyrics"
     fi
+
+    # THIRD_PARTY_LICENSES.md ships from the release after v0.10.2
+    install -Dm644 -t $out/share/licenses/${pname} $src/LICENSE
+    if [ -f "$src/THIRD_PARTY_LICENSES.md" ]; then
+      install -Dm644 -t $out/share/licenses/${pname} $src/THIRD_PARTY_LICENSES.md
+    fi
   '';
 
   mesonFlags = [
@@ -89,7 +95,10 @@ stdenv.mkDerivation {
   meta = {
     description = "Wayland Lyrics Overlay inspired by LyricsX";
     homepage = "https://github.com/wshowlyrics/wshowlyrics";
-    license = lib.licenses.gpl3Only;
+    license = with lib.licenses; [
+      gpl3Plus
+      mit
+    ];
     maintainers = with lib.maintainers; [ "unstable-code" ];
     mainProgram = "wshowlyrics";
     platforms = lib.platforms.linux;
