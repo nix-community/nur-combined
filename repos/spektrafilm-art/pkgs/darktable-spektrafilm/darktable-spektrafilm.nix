@@ -51,7 +51,7 @@ let
     pname = "darktable-spektrafilm";
     # Tracks a moving master head, not a tagged release, so
     # the datestamp keeps the store path honest. Bump it together with src.rev.
-    version = "5.8.0-unstable-2026-09-09";
+    version = "5.8.0-unstable-2026-09-29";
 
     src = fetchFromGitHub {
       owner = "darktable-org";
@@ -70,9 +70,9 @@ let
       #
       # Bump `rev`, `hash` and `version` together. Verify with:
       #   git ls-remote https://github.com/darktable-org/darktable refs/heads/master
-      rev = "a1257a7c559b74059e55263a58d63a8085cf4f01";
+      rev = "b1321bb8f8b5daf20063530f7aedc80c93bd66b5";
       fetchSubmodules = true;
-      hash = "sha256-m77vrG/VnW8UkgEZfT+kgIsfDlxlrADr5ZFcNxoU0kc=";
+      hash = "sha256-R2pbqGcigG7vni/D4Dx+LEbExPp0kouQGpg7IpLOIR8=";
     };
 
     # No local patches here: the toggle-helper shim we used to carry is now
