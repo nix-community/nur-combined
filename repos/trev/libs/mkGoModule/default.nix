@@ -195,6 +195,13 @@ lib.extendMkDerivation {
               '';
 
               dontFixup = true;
+
+              # buildGoModule defaults to go's platforms, which don't include
+              # e.g. windows, so use the main derivation's
+              meta = lib.intersectAttrs {
+                platforms = null;
+                badPlatforms = null;
+              } finalAttrs.meta;
             }
           )).overrideAttrs
             (
