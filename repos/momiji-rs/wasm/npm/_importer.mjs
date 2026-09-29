@@ -57,9 +57,16 @@ export function syntaxForPath(p) {
   return SYNTAX_SCSS;
 }
 
+/**
+ * Most probes miss: one Lichess entry point makes ~980 of them, and ~850 name a
+ * file that is not there. A throwing `statSync` builds an ENOENT Error with a
+ * stack trace for each, which was a quarter of that compile's CPU time on the
+ * wasm engine. `throwIfNoEntry: false` returns undefined for ENOENT instead; the
+ * rarer errors (ENOTDIR, EACCES) still throw, and still mean "not a file".
+ */
 function isFile(p) {
   try {
-    return statSync(p).isFile();
+    return statSync(p, { throwIfNoEntry: false })?.isFile() ?? false;
   } catch {
     return false;
   }

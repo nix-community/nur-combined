@@ -11,6 +11,15 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Performance
+
+- **npm, wasm engine:** resolving an `@use`/`@import` no longer throws an
+  error for every candidate file that is not there. Most probes miss (about 850
+  of the 980 made by Lichess's heaviest entry point), and building an ENOENT
+  error for each was a quarter of the compile. That entry point compiles in
+  about 100 ms instead of 134 ms on Linux/x86_64. The native engine and the
+  binary resolve in Rust and are unaffected.
+
 ## [0.19.1] - 2026-09-28
 
 _Faster builds through the npm package: on Lichess's 148 entry points on
