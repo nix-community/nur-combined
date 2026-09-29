@@ -25,6 +25,7 @@ jobs:
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git pull
     - name: Run flake update
       env:
         FLAKE_UPDATE_LOG: ${{ runner.temp }}/flake-update.log
@@ -99,6 +100,7 @@ jobs:
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git pull
     - name: Run nix-update
       env:
         AUTO_COMMIT: "1"
