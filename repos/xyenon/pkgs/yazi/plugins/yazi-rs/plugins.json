@@ -32,6 +32,9 @@
   "piper": {
     "description": "Pipe any shell command as a previewer"
   },
+  "rclone": {
+    "description": "Manage [100+ remote file services](https://rclone.org/#providers) supported by Rclone within Yazi"
+  },
   "smart-enter": {
     "description": "[`Open`][open] files or [`enter`][enter] directories all in one key"
   },
