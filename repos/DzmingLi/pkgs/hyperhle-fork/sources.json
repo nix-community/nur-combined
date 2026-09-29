@@ -1,13 +1,13 @@
 {
-  "version": "1.0.95-unstable-2026-09-28",
-  "rev": "9cb40ba5852370759578b63822c9fc7a55b265c0",
-  "hash": "sha256-7D6skYnVaG8pHxpqbarJsme9Yp6lE0af9MccoXRhKp8=",
+  "version": "1.0.96",
+  "rev": "5ea552522bd5a9c298c58a5501acc4d23055e046",
+  "hash": "sha256-5Nl5hf0+gzx+BwXN7jPIwrD1jlSdSgH6R/Vg3OgoT74=",
   "components": {
     "touchHLE_dynarmic_wrapper": "sha256-f0gdRPNFlaNB3B6CY3WtOWz5I9eCsTXFI0rxaq/O7QU=",
     "touchHLE_gl_bindings": "sha256-oDsEbLxqs//YYt9E11r+ATDq438RGiJVdd7qM9YzSoQ=",
     "touchHLE_libxml2_wrapper": "sha256-Su5iSXpFuJKzW54V51j84810NzgzJdMWuK6KPR9woH8=",
     "touchHLE_openal_soft_wrapper": "sha256-aXPgb2/mj6v8SZyaPhv5QB52TjGvHcx7NGFU/9j0xeM=",
-    "touchHLE_pvrt_decompress_wrapper": "sha256-F/o/jg78G8hktYehW0NHPA6OHRt1osPI3WT7req64TM=",
+    "touchHLE_pvrt_decompress_wrapper": "sha256-YNvJyHQZ3UWY+C105gurph0vs6uBq3Yh0WafY2V5zqg=",
     "touchHLE_stb_image_wrapper": "sha256-8Cb2DztWqXc1CPvTutBaFmFWV/biLDy7LLoNZ+swkX4=",
     "touchHLE_version": "sha256-oodvjBOYKhNWQyKppqvDUBrZjqKeljpRi5iVlmVHWCU=",
     "symphonia-codec-aac": "sha256-K0ZSHkJcr6tp18GOvXHLsLAi6f7y2/va70FkiRCebnQ="
