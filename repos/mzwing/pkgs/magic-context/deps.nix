@@ -25,11 +25,13 @@ stdenvNoCC.mkDerivation {
     # dashboard, docs and e2e-tests drag in Tauri, Astro and Cloudflare for nothing.
     # --ignore-scripts also skips onnxruntime-node's CUDA download.
     # --filter alone switches bun to the isolated linker, which puts the real packages under node_modules/.bun and leaves symlink farms per workspace.
+    # --backend hardlink matches Linux: under macOS's clonefile, a bin chmod on one copy of a package misses its other copies.
     bun install \
       --frozen-lockfile \
       --ignore-scripts \
       --no-progress \
       --linker hoisted \
+      --backend hardlink \
       --filter ./packages/cli \
       --filter ./packages/plugin \
       --filter ./packages/pi-plugin \
