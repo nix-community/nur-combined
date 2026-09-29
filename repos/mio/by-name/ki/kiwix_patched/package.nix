@@ -28,6 +28,12 @@ in
           --replace-warn "QMAKE_LFLAGS += -Wl,-rpath-link,\'\$\$PREFIX/lib/x86_64-linux-gnu\'" "" \
           --replace-warn "-Wl,-rpath-link,\'\$\$PREFIX/lib/x86_64-linux-gnu\'" ""
       '';
+    qtWrapperArgs =
+      (old.qtWrapperArgs or [ ])
+      ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+        "--set QT_STYLE_OVERRIDE Fusion"
+      ];
+
     postInstall =
       (old.postInstall or "")
       + pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
