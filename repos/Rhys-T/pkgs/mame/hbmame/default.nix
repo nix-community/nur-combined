@@ -34,12 +34,12 @@
     });
     hbmame' = mame''.overrideAttrs (old: rec {
         pname = "hbmame";
-        version = "0.289.2";
+        version = "0.289.3";
         src = fetchFromGitHub {
             owner = "Robbbert";
             repo = "hbmame";
             tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            hash = "sha256-nHVHMBTo7owv81VsJe8TmSGB8kbC0eKi8Rih7QiRtl8=";
+            hash = "sha256-kxw4zRNlqEEnUwGXb5646kS9ggRzoZol6ubg6UYpjKU=";
             forceFetchGit = true; # Avoids unstable hash issues - see:
             # https://github.com/NixOS/nixpkgs/issues/84312
             # https://github.com/NixOS/nixpkgs/issues/259488
@@ -61,11 +61,6 @@
         outputs = lib.lists.remove "tools" (old.outputs or ["out"]);
         patches = lib.pipe old.patches [
             (builtins.filter (patch: !(lib.hasSuffix "13890.patch" (""+patch))))
-        ] ++ [
-            (fetchpatch {
-                url = "https://github.com/mamedev/mame/commit/8d155c368b0a3730f2acbd26237c5207115cdd31.patch";
-                hash = "sha256-nkWDfFHk64LqfTlQiyXWwClZnHQXIK9/i9ZlTEq145I=";
-            })
         ];
         postPatch = builtins.replaceStrings [''
             substituteInPlace src/emu/emuopts.cpp \
