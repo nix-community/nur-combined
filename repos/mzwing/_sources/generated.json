@@ -181,12 +181,12 @@
             "name": null,
             "owner": "colbymchenry",
             "repo": "codegraph",
-            "rev": "v1.6.0",
-            "sha256": "sha256-Lr8J8/E/o4tECLe/uv0W2H6zD74+TH/431I2iIYZ2no=",
+            "rev": "v1.6.1",
+            "sha256": "sha256-Aqr4kSrB3Sg870hDHx96RueORQOzy+rpYrFfAPbt20w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.6.0"
+        "version": "v1.6.1"
     },
     "cpa-plugin-antigravity-coding-filter": {
         "cargoLock": null,
