@@ -155,8 +155,7 @@ stdenv.mkDerivation {
         mkdir -p $out/share/applications
         substitute usr/share/applications/ghostex.desktop \
           $out/share/applications/ghostex.desktop \
-          --replace-fail /usr/bin/ghostex $out/bin/ghostex \
-          --replace-fail /usr/bin/gx $out/bin/gx
+          --replace-fail /usr/bin/ghostex $out/bin/ghostex
         mkdir -p $out/share/icons/hicolor/256x256/apps
         cp usr/share/icons/hicolor/256x256/apps/ghostex.png \
           $out/share/icons/hicolor/256x256/apps/
