@@ -69,6 +69,9 @@ export def d [
         scp ./nix-static/bin/nix root@216.195.195.184:/tmp/nix
         ssh root@216.195.195.184 "chmod +x /tmp/nix && ln -sf /tmp/nix /tmp/nix-store && ln -sf /tmp/nix /tmp/nix-env"
     
+        # Clean up old generations and garbage collect to free space before copying
+        ssh root@216.195.195.184 "/tmp/nix-env -p /nix/var/nix/profiles/system --delete-generations old && /tmp/nix-store --gc"
+
         nix copy --to "ssh://root@216.195.195.184?remote-program=/tmp/nix-store" ./result
         let result_path = (readlink -f ./result | str trim)
         ssh root@216.195.195.184 $"/tmp/nix-env -p /nix/var/nix/profiles/system --set ($result_path)"

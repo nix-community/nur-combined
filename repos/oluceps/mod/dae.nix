@@ -97,8 +97,8 @@
                  dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
                  dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8', '200::/7') -> direct
 
-                 domain(geosite:anthropic) -> anthropic
-                 pname(claude) -> anthropic
+                 domain(geosite:anthropic) -> ai
+                 pname(claude) -> ai
 
                  domain(suffix:migadu.com) -> all
 
@@ -132,9 +132,6 @@
                      domain: proactivebackend-pa.googleapis.com,
                      domain: apis.google.com) -> ai
 
-                 ipversion(6) && !dip(geoip:CN) -> ${
-                   if config.networking.hostName == "kaambl" then "direct" else "v6"
-                 }
                  domain(${
                    lib.concatMapStringsSep "," (n: "suffix: ${n}.nyaw.xyz") (builtins.attrNames config.data.node)
                  }) -> direct
@@ -145,16 +142,13 @@
                  dip(geoip:private) -> direct
 
                  domain(suffix:'api.atuin.nyaw.xyz') -> all
-                 domain(full:'box.nyaw.xyz') -> v6
 
                  domain(suffix: '4.ip.skk.moe') -> all
                  domain(suffix: '2.ip.skk.moe') -> direct
-                 domain(suffix: 'exhentai.org') -> ex
                  domain(suffix: 'argotunnel.com') -> all
-                 pname(vocat) -> anthropic
-                 dip(87.194.9.8) -> anthropic
+                 dip(87.194.9.8) -> ai
 
-                 fallback: all
+                 fallback: rand
              }
           '';
         assetsPath = toString (

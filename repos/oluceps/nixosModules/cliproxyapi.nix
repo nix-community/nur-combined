@@ -17,6 +17,7 @@ let
   cfg = config.services.cliproxyapi;
 in
 {
+  disabledModules = [ "services/misc/cliproxyapi.nix" ];
   options.services.cliproxyapi = {
     enable = mkEnableOption "CLIProxyAPI service";
 

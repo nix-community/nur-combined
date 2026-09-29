@@ -79,13 +79,13 @@
           function dn42_roa_check() -> bool {
               if net.type = NET_IP4 then {
                   # bgp_path.last is origin ASN
-                  if roa_check(dn42_roa4, net, bgp_path.last) = ROA_INVALID then return false;
-                  return true;
+                  if roa_check(dn42_roa4, net, bgp_path.last) = ROA_VALID then return true;
+                  return false;
               }
               
               if net.type = NET_IP6 then {
-                  if roa_check(dn42_roa6, net, bgp_path.last) = ROA_INVALID then return false;
-                  return true;
+                  if roa_check(dn42_roa6, net, bgp_path.last) = ROA_VALID then return true;
+                  return false;
               }
               
               return false;

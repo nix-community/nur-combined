@@ -49,8 +49,9 @@
             mautrix-telegram
             synapse
             calibre
+            xray
             immich
-            radicle
+            # radicle
             seaweedfs
             prometheus
             grafana
@@ -77,6 +78,7 @@
 
       identity.user = "elen";
       incus.bridgeAddr = "fdcc:3::1/64";
+      xray.configFile = config.vaultix.secrets.xray-cli.path;
 
       hardware.facter = {
         reportPath = ../eihort_facter.json;
@@ -195,7 +197,7 @@
           location = "/pool0/storage/Downloads";
         };
         # bpftune.enable = true;
-        sing-box.enable = true;
+        # sing-box.enable = true;
         metrics.enable = true;
         online-exporter.instances.zro = {
           environmentFile = config.vaultix.secrets.monitou.path;

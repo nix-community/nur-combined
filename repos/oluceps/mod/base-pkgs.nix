@@ -35,15 +35,14 @@
             nethogs
             dig
             wireguard-tools
-            # curlFull
-            (curl.override {
-              ldapSupport = true;
-              gsaslSupport = true;
-              rtmpSupport = true;
-              pslSupport = true;
-              websocketSupport = true;
-              # echSupport = true;
-            })
+            curlFull
+            # (curl.override {
+            #   ldapSupport = true;
+            #   gsaslSupport = true;
+            #   pslSupport = true;
+            #   websocketSupport = true;
+            #   # echSupport = true;
+            # })
             xh
             # ngrep
             gping

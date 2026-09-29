@@ -93,6 +93,7 @@
           enable = true;
           package = pkgs.wireshark;
         };
+        obs-studio.enableVirtualCamera = true;
         kdeconnect.enable = false;
         command-not-found.enable = false;
         gamescope.enable = true;

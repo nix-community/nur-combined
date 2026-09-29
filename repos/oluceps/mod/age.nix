@@ -15,6 +15,7 @@ in
             owner = config.identity.user;
           };
           sing = { };
+          xray-cli = { };
           age = {
             mode = "400";
             owner = config.identity.user;
@@ -70,6 +71,7 @@ in
             owner = config.services.pocket-id.user;
           };
 
+          xray-cli = { };
           age = {
             mode = "400";
             owner = config.identity.user;
@@ -224,6 +226,7 @@ in
 
         secrets = {
           sing = { };
+          xray-cli = { };
         };
       };
     };

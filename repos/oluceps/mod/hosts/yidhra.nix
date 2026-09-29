@@ -61,9 +61,10 @@
         };
 
         users.users.elen.shell = lib.mkForce pkgs.bash;
-        services.journald.extraConfig = lib.mkForce ''
-          SystemMaxUse=0.1G
-        '';
+        services.journald.settings.Journal = {
+          SystemMaxUse = lib.mkForce "0.1G";
+        };
+
         # environment.etc."alloy/config.alloy".text = ''
         #   discovery.relabel "journal" {
         #   	targets = []
@@ -154,6 +155,13 @@
         services = {
           metrics.enable = true;
           qemuGuest.enable = false;
+        };
+        documentation = {
+          enable = false;
+          nixos.enable = false;
+          man.enable = false;
+          info.enable = false;
+          doc.enable = false;
         };
 
         nixpkgs = {

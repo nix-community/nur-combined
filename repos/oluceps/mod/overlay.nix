@@ -51,16 +51,16 @@
                 #     patches = (old.patches or [ ]) ++ [ ./tdesktop-focus.patch ];
                 #   });
                 # };
-                sing-box = prev.sing-box.overrideAttrs (o: {
-                  version = prev.sing-box.version + "-mldsa65";
-                  src = prev.fetchFromGitHub {
-                    owner = "oluceps";
-                    repo = "sing-box";
-                    rev = "a7a37926c8dd0934ea8e9b201913eeaf86b3cc9d";
-                    hash = "sha256-an99ek6YExBpqd9tlyXJO/flLECJbcC9Fl3DgCGra2Q=";
-                  };
-                  vendorHash = "sha256-5ou+KtnnZSPwr+wGhTZADD6rpC53pYi0KAhjHJ3Bqv0=";
-                });
+                # sing-box = prev.sing-box.overrideAttrs (o: {
+                #   version = prev.sing-box.version + "-mldsa65";
+                #   src = prev.fetchFromGitHub {
+                #     owner = "oluceps";
+                #     repo = "sing-box";
+                #     rev = "a7a37926c8dd0934ea8e9b201913eeaf86b3cc9d";
+                #     hash = "sha256-an99ek6YExBpqd9tlyXJO/flLECJbcC9Fl3DgCGra2Q=";
+                #   };
+                #   vendorHash = "sha256-5ou+KtnnZSPwr+wGhTZADD6rpC53pYi0KAhjHJ3Bqv0=";
+                # });
               }
             )
           ]

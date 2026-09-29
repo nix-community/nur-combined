@@ -53,6 +53,11 @@ lib.mkIf (cfg.enable) {
               touch "$ContentRecord" || exit 1
           end
 
+          if [ ! -d "$SystemManLoc" ]
+              echo "Man directory not found, skipping."
+              exit 0
+          end
+
           # 1) Collect list of all manpage files and calculate hashes
           # of them
           #
@@ -117,12 +122,14 @@ lib.mkIf (cfg.enable) {
   # Remove unneeded manpages hoping it can speedup man-db cache :/
   environment.extraSetup = # bash
     ''
-      find "$out/share/man" \
-          -mindepth 1 -maxdepth 1 \
-          -not -name "man[1-8]" \
-          -exec rm -r "{}" ";"
+      if [ -d "$out/share/man" ]; then
+        find "$out/share/man" \
+            -mindepth 1 -maxdepth 1 \
+            -not -name "man[1-8]" \
+            -exec rm -rf "{}" ";"
 
-      rm -r "$out/share/man/man3"
+        rm -rf "$out/share/man/man3"
+      fi
     '';
 
 }

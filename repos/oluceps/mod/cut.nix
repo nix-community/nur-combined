@@ -18,9 +18,13 @@
       };
 
       services = {
-        journald.extraConfig = ''
-          SystemMaxUse=1G
-        '';
+        journald.settings.Journal = {
+          SystemMaxUse = "1G";
+        };
+
+        #  = ''
+        #   SystemMaxUse=1G
+        # '';
         dbus.implementation = "broker";
       };
       programs = {
@@ -37,7 +41,7 @@
         enable = true;
         mutable = false;
       };
-      users.subIdRanges.strictOverlapCheck = true;
-      users.subIdRanges.static = true;
+      # users.subIdRanges.strictOverlapCheck = true;
+      # users.subIdRanges.static = true;
     };
 }

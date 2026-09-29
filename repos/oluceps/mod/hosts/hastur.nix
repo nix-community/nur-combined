@@ -46,7 +46,7 @@
             home
             chrony
             prometheus
-            # xray
+            xray
             june
             vocat
             # ipex
@@ -59,7 +59,7 @@
 
       identity.user = "riro";
       incus.bridgeAddr = "fdcc:1::1/64";
-      # xray.configFile = config.vaultix.secrets.xray-cli.path;
+      xray.configFile = config.vaultix.secrets.xray-cli.path;
 
       environment.systemPackages = [
         pkgs.nvtopPackages.intel
@@ -210,6 +210,7 @@
             "/persist"
           ];
         };
+
         snapy.instances = [
           {
             name = "persist";
@@ -224,7 +225,7 @@
             timerConfig.onCalendar = "daily";
           }
         ];
-        sing-box.enable = true;
+        # sing-box.enable = true;
         gvfs.enable = false;
         alloy.enable = true;
 

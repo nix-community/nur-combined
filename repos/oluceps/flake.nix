@@ -13,7 +13,7 @@
       ];
     };
   inputs = {
-    nixpkgs.url = "github:oluceps/nixpkgs/nixos-subids";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-rstable.url = "github:NixOS/nixpkgs/nixos-23.05";
@@ -110,8 +110,8 @@
       url = "github:tadfisher/android-nixpkgs";
     };
     # path:/home/riro/Src/flake.nix
-    # dae.url = "github:daeuniverse/flake.nix";
-    dae.url = "/home/riro/Src/flake.nix";
+    dae.url = "github:daeuniverse/flake.nix";
+    # dae.url = "/home/riro/Src/flake.nix";
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;
     nuenv.url = "github:DeterminateSystems/nuenv";

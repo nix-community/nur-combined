@@ -31,7 +31,7 @@
                   "github.com/greenpau/caddy-security@v1.1.31"
                   "github.com/mholt/caddy-l4@v0.0.0-20260112235400-e24201789f06"
                 ];
-                hash = "sha256-QdxAyGXpFFRMbTmKRYH+WS74jSdTjHv7WnQIbn2BLBk=";
+                hash = "sha256-AgRty5tIy8foRR2U/MGl4NwDHc6rVuc5S9pQSeE12wo=";
               }
             );
             # ;
