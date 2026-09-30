@@ -15,26 +15,6 @@ To use modules: (Note that system isn't defined by default in some contexts. You
   ];
 ```
 
-## Updating packages
-
-Packages with an executable `passthru.updateScript` can be updated from the
-repository checkout with:
-
-```sh
-nix run .#package-name.updateScript
-```
-
-For example:
-
-```sh
-nix run .#chatbox.updateScript
-```
-
-The daily GitHub Actions workflow discovers and runs all executable package
-update scripts, then commits and pushes any resulting changes. Update scripts
-implemented as Nix update-script combinator lists are still handled by the NUR
-update machinery rather than the direct `nix run` interface.
-
 Toshy: NixOS module `modules.toshy` (udev, uinput, `input` group — required for the keymapper unless you already provide those) plus Home Manager module `modules.toshy-hm` (runtime + user files + systemd user services). Do not import `toshy-hm` into a NixOS `imports` list.
 
 ```nix
