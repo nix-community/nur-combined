@@ -11,6 +11,18 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Changed
+
+- **The flake's `sasso` package no longer runs the test suite when it is
+  built.** Nothing serves the flake from a binary cache, so every consumer
+  builds sasso from source. With the tests on, most of that build was
+  `checkPhase` recompiling every test target under the release profile. On a
+  4-core Linux/x86_64 builder the build took 43 s instead of 201 s. This is
+  the package that `packages.{sasso,default}` and `overlays.default` give, and
+  that a devenv or flake input pulls in. The suite still runs where it belongs:
+  `checks.sasso` and `nur.nix` build `nix/package.nix` unchanged, and
+  `nix flake check` builds `checks.sasso`.
+
 ### Fixed
 
 - **A non-ASCII space in a selector is kept, not turned into a plain space**

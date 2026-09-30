@@ -18,19 +18,32 @@
         "aarch64-darwin"
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
+
+      # The CLI as a consumer gets it: the same derivation with the test suite
+      # left to `checks` below. Nothing serves these outputs from a binary cache,
+      # so whoever takes sasso as a flake input builds it, and `checkPhase` is
+      # most of that build: it recompiles every test target under the release
+      # profile (thin LTO, one codegen unit). On a 4-core Linux/x86_64 builder
+      # that was 201 s against 43 s without it. `versionCheckHook` still runs,
+      # so a consumer's build still proves the binary starts and reports the
+      # version it was built as.
+      untested = sasso: sasso.overrideAttrs { doCheck = false; };
     in
     {
       packages = forAllSystems (pkgs: rec {
-        sasso = pkgs.callPackage ./nix/package.nix { };
+        sasso = untested (pkgs.callPackage ./nix/package.nix { });
         # The library half: the C ABI, for building against sasso rather than
         # running it. See nix/ffi.nix for why Rust callers don't want this.
         sasso-ffi = pkgs.callPackage ./nix/ffi.nix { };
         default = sasso;
       });
 
-      # `nix flake check` builds both packages, and building them runs the tests
-      # — the same 15 suites CI runs (minus the opt-in dart-sass parity pass
-      # that needs a network) plus the C ABI's ctypes smoke test.
+      # `nix flake check` builds both packages with their tests on: 14 test
+      # executables (the library, the CLI binary, the 12 files under `tests/`)
+      # — CI's `cargo test` minus the doctests, with the opt-in dart-sass
+      # parity pass returning early for want of a network — plus the C ABI's
+      # ctypes smoke test. `sasso` here is
+      # `package.nix` as is, not the `untested` one `packages` exports.
       checks = forAllSystems (
         pkgs:
         let
@@ -84,7 +97,7 @@
       # For NixOS/nix-darwin configurations that want sasso before it lands in
       # their nixpkgs channel: add this overlay and `pkgs.sasso` resolves here.
       overlays.default = final: _prev: {
-        sasso = final.callPackage ./nix/package.nix { };
+        sasso = untested (final.callPackage ./nix/package.nix { });
         sasso-ffi = final.callPackage ./nix/ffi.nix { };
       };
 

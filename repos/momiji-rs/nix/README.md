@@ -16,6 +16,14 @@ plus `overlays.default` so a NixOS or nix-darwin configuration gets `pkgs.sasso`
 and `pkgs.sasso-ffi` before either lands in a nixpkgs channel. Rust callers want
 neither — they take the crate from crates.io through their own `Cargo.lock`.
 
+The `sasso` those outputs give is `package.nix` with `doCheck = false`. Nothing
+serves the flake from a binary cache, so a consumer compiles sasso on first use,
+and with the tests on, most of that build is recompiling every test target under
+the release profile (thin LTO, one codegen unit). On a 4-core Linux/x86_64 builder the build took 201 s with the tests and
+43 s without. The tests still run: `checks.sasso` is `package.nix` unchanged,
+and `nix flake check` builds it. `nur.nix` also uses `package.nix` unchanged,
+and so does the nixpkgs copy below.
+
 ## Checking a change
 
 ```console
@@ -27,7 +35,7 @@ $ nix develop               # the toolchain CI uses, dart-sass included
 `nix flake check` is three derivations, and between them they cover more than a
 compile:
 
-- **`sasso`** — the CLI. Building it runs the full `cargo test` suite, because
+- **`sasso`** — the CLI, tests on. Building it runs the full `cargo test` suite, because
   the suite needs no network: `tests/parity.rs` shells out to dart-sass only
   under `SASSO_PARITY=1`. `versionCheckHook` then runs `sasso --version` and
   checks it against the version in `Cargo.toml`.
